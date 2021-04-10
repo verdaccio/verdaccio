@@ -9,8 +9,8 @@ setup([]);
 import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
 import configDefault from '../../partials/config';
 import endPointAPI from '../../../../src/api';
-import {mockServer} from '../../__helper/mock';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 
 require('../../../../src/lib/logger').setup([]);
 
@@ -20,26 +20,27 @@ describe('api with no limited access configuration', () => {
   const store = path.join(__dirname, '../../partials/store/access-storage');
   jest.setTimeout(10000);
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     const mockServerPort = 55530;
 
     rimraf(store, async () => {
-      const configForTest = configDefault({
-        auth: {
-          htpasswd: {
-            file: './access-storage/htpasswd-pkg-access'
-          }
+      const configForTest = configDefault(
+        {
+          auth: {
+            htpasswd: {
+              file: './access-storage/htpasswd-pkg-access'
+            }
+          },
+          self_path: store,
+          uplinks: {
+            remote: {
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
+          },
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
         },
-        self_path: store,
-        uplinks: {
-          remote: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-          }
-        },
-        logs: [
-          { type: 'stdout', format: 'pretty', level: 'warn' }
-        ]
-      }, 'pkg.access.spec.yaml');
+        'pkg.access.spec.yaml'
+      );
 
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -47,7 +48,7 @@ describe('api with no limited access configuration', () => {
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     rimraf(store, (err) => {
       if (err) {
         mockRegistry[0].stop();
@@ -60,16 +61,14 @@ describe('api with no limited access configuration', () => {
   });
 
   describe('test proxy packages partially restricted', () => {
-
-
     test('should test fails on fetch endpoint /-/not-found', (done) => {
       request(app)
-      // @ts-ignore
+        // @ts-ignore
         .get('/not-found-for-sure')
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.NOT_FOUND)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -85,7 +84,7 @@ describe('api with no limited access configuration', () => {
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -101,7 +100,7 @@ describe('api with no limited access configuration', () => {
         .set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HEADERS.CONTENT_TYPE, /json/)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -110,5 +109,4 @@ describe('api with no limited access configuration', () => {
         });
     });
   });
-
 });

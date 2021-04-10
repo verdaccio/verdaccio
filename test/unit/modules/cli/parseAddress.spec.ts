@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import {parseAddress as parse} from '../../../../src/lib/utils';
-import {DEFAULT_DOMAIN, DEFAULT_PORT} from '../../../../src/lib/constants';
+import { parseAddress as parse } from '../../../../src/lib/utils';
+import { DEFAULT_DOMAIN, DEFAULT_PORT } from '../../../../src/lib/constants';
 
 describe('Parse listen address', () => {
   const useCases: any[] = [];
@@ -39,12 +39,12 @@ describe('Parse listen address', () => {
       expect(parsed).toEqual({
         proto,
         host,
-        port,
+        port
       });
     } else {
       expect(parsed).toEqual({
         proto,
-        path: host,
+        path: host
       });
     }
   });

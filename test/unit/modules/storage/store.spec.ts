@@ -1,92 +1,99 @@
 import path from 'path';
 import fs from 'fs';
 import rimraf from 'rimraf';
-import {Writable} from 'stream';
+import { Writable } from 'stream';
 import configExample from '../../partials/config';
 import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
-import {setup} from '../../../../src/lib/logger';
+import { setup } from '../../../../src/lib/logger';
 
-import {Config} from '@verdaccio/types';
-import {IStorageHandler} from '../../../../types';
-import {API_ERROR, HTTP_STATUS} from '../../../../src/lib/constants';
-import {mockServer} from '../../__helper/mock';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import { Config } from '@verdaccio/types';
+import { IStorageHandler } from '../../../../types';
+import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import { mockServer } from '../../__helper/mock';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 
 setup([]);
 
 const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
 const mockServerPort = 55548;
-const generateStorage = async function(port = mockServerPort) {
-  const storageConfig = configExample({
-    self_path: __dirname,
-    storage: storagePath,
-    uplinks: {
-      npmjs: {
-        url: `http://${DOMAIN_SERVERS}:${port}`
-      }
-    }
-  }, 'store.spec.yaml');
-
-  const config: Config = new AppConfig(storageConfig);
-  const store: IStorageHandler = new Storage(config);
-  await store.init(config, []);
-
-  return store;
-}
-
-const generateSameUplinkStorage = async function(port = mockServerPort) {
-  const storageConfig = configExample({
-    self_path: __dirname,
-    storage: storagePath,
-    packages: {
-      jquery: {
-        access: ['$all'],
-        publish: ['$all'],
-        proxy: ['cached'],
-      },
-      '@jquery/*': {
-        access: ['$all'],
-        publish: ['$all'],
-        proxy: ['notcached'],
+const generateStorage = async function (port = mockServerPort) {
+  const storageConfig = configExample(
+    {
+      self_path: __dirname,
+      storage: storagePath,
+      uplinks: {
+        npmjs: {
+          url: `http://${DOMAIN_SERVERS}:${port}`
+        }
       }
     },
-    uplinks: {
-      cached: {
-        url: `http://${DOMAIN_SERVERS}:${port}`,
-        cache: true,
-      },
-      notcached: {
-        url: `http://${DOMAIN_SERVERS}:${port}`,
-        cache: false,
-      }
-    }
-  }, 'store.spec.yaml');
+    'store.spec.yaml'
+  );
 
   const config: Config = new AppConfig(storageConfig);
   const store: IStorageHandler = new Storage(config);
   await store.init(config, []);
 
   return store;
-}
+};
 
-const createNullStream = () => new Writable({
-  write: function(chunk, encoding, next) {
-    next();
-  }
-});
+const generateSameUplinkStorage = async function (port = mockServerPort) {
+  const storageConfig = configExample(
+    {
+      self_path: __dirname,
+      storage: storagePath,
+      packages: {
+        jquery: {
+          access: ['$all'],
+          publish: ['$all'],
+          proxy: ['cached']
+        },
+        '@jquery/*': {
+          access: ['$all'],
+          publish: ['$all'],
+          proxy: ['notcached']
+        }
+      },
+      uplinks: {
+        cached: {
+          url: `http://${DOMAIN_SERVERS}:${port}`,
+          cache: true
+        },
+        notcached: {
+          url: `http://${DOMAIN_SERVERS}:${port}`,
+          cache: false
+        }
+      }
+    },
+    'store.spec.yaml'
+  );
+
+  const config: Config = new AppConfig(storageConfig);
+  const store: IStorageHandler = new Storage(config);
+  await store.init(config, []);
+
+  return store;
+};
+
+const createNullStream = () =>
+  new Writable({
+    write: function (chunk, encoding, next) {
+      next();
+    }
+  });
 
 describe('StorageTest', () => {
   let mockRegistry;
 
-  beforeAll(done => {
+  beforeAll((done) => {
     rimraf(storagePath, async () => {
       mockRegistry = await mockServer(mockServerPort).init();
-      done()
-    })
+      done();
+    });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     mockRegistry[0].stop();
     done();
   });
@@ -126,7 +133,9 @@ describe('StorageTest', () => {
         reader.on('end', () => {
           expect(cachedSpy).toHaveBeenCalledTimes(0);
           expect(notcachedSpy).toHaveBeenCalledTimes(1);
-          expect(notcachedSpy).toHaveBeenCalledWith('http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz');
+          expect(notcachedSpy).toHaveBeenCalledWith(
+            'http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
+          );
           res();
         });
         reader.on('error', (err) => {
@@ -179,7 +188,7 @@ describe('StorageTest', () => {
     });
 
     test('should not touch if the package exists and has no uplinks', async (done) => {
-      const storage: IStorageHandler = await generateStorage() as IStorageHandler;
+      const storage: IStorageHandler = (await generateStorage()) as IStorageHandler;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
 

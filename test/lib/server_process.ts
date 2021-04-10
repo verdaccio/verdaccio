@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import rimRaf from 'rimraf';
 import path from 'path';
-import {fork} from 'child_process';
-import {CREDENTIALS} from '../functional/config.functional';
-import {HTTP_STATUS} from '../../src/lib/constants';
-import {IVerdaccioConfig, IServerBridge, IServerProcess} from '../types';
+import { fork } from 'child_process';
+import { CREDENTIALS } from '../functional/config.functional';
+import { HTTP_STATUS } from '../../src/lib/constants';
+import { IVerdaccioConfig, IServerBridge, IServerProcess } from '../types';
 
 export default class VerdaccioProcess implements IServerProcess {
-
   private bridge: IServerBridge;
   private config: IVerdaccioConfig;
   private childFork: any;
@@ -15,11 +14,13 @@ export default class VerdaccioProcess implements IServerProcess {
   private silence: boolean;
   private cleanStore: boolean;
 
-  public constructor(config: IVerdaccioConfig,
+  public constructor(
+    config: IVerdaccioConfig,
     bridge: IServerBridge,
     silence = true,
     isDebug = false,
-    cleanStore = true) {
+    cleanStore = true
+  ) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
@@ -29,7 +30,7 @@ export default class VerdaccioProcess implements IServerProcess {
 
   public init(verdaccioPath = '../../bin/verdaccio'): Promise<any> {
     return new Promise((resolve, reject) => {
-      if(this.cleanStore) {
+      if (this.cleanStore) {
         rimRaf(this.config.storagePath, (err) => {
           if (_.isNil(err) === false) {
             reject(err);
@@ -58,18 +59,26 @@ export default class VerdaccioProcess implements IServerProcess {
       });
     }
 
-    const {configPath, port} = this.config;
-    this.childFork = fork(verdaccioRegisterWrap, ['-c', configPath, '-l', port as string], childOptions);
+    const { configPath, port } = this.config;
+    this.childFork = fork(
+      verdaccioRegisterWrap,
+      ['-c', configPath, '-l', port as string],
+      childOptions
+    );
 
     this.childFork.on('message', (msg) => {
       // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started
       if ('verdaccio_started' in msg) {
-        this.bridge.debug().status(HTTP_STATUS.OK).then((body) => {
-          this.bridge.auth(CREDENTIALS.user, CREDENTIALS.password)
-            .status(HTTP_STATUS.CREATED)
-            .body_ok(new RegExp(CREDENTIALS.user))
-            .then(() => resolve([this, body.pid]), reject)
-        }, reject);
+        this.bridge
+          .debug()
+          .status(HTTP_STATUS.OK)
+          .then((body) => {
+            this.bridge
+              .auth(CREDENTIALS.user, CREDENTIALS.password)
+              .status(HTTP_STATUS.CREATED)
+              .body_ok(new RegExp(CREDENTIALS.user))
+              .then(() => resolve([this, body.pid]), reject);
+          }, reject);
       }
     });
 
@@ -81,5 +90,4 @@ export default class VerdaccioProcess implements IServerProcess {
   public stop(): void {
     return this.childFork.kill('SIGINT');
   }
-
 }

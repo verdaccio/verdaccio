@@ -42,23 +42,25 @@ export function createTarballHash(): Hash {
  * @return {String}
  */
 export function stringToMD5(data: Buffer | string): string {
-  return createHash('md5')
-    .update(data)
-    .digest('hex');
+  return createHash('md5').update(data).digest('hex');
 }
 
 export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions): Promise<string> {
-  return new Promise(function(resolve, reject): Promise<string> {
+export async function signPayload(
+  payload: RemoteUser,
+  secretOrPrivateKey: string,
+  options: JWTSignOptions
+): Promise<string> {
+  return new Promise(function (resolve, reject): Promise<string> {
     return jwt.sign(
       payload,
       secretOrPrivateKey,
       {
         notBefore: '1', // Make sure the time will not rollback :)
-        ...options,
+        ...options
       },
       (error, token) => (error ? reject(error) : resolve(token))
     );

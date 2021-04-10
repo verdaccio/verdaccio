@@ -1,14 +1,18 @@
 import _ from 'lodash';
-import { convertPayloadToBase64, ErrorCode } from './utils';
-import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
-
+import buildDebug from 'debug';
 import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
 import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
+import { logger } from '../lib/logger';
+import { convertPayloadToBase64, ErrorCode } from './utils';
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 
-import { logger } from '../lib/logger';
+const debug = buildDebug('verdaccio');
 
-export function validatePassword(password: string, minLength: number = DEFAULT_MIN_LIMIT_PASSWORD): boolean {
+export function validatePassword(
+  password: string, // pragma: allowlist secret
+  minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
+): boolean {
   return typeof password === 'string' && password.length >= minLength;
 }
 
@@ -41,15 +45,15 @@ export function createAnonymousRemoteUser(): RemoteUser {
 }
 
 export function allow_action(action: string): Function {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
-    logger.trace({remote: user.name}, `[auth/allow_action]: user: @{user.name}`);
+  return function (user: RemoteUser, pkg: Package, callback: Callback): void {
+    debug('[auth/allow_action]: user: %o', user?.name);
     const { name, groups } = user;
     const groupAccess = pkg[action];
-    const hasPermission = groupAccess.some(group => name === group || groups.includes(group));
-    logger.trace({pkgName: pkg.name, hasPermission, remote: user.name, groupAccess}, `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{user}`);
+    const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
+    debug('[auth/allow_action]: hasPermission? %o} for user: %o', hasPermission, user?.name);
 
     if (hasPermission) {
-      logger.trace({remote: user.name}, `auth/allow_action: access granted to: @{user}`);
+      logger.info({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
       return callback(null, true);
     }
 
@@ -65,37 +69,37 @@ export function allow_action(action: string): Function {
  *
  */
 export function handleSpecialUnpublish(): any {
-  return function(user: RemoteUser, pkg: Package, callback: Callback): void {
+  return function (user: RemoteUser, pkg: Package, callback: Callback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
     const isUnpublishMissing: boolean = _.isNil(pkg[action]);
     const hasGroups: boolean = isUnpublishMissing ? false : pkg[action].length > 0;
-    logger.trace({user: user.name, name: pkg.name, hasGroups}, `fallback unpublish for @{name} has groups: @{hasGroups} for @{user}`);
-
+    debug('fallback unpublish for @{name} has groups: %o for %o', hasGroups, user?.name);
     if (isUnpublishMissing || hasGroups === false) {
       return callback(null, undefined);
     }
-
-    logger.trace({user: user.name, name: pkg.name, action, hasGroups}, `allow_action for @{action} for @{name} has groups: @{hasGroups} for @{user}`);
+    debug('allow_action for %o for %o has groups: %o for %o', action, user?.name, hasGroups, user);
     return allow_action(action)(user, pkg, callback);
   };
 }
 
-export function getDefaultPlugins(): IPluginAuth<Config> {
+export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
   return {
-    authenticate(user: string, password: string, cb: Callback): void {
+    authenticate(_user: string, _password: string, cb: Callback): void {
+      // pragma: allowlist secret
       cb(ErrorCode.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    add_user(user: string, password: string, cb: Callback): void {
+    add_user(_user: string, _password: string, cb: Callback): void {
+      // pragma: allowlist secret
       return cb(ErrorCode.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
     // FIXME: allow_action and allow_publish should be in the @verdaccio/types
     // @ts-ignore
-    allow_access: allow_action('access'),
+    allow_access: allow_action('access', logger),
     // @ts-ignore
-    allow_publish: allow_action('publish'),
+    allow_publish: allow_action('publish', logger),
     allow_unpublish: handleSpecialUnpublish(),
   };
 }
@@ -166,7 +170,6 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
   return await new Promise((resolve): void => {
     resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
   });
-
 }
 
 export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHeader {

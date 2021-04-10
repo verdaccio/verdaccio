@@ -7,7 +7,7 @@ class FilterPlugin {
   public filter_metadata(pkg) {
     return new Promise((resolve, reject) => {
       // We use this to test what happens when a filter rejects
-      if(pkg.name === 'trigger-filter-failure') {
+      if (pkg.name === 'trigger-filter-failure') {
         reject(new Error('Example filter failure'));
         return;
       }
@@ -17,8 +17,7 @@ class FilterPlugin {
         delete pkg.versions[this._config.version];
       }
       resolve(pkg);
-    }
-    );
+    });
   }
 }
 

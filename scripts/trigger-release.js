@@ -21,7 +21,7 @@ getStdin()
       repo: repoName,
       tag_name: tag,
       body: changelog,
-      draft: true,
+      draft: false,
     })
   )
   .catch(err => {

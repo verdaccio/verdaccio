@@ -19,6 +19,7 @@ export interface IServerProcess {
   stop(): void;
 }
 
+// eslint-disable-next-line no-unused-vars
 declare class PromiseAssert<IRequestPromise> extends Promise<any> {
   public constructor(options: any);
 }
@@ -39,7 +40,13 @@ export interface IServerBridge {
   removeTarball(name: string): Promise<any>;
   removeSingleTarball(name: string, filename: string): Promise<any>;
   addTag(name: string, tag: string, version: string): Promise<any>;
-  putTarballIncomplete(name: string, filename: string, data: any, size: number, cb: Function): Promise<any>;
+  putTarballIncomplete(
+    name: string,
+    filename: string,
+    data: any,
+    size: number,
+    cb: Function
+  ): Promise<any>;
   addPackage(name: string): Promise<any>;
   whoami(): Promise<any>;
   ping(): Promise<any>;

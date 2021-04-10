@@ -1,5 +1,5 @@
 // @flow
 
-import {startVerdaccio} from './lib/bootstrap';
+import { startVerdaccio } from './lib/bootstrap';
 
 export default startVerdaccio;

@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: verdaccio-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: verdaccio
+    spec:
+      containers:
+        - name: verdaccio
+          image: verdaccio/verdaccio
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 4873
+# vim: set ts=2 expandtab!:

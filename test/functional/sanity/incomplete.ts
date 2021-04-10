@@ -1,33 +1,32 @@
-import {API_ERROR, HEADER_TYPE, HTTP_STATUS} from '../../../src/lib/constants';
-import {DOMAIN_SERVERS, PORT_SERVER_APP} from '../config.functional';
+import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '../../../src/lib/constants';
+import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
 
 const defaultPkg = {
-  'name': 'testexp-incomplete',
-  'versions': {
+  name: 'testexp-incomplete',
+  versions: {
     '0.1.0': {
-      'name': 'testexp_tags',
-      'version': '0.1.0',
-      'dist': {
-        'shasum': 'fake',
-        'tarball': `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/content-length.tar.gz`,
-      },
+      name: 'testexp_tags',
+      version: '0.1.0',
+      dist: {
+        shasum: 'fake',
+        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/content-length.tar.gz`
+      }
     },
     '0.1.1': {
-      'name': 'testexp_tags',
-      'version': '0.1.1',
-      'dist': {
-        'shasum': 'fake',
-        'tarball': `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/chunked.tar.gz`,
-      },
-    },
-  },
+      name: 'testexp_tags',
+      version: '0.1.1',
+      dist: {
+        shasum: 'fake',
+        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/chunked.tar.gz`
+      }
+    }
+  }
 };
 
 export default function (server, express) {
   const listofCalls = [HEADER_TYPE.CONTENT_LENGTH, 'chunked'];
 
   describe('test send incomplete packages', () => {
-
     beforeAll(function () {
       express.get('/testexp-incomplete', function (_, res) {
         res.send(defaultPkg);
@@ -35,7 +34,7 @@ export default function (server, express) {
     });
 
     listofCalls.forEach((type) => {
-      test(`should not store tarballs / ${type}`, callback => {
+      test(`should not store tarballs / ${type}`, (callback) => {
         let called;
         express.get(`/testexp-incomplete/-/${type}.tar.gz`, function (_, response) {
           if (called) {
@@ -56,18 +55,21 @@ export default function (server, express) {
           }, 10);
         });
 
-        server.request({uri: '/testexp-incomplete/-/' + type + '.tar.gz'})
+        server
+          .request({ uri: '/testexp-incomplete/-/' + type + '.tar.gz' })
           .status(HTTP_STATUS.OK)
           .response(function (res) {
             if (type !== 'chunked') {
               expect(parseInt(res.headers[HEADER_TYPE.CONTENT_LENGTH], 10)).toBe(1e6);
             }
-          }).then(function (body) {
+          })
+          .then(function (body) {
             expect(body).toMatch(/test test test/);
           });
 
         function cb() {
-          server.request({uri: '/testexp-incomplete/-/' + type + '.tar.gz'})
+          server
+            .request({ uri: '/testexp-incomplete/-/' + type + '.tar.gz' })
             .body_error(API_ERROR.INTERNAL_SERVER_ERROR)
             .then(function () {
               callback();

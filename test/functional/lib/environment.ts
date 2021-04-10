@@ -1,12 +1,12 @@
 import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
-import {VerdaccioConfig} from '../../lib/verdaccio-server';
+import { VerdaccioConfig } from '../../lib/verdaccio-server';
 import VerdaccioProcess from '../../lib/server_process';
 import Server from '../../lib/server';
 import ExpressServer from './simple_server';
-import {IServerBridge} from '../../types';
-import {DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3} from '../config.functional';
+import { IServerBridge } from '../../types';
+import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
 
 const EXPRESS_PORT = 55550;
 
@@ -14,7 +14,7 @@ class FunctionalEnvironment extends NodeEnvironment {
   public config: any;
 
   public constructor(config: any) {
-    super(config)
+    super(config);
   }
 
   public async startWeb() {
@@ -23,11 +23,12 @@ class FunctionalEnvironment extends NodeEnvironment {
     return await express.start(EXPRESS_PORT);
   }
 
-
   public async setup() {
     const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
     // @ts-ignore
-    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT ? process.env.VERDACCIO_DEBUG_INJECT : false;
+    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT
+      ? process.env.VERDACCIO_DEBUG_INJECT
+      : false;
     const forkList: any[] = [];
     const serverList: IServerBridge[] = [];
     const pathStore = path.join(__dirname, '../store');
@@ -58,7 +59,9 @@ class FunctionalEnvironment extends NodeEnvironment {
       const verdaccioConfig = new VerdaccioConfig(
         path.join(pathStore, config.storage),
         path.join(pathStore, config.config),
-        `http://${DOMAIN_SERVERS}:${config.port}/`, config.port);
+        `http://${DOMAIN_SERVERS}:${config.port}/`,
+        config.port
+      );
       console.log(magenta(`Running registry ${config.config} on port ${config.port}`));
       const server: IServerBridge = new Server(verdaccioConfig.domainPath);
       serverList.push(server);
@@ -80,7 +83,7 @@ class FunctionalEnvironment extends NodeEnvironment {
     console.log(yellow('Teardown Test Environment.'));
     // @ts-ignore
     if (!this.global.__SERVERS_PROCESS__) {
-      throw new Error("There are no servers to stop");
+      throw new Error('There are no servers to stop');
     }
 
     // shutdown verdaccio
@@ -95,7 +98,7 @@ class FunctionalEnvironment extends NodeEnvironment {
 
   // @ts-ignore
   public runScript(script: string) {
-  // @ts-ignore
+    // @ts-ignore
     return super.runScript(script);
   }
 }

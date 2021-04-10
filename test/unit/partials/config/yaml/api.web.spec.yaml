@@ -17,4 +17,4 @@ packages:
     unpublish: xxx
     proxy: npmjs
 logs:
-  - { type: stdout, format: pretty, level: warn }
+  - { type: stdout, format: pretty, level: trace }

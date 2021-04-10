@@ -21,7 +21,6 @@ package-lock.json
 npm_test-fails-add-tarball*
 yarn-error.log
 
-
 # Istanbul
 reports/
 coverage/

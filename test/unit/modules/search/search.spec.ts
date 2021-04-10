@@ -11,32 +11,32 @@ let packages = [
     name: 'test1',
     description: 'description',
     _npmUser: {
-      name: 'test_user',
-    },
+      name: 'test_user'
+    }
   },
   {
     name: 'test2',
     description: 'description',
     _npmUser: {
-      name: 'test_user',
-    },
+      name: 'test_user'
+    }
   },
   {
     name: 'test3',
     description: 'description',
     _npmUser: {
-      name: 'test_user',
-    },
-  },
+      name: 'test_user'
+    }
+  }
 ];
 
 describe('search', () => {
-  beforeAll(async function() {
+  beforeAll(async function () {
     let config = new Config(buildConfig());
     const storage = new Storage(config);
     await storage.init(config);
     Search.configureStorage(storage);
-    packages.map(function(item) {
+    packages.map(function (item) {
       // @ts-ignore
       Search.add(item);
     });
@@ -52,8 +52,8 @@ describe('search', () => {
       name: 'test6',
       description: 'description',
       _npmUser: {
-        name: 'test_user',
-      },
+        name: 'test_user'
+      }
     };
     // @ts-ignore
     Search.add(item);

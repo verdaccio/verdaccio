@@ -2,6 +2,103 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0...v5.0.1) (2021-04-10)
+
+
+### Bug Fixes
+
+* logo and favicon configuration ([#2180](https://github.com/verdaccio/verdaccio/issues/2180)) ([782dd1c](https://github.com/verdaccio/verdaccio/commit/782dd1ca93a1bd910b14c9e79910480fc6f86d36))
+
+## [5.0.0](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.7...v5.0.0) (2021-04-09)
+
+
+### Features
+
+* prepare release for v5 ([#2175](https://github.com/verdaccio/verdaccio/issues/2175)) ([82c5c4e](https://github.com/verdaccio/verdaccio/commit/82c5c4eb32bfcbf9aec7c96340b226b626526b45))
+
+## [5.0.0-alpha.7](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2021-04-08)
+
+
+### Bug Fixes
+
+* ui readme missing css ([#2174](https://github.com/verdaccio/verdaccio/issues/2174)) ([f49ca06](https://github.com/verdaccio/verdaccio/commit/f49ca06c68919f920e10f4f5878c34d5886b2e02))
+* Upgrade Node from 14.16 to 14.16.1 for security fixes ([#2172](https://github.com/verdaccio/verdaccio/issues/2172)) ([6ab3163](https://github.com/verdaccio/verdaccio/commit/6ab31639fab97b1b3e6323c4da862a1cae3ae1c6)), closes [/github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md#14](https://github.com/verdaccio//github.com/nodejs/node/blob/master/doc/changelogs/CHANGELOG_V14.md/issues/14)
+
+## [5.0.0-alpha.6](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2021-04-06)
+
+## [5.0.0-alpha.5](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2021-04-03)
+
+## [5.0.0-alpha.4](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2021-04-03)
+
+
+### Features
+
+* clipanion as cli ([#2160](https://github.com/verdaccio/verdaccio/issues/2160)) ([be2f612](https://github.com/verdaccio/verdaccio/commit/be2f6129bb3a89f222ac2293192f3ea979f02500))
+
+## [5.0.0-alpha.3](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.2...v5.0.0-alpha.3) (2021-04-02)
+
+
+### Features
+
+* custom protocol header ([#2156](https://github.com/verdaccio/verdaccio/issues/2156)) ([9c80399](https://github.com/verdaccio/verdaccio/commit/9c803993d041aa5f6353512546555013f6f5a130))
+
+## [5.0.0-alpha.2](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.1...v5.0.0-alpha.2) (2021-03-31)
+
+
+### Bug Fixes
+
+* using correctly logging levels ([#2153](https://github.com/verdaccio/verdaccio/issues/2153)) ([5b6be2a](https://github.com/verdaccio/verdaccio/commit/5b6be2aa090edbcb1ba384b3b18dd23bf5594c23))
+
+## [5.0.0-alpha.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0-alpha.0...v5.0.0-alpha.1) (2021-03-30)
+
+
+### Features
+
+* replace bunyan by pino.js ([#2148](https://github.com/verdaccio/verdaccio/issues/2148)) ([ee97dcb](https://github.com/verdaccio/verdaccio/commit/ee97dcb46c440a4e0c541b4193122fc7e0db8370))
+
+## [5.0.0-alpha.0](https://github.com/verdaccio/verdaccio/compare/v4.12.0...v5.0.0-alpha.0) (2021-03-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* npm token support revisited and enabled by default (#2145)
+* drop node 8 and node 10 (#2142)
+
+### Features
+
+* drop node 8 and node 10 ([#2142](https://github.com/verdaccio/verdaccio/issues/2142)) ([43f7043](https://github.com/verdaccio/verdaccio/commit/43f70437af7a196f23d2a951f857ecc809131e02))
+* improve url_prefix behavior ([#2122](https://github.com/verdaccio/verdaccio/issues/2122)) ([15bb350](https://github.com/verdaccio/verdaccio/commit/15bb350ae47b822f385e329d13d2574c31beed1f))
+* npm token support revisited and enabled by default ([#2145](https://github.com/verdaccio/verdaccio/issues/2145)) ([8cc6393](https://github.com/verdaccio/verdaccio/commit/8cc6393d866126912ad1db457dadc0d3ef596333))
+* upgrade to commander v7 ([#2143](https://github.com/verdaccio/verdaccio/issues/2143)) ([3a1f608](https://github.com/verdaccio/verdaccio/commit/3a1f608f0b78561bb1c06e3b54a58e21f72940d5))
+
+## [4.12.0](https://github.com/verdaccio/verdaccio/compare/v4.11.3...v4.12.0) (2021-03-17)
+
+
+### Features
+
+* handle kill signals nicely  ([#2130](https://github.com/verdaccio/verdaccio/issues/2130)) ([7b6fbae](https://github.com/verdaccio/verdaccio/commit/7b6fbae6ae1dad9d18084d951f35687ebead335b))
+
+### [4.11.3](https://github.com/verdaccio/verdaccio/compare/v4.11.2...v4.11.3) (2021-03-06)
+
+
+### Bug Fixes
+
+* update dependencies ([#2115](https://github.com/verdaccio/verdaccio/issues/2115)) ([4206572](https://github.com/verdaccio/verdaccio/commit/420657293b63c5ba4ebe5582396f996ee7de3eec))
+
+### [4.11.2](https://github.com/verdaccio/verdaccio/compare/v4.11.1...v4.11.2) (2021-03-04)
+
+
+### Bug Fixes
+
+* upgrade handlebars from 4.7.6 to 4.7.7 ([#2114](https://github.com/verdaccio/verdaccio/issues/2114)) ([1e6fa60](https://github.com/verdaccio/verdaccio/commit/1e6fa60491f530b5c46bf9892ad7f63c5a7453e9))
+
+### [4.11.1](https://github.com/verdaccio/verdaccio/compare/v4.11.0...v4.11.1) (2021-02-25)
+
+
+### Bug Fixes
+
+* upgrade Node from 14.15 to 14.16 for security fixes ([#2104](https://github.com/verdaccio/verdaccio/issues/2104)) ([156342b](https://github.com/verdaccio/verdaccio/commit/156342b6b92e2b0a5cf6746788e0318c656565c1))
+
 ## [4.11.0](https://github.com/verdaccio/verdaccio/compare/v4.10.0...v4.11.0) (2021-01-20)
 
 

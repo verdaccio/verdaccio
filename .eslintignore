@@ -15,5 +15,8 @@ Dockerfile
 *.png
 *.jpg
 *.sh
+*.ico
 test/unit/partials/
 types/custom.d.ts
+docker-examples/
+LICENSE

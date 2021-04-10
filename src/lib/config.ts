@@ -1,14 +1,17 @@
-import _ from 'lodash';
 import assert from 'assert';
-
-import { generateRandomHexString } from './crypto-utils';
-import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
-import { getUserAgent, isObject } from './utils';
-import { APP_ERROR } from './constants';
+import _ from 'lodash';
 
 import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
-
 import { MatchedPackage, StartUpConfig } from '../../types';
+import { generateRandomHexString } from './crypto-utils';
+import {
+  getMatchedPackagesSpec,
+  normalisePackageAccess,
+  sanityCheckUplinksProps,
+  uplinkSanityCheck
+} from './config-utils';
+import { getUserAgent, isObject } from './utils';
+import { APP_ERROR } from './constants';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -54,7 +57,7 @@ class Config implements AppConfig {
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
-    strategicConfigProps.forEach(function(x): void {
+    strategicConfigProps.forEach(function (x): void {
       if (self[x] == null) {
         self[x] = {};
       }
@@ -72,13 +75,11 @@ class Config implements AppConfig {
     this.packages = normalisePackageAccess(self.packages);
 
     // loading these from ENV if aren't in config
-    allowedEnvConfig.forEach(
-      (envConf): void => {
-        if (!(envConf in self)) {
-          self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
-        }
+    allowedEnvConfig.forEach((envConf): void => {
+      if (!(envConf in self)) {
+        self[envConf] = process.env[envConf] || process.env[envConf.toUpperCase()];
       }
-    );
+    });
 
     // unique identifier of self server (or a cluster), used to avoid loops
     // @ts-ignore

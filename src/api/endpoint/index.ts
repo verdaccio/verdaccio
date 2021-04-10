@@ -1,9 +1,9 @@
-import { IAuth, IStorageHandler } from '../../../types';
 import { Config } from '@verdaccio/types';
 import _ from 'lodash';
 
 import express from 'express';
 import bodyParser from 'body-parser';
+import { IAuth, IStorageHandler } from '../../../types';
 import whoami from './api/whoami';
 import ping from './api/ping';
 import user from './api/user';
@@ -15,11 +15,17 @@ import stars from './api/stars';
 import profile from './api/v1/profile';
 import token from './api/v1/token';
 
-import v1Search from './api/v1/search'
+import v1Search from './api/v1/search';
 
-const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
+const {
+  match,
+  validateName,
+  validatePackage,
+  encodeScopePackage,
+  antiLoop
+} = require('../middleware');
 
-export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function (config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -58,7 +64,7 @@ export default function(config: Config, auth: IAuth, storage: IStorageHandler) {
   stars(app, storage);
 
   if (_.get(config, 'experiments.search') === true) {
-    v1Search(app, auth, storage)
+    v1Search(app, auth, storage);
   }
 
   if (_.get(config, 'experiments.token') === true) {

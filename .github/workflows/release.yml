@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - '*'
-
 jobs:
   release:
     name: Release
@@ -12,9 +11,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2.3.3
     - name: Use Node (latest)
-      uses: actions/setup-node@v1.4.4
+      uses: actions/setup-node@v2.1.5
       with:
-        node_version: 14
+        node-version: 14
     - name: Install
       run: yarn install
     - name: Build

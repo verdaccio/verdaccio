@@ -1,18 +1,21 @@
-import _ from 'lodash';
 import Path from 'path';
+import _ from 'lodash';
+import buildDebug from 'debug';
 import mime from 'mime';
-
-import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
-import {validateMetadata, isObject, ErrorCode, hasDiffOneKey, isRelatedToDeprecation} from '../../../lib/utils';
-import { media, expectJson, allow } from '../../middleware';
-import { notify } from '../../../lib/notify';
-import star from './star';
 
 import { Router } from 'express';
 import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
+import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
+import { validateMetadata, isObject, ErrorCode, hasDiffOneKey, isRelatedToDeprecation } from '../../../lib/utils';
+import { media, expectJson, allow } from '../../middleware';
+import { notify } from '../../../lib/notify';
+
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import { logger } from '../../../lib/logger';
-import {isPublishablePackage} from "../../../lib/storage-utils";
+import { isPublishablePackage } from '../../../lib/storage-utils';
+import star from './star';
+
+const debug = buildDebug('verdaccio:publish');
 
 export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
   const can = allow(auth);
@@ -103,20 +106,18 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
  */
 export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth): any {
   const starApi = star(storage);
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
-
-    logger.debug({packageName} , `publishing or updating a new version for @{packageName}`);
-
+    debug('publishing or updating a new version for %o', packageName);
     /**
      * Write tarball of stream data from package clients.
      */
-    const createTarball = function(filename: string, data, cb: Callback): void {
+    const createTarball = function (filename: string, data, cb: Callback): void {
       const stream = storage.addTarball(packageName, filename);
-      stream.on('error', function(err) {
+      stream.on('error', function (err) {
         cb(err);
       });
-      stream.on('success', function() {
+      stream.on('success', function () {
         cb();
       });
       // this is dumb and memory-consuming, but what choices do we have?
@@ -128,18 +129,18 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Add new package version in storage
      */
-    const createVersion = function(version: string, metadata: Version, cb: Callback): void {
+    const createVersion = function (version: string, metadata: Version, cb: Callback): void {
       storage.addVersion(packageName, version, metadata, null, cb);
     };
 
     /**
      * Add new tags in storage
      */
-    const addTags = function(tags: MergeTags, cb: Callback): void  {
+    const addTags = function (tags: MergeTags, cb: Callback): void {
       storage.mergeTags(packageName, tags, cb);
     };
 
-    const afterChange = function(error, okMessage, metadata): void  {
+    const afterChange = function (error, okMessage, metadata): void {
       const metadataCopy: Package = { ...metadata };
 
       const { _attachments, versions } = metadataCopy;
@@ -160,8 +161,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // npm-registry-client 0.3+ embeds tarball into the json upload
       // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
       // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
-      const isInvalidBodyFormat = isObject(_attachments) === false || hasDiffOneKey(_attachments) ||
-                        isObject(versions) === false || hasDiffOneKey(versions);
+      const isInvalidBodyFormat = isObject(_attachments) === false || hasDiffOneKey(_attachments) || isObject(versions) === false || hasDiffOneKey(versions);
 
       if (isInvalidBodyFormat) {
         // npm is doing something strange again
@@ -177,7 +177,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // at this point document is either created or existed before
       const [firstAttachmentKey] = Object.keys(_attachments);
 
-      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function(error) {
+      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (error) {
         if (error) {
           return next(error);
         }
@@ -187,12 +187,12 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
         versionMetadataToPublish.readme = _.isNil(versionMetadataToPublish.readme) === false ? String(versionMetadataToPublish.readme) : '';
 
-        createVersion(versionToPublish, versionMetadataToPublish, function(error) {
+        createVersion(versionToPublish, versionMetadataToPublish, function (error) {
           if (error) {
             return next(error);
           }
 
-          addTags(metadataCopy[DIST_TAGS], async function(error) {
+          addTags(metadataCopy[DIST_TAGS], async function (error) {
             if (error) {
               return next(error);
             }
@@ -218,27 +218,26 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       const metadata = validateMetadata(req.body, packageName);
       // treating deprecation as updating a package
       if (req.params._rev || isRelatedToDeprecation(req.body)) {
-        logger.debug({packageName} , `updating a new version for @{packageName}`);
+        debug('updating a new version for %o', packageName);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;
-        auth.allow_unpublish({packageName}, remote, (error) => {
+        auth.allow_unpublish({ packageName }, remote, (error) => {
           if (error) {
-            logger.debug({packageName} , `not allowed to unpublish a version for @{packageName}`);
+            logger.error({ packageName }, `not allowed to unpublish a version for @{packageName}`);
             return next(error);
           }
-
-          storage.changePackage(packageName, metadata, req.params.revision, function(error) {
+          storage.changePackage(packageName, metadata, req.params.revision, function (error) {
             afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
           });
         });
       } else {
-        logger.debug({packageName} , `adding a new version for @{packageName}`);
-        storage.addPackage(packageName, metadata, function(error) {
+        debug('adding a new version for %o', packageName);
+        storage.addPackage(packageName, metadata, function (error) {
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
     } catch (error) {
-      logger.error({packageName}, 'error on publish, bad package data for @{packageName}');
+      logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
   };
@@ -248,11 +247,10 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
  * un-publish a package
  */
 export function unPublishPackage(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
-
-    logger.debug({packageName} , `unpublishing @{packageName}`);
-    storage.removePackage(packageName, function(err) {
+    debug('unpublishing %o', packageName);
+    storage.removePackage(packageName, function (err) {
       if (err) {
         return next(err);
       }
@@ -266,18 +264,16 @@ export function unPublishPackage(storage: IStorageHandler) {
  * Delete tarball
  */
 export function removeTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
-    const {filename, revision} = req.params;
-
-    logger.debug({packageName, filename, revision} , `removing a tarball for @{packageName}-@{tarballName}-@{revision}`);
-    storage.removeTarball(packageName, filename, revision, function(err) {
+    const { filename, revision } = req.params;
+    debug('removing a tarball for %o-%o-%o', packageName, filename, revision);
+    storage.removeTarball(packageName, filename, revision, function (err) {
       if (err) {
         return next(err);
       }
       res.status(HTTP_STATUS.CREATED);
-
-      logger.debug({packageName, filename, revision} , `success remove tarball for @{packageName}-@{tarballName}-@{revision}`);
+      debug('success remove tarball for %o-%o-%o', packageName, filename, revision);
       return next({ ok: API_MESSAGE.TARBALL_REMOVED });
     });
   };
@@ -286,11 +282,11 @@ export function removeTarball(storage: IStorageHandler) {
  * Adds a new version
  */
 export function addVersion(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
 
-    storage.addVersion(packageName, version, req.body, tag, function(error) {
+    storage.addVersion(packageName, version, req.body, tag, function (error) {
       if (error) {
         return next(error);
       }
@@ -307,29 +303,29 @@ export function addVersion(storage: IStorageHandler) {
  * uploadPackageTarball
  */
 export function uploadPackageTarball(storage: IStorageHandler) {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);
     req.pipe(stream);
 
     // checking if end event came before closing
     let complete = false;
-    req.on('end', function() {
+    req.on('end', function () {
       complete = true;
       stream.done();
     });
 
-    req.on('close', function() {
+    req.on('close', function () {
       if (!complete) {
         stream.abort();
       }
     });
 
-    stream.on('error', function(err) {
-      return res.report_error(err);
+    stream.on('error', function (err) {
+      return res.locals.report_error(err);
     });
 
-    stream.on('success', function() {
+    stream.on('success', function () {
       res.status(HTTP_STATUS.CREATED);
       return next({
         ok: API_MESSAGE.TARBALL_UPLOADED,

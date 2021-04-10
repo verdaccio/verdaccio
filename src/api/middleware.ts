@@ -1,19 +1,70 @@
+import fs from 'fs';
+import path from 'path';
 import _ from 'lodash';
+import buildDebug from 'debug';
+import validator from 'validator';
 
+import { Config, Package, RemoteUser } from '@verdaccio/types';
+import { VerdaccioError } from '@verdaccio/commons-api';
 import { validateName as utilValidateName, validatePackage as utilValidatePackage, getVersionFromTarball, isObject, ErrorCode } from '../lib/utils';
 import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
-import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { logger } from '../lib/logger';
-import { VerdaccioError } from '@verdaccio/commons-api';
+
+const debug = buildDebug('verdaccio');
 
 export function match(regexp: RegExp): any {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
     if (regexp.exec(value)) {
       next();
     } else {
       next('route');
+    }
+  };
+}
+
+export function serveFavicon(config: Config) {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    try {
+      // @ts-ignore
+      const logoConf: string = config?.web?.favicon as string;
+      if (logoConf === '') {
+        debug('favicon disabled');
+        res.status(404);
+      } else if (!_.isEmpty(logoConf)) {
+        debug('custom favicon');
+        if (
+          validator.isURL(logoConf, {
+            require_host: true,
+            require_valid_protocol: true,
+          })
+        ) {
+          debug('redirect to %o', logoConf);
+          res.redirect(logoConf);
+          return;
+        } else {
+          const faviconPath = path.normalize(logoConf);
+          debug('serving favicon from %o', faviconPath);
+          fs.access(faviconPath, fs.constants.R_OK, (err) => {
+            if (err) {
+              debug('no read permissions to read: %o, reason:', logoConf, err?.message);
+              return res.status(HTTP_STATUS.NOT_FOUND).end();
+            } else {
+              res.setHeader('Content-Type', 'image/x-icon');
+              fs.createReadStream(faviconPath).pipe(res);
+              debug('rendered custom ico');
+            }
+          });
+        }
+      } else {
+        res.setHeader('Content-Type', 'image/x-icon');
+        fs.createReadStream(path.join(__dirname, './web/html/favicon.ico')).pipe(res);
+        debug('rendered ico');
+      }
+    } catch (err) {
+      debug('error triggered, favicon not found');
+      res.status(HTTP_STATUS.NOT_FOUND).end();
     }
   };
 }
@@ -57,7 +108,7 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
 }
 
 export function media(expect: string | null): any {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
       next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.headers[HEADER_TYPE.CONTENT_TYPE]));
     } else {
@@ -82,7 +133,7 @@ export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $Nex
 }
 
 export function antiLoop(config: Config): Function {
-  return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers.via != null) {
       const arr = req.headers.via.split(',');
 
@@ -98,15 +149,14 @@ export function antiLoop(config: Config): Function {
 }
 
 export function allow(auth: IAuth): Function {
-  return function(action: string): Function {
-    return function(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return function (action: string): Function {
+    return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
       const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
       const remote: RemoteUser = req.remote_user;
-      logger.trace({ action, user: remote.name }, `[middleware/allow][@{action}] allow for @{user}`);
-
-      auth['allow_' + action]({ packageName, packageVersion }, remote, function(error, allowed): void {
+      debug('[middleware/allow][%o] allow for %o', action, remote?.name);
+      auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
         req.resume();
         if (error) {
           next(error);
@@ -142,7 +192,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
 
       if (typeof body === 'object' && _.isNil(body) === false) {
         if (typeof (body as MiddlewareError).error === 'string') {
-          res._verdaccio_error = (body as MiddlewareError).error;
+          res.locals._verdaccio_error = (body as MiddlewareError).error;
         }
         body = JSON.stringify(body, undefined, '  ') + '\n';
       }
@@ -160,6 +210,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
     // and should just close socket
     if (err.message.match(/set headers after they are sent/)) {
       if (_.isNil(res.socket) === false) {
+        // @ts-ignore
         res.socket.destroy();
       }
       return;
@@ -176,9 +227,6 @@ export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{
 
 export function log(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    // logger
-    req.log = logger.child({ sub: 'in' });
-
     const _auth = req.headers.authorization;
     if (_.isNil(_auth) === false) {
       req.headers.authorization = '<Classified>';
@@ -192,7 +240,7 @@ export function log(config: Config) {
     req.url = req.originalUrl;
     // avoid log noise data from static content
     if (req.originalUrl.match(/static/) === null) {
-      req.log.info({req: req, ip: req.ip}, "@{ip} requested '@{req.method} @{req.url}'");
+      logger.http({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
     }
     req.originalUrl = req.url;
 
@@ -206,7 +254,7 @@ export function log(config: Config) {
 
     let bytesin = 0;
     if (config?.experiments?.bytesin_off !== true) {
-      req.on('data', function(chunk): void {
+      req.on('data', function (chunk): void {
         bytesin += chunk.length;
       });
     }
@@ -215,7 +263,7 @@ export function log(config: Config) {
     const _write = res.write;
     // FIXME: res.write should return boolean
     // @ts-ignore
-    res.write = function(buf): boolean {
+    res.write = function (buf): boolean {
       bytesout += buf.length;
       /* eslint prefer-rest-params: "off" */
       // @ts-ignore
@@ -223,7 +271,7 @@ export function log(config: Config) {
     };
 
     let logHasBeenCalled = false;
-    const log = function(): void {
+    const log = function (): void {
       if (logHasBeenCalled) {
         return;
       }
@@ -233,7 +281,7 @@ export function log(config: Config) {
       const remoteAddress = req.connection.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;
-      if (res._verdaccio_error) {
+      if (res.locals._verdaccio_error) {
         message = LOG_VERDACCIO_ERROR;
       } else {
         message = LOG_VERDACCIO_BYTES;
@@ -242,34 +290,33 @@ export function log(config: Config) {
       req.url = req.originalUrl;
       // avoid log noise data from static content
       if (req.url.match(/static/) === null) {
-        req.log.warn(
-            {
-              request: {
-                method: req.method,
-                url: req.url,
-              },
-              level: 35, // http
-              user: (req.remote_user && req.remote_user.name) || null,
-              remoteIP,
-              status: res.statusCode,
-              error: res._verdaccio_error,
-              bytes: {
-                in: bytesin,
-                out: bytesout,
-              },
+        logger.http(
+          {
+            request: {
+              method: req.method,
+              url: req.url,
             },
-            message
+            user: (req.remote_user && req.remote_user.name) || null,
+            remoteIP,
+            status: res.statusCode,
+            error: res.locals._verdaccio_error,
+            bytes: {
+              in: bytesin,
+              out: bytesout,
+            },
+          },
+          message
         );
         req.originalUrl = req.url;
       }
-    }
+    };
 
-    req.on('close', function(): void {
+    req.on('close', function (): void {
       log();
     });
 
     const _end = res.end;
-    res.end = function(buf): void {
+    res.end = function (buf): void {
       if (buf) {
         bytesout += buf.length;
       }
@@ -279,14 +326,14 @@ export function log(config: Config) {
       log();
     };
     next();
-  }
+  };
 }
 
 // Middleware
 export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-  res.report_error =
-    res.report_error ||
-    function(err: VerdaccioError): void {
+  res.locals.report_error =
+    res.locals.report_error ||
+    function (err: VerdaccioError): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (!res.headersSent) {
           res.status(err.status);

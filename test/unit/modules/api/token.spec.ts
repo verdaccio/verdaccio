@@ -9,16 +9,17 @@ import endPointAPI from '../../../../src/api';
 import {
   HEADERS,
   HTTP_STATUS,
-  HEADER_TYPE, TOKEN_BEARER, API_ERROR, SUPPORT_ERRORS,
+  HEADER_TYPE,
+  TOKEN_BEARER,
+  API_ERROR,
+  SUPPORT_ERRORS
 } from '../../../../src/lib/constants';
-import {mockServer} from '../../__helper/mock';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { getNewToken } from '../../__helper/api';
-import {buildToken} from "../../../../src/lib/utils";
+import { buildToken } from '../../../../src/lib/utils';
 
-require('../../../../src/lib/logger').setup([
-  { type: 'stdout', format: 'pretty', level: 'trace' }
-]);
+require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 
 const credentials = { name: 'jota_token', password: 'secretPass' };
 
@@ -30,13 +31,13 @@ const generateTokenCLI = async (app, token, payload): Promise<any> => {
       .send(JSON.stringify(payload))
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .end(function(err, resp) {
+      .end(function (err, resp) {
         if (err) {
           return reject([err, resp]);
         }
         resolve([err, resp]);
       });
-    });
+  });
 };
 
 const deleteTokenCLI = async (app, token, tokenToDelete): Promise<any> => {
@@ -46,7 +47,7 @@ const deleteTokenCLI = async (app, token, tokenToDelete): Promise<any> => {
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .end(function(err, resp) {
+      .end(function (err, resp) {
         if (err) {
           return reject([err, resp]);
         }
@@ -60,27 +61,28 @@ describe('endpoint unit test', () => {
   let mockRegistry;
   let token;
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     const store = path.join(__dirname, '../../partials/store/test-storage-token-spec');
     const mockServerPort = 55543;
     rimraf(store, async () => {
-      const configForTest = configDefault({
-        auth: {
-          htpasswd: {
-            file: './test-storage-token-spec/.htpasswd-token'
-          }
+      const configForTest = configDefault(
+        {
+          auth: {
+            htpasswd: {
+              file: './test-storage-token-spec/.htpasswd-token'
+            }
+          },
+          storage: store,
+          self_path: store,
+          uplinks: {
+            npmjs: {
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
+          },
+          logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }]
         },
-        storage: store,
-        self_path: store,
-        uplinks: {
-          npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-          }
-        },
-        logs: [
-          { type: 'stdout', format: 'pretty', level: 'trace' }
-        ]
-      }, 'token.spec.yaml');
+        'token.spec.yaml'
+      );
 
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -90,7 +92,7 @@ describe('endpoint unit test', () => {
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     mockRegistry[0].stop();
     done();
   });
@@ -102,12 +104,12 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, resp) {
+        .end(function (err, resp) {
           if (err) {
             return done(err);
           }
 
-          const { objects, urls} = resp.body;
+          const { objects, urls } = resp.body;
           expect(objects).toHaveLength(0);
           expect(urls.next).toEqual('');
           done();
@@ -126,12 +128,12 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err, resp) {
+        .end(function (err, resp) {
           if (err) {
             return done(err);
           }
 
-          const { objects, urls} = resp.body;
+          const { objects, urls } = resp.body;
 
           expect(objects).toHaveLength(1);
           const [tokenGenerated] = objects;
@@ -162,7 +164,7 @@ describe('endpoint unit test', () => {
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.OK)
-        .end(function(err) {
+        .end(function (err) {
           if (err) {
             return done(err);
           }
@@ -211,7 +213,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            readonly: false,
+            readonly: false
           });
 
           expect(res[0]).toBeNull();

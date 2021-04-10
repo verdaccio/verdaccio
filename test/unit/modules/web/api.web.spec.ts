@@ -7,10 +7,16 @@ import publishMetadata from '../../partials/publish-api';
 import forbiddenPlace from '../../partials/forbidden-place';
 import endPointAPI from '../../../../src/api';
 
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS} from '../../../../src/lib/constants';
-import {DOMAIN_SERVERS} from '../../../functional/config.functional';
-import {mockServer} from '../../__helper/mock';
-import {addUser} from '../../__helper/api';
+import {
+  HEADERS,
+  API_ERROR,
+  HTTP_STATUS,
+  HEADER_TYPE,
+  DIST_TAGS
+} from '../../../../src/lib/constants';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import { addUser } from '../../__helper/api';
 
 require('../../../../src/lib/logger').setup([]);
 
@@ -20,31 +26,34 @@ describe('endpoint web unit test', () => {
   let app;
   let mockRegistry;
 
-  beforeAll(function(done) {
+  beforeAll(function (done) {
     const store = path.join(__dirname, '../../partials/store/web-api-storage');
     const mockServerPort = 55544;
     rimraf(store, async () => {
-      const configForTest = configDefault({
-        auth: {
-          htpasswd: {
-            file: './web-api-storage/.htpasswd-web-api'
-          }
+      const configForTest = configDefault(
+        {
+          auth: {
+            htpasswd: {
+              file: './web-api-storage/.htpasswd-web-api'
+            }
+          },
+          storage: store,
+          uplinks: {
+            npmjs: {
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
+          },
+          self_path: store
         },
-        storage: store,
-        uplinks: {
-          npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-          }
-        },
-        self_path: store
-      }, 'api.web.spec.yaml');
+        'api.web.spec.yaml'
+      );
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
       done();
     });
   });
 
-  afterAll(function(done) {
+  afterAll(function (done) {
     mockRegistry[0].stop();
     done();
   });
@@ -67,9 +76,9 @@ describe('endpoint web unit test', () => {
     describe('Packages', () => {
       test('should display all packages', (done) => {
         request(app)
-          .get('/-/verdaccio/packages' )
+          .get('/-/verdaccio/packages')
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             expect(res.body).toHaveLength(1);
             done();
           });
@@ -80,7 +89,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/package/readme/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function(err, res) {
+          .end(function (err, res) {
             expect(res.text).toMatch('<h1 id="test">test</h1>\n');
             done();
           });
@@ -92,7 +101,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/package/readme/@scope/404')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
-          .end(function(err, res) {
+          .end(function (err, res) {
             expect(res.body.error).toMatch(API_ERROR.NO_PACKAGE);
             done();
           });
@@ -103,7 +112,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/sidebar/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function(err, res) {
+          .end(function (err, res) {
             const sideBarInfo = res.body;
             const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
@@ -120,7 +129,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function(err, res) {
+          .end(function (err, res) {
             const sideBarInfo = res.body;
             const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
@@ -137,7 +146,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/sidebar/@scope/404')
           .expect(HTTP_STATUS.NOT_FOUND)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function() {
+          .end(function () {
             done();
           });
       });
@@ -147,19 +156,18 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
           .expect(HTTP_STATUS.NOT_FOUND)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function() {
+          .end(function () {
             done();
           });
       });
     });
 
     describe('Search', () => {
-
       test('should search pk1-test', (done) => {
         request(app)
           .get('/-/verdaccio/search/scope')
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             expect(res.body).toHaveLength(1);
             done();
           });
@@ -169,7 +177,7 @@ describe('endpoint web unit test', () => {
         request(app)
           .get('/-/verdaccio/search/@')
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             // in a normal world, the output would be 1
             // https://github.com/verdaccio/verdaccio/issues/345
             // should fix this
@@ -182,7 +190,7 @@ describe('endpoint web unit test', () => {
         request(app)
           .get('/-/verdaccio/search/forbidden-place')
           .expect(HTTP_STATUS.OK)
-          .end(function(err, res) {
+          .end(function (err, res) {
             // this is expected since we are not logged
             // and  forbidden-place is allow_access: 'nobody'
             expect(res.body).toHaveLength(0);
@@ -205,7 +213,7 @@ describe('endpoint web unit test', () => {
               password: credentials.password
             })
             .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
+            .end(function (err, res) {
               expect(res.body.error).toBeUndefined();
               expect(res.body.token).toBeDefined();
               expect(res.body.token).toBeTruthy();
@@ -217,13 +225,15 @@ describe('endpoint web unit test', () => {
         test('should fails on log unvalid user', (done) => {
           request(app)
             .post('/-/verdaccio/login')
-            .send(JSON.stringify({
-              username: 'fake',
-              password: 'fake'
-            }))
+            .send(
+              JSON.stringify({
+                username: 'fake',
+                password: 'fake'
+              })
+            )
             // FIXME: there should be 401
             .expect(HTTP_STATUS.OK)
-            .end(function(err, res) {
+            .end(function (err, res) {
               expect(res.body.error).toMatch(/bad username\/password, access denied/);
               done();
             });
