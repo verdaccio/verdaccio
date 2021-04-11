@@ -2,9 +2,9 @@ import envinfo from 'envinfo';
 import { Command } from 'clipanion';
 
 export class InfoCommand extends Command {
-  static paths = [[`--info`], [`-i`]];
+  public static paths = [[`--info`], [`-i`]];
 
-  async execute() {
+  public async execute(): Promise<void> {
     this.context.stdout.write('\nEnvironment Info:');
     const data = await envinfo.run({
       System: ['OS', 'CPU'],

@@ -1,10 +1,6 @@
 name: E2E CLI
 
 on:
-  push:
-    branches:
-      - master
-      - 'changeset-release/master'
   pull_request:
     paths:
       - .github/workflows/ci.yml
@@ -41,5 +37,3 @@ jobs:
         run: pnpm build
       - name: Test CLI
         run: pnpm test:e2e:cli
-        env:
-          DEBUG: verdaccio:e2e*

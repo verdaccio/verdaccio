@@ -1,10 +1,6 @@
 name: E2E UI
 
 on:
-  push:
-    branches:
-      - master
-      - 'changeset-release/masters'
   pull_request:
     paths:
       - .github/workflows/ci.yml

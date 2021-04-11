@@ -1,9 +1,10 @@
 name: CI Website
 
 on:
-  push:
-    branches:
-      - master
+  # disabled on master until deployment is need it
+  # push:
+  #   branches:
+  #     - master
   pull_request:
     paths:
       - .github/workflows/ci-website.yml

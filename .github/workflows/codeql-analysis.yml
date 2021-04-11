@@ -1,14 +1,9 @@
 name: 'Code scanning - action'
 
 on:
-  push:
-    branches-ignore:
-      - master
-      - 'changeset-release/master'
-      - 'dev/**'
   pull_request:
     paths:
-      - .github/workflows/ci.yml
+      - .github/workflows/codeql-analysis.yml
       - 'packages/**'
   schedule:
     - cron: '0 2 * * 4'

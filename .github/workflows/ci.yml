@@ -13,7 +13,6 @@ on:
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
-
 jobs:
   ci:
     strategy:
@@ -45,5 +44,3 @@ jobs:
         run: pnpm build
       - name: Test
         run: pnpm test
-        env:
-          DEBUG: verdaccio:web:*

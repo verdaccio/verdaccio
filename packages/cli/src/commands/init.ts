@@ -5,9 +5,9 @@ import { initServer } from '@verdaccio/node-api';
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
 export class InitCommand extends Command {
-  static paths = [Command.Default];
+  public static paths = [Command.Default];
 
-  port = Option.String('-l,-p,--listen,--port', {
+  private port = Option.String('-l,-p,--listen,--port', {
     description: 'host:port number to listen on (default: localhost:4873)',
   });
 
@@ -37,11 +37,11 @@ export class InitCommand extends Command {
     ],
   });
 
-  config = Option.String('-c,--config', {
+  private config = Option.String('-c,--config', {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  async execute() {
+  public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
       const configParsed = parseConfigFile(configPathLocation);
