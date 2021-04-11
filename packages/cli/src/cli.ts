@@ -3,7 +3,7 @@ import { Cli } from 'clipanion';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
-import { NewServer} from './commands/newServer';
+import { NewServer } from './commands/newServer';
 import { isVersionValid, MIN_NODE_VERSION } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
