@@ -4,14 +4,21 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"],
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ],
   "references": [
     {
       "path": "../config"
     },
     {
       "path": "../core/cli-ui"
+    },
+    {
+      "path": "../core/server"
     },
     {
       "path": "../node-api"
