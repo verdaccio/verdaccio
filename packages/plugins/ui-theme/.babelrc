@@ -1,0 +1,33 @@
+{
+  "extends": "../../../.babelrc",
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": ["last 5 versions"],
+        "bugfixes": true,
+        "modules": "auto",
+        "debug": false
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": ["react-hot-loader/babel", "emotion"],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "bugfixes": true,
+            "debug": false
+          }
+        ],
+        "@babel/preset-react",
+        "@babel/typescript"
+      ],
+      "plugins": ["@babel/transform-runtime", "dynamic-import-node"]
+    }
+  },
+  "ignore": ["**/*.d.ts"]
+}

@@ -17,6 +17,7 @@ export function isTokenExpire(token: string | null): boolean {
   try {
     exp = JSON.parse(Base64.decode(payload)).exp;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('Invalid token:', error, token);
     return true;
   }

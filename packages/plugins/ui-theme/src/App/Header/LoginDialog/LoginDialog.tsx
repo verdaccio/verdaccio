@@ -41,6 +41,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
 
         return response;
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error('login error', e.message);
         const error = {
           type: 'error',

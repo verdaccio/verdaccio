@@ -20,6 +20,7 @@ const Home: React.FC<Props> = ({ isUserLoggedIn }) => {
       setPackages(packages as never[]);
     } catch (error) {
       // FIXME: add dialog
+      // eslint-disable-next-line no-console
       console.error({
         title: 'Warning',
         message: `Unable to load package list: ${error.message}`,
