@@ -54,6 +54,7 @@ class API {
           if (response[0]) {
             resolve(response[1]);
           } else {
+            // eslint-disable-next-line no-console
             console.error(response);
             reject(new Error('something went wrong'));
           }
