@@ -79,7 +79,7 @@ const RegistryInfoContent: React.FC<Props> = (props) => {
   /* eslint react/prop-types:0 */
   const TabContainer: React.FC = ({ children }): JSX.Element => {
     return (
-      <CommandContainer>
+      <CommandContainer data-testid={'tab-content'}>
         <Typography>{children}</Typography>
       </CommandContainer>
     );

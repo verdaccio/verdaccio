@@ -1,9 +1,12 @@
+import i18next from 'i18next';
+import isEmpty from 'lodash/isEmpty';
 import React, { useState, useContext, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Dialog from 'verdaccio-ui/components/Dialog';
 import DialogContent from 'verdaccio-ui/components/DialogContent';
-import { makeLogin, LoginError } from 'verdaccio-ui/utils/login';
+import { useAPI, LoginBody } from 'verdaccio-ui/providers/API/APIProvider';
+import { LoginError } from 'verdaccio-ui/utils/login';
 import storage from 'verdaccio-ui/utils/storage';
 
 import AppContext from '../../../App/AppContext';
@@ -20,6 +23,34 @@ interface Props {
 const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
   const { t } = useTranslation();
   const appContext = useContext(AppContext);
+  const { doLogin } = useAPI();
+
+  const makeLogin = useCallback(
+    async (username?: string, password?: string): Promise<LoginBody> => {
+      // checks isEmpty
+      if (isEmpty(username) || isEmpty(password)) {
+        const error = {
+          type: 'error',
+          description: i18next.t('form-validation.username-or-password-cant-be-empty'),
+        };
+        return { error };
+      }
+
+      try {
+        const response: LoginBody = await doLogin(username as string, password as string);
+
+        return response;
+      } catch (e) {
+        console.error('login error', e.message);
+        const error = {
+          type: 'error',
+          description: i18next.t('form-validation.unable-to-sign-in'),
+        };
+        return { error };
+      }
+    },
+    [doLogin]
+  );
 
   if (!appContext) {
     throw Error(t('app-context-not-correct-used'));
@@ -42,7 +73,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
         onClose();
       }
     },
-    [appContext, onClose]
+    [appContext, onClose, makeLogin]
   );
 
   return (

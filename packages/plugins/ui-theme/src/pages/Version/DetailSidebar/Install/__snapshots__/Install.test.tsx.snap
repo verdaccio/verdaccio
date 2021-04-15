@@ -45,9 +45,9 @@ exports[`<Install /> renders correctly 1`] = `
 
 .emotion-10 {
   display: inline-block;
-  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   height: 21px;
   font-size: 1rem;
 }
@@ -92,7 +92,7 @@ exports[`<Install /> renders correctly 1`] = `
             npm install foo
           </span>
           <button
-            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            class="MuiButtonBase-root MuiIconButton-root"
             data-testid="copy-icon"
             tabindex="0"
             title="Copy to clipboard"
@@ -159,7 +159,7 @@ exports[`<Install /> renders correctly 1`] = `
             yarn add foo
           </span>
           <button
-            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            class="MuiButtonBase-root MuiIconButton-root"
             data-testid="copy-icon"
             tabindex="0"
             title="Copy to clipboard"
@@ -226,7 +226,7 @@ exports[`<Install /> renders correctly 1`] = `
             pnpm install foo
           </span>
           <button
-            class="MuiButtonBase-root MuiIconButton-root  emotion-12 emotion-13"
+            class="MuiButtonBase-root MuiIconButton-root"
             data-testid="copy-icon"
             tabindex="0"
             title="Copy to clipboard"

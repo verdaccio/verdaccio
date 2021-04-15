@@ -35,7 +35,7 @@ const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react-hooks/exhaustive-deps */
 const App: React.FC = () => {
-  const [user, setUser] = useState<undefined | { username: string }>();
+  const [user, setUser] = useState<undefined | { username: string | null }>();
   /**
    * Logout user
    * Required by: <Header />

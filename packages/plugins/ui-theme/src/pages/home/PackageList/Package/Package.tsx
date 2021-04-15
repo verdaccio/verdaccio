@@ -3,18 +3,20 @@ import styled from '@emotion/styled';
 import BugReport from '@material-ui/icons/BugReport';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import HomeIcon from '@material-ui/icons/Home';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { downloadTarball } from 'verdaccio-ui/components/ActionBar';
 import Grid from 'verdaccio-ui/components/Grid';
 import { Version, FileBinary, Time, Law } from 'verdaccio-ui/components/Icons';
 import Link from 'verdaccio-ui/components/Link';
 import ListItem from 'verdaccio-ui/components/ListItem';
 import Tooltip from 'verdaccio-ui/components/Tooltip';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
+import { useConfig } from 'verdaccio-ui/providers/config';
 import fileSizeSI from 'verdaccio-ui/utils/file-size';
 import { formatDate, formatDateDistance, getAuthorName } from 'verdaccio-ui/utils/package';
+import { extractFileName, downloadFile } from 'verdaccio-ui/utils/url';
 import { isURL } from 'verdaccio-ui/utils/url';
 
 import { PackageMetaInterface, Author as PackageAuthor } from '../../../../../types/packageMeta';
@@ -71,6 +73,19 @@ const Package: React.FC<PackageInterface> = ({
   version,
 }) => {
   const { t } = useTranslation();
+  const { getResource } = useAPI();
+  const { configOptions } = useConfig();
+
+  const handleDownload = useCallback(
+    async (tarballDist: string) => {
+      // FIXME: check, the dist might be different thant npmjs
+      const link = tarballDist.replace(`https://registry.npmjs.org/`, configOptions.base as string);
+      const fileStream = await getResource(link);
+      const fileName = extractFileName(link);
+      downloadFile(fileStream, fileName);
+    },
+    [getResource, configOptions]
+  );
 
   const renderVersionInfo = (): React.ReactNode =>
     version && (
@@ -93,8 +108,7 @@ const Package: React.FC<PackageInterface> = ({
   };
 
   const renderFileSize = (): React.ReactNode =>
-    dist &&
-    dist.unpackedSize && (
+    dist?.unpackedSize && (
       <OverviewItem>
         <StyledFileBinary />
         {fileSizeSI(dist.unpackedSize)}
@@ -131,8 +145,7 @@ const Package: React.FC<PackageInterface> = ({
     );
 
   const renderBugsLink = (): React.ReactNode =>
-    bugs &&
-    bugs.url &&
+    bugs?.url &&
     isURL(bugs.url) && (
       <Link external={true} to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
@@ -144,15 +157,14 @@ const Package: React.FC<PackageInterface> = ({
     );
 
   const renderDownloadLink = (): React.ReactNode =>
-    dist &&
-    dist.tarball &&
+    dist?.tarball &&
     isURL(dist.tarball) && (
       // eslint-disable-next-line
       <Link
         external={true}
-        onClick={downloadTarball(
-          dist.tarball.replace(`https://registry.npmjs.org/`, window.location.href)
-        )}
+        onClick={() => {
+          handleDownload(dist.tarball);
+        }}
         to="#">
         <Tooltip
           aria-label={t('package.download', { what: t('package.the-tar-file') })}

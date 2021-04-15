@@ -1,12 +1,6 @@
-import i18next from 'i18next';
 import { Base64 } from 'js-base64';
-import isEmpty from 'lodash/isEmpty';
 import isNumber from 'lodash/isNumber';
 import isString from 'lodash/isString';
-
-import { HEADERS } from '../lib/constants';
-
-import API from './api';
 
 export function isTokenExpire(token: string | null): boolean {
   if (!isString(token)) {
@@ -46,37 +40,4 @@ export interface LoginBody {
 export interface LoginError {
   type: string;
   description: string;
-}
-
-export async function makeLogin(username?: string, password?: string): Promise<LoginBody> {
-  // checks isEmpty
-  if (isEmpty(username) || isEmpty(password)) {
-    const error = {
-      type: 'error',
-      description: i18next.t('form-validation.username-or-password-cant-be-empty'),
-    };
-    return { error };
-  }
-
-  try {
-    const response: LoginBody = await API.request('login', 'POST', {
-      body: JSON.stringify({ username, password }),
-      headers: {
-        Accept: HEADERS.JSON,
-        'Content-Type': HEADERS.JSON,
-      },
-    });
-    const result: LoginBody = {
-      username: response.username,
-      token: response.token,
-    };
-    return result;
-  } catch (e) {
-    console.error('login error', e.message);
-    const error = {
-      type: 'error',
-      description: i18next.t('form-validation.unable-to-sign-in'),
-    };
-    return { error };
-  }
 }

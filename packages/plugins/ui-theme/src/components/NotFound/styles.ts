@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
+
 import { default as MuiCard } from '../Card';
 import { default as Typography } from '../Heading';
 import List from '../List';
@@ -25,12 +27,12 @@ export const EmptyPackage = styled('img')({
 });
 
 export const Heading = styled(Typography)({
-  color: '#4b5e40',
+  color: PRIMARY_COLOR,
 });
 
 export const StyledList = styled(List)({
   padding: 0,
-  color: '#4b5e40',
+  color: PRIMARY_COLOR,
 });
 
 export const Card = styled(MuiCard)({

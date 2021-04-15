@@ -2,8 +2,16 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import '@testing-library/jest-dom/extend-expect';
-import api from 'verdaccio-ui/utils/api';
+
+import api from 'verdaccio-ui/providers/API/api';
 import { render, fireEvent, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
+
+jest.mock('lodash/debounce', () =>
+  jest.fn((fn) => {
+    fn.cancel = jest.fn();
+    return fn;
+  })
+);
 
 import Search from './Search';
 

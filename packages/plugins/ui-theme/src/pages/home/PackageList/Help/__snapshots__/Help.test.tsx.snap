@@ -27,9 +27,9 @@ exports[`<Help /> component should load the component in default state 1`] = `
 
 .emotion-6 {
   display: inline-block;
-  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   height: 21px;
   font-size: 1rem;
 }
@@ -66,7 +66,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
         npm adduser --registry http://localhost
       </span>
       <button
-        class="MuiButtonBase-root MuiIconButton-root  emotion-8 emotion-9"
+        class="MuiButtonBase-root MuiIconButton-root"
         data-testid="copy-icon"
         tabindex="0"
         title="Copy to clipboard"
@@ -105,7 +105,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
         npm publish --registry http://localhost
       </span>
       <button
-        class="MuiButtonBase-root MuiIconButton-root  emotion-8 emotion-9"
+        class="MuiButtonBase-root MuiIconButton-root"
         data-testid="copy-icon"
         tabindex="0"
         title="Copy to clipboard"

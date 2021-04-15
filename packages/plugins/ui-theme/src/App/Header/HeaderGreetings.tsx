@@ -14,7 +14,7 @@ const HeaderGreetings: React.FC<Props> = ({ username }) => {
   return (
     <>
       <Greetings>{t('header.greetings')}</Greetings>
-      <Label capitalize={true} data-testid="greetings-label" text={username} weight="bold" />
+      <Label data-testid="greetings-label" text={username} weight="bold" />
     </>
   );
 };

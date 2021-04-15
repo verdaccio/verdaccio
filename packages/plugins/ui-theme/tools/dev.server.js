@@ -11,7 +11,7 @@ const spinner = ora('Compiler is running...').start();
 compiler.hooks.done.tap('Verdaccio Dev Server', () => {
   if (!global.rebuild) {
     spinner.stop();
-    console.log('Dev Server Listening at http://localhost:4872/');
+    console.log('Dev Server Listening at http://localhost:4873/');
     global.rebuild = true;
   }
 });

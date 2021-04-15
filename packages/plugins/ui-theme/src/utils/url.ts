@@ -14,10 +14,6 @@ export function isEmail(email: string): boolean {
   return isEmailValidator(email || '');
 }
 
-export function getRegistryURL(): string {
-  return window?.__VERDACCIO_BASENAME_UI_OPTIONS?.base;
-}
-
 export function extractFileName(url: string): string {
   return url.substring(url.lastIndexOf('/') + 1);
 }

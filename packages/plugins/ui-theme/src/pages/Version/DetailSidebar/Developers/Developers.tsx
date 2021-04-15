@@ -16,8 +16,8 @@ import getUniqueDeveloperValues from './get-unique-developer-values';
 import { DeveloperType } from './types';
 
 export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme && props.theme.palette.primary.main,
-  color: props.theme && props.theme.palette.white,
+  backgroundColor: props.theme?.palette.primary.main,
+  color: props.theme?.palette.white,
 }));
 
 interface Props {

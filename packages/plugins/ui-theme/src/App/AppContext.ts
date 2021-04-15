@@ -6,7 +6,7 @@ export interface AppProps {
 }
 
 export interface User {
-  username: string;
+  username: string | null;
 }
 
 export interface AppContextProps extends AppProps {
