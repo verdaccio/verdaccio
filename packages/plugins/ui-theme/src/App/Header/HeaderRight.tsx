@@ -11,7 +11,7 @@ import { RightSide } from './styles';
 
 interface Props {
   withoutSearch?: boolean;
-  username?: string;
+  username?: string | null;
   onToggleLogin: () => void;
   onOpenRegistryInfoDialog: () => void;
   onToggleMobileNav: () => void;

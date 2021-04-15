@@ -1,7 +1,13 @@
 import React from 'react';
 
-import api from 'verdaccio-ui/utils/api';
-import { render, waitFor, fireEvent } from 'verdaccio-ui/utils/test-react-testing-library';
+import api from 'verdaccio-ui/providers/API/api';
+import {
+  render,
+  waitFor,
+  fireEvent,
+  cleanup,
+  act,
+} from 'verdaccio-ui/utils/test-react-testing-library';
 
 import AppContext, { AppContextProps } from '../../AppContext';
 
@@ -16,6 +22,7 @@ describe('<LoginDialog /> component', () => {
   beforeEach(() => {
     jest.resetModules();
     jest.resetAllMocks();
+    cleanup();
   });
 
   test('should render the component in default state', () => {
@@ -61,12 +68,13 @@ describe('<LoginDialog /> component', () => {
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
 
-    fireEvent.click(loginDialogButton, { open: false });
+    act(() => {
+      fireEvent.click(loginDialogButton, { open: false });
+    });
     expect(props.onClose).toHaveBeenCalled();
   });
 
-  // TODO
-  test.skip('setCredentials - should set username and password in state', async () => {
+  test('setCredentials - should set username and password in state', async () => {
     const props = {
       open: true,
       onClose: jest.fn(),
@@ -79,7 +87,7 @@ describe('<LoginDialog /> component', () => {
       })
     );
 
-    const { getByPlaceholderText, getByText } = render(
+    const { getByPlaceholderText, getByTestId } = render(
       <AppContext.Provider value={appContextValue}>
         <LoginDialog onClose={props.onClose} open={props.open} />
       </AppContext.Provider>
@@ -87,17 +95,23 @@ describe('<LoginDialog /> component', () => {
 
     // TODO: the input's value is not being updated in the DOM
     const userNameInput = getByPlaceholderText('Your username');
+
     fireEvent.focus(userNameInput);
+
     fireEvent.change(userNameInput, { target: { value: 'xyz' } });
 
     // TODO: the input's value is not being updated in the DOM
     const passwordInput = getByPlaceholderText('Your strong password');
+
     fireEvent.focus(passwordInput);
     fireEvent.change(passwordInput, { target: { value: '1234' } });
 
     // TODO: submitting form does not work
-    const signInButton = getByText('Sign in');
-    fireEvent.click(signInButton);
+    const signInButton = getByTestId('login-dialog-form-login-button');
+    expect(signInButton).not.toBeDisabled();
+    act(() => {
+      fireEvent.click(signInButton);
+    });
   });
 
   test.todo('validateCredentials: should validate credentials');

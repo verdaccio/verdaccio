@@ -24,8 +24,7 @@ enum Route {
 }
 
 export const history = createBrowserHistory({
-  // basename is deprecated and already removed in a major released
-  basename: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.basename,
+  basename: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.url_prefix,
 });
 
 const AppRoute: React.FC = () => {
@@ -38,7 +37,7 @@ const AppRoute: React.FC = () => {
 
   const { user } = appContext;
 
-  const isUserLoggedIn = user && user.username;
+  const isUserLoggedIn = user?.username;
 
   return (
     <Router history={history}>

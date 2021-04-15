@@ -1,5 +1,4 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const _ = require('lodash');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -78,14 +77,5 @@ const prodConf = {
     maxAssetSize: 512000,
   },
 };
-
-prodConf.module.rules = baseConfig.module.rules
-  .filter(
-    (loader) =>
-      Array.isArray(loader.use) && loader.use.find((v) => /css/.test(v.loader.split('-')[0]))
-  )
-  .forEach((loader) => {
-    loader.use = [MiniCssExtractPlugin.loader].concat(_.tail(loader.use));
-  });
 
 module.exports = merge(baseConfig, prodConf);

@@ -15,7 +15,7 @@ export default {
     main: [
       'whatwg-fetch',
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:4872',
+      'webpack-dev-server/client?http://localhost:4873',
       'webpack/hot/only-dev-server',
       `${env.SRC_ROOT}/index.tsx`,
     ],
@@ -39,7 +39,7 @@ export default {
         scope: '',
         filename: 'index.html',
         verdaccioURL: '//localhost:4873',
-        base: new URL('/', 'https://localhost:4872'),
+        base: new URL('/', 'http://localhost:4873'),
       }),
       template: `${env.SRC_ROOT}/template/index.html`,
       debug: true,

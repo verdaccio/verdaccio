@@ -2,16 +2,16 @@ import styled from '@emotion/styled';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import DownloadIcon from '@material-ui/icons/CloudDownload';
 import HomeIcon from '@material-ui/icons/Home';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
+import { extractFileName, downloadFile } from 'verdaccio-ui/utils/url';
 
 import FloatingActionButton from '../FloatingActionButton';
 import Link from '../Link';
 import Tooltip from '../Tooltip';
-
-import downloadTarball from './download-tarball';
 
 export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
@@ -34,6 +34,14 @@ export interface ActionBarActionProps {
 /* eslint-disable react/jsx-no-bind */
 const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link }) => {
   const { t } = useTranslation();
+  const { getResource } = useAPI();
+
+  const handleDownload = useCallback(async () => {
+    const fileStream = await getResource(link);
+    const fileName = extractFileName(link);
+    downloadFile(fileStream, fileName);
+  }, [getResource, link]);
+
   switch (type) {
     case 'VISIT_HOMEPAGE':
       return (
@@ -58,7 +66,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link }) => {
     case 'DOWNLOAD_TARBALL':
       return (
         <Tooltip title={t('action-bar-action.download-tarball')}>
-          <Fab data-testid="download-tarball-btn" onClick={downloadTarball(link)} size="small">
+          <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
             <DownloadIcon />
           </Fab>
         </Tooltip>

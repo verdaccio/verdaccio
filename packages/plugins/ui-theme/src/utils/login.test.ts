@@ -6,12 +6,12 @@ import {
   generateInvalidToken,
 } from '../../jest/unit/components/__mocks__/token';
 
-import { isTokenExpire, makeLogin } from './login';
+import { isTokenExpire } from './login';
 
 /* eslint-disable no-console */
 console.error = jest.fn();
 
-jest.mock('./api', () => ({
+jest.mock('verdaccio-ui/providers/API/api', () => ({
   // eslint-disable-next-line jest/no-mocks-import
   request: require('../../jest/unit/components/__mocks__/api').default.request,
 }));
@@ -67,51 +67,5 @@ describe('isTokenExpire', (): void => {
   test('isTokenExpire - token expiration is not a number', (): void => {
     const token = generateTokenWithExpirationAsString();
     expect(isTokenExpire(token)).toBeTruthy();
-  });
-});
-
-describe('makeLogin', (): void => {
-  test('makeLogin - should give error for blank username and password', async (): Promise<void> => {
-    const result = {
-      error: {
-        description: "Username or password can't be empty!",
-        type: 'error',
-      },
-    };
-    const login = await makeLogin();
-    expect(login).toEqual(result);
-  });
-
-  test('makeLogin - should login successfully', async (): Promise<void> => {
-    const { username, password } = { username: 'sam', password: '1234' };
-    const result = { token: 'TEST_TOKEN', username: 'sam' }; // pragma: allowlist secret
-    const login = await makeLogin(username, password);
-    expect(login).toEqual(result);
-  });
-
-  test('makeLogin - login should failed with 401', async () => {
-    const result = {
-      error: {
-        description: 'Unable to sign in',
-        type: 'error',
-      },
-    };
-
-    const { username, password } = { username: 'sam', password: '123456' };
-    const login = await makeLogin(username, password);
-    expect(login).toEqual(result);
-  });
-
-  test('makeLogin - login should failed with when no data is sent', async () => {
-    const result = {
-      error: {
-        type: 'error',
-        description: "Username or password can't be empty!",
-      },
-    };
-
-    const { username, password } = { username: '', password: '' };
-    const login = await makeLogin(username, password);
-    expect(login).toEqual(result);
   });
 });

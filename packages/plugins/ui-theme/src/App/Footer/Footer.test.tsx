@@ -6,19 +6,15 @@ import Footer from './Footer';
 
 describe('<Footer /> component', () => {
   beforeAll(() => {
-    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
-      version: 'v.1.0.0',
-    };
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.version = 'v.1.0.0';
   });
 
   afterAll(() => {
-    // @ts-ignore
-    delete window.__VERDACCIO_BASENAME_UI_OPTIONS;
+    delete window.__VERDACCIO_BASENAME_UI_OPTIONS.version;
   });
 
   test('should load the initial state of Footer component', () => {
-    render(<Footer />);
-    // FIXME: this match does not work
-    // expect(screen.getByText('Powered by')).toBeInTheDocument();
+    const { container } = render(<Footer />);
+    expect(container.firstChild).toMatchSnapshot();
   });
 });

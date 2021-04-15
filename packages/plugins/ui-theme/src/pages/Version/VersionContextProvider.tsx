@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { PackageMetaInterface } from 'types/packageMeta';
 
-import { callDetailPage, callReadme } from 'verdaccio-ui/utils/calls';
+import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
 
 import { DetailContext } from './context';
 import getRouterPackageName from './get-route-package-name';
@@ -22,6 +22,7 @@ const VersionContextProvider: React.FC = ({ children }) => {
   const [readMe, setReadme] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [hasNotBeenFound, setHasNotBeenFound] = useState<boolean>();
+  const { callDetailPage, callReadme } = useAPI();
 
   useEffect(() => {
     const updatedPackageName = getRouterPackageName(pkgName, scope);
@@ -32,25 +33,27 @@ const VersionContextProvider: React.FC = ({ children }) => {
     setPackageVersion(version);
   }, [version]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const packageMeta = await callDetailPage(packageName, packageVersion);
-        const readMe = await callReadme(packageName, packageVersion);
-        if (isPackageVersionValid(packageMeta, packageVersion)) {
-          setReadme(readMe);
-          setPackageMeta(packageMeta);
-          setIsLoading(false);
-        } else {
-          setIsLoading(false);
-          setHasNotBeenFound(true);
-        }
-      } catch (error) {
-        setHasNotBeenFound(true);
+  const doCalls = useCallback(async () => {
+    try {
+      const packageMeta = await callDetailPage(packageName, packageVersion);
+      const readMe = await callReadme(packageName, packageVersion);
+      if (isPackageVersionValid(packageMeta, packageVersion)) {
+        setReadme(readMe);
+        setPackageMeta(packageMeta);
         setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        setHasNotBeenFound(true);
       }
-    })();
-  }, [packageName, packageVersion]);
+    } catch (error) {
+      setHasNotBeenFound(true);
+      setIsLoading(false);
+    }
+  }, [packageName, packageVersion, callDetailPage, callReadme]);
+
+  useEffect(() => {
+    doCalls();
+  }, [doCalls]);
 
   return (
     <DetailContext.Provider

@@ -139,6 +139,7 @@ const AutoComplete = memo(
       onBlur,
     };
 
+    // this format avoid arrow function eslint rule
     const renderSuggestionsContainer: RenderSuggestionsContainer = function ({
       containerProps,
       children,

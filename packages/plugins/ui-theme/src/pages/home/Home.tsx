@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import Loading from 'verdaccio-ui/components/Loading';
-import API from 'verdaccio-ui/utils/api';
+import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
 
 import { PackageList } from './PackageList';
 
@@ -11,10 +11,11 @@ interface Props {
 
 const Home: React.FC<Props> = ({ isUserLoggedIn }) => {
   const [packages, setPackages] = useState([]);
+  const { getPackages } = useAPI();
   const [isLoading, setIsLoading] = useState(true);
-  const loadPackages = async () => {
+  const loadPackages = useCallback(async () => {
     try {
-      const packages = await API.request('packages', 'GET');
+      const packages = await getPackages();
       // FIXME add correct type for package
       setPackages(packages as never[]);
     } catch (error) {
@@ -25,10 +26,10 @@ const Home: React.FC<Props> = ({ isUserLoggedIn }) => {
       });
     }
     setIsLoading(false);
-  };
+  }, [getPackages]);
   useEffect(() => {
     loadPackages().then();
-  }, [isUserLoggedIn]);
+  }, [isUserLoggedIn, loadPackages]);
 
   return (
     <div className="container content" data-testid="home-page-container">

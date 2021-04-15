@@ -1,5 +1,7 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
+import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
+
 const colors = {
   black: '#000',
   white: '#fff',
@@ -21,7 +23,7 @@ const colors = {
   love: '#e25555',
   nobel01: '#999999',
   nobel02: '#9f9f9f',
-  primary: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.primaryColor ?? '#4b5e40',
+  primary: PRIMARY_COLOR,
   secondary: '#20232a',
   background: '#fff',
   dodgerBlue: '#1ba1f2',
@@ -39,6 +41,14 @@ const themeModes = {
     background: '#1A202C',
   },
 };
+
+function applyPrimaryColor(mode: ThemeMode, primaryColor: string): any {
+  if (mode === 'light') {
+    themeModes['light'].primary = primaryColor;
+  }
+
+  return themeModes[mode];
+}
 
 export type ThemeMode = keyof typeof themeModes;
 
@@ -80,11 +90,17 @@ const customizedTheme = {
 
 type CustomizedTheme = typeof customizedTheme;
 
-export const getTheme = (themeMode: ThemeMode) => {
-  const palette = themeModes[themeMode];
+export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
+  const palette = applyPrimaryColor(themeMode, primaryColor);
   return createMuiTheme({
     typography: {
-      fontFamily: 'inherit',
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+      ].join(','),
     },
     palette: {
       type: themeMode,

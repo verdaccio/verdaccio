@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useConfig } from 'verdaccio-ui/providers/config';
+
 import AppContext, { AppProps, User } from './AppContext';
 
 interface Props {
@@ -8,8 +10,9 @@ interface Props {
 
 /* eslint-disable react-hooks/exhaustive-deps */
 const AppContextProvider: React.FC<Props> = ({ children, user }) => {
+  const { configOptions } = useConfig();
   const [state, setState] = useState<AppProps>({
-    scope: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.scope ?? '',
+    scope: configOptions.scope ?? '',
     user,
   });
 

@@ -7,7 +7,7 @@ import CardContent from 'verdaccio-ui/components/CardContent';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import { default as Typography } from 'verdaccio-ui/components/Heading';
 import Text from 'verdaccio-ui/components/Text';
-import { getRegistryURL } from 'verdaccio-ui/utils/url';
+import { useConfig } from 'verdaccio-ui/providers/config';
 
 import { CardStyled as Card, HelpTitle } from './styles';
 
@@ -21,7 +21,8 @@ function renderHeadingClipboardSegments(title: string, text: string): React.Reac
 }
 
 const Help: React.FC = () => {
-  const registryUrl = getRegistryURL();
+  const { configOptions } = useConfig();
+  const registryUrl = configOptions.base;
   const { t } = useTranslation();
 
   return (

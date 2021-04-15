@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { useConfig } from 'verdaccio-ui/providers/config';
 
 import blackAndWithLogo from './img/logo-black-and-white.svg';
 import defaultLogo from './img/logo.svg';
@@ -17,8 +18,6 @@ const logos = {
   dark: blackAndWithLogo,
 };
 
-const logo = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.logoURI;
-
 interface Props {
   size?: keyof typeof sizes;
   onClick?: () => void;
@@ -26,10 +25,11 @@ interface Props {
 }
 
 const Logo: React.FC<Props> = ({ size, onClick, className }) => {
-  if (logo) {
+  const { configOptions } = useConfig();
+  if (configOptions?.logo) {
     return (
       <ImageLogo onClick={onClick} className={className}>
-        <img alt="logo" height="40px" src={logo} />
+        <img alt="logo" height="40px" src={configOptions.logo} />
       </ImageLogo>
     );
   }

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import AutoComplete from 'verdaccio-ui/components/AutoComplete';
-import { callSearch } from 'verdaccio-ui/utils/calls';
+import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
 
 import SearchAdornment from './SearchAdornment';
 
@@ -23,6 +23,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const [loading, setLoading] = useState(false);
   const mountedRef = useRef(true);
   const [requestList, setRequestList] = useState<{ abort: () => void }[]>([]);
+  const { callSearch } = useAPI();
 
   /**
    * Cancel all the requests which are in pending state.
@@ -138,7 +139,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
         }
       }
     },
-    [requestList, setRequestList, setSuggestions, setLoaded, setError, setLoading]
+    [requestList, setRequestList, setSuggestions, setLoaded, setError, setLoading, callSearch]
   );
 
   useEffect(() => {

@@ -16,12 +16,12 @@ export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   margin: '0 0 0 16px',
   color: theme?.palette.type === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
   fontSize: 12,
-  [`@media (max-width: ${theme && theme.breakPoints.medium}px)`]: {
+  [`@media (max-width: ${theme?.breakPoints.medium}px)`]: {
     ':nth-of-type(3)': {
       display: 'none',
     },
   },
-  [`@media (max-width: ${theme && theme.breakPoints.small}px)`]: {
+  [`@media (max-width: ${theme?.breakPoints.small}px)`]: {
     ':nth-of-type(4)': {
       display: 'none',
     },
@@ -61,13 +61,13 @@ export const WrapperLink = styled(Link)({
 });
 
 export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  fontWeight: theme && theme.fontWeight.bold,
+  fontWeight: theme?.fontWeight.bold,
   fontSize: 20,
   display: 'block',
   marginBottom: 12,
   color: theme?.palette.type == 'dark' ? theme?.palette.dodgerBlue : theme?.palette.eclipse,
   cursor: 'pointer',
-  [`@media (max-width: ${theme && theme.breakPoints.small}px)`]: {
+  [`@media (max-width: ${theme?.breakPoints.small}px)`]: {
     fontSize: 14,
     marginBottom: 8,
   },
@@ -96,7 +96,7 @@ export const TagContainer = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   marginBottom: 12,
   display: 'flex',
   flexWrap: 'wrap',
-  [`@media (max-width: ${theme && theme.breakPoints.medium}px)`]: {
+  [`@media (max-width: ${theme?.breakPoints.medium}px)`]: {
     display: 'none',
   },
 }));
