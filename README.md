@@ -69,11 +69,7 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-### **Node.js Dependency Confusion Attacks & Vulnerabilities in Go Binaries**.
-
-[RSVP](https://www.meetup.com/es-ES/devseccon-germany/events/276990087) to join the talk.
-
-[![verdaccio openjsworld](https://cdn.verdaccio.dev/readme/devseccon.png)](https://www.meetup.com/es-ES/devseccon-germany/events/276990087/)
+[![verdaccio Node.js Dependency Confusion Attacks](https://cdn.verdaccio.dev/readme/devseccon.png)](https://www.youtube.com/watch?v=qTRADSp3Hpo)
 
 You might want to check out as well our previous talks:
 
