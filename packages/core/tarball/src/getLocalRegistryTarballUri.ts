@@ -2,7 +2,6 @@ import URL from 'url';
 import { Request } from 'express';
 import buildDebug from 'debug';
 
-import { encodeScopedUri } from '@verdaccio/utils';
 import { getPublicUrl } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:core:url');
@@ -32,5 +31,5 @@ export function getLocalRegistryTarballUri(
   // header only set with proxy that setup with HTTPS
   const domainRegistry = getPublicUrl(urlPrefix || '', req);
 
-  return `${domainRegistry}${encodeScopedUri(pkgName)}/-/${tarballName}`;
+  return `${domainRegistry}${pkgName}/-/${tarballName}`;
 }
