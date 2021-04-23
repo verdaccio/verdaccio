@@ -1,0 +1,7 @@
+---
+storage: NON_EXISTING_STORAGE_ENV
+
+logs:
+  - type: stdout
+    format: pretty
+    level: warn
