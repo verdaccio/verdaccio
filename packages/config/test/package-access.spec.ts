@@ -7,15 +7,9 @@ import {
   PACKAGE_ACCESS,
 } from '../src/package-access';
 import { parseConfigFile } from '../src';
+import { parseConfigurationFile } from './utils';
 
 describe('Package access utilities', () => {
-  const parseConfigurationFile = (conf) => {
-    const { name, ext } = path.parse(conf);
-    const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
-
-    return path.join(__dirname, `./partials/config/${format}/${name}.${format}`);
-  };
-
   describe('normalisePackageAccess', () => {
     test('should test basic conversion', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic'));
