@@ -34,8 +34,6 @@ jobs:
         run: npm i pnpm@latest -g
       - name: Install
         run: pnpm recursive install
-      - name: Format
-        run: pnpm format:check
       - name: Lint
         run: pnpm lint
       - name: Clean
