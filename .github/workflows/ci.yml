@@ -33,7 +33,7 @@ jobs:
       - name: Install pnpm
         run: npm i pnpm@latest -g
       - name: Install
-        run: pnpm recursive install
+        run: pnpm recursive install --frozen-lockfile
       - name: Lint
         run: pnpm lint
       - name: Clean
