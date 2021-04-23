@@ -10,6 +10,7 @@ import {
   ROLES,
   WEB_TITLE,
 } from '../src';
+import { parseConfigurationFile } from './utils';
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -78,6 +79,21 @@ describe('check basic content parsed file', () => {
     expect(config.storage).toBe('./storage');
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
     checkDefaultConfPackages(config);
+  });
+
+  test('parse storage path from environment variable if exists', () => {
+    const storageEnvName = 'env_storage';
+    process.env.VERDACCIO_STORAGE = storageEnvName;
+    const config = new Config(parseConfigFile(parseConfigurationFile('storage-from-env-variable')));
+    expect(config.storage).toBe(storageEnvName);
+  });
+
+  test('should set storage to string value if it doesnt exist in environment variable', () => {
+    const storageEnvName = 'NON_EXISTING_STORAGE_ENV';
+    const config = new Config(
+      parseConfigFile(parseConfigurationFile('storage-with-non-existing-env'))
+    );
+    expect(config.storage).toBe(storageEnvName);
   });
 
   test('parse docker.yaml', () => {
