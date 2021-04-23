@@ -14,14 +14,18 @@ on:
       - 'package.json'
       - 'pnpm-workspace.yaml'
 jobs:
-  ci:
+  verdaccio:
     runs-on: ubuntu-latest
-    name: ubuntu-latest / Node 14
+    name: setup verdaccio
     services:
       verdaccio:
         image: verdaccio/verdaccio:5
         ports:
           - 4873:4873    
+  ci:
+    runs-on: ubuntu-latest
+    name: ubuntu-latest / Node 14
+    needs: verdaccio
     steps:
       - uses: actions/checkout@v2.3.1
       - name: Use Node 14
