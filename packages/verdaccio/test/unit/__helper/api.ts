@@ -199,12 +199,7 @@ export async function isExistPackage(app, packageName) {
 }
 
 export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
-  const [, res] = await getPackage(
-    request(app),
-    token as string,
-    packageName,
-    HTTP_STATUS.OK
-  );
+  const [, res] = await getPackage(request(app), token as string, packageName, HTTP_STATUS.OK);
 
   const { versions } = res.body;
   const versionsKeys = Object.keys(versions);

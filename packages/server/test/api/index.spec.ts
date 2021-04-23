@@ -831,12 +831,7 @@ describe('endpoint unit test', () => {
           let credentials = { name: 'only_publish', password: 'secretPass' };
           let token = await getNewToken(request(app), credentials);
           const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-          const [err, res] = await putPackage(
-            request(app),
-            `/${pkgName}`,
-            pkg,
-            token
-          );
+          const [err, res] = await putPackage(request(app), `/${pkgName}`, pkg, token);
           expect(err).not.toBeNull();
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toMatch(
@@ -844,12 +839,7 @@ describe('endpoint unit test', () => {
           );
           credentials = { name: 'only_unpublish', password: 'secretPass' };
           token = await getNewToken(request(app), credentials);
-          const [err2, res2] = await putPackage(
-            request(app),
-            `/${pkgName}`,
-            pkg,
-            token
-          );
+          const [err2, res2] = await putPackage(request(app), `/${pkgName}`, pkg, token);
           expect(err2).not.toBeNull();
           expect(res2.body.error).toBeDefined();
           expect(res2.body.error).toMatch(
