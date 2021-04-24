@@ -101,7 +101,7 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
       - name: Install
         ## we run scripts due gatsby needs it
-        ## when website is exlclude we can add --ignore-scripts
+        ## when website is excluded we can add --ignore-scripts
         run: pnpm recursive install --frozen-lockfile
       - name: build
         run: pnpm build
@@ -133,7 +133,7 @@ jobs:
           name: verdaccio-artifact
           path: ${{ github.workspace }}  
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C /packages          
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }} .        
       - name: Install pnpm
         run: npm i pnpm@latest -g
       - uses: actions/cache@v2
@@ -141,7 +141,7 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: tree ls
-        run: tree packages                                   
+        run: tree packages                                              
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
       - name: Test
