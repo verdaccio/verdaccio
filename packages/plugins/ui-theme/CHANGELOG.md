@@ -1,5 +1,17 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.6
+
+### Patch Changes
+
+- 648575aa: Bug Fixes
+
+  - fix escaped slash in namespaced packages
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/pull/2193
+
 ## 5.0.0-alpha.5
 
 ### Major Changes

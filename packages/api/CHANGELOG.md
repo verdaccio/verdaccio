@@ -1,5 +1,18 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.9
+
+### Patch Changes
+
+- Updated dependencies [648575aa]
+  - @verdaccio/tarball@11.0.0-6-next.5
+  - @verdaccio/utils@6.0.0-6-next.4
+  - @verdaccio/auth@6.0.0-6-next.7
+  - @verdaccio/store@6.0.0-6-next.7
+  - @verdaccio/config@6.0.0-6-next.5
+  - @verdaccio/middleware@6.0.0-6-next.7
+  - @verdaccio/hooks@6.0.0-6-next.4
+
 ## 6.0.0-6-next.8
 
 ### Patch Changes

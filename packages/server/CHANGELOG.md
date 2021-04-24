@@ -1,5 +1,27 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.10
+
+### Patch Changes
+
+- 648575aa: Bug Fixes
+
+  - fix escaped slash in namespaced packages
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/pull/2193
+
+- Updated dependencies [648575aa]
+  - @verdaccio/utils@6.0.0-6-next.4
+  - @verdaccio/api@6.0.0-6-next.9
+  - @verdaccio/web@6.0.0-6-next.10
+  - @verdaccio/auth@6.0.0-6-next.7
+  - @verdaccio/loaders@6.0.0-6-next.4
+  - @verdaccio/store@6.0.0-6-next.7
+  - @verdaccio/config@6.0.0-6-next.5
+  - @verdaccio/middleware@6.0.0-6-next.7
+
 ## 6.0.0-6-next.9
 
 ### Patch Changes
