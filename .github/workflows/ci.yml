@@ -108,7 +108,9 @@ jobs:
       - name: tar packages
         run: |
           cd ${{ github.workspace }}/packages/
-          tar -czvf ${{ github.workspace }}/pkg.tar.gz packages
+          pwd
+          tree
+          tar -czvf ${{ github.workspace }}/pkg.tar.gz ./packages
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-artifact
