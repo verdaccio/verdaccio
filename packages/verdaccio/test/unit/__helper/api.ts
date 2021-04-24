@@ -2,7 +2,7 @@ import _ from 'lodash';
 import request from 'supertest';
 
 import { HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/commons-api';
-import { buildToken, encodeScopedUri } from '@verdaccio/utils';
+import { buildToken } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';
 
@@ -46,7 +46,7 @@ export function putPackage(
 export function deletePackage(request: any, pkgName: string, token?: string): Promise<any[]> {
   return new Promise((resolve) => {
     let del = request
-      .put(`/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`)
+      .put(`/${pkgName}/-rev/${generateRandomHexString(8)}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
     if (_.isNil(token) === false) {
@@ -193,18 +193,13 @@ export async function fetchPackageByVersionAndTag(
 }
 
 export async function isExistPackage(app, packageName) {
-  const [err] = await getPackage(request(app), '', encodeScopedUri(packageName), HTTP_STATUS.OK);
+  const [err] = await getPackage(request(app), '', packageName, HTTP_STATUS.OK);
 
   return _.isNull(err);
 }
 
 export async function verifyPackageVersionDoesExist(app, packageName, version, token?: string) {
-  const [, res] = await getPackage(
-    request(app),
-    token as string,
-    encodeScopedUri(packageName),
-    HTTP_STATUS.OK
-  );
+  const [, res] = await getPackage(request(app), token as string, packageName, HTTP_STATUS.OK);
 
   const { versions } = res.body;
   const versionsKeys = Object.keys(versions);
@@ -213,5 +208,5 @@ export async function verifyPackageVersionDoesExist(app, packageName, version, t
 }
 
 export function generateUnPublishURI(pkgName) {
-  return `/${encodeScopedUri(pkgName)}/-rev/${generateRandomHexString(8)}`;
+  return `/${pkgName}/-rev/${generateRandomHexString(8)}`;
 }

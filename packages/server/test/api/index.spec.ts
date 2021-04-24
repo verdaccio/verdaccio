@@ -9,7 +9,7 @@ import {
   API_MESSAGE,
   TOKEN_BEARER,
 } from '@verdaccio/commons-api';
-import { buildToken, encodeScopedUri } from '@verdaccio/utils';
+import { buildToken } from '@verdaccio/utils';
 import { setup, logger } from '@verdaccio/logger';
 
 import { mockServer } from '@verdaccio/mock';
@@ -481,7 +481,7 @@ describe('endpoint unit test', () => {
         const version = '2.0.0';
         const pkg = generatePackageMetadata(pkgName, version);
 
-        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
           return done(err);
@@ -490,7 +490,7 @@ describe('endpoint unit test', () => {
         const newVersion = '2.0.1';
         const [newErr] = await putPackage(
           request(app),
-          `/${encodeScopedUri(pkgName)}`,
+          `/${pkgName}`,
           generatePackageMetadata(pkgName, newVersion),
           token
         );
@@ -557,7 +557,7 @@ describe('endpoint unit test', () => {
 
           const [newErr] = await putPackage(
             request(app),
-            `/${encodeScopedUri(pkgName)}`,
+            `/${pkgName}`,
             generatePackageMetadata(pkgName, newVersion),
             token
           );
@@ -606,7 +606,7 @@ describe('endpoint unit test', () => {
 
           const [newErr, resp] = await putPackage(
             request(app),
-            `/${encodeScopedUri(pkgName)}`,
+            `/${pkgName}`,
             generatePackageMetadata(pkgName, newVersion),
             token
           );
@@ -801,7 +801,7 @@ describe('endpoint unit test', () => {
 
       test('should deprecate a package', async (done) => {
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
           return done(err);
@@ -813,9 +813,9 @@ describe('endpoint unit test', () => {
 
       test('should undeprecate a package', async (done) => {
         let pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        await putPackage(request(app), `/${pkgName}`, pkg, token);
         pkg = generateDeprecateMetadata(pkgName, version, '');
-        const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
           return done(err);
@@ -831,12 +831,7 @@ describe('endpoint unit test', () => {
           let credentials = { name: 'only_publish', password: 'secretPass' };
           let token = await getNewToken(request(app), credentials);
           const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-          const [err, res] = await putPackage(
-            request(app),
-            `/${encodeScopedUri(pkgName)}`,
-            pkg,
-            token
-          );
+          const [err, res] = await putPackage(request(app), `/${pkgName}`, pkg, token);
           expect(err).not.toBeNull();
           expect(res.body.error).toBeDefined();
           expect(res.body.error).toMatch(
@@ -844,12 +839,7 @@ describe('endpoint unit test', () => {
           );
           credentials = { name: 'only_unpublish', password: 'secretPass' };
           token = await getNewToken(request(app), credentials);
-          const [err2, res2] = await putPackage(
-            request(app),
-            `/${encodeScopedUri(pkgName)}`,
-            pkg,
-            token
-          );
+          const [err2, res2] = await putPackage(request(app), `/${pkgName}`, pkg, token);
           expect(err2).not.toBeNull();
           expect(res2.body.error).toBeDefined();
           expect(res2.body.error).toMatch(
@@ -870,7 +860,7 @@ describe('endpoint unit test', () => {
           ...generateVersion(pkgName, '1.0.1'),
           deprecated: 'get deprecated',
         };
-        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        await putPackage(request(app), `/${pkgName}`, pkg, token);
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
         expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');

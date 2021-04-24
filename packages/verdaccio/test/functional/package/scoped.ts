@@ -13,7 +13,7 @@ export default function (server, server2) {
     beforeAll(function () {
       return server
         .request({
-          uri: '/@test%2fscoped',
+          uri: '/@test/scoped',
           headers: {
             'content-type': HEADERS.JSON,
           },
@@ -54,7 +54,7 @@ export default function (server, server2) {
             expect(body.name).toBe(SCOPE);
             expect(body.versions[PKG_VERSION].name).toBe(SCOPE);
             expect(body.versions[PKG_VERSION].dist.tarball).toBe(
-              `http://${DOMAIN_SERVERS}:${port}/@test%2fscoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`
+              `http://${DOMAIN_SERVERS}:${port}/@test/scoped/-/${PKG_NAME}-${PKG_VERSION}.tgz`
             );
             expect(body[DIST_TAGS]).toEqual({ latest: PKG_VERSION });
           });
@@ -73,7 +73,7 @@ export default function (server, server2) {
           .then(function (body) {
             expect(body.name).toEqual(SCOPE);
             expect(body.dist.tarball).toEqual(
-              `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test%2fscoped/-/${PKG_NAME}-` +
+              `http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/@test/scoped/-/${PKG_NAME}-` +
                 `${PKG_VERSION}.tgz`
             );
           });
