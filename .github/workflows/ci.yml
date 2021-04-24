@@ -83,12 +83,36 @@ jobs:
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: Lint
         run: pnpm format:check
-  test:
+  build:
+    runs-on: ubuntu-latest
+    name: Format
     needs: [format, lint]
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - name: Use Node 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install pnpm
+        run: npm i pnpm@latest -g
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile
+      - name: Lint
+        run: pnpm build
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/packages/
+          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}                    
+  test:
+    needs: build
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
         node_version: [12, 14]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
@@ -106,8 +130,10 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}            
       - name: Install
-        run: pnpm recursive install --frozen-lockfile
-      - name: Build
-        run: pnpm build
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      - uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/packages/
+          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}  
       - name: Test
         run: pnpm test
