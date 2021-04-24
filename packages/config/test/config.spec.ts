@@ -81,19 +81,30 @@ describe('check basic content parsed file', () => {
     checkDefaultConfPackages(config);
   });
 
-  test('parse storage path from environment variable if exists', () => {
-    const storageEnvName = 'env_storage';
-    process.env.VERDACCIO_STORAGE = storageEnvName;
-    const config = new Config(parseConfigFile(parseConfigurationFile('storage-from-env-variable')));
-    expect(config.storage).toBe(storageEnvName);
+  test('should set storage to value set in VERDACCIO_STORAGE_PATH environment variable', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
   });
 
-  test('should set storage to string value if it doesnt exist in environment variable', () => {
-    const storageEnvName = 'NON_EXISTING_STORAGE_ENV';
-    const config = new Config(
-      parseConfigFile(parseConfigurationFile('storage-with-non-existing-env'))
-    );
-    expect(config.storage).toBe(storageEnvName);
+  test('should set storage path to VERDACCIO_STORAGE_PATH if both config and env are set', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const config = new Config(parseConfigFile(parseConfigurationFile('storage')));
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
+  });
+
+  test('should take storage from environment variable if not exists in configs', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const defaultConfig = parseConfigFile(resolveConf('default'));
+    delete defaultConfig.storage;
+    const config = new Config(defaultConfig);
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
   });
 
   test('parse docker.yaml', () => {

@@ -1,5 +1,5 @@
 ---
-storage: VERDACCIO_STORAGE
+storage: './storage_default_storage'
 
 logs:
   - type: stdout

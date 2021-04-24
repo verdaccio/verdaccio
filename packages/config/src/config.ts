@@ -50,7 +50,7 @@ class Config implements AppConfig {
 
   public constructor(config: ConfigRuntime) {
     const self = this;
-    this.storage = process.env[config.storage as string] || config.storage;
+    this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
     this.config_path = config.config_path;
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
