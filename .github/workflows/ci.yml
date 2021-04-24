@@ -110,7 +110,7 @@ jobs:
           cd ${{ github.workspace }}/packages/
           pwd
           tree
-          tar -czvf ${{ github.workspace }}/pkg.tar.gz ./packages
+          tar -czvf ${{ github.workspace }}/pkg.tar.gz .
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-artifact
