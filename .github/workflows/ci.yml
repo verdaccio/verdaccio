@@ -141,5 +141,10 @@ jobs:
         run: tree packages                                              
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
-      - name: Test
-        run: pnpm test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: verdaccio-artifact2
+          path: |
+            !**/node_modules/**  
+      # - name: Test
+      #   run: pnpm test
