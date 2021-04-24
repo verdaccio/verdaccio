@@ -144,19 +144,12 @@ jobs:
         run: pnpm test
   ci-e2e-ui:
     needs: build
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [14]
-    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    name: UI E2E Node 14
     steps:
-      - uses: actions/checkout@v2.3.1
-      - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+      - uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node_version }}
+          node-version: 14
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
@@ -169,11 +162,36 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts 
+        ## we need scripts, pupetter downloads aditional content
+        run: pnpm recursive install --frozen-lockfile 
       - name: Test UI
         run: pnpm test:e2e:ui
         env:
           DEBUG: verdaccio:e2e*       
+  ci-e2e-cli:
+    needs: build
+    runs-on: ubuntu-latest
+    name: UI E2E Node 14
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: actions/download-artifact@v2
+        with:
+          name: verdaccio-artifact
+      - name: untar packages
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+      - name: Install pnpm
+        run: npm i pnpm@latest -g
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+      - name: Install
+        ## we need scripts, pupetter downloads aditional content
+        run: pnpm recursive install --frozen-lockfile
+      - name: Test CLI
+        run: pnpm test:e2e:cli            
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest
