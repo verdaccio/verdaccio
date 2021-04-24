@@ -102,7 +102,7 @@ jobs:
       - name: Install
         ## we run scripts due gatsby needs it
         ## when website is excluded we can add --ignore-scripts
-        run: pnpm recursive install --frozen-lockfile
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: build
         run: pnpm build
       - name: tar packages
