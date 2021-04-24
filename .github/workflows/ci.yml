@@ -131,9 +131,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
-          path: ${{ github.workspace }}  
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}          
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: Install pnpm
         run: npm i pnpm@latest -g
       - uses: actions/cache@v2
