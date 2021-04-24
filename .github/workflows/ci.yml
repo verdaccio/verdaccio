@@ -132,12 +132,12 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/packages/
-          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}                          
-      - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}
       - uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/packages/
-          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}  
+          key: pnpm-build-${{ hashFiles('pnpm-lock.yaml') }}                                    
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts 
       - name: Test
         run: pnpm test
