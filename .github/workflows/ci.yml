@@ -145,6 +145,7 @@ jobs:
         with:
           name: verdaccio-artifact2
           path: |
+            .
             !**/node_modules/**  
       # - name: Test
       #   run: pnpm test
