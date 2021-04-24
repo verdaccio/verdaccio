@@ -59,10 +59,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
-      - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
-      - name: Lint
-        run: pnpm lint
+      # - name: Install
+      #   run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      # - name: Lint
+      #   run: pnpm lint
   format:
     runs-on: ubuntu-latest
     name: Format
@@ -79,10 +79,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
-      - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
-      - name: Lint
-        run: pnpm format:check
+      # - name: Install
+      #   run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      # - name: Lint
+      #   run: pnpm format:check
   build:
     runs-on: ubuntu-latest
     name: build
@@ -129,7 +129,8 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - uses: actions/download-artifact@v2
         with:
-          name: verdaccio-artifact          
+          name: verdaccio-artifact
+          path: ${{ github.workspace }}/packages  
       - name: Install pnpm
         run: npm i pnpm@latest -g
       - uses: actions/cache@v2
