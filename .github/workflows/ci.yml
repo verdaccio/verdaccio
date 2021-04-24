@@ -105,12 +105,13 @@ jobs:
         run: pnpm recursive install --frozen-lockfile
       - name: build
         run: pnpm build
+      - name: tar packages
+        run: tar -czvf pkg.tar.gz ${{ github.workspace }}/packages
+
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-artifact
-          path: |
-            packages/*
-            !**/node_modules/**             
+          path: pkg.tar.gz            
   test:
     needs: build
     strategy:
@@ -130,7 +131,9 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
-          path: ${{ github.workspace }}/packages  
+          path: ${{ github.workspace }}  
+      - name: untar packages
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: Install pnpm
         run: npm i pnpm@latest -g
       - uses: actions/cache@v2
@@ -141,11 +144,5 @@ jobs:
         run: tree packages                                              
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: verdaccio-artifact2
-          path: |
-            packages/*
-            !**/node_modules/**  
       - name: Test
         run: pnpm test
