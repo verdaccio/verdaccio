@@ -31,7 +31,9 @@ jobs:
     - name: Install pnpm
       run: npm i pnpm@latest -g
     - name: set store
-      run: pnpm config set ./store-dir/.pnpm-store    
+      run: | 
+        mkdir ./store-dir
+        pnpm config set ./store-dir    
     - name: Install
       run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
     - uses: actions/upload-artifact@v2
