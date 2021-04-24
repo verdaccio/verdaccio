@@ -59,10 +59,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
-      # - name: Install
-      #   run: pnpm recursive install --frozen-lockfile --ignore-scripts
-      # - name: Lint
-      #   run: pnpm lint
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      - name: Lint
+        run: pnpm lint
   format:
     runs-on: ubuntu-latest
     name: Format
@@ -79,10 +79,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
-      # - name: Install
-      #   run: pnpm recursive install --frozen-lockfile --ignore-scripts
-      # - name: Lint
-      #   run: pnpm format:check
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      - name: Lint
+        run: pnpm format:check
   build:
     runs-on: ubuntu-latest
     name: build
@@ -117,11 +117,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        node_version: [14]
+        os: [ubuntu-latest, windows-latest]
+        node_version: [12, 14]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v2.3.1
       - name: Use Node ${{ matrix.node_version }}
