@@ -1,7 +1,0 @@
----
-storage: VERDACCIO_STORAGE
-
-logs:
-  - type: stdout
-    format: pretty
-    level: warn
