@@ -100,6 +100,8 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
       - name: Install
+        ## we run scripts due gatsby needs it
+        ## when website is exlclude we can add --ignore-scripts
         run: pnpm recursive install --frozen-lockfile
       - name: build
         run: pnpm build
@@ -133,7 +135,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                    
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: tree ls
+        run: tree packages                                              
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
       - name: Test
