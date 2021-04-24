@@ -193,7 +193,28 @@ jobs:
         ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
       - name: Test CLI
-        run: pnpm test:e2e:cli            
+        run: pnpm test:e2e:cli
+  website:
+    needs: [format, lint]
+    runs-on: ubuntu-latest
+    name: CLI Test E2E Node 14
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14     
+      - name: Install pnpm
+        run: npm i pnpm@latest -g
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile
+      - name: Build website
+        run: |
+          cd website
+          pnpm build:website                    
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest
