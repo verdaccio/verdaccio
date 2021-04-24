@@ -17,7 +17,7 @@
     "clean": "rimraf ./dist",
     "lint": "eslint . --ext .js,.ts",
     "build:web": "ts-node ./scripts/web.ts",
-    "build": "pnpm run clean && webpack --progress && pnpm run build:web",
+    "build:standalone": "pnpm run clean && webpack --progress && pnpm run build:web",
     "build:stats": "webpack --json > stats.json",
     "build:size": "webpack --json | webpack-bundle-size-analyzer"
   },

@@ -71,7 +71,7 @@
   "license": "MIT",
   "scripts": {
     "lisan:compile": "lisan compile",
-    "build": "gatsby build",
+    "build:website": "gatsby build",
     "clean": "gatsby clean",
     "serve": "gatsby serve",
     "develop": "gatsby develop",
