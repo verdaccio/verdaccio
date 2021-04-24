@@ -44,7 +44,7 @@ jobs:
     #     name: pnpm-store
     #     path: ~/store.tar.gz
     - name: Cache .pnpm-store
-      uses: actions/cache
+      uses: actions/cache@v2
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
