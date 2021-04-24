@@ -109,7 +109,7 @@ jobs:
         with:
           name: verdaccio-artifact
           path: |
-            packages/*/build/**/*
+            packages/*
             !**/node_modules/**             
   test:
     needs: build
@@ -147,5 +147,5 @@ jobs:
           path: |
             packages/*
             !**/node_modules/**  
-      # - name: Test
-      #   run: pnpm test
+      - name: Test
+        run: pnpm test
