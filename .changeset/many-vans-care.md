@@ -8,7 +8,9 @@
 ---
 
 Bug Fixes
-* fix escaped slash in namespaced packages  
+
+- fix escaped slash in namespaced packages
 
 #### Related tickets
+
 https://github.com/verdaccio/verdaccio/pull/2193
