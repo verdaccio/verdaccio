@@ -2,7 +2,7 @@
 '@verdaccio/config': patch
 ---
 
-Feature Fixes
+Feature
 
 - add option to set storage from environment variable VERDACCIO_STORAGE_PATH
 
