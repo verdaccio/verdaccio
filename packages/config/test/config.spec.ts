@@ -10,6 +10,7 @@ import {
   ROLES,
   WEB_TITLE,
 } from '../src';
+import { parseConfigurationFile } from './utils';
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -78,6 +79,32 @@ describe('check basic content parsed file', () => {
     expect(config.storage).toBe('./storage');
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
     checkDefaultConfPackages(config);
+  });
+
+  test('should set storage to value set in VERDACCIO_STORAGE_PATH environment variable', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
+  });
+
+  test('should set storage path to VERDACCIO_STORAGE_PATH if both config and env are set', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const config = new Config(parseConfigFile(parseConfigurationFile('storage')));
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
+  });
+
+  test('should take storage from environment variable if not exists in configs', () => {
+    const storageLocation = '/tmp/verdaccio';
+    process.env.VERDACCIO_STORAGE_PATH = storageLocation;
+    const defaultConfig = parseConfigFile(resolveConf('default'));
+    delete defaultConfig.storage;
+    const config = new Config(defaultConfig);
+    expect(config.storage).toBe(storageLocation);
+    delete process.env.VERDACCIO_STORAGE_PATH;
   });
 
   test('parse docker.yaml', () => {
