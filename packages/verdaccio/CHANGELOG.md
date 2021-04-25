@@ -1,5 +1,25 @@
 # verdaccio
 
+## 6.0.0-6-next.12
+
+### Patch Changes
+
+- 648575aa: Bug Fixes
+
+  - fix escaped slash in namespaced packages
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/pull/2193
+
+- Updated dependencies [648575aa]
+  - @verdaccio/mock@6.0.0-6-next.5
+  - @verdaccio/ui-theme@6.0.0-6-next.6
+  - @verdaccio/utils@6.0.0-6-next.4
+  - @verdaccio/cli@6.0.0-6-next.11
+  - @verdaccio/hooks@6.0.0-6-next.4
+  - @verdaccio/node-api@6.0.0-6-next.11
+
 ## 6.0.0-6-next.11
 
 ### Major Changes

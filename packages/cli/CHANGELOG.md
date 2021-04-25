@@ -1,5 +1,13 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.11
+
+### Patch Changes
+
+- Updated dependencies [1810ed0d]
+  - @verdaccio/config@6.0.0-6-next.5
+  - @verdaccio/node-api@6.0.0-6-next.11
+
 ## 6.0.0-6-next.10
 
 ### Major Changes

@@ -1,5 +1,20 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- 1810ed0d: Feature
+
+  - add option to set storage from environment variable VERDACCIO_STORAGE_PATH
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/issues/1681
+
+- Updated dependencies [648575aa]
+  - @verdaccio/utils@6.0.0-6-next.4
+
 ## 6.0.0-6-next.4
 
 ### Major Changes

@@ -1,5 +1,19 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.10
+
+### Patch Changes
+
+- Updated dependencies [1810ed0d]
+- Updated dependencies [648575aa]
+  - @verdaccio/config@6.0.0-6-next.5
+  - @verdaccio/tarball@11.0.0-6-next.5
+  - @verdaccio/utils@6.0.0-6-next.4
+  - @verdaccio/auth@6.0.0-6-next.7
+  - @verdaccio/loaders@6.0.0-6-next.4
+  - @verdaccio/store@6.0.0-6-next.7
+  - @verdaccio/middleware@6.0.0-6-next.7
+
 ## 6.0.0-6-next.9
 
 ### Patch Changes

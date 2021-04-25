@@ -1,5 +1,22 @@
 # @verdaccio/mock
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- 648575aa: Bug Fixes
+
+  - fix escaped slash in namespaced packages
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/pull/2193
+
+- Updated dependencies [1810ed0d]
+- Updated dependencies [648575aa]
+  - @verdaccio/config@6.0.0-6-next.5
+  - @verdaccio/utils@6.0.0-6-next.4
+
 ## 6.0.0-6-next.4
 
 ### Patch Changes
