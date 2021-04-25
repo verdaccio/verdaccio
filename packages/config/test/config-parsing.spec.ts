@@ -1,14 +1,7 @@
-import path from 'path';
 import { parseConfigFile } from '../src';
+import { parseConfigurationFile } from './utils';
 
 describe('Package access utilities', () => {
-  const parseConfigurationFile = (conf) => {
-    const { name, ext } = path.parse(conf);
-    const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
-
-    return path.join(__dirname, `./partials/config/${format}/${name}.${format}`);
-  };
-
   describe('JSON format', () => {
     test('parse default.json', () => {
       const config = parseConfigFile(parseConfigurationFile('default.json'));
