@@ -268,7 +268,7 @@ All commits message are going to be validated when they are created using husky 
 
 We use [changesets](https://github.com/atlassian/changesets) in order to generate a detailed Changelog as possible.
 
-Add a changeset with your Pull Request is essential if you want your contribution get merged. To create a changeset please run:
+Add a changeset with your Pull Request is essential if you want your contribution get merged (unless is a change that does not affect library functionality, eg: typo, docs, readme, add additional test or linting code). To create a changeset please run:
 
 ```
 pnpm changeset
