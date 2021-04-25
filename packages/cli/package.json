@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@verdaccio/config": "workspace:6.0.0-6-next.5",
-    "@verdaccio/cli-ui": "workspace:6.0.0-alpha.3",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.11",
     "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.9",
     "commander": "6.2.0",

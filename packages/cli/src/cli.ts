@@ -1,5 +1,5 @@
-import { displayError } from '@verdaccio/cli-ui';
 import { Cli } from 'clipanion';
+
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
@@ -32,7 +32,7 @@ cli.register(NewServer);
 cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {
-  displayError(
+  console.error(
     // eslint-disable-next-line max-len
     `uncaught exception, please report (https://github.com/verdaccio/verdaccio/issues) this: \n${err.stack}`
   );

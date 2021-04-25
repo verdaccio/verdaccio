@@ -371,7 +371,9 @@ declare module '@verdaccio/types' {
     storage?: string | void;
     packages: PackageList;
     uplinks: UpLinksConfList;
+    // @deprecated in favor of log
     logs?: LoggerConf[];
+    log?: LoggerConf[];
     web?: WebConf;
     auth?: AuthConf;
     security: Security;

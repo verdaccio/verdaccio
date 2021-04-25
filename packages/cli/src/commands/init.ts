@@ -1,6 +1,8 @@
 import { Command, Option } from 'clipanion';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { setup, logger } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
+import { ConfigRuntime } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -41,10 +43,23 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
+  private initLogger(logConfig: ConfigRuntime) {
+    try {
+      if (logConfig.logs) {
+        process.emitWarning('config.logs is deprecated, rename configuration to "config.log"');
+      }
+      // FUTURE: remove fallback when is ready
+      setup(logConfig.log || logConfig.logs);
+    } catch {
+      throw new Error('error on init logger');
+    }
+  }
+
   public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
       const configParsed = parseConfigFile(configPathLocation);
+      this.initLogger(configParsed);
       const { web } = configParsed;
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
@@ -52,6 +67,7 @@ export class InitCommand extends Command {
       const { version, name } = require('../../package.json');
 
       await initServer(configParsed, this.port as string, version, name);
+      logger.info('server started');
     } catch (err) {
       console.error(err);
       process.exit(1);
