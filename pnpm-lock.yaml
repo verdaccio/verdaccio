@@ -548,7 +548,6 @@ importers:
   packages/logger-prettify:
     specifiers:
       '@types/pino': 6.0.1
-      '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       dayjs: 1.8.36
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
@@ -557,7 +556,6 @@ importers:
       prettier-bytes: 1.0.4
       pretty-ms: 5.1.0
     dependencies:
-      '@verdaccio/commons-api': link:../core/commons-api
       dayjs: 1.8.36
       fast-safe-stringify: 2.0.7
       kleur: 3.0.3
