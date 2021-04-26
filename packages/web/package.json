@@ -44,7 +44,7 @@
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.5",
     "verdaccio-auth-memory": "workspace:11.0.0-alpha.3",
     "verdaccio-memory": "workspace:11.0.0-6-next.4",
     "supertest": "^6.1.3",

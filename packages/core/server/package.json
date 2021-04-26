@@ -37,7 +37,7 @@
     "fastify": "3.14.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4"
+    "@verdaccio/types": "workspace:11.0.0-6-next.5"
   },
   "scripts": {
     "clean": "rimraf ./build",

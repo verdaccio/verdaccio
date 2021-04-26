@@ -39,13 +39,15 @@
     "@verdaccio/e2e-ui": "1.0.0",
     "@verdaccio/cli-standalone": "6.0.0-alpha.3",
     "@verdaccio/tarball": "11.0.0-alpha.3",
-    "@verdaccio/url": "11.0.0-alpha.3"
+    "@verdaccio/url": "11.0.0-alpha.3",
+    "@verdaccio/fastify-migration": "6.0.0-6-next.9"
   },
   "changesets": [
     "big-lobsters-sin",
     "few-cooks-destroy",
     "fifty-jars-rest",
     "gentle-trains-switch",
+    "healthy-bikes-behave",
     "healthy-poets-compare",
     "hip-hounds-destroy",
     "late-adults-love",

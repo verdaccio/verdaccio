@@ -50,7 +50,7 @@
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4"
+    "@verdaccio/types": "workspace:11.0.0-6-next.5"
   },
   "funding": {
     "type": "opencollective",
