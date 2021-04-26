@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@types/activedirectory2": "^1.2.1",
-    "@verdaccio/types": "workspace:11.0.0-6-next.4"
+    "@verdaccio/types": "workspace:11.0.0-6-next.5"
   },
   "scripts": {
     "clean": "rimraf ./build",

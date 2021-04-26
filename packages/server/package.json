@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server",
-  "version": "6.0.0-6-next.10",
+  "version": "6.0.0-6-next.11",
   "description": "server logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",

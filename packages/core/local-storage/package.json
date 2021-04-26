@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
-    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.5",
     "minimatch": "^3.0.4",
     "rmdir-sync": "^1.0.1"
   },

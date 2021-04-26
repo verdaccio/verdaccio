@@ -37,7 +37,7 @@
     "@verdaccio/streams": "workspace:11.0.0-alpha.3"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.5",
     "memory-fs": "0.5.0"
   },
   "optionalDependencies": {

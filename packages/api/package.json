@@ -56,8 +56,8 @@
     "semver": "7.3.2"
   },
   "devDependencies": {
-    "@verdaccio/server": "workspace:6.0.0-6-next.10",
-    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "@verdaccio/server": "workspace:6.0.0-6-next.11",
+    "@verdaccio/types": "workspace:11.0.0-6-next.5",
     "body-parser": "1.19.0",
     "lodash": "^4.17.20",
     "supertest": "next"

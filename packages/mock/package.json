@@ -49,7 +49,7 @@
     "supertest": "^4.0.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4"
+    "@verdaccio/types": "workspace:11.0.0-6-next.5"
   },
   "funding": {
     "type": "opencollective",

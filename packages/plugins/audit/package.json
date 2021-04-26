@@ -36,7 +36,7 @@
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.4",
+    "@verdaccio/types": "workspace:11.0.0-6-next.5",
     "body-parser": "^1.19.0",
     "nock": "^12.0.3",
     "supertest": "^4.0.2"
