@@ -18,7 +18,7 @@ import { ConfigRuntime } from '@verdaccio/types';
 
 import { IAuth, IBasicAuth } from '@verdaccio/auth';
 import { IStorageHandler } from '@verdaccio/store';
-import { setup, logger } from '@verdaccio/logger';
+import { logger } from '@verdaccio/logger';
 import { log, final, errorReportingMiddleware } from '@verdaccio/middleware';
 import AuditMiddleware from 'verdaccio-audit';
 
@@ -143,7 +143,6 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 };
 
 export default (async function (configHash: ConfigRuntime): Promise<any> {
-  setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins
   const plugin_params = {
