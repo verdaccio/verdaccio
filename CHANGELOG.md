@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.3](https://github.com/verdaccio/verdaccio/compare/v5.0.2...v5.0.3) (2021-04-27)
+
+
+### Bug Fixes
+
+* update @verdaccio/ui-theme ([#2207](https://github.com/verdaccio/verdaccio/issues/2207)) ([ced47d5](https://github.com/verdaccio/verdaccio/commit/ced47d56fcb577b88a2ee6914d9b738b157fd08d))
+
 ### [5.0.2](https://github.com/verdaccio/verdaccio/compare/v5.0.1...v5.0.2) (2021-04-27)
 
 
