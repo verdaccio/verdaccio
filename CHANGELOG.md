@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.2](https://github.com/verdaccio/verdaccio/compare/v5.0.1...v5.0.2) (2021-04-27)
+
+
+### Bug Fixes
+
+* incorrect sanity check for theme plugin ([#2205](https://github.com/verdaccio/verdaccio/issues/2205)) ([d8b62cf](https://github.com/verdaccio/verdaccio/commit/d8b62cff530b1be207278a319f1989d45f5815df))
+
 ### [5.0.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0...v5.0.1) (2021-04-10)
 
 
