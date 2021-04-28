@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.4](https://github.com/verdaccio/verdaccio/compare/v5.0.3...v5.0.4) (2021-04-28)
+
+
+### Bug Fixes
+
+* scoped query support ([#2208](https://github.com/verdaccio/verdaccio/issues/2208)) ([01c5d2c](https://github.com/verdaccio/verdaccio/commit/01c5d2ca2735d52727e4bcde9e8bad639d8594c9))
+
 ### [5.0.3](https://github.com/verdaccio/verdaccio/compare/v5.0.2...v5.0.3) (2021-04-27)
 
 
