@@ -180,8 +180,7 @@ describe('endpoint web unit test', () => {
           .end(function (err, res) {
             // in a normal world, the output would be 1
             // https://github.com/verdaccio/verdaccio/issues/345
-            // should fix this
-            expect(res.body).toHaveLength(0);
+            expect(res.body).toHaveLength(1);
             done();
           });
       });

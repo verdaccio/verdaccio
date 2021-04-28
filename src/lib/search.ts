@@ -43,13 +43,23 @@ class Search implements IWebSearch {
   public query(query: string): any[] {
     const localStorage = this.storage.localStorage as IStorage;
 
-    return query === '*'
+    const hasScope = query.startsWith('@');
+    // FIXME: lunr-mutable-indexes ignored '@' during indexing
+    if (hasScope) {
+      query = query.replace('@', '');
+    }
+
+    const results = query === '*'
       ? localStorage.storagePlugin.get((items): any => {
           items.map(function (pkg): any {
             return { ref: pkg, score: 1 };
           });
         })
       : this.index.search(`*${query}*`);
+
+    return hasScope
+      ? results.filter(({ ref }) => ref.startsWith('@'))
+      : results;
   }
 
   /**
