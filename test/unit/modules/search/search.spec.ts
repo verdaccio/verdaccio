@@ -27,6 +27,20 @@ let packages = [
     _npmUser: {
       name: 'test_user'
     }
+  },
+  {
+    name: '@verdaccio/scope',
+    description: 'scope',
+    _npmUser: {
+      name: 'scope_user'
+    }
+  },
+  {
+    name: '@any/scope',
+    description: 'scope',
+    _npmUser: {
+      name: 'scope_user'
+    }
   }
 ];
 
@@ -46,6 +60,13 @@ describe('search', () => {
     let result = Search.query('t');
     expect(result).toHaveLength(3);
   });
+
+  test('search query with @scope', () => {
+    let result = Search.query('@');
+    expect(result).toHaveLength(2);
+    result = Search.query('@verdaccio');
+    expect(result).toHaveLength(1);
+  })
 
   test('search remove item', () => {
     let item = {

@@ -19,7 +19,7 @@ export function loadTheme(config) {
         config.theme,
         {},
         function (plugin) {
-          return _.isString(plugin);
+          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
         },
         'verdaccio-theme'
       )

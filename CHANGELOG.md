@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.4](https://github.com/verdaccio/verdaccio/compare/v5.0.3...v5.0.4) (2021-04-28)
+
+
+### Bug Fixes
+
+* scoped query support ([#2208](https://github.com/verdaccio/verdaccio/issues/2208)) ([01c5d2c](https://github.com/verdaccio/verdaccio/commit/01c5d2ca2735d52727e4bcde9e8bad639d8594c9))
+
+### [5.0.3](https://github.com/verdaccio/verdaccio/compare/v5.0.2...v5.0.3) (2021-04-27)
+
+
+### Bug Fixes
+
+* update @verdaccio/ui-theme ([#2207](https://github.com/verdaccio/verdaccio/issues/2207)) ([ced47d5](https://github.com/verdaccio/verdaccio/commit/ced47d56fcb577b88a2ee6914d9b738b157fd08d))
+
+### [5.0.2](https://github.com/verdaccio/verdaccio/compare/v5.0.1...v5.0.2) (2021-04-27)
+
+
+### Bug Fixes
+
+* incorrect sanity check for theme plugin ([#2205](https://github.com/verdaccio/verdaccio/issues/2205)) ([d8b62cf](https://github.com/verdaccio/verdaccio/commit/d8b62cff530b1be207278a319f1989d45f5815df))
+
 ### [5.0.1](https://github.com/verdaccio/verdaccio/compare/v5.0.0...v5.0.1) (2021-04-10)
 
 
