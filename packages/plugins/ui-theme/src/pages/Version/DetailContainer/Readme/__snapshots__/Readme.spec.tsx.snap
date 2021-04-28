@@ -9,6 +9,10 @@ Object {
   padding: 16px 24px;
 }
 
+.emotion-0 ul {
+  list-style: disc;
+}
+
 <body>
     <div>
       <div
@@ -22,6 +26,10 @@ Object {
   background: #fff;
   color: #000;
   padding: 16px 24px;
+}
+
+.emotion-0 ul {
+  list-style: disc;
 }
 
 <div>
