@@ -16,4 +16,7 @@ const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   background: theme?.palette.white,
   color: theme?.palette.black,
   padding: theme?.spacing(2, 3),
+  ul: {
+    listStyle: 'disc',
+  },
 }));
