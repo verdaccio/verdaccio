@@ -1,8 +1,7 @@
 import pino from 'pino';
+import SonicBoom from 'sonic-boom';
 import _ from 'lodash';
 import buildDebug from 'debug';
-import { yellow } from 'kleur';
-import { padLeft } from './utils';
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -19,32 +18,40 @@ export type LogPlugin = {
 
 export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
+export type CreateLoggerConfig = {
+  options?: { level: string };
+  destination?: SonicBoom;
+  format?: LogFormat;
+  prettyPrintOptions?: {
+    suppressFlushSyncWarning: boolean;
+  };
+};
 
-export function createLogger(
-  options = {level: 'http'},
-  destination = pino.destination(1),
-  format: LogFormat = DEFAULT_LOG_FORMAT,
+export function createLogger({
+  options = { level: 'http' },
+  destination,
+  format = DEFAULT_LOG_FORMAT,
   prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
     // https://getpino.io/#/docs/pretty?id=prettifier-api
-    suppressFlushSyncWarning: true,
+    suppressFlushSyncWarning: true
   }
-) {
+}: CreateLoggerConfig) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
   }
 
   let pinoConfig = {
     customLevels: {
-      http: 25,
+      http: 25
     },
     ...options,
     level: options.level,
     serializers: {
       err: pino.stdSerializers.err,
       req: pino.stdSerializers.req,
-      res: pino.stdSerializers.res,
-    },
+      res: pino.stdSerializers.res
+    }
   };
 
   debug('has prettifier? %o', !isProd());
@@ -56,17 +63,18 @@ export function createLogger(
       prettyPrint: {
         levelFirst: true,
         prettyStamp: format === 'pretty-timestamped',
-        ...prettyPrintOptions,
+        ...prettyPrintOptions
       },
-      prettifier: require('./formatter'),
+      prettifier: require('./formatter')
     });
   }
-  const logger = pino(pinoConfig, destination);
 
-  if(process.env.DEBUG) {
+  const logger = destination ? pino(pinoConfig, pino.destination(1)) : pino(pinoConfig);
+
+  if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
       debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
-    })
+    });
   }
 
   return logger;
@@ -84,7 +92,7 @@ export function getLogger() {
 const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
   type: 'stdout',
   format: 'pretty',
-  level: 'http',
+  level: 'http'
 };
 
 export type LoggerConfigItem = {
@@ -110,21 +118,25 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   // next major will thrown an error
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
-    loggerConfig = Object.assign({}, {
-      level: 'http',
-    }, loggerConfig);
+    loggerConfig = Object.assign(
+      {},
+      {
+        level: 'http'
+      },
+      loggerConfig
+    );
   }
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
-    logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
+    logger = createLogger({ options: pinoConfig, destination: pino.destination(loggerConfig.path), format: loggerConfig.format });
   } else if (loggerConfig.type === 'rotating-file') {
     process.emitWarning('rotating-file type is not longer supported, consider use [logrotate] instead');
     debug('logging stdout enabled');
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger({ options: pinoConfig, destination: pino.destination(1), format: loggerConfig.format });
   } else {
     debug('logging stdout enabled');
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger({ options: pinoConfig, format: loggerConfig.format });
   }
 
   if (isProd()) {
