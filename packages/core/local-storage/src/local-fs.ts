@@ -5,7 +5,6 @@ import path from 'path';
 import buildDebug from 'debug';
 
 import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
 import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/types';
@@ -353,7 +352,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     createTempFile((err) => {
       if (err && err.code === noSuchFile) {
-        mkdirp(path.dirname(dest), function (err) {
+        fs.mkdir(path.dirname(dest), { recursive: true }, function (err) {
           if (err) {
             return cb(err);
           }

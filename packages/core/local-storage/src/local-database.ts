@@ -4,7 +4,6 @@ import buildDebug from 'debug';
 
 import _ from 'lodash';
 import async from 'async';
-import mkdirp from 'mkdirp';
 import {
   Callback,
   Config,
@@ -276,10 +275,9 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
     }
     // Uses sync to prevent ugly race condition
     try {
-      // https://www.npmjs.com/package/mkdirp#mkdirpsyncdir-opts
       const folderName = Path.dirname(this.path);
       debug('creating folder %o', folderName);
-      mkdirp.sync(folderName);
+      fs.mkdirSync(folderName, { recursive: true });
       debug('sync folder %o created succeed', folderName);
     } catch (err) {
       debug('sync create folder has failed with error: %o', err);

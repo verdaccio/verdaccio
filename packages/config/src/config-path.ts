@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import Path from 'path';
 import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import buildDebug from 'debug';
 
 import { CHARACTER_ENCODING } from '@verdaccio/commons-api';
@@ -67,7 +66,7 @@ export function readDefaultConfig(): Buffer {
 }
 
 function createConfigFolder(configLocation): void {
-  mkdirp.sync(Path.dirname(configLocation.path));
+  fs.mkdirSync(Path.dirname(configLocation.path), { recursive: true });
   debug(`Creating default config file in %o`, configLocation?.path);
 }
 
