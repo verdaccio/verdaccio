@@ -13,19 +13,19 @@ import { HttpError } from 'http-errors';
 
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
-import { S3Config } from './config';
+import { S3Configuration } from './config';
 import addTrailingSlash from './addTrailingSlash';
 
 const pkgFileName = 'package.json';
 
 export default class S3PackageManager implements ILocalPackageManager {
-  public config: S3Config;
+  public config: S3Configuration;
   public logger: Logger;
   private readonly packageName: string;
   private readonly s3: S3;
   private readonly packagePath: string;
 
-  public constructor(config: S3Config, packageName: string, logger: Logger) {
+  public constructor(config: S3Configuration, packageName: string, logger: Logger) {
     this.config = config;
     this.packageName = packageName;
     this.logger = logger;

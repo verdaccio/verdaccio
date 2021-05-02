@@ -14,7 +14,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=12",
     "npm": ">=6"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -33,10 +33,14 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/streams": "workspace:11.0.0-alpha.3",
-    "aws-sdk": "^2.607.0"
+    "@aws-sdk/client-s3": "3.14.0",
+    "@aws-sdk/client-dynamodb": "3.14.0",
+    "@aws-sdk/util-dynamodb": "3.14.0",
+    "aws-sdk": "2.897.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
+    "@aws-sdk/types": "^3.13.1",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {
@@ -45,7 +49,8 @@
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "start": "ts-node src/s3.ts"
   },
   "funding": {
     "type": "opencollective",

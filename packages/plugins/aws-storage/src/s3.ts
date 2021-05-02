@@ -9,7 +9,8 @@ import {
   TokenFilter,
 } from '@verdaccio/types';
 import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
-import { S3 } from 'aws-sdk';
+import { S3Client, PutObjectCommand, CreateBucketCommand } from '@aws-sdk/client-s3';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 
 import { S3Configuration } from './config';
 import S3PackageManager from './s3PackageManager';
@@ -17,10 +18,49 @@ import { convertS3Error, is404Error } from './s3Errors';
 import addTrailingSlash from './addTrailingSlash';
 import setConfigValue from './setConfigValue';
 
+// AWS v3 Documentation
+// https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html
+
+// console.log("s3------------------->");
+// // Set the AWS region
+// const REGION = "us-east-1"; // e.g., "us-east-1"
+
+// // Set the bucket parameters
+// const bucketName = "verdaccio1";
+// const bucketParams = { Bucket: bucketName };
+
+// // Create name for uploaded object key
+// const keyName = "hello_world.txt";
+// const objectParams = { Bucket: bucketName, Key: keyName, Body: "Hello World!" };
+
+// // Create an S3 client service object
+// const s3 = new S3Client({ region: REGION });
+//   console.log("s3----->", s3);
+// const run = async () => {
+//   // Create S3 bucket
+//   try {
+//     const data = await s3.send(new CreateBucketCommand(bucketParams));
+//     console.log("Success. Bucket created.");
+//   } catch (err) {
+//     console.log("Error", err);
+//   }
+//   try {
+//     const results = await s3.send(new PutObjectCommand(objectParams));
+//     console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+//   } catch (err) {
+//     console.log("Error", err);
+//   }
+// };
+
+// (async () => {
+//   run();
+// })();
+
 export default class S3Database implements IPluginStorage<S3Configuration> {
   public logger: Logger;
   public config: S3Configuration;
-  private s3: S3;
+  private s3: S3Client | null;
+  private db: DynamoDBClient | null;
   private _localData: LocalStorage | null;
 
   public constructor(config: Config, options: PluginOptions<S3Configuration>) {
@@ -35,39 +75,59 @@ export default class S3Database implements IPluginStorage<S3Configuration> {
       throw new Error('s3 storage requires a bucket');
     }
 
-    this.config.bucket = setConfigValue(this.config.bucket);
+    this.config.useDBFile = false;
+    this.config.this.config.bucket = setConfigValue(this.config.bucket);
     this.config.keyPrefix = setConfigValue(this.config.keyPrefix);
     this.config.endpoint = setConfigValue(this.config.endpoint);
     this.config.region = setConfigValue(this.config.region);
     this.config.accessKeyId = setConfigValue(this.config.accessKeyId);
     this.config.secretAccessKey = setConfigValue(this.config.secretAccessKey);
     this.config.sessionToken = setConfigValue(this.config.sessionToken);
-
     const configKeyPrefix = this.config.keyPrefix;
     this._localData = null;
     this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
-
     this.logger.debug(
       { config: JSON.stringify(this.config, null, 4) },
       's3: configuration: @{config}'
     );
+    this.s3 = null;
+    this.db = null;
+  }
 
-    this.s3 = new S3({
-      endpoint: this.config.endpoint,
-      region: this.config.region,
-      s3ForcePathStyle: this.config.s3ForcePathStyle,
-      accessKeyId: this.config.accessKeyId,
-      secretAccessKey: this.config.secretAccessKey,
-      sessionToken: this.config.sessionToken,
+  public init(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // eslint-disable-next-line max-len
+      // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html
+      const credentials = {
+        accessKeyId: this.config.accessKeyId,
+        secretAccessKey: this.config.secretAccessKey,
+        sessionToken: this.config.sessionToken,
+      };
+      try {
+        this.s3 = new S3Client({
+          endpoint: this.config.endpoint,
+          region: this.config.region,
+          // FIXME: does not exist on v3
+          // s3ForcePathStyle: this.config.s3ForcePathStyle,
+          credentials,
+        });
+        // for storing private packages and secret
+        this.db = new DynamoDBClient({
+          region: this.config.region,
+          endpoint: this.config.endpoint,
+          credentials,
+        });
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 
-  public init() {
-    return Promise.resolve();
-  }
-
   public async getSecret(): Promise<string> {
-    return Promise.resolve((await this._getData()).secret);
+    if (this.config.useDBFile) {
+      return Promise.resolve((await this._getData()).secret);
+    }
   }
 
   public async setSecret(secret: string): Promise<void> {

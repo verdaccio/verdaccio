@@ -8,5 +8,6 @@
     "storage_default_storage": true,
     ".yarn": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.formatOnSave": true
 }
