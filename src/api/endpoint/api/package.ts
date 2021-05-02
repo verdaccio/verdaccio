@@ -33,24 +33,28 @@ const downloadStream = (
   stream.pipe(res);
 };
 
-const downloadStreamOrRedirect = (packageName: string, filename: string, storage: any, req: $RequestExtend, res: $ResponseExtend, config: Config): void => {
-  if (config.tarball_url_redirect) {
-    storage.hasLocalTarball(packageName, filename).then(hasLocalTarball => {
-      if (hasLocalTarball) {
-        const context = { packageName, filename };
-        const tarballUrl = typeof config.tarball_url_redirect === 'function'
-          ? config.tarball_url_redirect(context)
-          : _.template(config.tarball_url_redirect)(context);
-        res.redirect(tarballUrl);
-      } else {
-        downloadStream(packageName, filename, storage, req, res)
-      }
-    }).catch(err => {
-      res.locals.report_error(err);
-    });
-  } else {
-    downloadStream(packageName, filename, storage, req, res)
-  }
+const redirectOrDownloadStream = (
+  packageName: string,
+  filename: string,
+  storage: any,
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  config: Config
+): void => {
+  const tarballUrlRedirect = _.get(config, 'experiments.tarball_url_redirect');
+  storage.hasLocalTarball(packageName, filename).then(hasLocalTarball => {
+    if (hasLocalTarball) {
+      const context = { packageName, filename };
+      const tarballUrl = typeof tarballUrlRedirect === 'function'
+        ? tarballUrlRedirect(context)
+        : _.template(tarballUrlRedirect)(context);
+      res.redirect(tarballUrl);
+    } else {
+      downloadStream(packageName, filename, storage, req, res)
+    }
+  }).catch(err => {
+    res.locals.report_error(err);
+  });
 }
 
 export default function (
@@ -107,8 +111,11 @@ export default function (
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend): void {
       const { scopedPackage, filename } = req.params;
-
-      downloadStreamOrRedirect(scopedPackage, filename, storage, req, res, config);
+      if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
+        downloadStream(scopedPackage, filename, storage, req, res);
+      } else {
+        redirectOrDownloadStream(scopedPackage, filename, storage, req, res, config);
+      }
     }
   );
 
@@ -116,7 +123,11 @@ export default function (
     '/:package/-/:filename',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend): void {
-      downloadStreamOrRedirect(req.params.package, req.params.filename, storage, req, res, config);
+      if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
+        downloadStream(req.params.package, req.params.filename, storage, req, res);
+      } else {
+        redirectOrDownloadStream(req.params.package, req.params.filename, storage, req, res, config);
+      }
     }
   );
 }

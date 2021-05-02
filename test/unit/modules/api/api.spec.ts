@@ -1020,7 +1020,9 @@ describe('endpoint unit test', () => {
         beforeAll(async (done) => {
           app2 = await endPointAPI({
             ...baseTestConfig,
-            tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
+            experiments: {
+              tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
+            }
           });
           done();
         });
@@ -1057,8 +1059,10 @@ describe('endpoint unit test', () => {
         beforeAll(async (done) => {
           app2 = await endPointAPI({
             ...baseTestConfig,
-            tarball_url_redirect(context) {
-              return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`
+            experiments: {
+              tarball_url_redirect(context) {
+                return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`
+              }
             }
           });
           done();
