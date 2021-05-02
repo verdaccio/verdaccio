@@ -1,5 +1,15 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [1b217fd3]
+  - @verdaccio/config@6.0.0-6-next.6
+  - @verdaccio/local-storage@11.0.0-6-next.6
+  - @verdaccio/loaders@6.0.0-6-next.4
+  - @verdaccio/proxy@6.0.0-6-next.8
+
 ## 6.0.0-6-next.7
 
 ### Patch Changes

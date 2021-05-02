@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "11.0.0-6-next.5",
+  "version": "11.0.0-6-next.6",
   "description": "Local storage implementation",
   "keywords": [
     "private",
