@@ -45,7 +45,6 @@
     "js-yaml": "3.14.0",
     "lodash": "^4.17.20",
     "minimatch": "3.0.4",
-    "mkdirp": "0.5.5",
     "yup": "^0.29.3"
   },
   "devDependencies": {

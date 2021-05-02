@@ -1,7 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 
-import mkdirp from 'mkdirp';
 import rm from 'rmdir-sync';
 import { Logger, ILocalPackageManager, Package } from '@verdaccio/types';
 
@@ -113,7 +112,7 @@ describe('Local FS test', () => {
 
   describe('removePackage() group', () => {
     beforeEach(() => {
-      mkdirp.sync(path.join(localTempStorage, '_toDelete'));
+      fs.mkdirSync(path.join(localTempStorage, '_toDelete'), { recursive: true });
     });
 
     test('removePackage() success', (done) => {
@@ -183,7 +182,7 @@ describe('Local FS test', () => {
     beforeEach(() => {
       const writeTarballFolder: string = path.join(localTempStorage, '_writeTarball');
       rm(writeTarballFolder);
-      mkdirp.sync(writeTarballFolder);
+      fs.mkdirSync(writeTarballFolder, { recursive: true });
     });
 
     test('writeTarball() success', (done) => {

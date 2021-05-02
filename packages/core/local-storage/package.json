@@ -43,8 +43,7 @@
     "async": "^3.2.0",
     "debug": "^4.1.1",
     "lodash": "^4.17.20",
-    "lowdb": "1.0.0",
-    "mkdirp": "^0.5.5"
+    "lowdb": "1.0.0"
   },
   "devDependencies": {
     "@types/minimatch": "^3.0.3",
