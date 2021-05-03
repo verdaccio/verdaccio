@@ -978,6 +978,124 @@ describe('endpoint unit test', () => {
       });
     });
 
+    describe('should test tarball url redirect', () => {
+      const pkgName = 'testTarballPackage';
+      const scopedPkgName = '@tarball_tester/testTarballPackage';
+      const tarballUrlRedirectCredentials = { name: 'tarball_tester', password: 'secretPass' };
+      const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
+      const mockServerPort = 55549;
+      const baseTestConfig = configDefault({
+        auth: {
+          htpasswd: {
+            file: './test-storage-api-spec/.htpasswd'
+          }
+        },
+        filters: {
+          '../../modules/api/partials/plugin/filter': {
+            pkg: 'npm_test',
+            version: '2.0.0'
+          }
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+          }
+        },
+        logs: [
+          { type: 'stdout', format: 'pretty', level: 'warn' }
+        ],
+      }, 'api.spec.yaml');
+      let token;
+      beforeAll(async (done) => {
+        token = await getNewToken(request(app), tarballUrlRedirectCredentials);
+        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
+        await putPackage(request(app), `/${scopedPkgName}`, generatePackageMetadata(scopedPkgName), token);
+        done();
+      });
+
+      describe('for a string value of tarball_url_redirect', () => {
+        let app2;
+        beforeAll(async (done) => {
+          app2 = await endPointAPI({
+            ...baseTestConfig,
+            experiments: {
+              tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
+            }
+          });
+          done();
+        });
+
+        test('should redirect for package tarball', (done) => {
+          request(app2)
+            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+
+        test('should redirect for scoped package tarball', (done) => {
+          request(app2)
+            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+      });
+
+      describe('for a function value of tarball_url_redirect', () => {
+        let app2;
+        beforeAll(async (done) => {
+          app2 = await endPointAPI({
+            ...baseTestConfig,
+            experiments: {
+              tarball_url_redirect(context) {
+                return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`
+              }
+            }
+          });
+          done();
+        });
+
+        test('should redirect for package tarball', (done) => {
+          request(app2)
+            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+
+        test('should redirect for scoped package tarball', (done) => {
+          request(app2)
+            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              done();
+            });
+        });
+      });
+    });
+
     describe('should test (un)deprecate api', () => {
       const pkgName = '@scope/deprecate';
       const credentials = { name: 'jota_deprecate', password: 'secretPass' };

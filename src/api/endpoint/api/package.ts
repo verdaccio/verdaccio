@@ -33,6 +33,30 @@ const downloadStream = (
   stream.pipe(res);
 };
 
+const redirectOrDownloadStream = (
+  packageName: string,
+  filename: string,
+  storage: any,
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  config: Config
+): void => {
+  const tarballUrlRedirect = _.get(config, 'experiments.tarball_url_redirect');
+  storage.hasLocalTarball(packageName, filename).then(hasLocalTarball => {
+    if (hasLocalTarball) {
+      const context = { packageName, filename };
+      const tarballUrl = typeof tarballUrlRedirect === 'function'
+        ? tarballUrlRedirect(context)
+        : _.template(tarballUrlRedirect)(context);
+      res.redirect(tarballUrl);
+    } else {
+      downloadStream(packageName, filename, storage, req, res)
+    }
+  }).catch(err => {
+    res.locals.report_error(err);
+  });
+}
+
 export default function (
   route: Router,
   auth: IAuth,
@@ -87,8 +111,11 @@ export default function (
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend): void {
       const { scopedPackage, filename } = req.params;
-
-      downloadStream(scopedPackage, filename, storage, req, res);
+      if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
+        downloadStream(scopedPackage, filename, storage, req, res);
+      } else {
+        redirectOrDownloadStream(scopedPackage, filename, storage, req, res, config);
+      }
     }
   );
 
@@ -96,7 +123,11 @@ export default function (
     '/:package/-/:filename',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend): void {
-      downloadStream(req.params.package, req.params.filename, storage, req, res);
+      if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
+        downloadStream(req.params.package, req.params.filename, storage, req, res);
+      } else {
+        redirectOrDownloadStream(req.params.package, req.params.filename, storage, req, res, config);
+      }
     }
   );
 }

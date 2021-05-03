@@ -83,6 +83,13 @@ logs: { type: stdout, format: pretty, level: http }
 #  search: false
 #  # disable writing body size to logs, read more on ticket 1912
 #  bytesin_off: false
+#  # enable tarball URL redirect for hosting tarball with a different server, the tarball_url_redirect can be a template string
+#  tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}'
+#  # the tarball_url_redirect can be a function, takes packageName and filename and returns the url, when working with a js configuration file
+#  tarball_url_redirect(packageName, filename) {
+#    const signedUrl = // generate a signed url
+#    return signedUrl;
+#  }
 
 # This affect the web and api (not developed yet)
 #i18n:
