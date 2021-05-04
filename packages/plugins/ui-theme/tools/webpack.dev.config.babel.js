@@ -1,5 +1,8 @@
+import fs from 'fs';
+
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import yalm from 'js-yaml';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import webpack from 'webpack';
 
@@ -8,6 +11,7 @@ import env from '../config/env';
 import getPackageJson from './getPackageJson';
 import baseConfig from './webpack.config';
 
+const configJsonFormat = yalm.safeLoad(fs.readFileSync('./tools/_verdaccio.config.yaml', 'utf8'));
 export default {
   ...baseConfig,
   mode: 'development',
@@ -35,8 +39,7 @@ export default {
     }),
     new HTMLWebpackPlugin({
       __UI_OPTIONS: JSON.stringify({
-        title: 'Verdaccio Dev UI',
-        scope: '',
+        ...configJsonFormat.web,
         filename: 'index.html',
         verdaccioURL: '//localhost:4873',
         base: new URL('/', 'http://localhost:4873'),

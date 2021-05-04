@@ -1,13 +1,20 @@
 // FIXME: this should comes from @verdaccio/types
+
+type PackageManagers = 'pnpm' | 'yarn' | 'npm';
 export interface VerdaccioOptions {
-  // @deprecated
   url_prefix: string;
-  // @deprecated
   base: string;
-  basePath: string;
-  basename: string;
+  scope: string;
+  title: string;
+  primaryColor: string;
+  darkMode: boolean;
+  uri?: string;
   language?: string;
-  darkMode?: boolean;
+  version?: string;
+  protocol?: string;
+  host?: string;
+  logo?: string;
+  pkgManagers?: PackageManagers[];
 }
 
 declare global {

@@ -34,7 +34,7 @@ const ActionBar: React.FC = () => {
   }
 
   return (
-    <Box alignItems="center" display="flex" marginBottom="8px">
+    <Box alignItems="center" display="flex" marginBottom="14px">
       {actions.map((action) => (
         <ActionBarAction key={action.link} {...action} />
       ))}

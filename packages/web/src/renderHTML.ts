@@ -29,6 +29,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const scope = config?.web?.scope ?? '';
   // FIXME: logo URI is incomplete
   let logoURI = config?.web?.logo ?? '';
+  const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
@@ -48,6 +49,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     primaryColor,
     version,
     logoURI,
+    pkgManagers,
     title,
     scope,
     language,
