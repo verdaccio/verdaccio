@@ -1,26 +1,12 @@
+import { TemplateUIOptions } from '@verdaccio/types';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
 import React, { createContext, FunctionComponent, useContext, useMemo, useState } from 'react';
 
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
-export type VerdaccioOptions = {
-  url_prefix: string;
-  base: string;
-  scope: string;
-  title: string;
-  primaryColor: string;
-  darkMode: boolean;
-  uri?: string;
-  language?: string;
-  version?: string;
-  protocol?: string;
-  host?: string;
-  logo?: string;
-};
-
 type ConfigProviderProps = {
-  configOptions: VerdaccioOptions;
+  configOptions: TemplateUIOptions;
   setConfigOptions: Function;
 };
 
@@ -28,6 +14,7 @@ const defaultValues: ConfigProviderProps = {
   configOptions: {
     primaryColor: PRIMARY_COLOR,
     darkMode: false,
+    pkgManagers: ['yarn', 'pnpm'],
     scope: '',
     base: '',
     url_prefix: '',
