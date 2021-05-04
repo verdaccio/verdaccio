@@ -9,7 +9,10 @@ import { initializeServer } from './helper';
 setup([]);
 
 const mockManifest = jest.fn();
-const mockQuery = jest.fn(() => ['pkg1', 'pk2']);
+const mockQuery = jest.fn(() => [
+  { ref: 'pkg1', score: 1 },
+  { ref: 'pk2', score: 0.9 },
+]);
 jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
 jest.mock('@verdaccio/store', () => ({
@@ -74,7 +77,11 @@ describe('test web server', () => {
 
   test('should fail search api', async () => {
     mockQuery.mockImplementation(() => {
-      return ['aa', 'bb', 'cc'];
+      return [
+        { ref: 'aa', score: 1 },
+        { ref: 'bb', score: 0.8 },
+        { ref: 'cc', score: 0.6 },
+      ];
     });
     const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/search/notFound')

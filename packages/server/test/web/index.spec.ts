@@ -123,6 +123,16 @@ describe('endpoint web unit test', () => {
     });
 
     describe('Search', () => {
+      test('should find @scope/pk1-test', (done) => {
+        request(app)
+          .get('/-/verdaccio/search/@scope%2fpk1-test')
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, res) {
+            expect(res.body).toHaveLength(1);
+            done();
+          });
+      });
+
       test('should not find forbidden-place', (done) => {
         request(app)
           .get('/-/verdaccio/search/forbidden-place')
