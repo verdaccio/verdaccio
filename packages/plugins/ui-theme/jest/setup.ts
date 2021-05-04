@@ -15,6 +15,7 @@ global.__VERDACCIO_BASENAME_UI_OPTIONS = {
   darkMode: false,
   language: 'en-US',
   uri: 'http://localhost:4873',
+  pkgManagers: ['pnpm', 'yarn', 'npm'],
   title: 'Verdaccio Dev UI',
   scope: '',
   version: 'v1.0.0',

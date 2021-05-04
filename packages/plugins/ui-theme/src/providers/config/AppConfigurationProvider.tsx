@@ -14,7 +14,7 @@ const defaultValues: ConfigProviderProps = {
   configOptions: {
     primaryColor: PRIMARY_COLOR,
     darkMode: false,
-    pkgManagers: ['yarn', 'pnpm'],
+    pkgManagers: ['yarn', 'pnpm', 'npm'],
     scope: '',
     base: '',
     url_prefix: '',

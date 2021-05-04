@@ -1,4 +1,6 @@
 // FIXME: this should comes from @verdaccio/types
+
+type PackageManagers = 'pnpm' | 'yarn' | 'npm';
 export interface VerdaccioOptions {
   url_prefix: string;
   base: string;
@@ -12,6 +14,7 @@ export interface VerdaccioOptions {
   protocol?: string;
   host?: string;
   logo?: string;
+  pkgManagers?: PackageManagers[];
 }
 
 declare global {

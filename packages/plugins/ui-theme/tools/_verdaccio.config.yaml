@@ -3,8 +3,6 @@ web:
   sort_packages: asc
   primary_color: #CCC
   pkgManagers:
-    - npm
-    - yarn
 
 plugins: ../
 

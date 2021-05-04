@@ -27,11 +27,12 @@ const Install: React.FC = () => {
     return null;
   }
 
-  const hasNpm = configOptions?.pkgManagers?.includes('npm') ?? true;
-  const hasYarn = configOptions?.pkgManagers?.includes('yarn') ?? true;
+  const hasNpm = configOptions?.pkgManagers?.includes('npm');
+  const hasYarn = configOptions?.pkgManagers?.includes('yarn');
   const hasPnpm = configOptions?.pkgManagers?.includes('pnpm') ?? true;
+  const hasPkgManagers = hasNpm | hasPnpm |  hasYarn;
 
-  return (
+  return hasPkgManagers ? (
     <List
       data-testid={'installList'}
       subheader={<StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>}>
@@ -45,7 +46,7 @@ const Install: React.FC = () => {
         <InstallListItem dependencyManager={DependencyManager.PNPM} packageName={packageName} />
       )}
     </List>
-  );
+  ) : null;
 };
 
 export default Install;
