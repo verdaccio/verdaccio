@@ -30,7 +30,7 @@ const Install: React.FC = () => {
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
   const hasYarn = configOptions?.pkgManagers?.includes('yarn');
   const hasPnpm = configOptions?.pkgManagers?.includes('pnpm') ?? true;
-  const hasPkgManagers = hasNpm | hasPnpm |  hasYarn;
+  const hasPkgManagers = hasNpm | hasPnpm | hasYarn;
 
   return hasPkgManagers ? (
     <List
