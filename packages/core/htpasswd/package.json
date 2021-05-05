@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@verdaccio/types": "workspace:11.0.0-6-next.5",
+    "@verdaccio/types": "workspace:11.0.0-6-next.6",
     "mockdate": "^3.0.2"
   },
   "scripts": {

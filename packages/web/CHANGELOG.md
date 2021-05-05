@@ -1,5 +1,46 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.12
+
+### Minor Changes
+
+- aecbd226: web: allow ui hide package managers on sidebar
+
+  If there is a package manager of preference over others, you can define the package managers to be displayed on the detail page and sidebar, just define in the `config.yaml` and web section the list of package managers to be displayed.
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+      - pnpm
+      - yarn
+      # - npm
+  ```
+
+  To disable all package managers, just define empty:
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+  ```
+
+  and the section would be hidden.
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.8
+- @verdaccio/readme@11.0.0-alpha.3
+- @verdaccio/tarball@11.0.0-6-next.5
+- @verdaccio/url@11.0.0-6-next.4
+- @verdaccio/loaders@6.0.0-6-next.4
+- @verdaccio/logger@6.0.0-6-next.4
+- @verdaccio/store@6.0.0-6-next.8
+
 ## 6.0.0-6-next.11
 
 ### Patch Changes
