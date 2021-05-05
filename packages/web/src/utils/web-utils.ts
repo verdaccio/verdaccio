@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import buildDebug from 'debug';
 import { isObject } from '@verdaccio/utils';
-import { Package, Author } from '@verdaccio/types';
+import { Package, Author, ConfigYaml } from '@verdaccio/types';
 import { normalizeContributors } from '@verdaccio/store';
 
 import sanitizyReadme from '@verdaccio/readme';
@@ -108,4 +108,8 @@ export function sortByName(packages: any[], orderAscending: boolean | void = tru
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
+}
+
+export function hasLogin(config: ConfigYaml) {
+  return _.isNil(config?.web?.login) || config?.web?.login === true;
 }

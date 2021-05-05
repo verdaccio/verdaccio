@@ -17,6 +17,7 @@ const defaultValues: ConfigProviderProps = {
     pkgManagers: ['yarn', 'pnpm', 'npm'],
     scope: '',
     base: '',
+    login: true,
     url_prefix: '',
     title: 'Verdaccio',
   },
@@ -46,7 +47,6 @@ const AppConfigurationProvider: FunctionComponent = ({ children }) => {
     [configOptions]
   );
 
-  // @ts-ignore
   return (
     <AppConfigurationContext.Provider value={value}>{children}</AppConfigurationContext.Provider>
   );

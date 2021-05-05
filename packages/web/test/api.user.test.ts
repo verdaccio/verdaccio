@@ -62,6 +62,19 @@ describe('test web server', () => {
       });
   });
 
+  test('log in should be disabled', async () => {
+    return supertest(await initializeServer('login-disabled.yaml'))
+      .post('/-/verdaccio/login')
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: 'test',
+        })
+      )
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .expect(HTTP_STATUS.NOT_FOUND);
+  });
+
   test.todo('should change password');
   test.todo('should not change password if flag is disabled');
 });

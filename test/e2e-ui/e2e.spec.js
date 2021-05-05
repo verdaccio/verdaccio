@@ -40,7 +40,7 @@ describe('/ (Verdaccio Page)', () => {
     expect(loginButton).toBeDefined();
     await loginButton.focus();
     await loginButton.click({ delay: 100 });
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
   };
 
   beforeAll(async () => {
@@ -55,7 +55,7 @@ describe('/ (Verdaccio Page)', () => {
 
   test('should display title', async () => {
     const text = await page.title();
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
 
     expect(text).toContain('verdaccio-server-e2e');
   });
@@ -87,29 +87,34 @@ describe('/ (Verdaccio Page)', () => {
   test('should click on sign in button', async () => {
     const signInButton = await page.$('button[data-testid="header--button-login"]');
     await signInButton.click();
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const signInDialog = await page.$('#login--dialog');
     expect(signInDialog).not.toBeNull();
     const closeButton = await page.$('button[data-testid="close-login-dialog-button"]');
     await closeButton.click();
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
   });
   //
 
   test('should log in an user', async () => {
     // we open the dialog
     await logIn();
+    // verify if logged in
+    const accountButton = await page.$('#header--button-account');
+    expect(accountButton).toBeDefined();
     // check whether user is logged
     const buttonLogout = await page.$('#header--button-logout');
     expect(buttonLogout).toBeDefined();
   });
 
   test('should logout an user', async () => {
+    // await wa
+    await page.waitForTimeout(10000);
     // we assume the user is logged already
     await clickElement('#header--button-account', { delay: 500 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     await clickElement('#header--button-logout > span', { delay: 500 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     await evaluateSignIn();
   });
   //
@@ -117,7 +122,7 @@ describe('/ (Verdaccio Page)', () => {
   test('should check registry info dialog', async () => {
     const registryInfoButton = await page.$('#header--button-registryInfo');
     registryInfoButton.click();
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
 
     const registryInfoDialog = await page.$('#registryInfo--dialog-container');
     expect(registryInfoDialog).not.toBeNull();
@@ -129,9 +134,9 @@ describe('/ (Verdaccio Page)', () => {
 
   test('should publish a package', async () => {
     await global.__SERVER__.putPackage(scopedPackageMetadata.name, scopedPackageMetadata);
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     await page.reload();
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const packagesList = await getPackages();
     expect(packagesList).toHaveLength(1);
   });
@@ -142,7 +147,7 @@ describe('/ (Verdaccio Page)', () => {
     // console.log("-->packagesList:", packagesList);
     const firstPackage = packagesList[0];
     await firstPackage.click({ delay: 200 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const readmeText = await page.evaluate(
       () => document.querySelector('.markdown-body').textContent
     );
@@ -160,7 +165,7 @@ describe('/ (Verdaccio Page)', () => {
     const dependenciesTab = await page.$$('#dependencies-tab');
     expect(dependenciesTab).toHaveLength(1);
     await dependenciesTab[0].click({ delay: 200 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const tags = await page.$$('.dep-tag');
     const tag = tags[0];
     const label = await page.evaluate((el) => el.innerText, tag);
@@ -171,7 +176,7 @@ describe('/ (Verdaccio Page)', () => {
     const versionsTab = await page.$$('#versions-tab');
     expect(versionsTab).toHaveLength(1);
     await versionsTab[0].click({ delay: 200 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
     const versionItems = await page.$$('.version-item');
     expect(versionItems).toHaveLength(2);
   });
@@ -180,33 +185,33 @@ describe('/ (Verdaccio Page)', () => {
     const upLinksTab = await page.$$('#uplinks-tab');
     expect(upLinksTab).toHaveLength(1);
     await upLinksTab[0].click({ delay: 200 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
   });
 
   test('should display readme tab', async () => {
     const readmeTab = await page.$$('#readme-tab');
     expect(readmeTab).toHaveLength(1);
     await readmeTab[0].click({ delay: 200 });
-    await page.waitFor(1000);
+    await page.waitForTimeout(1000);
   });
 
   test('should publish a protected package', async () => {
     await page.goto('http://0.0.0.0:55552');
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     await global.__SERVER_PROTECTED__.putPackage(
       protectedPackageMetadata.name,
       protectedPackageMetadata
     );
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     await page.reload();
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const text = await page.evaluate(() => document.querySelector('#help-card__title').textContent);
     expect(text).toMatch('No Package Published Yet');
   });
 
   test('should go to 404 page', async () => {
     await page.goto('http://0.0.0.0:55552/-/web/detail/@verdaccio/not-found');
-    await page.waitFor(500);
+    await page.waitForTimeout(500);
     const text = await page.evaluate(() => document.querySelector('.not-found-text').textContent);
     expect(text).toMatch("Sorry, we couldn't find it...");
   });

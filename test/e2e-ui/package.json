@@ -10,7 +10,7 @@
     "request": "^2.88.2",
     "lodash": "^4.17.20",
     "rimraf": "^3.0.2",
-    "puppeteer": "^7.1.0"
+    "puppeteer": "^9.1.1"
   },
   "scripts": {
     "test": "jest --config jest.config.e2e.js"
