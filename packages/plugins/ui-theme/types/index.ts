@@ -9,6 +9,7 @@ export interface VerdaccioOptions {
   primaryColor: string;
   darkMode: boolean;
   uri?: string;
+  login?: boolean;
   language?: string;
   version?: string;
   protocol?: string;

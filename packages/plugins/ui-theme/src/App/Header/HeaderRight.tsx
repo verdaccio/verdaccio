@@ -12,6 +12,7 @@ import { RightSide } from './styles';
 interface Props {
   withoutSearch?: boolean;
   username?: string | null;
+  hasLogin?: boolean;
   onToggleLogin: () => void;
   onOpenRegistryInfoDialog: () => void;
   onToggleMobileNav: () => void;
@@ -22,6 +23,7 @@ const HeaderRight: React.FC<Props> = ({
   withoutSearch = false,
   username,
   onToggleLogin,
+  hasLogin,
   onLogout,
   onToggleMobileNav,
   onOpenRegistryInfoDialog,
@@ -29,6 +31,7 @@ const HeaderRight: React.FC<Props> = ({
   const themeContext = useContext(ThemeContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const hideLoginSection = hasLogin === false;
 
   const { t } = useTranslation();
 
@@ -90,19 +93,23 @@ const HeaderRight: React.FC<Props> = ({
         tooltipIconType={themeContext.isDarkMode ? 'dark-mode' : 'light-mode'}
       />
 
-      {username ? (
-        <HeaderMenu
-          anchorEl={anchorEl}
-          isMenuOpen={isMenuOpen}
-          onLoggedInMenu={handleLoggedInMenu}
-          onLoggedInMenuClose={handleLoggedInMenuClose}
-          onLogout={onLogout}
-          username={username}
-        />
-      ) : (
-        <Button color="inherit" data-testid="header--button-login" onClick={handleToggleLogin}>
-          {t('button.login')}
-        </Button>
+      {!hideLoginSection && (
+        <>
+          {username ? (
+            <HeaderMenu
+              anchorEl={anchorEl}
+              isMenuOpen={isMenuOpen}
+              onLoggedInMenu={handleLoggedInMenu}
+              onLoggedInMenuClose={handleLoggedInMenuClose}
+              onLogout={onLogout}
+              username={username}
+            />
+          ) : (
+            <Button color="inherit" data-testid="header--button-login" onClick={handleToggleLogin}>
+              {t('button.login')}
+            </Button>
+          )}
+        </>
       )}
     </RightSide>
   );

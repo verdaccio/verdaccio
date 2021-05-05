@@ -27,6 +27,7 @@ declare module '@verdaccio/types' {
     darkMode?: boolean;
     url_prefix?: string;
     language?: string;
+    login?: boolean;
     scope?: string;
     pkgManagers?: PackageManagers[];
   };

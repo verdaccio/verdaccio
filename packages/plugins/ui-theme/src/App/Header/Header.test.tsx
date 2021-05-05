@@ -5,6 +5,7 @@ import {
   render,
   fireEvent,
   waitFor,
+  screen,
   waitForElementToBeRemoved,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
@@ -23,7 +24,7 @@ const props = {
 /* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
   test('should load the component in logged out state', () => {
-    const { queryByTestId, getByText } = render(
+    render(
       <Router>
         <AppContextProvider>
           <Header />
@@ -31,8 +32,9 @@ describe('<Header /> component with logged in state', () => {
       </Router>
     );
 
-    expect(queryByTestId('header--menu-accountcircle')).toBeNull();
-    expect(getByText('Login')).toBeTruthy();
+    expect(screen.queryByTestId('header--menu-accountcircle')).toBeNull();
+    expect(screen.getByText('Login')).toBeTruthy();
+    expect(screen.queryByTestId('header--button-login')).toBeInTheDocument();
   });
 
   test('should load the component in logged in state', () => {
@@ -133,6 +135,23 @@ describe('<Header /> component with logged in state', () => {
       queryByTestId('registryInfo--dialog')
     );
     expect(hasRegistrationInfoModalBeenRemoved).not.toBeDefined();
+  });
+
+  test('should hide login if is disabled', () => {
+    // @ts-expect-error
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      login: false,
+    };
+    render(
+      <Router>
+        <AppContextProvider user={props.user}>
+          <Header />
+        </AppContextProvider>
+      </Router>
+    );
+
+    expect(screen.queryByTestId('header--button-login')).not.toBeInTheDocument();
   });
 
   test.todo('autocompletion should display suggestions according to the type value');

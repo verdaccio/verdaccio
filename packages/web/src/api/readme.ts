@@ -37,7 +37,7 @@ function addReadmeWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
         uplinksLook: true,
         req,
         callback: function (err, info): void {
-          debug('readme plg %o', info);
+          debug('readme plg %o', info?.name);
           if (err) {
             return next(err);
           }

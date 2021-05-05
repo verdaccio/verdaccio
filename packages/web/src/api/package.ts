@@ -29,11 +29,20 @@ function addPackageWebApi(
   auth: IAuth,
   config: Config
 ): void {
+  const isLoginEnabled = config?.web?.login === true ?? true;
+  const anonymousRemoteUser: RemoteUser = {
+    name: undefined,
+    real_groups: [],
+    groups: [],
+  };
+
   debug('initialized package web api');
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
+      debug('is login disabled %o', isLoginEnabled);
+      const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
       try {
-        auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
+        auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
           if (err) {
             resolve(false);
           }

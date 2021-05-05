@@ -5,7 +5,7 @@ import { HEADERS } from '@verdaccio/commons-api';
 import { getPublicUrl } from '@verdaccio/url';
 
 import { WEB_TITLE } from '@verdaccio/config';
-import { validatePrimaryColor } from './utils/web-utils';
+import { hasLogin, validatePrimaryColor } from './utils/web-utils';
 import renderTemplate from './template';
 
 const pkgJSON = require('../package.json');
@@ -26,6 +26,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
+  const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
   // FIXME: logo URI is incomplete
   let logoURI = config?.web?.logo ?? '';
@@ -49,6 +50,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     primaryColor,
     version,
     logoURI,
+    login,
     pkgManagers,
     title,
     scope,
