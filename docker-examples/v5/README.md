@@ -2,4 +2,4 @@
 
 > Before run examples, build the local image by running `pnpm docker`. 
 
-- [Docker + Nginx + Verdaccio](v5/reverse_proxy/nginx/README.md)
+- [Docker + Nginx + Verdaccio](reverse_proxy/nginx/README.md)
