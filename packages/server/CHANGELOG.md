@@ -1,5 +1,18 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.14
+
+### Patch Changes
+
+- Updated dependencies [0da7031e]
+  - @verdaccio/web@6.0.0-6-next.13
+  - @verdaccio/api@6.0.0-6-next.10
+  - @verdaccio/auth@6.0.0-6-next.8
+  - @verdaccio/loaders@6.0.0-6-next.4
+  - @verdaccio/logger@6.0.0-6-next.4
+  - verdaccio-audit@11.0.0-alpha.4
+  - @verdaccio/store@6.0.0-6-next.8
+
 ## 6.0.0-6-next.13
 
 ### Patch Changes

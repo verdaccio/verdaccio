@@ -35,7 +35,7 @@
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.6"
+    "@verdaccio/types": "workspace:11.0.0-6-next.7"
   },
   "scripts": {
     "clean": "rimraf ./build",
