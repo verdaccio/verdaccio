@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "6.0.0-6-next.14",
+  "version": "6.0.0-6-next.15",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -45,7 +45,7 @@
   "dependencies": {
     "@verdaccio/config": "workspace:6.0.0-6-next.6",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.14",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.15",
     "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.9",
     "commander": "6.2.0",
     "clipanion": "3.0.0-rc.11",

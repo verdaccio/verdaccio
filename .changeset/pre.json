@@ -43,6 +43,7 @@
     "@verdaccio/fastify-migration": "6.0.0-6-next.9"
   },
   "changesets": [
+    "afraid-mice-obey",
     "big-lobsters-sin",
     "few-cooks-destroy",
     "fifty-jars-rest",

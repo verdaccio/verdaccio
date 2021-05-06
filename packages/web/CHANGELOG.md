@@ -1,5 +1,29 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.13
+
+### Minor Changes
+
+- 0da7031e: allow disable login on ui and endpoints
+
+  To be able disable the login, set `login: false`, anything else would enable login. This flag will disable access via UI and web endpoints.
+
+  ```yml
+  web:
+    title: verdaccio
+    login: false
+  ```
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.8
+- @verdaccio/readme@11.0.0-alpha.3
+- @verdaccio/tarball@11.0.0-6-next.5
+- @verdaccio/url@11.0.0-6-next.4
+- @verdaccio/loaders@6.0.0-6-next.4
+- @verdaccio/logger@6.0.0-6-next.4
+- @verdaccio/store@6.0.0-6-next.8
+
 ## 6.0.0-6-next.12
 
 ### Minor Changes

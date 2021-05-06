@@ -32,7 +32,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio@6-next --https://registry.verdaccio.org/
+npm install --global verdaccio@6-next --registry https://registry.verdaccio.org/
 ```
 
 > Published on a temporary registry while setup is ready to publish on npmjs
