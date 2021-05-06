@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:6.0.0-6-next.6",
-    "@verdaccio/types": "workspace:11.0.0-6-next.6"
+    "@verdaccio/types": "workspace:11.0.0-6-next.7"
   },
   "funding": {
     "type": "opencollective",
