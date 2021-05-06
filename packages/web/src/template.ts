@@ -1,22 +1,8 @@
 import buildDebug from 'debug';
+import { TemplateUIOptions } from '@verdaccio/types';
 import { getManifestValue, Manifest } from './utils/manifest';
 
 const debug = buildDebug('verdaccio:web:render:template');
-
-export type TemplateUIOptions = {
-  title?: string;
-  uri?: string;
-  darkMode?: boolean;
-  protocol?: string;
-  host?: string;
-  url_prefix?: string;
-  base: string;
-  primaryColor?: string;
-  version?: string;
-  logoURI?: string;
-  scope?: string;
-  language?: string;
-};
 
 export type Template = {
   manifest: Manifest;

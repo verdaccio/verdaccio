@@ -1,6 +1,7 @@
 web:
   enable: true
   title: verdaccio-server-e2e
+  login: true
 
 store:
   memory:
@@ -13,8 +14,7 @@ auth:
         name: test
         password: test
 
-logs:
-  - { type: stdout, format: pretty, level: info }
+logs: { type: stdout, format: pretty, level: info }
 
 packages:
   '@*/*':

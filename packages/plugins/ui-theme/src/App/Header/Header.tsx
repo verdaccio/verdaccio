@@ -49,6 +49,7 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
         <InnerNavBar>
           <HeaderLeft />
           <HeaderRight
+            hasLogin={configOptions?.login}
             onLogout={handleLogout}
             onOpenRegistryInfoDialog={() => setOpenInfoDialog(true)}
             onToggleLogin={() => setShowLoginModal(!showLoginModal)}

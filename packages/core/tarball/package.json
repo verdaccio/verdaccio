@@ -41,7 +41,7 @@
     "@verdaccio/utils": "workspace:6.0.0-6-next.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.5",
+    "@verdaccio/types": "workspace:11.0.0-6-next.6",
     "express": "^4.17.1",
     "node-mocks-http": "^1.10.1"
   },

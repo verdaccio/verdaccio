@@ -15,6 +15,51 @@ declare module '@verdaccio/types' {
     url?: string;
   }
 
+  type PackageManagers = 'pnpm' | 'yarn' | 'npm';
+
+  // FUTURE: WebConf and TemplateUIOptions should be merged .
+  type CommonWebConf = {
+    title?: string;
+    logo?: string;
+    favicon?: string;
+    gravatar?: boolean;
+    sort_packages?: string;
+    darkMode?: boolean;
+    url_prefix?: string;
+    language?: string;
+    login?: boolean;
+    scope?: string;
+    pkgManagers?: PackageManagers[];
+  };
+
+  /**
+   * Options are passed to the index.html
+   */
+  export type TemplateUIOptions = {
+    uri?: string;
+    darkMode?: boolean;
+    protocol?: string;
+    host?: string;
+    base: string;
+    primaryColor?: string;
+    version?: string;
+    logoURI?: string;
+  } & CommonWebConf;
+
+  /**
+   * Options on config.yaml for web
+   */
+  type WebConf = {
+    // FIXME: rename to primaryColor and move it to CommonWebConf
+    primary_color?: string;
+    enable?: boolean;
+    scriptsHead?: string[];
+    scriptsBodyAfter?: string[];
+    metaScripts?: string[];
+    bodyBefore?: string[];
+    bodyAfter?: string[];
+  } & CommonWebConf;
+
   interface Dist {
     integrity?: string;
     shasum: string;
@@ -276,23 +321,6 @@ declare module '@verdaccio/types' {
   interface ListenAddress {
     [key: string]: string;
   }
-
-  interface WebConf {
-    enable?: boolean;
-    title?: string;
-    logo?: string;
-    favicon?: string;
-    gravatar?: boolean;
-    sort_packages?: string;
-    scriptsHead?: string[];
-    scriptsBodyAfter?: string[];
-    metaScripts?: string[];
-    bodyBefore?: string[];
-    bodyAfter?: string[];
-    darkMode?: boolean;
-    primary_color?: string;
-  }
-
   interface HttpsConfKeyCert {
     key: string;
     cert: string;

@@ -2,6 +2,10 @@ web:
   title: Verdaccio Local Dev
   sort_packages: asc
   primary_color: #CCC
+  login: true
+  pkgManagers:
+    - npm
+    - yarn
 
 plugins: ../
 
