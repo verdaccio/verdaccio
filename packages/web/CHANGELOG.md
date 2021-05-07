@@ -1,5 +1,19 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.14
+
+### Patch Changes
+
+- 5ddfa526: Fix the search by exact name of the package
+
+  Full package name queries was not finding anithing. It was happening
+  becouse of stemmer of [lunr.js](https://lunrjs.com/).
+
+  To fix this, the stemmer of [lunr.js](https://lunrjs.com/) was removed from search pipeline.
+
+- Updated dependencies [5ddfa526]
+  - @verdaccio/store@6.0.0-6-next.9
+
 ## 6.0.0-6-next.13
 
 ### Minor Changes
