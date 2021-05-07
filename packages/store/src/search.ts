@@ -1,14 +1,20 @@
 // eslint-disable no-invalid-this
 
+import lunr from 'lunr';
 import lunrMutable from 'lunr-mutable-indexes';
 import { Version, IPluginStorage, Config } from '@verdaccio/types';
 import { IStorageHandler, IStorage } from './storage';
+
+export interface ISearchResult {
+  ref: string;
+  score: number;
+}
 
 export interface IWebSearch {
   index: lunrMutable.index;
   storage: IStorageHandler;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query(query: string): any;
+  query(query: string): ISearchResult[];
   add(pkg: Version): void;
   remove(name: string): void;
   reindex(): void;
@@ -42,6 +48,8 @@ class Search implements IWebSearch {
       // @ts-ignore
       this.field('readme');
     });
+
+    this.index.builder.pipeline.remove(lunr.stemmer);
   }
 
   public init() {
@@ -55,7 +63,7 @@ class Search implements IWebSearch {
    * @param {*} q the keyword
    * @return {Array} list of results.
    */
-  public query(query: string): any[] {
+  public query(query: string): ISearchResult[] {
     const localStorage = this.storage.localStorage as IStorage;
 
     return query === '*'

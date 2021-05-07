@@ -28,6 +28,7 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
                   debug('is allowed %o', allowed);
                   if (err || !allowed) {
                     debug('deny access');
+                    reject(err);
                     return;
                   }
                   debug('access succeed');
@@ -52,17 +53,17 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const results: string[] = SearchInstance.query(req.params.anything);
+      const results = SearchInstance.query(req.params.anything);
       debug('search results %o', results);
       if (results.length > 0) {
         let packages: Package[] = [];
-        for (let pkgName of results) {
+        for (let result of results) {
           try {
-            const pkg = await getPackageInfo(pkgName, req.remote_user);
-            debug('package found %o', pkgName);
+            const pkg = await getPackageInfo(result.ref, req.remote_user);
+            debug('package found %o', result.ref);
             packages.push(pkg);
           } catch (err) {
-            debug('search for %o failed err %o', pkgName, err?.message);
+            debug('search for %o failed err %o', result.ref, err?.message);
           }
         }
         next(packages);
