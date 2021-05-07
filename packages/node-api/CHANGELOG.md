@@ -1,5 +1,11 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.16
+
+### Patch Changes
+
+- @verdaccio/server@6.0.0-6-next.15
+
 ## 6.0.0-6-next.15
 
 ### Patch Changes
