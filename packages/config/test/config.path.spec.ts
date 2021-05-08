@@ -1,5 +1,5 @@
-import { findConfigFile } from '../src/config-path';
 import os from 'os';
+import { findConfigFile } from '../src/config-path';
 
 const mockmkDir = jest.fn();
 const mockaccessSync = jest.fn();
