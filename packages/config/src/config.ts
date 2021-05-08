@@ -106,7 +106,7 @@ class Config implements AppConfig {
   /**
    * Store or create whether receive a secret key
    */
-  public checkSecretKey(secret: string): string {
+  public checkSecretKey(secret?: string): string {
     debug('check secret key');
     if (_.isString(secret) && _.isEmpty(secret) === false) {
       this.secret = secret;

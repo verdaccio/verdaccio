@@ -88,26 +88,17 @@ describe('Package access utilities', () => {
       () => {
         const { packages } = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
         const access = normalisePackageAccess(packages);
-
         expect(access).toBeDefined();
-
         const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
         const all = access[`${PACKAGE_ACCESS.ALL}`];
         const react = access['react-*'];
-
         expect(react).toBeDefined();
         expect(react.access).toBeDefined();
-
-        // Intended checks, Typescript should catch this, we test the runtime part
-        // @ts-ignore
         expect(react.access).toEqual([]);
-        // @ts-ignore
         expect(react.publish[0]).toBe('admin');
         expect(react.proxy).toBeDefined();
-        // @ts-ignore
         expect(react.proxy).toEqual([]);
         expect(react.storage).toBeDefined();
-
         expect(react.storage).toBe('react-storage');
         expect(scoped).toBeDefined();
         expect(scoped.storage).not.toBeDefined();
@@ -126,7 +117,6 @@ describe('Package access utilities', () => {
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
       expect(scoped).toBeUndefined();
-
       // ** should be added by default **
       const all = access[`${PACKAGE_ACCESS.ALL}`];
       expect(all).toBeDefined();
@@ -141,23 +131,23 @@ describe('Package access utilities', () => {
   describe('getMatchedPackagesSpec', () => {
     test('should test basic config', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-custom'));
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('vue', packages).proxy).toMatch('npmjs');
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('@scope/vue', packages).proxy).toMatch('npmjs');
     });
 
     test('should test no ** wildcard on config', () => {
       const { packages } = parseConfigFile(parseConfigurationFile('pkgs-nosuper-wildcard-custom'));
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // @ts-ignore
+      // @ts-expect-error
       expect(getMatchedPackagesSpec('@fake/angular', packages).proxy).toMatch('npmjs');
       expect(getMatchedPackagesSpec('vue', packages)).toBeUndefined();
       expect(getMatchedPackagesSpec('@scope/vue', packages)).toBeUndefined();
