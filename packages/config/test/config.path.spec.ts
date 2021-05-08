@@ -96,9 +96,9 @@ describe('config-path', () => {
         delete process.env.XDG_CONFIG_HOME;
         delete process.env.HOME;
         process.env.APPDATA = '/app/data/';
-        expect(findConfigFile()).toEqual('/app/data/verdaccio/config.yaml');
-        expect(mockwriteFile).toHaveBeenCalledWith('/app/data/verdaccio/config.yaml');
-        expect(mockmkDir).toHaveBeenCalledWith('/app/data/verdaccio');
+        expect(findConfigFile()).toEqual('D:\\app\\data\\verdaccio\\config.yaml');
+        expect(mockwriteFile).toHaveBeenCalledWith('D:\\app\\data\\verdaccio\\config.yaml');
+        expect(mockmkDir).toHaveBeenCalledWith('D:\\app\\data\\verdaccio');
       });
     }
   });
