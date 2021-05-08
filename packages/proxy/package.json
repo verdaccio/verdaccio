@@ -51,7 +51,8 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "nock": "13.0.11"
+    "nock": "13.0.11",
+    "node-mocks-http": "^1.10.1"
   },
   "funding": {
     "type": "opencollective",

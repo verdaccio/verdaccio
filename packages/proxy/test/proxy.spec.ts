@@ -1,8 +1,9 @@
 import path from 'path';
 import nock from 'nock';
+import * as httpMocks from 'node-mocks-http';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR, HEADER_TYPE } from '@verdaccio/commons-api';
+import { API_ERROR, HEADERS, HEADER_TYPE } from '@verdaccio/commons-api';
 import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
@@ -39,17 +40,104 @@ describe('proxy', () => {
   };
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
-  describe('fetchTarball', () => {
-    test('not found tarball', (done) => {
-      nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
+
+  describe('search', () => {
+    test('get file from v1 endpoint', (done) => {
+      const url = '/-/v1/search';
+      nock(domain).get(url).replyWithFile(200, path.join(__dirname, 'partials/search-v1.json'));
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-      stream.on('error', (response) => {
-        expect(response).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          referer: 'some.org',
+          ['x-forwarded-for']: '10.0.0.1',
+        },
+        connection: {
+          remoteAddress: 'localhost',
+        },
+        url,
+      });
+      const stream = prox1.search({ req });
+      stream.on('data', (data) => {
+        expect(data).toBeDefined();
         done();
       });
     });
 
+    test('abort search from v1 endpoint', (done) => {
+      const url = '/-/v1/search';
+      nock(domain).get(url).delay(20000);
+      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          referer: 'some.org',
+          ['x-forwarded-for']: '10.0.0.1',
+        },
+        connection: {
+          remoteAddress: 'localhost',
+        },
+        url,
+      });
+      const stream = prox1.search({ req });
+      stream.on('end', () => {
+        done();
+      });
+      // TODO: apply correct types here
+      // @ts-ignore
+      stream.abort();
+    });
+
+    // TODO: we should test the gzip deflate here, but is hard to test
+    // fix me if you can deal with Incorrect Header Check issue
+    test.todo('get file from v1 endpoint with gzip headers');
+
+    test('search v1 endpoint fails', (done) => {
+      const url = '/-/v1/search';
+      nock(domain).get(url).replyWithError('search endpoint is down');
+      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          referer: 'some.org',
+          ['x-forwarded-for']: '10.0.0.1',
+        },
+        connection: {
+          remoteAddress: 'localhost',
+        },
+        url,
+      });
+      const stream = prox1.search({ req });
+      stream.on('error', (error) => {
+        expect(error).toEqual(Error('search endpoint is down'));
+        done();
+      });
+    });
+
+    test('search v1 endpoint bad status code', (done) => {
+      const url = '/-/v1/search';
+      nock(domain).get(url).reply(409);
+      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          referer: 'some.org',
+          ['x-forwarded-for']: '10.0.0.1',
+        },
+        connection: {
+          remoteAddress: 'localhost',
+        },
+        url,
+      });
+      const stream = prox1.search({ req });
+      stream.on('error', (error) => {
+        expect(error).toEqual(ErrorCode.getInternalError(`bad status code 409 from uplink`));
+        done();
+      });
+    });
+  });
+
+  describe('fetchTarball', () => {
     test('get file tarball no content-length', (done) => {
       nock(domain)
         .get('/jquery/-/jquery-0.0.1.tgz')
@@ -79,6 +167,26 @@ describe('proxy', () => {
     });
 
     describe('error handling', () => {
+      test('not found tarball', (done) => {
+        nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+        stream.on('error', (response) => {
+          expect(response).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
+          done();
+        });
+      });
+
+      test('fail tarball request', (done) => {
+        nock(domain).get('/jquery/-/jquery-0.0.1.tgz').replyWithError('boom file');
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+        stream.on('error', (response) => {
+          expect(response).toEqual(Error('boom file'));
+          done();
+        });
+      });
+
       test('bad uplink request', (done) => {
         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(409);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
