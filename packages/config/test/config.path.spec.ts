@@ -60,5 +60,14 @@ describe('config-path', () => {
         value: originalPlatform,
       });
     });
+
+    test('with relative location', () => {
+      delete process.env.XDG_CONFIG_HOME;
+      delete process.env.HOME;
+      process.env.APPDATA = '/app/data/';
+      expect(findConfigFile()).toMatch('projects/verdaccio/packages/config/verdaccio/config.yaml');
+      expect(mockwriteFile).toHaveBeenCalled();
+      expect(mockmkDir).toHaveBeenCalled();
+    });
   });
 });
