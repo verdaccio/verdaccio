@@ -1,9 +1,9 @@
 import path from 'path';
 import nock from 'nock';
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { ProxyStorage } from '../src/up-storage';
 import { ErrorCode } from '@verdaccio/utils';
 import { API_ERROR } from '@verdaccio/commons-api';
+import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
