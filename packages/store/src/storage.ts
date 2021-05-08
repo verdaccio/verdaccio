@@ -9,7 +9,7 @@ import { ProxyStorage } from '@verdaccio/proxy';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
 import { ReadTarball } from '@verdaccio/streams';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from '@verdaccio/utils';
-import { setupUpLinks, updateVersionsHiddenUpLink, ProxyList, IProxy } from '@verdaccio/proxy';
+import { ProxyList, IProxy } from '@verdaccio/proxy';
 import {
   IReadTarball,
   IUploadTarball,
@@ -38,6 +38,7 @@ import { SearchInstance } from './search';
 
 import { LocalStorage } from './local-storage';
 import { mergeVersions } from './metadata-utils';
+import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import {
   checkPackageLocal,
   publishPackage,
@@ -308,6 +309,7 @@ class Storage {
       let uplink: any = null;
 
       for (const uplinkId in self.uplinks) {
+        // https://github.com/verdaccio/verdaccio/issues/1642
         if (hasProxyTo(name, uplinkId, self.config.packages)) {
           uplink = self.uplinks[uplinkId];
         }

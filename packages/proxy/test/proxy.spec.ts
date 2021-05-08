@@ -3,7 +3,13 @@ import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR, HEADERS, HEADER_TYPE } from '@verdaccio/commons-api';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  VerdaccioError,
+} from '@verdaccio/commons-api';
 import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
@@ -167,6 +173,41 @@ describe('proxy', () => {
     });
 
     describe('error handling', () => {
+      test('should be offline uplink', (done) => {
+        const tarball = 'https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz';
+        nock(domain).get('/jquery/-/jquery-0.0.1.tgz').times(100).replyWithError('some error');
+        const proxy = new ProxyStorage(defaultRequestOptions, conf);
+        const stream = proxy.fetchTarball(tarball);
+        // to test a uplink is offline we have to be try 3 times
+        // the default failed request are set to 2
+        process.nextTick(function () {
+          stream.on('error', function (err) {
+            expect(err).not.toBeNull();
+            // expect(err.statusCode).toBe(404);
+            expect(proxy.failed_requests).toBe(1);
+
+            const streamSecondTry = proxy.fetchTarball(tarball);
+            streamSecondTry.on('error', function (err) {
+              expect(err).not.toBeNull();
+              /*
+                  code: 'ENOTFOUND',
+                  errno: 'ENOTFOUND',
+                 */
+              // expect(err.statusCode).toBe(404);
+              expect(proxy.failed_requests).toBe(2);
+              const streamThirdTry = proxy.fetchTarball(tarball);
+              streamThirdTry.on('error', function (err: VerdaccioError) {
+                expect(err).not.toBeNull();
+                expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+                expect(proxy.failed_requests).toBe(2);
+                expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
+                done();
+              });
+            });
+          });
+        });
+      });
+
       test('not found tarball', (done) => {
         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
@@ -258,26 +299,6 @@ describe('proxy', () => {
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (error) => {
           expect(error).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
-          done();
-        });
-      });
-    });
-
-    describe('tarballs', () => {
-      test('tarball call', (done) => {
-        nock(domain)
-          .get('/jquery')
-          .reply(
-            200,
-            { body: 'test' },
-            {
-              etag: () => `_ref_4444`,
-            }
-          );
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        prox1.getRemoteMetadata('jquery', {}, (_error, body, etag) => {
-          expect(etag).toEqual('_ref_4444');
-          expect(body).toEqual({ body: 'test' });
           done();
         });
       });
