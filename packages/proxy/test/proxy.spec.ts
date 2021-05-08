@@ -2,7 +2,7 @@ import path from 'path';
 import nock from 'nock';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR } from '@verdaccio/commons-api';
+import { API_ERROR, HEADER_TYPE } from '@verdaccio/commons-api';
 import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
@@ -39,110 +39,180 @@ describe('proxy', () => {
   };
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
-  describe('basic requests', () => {
-    test('proxy call with etag', (done) => {
-      nock(domain)
-        .get('/jquery')
-        .reply(
-          200,
-          { body: 'test' },
-          {
-            etag: () => `_ref_4444`,
-          }
-        );
+  describe('fetchTarball', () => {
+    test('not found tarball', (done) => {
+      nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', {}, (_error, body, etag) => {
-        expect(etag).toEqual('_ref_4444');
-        expect(body).toEqual({ body: 'test' });
+      const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+      stream.on('error', (response) => {
+        expect(response).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
         done();
       });
     });
 
-    test('proxy call with etag as option', (done) => {
+    test('get file tarball no content-length', (done) => {
       nock(domain)
-        .get('/jquery')
-        .reply(
-          200,
-          { body: 'test' },
-          {
-            etag: () => `_ref_4444`,
-          }
-        );
+        .get('/jquery/-/jquery-0.0.1.tgz')
+        .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (_error, body, etag) => {
-        expect(etag).toEqual('_ref_4444');
-        expect(body).toEqual({ body: 'test' });
+      const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+      stream.on('data', (data) => {
+        expect(data).toBeDefined();
         done();
       });
     });
 
-    test('proxy  not found', (done) => {
-      nock(domain).get('/jquery').reply(404);
+    test('get file tarball correct content-length', (done) => {
+      nock(domain)
+        .get('/jquery/-/jquery-0.0.1.tgz')
+        // types does not match here with documentation
+        // @ts-expect-error
+        .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
+          [HEADER_TYPE.CONTENT_LENGTH]: 277,
+        });
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (error) => {
-        expect(error).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
+      const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+      stream.on(HEADER_TYPE.CONTENT_LENGTH, (data) => {
+        expect(data).toEqual('277');
         done();
+      });
+    });
+
+    describe('error handling', () => {
+      test('bad uplink request', (done) => {
+        nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(409);
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+        stream.on('error', (response) => {
+          expect(response).toEqual(ErrorCode.getInternalError(`bad uplink status code: 409`));
+          done();
+        });
+      });
+
+      test('content length header mismatch', (done) => {
+        nock(domain)
+          .get('/jquery/-/jquery-0.0.1.tgz')
+          // types does not match here with documentation
+          // @ts-expect-error
+          .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
+            [HEADER_TYPE.CONTENT_LENGTH]: 0,
+          });
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
+        stream.on('error', (response) => {
+          expect(response).toEqual(ErrorCode.getInternalError(API_ERROR.CONTENT_MISMATCH));
+          done();
+        });
       });
     });
   });
 
-  describe('tarballs', () => {
-    test('tarball call', (done) => {
-      nock(domain)
-        .get('/jquery')
-        .reply(
-          200,
-          { body: 'test' },
-          {
-            etag: () => `_ref_4444`,
-          }
-        );
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', {}, (_error, body, etag) => {
-        expect(etag).toEqual('_ref_4444');
-        expect(body).toEqual({ body: 'test' });
-        done();
-      });
-    });
-  });
-
-  describe('error handling', () => {
-    test('reply with error', (done) => {
-      nock(domain).get('/jquery').replyWithError('something awful happened');
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', {}, (error) => {
-        expect(error).toEqual(new Error('something awful happened'));
-        done();
-      });
-    });
-
-    test('reply with bad body json format', (done) => {
-      nock(domain).get('/jquery').reply(200, 'some-text');
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', {}, (error) => {
-        expect(error).toEqual(new SyntaxError('Unexpected token s in JSON at position 0'));
-        done();
-      });
-    });
-
-    test('400 error proxy call', (done) => {
-      nock(domain).get('/jquery').reply(409);
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      prox1.getRemoteMetadata('jquery', {}, (error) => {
-        expect(error.statusCode).toEqual(500);
-        expect(mockInfo).toHaveBeenCalled();
-        expect(mockHttp).toHaveBeenCalledWith({
-          request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
-          status: 409,
+  describe('getRemoteMetadata', () => {
+    describe('basic requests', () => {
+      test('proxy call with etag', (done) => {
+        nock(domain)
+          .get('/jquery')
+          .reply(
+            200,
+            { body: 'test' },
+            {
+              etag: () => `_ref_4444`,
+            }
+          );
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', {}, (_error, body, etag) => {
+          expect(etag).toEqual('_ref_4444');
+          expect(body).toEqual({ body: 'test' });
+          done();
         });
-        expect(mockHttp).toHaveBeenCalledWith({
-          bytes: { in: 0, out: 0 },
-          err: undefined,
-          error: undefined,
-          request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
-          status: 409,
+      });
+
+      test('proxy call with etag as option', (done) => {
+        nock(domain)
+          .get('/jquery')
+          .reply(
+            200,
+            { body: 'test' },
+            {
+              etag: () => `_ref_4444`,
+            }
+          );
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (_error, body, etag) => {
+          expect(etag).toEqual('_ref_4444');
+          expect(body).toEqual({ body: 'test' });
+          done();
         });
-        done();
+      });
+
+      test('proxy  not found', (done) => {
+        nock(domain).get('/jquery').reply(404);
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (error) => {
+          expect(error).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
+          done();
+        });
+      });
+    });
+
+    describe('tarballs', () => {
+      test('tarball call', (done) => {
+        nock(domain)
+          .get('/jquery')
+          .reply(
+            200,
+            { body: 'test' },
+            {
+              etag: () => `_ref_4444`,
+            }
+          );
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', {}, (_error, body, etag) => {
+          expect(etag).toEqual('_ref_4444');
+          expect(body).toEqual({ body: 'test' });
+          done();
+        });
+      });
+    });
+
+    describe('error handling', () => {
+      test('reply with error', (done) => {
+        nock(domain).get('/jquery').replyWithError('something awful happened');
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', {}, (error) => {
+          expect(error).toEqual(new Error('something awful happened'));
+          done();
+        });
+      });
+
+      test('reply with bad body json format', (done) => {
+        nock(domain).get('/jquery').reply(200, 'some-text');
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', {}, (error) => {
+          expect(error).toEqual(new SyntaxError('Unexpected token s in JSON at position 0'));
+          done();
+        });
+      });
+
+      test('400 error proxy call', (done) => {
+        nock(domain).get('/jquery').reply(409);
+        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        prox1.getRemoteMetadata('jquery', {}, (error) => {
+          expect(error.statusCode).toEqual(500);
+          expect(mockInfo).toHaveBeenCalled();
+          expect(mockHttp).toHaveBeenCalledWith({
+            request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
+            status: 409,
+          });
+          expect(mockHttp).toHaveBeenCalledWith({
+            bytes: { in: 0, out: 0 },
+            err: undefined,
+            error: undefined,
+            request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
+            status: 409,
+          });
+          done();
+        });
       });
     });
   });
