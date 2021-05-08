@@ -27,7 +27,8 @@ const debug = buildDebug('verdaccio:config');
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath: string | undefined): string {
+function findConfigFile(configPath?: string): string {
+  // console.log(process.env);
   if (typeof configPath !== 'undefined') {
     return Path.resolve(configPath);
   }
@@ -41,14 +42,15 @@ function findConfigFile(configPath: string | undefined): string {
   const primaryConf: any = _.find(configPaths, (configLocation: any) =>
     fileExists(configLocation.path)
   );
-  if (_.isNil(primaryConf) === false) {
+  if (_.isUndefined(primaryConf) === false) {
     return primaryConf.path;
   }
 
+  // @ts-ignore
   return createConfigFile(_.head(configPaths)).path;
 }
 
-function createConfigFile(configLocation: any): SetupDirectory {
+function createConfigFile(configLocation: SetupDirectory): SetupDirectory {
   createConfigFolder(configLocation);
 
   const defaultConfig = updateStorageLinks(configLocation, readDefaultConfig());
@@ -78,7 +80,6 @@ function updateStorageLinks(configLocation, defaultConfig): string {
   // $XDG_DATA_HOME defines the base directory relative to which user specific data
   // files should be stored, If $XDG_DATA_HOME is either not set or empty, a default
   // equal to $HOME/.local/share should be used.
-  // $FlowFixMe
   let dataDir =
     process.env.XDG_DATA_HOME || Path.join(process.env.HOME as string, '.local', 'share');
   if (folderExists(dataDir)) {
@@ -89,33 +90,37 @@ function updateStorageLinks(configLocation, defaultConfig): string {
 }
 
 function getConfigPaths(): SetupDirectory[] {
-  const listPaths: SetupDirectory[] = [
+  const listPaths: (SetupDirectory | void)[] = [
     getXDGDirectory(),
     getWindowsDirectory(),
     getRelativeDefaultDirectory(),
     getOldDirectory(),
-  ].reduce(function (acc, currentValue: any): SetupDirectory[] {
-    if (_.isUndefined(currentValue) === false) {
+  ];
+
+  return listPaths.reduce(function (acc, currentValue: SetupDirectory | void): SetupDirectory[] {
+    if (typeof currentValue !== 'undefined') {
+      debug('directory detected path %s', currentValue?.path);
       acc.push(currentValue);
     }
     return acc;
   }, [] as SetupDirectory[]);
-
-  return listPaths;
 }
 
 const getXDGDirectory = (): SetupDirectory | void => {
-  const XDGConfig = getXDGHome() || (process.env.HOME && Path.join(process.env.HOME, '.config'));
-
-  if (XDGConfig && folderExists(XDGConfig)) {
+  const xDGConfigPath =
+    getXDGHome() || (process.env.HOME && Path.join(process.env.HOME, '.config'));
+  debug('XDGConfig %s', xDGConfigPath);
+  if (xDGConfigPath && folderExists(xDGConfigPath)) {
     return {
-      path: Path.join(XDGConfig, pkgJSON.name, CONFIG_FILE),
+      path: Path.join(xDGConfigPath, pkgJSON.name, CONFIG_FILE),
       type: XDG,
     };
   }
 };
 
-const getXDGHome = (): string | void => process.env.XDG_CONFIG_HOME;
+const getXDGHome = (): string | void => {
+  return process.env.XDG_CONFIG_HOME;
+};
 
 const getWindowsDirectory = (): SetupDirectory | void => {
   if (process.platform === WIN32 && process.env.APPDATA && folderExists(process.env.APPDATA)) {
@@ -126,6 +131,10 @@ const getWindowsDirectory = (): SetupDirectory | void => {
   }
 };
 
+/**
+ *
+ * @returns
+ */
 const getRelativeDefaultDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', pkgJSON.name, CONFIG_FILE)),
@@ -133,6 +142,10 @@ const getRelativeDefaultDirectory = (): SetupDirectory => {
   };
 };
 
+/**
+ *
+ * @returns
+ */
 const getOldDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', CONFIG_FILE)),
