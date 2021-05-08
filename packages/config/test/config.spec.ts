@@ -9,6 +9,7 @@ import {
   parseConfigFile,
   ROLES,
   WEB_TITLE,
+  getMatchedPackagesSpec,
 } from '../src';
 import { parseConfigurationFile } from './utils';
 
@@ -23,56 +24,56 @@ const checkDefaultUplink = (config) => {
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
 };
 
-const checkDefaultConfPackages = (config) => {
-  // auth
-  expect(_.isObject(config.auth)).toBeTruthy();
-  expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
-  expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
-
-  // web
-  expect(_.isObject(config.web)).toBeTruthy();
-  expect(config.web.title).toBe(WEB_TITLE);
-  expect(config.web.enable).toBeUndefined();
-
-  // packages
-  expect(_.isObject(config.packages)).toBeTruthy();
-  expect(Object.keys(config.packages).join('|')).toBe('@*/*|**');
-  expect(config.packages['@*/*'].access).toBeDefined();
-  expect(config.packages['@*/*'].access).toContainEqual(ROLES.$ALL);
-  expect(config.packages['@*/*'].publish).toBeDefined();
-  expect(config.packages['@*/*'].publish).toContainEqual(ROLES.$AUTH);
-  expect(config.packages['@*/*'].proxy).toBeDefined();
-  expect(config.packages['@*/*'].proxy).toContainEqual(DEFAULT_UPLINK);
-  expect(config.packages['**'].access).toBeDefined();
-  expect(config.packages['**'].access).toContainEqual(ROLES.$ALL);
-  expect(config.packages['**'].publish).toBeDefined();
-  expect(config.packages['**'].publish).toContainEqual(ROLES.$AUTH);
-  expect(config.packages['**'].proxy).toBeDefined();
-  expect(config.packages['**'].proxy).toContainEqual(DEFAULT_UPLINK);
-  // uplinks
-  expect(config.uplinks[DEFAULT_UPLINK]).toBeDefined();
-  expect(config.uplinks[DEFAULT_UPLINK].url).toEqual(DEFAULT_REGISTRY);
-  // audit
-  expect(config.middlewares).toBeDefined();
-  expect(config.middlewares.audit).toBeDefined();
-  expect(config.middlewares.audit.enabled).toBeTruthy();
-  // logs
-  expect(config.logs).toBeDefined();
-  expect(config.logs.type).toEqual('stdout');
-  expect(config.logs.format).toEqual('pretty');
-  expect(config.logs.level).toEqual('http');
-  // must not be enabled by default
-  expect(config.notify).toBeUndefined();
-  expect(config.store).toBeUndefined();
-  expect(config.publish).toBeUndefined();
-  expect(config.url_prefix).toBeUndefined();
-  expect(config.url_prefix).toBeUndefined();
-
-  expect(config.experiments).toBeUndefined();
-  expect(config.security).toEqual(defaultSecurity);
-};
-
 describe('check basic content parsed file', () => {
+  const checkDefaultConfPackages = (config) => {
+    // auth
+    expect(_.isObject(config.auth)).toBeTruthy();
+    expect(_.isObject(config.auth.htpasswd)).toBeTruthy();
+    expect(config.auth.htpasswd.file).toMatch(/htpasswd/);
+
+    // web
+    expect(_.isObject(config.web)).toBeTruthy();
+    expect(config.web.title).toBe(WEB_TITLE);
+    expect(config.web.enable).toBeUndefined();
+
+    // packages
+    expect(_.isObject(config.packages)).toBeTruthy();
+    expect(Object.keys(config.packages).join('|')).toBe('@*/*|**');
+    expect(config.packages['@*/*'].access).toBeDefined();
+    expect(config.packages['@*/*'].access).toContainEqual(ROLES.$ALL);
+    expect(config.packages['@*/*'].publish).toBeDefined();
+    expect(config.packages['@*/*'].publish).toContainEqual(ROLES.$AUTH);
+    expect(config.packages['@*/*'].proxy).toBeDefined();
+    expect(config.packages['@*/*'].proxy).toContainEqual(DEFAULT_UPLINK);
+    expect(config.packages['**'].access).toBeDefined();
+    expect(config.packages['**'].access).toContainEqual(ROLES.$ALL);
+    expect(config.packages['**'].publish).toBeDefined();
+    expect(config.packages['**'].publish).toContainEqual(ROLES.$AUTH);
+    expect(config.packages['**'].proxy).toBeDefined();
+    expect(config.packages['**'].proxy).toContainEqual(DEFAULT_UPLINK);
+    // uplinks
+    expect(config.uplinks[DEFAULT_UPLINK]).toBeDefined();
+    expect(config.uplinks[DEFAULT_UPLINK].url).toEqual(DEFAULT_REGISTRY);
+    // audit
+    expect(config.middlewares).toBeDefined();
+    expect(config.middlewares.audit).toBeDefined();
+    expect(config.middlewares.audit.enabled).toBeTruthy();
+    // logs
+    expect(config.logs).toBeDefined();
+    expect(config.logs.type).toEqual('stdout');
+    expect(config.logs.format).toEqual('pretty');
+    expect(config.logs.level).toEqual('http');
+    // must not be enabled by default
+    expect(config.notify).toBeUndefined();
+    expect(config.store).toBeUndefined();
+    expect(config.publish).toBeUndefined();
+    expect(config.url_prefix).toBeUndefined();
+    expect(config.url_prefix).toBeUndefined();
+
+    expect(config.experiments).toBeUndefined();
+    expect(config.security).toEqual(defaultSecurity);
+  };
+
   test('parse default.yaml', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
     checkDefaultUplink(config);
@@ -81,6 +82,57 @@ describe('check basic content parsed file', () => {
     checkDefaultConfPackages(config);
   });
 
+  test('parse docker.yaml', () => {
+    const config = new Config(parseConfigFile(resolveConf('docker')));
+    checkDefaultUplink(config);
+    expect(config.storage).toBe('/verdaccio/storage/data');
+    expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
+    checkDefaultConfPackages(config);
+  });
+});
+
+describe('checkSecretKey', () => {
+  test('with default.yaml and pre selected secret', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(config.checkSecretKey('12345')).toEqual('12345');
+  });
+
+  test('with default.yaml and void secret', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
+  });
+
+  test('with default.yaml and emtpy string secret', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    expect(typeof config.checkSecretKey('') === 'string').toBeTruthy();
+  });
+});
+
+describe('getMatchedPackagesSpec', () => {
+  test('should match with react as defined in config file', () => {
+    const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
+    const config = new Config(configParsed);
+    expect(config.getMatchedPackagesSpec('react')).toEqual({
+      access: ['admin'],
+      proxy: ['facebook'],
+      publish: ['admin'],
+      unpublish: false,
+    });
+  });
+
+  test('should not match with react as defined in config file', () => {
+    const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
+    const config = new Config(configParsed);
+    expect(config.getMatchedPackagesSpec('somePackage')).toEqual({
+      access: [ROLES.$ALL],
+      proxy: ['npmjs'],
+      publish: [ROLES.$AUTH],
+      unpublish: false,
+    });
+  });
+});
+
+describe('VERDACCIO_STORAGE_PATH', () => {
   test('should set storage to value set in VERDACCIO_STORAGE_PATH environment variable', () => {
     const storageLocation = '/tmp/verdaccio';
     process.env.VERDACCIO_STORAGE_PATH = storageLocation;
@@ -105,13 +157,5 @@ describe('check basic content parsed file', () => {
     const config = new Config(defaultConfig);
     expect(config.storage).toBe(storageLocation);
     delete process.env.VERDACCIO_STORAGE_PATH;
-  });
-
-  test('parse docker.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('docker')));
-    checkDefaultUplink(config);
-    expect(config.storage).toBe('/verdaccio/storage/data');
-    expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
-    checkDefaultConfPackages(config);
   });
 });
