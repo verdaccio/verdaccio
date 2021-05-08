@@ -35,6 +35,7 @@ function findConfigFile(configPath?: string): string {
   const configPaths: SetupDirectory[] = getConfigPaths();
   debug('%o posible locations found', configPaths.length);
   if (_.isEmpty(configPaths)) {
+    // this should never happens
     throw new Error('no configuration files can be processed');
   }
 
@@ -127,8 +128,8 @@ function getConfigPaths(): SetupDirectory[] {
 const getXDGDirectory = (): SetupDirectory | void => {
   const xDGConfigPath =
     process.env.XDG_CONFIG_HOME || (process.env.HOME && path.join(process.env.HOME, '.config'));
-  debug('XDGConfig folder path %s', xDGConfigPath);
   if (xDGConfigPath && folderExists(xDGConfigPath)) {
+    debug('XDGConfig folder path %s', xDGConfigPath);
     return {
       path: path.join(xDGConfigPath, pkgJSON.name, CONFIG_FILE),
       type: XDG,
