@@ -64,7 +64,6 @@ export interface IProxy {
   fail_timeout: number;
   upname: string;
   fetchTarball(url: string): IReadTarball;
-  isUplinkValid(url: string): boolean;
   search(options: any);
   getRemoteMetadata(name: string, options: any, callback: Callback): void;
 }
@@ -434,27 +433,6 @@ class ProxyStorage implements IProxy {
     for (const key in this.config.headers) {
       headers[key] = this.config.headers[key];
     }
-  }
-
-  /**
-   * Determine whether can fetch from the provided URL
-   * @param {*} url
-   * @return {Boolean}
-   */
-  public isUplinkValid(url: string): boolean {
-    // $FlowFixMe
-    const urlParsed: UrlWithStringQuery = URL.parse(url);
-    const isHTTPS = (urlDomainParsed: URL): boolean =>
-      urlDomainParsed.protocol === 'https:' &&
-      (urlParsed.port === null || urlParsed.port === '443');
-    const getHost = (urlDomainParsed): boolean =>
-      isHTTPS(urlDomainParsed) ? urlDomainParsed.hostname : urlDomainParsed.host;
-    const isMatchProtocol: boolean = urlParsed.protocol === this.url.protocol;
-    const isMatchHost: boolean = getHost(urlParsed) === getHost(this.url);
-    // @ts-ignore
-    const isMatchPath: boolean = urlParsed.path.indexOf(this.url.path) === 0;
-
-    return isMatchProtocol && isMatchHost && isMatchPath;
   }
 
   /**
