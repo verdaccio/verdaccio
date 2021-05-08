@@ -19,6 +19,7 @@ function createUplink(config) {
 
 function setHeaders(config: unknown = {}, headers: unknown = {}) {
   const uplink = createUplink(config);
+  // @ts-expect-error
   return uplink._setHeaders({
     headers,
   });
