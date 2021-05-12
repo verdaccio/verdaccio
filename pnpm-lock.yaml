@@ -423,11 +423,13 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: 4.3.1
       fastify: 3.15.1
+      fastify-plugin: 3.0.0
       ts-node: 9.1.1
     dependencies:
       '@verdaccio/logger': link:../../logger
       debug: 4.3.1
       fastify: 3.15.1
+      fastify-plugin: 3.0.0
     devDependencies:
       '@verdaccio/config': link:../../config
       '@verdaccio/types': link:../types
@@ -13779,6 +13781,10 @@ packages:
 
   /fastify-error/0.3.1:
     resolution: {integrity: sha512-oCfpcsDndgnDVgiI7bwFKAun2dO+4h84vBlkWsWnz/OUK9Reff5UFoFl241xTiLeHWX/vU9zkDVXqYUxjOwHcQ==}
+    dev: false
+
+  /fastify-plugin/3.0.0:
+    resolution: {integrity: sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==}
     dev: false
 
   /fastify-warning/0.2.0:
