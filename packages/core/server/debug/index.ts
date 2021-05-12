@@ -6,6 +6,10 @@ import server from '../src/index';
 
 const debug = buildDebug('verdaccio:fastify:debug');
 
+/**
+ * This file is intended for fast development and debug, it should
+ * be removed eventually and the app start from @verdaccio/cli package.
+ */
 (async () => {
   try {
     const configFile = path.join(__dirname, './fastify-conf.yaml');
