@@ -87,7 +87,7 @@ middlewares:
     enabled: true
 
 # log settings
-logs:
+log:
   # Logger as STDOUT
   { type: stdout, format: pretty, level: http }
   # Logger as STDOUT as JSON
