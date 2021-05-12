@@ -418,8 +418,10 @@ importers:
 
   packages/core/server:
     specifiers:
+      '@verdaccio/config': workspace:6.0.0-6-next.6
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      fastify: 3.14.2
+      fastify: 3.15.1
+      ts-node: 9.1.1
     dependencies:
       fastify: 3.15.1
     devDependencies:
