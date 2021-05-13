@@ -20,8 +20,8 @@ const debug = buildDebug('verdaccio:fastify:debug');
     debug('configParsed %s', configParsed);
     process.title = 'fastify-verdaccio';
     const ser = await server({ logger });
-    await ser.listen(4000);
-    logger.info('fastify running on port 4000');
+    await ser.listen(4873);
+    logger.info('fastify running on port 4873');
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
