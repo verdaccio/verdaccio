@@ -16,7 +16,6 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableProgressBars false && \
     yarn config set enableTelemetry false && \
     yarn install && \
-    yarn lint && \
     yarn code:docker-build && \
     yarn cache clean && \
     yarn workspaces focus --production
