@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const namespace = Object.create(null);
 
 exports.addItem = function(name, value) {

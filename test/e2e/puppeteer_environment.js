@@ -1,4 +1,5 @@
 /* eslint new-cap: 0 */
+/* eslint-disable no-console */
 
 const fs = require('fs');
 const os = require('os');

@@ -114,7 +114,6 @@ export default function (express) {
       // @ts-ignore
       notify(metadata, multipleNotificationsEndpoint, publisherInfo).then(
         function (body) {
-          console.log('--->body', body);
           body.forEach(function (notification) {
             const jsonBody = parseBody(notification);
             expect(

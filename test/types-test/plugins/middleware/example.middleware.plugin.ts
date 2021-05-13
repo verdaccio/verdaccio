@@ -1,6 +1,7 @@
 // this file is not aim to be tested, just to check typescript definitions
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
+import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import {
   Config as AppConfig,
   IPluginMiddleware,
@@ -17,9 +18,7 @@ import { readFile } from '../../../functional/lib/test.utils';
 const readMetadata = (fileName: string): Package =>
   JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
 
-import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import { generateVersion } from '../../../unit/__helper/utils';
-
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
   register_middlewares(app: any, auth: IBasicAuth<{}>, storage: IStorageManager<{}>): void {
     const remoteUser: RemoteUser = {

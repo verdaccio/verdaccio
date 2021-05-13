@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // this is how a Babel.js transpiled plugin looks like
 
 "use strict";

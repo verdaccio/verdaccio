@@ -1,6 +1,7 @@
 import assert from 'assert';
-let semverSort = require('../../../../src/lib/utils').semverSort;
 import { mergeVersions } from '../../../../src/lib/metadata-utils';
+
+let semverSort = require('../../../../src/lib/utils').semverSort;
 
 require('../../../../src/lib/logger').setup([]);
 

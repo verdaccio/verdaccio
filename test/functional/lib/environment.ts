@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import path from 'path';
 import { yellow, green, blue, magenta } from 'kleur';
 import NodeEnvironment from 'jest-environment-node';

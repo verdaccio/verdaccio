@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const os = require('os');
 const path = require('path');
 const { green } = require('kleur');

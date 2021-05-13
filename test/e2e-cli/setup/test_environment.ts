@@ -16,6 +16,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
     );
     __global.addItem('dir-root', tempRoot);
     this.global.__namespace = __global;
+    // eslint-disable-next-line no-console
     console.log(`current directory: ${process.cwd()}`);
   }
 
