@@ -1,6 +1,9 @@
+
 verdaccio-*.tgz
 .DS_Store
 build/
+# not commited at this point, enableGlobalCache: false
+.yarn/cache
 
 ### Test
 

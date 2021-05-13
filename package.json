@@ -88,7 +88,6 @@
     "@commitlint/config-conventional": "12.0.1",
     "@octokit/rest": "16.43.2",
     "@types/async": "3.2.4",
-    "@types/bunyan": "1.8.6",
     "@types/express": "4.17.6",
     "@types/http-errors": "1.8.0",
     "@types/jest": "26.0.14",
@@ -175,11 +174,8 @@
     "start:debug": "yarn node debug/bootstrap.js",
     "code:build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
-    "docker": "docker build -t verdaccio/verdaccio:pr-2122 . --no-cache",
-    "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local",
-    "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
+    "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
   },
   "engines": {
     "node": ">=12",

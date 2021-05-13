@@ -1,7 +1,10 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.16.1-alpine as builder
 
 ENV NODE_ENV=production \
-    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
+    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org  \
+    HUSKY_SKIP_INSTALL=1 \
+    CI=true \
+    HUSKY_DEBUG=1
 
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
@@ -13,14 +16,13 @@ WORKDIR /opt/verdaccio-build
 COPY . .
 
 RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
-    yarn config set enableProgressBars false && \
-    yarn config set enableTelemetry false && \
+    yarn config set enableProgressBars true && \
+    yarn config set enableTelemetry true && \
+    yarn config set enableGlobalCache false && \
     yarn install && \
     yarn code:docker-build && \
     yarn cache clean && \
     yarn workspaces focus --production
-
-
 
 FROM node:14.16.1-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
@@ -56,4 +58,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD node -r ./.pnp.js $VERDACCIO_APPDIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
