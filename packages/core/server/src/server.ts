@@ -5,9 +5,9 @@ import ping from './endpoints/ping';
 
 const debug = buildDebug('verdaccio:fastify');
 
-async function startServer() {
+async function startServer({logger}) {
   debug('start server');
-  const app = fastify();
+  const app = fastify({logger});
   app.register(ping);
   return app;
 }
