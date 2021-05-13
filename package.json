@@ -82,7 +82,7 @@
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "7.13.9",
     "@babel/preset-typescript": "7.13.0",
-    "@babel/register": "7.13.8",
+    "@babel/register": "7.13.16",
     "@babel/runtime": "7.13.9",
     "@commitlint/cli": "12.0.1",
     "@commitlint/config-conventional": "12.0.1",
