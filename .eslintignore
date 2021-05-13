@@ -20,3 +20,4 @@ test/unit/partials/
 types/custom.d.ts
 docker-examples/
 LICENSE
+.pnp.js
