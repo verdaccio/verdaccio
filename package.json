@@ -123,6 +123,7 @@
     "get-stdin": "8.0.0",
     "in-publish": "2.0.1",
     "jest": "25.5.4",
+    "jest-config": "26.6.3",
     "jest-environment-node": "25.5.0",
     "jest-junit": "9.0.0",
     "lint-staged": "8.2.1",
