@@ -16,7 +16,7 @@
 !.jest.config.js
 !.jestEnvironment.js
 !.yarnrc.yml
-!.yarn/releases/yarn-berry.cjs
+!.yarn/releases/yarn-*.cjs
 !.yarn/plugins/*
 
 # do not copy over node_modules we will run `npm install` anyway
