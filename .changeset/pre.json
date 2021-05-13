@@ -33,7 +33,6 @@
     "verdaccio-aws-s3-storage": "11.0.0-alpha.0",
     "verdaccio-google-cloud": "11.0.0-alpha.0",
     "verdaccio-memory": "11.0.0-alpha.0",
-    "@verdaccio/website": "0.0.1",
     "@verdaccio/ui-theme": "6.0.0-alpha.1",
     "@verdaccio/e2e-cli": "1.0.0",
     "@verdaccio/e2e-ui": "1.0.0",

@@ -100,8 +100,6 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
       - name: Install
-        ## we run scripts due gatsby needs it
-        ## when website is excluded we can add --ignore-scripts
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: build
         run: pnpm build
@@ -194,27 +192,6 @@ jobs:
         run: pnpm recursive install --frozen-lockfile
       - name: Test CLI
         run: pnpm test:e2e:cli
-  website:
-    needs: [format, lint]
-    runs-on: ubuntu-latest
-    name: website build node 14
-    steps:
-      - uses: actions/checkout@v2.3.1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14     
-      - name: Install pnpm
-        run: npm i pnpm@latest -g
-      - uses: actions/cache@v2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
-      - name: Install
-        run: pnpm recursive install --frozen-lockfile
-      - name: Build website
-        run: |
-          cd website
-          pnpm build:website                    
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest
