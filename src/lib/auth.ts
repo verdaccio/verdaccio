@@ -184,7 +184,7 @@ class Auth implements IAuth {
         }
 
         if (ok) {
-          self.logger.info({ packageName }, '   allowed access for @{packageName}');
+          self.logger.info({ packageName }, '     allowed access for @{packageName}');
           return callback(null, ok);
         }
 
