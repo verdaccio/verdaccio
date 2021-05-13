@@ -191,16 +191,10 @@
     ]
   },
   "lint-staged": {
-    "relative": true,
-    "linters": {
       "*": [
         "eslint .",
         "git add"
       ]
-    },
-    "ignore": [
-      "*.json"
-    ]
   },
   "collective": {
     "type": "opencollective",
