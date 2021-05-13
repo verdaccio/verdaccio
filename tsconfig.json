@@ -9,12 +9,7 @@
     "resolveJsonModule": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types",
-      "./types/custom.d.ts"
-    ]
+    "esModuleInterop": true   
   },
   "exclude": [
     "node_modules",
