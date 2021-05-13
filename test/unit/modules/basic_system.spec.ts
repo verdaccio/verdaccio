@@ -1,9 +1,9 @@
-import endPointAPI from '../../../src/api/index';
-import { API_ERROR } from '../../../src/lib/constants';
 
 import express from 'express';
 import request from 'request';
 import rimraf from 'rimraf';
+import { API_ERROR } from '../../../src/lib/constants';
+import endPointAPI from '../../../src/api/index';
 import config from '../partials/config/index';
 
 import { setup } from '../../../src/lib/logger';

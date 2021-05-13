@@ -1,16 +1,14 @@
-{
+module.exports = {
   "extends": [
     "eslint:recommended",
     "google",
-    "plugin:react/recommended",
     "plugin:jest/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "plugin:jsx-a11y/recommended",
     "prettier"
   ],
-  "plugins": ["import", "jest", "jsx-a11y", "react-hooks"],
+  "plugins": ["import", "jest"],
   "env": {
     "es6": true,
     "node": true,
@@ -31,7 +29,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".js", ".ts", ".tsx"]
       }
     }
   },

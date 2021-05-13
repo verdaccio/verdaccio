@@ -6,9 +6,9 @@
  * If you have any questions, ask at the http://chat.verdaccio.org #questions channel.
  *
  */
+import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
-import path from 'path';
 import rimraf from 'rimraf';
 
 import endPointAPI from '../../../../src/api/index';

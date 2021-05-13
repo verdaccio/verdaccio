@@ -9,7 +9,7 @@
 # you can add exceptions like in .gitignore to maintain a whitelist:
 # e.g.
 !babel.config.js
-!.eslintrc
+!eslintrc.js
 !.prettierrc
 !.eslintignore
 !.stylelintrc
@@ -18,9 +18,12 @@
 !.yarnrc.yml
 !.yarn/releases/yarn-*.cjs
 !.yarn/plugins/*
+!.pnp.js
 
-# do not copy over node_modules we will run `npm install` anyway
+# just in case, yarn 2 pnp is enabled
 node_modules
+.husky/
+.git/
 
 # output from test runs and similar things
 *.log

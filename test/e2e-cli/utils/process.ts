@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import * as child_process from 'child_process';
 import { SpawnOptions } from 'child_process';
 

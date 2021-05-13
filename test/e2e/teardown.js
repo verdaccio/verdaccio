@@ -1,7 +1,9 @@
-const { green } = require('kleur');
-const rimraf = require('rimraf');
+/* eslint-disable no-console */
+
 const os = require('os');
 const path = require('path');
+const { green } = require('kleur');
+const rimraf = require('rimraf');
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 

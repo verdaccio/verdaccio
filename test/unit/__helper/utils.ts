@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import { Package } from '@verdaccio/types';
 
 export function generateAttachment() {

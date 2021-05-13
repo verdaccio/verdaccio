@@ -69,6 +69,7 @@ describe('functional test verdaccio', function () {
 });
 
 process.on('unhandledRejection', function (err) {
+  // eslint-disable-next-line no-console
   console.error('unhandledRejection', err);
   process.nextTick(function () {
     throw err;

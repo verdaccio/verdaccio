@@ -1,7 +1,9 @@
-npm-debug.log
+
 verdaccio-*.tgz
 .DS_Store
 build/
+# not commited at this point, comment out when enableGlobalCache is false
+.yarn/cache
 
 ### Test
 
@@ -21,18 +23,12 @@ package-lock.json
 npm_test-fails-add-tarball*
 yarn-error.log
 
-# Istanbul
+# coverage
 reports/
 coverage/
-.nyc*
 
+# IDE
 .idea/
-
-
-# React
-bundle.js
-bundle.js.map
-__tests__
 
 # Compiled script
 static/*

@@ -30,3 +30,4 @@ docker-examples/
 .npmignore
 .gitignore
 *.ico
+.pnp.js

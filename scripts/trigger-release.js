@@ -1,7 +1,3 @@
-/**
- * @prettier
- */
-
 'use strict';
 
 const [, , /* node */ /* file */ tag] = process.argv;

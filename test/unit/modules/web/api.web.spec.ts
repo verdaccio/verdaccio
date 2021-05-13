@@ -1,5 +1,5 @@
-import request from 'supertest';
 import path from 'path';
+import request from 'supertest';
 import rimraf from 'rimraf';
 
 import configDefault from '../../partials/config';

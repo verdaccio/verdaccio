@@ -1,8 +1,8 @@
 import path from 'path';
-import _ from 'lodash';
-import selfsigned from 'selfsigned';
 import os from 'os';
 import fs from 'fs';
+import _ from 'lodash';
+import selfsigned from 'selfsigned';
 
 import startServer from '../../../../src';
 import config from '../../partials/config';

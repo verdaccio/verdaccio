@@ -7,4 +7,4 @@ changelog=$(git show $GITHUB_SHA --unified=0 CHANGELOG.md | tail +12 | sed -e 's
 
 echo "$changelog"
 
-echo "$changelog" | node scripts/trigger-release.js $lastTag
+echo "$changelog" | yarn node scripts/trigger-release.js $lastTag

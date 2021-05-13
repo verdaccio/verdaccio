@@ -23,7 +23,7 @@ jobs:
 #        run: yarn install --pure-lockfile
 #      - name: 'Run verdaccio in the background'
 #        run: |
-#          nohup node ./scripts/run-verdaccio.js &
+#          nohup yarn node ./scripts/run-verdaccio.js &
 #      - name: 'Ping to verdaccio'
 #        run: |
 #          npm ping --registry http://localhost:4873
@@ -58,7 +58,7 @@ jobs:
         run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
@@ -95,7 +95,7 @@ jobs:
         run: yarn install
       - name: 'Run verdaccio in the background'
         run: |
-          nohup node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
       - name: 'Ping to verdaccio'
         run: |
           npm ping --registry http://localhost:4873
@@ -134,7 +134,7 @@ jobs:
 #        run: yarn install --pure-lockfile
 #      - name: 'Run verdaccio in the background'
 #        run: |
-#          nohup node ./scripts/run-verdaccio.js &
+#          nohup yarn node ./scripts/run-verdaccio.js &
 #      - name: 'Ping to verdaccio'
 #        run: |
 #          pnpm ping --registry http://localhost:4873

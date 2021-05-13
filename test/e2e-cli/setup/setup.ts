@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
+
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { green } from 'kleur';
 import { spawn } from 'child_process';
+import { green } from 'kleur';
 import { npm } from '../utils/process';
 import * as __global from '../utils/global.js';
 
