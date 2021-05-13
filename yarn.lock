@@ -804,6 +804,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-proposal-nullish-coalescing-operator@npm:7.14.2":
+  version: 7.14.2
+  resolution: "@babel/plugin-proposal-nullish-coalescing-operator@npm:7.14.2"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.13.0
+    "@babel/plugin-syntax-nullish-coalescing-operator": ^7.8.3
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 201998680c28916107cbaa7f42a51e537e8894d71a7861b6bc028bbbeba2a2412c9d6a46616965655e1889fe33136ab7fde29f1ed523f66a289cbf1631a51222
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-proposal-nullish-coalescing-operator@npm:^7.13.8":
   version: 7.13.8
   resolution: "@babel/plugin-proposal-nullish-coalescing-operator@npm:7.13.8"
@@ -852,6 +864,19 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0-0
   checksum: a91f361d3df099b79206f11b55800a8d4974c6b63d26a2af841da79e8ee7636383e650bb016198e35cbc5d9e9bd70189cc1b84702b12111165ebd27e0be7d998
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-proposal-optional-chaining@npm:7.14.2":
+  version: 7.14.2
+  resolution: "@babel/plugin-proposal-optional-chaining@npm:7.14.2"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.13.0
+    "@babel/helper-skip-transparent-expression-wrappers": ^7.12.1
+    "@babel/plugin-syntax-optional-chaining": ^7.8.3
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: f3733825f45cea95deb44478353c98f40130e4895f52f53081b65ca359f2e65cc8df6899a5bad2e69b9d633781a0bb041bb2fd0296df0a93126cce497f725351
   languageName: node
   linkType: hard
 
@@ -7297,13 +7322,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"get-stdin@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "get-stdin@npm:7.0.0"
-  checksum: fff64f163097fa3a2ba40b1e3105125f422554485b43694ab3176e37d775052489f0ad31b1d5f59d3fea6054c917779c2c0346f44f4a44f43d4679a638d52283
-  languageName: node
-  linkType: hard
-
 "get-stream@npm:^4.0.0":
   version: 4.1.0
   resolution: "get-stream@npm:4.1.0"
@@ -7828,26 +7846,6 @@ fsevents@~2.1.2:
   version: 1.1.1
   resolution: "human-signals@npm:1.1.1"
   checksum: cac115f635090055427bbd9d066781b17de3a2d8bbf839d920ae2fa52c3eab4efc63b4c8abc10e9a8b979233fa932c43a83a48864003a8c684ed9fb78135dd45
-  languageName: node
-  linkType: hard
-
-"husky@npm:2.7.0":
-  version: 2.7.0
-  resolution: "husky@npm:2.7.0"
-  dependencies:
-    cosmiconfig: ^5.2.0
-    execa: ^1.0.0
-    find-up: ^3.0.0
-    get-stdin: ^7.0.0
-    is-ci: ^2.0.0
-    pkg-dir: ^4.1.0
-    please-upgrade-node: ^3.1.1
-    read-pkg: ^5.1.1
-    run-node: ^1.0.0
-    slash: ^3.0.0
-  bin:
-    husky-upgrade: ./lib/upgrader/bin.js
-  checksum: 268c3d0ea0ed16f17a17adee5e7560a74fbe52405abbc45cffbe9ec1b875f4553e04698bc32dbe395a97e385f14b75bfdc34eb02c0bff01f4a482d74090389aa
   languageName: node
   linkType: hard
 
@@ -11515,7 +11513,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"please-upgrade-node@npm:^3.0.2, please-upgrade-node@npm:^3.1.1":
+"please-upgrade-node@npm:^3.0.2":
   version: 3.1.1
   resolution: "please-upgrade-node@npm:3.1.1"
   dependencies:
@@ -11916,7 +11914,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"read-pkg@npm:^5.1.1, read-pkg@npm:^5.2.0":
+"read-pkg@npm:^5.2.0":
   version: 5.2.0
   resolution: "read-pkg@npm:5.2.0"
   dependencies:
@@ -12469,15 +12467,6 @@ resolve@1.1.7:
   version: 2.4.1
   resolution: "run-async@npm:2.4.1"
   checksum: b1f06da336029be9c08312309ccdda107558ebf3e1212e960d7a54020f888a449ade2cb8b432a9a6750537ed80119a3c798f7592e8f8518f193ff4c50c13d4a3
-  languageName: node
-  linkType: hard
-
-"run-node@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "run-node@npm:1.0.0"
-  bin:
-    run-node: run-node
-  checksum: 8e154ab24e086443a440728407daff84b5682d80f0c457cd9887bc197f8c3947a67deae5b69d36aa90729c7b5ecfb82c91a9cfcb0dc57e1e5c4dcf7256dd185c
   languageName: node
   linkType: hard
 
@@ -14219,8 +14208,10 @@ typescript@4.1.3:
     "@babel/plugin-proposal-export-namespace-from": 7.12.13
     "@babel/plugin-proposal-function-sent": 7.12.13
     "@babel/plugin-proposal-json-strings": 7.13.8
+    "@babel/plugin-proposal-nullish-coalescing-operator": 7.14.2
     "@babel/plugin-proposal-numeric-separator": 7.12.13
     "@babel/plugin-proposal-object-rest-spread": 7.13.8
+    "@babel/plugin-proposal-optional-chaining": 7.14.2
     "@babel/plugin-proposal-throw-expressions": 7.12.13
     "@babel/plugin-syntax-dynamic-import": 7.8.3
     "@babel/plugin-syntax-import-meta": 7.10.4
@@ -14291,7 +14282,6 @@ typescript@4.1.3:
     get-stdin: 8.0.0
     handlebars: 4.7.7
     http-errors: 1.8.0
-    husky: 2.7.0
     in-publish: 2.0.1
     jest: 25.5.4
     jest-environment-node: 25.5.0

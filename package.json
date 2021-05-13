@@ -68,8 +68,10 @@
     "@babel/plugin-proposal-export-namespace-from": "7.12.13",
     "@babel/plugin-proposal-function-sent": "7.12.13",
     "@babel/plugin-proposal-json-strings": "7.13.8",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.14.2",
     "@babel/plugin-proposal-numeric-separator": "7.12.13",
     "@babel/plugin-proposal-object-rest-spread": "7.13.8",
+    "@babel/plugin-proposal-optional-chaining": "7.14.2",
     "@babel/plugin-proposal-throw-expressions": "7.12.13",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-syntax-import-meta": "7.10.4",
@@ -121,7 +123,6 @@
     "eslint-plugin-verdaccio": "9.6.1",
     "fs-extra": "9.1.0",
     "get-stdin": "8.0.0",
-    "husky": "2.7.0",
     "in-publish": "2.0.1",
     "jest": "25.5.4",
     "jest-environment-node": "25.5.0",
@@ -183,24 +184,6 @@
     "npm": ">=6"
   },
   "preferGlobal": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -e $GIT_PARAMS"
-    }
-  },
-  "lint-staged": {
-    "relative": true,
-    "linters": {
-      "*": [
-        "eslint .",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "*.json"
-    ]
-  },
   "license": "MIT",
   "commitlint": {
     "extends": [
