@@ -14,6 +14,7 @@ on:
       - '.yarn/**'
       - '.yarnrc.yaml'
       - '.pnp.js'
+      - 'Dockerfile'
     branches:
       - '**'
     tags:
