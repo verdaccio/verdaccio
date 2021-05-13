@@ -1,12 +1,12 @@
-import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
+import { yellow, green, blue, magenta } from 'kleur';
 import NodeEnvironment from 'jest-environment-node';
 import { VerdaccioConfig } from '../../lib/verdaccio-server';
 import VerdaccioProcess from '../../lib/server_process';
 import Server from '../../lib/server';
-import ExpressServer from './simple_server';
 import { IServerBridge } from '../../types';
 import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
+import ExpressServer from './simple_server';
 
 const EXPRESS_PORT = 55550;
 

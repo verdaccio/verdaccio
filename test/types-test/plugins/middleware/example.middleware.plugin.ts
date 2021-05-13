@@ -1,15 +1,6 @@
 // this file is not aim to be tested, just to check typescript definitions
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
-
-import Config from '../../../../src/lib/config';
-import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import { readFile } from '../../../functional/lib/test.utils';
-import { Package } from '@verdaccio/types';
-
-const readMetadata = (fileName: string): Package =>
-  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
-
 import {
   Config as AppConfig,
   IPluginMiddleware,
@@ -17,6 +8,15 @@ import {
   RemoteUser,
   IBasicAuth
 } from '@verdaccio/types';
+import { Package } from '@verdaccio/types';
+
+import Config from '../../../../src/lib/config';
+import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
+import { readFile } from '../../../functional/lib/test.utils';
+
+const readMetadata = (fileName: string): Package =>
+  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
+
 import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 import { generateVersion } from '../../../unit/__helper/utils';
 

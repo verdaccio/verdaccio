@@ -1,13 +1,13 @@
 import path from 'path';
 import fs from 'fs';
-import rimraf from 'rimraf';
 import { Writable } from 'stream';
+import rimraf from 'rimraf';
+import { Config } from '@verdaccio/types';
 import configExample from '../../partials/config';
 import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
 import { setup } from '../../../../src/lib/logger';
 
-import { Config } from '@verdaccio/types';
 import { IStorageHandler } from '../../../../types';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { mockServer } from '../../__helper/mock';

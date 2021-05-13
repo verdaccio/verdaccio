@@ -1,15 +1,15 @@
 import _ from 'lodash';
+import { Config, UpLinkConf } from '@verdaccio/types';
+import { VerdaccioError } from '@verdaccio/commons-api';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import AppConfig from '../../../../src/lib/config';
 import configExample from '../../partials/config';
 import { setup } from '../../../../src/lib/logger';
 
-import { Config, UpLinkConf } from '@verdaccio/types';
 import { IProxy } from '../../../../types';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { VerdaccioError } from '@verdaccio/commons-api';
 
 setup([]);
 

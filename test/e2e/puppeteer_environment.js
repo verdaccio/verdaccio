@@ -1,11 +1,11 @@
 /* eslint new-cap: 0 */
 
-const { yellow } = require('kleur');
-const NodeEnvironment = require('jest-environment-node');
-const puppeteer = require('puppeteer');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { yellow } = require('kleur');
+const NodeEnvironment = require('jest-environment-node');
+const puppeteer = require('puppeteer');
 const {VerdaccioConfig} = require("../lib/verdaccio-server");
 const VerdaccioProcess = require("../lib/server_process");
 const Server = require("../lib/server");

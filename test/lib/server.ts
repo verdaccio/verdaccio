@@ -1,11 +1,11 @@
-import _ from 'lodash';
 import assert from 'assert';
-import smartRequest from './request';
+import _ from 'lodash';
 import { IServerBridge } from '../types';
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
 import { buildToken } from '../../src/lib/utils';
 import { CREDENTIALS } from '../functional/config.functional';
 import getPackage from '../functional/fixtures/package';
+import smartRequest from './request';
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));

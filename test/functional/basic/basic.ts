@@ -9,9 +9,9 @@ import {
   PORT_SERVER_2,
   TARBALL
 } from '../config.functional';
+import fixturePkg from '../fixtures/package';
 import whoIam from './whoIam';
 import ping from './ping';
-import fixturePkg from '../fixtures/package';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));

@@ -1,9 +1,9 @@
+import path from 'path';
+import { Readable } from 'stream';
 import request from 'supertest';
 import _ from 'lodash';
-import path from 'path';
 import rimraf from 'rimraf';
 import nock from 'nock';
-import { Readable } from 'stream';
 
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
+import { RemoteUser } from '@verdaccio/types';
 import { HEADERS } from '../../../src/lib/constants';
 import { notify } from '../../../src/lib/notify';
 import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
-import { RemoteUser } from '@verdaccio/types';
 
 export default function (express) {
   const config = {
