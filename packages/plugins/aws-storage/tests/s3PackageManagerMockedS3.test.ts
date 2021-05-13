@@ -231,7 +231,7 @@ describe('S3PackageManager with mocked s3', function () {
       expect(mockListObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
-          Prefix: 'testKeyPrefix/@company/test-package',
+          Prefix: 'testKeyPrefix/@company/test-package/',
         },
         expect.any(Function)
       );
@@ -270,7 +270,7 @@ describe('S3PackageManager with mocked s3', function () {
       expect(mockListObject).toHaveBeenCalledWith(
         {
           Bucket: 'test-bucket',
-          Prefix: 'testKeyPrefix/customFolder/@company/test-package',
+          Prefix: 'testKeyPrefix/customFolder/@company/test-package/',
         },
         expect.any(Function)
       );

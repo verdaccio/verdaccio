@@ -172,7 +172,7 @@ export default class S3PackageManager implements ILocalPackageManager {
       this.s3,
       {
         Bucket: this.config.bucket,
-        Prefix: `${this.packagePath}`,
+        Prefix: addTrailingSlash(this.packagePath),
       },
       function (err) {
         if (err && is404Error(err as VerdaccioError)) {
