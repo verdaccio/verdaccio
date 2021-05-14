@@ -1,0 +1,50 @@
+store:
+  aws-s3-storage:
+    bucket: your-s3-bucket
+    keyPrefix: some-prefix # optional, has the effect of nesting all files in a subdirectory
+    region: us-west-2 # optional, will use aws s3's default behavior if not specified
+    endpoint: https://{service}.{region}.amazonaws.com # optional, will use aws s3's default behavior if not specified
+    s3ForcePathStyle: false # optional, will use path style URLs for S3 objects
+    tarballACL: private # optional, use public-read to work with CDN like Amazon CloudFront
+    accessKeyId: your-access-key-id # optional, aws accessKeyId for private S3 bucket
+    secretAccessKey: your-secret-access-key # optional, aws secretAccessKey for private S3 bucket
+    sessionToken: your-session-token # optional, aws sessionToken for private S3 bucket
+
+auth:
+  htpasswd:
+    file: /verdaccio/conf/htpasswd
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 60d
+        notBefore: 1
+  web:
+    sign:
+      expiresIn: 7d
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@jota/*':
+    access: $all
+    publish: $all
+
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+
+middlewares:
+  audit:
+    enabled: true
+
+logs: { type: stdout, format: pretty, level: trace }

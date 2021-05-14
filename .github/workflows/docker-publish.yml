@@ -11,6 +11,9 @@ on:
       - 'bin/**'
       - 'package.json'
       - 'yarn.lock'
+      - '.yarn/**'
+      - '.yarnrc.yaml'
+      - '.pnp.js'
     branches:
       - '**'
     tags:
