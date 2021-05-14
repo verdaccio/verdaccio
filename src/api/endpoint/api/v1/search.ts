@@ -2,39 +2,92 @@ import semver from 'semver';
 import _ from 'lodash';
 import { Package } from '@verdaccio/types';
 import { logger } from '../../../../lib/logger';
+import { HTTP_STATUS } from '../../../../lib/constants';
 
-function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
-  const personMatch = (person, search) => {
-    if (typeof person === 'string') {
-      return person.includes(search);
+type PublisherMaintainer = {
+  username: string;
+  email: string;
+}
+
+type PackageResults = {
+  name: string;
+  scope: string;
+  version: string;
+  description: string;
+  date: string;
+  links: {
+    npm: string;
+    homepage?: string;
+    repository?: string;
+    bugs?: string;
+  };
+  author: { name: string };
+  publisher: PublisherMaintainer;
+  maintainer: PublisherMaintainer;
+}
+
+type SearchResult = {
+  package: PackageResults
+  flags?: { unstable: boolean | void },
+  local?: boolean;
+  score: {
+    final: number;
+    detail: {
+      quality: number;
+      popularity: number;
+      maintenance: number;
     }
+  }
+  searchScore: number;
+}
 
-    if (typeof person === 'object') {
-      for (const field of Object.values(person)) {
-        if (typeof field === 'string' && field.includes(search)) {
-          return true;
-        }
+type SearchResults = {
+  objects: SearchResult[];
+  total: number;
+  time: string;
+}
+
+const personMatch = (person, search) => {
+  if (typeof person === 'string') {
+    return person.includes(search);
+  }
+
+  if (typeof person === 'object') {
+    for (const field of Object.values(person)) {
+      if (typeof field === 'string' && field.includes(search)) {
+        return true;
       }
     }
+  }
 
-    return false;
-  };
-  const matcher = function (q) {
-    const match = q.match(/author:(.*)/);
-    if (match !== null) {
-      return (pkg) => personMatch(pkg.author, match[1]);
+  return false;
+};
+
+const matcher = function (query) {
+  const match = query.match(/author:(.*)/);
+  if (match !== null) {
+    return function(pkg) {
+      return personMatch(pkg.author, match[1]);
     }
+  }
 
-    // TODO: maintainer, keywords, not/is unstable insecure, boost-exact
-    // TODO implement some scoring system for freetext
-    return (pkg) => {
-      return ['name', 'displayName', 'description']
-        .map((k) => pkg[k])
-        .filter((x) => x !== undefined)
-        .some((txt) => txt.includes(q));
-    };
+  // TODO: maintainer, keywords, boost-exact
+  // TODO implement some scoring system for freetext
+  return (pkg) => {
+    return ['name', 'displayName', 'description']
+      .map((k) => {
+        return pkg[k];
+      })
+      .filter((x) => {
+        return x !== undefined
+      })
+      .some((txt) => {
+        return txt.includes(query)
+      });
   };
+};
 
+function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
   const textMatchers = (textSearch || '').split(' ').map(matcher);
   return (pkg) => textMatchers.every((m) => m(pkg));
 }
@@ -43,11 +96,9 @@ function removeDuplicates(results) {
   const pkgNames: any[] = [];
   return results.filter((pkg) => {
     if (pkgNames.includes(pkg?.package?.name)) {
-      logger.debug(`discard ${pkg.package.name}`)
       return false;
     }
     pkgNames.push(pkg?.package?.name);
-    logger.debug(`list ${pkgNames}`)
     return true;
   })
 
@@ -72,11 +123,9 @@ function checkAccess(pkg: any, auth: any, remoteUser): Promise<Package | null> {
   });
 }
 
-const sendResponse = async (resultBuf, resultStream, auth, req): Promise<any> => {
-  logger.debug(`send response ${resultBuf?.length}`);
+async function sendResponse(resultBuf, resultStream, auth, req, from, size): Promise<SearchResults> {
   resultStream.destroy();
-
-  const resultsCollection = resultBuf.map((pkg) => {
+  const resultsCollection = resultBuf.map((pkg): SearchResult => {
     if(pkg?.name) {
       return {
         package: pkg,
@@ -101,25 +150,28 @@ const sendResponse = async (resultBuf, resultStream, auth, req): Promise<any> =>
       return pkg;
     }
   });
-  const checkAccessPromises = await Promise.all(removeDuplicates(resultsCollection).map((pkgItem) => {
+  const checkAccessPromises:SearchResult[] = await Promise.all(removeDuplicates(resultsCollection).map((pkgItem) => {
     return checkAccess(pkgItem, auth, req.remote_user);
   }));
 
-  const final = checkAccessPromises.filter(i => !_.isNull(i));
-
-  const response = {
+  const final: SearchResult[] = checkAccessPromises.filter(i => !_.isNull(i)).slice(from, size);
+  logger.debug(`search results ${final?.length}`)
+  
+  const response: SearchResults = {
     objects: final,
     total: final.length,
     time: new Date().toUTCString()
   };
 
   logger.debug(`total response ${final.length}`);
-  // res.status(200).json(response);
   return response;
 };
 
+/**
+ * Endpoint for npm search v1
+ * req: 'GET /-/v1/search?text=react&size=20&from=0&quality=0.65&popularity=0.98&maintenance=0.5'
+ */
 export default function (route, auth, storage): void {
-  logger.debug('search v1');
   route.get('/-/v1/search', async (req, res, next) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
     let [text, size, from /* , quality, popularity, maintenance */] = [
@@ -141,22 +193,19 @@ export default function (route, auth, storage): void {
       // packages from the upstreams
       if(_.isArray(pkg)) {
         resultBuf = resultBuf.concat(pkg.filter((pkgItem) => {
-          logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
           if (!isInteresting(pkgItem?.package)) {
-            logger.debug(`[remote] not interesting ${pkgItem?.package?.name}`);
             return;
           }
-
+          logger.debug(`[remote] pkg name ${pkgItem?.package?.name}`);
           return true;
         }))
       } else {
         // packages from local
-        // due compability with `/-/all` we cannot refactor storage.search();
-        logger.debug(`[local] pkg name ${pkg?.name}`);
+        // due compability with `/-/all` we cannot refactor storage.search();       
         if (!isInteresting(pkg)) {
-          logger.debug(`[local] not interesting ${pkg?.name}`);
           return;
         }
+        logger.debug(`[local] pkg name ${pkg?.name}`);
         resultBuf.push(pkg);
       }
     });
@@ -164,8 +213,8 @@ export default function (route, auth, storage): void {
       if (!completed) {
         completed = true;
         try {
-        const response = await sendResponse(resultBuf, resultStream, auth, req);
-        res.status(200).json(response);
+        const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
+        res.status(HTTP_STATUS.OK).json(response);
         } catch(err) {
           next(err);
         }
