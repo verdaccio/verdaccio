@@ -1,0 +1,70 @@
+{
+  "name": "npm_test_pkg1",
+  "versions": {
+    "1.0.0": {
+      "name": "npm_test_pkg1",
+      "version": "1.0.0",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "_id": "npm_test_pkg1@1.0.0",
+      "_npmVersion": "5.1.0",
+      "_nodeVersion": "4.6.1",
+      "_npmUser": {},
+      "dist": {
+        "integrity": "sha512-qq8u/xKpYFCfmANLg5ohY4ZBkzM7NsKjIpYH+eSXji69aceMQvltRXx0O1qo7yAIORiCFsMTGLlkDCQtbhByxg==",
+        "shasum": "d058de16fdf8bde775ef2898e682faacc3eaa67f",
+        "tarball": "http://localhost:4873/npm_test_pkg1/-/npm_test_pkg1-1.0.0.tgz"
+      }
+    },
+    "1.0.1": {
+      "name": "npm_test_pkg1",
+      "version": "1.0.1",
+      "description": "",
+      "main": "index.js",
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+      },
+      "keywords": [],
+      "author": "",
+      "license": "ISC",
+      "_id": "npm_test_pkg1@1.0.1",
+      "_npmVersion": "5.1.0",
+      "_nodeVersion": "4.6.1",
+      "_npmUser": {},
+      "dist": {
+        "integrity": "sha512-0YLdKRIAbZJoLpOFqXZE/JldTnGRKjIX999xV4PMJ+sUO6pWiLO8NbG4wuT5738Re3D5WTRa743y9uPvgrTD0A==",
+        "shasum": "1f6251ce59e375a6328958202ec07eb7de38dae6",
+        "tarball": "http://localhost:4873/npm_test_pkg1/-/npm_test_pkg1-1.0.1.tgz"
+      }
+    }
+  },
+  "dist-tags": {
+    "latest": "1.0.1"
+  },
+  "time": {
+    "modified": "2017-07-11T18:52:35.061Z",
+    "created": "2017-07-11T18:49:27.417Z",
+    "1.0.0": "2017-07-11T18:49:27.417Z",
+    "1.0.1": "2017-07-11T18:52:35.061Z"
+  },
+  "_distfiles": {},
+  "_attachments": {
+    "npm_test_pkg1-1.0.0.tgz": {
+      "shasum": "d058de16fdf8bde775ef2898e682faacc3eaa67f",
+      "version": "1.0.0"
+    },
+    "npm_test_pkg1-1.0.1.tgz": {
+      "shasum": "1f6251ce59e375a6328958202ec07eb7de38dae6",
+      "version": "1.0.1"
+    }
+  },
+  "_uplinks": {},
+  "_rev": "11-382567c9979db3fd",
+  "readme": "ERROR: No README data found!"
+}
