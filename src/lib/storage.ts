@@ -3,43 +3,16 @@ import Stream from 'stream';
 import _ from 'lodash';
 import async, { AsyncResultArrayCallback } from 'async';
 import { ReadTarball } from '@verdaccio/streams';
-import {
-  IReadTarball,
-  IUploadTarball,
-  Versions,
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  Callback,
-  Logger
-} from '@verdaccio/types';
+import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
 import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import {
-  IStorage,
-  IProxy,
-  IStorageHandler,
-  ProxyList,
-  StringValue,
-  IGetPackageOptions,
-  ISyncUplinks,
-  IPluginFilters
-} from '../../types';
+import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '../../types';
 import { logger } from '../lib/logger';
 import ProxyStorage from './up-storage';
 import Search from './search';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from './constants';
 import LocalStorage from './local-storage';
-import {
-  checkPackageLocal,
-  publishPackage,
-  checkPackageRemote,
-  cleanUpLinksRef,
-  mergeUplinkTimeIntoLocal,
-  generatePackageTemplate
-} from './storage-utils';
+import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
@@ -77,11 +50,7 @@ class Storage implements IStorageHandler {
   public async addPackage(name: string, metadata: any, callback: Function): Promise<void> {
     try {
       await checkPackageLocal(name, this.localStorage);
-      await checkPackageRemote(
-        name,
-        this._isAllowPublishOffline(),
-        this._syncUplinksMetadata.bind(this)
-      );
+      await checkPackageRemote(name, this._isAllowPublishOffline(), this._syncUplinksMetadata.bind(this));
       await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
     } catch (err) {
@@ -90,11 +59,7 @@ class Storage implements IStorageHandler {
   }
 
   private _isAllowPublishOffline(): boolean {
-    return (
-      typeof this.config.publish !== 'undefined' &&
-      _.isBoolean(this.config.publish.allow_offline) &&
-      this.config.publish.allow_offline
-    );
+    return typeof this.config.publish !== 'undefined' && _.isBoolean(this.config.publish.allow_offline) && this.config.publish.allow_offline;
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
@@ -113,13 +78,7 @@ class Storage implements IStorageHandler {
    * Add a new version of package {name} to a system
    Used storages: local (write)
    */
-  public addVersion(
-    name: string,
-    version: string,
-    metadata: Version,
-    tag: StringValue,
-    callback: Callback
-  ): void {
+  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: Callback): void {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
@@ -136,12 +95,7 @@ class Storage implements IStorageHandler {
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
    */
-  public changePackage(
-    name: string,
-    metadata: Package,
-    revision: string,
-    callback: Callback
-  ): void {
+  public changePackage(name: string, metadata: Package, revision: string, callback: Callback): void {
     this.localStorage.changePackage(name, metadata, revision, callback);
   }
 
@@ -181,21 +135,18 @@ class Storage implements IStorageHandler {
     return new Promise<boolean>((resolve, reject): void => {
       let localStream: any = self.localStorage.getTarball(name, filename);
       let isOpen = false;
-      localStream.on(
-        'error',
-        (err): any => {
-          if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
-            reject(err);
-          }
-          // local reported 404 or request was aborted already
-          if (localStream) {
-              localStream.abort();
-              localStream = null;
-          }
-          resolve(false);
+      localStream.on('error', (err): any => {
+        if (isOpen || err.status !== HTTP_STATUS.NOT_FOUND) {
+          reject(err);
         }
-      );
-      localStream.on('open', function(): void {
+        // local reported 404 or request was aborted already
+        if (localStream) {
+          localStream.abort();
+          localStream = null;
+        }
+        resolve(false);
+      });
+      localStream.on('open', function (): void {
         isOpen = true;
         localStream.abort();
         localStream = null;
@@ -278,7 +229,7 @@ class Storage implements IStorageHandler {
           {
             url: file.url,
             cache: true,
-            _autogenerated: true
+            _autogenerated: true,
           },
           self.config
         );
@@ -324,10 +275,7 @@ class Storage implements IStorageHandler {
         });
 
         savestream.on('error', function (err): void {
-          self.logger.warn(
-            { err: err, fileName: file },
-            'error saving file @{fileName}: @{err.message}\n@{err.stack}'
-          );
+          self.logger.warn({ err: err, fileName: file }, 'error saving file @{fileName}: @{err.message}\n@{err.stack}');
           if (savestream) {
             savestream.abort();
           }
@@ -395,7 +343,6 @@ class Storage implements IStorageHandler {
   public search(startkey: string, options: any): IReadTarball {
     const self = this;
     const searchStream: any = new Stream.PassThrough({ objectMode: true });
-
     async.eachSeries(
       Object.keys(this.uplinks),
       function (up_name, cb): void {
@@ -460,38 +407,32 @@ class Storage implements IStorageHandler {
 
       const packages: Version[] = [];
       const getPackage = function (itemPkg): void {
-        self.localStorage.getPackageMetadata(
-          locals[itemPkg],
-          function (err, pkgMetadata: Package): void {
-            if (_.isNil(err)) {
-              const latest = pkgMetadata[DIST_TAGS].latest;
-              if (latest && pkgMetadata.versions[latest]) {
-                const version: Version = pkgMetadata.versions[latest];
-                const timeList = pkgMetadata.time as GenericBody;
-                const time = timeList[latest];
-                // @ts-ignore
-                version.time = time;
+        self.localStorage.getPackageMetadata(locals[itemPkg], function (err, pkgMetadata: Package): void {
+          if (_.isNil(err)) {
+            const latest = pkgMetadata[DIST_TAGS].latest;
+            if (latest && pkgMetadata.versions[latest]) {
+              const version: Version = pkgMetadata.versions[latest];
+              const timeList = pkgMetadata.time as GenericBody;
+              const time = timeList[latest];
+              // @ts-ignore
+              version.time = time;
 
-                // Add for stars api
-                // @ts-ignore
-                version.users = pkgMetadata.users;
+              // Add for stars api
+              // @ts-ignore
+              version.users = pkgMetadata.users;
 
-                packages.push(version);
-              } else {
-                self.logger.warn(
-                  { package: locals[itemPkg] },
-                  'package @{package} does not have a "latest" tag?'
-                );
-              }
-            }
-
-            if (itemPkg >= locals.length - 1) {
-              callback(null, packages);
+              packages.push(version);
             } else {
-              getPackage(itemPkg + 1);
+              self.logger.warn({ package: locals[itemPkg] }, 'package @{package} does not have a "latest" tag?');
             }
           }
-        );
+
+          if (itemPkg >= locals.length - 1) {
+            callback(null, packages);
+          } else {
+            getPackage(itemPkg + 1);
+          }
+        });
       };
 
       if (locals.length) {
@@ -507,12 +448,7 @@ class Storage implements IStorageHandler {
    if package is available locally, it MUST be provided in pkginfo
    returns callback(err, result, uplink_errors)
    */
-  public _syncUplinksMetadata(
-    name: string,
-    packageInfo: Package,
-    options: ISyncUplinks,
-    callback: Callback
-  ): void {
+  public _syncUplinksMetadata(name: string, packageInfo: Package, options: ISyncUplinks, callback: Callback): void {
     let found = true;
     const self = this;
     const upLinks: IProxy[] = [];
@@ -560,7 +496,7 @@ class Storage implements IStorageHandler {
             self.logger.error(
               {
                 sub: 'out',
-                err: err
+                err: err,
               },
               'package.json validating error @{!err.message}\n@{err.stack}'
             );
@@ -569,7 +505,7 @@ class Storage implements IStorageHandler {
 
           packageInfo._uplinks[upLink.upname] = {
             etag: eTag,
-            fetched: Date.now()
+            fetched: Date.now(),
           };
 
           packageInfo.time = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
@@ -582,7 +518,7 @@ class Storage implements IStorageHandler {
             self.logger.error(
               {
                 sub: 'out',
-                err: err
+                err: err,
               },
               'package.json parsing error @{!err.message}\n@{err.stack}'
             );
@@ -627,29 +563,25 @@ class Storage implements IStorageHandler {
           return callback(null, packageInfo);
         }
 
-        self.localStorage.updateVersions(
-          name,
-          packageInfo,
-          async (err, packageJsonLocal: Package): Promise<any> => {
-            if (err) {
-              return callback(err);
-            }
-            // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
-            // as a broken filter is a security risk.
-            const filterErrors: Error[] = [];
-            // This MUST be done serially and not in parallel as they modify packageJsonLocal
-            for (const filter of self.filters) {
-              try {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
-                // performance (i.e. need not be pure)
-                packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err) {
-                filterErrors.push(err);
-              }
-            }
-            callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
+        self.localStorage.updateVersions(name, packageInfo, async (err, packageJsonLocal: Package): Promise<any> => {
+          if (err) {
+            return callback(err);
           }
-        );
+          // Any error here will cause a 404, like an uplink error. This is likely the right thing to do
+          // as a broken filter is a security risk.
+          const filterErrors: Error[] = [];
+          // This MUST be done serially and not in parallel as they modify packageJsonLocal
+          for (const filter of self.filters) {
+            try {
+              // These filters can assume it's save to modify packageJsonLocal and return it directly for
+              // performance (i.e. need not be pure)
+              packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
+            } catch (err) {
+              filterErrors.push(err);
+            }
+          }
+          callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
+        });
       }
     );
   }
