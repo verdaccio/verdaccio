@@ -87,7 +87,7 @@ const matcher = function (query) {
   };
 };
 
-function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
+function compileTextSearch(textSearch: string): (pkg: PackageResults) => boolean {
   const textMatchers = (textSearch || '').split(' ').map(matcher);
   return (pkg) => textMatchers.every((m) => m(pkg));
 }
@@ -122,33 +122,31 @@ function checkAccess(pkg: any, auth: any, remoteUser): Promise<Package | null> {
   });
 }
 
-async function sendResponse(resultBuf, resultStream, auth, req, from, size): Promise<SearchResults> {
+async function sendResponse(resultBuf, resultStream, auth, req, from: number, size: number): Promise<SearchResults> {
   resultStream.destroy();
-  const resultsCollection = resultBuf.map(
-    (pkg): SearchResult => {
-      if (pkg?.name) {
-        return {
-          package: pkg,
-          // not sure if flags is need it
-          flags: {
-            unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0')) ? undefined : true,
+  const resultsCollection = resultBuf.map((pkg): SearchResult => {
+    if (pkg?.name) {
+      return {
+        package: pkg,
+        // not sure if flags is need it
+        flags: {
+          unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0')) ? undefined : true,
+        },
+        local: true,
+        score: {
+          final: 1,
+          detail: {
+            quality: 1,
+            popularity: 1,
+            maintenance: 0,
           },
-          local: true,
-          score: {
-            final: 1,
-            detail: {
-              quality: 1,
-              popularity: 1,
-              maintenance: 0,
-            },
-          },
-          searchScore: 100000,
-        };
-      } else {
-        return pkg;
-      }
+        },
+        searchScore: 100000,
+      };
+    } else {
+      return pkg;
     }
-  );
+  });
   const checkAccessPromises: SearchResult[] = await Promise.all(
     removeDuplicates(resultsCollection).map((pkgItem) => {
       return checkAccess(pkgItem, auth, req.remote_user);
@@ -186,11 +184,11 @@ export default function (route, auth, storage): void {
     let resultBuf = [] as any;
     let completed = false;
 
-    resultStream.on('data', (pkg) => {
+    resultStream.on('data', (pkg: SearchResult[] | PackageResults) => {
       // packages from the upstreams
       if (_.isArray(pkg)) {
         resultBuf = resultBuf.concat(
-          pkg.filter((pkgItem) => {
+          (pkg as SearchResult[]).filter((pkgItem) => {
             if (!isInteresting(pkgItem?.package)) {
               return;
             }
@@ -204,7 +202,7 @@ export default function (route, auth, storage): void {
         if (!isInteresting(pkg)) {
           return;
         }
-        logger.debug(`[local] pkg name ${pkg?.name}`);
+        logger.debug(`[local] pkg name ${(pkg as PackageResults)?.name}`);
         resultBuf.push(pkg);
       }
     });

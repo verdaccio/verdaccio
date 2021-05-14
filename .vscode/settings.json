@@ -8,8 +8,7 @@
 	"eslint.nodePath": ".yarn/sdks",
 	"eslint.validate": [
     "javascript",
-    "typescript",
-    "typescriptreact"
+    "typescript"
   ],
 	"files.exclude": {
 		"**/.idea": false,
@@ -19,6 +18,7 @@
 	},
   "editor.formatOnSave": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "prettier.prettierPath": ".vscode/pnpify/prettier/index.js",
 	"search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
