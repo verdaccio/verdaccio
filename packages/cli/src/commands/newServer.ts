@@ -1,6 +1,8 @@
 import { Command, Option } from 'clipanion';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { setup, logger } from '@verdaccio/logger';
 import server from '@verdaccio/fastify-migration';
+import { ConfigRuntime } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -19,17 +21,29 @@ export class NewServer extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
+  private initLogger(logConfig: ConfigRuntime) {
+    try {
+      if (logConfig.logs) {
+        process.emitWarning('config.logs is deprecated, rename configuration to "config.log"');
+      }
+      // FUTURE: remove fallback when is ready
+      setup(logConfig.log || logConfig.logs);
+    } catch {
+      throw new Error('error on init logger');
+    }
+  }
+
   public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
       const configParsed = parseConfigFile(configPathLocation);
       const { web } = configParsed;
+      this.initLogger(configParsed);
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
       // const { version, name } = require('../../package.json');
-      const ser = await server();
-      await ser.listen(4000);
-      console.log('fastify running on port 4000');
+      const ser = await server({ logger });
+      await ser.listen(4873);
     } catch (err) {
       console.error(err);
       process.exit(1);
