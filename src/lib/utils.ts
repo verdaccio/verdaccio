@@ -93,6 +93,10 @@ export function isObject(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
+export function isObjectOrArray(obj: any): boolean {
+  return _.isObject(obj) && _.isNull(obj) === false;
+}
+
 /**
  * Validate the package metadata, add additional properties whether are missing within
  * the metadata properties.

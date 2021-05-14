@@ -394,54 +394,57 @@ class Storage implements IStorageHandler {
    */
   public search(startkey: string, options: any): IReadTarball {
     const self = this;
-    // stream to write a tarball
-    const stream: any = new Stream.PassThrough({ objectMode: true });
+    const searchStream: any = new Stream.PassThrough({ objectMode: true });
 
     async.eachSeries(
       Object.keys(this.uplinks),
       function (up_name, cb): void {
         // shortcut: if `local=1` is supplied, don't call uplinks
-        if (options.req.query.local !== undefined) {
+        if (options.req?.query?.local !== undefined) {
           return cb();
         }
+        logger.info(`search for uplink ${up_name}`);
         // search by keyword for each uplink
-        const lstream: IUploadTarball = self.uplinks[up_name].search(options);
-        // join streams
-        lstream.pipe(stream, { end: false });
-        lstream.on('error', function (err): void {
+        const uplinkStream: IUploadTarball = self.uplinks[up_name].search(options);
+        // join uplink stream with streams PassThrough
+        uplinkStream.pipe(searchStream, { end: false });
+        uplinkStream.on('error', function (err): void {
           self.logger.error({ err: err }, 'uplink error: @{err.message}');
           cb();
+          // to avoid call callback more than once
           cb = function (): void {};
         });
-        lstream.on('end', function (): void {
+        uplinkStream.on('end', function (): void {
           cb();
+          // to avoid call callback more than once
           cb = function (): void {};
         });
 
-        stream.abort = function (): void {
-          if (lstream.abort) {
-            lstream.abort();
+        searchStream.abort = function (): void {
+          if (uplinkStream.abort) {
+            uplinkStream.abort();
           }
           cb();
+          // to avoid call callback more than once
           cb = function (): void {};
         };
       },
       // executed after all series
       function (): void {
         // attach a local search results
-        const lstream: IReadTarball = self.localStorage.search(startkey, options);
-        stream.abort = function (): void {
-          lstream.abort();
+        const localSearchStream: IReadTarball = self.localStorage.search(startkey, options);
+        searchStream.abort = function (): void {
+          localSearchStream.abort();
         };
-        lstream.pipe(stream, { end: true });
-        lstream.on('error', function (err: VerdaccioError): void {
+        localSearchStream.pipe(searchStream, { end: true });
+        localSearchStream.on('error', function (err: VerdaccioError): void {
           self.logger.error({ err: err }, 'search error: @{err.message}');
-          stream.end();
+          searchStream.end();
         });
       }
     );
 
-    return stream;
+    return searchStream;
   }
 
   /**

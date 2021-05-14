@@ -1,8 +1,5 @@
 import { HEADERS } from '../../../lib/constants';
-
-/**
- * @prettier
- */
+import { logger } from '../../../lib/logger';
 
 export default function (route, auth, storage): void {
   // searching packages
@@ -11,7 +8,7 @@ export default function (route, auth, storage): void {
     let response_finished = false;
     let processing_pkgs = 0;
     let firstPackage = true;
-
+    logger.warn('/-/all search endpoint is deprecated, might be removed in the next major release');
     res.status(200);
     res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 

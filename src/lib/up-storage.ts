@@ -8,7 +8,7 @@ import request from 'request';
 import { ReadTarball } from '@verdaccio/streams';
 import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
 import { IProxy, UpLinkConfLocal } from '../../types';
-import { parseInterval, isObject, ErrorCode, buildToken } from './utils';
+import { parseInterval, isObject, ErrorCode, buildToken, isObjectOrArray } from './utils';
 import { logger } from './logger';
 import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
 
@@ -296,7 +296,6 @@ class ProxyStorage implements IProxy {
       return headers;
     }
 
-    // $FlowFixMe
     if (_.isObject(auth) === false && _.isObject(auth.token) === false) {
       this._throwErrorAuth('Auth invalid');
     }
@@ -515,7 +514,7 @@ class ProxyStorage implements IProxy {
     });
 
     const parsePackage = (pkg: Package): void => {
-      if (isObject(pkg)) {
+      if (isObjectOrArray(pkg)) {
         transformStream.emit('data', pkg);
       }
     };

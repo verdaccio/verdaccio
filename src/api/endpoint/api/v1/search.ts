@@ -1,5 +1,10 @@
 import semver from 'semver';
+import _ from 'lodash';
 import { Package } from '@verdaccio/types';
+import buildDebug from 'debug';
+import { logger } from '../../../../lib/logger';
+
+const debug = buildDebug('verdaccio:search');
 
 function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
   const personMatch = (person, search) => {
@@ -38,6 +43,8 @@ function compileTextSearch(textSearch: string): (pkg: Package) => boolean {
 }
 
 export default function (route, auth, storage): void {
+  debug('search v1');
+  logger.debug('search v1');
   route.get('/-/v1/search', (req, res) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
     let [text, size, from /* , quality, popularity, maintenance */] = [
@@ -51,11 +58,12 @@ export default function (route, auth, storage): void {
 
     const isInteresting = compileTextSearch(text);
 
-    const resultStream = storage.search(0, { req: { query: { local: true } } });
+    const resultStream = storage.search(0, { req });
     const resultBuf = [] as any;
     let completed = false;
 
     const sendResponse = (): void => {
+      logger.debug(`send response ${resultBuf?.length}`);
       completed = true;
       resultStream.destroy();
 
@@ -84,16 +92,29 @@ export default function (route, auth, storage): void {
         time: new Date().toUTCString()
       };
 
+      logger.debug(`total response ${final.length}`);
       res.status(200).json(response);
     };
 
     resultStream.on('data', (pkg) => {
-      if (!isInteresting(pkg)) {
-        return;
-      }
-      resultBuf.push(pkg);
-      if (!completed && resultBuf.length >= size + from) {
-        sendResponse();
+      logger.info('streaming search data');
+      if(_.isArray(pkg)) {
+        resultBuf.concat(pkg.filter((pkgItem) => {
+          logger.debug(`pkg name ${pkgItem?.package?.name}`);
+          if (!isInteresting(pkgItem?.package)) {
+            logger.debug(`not interesting ${pkgItem?.package?.name}`);
+            return;
+          }
+
+          return true;
+        }))
+      } else {
+        logger.debug(`pkg name ${pkg?.name}`);
+        if (!isInteresting(pkg)) {
+          logger.debug(`not interesting ${pkg?.name}`);
+          return;
+        }
+        resultBuf.push(pkg);
       }
     });
     resultStream.on('end', () => {
@@ -103,3 +124,4 @@ export default function (route, auth, storage): void {
     });
   });
 }
+

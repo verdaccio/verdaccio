@@ -1,10 +1,25 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsserver.watchOptions": {
+    "watchFile": "useFsEventsOnParentDirectory",
+    "watchDirectory": "useFsEvents"
+  },
+	"eslint.nodePath": ".yarn/sdks",
+	"eslint.validate": [
+    "javascript",
+    "typescript",
+    "typescriptreact"
+  ],
 	"files.exclude": {
 		"**/.idea": false,
 		"**/.nyc_output": true,
 		"**/build": true,
 		"**/coverage": true
 	},
-	"typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+	"search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  }
 }
