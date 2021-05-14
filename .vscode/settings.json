@@ -17,6 +17,7 @@
 		"**/build": true,
 		"**/coverage": true
 	},
+  "editor.formatOnSave": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
 	"search.exclude": {
     "**/.yarn": true,
