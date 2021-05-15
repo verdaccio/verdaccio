@@ -118,6 +118,7 @@ describe('Utilities', () => {
           expect(validateName('old-package@0.1.2.tgz')).toBeTruthy();
           // fix https://github.com/verdaccio/verdaccio/issues/1400
           expect(validateName('-build-infra')).toBeTruthy();
+          expect(validateName('@pkg-scoped/without-extension')).toBeTruthy();
         });
 
         test('should be valid using uppercase', () => {
