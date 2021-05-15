@@ -11,7 +11,7 @@ web:
 
 uplinks:
   npmjs:
-    url: https://registry.verdaccio.org/
+    url: https://registry.npmjs.org/
 
 logs: { type: stdout, format: json, level: http }
 

@@ -79,8 +79,6 @@ logs: { type: stdout, format: pretty, level: http }
 #experiments:
 #  # support for npm token command
 #  token: false
-#  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
-#  search: false
 #  # disable writing body size to logs, read more on ticket 1912
 #  bytesin_off: false
 #  # enable tarball URL redirect for hosting tarball with a different server, the tarball_url_redirect can be a template string

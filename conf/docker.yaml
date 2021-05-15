@@ -84,8 +84,6 @@ logs: { type: stdout, format: pretty, level: http }
 #experiments:
 #  # support for npm token command
 #  token: false
-#  # support for the new v1 search endpoint, functional by incomplete read more on ticket 1732
-#  search: false
 #  # enable tarball URL redirect for hosting tarball with a different server, the tarball_url_redirect can be a template string
 #  tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}'
 #  # the tarball_url_redirect can be a function, takes packageName and filename and returns the url, when working with a js configuration file

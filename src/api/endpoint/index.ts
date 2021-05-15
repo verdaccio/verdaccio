@@ -1,6 +1,5 @@
 import { Config } from '@verdaccio/types';
 import _ from 'lodash';
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import { IAuth, IStorageHandler } from '../../../types';
@@ -14,7 +13,6 @@ import pkg from './api/package';
 import stars from './api/stars';
 import profile from './api/v1/profile';
 import token from './api/v1/token';
-
 import v1Search from './api/v1/search';
 
 const {
@@ -29,12 +27,9 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
-
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble
-  // $FlowFixMe
   app.param('package', validatePackage);
-  // $FlowFixMe
   app.param('filename', validateName);
   app.param('tag', validateName);
   app.param('version', validateName);
@@ -62,11 +57,7 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
-
-  if (_.get(config, 'experiments.search') === true) {
-    v1Search(app, auth, storage);
-  }
-
+  v1Search(app, auth, storage);
   if (_.get(config, 'experiments.token') === true) {
     token(app, auth, storage, config);
   }

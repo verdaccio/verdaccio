@@ -156,27 +156,27 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 ### Basic features
 
-- Installing packages (npm install, npm upgrade, etc.) - **supported**
-- Publishing packages (npm publish) - **supported**
+- Installing packages (`npm install`, `npm upgrade`, etc.) - **supported**
+- Publishing packages (`npm publish`) - **supported**
 
 ### Advanced package control
 
-- Unpublishing packages (npm unpublish) - **supported**
-- Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - **supported**
+- Unpublishing packages (`npm unpublish`) - **supported**
+- Tagging (`npm tag`) - **supported**
+- Deprecation (`npm deprecate`) - **supported**
 
 ### User management
 
-- Registering new users (npm adduser {newuser}) - **supported**
-- Change password (npm profile set password) - **supported**
-- Transferring ownership (npm owner add {user} {pkg}) - not supported, _PR-welcome_
-- Token (npm token) - **supported**
+- Registering new users (`npm adduser {newuser}`) - **supported**
+- Change password (`npm profile set password`) - **supported**
+- Transferring ownership (`npm owner add {user} {pkg}`) - not supported, _PR-welcome_
+- Token (`npm token`) - **supported** (under flag)
 
 ### Miscellany
 
-- Searching (npm search) - **supported** (cli / browser)
-- Ping (npm ping) - **supported**
-- Starring (npm star, npm unstar, npm stars) - **supported**
+- Search (`npm search`) - **supported** (cli (`/-/all` and `v1`) / browser)
+- Ping (`npm ping`) - **supported**
+- Starring (`npm star`, `npm unstar`, `npm stars`) - **supported**
 
 ### Security
 

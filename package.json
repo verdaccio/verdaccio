@@ -170,7 +170,7 @@
     "lint": "yarn run type-check && yarn run lint:ts",
     "lint:ts": "eslint \"**/*.{js,jsx,ts,tsx}\" -c ./eslintrc.js",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts verdaccio npm yarn",
-    "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli",
+    "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
     "start:debug": "yarn node debug/bootstrap.js",
     "code:build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",

@@ -1,17 +1,15 @@
-import { HEADERS } from '../../../lib/constants';
-
-/**
- * @prettier
- */
+import { API_ERROR, HEADERS } from '../../../lib/constants';
+import { logger } from '../../../lib/logger';
+import { ErrorCode } from '../../../lib/utils';
 
 export default function (route, auth, storage): void {
   // searching packages
-  route.get('/-/all(/since)?', function (req, res) {
+  route.get('/-/all(/since)?', function (req, res, next) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;
     let firstPackage = true;
-
+    logger.warn('/-/all search endpoint is deprecated, might be removed in the next major release');
     res.status(200);
     res.set(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 
@@ -94,8 +92,10 @@ export default function (route, auth, storage): void {
       });
     });
 
-    stream.on('error', function () {
-      res.socket.destroy();
+    stream.on('error', function (err) {
+      logger.error('search `/-/all endpoint has failed @{err}', err);
+      received_end = true;
+      check_finish();
     });
 
     stream.on('end', function () {
