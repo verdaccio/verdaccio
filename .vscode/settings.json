@@ -1,25 +1,25 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.tsserver.watchOptions": {
     "watchFile": "useFsEventsOnParentDirectory",
     "watchDirectory": "useFsEvents"
   },
-	"eslint.nodePath": ".yarn/sdks",
-	"eslint.validate": [
+  "eslint.nodePath": ".yarn/sdks",
+  "eslint.validate": [
     "javascript",
     "typescript"
   ],
-	"files.exclude": {
-		"**/.idea": false,
-		"**/.nyc_output": true,
-		"**/build": true,
-		"**/coverage": true
-	},
+  "files.exclude": {
+    "**/.idea": false,
+    "**/.nyc_output": true,
+    "**/build": true,
+    "**/coverage": true
+  },
   "editor.formatOnSave": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "prettier.prettierPath": ".vscode/pnpify/prettier/index.js",
-	"search.exclude": {
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+  "search.exclude": {
     "**/.yarn": true,
     "**/.pnp.*": true
   }
