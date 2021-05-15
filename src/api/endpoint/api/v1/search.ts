@@ -206,13 +206,21 @@ export default function (route, auth, storage): void {
         resultBuf.push(pkg);
       }
     });
+
+    resultStream.on('error', function () {
+      logger.error('search endpoint has failed');
+      res.socket.destroy();
+    });
+
     resultStream.on('end', async () => {
       if (!completed) {
         completed = true;
         try {
           const response = await sendResponse(resultBuf, resultStream, auth, req, from, size);
+          logger.info('search endpoint ok results @{total}', { total: response.total });
           res.status(HTTP_STATUS.OK).json(response);
         } catch (err) {
+          logger.error('search endpoint has failed @{err}', { err });
           next(err);
         }
       }

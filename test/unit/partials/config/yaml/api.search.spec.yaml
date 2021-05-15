@@ -1,0 +1,31 @@
+storage: ./storage_default_storage
+uplinks:
+  npmjs:
+    url: http://localhost:4873/
+packages:
+  'all-can-unpublish':
+    access: $authenticated
+    publish: $all
+    unpublish: $all
+  'forbidden-place':
+    access: nobody
+    publish: $all
+  'vue':
+    access: $authenticated
+    publish: $authenticated
+    proxy: npmjs
+  'jquery':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  # forbidden for search endpoint test package  
+  'react*':
+    access: non_existing_user
+    publish: $all
+    proxy: npmjs  
+  '*':
+    access: $all
+    publish: $all
+    unpublish: xxx
+    proxy: npmjs
+logs: { type: stdout, format: pretty, level: trace }
