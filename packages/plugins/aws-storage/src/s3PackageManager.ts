@@ -29,14 +29,8 @@ export default class S3PackageManager implements ILocalPackageManager {
     this.config = config;
     this.packageName = packageName;
     this.logger = logger;
-    const {
-      endpoint,
-      region,
-      s3ForcePathStyle,
-      accessKeyId,
-      secretAccessKey,
-      sessionToken,
-    } = config;
+    const { endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey, sessionToken } =
+      config;
 
     this.s3 = new S3({
       endpoint,

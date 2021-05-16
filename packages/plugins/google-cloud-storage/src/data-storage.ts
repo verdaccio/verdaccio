@@ -118,14 +118,12 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
         // "{\"secret\":\"181bc38698078f880564be1e4d7ec107ac8a3b344a924c6d86cea4a84a885ae0\"}"
         return entities.secret;
       })
-      .catch(
-        (err: Error): Promise<string> => {
-          const error: VerdaccioError = getInternalError(err.message);
+      .catch((err: Error): Promise<string> => {
+        const error: VerdaccioError = getInternalError(err.message);
 
-          this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
-          return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
-        }
-      );
+        this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
+        return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
+      });
   }
 
   public setSecret(secret: string): Promise<CommitResponse> {
@@ -194,17 +192,15 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     // };
     this.helper
       .getEntities(this.kind)
-      .then(
-        async (entities: any): Promise<void> => {
-          for (const item of entities) {
-            if (item.name === name) {
-              await this._deleteItem(name, item);
-              // deletedItems.push(deletedItem);
-            }
+      .then(async (entities: any): Promise<void> => {
+        for (const item of entities) {
+          if (item.name === name) {
+            await this._deleteItem(name, item);
+            // deletedItems.push(deletedItem);
           }
-          cb(null);
         }
-      )
+        cb(null);
+      })
       .catch((err: Error): void => {
         cb(getInternalError(err.message));
       });

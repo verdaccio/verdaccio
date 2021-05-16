@@ -15,25 +15,21 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
     debug('authenticate %o', username);
-    auth.authenticate(
-      username,
-      password,
-      async (err, user: RemoteUser): Promise<void> => {
-        if (err) {
-          const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
-          debug('error authenticate %o', errorCode);
-          next(ErrorCode.getCode(errorCode, err.message));
-        } else {
-          req.remote_user = user;
-          const jWTSignOptions: JWTSignOptions = config.security.web.sign;
+    auth.authenticate(username, password, async (err, user: RemoteUser): Promise<void> => {
+      if (err) {
+        const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
+        debug('error authenticate %o', errorCode);
+        next(ErrorCode.getCode(errorCode, err.message));
+      } else {
+        req.remote_user = user;
+        const jWTSignOptions: JWTSignOptions = config.security.web.sign;
 
-          next({
-            token: await auth.jwtEncrypt(user, jWTSignOptions),
-            username: req.remote_user.name,
-          });
-        }
+        next({
+          token: await auth.jwtEncrypt(user, jWTSignOptions),
+          username: req.remote_user.name,
+        });
       }
-    );
+    });
   });
 
   if (config?.flags?.changePassword === true) {
