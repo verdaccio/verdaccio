@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    './rules/base.js',
-    './rules/prettier.js',
-    './rules/react.js',
-    './rules/jest.js'
-  ],
+  extends: ['./rules/base.js', './rules/prettier.js', './rules/react.js', './rules/jest.js'],
   env: {
     es6: true,
     node: true,

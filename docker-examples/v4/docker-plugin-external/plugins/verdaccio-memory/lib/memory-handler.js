@@ -16,7 +16,7 @@ let _memoryFs2 = _interopRequireDefault(_memoryFs);
 let _streams = require('@verdaccio/streams');
 
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
+  return obj && obj.__esModule ? obj : {default: obj};
 }
 
 // $FlowFixMe
@@ -111,8 +111,8 @@ class MemoryHandler {
     const uploadStream = new _streams.UploadTarball();
     const temporalName = `/${name}`;
 
-    process.nextTick(function () {
-      fs.exists(temporalName, function (exists) {
+    process.nextTick(function() {
+      fs.exists(temporalName, function(exists) {
         if (exists) {
           return uploadStream.emit('error', fSError(fileExist));
         }
@@ -122,7 +122,7 @@ class MemoryHandler {
 
           uploadStream.pipe(file);
 
-          uploadStream.done = function () {
+          uploadStream.done = function() {
             const onEnd = function onEnd() {
               uploadStream.emit('success');
             };
@@ -130,7 +130,7 @@ class MemoryHandler {
             uploadStream.on('end', onEnd);
           };
 
-          uploadStream.abort = function () {
+          uploadStream.abort = function() {
             uploadStream.emit('error', fSError('transmision aborted', 400));
             file.end();
           };
@@ -150,8 +150,8 @@ class MemoryHandler {
 
     const readTarballStream = new _streams.ReadTarball();
 
-    process.nextTick(function () {
-      fs.exists(pathName, function (exists) {
+    process.nextTick(function() {
+      fs.exists(pathName, function(exists) {
         if (!exists) {
           readTarballStream.emit('error', noPackageFoundError());
         } else {
@@ -164,7 +164,7 @@ class MemoryHandler {
             readTarballStream.emit('error', error);
           });
 
-          readTarballStream.abort = function () {
+          readTarballStream.abort = function() {
             readStream.destroy(fSError('read has been aborted', 400));
           };
         }

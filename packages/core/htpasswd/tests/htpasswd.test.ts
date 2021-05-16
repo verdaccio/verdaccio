@@ -31,7 +31,7 @@ describe('HTPasswd', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = new HTPasswd(getDefaultConfig(), (stuff as unknown) as VerdaccioConfigApp);
+    wrapper = new HTPasswd(getDefaultConfig(), stuff as unknown as VerdaccioConfigApp);
     jest.resetModules();
 
     crypto.randomBytes = jest.fn(() => {

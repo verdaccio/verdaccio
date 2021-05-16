@@ -79,7 +79,7 @@ describe.skip('S3 package manager', () => {
 
   describe('savePackage() group', () => {
     test('savePackage()', (done) => {
-      const data = ('{data:5}' as unknown) as Package;
+      const data = '{data:5}' as unknown as Package;
       const packageManager = new S3PackageManager(config, 'first-package', logger);
 
       packageManager.savePackage('pkg.1.0.0.tar.gz', data, (err) => {

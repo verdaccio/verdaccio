@@ -22,18 +22,8 @@ const cache = new CellMeasurerCache({
 /* eslint-disable  verdaccio/jsx-no-style */
 const PackageList: React.FC<Props> = ({ packages }) => {
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {
-    const {
-      name,
-      version,
-      description,
-      time,
-      keywords,
-      dist,
-      homepage,
-      bugs,
-      author,
-      license,
-    } = packages[index];
+    const { name, version, description, time, keywords, dist, homepage, bugs, author, license } =
+      packages[index];
     // TODO: move format license to API side.
     const formattedLicense = formatLicense(license);
 
