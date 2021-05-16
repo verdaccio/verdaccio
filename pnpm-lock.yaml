@@ -29,8 +29,8 @@ importers:
       '@babel/register': 7.13.14
       '@babel/runtime': 7.13.10
       '@changesets/changelog-github': ^0.2.8
-      '@changesets/cli': ^2.16.0
-      '@changesets/get-dependents-graph': ^1.2.1
+      '@changesets/cli': 2.15.0
+      '@changesets/get-dependents-graph': ^1.2.0
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
       '@octokit/rest': 17.0.0
@@ -137,7 +137,7 @@ importers:
       '@babel/register': 7.13.14_@babel+core@7.13.15
       '@babel/runtime': 7.13.10
       '@changesets/changelog-github': 0.2.8
-      '@changesets/cli': 2.16.0
+      '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.1
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
@@ -2723,12 +2723,6 @@ packages:
       regenerator-runtime: 0.13.7
     dev: true
 
-  /@babel/runtime/7.12.13:
-    resolution: {integrity: sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==}
-    dependencies:
-      regenerator-runtime: 0.13.7
-    dev: true
-
   /@babel/runtime/7.12.5:
     resolution: {integrity: sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==}
     dependencies:
@@ -2885,14 +2879,14 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@changesets/apply-release-plan/5.0.0:
-    resolution: {integrity: sha512-SE+5nPNSKUyUociPnAvnjYSVF+diciEhX9ZHSqKWMlydswCDjiaq9gz67qwWCmwgEgEOz0TS7VrQBoOlzbitvA==}
+  /@changesets/apply-release-plan/4.2.0:
+    resolution: {integrity: sha512-/vt6UwgQldhOw93Gb8llI5OuYGlJt2+U45AfcXsoxzl8gZzCmChGm3vUaQJYbmtL8TbL8OOVXHRIKJJidMNPKw==}
     dependencies:
       '@babel/runtime': 7.13.10
       '@changesets/config': 1.6.0
       '@changesets/get-version-range-type': 0.3.2
       '@changesets/git': 1.1.1
-      '@changesets/types': 4.0.0
+      '@changesets/types': 3.3.0
       '@manypkg/get-packages': 1.1.1
       detect-indent: 6.0.0
       fs-extra: 7.0.1
@@ -2903,13 +2897,13 @@ packages:
       semver: 5.7.1
     dev: true
 
-  /@changesets/assemble-release-plan/5.0.0:
-    resolution: {integrity: sha512-LElDXTCBUkPSmdXlCisoUWw2paX48snatBmw/hKnGiSvnyZqdTIylLojAGQWG0/vOO9v3s/DvJ4hdagIquxJjg==}
+  /@changesets/assemble-release-plan/4.1.1:
+    resolution: {integrity: sha512-cX7riE3ZHTHY9up7WTPWE4l9Rb7wWJVvO3Flcl5Mv/NEh46QHS1ys/GMHhLrFxq7V7VvASKkZVukCsg+CZAEGA==}
     dependencies:
       '@babel/runtime': 7.13.10
       '@changesets/errors': 0.1.4
       '@changesets/get-dependents-graph': 1.2.1
-      '@changesets/types': 4.0.0
+      '@changesets/types': 3.3.0
       '@manypkg/get-packages': 1.1.1
       semver: 5.7.1
     dev: true
@@ -2922,22 +2916,22 @@ packages:
       dotenv: 8.2.0
     dev: true
 
-  /@changesets/cli/2.16.0:
-    resolution: {integrity: sha512-VFkXSyyk/WRjjUoBI7g7cDy09qBjPbBQOloPMEshTzMo/NY9muWHl2yB/FSSkV/6PxGimPtJ7aEJPYfk8HCfXw==}
+  /@changesets/cli/2.15.0:
+    resolution: {integrity: sha512-5ybu6D0qFIVSDvPGI+SnlbCqF2CMKGHGSmajJpgCgmG9VxyvjsyAfWLTpIdtYKrEDxQADslwaHjFbGiWpG0QUw==}
     hasBin: true
     dependencies:
-      '@babel/runtime': 7.12.13
-      '@changesets/apply-release-plan': 5.0.0
-      '@changesets/assemble-release-plan': 5.0.0
+      '@babel/runtime': 7.13.10
+      '@changesets/apply-release-plan': 4.2.0
+      '@changesets/assemble-release-plan': 4.1.1
       '@changesets/config': 1.6.0
       '@changesets/errors': 0.1.4
       '@changesets/get-dependents-graph': 1.2.1
-      '@changesets/get-release-plan': 3.0.0
+      '@changesets/get-release-plan': 2.0.1
       '@changesets/git': 1.1.1
       '@changesets/logger': 0.0.5
       '@changesets/pre': 1.0.6
       '@changesets/read': 0.4.7
-      '@changesets/types': 4.0.0
+      '@changesets/types': 3.3.0
       '@changesets/write': 0.1.4
       '@manypkg/get-packages': 1.1.1
       '@types/semver': 6.2.2
@@ -2993,15 +2987,15 @@ packages:
       node-fetch: 2.6.1
     dev: true
 
-  /@changesets/get-release-plan/3.0.0:
-    resolution: {integrity: sha512-7VLiqpcWZyjwIXYgkubBC/9cdwqUJEhLMRT9/Y9+ctHqrpsXmJg15QQPTOh3HT9yGN5fJPL1WwuZkc1HXUhK0g==}
+  /@changesets/get-release-plan/2.0.1:
+    resolution: {integrity: sha512-+x5N9/Iaka+c0Kq7+3JsboMNyffKYlWPmdm+VeafDcMwJFhBDkxm84qaCJ93ydmnzQOTig6gYVqw0k8BbHExyQ==}
     dependencies:
       '@babel/runtime': 7.13.10
-      '@changesets/assemble-release-plan': 5.0.0
+      '@changesets/assemble-release-plan': 4.1.1
       '@changesets/config': 1.6.0
       '@changesets/pre': 1.0.6
       '@changesets/read': 0.4.7
-      '@changesets/types': 4.0.0
+      '@changesets/types': 3.3.0
       '@manypkg/get-packages': 1.1.1
     dev: true
 
@@ -3058,6 +3052,10 @@ packages:
 
   /@changesets/types/3.2.0:
     resolution: {integrity: sha512-rAmPtOyXpisEEE25CchKNUAf2ApyAeuZ/h78YDoqKZaCk5tUD0lgYZGPIRV9WTPoqNjJULIym37ogc6pkax5jg==}
+    dev: true
+
+  /@changesets/types/3.3.0:
+    resolution: {integrity: sha512-rJamRo+OD/MQekImfIk07JZwYSB18iU6fYL8xOg0gfAiTh1a1+OlR1fPIxm55I7RsWw812is2YcPPwXdIewrhA==}
     dev: true
 
   /@changesets/types/4.0.0:
@@ -3770,7 +3768,7 @@ packages:
   /@manypkg/find-root/1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
     dependencies:
-      '@babel/runtime': 7.12.13
+      '@babel/runtime': 7.13.10
       '@types/node': 12.19.16
       find-up: 4.1.0
       fs-extra: 8.1.0
@@ -3779,10 +3777,10 @@ packages:
   /@manypkg/get-packages/1.1.1:
     resolution: {integrity: sha512-J6VClfQSVgR6958eIDTGjfdCrELy1eT+SHeoSMomnvRQVktZMnEA5edIr5ovRFNw5y+Bk/jyoevPzGYod96mhw==}
     dependencies:
-      '@babel/runtime': 7.12.13
+      '@babel/runtime': 7.13.10
       '@manypkg/find-root': 1.1.0
       fs-extra: 8.1.0
-      globby: 11.0.2
+      globby: 11.0.3
       read-yaml-file: 1.1.0
     dev: true
 
@@ -9416,7 +9414,7 @@ packages:
   /find-yarn-workspace-root2/1.2.16:
     resolution: {integrity: sha512-hr6hb1w8ePMpPVUK39S4RlwJzi+xPLuVuG8XlwXU3KD5Yn3qgBWVfy3AzNlDhWvE1EORCE65/Qm26rFQt3VLVA==}
     dependencies:
-      micromatch: 4.0.2
+      micromatch: 4.0.4
       pkg-dir: 4.2.0
     dev: true
 
