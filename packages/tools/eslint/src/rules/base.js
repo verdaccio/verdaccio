@@ -23,6 +23,8 @@ module.exports = {
     camelcase: 'off',
     'guard-for-in': 'error',
     'new-cap': 'error',
+    // disabled in favor of @typescript-eslint/no-unused-vars
+    'no-unused-vars': 'off',
     'max-len': ['error', 100],
     'no-console': ['error', { allow: ['warn'] }],
     'no-constant-condition': 'error',
@@ -54,11 +56,10 @@ module.exports = {
     '@typescript-eslint/ban-types': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     // rules to fix
-    'no-unused-vars': ['warn', { vars: 'all', args: 'none' }],
     'prefer-promise-reject-errors': ['warn'],
 
     '@typescript-eslint/prefer-optional-chain': ['warn'],
     '@typescript-eslint/explicit-member-accessibility': ['warn'],
-    '@typescript-eslint/no-unused-vars': ['warn'],
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };

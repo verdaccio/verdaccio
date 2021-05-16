@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { CREDENTIALS } from './registry-launcher';
 import smartRequest, { RequestPromise } from './request';
 
-declare class PromiseAssert<RequestPromise> extends Promise<any> {
+declare class PromiseAssert extends Promise<any> {
   public constructor(options: any);
 }
 

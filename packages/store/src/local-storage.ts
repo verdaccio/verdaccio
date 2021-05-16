@@ -538,7 +538,7 @@ class LocalStorage implements IStorage {
         // @ts-ignore
       } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         // check if package exists to throw an appropriate message
-        this.getPackageMetadata(name, function (_err: VerdaccioError, _res: Package): void {
+        this.getPackageMetadata(name, function (_err: VerdaccioError): void {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -686,7 +686,7 @@ class LocalStorage implements IStorage {
    * @param {*} options
    * @return {Function}
    */
-  public search(startKey: string, options: any): IReadTarball {
+  public search(startKey: string): IReadTarball {
     const stream = new ReadTarball({ objectMode: true });
     debug('search by %o', startKey);
     this._searchEachPackage(

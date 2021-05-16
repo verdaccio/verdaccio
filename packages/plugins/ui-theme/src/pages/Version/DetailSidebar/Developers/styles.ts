@@ -20,12 +20,12 @@ export const Content = styled('div')({
 });
 
 export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight.bold,
+  fontWeight: props.theme?.fontWeight.bold,
   marginBottom: '10px',
   textTransform: 'capitalize',
 }));
 
 export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme && props.theme.palette.primary.main,
-  color: props.theme && props.theme.palette.white,
+  backgroundColor: props.theme?.palette.primary.main,
+  color: props.theme?.palette.white,
 }));
