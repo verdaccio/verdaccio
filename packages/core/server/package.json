@@ -34,10 +34,15 @@
     "access": "public"
   },
   "dependencies": {
-    "fastify": "3.14.2"
+    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "fastify": "3.15.1",
+    "fastify-plugin": "3.0.0",
+    "debug": "4.3.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.7",
+    "@verdaccio/config": "workspace:6.0.0-6-next.6",
+    "ts-node": "9.1.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -45,7 +50,8 @@
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "build": "pnpm run build:js && pnpm run build:types",
+    "start": "ts-node debug/index.ts"
   },
   "funding": {
     "type": "opencollective",

@@ -1,12 +1,14 @@
 import fastify from 'fastify';
+import buildDebug from 'debug';
 
-async function startServer() {
-  const app = fastify();
+import ping from './endpoints/ping';
 
-  app.get('/', async (request, reply) => {
-    return { hello: 'world' };
-  });
+const debug = buildDebug('verdaccio:fastify');
 
+async function startServer({ logger }) {
+  debug('start server');
+  const app = fastify({ logger });
+  app.register(ping);
   return app;
 }
 
