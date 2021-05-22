@@ -59,86 +59,84 @@ export function loadPlugin<T extends IPlugin<T>>(
   sanityCheck: any,
   prefix: string = 'verdaccio'
 ): any[] {
-  return Object.keys(pluginConfigs).map(
-    (pluginId: string): IPlugin<T> => {
-      let plugin;
+  return Object.keys(pluginConfigs).map((pluginId: string): IPlugin<T> => {
+    let plugin;
 
-      const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
-      // try local plugins first
-      plugin = tryLoad(localPlugin);
+    const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
+    // try local plugins first
+    plugin = tryLoad(localPlugin);
 
-      // try the external plugin directory
-      if (plugin === null && config.plugins) {
-        const pluginDir = config.plugins;
-        const externalFilePlugin = Path.resolve(pluginDir, pluginId);
-        plugin = tryLoad(externalFilePlugin);
-
-        // npm package
-        if (plugin === null && pluginId.match(/^[^\.\/]/)) {
-          plugin = tryLoad(Path.resolve(pluginDir, `${prefix}-${pluginId}`));
-          // compatibility for old sinopia plugins
-          if (!plugin) {
-            plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
-          }
-        }
-      }
+    // try the external plugin directory
+    if (plugin === null && config.plugins) {
+      const pluginDir = config.plugins;
+      const externalFilePlugin = Path.resolve(pluginDir, pluginId);
+      plugin = tryLoad(externalFilePlugin);
 
       // npm package
       if (plugin === null && pluginId.match(/^[^\.\/]/)) {
-        plugin = tryLoad(`${prefix}-${pluginId}`);
+        plugin = tryLoad(Path.resolve(pluginDir, `${prefix}-${pluginId}`));
         // compatibility for old sinopia plugins
         if (!plugin) {
-          plugin = tryLoad(`sinopia-${pluginId}`);
+          plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
         }
       }
-
-      if (plugin === null) {
-        plugin = tryLoad(pluginId);
-      }
-
-      // relative to config path
-      if (plugin === null && pluginId.match(/^\.\.?($|\/)/)) {
-        plugin = tryLoad(Path.resolve(Path.dirname(config.config_path), pluginId));
-      }
-
-      if (plugin === null) {
-        logger.error(
-          { content: pluginId, prefix },
-          'plugin not found. try npm install @{prefix}-@{content}'
-        );
-        throw Error(`
-        ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
-      }
-
-      if (!isValid(plugin)) {
-        logger.error(
-          { content: pluginId },
-          '@{prefix}-@{content} plugin does not have the right code structure'
-        );
-        throw Error(`"${pluginId}" plugin does not have the right code structure`);
-      }
-
-      /* eslint new-cap:off */
-      try {
-        plugin = isES6(plugin)
-          ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
-          : plugin(pluginConfigs[pluginId], params);
-      } catch (error) {
-        plugin = null;
-        logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
-      }
-      /* eslint new-cap:off */
-
-      if (plugin === null || !sanityCheck(plugin)) {
-        logger.error(
-          { content: pluginId, prefix },
-          "@{prefix}-@{content} doesn't look like a valid plugin"
-        );
-        throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
-      }
-
-      debug('Plugin successfully loaded: %o-%o', pluginId, prefix);
-      return plugin;
     }
-  );
+
+    // npm package
+    if (plugin === null && pluginId.match(/^[^\.\/]/)) {
+      plugin = tryLoad(`${prefix}-${pluginId}`);
+      // compatibility for old sinopia plugins
+      if (!plugin) {
+        plugin = tryLoad(`sinopia-${pluginId}`);
+      }
+    }
+
+    if (plugin === null) {
+      plugin = tryLoad(pluginId);
+    }
+
+    // relative to config path
+    if (plugin === null && pluginId.match(/^\.\.?($|\/)/)) {
+      plugin = tryLoad(Path.resolve(Path.dirname(config.config_path), pluginId));
+    }
+
+    if (plugin === null) {
+      logger.error(
+        { content: pluginId, prefix },
+        'plugin not found. try npm install @{prefix}-@{content}'
+      );
+      throw Error(`
+        ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
+    }
+
+    if (!isValid(plugin)) {
+      logger.error(
+        { content: pluginId },
+        '@{prefix}-@{content} plugin does not have the right code structure'
+      );
+      throw Error(`"${pluginId}" plugin does not have the right code structure`);
+    }
+
+    /* eslint new-cap:off */
+    try {
+      plugin = isES6(plugin)
+        ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
+        : plugin(pluginConfigs[pluginId], params);
+    } catch (error) {
+      plugin = null;
+      logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
+    }
+    /* eslint new-cap:off */
+
+    if (plugin === null || !sanityCheck(plugin)) {
+      logger.error(
+        { content: pluginId, prefix },
+        "@{prefix}-@{content} doesn't look like a valid plugin"
+      );
+      throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
+    }
+
+    debug('Plugin successfully loaded: %o-%o', pluginId, prefix);
+    return plugin;
+  });
 }

@@ -25,8 +25,14 @@ export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
     return false;
   }
+  let normalizedName: string = name.toLowerCase();
 
-  const normalizedName: string = name.toLowerCase();
+  const isScoped: boolean = name.startsWith('@') && name.includes('/');
+  const scopedName = name.split('/', 2)[1];
+
+  if (isScoped && !_.isUndefined(scopedName)) {
+    normalizedName = scopedName.toLowerCase();
+  }
 
   /**
    * Some context about the first regex

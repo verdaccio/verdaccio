@@ -21,8 +21,13 @@ export interface FilterOptionsState<Option> {
 }
 
 function createFilterOptions(config?: CreateFilterOptionsConfig) {
-  const { ignoreAccents = true, ignoreCase = true, trim = false, limit, matchFrom = 'any' } =
-    config || {};
+  const {
+    ignoreAccents = true,
+    ignoreCase = true,
+    trim = false,
+    limit,
+    matchFrom = 'any',
+  } = config || {};
 
   return <Option extends {}>(
     options: Option[],

@@ -51,7 +51,7 @@ class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
         connection.getGroupMembershipForUser(username, (err, groups: object[]): void => {
           if (err) {
             this.logger.warn(`AD - Active Directory group check failed with error: ${err}`);
-            return cb(getInternalError((err as unknown) as string));
+            return cb(getInternalError(err as unknown as string));
           }
 
           const requestedGroups = Array.isArray(groupName) ? groupName : [groupName];

@@ -9,7 +9,7 @@ let _memoryHandler = require('./memory-handler');
 let _memoryHandler2 = _interopRequireDefault(_memoryHandler);
 
 function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
+  return obj && obj.__esModule ? obj : {default: obj};
 }
 
 const DEFAULT_LIMIT = 1000;
@@ -43,8 +43,8 @@ class LocalMemory {
       cb(null);
     } else {
       this.logger.info(
-        { limit: this.limit },
-        'Storage memory has reached limit of @{limit} packages'
+          {limit: this.limit},
+          'Storage memory has reached limit of @{limit} packages',
       );
       cb(new Error('Storage memory has reached limit of limit packages'));
     }

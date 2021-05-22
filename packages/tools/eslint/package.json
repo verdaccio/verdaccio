@@ -1,0 +1,20 @@
+{
+  "name": "@verdaccio/eslint-config",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "verdaccio eslint config",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint . --ext .js"
+  },
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "homepage": "https://verdaccio.org",
+  "license": "MIT"
+}

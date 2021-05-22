@@ -45,21 +45,19 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
 
   // for contributors
   if (_.isEmpty(contributors) === false) {
-    pkgInfoCopy.latest.contributors = contributors.map(
-      (contributor): AuthorAvatar => {
-        if (isObject(contributor)) {
-          contributor.avatar = generateGravatarUrl(contributor.email, online);
-        } else if (_.isString(contributor)) {
-          contributor = {
-            avatar: GENERIC_AVATAR,
-            email: contributor,
-            name: contributor,
-          };
-        }
-
-        return contributor;
+    pkgInfoCopy.latest.contributors = contributors.map((contributor): AuthorAvatar => {
+      if (isObject(contributor)) {
+        contributor.avatar = generateGravatarUrl(contributor.email, online);
+      } else if (_.isString(contributor)) {
+        contributor = {
+          avatar: GENERIC_AVATAR,
+          email: contributor,
+          name: contributor,
+        };
       }
-    );
+
+      return contributor;
+    });
   }
 
   // for maintainers
