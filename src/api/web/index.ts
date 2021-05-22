@@ -1,10 +1,15 @@
+import fs from 'fs';
+import path from 'path';
 import _ from 'lodash';
+
 import express from 'express';
 import buildDebug from 'debug';
 
 import Search from '../../lib/search';
 import { HTTP_STATUS } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
+import { isHTTPProtocol } from '../../lib/utils';
+import { logger } from '../../lib/logger';
 import renderHTML from './html/renderHTML';
 
 const { setSecurityWebHeaders } = require('../middleware');
@@ -66,14 +71,43 @@ export default function (config, auth, storage) {
     res.sendFile(file, sendFileCallback(next));
   });
 
+  // logo
+  if (config?.web?.logo && !isHTTPProtocol(config?.web?.logo)) {
+    // URI related to a local file
+    const absoluteLocalFile = path.posix.resolve(config.web.logo);
+    debug('serve local logo %s', absoluteLocalFile);
+    try {
+      if (fs.existsSync(absoluteLocalFile) && typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined') {
+        // Note: `path.join` will break on Windows, because it transforms `/` to `\`
+        // Use POSIX version `path.posix.join` instead.
+        config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
+        router.get(config.web.logo, function (_req, res, next) {
+          debug('serve custom logo  web:%s - local:%s', config.web.logo, absoluteLocalFile);
+          res.sendFile(absoluteLocalFile, sendFileCallback(next));
+        });
+        debug('enabled custom logo %s', config.web.logo);
+      } else {
+        config.web.logo = undefined;
+        logger.warn(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
+      }
+    } catch {
+      config.web.logo = undefined;
+      logger.warn(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
+    }
+  }
+
   router.get('/-/web/:section/*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });
 
-  router.get('/', function (req, res) {
-    renderHTML(config, manifest, manifestFiles, req, res);
-    debug('render root');
+  router.get('/', function (req, res, next) {
+    try {
+      renderHTML(config, manifest, manifestFiles, req, res);
+      debug('render root');
+    } catch {
+      next(new Error('boom'));
+    }
   });
 
   return router;

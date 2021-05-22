@@ -1,9 +1,10 @@
 import { URL } from 'url';
+import path from 'path';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
 import { HEADERS } from '@verdaccio/commons-api';
 
-import { getPublicUrl } from '../../../lib/utils';
+import { getPublicUrl, isHTTPProtocol } from '../../../lib/utils';
 import { WEB_TITLE } from '../../../lib/constants';
 import renderTemplate from './template';
 
@@ -28,6 +29,18 @@ export function validatePrimaryColor(primaryColor) {
   return primaryColor;
 }
 
+export function resolveLogo(config, req) {
+  const isLocalFile = config?.web?.logo && !isHTTPProtocol(config?.web?.logo);
+
+  if (isLocalFile) {
+    return `${getPublicUrl(config?.url_prefix, req)}-/static/${path.basename(config?.web?.logo)}`;
+  } else if (isHTTPProtocol(config?.web?.logo)) {
+    return config?.web?.logo;
+  } else {
+    return '';
+  }
+}
+
 export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const { url_prefix } = config;
   const base = getPublicUrl(config?.url_prefix, req);
@@ -36,7 +49,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const scope = config?.web?.scope ?? '';
-  let logoURI = config?.web?.logo ?? '';
+  const logoURI = resolveLogo(config, req);
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(

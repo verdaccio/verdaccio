@@ -51,15 +51,15 @@ export function serveFavicon(config: Config) {
               debug('no read permissions to read: %o, reason:', logoConf, err?.message);
               return res.status(HTTP_STATUS.NOT_FOUND).end();
             } else {
-              res.setHeader('Content-Type', 'image/x-icon');
+              res.setHeader('content-type', 'image/x-icon');
               fs.createReadStream(faviconPath).pipe(res);
               debug('rendered custom ico');
             }
           });
         }
       } else {
-        res.setHeader('Content-Type', 'image/x-icon');
-        fs.createReadStream(path.join(__dirname, './web/html/favicon.ico')).pipe(res);
+        res.setHeader('content-type', 'image/x-icon');
+        fs.createReadStream(path.posix.join(__dirname, './web/html/favicon.ico')).pipe(res);
         debug('rendered ico');
       }
     } catch (err) {
