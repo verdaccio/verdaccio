@@ -37,6 +37,7 @@ jobs:
           images: ${{ github.repository }}
           tag-custom: 4.x-next
           tag-custom-only: ${{ github.ref == 'refs/heads/4.x' }}
+          tag-latest: false
           tag-semver: |
             {{version}}
             {{major}}
