@@ -899,7 +899,7 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl('/test/', req)).toEqual('http://some.com/');
+      expect(getPublicUrl('/test/', req)).toEqual('http://some.com/test/');
       delete process.env.VERDACCIO_FORWARDED_PROTO;
     });
   });
