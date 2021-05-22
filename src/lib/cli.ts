@@ -59,7 +59,7 @@ function init() {
     }
 
     logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
-    process.emitWarning(`verdaccio 4.x is deprecated and won't longer recieve security support, please
+    process.emitWarning(`verdaccio 4.x is deprecated and won't longer receive security support, please
     update to 5.x or higher`);
     startVerdaccio(verdaccioConfiguration, cliListener, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
   } catch (err) {
