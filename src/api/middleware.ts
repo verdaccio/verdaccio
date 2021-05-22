@@ -110,7 +110,7 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
 export function media(expect: string | null): any {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
-      next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.headers[HEADER_TYPE.CONTENT_TYPE]));
+      next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.get(HEADER_TYPE.CONTENT_TYPE)));
     } else {
       next();
     }
@@ -134,7 +134,7 @@ export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $Nex
 
 export function antiLoop(config: Config): Function {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    if (req.headers.via != null) {
+    if (req?.headers?.via != null) {
       const arr = req.headers.via.split(',');
 
       for (let i = 0; i < arr.length; i++) {
@@ -232,7 +232,7 @@ export function log(config: Config) {
       req.headers.authorization = '<Classified>';
     }
 
-    const _cookie = req.headers.cookie;
+    const _cookie = req.get('cookie');
     if (_.isNil(_cookie) === false) {
       req.headers.cookie = '<Classified>';
     }
@@ -277,7 +277,7 @@ export function log(config: Config) {
       }
       logHasBeenCalled = true;
 
-      const forwardedFor = req.headers['x-forwarded-for'];
+      const forwardedFor = req.get('x-forwarded-for');
       const remoteAddress = req.connection.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;

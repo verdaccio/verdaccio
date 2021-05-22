@@ -156,7 +156,7 @@ const memoizedgetPublicUrl = memoizee(getPublicUrl);
  * @return {String} a parsed url
  */
 export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
-  const currentHost = req.headers.host;
+  const currentHost = req.get('host');
 
   if (!currentHost) {
     return uri;
@@ -645,7 +645,7 @@ export function getPublicUrl(url_prefix: string = '', req): string {
     if (!isHost(host)) {
       throw new Error('invalid host');
     }
-    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO ?? HEADERS.FORWARDED_PROTO;
+    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO?.toLocaleLowerCase() ?? HEADERS.FORWARDED_PROTO?.toLocaleLowerCase();
     const protocol = getWebProtocol(req.get(protoHeader), req.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);

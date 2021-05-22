@@ -509,7 +509,8 @@ class ProxyStorage implements IProxy {
       uri: options.req.url,
       req: options.req,
       headers: {
-        referer: options.req.headers.referer,
+        // query for search
+        referer: options.req.get('referer'),
       },
     });
 
@@ -570,14 +571,14 @@ class ProxyStorage implements IProxy {
       // FIXME: proxy logic is odd, something is wrong here.
       // @ts-ignore
       if (!this.proxy) {
-        headers['X-Forwarded-For'] = (req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] + ', ' : '') + req.connection.remoteAddress;
+        headers['x-forwarded-for'] = (req.get('x-forwarded-for') ? req.get('x-forwarded-for') + ', ' : '') + req.connection.remoteAddress;
       }
     }
 
     // always attach Via header to avoid loops, even if we're not proxying
-    headers['Via'] = req && req.headers['via'] ? req.headers['via'] + ', ' : '';
+    headers['via'] = req && req.get('via') ? req.get('via') + ', ' : '';
 
-    headers['Via'] += '1.1 ' + this.server_id + ' (Verdaccio)';
+    headers['via'] += '1.1 ' + this.server_id + ' (Verdaccio)';
   }
 
   /**
