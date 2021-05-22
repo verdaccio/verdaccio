@@ -102,12 +102,8 @@ export default function (config, auth, storage) {
   });
 
   router.get('/', function (req, res, next) {
-    try {
-      renderHTML(config, manifest, manifestFiles, req, res);
-      debug('render root');
-    } catch {
-      next(new Error('boom'));
-    }
+    renderHTML(config, manifest, manifestFiles, req, res);
+    debug('render root');
   });
 
   return router;
