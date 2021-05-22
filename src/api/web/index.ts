@@ -1,15 +1,16 @@
-import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import _ from 'lodash';
+
 import express from 'express';
 import buildDebug from 'debug';
 
 import Search from '../../lib/search';
 import { HTTP_STATUS } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
-import renderHTML from './html/renderHTML';
 import { isHTTPProtocol } from '../../lib/utils';
 import { logger } from '../../lib/logger';
+import renderHTML from './html/renderHTML';
 
 const { setSecurityWebHeaders } = require('../middleware');
 
