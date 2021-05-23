@@ -133,6 +133,7 @@
     "test:e2e:cli": "pnpm test --filter ...@verdaccio/e2e-cli",
     "test:e2e:ui": "pnpm test --filter ...@verdaccio/e2e-ui",
     "start": "concurrently --kill-others \"pnpm _start:server\" \"pnpm _start:web\"",
+    "start:benchmark": "ts-node ./benchmark/index.ts",
     "start:watch": "concurrently --kill-others \"pnpm _build:watch\" \"pnpm _start:server\" \"pnpm _debug:reload\"",
     "_build:watch": "pnpm run --parallel watch --filter ./packages",
     "_start:server": "node packages/verdaccio/debug/bootstrap.js --listen 8000",
