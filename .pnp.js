@@ -116,7 +116,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:1.8.0"],
             ["husky", "npm:6.0.0"],
-            ["in-publish", "npm:2.0.1"],
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:bf7a8695861ccc96c7503a95daba2b038c9b3eca0fc65dc5ea7e5ae0e56354c6c3e3ee05f1c8d4420e3a01abf48ad9e2dea477db48ad56147605b32adf33b489#npm:26.6.3"],
             ["jest-environment-node", "npm:26.6.2"],
@@ -10406,15 +10405,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["in-publish", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/in-publish-npm-2.0.1-5a970fa809-8d2296b253.zip/node_modules/in-publish/",
-          "packageDependencies": [
-            ["in-publish", "npm:2.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["indent-string", [
         ["npm:2.1.0", {
           "packageLocation": "./.yarn/cache/indent-string-npm-2.1.0-fe23253c76-5c6bc6548e.zip/node_modules/indent-string/",
@@ -16994,7 +16984,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:1.8.0"],
             ["husky", "npm:6.0.0"],
-            ["in-publish", "npm:2.0.1"],
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:bf7a8695861ccc96c7503a95daba2b038c9b3eca0fc65dc5ea7e5ae0e56354c6c3e3ee05f1c8d4420e3a01abf48ad9e2dea477db48ad56147605b32adf33b489#npm:26.6.3"],
             ["jest-environment-node", "npm:26.6.2"],
