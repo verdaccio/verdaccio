@@ -49,7 +49,7 @@ jobs:
           # - local
           - verdaccio@5.1.0
           # - verdaccio@4.12.1
-    name: Benchmark
+    name: Benchmark API
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
