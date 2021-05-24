@@ -220,6 +220,14 @@ importers:
       verdaccio-htpasswd: link:packages/core/htpasswd
       verdaccio-memory: link:packages/plugins/memory
 
+  benchmark:
+    specifiers:
+      '@verdaccio/node-api': workspace:6.0.0-6-next.16
+      node-fetch: 2.6.1
+    devDependencies:
+      '@verdaccio/node-api': link:../packages/node-api
+      node-fetch: 2.6.1
+
   packages/api:
     specifiers:
       '@verdaccio/auth': workspace:6.0.0-6-next.8

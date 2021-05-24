@@ -1,9 +1,3 @@
-/**
- * @prettier
- */
-
-'use strict';
-
 const [, , /* node */ /* file */ tag] = process.argv;
 
 const getStdin = require('get-stdin');

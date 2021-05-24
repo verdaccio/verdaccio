@@ -4,8 +4,8 @@ name: ci - benchmark
 on: pull_request
 
 jobs:
-  benchmark:
-    name: Benchmark
+  prepare: 
+    name: Prepare build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -14,17 +14,62 @@ jobs:
           node-version: 14.x
       - name: install pnpm
         run: sudo npm i pnpm@latest -g
+      - name: set store
+        run: | 
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store        
       - name: setup pnpm config registry
         run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
         run: pnpm install
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-              
       - name: build
         run: pnpm build
+      - name: tar packages
+        run: |      
+          tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: verdaccio-artifact
+          path: pkg.tar.gz         
+  benchmark:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        benchmark:
+          - [Big app, big]
+        verdaccioVersion:
+          # - local
+          - verdaccio@5.1.0
+          # - verdaccio@4.12.1
+    name: Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - uses: actions/download-artifact@v2
+        with:
+          name: verdaccio-artifact
+      - name: untar packages
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
+      - name: install pnpm
+        run: sudo npm i pnpm@latest -g
+      - name: install dependencies
+        run: pnpm install
       - name: install hyperfine
         run: |
           wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: benchmark        
-        run: pnpm start:benchmark
+        run: pnpm start:benchmark -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
-        shell: bash      
+        shell: bash

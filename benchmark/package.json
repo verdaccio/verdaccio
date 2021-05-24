@@ -1,0 +1,17 @@
+{
+  "name": "@verdaccio/benckmark",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.16",
+    "node-fetch": "2.6.1"
+  }
+}
