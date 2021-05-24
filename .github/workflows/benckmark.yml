@@ -70,6 +70,6 @@ jobs:
           wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: benchmark        
-        run: pnpm start:benchmark -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
+        run: pnpm benchmark:start -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash
