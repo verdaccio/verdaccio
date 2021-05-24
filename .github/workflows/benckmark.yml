@@ -37,7 +37,38 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-artifact
-          path: pkg.tar.gz         
+          path: pkg.tar.gz
+  benchmark-autocannon:
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        benchmark:
+          - [Big app, big]
+        verdaccioVersion:
+          # - local
+          - verdaccio@5.1.0
+          # - verdaccio@4.12.1
+    name: Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - uses: actions/download-artifact@v2
+        with:
+          name: verdaccio-artifact
+      - name: untar packages
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
+      - name: install pnpm
+        run: sudo npm i pnpm@latest -g
+      - name: install autocannon
+        run: sudo npm i autocannon-ci -g      
+      - name: benchmark        
+        run: pnpm benchmark:api -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
+        shell: bash
+
   benchmark:
     needs: prepare
     strategy:
