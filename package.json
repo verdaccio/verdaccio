@@ -146,7 +146,7 @@
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version",
-    "ci:publish": "changeset publish --tag next",
+    "ci:publish": "changeset publish",
     "ts:ref": "update-ts-references --discardComments"
   },
   "license": "MIT",
