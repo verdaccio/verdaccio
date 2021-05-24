@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/fastify-migration",
-  "version": "6.0.0-6-next.9",
+  "version": "6.0.0-6-next.10",
   "description": "Fastify server migration package",
   "keywords": [
     "private",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "@verdaccio/config": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "ts-node": "9.1.1"
   },
   "scripts": {

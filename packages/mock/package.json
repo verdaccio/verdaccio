@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/mock",
-  "version": "6.0.0-6-next.6",
+  "version": "6.0.0-6-next.7",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -40,8 +40,8 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/config": "workspace:6.0.0-6-next.6",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.4",
+    "@verdaccio/config": "workspace:6.0.0-6-next.7",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.5",
     "debug": "^4.2.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.20",

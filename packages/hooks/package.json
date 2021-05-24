@@ -38,9 +38,9 @@
     "request": "2.87.0"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.8",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.9",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/config": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
     "nock": "^13.0.4"
   },
