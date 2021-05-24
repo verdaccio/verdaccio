@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/verdaccio/verdaccio/compare/v5.0.4...v5.1.0) (2021-05-24)
+
+
+### Features
+
+* implement search v1 endpoint ([#2256](https://github.com/verdaccio/verdaccio/issues/2256)) ([251bd95](https://github.com/verdaccio/verdaccio/commit/251bd9537340e06e143fa1fec7739aacc265f318))
+* tarball url redirect ([#1688](https://github.com/verdaccio/verdaccio/issues/1688)) ([78d04cf](https://github.com/verdaccio/verdaccio/commit/78d04cf9f8b3071fe0f33b387cb08e01bfcf2d87))
+* update Node.js docker image 14.17.0 ([#2247](https://github.com/verdaccio/verdaccio/issues/2247)) ([4ed7286](https://github.com/verdaccio/verdaccio/commit/4ed7286bcb9b9fe296992e66c9323ac13d0abf50))
+
+
+### Bug Fixes
+
+* restore using local path web logo ([#2270](https://github.com/verdaccio/verdaccio/issues/2270)) ([8434cc5](https://github.com/verdaccio/verdaccio/commit/8434cc550f1687e63a8095189b845544e24028ab))
+* update core dependencies ([#2269](https://github.com/verdaccio/verdaccio/issues/2269)) ([1e4c900](https://github.com/verdaccio/verdaccio/commit/1e4c900dcb77700ef52faebe2d01ac4f70f45e42))
+
 ### [5.0.4](https://github.com/verdaccio/verdaccio/compare/v5.0.3...v5.0.4) (2021-04-28)
 
 
