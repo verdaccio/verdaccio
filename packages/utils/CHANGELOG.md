@@ -1,5 +1,11 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- d2c65da9: Fixed the validation of the name when searching for a tarball that have scoped package name
+
 ## 6.0.0-6-next.4
 
 ### Patch Changes

@@ -39,17 +39,21 @@
     "@verdaccio/cli-standalone": "6.0.0-alpha.3",
     "@verdaccio/tarball": "11.0.0-alpha.3",
     "@verdaccio/url": "11.0.0-alpha.3",
-    "@verdaccio/fastify-migration": "6.0.0-6-next.9"
+    "@verdaccio/fastify-migration": "6.0.0-6-next.9",
+    "@verdaccio/eslint-config": "1.0.0"
   },
   "changesets": [
     "afraid-mice-obey",
     "big-lobsters-sin",
+    "calm-pants-impress",
     "few-cooks-destroy",
     "fifty-jars-rest",
     "gentle-parrots-lay",
     "gentle-trains-switch",
+    "gold-vans-tease",
     "healthy-bikes-behave",
     "healthy-poets-compare",
+    "heavy-ravens-lay",
     "hip-hounds-destroy",
     "late-adults-love",
     "late-parents-act",

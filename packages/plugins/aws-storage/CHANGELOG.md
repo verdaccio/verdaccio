@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.5
+
+### Patch Changes
+
+- 6b1a28de: Fix the prefix used to delete from s3 when unpublishing packages
+
 ## 11.0.0-6-next.4
 
 ### Major Changes

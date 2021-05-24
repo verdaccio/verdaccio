@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server",
-  "version": "6.0.0-6-next.15",
+  "version": "6.0.0-6-next.16",
   "description": "server logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -30,16 +30,16 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/api": "workspace:6.0.0-6-next.11",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.8",
+    "@verdaccio/api": "workspace:6.0.0-6-next.12",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.9",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/config": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.4",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.8",
-    "@verdaccio/store": "workspace:6.0.0-6-next.9",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.4",
-    "@verdaccio/web": "workspace:6.0.0-6-next.14",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.9",
+    "@verdaccio/store": "workspace:6.0.0-6-next.10",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.5",
+    "@verdaccio/web": "workspace:6.0.0-6-next.15",
     "verdaccio-audit": "workspace:11.0.0-alpha.4",
     "compression": "1.7.4",
     "cors": "2.8.5",
@@ -48,8 +48,8 @@
     "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:6.0.0-6-next.6",
-    "@verdaccio/proxy": "workspace:6.0.0-6-next.8",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.7",
+    "@verdaccio/proxy": "workspace:6.0.0-6-next.9",
     "http-errors": "1.7.3",
     "request": "2.87.0"
   },

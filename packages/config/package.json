@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "6.0.0-6-next.6",
+  "version": "6.0.0-6-next.7",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.4",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.5",
     "debug": "^4.2.0",
     "js-yaml": "3.14.0",
     "lodash": "^4.17.20",
