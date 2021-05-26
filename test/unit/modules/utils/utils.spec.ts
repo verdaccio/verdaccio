@@ -887,5 +887,20 @@ describe('Utilities', () => {
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
       delete process.env.VERDACCIO_FORWARDED_PROTO;
     });
+
+    test('with the VERDACCIO_FORWARDED_PROTO undefined', () => {
+      process.env.VERDACCIO_FORWARDED_PROTO = undefined;
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        headers: {
+          host: 'some.com',
+          [HEADERS.FORWARDED_PROTO]: 'https',
+        },
+        url: '/',
+      });
+
+      expect(getPublicUrl('/test/', req)).toEqual('http://some.com/test/');
+      delete process.env.VERDACCIO_FORWARDED_PROTO;
+    });
   });
 });
