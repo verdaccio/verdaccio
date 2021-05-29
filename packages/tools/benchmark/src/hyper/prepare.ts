@@ -20,7 +20,7 @@ export class PrepareCommand extends Command {
           stdio: 'ignore',
         });
         childProcess.unref();
-      } else if(this.version === 'local') {
+      } else if (this.version === 'local') {
         // eslint-disable-next-line no-console
         this.childFork = fork(`pnpx verdaccio@${this.version}`, {
           silent: false,
