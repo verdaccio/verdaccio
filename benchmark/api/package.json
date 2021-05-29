@@ -1,10 +1,11 @@
 {
-  "name": "@verdaccio/benckmark",
+  "name": "@verdaccio/benckmark-api",
   "version": "1.0.0",
   "private": "true",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@verdaccio/node-api": "workspace:6.0.0-6-next.16",
-    "node-fetch": "2.6.1"
+    "autocannon": "7.3.0",
+    "ts-node": "10.0.0"
   }
 }
