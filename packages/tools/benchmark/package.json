@@ -2,7 +2,7 @@
   "name": "@verdaccio/benchmark",
   "version": "1.0.0",
   "bin": {
-    "verdaccio-benchmark": "./build/index.js"
+    "verdaccio-benchmark": "./index.js"
   },
   "private": "true",
   "description": "benchmark",
