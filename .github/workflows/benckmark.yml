@@ -63,8 +63,6 @@ jobs:
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         run: sudo npm i pnpm@latest -g
-      - name: install autocannon
-        run: sudo npm i autocannon-ci -g      
       - name: benchmark        
         run: pnpm benchmark:api -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
         shell: bash
@@ -102,6 +100,6 @@ jobs:
           wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: benchmark        
-        run: pnpm benchmark:start -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark}}
+        run: benchmark:hyper -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash

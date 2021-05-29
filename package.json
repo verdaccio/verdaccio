@@ -83,6 +83,7 @@
     "core-js": "^3.12.1",
     "cross-env": "7.0.3",
     "detect-secrets": "1.0.6",
+    "autocannon": "7.3.0",
     "eslint": "7.26.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "8.3.0",
