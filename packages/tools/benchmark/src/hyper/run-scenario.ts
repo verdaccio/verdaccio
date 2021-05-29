@@ -1,4 +1,3 @@
-#!/usr/bin/env ts-node
 import { Cli, Command, Option } from 'clipanion';
 
 /* eslint-disable no-console */
@@ -15,12 +14,10 @@ export class FixtureCommand extends Command {
   public async execute() {
     try {
       // eslint-disable-next-line no-console
-      fetch(this.fixture);
-
-      console.log(`fetched: ${this.fixture}`);
+      await fetch(this.fixture);
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(err);
+      console.error('run hyper failed:', err);
       process.exit(1);
     }
   }

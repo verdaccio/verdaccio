@@ -38,34 +38,34 @@ jobs:
         with:
           name: verdaccio-artifact
           path: pkg.tar.gz
-  benchmark-autocannon:
-    needs: prepare
-    strategy:
-      fail-fast: false
-      matrix:
-        benchmark:
-          - [Big app, big]
-        verdaccioVersion:
-          # - local
-          - verdaccio@5.1.0
-          # - verdaccio@4.12.1
-    name: Benchmark API
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - uses: actions/download-artifact@v2
-        with:
-          name: verdaccio-artifact
-      - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
-      - name: install pnpm
-        run: sudo npm i pnpm@latest -g
-      - name: benchmark        
-        run: pnpm benchmark:api -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark[1]}}
-        shell: bash
+  # benchmark-autocannon:
+  #   needs: prepare
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       benchmark:
+  #         - [Big app, big]
+  #       verdaccioVersion:
+  #         # - local
+  #         - verdaccio@5.1.0
+  #         # - verdaccio@4.12.1
+  #   name: Benchmark API
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: 14.x
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: verdaccio-artifact
+  #     - name: untar packages
+  #       run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
+  #     - name: install pnpm
+  #       run: sudo npm i pnpm@latest -g
+  #     - name: benchmark        
+  #       run: pnpm benchmark:api -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark[1]}}
+  #       shell: bash
 
   benchmark:
     needs: prepare
@@ -78,7 +78,7 @@ jobs:
         verdaccioVersion:
           # - local
           - 5.1.0
-          # 4.12.1
+          - 4.12.1
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
@@ -100,6 +100,6 @@ jobs:
           wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: benchmark        
-        run: benchmark:hyper -- --version ${{matrix.verdaccioVersion}} --fixture ${{matrix.benchmark}}
+        run: pnpm benchmark:hyper -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash

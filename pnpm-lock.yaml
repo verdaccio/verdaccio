@@ -60,6 +60,7 @@ importers:
       '@types/webpack-env': 1.16.0
       '@typescript-eslint/eslint-plugin': 4.13.0
       '@typescript-eslint/parser': 4.13.0
+      '@verdaccio/benchmark': workspace:*
       '@verdaccio/eslint-config': workspace:*
       '@verdaccio/types': workspace:*
       '@verdaccio/ui-theme': workspace:*
@@ -170,6 +171,7 @@ importers:
       '@types/webpack-env': 1.16.0
       '@typescript-eslint/eslint-plugin': 4.13.0_82a146d320a394c7e8b76cadf227b197
       '@typescript-eslint/parser': 4.13.0_eslint@7.26.0+typescript@4.2.4
+      '@verdaccio/benchmark': link:packages/tools/benchmark
       '@verdaccio/eslint-config': link:packages/tools/eslint
       '@verdaccio/types': link:packages/core/types
       '@verdaccio/ui-theme': link:packages/plugins/ui-theme
@@ -223,27 +225,6 @@ importers:
       verdaccio-auth-memory: link:packages/plugins/auth-memory
       verdaccio-htpasswd: link:packages/core/htpasswd
       verdaccio-memory: link:packages/plugins/memory
-
-  benchmark/api:
-    specifiers:
-      '@verdaccio/node-api': workspace:6.0.0-6-next.16
-      autocannon: 7.3.0
-      ts-node: 10.0.0
-    devDependencies:
-      '@verdaccio/node-api': link:../../packages/node-api
-      autocannon: 7.3.0
-      ts-node: 10.0.0
-
-  benchmark/hyperfine:
-    specifiers:
-      '@verdaccio/node-api': workspace:6.0.0-6-next.16
-      clipanion: 3.0.0-rc.12
-      node-fetch: 2.6.1
-    dependencies:
-      clipanion: 3.0.0-rc.12
-    devDependencies:
-      '@verdaccio/node-api': link:../../packages/node-api
-      node-fetch: 2.6.1
 
   packages/api:
     specifiers:
@@ -1045,6 +1026,21 @@ importers:
     devDependencies:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
+
+  packages/tools/benchmark:
+    specifiers:
+      autocannon: 7.3.0
+      clipanion: 3.0.0-rc.12
+      node-fetch: 2.6.1
+      semver: 7.3.5
+      ts-node: 10.0.0
+    dependencies:
+      clipanion: 3.0.0-rc.12
+      semver: 7.3.5
+    devDependencies:
+      autocannon: 7.3.0
+      node-fetch: 2.6.1
+      ts-node: 10.0.0
 
   packages/tools/eslint:
     specifiers: {}
@@ -16534,7 +16530,6 @@ packages:
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /send/0.17.1:
     resolution: {integrity: sha512-BsVKsiGcQMFwT8UxypobUKyv7irCNRHk1T0G680vk88yf6LBByGcZJOTJCrTP2xVN6yI+XjPJcNuE3V4fT9sAg==}

@@ -1,5 +1,4 @@
 packages:
-  - benchmark/*
   - packages/*
   - packages/core/*
   - packages/tools/*
