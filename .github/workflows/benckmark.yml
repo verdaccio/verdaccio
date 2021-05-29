@@ -93,6 +93,10 @@ jobs:
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         run: sudo npm i pnpm@latest -g
+      - name: set store
+        run: | 
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store        
       - name: install dependencies
         run: pnpm install
       - name: install hyperfine

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Cli, Command, Option } from 'clipanion';
 
 /* eslint-disable no-console */

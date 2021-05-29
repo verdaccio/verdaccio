@@ -1,4 +1,5 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env node
+
 import { fork, spawn } from 'child_process';
 import semver from 'semver';
 import { Cli, Command, Option } from 'clipanion';
