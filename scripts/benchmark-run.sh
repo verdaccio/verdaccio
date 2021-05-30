@@ -2,8 +2,7 @@
 
 set -e
 
-VERSION=$1
-FIXTURE=$2
+FIXTURE=$1
 
 case $FIXTURE in 
   info)
@@ -17,4 +16,5 @@ case $FIXTURE in
     return 1;;
 esac
 
-hyperfine --ignore-failure --warmup 1 --min-runs=10 --show-output --export-json './hyper-results.json' --prepare ./scripts/benchmark-prepare.sh "$FIXTURE"
+hyperfine --ignore-failure --warmup 1 --min-runs=10 --show-output --export-json './hyper-results.json' "$FIXTURE"
+
