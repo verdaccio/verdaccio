@@ -2,8 +2,7 @@
 
 set -e
 
-FIXTURE=$1
+VERSION=$1
+FIXTURE=$2
 
-nohup npx verdaccio@$VERSION &>$tmp_registry_log &
-grep -q 'http address' <(tail -f $tmp_registry_log)
-npm set registry http://localhost:4873
+hyperfine --ignore-failure --warmup 1 --runs 2 --show-output --export-json ./hyper-results.json--prepare ./scripts/benchmark-prepare.sh $2
