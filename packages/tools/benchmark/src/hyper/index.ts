@@ -9,12 +9,12 @@ export class HyperCommand extends Command {
 
   private fixture = Option.String('-f', {
     description: 'fixture to run',
-    required: true,
+    required: false,
   });
 
   private version = Option.String('-v', {
     description: '',
-    required: true,
+    required: false,
   });
 
   private report = Option.String('-r', {

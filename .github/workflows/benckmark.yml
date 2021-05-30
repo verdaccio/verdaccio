@@ -17,7 +17,7 @@ jobs:
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store        
+          pnpm config set store-dir ~/.pnpm-store     
       - name: setup pnpm config registry
         run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
@@ -73,8 +73,8 @@ jobs:
       fail-fast: false
       matrix:
         benchmark:
-          - npm info jquery
-          - npm install jquery
+          - "npm info jquery"
+          - "npm install jquery"
         verdaccioVersion:
           # - local
           - 5.1.0
@@ -93,10 +93,10 @@ jobs:
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         run: sudo npm i pnpm@latest -g
-      - name: set store
-        run: | 
-          mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store        
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
       - name: install dependencies
         run: pnpm install
       - name: install hyperfine
