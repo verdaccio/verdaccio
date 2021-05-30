@@ -73,8 +73,8 @@ jobs:
       fail-fast: false
       matrix:
         benchmark:
-          - "npm info jquery"
-          - "npm install jquery"
+          - info
+          - tarball
         verdaccioVersion:
           # - local
           - 5.1.0
