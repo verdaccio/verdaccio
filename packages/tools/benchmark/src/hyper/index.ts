@@ -28,6 +28,7 @@ export class HyperCommand extends Command {
       const run = path.resolve(__dirname, 'run-scenario.js');
       console.log('-prepare-', prepare);
       console.log('-run-', run);
+      console.log('this.fixture', this.fixture);
 
       const hyperfine = spawn(
         'hyperfine',
