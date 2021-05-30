@@ -43,7 +43,7 @@ export class HyperCommand extends Command {
           '--show-output',
           '--prepare',
           `./scripts/benchmark-prepare.sh ${this.version}`,
-          `${this.fixture}`,
+          `npm info jquery`,
         ],
         { stdio: 'inherit' }
       );
