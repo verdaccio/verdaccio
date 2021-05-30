@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import { fork, spawn } from 'child_process';
 import semver from 'semver';
 import { Cli, Command, Option } from 'clipanion';
+// import tempDirectory from 'temp-dir';
+// import getPort from 'get-port';
 
 const [node, app, ...args] = process.argv;
 
@@ -14,13 +17,17 @@ export class PrepareCommand extends Command {
   });
   private childFork;
   public async execute() {
+    // const port = await getPort();
+
     try {
       if (semver.valid(this.version)) {
         const childProcess = spawn(`npx`, [`verdaccio@${this.version}`], {
           detached: true,
-          stdio: 'ignore',
+          stdio: 'inherit',
         });
-        childProcess.unref();
+        console.log('--->', childProcess.stdout);
+        process.exit(0);
+        // childProcess.unref();
       } else if (this.version === 'local') {
         // eslint-disable-next-line no-console
         this.childFork = fork(`pnpx verdaccio@${this.version}`, {

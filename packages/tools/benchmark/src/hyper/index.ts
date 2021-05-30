@@ -38,11 +38,11 @@ export class HyperCommand extends Command {
           '--export-json',
           `${path.resolve(__dirname, this.report)}`,
           '--runs',
-          '50',
+          '2',
           '--show-output',
-          `--prepare`,
-          `${prepare} -v ${this.version}`,
-          `${run} -f ${this.fixture}`,
+          '--prepare',
+          `./scripts/benchmark-prepare.sh ${this.version}`,
+          `${this.fixture}`,
         ],
         { stdio: 'inherit' }
       );

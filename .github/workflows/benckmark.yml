@@ -73,8 +73,8 @@ jobs:
       fail-fast: false
       matrix:
         benchmark:
-          - http://localhost:4873/jquery
-          # - https://localhost:4873/jquery/-/jquery-4.0.0.tgz
+          - npm info jquery
+          - npm install jquery
         verdaccioVersion:
           # - local
           - 5.1.0
@@ -104,6 +104,6 @@ jobs:
           wget https://github.com/sharkdp/hyperfine/releases/download/v1.11.0/hyperfine_1.11.0_amd64.deb
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: benchmark        
-        run: pnpm benchmark:hyper -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}
+        run: pnpm benchmark:hyper -- -f ${{matrix.benchmark}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash

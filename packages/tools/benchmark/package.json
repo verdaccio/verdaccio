@@ -9,13 +9,15 @@
   "main": "./build/index.js",
   "scripts": {
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "test": "ts-node src/init.ts"
+    "run": "ts-node src/init.ts"
   },
   "keywords": [],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "clipanion": "3.0.0-rc.12",
+    "temp-dir": "2.0.0",
+    "get-port": "5.1.1",
     "semver": "7.3.5"
   },
   "devDependencies": {
