@@ -77,10 +77,10 @@ jobs:
           - tarball
         verdaccioVersion:
           # - local
-          # - 3.13.1
-          # - 4.12.1
+          - 3.13.1
+          - 4.12.1
           - 5.1.0
-          # - 6.0.0-6-next.18
+          - 6.0.0-6-next.18
     name: Benchmark
     runs-on: ubuntu-latest
     steps:
