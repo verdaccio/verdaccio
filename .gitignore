@@ -41,3 +41,4 @@ packages/plugins/ui-theme/static
 # benchmark
 api-results.json
 hyper-results.json
+hyper-results*.json

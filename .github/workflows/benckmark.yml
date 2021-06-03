@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: 14.x
       - name: install pnpm
-        run: sudo npm i pnpm@latest -g
+        run: sudo npm i pnpm@6.6.1 -g
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
@@ -93,7 +93,7 @@ jobs:
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
-        run: sudo npm i pnpm@latest -g
+        run: sudo npm i pnpm@6.6.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -118,3 +118,11 @@ jobs:
           path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
           if-no-files-found: error
           retention-days: 10 
+      - name: submit metrics
+        run: pnpm benchmarka:submit
+        env:
+          DEBUG: metrics
+          METRICS_URL: ${{ secrets.METRICS_URL }}
+          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+          METRICS_BENCHMARK: ${{matrix.benchmark}}
+          METRICS_VERSION: ${{matrix.verdaccioVersion}}
