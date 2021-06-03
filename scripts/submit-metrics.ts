@@ -2,8 +2,9 @@ const url = process.env.METRICS_URL;
 const token = process.env.METRICS_TOKEN;
 const version = process.env.METRICS_VERSION;
 const benchmark = process.env.METRICS_BENCHMARK;
+const commit = process.env.METRICS_COMMIT_HASH;
 
-if (!url || !token || !version || !benchmark) {
+if (!url || !token || !version || !benchmark || !commit) {
   throw Error('missing params');
 }
 
@@ -25,6 +26,7 @@ try {
       Authorization: `Bearer ${token}`,
       'x-metrics-version': version,
       'x-metrics-benchmark': benchmark,
+      'x-metrics-commit-hash': commit,
     },
   })
     .then((res) => res.text()) // expecting a json response
