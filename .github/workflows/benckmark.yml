@@ -111,10 +111,10 @@ jobs:
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash
       - name: rename
-        run: mv ./hyper-results.json ./hyper-results-${{matrix.verdaccioVersion}}.json
+        run: mv ./hyper-results.json ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-metrics
-          path: ./hyper-results-${{matrix.verdaccioVersion}}.json  
+          path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
           if-no-files-found: error
           retention-days: 10 
