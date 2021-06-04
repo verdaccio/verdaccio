@@ -24,6 +24,7 @@ try {
     body: JSON.stringify(fileContent.results[0]),
     headers: {
       Authorization: `Bearer ${token}`,
+      'content-type': 'application/json',
       'x-metrics-version': version,
       'x-metrics-benchmark': benchmark,
       'x-metrics-commit-hash': commit,
