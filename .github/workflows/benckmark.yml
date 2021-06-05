@@ -6,9 +6,9 @@ on:
     # 3 times day
     # collecting enough data to draw some graphics
     - cron: '0 0/8 * * *'
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
 jobs:
   prepare: 
     name: Prepare build
