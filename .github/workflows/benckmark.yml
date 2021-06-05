@@ -87,7 +87,7 @@ jobs:
           DEBUG: metrics*
       - uses: actions/upload-artifact@v2
         with:
-          name: verdaccio-metrics
+          name: verdaccio-metrics-api
           path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
           if-no-files-found: error
           retention-days: 10 
