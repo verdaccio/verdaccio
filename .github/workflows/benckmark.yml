@@ -77,6 +77,8 @@ jobs:
       - name: benchmark        
         run: pnpm benchmark:api -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}       
         shell: bash
+        env:
+          DEBUG: metrics*
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-metrics

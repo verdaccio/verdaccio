@@ -1,6 +1,7 @@
-/* eslint-disable no-console */
 import { writeFileSync } from 'fs';
 
+const path = require('path');
+const debug = require('debug')('metrics:autocannon');
 const autocannon = require('autocannon');
 
 function getURL(benchmark) {
@@ -15,18 +16,25 @@ function getURL(benchmark) {
 }
 
 export default async function run(benchmark, version) {
-  const result = await autocannon({
-    url: getURL(benchmark),
-    connections: 10,
-    pipelining: 1,
-    duration: 10,
-  });
-  const wrapResults = {
-    results: [result],
-  };
-  writeFileSync(
-    `./api-results-${version}-${benchmark}.json`,
-    JSON.stringify(wrapResults, null, 2),
-    'utf-8'
-  );
+  try {
+    debug('api report start');
+    debug('url', getURL(benchmark));
+    const result = await autocannon({
+      url: getURL(benchmark),
+      connections: 10,
+      pipelining: 1,
+      duration: 10,
+    });
+    const wrapResults = {
+      results: [result],
+    };
+    const reportPath = path.join(__dirname, `./api-results-${version}-${benchmark}.json`);
+    debug('report path %o', reportPath);
+    writeFileSync(reportPath, JSON.stringify(wrapResults, null, 2), 'utf-8');
+    debug('report ends');
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(`error on process autocannon run`, err);
+    process.exit(1);
+  }
 }
