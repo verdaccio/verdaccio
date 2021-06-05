@@ -92,7 +92,7 @@ jobs:
           if-no-files-found: error
           retention-days: 10 
       - name: submit metrics
-        run: pnpm benchmarka:submit
+        run: pnpm benchmark:submit
         env:
           DEBUG: metrics
           METRICS_SOURCE: autocannon
@@ -157,7 +157,7 @@ jobs:
           if-no-files-found: error
           retention-days: 10 
       - name: submit metrics
-        run: pnpm benchmarka:submit
+        run: pnpm benchmark:submit
         env:
           DEBUG: metrics
           METRICS_SOURCE: hyperfine

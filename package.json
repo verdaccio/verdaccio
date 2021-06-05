@@ -140,7 +140,7 @@
     "start": "concurrently --kill-others \"pnpm _start:server\" \"pnpm _start:web\"",
     "benchmark:hyper": "verdaccio-benchmark hyper -r ./hyper-results.json",
     "benchmark:api": "verdaccio-benchmark api",
-    "benchmarka:submit": "pnpm ts-node ./scripts/submit-metrics.ts",
+    "benchmark:submit": "pnpm ts-node ./scripts/submit-metrics.ts",
     "start:watch": "concurrently --kill-others \"pnpm _build:watch\" \"pnpm _start:server\" \"pnpm _debug:reload\"",
     "_build:watch": "pnpm run --parallel watch --filter ./packages",
     "_start:server": "node packages/verdaccio/debug/bootstrap.js --listen 8000",
