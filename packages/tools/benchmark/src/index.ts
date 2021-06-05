@@ -1,5 +1,4 @@
 import { Cli } from 'clipanion';
-import { HyperCommand } from './hyper';
 import { ApiCommand } from './api';
 
 const [node, app, ...args] = process.argv;
@@ -13,7 +12,6 @@ const cli = new Cli({
   binaryVersion: require('../package.json').version,
 });
 
-cli.register(HyperCommand);
 cli.register(ApiCommand);
 cli.runExit(args, Cli.defaultContext);
 

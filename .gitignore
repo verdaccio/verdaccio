@@ -42,3 +42,4 @@ packages/plugins/ui-theme/static
 api-results.json
 hyper-results.json
 hyper-results*.json
+api-results*.json
