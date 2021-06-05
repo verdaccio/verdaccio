@@ -2,22 +2,17 @@
 verdaccio-*.tgz
 .DS_Store
 build/
+dist/
 .eslintcache
-./dist
+node_modules
 
-### Test
-
+### database
 .verdaccio-db.json
 .sinopia-db.json
 
-###
+### test
 test-storage*
 .verdaccio_test_env
-node_modules
-package-lock.json
-yarn-error.log
-yarn.lock
-
 
 # docker examples
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
@@ -36,12 +31,15 @@ tsconfig.tsbuildinfo
 
 ## bundle files
 packages/standalone/dist/
+
 ## ui
 packages/plugins/ui-theme/static
 
-# website
-website/public
-website/.cache
-
 # CI Pnpm cache
 .pnpm-store/
+
+# benchmark
+api-results.json
+hyper-results.json
+hyper-results*.json
+api-results*.json
