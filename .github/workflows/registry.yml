@@ -1,8 +1,6 @@
 name: Test local registry for js vulnerabilities
 
-on:
-  schedule:
-  - cron: '0 0 * * 7'
+on: [push]
 jobs:
   security:
     runs-on: ubuntu-latest
