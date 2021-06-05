@@ -28,7 +28,7 @@ export default async function run(benchmark, version) {
     const wrapResults = {
       results: [result],
     };
-    const reportPath = path.join(__dirname, `./api-results-${version}-${benchmark}.json`);
+    const reportPath = path.join(process.cwd(), `./api-results-${version}-${benchmark}.json`);
     debug('report path %o', reportPath);
     writeFileSync(reportPath, JSON.stringify(wrapResults, null, 2), 'utf-8');
     debug('report ends');
