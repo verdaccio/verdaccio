@@ -51,7 +51,7 @@ jobs:
           - 3.13.1
           - 4.12.1
           - 5.1.0
-    name: Benchmark API
+    name: Benchmark autocannon
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -77,8 +77,6 @@ jobs:
       - name: benchmark        
         run: pnpm benchmark:api -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}       
         shell: bash
-      - name: rename
-        run: mv ./api-results.json ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-metrics
@@ -110,7 +108,7 @@ jobs:
           - 3.13.1
           - 4.12.1
           - 5.1.0
-    name: Benchmark
+    name: Benchmark hyperfine
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
