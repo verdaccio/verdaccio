@@ -94,7 +94,8 @@ jobs:
           METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
           METRICS_BENCHMARK: ${{matrix.benchmark}}
           METRICS_VERSION: ${{matrix.verdaccioVersion}}
-          METRICS_COMMIT_HASH: ${{ github.sha }}        
+          METRICS_COMMIT_HASH: ${{ github.sha }}
+          METRICS_FILE_NAME: 'api-results'   
   benchmark:
     needs: prepare
     strategy:
