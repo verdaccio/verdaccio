@@ -113,7 +113,7 @@ jobs:
   test:
     needs: build
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         node_version: [12, 14]
