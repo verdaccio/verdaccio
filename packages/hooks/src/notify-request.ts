@@ -1,13 +1,12 @@
-import fetch, { RequestInit } from 'node-fetch';
 import buildDebug from 'debug';
 
 import { logger } from '@verdaccio/logger';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 
 const debug = buildDebug('verdaccio:hooks:request');
-export type NotifyRequestOptions = RequestInit;
+const fetch = require('undici-fetch');
 
-export async function notifyRequest(url: string, options: NotifyRequestOptions): Promise<boolean> {
+export async function notifyRequest(url: string, options: any): Promise<boolean> {
   let response;
   try {
     debug('uri %o', url);
