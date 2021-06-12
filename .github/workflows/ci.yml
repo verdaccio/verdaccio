@@ -140,6 +140,8 @@ jobs:
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
       - name: Test
         run: pnpm test
+        env: 
+          NODE_OPTIONS: --experimental-vm-modules
   ci-e2e-ui:
     needs: build
     runs-on: ubuntu-latest
@@ -170,12 +172,12 @@ jobs:
   ci-e2e-cli:
     needs: build
     runs-on: ubuntu-latest
-    name: CLI Test E2E Node 12
+    name: CLI Test E2E Node 14
     steps:
       - uses: actions/checkout@v2.3.1
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 14
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
