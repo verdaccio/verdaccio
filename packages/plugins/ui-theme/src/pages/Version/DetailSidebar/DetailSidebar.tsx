@@ -11,7 +11,8 @@ import loadable from '../../../App/utils/loadable';
 
 import DetailSidebarFundButton from './DetailSidebarFundButton';
 import DetailSidebarTitle from './DetailSidebarTitle';
-import Developers, { DeveloperType } from './Developers';
+import Developers from './Developers';
+import { DeveloperType } from './Developers/DevelopersTitle';
 
 const Engines = loadable(() => import(/* webpackChunkName: "Engines" */ './Engines'));
 const Dist = loadable(() => import(/* webpackChunkName: "Dist" */ './Dist'));

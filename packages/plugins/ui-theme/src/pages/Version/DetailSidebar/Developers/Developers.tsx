@@ -13,7 +13,11 @@ import { DetailContext } from '../..';
 
 import DevelopersTitle from './DevelopersTitle';
 import getUniqueDeveloperValues from './get-unique-developer-values';
-import { DeveloperType } from './types';
+
+export enum DeveloperType {
+  CONTRIBUTORS = 'contributors',
+  MAINTAINERS = 'maintainers',
+}
 
 export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme?.palette.primary.main,

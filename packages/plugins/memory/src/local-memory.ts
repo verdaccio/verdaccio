@@ -1,13 +1,5 @@
 import { getServiceUnavailable } from '@verdaccio/commons-api';
-import {
-  Logger,
-  Callback,
-  Config,
-  IPluginStorage,
-  Token,
-  TokenFilter,
-  PluginOptions,
-} from '@verdaccio/types';
+import { Logger, Callback, Config, IPluginStorage, Token, PluginOptions } from '@verdaccio/types';
 import buildDebug from 'debug';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
@@ -108,7 +100,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return emptyDatabase;
   }
 
-  public saveToken(token: Token): Promise<void> {
+  public saveToken(): Promise<void> {
     this.logger.warn('[verdaccio/memory][saveToken] save token has not been implemented yet');
 
     return Promise.reject(getServiceUnavailable('method not implemented'));
@@ -123,7 +115,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return Promise.reject(getServiceUnavailable('method not implemented'));
   }
 
-  public readTokens(filter: TokenFilter): Promise<Token[]> {
+  public readTokens(): Promise<Token[]> {
     this.logger.warn('[verdaccio/memory][readTokens] read tokens has not been implemented yet ');
 
     return Promise.reject(getServiceUnavailable('method not implemented'));

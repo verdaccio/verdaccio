@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 import { Command } from 'clipanion';
 
 export class VersionCommand extends Command {

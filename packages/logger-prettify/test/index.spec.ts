@@ -6,7 +6,7 @@ describe('prettyFactory', () => {
     expect(typeof factory['default']({})).toEqual('function');
   });
 
-  test('should return a function', () => {
+  test('should return a function with options', () => {
     const log = {
       level: 10,
       foo: 'foo',

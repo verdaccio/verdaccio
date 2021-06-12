@@ -23,7 +23,7 @@ const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
-    enableLoading && enableLoading();
+    enableLoading?.();
 
     history.push(`/-/web/detail/${name}`);
   }

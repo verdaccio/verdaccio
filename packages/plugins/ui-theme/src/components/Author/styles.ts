@@ -7,7 +7,7 @@ import ListItemText from '../ListItemText';
 import Text from '../Text';
 
 export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight.bold,
+  fontWeight: props.theme?.fontWeight.bold,
 }));
 
 export const AuthorListItem = styled(ListItem)({

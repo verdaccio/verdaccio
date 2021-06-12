@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 export default class Config {
   constructor() {
     this.storage = './test-storage';

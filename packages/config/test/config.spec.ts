@@ -9,7 +9,6 @@ import {
   parseConfigFile,
   ROLES,
   WEB_TITLE,
-  getMatchedPackagesSpec,
 } from '../src';
 import { parseConfigurationFile } from './utils';
 

@@ -1,6 +1,4 @@
-import _ from 'lodash';
-import express, { Express } from 'express';
-
+import express, { Router } from 'express';
 import {
   match,
   validateName,
@@ -25,11 +23,7 @@ import profile from './v1/profile';
 import token from './v1/token';
 import v1Search from './v1/search';
 
-export default function (
-  config: Config,
-  auth: IAuth,
-  storage: IStorageHandler
-): Express.Application {
+export default function (config: Config, auth: IAuth, storage: IStorageHandler): Router {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */

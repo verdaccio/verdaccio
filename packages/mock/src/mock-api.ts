@@ -13,7 +13,6 @@ import {
 import { buildToken } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';
-import { response } from 'express';
 
 const debug = buildDebug('verdaccio:mock:api');
 

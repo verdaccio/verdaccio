@@ -5,7 +5,10 @@ import { useTranslation } from 'react-i18next';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
-import { DeveloperType } from './types';
+export enum DeveloperType {
+  CONTRIBUTORS = 'contributors',
+  MAINTAINERS = 'maintainers',
+}
 
 interface Props {
   type: DeveloperType;

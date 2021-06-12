@@ -6,7 +6,7 @@ import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight.bold,
+  fontWeight: props.theme?.fontWeight.bold,
 }));
 
 export const Spacer = styled('div')<{ theme?: Theme }>(({ theme }) => ({

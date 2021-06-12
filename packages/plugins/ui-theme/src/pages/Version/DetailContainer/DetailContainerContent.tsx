@@ -3,7 +3,13 @@ import React from 'react';
 import loadable from '../../../App/utils/loadable';
 
 import DetailContainerContentReadme from './DetailContainerContentReadme';
-import { TabPosition } from './tabs';
+
+export enum TabPosition {
+  README = 'readme',
+  DEPENDENCIES = 'dependencies',
+  VERSIONS = 'versions',
+  UPLINKS = 'uplinks',
+}
 
 const Versions = loadable(() => import(/* webpackChunkName: "Versions" */ './Versions'));
 const UpLinks = loadable(() => import(/* webpackChunkName: "UpLinks" */ './UpLinks'));

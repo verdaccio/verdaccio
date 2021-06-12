@@ -8,7 +8,6 @@ import { logger } from '@verdaccio/logger';
 import { notifyRequest, NotifyRequestOptions } from './notify-request';
 
 const debug = buildDebug('verdaccio:hooks');
-type TemplateMetadata = Package & { publishedPackage: string };
 
 export function compileTemplate(content, metadata) {
   // FUTURE: multiple handlers
