@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://github.com/verdaccio/verdaccio/compare/v5.1.0...v5.1.1) (2021-06-12)
+
+
+### Bug Fixes
+
+* add logger fatal if fails on startup ([#2288](https://github.com/verdaccio/verdaccio/issues/2288)) ([558dd3f](https://github.com/verdaccio/verdaccio/commit/558dd3f3c631b58231b239c1b38a44b5174f9228)), closes [#2287](https://github.com/verdaccio/verdaccio/issues/2287)
+* improve get headers from request [#2190](https://github.com/verdaccio/verdaccio/issues/2190) ([#2271](https://github.com/verdaccio/verdaccio/issues/2271)) ([38ca095](https://github.com/verdaccio/verdaccio/commit/38ca095fb041c768c1ea85f4d922f808c124777c))
+
 ## [5.1.0](https://github.com/verdaccio/verdaccio/compare/v5.0.4...v5.1.0) (2021-05-24)
 
 
