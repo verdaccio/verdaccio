@@ -504,21 +504,19 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: ^4.2.0
       handlebars: 4.5.3
-      nock: ^13.0.4
-      node-fetch: ^2.6.1
-      request: 2.87.0
+      undici: ^4.0.0-rc.1
+      undici-fetch: ^1.0.0-rc.1
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/logger': link:../logger
       debug: 4.2.0
       handlebars: 4.5.3
-      node-fetch: 2.6.1
-      request: 2.87.0
+      undici: 4.0.0-rc.7
+      undici-fetch: 1.0.0-rc.1
     devDependencies:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/types': link:../core/types
-      nock: 13.0.4
 
   packages/loaders:
     specifiers:
@@ -13500,16 +13498,6 @@ packages:
       - supports-color
     dev: true
 
-  /nock/13.0.4:
-    resolution: {integrity: sha512-alqTV8Qt7TUbc74x1pKRLSENzfjp4nywovcJgi/1aXDiUxXdt7TkruSTF5MDWPP7UoPVgea4F9ghVdmX0xxnSA==}
-    engines: {node: '>= 10.13'}
-    dependencies:
-      debug: 4.1.1
-      json-stringify-safe: 5.0.1
-      lodash.set: 4.3.2
-      propagate: 2.0.1
-    dev: true
-
   /node-abi/2.19.1:
     resolution: {integrity: sha512-HbtmIuByq44yhAzK7b9j/FelKlHYISKQn0mtvcBrU5QBkhoCMp5bu8Hv5AI34DcKfOAcJBcOEMwLlwO62FFu9A==}
     dependencies:
@@ -18094,6 +18082,17 @@ packages:
     dependencies:
       debug: 2.6.9
     dev: true
+
+  /undici-fetch/1.0.0-rc.1:
+    resolution: {integrity: sha512-VPMBog6ke/hSABltjVrcq+xc0RSnqfgmufn+5hfKBoIEJJq5nkKWQcWzW/uGlesSC2eKFQ6sPCQesFc7LfqGAg==}
+    dependencies:
+      undici: 4.0.0-rc.7
+    dev: false
+
+  /undici/4.0.0-rc.7:
+    resolution: {integrity: sha512-8vhF9REAH/O+eGh1K942bTznr47JOZHlHMTh9/5XiJvcBk3GqV2qzeRPxwDfAeHNWjm1BZ4EsSgAotHV2EOxeA==}
+    engines: {node: '>=12.18'}
+    dev: false
 
   /unicode-canonical-property-names-ecmascript/1.0.4:
     resolution: {integrity: sha512-jDrNnXWHd4oHiTZnx/ZG7gtUTVp+gCcTTKr8L0HjlwphROEW3+Him+IpvC+xcJEFegapiMZyZe02CyuOnRmbnQ==}

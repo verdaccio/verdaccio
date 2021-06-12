@@ -1,4 +1,4 @@
-import nock from 'nock';
+import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
 import { parseConfigFile, createRemoteUser } from '@verdaccio/config';
 import { notify } from '../src/notify';
@@ -12,36 +12,33 @@ const singleHeaderNotificationConfig = parseConfigFile(
 );
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
 
-const mockInfo = jest.fn();
-jest.mock('@verdaccio/logger', () => ({
-  setup: jest.fn(),
-  logger: {
-    child: jest.fn(),
-    debug: jest.fn(),
-    trace: jest.fn(),
-    warn: jest.fn(),
-    info: () => mockInfo(),
-    error: jest.fn(),
-    fatal: jest.fn(),
-  },
-}));
+setup([]);
 
 const domain = 'http://slack-service';
+const { MockAgent } = require('undici');
+const { setGlobalDispatcher } = require('undici-fetch');
+
+const options = {
+  path: '/foo?auth_token=mySecretToken',
+  method: 'POST',
+};
 
 describe('Notifications:: notifyRequest', () => {
-  beforeEach(() => {
-    nock.cleanAll();
-  });
-
   test('when sending a empty notification', async () => {
-    nock(domain).post('/foo?auth_token=mySecretToken').reply(200, { body: 'test' });
+    const mockAgent = new MockAgent({ connections: 1 });
+    setGlobalDispatcher(mockAgent);
+    const mockClient = mockAgent.get(domain);
+    mockClient.intercept(options).reply(200, { body: 'test' });
 
     const notificationResponse = await notify({}, {}, createRemoteUser('foo', []), 'bar');
     expect(notificationResponse).toEqual([false]);
   });
 
   test('when sending a single notification', async () => {
-    nock(domain).post('/foo?auth_token=mySecretToken').reply(200, { body: 'test' });
+    const mockAgent = new MockAgent({ connections: 1 });
+    setGlobalDispatcher(mockAgent);
+    const mockClient = mockAgent.get(domain);
+    mockClient.intercept(options).reply(200, { body: 'test' });
 
     const notificationResponse = await notify(
       {},
@@ -50,10 +47,14 @@ describe('Notifications:: notifyRequest', () => {
       'bar'
     );
     expect(notificationResponse).toEqual([true]);
+    await mockClient.close();
   });
 
   test('when notification endpoint is missing', async () => {
-    nock(domain).post('/foo?auth_token=mySecretToken').reply(200, { body: 'test' });
+    const mockAgent = new MockAgent({ connections: 1 });
+    setGlobalDispatcher(mockAgent);
+    const mockClient = mockAgent.get(domain);
+    mockClient.intercept(options).reply(200, { body: 'test' });
     const name = 'package';
     const config: Partial<Config> = {
       // @ts-ignore
@@ -68,14 +69,16 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when multiple notifications', async () => {
-    nock(domain).post('/foo?auth_token=mySecretToken').reply(200, { body: 'test' });
-    nock(domain).post('/foo?auth_token=mySecretToken').reply(400, {});
-    nock(domain)
-      .post('/foo?auth_token=mySecretToken')
-      .reply(500, { message: 'Something bad happened' });
+    const mockAgent = new MockAgent({ connections: 1 });
+    setGlobalDispatcher(mockAgent);
+    const mockClient = mockAgent.get(domain);
+    mockClient.intercept(options).reply(200, { body: 'test' });
+    mockClient.intercept(options).reply(400, {});
+    mockClient.intercept(options).reply(500, { message: 'Something bad happened' });
 
     const name = 'package';
     const responses = await notify({ name }, multiNotificationConfig, { name: 'foo' }, 'bar');
     expect(responses).toEqual([true, false, false]);
+    await mockClient.close();
   });
 });
