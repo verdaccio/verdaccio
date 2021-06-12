@@ -6,6 +6,7 @@ import {
   waitFor,
   fireEvent,
   cleanup,
+  screen,
   act,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
@@ -87,29 +88,27 @@ describe('<LoginDialog /> component', () => {
       })
     );
 
-    const { getByPlaceholderText, getByTestId } = render(
+    render(
       <AppContext.Provider value={appContextValue}>
         <LoginDialog onClose={props.onClose} open={props.open} />
       </AppContext.Provider>
     );
 
-    // TODO: the input's value is not being updated in the DOM
-    const userNameInput = getByPlaceholderText('Your username');
+    const userNameInput = screen.getByPlaceholderText('Your username');
+    expect(userNameInput).toBeInTheDocument();
 
     fireEvent.focus(userNameInput);
 
     fireEvent.change(userNameInput, { target: { value: 'xyz' } });
 
-    // TODO: the input's value is not being updated in the DOM
-    const passwordInput = getByPlaceholderText('Your strong password');
-
+    const passwordInput = screen.getByPlaceholderText('Your strong password');
+    expect(userNameInput).toBeInTheDocument();
     fireEvent.focus(passwordInput);
     fireEvent.change(passwordInput, { target: { value: '1234' } });
 
-    // TODO: submitting form does not work
-    const signInButton = getByTestId('login-dialog-form-login-button');
-    expect(signInButton).not.toBeDisabled();
-    act(() => {
+    act(async () => {
+      const signInButton = await screen.getByTestId('login-dialog-form-login-button');
+      expect(signInButton).not.toBeDisabled();
       fireEvent.click(signInButton);
     });
   });

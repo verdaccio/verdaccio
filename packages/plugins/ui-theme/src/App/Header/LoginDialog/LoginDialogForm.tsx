@@ -1,6 +1,7 @@
+/* eslint-disable verdaccio/jsx-spread */
 import styled from '@emotion/styled';
 import React, { memo } from 'react';
-import useForm from 'react-hook-form/dist/react-hook-form.ie11';
+import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import Button from 'verdaccio-ui/components/Button';
@@ -32,9 +33,8 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
   const { t } = useTranslation();
   const {
     register,
-    errors,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<FormValues>({ mode: 'onChange' });
 
   const onSubmitForm = (formValues: FormValues) => {
@@ -49,7 +49,7 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
         fullWidth={true}
         helperText={errors.username?.message}
         id="login--dialog-username"
-        inputRef={register({
+        {...register('username', {
           required: { value: true, message: t('form-validation.required-field') },
           minLength: { value: 2, message: t('form-validation.required-min-length', { length: 2 }) },
         })}
@@ -66,7 +66,7 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
         fullWidth={true}
         helperText={errors.password?.message}
         id="login--dialog-password"
-        inputRef={register({
+        {...register('password', {
           required: { value: true, message: t('form-validation.required-field') },
           minLength: { value: 2, message: t('form-validation.required-min-length', { length: 2 }) },
         })}

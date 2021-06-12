@@ -12,7 +12,7 @@ module.exports = Object.assign({}, config, {
   moduleFileExtensions: ['js', 'ts', 'tsx'],
   testURL: 'http://localhost',
   rootDir: '..',
-  setupFilesAfterEnv: ['<rootDir>/jest/expect-setup.js'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   setupFiles: ['<rootDir>/jest/setup.ts'],
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!react-syntax-highlighter)'],
   modulePathIgnorePatterns: [

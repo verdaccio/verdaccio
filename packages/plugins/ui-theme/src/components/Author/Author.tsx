@@ -1,3 +1,4 @@
+import Avatar from '@material-ui/core/Avatar';
 import React, { FC, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -5,7 +6,6 @@ import { getAuthorName } from 'verdaccio-ui/utils/package';
 import { isEmail } from 'verdaccio-ui/utils/url';
 
 import { DetailContext } from '../../pages/Version';
-import Avatar from '../Avatar';
 import List from '../List';
 
 import { StyledText, AuthorListItem, AuthorListItemText } from './styles';

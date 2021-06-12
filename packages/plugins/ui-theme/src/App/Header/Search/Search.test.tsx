@@ -1,8 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import '@testing-library/jest-dom/extend-expect';
-
 import api from 'verdaccio-ui/providers/API/api';
 import { render, fireEvent, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
 
@@ -85,12 +83,11 @@ describe('<Search /> component', () => {
     const { getByPlaceholderText, getByRole } = render(<ComponentToBeRendered />);
 
     const autoCompleteInput = getByPlaceholderText('Search Packages');
-
     fireEvent.focus(autoCompleteInput);
     fireEvent.change(autoCompleteInput, { target: { value: ' ', method: 'type' } });
     expect(autoCompleteInput).toHaveAttribute('value', '');
     const listBoxElement = await waitFor(() => getByRole('listbox'));
-    expect(listBoxElement).toBeEmptyDOMElement();
+    expect(listBoxElement.innerHTML).toEqual('');
     expect(api.request).toHaveBeenCalledTimes(0);
   });
 
@@ -103,7 +100,7 @@ describe('<Search /> component', () => {
     fireEvent.change(autoCompleteInput, { target: { value: ' ', method: 'click' } });
     expect(autoCompleteInput).toHaveAttribute('value', '');
     const listBoxElement = await waitFor(() => getByRole('listbox'));
-    expect(listBoxElement).toBeEmptyDOMElement();
+    expect(listBoxElement.innerHTML).toEqual('');
     expect(api.request).toHaveBeenCalledTimes(0);
   });
 
@@ -132,7 +129,7 @@ describe('<Search /> component', () => {
 
     fireEvent.change(autoCompleteInput, { target: { value: ' ' } });
     const listBoxElement = await waitFor(() => getByRole('listbox'));
-    expect(listBoxElement).toBeEmptyDOMElement();
+    expect(listBoxElement.innerHTML).toEqual('');
 
     expect(api.request).toHaveBeenCalledTimes(1);
   });
@@ -152,6 +149,6 @@ describe('<Search /> component', () => {
     fireEvent.click(suggestionsElements[1]);
     const listBoxElement = await waitFor(() => getByRole('listbox'));
     // when the page redirects, the list box should be empty again
-    expect(listBoxElement).toBeEmptyDOMElement();
+    expect(listBoxElement.innerHTML).toEqual('');
   });
 });
