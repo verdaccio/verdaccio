@@ -6,7 +6,13 @@ import { HTTP_STATUS } from '@verdaccio/commons-api';
 const debug = buildDebug('verdaccio:hooks:request');
 const fetch = require('undici-fetch');
 
-export async function notifyRequest(url: string, options: any): Promise<boolean> {
+export type FetchOptions = {
+  body: string;
+  headers?: {};
+  method?: string;
+};
+
+export async function notifyRequest(url: string, options: FetchOptions): Promise<boolean> {
   let response;
   try {
     debug('uri %o', url);
