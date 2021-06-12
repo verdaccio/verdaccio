@@ -1,9 +1,6 @@
 import { URL } from 'url';
-import _ from 'lodash';
 import buildDebug from 'debug';
 import isURLValidator from 'validator/lib/isURL';
-
-import { ConfigYaml } from '@verdaccio/types';
 import { HEADERS } from '@verdaccio/commons-api';
 
 const debug = buildDebug('verdaccio:core:url');

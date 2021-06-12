@@ -104,11 +104,12 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
     const file = this.helper.buildFilePath(this.name, fileName);
     this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
     try {
-      // @ts-ignore
       file
+        // @ts-ignore
         .delete()
         // FIXME: after upgrade this is broken
         // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then((_data: [Response]): void => {
           this.logger.debug(
             { name: file.name },

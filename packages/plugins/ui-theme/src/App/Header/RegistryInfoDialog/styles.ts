@@ -5,9 +5,9 @@ import DialogTitle from 'verdaccio-ui/components/DialogTitle';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 export const Title = styled(DialogTitle)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme && props.theme.palette.primary.main,
-  color: props.theme && props.theme.palette.white,
-  fontSize: props.theme && props.theme.fontSize.lg,
+  backgroundColor: props.theme?.palette.primary.main,
+  color: props.theme?.palette.white,
+  fontSize: props.theme?.fontSize.lg,
 }));
 
 export const Content = styled(DialogContent)<{ theme?: Theme }>(({ theme }) => ({

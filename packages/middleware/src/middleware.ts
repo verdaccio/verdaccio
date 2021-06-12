@@ -207,6 +207,8 @@ export function final(
   body: FinalBody,
   req: $RequestExtend,
   res: $ResponseExtend,
+  // if we remove `next` breaks test
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: $NextFunctionVer
 ): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {

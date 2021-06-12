@@ -17,7 +17,7 @@ import { DetailContext } from '../../context';
 import git from './img/git.png';
 
 const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight.bold,
+  fontWeight: props.theme?.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 

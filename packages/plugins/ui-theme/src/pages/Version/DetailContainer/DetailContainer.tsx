@@ -7,7 +7,13 @@ import { DetailContext } from '../context';
 import Deprecated from './Deprecated';
 import DetailContainerContent from './DetailContainerContent';
 import DetailContainerTabs from './DetailContainerTabs';
-import { TabPosition } from './tabs';
+
+export enum TabPosition {
+  README = 'readme',
+  DEPENDENCIES = 'dependencies',
+  VERSIONS = 'versions',
+  UPLINKS = 'uplinks',
+}
 
 const DetailContainer: React.FC = () => {
   const tabs = Object.values(TabPosition);

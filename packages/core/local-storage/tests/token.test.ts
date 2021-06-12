@@ -1,12 +1,8 @@
 /* eslint-disable jest/no-mocks-import */
 import fs from 'fs';
-import path from 'path';
-
-import { assign } from 'lodash';
 import { ILocalData, PluginOptions, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
-import { ILocalFSPackageManager } from '../src/local-fs';
 import * as pkgUtils from '../src/pkg-utils';
 
 // FIXME: remove this mocks imports
@@ -19,14 +15,11 @@ const optionsPlugin: PluginOptions<{}> = {
 };
 
 let locaDatabase: ILocalData<{}>;
-let loadPrivatePackages;
 
 describe('Local Database', () => {
   beforeEach(() => {
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
-    loadPrivatePackages = jest
-      .spyOn(pkgUtils, 'loadPrivatePackages')
-      .mockReturnValue({ list: [], secret: '' });
+    jest.spyOn(pkgUtils, 'loadPrivatePackages').mockReturnValue({ list: [], secret: '' });
     locaDatabase = new LocalDatabase(optionsPlugin.config, optionsPlugin.logger);
     (locaDatabase as LocalDatabase).clean();
     writeMock.mockClear();

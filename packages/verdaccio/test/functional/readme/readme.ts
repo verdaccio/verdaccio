@@ -37,11 +37,11 @@ export default function (server, server2) {
         return matchReadme(server2, README_PKG1, README_MESSAGE);
       });
 
-      test.skip('should fetch not found readme server2 over uplink server1', () => {
+      test('should fetch not found readme server2 over uplink server1', () => {
         return matchReadme(server, README_PKG2, DEFAULT_NO_README);
       });
 
-      test.skip('should fetch not found readme package on local server1', () => {
+      test('should fetch not found readme package on local server1', () => {
         return matchReadme(server2, README_PKG2, DEFAULT_NO_README);
       });
     });

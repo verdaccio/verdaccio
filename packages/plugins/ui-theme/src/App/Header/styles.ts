@@ -29,15 +29,15 @@ export const LeftSide = styled(RightSide)({
 export const MobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   alignItems: 'center',
   display: 'flex',
-  borderBottom: `1px solid ${props.theme && props.theme.palette.greyLight}`,
+  borderBottom: `1px solid ${props.theme?.palette.greyLight}`,
   padding: '8px',
   position: 'relative',
 }));
 
 export const InnerMobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   borderRadius: '4px',
-  backgroundColor: props.theme && props.theme.palette.greyLight,
-  color: props.theme && props.theme.palette.white,
+  backgroundColor: props.theme?.palette.greyLight,
+  color: props.theme?.palette.white,
   width: '100%',
   padding: '0 5px',
   margin: '0 10px 0 0',

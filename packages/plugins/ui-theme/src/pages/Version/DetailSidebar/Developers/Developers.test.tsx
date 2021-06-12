@@ -5,7 +5,7 @@ import { render, cleanup, fireEvent } from 'verdaccio-ui/utils/test-react-testin
 import { DetailContextProvider } from '../../context';
 
 import Developers from './Developers';
-import { DeveloperType } from './types';
+import { DeveloperType } from './DevelopersTitle';
 
 describe('test Developers', () => {
   afterEach(() => {

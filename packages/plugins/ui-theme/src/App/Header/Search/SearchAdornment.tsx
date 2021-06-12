@@ -6,7 +6,7 @@ import InputAdornment from 'verdaccio-ui/components/InputAdornment';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>((props) => ({
-  color: props.theme && props.theme.palette.white,
+  color: props.theme?.palette.white,
 }));
 
 const SearchAdornment: React.FC = () => (

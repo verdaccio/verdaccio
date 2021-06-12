@@ -1,6 +1,6 @@
 import zlib from 'zlib';
 import Stream from 'stream';
-import URL, { UrlWithStringQuery } from 'url';
+import URL from 'url';
 import JSONStream from 'JSONStream';
 import _ from 'lodash';
 import request from 'request';
@@ -480,7 +480,7 @@ class ProxyStorage implements IProxy {
    * @param {String} url
    * @return {Stream}
    */
-  fetchTarball(url: string) {
+  public fetchTarball(url: string) {
     const stream = new ReadTarball({});
     let current_length = 0;
     let expected_length;

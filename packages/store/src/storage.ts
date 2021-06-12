@@ -2,7 +2,7 @@ import assert from 'assert';
 import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
-import e, { Request } from 'express';
+import { Request } from 'express';
 import buildDebug from 'debug';
 
 import { ProxyStorage } from '@verdaccio/proxy';

@@ -3,13 +3,7 @@ import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { ErrorCode } from '@verdaccio/utils';
-import {
-  API_ERROR,
-  HEADERS,
-  HEADER_TYPE,
-  HTTP_STATUS,
-  VerdaccioError,
-} from '@verdaccio/commons-api';
+import { API_ERROR, HEADER_TYPE, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
