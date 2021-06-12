@@ -113,7 +113,7 @@ jobs:
   test:
     needs: build
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os: [ubuntu-latest]
         node_version: [12, 14]
@@ -141,6 +141,7 @@ jobs:
       - name: Test
         run: pnpm test
         env: 
+          # just for Node.js 12 temporary until remove v12 support.
           NODE_OPTIONS: --experimental-vm-modules
   ci-e2e-ui:
     needs: build
