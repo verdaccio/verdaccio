@@ -116,7 +116,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [12, 14]
+        node_version: [14]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -140,9 +140,6 @@ jobs:
         run: pnpm recursive install --frozen-lockfile --ignore-scripts 
       - name: Test
         run: pnpm test
-        env: 
-          # just for Node.js 12 temporary until remove v12 support.
-          NODE_OPTIONS: --experimental-vm-modules
   ci-e2e-ui:
     needs: build
     runs-on: ubuntu-latest
