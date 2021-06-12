@@ -170,12 +170,12 @@ jobs:
   ci-e2e-cli:
     needs: build
     runs-on: ubuntu-latest
-    name: CLI Test E2E Node 14
+    name: CLI Test E2E Node 12
     steps:
       - uses: actions/checkout@v2.3.1
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 12
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
