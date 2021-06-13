@@ -88,19 +88,17 @@ const createNullStream = () =>
 describe('StorageTest', () => {
   let mockRegistry;
 
-  beforeAll(async (done) => {
+  beforeAll(async () => {
     const binPath = require.resolve('verdaccio/bin/verdaccio');
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
-    done();
+    return;
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
   test('should be defined', async () => {
@@ -159,41 +157,44 @@ describe('StorageTest', () => {
   });
 
   describe('test _syncUplinksMetadata', () => {
-    test('should fetch from uplink jquery metadata from registry', async (done) => {
+    test('should fetch from uplink jquery metadata from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
 
-      // @ts-ignore
-      storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
-        expect(err).toBeNull();
-        expect(metadata).toBeDefined();
-        expect(metadata).toBeInstanceOf(Object);
-        done();
+      return new Promise((resolve) => {
+        // @ts-ignore
+        storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
+          expect(err).toBeNull();
+          expect(metadata).toBeDefined();
+          expect(metadata).toBeInstanceOf(Object);
+          resolve(metadata);
+        });
       });
     });
 
-    test('should fails on fetch from uplink non existing from registry', async (done) => {
+    test('should fails on fetch from uplink non existing from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
-
-      // @ts-ignore
-      storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
-        expect(err).not.toBeNull();
-        expect(errors).toBeInstanceOf(Array);
-        expect(errors[0][0].statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-        expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
-        done();
+      return new Promise((resolve) => {
+        storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, _metadata, errors) => {
+          expect(err).not.toBeNull();
+          expect(errors).toBeInstanceOf(Array);
+          expect(errors[0][0].statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
+          resolve(errors);
+        });
       });
     });
 
-    test('should fails on fetch from uplink corrupted pkg from registry', async (done) => {
+    test('should fails on fetch from uplink corrupted pkg from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
-
-      // @ts-ignore
-      storage._syncUplinksMetadata('corrupted-package', null, {}, (err, metadata, errors) => {
-        expect(err).not.toBeNull();
-        expect(errors).toBeInstanceOf(Array);
-        expect(errors[0][0].statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
-        expect(errors[0][0].message).toMatch(API_ERROR.BAD_STATUS_CODE);
-        done();
+      return new Promise((resolve) => {
+        // @ts-ignore
+        storage._syncUplinksMetadata('corrupted-package', null, {}, (err, metadata, errors) => {
+          expect(err).not.toBeNull();
+          expect(errors).toBeInstanceOf(Array);
+          expect(errors[0][0].statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+          expect(errors[0][0].message).toMatch(API_ERROR.BAD_STATUS_CODE);
+          resolve(errors);
+        });
       });
     });
 

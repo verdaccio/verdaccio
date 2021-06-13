@@ -35,7 +35,7 @@ describe('endpoint user auth JWT unit test', () => {
   let mockRegistry;
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
 
-  beforeAll(async function (done) {
+  beforeAll(async function () {
     const mockServerPort = 55546;
     const store = generateRamdonStorage();
     const configForTest = configExample(
@@ -56,18 +56,15 @@ describe('endpoint user auth JWT unit test', () => {
     const binPath = require.resolve('verdaccio/bin/verdaccio');
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
-    done();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
-  test('should test add a new user with JWT enabled', async (done) => {
+  test('should test add a new user with JWT enabled', async () => {
     const [err, res] = await addUser(request(app), credentials.name, credentials);
     expect(err).toBeNull();
     expect(res.body.ok).toBeDefined();
@@ -94,10 +91,9 @@ describe('endpoint user auth JWT unit test', () => {
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
-    done();
   });
 
-  test('should emulate npm login when user already exist', async (done) => {
+  test('should emulate npm login when user already exist', async () => {
     const credentials = { name: 'jwtUser2', password: 'secretPass' };
     // creates an user
     await addUser(request(app), credentials.name, credentials);
@@ -107,23 +103,25 @@ describe('endpoint user auth JWT unit test', () => {
     // npm will try to sign in sending credentials via basic auth header
     const token = buildUserBuffer(credentials.name, credentials.password).toString('base64');
     // put should exist in request
-    // @ts-ignore
-    request(app)
-      .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
-      .send(credentials)
-      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HTTP_STATUS.CREATED)
-      .end(function (err, res) {
-        expect(err).toBeNull();
-        expect(res.body.ok).toBeDefined();
-        expect(res.body.token).toBeDefined();
+    return new Promise((resolve) => {
+      // @ts-ignore
+      request(app)
+        .put(`/-/user/org.couchdb.user:${credentials.name}/-rev/undefined`)
+        .send(credentials)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BASIC, token))
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.CREATED)
+        .end(function (err, res) {
+          expect(err).toBeNull();
+          expect(res.body.ok).toBeDefined();
+          expect(res.body.token).toBeDefined();
 
-        done();
-      });
+          resolve(res);
+        });
+    });
   });
 
-  test('should fails on try to access with corrupted token', async (done) => {
+  test('should fails on try to access with corrupted token', async () => {
     const [err2, resp2] = await getPackage(
       request(app),
       FAKE_TOKEN,
@@ -133,13 +131,12 @@ describe('endpoint user auth JWT unit test', () => {
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
-    done();
   });
 
   test(
     'should fails on login if user credentials are invalid even if jwt' +
       ' valid token is provided',
-    async (done) => {
+    async () => {
       const credentials = { name: 'newFailsUser', password: 'secretPass' };
       const [err, res] = await addUser(request(app), credentials.name, credentials);
       expect(err).toBeNull();
@@ -162,8 +159,6 @@ describe('endpoint user auth JWT unit test', () => {
       expect(err2).toBeNull();
       expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
       expect(resp2.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);
-
-      done();
     }
   );
 });

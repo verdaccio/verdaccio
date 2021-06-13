@@ -57,9 +57,13 @@ describe('proxy', () => {
         },
         url,
       });
+      let dataSearch;
       const stream = prox1.search({ req });
       stream.on('data', (data) => {
-        expect(data).toBeDefined();
+        dataSearch += `${data}`;
+      });
+      stream.on('end', () => {
+        expect(dataSearch).toBeDefined();
         done();
       });
     });

@@ -1,4 +1,3 @@
-import assert from 'assert';
 import { semverSort } from '@verdaccio/utils';
 import { setup } from '@verdaccio/logger';
 
@@ -16,7 +15,7 @@ describe('Storage._merge_versions versions', () => {
     // @ts-ignore
     mergeVersions(pkg, { versions: { a: 2, q: 2 } });
 
-    assert.deepEqual(pkg, {
+    expect(pkg).toStrictEqual({
       versions: { a: 1, b: 1, c: 1, q: 2 },
       'dist-tags': {},
     });
@@ -31,7 +30,7 @@ describe('Storage._merge_versions versions', () => {
     // @ts-ignore
     mergeVersions(pkg, { 'dist-tags': { q: '2.2.2', w: '3.3.3', t: '4.4.4' } });
 
-    assert.deepEqual(pkg, {
+    expect(pkg).toStrictEqual({
       versions: {},
       'dist-tags': { q: '2.2.2', w: '3.3.3', t: '4.4.4' },
     });
@@ -51,14 +50,14 @@ describe('Storage._merge_versions versions', () => {
     // @ts-ignore
     mergeVersions(pkg, { 'dist-tags': { q: '1.1.2', w: '3.3.3', t: '4.4.4' } });
 
-    assert.deepEqual(pkg, {
+    expect(pkg).toStrictEqual({
       versions: {},
       'dist-tags': { q: '1.1.10', w: '3.3.3', t: '4.4.4' },
     });
   });
 
   test('semverSort', () => {
-    assert.deepEqual(semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']), [
+    expect(semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b'])).toStrictEqual([
       '1.2.3a',
       '1.2.3-b',
       '1.2.3c',

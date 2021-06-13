@@ -17,7 +17,7 @@ describe('endpoint web unit test', () => {
   let app;
   let mockRegistry;
 
-  beforeAll(async (done) => {
+  beforeAll(async () => {
     const store = generateRamdonStorage();
     const mockServerPort = 55523;
     const configForTest = configExample(
@@ -37,15 +37,12 @@ describe('endpoint web unit test', () => {
     const binPath = require.resolve('verdaccio/bin/verdaccio');
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
-    done();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
   describe('Registry WebUI endpoints', () => {
@@ -64,85 +61,97 @@ describe('endpoint web unit test', () => {
     });
 
     describe('Packages', () => {
-      test('should display sidebar info', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function (err, res) {
-            // console.log("-->", res);
-            // expect(err).toBeNull();
+      test('should display sidebar info', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/sidebar/@scope/pk1-test')
+            .expect(HTTP_STATUS.OK)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .end(function (err, res) {
+              // console.log("-->", res);
+              // expect(err).toBeNull();
 
-            const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
+              const sideBarInfo = res.body;
+              const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
-            expect(sideBarInfo.latest.author).toBeDefined();
-            expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
-            expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
-            expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
-            done();
-          });
+              expect(sideBarInfo.latest.author).toBeDefined();
+              expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
+              expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
+              expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
+              resolve(sideBarInfo);
+            });
+        });
       });
 
-      test('should display sidebar info by version', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
-          .expect(HTTP_STATUS.OK)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function (err, res) {
-            const sideBarInfo = res.body;
-            const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
+      test('should display sidebar info by version', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
+            .expect(HTTP_STATUS.OK)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .end(function (err, res) {
+              const sideBarInfo = res.body;
+              const latestVersion = publishMetadata.versions[publishMetadata[DIST_TAGS].latest];
 
-            expect(sideBarInfo.latest.author).toBeDefined();
-            expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
-            expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
-            expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
-            done();
-          });
+              expect(sideBarInfo.latest.author).toBeDefined();
+              expect(sideBarInfo.latest.author.avatar).toMatch(/www.gravatar.com/);
+              expect(sideBarInfo.latest.author.name).toBe(latestVersion.author.name);
+              expect(sideBarInfo.latest.author.email).toBe(latestVersion.author.email);
+              resolve(sideBarInfo);
+            });
+        });
       });
 
-      test('should display sidebar info 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/404')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function () {
-            done();
-          });
+      test('should display sidebar info 404', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/sidebar/@scope/404')
+            .expect(HTTP_STATUS.NOT_FOUND)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .end(function () {
+              resolve(null);
+            });
+        });
       });
 
-      test('should display sidebar info 404 with version', (done) => {
-        request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
-          .expect(HTTP_STATUS.NOT_FOUND)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .end(function () {
-            done();
-          });
+      test('should display sidebar info 404 with version', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
+            .expect(HTTP_STATUS.NOT_FOUND)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .end(function () {
+              resolve(null);
+            });
+        });
       });
     });
 
     describe('Search', () => {
-      test('should find @scope/pk1-test', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/@scope%2fpk1-test')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            expect(res.body).toHaveLength(1);
-            done();
-          });
+      test('should find @scope/pk1-test', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/search/@scope%2fpk1-test')
+            .expect(HTTP_STATUS.OK)
+            .end(function (_err, res) {
+              expect(res.body).toHaveLength(1);
+              resolve(res);
+            });
+        });
       });
 
-      test('should not find forbidden-place', (done) => {
-        request(app)
-          .get('/-/verdaccio/search/forbidden-place')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            // this is expected since we are not logged
-            // and  forbidden-place is allow_access: 'nobody'
-            expect(res.body).toHaveLength(0);
-            done();
-          });
+      test('should not find forbidden-place', () => {
+        return new Promise((resolve) => {
+          request(app)
+            .get('/-/verdaccio/search/forbidden-place')
+            .expect(HTTP_STATUS.OK)
+            .end(function (err, res) {
+              // this is expected since we are not logged
+              // and  forbidden-place is allow_access: 'nobody'
+              expect(res.body).toHaveLength(0);
+              resolve(res);
+            });
+        });
       });
     });
   });

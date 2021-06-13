@@ -18,8 +18,6 @@ const mockApiJWTmiddleware = jest.fn(
     }
 );
 
-jest.setTimeout(50000000);
-
 jest.mock('@verdaccio/auth', () => ({
   Auth: class {
     apiJWTmiddleware() {
@@ -86,98 +84,108 @@ describe('publish', () => {
         });
     });
 
-    test('should fail on publish a bad versions package', async (done) => {
+    test('should fail on publish a bad versions package', async () => {
       const app = await initializeServer('publish.yaml');
-      return supertest(app)
-        .put(`/${encodeURIComponent(pkgName)}`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(
-          JSON.stringify(
-            Object.assign({}, pkgMetadata, {
-              versions: '',
-            })
+      return new Promise((resolve) => {
+        supertest(app)
+          .put(`/${encodeURIComponent(pkgName)}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(
+            JSON.stringify(
+              Object.assign({}, pkgMetadata, {
+                versions: '',
+              })
+            )
           )
-        )
-        .set('accept', HEADERS.GZIP)
-        .expect(HTTP_STATUS.BAD_REQUEST)
-        .then((response) => {
-          console.log('response.body', response.body);
-          expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
-          done();
-        });
+          .set('accept', HEADERS.GZIP)
+          .expect(HTTP_STATUS.BAD_REQUEST)
+          .then((response) => {
+            console.log('response.body', response.body);
+            expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+            resolve(response);
+          });
+      });
     });
   });
 
   describe('publish a package', () => {
-    test('should publish a package', async (done) => {
+    test('should publish a package', async () => {
       const app = await initializeServer('publish.yaml');
-      return publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
-        .expect(HTTP_STATUS.CREATED)
-        .then((response) => {
-          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-          done();
-        });
+      return new Promise((resolve) => {
+        publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
+          .expect(HTTP_STATUS.CREATED)
+          .then((response) => {
+            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+            resolve(response);
+          });
+      });
     });
 
-    test('should publish a new package', async (done) => {
+    test('should publish a new package', async () => {
       const pkgName = 'test';
       const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
       const app = await initializeServer('publish.yaml');
-      return supertest(app)
-        .put(`/${encodeURIComponent(pkgName)}`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(
-          JSON.stringify(
-            Object.assign({}, pkgMetadata, {
-              _attachments: null,
-            })
+      return new Promise((resolve) => {
+        supertest(app)
+          .put(`/${encodeURIComponent(pkgName)}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(
+            JSON.stringify(
+              Object.assign({}, pkgMetadata, {
+                _attachments: null,
+              })
+            )
           )
-        )
-        .set('accept', HEADERS.GZIP)
-        .expect(HTTP_STATUS.CREATED)
-        .then((response) => {
-          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-          done();
-        });
+          .set('accept', HEADERS.GZIP)
+          .expect(HTTP_STATUS.CREATED)
+          .then((response) => {
+            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+            resolve(response);
+          });
+      });
     });
 
-    test('should publish a new package with no readme', async (done) => {
+    test('should publish a new package with no readme', async () => {
       const pkgName = 'test';
       const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
       const app = await initializeServer('publish.yaml');
-      return supertest(app)
-        .put(`/${encodeURIComponent(pkgName)}`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(
-          JSON.stringify(
-            Object.assign({}, pkgMetadata, {
-              versions: {
-                ['1.0.0']: {
-                  readme: null,
+      return new Promise((resolve) => {
+        supertest(app)
+          .put(`/${encodeURIComponent(pkgName)}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(
+            JSON.stringify(
+              Object.assign({}, pkgMetadata, {
+                versions: {
+                  ['1.0.0']: {
+                    readme: null,
+                  },
                 },
-              },
-            })
+              })
+            )
           )
-        )
-        .set('accept', HEADERS.GZIP)
-        .expect(HTTP_STATUS.CREATED)
-        .then((response) => {
-          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-          done();
-        });
+          .set('accept', HEADERS.GZIP)
+          .expect(HTTP_STATUS.CREATED)
+          .then((response) => {
+            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+            resolve(response);
+          });
+      });
     });
   });
 
-  test('should fails on publish a duplicated package', async (done) => {
+  test('should fails on publish a duplicated package', async () => {
     const app = await initializeServer('publish.yaml');
     await publishVersion(app, 'publish.yaml', 'foo', '1.0.0');
-    return publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
-      .expect(HTTP_STATUS.CONFLICT)
-      .then((response) => {
-        console.log('response.body', response.body);
-        expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
-        done();
-      });
+    return new Promise((resolve) => {
+      publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
+        .expect(HTTP_STATUS.CONFLICT)
+        .then((response) => {
+          console.log('response.body', response.body);
+          expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
+          resolve(response);
+        });
+    });
   });
 
   describe('unpublish a package', () => {
