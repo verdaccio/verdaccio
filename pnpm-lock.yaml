@@ -436,7 +436,6 @@ importers:
       debug: 4.3.1
       fastify: 3.15.1
       fastify-plugin: 3.0.0
-      middie: ^5.2.0
       ts-node: 9.1.1
     dependencies:
       '@verdaccio/auth': link:../../auth
@@ -446,7 +445,6 @@ importers:
       debug: 4.3.1
       fastify: 3.15.1
       fastify-plugin: 3.0.0
-      middie: 5.2.0
     devDependencies:
       '@verdaccio/types': link:../types
       ts-node: 9.1.1
@@ -13251,15 +13249,6 @@ packages:
       picomatch: 2.3.0
     dev: true
 
-  /middie/5.2.0:
-    resolution: {integrity: sha512-QSrtYKyeGfdrsUzpwo6/NtPeac56CkPJpsVbGRaPE+7ekfrcfbdobjFiUFELYtDCUJpmLsXlOZtM4JE8YPvCcQ==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      fastify-plugin: 3.0.0
-      path-to-regexp: 6.2.0
-      reusify: 1.0.4
-    dev: false
-
   /mime-db/1.44.0:
     resolution: {integrity: sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==}
     engines: {node: '>= 0.6'}
@@ -14439,10 +14428,6 @@ packages:
     dependencies:
       isarray: 0.0.1
     dev: true
-
-  /path-to-regexp/6.2.0:
-    resolution: {integrity: sha512-f66KywYG6+43afgE/8j/GoiNyygk/bnoCbps++3ErRKsIYkGGupyv07R2Ok5m9i67Iqc+T2g1eAUGUPzWhYTyg==}
-    dev: false
 
   /path-type/1.1.0:
     resolution: {integrity: sha1-WcRPfuSR2nBNpBXaWkBwuk+P5EE=}
