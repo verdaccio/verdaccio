@@ -428,20 +428,24 @@ importers:
 
   packages/core/server:
     specifiers:
+      '@verdaccio/auth': workspace:6.0.0-6-next.9
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.4
+      '@verdaccio/store': workspace:6.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: 4.3.1
       fastify: 3.15.1
       fastify-plugin: 3.0.0
       ts-node: 9.1.1
     dependencies:
+      '@verdaccio/auth': link:../../auth
+      '@verdaccio/config': link:../../config
       '@verdaccio/logger': link:../../logger
+      '@verdaccio/store': link:../../store
       debug: 4.3.1
       fastify: 3.15.1
       fastify-plugin: 3.0.0
     devDependencies:
-      '@verdaccio/config': link:../../config
       '@verdaccio/types': link:../types
       ts-node: 9.1.1
 

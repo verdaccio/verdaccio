@@ -34,14 +34,16 @@
     "access": "public"
   },
   "dependencies": {
+    "@verdaccio/config": "workspace:6.0.0-6-next.7",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.9",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/store": "workspace:6.0.0-6-next.10",
+    "debug": "4.3.1",
     "fastify": "3.15.1",
-    "fastify-plugin": "3.0.0",
-    "debug": "4.3.1"
+    "fastify-plugin": "3.0.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "ts-node": "9.1.1"
   },
   "scripts": {

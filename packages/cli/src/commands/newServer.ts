@@ -42,7 +42,7 @@ export class NewServer extends Command {
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
       // const { version, name } = require('../../package.json');
-      const ser = await server({ logger });
+      const ser = await server({ logger, config: configParsed });
       await ser.listen(4873);
     } catch (err) {
       console.error(err);
