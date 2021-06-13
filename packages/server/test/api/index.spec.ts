@@ -54,7 +54,7 @@ describe('endpoint unit test', () => {
   let app;
   let mockRegistry;
 
-  beforeAll(async function (done) {
+  beforeAll(async function () {
     const store = generateRamdonStorage();
     const mockServerPort = 55549;
     const configForTest = configExample(
@@ -81,33 +81,32 @@ describe('endpoint unit test', () => {
     const binPath = require.resolve('verdaccio/bin/verdaccio');
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
-    done();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
   describe('Registry API Endpoints', () => {
     describe('should test user api', () => {
       describe('should test authorization headers with tokens only errors', () => {
-        test('should fails on protected endpoint /-/auth-package bad format', (done) => {
-          request(app)
-            .get('/auth-package')
-            .set(HEADERS.AUTHORIZATION, 'FakeHader')
-            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-            .expect(HTTP_STATUS.FORBIDDEN)
-            .end(function (err, res) {
-              expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(
-                /authorization required to access package auth-package/
-              );
-              done();
-            });
+        test('should fails on protected endpoint /-/auth-package bad format', () => {
+          return new Promise((resolve) => {
+            request(app)
+              .get('/auth-package')
+              .set(HEADERS.AUTHORIZATION, 'FakeHader')
+              .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+              .expect(HTTP_STATUS.FORBIDDEN)
+              .end(function (err, res) {
+                expect(res.body.error).toBeDefined();
+                expect(res.body.error).toMatch(
+                  /authorization required to access package auth-package/
+                );
+                resolve(res);
+              });
+          });
         });
 
         test('should fails on protected endpoint /-/auth-package bad JWT Bearer format', (done) => {
@@ -477,14 +476,14 @@ describe('endpoint unit test', () => {
        * It publish 2 versions and unpublish the latest one, then verifies
        * the version do not exist anymore in the body of the metadata.
        */
-      const runPublishUnPublishFlow = async (pkgName: string, done, token?: string) => {
+      const runPublishUnPublishFlow = async (pkgName: string, token?: string) => {
         const version = '2.0.0';
         const pkg = generatePackageMetadata(pkgName, version);
 
         const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
-          return done(err);
+          return Promise.reject(err);
         }
 
         const newVersion = '2.0.1';
@@ -496,7 +495,7 @@ describe('endpoint unit test', () => {
         );
         if (newErr) {
           expect(newErr).toBeNull();
-          return done(newErr);
+          return Promise.reject(newErr);
         }
 
         const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
@@ -513,26 +512,26 @@ describe('endpoint unit test', () => {
         const existVersion = await verifyPackageVersionDoesExist(app, pkgName, newVersion, token);
         expect(existVersion).toBeTruthy();
 
-        return done();
+        return Promise.resolve();
       };
 
       describe('un/publish scenarios with credentials', () => {
-        test('should flow with no credentials', async (done) => {
+        test('should flow with no credentials', async () => {
           const pkgName = '@public-anyone-can-publish/pk1-test';
-          runPublishUnPublishFlow(pkgName, done, undefined);
+          return await runPublishUnPublishFlow(pkgName, undefined);
         });
 
-        test('should flow with credentials', async (done) => {
+        test('should flow with credentials', async () => {
           const credentials = { name: 'jota_unpublish', password: 'secretPass' };
           const token = await getNewToken(request(app), credentials);
           const pkgName = '@only-one-can-publish/pk1-test';
 
-          runPublishUnPublishFlow(pkgName, done, token);
+          return await runPublishUnPublishFlow(pkgName, token);
         });
       });
 
       describe('test error handling', () => {
-        test('should fail if user is not allowed to unpublish', async (done) => {
+        test('should fail if user is not allowed to unpublish', async () => {
           /**
            * Context:
            *
@@ -563,7 +562,7 @@ describe('endpoint unit test', () => {
           );
           if (newErr) {
             expect(newErr).toBeNull();
-            return done(newErr);
+            return Promise.reject(newErr);
           }
 
           const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
@@ -578,10 +577,9 @@ describe('endpoint unit test', () => {
           expect(res2.body.error).toMatch(
             /user jota_unpublish_fail is not allowed to unpublish package non-unpublish/
           );
-          done();
         });
 
-        test('should fail if publish prop is not defined', async (done) => {
+        test('should fail if publish prop is not defined', async () => {
           /**
            * Context:
            *
@@ -615,84 +613,87 @@ describe('endpoint unit test', () => {
           expect(resp.body.error).toMatch(
             /user jota_only_unpublish_fail is not allowed to publish package only-unpublish/
           );
-          done();
         });
       });
 
-      test('should be able to publish/unpublish by only super_admin user', async (done) => {
+      test('should be able to publish/unpublish by only super_admin user', async () => {
         const credentials = { name: 'super_admin', password: 'secretPass' };
         const token = await getNewToken(request(app), credentials);
-        request(app)
-          .put('/super-admin-can-unpublish')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .send(
-            JSON.stringify(
-              _.assign({}, publishMetadata, {
-                name: 'super-admin-can-unpublish',
-              })
+        return new Promise((resolve, reject) => {
+          request(app)
+            .put('/super-admin-can-unpublish')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .send(
+              JSON.stringify(
+                _.assign({}, publishMetadata, {
+                  name: 'super-admin-can-unpublish',
+                })
+              )
             )
-          )
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
-            request(app)
-              .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
-              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-              .expect(HTTP_STATUS.CREATED)
-              .end(function (err, res) {
+            .expect(HTTP_STATUS.CREATED)
+            .end(function (err, res) {
+              if (err) {
                 expect(err).toBeNull();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
-                done();
-              });
-          });
+                return reject(err);
+              }
+              expect(res.body.ok).toBeDefined();
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+              request(app)
+                .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .expect(HTTP_STATUS.CREATED)
+                .end(function (err, res) {
+                  expect(err).toBeNull();
+                  expect(res.body.ok).toBeDefined();
+                  expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                  resolve(res);
+                });
+            });
+        });
       });
 
-      test('should be able to publish/unpublish by any user', async (done) => {
+      test('should be able to publish/unpublish by any user', async () => {
         const credentials = { name: 'any_user', password: 'secretPass' };
         const token = await getNewToken(request(app), credentials);
-        request(app)
-          .put('/all-can-unpublish')
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .send(
-            JSON.stringify(
-              _.assign({}, publishMetadata, {
-                name: 'all-can-unpublish',
-              })
+        return new Promise((resolve, reject) => {
+          request(app)
+            .put('/all-can-unpublish')
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .send(
+              JSON.stringify(
+                _.assign({}, publishMetadata, {
+                  name: 'all-can-unpublish',
+                })
+              )
             )
-          )
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
-            request(app)
-              .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
-              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-              .expect(HTTP_STATUS.CREATED)
-              .end(function (err, res) {
+            .expect(HTTP_STATUS.CREATED)
+            .end(function (err, res) {
+              if (err) {
                 expect(err).toBeNull();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
-                done();
-              });
-          });
+                return reject(err);
+              }
+              expect(res.body.ok).toBeDefined();
+              expect(res.body.success).toBeDefined();
+              expect(res.body.success).toBeTruthy();
+              expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+              request(app)
+                .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .expect(HTTP_STATUS.CREATED)
+                .end(function (err, res) {
+                  expect(err).toBeNull();
+                  expect(res.body.ok).toBeDefined();
+                  expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
+                  resolve(res);
+                });
+            });
+        });
       });
     });
 
@@ -700,10 +701,9 @@ describe('endpoint unit test', () => {
       const pkgName = '@scope/starPackage';
       const credentials = { name: 'jota_star', password: 'secretPass' };
       let token = '';
-      beforeAll(async (done) => {
+      beforeAll(async () => {
         token = await getNewToken(request(app), credentials);
         await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
-        done();
       });
 
       test('should star a package', (done) => {
@@ -748,38 +748,40 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('should retrieve stars list with credentials', async (done) => {
-        request(app)
-          .put(`/${pkgName}`)
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .send(generateStarMedatada(pkgName, { [credentials.name]: true }))
-          .expect(HTTP_STATUS.OK)
-          .end(function (err) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            request(app)
-              .get('/-/_view/starredByUser')
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .send(
-                JSON.stringify({
-                  key: [credentials.name],
-                })
-              )
-              .expect(HTTP_STATUS.OK)
-              .end(function (err, res) {
-                if (err) {
-                  expect(err).toBeNull();
-                  return done(err);
-                }
-                expect(res.body.rows).toBeDefined();
-                expect(res.body.rows).toHaveLength(1);
-                done();
-              });
-          });
+      test('should retrieve stars list with credentials', async () => {
+        return new Promise((resolve, reject) => {
+          request(app)
+            .put(`/${pkgName}`)
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(generateStarMedatada(pkgName, { [credentials.name]: true }))
+            .expect(HTTP_STATUS.OK)
+            .end(function (err) {
+              if (err) {
+                expect(err).toBeNull();
+                return reject(err);
+              }
+              request(app)
+                .get('/-/_view/starredByUser')
+                .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+                .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+                .send(
+                  JSON.stringify({
+                    key: [credentials.name],
+                  })
+                )
+                .expect(HTTP_STATUS.OK)
+                .end(function (err, res) {
+                  if (err) {
+                    expect(err).toBeNull();
+                    return reject(err);
+                  }
+                  expect(res.body.rows).toBeDefined();
+                  expect(res.body.rows).toHaveLength(1);
+                  resolve(res);
+                });
+            });
+        });
       });
     });
 
@@ -788,7 +790,7 @@ describe('endpoint unit test', () => {
       const credentials = { name: 'jota_deprecate', password: 'secretPass' };
       const version = '1.0.0';
       let token = '';
-      beforeAll(async (done) => {
+      beforeAll(async () => {
         token = await getNewToken(request(app), credentials);
         await putPackage(
           request(app),
@@ -796,33 +798,30 @@ describe('endpoint unit test', () => {
           generatePackageMetadata(pkgName, version),
           token
         );
-        done();
       });
 
-      test('should deprecate a package', async (done) => {
+      test('should deprecate a package', async () => {
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
-          return done(err);
+          return Promise.reject(err);
         }
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
-        done();
       });
 
-      test('should undeprecate a package', async (done) => {
+      test('should undeprecate a package', async () => {
         let pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         await putPackage(request(app), `/${pkgName}`, pkg, token);
         pkg = generateDeprecateMetadata(pkgName, version, '');
         const [err] = await putPackage(request(app), `/${pkgName}`, pkg, token);
         if (err) {
           expect(err).toBeNull();
-          return done(err);
+          return;
         }
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).not.toBeDefined();
-        done();
       });
 
       test(
@@ -848,7 +847,7 @@ describe('endpoint unit test', () => {
         }
       );
 
-      test('should deprecate multiple packages', async (done) => {
+      test('should deprecate multiple packages', async () => {
         await putPackage(
           request(app),
           `/${pkgName}`,
@@ -862,9 +861,11 @@ describe('endpoint unit test', () => {
         };
         await putPackage(request(app), `/${pkgName}`, pkg, token);
         const [, res] = await getPackage(request(app), '', pkgName);
-        expect(res.body.versions[version].deprecated).toEqual('get deprecated');
-        expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
-        done();
+        return new Promise((resolve) => {
+          expect(res.body.versions[version].deprecated).toEqual('get deprecated');
+          expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
+          resolve(res);
+        });
       });
     });
   });

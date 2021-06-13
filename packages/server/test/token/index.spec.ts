@@ -68,7 +68,7 @@ describe('endpoint unit test', () => {
   let mockRegistry;
   let token;
 
-  beforeAll(async function (done) {
+  beforeAll(async function () {
     const store = generateRamdonStorage();
     const mockServerPort = 55543;
     const configForTest = configExample(
@@ -90,69 +90,69 @@ describe('endpoint unit test', () => {
     const storePath = path.join(__dirname, '/mock/store');
     mockRegistry = await mockServer(mockServerPort, { storePath, silence: true }).init(binPath);
     token = await getNewToken(request(app), credentials);
-    done();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     const [registry, pid] = mockRegistry;
     registry.stop();
     logger.info(`registry ${pid} has been stopped`);
-
-    done();
   });
 
   describe('Registry Token Endpoints', () => {
-    test('should list empty tokens', async (done) => {
-      request(app)
-        .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .end(function (err, resp) {
-          if (err) {
-            return done(err);
-          }
+    test('should list empty tokens', async () => {
+      return new Promise((resolve, reject) => {
+        request(app)
+          .get('/-/npm/v1/tokens')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, resp) {
+            if (err) {
+              return reject(err);
+            }
 
-          const { objects, urls } = resp.body;
-          expect(objects).toHaveLength(0);
-          expect(urls.next).toEqual('');
-          done();
-        });
+            const { objects, urls } = resp.body;
+            expect(objects).toHaveLength(0);
+            expect(urls.next).toEqual('');
+            resolve(urls);
+          });
+      });
     });
 
-    test('should generate one token', async (done) => {
+    test('should generate one token', async () => {
       await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
         cidr_whitelist: [],
       });
+      return new Promise((resolve, reject) => {
+        request(app)
+          .get('/-/npm/v1/tokens')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, resp) {
+            if (err) {
+              return reject(err);
+            }
 
-      request(app)
-        .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .end(function (err, resp) {
-          if (err) {
-            return done(err);
-          }
+            const { objects, urls } = resp.body;
 
-          const { objects, urls } = resp.body;
+            expect(objects).toHaveLength(1);
+            const [tokenGenerated] = objects;
+            expect(tokenGenerated.user).toEqual(credentials.name);
+            expect(tokenGenerated.readonly).toBeFalsy();
+            expect(tokenGenerated.token).toMatch(/.../);
+            expect(_.isString(tokenGenerated.created)).toBeTruthy();
 
-          expect(objects).toHaveLength(1);
-          const [tokenGenerated] = objects;
-          expect(tokenGenerated.user).toEqual(credentials.name);
-          expect(tokenGenerated.readonly).toBeFalsy();
-          expect(tokenGenerated.token).toMatch(/.../);
-          expect(_.isString(tokenGenerated.created)).toBeTruthy();
-
-          // we don't support pagination yet
-          expect(urls.next).toEqual('');
-          done();
-        });
+            // we don't support pagination yet
+            expect(urls.next).toEqual('');
+            resolve(urls);
+          });
+      });
     });
 
-    test('should delete a token', async (done) => {
+    test('should delete a token', async () => {
       const res = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
@@ -162,43 +162,42 @@ describe('endpoint unit test', () => {
       const t = res[1].body.token;
 
       await deleteTokenCLI(app, token, t);
+      return new Promise((resolve, reject) => {
+        request(app)
+          .get('/-/npm/v1/tokens')
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function (err) {
+            if (err) {
+              return reject(err);
+            }
 
-      request(app)
-        .get('/-/npm/v1/tokens')
-        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .end(function (err) {
-          if (err) {
-            return done(err);
-          }
-
-          // FIXME: enable these checks
-          // const { objects } = resp.body;
-          // expect(objects).toHaveLength(0);
-          done();
-        });
+            // FIXME: enable these checks
+            // const { objects } = resp.body;
+            // expect(objects).toHaveLength(0);
+            resolve(null);
+          });
+      });
     });
 
     describe('handle errors', () => {
-      test('should fail with wrong credentials', async (done) => {
+      test('should fail with wrong credentials', async () => {
         try {
           await generateTokenCLI(app, token, {
             password: 'wrongPassword',
             readonly: false,
             cidr_whitelist: [],
           });
-          done();
         } catch (e) {
           const [err, body] = e;
           expect(err).not.toBeNull();
           expect(body.error).toEqual(API_ERROR.BAD_USERNAME_PASSWORD);
           expect(body.status).toEqual(HTTP_STATUS.UNAUTHORIZED);
-          done();
         }
       });
 
-      test('should fail if readonly is missing', async (done) => {
+      test('should fail if readonly is missing', async () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
@@ -207,13 +206,12 @@ describe('endpoint unit test', () => {
 
           expect(res[0]).toBeNull();
           expect(res[1].body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
-          done();
         } catch (e) {
-          done(e);
+          return Promise.reject(e);
         }
       });
 
-      test('should fail if cidr_whitelist is missing', async (done) => {
+      test('should fail if cidr_whitelist is missing', async () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
@@ -222,9 +220,8 @@ describe('endpoint unit test', () => {
 
           expect(res[0]).toBeNull();
           expect(res[1].body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
-          done();
         } catch (e) {
-          done(e);
+          return Promise.reject(e);
         }
       });
     });

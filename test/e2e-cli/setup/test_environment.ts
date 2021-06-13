@@ -13,7 +13,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
     super(config);
   }
 
-  async setup() {
+  public async setup() {
     // create an unique suite location peer test to avoid conflicts
     const tempRoot = fs.mkdtempSync(
       path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-')
@@ -29,7 +29,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
     // TODO: clean folder
   }
 
-  runScript(script): any {
+  public runScript(script): any {
     return super.runScript(script);
   }
 }
