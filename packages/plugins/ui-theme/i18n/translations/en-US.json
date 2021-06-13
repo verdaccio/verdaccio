@@ -15,6 +15,8 @@
   "header": {
     "documentation": "Documentation",
     "registry-info": "Registry Information",
+    "registry-info-link": "Learn more",
+    "registry-no-conf": "No configurations available",
     "greetings": "Hi "
   },
   "search": {
