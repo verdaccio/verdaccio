@@ -19,7 +19,7 @@ const debug = buildDebug('verdaccio:fastify:debug');
     logger.info(`config location ${configFile}`);
     debug('configParsed %s', configParsed);
     process.title = 'fastify-verdaccio';
-    const ser = await server({ logger });
+    const ser = await server({ logger, config: configParsed });
     await ser.listen(4873);
     logger.info('fastify running on port 4873');
   } catch (err) {
