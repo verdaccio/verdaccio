@@ -69,12 +69,12 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-### **Node.js Dependency Confusion Attacks**.
+### **BeerJS Cba Meetup No. 53**.
 
-[![verdaccio Node.js Dependency Confusion Attacks](https://cdn.verdaccio.dev/readme/devseccon.png)](https://www.youtube.com/watch?v=qTRADSp3Hpo)
+[![beerjscrb](https://user-images.githubusercontent.com/558752/121940843-d33c0000-cd4e-11eb-9819-f70cf07cb2f9.jpeg)](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
 
 You might want to check out as well our previous talks:
-
+- [Node.js Dependency Confusion Attacks](https://www.youtube.com/watch?v=qTRADSp3Hpo)
 - [**OpenJS World 2020** about \*Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado\***](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 - [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
 - [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
