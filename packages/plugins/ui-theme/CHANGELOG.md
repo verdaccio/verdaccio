@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.9
+
+### Minor Changes
+
+- 67406082: upgrade to react@17 and other dependencies
+
 ## 6.0.0-6-next.8
 
 ### Minor Changes
