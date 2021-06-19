@@ -5,7 +5,7 @@ on:
   schedule:
     # 3 times day
     # collecting enough data to draw some graphics
-    - cron: '0 0/8 * * *'
+    - cron: '0 1 * * *'
   # push:
   #   branches:
   #     - master
