@@ -38,11 +38,14 @@
     "@verdaccio/auth": "workspace:6.0.0-6-next.13",
     "@verdaccio/logger": "workspace:6.0.0-6-next.6",
     "@verdaccio/store": "workspace:6.0.0-6-next.14",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.8",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.7",
     "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.17.2",
     "debug": "4.3.2",
     "fastify": "3.22.1",
     "fastify-plugin": "3.0.0",
+    "lodash": "4.17.21",
     "semver": "7.3.5"
   },
   "devDependencies": {

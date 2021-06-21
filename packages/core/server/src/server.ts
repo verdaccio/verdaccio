@@ -5,9 +5,11 @@ import fastify from 'fastify';
 import buildDebug from 'debug';
 import fp from 'fastify-plugin';
 
-import ping from './endpoints/ping';
 import search from './endpoints/search';
 import { storageService } from './plugins/storage';
+import { authService } from './plugins/auth';
+import ping from './endpoints/ping';
+import user from './endpoints/user';
 
 const debug = buildDebug('verdaccio:fastify');
 
@@ -17,12 +19,14 @@ async function startServer({ logger, config }) {
   const app = fastify({ logger });
 
   app.decorate('config', configInstance);
+  app.register(fp(authService), { config: configInstance });
   app.register(fp(storageService), { config: configInstance });
 
   // api
   app.register((instance, opts, done) => {
     instance.decorate('utility', new Map());
     instance.register(ping);
+    instance.register(user, { prefix: '/-/user' });
     instance.register(search);
     done();
   });
