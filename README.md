@@ -2,9 +2,7 @@
 
 # Version 4
 
-```
-Verdaccio 4.x is deprecated and won't longer receive security support, please upgrade to 5.x or higher
-```
+**⚠️⚠️⚠️ Verdaccio 4.x is deprecated and won't longer receive security support, please upgrade to 5.x or higher ⚠️⚠️⚠️**
 
 [Please read the migration guidelines](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
@@ -42,5 +40,5 @@ Thanks to the following companies to help us to achieve our goals providing free
 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
-The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch)  files within the /assets folder) is
- [Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
+The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch) files within the /assets folder) is
+[Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
