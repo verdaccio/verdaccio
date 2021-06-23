@@ -2,7 +2,7 @@
 
 # Version 4
 
-**⚠️⚠️⚠️ Verdaccio 4.x is deprecated and won't longer receive security support, please upgrade to 5.x or higher ⚠️⚠️⚠️**
+**⚠️⚠️ Verdaccio 4.x is deprecated and won't longer receive security support, please upgrade to 5.x or higher ⚠️⚠**
 
 [Please read the migration guidelines](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
