@@ -41,9 +41,9 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5",
-    "debug": "^4.2.0",
+    "debug": "^4.3.1",
     "js-yaml": "3.14.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "minimatch": "3.0.4",
     "yup": "^0.29.3"
   },

@@ -3,14 +3,14 @@
   "private": true,
   "version": "1.1.0-6-next.1",
   "devDependencies": {
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.9",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.9",
     "debug": "4.3.1",
-    "kleur": "^4.1.3",
+    "kleur": "^4.1.4",
+    "lodash": "^4.17.21",
+    "puppeteer": "^9.1.1",
     "request": "^2.88.2",
-    "lodash": "^4.17.20",
-    "rimraf": "^3.0.2",
-    "puppeteer": "^9.1.1"
+    "rimraf": "^3.0.2"
   },
   "scripts": {
     "test": "jest --config jest.config.e2e.js"

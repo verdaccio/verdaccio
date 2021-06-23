@@ -32,9 +32,9 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "debug": "^4.2.0",
+    "debug": "^4.3.1",
     "handlebars": "4.5.3",
-    "undici": "^4.0.0-rc.1",
+    "undici": "^4.0.0",
     "undici-fetch": "^1.0.0-rc.1"
   },
   "devDependencies": {
