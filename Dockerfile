@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.17.0-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.17.2-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org  \
@@ -24,7 +24,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn cache clean && \
     yarn workspaces focus --production
 
-FROM node:14.17.0-alpine
+FROM node:14.17.2-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
