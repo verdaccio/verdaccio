@@ -10,8 +10,8 @@ assignees: ''
  - If you are not sure is a bug, OPEN a DISCUSSION, if is a legitimate bug, is easy to create a bug from a discussion.
  - Empty reports won't be considered and eventually be closed by a bot.
  - Include debugging notes will help to fix it faster, HOW TO: https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio 
- - If you remove this template, ticket will be closed inmmediatelly.
- - No english perfect is required, use public translators if is need it, we will do our best to help you.
+ - If you remove this template, ticket will be closed immediately.
+ - No English perfect is required, use public translators if is need it, we will do our best to help you.
  - Extra bonus: The most complete this report is delivered, the faster you will get a response.
  - Extra bonus: include screenshots, logs (remove sensitive data).
  - If you are willing to fix it, there is a checkbox at the bottom.
