@@ -12,9 +12,9 @@ IMPORTANT: If you don't have an action plan, please consider create a DISCUSSION
 https://github.com/verdaccio/verdaccio/discussions/new
 
 Verdaccio is a project addressed for voluntaries, if you appreciate this project consider to donate.
-1$/5$ or custom ammount single contribution
+1$/5$ or custom amount single contribution
 
-or montly
+or monthly
 1$/month - minimal contribution
 5$/month - nice contribution
 
