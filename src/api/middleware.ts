@@ -153,7 +153,12 @@ export function allow(auth: IAuth): Function {
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
-      const packageVersion = req.params.filename ? getVersionFromTarball(req.params.filename) : undefined;
+      let packageVersion: string | undefined = undefined;
+      if (req.params.filename) {
+        packageVersion = getVersionFromTarball(req.params.filename) || undefined;
+      } else if (typeof req.body.versions === 'object') {
+        packageVersion = Object.keys(req.body.versions)[0];
+      }
       const remote: RemoteUser = req.remote_user;
       debug('[middleware/allow][%o] allow for %o', action, remote?.name);
       auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
