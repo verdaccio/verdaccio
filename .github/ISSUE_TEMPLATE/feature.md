@@ -7,6 +7,9 @@ assignees: ''
 ---
 
 <!--
+IMPORTANT: If you don't have an action plan, please consider create a DISCUSSION (idea) instead for an open discussion
+
+https://github.com/verdaccio/verdaccio/discussions/new
 
 Verdaccio is a project addressed for voluntaries, if you appreciate this project consider to donate.
 1$/month - minimal contribution
