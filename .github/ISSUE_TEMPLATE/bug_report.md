@@ -7,7 +7,7 @@ assignees: ''
 ---
 
 <!-- PLEASE READ THIS:  
- - If you are not sure is a bug, OPEN a DISCUSSION, if is a legigimate bug, is easy to create a bug from a discussion.
+ - If you are not sure is a bug, OPEN a DISCUSSION, if is a legitimate bug, is easy to create a bug from a discussion.
  - Empty reports won't be considered and eventually be closed by a bot.
  - Include debugging notes will help to fix it faster, HOW TO: https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio 
  - If you remove this template, ticket will be closed inmmediatelly.
