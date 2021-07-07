@@ -9,7 +9,6 @@ import {
 import { fs } from 'memfs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import {
-  Callback,
   Logger,
   IPackageStorageManager,
   IUploadTarball,
@@ -73,13 +72,13 @@ class MemoryHandler implements IPackageStorageManager {
     });
   }
 
-  public deletePackage(pkgName: string, callback: Callback): void {
+  public deletePackage(pkgName: string) {
     delete this.data[pkgName];
-    return callback(null);
+    return Promise.resolve();
   }
 
-  public removePackage(callback: CallbackAction): void {
-    return callback(null);
+  public removePackage() {
+    return Promise.resolve();
   }
 
   public createPackage(name: string, value: Package, cb: CallbackAction): void {

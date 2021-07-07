@@ -1,6 +1,5 @@
 import path from 'path';
 import nock from 'nock';
-import * as httpMocks from 'node-mocks-http';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { ErrorCode } from '@verdaccio/utils';
 import { API_ERROR, HEADER_TYPE, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
@@ -34,112 +33,14 @@ const domain = 'https://registry.npmjs.org';
 describe('proxy', () => {
   beforeEach(() => {
     nock.cleanAll();
+    nock.abortPendingRequests();
+    jest.clearAllMocks();
   });
   const defaultRequestOptions = {
-    url: 'https://registry.npmjs.org',
+    url: domain,
   };
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
-
-  describe('search', () => {
-    test('get file from v1 endpoint', (done) => {
-      const url = '/-/v1/search';
-      nock(domain).get(url).replyWithFile(200, path.join(__dirname, 'partials/search-v1.json'));
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const req = httpMocks.createRequest({
-        method: 'GET',
-        headers: {
-          referer: 'some.org',
-          ['x-forwarded-for']: '10.0.0.1',
-        },
-        connection: {
-          remoteAddress: 'localhost',
-        },
-        url,
-      });
-      let dataSearch;
-      const stream = prox1.search({ req });
-      stream.on('data', (data) => {
-        dataSearch += `${data}`;
-      });
-      stream.on('end', () => {
-        expect(dataSearch).toBeDefined();
-        done();
-      });
-    });
-
-    test('abort search from v1 endpoint', (done) => {
-      const url = '/-/v1/search';
-      nock(domain).get(url).delay(20000);
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const req = httpMocks.createRequest({
-        method: 'GET',
-        headers: {
-          referer: 'some.org',
-          ['x-forwarded-for']: '10.0.0.1',
-        },
-        connection: {
-          remoteAddress: 'localhost',
-        },
-        url,
-      });
-      const stream = prox1.search({ req });
-      stream.on('end', () => {
-        done();
-      });
-      // TODO: apply correct types here
-      // @ts-ignore
-      stream.abort();
-    });
-
-    // TODO: we should test the gzip deflate here, but is hard to test
-    // fix me if you can deal with Incorrect Header Check issue
-    test.todo('get file from v1 endpoint with gzip headers');
-
-    test('search v1 endpoint fails', (done) => {
-      const url = '/-/v1/search';
-      nock(domain).get(url).replyWithError('search endpoint is down');
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const req = httpMocks.createRequest({
-        method: 'GET',
-        headers: {
-          referer: 'some.org',
-          ['x-forwarded-for']: '10.0.0.1',
-        },
-        connection: {
-          remoteAddress: 'localhost',
-        },
-        url,
-      });
-      const stream = prox1.search({ req });
-      stream.on('error', (error) => {
-        expect(error).toEqual(Error('search endpoint is down'));
-        done();
-      });
-    });
-
-    test('search v1 endpoint bad status code', (done) => {
-      const url = '/-/v1/search';
-      nock(domain).get(url).reply(409);
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const req = httpMocks.createRequest({
-        method: 'GET',
-        headers: {
-          referer: 'some.org',
-          ['x-forwarded-for']: '10.0.0.1',
-        },
-        connection: {
-          remoteAddress: 'localhost',
-        },
-        url,
-      });
-      const stream = prox1.search({ req });
-      stream.on('error', (error) => {
-        expect(error).toEqual(ErrorCode.getInternalError(`bad status code 409 from uplink`));
-        done();
-      });
-    });
-  });
 
   describe('fetchTarball', () => {
     test('get file tarball no content-length', (done) => {
@@ -326,16 +227,9 @@ describe('proxy', () => {
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         prox1.getRemoteMetadata('jquery', {}, (error) => {
           expect(error.statusCode).toEqual(500);
-          expect(mockInfo).toHaveBeenCalled();
+          expect(mockInfo).toHaveBeenCalledTimes(1);
           expect(mockHttp).toHaveBeenCalledWith({
-            request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
-            status: 409,
-          });
-          expect(mockHttp).toHaveBeenCalledWith({
-            bytes: { in: 0, out: 0 },
-            err: undefined,
-            error: undefined,
-            request: { method: 'GET', url: 'https://registry.npmjs.org/jquery' },
+            request: { method: 'GET', url: `${domain}/jquery` },
             status: 409,
           });
           done();

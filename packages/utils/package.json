@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "minimatch": "3.0.4",
     "semver": "7.3.5"
   },
   "devDependencies": {

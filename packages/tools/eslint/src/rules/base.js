@@ -59,7 +59,7 @@ module.exports = {
     'prefer-promise-reject-errors': ['warn'],
 
     '@typescript-eslint/prefer-optional-chain': ['warn'],
-    '@typescript-eslint/explicit-member-accessibility': ['warn'],
+    '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-unused-vars': ['error'],
   },
 };

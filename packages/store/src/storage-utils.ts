@@ -1,18 +1,13 @@
 import _ from 'lodash';
 import semver from 'semver';
-import {
-  ErrorCode,
-  isObject,
-  normalizeDistTags,
-  semverSort,
-  generateRandomHexString,
-  isNil,
-} from '@verdaccio/utils';
+import { ErrorCode, normalizeDistTags, generateRandomHexString, isNil } from '@verdaccio/utils';
 
 import { Package, Version, Author, StringValue } from '@verdaccio/types';
+
+import { pkgUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/commons-api';
 import { SearchInstance } from './search';
-import { IStorage } from './storage';
+import { LocalStorage } from './local-storage';
 
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',
@@ -46,7 +41,7 @@ export function normalizePackage(pkg: Package): Package {
   pkgProperties.forEach((key): void => {
     const pkgProp = pkg[key];
 
-    if (isNil(pkgProp) || isObject(pkgProp) === false) {
+    if (isNil(pkgProp) || validatioUtils.isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -132,7 +127,7 @@ export const WHITELIST = [
   'users',
 ];
 
-export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
+export function cleanUpLinksRef(result: Package, keepUpLinkData?: boolean): Package {
   const propertyToKeep = [...WHITELIST];
   if (keepUpLinkData === true) {
     propertyToKeep.push('_uplinks');
@@ -153,7 +148,7 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
  * @param {*} name
  * @param {*} localStorage
  */
-export function checkPackageLocal(name: string, localStorage: IStorage): Promise<any> {
+export function checkPackageLocal(name: string, localStorage: LocalStorage): Promise<any> {
   return new Promise<void>((resolve, reject): void => {
     localStorage.getPackageMetadata(name, (err, results): void => {
       if (!isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
@@ -167,7 +162,11 @@ export function checkPackageLocal(name: string, localStorage: IStorage): Promise
   });
 }
 
-export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<any> {
+export function publishPackage(
+  name: string,
+  metadata: any,
+  localStorage: LocalStorage
+): Promise<any> {
   return new Promise<void>((resolve, reject): void => {
     localStorage.addPackage(name, metadata, (err, latest): void => {
       if (!_.isNull(err)) {
@@ -224,12 +223,8 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
   return localMetadata.time;
 }
 
-export function prepareSearchPackage(data: Package, time: unknown): any {
-  const listVersions: string[] = Object.keys(data.versions);
-  const versions: string[] = semverSort(listVersions);
-  const latest: string | undefined = data[DIST_TAGS]?.latest
-    ? data[DIST_TAGS].latest
-    : versions.pop();
+export function prepareSearchPackage(data: Package): any {
+  const latest = pkgUtils.getLatest(data);
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
@@ -246,9 +241,9 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
       keywords: version.keywords,
       bugs: version.bugs,
       license: version.license,
-      time: {
-        modified: time,
-      },
+      // time: {
+      //   modified: time,
+      // },
       versions,
     };
 

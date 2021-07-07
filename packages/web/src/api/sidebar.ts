@@ -6,7 +6,7 @@ import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verda
 
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { Config, Package, Version } from '@verdaccio/types';
 
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
@@ -19,12 +19,7 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 export type $SidebarPackage = Package & { latest: Version };
 const debug = buildDebug('verdaccio:web:api:sidebar');
 
-function addSidebarWebApi(
-  route: Router,
-  config: Config,
-  storage: IStorageHandler,
-  auth: IAuth
-): void {
+function addSidebarWebApi(route: Router, config: Config, storage: Storage, auth: IAuth): void {
   debug('initialized sidebar web api');
   const can = allow(auth);
   // Get package readme

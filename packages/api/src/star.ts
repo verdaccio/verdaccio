@@ -3,13 +3,13 @@ import { Response } from 'express';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:publish:star');
 
 export default function (
-  storage: IStorageHandler
+  storage: Storage
 ): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;
@@ -40,6 +40,7 @@ export default function (
     };
 
     debug('get package info package for %o', name);
+    // @ts-ignore
     storage.getPackage({
       name,
       req,

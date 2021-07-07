@@ -29,12 +29,8 @@ import {
   PluginOptions,
 } from '@verdaccio/types';
 
-import { isNil, isFunction } from '@verdaccio/utils';
-import {
-  getMatchedPackagesSpec,
-  createAnonymousRemoteUser,
-  createRemoteUser,
-} from '@verdaccio/config';
+import { getMatchedPackagesSpec, isNil, isFunction } from '@verdaccio/utils';
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,

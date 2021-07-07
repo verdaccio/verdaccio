@@ -17,6 +17,7 @@ node_modules/
 **/static/*.js
 **/build/*.js
 packages/core/local-storage/_storage/**
+packages/partials/storage_default_storage/
 packages/standalone/dist/bundle.js
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
 docker-examples/
@@ -24,3 +25,9 @@ build/
 .vscode/
 .github/
 .netlify/
+packages/**/docs/**
+packages/mock/mock-store/**
+api/**
+packages/core/local-storage/tests/__fixtures__/test-storage/
+packages/plugins/ui-theme/static/
+.verdaccio-db.json

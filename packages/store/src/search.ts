@@ -1,32 +1,108 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable no-invalid-this
 
+import { PassThrough } from 'stream';
 import lunr from 'lunr';
 import lunrMutable from 'lunr-mutable-indexes';
-import { Version, IPluginStorage, Config } from '@verdaccio/types';
-import { IStorageHandler, IStorage } from './storage';
+import _ from 'lodash';
+import buildDebug from 'debug';
+import { logger } from '@verdaccio/logger';
+import { Version } from '@verdaccio/types';
+import { IProxy, ProxyList, ProxySearchParams } from '@verdaccio/proxy';
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { searchUtils } from '@verdaccio/core';
+import { LocalStorage } from './local-storage';
+import { Storage } from './storage';
 
+const debug = buildDebug('verdaccio:storage:search');
 export interface ISearchResult {
   ref: string;
   score: number;
 }
-
 export interface IWebSearch {
   index: lunrMutable.index;
-  storage: IStorageHandler;
+  storage: Storage;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query(query: string): ISearchResult[];
   add(pkg: Version): void;
   remove(name: string): void;
   reindex(): void;
-  configureStorage(storage: IStorageHandler): void;
+  configureStorage(storage: Storage): void;
 }
+
+export class SearchManager {
+  public readonly uplinks: ProxyList;
+  public readonly storage: LocalStorage;
+  constructor(uplinks: ProxyList, storage: LocalStorage) {
+    this.uplinks = uplinks;
+    this.storage = storage;
+  }
+
+  public get proxyList() {
+    const uplinksList = Object.keys(this.uplinks);
+
+    return uplinksList;
+  }
+
+  public async search(searchPassThrough: PassThrough, options: ProxySearchParams): Promise<any> {
+    const upLinkList = this.proxyList;
+
+    const searchUplinksStreams = upLinkList.map((uplinkId) => {
+      const uplink = this.uplinks[uplinkId];
+      if (!uplink) {
+        // this should never tecnically happens
+        logger.fatal({ uplinkId }, 'uplink @upLinkId not found');
+        throw new Error(`uplink ${uplinkId} not found`);
+      }
+      return this.consumeSearchStream(uplinkId, uplink, options, searchPassThrough);
+    });
+
+    try {
+      debug('search uplinks');
+      await Promise.all([...searchUplinksStreams]);
+      debug('search uplinks done');
+    } catch (err) {
+      logger.error({ err }, ' error on uplinks search @{err}');
+      searchPassThrough.emit('error', err);
+      throw err;
+    }
+    debug('search local');
+    await this.storage.search(searchPassThrough, options.query as searchUtils.SearchQuery);
+    debug('search done');
+  }
+
+  /**
+   * Consume the upstream and pipe it to a transformable stream.
+   */
+  private consumeSearchStream(
+    uplinkId: string,
+    uplink: IProxy,
+    options: ProxySearchParams,
+    searchPassThrough: PassThrough
+  ): Promise<any> {
+    // TODO: review how to handle abort
+    const abortController = new AbortController();
+    return uplink.search({ ...options, abort: abortController }).then((bodyStream) => {
+      bodyStream.pipe(searchPassThrough, { end: false });
+      bodyStream.on('error', (err: VerdaccioError): void => {
+        logger.error(
+          { uplinkId, err: err },
+          'search error for uplink @{uplinkId}: @{err?.message}'
+        );
+        searchPassThrough.end();
+      });
+      return new Promise((resolve) => bodyStream.on('end', resolve));
+    });
+  }
+}
+
 /**
  * Handle the search Indexer.
  */
 class Search implements IWebSearch {
-  public index: lunrMutable.index;
+  public readonly index: lunrMutable.index;
   // @ts-ignore
-  public storage: IStorageHandler;
+  public storage: Storage;
 
   /**
    * Constructor.
@@ -64,10 +140,10 @@ class Search implements IWebSearch {
    * @return {Array} list of results.
    */
   public query(query: string): ISearchResult[] {
-    const localStorage = this.storage.localStorage as IStorage;
+    const localStorage = this.storage.localStorage as LocalStorage;
 
     return query === '*'
-      ? (localStorage.storagePlugin as IPluginStorage<Config>).get((items): any => {
+      ? (localStorage.storagePlugin as any).get((items): any => {
           items.map(function (pkg): any {
             return { ref: pkg, score: 1 };
           });
@@ -118,7 +194,7 @@ class Search implements IWebSearch {
    * Set up the {Storage}
    * @param {*} storage An storage reference.
    */
-  public configureStorage(storage: IStorageHandler): void {
+  public configureStorage(storage: Storage): void {
     this.storage = storage;
     this.reindex();
   }

@@ -1,14 +1,7 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
-import {
-  Callback,
-  Logger,
-  Package,
-  ILocalPackageManager,
-  CallbackAction,
-  ReadPackageCallback,
-} from '@verdaccio/types';
+import { Callback, Logger, Package, ILocalPackageManager, CallbackAction } from '@verdaccio/types';
 import { HttpError } from 'http-errors';
 
 import { is404Error, convertS3Error, create409Error } from './s3Errors';
@@ -145,37 +138,41 @@ export default class S3PackageManager implements ILocalPackageManager {
     });
   }
 
-  public deletePackage(fileName: string, callback: Callback): void {
-    this.s3.deleteObject(
-      {
-        Bucket: this.config.bucket,
-        Key: `${this.packagePath}/${fileName}`,
-      },
-      (err) => {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null);
+  public deletePackage(fileName: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.s3.deleteObject(
+        {
+          Bucket: this.config.bucket,
+          Key: `${this.packagePath}/${fileName}`,
+        },
+        (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
         }
-      }
-    );
+      );
+    });
   }
 
-  public removePackage(callback: CallbackAction): void {
-    deleteKeyPrefix(
-      this.s3,
-      {
-        Bucket: this.config.bucket,
-        Prefix: addTrailingSlash(this.packagePath),
-      },
-      function (err) {
-        if (err && is404Error(err as VerdaccioError)) {
-          callback(null);
-        } else {
-          callback(err);
+  public removePackage(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      deleteKeyPrefix(
+        this.s3,
+        {
+          Bucket: this.config.bucket,
+          Prefix: addTrailingSlash(this.packagePath),
+        },
+        function (err) {
+          if (err && is404Error(err as VerdaccioError)) {
+            resolve();
+          } else {
+            reject(err);
+          }
         }
-      }
-    );
+      );
+    });
   }
 
   public createPackage(name: string, value: Package, callback: CallbackAction): void {
@@ -235,7 +232,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
   }
 
-  public readPackage(name: string, callback: ReadPackageCallback): void {
+  public readPackage(name: string, callback): void {
     this.logger.debug(
       { name, packageName: this.packageName },
       's3: [S3PackageManager readPackage init] name @{name}/@{packageName}'

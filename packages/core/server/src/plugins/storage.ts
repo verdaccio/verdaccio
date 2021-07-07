@@ -1,8 +1,9 @@
-import { Storage, IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 
 export async function storageService(fastify, opts, done) {
   const { config, filters } = opts;
-  const storage: IStorageHandler = new Storage(config);
+  // @ts-ignore
+  const storage: Storage = new Storage(config);
   await storage.init(config, filters ?? {});
   fastify.decorate('storage', storage);
   done();

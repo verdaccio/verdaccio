@@ -100,60 +100,64 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       });
   }
 
-  public deletePackage(fileName: string, cb: CallbackAction): void {
-    const file = this.helper.buildFilePath(this.name, fileName);
-    this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
-    try {
-      file
-        // @ts-ignore
-        .delete()
-        // FIXME: after upgrade this is broken
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .then((_data: [Response]): void => {
-          this.logger.debug(
-            { name: file.name },
-            'gcloud: @{name} was deleted successfully from storage'
-          );
-          cb(null);
-        })
-        .catch((err: Error): void => {
-          this.logger.error(
-            { name: file.name, err: err.message },
-            'gcloud: delete @{name} file has failed err: @{err}'
-          );
-          cb(getInternalError(err.message));
-        });
-    } catch (err: any) {
-      this.logger.error(
-        { name: file.name, err: err.message },
-        'gcloud: delete @{name} file has failed err: @{err}'
-      );
-      cb(getInternalError('something went wrong'));
-    }
-  }
-
-  public removePackage(callback: CallbackAction): void {
-    // remove all files from storage
-    const file = this.helper.getBucket().file(`${this.name}`);
-    this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
-    // @ts-ignore
-    file.delete().then(
-      (): void => {
-        this.logger.debug(
-          { name: file.name },
-          'gcloud: package @{name} was deleted successfully from storage'
-        );
-        callback(null);
-      },
-      (err: Error): void => {
+  public deletePackage(fileName: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const file = this.helper.buildFilePath(this.name, fileName);
+      this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
+      try {
+        file
+          // @ts-ignore
+          .delete()
+          // FIXME: after upgrade this is broken
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          .then((_data: [Response]): void => {
+            this.logger.debug(
+              { name: file.name },
+              'gcloud: @{name} was deleted successfully from storage'
+            );
+            resolve();
+          })
+          .catch((err: Error): void => {
+            this.logger.error(
+              { name: file.name, err: err.message },
+              'gcloud: delete @{name} file has failed err: @{err}'
+            );
+            reject(getInternalError(err.message));
+          });
+      } catch (err) {
         this.logger.error(
           { name: file.name, err: err.message },
-          'gcloud: delete @{name} package has failed err: @{err}'
+          'gcloud: delete @{name} file has failed err: @{err}'
         );
-        callback(getInternalError(err.message));
+        reject(getInternalError('something went wrong'));
       }
-    );
+    });
+  }
+
+  public removePackage(): Promise<void> {
+    // remove all files from storage
+    return new Promise((resolve, reject) => {
+      const file = this.helper.getBucket().file(`${this.name}`);
+      this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
+      // @ts-ignore
+      file.delete().then(
+        (): void => {
+          this.logger.debug(
+            { name: file.name },
+            'gcloud: package @{name} was deleted successfully from storage'
+          );
+          resolve();
+        },
+        (err: Error): void => {
+          this.logger.error(
+            { name: file.name, err: err.message },
+            'gcloud: delete @{name} package has failed err: @{err}'
+          );
+          reject(getInternalError(err.message));
+        }
+      );
+    });
   }
 
   public createPackage(name: string, metadata: Package, cb: CallbackAction): void {

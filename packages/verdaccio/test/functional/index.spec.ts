@@ -15,9 +15,9 @@ import logout from './adduser/logout';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
 import readme from './readme/readme';
-import gh29 from './scenarios/gh29';
+// import gh29 from './scenarios/gh29';
 import nullstorage from './sanity/nullstorage';
-import simpleSearch from './search/simple.search';
+// import simpleSearch from './search/simple.search';
 import racycrash from './sanity/racycrash';
 import security from './sanity/security';
 import race from './performance/race';
@@ -41,7 +41,8 @@ describe('functional test verdaccio', function () {
   // list of test
   // note: order of the following calls is important, the reason is legacy code.
   packageAccess(server1);
-  gh29(server1, server2);
+  // FIXME: use real cli test for this
+  // gh29(server1, server2);
   tags(server1, app);
   packageGzip(server1, app);
   incomplete(server1, app);
@@ -62,7 +63,8 @@ describe('functional test verdaccio', function () {
   adduser(server1);
   logout(server1);
   basic(server1, server2);
-  simpleSearch(server1, server2, app);
+  // FIXME: use real cli test for this
+  // simpleSearch(server1, server2, app);
 });
 
 process.on('unhandledRejection', function (err) {

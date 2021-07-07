@@ -12,13 +12,13 @@ describe('Package access utilities', () => {
     test('parse invalid.json', () => {
       expect(function () {
         parseConfigFile(parseConfigurationFile('invalid.json'));
-      }).toThrow(/Error/);
+      }).toThrow(/CONFIG: it does not look like a valid config file/);
     });
 
     test('parse not-exists.json', () => {
       expect(function () {
         parseConfigFile(parseConfigurationFile('not-exists.json'));
-      }).toThrow(/Error/);
+      }).toThrow(/Cannot find module/);
     });
   });
 
@@ -32,13 +32,13 @@ describe('Package access utilities', () => {
     test('parse invalid.js', () => {
       expect(function () {
         parseConfigFile(parseConfigurationFile('invalid.js'));
-      }).toThrow(/Error/);
+      }).toThrow(/CONFIG: it does not look like a valid config file/);
     });
 
     test('parse not-exists.js', () => {
       expect(function () {
         parseConfigFile(parseConfigurationFile('not-exists.js'));
-      }).toThrow(/Error/);
+      }).toThrow(/Cannot find module/);
     });
   });
 });

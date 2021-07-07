@@ -34,8 +34,6 @@
     "access": "public"
   },
   "dependencies": {
-    "debug": "4.3.2",
-    "lodash": "4.17.21",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/url": "workspace:11.0.0-6-next.4",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5"

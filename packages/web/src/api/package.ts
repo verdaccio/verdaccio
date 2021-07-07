@@ -6,7 +6,7 @@ import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/mi
 import { logger } from '@verdaccio/logger';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
@@ -23,12 +23,7 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 
 const debug = buildDebug('verdaccio:web:api:package');
 
-function addPackageWebApi(
-  route: Router,
-  storage: IStorageHandler,
-  auth: IAuth,
-  config: Config
-): void {
+function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: Config): void {
   const isLoginEnabled = config?.web?.login === true ?? true;
   const anonymousRemoteUser: RemoteUser = {
     name: undefined,

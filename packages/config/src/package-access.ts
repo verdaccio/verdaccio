@@ -1,11 +1,7 @@
 import assert from 'assert';
 import _ from 'lodash';
-import minimatch from 'minimatch';
-
-import { PackageList, PackageAccess } from '@verdaccio/types';
+import { PackageAccess } from '@verdaccio/types';
 import { ErrorCode } from '@verdaccio/utils';
-import { MatchedPackage } from './config';
-
 export interface LegacyPackageList {
   [key: string]: PackageAccess;
 }
@@ -45,15 +41,6 @@ export function normalizeUserList(groupsList: any): any {
   }
 
   return _.flatten(result);
-}
-
-export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
-  for (const i in packages) {
-    if (minimatch.makeRe(i).exec(pkgName)) {
-      return packages[i];
-    }
-  }
-  return;
 }
 
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {

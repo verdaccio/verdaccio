@@ -1,0 +1,59 @@
+{
+  "name": "@verdaccio/core",
+  "version": "6.0.0-next.0",
+  "description": "core utilities",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/core/core"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "http-errors": "1.8.0",
+    "http-status-codes": "2.1.4",
+    "semver": "7.3.5"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:11.0.0-6-next.7",
+    "typedoc": "next"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "doc": "typedoc src/index.ts --tsconfig tsconfig.build.json"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

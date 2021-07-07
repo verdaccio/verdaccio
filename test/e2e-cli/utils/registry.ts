@@ -2,6 +2,7 @@
 import { ChildProcess, fork } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import waitOn from 'wait-on';
 import buildDebug from 'debug';
 
 import { silentNpm } from './process';
@@ -48,8 +49,9 @@ export type Setup = {
   install: string;
 };
 
-export async function initialSetup(port: string | number): Promise<Setup> {
+export async function initialSetup(port: string): Promise<Setup> {
   // temp folder created on test_environment.ts
+  // @ts-ignore
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
   debug('initial setup on %o and port %o', tempRootFolder, port);
   // create temporary installation folder
@@ -72,6 +74,7 @@ export async function initialSetup(port: string | number): Promise<Setup> {
     paths: [verdaccioInstall],
   });
   debug('path verdaccio module %o', pathVerdaccioModule);
+  debug('running %s with config file %s', verdaccioInstall, verdaccioConfigPathOnInstallLocation);
   // spawn the registry
   const processChild = await forkRegistry(
     pathVerdaccioModule,
@@ -82,6 +85,10 @@ export async function initialSetup(port: string | number): Promise<Setup> {
     },
     port
   );
+
+  processChild.on('data', (data) => {
+    process.stdout.write(data.toString());
+  });
 
   return {
     child: processChild,
@@ -105,17 +112,19 @@ export function forkRegistry(
 ): Promise<ChildProcess> {
   debug('spawning registry for %o in port %o', verdaccioPath, port);
   return new Promise((resolve, reject) => {
-    let _childOptions = { silent: true, ...childOptions };
+    let _childOptions = { silent: true, ...childOptions, env: { DEBUG: 'verdaccio*' } };
     debug('options %o', _childOptions);
     debug('fork path %o', verdaccioPath);
     debug('args %o', args);
     const childFork = fork(verdaccioPath, args, _childOptions);
 
-    childFork.on('message', (msg) => {
-      if ('verdaccio_started' in msg) {
-        debug('spawning registry [started] in port %o', port);
-        resolve(childFork);
-      }
+    childFork.on('spawn', () => {
+      debug('spawning registry [started] in port %o', port);
+      resolve(childFork);
+    });
+
+    childFork.on('data', (data) => {
+      process.stdout.write(data.toString());
     });
 
     childFork.on('error', (err) => {
@@ -132,3 +141,15 @@ export function forkRegistry(
     });
   });
 }
+
+export const waitOnRegistry = async (port) => {
+  debug('waiting on registry ...');
+  await waitOn({
+    resources: [`http://localhost:${port}/-/ping`],
+    validateStatus: function (status) {
+      debug('wating status %s', status);
+      return status >= 200 && status < 300; // default if not provided
+    },
+  });
+  debug(`registry detected on por ${port}`);
+};
