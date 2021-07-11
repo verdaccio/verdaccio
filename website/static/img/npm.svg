@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="500px" height="195px" viewBox="0 0 500 195" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>npm-logo</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs></defs>
+    <g id="Page 1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,0 L500,0 L500,168 L250,168 L250,195 L139,195 L139,168 L0,168 Z M28.304251,139.493165 L83.536238,139.49349 L83.5362388,55.5592922 L111.304251,55.5592922 L111.304251,139.493491 L138.822477,139.493491 L138.822477,28.4929443 L28.304251,28.4929443 Z M166.333333,28 L166.666667,168 L221.666667,168 L221.666667,140.067308 L277.345845,140.067308 L277.345845,28 Z M221,55 L250,55 L250,112 L221,112 Z M305.333333,28 L305.333333,139 L360.664651,139 L360.664651,55.666008 L388.33133,55.666008 L388.33133,139.000547 L415.967888,139.000547 L415.967888,56 L443.664659,56 L443.664659,139 L471.338699,139 L471.338699,28 Z M305.333333,28" id="Rectangle 1" fill="#CD3632"></path>
+    </g>
+</svg>

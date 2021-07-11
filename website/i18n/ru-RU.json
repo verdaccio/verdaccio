@@ -1,0 +1,204 @@
+{
+  "_comment": "Этот файл был сгенерирован автоматически при помощи write-translations.js",
+  "localized-strings": {
+    "next": "Следующая",
+    "previous": "Предыдущая",
+    "tagline": "A lightweight open source private npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Amazon Web Services"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Статьи"
+      },
+      "authentication": {
+        "title": "Аутентификация"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Лучшие практики"
+      },
+      "build": {
+        "title": "build"
+      },
+      "caching": {
+        "title": "Стратегии кэширования"
+      },
+      "chef": {
+        "title": "Поваренная книга"
+      },
+      "ci": {
+        "title": "Непрерывная интеграция (CI)"
+      },
+      "cli-registry": {
+        "title": "Using a private registry"
+      },
+      "cli": {
+        "title": "Инструмент командной строки"
+      },
+      "configuration": {
+        "title": "Файл конфигурации"
+      },
+      "dev-plugins": {
+        "title": "Разработка плагинов"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "End to End тестирование"
+      },
+      "github-actions": {
+        "title": "GitHub Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "aws": {
+        "title": "Amazon Web Services"
+      },
+      "iss-server": {
+        "title": "Установка на IIS сервер"
+      },
+      "installation": {
+        "title": "Установка"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Связь с удалённым репозиторием"
+      },
+      "logger": {
+        "title": "Логи"
+      },
+      "logo": {
+        "title": "Логотип"
+      },
+      "node-api": {
+        "title": "Node API"
+      },
+      "notifications": {
+        "title": "Уведомления"
+      },
+      "packages": {
+        "title": "Доступ к пакетам"
+      },
+      "plugin-auth": {
+        "title": "Плагин аутентификации"
+      },
+      "plugin-generator": {
+        "title": "Plugin Generator"
+      },
+      "plugin-middleware": {
+        "title": "Middleware плагин"
+      },
+      "plugin-storage": {
+        "title": "Плагин хранилища"
+      },
+      "plugins": {
+        "title": "Плагины"
+      },
+      "protect-your-dependencies": {
+        "title": "Защита пакетов"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "Исходный код"
+      },
+      "reverse-proxy": {
+        "title": "Настройка reverse proxy"
+      },
+      "security-policy": {
+        "title": "Политика безопасности"
+      },
+      "server-configuration": {
+        "title": "Конфигурация сервера"
+      },
+      "ssl": {
+        "title": "Настройка SSL-сертификатов"
+      },
+      "talks": {
+        "title": "Выступления"
+      },
+      "test": {
+        "title": "test"
+      },
+      "uplinks": {
+        "title": "Аплинки"
+      },
+      "webui": {
+        "title": "Веб-интерфейс пользователя"
+      },
+      "what-is-verdaccio": {
+        "title": "Что такое Verdaccio?"
+      },
+      "who-is-using": {
+        "title": "Кто использует Verdaccio?"
+      },
+      "windows": {
+        "title": "Установка в качестве службы Windows"
+      }
+    },
+    "links": {
+      "Docs": "Документация",
+      "Blog": "Блог",
+      "Twitter": "Twitter",
+      "Help": "Помощь",
+      "GitHub": "GitHub",
+      "Contributors": "Contributors",
+      "Sponsor Us": "Sponsor Us"
+    },
+    "categories": {
+      "Introduction": "Введение",
+      "Features": "Features",
+      "Server": "Сервер",
+      "Development": "Разработка",
+      "DevOps": "DevOps",
+      "Guides": "Руководства"
+    }
+  },
+  "pages-strings": {
+    "Contributors|no description given": "Contributors",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Узнайте больше, используя [документацию на этом сайте]. (/ docs/en/installation.html)",
+    "Browse Docs|no description given": "Просмотр документов",
+    "Ask questions about the documentation and project|no description given": "Задать вопросы о документации и проекте",
+    "Join the community|no description given": "Присоединиться к сообществу",
+    "Find out what's new with this project|no description given": "Узнайте, что нового в этом проекте",
+    "Stay up to date|no description given": "Оставайтесь в курсе",
+    "Need help?|no description given": "Нужна помощь?",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "Этот проект поддерживается отдельной группой людей.",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Узнайте больше о Verdaccio, используя [документацию на этом сайте]. (/ docs/en/installation.html)",
+    "You can follow and contact us on|no description given": "Вы можете следить и связаться с нами на",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "Если документация вам не помогла, вы можете попробовать заглянуть в наш",
+    "and also you can chat with the Verdaccio community at|no description given": "и так же вы можете общаться с сообществом Verdaccio в чате",
+    "This project is maintained by the Verdaccio community.|no description given": "Этот проект поддерживается сообществом Verdaccio.",
+    "Get Started|no description given": "Начать работу",
+    "That’s it ! Enjoy your private package manager.|no description given": "Вот и всё! Локальный репозиторий готов к работе.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Множество отличных разработчиков уже присоединились к Verdaccio, присоединяйтесь к сообществу!",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** и **pnpm** являются частью любой разработки, и мы следим за последними обновлениями.",
+    "The most popular npm clients are supported|no description given": "Поддерживаются наиболее популярные клиенты npm",
+    "We have an official **Docker** image ready to use|no description given": "У нас есть официальный **Docker** образ, и он вполне рабочий",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "так же, для простоты развертывания, поддерживается **Kubernetes Helm**",
+    "Making the DevOps work easy|no description given": "Делает работу DevOps проще",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio поддерживает плагины, можно переопределить аутентификацию, хранилище, UI или добавить middleware. Просто выберите нужный плагин или создайте свой.",
+    "Plugin Support|no description given": "Поддержка Плагинов",
+    "Who's Using This?|no description given": "Кто это использует?",
+    "More|no description given": "Еще",
+    "Users|no description given": "Пользователи",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Verdaccio спонсируется этими классными парнями...",
+    "and used by many others, including:|no description given": "и использется ещё многими, включая:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Вы используете этот проект? Добавьте свой логотип.",
+    "Add your project|no description given": "Add your project",
+    "Help Translate|recruit community translators for your project": "Помочь перевести",
+    "Edit this Doc|recruitment message asking to edit the doc source": "Редактировать",
+    "Translate this Doc|recruitment message asking to translate the docs": "Перевести"
+  }
+}

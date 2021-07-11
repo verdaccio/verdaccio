@@ -1,0 +1,204 @@
+{
+  "_comment": "Faili yii n jẹ ipilẹṣẹ-alara-ẹni nipasẹ write-translations.js",
+  "localized-strings": {
+    "next": "Eyi tokan",
+    "previous": "Titẹlẹ",
+    "tagline": "A lightweight open source private npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Awọn Iṣẹ Ayelujara ti Amazon"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Awọn arokọ"
+      },
+      "authentication": {
+        "title": "Ifasẹsi"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Awọn iṣeṣi to Darajulọ"
+      },
+      "build": {
+        "title": "agbedide"
+      },
+      "caching": {
+        "title": "Awọn ọna ifisapo iranti"
+      },
+      "chef": {
+        "title": "Iwe idana Alase"
+      },
+      "ci": {
+        "title": "Imuṣiṣẹpọ Alainidaduro"
+      },
+      "cli-registry": {
+        "title": "Using a private registry"
+      },
+      "cli": {
+        "title": "Irinṣẹ Ila aṣẹ"
+      },
+      "configuration": {
+        "title": "Faili Iṣeto"
+      },
+      "dev-plugins": {
+        "title": "Ṣiṣe agbedide Awọn ohun elo"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "Idanwo Opin si Opin"
+      },
+      "github-actions": {
+        "title": "GitHub Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "aws": {
+        "title": "Awọn Iṣẹ Ayelujara ti Amazon"
+      },
+      "iss-server": {
+        "title": "Fifi sori olupese IIS"
+      },
+      "installation": {
+        "title": "Ifi sori ẹrọ"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Sise asopọ ibi iforukọsilẹ ọlọna jijin kan"
+      },
+      "logger": {
+        "title": "Olugbasilẹ"
+      },
+      "logo": {
+        "title": "Irulogo"
+      },
+      "node-api": {
+        "title": "API Oju ipade"
+      },
+      "notifications": {
+        "title": "Awọn ifitonileti"
+      },
+      "packages": {
+        "title": "Iwọlesi Akopọ"
+      },
+      "plugin-auth": {
+        "title": "Ohun elo Ifasẹsi"
+      },
+      "plugin-generator": {
+        "title": "Plugin Generator"
+      },
+      "plugin-middleware": {
+        "title": "Ohun elo Middleware"
+      },
+      "plugin-storage": {
+        "title": "Ohun elo Ibi ipamọ"
+      },
+      "plugins": {
+        "title": "Awọn ohun elo"
+      },
+      "protect-your-dependencies": {
+        "title": "Didabobo awọn akopọ"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "Koodu Orisun"
+      },
+      "reverse-proxy": {
+        "title": "Iseto Aṣoju ikọkọ-Alayipada"
+      },
+      "security-policy": {
+        "title": "Eto imulo Aabo"
+      },
+      "server-configuration": {
+        "title": "Iṣeto Olupese"
+      },
+      "ssl": {
+        "title": "Ṣeto Awọn iwe ẹri SSL"
+      },
+      "talks": {
+        "title": "Awọn ọrọ"
+      },
+      "test": {
+        "title": "idanwo"
+      },
+      "uplinks": {
+        "title": "Uplinks"
+      },
+      "webui": {
+        "title": "Intafeesi Olumulo ti Ayelujara"
+      },
+      "what-is-verdaccio": {
+        "title": "Ki ni verdaccio?"
+      },
+      "who-is-using": {
+        "title": "Tani o nlo Verdaccio?"
+      },
+      "windows": {
+        "title": "Fifi sori ẹrọ Bi Iṣẹ Windows kan"
+      }
+    },
+    "links": {
+      "Docs": "Awọn iwe",
+      "Blog": "Bulọọgi",
+      "Twitter": "Twitter",
+      "Help": "Iranlọwọ",
+      "GitHub": "GitHub",
+      "Contributors": "Contributors",
+      "Sponsor Us": "Sponsor Us"
+    },
+    "categories": {
+      "Introduction": "Ifihan",
+      "Features": "Ẹya ara",
+      "Server": "Olupese",
+      "Development": "Agbedide",
+      "DevOps": "DevOps",
+      "Guides": "Awọn itọsọna"
+    }
+  },
+  "pages-strings": {
+    "Contributors|no description given": "Contributors",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Kọ diẹ ẹ sii nipa lilo [iwe lori aaye ayelujara yii.](/docs/en/installation.html)",
+    "Browse Docs|no description given": "Ṣawari Awọn iwe",
+    "Ask questions about the documentation and project|no description given": "Beere awọn ibeere nipa awọn iwe akọsilẹ ati iṣẹ akanṣe",
+    "Join the community|no description given": "Darapọ mọ awujọ",
+    "Find out what's new with this project|no description given": "Wa ohun ti o jẹ tuntun ninu iṣẹ yii",
+    "Stay up to date|no description given": "Mọ boṣenlọ",
+    "Need help?|no description given": "Nilo iranlọwọ?",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "Iṣẹ yii n jẹ titọju nipasẹ ẹgbẹ awọn eniyan kan ti o ni ifarajin.",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Mọ diẹ sii nipa Verdaccio nipa lilo [iwe akọsilẹ to wa lori aaye ayelujara yii.](/docs/en/installation.html)",
+    "You can follow and contact us on|no description given": "O le tẹle wa ati kan si wa lori",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "Ti iwe akọsilẹ naa ko ba pese iranlọwọ ti o to, o le gbiyanju lọ kakiri sinu wa",
+    "and also you can chat with the Verdaccio community at|no description given": "ati pe o tun le takurọsọ pẹlu awujọ Verdaccio ni",
+    "This project is maintained by the Verdaccio community.|no description given": "Iṣẹ yi n jẹ mimojuto nipasẹ awujọ Verdaccio.",
+    "Get Started|no description given": "Bẹrẹ",
+    "That’s it ! Enjoy your private package manager.|no description given": "Ohun niyẹn ! Jẹ igbaladun oluṣakoso akopọ ikọkọ rẹ.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Ọpọlọpọ awọn olugbedide nla nla ti n jẹ igbaladun Verdaccio, darapọ mọ awujọ!",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** ati **pnpm** jẹ ara eyikeyi ilana iṣe agbedide ti a n gbiyanju lati le ba pẹlu awọn imudojuiwọn titun.",
+    "The most popular npm clients are supported|no description given": "Awọn onibara npm ti o gbajumo julọ ni atilẹyin",
+    "We have an official **Docker** image ready to use|no description given": "A ni aworan ** Docker ** ti o ti setan fun lilo",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "ati atilẹyin ** Kubernetes Helm ** fun iṣamulo ti o rọrun",
+    "Making the DevOps work easy|no description given": "Mimu ki awọn DevOps ṣiṣẹ pẹlu irọrun",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio da lori ohun asomọ, ìfàṣẹsí, middleware ati atilẹyin ibi ipamọ. Kan mu ọkan tabi ki o ṣẹda akanṣe ti ara rẹ kan.",
+    "Plugin Support|no description given": "Atilẹyin Ohun elo asomọ",
+    "Who's Using This?|no description given": "Ta ni Nlo Eyi?",
+    "More|no description given": "Diẹ si",
+    "Users|no description given": "Awọn olumulo",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Igbọwọ Verdaccio n wa lati ipasẹ awọn eniyan didara wọnyi...",
+    "and used by many others, including:|no description given": "atipe o n jẹ lilo fun ọpọlọpọ awọn miran, pẹlu:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "N jẹ o nlo iṣẹ yii? Maṣe tiju ati ki o se afikun aami idanimọ ile-iṣẹ /iṣẹ akanṣe rẹ.",
+    "Add your project|no description given": "Add your project",
+    "Help Translate|recruit community translators for your project": "Pese iranlọwọ lati Tumọ",
+    "Edit this Doc|recruitment message asking to edit the doc source": "Ṣatunkọ",
+    "Translate this Doc|recruitment message asking to translate the docs": "Tumọ"
+  }
+}
