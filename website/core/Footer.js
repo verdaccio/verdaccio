@@ -93,6 +93,9 @@ class Footer extends React.Component {
               aria-label="Star this project on GitHub">
               Star
             </a>
+            <a href="https://www.netlify.com">
+              <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" />
+            </a>
           </div>
         </section>
       </footer>
