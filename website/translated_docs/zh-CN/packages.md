@@ -9,7 +9,7 @@ This is a series of constraints that allow or restrict access to the local stora
 
 关于权限的更多信息，请访问[维基文档的认证部分](auth.md)。
 
-### 用法
+### 使用
 
 ```yalm
 packages:
@@ -100,7 +100,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 #### 阻止对一组包的访问
 
-If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`.
+If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`. Just do not define `access` and `publish`.
 
 ```yaml
 packages:
@@ -140,7 +140,7 @@ Let's describe what we want with the above example:
 * 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
 * 我想要代理所有剩余的依赖库。
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 #### Use multiple uplinks
 
@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -183,16 +183,17 @@ In the previous example, the behaviour would be described:
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
+
 ### 配置
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| 属性      | 类型     | 必须的 | 示例             | 支持             | 描述                                                                        |
-| ------- | ------ | --- | -------------- | -------------- | ------------------------------------------------------------------------- |
-| access  | string | No  | $all           | all            | 定义允许访问包的组                                                                 |
-| publish | string | No  | $authenticated | all            | 定义允许发布的组                                                                  |
-| proxy   | string | No  | npmjs          | all            | 针对特定的uplink限制查找                                                           |
-| storage | 字符串    | No  | 字符串            | `/some-folder` | it creates a subfolder whithin the storage folder for each package access |
+| 属性      | 类型  | 必填 | 示例             | 支持             | 描述                                                                        |
+| ------- | --- | -- | -------------- | -------------- | ------------------------------------------------------------------------- |
+| access  | 字符串 | 否  | $all           | 任意路径           | 定义允许访问包的组                                                                 |
+| publish | 字符串 | 否  | $authenticated | 任意路径           | 定义允许发布的组                                                                  |
+| proxy   | 字符串 | 否  | npmjs          | 任意路径           | 针对特定的uplink限制查找                                                           |
+| storage | 字符串 | 否  | 字符串            | `/some-folder` | it creates a subfolder whithin the storage folder for each package access |
 
 > 我们强烈建议不要再使用已被弃用的**allow_access**/**allow_publish** 和 **proxy_access**，它们很快就会被移除，请使用它们的精简版本 (**access**/**publish**/**proxy**) 。
 
