@@ -3,10 +3,9 @@ id: e2e
 title: "Idanwo Opin si Opin"
 ---
 
-Awọn iṣẹ akanṣe kan ma n ṣeto awọn akojọ ni awọn ibi ipamọ ti ọlọpọlọpọ-akojọ tabi [onibi ipamọ kan](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). Idanwo E2E jẹ akọle ti o ma n saba yẹ fun Awọn Intafeesi Olumulo nikan, ṣugbọn lati oju iwoye ti Node.js, **sise atẹjade awọn akojọ naa tun nilo lati ni idanwo**.
+Awọn iṣẹ akanṣe kan ma n ṣeto awọn akojọ ni awọn ibi ipamọ ti ọlọpọlọpọ-akojọ tabi [onibi ipamọ kan](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). E2E testing is a topic that usually is only relevant for User Interfaces, but from a Node.js perspective, **publishing packages also need to be tested**.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Ọna abayọ: ibi iforukọsilẹ npm ibilẹ kan. <a href="https://t.co/kvcyVANVSK">https://t.co/kvcyVANVSK</a></p>&mdash; Dan Abramov (@dan_abramov) <a href="https://twitter.com/dan_abramov/status/951427674844680192?ref_src=twsrc%5Etfw">osu kini ọjọ kọkanla ọdun 2018</a></blockquote>
-
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Iru ọna yẹn ti jẹ eyi to soro gidi gan lati ni aṣeyọri pẹlu riro iwọnyi:
@@ -15,7 +14,7 @@ Iru ọna yẹn ti jẹ eyi to soro gidi gan lati ni aṣeyọri pẹlu riro iw�
 * Awọn ibi iforukọsilẹ OSS agbalejo-alara ẹni kan ti wuwo ju
 * Awọn awujọ alaisilorila (awọn nẹtiwọki aladani)
 
-**Verdaccio** jẹ ibi iforukọsilẹ fifuyẹ pẹlu iṣeto-odo ti **o ni ibamu didanmọran pẹlu eyikeyi E2E + CI ilana iṣẹ**.
+Ko ti si ọta fadaka kankan, imuṣiṣẹ kọọkan dabi pe o jẹ pato fun iṣẹ akanṣe kọọkan, o le ṣayẹwo diẹ ninu wọn ni okun atẹle yii [tẹ ibi](https://stackoverflow.com/a/50222427/308341).
 
 ## Imuṣiṣẹ
 
@@ -23,7 +22,7 @@ Ko ti si ọta fadaka kankan, imuṣiṣẹ kọọkan dabi pe o jẹ pato fun i
 
 ### Apẹẹrẹ nipa lilo Bash
 
-Eyi ni apẹẹrẹ to rọrun julọ nipa lilo Verdaccio ninu iwe afọwọkọ bash kan (ti o jẹ fifajade lati *create-react-app*).
+This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
 
 ```bash
 #!/bin/sh
@@ -45,6 +44,7 @@ sh -c "npm-auth-to-token -u test -p test -e test@test.com -r $local_registry"
 sh -c "npm --registry $local_registry publish"
 ```
 
+
 ## Who is using it for E2E?
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
@@ -60,3 +60,9 @@ sh -c "npm --registry $local_registry publish"
 * [Embark](https://embark.status.im/) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [Wix Yoshi](https://github.com/wix/yoshi)
+
+
+
+
+
+
