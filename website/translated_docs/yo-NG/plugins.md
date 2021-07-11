@@ -22,16 +22,18 @@ There are 5 types of plugins:
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` gẹgẹ bi ẹya ti o wa lati sinopia o ni ibasisẹpọ ẹlẹyin pẹlu awọn asomọ ti o ni ibasisẹpọ pẹlu `sinopia@1.4.0`. Ni iru eyi ifi sori ẹrọ na jẹ nkan kanna.
+`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
 
-    $> npm install --global sinopia-memory
-    
+```
+$> npm install --global sinopia-memory
+```
 
 ### Iṣeto
 
 Sii faili `config.yaml` ki o si ṣe imudojuiwọn abala `auth` naa bi atẹle yi:
 
 Iṣeto atilẹwa naa dabi iru eyi, nitoripe a lo ohun elo alakọmọ `htpasswd` ni atilẹwa pe ki o le yọ kuro nipa yiyọ awọn ila wọnyi.
+
 
 ### Iṣeto Ifasẹsi
 
@@ -68,7 +70,7 @@ auth:
 
 ### Iṣeto Middleware
 
-Eyi jẹ apẹẹrẹ bi o ṣe le seto ohun asomọ middleware kan. Gbogbo awọn ohun asomọ gbọdọ wa ni asọye ninu aaye orukọ **middlewares**.
+This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -80,7 +82,7 @@ middlewares:
 
 ### Iṣeto Ibi ipamọ
 
-Eyi jẹ apẹẹrẹ bi o ṣe le ṣeto ohun asomọ ibi ipamọ kan. Gbogbo awọn ohun asomọ ibi ipamọ gbọdọ wa ni asọye ni aaye orukọ **store**.
+This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
 ```yaml
 store:
@@ -90,14 +92,16 @@ store:
 
 ### Iṣeto Akori
 
-Verdaccio n gbanilaaye lati rọpo Intafeesi olumulo pẹlu eyi to jẹ akanṣe, a n pe ni **akori**. Ni atilẹwa, o n lo `@verdaccio/ui-theme` ti o ba wa lati ilẹ, ṣugbọn, o le lo ohun ti o yatọ lati fi ohun asomọ ti ara rẹ sori ẹrọ.
+Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. Ni atilẹwa, o n lo `@verdaccio/ui-theme` ti o ba wa lati ilẹ, ṣugbọn, o le lo ohun ti o yatọ lati fi ohun asomọ ti ara rẹ sori ẹrọ.
 
 ```bash
-<br />$> npm install --global verdaccio-theme-dark
+
+$> npm install --global verdaccio-theme-dark
 
 ```
 
 > Orukọ iṣaaju ohun asomọ naa gbọdọ bẹrẹ pẹlu `verdaccio-theme`, bibẹkọ ohun asomọ naa koni ṣiṣẹ.
+
 
 You can load only one theme at a time and pass through options if you need it.
 
@@ -132,4 +136,5 @@ theme:
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): Ohun elo ifasẹsi LDAP fun sinopia.
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Ohun elo ifasẹsi Sinopia pẹlu github oauth web flow.
 
-> Gbogbo awọn ohun elo sinopia gbọdọ ni ibaramu pẹlu gbogbo awọn ẹya ọjọ iwaju verdaccio. Amọ sa, a gba awọn olulọwọsi niyanju lati ṣi wọn nidi lọ si API igbalode ti verdaccio àti lílo ọrọ ibẹrẹ bii *verdaccio-xx-name*.
+> Gbogbo awọn ohun elo sinopia gbọdọ ni ibaramu pẹlu gbogbo awọn ẹya ọjọ iwaju verdaccio. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+
