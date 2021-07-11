@@ -17,10 +17,11 @@ Você pode conectar vários registros, o documento a seguir guiará você por al
 
 A única maneira de acessar vários registros usando o `.npmrc` é com a função de escopo, da seguinte forma:
 
-    // .npmrc
-    registry=https://registry.npmjs.org
-    @mycompany:registry=http://localhost:4873
-    
+```
+// .npmrc
+registry=https://registry.npmjs.org
+@mycompany:registry=http://localhost:4873
+```
 
 Essa abordagem é válida, mas apresenta várias desvantagens:
 
@@ -75,7 +76,8 @@ Verdaccio suporta múltiplos registros no campo `proxy`. A solicitação será r
 Ter um Registro Offline completo é absolutamente possível. Se você não quiser nenhuma conectividade com controles remotos externos você pode fazer o seguinte.
 
 ```yaml
-<br />auth:
+
+auth:
   htpasswd:
     file: ./htpasswd
 uplinks:
