@@ -17,10 +17,11 @@ You can link multiple registries, the following document will drive you through 
 
 The unique way to access multiple registries using the `.npmrc` is the scope feature as follows:
 
-    // .npmrc
-    registry=https://registry.npmjs.org
-    @mycompany:registry=http://localhost:4873
-    
+```
+// .npmrc
+registry=https://registry.npmjs.org
+@mycompany:registry=http://localhost:4873
+```
 
 This approach is valid, but comes with several disadvantages:
 
@@ -66,6 +67,11 @@ Add a `proxy` section to define the selected registry you want to proxy.
     access: $all
     publish: $authenticated
     proxy: server1 server2
+
+  'webpack':
+    access: $all
+    publish: $authenticated
+    proxy: server1 server2
 ```
 
 Verdaccio supports multiple registries on the `proxy` field. The request will be resolved with the first in the list; if that fails, it will try with the next in the list and so on.
@@ -75,7 +81,8 @@ Verdaccio supports multiple registries on the `proxy` field. The request will be
 Having a full Offline Registry is completely possible. If you don't want any connectivity with external remotes you can do the following.
 
 ```yaml
-<br />auth:
+
+auth:
   htpasswd:
     file: ./htpasswd
 uplinks:
