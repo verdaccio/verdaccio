@@ -31,7 +31,6 @@ The `cd` command sends you to the home directory of the Verdaccio user. Make sur
 ## Gbigbọ lori gbogbo awọn adirẹsi
 
 Ti o ba fẹ lati tẹtisi gbogbo adirẹsi itagbangba ṣeto ilana igbọran ninu iṣeto naa lati:
-
 ```yaml
 # o le se adirẹsi itẹtisi ni pato (tabi ibudo kan nìkan)
 gbọ: 0.0.0.0:4873
@@ -39,7 +38,7 @@ gbọ: 0.0.0.0:4873
 
 If you are running Verdaccio in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
 
-> Ṣeto Apache tabi nginx? Jọwọ ṣabẹwo [Iseto Aṣoju ikọkọ Alayipada](reverse-proxy.md)
+> Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
 
 ## Keeping Verdaccio running forever
 
@@ -71,8 +70,9 @@ $ crontab -e
 
 This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
 
-    @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
-    
+```
+@reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
+```
 
 The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
 
@@ -84,9 +84,7 @@ $ which verdaccio
 ## Lilo systemd
 
 Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it:
-
 ```bash
 $ sudo cp /usr/lib/node_modules/verdaccio/systemd/verdaccio.service /lib/systemd/system/ && sudo systemctl daemon-reload
 ```
-
 This unit assumes you have configuration in `/etc/verdaccio/config.yaml` and store data in `/var/lib/verdaccio`, so either move your files to those locations or edit the unit.
