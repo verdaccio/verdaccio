@@ -17,10 +17,11 @@ uplinks:
 
 Единственный способ для доступа к нескольким репозиториям, использующийся в `.npmrc`, это разделение по scope, например:
 
-    // .npmrc
-    registry=https://registry.npmjs.org
-    @mycompany:registry=http://localhost:4873
-    
+```
+// .npmrc
+registry=https://registry.npmjs.org
+@mycompany:registry=http://localhost:4873
+```
 
 Этот способ вполне годный, но есть несколько минусов:
 
@@ -75,7 +76,8 @@ uplinks:
 Можно сделать репозиторий полностью оффлайновым. Если вы не хотите никаких соединений с удаленными репозиториями, можно сделать так.
 
 ```yaml
-<br />auth:
+
+auth:
   htpasswd:
     file: ./htpasswd
 uplinks:
