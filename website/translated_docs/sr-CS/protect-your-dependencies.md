@@ -40,6 +40,6 @@ or with `yarn`:
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
-[1/4] 
+[1/4] 🔍  Resolving packages...
 error An unexpected error occurred: "http://localhost:5555/webpack-1: unregistered users are not allowed to access package my-company-core".
 ```
