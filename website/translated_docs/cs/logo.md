@@ -11,7 +11,7 @@ Zvláštní poděkování patří *[@Lisapressmar](https://github.com/Lisapressm
 
 ## Symboly
 
-**S textem**
+__S textem__
 
 ![symbol malý s textem](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Zvláštní poděkování patří *[@Lisapressmar](https://github.com/Lisapressm
 
 ![symbol velký s textem](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbol svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Bez textu**
+__Bez textu__
 
 ![symbol malý](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Zvláštní poděkování patří *[@Lisapressmar](https://github.com/Lisapressm
 
 ![symbol velký](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg formát bez textu](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Černobílé
 
@@ -43,9 +45,10 @@ Zvláštní poděkování patří *[@Lisapressmar](https://github.com/Lisapressm
 
 ![symbol bw velký](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbol bw svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Banner
 
@@ -54,3 +57,5 @@ Zvláštní poděkování patří *[@Lisapressmar](https://github.com/Lisapressm
 ![banner střední](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![banner velký](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
