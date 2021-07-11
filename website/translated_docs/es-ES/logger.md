@@ -25,7 +25,7 @@ Use `SIGUSR2` to notify the application, the log-file was rotated and it needs t
 
 | Propiedad | Tipo   | Requerido | Ejemplo                                        | Soporte | Descripción                                               |
 | --------- | ------ | --------- | ---------------------------------------------- | ------- | --------------------------------------------------------- |
-| tipo      | string | No        | [stdout, file]                                 | todos   | define la salida                                          |
-| path      | string | No        | verdaccio.log                                  | todos   | si el tipo es archivo, define la ubicación de ese archivo |
-| format    | string | No        | [pretty, pretty-timestamped]                   | todos   | formato de salida                                         |
-| level     | string | No        | [fatal, error, warn, http, info, debug, trace] | todos   | nivel verboso                                             |
+| tipo      | string | No        | [stdout, file]                                 | all     | define la salida                                          |
+| path      | string | No        | verdaccio.log                                  | all     | si el tipo es archivo, define la ubicación de ese archivo |
+| format    | string | No        | [pretty, pretty-timestamped]                   | all     | formato de salida                                         |
+| level     | string | No        | [fatal, error, warn, http, info, debug, trace] | all     | nivel verboso                                             |
