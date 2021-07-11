@@ -6,7 +6,6 @@ title: "End to End тестирование"
 Некоторые проекты организуют свой код, разделяя его на много пакетов, другие используют [монорепо](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). E2E-тестирование используется обычно только для тестировани пользовательских интерфейсов, но, с точки зрения Node.js, **публикацию пакетов тоже нужно тестировать**.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Solution: a local npm registry. <a href="https://t.co/kvcyVANVSK">https://t.co/kvcyVANVSK</a></p>&mdash; Dan Abramov (@dan_abramov) <a href="https://twitter.com/dan_abramov/status/951427674844680192?ref_src=twsrc%5Etfw">11 января 2018</a></blockquote>
-
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Используя этот подход, вы можете столкнуться со следующими трудностями:
@@ -15,7 +14,7 @@ title: "End to End тестирование"
 * Некоторые локальные OSS репозитории - "тяжелые"
 * Оффлайн-окружение (в приватных сетях)
 
-**Verdaccio** - это "легкий" репозиторий, который аже не нужно конфигурировать, который **прекрасно подходит для E2E + CI**.
+"Серебрянной пули" нет, и, похоже, реализация для каждого проекта - особенная; вы можете посмотреть на примеры в [этом обсуждении](https://stackoverflow.com/a/50222427/308341).
 
 ## Реализация
 
@@ -23,7 +22,7 @@ title: "End to End тестирование"
 
 ### Примеры, использующие Bash
 
-Это наиболее простой пример использования Verdaccio в bash-скрипте (взято из *create-react-app*).
+This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
 
 ```bash
 #!/bin/sh
@@ -45,6 +44,7 @@ sh -c "npm-auth-to-token -u test -p test -e test@test.com -r $local_registry"
 sh -c "npm --registry $local_registry publish"
 ```
 
+
 ## Who is using it for E2E?
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
@@ -60,3 +60,9 @@ sh -c "npm --registry $local_registry publish"
 * [Embark](https://embark.status.im/) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [Wix Yoshi](https://github.com/wix/yoshi)
+
+
+
+
+
+

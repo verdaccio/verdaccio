@@ -6,7 +6,6 @@ title: "End to End testing"
 Alcuni progetti organizzano pacchetti in repository multi pacchetti o [monorepo](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). Il test E2E è un argomento che è rilevante solitamente solo per le Interfacce Utente, tuttavia secondo Node.js, **è necessario testare anche i pacchetti in pubblicazione**.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Solution: a local npm registry. <a href="https://t.co/kvcyVANVSK">https://t.co/kvcyVANVSK</a></p>&mdash; Dan Abramov (@dan_abramov) <a href="https://twitter.com/dan_abramov/status/951427674844680192?ref_src=twsrc%5Etfw">11 gennaio 2018</a></blockquote>
-
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Tale approccio è stato molto difficile da raggiungere considerando che:
@@ -15,7 +14,7 @@ Tale approccio è stato molto difficile da raggiungere considerando che:
 * Alcuni registri OSS self-hosted sono troppo pesanti
 * Ambienti offline (reti private)
 
-**Verdaccio** è un registro leggero senza configurazione che **si adatta perfettamente a qualsiasi E2E + CI workflow**.
+Non è ancora disponibile la soluzione perfetta, ogni implementazione sembra essere specifica per ciascun progetto; è possibile consultarne alcune nel thread seguente [cliccando qui](https://stackoverflow.com/a/50222427/308341).
 
 ## Implementazione
 
@@ -23,7 +22,7 @@ Non è ancora disponibile la soluzione perfetta, ogni implementazione sembra ess
 
 ### Esempio di utilizzo di Bash
 
-Questo è l'esempio più semplice dell'utilizzo di Verdaccio in un bash script (estratto da *create-react-app*).
+This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
 
 ```bash
 #!/bin/sh
@@ -45,7 +44,8 @@ sh -c "npm-auth-to-token -u test -p test -e test@test.com -r $local_registry"
 sh -c "npm --registry $local_registry publish"
 ```
 
-## Who is using it for E2E?
+
+## Chi lo sta usando per E2E?
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
 * [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
@@ -60,3 +60,9 @@ sh -c "npm --registry $local_registry publish"
 * [Embark](https://embark.status.im/) *(+3k ⭐️)*
 * [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
 * [Wix Yoshi](https://github.com/wix/yoshi)
+
+
+
+
+
+

@@ -5,6 +5,7 @@ title: Docker
 
 ![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 
+
 Lati fa [aworan docker](https://hub.docker.com/r/verdaccio/verdaccio/) tuntun to ti jẹ kikọ siwaju:
 
 ```bash
@@ -22,7 +23,6 @@ Fun ẹya pataki kan:
 ```bash
 docker pull verdaccio/verdaccio:4
 ```
-
 Fun ẹya kekere kan:
 
 ```bash
@@ -45,9 +45,10 @@ Lati mu apoti docker ṣiṣẹ:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-Ariyanjiyan ikẹhin n sọ iru aworan to ma jẹ lilo. Ila to wa loke yoo fa aworan tuntun ti o ti wa ni kikọ tẹlẹ lati dockerhub, ti o ko ba ti ṣe bẹ tẹlẹ.
+The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
 
 Ti o ba ti [kọ aworan kan ni ilana ibilẹ](#build-your-own-docker-image) lo `verdaccio` gẹgẹbi ariyanjiyan ikẹhin.
+
 
 O le lo `-v` lati de atopọ `conf`, `storage` ati `plugins` mọ eto faili ti olugbalejo naa:
 
@@ -59,12 +60,10 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
-
 > if you are running in a server, you might want to add -d to run it in the background
-> 
 > Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
-Verdaccio 4 n pese awọn iyipada ayika tuntun lati ṣayipada si boya awọn igbanilaaye, ibudo tabi Ilana Http. Eyi ni akojọ pipe:
+Verdaccio 4 provides a new set of environment variables to modify either permissions, port or http protocol. Here the complete list:
 
 | Ohun ini              | atilẹwa          | Apejuwe                                                                 |
 | --------------------- | ---------------- | ----------------------------------------------------------------------- |
@@ -74,17 +73,21 @@ Verdaccio 4 n pese awọn iyipada ayika tuntun lati ṣayipada si boya awọn ig
 | VERDACCIO_PORT        | `4873`           | ibudo verdaccio naa                                                     |
 | VERDACCIO_PROTOCOL    | `http`           | ilana http atilẹwa naa                                                  |
 
+
+
 ### SELinux
 
 If SELinux is enforced in your system, the directories to be bind-mounted in the container need to be relabeled. Otherwise verdaccio will be forbidden from reading those files.
 
-     fatal--- cannot open config file /verdaccio/conf/config.yaml: Error: CONFIG: it does not look like a valid config file
-    
+```
+ fatal--- cannot open config file /verdaccio/conf/config.yaml: Error: CONFIG: it does not look like a valid config file
+```
 
 If verdaccio can't read files on a bind-mounted directory and you are unsure, please check `/var/log/audit/audit.log` to confirm that it's a SELinux issue. In this example, the error above produced the following AVC denial.
 
-    type=AVC msg=audit(1606833420.789:9331): avc:  denied  { read } for  pid=1251782 comm="node" name="config.yaml" dev="dm-2" ino=8178250 scontext=system_u:system_r:container_t:s0:c32,c258 tcontext=unconfined_u:object_r:user_home_t:s0 tclass=file permissive=0
-    
+```
+type=AVC msg=audit(1606833420.789:9331): avc:  denied  { read } for  pid=1251782 comm="node" name="config.yaml" dev="dm-2" ino=8178250 scontext=system_u:system_r:container_t:s0:c32,c258 tcontext=unconfined_u:object_r:user_home_t:s0 tclass=file permissive=0
+```
 
 `chcon` can change the labels of shared files and directories. To make a directory accessible to containers, change the directory type to `container_file_t`.
 
@@ -97,7 +100,6 @@ If you want to make the directory accessible only to a specific container, use `
 An alternative solution is to use [z and Z flags](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label). To add the `z` flag to the mountpoint `./conf:/verdaccio/conf` simply change it to `./conf:/verdaccio/conf:z`. The `z` flag relabels the directory and makes it accessible by every container while the `Z` flags relables the directory and makes it accessible only to that specific container. However using these flags is dangerous. A small configuration mistake, like mounting `/home/user` or `/var` can mess up the labels on those directories and make the system unbootable.
 
 ### Awọn ohun elo
-
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
 ```docker
@@ -113,7 +115,6 @@ USER verdaccio
 ```
 
 ### Docker and custom port configuration
-
 Any `host:port` configured in `conf/config.yaml` under `listen` **is currently ignored when using docker**.
 
 If you want to reach Verdaccio docker instance under different port, lets say `5000` in your `docker run` command add the environment variable `VERDACCIO_PORT=5000` and then expose the port `-p 5000:5000`.
@@ -127,7 +128,6 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
 Of course the numbers you give to `-p` paremeter need to match.
 
 ### Using HTTPS with Docker
-
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration. You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
 ```bash
@@ -146,6 +146,7 @@ $ docker-compose up --build
 ```
 
 You can set the port to use (for both container and host) by prefixing the above command with `VERDACCIO_PORT=5000`.
+
 
 ```yaml
 version: '3.1'
@@ -205,7 +206,7 @@ Please note that for any of the above docker commands you need to have docker in
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
-<https://github.com/verdaccio/docker-examples>
+[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
 
 ## Awọn agbedide Akanṣe ti Docker
 
