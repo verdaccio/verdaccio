@@ -11,7 +11,7 @@ Besonderer Dank gilt *[@Lisapressmar](https://github.com/Lisapressmar)* für Ihr
 
 ## Symbole
 
-**Mit Text**
+__Mit Text__
 
 ![Symbol klein mit Text](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Besonderer Dank gilt *[@Lisapressmar](https://github.com/Lisapressmar)* für Ihr
 
 ![Symbol groß mit Text](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![Symbol SVG](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Kein Text**
+__Kein Text__
 
 ![Symbol klein](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Besonderer Dank gilt *[@Lisapressmar](https://github.com/Lisapressmar)* für Ihr
 
 ![Symbol groß](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![Symbol SVG ohne Text](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Schwarz&Weiß
 
@@ -43,9 +45,10 @@ Besonderer Dank gilt *[@Lisapressmar](https://github.com/Lisapressmar)* für Ihr
 
 ![Symbol bw groß](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![Symbol bw SVG](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Banner
 
@@ -54,3 +57,5 @@ Besonderer Dank gilt *[@Lisapressmar](https://github.com/Lisapressmar)* für Ihr
 ![Banner mittel](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![Banner groß](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
