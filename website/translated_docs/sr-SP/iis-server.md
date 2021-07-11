@@ -5,23 +5,24 @@ title: "Инсталирање на IIS server"
 
 Наведене инструкције су писане за Windows Server 2016, IIS 10, Windows Server 2016, IIS 10, [Node.js 10.15.0](https://nodejs.org/), [iisnode 0.2.26](https://github.com/Azure/iisnode) и [verdaccio 3.11.0](https://github.com/verdaccio/verdaccio).
 
-- Install IIS Install [iisnode](https://github.com/Azure/iisnode).. Постарајте се да сте инсталирали све што је потребно (Url Rewrite Module & node), као што је објашњено у упутствима за iisnode.
-- Направите нови фолдер у Explorer-у, који ће бити host за verdaccio. На пример `C:\verdaccio`. Уснимите [package.json](#packagejson), [start.js](#startjs) и [web.config](#webconfig) у овај фолдер.
-- Направите нови сајт у Internet Information Services Manager. Можете га назвати како Вам је воља. Зваћемо га verdaccio у овим [инструкцијама](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Одаберите path где ћете снимити све фајлове и број порта.
-- Вратите се у Explorer и у оквиру фолдера који сте управо креирали доделите права кориснику који покреће application pool. Ако сте именовали нови сајт као verdaccio и нисте променили app pool, он ради под ApplicationPoolIdentity и требало би да доделите права кориснику, IIS AppPool\verdaccio modify rights, погледајте инструкције ако Вам је потребна помоћ. (Касније ако пожелите, можете ограничити приступ, тако да права остају промењена само за iisnode и verdaccio\storage)
-- Покрените command prompt и извршите команде наведене испод како бисте преузели verdaccio:
+* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
+* Направите нови фолдер у Explorer-у, који ће бити host за verdaccio. На пример `C:\verdaccio`. Уснимите [package.json](#packagejson), [start.js](#startjs) и [web.config](#webconfig) у овај фолдер.
+* Направите нови сајт у Internet Information Services Manager. Можете га назвати како Вам је воља. Зваћемо га verdaccio у овим [инструкцијама](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Одаберите path где ћете снимити све фајлове и број порта.
+* Вратите се у Explorer и у оквиру фолдера који сте управо креирали доделите права кориснику који покреће application pool. Ако сте именовали нови сајт као verdaccio и нисте променили app pool, он ради под ApplicationPoolIdentity и требало би да доделите права кориснику, IIS AppPool\verdaccio modify rights, погледајте инструкције ако Вам је потребна помоћ. (Касније ако пожелите, можете ограничити приступ, тако да права остају промењена само за iisnode и verdaccio\storage)
+* Покрените command prompt и извршите команде наведене испод како бисте преузели verdaccio:
 
-    cd c:\verdaccio
-    npm install
-    
+````
+cd c:\verdaccio
+npm install
+````
 
-- Постарајте се да имате добро подешено правило за прихватање TCP саобраћаја на порт, у Windows Firewall
-- И то је то! Сада можете да навигате до host-a и порта које сте одредили
+* Постарајте се да имате добро подешено правило за прихватање TCP саобраћаја на порт, у Windows Firewall
+* Thats it! Now you can navigate to the host and port that you specified
 
 Желео сам да `verdaccio` сајт буде подразумевани сајт у IIS и зато сам урадио следеће:
 
-- Стопирао сам "Default Web Site" и покренуо јединo "verdaccio" сајт у IIS
-- Подесио сам bindings на "http", ip address "All Unassigned" на port 80, ok any warning or prompts
+* Стопирао сам "Default Web Site" и покренуо јединo "verdaccio" сајт у IIS
+* Подесио сам bindings на "http", ip address "All Unassigned" на port 80, ok any warning or prompts
 
 Дате инструкције се базирају на [Host Sinopia in IIS on Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Треба још да чачнем my web config као што је наведено испод, али може се десити да наведени линк заправо ради боље
 
@@ -29,7 +30,7 @@ title: "Инсталирање на IIS server"
 
 ### package.json
 
-```json
+````json
 {
   "name": "iisnode-verdaccio",
   "version": "1.0.0",
@@ -39,25 +40,25 @@ title: "Инсталирање на IIS server"
     "verdaccio": "^3.11.0"
   }
 }
-```
+````
 
 ### start.js
 
-```bash
+````bash
 process.argv.push('-l', 'unix:' + process.env.PORT, '-c', './config.yaml');
 require('./node_modules/verdaccio/build/lib/cli.js');
-```
+````
 
 ### Промените start.js за верзије Verdaccio-а < v3.0
 
-```bash
+````bash
 process.argv.push('-l', 'unix:' + process.env.PORT);
 require('./node_modules/verdaccio/src/lib/cli.js');
-```
+````
 
 ### web.config
 
-```xml
+````xml
 <configuration>
   <system.webServer>
     <modules>
@@ -104,14 +105,15 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
   </system.webServer>
 </configuration>
-```
+````
 
 ### Проблеми (Troubleshooting)
-
 - **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
+````
+<configuration>
+  <system.webServer>
+    <iisnode enableXFF="true" />
+  </system.webServer>
+</configuration>
+````
 
-    <configuration>
-      <system.webServer>
-        <iisnode enableXFF="true" />
-      </system.webServer>
-    </configuration>
