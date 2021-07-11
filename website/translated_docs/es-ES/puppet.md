@@ -16,6 +16,10 @@ En ambas variantes tiene que llamar explícitamente a "class nodejs {}" en su sc
 
 Para más información:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Estamos buscando colaboradores para esta integración, si está interesado [ refiérase a esta entrada](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+
