@@ -16,6 +16,10 @@ title: "Puppet"
 
 За даље информације:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Тражимо активне сараднике за ову интеграцију, па ако сте заинтересовани, [пошаљите нам ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+
