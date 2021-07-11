@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Ṣiṣe aitẹjade Awọn akopọ
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -182,6 +182,7 @@ In the previous example, the behaviour would be described:
 * gbogbo awọn olumulo le ṣe atẹjade akopọ `jquery`, ṣugbọn olumulo `root` nikan ni yoo ni anfani lati ṣe aitẹjade eyikeyi ti ẹya.
 * awọn olumulo to ni ifasẹsi nikan ni o le ṣe atẹjade awọn akopọ `my-company-*`, sugbọn ** ko si aaye fun ẹnikẹni lati aitẹjade wọn**.
 * Ti `unpublish` ba ti jẹ sisọ jade, iwọle naa yoo jẹ fifọwọsi tabi kikọ nipasẹ agbekalẹ `publish` naa.
+
 
 ### Iṣeto
 
