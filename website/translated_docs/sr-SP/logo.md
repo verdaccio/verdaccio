@@ -11,7 +11,7 @@ title: "Logotype"
 
 ## Симболи
 
-**Са текстом**
+__Са текстом__
 
 ![симбол, мали са текстом](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ title: "Logotype"
 
 ![симбол, велики са текстом](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![симбол, svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Без текста**
+__Без текста__
 
 ![симбол, мали](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ title: "Logotype"
 
 ![симбол, велики](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg формат, симбол без текста](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Црно&Бело
 
@@ -43,9 +45,10 @@ title: "Logotype"
 
 ![симбол, цб, велики](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![симбол, цб, svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Банер
 
@@ -54,3 +57,5 @@ title: "Logotype"
 ![банер, средњи](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![банер, велики](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
