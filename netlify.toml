@@ -1,7 +1,10 @@
 
+[build.environment]
+  NPM_FLAGS="--prefix=/dev/null"
+
 [build]
   command = "pnpm run build"
-  publish = "dist"
+  publish = "website/build/website/"
 
 [[plugins]]
   package = "/.netlify/netlify-plugin-pnpm"
