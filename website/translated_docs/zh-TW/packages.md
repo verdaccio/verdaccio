@@ -100,7 +100,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 #### Blocking access to set of packages
 
-If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`.
+If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`. Just do not define `access` and `publish`.
 
 ```yaml
 packages:
@@ -140,7 +140,7 @@ Let's describe what we want with the above example:
 * I want all dependencies that are in the `my-local-scope` scope but I need to avoid proxying them.
 * I want proxying for all the rest of the dependencies.
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 #### Use multiple uplinks
 
@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -182,6 +182,7 @@ In the previous example, the behaviour would be described:
 * all users can publish the `jquery` package, but only the user `root` would be able to unpublish any version.
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
+
 
 ### Configuration
 
