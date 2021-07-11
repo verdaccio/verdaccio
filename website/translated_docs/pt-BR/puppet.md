@@ -16,6 +16,10 @@ Em ambas as variantes você tem que chamar explicitamente a "classe nodejs {}" n
 
 Para mais informações:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Estamos à procura de colaboradores ativos para esta integração, se você estiver interessado [consulte este ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+
