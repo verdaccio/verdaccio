@@ -11,7 +11,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ## Simbolos
 
-**Con texto**
+__Con texto__
 
 ![symbol tiny with text](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbol big with text](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbol svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Sin texto**
+__Sin texto__
 
 ![symbol tiny](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbol big](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg format symbol no text](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Black&White
 
@@ -43,9 +45,10 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbol bw big](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbol bw svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Pancarta
 
@@ -54,3 +57,5 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 ![banner medium](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![banner big](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
