@@ -1,0 +1,204 @@
+{
+  "_comment": "تم إنشاء هذا الملف تلقائيًا بواسطة write-translations.js",
+  "localized-strings": {
+    "next": "التالي",
+    "previous": "السَّابق",
+    "tagline": "A lightweight open source private npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Amazon Web Services"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Articles"
+      },
+      "authentication": {
+        "title": "Authentication"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Best Practices"
+      },
+      "build": {
+        "title": "build"
+      },
+      "caching": {
+        "title": "Caching strategies"
+      },
+      "chef": {
+        "title": "Chef Cookbook"
+      },
+      "ci": {
+        "title": "Continuous Integration"
+      },
+      "cli-registry": {
+        "title": "Using a private registry"
+      },
+      "cli": {
+        "title": "Command Line Tool"
+      },
+      "configuration": {
+        "title": "Configuration File"
+      },
+      "dev-plugins": {
+        "title": "تطوير الإضافات"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "End to End testing"
+      },
+      "github-actions": {
+        "title": "GitHub Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "aws": {
+        "title": "Amazon Web Services"
+      },
+      "iss-server": {
+        "title": "Installing on IIS server"
+      },
+      "installation": {
+        "title": "Installation"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Linking a Remote Registry"
+      },
+      "logger": {
+        "title": "Logger"
+      },
+      "logo": {
+        "title": "Logotype"
+      },
+      "node-api": {
+        "title": "Node API"
+      },
+      "notifications": {
+        "title": "الإشعارات"
+      },
+      "packages": {
+        "title": "Package Access"
+      },
+      "plugin-auth": {
+        "title": "Authentication Plugin"
+      },
+      "plugin-generator": {
+        "title": "Plugin Generator"
+      },
+      "plugin-middleware": {
+        "title": "Middleware Plugin"
+      },
+      "plugin-storage": {
+        "title": "Storage Plugin"
+      },
+      "plugins": {
+        "title": "الإضافات"
+      },
+      "protect-your-dependencies": {
+        "title": "حماية الحُزم"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "Source Code"
+      },
+      "reverse-proxy": {
+        "title": "Reverse Proxy Setup"
+      },
+      "security-policy": {
+        "title": "Security Policy"
+      },
+      "server-configuration": {
+        "title": "Server Configuration"
+      },
+      "ssl": {
+        "title": "Set up the SSL Certificates"
+      },
+      "talks": {
+        "title": "Talks"
+      },
+      "test": {
+        "title": "test"
+      },
+      "uplinks": {
+        "title": "Uplinks"
+      },
+      "webui": {
+        "title": "Web User Interface"
+      },
+      "what-is-verdaccio": {
+        "title": "What is Verdaccio?"
+      },
+      "who-is-using": {
+        "title": "Who is using Verdaccio?"
+      },
+      "windows": {
+        "title": "Installing As a Windows Service"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "Blog": "Blog",
+      "Twitter": "Twitter",
+      "Help": "Help",
+      "GitHub": "GitHub",
+      "Contributors": "Contributors",
+      "Sponsor Us": "Sponsor Us"
+    },
+    "categories": {
+      "Introduction": "Introduction",
+      "Features": "Features",
+      "Server": "Server",
+      "Development": "Development",
+      "DevOps": "DevOps",
+      "Guides": "Guides"
+    }
+  },
+  "pages-strings": {
+    "Contributors|no description given": "Contributors",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "تعرف على المزيد باستخدام [التوثيق على هذا الموقع.] (/ docs / en / installation.html)",
+    "Browse Docs|no description given": "Browse Docs",
+    "Ask questions about the documentation and project|no description given": "طرح أسئلة حول التَّوثيق والمشروع",
+    "Join the community|no description given": "الإنضمام إلى المجتمع",
+    "Find out what's new with this project|no description given": "تعرف على الجديد في هذا المشروع",
+    "Stay up to date|no description given": "Stay up to date",
+    "Need help?|no description given": "هل تحتاج مساعدة؟",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "يتم الحفاظ على هذا المشروع من قبل مجموعة مخصصة من الناس.",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "تعرف على المزيد حول Verdaccio باستخدام [التوثيق على هذا الموقع.] (/ docs / en / installation.html)",
+    "You can follow and contact us on|no description given": "يمكنك متابعتنا والاتصال بنا على",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "إذا لم يكن التوثيق كافي للمساعدة، بإمكانك أن تجرب التصفح",
+    "and also you can chat with the Verdaccio community at|no description given": "ويمكنك أيضا الدردشة مع مجموعة Verdaccio في",
+    "This project is maintained by the Verdaccio community.|no description given": "يتم الحفاظ على هذا المشروع بواسطة مجموعة Verdaccio.",
+    "Get Started|no description given": "البدء",
+    "That’s it ! Enjoy your private package manager.|no description given": "That’s it ! Enjoy your private package manager.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "العديد من المطورين الرائعين يتمتعون بالفعل بـ Verdaccio ، انضم إلى المجموعة!",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.",
+    "The most popular npm clients are supported|no description given": "The most popular npm clients are supported",
+    "We have an official **Docker** image ready to use|no description given": "We have an official **Docker** image ready to use",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "and **Kubernetes Helm** support for easy deployment",
+    "Making the DevOps work easy|no description given": "Making the DevOps work easy",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.",
+    "Plugin Support|no description given": "Plugin Support",
+    "Who's Using This?|no description given": "من الذي يستخدم هذا؟",
+    "More|no description given": "المزيد",
+    "Users|no description given": "المستخدمين",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Verdaccio is sponsored by these awesome folks...",
+    "and used by many others, including:|no description given": "and used by many others, including:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "هل أنت تستخدم هذا المشروع؟ لا تخجل و قم باضافة شعار الشركة أو المشروع الخاص بك.",
+    "Add your project|no description given": "Add your project",
+    "Help Translate|recruit community translators for your project": "قم بالمساعدة في الترجمة",
+    "Edit this Doc|recruitment message asking to edit the doc source": "تحرير",
+    "Translate this Doc|recruitment message asking to translate the docs": "الترجمة"
+  }
+}

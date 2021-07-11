@@ -1,0 +1,204 @@
+{
+  "_comment": "Este arquivo é gerado automaticamente pelo script write-translations.js",
+  "localized-strings": {
+    "next": "Próximo",
+    "previous": "Anterior",
+    "tagline": "A lightweight open source private npm proxy registry",
+    "docs": {
+      "amazon": {
+        "title": "Amazon Web Services"
+      },
+      "ansible": {
+        "title": "Ansible"
+      },
+      "articles": {
+        "title": "Artigos"
+      },
+      "authentication": {
+        "title": "Autenticação"
+      },
+      "azure": {
+        "title": "Windows Azure"
+      },
+      "best": {
+        "title": "Boas Práticas"
+      },
+      "build": {
+        "title": "build"
+      },
+      "caching": {
+        "title": "Estratégias de Cashing"
+      },
+      "chef": {
+        "title": "Chef Cookbook"
+      },
+      "ci": {
+        "title": "Integração Contínua"
+      },
+      "cli-registry": {
+        "title": "Using a private registry"
+      },
+      "cli": {
+        "title": "Utilitário na Linha de Comando"
+      },
+      "configuration": {
+        "title": "Arquivo de Configuração"
+      },
+      "dev-plugins": {
+        "title": "Criando Plugins"
+      },
+      "docker": {
+        "title": "Docker"
+      },
+      "e2e": {
+        "title": "Teste End-to-End"
+      },
+      "github-actions": {
+        "title": "GitHub Actions"
+      },
+      "google-cloud": {
+        "title": "Google Cloud"
+      },
+      "aws": {
+        "title": "Amazon Web Services"
+      },
+      "iss-server": {
+        "title": "Instalando em um Servidor ISS"
+      },
+      "installation": {
+        "title": "Instalação"
+      },
+      "kubernetes": {
+        "title": "Kubernetes"
+      },
+      "linking-remote-registry": {
+        "title": "Vinculando um Registro Remoto"
+      },
+      "logger": {
+        "title": "Logs"
+      },
+      "logo": {
+        "title": "Logotipo"
+      },
+      "node-api": {
+        "title": "Api Node"
+      },
+      "notifications": {
+        "title": "Notificações"
+      },
+      "packages": {
+        "title": "Permissões dos Pacotes"
+      },
+      "plugin-auth": {
+        "title": "Plugin de Autenticação"
+      },
+      "plugin-generator": {
+        "title": "Plugin Generator"
+      },
+      "plugin-middleware": {
+        "title": "Plugin Middleware"
+      },
+      "plugin-storage": {
+        "title": "Plugin de Armazenamento"
+      },
+      "plugins": {
+        "title": "Plugins"
+      },
+      "protect-your-dependencies": {
+        "title": "Protegendo seus pacotes"
+      },
+      "puppet": {
+        "title": "Puppet"
+      },
+      "repositories": {
+        "title": "Código Fonte"
+      },
+      "reverse-proxy": {
+        "title": "Configuração de Proxy Reverso"
+      },
+      "security-policy": {
+        "title": "Política de Segurança"
+      },
+      "server-configuration": {
+        "title": "Configuração do Servidor"
+      },
+      "ssl": {
+        "title": "Configurar SSL"
+      },
+      "talks": {
+        "title": "Palestras"
+      },
+      "test": {
+        "title": "test"
+      },
+      "uplinks": {
+        "title": "Uplinks"
+      },
+      "webui": {
+        "title": "Interface de Usuário da Web"
+      },
+      "what-is-verdaccio": {
+        "title": "O que é o Verdaccio?"
+      },
+      "who-is-using": {
+        "title": "Quem está usando o Verdaccio?"
+      },
+      "windows": {
+        "title": "Instalando como um Serviço no Windows"
+      }
+    },
+    "links": {
+      "Docs": "Docs",
+      "Blog": "Blog",
+      "Twitter": "Twitter",
+      "Help": "Help",
+      "GitHub": "GitHub",
+      "Contributors": "Contributors",
+      "Sponsor Us": "Sponsor Us"
+    },
+    "categories": {
+      "Introduction": "Introduction",
+      "Features": "Features",
+      "Server": "Server",
+      "Development": "Development",
+      "DevOps": "DevOps",
+      "Guides": "Guides"
+    }
+  },
+  "pages-strings": {
+    "Contributors|no description given": "Contributors",
+    "Learn more using the [documentation on this site.](/docs/en/installation.html)|no description given": "Saiba mais, acessando a [documentação.](/docs/en/installation.html)",
+    "Browse Docs|no description given": "Documentação",
+    "Ask questions about the documentation and project|no description given": "Faça perguntas sobre a documentação e o projeto",
+    "Join the community|no description given": "Faça parte",
+    "Find out what's new with this project|no description given": "Descubra todas as novidades sobre o projeto",
+    "Stay up to date|no description given": "Saiba as Novidades",
+    "Need help?|no description given": "Precisa de Ajuda?",
+    "This project is maintained by a dedicated group of people.|statement made to reader": "Este projeto é mantido por um grupo dedicado de pessoas.",
+    "Learn more about Verdaccio using the [documentation on this site.](/docs/en/installation.html)|no description given": "Saiba mais sobre o projeto acessando a [documentação](/docs/en/installation.html)",
+    "You can follow and contact us on|no description given": "Você pode seguir e nos contatar",
+    "If the documentation is not enough help, you can try browsing into our|no description given": "Se a documentação não é ajuda suficiente, você pode tentar navegar em nosso",
+    "and also you can chat with the Verdaccio community at|no description given": "e também você pode conversar com a comunidade de Verdaccio no",
+    "This project is maintained by the Verdaccio community.|no description given": "Este projeto é mantido pela Comunidade Verdaccio.",
+    "Get Started|no description given": "Primeiros Passos",
+    "That’s it ! Enjoy your private package manager.|no description given": "Tudo pronto! Aproveite o seu novo gerenciador de pacotes privado.",
+    "Many great developers are already enjoying Verdaccio, join the community!|no description given": "Vários desenvolvedores já estão desfrutando Verdaccio, participe da Comunidade!",
+    "**npm**, **yarn** and **pnpm** are part of any development workflow we try to catch up with the latest updates.|no description given": "* * npm * *, * * fios * * e * * pnpm * * fazem parte de qualquer fluxo de trabalho de desenvolvimento tentamos apanhar com as atualizações mais recentes.",
+    "The most popular npm clients are supported|no description given": "Os maioria dos clientes npm são suportados",
+    "We have an official **Docker** image ready to use|no description given": "Temos uma imagem * * Docker * * pronto para uso",
+    "and **Kubernetes Helm** support for easy deployment|no description given": "e * * Kubernetes Helm * * suporte para facilitar a implantação",
+    "Making the DevOps work easy|no description given": "Facilitando o trabalho de DevOps",
+    "Verdaccio is plugin based, authentication, middleware and storage support. Just pick one or create your custom one.|no description given": "Verdaccio é plugin baseado, autenticação, suporte middleware e armazenamento. Basta escolher um ou criar seu personalizado.",
+    "Plugin Support|no description given": "Suporte a plugins",
+    "Who's Using This?|no description given": "Quem está usando?",
+    "More|no description given": "Mais",
+    "Users|no description given": "Usuários",
+    "Verdaccio is sponsored by these awesome folks...|no description given": "Verdaccio is sponsored by these awesome folks...",
+    "and used by many others, including:|no description given": "and used by many others, including:",
+    "Are you using this project? Do not be shy and add your company/project logo.|no description given": "Você está usando este projeto? Não se acanhe e adicionar o seu logotipo de empresa/projeto.",
+    "Add your project|no description given": "Add your project",
+    "Help Translate|recruit community translators for your project": "Ajude-nos a Traduzir",
+    "Edit this Doc|recruitment message asking to edit the doc source": "Editar",
+    "Translate this Doc|recruitment message asking to translate the docs": "Traduzir"
+  }
+}
