@@ -24,14 +24,16 @@ $> npm install --global verdaccio-activedirectory
 
 `verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
 
-    $> npm install --global sinopia-memory
-    
+```
+$> npm install --global sinopia-memory
+```
 
 ### Configuration
 
 Ouvrez le fichier `>config.yaml` et mettez à jour la section `auth` comme suit :
 
 La configuration par défaut ressemble à ceci, car nous utilisons un plugin intégré `htpasswd` qui peut être désactivé en commentant les lignes suivantes.
+
 
 ### Authentication Configuration
 
@@ -93,11 +95,13 @@ store:
 Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
 
 ```bash
-<br />$> npm install --global verdaccio-theme-dark
+
+$> npm install --global verdaccio-theme-dark
 
 ```
 
 > The plugin name prefix must start with `verdaccio-theme`, otherwise the plugin won't load.
+
 
 You can load only one theme at a time and pass through options if you need it.
 
@@ -133,3 +137,4 @@ theme:
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) plugin d'authentification pour Sinopia avec une interface Web github oauth.
 
 > Tous les plugins de Sinopia devraient être compatibles avec toutes les futures versions de Verdaccio. Cependant, nous encourageons les contributeurs à les transférer vers l’API moderne de verdaccio et à utiliser le préfixe * verdaccio-xx-name *.
+
