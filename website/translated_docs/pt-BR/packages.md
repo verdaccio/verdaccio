@@ -154,7 +154,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Cancelando a Publicação de Pacotes
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -181,6 +181,7 @@ In the previous example, the behaviour would be described:
 * todos os usuários podem publicar o pacote `jquery`, mas somente o usuário `root` poderá cancelar a publicação de qualquer versão.
 * somente usuários autenticados podem publicar pacotes `my-company-*`, mas **ninguém poderá cancelar a publicação deles**.
 * Se `unpublish` estiver comentado, o acesso será concedido ou negado pela definição `publish`.
+
 
 ### Configuração
 

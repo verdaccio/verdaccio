@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -183,6 +183,7 @@ In the previous example, the behaviour would be described:
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
+
 ### Конфигурисање
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
@@ -194,6 +195,6 @@ You can define mutiple `packages` and each of them must have an unique `Regex`. 
 | proxy    | string | Не        | npmjs          | all            | лимитира look ups за специфични uplink                              |
 | storage  | string | Не        | string         | `/some-folder` | креира под-фолдер унутрар storage фолдера за сваки приступ пакетима |
 
-> Наглашавамо да не препоручујемо да и даље користите **allow_access**/**allow_publish** и **proxy_access**, јер ће наведене ускоро бити уклоњене. Молимо Вас да уместо тога користите скраћене верзије (**access**/**publish**/**proxy**).
+> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
 
 If you want more information about how to use the **storage** property, please refer to this [comment](https://github.com/verdaccio/verdaccio/issues/1383#issuecomment-509933674).

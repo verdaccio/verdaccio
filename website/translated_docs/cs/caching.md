@@ -7,10 +7,11 @@ Verdaccio standardně ukládá všechny balíčky do složky `/storage`. Můžet
 
 ## Scénáře ukládání do mezipaměti
 
-* Build a Node.js project on **Continous Integration** (Bamboo, GitLab, Jenkins, etc) servers is a task that might take several times at a day, thus, the server will download tons of tarballs from the registry every time takes place. Jako obvykle, nástroje CI vymažou mezipaměť po každém sestavení a proces začne znovu a znovu. To je ztráta šířky pásma a snižuje externí komunikaci. **Verdaccio můžete použít pro ukládání do mezipaměti a metadat v naší interní síti a zrychlit build time.**
-* **Latence a připojení**, ne všechny země mají vysokorychlostní připojení. Z tohoto důvodu jsou balíčky lokálně ve vaší síti velmi užitečné. Buď pokud cestujete nebo máte slabé spojení, roaming nebo země se silnými bránami firewall, které by mohly ovlivnit uživatelský komfort (např. poškození tarballs).
-* **Režim offline**, v současné době používají všichni správci balíčků své vlastní interní mezipaměti, ale běžné je, že různé projekty mohou používat různé nástroje, což znamená zamykání souborů a podobně. Tyto nástroje nejsou schopny sdílet mezipaměť, jedinečné řešení je centralizované a spoléhá se na registr proxy, mezipaměť Verdaccio všechny metadata a tarballs jsou staženy v závislosti na poptávce a následně sdílena ve všech projektech.
-* Vyhněte se tomu, aby jakýkoliv vzdálený registr náhle vrátil chybu *HTTP 404* pro tarballs, které byly dříve k dispozici aka ([problém s levým polem](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)).
+* Build a Node.js project on **Continous Integration** (Bamboo, GitLab, Jenkins, etc) servers is a task that might take several times at a day, thus, the server will download tons of tarballs from the registry every time takes place.  Jako obvykle, nástroje CI vymažou mezipaměť po každém sestavení a proces začne znovu a znovu. To je ztráta šířky pásma a snižuje externí komunikaci. **You can use Verdaccio for caching tarballs and metadata in our internal network and give a boost in your build time.**
+* **Latency and Connectivity**, not all countries enjoy a high-speed connection. Z tohoto důvodu jsou balíčky lokálně ve vaší síti velmi užitečné. Buď pokud cestujete nebo máte slabé spojení, roaming nebo země se silnými bránami firewall, které by mohly ovlivnit uživatelský komfort (např. poškození tarballs).
+* **Offline Mode**, all Node Package Managers nowadays uses their own internal cache, but it common that different projects might use different tools, which implies lock files and so on. Tyto nástroje nejsou schopny sdílet mezipaměť, jedinečné řešení je centralizované a spoléhá se na registr proxy, mezipaměť Verdaccio všechny metadata a tarballs jsou staženy v závislosti na poptávce a následně sdílena ve všech projektech.
+* Avoid that any remote registry suddenly returns *HTTP 404* error for tarballs were previously available a.k.a ([left-pad issue](https://www.theregister.co.uk/2016/03/23/npm_left_pad_chaos/)).
+
 
 # Strategie pro rychlejší build
 
@@ -20,15 +21,16 @@ Verdaccio standardně ukládá všechny balíčky do složky `/storage`. Můžet
 
 Pokud máte omezený úložný prostor, možná se budete muset vyhnout tarballs v mezipaměti, povolením `cache` false v každém uplinku se budou ukládat pouze soubory metadat.
 
-    uplinks:
-      npmjs:
-        url: https://registry.npmjs.org/
-        cache: false
-    
+```
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+    cache: false
+```
 
 ## Prodloužení doby vypršení mezipaměti
 
-Verdaccio ve výchozím nastavení čeká 2 minuty na zrušení platnosti metadat mezipaměti před načtením nových informací ze vzdáleného registru.
+ Verdaccio ve výchozím nastavení čeká 2 minuty na zrušení platnosti metadat mezipaměti před načtením nových informací ze vzdáleného registru.
 
 ```yaml
 uplinks:
@@ -38,6 +40,7 @@ uplinks:
 ```
 
 Zvýšení hodnoty `maxage` v každém `uplink` způsobí snížení frekvence dotazování. This might be a valid strategy if you don't update dependencies so often.
+
 
 ## Použití paměti místo pevného disku
 

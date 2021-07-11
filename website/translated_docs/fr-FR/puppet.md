@@ -16,6 +16,10 @@ Dans les deux variantes, il est nécessaire d'appeler explicitement la "classe n
 
 Pour plus d'informations:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Nous sommes à la recherche de collaborateurs actifs pour cette intégration. Si vous êtes intéressé, [référez-vous à ce ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+

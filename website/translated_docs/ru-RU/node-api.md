@@ -22,7 +22,7 @@ Verdaccio can be invoked programmatically. The Node API was introduced after ver
 
 ## Другие способы
 
-* [verdaccio-server](https://github.com/boringame/verdaccio-server) 
+* [verdaccio-server](https://github.com/boringame/verdaccio-server)
 
 ```js
 // js

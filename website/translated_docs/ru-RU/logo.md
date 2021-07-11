@@ -11,7 +11,7 @@ title: "Логотип"
 
 ## Логотип
 
-**С текстом**
+__С текстом__
 
 ![логотип маленький с текстом](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ title: "Логотип"
 
 ![логотип большой с текстом](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![логотип svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Без текста**
+__Без текста__
 
 ![логотип маленький](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ title: "Логотип"
 
 ![логотип большой](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![логотип svg форматированный без текста](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Черно-белый
 
@@ -43,9 +45,10 @@ title: "Логотип"
 
 ![логотип чб большой](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![логотип чб svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Баннер
 
@@ -54,3 +57,5 @@ title: "Логотип"
 ![баннер средний](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![баннер большой](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+

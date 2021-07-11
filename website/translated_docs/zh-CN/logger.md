@@ -3,7 +3,7 @@ id: 记录器
 title: "记录器"
 ---
 
-As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs.
+As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs. You can define multiple types of outputs.
 
 ```yaml
 # console output
@@ -23,9 +23,9 @@ Use `SIGUSR2` to notify the application, the log-file was rotated and it needs t
 
 ### 配置
 
-| 属性     | 类型     | 必填 | 范例                                             | 支持  | 描述                |
-| ------ | ------ | -- | ---------------------------------------------- | --- | ----------------- |
-| type   | string | No | [stdout, file]                                 | all | 定义输出              |
-| path   | string | No | verdaccio.log                                  | all | 如果类型为文件，请定义该文件的位置 |
-| format | string | No | [pretty, pretty-timestamped]                   | all | 输出格式              |
-| level  | string | No | [fatal, error, warn, http, info, debug, trace] | all | 详细级别              |
+| 属性     | 类型  | 必填 | 示例                                             | 支持   | 描述                |
+| ------ | --- | -- | ---------------------------------------------- | ---- | ----------------- |
+| type   | 字符串 | 否  | [stdout, file]                                 | 任意路径 | 定义输出              |
+| path   | 字符串 | 否  | verdaccio.log                                  | 任意路径 | 如果类型为文件，请定义该文件的位置 |
+| format | 字符串 | 否  | [pretty, pretty-timestamped]                   | 任意路径 | 输出格式              |
+| level  | 字符串 | 否  | [fatal, error, warn, http, info, debug, trace] | 任意路径 | 详细级别              |

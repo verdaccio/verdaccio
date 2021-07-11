@@ -11,7 +11,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ## Symboles
 
-**Avec texte**
+__Avec texte__
 
 ![petit symbole avec texte](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![grand symbole avec texte](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbole svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Aucun texte**
+__Aucun texte__
 
 ![petit symbole](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![grand symbole](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbole de format svg sans texte](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Noir &Blanc
 
@@ -43,9 +45,10 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![symbole noir et blanc grand](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![symbole noir et blanc svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Bannière
 
@@ -54,3 +57,5 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 ![bannière moyenne](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![grande bannière](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+

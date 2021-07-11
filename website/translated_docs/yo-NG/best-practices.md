@@ -46,34 +46,34 @@ If you want to use a modified version of some public package `foo`, you can just
 There's two options here:
 
 1. O fẹ ṣẹda **fork** to daduro ati ki o da imuṣiṣẹpọ pẹlu gbogbogbo duro.
-    
-    If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Se afikun iwọle to daduro fun akopọ yi si `config.yaml` ki o si yọ `npmjs` kuro ninu akojọ `proxy` ki o wa tun olupese bẹrẹ.
-    
-    ```yaml
-    packages:
+
+   If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Se afikun iwọle to daduro fun akopọ yi si `config.yaml` ki o si yọ `npmjs` kuro ninu akojọ `proxy` ki o wa tun olupese bẹrẹ.
+
+   ```yaml
+   packages:
      "@my-company/*":
        access: $all
        publish: $authenticated
        # comment it out or leave it empty
        # proxy:
-    ```
-    
-    When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
+   ```
+
+   When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
 
 2. You want to temporarily use your version, but return to the public one as soon as it's updated.
-    
-    Lati le yago fun awọn atako ti ẹya, **o yẹ ki o lo afikun ipari ti iṣaaju agbejade to jẹ akanṣe ti awẹ ẹya tokan**. Fun apẹẹrẹ, ti akopọ gbogbogbo ba jẹ ẹya 0.1.2, o le sagbega si `0.1.3-my-temp-fix`.
-    
-    ```bash
+
+   In order to avoid version conflicts, **you should use a custom pre-release suffix of the next patch version**. Fun apẹẹrẹ, ti akopọ gbogbogbo ba jẹ ẹya 0.1.2, o le sagbega si `0.1.3-my-temp-fix`.
+
+   ```bash
     npm version 0.1.3-my-temp-fix
     npm publish --tag fix --registry http://localhost:4873
-    ```
-    
-    Ni ọna yii akopọ rẹ ma jẹ lilo titi ti oulowo olutọju rẹ yoo fi ṣe imudojuiwọn akopọ gbogbogbo ti ara rẹ si `0.1.3`.
+   ```
+
+   Ni ọna yii akopọ rẹ ma jẹ lilo titi ti oulowo olutọju rẹ yoo fi ṣe imudojuiwọn akopọ gbogbogbo ti ara rẹ si `0.1.3`.
 
 ## Aabo
 
-> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 Additonal reading:
 

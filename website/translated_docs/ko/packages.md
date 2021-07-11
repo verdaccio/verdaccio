@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -182,6 +182,7 @@ In the previous example, the behaviour would be described:
 * all users can publish the `jquery` package, but only the user `root` would be able to unpublish any version.
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
+
 
 ### Configuration
 

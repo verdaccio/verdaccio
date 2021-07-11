@@ -10,6 +10,7 @@ title: "Кто использует Verdaccio?"
 * [SheetJS](https://sheetjs.com/)
 * [Satispay](https://www.satispay.com/)
 
+
 ### Open Source проекты
 
 > **Расскажите про другие OSS проекты, использующие Verdaccio.**
@@ -30,3 +31,5 @@ title: "Кто использует Verdaccio?"
 #### Readme Recommendations
 
 * [react-native-cli](https://github.com/react-native-community/react-native-cli/blob/master/CONTRIBUTING.md)
+
+

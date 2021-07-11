@@ -31,7 +31,6 @@ The `cd` command sends you to the home directory of the Verdaccio user. Make sur
 ## Ouvir a todos os endereços
 
 Se você quiser ouvir cada endereço externo, defina a diretiva de escuta (listening) na configuração para:
-
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
@@ -71,8 +70,9 @@ $ crontab -e
 
 This might ask you to choose an editor. Pick your favorite and proceed. Add the following entry to the file:
 
-    @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
-    
+```
+@reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
+```
 
 The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
 
@@ -84,9 +84,7 @@ $ which verdaccio
 ## Utilizar o systemd
 
 Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it:
-
 ```bash
 $ sudo cp /usr/lib/node_modules/verdaccio/systemd/verdaccio.service /lib/systemd/system/ && sudo systemctl daemon-reload
 ```
-
 This unit assumes you have configuration in `/etc/verdaccio/config.yaml` and store data in `/var/lib/verdaccio`, so either move your files to those locations or edit the unit.

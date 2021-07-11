@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -183,17 +183,18 @@ In the previous example, the behaviour would be described:
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
+
 ### Konfigurisanje
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 
-| Svojstvo | Tip    | Potrebno | Primer         | Podrška        | Opis                                                                |
-| -------- | ------ | -------- | -------------- | -------------- | ------------------------------------------------------------------- |
-| access   | string | No       | $all           | all            | definiše grupe kojima je dozvoljen pristup paketu                   |
-| publish  | string | No       | $authenticated | all            | definiše grupe kojima je dozvoljeno da publikuju                    |
-| proxy    | string | No       | npmjs          | all            | limitira look ups za specifični uplink                              |
-| storage  | string | No       | string         | `/some-folder` | kreira pod-folder unutrar storage foldera za svaki pristup paketima |
+| Svojstvo | Tip    | Neophodno | Primer         | Podrška        | Opis                                                                |
+| -------- | ------ | --------- | -------------- | -------------- | ------------------------------------------------------------------- |
+| access   | string | Ne        | $all           | all            | definiše grupe kojima je dozvoljen pristup paketu                   |
+| publish  | string | Ne        | $authenticated | all            | definiše grupe kojima je dozvoljeno da publikuju                    |
+| proxy    | string | Ne        | npmjs          | all            | limitira look ups za specifični uplink                              |
+| storage  | string | Ne        | string         | `/some-folder` | kreira pod-folder unutrar storage foldera za svaki pristup paketima |
 
-> Naglašavamo da ne preporučujemo da i dalje koristite **allow_access**/**allow_publish** i **proxy_access**, jer će navedene uskoro biti uklonjene. Molimo Vas da umesto toga koristite skraćene verzije (**access**/**publish**/**proxy**).
+> We higlight that we recommend to not use **allow_access**/**allow_publish** and **proxy_access** anymore, those are deprecated and will soon be removed, please use the short version of each of those (**access**/**publish**/**proxy**).
 
 If you want more information about how to use the **storage** property, please refer to this [comment](https://github.com/verdaccio/verdaccio/issues/1383#issuecomment-509933674).

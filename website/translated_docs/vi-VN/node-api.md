@@ -5,7 +5,7 @@ title: "Node API"
 
 Verdaccio can be invoked programmatically. The Node API was introduced after version `verdaccio@3.0.0`.
 
-## Cách sử dụng
+## Usage
 
 #### Programmatically
 

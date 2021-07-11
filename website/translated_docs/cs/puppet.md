@@ -16,6 +16,10 @@ In both variants you have to explicitely call "class nodejs {}" in your puppet s
 
 Další informace:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > We are looking for active contributors for this integration, if you are interested [refers to this ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+

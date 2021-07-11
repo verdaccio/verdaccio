@@ -3,7 +3,7 @@ id: installation
 title: "Installation"
 ---
 
-Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites.
+Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites. To install it, you need a few basic prerequisites.
 
 ## Prerequisites
 
@@ -11,17 +11,17 @@ Verdaccio is a multiplatform web application. To install it, you need a few basi
 
 2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and berry).
 
-> We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older.
+> We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older. Don't support `npm@5.x` or older.
 
-1. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`.
+3. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`. We actually support `Chrome, Firefox, Edge`.
 
 > Verdaccio will support latest Node.js version according the [Node.js Release Working Group](https://github.com/nodejs/Release) recomendations.
 
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
+Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide). Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
 ### Quick Introduction
 
-Learn the basics before getting started, how to install, where is the location of the configuration file and more. <iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+Learn the basics before getting started, how to install, where is the location of the configuration file and more. <iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 ## Installing the CLI
 
@@ -92,7 +92,7 @@ Or a `publishConfig` in your `package.json`
 
 ## Create Your Own Private NPM Package Tutorial
 
-If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio. <iframe width="560" height="315" src="https://www.youtube.com/embed/Co0RwdpEsag?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio. <iframe width="560" height="315" src="https://www.youtube.com/embed/Co0RwdpEsag?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 ## Docker Image
 

@@ -154,7 +154,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Unpublishing Packages
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -182,6 +182,7 @@ In the previous example, the behaviour would be described:
 * only authenticated users can publish `my-company-*` packages, but **nobody would be allowed to unpublish them**.
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
+
 ### Konfiguracja
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
@@ -190,7 +191,7 @@ You can define mutiple `packages` and each of them must have an unique `Regex`. 
 | ---------- | ----------- | -------- | -------------- | -------------- | ------------------------------------------------------------------------- |
 | access     | ciąg znaków | Nie      | $all           | wszystkie      | define groups allowed to access the package                               |
 | publish    | ciąg znaków | Nie      | $authenticated | wszystkie      | define groups allowed to publish                                          |
-| proxy      | ciąg znaków | Nie      | npmjs          | wszystko       | limit look ups for specific uplink                                        |
+| proxy      | ciąg znaków | Nie      | npmjs          | wszystkie      | limit look ups for specific uplink                                        |
 | magazyn    | ciąg znaków | Nie      | ciąg znaków    | `/some-folder` | it creates a subfolder whithin the storage folder for each package access |
 
 > Podkreślamy, że zalecamy niekorzystanie dłużej z **allow_access**/**allow_publish**i** proxy_access**, są one nieaktualne i wkrótce zostaną usunięte. Użyj skróconej wersji każdego z tych (**access**/**publish**/**proxy**).

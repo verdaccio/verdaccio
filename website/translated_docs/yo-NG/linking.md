@@ -17,10 +17,11 @@ O le ṣe asopọ awọn ibi iforukọsilẹ ọlọpọlọpọ, iwe wọnyii y
 
 Ọna ara lati wọle si awọn ibi iforukọsilẹ ọlọpọlọpọ nipa lilo `.npmrc` jẹ ilana ẹya ara bi atẹle yii:
 
-    // .npmrc
-    registry=https://registry.npmjs.org
-    @mycompany:registry=http://localhost:4873
-    
+```
+// .npmrc
+registry=https://registry.npmjs.org
+@mycompany:registry=http://localhost:4873
+```
 
 Ọna yii fẹsẹmulẹ, ṣugbọn o wa pẹlu ọpọlọpọ awọn akude:
 
@@ -75,7 +76,8 @@ Verdaccio n ṣe atilẹyin fun awọn ibi iforukọsilẹ ọlọpọlọpọ l
 Nini Ibi iforukọsilẹ Alaisilorila kikun jẹ eyi to ṣeeṣe patapata. Ti o ko ba fẹ asopọmọ eyikeyi pẹlu awọn idari ti ita o le ṣe awọn wọnyii.
 
 ```yaml
-<br />auth:
+
+auth:
   htpasswd:
     file: ./htpasswd
 uplinks:

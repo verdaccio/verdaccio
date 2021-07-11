@@ -16,6 +16,10 @@ title: "Puppet"
 
 Для получения дальнейшей информации:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Мы ищем активных контрибьюторов для этого раздела, если вы заинтересовались, [посмотрите этот тикет](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+

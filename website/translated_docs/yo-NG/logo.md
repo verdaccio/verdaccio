@@ -11,7 +11,7 @@ Irulogo jẹ didalara nipasẹ **[Breno Rodrigues](https://github.com/rodriguesb
 
 ## Awọn aami
 
-**Pẹlu ọrọ**
+__Pẹlu ọrọ__
 
 ![aami bintin pẹlu ọrọ](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Irulogo jẹ didalara nipasẹ **[Breno Rodrigues](https://github.com/rodriguesb
 
 ![aami nla pẹlu ọrọ](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![aami svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Ko si ọrọ**
+__Ko si ọrọ__
 
 ![aami bintin](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Irulogo jẹ didalara nipasẹ **[Breno Rodrigues](https://github.com/rodriguesb
 
 ![aami nla](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![aami ọna svg ko si ọrọ](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Dudu&Funfun
 
@@ -43,9 +45,10 @@ Irulogo jẹ didalara nipasẹ **[Breno Rodrigues](https://github.com/rodriguesb
 
 ![aami bw nla](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![aami bw svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Bana
 
@@ -54,3 +57,5 @@ Irulogo jẹ didalara nipasẹ **[Breno Rodrigues](https://github.com/rodriguesb
 ![baba alabọde](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![bana nla](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+

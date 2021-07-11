@@ -31,6 +31,7 @@ I won't have access to such dependencies and they also won't be visible via the 
 ```bash
 ➜ npm install my-company-core
 npm ERR! code E403
+npm ERR! 403 Forbidden: webpack-1@latest code E403
 npm ERR! 403 Forbidden: webpack-1@latest
 ```
 
@@ -40,6 +41,6 @@ or with `yarn`:
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
-[1/4] 
+[1/4] 🔍  Resolving packages...
 error Ocurrió un error inesperado: "http://localhost:5555/webpack-1: no se les permite acceder al paquete my-company-core a usuarios no registrados".
 ```

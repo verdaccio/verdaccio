@@ -11,7 +11,7 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 ## Simboli
 
-**Con testo**
+__Con testo__
 
 ![simbolo piccolo con testo](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 ![simbolo grande con testo](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![simbolo svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Senza testo**
+__Senza testo__
 
 ![simbolo piccolo](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 ![simbolo grande](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![formato svg simbolo senza testo](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Nero&Bianco
 
@@ -43,9 +45,10 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 
 ![simbolo bianco e nero grande](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![simbolo bianco e nero svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Banner
 
@@ -54,3 +57,5 @@ Uno speciale ringraziamento a *[@Lisapressmar](https://github.com/Lisapressmar)*
 ![banner medio](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![banner grande](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+

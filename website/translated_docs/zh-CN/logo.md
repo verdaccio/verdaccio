@@ -11,7 +11,7 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ## 标识
 
-**带文本**
+__带文本__
 
 ![带文本的小标识](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![带文本的大标识](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg 标识](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**无文本**
+__无文本__
 
 ![小标识](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![大标识](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![无文本 svg 格式标识](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### 黑白
 
@@ -43,9 +45,10 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 
 ![大 bw 标识](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg bw 标识](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## 横幅
 
@@ -54,3 +57,5 @@ Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her con
 ![中等横幅](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![大横幅](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
