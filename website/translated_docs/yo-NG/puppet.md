@@ -16,6 +16,10 @@ Ninu awọn orisi mejeeji o ni lati pe ipe "kilasi nodejs {}" kedere ninu iwe af
 
 Fun alaye siwaju sii:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > A n wa awọn oluranlọwọ ti n ṣiṣe lọwọ fun imuṣiṣẹpọ yii, ti o ba nifẹsi [tọka si tikẹti yi](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+
