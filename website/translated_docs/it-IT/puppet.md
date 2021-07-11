@@ -16,6 +16,10 @@ In entrambe le varianti è necessario chiamare esplicitamente i "class nodejs {}
 
 Per ulteriori informazioni:
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > Stiamo cercando collaboratori attivi per questa integrazione, se sei interessato [ fai riferimento a questo ticket](https://github.com/verdaccio/puppet-verdaccio/issues/11).
+
+
+
+
