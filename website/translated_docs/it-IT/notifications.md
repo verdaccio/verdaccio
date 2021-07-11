@@ -48,12 +48,13 @@ Usiamo [Handlebars](https://handlebarsjs.com/) come template engine principale.
 
 ### Esempi di formato
 
-    # itera tutte le versioni
-    {{ name }}{{#each versions}} v{{version}}{{/each}}
-    
-    # pacchetto publisher e `dist-tag` pubblicati
-    {{ publisher.name }} has published {{ publishedPackage }}
-    
+```
+# itera tutte le versioni
+{{ name }}{{#each versions}} v{{version}}{{/each}}
+
+# pacchetto publisher e `dist-tag` pubblicati
+{{ publisher.name }} has published {{ publishedPackage }}
+```
 
 ### Proprietà
 
@@ -67,54 +68,56 @@ Elenco delle proprietà accessibili tramite template
 
 Pacchetto metadata al quale il template ha accesso
 
-    {
-        "_id": "@test/pkg1",
-        "name": "@test/pkg1",
-        "description": "",
-        "dist-tags": {
-            "beta": "1.0.54"
-        },
-        "versions": {
-            "1.0.54": {
-                "name": "@test/pkg1",
-                "version": "1.0.54",
-                "description": "some description",
-                "main": "index.js",
-                "scripts": {
-                    "test": "echo \"Error: no test specified\" && exit 1"
-                },
-                "keywords": [],
-                "author": {
-                    "name": "Author Name",
-                    "email": "author@domain.com"
-                },
-                "license": "MIT",
-                "dependencies": {
-                    "webpack": "4.12.0"
-                },
-                "readmeFilename": "README.md",
-                "_id": "@ test/pkg1@1.0.54",
-                "_npmVersion": "6.1.0",
-                "_nodeVersion": "9.9.0",
-                "_npmUser": {},
-                "dist": {
-                    "integrity": "sha512-JlXWpLtMUBAqvVZBvH7UVLhXkGE1ctmXbDjbH/l0zMuG7wVzQ7GshTYvD/b5C+G2vOL2oiIS1RtayA/kKkTwKw==",
-                    "shasum": "29c55c52c1e76e966e706165e5b9f22e32aa9f22",
-                    "tarball": "http://localhost:4873/@test/pkg1/-/@test/pkg1-1.0.54.tgz"
-                }
+```
+{
+    "_id": "@test/pkg1",
+    "name": "@test/pkg1",
+    "description": "",
+    "dist-tags": {
+        "beta": "1.0.54"
+    },
+    "versions": {
+        "1.0.54": {
+            "name": "@test/pkg1",
+            "version": "1.0.54",
+            "description": "some description",
+            "main": "index.js",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "keywords": [],
+            "author": {
+                "name": "Author Name",
+                "email": "author@domain.com"
+            },
+            "license": "MIT",
+            "dependencies": {
+                "webpack": "4.12.0"
+            },
+            "readmeFilename": "README.md",
+            "_id": "@ test/pkg1@1.0.54",
+            "_npmVersion": "6.1.0",
+            "_nodeVersion": "9.9.0",
+            "_npmUser": {},
+            "dist": {
+                "integrity": "sha512-JlXWpLtMUBAqvVZBvH7UVLhXkGE1ctmXbDjbH/l0zMuG7wVzQ7GshTYvD/b5C+G2vOL2oiIS1RtayA/kKkTwKw==",
+                "shasum": "29c55c52c1e76e966e706165e5b9f22e32aa9f22",
+                "tarball": "http://localhost:4873/@test/pkg1/-/@test/pkg1-1.0.54.tgz"
             }
-        },
-        "readme": "# test",
-        "_attachments": {
-            "@test/pkg1-1.0.54.tgz": {
-                "content_type": "application/octet-stream",
-                "data": "H4sIAAAAAAAAE+y9Z5PjyJIgOJ ...",
-                "length": 33112
-            }
-        },
-        "time": {}
-    }
-    
+        }
+    },
+    "readme": "# test",
+    "_attachments": {
+        "@test/pkg1-1.0.54.tgz": {
+            "content_type": "application/octet-stream",
+            "data": "H4sIAAAAAAAAE+y9Z5PjyJIgOJ ...",
+            "length": 33112
+        }
+    },
+    "time": {}
+}
+```
+
 
 ### Publisher
 
@@ -122,21 +125,23 @@ You can get access to the package publisher information in the `content` of a we
 
 Vedi sotto il tipo di oggetto `publisher`:
 
-    {
-      name: string,
-      groups: string[],
-      real_groups: string[]
-    }
-    
+```
+{
+  name: string,
+  groups: string[],
+  real_groups: string[]
+}
+```
 
 Un esempio:
 
-    notify:
-      method: POST
-      headers: [{'Content-Type': 'application/json'}]
-      endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
-      content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
-    
+```
+notify:
+  method: POST
+  headers: [{'Content-Type': 'application/json'}]
+  endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+  content: '{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}'
+```
 
 **Nota:** non è possibile ottenere le informazioni del publisher se il file `package.json` ha già la proprietà `publisher`.
 
@@ -144,8 +149,9 @@ Un esempio:
 
 Si può accedere al pacchetto che è stato pubblicato con la keyword `{{publishedPackage}}` come segue.
 
-    {{ publisher.name }} has published {{ publishedPackage }}
-    
+```
+{{ publisher.name }} has published {{ publishedPackage }}
+```
 
 ## Configurazione
 
