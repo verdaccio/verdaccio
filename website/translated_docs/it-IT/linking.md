@@ -17,14 +17,15 @@ uplinks:
 
 L'unica maniera per accedere a registri multipli utilizzando il `.npmrc` è la funzione scope come segue:
 
-    // .npmrc
-    registry=https://registry.npmjs.org
-    @mycompany:registry=http://localhost:4873
-    
+```
+// .npmrc
+registry=https://registry.npmjs.org
+@mycompany:registry=http://localhost:4873
+```
 
 Questo approccio è valido, tuttavia presenta diversi svantaggi:
 
-* **Funziona esclusivamente con scope**
+* It **only works with scopes**
 * Lo scope deve coincidere, **non sono permesse Espressioni Regolari**
 * Uno scope **non può raccogliere da registri multipli**
 * Token e password **devono essere definiti all'interno di** `.npmrc` e registrati nel repository.
@@ -75,7 +76,8 @@ Verdaccio supporta registri multipli nel campo `proxy`. La richiesta sarà risol
 È del tutto possibile avere un intero Registro Offline. Se non si desidera alcuna connettività con remoti esterni, è possibile eseguire ciò che segue.
 
 ```yaml
-<br />auth:
+
+auth:
   htpasswd:
     file: ./htpasswd
 uplinks:
