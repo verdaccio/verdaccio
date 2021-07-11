@@ -24,14 +24,16 @@ $> npm install --global verdaccio-activedirectory
 
 `verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
 
-    $> npm install --global sinopia-memory
-    
+```
+$> npm install --global sinopia-memory
+```
 
 ### Конфигурисање
 
 Отворите `config.yaml` фајл и урадите update `auth` секције према следећим упутствима:
 
 Подразумевана конфигурација изгледа овако, јер користимо уграђени `htpasswd` plugin као подразумеван, а који можете зауставити (disable) тако што ћете следеће линије претворити у коментар.
+
 
 ### Authentication Configuration
 
@@ -93,11 +95,13 @@ store:
 Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
 
 ```bash
-<br />$> npm install --global verdaccio-theme-dark
+
+$> npm install --global verdaccio-theme-dark
 
 ```
 
 > The plugin name prefix must start with `verdaccio-theme`, otherwise the plugin won't load.
+
 
 You can load only one theme at a time and pass through options if you need it.
 
@@ -132,4 +136,5 @@ theme:
 * [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin за sinopia.
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin са github oauth web flow.
 
-> Сви sinopia plugins-и, требало би да буду компатибилни са свим будућим верзијама verdaccio-а. Било како било, охрабрујемо наше сараднике да пређу на модерни verdaccio API и да користе префикс као *verdaccio-xx-name*.
+> Сви sinopia plugins-и, требало би да буду компатибилни са свим будућим верзијама verdaccio-а. Anyhow, we encourage contributors to migrate them to the modern verdaccio API and using the prefix as *verdaccio-xx-name*.
+
