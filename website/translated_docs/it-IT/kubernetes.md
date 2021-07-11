@@ -23,8 +23,9 @@ Deploy the Helm [verdaccio/verdaccio](https://github.com/verdaccio/charts) chart
 
 ### Add repository
 
-    helm repo add verdaccio https://charts.verdaccio.org
-    
+```
+helm repo add verdaccio https://charts.verdaccio.org
+```
 
 In questo esempio usiamo `npm` come nome della release:
 
@@ -51,6 +52,7 @@ helm uninstall npm
 ```
 
 **Nota:** questo comando cancella tutte le risorse, inclusi i pacchetti che potresti aver pubblicato precedentemente sul registro.
+
 
 ### Configurazione personalizzata di Verdaccio
 
@@ -92,7 +94,6 @@ helm install npm --set customConfigMap=verdaccio-config verdaccio/verdaccio
 #### NGINX proxy body-size limit
 
 The standard k8s NGINX ingress proxy allows for 1MB for body-size which can be increased by modifying the default deployment options according to the [documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#custom-max-body-size):
-
 ```yaml
 ...
 
@@ -100,8 +101,7 @@ annotations:
 ...
 
     kubernetes.io/proxy-body-size: 20m
-....    
-...
+....
 
 ```
 
