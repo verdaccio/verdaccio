@@ -155,7 +155,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 
 #### Удаление опубликованных пакетов
 
-The property `publish` handle permissions for `npm publish` and `npm unpublish`. But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
+The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property `unpublish` in your package access section, for instance:
 
 ```yalm
 packages:
@@ -182,6 +182,7 @@ In the previous example, the behaviour would be described:
 * все пользователи могут публиковать пакет `jquery`, но только пользователь `root` может удалять любые версии.
 * только аутентифицированные пользователи могут публиковать покаты `my-company-*`, но **никто не может удалять их**.
 * Если `unpublish` закомментировать, то доступ будет определяяться свойством `publish`.
+
 
 ### Конфигурация
 
