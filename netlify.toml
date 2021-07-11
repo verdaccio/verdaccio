@@ -3,7 +3,7 @@
   NPM_FLAGS="--prefix=/dev/null"
 
 [build]
-  command = "pnpm run build"
+  command = "pnpm run website"
   publish = "website/build/website/"
 
 [[plugins]]
