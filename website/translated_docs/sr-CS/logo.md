@@ -11,7 +11,7 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 
 ## Simboli
 
-**Sa tekstom**
+__Sa tekstom__
 
 ![simbol, mali sa tekstom](assets/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -19,11 +19,11 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 
 ![simbol, veliki sa tekstom](assets/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-**SVG**
+__SVG__
 
 ![simbol, svg](assets/logo/symbol/svg/logo-small-header-bottom.svg)
 
-**Bez teksta**
+__Bez teksta__
 
 ![simbol, mali](assets/logo/symbol/png/verdaccio-tiny.png)
 
@@ -31,9 +31,11 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 
 ![simbol, veliki](assets/logo/symbol/png/verdaccio-tiny@3x.png)
 
-**SVG**
+__SVG__
 
 ![svg format, simbol bez teksta](assets/logo/symbol/svg/verdaccio-tiny.svg)
+
+
 
 ### Crno&Belo
 
@@ -43,9 +45,10 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 
 ![simbol, bw, veliki](assets/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-**SVG**
+__SVG__
 
 ![simbol, bw, svg](assets/logo/symbol/svg/verdaccio-blackwhite.svg)
+
 
 ## Baner
 
@@ -54,3 +57,5 @@ Posebno se zahvaljujemo *[@Lisapressmar](https://github.com/Lisapressmar)* za nj
 ![baner, srednji](assets/logo/banner/png/verdaccio-banner@2x.png)
 
 ![baner, veliki](assets/logo/banner/png/verdaccio-banner@3x.png)
+
+
