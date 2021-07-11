@@ -3,7 +3,7 @@ id: plugins
 title: "Plugins"
 ---
 
-Verdaccio is a pluggable application. Verdaccio is a pluggable application. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccio is a pluggable application. Verdaccio is a pluggable application. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage. Verdaccio is a pluggable application. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
 
 There are 5 types of plugins:
 
@@ -22,7 +22,7 @@ There are 5 types of plugins:
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same. In such case the installation is the same.
+`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same. In such case the installation is the same. In such case the installation is the same.
 
 ```
 $> npm install --global sinopia-memory
@@ -70,7 +70,7 @@ auth:
 
 ### Middleware Configuration
 
-This is an example how to set up a middleware plugin. This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+This is an example how to set up a middleware plugin. This is an example how to set up a middleware plugin. This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -82,7 +82,7 @@ middlewares:
 
 ### Storage Configuration
 
-This is an example how to set up a storage plugin. This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+This is an example how to set up a storage plugin. This is an example how to set up a storage plugin. This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
 ```yaml
 store:
@@ -92,7 +92,7 @@ store:
 
 ### Theme Configuration
 
-Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
+Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
 
 ```bash
 
