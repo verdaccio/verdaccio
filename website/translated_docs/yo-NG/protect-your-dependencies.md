@@ -40,6 +40,6 @@ or with `yarn`:
 ➜ yarn add my-company-core
 yarn add v0.24.6
 info No lockfile found.
-[1/4] 
+[1/4] 🔍  Resolving packages...
 aṣiṣe Aṣiṣe airotẹlẹ kan ṣẹlẹ: "http://localhost:5555/webpack-1: awọn olumulo alaiforukọsilẹ ko ni ifayegba lati wọle si akojọ my-company-core".
 ```
