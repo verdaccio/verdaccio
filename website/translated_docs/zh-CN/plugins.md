@@ -3,7 +3,7 @@ id: plugins
 title: "插件"
 ---
 
-Verdaccio is a pluggable application. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
+Verdaccio is a pluggable application. Verdaccio is a pluggable application. It can be extended in many ways, either new authentication methods, adding endpoints or using a custom storage.
 
 There are 5 types of plugins:
 
@@ -14,7 +14,7 @@ There are 5 types of plugins:
 
 > 如果您感兴趣开发自己的插件，请阅读[开发](dev-plugins.md)部分。
 
-## 用法
+## 使用
 
 ### 安装
 
@@ -22,16 +22,18 @@ There are 5 types of plugins:
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same. In such case the installation is the same.
 
-    $> npm install --global sinopia-memory
-    
+```
+$> npm install --global sinopia-memory
+```
 
 ### 配置
 
 打开`config.yaml`文件并按如下说明更新`auth`部分：
 
 默认配置如下所示，由于在默认情况下我们使用一个内置的`htpasswd`插件，我们可以通过注释下面几行代码来禁用它：
+
 
 ### Authentication Configuration
 
@@ -68,7 +70,7 @@ auth:
 
 ### Middleware Configuration
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+This is an example how to set up a middleware plugin. This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -80,7 +82,7 @@ middlewares:
 
 ### Storage Configuration
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+This is an example how to set up a storage plugin. This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
 ```yaml
 store:
@@ -90,14 +92,16 @@ store:
 
 ### Theme Configuration
 
-Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
+Verdaccio allows to replace the User Interface with a custom one, we call it **theme**. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin. By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
 
 ```bash
-<br />$> npm install --global verdaccio-theme-dark
+
+$> npm install --global verdaccio-theme-dark
 
 ```
 
 > The plugin name prefix must start with `verdaccio-theme`, otherwise the plugin won't load.
+
 
 You can load only one theme at a time and pass through options if you need it.
 
@@ -133,3 +137,4 @@ theme:
 * [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env)：基于github oauth web flow的Sinopia认证插件。
 
 > 所有sinopia 插件都应该和所有verdaccio将来版本兼容。 无论如何，我们鼓励贡献者们迁移到 modern verdaccio API并使用 *verdaccio-xx-name*为前缀。
+
