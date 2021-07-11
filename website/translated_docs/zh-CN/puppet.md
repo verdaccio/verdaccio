@@ -5,7 +5,7 @@ title: "Puppet"
 
 在Debian、Ubuntu、Fedora和RedHat中安装verdaccio。
 
-# 用法
+# 使用
 
 在使用Puppet模块安装verdaccio时有两个变量：
 
@@ -16,6 +16,10 @@ title: "Puppet"
 
 详细信息：
 
-<https://github.com/verdaccio/puppet-verdaccio>
+[https://github.com/verdaccio/puppet-verdaccio](https://github.com/verdaccio/puppet-verdaccio)
 
 > 我们正在为这个集成寻找积极的贡献者，如果你感兴趣，请查看[这个票证](https://github.com/verdaccio/puppet-verdaccio/issues/11)。
+
+
+
+
