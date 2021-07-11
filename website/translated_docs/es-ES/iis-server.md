@@ -5,23 +5,24 @@ title: "Instalación en servidor IIS"
 
 These instructions were written for Windows Server 2016, IIS 10, [Node.js 10.15.0](https://nodejs.org/), [iisnode 0.2.26](https://github.com/Azure/iisnode) and [verdaccio 3.11.0](https://github.com/verdaccio/verdaccio).
 
-- Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
-- Crea una nueva carpeta en Explorer en donde deseas alojar a Verdaccio. Por ejemplo `C:\verdaccio`. Guardar [package.json](#packagejson), [start.js](#startjs) y [web.config](#webconfig) en esta carpeta.
-- Crea un nuevo sitio en Administrador de Servicios de Información de Internet. Puedes ponerle el nombre que quieras. Lo llamaré Verdaccio en estas [instrucciones](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Especifica la ruta en donde guardaste todos los archivos y un número de puerto.
-- Regresa a Explorer y otorgale al usuario que ejecuta el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. Si has nombrado el nuevo sitio verdaccio y no cambiaste el grupo de aplicaciones, está funcionado gracias a un ApplicationPoolIdentity y deberías otorgarle al usuario derechos para modificar IIS AppPool\verdaccio mira las instrucciones si necesitas ayuda. (Puede restringir el acceso más adelante si lo deseas para que así solo tenga derechos para modificar en el iisnode y verdaccio\storage)
-- Empieza una línea de comando y ejecuta los comandos que aparecen debajo para descargar verdaccio:
+* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
+* Crea una nueva carpeta en Explorer en donde deseas alojar a Verdaccio. Por ejemplo `C:\verdaccio`. Guardar [package.json](#packagejson), [start.js](#startjs) y [web.config](#webconfig) en esta carpeta.
+* Crea un nuevo sitio en Administrador de Servicios de Información de Internet. Puedes ponerle el nombre que quieras. Lo llamaré Verdaccio en estas [instrucciones](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Especifica la ruta en donde guardaste todos los archivos y un número de puerto.
+* Regresa a Explorer y otorgale al usuario que ejecuta el grupo de aplicaciones derechos para modificar la carpeta que acabas de crear. Si has nombrado el nuevo sitio verdaccio y no cambiaste el grupo de aplicaciones, está funcionado gracias a un ApplicationPoolIdentity y deberías otorgarle al usuario derechos para modificar IIS AppPool\verdaccio mira las instrucciones si necesitas ayuda. (Puede restringir el acceso más adelante si lo deseas para que así solo tenga derechos para modificar en el iisnode y verdaccio\storage)
+* Empieza una línea de comando y ejecuta los comandos que aparecen debajo para descargar verdaccio:
 
-    cd c:\verdaccio
-    npm install
-    
+````
+cd c:\verdaccio
+npm install
+````
 
-- Asegúrate de tener una regla de entrada que acepte Tráfico de TCP al puerto en Windows Firewall
-- ¡Y listo! Ahora puedes navegar al host y al puerto que especificaste
+* Asegúrate de tener una regla de entrada que acepte Tráfico de TCP al puerto en Windows Firewall
+* ¡Y listo! Ahora puedes navegar al host y al puerto que especificaste
 
 Quería que la página `verdaccio` fuese la página predeterminada en IIS así que hice lo siguiente:
 
-- Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" en IIS
-- Establecí los enlaces a "http", dirección de ip "All Unassigned" en el puerto 80, ok cualquier advertencia o carácter de comando
+* Detuve el "Sitio Web Predeterminado" y solo empiezo el sitio "verdaccio" en IIS
+* Establecí los enlaces a "http", dirección de ip "All Unassigned" en el puerto 80, ok cualquier advertencia o carácter de comando
 
 Estas instrucciones se basan en [Anfitrión Sinopia en IIS en Windows](https://gist.github.com/HCanber/4dd8409f79991a09ac75). Tuve que hacer pequeños ajustes a mi configuración web como se puede ver debajo pero puedes encontrar el original del enlace mencionado el cual funciona mejor
 
@@ -29,7 +30,7 @@ Un archivo de configuración predeterminado será creado `c:\verdaccio\verdaccio
 
 ### package.json
 
-```json
+````json
 {
   "name": "iisnode-verdaccio",
   "version": "1.0.0",
@@ -39,25 +40,25 @@ Un archivo de configuración predeterminado será creado `c:\verdaccio\verdaccio
     "verdaccio": "^3.11.0"
   }
 }
-```
+````
 
 ### start.js
 
-```bash
+````bash
 process.argv.push('-l', 'unix:' + process.env.PORT, '-c', './config.yaml');
 require('./node_modules/verdaccio/build/lib/cli.js');
-```
+````
 
 ### Alternate start.js for Verdaccio versions < v3.0
 
-```bash
+````bash
 process.argv.push('-l', 'unix:' + process.env.PORT);
 require('./node_modules/verdaccio/src/lib/cli.js');
-```
+````
 
 ### web.config
 
-```xml
+````xml
 <configuration>
   <system.webServer>
     <modules>
@@ -104,14 +105,15 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 
   </system.webServer>
 </configuration>
-```
+````
 
 ### Solución de problemas
-
 - **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
+````
+<configuration>
+  <system.webServer>
+    <iisnode enableXFF="true" />
+  </system.webServer>
+</configuration>
+````
 
-    <configuration>
-      <system.webServer>
-        <iisnode enableXFF="true" />
-      </system.webServer>
-    </configuration>
