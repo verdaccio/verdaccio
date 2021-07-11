@@ -1,10 +1,10 @@
 $( document ).ready(function() {
   $('.post .postHeader').before(`<div class="banner">
 
-    <div>Next talk 🥳 at <b>#DevSecCon Germany</b>. <b>RSVP now !!</b></div> 
+    <div>Next talk 🥳 at <b>#React Finland 2021</b></div> 
     <div>
       <p>
-        <a href="https://www.meetup.com/es-ES/devseccon-germany/events/276990087/" id="talk" target="_blank">Protecting my Node.js project of dependency confusion attacks | Juan Picado</a>
+        <a href="https://react-finland.fi/schedule/#techniques" id="talk" target="_blank">Testing the integrity of your React components by publishing in a private registry  | Juan Picado</a>
       </p>
     </div>
     </div>`);
