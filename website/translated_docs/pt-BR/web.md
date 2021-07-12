@@ -39,7 +39,7 @@ i18n:
 
 ### Configuração
 
-| Nome          | Tipo       | Obrigatório | Exemplo                                                       | Suporte       | Descrição                                                                                                                                         |
+| Propriedade   | Tipo       | Obrigatório | Exemplo                                                       | Suporte       | Descrição                                                                                                                                         |
 | ------------- | ---------- | ----------- | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | enable        | boolean    | Não         | true/false                                                    | completo      | habilitar a interface web                                                                                                                         |
 | title         | string     | Não         | Verdaccio                                                     | completo      | Título da página web                                                                                                                              |
@@ -52,5 +52,5 @@ i18n:
 | favicon       | string     | Não         | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                                                      |
 
 > The recommended logo size is `40x40` pixels.
-> 
+
 > The `darkMode` can be enabled via UI and is persisted in the browser local storage. Furthermore, also void `primary_color` and dark cannot be customized.
