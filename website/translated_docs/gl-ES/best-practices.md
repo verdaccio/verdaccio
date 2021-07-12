@@ -33,7 +33,7 @@ Lembre sempre, **a orde de acceso aos paquetes é importante**, os paquetes coin
 
 ### Usando paquetes públicos de npmjs.org
 
-Se non existe un paquete no almacenamento, o servidor tentará buscalo en npmjs.org. Se npmjs.org está desactivado, serve paquetes da caché simulando que non existen outros paquetes. **Verdaccio descargará só o necesario (solicitado polos clientes)** e esta información gardarase na memoria caché, polo que se o cliente solicita o mesmo por segunda vez pódese servir sen pedilo a npmjs.org.
+Se non existe un paquete no almacenamento, o servidor tentará buscalo en npmjs.org. Se npmjs.org está desactivado, serve paquetes da caché simulando que non existen outros paquetes. **Verdaccio will download only what's needed (requested by clients)**, and this information will be cached, so if the client requests the same thing a second time it can be served without asking npmjs.org for it.
 
 **Exemplo:**
 
@@ -46,34 +46,34 @@ Se desexa usar unha versión modificada dalgún paquete público `foo`, só pode
 Aquí hai dúas opcións:
 
 1. Queres crear un **fork** separado e deixar de sincronizar coa versión pública.
-    
-    Se queres facelo, debes modificar o ficheiro de configuración para que Verdaccio xa non realice solicitudes relativas a este paquete a npmjs. Engade unha entrada separada para este paquete a `config.yaml` e elimina `npmjs` da lista `proxy` e reinicia o servidor.
-    
-    ```yaml
-    packages:
+
+   Se queres facelo, debes modificar o ficheiro de configuración para que Verdaccio xa non realice solicitudes relativas a este paquete a npmjs. Engade unha entrada separada para este paquete a `config.yaml` e elimina `npmjs` da lista `proxy` e reinicia o servidor.
+
+   ```yaml
+   packages:
      "@my-company/*":
        access: $all
        publish: $authenticated
        # comment it out or leave it empty
        # proxy:
-    ```
-    
-    Cando publique o seu paquete localmente, **probablemente debería comezar cunha cadea de versión superior á do paquete existente** polo que non entrará en conflito con ese paquete na caché.
+   ```
+
+   Cando publique o seu paquete localmente, **probablemente debería comezar cunha cadea de versión superior á do paquete existente** polo que non entrará en conflito con ese paquete na caché.
 
 2. Quere usar a súa versión temporalmente, pero volva á pública en canto se actualice.
-    
-    Para evitar conflitos de versións, **debes usar un sufixo personalizado de pre-lanzamento da seguinte versión de parche**. Por exemplo, se un paquete público ten a versión 0.1.2, pode cargar `0.1.3-my-temp-fix`.
-    
-    ```bash
+
+   In order to avoid version conflicts, **you should use a custom pre-release suffix of the next patch version**. Por exemplo, se un paquete público ten a versión 0.1.2, pode cargar `0.1.3-my-temp-fix`.
+
+   ```bash
     npm version 0.1.3-my-temp-fix
     npm publish --tag fix --registry http://localhost:4873
-    ```
-    
-    This way your package will be used until its original maintainer updates his public package to `0.1.3`.
+   ```
+
+   This way your package will be used until its original maintainer updates his public package to `0.1.3`.
 
 ## Security
 
-> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 Additonal reading:
 
