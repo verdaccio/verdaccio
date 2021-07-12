@@ -3,7 +3,7 @@ id: reverse-proxy
 title: "Reverse Proxy Setup"
 ---
 
-Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. The following configurations are the most recommended and used ones.
+Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. The following configurations are the most recommended and used ones.
 
 # Apache
 
