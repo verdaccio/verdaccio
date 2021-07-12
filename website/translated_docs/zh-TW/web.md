@@ -35,7 +35,7 @@ i18n:
   web: en-US
 ```
 
-> ⚠️ Only the languages in this [list](https://github.com/verdaccio/ui/tree/master/i18n/translations) are available, feel free to contribute with more. The default one is en-US
+> ⚠️ Only the languages in this [list](https://github.com/verdaccio/ui/tree/master/i18n/translations) are available, feel free to contribute with more. The default one is en-US The default one is en-US
 
 ### Configuration
 
@@ -52,5 +52,5 @@ i18n:
 | favicon       | string     | No       | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
 
 > The recommended logo size is `40x40` pixels.
-> 
-> The `darkMode` can be enabled via UI and is persisted in the browser local storage. Furthermore, also void `primary_color` and dark cannot be customized.
+
+> The `darkMode` can be enabled via UI and is persisted in the browser local storage. Furthermore, also void `primary_color` and dark cannot be customized. Furthermore, also void `primary_color` and dark cannot be customized.
