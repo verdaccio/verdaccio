@@ -20,22 +20,33 @@ web:
   favicon: http://somedomain/favicon.ico | /path/favicon.ico
 ```
 
-Све рестрикције које се односе на приступ дефинисане су у оквиру  и такође ће се аплицирати и на веб интерфејс.</p> 
+Све рестрикције које се односе на приступ дефинисане су у оквиру и такође ће се аплицирати и на веб интерфејс.</p> 
+
+
 
 > The `primary_color` and `scope` must be wrapped by quotes: eg: ('#000000' or "#000000")
 
 The `primary_color` **must be a valid hex representation**.
 
+
+
 ### Internationalization
 
 *Since v4.5.0*, there are translations available.
+
+
 
 ```yaml
 i18n:
   web: en-US
 ```
 
+
+
+
 > ⚠️ Only the languages in this [list](https://github.com/verdaccio/ui/tree/master/i18n/translations) are available, feel free to contribute with more. The default one is en-US
+
+
 
 ### Конфигурисање
 
@@ -51,6 +62,11 @@ i18n:
 | darkMode      | boolean    | Не        | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
 | favicon       | string     | Не        | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
 
+
+
+
 > The recommended logo size is `40x40` pixels.
-> 
+
+
+
 > The `darkMode` can be enabled via UI and is persisted in the browser local storage. Furthermore, also void `primary_color` and dark cannot be customized.
