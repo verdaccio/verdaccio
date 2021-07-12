@@ -17,6 +17,7 @@ Esistono diversi modi di ampliare `verdaccio`, i tipi di estensioni supportati s
 
 The following plugins are valid and in process of incubation.
 
+
 ## Theme Plugin
 
 Il plugin deve restituire una funzione che restituisca una **stringa**. La stringa dovrebbe essere l'ubicazione completa della root dell'interfaccia utente.
@@ -41,6 +42,7 @@ module.exports = (...arguments) => {
 
 Since [`4.1.0`](https://github.com/verdaccio/verdaccio/pull/1313)
 
+
 Filter plugins were introduced due a [request](https://github.com/verdaccio/verdaccio/issues/818) in order to be able to filter metadata from uplinks.
 
 More [info in the PR](https://github.com/verdaccio/verdaccio/pull/1161).
@@ -51,12 +53,15 @@ filters:
      filter_file: /path/to/file
 ```
 
+
 ### API
 
 The method `filter_metadata` will allow you to filter metadata that comes from any uplink, it is `Promise` based and has to return the same metadata modified.
 
 > Do not remove properties from the metadata, try to do not mutate rather return a new object.
 
-    interface IPluginStorageFilter<T> extends IPlugin<T> {
-        filter_metadata(packageInfo: Package): Promise<Package>;
-    }
+```
+interface IPluginStorageFilter<T> extends IPlugin<T> {
+    filter_metadata(packageInfo: Package): Promise<Package>;
+}
+```
