@@ -21,10 +21,9 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Configuration
 
-You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
+You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties: They can have the following properties:
 
 | Property      | Type    | Required | Example                                 | Support  | Description                                                                                                                                                              | Default    |
 | ------------- | ------- | -------- | --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |
@@ -42,7 +41,7 @@ You can define mutiple uplinks and each of them must have an unique name (key). 
 
 #### Auth property
 
-The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
+The `auth` property allows you to use an auth token with an uplink. Using the default environment variable: Using the default environment variable:
 
 ```yaml
 uplinks:
