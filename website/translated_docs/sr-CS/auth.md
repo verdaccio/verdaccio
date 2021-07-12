@@ -61,8 +61,8 @@ In order to simplify the setup, `verdaccio` uses a plugin based on `htpasswd`. S
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maksimalni broj korisnika koji se može registovati, podrazumevano je beskonačno, "+inf".
-    # Ovo možete podesiti na -1 kako biste onemogućili registrovanje.
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to -1 to disable registration.
     #max_users: 1000
 ```
 
