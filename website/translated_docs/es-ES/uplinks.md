@@ -21,14 +21,13 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Configuración
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
 
 | Propiedad     | Tipo    | Requerido | Ejemplo                               | Soporte  | Descripción                                                                                                                                                              | Por Defecto |
 | ------------- | ------- | --------- | ------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| url           | string  | Yes       | https://registry.npmjs.org/           | all      | El dominio del registro                                                                                                                                                  | npmjs       |
+| url           | string  | Si        | https://registry.npmjs.org/           | all      | El dominio del registro                                                                                                                                                  | npmjs       |
 | ca            | string  | No        | ~./ssl/client.crt'                    | all      | Ubicación del certificado SSL                                                                                                                                            | Desactivado |
 | timeout       | string  | No        | 100ms                                 | all      | timeout por petición                                                                                                                                                     | 30s         |
 | maxage        | string  | No        | 10m                                   | all      | the time threshold to the cache is valid                                                                                                                                 | 2m          |
