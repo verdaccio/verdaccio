@@ -5,7 +5,7 @@ title: "IIS server上进行安装"
 
 These instructions were written for Windows Server 2016, IIS 10, [Node.js 10.15.0](https://nodejs.org/), [iisnode 0.2.26](https://github.com/Azure/iisnode) and [verdaccio 3.11.0](https://github.com/verdaccio/verdaccio).
 
-* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
+* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode. Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 * 在要承载verdaccio的资源管理器中创建一个新文件夹。 例如 `C:\verdaccio`。 在此文件夹里保存 [package.json](#packagejson), [start.js](#startjs) 和 [web.config](#webconfig) 。
 * 在因特网信息服务管理器中创建一个新站点。 您可以随意给它命名。 我将在这些[用法说明](http://www.iis.net/learn/manage/configuring-security/application-pool-identities)中称它为verdaccio。 指定保存所有文件和端口号的路径。
 * 返回到资源管理器中，把对您刚创建的文件夹的修改权限赋予给运行此应用程序池的用户。 如果您已命名此站点为verdaccio，并没有修改该应用程序池，它正在ApplicationPoolIdentity下运行，您就应该给用户 IIS AppPool\verdaccio修改权限。如果您需要帮助的话，请参照用法说明。 （如果需要，可以在日后限制访问，这样它只有 iisnode 和verdaccio\storage的修改权限）
@@ -132,11 +132,39 @@ require('./node_modules/verdaccio/src/lib/cli.js');
     </security>
 
   </system.webServer>
+</configuration> These should
+        never be rewritten -->
+        <rule name="iisnode" stopProcessing="true">
+            <match url="iisnode*" />
+            <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            <action type="None" />
+        </rule>
+
+        <!-- Rewrite all other urls in order for verdaccio to handle these -->
+        <rule name="verdaccio">
+            <match url="/*" />
+            <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            <action type="Rewrite" url="start.js" />
+        </rule>
+      </rules>
+    </rewrite>
+
+    <!-- exclude node_modules directory and subdirectories from serving
+    by IIS since these are implementation details of node.js applications -->
+    <security>
+      <requestFiltering>
+        <hiddenSegments>
+          <add segment="node_modules" />
+        </hiddenSegments>
+      </requestFiltering>
+    </security>
+
+  </system.webServer>
 </configuration>
 ````
 
 ### 故障排除
-- **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
+- **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
 ````
 Install IIS Install <a href="https://github.com/Azure/iisnode">iisnode</a>. Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 ````
