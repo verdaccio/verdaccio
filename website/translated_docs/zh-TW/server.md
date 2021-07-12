@@ -26,7 +26,7 @@ $ sudo su -s /bin/bash verdaccio
 $ cd
 ```
 
-The `cd` command sends you to the home directory of the Verdaccio user. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs.
+The `cd` command sends you to the home directory of the Verdaccio user. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs.
 
 ## Listening on all addresses
 
@@ -38,7 +38,7 @@ listen: 0.0.0.0:4873
 
 If you are running Verdaccio in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
 
-> Configure Apache or nginx? Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Configure Apache or nginx? Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md) Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
 
 ## Keeping Verdaccio running forever
 
@@ -50,7 +50,7 @@ First install `forever` globally:
 $ sudo npm install -g forever
 ```
 
-Make sure you've run Verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start Verdaccio: You can then use the following command to start Verdaccio:
+Make sure you've run Verdaccio at least once to generate the config file and write down the created admin user. You can then use the following command to start Verdaccio: You can then use the following command to start Verdaccio: You can then use the following command to start Verdaccio:
 
 ```bash
 $ forever start `which verdaccio`
@@ -74,7 +74,7 @@ This might ask you to choose an editor. Pick your favorite and proceed. Add the 
 @reboot /usr/bin/forever start /usr/lib/node_modules/verdaccio/bin/verdaccio
 ```
 
-The locations may vary depending on your server setup. The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
+The locations may vary depending on your server setup. The locations may vary depending on your server setup. The locations may vary depending on your server setup. If you want to know where your files are you can use the 'which' command:
 
 ```bash
 $ which forever
@@ -83,7 +83,7 @@ $ which verdaccio
 
 ## Using systemd
 
-Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it: Verdaccio installation has systemd unit, you only need to copy it:
+Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it: Verdaccio installation has systemd unit, you only need to copy it: Verdaccio installation has systemd unit, you only need to copy it:
 ```bash
 $ sudo cp /usr/lib/node_modules/verdaccio/systemd/verdaccio.service /lib/systemd/system/ && sudo systemctl daemon-reload
 ```
