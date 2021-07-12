@@ -3,7 +3,7 @@ id: installation
 title: "Installation"
 ---
 
-Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites. To install it, you need a few basic prerequisites.
+Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites. To install it, you need a few basic prerequisites. To install it, you need a few basic prerequisites.
 
 ## Prerequisites
 
@@ -11,13 +11,13 @@ Verdaccio is a multiplatform web application. To install it, you need a few basi
 
 2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and berry).
 
-> We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older. Don't support `npm@5.x` or older.
+> We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older. Don't support `npm@5.x` or older. Don't support `npm@5.x` or older.
 
-3. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`. We actually support `Chrome, Firefox, Edge`.
+3. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`. We actually support `Chrome, Firefox, Edge`.
 
 > Verdaccio will support latest Node.js version according the [Node.js Release Working Group](https://github.com/nodejs/Release) recomendations.
 
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide). Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
+Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide). Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide). Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
 ### Quick Introduction
 
