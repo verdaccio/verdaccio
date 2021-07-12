@@ -31,7 +31,8 @@ We use the **$XDG_DATA_HOME** environment by variable default to locate the stor
 
 ## Localização padrão da base de dados
 
-O local do arquivo de banco de dados padrão está no local de armazenamento. A partir da versão 4.0.0, o nome do arquivo de banco de dados será **.verdaccio-db.json** para uma nova instalação do Verdaccio. Ao atualizar um servidor Verdaccio existente, o nome do arquivo permanecerá **.sinopia-db.json **.
+O local do arquivo de banco de dados padrão está no local de armazenamento. A partir da versão 4.0.0, o nome do arquivo de banco de dados será **.verdaccio-db.json** para uma nova instalação do Verdaccio. When upgrading an existing Verdaccio server, the file name will remain **.sinopia-db.json**.
+
 
 ## Environment variables
 
