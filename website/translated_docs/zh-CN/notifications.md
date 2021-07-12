@@ -3,7 +3,7 @@ id: 通知
 title: "通知"
 ---
 
-Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. This is currently only active for the `npm publish` command. This is currently only active for the `npm publish` command.
+Notify was built primarily to use with Slack's Incoming webhooks, but will also deliver a simple payload to any endpoint. This is currently only active for the `npm publish` command. This is currently only active for the `npm publish` command. This is currently only active for the `npm publish` command.
 
 ## 使用
 
