@@ -3,7 +3,7 @@ id: reverse-proxy（逆向代理服务器）
 title: "逆向代理服务器设置"
 ---
 
-Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. The following configurations are the most recommended and used ones.
+Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. Using a reverse proxy is a common practice. The following configurations are the most recommended and used ones. The following configurations are the most recommended and used ones.
 
 # Apache
 
