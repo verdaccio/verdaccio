@@ -69,6 +69,6 @@ auth:
 | Propriedade | Tipo   | Obrigatório | Exemplo    | Suporte  | Descrição                                         |
 | ----------- | ------ | ----------- | ---------- | -------- | ------------------------------------------------- |
 | file        | string | Sim         | ./htpasswd | completo | arquivo que hospeda as credenciais criptografadas |
-| max_users   | número | Não         | 1000       | todos    | define o limite de usuários                       |
+| max_users   | número | Não         | 1000       | completo | define o limite de usuários                       |
 
 In case you decide to prevent users from signing up themselves, you can set `max_users: -1`.
