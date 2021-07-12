@@ -36,7 +36,7 @@ The following sections explain what each property means and their different opti
 
 ### Ibi ipamọ
 
-Ni aaye ibi ipamọ atilẹwa. **Verdaccio ni atilẹwa da lori eto faili ibilẹ**.
+Is the location of the default storage. **Verdaccio is by default based on local file system**.
 
 ```yaml
 storage: ./storage
@@ -69,20 +69,21 @@ Bulọọku aabo fayegba ọ lati ṣe aami ibuwọlu naa ni akanṣe. To enable
 
 Iṣeto naa jẹ pinpin si abala meji, `api` ati `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
-    security:
-      api:
-        legacy: true
-        jwt:
-          sign:
-            expiresIn: 29d
-          verify:
-            someProp: [value]
-       web:
-         sign:
-           expiresIn: 7d # 7 days by default
-         verify:
-            someProp: [value]
-    
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+        someProp: [value]
+```
 
 > A ṣe igbaniyanju to ga lati ko lọ si JWT niwọnti ibuwọlu ijogun (`aes192`) ti wa ni iparun ati pe o ma farasin ni awọn ẹya ọjọ iwaju.
 
@@ -135,7 +136,7 @@ packages:
 
 ### Atẹjade Alaisilorila
 
-By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to *true*.
+By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to _true_.
 
 ```yaml
 publish:
@@ -178,7 +179,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [SSL page](ssl.md).
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol _https://_. For more information about this section read the [SSL page](ssl.md).
 
 ```yaml
 https:
