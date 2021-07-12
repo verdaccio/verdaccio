@@ -39,18 +39,18 @@ i18n:
 
 ### Configuration
 
-| Propriété     | Type                 | Obligatoire | Exemple                                                       | Soutien       | Description                                                                                                              |
-| ------------- | -------------------- | ----------- | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| enable        | booléenne            | Non         | vrai/faux                                                     | tous          | permettre l’affichage de l’interface web                                                                                 |
-| titre         | chaîne de caractères | Non         | Verdaccio                                                     | tous          | Description du titre HTML                                                                                                |
-| gravatar      | booléenne            | Non         | vrai                                                          | `>v4`      | Gravatars will be generated under the hood if this property is enabled                                                   |
-| sort_packages | [asc,desc]           | Non         | asc                                                           | `>v4`      | By default private packages are sorted by ascending                                                                      |
-| logo          | chaîne               | Non         | `/local/path/to/my/logo.png` `http://my.logo.domain/logo.png` | tous          | a URI where logo is located (header logo)                                                                                |
-| primary_color | chaîne               | Non         | "#4b5e40"                                                     | `>4`       | The primary color to use throughout the UI (header, etc)                                                                 |
-| scope         | chaîne               | Non         | @myscope                                                      | `>v3.x`    | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header |
-| darkMode      | booléenne            | Non         | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
-| favicon       | chaîne               | Non         | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
+| Propriété     | Type       | Obligatoire | Exemple                                                       | Soutien       | Description                                                                                                              |
+| ------------- | ---------- | ----------- | ------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| enable        | booléenne  | Non         | vrai/faux                                                     | tous          | permettre l’affichage de l’interface web                                                                                 |
+| titre         | chaîne     | Non         | Verdaccio                                                     | tous          | Description du titre HTML                                                                                                |
+| gravatar      | booléenne  | Non         | vrai                                                          | `>v4`      | Gravatars will be generated under the hood if this property is enabled                                                   |
+| sort_packages | [asc,desc] | Non         | asc                                                           | `>v4`      | By default private packages are sorted by ascending                                                                      |
+| logo          | chaîne     | Non         | `/local/path/to/my/logo.png` `http://my.logo.domain/logo.png` | tous          | a URI where logo is located (header logo)                                                                                |
+| primary_color | chaîne     | Non         | "#4b5e40"                                                     | `>4`       | The primary color to use throughout the UI (header, etc)                                                                 |
+| scope         | chaîne     | Non         | @myscope                                                      | `>v3.x`    | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header |
+| darkMode      | booléenne  | Non         | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
+| favicon       | chaîne     | Non         | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
 
 > The recommended logo size is `40x40` pixels.
-> 
+
 > The `darkMode` can be enabled via UI and is persisted in the browser local storage. Furthermore, also void `primary_color` and dark cannot be customized.
