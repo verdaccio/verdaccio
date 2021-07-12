@@ -21,6 +21,8 @@ Unten finden Sie eine Liste mit Artikeln über Verdaccio. Wenn Sie einen Blog-Be
 * [Wie ich React Js gelernt habe und wie du es kannst...](https://medium.com/verdaccio/how-i-learned-react-js-and-how-you-can-8663f938426c)
 * [Wie bin ich in die Open Source Welt gekommen bin... und das war eine gute Sache!](https://medium.com/@priscilawebdev/how-do-i-fall-in-the-open-source-world-and-that-was-a-nice-thing-b0e85d05490d)
 
+
+
 # Articles / Blogs / Tutorials (nach Sprache)
 
 ### Bemerkenswerte Artikel
@@ -66,15 +68,17 @@ Unten finden Sie eine Liste mit Artikeln über Verdaccio. Wenn Sie einen Blog-Be
 * [搭建离线npm私库——verdaccio](https://www.jishux.com/plus/view-765581-1.html)
 * [[筆記] 建立自己的 npm, 以npm Orgs跟Verdaccio為例](https://medium.com/@ceall8650/%E7%AD%86%E8%A8%98-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-npm-%E4%BB%A5npm-orgs%E8%B7%9Fverdaccio%E7%82%BA%E4%BE%8B-cfb83b2307e6)
 
+
 ### French
 
 * [Installer un registre NPM](https://allons-y.io/wiki/installer-un-registre-npm)
 * [Verdaccio - Un registre de paquets npm](https://blog.yoannfleury.dev/verdaccio-un-registre-de-paquets-npm/)
 
-### Spanish
 
+### Spanish
 * [NPM privado: instalar y configurar Verdaccio](https://www.todojs.com/npm-privado-con-verdaccio/)
 * [NPM privado: 5 razones y 7 recomendaciones para utilizarlo](https://www.todojs.com/npm-privado-5-razones-y-7-recomendaciones/)
+
 
 ### German
 
