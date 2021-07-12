@@ -38,7 +38,7 @@ listen: 0.0.0.0:4873
 
 If you are running Verdaccio in a Amazon EC2 Instance, [you will need set the listen in change your config file](https://github.com/verdaccio/verdaccio/issues/314#issuecomment-327852203) as is described above.
 
-> Configure Apache or nginx? Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
+> Configure Apache or nginx? Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md) Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
 
 ## Keeping Verdaccio running forever
 
