@@ -69,20 +69,21 @@ Il blocco di sicurezza consente di personalizzare la firma del token. To enable 
 
 La configurazione è divisa in due sezioni, `api` e `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
-    security:
-      api:
-        legacy: true
-        jwt:
-          sign:
-            expiresIn: 29d
-          verify:
-            someProp: [value]
-       web:
-         sign:
-           expiresIn: 7d # 7 days by default
-         verify:
-            someProp: [value]
-    
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+        someProp: [value]
+```
 
 > Consigliamo caldamente di migrare su JWT poiché la firma ereditata (`aes192`) è deprecata e non sarà presente nelle versioni future.
 
