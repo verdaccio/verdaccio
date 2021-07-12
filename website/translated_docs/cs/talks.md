@@ -7,9 +7,9 @@ Vyjmenováváme rozhovory o Verdaccio, pokud jste dali rozhovor nebo se chystát
 
 > Do not hesitate to share your content with the community, we encourage you to speak about Verdaccio. Pokud potřebujete pomoci s tím, jak začít, informace nebo zdroje, kontaktujte nás v našem [Chatu Discort](https://chat.verdaccio.org), pomůžeme vám.
 
-## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
-## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 > Poslední sdílený rozhovor je zde vždy zvýrazněn. Pomůžeme vám sdílet váš hlas s komunitou.
 
