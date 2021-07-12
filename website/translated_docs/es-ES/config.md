@@ -42,7 +42,7 @@ Es la localización por defecto del almacenamiento. **Verdaccio esta basado por 
 storage: ./storage
 ```
 
-### Extensiones
+### Plugins
 
 Is the location of the plugin directory. Useful for Docker/Kubernetes-based deployments.
 
@@ -69,20 +69,21 @@ The security block allows you to customise the token signature. To enable a new 
 
 The configuration is separated in two sections, `api` and `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
-    security:
-      api:
-        legacy: true
-        jwt:
-          sign:
-            expiresIn: 29d
-          verify:
-            someProp: [value]
-       web:
-         sign:
-           expiresIn: 7d # 7 days by default
-         verify:
-            someProp: [value]
-    
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+        someProp: [value]
+```
 
 > We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
 
