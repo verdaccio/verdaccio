@@ -3,7 +3,7 @@ id: what-is-verdaccio（verdaccio是什么）
 title: "Verdaccio是什么？"
 ---
 
-Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry** <iframe width="560" height="315" src="https://www.youtube.com/embed/hDIFKzmoCaA?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry** <iframe width="560" height="315" src="https://www.youtube.com/embed/hDIFKzmoCaA?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 ## 源（Registry）是什么？
 
@@ -11,8 +11,9 @@ Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry** <i
 * 提供兼容 npm 客户端**（yarn、npm 或 pnpm）**的接口（API）。
 * 语义版本号（Semantic Versioning）兼容**（semver）**。
 
-    $> verdaccio
-    
+```
+$> verdaccio
+```
 
 ![registry](assets/verdaccio_server.gif)
 
@@ -24,16 +25,18 @@ Verdaccio 是一个 **Node.js**创建的**轻量的私有npm proxy registry** <i
 
 你可以通过在全局环境下设置，让你的所有项目使用上自定义的源（Registry）
 
-    npm set registry http://localhost:4873
-    
+```
+npm set registry http://localhost:4873
+```
 
 或者在命令行中使用 npm 参数 `--registry`（在 yarn 里稍微有些不同）
 
-    npm install lodash --registry http://localhost:4873
-    
-
-    yarn config set registry http://localhost:4873
-    
+```
+npm install lodash --registry http://localhost:4873
+```
+```
+yarn config set registry http://localhost:4873
+```
 
 ## 私有
 
