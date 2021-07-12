@@ -72,6 +72,11 @@ Add a `proxy` section to define the selected registry you want to proxy.
     access: $all
     publish: $authenticated
     proxy: server1 server2
+
+  'webpack':
+    access: $all
+    publish: $authenticated
+    proxy: server1 server2
 ```
 
 Verdaccio supports multiple registries on the `proxy` field. The request will be resolved with the first in the list; if that fails, it will try with the next in the list and so on.
