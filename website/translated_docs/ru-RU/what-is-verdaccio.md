@@ -3,7 +3,7 @@ id: what-is-verdaccio
 title: "Что такое Verdaccio?"
 ---
 
-Verdaccio - это **легкий приватный проксирующий npm-репозиторий**, сделанный на **Node.js** <iframe width="560" height="315" src="https://www.youtube.com/embed/hDIFKzmoCaA?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+Verdaccio - это **легкий приватный проксирующий npm-репозиторий**, сделанный на **Node.js** <iframe width="560" height="315" src="https://www.youtube.com/embed/hDIFKzmoCaA?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 ## What's a registry?
 
@@ -11,8 +11,9 @@ Verdaccio - это **легкий приватный проксирующий np
 * Provide a compatible API with npm clients **(yarn/npm/pnpm)**.
 * Semantic Versioning compatible **(semver)**.
 
-    $> verdaccio
-    
+```
+$> verdaccio
+```
 
 ![реестр](assets/verdaccio_server.gif)
 
@@ -24,16 +25,18 @@ Using Verdaccio with any Node.js package manager client is quite straightforward
 
 You can use a custom registry either by setting it globally for all your projects
 
-    npm set registry http://localhost:4873
-    
+```
+npm set registry http://localhost:4873
+```
 
 or by using it in command line as an argument `--registry` in npm (slightly different in yarn)
 
-    npm install lodash --registry http://localhost:4873
-    
-
-    yarn config set registry http://localhost:4873
-    
+```
+npm install lodash --registry http://localhost:4873
+```
+```
+yarn config set registry http://localhost:4873
+```
 
 ## Приватный
 
