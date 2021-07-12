@@ -21,7 +21,6 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Configurazione
 
 È possibile definire uplink multipli e ognuno di essi deve avere un nome univoco (key). Possono avere le seguenti proprietà:
@@ -36,7 +35,7 @@ uplinks:
 | max_fails     | numero             | No        | 2                                        | tutti    | limite massimo di fallimenti ad ogni richiesta                                                                                                                           | 2                        |
 | cache         | variabile booleana | No        | [vero/falso]                             | >= 2.1   | memorizzare nella cache tutti i tarball remoti in archivio                                                                                                               | vero                     |
 | auth          | elenco             | No        | [vedi sotto](uplinks.md#auth-property)   | >= 2.5   | assegnare l'intestazione 'Autorizzazione' [ ulteriori informazioni](http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules)                          | disabilitato             |
-| headers       | elenco             | No        | autorizzazione: "Bearer SecretJWToken==" | tutti    | elenco di intestazioni personalizzate per l'uplink                                                                                                                       | disabilitato             |
+| intestazioni  | elenco             | No        | autorizzazione: "Bearer SecretJWToken==" | tutti    | elenco di intestazioni personalizzate per l'uplink                                                                                                                       | disabilitato             |
 | strict_ssl    | variabile booleana | No        | [vero/falso]                             | >= 3.0   | Se vero, richiede che i certificati SSL siano validi.                                                                                                                    | vero                     |
 | agent_options | object             | No        | maxSockets: 10                           | >= 4.0.2 | options for the HTTP or HTTPS Agent responsible for managing uplink connection persistence and reuse [more info](https://nodejs.org/api/http.html#http_class_http_agent) | Non predefinito          |
 
