@@ -45,7 +45,7 @@ docker pull verdaccio/verdaccio:4.0.0
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-The last argument defines which image to use. The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
+The last argument defines which image to use. The last argument defines which image to use. The last argument defines which image to use. The above line will pull the latest prebuilt image from dockerhub, if you haven't done that already.
 
 如果您已经用 `verdaccio`作为最后参数[在本地创建一个镜像](#build-your-own-docker-image)。
 
@@ -60,10 +60,10 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
-> if you are running in a server, you might want to add -d to run it in the background
+> if you are running in a server, you might want to add -d to run it in the background Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 > Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default, you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise you will get permission errors at runtime. [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
-Verdaccio 4 provides a new set of environment variables to modify either permissions, port or http protocol. Here the complete list: Here the complete list:
+Verdaccio 4 provides a new set of environment variables to modify either permissions, port or http protocol. Here the complete list: Here the complete list: Here the complete list:
 
 | 属性                    | default          | 描述                                                 |
 | --------------------- | ---------------- | -------------------------------------------------- |
@@ -77,7 +77,7 @@ Verdaccio 4 provides a new set of environment variables to modify either permiss
 
 ### SELinux
 
-If SELinux is enforced in your system, the directories to be bind-mounted in the container need to be relabeled. Otherwise verdaccio will be forbidden from reading those files. Otherwise verdaccio will be forbidden from reading those files.
+If SELinux is enforced in your system, the directories to be bind-mounted in the container need to be relabeled. Otherwise verdaccio will be forbidden from reading those files. Otherwise verdaccio will be forbidden from reading those files. Otherwise verdaccio will be forbidden from reading those files.
 
 ```
  fatal--- cannot open config file /verdaccio/conf/config.yaml: Error: CONFIG: it does not look like a valid config file
@@ -89,7 +89,7 @@ If verdaccio can't read files on a bind-mounted directory and you are unsure, pl
 type=AVC msg=audit(1606833420.789:9331): avc:  denied  { read } for  pid=1251782 comm="node" name="config.yaml" dev="dm-2" ino=8178250 scontext=system_u:system_r:container_t:s0:c32,c258 tcontext=unconfined_u:object_r:user_home_t:s0 tclass=file permissive=0
 ```
 
-`chcon` can change the labels of shared files and directories. `chcon` can change the labels of shared files and directories. To make a directory accessible to containers, change the directory type to `container_file_t`.
+`chcon` can change the labels of shared files and directories. `chcon` can change the labels of shared files and directories. To make a directory accessible to containers, change the directory type to `container_file_t`. `chcon` can change the labels of shared files and directories. To make a directory accessible to containers, change the directory type to `container_file_t`.
 
 ```sh
 $ chcon -Rt container_file_t ./conf
