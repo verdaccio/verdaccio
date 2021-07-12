@@ -33,6 +33,7 @@ We use the **$XDG_DATA_HOME** environment by variable default to locate the stor
 
 По умолчанию, местоположение файла БД совпадает с местоположением хранилища. Начиная с версии 4.0.0, файлу БД будет дано имя **.verdaccio-db.json** для новых установок Verdaccio. При обновлении старых версий, имя файла БД останется старым **.sinopia-db.json**.
 
+
 ## Environment variables
 
 [Full list of environment variables](https://github.com/verdaccio/verdaccio/blob/master/docs/env.variables.md).
