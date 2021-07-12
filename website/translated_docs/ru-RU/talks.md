@@ -7,9 +7,9 @@ title: "Выступления"
 
 > Не забывайте поделиться с комьюнити, мы любим, когда говорят о Verdaccio. Если вам нужны мысли тему "с чего начать", информация или материалы на эту тему, пишите нам в [чате в Discord](https://chat.verdaccio.org), и мы поможем.
 
-## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
-## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 > Здесь перечислены последние выступления. Мы поможем вам сделать так, чтобы вас голос был услышал комьюнити.
 
