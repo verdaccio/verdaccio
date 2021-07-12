@@ -100,7 +100,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
 
 #### 阻止对一组包的访问
 
-If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`. Just do not define `access` and `publish`.
+If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`. Just do not define `access` and `publish`. Just do not define `access` and `publish`.
 
 ```yaml
 packages:
@@ -140,7 +140,7 @@ Let's describe what we want with the above example:
 * 我想要在`my-local-scope`范围内的所有依赖库但我需要避免代理它们。
 * 我想要代理所有剩余的依赖库。
 
-Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
+Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
 #### Use multiple uplinks
 
