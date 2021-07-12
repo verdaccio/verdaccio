@@ -69,20 +69,21 @@ auth:
 
 Конфигурация разделена на две части, `api` и `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
-    security:
-      api:
-        legacy: true
-        jwt:
-          sign:
-            expiresIn: 29d
-          verify:
-            someProp: [value]
-       web:
-         sign:
-           expiresIn: 7d # 7 days by default
-         verify:
-            someProp: [value]
-    
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+        someProp: [value]
+```
 
 > Мы настоятельно рекомендем перейти на JWT, так как "старые" токены (`aes192`) устарели и исчезнут в следующих версиях.
 
