@@ -21,10 +21,9 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Iṣeto
 
-O le ṣe asọye awọn uplink ọlọpọlọpọ atipe ọkọọkan wọn gbọdọ ni orukọ to dayatọ (kọkọrọ). Wọn le ni awọn ohun wọnyi:
+You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
 
 | Ohun ini        | Iru     | Ti o nilo | Apẹẹrẹ                                  | Atilẹyin | Apejuwe                                                                                                                                                                  | Atilẹwa          |
 | --------------- | ------- | --------- | --------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------- |
@@ -42,7 +41,7 @@ O le ṣe asọye awọn uplink ọlọpọlọpọ atipe ọkọọkan wọn gb
 
 #### Ohun ini Auth
 
-Ohun ini `auth` fun ọ laaye lati lo aami auth kan pẹlu uplink. Lilo iyipada ayika atilẹwa naa:
+The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
 ```yaml
 uplinks:
@@ -81,7 +80,7 @@ uplinks:
 
 ### O Gbọdọ Mọ
 
-* Uplinks gbọdọ ni ibamu pẹlu awọn ibi iforukọsilẹ pẹlu `npm` awọn aaye opin. Fun apẹẹrẹ: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* ati siwaju sii.
+* Uplinks gbọdọ ni ibamu pẹlu awọn ibi iforukọsilẹ pẹlu `npm` awọn aaye opin. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
 * Ṣiṣeto `cache` si eke yoo ṣe iranlọwọ lati pa aaye mọ ninu ààyè ìtọ́jú alafojuri rẹ. Eyi yoo yago fun itọju `tarballs` sugbọn [o ma fi metadata pamọ sinu awọn foda](https://github.com/verdaccio/verdaccio/issues/391).
 * Titayọ pẹlu ọpọlọpọ uplinks le mu ifasẹyin ba isawari awọn akopọ rẹ ti o ti yẹ fun ibeere kọọkan ti onibara npm kan ṣe, verdaccio n ṣe ipe 1 fun uplink kọọkan.
 * Ilana (timeout, maxage and fail_timeout) tẹle [awọn odiwọn iwọn NGINX](http://nginx.org/en/docs/syntax.html)
