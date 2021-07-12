@@ -21,7 +21,6 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Konfigurace
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
