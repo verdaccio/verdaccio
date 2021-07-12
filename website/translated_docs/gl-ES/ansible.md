@@ -5,13 +5,14 @@ title: "Ansible"
 
 Temos unha solución personalizada para `verdaccio` na nosa organización.
 
-<https://github.com/verdaccio/ansible-verdaccio>
+[https://github.com/verdaccio/ansible-verdaccio](https://github.com/verdaccio/ansible-verdaccio)
 
 #### Outras opcións
 
 * Rol ansible para os usuarios de Gentoo: [jirutka/ansible-role-sinopia ](https://github.com/jirutka/ansible-role-sinopia).
 * Función ansible para os usuarios de Ubuntu: [ jagregory/sinopia-ansible](https://github.com/jagregory/sinopia-ansible).
 * ansible-verdaccio-role [ https://github.com/refinery29/ansible-verdaccio-role](https://github.com/refinery29/ansible-verdaccio-role)
+
 
 #### Charlas relacionadas
 
