@@ -3,7 +3,7 @@ id: cli
 title: "Strumento riga di comando"
 ---
 
-The Verdaccio CLI is your tool to start and stop the application.
+La CLI di Verdaccio è il tuo strumento per avviare ed arrestare l'applicazione.
 
 ## Comandi
 
@@ -11,11 +11,11 @@ The Verdaccio CLI is your tool to start and stop the application.
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-| Comandi            | Impostazione predefinita       | Esempio        | Descrizione                          |
-| ------------------ | ------------------------------ | -------------- | ------------------------------------ |
-| --listen \ **-l** | 4873                           | -p 7000        | porta http                           |
-| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | il file di configurazione            |
-| --info \ **-i**   |                                |                | prints local environment information |
+| Comandi            | Impostazione predefinita       | Esempio        | Descrizione                           |
+| ------------------ | ------------------------------ | -------------- | ------------------------------------- |
+| --listen \ **-l** | 4873                           | -p 7000        | porta http                            |
+| --config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | il file di configurazione             |
+| --info \ **-i**   |                                |                | stampa informazioni d'ambiente locali |
 
 ## Posizione predefinita dei file config
 
@@ -33,8 +33,9 @@ We use the **$XDG_DATA_HOME** environment by variable default to locate the stor
 
 Il percorso predefinito del file di database è il percorso dell'archiviazione. A partire dalla versione 4.0.0, il nome del file di database per una nuova installazione di Verdaccio sarà **.verdaccio-db.json**. Quando si esegue l'upgrade di un server Verdaccio esistente, il nome del file rimarrà **.sinopia-db.json**.
 
-## Environment variables
 
-[Full list of environment variables](https://github.com/verdaccio/verdaccio/blob/master/docs/env.variables.md).
+## Variabili d'ambiente
 
-* `VERDACCIO_HANDLE_KILL_SIGNALS` to enable gracefully shutdown (since v4.12.0)
+[Lista completa delle variabili d'ambiente](https://github.com/verdaccio/verdaccio/blob/master/docs/env.variables.md).
+
+* `VERDACCIO_HANDLE_KILL_SIGNALS` per abilitare l'arresto sicuro (dalla v4.12.0)
