@@ -21,7 +21,6 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Configuração
 
 Você pode definir vários uplinks e cada um deles deve ter um nome exclusivo (chave). Eles podem ter as seguintes propriedades:
