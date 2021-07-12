@@ -3,7 +3,7 @@ id: 记录器
 title: "记录器"
 ---
 
-As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs. You can define multiple types of outputs.
+As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs. As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs. You can define multiple types of outputs.
 
 ```yaml
 # console output
