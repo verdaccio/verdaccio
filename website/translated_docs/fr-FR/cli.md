@@ -33,6 +33,7 @@ We use the **$XDG_DATA_HOME** environment by variable default to locate the stor
 
 The default database file location is in the storage location. Starting with version 4.0.0, the database file name will be **.verdaccio-db.json** for a new installation of Verdaccio. When upgrading an existing Verdaccio server, the file name will remain **.sinopia-db.json**.
 
+
 ## Environment variables
 
 [Full list of environment variables](https://github.com/verdaccio/verdaccio/blob/master/docs/env.variables.md).
