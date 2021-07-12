@@ -21,7 +21,6 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-
 ### Конфигурисање
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
@@ -42,7 +41,7 @@ You can define mutiple uplinks and each of them must have an unique name (key). 
 
 #### Auth property
 
-Својство `auth` Вам омогућава да користите auth токен за uplink. Користите подразумевану environment варијаблу:
+The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
 ```yaml
 uplinks:
@@ -81,7 +80,7 @@ uplinks:
 
 ### Ваљало би знати
 
-* Uplinks морају бити registries компатибилни са `npm` endpoints. Пример: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* и тако даље.
+* Uplinks морају бити registries компатибилни са `npm` endpoints. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
 * Подешавање `cache` на false, помоћи ће да се уштеди простор на хард диску. Тако се избегава чување `tarballs-а` али [ће metadata бити чувани у фолдерима](https://github.com/verdaccio/verdaccio/issues/391).
 * Претеривање са uplinks може успорити lookup Ваших packages-а јер сваки пут када npm client тражи захтев, verdaccio прави 1 повезивање за сваки uplink.
 * Формат за (timeout, maxage и fail_timeout) је усклађен са [NGINX јединицама мере](http://nginx.org/en/docs/syntax.html)
