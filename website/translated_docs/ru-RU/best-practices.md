@@ -46,34 +46,34 @@ If you want to use a modified version of some public package `foo`, you can just
 There's two options here:
 
 1. Вы хотите создать отдельный **форк** и остановить синхронизацию с публичной версией.
-    
-    If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Добавьте отдельную запись для этого пакета в `config.yaml` и удалите `npmjs` из списка `proxy`, затем перезапустите сервер.
-    
-    ```yaml
-    packages:
+
+   If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Добавьте отдельную запись для этого пакета в `config.yaml` и удалите `npmjs` из списка `proxy`, затем перезапустите сервер.
+
+   ```yaml
+   packages:
      "@my-company/*":
        access: $all
        publish: $authenticated
        # comment it out or leave it empty
        # proxy:
-    ```
-    
-    When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
+   ```
+
+   When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
 
 2. You want to temporarily use your version, but return to the public one as soon as it's updated.
-    
-    Чтобы избежать конфликта версий, **вам нужно использовать свой пре-релизный суффикс для следующей версии**. Например, если публичный пакет имел версию 0.1.2, вам нужно опубликовать `0.1.3-my-temp-fix`.
-    
-    ```bash
+
+   Чтобы избежать конфликта версий, **вам нужно использовать свой пре-релизный суффикс для следующей версии**. Например, если публичный пакет имел версию 0.1.2, вам нужно опубликовать `0.1.3-my-temp-fix`.
+
+   ```bash
     npm version 0.1.3-my-temp-fix
     npm publish --tag fix --registry http://localhost:4873
-    ```
-    
-    В этом случае ваш пакет будет использоваться до тех пор, пока владелец пакета не опубликует версию `0.1.3`.
+   ```
+
+   В этом случае ваш пакет будет использоваться до тех пор, пока владелец пакета не опубликует версию `0.1.3`.
 
 ## Безопасность
 
-> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 Additonal reading:
 
