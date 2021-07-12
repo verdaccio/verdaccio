@@ -5,7 +5,7 @@ title: "Installing on IIS server"
 
 These instructions were written for Windows Server 2016, IIS 10, [Node.js 10.15.0](https://nodejs.org/), [iisnode 0.2.26](https://github.com/Azure/iisnode) and [verdaccio 3.11.0](https://github.com/verdaccio/verdaccio).
 
-* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
+* Install IIS Install [iisnode](https://github.com/Azure/iisnode). Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode. Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 * Create a new folder in Explorer where you want to host verdaccio. For example `C:\verdaccio`. Save [package.json](#packagejson), [start.js](#startjs) and [web.config](#webconfig) in this folder.
 * Create a new site in Internet Information Services Manager. You can name it whatever you want. I'll call it verdaccio in these [instructions](http://www.iis.net/learn/manage/configuring-security/application-pool-identities). Specify the path to where you saved all files and a port number.
 * Go back to Explorer and give the user that runs the application pool modify rights to the folder you just created. If you've named the new site verdaccio and did not change the app pool, it's running under an ApplicationPoolIdentity and you should give the user IIS AppPool\verdaccio modify rights see instructions if you need help. (You can restrict access later if you want so that it only has modify rights on the iisnode and verdaccio\storage)
@@ -17,7 +17,7 @@ npm install
 ````
 
 * Make sure you have an inbound rule accepting TCP traffic to the port in Windows Firewall
-* Thats it! Thats it! Now you can navigate to the host and port that you specified
+* Thats it! Thats it! Thats it! Now you can navigate to the host and port that you specified
 
 I wanted the `verdaccio` site to be the default site in IIS so I did the following:
 
@@ -132,11 +132,39 @@ require('./node_modules/verdaccio/src/lib/cli.js');
     </security>
 
   </system.webServer>
+</configuration> These should
+        never be rewritten -->
+        <rule name="iisnode" stopProcessing="true">
+            <match url="iisnode*" />
+            <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            <action type="None" />
+        </rule>
+
+        <!-- Rewrite all other urls in order for verdaccio to handle these -->
+        <rule name="verdaccio">
+            <match url="/*" />
+            <conditions logicalGrouping="MatchAll" trackAllCaptures="false" />
+            <action type="Rewrite" url="start.js" />
+        </rule>
+      </rules>
+    </rewrite>
+
+    <!-- exclude node_modules directory and subdirectories from serving
+    by IIS since these are implementation details of node.js applications -->
+    <security>
+      <requestFiltering>
+        <hiddenSegments>
+          <add segment="node_modules" />
+        </hiddenSegments>
+      </requestFiltering>
+    </security>
+
+  </system.webServer>
 </configuration>
 ````
 
 ### Troubleshooting
-- **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
+- **The web interface does not load when hosted with https as it tries to download scripts over http.** Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003). See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
 ````
 Install IIS Install <a href="https://github.com/Azure/iisnode">iisnode</a>. Make sure you install prerequisites (Url Rewrite Module & node) as explained in the instructions for iisnode.
 ````
