@@ -39,14 +39,14 @@ As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/21
 
 ### Význam `$all` a `$anonymous`
 
-As you know *Verdaccio* uses `htpasswd` by default. Tento doplňek neimplementuje metody `allow_access`, `allow_publish` a `allow_unpublish`. Tím pádem bude *Verdaccio* řešit tyto případy následujícím způsobem:
+As you know *Verdaccio* uses `htpasswd` by default. Tento doplňek neimplementuje metody `allow_access`, `allow_publish` a `allow_unpublish`. Thus, *Verdaccio* will handle that in the following way:
 
 * Pokud nejste přihlášení (jste anonymní), `$all` a `$anonymous` znamenají to samé.
 * If you are logged in, `$anonymous` won't be part of your groups and `$all` will match any logged user. A new group `$authenticated` will be added to your group list.
 
 Please note: `$all` **will match all users, whether logged in or not**.
 
-**Výše popsané chování se vztahuje pouze na výchozí doplněk pro ověřovaní**. Pokud používáte vlastní doplněk a tento doplněk implementuje použití `allow_access`, `allow_publish` nebo `allow_unpublish`, řešení přístupu závisí na plugin samotném. Verdaccio nastaví pouze výchozí skupiny.
+**The previous behavior only applies to the default authentication plugin**. Pokud používáte vlastní doplněk a tento doplněk implementuje použití `allow_access`, `allow_publish` nebo `allow_unpublish`, řešení přístupu závisí na plugin samotném. Verdaccio nastaví pouze výchozí skupiny.
 
 Rekapitulace:
 
@@ -61,8 +61,8 @@ In order to simplify the setup, `verdaccio` uses a plugin based on `htpasswd`. S
 auth:
   htpasswd:
     file: ./htpasswd
-    # Maximální množství uživatelů, kteří se mohou registrovat, výchozí nastaveno na "+inf".
-    # Můžete nastavit -1 pro zablokování registrací.
+    # Maximum amount of users allowed to register, defaults to "+inf".
+    # You can set this to -1 to disable registration.
     #max_users: 1000
 ```
 
