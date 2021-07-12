@@ -43,37 +43,37 @@ Se fai una richiesta per il pacchetto `express@4.0.1` da questo server che va a 
 
 If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, **it'll consider installing your version**.
 
-There's two options here:
+Ci sono due opzioni utilizzabili:
 
 1. Desideri creare un **fork** separato e interrompere la sincronizzazione con la versione pubblica.
-    
-    If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Aggiungi una voce separata per questo pacchetto a `config.yaml`, rimuovi `npmjs` dalla lista `proxy` e riavvia il server.
-    
-    ```yaml
-    packages:
+
+   If you want to do that, you should modify your configuration file so Verdaccio won't make requests regarding this package to npmjs anymore. Aggiungi una voce separata per questo pacchetto a `config.yaml`, rimuovi `npmjs` dalla lista `proxy` e riavvia il server.
+
+   ```yaml
+   packages:
      "@my-company/*":
        access: $all
        publish: $authenticated
        # comment it out or leave it empty
        # proxy:
-    ```
-    
-    When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
+   ```
+
+   When you publish your package locally, **you should probably start with a version string higher than the existing package** so it won't conflict with that package in the cache.
 
 2. You want to temporarily use your version, but return to the public one as soon as it's updated.
-    
-    Per evitare conflitti delle versioni, **dovresti usare un suffisso personalizzato rilasciato prima della successiva versione della patch**. Per esempio, se un pacchetto pubblico ha la versione 0.1.2, puoi fare l'upload di `0.1.3-my-temp-fix`.
-    
-    ```bash
+
+   Per evitare conflitti delle versioni, **dovresti usare un suffisso personalizzato rilasciato prima della successiva versione della patch**. Per esempio, se un pacchetto pubblico ha la versione 0.1.2, puoi fare l'upload di `0.1.3-my-temp-fix`.
+
+   ```bash
     npm version 0.1.3-my-temp-fix
     npm publish --tag fix --registry http://localhost:4873
-    ```
-    
-    In questo modo il tuo pacchetto verrà utilizzato fino a che il suo manutentore originale aggiorna il suo pacchetto pubblico alla `0.1.3`.
+   ```
+
+   In questo modo il tuo pacchetto verrà utilizzato fino a che il suo manutentore originale aggiorna il suo pacchetto pubblico alla `0.1.3`.
 
 ## Sicurezza
 
-> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+> Security starts in your environment. <iframe width="560" height="315" src="https://www.youtube.com/embed/qTRADSp3Hpo?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 Additonal reading:
 
