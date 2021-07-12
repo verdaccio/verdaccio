@@ -36,7 +36,7 @@ The following sections explain what each property means and their different opti
 
 ### Storage
 
-Is the location of the default storage. **Verdaccio is by default based on local file system**.
+Is the location of the default storage. Is the location of the default storage. **Verdaccio is by default based on local file system**.
 
 ```yaml
 storage: ./storage
@@ -44,7 +44,7 @@ storage: ./storage
 
 ### Plugins
 
-Is the location of the plugin directory. Useful for Docker/Kubernetes-based deployments.
+Is the location of the plugin directory. Is the location of the plugin directory. Useful for Docker/Kubernetes-based deployments.
 
 ```yaml
 plugins: ./plugins
@@ -69,20 +69,21 @@ The security block allows you to customise the token signature. To enable a new 
 
 The configuration is separated in two sections, `api` and `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
 
-    security:
-      api:
-        legacy: true
-        jwt:
-          sign:
-            expiresIn: 29d
-          verify:
-            someProp: [value]
-       web:
-         sign:
-           expiresIn: 7d # 7 days by default
-         verify:
-            someProp: [value]
-    
+```
+security:
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 7d # 7 days by default
+     verify:
+        someProp: [value]
+```
 
 > We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
 
@@ -99,7 +100,7 @@ server:
 
 ### Web UI
 
-This property allow you to modify the look and feel of the web UI. For more information about this section read the [web UI page](web.md).
+This property allow you to modify the look and feel of the web UI. For more information about this section read the [web UI page](web.md). For more information about this section read the [web UI page](web.md).
 
 ```yaml
 web:
@@ -111,7 +112,7 @@ web:
 
 ### Uplinks
 
-Uplinks add the ability to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
+Uplinks add the ability to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md). For more information about this section read the [uplinks page](uplinks.md).
 
 ```yaml
 uplinks:
@@ -121,7 +122,7 @@ uplinks:
 
 ### Packages
 
-This section allows you to control how packages are accessed. For more information about this section read the [packages page](packages.md).
+This section allows you to control how packages are accessed. This section allows you to control how packages are accessed. For more information about this section read the [packages page](packages.md).
 
 ```yaml
 packages:
@@ -135,7 +136,7 @@ packages:
 
 ### Offline Publish
 
-By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to *true*.
+By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to *true*. This can be can be overridden by setting this value to _true_.
 
 ```yaml
 publish:
@@ -164,7 +165,7 @@ max_body_size: 10mb
 
 ### Listen Port
 
-`verdaccio` runs by default on the port `4873`. Changing the port can be done via [CLI](cli.md) or in the configuration file. The following options are valid:
+`verdaccio` runs by default on the port `4873`. `verdaccio` runs by default on the port `4873`. Changing the port can be done via [CLI](cli.md) or in the configuration file. The following options are valid: The following options are valid:
 
 ```yaml
 listen:
@@ -178,7 +179,7 @@ listen:
 
 ### HTTPS
 
-To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [SSL page](ssl.md).
+To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol *https://*. For more information about this section read the [SSL page](ssl.md). For more information about this section read the [SSL page](ssl.md).
 
 ```yaml
 https:
@@ -210,7 +211,7 @@ no_proxy: localhost,127.0.0.1
 
 ### Notifications
 
-Enabling notifications to third-party tools is fairly easy via webhooks. For more information about this section read the [notifications page](notifications.md).
+Enabling notifications to third-party tools is fairly easy via webhooks. For more information about this section read the [notifications page](notifications.md). For more information about this section read the [notifications page](notifications.md).
 
 ```yaml
 notify:
@@ -226,7 +227,7 @@ notify:
 
 <small>Since: <code>verdaccio@3.0.0</code></small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command.
+`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes a built-in middleware plugin to handle this command. Verdaccio includes a built-in middleware plugin to handle this command.
 
 > If you have a new installation it comes by default, otherwise you need to add the following props to your config file
 
@@ -240,7 +241,7 @@ middlewares:
 
 This release includes a new property named `experiments` that can be placed in the `config.yaml` and is completely optional.
 
-We want to be able to ship new things without affecting production environments. This flag allows us to add new features and get feedback from the community who decides to use them.
+We want to be able to ship new things without affecting production environments. We want to be able to ship new things without affecting production environments. This flag allows us to add new features and get feedback from the community who decides to use them.
 
 The features under this flag might not be stable or might be removed in future releases.
 
