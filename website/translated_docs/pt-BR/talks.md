@@ -7,9 +7,9 @@ Listamos as palestras sobre o Verdaccio, se você deu uma palestra ou está pres
 
 > Do not hesitate to share your content with the community, we encourage you to speak about Verdaccio. Se precisar de ajuda para começar, informações ou recursos, entre em contato conosco em nosso grupo no [Discord](https://chat.verdaccio.org), nós iremos ajudá-lo.
 
-## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## La Paz Cloud - Desplegando Verdaccio June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
-## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe> 
+## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen mark="crwd-mark"></iframe>
 
 > A última palestra compartilhada é sempre destacada aqui. Ajudamos você a compartilhar sua voz com a comunidade.
 
