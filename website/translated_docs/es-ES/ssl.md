@@ -20,10 +20,9 @@ Once you've updated the listen property and try to run verdaccio again, it will 
  $ openssl genrsa -out /Users/user/.config/verdaccio/verdaccio-key.pem 2048
    $ openssl req -new -sha256 -key /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-csr.pem
    $ openssl x509 -req -in /Users/user/.config/verdaccio/verdaccio-csr.pem -signkey /Users/user/.config/verdaccio/verdaccio-key.pem -out /Users/user/.config/verdaccio/verdaccio-cert.pem
-   ````
  ````
 
-* Edit your config file `/Users/user/.config/verdaccio/config.yaml` and add the following section:
+* * Edit your config file `/Users/user/.config/verdaccio/config.yaml` and add the following section:
 
 ````
 https:
@@ -35,7 +34,7 @@ https:
 https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 
 ````
-https: pfx: /Users/user/.config/verdaccio/server.pfx passphrase: 'secret' ````
+https: key: /Users/user/.config/verdaccio/verdaccio-key.pem cert: /Users/user/.config/verdaccio/verdaccio-cert.pem ca: /Users/user/.config/verdaccio/verdaccio-csr.pem
 ````
 
 You can find more info on the `key`, `cert`, `ca`, `pfx`, and `passphrase` arguments in the [Node documentation](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options)
