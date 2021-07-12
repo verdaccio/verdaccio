@@ -103,6 +103,9 @@ annotations:
     annotations:
 ...
 
+    annotations:
+...
+
     kubernetes.io/proxy-body-size: 20m
 ....
 
