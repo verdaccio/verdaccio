@@ -63,7 +63,7 @@ helm uninstall npm
 Скопируйте [имеющуюся конфигурацию](https://github.com/verdaccio/verdaccio/blob/master/conf/docker.yaml) и адаптируйте её для себя:
 
 ```bash
-wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/packages/config/src/conf/docker.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/docker.yaml -O config.yaml
 ```
 
 **Примечание:** Убедитесь, что вы используете правильный путь для постоянного хранилища:

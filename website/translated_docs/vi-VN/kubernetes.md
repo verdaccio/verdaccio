@@ -63,7 +63,7 @@ Bạn có thể tùy chỉnh cấu hình Verdaccio bằng Kubernetes *configMap*
 Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/docker.yaml) and adapt it for your use case:
 
 ```bash
-wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/packages/config/src/conf/docker.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/docker.yaml -O config.yaml
 ```
 
 **Lưu ý:** Hãy chắc chắn bạn đang sử dụng đúng đường dẫn để lưu trữ liên tục:

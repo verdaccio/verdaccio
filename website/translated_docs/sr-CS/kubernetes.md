@@ -63,7 +63,7 @@ Možete podesiti Verdaccio konfiguraciju po svojim željama tako što ćete kori
 Copy the [existing configuration](https://github.com/verdaccio/verdaccio/blob/master/conf/docker.yaml) and adapt it for your use case:
 
 ```bash
-wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/packages/config/src/conf/docker.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/docker.yaml -O config.yaml
 ```
 
 **Napomena:** Proverite da li koristite ispravan path za storage koji se koristi za persistency:
