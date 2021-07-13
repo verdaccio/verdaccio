@@ -63,7 +63,7 @@ Você pode personalizar a configuração do Verdaccio usando um Kubernetes *conf
 Copie a [configuração existente](https://github.com/verdaccio/verdaccio/blob/master/conf/docker.yaml) e adapte-a para o seu caso:
 
 ```bash
-wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/conf/docker.yaml -O config.yaml
+wget https://raw.githubusercontent.com/verdaccio/verdaccio/master/packages/config/src/conf/docker.yaml -O config.yaml
 ```
 
 **Nota:** Verifique se você está usando o caminho certo para o armazenamento usado pela persistência:
