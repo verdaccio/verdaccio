@@ -4787,14 +4787,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.0.0-rc.12":
-  version: 3.0.0-rc.12
-  resolution: "clipanion@npm:3.0.0-rc.12"
+"clipanion@npm:3.0.0":
+  version: 3.0.0
+  resolution: "clipanion@npm:3.0.0"
   dependencies:
     typanion: ^3.3.1
   peerDependencies:
     typanion: "*"
-  checksum: b221278f7a84c3ba192730a9dcbc18ab9b013714d6401ed722872b5833a36775485c47fdd0a8edfec52fda254038c364511905b19b3f950cd774ae54e9948c8e
+  checksum: fb8ec633bdff7e557a5846449cc7e72d41b26e2a65518b3dd1e160e9d3eeecd3d819732135ad62310bf357a821a50a7d1c0effb3f76ede4d3b01c7fdae0dbf81
   languageName: node
   linkType: hard
 
@@ -5550,10 +5550,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.10.5":
-  version: 1.10.5
-  resolution: "dayjs@npm:1.10.5"
-  checksum: 11b3a952cdb77959b07318804bd982d1d377581e4752ec478da82b494da1ebb9d82e0539481ab51f90a36e35a268a730034cb6f3cac1b45609755c909329c0a1
+"dayjs@npm:1.10.6":
+  version: 1.10.6
+  resolution: "dayjs@npm:1.10.6"
+  checksum: 474d21162c12d269d40e90cb3ce049bb2d987b8038c173224c8eb5805d6f38f07d11875779a81e282d8f889d3803c4bbb91d09b6ee08a1a44ae60ec26afd8f45
   languageName: node
   linkType: hard
 
@@ -6866,6 +6866,13 @@ __metadata:
   version: 2.0.7
   resolution: "fast-safe-stringify@npm:2.0.7"
   checksum: 7bd22543263b707870d70c6f2336b6e8563e34d6807dc388cc0566895e31e0a8273af017a7eb1c9538d0ef54288284e1c0585b557bd856491295a847159fd929
+  languageName: node
+  linkType: hard
+
+"fast-safe-stringify@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "fast-safe-stringify@npm:2.0.8"
+  checksum: 2198ef6c4917ac6ad7a3cff8b80abc2762c89a0c700548459288fce45598a2488c0ae393cd456b4212a8259fed9d1630303106efe4ae3b1c35dab2fb66526cdd
   languageName: node
   linkType: hard
 
@@ -9445,9 +9452,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:11.0.0":
-  version: 11.0.0
-  resolution: "lint-staged@npm:11.0.0"
+"lint-staged@npm:11.0.1":
+  version: 11.0.1
+  resolution: "lint-staged@npm:11.0.1"
   dependencies:
     chalk: ^4.1.1
     cli-truncate: ^2.1.0
@@ -9466,7 +9473,7 @@ fsevents@~2.1.2:
     stringify-object: ^3.3.0
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: e5d9c38f468fae090939d150f8a1676ca208e50c714f20c9957a16833eeae20ca9676c8679883d0a005fda58375581c26352e18a2227d6449a29adaca650f957
+  checksum: 2b90d18a40acb26c61df224844040843f4533b874cf5a5b6be9d7641d60c2799b4acf7e1f73cea4ab1c3630f26ab3c4553a42935850b6a7683e0500e5af7b3ec
   languageName: node
   linkType: hard
 
@@ -9893,12 +9900,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:2.1.2":
-  version: 2.1.2
-  resolution: "marked@npm:2.1.2"
+"marked@npm:2.1.3":
+  version: 2.1.3
+  resolution: "marked@npm:2.1.3"
   bin:
     marked: bin/marked
-  checksum: 10b61ef998a60203c5c14e136fe203270669f05f4f6a55877ed3b701f4ebda7f8532d7993ec30e57cb362eaa512226e1ff0dc8bcc10bb62320e64af9c4077fd0
+  checksum: 9779b758ae413186be535109fe695be4fac23a671c6565b855606bb1ea70f796b580f10a9588a130e7b676a085916ef90c82982ef6a382a06b14864cbf802afb
   languageName: node
   linkType: hard
 
@@ -11197,19 +11204,19 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"pino@npm:6.11.3":
-  version: 6.11.3
-  resolution: "pino@npm:6.11.3"
+"pino@npm:6.12.0":
+  version: 6.12.0
+  resolution: "pino@npm:6.12.0"
   dependencies:
     fast-redact: ^3.0.0
-    fast-safe-stringify: ^2.0.7
+    fast-safe-stringify: ^2.0.8
     flatstr: ^1.0.12
     pino-std-serializers: ^3.1.0
     quick-format-unescaped: ^4.0.3
     sonic-boom: ^1.0.2
   bin:
     pino: bin.js
-  checksum: c6fa52d31bfc2ab3e0b746aa4f859bd723dc7b0e3f15773cd9cdfc16846707a101ce9856c71a671e6896c24627dcfaee429fb943afaf85e226d796716d0c03db
+  checksum: 64fd7a49fc9b909bc1782f761c7a979e607b18ab8d88de752d739ad6a148cd2d8492a2e77ecb88cc71df7b950dfd2ec35a06b14a057c1bb75cb3684c1e19a364
   languageName: node
   linkType: hard
 
@@ -11320,12 +11327,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.3.1":
-  version: 2.3.1
-  resolution: "prettier@npm:2.3.1"
+"prettier@npm:2.3.2":
+  version: 2.3.2
+  resolution: "prettier@npm:2.3.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 9b4a695b87ce5f510fc20feec01cce7371f0fa0b92ffe79d543f6be52e2004c532861629de4d7ab1c577e1f649dce3cfccd62cb2ca6526b1da8d9c63eb84bf36
+  checksum: 4fd89a7f6a12b13456d359fba2b1dd0fc0a17cf33f8f15953ab9f43b21ea9b09b5a2861d63b558ca0577274ce606d390e70628cf93e26d19d6cb7f19c9eebc31
   languageName: node
   linkType: hard
 
@@ -11353,12 +11360,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"pretty-ms@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "pretty-ms@npm:5.1.0"
+"pretty-ms@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "pretty-ms@npm:7.0.1"
   dependencies:
     parse-ms: ^2.1.0
-  checksum: e0803915b504ba6e5df066b397245a51c807146b273037a24d7d201671561b40588b0b91525685859e18e791a61336d776ce4a964ae8c6b3c73dc0640e52bcad
+  checksum: 34de13967bc5eed1eb10d44e0f5d16f46e125ec541cf21c8b254ef42faccecd05a073357ed9e6eda7901c35a9db274ca6f9be8f8b3665bbf5fed4e49bf286ee8
   languageName: node
   linkType: hard
 
@@ -13399,9 +13406,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.0.0":
-  version: 10.0.0
-  resolution: "ts-node@npm:10.0.0"
+"ts-node@npm:10.1.0":
+  version: 10.1.0
+  resolution: "ts-node@npm:10.1.0"
   dependencies:
     "@tsconfig/node10": ^1.0.7
     "@tsconfig/node12": ^1.0.7
@@ -13414,8 +13421,8 @@ fsevents@~2.1.2:
     source-map-support: ^0.5.17
     yn: 3.1.1
   peerDependencies:
-    "@swc/core": ">=1.2.45"
-    "@swc/wasm": ">=1.2.45"
+    "@swc/core": ">=1.2.50"
+    "@swc/wasm": ">=1.2.50"
     "@types/node": "*"
     typescript: ">=2.7"
   peerDependenciesMeta:
@@ -13429,7 +13436,7 @@ fsevents@~2.1.2:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: dc461e2b9b931b00ff065530a0247f86da1d035e72a7ef6d7ed072dd8e6b236d1879f113dcc73a354d240c81b6b845445c3d32b16eeb68022ed27ab6d130c049
+  checksum: d1b582dc3624061d86c2657507e21c3875919b7d108db16cde5507f2aa75b025be2e09b35ec607900eb525e429ebd14f0cf1c5f4b81292a191c0f8c7bfdf0720
   languageName: node
   linkType: hard
 
@@ -13956,12 +13963,12 @@ typescript@4.1.3:
     babel-loader: ^8.2.2
     babel-plugin-dynamic-import-node: 2.3.3
     body-parser: 1.19.0
-    clipanion: 3.0.0-rc.12
+    clipanion: 3.0.0
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5
     cross-env: 7.0.3
-    dayjs: 1.10.5
+    dayjs: 1.10.6
     debug: ^4.3.2
     detect-secrets: 1.0.6
     envinfo: 7.8.1
@@ -13975,7 +13982,7 @@ typescript@4.1.3:
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-verdaccio: 9.6.1
     express: 4.17.1
-    fast-safe-stringify: ^2.0.7
+    fast-safe-stringify: ^2.0.8
     fs-extra: 10.0.0
     handlebars: 4.7.7
     http-errors: 1.8.0
@@ -13987,12 +13994,12 @@ typescript@4.1.3:
     js-yaml: 4.1.0
     jsonwebtoken: 8.5.1
     kleur: 4.1.4
-    lint-staged: 11.0.0
+    lint-staged: 11.0.1
     lockfile-lint: 4.6.2
     lodash: 4.17.21
     lru-cache: 6.0.0
     lunr-mutable-indexes: 2.3.2
-    marked: 2.1.2
+    marked: 2.1.3
     memoizee: 0.4.15
     mime: 2.5.2
     minimatch: 3.0.4
@@ -14000,12 +14007,12 @@ typescript@4.1.3:
     mv: 2.1.1
     nock: 12.0.3
     node-mocks-http: ^1.10.1
-    pino: 6.11.3
+    pino: 6.12.0
     pinst: 2.1.6
     pkginfo: 0.4.1
-    prettier: 2.3.1
+    prettier: 2.3.2
     prettier-bytes: ^1.0.4
-    pretty-ms: ^5.1.0
+    pretty-ms: ^7.0.1
     puppeteer: 5.5.0
     request: 2.88.0
     rimraf: 3.0.2
@@ -14013,7 +14020,7 @@ typescript@4.1.3:
     semver: 7.3.5
     standard-version: 9.3.0
     supertest: 6.1.3
-    ts-node: 10.0.0
+    ts-node: 10.1.0
     typescript: 4.1.3
     validator: 13.6.0
     verdaccio-audit: 10.0.0
