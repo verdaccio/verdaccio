@@ -15,13 +15,7 @@ import profile from './api/v1/profile';
 import token from './api/v1/token';
 import v1Search from './api/v1/search';
 
-const {
-  match,
-  validateName,
-  validatePackage,
-  encodeScopePackage,
-  antiLoop
-} = require('../middleware');
+const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 
 export default function (config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */
@@ -58,8 +52,6 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage);
-  if (_.get(config, 'experiments.token') === true) {
-    token(app, auth, storage, config);
-  }
+  token(app, auth, storage, config);
   return app;
 }
