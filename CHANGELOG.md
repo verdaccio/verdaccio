@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.2](https://github.com/verdaccio/verdaccio/compare/v5.1.1...v5.1.2) (2021-07-14)
+
+
+### Bug Fixes
+
+* remove token experiment flag ([#2332](https://github.com/verdaccio/verdaccio/issues/2332)) ([2924054](https://github.com/verdaccio/verdaccio/commit/29240544b16381c4eaaa04f80f09c89fc443fc6d))
+* update dependencies ([#2291](https://github.com/verdaccio/verdaccio/issues/2291)) ([b421ed8](https://github.com/verdaccio/verdaccio/commit/b421ed87c49535d14e8ed3d332300af58ad0b575))
+* update dependencies ([#2303](https://github.com/verdaccio/verdaccio/issues/2303)) ([4fe8ddf](https://github.com/verdaccio/verdaccio/commit/4fe8ddf7c705b27c362d96389dcade2534f323b4))
+* update dependencies ([#2333](https://github.com/verdaccio/verdaccio/issues/2333)) ([7180338](https://github.com/verdaccio/verdaccio/commit/7180338c447845bb494f0b34fe7e1a481fb5298d))
+* update docker base image node 14.17.1 ([#2314](https://github.com/verdaccio/verdaccio/issues/2314)) ([b8f711a](https://github.com/verdaccio/verdaccio/commit/b8f711afabc60b69cfaf9aef4fd4831680e17f13))
+* update docker base image node 14.17.3 ([2bc5908](https://github.com/verdaccio/verdaccio/commit/2bc590895c27e15e4f9cc0577fdc3a1308e97dd6))
+
 ### [5.1.1](https://github.com/verdaccio/verdaccio/compare/v5.1.0...v5.1.1) (2021-06-12)
 
 
