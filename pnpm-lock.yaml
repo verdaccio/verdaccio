@@ -33,6 +33,7 @@ importers:
       '@changesets/get-dependents-graph': ^1.2.0
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
+      '@crowdin/cli': ^3.6.4
       '@types/async': 3.2.5
       '@types/autocannon': 4.1.0
       '@types/autosuggest-highlight': 3.1.1
@@ -144,6 +145,7 @@ importers:
       '@changesets/get-dependents-graph': 1.2.1
       '@commitlint/cli': 8.3.5
       '@commitlint/config-conventional': 8.2.0
+      '@crowdin/cli': 3.6.4
       '@types/async': 3.2.5
       '@types/autocannon': 4.1.0
       '@types/autosuggest-highlight': 3.1.1
@@ -1205,6 +1207,7 @@ importers:
       eslint-plugin-jsx-a11y: ^6.4.1
       eslint-plugin-react: ^7.24.0
       eslint-plugin-react-hooks: ^4.2.0
+      netlify-plugin-cache: ^1.0.3
       prettier: ^2.3.2
       prism-react-renderer: ^1.2.1
       react: ^17.0.1
@@ -1224,6 +1227,7 @@ importers:
       '@mdx-js/react': 1.6.22_react@17.0.2
       clsx: 1.1.1
       copy-text-to-clipboard: 3.0.1
+      netlify-plugin-cache: 1.0.3
       prism-react-renderer: 1.2.1_react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -3374,6 +3378,13 @@ packages:
       find-up: 4.1.0
     dev: true
 
+  /@crowdin/cli/3.6.4:
+    resolution: {integrity: sha512-kFqTf1dFhtSMfF4YWyJ6EAKjjtBEVtHhX2f9cBYc8I51KMTFIOzqeArKFL2qhhq/1Ition2wuE1z7ySwA341+w==}
+    hasBin: true
+    dependencies:
+      shelljs: 0.8.4
+    dev: true
+
   /@discoveryjs/json-ext/0.5.2:
     resolution: {integrity: sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==}
     engines: {node: '>=10.0.0'}
@@ -5251,7 +5262,6 @@ packages:
 
   /@types/json-schema/7.0.8:
     resolution: {integrity: sha512-YSBPTLTVm2e2OoQIDYx8HaeWJ5tTToLH67kXR7zYNGupXMEHa2++G8k+DczX2cFVgalypqtyZIcU19AFcmOpmg==}
-    dev: false
 
   /@types/json-stable-stringify/1.0.32:
     resolution: {integrity: sha512-q9Q6+eUEGwQkv4Sbst3J4PNgDOvpuVuKj79Hl/qnmBMEIPzB5QoFRUtjcgcg2xNUZyYUGXBk5wYIBKHt0A+Mxw==}
@@ -15301,6 +15311,10 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
+  /netlify-plugin-cache/1.0.3:
+    resolution: {integrity: sha512-CTOwNWrTOP59T6y6unxQNnp1WX702v2R/faR5peSH94ebrYfyY4zT5IsRcIiHKq57jXeyCrhy0GLuTN8ktzuQg==}
+    dev: false
+
   /next-tick/1.0.0:
     resolution: {integrity: sha1-yobR/ogoFpsBICCOPchCS524NCw=}
     dev: true
@@ -18822,7 +18836,6 @@ packages:
       '@types/json-schema': 7.0.8
       ajv: 6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
-    dev: false
 
   /section-iterator/2.0.0:
     resolution: {integrity: sha1-v0RNev7rlK1Dw5rS+yYVFifMuio=}
@@ -20966,8 +20979,8 @@ packages:
     dependencies:
       file-loader: 5.1.0_webpack@5.33.2
       loader-utils: 2.0.0
-      mime-types: 2.1.27
-      schema-utils: 3.0.0
+      mime-types: 2.1.31
+      schema-utils: 3.1.1
       webpack: 5.33.2_webpack-cli@4.7.2
     dev: true
 

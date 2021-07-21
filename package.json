@@ -43,6 +43,7 @@
     "@changesets/get-dependents-graph": "^1.2.0",
     "@commitlint/cli": "8.3.5",
     "@commitlint/config-conventional": "8.2.0",
+    "@crowdin/cli": "^3.6.4",
     "@types/async": "3.2.5",
     "@types/autocannon": "4.1.0",
     "@types/autosuggest-highlight": "3.1.1",
@@ -154,7 +155,9 @@
     "ci:version:changeset": "changeset version",
     "ci:publish": "changeset publish",
     "ts:ref": "update-ts-references --discardComments",
-    "website": "pnpm build --filter ...@verdaccio/website"
+    "website": "pnpm build --filter ...@verdaccio/website",
+    "crowdin:upload": "crowdin upload sources --config ./crowdin.yaml",
+    "crowdin:download": "crowdin download --config ./crowdin.yaml"
   },
   "license": "MIT",
   "commitlint": {
