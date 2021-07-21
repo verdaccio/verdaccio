@@ -12,5 +12,8 @@
 [context.deploy-preview]
   command = "pnpm netlify:build:deployPreview"
 
+[context.branch-deploy]
+  command = "pnpm netlify:build:deployPreview"
+
 [[plugins]]
 package = "../.netlify/netlify-plugin-pnpm"
