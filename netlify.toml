@@ -1,6 +1,6 @@
 [build]
   command = "pnpm build"
-  publish = "website/build"
+  publish = "build/"
 
 [build.environment]
   NPM_FLAGS="--prefix=/dev/null"
