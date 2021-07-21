@@ -9,11 +9,11 @@ We list the talks about Verdaccio, if you gave a talk or you are about to give o
 > If need help how to start, information or resources, reach us in our [Chat at Discord](https://chat.verdaccio.org),
 > we will help you.
 
-## La Paz Cloud - Desplegando Verdaccio June 2020
+## La Paz Cloud - Desplegando Verdaccio June 2020 {#la-paz-cloud---desplegando-verdaccio-june-2020}
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/EWAxCgZQMAY?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020
+## Cover your Projects with a Multi purpose Lightweight Node.js Registry June 2020 {#cover-your-projects-with-a-multi-purpose-lightweight-nodejs-registry-june-2020}
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/oVCjDWeehAQ?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -36,11 +36,11 @@ We list the talks about Verdaccio, if you gave a talk or you are about to give o
 * [Architectures for Huge Angular Based Enterprise #WeAreDevelopers2018](https://youtu.be/q4XmAy6_ucw?t=551)
 * [BxJS Weekly Ep. 13 - June 2, 2018 (javascript news podcast)](https://youtu.be/Xo8CzYGKXTs?list=PL_gX69xPLi-mqs5BJe-xPnOPT6K1Y5_ZQ&t=2732)
 
-## Future Talks
+## Future Talks {#future-talks}
 
 No new future talks available at the moment
 
-## Related Videos
+## Related Videos {#related-videos}
 
 * [Local npm server](https://www.youtube.com/watch?v=vc2wMwcDKOE)
 * [Private NPM Registry (sinopia+docker)](https://www.youtube.com/watch?v=0TXTCrGaxKc)

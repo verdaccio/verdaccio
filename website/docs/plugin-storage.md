@@ -3,11 +3,11 @@ id: plugin-storage
 title: "Storage Plugin"
 ---
 
-## What's an Storage Plugin?
+## What's an Storage Plugin? {#whats-an-storage-plugin}
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/local-storage). The default storge can be easily replaced, either using a community plugin or creating one by your own.
 
-### API
+### API {#api}
 
 Storage plugins are composed of two objects, the `IPluginStorage<T>` and the `IPackageStorage`.
 
@@ -48,7 +48,7 @@ interface IPackageStorage {
 }
 ```
 
-## Generate an middleware plugin
+## Generate an middleware plugin {#generate-an-middleware-plugin}
 
 For detailed info check our [plugin generator page](plugin-generator). Run the `yo` command in your terminal and follow the steps.
 
@@ -99,7 +99,7 @@ I'm all done. Running npm install for you to install the required dependencies. 
 ⸨ ░░░░░░░░░░░░░░░░░⸩ ⠋ fetchMetadata: sill pacote range manifest for @babel/plugin-syntax-jsx@^7.7.4 fetc
 ```
 
-### List Community Storage Plugins
+### List Community Storage Plugins {#list-community-storage-plugins}
 
 The following list of plugins are implementing the Storage API and might be used them as example.
 

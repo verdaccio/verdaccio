@@ -20,7 +20,7 @@ registry=http://localhost:5555/
 //registry.npmjs.org/:_authToken=secretNpmjsToken
 ```
 
-#### Anonymous publish
+#### Anonymous publish {#anonymous-publish}
 
 `verdaccio` allows you to enable anonymous publish. To achieve that you will need to correctly set up your [packages access](packages.md).
 
@@ -35,9 +35,9 @@ Eg:
 
 As is described [on issue #212](https://github.com/verdaccio/verdaccio/issues/212#issuecomment-308578500) until `npm@5.3.0` and all minor releases **won't allow you publish without a token**.
 
-## Understanding Groups
+## Understanding Groups {#understanding-groups}
 
-### The meaning of `$all` and `$anonymous`
+### The meaning of `$all` and `$anonymous` {#the-meaning-of-all-and-anonymous}
 
 As you know *Verdaccio* uses `htpasswd` by default. That plugin does not implement the methods `allow_access`, `allow_publish` and `allow_unpublish`.
 Thus, *Verdaccio* will handle that in the following way:
@@ -55,7 +55,7 @@ Let's recap:
 * **logged in**: `$all` and `$authenticated` + groups added by the plugin.
 * **logged out (anonymous)**: `$all` and `$anonymous`.
 
-## Default htpasswd
+## Default htpasswd {#default-htpasswd}
 
 In order to simplify the setup, `verdaccio` uses a plugin based on `htpasswd`. Since version v3.0.x the `verdaccio-htpasswd` plugin
 is used by default.

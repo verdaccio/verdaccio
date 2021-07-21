@@ -3,7 +3,7 @@ id: plugin-auth
 title: "Authentication Plugin"
 ---
 
-## What's an Authentication Plugin?
+## What's an Authentication Plugin? {#whats-an-authentication-plugin}
 
 Is a sort plugin that allows to handle who access or publish to a specific package. By default the `htpasswd` is built-in, but can
 easily be replaced by your own.
@@ -34,13 +34,13 @@ auth:
 
 > If one of the plugin in the chain is able to resolve the request, the next ones will be ignored.
 
-## How do the authentication plugin works?
+## How do the authentication plugin works? {#how-do-the-authentication-plugin-works}
 
 Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
 
 On each request, `authenticate` will be triggered and the plugin should return the credentials, if the `authenticate` fails, it will fallback to the `$anonymous` role by default.
 
-### API
+### API {#api}
 
 ```typescript
   interface IPluginAuth<T> extends IPlugin<T> {
@@ -55,23 +55,23 @@ On each request, `authenticate` will be triggered and the plugin should return t
 ```
 > Only `adduser`, `allow_access`, `apiJWTmiddleware`, `allow_publish`  and `allow_unpublish` are optional, verdaccio provide a fallback in all those cases.
 
-#### `apiJWTmiddleware` method
+#### `apiJWTmiddleware` method {#apijwtmiddleware-method}
 
 Since `v4.0.0`
 
 `apiJWTmiddleware` was introduced on [PR#1227](https://github.com/verdaccio/verdaccio/pull/1227) in order to have full control of the token handler, overriding this method will disable `login/adduser` support. We recommend don't implement this method unless is totally necessary. See a full example [here](https://github.com/verdaccio/verdaccio/pull/1227#issuecomment-463235068).
 
 
-## What should I return in each of the methods?
+## What should I return in each of the methods? {#what-should-i-return-in-each-of-the-methods}
 
 Verdaccio relies on `callback` functions at time of this writing. Each method should call the method and what you return is important, let's review how to do it.
 
 
-### `authentication` callback
+### `authentication` callback {#authentication-callback}
 
 Once the authentication has been executed there is 2 options to give a response to `verdaccio`.
 
-##### If the authentication fails
+##### If the authentication fails {#if-the-authentication-fails}
 
 If the auth was unsuccessful, return `false` as the second argument.
 
@@ -79,7 +79,7 @@ If the auth was unsuccessful, return `false` as the second argument.
 callback(null, false)
 ```
 
-##### If the authentication success
+##### If the authentication success {#if-the-authentication-success}
 
 The auth was successful.
 
@@ -90,7 +90,7 @@ The auth was successful.
  callback(null, groups);
 ```
 
-##### If the authentication produce an error
+##### If the authentication produce an error {#if-the-authentication-produce-an-error}
 
 The authentication service might fails, and you might want to reflect that in the user response, eg: service is unavailable.
 
@@ -103,9 +103,9 @@ The authentication service might fails, and you might want to reflect that in th
 > A failure on login is not the same as service error, if you want to notify user the credentails are wrong, just return `false` instead string of groups. The behaviour mostly depends of you.
 
 
-### `adduser` callback
+### `adduser` callback {#adduser-callback}
 
-##### If adduser success
+##### If adduser success {#if-adduser-success}
 
 If the service is able to create an user, return `true` as the second argument.
 
@@ -113,7 +113,7 @@ If the service is able to create an user, return `true` as the second argument.
 callback(null, true)
 ```
 
-##### If adduser fails
+##### If adduser fails {#if-adduser-fails}
 
 Any other action different than success must return an error.
 
@@ -125,9 +125,9 @@ const err = getConflict('maximum amount of users reached');
 callback(err);
 ```
 
-### `changePassword` callback
+### `changePassword` callback {#changepassword-callback}
 
-##### If the request is successful
+##### If the request is successful {#if-the-request-is-successful}
 
 If the service is able to create an user, return `true` as the second argument.
 
@@ -137,7 +137,7 @@ const user = serviceUpdatePassword(user, password, newPassword);
 callback(null, user)
 ```
 
-##### If the request fails
+##### If the request fails {#if-the-request-fails}
 
 Any other action different than success must return an error.
 
@@ -149,11 +149,11 @@ import { getNotFound } from '@verdaccio/commons-api';
 callback(err);
 ```
 
-### `allow_access`, `allow_publish`, or `allow_unpublish` callback
+### `allow_access`, `allow_publish`, or `allow_unpublish` callback {#allow_access-allow_publish-or-allow_unpublish-callback}
 
 These methods aims to allow or deny trigger some actions.
 
-##### If the request success
+##### If the request success {#if-the-request-success}
 
 If the service is able to create an user, return a `true` as the second argument.
 
@@ -166,7 +166,7 @@ allow_access(user: RemoteUser, pkg: PackageAccess, cb: Callback): void {
 }
 ```
 
-##### If the request fails
+##### If the request fails {#if-the-request-fails-1}
 
 Any other action different than success must return an error.
 
@@ -178,7 +178,7 @@ import { getNotFound } from '@verdaccio/commons-api';
 callback(err);
 ```
 
-## Generate an authentication plugin
+## Generate an authentication plugin {#generate-an-authentication-plugin}
 
 For detailed info check our [plugin generator page](plugin-generator). Run the `yo` command in your terminal and follow the steps.
 
@@ -240,7 +240,7 @@ After the install finish, access to your project scalfold.
   ...
 ```
 
-## Full implementation ES5 example
+## Full implementation ES5 example {#full-implementation-es5-example}
 
 ```javascript
 function Auth(config, stuff) {
@@ -283,7 +283,7 @@ auth:
 
 Where `htpasswd` is the sufix of the plugin name. eg: `verdaccio-htpasswd` and the rest of the body would be the plugin configuration params.
 
-### List Community Authentication Plugins
+### List Community Authentication Plugins {#list-community-authentication-plugins}
 
 * [verdaccio-bitbucket](https://github.com/idangozlan/verdaccio-bitbucket): Bitbucket authentication plugin for verdaccio.
 * [verdaccio-bitbucket-server](https://github.com/oeph/verdaccio-bitbucket-server): Bitbucket Server authentication plugin for verdaccio.

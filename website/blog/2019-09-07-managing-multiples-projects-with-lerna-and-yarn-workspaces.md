@@ -16,7 +16,7 @@ Now, we are proud to announce our [monorepo](https://github.com/verdaccio/monore
 
 <!--truncate-->
 
-## Background and tools
+## Background and tools {#background-and-tools}
 
 A year ago, [Juan](https://twitter.com/jotadeveloper) and I met in Madrid, Spain, and were talking about the roadmap for Verdaccio 4, the scope of the projects and more. We had some concerns about the Verdaccio ecosystem we want to build, such amount of repositories requires hard work for maintenance by each one with their own dependencies, scripts, configurations, etc.
 
@@ -28,13 +28,13 @@ After Verdaccio 4 release, Typescript migration and more, we saw that many proje
 
 There are more tools for this purpose, but we will focus on Lerna and Yarn Workspaces.
 
-### Lerna
+### Lerna {#lerna}
 
 **Lerna** is a tool to manage several Javascript projects with multiple packages (called _monorepos_), optimizing the workflows around them.
 
 You can install it globally with `npm install --global lerna`, `yarn global add lerna` or your favourite package manager, to run commands with `lerna <command>`. Also, if you don't want to install it, you can use package runners such as `npx`.
 
-### Yarn Workspaces
+### Yarn Workspaces {#yarn-workspaces}
 
 **Yarn Workspaces** is a way to setup package architecture where all packages dependencies are installed together with a single `yarn install`.
 
@@ -45,7 +45,7 @@ This involves two things that you could not see at the first moment.
 
 Since Yarn 1.0, this feature is enabled by default, you only need a root `package.json` to setup them.
 
-## Creating the monorepo
+## Creating the monorepo {#creating-the-monorepo}
 
 The initial setup is really simple, you only need to create a new repository and run `lerna init` to initialize the monorepo. This will generate files like `package.json` or `lerna.json` (packages structure is shown as example, but not generated).
 
@@ -63,7 +63,7 @@ packages/
 
 Let's see the main configuration for `lerna.json` and root `package.json`.
 
-### lerna.json
+### lerna.json {#lernajson}
 
 After initial setup, this file will looks like:
 
@@ -83,7 +83,7 @@ Other interesting settings are:
 - useWorkspaces: if you want to enable Yarn Workspaces, you will have to tell it to Lerna, setting this option to `true`.
 - stream: if you want to have the output of a child process inmediately in the console, you have to enable this option. Also, this will prefix each line with the package name that generate them.
 
-### package.json
+### package.json {#packagejson}
 
 After initial setup, you need some configuration to allow _Lerna_ work with _Yarn Workspaces_:
 
@@ -92,11 +92,11 @@ After initial setup, you need some configuration to allow _Lerna_ work with _Yar
 
 Later, you will learn how to define more settings in the root `package.json`.
 
-## Creating and importing packages
+## Creating and importing packages {#creating-and-importing-packages}
 
 You have a monorepo, but it's not useful at this moment. Let's create and import some packages.
 
-### lerna create
+### lerna create {#lerna-create}
 
 To create new packages, you can use `lerna create <package_name>` like you would do with `npm init` or `yarn init`. The wizard will ask you for some fields like package description, author or license. Other way to give that information is using command options (`--description`, `--author`, etc).
 
@@ -110,7 +110,7 @@ It's important to say that if your package is a scoped package, you have to add 
 }
 ```
 
-### lerna import
+### lerna import {#lerna-import}
 
 If you have a project you want to import, you don't have to create a new one in the monorepo, you can import it using `lerna import <path_to_project>`.
 
@@ -118,7 +118,7 @@ This command will read all the Git history from the project specified and apply 
 
 After the import completes, you can remove unnecessary stuff like CI settings, old scripts, hoisted devDependencies...
 
-## Managing dependencies and devDependencies
+## Managing dependencies and devDependencies {#managing-dependencies-and-devdependencies}
 
 Each package will contain their own _dependencies_ and _devDependencies_ like if the package is not in a monorepo, but there are some interesting things you can do with _devDependencies_, hoist them in the root `package.json`.
 
@@ -131,7 +131,7 @@ A good practice is to hoist every devDependency so they will be available for ev
 - A package needs a specific version of the package. In this case, you can have a root definition for all the packages and the specific version for the package that requires it. This will create a `node_modules` for the specific package, but not another `yarn.lock`.
 - Those _devDependencies_ that are part of the workspace must not be defined in the root `package.json`, because if you do that, you will create a cycle. An example is if _pkg1_ and _pkg2_ define _pkg3_ as devDependency, it could not be defined in the root because _pkg3_ will depend with itself.
 
-## Running scripts
+## Running scripts {#running-scripts}
 
 Like _dependencies_, each package will have their own _scripts_, so you should define them in their specific `package.json`.
 
@@ -151,7 +151,7 @@ The second, `lerna exec <command>`, will execute the command (not script) in all
 
 Both commands shares options like `--scope=<packages>` and `--ignore=<packages>`, where the first will run only in packages specified and the last will ignore them.
 
-## Versioning the monorepo
+## Versioning the monorepo {#versioning-the-monorepo}
 
 As we mentioned in [lerna.json](#lerna.json) section there are two versioning ways for packages in monorepos: _fixed mode_ and _independent mode_.
 
@@ -168,7 +168,7 @@ Because Lerna is going to manage the versioning, you should change your mind to 
   Also, you can use `--conventional-commits` option if your commits follows [Conventional Commits spec](https://www.conventionalcommits.org), automating the changelog generation. Additionally, for Github and Gitlab users, you can use `--create-release <github | gitlab>` to create release with changes. Keep in mind that you have to provide an auth token (_GH_TOKEN_ or _GL_TOKEN_).
 - `lerna publish` will act as `lerna version` and publish packages if you don't provide `from-git` or `from-package` arguments, or only publish if provide one. You would like to use `from-git` to version first, using Git as a **single source of truth**.
 
-## Conclusion and thanks
+## Conclusion and thanks {#conclusion-and-thanks}
 
 Lerna and Yarn Workspaces are a great combination for creating monorepos. In this first part, you have learned how to setup a monorepo, add packages, improve dependency management, scripts and versioning. In the next chapters, you will see more configuration and tooling (and their settings for monorepos), and how to automate some things using Continuous Integration tools.
 

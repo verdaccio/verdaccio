@@ -13,7 +13,7 @@ Loosely based upon the instructions found [here](http://asysadmin.tumblr.com/pos
 3. Create your `config.yaml` file in this location `(c:\verdaccio\config.yaml)`
 4. Windows Service Setup
 
-## Using NSSM
+## Using NSSM {#using-nssm}
 
 ALTERNATIVE METHOD: (WinSW package was missing when I tried to download it)
 
@@ -34,7 +34,7 @@ location of c:\verdaccio the below values will work:
 
  * Start the service sc start verdaccio
 
-## Using WinSW
+## Using WinSW {#using-winsw}
 
 * As of 2015-10-27, WinSW is no longer available at the below location. Please follow the Using NSSM instructions above.
 * Download [WinSW](http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/)
@@ -52,6 +52,6 @@ is ignored, but other than that, this works for me and allows my verdaccio insta
 persist between restarts of the server, and also restart itself should there be any crashes of the verdaccio process.
 
 
-## Repositories
+## Repositories {#repositories}
 
 * [verdaccio-deamon-windows](https://github.com/davidenke/verdaccio-deamon-windows)

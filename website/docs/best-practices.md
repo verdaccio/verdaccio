@@ -8,7 +8,7 @@ mandatory, you might pick some of them according your needs.
 
 **Feel free to suggest your best practices to the Verdaccio community**.
 
-## Private Registry
+## Private Registry {#private-registry}
 
 You can add users and manage which users can access which packages.
 
@@ -32,7 +32,7 @@ It is recommended that you define a prefix for your private packages, for exampl
 
 Always remember, **the order of packages access is important**, packages are matched always top to bottom.
 
-### Using public packages from npmjs.org
+### Using public packages from npmjs.org {#using-public-packages-from-npmjsorg}
 
 If a package doesn't exist in the storage, the server will try to fetch it from npmjs.org. If npmjs.org is down, it serves packages from the cache pretending that no other packages exist. **Verdaccio will download only what's needed (requested by clients)**, and this information will be cached, so if the client requests the same thing a second time it can be served without asking npmjs.org for it.
 
@@ -40,7 +40,7 @@ If a package doesn't exist in the storage, the server will try to fetch it from 
 
 If you successfully request `express@4.0.1` from the server once, you'll be able to do it again (with all of it's dependencies) any time, even if npmjs.org is down. Though note that `express@4.0.0` will not be downloaded until it's actually needed by somebody. And if npmjs.org is offline, the server will say that only `express@4.0.1` (what's in the cache) is published, but nothing else.
 
-### Override public packages
+### Override public packages {#override-public-packages}
 
 If you want to use a modified version of some public package `foo`, you can just publish it to your local server, so when your type `npm install foo`, **it'll consider installing your version**.
 
@@ -72,7 +72,7 @@ There's two options here:
 
    This way your package will be used until its original maintainer updates his public package to `0.1.3`.
 
-## Security
+## Security {#security}
 
 > Security starts in your environment.
 
@@ -86,7 +86,7 @@ Additonal reading:
 - **[Practical Mitigations For Dependency Confusion Attack](https://www.kernelcrypt.com/posts/depedency-confusion-explained/)**
 > Feel free to attach here new useful articles to improve the security.
 
-### Strong package access with `$authenticated`
+### Strong package access with `$authenticated` {#strong-package-access-with-authenticated}
 
 By default all packages you publish in Verdaccio are accessible for all users. We recommend protecting your registry from external non-authorized users by updating the `access` property of your packages to `$authenticated`.
 
@@ -105,7 +105,7 @@ packages:
 
 That way, **nobody can access your registry unless they are authorized, and private packages won't be displayed in the web interface**.
 
-### Remove `proxy` to increase security at private packages
+### Remove `proxy` to increase security at private packages {#remove-proxy-to-increase-security-at-private-packages}
 
 After a clean installation, by default all packages will be resolved to the default uplink (the public registry `npmjs`).
 
@@ -141,13 +141,13 @@ packages:
 
 This configuration will **avoid downloading needlessly to external registries**, merging external metadata and download external tarballs.
 
-## Server
+## Server {#server}
 
-### Secured Connections
+### Secured Connections {#secured-connections}
 
 Using **HTTPS** is a common recommendation. For this reason we recommend reading the [SSL](ssl.md) section to make Verdaccio secure, or alternatively using an HTTPS [reverse proxy](reverse-proxy.md) on top of Verdaccio.
 
-### Expiring Tokens
+### Expiring Tokens {#expiring-tokens}
 
 Since `verdaccio@3.x` the tokens have no expiration date. For such reason we introduced in the next `verdaccio@4.x` the JWT feature [PR#896](https://github.com/verdaccio/verdaccio/pull/896)
 

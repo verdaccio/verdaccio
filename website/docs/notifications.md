@@ -8,13 +8,13 @@ webhooks, but will also deliver a simple payload to
 any endpoint. This is currently only active for the `npm publish`
 command.
 
-## Usage
+## Usage {#usage}
 
 An example with a **HipChat**, **Stride** and **Google Hangouts Chat** hook:
 
 > Verdaccio supports any API, feel free to add more examples.
 
-#### Single notification
+#### Single notification {#single-notification}
 
 ```yaml
 notify:
@@ -24,7 +24,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-#### Multiple notification
+#### Multiple notification {#multiple-notification}
 
 ```yaml
 notify:
@@ -45,11 +45,11 @@ notify:
      content: '{"body": {"version": 1,"type": "doc","content": [{"type": "paragraph","content": [{"type": "text","text": "New package published: * {{ name }}* Publisher name: * {{ publisher.name }}"}]}]}}'
 ```
 
-## Template
+## Template {#template}
 
 We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
-### Format Examples
+### Format Examples {#format-examples}
 
 ```
 # iterate all versions
@@ -59,7 +59,7 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 {{ publisher.name }} has published {{ publishedPackage }}
 ```
 
-### Properties
+### Properties {#properties}
 
 List of properties accesible via template
 
@@ -67,7 +67,7 @@ List of properties accesible via template
 * Publisher (who is publishing)
 * Package Published (package@1.0.0)
 
-### Metadata
+### Metadata {#metadata}
 
 Package metadata that the template has access
 
@@ -122,7 +122,7 @@ Package metadata that the template has access
 ```
 
 
-### Publisher
+### Publisher {#publisher}
 
 You can get access to the package publisher information in the `content` of a webhook using the `publisher` object.
 
@@ -148,7 +148,7 @@ notify:
 
 **Note:** it's not possible to get the publisher information if the `package.json` file already has the `publisher` property.
 
-### Package Published
+### Package Published {#package-published}
 
 You can access to the package is being published with the keyword `{{publishedPackage}}` as follows.
 
@@ -156,7 +156,7 @@ You can access to the package is being published with the keyword `{{publishedPa
 {{ publisher.name }} has published {{ publishedPackage }}
 ```
 
-## Configuration
+## Configuration {#configuration}
 
 Property | Type | Required | Support | Default | Description
 --- | --- | --- | --- | --- | ---

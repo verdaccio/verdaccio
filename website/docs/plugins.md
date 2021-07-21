@@ -14,9 +14,9 @@ There are 5 types of plugins:
 
 > If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
 
-## Usage
+## Usage {#usage}
 
-### Installation
+### Installation {#installation}
 
 ```bash
 $> npm install --global verdaccio-activedirectory
@@ -28,14 +28,14 @@ $> npm install --global verdaccio-activedirectory
 $> npm install --global sinopia-memory
 ```
 
-### Configuration
+### Configuration {#configuration}
 
 Open the `config.yaml` file and update the `auth` section as follows:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
 
-### Authentication Configuration
+### Authentication Configuration {#authentication-configuration}
 
 ```yaml
   htpasswd:
@@ -53,7 +53,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-#### Multiple Authentication plugins
+#### Multiple Authentication plugins {#multiple-authentication-plugins}
 
 This is technically possible, making the plugin order important, as the credentials will be resolved in order.
 
@@ -68,7 +68,7 @@ auth:
     domainSuffix: 'sample.local'
 ```
 
-### Middleware Configuration
+### Middleware Configuration {#middleware-configuration}
 
 This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
@@ -80,7 +80,7 @@ middlewares:
 
 > You might follow the [audit middle plugin](https://github.com/verdaccio/verdaccio-audit) as base example.
 
-### Storage Configuration
+### Storage Configuration {#storage-configuration}
 
 This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
@@ -90,7 +90,7 @@ store:
     limit: 1000
 ```
 
-### Theme Configuration
+### Theme Configuration {#theme-configuration}
 
 Verdaccio allows to replace the User Interface with a custom one, we call it **theme**.
 By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
@@ -113,9 +113,9 @@ theme:
     option2: bar
 ```
 
-## Legacy plugins
+## Legacy plugins {#legacy-plugins}
 
-### Sinopia Plugins
+### Sinopia Plugins {#sinopia-plugins}
 
 > If you are relying on any sinopia plugin, remember are deprecated and might no work in the future.
 

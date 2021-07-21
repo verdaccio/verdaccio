@@ -3,7 +3,7 @@ id: who-is-using
 title: "Who is using Verdaccio?"
 ---
 
-### As a Business
+### As a Business {#as-a-business}
 
 *If you are using Verdaccio in your business and want to share your experience, let us know. We will happy to listen to you.*
 
@@ -11,7 +11,7 @@ title: "Who is using Verdaccio?"
 * [Satispay](https://www.satispay.com/)
 
 
-### Open Source Projects
+### Open Source Projects {#open-source-projects}
 
 > **Feel free to suggest other OSS are using Verdaccio.**
 
@@ -28,7 +28,7 @@ title: "Who is using Verdaccio?"
 * [The AWS Cloud Development Kit](https://github.com/awslabs/aws-cdk)
 * [Hyperledger Caliper](https://github.com/hyperledger/caliper)
 
-#### Readme Recommendations
+#### Readme Recommendations {#readme-recommendations}
 
 * [react-native-cli](https://github.com/react-native-community/react-native-cli/blob/master/CONTRIBUTING.md)
 

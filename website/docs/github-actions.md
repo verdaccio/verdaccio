@@ -7,7 +7,7 @@ With [GitHub Actions](https://github.com/features/actions) you can automate your
 
 ![actions](/img/github-actions.png)
 
-## Testing your packages
+## Testing your packages {#testing-your-packages}
 
 Verdaccio provides a custom action for easy integration in your flow by adding the following to your workflow file's `steps` key.
 

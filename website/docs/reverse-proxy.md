@@ -32,7 +32,7 @@ For installing at root path, `/`, on the server
 </VirtualHost>
 ````
 
-### Configuration with SSL
+### Configuration with SSL {#configuration-with-ssl}
 
 Apache virtual server configuration
 
@@ -110,7 +110,7 @@ server {
 }
 ````
 
-## SSL example
+## SSL example {#ssl-example}
 
 ````
 server {
@@ -152,9 +152,9 @@ server {
 }
 ````
 
-## Run behind reverse proxy with different domain and port
+## Run behind reverse proxy with different domain and port {#run-behind-reverse-proxy-with-different-domain-and-port}
 
-### Sub-directory
+### Sub-directory {#sub-directory}
 
 If the whole URL is being used for Verdaccio, you don't need to define a `url_prefix`, otherwise
 you would need something like this in your `config.yaml`.

@@ -3,11 +3,11 @@ id: plugin-middleware
 title: "Middleware Plugin"
 ---
 
-## What's an Middleware Plugin?
+## What's an Middleware Plugin? {#whats-an-middleware-plugin}
 
 Middleware plugins have the capability to modify the API (web and cli) layer, either adding new endpoints or intercepting requests.
 
-### API
+### API {#api}
 
 ```typescript
 interface IPluginMiddleware<T> extends IPlugin<T> {
@@ -15,7 +15,7 @@ interface IPluginMiddleware<T> extends IPlugin<T> {
 }
 ```
 
-### `register_middlewares`
+### `register_middlewares` {#register_middlewares}
 
 The method provide full access to the authentification and storage via `auth` and `storage`. `app` is the express application that allows you to add new endpoints.
 
@@ -43,7 +43,7 @@ The `auth` and `storage` are instances and can be extended, but we don't recomme
 
 > A good example of a middleware plugin is the [verdaccio-audit](https://github.com/verdaccio/monorepo/tree/master/plugins/audit).
 
-## Generate an middleware plugin
+## Generate an middleware plugin {#generate-an-middleware-plugin}
 
 For detailed info check our [plugin generator page](plugin-generator). Run the `yo` command in your terminal and follow the steps.
 
@@ -107,7 +107,7 @@ After the install finish, access to your project scalfold.
 
 The middleware are registrered after built-in endpoints, thus, it is not possible to override the implemented ones.
 
-### List Community Middleware Plugins
+### List Community Middleware Plugins {#list-community-middleware-plugins}
 
 * [verdaccio-audit](https://github.com/verdaccio/verdaccio-audit): verdaccio plugin for *npm audit* cli support (built-in) (compatible since 3.x)
 

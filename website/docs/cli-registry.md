@@ -5,7 +5,7 @@ title: "Using a private registry"
 
 Setting up a private registry can be achieved in a few ways, let's review all of them. The following commands might be different based on the package manager you are using.
 
-### npm (5.x, 6.x)
+### npm (5.x, 6.x) {#npm-5x-6x}
 
 To set the registry in the `.npmrc` file use the following:
 
@@ -41,7 +41,7 @@ Or a `publishConfig` in your `package.json`
 
 If you are using either `npm@5.4.x` or `npm@5.5.x`, there are [known issues with tokens](https://github.com/verdaccio/verdaccio/issues/509#issuecomment-359193762), please upgrade to either `6.x` or downgrade to `npm@5.3.0`.
 
-#### SSL and certificates
+#### SSL and certificates {#ssl-and-certificates}
 
 When using Verdaccio under SSL without a valid certificate, defining `strict-ssl` in your config file is required otherwise you will get `SSL Error: SELF_SIGNED_CERT_IN_CHAIN` errors.
 
@@ -52,7 +52,7 @@ npm config set ca ""
 npm config set strict-ssl false
 ```
 
-### npm (7.x)
+### npm (7.x) {#npm-7x}
 
 npm `v7.0.0` is more strict with the new `v2` lockfile. If you have mixed `resolved` fields in your lockfile, for instance, having this in your lockfile:
 
@@ -90,9 +90,9 @@ npm `v7.0.0` is more strict with the new `v2` lockfile. If you have mixed `resol
 
 Either running `npm i --registry https://registry.npmjs.org` or using `.npmrc` will fail your installation.
 
-### yarn
+### yarn {#yarn}
 
-#### Yarn (1.x)
+#### Yarn (1.x) {#yarn-1x}
 
 > Be aware npm configurations are valid on the classic version
 
@@ -113,7 +113,7 @@ npm config set always-auth true
 
 `yarn@1.x` does not send the authorization header on `yarn install` if your packages requires authentication, by enabling `always-auth` will force yarn do it on each request.
 
-#### Yarn Berry (>=2.x)
+#### Yarn Berry (>=2.x) {#yarn-berry-2x}
 
 > Yarn berry does not recognize `--registry` or `.npmrc` file anymore.
 
@@ -150,7 +150,7 @@ for logging via CLi use:
 yarn npm login --scope my-company
 ```
 
-### pnpm
+### pnpm {#pnpm}
 
 > This includes 4.x and 5.x series.
 

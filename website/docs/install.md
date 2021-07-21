@@ -5,7 +5,7 @@ title: "Installation"
 
 Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites.
 
-## Prerequisites
+## Prerequisites {#prerequisites}
 
 1. **Node.js** `v12` or higher.
 
@@ -19,13 +19,13 @@ Verdaccio is a multiplatform web application. To install it, you need a few basi
 
 Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
-### Quick Introduction
+### Quick Introduction {#quick-introduction}
 
 Learn the basics before getting started, how to install, where is the location of the configuration file and more.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Installing the CLI
+## Installing the CLI {#installing-the-cli}
 
 > Before using Verdaccio in production, please read and be [aware of the best practices](best-practices.md).
 
@@ -51,7 +51,7 @@ pnpm install -g verdaccio
 
 ![install verdaccio](/img/install_verdaccio.gif)
 
-## Basic Usage
+## Basic Usage {#basic-usage}
 
 Once it has been installed, you only need to execute the CLI command:
 
@@ -91,13 +91,13 @@ Or a `publishConfig` in your `package.json`
 }
 ```
 
-## Create Your Own Private NPM Package Tutorial
+## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}
 
 If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Co0RwdpEsag?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Docker Image
+## Docker Image {#docker-image}
 
 ```bash
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
@@ -105,7 +105,7 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 `Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
 
-## Cloudron
+## Cloudron {#cloudron}
 
 `Verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
 

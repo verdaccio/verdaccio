@@ -26,7 +26,7 @@ All access restrictions defined to [protect your packages](protect-your-dependen
 
 The `primary_color` **must be a valid hex representation**.
 
-### Internationalization
+### Internationalization {#internationalization}
 
 _Since v4.5.0_, there are translations available.
 
@@ -38,7 +38,7 @@ i18n:
 > ⚠️ Only the languages in this [list](https://github.com/verdaccio/ui/tree/master/i18n/translations) are available, feel free to contribute with more. The default
 > one is en-US
 
-### Configuration
+### Configuration {#configuration}
 
 | Property      | Type       | Required | Example                                                       | Support    | Description                                                                                                              |
 | ------------- | ---------- | -------- | ------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |

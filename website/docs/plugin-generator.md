@@ -3,7 +3,7 @@ id: plugin-generator
 title: "Plugin Generator"
 ---
 
-## Installing the Yeoman Generator
+## Installing the Yeoman Generator {#installing-the-yeoman-generator}
 
 Verdaccio is a pluggable application, with the objective to help developers to generate new plugins, we have a custom generator based in **[Yeoman](https://yeoman.io/)** for generate all sort of plugins.
 
@@ -19,7 +19,7 @@ then, install the custom generator running the following in your terminal.
 npm i -g generator-verdaccio-plugin
 ```
 
-## Using the generator
+## Using the generator {#using-the-generator}
 
 Use `yeoman` is quite straighforward, you can read more infomation about it [here](https://yeoman.io/learning/index.html).
 
@@ -44,7 +44,7 @@ Setting the project root at: /Users/user/verdaccio_yo_generator
 ? What is the name of your plugin? (customname)
 ```
 
-### Best practices
+### Best practices {#best-practices}
 
 - We recommend using **Typescript** for developing new plugins, we provide an extense support of Types which help you along the development.
 
@@ -69,7 +69,7 @@ Setting the project root at: /Users/user/verdaccio_yo_generator
 - Keep your generator **updated**, don't miss any bug-fixes and performance improvements.
 
 
-### Contributing
+### Contributing {#contributing}
 
 Help us to improve the generator, you can contribute in the following repository.
 

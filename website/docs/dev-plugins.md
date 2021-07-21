@@ -18,11 +18,11 @@ There are many ways to extend `verdaccio`, the kind of plugins supported are:
 The following plugins are valid and in process of incubation.
 
 
-## Theme Plugin
+## Theme Plugin {#theme-plugin}
 
 The plugin must return a function that returns a **string**. The string should be the absolute location of the root of your user interface.
 
-### API
+### API {#api}
 
 ```javascript
 const path = require('path');
@@ -34,11 +34,11 @@ module.exports = (...arguments) => {
 
 It is imporant that the name of the plugin **must start with `verdaccio-theme-` prefix**.
 
-### Theme Example
+### Theme Example {#theme-example}
 
 * [@verdaccio/ui-theme](https://github.com/verdaccio/ui): The default Verdaccio theme based in React.js.
 
-## Filter Plugin
+## Filter Plugin {#filter-plugin}
 
 Since [`4.1.0`](https://github.com/verdaccio/verdaccio/pull/1313)
 
@@ -57,7 +57,7 @@ filters:
 ```
 
 
-### API
+### API {#api-1}
 
 The method `filter_metadata` will allow you to filter metadata that comes from any uplink, it is `Promise` based
 and has to return the same metadata modified.

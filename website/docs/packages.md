@@ -9,7 +9,7 @@ The security constraints remain on the shoulders of the plugin being used, by de
 
 For more information about permissions visit [the authentification section in the wiki](auth.md).
 
-### Usage
+### Usage {#usage}
 
 ```yalm
 packages:
@@ -83,7 +83,7 @@ Please note that if you set the `access` permission of a package to something th
 $ npm config set always-auth=true
 ```
 
-#### Set multiple groups
+#### Set multiple groups {#set-multiple-groups}
 
 Defining multiple access groups is fairly easy, just define them with a white space between them.
 
@@ -98,7 +98,7 @@ Defining multiple access groups is fairly easy, just define them with a white sp
     proxy: server1
 ```
 
-#### Blocking access to set of packages
+#### Blocking access to set of packages {#blocking-access-to-set-of-packages}
 
 If you want to block the access/publish to a specific group of packages. Just do not define `access` and `publish`.
 
@@ -110,7 +110,7 @@ packages:
     publish: $authenticated
 ```
 
-#### Blocking proxying a set of specific packages
+#### Blocking proxying a set of specific packages {#blocking-proxying-a-set-of-specific-packages}
 
 You might want to block one or several packages from fetching from remote repositories., but, at the same time, allow others to access different *uplinks*.
 
@@ -142,7 +142,7 @@ Let's describe what we want with the above example:
 
 Be **aware that the order of your packages definitions is important and always use double wilcard**. Because if you do not include it `verdaccio` will include it for you and the way that your dependencies are resolved will be affected.
 
-#### Use multiple uplinks
+#### Use multiple uplinks {#use-multiple-uplinks}
 
 You may assign multiple uplinks for use as a proxy to use in the case of failover, or where there may be other private registries in use.
 
@@ -153,7 +153,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
   proxy: npmjs uplink2
 ```
 
-#### Unpublishing Packages
+#### Unpublishing Packages {#unpublishing-packages}
 
 The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property
 `unpublish` in your package access section, for instance:
@@ -185,7 +185,7 @@ In the previous example, the behaviour would be described:
 * If `unpublish` is commented out, the access will be granted or denied by the `publish` definition.
 
 
-### Configuration
+### Configuration {#configuration}
 
 You can define mutiple `packages` and each of them must have an unique `Regex`. The syntax is based on [minimatch glob expressions](https://github.com/isaacs/minimatch).
 

@@ -7,7 +7,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 
 > Any language is allowed
 
-## Core Team Articles
+## Core Team Articles {#core-team-articles}
 
 * [An Introduction to Verdaccio](https://medium.com/@jotadeveloper/an-introduction-to-verdaccio-f6c72e865425)
 * [Five use cases where a npm private proxy fits in your workflow](https://medium.com/@jotadeveloper/five-use-cases-where-a-npm-private-proxy-fits-in-your-workflow-632a81779c14)
@@ -25,7 +25,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 
 # Articles / Blogs / Tutorials (by Language)
 
-### Remarkable Articles
+### Remarkable Articles {#remarkable-articles}
 
 * [Automating package publishing in JavaScript projects](https://blog.codecentric.de/en/2021/02/automating-package-publishing-in-javascript-projects/)
 * [10 npm Security Best Practices](https://snyk.io/blog/ten-npm-security-best-practices/)
@@ -39,7 +39,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 * [How to set up a free private npm registry… for Windows](https://medium.com/@Anderson7301/how-to-set-up-a-free-private-npm-registry-for-windows-f532c6a381ce)
 * [Setup a Private NPM Server on Azure in 45 Seconds](https://edi.wang/post/2020/7/7/setup-a-private-npm-server-on-azure-in-45-seconds)
 
-### English
+### English {#english}
 
 * [Testing your npm package before releasing it using Verdaccio + ngrok](https://medium.com/strapi/testing-your-npm-package-before-releasing-it-using-verdaccio-ngrok-28e2832c850a)
 * [Host your own private NPM repository with Verdaccio](https://medium.com/devopslinks/host-your-own-private-npm-repository-with-verdaccio-e8a3202b97c5)
@@ -53,13 +53,13 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 * [Verdaccio examples for Google Cloud and K8s setups. https://github.com/papezt/verdaccio-examples](https://github.com/papezt/verdaccio-examples)
 * [Setting up a private NPM Registry Is Easier Than You Think](https://medium.com/@902Labs/setting-up-a-private-npm-registry-is-easier-than-you-think-455e1bd438f2)
 
-### Japanese
+### Japanese {#japanese}
 
 * [Verdaccio でプライベート npm リポジトリをサクッと立てる](http://neos21.hatenablog.com/entry/2017/09/08/080000)
 * [verdaccioでprivateなnpmリポジトリを作成](https://qiita.com/mtokiwa/items/1bc22a2270e4408d4cdd)
 * [Version control of my own UnityPackage with Unity × Verdaccio / Unity×Verdaccioで自作UnityPackageをバージョン管理する](https://synamon.hatenablog.com/entry/2018/08/15/185607)
 
-### Chinese
+### Chinese {#chinese}
 
 * [使用 verdaccio 搭建 npm 私有仓储](https://blog.sigoden.com/verdaccio--private-npm-registry/)
 * [Verdaccio：一个轻量级的私有npm代理注册表（sinopia fork)](https://www.ctolib.com/verdaccio-verdaccio.html)
@@ -69,24 +69,24 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 * [[筆記] 建立自己的 npm, 以npm Orgs跟Verdaccio為例](https://medium.com/@ceall8650/%E7%AD%86%E8%A8%98-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-npm-%E4%BB%A5npm-orgs%E8%B7%9Fverdaccio%E7%82%BA%E4%BE%8B-cfb83b2307e6)
 
 
-### French
+### French {#french}
 
 * [Installer un registre NPM](https://allons-y.io/wiki/installer-un-registre-npm)
 * [Verdaccio - Un registre de paquets npm](https://blog.yoannfleury.dev/verdaccio-un-registre-de-paquets-npm/)
 
 
-### Spanish
+### Spanish {#spanish}
 * [NPM privado: instalar y configurar Verdaccio](https://www.todojs.com/npm-privado-con-verdaccio/)
 * [NPM privado: 5 razones y 7 recomendaciones para utilizarlo](https://www.todojs.com/npm-privado-5-razones-y-7-recomendaciones/)
 
 
-### German
+### German {#german}
 
 * [Struktur für große Angular-Anwendungen: Microservices, Module, MonoRepo?](https://jaxenter.de/struktur-angular-anwendungen-67467)
 * [Angular in einer Microservices-Welt](https://jaxenter.de/angular-microservices-66445)
 * [Privates NPM Repository mit Verdaccio (SSL & Docker)](https://blog.zotorn.de/privates-npm-repository-mit-verdaccio-ssl-docker-1/)
 
-## Slides
+## Slides {#slides}
 
 * [Introduction to Verdaccio VueJS Meetup 2018](https://www.slideshare.net/juancarlospicado/introduction-to-verdaccio)
 * [Introduccion Verdaccio Vienna JS Meetup 2019](https://docs.google.com/presentation/d/1eam_OtXCQh5IVYyia2GHhxVD8tb37B0yIadVa8wxQSk/edit?usp=sharing)

@@ -36,7 +36,7 @@ for mentioned link works better
 
 A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml`
 
-###  package.json
+###  package.json {#packagejson}
 
 ````json
 {
@@ -50,21 +50,21 @@ A default configuration file will be created `c:\verdaccio\verdaccio\config.yaml
 }
 ````
 
-### start.js
+### start.js {#startjs}
 
 ````bash
 process.argv.push('-l', 'unix:' + process.env.PORT, '-c', './config.yaml');
 require('./node_modules/verdaccio/build/lib/cli.js');
 ````
 
-### Alternate start.js for Verdaccio versions < v3.0
+### Alternate start.js for Verdaccio versions < v3.0 {#alternate-startjs-for-verdaccio-versions--v30}
 
 ````bash
 process.argv.push('-l', 'unix:' + process.env.PORT);
 require('./node_modules/verdaccio/src/lib/cli.js');
 ````
 
-### web.config
+### web.config {#webconfig}
 
 ````xml
 <configuration>
@@ -115,7 +115,7 @@ require('./node_modules/verdaccio/src/lib/cli.js');
 </configuration>
 ````
 
-### Troubleshooting
+### Troubleshooting {#troubleshooting}
 - **The web interface does not load when hosted with https as it tries to download scripts over http.**
 Make sure that you have enabled `X-Forwarded-Proto` in IISNode using `enableXFF`. See [the related issue](https://github.com/verdaccio/verdaccio/issues/2003).
 ````

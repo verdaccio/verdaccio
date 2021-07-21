@@ -5,7 +5,7 @@ title: "Protecting packages"
 
 Verdaccio allows you protect publishing to your registry. To achieve that you will need to set up correctly configure your [packages access](packages).
 
-### Package configuration
+### Package configuration {#package-configuration}
 
 Let's see for instance the following set up. You have a set of dependencies that are prefixed with `my-company-*` and you need to protect them from anonymous or other non-authorized logged-in users.
 
@@ -17,7 +17,7 @@ Let's see for instance the following set up. You have a set of dependencies that
 
 With this configuration, we allow the groups **admin** and **teamA** to _publish_ and **teamA**, **teamB** and **teamC** to _access_ the specified dependencies.
 
-### Use case: teamD tries to access the dependency
+### Use case: teamD tries to access the dependency {#use-case-teamd-tries-to-access-the-dependency}
 
 So, if I am logged as **teamD**. I shouldn't be able to access all dependencies that match the `my-company-*` pattern.
 

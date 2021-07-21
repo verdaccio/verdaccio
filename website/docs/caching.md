@@ -6,7 +6,7 @@ title: "Caching strategies"
 Verdaccio caches all packages by default into the `/storage` folder. But you can decide whether you want to follow
 a different strategy. Using of plugins you might use the cloud or any sort of database.
 
-## Caching scenarios
+## Caching scenarios {#caching-scenarios}
 
 * Build a Node.js project on **Continous Integration** (Bamboo, GitLab, Jenkins, etc) servers is a task that might take several times at a day, thus, the server will download tons of tarballs from the registry every time takes place.  As usual, the CI tools clear the cache after each build and the process start over and over again. That is a waste of bandwidth and reduces the external traffic.
 **You can use Verdaccio for caching tarballs and metadata in our internal network and give a boost in your build time.**
@@ -22,7 +22,7 @@ a proxy registry, Verdaccio cache all metadata and tarballs are downloaded by de
 
 > We are looking for more strategies, feel free to share your experience in this field
 
-## Avoid Caching tarballs
+## Avoid Caching tarballs {#avoid-caching-tarballs}
 
 If you have a limited storage space, you might need to avoid cache tarballs, enabling `cache` false in each
 uplink will cache only metadata files.
@@ -34,7 +34,7 @@ uplinks:
     cache: false
 ```
 
-## Extending Cache Expiration Time
+## Extending Cache Expiration Time {#extending-cache-expiration-time}
 
  Verdaccio by default waits 2 minutes to invalidate the cache metadata before fetching new information from the remote registry.
 
@@ -49,7 +49,7 @@ Increasing the value of `maxage` in each `uplink` remotes will be asked less fre
 you don't update dependencies so often.
 
 
-## Using the memory instead the hardrive
+## Using the memory instead the hardrive {#using-the-memory-instead-the-hardrive}
 
 Sometimes caching packages is not a critical step, rather than route packages from different registries and achieving
 faster build times. There are two plugins that avoid write in a physical hard drive at all using the memory.

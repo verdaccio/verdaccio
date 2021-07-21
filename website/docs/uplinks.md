@@ -7,7 +7,7 @@ An *uplink* is a link with an external registry that provides access to external
 
 ![Uplinks](https://user-images.githubusercontent.com/558752/52976233-fb0e3980-33c8-11e9-8eea-5415e6018144.png)
 
-### Usage
+### Usage {#usage}
 
 ```yaml
 uplinks:
@@ -21,7 +21,7 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 ```
-### Configuration
+### Configuration {#configuration}
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
 
@@ -39,7 +39,7 @@ headers | list | No | authorization: "Bearer SecretJWToken==" | all | list of cu
 strict_ssl | boolean | No | [true,false] | >= 3.0 | If true, requires SSL certificates be valid. | true
 agent_options | object | No | maxSockets: 10 | >= 4.0.2 | options for the HTTP or HTTPS Agent responsible for managing uplink connection persistence and reuse [more info](https://nodejs.org/api/http.html#http_class_http_agent) | No default
 
-#### Auth property
+#### Auth property {#auth-property}
 
 The `auth` property allows you to use an auth token with an uplink. Using the default environment variable:
 
@@ -78,7 +78,7 @@ uplinks:
 
 > Note: `token` has priority over `token_env`
 
-### You Must know
+### You Must know {#you-must-know}
 
 * Uplinks must be registries compatible with the `npm` endpoints. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
 * Setting `cache` to false will help to save space in your hard drive. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).

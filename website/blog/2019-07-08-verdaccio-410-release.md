@@ -25,23 +25,23 @@ Thanks for support Verdaccio ! 👏👏👏👏.
 
 <!--truncate-->
 
-## Use this version
+## Use this version {#use-this-version}
 
-### Docker
+### Docker {#docker}
 
 ```bash
 docker pull verdaccio/verdaccio:4.1.0
 ```
 
-### npmjs
+### npmjs {#npmjs}
 
 ```bash
 npm install -g verdaccio@4.1.0
 ```
 
-## New Features
+## New Features {#new-features}
 
-### [Filter plugin for packages](https://github.com/verdaccio/verdaccio/pull/1161) by @mlucool
+### [Filter plugin for packages](https://github.com/verdaccio/verdaccio/pull/1161) by @mlucool {#filter-plugin-for-packages-by-mlucool}
 
 Verdaccio now support plugin filters, we are just starting with filter metadata.
 
@@ -69,7 +69,7 @@ interface IPluginStorageFilter<T> extends IPlugin<T> {
 
 This system might be extended in the future, we are trying this approach at this stage.
 
-### [parse YAML/JSON/JS config file](https://github.com/verdaccio/verdaccio/pull/1258) by @honzahommer
+### [parse YAML/JSON/JS config file](https://github.com/verdaccio/verdaccio/pull/1258) by @honzahommer {#parse-yamljsonjs-config-file-by-honzahommer}
 
 Now, Verdaccio is able to understand JSON format for configuration files.
 
@@ -77,7 +77,7 @@ Now, Verdaccio is able to understand JSON format for configuration files.
 verdaccio --config /myPath/verdaccio.json
 ```
 
-### [New CLI command `verdaccio --info`](https://github.com/verdaccio/verdaccio/pull/1365) by @jamesgeorge007
+### [New CLI command `verdaccio --info`](https://github.com/verdaccio/verdaccio/pull/1365) by @jamesgeorge007 {#new-cli-command-verdaccio---info-by-jamesgeorge007}
 
 The new `verdaccio --info` command will display information of your environment, this sort of information is handy in order to report any bug.
 

@@ -5,7 +5,7 @@ title: "Amazon Web Services"
 
 This document describes several approaches for deploying Verdaccio in the AWS cloud.
 
-## EC2
+## EC2 {#ec2}
 
 [CloudFormation template for deploying this stack.](https://github.com/verdaccio/verdaccio/blob/master/contrib/aws/cloudformation-ec2-efs.yaml)
 
@@ -43,12 +43,12 @@ Estimated monthly cost for a small installation (in us-east-1):
 * Data transfer: (10gb): $0.9/mo
 * **TOTAL:** Under $30/mo
 
-## ECS
+## ECS {#ecs}
 
 You can deploy Verdaccio as a task with an [ECS Volume](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html) for persistent storage.
 
 Note: Fargate doesn't support persistent volumes, so you have to use the S3 storage plugin.
 
-## EKS
+## EKS {#eks}
 
 See the documentation pages on [Kubernetes](kubernetes) and [Docker](docker).

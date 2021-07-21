@@ -22,7 +22,7 @@ logs: { type: file, path: verdaccio.log, level: info }
 Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.
 Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
-### Configuration
+### Configuration {#configuration}
 
 | Property | Type   | Required | Example                                        | Support | Description                                       |
 | -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |

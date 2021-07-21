@@ -16,12 +16,12 @@ Such approach has been really hard to achieve considering:
 
 **Verdaccio** is a lightweight registry with zero-configuration that **fits perfectly in any E2E + CI workflow**.
 
-## Implementation
+## Implementation {#implementation}
 
 There is no a silver bullet yet, each implementation seems to be specific for each project, you can check some of them in
 the following thread [clicking here](https://stackoverflow.com/a/50222427/308341).
 
-### Example using Bash
+### Example using Bash {#example-using-bash}
 
 This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
 
@@ -46,7 +46,7 @@ sh -c "npm --registry $local_registry publish"
 ```
 
 
-## Who is using it for E2E?
+## Who is using it for E2E? {#who-is-using-it-for-e2e}
 
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
 * [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*

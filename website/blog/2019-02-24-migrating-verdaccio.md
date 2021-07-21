@@ -9,11 +9,11 @@ Verdaccio keeps backward compatibility with all versions since the first release
 
 <!--truncate-->
 
-## Migrating from `sinopia@1.4.0` to Verdaccio 2.x/3.x
+## Migrating from `sinopia@1.4.0` to Verdaccio 2.x/3.x {#migrating-from-sinopia140-to-verdaccio-2x3x}
 
 > If you are using still using Sinopia, **we encourage you to migrate as soon as possible** due to Sinopia [has been abandoned](https://github.com/rlidwka/sinopia/issues/376).
 
-### Installation with `npm`
+### Installation with `npm` {#installation-with-npm}
 
 Using as example UNIX environments, the local storage is located within `~/.local/share/` folder.
 
@@ -28,11 +28,11 @@ There is an aditional step, not required, but recommended:
 
 To find the Windows location, [check the following link](https://verdaccio.org/docs/en/cli#default-storage-location).
 
-### Using Docker
+### Using Docker {#using-docker}
 
 This might depends of your own configuration, but, if you are using external volumes we recommend following the step 3 in the previous section.
 
-## Migrating from `verdaccio@2.x` to `verdaccio@3.x`
+## Migrating from `verdaccio@2.x` to `verdaccio@3.x` {#migrating-from-verdaccio2x-to-verdaccio3x}
 
 Those versions are fully compatible, so there is not a specific step for migrating between both of them.
 But we recommend the following considerations:
@@ -40,19 +40,19 @@ But we recommend the following considerations:
 - Try to update first to the latest `v2.x` as possible. There were a lot of fixes and you might hit a corner case migrating from a very old version.
 - We recommend using the latest `v3.x` available version.
 
-## Migrating from `verdaccio@3.x` to `verdaccio@4.x`
+## Migrating from `verdaccio@3.x` to `verdaccio@4.x` {#migrating-from-verdaccio3x-to-verdaccio4x}
 
 [Here you can read](https://github.com/verdaccio/verdaccio/issues/836#issuecomment-408477496) more about summary o of changes by **Diego Louzán**.
 
-### Installation with `npm`
+### Installation with `npm` {#installation-with-npm-1}
 
 There are no differences between both major releases if you install with `npm`. The migration should be clean and painless.
 
 > If you decided to use the `JWT` token signature instead of the `legacy` one, all the client side tokens will be invalidated.
 
-### Installation with Docker
+### Installation with Docker {#installation-with-docker}
 
-#### Environment Variables
+#### Environment Variables {#environment-variables}
 
 The Docker image for version `3` allows the following environment variables:
 
@@ -72,7 +72,7 @@ Version 4 brings more control over the environment variables and provides a name
 | VERDACCIO_PORT      | `4873`                 | the verdaccio port                                 |
 | VERDACCIO_PROTOCOL  | `http`                 | the default http protocol                          |
 
-## Docker and Plugins
+## Docker and Plugins {#docker-and-plugins}
 
 If you are using the Docker image as base with the purpose of installing plugins, there are some differences you need to keep on mind.
 

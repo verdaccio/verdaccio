@@ -12,7 +12,7 @@ won the [contest](https://github.com/verdaccio/verdaccio/issues/237)
 Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution
 with multiple image formats and sizes.
 
-## Symbols
+## Symbols {#symbols}
 
 __With text__
 
@@ -40,7 +40,7 @@ __SVG__
 
 
 
-### Black&White
+### Black&White {#blackwhite}
 
 ![symbol bw small](/img/logo/symbol/png/verdaccio-blackwhite.png)
 
@@ -53,7 +53,7 @@ __SVG__
 ![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
 
 
-## Banner
+## Banner {#banner}
 
 ![banner small](/img/logo/banner/png/verdaccio-banner.png)
 

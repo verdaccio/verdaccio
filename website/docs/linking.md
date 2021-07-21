@@ -13,7 +13,7 @@ uplinks:
 
 You can link multiple registries, the following document will drive you through some helpful configurations.
 
-## Using Associating Scope
+## Using Associating Scope {#using-associating-scope}
 
 The unique way to access multiple registries using the `.npmrc` is the scope feature as follows:
 
@@ -32,7 +32,7 @@ This approach is valid, but comes with several disadvantages:
 
 See a full example [here](https://stackoverflow.com/questions/54543979/npmrc-multiple-registries-for-the-same-scope/54550940#54550940).
 
-## Linking a Registry
+## Linking a Registry {#linking-a-registry}
 
 Linking a registry is fairly simple. First, define a new section in the `uplinks` section. Note, the order here is irrelevant.
 
@@ -52,7 +52,7 @@ Linking a registry is fairly simple. First, define a new section in the `uplinks
 
 Add a `proxy` section to define the selected registry you want to proxy.
 
-## Linking Multiple Registries
+## Linking Multiple Registries {#linking-multiple-registries}
 
 ```yaml
   uplinks:
@@ -72,7 +72,7 @@ Add a `proxy` section to define the selected registry you want to proxy.
 Verdaccio supports multiple registries on the `proxy` field. The request will be resolved with the first in the list; if that
 fails, it will try with the next in the list and so on.
 
-## Offline Registry
+## Offline Registry {#offline-registry}
 
 Having a full Offline Registry is completely possible. If you don't want any connectivity with external remotes you
 can do the following.

@@ -5,7 +5,7 @@ title: "Server Configuration"
 
 This is mostly basic Linux server configuration stuff but I felt it important to document and share the steps I took to get Verdaccio running permanently on my server. You will need root (or sudo) permissions for the following steps.
 
-## Running as a separate user
+## Running as a separate user {#running-as-a-separate-user}
 
 First create a Verdaccio user:
 
@@ -28,7 +28,7 @@ $ cd
 
 The `cd` command sends you to the home directory of the Verdaccio user. Make sure you run Verdaccio at least once to generate the config file. Edit it according to your needs.
 
-## Listening on all addresses
+## Listening on all addresses {#listening-on-all-addresses}
 
 If you want to listen to every external address set the listen directive in the config to:
 ```yaml
@@ -40,7 +40,7 @@ If you are running Verdaccio in a Amazon EC2 Instance, [you will need set the li
 
 > Configure Apache or nginx? Please check out the [Reverse Proxy Setup](reverse-proxy.md)
 
-## Keeping Verdaccio running forever
+## Keeping Verdaccio running forever {#keeping-verdaccio-running-forever}
 
 You can use a Node package called ['forever'](https://github.com/nodejitsu/forever) to keep Verdaccio running all the time.
 
@@ -58,7 +58,7 @@ $ forever start `which verdaccio`
 
 You can check the documentation for more information on how to use forever.
 
-## Surviving server restarts
+## Surviving server restarts {#surviving-server-restarts}
 
 You can use `crontab` and `forever` together to start Verdaccio after a server reboot.
 
@@ -82,7 +82,7 @@ $ which forever
 $ which verdaccio
 ```
 
-## Using systemd
+## Using systemd {#using-systemd}
 
 Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it:
 ```bash

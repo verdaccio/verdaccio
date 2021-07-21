@@ -7,7 +7,7 @@ This file is the cornerstone of Verdaccio where you can modify the default behav
 
 A default configuration file `config.yaml` is created the very first time you run `verdaccio`.
 
-## Default Configuration
+## Default Configuration {#default-configuration}
 
 The default configuration has support for **scoped** packages and allows any user to **access** all packages, but only authenticated users to **publish**.
 
@@ -30,11 +30,11 @@ logs:
   - { type: stdout, format: pretty, level: http }
 ```
 
-## Sections
+## Sections {#sections}
 
 The following sections explain what each property means and their different options.
 
-### Storage
+### Storage {#storage}
 
 Is the location of the default storage. **Verdaccio is by default based on local file system**.
 
@@ -42,7 +42,7 @@ Is the location of the default storage. **Verdaccio is by default based on local
 storage: ./storage
 ```
 
-### Plugins
+### Plugins {#plugins}
 
 Is the location of the plugin directory. Useful for Docker/Kubernetes-based deployments.
 
@@ -50,7 +50,7 @@ Is the location of the plugin directory. Useful for Docker/Kubernetes-based depl
 plugins: ./plugins
 ```
 
-### Authentication
+### Authentication {#authentication}
 
 The authentication setup is done here. The default auth is based on `htpasswd` and is built in. You can modify this behaviour via [plugins](plugins.md). For more information about this section read the [auth page](auth.md).
 
@@ -61,7 +61,7 @@ auth:
     max_users: 1000
 ```
 
-### Security
+### Security {#security}
 
 <small>Since: `verdaccio@4.0.0` [#168](https://github.com/verdaccio/verdaccio/pull/168)</small>
 
@@ -87,7 +87,7 @@ security:
 
 > We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
 
-### Server
+### Server {#server}
 
 A set of properties to modify the behavior of the server application, specifically the API (Express.js).
 
@@ -100,7 +100,7 @@ server:
   keepAliveTimeout: 60
 ```
 
-### Web UI
+### Web UI {#web-ui}
 
 This property allow you to modify the look and feel of the web UI. For more information about this section read the [web UI page](web.md).
 
@@ -112,7 +112,7 @@ web:
   scope:
 ```
 
-### Uplinks
+### Uplinks {#uplinks}
 
 Uplinks add the ability to fetch packages from remote registries when those packages are not available locally. For more information about this section read the [uplinks page](uplinks.md).
 
@@ -122,7 +122,7 @@ uplinks:
     url: https://registry.npmjs.org/
 ```
 
-### Packages
+### Packages {#packages}
 
 This section allows you to control how packages are accessed. For more information about this section read the [packages page](packages.md).
 
@@ -134,9 +134,9 @@ packages:
     proxy: npmjs
 ```
 
-## Advanced Settings
+## Advanced Settings {#advanced-settings}
 
-### Offline Publish
+### Offline Publish {#offline-publish}
 
 By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to _true_.
 
@@ -147,7 +147,7 @@ publish:
 
 <small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
 
-### URL Prefix
+### URL Prefix {#url-prefix}
 
 The prefix is intended to be used when the server runs behinds the proxy, check the **reverse proxy setup** page for more details.
 
@@ -157,7 +157,7 @@ url_prefix: /verdaccio/
 
 > Verdaccio 5 has an improved prefix behaviour, [check here details](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#url_prefix-improved-behavior).
 
-### Max Body Size
+### Max Body Size {#max-body-size}
 
 By default the maximum body size for a JSON document is `10mb`, if you run into errors that state `"request entity too large"` you may increase this value.
 
@@ -165,7 +165,7 @@ By default the maximum body size for a JSON document is `10mb`, if you run into 
 max_body_size: 10mb
 ```
 
-### Listen Port
+### Listen Port {#listen-port}
 
 `verdaccio` runs by default on the port `4873`. Changing the port can be done via [CLI](cli.md) or in the configuration file. The following options are valid:
 
@@ -179,7 +179,7 @@ listen:
 # - unix:/tmp/verdaccio.sock    # unix socket
 ```
 
-### HTTPS
+### HTTPS {#https}
 
 To enable `https` in `verdaccio` it's enough to set the `listen` flag with the protocol _https://_. For more information about this section read the [SSL page](ssl.md).
 
@@ -190,11 +190,11 @@ https:
   ca: ./path/verdaccio-csr.pem
 ```
 
-### Proxy
+### Proxy {#proxy}
 
 Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
 
-#### http_proxy and https_proxy
+#### http_proxy and https_proxy {#http_proxy-and-https_proxy}
 
 If you have a proxy in your network you can set a `X-Forwarded-For` header using the following properties:
 
@@ -203,7 +203,7 @@ http_proxy: http://something.local/
 https_proxy: https://something.local/
 ```
 
-#### no_proxy
+#### no_proxy {#no_proxy}
 
 This variable should contain a comma-separated list of domain extensions that the proxy should not be used for.
 
@@ -211,7 +211,7 @@ This variable should contain a comma-separated list of domain extensions that th
 no_proxy: localhost,127.0.0.1
 ```
 
-### Notifications
+### Notifications {#notifications}
 
 Enabling notifications to third-party tools is fairly easy via webhooks. For more information about this section read the [notifications page](notifications.md).
 
@@ -225,7 +225,7 @@ notify:
 
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
 
-### Audit
+### Audit {#audit}
 
 <small>Since: `verdaccio@3.0.0`</small>
 
@@ -240,7 +240,7 @@ middlewares:
     enabled: true
 ```
 
-### Experiments
+### Experiments {#experiments}
 
 This release includes a new property named `experiments` that can be placed in the `config.yaml` and is completely optional.
 
