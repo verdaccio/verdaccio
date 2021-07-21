@@ -52,7 +52,7 @@ The features that are under this flag might not be stable or might be removed in
 
 When you publish a new version of your package, you want to be able to access the previous ones, that's exactly what you can do with this new release.
 
-![verdaccio browse by version](https://cdn.verdaccio.org/verdaccio/blog/4.3.0/version_ui_navigation.gif)
+![verdaccio browse by version](https://cdn.verdaccio.dev/verdaccio/blog/4.3.0/version_ui_navigation.gif)
 
 > Note the README always points to the latest release, Verdaccio does not persist the readme on each publish. This might change in the future, file a ticket if you are interested and might be considered if there is enough 👍🏻 votes.
 
@@ -65,7 +65,7 @@ experiments:
   token: true
 ```
 
-![npm token list](https://cdn.verdaccio.org/verdaccio/blog/4.3.0/token_list.png)
+![npm token list](https://cdn.verdaccio.dev/verdaccio/blog/4.3.0/token_list.png)
 
 You can find further technical information [here](https://github.com/verdaccio/verdaccio/pull/1427).
 
