@@ -156,8 +156,9 @@
     "ci:publish": "changeset publish",
     "ts:ref": "update-ts-references --discardComments",
     "website": "pnpm build --filter ...@verdaccio/website",
-    "crowdin:upload": "crowdin upload sources --config ./crowdin.yaml",
-    "crowdin:download": "crowdin download --config ./crowdin.yaml"
+    "crowdin:upload": "crowdin upload sources --auto-update --config ./crowdin.yaml",
+    "crowdin:download": "crowdin download --config ./crowdin.yaml",
+    "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download --verbose"
   },
   "license": "MIT",
   "commitlint": {

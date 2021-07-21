@@ -1,9 +1,11 @@
 // @ts-check
 
+const isDeployPreview = process.env.NETLIFY && process.env.CONTEXT === 'deploy-preview';
+
 /** @type {import('@docusaurus/types').DocusaurusConfig['i18n']} */
 const i18nConfig = {
   defaultLocale: 'en',
-  locales: [
+  locales: isDeployPreview ? ['en'] : [
     'ar',    'cs',    'de',    'en',
     'es-ES', 'fil',   'fr',    'gl',
     'hi',    'it',    'ja',    'ko',
