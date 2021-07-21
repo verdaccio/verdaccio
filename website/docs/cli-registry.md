@@ -21,8 +21,7 @@ npm install --registry http://localhost:4873
 
 Write it yourself by defining in your `.npmrc` a `registry` field.
 
-```bash
-//.npmrc
+```bash title=".npmrc"
 registry=http://localhost:4873
 ```
 
