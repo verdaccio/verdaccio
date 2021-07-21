@@ -35,16 +35,6 @@ module.exports = {
   favicon: 'img/logo/symbol/svg/verdaccio-tiny.svg',
   i18n: i18nConfig,
   plugins: ['docusaurus-plugin-sass'],
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('esbuild-loader'),
-      options: {
-        loader: 'tsx',
-        format: isServer ? 'cjs' : undefined,
-        target: isServer ? 'node12' : 'es2017'
-      }
-    })
-  },
   customFields: {
     description: 'A lightweight private NPM proxy registry built in Node.js.'
   },

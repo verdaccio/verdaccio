@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './wave.module.scss';
+import styles from './Wave.module.scss';
 
 const Wave = (): React.ReactElement => <div className={styles.wave} />;
 
