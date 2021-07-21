@@ -12,7 +12,7 @@ To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/v
 docker pull verdaccio/verdaccio
 ```
 
-![Docker pull](assets/docker_verdaccio.gif)
+![Docker pull](/img/docker_verdaccio.gif)
 
 ## Tagged Versions
 

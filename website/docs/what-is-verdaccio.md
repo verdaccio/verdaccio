@@ -17,13 +17,13 @@ Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
 $> verdaccio
 ```
 
-![registry](assets/verdaccio_server.gif)
+![registry](/img/verdaccio_server.gif)
 
 ## Using Verdaccio
 
 Using Verdaccio with any Node.js package manager client is quite straightforward.
 
-![registry](assets/npm_install.gif)
+![registry](/img/npm_install.gif)
 
 You can use a custom registry either by setting it globally for all your projects
 

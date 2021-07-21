@@ -49,7 +49,7 @@ or using `pnpm`
 pnpm install -g verdaccio
 ```
 
-![install verdaccio](assets/install_verdaccio.gif)
+![install verdaccio](/img/install_verdaccio.gif)
 
 ## Basic Usage
 
