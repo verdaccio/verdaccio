@@ -13,7 +13,12 @@ A few years ago in 2013, the main registry _(npmjs)_ was running for a while and
 
 The original objective was to create a Private registry and Cache to reduce latency between **npmjs** and the private registry. By that time **npmjs** was starting to [struggle with their own performance issues](https://blog.npmjs.org/post/97261727560/npm-inc-and-scalenpm) and be able to host private packages were _not supported yet_.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Nobody needs private <a href="https://twitter.com/npmjs?ref_src=twsrc%5Etfw">@npmjs</a> packages more than npm, Inc.. We need it as much as you do. More.</p>&mdash; Laurie Voss (@seldo) <a href="https://twitter.com/seldo/status/475058595034181632?ref_src=twsrc%5Etfw">June 6, 2014</a></blockquote>
+import { Tweet } from "react-twitter-widgets"
+
+<Tweet tweetId="475058595034181632" options={{
+  dnt: true,
+  align: 'center'
+}} />
 
 <!--truncate-->
 

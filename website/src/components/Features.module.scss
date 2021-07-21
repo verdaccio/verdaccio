@@ -1,0 +1,20 @@
+.features {
+  max-width: 80%;
+  margin: 0 auto;
+  &--wrap {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+.linkFeatures {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .features--wrap {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

@@ -1,0 +1,47 @@
+.usedBy {
+  padding: 2rem;
+
+  &--main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--footer {
+    color: var(--grey-darker);
+    font-size: 0.75rem;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  b {
+    color: var(--grey-darker);
+  }
+
+  img {
+    width: 2rem;
+    margin-top: 0.75rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    max-width: inherit;
+    filter: grayscale(100%) opacity(50%);
+  }
+
+  p {
+    text-align: center;
+    color: var(--grey-darker);
+    font-size: 0.75rem;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .usedBy {
+    &--main {
+      display: flex;
+      justify-content: flex-start;
+      padding: 2rem;
+      align-items: center;
+      overflow-x: auto;
+    }
+  }
+}

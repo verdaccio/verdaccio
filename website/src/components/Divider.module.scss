@@ -1,0 +1,25 @@
+.divider {
+  background-color: var(--grey);
+  height: 0.125rem;
+  margin: 4rem;
+
+  &--vertical {
+    margin: 0rem;
+    border-left: 1px solid var(--grey);
+    width: 0.125rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+    height: 3rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .divider {
+    margin: 2rem;
+
+    --vertical {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+  }
+}

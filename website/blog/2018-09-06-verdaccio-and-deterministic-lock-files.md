@@ -61,7 +61,12 @@ So, _How can I use a private registry avoiding the_ _resolved field issue?_. All
 
 npm uses a JSON as a format for the lock file. The good news is since **npm@5.0.0** [ignores the resolved field](http://blog.npmjs.org/post/161081169345/v500) on package-lock.json file and basically fallback to the one defined in the .npmrc or via --registry argument using the CLI in case is exist, otherwise, it will use the defined in the resolved field.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Another day, another tweet about <a href="https://twitter.com/hashtag/npm5?src=hash&amp;ref_src=twsrc%5Etfw">#npm5</a> goodies.<br><br>npm is now agnostic about which registry you used to generate the package-lock.json. <a href="https://t.co/bSAgwmbx8o">pic.twitter.com/bSAgwmbx8o</a></p>&mdash; Kat Marchán (@maybekatz) <a href="https://twitter.com/maybekatz/status/862834964932435969?ref_src=twsrc%5Etfw">May 12, 2017</a></blockquote>
+import { Tweet } from "react-twitter-widgets"
+
+<Tweet tweetId="862834964932435969" options={{
+  dnt: true,
+  align: 'center'
+}} />
 
 Nowadays you can use the npm cli with lock file safely with Verdaccio independently the URL where tarball was served. But, I’d recommend to share a local .npmrc file with the registry set by default locally or notify your team about it.
 
