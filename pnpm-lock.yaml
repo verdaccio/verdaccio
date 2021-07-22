@@ -1199,6 +1199,8 @@ importers:
       copy-text-to-clipboard: ^3.0.1
       cross-env: ^7.0.3
       docusaurus-plugin-sass: ^0.2.1
+      esbuild: ^0.12.15
+      esbuild-loader: ^2.13.1
       eslint: ^7.30.0
       eslint-config-airbnb-typescript: ^12.3.1
       eslint-plugin-import: ^2.23.4
@@ -1243,6 +1245,8 @@ importers:
       '@typescript-eslint/parser': 4.28.4_eslint@7.31.0+typescript@4.3.5
       cross-env: 7.0.3
       docusaurus-plugin-sass: 0.2.1_7040754b2a1aef00b94970b1051d89ed
+      esbuild: 0.12.15
+      esbuild-loader: 2.13.1
       eslint: 7.31.0
       eslint-config-airbnb-typescript: 12.3.1_647eea76ed76c5ea8d37c25a199e0729
       eslint-plugin-import: 2.23.4_eslint@7.31.0
@@ -9739,6 +9743,32 @@ packages:
       es6-symbol: 3.1.3
     dev: true
 
+  /esbuild-loader/2.13.1:
+    resolution: {integrity: sha512-Tzc5nB5tVUmigXz6m4j1OYozJCjdix7E9vtd5RaE54fqz2Rz34Is9S8FbAf8uqR4xvQUBAXIi6Jkn1OeMxw2aQ==}
+    peerDependencies:
+      webpack: ^4.40.0 || ^5.0.0
+    dependencies:
+      esbuild: 0.11.23
+      joycon: 3.0.1
+      json5: 2.2.0
+      loader-utils: 2.0.0
+      tapable: 2.2.0
+      type-fest: 1.2.2
+      webpack-sources: 2.3.1
+    dev: true
+
+  /esbuild/0.11.23:
+    resolution: {integrity: sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==}
+    hasBin: true
+    requiresBuild: true
+    dev: true
+
+  /esbuild/0.12.15:
+    resolution: {integrity: sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==}
+    hasBin: true
+    requiresBuild: true
+    dev: true
+
   /escalade/3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
     engines: {node: '>=6'}
@@ -13601,6 +13631,11 @@ packages:
       '@sideway/formula': 3.0.0
       '@sideway/pinpoint': 2.0.0
     dev: false
+
+  /joycon/3.0.1:
+    resolution: {integrity: sha512-SJcJNBg32dGgxhPtM0wQqxqV0ax9k/9TaUskGDSJkSFSQOEWWvQ3zzWdGQRIUry2j1zA5+ReH13t0Mf3StuVZA==}
+    engines: {node: '>=10'}
+    dev: true
 
   /js-base64/2.5.1:
     resolution: {integrity: sha512-M7kLczedRMYX4L8Mdh4MzyAMM9O5osx+4FcOQuTvr3A9F2D9S5JXheN0ewNbrvK2UatkTRhL5ejGmGSjNMiZuw==}
@@ -20577,6 +20612,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /type-fest/1.2.2:
+    resolution: {integrity: sha512-pfkPYCcuV0TJoo/jlsUeWNV8rk7uMU6ocnYNvca1Vu+pyKi8Rl8Zo2scPt9O72gCsXIm+dMxOOWuA3VFDSdzWA==}
+    engines: {node: '>=10'}
+    dev: true
+
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -21642,6 +21682,14 @@ packages:
     dependencies:
       source-list-map: 2.0.1
       source-map: 0.6.1
+
+  /webpack-sources/2.3.1:
+    resolution: {integrity: sha512-y9EI9AO42JjEcrTJFOYmVywVZdKVUfOvDUPsJea5GIr1JOEGFVqwlY2K098fFoIjOkDzHn2AjRvM8dsBZu+gCA==}
+    engines: {node: '>=10.13.0'}
+    dependencies:
+      source-list-map: 2.0.1
+      source-map: 0.6.1
+    dev: true
 
   /webpack/5.33.2_webpack-cli@4.7.2:
     resolution: {integrity: sha512-X4b7F1sYBmJx8mlh2B7mV5szEkE0jYNJ2y3akgAP0ERi0vLCG1VvdsIxt8lFd4st6SUy0lf7W0CCQS566MBpJg==}

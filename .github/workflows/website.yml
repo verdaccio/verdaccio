@@ -1,0 +1,92 @@
+name: Verdaccio Website CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - './github/workflows/website.yml'
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'website/**'
+      - 'package.json'
+      - './github/workflows/website.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.1
+
+      - name: Use Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.10.2
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile]
+      - name: Lint And Pretty
+        run: |
+          pnpm eslint:check --filter ...@verdaccio/website
+          pnpm prettier:check --filter ...@verdaccio/website
+      - name: Cache Docusaurus Build
+        uses: actions/cache@v2
+        with:
+          path: website/node_modules/.cache/webpack
+          key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: cache/webpack-${{github.ref}}
+
+      # Will deploy to production on:
+        # 1st: When a push occurs on master branch
+        # 2nd: When we force the worflow dispatch through the UI
+      - name: Build Production
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        env:
+          CONTEXT: production
+        run: pnpm netlify:build:production --filter ...@verdaccio/website
+
+      - name: 🔥 Deploy Production Netlify
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        uses: South-Paw/action-netlify-deploy@v1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          build-dir: './website/build'
+
+      # Will deploy to Preview URL, only when a pull request is open with changes on the website
+      - name: Build Deployment Preview
+        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
+        env:
+          CONTEXT: deploy-preview
+        run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
+
+      - name: 🤖 Deploy Preview Netlify
+        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master'
+        uses: South-Paw/action-netlify-deploy@v1.2.0
+        with:
+          draft: true
+          comment-on-pull-request: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
+          build-dir: './website/build'

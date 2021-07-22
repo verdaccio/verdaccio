@@ -1,6 +1,6 @@
 // @ts-check
 
-const isDeployPreview = process.env.NETLIFY && process.env.CONTEXT === 'deploy-preview';
+const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 
 /** @type {import('@docusaurus/types').DocusaurusConfig['i18n']} */
 const i18nConfig = {
@@ -35,6 +35,16 @@ module.exports = {
   favicon: 'img/logo/symbol/svg/verdaccio-tiny.svg',
   i18n: i18nConfig,
   plugins: ['docusaurus-plugin-sass'],
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve('esbuild-loader'),
+      options: {
+        loader: 'tsx',
+        format: isServer ? 'cjs' : undefined,
+        target: isServer ? 'node12' : 'es2017',
+      },
+    }),
+  },
   customFields: {
     description: 'A lightweight private NPM proxy registry built in Node.js.'
   },
