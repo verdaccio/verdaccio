@@ -1,4 +1,4 @@
-project_id: CROWDIN_VERDACCIO_PROJECT_ID
+project_id_env: CROWDIN_VERDACCIO_PROJECT_ID
 api_token_env: CROWDIN_VERDACCIO_API_KEY
 
 preserve_hierarchy: true
@@ -7,15 +7,10 @@ files:
   [
     {
       source: '/website/i18n/en/**/*',
-      translation: '/website/i18n/%two_letters_code%/**/%original_file_name%',
+      translation: '/website/i18n/%locale%/**/%original_file_name%',
     },
     {
       source: '/website/docs/**/*',
-      translation: '/website/i18n/%two_letters_code%/docusaurus-plugin-content-docs/current/**/%original_file_name%',
-      dest: '/docs/website/%original_file_name%'
-    },
-    {
-      source: '/website/blog/**/*',
-      translation: '/website/i18n/%two_letters_code%/docusaurus-plugin-content-blog/**/%original_file_name%',
+      translation: '/website/i18n/%locale%/docusaurus-plugin-content-docs/current/**/%original_file_name%',
     }
   ]

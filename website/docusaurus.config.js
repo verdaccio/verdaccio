@@ -6,12 +6,12 @@ const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 const i18nConfig = {
   defaultLocale: 'en',
   locales: isDeployPreview ? ['en'] : [
-    'ar',    'cs',    'de',    'en',
-    'es-ES', 'fil',   'fr',    'gl',
-    'hi',    'it',    'ja',    'ko',
-    'pl',    'pt-BR', 'ro',    'ru',
-    'sr',    'sr-CS', 'tg',    'vi',
-    'yo',    'zh-CN', 'zh-TW'
+    "ar-SA", "cs-CZ", "de-DE", "es-ES", "fil-PH",
+    "fr-FR", "gl-ES", "hi-IN", "it-IT",
+    "ja-JP", "ko-KR", "pl-PL", "pt-BR",
+    "pt-PT", "ro-RO", "ru-RU", "sr-CS",
+    "sr-SP", "tg-TJ", "vi-VN", "yo-NG",
+    "zh-CN", "zh-TW",
   ],
   localeConfigs: {
     ar: {

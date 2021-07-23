@@ -5,8 +5,14 @@ title: "End to End testing"
 
 Some projects organize packages in multi-packages repositories or [monorepos](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). E2E testing is a topic that usually is only relevant for User Interfaces, but from a Node.js perspective, **publishing packages also need to be tested**.
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Solution: a local npm registry. <a href="https://t.co/kvcyVANVSK">https://t.co/kvcyVANVSK</a></p>&mdash; Dan Abramov (@dan_abramov) <a href="https://twitter.com/dan_abramov/status/951427674844680192?ref_src=twsrc%5Etfw">11 de enero de 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+```mdx-code-block
+import { Tweet } from 'react-twitter-widgets'
+
+<Tweet tweetId="951427674844680192" options={{
+  dnt: true,
+  align: 'center'
+}} />
+```
 
 Such approach has been really hard to achieve considering:
 
