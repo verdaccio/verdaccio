@@ -1,6 +1,5 @@
 .twitterCarrousel {
   display: inline-flex;
-  max-width: 100%;
   gap: 3rem;
   opacity: 1;
   justify-content: center;
@@ -19,7 +18,9 @@
   height: 15px;
   border-radius: 50%;
   cursor: pointer;
+  overflow: hidden;
   margin-right: 1rem;
+  padding: 0;
   border: solid 2px var(--twitter-color);
 
   &--selected {
@@ -54,5 +55,15 @@
     width: 90%;
     align-items: center;
     margin-left: 2rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .twitterCarrousel {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
   }
 }
