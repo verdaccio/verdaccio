@@ -13,7 +13,7 @@ Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
 * Provide a compatible API with npm clients **(yarn/npm/pnpm)**.
 * Semantic Versioning compatible **(semver)**.
 
-```
+```bash
 $> verdaccio
 ```
 
@@ -27,16 +27,17 @@ Using Verdaccio with any Node.js package manager client is quite straightforward
 
 You can use a custom registry either by setting it globally for all your projects
 
-```
+```bash
 npm set registry http://localhost:4873
 ```
 
 or by using it in command line as an argument `--registry` in npm (slightly different in yarn)
 
-```
+```bash
 npm install lodash --registry http://localhost:4873
 ```
-```
+
+```bash
 yarn config set registry http://localhost:4873
 ```
 

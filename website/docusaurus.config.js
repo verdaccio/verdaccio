@@ -7,7 +7,7 @@ const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "
 const i18nConfig = {
   defaultLocale: 'en',
   locales: isDeployPreview ? ['en'] : [
-    "cs-CZ", "de-DE",
+    "en", "cs-CZ", "de-DE",
     "es-ES", "fr-FR",
     "it-IT", "pl-PL",
     "pt-BR", "ru-RU",
