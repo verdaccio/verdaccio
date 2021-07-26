@@ -2,16 +2,17 @@
 
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 
+const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "ja-JP", "ko-KR", "pt-PT", "sr-SP", "tg-TJ", "ro-RO", "zh-CN"];
 /** @type {import('@docusaurus/types').DocusaurusConfig['i18n']} */
 const i18nConfig = {
   defaultLocale: 'en',
   locales: isDeployPreview ? ['en'] : [
-    "ar-SA", "cs-CZ", "de-DE", "es-ES", "fil-PH",
-    "fr-FR", "gl-ES", "hi-IN", "it-IT",
-    "ja-JP", "ko-KR", "pl-PL", "pt-BR",
-    "pt-PT", "ro-RO", "ru-RU", "sr-CS",
-    "sr-SP", "tg-TJ", "vi-VN", "yo-NG",
-    "zh-CN", "zh-TW",
+    "cs-CZ", "de-DE",
+    "es-ES", "fr-FR",
+    "it-IT", "pl-PL",
+    "pt-BR", "ru-RU",
+    "sr-CS", "vi-VN",
+    "yo-NG", "zh-TW",
   ],
   localeConfigs: {
     ar: {
