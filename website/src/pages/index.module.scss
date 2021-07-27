@@ -1,0 +1,11 @@
+html[data-theme='dark'] .header {
+  background-color: #061a38;
+}
+
+.header {
+  background-color: var(--ifm-color-white);
+}
+
+.main {
+  background-color: var(--grey-lighter);
+}

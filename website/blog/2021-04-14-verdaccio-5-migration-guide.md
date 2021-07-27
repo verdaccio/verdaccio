@@ -21,7 +21,7 @@ We recommend, always try to use the latest LTS version to avoid next major force
 
 Verdaccio replaces Bunyan by [Pino.js](https://github.com/pinojs/pino) as logger, with the objective to improve the performance and delegate some features to the external tools. The new logger configuration does not support multiple streams, thus the configuration must contain one single object.
 
-### Pretty loggin
+### Pretty loggin {#pretty-loggin}
 
 Verdaccio logging pretty print is a distinguished feature the very first time `verdaccio` commands runs.
 
@@ -40,7 +40,7 @@ One tecnical reasons is that `pino.final` [does not work with prettier option](h
 
 To improve the performance of your registry, always use `format: json` in production.
 
-### Multiple streams
+### Multiple streams {#multiple-streams}
 
 Even if is [supported by Pino.js](https://getpino.io/#/docs/help?id=log-to-different-streams) is not recommended for performance reasons. The log property only recognize one single option. If you were using this feature and want it back, [feel free to open a discussion](https://github.com/verdaccio/verdaccio/discussions/new?category=ideas) or contribute as opt-in feature.
 
@@ -50,7 +50,7 @@ logs: { type: stdout, format: pretty, level: http }
 
 > FYI: pino v7 might bring back a good performant multi-streams support, this feature might be restored in the future.
 
-### Rotating file is not longer supported
+### Rotating file is not longer supported {#rotating-file-is-not-longer-supported}
 
 Pino.js does not support log rotation, thus if you were using this feature is recommended use an [external tool](https://getpino.io/#/docs/help?id=log-rotation).
 
@@ -59,7 +59,7 @@ Pino.js does not support log rotation, thus if you were using this feature is re
  {type: rotating-file, format: json, path: /path/to/log.jsonl, level: http, options: {period: 1d}}
 ```
 
-### Deprecation
+### Deprecation {#deprecation}
 
 **Old configuration won't crash the application**, rather will display a deprecation warning and will use the very first option in your configuration as fallback. Consider update your configuration due in the next major will throw an error.
 
@@ -73,7 +73,7 @@ Pino.js does not support log rotation, thus if you were using this feature is re
  warn --- http address - http://localhost:4873/ - verdaccio/5.0.0-alpha.0
 ```
 
-## `npm token`
+## `npm token` {#npm-token}
 
 The command `npm token` has been an experiment in Verdaccio 4 and on this major release is enabled by default, but was based on _LevelDB_ which requires a C and Python compiler on install to make it work. By [request](https://github.com/verdaccio/verdaccio/issues/1925) has been removed and replaced by a pure JS solution.
 
@@ -115,17 +115,17 @@ The default token database now is plain json file `.token-db.json` and is locate
 
 Tokens are not being storage, just small part of it, the `key` is just a random `uuid`.
 
-### Breaking Changes
+### Breaking Changes {#breaking-changes}
 
 If you were using `npm token` in verdaccio 4, most likely the database would need to be removed and created from scratch. Remove the old database and on restart Verdaccio will generate a new one.
 
-## `url_prefix` improved behavior
+## `url_prefix` improved behavior {#url_prefix-improved-behavior}
 
 The new internal logic builds correctly the public url, validates the `host` header and and bad shaped `url_prefix`.
 
 eg: `url_prefix: /verdaccio`, `url_prefix: verdaccio/`, `url_prefix: verdaccio` would be `/verdaccio/`
 
-### A new public url environment variable
+### A new public url environment variable {#a-new-public-url-environment-variable}
 
 The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this variable will be used for:
 
@@ -153,11 +153,11 @@ url_prefix: '/second_prefix'
 
 ![Screenshot from 2021-03-24 20-20-11](https://user-images.githubusercontent.com/558752/112371003-5fa1ce00-8cde-11eb-888c-70c4e9776c57.png)
 
-## Custom favicon, the new `web.favicon` property
+## Custom favicon, the new `web.favicon` property {#custom-favicon-the-new-webfavicon-property}
 
 The _favicon_ can be set either as url or absolute path in your system.
 
-### Local absolute path
+### Local absolute path {#local-absolute-path}
 
 ```
 web:
@@ -167,7 +167,7 @@ web:
 
 Ensure the same user that runs the server also has permissions to access the resource you define here.
 
-### By URL
+### By URL {#by-url}
 
 ```
 web:
@@ -177,7 +177,7 @@ web:
 
 If the logo is not defined, will fetch (and bundled in) the custom verdaccio favicon
 
-## UI changes to consider
+## UI changes to consider {#ui-changes-to-consider}
 
 The new UI may looks the same, but under the hood has consideriable changes:
 
@@ -185,7 +185,7 @@ The new UI may looks the same, but under the hood has consideriable changes:
 - It uses emotion and `<styles>` are generated on runtime by JS.
 - Fonts now depends of your system, by default define a set of the most common ones.
 
-## Web new properties for dynamic template
+## Web new properties for dynamic template {#web-new-properties-for-dynamic-template}
 
 The new set of properties are made in order allow inject _html_ and _JavaScript_ scripts within the template. This
 might be useful for scenarios like Google Analytics scripts or custom html in any part of the body.
@@ -206,7 +206,7 @@ web:
     - '<div id="myId">html before webpack scripts</div>'
 ```
 
-### UI custom plugins themes
+### UI custom plugins themes {#ui-custom-plugins-themes}
 
 If you have a custom UI plugin for the them you will need to adapt your build to the new requirements.
 
@@ -249,7 +249,7 @@ Since Verdaccio 5 the module must return an object and the `index.html` is ignor
 - `manifest`: A webpack manifest object.
 - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
 
-#### Manifest and Webpack
+#### Manifest and Webpack {#manifest-and-webpack}
 
 Verdaccio uses the webpack [manifest](https://webpack.js.org/concepts/manifest/) object to render the html dynamically, in combination with the `manifestFiles` the application understand what to render.
 
@@ -271,7 +271,7 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 # Troubleshooting
 
-### After upgrade I don't see packages on the UI
+### After upgrade I don't see packages on the UI {#after-upgrade-i-dont-see-packages-on-the-ui}
 
 This migth be the storage is not being located, if you are using this format in your `config.yaml`
 

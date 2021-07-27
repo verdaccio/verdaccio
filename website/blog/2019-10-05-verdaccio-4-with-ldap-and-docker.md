@@ -24,7 +24,7 @@ Not only that security has been improved with the introduction of the optional `
 
 Let's upgrade it!
 
-## Prerequisite
+## Prerequisite {#prerequisite}
 
 - Read [verdaccio documentation](https://verdaccio.org/docs/en/installation).
 - Read [verdaccio-ldap documentation](https://www.npmjs.com/package/verdaccio-ldap).
@@ -32,13 +32,13 @@ Let's upgrade it!
 - A running LDAP database (such as OpenLDAP).
 - [Docker installed](https://docs.docker.com/v17.09/engine/installation/).
 
-## Goal
+## Goal {#goal}
 
 - Update Verdaccio from `v3.x` to `v4.x.`
 - Configure LDAP.
 - Configure JWT. ([Read more](https://medium.com/verdaccio/diving-into-jwt-support-for-verdaccio-4-88df2cf23ddc))
 
-## Dockerfile
+## Dockerfile {#dockerfile}
 
 This is my tree structure:
 
@@ -63,7 +63,7 @@ USER verdaccio
 - We install `verdaccio-ldap` but you can install any plugin. _(Only if you don't want the `verdaccio-htaccess` builtin solution to be your user database)_
 - Later, you **MUST** solve the `storage` directory **permissions** and **ownership**.
 
-## Configuration
+## Configuration {#configuration}
 
 This is my `config.yaml`:
 
@@ -165,7 +165,7 @@ Available options are explained in details in [Configuration File documentation]
 
 I will describe the most important here.
 
-### LDAP
+### LDAP {#ldap}
 
 We use [`verdacio-ldap`](https://www.npmjs.com/package/verdaccio-ldap) plugin to authenticate with LDAP.
 
@@ -187,7 +187,7 @@ I use an organization unit to store all my group for verdaccio-ldap security.
 groupSearchBase: "ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks"
 ```
 
-### Security
+### Security {#security}
 
 **`packages`**
 
@@ -259,7 +259,7 @@ security:
 - `expiresIn`: You will have to reauthenticate after `30 days`, and `7 days` on the web UI.
 - `notBefore`: Just set it to `0`, it is the time to wait before the JWT starts it's validity.
 
-## Build the image
+## Build the image {#build-the-image}
 
 Use [`docker build`](https://docs.docker.com/engine/reference/commandline/build/) to build the new image.
 
@@ -315,7 +315,7 @@ And mount the configuration on startup with a volume:
 docker run -v $(pwd)/config.yaml:/verdaccio/conf/config.yaml verdaccio-3-ldap
 ```
 
-## Run the service
+## Run the service {#run-the-service}
 
 You will have to mount the `storage` volume when using `Docker`, to do that, just use `-v` with `docker run` command:
 
@@ -334,7 +334,7 @@ VERDACCIO_USER_UID=10001 # unless you have changed it
 chown -R $VERDACCIO_USER_UID storage
 ```
 
-## Test the service
+## Test the service {#test-the-service}
 
 First, fill appropriate LDAP group for all your LDAP users that should have access to the private npm registry.
 
@@ -342,7 +342,7 @@ First, fill appropriate LDAP group for all your LDAP users that should have acce
 
 This is all the test I have done while configurating verdaccio, before going to production:
 
-### plugin
+### plugin {#plugin}
 
 - `[x]` it should work with `verdaccio-htaccess` when `verdaccio-ldap` is **not** installed. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` it should work with `verdaccio-htaccess` when `auth.ldap` is disabled and `verdaccio-ldap` is installed. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
@@ -350,7 +350,7 @@ This is all the test I have done while configurating verdaccio, before going to 
 - `[x]` it should work with `verdaccio-htaccess` and fallback to `verdaccio-ldap` through **web**. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` it should work with `verdaccio-htaccess` and fallback to `verdaccio-ldap` through **npm**. <img src="https://github.githubassets.com/images/icons/emoji/unicode/274c.png" title="NOK" name="NOK" height="16px" /> _Either use `verdaccio-htaccess` or `verdaccio-ldap`, it is useless to use both, even if the web work with the two, the `npm --add-user` command will fail._
 
-### `npm`
+### `npm` {#npm}
 
 - `[x]` `npm --adduser` should work with different users. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` `npm --adduser` should fail with wrong user/password. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
@@ -359,7 +359,7 @@ This is all the test I have done while configurating verdaccio, before going to 
 - `[x]` `npm i` in CI that download from the registry **should spam** the LDAP with authentication requests with legaxy. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` `npm i` in CI that download from the registry should not spam the LDAP with authentication requests with JWT. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 
-### Web
+### Web {#web}
 
 The new design with material-UI is super nice btw.
 
@@ -368,7 +368,7 @@ The new design with material-UI is super nice btw.
 - `[x]` it should show packages to users with `access` permissions. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` it should hide packages to users without `access` permissions. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 
-### Packages permissions
+### Packages permissions {#packages-permissions}
 
 - `[x]` `access` should work with a user with perms. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` `access` should fail with a user without perms.. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
@@ -382,13 +382,13 @@ The new design with material-UI is super nice btw.
 - `[x]` `unpublish` should work with a ldap group with perms. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 - `[x]` `unpublish` should fail with a user not in ldap group with perms. <img src="https://github.githubassets.com/images/icons/emoji/unicode/2714.png" title="OK" name="OK" height="16px" />
 
-### Web
+### Web {#web-1}
 
 - Test the web interface, generally `http://$IP:4873` if you are not using a reverse proxy.
 
 After login, you won't be able to see private scopped package if you don't have the `access` group.
 
-### npm
+### npm {#npm-1}
 
 Because we use the JWT, you must re-authenticate, this is how we do:
 
@@ -408,7 +408,7 @@ If you want to use it as your default proxy for npm:
 npm set registry http://$IP
 ```
 
-## Conclusion and thanks
+## Conclusion and thanks {#conclusion-and-thanks}
 
 Docker, LDAP are a great way to authenticate users from your organization. In this article, you have learned how to setup verdaccion with LDAP and Docker.
 
@@ -426,7 +426,7 @@ If you have any question, please check at the FAQ below, or feel free to reply t
 
 Thanks for reading and long life to Verdaccio !
 
-## FAQ
+## FAQ {#faq}
 
 - Can we use two authentication plugin together such as `verdaccio-htaccess`?
 

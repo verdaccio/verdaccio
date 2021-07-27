@@ -21,7 +21,7 @@ I’d recommend reading the following article before continue the reading.
 
 <!--truncate-->
 
-### Context
+### Context {#context}
 
 **Verdaccio 3** uses by default a token signature are based on [AES192 encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard), that has been a legacy implementation inherited by [Sinopia](https://www.npmjs.com/package/sinopia).
 
@@ -33,7 +33,7 @@ This has been working fine so far, but, some **users do not need to check creden
 
 **JWT** does not replace the current token signature system, thus, **no breaking changes come on Verdaccio 4,** both systems are completely different and by demand, but you need to decide to use only one of them.
 
-### Setup
+### Setup {#setup}
 
 By default, the **AES192** or _legacy_ system is being used by default and we do not have plans to remove it.
 
@@ -59,31 +59,31 @@ security:
       expiresIn: 7d
 ```
 
-#### api and web
+#### api and web {#api-and-web}
 
 The security section is composed by in two main sections. Each section will use same _JWT properties_ but the configuration structure is different. The web section does not have to deal with **legacy** support, thus, will group **sign** and **verify** properties directly as children.
 
 While the **api** section contains a different level of properties, we will go through them in the next sections.
 
-#### legacy
+#### legacy {#legacy}
 
 Legacy property means that **explicitly you want to use the legacy token system signature**. You might not like to do not remove the whole security section in order to disable JWT and for such reason, this property exists.
 
 > The rule is simple, if _legacy_ is _true_, will be enabled it even if the _jwt_ exist. But, if you do not want to use _legacy_ just do not declare it or just set it as _false_ .
 
-#### jwt
+#### jwt {#jwt}
 
 To enable _JWT_ you need to append the property jwt within the api section.
 
 Similar as the **web** section inside of security also contains different options for _sign_ and _verify_.
 
-#### Signature and Verify
+#### Signature and Verify {#signature-and-verify}
 
 The options for **sign** or **verify** defined inside of either web or apiare well explained in the section by the [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken#usage) library from **Auth0**.
 
 You can use them freely according to your needs, Verdaccio will just delegate whatever you define within such sections directly to the jsonwebtoken library.
 
-### Legacy vs JWT
+### Legacy vs JWT {#legacy-vs-jwt}
 
 If you are happy with the current signature, we recommend keeping it, but if there are some differences you might need to know.
 
@@ -93,7 +93,7 @@ JWT also contains an immutable payload, meaning that, once the token is being si
 
 In the other side, if you are interested to have full control of the credentials, the **legacy** signature might be better for you. In such a case, it is important to remind **the token delivered is the combination of sensitive information signed with a SALT key** and the authentication provider will be hit for each resource requested.
 
-### Conclusion
+### Conclusion {#conclusion}
 
 We have tried to provide different methods of the token signature according to your needs, the JWT looks promising and will be an optional feature for **Verdaccio 4.**
 

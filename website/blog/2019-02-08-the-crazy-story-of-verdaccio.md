@@ -7,13 +7,18 @@ title: The crazy story of Verdaccio
 
 It’s not the first time that I’ve heard the following expression “Thanks for creating Verdaccio”, which actually flatters me, but is really hard to explain in a couple of words that **I haven’t created Verdaccio**. Perhaps I might be responsible for what is Verdaccio today, but that is a different story. Today I’d like to share the whole story behind this project and how I ended up working on it.
 
-### Sinopia “The Origin”
+### Sinopia “The Origin” {#sinopia-the-origin}
 
 A few years ago in 2013, the main registry _(npmjs)_ was running for a while and at the same time, [Alex Kocharin](https://github.com/rlidwka) decided to create Sinopia.
 
 The original objective was to create a Private registry and Cache to reduce latency between **npmjs** and the private registry. By that time **npmjs** was starting to [struggle with their own performance issues](https://blog.npmjs.org/post/97261727560/npm-inc-and-scalenpm) and be able to host private packages were _not supported yet_.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Nobody needs private <a href="https://twitter.com/npmjs?ref_src=twsrc%5Etfw">@npmjs</a> packages more than npm, Inc.. We need it as much as you do. More.</p>&mdash; Laurie Voss (@seldo) <a href="https://twitter.com/seldo/status/475058595034181632?ref_src=twsrc%5Etfw">June 6, 2014</a></blockquote>
+import { Tweet } from "react-twitter-widgets"
+
+<Tweet tweetId="475058595034181632" options={{
+  dnt: true,
+  align: 'center'
+}} />
 
 <!--truncate-->
 
@@ -21,7 +26,7 @@ In fact **, Sinopia was created before** [**the big npm fall**](https://nodejs.o
 
 It was clear the project was growing, but something happened in **October 2015** where is the date of the latest commit and Alex which is still the current owner decided do not reply to anyone anymore, the reasons are unknown and seem will remain like that forever _(he has recent activity in other projects)_ and **since is the unique owner the project remains frozen.**
 
-### Post-sinopia Era
+### Post-sinopia Era {#post-sinopia-era}
 
 ![](https://cdn-images-1.medium.com/max/779/1*t8GSq1qq6RC4iQsx1bYDgg.png)
 
@@ -38,7 +43,7 @@ A few months later forks did not take long to appear. The most prominent forks w
 
 > Since it will be a fork, follow the subject the original project used but a new “color.” …. verdaccio
 
-### Verdaccio as fork
+### Verdaccio as fork {#verdaccio-as-fork}
 
 After a couple of months without anyone taking the wheel of the ship [John Wilkinson](https://github.com/jmwilkinson) and [Trent Earl](https://github.com/trentearl) created the Verdaccio organization on **April 2016**.
 
@@ -62,11 +67,11 @@ When you fork a project GitHub **reduces the visibility on Google and Github sea
 
 2017 ended with a decent amount of stars (~1,200), thousands of downloads and a [new logo](https://github.com/verdaccio/verdaccio/issues/328), but still, _we were not able to do a major release_. There were too much to do and lack of knowledge in many areas.
 
-#### Docker
+#### Docker {#docker}
 
 By that time, Docker was new for me until I saw the first time the Dockerfile and was getting so many tickets related with such topic that forced me to learn really quick to be able to merge contributions which were Chinese for me, what did I do?. **Go to Docker meetups and read books. Problem solved.** Thankfully the community has a lot of knowledge to share in this area thus I had the opportunity to learn from amazing contributions. **Nowadays Docker is the most popular way to use Verdaccio** even over the _npm_ installation.
 
-### 2018 “the year”
+### 2018 “the year” {#2018-the-year}
 
 ![](https://cdn-images-1.medium.com/max/804/1*77nCfVH9qaQbP1dBkAXBMg.png)<figcaption>Verdaccio overpass sinopia on stars December 2018</figcaption>
 
@@ -86,7 +91,7 @@ I’ve seen [written articles about Verdaccio in multiple languages](https://git
 
 To finish the story and ending 2018 we have created what we defined as the core team, a small group of developers trying to work together in [the development of Verdaccio 4](https://dev.to/verdaccio/verdaccio-4-alpha-release-1d7p-temp-slug-4609102).
 
-### Current Status
+### Current Status {#current-status}
 
 If you wonder how the “governance” works at Verdaccio, we do it in the following way. **We have 4 owners** (the founders, [Juan Picado](https://medium.com/u/a6a7b0f6a9e4), [Ayush](https://medium.com/u/ffdb15785e37)) which we open communication when something important should take place and we ship an internal report every 6 months at GitHub teams threads. We have decided this structure in order to avoid what happened with Sinopia do not happen again. The development decisions are taking at the core team level based on democracy and common sense.
 
@@ -94,7 +99,7 @@ The development communication happens over Discord and **we started to encourage
 
 Currently, we are working on improving the documentation and create a clean ecosystem of plugins, integrations and new ways to inform, teach new adopters about the usage of the registry and helping to board new contributors that want to be part of the development.
 
-### Wrapping Up
+### Wrapping Up {#wrapping-up}
 
 As you have read, Verdaccio is not a one author project. **It’s a collaboration of many developers that decided don’t let this project die**. I always like to think the following if you allow me [to quote a simile famous words of Abraham Lincoln](https://en.wikipedia.org/wiki/Gettysburg_Address)
 
@@ -106,7 +111,7 @@ I’m driving this project today, but does not means I’ll do it forever. I lik
 
 Even if some initial developers are not contributing anymore _(all we have a life)_, I’m really grateful for the time they have invested and hoped they back in some point.
 
-### Disclaimer
+### Disclaimer {#disclaimer}
 
 I’m telling this story based on my own research and all the information collected along the latest 2 years, comments, private chats, and social networks.
 

@@ -15,7 +15,7 @@ This is merely an issue that all package managers have to resolve, nowadays is n
 
 <!--truncate-->
 
-### How does a lock file look like?
+### How does a lock file look like? {#how-does-a-lock-file-look-like}
 
 Lock file looks different based on the package manager you are using, in the case of npm as an example looks like this
 
@@ -29,7 +29,7 @@ Lock file looks different based on the package manager you are using, in the cas
 
 The snippet above is just a small part of this huge file which nobody dares to deal when conflicts arise. However, I just want you to focus on a field called **resolved**.
 
-#### Simple example with Verdaccio as localhost
+#### Simple example with Verdaccio as localhost {#simple-example-with-verdaccio-as-localhost}
 
 Let’s imagine you are using **Verdaccio** and **yarn** for local purposes and your registry configuration points to.
 
@@ -55,13 +55,18 @@ Let’s imagine you that might want to change your domain where your registry is
 
 So, _How can I use a private registry avoiding the_ _resolved field issue?_. All clients handle this issue in a different way, let’s see how they do it.
 
-### How does the resolved field is being used by …?
+### How does the resolved field is being used by …? {#how-does-the-resolved-field-is-being-used-by-}
 
 ![](https://cdn-images-1.medium.com/max/1024/1*kafHawK1RCt-LDsdGz6iUA.png)
 
 npm uses a JSON as a format for the lock file. The good news is since **npm@5.0.0** [ignores the resolved field](http://blog.npmjs.org/post/161081169345/v500) on package-lock.json file and basically fallback to the one defined in the .npmrc or via --registry argument using the CLI in case is exist, otherwise, it will use the defined in the resolved field.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Another day, another tweet about <a href="https://twitter.com/hashtag/npm5?src=hash&amp;ref_src=twsrc%5Etfw">#npm5</a> goodies.<br><br>npm is now agnostic about which registry you used to generate the package-lock.json. <a href="https://t.co/bSAgwmbx8o">pic.twitter.com/bSAgwmbx8o</a></p>&mdash; Kat Marchán (@maybekatz) <a href="https://twitter.com/maybekatz/status/862834964932435969?ref_src=twsrc%5Etfw">May 12, 2017</a></blockquote>
+import { Tweet } from "react-twitter-widgets"
+
+<Tweet tweetId="862834964932435969" options={{
+  dnt: true,
+  align: 'center'
+}} />
 
 Nowadays you can use the npm cli with lock file safely with Verdaccio independently the URL where tarball was served. But, I’d recommend to share a local .npmrc file with the registry set by default locally or notify your team about it.
 
@@ -115,7 +120,7 @@ pnpm has already opened a ticket to drive this issue, I’ll let below the link 
 
 [Remove the "registry" field from "shrinkwrap.yaml" · Issue #1353 · pnpm/pnpm](https://github.com/pnpm/pnpm/issues/1353)
 
-### Scoped Registry Workaround
+### Scoped Registry Workaround {#scoped-registry-workaround}
 
 A common way to route private packages is route scoped dependencies through a different registry. This works on npm and pnpm
 
@@ -128,7 +133,7 @@ registry=[https://registry.npmjs.org](https://registry.npmjs.org/)
 
 In my opinion, this is just a workaround, which depends on the number or scopes you handle to decide whether or not worth it. Furthermore, the package manager will bypass those packages that do not match with the scope and won’t be resolved by your private registry.
 
-### Conclusion
+### Conclusion {#conclusion}
 
 **package managers** are working to solve this issues with backward compatibility and with good performance.
 

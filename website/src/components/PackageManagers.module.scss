@@ -1,0 +1,53 @@
+.packageManagers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 5rem;
+  padding: 3rem;
+  text-align: center;
+
+  &--wrap {
+    display: grid;
+    grid-template-rows: repeat(auto-fill, 200px);
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--commands {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 3rem;
+  }
+
+  &--logo {
+    width: 5rem;
+    align-self: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .packageManagers {
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .packageManagers {
+    padding: 2rem 0 0 0;
+    grid-template-columns: 1fr;
+
+    &--wrap {
+      max-width: 80%;
+      margin: 0 auto;
+    }
+    &--wrap:first-child {
+      margin-bottom: 2rem;
+    }
+  }
+}

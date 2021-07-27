@@ -11,7 +11,7 @@ This time for simplicity I’ve chosen [DigitalOcean](https://www.digitalocean.c
 
 <!--truncate-->
 
-### Create a Droplet
+### Create a Droplet {#create-a-droplet}
 
 ![](https://cdn-images-1.medium.com/max/1024/1*04T_T0af4mEZrJq4QBKKcQ.png)<figcaption>Choosing an image before creating a droplet</figcaption>
 
@@ -21,7 +21,7 @@ Create a droplet is fairly easy, it just matters to choose an image and click on
 
 While the droplet is created, which takes a matter of seconds the next step is to find a way to log in via SSH, you can find credentials in your email. _Keep on mind the droplet provides root access and the next steps I won’t use sudo_.
 
-### Installing Requirements
+### Installing Requirements {#installing-requirements}
 
 As first step we have to install [Verdaccio](https://verdaccio.org/) with the following command.
 
@@ -37,7 +37,7 @@ We will handle the **verdaccio** process using the _pm2_ tool that provides hand
 npm install -g pm2
 ```
 
-#### Nginx Configuration
+#### Nginx Configuration {#nginx-configuration}
 
 To handle the request we will set up _ngnix_ which is really easy to install. I won’t include in this article all steps to setup the web but you can [follow this article](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04).
 
@@ -68,7 +68,7 @@ vi /root/verdaccio//config.yaml
 http\_proxy: http://xxx.xxx.xxx.xxx/
 ```
 
-### Running Verdaccio
+### Running Verdaccio {#running-verdaccio}
 
 Previously we installed pm2 and now is the moment to run _verdaccio_ with the following command.
 
@@ -78,13 +78,13 @@ pm2 start `which verdaccio`
 
 _Note: notice we are using which due pm2 seems not to be able to run a node global command._
 
-### Using Verdaccio
+### Using Verdaccio {#using-verdaccio}
 
 Verdaccio provides a nice UI to browse your packages you can access via URL, in our case get the IP from the DigitalOcean control panel and access _verdaccio_ like http://xxx.xxx.xxx.xxx/ .
 
 ![](https://cdn-images-1.medium.com/max/1024/1*l5oyR93jMLDOJnYUv88IZg.png)
 
-#### Install packages
+#### Install packages {#install-packages}
 
 npm will use the default registry on install, but we are willing to use our own registry, to achieve that use the --registry argument to provide a different location.
 
@@ -102,7 +102,7 @@ nrm use company-registry
 
 With the steps above, you can switch back to other registries in an easy way, for more information just type nrm --help .
 
-#### Publishing Packages
+#### Publishing Packages {#publishing-packages}
 
 By default verdaccio requires authentication for publishing, thus we need to log in.
 
@@ -116,7 +116,7 @@ Once you are logged, it’s the moment to publish.
 npm publish --registry http://xxx.xxx.xxx.xxx
 ```
 
-### Wrapping Up
+### Wrapping Up {#wrapping-up}
 
 As you can see, **host a registry is quite cheap and the initial set up might take fairly short time if you have some skills with UNIX**.
 

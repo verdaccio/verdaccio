@@ -9,15 +9,15 @@ Docker has been a key part of success for Verdaccio. At the time of this writing
 
 This article will describe what has changed, all the improvements and benefits you will enjoy from migrating to the latest version.
 
-## What’s new?
+## What’s new? {#whats-new}
 
-### Keep it small
+### Keep it small {#keep-it-small}
 
 The new image is three times smaller than the previous, shrinking down from 500MB to 150MB. We achieved this level of optimization by using [multi-stage build](https://medium.com/capital-one-tech/multi-stage-builds-and-dockerfile-b5866d9e2f84) which allows excluding dependencies and assets not required for the runtime.
 
 <!--truncate-->
 
-### Environment Variables
+### Environment Variables {#environment-variables}
 
 To avoid mistakes we have renamed all environment variables to be prefixed with `VERDACCIO_`. This will avoid future collisions and give a better understanding of the origin of the variable. Here is the full list of the new variables available in the new image.
 
@@ -29,13 +29,13 @@ To avoid mistakes we have renamed all environment variables to be prefixed with 
 | `VERDACCIO_PORT`      | `4873`                 | the verdaccio port           |
 | `VERDACCIO_PROTOCOL`  | `http`                 | the default web scheme       |
 
-### Support Arbitrary User IDs
+### Support Arbitrary User IDs {#support-arbitrary-user-ids}
 
 The previous image runs the container with the verdaccio user and group by default, being the UID created randomly within the image. Some users were experiencing issues since some environments require the usage of custom user IDs for security reasons. To support this, we have introduced the environment variable `VERDACCIO_USER_ID`.
 
 Furthermore, other optimizations can be possible, as for instance, define a different username using `VERDACCIO_USER_NAME` and such user won’t have permissions to log in by default.
 
-### Security
+### Security {#security}
 
 We have followed security recommendations to remove write permissions to those locations that do not need to be modified for the default user.
 
@@ -58,11 +58,11 @@ We use the user ID **10001** for the run user and assign the root group to the l
 
 The entrypoint will add the user to `/etc/passwd` in case the user is running as a random uid (openshift). That way, the typical tools like whoami and so can still work.
 
-## Conclusions
+## Conclusions {#conclusions}
 
 This new image has been tested in production for months and is quite stable, thus there is no need to worry about giving it a try. We have improved in several areas but there is still a lot to do and for that we need you. If you are DevOps do not hesitate to give us your feedback or contribute directly in discussions and future PRs to take the Verdaccio Docker image to the next level. We count on you.
 
-## Contributions
+## Contributions {#contributions}
 
 We want to thank **[Diego Louzán](https://github.com/dlouzan)**, **[Dimitri Kopriwa](https://github.com/kopax)**, **[Sergio Herrera](https://twitter.com/sergiohgz)**, [Ben Tucker](https://github.com/btucker), [Michiel De Mey](https://github.com/MichielDeMey) and me [Juan Picado](https://github.com/juanpicado) for this amazing job improving the Docker image.
 
