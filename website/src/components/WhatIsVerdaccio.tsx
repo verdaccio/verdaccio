@@ -1,6 +1,7 @@
 import React from 'react';
 import Translate from '@docusaurus/Translate';
 import { Link } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Divider from './Divider';
 
 import styles from './WhatIsVerdaccio.module.scss';
@@ -19,7 +20,7 @@ const WhatIs = (): React.ReactElement => (
         services such as Amazon&apos;s S3, Google Cloud Storage or create your own plugin.
       </Translate>
     </p>
-    <Link to="/docs/installation" className="link-primary">
+    <Link to={useBaseUrl("/docs/installation")} className="link-primary">
       <Translate>Dive into Verdaccio</Translate>
     </Link>
     <Divider />

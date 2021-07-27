@@ -5,6 +5,7 @@ import { Follow } from 'react-twitter-widgets';
 import Translate from '@docusaurus/Translate';
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 import styles from './help.module.scss';
 
@@ -56,7 +57,7 @@ const SUPPORT_LINKS = (lang: string) => [
       <Translate
         values={{
           link: (
-            <Link to="/docs/what-is-verdaccio">
+            <Link to={useBaseUrl("/docs/what-is-verdaccio")}>
               <Translate>documentation on this site</Translate>
             </Link>
           ),

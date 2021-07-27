@@ -49,7 +49,7 @@ const Features = (): React.ReactElement => (
       ))}
     </div>
     <div className={styles.linkFeatures}>
-      <Link to="/docs/configuration" className="link-primary">
+      <Link to={useBaseUrl("/docs/configuration")} className="link-primary">
         <Translate>Discover more features</Translate>
       </Link>
     </div>
