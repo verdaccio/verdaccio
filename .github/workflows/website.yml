@@ -9,18 +9,20 @@ on:
     paths:
       - 'website/**'
       - 'package.json'
-      - './github/workflows/website.yml'
+      - './.github/workflows/website.yml'
   push:
     branches:
       - 'master'
     paths:
       - 'website/**'
       - 'package.json'
-      - './github/workflows/website.yml'
+      - './.github/workflows/website.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - uses: actions/checkout@v2.3.1
 
