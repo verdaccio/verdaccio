@@ -1,6 +1,7 @@
 // @ts-check
 
-const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const isDeployPreview = process.env.CONTEXT === "deploy-preview";
+const isProductionDeployment = process.env.CONTEXT === "production";
 
 const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "ja-JP", "ko-KR", "pt-PT", "sr-SP", "tg-TJ", "ro-RO", "zh-CN"];
 /** @type {import('@docusaurus/types').DocusaurusConfig['i18n']} */
@@ -35,7 +36,10 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo/symbol/svg/verdaccio-tiny.svg',
   i18n: i18nConfig,
-  plugins: ['docusaurus-plugin-sass'],
+  plugins: [
+    'docusaurus-plugin-sass',
+    isProductionDeployment && ['docusaurus-plugin-sentry', { dsn: 'a7bc89ee3f284570b1d9a47e600e7597' }]
+  ].filter(Boolean),
   webpack: {
     jsLoader: (isServer) => ({
       loader: require.resolve('esbuild-loader'),
@@ -59,6 +63,9 @@ module.exports = {
       apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
       indexName: 'verdaccio'
     },
+    googleAnalytics: isProductionDeployment ? {
+      trackingID: 'UA-2527438-21'
+    } : undefined,
     navbar: {
       title: `Verdaccio - v${pkgJson.version}`,
       logo: {
