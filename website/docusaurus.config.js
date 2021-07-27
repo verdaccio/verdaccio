@@ -56,11 +56,8 @@ module.exports = {
         'If you like Verdaccio, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/verdaccio/verdaccio">GitHub</a>! ⭐',
     },
     algolia: {
-      apiKey: 'YOUR_API_KEY',
-      indexName: 'YOUR_INDEX_NAME',
-      appId: 'YOUR_APP_ID',
-      contextualSearch: true,
-      searchParameters: {},
+      apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
+      indexName: 'verdaccio'
     },
     navbar: {
       title: `Verdaccio - v${pkgJson.version}`,
@@ -172,7 +169,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Verdaccio. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
     },
     sidebarCollapsible: true,
     hideableSidebar: true,
@@ -197,9 +194,12 @@ module.exports = {
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
           ],
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/verdaccio/docusaurus/edit/master/website/',
+          editUrl: ({ locale, docPath }) => {
+            if (locale !== 'en') {
+              return `https://crowdin.com/project/verdaccio/${locale}`;
+            }
+            return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
+          },
         },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
@@ -211,9 +211,12 @@ module.exports = {
           },
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All our posts',
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/verdaccio/docusaurus/edit/master/website/blog/',
+          editUrl: ({ locale, blogDirPath, blogPath }) => {
+            if (locale !== 'en') {
+              return `https://crowdin.com/project/verdaccio/${locale}`;
+            }
+            return `https://github.com/verdaccio/verdaccio/edit/master/website/${blogDirPath}/${blogPath}`;
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
