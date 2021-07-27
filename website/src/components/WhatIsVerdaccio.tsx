@@ -20,7 +20,7 @@ const WhatIs = (): React.ReactElement => (
         services such as Amazon&apos;s S3, Google Cloud Storage or create your own plugin.
       </Translate>
     </p>
-    <Link to={useBaseUrl("/docs/installation")} className="link-primary">
+    <Link to={useBaseUrl('/docs/installation')} className="link-primary">
       <Translate>Dive into Verdaccio</Translate>
     </Link>
     <Divider />

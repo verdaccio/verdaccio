@@ -23,7 +23,7 @@ const Header = (): React.ReactElement => {
             <a href="https://github.com/verdaccio/verdaccio" className="link-secondary">
               GITHUB
             </a>
-            <Link to={useBaseUrl("/docs/what-is-verdaccio")} className="link-primary">
+            <Link to={useBaseUrl('/docs/what-is-verdaccio')} className="link-primary">
               <Translate>GET STARTED</Translate>
             </Link>
             <a href="https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md" className="link-secondary">
