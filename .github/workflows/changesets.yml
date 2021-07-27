@@ -33,7 +33,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
       - name: install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
         env:
           NODE_AUTH_TOKEN: ${{ secrets.VERDACCIO_TOKEN }}
 
