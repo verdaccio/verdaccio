@@ -57,7 +57,7 @@ const SUPPORT_LINKS = (lang: string) => [
       <Translate
         values={{
           link: (
-            <Link to={useBaseUrl("/docs/what-is-verdaccio")}>
+            <Link to={useBaseUrl('/docs/what-is-verdaccio')}>
               <Translate>documentation on this site</Translate>
             </Link>
           ),
