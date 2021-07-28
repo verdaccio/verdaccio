@@ -20,5 +20,5 @@
 
 #### Storage
 
-- [Docker + AWS S3 Plugin(localstack) + Verdaccio 4](amazon-s3-docker-example/v4/README.md)
+- [Docker + AWS S3 Plugin(localstack) + Verdaccio 4](amazon-s3-docker-example/README.md)
 - [Docker + Minio](https://github.com/barolab/verdaccio-minio/tree/master/example)
