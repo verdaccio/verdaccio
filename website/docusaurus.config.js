@@ -61,7 +61,8 @@ module.exports = {
     },
     algolia: {
       apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
-      indexName: 'verdaccio'
+      indexName: 'verdaccio',
+      contextualSearch: true
     },
     googleAnalytics: isProductionDeployment ? {
       trackingID: 'UA-2527438-21'
