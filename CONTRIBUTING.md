@@ -45,7 +45,7 @@ of tasks, such as:
 Verdaccio has several areas of involvement, which might fit you better, eg:
 
 - **Core**: The [core](https://github.com/verdaccio/verdaccio) is the main repository, built with **Node.js**.
-- **Website**: we uses [**Docusauru*s**](https://docusaurus.io/) for the **website** and if you are familiar with this technology, you might become the official webmaster.
+- **Website**: we uses [**Docusaurus**](https://docusaurus.io/) for the **website** and if you are familiar with this technology, you might become the official webmaster.
 - **User Interface**: The [user Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
 - **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
