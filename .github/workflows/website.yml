@@ -43,7 +43,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2.0.1
         with:
-          version: latest
+          version: 6.11.2
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
