@@ -179,7 +179,6 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
     },
-    sidebarCollapsible: true,
     hideableSidebar: true,
     colorMode: {
       defaultMode: 'light',
@@ -199,6 +198,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          sidebarCollapsible: true,
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
           ],
