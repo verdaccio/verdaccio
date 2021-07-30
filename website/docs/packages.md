@@ -11,7 +11,7 @@ For more information about permissions visit [the authentification section in th
 
 ### Usage {#usage}
 
-```yalm
+```yaml
 packages:
   # scoped packages
   '@scope/*':
@@ -158,7 +158,7 @@ You may assign multiple uplinks for use as a proxy to use in the case of failove
 The property `publish` handle permissions for `npm publish` and `npm unpublish`.  But, if you want to be more specific, you can use the property
 `unpublish` in your package access section, for instance:
 
-```yalm
+```yaml
 packages:
   'jquery':
     access: $all
