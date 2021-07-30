@@ -14,6 +14,7 @@ const i18nConfig = {
     "pt-BR", "ru-RU",
     "sr-CS", "vi-VN",
     "yo-NG", "zh-TW",
+    "zh-CN"
   ],
   localeConfigs: {
     ar: {
