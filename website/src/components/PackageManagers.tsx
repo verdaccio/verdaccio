@@ -61,7 +61,7 @@ const PackageManagers = (): React.ReactElement => (
         <Command
           alt="Verdaccio install inside Kubernetes Helm"
           image={useBaseUrl('/img/sponsors/k8s.png')}
-          command={translate({ message: 'helm install --name stable/verdaccio' })}
+          command={translate({ message: 'helm install verdaccio/verdaccio' })}
         />
       </div>
       <h2>
