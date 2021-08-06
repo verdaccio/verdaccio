@@ -69,10 +69,14 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-[![verdaccio Node.js Dependency Confusion Attacks](https://cdn.verdaccio.dev/readme/devseccon.png)](https://www.youtube.com/watch?v=qTRADSp3Hpo)
+### **Testing the integrity of your React components by publishing in a private registry - React Finland 2021**.
+
+[![beerjscrb](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://react-finland.fi/schedule/#testing-the-integrity-of-your-react-components-by-publishing-in-a-private-registry)
 
 You might want to check out as well our previous talks:
 
+- [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado**](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
+- [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado\***](https://www.youtube.com/watch?v=qTRADSp3Hpo)
 - [**OpenJS World 2020** about \*Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado\***](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 - [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
 - [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
