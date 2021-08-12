@@ -15,7 +15,17 @@ h3 {
   font-size: var(--ifm-h3-font-size);
 }
 
-p {
+p,
+li,
+a {
   color: var(--p-color);
-  font-size: 0.875rem;
+  font-size: var(--font-size);
+}
+
+@media (min-width: 1000px) {
+  p,
+  li,
+  a {
+    font-size: var(--font-size-big);
+  }
 }
