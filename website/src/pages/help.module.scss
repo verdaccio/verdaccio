@@ -1,0 +1,42 @@
+.wrapper {
+  margin: 1rem auto;
+  width: 80%;
+}
+.w-100 {
+  width: 100%;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.grid {
+  display: grid;
+}
+.grid-2-1fr {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-columns-fill {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.items-center {
+  align-items: center;
+}
+.gap-2 {
+  gap: 2rem;
+}
+.m-auto {
+  margin: 0 auto;
+}
+.article-card {
+  --ifm-link-color: #cd4001;
+  height: 100%;
+  background-color: var(--ifm-navbar-background-color);
+  box-shadow: 1px 1px 1px 1px #66757f0f;
+  padding: 1rem;
+  border-radius: 15px;
+}
+
+@media only screen and (max-width: 900px) {
+  .grid-2-1fr {
+    grid-template-columns: 1fr;
+  }
+}

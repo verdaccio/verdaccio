@@ -1,0 +1,63 @@
+{
+  "name": "@verdaccio/website",
+  "version": "5.1.2",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "netlify:build:production": "docusaurus write-translations && pnpm -w crowdin:sync && docusaurus build",
+    "netlify:build:deployPreview": "docusaurus write-translations --locale en && docusaurus build --locale en",
+    "eslint:check": "eslint src/**/*.tsx",
+    "eslint:write": "eslint src/**/*.tsx --fix",
+    "prettier:check": "prettier src/**/* --check",
+    "prettier:write": "prettier src/**/* --write"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "dependencies": {
+    "@docusaurus/core": "2.0.0-beta.4",
+    "@docusaurus/plugin-google-analytics": "2.0.0-beta.4",
+    "@docusaurus/preset-classic": "2.0.0-beta.4",
+    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.4",
+    "@docusaurus/theme-search-algolia": "2.0.0-beta.4",
+    "@mdx-js/react": "^1.6.22",
+    "clsx": "^1.1.1",
+    "copy-text-to-clipboard": "^3.0.1",
+    "docusaurus-plugin-sentry": "^1.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-twitter-widgets": "^1.10.0",
+    "use-is-in-viewport": "^1.0.9"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "2.0.0-beta.4",
+    "@tsconfig/docusaurus": "^1.0.2",
+    "docusaurus-plugin-sass": "^0.2.1",
+    "esbuild": "^0.12.15",
+    "esbuild-loader": "^2.13.1",
+    "prism-react-renderer": "^1.2.1",
+    "sass": "^1.35.2",
+    "sass-loader": "^12.1.0",
+    "url-loader": "^4.1.1"
+  }
+}

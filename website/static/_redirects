@@ -1,0 +1,17 @@
+/docs/en/docker.html /docs/docker 301
+/docs/en/* /docs/:splat
+/docs/cs-CZ/* /cs-cz/docs/:splat
+/docs/de-DE/* /de-de/docs/:splat
+/docs/es-ES/* /es-es/docs/:splat
+/docs/fr-FR/* /fr-fr/docs/:splat
+/docs/it-IT/* /it-it/docs/:splat
+/docs/pl-PL/* /pl-pl/docs/:splat
+/docs/pt-BR/* /pt-br/docs/:splat
+/docs/ru-RU/* /ru-ru/docs/:splat
+/docs/sr-CS/* /sr-cs/docs/:splat
+/docs/yo-NG/* /yo-NG/docs/:splat
+/docs/vi-VN/* /vi-vn/docs/:splat
+/docs/zh-TW/* /zh-tw/docs/:splat
+/docs/zh-CN/* /zh-cn/docs/:splat
+/chat https://discord.gg/7qWJxBf 200
+https://chat.verdaccio.org https://discord.gg/7qWJxBf 200

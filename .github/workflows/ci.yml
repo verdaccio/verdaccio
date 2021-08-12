@@ -29,7 +29,7 @@ jobs:
       with:
         node-version: 14 
     - name: Install pnpm
-      run: npm i pnpm@latest -g
+      run: npm i pnpm@6.10.3 -g
     - name: set store
       run: | 
         mkdir ~/.pnpm-store
@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -94,7 +94,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -131,7 +131,7 @@ jobs:
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -155,7 +155,7 @@ jobs:
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -182,7 +182,7 @@ jobs:
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -203,7 +203,7 @@ jobs:
         with:
           node-version: 14
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.10.3 -g
        # pnpm cache is not working for windows (we need a solution)
       - uses: actions/cache@v2
         with:

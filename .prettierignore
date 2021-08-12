@@ -6,10 +6,10 @@
 **/pnpm-lock.yaml
 **/verdaccio-corrupted.db.json
 **/wrong.package.json
-/website/.cache/
-/website/crowdin/
-/website/public/
-/website/src/dictionaries/
+crowdin.yaml
+/docs/website
+/website/*
+/website/translated_docs/
 CHANGELOG.md
 CONTRIBUTORS.md
 node_modules/
@@ -23,3 +23,4 @@ docker-examples/
 build/
 .vscode/
 .github/
+.netlify/

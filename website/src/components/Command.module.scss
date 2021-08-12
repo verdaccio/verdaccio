@@ -1,0 +1,62 @@
+.logoCommand {
+  position: relative;
+  margin: 0 auto;
+
+  img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: -1rem;
+    width: 3.75rem;
+  }
+
+  code {
+    padding: 0.575rem;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 15px;
+    width: 100%;
+    display: block;
+    background-color: var(--ifm-grey);
+    border-color: var(--grey-darker);
+  }
+
+  &--withImage code {
+    text-align: left;
+    max-width: 30rem;
+    padding-left: 3rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &:hover > .copyButton,
+  .copyButton:focus {
+    opacity: 1;
+  }
+}
+
+.copyButton {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background: var(--ifm-color-emphasis-800);
+  border-radius: var(--ifm-global-radius);
+  color: var(--ifm-color-emphasis-0);
+  opacity: 0;
+  user-select: none;
+  padding: 0.4rem 0.5rem;
+  position: absolute;
+  right: calc(var(--ifm-pre-padding) / 2);
+  top: calc(var(--ifm-pre-padding) / 2);
+  transition: opacity 200ms ease-in-out;
+}
+
+@media only screen and (max-width: 600px) {
+  .logoCommand {
+    code {
+      max-width: 20rem;
+    }
+  }
+}

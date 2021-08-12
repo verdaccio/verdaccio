@@ -43,14 +43,10 @@ There are many ways to contribute:
 
 The Verdaccio project is split into several areas:
 
-- **Core**: [core](https://github.com/verdaccio/verdaccio) is the main
-repository, built with **Node.js**
-- **Website**: we use **Gatsby.js** for the **website** and if you are familiar
-with this technology, you might just become the official webmaster!
-- **User Interface**: [user Interface](https://github.com/verdaccio/ui) is
-developed with **React** and **Material-UI** and we are looking for front-end
-contributors
-- **Kubernetes and Helm**: [**Helm chart**](https://github.com/verdaccio/charts).
+- **Core**: The [core](https://github.com/verdaccio/verdaccio) is the main repository, built with **Node.js**.
+- **Website**: we use [**Docusaurus**](https://docusaurus.io/) for the **website** and if you are familiar with this technology, you might become the official webmaster.
+- **User Interface**: The [user Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
+- **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
 > There are other areas to contribute, like documentation, translation which are
 not hosted on this repo but check the last section of this notes for further
