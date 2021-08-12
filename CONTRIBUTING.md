@@ -49,8 +49,8 @@ The Verdaccio project is split into several areas:
 - **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
 > There are other areas to contribute, like documentation, translation which are
-not hosted on this repo but check the last section of this notes for further
-information.
+> not hosted on this repo but check the last section of this notes for further
+> information.
 
 ## Development Setup
 
@@ -155,12 +155,12 @@ a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
 
 - _Third party integrations_: proxies integrations, external plugins
 - _Package managers_: If a package manager does not support a specific command
-or cannot be reproduced with another package manager
+  or cannot be reproduced with another package manager
 - _Features clearly flagged as not supported_
 - _Node.js issues installation in any platform_: If you cannot install the
-global package (this is considered external issue)
+  global package (this is considered external issue)
 - Any ticket which has beed flagged as an [external issue
-](https://github.com/verdaccio/verdaccio/labels/external-issue)
+  ](https://github.com/verdaccio/verdaccio/labels/external-issue)
 
 If you intend to report a **security** issue, please follow our [Security policy
 guidelines](https://github.com/verdaccio/verdaccio/security/policy).
@@ -171,7 +171,7 @@ Before reporting a bug please:
 
 - Search for existing issues to see if it has already been reported
 - Look for the **question** label: we have labelled questions for easy follow-up
-as [questions](https://github.com/verdaccio/verdaccio/labels/question)
+  as [questions](https://github.com/verdaccio/verdaccio/labels/question)
 
 In case any of those match with your search, up-vote it (using GitHub reactions)
 or add additional helpful details to the existing issue to show that it's
@@ -192,8 +192,8 @@ the project. Adding in context and the use-case will really help!
 
 - A detailed description the advantages of your request
 - Whether or not it's compatible with `npm`, `pnpm` and [_yarn classic_
-](https://github.com/yarnpkg/yarn) or [_yarn berry_
-](https://github.com/yarnpkg/berry).
+  ](https://github.com/yarnpkg/yarn) or [_yarn berry_
+  ](https://github.com/yarnpkg/berry).
 - A potential implementation or design
 - Whatever else is on your mind! 🤓
 
@@ -203,7 +203,7 @@ It's very exciting to become a Verdaccio contributor 🙌🏼. To ensure a fast 
 review and merge, please follow the next guidelines:
 
 > Any contribution gives you the right to be part of this organization as
-_collaborator_.
+> _collaborator_.
 
 ### Submitting a Pull Request
 
@@ -246,7 +246,7 @@ pnpm test
 ```
 
 > note: eslint and formatting are run separately, keep code formatting
-before push.
+> before push.
 
 All good? Perfect! You should create the pull request.
 
@@ -372,9 +372,9 @@ Plugins are add-ons that extend the functionality of the application.
 If you want to develop your own plugin:
 
 1. Check whether there is a legacy Sinopia plugin for the feature that you need
-via [npmjs](https://www.npmjs.com/search?q=sinopia)
+   via [npmjs](https://www.npmjs.com/search?q=sinopia)
 2. Keep in mind the [life-cycle to load a plugin
-](https://verdaccio.org/docs/en/dev-plugins)
+   ](https://verdaccio.org/docs/en/dev-plugins)
 3. You are free to host your plugin in your repository
 4. Provide a detailed description of your plugin to help users understand how to
-use it
+   use it
