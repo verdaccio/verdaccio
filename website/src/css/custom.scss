@@ -20,8 +20,8 @@
   --twitter-color: #1595de;
   --red: #cd4001;
   --p-color: #5c5c5c;
-
-  --ifm-code-font-size: 95%;
+  --font-size: 0.875rem;
+  --font-size-big: calc(var(--font-size) * 1.2);
 }
 
 html[data-theme='dark']:root {
