@@ -2299,6 +2299,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cspotcode/source-map-consumer@npm:0.8.0":
+  version: 0.8.0
+  resolution: "@cspotcode/source-map-consumer@npm:0.8.0"
+  checksum: fc32215a353c7b3d039f5d4b93329200264daeabb0739dcf53eb78f779e37e5f5c281aad281f86781c930011d354612aafab887304451a46f16b10f0f919297f
+  languageName: node
+  linkType: hard
+
+"@cspotcode/source-map-support@npm:0.6.1":
+  version: 0.6.1
+  resolution: "@cspotcode/source-map-support@npm:0.6.1"
+  dependencies:
+    "@cspotcode/source-map-consumer": 0.8.0
+  checksum: eda5227576981f3a16bd1b0940f11bffe96a7dad36da6f2e5e3a8ee5b3ecb153359df08084684509adc63ffe12e14894b6f6f8f9423780895cf7cd9d66c8bbd6
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.4.1":
   version: 0.4.1
   resolution: "@eslint/eslintrc@npm:0.4.1"
@@ -2775,10 +2791,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node16@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@tsconfig/node16@npm:1.0.1"
-  checksum: c389a4a81c291a27b96705de7fbe46d29aa4eb771450a41dfc075d89e1fdd63141898043a0d9f627460a1c409d06635a044dc4b3a4516173769a7d0a1558c51d
+"@tsconfig/node16@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@tsconfig/node16@npm:1.0.2"
+  checksum: 57310e88858be59b36603e5d9bd7bd1714d16402ef1e536c01521ad3b207833a2fc64d260d362cae07bf4e50759a3aba3958c2faf9c42b52c4c817be60a93123
   languageName: node
   linkType: hard
 
@@ -3633,6 +3649,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn-walk@npm:^8.1.1":
+  version: 8.1.1
+  resolution: "acorn-walk@npm:8.1.1"
+  checksum: 611ed68ed745414d46ccd4ccd5a4469a9420be4af59126ab66d1c51e1e48fe80bf41cce48a27efbfb777d6eea221f73f57a19d129f3114cae49fedc9a2b21a5b
+  languageName: node
+  linkType: hard
+
 "acorn@npm:^6.0.1":
   version: 6.4.1
   resolution: "acorn@npm:6.4.1"
@@ -3666,6 +3689,15 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 51d8d3ec3e33dcf325e5887909a1ac36afb351522b0179afadcb44ae8eb612417c6db1bcd4abdfaff58fea969d272baf8e809801075e15b5d5993933139ea2f9
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^8.4.1":
+  version: 8.4.1
+  resolution: "acorn@npm:8.4.1"
+  bin:
+    acorn: bin/acorn
+  checksum: 37720df0ecd48baf87506aff228aedc7e73379df9e9309f0b89aaff18bb3d08af892d47c0f19d5ef1723066ca74157b00adcfea9a62b21a493c91babb7d22bc3
   languageName: node
   linkType: hard
 
@@ -4070,6 +4102,13 @@ __metadata:
   version: 3.2.0
   resolution: "async@npm:3.2.0"
   checksum: 5c7913c08496877a9896dc6670d3a6c64f02d350e74b9e9191194959c473414a0732539ebdfec0fd2f34c20f439714773a30c20e0e68eb27bd8ee5ec9d8ff5ba
+  languageName: node
+  linkType: hard
+
+"async@npm:3.2.1":
+  version: 3.2.1
+  resolution: "async@npm:3.2.1"
+  checksum: 2ec69da2266d9418eefbf828a4b238f62cf07a5d5ba2d7fb91bc74aa588e38bbf7aef03df6d267dd38999802e97061768e5f58c8a38c62d71eb5c1a0b2957ef4
   languageName: node
   linkType: hard
 
@@ -4787,14 +4826,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.0.0":
-  version: 3.0.0
-  resolution: "clipanion@npm:3.0.0"
+"clipanion@npm:3.0.1":
+  version: 3.0.1
+  resolution: "clipanion@npm:3.0.1"
   dependencies:
     typanion: ^3.3.1
   peerDependencies:
     typanion: "*"
-  checksum: fb8ec633bdff7e557a5846449cc7e72d41b26e2a65518b3dd1e160e9d3eeecd3d819732135ad62310bf357a821a50a7d1c0effb3f76ede4d3b01c7fdae0dbf81
+  checksum: 3c20f2d1712a73de1fa73e31928df2d6daf5d1b9028637f6bdc0655a6c2a5775c2499d096cf1b7d055ce2943ac9c24a7668325fc72c363d2213005b2afac9e85
   languageName: node
   linkType: hard
 
@@ -11204,9 +11243,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"pino@npm:6.12.0":
-  version: 6.12.0
-  resolution: "pino@npm:6.12.0"
+"pino@npm:6.13.0":
+  version: 6.13.0
+  resolution: "pino@npm:6.13.0"
   dependencies:
     fast-redact: ^3.0.0
     fast-safe-stringify: ^2.0.8
@@ -11216,7 +11255,7 @@ fsevents@~2.1.2:
     sonic-boom: ^1.0.2
   bin:
     pino: bin.js
-  checksum: 64fd7a49fc9b909bc1782f761c7a979e607b18ab8d88de752d739ad6a148cd2d8492a2e77ecb88cc71df7b950dfd2ec35a06b14a057c1bb75cb3684c1e19a364
+  checksum: 4fd045eeff8edffb8e5bd9677553f511155d1f56353d9a12a03880a7ca26a0eb29808705a2ace223dff9c77dc20c269b31e33591b73728c6f4f641cc968a1080
   languageName: node
   linkType: hard
 
@@ -12601,16 +12640,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.17":
-  version: 0.5.19
-  resolution: "source-map-support@npm:0.5.19"
-  dependencies:
-    buffer-from: ^1.0.0
-    source-map: ^0.6.0
-  checksum: 59d4efaae97755155b078413ecba63517e3ef054cc7ab767bbd30e6f3054be2ae8e8f5cce7eef53b7eb93e98fe27a58dd8f5e7abfb13144ba420ddaf5267bbb2
-  languageName: node
-  linkType: hard
-
 "source-map-support@npm:^0.5.6":
   version: 0.5.13
   resolution: "source-map-support@npm:0.5.13"
@@ -12756,9 +12785,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"standard-version@npm:9.3.0":
-  version: 9.3.0
-  resolution: "standard-version@npm:9.3.0"
+"standard-version@npm:9.3.1":
+  version: 9.3.1
+  resolution: "standard-version@npm:9.3.1"
   dependencies:
     chalk: ^2.4.2
     conventional-changelog: 3.1.24
@@ -12777,7 +12806,7 @@ fsevents@~2.1.2:
     yargs: ^16.0.0
   bin:
     standard-version: bin/cli.js
-  checksum: e56d3e550622d5a636a311ee432d2bb9697a9d4610a57e779d3f47a20bae4393547a1bd1de34151b01b7408b32976e88daa08cb4c4a29a61379ceeb77a248633
+  checksum: ed79532134404bda92fcc6b543f313d0366a899c9f13033650069f4ae1ad31034287e36998fff24f4dc6e0041e12804ca2bf4d609a747a65690419c8ecbcd97a
   languageName: node
   linkType: hard
 
@@ -13406,19 +13435,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.1.0":
-  version: 10.1.0
-  resolution: "ts-node@npm:10.1.0"
+"ts-node@npm:10.2.0":
+  version: 10.2.0
+  resolution: "ts-node@npm:10.2.0"
   dependencies:
+    "@cspotcode/source-map-support": 0.6.1
     "@tsconfig/node10": ^1.0.7
     "@tsconfig/node12": ^1.0.7
     "@tsconfig/node14": ^1.0.0
-    "@tsconfig/node16": ^1.0.1
+    "@tsconfig/node16": ^1.0.2
+    acorn: ^8.4.1
+    acorn-walk: ^8.1.1
     arg: ^4.1.0
     create-require: ^1.1.0
     diff: ^4.0.1
     make-error: ^1.1.1
-    source-map-support: ^0.5.17
     yn: 3.1.1
   peerDependencies:
     "@swc/core": ">=1.2.50"
@@ -13436,7 +13467,7 @@ fsevents@~2.1.2:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: d1b582dc3624061d86c2657507e21c3875919b7d108db16cde5507f2aa75b025be2e09b35ec607900eb525e429ebd14f0cf1c5f4b81292a191c0f8c7bfdf0720
+  checksum: 7633bc5d27b08202a4d3e0c9a8def2933e98daf6316cb94992e21975f1432e28aeb34d601f69b912f61a1b2515677cb5f4015cab4848bcf4691c4bf1f6736963
   languageName: node
   linkType: hard
 
@@ -13957,13 +13988,13 @@ typescript@4.1.3:
     "@verdaccio/ui-theme": 3.1.0
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
-    async: 3.2.0
+    async: 3.2.1
     babel-eslint: 10.1.0
     babel-jest: 26.6.3
     babel-loader: ^8.2.2
     babel-plugin-dynamic-import-node: 2.3.3
     body-parser: 1.19.0
-    clipanion: 3.0.0
+    clipanion: 3.0.1
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5
@@ -14007,7 +14038,7 @@ typescript@4.1.3:
     mv: 2.1.1
     nock: 12.0.3
     node-mocks-http: ^1.10.1
-    pino: 6.12.0
+    pino: 6.13.0
     pinst: 2.1.6
     pkginfo: 0.4.1
     prettier: 2.3.2
@@ -14018,9 +14049,9 @@ typescript@4.1.3:
     rimraf: 3.0.2
     selfsigned: 1.10.11
     semver: 7.3.5
-    standard-version: 9.3.0
+    standard-version: 9.3.1
     supertest: 6.1.3
-    ts-node: 10.1.0
+    ts-node: 10.2.0
     typescript: 4.1.3
     validator: 13.6.0
     verdaccio-audit: 10.0.0
