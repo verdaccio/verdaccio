@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.3](https://github.com/verdaccio/verdaccio/compare/v5.1.2...v5.1.3) (2021-08-20)
+
+
+### Bug Fixes
+
+* plugin allow_publish (pkg) got a undefined version ([#2315](https://github.com/verdaccio/verdaccio/issues/2315)) ([ecfc4c3](https://github.com/verdaccio/verdaccio/commit/ecfc4c33048a6f2cb1cef179fe9b0a11da389d26))
+* update docker and core dependencies ([#2375](https://github.com/verdaccio/verdaccio/issues/2375)) ([2e995f5](https://github.com/verdaccio/verdaccio/commit/2e995f5981c1a5eca6f43b14e52f06564acf6d8e))
+* update docker base image to v14.17.5 ([d63dcc0](https://github.com/verdaccio/verdaccio/commit/d63dcc02facddd8b6da2a32da067a6acf239e25d))
+
 ### [5.1.2](https://github.com/verdaccio/verdaccio/compare/v5.1.1...v5.1.2) (2021-07-14)
 
 
