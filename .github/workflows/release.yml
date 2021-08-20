@@ -23,7 +23,8 @@ jobs:
       env:
         REGISTRY_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
         REGISTRY_URL: registry.npmjs.org
-    - name: Create release notes
-      run: sh scripts/github-release.sh
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # FIXME: there is an issue where all the changelog is copied to the release notes (all versions)
+    # - name: Create release notes
+    #   run: sh scripts/github-release.sh
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
