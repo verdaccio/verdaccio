@@ -194,3 +194,34 @@ location ~ ^/verdaccio/(.*)$ {
 For this case, `url_prefix` should set to `/verdaccio/`
 
 > Note: There is a slash after the install path (`https://your-domain:port/verdaccio/`)!
+
+### Overriding the public url
+
+> Since `verdaccio@5.0.0`
+
+
+The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this variable will be used for:
+
+- Used as base path to serve UI resources as (js, favicon, etc)
+- Used on return metadata `dist` base path
+- Ignores `host` and `X-Forwarded-Proto` headers
+- If `url_prefix` is defined would be appened to the env variable.
+
+```
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/my_prefix'
+
+// url -> https://somedomain.org/my_prefix/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/'
+
+// url -> https://somedomain.org/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
+url_prefix: '/second_prefix'
+
+// url -> https://somedomain.org/second_prefix/'
+```
+
+![Screenshot from 2021-03-24 20-20-11](https://user-images.githubusercontent.com/558752/112371003-5fa1ce00-8cde-11eb-888c-70c4e9776c57.png)

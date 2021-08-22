@@ -155,7 +155,7 @@ The prefix is intended to be used when the server runs behinds the proxy, check 
 url_prefix: /verdaccio/
 ```
 
-> Verdaccio 5 has an improved prefix behaviour, [check here details](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#url_prefix-improved-behavior).
+> Verdaccio 5 has an improved prefix behaviour and the `VERDACCIO_PUBLIC_URL` is avilable for use, learn how to [here](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#url_prefix-improved-behavior).
 
 ### Max Body Size {#max-body-size}
 
