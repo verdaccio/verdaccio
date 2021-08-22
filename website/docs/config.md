@@ -149,7 +149,7 @@ publish:
 
 ### URL Prefix {#url-prefix}
 
-The prefix is intended to be used when the server runs behinds the proxy, check the **reverse proxy setup** page for more details.
+The prefix is intended to be used when the server runs behinds the proxy and won't work properly if is used without a reverse proxy, check the **reverse proxy setup** page for more details.
 
 ```yaml
 url_prefix: /verdaccio/
