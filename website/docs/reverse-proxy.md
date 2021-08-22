@@ -6,6 +6,9 @@ title: "Reverse Proxy Setup"
 Using a reverse proxy is a common practice. The following configurations are the
 most recommended and used ones.
 
+
+**Important**, the headers are considered to resolve the public are `X-Forwarded-Proto` for the protocol and `Host` for the domain, please include them in your configuration.
+
 # Apache
 
 Apache and `mod_proxy` should **not decode/encode slashes** and leave them as they are:
