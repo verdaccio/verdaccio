@@ -279,7 +279,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
       debug('creating folder %o', folderName);
       fs.mkdirSync(folderName, { recursive: true });
       debug('sync folder %o created succeed', folderName);
-    } catch (err) {
+    } catch (err: any) {
       debug('sync create folder has failed with error: %o', err);
       return null;
     }
@@ -289,7 +289,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
       debug('sync write succeed');
 
       return null;
-    } catch (err) {
+    } catch (err: any) {
       debug('sync failed %o', err);
 
       return err;
@@ -326,7 +326,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage<{}> {
 
     try {
       return await loadPrivatePackages(this.path, this.logger);
-    } catch (err) {
+    } catch (err: any) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
       debug('error on fetch local packages %o', err);

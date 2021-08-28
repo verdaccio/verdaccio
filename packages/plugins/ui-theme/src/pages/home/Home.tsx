@@ -18,7 +18,7 @@ const Home: React.FC<Props> = ({ isUserLoggedIn }) => {
       const packages = await getPackages();
       // FIXME add correct type for package
       setPackages(packages as never[]);
-    } catch (error) {
+    } catch (error: any) {
       // FIXME: add dialog
       // eslint-disable-next-line no-console
       console.error({

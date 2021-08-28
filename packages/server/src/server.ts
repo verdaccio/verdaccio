@@ -158,7 +158,7 @@ export default (async function (configHash: ConfigRuntime): Promise<any> {
   try {
     // waits until init calls have been initialized
     await storage.init(config, filters);
-  } catch (err) {
+  } catch (err: any) {
     logger.error({ error: err.msg }, 'storage has failed: @{error}');
     throw new Error(err);
   }

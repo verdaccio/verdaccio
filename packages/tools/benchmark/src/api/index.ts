@@ -18,7 +18,7 @@ export class ApiCommand extends Command {
   public async execute() {
     try {
       await runApi(this.benchmark, this.version);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       process.exit(1);
     }

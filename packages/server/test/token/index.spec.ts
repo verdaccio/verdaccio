@@ -189,7 +189,7 @@ describe('endpoint unit test', () => {
             readonly: false,
             cidr_whitelist: [],
           });
-        } catch (e) {
+        } catch (e: any) {
           const [err, body] = e;
           expect(err).not.toBeNull();
           expect(body.error).toEqual(API_ERROR.BAD_USERNAME_PASSWORD);
@@ -206,7 +206,7 @@ describe('endpoint unit test', () => {
 
           expect(res[0]).toBeNull();
           expect(res[1].body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
-        } catch (e) {
+        } catch (e: any) {
           return Promise.reject(e);
         }
       });
@@ -220,7 +220,7 @@ describe('endpoint unit test', () => {
 
           expect(res[0]).toBeNull();
           expect(res[1].body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
-        } catch (e) {
+        } catch (e: any) {
           return Promise.reject(e);
         }
       });

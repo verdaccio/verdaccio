@@ -84,7 +84,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
         try {
           await this._sync();
           callback(null);
-        } catch (err) {
+        } catch (err: any) {
           callback(err);
         }
       } else {
@@ -161,7 +161,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
         await this._sync();
         this.logger.trace('s3: [remove] finish sync');
         callback(null);
-      } catch (err) {
+      } catch (err: any) {
         this.logger.error({ err }, 's3: [remove] sync error: @{err}');
         callback(err);
       }

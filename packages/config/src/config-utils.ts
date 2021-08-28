@@ -9,7 +9,7 @@ export function folderExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
-  } catch (_) {
+  } catch (_: any) {
     return false;
   }
 }
@@ -23,7 +23,7 @@ export function fileExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
-  } catch (_) {
+  } catch (_: any) {
     return false;
   }
 }

@@ -19,7 +19,7 @@ export function compileTemplate(content, metadata) {
         const template: HandlebarsTemplateDelegate = Handlebars.compile(content);
         return resolve(template(metadata));
       }
-    } catch (error) {
+    } catch (error: any) {
       debug('error  template handler %o', error);
       reject(error);
     }

@@ -42,9 +42,9 @@
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.2",
+    "@types/bcryptjs": "2.4.2",
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "mockdate": "^3.0.5"
+    "mockdate": "3.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",

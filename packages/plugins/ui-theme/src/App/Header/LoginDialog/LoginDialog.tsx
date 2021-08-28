@@ -40,7 +40,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
         const response: LoginBody = await doLogin(username as string, password as string);
 
         return response;
-      } catch (e) {
+      } catch (e: any) {
         // eslint-disable-next-line no-console
         console.error('login error', e.message);
         const error = {

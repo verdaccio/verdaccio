@@ -16,7 +16,7 @@ export function parseConfigFile(configPath: string): ConfigRuntime {
     return Object.assign({}, jsonConfig, {
       config_path: configPath,
     });
-  } catch (e) {
+  } catch (e: any) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       e.message = APP_ERROR.CONFIG_NOT_VALID;
     }

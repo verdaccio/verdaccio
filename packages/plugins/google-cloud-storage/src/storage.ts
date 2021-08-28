@@ -73,7 +73,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
             }
             try {
               onWrite(name, transformPackage(metadata), onEnd);
-            } catch (err) {
+            } catch (err: any) {
               this.logger.error(
                 { name: name, err: err.message },
                 'gcloud: on write update @{name} package has failed err: @{err}'
@@ -124,7 +124,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           );
           cb(getInternalError(err.message));
         });
-    } catch (err) {
+    } catch (err: any) {
       this.logger.error(
         { name: file.name, err: err.message },
         'gcloud: delete @{name} file has failed err: @{err}'
@@ -212,7 +212,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           resumable: this.config.resumable,
         });
         resolve(null);
-      } catch (err) {
+      } catch (err: any) {
         reject(getInternalError(err.message));
       }
     });
@@ -253,7 +253,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           { name: name, exist },
           'gcloud: check whether @{name} exist successfully: @{exist}'
         );
-      } catch (err) {
+      } catch (err: any) {
         this.logger.error(
           { name: file.name, err: err.message },
           'gcloud: check exist package @{name} has failed, cause: @{err}'
@@ -274,7 +274,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
         const response: Package = JSON.parse(content[0].toString('utf8'));
 
         resolve(response);
-      } catch (err) {
+      } catch (err: any) {
         this.logger.debug({ name: this.name }, 'gcloud: @{name} package not found on storage');
         reject(getNotFound());
       }
@@ -355,7 +355,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           uploadStream.emit('error', getInternalError(err.message));
         }
       );
-    } catch (err) {
+    } catch (err: any) {
       uploadStream.emit('error', err);
     }
     return uploadStream;

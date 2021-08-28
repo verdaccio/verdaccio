@@ -37,8 +37,8 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "http-errors": "^1.8.0",
-    "http-status-codes": "^1.4.0"
+    "http-errors": "1.8.0",
+    "http-status-codes": "1.4.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

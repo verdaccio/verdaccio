@@ -35,13 +35,13 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "debug": "^4.3.1",
-    "lodash": "^4.17.21",
-    "validator": "^13.6.0"
+    "debug": "4.3.2",
+    "lodash": "4.17.21",
+    "validator": "13.6.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "node-mocks-http": "^1.10.1"
+    "node-mocks-http": "1.10.1"
   },
   "scripts": {
     "clean": "rimraf ./build",

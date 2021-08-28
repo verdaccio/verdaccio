@@ -40,7 +40,7 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
             }
           },
         });
-      } catch (err) {
+      } catch (err: any) {
         reject(err);
       }
     });
@@ -62,7 +62,7 @@ function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
             const pkg = await getPackageInfo(result.ref, req.remote_user);
             debug('package found %o', result.ref);
             packages.push(pkg);
-          } catch (err) {
+          } catch (err: any) {
             debug('search for %o failed err %o', result.ref, err?.message);
           }
         }

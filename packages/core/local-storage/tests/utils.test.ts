@@ -54,7 +54,7 @@ describe('Utitlies', () => {
           './no_such_folder_fake',
           jest.fn(() => true)
         );
-      } catch (e) {
+      } catch (e: any) {
         expect(e.code).toEqual(noSuchFile);
       }
     });

@@ -68,7 +68,7 @@ function readFile(
       try {
         contents = JSON.parse(contents);
         return resolve(contents);
-      } catch (err) {
+      } catch (err: any) {
         return reject(err);
       }
     });

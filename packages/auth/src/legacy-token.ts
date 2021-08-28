@@ -59,7 +59,7 @@ export function aesDecrypt(value: string, key: string): string | void {
     decrypted += decipher.final(inputEncoding);
     debug('token decrypted successfully');
     return decrypted.toString();
-  } catch (_) {
+  } catch (_: any) {
     return;
   }
 }

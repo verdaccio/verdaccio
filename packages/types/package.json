@@ -14,7 +14,7 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "lunr-mutable-indexes": "^2.3.2"
+    "lunr-mutable-indexes": "2.3.2"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [

@@ -46,7 +46,7 @@ export default function (
               next: '', // TODO: pagination?
             },
           });
-        } catch (error) {
+        } catch (error: any) {
           logger.error({ error: error.msg }, 'token list has failed: @{error}');
           return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
         }
@@ -116,7 +116,7 @@ export default function (
               created: saveToken.created,
             })
           );
-        } catch (error) {
+        } catch (error: any) {
           logger.error({ error: error.msg }, 'token creation has failed: @{error}');
           return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
         }
@@ -138,7 +138,7 @@ export default function (
           await storage.deleteToken(name, tokenKey);
           logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');
           return next({});
-        } catch (error) {
+        } catch (error: any) {
           logger.error({ error: error.msg }, 'token creation has failed: @{error}');
           return next(ErrorCode.getCode(HTTP_STATUS.INTERNAL_ERROR, error.message));
         }

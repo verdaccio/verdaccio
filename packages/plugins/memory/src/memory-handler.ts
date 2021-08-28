@@ -57,7 +57,7 @@ class MemoryHandler implements IPackageStorageManager {
 
     try {
       pkg = parsePackage(json) as Package;
-    } catch (err) {
+    } catch (err: any) {
       return onEnd(err);
     }
 
@@ -67,7 +67,7 @@ class MemoryHandler implements IPackageStorageManager {
       }
       try {
         onWrite(pkgFileName, transformPackage(pkg), onEnd);
-      } catch (err) {
+      } catch (err: any) {
         return onEnd(getInternalError('error on parse the metadata'));
       }
     });
@@ -92,7 +92,7 @@ class MemoryHandler implements IPackageStorageManager {
       debug('save package %o', name);
       this.data[name] = stringifyPackage(value);
       return cb(null);
-    } catch (err) {
+    } catch (err: any) {
       return cb(getInternalError(err.message));
     }
   }
@@ -104,7 +104,7 @@ class MemoryHandler implements IPackageStorageManager {
 
     try {
       return cb(isJson ? getNotFound() : null, parsePackage(json));
-    } catch (err) {
+    } catch (err: any) {
       return cb(getNotFound());
     }
   }
@@ -140,7 +140,7 @@ class MemoryHandler implements IPackageStorageManager {
 
           uploadStream.emit('open');
           return;
-        } catch (err) {
+        } catch (err: any) {
           uploadStream.emit('error', err);
           return;
         }
@@ -176,7 +176,7 @@ class MemoryHandler implements IPackageStorageManager {
             readStream.destroy(getBadRequest('read has been aborted'));
           };
           return;
-        } catch (err) {
+        } catch (err: any) {
           readTarballStream.emit('error', err);
           return;
         }

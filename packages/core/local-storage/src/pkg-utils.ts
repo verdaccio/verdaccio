@@ -15,7 +15,7 @@ export async function loadPrivatePackages(path: string, logger: Logger): Promise
   let db;
   try {
     db = JSON.parse(data);
-  } catch (err) {
+  } catch (err: any) {
     logger.error(
       `Package database file corrupted (invalid JSON), please check the error` +
         ` printed below.\nFile Path: ${path}`,

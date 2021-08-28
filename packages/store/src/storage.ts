@@ -145,7 +145,7 @@ class Storage {
       debug('publishing a package for %o', name);
       await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
-    } catch (err) {
+    } catch (err: any) {
       debug('error on add a package for %o with error %o', name, err?.error);
       callback(err);
     }
@@ -609,7 +609,7 @@ class Storage {
 
           try {
             validateMetadata(upLinkResponse, name);
-          } catch (err) {
+          } catch (err: any) {
             self.logger.error(
               {
                 sub: 'out',
@@ -631,7 +631,7 @@ class Storage {
 
           try {
             mergeVersions(packageInfo, upLinkResponse);
-          } catch (err) {
+          } catch (err: any) {
             self.logger.error(
               {
                 sub: 'out',
@@ -698,7 +698,7 @@ class Storage {
                 // and return it directly for
                 // performance (i.e. need not be pure)
                 packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err) {
+              } catch (err: any) {
                 filterErrors.push(err);
               }
             }

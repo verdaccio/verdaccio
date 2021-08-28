@@ -68,7 +68,7 @@ export async function findPackages(
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       reject(error);
     }
 
