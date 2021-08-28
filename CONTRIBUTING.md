@@ -54,14 +54,25 @@ The Verdaccio project is split into several areas:
 
 ## Development Setup
 
-Verdaccio uses [_pnpm_](https://pnpm.js.org/) as package manager for development
-in this repository. Please install the latest one:
+Verdaccio uses [pnpm](https://pnpm.io) as the package manager for development in this repository.
+
+If you are using pnpm for the first time the [pnpm configuration documentation](https://pnpm.io/configuring) may be useful to avoid any potential problems with the following steps.
+
+**Note**: pnpm uses npm's configuration formats so check that your global `.npmrc` file does not inadvertently disable package locks. In other words, your `.npmrc` file **should not** contain
+
+```
+package-lock=false
+```
+
+This setting would cause the `pnpm install` command to install incorrect versions of package dependencies and the subsequent `pnpm build` step would likely fail.
+
+To begin your development setup, please install the latest version of pnpm globally:
 
 ```
 npm i -g pnpm
 ```
 
-First step is installing all dependencies:
+With pnpm installed, the first step is installing all dependencies:
 
 ```
 pnpm install
