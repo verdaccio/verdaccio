@@ -90,7 +90,7 @@ module.exports = {
         },
         {
           href: 'https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w',
-          label: 'Youtube',
+          label: 'YouTube',
           position: 'right',
         },
         {
