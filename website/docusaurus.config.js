@@ -82,11 +82,15 @@ module.exports = {
           label: 'Docs',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
-        { to: '/help', label: 'Help', position: 'left' },
-
+        { to: '/help', label: 'Help', position: 'left' },        
         {
           href: 'https://opencollective.com/verdaccio',
           label: 'Sponsor us',
+          position: 'right',
+        },
+        {
+          href: 'https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w',
+          label: 'Youtube',
           position: 'right',
         },
         {
