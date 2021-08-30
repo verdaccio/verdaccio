@@ -6,8 +6,8 @@
     "debug": "4.3.2",
     "npm": "7.0.15",
     "pnpm": "5.13.5",
-    "request": "^2.88.2",
-    "yarn": "1.22.10"
+    "request": "2.87.0",
+    "yarn": "1.22.11"
   },
   "devDependencies": {
     "get-port": "^5.1.1",

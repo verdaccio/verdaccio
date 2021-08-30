@@ -43,7 +43,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5",
     "debug": "4.3.2",
-    "fs-extra": "9.1.0",
+    "fs-extra": "10.0.0",
     "lodash": "4.17.21",
     "request": "2.87.0",
     "supertest": "6.1.6"

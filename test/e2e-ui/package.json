@@ -9,8 +9,8 @@
     "kleur": "3.0.3",
     "lodash": "^4.17.21",
     "puppeteer": "^9.1.1",
-    "request": "^2.88.2",
-    "rimraf": "^3.0.2"
+    "request": "2.87.0",
+    "rimraf": "3.0.2"
   },
   "scripts": {
     "test": "jest --config jest.config.e2e.js"
