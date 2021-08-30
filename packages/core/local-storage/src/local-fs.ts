@@ -171,7 +171,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
           debug('read storage file %o has succeed', name);
           cb(null, data);
-        } catch (err) {
+        } catch (err: any) {
           debug('parse storage file %o has failed with error %o', name, err);
           cb(err);
         }

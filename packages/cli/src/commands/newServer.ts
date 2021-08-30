@@ -44,7 +44,7 @@ export class NewServer extends Command {
       // const { version, name } = require('../../package.json');
       const ser = await server({ logger, config: configParsed });
       await ser.listen(4873);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       process.exit(1);
     }

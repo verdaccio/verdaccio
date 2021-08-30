@@ -178,7 +178,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
 
       try {
         this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
-      } catch (err) {
+      } catch (err: any) {
         return cb(err);
       }
     });
@@ -275,7 +275,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
           changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig),
           cb
         );
-      } catch (err) {
+      } catch (err: any) {
         return cb(err);
       }
     });

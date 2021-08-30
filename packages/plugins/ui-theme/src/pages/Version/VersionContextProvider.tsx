@@ -45,7 +45,7 @@ const VersionContextProvider: React.FC = ({ children }) => {
         setIsLoading(false);
         setHasNotBeenFound(true);
       }
-    } catch (error) {
+    } catch (error: any) {
       setHasNotBeenFound(true);
       setIsLoading(false);
     }

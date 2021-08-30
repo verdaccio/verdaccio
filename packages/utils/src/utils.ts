@@ -118,7 +118,7 @@ export function getVersion(pkg: Package, version: any): Version | void {
         return pkg.versions[versionItem];
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     return undefined;
   }
 }

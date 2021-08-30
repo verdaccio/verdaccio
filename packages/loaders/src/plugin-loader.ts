@@ -17,7 +17,7 @@ export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
 function tryLoad(path: string): any {
   try {
     return require(path);
-  } catch (err) {
+  } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
       return null;
     }
@@ -122,7 +122,7 @@ export function loadPlugin<T extends IPlugin<T>>(
       plugin = isES6(plugin)
         ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
         : plugin(pluginConfigs[pluginId], params);
-    } catch (error) {
+    } catch (error: any) {
       plugin = null;
       logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
     }

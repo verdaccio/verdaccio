@@ -116,7 +116,7 @@ class Auth implements IAuth {
     let authPlugin;
     try {
       authPlugin = new HTPasswd(plugingConf, pluginOptions);
-    } catch (error) {
+    } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       return [];
     }
@@ -559,7 +559,7 @@ class Auth implements IAuth {
       let credentials;
       try {
         credentials = verifyJWTPayload(token, this.config.secret);
-      } catch (err) {
+      } catch (err: any) {
         // FIXME: intended behaviour, do we want it?
       }
 

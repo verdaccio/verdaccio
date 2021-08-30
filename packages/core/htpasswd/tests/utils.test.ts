@@ -252,7 +252,7 @@ describe('changePasswordToHTPasswd', () => {
         'newPassword',
         defaultHashConfig
       );
-    } catch (error) {
+    } catch (error: any) {
       expect(error.message).toEqual('Invalid old Password');
     }
   });

@@ -32,7 +32,7 @@ export default async function run(benchmark, version) {
     debug('report path %o', reportPath);
     writeFileSync(reportPath, JSON.stringify(wrapResults, null, 2), 'utf-8');
     debug('report ends');
-  } catch (err) {
+  } catch (err: any) {
     // eslint-disable-next-line no-console
     console.error(`error on process autocannon run`, err);
     process.exit(1);

@@ -100,7 +100,7 @@ export default class S3PackageManager implements ILocalPackageManager {
             onWrite(name, transformedPackage, onEnd);
           }
         });
-      } catch (err) {
+      } catch (err: any) {
         this.logger.error(
           { err },
           's3: [S3PackageManager updatePackage updateHandler onEnd catch] @{err}'
@@ -132,7 +132,7 @@ export default class S3PackageManager implements ILocalPackageManager {
           let data;
           try {
             data = JSON.parse(body);
-          } catch (e) {
+          } catch (e: any) {
             this.logger.error({ body }, 's3: [S3PackageManager _getData] error parsing: @{body}');
             reject(e);
             return;
@@ -248,7 +248,7 @@ export default class S3PackageManager implements ILocalPackageManager {
           's3: [S3PackageManager readPackage] packageName: @{packageName} / data @data'
         );
         callback(null, data);
-      } catch (err) {
+      } catch (err: any) {
         this.logger.error({ err: err.message }, 's3: [S3PackageManager readPackage] @{err}');
 
         callback(err);
@@ -347,7 +347,7 @@ export default class S3PackageManager implements ILocalPackageManager {
                     's3: [S3PackageManager writeTarball uploadStream done] emit success'
                   );
                   uploadStream.emit('success');
-                } catch (err) {
+                } catch (err: any) {
                   // already emitted in the promise above, necessary because of some issues
                   // with promises in jest
                   this.logger.error(
@@ -377,7 +377,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               try {
                 this.logger.debug('s3: [S3PackageManager writeTarball managedUpload abort]');
                 managedUpload.abort();
-              } catch (err) {
+              } catch (err: any) {
                 const error: HttpError = convertS3Error(err);
                 uploadStream.emit('error', error);
 

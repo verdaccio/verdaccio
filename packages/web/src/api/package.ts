@@ -48,7 +48,7 @@ function addPackageWebApi(
           }
           resolve(allowed);
         });
-      } catch (err) {
+      } catch (err: any) {
         reject(err);
       }
     });
@@ -89,7 +89,7 @@ function addPackageWebApi(
                 }
                 permissions.push(pkgCopy);
               }
-            } catch (err) {
+            } catch (err: any) {
               debug('process packages error %o', err);
               logger.logger.error(
                 { name: pkg.name, error: err },
@@ -107,7 +107,7 @@ function addPackageWebApi(
 
         try {
           next(sortByName(await processPackages(packages), order));
-        } catch (error) {
+        } catch (error: any) {
           next(error);
         }
       });

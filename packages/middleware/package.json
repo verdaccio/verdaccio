@@ -38,12 +38,12 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "debug": "^4.3.1",
+    "debug": "4.3.2",
     "@verdaccio/auth": "workspace:6.0.0-6-next.9",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5",
-    "lodash": "4.17.15"
+    "lodash": "4.17.21"
   },
   "funding": {
     "type": "opencollective",

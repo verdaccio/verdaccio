@@ -45,12 +45,12 @@
     "cors": "2.8.5",
     "express": "4.17.1",
     "express-rate-limit": "5.2.3",
-    "lodash": "4.17.15"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:6.0.0-6-next.7",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.9",
-    "http-errors": "1.7.3",
+    "http-errors": "1.8.0",
     "request": "2.87.0"
   },
   "scripts": {

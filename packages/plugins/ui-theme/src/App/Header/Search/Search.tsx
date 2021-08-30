@@ -121,7 +121,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
         // FIXME: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<never[]>'
         setSuggestions(suggestions as any);
         setLoaded(true);
-      } catch (error) {
+      } catch (error: any) {
         /**
          * AbortError is not the API error.
          * It means browser has cancelled the API request.

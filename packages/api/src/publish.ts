@@ -269,7 +269,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
                   req.remote_user,
                   `${metadataCopy.name}@${versionToPublish}`
                 );
-              } catch (error) {
+              } catch (error: any) {
                 debug(
                   'error on notify add a new tag %o',
                   `${metadataCopy.name}@${versionToPublish}`
@@ -319,7 +319,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
-    } catch (error) {
+    } catch (error: any) {
       debug('error on publish, bad package format %o', packageName);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));

@@ -49,13 +49,13 @@
     "@verdaccio/node-api": "workspace:6.0.0-6-next.17",
     "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.10",
     "commander": "6.2.0",
-    "clipanion": "3.0.0-rc.11",
+    "clipanion": "3.0.1",
     "envinfo": "7.4.0",
     "kleur": "3.0.3",
-    "semver": "7.3.2"
+    "semver": "7.3.5"
   },
   "devDependencies": {
-    "ts-node": "9.1.1"
+    "ts-node": "10.2.1"
   },
   "funding": {
     "type": "opencollective",

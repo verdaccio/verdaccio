@@ -22,7 +22,7 @@ const debug = buildDebug('verdaccio:fastify:debug');
     const ser = await server({ logger, config: configParsed });
     await ser.listen(4873);
     logger.info('fastify running on port 4873');
-  } catch (err) {
+  } catch (err: any) {
     // eslint-disable-next-line no-console
     console.error(err);
     process.exit(1);

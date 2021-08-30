@@ -68,7 +68,7 @@ describe.skip('S3 package manager', () => {
           }
         );
       });
-    } catch (err) {
+    } catch (err: any) {
       if (is404Error(err)) {
         // ignore
       } else {

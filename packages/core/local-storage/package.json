@@ -40,16 +40,16 @@
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
     "@verdaccio/streams": "workspace:11.0.0-alpha.3",
-    "async": "^3.2.0",
-    "debug": "^4.3.1",
-    "lodash": "^4.17.21",
+    "async": "3.2.1",
+    "debug": "4.3.2",
+    "lodash": "4.17.21",
     "lowdb": "1.0.0"
   },
   "devDependencies": {
-    "@types/minimatch": "^3.0.3",
+    "@types/minimatch": "3.0.5",
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "minimatch": "^3.0.4",
-    "rmdir-sync": "^1.0.1"
+    "minimatch": "3.0.4",
+    "rmdir-sync": "1.0.1"
   },
   "scripts": {
     "clean": "rimraf ./build",

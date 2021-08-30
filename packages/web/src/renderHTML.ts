@@ -80,7 +80,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     } else {
       debug('reuse template cache');
     }
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(`theme could not be load, stack ${error.stack}`);
   }
   res.setHeader('Content-Type', HEADERS.TEXT_HTML);

@@ -68,7 +68,7 @@ export class InitCommand extends Command {
 
       await initServer(configParsed, this.port as string, version, name);
       logger.info('server started');
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       process.exit(1);
     }

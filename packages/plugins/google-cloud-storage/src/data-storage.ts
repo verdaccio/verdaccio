@@ -171,7 +171,7 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
       const datastore = this.helper.datastore;
       const key = datastore.key([this.kind, datastore.int(item.id)]);
       await datastore.delete(key);
-    } catch (err) {
+    } catch (err: any) {
       return getInternalError(err.message);
     }
   }

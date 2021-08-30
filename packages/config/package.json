@@ -41,15 +41,15 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5",
-    "debug": "^4.3.1",
+    "debug": "4.3.2",
     "js-yaml": "3.14.0",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.21",
     "minimatch": "3.0.4",
-    "yup": "^0.29.3"
+    "yup": "0.32.9"
   },
   "devDependencies": {
-    "@types/minimatch": "3.0.3",
-    "@types/yup": "^0.29.9"
+    "@types/minimatch": "3.0.5",
+    "@types/yup": "0.29.13"
   },
   "funding": {
     "type": "opencollective",

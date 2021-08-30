@@ -31,10 +31,10 @@
   },
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "semver": "7.3.2"
+    "semver": "7.3.5"
   },
   "devDependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "4.17.21"
   },
   "scripts": {
     "clean": "rimraf ./build",

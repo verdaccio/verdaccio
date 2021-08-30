@@ -74,7 +74,7 @@ describe.skip('Local Database', () => {
           }
         );
       });
-    } catch (err) {
+    } catch (err: any) {
       if (is404Error(err)) {
         // ignore
       } else {

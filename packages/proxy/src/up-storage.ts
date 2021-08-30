@@ -209,7 +209,7 @@ class ProxyStorage implements IProxy {
               try {
                 // $FlowFixMe
                 body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
-              } catch (_err) {
+              } catch (_err: any) {
                 body = {};
                 err = _err;
                 error = err.message;

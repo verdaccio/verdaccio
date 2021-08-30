@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "debug": "^4.3.1",
-    "lodash": "4.17.15"
+    "debug": "4.3.2",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",

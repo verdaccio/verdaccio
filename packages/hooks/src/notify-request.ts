@@ -32,7 +32,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
       'The notification @{content} has been successfully dispatched'
     );
     return true;
-  } catch (err) {
+  } catch (err: any) {
     debug('request error %o', err);
     logger.error(
       { errorMessage: err?.message },
