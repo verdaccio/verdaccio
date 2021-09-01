@@ -1113,7 +1113,7 @@ importers:
       express: 4.17.1
       lodash: 4.17.21
       lru-cache: 6.0.0
-      node-html-parser: 2.2.1
+      node-html-parser: 4.1.4
       supertest: 6.1.6
       verdaccio-auth-memory: workspace:11.0.0-alpha.3
       verdaccio-memory: workspace:11.0.0-6-next.4
@@ -1137,7 +1137,7 @@ importers:
       lru-cache: 6.0.0
     devDependencies:
       '@verdaccio/types': link:../core/types
-      node-html-parser: 2.2.1
+      node-html-parser: 4.1.4
       supertest: 6.1.6
       verdaccio-auth-memory: link:../plugins/auth-memory
       verdaccio-memory: link:../plugins/memory
@@ -15828,9 +15828,10 @@ packages:
     resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==}
     engines: {node: '>= 6.0.0'}
 
-  /node-html-parser/2.2.1:
-    resolution: {integrity: sha512-Vccqb62t6t7DkMVwqPQgb0NWO+gUMMDm+1X3LzqbtXLqjilCTtUYTlniKk08yuA1zIhEFVzu/dozpqs5KZbRFQ==}
+  /node-html-parser/4.1.4:
+    resolution: {integrity: sha512-Uk9zI1IhGrPTfUyhRvImKGZspsqJ0ss6aRysGfkDuPDPfLisMlInYT/3FCydsC2UamzPPhpOax9xbTVUsO6n8Q==}
     dependencies:
+      css-select: 4.1.3
       he: 1.2.0
     dev: true
 
