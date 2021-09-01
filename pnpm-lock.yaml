@@ -84,7 +84,7 @@ importers:
       eslint-plugin-import: 2.24.2
       eslint-plugin-jest: 24.4.0
       eslint-plugin-jsx-a11y: 6.4.1
-      eslint-plugin-prettier: 3.4.1
+      eslint-plugin-prettier: 4.0.0
       eslint-plugin-react: 7.25.1
       eslint-plugin-react-hooks: 4.2.0
       eslint-plugin-simple-import-sort: 7.0.0
@@ -101,7 +101,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 9.5.0
       nock: 12.0.3
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
       nodemon: 2.0.12
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -197,7 +197,7 @@ importers:
       eslint-plugin-import: 2.24.2_eslint@7.32.0
       eslint-plugin-jest: 24.4.0_111638ce2dee59955041613292a82f90
       eslint-plugin-jsx-a11y: 6.4.1_eslint@7.32.0
-      eslint-plugin-prettier: 3.4.1_5a48a349ffec60f5257b5f148f5199c3
+      eslint-plugin-prettier: 4.0.0_5a48a349ffec60f5257b5f148f5199c3
       eslint-plugin-react: 7.25.1_eslint@7.32.0
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
@@ -214,7 +214,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 9.5.0
       nock: 12.0.3
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
       nodemon: 2.0.12
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -671,12 +671,12 @@ importers:
       express: 4.17.1
       https-proxy-agent: 5.0.0
       nock: 12.0.3
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
       supertest: 6.1.6
     dependencies:
       express: 4.17.1
       https-proxy-agent: 5.0.0
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
     devDependencies:
       '@verdaccio/types': link:../../core/types
       body-parser: 1.19.0
@@ -791,7 +791,7 @@ importers:
       react: 17.0.2
       react-autosuggest: 10.1.0
       react-dom: 17.0.2
-      react-hook-form: 7.14.0
+      react-hook-form: 7.14.2
       react-hot-loader: 4.13.0
       react-i18next: 11.11.4
       react-router: 5.2.1
@@ -864,7 +864,7 @@ importers:
       react: 17.0.2
       react-autosuggest: 10.1.0_react@17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-hook-form: 7.14.0_react@17.0.2
+      react-hook-form: 7.14.2_react@17.0.2
       react-hot-loader: 4.13.0_9c6a8df88c2691f81f37725d5b4de033
       react-i18next: 11.11.4_i18next@19.9.2+react@17.0.2
       react-router: 5.2.1_react@17.0.2
@@ -1028,7 +1028,7 @@ importers:
       autocannon: 7.4.0
       clipanion: 3.0.1
       get-port: 5.1.1
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
       semver: 7.3.5
       temp-dir: 2.0.0
       ts-node: 10.2.1
@@ -1039,7 +1039,7 @@ importers:
       temp-dir: 2.0.0
     devDependencies:
       autocannon: 7.4.0
-      node-fetch: 2.6.1
+      node-fetch: 3.0.0-beta.6-exportfix
       ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
 
   packages/tools/eslint:
@@ -9893,6 +9893,10 @@ packages:
     dependencies:
       assert-plus: 1.0.0
 
+  /data-uri-to-buffer/3.0.1:
+    resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
+    engines: {node: '>= 6'}
+
   /data-urls/1.1.0:
     resolution: {integrity: sha512-YTWYI9se1P55u58gL5GkQHW4P6VJBJ5iBT+B5a7i2Tjadhv52paJG0qHX4A0OR6/t52odI64KP2YvFpkDOi3eQ==}
     dependencies:
@@ -10893,13 +10897,13 @@ packages:
       language-tags: 1.0.5
     dev: true
 
-  /eslint-plugin-prettier/3.4.1_5a48a349ffec60f5257b5f148f5199c3:
-    resolution: {integrity: sha512-htg25EUYUeIhKHXjOinK4BgCcDwtLHjqaxCDsMy5nbnUMkKFvIhMVCp+5GFUXQ4Nr8lBsPqtGAqBenbpFqAA2g==}
+  /eslint-plugin-prettier/4.0.0_5a48a349ffec60f5257b5f148f5199c3:
+    resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
-      eslint: '>=5.0.0'
+      eslint: '>=7.28.0'
       eslint-config-prettier: '*'
-      prettier: '>=1.13.0'
+      prettier: '>=2.0.0'
     peerDependenciesMeta:
       eslint-config-prettier:
         optional: true
@@ -11496,6 +11500,10 @@ packages:
     dependencies:
       xml-js: 1.6.11
     dev: false
+
+  /fetch-blob/1.0.6:
+    resolution: {integrity: sha512-XTotUY7hVtqdbHE0Ilm/u/nnXRv1T8nepxhMHzB885O0EkVvI05UlZq7rHQSd6hVDCNAGx4HTjbJO60Onjfckw==}
+    engines: {node: '>=6'}
 
   /figures/1.7.0:
     resolution: {integrity: sha1-y+Hjr/zxzUS4DK3+0o3Hk6lwHS4=}
@@ -15811,6 +15819,13 @@ packages:
     resolution: {integrity: sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==}
     engines: {node: 4.x || >=6.0.0}
 
+  /node-fetch/3.0.0-beta.6-exportfix:
+    resolution: {integrity: sha512-jhW2arLPAddi7q04JxlQtApqMQF8GxlGZV+wj5/WuDz3hpDTnAU9haJ5Fi2a0N3b4e728O4EIVACNq9nDCzLYw==}
+    engines: {node: '>=10.16'}
+    dependencies:
+      data-uri-to-buffer: 3.0.1
+      fetch-blob: 1.0.6
+
   /node-forge/0.10.0:
     resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==}
     engines: {node: '>= 6.0.0'}
@@ -18021,8 +18036,8 @@ packages:
       react-side-effect: 2.1.1_react@17.0.2
     dev: false
 
-  /react-hook-form/7.14.0_react@17.0.2:
-    resolution: {integrity: sha512-JwnIFedpGwUqxtMLv7lLq8PS6M6snFVeDvAQnG/0lyForn0ucWKMr58j86+9HobUGX6SAFmv7sVIJdLaxxzb8A==}
+  /react-hook-form/7.14.2_react@17.0.2:
+    resolution: {integrity: sha512-32uvgKkaE/0vOncfnJdwQhfahhocPpcb5c7F4j9Eq7dOnqS2Hg8h70Bmt6KXb6veLSWJultc1+ik9QSfqXFmLA==}
     peerDependencies:
       react: ^16.8.0 || ^17
     dependencies:
