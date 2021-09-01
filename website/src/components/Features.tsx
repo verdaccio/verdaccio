@@ -1,6 +1,6 @@
 import React from 'react';
 import Translate, { translate } from '@docusaurus/Translate';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
 import { Link } from '@docusaurus/router';
 import FeatureCard from './FeatureCard';
 
@@ -41,20 +41,23 @@ const FEATURES = [
   },
 ];
 
-const Features = (): React.ReactElement => (
-  <section className={styles.features}>
-    <div className={styles['features--wrap']}>
-      {FEATURES.map(({ image, title, subtitle }) => {
-        const imageUrl = useBaseUrl(image);
-        return <FeatureCard key={title} image={imageUrl} title={title} subtitle={subtitle} />;
-      })}
-    </div>
-    <div className={styles.linkFeatures}>
-      <Link to={useBaseUrl('/docs/configuration')} className="link-primary">
-        <Translate>Discover more features</Translate>
-      </Link>
-    </div>
-  </section>
-);
+const Features = (): React.ReactElement => {
+  const { withBaseUrl } = useBaseUrlUtils();
+
+  return (
+    <section className={styles.features}>
+      <div className={styles['features--wrap']}>
+        {FEATURES.map(({ image, title, subtitle }) => (
+          <FeatureCard key={title} image={withBaseUrl(image)} title={title} subtitle={subtitle} />
+        ))}
+      </div>
+      <div className={styles.linkFeatures}>
+        <Link to={withBaseUrl('/docs/configuration')} className="link-primary">
+          <Translate>Discover more features</Translate>
+        </Link>
+      </div>
+    </section>
+  );
+};
 
 export default Features;
