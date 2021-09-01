@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "http-errors": "1.8.0",
-    "http-status-codes": "1.4.0"
+    "http-status-codes": "2.1.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
