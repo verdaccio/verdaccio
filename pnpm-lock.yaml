@@ -808,7 +808,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: ^2.2.1
       supertest: 6.1.6
-      terser-webpack-plugin: 5.1.4
+      terser-webpack-plugin: 5.2.0
       url-loader: 4.1.1
       validator: 13.6.0
       webpack: 5.33.2
@@ -881,7 +881,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 2.2.1_stylelint@13.13.1+webpack@5.33.2
       supertest: 6.1.6
-      terser-webpack-plugin: 5.1.4_webpack@5.33.2
+      terser-webpack-plugin: 5.2.0_webpack@5.33.2
       url-loader: 4.1.1_file-loader@5.1.0+webpack@5.33.2
       validator: 13.6.0
       webpack: 5.33.2_webpack-cli@4.8.0
@@ -20297,6 +20297,31 @@ packages:
       webpack: 5.33.2_webpack-cli@4.8.0
     dev: true
 
+  /terser-webpack-plugin/5.2.0_webpack@5.33.2:
+    resolution: {integrity: sha512-FpR4Qe0Yt4knSQ5u2bA1wkM0R8VlVsvhyfSHvomXRivS4vPLk0dJV2IhRBIHRABh7AFutdMeElIA5y1dETwMBg==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      '@swc/core': '*'
+      esbuild: '*'
+      uglify-js: '*'
+      webpack: ^5.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      esbuild:
+        optional: true
+      uglify-js:
+        optional: true
+    dependencies:
+      jest-worker: 27.1.0
+      p-limit: 3.1.0
+      schema-utils: 3.1.1
+      serialize-javascript: 6.0.0
+      source-map: 0.6.1
+      terser: 5.7.2
+      webpack: 5.33.2_webpack-cli@4.8.0
+    dev: true
+
   /terser/4.8.0:
     resolution: {integrity: sha512-EAPipTNeWsb/3wLPeup1tVPaXfIaU68xMnVdPafIL1TV05OhASArYyIfFvnvJCNrR2NIOvDVNNTFRa+Re2MWyw==}
     engines: {node: '>=6.0.0'}
@@ -20314,6 +20339,16 @@ packages:
       commander: 2.20.3
       source-map: 0.7.3
       source-map-support: 0.5.19
+
+  /terser/5.7.2:
+    resolution: {integrity: sha512-0Omye+RD4X7X69O0eql3lC4Heh/5iLj3ggxR/B5ketZLOtLiOqukUgjw3q4PDnNQbsrkKr3UMypqStQG3XKRvw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      commander: 2.20.3
+      source-map: 0.7.3
+      source-map-support: 0.5.19
+    dev: true
 
   /test-exclude/6.0.0:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
