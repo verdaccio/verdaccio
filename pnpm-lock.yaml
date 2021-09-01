@@ -552,12 +552,12 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: 4.3.2
       lodash: 4.17.21
-      pino: 6.11.3
+      pino: 6.13.1
     dependencies:
       '@verdaccio/logger-prettify': link:../logger-prettify
       debug: 4.3.2
       lodash: 4.17.21
-      pino: 6.11.3
+      pino: 6.13.1
     devDependencies:
       '@types/pino': 6.3.11
       '@verdaccio/types': link:../core/types
@@ -569,7 +569,7 @@ importers:
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
-      pino: 6.11.3
+      pino: 6.13.1
       prettier-bytes: 1.0.4
       pretty-ms: 5.1.0
     dependencies:
@@ -581,7 +581,7 @@ importers:
       pretty-ms: 5.1.0
     devDependencies:
       '@types/pino': 6.3.11
-      pino: 6.11.3
+      pino: 6.13.1
 
   packages/middleware:
     specifiers:
@@ -11424,7 +11424,6 @@ packages:
 
   /fastify-warning/0.2.0:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
-    dev: false
 
   /fastify/3.20.2:
     resolution: {integrity: sha512-POvayPpbyvkE/wHQquQsNwIgYKVRz7HhCXYJyzUuWEN3kch7/QeI+/azQCjS6+XHiHZPWQwrBKjJB9FBdJHrgA==}
@@ -16632,23 +16631,24 @@ packages:
   /pino-std-serializers/3.2.0:
     resolution: {integrity: sha512-EqX4pwDPrt3MuOAAUBMU0Tk5kR/YcCM5fNPEzgCO2zJ5HfX0vbiH9HbJglnyeQsN96Kznae6MWD47pZB5avTrg==}
 
-  /pino/6.11.3:
-    resolution: {integrity: sha512-drPtqkkSf0ufx2gaea3TryFiBHdNIdXKf5LN0hTM82SXI4xVIve2wLwNg92e1MT6m3jASLu6VO7eGY6+mmGeyw==}
-    hasBin: true
-    dependencies:
-      fast-redact: 3.0.0
-      fast-safe-stringify: 2.0.7
-      flatstr: 1.0.12
-      pino-std-serializers: 3.2.0
-      quick-format-unescaped: 4.0.3
-      sonic-boom: 1.1.0
-
   /pino/6.13.0:
     resolution: {integrity: sha512-mRXSTfa34tbfrWqCIp1sUpZLqBhcoaGapoyxfEwaWwJGMpLijlRdDKIQUyvq4M3DUfFH5vEglwSw8POZYwbThA==}
     hasBin: true
     dependencies:
       fast-redact: 3.0.0
       fast-safe-stringify: 2.0.8
+      flatstr: 1.0.12
+      pino-std-serializers: 3.2.0
+      quick-format-unescaped: 4.0.3
+      sonic-boom: 1.1.0
+
+  /pino/6.13.1:
+    resolution: {integrity: sha512-QQf67BU+cANnc/2U+wzUV20UjO5oBryWpnNyKshdLfT9BdeiXlh9wxLGmOjAuBWMYITdMs+BtJSQQNlGRNbWpA==}
+    hasBin: true
+    dependencies:
+      fast-redact: 3.0.0
+      fast-safe-stringify: 2.0.8
+      fastify-warning: 0.2.0
       flatstr: 1.0.12
       pino-std-serializers: 3.2.0
       quick-format-unescaped: 4.0.3
