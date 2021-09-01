@@ -1146,15 +1146,15 @@ importers:
     specifiers:
       debug: 4.3.2
       get-port: ^5.1.1
-      npm: 7.0.15
-      pnpm: 5.13.5
+      npm: 7.21.1
+      pnpm: 6.14.5
       request: 2.87.0
       semver: ^7.3.5
       yarn: 1.22.11
     dependencies:
       debug: 4.3.2
-      npm: 7.0.15
-      pnpm: 5.13.5
+      npm: 7.21.1
+      pnpm: 6.14.5
       request: 2.87.0
       yarn: 1.22.11
     devDependencies:
@@ -15995,8 +15995,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm/7.0.15:
-    resolution: {integrity: sha512-vP4qQMsbfERokwYMDbSHqbtCFFNVMCvLHJXyzrDSka6Mz8GCQwj1Y/OjgF2nji80/yl+RQvMnOjVNgjWQf9NBw==}
+  /npm/7.21.1:
+    resolution: {integrity: sha512-k7XQNHGHAp0VowMMUMRMtntxWatNad9hhYrelUKDPvZ++DBxvofA8QTNPiuMKtx8CBOFA8iJ4aizhbx6ZYVfzQ==}
     engines: {node: '>=10'}
     hasBin: true
     dev: false
@@ -16004,30 +16004,30 @@ packages:
       - '@npmcli/arborist'
       - '@npmcli/ci-detect'
       - '@npmcli/config'
+      - '@npmcli/map-workspaces'
+      - '@npmcli/package-json'
       - '@npmcli/run-script'
       - abbrev
       - ansicolors
       - ansistyles
-      - aproba
       - archy
-      - bin-links
-      - byte-size
       - cacache
       - chalk
       - chownr
       - cli-columns
       - cli-table3
       - columnify
-      - editor
+      - fastest-levenshtein
       - glob
       - graceful-fs
       - hosted-git-info
-      - inherits
       - ini
       - init-package-json
       - is-cidr
-      - leven
+      - json-parse-even-better-errors
       - libnpmaccess
+      - libnpmdiff
+      - libnpmexec
       - libnpmfund
       - libnpmhook
       - libnpmorg
@@ -16037,12 +16037,13 @@ packages:
       - libnpmteam
       - libnpmversion
       - make-fetch-happen
+      - minipass
+      - minipass-pipeline
       - mkdirp
       - mkdirp-infer-owner
       - ms
       - node-gyp
       - nopt
-      - normalize-package-data
       - npm-audit-report
       - npm-package-arg
       - npm-pick-manifest
@@ -16057,14 +16058,14 @@ packages:
       - read
       - read-package-json
       - read-package-json-fast
+      - readdir-scoped-modules
       - rimraf
       - semver
-      - sorted-object
       - ssri
       - tar
       - text-table
       - tiny-relative-date
-      - uuid
+      - treeverse
       - validate-npm-package-name
       - which
       - write-file-atomic
@@ -16709,9 +16710,9 @@ packages:
     resolution: {integrity: sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==}
     dev: true
 
-  /pnpm/5.13.5:
-    resolution: {integrity: sha512-EJO8eYZyNpOvW+JhjBnLtxD2xcC6YlrzH8jxjETj8bevLATFa9vnGq614ada6o1XOIMq31JWtj1WyPJNogAzLA==}
-    engines: {node: '>=10.16'}
+  /pnpm/6.14.5:
+    resolution: {integrity: sha512-+N1B+Bj2JKZJ1GDJS141OgnDmwxAavHi/ecU3IIl0QunPSVBXxd51DbVizCw/mPwIB3UmeT474Fyz8o3Xj9sXA==}
+    engines: {node: '>=12.17'}
     hasBin: true
     dev: false
 
