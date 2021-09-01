@@ -8,7 +8,7 @@ a different strategy. Using of plugins you might use the cloud or any sort of da
 
 ## Caching scenarios {#caching-scenarios}
 
-* Build a Node.js project on **Continous Integration** (Bamboo, GitLab, Jenkins, etc) servers is a task that might take several times at a day, thus, the server will download tons of tarballs from the registry every time takes place.  As usual, the CI tools clear the cache after each build and the process start over and over again. That is a waste of bandwidth and reduces the external traffic.
+* Build a Node.js project on **Continuous Integration** (Bamboo, GitLab, Jenkins, etc) servers is a task that might take several times at a day, thus, the server will download tons of tarballs from the registry every time takes place.  As usual, the CI tools clear the cache after each build and the process start over and over again. That is a waste of bandwidth and reduces the external traffic.
 **You can use Verdaccio for caching tarballs and metadata in our internal network and give a boost in your build time.**
 * **Latency and Connectivity**, not all countries enjoy a high-speed connection. For such reason cache packages locally in your network
 is really handy. Either if you are traveling, or have a weak connection, roaming or countries with strong Firewalls that might affect the user experience (eg: corrupting tarballs).

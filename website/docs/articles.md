@@ -89,6 +89,6 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 ## Slides {#slides}
 
 * [Introduction to Verdaccio VueJS Meetup 2018](https://www.slideshare.net/juancarlospicado/introduction-to-verdaccio)
-* [Introduccion Verdaccio Vienna JS Meetup 2019](https://docs.google.com/presentation/d/1eam_OtXCQh5IVYyia2GHhxVD8tb37B0yIadVa8wxQSk/edit?usp=sharing)
+* [Introduction Verdaccio Vienna JS Meetup 2019](https://docs.google.com/presentation/d/1eam_OtXCQh5IVYyia2GHhxVD8tb37B0yIadVa8wxQSk/edit?usp=sharing)
 * [Cover Your Apps While Still Using npm](https://www.slideshare.net/TierneyCoren/cover-your-apps-while-still-using-npm)
 * [Unity 2018-2019を見据えたDeNAのUnity開発のこれから [DeNA TechCon 2019]](https://www.slideshare.net/dena_tech/unity-20182019denaunity-dena-techcon-2019)

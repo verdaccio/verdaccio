@@ -21,7 +21,7 @@ npm i -g generator-verdaccio-plugin
 
 ## Using the generator {#using-the-generator}
 
-Use `yeoman` is quite straighforward, you can read more infomation about it [here](https://yeoman.io/learning/index.html).
+Use `yeoman` is quite straighforward, you can read more information about it [here](https://yeoman.io/learning/index.html).
 
 After a success install, run `yo verdaccio-plugin` in your terminal and follow the steps.
 
