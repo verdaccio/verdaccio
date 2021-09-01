@@ -77,7 +77,6 @@ importers:
       debug: 4.3.2
       detect-secrets: 1.0.6
       eslint: 7.32.0
-      eslint-config-airbnb-typescript: 14.0.0
       eslint-config-google: 0.14.0
       eslint-config-prettier: 8.3.0
       eslint-plugin-babel: 5.3.1
@@ -190,7 +189,6 @@ importers:
       debug: 4.3.2
       detect-secrets: 1.0.6
       eslint: 7.32.0
-      eslint-config-airbnb-typescript: 14.0.0_08015028077e5c59bc65f21a040b4577
       eslint-config-google: 0.14.0_eslint@7.32.0
       eslint-config-prettier: 8.3.0_eslint@7.32.0
       eslint-plugin-babel: 5.3.1_eslint@7.32.0
@@ -10774,16 +10772,6 @@ packages:
       optionator: 0.8.3
     optionalDependencies:
       source-map: 0.6.1
-
-  /eslint-config-airbnb-typescript/14.0.0_08015028077e5c59bc65f21a040b4577:
-    resolution: {integrity: sha512-d2Nit2ByZARGRYK6tgSNl3nnmGZPyvsgbsKFcmm+nAhvT8VjVpifG5jI4tzObUUPb0sWw0E1oO/0pSpBD/pIuQ==}
-    peerDependencies:
-      '@typescript-eslint/eslint-plugin': ^4.29.3
-      '@typescript-eslint/parser': ^4.29.3
-    dependencies:
-      '@typescript-eslint/eslint-plugin': 4.30.0_8a8a2d3eaa9257455a03c16dce5f55b3
-      '@typescript-eslint/parser': 4.30.0_eslint@7.32.0+typescript@4.4.2
-    dev: true
 
   /eslint-config-google/0.14.0_eslint@7.32.0:
     resolution: {integrity: sha512-WsbX4WbjuMvTdeVL6+J3rK1RGhCTqjsFjX7UMSMgZiyxxaNLkoJENbrGExzERFeoTpGw3F3FypTiWAP9ZXzkEw==}

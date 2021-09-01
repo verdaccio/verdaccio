@@ -9,8 +9,7 @@ const Testimonials = (): React.ReactElement => (
       <Translate
         values={{
           italicVerdaccio: <i>Verdaccio</i>,
-        }}
-      >
+        }}>
         {"Here's what people have to say about {italicVerdaccio}"}
       </Translate>
     </h3>
@@ -27,7 +26,9 @@ const Testimonials = (): React.ReactElement => (
       />
     </div>
     <p>
-      <Translate>Many greats developers and companies are enjoying Verdaccio, join the community!</Translate>
+      <Translate>
+        Many greats developers and companies are enjoying Verdaccio, join the community!
+      </Translate>
     </p>
   </section>
 );

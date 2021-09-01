@@ -25,7 +25,12 @@ const UsedBy = (): React.ReactElement => (
           url: 'https://www.gatsbyjs.com/',
         },
       ].map((sponsor) => (
-        <SponsorImage key={sponsor.name} name={sponsor.name} image={sponsor.image} url={sponsor.url} />
+        <SponsorImage
+          key={sponsor.name}
+          name={sponsor.name}
+          image={sponsor.image}
+          url={sponsor.url}
+        />
       ))}
       <Divider vertical />
       <b>
@@ -63,7 +68,12 @@ const UsedBy = (): React.ReactElement => (
           url: 'https://storybook.js.org/',
         },
       ].map((sponsor) => (
-        <SponsorImage key={sponsor.name} name={sponsor.name} image={sponsor.image} url={sponsor.url} />
+        <SponsorImage
+          key={sponsor.name}
+          name={sponsor.name}
+          image={sponsor.image}
+          url={sponsor.url}
+        />
       ))}
     </div>
     <p className={styles['usedBy--footer']}>

@@ -5,7 +5,9 @@ import Translate, { translate } from '@docusaurus/Translate';
 import styles from './contributors.module.scss';
 
 const Contributors = (): React.ReactElement => (
-  <Layout title="Contributors" description="Verdaccio Contributors, thanks to the community Verdaccio keeps running">
+  <Layout
+    title="Contributors"
+    description="Verdaccio Contributors, thanks to the community Verdaccio keeps running">
     <div className={styles.wrapper}>
       <header>
         <h1>
@@ -13,8 +15,8 @@ const Contributors = (): React.ReactElement => (
         </h1>
         <p>
           <Translate>
-            Thanks to everyone involved in maintaining and improving Verdaccio, this page is to thank you every minute
-            spent here.
+            Thanks to everyone involved in maintaining and improving Verdaccio, this page is to
+            thank you every minute spent here.
           </Translate>{' '}
           <b>
             <Translate>Thanks</Translate>

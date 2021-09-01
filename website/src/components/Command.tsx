@@ -32,8 +32,7 @@ const CommandWithLogo = ({ image, command, alt }: CommandWithLogoProps): React.R
         aria-label={translate({
           message: 'Copy code to clipboard',
         })}
-        onClick={handleCopyCode}
-      >
+        onClick={handleCopyCode}>
         {copied ? <Translate>Copied</Translate> : <Translate>Copy</Translate>}
       </button>
     </div>

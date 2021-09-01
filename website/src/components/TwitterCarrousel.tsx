@@ -9,7 +9,7 @@ import useClampedIsInViewport from './hooks/useClampedIsInViewport';
 
 import styles from './TwitterCarrousel.module.scss';
 
-const Carrousel = ({ data }: { data: Array<Array<string>> }): React.ReactElement => {
+const Carrousel = ({ data }: { data: string[][] }): React.ReactElement => {
   const { isDarkTheme } = useThemeContext();
   const { i18n } = useDocusaurusContext();
   const [page, setPage] = useState(0);
@@ -26,7 +26,7 @@ const Carrousel = ({ data }: { data: Array<Array<string>> }): React.ReactElement
       setPage(pageToGo);
       setLoading(true);
     },
-    [page],
+    [page]
   );
 
   return (
