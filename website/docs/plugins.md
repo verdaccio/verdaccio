@@ -22,7 +22,7 @@ There are 5 types of plugins:
 $> npm install --global verdaccio-activedirectory
 ```
 
-`verdaccio` as a sinopia fork it has backward compability with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
+`verdaccio` as a sinopia fork it has backward compatibility with plugins that are compatible with `sinopia@1.4.0`. In such case the installation is the same.
 
 ```
 $> npm install --global sinopia-memory

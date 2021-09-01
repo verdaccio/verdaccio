@@ -36,7 +36,7 @@ auth:
 
 ## How do the authentication plugin works? {#how-do-the-authentication-plugin-works}
 
-Basically we have to return an object with a single method called `authenticate` that will recieve 3 arguments (`user, password, callback`).
+Basically we have to return an object with a single method called `authenticate` that will receive 3 arguments (`user, password, callback`).
 
 On each request, `authenticate` will be triggered and the plugin should return the credentials, if the `authenticate` fails, it will fallback to the `$anonymous` role by default.
 
@@ -100,7 +100,7 @@ The authentication service might fails, and you might want to reflect that in th
  callback(getInternalError('something bad message), null);
 ```
 
-> A failure on login is not the same as service error, if you want to notify user the credentails are wrong, just return `false` instead string of groups. The behaviour mostly depends of you.
+> A failure on login is not the same as service error, if you want to notify user the credentials are wrong, just return `false` instead string of groups. The behaviour mostly depends of you.
 
 
 ### `adduser` callback {#adduser-callback}
