@@ -1,4 +1,3 @@
-import util from 'util';
 import https from 'https';
 
 import fetch from 'node-fetch';
@@ -6,17 +5,11 @@ import createHttpsProxyAgent from 'https-proxy-agent';
 import express, { Request, Response } from 'express';
 import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
 
+import { json as jsonParser } from 'body-parser';
 import { ConfigAudit } from './types';
-
-const streamPipeline = util.promisify(require('stream').pipeline);
 
 // FUTURE: we should be able to overwrite this
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
-export const AUDIT_ENDPOINT = `/-/npm/v1/security/audits`;
-
-function getSSLAgent(rejectUnauthorized) {
-  return new https.Agent({ rejectUnauthorized });
-}
 
 export default class ProxyAudit implements IPluginMiddleware<{}> {
   public enabled: boolean;
@@ -32,18 +25,16 @@ export default class ProxyAudit implements IPluginMiddleware<{}> {
   public register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>): void {
     const fetchAudit = (req: Request, res: Response & { report_error?: Function }): void => {
       const headers = req.headers;
-      headers.host = 'https://registry.npmjs.org/';
+
+      headers['host'] = 'registry.npmjs.org';
+      headers['content-encoding'] = 'gzip,deflate,br';
 
       let requestOptions: any = {
-        method: req.method,
+        agent: new https.Agent({ rejectUnauthorized: this.strict_ssl }),
+        body: JSON.stringify(req.body),
         headers,
+        method: req.method,
       };
-
-      if (this.strict_ssl) {
-        requestOptions = Object.assign({}, requestOptions, {
-          agent: getSSLAgent(this.strict_ssl),
-        });
-      }
 
       if (auth?.config?.https_proxy) {
         // we should check whether this works fine after this migration
@@ -56,13 +47,19 @@ export default class ProxyAudit implements IPluginMiddleware<{}> {
 
       (async () => {
         try {
-          const response = await fetch(`${REGISTRY_DOMAIN}${AUDIT_ENDPOINT}`, requestOptions);
-          if (response.ok) {
-            return streamPipeline(response.body, res);
-          }
+          const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
+          this.logger.debug('fetching audit from ' + auditEndpoint);
 
-          res.status(response.status).end();
-        } catch {
+          const response = await fetch(auditEndpoint, requestOptions);
+
+          if (response.ok) {
+            res.status(response.status).send(await response.json());
+          } else {
+            this.logger.warn('could not fetch audit: ' + JSON.stringify(await response.json()));
+            res.status(response.status).end();
+          }
+        } catch (error) {
+          this.logger.warn('could not fetch audit: ' + error);
           res.status(500).end();
         }
       })();
@@ -79,9 +76,11 @@ export default class ProxyAudit implements IPluginMiddleware<{}> {
     /* eslint new-cap:off */
     const router = express.Router();
     /* eslint new-cap:off */
-    router.post('/audits', handleAudit);
 
-    router.post('/audits/quick', handleAudit);
+    router.post('/audits', jsonParser({ limit: '10mb' }), handleAudit);
+    router.post('/audits/quick', jsonParser({ limit: '10mb' }), handleAudit);
+
+    router.post('/advisories/bulk', jsonParser({ limit: '10mb' }), handleAudit);
 
     app.use('/-/npm/v1/security', router);
   }
