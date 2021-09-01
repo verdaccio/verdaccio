@@ -1201,7 +1201,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       react-twitter-widgets: ^1.10.0
-      sass: ^1.35.2
+      sass: 1.38.2
       sass-loader: ^12.1.0
       url-loader: 4.1.1
       use-is-in-viewport: ^1.0.9
@@ -1222,12 +1222,12 @@ importers:
     devDependencies:
       '@docusaurus/module-type-aliases': 2.0.0-beta.4
       '@tsconfig/docusaurus': 1.0.4
-      docusaurus-plugin-sass: 0.2.1_50fa97e0b0ba5829d31001c6d76ec7a8
+      docusaurus-plugin-sass: 0.2.1_960572d0fe9258705c63c8e6e0c23a6e
       esbuild: 0.12.24
       esbuild-loader: 2.15.1
       prism-react-renderer: 1.2.1_react@17.0.2
-      sass: 1.35.2
-      sass-loader: 12.1.0_sass@1.35.2
+      sass: 1.38.2
+      sass-loader: 12.1.0_sass@1.38.2
       url-loader: 4.1.1
 
 packages:
@@ -10269,15 +10269,15 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /docusaurus-plugin-sass/0.2.1_50fa97e0b0ba5829d31001c6d76ec7a8:
+  /docusaurus-plugin-sass/0.2.1_960572d0fe9258705c63c8e6e0c23a6e:
     resolution: {integrity: sha512-cRugbRWnKLjFPQTo1k2cyn/AANYkXAPHv+DaLs7bkOfOofEgTSrMdpNidt3oZ0ltQcjUUbvmSRRjH9R1ifdRMA==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0
       sass: ^1.30.0
     dependencies:
       '@docusaurus/core': 2.0.0-beta.4_react-dom@17.0.2+react@17.0.2
-      sass: 1.35.2
-      sass-loader: 10.2.0_sass@1.35.2
+      sass: 1.38.2
+      sass-loader: 10.2.0_sass@1.38.2
     transitivePeerDependencies:
       - fibers
       - node-sass
@@ -18972,7 +18972,7 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /sass-loader/10.2.0_sass@1.35.2:
+  /sass-loader/10.2.0_sass@1.38.2:
     resolution: {integrity: sha512-kUceLzC1gIHz0zNJPpqRsJyisWatGYNFRmv2CKZK2/ngMJgLqxTbXwe/hJ85luyvZkgqU3VlJ33UVF2T/0g6mw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -18991,12 +18991,12 @@ packages:
       klona: 2.0.4
       loader-utils: 2.0.0
       neo-async: 2.6.2
-      sass: 1.35.2
+      sass: 1.38.2
       schema-utils: 3.1.1
       semver: 7.3.5
     dev: true
 
-  /sass-loader/12.1.0_sass@1.35.2:
+  /sass-loader/12.1.0_sass@1.38.2:
     resolution: {integrity: sha512-FVJZ9kxVRYNZTIe2xhw93n3xJNYZADr+q69/s98l9nTCrWASo+DR2Ot0s5xTKQDDEosUkatsGeHxcH4QBp5bSg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -19014,11 +19014,11 @@ packages:
     dependencies:
       klona: 2.0.4
       neo-async: 2.6.2
-      sass: 1.35.2
+      sass: 1.38.2
     dev: true
 
-  /sass/1.35.2:
-    resolution: {integrity: sha512-jhO5KAR+AMxCEwIH3v+4zbB2WB0z67V1X0jbapfVwQQdjHZUGUyukpnoM6+iCMfsIUC016w9OPKQ5jrNOS9uXw==}
+  /sass/1.38.2:
+    resolution: {integrity: sha512-Bz1fG6qiyF0FX6m/I+VxtdVKz1Dfmg/e9kfDy2PhWOkq3T384q2KxwIfP0fXpeI+EyyETdOauH+cRHQDFASllA==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
