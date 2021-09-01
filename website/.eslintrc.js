@@ -10,7 +10,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'airbnb-typescript'
+    '@verdaccio/eslint-config'
   ],
   rules: {
     "@typescript-eslint/no-use-before-define": "warn",

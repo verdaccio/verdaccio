@@ -1,4 +1,3 @@
-
 ## npm
 npm-debug.log
 yarn-error.log
@@ -23,7 +22,6 @@ docs/
 wiki/
 
 ## flow
-flow-typed/
 types/
 
 # jest

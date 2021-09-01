@@ -13,7 +13,11 @@ const Header = (): React.ReactElement => {
   return (
     <div className={styles.header}>
       <div className={styles['header--wrap']}>
-        <img className={styles['header--imageLogo']} src={useBaseUrl('/img/verdaccio-tiny.svg')} alt="Verdaccio Logo" />
+        <img
+          className={styles['header--imageLogo']}
+          src={useBaseUrl('/img/verdaccio-tiny.svg')}
+          alt="Verdaccio Logo"
+        />
         <div className={styles['header--mt-2']}>
           <h1 className={styles['header--title']}>Verdaccio</h1>
           <p className={styles['header--subtitle']}>
@@ -26,7 +30,9 @@ const Header = (): React.ReactElement => {
             <Link to={useBaseUrl('/docs/what-is-verdaccio')} className="link-primary">
               <Translate>GET STARTED</Translate>
             </Link>
-            <a href="https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md" className="link-secondary">
+            <a
+              href="https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md"
+              className="link-secondary">
               <Translate>CONTRIBUTE</Translate>
             </a>
           </div>
@@ -40,7 +46,10 @@ const Header = (): React.ReactElement => {
       </div>
       <div className={styles['header--absolute-links']}>
         <div>
-          <Follow username="verdaccio_npm" options={{ size: 'large', dnt: true, lang: i18n.currentLocale }} />
+          <Follow
+            username="verdaccio_npm"
+            options={{ size: 'large', dnt: true, lang: i18n.currentLocale }}
+          />
         </div>
       </div>
     </div>

@@ -7,7 +7,10 @@ type DividerProps = {
   spacer?: number;
 };
 const Divider = ({ vertical, spacer }: DividerProps): React.ReactElement => (
-  <div className={clsx(styles.divider, vertical && styles['divider--vertical'])} style={{ margin: `${spacer}rem` }} />
+  <div
+    className={clsx(styles.divider, vertical && styles['divider--vertical'])}
+    style={{ margin: `${spacer}rem` }}
+  />
 );
 
 export default Divider;

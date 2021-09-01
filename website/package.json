@@ -54,9 +54,9 @@
     "@tsconfig/docusaurus": "^1.0.2",
     "docusaurus-plugin-sass": "^0.2.1",
     "esbuild": "0.12.24",
-    "esbuild-loader": "^2.13.1",
+    "esbuild-loader": "2.15.1",
     "prism-react-renderer": "^1.2.1",
-    "sass": "^1.35.2",
+    "sass": "1.38.2",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }
