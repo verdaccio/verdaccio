@@ -21,7 +21,6 @@ module.exports = {
     '<rootDir>/../tools',
     '<rootDir>/../wiki',
     '<rootDir>/../systemd',
-    '<rootDir>/../flow-typed',
     '<rootDir>unit/partials/mock-store/.*/package.json',
     '<rootDir>functional/store/.*/package.json',
     '<rootDir>/../build',

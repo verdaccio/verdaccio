@@ -4,7 +4,6 @@
 **/types/custom.d.ts
 build/
 coverage/
-flow-typed/
 node_modules/
 static/
 website/
