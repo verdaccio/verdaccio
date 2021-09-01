@@ -34,8 +34,8 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
     "debug": "4.3.2",
     "handlebars": "4.5.3",
-    "undici": "4.5.0",
-    "undici-fetch": "1.0.0-rc.1"
+    "undici": "4.5.1",
+    "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.9",

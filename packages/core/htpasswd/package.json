@@ -36,7 +36,7 @@
   "dependencies": {
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
-    "apache-md5": "1.1.2",
+    "apache-md5": "1.1.7",
     "bcryptjs": "2.4.3",
     "http-errors": "1.8.0",
     "unix-crypt-td-js": "1.1.4"

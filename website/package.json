@@ -32,8 +32,8 @@
     "clsx": "^1.1.1",
     "copy-text-to-clipboard": "^3.0.1",
     "docusaurus-plugin-sentry": "^1.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "react-twitter-widgets": "^1.10.0",
     "use-is-in-viewport": "^1.0.9"
   },
@@ -53,11 +53,11 @@
     "@docusaurus/module-type-aliases": "2.0.0-beta.4",
     "@tsconfig/docusaurus": "^1.0.2",
     "docusaurus-plugin-sass": "^0.2.1",
-    "esbuild": "^0.12.15",
+    "esbuild": "0.12.24",
     "esbuild-loader": "^2.13.1",
     "prism-react-renderer": "^1.2.1",
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
-    "url-loader": "^4.1.1"
+    "url-loader": "4.1.1"
   }
 }
