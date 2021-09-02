@@ -747,7 +747,7 @@ importers:
       '@material-ui/core': 4.11.4
       '@material-ui/icons': 4.11.2
       '@material-ui/styles': 4.11.4
-      '@testing-library/dom': 7.31.2
+      '@testing-library/dom': 8.2.0
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 11.2.7
       '@verdaccio/node-api': workspace:6.0.0-6-next.18
@@ -820,7 +820,7 @@ importers:
       '@material-ui/core': 4.11.4_9c6a8df88c2691f81f37725d5b4de033
       '@material-ui/icons': 4.11.2_842d6fd0a208aabbcab28b4283e0161f
       '@material-ui/styles': 4.11.4_9c6a8df88c2691f81f37725d5b4de033
-      '@testing-library/dom': 7.31.2
+      '@testing-library/dom': 8.2.0
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 11.2.7_react-dom@17.0.2+react@17.0.2
       '@verdaccio/node-api': link:../../node-api
@@ -6087,6 +6087,20 @@ packages:
       dom-accessibility-api: 0.5.6
       lz-string: 1.4.4
       pretty-format: 26.6.2
+    dev: true
+
+  /@testing-library/dom/8.2.0:
+    resolution: {integrity: sha512-U8cTWENQPHO3QHvxBdfltJ+wC78ytMdg69ASvIdkGdQ/XRg4M9H2vvM3mHddxl+w/fM6NNqzGMwpQoh82v9VIA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@babel/code-frame': 7.14.5
+      '@babel/runtime': 7.15.3
+      '@types/aria-query': 4.2.0
+      aria-query: 4.2.2
+      chalk: 4.1.2
+      dom-accessibility-api: 0.5.6
+      lz-string: 1.4.4
+      pretty-format: 27.1.0
     dev: true
 
   /@testing-library/jest-dom/5.14.1:
