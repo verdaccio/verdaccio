@@ -40,7 +40,7 @@
     "friendly-errors-webpack-plugin": "1.7.0",
     "github-markdown-css": "4.0.0",
     "harmony-reflect": "1.6.2",
-    "history": "5.0.1",
+    "history": "4.10.1",
     "html-webpack-plugin": "5.3.2",
     "i18next": "20.6.0",
     "in-publish": "2.0.1",
