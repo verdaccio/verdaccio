@@ -43,8 +43,7 @@
     "fast-safe-stringify": "2.0.8",
     "kleur": "3.0.3",
     "lodash": "4.17.21",
-    "prettier-bytes": "1.0.4",
-    "pretty-ms": "5.1.0"
+    "prettier-bytes": "1.0.4"
   },
   "devDependencies": {
     "@types/pino": "6.3.11",
