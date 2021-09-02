@@ -72,7 +72,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -184,7 +183,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -628,7 +626,6 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.7
       '@verdaccio/server': workspace:6.0.0-6-next.16
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
       debug: 4.3.2
       jest-mock-process: 1.4.1
       lodash: 4.17.21
@@ -639,7 +636,6 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
-      core-js: 3.16.4
       debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
@@ -9377,10 +9373,6 @@ packages:
     resolution: {integrity: sha512-lM3GftxzHNtPNUJg0v4pC2RC6puwMd6VZA7vXUczi+SKmCWSf4JwO89VJGMqbzmB7jlK7B5hr3S64PqwFL49cA==}
     requiresBuild: true
     dev: true
-
-  /core-js/3.16.4:
-    resolution: {integrity: sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==}
-    requiresBuild: true
 
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
