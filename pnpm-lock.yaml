@@ -330,7 +330,7 @@ importers:
       '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       '@verdaccio/utils': workspace:6.0.0-6-next.5
       debug: 4.3.2
-      js-yaml: 3.14.0
+      js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
       yup: 0.32.9
@@ -338,7 +338,7 @@ importers:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/utils': link:../utils
       debug: 4.3.2
-      js-yaml: 3.14.0
+      js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
       yup: 0.32.9
@@ -768,7 +768,7 @@ importers:
       i18next: 20.6.0
       in-publish: 2.0.1
       js-base64: 3.6.1
-      js-yaml: 3.14.0
+      js-yaml: 3.14.1
       lint-staged: 9.5.0
       localstorage-memory: 1.0.3
       lodash: 4.17.21
@@ -792,7 +792,7 @@ importers:
       standard-version: 9.3.1
       style-loader: 3.2.1
       stylelint: 13.13.1
-      stylelint-config-recommended: 3.0.0
+      stylelint-config-recommended: 5.0.0
       stylelint-config-styled-components: 0.1.1
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: ^2.2.1
@@ -838,7 +838,7 @@ importers:
       i18next: 20.6.0
       in-publish: 2.0.1
       js-base64: 3.6.1
-      js-yaml: 3.14.0
+      js-yaml: 3.14.1
       lint-staged: 9.5.0
       localstorage-memory: 1.0.3
       lodash: 4.17.21
@@ -862,7 +862,7 @@ importers:
       standard-version: 9.3.1
       style-loader: 3.2.1_webpack@5.33.2
       stylelint: 13.13.1
-      stylelint-config-recommended: 3.0.0_stylelint@13.13.1
+      stylelint-config-recommended: 5.0.0_stylelint@13.13.1
       stylelint-config-styled-components: 0.1.1
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 2.2.1_stylelint@13.13.1+webpack@5.33.2
@@ -14127,6 +14127,7 @@ packages:
     dependencies:
       argparse: 1.0.10
       esprima: 4.0.1
+    dev: true
 
   /js-yaml/3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
@@ -19813,10 +19814,10 @@ packages:
       postcss-selector-parser: 6.0.6
     dev: false
 
-  /stylelint-config-recommended/3.0.0_stylelint@13.13.1:
-    resolution: {integrity: sha512-F6yTRuc06xr1h5Qw/ykb2LuFynJ2IxkKfCMf+1xqPffkxh0S09Zc902XCffcsw/XMFq/OzQ1w54fLIDtmRNHnQ==}
+  /stylelint-config-recommended/5.0.0_stylelint@13.13.1:
+    resolution: {integrity: sha512-c8aubuARSu5A3vEHLBeOSJt1udOdS+1iue7BmJDTSXoCBmfEQmmWX+59vYIj3NQdJBY6a/QRv1ozVFpaB9jaqA==}
     peerDependencies:
-      stylelint: '>=10.1.0'
+      stylelint: ^13.13.0
     dependencies:
       stylelint: 13.13.1
     dev: true
