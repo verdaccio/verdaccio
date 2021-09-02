@@ -772,7 +772,7 @@ importers:
       lint-staged: 9.5.0
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: ^1.6.0
+      mini-css-extract-plugin: 2.2.2
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.10.1
       normalize.css: 8.0.1
@@ -842,7 +842,7 @@ importers:
       lint-staged: 9.5.0
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: 1.6.0_webpack@5.33.2
+      mini-css-extract-plugin: 2.2.2_webpack@5.33.2
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.10.1
       normalize.css: 8.0.1
@@ -15493,18 +15493,6 @@ packages:
       react: 17.0.2
       tiny-warning: 1.0.3
 
-  /mini-css-extract-plugin/1.6.0_webpack@5.33.2:
-    resolution: {integrity: sha512-nPFKI7NSy6uONUo9yn2hIfb9vyYvkFu95qki0e21DQ9uaqNKDP15DGpK0KnV6wDroWxPHtExrdEwx/yDQ8nVRw==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^4.4.0 || ^5.0.0
-    dependencies:
-      loader-utils: 2.0.0
-      schema-utils: 3.0.0
-      webpack: 5.33.2_webpack-cli@4.8.0
-      webpack-sources: 1.4.3
-    dev: true
-
   /mini-css-extract-plugin/1.6.0_webpack@5.40.0:
     resolution: {integrity: sha512-nPFKI7NSy6uONUo9yn2hIfb9vyYvkFu95qki0e21DQ9uaqNKDP15DGpK0KnV6wDroWxPHtExrdEwx/yDQ8nVRw==}
     engines: {node: '>= 10.13.0'}
@@ -15516,6 +15504,16 @@ packages:
       webpack: 5.40.0
       webpack-sources: 1.4.3
     dev: false
+
+  /mini-css-extract-plugin/2.2.2_webpack@5.33.2:
+    resolution: {integrity: sha512-eUjQ/q1rQIeHWgIx7ny/DNgXHcMXHdBwgrZQK7Ev8dbR+HxhroFM2Cb6kMiswOYaq05IRJhPuQqXWUABIjjA3g==}
+    engines: {node: '>= 12.13.0'}
+    peerDependencies:
+      webpack: ^5.0.0
+    dependencies:
+      schema-utils: 3.1.1
+      webpack: 5.33.2_webpack-cli@4.8.0
+    dev: true
 
   /minimalistic-assert/1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
