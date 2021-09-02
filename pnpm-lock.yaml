@@ -765,7 +765,7 @@ importers:
       harmony-reflect: 1.6.2
       history: 5.0.1
       html-webpack-plugin: 5.3.2
-      i18next: ^19.9.2
+      i18next: 20.6.0
       in-publish: 2.0.1
       js-base64: 3.6.1
       js-yaml: 3.14.0
@@ -835,7 +835,7 @@ importers:
       harmony-reflect: 1.6.2
       history: 5.0.1
       html-webpack-plugin: 5.3.2_webpack@5.33.2
-      i18next: 19.9.2
+      i18next: 20.6.0
       in-publish: 2.0.1
       js-base64: 3.6.1
       js-yaml: 3.14.0
@@ -854,7 +854,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-hook-form: 7.14.2_react@17.0.2
       react-hot-loader: 4.13.0_9c6a8df88c2691f81f37725d5b4de033
-      react-i18next: 11.11.4_i18next@19.9.2+react@17.0.2
+      react-i18next: 11.11.4_i18next@20.6.0+react@17.0.2
       react-router: 5.2.1_react@17.0.2
       react-router-dom: 5.2.1_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
@@ -12818,10 +12818,10 @@ packages:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
     dev: true
 
-  /i18next/19.9.2:
-    resolution: {integrity: sha512-0i6cuo6ER6usEOtKajUUDj92zlG+KArFia0857xxiEHAQcUwh/RtOQocui1LPJwunSYT574Pk64aNva1kwtxZg==}
+  /i18next/20.6.0:
+    resolution: {integrity: sha512-sgt7AkvxUQbW5dsA7p5AYq7tBOIdm9K7c4wAppsbt5l0Hynqs7FTsa0bA0Exy+PUR17+IOcg3KVCaILc1OAOxQ==}
     dependencies:
-      '@babel/runtime': 7.12.5
+      '@babel/runtime': 7.15.3
     dev: true
 
   /iconv-lite/0.4.24:
@@ -17975,7 +17975,7 @@ packages:
       source-map: 0.7.3
     dev: true
 
-  /react-i18next/11.11.4_i18next@19.9.2+react@17.0.2:
+  /react-i18next/11.11.4_i18next@20.6.0+react@17.0.2:
     resolution: {integrity: sha512-ayWFlu8Sc7GAxW1PzMaPtzq+yiozWMxs0P1WeITNVzXAVRhC0Httkzw/IiODBta6seJRBCLrtUeFUSXhAIxlRg==}
     peerDependencies:
       i18next: '>= 19.0.0'
@@ -17983,7 +17983,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.15.3
       html-parse-stringify: 3.0.1
-      i18next: 19.9.2
+      i18next: 20.6.0
       react: 17.0.2
     dev: true
 

@@ -42,7 +42,7 @@
     "harmony-reflect": "1.6.2",
     "history": "5.0.1",
     "html-webpack-plugin": "5.3.2",
-    "i18next": "^19.9.2",
+    "i18next": "20.6.0",
     "in-publish": "2.0.1",
     "js-base64": "3.6.1",
     "js-yaml": "3.14.0",
