@@ -567,14 +567,12 @@ importers:
       lodash: 4.17.21
       pino: 6.13.1
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     dependencies:
       dayjs: 1.10.6
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     devDependencies:
       '@types/pino': 6.3.11
       pino: 6.13.1
@@ -16483,6 +16481,7 @@ packages:
   /parse-ms/2.1.0:
     resolution: {integrity: sha512-kHt7kzLoS9VBZfUsiKjv43mr91ea+U05EyKkEtqp7vNbHxmaVuEqN7XxeEVnGrMtYOAxGrDElSi96K7EgO1zCA==}
     engines: {node: '>=6'}
+    dev: true
 
   /parse-numeric-range/1.2.0:
     resolution: {integrity: sha512-1q2tXpAOplPxcl8vrIGPWz1dJxxfmdRkCFcpxxMBerDnGuuHalOWF/xj9L8Nn5XoTUoB/6F0CeQBp2fMgkOYFg==}
@@ -17651,13 +17650,6 @@ packages:
       ansi-styles: 5.2.0
       react-is: 17.0.2
     dev: true
-
-  /pretty-ms/5.1.0:
-    resolution: {integrity: sha512-4gaK1skD2gwscCfkswYQRmddUb2GJZtzDGRjHWadVHtK/DIKFufa12MvES6/xu1tVbUYeia5bmLcwJtZJQUqnw==}
-    engines: {node: '>=8'}
-    dependencies:
-      parse-ms: 2.1.0
-    dev: false
 
   /pretty-ms/7.0.1:
     resolution: {integrity: sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==}
