@@ -65,7 +65,6 @@
     "react-router": "5.2.1",
     "react-router-dom": "5.2.1",
     "react-virtualized": "9.22.3",
-    "resolve-url-loader": "3.1.1",
     "rimraf": "3.0.2",
     "source-map-loader": "1.1.0",
     "standard-version": "9.3.1",
