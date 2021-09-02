@@ -760,11 +760,10 @@ importers:
       dayjs: 1.10.6
       emotion: 10.0.27
       emotion-theming: 10.0.27
-      file-loader: 5.1.0
       friendly-errors-webpack-plugin: 1.7.0
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
-      history: ^4.10.1
+      history: 5.0.1
       html-webpack-plugin: 5.3.2
       i18next: ^19.9.2
       in-publish: 2.0.1
@@ -833,11 +832,10 @@ importers:
       dayjs: 1.10.6
       emotion: 10.0.27
       emotion-theming: 10.0.27_33bb31e1d857102242df3642b32eda18
-      file-loader: 5.1.0_webpack@5.33.2
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.33.2
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
-      history: 4.10.1
+      history: 5.0.1
       html-webpack-plugin: 5.3.2_webpack@5.33.2
       i18next: 19.9.2
       in-publish: 2.0.1
@@ -874,7 +872,7 @@ importers:
       stylelint-webpack-plugin: 2.2.1_stylelint@13.13.1+webpack@5.33.2
       supertest: 6.1.6
       terser-webpack-plugin: 5.2.0_webpack@5.33.2
-      url-loader: 4.1.1_file-loader@5.1.0+webpack@5.33.2
+      url-loader: 4.1.1_webpack@5.33.2
       validator: 13.6.0
       webpack: 5.33.2_webpack-cli@4.8.0
       webpack-bundle-analyzer: 3.8.0
@@ -6347,10 +6345,6 @@ packages:
       pretty-format: 27.0.2
     dev: true
 
-  /@types/json-schema/7.0.5:
-    resolution: {integrity: sha512-7+2BITlgjgDhH0vvwZU/HZJVyk+2XUlvxXe8dFMedNX/aMkaOq++rMAFXc0tM7ij15QaWlbdQASBR9dihi+bDQ==}
-    dev: true
-
   /@types/json-schema/7.0.6:
     resolution: {integrity: sha512-3c+yGKvVP5Y9TYBEibGNR+kLtijnj7mYrXRg+WpFb2X9xm04g/DXYkfg4hmzJQosc9snFNUPkbYIhu+KAm6jJw==}
 
@@ -7262,14 +7256,6 @@ packages:
     dependencies:
       ajv: 6.12.6
 
-  /ajv-keywords/3.5.2_ajv@6.12.4:
-    resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
-    peerDependencies:
-      ajv: ^6.9.1
-    dependencies:
-      ajv: 6.12.4
-    dev: true
-
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
     peerDependencies:
@@ -7284,15 +7270,6 @@ packages:
       fast-deep-equal: 1.1.0
       fast-json-stable-stringify: 2.1.0
       json-schema-traverse: 0.3.1
-
-  /ajv/6.12.4:
-    resolution: {integrity: sha512-eienB2c9qVQs2KWexhkrdMLVDoIQCz5KSeLxwg9Lzk4DOfBtIK9PQwwufcsn1jjGuf9WZmqPMbGxOzfcuphJCQ==}
-    dependencies:
-      fast-deep-equal: 3.1.3
-      fast-json-stable-stringify: 2.1.0
-      json-schema-traverse: 0.4.1
-      uri-js: 4.2.2
-    dev: true
 
   /ajv/6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -11543,17 +11520,6 @@ packages:
       flat-cache: 3.0.4
     dev: true
 
-  /file-loader/5.1.0_webpack@5.33.2:
-    resolution: {integrity: sha512-u/VkLGskw3Ue59nyOwUwXI/6nuBCo7KBkniB/l7ICwr/7cPNGsL1WCXUp3GB0qgOOKU1TiP49bv4DZF/LJqprg==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
-    dependencies:
-      loader-utils: 1.4.0
-      schema-utils: 2.7.0
-      webpack: 5.33.2_webpack-cli@4.8.0
-    dev: true
-
   /file-loader/6.2.0_webpack@5.40.0:
     resolution: {integrity: sha512-qo3glqyTa61Ytg4u73GultjHGjdRyig3tG6lPtyX/jOEJvHif9uB0/OCI2Kif6ctF3caQTW2G5gym21oAsI4pw==}
     engines: {node: '>= 10.13.0'}
@@ -12623,6 +12589,12 @@ packages:
       tiny-invariant: 1.1.0
       tiny-warning: 1.0.3
       value-equal: 1.0.1
+
+  /history/5.0.1:
+    resolution: {integrity: sha512-5qC/tFUKfVci5kzgRxZxN5Mf1CV8NmJx9ByaPX0YTLx5Vz3Svh7NYp6eA4CpDq4iA9D0C1t8BNIfvQIrUI3mVw==}
+    dependencies:
+      '@babel/runtime': 7.15.3
+    dev: true
 
   /hoist-non-react-statics/3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
@@ -19086,15 +19058,6 @@ packages:
       ajv-errors: 1.0.1_ajv@6.12.6
       ajv-keywords: 3.5.2_ajv@6.12.6
 
-  /schema-utils/2.7.0:
-    resolution: {integrity: sha512-0ilKFI6QQF5nxDZLFn2dMjvc4hjg/Wkg7rHd3jK6/A4a1Hl9VFdQWvgB1UMGoU94pad1P/8N7fMcEnLnSiju8A==}
-    engines: {node: '>= 8.9.0'}
-    dependencies:
-      '@types/json-schema': 7.0.5
-      ajv: 6.12.4
-      ajv-keywords: 3.5.2_ajv@6.12.4
-    dev: true
-
   /schema-utils/2.7.1:
     resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}
     engines: {node: '>= 8.9.0'}
@@ -21054,12 +21017,6 @@ packages:
       - vue
     dev: true
 
-  /uri-js/4.2.2:
-    resolution: {integrity: sha512-KY9Frmirql91X2Qgjry0Wd4Y+YTdrdZheS8TFwvkbLWf/G5KNJDCh6pKL5OZctEW4+0Baa5idK2ZQuELRwPznQ==}
-    dependencies:
-      punycode: 2.1.1
-    dev: true
-
   /uri-js/4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
@@ -21083,23 +21040,6 @@ packages:
       schema-utils: 3.1.1
     dev: true
 
-  /url-loader/4.1.1_file-loader@5.1.0+webpack@5.33.2:
-    resolution: {integrity: sha512-3BTV812+AVHHOJQO8O5MkWgZ5aosP7GnROJwvzLS9hWDj00lZ6Z0wNak423Lp9PBZN05N+Jk/N5Si8jRAlGyWA==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      file-loader: '*'
-      webpack: ^4.0.0 || ^5.0.0
-    peerDependenciesMeta:
-      file-loader:
-        optional: true
-    dependencies:
-      file-loader: 5.1.0_webpack@5.33.2
-      loader-utils: 2.0.0
-      mime-types: 2.1.31
-      schema-utils: 3.1.1
-      webpack: 5.33.2_webpack-cli@4.8.0
-    dev: true
-
   /url-loader/4.1.1_file-loader@6.2.0+webpack@5.40.0:
     resolution: {integrity: sha512-3BTV812+AVHHOJQO8O5MkWgZ5aosP7GnROJwvzLS9hWDj00lZ6Z0wNak423Lp9PBZN05N+Jk/N5Si8jRAlGyWA==}
     engines: {node: '>= 10.13.0'}
@@ -21116,6 +21056,22 @@ packages:
       schema-utils: 3.1.1
       webpack: 5.40.0
     dev: false
+
+  /url-loader/4.1.1_webpack@5.33.2:
+    resolution: {integrity: sha512-3BTV812+AVHHOJQO8O5MkWgZ5aosP7GnROJwvzLS9hWDj00lZ6Z0wNak423Lp9PBZN05N+Jk/N5Si8jRAlGyWA==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      file-loader: '*'
+      webpack: ^4.0.0 || ^5.0.0
+    peerDependenciesMeta:
+      file-loader:
+        optional: true
+    dependencies:
+      loader-utils: 2.0.0
+      mime-types: 2.1.31
+      schema-utils: 3.1.1
+      webpack: 5.33.2_webpack-cli@4.8.0
+    dev: true
 
   /url-parse-lax/3.0.0:
     resolution: {integrity: sha1-FrXK/Afb42dsGxmZF3gj1lA6yww=}
