@@ -697,12 +697,12 @@ importers:
       '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      aws-sdk: 2.980.0
+      aws-sdk: 2.981.0
       recursive-readdir: 2.2.2
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
-      aws-sdk: 2.980.0
+      aws-sdk: 2.981.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
       recursive-readdir: 2.2.2
@@ -7728,8 +7728,8 @@ packages:
       - supports-color
     dev: false
 
-  /aws-sdk/2.980.0:
-    resolution: {integrity: sha512-jPtCZngNOW4+rE9mPQd4fp2bU1c2mkRRrZcpa6jaSDo/WtjnfR7wtIrjKZYfyR2s0LNFqZRJadblYlroT3o8ww==}
+  /aws-sdk/2.981.0:
+    resolution: {integrity: sha512-Itrj9O1zmPm/HupwUiWBhoMTuSjLQzsBcEpxHgLQmUPRv2pxud8kq5DbuKdS2tLlBFMuKx4OLcs9x5RbNOfj5A==}
     engines: {node: '>= 0.8.0'}
     requiresBuild: true
     dependencies:
