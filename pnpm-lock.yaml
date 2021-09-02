@@ -72,7 +72,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -184,7 +183,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -569,14 +567,12 @@ importers:
       lodash: 4.17.21
       pino: 6.13.1
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     dependencies:
       dayjs: 1.10.6
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     devDependencies:
       '@types/pino': 6.3.11
       pino: 6.13.1
@@ -628,7 +624,6 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.7
       '@verdaccio/server': workspace:6.0.0-6-next.16
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
       debug: 4.3.2
       jest-mock-process: 1.4.1
       lodash: 4.17.21
@@ -639,7 +634,6 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
-      core-js: 3.16.4
       debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
@@ -9373,10 +9367,6 @@ packages:
     requiresBuild: true
     dev: true
 
-  /core-js/3.16.4:
-    resolution: {integrity: sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==}
-    requiresBuild: true
-
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
 
@@ -16486,6 +16476,7 @@ packages:
   /parse-ms/2.1.0:
     resolution: {integrity: sha512-kHt7kzLoS9VBZfUsiKjv43mr91ea+U05EyKkEtqp7vNbHxmaVuEqN7XxeEVnGrMtYOAxGrDElSi96K7EgO1zCA==}
     engines: {node: '>=6'}
+    dev: true
 
   /parse-numeric-range/1.2.0:
     resolution: {integrity: sha512-1q2tXpAOplPxcl8vrIGPWz1dJxxfmdRkCFcpxxMBerDnGuuHalOWF/xj9L8Nn5XoTUoB/6F0CeQBp2fMgkOYFg==}
@@ -17654,13 +17645,6 @@ packages:
       ansi-styles: 5.2.0
       react-is: 17.0.2
     dev: true
-
-  /pretty-ms/5.1.0:
-    resolution: {integrity: sha512-4gaK1skD2gwscCfkswYQRmddUb2GJZtzDGRjHWadVHtK/DIKFufa12MvES6/xu1tVbUYeia5bmLcwJtZJQUqnw==}
-    engines: {node: '>=8'}
-    dependencies:
-      parse-ms: 2.1.0
-    dev: false
 
   /pretty-ms/7.0.1:
     resolution: {integrity: sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==}
