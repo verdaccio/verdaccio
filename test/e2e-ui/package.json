@@ -7,7 +7,7 @@
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.9",
     "debug": "4.3.2",
     "kleur": "3.0.3",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.21",
     "puppeteer": "10.2.0",
     "request": "2.87.0",
     "rimraf": "3.0.2"
