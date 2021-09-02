@@ -46,7 +46,6 @@
     "in-publish": "2.0.1",
     "js-base64": "3.6.1",
     "js-yaml": "3.14.1",
-    "lint-staged": "9.5.0",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "2.2.2",
