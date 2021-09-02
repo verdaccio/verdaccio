@@ -789,7 +789,6 @@ importers:
       react-router-dom: 5.2.1
       react-virtualized: 9.22.3
       rimraf: 3.0.2
-      source-map-loader: 1.1.0
       standard-version: 9.3.1
       style-loader: 1.2.1
       stylelint: 13.13.1
@@ -860,7 +859,6 @@ importers:
       react-router-dom: 5.2.1_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
       rimraf: 3.0.2
-      source-map-loader: 1.1.0_webpack@5.33.2
       standard-version: 9.3.1
       style-loader: 1.2.1_webpack@5.33.2
       stylelint: 13.13.1
@@ -7108,10 +7106,6 @@ packages:
       jsonparse: 1.3.1
       through: 2.3.8
 
-  /abab/2.0.4:
-    resolution: {integrity: sha512-Eu9ELJWCz/c1e9gTiCY+FceWxcqzjYEbqMgtndnuSqZSUCOL73TWNK2mHfIj4Cw2E/ongOp+JISVNCmovt2KYQ==}
-    dev: true
-
   /abab/2.0.5:
     resolution: {integrity: sha512-9IK9EadsbHo6jLWIpxpR6pL0sazTXV6+SQv25ZB+F7Bj9mJNaOc4nCRabwd5M/JwmUa8idz6Eci6eKfJryPs6Q==}
 
@@ -12835,13 +12829,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
-
-  /iconv-lite/0.6.2:
-    resolution: {integrity: sha512-2y91h5OpQlolefMPmUlivelittSWy0rP+oYVpn6A7GwVHNE8AWzoYOBNmlwks3LobaJxgHCYZAnyNo2GgpNRNQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      safer-buffer: 2.1.2
-    dev: true
 
   /icss-replace-symbols/1.1.0:
     resolution: {integrity: sha1-Bupvg2ead0njhs/h/oEq5dsiPe0=}
@@ -19331,21 +19318,6 @@ packages:
   /source-map-js/0.6.2:
     resolution: {integrity: sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==}
     engines: {node: '>=0.10.0'}
-
-  /source-map-loader/1.1.0_webpack@5.33.2:
-    resolution: {integrity: sha512-Kj7rXntLhAsEjZlqGz85Mbnu8N4gcxj5qZI1XyLQjqAI/p92ckRXwErb3jVYL5JxlFJnD4VgwybpB1h6NlETRg==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
-    dependencies:
-      abab: 2.0.4
-      iconv-lite: 0.6.2
-      loader-utils: 2.0.0
-      schema-utils: 2.7.1
-      source-map: 0.6.1
-      webpack: 5.33.2_webpack-cli@4.8.0
-      whatwg-mimetype: 2.3.0
-    dev: true
 
   /source-map-resolve/0.5.3:
     resolution: {integrity: sha512-Htz+RnsXWk5+P2slx5Jh3Q66vhQj1Cllm0zvnaY98+NFx+Dv2CF/f5O/t8x+KaNdrdIAsruNzoh/KpialbqAnw==}
