@@ -790,7 +790,7 @@ importers:
       react-virtualized: 9.22.3
       rimraf: 3.0.2
       standard-version: 9.3.1
-      style-loader: 1.2.1
+      style-loader: 3.2.1
       stylelint: 13.13.1
       stylelint-config-recommended: 3.0.0
       stylelint-config-styled-components: 0.1.1
@@ -860,7 +860,7 @@ importers:
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
       rimraf: 3.0.2
       standard-version: 9.3.1
-      style-loader: 1.2.1_webpack@5.33.2
+      style-loader: 3.2.1_webpack@5.33.2
       stylelint: 13.13.1
       stylelint-config-recommended: 3.0.0_stylelint@13.13.1
       stylelint-config-styled-components: 0.1.1
@@ -19776,14 +19776,12 @@ packages:
   /stubs/3.0.0:
     resolution: {integrity: sha1-6NK6H6nJBXAwPAMLaQD31fiavls=}
 
-  /style-loader/1.2.1_webpack@5.33.2:
-    resolution: {integrity: sha512-ByHSTQvHLkWE9Ir5+lGbVOXhxX10fbprhLvdg96wedFZb4NDekDPxVKv5Fwmio+QcMlkkNfuK+5W1peQ5CUhZg==}
-    engines: {node: '>= 8.9.0'}
+  /style-loader/3.2.1_webpack@5.33.2:
+    resolution: {integrity: sha512-1k9ZosJCRFaRbY6hH49JFlRB0fVSbmnyq1iTPjNxUmGVjBNEmwrrHPenhlp+Lgo51BojHSf6pl2FcqYaN3PfVg==}
+    engines: {node: '>= 12.13.0'}
     peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
+      webpack: ^5.0.0
     dependencies:
-      loader-utils: 2.0.0
-      schema-utils: 2.7.1
       webpack: 5.33.2_webpack-cli@4.8.0
     dev: true
 
