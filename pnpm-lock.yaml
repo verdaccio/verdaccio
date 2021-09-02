@@ -72,7 +72,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -184,7 +183,6 @@ importers:
       babel-plugin-emotion: 10.0.33
       codecov: 3.8.3
       concurrently: 6.2.1
-      core-js: 3.16.4
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -569,14 +567,12 @@ importers:
       lodash: 4.17.21
       pino: 6.13.1
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     dependencies:
       dayjs: 1.10.6
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
       prettier-bytes: 1.0.4
-      pretty-ms: 5.1.0
     devDependencies:
       '@types/pino': 6.3.11
       pino: 6.13.1
@@ -628,7 +624,6 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.7
       '@verdaccio/server': workspace:6.0.0-6-next.16
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
       debug: 4.3.2
       jest-mock-process: 1.4.1
       lodash: 4.17.21
@@ -639,7 +634,6 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
-      core-js: 3.16.4
       debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
@@ -697,12 +691,12 @@ importers:
       '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      aws-sdk: 2.980.0
+      aws-sdk: 2.981.0
       recursive-readdir: 2.2.2
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
-      aws-sdk: 2.980.0
+      aws-sdk: 2.981.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
       recursive-readdir: 2.2.2
@@ -1166,7 +1160,7 @@ importers:
       debug: 4.3.2
       kleur: 3.0.3
       lodash: ^4.17.21
-      puppeteer: ^9.1.1
+      puppeteer: 10.2.0
       request: 2.87.0
       rimraf: 3.0.2
     devDependencies:
@@ -1175,7 +1169,7 @@ importers:
       debug: 4.3.2
       kleur: 3.0.3
       lodash: 4.17.21
-      puppeteer: 9.1.1
+      puppeteer: 10.2.0
       request: 2.87.0
       rimraf: 3.0.2
 
@@ -6419,11 +6413,6 @@ packages:
     resolution: {integrity: sha512-vbxr0VZ8exFMMAjCW8rJwaya0dMCDyYW2ZRdTyjtrCvJoENMpdUHOT/eTzvgyA5ZnqRZ/sI0NwqAxNHKYokLJQ==}
     dev: true
 
-  /@types/node/14.14.41:
-    resolution: {integrity: sha512-dueRKfaJL4RTtSa7bWeTK1M+VH+Gns73oCgzvYfHZywRCoPSd8EkXBL0mZ9unPTveBn+D9phZBaxuzpwjWkW0g==}
-    dev: true
-    optional: true
-
   /@types/node/14.17.3:
     resolution: {integrity: sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==}
     dev: true
@@ -6689,7 +6678,7 @@ packages:
   /@types/yauzl/2.9.1:
     resolution: {integrity: sha512-A1b8SU4D10uoPjwb0lnHmmu8wZhR9d+9o2PKBQT2jU5YPTKsxac6M2qGAdY7VcL+dHHhARVUDmeg0rOrcd9EjA==}
     dependencies:
-      '@types/node': 14.14.41
+      '@types/node': 15.12.4
     dev: true
     optional: true
 
@@ -7733,8 +7722,8 @@ packages:
       - supports-color
     dev: false
 
-  /aws-sdk/2.980.0:
-    resolution: {integrity: sha512-jPtCZngNOW4+rE9mPQd4fp2bU1c2mkRRrZcpa6jaSDo/WtjnfR7wtIrjKZYfyR2s0LNFqZRJadblYlroT3o8ww==}
+  /aws-sdk/2.981.0:
+    resolution: {integrity: sha512-Itrj9O1zmPm/HupwUiWBhoMTuSjLQzsBcEpxHgLQmUPRv2pxud8kq5DbuKdS2tLlBFMuKx4OLcs9x5RbNOfj5A==}
     engines: {node: '>= 0.8.0'}
     requiresBuild: true
     dependencies:
@@ -9378,10 +9367,6 @@ packages:
     requiresBuild: true
     dev: true
 
-  /core-js/3.16.4:
-    resolution: {integrity: sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==}
-    requiresBuild: true
-
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
 
@@ -10205,8 +10190,8 @@ packages:
       - supports-color
     dev: true
 
-  /devtools-protocol/0.0.869402:
-    resolution: {integrity: sha512-VvlVYY+VDJe639yHs5PHISzdWTLL3Aw8rO4cvUtwvoxFd6FHbE4OpHHcde52M6096uYYazAmd4l0o5VuFRO2WA==}
+  /devtools-protocol/0.0.901419:
+    resolution: {integrity: sha512-4INMPwNm9XRpBukhNbF7OB6fNTTCaI8pzy/fXg0xQzAy5h3zL1P8xT3QazgKqBrb/hAYwIBizqDBZ7GtJE74QQ==}
     dev: true
 
   /diacritic/0.0.2:
@@ -11312,7 +11297,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.2
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -16491,6 +16476,7 @@ packages:
   /parse-ms/2.1.0:
     resolution: {integrity: sha512-kHt7kzLoS9VBZfUsiKjv43mr91ea+U05EyKkEtqp7vNbHxmaVuEqN7XxeEVnGrMtYOAxGrDElSi96K7EgO1zCA==}
     engines: {node: '>=6'}
+    dev: true
 
   /parse-numeric-range/1.2.0:
     resolution: {integrity: sha512-1q2tXpAOplPxcl8vrIGPWz1dJxxfmdRkCFcpxxMBerDnGuuHalOWF/xj9L8Nn5XoTUoB/6F0CeQBp2fMgkOYFg==}
@@ -17660,13 +17646,6 @@ packages:
       react-is: 17.0.2
     dev: true
 
-  /pretty-ms/5.1.0:
-    resolution: {integrity: sha512-4gaK1skD2gwscCfkswYQRmddUb2GJZtzDGRjHWadVHtK/DIKFufa12MvES6/xu1tVbUYeia5bmLcwJtZJQUqnw==}
-    engines: {node: '>=8'}
-    dependencies:
-      parse-ms: 2.1.0
-    dev: false
-
   /pretty-ms/7.0.1:
     resolution: {integrity: sha512-973driJZvxiGOQ5ONsFhOF/DtzPMOMtgC11kCpUrPGMTgqp2q/1gwzCquocrN33is0VZ5GFHXZYMM9l6h67v2Q==}
     engines: {node: '>=10'}
@@ -17702,6 +17681,11 @@ packages:
   /process/0.11.10:
     resolution: {integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=}
     engines: {node: '>= 0.6.0'}
+    dev: true
+
+  /progress/2.0.1:
+    resolution: {integrity: sha512-OE+a6vzqazc+K6LxJrX5UPyKFvGnL5CYmq2jFGNIBWHpc4QyE49/YOumcrpQFJpfejmvRtbJzgO1zPmMCqlbBg==}
+    engines: {node: '>=0.4.0'}
     dev: true
 
   /progress/2.0.3:
@@ -17843,23 +17827,23 @@ packages:
     dependencies:
       escape-goat: 2.1.1
 
-  /puppeteer/9.1.1:
-    resolution: {integrity: sha512-W+nOulP2tYd/ZG99WuZC/I5ljjQQ7EUw/jQGcIb9eu8mDlZxNY2SgcJXTLG9h5gRvqA3uJOe4hZXYsd3EqioMw==}
+  /puppeteer/10.2.0:
+    resolution: {integrity: sha512-OR2CCHRashF+f30+LBOtAjK6sNtz2HEyTr5FqAvhf8lR/qB3uBRoIZOwQKgwoyZnMBsxX7ZdazlyBgGjpnkiMw==}
     engines: {node: '>=10.18.1'}
     requiresBuild: true
     dependencies:
       debug: 4.3.1
-      devtools-protocol: 0.0.869402
+      devtools-protocol: 0.0.901419
       extract-zip: 2.0.1
       https-proxy-agent: 5.0.0
       node-fetch: 2.6.1
       pkg-dir: 4.2.0
-      progress: 2.0.3
+      progress: 2.0.1
       proxy-from-env: 1.1.0
       rimraf: 3.0.2
-      tar-fs: 2.1.0
-      unbzip2-stream: 1.4.3
-      ws: 7.4.4
+      tar-fs: 2.0.0
+      unbzip2-stream: 1.3.3
+      ws: 7.4.6
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -20200,6 +20184,15 @@ packages:
     resolution: {integrity: sha512-FBk4IesMV1rBxX2tfiK8RAmogtWn53puLOQlvO8XuwlgxcYbP4mVPS9Ph4aeamSyyVjOl24aYWAuc8U5kCVwMw==}
     engines: {node: '>=6'}
 
+  /tar-fs/2.0.0:
+    resolution: {integrity: sha512-vaY0obB6Om/fso8a8vakQBzwholQ7v5+uy+tF3Ozvxv1KNezmVQAiWtcNmMHFSFPqL3dJA8ha6gdtFbfX9mcxA==}
+    dependencies:
+      chownr: 1.1.4
+      mkdirp: 0.5.5
+      pump: 3.0.0
+      tar-stream: 2.1.4
+    dev: true
+
   /tar-fs/2.1.0:
     resolution: {integrity: sha512-9uW5iDvrIMCVpvasdFHW0wJPez0K4JnMZtsuIeDI7HyMGJNxmDZDOCQROr7lXyS+iL/QMpj07qcjGYTSdRFXUg==}
     dependencies:
@@ -20766,8 +20759,8 @@ packages:
       has-symbols: 1.0.2
       which-boxed-primitive: 1.0.2
 
-  /unbzip2-stream/1.4.3:
-    resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
+  /unbzip2-stream/1.3.3:
+    resolution: {integrity: sha512-fUlAF7U9Ah1Q6EieQ4x4zLNejrRvDWUYmxXUpN3uziFYCHapjWFaCAnreY9bGgxzaMCFAPPpYNng57CypwJVhg==}
     dependencies:
       buffer: 5.7.1
       through: 2.3.8

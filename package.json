@@ -83,7 +83,6 @@
     "babel-plugin-emotion": "10.0.33",
     "codecov": "3.8.3",
     "concurrently": "6.2.1",
-    "core-js": "3.16.4",
     "cross-env": "7.0.3",
     "debug": "4.3.2",
     "detect-secrets": "1.0.6",

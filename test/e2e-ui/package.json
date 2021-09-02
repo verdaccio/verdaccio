@@ -8,7 +8,7 @@
     "debug": "4.3.2",
     "kleur": "3.0.3",
     "lodash": "^4.17.21",
-    "puppeteer": "^9.1.1",
+    "puppeteer": "10.2.0",
     "request": "2.87.0",
     "rimraf": "3.0.2"
   },
