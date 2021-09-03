@@ -1,6 +1,6 @@
 {
-  "name": "@verdaccio/e2e-cli",
   "private": true,
+  "name": "@verdaccio/e2e-cli",
   "version": "1.0.1-alpha.0",
   "dependencies": {
     "debug": "4.3.2",
