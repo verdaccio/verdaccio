@@ -5,9 +5,5 @@ test('valid version node.js', () => {
 });
 
 test('is invalid version node.js', () => {
-  expect(isVersionValid('11.0.0')).toBeFalsy();
-});
-
-test('Node 12 should valid version node.js', () => {
-  expect(isVersionValid('12.0.0')).toBeTruthy();
+  expect(isVersionValid('13.0.0')).toBeFalsy();
 });
