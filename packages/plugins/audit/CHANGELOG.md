@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.5
+
+### Patch Changes
+
+- f96b147e: fix: several issues which caused the audit to fail (#2335)
+
 ## 10.0.0-alpha.4
 
 ### Major Changes
