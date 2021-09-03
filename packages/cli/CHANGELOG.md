@@ -1,5 +1,11 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.19
+
+### Major Changes
+
+- 2e3b9552: feat: node 14 as minimum for running cli
+
 ## 6.0.0-6-next.18
 
 ### Patch Changes
