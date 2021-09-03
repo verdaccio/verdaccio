@@ -234,7 +234,7 @@ importers:
       '@verdaccio/hooks': workspace:6.0.0-6-next.4
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/middleware': workspace:6.0.0-6-next.9
-      '@verdaccio/server': workspace:6.0.0-6-next.16
+      '@verdaccio/server': workspace:6.0.0-6-next.17
       '@verdaccio/store': workspace:6.0.0-6-next.10
       '@verdaccio/tarball': workspace:11.0.0-6-next.6
       '@verdaccio/types': workspace:11.0.0-6-next.7
@@ -303,7 +303,7 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/fastify-migration': workspace:6.0.0-6-next.10
       '@verdaccio/logger': workspace:6.0.0-6-next.4
-      '@verdaccio/node-api': workspace:6.0.0-6-next.17
+      '@verdaccio/node-api': workspace:6.0.0-6-next.18
       clipanion: 3.0.1
       commander: 6.2.0
       envinfo: 7.8.1
@@ -622,7 +622,7 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/mock': workspace:6.0.0-6-next.7
-      '@verdaccio/server': workspace:6.0.0-6-next.16
+      '@verdaccio/server': workspace:6.0.0-6-next.17
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: 4.3.2
       jest-mock-process: 1.4.1
@@ -750,7 +750,7 @@ importers:
       '@testing-library/dom': 7.31.2
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 11.2.7
-      '@verdaccio/node-api': workspace:6.0.0-6-next.17
+      '@verdaccio/node-api': workspace:6.0.0-6-next.18
       autosuggest-highlight: 3.1.1
       babel-loader: 8.2.2
       babel-plugin-dynamic-import-node: 2.3.3
@@ -936,7 +936,7 @@ importers:
       http-errors: 1.8.0
       lodash: 4.17.21
       request: 2.87.0
-      verdaccio-audit: workspace:11.0.0-alpha.4
+      verdaccio-audit: workspace:11.0.0-6-next.5
     dependencies:
       '@verdaccio/api': link:../api
       '@verdaccio/auth': link:../auth
@@ -962,7 +962,7 @@ importers:
 
   packages/standalone:
     specifiers:
-      '@verdaccio/cli': workspace:6.0.0-6-next.17
+      '@verdaccio/cli': workspace:6.0.0-6-next.18
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.9
       fs-extra: 10.0.0
       webpack: 5.33.2
@@ -1057,17 +1057,17 @@ importers:
   packages/verdaccio:
     specifiers:
       '@verdaccio/auth': workspace:6.0.0-6-next.9
-      '@verdaccio/cli': workspace:6.0.0-6-next.17
+      '@verdaccio/cli': workspace:6.0.0-6-next.18
       '@verdaccio/commons-api': workspace:11.0.0-alpha.3
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/hooks': workspace:6.0.0-6-next.4
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/mock': workspace:6.0.0-6-next.7
-      '@verdaccio/node-api': workspace:6.0.0-6-next.17
+      '@verdaccio/node-api': workspace:6.0.0-6-next.18
       '@verdaccio/store': workspace:6.0.0-6-next.10
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.5
-      verdaccio-audit: 11.0.0-alpha.4
+      verdaccio-audit: 11.0.0-6-next.5
       verdaccio-htpasswd: 11.0.0-alpha.6
     dependencies:
       '@verdaccio/cli': link:../cli

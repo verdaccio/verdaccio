@@ -1,5 +1,13 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.17
+
+### Patch Changes
+
+- Updated dependencies [f96b147e]
+  - verdaccio-audit@11.0.0-6-next.5
+  - @verdaccio/api@6.0.0-6-next.12
+
 ## 6.0.0-6-next.16
 
 ### Patch Changes
