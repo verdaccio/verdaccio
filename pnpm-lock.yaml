@@ -305,7 +305,6 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/node-api': workspace:6.0.0-6-next.18
       clipanion: 3.0.1
-      commander: 6.2.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.5
@@ -316,7 +315,6 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
       clipanion: 3.0.1
-      commander: 6.2.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.5
@@ -705,7 +703,7 @@ importers:
     specifiers:
       '@google-cloud/datastore': 6.5.0
       '@google-cloud/storage': 5.14.0
-      '@verdaccio/commons-api': ^11.0.0-alpha.3
+      '@verdaccio/commons-api': 11.0.0-alpha.3
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
       fast-crc32c: 1.0.4
@@ -1129,11 +1127,11 @@ importers:
   test/e2e-cli:
     specifiers:
       debug: 4.3.2
-      get-port: ^5.1.1
+      get-port: 5.1.1
       npm: 7.21.1
       pnpm: 6.14.5
       request: 2.87.0
-      semver: ^7.3.5
+      semver: 7.3.5
       yarn: 1.22.11
     dependencies:
       debug: 4.3.2
@@ -1151,7 +1149,7 @@ importers:
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.9
       debug: 4.3.2
       kleur: 3.0.3
-      lodash: ^4.17.21
+      lodash: 4.17.21
       puppeteer: 10.2.0
       request: 2.87.0
       rimraf: 3.0.2
@@ -8671,11 +8669,6 @@ packages:
 
   /commander/5.1.0:
     resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==}
-    engines: {node: '>= 6'}
-    dev: false
-
-  /commander/6.2.0:
-    resolution: {integrity: sha512-zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==}
     engines: {node: '>= 6'}
     dev: false
 
