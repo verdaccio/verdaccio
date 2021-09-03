@@ -99,7 +99,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-verdaccio": "10.0.0",
     "fs-extra": "10.0.0",
-    "husky": "7.0.2",
+    "husky": "4.3.5",
     "in-publish": "2.0.1",
     "jest": "27.1.0",
     "jest-environment-jsdom": "27.1.0",
