@@ -703,7 +703,7 @@ importers:
     specifiers:
       '@google-cloud/datastore': 6.5.0
       '@google-cloud/storage': 5.14.0
-      '@verdaccio/commons-api': ^11.0.0-alpha.3
+      '@verdaccio/commons-api': 11.0.0-alpha.3
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
       fast-crc32c: 1.0.4
@@ -1127,11 +1127,11 @@ importers:
   test/e2e-cli:
     specifiers:
       debug: 4.3.2
-      get-port: ^5.1.1
+      get-port: 5.1.1
       npm: 7.21.1
       pnpm: 6.14.5
       request: 2.87.0
-      semver: ^7.3.5
+      semver: 7.3.5
       yarn: 1.22.11
     dependencies:
       debug: 4.3.2
