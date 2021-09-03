@@ -27,7 +27,7 @@
     "@testing-library/dom": "7.31.2",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.17",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.18",
     "autosuggest-highlight": "3.1.1",
     "babel-loader": "8.2.2",
     "babel-plugin-dynamic-import-node": "2.3.3",
