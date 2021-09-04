@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "6.0.0-6-next.4",
+  "version": "6.0.0-6-next.5",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,7 +39,7 @@
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.9",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.10",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "@verdaccio/types": "workspace:11.0.0-6-next.7"

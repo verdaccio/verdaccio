@@ -1,5 +1,11 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- df0da3d6: Added core-js missing from dependencies though referenced in .js sources
+
 ## 6.0.0-6-next.4
 
 ### Patch Changes

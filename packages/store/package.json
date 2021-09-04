@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "6.0.0-6-next.10",
+  "version": "6.0.0-6-next.11",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,9 +42,9 @@
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/config": "workspace:6.0.0-6-next.7",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.4",
-    "@verdaccio/local-storage": "workspace:11.0.0-6-next.6",
+    "@verdaccio/local-storage": "workspace:11.0.0-6-next.7",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "@verdaccio/proxy": "workspace:6.0.0-6-next.9",
+    "@verdaccio/proxy": "workspace:6.0.0-6-next.10",
     "@verdaccio/streams": "workspace:11.0.0-alpha.3",
     "@verdaccio/utils": "workspace:6.0.0-6-next.5",
     "async": "3.2.1",
@@ -55,7 +55,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:6.0.0-6-next.7",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.8",
     "@verdaccio/types": "workspace:11.0.0-6-next.7"
   },
   "funding": {

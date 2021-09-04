@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/fastify-migration",
-  "version": "6.0.0-6-next.10",
+  "version": "6.0.0-6-next.11",
   "description": "Fastify server migration package",
   "keywords": [
     "private",
@@ -35,9 +35,9 @@
   },
   "dependencies": {
     "@verdaccio/config": "workspace:6.0.0-6-next.7",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.9",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.10",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
-    "@verdaccio/store": "workspace:6.0.0-6-next.10",
+    "@verdaccio/store": "workspace:6.0.0-6-next.11",
     "core-js": "3.16.4",
     "debug": "4.3.2",
     "fastify": "3.20.2",

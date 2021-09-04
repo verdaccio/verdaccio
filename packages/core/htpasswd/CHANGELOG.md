@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.7
+
+### Patch Changes
+
+- df0da3d6: Added core-js missing from dependencies though referenced in .js sources
+
 ## 10.0.0-alpha.6
 
 ### Major Changes
