@@ -565,7 +565,7 @@ class ProxyStorage implements IProxy {
       // objects is one of the properties on the body, it ignores date and total
       streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
       return streamSearch;
-    } catch (err) {
+    } catch (err: any) {
       this.logger.error({ errorMessage: err?.message }, 'proxy search error: @{errorMessage}');
       throw err;
     }

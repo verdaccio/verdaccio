@@ -46,7 +46,7 @@
     "@types/async": "3.2.7",
     "@types/autocannon": "4.1.1",
     "@types/autosuggest-highlight": "3.1.1",
-    "@types/express": "4.17.8",
+    "@types/express": "4.17.6",
     "@types/http-errors": "1.8.1",
     "@types/jest": "27.0.1",
     "@types/lodash": "4.14.172",

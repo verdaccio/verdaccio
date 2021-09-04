@@ -178,7 +178,7 @@ class LocalStorage {
           debug('remove package folder');
           await storage.removePackage();
           resolve();
-        } catch (err) {
+        } catch (err: any) {
           this.logger.error({ err }, 'removed package has failed @{err.message}');
           throw ErrorCode.getBadData(err.message);
         }
@@ -358,7 +358,7 @@ class LocalStorage {
           debug('%s` add on database', name);
           await this.storagePlugin.add(name);
           cb();
-        } catch (err) {
+        } catch (err: any) {
           cb(ErrorCode.getBadData(err.message));
         }
       },

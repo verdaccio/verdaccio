@@ -125,7 +125,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
             );
             reject(getInternalError(err.message));
           });
-      } catch (err) {
+      } catch (err: any) {
         this.logger.error(
           { name: file.name, err: err.message },
           'gcloud: delete @{name} file has failed err: @{err}'
