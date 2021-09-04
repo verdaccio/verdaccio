@@ -2,6 +2,7 @@
 name: ci - benchmark
 
 on:
+  workflow_dispatch:
   schedule:
     # 3 times day
     # collecting enough data to draw some graphics
