@@ -35,7 +35,7 @@ Install with npm:
 npm install --global verdaccio@6-next
 ```
 
-or 
+or
 
 ```bash
 docker pull verdaccio/verdaccio:nightly-master
