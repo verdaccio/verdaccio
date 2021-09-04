@@ -7133,7 +7133,7 @@ packages:
     resolution: {integrity: sha512-o/HelwhuKpTj/frsOsbNLNgnNGVIFsVP/SW2BSF14gVl7kAfMOJ6/8wUAUvG1R1NHKrfG+2sHZTu0yauT1qBrA==}
     engines: {node: '>=6.0'}
     dependencies:
-      '@babel/runtime': 7.15.4
+      '@babel/runtime': 7.15.3
       '@babel/runtime-corejs3': 7.15.4
     dev: true
 
@@ -11225,7 +11225,7 @@ packages:
     hasBin: true
     dependencies:
       dargs: 7.0.0
-      lodash: 4.17.21
+      lodash: 4.17.15
       meow: 8.1.2
       split2: 3.2.2
       through2: 4.0.2
