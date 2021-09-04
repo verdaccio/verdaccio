@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:1
 
 COPY cert.crt /etc/nginx/cert.crt
 COPY cert.key /etc/nginx/cert.key
