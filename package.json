@@ -42,8 +42,6 @@
     "@changesets/changelog-github": "0.2.8",
     "@changesets/cli": "2.15.0",
     "@changesets/get-dependents-graph": "1.2.2",
-    "@commitlint/cli": "8.3.5",
-    "@commitlint/config-conventional": "8.2.0",
     "@crowdin/cli": "3.6.5",
     "@types/async": "3.2.7",
     "@types/autocannon": "4.1.1",
@@ -160,11 +158,6 @@
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download --verbose"
   },
   "license": "MIT",
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
