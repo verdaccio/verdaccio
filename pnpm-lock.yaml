@@ -795,7 +795,7 @@ importers:
       react-hot-loader: 4.13.0
       react-i18next: 11.11.4
       react-router: 5.2.1
-      react-router-dom: 5.2.1
+      react-router-dom: 5.3.0
       react-virtualized: 9.22.3
       rimraf: 3.0.2
       standard-version: 9.3.1
@@ -864,7 +864,7 @@ importers:
       react-hot-loader: 4.13.0_9c6a8df88c2691f81f37725d5b4de033
       react-i18next: 11.11.4_i18next@20.6.0+react@17.0.2
       react-router: 5.2.1_react@17.0.2
-      react-router-dom: 5.2.1_react@17.0.2
+      react-router-dom: 5.3.0_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
       rimraf: 3.0.2
       standard-version: 9.3.1
@@ -6341,6 +6341,14 @@ packages:
       follow-redirects: 1.14.3_debug@4.3.2
     transitivePeerDependencies:
       - debug
+    dev: true
+
+  /axios/0.21.2_debug@4.3.2:
+    resolution: {integrity: sha512-87otirqUw3e8CzHTMO+/9kh/FSgXt/eVDvipijwDtEuwbkySWZ9SBm6VEubmJ/kLKEoLQV/POhxXFb66bfekfg==}
+    dependencies:
+      follow-redirects: 1.14.3_debug@4.3.2
+    transitivePeerDependencies:
+      - debug
 
   /axobject-query/2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
@@ -6839,7 +6847,7 @@ packages:
     resolution: {integrity: sha512-NAsKBH6BeVmDopoa4tod0m5/koM7iLY3saKyGn7wyAravBYmKNUpDJba4zyVhwRm5Dw9WXv8FIO0N//tCkx68Q==}
     hasBin: true
     dependencies:
-      axios: 0.21.1_debug@4.3.2
+      axios: 0.21.2_debug@4.3.2
       brotli-size: 0.1.0
       bytes: 3.1.0
       ci-env: 1.16.0
@@ -15460,21 +15468,6 @@ packages:
       react-router: 5.2.1_react@17.0.2
     dev: false
 
-  /react-router-dom/5.2.1_react@17.0.2:
-    resolution: {integrity: sha512-xhFFkBGVcIVPbWM2KEYzED+nuHQPmulVa7sqIs3ESxzYd1pYg8N8rxPnQ4T2o1zu/2QeDUWcaqST131SO1LR3w==}
-    peerDependencies:
-      react: '>=15'
-    dependencies:
-      '@babel/runtime': 7.15.4
-      history: 4.10.1
-      loose-envify: 1.4.0
-      prop-types: 15.7.2
-      react: 17.0.2
-      react-router: 5.2.1_react@17.0.2
-      tiny-invariant: 1.1.0
-      tiny-warning: 1.0.3
-    dev: true
-
   /react-router-dom/5.3.0_react@17.0.2:
     resolution: {integrity: sha512-ObVBLjUZsphUUMVycibxgMdh5jJ1e3o+KpAZBVeHcNQZ4W+uUGGWsokurzlF4YOldQYRQL4y6yFRWM4m3svmuQ==}
     peerDependencies:
@@ -15488,7 +15481,6 @@ packages:
       react-router: 5.2.1_react@17.0.2
       tiny-invariant: 1.1.0
       tiny-warning: 1.0.3
-    dev: false
 
   /react-router/5.2.1_react@17.0.2:
     resolution: {integrity: sha512-lIboRiOtDLFdg1VTemMwud9vRVuOCZmUIT/7lUoZiSpPODiiH1UQlfXy+vPLC/7IWdFYnhRwAyNqA/+I7wnvKQ==}
@@ -17419,31 +17411,6 @@ packages:
       supports-hyperlinks: 2.2.0
     dev: true
 
-  /terser-webpack-plugin/5.2.2_webpack@5.51.2:
-    resolution: {integrity: sha512-/SNcbgI4Igd0E02R6HY7BnKkQBfAdV6BHcYYXk++QrGXpQoayMt79eaOtTrghtdRoDL5w3hgyMh+AippkuOEFg==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      '@swc/core': '*'
-      esbuild: '*'
-      uglify-js: '*'
-      webpack: ^5.1.0
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      esbuild:
-        optional: true
-      uglify-js:
-        optional: true
-    dependencies:
-      jest-worker: 27.1.0
-      p-limit: 3.1.0
-      schema-utils: 3.1.1
-      serialize-javascript: 6.0.0
-      source-map: 0.6.1
-      terser: 5.7.2
-      webpack: 5.51.2_webpack-cli@4.8.0
-    dev: true
-
   /terser-webpack-plugin/5.2.3_esbuild@0.12.25+webpack@5.52.0:
     resolution: {integrity: sha512-eDbuaDlXhVaaoKuLD3DTNTozKqln6xOG6Us0SzlKG5tNlazG+/cdl8pm9qiF1Di89iWScTI0HcO+CDcf2dkXiw==}
     engines: {node: '>= 10.13.0'}
@@ -18541,7 +18508,7 @@ packages:
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
-      axios: 0.21.1_debug@4.3.2
+      axios: 0.21.2_debug@4.3.2
       joi: 17.4.2
       lodash: 4.17.21
       minimist: 1.2.5
@@ -18889,7 +18856,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.0
-      terser-webpack-plugin: 5.2.2_webpack@5.51.2
+      terser-webpack-plugin: 5.2.3_webpack@5.51.2
       watchpack: 2.2.0
       webpack-cli: 4.8.0_de851b65d806004e7c272f5e0c4a00f4
       webpack-sources: 3.2.0

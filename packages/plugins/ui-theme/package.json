@@ -62,7 +62,7 @@
     "react-hot-loader": "4.13.0",
     "react-i18next": "11.11.4",
     "react-router": "5.2.1",
-    "react-router-dom": "5.2.1",
+    "react-router-dom": "5.3.0",
     "react-virtualized": "9.22.3",
     "rimraf": "3.0.2",
     "standard-version": "9.3.1",
