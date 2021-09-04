@@ -31,7 +31,7 @@
     "autosuggest-highlight": "3.1.1",
     "babel-loader": "8.2.2",
     "babel-plugin-dynamic-import-node": "2.3.3",
-    "babel-plugin-emotion": "10.0.33",
+    "babel-plugin-emotion": "10.2.2",
     "bundlesize": "0.18.1",
     "css-loader": "6.2.0",
     "dayjs": "1.10.6",
