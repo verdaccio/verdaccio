@@ -41,7 +41,6 @@ importers:
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.1
       '@types/lodash': 4.14.172
-      '@types/lowdb': 1.0.11
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -152,7 +151,6 @@ importers:
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.1
       '@types/lodash': 4.14.172
-      '@types/lowdb': 1.0.11
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -5110,12 +5108,6 @@ packages:
     deprecated: This is a stub types definition. loud-rejection provides its own type definitions, so you do not need this installed.
     dependencies:
       loud-rejection: 2.2.0
-    dev: true
-
-  /@types/lowdb/1.0.11:
-    resolution: {integrity: sha512-h99VMxvTuz+VsXUVCCJo4dsps4vbkXwvU71TpmxDoiBU24bJ0VBygIHgmMm+UPoQIFihmV6euRik4z8J7XDJWg==}
-    dependencies:
-      '@types/lodash': 4.14.172
     dev: true
 
   /@types/mdast/3.0.10:
