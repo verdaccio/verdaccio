@@ -806,7 +806,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 3.0.1
       supertest: 6.1.6
-      terser-webpack-plugin: 5.2.2
+      terser-webpack-plugin: 5.2.3
       url-loader: 4.1.1
       validator: 13.6.0
       webpack: 5.51.2
@@ -875,7 +875,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 3.0.1_stylelint@13.13.1+webpack@5.51.2
       supertest: 6.1.6
-      terser-webpack-plugin: 5.2.2_webpack@5.51.2
+      terser-webpack-plugin: 5.2.3_webpack@5.51.2
       url-loader: 4.1.1_webpack@5.51.2
       validator: 13.6.0
       webpack: 5.51.2_webpack-cli@4.8.0
@@ -17469,6 +17469,31 @@ packages:
       terser: 5.7.2
       webpack: 5.52.0_esbuild@0.12.25
     dev: false
+
+  /terser-webpack-plugin/5.2.3_webpack@5.51.2:
+    resolution: {integrity: sha512-eDbuaDlXhVaaoKuLD3DTNTozKqln6xOG6Us0SzlKG5tNlazG+/cdl8pm9qiF1Di89iWScTI0HcO+CDcf2dkXiw==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      '@swc/core': '*'
+      esbuild: '*'
+      uglify-js: '*'
+      webpack: ^5.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      esbuild:
+        optional: true
+      uglify-js:
+        optional: true
+    dependencies:
+      jest-worker: 27.1.0
+      p-limit: 3.1.0
+      schema-utils: 3.1.1
+      serialize-javascript: 6.0.0
+      source-map: 0.6.1
+      terser: 5.7.2
+      webpack: 5.51.2_webpack-cli@4.8.0
+    dev: true
 
   /terser-webpack-plugin/5.2.3_webpack@5.52.0:
     resolution: {integrity: sha512-eDbuaDlXhVaaoKuLD3DTNTozKqln6xOG6Us0SzlKG5tNlazG+/cdl8pm9qiF1Di89iWScTI0HcO+CDcf2dkXiw==}
