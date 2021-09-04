@@ -41,6 +41,7 @@
     "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
     "@verdaccio/streams": "workspace:11.0.0-alpha.3",
     "async": "3.2.1",
+    "core-js": "3.16.4",
     "debug": "4.3.2",
     "lodash": "4.17.21",
     "lowdb": "1.0.0"

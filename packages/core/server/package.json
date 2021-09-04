@@ -38,6 +38,7 @@
     "@verdaccio/auth": "workspace:6.0.0-6-next.9",
     "@verdaccio/logger": "workspace:6.0.0-6-next.4",
     "@verdaccio/store": "workspace:6.0.0-6-next.10",
+    "core-js": "3.16.4",
     "debug": "4.3.2",
     "fastify": "3.20.2",
     "fastify-plugin": "3.0.0"
