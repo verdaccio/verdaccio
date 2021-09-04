@@ -737,13 +737,13 @@ importers:
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
       debug: 4.3.2
-      memfs: 3.2.3
+      memfs: 3.2.4
       memory-fs: 0.5.0
     dependencies:
       '@verdaccio/commons-api': link:../../core/commons-api
       '@verdaccio/streams': link:../../core/streams
       debug: 4.3.2
-      memfs: 3.2.3
+      memfs: 3.2.4
       memory-fs: 0.5.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
@@ -13076,8 +13076,8 @@ packages:
     resolution: {integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g=}
     engines: {node: '>= 0.6'}
 
-  /memfs/3.2.3:
-    resolution: {integrity: sha512-vDKa1icg0KDNzcOPBPAduFFb3YL+pLbQ/3hW7rRgUKpoliTAkPmVV7r/3qJ6YqKyIXEDhzsdSvLlEh137AfWUA==}
+  /memfs/3.2.4:
+    resolution: {integrity: sha512-2mDCPhuduRPOxlfgsXF9V+uqC6Jgz8zt/bNe4d4W7d5f6pCzHrWkxLNr17jKGXd4+j2kQNsAG2HARPnt74sqVQ==}
     engines: {node: '>= 4.0.0'}
     dependencies:
       fs-monkey: 1.0.3
