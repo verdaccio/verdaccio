@@ -1,5 +1,11 @@
 # @verdaccio/mock
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- df0da3d6: Added core-js missing from dependencies though referenced in .js sources
+
 ## 6.0.0-6-next.7
 
 ### Patch Changes

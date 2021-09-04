@@ -1,5 +1,12 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.19
+
+### Patch Changes
+
+- df0da3d6: Added core-js missing from dependencies though referenced in .js sources
+  - @verdaccio/server@6.0.0-6-next.18
+
 ## 6.0.0-6-next.18
 
 ### Patch Changes

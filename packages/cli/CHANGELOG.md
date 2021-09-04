@@ -1,5 +1,13 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [df0da3d6]
+  - @verdaccio/fastify-migration@6.0.0-6-next.11
+  - @verdaccio/node-api@6.0.0-6-next.19
+
 ## 6.0.0-6-next.19
 
 ### Major Changes

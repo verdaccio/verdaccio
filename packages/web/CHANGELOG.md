@@ -1,5 +1,14 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.16
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.10
+- @verdaccio/store@6.0.0-6-next.11
+- @verdaccio/loaders@6.0.0-6-next.4
+- @verdaccio/middleware@6.0.0-6-next.10
+
 ## 6.0.0-6-next.15
 
 ### Patch Changes
