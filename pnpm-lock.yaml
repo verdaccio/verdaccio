@@ -1140,15 +1140,15 @@ importers:
     specifiers:
       debug: 4.3.2
       get-port: 5.1.1
-      npm: 7.21.1
-      pnpm: 6.14.5
+      npm: 7.22.0
+      pnpm: 6.14.6
       request: 2.87.0
       semver: 7.3.5
       yarn: 1.22.11
     dependencies:
       debug: 4.3.2
-      npm: 7.21.1
-      pnpm: 6.14.5
+      npm: 7.22.0
+      pnpm: 6.14.6
       request: 2.87.0
       yarn: 1.22.11
     devDependencies:
@@ -13726,8 +13726,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm/7.21.1:
-    resolution: {integrity: sha512-k7XQNHGHAp0VowMMUMRMtntxWatNad9hhYrelUKDPvZ++DBxvofA8QTNPiuMKtx8CBOFA8iJ4aizhbx6ZYVfzQ==}
+  /npm/7.22.0:
+    resolution: {integrity: sha512-HJnjTCrGGnacPMCSnrxuHGf2H4VdrY7hwTAK1RwByg0K96KIuTR4QNioFW+bnc/pW0uwpk9lLsDf4BeEQhTv2Q==}
     engines: {node: '>=10'}
     hasBin: true
     dev: false
@@ -14413,8 +14413,8 @@ packages:
     resolution: {integrity: sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==}
     dev: true
 
-  /pnpm/6.14.5:
-    resolution: {integrity: sha512-+N1B+Bj2JKZJ1GDJS141OgnDmwxAavHi/ecU3IIl0QunPSVBXxd51DbVizCw/mPwIB3UmeT474Fyz8o3Xj9sXA==}
+  /pnpm/6.14.6:
+    resolution: {integrity: sha512-PwBdhK7q/QqM8erzDuNu8a85bPNLV4Q3X6G0AFItogwhjDKEtJGKSIIGnvtq8AqnB2r1S9DGAOrQ8yqRJHU8xA==}
     engines: {node: '>=12.17'}
     hasBin: true
     dev: false
