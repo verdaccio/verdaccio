@@ -367,7 +367,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.7
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
-      core-js: 3.16.4
+      core-js: 3.17.2
       http-errors: 1.8.0
       mockdate: 3.0.5
       unix-crypt-td-js: 1.1.4
@@ -376,7 +376,7 @@ importers:
       '@verdaccio/file-locking': link:../file-locking
       apache-md5: 1.1.7
       bcryptjs: 2.4.3
-      core-js: 3.16.4
+      core-js: 3.17.2
       http-errors: 1.8.0
       unix-crypt-td-js: 1.1.4
     devDependencies:
@@ -392,7 +392,7 @@ importers:
       '@verdaccio/streams': workspace:11.0.0-alpha.3
       '@verdaccio/types': workspace:11.0.0-6-next.7
       async: 3.2.1
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       lodash: 4.17.21
       lowdb: 1.0.0
@@ -403,7 +403,7 @@ importers:
       '@verdaccio/file-locking': link:../file-locking
       '@verdaccio/streams': link:../streams
       async: 3.2.1
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       lodash: 4.17.21
       lowdb: 1.0.0
@@ -433,7 +433,7 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/store': workspace:6.0.0-6-next.11
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.20.2
       fastify-plugin: 3.0.0
@@ -443,7 +443,7 @@ importers:
       '@verdaccio/config': link:../../config
       '@verdaccio/logger': link:../../logger
       '@verdaccio/store': link:../../store
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.20.2
       fastify-plugin: 3.0.0
@@ -508,7 +508,7 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.4
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       handlebars: 4.7.7
       undici: 4.5.1
@@ -516,7 +516,7 @@ importers:
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/logger': link:../logger
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       handlebars: 4.7.7
       undici: 4.5.1
@@ -603,7 +603,7 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.7
       '@verdaccio/types': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.5
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       fs-extra: 10.0.0
       lodash: 4.17.21
@@ -613,7 +613,7 @@ importers:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
       '@verdaccio/utils': link:../utils
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       fs-extra: 10.0.0
       lodash: 4.17.21
@@ -630,7 +630,7 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.8
       '@verdaccio/server': workspace:6.0.0-6-next.18
       '@verdaccio/types': workspace:11.0.0-6-next.7
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       jest-mock-process: 1.4.1
       lodash: 4.17.21
@@ -641,7 +641,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
-      core-js: 3.16.4
+      core-js: 3.17.2
       debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
@@ -7684,11 +7684,6 @@ packages:
     resolution: {integrity: sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==}
     requiresBuild: true
     dev: true
-
-  /core-js/3.16.4:
-    resolution: {integrity: sha512-Tq4GVE6XCjE+hcyW6hPy0ofN3hwtLudz5ZRdrlCnsnD/xkm/PWQRudzYHiKgZKUcefV6Q57fhDHjZHJP5dpfSg==}
-    requiresBuild: true
-    dev: false
 
   /core-js/3.17.2:
     resolution: {integrity: sha512-XkbXqhcXeMHPRk2ItS+zQYliAMilea2euoMsnpRRdDad6b2VY6CQQcwz1K8AnWesfw4p165RzY0bTnr3UrbYiA==}
