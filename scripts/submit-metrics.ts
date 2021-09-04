@@ -38,8 +38,8 @@ try {
       'x-metrics-commit-hash': commit,
     },
   })
-    .then((res) => res.text()) // expecting a json response
-    .then((json) => {
+    .then((res: any) => res.text()) // expecting a json response
+    .then((json: any) => {
       debug('response %o', json);
     });
 } catch (error) {
