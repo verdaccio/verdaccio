@@ -311,8 +311,8 @@ export default class LocalFS implements ILocalFSPackageManager {
     try {
       debug('reading the file: %o', name);
       return await readFilePromise(name);
-    } catch (err) {
-      debug('error reading the file: %o with error %o', name, err);
+    } catch (err: any) {
+      debug('error reading the file: %o with error %o', name, err.message);
       throw err;
     }
   }

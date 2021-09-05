@@ -16,6 +16,8 @@ web:
 uplinks:
   local:
     url: http://localhost:6001
+  npmjs:
+    url: https://registry.npmjs.org
 
 logs: { type: stdout, format: json, level: http }
 
@@ -25,6 +27,11 @@ packages:
     publish: $anonymous
     unpublish: $authenticated
     proxy: local
+  'angular':
+    access: $all
+    publish: $all
+    unpublish: $authenticated
+    proxy: npmjs
   '**':
     access: $all
     publish: $all

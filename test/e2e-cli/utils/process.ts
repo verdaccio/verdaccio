@@ -82,8 +82,8 @@ export function pnpmGlobal(rootFolder, ...args) {
     {
       cwd: rootFolder,
     },
-    'pnpm',
-    args
+    process.execPath,
+    [pnpmCmd, ...args]
   );
 }
 

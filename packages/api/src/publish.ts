@@ -187,7 +187,7 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
 
     const afterChange = function (error, okMessage, metadata: Package): void {
       const metadataCopy: Package = { ...metadata };
-      debug('after change metadata %o', metadata);
+      debug('after change metadata typeof %o', typeof metadata);
 
       const { _attachments, versions } = metadataCopy;
 

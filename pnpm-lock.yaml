@@ -22,7 +22,6 @@ importers:
       '@babel/plugin-transform-async-to-generator': 7.14.5
       '@babel/plugin-transform-classes': 7.15.4
       '@babel/plugin-transform-runtime': 7.15.0
-      '@babel/polyfill': 7.12.1
       '@babel/preset-env': 7.15.4
       '@babel/preset-react': 7.14.5
       '@babel/preset-typescript': 7.15.0
@@ -69,6 +68,7 @@ importers:
       babel-plugin-emotion: 10.2.2
       codecov: 3.8.3
       concurrently: 6.2.1
+      core-js: 3.17.2
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -130,7 +130,6 @@ importers:
       '@babel/plugin-transform-async-to-generator': 7.14.5_@babel+core@7.15.5
       '@babel/plugin-transform-classes': 7.15.4_@babel+core@7.15.5
       '@babel/plugin-transform-runtime': 7.15.0_@babel+core@7.15.5
-      '@babel/polyfill': 7.12.1
       '@babel/preset-env': 7.15.4_@babel+core@7.15.5
       '@babel/preset-react': 7.14.5_@babel+core@7.15.5
       '@babel/preset-typescript': 7.15.0_@babel+core@7.15.5
@@ -177,6 +176,7 @@ importers:
       babel-plugin-emotion: 10.2.2
       codecov: 3.8.3
       concurrently: 6.2.1
+      core-js: 3.17.2
       cross-env: 7.0.3
       debug: 4.3.2
       detect-secrets: 1.0.6
@@ -443,11 +443,11 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.7
       dompurify: 2.3.1
       jsdom: 17.0.0
-      marked: 1.1.1
+      marked: 3.0.2
     dependencies:
       dompurify: 2.3.1
       jsdom: 17.0.0
-      marked: 1.1.1
+      marked: 3.0.2
     devDependencies:
       '@verdaccio/types': link:../types
 
@@ -489,11 +489,13 @@ importers:
       '@verdaccio/url': workspace:11.0.0-6-next.4
       '@verdaccio/utils': workspace:6.0.0-6-next.5
       express: 4.17.1
+      lodash: 4.17.21
       node-mocks-http: 1.10.1
     dependencies:
       '@verdaccio/commons-api': link:../commons-api
       '@verdaccio/url': link:../url
       '@verdaccio/utils': link:../../utils
+      lodash: 4.17.21
     devDependencies:
       '@verdaccio/types': link:../types
       express: 4.17.1
@@ -1188,6 +1190,7 @@ importers:
   test/e2e-cli:
     specifiers:
       debug: 4.3.2
+      fs-extra: 10.0.0
       get-port: 5.1.1
       npm: 7.22.0
       pnpm: 6.14.6
@@ -1202,6 +1205,7 @@ importers:
       request: 2.87.0
       yarn: 1.22.11
     devDependencies:
+      fs-extra: 10.0.0
       get-port: 5.1.1
       semver: 7.3.5
       wait-on: 6.0.0
@@ -3561,13 +3565,6 @@ packages:
       '@babel/core': 7.15.5
       '@babel/helper-create-regexp-features-plugin': 7.14.5_@babel+core@7.15.5
       '@babel/helper-plugin-utils': 7.14.5
-
-  /@babel/polyfill/7.12.1:
-    resolution: {integrity: sha512-X0pi0V6gxLi6lFZpGmeNa4zxtwEmCs42isWLNjZZDE0Y8yVfgu0T2OAHlzBbdYlqbW/YXVvoBHpATEM+goCj8g==}
-    dependencies:
-      core-js: 2.6.10
-      regenerator-runtime: 0.13.7
-    dev: true
 
   /@babel/preset-env/7.13.15_@babel+core@7.13.15:
     resolution: {integrity: sha512-D4JAPMXcxk69PKe81jRJ21/fP/uYdcTZ3hJDF5QX2HSI9bBxxYw/dumdR6dGumhjxlprHPE4XWoPaqzZUVy2MA==}
@@ -9062,11 +9059,6 @@ packages:
   /core-js-pure/3.15.2:
     resolution: {integrity: sha512-D42L7RYh1J2grW8ttxoY1+17Y4wXZeKe7uyplAI3FkNQyI5OgBIAjUfFiTPfL1rs0qLpxaabITNbjKl1Sp82tA==}
     requiresBuild: true
-
-  /core-js/2.6.10:
-    resolution: {integrity: sha512-I39t74+4t+zau64EN1fE5v2W31Adtc/REhzWN+gWRRXg6WH5qAsZm62DHpQ1+Yhe4047T55jvzz7MUqF/dBBlA==}
-    requiresBuild: true
-    dev: true
 
   /core-js/3.15.1:
     resolution: {integrity: sha512-h8VbZYnc9pDzueiS2610IULDkpFFPunHwIpl8yRwFahAEEdSpHlTy3h3z3rKq5h11CaUdBEeRViu9AYvbxiMeg==}
@@ -14596,17 +14588,17 @@ packages:
     hasBin: true
     dev: true
 
-  /marked/1.1.1:
-    resolution: {integrity: sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==}
-    engines: {node: '>= 8.16.2'}
-    hasBin: true
-    dev: false
-
   /marked/2.1.3:
     resolution: {integrity: sha512-/Q+7MGzaETqifOMWYEA7HVMaZb4XbcRfaOzcSsHZEith83KGlvaSG33u0SKu89Mj5h+T8V2hM+8O45Qc5XTgwA==}
     engines: {node: '>= 10'}
     hasBin: true
     dev: true
+
+  /marked/3.0.2:
+    resolution: {integrity: sha512-TMJQQ79Z0e3rJYazY0tIoMsFzteUGw9fB3FD+gzuIT3zLuG9L9ckIvUfF51apdJkcqc208jJN2KbtPbOvXtbjA==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: false
 
   /mathml-tag-names/2.1.3:
     resolution: {integrity: sha512-APMBEanjybaPzUrfqU0IMU5I0AswKMH7k8OTLs0vvV4KZpExkTkY87nR/zpbuTPj+gARop7aGUbl11pnDfW6xg==}

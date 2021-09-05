@@ -49,7 +49,7 @@ export type Setup = {
   install: string;
 };
 
-export async function initialSetup(port: string): Promise<Setup> {
+export async function initialSetup(port: string | number): Promise<Setup> {
   // temp folder created on test_environment.ts
   // @ts-ignore
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
@@ -78,7 +78,7 @@ export async function initialSetup(port: string): Promise<Setup> {
   // spawn the registry
   const processChild = await forkRegistry(
     pathVerdaccioModule,
-    ['-c', verdaccioConfigPathOnInstallLocation, '-l', port],
+    ['-c', verdaccioConfigPathOnInstallLocation, '-l', String(port)],
     {
       cwd: verdaccioInstall,
       silent: false,
@@ -142,9 +142,10 @@ export function forkRegistry(
   });
 }
 
-export const waitOnRegistry = async (port) => {
+export const waitOnRegistry = async (port, timeout = 5000) => {
   debug('waiting on registry ...');
   await waitOn({
+    timeout,
     resources: [`http://localhost:${port}/-/ping`],
     validateStatus: function (status) {
       debug('wating status %s', status);
