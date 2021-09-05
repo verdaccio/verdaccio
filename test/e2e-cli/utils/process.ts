@@ -37,29 +37,15 @@ export async function _exec(options: SpawnOptions, cmd, args): Promise<ExecOutpu
     stdout += line;
   });
 
+  const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
-    childProcess.on('exit', (code, signal) => {
-      debug('code exit %', code);
-      debug('signal exit %', signal);
-      if (code === 1) {
-        debug(`error exit code 1`);
-        reject(new Error(`${cmd} ${args.join(' ')} has failed`));
+    childProcess.on('exit', (error) => {
+      if (!error) {
+        resolve({ stdout, stderr });
       } else {
-        const err = new Error(
-          `Running "${cmd} ${args.join(' ')}" returned error code ${code} error: ${stderr}`
-        );
-        resolve({ stdout, stderr: err.message });
+        err.message += `${error}...\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}\n`;
+        reject({ stdout, stderr: err });
       }
-    });
-
-    childProcess.on('error', (error) => {
-      debug(`error child %s`, error);
-      reject(error);
-    });
-
-    childProcess.on('close', (code) => {
-      debug(`child process close all stdio with code ${code}`);
-      resolve({ stdout, stderr });
     });
   });
 }

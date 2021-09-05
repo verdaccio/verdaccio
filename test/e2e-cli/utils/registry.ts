@@ -2,6 +2,7 @@
 import { ChildProcess, fork } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import waitOn from 'wait-on';
 import buildDebug from 'debug';
 
 import { silentNpm } from './process';
@@ -132,3 +133,16 @@ export function forkRegistry(
     });
   });
 }
+
+export const waitOnRegistry = async (port, timeout = 5000) => {
+  debug('waiting on registry ...');
+  await waitOn({
+    timeout,
+    resources: [`http://localhost:${port}/-/ping`],
+    validateStatus: function (status) {
+      debug('wating status %s', status);
+      return status >= 200 && status < 300; // default if not provided
+    },
+  });
+  debug(`registry detected on por ${port}`);
+};
