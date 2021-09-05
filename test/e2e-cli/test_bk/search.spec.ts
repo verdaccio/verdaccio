@@ -1,7 +1,5 @@
-// import getPort from 'get-port';
 import { addRegistry, initialSetup } from '../utils/registry';
 import { npm } from '../utils/process';
-// import { SETUP_VERDACCIO_PORT } from '../utils/utils';
 
 describe('search a package', () => {
   jest.setTimeout(90000);
@@ -9,8 +7,6 @@ describe('search a package', () => {
   let registryProcess;
 
   beforeAll(async () => {
-    // await waitOnRegistry(SETUP_VERDACCIO_PORT);
-    // const availablePort = await getPort({ port });
     registryProcess = await initialSetup(port);
   });
 
@@ -19,7 +15,6 @@ describe('search a package', () => {
     const resp = await npm('search', 'verdaccio-memory', '--json', ...addRegistry(port));
     const { stdout } = resp;
     const response = JSON.parse(stdout);
-    // console.log('r', response);
     expect(Array.isArray(response)).toBeTruthy();
   });
 
