@@ -10,7 +10,6 @@ import { SETUP_VERDACCIO_PORT } from '../utils/utils';
 
 const debug = buildDebug('verdaccio:e2e:setup');
 
-
 module.exports = async () => {
   const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));
   debug('dirname folder %o', __dirname);
