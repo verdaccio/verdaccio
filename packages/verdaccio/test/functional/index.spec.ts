@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // we need this for notifications
 import { setup } from '@verdaccio/logger';
 
