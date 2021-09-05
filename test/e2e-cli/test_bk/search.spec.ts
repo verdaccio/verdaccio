@@ -1,4 +1,4 @@
-import getPort from 'get-port';
+// import getPort from 'get-port';
 import { addRegistry, initialSetup } from '../utils/registry';
 import { npm } from '../utils/process';
 // import { SETUP_VERDACCIO_PORT } from '../utils/utils';
@@ -9,8 +9,8 @@ describe('search a package', () => {
 
   beforeAll(async () => {
     // await waitOnRegistry(SETUP_VERDACCIO_PORT);
-    const availablePort = await getPort({ port });
-    registryProcess = await initialSetup(availablePort);
+    // const availablePort = await getPort({ port });
+    registryProcess = await initialSetup(port);
   });
 
   test('should run npm search on v1', async () => {
@@ -23,6 +23,6 @@ describe('search a package', () => {
   }, 90000);
 
   afterAll(async () => {
-    registryProcess?.child?.kill();
+    registryProcess.child.kill();
   });
 });
