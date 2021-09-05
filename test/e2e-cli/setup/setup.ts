@@ -46,7 +46,7 @@ module.exports = async () => {
   );
   // @ts-ignore
   global.registryProcess = childProcess;
-  await waitOnRegistry(SETUP_VERDACCIO_PORT);
+  // await waitOnRegistry(SETUP_VERDACCIO_PORT);
   // publish current build version on local registry
   const rootFolder = path.normalize(path.join(process.cwd(), '../../'));
   // install the local changes to verdaccio
