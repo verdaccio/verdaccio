@@ -20,7 +20,6 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
       this,
       this.then(function (body) {
         try {
-          console.log('-->', expected, selfData?.response?.statusCode);
           assert.equal(selfData.response.statusCode, expected);
         } catch (err: any) {
           debug('error status %o', err);

@@ -1,5 +1,4 @@
-import express from 'express';
-import bodyParser from 'body-parser';
+import fastify, { FastifyInstance } from 'fastify';
 
 /**
  * Simple Server
@@ -15,24 +14,16 @@ import bodyParser from 'body-parser';
  *
  * or at test/functional/package/gzip.ts
  */
-export default class ExpressServer {
-  private app: any;
-  private server: any;
+export default class SimpleServer {
+  public server: FastifyInstance;
 
   public constructor() {
-    this.app = express();
+    this.server = fastify({ logger: true });
   }
 
-  public start(port: number): Promise<ExpressServer> {
-    return new Promise((resolve) => {
-      this.app.use(bodyParser.json());
-      this.app.use(
-        bodyParser.urlencoded({
-          extended: true,
-        })
-      );
-
-      this.server = this.app.listen(port, () => resolve(this));
-    });
+  public async start(port: number = 55550): Promise<void> {
+    await this.server.listen(port);
+    // prevent keeping the process running.
+    this.server.server.unref();
   }
 }

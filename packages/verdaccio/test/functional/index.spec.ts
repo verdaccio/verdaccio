@@ -15,7 +15,7 @@ import logout from './adduser/logout';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
 import readme from './readme/readme';
-// import gh29 from './scenarios/gh29';
+import gh29 from './scenarios/gh29';
 import nullstorage from './sanity/nullstorage';
 // import simpleSearch from './search/simple.search';
 import racycrash from './sanity/racycrash';
@@ -36,35 +36,35 @@ describe('functional test verdaccio', function () {
   // @ts-ignore
   const server3 = global.__SERVERS__[2];
   // @ts-ignore
-  const app = global.__WEB_SERVER__.app;
+  // const simpleServer = global.__WEB_SERVER__.server;
 
   // list of test
   // note: order of the following calls is important, the reason is legacy code.
   packageAccess(server1);
   // FIXME: use real cli test for this
-  // gh29(server1, server2);
-  tags(server1, app);
-  packageGzip(server1, app);
-  incomplete(server1, app);
+  gh29(server1, server2);
+  tags(server1);
+  // packageGzip(server1, simpleServer);
+  // incomplete(server1, simpleServer);
   mirror(server1, server2);
   distTagsMerge(server1, server2, server3);
   readme(server1, server2);
   nullstorage(server1, server2);
   middleware(server2);
   race(server1);
-  racycrash(server1, app);
+  // racycrash(server1, simpleServer);
   packageScoped(server1, server2);
   security(server1);
   addtag(server1);
   pluginsAuth(server2);
   uplinkTimeout(server1, server2, server3);
-  // requires packages published to server1/server2
+  // // requires packages published to server1/server2
   upLinkCache(server1, server2, server3);
   adduser(server1);
   logout(server1);
   basic(server1, server2);
   // FIXME: use real cli test for this
-  // simpleSearch(server1, server2, app);
+  // simpleSearch(server1, server2, simpleServer);
 });
 
 process.on('unhandledRejection', function (err) {

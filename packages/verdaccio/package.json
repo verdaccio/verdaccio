@@ -18,7 +18,8 @@
   "scripts": {
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
-    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
+    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests --detectOpenHandles",
+    "test:debug": "cross-env NODE_ENV=test node --inspect-brk ../../node_modules/jest/bin/jest.js --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -50,7 +51,8 @@
     "@verdaccio/auth": "workspace:6.0.0-6-next.10",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
     "@verdaccio/config": "workspace:6.0.0-6-next.7",
-    "@verdaccio/store": "workspace:6.0.0-6-next.11"
+    "@verdaccio/store": "workspace:6.0.0-6-next.11",
+    "fastify": "3.20.2"
   },
   "keywords": [
     "private",
