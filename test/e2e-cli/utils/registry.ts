@@ -51,6 +51,7 @@ export type Setup = {
 
 export async function initialSetup(port: string | number): Promise<Setup> {
   // temp folder created on test_environment.ts
+  // @ts-ignore
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
   debug('initial setup on %o and port %o', tempRootFolder, port);
   // create temporary installation folder

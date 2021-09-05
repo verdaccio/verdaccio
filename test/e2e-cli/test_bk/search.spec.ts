@@ -4,7 +4,8 @@ import { npm } from '../utils/process';
 // import { SETUP_VERDACCIO_PORT } from '../utils/utils';
 
 describe('search a package', () => {
-  const port = 9014;
+  jest.setTimeout(90000);
+  const port = `9014`;
   let registryProcess;
 
   beforeAll(async () => {
@@ -20,7 +21,7 @@ describe('search a package', () => {
     const response = JSON.parse(stdout);
     // console.log('r', response);
     expect(Array.isArray(response)).toBeTruthy();
-  }, 90000);
+  });
 
   afterAll(async () => {
     registryProcess.child.kill();
