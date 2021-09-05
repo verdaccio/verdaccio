@@ -3,7 +3,7 @@ import { addRegistry, initialSetup, waitOnRegistry } from '../utils/registry';
 import { npm } from '../utils/process';
 import { SETUP_VERDACCIO_PORT } from '../utils/utils';
 
-describe.skip('search a package', () => {
+describe('search a package', () => {
   const port = 9014;
   let registryProcess;
 
