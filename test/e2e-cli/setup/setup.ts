@@ -7,7 +7,7 @@ import { yellow } from 'kleur';
 import { pnpmGlobal } from '../utils/process';
 import * as __global from '../utils/global.js';
 import { SETUP_VERDACCIO_PORT } from '../utils/utils';
-import { waitOnRegistry } from '../utils/registry';
+// import { waitOnRegistry } from '../utils/registry';
 
 const debug = buildDebug('verdaccio:e2e:setup');
 
