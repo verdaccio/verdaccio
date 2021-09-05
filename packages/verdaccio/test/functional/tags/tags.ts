@@ -2,7 +2,6 @@ import _ from 'lodash';
 import { HTTP_STATUS } from '@verdaccio/commons-api';
 import SimpleServer from '../lib/simple_server';
 
-
 const simpleServer = new SimpleServer();
 
 export default function (server) {
