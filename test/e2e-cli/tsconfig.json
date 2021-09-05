@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "allowJs": true,
     "outDir": "./build"
   }
 }
