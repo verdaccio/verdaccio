@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.4](https://github.com/verdaccio/verdaccio/compare/v5.1.3...v5.1.4) (2021-09-07)
+
+
+### Bug Fixes
+
+* npm7 audit fix and bulk endpoint ([#2426](https://github.com/verdaccio/verdaccio/issues/2426)) ([2c59091](https://github.com/verdaccio/verdaccio/commit/2c590917b10672da102b2352f6ff9c78f073763a))
+
 ### [5.1.3](https://github.com/verdaccio/verdaccio/compare/v5.1.2...v5.1.3) (2021-08-20)
 
 

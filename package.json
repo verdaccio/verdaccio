@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "5.1.3",
+  "version": "5.1.4",
   "description": "A lightweight private npm proxy registry",
   "author": {
     "name": "Verdaccio Maintainers",
