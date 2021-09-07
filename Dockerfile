@@ -1,7 +1,7 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.17.5-alpine as builder
 
 ENV NODE_ENV=production \
-    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org  \
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
     HUSKY_SKIP_INSTALL=1 \
     CI=true \
     HUSKY_DEBUG=1

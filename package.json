@@ -57,7 +57,7 @@
     "request": "2.88.0",
     "semver": "7.3.5",
     "validator": "13.6.0",
-    "verdaccio-audit": "10.0.0",
+    "verdaccio-audit": "10.0.1",
     "verdaccio-htpasswd": "10.0.0"
   },
   "devDependencies": {

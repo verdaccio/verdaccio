@@ -11,7 +11,7 @@ jobs:
     - name: Build
       run: docker build .
       env:
-        VERDACCIO_BUILD_REGISTRY: https://registry.verdaccio.org
+        VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
 
   testVerdaccio:
     name: Test Verdaccio Publish
