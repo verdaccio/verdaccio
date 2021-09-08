@@ -30,6 +30,9 @@ refactor: search v1 endpoint and local-database
 - refactor search `api v1` endpoint, improve performance
 - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
 - refactor method storage class
+- create new module `core` to reduce the ammount of modules with utilities
+- use `undici` instead `node-fetch` 
+- use `fastify` instead `express` for functional test
 
 ### Breaking changes
 
