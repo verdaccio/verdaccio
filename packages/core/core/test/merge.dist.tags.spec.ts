@@ -1,9 +1,4 @@
-import { semverSort } from '@verdaccio/utils';
-import { setup } from '@verdaccio/logger';
-
-import { mergeVersions } from '../src/metadata-utils';
-
-setup([]);
+import { semverSort, mergeVersions } from '../src/pkg-utils';
 
 describe('Storage._merge_versions versions', () => {
   test('simple', () => {

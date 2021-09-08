@@ -1,5 +1,6 @@
 import path from 'path';
-import fs from 'fs';
+import os from 'os';
+import fs from 'fs-extra';
 
 export function createProject(projectName: string) {
   // @ts-ignore
@@ -11,7 +12,21 @@ export function createProject(projectName: string) {
 }
 export function copyConfigFile(rootFolder, configTemplate): string {
   const configPath = path.join(rootFolder, 'verdaccio.yaml');
-  fs.copyFileSync(path.join(__dirname, configTemplate), configPath);
+  copyTo(path.join(__dirname, configTemplate), configPath);
 
   return configPath;
 }
+
+export function createTempFolder(prefix: string) {
+  return fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), prefix));
+}
+
+export function copyTo(from, to) {
+  fs.copyFileSync(from, to);
+}
+
+export function cleanUpTemp(tmpFolder) {
+  fs.rmdirSync(tmpFolder, { recursive: true });
+}
+
+export const SETUP_VERDACCIO_PORT = `6001`;

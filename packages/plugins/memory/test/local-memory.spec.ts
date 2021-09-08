@@ -1,5 +1,4 @@
 import { Logger, IPluginStorage } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 
 import { ConfigMemory } from '../src/local-memory';
 import { DataHandler } from '../src/memory-handler';
@@ -29,10 +28,8 @@ describe('memory unit test .', () => {
 
     test('should create add a package', (done) => {
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-      localMemory.add('test', (err: VerdaccioError) => {
-        expect(err).toBeNull();
-        localMemory.get((err: VerdaccioError, data: DataHandler) => {
-          expect(err).toBeNull();
+      localMemory.add('test').then(() => {
+        localMemory.get().then((data: DataHandler) => {
           expect(data).toHaveLength(1);
           done();
         });
@@ -43,11 +40,9 @@ describe('memory unit test .', () => {
       config.limit = 2;
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
 
-      localMemory.add('test1', (err) => {
-        expect(err).toBeNull();
-        localMemory.add('test2', (err) => {
-          expect(err).toBeNull();
-          localMemory.add('test3', (err) => {
+      localMemory.add('test1').then(() => {
+        localMemory.add('test2').then(() => {
+          localMemory.add('test3').catch((err) => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch(/Storage memory has reached limit of limit packages/);
             done();
@@ -59,12 +54,9 @@ describe('memory unit test .', () => {
     test('should remove a package', (done) => {
       const pkgName = 'test';
       const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-      localMemory.add(pkgName, (err) => {
-        expect(err).toBeNull();
-        localMemory.remove(pkgName, (err) => {
-          expect(err).toBeNull();
-          localMemory.get((err, data) => {
-            expect(err).toBeNull();
+      localMemory.add(pkgName).then(() => {
+        localMemory.remove(pkgName).then(() => {
+          localMemory.get().then((data) => {
             expect(data).toHaveLength(0);
             done();
           });

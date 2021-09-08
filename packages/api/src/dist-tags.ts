@@ -5,11 +5,11 @@ import { Router } from 'express';
 import { media, allow } from '@verdaccio/middleware';
 import { API_MESSAGE, HTTP_STATUS, DIST_TAGS, VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { IAuth } from '@verdaccio/auth';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
-export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
+export default function (route: Router, auth: IAuth, storage: Storage): void {
   const can = allow(auth);
   const tag_package_version = function (
     req: $RequestExtend,

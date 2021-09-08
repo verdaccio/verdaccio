@@ -2,6 +2,7 @@
 import { ChildProcess, fork } from 'child_process';
 import path from 'path';
 import fs from 'fs';
+import waitOn from 'wait-on';
 import buildDebug from 'debug';
 
 import { silentNpm } from './process';
@@ -50,6 +51,7 @@ export type Setup = {
 
 export async function initialSetup(port: string | number): Promise<Setup> {
   // temp folder created on test_environment.ts
+  // @ts-ignore
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
   debug('initial setup on %o and port %o', tempRootFolder, port);
   // create temporary installation folder
@@ -132,3 +134,16 @@ export function forkRegistry(
     });
   });
 }
+
+export const waitOnRegistry = async (port, timeout = 5000) => {
+  debug('waiting on registry ...');
+  await waitOn({
+    timeout,
+    resources: [`http://localhost:${port}/-/ping`],
+    validateStatus: function (status) {
+      debug('wating status %s', status);
+      return status >= 200 && status < 300; // default if not provided
+    },
+  });
+  debug(`registry detected on por ${port}`);
+};

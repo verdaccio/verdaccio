@@ -192,6 +192,8 @@ jobs:
         run: pnpm recursive install --frozen-lockfile
       - name: Test CLI
         run: pnpm test:e2e:cli
+        env:
+          DEBUG: verdaccio*          
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest

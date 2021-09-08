@@ -43,3 +43,7 @@ api-results.json
 hyper-results.json
 hyper-results*.json
 api-results*.json
+
+#docs 
+api/
+packages/core/core/docs

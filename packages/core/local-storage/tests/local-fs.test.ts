@@ -1,32 +1,30 @@
 import path from 'path';
 import fs from 'fs';
+import { dirSync } from 'tmp-promise';
 
-import rm from 'rmdir-sync';
-import { Logger, ILocalPackageManager, Package } from '@verdaccio/types';
+import { ILocalPackageManager, Package } from '@verdaccio/types';
 
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 
+// FIXME: remove this mocks imports
+// eslint-disable-next-line jest/no-mocks-import
+import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
 const pkgFileName = 'package.json';
 
-const logger: Logger = {
-  error: () => jest.fn(),
-  info: () => jest.fn(),
-  debug: () => jest.fn(),
-  warn: () => jest.fn(),
-  child: () => jest.fn(),
-  http: () => jest.fn(),
-  trace: () => jest.fn(),
-};
-
-beforeAll(() => {
-  localTempStorage = path.join('./_storage');
-  rm(localTempStorage);
-});
-
 describe('Local FS test', () => {
+  let tmpFolder;
+  beforeAll(() => {
+    tmpFolder = dirSync({ unsafeCleanup: true });
+    localTempStorage = path.join(tmpFolder.name, './_storage');
+  });
+
+  afterAll(() => {
+    // tmpFolder.removeCallback();
+  });
+
   describe('savePackage() group', () => {
     test('savePackage()', (done) => {
       const data = {};
@@ -98,14 +96,11 @@ describe('Local FS test', () => {
     });
 
     describe('deletePackage() group', () => {
-      test('deletePackage()', (done) => {
+      test('deletePackage()', async () => {
         const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
 
         // verdaccio removes the package.json instead the package name
-        localFs.deletePackage('package.json', (err) => {
-          expect(err).toBeNull();
-          done();
-        });
+        await localFs.deletePackage('package.json');
       });
     });
   });
@@ -115,32 +110,26 @@ describe('Local FS test', () => {
       fs.mkdirSync(path.join(localTempStorage, '_toDelete'), { recursive: true });
     });
 
-    test('removePackage() success', (done) => {
+    test('should successfully remove the package', async () => {
       const localFs: ILocalPackageManager = new LocalDriver(
         path.join(localTempStorage, '_toDelete'),
         logger
       );
-      localFs.removePackage((error) => {
-        expect(error).toBeNull();
-        done();
-      });
+
+      await expect(localFs.removePackage()).resolves.toBeUndefined();
     });
 
-    test('removePackage() fails', (done) => {
+    test('removePackage() fails', async () => {
       const localFs: ILocalPackageManager = new LocalDriver(
         path.join(localTempStorage, '_toDelete_fake'),
         logger
       );
-      localFs.removePackage((error) => {
-        expect(error).toBeTruthy();
-        expect(error.code).toBe('ENOENT');
-        done();
-      });
+      await expect(localFs.removePackage()).rejects.toThrow(/ENOENT/);
     });
   });
 
-  describe('readTarball() group', () => {
-    test('readTarball() success', (done) => {
+  describe('readTarball', () => {
+    test('should read tarball successfully', (done) => {
       const localFs: ILocalPackageManager = new LocalDriver(
         path.join(__dirname, '__fixtures__/readme-test'),
         logger
@@ -175,83 +164,6 @@ describe('Local FS test', () => {
         expect(err).toBeTruthy();
         done();
       });
-    });
-  });
-
-  describe('writeTarball() group', () => {
-    beforeEach(() => {
-      const writeTarballFolder: string = path.join(localTempStorage, '_writeTarball');
-      rm(writeTarballFolder);
-      fs.mkdirSync(writeTarballFolder, { recursive: true });
-    });
-
-    test('writeTarball() success', (done) => {
-      const newFileName = 'new-readme-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(
-        path.join(__dirname, '__fixtures__/readme-test'),
-        logger
-      );
-      const writeStorage: ILocalPackageManager = new LocalDriver(
-        path.join(__dirname, '../_storage'),
-        logger
-      );
-      const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
-      const writeTarballStream = writeStorage.writeTarball(newFileName);
-
-      writeTarballStream.on('error', function (err) {
-        expect(err).toBeNull();
-        done();
-      });
-
-      writeTarballStream.on('success', function () {
-        const fileLocation: string = path.join(__dirname, '../_storage', newFileName);
-
-        expect(fs.existsSync(fileLocation)).toBe(true);
-        done();
-      });
-
-      readTarballStream.on('end', function () {
-        writeTarballStream.done();
-      });
-
-      writeTarballStream.on('end', function () {
-        done();
-      });
-
-      writeTarballStream.on('data', function (data) {
-        expect(data).toBeDefined();
-      });
-
-      readTarballStream.on('error', function (err) {
-        expect(err).toBeNull();
-        done();
-      });
-
-      readTarballStream.pipe(writeTarballStream);
-    });
-
-    test('writeTarball() abort', (done) => {
-      const newFileLocationFolder: string = path.join(localTempStorage, '_writeTarball');
-      const newFileName = 'new-readme-abort-0.0.0.tgz';
-      const readmeStorage: ILocalPackageManager = new LocalDriver(
-        path.join(__dirname, '__fixtures__/readme-test'),
-        logger
-      );
-      const writeStorage: ILocalPackageManager = new LocalDriver(newFileLocationFolder, logger);
-      const readTarballStream = readmeStorage.readTarball('test-readme-0.0.0.tgz');
-      const writeTarballStream = writeStorage.writeTarball(newFileName);
-
-      writeTarballStream.on('error', function (err) {
-        expect(err).toBeTruthy();
-        done();
-      });
-
-      writeTarballStream.on('data', function (data) {
-        expect(data).toBeDefined();
-        writeTarballStream.abort();
-      });
-
-      readTarballStream.pipe(writeTarballStream);
     });
   });
 

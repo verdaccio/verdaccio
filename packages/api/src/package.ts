@@ -7,7 +7,7 @@ import { getVersion, ErrorCode } from '@verdaccio/utils';
 import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
 import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
@@ -34,12 +34,7 @@ const downloadStream = (
   stream.pipe(res);
 };
 
-export default function (
-  route: Router,
-  auth: IAuth,
-  storage: IStorageHandler,
-  config: Config
-): void {
+export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
   const can = allow(auth);
   // TODO: anonymous user?
   route.get(

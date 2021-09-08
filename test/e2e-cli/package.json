@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "get-port": "5.1.1",
+    "wait-on": "^6.0.0",
+    "fs-extra": "10.0.0",
     "semver": "7.3.5"
   },
   "scripts": {

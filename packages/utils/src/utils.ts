@@ -20,6 +20,7 @@ import {
  * From normalize-package-data/lib/fixer.js
  * @param {*} name  the package name
  * @return {Boolean} whether is valid or not
+ * @deprecated
  */
 export function validateName(name: string): boolean {
   if (_.isString(name) === false) {
@@ -55,6 +56,7 @@ export function validateName(name: string): boolean {
 /**
  * Validate a package.
  * @return {Boolean} whether the package is valid or not
+ * @deprecated
  */
 export function validatePackage(name: string): boolean {
   const nameList = name.split('/', 2);
@@ -70,6 +72,7 @@ export function validatePackage(name: string): boolean {
  * Check whether an element is an Object
  * @param {*} obj the element
  * @return {Boolean}
+ * @deprecated
  */
 export function isObject(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
@@ -81,6 +84,7 @@ export function isObject(obj: any): boolean {
  * @param {*} object
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
+ * @deprecated
  */
 export function validateMetadata(object: Package, name: string): Package {
   assert(isObject(object), 'not a json object');

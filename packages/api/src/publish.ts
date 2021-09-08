@@ -8,10 +8,10 @@ import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdac
 import { validateMetadata, isObject, ErrorCode, hasDiffOneKey } from '@verdaccio/utils';
 import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
-import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
+import { Config, Callback, MergeTags, Version, Package, CallbackAction } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
 
 import star from './star';
@@ -22,7 +22,7 @@ const debug = buildDebug('verdaccio:api:publish');
 export default function publish(
   router: Router,
   auth: IAuth,
-  storage: IStorageHandler,
+  storage: Storage,
   config: Config
 ): void {
   const can = allow(auth);
@@ -138,7 +138,7 @@ export default function publish(
 /**
  * Publish a package
  */
-export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth): any {
+export function publishPackage(storage: Storage, config: Config, auth: IAuth): any {
   const starApi = star(storage);
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
@@ -172,7 +172,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Add new package version in storage
      */
-    const createVersion = function (version: string, metadata: Version, cb: Callback): void {
+    const createVersion = function (version: string, metadata: Version, cb: CallbackAction): void {
       debug('add a new package version %o to storage %o', version, metadata);
       storage.addVersion(packageName, version, metadata, null, cb);
     };
@@ -180,7 +180,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     /**
      * Add new tags in storage
      */
-    const addTags = function (tags: MergeTags, cb: Callback): void {
+    const addTags = function (tags: MergeTags, cb: CallbackAction): void {
       debug('add new tag %o to storage', packageName);
       storage.mergeTags(packageName, tags, cb);
     };
@@ -330,25 +330,27 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 /**
  * un-publish a package
  */
-export function unPublishPackage(storage: IStorageHandler) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function unPublishPackage(storage: Storage) {
+  return async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     const packageName = req.params.package;
 
     logger.debug({ packageName }, `unpublishing @{packageName}`);
-    storage.removePackage(packageName, function (err) {
+    try {
+      await storage.removePackage(packageName);
+    } catch (err) {
       if (err) {
         return next(err);
       }
-      res.status(HTTP_STATUS.CREATED);
-      return next({ ok: API_MESSAGE.PKG_REMOVED });
-    });
+    }
+    res.status(HTTP_STATUS.CREATED);
+    return next({ ok: API_MESSAGE.PKG_REMOVED });
   };
 }
 
 /**
  * Delete tarball
  */
-export function removeTarball(storage: IStorageHandler) {
+export function removeTarball(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const { filename, revision } = req.params;
@@ -374,7 +376,7 @@ export function removeTarball(storage: IStorageHandler) {
 /**
  * Adds a new version
  */
-export function addVersion(storage: IStorageHandler) {
+export function addVersion(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
@@ -398,7 +400,7 @@ export function addVersion(storage: IStorageHandler) {
 /**
  * uploadPackageTarball
  */
-export function uploadPackageTarball(storage: IStorageHandler) {
+export function uploadPackageTarball(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);

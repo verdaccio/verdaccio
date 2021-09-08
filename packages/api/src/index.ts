@@ -7,7 +7,7 @@ import {
   antiLoop,
 } from '@verdaccio/middleware';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
 import bodyParser from 'body-parser';
 
@@ -23,7 +23,7 @@ import profile from './v1/profile';
 import token from './v1/token';
 import v1Search from './v1/search';
 
-export default function (config: Config, auth: IAuth, storage: IStorageHandler): Router {
+export default function (config: Config, auth: IAuth, storage: Storage): Router {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -52,19 +52,15 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler):
   whoami(app);
   pkg(app, auth, storage, config);
   profile(app, auth);
-  search(app, auth, storage);
+  // @deprecated endpoint, 404 by default
+  search(app);
   user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
-
-  if (config?.flags?.search === true) {
-    v1Search(app, auth, storage);
-  }
-
-  if (config?.flags?.token === true) {
-    token(app, auth, storage, config);
-  }
+  // @ts-ignore
+  v1Search(app, auth, storage);
+  token(app, auth, storage, config);
   return app;
 }

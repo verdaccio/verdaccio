@@ -46,7 +46,9 @@ export class InitCommand extends Command {
   private initLogger(logConfig: ConfigRuntime) {
     try {
       if (logConfig.logs) {
-        process.emitWarning('config.logs is deprecated, rename configuration to "config.log"');
+        process.emitWarning(
+          'config.logs is deprecated, rename configuration to "config.log" in singular'
+        );
       }
       // FUTURE: remove fallback when is ready
       setup(logConfig.log || logConfig.logs);

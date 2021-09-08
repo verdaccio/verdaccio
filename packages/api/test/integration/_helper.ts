@@ -42,7 +42,7 @@ export async function initializeServer(configName): Promise<Application> {
   return app;
 }
 
-export function publishVersion(app, configFile, pkgName, version): supertest.Test {
+export function publishVersion(app, _configFile, pkgName, version): supertest.Test {
   const pkgMetadata = generatePackageMetadata(pkgName, version);
 
   return supertest(app)

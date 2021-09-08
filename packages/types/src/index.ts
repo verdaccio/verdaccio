@@ -89,13 +89,13 @@ export type $SidebarPackage = Package & { latest: any };
 
 export interface IWebSearch {
   index: lunrMutable.index;
-  storage: IStorageHandler;
+  storage: Storage;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query(query: string): any;
   add(pkg: Version): void;
   remove(name: string): void;
   reindex(): void;
-  configureStorage(storage: IStorageHandler): void;
+  configureStorage(storage: Storage): void;
 }
 
 // FIXME: This prop should be on @verdaccio/types
@@ -144,7 +144,7 @@ export interface ISyncUplinks {
 
 export type IPluginFilters = IPluginStorageFilter<Config>[];
 
-export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
+export interface Storage extends IStorageManager<Config>, ITokenActions {
   config: Config;
   localStorage: IStorage | null;
   filters: IPluginFilters;

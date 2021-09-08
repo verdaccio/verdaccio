@@ -7,7 +7,7 @@ import { Response, Router } from 'express';
 
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
 
 export type NormalizeToken = Token & {
@@ -22,12 +22,7 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (
-  route: Router,
-  auth: IAuth,
-  storage: IStorageHandler,
-  config: Config
-): void {
+export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
   route.get(
     '/-/npm/v1/tokens',
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {

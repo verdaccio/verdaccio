@@ -451,12 +451,10 @@ describe('endpoint unit test', () => {
 
     describe('should test search api', () => {
       test('should perform a search', (done) => {
-        const now = Date.now();
-        const cacheTime = now - 6000000;
         request(app)
-          .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
-          // .set('accept-encoding', HEADERS.JSON)
-          // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .get('/-/v1/search?text=npm7&size=2000&from=0&quality=1&popularity=0.1&maintenance=0.1')
+          .set('accept-encoding', HEADERS.JSON)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function (err) {

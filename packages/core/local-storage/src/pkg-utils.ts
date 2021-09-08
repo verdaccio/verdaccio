@@ -1,14 +1,13 @@
 import _ from 'lodash';
 import { LocalStorage, StorageList, Logger } from '@verdaccio/types';
-import { readFilePromise } from './read-file';
+import { readFilePromise } from './fs';
 
 export async function loadPrivatePackages(path: string, logger: Logger): Promise<LocalStorage> {
   const list: StorageList = [];
   const emptyDatabase = { list, secret: '' };
   const data = await readFilePromise(path);
-
   if (_.isNil(data)) {
-    // readFileSync is platform specific, FreeBSD might return null
+    // readFilePromise is platform specific, FreeBSD might return null
     return emptyDatabase;
   }
 
@@ -17,9 +16,11 @@ export async function loadPrivatePackages(path: string, logger: Logger): Promise
     db = JSON.parse(data);
   } catch (err: any) {
     logger.error(
-      `Package database file corrupted (invalid JSON), please check the error` +
-        ` printed below.\nFile Path: ${path}`,
-      err
+      {
+        err,
+        path,
+      },
+      `Package database file corrupted (invalid JSON) @{err.message}, please check the error printed below.File Path: @{path}`
     );
     throw Error('Package database file corrupted (invalid JSON)');
   }

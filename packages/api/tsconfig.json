@@ -17,6 +17,9 @@
       "path": "../core/commons-api"
     },
     {
+      "path": "../core/core"
+    },
+    {
       "path": "../core/tarball"
     },
     {

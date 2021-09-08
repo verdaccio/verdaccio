@@ -72,6 +72,7 @@ function addAbstractMethods(self: any, name: any): void {
 
     self[name] = fn;
 
+    // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
     if (self._called_methods && self._called_methods[name]) {
       delete self._called_methods[name];
 

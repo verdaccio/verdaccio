@@ -24,7 +24,8 @@ jest.mock('aws-sdk', () => ({
   })),
 }));
 
-describe('S3PackageManager with mocked s3', function () {
+// TODO: fix by https://github.com/verdaccio/verdaccio/pull/2218
+describe.skip('S3PackageManager with mocked s3', function () {
   beforeEach(() => {
     mockHeadObject.mockClear();
     mockPutObject.mockClear();

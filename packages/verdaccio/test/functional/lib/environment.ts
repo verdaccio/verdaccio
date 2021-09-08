@@ -2,22 +2,13 @@ import { yellow, green, blue, magenta } from 'kleur';
 import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
 import { mockServer } from '@verdaccio/mock';
-import ExpressServer from './simple_server';
 import { PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
-
-const EXPRESS_PORT = 55550;
 
 class FunctionalEnvironment extends NodeEnvironment {
   public config: any;
 
   public constructor(config: any) {
     super(config);
-  }
-
-  public async startWeb() {
-    const express: any = new ExpressServer();
-
-    return await express.start(EXPRESS_PORT);
   }
 
   public async setup() {
@@ -47,15 +38,10 @@ class FunctionalEnvironment extends NodeEnvironment {
       },
     ];
     console.log(green('Setup Verdaccio Servers'));
-
-    const app = await this.startWeb();
-    // @ts-ignore
-    this.global.__WEB_SERVER__ = app;
-
     for (let serverConf of listServers) {
       const storePath = path.join(pathStore, serverConf.storage);
       const configPath = path.join(storePath, serverConf.config);
-      const server = mockServer(serverConf.port, {
+      const server = mockServer(parseInt(serverConf.port, 10), {
         storePath,
         configPath,
         silence: false,
@@ -88,9 +74,6 @@ class FunctionalEnvironment extends NodeEnvironment {
     for (let server of this.global.__SERVERS_PROCESS__) {
       server[0].stop();
     }
-    // close web server
-    // @ts-ignore
-    this.global.__WEB_SERVER__.server.close();
   }
 
   // @ts-ignore

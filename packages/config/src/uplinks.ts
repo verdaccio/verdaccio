@@ -1,9 +1,7 @@
 import assert from 'assert';
+import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
 import _ from 'lodash';
-
-import { getMatchedPackagesSpec } from './package-access';
-import { MatchedPackage } from './config';
 
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
 export const DEFAULT_UPLINK = 'npmjs';
@@ -49,11 +47,8 @@ export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinks
   return uplinks;
 }
 
-/**
- * Check whether an uplink can proxy
- */
 export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): boolean {
-  const matchedPkg: MatchedPackage = getMatchedPackagesSpec(pkg, packages);
+  const matchedPkg = getMatchedPackagesSpec(pkg, packages);
   const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
   if (proxyList) {
     return proxyList.some((curr) => upLink === curr);

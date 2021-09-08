@@ -20,7 +20,7 @@ auth:
         password: test
 
 uplinks:
-  express:
+  simpleServer:
     url: http://localhost:55550/
     timeout: 100ms
   server2:
@@ -58,37 +58,36 @@ packages:
   'testexp_tag*':
     access: $all
     publish: $all
-    proxy: express
+    proxy: simpleServer
 
   # used by gzip.spec.js
   'testexp_gzip':
     access: $all
     publish: $all
-    proxy: express
+    proxy: simpleServer
 
   # used by gh29.js
   'testpkg-gh29':
     access: $all
     publish: $all
-    proxy: express
 
   # used by preserve_tags_spec.js
   'testpkg-preserve':
     access: $all
     publish: $all
-    proxy: express
+    proxy: simpleServer
 
   # used by racycrash.js
   'testexp-racycrash':
     access: $all
     publish: $all
-    proxy: express
+    proxy: simpleServer
 
   # used by incomplete.js
   'testexp-incomplete':
     access: $all
     publish: $all
-    proxy: express
+    proxy: simpleServer
 
   'test-nullstorage*':
     access: $all

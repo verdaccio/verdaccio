@@ -29,12 +29,8 @@ import {
   PluginOptions,
 } from '@verdaccio/types';
 
-import { isNil, isFunction } from '@verdaccio/utils';
-import {
-  getMatchedPackagesSpec,
-  createAnonymousRemoteUser,
-  createRemoteUser,
-} from '@verdaccio/config';
+import { getMatchedPackagesSpec, isNil, isFunction } from '@verdaccio/utils';
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 
 import {
   getMiddlewareCredentials,
@@ -414,7 +410,7 @@ class Auth implements IAuth {
       };
 
       if (this._isRemoteUserValid(req.remote_user)) {
-        debug('jwt has remote user');
+        debug('jwt has a valid authentication header');
         return next();
       }
 
@@ -423,12 +419,12 @@ class Auth implements IAuth {
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
-        debug('jwt invalid auth header');
+        debug('jwt, authentication header is missing');
         return next();
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        debug('api middleware auth heather is not valid');
+        debug('api middleware authentication heather is invalid');
         return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
       const { secret, security } = this.config;

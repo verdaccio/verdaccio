@@ -5,7 +5,7 @@ import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verda
 import { HEADER_TYPE, HEADERS } from '@verdaccio/commons-api';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
 import { Package } from '@verdaccio/types';
 
 import { addScope, AuthorAvatar, parseReadme } from '../utils/web-utils';
@@ -18,7 +18,7 @@ const debug = buildDebug('verdaccio:web:api:readme');
 
 export const NOT_README_FOUND = 'ERROR: No README data found!';
 
-function addReadmeWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
+function addReadmeWebApi(route: Router, storage: Storage, auth: IAuth): void {
   debug('initialized readme web api');
   const can = allow(auth);
 
@@ -32,6 +32,7 @@ function addReadmeWebApi(route: Router, storage: IStorageHandler, auth: IAuth): 
         : req.params.package;
       debug('readme name %o', packageName);
 
+      // @ts-ignore
       storage.getPackage({
         name: packageName,
         uplinksLook: true,

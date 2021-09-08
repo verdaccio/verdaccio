@@ -80,6 +80,7 @@ export const API_MESSAGE = {
   LOGGED_OUT: 'Logged out',
 };
 
+// @deprecated
 export const SUPPORT_ERRORS = {
   PLUGIN_MISSING_INTERFACE: 'the plugin does not provide implementation of the requested feature',
   TFA_DISABLED: 'the two-factor authentication is not yet supported',
@@ -87,6 +88,7 @@ export const SUPPORT_ERRORS = {
   PARAMETERS_NOT_VALID: 'the parameters are not valid',
 };
 
+// @deprecated
 export const API_ERROR = {
   PASSWORD_SHORT: (passLength = DEFAULT_MIN_LIMIT_PASSWORD): string =>
     `The provided password is too short. Please pick a password longer than ` +
@@ -125,12 +127,14 @@ export const API_ERROR = {
   USERNAME_ALREADY_REGISTERED: 'username is already registered',
 };
 
+// @deprecated
 export const APP_ERROR = {
   CONFIG_NOT_VALID: 'CONFIG: it does not look like a valid config file',
   PROFILE_ERROR: 'profile unexpected error',
   PASSWORD_VALIDATION: 'not valid password',
 };
 
+// @deprecated
 export type VerdaccioError = HttpError & { code: number };
 
 function getError(code: number, message: string): VerdaccioError {

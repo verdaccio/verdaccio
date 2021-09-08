@@ -247,8 +247,8 @@ describe('memory unit test .', () => {
     if (handler) {
       handler.createPackage(pkgName, pkgExample, (err) => {
         expect(err).toBeNull();
-        handler.deletePackage(pkgName, (err) => {
-          expect(err).toBeNull();
+        handler.deletePackage(pkgName).then((err) => {
+          expect(err).toBeUndefined();
           handler.readPackage(pkgName, (err) => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch(/no such package/);
