@@ -1,5 +1,15 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [459b6fa7]
+  - @verdaccio/config@6.0.0-6-next.8
+  - @verdaccio/commons-api@11.0.0-6-next.4
+  - @verdaccio/server@6.0.0-6-next.19
+  - @verdaccio/logger@6.0.0-6-next.4
+
 ## 6.0.0-6-next.19
 
 ### Patch Changes

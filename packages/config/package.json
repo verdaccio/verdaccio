@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "6.0.0-6-next.7",
+  "version": "6.0.0-6-next.8",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,8 +39,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.5",
+    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.6",
     "debug": "4.3.2",
     "js-yaml": "3.14.1",
     "lodash": "4.17.21",

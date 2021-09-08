@@ -1,5 +1,12 @@
 # Change Log
 
+## 11.0.0-6-next.5
+
+### Patch Changes
+
+- Updated dependencies [459b6fa7]
+  - @verdaccio/commons-api@11.0.0-6-next.4
+
 ## 11.0.0-6-next.4
 
 ### Major Changes
