@@ -23,6 +23,8 @@ Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdac
 
 Learn the basics before getting started, how to install, where is the location of the configuration file and more.
 
+[![logo](https://cdn.verdaccio.dev/website/watch-us.png)](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installing the CLI {#installing-the-cli}
