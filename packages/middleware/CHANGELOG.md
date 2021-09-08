@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.11
+
+### Patch Changes
+
+- Updated dependencies [459b6fa7]
+  - @verdaccio/auth@6.0.0-6-next.11
+  - @verdaccio/commons-api@11.0.0-6-next.4
+  - @verdaccio/utils@6.0.0-6-next.6
+  - @verdaccio/logger@6.0.0-6-next.4
+
 ## 6.0.0-6-next.10
 
 ### Patch Changes

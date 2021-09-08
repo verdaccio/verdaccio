@@ -42,12 +42,14 @@
     "@verdaccio/fastify-migration": "6.0.0-6-next.9",
     "@verdaccio/eslint-config": "1.0.0",
     "@verdaccio/benchmark": "1.0.0",
-    "@verdaccio/website": "5.1.3"
+    "@verdaccio/website": "5.1.3",
+    "@verdaccio/core": "6.0.0-next.0"
   },
   "changesets": [
     "afraid-mice-obey",
     "big-lobsters-sin",
     "calm-pants-impress",
+    "dry-planes-tap",
     "few-cooks-destroy",
     "few-mangos-grow",
     "fifty-jars-rest",

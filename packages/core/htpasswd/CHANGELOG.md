@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [459b6fa7]
+  - @verdaccio/commons-api@11.0.0-6-next.4
+  - @verdaccio/file-locking@11.0.0-alpha.3
+
 ## 11.0.0-6-next.7
 
 ### Patch Changes

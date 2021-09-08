@@ -46,7 +46,7 @@
   },
   "devDependencies": {
     "@types/pino": "6.3.11",
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.8"
   },
   "funding": {
     "type": "opencollective",
