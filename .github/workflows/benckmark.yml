@@ -58,7 +58,7 @@ jobs:
           - 3.13.1
           - 4.12.2
           - 5.1.3
-          - 6.0.0-6-next.22
+          - 6.0.0-6-next.23
     name: Benchmark autocannon
     runs-on: ubuntu-latest
     steps:
@@ -119,7 +119,7 @@ jobs:
           - 3.13.1
           - 4.12.2
           - 5.1.3
-          - 6.0.0-6-next.22
+          - 6.0.0-6-next.23
     name: Benchmark hyperfine
     runs-on: ubuntu-latest
     steps:
