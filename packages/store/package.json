@@ -52,7 +52,7 @@
     "abortcontroller-polyfill": "1.7.3",
     "async": "3.1.1",
     "debug": "4.3.1",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "lunr": "2.3.9",
     "lunr-mutable-indexes": "2.3.2",
     "merge2": "1.4.1",
