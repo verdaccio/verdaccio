@@ -1042,7 +1042,7 @@ importers:
       merge2: 1.4.1
       semver: 7.1.2
       tmp-promise: 3.0.2
-      undici: 4.2.2
+      undici: 4.5.1
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
@@ -1067,7 +1067,7 @@ importers:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
-      undici: 4.2.2
+      undici: 4.5.1
       undici-fetch: 1.0.0-rc.4
 
   packages/tools/benchmark:
@@ -19855,6 +19855,7 @@ packages:
   /undici/4.2.2:
     resolution: {integrity: sha512-WeLqJE/N66VjFeNawJkWHGB1qBGL3VHeimAEKhOC7lbeCf7p6daUVYUHYFeTo0V1EDlxdzqpzykImadFHjuXgA==}
     engines: {node: '>=12.18'}
+    dev: false
 
   /undici/4.5.1:
     resolution: {integrity: sha512-1Kmphp4SMwVbSauz9xH4gxt0m3sLGs5qRHs/XYgjeO3bNSt6hspDZqMhM8+ETu9ynB5bq9e6mnwcDz+NVCQ3UQ==}
