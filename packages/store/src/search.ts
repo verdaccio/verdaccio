@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable no-invalid-this
 
-import { PassThrough } from 'stream';
+import { PassThrough, Transform, pipeline } from 'stream';
 import lunr from 'lunr';
 import lunrMutable from 'lunr-mutable-indexes';
 import _ from 'lodash';
@@ -10,7 +10,7 @@ import { logger } from '@verdaccio/logger';
 import { Version } from '@verdaccio/types';
 import { IProxy, ProxyList, ProxySearchParams } from '@verdaccio/proxy';
 import { VerdaccioError } from '@verdaccio/commons-api';
-import { searchUtils } from '@verdaccio/core';
+import { searchUtils, errorUtils } from '@verdaccio/core';
 import { LocalStorage } from './local-storage';
 import { Storage } from './storage';
 
@@ -30,12 +30,56 @@ export interface IWebSearch {
   configureStorage(storage: Storage): void;
 }
 
+export function removeDuplicates(results) {
+  const pkgNames: any[] = [];
+  return results.filter((pkg) => {
+    if (pkgNames.includes(pkg?.package?.name)) {
+      return false;
+    }
+    pkgNames.push(pkg?.package?.name);
+    return true;
+  });
+}
+
+class TransFormResults extends Transform {
+  public constructor(options) {
+    super(options);
+  }
+
+  /**
+   * Transform either array of packages or a single package into a stream of packages.
+   * From uplinks the chunks are array but from local packages are objects.
+   * @param {string} chunk
+   * @param {string} encoding
+   * @param {function} done
+   * @returns {void}
+   * @override
+   */
+  public _transform(chunk, _encoding, callback) {
+    if (_.isArray(chunk)) {
+      (chunk as searchUtils.SearchItem[])
+        .filter((pkgItem) => {
+          debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
+          return true;
+        })
+        .forEach((pkgItem) => {
+          this.push(pkgItem);
+        });
+      return callback();
+    } else {
+      debug(`streaming local pkg name ${chunk?.package?.name}`);
+      this.push(chunk);
+      return callback();
+    }
+  }
+}
+
 export class SearchManager {
   public readonly uplinks: ProxyList;
-  public readonly storage: LocalStorage;
+  public readonly localStorage: LocalStorage;
   constructor(uplinks: ProxyList, storage: LocalStorage) {
     this.uplinks = uplinks;
-    this.storage = storage;
+    this.localStorage = storage;
   }
 
   public get proxyList() {
@@ -44,7 +88,9 @@ export class SearchManager {
     return uplinksList;
   }
 
-  public async search(searchPassThrough: PassThrough, options: ProxySearchParams): Promise<any> {
+  public async search(options: ProxySearchParams): Promise<any> {
+    const transformResults = new TransFormResults({ objectMode: true });
+    const streamPassThrough = new PassThrough({ objectMode: true });
     const upLinkList = this.proxyList;
 
     const searchUplinksStreams = upLinkList.map((uplinkId) => {
@@ -54,7 +100,7 @@ export class SearchManager {
         logger.fatal({ uplinkId }, 'uplink @upLinkId not found');
         throw new Error(`uplink ${uplinkId} not found`);
       }
-      return this.consumeSearchStream(uplinkId, uplink, options, searchPassThrough);
+      return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
     });
 
     try {
@@ -63,12 +109,34 @@ export class SearchManager {
       debug('search uplinks done');
     } catch (err) {
       logger.error({ err }, ' error on uplinks search @{err}');
-      searchPassThrough.emit('error', err);
+      streamPassThrough.emit('error', err);
       throw err;
     }
     debug('search local');
-    await this.storage.search(searchPassThrough, options.query as searchUtils.SearchQuery);
-    debug('search done');
+    await this.localStorage.search(streamPassThrough, options.query as searchUtils.SearchQuery);
+
+    const data: any[] = [];
+    const outPutStream = new PassThrough({ objectMode: true });
+    pipeline(streamPassThrough, transformResults, outPutStream, (err) => {
+      if (err) {
+        throw errorUtils.getInternalError(err ? err.message : 'unknown error');
+      } else {
+        debug('Pipeline succeeded.');
+      }
+    });
+
+    outPutStream.on('data', (chunk) => {
+      data.push(chunk);
+    });
+
+    return new Promise((resolve, reject) => {
+      outPutStream.on('finish', async () => {
+        const checkAccessPromises: searchUtils.SearchItemPkg[] = removeDuplicates(data);
+        debug('stream finish event %s', checkAccessPromises.length);
+        return resolve(checkAccessPromises);
+      });
+      debug('search done');
+    });
   }
 
   /**
