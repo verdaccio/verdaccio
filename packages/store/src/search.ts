@@ -30,7 +30,7 @@ export interface IWebSearch {
   configureStorage(storage: Storage): void;
 }
 
-export function removeDuplicates(results) {
+export function removeDuplicates(results: searchUtils.SearchPackageItem[]) {
   const pkgNames: any[] = [];
   return results.filter((pkg) => {
     if (pkgNames.includes(pkg?.package?.name)) {
@@ -88,7 +88,7 @@ export class SearchManager {
     return uplinksList;
   }
 
-  public async search(options: ProxySearchParams): Promise<any> {
+  public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
     const transformResults = new TransFormResults({ objectMode: true });
     const streamPassThrough = new PassThrough({ objectMode: true });
     const upLinkList = this.proxyList;
@@ -115,7 +115,7 @@ export class SearchManager {
     debug('search local');
     await this.localStorage.search(streamPassThrough, options.query as searchUtils.SearchQuery);
 
-    const data: any[] = [];
+    const data: searchUtils.SearchPackageItem[] = [];
     const outPutStream = new PassThrough({ objectMode: true });
     pipeline(streamPassThrough, transformResults, outPutStream, (err) => {
       if (err) {
@@ -129,9 +129,9 @@ export class SearchManager {
       data.push(chunk);
     });
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       outPutStream.on('finish', async () => {
-        const checkAccessPromises: searchUtils.SearchItemPkg[] = removeDuplicates(data);
+        const checkAccessPromises: searchUtils.SearchPackageItem[] = removeDuplicates(data);
         debug('stream finish event %s', checkAccessPromises.length);
         return resolve(checkAccessPromises);
       });

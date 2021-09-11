@@ -578,21 +578,5 @@ describe('LocalStorage', () => {
         await expect(storage.removePackage(pkgNameScoped)).rejects.toThrow(API_ERROR.NO_PACKAGE);
       });
     });
-
-    describe('search', () => {
-      test.skip('should find a tarball', (done) => {
-        // @ts-ignore
-        const stream = storage.search('99999');
-
-        stream.on('error', function (err) {
-          expect(err).not.toBeNull();
-          done();
-        });
-
-        stream.on('end', function () {
-          done();
-        });
-      });
-    });
   });
 });
