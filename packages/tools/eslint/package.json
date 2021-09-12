@@ -11,6 +11,19 @@
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
   },
+  "dependencies": {
+    "eslint-config-google": "0.14.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-babel": "5.3.1",
+    "eslint-plugin-import": "2.24.2",
+    "eslint-plugin-jest": "24.4.0",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.25.1",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-verdaccio": "10.0.0"
+  },
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio"
