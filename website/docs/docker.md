@@ -131,7 +131,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-Of course the numbers you give to `-p` paremeter need to match.
+Of course the numbers you give to the `-p` parameter need to match.
 
 ### Using HTTPS with Docker {#using-https-with-docker}
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration.
