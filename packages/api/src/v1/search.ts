@@ -47,30 +47,29 @@ export default function (route, auth: IAuth, storage: Storage): void {
         query: req.query,
         url: req.url,
       });
+      debug('stream finish');
+      const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
+        data.map((pkgItem) => {
+          return checkAccess(pkgItem, auth, req.remote_user);
+        })
+      );
+
+      const final: searchUtils.SearchItemPkg[] = checkAccessPromises
+        .filter((i) => !_.isNull(i))
+        .slice(from, size);
+      logger.debug(`search results ${final?.length}`);
+
+      const response: searchUtils.SearchResults = {
+        objects: final,
+        total: final.length,
+        time: new Date().toUTCString(),
+      };
+
+      res.status(HTTP_STATUS.OK).json(response);
     } catch (error) {
       logger.error({ error }, 'search endpoint has failed @{error.message}');
       next(next);
       return;
     }
-
-    debug('stream finish');
-    const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
-      data.map((pkgItem) => {
-        return checkAccess(pkgItem, auth, req.remote_user);
-      })
-    );
-
-    const final: searchUtils.SearchItemPkg[] = checkAccessPromises
-      .filter((i) => !_.isNull(i))
-      .slice(from, size);
-    logger.debug(`search results ${final?.length}`);
-
-    const response: searchUtils.SearchResults = {
-      objects: final,
-      total: final.length,
-      time: new Date().toUTCString(),
-    };
-
-    res.status(HTTP_STATUS.OK).json(response);
   });
 }

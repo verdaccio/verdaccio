@@ -53,7 +53,7 @@
     "node-fetch": "2.6.1",
     "request": "2.87.0",
     "undici": "4.2.2",
-    "undici-fetch": "1.0.0-rc.4"
+    "undici-fetch": "1.0.0-rc.2"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.8",

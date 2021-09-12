@@ -4,7 +4,7 @@ import Stream, { PassThrough, Readable } from 'stream';
 import { URL } from 'url';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import { Request, Headers } from 'undici-fetch';
+import type { Request, Headers } from 'undici-fetch';
 import JSONStream from 'JSONStream';
 import request from 'request';
 import { buildToken } from '@verdaccio/utils';
@@ -543,6 +543,7 @@ class ProxyStorage implements IProxy {
       // FIXME: a better way to remove duplicate slashes?
       const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
+      // @ts-ignore
       const request = new Request(uri, {
         method: 'GET',
         // FUTURE: whitelist domains what we are sending not need it headers, security check
