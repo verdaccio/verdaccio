@@ -170,6 +170,6 @@
   "pnpm": {
     "overrides": {
       "undici": "4.2.2"
-      }
+    }
   }
 }
