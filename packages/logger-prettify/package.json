@@ -46,8 +46,8 @@
     "prettier-bytes": "1.0.4"
   },
   "devDependencies": {
-    "@types/pino": "6.3.11",
-    "pino": "6.13.1"
+    "@types/pino": "^6.3.3",
+    "pino": "6.2.1"
   },
   "funding": {
     "type": "opencollective",
