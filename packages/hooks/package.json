@@ -36,7 +36,7 @@
     "debug": "4.3.2",
     "handlebars": "4.7.7",
     "undici": "4.2.2",
-    "undici-fetch": "1.0.0-rc.2"
+    "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.11",

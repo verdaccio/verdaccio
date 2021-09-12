@@ -538,7 +538,7 @@ importers:
       debug: 4.3.2
       handlebars: 4.7.7
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.2
+      undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/logger': link:../logger
@@ -546,7 +546,7 @@ importers:
       debug: 4.3.2
       handlebars: 4.7.7
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.2
+      undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
@@ -933,7 +933,7 @@ importers:
       request: 2.87.0
       semver: 7.3.5
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.2
+      undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
@@ -949,7 +949,7 @@ importers:
       node-fetch: 2.6.1
       request: 2.87.0
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.2
+      undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@verdaccio/types': link:../core/types
       get-stream: 6.0.1
@@ -1046,7 +1046,7 @@ importers:
       semver: 7.1.2
       tmp-promise: 3.0.2
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.3
+      undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
@@ -1071,7 +1071,7 @@ importers:
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
       undici: 4.2.2
-      undici-fetch: 1.0.0-rc.3
+      undici-fetch: 1.0.0-rc.4
 
   packages/tools/benchmark:
     specifiers:
@@ -19857,19 +19857,11 @@ packages:
     resolution: {integrity: sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==}
     dev: true
 
-  /undici-fetch/1.0.0-rc.2:
-    resolution: {integrity: sha512-CbAeZ+Cl9OGl8Q0DOprZN/dYYdul5yepiK7jkgMQJuESexnk9HdeGY6ca4LL4rWMZuWhpMz0XzJSyHcWrdykow==}
+  /undici-fetch/1.0.0-rc.4:
+    resolution: {integrity: sha512-+F9lSstpd0YJkBBAMe1UXlUVeadsd/AJrB0643smYHcKAdwCtoBVWfoFO0ibk1sA1BEFH7himsWC5aHLomGK0g==}
     engines: {node: '>=14.0.0'}
     dependencies:
       undici: 4.2.2
-    dev: false
-
-  /undici-fetch/1.0.0-rc.3:
-    resolution: {integrity: sha512-1DzvbH/QWhTJEPfHLspn2hmvhpfLG/+dOEWWazQmvlfA5AKKY+Rp61ypM9OAee6cSEiGnTt7eMZRhUr3NDIqtQ==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      undici: 4.2.2
-    dev: true
 
   /undici/4.2.2:
     resolution: {integrity: sha512-WeLqJE/N66VjFeNawJkWHGB1qBGL3VHeimAEKhOC7lbeCf7p6daUVYUHYFeTo0V1EDlxdzqpzykImadFHjuXgA==}
