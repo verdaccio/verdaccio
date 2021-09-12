@@ -166,10 +166,5 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
-  },
-  "pnpm": {
-    "overrides": {
-      "undici": "4.2.2"
-    }
   }
 }

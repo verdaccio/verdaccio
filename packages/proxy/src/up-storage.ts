@@ -543,7 +543,6 @@ class ProxyStorage implements IProxy {
       // FIXME: a better way to remove duplicate slashes?
       const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
-      // @ts-ignore
       const request = new Request(uri, {
         method: 'GET',
         // FUTURE: whitelist domains what we are sending not need it headers, security check

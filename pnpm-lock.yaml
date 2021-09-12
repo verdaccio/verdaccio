@@ -1,8 +1,5 @@
 lockfileVersion: 5.3
 
-overrides:
-  undici: 4.2.2
-
 importers:
 
   .:
@@ -914,6 +911,7 @@ importers:
 
   packages/proxy:
     specifiers:
+      '@types/node': 16.9.1
       '@verdaccio/commons-api': workspace:11.0.0-6-next.4
       '@verdaccio/config': workspace:6.0.0-6-next.8
       '@verdaccio/core': workspace:6.0.0-6-next.1
@@ -932,7 +930,7 @@ importers:
       node-mocks-http: 1.10.1
       request: 2.87.0
       semver: 7.3.5
-      undici: 4.2.2
+      undici: 4.4.7
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
@@ -948,9 +946,10 @@ importers:
       lodash: 4.17.20
       node-fetch: 2.6.1
       request: 2.87.0
-      undici: 4.2.2
+      undici: 4.4.7
       undici-fetch: 1.0.0-rc.4
     devDependencies:
+      '@types/node': 16.9.1
       '@verdaccio/types': link:../core/types
       get-stream: 6.0.1
       nock: 13.0.11
@@ -1024,6 +1023,7 @@ importers:
 
   packages/store:
     specifiers:
+      '@types/node': 16.9.1
       '@verdaccio/commons-api': workspace:11.0.0-6-next.4
       '@verdaccio/config': workspace:6.0.0-6-next.8
       '@verdaccio/core': workspace:6.0.0-6-next.1
@@ -1045,7 +1045,7 @@ importers:
       merge2: 1.4.1
       semver: 7.1.2
       tmp-promise: 3.0.2
-      undici: 4.2.2
+      undici: 4.4.7
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/commons-api': link:../core/commons-api
@@ -1067,10 +1067,11 @@ importers:
       merge2: 1.4.1
       semver: 7.1.2
     devDependencies:
+      '@types/node': 16.9.1
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
-      undici: 4.2.2
+      undici: 4.4.7
       undici-fetch: 1.0.0-rc.4
 
   packages/tools/benchmark:
@@ -19861,10 +19862,19 @@ packages:
     resolution: {integrity: sha512-+F9lSstpd0YJkBBAMe1UXlUVeadsd/AJrB0643smYHcKAdwCtoBVWfoFO0ibk1sA1BEFH7himsWC5aHLomGK0g==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      undici: 4.2.2
+      undici: 4.5.1
 
   /undici/4.2.2:
     resolution: {integrity: sha512-WeLqJE/N66VjFeNawJkWHGB1qBGL3VHeimAEKhOC7lbeCf7p6daUVYUHYFeTo0V1EDlxdzqpzykImadFHjuXgA==}
+    engines: {node: '>=12.18'}
+    dev: false
+
+  /undici/4.4.7:
+    resolution: {integrity: sha512-41YDu0wuKPhvd2oPDHRe0ufai70O8nOyL6vgpWkv1DUPTwOx59GhZVRvZwinBLAiKJHta/91gSb7wmrDghuJIw==}
+    engines: {node: '>=12.18'}
+
+  /undici/4.5.1:
+    resolution: {integrity: sha512-1Kmphp4SMwVbSauz9xH4gxt0m3sLGs5qRHs/XYgjeO3bNSt6hspDZqMhM8+ETu9ynB5bq9e6mnwcDz+NVCQ3UQ==}
     engines: {node: '>=12.18'}
 
   /unherit/1.1.3:
