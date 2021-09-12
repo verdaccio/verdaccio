@@ -42,10 +42,10 @@
     "@verdaccio/logger-prettify": "workspace:6.0.0-alpha.3",
     "debug": "4.3.2",
     "lodash": "4.17.21",
-    "pino": "6.13.1"
+    "pino": "6.2.1"
   },
   "devDependencies": {
-    "@types/pino": "6.3.11",
+    "@types/pino": "6.3.3",
     "@verdaccio/types": "workspace:11.0.0-6-next.8"
   },
   "funding": {

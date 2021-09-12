@@ -26,6 +26,12 @@ export type Score = {
   detail: SearchMetrics;
 };
 
+export type SearchResults = {
+  objects: SearchItemPkg[];
+  total: number;
+  time: string;
+};
+
 type PublisherMaintainer = {
   username: string;
   email: string;

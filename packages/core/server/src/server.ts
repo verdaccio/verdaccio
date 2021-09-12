@@ -6,6 +6,7 @@ import buildDebug from 'debug';
 import fp from 'fastify-plugin';
 
 import ping from './endpoints/ping';
+import search from './endpoints/search';
 import { storageService } from './plugins/storage';
 
 const debug = buildDebug('verdaccio:fastify');
@@ -22,6 +23,7 @@ async function startServer({ logger, config }) {
   app.register((instance, opts, done) => {
     instance.decorate('utility', new Map());
     instance.register(ping);
+    instance.register(search);
     done();
   });
 

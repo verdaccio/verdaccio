@@ -52,10 +52,11 @@
     "lodash": "4.17.20",
     "node-fetch": "2.6.1",
     "request": "2.87.0",
-    "undici": "4.2.2",
+    "undici": "4.4.7",
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
+    "@types/node": "16.9.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.8",
     "get-stream": "^6.0.1",
     "nock": "13.0.11",
