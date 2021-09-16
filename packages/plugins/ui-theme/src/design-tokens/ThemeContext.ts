@@ -1,6 +1,6 @@
 import { createContext } from 'react';
+import { Language } from 'src/i18n/enabledLanguages';
 
-import { Language } from '../../i18n/config';
 interface Props {
   isDarkMode: boolean;
   setIsDarkMode: (isDarkMode: boolean) => void;
