@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-depth */
 /* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
 import FlagsIcon from 'country-flag-icons/react/3x2';
@@ -24,14 +25,30 @@ const Footer = () => {
           <ToolTip>
             <StyledEarth />
             <Flags>
-              <FlagsIcon.ES />
-              <FlagsIcon.NI />
-              <FlagsIcon.IN />
-              <FlagsIcon.BR />
-              <FlagsIcon.CN />
-              <FlagsIcon.AU />
-              <FlagsIcon.DE />
-              <FlagsIcon.TW />
+              <Icon>
+                <FlagsIcon.ES />
+              </Icon>
+              <Icon>
+                <FlagsIcon.NI />
+              </Icon>
+              <Icon>
+                <FlagsIcon.IN />
+              </Icon>
+              <Icon>
+                <FlagsIcon.BR />
+              </Icon>
+              <Icon>
+                <FlagsIcon.CN />
+              </Icon>
+              <Icon>
+                <FlagsIcon.AU />
+              </Icon>
+              <Icon>
+                <FlagsIcon.DE />
+              </Icon>
+              <Icon>
+                <FlagsIcon.TW />
+              </Icon>
             </Flags>
           </ToolTip>
         </Left>
@@ -78,6 +95,10 @@ const Flags = styled('span')<{ theme?: Theme }>(({ theme }) => ({
     transform: 'rotate(90deg)',
   },
 }));
+
+const Icon = styled('div')({
+  width: '10px',
+});
 
 const ToolTip = styled('span')({
   position: 'relative',
