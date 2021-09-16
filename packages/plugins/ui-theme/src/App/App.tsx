@@ -17,7 +17,7 @@ import AppRoute, { history } from './AppRoute';
 import Footer from './Footer';
 import Header from './Header';
 
-import '../../i18n/config';
+import '../i18n/config';
 
 const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme?.palette.background.default,

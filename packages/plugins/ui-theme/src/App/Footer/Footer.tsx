@@ -1,18 +1,10 @@
+/* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
+import FlagsIcon from 'country-flag-icons/react/3x2';
 import React from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-import {
-  Austria,
-  Brazil,
-  Earth,
-  Nicaragua,
-  Spain,
-  Germany,
-  India,
-  China,
-  Taiwan,
-} from 'verdaccio-ui/components/Icons';
+import { Earth } from 'verdaccio-ui/components/Icons';
 import Logo from 'verdaccio-ui/components/Logo';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useConfig } from 'verdaccio-ui/providers/config';
@@ -32,14 +24,14 @@ const Footer = () => {
           <ToolTip>
             <StyledEarth />
             <Flags>
-              <Spain />
-              <Nicaragua />
-              <India />
-              <Brazil />
-              <China />
-              <Austria />
-              <Germany />
-              <Taiwan />
+              <FlagsIcon.ES />
+              <FlagsIcon.NI />
+              <FlagsIcon.IN />
+              <FlagsIcon.BR />
+              <FlagsIcon.CN />
+              <FlagsIcon.AU />
+              <FlagsIcon.DE />
+              <FlagsIcon.TW />
             </Flags>
           </ToolTip>
         </Left>

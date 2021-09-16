@@ -9,7 +9,7 @@ import {
   waitForElementToBeRemoved,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import translationEN from '../../../i18n/translations/en-US.json';
+import translationEN from '../../i18n/translations/en-US.json';
 import { AppContextProvider } from '../../App';
 
 import Header from './Header';

@@ -1,84 +1,70 @@
+/* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/core/styles';
 import LanguageIcon from '@material-ui/icons/Language';
+import Flags from 'country-flag-icons/react/3x2';
 import i18next, { TFunctionKeys } from 'i18next';
 import React, { useCallback, useContext, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Language } from 'src/i18n/enabledLanguages';
 
 import { AutoComplete } from 'verdaccio-ui/components/AutoComplete/AutoCompleteV2';
-import {
-  France,
-  Brazil,
-  Germany,
-  Spain,
-  China,
-  Russia,
-  Turkey,
-  Ukraine,
-  Khmer,
-  Japan,
-  Usa,
-  Czech,
-  Taiwan,
-} from 'verdaccio-ui/components/Icons';
 import MenuItem from 'verdaccio-ui/components/MenuItem';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
 
-import { Language } from '../../../i18n/config';
-
 const lngDetails: Record<Language, { translation: TFunctionKeys; icon: React.ReactElement }> = {
   'fr-FR': {
     translation: 'lng.french',
-    icon: <France size="md" />,
+    icon: <Flags.FR />,
   },
   'pt-BR': {
     translation: 'lng.portuguese',
-    icon: <Brazil size="md" />,
+    icon: <Flags.BR />,
   },
   'de-DE': {
     translation: 'lng.german',
-    icon: <Germany size="md" />,
+    icon: <Flags.DE />,
   },
   'es-ES': {
     translation: 'lng.spanish',
-    icon: <Spain size="md" />,
+    icon: <Flags.ES />,
   },
   'zh-CN': {
     translation: 'lng.chinese',
-    icon: <China size="md" />,
+    icon: <Flags.CN />,
   },
   'ru-RU': {
     translation: 'lng.russian',
-    icon: <Russia size="md" />,
+    icon: <Flags.RU />,
   },
   'tr-TR': {
     translation: 'lng.turkish',
-    icon: <Turkey size="md" />,
+    icon: <Flags.TR />,
   },
   'uk-UA': {
     translation: 'lng.ukraine',
-    icon: <Ukraine size="md" />,
+    icon: <Flags.UA />,
   },
   'km-KH': {
     translation: 'lng.khmer',
-    icon: <Khmer size="md" />,
+    icon: <Flags.KH />,
   },
   'ja-JP': {
     translation: 'lng.japanese',
-    icon: <Japan size="md" />,
+    icon: <Flags.JP />,
   },
   'en-US': {
     translation: 'lng.english',
-    icon: <Usa size="md" />,
+    icon: <Flags.US />,
   },
   'cs-CZ': {
     translation: 'lng.czech',
-    icon: <Czech size="md" />,
+    icon: <Flags.CZ />,
   },
   'zh-TW': {
     translation: 'lng.chineseTraditional',
-    icon: <Taiwan size="md" />,
+    icon: <Flags.TW />,
   },
 };
 

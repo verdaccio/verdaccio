@@ -6,7 +6,7 @@ import ThemeProvider from 'verdaccio-ui/design-tokens/ThemeProvider';
 import APIProvider from 'verdaccio-ui/providers/API/APIProvider';
 import AppConfigurationProvider from 'verdaccio-ui/providers/config';
 
-import i18nConfig from '../../i18n/config';
+import i18nConfig from '../i18n/config';
 
 const customRender = (node: React.ReactElement, ...options: any) => {
   return render(
