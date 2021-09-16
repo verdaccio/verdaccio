@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import { Link } from '@docusaurus/router';
 import { Follow } from 'react-twitter-widgets';
