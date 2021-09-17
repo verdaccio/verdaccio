@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.5](https://github.com/verdaccio/verdaccio/compare/v5.1.4...v5.1.5) (2021-09-17)
+
+
+### Bug Fixes
+
+* add finish language to ui ([#2443](https://github.com/verdaccio/verdaccio/issues/2443)) ([360bec9](https://github.com/verdaccio/verdaccio/commit/360bec9b5315c0bc1c93ca36e1a1d8f808f0746c))
+
 ### [5.1.4](https://github.com/verdaccio/verdaccio/compare/v5.1.3...v5.1.4) (2021-09-07)
 
 
