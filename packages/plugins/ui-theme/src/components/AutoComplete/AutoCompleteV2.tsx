@@ -37,7 +37,7 @@ interface Props<Option extends {}> extends Pick<TextFieldProps, 'variant'> {
   inputStartAdornment?: React.ReactNode;
   hasClearIcon?: boolean;
   className?: string;
-  onClick?: (option: Option) => void;
+  onClick?: (option: any) => void;
 }
 
 const AutoComplete = <Option extends {}>({

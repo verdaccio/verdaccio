@@ -1,11 +1,16 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import { DEFAULT_LANGUAGE, enabledLanguages } from './enabledLanguages';
+import {
+  DEFAULT_LANGUAGE,
+  LanguageConfiguration,
+  listLanguages,
+  listLanguagesAsString,
+} from './enabledLanguages';
 
-const languages = enabledLanguages.reduce((acc, lng) => {
-  acc[lng] = {
-    translation: require(`./translations/${lng}.json`),
+const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
+  acc[item.lng] = {
+    translation: require(`./translations/${item.lng}.json`),
   };
   return acc;
 }, {});
@@ -19,7 +24,7 @@ i18n
     // in case window.VEDACCIO_LANGUAGE is undefined,it will fall back to 'en-US'
     lng: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.language || DEFAULT_LANGUAGE,
     fallbackLng: DEFAULT_LANGUAGE,
-    whitelist: [...enabledLanguages],
+    whitelist: [...listLanguagesAsString],
     load: 'currentOnly',
     resources: languages,
     debug: false,
