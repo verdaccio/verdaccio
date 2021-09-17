@@ -8,9 +8,27 @@ import {
   listLanguagesAsString,
 } from './enabledLanguages';
 
+/**
+ * In development mode translations files might be not available,
+ * crowdin translations are only available in CI.
+ */
+function loadTranslationFile(lng) {
+  try {
+    return require(`./crowdin/${lng}/en-US.json`);
+  } catch {
+    // eslint-disable-next-line no-console
+    console.error(`language ${lng} file not found, fallback to en-US`);
+    // in case the file is not there, fallback to en-US
+    return require(`./crowdin/en-US.json`);
+  }
+}
+
 const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
   acc[item.lng] = {
-    translation: require(`./translations/${item.lng}.json`),
+    translation:
+      item.lng === DEFAULT_LANGUAGE
+        ? require(`./crowdin/en-US.json`)
+        : loadTranslationFile(item.lng),
   };
   return acc;
 }, {});

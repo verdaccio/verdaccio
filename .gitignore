@@ -36,6 +36,8 @@ packages/standalone/dist/
 packages/plugins/ui-theme/static
 /packages/plugins/ui-theme/src/i18n/crowdin/*
 !/packages/plugins/ui-theme/src/i18n/crowdin/en-US.json
+!/packages/plugins/ui-theme/src/i18n/crowdin/*.md
+
 
 # CI Pnpm cache
 .pnpm-store/
