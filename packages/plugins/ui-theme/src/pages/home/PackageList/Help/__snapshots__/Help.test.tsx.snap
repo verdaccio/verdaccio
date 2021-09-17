@@ -133,7 +133,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
     <span
       class="MuiTypography-root MuiTypography-body2"
     >
-      3. Refresh this page.
+      3. Refresh this page
     </span>
   </div>
   <div
