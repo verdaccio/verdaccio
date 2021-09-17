@@ -7,7 +7,7 @@ files:
   [
     {
       source: 'packages/plugins/ui-theme/src/i18n/crowdin/**/*',
-      translation: '/ui/i18n/%locale%/**/%original_file_name%',
+      translation: '/packages/plugins/ui-theme/src/i18n/crowdin/%locale%/**/%original_file_name%',
     },
     {
       source: '/website/i18n/en/**/*',

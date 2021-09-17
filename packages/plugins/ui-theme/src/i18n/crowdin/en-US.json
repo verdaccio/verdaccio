@@ -80,7 +80,7 @@
     "first-step-command-line": "npm adduser --registry {{registryUrl}}",
     "second-step": "2. Publish",
     "second-step-command-line": "npm publish --registry {{registryUrl}}",
-    "third-step": "3. Refresh this page."
+    "third-step": "3. Refresh this page"
   },
   "sidebar": {
     "detail": {
