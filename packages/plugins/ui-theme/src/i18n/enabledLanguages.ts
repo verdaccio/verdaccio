@@ -3,22 +3,6 @@ import React from 'react';
 
 export const DEFAULT_LANGUAGE = 'en-US';
 
-export const enabledLanguages = [
-  DEFAULT_LANGUAGE,
-  'cs-CZ',
-  'pt-BR',
-  'es-ES',
-  'de-DE',
-  'fr-FR',
-  'zh-CN',
-  'ja-JP',
-  'ru-RU',
-  'tr-TR',
-  'uk-UA',
-  'km-KH',
-  'zh-TW',
-];
-
 export type LanguageConfiguration = {
   lng: string;
   menuKey: string;
@@ -41,4 +25,11 @@ export const listLanguages: LanguageConfiguration[] = [
   { lng: 'zh-TW', icon: Flags.TW, menuKey: 'lng.chineseTraditional' },
 ];
 
-export type Language = keyof typeof enabledLanguages;
+const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
+  acc.push(item.lng);
+  return acc;
+}, [] as string[]);
+
+export const listLanguagesAsString = languages;
+
+export type Language = keyof typeof listLanguagesAsString;

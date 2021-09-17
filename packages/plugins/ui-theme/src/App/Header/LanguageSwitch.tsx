@@ -2,8 +2,7 @@
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/core/styles';
 import LanguageIcon from '@material-ui/icons/Language';
-import Flags from 'country-flag-icons/react/3x2';
-import i18next, { TFunctionKeys } from 'i18next';
+import i18next from 'i18next';
 import React, { useCallback, useContext, useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +10,7 @@ import { AutoComplete } from 'verdaccio-ui/components/AutoComplete/AutoCompleteV
 import MenuItem from 'verdaccio-ui/components/MenuItem';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
+
 import { Language, listLanguages } from '../../i18n/enabledLanguages';
 
 const listConverted = listLanguages.reduce((prev, item) => {
