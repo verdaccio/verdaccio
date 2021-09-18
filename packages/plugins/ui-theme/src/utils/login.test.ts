@@ -17,7 +17,7 @@ jest.mock('verdaccio-ui/providers/API/api', () => ({
 }));
 
 jest.mock('i18next', () => {
-  const translationEN = require('../../i18n/translations/en-US.json');
+  const translationEN = require('../../i18n/translations/ui.json');
   return {
     t: (key: string) => {
       const splittedKey = key.split('.');

@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 
 import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import translationEN from '../../../../i18n/crowdin/en-US.json';
+import translationEN from '../../../../i18n/crowdin/ui.json';
 import { DetailContext } from '../../context';
 import { DetailContextProps } from '../../version-config';
 

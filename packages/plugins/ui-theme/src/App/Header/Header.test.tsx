@@ -10,7 +10,7 @@ import {
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { AppContextProvider } from '../../App';
-import translationEN from '../../i18n/crowdin/en-US.json';
+import translationEN from '../../i18n/crowdin/ui.json';
 
 import Header from './Header';
 

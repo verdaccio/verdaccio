@@ -34,9 +34,8 @@ packages/standalone/dist/
 
 ## ui
 packages/plugins/ui-theme/static
-/packages/plugins/ui-theme/src/i18n/crowdin/*
-!/packages/plugins/ui-theme/src/i18n/crowdin/en-US.json
-!/packages/plugins/ui-theme/src/i18n/crowdin/*.md
+/packages/plugins/ui-theme/src/i18n/download_translations/
+!/packages/plugins/ui-theme/src/i18n/crowdin/ui.json
 
 
 # CI Pnpm cache

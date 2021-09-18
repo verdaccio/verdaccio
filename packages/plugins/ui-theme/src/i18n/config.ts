@@ -14,21 +14,19 @@ import {
  */
 function loadTranslationFile(lng) {
   try {
-    return require(`./crowdin/${lng}/en-US.json`);
+    return require(`./download_translations/${lng}/ui.json`);
   } catch {
     // eslint-disable-next-line no-console
     console.error(`language ${lng} file not found, fallback to en-US`);
     // in case the file is not there, fallback to en-US
-    return require(`./crowdin/en-US.json`);
+    return require(`./crowdin/ui.json`);
   }
 }
 
 const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
   acc[item.lng] = {
     translation:
-      item.lng === DEFAULT_LANGUAGE
-        ? require(`./crowdin/en-US.json`)
-        : loadTranslationFile(item.lng),
+      item.lng === DEFAULT_LANGUAGE ? require(`./crowdin/ui.json`) : loadTranslationFile(item.lng),
   };
   return acc;
 }, {});
