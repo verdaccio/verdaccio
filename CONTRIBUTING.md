@@ -207,8 +207,8 @@ If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJ
 For adding a new **language** on the UI follow these steps:
 
 1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
-2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/en-US.json` and complete the translations, **not need to find approval on this**.
-3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/en-US.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
+2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
+3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
 4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key fort he new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
 5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
 6. Add a `changeset` file, see more info below.

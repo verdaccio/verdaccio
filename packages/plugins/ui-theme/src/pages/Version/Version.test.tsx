@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router';
 
 import { render } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import translationEN from '../../i18n/crowdin/en-US.json';
+import translationEN from '../../i18n/crowdin/ui.json';
 
 import data from './__partials__/data.json';
 import { DetailContext } from './context';
