@@ -19,6 +19,7 @@ guidelines for you:
     - [What's is not considered a bug?](#whats-is-not-considered-a-bug)
     - [Issue Search](#issue-search)
     - [Chat](#chat)
+  - [Translations](#translations)
   - [Request Features](#request-features)
   - [Contributing Guidelines](#contributing-guidelines)
     - [Submitting a Pull Request](#submitting-a-pull-request)
@@ -190,9 +191,18 @@ affecting multiple people.
 
 ### Chat
 
-Questions can be asked via [Discord](http://chat.verdaccio.org/)
+Questions can be asked via [Discord](https://discord.gg/7qWJxBf)
 
 **Please use the `#help` channel.**
+
+## Translations
+
+All translations are provided by the `crowdin` platform:
+[https://translate.verdaccio.org/](https://translate.verdaccio.org/)
+
+If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
+
+If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
 
 ## Request Features
 

@@ -270,7 +270,7 @@ If you have any issue you can try the following options, do no desist to ask or 
 - [Donations](https://github.com/sponsors/verdaccio)
 - [Reporting an issue](https://github.com/verdaccio/verdaccio/issues/new/choose)
 - [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-- [Chat](http://chat.verdaccio.org/)
+- [Chat](https://discord.gg/7qWJxBf)
 - [Logos](https://verdaccio.org/docs/en/logo)
 - [Docker Examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
 - [FAQ](https://github.com/verdaccio/verdaccio/discussions/categories/q-a)
