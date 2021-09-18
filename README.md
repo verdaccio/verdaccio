@@ -190,7 +190,20 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
 
-## Core Team
+## Special Thanks
+
+Thanks to the following companies to help us to achieve our goals providing free open source licenses. Every company provides enough resources to move this project forward.
+
+| Company      | Logo                                                                                                                            | License                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| JetBrains    | [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)                                                     | JetBrains provides licenses for products for active maintainers, renewable yearly |
+| Crowdin      | [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)                                                              | Crowdin provides platform for translations                                        |
+| BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                        | BrowserStack provides plan to run End to End testing for the UI                   |
+| Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                      | Netlify provides pro plan for website deployment                                  |
+| Algolia      | [![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)                                     | Algolia provides search services for the website                                  |
+| Docker       | [![docker](https://cdn.verdaccio.dev/sponsor/logo/docker/docker.png)](https://www.docker.com/community/open-source/application) | Docker offers unlimited pulls and unlimited egress to any and all users           |
+
+## Maintainers
 
 | [Juan Picado](https://github.com/juanpicado)                                   | [Ayush Sharma](https://github.com/ayusharma)                             | [Sergio Hg](https://github.com/sergiohgz)                                 |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
@@ -243,18 +256,6 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
 
 [![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio#backers)
-
-## Special Thanks
-
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
-
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)
-[![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)
-[![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)
-
-Verdaccio also is part of to the [Docker Open Source Program](https://www.docker.com/blog/expanded-support-for-open-source-software-projects/).
 
 ## Contributors
 
