@@ -201,7 +201,37 @@ jobs:
       - name: Test CLI
         run: pnpm test:e2e:cli
         # env:
-        #   DEBUG: verdaccio*          
+        #   DEBUG: verdaccio* 
+  sync-translations:
+    needs: [ci-e2e-cli, ci-e2e-ui]
+    runs-on: ubuntu-latest
+    name: synchronize translations
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - uses: actions/download-artifact@v2
+        with:
+          name: verdaccio-artifact
+      - name: untar packages
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+      - name: Install pnpm
+        run: npm i pnpm@6.10.3 -g
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+      - name: Install
+        ## we need scripts, pupetter downloads aditional content
+        run: pnpm recursive install --frozen-lockfile
+      - name: sync        
+        env:
+          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:sync              
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest
