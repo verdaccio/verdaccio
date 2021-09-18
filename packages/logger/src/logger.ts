@@ -98,7 +98,7 @@ export type LoggerConfigItem = {
 
 export type LoggerConfig = LoggerConfigItem[];
 
-export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER_CONF]) {
+export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_CONF) {
   debug('setup logger');
   const isLegacyConf = Array.isArray(options);
   if (isLegacyConf) {
