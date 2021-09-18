@@ -29,6 +29,8 @@ export function handleResponseType(response: Response): Promise<[boolean, any]> 
   return Promise.all([response.ok, response.text()]);
 }
 
+const AuthHeader = 'Authorization';
+
 class API {
   public request<T>(
     url: string,
@@ -38,8 +40,8 @@ class API {
     const token = storage.getItem('token');
     const headers = new Headers(options.headers);
 
-    if (token && headers.has('Authorization') === false) {
-      headers.set('Authorization', `Bearer ${token}`);
+    if (token && headers.has(AuthHeader) === false) {
+      headers.set(AuthHeader, `Bearer ${token}`);
       options.headers = headers;
     }
 

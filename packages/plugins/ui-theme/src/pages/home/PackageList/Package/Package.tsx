@@ -5,6 +5,7 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 import HomeIcon from '@material-ui/icons/Home';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Grid from 'verdaccio-ui/components/Grid';
 import { Version, FileBinary, Time, Law } from 'verdaccio-ui/components/Icons';
@@ -12,14 +13,12 @@ import Link from 'verdaccio-ui/components/Link';
 import ListItem from 'verdaccio-ui/components/ListItem';
 import Tooltip from 'verdaccio-ui/components/Tooltip';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
-import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
-import { useConfig } from 'verdaccio-ui/providers/config';
 import fileSizeSI from 'verdaccio-ui/utils/file-size';
 import { formatDate, formatDateDistance, getAuthorName } from 'verdaccio-ui/utils/package';
-import { extractFileName, downloadFile } from 'verdaccio-ui/utils/url';
 import { isURL } from 'verdaccio-ui/utils/url';
 
 import { PackageMetaInterface, Author as PackageAuthor } from '../../../../../types/packageMeta';
+import { Dispatch, RootState } from '../../../../store/store';
 
 import {
   Author,
@@ -72,19 +71,17 @@ const Package: React.FC<PackageInterface> = ({
   time,
   version,
 }) => {
+  const config = useSelector((state: RootState) => state.configuration);
+  const dispatch = useDispatch<Dispatch>();
   const { t } = useTranslation();
-  const { getResource } = useAPI();
-  const { configOptions } = useConfig();
 
   const handleDownload = useCallback(
     async (tarballDist: string) => {
       // FIXME: check, the dist might be different thant npmjs
-      const link = tarballDist.replace(`https://registry.npmjs.org/`, configOptions.base as string);
-      const fileStream = await getResource(link);
-      const fileName = extractFileName(link);
-      downloadFile(fileStream, fileName);
+      const link = tarballDist.replace(`https://registry.npmjs.org/`, config.base);
+      dispatch.download.getManifest(link);
     },
-    [getResource, configOptions]
+    [dispatch, config]
   );
 
   const renderVersionInfo = (): React.ReactNode =>

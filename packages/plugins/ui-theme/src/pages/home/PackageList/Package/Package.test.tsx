@@ -1,7 +1,9 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { renderWithStore, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+
+import { store } from '../../../../store';
 
 import Package from './Package';
 
@@ -29,7 +31,7 @@ describe('<Package /> component', () => {
       keywords: ['verdaccio'],
     };
 
-    const wrapper = render(
+    const wrapper = renderWithStore(
       <MemoryRouter>
         <Package
           author={props.author}
@@ -39,7 +41,8 @@ describe('<Package /> component', () => {
           time={props.time}
           version={props.version}
         />
-      </MemoryRouter>
+      </MemoryRouter>,
+      store
     );
 
     // FUTURE: improve this expectectations

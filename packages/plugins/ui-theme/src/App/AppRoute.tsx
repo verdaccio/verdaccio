@@ -1,9 +1,7 @@
 import { createBrowserHistory } from 'history';
-import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
 import { Route as ReactRouterDomRoute, Switch, Router } from 'react-router-dom';
 
-import AppContext from './AppContext';
 import loadable from './utils/loadable';
 
 const NotFound = loadable(
@@ -28,22 +26,11 @@ export const history = createBrowserHistory({
 });
 
 const AppRoute: React.FC = () => {
-  const appContext = useContext(AppContext);
-  const { t } = useTranslation();
-
-  if (!appContext) {
-    throw Error(t('app-context-not-correct-used'));
-  }
-
-  const { user } = appContext;
-
-  const isUserLoggedIn = user?.username;
-
   return (
     <Router history={history}>
       <Switch>
         <ReactRouterDomRoute exact={true} path={Route.ROOT}>
-          <HomePage isUserLoggedIn={!!isUserLoggedIn} />
+          <HomePage />
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.PACKAGE}>
           <VersionContextProvider>

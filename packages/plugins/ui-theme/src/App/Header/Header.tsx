@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from 'verdaccio-ui/components/Button';
 import { useConfig } from 'verdaccio-ui/providers/config';
-import storage from 'verdaccio-ui/utils/storage';
 
-import AppContext from '../../App/AppContext';
+import { Dispatch, RootState } from '../../store/store';
 
 import HeaderInfoDialog from './HeaderInfoDialog';
 import HeaderLeft from './HeaderLeft';
@@ -21,26 +21,15 @@ interface Props {
 /* eslint-disable react/jsx-no-bind*/
 const Header: React.FC<Props> = ({ withoutSearch }) => {
   const { t } = useTranslation();
-  const appContext = useContext(AppContext);
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
   const [showMobileNavBar, setShowMobileNavBar] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
-
-  if (!appContext) {
-    throw Error(t('app-context-not-correct-used'));
-  }
-
-  const { user, scope, setUser } = appContext;
+  const loginStore = useSelector((state: RootState) => state.login);
+  const configStore = useSelector((state: RootState) => state.configuration);
   const { configOptions } = useConfig();
-
-  /**
-   * Logouts user
-   * Required by: <Header />
-   */
+  const dispatch = useDispatch<Dispatch>();
   const handleLogout = () => {
-    storage.removeItem('username');
-    storage.removeItem('token');
-    setUser(undefined);
+    dispatch.login.logOutUser();
   };
 
   return (
@@ -54,7 +43,7 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
             onOpenRegistryInfoDialog={() => setOpenInfoDialog(true)}
             onToggleLogin={() => setShowLoginModal(!showLoginModal)}
             onToggleMobileNav={() => setShowMobileNavBar(!showMobileNavBar)}
-            username={user?.username}
+            username={loginStore?.username}
             withoutSearch={withoutSearch}
           />
         </InnerNavBar>
@@ -62,7 +51,7 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
           isOpen={isInfoDialogOpen}
           onCloseDialog={() => setOpenInfoDialog(false)}
           registryUrl={configOptions.base}
-          scope={scope}
+          scope={configStore.scope}
         />
       </NavBar>
       {showMobileNavBar && !withoutSearch && (
@@ -75,7 +64,9 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
           </Button>
         </MobileNavBar>
       )}
-      {!user && <LoginDialog onClose={() => setShowLoginModal(false)} open={showLoginModal} />}
+      {!loginStore.user && (
+        <LoginDialog onClose={() => setShowLoginModal(false)} open={showLoginModal} />
+      )}
     </>
   );
 };

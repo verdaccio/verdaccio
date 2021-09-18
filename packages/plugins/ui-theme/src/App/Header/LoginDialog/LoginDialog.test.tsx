@@ -2,7 +2,7 @@ import React from 'react';
 
 import api from 'verdaccio-ui/providers/API/api';
 import {
-  render,
+  renderWithStore,
   waitFor,
   fireEvent,
   cleanup,
@@ -10,14 +10,9 @@ import {
   act,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import AppContext, { AppContextProps } from '../../AppContext';
+import { store } from '../../../store';
 
 import LoginDialog from './LoginDialog';
-
-const appContextValue: AppContextProps = {
-  scope: '',
-  setUser: jest.fn(),
-};
 
 describe('<LoginDialog /> component', () => {
   beforeEach(() => {
@@ -30,11 +25,7 @@ describe('<LoginDialog /> component', () => {
     const props = {
       onClose: jest.fn(),
     };
-    const { container } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} />
-      </AppContext.Provider>
-    );
+    const { container } = renderWithStore(<LoginDialog onClose={props.onClose} />, store);
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -44,10 +35,9 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
+    const { getByTestId } = renderWithStore(
+      <LoginDialog onClose={props.onClose} open={props.open} />,
+      store
     );
 
     const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
@@ -60,10 +50,9 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
+    const { getByTestId } = renderWithStore(
+      <LoginDialog onClose={props.onClose} open={props.open} />,
+      store
     );
 
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
@@ -72,6 +61,7 @@ describe('<LoginDialog /> component', () => {
     act(() => {
       fireEvent.click(loginDialogButton, { open: false });
     });
+
     expect(props.onClose).toHaveBeenCalled();
   });
 
@@ -88,10 +78,10 @@ describe('<LoginDialog /> component', () => {
       })
     );
 
-    render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
+    renderWithStore(
+      <LoginDialog onClose={props.onClose} open={props.open} />,
+
+      store
     );
 
     const userNameInput = screen.getByPlaceholderText('Your username');
