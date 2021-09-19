@@ -39,8 +39,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.8",
-    "typedoc": "next"
+    "@verdaccio/types": "workspace:11.0.0-6-next.8"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -49,8 +48,7 @@
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types",
-    "doc": "typedoc src/index.ts --tsconfig tsconfig.build.json"
+    "build": "pnpm run build:js && pnpm run build:types"
   },
   "funding": {
     "type": "opencollective",
