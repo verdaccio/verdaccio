@@ -18,8 +18,8 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "10.0.0",
-    "@verdaccio/local-storage": "10.0.6",
+    "@verdaccio/commons-api": "10.0.1",
+    "@verdaccio/local-storage": "10.0.7",
     "@verdaccio/readme": "10.0.0",
     "@verdaccio/streams": "10.0.0",
     "@verdaccio/ui-theme": "3.2.1",
@@ -57,7 +57,7 @@
     "request": "2.88.0",
     "semver": "7.3.5",
     "validator": "13.6.0",
-    "verdaccio-audit": "10.0.1",
+    "verdaccio-audit": "10.0.2",
     "verdaccio-htpasswd": "10.0.0"
   },
   "devDependencies": {
@@ -136,8 +136,8 @@
     "supertest": "6.1.3",
     "ts-node": "10.2.0",
     "typescript": "4.1.3",
-    "verdaccio-auth-memory": "10.0.0",
-    "verdaccio-memory": "10.0.0"
+    "verdaccio-auth-memory": "10.0.1",
+    "verdaccio-memory": "10.0.1"
   },
   "keywords": [
     "private",
