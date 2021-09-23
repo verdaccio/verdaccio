@@ -58,7 +58,7 @@ describe('<LoginDialog /> component', () => {
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
 
-    act(() => {
+    await act(() => {
       fireEvent.click(loginDialogButton, { open: false });
     });
 
@@ -78,11 +78,9 @@ describe('<LoginDialog /> component', () => {
       })
     );
 
-    renderWithStore(
-      <LoginDialog onClose={props.onClose} open={props.open} />,
-
-      store
-    );
+    await act(async () => {
+      renderWithStore(<LoginDialog onClose={props.onClose} open={props.open} />, store);
+    });
 
     const userNameInput = screen.getByPlaceholderText('Your username');
     expect(userNameInput).toBeInTheDocument();
@@ -94,13 +92,18 @@ describe('<LoginDialog /> component', () => {
     const passwordInput = screen.getByPlaceholderText('Your strong password');
     expect(userNameInput).toBeInTheDocument();
     fireEvent.focus(passwordInput);
-    fireEvent.change(passwordInput, { target: { value: '1234' } });
 
-    act(async () => {
-      const signInButton = await screen.getByTestId('login-dialog-form-login-button');
-      expect(signInButton).not.toBeDisabled();
+    await act(async () => {
+      fireEvent.change(passwordInput, { target: { value: '1234' } });
+    });
+    const signInButton = screen.getByTestId('login-dialog-form-login-button');
+    expect(signInButton).not.toBeDisabled();
+
+    await act(async () => {
       fireEvent.click(signInButton);
     });
+    expect(props.onClose).toHaveBeenCalledTimes(1);
+    // screen.debug();
   });
 
   test.todo('validateCredentials: should validate credentials');

@@ -85,6 +85,7 @@ describe('api', () => {
         credentials: 'same-origin',
         headers: new Headers({
           Authorization: 'Bearer token-xx-xx-xx',
+          'x-client': 'verdaccio-ui',
         }),
         method: 'GET',
       });
