@@ -21,20 +21,7 @@ export const packages = createModel<RootModel>()({
     async getPackages(_payload, state) {
       const basePath = state.configuration.config.base;
       try {
-        const options =
-          typeof state?.login?.token === 'string'
-            ? {
-                headers: {
-                  Authentication: `Bearer ${state.login.token}`,
-                },
-              }
-            : {};
-
-        const payload: Package[] = await API.request(
-          `${basePath}-/verdaccio/packages`,
-          'GET',
-          options
-        );
+        const payload: Package[] = await API.request(`${basePath}-/verdaccio/packages`, 'GET');
         dispatch.packages.savePackages(payload);
       } catch (error: any) {
         // eslint-disable-next-line no-console

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 
-import APIProvider from 'verdaccio-ui/providers/API/APIProvider';
 import AppConfigurationContext from 'verdaccio-ui/providers/config';
 
 import App from './App';
@@ -19,9 +18,7 @@ const renderApp = (Component: React.ElementType): void => {
         <AppConfigurationContext>
           <ThemeProvider>
             <StyleBaseline />
-            <APIProvider>
-              <Component />
-            </APIProvider>
+            <Component />
           </ThemeProvider>
         </AppConfigurationContext>
       </AppContainer>

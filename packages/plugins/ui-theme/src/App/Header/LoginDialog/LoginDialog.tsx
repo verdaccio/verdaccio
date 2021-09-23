@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Dialog from 'verdaccio-ui/components/Dialog';
 import DialogContent from 'verdaccio-ui/components/DialogContent';
-import { LoginBody } from 'verdaccio-ui/providers/API/APIProvider';
-
+import { LoginBody } from '../../../store/models/login';
 import { Dispatch, RootState } from '../../../store/store';
 
 import LoginDialogCloseButton from './LoginDialogCloseButton';
@@ -22,14 +21,14 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
   const loginStore = useSelector((state: RootState) => state.login);
   const dispatch = useDispatch<Dispatch>();
   const makeLogin = useCallback(
-    async (username?: string, password?: string): Promise<LoginBody> => {
+    async (username?: string, password?: string): Promise<LoginBody | void> => {
       // checks isEmpty
       if (isEmpty(username) || isEmpty(password)) {
-        const error = {
+        dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.username-or-password-cant-be-empty'),
-        };
-        return { error };
+        });
+        return;
       }
 
       try {

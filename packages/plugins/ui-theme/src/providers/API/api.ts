@@ -45,6 +45,8 @@ class API {
       options.headers = headers;
     }
 
+    headers.set('x-client', 'verdaccio-ui');
+
     return new Promise((resolve, reject) => {
       fetch(url, {
         method,
