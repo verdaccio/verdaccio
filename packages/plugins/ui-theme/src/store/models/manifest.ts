@@ -82,10 +82,8 @@ export const manifest = createModel<RootModel>()({
           }`,
           'GET'
         );
-        // @ts-ignore
         dispatch.manifest.saveManifest({ packageName, packageVersion, manifest, readme });
       } catch (error: any) {
-        // @ts-ignore
         dispatch.manifest.notFound();
       }
     },

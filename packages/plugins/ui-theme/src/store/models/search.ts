@@ -71,7 +71,6 @@ export const search = createModel<RootModel>()({
           // @ts-ignore
           dispatch.search.saveSearch({ suggestions: [] });
         } else {
-          // @ts-ignore
           dispatch.search.setError();
         }
       }
