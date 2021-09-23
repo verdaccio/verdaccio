@@ -77,11 +77,9 @@ export const login = createModel<RootModel>()({
             'Content-Type': HEADERS.JSON,
           },
         });
-        // @ts-ignore
         dispatch.login.logInUser(payload);
         dispatch.packages.getPackages();
       } catch (error: any) {
-        // @ts-ignore
         dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.unable-to-sign-in'),
