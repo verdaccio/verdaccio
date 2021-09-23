@@ -79,7 +79,7 @@ const Package: React.FC<PackageInterface> = ({
     async (tarballDist: string) => {
       // FIXME: check, the dist might be different thant npmjs
       const link = tarballDist.replace(`https://registry.npmjs.org/`, config.base);
-      dispatch.download.getManifest(link);
+      dispatch.download.getTarball({ link });
     },
     [dispatch, config]
   );
