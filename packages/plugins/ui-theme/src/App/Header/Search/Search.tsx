@@ -1,11 +1,13 @@
 import debounce from 'lodash/debounce';
-import React, { useState, FormEvent, useCallback, useRef, useEffect } from 'react';
+import React, { useState, FormEvent, useCallback } from 'react';
 import { SuggestionSelectedEventData } from 'react-autosuggest';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 import AutoComplete from 'verdaccio-ui/components/AutoComplete';
-import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
+
+import { Dispatch, RootState } from '../../../store/store';
 
 import SearchAdornment from './SearchAdornment';
 
@@ -16,22 +18,18 @@ const CONSTANTS = {
 
 const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const { t } = useTranslation();
-  const [suggestions, setSuggestions] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [search, setSearch] = useState('');
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const mountedRef = useRef(true);
-  const [requestList, setRequestList] = useState<{ abort: () => void }[]>([]);
-  const { callSearch } = useAPI();
-
+  // const mountedRef = useRef(true);
+  const { isError, suggestions } = useSelector((state: RootState) => state.search);
+  const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
+  const dispatch = useDispatch<Dispatch>();
   /**
    * Cancel all the requests which are in pending state.
    */
   const cancelAllSearchRequests = useCallback(() => {
-    requestList.forEach((request) => request.abort());
-    setRequestList([]);
-  }, [requestList, setRequestList]);
+    dispatch.search.clearRequestQueue();
+  }, [dispatch]);
 
   /**
    * As user focuses out from input, we cancel all the request from requestList
@@ -41,12 +39,9 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
     (event: FormEvent<HTMLInputElement>) => {
       // stops event bubbling
       event.stopPropagation();
-      setLoaded(false);
-      setLoading(false);
-      setError(false);
       cancelAllSearchRequests();
     },
-    [setLoaded, setLoading, cancelAllSearchRequests, setError]
+    [cancelAllSearchRequests]
   );
 
   /**
@@ -58,9 +53,6 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
       event.stopPropagation();
       if (method === 'type') {
         const value = newValue.trim();
-
-        setLoading(true);
-        setError(false);
         setSearch(value);
         setLoaded(false);
         /**
@@ -79,8 +71,8 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
    * Cancel all the request from list and make request list empty.
    */
   const handlePackagesClearRequested = useCallback(() => {
-    setSuggestions([]);
-  }, [setSuggestions]);
+    dispatch.search.saveSearch({ suggestions: [] });
+  }, [dispatch]);
 
   /**
    * When an user select any package by clicking or pressing return key.
@@ -108,45 +100,11 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
    * For AbortController see: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
    */
   const handleFetchPackages = useCallback(
-    async ({ value }: { value: string }) => {
-      try {
-        const controller = new window.AbortController();
-        const signal = controller.signal;
-        if (!mountedRef.current) {
-          return null;
-        }
-        // Keep track of search requests.
-        setRequestList([...requestList, controller]);
-        const suggestions = await callSearch(value, signal);
-        // FIXME: Argument of type 'unknown' is not assignable to parameter of type 'SetStateAction<never[]>'
-        setSuggestions(suggestions as any);
-        setLoaded(true);
-      } catch (error: any) {
-        /**
-         * AbortError is not the API error.
-         * It means browser has cancelled the API request.
-         */
-        if (error.name === CONSTANTS.ABORT_ERROR) {
-          setError(false);
-          setLoaded(false);
-        } else {
-          setError(true);
-          setLoaded(false);
-        }
-      } finally {
-        if (mountedRef.current) {
-          setLoading(false);
-        }
-      }
+    ({ value }: { value: string }) => {
+      dispatch.search.getSuggestions({ value });
     },
-    [requestList, setRequestList, setSuggestions, setLoaded, setError, setLoading, callSearch]
+    [dispatch]
   );
-
-  useEffect(() => {
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
 
   return (
     <AutoComplete
@@ -158,9 +116,9 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
       placeholder={t('search.packages')}
       startAdornment={<SearchAdornment />}
       suggestions={suggestions}
-      suggestionsError={error}
+      suggestionsError={isError}
       suggestionsLoaded={loaded}
-      suggestionsLoading={loading}
+      suggestionsLoading={isLoading}
       value={search}
     />
   );

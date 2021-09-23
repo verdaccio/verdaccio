@@ -7,7 +7,6 @@ type FullModel = ExtraModelsFromLoading<RootModel>;
 
 export const store = init<RootModel, FullModel>({
   models,
-  // @ts-ignore
   plugins: [loadingPlugin()],
 });
 

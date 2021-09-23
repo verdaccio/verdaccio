@@ -20,7 +20,6 @@ const VersionContextProvider: React.FC = ({ children }) => {
   );
   const isLoading = useSelector((state: RootState) => state?.loading?.models.manifest);
   const dispatch = useDispatch<Dispatch>();
-
   useEffect(() => {
     const packageName = getRouterPackageName(pkgName, scope);
     dispatch.manifest.getManifest({ packageName, packageVersion });

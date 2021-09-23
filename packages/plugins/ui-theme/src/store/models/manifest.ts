@@ -67,8 +67,8 @@ export const manifest = createModel<RootModel>()({
     async getManifest({ packageName, packageVersion }, state) {
       const basePath = state.configuration.config.base;
       try {
-        if (isPackageVersionValid(packageName)) {
-          // throw new Error('not found');
+        if (!isPackageVersionValid(packageName, packageVersion)) {
+          throw new Error('not found');
         }
 
         const manifest: Package = await API.request(
