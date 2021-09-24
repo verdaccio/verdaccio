@@ -1,4 +1,5 @@
 import { createModel } from '@rematch/core';
+import { Package } from '@verdaccio/types';
 
 import API from '../../providers/API/api';
 
@@ -10,7 +11,7 @@ const CONSTANTS = {
 };
 
 type SearchState = {
-  suggestions: unknown[];
+  suggestions: Package[];
   controller: AbortController[];
 };
 
@@ -42,7 +43,7 @@ export const search = createModel<RootModel>()({
         isError: true,
       };
     },
-    saveSearch(state, { suggestions }: { suggestions: unknown[] }) {
+    saveSearch(state, { suggestions }: { suggestions: Package[] }) {
       return {
         ...state,
         suggestions,
@@ -59,7 +60,7 @@ export const search = createModel<RootModel>()({
         const signal = controller.signal;
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#Browser_compatibility
         // FUTURE: signal is not well supported for IE and Samsung Browser
-        const suggestions: unknown[] = await API.request(
+        const suggestions: Package[] = await API.request(
           `${basePath}-/verdaccio/search/${encodeURIComponent(value)}`,
           'GET',
           {
