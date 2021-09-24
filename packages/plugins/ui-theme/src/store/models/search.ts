@@ -9,22 +9,27 @@ const CONSTANTS = {
   ABORT_ERROR: 'AbortError',
 };
 
+type SearchState = {
+  suggestions: unknown[];
+  controller: AbortController[];
+};
+
 export const search = createModel<RootModel>()({
   state: {
     // abort: () => void }
     suggestions: [],
-    controller: [] as any[],
-  },
+    controller: [],
+  } as SearchState,
   reducers: {
     clearRequestQueue(state) {
       const controllers = state.controller;
       controllers.forEach((request) => request.abort());
       return {
-        state,
+        ...state,
         controller: [],
       };
     },
-    addControllerToQueue(state, { controller }) {
+    addControllerToQueue(state, { controller }: { controller: AbortController }) {
       const currentControllers = state.controller;
       return {
         ...state,
@@ -37,7 +42,7 @@ export const search = createModel<RootModel>()({
         isError: true,
       };
     },
-    saveSearch(state, { suggestions }) {
+    saveSearch(state, { suggestions }: { suggestions: unknown[] }) {
       return {
         ...state,
         suggestions,
@@ -50,12 +55,11 @@ export const search = createModel<RootModel>()({
       const basePath = state.configuration.config.base;
       try {
         const controller = new window.AbortController();
-        // @ts-ignore
         dispatch.search.addControllerToQueue({ controller });
         const signal = controller.signal;
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#Browser_compatibility
         // FUTURE: signal is not well supported for IE and Samsung Browser
-        const suggestions = await API.request(
+        const suggestions: unknown[] = await API.request(
           `${basePath}-/verdaccio/search/${encodeURIComponent(value)}`,
           'GET',
           {
@@ -64,11 +68,9 @@ export const search = createModel<RootModel>()({
           }
         );
 
-        // @ts-ignore
         dispatch.search.saveSearch({ suggestions });
       } catch (error: any) {
         if (error.name === CONSTANTS.ABORT_ERROR) {
-          // @ts-ignore
           dispatch.search.saveSearch({ suggestions: [] });
         } else {
           dispatch.search.setError();
