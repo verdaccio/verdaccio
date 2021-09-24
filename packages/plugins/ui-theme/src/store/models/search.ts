@@ -11,13 +11,12 @@ const CONSTANTS = {
 };
 
 type SearchState = {
-  suggestions: Package[];
+  suggestions: Partial<Package>[];
   controller: AbortController[];
 };
 
 export const search = createModel<RootModel>()({
   state: {
-    // abort: () => void }
     suggestions: [],
     controller: [],
   } as SearchState,
@@ -43,7 +42,7 @@ export const search = createModel<RootModel>()({
         isError: true,
       };
     },
-    saveSearch(state, { suggestions }: { suggestions: Package[] }) {
+    saveSearch(state, { suggestions }: { suggestions: Partial<Package>[] }) {
       return {
         ...state,
         suggestions,
@@ -60,7 +59,7 @@ export const search = createModel<RootModel>()({
         const signal = controller.signal;
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#Browser_compatibility
         // FUTURE: signal is not well supported for IE and Samsung Browser
-        const suggestions: Package[] = await API.request(
+        const suggestions: Partial<Package>[] = await API.request(
           `${basePath}-/verdaccio/search/${encodeURIComponent(value)}`,
           'GET',
           {
