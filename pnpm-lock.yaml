@@ -225,7 +225,7 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/helper': link:../../test/helpers
+      '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/server': link:../server
       '@verdaccio/types': link:../core/types
       body-parser: 1.19.0
@@ -985,7 +985,7 @@ importers:
       verdaccio-audit: link:../plugins/audit
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/helper': link:../../test/helpers
+      '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/mock': link:../mock
       '@verdaccio/proxy': link:../proxy
       http-errors: 1.8.0
@@ -1104,6 +1104,12 @@ importers:
       eslint-plugin-react-hooks: 4.2.0_eslint@7.32.0
       eslint-plugin-simple-import-sort: 7.0.0_eslint@7.32.0
       eslint-plugin-verdaccio: 10.0.0
+
+  packages/tools/helpers:
+    specifiers:
+      '@verdaccio/types': workspace:11.0.0-6-next.8
+    devDependencies:
+      '@verdaccio/types': link:../../core/types
 
   packages/types:
     specifiers:
@@ -1250,12 +1256,6 @@ importers:
       puppeteer: 10.2.0
       request: 2.87.0
       rimraf: 3.0.2
-
-  test/helpers:
-    specifiers:
-      '@verdaccio/types': workspace:11.0.0-6-next.8
-    devDependencies:
-      '@verdaccio/types': link:../../packages/core/types
 
   website:
     specifiers:
