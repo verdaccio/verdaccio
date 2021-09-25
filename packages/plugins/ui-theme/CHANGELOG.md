@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.11
+
+### Minor Changes
+
+- 5fed1955: feat: integrate rematch for ui state storage
+
 ## 6.0.0-6-next.10
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.5
+
+### Patch Changes
+
+- 2c594910: do not show deprecation warning on default logger config
+
 ## 6.0.0-6-next.4
 
 ### Major Changes
