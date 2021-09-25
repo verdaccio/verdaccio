@@ -18,7 +18,6 @@ import { Response } from 'request';
 
 import { IStorageHelper } from './storage-helper';
 import { VerdaccioConfigGoogleStorage } from './types';
-import e from 'express';
 
 export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';
