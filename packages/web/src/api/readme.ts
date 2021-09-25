@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import sanitizyReadme from '@verdaccio/readme';
 
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { HEADER_TYPE, HEADERS } from '@verdaccio/commons-api';
+import { HEADER_TYPE, HEADERS } from '@verdaccio/core';
 import { Router } from 'express';
 import { IAuth } from '@verdaccio/auth';
 import { Storage } from '@verdaccio/store';

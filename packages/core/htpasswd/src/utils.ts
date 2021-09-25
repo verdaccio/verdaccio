@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import createError, { HttpError } from 'http-errors';
 import { readFile } from '@verdaccio/file-locking';
 import { Callback } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
 
 import crypt3 from './crypt3';
 

@@ -9,7 +9,7 @@ import {
   TOKEN_BEARER,
   API_ERROR,
   SUPPORT_ERRORS,
-} from '@verdaccio/commons-api';
+} from '@verdaccio/core';
 
 import { buildToken } from '@verdaccio/utils';
 import {

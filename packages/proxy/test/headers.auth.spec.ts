@@ -1,6 +1,6 @@
 import { buildToken } from '@verdaccio/utils';
 
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS } from '@verdaccio/commons-api';
+import { constants, TOKEN_BASIC, TOKEN_BEARER, HEADERS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
 
@@ -150,6 +150,6 @@ describe('uplink headers auth test', () => {
 
     expect(function () {
       fnError();
-    }).toThrow(ERROR_CODE.token_required);
+    }).toThrow(constants.ERROR_CODE.token_required);
   });
 });

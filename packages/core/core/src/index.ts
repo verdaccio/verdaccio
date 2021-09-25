@@ -7,6 +7,22 @@ import * as pluginUtils from './plugin-utils';
 import * as fileUtils from './file-utils';
 import * as pkgUtils from './pkg-utils';
 
+export { VerdaccioError, API_ERROR, SUPPORT_ERRORS, APP_ERROR } from './error-utils';
+export {
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  HTTP_STATUS,
+  API_MESSAGE,
+  HEADERS,
+  DIST_TAGS,
+  CHARACTER_ENCODING,
+  HEADER_TYPE,
+  LATEST,
+  DEFAULT_MIN_LIMIT_PASSWORD,
+  DEFAULT_USER,
+  USERS,
+} from './constants';
+
 export {
   fileUtils,
   pkgUtils,

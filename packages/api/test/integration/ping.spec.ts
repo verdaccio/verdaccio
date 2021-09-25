@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 
-import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 import { initializeServer } from './_helper';
 
 describe('ping', () => {

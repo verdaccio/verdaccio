@@ -5,7 +5,7 @@ import { Writable } from 'stream';
 import { DownloadResponse } from '@google-cloud/storage';
 import { IPackageStorageManager } from '@verdaccio/types';
 import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/types';
-import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/commons-api';
+import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/core';
 
 import { pkgFileName } from '../src/storage';
 import { VerdaccioConfigGoogleStorage } from '../src/types';

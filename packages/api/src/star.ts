@@ -1,4 +1,4 @@
-import { USERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { USERS, HTTP_STATUS } from '@verdaccio/core';
 import { Response } from 'express';
 import _ from 'lodash';
 import buildDebug from 'debug';

@@ -40,7 +40,7 @@
   "dependencies": {
     "debug": "4.3.2",
     "@verdaccio/auth": "workspace:6.0.0-6-next.12",
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/logger": "workspace:6.0.0-6-next.5",
     "@verdaccio/utils": "workspace:6.0.0-6-next.6",
     "lodash": "4.17.21"

@@ -1,6 +1,6 @@
 import { S3, AWSError } from 'aws-sdk';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 import { Callback, Logger, Package, ILocalPackageManager, CallbackAction } from '@verdaccio/types';
 import { HttpError } from 'http-errors';
 

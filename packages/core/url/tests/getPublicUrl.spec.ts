@@ -1,6 +1,6 @@
 import * as httpMocks from 'node-mocks-http';
 
-import { HEADERS } from '@verdaccio/commons-api';
+import { HEADERS } from '@verdaccio/core';
 import { getPublicUrl } from '../src';
 
 describe('host', () => {

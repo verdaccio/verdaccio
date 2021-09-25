@@ -3,8 +3,8 @@ import { Router } from 'express';
 import buildDebug from 'debug';
 
 import { allow } from '@verdaccio/middleware';
-import { getVersion, ErrorCode } from '@verdaccio/utils';
-import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
+import { getVersion } from '@verdaccio/utils';
+import { HEADERS, DIST_TAGS, API_ERROR, errorUtils } from '@verdaccio/core';
 import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { Storage } from '@verdaccio/store';
@@ -80,7 +80,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         }
 
         debug('package version not found %o', queryVersion);
-        return next(ErrorCode.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`));
+        return next(errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`));
       };
 
       debug('get package name %o', name);

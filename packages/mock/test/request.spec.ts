@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
+import { HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 
 import smartRequest, { PromiseAssert } from '../src/request';
 import { mockServer } from '../src/mock';

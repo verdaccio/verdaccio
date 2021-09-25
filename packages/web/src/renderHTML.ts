@@ -1,7 +1,7 @@
 import { URL } from 'url';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
-import { HEADERS } from '@verdaccio/commons-api';
+import { HEADERS } from '@verdaccio/core';
 import { getPublicUrl } from '@verdaccio/url';
 
 import { WEB_TITLE } from '@verdaccio/config';

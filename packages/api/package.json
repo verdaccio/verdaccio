@@ -40,7 +40,6 @@
   "license": "MIT",
   "dependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.12",
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
     "@verdaccio/config": "workspace:6.0.0-6-next.8",
     "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/hooks": "workspace:6.0.0-6-next.7",
@@ -60,6 +59,7 @@
     "@types/node": "16.9.1",
     "@verdaccio/server": "workspace:6.0.0-6-next.20",
     "@verdaccio/types": "workspace:11.0.0-6-next.8",
+    "@verdaccio/helper": "1.0.0",
     "body-parser": "1.19.0",
     "lodash": "4.17.21",
     "supertest": "6.1.6"

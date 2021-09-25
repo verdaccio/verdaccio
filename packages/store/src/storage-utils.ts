@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import semver from 'semver';
-import { ErrorCode, normalizeDistTags, generateRandomHexString, isNil } from '@verdaccio/utils';
+import { normalizeDistTags, generateRandomHexString, isNil } from '@verdaccio/utils';
 
 import { Package, Version, Author, StringValue } from '@verdaccio/types';
 
-import { pkgUtils, validatioUtils } from '@verdaccio/core';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/commons-api';
+import { pkgUtils, validatioUtils, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/core';
 import { SearchInstance } from './search';
 import { LocalStorage } from './local-storage';
 
@@ -155,7 +155,7 @@ export function checkPackageLocal(name: string, localStorage: LocalStorage): Pro
         return reject(err);
       }
       if (results) {
-        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+        return reject(errorUtils.getConflict(API_ERROR.PACKAGE_EXIST));
       }
       return resolve();
     });
@@ -193,7 +193,7 @@ export function checkPackageRemote(
 
       // checking package exist already
       if (isNil(packageJsonLocal) === false) {
-        return reject(ErrorCode.getConflict(API_ERROR.PACKAGE_EXIST));
+        return reject(errorUtils.getConflict(API_ERROR.PACKAGE_EXIST));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
@@ -205,7 +205,7 @@ export function checkPackageRemote(
               return resolve();
             }
 
-            return reject(ErrorCode.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
+            return reject(errorUtils.getServiceUnavailable(API_ERROR.UPLINK_OFFLINE_PUBLISH));
           }
         }
       }

@@ -8,10 +8,8 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
   VerdaccioError,
-  getBadRequest,
-  getInternalError,
-  getForbidden,
-} from '@verdaccio/commons-api';
+  errorUtils,
+} from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
 import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
 
@@ -153,7 +151,7 @@ class Auth implements IAuth {
     const validPlugins = _.filter(this.plugins, (plugin) => isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
-      return cb(getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+      return cb(errorUtils.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
     for (const plugin of validPlugins) {
@@ -425,7 +423,7 @@ class Auth implements IAuth {
 
       if (!isAuthHeaderValid(authorization)) {
         debug('api middleware authentication heather is invalid');
-        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
       const { secret, security } = this.config;
 
@@ -476,7 +474,7 @@ class Auth implements IAuth {
       } else {
         // with JWT throw 401
         debug('jwt invalid token');
-        next(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+        next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       }
     }
   }
@@ -510,7 +508,7 @@ class Auth implements IAuth {
     } else {
       // we force npm client to ask again with basic authentication
       debug('legacy invalid header');
-      return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+      return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
   }
 
@@ -544,7 +542,7 @@ class Auth implements IAuth {
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
       const token = (authorization || '').replace(`${TOKEN_BEARER} `, '');

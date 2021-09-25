@@ -5,9 +5,10 @@ import bodyParser from 'body-parser';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
+import { generatePackageMetadata } from '@verdaccio/helper';
 import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth, IAuth } from '@verdaccio/auth';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, generatePackageMetadata } from '@verdaccio/commons-api';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import apiEndpoints from '../../src';
 
 const getConf = (conf) => {

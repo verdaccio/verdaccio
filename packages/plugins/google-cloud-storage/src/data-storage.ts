@@ -1,6 +1,6 @@
 import { Storage } from '@google-cloud/storage';
 import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
-import { getServiceUnavailable, getInternalError, VerdaccioError } from '@verdaccio/commons-api';
+import { errorUtils, VerdaccioError } from '@verdaccio/core';
 import {
   Logger,
   Callback,
@@ -87,19 +87,19 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
   public saveToken(token: Token): Promise<void> {
     this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
 
-    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[saveToken] method not implemented'));
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<void> {
     this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
 
-    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[deleteToken] method not implemented'));
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
     this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
 
-    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[readTokens] method not implemented'));
   }
 
   public getSecret(): Promise<string> {
@@ -119,10 +119,10 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
         return entities.secret;
       })
       .catch((err: Error): Promise<string> => {
-        const error: VerdaccioError = getInternalError(err.message);
+        const error: VerdaccioError = errorUtils.getInternalError(err.message);
 
         this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
-        return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
+        return Promise.reject(errorUtils.getServiceUnavailable('[getSecret] permissions error'));
       });
   }
 
@@ -160,10 +160,10 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
           resolve();
         })
         .catch((err: Error): void => {
-          const error: VerdaccioError = getInternalError(err.message);
+          const error: VerdaccioError = errorUtils.getInternalError(err.message);
 
           this.logger.debug({ error }, 'gcloud: [datastore add] @{name} error @{error}');
-          reject(getInternalError(error.message));
+          reject(errorUtils.getInternalError(error.message));
         });
     });
   }
@@ -174,7 +174,7 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
       const key = datastore.key([this.kind, datastore.int(item.id)]);
       await datastore.delete(key);
     } catch (err: any) {
-      return getInternalError(err.message);
+      return errorUtils.getInternalError(err.message);
     }
   }
 

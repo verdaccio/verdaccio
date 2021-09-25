@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { Package } from '@verdaccio/types';
-import { DIST_TAGS } from '@verdaccio/commons-api';
+import { DIST_TAGS } from '@verdaccio/core';
 import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE } from '../src/storage-utils';
 
 import { tagVersion } from '../src/storage-utils';

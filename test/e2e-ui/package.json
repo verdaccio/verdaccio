@@ -3,7 +3,7 @@
   "name": "@verdaccio/e2e-ui",
   "version": "1.1.0-6-next.1",
   "devDependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.11",
     "debug": "4.3.2",
     "kleur": "3.0.3",

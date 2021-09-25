@@ -4,8 +4,15 @@ import mime from 'mime';
 import { Router } from 'express';
 import buildDebug from 'debug';
 
-import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
-import { validateMetadata, isObject, ErrorCode, hasDiffOneKey } from '@verdaccio/utils';
+import {
+  API_MESSAGE,
+  HEADERS,
+  DIST_TAGS,
+  API_ERROR,
+  HTTP_STATUS,
+  errorUtils,
+} from '@verdaccio/core';
+import { validateMetadata, isObject, hasDiffOneKey } from '@verdaccio/utils';
 import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
 import { Config, Callback, MergeTags, Version, Package, CallbackAction } from '@verdaccio/types';
@@ -224,7 +231,7 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
         // if this happens in normal circumstances, report it as a bug
         debug('invalid body format');
         logger.info({ packageName }, `wrong package format on publish a package @{packageName}`);
-        return next(ErrorCode.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL));
+        return next(errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL));
       }
 
       if (error && error.status !== HTTP_STATUS.CONFLICT) {
@@ -322,7 +329,7 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
     } catch (error: any) {
       debug('error on publish, bad package format %o', packageName);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
-      return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
+      return next(errorUtils.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }
   };
 }

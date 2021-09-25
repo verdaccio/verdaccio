@@ -11,9 +11,6 @@
       "path": "../../utils"
     },
     {
-      "path": "../commons-api"
-    },
-    {
       "path": "../url"
     }
   ]

@@ -1,11 +1,5 @@
 import buildDebug from 'debug';
-import {
-  VerdaccioError,
-  getBadRequest,
-  getInternalError,
-  getConflict,
-  getNotFound,
-} from '@verdaccio/commons-api';
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import { fs } from 'memfs';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import {
@@ -67,7 +61,7 @@ class MemoryHandler implements IPackageStorageManager {
       try {
         onWrite(pkgFileName, transformPackage(pkg), onEnd);
       } catch (err: any) {
-        return onEnd(getInternalError('error on parse the metadata'));
+        return onEnd(errorUtils.getInternalError('error on parse the metadata'));
       }
     });
   }
@@ -92,7 +86,7 @@ class MemoryHandler implements IPackageStorageManager {
       this.data[name] = stringifyPackage(value);
       return cb(null);
     } catch (err: any) {
-      return cb(getInternalError(err.message));
+      return cb(errorUtils.getInternalError(err.message));
     }
   }
 
@@ -102,9 +96,9 @@ class MemoryHandler implements IPackageStorageManager {
     const isJson = typeof json === 'undefined';
 
     try {
-      return cb(isJson ? getNotFound() : null, parsePackage(json));
+      return cb(isJson ? errorUtils.getNotFound() : null, parsePackage(json));
     } catch (err: any) {
-      return cb(getNotFound());
+      return cb(errorUtils.getNotFound());
     }
   }
 
@@ -116,7 +110,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function () {
       fs.stat(temporalName, function (fileError, stats) {
         if (!fileError && stats) {
-          return uploadStream.emit('error', getConflict());
+          return uploadStream.emit('error', errorUtils.getConflict());
         }
 
         try {
@@ -133,7 +127,7 @@ class MemoryHandler implements IPackageStorageManager {
           };
 
           uploadStream.abort = function (): void {
-            uploadStream.emit('error', getBadRequest('transmision aborted'));
+            uploadStream.emit('error', errorUtils.getBadRequest('transmision aborted'));
             file.end();
           };
 
@@ -158,7 +152,7 @@ class MemoryHandler implements IPackageStorageManager {
     process.nextTick(function () {
       fs.stat(pathName, function (error, stats) {
         if (error && !stats) {
-          return readTarballStream.emit('error', getNotFound());
+          return readTarballStream.emit('error', errorUtils.getNotFound());
         }
 
         try {
@@ -172,7 +166,7 @@ class MemoryHandler implements IPackageStorageManager {
           });
 
           readTarballStream.abort = function (): void {
-            readStream.destroy(getBadRequest('read has been aborted'));
+            readStream.destroy(errorUtils.getBadRequest('read has been aborted'));
           };
           return;
         } catch (err: any) {

@@ -1,4 +1,4 @@
-import { HEADERS } from '@verdaccio/commons-api';
+import { HEADERS } from '@verdaccio/core';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
 
 export function setSecurityWebHeaders(

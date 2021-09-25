@@ -2,13 +2,8 @@ import path from 'path';
 import request from 'supertest';
 import _ from 'lodash';
 
-import {
-  HEADERS,
-  HTTP_STATUS,
-  HEADER_TYPE,
-  API_MESSAGE,
-  TOKEN_BEARER,
-} from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER } from '@verdaccio/core';
+// import { generatePackageMetadata } from '@verdaccio/helper';
 import { buildToken } from '@verdaccio/utils';
 import { setup, logger } from '@verdaccio/logger';
 

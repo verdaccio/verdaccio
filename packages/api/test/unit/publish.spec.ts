@@ -1,5 +1,4 @@
-import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
-import { ErrorCode } from '@verdaccio/utils';
+import { errorUtils, HTTP_STATUS, API_ERROR } from '@verdaccio/core';
 import {
   addVersion,
   uploadPackageTarball,
@@ -202,13 +201,13 @@ describe('Publish endpoints - un-publish package', () => {
     const storage = {
       removePackage(packageName) {
         expect(packageName).toEqual(req.params.package);
-        return Promise.reject(ErrorCode.getInternalError());
+        return Promise.reject(errorUtils.getInternalError());
       },
     };
 
     // @ts-ignore
     await unPublishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(ErrorCode.getInternalError());
+    expect(next).toHaveBeenCalledWith(errorUtils.getInternalError());
   });
 });
 

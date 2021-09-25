@@ -1,12 +1,7 @@
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 import supertest from 'supertest';
-import {
-  API_ERROR,
-  API_MESSAGE,
-  generatePackageMetadata,
-  HEADER_TYPE,
-  HEADERS,
-} from '@verdaccio/commons-api';
+import { API_ERROR, API_MESSAGE, HEADER_TYPE, HEADERS } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/helper';
 import { $ResponseExtend, $RequestExtend } from '../../types/custom';
 import { initializeServer, publishVersion } from './_helper';
 

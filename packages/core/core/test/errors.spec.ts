@@ -1,9 +1,9 @@
 import _ from 'lodash';
+import { HTTP_STATUS } from '../src/constants';
 
 import {
   getNotFound,
   VerdaccioError,
-  HTTP_STATUS,
   getConflict,
   getBadData,
   getInternalError,

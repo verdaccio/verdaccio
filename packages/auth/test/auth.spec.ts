@@ -3,7 +3,7 @@ import { ROLES, Config as AppConfig } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 import { IAuth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/types';
-import { getInternalError } from '@verdaccio/commons-api';
+import { errorUtils } from '@verdaccio/core';
 
 import { Auth } from '../src';
 
@@ -57,7 +57,7 @@ describe('AuthTest', () => {
 
         auth.authenticate('foo', 'bar', callback);
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(getInternalError());
+        expect(callback).toHaveBeenCalledWith(errorUtils.getInternalError());
       });
     });
 

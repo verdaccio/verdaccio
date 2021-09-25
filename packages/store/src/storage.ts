@@ -5,9 +5,9 @@ import buildDebug from 'debug';
 import semver from 'semver';
 
 import { ProxyStorage } from '@verdaccio/proxy';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
+import { errorUtils, API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/core';
 import { ReadTarball } from '@verdaccio/streams';
-import { ErrorCode, normalizeDistTags } from '@verdaccio/utils';
+import { normalizeDistTags } from '@verdaccio/utils';
 import { ProxyList, IProxy } from '@verdaccio/proxy';
 import {
   IReadTarball,
@@ -503,7 +503,7 @@ class Storage {
           }
 
           if (err || !upLinkResponse) {
-            return cb(null, [err || ErrorCode.getInternalError('no data')]);
+            return cb(null, [err || errorUtils.getInternalError('no data')]);
           }
 
           try {
@@ -570,9 +570,9 @@ class Storage {
           }
 
           if (uplinkTimeoutError) {
-            return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
+            return callback(errorUtils.getServiceUnavailable(), null, upLinksErrors);
           }
-          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
+          return callback(errorUtils.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
         if (upLinks.length === 0) {

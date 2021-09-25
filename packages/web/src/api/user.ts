@@ -4,9 +4,9 @@ import { Router, Response, Request } from 'express';
 
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 
-import { API_ERROR, APP_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { IAuth } from '@verdaccio/auth';
-import { validatePassword, ErrorCode } from '@verdaccio/utils';
+import { validatePassword } from '@verdaccio/utils';
 import { $NextFunctionVer } from './package';
 
 const debug = buildDebug('verdaccio:web:api:user');
@@ -19,7 +19,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       if (err) {
         const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
         debug('error authenticate %o', errorCode);
-        next(ErrorCode.getCode(errorCode, err.message));
+        next(errorUtils.getCode(errorCode, err.message));
       } else {
         req.remote_user = user;
         const jWTSignOptions: JWTSignOptions = config.security.web.sign;
@@ -58,12 +58,12 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
                   ok: true,
                 });
               } else {
-                return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
+                return next(errorUtils.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
               }
             }
           );
         } else {
-          return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
       }
     );

@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { Router } from 'express';
 
 import { media, allow } from '@verdaccio/middleware';
-import { API_MESSAGE, HTTP_STATUS, DIST_TAGS, VerdaccioError } from '@verdaccio/commons-api';
+import { constants, VerdaccioError } from '@verdaccio/core';
 import { Package } from '@verdaccio/types';
 import { Storage } from '@verdaccio/store';
 import { IAuth } from '@verdaccio/auth';
@@ -26,8 +26,8 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       if (err) {
         return next(err);
       }
-      res.status(HTTP_STATUS.CREATED);
-      return next({ ok: API_MESSAGE.TAG_ADDED });
+      res.status(constants.HTTP_STATUS.CREATED);
+      return next({ ok: constants.API_MESSAGE.TAG_ADDED });
     });
   };
 
@@ -58,9 +58,9 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
         if (err) {
           return next(err);
         }
-        res.status(HTTP_STATUS.CREATED);
+        res.status(constants.HTTP_STATUS.CREATED);
         return next({
-          ok: API_MESSAGE.TAG_REMOVED,
+          ok: constants.API_MESSAGE.TAG_REMOVED,
         });
       });
     }
@@ -79,7 +79,7 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
             return next(err);
           }
 
-          next(info[DIST_TAGS]);
+          next(info[constants.DIST_TAGS]);
         },
       });
     }
@@ -96,9 +96,9 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
           if (err) {
             return next(err);
           }
-          res.status(HTTP_STATUS.CREATED);
+          res.status(constants.HTTP_STATUS.CREATED);
           return next({
-            ok: API_MESSAGE.TAG_UPDATED,
+            ok: constants.API_MESSAGE.TAG_UPDATED,
           });
         }
       );

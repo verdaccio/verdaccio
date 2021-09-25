@@ -37,7 +37,6 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
     "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
     "@verdaccio/streams": "workspace:11.0.0-6-next.4",

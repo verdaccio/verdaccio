@@ -1,5 +1,5 @@
 import ActiveDirectory from 'activedirectory2';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 
 import ActiveDirectoryPlugin, { NotAuthMessage } from '../src/active-directory';
 

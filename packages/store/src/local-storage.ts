@@ -4,9 +4,9 @@ import { PassThrough } from 'stream';
 import _ from 'lodash';
 import buildDebug from 'debug';
 
-import { ErrorCode, isObject, getLatestVersion } from '@verdaccio/utils';
-import { searchUtils, pluginUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS, SUPPORT_ERRORS, USERS } from '@verdaccio/commons-api';
+import { isObject, getLatestVersion } from '@verdaccio/utils';
+import { errorUtils, searchUtils, pluginUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, SUPPORT_ERRORS, USERS } from '@verdaccio/core';
 import { createTarballHash } from '@verdaccio/utils';
 import { loadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
@@ -29,7 +29,7 @@ import {
   StringValue,
   StorageUpdateCallback,
 } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { VerdaccioError } from '@verdaccio/core';
 
 import {
   generatePackageTemplate,
@@ -116,7 +116,7 @@ class LocalStorage {
 
     if (_.isNil(storage)) {
       debug(`storage is missing for %o package cannot be added`, name);
-      return callback(ErrorCode.getNotFound('this package cannot be added'));
+      return callback(errorUtils.getNotFound('this package cannot be added'));
     }
 
     storage.createPackage(name, generatePackageTemplate(name), (err) => {
@@ -125,7 +125,7 @@ class LocalStorage {
         (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT)
       ) {
         debug(`error on creating a package for %o with error %o`, name, err.message);
-        return callback(ErrorCode.getConflict());
+        return callback(errorUtils.getConflict());
       }
 
       const latest = getLatestVersion(pkg);
@@ -147,7 +147,7 @@ class LocalStorage {
     const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
-      throw ErrorCode.getNotFound();
+      throw errorUtils.getNotFound();
     }
 
     return new Promise((resolve, reject) => {
@@ -155,7 +155,7 @@ class LocalStorage {
         if (_.isNil(err) === false) {
           if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
             debug(`error on not found %o with error %o`, name, err.message);
-            return reject(ErrorCode.getNotFound());
+            return reject(errorUtils.getNotFound());
           }
           return reject(err);
         }
@@ -180,7 +180,7 @@ class LocalStorage {
           resolve();
         } catch (err: any) {
           this.logger.error({ err }, 'removed package has failed @{err.message}');
-          throw ErrorCode.getBadData(err.message);
+          throw errorUtils.getBadData(err.message);
         }
       });
     });
@@ -312,7 +312,7 @@ class LocalStorage {
         const hasVersion = data.versions[version] != null;
         if (hasVersion) {
           debug('%s version %s already exists', name, version);
-          return cb(ErrorCode.getConflict());
+          return cb(errorUtils.getConflict());
         }
 
         // if uploaded tarball has a different shasum, it's very likely that we
@@ -329,7 +329,7 @@ class LocalStorage {
                 const errorMessage =
                   `shasum error, ` +
                   `${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
-                return cb(ErrorCode.getBadRequest(errorMessage));
+                return cb(errorUtils.getBadRequest(errorMessage));
               }
             }
 
@@ -359,7 +359,7 @@ class LocalStorage {
           await this.storagePlugin.add(name);
           cb();
         } catch (err: any) {
-          cb(ErrorCode.getBadData(err.message));
+          cb(errorUtils.getBadData(err.message));
         }
       },
       callback
@@ -386,7 +386,7 @@ class LocalStorage {
           }
 
           if (_.isNil(data.versions[tags[tag]])) {
-            return cb(ErrorCode.getNotFound(API_ERROR.VERSION_NOT_EXIST));
+            return cb(errorUtils.getNotFound(API_ERROR.VERSION_NOT_EXIST));
           }
           const version: string = tags[tag];
           tagVersion(data, version, tag);
@@ -418,7 +418,7 @@ class LocalStorage {
       !validatioUtils.isObject(incomingPkg[DIST_TAGS])
     ) {
       debug(`change package bad data for %o`, name);
-      return callback(ErrorCode.getBadData());
+      return callback(errorUtils.getBadData());
     }
 
     debug(`change package udapting package for %o`, name);
@@ -495,7 +495,7 @@ class LocalStorage {
           delete data._attachments[filename];
           cb(null);
         } else {
-          cb(ErrorCode.getNotFound('no such file available'));
+          cb(errorUtils.getNotFound('no such file available'));
         }
       },
       (err: VerdaccioError) => {
@@ -518,7 +518,7 @@ class LocalStorage {
               return callback(null);
             });
         } else {
-          callback(ErrorCode.getInternalError());
+          callback(errorUtils.getInternalError());
         }
       }
     );
@@ -555,7 +555,7 @@ class LocalStorage {
 
     if (name === PROTO_NAME) {
       process.nextTick((): void => {
-        uploadStream.emit('error', ErrorCode.getForbidden());
+        uploadStream.emit('error', errorUtils.getForbidden());
       });
       return uploadStream;
     }
@@ -573,7 +573,7 @@ class LocalStorage {
     writeStream.on('error', (err) => {
       // @ts-ignore
       if (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT) {
-        uploadStream.emit('error', ErrorCode.getConflict());
+        uploadStream.emit('error', errorUtils.getConflict());
         uploadStream.abort();
         // @ts-ignore
       } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
@@ -623,7 +623,7 @@ class LocalStorage {
 
     uploadStream.done = function (): void {
       if (!length) {
-        uploadStream.emit('error', ErrorCode.getBadData('refusing to accept zero-length file'));
+        uploadStream.emit('error', errorUtils.getBadData('refusing to accept zero-length file'));
         writeStream.abort();
       } else {
         writeStream.done();
@@ -662,7 +662,7 @@ class LocalStorage {
     const stream: IReadTarball = new ReadTarball({});
 
     process.nextTick((): void => {
-      stream.emit('error', ErrorCode.getNotFound('no such file available'));
+      stream.emit('error', errorUtils.getNotFound('no such file available'));
     });
     return stream;
   }
@@ -677,7 +677,7 @@ class LocalStorage {
   private _streamSuccessReadTarBall(storage: any, filename: string): IReadTarball {
     const stream: IReadTarball = new ReadTarball({});
     const readTarballStream = storage.readTarball(filename);
-    const e404 = ErrorCode.getNotFound;
+    const e404 = errorUtils.getNotFound;
 
     stream.abort = function (): void {
       if (_.isNil(readTarballStream) === false) {
@@ -717,7 +717,7 @@ class LocalStorage {
     const storage: IPackageStorage = this._getLocalStorage(name);
     debug('get package metadata for %o', name);
     if (typeof storage === 'undefined') {
-      return callback(ErrorCode.getNotFound());
+      return callback(errorUtils.getNotFound());
     }
 
     this._readPackage(name, storage, callback);
@@ -797,7 +797,7 @@ class LocalStorage {
       if (err) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           debug('package %s not found', name);
-          return callback(ErrorCode.getNotFound());
+          return callback(errorUtils.getNotFound());
         }
         return callback(this._internalError(err, STORAGE.PACKAGE_FILE_NAME, 'error reading'));
       }
@@ -847,7 +847,7 @@ class LocalStorage {
   private _internalError(err: string, file: string, message: string): VerdaccioError {
     this.logger.error({ err: err, file: file }, `${message}  @{file}: @{!err.message}`);
 
-    return ErrorCode.getInternalError();
+    return errorUtils.getInternalError();
   }
 
   /**
@@ -864,7 +864,7 @@ class LocalStorage {
     const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
-      return callback(ErrorCode.getNotFound());
+      return callback(errorUtils.getNotFound());
     }
 
     storage.updatePackage(
@@ -984,7 +984,7 @@ class LocalStorage {
   public saveToken(token: Token): Promise<any> {
     if (_.isFunction(this.storagePlugin.saveToken) === false) {
       return Promise.reject(
-        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+        errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
     }
 
@@ -994,7 +994,7 @@ class LocalStorage {
   public deleteToken(user: string, tokenKey: string): Promise<any> {
     if (_.isFunction(this.storagePlugin.deleteToken) === false) {
       return Promise.reject(
-        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+        errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
     }
 
@@ -1004,7 +1004,7 @@ class LocalStorage {
   public readTokens(filter: TokenFilter): Promise<Token[]> {
     if (_.isFunction(this.storagePlugin.readTokens) === false) {
       return Promise.reject(
-        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+        errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
       );
     }
 

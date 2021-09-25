@@ -9,7 +9,7 @@ import buildDebug from 'debug';
 import { logger } from '@verdaccio/logger';
 import { Version } from '@verdaccio/types';
 import { IProxy, ProxyList, ProxySearchParams } from '@verdaccio/proxy';
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { VerdaccioError } from '@verdaccio/core';
 import { searchUtils, errorUtils } from '@verdaccio/core';
 import { LocalStorage } from './local-storage';
 import { Storage } from './storage';

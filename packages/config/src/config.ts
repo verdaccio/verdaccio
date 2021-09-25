@@ -3,7 +3,7 @@ import _ from 'lodash';
 import buildDebug from 'debug';
 
 import { getMatchedPackagesSpec, generateRandomHexString, isObject } from '@verdaccio/utils';
-import { APP_ERROR } from '@verdaccio/commons-api';
+import { APP_ERROR } from '@verdaccio/core';
 import {
   PackageList,
   Config as AppConfig,
