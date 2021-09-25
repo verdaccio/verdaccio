@@ -13,12 +13,9 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
   API_ERROR,
-  getForbidden,
-  getUnauthorized,
-  getConflict,
-  getCode,
-} from '@verdaccio/commons-api';
-import { VerdaccioError } from '@verdaccio/commons-api';
+  VerdaccioError,
+  errorUtils,
+} from '@verdaccio/core';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { TokenEncryption, AESPayload } from './auth';
@@ -155,7 +152,7 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
       // we return an anonymous user to force log in.
       return createAnonymousRemoteUser();
     }
-    throw getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
+    throw errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, error.message);
   }
 }
 
@@ -166,11 +163,11 @@ export function isAuthHeaderValid(authorization: string): boolean {
 export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
   return {
     authenticate(user: string, password: string, cb: Callback): void {
-      cb(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
     adduser(user: string, password: string, cb: Callback): void {
-      return cb(getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
+      return cb(errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
     // FIXME: allow_action and allow_publish should be in the @verdaccio/types
@@ -205,9 +202,13 @@ export function allow_action(action: ActionsAllowed, logger): AllowAction {
     }
 
     if (name) {
-      callback(getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
+      callback(
+        errorUtils.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`)
+      );
     } else {
-      callback(getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
+      callback(
+        errorUtils.getUnauthorized(`authorization required to ${action} package ${pkg.name}`)
+      );
     }
   };
 }

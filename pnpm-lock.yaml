@@ -231,8 +231,8 @@ importers:
 
   packages/auth:
     specifiers:
-      '@verdaccio/commons-api': workspace:11.0.0-6-next.4
       '@verdaccio/config': workspace:6.0.0-6-next.8
+      '@verdaccio/core': workspace:6.0.0-6-next.1
       '@verdaccio/loaders': workspace:6.0.0-6-next.5
       '@verdaccio/logger': workspace:6.0.0-6-next.5
       '@verdaccio/mock': workspace:6.0.0-6-next.9
@@ -244,8 +244,8 @@ importers:
       lodash: 4.17.21
       verdaccio-htpasswd: workspace:11.0.0-6-next.8
     dependencies:
-      '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
+      '@verdaccio/core': link:../core/core
       '@verdaccio/loaders': link:../loaders
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
