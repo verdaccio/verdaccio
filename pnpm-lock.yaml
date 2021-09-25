@@ -285,7 +285,7 @@ importers:
     specifiers:
       '@types/minimatch': 3.0.5
       '@types/yup': 0.29.13
-      '@verdaccio/commons-api': workspace:11.0.0-6-next.4
+      '@verdaccio/core': workspace:6.0.0-6-next.1
       '@verdaccio/utils': workspace:6.0.0-6-next.6
       debug: 4.3.2
       js-yaml: 3.14.1
@@ -293,7 +293,7 @@ importers:
       minimatch: 3.0.4
       yup: 0.32.9
     dependencies:
-      '@verdaccio/commons-api': link:../core/commons-api
+      '@verdaccio/core': link:../core/core
       '@verdaccio/utils': link:../utils
       debug: 4.3.2
       js-yaml: 3.14.1

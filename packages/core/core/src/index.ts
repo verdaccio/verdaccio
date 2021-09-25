@@ -15,6 +15,7 @@ export {
   API_MESSAGE,
   HEADERS,
   DIST_TAGS,
+  CHARACTER_ENCODING,
   USERS,
 } from './constants';
 

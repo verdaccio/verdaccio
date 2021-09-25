@@ -1,7 +1,7 @@
 import assert from 'assert';
 import _ from 'lodash';
 import { PackageAccess } from '@verdaccio/types';
-import { ErrorCode } from '@verdaccio/utils';
+import { errorUtils } from '@verdaccio/core';
 export interface LegacyPackageList {
   [key: string]: PackageAccess;
 }
@@ -35,7 +35,7 @@ export function normalizeUserList(groupsList: any): any {
   } else if (Array.isArray(groupsList)) {
     result.push(groupsList);
   } else {
-    throw ErrorCode.getInternalError(
+    throw errorUtils.getInternalError(
       'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList)
     );
   }

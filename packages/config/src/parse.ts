@@ -1,6 +1,6 @@
 import fs from 'fs';
 import YAML from 'js-yaml';
-import { APP_ERROR } from '@verdaccio/commons-api';
+import { APP_ERROR } from '@verdaccio/core';
 import { ConfigRuntime, ConfigYaml } from '@verdaccio/types';
 
 /**
