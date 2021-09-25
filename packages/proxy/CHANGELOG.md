@@ -1,5 +1,12 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.12
+
+### Patch Changes
+
+- Updated dependencies [2c594910]
+  - @verdaccio/logger@6.0.0-6-next.5
+
 ## 6.0.0-6-next.11
 
 ### Major Changes
