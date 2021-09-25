@@ -9,8 +9,7 @@ import { HttpError } from 'http-errors';
 import { loadPlugin } from '@verdaccio/loaders';
 import { Auth } from '@verdaccio/auth';
 import apiEndpoint from '@verdaccio/api';
-import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { Config as AppConfig } from '@verdaccio/config';
 
 import webMiddleware from '@verdaccio/web';
@@ -103,13 +102,13 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
     app.use(webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
+      next(errorUtils.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
   // Catch 404
   app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
+    next(errorUtils.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
 
   app.use(function (

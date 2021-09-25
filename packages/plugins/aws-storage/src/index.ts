@@ -7,7 +7,7 @@ import {
   Token,
   TokenFilter,
 } from '@verdaccio/types';
-import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
+import { errorUtils, VerdaccioError } from '@verdaccio/core';
 import { S3 } from 'aws-sdk';
 
 import { S3Config } from './config';
@@ -149,7 +149,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
       data = await this.get();
     } catch (err) {
       this.logger.error({ err }, 's3: [remove] error: @{err}');
-      throw getInternalError('something went wrong on remove a package');
+      throw errorUtils.getInternalError('something went wrong on remove a package');
     }
 
     const pkgName = data.indexOf(name);
@@ -252,18 +252,18 @@ export default class S3Database implements IPluginStorage<S3Config> {
   public saveToken(token: Token): Promise<void> {
     this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
 
-    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[saveToken] method not implemented'));
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<void> {
     this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
 
-    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[deleteToken] method not implemented'));
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
     this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
 
-    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[readTokens] method not implemented'));
   }
 }

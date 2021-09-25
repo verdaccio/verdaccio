@@ -10,15 +10,18 @@ import request from 'request';
 import { buildToken } from '@verdaccio/utils';
 import { ReadTarball } from '@verdaccio/streams';
 import {
+  constants,
+  errorUtils,
+  validatioUtils,
+  searchUtils,
   TOKEN_BASIC,
   TOKEN_BEARER,
   HEADERS,
   HTTP_STATUS,
   HEADER_TYPE,
   CHARACTER_ENCODING,
-} from '@verdaccio/commons-api';
+} from '@verdaccio/core';
 import { Config, Callback, Logger, UpLinkConf, IReadTarball } from '@verdaccio/types';
-import { errorUtils, validatioUtils, searchUtils } from '@verdaccio/core';
 import { parseInterval } from './proxy-utils';
 const LoggerApi = require('@verdaccio/logger');
 
@@ -358,15 +361,15 @@ class ProxyStorage implements IProxy {
       } else if (_.isBoolean(tokenConf.token_env) && tokenConf.token_env) {
         token = process.env.NPM_TOKEN;
       } else {
-        this.logger.error(errorUtils.ERROR_CODE.token_required);
-        this._throwErrorAuth(errorUtils.ERROR_CODE.token_required);
+        this.logger.error(constants.ERROR_CODE.token_required);
+        this._throwErrorAuth(constants.ERROR_CODE.token_required);
       }
     } else {
       token = process.env.NPM_TOKEN;
     }
 
     if (_.isNil(token)) {
-      this._throwErrorAuth(errorUtils.ERROR_CODE.token_required);
+      this._throwErrorAuth(constants.ERROR_CODE.token_required);
     }
 
     // define type Auth allow basic and bearer

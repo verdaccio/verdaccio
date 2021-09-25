@@ -2,7 +2,7 @@ import path from 'path';
 import supertest from 'supertest';
 import { setup } from '@verdaccio/logger';
 import { IGetPackageOptions } from '@verdaccio/store';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
 import { NOT_README_FOUND } from '../src/api/readme';
 import { initializeServer } from './helper';

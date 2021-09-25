@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 
 import pkgReadmeJSON from './pkg-readme.json';
 import pkgNoReadmeJSON from './pkg-no-readme.json';

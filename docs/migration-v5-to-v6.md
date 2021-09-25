@@ -74,3 +74,7 @@ Introduce environment variables for legacy tokens.
 
 - `VERDACCIO_LEGACY_ALGORITHM`: Allows to define the specific algorithm for the token signature which by default is `aes-256-ctr`
 - `VERDACCIO_LEGACY_ENCRYPTION_KEY`: By default, the token stores in the database, but using this variable allows to get it from memory
+
+#### @verdaccio/commons-api migration
+
+The package has been removed in favor of `@verdaccio/core` with a similar API, check API documentation for further details.

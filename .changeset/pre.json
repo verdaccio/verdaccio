@@ -6,7 +6,6 @@
     "@verdaccio/auth": "6.0.0-alpha.0",
     "@verdaccio/cli": "6.0.0-alpha.0",
     "@verdaccio/config": "6.0.0-alpha.0",
-    "@verdaccio/commons-api": "11.0.0-alpha.0",
     "@verdaccio/file-locking": "11.0.0-alpha.0",
     "verdaccio-htpasswd": "11.0.0-alpha.0",
     "@verdaccio/local-storage": "11.0.0-alpha.0",

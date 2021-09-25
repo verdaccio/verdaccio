@@ -7,13 +7,7 @@ import {
   RemoteUser,
   Logger,
 } from '@verdaccio/types';
-import {
-  getConflict,
-  getForbidden,
-  getNotFound,
-  getUnauthorized,
-  API_ERROR,
-} from '@verdaccio/commons-api';
+import { errorUtils, API_ERROR } from '@verdaccio/core';
 
 import { VerdaccioMemoryConfig, Users, UserMemory } from './types';
 
@@ -46,7 +40,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     }
 
     if (password !== userCredentials.password) {
-      const err = getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD);
+      const err = errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD);
       debug('password invalid for: %o', user);
 
       return done(err);
@@ -66,7 +60,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
 
     if (this._app_config.max_users) {
       if (Object.keys(this._users).length >= this._app_config.max_users) {
-        const err = getConflict(API_ERROR.MAX_USERS_REACHED);
+        const err = errorUtils.getConflict(API_ERROR.MAX_USERS_REACHED);
         debug(API_ERROR.MAX_USERS_REACHED);
         return done(err);
       }
@@ -93,7 +87,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       debug('user changed password succeeded for %o', user?.name);
       cb(null, user);
     } else {
-      const err = getNotFound('user not found');
+      const err = errorUtils.getNotFound('user not found');
       this._logger.debug({ user: username }, 'change password user  @{user} not found');
       debug('change password user for %o not found', user?.name);
       return cb(err);
@@ -109,7 +103,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     }
 
     if (!user?.name) {
-      const err = getForbidden('not allowed to access package');
+      const err = errorUtils.getForbidden('not allowed to access package');
       this._logger.debug({ user: user.name }, 'user: @{user} not allowed to access package');
       debug('%o not allowed to access package err', user?.name, err.message);
       return cb(err);
@@ -120,7 +114,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(null, true);
     }
 
-    const err = getForbidden('not allowed to access package');
+    const err = errorUtils.getForbidden('not allowed to access package');
     debug('%o not allowed to access package err', user?.name, err?.message);
     return cb(err);
   }
@@ -132,7 +126,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
     }
 
     if (!user?.name) {
-      const err = getForbidden('not allowed to publish package');
+      const err = errorUtils.getForbidden('not allowed to publish package');
       debug('%o not allowed to publish package err %o', user?.name, err.message);
       return cb(err);
     }
@@ -141,7 +135,7 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
       return cb(null, true);
     }
 
-    const err = getForbidden('not allowed to publish package');
+    const err = errorUtils.getForbidden('not allowed to publish package');
     debug('%o not allowed to publish package err %o', user?.name, err.message);
 
     return cb(err);

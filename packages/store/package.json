@@ -39,7 +39,6 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
     "@verdaccio/config": "workspace:6.0.0-6-next.8",
     "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.5",

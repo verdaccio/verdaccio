@@ -8,7 +8,7 @@ import fs from 'fs';
 import url from 'url';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR } from '@verdaccio/commons-api';
+import { API_ERROR } from '@verdaccio/core';
 import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { setup, logger } from '@verdaccio/logger';
 import server from '@verdaccio/server';

@@ -1,20 +1,12 @@
 import { AWSError } from 'aws-sdk';
-import {
-  getNotFound,
-  getCode,
-  getInternalError,
-  getConflict,
-  API_ERROR,
-  HTTP_STATUS,
-  VerdaccioError,
-} from '@verdaccio/commons-api';
+import { errorUtils, API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 
 export function is404Error(err: VerdaccioError): boolean {
   return err.code === HTTP_STATUS.NOT_FOUND;
 }
 
 export function create404Error(): VerdaccioError {
-  return getNotFound('no such package available');
+  return errorUtils.getNotFound('no such package available');
 }
 
 export function is409Error(err: VerdaccioError): boolean {
@@ -22,7 +14,7 @@ export function is409Error(err: VerdaccioError): boolean {
 }
 
 export function create409Error(): VerdaccioError {
-  return getConflict('file already exists');
+  return errorUtils.getConflict('file already exists');
 }
 
 export function is503Error(err: VerdaccioError): boolean {
@@ -30,19 +22,19 @@ export function is503Error(err: VerdaccioError): boolean {
 }
 
 export function create503Error(): VerdaccioError {
-  return getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, 'resource temporarily unavailable');
+  return errorUtils.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, 'resource temporarily unavailable');
 }
 
 export function convertS3Error(err: AWSError): VerdaccioError {
   switch (err.code) {
     case 'NoSuchKey':
     case 'NotFound':
-      return getNotFound();
+      return errorUtils.getNotFound();
     case 'StreamContentLengthMismatch':
-      return getInternalError(API_ERROR.CONTENT_MISMATCH);
+      return errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH);
     case 'RequestAbortedError':
-      return getInternalError('request aborted');
+      return errorUtils.getInternalError('request aborted');
     default:
-      return getCode(err.statusCode!, err.message);
+      return errorUtils.getCode(err.statusCode!, err.message);
   }
 }

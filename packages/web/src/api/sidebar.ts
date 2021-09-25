@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 import { isVersionValid, formatAuthor } from '@verdaccio/utils';
-import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
+import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/core';
 import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
 
 import { Router } from 'express';

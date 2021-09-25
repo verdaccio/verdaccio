@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.12",
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/config": "workspace:6.0.0-6-next.8",
     "@verdaccio/store": "workspace:6.0.0-6-next.13",
     "fastify": "3.20.2"

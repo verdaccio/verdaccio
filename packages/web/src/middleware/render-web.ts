@@ -4,7 +4,7 @@ import buildDebug from 'debug';
 import express from 'express';
 
 import { SearchInstance } from '@verdaccio/store';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 import renderHTML from '../renderHTML';

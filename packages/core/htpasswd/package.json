@@ -34,7 +34,7 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/file-locking": "workspace:11.0.0-alpha.3",
     "apache-md5": "1.1.7",
     "bcryptjs": "2.4.3",

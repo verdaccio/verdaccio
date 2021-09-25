@@ -1,8 +1,7 @@
 import path from 'path';
 import nock from 'nock';
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { ErrorCode } from '@verdaccio/utils';
-import { API_ERROR, HEADER_TYPE, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
+import { errorUtils, API_ERROR, HEADER_TYPE, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 import { ProxyStorage } from '../src/up-storage';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
@@ -112,7 +111,7 @@ describe('proxy', () => {
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
         stream.on('error', (response) => {
-          expect(response).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_FILE_UPLINK));
+          expect(response).toEqual(errorUtils.getNotFound(API_ERROR.NOT_FILE_UPLINK));
           done();
         });
       });
@@ -132,7 +131,7 @@ describe('proxy', () => {
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
         stream.on('error', (response) => {
-          expect(response).toEqual(ErrorCode.getInternalError(`bad uplink status code: 409`));
+          expect(response).toEqual(errorUtils.getInternalError(`bad uplink status code: 409`));
           done();
         });
       });
@@ -148,7 +147,7 @@ describe('proxy', () => {
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
         stream.on('error', (response) => {
-          expect(response).toEqual(ErrorCode.getInternalError(API_ERROR.CONTENT_MISMATCH));
+          expect(response).toEqual(errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH));
           done();
         });
       });
@@ -197,7 +196,7 @@ describe('proxy', () => {
         nock(domain).get('/jquery').reply(404);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' }, (error) => {
-          expect(error).toEqual(ErrorCode.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
+          expect(error).toEqual(errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
           done();
         });
       });

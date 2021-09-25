@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import request from 'request';
 
-import { API_ERROR } from '@verdaccio/commons-api';
+import { API_ERROR } from '@verdaccio/core';
 import { parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 

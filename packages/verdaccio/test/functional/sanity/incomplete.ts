@@ -1,4 +1,4 @@
-import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
 import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
 

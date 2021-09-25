@@ -3,7 +3,7 @@ import supertest from 'supertest';
 import { IGetPackageOptions } from '@verdaccio/store';
 import { setup } from '@verdaccio/logger';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { initializeServer } from './helper';
 
 setup([]);

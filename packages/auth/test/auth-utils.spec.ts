@@ -1,8 +1,6 @@
 import path from 'path';
 import _ from 'lodash';
 
-import { CHARACTER_ENCODING, TOKEN_BEARER, API_ERROR } from '@verdaccio/commons-api';
-
 import { configExample } from '@verdaccio/mock';
 import {
   Config as AppConfig,
@@ -20,7 +18,13 @@ import {
 } from '@verdaccio/utils';
 
 import { Config, Security, RemoteUser } from '@verdaccio/types';
-import { VerdaccioError, getForbidden } from '@verdaccio/commons-api';
+import {
+  VerdaccioError,
+  CHARACTER_ENCODING,
+  TOKEN_BEARER,
+  API_ERROR,
+  errorUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import {
   IAuth,
@@ -110,7 +114,7 @@ describe('Auth utilities', () => {
     test('authentication should fail by default (default)', () => {
       const plugin = getDefaultPlugins({ trace: jest.fn() });
       plugin.authenticate('foo', 'bar', (error: any) => {
-        expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+        expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
 
@@ -118,7 +122,7 @@ describe('Auth utilities', () => {
       const plugin = getDefaultPlugins({ trace: jest.fn() });
       // @ts-ignore
       plugin.adduser('foo', 'bar', (error: any) => {
-        expect(error).toEqual(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+        expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
   });

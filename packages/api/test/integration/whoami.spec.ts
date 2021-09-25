@@ -1,6 +1,6 @@
 import supertest from 'supertest';
 
-import { HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
 
 import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer } from './_helper';

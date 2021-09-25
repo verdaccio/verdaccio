@@ -1,5 +1,5 @@
 import { buildToken } from '@verdaccio/utils';
-import { API_ERROR, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS, TOKEN_BASIC } from '@verdaccio/core';
 
 import { CREDENTIALS } from '../config.functional';
 import fixturePkg from '../fixtures/package';

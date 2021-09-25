@@ -1,12 +1,5 @@
-import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/commons-api';
-import {
-  validateName,
-  validatePackage,
-  validateMetadata,
-  getVersion,
-  normalizeDistTags,
-  formatAuthor,
-} from '../src/index';
+import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/core';
+import { validateMetadata, getVersion, normalizeDistTags, formatAuthor } from '../src/index';
 
 describe('Utilities', () => {
   const metadata: any = {

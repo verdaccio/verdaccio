@@ -1,7 +1,6 @@
 import { Response, Router } from 'express';
 import buildDebug from 'debug';
 import { $RequestExtend, $NextFunctionVer } from '../types/custom';
-// import { getUnauthorized } from '@verdaccio/commons-api';
 
 const debug = buildDebug('verdaccio:api:user');
 

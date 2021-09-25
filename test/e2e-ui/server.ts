@@ -1,6 +1,6 @@
 import assert from 'assert';
 
-import { HTTP_STATUS, HEADERS, API_MESSAGE } from '@verdaccio/commons-api';
+import { HTTP_STATUS, HEADERS, API_MESSAGE } from '@verdaccio/core';
 import _ from 'lodash';
 
 import { CREDENTIALS } from './registry-launcher';

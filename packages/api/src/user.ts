@@ -2,14 +2,14 @@ import _ from 'lodash';
 import { Response, Router } from 'express';
 import buildDebug from 'debug';
 
-import { getAuthenticatedMessage, validatePassword, ErrorCode } from '@verdaccio/utils';
+import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 import { createRemoteUser } from '@verdaccio/config';
 
 import { Config, RemoteUser } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
@@ -47,7 +47,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
                 'authenticating for user @{username} failed. Error: @{err.message}'
               );
               return next(
-                ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
+                errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
               );
             }
 
@@ -55,7 +55,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
             const token = await getApiToken(auth, config, restoredRemoteUser, password);
             debug('login: new token');
             if (!token) {
-              return next(ErrorCode.getUnauthorized());
+              return next(errorUtils.getUnauthorized());
             }
 
             res.status(HTTP_STATUS.CREATED);
@@ -73,7 +73,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
         if (validatePassword(password) === false) {
           debug('adduser: invalid password');
           // eslint-disable-next-line new-cap
-          return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
         }
 
         auth.add_user(name, password, async function (err, user): Promise<void> {
@@ -84,7 +84,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
               // and npm accepts only an 409 error.
               // So, changing status code here.
               return next(
-                ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message)
+                errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
               );
             }
             return next(err);
@@ -94,7 +94,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
             name && password ? await getApiToken(auth, config, user, password) : undefined;
           debug('adduser: new token %o', token);
           if (!token) {
-            return next(ErrorCode.getUnauthorized());
+            return next(errorUtils.getUnauthorized());
           }
 
           req.remote_user = user;

@@ -2,19 +2,7 @@ import assert from 'assert';
 import _ from 'lodash';
 import semver from 'semver';
 import { Package, Version, Author } from '@verdaccio/types';
-import {
-  DIST_TAGS,
-  DEFAULT_USER,
-  getConflict,
-  getBadData,
-  getBadRequest,
-  getInternalError,
-  getUnauthorized,
-  getForbidden,
-  getServiceUnavailable,
-  getNotFound,
-  getCode,
-} from '@verdaccio/commons-api';
+import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/core';
 
 /**
  * From normalize-package-data/lib/fixer.js
@@ -189,18 +177,6 @@ export function normalizeDistTags(pkg: Package): void {
 export function getLatestVersion(pkgInfo: Package): string {
   return pkgInfo[DIST_TAGS].latest;
 }
-
-export const ErrorCode = {
-  getConflict,
-  getBadData,
-  getBadRequest,
-  getInternalError,
-  getUnauthorized,
-  getForbidden,
-  getServiceUnavailable,
-  getNotFound,
-  getCode,
-};
 
 export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;

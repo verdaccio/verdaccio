@@ -5,7 +5,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 import { Storage } from '@verdaccio/store';
 
 import { Config } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
 import { mockServer, configExample, DOMAIN_SERVERS, generateRamdonStorage } from '@verdaccio/mock';
 
 import { setup, logger } from '@verdaccio/logger';

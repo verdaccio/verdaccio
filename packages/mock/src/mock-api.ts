@@ -9,7 +9,7 @@ import {
   HEADERS,
   HTTP_STATUS,
   TOKEN_BEARER,
-} from '@verdaccio/commons-api';
+} from '@verdaccio/core';
 import { buildToken } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
 import { Package } from '@verdaccio/types';

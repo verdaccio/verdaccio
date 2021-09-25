@@ -8,8 +8,8 @@ import { configExample, generateNewVersion } from '@verdaccio/mock';
 
 const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 import { Config, MergeTags, Package } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/core';
+import { VerdaccioError } from '@verdaccio/core';
 import { LocalStorage, PROTO_NAME } from '../src/local-storage';
 import { generatePackageTemplate } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';

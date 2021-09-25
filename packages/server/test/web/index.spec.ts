@@ -1,7 +1,7 @@
 import path from 'path';
 import request from 'supertest';
 
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/commons-api';
+import { HEADERS, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '@verdaccio/core';
 
 import { mockServer, DOMAIN_SERVERS, configExample, generateRamdonStorage } from '@verdaccio/mock';
 

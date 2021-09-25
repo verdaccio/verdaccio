@@ -32,7 +32,7 @@
   "dependencies": {
     "@verdaccio/api": "workspace:6.0.0-6-next.15",
     "@verdaccio/auth": "workspace:6.0.0-6-next.12",
-    "@verdaccio/commons-api": "workspace:11.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.1",
     "@verdaccio/config": "workspace:6.0.0-6-next.8",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.5",
     "@verdaccio/logger": "workspace:6.0.0-6-next.5",
@@ -52,6 +52,7 @@
     "@types/node": "16.9.1",
     "@verdaccio/mock": "workspace:6.0.0-6-next.9",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.12",
+    "@verdaccio/helper": "1.0.0",
     "http-errors": "1.8.0",
     "request": "2.87.0"
   },

@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { unlockFile, readFile } from '@verdaccio/file-locking';
 import { Callback, Logger, Package, ILocalPackageManager, IUploadTarball } from '@verdaccio/types';
-import { getCode, getInternalError, getNotFound, VerdaccioError } from '@verdaccio/commons-api';
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import { unlinkPromise, rmdirPromise, readFilePromise } from './fs';
 
 export const fileExist = 'EEXISTS';
@@ -19,7 +19,7 @@ export const packageJSONFileName = 'package.json';
 const debug = buildDebug('verdaccio:plugin:local-storage:local-fs');
 
 export const fSError = function (message: string, code = 409): VerdaccioError {
-  const err: VerdaccioError = getCode(code, message);
+  const err: VerdaccioError = errorUtils.getCode(code, message);
   // FIXME: we should return http-status codes here instead, future improvement
   // @ts-ignore
   err.code = message;
@@ -118,9 +118,9 @@ export default class LocalFS implements ILocalFSPackageManager {
 
       if (_.isNil(err) === false) {
         if (err.code === resourceNotAvailable) {
-          return unLockCallback(getInternalError('resource temporarily unavailable'));
+          return unLockCallback(errorUtils.getInternalError('resource temporarily unavailable'));
         } else if (err.code === noSuchFile) {
-          return unLockCallback(getNotFound());
+          return unLockCallback(errorUtils.getNotFound());
         } else {
           return unLockCallback(err);
         }
