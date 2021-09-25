@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { Response, Router } from 'express';
 
-import { USERS, HTTP_STATUS } from '@verdaccio/commons-api';
+import { USERS, HTTP_STATUS } from '@verdaccio/core';
 import { Package } from '@verdaccio/types';
 
 import { Storage } from '@verdaccio/store';

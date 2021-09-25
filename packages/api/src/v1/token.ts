@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { HTTP_STATUS, SUPPORT_ERRORS, getInternalError } from '@verdaccio/commons-api';
+import { HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { ErrorCode, stringToMD5, mask } from '@verdaccio/utils';
 import { getApiToken } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
@@ -77,7 +77,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         try {
           const token = await getApiToken(auth, config, user, password);
           if (!token) {
-            throw getInternalError();
+            throw errorUtils.getInternalError();
           }
 
           const key = stringToMD5(token);

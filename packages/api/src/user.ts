@@ -9,7 +9,7 @@ import { createRemoteUser } from '@verdaccio/config';
 
 import { Config, RemoteUser } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
 import { $RequestExtend, $NextFunctionVer } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');

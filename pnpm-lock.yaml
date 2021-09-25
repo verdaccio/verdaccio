@@ -188,7 +188,6 @@ importers:
     specifiers:
       '@types/node': 16.9.1
       '@verdaccio/auth': workspace:6.0.0-6-next.12
-      '@verdaccio/commons-api': workspace:11.0.0-6-next.4
       '@verdaccio/config': workspace:6.0.0-6-next.8
       '@verdaccio/core': workspace:6.0.0-6-next.1
       '@verdaccio/hooks': workspace:6.0.0-6-next.7
@@ -209,7 +208,6 @@ importers:
       supertest: 6.1.6
     dependencies:
       '@verdaccio/auth': link:../auth
-      '@verdaccio/commons-api': link:../core/commons-api
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/hooks': link:../hooks

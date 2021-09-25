@@ -4,7 +4,7 @@ import buildDebug from 'debug';
 
 import { allow } from '@verdaccio/middleware';
 import { getVersion, ErrorCode } from '@verdaccio/utils';
-import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
+import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/core';
 import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
 import { Storage } from '@verdaccio/store';

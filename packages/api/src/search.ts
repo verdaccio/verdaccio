@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 
 export default function (route): void {

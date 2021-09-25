@@ -2,8 +2,7 @@ import _ from 'lodash';
 import buildDebug from 'debug';
 import { logger } from '@verdaccio/logger';
 import { IAuth } from '@verdaccio/auth';
-import { searchUtils } from '@verdaccio/core';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
 import { Storage } from '@verdaccio/store';
 import { Package } from '@verdaccio/types';
 
