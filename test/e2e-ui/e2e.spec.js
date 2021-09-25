@@ -103,7 +103,7 @@ describe('/ (Verdaccio Page)', () => {
     const accountButton = await page.$('#header--button-account');
     expect(accountButton).toBeDefined();
     // check whether user is logged
-    const buttonLogout = await page.$('#header--button-logout');
+    const buttonLogout = await page.$('#logOutDialogIcon');
     expect(buttonLogout).toBeDefined();
   });
 
@@ -113,7 +113,7 @@ describe('/ (Verdaccio Page)', () => {
     // we assume the user is logged already
     await clickElement('#header--button-account', { delay: 500 });
     await page.waitForTimeout(1000);
-    await clickElement('#header--button-logout > span', { delay: 500 });
+    await clickElement('#logOutDialogIcon > span', { delay: 500 });
     await page.waitForTimeout(1000);
     await evaluateSignIn();
   });

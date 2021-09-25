@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import api from 'verdaccio-ui/providers/API/api';
-import { render, fireEvent, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
+import { renderWithStore, fireEvent, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
+
+import { store } from '../../../store/store';
 
 jest.mock('lodash/debounce', () =>
   jest.fn((fn) => {
@@ -41,12 +43,15 @@ describe('<Search /> component', () => {
   });
 
   test('should load the component in default state', () => {
-    const { container } = render(<ComponentToBeRendered />);
+    const { container } = renderWithStore(<ComponentToBeRendered />, store);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   test('handleSearch: when user type package name in search component, show suggestions', async () => {
-    const { getByPlaceholderText, getAllByText } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getAllByText } = renderWithStore(
+      <ComponentToBeRendered />,
+      store
+    );
 
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
@@ -62,7 +67,10 @@ describe('<Search /> component', () => {
   });
 
   test('onBlur: should cancel all search requests', async () => {
-    const { getByPlaceholderText, getByRole, getAllByText } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getByRole, getAllByText } = renderWithStore(
+      <ComponentToBeRendered />,
+      store
+    );
 
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
@@ -80,7 +88,7 @@ describe('<Search /> component', () => {
   });
 
   test('handleSearch: cancel all search requests when there is no value in search component with type method', async () => {
-    const { getByPlaceholderText, getByRole } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getByRole } = renderWithStore(<ComponentToBeRendered />, store);
 
     const autoCompleteInput = getByPlaceholderText('Search Packages');
     fireEvent.focus(autoCompleteInput);
@@ -92,7 +100,7 @@ describe('<Search /> component', () => {
   });
 
   test('handleSearch: when method is not type method', async () => {
-    const { getByPlaceholderText, getByRole } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getByRole } = renderWithStore(<ComponentToBeRendered />, store);
 
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
@@ -105,7 +113,7 @@ describe('<Search /> component', () => {
   });
 
   test('handleSearch: loading is been displayed', async () => {
-    const { getByPlaceholderText, getByText } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getByText } = renderWithStore(<ComponentToBeRendered />, store);
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
     fireEvent.focus(autoCompleteInput);
@@ -117,7 +125,10 @@ describe('<Search /> component', () => {
   });
 
   test('handlePackagesClearRequested: should clear suggestions', async () => {
-    const { getByPlaceholderText, getAllByText, getByRole } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getAllByText, getByRole } = renderWithStore(
+      <ComponentToBeRendered />,
+      store
+    );
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
     fireEvent.focus(autoCompleteInput);
@@ -135,7 +146,10 @@ describe('<Search /> component', () => {
   });
 
   test('handleClickSearch: should change the window location on click or return key', async () => {
-    const { getByPlaceholderText, getAllByText, getByRole } = render(<ComponentToBeRendered />);
+    const { getByPlaceholderText, getAllByText, getByRole } = renderWithStore(
+      <ComponentToBeRendered />,
+      store
+    );
     const autoCompleteInput = getByPlaceholderText('Search Packages');
 
     fireEvent.focus(autoCompleteInput);

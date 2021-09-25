@@ -17,7 +17,7 @@ function loadTranslationFile(lng) {
     return require(`./download_translations/${lng}/ui.json`);
   } catch {
     // eslint-disable-next-line no-console
-    console.error(`language ${lng} file not found, fallback to en-US`);
+    console.warn(`language ${lng} file not found, fallback to en-US`);
     // in case the file is not there, fallback to en-US
     return require(`./crowdin/ui.json`);
   }

@@ -63,7 +63,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
       <span
         class="emotion-6 emotion-7"
       >
-        npm adduser --registry http://localhost
+        npm adduser --registry http://localhost:9000/
       </span>
       <button
         class="MuiButtonBase-root MuiIconButton-root"
@@ -102,7 +102,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
       <span
         class="emotion-6 emotion-7"
       >
-        npm publish --registry http://localhost
+        npm publish --registry http://localhost:9000/
       </span>
       <button
         class="MuiButtonBase-root MuiIconButton-root"

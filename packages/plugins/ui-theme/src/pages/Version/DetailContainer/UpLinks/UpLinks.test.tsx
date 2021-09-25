@@ -9,12 +9,6 @@ import UpLinks from './UpLinks';
 describe('<UpLinks /> component', () => {
   beforeEach(cleanup);
 
-  test('should return null without packageMeta', () => {
-    const wrapper = render(<UpLinks />);
-    wrapper.debug();
-    // expect(wrapper).toBeNull();
-  });
-
   test('should render the component when there is no uplink', () => {
     const packageMeta = {
       latest: {

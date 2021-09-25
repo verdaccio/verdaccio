@@ -1,10 +1,16 @@
 import React from 'react';
 
-import storage from 'verdaccio-ui/utils/storage';
-import { render, waitFor, fireEvent } from 'verdaccio-ui/utils/test-react-testing-library';
+import {
+  renderWithStore,
+  act,
+  waitFor,
+  fireEvent,
+  screen,
+} from 'verdaccio-ui/utils/test-react-testing-library';
 
 // eslint-disable-next-line jest/no-mocks-import
 import { generateTokenWithTimeRange } from '../../jest/unit/components/__mocks__/token';
+import { store } from '../store';
 
 import App from './App';
 
@@ -30,68 +36,88 @@ jest.mock('verdaccio-ui/utils/storage', () => {
   return new LocalStorageMock();
 });
 
-jest.mock('verdaccio-ui/providers/API/api', () => ({
-  // eslint-disable-next-line jest/no-mocks-import
-  request: require('../../jest/unit/components/__mocks__/api').default.request,
-}));
+// force the windows to expand to display items
+// https://github.com/bvaughn/react-virtualized/issues/493#issuecomment-640084107
+jest.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
+jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
 /* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
-  // test('should display the Header component ', async () => {
-  //   const { queryByTestId } = render(<App />);
-  //
-  //   expect(queryByTestId('loading')).toBeTruthy();
-  //
-  //   // wait for the Header component appearance and return the element
-  //   const headerElement = await waitFor(() => queryByTestId('header'));
-  //   expect(headerElement).toBeTruthy();
-  // });
+  describe('login - log out', () => {
+    test('handleLogout - logouts the user and clear localstorage', async () => {
+      const { queryByTestId } = renderWithStore(<App />, store);
+      store.dispatch.login.logInUser({
+        username: 'verdaccio',
+        token: generateTokenWithTimeRange(24),
+      });
 
-  test('handleLogout - logouts the user and clear localstorage', async () => {
-    storage.setItem('username', 'verdaccio');
-    storage.setItem('token', generateTokenWithTimeRange(24));
+      // wait for the Account's circle element component appearance and return the element
+      const accountCircleElement = await waitFor(() => queryByTestId('logInDialogIcon'));
+      expect(accountCircleElement).toBeTruthy();
 
-    const { queryByTestId } = render(<App />);
+      if (accountCircleElement) {
+        fireEvent.click(accountCircleElement);
 
-    // wait for the Account's circle element component appearance and return the element
-    const accountCircleElement = await waitFor(() => queryByTestId('header--menu-accountcircle'));
-    expect(accountCircleElement).toBeTruthy();
+        // wait for the Button's logout element component appearance and return the element
+        const buttonLogoutElement = await waitFor(() => queryByTestId('logOutDialogIcon'));
+        expect(buttonLogoutElement).toBeTruthy();
 
-    if (accountCircleElement) {
-      fireEvent.click(accountCircleElement);
+        if (buttonLogoutElement) {
+          fireEvent.click(buttonLogoutElement);
 
-      // wait for the Button's logout element component appearance and return the element
-      const buttonLogoutElement = await waitFor(() => queryByTestId('header--button-logout'));
-      expect(buttonLogoutElement).toBeTruthy();
-
-      if (buttonLogoutElement) {
-        fireEvent.click(buttonLogoutElement);
-
-        expect(queryByTestId('greetings-label')).toBeFalsy();
+          expect(queryByTestId('greetings-label')).toBeFalsy();
+        }
       }
-    }
+    });
+
+    test('isUserAlreadyLoggedIn: token already available in storage', async () => {
+      const { queryByTestId, queryAllByText } = renderWithStore(<App />, store);
+      store.dispatch.login.logInUser({
+        username: 'verdaccio',
+        token: generateTokenWithTimeRange(24),
+      });
+
+      // wait for the Account's circle element component appearance and return the element
+      const accountCircleElement = await waitFor(() => queryByTestId('logInDialogIcon'));
+      expect(accountCircleElement).toBeTruthy();
+
+      if (accountCircleElement) {
+        fireEvent.click(accountCircleElement);
+
+        // wait for the Greeting's label element component appearance and return the element
+        const greetingsLabelElement = await waitFor(() => queryByTestId('greetings-label'));
+        expect(greetingsLabelElement).toBeTruthy();
+
+        if (greetingsLabelElement) {
+          expect(queryAllByText('verdaccio')).toBeTruthy();
+        }
+      }
+    });
   });
 
-  test('isUserAlreadyLoggedIn: token already available in storage', async () => {
-    storage.setItem('username', 'verdaccio');
-    storage.setItem('token', generateTokenWithTimeRange(24));
+  describe('list packages', () => {
+    test('should display the Header component', async () => {
+      renderWithStore(<App />, store);
 
-    const { queryByTestId, queryAllByText } = render(<App />);
+      await waitFor(() => {
+        expect(screen.queryByTestId('loading')).toBeTruthy();
+      });
 
-    // wait for the Account's circle element component appearance and return the element
-    const accountCircleElement = await waitFor(() => queryByTestId('header--menu-accountcircle'));
-    expect(accountCircleElement).toBeTruthy();
+      // wait for the Header component appearance and return the element
+      const headerElement = await waitFor(() => screen.queryByTestId('header'));
+      expect(headerElement).toBeTruthy();
+    });
 
-    if (accountCircleElement) {
-      fireEvent.click(accountCircleElement);
+    test('should display package lists', async () => {
+      act(() => {
+        renderWithStore(<App />, store);
+      });
 
-      // wait for the Greeting's label element component appearance and return the element
-      const greetingsLabelElement = await waitFor(() => queryByTestId('greetings-label'));
-      expect(greetingsLabelElement).toBeTruthy();
+      await waitFor(() => {
+        expect(screen.getByTestId('package-item-list')).toBeInTheDocument();
+      });
 
-      if (greetingsLabelElement) {
-        expect(queryAllByText('verdaccio')).toBeTruthy();
-      }
-    }
+      expect(store.getState().packages.response).toHaveLength(1);
+    }, 10000);
   });
 });

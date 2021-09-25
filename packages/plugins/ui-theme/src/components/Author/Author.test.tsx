@@ -51,7 +51,6 @@ describe('<Author /> component', () => {
     };
 
     const wrapper = render(withAuthorComponent(packageMeta));
-    wrapper.debug();
     expect(wrapper.queryAllByText('verdaccio')).toHaveLength(0);
   });
 

@@ -26,7 +26,6 @@ const PackageList: React.FC<Props> = ({ packages }) => {
       packages[index];
     // TODO: move format license to API side.
     const formattedLicense = formatLicense(license);
-
     return (
       <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
         <div style={style}>
@@ -56,21 +55,23 @@ const PackageList: React.FC<Props> = ({ packages }) => {
     <WindowScroller>
       {({ height, isScrolling, scrollTop, onChildScroll }) => (
         <AutoSizer disableHeight={true}>
-          {({ width }) => (
-            <List
-              autoHeight={true}
-              deferredMeasurementCache={cache}
-              height={height}
-              isScrolling={isScrolling}
-              onScroll={onChildScroll}
-              overscanRowCount={3}
-              rowCount={packages.length}
-              rowHeight={cache.rowHeight}
-              rowRenderer={renderRow}
-              scrollTop={scrollTop}
-              width={width}
-            />
-          )}
+          {({ width }) => {
+            return (
+              <List
+                autoHeight={true}
+                deferredMeasurementCache={cache}
+                height={height}
+                isScrolling={isScrolling}
+                onScroll={onChildScroll}
+                overscanRowCount={3}
+                rowCount={packages.length}
+                rowHeight={cache.rowHeight}
+                rowRenderer={renderRow}
+                scrollTop={scrollTop}
+                width={width}
+              />
+            );
+          }}
         </AutoSizer>
       )}
     </WindowScroller>

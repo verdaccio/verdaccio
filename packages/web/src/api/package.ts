@@ -25,6 +25,7 @@ const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: Config): void {
   const isLoginEnabled = config?.web?.login === true ?? true;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const anonymousRemoteUser: RemoteUser = {
     name: undefined,
     real_groups: [],
@@ -35,9 +36,10 @@ function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: 
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       debug('is login disabled %o', isLoginEnabled);
-      const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
+      // FIXME: this logic does not work, review
+      // const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
       try {
-        auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
+        auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
           if (err) {
             resolve(false);
           }

@@ -48,5 +48,5 @@ hyper-results*.json
 api-results*.json
 
 #docs 
-api/
+./api
 packages/core/core/docs
