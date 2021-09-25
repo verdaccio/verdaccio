@@ -4,7 +4,7 @@ module.exports = Object.assign({}, config, {
   name: 'verdaccio-ui-jest',
   verbose: true,
   automock: false,
-  // collectCoverage: true,
+  collectCoverage: true,
   testEnvironment: 'jest-environment-jsdom-global',
   transform: {
     '^.+\\.(js|ts|tsx)$': 'babel-jest',

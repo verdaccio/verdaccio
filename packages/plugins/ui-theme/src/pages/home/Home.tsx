@@ -8,10 +8,9 @@ import { Dispatch, RootState } from '../../store/store';
 import { PackageList } from './PackageList';
 
 const Home: React.FC = () => {
-  const packageStore = useSelector((state: RootState) => state.packages);
+  const packages = useSelector((state: RootState) => state.packages.response);
   const isLoading = useSelector((state: RootState) => state?.loading?.models.packages);
   const dispatch = useDispatch<Dispatch>();
-  const packages = packageStore?.response;
   useEffect(() => {
     dispatch.packages.getPackages();
   }, [dispatch]);
