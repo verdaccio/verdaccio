@@ -114,7 +114,7 @@ jobs:
       - name: Format lighthouse score
         if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         id: format_lighthouse_score
-        uses: actions/github-script@v3
+        uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
