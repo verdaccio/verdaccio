@@ -1,13 +1,20 @@
 import path from 'path';
+import { Logger } from '@verdaccio/types';
 import * as readFile from '../src/fs';
 
 import { findPackages, _dbGenPath } from '../src/utils';
 import { loadPrivatePackages } from '../src/pkg-utils';
 import { noSuchFile } from '../src/local-fs';
 
-// FIXME: remove this mocks imports
-// eslint-disable-next-line jest/no-mocks-import
-import logger from './__mocks__/Logger';
+const logger: Logger = {
+  error: jest.fn(),
+  info: jest.fn(),
+  debug: jest.fn(),
+  child: jest.fn(),
+  warn: jest.fn(),
+  http: jest.fn(),
+  trace: jest.fn(),
+};
 
 describe('Utitlies', () => {
   const loadDb = (name): string => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
