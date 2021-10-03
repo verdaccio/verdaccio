@@ -2,17 +2,24 @@ import path from 'path';
 import fs from 'fs';
 import { dirSync } from 'tmp-promise';
 
-import { ILocalPackageManager, Package } from '@verdaccio/types';
+import { ILocalPackageManager, Logger, Package } from '@verdaccio/types';
 
 import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 
-// FIXME: remove this mocks imports
-// eslint-disable-next-line jest/no-mocks-import
-import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;
 const pkgFileName = 'package.json';
+
+const logger: Logger = {
+  error: jest.fn(),
+  info: jest.fn(),
+  debug: jest.fn(),
+  child: jest.fn(),
+  warn: jest.fn(),
+  http: jest.fn(),
+  trace: jest.fn(),
+};
 
 describe('Local FS test', () => {
   let tmpFolder;

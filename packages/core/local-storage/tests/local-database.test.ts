@@ -2,7 +2,7 @@
 import path from 'path';
 import { dirSync } from 'tmp-promise';
 
-import { IPluginStorage, PluginOptions } from '@verdaccio/types';
+import { IPluginStorage, Logger, PluginOptions } from '@verdaccio/types';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
 
@@ -16,8 +16,15 @@ jest.mock('../src/fs', () => ({
   writeFilePromise: () => mockWrite(),
 }));
 
-// FIXME: remove this mocks imports
-import logger from './__mocks__/Logger';
+const logger: Logger = {
+  error: jest.fn(),
+  info: jest.fn(),
+  debug: jest.fn(),
+  child: jest.fn(),
+  warn: jest.fn(),
+  http: jest.fn(),
+  trace: jest.fn(),
+};
 
 // @ts-expect-error
 const optionsPlugin: PluginOptions<{}> = {

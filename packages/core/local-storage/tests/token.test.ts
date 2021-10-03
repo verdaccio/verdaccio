@@ -2,12 +2,19 @@
 import fs from 'fs';
 import path from 'path';
 import { dirSync } from 'tmp-promise';
-import { Token } from '@verdaccio/types';
+import { Logger, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
 
-// FIXME: remove this mocks imports
-import logger from './__mocks__/Logger';
+const logger: Logger = {
+  error: jest.fn(),
+  info: jest.fn(),
+  debug: jest.fn(),
+  child: jest.fn(),
+  warn: jest.fn(),
+  http: jest.fn(),
+  trace: jest.fn(),
+};
 
 describe('Local Database', () => {
   let tmpFolder;
