@@ -108,6 +108,8 @@ jobs:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:download
+        ## this step is optional, translations are not mandatory for PR
+        ## secrets keys are not accesible on PR, the failure here is guaranteed
         if: success() || failure()     
       - name: build
         run: pnpm build
