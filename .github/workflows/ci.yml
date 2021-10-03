@@ -105,7 +105,7 @@ jobs:
       - name: crowdin download
         env:
           CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY___ }}
           CONTEXT: production
         run: pnpm crowdin:download
         ## this step is optional, translations are not mandatory for PR
