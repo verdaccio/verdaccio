@@ -107,7 +107,7 @@ jobs:
         if: always()
         env:
           CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY____ }}
           CONTEXT: production
         run: pnpm crowdin:download        
       - name: build
