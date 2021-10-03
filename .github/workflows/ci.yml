@@ -83,35 +83,7 @@ jobs:
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: Lint
         run: pnpm format:check
-  # this step is need it to include translations to the project
-  # but if fails is ok, project should build anyway but throw warnings the
-  # language could not be found and fallback to the default (english)
-  crowdin:
-      runs-on: ubuntu-latest
-      ## forks cannot access to crowdin secrets
-      if: always()      
-      name: crowdin
-      needs: [prepare]
-      steps:
-        - uses: actions/checkout@v2.3.1
-        - name: Use Node 16
-          uses: actions/setup-node@v1
-          with:
-            node-version: 16
-        - name: Install pnpm
-          run: npm i pnpm@6.10.3 -g
-        - uses: actions/cache@v2
-          with:
-            path: ~/.pnpm-store
-            key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
-        - name: Install
-          run: pnpm recursive install --frozen-lockfile --ignore-scripts
-        - name: crowdin download
-          env:
-            CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
-            CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY__ }}
-            CONTEXT: production
-          run: pnpm crowdin:download        
+
   build:
     runs-on: ubuntu-latest
     name: build
@@ -130,6 +102,13 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      - name: crowdin download
+        env:
+          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:download
+        if: success() || failure()     
       - name: build
         run: pnpm build
       - name: tar packages
