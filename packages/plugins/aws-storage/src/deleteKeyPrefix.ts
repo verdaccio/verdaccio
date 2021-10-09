@@ -1,4 +1,9 @@
-import { S3 } from 'aws-sdk';
+import {
+  ListObjectsV2Command,
+  DeleteObjectsCommand,
+  S3Client,
+  ObjectIdentifier,
+} from '@aws-sdk/client-s3';
 
 import { convertS3Error, create404Error } from './s3Errors';
 
@@ -7,33 +12,31 @@ interface DeleteKeyPrefixOptions {
   Prefix: string;
 }
 
-export function deleteKeyPrefix(
-  s3: S3,
-  options: DeleteKeyPrefixOptions,
-  callback: (err: Error | null) => void
-): void {
-  s3.listObjectsV2(options, (err, data) => {
-    if (err) {
-      callback(convertS3Error(err));
-    } else if (data.KeyCount) {
-      const objectsToDelete: S3.ObjectIdentifierList = data.Contents
-        ? data.Contents.map((s3Object) => ({ Key: s3Object.Key as S3.ObjectKey }))
-        : [];
-      s3.deleteObjects(
-        {
-          Bucket: options.Bucket,
-          Delete: { Objects: objectsToDelete },
-        },
-        (err) => {
-          if (err) {
-            callback(convertS3Error(err));
-          } else {
-            callback(null);
-          }
-        }
+export async function deleteKeyPrefix(
+  s3Client: S3Client,
+  options: DeleteKeyPrefixOptions
+): Promise<void> {
+  try {
+    const listObjectsCommand = new ListObjectsV2Command({
+      Bucket: options.Bucket,
+      Prefix: options.Prefix,
+    });
+    const { KeyCount, Contents } = await s3Client.send(listObjectsCommand);
+
+    if (KeyCount > 0) {
+      const objectsToDelete: ObjectIdentifier[] = Contents.map(
+        (s3Object) => s3Object.Key as ObjectIdentifier
       );
+
+      const deleteObjectsCommand = new DeleteObjectsCommand({
+        Bucket: options.Bucket,
+        Delete: { Objects: objectsToDelete },
+      });
+      await s3Client.send(deleteObjectsCommand);
     } else {
-      callback(create404Error());
+      throw create404Error();
     }
-  });
+  } catch (err) {
+    throw convertS3Error(err);
+  }
 }
