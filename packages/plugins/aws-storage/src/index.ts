@@ -9,7 +9,12 @@ import {
   TokenFilter,
 } from '@verdaccio/types';
 import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
-import { S3 } from 'aws-sdk';
+import {
+  GetObjectCommand,
+  HeadObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from '@aws-sdk/client-s3';
 
 import { S3Configuration } from './config';
 import S3PackageManager from './s3PackageManager';
@@ -20,7 +25,7 @@ import setConfigValue from './setConfigValue';
 export default class S3Database implements IPluginStorage<S3Configuration> {
   public logger: Logger;
   public config: S3Configuration;
-  private s3: S3;
+  private s3: S3Client;
   private _localData: LocalStorage | null;
 
   public constructor(config: Config, options: PluginOptions<S3Configuration>) {
@@ -52,13 +57,16 @@ export default class S3Database implements IPluginStorage<S3Configuration> {
       's3: configuration: @{config}'
     );
 
-    this.s3 = new S3({
-      endpoint: this.config.endpoint,
+    // @TODO? Add more config options?
+    this.s3 = new S3Client({
       region: this.config.region,
+      endpoint: this.config.endpoint,
       s3ForcePathStyle: this.config.s3ForcePathStyle,
-      accessKeyId: this.config.accessKeyId,
-      secretAccessKey: this.config.secretAccessKey,
-      sessionToken: this.config.sessionToken,
+      credentials: {
+        accessKeyId: this.config.accessKeyId,
+        secretAccessKey: this.config.secretAccessKey,
+        sessionToken: this.config.sessionToken,
+      },
     });
   }
 
@@ -109,36 +117,35 @@ export default class S3Database implements IPluginStorage<S3Configuration> {
       { keyPrefix, bucket },
       's3: [_fetchPackageInfo] bucket: @{bucket} prefix: @{keyPrefix}'
     );
-    return new Promise((resolve): void => {
-      this.s3.headObject(
-        {
-          Bucket: bucket,
-          Key: `${keyPrefix + packageName}/package.json`,
-        },
-        (err, response) => {
-          if (err) {
-            this.logger.debug({ err }, 's3: [_fetchPackageInfo] error: @{err}');
-            return resolve();
-          }
-          if (response.LastModified) {
-            const { LastModified } = response;
-            this.logger.trace(
-              { LastModified },
-              's3: [_fetchPackageInfo] LastModified: @{LastModified}'
-            );
-            return onPackage(
-              {
-                name: packageName,
-                path: packageName,
-                time: LastModified.getTime(),
-              },
-              resolve
-            );
-          }
-          resolve();
-        }
-      );
-    });
+
+    try {
+      const headObjectCommand = new HeadObjectCommand({
+        Bucket: bucket,
+        Key: `${keyPrefix + packageName}/package.json`,
+      });
+      const response = await this.s3.send(headObjectCommand);
+
+      if (response.LastModified) {
+        const { LastModified } = response;
+        this.logger.trace(
+          { LastModified },
+          's3: [_fetchPackageInfo] LastModified: @{LastModified}'
+        );
+
+        await new Promise((resolve) =>
+          onPackage(
+            {
+              name: packageName,
+              path: packageName,
+              time: LastModified.getTime(),
+            },
+            resolve
+          )
+        );
+      }
+    } catch (err) {
+      this.logger.debug({ err }, 's3: [_fetchPackageInfo] error: @{err}');
+    }
   }
 
   public remove(name: string, callback: Callback): void {
@@ -175,29 +182,22 @@ export default class S3Database implements IPluginStorage<S3Configuration> {
 
   // Create/write database file to s3
   private async _sync(): Promise<void> {
-    await new Promise<void>((resolve, reject): void => {
-      const { bucket, keyPrefix } = this.config;
-      this.logger.debug(
-        { keyPrefix, bucket },
-        's3: [_sync] bucket: @{bucket} prefix: @{keyPrefix}'
-      );
-      this.s3.putObject(
-        {
-          Bucket: this.config.bucket,
-          Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
-          Body: JSON.stringify(this._localData),
-        },
-        (err) => {
-          if (err) {
-            this.logger.error({ err }, 's3: [_sync] error: @{err}');
-            reject(err);
-            return;
-          }
-          this.logger.debug('s3: [_sync] sucess');
-          resolve();
-        }
-      );
-    });
+    const { bucket, keyPrefix } = this.config;
+    this.logger.debug({ keyPrefix, bucket }, 's3: [_sync] bucket: @{bucket} prefix: @{keyPrefix}');
+
+    try {
+      const putObjectCommand = new PutObjectCommand({
+        Bucket: this.config.bucket,
+        Key: `${this.config.keyPrefix}verdaccio-s3-db.json`,
+        Body: JSON.stringify(this._localData),
+      });
+
+      await this.s3.send(putObjectCommand);
+      this.logger.debug('s3: [_sync] sucess');
+    } catch (err) {
+      this.logger.error({ err }, 's3: [_sync] error: @{err}');
+      throw err;
+    }
   }
 
   // returns an instance of a class managing the storage for a single package
@@ -209,38 +209,34 @@ export default class S3Database implements IPluginStorage<S3Configuration> {
 
   private async _getData(): Promise<LocalStorage> {
     if (!this._localData) {
-      this._localData = await new Promise((resolve, reject): void => {
+      try {
         const { bucket, keyPrefix } = this.config;
         this.logger.debug(
           { keyPrefix, bucket },
           's3: [_getData] bucket: @{bucket} prefix: @{keyPrefix}'
         );
         this.logger.trace('s3: [_getData] get database object');
-        this.s3.getObject(
-          {
-            Bucket: bucket,
-            Key: `${keyPrefix}verdaccio-s3-db.json`,
-          },
-          (err, response) => {
-            if (err) {
-              const s3Err: VerdaccioError = convertS3Error(err);
-              this.logger.error({ err: s3Err.message }, 's3: [_getData] err: @{err}');
-              if (is404Error(s3Err)) {
-                this.logger.error('s3: [_getData] err 404 create new database');
-                resolve({ list: [], secret: '' });
-              } else {
-                reject(err);
-              }
-              return;
-            }
 
-            const body = response.Body ? response.Body.toString() : '';
-            const data = JSON.parse(body);
-            this.logger.trace({ body }, 's3: [_getData] get data @{body}');
-            resolve(data);
-          }
-        );
-      });
+        const getObjectCommand = new GetObjectCommand({
+          Bucket: bucket,
+          Key: `${keyPrefix}verdaccio-s3-db.json`,
+        });
+        const response = await this.s3.send(getObjectCommand);
+        const body = response.Body ? response.Body.toString() : '';
+
+        this._localData = JSON.parse(body);
+        this.logger.trace({ body }, 's3: [_getData] get data @{body}');
+      } catch (err) {
+        const s3Err: VerdaccioError = convertS3Error(err);
+        this.logger.error({ err: s3Err.message }, 's3: [_getData] err: @{err}');
+
+        if (is404Error(s3Err)) {
+          this.logger.error('s3: [_getData] err 404 create new database');
+          this._localData = { list: [], secret: '' };
+        } else {
+          throw err;
+        }
+      }
     } else {
       this.logger.trace('s3: [_getData] already exist');
     }

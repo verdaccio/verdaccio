@@ -31,15 +31,15 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "3.14.0",
-    "@aws-sdk/client-s3": "3.14.0",
-    "@aws-sdk/util-dynamodb": "3.14.0",
+    "@aws-sdk/abort-controller": "3.36.0",
+    "@aws-sdk/lib-storage": "3.36.0",
+    "@aws-sdk/client-dynamodb": "3.36.0",
+    "@aws-sdk/client-s3": "3.36.0",
+    "@aws-sdk/util-dynamodb": "3.36.0",
     "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/streams": "workspace:11.0.0-alpha.3",
-    "aws-sdk": "2.897.0"
+    "@verdaccio/streams": "workspace:11.0.0-alpha.3"
   },
   "devDependencies": {
-    "@aws-sdk/types": "^3.13.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.7",
     "aws-sdk-client-mock": "^0.5.5",
     "recursive-readdir": "2.2.2"

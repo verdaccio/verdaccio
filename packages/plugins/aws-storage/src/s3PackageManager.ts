@@ -1,4 +1,10 @@
-import { S3, AWSError } from 'aws-sdk';
+import {
+  S3Client,
+  HeadObjectCommand,
+  DeleteObjectCommand,
+  PutObjectCommand,
+  GetObjectCommand,
+} from '@aws-sdk/client-s3';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/commons-api';
 import {
@@ -15,6 +21,7 @@ import { is404Error, convertS3Error, create409Error } from './s3Errors';
 import { deleteKeyPrefix } from './deleteKeyPrefix';
 import { S3Configuration } from './config';
 import addTrailingSlash from './addTrailingSlash';
+import uploadTarballToS3 from './uploadTarball';
 
 const pkgFileName = 'package.json';
 
@@ -22,7 +29,7 @@ export default class S3PackageManager implements ILocalPackageManager {
   public config: S3Configuration;
   public logger: Logger;
   private readonly packageName: string;
-  private readonly s3: S3;
+  private readonly s3: S3Client;
   private readonly packagePath: string;
 
   public constructor(config: S3Configuration, packageName: string, logger: Logger) {
@@ -32,13 +39,15 @@ export default class S3PackageManager implements ILocalPackageManager {
     const { endpoint, region, s3ForcePathStyle, accessKeyId, secretAccessKey, sessionToken } =
       config;
 
-    this.s3 = new S3({
+    this.s3 = new S3Client({
       endpoint,
       region,
       s3ForcePathStyle,
-      accessKeyId,
-      secretAccessKey,
-      sessionToken,
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+        sessionToken,
+      },
     });
     this.logger.trace(
       { packageName },
@@ -113,69 +122,54 @@ export default class S3PackageManager implements ILocalPackageManager {
 
   private async _getData(): Promise<unknown> {
     this.logger.debug('s3: [S3PackageManager _getData init]');
-    return await new Promise((resolve, reject): void => {
-      this.s3.getObject(
-        {
-          Bucket: this.config.bucket,
-          Key: `${this.packagePath}/${pkgFileName}`,
-        },
-        (err, response) => {
-          if (err) {
-            this.logger.error({ err: err.message }, 's3: [S3PackageManager _getData] aws @{err}');
-            const error: HttpError = convertS3Error(err);
-            this.logger.error({ error: err.message }, 's3: [S3PackageManager _getData] @{error}');
 
-            reject(error);
-            return;
-          }
-          const body = response.Body ? response.Body.toString() : '';
-          let data;
-          try {
-            data = JSON.parse(body);
-          } catch (e) {
-            this.logger.error({ body }, 's3: [S3PackageManager _getData] error parsing: @{body}');
-            reject(e);
-            return;
-          }
+    try {
+      const getObjectCommand = new GetObjectCommand({
+        Bucket: this.config.bucket,
+        Key: `${this.packagePath}/${pkgFileName}`,
+      });
+      const response = await this.s3.send(getObjectCommand);
+      const body = response.Body ? response.Body.toString() : '';
+      let data;
 
-          this.logger.trace({ data }, 's3: [S3PackageManager _getData body] @{data.name}');
-          resolve(data);
-        }
-      );
-    });
+      data = JSON.parse(body);
+      this.logger.trace({ data }, 's3: [S3PackageManager _getData body] @{data.name}');
+      return data;
+    } catch (err) {
+      this.logger.error({ err: err.message }, 's3: [S3PackageManager _getData] aws @{err}');
+      const error: HttpError = convertS3Error(err);
+      this.logger.error({ error: err.message }, 's3: [S3PackageManager _getData] @{error}');
+
+      throw error;
+    }
   }
 
   public deletePackage(fileName: string, callback: Callback): void {
-    this.s3.deleteObject(
-      {
-        Bucket: this.config.bucket,
-        Key: `${this.packagePath}/${fileName}`,
-      },
-      (err) => {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null);
-        }
-      }
-    );
+    const deleteObjectCommand = new DeleteObjectCommand({
+      Bucket: this.config.bucket,
+      Key: `${this.packagePath}/${fileName}`,
+    });
+
+    this.s3
+      .send(deleteObjectCommand)
+      .then(() => callback(null))
+      .catch(callback);
   }
 
   public removePackage(callback: CallbackAction): void {
-    deleteKeyPrefix(
-      this.s3,
-      {
+    try {
+      deleteKeyPrefix(this.s3, {
         Bucket: this.config.bucket,
         Prefix: addTrailingSlash(this.packagePath),
-      },
-      function (err) {
-        if (err && is404Error(err as VerdaccioError)) {
-          callback(null);
-        } else {
-          callback(err);
-        }
+      });
+      callback(null);
+    } catch (err) {
+      if (is404Error(err as VerdaccioError)) {
+        callback(null);
+      } else {
+        callback(err);
       }
-    );
+    }
   }
 
   public createPackage(name: string, value: Package, callback: CallbackAction): void {
@@ -184,38 +178,38 @@ export default class S3PackageManager implements ILocalPackageManager {
       's3: [S3PackageManager createPackage init] name @{name}/@{packageName}'
     );
     this.logger.trace({ value }, 's3: [S3PackageManager createPackage init] name @value');
-    this.s3.headObject(
-      {
-        Bucket: this.config.bucket,
-        Key: `${this.packagePath}/${pkgFileName}`,
-      },
-      (err, data) => {
-        if (err) {
-          const s3Err = convertS3Error(err);
-          // only allow saving if this file doesn't exist already
-          if (is404Error(s3Err)) {
-            this.logger.debug(
-              { s3Err },
-              's3: [S3PackageManager createPackage] 404 package not found]'
-            );
-            this.savePackage(name, value, callback);
-            this.logger.trace(
-              { data },
-              's3: [S3PackageManager createPackage] package saved data from s3: @data'
-            );
-          } else {
-            this.logger.error(
-              { s3Err: s3Err.message },
-              's3: [S3PackageManager createPackage error] @s3Err'
-            );
-            callback(s3Err);
-          }
+    const headObjectCommand = new HeadObjectCommand({
+      Bucket: this.config.bucket,
+      Key: `${this.packagePath}/${pkgFileName}`,
+    });
+
+    this.s3
+      .send(headObjectCommand)
+      .then(() => {
+        this.logger.debug('s3: [S3PackageManager createPackage ] package exist already');
+        callback(create409Error());
+      })
+      .catch((err) => {
+        const s3Err = convertS3Error(err);
+        // only allow saving if this file doesn't exist already
+        if (is404Error(s3Err)) {
+          this.logger.debug(
+            { s3Err },
+            's3: [S3PackageManager createPackage] 404 package not found]'
+          );
+          this.savePackage(name, value, callback);
+          this.logger.trace(
+            { name },
+            's3: [S3PackageManager createPackage] package saved data from s3: @data'
+          );
         } else {
-          this.logger.debug('s3: [S3PackageManager createPackage ] package exist already');
-          callback(create409Error());
+          this.logger.error(
+            { s3Err: s3Err.message },
+            's3: [S3PackageManager createPackage error] @s3Err'
+          );
+          callback(s3Err);
         }
-      }
-    );
+      });
   }
 
   public savePackage(name: string, value: Package, callback: CallbackAction): void {
@@ -224,15 +218,17 @@ export default class S3PackageManager implements ILocalPackageManager {
       's3: [S3PackageManager savePackage init] name @{name}/@{packageName}'
     );
     this.logger.trace({ value }, 's3: [S3PackageManager savePackage ] init value @value');
-    this.s3.putObject(
-      {
-        // TODO: not sure whether save the object with spaces will increase storage size
-        Body: JSON.stringify(value, null, '  '),
-        Bucket: this.config.bucket,
-        Key: `${this.packagePath}/${pkgFileName}`,
-      },
-      callback
-    );
+
+    const putObjectCommand = new PutObjectCommand({
+      // TODO: not sure whether save the object with spaces will increase storage size
+      Body: JSON.stringify(value, null, '  '),
+      Bucket: this.config.bucket,
+      Key: `${this.packagePath}/${pkgFileName}`,
+    });
+    this.s3
+      .send(putObjectCommand)
+      .then((result) => callback(result))
+      .catch((err) => callback(err));
   }
 
   public readPackage(name: string, callback: ReadPackageCallback): void {
@@ -263,13 +259,13 @@ export default class S3PackageManager implements ILocalPackageManager {
     );
     const uploadStream = new UploadTarball({});
 
-    let streamEnded = 0;
+    const streamEnded = { value: false };
     uploadStream.on('end', () => {
       this.logger.debug(
         { name, packageName: this.packageName },
         's3: [S3PackageManager writeTarball event: end] name @{name}/@{packageName}'
       );
-      streamEnded = 1;
+      streamEnded.value = true;
     });
 
     const baseS3Params = {
@@ -277,135 +273,41 @@ export default class S3PackageManager implements ILocalPackageManager {
       Key: `${this.packagePath}/${name}`,
     };
 
-    // NOTE: I'm using listObjectVersions so I don't have to download the
-    // full object with getObject.
-    // Preferably, I'd use getObjectMetadata or getDetails when it's available in the node sdk
-    // TODO: convert to headObject
-    this.s3.headObject(
-      {
-        Bucket: this.config.bucket,
-        Key: `${this.packagePath}/${name}`,
-      },
-      (err) => {
-        if (err) {
-          const convertedErr = convertS3Error(err);
-          this.logger.error(
-            { error: convertedErr.message },
-            's3: [S3PackageManager writeTarball headObject] @{error}'
-          );
+    const headObjectCommand = new HeadObjectCommand({
+      Bucket: this.config.bucket,
+      Key: `${this.packagePath}/${name}`,
+    });
 
-          if (is404Error(convertedErr) === false) {
-            this.logger.error(
-              {
-                error: convertedErr.message,
-              },
-              's3: [S3PackageManager writeTarball headObject] non a 404 emit error: @{error}'
-            );
+    this.s3
+      .send(headObjectCommand)
+      .then(() => {
+        const error = create409Error();
+        this.logger.error(
+          { error: error.message },
+          's3: [S3PackageManager writeTarball headObject] @{error}'
+        );
+        uploadStream.emit('error', error);
+      })
+      .catch((err) => {
+        const error = convertS3Error(err);
 
-            uploadStream.emit('error', convertedErr);
-          } else {
-            this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] init stream');
-            const managedUpload = this.s3.upload(
-              Object.assign({}, baseS3Params, { Body: uploadStream })
-            );
-            // NOTE: there's a managedUpload.promise, but it doesn't seem to work
-            const promise = new Promise<void>((resolve): void => {
-              this.logger.debug('s3: [S3PackageManager writeTarball managedUpload] send');
-              managedUpload.send((err, data) => {
-                if (err) {
-                  const error: HttpError = convertS3Error(err);
-                  this.logger.error(
-                    { error: error.message },
-                    `s3: [S3PackageManager writeTarball managedUpload send] 
-                    emit error @{error}`
-                  );
-
-                  uploadStream.emit('error', error);
-                } else {
-                  this.logger.trace(
-                    { data },
-                    's3: [S3PackageManager writeTarball managedUpload send] response @{data}'
-                  );
-
-                  resolve();
-                }
-              });
-
-              this.logger.debug(
-                { name },
-                's3: [S3PackageManager writeTarball uploadStream] emit open @{name}'
-              );
-              uploadStream.emit('open');
-            });
-
-            uploadStream.done = (): void => {
-              const onEnd = async (): Promise<void> => {
-                try {
-                  await promise;
-
-                  this.logger.debug(
-                    's3: [S3PackageManager writeTarball uploadStream done] emit success'
-                  );
-                  uploadStream.emit('success');
-                } catch (err) {
-                  // already emitted in the promise above, necessary because of some issues
-                  // with promises in jest
-                  this.logger.error(
-                    { err },
-                    's3: [S3PackageManager writeTarball uploadStream done] error @{err}'
-                  );
-                }
-              };
-              if (streamEnded) {
-                this.logger.trace(
-                  { name },
-                  's3: [S3PackageManager writeTarball uploadStream] streamEnded true @{name}'
-                );
-                onEnd();
-              } else {
-                this.logger.trace(
-                  { name },
-                  `s3: [S3PackageManager writeTarball uploadStream] streamEnded 
-                  false emit end @{name}`
-                );
-                uploadStream.on('end', onEnd);
-              }
-            };
-
-            uploadStream.abort = (): void => {
-              this.logger.debug('s3: [S3PackageManager writeTarball uploadStream abort] init');
-              try {
-                this.logger.debug('s3: [S3PackageManager writeTarball managedUpload abort]');
-                managedUpload.abort();
-              } catch (err) {
-                const error: HttpError = convertS3Error(err);
-                uploadStream.emit('error', error);
-
-                this.logger.error(
-                  { error },
-                  's3: [S3PackageManager writeTarball uploadStream error] emit error @{error}'
-                );
-              } finally {
-                this.logger.debug(
-                  { name, baseS3Params },
-                  `s3: [S3PackageManager writeTarball uploadStream abort] 
-                  s3.deleteObject @{name}/@baseS3Params`
-                );
-
-                this.s3.deleteObject(baseS3Params);
-              }
-            };
-          }
+        if (is404Error(error)) {
+          uploadTarballToS3({
+            s3Client: this.s3,
+            logger: this.logger,
+            baseS3Params,
+            uploadStream,
+            streamEnded,
+          });
         } else {
-          this.logger.debug(
-            { name },
-            's3: [S3PackageManager writeTarball headObject] emit error @{name} 409'
+          this.logger.error(
+            { error: error.message },
+            's3: [S3PackageManager writeTarball headObject] non a 404 emit error: @{error}'
           );
 
-          uploadStream.emit('error', create409Error());
+          uploadStream.emit('error', error);
         }
-      }
-    );
+      });
 
     return uploadStream;
   }
@@ -416,84 +318,76 @@ export default class S3PackageManager implements ILocalPackageManager {
       's3: [S3PackageManager readTarball init] name @{name}/@{packageName}'
     );
     const readTarballStream = new ReadTarball({});
-
-    const request = this.s3.getObject({
+    const getObjectCommand = new GetObjectCommand({
       Bucket: this.config.bucket,
       Key: `${this.packagePath}/${name}`,
     });
+    const abortController = new AbortController();
 
-    let headersSent = false;
+    this.s3.send(getObjectCommand, { abortSignal: abortController.signal }).then((response) => {
+      // FIXME: Find a way to remove the ts-ignore
+      // @ts-ignore
+      const headers = response.Body?.headers || {};
+      // @ts-ignore
+      const statusCode = response.Body?.statusCode;
 
-    const readStream = request
-      .on('httpHeaders', (statusCode, headers) => {
-        // don't process status code errors here, we'll do that in readStream.on('error'
-        // otherwise they'll be processed twice
-
-        // verdaccio force garbage collects a stream on 404, so we can't emit more
-        // than one error or it'll fail
-        // https://github.com/verdaccio/verdaccio/blob/c1bc261/src/lib/storage.js#L178
-        this.logger.debug(
-          { name, packageName: this.packageName },
-          's3: [S3PackageManager readTarball httpHeaders] name @{name}/@{packageName}'
-        );
-        this.logger.trace(
-          { headers },
-          's3: [S3PackageManager readTarball httpHeaders event] headers @headers'
-        );
-        this.logger.trace(
-          { statusCode },
-          's3: [S3PackageManager readTarball httpHeaders event] statusCode @statusCode'
-        );
-        if (statusCode !== HTTP_STATUS.NOT_FOUND) {
-          if (headers[HEADERS.CONTENT_LENGTH]) {
-            const contentLength = parseInt(headers[HEADERS.CONTENT_LENGTH], 10);
-
-            // not sure this is necessary
-            if (headersSent) {
-              return;
-            }
-
-            headersSent = true;
-
-            this.logger.debug(
-              's3: [S3PackageManager readTarball readTarballStream event] emit content-length'
-            );
-            readTarballStream.emit(HEADERS.CONTENT_LENGTH, contentLength);
-            // we know there's content, so open the stream
-            readTarballStream.emit('open');
-            this.logger.debug(
-              's3: [S3PackageManager readTarball readTarballStream event] emit open'
-            );
-          }
-        } else {
-          this.logger.trace(
-            's3: [S3PackageManager readTarball httpHeaders event] not found, avoid emit open file'
-          );
-        }
-      })
-      .createReadStream();
-
-    readStream.on('error', (err) => {
-      const error: HttpError = convertS3Error(err as AWSError);
-
-      readTarballStream.emit('error', error);
-      this.logger.error(
-        { error: error.message },
-        's3: [S3PackageManager readTarball readTarballStream event] error @{error}'
-      );
-    });
-
-    this.logger.trace('s3: [S3PackageManager readTarball readTarballStream event] pipe');
-    readStream.pipe(readTarballStream);
-
-    readTarballStream.abort = (): void => {
-      this.logger.debug('s3: [S3PackageManager readTarball readTarballStream event] request abort');
-      request.abort();
       this.logger.debug(
-        's3: [S3PackageManager readTarball readTarballStream event] request destroy'
+        { name, packageName: this.packageName },
+        's3: [S3PackageManager readTarball httpHeaders] name @{name}/@{packageName}'
       );
-      readStream.destroy();
-    };
+      this.logger.trace(
+        { headers },
+        's3: [S3PackageManager readTarball httpHeaders event] headers @headers'
+      );
+      this.logger.trace(
+        { statusCode },
+        's3: [S3PackageManager readTarball httpHeaders event] statusCode @statusCode'
+      );
+
+      if (statusCode !== HTTP_STATUS.NOT_FOUND) {
+        if (headers[HEADERS.CONTENT_LENGTH]) {
+          const contentLength = parseInt(headers[HEADERS.CONTENT_LENGTH], 10);
+
+          this.logger.debug(
+            's3: [S3PackageManager readTarball readTarballStream event] emit content-length'
+          );
+          readTarballStream.emit(HEADERS.CONTENT_LENGTH, contentLength);
+          readTarballStream.emit('open');
+          this.logger.debug('s3: [S3PackageManager readTarball readTarballStream event] emit open');
+        }
+      } else {
+        this.logger.trace(
+          's3: [S3PackageManager readTarball httpHeaders event] not found, avoid emit open file'
+        );
+      }
+
+      // @ts-ignore
+      response.Body.on('error', (err) => {
+        const error: HttpError = convertS3Error(err);
+
+        readTarballStream.emit('error', error);
+        this.logger.error(
+          { error: error.message },
+          's3: [S3PackageManager readTarball readTarballStream event] error @{error}'
+        );
+      });
+
+      this.logger.trace('s3: [S3PackageManager readTarball readTarballStream event] pipe');
+      // @ts-ignore
+      response.Body.pipe(readTarballStream);
+
+      readTarballStream.abort = (): void => {
+        this.logger.debug(
+          's3: [S3PackageManager readTarball readTarballStream event] request abort'
+        );
+        abortController.abort();
+        this.logger.debug(
+          's3: [S3PackageManager readTarball readTarballStream event] request destroy'
+        );
+        // @ts-ignore
+        response.Body.destroy();
+      };
+    });
 
     return readTarballStream;
   }

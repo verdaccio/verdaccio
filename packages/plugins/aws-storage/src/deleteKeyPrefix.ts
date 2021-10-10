@@ -4,7 +4,6 @@ import {
   S3Client,
   ObjectIdentifier,
 } from '@aws-sdk/client-s3';
-
 import { convertS3Error, create404Error } from './s3Errors';
 
 interface DeleteKeyPrefixOptions {
@@ -12,6 +11,12 @@ interface DeleteKeyPrefixOptions {
   Prefix: string;
 }
 
+/**
+ * Helper to delete objects from a prefix in a S3 Bucket
+ *
+ * @param s3Client - S3 client
+ * @param options - Options to delete
+ */
 export async function deleteKeyPrefix(
   s3Client: S3Client,
   options: DeleteKeyPrefixOptions
@@ -21,12 +26,12 @@ export async function deleteKeyPrefix(
       Bucket: options.Bucket,
       Prefix: options.Prefix,
     });
-    const { KeyCount, Contents } = await s3Client.send(listObjectsCommand);
+    const response = await s3Client.send(listObjectsCommand);
 
-    if (KeyCount > 0) {
-      const objectsToDelete: ObjectIdentifier[] = Contents.map(
-        (s3Object) => s3Object.Key as ObjectIdentifier
-      );
+    if (response.KeyCount > 0) {
+      const objectsToDelete: ObjectIdentifier[] = response.Contents.map((s3Object) => ({
+        Key: s3Object.Key,
+      }));
 
       const deleteObjectsCommand = new DeleteObjectsCommand({
         Bucket: options.Bucket,
