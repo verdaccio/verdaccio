@@ -1,14 +1,14 @@
 import path from 'path';
 import fs from 'fs';
 
-import { S3 } from 'aws-sdk';
+import { S3 } from '@aws-sdk/client-s3';
 import rReadDir from 'recursive-readdir';
 import { Package } from '@verdaccio/types';
 
 import S3PackageManager from '../src/s3PackageManager';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { create404Error, create409Error, is404Error } from '../src/s3Errors';
-import { S3Config } from '../src/config';
+import { S3Configuration } from '../src/config';
 
 import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
@@ -24,7 +24,7 @@ describe.skip('S3 package manager', () => {
     throw new Error('no bucket specified via VERDACCIO_TEST_BUCKET env var');
   }
 
-  const config: S3Config = {
+  const config: S3Configuration = {
     bucket,
     keyPrefix: `${keyPrefix}/`,
   } as S3Config;

@@ -1,16 +1,17 @@
-import { S3 } from 'aws-sdk';
+import { S3Client } from '@aws-sdk/client-s3';
 import { IPluginStorage } from '@verdaccio/types';
+import { mockClient } from 'aws-sdk-client-mock';
 
 import S3Database from '../src/index';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
 import { is404Error } from '../src/s3Errors';
-import { S3Config } from '../src/config';
+import { S3Configuration } from '../src/config';
 
 import logger from './__mocks__/Logger';
 import Config from './__mocks__/Config';
 
-describe.skip('Local Database', () => {
-  let db: IPluginStorage<S3Config>;
+describe('Local Database', () => {
+  let db: IPluginStorage<S3Configuration>;
   let config;
   // random key for testing
   const keyPrefix = `test/${Math.floor(Math.random() * Math.pow(10, 8))}`;

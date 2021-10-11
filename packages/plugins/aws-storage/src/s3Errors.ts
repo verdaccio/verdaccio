@@ -34,7 +34,7 @@ export function create503Error(): VerdaccioError {
 }
 
 export function convertS3Error(err: AWSError): VerdaccioError {
-  switch (err.code) {
+  switch (err.Code) {
     case 'NoSuchKey':
     case 'NotFound':
       return getNotFound();

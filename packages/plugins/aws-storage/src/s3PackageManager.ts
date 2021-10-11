@@ -157,19 +157,18 @@ export default class S3PackageManager implements ILocalPackageManager {
   }
 
   public removePackage(callback: CallbackAction): void {
-    try {
-      deleteKeyPrefix(this.s3, {
-        Bucket: this.config.bucket,
-        Prefix: addTrailingSlash(this.packagePath),
+    deleteKeyPrefix(this.s3, {
+      Bucket: this.config.bucket,
+      Prefix: addTrailingSlash(this.packagePath),
+    })
+      .then(() => callback(null))
+      .catch((err) => {
+        if (is404Error(err as VerdaccioError)) {
+          callback(null);
+        } else {
+          callback(err);
+        }
       });
-      callback(null);
-    } catch (err) {
-      if (is404Error(err as VerdaccioError)) {
-        callback(null);
-      } else {
-        callback(err);
-      }
-    }
   }
 
   public createPackage(name: string, value: Package, callback: CallbackAction): void {
@@ -227,7 +226,7 @@ export default class S3PackageManager implements ILocalPackageManager {
     });
     this.s3
       .send(putObjectCommand)
-      .then((result) => callback(result))
+      .then(() => callback(null))
       .catch((err) => callback(err));
   }
 
