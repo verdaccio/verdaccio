@@ -7,16 +7,16 @@ on:
       - opened
       - synchronize
     paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+      - "website/**"
+      - "package.json"
+      - "./.github/workflows/website.yml"
   push:
     branches:
-      - 'master'
+      - "master"
     paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+      - "website/**"
+      - "package.json"
+      - "./.github/workflows/website.yml"
 
 jobs:
   build:
@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          cache: npm
 
       - name: Cache pnpm modules
         uses: actions/cache@v2
@@ -59,8 +60,7 @@ jobs:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: cache/webpack-${{github.ref}}
-
-      # Will deploy to production on:
+        # Will deploy to production on:
         # 1st: When a push occurs on master branch
         # 2nd: When we force the worflow dispatch through the UI
       - name: Build Production
@@ -78,7 +78,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-          build-dir: './website/build'
+          build-dir: "./website/build"
 
       # Will deploy to Preview URL, only when a pull request is open with changes on the website
       - name: Build Deployment Preview
@@ -99,7 +99,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-          build-dir: './website/build'
+          build-dir: "./website/build"
 
       - name: Audit preview URL with Lighthouse
         if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'

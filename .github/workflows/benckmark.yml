@@ -6,12 +6,12 @@ on:
   schedule:
     # 3 times day
     # collecting enough data to draw some graphics
-    - cron: '0 1 * * *'
+    - cron: "0 1 * * *"
   # push:
   #   branches:
   #     - master
 jobs:
-  prepare: 
+  prepare:
     name: Prepare build
     runs-on: ubuntu-latest
     steps:
@@ -19,12 +19,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+          cache: npm
       - name: install pnpm
         run: sudo npm i pnpm@6.6.1 -g
       - name: set store
-        run: | 
+        run: |
           mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store     
+          pnpm config set store-dir ~/.pnpm-store
       - name: setup pnpm config registry
         run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
@@ -35,11 +36,11 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            pnpm-              
+            pnpm-
       - name: build
         run: pnpm build
       - name: tar packages
-        run: |      
+        run: |
           tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
       - uses: actions/upload-artifact@v2
         with:
@@ -66,33 +67,34 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+          cache: npm
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@6.6.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: install dependencies
-        run: pnpm install    
+        run: pnpm install
       - name: start registry
-        run: ./scripts/benchmark-prepare.sh ${{matrix.verdaccioVersion}}        
-      - name: benchmark        
-        run: pnpm benchmark:api -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}       
+        run: ./scripts/benchmark-prepare.sh ${{matrix.verdaccioVersion}}
+      - name: benchmark
+        run: pnpm benchmark:api -- -v ${{matrix.verdaccioVersion}} -f ${{matrix.benchmark}}
         shell: bash
         env:
           DEBUG: metrics*
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-metrics-api
-          path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
+          path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
           if-no-files-found: error
-          retention-days: 10 
+          retention-days: 10
       - name: submit metrics
         run: pnpm benchmark:submit
         env:
@@ -103,7 +105,7 @@ jobs:
           METRICS_BENCHMARK: ${{matrix.benchmark}}
           METRICS_VERSION: ${{matrix.verdaccioVersion}}
           METRICS_COMMIT_HASH: ${{ github.sha }}
-          METRICS_FILE_NAME: 'api-results'   
+          METRICS_FILE_NAME: "api-results"
   benchmark:
     needs: prepare
     strategy:
@@ -127,18 +129,19 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+          cache: npm
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@6.6.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: install dependencies
         run: pnpm install
       - name: install hyperfine
@@ -147,7 +150,7 @@ jobs:
           sudo dpkg -i hyperfine_1.11.0_amd64.deb
       - name: start registry
         run: ./scripts/benchmark-prepare.sh ${{matrix.verdaccioVersion}}
-      - name: benchmark        
+      - name: benchmark
         run: ./scripts/benchmark-run.sh ${{matrix.benchmark}}
         # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-a-specific-shell
         shell: bash
@@ -156,9 +159,9 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-metrics
-          path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
+          path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
           if-no-files-found: error
-          retention-days: 10 
+          retention-days: 10
       - name: submit metrics
         run: pnpm benchmark:submit
         env:
