@@ -1,5 +1,26 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.13
+
+### Major Changes
+
+- 794af76c: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+### Minor Changes
+
+- 154b2ecd: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+
+### Patch Changes
+
+- Updated dependencies [794af76c]
+- Updated dependencies [154b2ecd]
+  - @verdaccio/auth@6.0.0-6-next.13
+  - @verdaccio/core@6.0.0-6-next.2
+  - @verdaccio/logger@6.0.0-6-next.6
+  - @verdaccio/utils@6.0.0-6-next.7
+
 ## 6.0.0-6-next.12
 
 ### Patch Changes

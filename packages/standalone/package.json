@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli-standalone",
-  "version": "6.0.0-alpha.5",
+  "version": "6.0.0-6-next.6",
   "description": "standalone verdaccio registry with no dependencies",
   "main": "dist/bundle.js",
   "bin": {
@@ -32,8 +32,8 @@
   "homepage": "https://verdaccio.org",
   "license": "MIT",
   "devDependencies": {
-    "@verdaccio/cli": "workspace:6.0.0-6-next.22",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.11",
+    "@verdaccio/cli": "workspace:6.0.0-6-next.23",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.12",
     "fs-extra": "10.0.0",
     "webpack": "5.52.0",
     "webpack-bundle-analyzer": "4.4.2",

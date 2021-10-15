@@ -1,5 +1,34 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.19
+
+### Major Changes
+
+- 794af76c: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+### Minor Changes
+
+- 154b2ecd: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+
+### Patch Changes
+
+- Updated dependencies [794af76c]
+- Updated dependencies [b702ea36]
+- Updated dependencies [154b2ecd]
+  - @verdaccio/auth@6.0.0-6-next.13
+  - @verdaccio/config@6.0.0-6-next.9
+  - @verdaccio/core@6.0.0-6-next.2
+  - @verdaccio/readme@11.0.0-6-next.4
+  - @verdaccio/tarball@11.0.0-6-next.8
+  - @verdaccio/url@11.0.0-6-next.6
+  - @verdaccio/loaders@6.0.0-6-next.6
+  - @verdaccio/logger@6.0.0-6-next.6
+  - @verdaccio/middleware@6.0.0-6-next.13
+  - @verdaccio/store@6.0.0-6-next.14
+  - @verdaccio/utils@6.0.0-6-next.7
+
 ## 6.0.0-6-next.18
 
 ### Patch Changes

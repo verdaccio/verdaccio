@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 6.0.0-6-next.4
+
+### Minor Changes
+
+- b702ea36: abort search request support for proxy
+
 ## 5.0.0-alpha.3
 
 ### Patch Changes
