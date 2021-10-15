@@ -29,6 +29,8 @@ Google Cloud Storage** or create your own plugin.
 
 ## Install
 
+> Latest Node.js v14
+
 Install with npm:
 
 ```bash

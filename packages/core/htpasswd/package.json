@@ -30,7 +30,7 @@
     "build"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "dependencies": {

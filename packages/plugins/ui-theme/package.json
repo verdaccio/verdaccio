@@ -13,7 +13,7 @@
   "homepage": "https://verdaccio.org",
   "main": "index.js",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "devDependencies": {
