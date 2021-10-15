@@ -88,6 +88,12 @@ export class SearchManager {
     return uplinksList;
   }
 
+  /**
+   * Handle search on packages and proxies.
+   * Iterate all proxies configured and search in all endpoints in v2 and pipe all responses
+   * to a stream, once the proxies request has finished search in local storage for all packages
+   * (privated and cached).
+   */
   public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
     const transformResults = new TransFormResults({ objectMode: true });
     const streamPassThrough = new PassThrough({ objectMode: true });
@@ -148,9 +154,7 @@ export class SearchManager {
     options: ProxySearchParams,
     searchPassThrough: PassThrough
   ): Promise<any> {
-    // TODO: review how to handle abort
-    const abortController = new AbortController();
-    return uplink.search({ ...options, abort: abortController }).then((bodyStream) => {
+    return uplink.search({ ...options }).then((bodyStream) => {
       bodyStream.pipe(searchPassThrough, { end: false });
       bodyStream.on('error', (err: VerdaccioError): void => {
         logger.error(

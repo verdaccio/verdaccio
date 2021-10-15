@@ -199,6 +199,7 @@ importers:
       '@verdaccio/tarball': workspace:11.0.0-6-next.7
       '@verdaccio/types': workspace:11.0.0-6-next.8
       '@verdaccio/utils': workspace:6.0.0-6-next.6
+      abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0
       cookies: 0.8.0
       debug: 4.3.2
@@ -217,6 +218,7 @@ importers:
       '@verdaccio/store': link:../store
       '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
+      abortcontroller-polyfill: 1.7.3
       cookies: 0.8.0
       debug: 4.3.2
       express: 4.17.1
@@ -413,20 +415,24 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.5
       '@verdaccio/store': workspace:6.0.0-6-next.13
       '@verdaccio/types': workspace:11.0.0-6-next.8
+      abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.20.2
       fastify-plugin: 3.0.0
+      semver: 7.3.5
       ts-node: 10.2.1
     dependencies:
       '@verdaccio/auth': link:../../auth
       '@verdaccio/config': link:../../config
       '@verdaccio/logger': link:../../logger
       '@verdaccio/store': link:../../store
+      abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.20.2
       fastify-plugin: 3.0.0
+      semver: 7.3.5
     devDependencies:
       '@types/node': 16.9.1
       '@verdaccio/types': link:../types

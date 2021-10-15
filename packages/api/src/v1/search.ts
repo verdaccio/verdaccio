@@ -35,16 +35,23 @@ export default function (route, auth: IAuth, storage: Storage): void {
   }
 
   route.get('/-/v1/search', async (req, res, next) => {
-    let [size, from] = ['size', 'from'].map((k) => req.query[k]);
+    const { query, url } = req;
+    let [size, from] = ['size', 'from'].map((k) => query[k]);
     let data;
+    const abort = new AbortController();
+
+    req.on('aborted', () => {
+      abort.abort();
+    });
 
     size = parseInt(size, 10) || 20;
     from = parseInt(from, 10) || 0;
 
     try {
       data = await storage.searchManager?.search({
-        query: req.query,
-        url: req.url,
+        query,
+        url,
+        abort,
       });
       debug('stream finish');
       const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
