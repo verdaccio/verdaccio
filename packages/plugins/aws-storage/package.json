@@ -14,7 +14,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",

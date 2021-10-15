@@ -25,7 +25,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6"
   },
   "scripts": {
