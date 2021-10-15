@@ -54,7 +54,7 @@ export type ProxySearchParams = {
   headers?: Headers;
   url: string;
   query?: searchUtils.SearchQuery;
-  abort?: AbortController;
+  abort: AbortController;
 };
 export interface IProxy {
   config: UpLinkConfLocal;

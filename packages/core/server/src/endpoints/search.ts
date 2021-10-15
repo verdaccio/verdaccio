@@ -9,12 +9,18 @@ async function searchRoute(fastify) {
     // TODO: add validations for query, some parameters are mandatory
     // TODO: review which query fields are mandatory
 
+    const abort = new AbortController();
+
+    request.on('aborted', () => {
+      abort.abort();
+    });
     const { url, query } = request;
     const storage = fastify.storage;
 
     const data = await storage.searchManager?.search({
-      query: query,
-      url: url,
+      query,
+      url,
+      abort,
     });
 
     logger.http('search endpoint');

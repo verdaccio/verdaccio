@@ -48,6 +48,7 @@
     "@verdaccio/store": "workspace:6.0.0-6-next.13",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.7",
     "@verdaccio/utils": "workspace:6.0.0-6-next.6",
+    "abortcontroller-polyfill": "1.7.3",
     "cookies": "0.8.0",
     "debug": "4.3.2",
     "express": "4.17.1",
