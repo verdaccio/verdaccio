@@ -491,7 +491,7 @@ importers:
       core-js: 3.17.2
       debug: 4.3.2
       handlebars: 4.7.7
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/core': link:../core/core
@@ -499,7 +499,7 @@ importers:
       core-js: 3.17.2
       debug: 4.3.2
       handlebars: 4.7.7
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@types/node': 16.9.1
@@ -915,7 +915,7 @@ importers:
       node-mocks-http: 1.10.1
       request: 2.87.0
       semver: 7.3.5
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/config': link:../config
@@ -930,7 +930,7 @@ importers:
       lodash: 4.17.20
       node-fetch: 2.6.1
       request: 2.87.0
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@types/node': 16.9.1
@@ -1032,7 +1032,7 @@ importers:
       merge2: 1.4.1
       semver: 7.1.2
       tmp-promise: 3.0.2
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/config': link:../config
@@ -1057,7 +1057,7 @@ importers:
       '@verdaccio/mock': link:../mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
-      undici: 4.4.7
+      undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
 
   packages/tools/benchmark:
@@ -20049,12 +20049,12 @@ packages:
     dependencies:
       undici: 4.5.1
 
-  /undici/4.4.7:
-    resolution: {integrity: sha512-41YDu0wuKPhvd2oPDHRe0ufai70O8nOyL6vgpWkv1DUPTwOx59GhZVRvZwinBLAiKJHta/91gSb7wmrDghuJIw==}
-    engines: {node: '>=12.18'}
-
   /undici/4.5.1:
     resolution: {integrity: sha512-1Kmphp4SMwVbSauz9xH4gxt0m3sLGs5qRHs/XYgjeO3bNSt6hspDZqMhM8+ETu9ynB5bq9e6mnwcDz+NVCQ3UQ==}
+    engines: {node: '>=12.18'}
+
+  /undici/4.7.3:
+    resolution: {integrity: sha512-ecY0KLuZ3EVbiR+Z2kpxh3V3tLGhkxuNv5jhIYskZXO8KgpwcFxqScIMs6JO523VFnfRnN2Fm6yhLxc+BQvezw==}
     engines: {node: '>=12.18'}
 
   /unherit/1.1.3:
