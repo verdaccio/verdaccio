@@ -1,5 +1,11 @@
 # @verdaccio/e2e-ui
 
+## 1.1.0-6-next.2
+
+### Minor Changes
+
+- 154b2ecd: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+
 ## 1.1.0-6-next.1
 
 ### Minor Changes

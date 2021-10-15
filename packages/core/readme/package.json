@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "11.0.0-alpha.3",
+  "version": "11.0.0-6-next.4",
   "description": "Readme markdown parser",
   "keywords": [
     "private",
@@ -45,7 +45,7 @@
     "marked": "3.0.2"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.8"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/streams",
-  "version": "11.0.0-6-next.4",
+  "version": "11.0.0-6-next.5",
   "description": "Stream extension for Verdaccio",
   "keywords": [
     "private",
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.8"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",
