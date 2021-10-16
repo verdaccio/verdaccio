@@ -23,7 +23,7 @@ jobs:
         ports:
           - 4873:4873
     steps:
-    - uses: actions/checkout@v2.3.1
+    - uses: actions/checkout@v2.3.5
     - name: Use Node 14
       uses: actions/setup-node@v1
       with:
@@ -48,7 +48,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - name: Use Node 16
         uses: actions/setup-node@v1
         with:
@@ -68,7 +68,7 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - name: Use Node 16
         uses: actions/setup-node@v1
         with:
@@ -89,7 +89,7 @@ jobs:
     name: build
     needs: [format, lint]
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - name: Use Node 16
         uses: actions/setup-node@v1
         with:
@@ -131,7 +131,7 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
@@ -156,7 +156,7 @@ jobs:
     runs-on: ubuntu-latest
     name: UI Test E2E Node 14
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -183,7 +183,7 @@ jobs:
     runs-on: ubuntu-latest
     name: CLI Test E2E Node 14
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -210,7 +210,7 @@ jobs:
     runs-on: windows-latest
     name: windows test node 14
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - name: Use Node 14
         uses: actions/setup-node@v1
         with:
@@ -234,7 +234,7 @@ jobs:
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@v2.3.1
+      - uses: actions/checkout@v2.3.5
       - uses: actions/setup-node@v1
         with:
           node-version: 14
