@@ -129,6 +129,8 @@ More details in the debug section
 
 ### Running and debugging
 
+> Check the debugging guidelines [here](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio)
+
 We use [`debug`](https://www.npmjs.com/package/debug) to add helpful debugging
 output to the code. Each package has it owns namespace.
 
