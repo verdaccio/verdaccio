@@ -4,7 +4,7 @@
   "version": "1.0.1-alpha.0",
   "dependencies": {
     "debug": "4.3.2",
-    "npm": "7.22.0",
+    "npm": "7.24.2",
     "pnpm": "6.14.6",
     "request": "2.87.0",
     "yarn": "1.22.11"
