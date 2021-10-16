@@ -43,7 +43,7 @@
     "babel-plugin-emotion": "10.2.2",
     "bundlesize": "0.18.1",
     "css-loader": "6.2.0",
-    "dayjs": "1.10.6",
+    "dayjs": "1.10.7",
     "emotion": "10.0.27",
     "emotion-theming": "10.0.27",
     "friendly-errors-webpack-plugin": "1.7.0",
