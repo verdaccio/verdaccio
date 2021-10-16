@@ -1225,7 +1225,7 @@ importers:
       debug: 4.3.2
       fs-extra: 10.0.0
       get-port: 5.1.1
-      npm: 7.22.0
+      npm: 7.24.2
       pnpm: 6.14.6
       request: 2.87.0
       semver: 7.3.5
@@ -1233,7 +1233,7 @@ importers:
       yarn: 1.22.11
     dependencies:
       debug: 4.3.2
-      npm: 7.22.0
+      npm: 7.24.2
       pnpm: 6.14.6
       request: 2.87.0
       yarn: 1.22.11
@@ -16696,12 +16696,13 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm/7.22.0:
-    resolution: {integrity: sha512-HJnjTCrGGnacPMCSnrxuHGf2H4VdrY7hwTAK1RwByg0K96KIuTR4QNioFW+bnc/pW0uwpk9lLsDf4BeEQhTv2Q==}
+  /npm/7.24.2:
+    resolution: {integrity: sha512-120p116CE8VMMZ+hk8IAb1inCPk4Dj3VZw29/n2g6UI77urJKVYb7FZUDW8hY+EBnfsjI/2yrobBgFyzo7YpVQ==}
     engines: {node: '>=10'}
     hasBin: true
     dev: false
     bundledDependencies:
+      - '@isaacs/string-locale-compare'
       - '@npmcli/arborist'
       - '@npmcli/ci-detect'
       - '@npmcli/config'
@@ -16746,6 +16747,7 @@ packages:
       - node-gyp
       - nopt
       - npm-audit-report
+      - npm-install-checks
       - npm-package-arg
       - npm-pick-manifest
       - npm-profile
