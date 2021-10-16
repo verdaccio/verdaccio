@@ -45,7 +45,7 @@
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.12",
     "@verdaccio/utils": "workspace:6.0.0-6-next.7",
     "verdaccio-audit": "11.0.0-6-next.7",
-    "verdaccio-htpasswd": "11.0.0-6-next.9"
+    "verdaccio-htpasswd": "11.0.0-alpha.6"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.13",

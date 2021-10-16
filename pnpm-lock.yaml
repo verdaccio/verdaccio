@@ -1151,7 +1151,7 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.7
       fastify: 3.20.2
       verdaccio-audit: 11.0.0-6-next.7
-      verdaccio-htpasswd: 11.0.0-6-next.9
+      verdaccio-htpasswd: 11.0.0-alpha.6
     dependencies:
       '@verdaccio/cli': link:../cli
       '@verdaccio/hooks': link:../hooks
@@ -1161,7 +1161,7 @@ importers:
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
       verdaccio-audit: link:../plugins/audit
-      verdaccio-htpasswd: link:../core/htpasswd
+      verdaccio-htpasswd: 11.0.0-alpha.6
     devDependencies:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
@@ -7935,12 +7935,27 @@ packages:
       http-status-codes: 1.4.0
     dev: true
 
+  /@verdaccio/commons-api/11.0.0-alpha.3:
+    resolution: {integrity: sha512-FLFVL7tLDXxwmzlp7BJCFa9E85Aki/2HY0lOybkGjIKYJ22q0Ou0bhEITY10At7acFZYchDJx07an4ywPAETOA==}
+    engines: {node: '>=10', npm: '>=6'}
+    dependencies:
+      http-errors: 1.8.0
+      http-status-codes: 1.4.0
+    dev: false
+
   /@verdaccio/file-locking/10.0.0:
     resolution: {integrity: sha512-2tQUbJF3tQ3CY9grAlpovaF/zu8G56CBYMaeHwMBHo9rAmsJI9i7LfliHGS6Jygbs8vd0cOCPT7vl2CL9T8upw==}
     engines: {node: '>=8'}
     dependencies:
       lockfile: 1.0.4
     dev: true
+
+  /@verdaccio/file-locking/11.0.0-alpha.3:
+    resolution: {integrity: sha512-tnteP8Jm9AUF1DWSPUxMZfA/cNhLDVpEBsSGHZqLwETR51MhFt/7KBZIzq743mDgEYmHcC+sc6F2S78dWpEY5g==}
+    engines: {node: '>=10', npm: '>=6'}
+    dependencies:
+      lockfile: 1.0.4
+    dev: false
 
   /@verdaccio/local-storage/10.0.7:
     resolution: {integrity: sha512-DpR4RFDQXVFI9ILEU0xXIqGP7m59u4n5RJ9AYEbc6i/6Iv0Ba2K2Q4l/J22ZLURjqCKZY4ZPUJkhUwXSmzRFMQ==}
@@ -8593,7 +8608,6 @@ packages:
   /apache-md5/1.1.2:
     resolution: {integrity: sha1-7klza2ObTxCLbp5ibG2pkwa0FpI=}
     engines: {node: '>=4.6.1'}
-    dev: true
 
   /apache-md5/1.1.7:
     resolution: {integrity: sha512-JtHjzZmJxtzfTSjsCyHgPR155HBe5WGyUyHTaEkfy46qhwCFKx1Epm6nAxgUG3WfUZP1dWhGqj9Z2NOBeZ+uBw==}
@@ -13697,7 +13711,6 @@ packages:
 
   /http-status-codes/1.4.0:
     resolution: {integrity: sha512-JrT3ua+WgH8zBD3HEJYbeEgnuQaAnUeRRko/YojPAJjGmIfGD3KPU/asLdsLwKjfxOmQe5nXMQ0pt/7MyapVbQ==}
-    dev: true
 
   /http-status-codes/2.1.4:
     resolution: {integrity: sha512-MZVIsLKGVOVE1KEnldppe6Ij+vmemMuApDfjhVSLzyYP+td0bREEYyAoIw9yFePoBXManCuBqmiNP5FqJS5Xkg==}
@@ -21639,6 +21652,18 @@ packages:
       http-errors: 1.8.0
       unix-crypt-td-js: 1.1.4
     dev: true
+
+  /verdaccio-htpasswd/11.0.0-alpha.6:
+    resolution: {integrity: sha512-N9qWuDWXAKrwhpvwydT405yZcwIeZFKdrT3/N8IQU2KWW/7KKvJfjr3PqjpCkVjfBb0VEQyoOrQ53CEYrtJdMQ==}
+    engines: {node: '>=10', npm: '>=6'}
+    dependencies:
+      '@verdaccio/commons-api': 11.0.0-alpha.3
+      '@verdaccio/file-locking': 11.0.0-alpha.3
+      apache-md5: 1.1.2
+      bcryptjs: 2.4.3
+      http-errors: 1.8.0
+      unix-crypt-td-js: 1.1.4
+    dev: false
 
   /verdaccio/5.1.6:
     resolution: {integrity: sha512-/DlhWtgtlfqKKxV6puZigRS6eicqVSXBZoZuG1HL8h+pft7F2bwu0KI1u4XT2fzGw9hp69FFET8OlPLNfYEvwQ==}
