@@ -744,7 +744,7 @@ importers:
       '@material-ui/core': 4.11.4
       '@material-ui/icons': 4.11.2
       '@material-ui/styles': 4.11.4
-      '@rematch/core': 2.1.0
+      '@rematch/core': 2.1.1
       '@rematch/loading': 2.1.1
       '@testing-library/dom': 8.5.0
       '@testing-library/jest-dom': 5.14.1
@@ -826,8 +826,8 @@ importers:
       '@material-ui/core': 4.11.4_9c6a8df88c2691f81f37725d5b4de033
       '@material-ui/icons': 4.11.2_842d6fd0a208aabbcab28b4283e0161f
       '@material-ui/styles': 4.11.4_9c6a8df88c2691f81f37725d5b4de033
-      '@rematch/core': 2.1.0_redux@4.1.1
-      '@rematch/loading': 2.1.1_@rematch+core@2.1.0
+      '@rematch/core': 2.1.1_redux@4.1.1
+      '@rematch/loading': 2.1.1_@rematch+core@2.1.1
       '@testing-library/dom': 8.5.0
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
@@ -6941,8 +6941,8 @@ packages:
     resolution: {integrity: sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=}
     dev: false
 
-  /@rematch/core/2.1.0_redux@4.1.1:
-    resolution: {integrity: sha512-izr4LlXsHp1gfK8v05FNvqSthX64cCj59/x3tu+3qNXSuSM7d1/YXAlUtBJIoX9RApr+d1mqA7CCAteUjZrdLg==}
+  /@rematch/core/2.1.1_redux@4.1.1:
+    resolution: {integrity: sha512-bybueWnn3r5vPFuyrx3GsVDGki5ql6x+15WI4FQLPCvRF3bbTN93X9GSz3tfNL39NcHoljVkL4t3oYDbpel23A==}
     engines: {node: '>=10'}
     peerDependencies:
       redux: '>=4'
@@ -6950,12 +6950,12 @@ packages:
       redux: 4.1.1
     dev: true
 
-  /@rematch/loading/2.1.1_@rematch+core@2.1.0:
+  /@rematch/loading/2.1.1_@rematch+core@2.1.1:
     resolution: {integrity: sha512-kBKKRW+x9NTa2C6dw5Q+HVpbB62J3EeBmV4mmqDPOX53YV2pKXeQZOKvc9Iz54txPYac4uhZrxnRzM0Voz7aaQ==}
     peerDependencies:
       '@rematch/core': '>=2'
     dependencies:
-      '@rematch/core': 2.1.0_redux@4.1.1
+      '@rematch/core': 2.1.1_redux@4.1.1
     dev: true
 
   /@sideway/address/4.1.0:

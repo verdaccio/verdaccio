@@ -31,7 +31,7 @@
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
     "@material-ui/styles": "4.11.4",
-    "@rematch/core": "2.1.0",
+    "@rematch/core": "2.1.1",
     "@rematch/loading": "2.1.1",
     "@testing-library/dom": "8.5.0",
     "@testing-library/jest-dom": "5.14.1",
