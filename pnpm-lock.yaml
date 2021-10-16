@@ -552,14 +552,14 @@ importers:
   packages/logger-prettify:
     specifiers:
       '@types/pino': ^6.3.3
-      dayjs: 1.10.6
+      dayjs: 1.10.7
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
       pino: 6.2.1
       prettier-bytes: 1.0.4
     dependencies:
-      dayjs: 1.10.6
+      dayjs: 1.10.7
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
@@ -764,7 +764,7 @@ importers:
       bundlesize: 0.18.1
       country-flag-icons: 1.4.11
       css-loader: 6.2.0
-      dayjs: 1.10.6
+      dayjs: 1.10.7
       emotion: 10.0.27
       emotion-theming: 10.0.27
       friendly-errors-webpack-plugin: 1.7.0
@@ -846,7 +846,7 @@ importers:
       bundlesize: 0.18.1
       country-flag-icons: 1.4.11
       css-loader: 6.2.0_webpack@5.52.0
-      dayjs: 1.10.6
+      dayjs: 1.10.7
       emotion: 10.0.27
       emotion-theming: 10.0.27_33bb31e1d857102242df3642b32eda18
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.52.0
@@ -10924,6 +10924,10 @@ packages:
 
   /dayjs/1.10.6:
     resolution: {integrity: sha512-AztC/IOW4L1Q41A86phW5Thhcrco3xuAA+YX/BLpLWWjRcTj5TOt/QImBLmCKlrF7u7k47arTnOyL6GnbG8Hvw==}
+    dev: true
+
+  /dayjs/1.10.7:
+    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
