@@ -1150,7 +1150,7 @@ importers:
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       '@verdaccio/utils': workspace:6.0.0-6-next.7
       fastify: 3.20.2
-      verdaccio-audit: 11.0.0-6-next.7
+      verdaccio-audit: 11.0.0-alpha.4
       verdaccio-htpasswd: 11.0.0-6-next.9
     dependencies:
       '@verdaccio/cli': link:../cli
@@ -1160,7 +1160,7 @@ importers:
       '@verdaccio/node-api': link:../node-api
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
-      verdaccio-audit: link:../plugins/audit
+      verdaccio-audit: 11.0.0-alpha.4
       verdaccio-htpasswd: link:../core/htpasswd
     devDependencies:
       '@verdaccio/auth': link:../auth
@@ -21628,6 +21628,17 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /verdaccio-audit/11.0.0-alpha.4:
+    resolution: {integrity: sha512-0dtvMo3xzBnTitU4CdMHLq6FX8wHB+NMY4vs7u5ApygIGA5KCKKa/ljUvqYbxdjB5Yqd9jdle0pLxrpm8tnHSA==}
+    engines: {node: '>=10', npm: '>=6'}
+    dependencies:
+      express: 4.17.1
+      https-proxy-agent: 5.0.0
+      node-fetch: 2.6.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /verdaccio-htpasswd/10.0.0:
     resolution: {integrity: sha512-3TKwiLwl8/fbaTDawHvjSYcsyMmdARg58keP/1plv74x+Jw0sC66HbbRwQ/tPO5mqoG0UwoWW+lkO8h/OiWi9w==}
