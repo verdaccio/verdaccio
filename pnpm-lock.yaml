@@ -762,7 +762,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.10
+      country-flag-icons: 1.4.11
       css-loader: 6.2.0
       dayjs: 1.10.6
       emotion: 10.0.27
@@ -844,7 +844,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.10
+      country-flag-icons: 1.4.11
       css-loader: 6.2.0_webpack@5.52.0
       dayjs: 1.10.6
       emotion: 10.0.27
@@ -10446,8 +10446,8 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  /country-flag-icons/1.4.10:
-    resolution: {integrity: sha512-4qngHBNB+k7IyXztHYVh0Nfo1SBwUX0ePksCQKntuuCHr/sNbzxtl1Oi0SDtov1q19HqJBzKdULEefYmafXmdg==}
+  /country-flag-icons/1.4.11:
+    resolution: {integrity: sha512-OCaZ9gUjY4HvnXit8DPjBEnM2f4rk/eO7gwm6ZVbbxFTO46jnqnFh+2yT1N8juSzriMjdG0OqFFMSsiztkpl+w==}
     dev: true
 
   /create-emotion/10.0.27:
