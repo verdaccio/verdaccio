@@ -705,7 +705,7 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.2
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      fast-crc32c: 1.0.4
+      fast-crc32c: 1.0.7
       memory-fs: 0.5.0
     dependencies:
       '@google-cloud/datastore': 6.5.0
@@ -713,7 +713,7 @@ importers:
       '@verdaccio/core': link:../../core/core
       '@verdaccio/streams': link:../../core/streams
     optionalDependencies:
-      fast-crc32c: 1.0.4
+      fast-crc32c: 1.0.7
     devDependencies:
       '@verdaccio/types': link:../../core/types
       memory-fs: 0.5.0
@@ -12241,12 +12241,12 @@ packages:
     resolution: {integrity: sha1-lpGEQOMEGnpBT4xS48V06zw+HgU=}
     engines: {'0': node >=0.6.0}
 
-  /fast-crc32c/1.0.4:
-    resolution: {integrity: sha1-qLVm6aouI7a0EWzz2NB/X1ItVOM=}
+  /fast-crc32c/1.0.7:
+    resolution: {integrity: sha512-yaAnvfGr8YWu6V2cqr2303/V1jXXVaOJCGtln7awIY/ocxWyUCdYbp8RoN7oSRq4lFA4ygMT/Lk/0sZTduJPPA==}
     engines: {node: '>= 0.10.0'}
     requiresBuild: true
     optionalDependencies:
-      sse4_crc32: 5.4.0
+      sse4_crc32: 6.0.1
     dev: false
     optional: true
 
@@ -16397,11 +16397,6 @@ packages:
       rimraf: 2.4.5
     dev: true
 
-  /nan/2.14.0:
-    resolution: {integrity: sha512-INOFj37C7k3AfaNTtX8RhsTw7qRy7eLET14cROi9+5HAVbbHuIWUHEauBv5qT4Av2tWasiTY1Jw6puUNqRJXQg==}
-    dev: false
-    optional: true
-
   /nan/2.14.2:
     resolution: {integrity: sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==}
 
@@ -16501,6 +16496,11 @@ packages:
     dependencies:
       semver: 5.7.1
     dev: true
+
+  /node-addon-api/1.7.2:
+    resolution: {integrity: sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==}
+    dev: false
+    optional: true
 
   /node-emoji/1.10.0:
     resolution: {integrity: sha512-Yt3384If5H6BYGVHiHwTL+99OzJKHhgp82S8/dktEK73T26BazdgZ4JZh92xSVtGNJvz9UbXdNAc5hcrXV42vw==}
@@ -19997,13 +19997,13 @@ packages:
   /sprintf-js/1.0.3:
     resolution: {integrity: sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=}
 
-  /sse4_crc32/5.4.0:
-    resolution: {integrity: sha512-sNCs25xYaKRyMcqUNej7NATXQDkSaRlh6cqd/0KzboDKIqvVG30BnRZP295U/GliTmTCBkYS7Wl9mw7a76bKIQ==}
-    engines: {node: '>=5.10.0'}
+  /sse4_crc32/6.0.1:
+    resolution: {integrity: sha512-FUTYXpLroqytNKWIfHzlDWoy9E4tmBB/RklNMy6w3VJs+/XEYAHgbiylg4SS43iOk/9bM0BlJ2EDpFAGT66IoQ==}
+    engines: {node: '>=4'}
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
-      nan: 2.14.0
+      node-addon-api: 1.7.2
     dev: false
     optional: true
 

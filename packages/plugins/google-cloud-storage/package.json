@@ -41,7 +41,7 @@
     "memory-fs": "0.5.0"
   },
   "optionalDependencies": {
-    "fast-crc32c": "1.0.4"
+    "fast-crc32c": "1.0.7"
   },
   "scripts": {
     "clean": "rimraf ./build",
