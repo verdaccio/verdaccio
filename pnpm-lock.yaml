@@ -397,11 +397,11 @@ importers:
   packages/core/readme:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      dompurify: 2.3.1
+      dompurify: 2.3.3
       jsdom: 17.0.0
       marked: 3.0.2
     dependencies:
-      dompurify: 2.3.1
+      dompurify: 2.3.3
       jsdom: 17.0.0
       marked: 3.0.2
     devDependencies:
@@ -11338,6 +11338,11 @@ packages:
 
   /dompurify/2.3.1:
     resolution: {integrity: sha512-xGWt+NHAQS+4tpgbOAI08yxW0Pr256Gu/FNE2frZVTbgrBUn8M7tz7/ktS/LZ2MHeGqz6topj0/xY+y8R5FBFw==}
+    dev: true
+
+  /dompurify/2.3.3:
+    resolution: {integrity: sha512-dqnqRkPMAjOZE0FogZ+ceJNM2dZ3V/yNOuFB7+39qpO93hHhfRpHw3heYQC7DPK9FqbQTfBKUJhiSfz4MvXYwg==}
+    dev: false
 
   /domutils/1.5.1:
     resolution: {integrity: sha1-3NhIiib1Y9YQeeSMn3t+Mjc2gs8=}
