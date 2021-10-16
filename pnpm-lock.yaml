@@ -268,7 +268,7 @@ importers:
       '@verdaccio/fastify-migration': workspace:6.0.0-6-next.14
       '@verdaccio/logger': workspace:6.0.0-6-next.6
       '@verdaccio/node-api': workspace:6.0.0-6-next.22
-      clipanion: 3.0.1
+      clipanion: 3.1.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.5
@@ -278,7 +278,7 @@ importers:
       '@verdaccio/fastify-migration': link:../core/server
       '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
-      clipanion: 3.0.1
+      clipanion: 3.1.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.5
@@ -1069,14 +1069,14 @@ importers:
   packages/tools/benchmark:
     specifiers:
       autocannon: 7.4.0
-      clipanion: 3.0.1
+      clipanion: 3.1.0
       get-port: 5.1.1
       node-fetch: 3.0.0-beta.6-exportfix
       semver: 7.3.5
       temp-dir: 2.0.0
       ts-node: 10.2.1
     dependencies:
-      clipanion: 3.0.1
+      clipanion: 3.1.0
       get-port: 5.1.1
       semver: 7.3.5
       temp-dir: 2.0.0
@@ -9797,6 +9797,13 @@ packages:
     resolution: {integrity: sha512-/ujK3YJ1MGjGr18w99Gl9XZjy4xcC/5bZRJXsgvYG6GbUTO4CTKriC+oUxDbo8G+G/dxDqSJhm8QIDnK6iH6Ig==}
     dependencies:
       typanion: 3.3.1
+    dev: true
+
+  /clipanion/3.1.0:
+    resolution: {integrity: sha512-v025Hz+IDQ15FpOyK8p02h5bFznMu6rLFsJSyOPR+7WrbSnZ1Ek6pblPukV7K5tC/dsWfncQPIrJ4iUy2PXkbw==}
+    dependencies:
+      typanion: 3.3.1
+    dev: false
 
   /cliui/5.0.0:
     resolution: {integrity: sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==}
