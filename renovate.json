@@ -2,7 +2,7 @@
   "extends": ["config:base"],
   "prConcurrentLimit": 5,
   "ignorePaths": ["docker-examples/**"],
-  "ignoreDeps": ["eslint-plugin-verdaccio"],
+  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
   "packageRules": [
     {
       "packageNames": ["aws-sdk"],
