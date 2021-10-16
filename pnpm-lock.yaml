@@ -792,7 +792,7 @@ importers:
       react-hook-form: 7.15.3
       react-hot-loader: 4.13.0
       react-i18next: 11.12.0
-      react-redux: 7.2.1
+      react-redux: 7.2.5
       react-router: 5.2.1
       react-router-dom: 5.3.0
       react-virtualized: 9.22.3
@@ -874,7 +874,7 @@ importers:
       react-hook-form: 7.15.3_react@17.0.2
       react-hot-loader: 4.13.0_7510db4ec16e957d3f42221e7066b6f6
       react-i18next: 11.12.0_i18next@20.6.1+react@17.0.2
-      react-redux: 7.2.1_e084f946920a04d85390aa355643c4d5
+      react-redux: 7.2.5_react-dom@17.0.2+react@17.0.2
       react-router: 5.2.1_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
@@ -7335,6 +7335,13 @@ packages:
     resolution: {integrity: sha512-2xtoL22/3Mv6a70i4+4RB7VgbDDORoWwjcqeNysojZA0R7NK17RbY5Gof/2QiFfJgX+KkWghbwJ+d/2SB8Ndzg==}
     dev: true
 
+  /@types/hoist-non-react-statics/3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 17.0.30
+      hoist-non-react-statics: 3.3.2
+    dev: true
+
   /@types/html-minifier-terser/5.1.1:
     resolution: {integrity: sha512-giAlZwstKbmvMk1OO7WXSj4OZ0keXAcl2TQq4LWHiiPH2ByaH7WeUzng+Qej8UPxxv+8lRTuouo0iaNDBuzIBA==}
 
@@ -7551,6 +7558,15 @@ packages:
     resolution: {integrity: sha512-jyx50RNZXVaTGHY3MsoRPNpeiVk8b0XTPgD/O6KHF6COTDnG/+lRjPYvTK5nfWtR3xDOux0w6bHLAsaHo2ZLTA==}
     dependencies:
       '@types/react': 17.0.30
+    dev: true
+
+  /@types/react-redux/7.1.19:
+    resolution: {integrity: sha512-L37dSCT0aoJnCgpR8Iuginlbxoh7qhWOXiaDqEsxVMrER1CmVhFD+63NxgJeT4pkmEM28oX0NH4S4f+sXHTZjA==}
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 17.0.30
+      hoist-non-react-statics: 3.3.2
+      redux: 4.1.1
     dev: true
 
   /@types/react-router-dom/5.1.8:
@@ -18073,7 +18089,7 @@ packages:
       '@jest/types': 26.6.2
       ansi-regex: 5.0.0
       ansi-styles: 4.3.0
-      react-is: 17.0.1
+      react-is: 17.0.2
     dev: true
 
   /pretty-format/27.1.0:
@@ -18496,10 +18512,6 @@ packages:
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
-  /react-is/17.0.1:
-    resolution: {integrity: sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==}
-    dev: true
-
   /react-is/17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: true
@@ -18556,13 +18568,12 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-redux/7.2.1_e084f946920a04d85390aa355643c4d5:
-    resolution: {integrity: sha512-T+VfD/bvgGTUA74iW9d2i5THrDQWbweXP0AVNI8tNd1Rk5ch1rnMiJkDD67ejw7YBKM4+REvcvqRuWJb7BLuEg==}
+  /react-redux/7.2.5_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-Dt29bNyBsbQaysp6s/dN0gUodcq+dVKKER8Qv82UrpeygwYeX1raTtil7O/fftw/rFqzaf6gJhDZRkkZnn6bjg==}
     peerDependencies:
-      react: ^16.8.3
+      react: ^16.8.3 || ^17
       react-dom: '*'
       react-native: '*'
-      redux: ^2.0.0 || ^3.0.0 || ^4.0.0-0
     peerDependenciesMeta:
       react-dom:
         optional: true
@@ -18570,13 +18581,13 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.15.4
+      '@types/react-redux': 7.1.19
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
       prop-types: 15.7.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-is: 16.13.1
-      redux: 4.1.1
     dev: true
 
   /react-router-config/5.1.1_react-router@5.2.0+react@17.0.2:
