@@ -98,7 +98,7 @@
     "supertest": "6.1.6",
     "ts-node": "10.2.1",
     "typescript": "4.4.2",
-    "update-ts-references": "2.4.0",
+    "update-ts-references": "2.4.1",
     "verdaccio": "5.1.6",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
