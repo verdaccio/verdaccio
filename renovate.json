@@ -1,5 +1,6 @@
 {
   "extends": ["config:base"],
+  "prConcurrentLimit": 5,
   "ignoreDeps": ["eslint-plugin-verdaccio"],
   "packageRules": [
     {
