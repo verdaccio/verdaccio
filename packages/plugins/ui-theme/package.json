@@ -53,7 +53,7 @@
     "html-webpack-plugin": "5.3.2",
     "i18next": "20.6.1",
     "in-publish": "2.0.1",
-    "country-flag-icons": "1.4.10",
+    "country-flag-icons": "1.4.11",
     "js-base64": "3.6.1",
     "js-yaml": "3.14.1",
     "localstorage-memory": "1.0.3",

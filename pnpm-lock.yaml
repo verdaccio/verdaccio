@@ -37,7 +37,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.1
-      '@types/lodash': 4.14.172
+      '@types/lodash': 4.14.175
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -127,7 +127,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.1
-      '@types/lodash': 4.14.172
+      '@types/lodash': 4.14.175
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -762,7 +762,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.10
+      country-flag-icons: 1.4.11
       css-loader: 6.2.0
       dayjs: 1.10.6
       emotion: 10.0.27
@@ -844,7 +844,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.10
+      country-flag-icons: 1.4.11
       css-loader: 6.2.0_webpack@5.52.0
       dayjs: 1.10.6
       emotion: 10.0.27
@@ -6284,7 +6284,7 @@ packages:
     dependencies:
       '@formatjs/ts-transformer': 2.13.0
       '@types/json-stable-stringify': 1.0.32
-      '@types/lodash': 4.14.167
+      '@types/lodash': 4.14.175
       '@types/loud-rejection': 2.0.0
       '@types/node': 14.17.3
       '@vue/compiler-core': 3.0.11
@@ -7424,12 +7424,13 @@ packages:
       '@types/node': 15.12.4
     dev: true
 
-  /@types/lodash/4.14.167:
-    resolution: {integrity: sha512-w7tQPjARrvdeBkX/Rwg95S592JwxqOjmms3zWQ0XZgSyxSLdzWaYH3vErBhdVS/lRBX7F8aBYcYJYTr5TMGOzw==}
-    dev: true
-
   /@types/lodash/4.14.172:
     resolution: {integrity: sha512-/BHF5HAx3em7/KkzVKm3LrsD6HZAXuXO1AJZQ3cRRBZj4oHZDviWPYu0aEplAqDFNHZPW6d3G7KN+ONcCCC7pw==}
+    dev: false
+
+  /@types/lodash/4.14.175:
+    resolution: {integrity: sha512-XmdEOrKQ8a1Y/yxQFOMbC47G/V2VDO1GvMRnl4O75M4GW/abC5tnfzadQYkqEveqRM1dEJGFFegfPNA2vvx2iw==}
+    dev: true
 
   /@types/long/4.0.1:
     resolution: {integrity: sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==}
@@ -10446,8 +10447,8 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  /country-flag-icons/1.4.10:
-    resolution: {integrity: sha512-4qngHBNB+k7IyXztHYVh0Nfo1SBwUX0ePksCQKntuuCHr/sNbzxtl1Oi0SDtov1q19HqJBzKdULEefYmafXmdg==}
+  /country-flag-icons/1.4.11:
+    resolution: {integrity: sha512-OCaZ9gUjY4HvnXit8DPjBEnM2f4rk/eO7gwm6ZVbbxFTO46jnqnFh+2yT1N8juSzriMjdG0OqFFMSsiztkpl+w==}
     dev: true
 
   /create-emotion/10.0.27:
