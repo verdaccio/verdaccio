@@ -20,7 +20,7 @@
     "@types/react": "17.0.19",
     "@types/react-autosuggest": "10.1.5",
     "@types/react-dom": "17.0.9",
-    "@types/react-helmet": "6.1.2",
+    "@types/react-helmet": "6.1.4",
     "@types/redux": "3.6.0",
     "@types/react-router-dom": "5.1.8",
     "@types/react-virtualized": "9.21.13",

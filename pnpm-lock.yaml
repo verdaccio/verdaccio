@@ -752,7 +752,7 @@ importers:
       '@types/react': 17.0.19
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.9
-      '@types/react-helmet': 6.1.2
+      '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.1.8
       '@types/react-virtualized': 9.21.13
       '@types/redux': 3.6.0
@@ -834,7 +834,7 @@ importers:
       '@types/react': 17.0.19
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.9
-      '@types/react-helmet': 6.1.2
+      '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.1.8
       '@types/react-virtualized': 9.21.13
       '@types/redux': 3.6.0
@@ -7561,8 +7561,8 @@ packages:
       '@types/react': 17.0.19
     dev: true
 
-  /@types/react-helmet/6.1.2:
-    resolution: {integrity: sha512-dcfAZNlWb5JYFbO9CGfrPWLJAyFcT6UeR3u35eBbv8liY2Rg4K7fM1G5+HnwVgot+C+kVwXAZ8pLEn2jsMfTDg==}
+  /@types/react-helmet/6.1.4:
+    resolution: {integrity: sha512-jyx50RNZXVaTGHY3MsoRPNpeiVk8b0XTPgD/O6KHF6COTDnG/+lRjPYvTK5nfWtR3xDOux0w6bHLAsaHo2ZLTA==}
     dependencies:
       '@types/react': 17.0.19
     dev: true
@@ -7585,7 +7585,7 @@ packages:
   /@types/react-transition-group/4.4.0:
     resolution: {integrity: sha512-/QfLHGpu+2fQOqQaXh8MG9q03bFENooTb/it4jr5kKaZlDQfWvjqWZg48AwzPVMBHlRuTRAY7hRHCEOXz5kV6w==}
     dependencies:
-      '@types/react': 16.14.2
+      '@types/react': 17.0.19
     dev: true
 
   /@types/react-virtualized/9.21.13:
@@ -7593,13 +7593,6 @@ packages:
     dependencies:
       '@types/prop-types': 15.7.3
       '@types/react': 17.0.19
-    dev: true
-
-  /@types/react/16.14.2:
-    resolution: {integrity: sha512-BzzcAlyDxXl2nANlabtT4thtvbbnhee8hMmH/CcJrISDBVcJS1iOsP1f0OAgSdGE0MsY9tqcrb9YoZcOFv9dbQ==}
-    dependencies:
-      '@types/prop-types': 15.7.3
-      csstype: 3.0.3
     dev: true
 
   /@types/react/17.0.19:
@@ -10824,10 +10817,6 @@ packages:
 
   /csstype/2.6.13:
     resolution: {integrity: sha512-ul26pfSQTZW8dcOnD2iiJssfXw0gdNVX9IJDH/X3K5DGPfj+fUYe3kB+swUY6BF3oZDxaID3AJt+9/ojSAE05A==}
-    dev: true
-
-  /csstype/3.0.3:
-    resolution: {integrity: sha512-jPl+wbWPOWJ7SXsWyqGRk3lGecbar0Cb0OvZF/r/ZU011R4YqiRehgkQ9p4eQfo9DSDLqLL3wHwfxeJiuIsNag==}
     dev: true
 
   /csstype/3.0.8:
