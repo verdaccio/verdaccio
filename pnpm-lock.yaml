@@ -47,7 +47,7 @@ importers:
       '@types/testing-library__jest-dom': 5.14.1
       '@types/validator': 13.6.3
       '@types/webpack': 5.28.0
-      '@types/webpack-env': 1.16.2
+      '@types/webpack-env': 1.16.3
       '@typescript-eslint/eslint-plugin': 4.30.0
       '@typescript-eslint/parser': 4.30.0
       '@verdaccio/benchmark': workspace:*
@@ -137,7 +137,7 @@ importers:
       '@types/testing-library__jest-dom': 5.14.1
       '@types/validator': 13.6.3
       '@types/webpack': 5.28.0
-      '@types/webpack-env': 1.16.2
+      '@types/webpack-env': 1.16.3
       '@typescript-eslint/eslint-plugin': 4.30.0_8a8a2d3eaa9257455a03c16dce5f55b3
       '@typescript-eslint/parser': 4.30.0_eslint@7.32.0+typescript@4.4.2
       '@verdaccio/benchmark': link:packages/tools/benchmark
@@ -7710,8 +7710,8 @@ packages:
     resolution: {integrity: sha512-fWG42pMJOL4jKsDDZZREnXLjc3UE0R8LOJfARWYg6U966rxDT7TYejYzLnUF5cvSObGg34nd0+H2wHHU5Omdfw==}
     dev: true
 
-  /@types/webpack-env/1.16.2:
-    resolution: {integrity: sha512-vKx7WNQNZDyJveYcHAm9ZxhqSGLYwoyLhrHjLBOkw3a7cT76sTdjgtwyijhk1MaHyRIuSztcVwrUOO/NEu68Dw==}
+  /@types/webpack-env/1.16.3:
+    resolution: {integrity: sha512-9gtOPPkfyNoEqCQgx4qJKkuNm/x0R2hKR7fdl7zvTJyHnIisuE/LfvXOsYWL0o3qq6uiBnKZNNNzi3l0y/X+xw==}
     dev: true
 
   /@types/webpack/5.28.0:
