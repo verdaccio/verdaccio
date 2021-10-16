@@ -97,7 +97,7 @@
     "webpack-manifest-plugin": "4.0.2",
     "webpack-merge": "5.8.0",
     "whatwg-fetch": "3.6.2",
-    "xss": "1.0.9"
+    "xss": "1.0.10"
   },
   "keywords": [
     "private",

@@ -817,7 +817,7 @@ importers:
       webpack-manifest-plugin: 4.0.2
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
-      xss: 1.0.9
+      xss: 1.0.10
     devDependencies:
       '@emotion/core': 10.1.1_react@17.0.2
       '@emotion/jest': 11.3.0_@types+jest@27.0.2
@@ -899,7 +899,7 @@ importers:
       webpack-manifest-plugin: 4.0.2_webpack@5.52.0
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
-      xss: 1.0.9
+      xss: 1.0.10
 
   packages/proxy:
     specifiers:
@@ -22565,8 +22565,8 @@ packages:
   /xmlchars/2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
-  /xss/1.0.9:
-    resolution: {integrity: sha512-2t7FahYnGJys6DpHLhajusId7R0Pm2yTmuL0GV9+mV0ZlaLSnb2toBmppATfg5sWIhZQGlsTLoecSzya+l4EAQ==}
+  /xss/1.0.10:
+    resolution: {integrity: sha512-qmoqrRksmzqSKvgqzN0055UFWY7OKx1/9JWeRswwEVX9fCG5jcYRxa/A2DHcmZX6VJvjzHRQ2STeeVcQkrmLSw==}
     engines: {node: '>= 0.10.0'}
     hasBin: true
     dependencies:
