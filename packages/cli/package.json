@@ -48,7 +48,7 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.6",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.22",
     "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.14",
-    "clipanion": "3.0.1",
+    "clipanion": "3.1.0",
     "envinfo": "7.8.1",
     "kleur": "3.0.3",
     "semver": "7.3.5"
