@@ -915,7 +915,7 @@ importers:
       debug: 4.3.2
       get-stream: ^6.0.1
       JSONStream: 1.3.5
-      lodash: 4.17.20
+      lodash: 4.17.21
       nock: 13.0.11
       node-fetch: 2.6.1
       node-mocks-http: 1.10.1
@@ -933,7 +933,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       debug: 4.3.2
       JSONStream: 1.3.5
-      lodash: 4.17.20
+      lodash: 4.17.21
       node-fetch: 2.6.1
       request: 2.87.0
       undici: 4.7.3
@@ -1032,7 +1032,7 @@ importers:
       async: 3.1.1
       debug: 4.3.1
       JSONStream: 1.3.5
-      lodash: 4.17.15
+      lodash: 4.17.21
       lunr: 2.3.9
       lunr-mutable-indexes: 2.3.2
       merge2: 1.4.1
@@ -1053,7 +1053,7 @@ importers:
       async: 3.1.1
       debug: 4.3.1
       JSONStream: 1.3.5
-      lodash: 4.17.15
+      lodash: 4.17.21
       lunr: 2.3.9
       lunr-mutable-indexes: 2.3.2
       merge2: 1.4.1
@@ -15757,14 +15757,6 @@ packages:
 
   /lodash.uniq/4.5.0:
     resolution: {integrity: sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=}
-
-  /lodash/4.17.15:
-    resolution: {integrity: sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==}
-    dev: false
-
-  /lodash/4.17.20:
-    resolution: {integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==}
-    dev: false
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
