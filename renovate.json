@@ -1,0 +1,33 @@
+{
+  "extends": ["config:base"],
+  "prConcurrentLimit": 5,
+  "ignorePaths": ["docker-examples/**"],
+  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
+  "packageRules": [
+    {
+      "packageNames": ["aws-sdk"],
+      "allowedVersions": "2.607.0"
+    },
+    {
+      "packageNames": ["typescript"],
+      "allowedVersions": "3.9.10"
+    },
+    {
+      "packageNames": ["@google-cloud/datastore"],
+      "allowedVersions": "4.5.0"
+    },
+    {
+      "packageNames": ["@google-cloud/storage"],
+      "allowedVersions": "3.5.0"
+    },
+    {
+      "packageNames": ["memory-fs"],
+      "allowedVersions": "0.5.0"
+    },
+    {
+      "packageNames": ["fast-crc32c"],
+      "allowedVersions": "1.0.7"
+    }
+  ],
+  "pinVersions": false
+}
