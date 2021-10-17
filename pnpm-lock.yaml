@@ -534,19 +534,19 @@ importers:
 
   packages/logger:
     specifiers:
-      '@types/pino': 6.3.3
+      '@types/pino': 6.3.11
       '@verdaccio/logger-prettify': workspace:6.0.0-6-next.4
       '@verdaccio/types': workspace:11.0.0-6-next.9
       debug: 4.3.2
       lodash: 4.17.21
-      pino: 6.2.1
+      pino: 6.13.3
     dependencies:
       '@verdaccio/logger-prettify': link:../logger-prettify
       debug: 4.3.2
       lodash: 4.17.21
-      pino: 6.2.1
+      pino: 6.13.3
     devDependencies:
-      '@types/pino': 6.3.3
+      '@types/pino': 6.3.11
       '@verdaccio/types': link:../core/types
 
   packages/logger-prettify:
@@ -556,7 +556,7 @@ importers:
       fast-safe-stringify: 2.0.8
       kleur: 3.0.3
       lodash: 4.17.21
-      pino: 6.2.1
+      pino: 6.13.3
       prettier-bytes: 1.0.4
     dependencies:
       dayjs: 1.10.7
@@ -566,7 +566,7 @@ importers:
       prettier-bytes: 1.0.4
     devDependencies:
       '@types/pino': 6.3.11
-      pino: 6.2.1
+      pino: 6.13.3
 
   packages/middleware:
     specifiers:
@@ -7509,14 +7509,6 @@ packages:
       sonic-boom: 2.2.3
     dev: true
 
-  /@types/pino/6.3.3:
-    resolution: {integrity: sha512-YtT58N7Tt7B7f5B/upuq694p4eT4icM9TuhgYeKhm+dnF0Ahm7q5YJp1i7vC2mBMdWgH1IvOa2XK6rhUjBv0GQ==}
-    dependencies:
-      '@types/node': 16.9.1
-      '@types/pino-std-serializers': 2.4.1
-      '@types/sonic-boom': 2.1.1
-    dev: true
-
   /@types/prettier/2.3.0:
     resolution: {integrity: sha512-hkc1DATxFLQo4VxPDpMH1gCkPpBbpOoJ/4nhuXw4n63/0R6bCpQECj4+K226UJ4JO/eJQz+1mC2I7JsWanAdQw==}
     dev: true
@@ -7645,13 +7637,6 @@ packages:
     resolution: {integrity: sha512-N0IWe4vT1w5IOYdN9c9PNpQniHS+qe25W4tj4vfhJDJ9OkvA/YA55YUhaC+HNmMMeLlOSnBW9UMno0qlt5xu3Q==}
     dependencies:
       '@types/node': 16.9.1
-    dev: true
-
-  /@types/sonic-boom/2.1.1:
-    resolution: {integrity: sha512-CiKn+8CDgtBspfAVPwC8PXCMPhqeL7pFS4aWuj+WJnHLZlu4OGPctdZ6Mob43jRe0kkd7Ztb2Hcu9kzB+b7ZFw==}
-    deprecated: This is a stub types definition. sonic-boom provides its own type definitions, so you do not need this installed.
-    dependencies:
-      sonic-boom: 2.2.3
     dev: true
 
   /@types/stack-utils/2.0.0:
@@ -12311,10 +12296,6 @@ packages:
 
   /fast-levenshtein/2.0.6:
     resolution: {integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=}
-
-  /fast-redact/2.1.0:
-    resolution: {integrity: sha512-0LkHpTLyadJavq9sRzzyqIoMZemWli77K2/MGOkafrR64B9ItrvZ9aT+jluvNDsv0YEHjSNhlMBtbokuoqii4A==}
-    engines: {node: '>=6'}
 
   /fast-redact/3.0.0:
     resolution: {integrity: sha512-a/S/Hp6aoIjx7EmugtzLqXmcNsyFszqbt6qQ99BdG61QjBZF6shNis0BYR6TsZOQ1twYc0FN2Xdhwwbv6+KD0w==}
@@ -17299,9 +17280,6 @@ packages:
     resolution: {integrity: sha1-clVrgM+g1IqXToDnckjoDtT3+HA=}
     engines: {node: '>=0.10.0'}
 
-  /pino-std-serializers/2.5.0:
-    resolution: {integrity: sha512-wXqbqSrIhE58TdrxxlfLwU9eDhrzppQDvGhBEr1gYbzzM4KKo3Y63gSjiDXRKLVS2UOXdPNR2v+KnQgNrs+xUg==}
-
   /pino-std-serializers/3.2.0:
     resolution: {integrity: sha512-EqX4pwDPrt3MuOAAUBMU0Tk5kR/YcCM5fNPEzgCO2zJ5HfX0vbiH9HbJglnyeQsN96Kznae6MWD47pZB5avTrg==}
 
@@ -17329,14 +17307,15 @@ packages:
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
 
-  /pino/6.2.1:
-    resolution: {integrity: sha512-5F5A+G25Ex2rMOBEe3XYGyLSF4dikQZsFvPojwsqnDBX+rfg7+kw9s5i7pHuVAJImekjwb+MR9jQyHWPLENlvQ==}
+  /pino/6.13.3:
+    resolution: {integrity: sha512-tJy6qVgkh9MwNgqX1/oYi3ehfl2Y9H0uHyEEMsBe74KinESIjdMrMQDWpcZPpPicg3VV35d/GLQZmo4QgU2Xkg==}
     hasBin: true
     dependencies:
-      fast-redact: 2.1.0
+      fast-redact: 3.0.0
       fast-safe-stringify: 2.0.8
+      fastify-warning: 0.2.0
       flatstr: 1.0.12
-      pino-std-serializers: 2.5.0
+      pino-std-serializers: 3.2.0
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
 
