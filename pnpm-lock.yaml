@@ -1230,13 +1230,13 @@ importers:
       request: 2.87.0
       semver: 7.3.5
       wait-on: ^6.0.0
-      yarn: 1.22.11
+      yarn: 1.22.17
     dependencies:
       debug: 4.3.2
       npm: 7.24.2
       pnpm: 6.14.6
       request: 2.87.0
-      yarn: 1.22.11
+      yarn: 1.22.17
     devDependencies:
       fs-extra: 10.0.0
       get-port: 5.1.1
@@ -22690,8 +22690,8 @@ packages:
       yargs-parser: 20.2.7
     dev: true
 
-  /yarn/1.22.11:
-    resolution: {integrity: sha512-AWje4bzqO9RUn3sdnM5N8n4ZJ0BqCc/kqFJvpOI5/EVkINXui0yuvU7NDCEF//+WaxHuNay2uOHxA4+tq1P3cg==}
+  /yarn/1.22.17:
+    resolution: {integrity: sha512-H0p241BXaH0UN9IeH//RT82tl5PfNraVpSpEoW+ET7lmopNC61eZ+A+IDvU8FM6Go5vx162SncDL8J1ZjRBriQ==}
     engines: {node: '>=4.0.0'}
     hasBin: true
     requiresBuild: true
