@@ -295,7 +295,7 @@ importers:
       js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
-      yup: 0.32.9
+      yup: 0.32.11
     dependencies:
       '@verdaccio/core': link:../core/core
       '@verdaccio/utils': link:../utils
@@ -303,7 +303,7 @@ importers:
       js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
-      yup: 0.32.9
+      yup: 0.32.11
     devDependencies:
       '@types/minimatch': 3.0.5
       '@types/yup': 0.29.13
@@ -7416,13 +7416,8 @@ packages:
       '@types/node': 15.12.4
     dev: true
 
-  /@types/lodash/4.14.172:
-    resolution: {integrity: sha512-/BHF5HAx3em7/KkzVKm3LrsD6HZAXuXO1AJZQ3cRRBZj4oHZDviWPYu0aEplAqDFNHZPW6d3G7KN+ONcCCC7pw==}
-    dev: false
-
   /@types/lodash/4.14.175:
     resolution: {integrity: sha512-XmdEOrKQ8a1Y/yxQFOMbC47G/V2VDO1GvMRnl4O75M4GW/abC5tnfzadQYkqEveqRM1dEJGFFegfPNA2vvx2iw==}
-    dev: true
 
   /@types/long/4.0.1:
     resolution: {integrity: sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==}
@@ -15609,8 +15604,8 @@ packages:
     dependencies:
       signal-exit: 3.0.3
 
-  /lodash-es/4.17.15:
-    resolution: {integrity: sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==}
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
   /lodash.assignin/4.2.0:
@@ -22724,14 +22719,14 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  /yup/0.32.9:
-    resolution: {integrity: sha512-Ci1qN+i2H0XpY7syDQ0k5zKQ/DoxO0LzPg8PAR/X4Mpj6DqaeCoIYEEjDJwhArh3Fa7GWbQQVDZKeXYlSH4JMg==}
+  /yup/0.32.11:
+    resolution: {integrity: sha512-Z2Fe1bn+eLstG8DRR6FTavGD+MeAwyfmouhHsIUgaADz8jvFKbO/fXc2trJKZg+5EBjh4gGm3iU/t3onKlXHIg==}
     engines: {node: '>=10'}
     dependencies:
       '@babel/runtime': 7.15.4
-      '@types/lodash': 4.14.172
+      '@types/lodash': 4.14.175
       lodash: 4.17.21
-      lodash-es: 4.17.15
+      lodash-es: 4.17.21
       nanoclone: 0.2.1
       property-expr: 2.0.4
       toposort: 2.0.2
