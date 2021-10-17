@@ -65,7 +65,7 @@
     "@verdaccio/eslint-config": "workspace:*",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "workspace:*",
-    "autocannon": "7.4.0",
+    "autocannon": "7.5.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "27.2.5",

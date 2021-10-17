@@ -21,7 +21,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "autocannon": "7.4.0",
+    "autocannon": "7.5.0",
     "node-fetch": "3.0.0-beta.6-exportfix",
     "ts-node": "10.2.1"
   }
