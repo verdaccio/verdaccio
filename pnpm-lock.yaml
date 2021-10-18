@@ -354,7 +354,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
-      fastify: 3.20.2
+      fastify: 3.22.0
       fastify-plugin: 3.0.0
       semver: 7.3.5
       ts-node: 10.2.1
@@ -366,7 +366,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
-      fastify: 3.20.2
+      fastify: 3.22.0
       fastify-plugin: 3.0.0
       semver: 7.3.5
     devDependencies:
@@ -1149,7 +1149,7 @@ importers:
       '@verdaccio/store': workspace:6.0.0-6-next.14
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       '@verdaccio/utils': workspace:6.0.0-6-next.7
-      fastify: 3.20.2
+      fastify: 3.22.0
       verdaccio-audit: workspace:11.0.0-6-next.7
       verdaccio-htpasswd: workspace:11.0.0-6-next.9
     dependencies:
@@ -1167,7 +1167,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/store': link:../store
-      fastify: 3.20.2
+      fastify: 3.22.0
 
   packages/web:
     specifiers:
@@ -9337,7 +9337,6 @@ packages:
   /cookie/0.4.1:
     resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /cookiejar/2.1.2:
     resolution: {integrity: sha512-Mw+adcfzPxcPeI+0WlvRrr/3lGVO0bD75SxX6811cxSh1Wbxx7xZBGK1eVtDf6si8rg2lhnUjsVLMFMfbRIuwA==}
@@ -11411,8 +11410,8 @@ packages:
   /fastify-warning/0.2.0:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
 
-  /fastify/3.20.2:
-    resolution: {integrity: sha512-POvayPpbyvkE/wHQquQsNwIgYKVRz7HhCXYJyzUuWEN3kch7/QeI+/azQCjS6+XHiHZPWQwrBKjJB9FBdJHrgA==}
+  /fastify/3.22.0:
+    resolution: {integrity: sha512-JWNf/S90SOiOp6SwhMFdTT43+jT/gB2Yi2tPHQ/e7Kaua9PzFLm7Qmwhe2jBA3X6HPDKNugrRd7oPYeIb1Q3Zg==}
     dependencies:
       '@fastify/ajv-compiler': 1.1.0
       abstract-logging: 2.0.1
@@ -11423,7 +11422,7 @@ packages:
       find-my-way: 4.1.0
       flatstr: 1.0.12
       light-my-request: 4.4.1
-      pino: 6.13.1
+      pino: 6.13.3
       proxy-addr: 2.0.7
       readable-stream: 3.6.0
       rfdc: 1.3.0
@@ -14527,7 +14526,7 @@ packages:
     resolution: {integrity: sha512-FDNRF2mYjthIRWE7O8d/X7AzDx4otQHl4/QXbu3Q/FRwBFcgb+ZoDaUd5HwN53uQXLAiw76osN+Va0NEaOW6rQ==}
     dependencies:
       ajv: 6.12.6
-      cookie: 0.4.0
+      cookie: 0.4.1
       fastify-warning: 0.2.0
       readable-stream: 3.6.0
       set-cookie-parser: 2.4.8
@@ -16356,18 +16355,6 @@ packages:
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
     dev: true
-
-  /pino/6.13.1:
-    resolution: {integrity: sha512-QQf67BU+cANnc/2U+wzUV20UjO5oBryWpnNyKshdLfT9BdeiXlh9wxLGmOjAuBWMYITdMs+BtJSQQNlGRNbWpA==}
-    hasBin: true
-    dependencies:
-      fast-redact: 3.0.0
-      fast-safe-stringify: 2.0.8
-      fastify-warning: 0.2.0
-      flatstr: 1.0.12
-      pino-std-serializers: 3.2.0
-      quick-format-unescaped: 4.0.3
-      sonic-boom: 1.1.0
 
   /pino/6.13.3:
     resolution: {integrity: sha512-tJy6qVgkh9MwNgqX1/oYi3ehfl2Y9H0uHyEEMsBe74KinESIjdMrMQDWpcZPpPicg3VV35d/GLQZmo4QgU2Xkg==}
