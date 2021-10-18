@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.reference.json",
+  "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
@@ -8,13 +8,13 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../config"
+      "path": "../../config"
     },
     {
-      "path": "../core/commons-api"
+      "path": "../../core/commons-api"
     },
     {
-      "path": "../utils"
+      "path": "../../utils"
     }
   ]
 }

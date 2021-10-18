@@ -259,7 +259,7 @@ importers:
       lodash: 4.17.21
       verdaccio-htpasswd: link:../core/htpasswd
     devDependencies:
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
 
   packages/cli:
@@ -529,7 +529,7 @@ importers:
     devDependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
 
   packages/logger:
@@ -584,31 +584,6 @@ importers:
       debug: 4.3.2
       lodash: 4.17.21
 
-  packages/mock:
-    specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.9
-      '@verdaccio/core': workspace:6.0.0-6-next.2
-      '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.7
-      core-js: 3.17.2
-      debug: 4.3.2
-      fs-extra: 10.0.0
-      lodash: 4.17.21
-      request: 2.87.0
-      supertest: 6.1.6
-    dependencies:
-      '@verdaccio/config': link:../config
-      '@verdaccio/core': link:../core/core
-      '@verdaccio/utils': link:../utils
-      core-js: 3.17.2
-      debug: 4.3.2
-      fs-extra: 10.0.0
-      lodash: 4.17.21
-      request: 2.87.0
-      supertest: 6.1.6
-    devDependencies:
-      '@verdaccio/types': link:../core/types
-
   packages/node-api:
     specifiers:
       '@types/node': 16.9.1
@@ -634,7 +609,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.4.1_jest@27.2.5
       selfsigned: 1.10.11
@@ -992,7 +967,7 @@ importers:
     devDependencies:
       '@types/node': 16.9.1
       '@verdaccio/helper': link:../tools/helpers
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/proxy': link:../proxy
       http-errors: 1.8.0
       request: 2.87.0
@@ -1060,7 +1035,7 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
       undici: 4.7.3
@@ -1117,6 +1092,31 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../../core/types
 
+  packages/tools/mock:
+    specifiers:
+      '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
+      '@verdaccio/types': workspace:11.0.0-6-next.9
+      '@verdaccio/utils': workspace:6.0.0-6-next.7
+      core-js: 3.17.2
+      debug: 4.3.2
+      fs-extra: 10.0.0
+      lodash: 4.17.21
+      request: 2.87.0
+      supertest: 6.1.6
+    dependencies:
+      '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/utils': link:../../utils
+      core-js: 3.17.2
+      debug: 4.3.2
+      fs-extra: 10.0.0
+      lodash: 4.17.21
+      request: 2.87.0
+      supertest: 6.1.6
+    devDependencies:
+      '@verdaccio/types': link:../../core/types
+
   packages/types:
     specifiers:
       lunr-mutable-indexes: 2.3.2
@@ -1156,7 +1156,7 @@ importers:
       '@verdaccio/cli': link:../cli
       '@verdaccio/hooks': link:../hooks
       '@verdaccio/logger': link:../logger
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/node-api': link:../node-api
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
