@@ -753,7 +753,7 @@ importers:
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.9
       '@types/react-helmet': 6.1.4
-      '@types/react-router-dom': 5.1.8
+      '@types/react-router-dom': 5.3.1
       '@types/react-virtualized': 9.21.13
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.22
@@ -835,7 +835,7 @@ importers:
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.9
       '@types/react-helmet': 6.1.4
-      '@types/react-router-dom': 5.1.8
+      '@types/react-router-dom': 5.3.1
       '@types/react-virtualized': 9.21.13
       '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
@@ -1445,7 +1445,7 @@ packages:
       source-map: 0.5.7
     optionalDependencies:
       '@nicolo-ribaudo/chokidar-2': 2.1.8-no-fsevents.3
-      chokidar: 3.5.1
+      chokidar: 3.5.2
     dev: true
 
   /@babel/code-frame/7.10.4:
@@ -6544,6 +6544,14 @@ packages:
       '@types/react-router': 5.1.8
     dev: true
 
+  /@types/react-router-dom/5.3.1:
+    resolution: {integrity: sha512-UvyRy73318QI83haXlaMwmklHHzV9hjl3u71MmM6wYNu0hOVk9NLTa0vGukf8zXUqnwz4O06ig876YSPpeK28A==}
+    dependencies:
+      '@types/history': 4.7.7
+      '@types/react': 17.0.30
+      '@types/react-router': 5.1.8
+    dev: true
+
   /@types/react-router/5.1.8:
     resolution: {integrity: sha512-HzOyJb+wFmyEhyfp4D4NYrumi+LQgQL/68HvJO+q6XtuHSDvw6Aqov7sCAhjbNq3bUPgPqbdvjXC5HeB2oEAPg==}
     dependencies:
@@ -8743,7 +8751,6 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.2
-    dev: false
 
   /chownr/1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
@@ -18131,7 +18138,6 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.0
-    dev: false
 
   /reading-time/1.5.0:
     resolution: {integrity: sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==}
