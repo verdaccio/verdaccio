@@ -181,7 +181,7 @@ importers:
       verdaccio: 5.1.6
       verdaccio-audit: link:packages/plugins/audit
       verdaccio-auth-memory: link:packages/plugins/auth-memory
-      verdaccio-htpasswd: link:packages/core/htpasswd
+      verdaccio-htpasswd: link:packages/plugins/htpasswd
       verdaccio-memory: link:packages/plugins/memory
 
   packages/api:
@@ -257,9 +257,9 @@ importers:
       express: 4.17.1
       jsonwebtoken: 8.5.1
       lodash: 4.17.21
-      verdaccio-htpasswd: link:../core/htpasswd
+      verdaccio-htpasswd: link:../plugins/htpasswd
     devDependencies:
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
 
   packages/cli:
@@ -329,70 +329,6 @@ importers:
       lockfile: 1.0.4
     devDependencies:
       '@verdaccio/types': link:../types
-
-  packages/core/htpasswd:
-    specifiers:
-      '@types/bcryptjs': 2.4.2
-      '@verdaccio/core': workspace:6.0.0-6-next.2
-      '@verdaccio/file-locking': workspace:11.0.0-6-next.4
-      '@verdaccio/types': workspace:11.0.0-6-next.9
-      apache-md5: 1.1.7
-      bcryptjs: 2.4.3
-      core-js: 3.17.2
-      http-errors: 1.8.0
-      mockdate: 3.0.5
-      unix-crypt-td-js: 1.1.4
-    dependencies:
-      '@verdaccio/core': link:../core
-      '@verdaccio/file-locking': link:../file-locking
-      apache-md5: 1.1.7
-      bcryptjs: 2.4.3
-      core-js: 3.17.2
-      http-errors: 1.8.0
-      unix-crypt-td-js: 1.1.4
-    devDependencies:
-      '@types/bcryptjs': 2.4.2
-      '@verdaccio/types': link:../types
-      mockdate: 3.0.5
-
-  packages/core/local-storage:
-    specifiers:
-      '@types/minimatch': 3.0.5
-      '@verdaccio/config': workspace:6.0.0-6-next.9
-      '@verdaccio/core': workspace:6.0.0-6-next.2
-      '@verdaccio/file-locking': workspace:11.0.0-6-next.4
-      '@verdaccio/streams': workspace:11.0.0-6-next.5
-      '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.7
-      async: 3.2.1
-      core-js: 3.17.2
-      debug: 4.3.2
-      globby: 11.0.4
-      lockfile: 1.0.4
-      lodash: 4.17.21
-      lowdb: 1.0.0
-      lru-cache: 6.0.0
-      minimatch: 3.0.4
-      tmp-promise: 3.0.2
-    dependencies:
-      '@verdaccio/core': link:../core
-      '@verdaccio/file-locking': link:../file-locking
-      '@verdaccio/streams': link:../streams
-      async: 3.2.1
-      core-js: 3.17.2
-      debug: 4.3.2
-      globby: 11.0.4
-      lockfile: 1.0.4
-      lodash: 4.17.21
-      lowdb: 1.0.0
-      lru-cache: 6.0.0
-    devDependencies:
-      '@types/minimatch': 3.0.5
-      '@verdaccio/config': link:../../config
-      '@verdaccio/types': link:../types
-      '@verdaccio/utils': link:../../utils
-      minimatch: 3.0.4
-      tmp-promise: 3.0.2
 
   packages/core/readme:
     specifiers:
@@ -529,7 +465,7 @@ importers:
     devDependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
 
   packages/logger:
@@ -584,31 +520,6 @@ importers:
       debug: 4.3.2
       lodash: 4.17.21
 
-  packages/mock:
-    specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.9
-      '@verdaccio/core': workspace:6.0.0-6-next.2
-      '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.7
-      core-js: 3.17.2
-      debug: 4.3.2
-      fs-extra: 10.0.0
-      lodash: 4.17.21
-      request: 2.87.0
-      supertest: 6.1.6
-    dependencies:
-      '@verdaccio/config': link:../config
-      '@verdaccio/core': link:../core/core
-      '@verdaccio/utils': link:../utils
-      core-js: 3.17.2
-      debug: 4.3.2
-      fs-extra: 10.0.0
-      lodash: 4.17.21
-      request: 2.87.0
-      supertest: 6.1.6
-    devDependencies:
-      '@verdaccio/types': link:../core/types
-
   packages/node-api:
     specifiers:
       '@types/node': 16.9.1
@@ -634,7 +545,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.4.1_jest@27.2.5
       selfsigned: 1.10.11
@@ -717,6 +628,70 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../../core/types
       memory-fs: 0.5.0
+
+  packages/plugins/htpasswd:
+    specifiers:
+      '@types/bcryptjs': 2.4.2
+      '@verdaccio/core': workspace:6.0.0-6-next.2
+      '@verdaccio/file-locking': workspace:11.0.0-6-next.4
+      '@verdaccio/types': workspace:11.0.0-6-next.9
+      apache-md5: 1.1.7
+      bcryptjs: 2.4.3
+      core-js: 3.17.2
+      http-errors: 1.8.0
+      mockdate: 3.0.5
+      unix-crypt-td-js: 1.1.4
+    dependencies:
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/file-locking': link:../../core/file-locking
+      apache-md5: 1.1.7
+      bcryptjs: 2.4.3
+      core-js: 3.17.2
+      http-errors: 1.8.0
+      unix-crypt-td-js: 1.1.4
+    devDependencies:
+      '@types/bcryptjs': 2.4.2
+      '@verdaccio/types': link:../../core/types
+      mockdate: 3.0.5
+
+  packages/plugins/local-storage:
+    specifiers:
+      '@types/minimatch': 3.0.5
+      '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
+      '@verdaccio/file-locking': workspace:11.0.0-6-next.4
+      '@verdaccio/streams': workspace:11.0.0-6-next.5
+      '@verdaccio/types': workspace:11.0.0-6-next.9
+      '@verdaccio/utils': workspace:6.0.0-6-next.7
+      async: 3.2.1
+      core-js: 3.17.2
+      debug: 4.3.2
+      globby: 11.0.4
+      lockfile: 1.0.4
+      lodash: 4.17.21
+      lowdb: 1.0.0
+      lru-cache: 6.0.0
+      minimatch: 3.0.4
+      tmp-promise: 3.0.2
+    dependencies:
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/file-locking': link:../../core/file-locking
+      '@verdaccio/streams': link:../../core/streams
+      async: 3.2.1
+      core-js: 3.17.2
+      debug: 4.3.2
+      globby: 11.0.4
+      lockfile: 1.0.4
+      lodash: 4.17.21
+      lowdb: 1.0.0
+      lru-cache: 6.0.0
+    devDependencies:
+      '@types/minimatch': 3.0.5
+      '@verdaccio/config': link:../../config
+      '@verdaccio/types': link:../../core/types
+      '@verdaccio/utils': link:../../utils
+      minimatch: 3.0.4
+      tmp-promise: 3.0.2
 
   packages/plugins/memory:
     specifiers:
@@ -926,7 +901,7 @@ importers:
     dependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/local-storage': link:../core/local-storage
+      '@verdaccio/local-storage': link:../plugins/local-storage
       '@verdaccio/logger': link:../logger
       '@verdaccio/streams': link:../core/streams
       '@verdaccio/utils': link:../utils
@@ -992,7 +967,7 @@ importers:
     devDependencies:
       '@types/node': 16.9.1
       '@verdaccio/helper': link:../tools/helpers
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/proxy': link:../proxy
       http-errors: 1.8.0
       request: 2.87.0
@@ -1044,7 +1019,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/loaders': link:../loaders
-      '@verdaccio/local-storage': link:../core/local-storage
+      '@verdaccio/local-storage': link:../plugins/local-storage
       '@verdaccio/logger': link:../logger
       '@verdaccio/proxy': link:../proxy
       '@verdaccio/streams': link:../core/streams
@@ -1060,7 +1035,7 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.9.1
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.2
       undici: 4.7.3
@@ -1117,6 +1092,31 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../../core/types
 
+  packages/tools/mock:
+    specifiers:
+      '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
+      '@verdaccio/types': workspace:11.0.0-6-next.9
+      '@verdaccio/utils': workspace:6.0.0-6-next.7
+      core-js: 3.17.2
+      debug: 4.3.2
+      fs-extra: 10.0.0
+      lodash: 4.17.21
+      request: 2.87.0
+      supertest: 6.1.6
+    dependencies:
+      '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/utils': link:../../utils
+      core-js: 3.17.2
+      debug: 4.3.2
+      fs-extra: 10.0.0
+      lodash: 4.17.21
+      request: 2.87.0
+      supertest: 6.1.6
+    devDependencies:
+      '@verdaccio/types': link:../../core/types
+
   packages/types:
     specifiers:
       lunr-mutable-indexes: 2.3.2
@@ -1150,18 +1150,18 @@ importers:
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       '@verdaccio/utils': workspace:6.0.0-6-next.7
       fastify: 3.20.2
-      verdaccio-audit: 11.0.0-6-next.7
-      verdaccio-htpasswd: 11.0.0-6-next.9
+      verdaccio-audit: workspace:11.0.0-6-next.7
+      verdaccio-htpasswd: workspace:11.0.0-6-next.9
     dependencies:
       '@verdaccio/cli': link:../cli
       '@verdaccio/hooks': link:../hooks
       '@verdaccio/logger': link:../logger
-      '@verdaccio/mock': link:../mock
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/node-api': link:../node-api
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
       verdaccio-audit: link:../plugins/audit
-      verdaccio-htpasswd: link:../core/htpasswd
+      verdaccio-htpasswd: link:../plugins/htpasswd
     devDependencies:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
