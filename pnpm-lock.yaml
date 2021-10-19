@@ -354,7 +354,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
-      fastify: 3.20.2
+      fastify: 3.22.0
       fastify-plugin: 3.0.0
       semver: 7.3.5
       ts-node: 10.2.1
@@ -366,7 +366,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
-      fastify: 3.20.2
+      fastify: 3.22.0
       fastify-plugin: 3.0.0
       semver: 7.3.5
     devDependencies:
@@ -746,7 +746,7 @@ importers:
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
       history: 4.10.1
-      html-webpack-plugin: 5.3.2
+      html-webpack-plugin: 5.4.0
       i18next: 20.6.1
       in-publish: 2.0.1
       js-base64: 3.6.1
@@ -828,7 +828,7 @@ importers:
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
       history: 4.10.1
-      html-webpack-plugin: 5.3.2_webpack@5.52.0
+      html-webpack-plugin: 5.4.0_webpack@5.52.0
       i18next: 20.6.1
       in-publish: 2.0.1
       js-base64: 3.6.1
@@ -1149,7 +1149,7 @@ importers:
       '@verdaccio/store': workspace:6.0.0-6-next.14
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       '@verdaccio/utils': workspace:6.0.0-6-next.7
-      fastify: 3.20.2
+      fastify: 3.22.0
       verdaccio-audit: workspace:11.0.0-6-next.7
       verdaccio-htpasswd: workspace:11.0.0-6-next.9
     dependencies:
@@ -1167,7 +1167,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/store': link:../store
-      fastify: 3.20.2
+      fastify: 3.22.0
 
   packages/web:
     specifiers:
@@ -6323,6 +6323,11 @@ packages:
 
   /@types/html-minifier-terser/5.1.1:
     resolution: {integrity: sha512-giAlZwstKbmvMk1OO7WXSj4OZ0keXAcl2TQq4LWHiiPH2ByaH7WeUzng+Qej8UPxxv+8lRTuouo0iaNDBuzIBA==}
+    dev: false
+
+  /@types/html-minifier-terser/6.0.0:
+    resolution: {integrity: sha512-NZwaaynfs1oIoLAV1vg18e7QMVDvw+6SQrdJc8w3BwUaoroVSf6EBj/Sk4PBWGxsq0dzhA2drbsuMC1/6C6KgQ==}
+    dev: true
 
   /@types/http-errors/1.8.1:
     resolution: {integrity: sha512-e+2rjEwK6KDaNOm5Aa9wNGgyS9oSZU/4pfSMMPYNOfjvFI0WVXm29+ITRFr6aKDvvKo7uU1jV68MW4ScsfDi7Q==}
@@ -8790,6 +8795,7 @@ packages:
     engines: {node: '>= 4.0'}
     dependencies:
       source-map: 0.6.1
+    dev: false
 
   /clean-css/5.1.3:
     resolution: {integrity: sha512-qGXzUCDpLwAlPx0kYeU4QXjzQIcIYZbJjD4FNm7NnSjoP0hYMVZhHOpUYJ6AwfkMX2cceLRq54MeCgHy/va1cA==}
@@ -8803,7 +8809,6 @@ packages:
     engines: {node: '>= 10.0'}
     dependencies:
       source-map: 0.6.1
-    dev: false
 
   /clean-stack/2.2.0:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
@@ -9051,7 +9056,6 @@ packages:
   /commander/8.2.0:
     resolution: {integrity: sha512-LLKxDvHeL91/8MIyTAD5BFMNtoIwztGPMiM/7Bl8rIPmHCZXRxmSWr91h57dpOpnQ6jIUqEWdXE/uBYMfiVZDA==}
     engines: {node: '>= 12'}
-    dev: false
 
   /commondir/1.0.1:
     resolution: {integrity: sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=}
@@ -9337,7 +9341,6 @@ packages:
   /cookie/0.4.1:
     resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /cookiejar/2.1.2:
     resolution: {integrity: sha512-Mw+adcfzPxcPeI+0WlvRrr/3lGVO0bD75SxX6811cxSh1Wbxx7xZBGK1eVtDf6si8rg2lhnUjsVLMFMfbRIuwA==}
@@ -11411,8 +11414,8 @@ packages:
   /fastify-warning/0.2.0:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
 
-  /fastify/3.20.2:
-    resolution: {integrity: sha512-POvayPpbyvkE/wHQquQsNwIgYKVRz7HhCXYJyzUuWEN3kch7/QeI+/azQCjS6+XHiHZPWQwrBKjJB9FBdJHrgA==}
+  /fastify/3.22.0:
+    resolution: {integrity: sha512-JWNf/S90SOiOp6SwhMFdTT43+jT/gB2Yi2tPHQ/e7Kaua9PzFLm7Qmwhe2jBA3X6HPDKNugrRd7oPYeIb1Q3Zg==}
     dependencies:
       '@fastify/ajv-compiler': 1.1.0
       abstract-logging: 2.0.1
@@ -11423,7 +11426,7 @@ packages:
       find-my-way: 4.1.0
       flatstr: 1.0.12
       light-my-request: 4.4.1
-      pino: 6.13.1
+      pino: 6.13.3
       proxy-addr: 2.0.7
       readable-stream: 3.6.0
       rfdc: 1.3.0
@@ -12598,6 +12601,7 @@ packages:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 4.8.0
+    dev: false
 
   /html-minifier-terser/6.0.2:
     resolution: {integrity: sha512-AgYO3UGhMYQx2S/FBJT3EM0ZYcKmH6m9XL9c1v77BeK/tYJxGPxT1/AtsdUi4FcP8kZGmqqnItCcjFPcX9hk6A==}
@@ -12611,7 +12615,6 @@ packages:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 5.7.2
-    dev: false
 
   /html-parse-stringify/3.0.1:
     resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
@@ -12652,7 +12655,22 @@ packages:
       lodash: 4.17.21
       pretty-error: 3.0.4
       tapable: 2.2.0
+      webpack: 5.52.0_esbuild@0.12.25
+    dev: false
+
+  /html-webpack-plugin/5.4.0_webpack@5.52.0:
+    resolution: {integrity: sha512-cSUdckNOIqKc0nOrCJG7zkvzEIUcXjzEiVbKdEdIzW3BD5T4xPK6boV1mrTrPDZiL+aAr/j45eqbNL1akU2ZRA==}
+    engines: {node: '>=10.13.0'}
+    peerDependencies:
+      webpack: ^5.20.0
+    dependencies:
+      '@types/html-minifier-terser': 6.0.0
+      html-minifier-terser: 6.0.2
+      lodash: 4.17.21
+      pretty-error: 3.0.4
+      tapable: 2.2.0
       webpack: 5.52.0_webpack-cli@4.7.2
+    dev: true
 
   /htmlparser2/3.10.1:
     resolution: {integrity: sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==}
@@ -14527,7 +14545,7 @@ packages:
     resolution: {integrity: sha512-FDNRF2mYjthIRWE7O8d/X7AzDx4otQHl4/QXbu3Q/FRwBFcgb+ZoDaUd5HwN53uQXLAiw76osN+Va0NEaOW6rQ==}
     dependencies:
       ajv: 6.12.6
-      cookie: 0.4.0
+      cookie: 0.4.1
       fastify-warning: 0.2.0
       readable-stream: 3.6.0
       set-cookie-parser: 2.4.8
@@ -16356,18 +16374,6 @@ packages:
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
     dev: true
-
-  /pino/6.13.1:
-    resolution: {integrity: sha512-QQf67BU+cANnc/2U+wzUV20UjO5oBryWpnNyKshdLfT9BdeiXlh9wxLGmOjAuBWMYITdMs+BtJSQQNlGRNbWpA==}
-    hasBin: true
-    dependencies:
-      fast-redact: 3.0.0
-      fast-safe-stringify: 2.0.8
-      fastify-warning: 0.2.0
-      flatstr: 1.0.12
-      pino-std-serializers: 3.2.0
-      quick-format-unescaped: 4.0.3
-      sonic-boom: 1.1.0
 
   /pino/6.13.3:
     resolution: {integrity: sha512-tJy6qVgkh9MwNgqX1/oYi3ehfl2Y9H0uHyEEMsBe74KinESIjdMrMQDWpcZPpPicg3VV35d/GLQZmo4QgU2Xkg==}
@@ -20074,6 +20080,7 @@ packages:
       commander: 2.20.3
       source-map: 0.6.1
       source-map-support: 0.5.19
+    dev: false
 
   /terser/5.7.2:
     resolution: {integrity: sha512-0Omye+RD4X7X69O0eql3lC4Heh/5iLj3ggxR/B5ketZLOtLiOqukUgjw3q4PDnNQbsrkKr3UMypqStQG3XKRvw==}
