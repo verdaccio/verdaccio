@@ -1,4 +1,3 @@
-import { AWSError } from 'aws-sdk';
 import {
   getNotFound,
   getCode,
@@ -33,7 +32,7 @@ export function create503Error(): VerdaccioError {
   return getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, 'resource temporarily unavailable');
 }
 
-export function convertS3Error(err: AWSError): VerdaccioError {
+export function convertS3Error(err): VerdaccioError {
   switch (err.Code) {
     case 'NoSuchKey':
     case 'NotFound':

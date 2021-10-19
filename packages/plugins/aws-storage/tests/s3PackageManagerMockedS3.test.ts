@@ -16,7 +16,6 @@ import S3PackageManager from '../src/s3PackageManager';
 
 import logger from './__mocks__/Logger';
 import pkg from './__fixtures__/pkg';
-import { on } from 'process';
 
 describe('S3PackageManager with mocked s3', function () {
   const s3Client = mockClient(S3Client);
