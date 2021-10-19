@@ -40,7 +40,7 @@ importers:
       '@types/lodash': 4.14.175
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
-      '@types/node': 14.6.0
+      '@types/node': 14.17.27
       '@types/request': 2.48.7
       '@types/semver': 7.3.8
       '@types/supertest': 2.0.11
@@ -130,7 +130,7 @@ importers:
       '@types/lodash': 4.14.175
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
-      '@types/node': 14.6.0
+      '@types/node': 14.17.27
       '@types/request': 2.48.7
       '@types/semver': 7.3.8
       '@types/supertest': 2.0.11
@@ -175,7 +175,7 @@ importers:
       rimraf: 3.0.2
       selfsigned: 1.10.11
       supertest: 6.1.6
-      ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
+      ts-node: 10.2.1_b95a314d66192dd8d98a7300de61a49a
       typescript: 4.4.2
       update-ts-references: 2.4.1_typescript@4.4.2
       verdaccio: 5.1.6
@@ -283,7 +283,7 @@ importers:
       kleur: 3.0.3
       semver: 7.3.5
     devDependencies:
-      ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
+      ts-node: 10.2.1_b95a314d66192dd8d98a7300de61a49a
 
   packages/config:
     specifiers:
@@ -401,9 +401,9 @@ importers:
 
   packages/core/types:
     specifiers:
-      '@types/node': 14.6.0
+      '@types/node': 14.17.27
     devDependencies:
-      '@types/node': 14.6.0
+      '@types/node': 14.17.27
 
   packages/core/url:
     specifiers:
@@ -1058,7 +1058,7 @@ importers:
     devDependencies:
       autocannon: 7.5.0
       node-fetch: 3.0.0-beta.6-exportfix
-      ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
+      ts-node: 10.2.1_b95a314d66192dd8d98a7300de61a49a
 
   packages/tools/eslint:
     specifiers:
@@ -5236,7 +5236,7 @@ packages:
       '@types/json-stable-stringify': 1.0.32
       '@types/lodash': 4.14.175
       '@types/loud-rejection': 2.0.0
-      '@types/node': 14.17.3
+      '@types/node': 14.17.27
       '@vue/compiler-core': 3.0.11
       '@vue/compiler-sfc': 3.0.11
       chalk: 4.1.1
@@ -6188,7 +6188,7 @@ packages:
   /@types/autocannon/4.1.1:
     resolution: {integrity: sha512-VMwPSP6i6SWrSbF2CrjXy/UTt9dU6oJMwDudUVjoAyUqK6YgK5llES84leqyM324Gr1nhuJhDpenvgYYdWF4gQ==}
     dependencies:
-      '@types/node': 15.12.4
+      '@types/node': 16.9.1
     dev: true
 
   /@types/autosuggest-highlight/3.1.1:
@@ -6433,12 +6433,8 @@ packages:
     resolution: {integrity: sha512-7xHmXm/QJ7cbK2laF+YYD7gb5MggHIIQwqyjin3bpEGiSuvScMQ5JZZXPvRipi1MwckTQbJZROMns/JxdnIL1Q==}
     dev: true
 
-  /@types/node/14.17.3:
-    resolution: {integrity: sha512-e6ZowgGJmTuXa3GyaPbTGxX17tnThl2aSSizrFthQ7m9uLGZBXiGhgE55cjRZTF5kjZvYn9EOPOMljdjwbflxw==}
-    dev: true
-
-  /@types/node/14.6.0:
-    resolution: {integrity: sha512-mikldZQitV94akrc4sCcSjtJfsTKt4p+e/s0AGscVA6XArQ9kFclP+ZiYUMnq987rc6QlYxXv/EivqlfSLxpKA==}
+  /@types/node/14.17.27:
+    resolution: {integrity: sha512-94+Ahf9IcaDuJTle/2b+wzvjmutxXAEXU6O81JHblYXUg2BDG+dnBy7VxIPHKAyEEDHzCMQydTJuWvrE+Aanzw==}
     dev: true
 
   /@types/node/15.12.4:
@@ -6596,7 +6592,7 @@ packages:
     resolution: {integrity: sha512-GWP9AZW7foLd4YQxyFZDBepl0lPsWLMEXDZUjQ/c1gqVPDPECrRZyEzuhJdnPWioFCq3Tv0qoGpMD6U+ygd4ZA==}
     dependencies:
       '@types/caseless': 0.12.2
-      '@types/node': 15.12.4
+      '@types/node': 16.9.1
       '@types/tough-cookie': 4.0.0
       form-data: 2.5.1
     dev: true
@@ -6725,7 +6721,7 @@ packages:
   /@types/webpack/5.28.0:
     resolution: {integrity: sha512-8cP0CzcxUiFuA9xGJkfeVpqmWTk9nx6CWwamRGCj95ph1SmlRRk9KlCZ6avhCbZd4L68LvYT6l1kpdEnQXrF8w==}
     dependencies:
-      '@types/node': 15.12.4
+      '@types/node': 16.9.1
       tapable: 2.2.0
       webpack: 5.52.0
     transitivePeerDependencies:
@@ -13592,7 +13588,7 @@ packages:
       jest-validate: 27.2.5
       micromatch: 4.0.4
       pretty-format: 27.2.5
-      ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
+      ts-node: 10.2.1_b95a314d66192dd8d98a7300de61a49a
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -20351,7 +20347,7 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /ts-node/10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7:
+  /ts-node/10.2.1_b95a314d66192dd8d98a7300de61a49a:
     resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -20371,7 +20367,7 @@ packages:
       '@tsconfig/node12': 1.0.7
       '@tsconfig/node14': 1.0.0
       '@tsconfig/node16': 1.0.2
-      '@types/node': 14.6.0
+      '@types/node': 14.17.27
       acorn: 8.4.1
       acorn-walk: 8.1.1
       arg: 4.1.3
