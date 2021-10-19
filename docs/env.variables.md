@@ -51,4 +51,4 @@ By default, the storage is taken from config file, but using this variable allow
 
 #### VERDACCIO_STORAGE_NAME
 
-The database name for `@verdaccio/local-storge` is by default `.verdaccio-db.json`, but this can be update by using this variable.
+The database name for `@verdaccio/local-storage` is by default `.verdaccio-db.json`, but this can be update by using this variable.
