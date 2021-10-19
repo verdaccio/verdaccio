@@ -41,7 +41,7 @@
     "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.17.2",
     "debug": "4.3.2",
-    "fastify": "3.20.2",
+    "fastify": "3.22.0",
     "fastify-plugin": "3.0.0",
     "semver": "7.3.5"
   },

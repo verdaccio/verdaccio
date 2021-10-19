@@ -52,7 +52,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.2",
     "@verdaccio/config": "workspace:6.0.0-6-next.9",
     "@verdaccio/store": "workspace:6.0.0-6-next.14",
-    "fastify": "3.20.2"
+    "fastify": "3.22.0"
   },
   "keywords": [
     "private",
