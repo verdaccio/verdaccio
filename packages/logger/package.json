@@ -45,7 +45,7 @@
     "pino": "6.13.3"
   },
   "devDependencies": {
-    "@types/pino": "6.3.11",
+    "@types/pino": "6.3.12",
     "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "funding": {
