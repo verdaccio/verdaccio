@@ -4,7 +4,7 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "references": [    
+  "references": [
     {
       "path": "../../packages/tools/helpers"
     }
