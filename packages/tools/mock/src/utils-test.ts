@@ -1,12 +1,11 @@
-import fs from 'fs';
 import path from 'path';
-import os from 'os';
 import { pseudoRandomBytes } from 'crypto';
 import { Version } from '@verdaccio/types';
+import { createTemporaryFolder } from '@verdaccio/helper';
 
 export function generateRamdonStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
+  const tempRoot = createTemporaryFolder('/verdaccio-test');
 
   return path.join(tempRoot, tempStorage);
 }

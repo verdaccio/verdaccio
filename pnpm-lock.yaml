@@ -1096,6 +1096,7 @@ importers:
     specifiers:
       '@verdaccio/config': workspace:6.0.0-6-next.9
       '@verdaccio/core': workspace:6.0.0-6-next.2
+      '@verdaccio/helper': workspace:1.0.0
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.7
       core-js: 3.17.2
@@ -1115,6 +1116,7 @@ importers:
       request: 2.87.0
       supertest: 6.1.6
     devDependencies:
+      '@verdaccio/helper': link:../helpers
       '@verdaccio/types': link:../../core/types
 
   packages/types:
@@ -1222,6 +1224,8 @@ importers:
 
   test/e2e-cli:
     specifiers:
+      '@verdaccio/helper': 1.0.0
+      '@verdaccio/mock': workspace:6.0.0-6-next.10
       debug: 4.3.2
       fs-extra: 10.0.0
       get-port: 5.1.1
@@ -1238,6 +1242,8 @@ importers:
       request: 2.87.0
       yarn: 1.22.17
     devDependencies:
+      '@verdaccio/helper': link:../../packages/tools/helpers
+      '@verdaccio/mock': link:../../packages/tools/mock
       fs-extra: 10.0.0
       get-port: 5.1.1
       semver: 7.3.5

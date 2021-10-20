@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
-import os from 'os';
 import { spawn } from 'child_process';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
+
+import { createTemporaryFolder } from '@verdaccio/helper';
+
 import { pnpmGlobal } from '../utils/process';
 import * as __global from '../utils/global.js';
 import { SETUP_VERDACCIO_PORT } from '../utils/utils';
@@ -12,7 +14,7 @@ import { SETUP_VERDACCIO_PORT } from '../utils/utils';
 const debug = buildDebug('verdaccio:e2e:setup');
 
 module.exports = async () => {
-  const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));
+  const tempRoot = createTemporaryFolder('verdaccio-cli-e2e-');
   debug('dirname folder %o', __dirname);
   debug('temporary folder %o', tempRoot);
   // @ts-ignore

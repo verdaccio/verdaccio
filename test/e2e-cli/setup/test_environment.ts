@@ -30,6 +30,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
   }
 
   public runScript(script): any {
+    // @ts-expect-error
     return super.runScript(script);
   }
 }

@@ -9,6 +9,5 @@ module.exports = Object.assign({}, config, {
   testEnvironment: './env_babel.js',
   globalSetup: './env_setup.js',
   globalTeardown: './env_teardown.js',
-  // testRegex: '(/test/e2e.*\\.spec)\\.ts',
   testRegex: '(/test_bk/*.*.spec)\\.ts',
 });

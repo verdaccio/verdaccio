@@ -10,6 +10,8 @@
     "yarn": "1.22.17"
   },
   "devDependencies": {
+    "@verdaccio/helper": "1.0.0",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.10",
     "get-port": "5.1.1",
     "wait-on": "^6.0.0",
     "fs-extra": "10.0.0",

@@ -3,5 +3,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
-  }
+  },
+  "references": [    
+    {
+      "path": "../../packages/tools/helpers"
+    }
+  ]
 }
