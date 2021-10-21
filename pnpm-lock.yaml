@@ -726,7 +726,7 @@ importers:
       '@testing-library/react': 12.1.2
       '@types/react': 17.0.31
       '@types/react-autosuggest': 10.1.5
-      '@types/react-dom': 17.0.9
+      '@types/react-dom': 17.0.10
       '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.3.1
       '@types/react-virtualized': 9.21.13
@@ -808,7 +808,7 @@ importers:
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
       '@types/react': 17.0.31
       '@types/react-autosuggest': 10.1.5
-      '@types/react-dom': 17.0.9
+      '@types/react-dom': 17.0.10
       '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.3.1
       '@types/react-virtualized': 9.21.13
@@ -6519,8 +6519,8 @@ packages:
       '@types/react': 17.0.31
     dev: true
 
-  /@types/react-dom/17.0.9:
-    resolution: {integrity: sha512-wIvGxLfgpVDSAMH5utdL9Ngm5Owu0VsGmldro3ORLXV8CShrL8awVj06NuEXFQ5xyaYfdca7Sgbk/50Ri1GdPg==}
+  /@types/react-dom/17.0.10:
+    resolution: {integrity: sha512-8oz3NAUId2z/zQdFI09IMhQPNgIbiP8Lslhv39DIDamr846/0spjZK0vnrMak0iB8EKb9QFTTIdg2Wj2zH5a3g==}
     dependencies:
       '@types/react': 17.0.31
     dev: true
