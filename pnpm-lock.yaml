@@ -470,7 +470,7 @@ importers:
 
   packages/logger:
     specifiers:
-      '@types/pino': 6.3.11
+      '@types/pino': 6.3.12
       '@verdaccio/logger-prettify': workspace:6.0.0-6-next.4
       '@verdaccio/types': workspace:11.0.0-6-next.9
       debug: 4.3.2
@@ -482,7 +482,7 @@ importers:
       lodash: 4.17.21
       pino: 6.13.3
     devDependencies:
-      '@types/pino': 6.3.11
+      '@types/pino': 6.3.12
       '@verdaccio/types': link:../core/types
 
   packages/logger-prettify:
@@ -6472,6 +6472,15 @@ packages:
 
   /@types/pino/6.3.11:
     resolution: {integrity: sha512-S7+fLONqSpHeW9d7TApUqO6VN47KYgOXhCNKwGBVLHObq8HhaAYlVqUNdfnvoXjCMiwE5xcPm/5R2ZUh8bgaXQ==}
+    dependencies:
+      '@types/node': 16.9.1
+      '@types/pino-pretty': 4.7.1
+      '@types/pino-std-serializers': 2.4.1
+      sonic-boom: 2.2.3
+    dev: true
+
+  /@types/pino/6.3.12:
+    resolution: {integrity: sha512-dsLRTq8/4UtVSpJgl9aeqHvbh6pzdmjYD3C092SYgLD2TyoCqHpTJk6vp8DvCTGGc7iowZ2MoiYiVUUCcu7muw==}
     dependencies:
       '@types/node': 16.9.1
       '@types/pino-pretty': 4.7.1
