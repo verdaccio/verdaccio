@@ -37,7 +37,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.2
-      '@types/lodash': 4.14.175
+      '@types/lodash': 4.14.176
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -127,7 +127,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.1
       '@types/jest': 27.0.2
-      '@types/lodash': 4.14.175
+      '@types/lodash': 4.14.176
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
@@ -5234,7 +5234,7 @@ packages:
     dependencies:
       '@formatjs/ts-transformer': 2.13.0
       '@types/json-stable-stringify': 1.0.32
-      '@types/lodash': 4.14.175
+      '@types/lodash': 4.14.176
       '@types/loud-rejection': 2.0.0
       '@types/node': 14.17.3
       '@vue/compiler-core': 3.0.11
@@ -6393,6 +6393,11 @@ packages:
 
   /@types/lodash/4.14.175:
     resolution: {integrity: sha512-XmdEOrKQ8a1Y/yxQFOMbC47G/V2VDO1GvMRnl4O75M4GW/abC5tnfzadQYkqEveqRM1dEJGFFegfPNA2vvx2iw==}
+    dev: false
+
+  /@types/lodash/4.14.176:
+    resolution: {integrity: sha512-xZmuPTa3rlZoIbtDUyJKZQimJV3bxCmzMIO2c9Pz9afyDro6kr7R79GwcB6mRhuoPmV2p1Vb66WOJH7F886WKQ==}
+    dev: true
 
   /@types/long/4.0.1:
     resolution: {integrity: sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==}
