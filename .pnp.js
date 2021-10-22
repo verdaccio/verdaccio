@@ -91,7 +91,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-loader", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.2.2"],
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],
             ["body-parser", "npm:1.19.0"],
-            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.0.1"],
+            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.0"],
             ["compression", "npm:1.7.4"],
             ["cookies", "npm:0.8.0"],
             ["cors", "npm:2.8.5"],
@@ -7143,17 +7143,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["clipanion", [
-        ["npm:3.0.1", {
-          "packageLocation": "./.yarn/cache/clipanion-npm-3.0.1-901533eeed-3c20f2d171.zip/node_modules/clipanion/",
+        ["npm:3.1.0", {
+          "packageLocation": "./.yarn/cache/clipanion-npm-3.1.0-ced87dbbea-490d21cff7.zip/node_modules/clipanion/",
           "packageDependencies": [
-            ["clipanion", "npm:3.0.1"]
+            ["clipanion", "npm:3.1.0"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.0.1", {
-          "packageLocation": "./.yarn/$$virtual/clipanion-virtual-6789b34091/0/cache/clipanion-npm-3.0.1-901533eeed-3c20f2d171.zip/node_modules/clipanion/",
+        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.0", {
+          "packageLocation": "./.yarn/$$virtual/clipanion-virtual-2dd18911c8/0/cache/clipanion-npm-3.1.0-ced87dbbea-490d21cff7.zip/node_modules/clipanion/",
           "packageDependencies": [
-            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.0.1"],
+            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.0"],
             ["@types/typanion", null],
             ["typanion", "npm:3.3.1"]
           ],
@@ -17184,7 +17184,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-loader", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.2.2"],
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],
             ["body-parser", "npm:1.19.0"],
-            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.0.1"],
+            ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.0"],
             ["compression", "npm:1.7.4"],
             ["cookies", "npm:0.8.0"],
             ["cors", "npm:2.8.5"],
