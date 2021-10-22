@@ -53,7 +53,7 @@
     "@types/minimatch": "3.0.5",
     "@types/node": "14.6.0",
     "@types/request": "2.48.7",
-    "@types/semver": "7.3.8",
+    "@types/semver": "7.3.9",
     "@types/supertest": "2.0.11",
     "@types/testing-library__jest-dom": "5.14.1",
     "@types/validator": "13.6.3",
