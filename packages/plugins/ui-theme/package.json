@@ -19,7 +19,7 @@
   "devDependencies": {
     "@types/react": "17.0.31",
     "@types/react-autosuggest": "10.1.5",
-    "@types/react-dom": "17.0.9",
+    "@types/react-dom": "17.0.10",
     "@types/react-helmet": "6.1.4",
     "@types/redux": "3.6.0",
     "@types/react-router-dom": "5.3.1",
