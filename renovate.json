@@ -3,7 +3,6 @@
   "prConcurrentLimit": 3,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
-  "stabilityDays": 10,
   "baseBranches": ["master", "5.x"],
   "major": false,
   "labels": ["bot: dependencies"],
