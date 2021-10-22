@@ -733,7 +733,7 @@ importers:
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.22
       autosuggest-highlight: 3.1.1
-      babel-loader: 8.2.2
+      babel-loader: 8.2.3
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
@@ -815,7 +815,7 @@ importers:
       '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
       autosuggest-highlight: 3.1.1
-      babel-loader: 8.2.2_5e73e793d2f650f43aec10b963d935c7
+      babel-loader: 8.2.3_5e73e793d2f650f43aec10b963d935c7
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
@@ -8016,7 +8016,8 @@ packages:
       loader-utils: 1.4.0
       make-dir: 3.1.0
       schema-utils: 2.7.1
-      webpack: 5.52.0_webpack-cli@4.7.2
+      webpack: 5.52.0_esbuild@0.12.25
+    dev: false
 
   /babel-loader/8.2.2_8fa23aeb6b6e99f9712de46852053aa7:
     resolution: {integrity: sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g==}
@@ -8032,6 +8033,21 @@ packages:
       schema-utils: 2.7.1
       webpack: 5.40.0_esbuild@0.12.25
     dev: false
+
+  /babel-loader/8.2.3_5e73e793d2f650f43aec10b963d935c7:
+    resolution: {integrity: sha512-n4Zeta8NC3QAsuyiizu0GkmRcQ6clkV9WFUnUf1iXP//IeSKbWjofW3UHyZVwlOB4y039YQKefawyTn64Zwbuw==}
+    engines: {node: '>= 8.9'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      webpack: '>=2'
+    dependencies:
+      '@babel/core': 7.15.8
+      find-cache-dir: 3.3.1
+      loader-utils: 1.4.0
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
+      webpack: 5.52.0_webpack-cli@4.7.2
+    dev: true
 
   /babel-plugin-apply-mdx-type-prop/1.6.22_@babel+core@7.12.9:
     resolution: {integrity: sha512-VefL+8o+F/DfK24lPZMtJctrCVOfgbqLAGZSkxwhazQv4VxPg3Za/i40fu22KR2m8eEda+IfSOlPLUSIiLcnCQ==}
