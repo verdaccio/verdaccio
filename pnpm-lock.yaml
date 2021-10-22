@@ -729,7 +729,7 @@ importers:
       '@types/react-dom': 17.0.10
       '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.3.1
-      '@types/react-virtualized': 9.21.13
+      '@types/react-virtualized': 9.21.14
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.22
       autosuggest-highlight: 3.1.1
@@ -811,7 +811,7 @@ importers:
       '@types/react-dom': 17.0.10
       '@types/react-helmet': 6.1.4
       '@types/react-router-dom': 5.3.1
-      '@types/react-virtualized': 9.21.13
+      '@types/react-virtualized': 9.21.14
       '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
       autosuggest-highlight: 3.1.1
@@ -6575,7 +6575,7 @@ packages:
     resolution: {integrity: sha512-HzOyJb+wFmyEhyfp4D4NYrumi+LQgQL/68HvJO+q6XtuHSDvw6Aqov7sCAhjbNq3bUPgPqbdvjXC5HeB2oEAPg==}
     dependencies:
       '@types/history': 4.7.7
-      '@types/react': 17.0.30
+      '@types/react': 17.0.31
     dev: true
 
   /@types/react-transition-group/4.4.0:
@@ -6584,8 +6584,8 @@ packages:
       '@types/react': 17.0.31
     dev: true
 
-  /@types/react-virtualized/9.21.13:
-    resolution: {integrity: sha512-tCIQ5wDKj+QJ3sMzjPKSLY0AXsznt+ovAUcq+JCLjPBOcAHbPt4FraGT9HKYEFfmp9E6+ELuN49i5bWtuBmi3w==}
+  /@types/react-virtualized/9.21.14:
+    resolution: {integrity: sha512-wvZftXXYNpj3ELVm2v8pySnq/uxKD1UsFpRkNoBAbQFTnI4Bz4OcwjUhwvaqUq5dDoT6SCS2+PdCzysxMYfjdg==}
     dependencies:
       '@types/prop-types': 15.7.3
       '@types/react': 17.0.31
