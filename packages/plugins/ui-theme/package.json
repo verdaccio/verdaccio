@@ -23,7 +23,7 @@
     "@types/react-helmet": "6.1.4",
     "@types/redux": "3.6.0",
     "@types/react-router-dom": "5.3.1",
-    "@types/react-virtualized": "9.21.13",
+    "@types/react-virtualized": "9.21.14",
     "@emotion/core": "10.1.1",
     "@emotion/jest": "11.5.0",
     "@emotion/styled": "10.0.27",
