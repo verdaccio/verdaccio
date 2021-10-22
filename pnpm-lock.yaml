@@ -42,7 +42,7 @@ importers:
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
       '@types/request': 2.48.7
-      '@types/semver': 7.3.8
+      '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.1
       '@types/validator': 13.6.3
@@ -132,7 +132,7 @@ importers:
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
       '@types/request': 2.48.7
-      '@types/semver': 7.3.8
+      '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.1
       '@types/validator': 13.6.3
@@ -6637,8 +6637,8 @@ packages:
     resolution: {integrity: sha512-RxAwYt4rGwK5GyoRwuP0jT6ZHAVTdz2EqgsHmX0PYNjGsko+OeT4WFXXTs/lM3teJUJodM+SNtAL5/pXIJ61IQ==}
     dev: true
 
-  /@types/semver/7.3.8:
-    resolution: {integrity: sha512-D/2EJvAlCEtYFEYmmlGwbGXuK886HzyCc3nZX/tkFTQdEU8jZDAgiv08P162yB17y4ZXZoq7yFAnW4GDBb9Now==}
+  /@types/semver/7.3.9:
+    resolution: {integrity: sha512-L/TMpyURfBkf+o/526Zb6kd/tchUP3iBDEPjqjb+U2MAJhVRxxrmr2fwpe08E7QsV7YLcpq0tUaQ9O9x97ZIxQ==}
     dev: true
 
   /@types/serve-static/1.13.10:
