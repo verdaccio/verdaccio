@@ -79,7 +79,7 @@ importers:
       lint-staged: 11.1.2
       nock: 12.0.3
       node-fetch: 3.0.0-beta.6-exportfix
-      nodemon: 2.0.13
+      nodemon: 2.0.14
       npm-run-all: 4.1.5
       prettier: 2.3.2
       rimraf: 3.0.2
@@ -169,7 +169,7 @@ importers:
       lint-staged: 11.1.2
       nock: 12.0.3
       node-fetch: 3.0.0-beta.6-exportfix
-      nodemon: 2.0.13
+      nodemon: 2.0.14
       npm-run-all: 4.1.5
       prettier: 2.3.2
       rimraf: 3.0.2
@@ -15831,13 +15831,13 @@ packages:
   /node-releases/2.0.0:
     resolution: {integrity: sha512-aA87l0flFYMzCHpTM3DERFSYxc6lv/BltdbRTOMZuxZ0cwZCD3mejE5n9vLhSJCN++/eOqr77G1IO5uXxlQYWA==}
 
-  /nodemon/2.0.13:
-    resolution: {integrity: sha512-UMXMpsZsv1UXUttCn6gv8eQPhn6DR4BW+txnL3IN5IHqrCwcrT/yWHfL35UsClGXknTH79r5xbu+6J1zNHuSyA==}
+  /nodemon/2.0.14:
+    resolution: {integrity: sha512-frcpDx+PviKEQRSYzwhckuO2zoHcBYLHI754RE9z5h1RGtrngerc04mLpQQCPWBkH/2ObrX7We9YiwVSYZpFJQ==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      chokidar: 3.5.1
+      chokidar: 3.5.2
       debug: 3.2.7
       ignore-by-default: 1.0.1
       minimatch: 3.0.4
