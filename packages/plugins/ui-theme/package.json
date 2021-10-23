@@ -78,7 +78,7 @@
     "redux": "4.1.1",
     "rimraf": "3.0.2",
     "msw": "0.35.0",
-    "standard-version": "9.3.1",
+    "standard-version": "9.3.2",
     "style-loader": "3.2.1",
     "stylelint": "13.13.1",
     "stylelint-config-recommended": "5.0.0",

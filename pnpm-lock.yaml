@@ -773,7 +773,7 @@ importers:
       react-virtualized: 9.22.3
       redux: 4.1.1
       rimraf: 3.0.2
-      standard-version: 9.3.1
+      standard-version: 9.3.2
       style-loader: 3.2.1
       stylelint: 13.13.1
       stylelint-config-recommended: 5.0.0
@@ -855,7 +855,7 @@ importers:
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
       redux: 4.1.1
       rimraf: 3.0.2
-      standard-version: 9.3.1
+      standard-version: 9.3.2
       style-loader: 3.2.1_webpack@5.52.0
       stylelint: 13.13.1
       stylelint-config-recommended: 5.0.0_stylelint@13.13.1
@@ -1459,13 +1459,6 @@ packages:
       '@babel/highlight': 7.14.5
     dev: true
 
-  /@babel/code-frame/7.14.5:
-    resolution: {integrity: sha512-9pzDqyc6OLDaqe+zbACgFkb6fKMNG6CObKpnYXChRsvYGyEdc7CA2BaqeOM+vOtCS5ndmJicPJhKAwYRI6UfFw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/highlight': 7.14.5
-    dev: true
-
   /@babel/code-frame/7.15.8:
     resolution: {integrity: sha512-2IAnmn8zbvC/jKYhq5Ki9I+DwjlrtMPUCH/CpHvqI4dNnlwHwsxoIhlc8WcYY5LSYknXQtAlFYuHfqAFCvQ4Wg==}
     engines: {node: '>=6.9.0'}
@@ -1531,7 +1524,7 @@ packages:
     resolution: {integrity: sha512-pYgXxiwAgQpgM1bNkZsDEq85f0ggXMA5L7c+o3tskGMh2BunCI9QUwB9Z4jpvXUOuMdyGKiGKQiRe11VS6Jzvg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/code-frame': 7.14.5
+      '@babel/code-frame': 7.15.8
       '@babel/generator': 7.15.4
       '@babel/helper-compilation-targets': 7.15.4_@babel+core@7.15.5
       '@babel/helper-module-transforms': 7.15.4
@@ -1864,7 +1857,7 @@ packages:
       '@babel/helper-replace-supers': 7.15.4
       '@babel/helper-simple-access': 7.15.4
       '@babel/helper-split-export-declaration': 7.15.4
-      '@babel/helper-validator-identifier': 7.14.9
+      '@babel/helper-validator-identifier': 7.15.7
       '@babel/template': 7.15.4
       '@babel/traverse': 7.15.4
       '@babel/types': 7.15.4
@@ -1983,11 +1976,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/types': 7.15.6
-
-  /@babel/helper-validator-identifier/7.14.9:
-    resolution: {integrity: sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==}
-    engines: {node: '>=6.9.0'}
-    dev: true
 
   /@babel/helper-validator-identifier/7.15.7:
     resolution: {integrity: sha512-K4JvCtQqad9OY2+yTU8w+E82ywk/fe+ELNlt1G8z3bVGlZfn/hOcQQsUhGhW/N+tb3fxK800wLtKOE/aM0m72w==}
@@ -4044,7 +4032,7 @@ packages:
     resolution: {integrity: sha512-0f1HJFuGmmbrKTCZtbm3cU+b/AqdEYk5toj5iQur58xkVMlS0JWaKxTBSmCXd47uiN7vbcozAupm6Mvs80GNhw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/helper-validator-identifier': 7.14.9
+      '@babel/helper-validator-identifier': 7.15.7
       to-fast-properties: 2.0.0
     dev: true
 
@@ -5602,7 +5590,7 @@ packages:
       '@types/istanbul-reports': 3.0.1
       '@types/node': 16.9.1
       '@types/yargs': 15.0.5
-      chalk: 4.1.1
+      chalk: 4.1.2
     dev: true
 
   /@jest/types/27.2.5:
@@ -9224,8 +9212,8 @@ packages:
     resolution: {integrity: sha512-IpVePh16EbbB02V+UA+HQnnPIohgXvJRxHcS5+Uwk4AT5LjzCZJm5sp/yqs5C6KZJ1jMsV4paEV13BN1pvDuxQ==}
     dev: true
 
-  /conventional-changelog-conventionalcommits/4.5.0:
-    resolution: {integrity: sha512-buge9xDvjjOxJlyxUnar/+6i/aVEVGA7EEh4OafBCXPlLUQPGbRUBhBUveWRxzvR8TEjhKEP4BdepnpG2FSZXw==}
+  /conventional-changelog-conventionalcommits/4.6.1:
+    resolution: {integrity: sha512-lzWJpPZhbM1R0PIzkwzGBCnAkH5RKJzJfFQZcl/D+2lsJxAwGnDKBqn/F4C1RD31GJNn8NuKWQzAZDAVXPp2Mw==}
     engines: {node: '>=10'}
     dependencies:
       compare-func: 2.0.0
@@ -9317,7 +9305,7 @@ packages:
       conventional-changelog-angular: 5.0.12
       conventional-changelog-atom: 2.0.8
       conventional-changelog-codemirror: 2.0.8
-      conventional-changelog-conventionalcommits: 4.5.0
+      conventional-changelog-conventionalcommits: 4.6.1
       conventional-changelog-core: 4.2.3
       conventional-changelog-ember: 2.0.9
       conventional-changelog-eslint: 3.0.9
@@ -12198,15 +12186,6 @@ packages:
       pify: 2.3.0
     dev: true
 
-  /git-semver-tags/4.1.0:
-    resolution: {integrity: sha512-TcxAGeo03HdErzKzi4fDD+xEL7gi8r2Y5YSxH6N2XYdVSV5UkBwfrt7Gqo1b+uSHCjy/sa9Y6BBBxxFLxfbhTg==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      meow: 7.1.1
-      semver: 6.3.0
-    dev: true
-
   /git-semver-tags/4.1.1:
     resolution: {integrity: sha512-OWyMt5zBe7xFs8vglMmhM9lRQzCWL3WjHtxNNfJTMngGym7pC1kh8sP6jevfydJ6LP3ZvGxfb6ABYgPUM0mtsA==}
     engines: {node: '>=10'}
@@ -13184,7 +13163,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 4.1.1
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-width: 3.0.0
       external-editor: 3.1.0
@@ -13801,7 +13780,7 @@ packages:
     resolution: {integrity: sha512-6T1XQY8U28WH0Z5rGpQ+VqZSZz8EN8rZcBtfvXaOkbwxIEeRre6qnuZQlbY1AJ4MKDxQF8EkrCvK+hL/VkyYLQ==}
     engines: {node: '>= 10.14.2'}
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       diff-sequences: 26.3.0
       jest-get-type: 26.3.0
       pretty-format: 26.6.2
@@ -15279,23 +15258,6 @@ packages:
   /meow/6.1.1:
     resolution: {integrity: sha512-3YffViIt2QWgTy6Pale5QpopX/IvU3LPL03jOTqp6pGj3VjesdO/U8CuHMKpnQr4shCNCM5fd5XFFvIIl6JBHg==}
     engines: {node: '>=8'}
-    dependencies:
-      '@types/minimist': 1.2.1
-      camelcase-keys: 6.2.2
-      decamelize-keys: 1.1.0
-      hard-rejection: 2.1.0
-      minimist-options: 4.1.0
-      normalize-package-data: 2.5.0
-      read-pkg-up: 7.0.1
-      redent: 3.0.0
-      trim-newlines: 3.0.0
-      type-fest: 0.13.1
-      yargs-parser: 18.1.3
-    dev: true
-
-  /meow/7.1.1:
-    resolution: {integrity: sha512-GWHvA5QOcS412WCo8vwKDlTelGLsCGBVevQB5Kva961rmNfun0PCbv5+xta2kUMFJyR8/oWnn7ddeKdosbAPbA==}
-    engines: {node: '>=10'}
     dependencies:
       '@types/minimist': 1.2.1
       camelcase-keys: 6.2.2
@@ -19526,15 +19488,15 @@ packages:
     resolution: {integrity: sha512-GrdeshiRmS1YLMYgzF16olf2jJ/IzxXY9lhKOskuVziubpTYcYqyOwYeJKzQkwy7uN0fYSsbsC4RQaXf9LCrYA==}
     dev: true
 
-  /standard-version/9.3.1:
-    resolution: {integrity: sha512-5qMxXw/FxLouC5nANyx/5RY1kiorJx9BppUso8gN07MG64q2uLRmrPb4KfXp3Ql4s/gxjZwZ89e0FwxeLubGww==}
+  /standard-version/9.3.2:
+    resolution: {integrity: sha512-u1rfKP4o4ew7Yjbfycv80aNMN2feTiqseAhUhrrx2XtdQGmu7gucpziXe68Z4YfHVqlxVEzo4aUA0Iu3VQOTgQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
       chalk: 2.4.2
       conventional-changelog: 3.1.24
       conventional-changelog-config-spec: 2.1.0
-      conventional-changelog-conventionalcommits: 4.5.0
+      conventional-changelog-conventionalcommits: 4.6.1
       conventional-recommended-bump: 6.1.0
       detect-indent: 6.0.0
       detect-newline: 3.1.0
@@ -19542,7 +19504,7 @@ packages:
       figures: 3.2.0
       find-up: 5.0.0
       fs-access: 1.0.1
-      git-semver-tags: 4.1.0
+      git-semver-tags: 4.1.1
       semver: 7.3.5
       stringify-package: 1.0.1
       yargs: 16.2.0
