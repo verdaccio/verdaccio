@@ -348,6 +348,7 @@ importers:
       '@types/node': 16.9.1
       '@verdaccio/auth': workspace:6.0.0-6-next.13
       '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
       '@verdaccio/logger': workspace:6.0.0-6-next.6
       '@verdaccio/store': workspace:6.0.0-6-next.14
       '@verdaccio/tarball': workspace:11.0.0-6-next.8
@@ -364,6 +365,7 @@ importers:
     dependencies:
       '@verdaccio/auth': link:../../auth
       '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../core
       '@verdaccio/logger': link:../../logger
       '@verdaccio/store': link:../../store
       '@verdaccio/tarball': link:../tarball

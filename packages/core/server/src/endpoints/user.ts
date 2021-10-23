@@ -1,19 +1,24 @@
 /* eslint-disable no-console */
 /* eslint-disable no-invalid-this */
 import { getAuthenticatedMessage } from '@verdaccio/utils';
-// import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/commons-api';
 import { logger } from '@verdaccio/logger';
 import buildDebug from 'debug';
+import { FastifyInstance } from 'fastify';
 
 const debug = buildDebug('verdaccio:api:user');
 
-async function userRoute(fastify) {
+async function userRoute(fastify: FastifyInstance) {
   fastify.get('/:org_couchdb_user', async () => {
-    debug('verifying user');
     // @ts-ignore
     const message = getAuthenticatedMessage('test');
     logger.info('user authenticated message %o', message);
     return { ok: message };
+  });
+
+  fastify.delete('/token/:id', async (request, reply) => {
+    debug('loging out');
+    reply.code(fastify.httpStatuscode.OK);
+    return { ok: fastify.apiMessage.LOGGED_OUT };
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

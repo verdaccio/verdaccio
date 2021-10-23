@@ -34,6 +34,7 @@
     "access": "public"
   },
   "dependencies": {
+    "@verdaccio/core": "workspace:6.0.0-6-next.2",
     "@verdaccio/config": "workspace:6.0.0-6-next.9",
     "@verdaccio/auth": "workspace:6.0.0-6-next.13",
     "@verdaccio/logger": "workspace:6.0.0-6-next.6",

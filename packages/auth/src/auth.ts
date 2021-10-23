@@ -413,7 +413,9 @@ class Auth implements IAuth {
       }
 
       // in case auth header does not exist we return anonymous function
-      req.remote_user = createAnonymousRemoteUser();
+      const remoteUser = createAnonymousRemoteUser();
+      req.remote_user = remoteUser;
+      res.locals.remote_user = remoteUser;
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
