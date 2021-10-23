@@ -79,7 +79,7 @@
     "detect-secrets": "1.0.6",
     "eslint": "7.32.0",
     "fs-extra": "10.0.0",
-    "husky": "7.0.2",
+    "husky": "7.0.4",
     "in-publish": "2.0.1",
     "jest": "27.2.5",
     "jest-environment-jsdom": "27.2.5",
