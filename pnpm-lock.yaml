@@ -45,7 +45,7 @@ importers:
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.1
-      '@types/validator': 13.6.4
+      '@types/validator': 13.6.5
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.16.3
       '@typescript-eslint/eslint-plugin': 4.33.0
@@ -135,7 +135,7 @@ importers:
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.1
-      '@types/validator': 13.6.4
+      '@types/validator': 13.6.5
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.16.3
       '@typescript-eslint/eslint-plugin': 4.33.0_00b37c941832412d4ceeacf6a0c59027
@@ -6717,8 +6717,8 @@ packages:
   /@types/unist/2.0.3:
     resolution: {integrity: sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==}
 
-  /@types/validator/13.6.4:
-    resolution: {integrity: sha512-M9Lk74A8hjJIxnSW1+TcPo7Iv4arXBUvd91HuucGPjXVKRAhFHWP5HFpWjxhNWrm7HYoJwuyWpB+BKLgFYHq4w==}
+  /@types/validator/13.6.5:
+    resolution: {integrity: sha512-ilpDKpjjq/w/IyyTuQ38mABdaEzTzTugPyU7DlMCMKd8MMYngnPKhA2TgdO1MfEDED9KVV7uSOL1fDkgwJp/wg==}
     dev: true
 
   /@types/webpack-env/1.16.3:
