@@ -78,7 +78,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 11.1.2
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
       nodemon: 2.0.13
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -168,7 +168,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 11.1.2
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
       nodemon: 2.0.13
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -571,12 +571,12 @@ importers:
       express: 4.17.1
       https-proxy-agent: 5.0.0
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
       supertest: 6.1.6
     dependencies:
       express: 4.17.1
       https-proxy-agent: 5.0.0
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
       body-parser: 1.19.0
@@ -1046,7 +1046,7 @@ importers:
       autocannon: 7.5.0
       clipanion: 3.1.0
       get-port: 5.1.1
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
       semver: 7.3.5
       temp-dir: 2.0.0
       ts-node: 10.2.1
@@ -1057,7 +1057,7 @@ importers:
       temp-dir: 2.0.0
     devDependencies:
       autocannon: 7.5.0
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 3.0.0
       ts-node: 10.2.1_7cfd01fcff41d818ce82373ba3c4f1b7
 
   packages/tools/eslint:
@@ -4174,7 +4174,7 @@ packages:
     resolution: {integrity: sha512-tknjYi9ti3AIbGrDHfeJ1bBbXJi/FdV6AWH0oA4JFrCRe2IoczAJo2MeU+3banQx5TlL1fOTeUOM1YAK+sJB2g==}
     dependencies:
       dataloader: 1.4.0
-      node-fetch: 2.6.1
+      node-fetch: 2.6.5
     dev: true
 
   /@changesets/get-release-plan/2.0.1:
@@ -11685,9 +11685,11 @@ packages:
       xml-js: 1.6.11
     dev: false
 
-  /fetch-blob/1.0.6:
-    resolution: {integrity: sha512-XTotUY7hVtqdbHE0Ilm/u/nnXRv1T8nepxhMHzB885O0EkVvI05UlZq7rHQSd6hVDCNAGx4HTjbJO60Onjfckw==}
-    engines: {node: '>=6'}
+  /fetch-blob/3.1.2:
+    resolution: {integrity: sha512-hunJbvy/6OLjCD0uuhLdp0mMPzP/yd2ssd1t2FCJsaA7wkWhpbp9xfuNVpv7Ll4jFhzp6T4LAupSiV9uOeg0VQ==}
+    engines: {node: ^12.20 || >= 14.13}
+    dependencies:
+      web-streams-polyfill: 3.1.1
 
   /figures/3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -15774,14 +15776,13 @@ packages:
     engines: {node: 4.x || >=6.0.0}
     dependencies:
       whatwg-url: 5.0.0
-    dev: false
 
-  /node-fetch/3.0.0-beta.6-exportfix:
-    resolution: {integrity: sha512-jhW2arLPAddi7q04JxlQtApqMQF8GxlGZV+wj5/WuDz3hpDTnAU9haJ5Fi2a0N3b4e728O4EIVACNq9nDCzLYw==}
-    engines: {node: '>=10.16'}
+  /node-fetch/3.0.0:
+    resolution: {integrity: sha512-bKMI+C7/T/SPU1lKnbQbwxptpCrG9ashG+VkytmXCPZyuM9jB6VU+hY0oi4lC8LxTtAeWdckNCTa3nrGsAdA3Q==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       data-uri-to-buffer: 3.0.1
-      fetch-blob: 1.0.6
+      fetch-blob: 3.1.2
 
   /node-forge/0.10.0:
     resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==}
@@ -20121,7 +20122,7 @@ packages:
     dependencies:
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.0
-      node-fetch: 2.6.1
+      node-fetch: 2.6.5
       stream-events: 1.0.5
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -20448,7 +20449,6 @@ packages:
 
   /tr46/0.0.3:
     resolution: {integrity: sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=}
-    dev: false
 
   /tr46/1.0.1:
     resolution: {integrity: sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=}
@@ -21352,9 +21352,12 @@ packages:
     resolution: {integrity: sha512-wYxSGajtmoP4WxfejAPIr4l0fVh+jeMXZb08wNc0tMg6xsfZXj3cECqIK0G7ZAqUq0PP8WlMDtaOGVBTAWztNw==}
     dev: false
 
+  /web-streams-polyfill/3.1.1:
+    resolution: {integrity: sha512-Czi3fG883e96T4DLEPRvufrF2ydhOOW1+1a6c3gNjH2aIh50DNFBdfwh2AKoOf1rXvpvavAoA11Qdq9+BKjE0Q==}
+    engines: {node: '>= 8'}
+
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=}
-    dev: false
 
   /webidl-conversions/4.0.2:
     resolution: {integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==}
@@ -21945,7 +21948,6 @@ packages:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
-    dev: false
 
   /whatwg-url/7.1.0:
     resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
