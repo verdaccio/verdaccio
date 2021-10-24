@@ -17,7 +17,7 @@
     "npm": ">=6"
   },
   "devDependencies": {
-    "@types/react": "17.0.31",
+    "@types/react": "17.0.32",
     "@types/react-autosuggest": "10.1.5",
     "@types/react-dom": "17.0.10",
     "@types/react-helmet": "6.1.4",
