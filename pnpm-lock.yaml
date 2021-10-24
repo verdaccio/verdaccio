@@ -335,11 +335,11 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       dompurify: 2.3.3
       jsdom: 17.0.0
-      marked: 3.0.7
+      marked: 3.0.8
     dependencies:
       dompurify: 2.3.3
       jsdom: 17.0.0
-      marked: 3.0.7
+      marked: 3.0.8
     devDependencies:
       '@verdaccio/types': link:../types
 
@@ -15005,8 +15005,8 @@ packages:
     hasBin: true
     dev: true
 
-  /marked/3.0.7:
-    resolution: {integrity: sha512-ctKqbnLuNbsHbI26cfMyOlKgXGfl1orOv1AvWWDX7AkgfMOwCWvmuYc+mVLeWhQ9W6hdWVBynOs96VkcscKo0Q==}
+  /marked/3.0.8:
+    resolution: {integrity: sha512-0gVrAjo5m0VZSJb4rpL59K1unJAMb/hm8HRXqasD8VeC8m91ytDPMritgFSlKonfdt+rRYYpP/JfLxgIX8yoSw==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: false
