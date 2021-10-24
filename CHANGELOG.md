@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/verdaccio/verdaccio/compare/v5.1.6...v5.2.0) (2021-10-24)
+
+
+### Features
+
+* upgrade node docker to 14.18.1 ([#2579](https://github.com/verdaccio/verdaccio/issues/2579)) ([247a317](https://github.com/verdaccio/verdaccio/commit/247a317ca025c3e52ffa5a7ca3f45e586714c70c))
+
+
+### Bug Fixes
+
+* **deps:** update dependency clipanion to v3.1.0 ([#2561](https://github.com/verdaccio/verdaccio/issues/2561)) ([6a78ae0](https://github.com/verdaccio/verdaccio/commit/6a78ae0045968715f158b55d17bae71612540800))
+* **deps:** update dependency dayjs to v1.10.7 ([#2565](https://github.com/verdaccio/verdaccio/issues/2565)) ([69091d1](https://github.com/verdaccio/verdaccio/commit/69091d15fbc7e1b479e02c47769237f2792926c8))
+* **deps:** update dependency pino to v6.13.3 ([#2562](https://github.com/verdaccio/verdaccio/issues/2562)) ([384b3e2](https://github.com/verdaccio/verdaccio/commit/384b3e2ce560cd513f2a20bf62f98a3f3051dccf))
+
 ### [5.1.6](https://github.com/verdaccio/verdaccio/compare/v5.1.5...v5.1.6) (2021-09-21)
 
 
