@@ -1,4 +1,3 @@
-
 import express from 'express';
 import request from 'request';
 import rimraf from 'rimraf';
@@ -37,9 +36,13 @@ describe('basic system test', () => {
   test('server should respond on /', (done) => {
     request(
       {
-        url: 'http://localhost:' + port + '/'
+        url: 'http://localhost:' + port + '/',
+        timeout: 6000,
       },
       function (err, res, body) {
+        // TEMP: figure out why is flacky, pls remove when is stable.
+        // eslint-disable-next-line no-console
+        console.log('server should respond on / error', err);
         expect(err).toBeNull();
         expect(body).toMatch(/Verdaccio/);
         done();
@@ -50,7 +53,7 @@ describe('basic system test', () => {
   test('server should respond on /___not_found_package', (done) => {
     request(
       {
-        url: `http://localhost:${port}/___not_found_package`
+        url: `http://localhost:${port}/___not_found_package`,
       },
       function (err, res, body) {
         expect(err).toBeNull();
