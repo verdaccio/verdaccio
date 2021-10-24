@@ -3267,6 +3267,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/pino-pretty@npm:*":
+  version: 4.7.1
+  resolution: "@types/pino-pretty@npm:4.7.1"
+  dependencies:
+    "@types/pino": "*"
+  checksum: b0302f95d4ea6c3d90056f5ced8c9c7ad2ac19898b8750f330917e62c73f0513e5f578f29d95ae18e217b4c2129945c98a79ab50f2dbba23017d815de7f35582
+  languageName: node
+  linkType: hard
+
 "@types/pino-std-serializers@npm:*":
   version: 2.4.1
   resolution: "@types/pino-std-serializers@npm:2.4.1"
@@ -3276,14 +3285,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/pino@npm:6.3.6":
-  version: 6.3.6
-  resolution: "@types/pino@npm:6.3.6"
+"@types/pino@npm:*, @types/pino@npm:6.3.12":
+  version: 6.3.12
+  resolution: "@types/pino@npm:6.3.12"
   dependencies:
     "@types/node": "*"
+    "@types/pino-pretty": "*"
     "@types/pino-std-serializers": "*"
-    "@types/sonic-boom": "*"
-  checksum: ad25dc65e2364189f8f5ea8e2a8872a446b675e906206d8b30338acfb41be0df8f4d7866b970086716c5452c37ace7e4d8a44650388b95b93e3a1fe7d56ae0d6
+    sonic-boom: ^2.1.0
+  checksum: 7db713a23d7836aaae13fafffb5a36b649c4650eb3c9edaf891213fb55e3435fc9c25a12ca4214c7920be89640a78e6f7f17c9d974d63bba7e58462d140c6b09
   languageName: node
   linkType: hard
 
@@ -3334,15 +3344,6 @@ __metadata:
     "@types/express-serve-static-core": "*"
     "@types/mime": "*"
   checksum: 1d4e222e240ff6ed0aa41cd3997fefb53b4f2fbe8f16d20055174662dda1361c7409dfb40ad8e2f355316f80edcd701e0f3ff6298abe35e0b88d9b62903acd18
-  languageName: node
-  linkType: hard
-
-"@types/sonic-boom@npm:*":
-  version: 0.7.0
-  resolution: "@types/sonic-boom@npm:0.7.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: b6a7c29c7b7d92307571b44629c94af0cad6674cb4251ce5387cd2e6d8051511fa8397a28cf3b387fd4ef26ce79442cbe8f9cae141fda7628fdf532af274e6ba
   languageName: node
   linkType: hard
 
@@ -7122,6 +7123,13 @@ __metadata:
   version: 2.0.8
   resolution: "fast-safe-stringify@npm:2.0.8"
   checksum: 2198ef6c4917ac6ad7a3cff8b80abc2762c89a0c700548459288fce45598a2488c0ae393cd456b4212a8259fed9d1630303106efe4ae3b1c35dab2fb66526cdd
+  languageName: node
+  linkType: hard
+
+"fastify-warning@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "fastify-warning@npm:0.2.0"
+  checksum: 17b9e2ffdfbfd40486f3395e4c33a8f997c9d23c3201624eed5596f3e3dcd3d5bf4f0c18b3bf7c32f3e80d1d573df9d59bc5c179fcfe5de52a1baa64934a54cf
   languageName: node
   linkType: hard
 
@@ -11449,19 +11457,20 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"pino@npm:6.13.0":
-  version: 6.13.0
-  resolution: "pino@npm:6.13.0"
+"pino@npm:6.13.3":
+  version: 6.13.3
+  resolution: "pino@npm:6.13.3"
   dependencies:
     fast-redact: ^3.0.0
     fast-safe-stringify: ^2.0.8
+    fastify-warning: ^0.2.0
     flatstr: ^1.0.12
     pino-std-serializers: ^3.1.0
     quick-format-unescaped: ^4.0.3
     sonic-boom: ^1.0.2
   bin:
     pino: bin.js
-  checksum: 4fd045eeff8edffb8e5bd9677553f511155d1f56353d9a12a03880a7ca26a0eb29808705a2ace223dff9c77dc20c269b31e33591b73728c6f4f641cc968a1080
+  checksum: 16a62ba4c652b789e387b465019334785f790524037cf8ef4c0c300dccd83bf7e9054b3bf1c14825d118687918b2ff810c1d112b69e5d8e4483ab65258d98a0c
   languageName: node
   linkType: hard
 
@@ -12809,6 +12818,15 @@ fsevents@~2.1.2:
     atomic-sleep: ^1.0.0
     flatstr: ^1.0.12
   checksum: 19c5fd3fb95f374a6e3b3edcc327ed8bf98ff4d54194c1305dac5fb1855ac81e681b0f6946cab4d97165897cb65e5561d781022e07fc5915a99a42f6627b0564
+  languageName: node
+  linkType: hard
+
+"sonic-boom@npm:^2.1.0":
+  version: 2.3.0
+  resolution: "sonic-boom@npm:2.3.0"
+  dependencies:
+    atomic-sleep: ^1.0.0
+  checksum: 97b5b795f775b0ed9a3dcc06658c4c73f6bbc6e072380156573f38640676c0b7f2f8024152342039eff5f42b8e98faeb163c2bf324b1689bf0dc9bb2b5fea122
   languageName: node
   linkType: hard
 
@@ -14164,7 +14182,7 @@ typescript@4.1.3:
     "@types/mime": 2.0.1
     "@types/minimatch": 3.0.3
     "@types/node": 14.14.37
-    "@types/pino": 6.3.6
+    "@types/pino": 6.3.12
     "@types/request": 2.48.5
     "@types/semver": 7.3.4
     "@typescript-eslint/eslint-plugin": 4.13.0
@@ -14228,7 +14246,7 @@ typescript@4.1.3:
     mv: 2.1.1
     nock: 12.0.3
     node-mocks-http: ^1.10.1
-    pino: 6.13.0
+    pino: 6.13.3
     pinst: 2.1.6
     pkginfo: 0.4.1
     prettier: 2.3.2
