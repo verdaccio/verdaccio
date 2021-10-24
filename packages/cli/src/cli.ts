@@ -3,7 +3,7 @@ import { Cli } from 'clipanion';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
-import { NewServer } from './commands/newServer';
+import { FastifyServer } from './commands/FastifyServer';
 import { isVersionValid, MIN_NODE_VERSION } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
@@ -28,7 +28,7 @@ const cli = new Cli({
 cli.register(InfoCommand);
 cli.register(InitCommand);
 cli.register(VersionCommand);
-cli.register(NewServer);
+cli.register(FastifyServer);
 cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {
