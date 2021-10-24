@@ -1,5 +1,5 @@
-import { Config as IConfig } from '@verdaccio/types';
-import { Config as AppConfig } from '@verdaccio/config';
+import { Config as IConfig, RemoteUser } from '@verdaccio/types';
+import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/config';
 
 import fastify from 'fastify';
 import buildDebug from 'debug';
@@ -18,14 +18,15 @@ async function startServer({ logger, config }) {
   // eslint-disable-next-line prettier/prettier
   const configInstance: IConfig = new AppConfig(Object.assign({}, config));
   debug('start server');
-  const app = fastify({ logger });
-  app.register(configPlugin, { config });
-  app.register(coreUtils);
-  app.register(authPlugin, { config: configInstance });
-  app.register(storagePlugin, { config: configInstance });
+  const fastifyInstance = fastify({ logger });
+  fastifyInstance.decorateRequest<RemoteUser>('userRemote', createAnonymousRemoteUser());
+  fastifyInstance.register(configPlugin, { config });
+  fastifyInstance.register(coreUtils);
+  fastifyInstance.register(authPlugin, { config: configInstance });
+  fastifyInstance.register(storagePlugin, { config: configInstance });
 
   // api
-  app.register((instance, opts, done) => {
+  fastifyInstance.register((instance, opts, done) => {
     instance.register(ping);
     instance.register(user, { prefix: '/-/user' });
     instance.register(search);
@@ -33,12 +34,18 @@ async function startServer({ logger, config }) {
   });
 
   // web
-  app.register((instance, opts, done) => {
+  fastifyInstance.register((instance, opts, done) => {
     instance.register(ping, { prefix: '/web' });
     done();
   });
 
-  return app;
+  return fastifyInstance;
+}
+
+declare module 'fastify' {
+  interface FastifyRequest {
+    userRemote: any;
+  }
 }
 
 export default startServer;

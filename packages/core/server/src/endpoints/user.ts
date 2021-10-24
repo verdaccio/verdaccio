@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable no-invalid-this */
 import { getAuthenticatedMessage } from '@verdaccio/utils';
+import { RemoteUser } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
 import buildDebug from 'debug';
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance, FastifyRequest } from 'fastify';
 
 const debug = buildDebug('verdaccio:api:user');
 
@@ -15,8 +16,14 @@ async function userRoute(fastify: FastifyInstance) {
     return { ok: message };
   });
 
-  fastify.delete('/token/:id', async (request, reply) => {
+  fastify.delete('/token/:token', async (request: FastifyRequest, reply) => {
     debug('loging out');
+    // FIXME: type params
+    // @ts-ignore
+    const { token } = request.params;
+    const userRemote: RemoteUser = request.userRemote;
+    await fastify.auth.invalidateToken(token);
+    console.log('userRoute', userRemote);
     reply.code(fastify.httpStatuscode.OK);
     return { ok: fastify.apiMessage.LOGGED_OUT };
   });

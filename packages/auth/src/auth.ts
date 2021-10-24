@@ -52,6 +52,7 @@ const debug = buildDebug('verdaccio:auth');
 export interface IBasicAuth<T> {
   config: T & Config;
   authenticate(user: string, password: string, cb: Callback): void;
+  invalidateToken?(token: string): Promise<void>;
   changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
   allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
   add_user(user: string, password: string, cb: Callback): any;
@@ -83,6 +84,7 @@ export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, TokenEncrypt
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
   allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+  invalidateToken(token: string): Promise<void>;
 }
 
 class Auth implements IAuth {
@@ -175,6 +177,12 @@ class Auth implements IAuth {
         });
       }
     }
+  }
+
+  public async invalidateToken(token: string) {
+    // eslint-disable-next-line no-console
+    console.log('invalidate token pending to implement', token);
+    return Promise.resolve();
   }
 
   public authenticate(username: string, password: string, cb: Callback): void {
