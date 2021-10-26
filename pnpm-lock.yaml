@@ -348,26 +348,34 @@ importers:
       '@types/node': 16.9.1
       '@verdaccio/auth': workspace:6.0.0-6-next.13
       '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
       '@verdaccio/logger': workspace:6.0.0-6-next.6
       '@verdaccio/store': workspace:6.0.0-6-next.14
+      '@verdaccio/tarball': workspace:11.0.0-6-next.8
       '@verdaccio/types': workspace:11.0.0-6-next.9
+      '@verdaccio/utils': workspace:6.0.0-6-next.7
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.22.1
       fastify-plugin: 3.0.0
+      lodash: 4.17.21
       semver: 7.3.5
       ts-node: 10.2.1
     dependencies:
       '@verdaccio/auth': link:../../auth
       '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../core
       '@verdaccio/logger': link:../../logger
       '@verdaccio/store': link:../../store
+      '@verdaccio/tarball': link:../tarball
+      '@verdaccio/utils': link:../../utils
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
       fastify: 3.22.1
       fastify-plugin: 3.0.0
+      lodash: 4.17.21
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.9.1
@@ -402,8 +410,10 @@ importers:
   packages/core/types:
     specifiers:
       '@types/node': 14.6.0
+      tsd: 0.18.0
     devDependencies:
       '@types/node': 14.6.0
+      tsd: 0.18.0
 
   packages/core/url:
     specifiers:
@@ -6085,6 +6095,11 @@ packages:
     resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
+  /@tsd/typescript/4.4.4:
+    resolution: {integrity: sha512-XNaotnbhU6sKSXYg9rVz4L9i9g+j+x1IIgMPztK8KumtMEsrLXcqPBKp/qzmUKwAZEqgHs4+TTz90dUu5/aIqQ==}
+    hasBin: true
+    dev: true
+
   /@types/activedirectory2/1.2.3:
     resolution: {integrity: sha512-yZERTOJFrOAax2HbDyBBhAKyUEa1PC/GXMe9UGBGyeOF0ZRRBKnIMNXVAYfveJMyrhUBhdRoObwe3CBPoekyjQ==}
     dependencies:
@@ -6178,6 +6193,13 @@ packages:
     dependencies:
       '@types/estree': 0.0.50
       '@types/json-schema': 7.0.8
+
+  /@types/eslint/7.28.2:
+    resolution: {integrity: sha512-KubbADPkfoU75KgKeKLsFHXnU4ipH7wYg0TRT33NK3N3yiu7jlFAAoygIWBV+KbuHx/G+AvuGX6DllnK35gfJA==}
+    dependencies:
+      '@types/estree': 0.0.50
+      '@types/json-schema': 7.0.8
+    dev: true
 
   /@types/estree/0.0.47:
     resolution: {integrity: sha512-c5ciR06jK8u9BstrmJyO97m+klJrrhCf9u3rLu3DEAJBirxRqSCvDQoYKmxuYwQI5SZChAWu+tq9oVlGRuzPAg==}
@@ -10886,6 +10908,20 @@ packages:
       eslint: 7.32.0
     dev: false
 
+  /eslint-formatter-pretty/4.1.0:
+    resolution: {integrity: sha512-IsUTtGxF1hrH6lMWiSl1WbGaiP01eT6kzywdY1U+zLc0MP+nwEnUiS9UI8IaOTUhTeQJLlCEWIbXINBH4YJbBQ==}
+    engines: {node: '>=10'}
+    dependencies:
+      '@types/eslint': 7.28.2
+      ansi-escapes: 4.3.2
+      chalk: 4.1.2
+      eslint-rule-docs: 1.1.231
+      log-symbols: 4.1.0
+      plur: 4.0.0
+      string-width: 4.2.2
+      supports-hyperlinks: 2.2.0
+    dev: true
+
   /eslint-import-resolver-node/0.3.4:
     resolution: {integrity: sha512-ogtf+5AB/O+nM6DIeBUNr2fuT7ot9Qg/1harBfBtaP13ekEWFQEEMP94BCB7zaNW3gyY+8SHYF00rnqYwXKWOA==}
     dependencies:
@@ -11047,6 +11083,10 @@ packages:
     resolution: {integrity: sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==}
     engines: {node: '>=4.0.0'}
     dev: false
+
+  /eslint-rule-docs/1.1.231:
+    resolution: {integrity: sha512-egHz9A1WG7b8CS0x1P6P/Rj5FqZOjray/VjpJa14tMZalfRKvpE2ONJ3plCM7+PcinmU4tcmbPLv0VtwzSdLVA==}
+    dev: true
 
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
@@ -13128,6 +13168,11 @@ packages:
   /ipaddr.js/1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
+
+  /irregular-plurals/3.3.0:
+    resolution: {integrity: sha512-MVBLKUTangM3EfRPFROhmWQQKRDsrgI83J8GS3jXy+OwYqiR2/aoWndYQ5416jLE3uaGgLH7ncme3X9y09gZ3g==}
+    engines: {node: '>=8'}
+    dev: true
 
   /is-absolute-url/3.0.3:
     resolution: {integrity: sha512-opmNIX7uFnS96NtPmhWQgQx6/NYFgsUXYMllcfzwWKUMwfo8kku1TvE6hkNcH+Q1ts5cMVrsY7j0bxXQDciu9Q==}
@@ -16510,6 +16555,13 @@ packages:
     resolution: {integrity: sha512-gQR3WpIgNIKwBMVLkpMUeR3e1/E1y42bqDQZfql+kDeXd8COYfM8PQA4X6y7a8u9Ua9FHmsrrmirW2vHs45hWg==}
     dependencies:
       semver-compare: 1.0.0
+    dev: true
+
+  /plur/4.0.0:
+    resolution: {integrity: sha512-4UGewrYgqDFw9vV6zNV+ADmPAUAfJPKtGvb/VdpQAx25X5f3xXdGdyOEVFwkl8Hl/tl7+xbeHqSEM+D5/TirUg==}
+    engines: {node: '>=10'}
+    dependencies:
+      irregular-plurals: 3.3.0
     dev: true
 
   /pn/1.1.0:
@@ -20477,6 +20529,19 @@ packages:
       minimist: 1.2.5
       strip-bom: 3.0.0
     dev: false
+
+  /tsd/0.18.0:
+    resolution: {integrity: sha512-UIkxm2CLmSjXlQs4zqxgVV9UmzK8VgJ63eBpgkH/ZsMkiUdzxxHvdCCg8F314HDxzfQl2muJEy/TEcXHIFIPXg==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      '@tsd/typescript': 4.4.4
+      eslint-formatter-pretty: 4.1.0
+      globby: 11.0.4
+      meow: 9.0.0
+      path-exists: 4.0.0
+      read-pkg-up: 7.0.1
+    dev: true
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}

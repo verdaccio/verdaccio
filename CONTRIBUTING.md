@@ -134,6 +134,18 @@ More details in the debug section
 We use [`debug`](https://www.npmjs.com/package/debug) to add helpful debugging
 output to the code. Each package has it owns namespace.
 
+#### Useful Scripts
+
+To run the application from the source code, ensure the project has been built with `pnpm build`, once this is done, there are few commands that helps to run server:
+
+- `pnpm start`: Run the server and the UI with `concurrently`, the
+  server runs in the port `8000` and the UI on the port `4873`. This command
+  is useful if you want to contribute mostly on the UI.
+- `pnpm debug`: Run the server in debug mode `--inspect`, the UI is included but does not have hot reload. For automatic break use `pnpm debug:break`.
+- `pnpm debug:fastify`: To contribute on the [fastify migration](https://github.com/verdaccio/verdaccio/discussions/2155) this is a temporary command for such purpose.
+- `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
+- `pnpm docker`: Build the docker image. Requires `docker` command available in your system.
+
 #### Debugging compiled code
 
 Currently you can only run pre-compiled packages in debug mode. To enable debug

@@ -9,9 +9,12 @@ export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 /**
  * This command is intended to run the server with Fastify
  * as a migration step.
+ * More info: https://github.com/verdaccio/verdaccio/discussions/2155
+ * To try out.
+ * pnpm debug:fastify
  */
-export class NewServer extends Command {
-  public static paths = [['new']];
+export class FastifyServer extends Command {
+  public static paths = [['fastify-server']];
 
   private port = Option.String('-l,-p,--listen,--port', {
     description: 'host:port number to listen on (default: localhost:4873)',
@@ -41,9 +44,11 @@ export class NewServer extends Command {
       this.initLogger(configParsed);
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
+      // FIXME: need a way to get version of the package.
       // const { version, name } = require('../../package.json');
       const ser = await server({ logger, config: configParsed });
-      await ser.listen(4873);
+      // FIXME: harcoded, this would need to come from the configuration and the --listen flag.
+      await ser.listen(process.env.PORT || 4873);
     } catch (err: any) {
       console.error(err);
       process.exit(1);
