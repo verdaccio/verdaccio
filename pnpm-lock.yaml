@@ -767,7 +767,7 @@ importers:
       react-hook-form: 7.15.3
       react-hot-loader: 4.13.0
       react-i18next: 11.12.0
-      react-redux: 7.2.5
+      react-redux: 7.2.6
       react-router: 5.2.1
       react-router-dom: 5.3.0
       react-virtualized: 9.22.3
@@ -849,7 +849,7 @@ importers:
       react-hook-form: 7.15.3_react@17.0.2
       react-hot-loader: 4.13.0_eb5c0d50549f49961238f903289870ff
       react-i18next: 11.12.0_i18next@20.6.1+react@17.0.2
-      react-redux: 7.2.5_react-dom@17.0.2+react@17.0.2
+      react-redux: 7.2.6_react-dom@17.0.2+react@17.0.2
       react-router: 5.2.1_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
@@ -6452,8 +6452,8 @@ packages:
       '@types/webpack': 4.41.31
     dev: true
 
-  /@types/react-redux/7.1.19:
-    resolution: {integrity: sha512-L37dSCT0aoJnCgpR8Iuginlbxoh7qhWOXiaDqEsxVMrER1CmVhFD+63NxgJeT4pkmEM28oX0NH4S4f+sXHTZjA==}
+  /@types/react-redux/7.1.20:
+    resolution: {integrity: sha512-q42es4c8iIeTgcnB+yJgRTTzftv3eYYvCZOh1Ckn2eX/3o5TdsQYKUWpLoLuGlcY/p+VAhV9IOEZJcWk/vfkXw==}
     dependencies:
       '@types/hoist-non-react-statics': 3.3.1
       '@types/react': 17.0.32
@@ -17957,8 +17957,8 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-redux/7.2.5_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-Dt29bNyBsbQaysp6s/dN0gUodcq+dVKKER8Qv82UrpeygwYeX1raTtil7O/fftw/rFqzaf6gJhDZRkkZnn6bjg==}
+  /react-redux/7.2.6_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-10RPdsz0UUrRL1NZE0ejTkucnclYSgXp5q+tB5SWx2qeG2ZJQJyymgAhwKy73yiL/13btfB6fPr+rgbMAaZIAQ==}
     peerDependencies:
       react: ^16.8.3 || ^17
       react-dom: '*'
@@ -17970,13 +17970,13 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.15.4
-      '@types/react-redux': 7.1.19
+      '@types/react-redux': 7.1.20
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
       prop-types: 15.7.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-is: 16.13.1
+      react-is: 17.0.2
     dev: true
 
   /react-router-config/5.1.1_react-router@5.2.0+react@17.0.2:
