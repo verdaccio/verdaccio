@@ -20,5 +20,6 @@ declare module 'fastify' {
     apiError: typeof API_ERROR;
     apiMessage: typeof API_MESSAGE;
     httpStatuscode: typeof HTTP_STATUS;
+    errorUtils: typeof errorUtils;
   }
 }

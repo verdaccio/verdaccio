@@ -1,24 +1,27 @@
 /* eslint-disable no-console */
 /* eslint-disable no-invalid-this */
-import { getAuthenticatedMessage } from '@verdaccio/utils';
+import _ from 'lodash';
+import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 import { RemoteUser } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
+import { createRemoteUser } from '@verdaccio/config';
+import { getApiToken } from '@verdaccio/auth';
 import buildDebug from 'debug';
 import { FastifyInstance, FastifyRequest } from 'fastify';
 
 const debug = buildDebug('verdaccio:api:user');
 
 async function userRoute(fastify: FastifyInstance) {
-  fastify.get('/:org_couchdb_user', async () => {
-    // @ts-ignore
-    const message = getAuthenticatedMessage('test');
+  fastify.get('/:org_couchdb_user', async (request, reply) => {
+    const message = getAuthenticatedMessage(request.userRemote);
     logger.info('user authenticated message %o', message);
+    reply.code(fastify.httpStatuscode.OK);
     return { ok: message };
   });
 
   fastify.delete('/token/:token', async (request: FastifyRequest, reply) => {
     debug('loging out');
-    // FIXME: type params
+    // FIXME: type params correctly
     // @ts-ignore
     const { token } = request.params;
     const userRemote: RemoteUser = request.userRemote;
@@ -29,73 +32,97 @@ async function userRoute(fastify: FastifyInstance) {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  fastify.put('/:org_couchdb_user/:_rev?/:revision?', async (_req, _reply) => {
-    // const { name, password } = req.body;
-    // const remoteName = req.remote_user.name;
-    // if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
-    //   debug('login: no remote user detected');
-    //   fastify.auth.authenticate(
-    //     name,
-    //     password,
-    //     async function callbackAuthenticate(err, user): Promise<void> {
-    //       if (err) {
-    //         logger.trace(
-    //           { name, err },
-    //           'authenticating for user @{username} failed. Error: @{err.message}'
-    //         );
-    //         return reply.code(HTTP_STATUS.UNAUTHORIZED)
-    //           ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
-    //         );
-    //       }
-    //       const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
-    //       const token = await getApiToken(auth, config, restoredRemoteUser, password);
-    //       debug('login: new token');
-    //       if (!token) {
-    //         return next(ErrorCode.getUnauthorized());
-    //       }
-    //       res.status(HTTP_STATUS.CREATED);
-    //       const message = getAuthenticatedMessage(req.remote_user.name);
-    //       debug('login: created user message %o', message);
-    //       return next({
-    //         ok: message,
-    //         token,
-    //       });
-    //     }
-    //   );
-    // } else {
-    //   if (validatePassword(password) === false) {
-    //     debug('adduser: invalid password');
-    //     // eslint-disable-next-line new-cap
-    //     return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
-    //   }
-    //   auth.add_user(name, password, async function (err, user): Promise<void> {
-    //     if (err) {
-    //       if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
-    //         debug('adduser: error on create user');
-    //         // With npm registering is the same as logging in,
-    //         // and npm accepts only an 409 error.
-    //         // So, changing status code here.
-    //         return next(
-    //           ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message)
-    //         );
-    //       }
-    //       return next(err);
-    //     }
-    //     const token =
-    //       name && password ? await getApiToken(auth, config, user, password) : undefined;
-    //     debug('adduser: new token %o', token);
-    //     if (!token) {
-    //       return next(ErrorCode.getUnauthorized());
-    //     }
-    //     req.remote_user = user;
-    //     res.status(HTTP_STATUS.CREATED);
-    //     debug('adduser: user has been created');
-    //     return next({
-    //       ok: `user '${req.body.name}' created`,
-    //       token,
-    //     });
-    //   });
-    // }
+  fastify.put<{
+    Body: { name: string; password: string };
+  }>('/:username', async (request, reply) => {
+    const { name, password } = request.body;
+    const remoteName = request.userRemote;
+    if (_.isNil(remoteName?.name) === false && _.isNil(name) === false && remoteName === name) {
+      //   debug('login: no remote user detected');
+      fastify.auth.authenticate(
+        name,
+        password,
+        async function callbackAuthenticate(err, user): Promise<void> {
+          if (err) {
+            logger.trace(
+              { name, err },
+              'authenticating for user @{username} failed. Error: @{err.message}'
+            );
+            reply
+              .code(fastify.httpStatuscode.UNAUTHORIZED)
+              .send(
+                fastify.errorUtils.getCode(
+                  fastify.httpStatuscode.UNAUTHORIZED,
+                  fastify.apiError.BAD_USERNAME_PASSWORD
+                )
+              );
+          }
+          const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
+          const token = await getApiToken(
+            fastify.auth,
+            fastify.configInstance,
+            restoredRemoteUser,
+            password
+          );
+          debug('login: new token');
+          if (!token) {
+            return reply.send(fastify.errorUtils.getUnauthorized());
+          } else {
+            reply.code(fastify.httpStatuscode.CREATED);
+            const message = getAuthenticatedMessage(remoteName);
+            debug('login: created user message %o', message);
+            reply.send({
+              ok: message,
+              token,
+            });
+          }
+        }
+      );
+    } else {
+      if (validatePassword(password) === false) {
+        debug('adduser: invalid password');
+        reply.code(fastify.httpStatuscode.BAD_REQUEST).send(
+          fastify.errorUtils.getCode(
+            fastify.httpStatuscode.BAD_REQUEST,
+            // eslint-disable-next-line new-cap
+            fastify.apiError.PASSWORD_SHORT()
+          )
+        );
+        return;
+      }
+      fastify.auth.add_user(name, password, async function (err, user): Promise<void> {
+        if (err) {
+          if (
+            err.status >= fastify.httpStatuscode.BAD_REQUEST &&
+            err.status < fastify.httpStatuscode.INTERNAL_ERROR
+          ) {
+            debug('adduser: error on create user');
+            // With npm registering is the same as logging in,
+            // and npm accepts only an 409 error.
+            // So, changing status code here.
+            const addUserError =
+              fastify.errorUtils.getCode(err.status, err.message) ||
+              fastify.errorUtils.getConflict(err.message);
+
+            reply.send(addUserError);
+            return;
+          }
+        }
+        const token =
+          name && password
+            ? await getApiToken(fastify.auth, fastify.configInstance, user, password)
+            : undefined;
+        debug('adduser: new token %o', token);
+        if (!token) {
+          return reply.send(fastify.errorUtils.getUnauthorized());
+        }
+        debug('adduser: user has been created');
+        reply.code(fastify.httpStatuscode.CREATED).send({
+          ok: `user '${name}' created`,
+          token,
+        });
+      });
+    }
   });
 }
 
