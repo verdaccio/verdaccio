@@ -13,7 +13,8 @@ const debug = buildDebug('verdaccio:api:user');
 
 async function userRoute(fastify: FastifyInstance) {
   fastify.get('/:org_couchdb_user', async (request, reply) => {
-    const message = getAuthenticatedMessage(request.userRemote);
+    // @ts-expect-error
+    const message = getAuthenticatedMessage(request.userRemote.name);
     logger.info('user authenticated message %o', message);
     reply.code(fastify.httpStatuscode.OK);
     return { ok: message };
@@ -36,8 +37,8 @@ async function userRoute(fastify: FastifyInstance) {
     Body: { name: string; password: string };
   }>('/:username', async (request, reply) => {
     const { name, password } = request.body;
-    const remoteName = request.userRemote;
-    if (_.isNil(remoteName?.name) === false && _.isNil(name) === false && remoteName === name) {
+    const remoteName = request.userRemote.name;
+    if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
       //   debug('login: no remote user detected');
       fastify.auth.authenticate(
         name,

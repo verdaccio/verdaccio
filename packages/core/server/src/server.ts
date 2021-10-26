@@ -44,7 +44,7 @@ async function startServer({ logger, config }) {
 
 declare module 'fastify' {
   interface FastifyRequest {
-    userRemote: any;
+    userRemote: RemoteUser;
   }
 }
 
