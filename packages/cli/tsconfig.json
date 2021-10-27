@@ -14,6 +14,9 @@
       "path": "../core/cli-ui"
     },
     {
+      "path": "../core/core"
+    },
+    {
       "path": "../core/server"
     },
     {
