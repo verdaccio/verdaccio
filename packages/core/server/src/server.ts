@@ -11,6 +11,7 @@ import coreUtils from './plugins/coreUtils';
 import configPlugin from './plugins/config';
 import ping from './endpoints/ping';
 import user from './endpoints/user';
+import whoami from './endpoints/whoami';
 
 const debug = buildDebug('verdaccio:fastify');
 
@@ -30,6 +31,7 @@ async function startServer({ logger, config }) {
     instance.register(ping);
     instance.register(user, { prefix: '/-/user' });
     instance.register(search);
+    instance.register(whoami);
     done();
   });
 

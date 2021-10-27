@@ -19,7 +19,7 @@ declare module 'fastify' {
   interface FastifyInstance {
     apiError: typeof API_ERROR;
     apiMessage: typeof API_MESSAGE;
-    httpStatuscode: typeof HTTP_STATUS;
+    statusCode: typeof HTTP_STATUS;
     errorUtils: typeof errorUtils;
   }
 }
