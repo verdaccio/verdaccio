@@ -69,7 +69,7 @@ class Storage {
 
   public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
     if (this.localStorage === null) {
-      this.filters = filters;
+      this.filters = filters || [];
       debug('filters available %o', filters);
       this.localStorage = new LocalStorage(this.config, logger);
       await this.localStorage.init();
