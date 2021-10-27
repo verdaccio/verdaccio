@@ -1,5 +1,14 @@
 # @verdaccio/mock
 
+## 6.0.0-6-next.11
+
+### Patch Changes
+
+- Updated dependencies [6c1eb021]
+  - @verdaccio/core@6.0.0-6-next.3
+  - @verdaccio/config@6.0.0-6-next.10
+  - @verdaccio/utils@6.0.0-6-next.8
+
 ## 6.0.0-6-next.10
 
 ### Major Changes

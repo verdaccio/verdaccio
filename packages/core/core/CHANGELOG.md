@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.3
+
+### Minor Changes
+
+- 6c1eb021: feat: use warning codes for deprecation warnings
+
 ## 6.0.0-6-next.2
 
 ### Major Changes

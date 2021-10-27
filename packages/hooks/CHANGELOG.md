@@ -1,5 +1,13 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.9
+
+### Patch Changes
+
+- Updated dependencies [6c1eb021]
+  - @verdaccio/core@6.0.0-6-next.3
+  - @verdaccio/logger@6.0.0-6-next.7
+
 ## 6.0.0-6-next.8
 
 ### Major Changes
