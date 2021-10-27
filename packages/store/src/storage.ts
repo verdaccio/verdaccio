@@ -69,7 +69,7 @@ class Storage {
 
   public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
     if (this.localStorage === null) {
-      this.filters = filters;
+      this.filters = filters || [];
       debug('filters available %o', filters);
       this.localStorage = new LocalStorage(this.config, logger);
       await this.localStorage.init();
@@ -591,17 +591,16 @@ class Storage {
             // as a broken filter is a security risk.
             const filterErrors: Error[] = [];
             // This MUST be done serially and not in parallel as they modify packageJsonLocal
-            // FIXME: filters are not yet refactored, refactor them and then renable this.
-            // for (const filter of self.filters) {
-            //   try {
-            //     // These filters can assume it's save to modify packageJsonLocal
-            //     // and return it directly for
-            //     // performance (i.e. need not be pure)
-            //     packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-            //   } catch (err: any) {
-            //     filterErrors.push(err);
-            //   }
-            // }
+            for (const filter of self.filters) {
+              try {
+                // These filters can assume it's save to modify packageJsonLocal
+                // and return it directly for
+                // performance (i.e. need not be pure)
+                packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
+              } catch (err: any) {
+                filterErrors.push(err);
+              }
+            }
             callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
           }
         );
