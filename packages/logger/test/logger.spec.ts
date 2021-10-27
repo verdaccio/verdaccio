@@ -1,7 +1,26 @@
+import { warningUtils } from '@verdaccio/core';
 import { logger, setup } from '../src';
 
+const mockWarningUtils = jest.fn();
+
+jest.mock('@verdaccio/core', () => {
+  const original = jest.requireActual('@verdaccio/core');
+  return {
+    warningUtils: {
+      ...original.warningUtils,
+      emit: (...args) => {
+        mockWarningUtils(...args);
+      },
+    },
+  };
+});
+
 describe('logger', () => {
-  test('dsadasd', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test.skip('should write message logger', () => {
     jest.spyOn(process.stdout, 'write');
     setup([
       {
@@ -15,7 +34,6 @@ describe('logger', () => {
   });
 
   test('throw deprecation warning if multiple loggers configured', () => {
-    const spy = jest.spyOn(process, 'emitWarning');
     setup([
       {
         level: 'info',
@@ -24,18 +42,11 @@ describe('logger', () => {
         level: 'http',
       },
     ]);
-    expect(spy).toHaveBeenCalledWith(
-      'deprecate: multiple logger configuration is deprecated, please check the migration guide.'
-    );
-    spy.mockRestore();
+    expect(mockWarningUtils).toHaveBeenCalledWith(warningUtils.Codes.VERDEP002);
   });
 
   test('regression: do not throw deprecation warning if no logger config is provided', () => {
-    const spy = jest.spyOn(process, 'emitWarning');
     setup();
-    expect(spy).not.toHaveBeenCalledWith(
-      'deprecate: multiple logger configuration is deprecated, please check the migration guide.'
-    );
-    spy.mockRestore();
+    expect(mockWarningUtils).not.toHaveBeenCalled();
   });
 });
