@@ -737,7 +737,7 @@ importers:
       '@material-ui/styles': 4.11.4
       '@rematch/core': 2.1.1
       '@rematch/loading': 2.1.1
-      '@testing-library/dom': 8.9.1
+      '@testing-library/dom': 8.10.1
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 12.1.2
       '@types/react': 17.0.33
@@ -819,7 +819,7 @@ importers:
       '@material-ui/styles': 4.11.4_14fc3c4d570feae7d722fbbd1b906730
       '@rematch/core': 2.1.1_redux@4.1.1
       '@rematch/loading': 2.1.1_@rematch+core@2.1.1
-      '@testing-library/dom': 8.9.1
+      '@testing-library/dom': 8.10.1
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
       '@types/react': 17.0.33
@@ -1475,13 +1475,6 @@ packages:
       '@babel/highlight': 7.14.5
     dev: true
 
-  /@babel/code-frame/7.14.5:
-    resolution: {integrity: sha512-9pzDqyc6OLDaqe+zbACgFkb6fKMNG6CObKpnYXChRsvYGyEdc7CA2BaqeOM+vOtCS5ndmJicPJhKAwYRI6UfFw==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/highlight': 7.14.5
-    dev: true
-
   /@babel/code-frame/7.15.8:
     resolution: {integrity: sha512-2IAnmn8zbvC/jKYhq5Ki9I+DwjlrtMPUCH/CpHvqI4dNnlwHwsxoIhlc8WcYY5LSYknXQtAlFYuHfqAFCvQ4Wg==}
     engines: {node: '>=6.9.0'}
@@ -1547,7 +1540,7 @@ packages:
     resolution: {integrity: sha512-pYgXxiwAgQpgM1bNkZsDEq85f0ggXMA5L7c+o3tskGMh2BunCI9QUwB9Z4jpvXUOuMdyGKiGKQiRe11VS6Jzvg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/code-frame': 7.14.5
+      '@babel/code-frame': 7.15.8
       '@babel/generator': 7.15.4
       '@babel/helper-compilation-targets': 7.15.4_@babel+core@7.15.5
       '@babel/helper-module-transforms': 7.15.4
@@ -1834,7 +1827,7 @@ packages:
       '@babel/helper-replace-supers': 7.15.4
       '@babel/helper-simple-access': 7.15.4
       '@babel/helper-split-export-declaration': 7.15.4
-      '@babel/helper-validator-identifier': 7.14.9
+      '@babel/helper-validator-identifier': 7.15.7
       '@babel/template': 7.15.4
       '@babel/traverse': 7.15.4
       '@babel/types': 7.15.4
@@ -1920,11 +1913,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/types': 7.15.6
-
-  /@babel/helper-validator-identifier/7.14.9:
-    resolution: {integrity: sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==}
-    engines: {node: '>=6.9.0'}
-    dev: true
 
   /@babel/helper-validator-identifier/7.15.7:
     resolution: {integrity: sha512-K4JvCtQqad9OY2+yTU8w+E82ywk/fe+ELNlt1G8z3bVGlZfn/hOcQQsUhGhW/N+tb3fxK800wLtKOE/aM0m72w==}
@@ -3974,7 +3962,7 @@ packages:
     resolution: {integrity: sha512-0f1HJFuGmmbrKTCZtbm3cU+b/AqdEYk5toj5iQur58xkVMlS0JWaKxTBSmCXd47uiN7vbcozAupm6Mvs80GNhw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/helper-validator-identifier': 7.14.9
+      '@babel/helper-validator-identifier': 7.15.7
       to-fast-properties: 2.0.0
     dev: true
 
@@ -5532,7 +5520,7 @@ packages:
       '@types/istanbul-reports': 3.0.1
       '@types/node': 16.9.1
       '@types/yargs': 15.0.5
-      chalk: 4.1.1
+      chalk: 4.1.2
     dev: true
 
   /@jest/types/27.2.5:
@@ -6031,18 +6019,18 @@ packages:
     dependencies:
       defer-to-connect: 1.1.3
 
-  /@testing-library/dom/8.9.1:
-    resolution: {integrity: sha512-jXM+FKo5BZA/2WtcsoTGuDs810J3ewQ2yq59Gxd2heux5jr8lo2DnTAl3JWVwAlg2/DcWSYqKY5pi9v0g8hvhw==}
+  /@testing-library/dom/8.10.1:
+    resolution: {integrity: sha512-rab7vpf1uGig5efWwsCOn9j4/doy+W3VBoUyzX7C4y77u0wAckwc7R8nyH6e2rw0rRzKJR+gWPiAg8zhiFbxWQ==}
     engines: {node: '>=12'}
     dependencies:
       '@babel/code-frame': 7.15.8
       '@babel/runtime': 7.15.4
       '@types/aria-query': 4.2.0
-      aria-query: 4.2.2
-      chalk: 4.1.1
-      dom-accessibility-api: 0.5.6
+      aria-query: 5.0.0
+      chalk: 4.1.2
+      dom-accessibility-api: 0.5.9
       lz-string: 1.4.4
-      pretty-format: 27.2.5
+      pretty-format: 27.3.1
     dev: true
 
   /@testing-library/jest-dom/5.14.1:
@@ -6068,7 +6056,7 @@ packages:
       react-dom: '*'
     dependencies:
       '@babel/runtime': 7.15.4
-      '@testing-library/dom': 8.9.1
+      '@testing-library/dom': 8.10.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: true
@@ -7625,6 +7613,11 @@ packages:
     dependencies:
       '@babel/runtime': 7.15.4
       '@babel/runtime-corejs3': 7.14.8
+
+  /aria-query/5.0.0:
+    resolution: {integrity: sha512-V+SM7AbUwJ+EBnB8+DXs0hPZHO0W6pqBcc0dW90OwtVG02PswOu/teuARoLQjdDOH+t9pJgGnW5/Qmouf3gPJg==}
+    engines: {node: '>=6.0'}
+    dev: true
 
   /arr-diff/4.0.0:
     resolution: {integrity: sha1-1kYQdP6/7HHn4VI1dhoyml3HxSA=}
@@ -10308,6 +10301,10 @@ packages:
 
   /dom-accessibility-api/0.5.6:
     resolution: {integrity: sha512-DplGLZd8L1lN64jlT27N9TVSESFR5STaEJvX+thCby7fuCHonfPpAlodYc3vuUYbDuDec5w8AMP7oCM5TWFsqw==}
+    dev: true
+
+  /dom-accessibility-api/0.5.9:
+    resolution: {integrity: sha512-+KPF4o71fl6NrdnqIrJc6m44NA+Rhf1h7In2MRznejSQasWkjqmHOBUlk+pXJ77cVOSYyZeNHFwn/sjotB6+Sw==}
     dev: true
 
   /dom-converter/0.2.0:
@@ -13125,7 +13122,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 4.1.1
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-width: 3.0.0
       external-editor: 3.1.0
@@ -13740,7 +13737,7 @@ packages:
     resolution: {integrity: sha512-6T1XQY8U28WH0Z5rGpQ+VqZSZz8EN8rZcBtfvXaOkbwxIEeRre6qnuZQlbY1AJ4MKDxQF8EkrCvK+hL/VkyYLQ==}
     engines: {node: '>= 10.14.2'}
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       diff-sequences: 26.3.0
       jest-get-type: 26.3.0
       pretty-format: 26.6.2
@@ -17539,16 +17536,6 @@ packages:
 
   /pretty-format/27.1.0:
     resolution: {integrity: sha512-4aGaud3w3rxAO6OXmK3fwBFQ0bctIOG3/if+jYEFGNGIs0EvuidQm3bZ9mlP2/t9epLNC/12czabfy7TZNSwVA==}
-    engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
-    dependencies:
-      '@jest/types': 27.2.5
-      ansi-regex: 5.0.1
-      ansi-styles: 5.2.0
-      react-is: 17.0.2
-    dev: true
-
-  /pretty-format/27.2.5:
-    resolution: {integrity: sha512-+nYn2z9GgicO9JiqmY25Xtq8SYfZ/5VCpEU3pppHHNAhd1y+ZXxmNPd1evmNcAd6Hz4iBV2kf0UpGth5A/VJ7g==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.2.5
