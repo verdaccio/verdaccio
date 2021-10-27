@@ -36,7 +36,8 @@
   "dependencies": {
     "http-errors": "1.8.0",
     "http-status-codes": "2.1.4",
-    "semver": "7.3.5"
+    "semver": "7.3.5",
+    "fastify-warning": "0.2.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.9"

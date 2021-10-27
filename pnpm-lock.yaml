@@ -265,6 +265,7 @@ importers:
   packages/cli:
     specifiers:
       '@verdaccio/config': workspace:6.0.0-6-next.9
+      '@verdaccio/core': workspace:6.0.0-6-next.2
       '@verdaccio/fastify-migration': workspace:6.0.0-6-next.14
       '@verdaccio/logger': workspace:6.0.0-6-next.6
       '@verdaccio/node-api': workspace:6.0.0-6-next.22
@@ -275,6 +276,7 @@ importers:
       ts-node: 10.2.1
     dependencies:
       '@verdaccio/config': link:../config
+      '@verdaccio/core': link:../core/core
       '@verdaccio/fastify-migration': link:../core/server
       '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
@@ -311,10 +313,12 @@ importers:
   packages/core/core:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
+      fastify-warning: 0.2.0
       http-errors: 1.8.0
       http-status-codes: 2.1.4
       semver: 7.3.5
     dependencies:
+      fastify-warning: 0.2.0
       http-errors: 1.8.0
       http-status-codes: 2.1.4
       semver: 7.3.5
@@ -481,12 +485,14 @@ importers:
   packages/logger:
     specifiers:
       '@types/pino': 6.3.12
+      '@verdaccio/core': workspace:6.0.0-6-next.2
       '@verdaccio/logger-prettify': workspace:6.0.0-6-next.4
       '@verdaccio/types': workspace:11.0.0-6-next.9
       debug: 4.3.2
       lodash: 4.17.21
       pino: 6.13.3
     dependencies:
+      '@verdaccio/core': link:../core/core
       '@verdaccio/logger-prettify': link:../logger-prettify
       debug: 4.3.2
       lodash: 4.17.21

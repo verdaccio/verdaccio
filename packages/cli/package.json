@@ -44,6 +44,7 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
+    "@verdaccio/core": "workspace:6.0.0-6-next.2",
     "@verdaccio/config": "workspace:6.0.0-6-next.9",
     "@verdaccio/logger": "workspace:6.0.0-6-next.6",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.22",
