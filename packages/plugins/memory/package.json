@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "11.0.0-6-next.6",
+  "version": "11.0.0-6-next.7",
   "description": "Storage implementation in memory",
   "keywords": [
     "private",
@@ -31,7 +31,7 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.2",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/streams": "workspace:11.0.0-6-next.5",
     "memory-fs": "0.5.0",
     "debug": "4.3.2",

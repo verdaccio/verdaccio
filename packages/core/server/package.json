@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/fastify-migration",
-  "version": "6.0.0-6-next.14",
+  "version": "6.0.0-6-next.15",
   "description": "Fastify server migration package",
   "keywords": [
     "private",
@@ -34,13 +34,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.2",
-    "@verdaccio/config": "workspace:6.0.0-6-next.9",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.13",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.6",
-    "@verdaccio/store": "workspace:6.0.0-6-next.14",
-    "@verdaccio/tarball": "workspace:11.0.0-6-next.8",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.7",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.10",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.14",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.7",
+    "@verdaccio/store": "workspace:6.0.0-6-next.15",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.9",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.8",
     "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.17.2",
     "debug": "4.3.2",

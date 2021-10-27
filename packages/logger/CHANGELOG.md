@@ -1,5 +1,16 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.7
+
+### Minor Changes
+
+- 6c1eb021: feat: use warning codes for deprecation warnings
+
+### Patch Changes
+
+- Updated dependencies [6c1eb021]
+  - @verdaccio/core@6.0.0-6-next.3
+
 ## 6.0.0-6-next.6
 
 ### Major Changes

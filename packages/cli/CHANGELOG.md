@@ -1,5 +1,20 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- 6c1eb021: feat: use warning codes for deprecation warnings
+
+### Patch Changes
+
+- Updated dependencies [6c1eb021]
+  - @verdaccio/core@6.0.0-6-next.3
+  - @verdaccio/logger@6.0.0-6-next.7
+  - @verdaccio/node-api@6.0.0-6-next.23
+  - @verdaccio/config@6.0.0-6-next.10
+  - @verdaccio/fastify-migration@6.0.0-6-next.15
+
 ## 6.0.0-6-next.23
 
 ### Major Changes

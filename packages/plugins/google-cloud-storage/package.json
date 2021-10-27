@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-google-cloud",
-  "version": "11.0.0-6-next.7",
+  "version": "11.0.0-6-next.8",
   "description": "Google Cloud storage implementation for Verdaccio",
   "keywords": [
     "private",
@@ -33,7 +33,7 @@
   "dependencies": {
     "@google-cloud/datastore": "6.5.0",
     "@google-cloud/storage": "5.14.0",
-    "@verdaccio/core": "workspace:6.0.0-6-next.2",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/streams": "workspace:11.0.0-6-next.5"
   },
   "devDependencies": {
