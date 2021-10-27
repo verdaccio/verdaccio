@@ -6,6 +6,7 @@ import * as constants from './constants';
 import * as pluginUtils from './plugin-utils';
 import * as fileUtils from './file-utils';
 import * as pkgUtils from './pkg-utils';
+import * as warningUtils from './warning-utils';
 
 export { VerdaccioError, API_ERROR, SUPPORT_ERRORS, APP_ERROR } from './error-utils';
 export {
@@ -32,4 +33,5 @@ export {
   validatioUtils,
   constants,
   pluginUtils,
+  warningUtils,
 };

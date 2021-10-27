@@ -3,6 +3,7 @@ import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { setup, logger } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigRuntime } from '@verdaccio/types';
+import { warningUtils } from '@verdaccio/core';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -46,9 +47,7 @@ export class InitCommand extends Command {
   private initLogger(logConfig: ConfigRuntime) {
     try {
       if (logConfig.logs) {
-        process.emitWarning(
-          'config.logs is deprecated, rename configuration to "config.log" in singular'
-        );
+        warningUtils.emit(warningUtils.Codes.VERDEP001);
       }
       // FUTURE: remove fallback when is ready
       setup(logConfig.log || logConfig.logs);

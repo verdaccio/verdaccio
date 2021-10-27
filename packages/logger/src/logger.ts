@@ -1,6 +1,7 @@
 import pino from 'pino';
 import _ from 'lodash';
 import buildDebug from 'debug';
+import { warningUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:logger');
 
@@ -75,7 +76,7 @@ export function createLogger(
 export function getLogger() {
   if (_.isNil(logger)) {
     // FIXME: not sure about display here a warning
-    process.emitWarning('logger is not defined');
+    warningUtils.emit(warningUtils.Codes.VERWAR002);
     return;
   }
 
@@ -102,9 +103,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_
   debug('setup logger');
   const isLegacyConf = Array.isArray(options);
   if (isLegacyConf) {
-    const deprecateMessage =
-      'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
-    process.emitWarning(deprecateMessage);
+    warningUtils.emit(warningUtils.Codes.VERDEP002);
   }
 
   // verdaccio 5 does not allow multiple logger configuration
@@ -125,9 +124,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_
     debug('logging file enabled');
     logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
   } else if (loggerConfig.type === 'rotating-file') {
-    process.emitWarning(
-      'rotating-file type is not longer supported, consider use [logrotate] instead'
-    );
+    warningUtils.emit(warningUtils.Codes.VERWAR003);
     debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {

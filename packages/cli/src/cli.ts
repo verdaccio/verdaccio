@@ -1,5 +1,6 @@
 import { Cli } from 'clipanion';
 
+import { warningUtils } from '@verdaccio/core';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
@@ -7,7 +8,7 @@ import { FastifyServer } from './commands/FastifyServer';
 import { isVersionValid, MIN_NODE_VERSION } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
-  process.emitWarning(`Verdaccio doesn't need superuser privileges. don't run it under root`);
+  warningUtils.emit(warningUtils.Codes.VERWAR001);
 }
 
 if (!isVersionValid(process.version)) {
