@@ -16,7 +16,7 @@ async function userRoute(fastify: FastifyInstance) {
     // @ts-expect-error
     const message = getAuthenticatedMessage(request.userRemote.name);
     logger.info('user authenticated message %o', message);
-    reply.code(fastify.httpStatuscode.OK);
+    reply.code(fastify.statusCode.OK);
     return { ok: message };
   });
 
@@ -28,7 +28,7 @@ async function userRoute(fastify: FastifyInstance) {
     const userRemote: RemoteUser = request.userRemote;
     await fastify.auth.invalidateToken(token);
     console.log('userRoute', userRemote);
-    reply.code(fastify.httpStatuscode.OK);
+    reply.code(fastify.statusCode.OK);
     return { ok: fastify.apiMessage.LOGGED_OUT };
   });
 
@@ -50,10 +50,10 @@ async function userRoute(fastify: FastifyInstance) {
               'authenticating for user @{username} failed. Error: @{err.message}'
             );
             reply
-              .code(fastify.httpStatuscode.UNAUTHORIZED)
+              .code(fastify.statusCode.UNAUTHORIZED)
               .send(
                 fastify.errorUtils.getCode(
-                  fastify.httpStatuscode.UNAUTHORIZED,
+                  fastify.statusCode.UNAUTHORIZED,
                   fastify.apiError.BAD_USERNAME_PASSWORD
                 )
               );
@@ -69,7 +69,7 @@ async function userRoute(fastify: FastifyInstance) {
           if (!token) {
             return reply.send(fastify.errorUtils.getUnauthorized());
           } else {
-            reply.code(fastify.httpStatuscode.CREATED);
+            reply.code(fastify.statusCode.CREATED);
             const message = getAuthenticatedMessage(remoteName);
             debug('login: created user message %o', message);
             reply.send({
@@ -82,9 +82,9 @@ async function userRoute(fastify: FastifyInstance) {
     } else {
       if (validatePassword(password) === false) {
         debug('adduser: invalid password');
-        reply.code(fastify.httpStatuscode.BAD_REQUEST).send(
+        reply.code(fastify.statusCode.BAD_REQUEST).send(
           fastify.errorUtils.getCode(
-            fastify.httpStatuscode.BAD_REQUEST,
+            fastify.statusCode.BAD_REQUEST,
             // eslint-disable-next-line new-cap
             fastify.apiError.PASSWORD_SHORT()
           )
@@ -94,8 +94,8 @@ async function userRoute(fastify: FastifyInstance) {
       fastify.auth.add_user(name, password, async function (err, user): Promise<void> {
         if (err) {
           if (
-            err.status >= fastify.httpStatuscode.BAD_REQUEST &&
-            err.status < fastify.httpStatuscode.INTERNAL_ERROR
+            err.status >= fastify.statusCode.BAD_REQUEST &&
+            err.status < fastify.statusCode.INTERNAL_ERROR
           ) {
             debug('adduser: error on create user');
             // With npm registering is the same as logging in,
@@ -118,7 +118,7 @@ async function userRoute(fastify: FastifyInstance) {
           return reply.send(fastify.errorUtils.getUnauthorized());
         }
         debug('adduser: user has been created');
-        reply.code(fastify.httpStatuscode.CREATED).send({
+        reply.code(fastify.statusCode.CREATED).send({
           ok: `user '${name}' created`,
           token,
         });
