@@ -688,7 +688,7 @@ importers:
       lowdb: 1.0.0
       lru-cache: 6.0.0
       minimatch: 3.0.4
-      tmp-promise: 3.0.2
+      tmp-promise: 3.0.3
     dependencies:
       '@verdaccio/core': link:../../core/core
       '@verdaccio/file-locking': link:../../core/file-locking
@@ -707,7 +707,7 @@ importers:
       '@verdaccio/types': link:../../core/types
       '@verdaccio/utils': link:../../utils
       minimatch: 3.0.4
-      tmp-promise: 3.0.2
+      tmp-promise: 3.0.3
 
   packages/plugins/memory:
     specifiers:
@@ -1028,7 +1028,7 @@ importers:
       lunr-mutable-indexes: 2.3.2
       merge2: 1.4.1
       semver: 7.3.5
-      tmp-promise: 3.0.2
+      tmp-promise: 3.0.3
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     dependencies:
@@ -1053,7 +1053,7 @@ importers:
       '@types/node': 16.9.1
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
-      tmp-promise: 3.0.2
+      tmp-promise: 3.0.3
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
 
@@ -20297,8 +20297,8 @@ packages:
   /tiny-warning/1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
 
-  /tmp-promise/3.0.2:
-    resolution: {integrity: sha512-OyCLAKU1HzBjL6Ev3gxUeraJNlbNingmi8IrHHEsYH8LTmEuhvYfqvhn2F/je+mjf4N58UmZ96OMEy1JanSCpA==}
+  /tmp-promise/3.0.3:
+    resolution: {integrity: sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==}
     dependencies:
       tmp: 0.2.1
     dev: true

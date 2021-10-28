@@ -55,7 +55,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.10",
     "@verdaccio/utils": "workspace:6.0.0-6-next.8",
     "minimatch": "3.0.4",
-    "tmp-promise": "3.0.2"
+    "tmp-promise": "3.0.3"
   },
   "scripts": {
     "clean": "rimraf ./build",
