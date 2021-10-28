@@ -186,7 +186,7 @@ importers:
 
   packages/api:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/auth': workspace:6.0.0-6-next.14
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -226,7 +226,7 @@ importers:
       mime: 2.5.2
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/server': link:../server
       '@verdaccio/types': link:../core/types
@@ -349,7 +349,7 @@ importers:
 
   packages/core/server:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/auth': workspace:6.0.0-6-next.14
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -382,9 +382,9 @@ importers:
       lodash: 4.17.21
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/types': link:../types
-      ts-node: 10.2.1_e3a6d03856ea4ec83bf2e0c3b647a57e
+      ts-node: 10.2.1_0cb88d80cb04d25b21fa3ec194608c65
 
   packages/core/streams:
     specifiers:
@@ -438,7 +438,7 @@ importers:
 
   packages/hooks:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/auth': workspace:6.0.0-6-next.14
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -458,7 +458,7 @@ importers:
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/types': link:../core/types
@@ -538,7 +538,7 @@ importers:
 
   packages/node-api:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
@@ -560,7 +560,7 @@ importers:
       debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.4.1_jest@27.3.1
@@ -894,7 +894,7 @@ importers:
 
   packages/proxy:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
@@ -930,7 +930,7 @@ importers:
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/types': link:../core/types
       get-stream: 6.0.1
       nock: 13.0.11
@@ -939,7 +939,7 @@ importers:
 
   packages/server:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/api': workspace:6.0.0-6-next.17
       '@verdaccio/auth': workspace:6.0.0-6-next.14
       '@verdaccio/config': workspace:6.0.0-6-next.10
@@ -981,7 +981,7 @@ importers:
       lodash: 4.17.21
       verdaccio-audit: link:../plugins/audit
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/proxy': link:../proxy
@@ -1008,7 +1008,7 @@ importers:
 
   packages/store:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
@@ -1050,7 +1050,7 @@ importers:
       merge2: 1.4.1
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.3
@@ -1187,7 +1187,7 @@ importers:
 
   packages/web:
     specifiers:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/auth': workspace:6.0.0-6-next.14
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -1229,7 +1229,7 @@ importers:
       lodash: 4.17.21
       lru-cache: 6.0.0
     devDependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@verdaccio/types': link:../core/types
       node-html-parser: 4.1.5
       supertest: 6.1.6
@@ -6378,6 +6378,10 @@ packages:
 
   /@types/node/15.12.4:
     resolution: {integrity: sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==}
+
+  /@types/node/16.11.6:
+    resolution: {integrity: sha512-ua7PgUoeQFjmWPcoo9khiPum3Pd60k4/2ZGXt18sm2Slk0W0xZTqt5Y0Ny1NyBiN1EVQ/+FaF9NcY4Qe6rwk5w==}
+    dev: true
 
   /@types/node/16.9.1:
     resolution: {integrity: sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==}
@@ -20460,6 +20464,37 @@ packages:
     resolution: {integrity: sha512-3IVX4nI6B5cc31/GFFE+i8ey/N2eA0CZDbo6n0yrz0zDX8ZJ8djmU1p+XRz7G3is0F3bB3pu2pAroFdAWQKU3w==}
     dev: false
 
+  /ts-node/10.2.1_0cb88d80cb04d25b21fa3ec194608c65:
+    resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.6.1
+      '@tsconfig/node10': 1.0.7
+      '@tsconfig/node12': 1.0.7
+      '@tsconfig/node14': 1.0.0
+      '@tsconfig/node16': 1.0.2
+      '@types/node': 16.11.6
+      acorn: 8.4.1
+      acorn-walk: 8.1.1
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.4.4
+      yn: 3.1.1
+    dev: true
+
   /ts-node/10.2.1_6fc948d4599a6d595975f0dd8328fd81:
     resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
     engines: {node: '>=12.0.0'}
@@ -20481,37 +20516,6 @@ packages:
       '@tsconfig/node14': 1.0.0
       '@tsconfig/node16': 1.0.2
       '@types/node': 14.6.0
-      acorn: 8.4.1
-      acorn-walk: 8.1.1
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 4.4.4
-      yn: 3.1.1
-    dev: true
-
-  /ts-node/10.2.1_e3a6d03856ea4ec83bf2e0c3b647a57e:
-    resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
-    engines: {node: '>=12.0.0'}
-    hasBin: true
-    peerDependencies:
-      '@swc/core': '>=1.2.50'
-      '@swc/wasm': '>=1.2.50'
-      '@types/node': '*'
-      typescript: '>=2.7'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      '@swc/wasm':
-        optional: true
-    dependencies:
-      '@cspotcode/source-map-support': 0.6.1
-      '@tsconfig/node10': 1.0.7
-      '@tsconfig/node12': 1.0.7
-      '@tsconfig/node14': 1.0.0
-      '@tsconfig/node16': 1.0.2
-      '@types/node': 16.9.1
       acorn: 8.4.1
       acorn-walk: 8.1.1
       arg: 4.1.3
