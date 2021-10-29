@@ -40,7 +40,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
   route.get(
     '/:package/:version?',
     can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    function (req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
       debug('init package by version');
       const name = req.params.package;
       const getPackageMetaCallback = function (err, metadata: Package): void {
@@ -49,7 +49,11 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
           return next(err);
         }
         debug('convert dist remote to local with prefix %o', config?.url_prefix);
-        metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config?.url_prefix);
+        metadata = convertDistRemoteToLocalTarballUrls(
+          metadata,
+          { protocol: req.protocol, headers: req.headers as any, host: req.host },
+          config?.url_prefix
+        );
 
         let queryVersion = req.params.version;
         debug('query by param version: %o', queryVersion);

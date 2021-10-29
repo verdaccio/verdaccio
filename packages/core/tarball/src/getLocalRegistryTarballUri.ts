@@ -1,12 +1,12 @@
 import URL from 'url';
-import { Request } from 'express';
+import { RequestOptions } from '@verdaccio/url';
 import buildDebug from 'debug';
 
 import { getPublicUrl } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:core:url');
 
-function extractTarballFromUrl(url: string): string {
+export function extractTarballFromUrl(url: string): string {
   // @ts-ignore
   return URL.parse(url).pathname.replace(/^.*\//, '');
 }
@@ -18,10 +18,10 @@ function extractTarballFromUrl(url: string): string {
 export function getLocalRegistryTarballUri(
   uri: string,
   pkgName: string,
-  req: Request,
+  requestOptions: RequestOptions,
   urlPrefix: string | void
 ): string {
-  const currentHost = req.headers.host;
+  const currentHost = requestOptions?.headers?.host;
 
   if (!currentHost) {
     return uri;
@@ -29,7 +29,7 @@ export function getLocalRegistryTarballUri(
   const tarballName = extractTarballFromUrl(uri);
   debug('tarball name %o', tarballName);
   // header only set with proxy that setup with HTTPS
-  const domainRegistry = getPublicUrl(urlPrefix || '', req);
+  const domainRegistry = getPublicUrl(urlPrefix || '', requestOptions);
 
   return `${domainRegistry}${pkgName}/-/${tarballName}`;
 }
