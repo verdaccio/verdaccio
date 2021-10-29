@@ -15,7 +15,6 @@ module.exports = {
     'padded-blocks': 'off',
     'require-jsdoc': 'off',
     'valid-jsdoc': 'off',
-    'import/order': ['error'],
     'eol-last': 'error',
     'no-irregular-whitespace': 'error',
     'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
