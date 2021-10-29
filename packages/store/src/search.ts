@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // eslint-disable no-invalid-this
-
-import { PassThrough, Transform, pipeline } from 'stream';
+import buildDebug from 'debug';
+import _ from 'lodash';
 import lunr from 'lunr';
 import lunrMutable from 'lunr-mutable-indexes';
-import _ from 'lodash';
-import buildDebug from 'debug';
-import { logger } from '@verdaccio/logger';
-import { Version } from '@verdaccio/types';
-import { IProxy, ProxyList, ProxySearchParams } from '@verdaccio/proxy';
+import { PassThrough, Transform, pipeline } from 'stream';
+
 import { VerdaccioError } from '@verdaccio/core';
-import { searchUtils, errorUtils } from '@verdaccio/core';
+import { errorUtils, searchUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
+import { IProxy, ProxyList, ProxySearchParams } from '@verdaccio/proxy';
+import { Version } from '@verdaccio/types';
+
 import { LocalStorage } from './local-storage';
 import { Storage } from './storage';
 

@@ -1,9 +1,9 @@
 import { createModel } from '@rematch/core';
+
 import { Package } from '@verdaccio/types';
 
-import API from '../../providers/API/api';
-
 import type { RootModel } from '.';
+import API from '../../providers/API/api';
 
 export const packages = createModel<RootModel>()({
   state: {

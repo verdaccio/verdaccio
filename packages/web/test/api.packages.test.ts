@@ -1,7 +1,9 @@
 import path from 'path';
 import supertest from 'supertest';
-import { setup } from '@verdaccio/logger';
+
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
+
 import { initializeServer } from './helper';
 
 setup([]);

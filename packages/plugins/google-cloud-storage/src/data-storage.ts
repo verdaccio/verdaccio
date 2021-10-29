@@ -1,21 +1,23 @@
-import { Storage } from '@google-cloud/storage';
 import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
-import { errorUtils, VerdaccioError } from '@verdaccio/core';
+import { entity } from '@google-cloud/datastore/build/src/entity';
+import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
+import { CommitResponse } from '@google-cloud/datastore/build/src/request';
+import { Storage } from '@google-cloud/storage';
+
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import {
-  Logger,
   Callback,
+  IPackageStorageManager,
   IPluginStorage,
+  Logger,
   Token,
   TokenFilter,
-  IPackageStorageManager,
 } from '@verdaccio/types';
-import { CommitResponse } from '@google-cloud/datastore/build/src/request';
-import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
-import { entity } from '@google-cloud/datastore/build/src/entity';
 
-import { VerdaccioConfigGoogleStorage, GoogleDataStorage } from './types';
-import StorageHelper, { IStorageHelper } from './storage-helper';
 import GoogleCloudStorageHandler from './storage';
+import StorageHelper, { IStorageHelper } from './storage-helper';
+import { GoogleDataStorage, VerdaccioConfigGoogleStorage } from './types';
+
 type Key = entity.Key;
 
 export const ERROR_MISSING_CONFIG =

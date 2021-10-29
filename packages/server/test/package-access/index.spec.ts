@@ -1,13 +1,13 @@
 import path from 'path';
 import request from 'supertest';
 
-import { setup, logger } from '@verdaccio/logger';
+import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
+import { DOMAIN_SERVERS, configExample, generateRamdonStorage, mockServer } from '@verdaccio/mock';
+
+import endPointAPI from '../../src';
 
 setup([]);
-
-import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
-import { generateRamdonStorage, mockServer, configExample, DOMAIN_SERVERS } from '@verdaccio/mock';
-import endPointAPI from '../../src';
 
 describe('api with no limited access configuration', () => {
   let app;

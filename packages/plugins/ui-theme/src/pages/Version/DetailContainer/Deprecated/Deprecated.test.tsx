@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { render, cleanup, screen } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContextProvider } from '../../context';
-
 import Deprecated from './Deprecated';
 
 describe('test Deprecated', () => {

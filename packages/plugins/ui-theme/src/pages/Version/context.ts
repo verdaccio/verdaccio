@@ -1,4 +1,4 @@
-import { createContext, Consumer, Provider } from 'react';
+import { Consumer, Provider, createContext } from 'react';
 
 import { DetailContextProps, VersionPageConsumerProps } from './version-config';
 

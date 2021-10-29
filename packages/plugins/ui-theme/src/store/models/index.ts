@@ -6,6 +6,7 @@ import { login } from './login';
 import { manifest } from './manifest';
 import { packages } from './packages';
 import { search } from './search';
+
 export interface RootModel extends Models<RootModel> {
   packages: typeof packages;
   manifest: typeof manifest;

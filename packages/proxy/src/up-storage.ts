@@ -1,28 +1,30 @@
 /* global AbortController */
-
-import Stream, { PassThrough, Readable } from 'stream';
-import { URL } from 'url';
+import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import { Request, Headers } from 'undici-fetch';
-import JSONStream from 'JSONStream';
 import request from 'request';
-import { buildToken } from '@verdaccio/utils';
-import { ReadTarball } from '@verdaccio/streams';
+import Stream, { PassThrough, Readable } from 'stream';
+import { Headers, Request } from 'undici-fetch';
+import { URL } from 'url';
+
 import {
-  constants,
-  errorUtils,
-  validatioUtils,
-  searchUtils,
+  CHARACTER_ENCODING,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
-  HEADERS,
-  HTTP_STATUS,
-  HEADER_TYPE,
-  CHARACTER_ENCODING,
+  constants,
+  errorUtils,
+  searchUtils,
+  validatioUtils,
 } from '@verdaccio/core';
-import { Config, Callback, Logger, UpLinkConf, IReadTarball } from '@verdaccio/types';
+import { ReadTarball } from '@verdaccio/streams';
+import { Callback, Config, IReadTarball, Logger, UpLinkConf } from '@verdaccio/types';
+import { buildToken } from '@verdaccio/utils';
+
 import { parseInterval } from './proxy-utils';
+
 const LoggerApi = require('@verdaccio/logger');
 
 const fetch = require('undici-fetch');

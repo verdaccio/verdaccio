@@ -1,14 +1,15 @@
-import _ from 'lodash';
-import { errorUtils, HTTP_STATUS, SUPPORT_ERRORS } from '@verdaccio/core';
-import { stringToMD5, mask } from '@verdaccio/utils';
-import { getApiToken } from '@verdaccio/auth';
-import { logger } from '@verdaccio/logger';
 import { Response, Router } from 'express';
+import _ from 'lodash';
 
-import { Config, RemoteUser, Token } from '@verdaccio/types';
+import { getApiToken } from '@verdaccio/auth';
 import { IAuth } from '@verdaccio/auth';
+import { HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
-import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
+import { Config, RemoteUser, Token } from '@verdaccio/types';
+import { mask, stringToMD5 } from '@verdaccio/utils';
+
+import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 export type NormalizeToken = Token & {
   created: string;

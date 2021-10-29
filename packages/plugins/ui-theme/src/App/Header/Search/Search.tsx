@@ -1,14 +1,12 @@
 import debounce from 'lodash/debounce';
-import React, { useState, FormEvent, useCallback } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import { SuggestionSelectedEventData } from 'react-autosuggest';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-
 import AutoComplete from 'verdaccio-ui/components/AutoComplete';
 
 import { Dispatch, RootState } from '../../../store/store';
-
 import SearchAdornment from './SearchAdornment';
 
 const CONSTANTS = {

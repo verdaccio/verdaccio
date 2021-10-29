@@ -1,10 +1,9 @@
 import { packageMeta } from '../../jest/unit/components/store/packageMeta';
-
 import {
-  formatLicense,
-  formatRepository,
   formatDate,
   formatDateDistance,
+  formatLicense,
+  formatRepository,
   getLastUpdatedPackageTime,
   getRecentReleases,
 } from './package';

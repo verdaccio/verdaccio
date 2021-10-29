@@ -1,10 +1,11 @@
-import _ from 'lodash';
 import { Response, Router } from 'express';
+import _ from 'lodash';
 
+import { IAuth } from '@verdaccio/auth';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { validatePassword } from '@verdaccio/utils';
-import { IAuth } from '@verdaccio/auth';
-import { $RequestExtend, $NextFunctionVer } from '../../types/custom';
+
+import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 export interface Profile {
   tfa: boolean;

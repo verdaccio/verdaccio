@@ -1,14 +1,14 @@
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
 
 import {
   Config,
   DEFAULT_REGISTRY,
   DEFAULT_UPLINK,
-  defaultSecurity,
-  parseConfigFile,
   ROLES,
   WEB_TITLE,
+  defaultSecurity,
+  parseConfigFile,
 } from '../src';
 import { parseConfigurationFile } from './utils';
 

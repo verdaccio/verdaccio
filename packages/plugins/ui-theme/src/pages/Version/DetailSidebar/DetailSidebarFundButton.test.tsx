@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
-
 import { render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext } from '../context';
 import { DetailContextProps } from '../version-config';
-
 import DetailSidebarFundButton from './DetailSidebarFundButton';
 
 const ComponentToBeRendered: React.FC<{ contextValue: DetailContextProps }> = ({

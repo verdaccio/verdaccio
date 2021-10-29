@@ -1,33 +1,34 @@
 /* eslint-disable no-unused-vars */
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // we need this for notifications
 import { setup } from '@verdaccio/logger';
+import { IServerBridge } from '@verdaccio/mock';
 
-setup({});
-
+import adduser from './adduser/adduser';
+import logout from './adduser/logout';
 import basic from './basic/basic';
 import packageAccess from './package/access';
 import packageGzip from './package/gzip';
 import packageScoped from './package/scoped';
-import tags from './tags/tags';
-import distTagsMerge from './tags/dist-tags-merge';
-import addtag from './tags/addtag';
-import adduser from './adduser/adduser';
-import logout from './adduser/logout';
+import race from './performance/race';
+import pluginsAuth from './plugins/auth';
+import middleware from './plugins/middleware';
+import readme from './readme/readme';
 import incomplete from './sanity/incomplete';
 import mirror from './sanity/mirror';
-import readme from './readme/readme';
-import gh29 from './scenarios/gh29';
 import nullstorage from './sanity/nullstorage';
 // import simpleSearch from './search/simple.search';
 import racycrash from './sanity/racycrash';
 import security from './sanity/security';
-import race from './performance/race';
-import pluginsAuth from './plugins/auth';
-import middleware from './plugins/middleware';
+import gh29 from './scenarios/gh29';
+import addtag from './tags/addtag';
+import distTagsMerge from './tags/dist-tags-merge';
+import tags from './tags/tags';
 import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
-import { IServerBridge } from '@verdaccio/mock';
+
+setup({});
 
 describe('functional test verdaccio', function () {
   jest.setTimeout(20000);

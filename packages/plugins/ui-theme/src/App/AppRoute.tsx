@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 import React from 'react';
-import { Route as ReactRouterDomRoute, Switch, Router } from 'react-router-dom';
+import { Route as ReactRouterDomRoute, Router, Switch } from 'react-router-dom';
 
 import loadable from './utils/loadable';
 

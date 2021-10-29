@@ -1,4 +1,4 @@
-import { validateName, validatePackage, isObject } from '../src/validation-utils';
+import { isObject, validateName, validatePackage } from '../src/validation-utils';
 
 describe('validatePackage', () => {
   test('should validate package names', () => {

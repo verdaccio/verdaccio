@@ -1,43 +1,42 @@
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
 
-import { configExample } from '@verdaccio/mock';
 import {
   Config as AppConfig,
-  parseConfigFile,
   ROLES,
-  createRemoteUser,
   createAnonymousRemoteUser,
+  createRemoteUser,
+  parseConfigFile,
 } from '@verdaccio/config';
-
 import {
-  getAuthenticatedMessage,
-  buildToken,
-  AllowActionCallbackResponse,
-  buildUserBuffer,
-} from '@verdaccio/utils';
-
-import { Config, Security, RemoteUser } from '@verdaccio/types';
-import {
-  VerdaccioError,
+  API_ERROR,
   CHARACTER_ENCODING,
   TOKEN_BEARER,
-  API_ERROR,
+  VerdaccioError,
   errorUtils,
 } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
+import { configExample } from '@verdaccio/mock';
+import { Config, RemoteUser, Security } from '@verdaccio/types';
 import {
-  IAuth,
-  Auth,
+  AllowActionCallbackResponse,
+  buildToken,
+  buildUserBuffer,
+  getAuthenticatedMessage,
+} from '@verdaccio/utils';
+
+import {
   ActionsAllowed,
+  Auth,
+  IAuth,
+  aesDecrypt,
   allow_action,
+  getApiToken,
   getDefaultPlugins,
   getMiddlewareCredentials,
-  getApiToken,
-  verifyJWTPayload,
-  aesDecrypt,
-  verifyPayload,
   signPayload,
+  verifyJWTPayload,
+  verifyPayload,
 } from '../src';
 
 setup([]);

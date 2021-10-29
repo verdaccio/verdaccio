@@ -1,11 +1,13 @@
 import buildDebug from 'debug';
-import { SearchInstance } from '@verdaccio/store';
-import { DIST_TAGS } from '@verdaccio/core';
 import { Router } from 'express';
-import { Package } from '@verdaccio/types';
+
 import { IAuth } from '@verdaccio/auth';
+import { DIST_TAGS } from '@verdaccio/core';
+import { SearchInstance } from '@verdaccio/store';
 import { Storage } from '@verdaccio/store';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from './package';
+import { Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
 
 const debug = buildDebug('verdaccio:web:api:search');
 

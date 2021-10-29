@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 export const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({

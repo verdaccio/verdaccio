@@ -1,6 +1,7 @@
-import pino from 'pino';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import _ from 'lodash';
+import pino from 'pino';
+
 import { warningUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:logger');

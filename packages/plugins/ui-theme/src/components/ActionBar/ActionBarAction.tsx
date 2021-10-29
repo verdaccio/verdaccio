@@ -5,7 +5,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { Dispatch } from '../../store/store';

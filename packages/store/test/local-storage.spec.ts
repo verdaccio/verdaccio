@@ -3,16 +3,17 @@ import rimRaf from 'rimraf';
 import { dirSync } from 'tmp-promise';
 
 import { Config as AppConfig } from '@verdaccio/config';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { VerdaccioError } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { configExample, generateNewVersion } from '@verdaccio/mock';
-
-const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 import { Config, MergeTags, Package } from '@verdaccio/types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/core';
-import { VerdaccioError } from '@verdaccio/core';
+
 import { LocalStorage, PROTO_NAME } from '../src/local-storage';
 import { generatePackageTemplate } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';
+
+const readMetadata = (fileName = 'metadata') => readFile(`../fixtures/${fileName}`).toString();
 
 setup([]);
 

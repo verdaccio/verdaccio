@@ -1,4 +1,4 @@
-import { filterXSS, escapeAttrValue } from 'xss';
+import { escapeAttrValue, filterXSS } from 'xss';
 
 const xssOpts = {
   onIgnoreTagAttr: function (tag: string, name: string, value: string) {

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { Command, Option } from 'clipanion';
+
 import runApi from './run';
 
 export class ApiCommand extends Command {

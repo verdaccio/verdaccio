@@ -5,9 +5,7 @@
   which is not platform independent, and requires compilation. Instead, a pure
   javascript version is used.
 */
-
 import crypto from 'crypto';
-
 import crypt from 'unix-crypt-td-js';
 
 export enum EncryptionMethod {

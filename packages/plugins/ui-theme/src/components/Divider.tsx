@@ -1,4 +1,4 @@
-import { default as MaterialUIDivider, DividerProps } from '@material-ui/core/Divider';
+import { DividerProps, default as MaterialUIDivider } from '@material-ui/core/Divider';
 import React, { forwardRef } from 'react';
 
 type DividerRef = HTMLElementTagNameMap[keyof HTMLElementTagNameMap];

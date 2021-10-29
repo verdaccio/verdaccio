@@ -1,5 +1,5 @@
-import { initialSetup } from '../utils/registry';
 import { npm, pnpm, yarn } from '../utils/process';
+import { initialSetup } from '../utils/registry';
 
 describe('install a package', () => {
   jest.setTimeout(90000);

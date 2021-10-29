@@ -1,14 +1,12 @@
 import i18next from 'i18next';
 import isEmpty from 'lodash/isEmpty';
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Dialog from 'verdaccio-ui/components/Dialog';
 import DialogContent from 'verdaccio-ui/components/DialogContent';
 
 import { LoginBody } from '../../../store/models/login';
 import { Dispatch, RootState } from '../../../store/store';
-
 import LoginDialogCloseButton from './LoginDialogCloseButton';
 import LoginDialogForm, { FormValues } from './LoginDialogForm';
 import LoginDialogHeader from './LoginDialogHeader';

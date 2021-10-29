@@ -6,9 +6,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Grid from 'verdaccio-ui/components/Grid';
-import { Version, FileBinary, Time, Law } from 'verdaccio-ui/components/Icons';
+import { FileBinary, Law, Time, Version } from 'verdaccio-ui/components/Icons';
 import Link from 'verdaccio-ui/components/Link';
 import ListItem from 'verdaccio-ui/components/ListItem';
 import Tooltip from 'verdaccio-ui/components/Tooltip';
@@ -17,9 +16,9 @@ import fileSizeSI from 'verdaccio-ui/utils/file-size';
 import { formatDate, formatDateDistance, getAuthorName } from 'verdaccio-ui/utils/package';
 import { isURL } from 'verdaccio-ui/utils/url';
 
-import { PackageMetaInterface, Author as PackageAuthor } from '../../../../../types/packageMeta';
+import { Author as PackageAuthor, PackageMetaInterface } from '../../../../../types/packageMeta';
 import { Dispatch, RootState } from '../../../../store/store';
-
+import Tag from './Tag';
 import {
   Author,
   Avatar,
@@ -28,15 +27,14 @@ import {
   GridRightAligned,
   IconButton,
   OverviewItem,
-  Wrapper,
   PackageListItemText,
   PackageTitle,
   Published,
   TagContainer,
   Text,
+  Wrapper,
   WrapperLink,
 } from './styles';
-import Tag from './Tag';
 
 interface Bugs {
   url: string;

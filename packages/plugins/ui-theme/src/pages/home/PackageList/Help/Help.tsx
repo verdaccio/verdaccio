@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Button from 'verdaccio-ui/components/Button';
 import CardActions from 'verdaccio-ui/components/CardActions';
 import CardContent from 'verdaccio-ui/components/CardContent';

@@ -1,4 +1,5 @@
 import createError, { HttpError } from 'http-errors';
+
 import { DEFAULT_MIN_LIMIT_PASSWORD, HTTP_STATUS } from './constants';
 
 export const API_ERROR = {

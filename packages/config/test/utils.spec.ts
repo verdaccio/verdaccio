@@ -1,5 +1,5 @@
+import { ROLES, createAnonymousRemoteUser, createRemoteUser } from '../src';
 import { spliceURL } from '../src/string';
-import { createAnonymousRemoteUser, createRemoteUser, ROLES } from '../src';
 
 describe('spliceURL', () => {
   test('should splice two strings and generate a url', () => {

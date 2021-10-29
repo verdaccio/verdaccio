@@ -1,24 +1,22 @@
+import _ from 'lodash';
 import path from 'path';
 import request from 'supertest';
-import _ from 'lodash';
 
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER } from '@verdaccio/core';
-// import { generatePackageMetadata } from '@verdaccio/helper';
-import { buildToken } from '@verdaccio/utils';
-import { setup, logger } from '@verdaccio/logger';
-
+import { API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 import { mockServer } from '@verdaccio/mock';
-
 import {
-  configExample,
   DOMAIN_SERVERS,
+  configExample,
+  generateRamdonStorage,
+  generateUnPublishURI,
   getNewToken,
   getPackage,
   putPackage,
-  generateRamdonStorage,
   verifyPackageVersionDoesExist,
-  generateUnPublishURI,
 } from '@verdaccio/mock';
+// import { generatePackageMetadata } from '@verdaccio/helper';
+import { buildToken } from '@verdaccio/utils';
 
 import endPointAPI from '../../src';
 import publishMetadata from './helpers/publish-api';

@@ -1,10 +1,9 @@
-import { Logger, IPluginStorage, IPackageStorage, ILocalPackageManager } from '@verdaccio/types';
 import { errorUtils } from '@verdaccio/core';
+import { ILocalPackageManager, IPackageStorage, IPluginStorage, Logger } from '@verdaccio/types';
 
+import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
-import LocalMemory from '../src/index';
-
 import config from './partials/config';
 import pkgExample from './partials/pkg';
 

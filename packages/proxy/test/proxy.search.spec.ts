@@ -1,11 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-/* global AbortController */
 
+/* global AbortController */
+import getStream from 'get-stream';
 import path from 'path';
 import semver from 'semver';
-import getStream from 'get-stream';
+
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
+
 import { ProxyStorage } from '../src/up-storage';
 
 // FUTURE: remove me when v15 is the min required version

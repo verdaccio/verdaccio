@@ -1,28 +1,29 @@
+import bodyParser from 'body-parser';
 import express, { Router } from 'express';
+import semver from 'semver';
+
+import { IAuth } from '@verdaccio/auth';
 import {
+  antiLoop,
+  encodeScopePackage,
   match,
   validateName,
   validatePackage,
-  encodeScopePackage,
-  antiLoop,
 } from '@verdaccio/middleware';
-import { IAuth } from '@verdaccio/auth';
 import { Storage } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
-import bodyParser from 'body-parser';
-import semver from 'semver';
 
-import whoami from './whoami';
-import ping from './ping';
-import user from './user';
 import distTags from './dist-tags';
+import pkg from './package';
+import ping from './ping';
 import publish from './publish';
 import search from './search';
-import pkg from './package';
 import stars from './stars';
+import user from './user';
 import profile from './v1/profile';
-import token from './v1/token';
 import v1Search from './v1/search';
+import token from './v1/token';
+import whoami from './whoami';
 
 if (semver.lte(process.version, 'v15.0.0')) {
   global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;

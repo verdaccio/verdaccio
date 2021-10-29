@@ -1,6 +1,6 @@
 import {
-  default as MaterialUIFormHelperText,
   FormHelperTextProps,
+  default as MaterialUIFormHelperText,
 } from '@material-ui/core/FormHelperText';
 import React, { forwardRef } from 'react';
 

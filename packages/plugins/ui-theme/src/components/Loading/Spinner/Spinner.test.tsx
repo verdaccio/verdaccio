@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import Spinner from './Spinner';
 

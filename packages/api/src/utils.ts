@@ -1,5 +1,6 @@
-import { Package } from '@verdaccio/types';
 import _ from 'lodash';
+
+import { Package } from '@verdaccio/types';
 
 /**
  * Check whether the package metadta has enough data to be published

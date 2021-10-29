@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import { DEFAULT_DOMAIN, DEFAULT_PORT, parseAddress } from '../src/cli-utils';
 
 describe('Parse listen address', () => {

@@ -2,15 +2,13 @@
 import crypto from 'crypto';
 // @ts-ignore
 import fs from 'fs';
-
 import MockDate from 'mockdate';
 
 import HTPasswd, { VerdaccioConfigApp } from '../src/htpasswd';
 import { HtpasswdHashAlgorithm } from '../src/utils';
-
+import Config from './__mocks__/Config';
 // FIXME: remove this mocks imports
 import Logger from './__mocks__/Logger';
-import Config from './__mocks__/Config';
 
 const stuff = {
   logger: new Logger(),

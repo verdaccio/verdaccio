@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext } from '../../context';
-
 import UpLinks from './UpLinks';
 
 describe('<UpLinks /> component', () => {

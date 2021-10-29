@@ -1,14 +1,14 @@
 import buildDebug from 'debug';
-import sanitizyReadme from '@verdaccio/readme';
-
-import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { HEADER_TYPE, HEADERS } from '@verdaccio/core';
 import { Router } from 'express';
+
 import { IAuth } from '@verdaccio/auth';
+import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
+import sanitizyReadme from '@verdaccio/readme';
 import { Storage } from '@verdaccio/store';
 import { Package } from '@verdaccio/types';
 
-import { addScope, AuthorAvatar, parseReadme } from '../utils/web-utils';
+import { AuthorAvatar, addScope, parseReadme } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

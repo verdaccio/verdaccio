@@ -1,5 +1,7 @@
 import assert from 'assert';
+
 import { Package } from '@verdaccio/types';
+
 import { DIST_TAGS } from './constants';
 
 export function isPackageNameScoped(name: string): boolean {

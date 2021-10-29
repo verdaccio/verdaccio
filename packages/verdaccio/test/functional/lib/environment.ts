@@ -1,7 +1,9 @@
-import { yellow, green, blue, magenta } from 'kleur';
-import path from 'path';
 import NodeEnvironment from 'jest-environment-node';
+import { blue, green, magenta, yellow } from 'kleur';
+import path from 'path';
+
 import { mockServer } from '@verdaccio/mock';
+
 import { PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
 
 class FunctionalEnvironment extends NodeEnvironment {

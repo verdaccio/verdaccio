@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import { ROLES, Config as AppConfig } from '@verdaccio/config';
-import { setup } from '@verdaccio/logger';
+
 import { IAuth } from '@verdaccio/auth';
-import { Config } from '@verdaccio/types';
+import { Config as AppConfig, ROLES } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
+import { Config } from '@verdaccio/types';
 
 import { Auth } from '../src';
-
-import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf } from './helper/plugin';
+import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
 setup([]);
 

@@ -1,5 +1,5 @@
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
 
 import { parseConfigFile } from '@verdaccio/config';
 

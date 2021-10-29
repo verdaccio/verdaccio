@@ -1,13 +1,13 @@
-import supertest from 'supertest';
 import _ from 'lodash';
+import supertest from 'supertest';
 
 import {
-  errorUtils,
+  API_ERROR,
+  API_MESSAGE,
   HEADERS,
   HEADER_TYPE,
-  API_MESSAGE,
   HTTP_STATUS,
-  API_ERROR,
+  errorUtils,
 } from '@verdaccio/core';
 
 import { $RequestExtend, $ResponseExtend } from '../../types/custom';

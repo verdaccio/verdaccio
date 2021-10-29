@@ -1,18 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import {
-  renderWithStore,
-  fireEvent,
-  waitFor,
   cleanup,
+  fireEvent,
+  renderWithStore,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import translationEN from '../../i18n/crowdin/ui.json';
 import { store } from '../../store';
-
 import Header from './Header';
 
 /* eslint-disable react/jsx-no-bind*/

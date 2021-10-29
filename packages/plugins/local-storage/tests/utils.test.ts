@@ -1,10 +1,11 @@
 import path from 'path';
-import { Logger } from '@verdaccio/types';
-import * as readFile from '../src/fs';
 
-import { findPackages, _dbGenPath } from '../src/utils';
-import { loadPrivatePackages } from '../src/pkg-utils';
+import { Logger } from '@verdaccio/types';
+
+import * as readFile from '../src/fs';
 import { noSuchFile } from '../src/local-fs';
+import { loadPrivatePackages } from '../src/pkg-utils';
+import { _dbGenPath, findPackages } from '../src/utils';
 
 const logger: Logger = {
   error: jest.fn(),

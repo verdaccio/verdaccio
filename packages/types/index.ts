@@ -1,6 +1,5 @@
 // REMOVE and VERIFY where these types are used and remove the package
-
-import { Callback, RemoteUser, Package } from '@verdaccio/types';
+import { Callback, Package, RemoteUser } from '@verdaccio/types';
 
 export type JWTPayload = RemoteUser & {
   password?: string;

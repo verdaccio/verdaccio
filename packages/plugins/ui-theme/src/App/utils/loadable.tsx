@@ -1,5 +1,6 @@
 /* eslint-disable verdaccio/jsx-spread */
-import React, { lazy, Suspense } from 'react';
+import React, { Suspense, lazy } from 'react';
+
 export default (importCallback: any) => {
   const TargetComponent = lazy(importCallback);
   return (props: any) => (

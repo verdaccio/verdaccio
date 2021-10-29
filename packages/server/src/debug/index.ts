@@ -1,5 +1,6 @@
 import { Application } from 'express';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../types/custom';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../types/custom';
 
 export default (app: Application, configPath: string): void => {
   // Hook for tests only

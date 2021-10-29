@@ -1,6 +1,6 @@
 import fp from 'fastify-plugin';
 
-import { errorUtils, validatioUtils, API_ERROR, API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils, validatioUtils } from '@verdaccio/core';
 
 export default fp(
   async function (fastify) {

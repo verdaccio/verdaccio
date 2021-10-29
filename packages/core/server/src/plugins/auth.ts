@@ -1,7 +1,8 @@
-import fp from 'fastify-plugin';
-import { Config as IConfig } from '@verdaccio/types';
-import { Auth, IAuth } from '@verdaccio/auth';
 import { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
+
+import { Auth, IAuth } from '@verdaccio/auth';
+import { Config as IConfig } from '@verdaccio/types';
 
 export default fp(
   async function (fastify: FastifyInstance, opts: { config: IConfig; filters?: unknown }) {

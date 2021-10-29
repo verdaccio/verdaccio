@@ -1,14 +1,12 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import translationEN from '../../../../i18n/crowdin/ui.json';
 import { DetailContext } from '../../context';
 import { DetailContextProps } from '../../version-config';
-
-import data from './__partials__/data.json';
 import Versions from './Versions';
+import data from './__partials__/data.json';
 
 const detailContextValue: Partial<DetailContextProps> = {
   packageName: 'foo',

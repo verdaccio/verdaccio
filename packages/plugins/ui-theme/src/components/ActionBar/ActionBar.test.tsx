@@ -1,10 +1,8 @@
 import React from 'react';
-
-import { renderWithStore, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, renderWithStore } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext, DetailContextProps } from '../../pages/Version';
 import { store } from '../../store/store';
-
 import ActionBar from './ActionBar';
 
 const detailContextValue: DetailContextProps = {

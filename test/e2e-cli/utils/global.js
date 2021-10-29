@@ -1,5 +1,6 @@
-const namespace = Object.create(null);
 import buildDebug from 'debug';
+
+const namespace = Object.create(null);
 
 const debug = buildDebug('verdaccio:e2e:global');
 

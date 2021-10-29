@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+
+import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import { createTarballHash } from '@verdaccio/utils';
-import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/core';
 
 import {
   CREDENTIALS,
@@ -10,9 +11,9 @@ import {
   PORT_SERVER_2,
   TARBALL,
 } from '../config.functional';
-import whoIam from './whoIam';
-import ping from './ping';
 import fixturePkg from '../fixtures/package';
+import ping from './ping';
+import whoIam from './whoIam';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));

@@ -1,4 +1,5 @@
 import { join } from 'path';
+
 import { getFolders, searchOnStorage } from '../src/dir-utils';
 
 const mockFolder = join(__dirname, 'mockStorage');

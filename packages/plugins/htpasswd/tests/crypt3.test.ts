@@ -1,4 +1,4 @@
-import { createSalt, EncryptionMethod } from '../src/crypt3';
+import { EncryptionMethod, createSalt } from '../src/crypt3';
 
 jest.mock('crypto', () => {
   return {

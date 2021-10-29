@@ -1,9 +1,9 @@
-import path from 'path';
 import express from 'express';
+import path from 'path';
 import request from 'request';
 
-import { API_ERROR } from '@verdaccio/core';
 import { parseConfigFile } from '@verdaccio/config';
+import { API_ERROR } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 
 import endPointAPI from '../../src';

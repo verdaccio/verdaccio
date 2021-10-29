@@ -17,7 +17,7 @@
     "eslint:check": "eslint src/**/*.tsx",
     "eslint:write": "eslint src/**/*.tsx --fix",
     "prettier:check": "prettier src/**/* --check",
-    "prettier:write": "prettier src/**/* --write"
+    "prettier:write": "prettier src/**/* --write --config ../prettier.config.js"
   },
   "engines": {
     "node": ">=14"

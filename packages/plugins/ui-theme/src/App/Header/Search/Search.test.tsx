@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import api from 'verdaccio-ui/providers/API/api';
-import { renderWithStore, fireEvent, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
+import { fireEvent, renderWithStore, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '../../../store/store';
+import Search from './Search';
 
 jest.mock('lodash/debounce', () =>
   jest.fn((fn) => {
@@ -12,8 +12,6 @@ jest.mock('lodash/debounce', () =>
     return fn;
   })
 );
-
-import Search from './Search';
 
 /* eslint-disable verdaccio/jsx-spread */
 const ComponentToBeRendered: React.FC = () => (

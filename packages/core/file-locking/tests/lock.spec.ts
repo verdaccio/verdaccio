@@ -1,7 +1,7 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
-import { lockFile, unlockFile, readFile } from '../src/index';
+import { lockFile, readFile, unlockFile } from '../src/index';
 
 interface Error {
   message: string;

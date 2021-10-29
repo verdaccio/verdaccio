@@ -1,6 +1,6 @@
-import Path from 'path';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import _ from 'lodash';
+import Path from 'path';
 
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin } from '@verdaccio/types';

@@ -1,13 +1,11 @@
-import fs from 'fs';
-
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import fs from 'fs';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import yalm from 'js-yaml';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import webpack from 'webpack';
 
 import env from '../config/env';
-
 import getPackageJson from './getPackageJson';
 import baseConfig from './webpack.config';
 

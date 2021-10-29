@@ -1,9 +1,9 @@
 /* eslint-disable prefer-promise-reject-errors */
 import { ChildProcess, fork } from 'child_process';
-import path from 'path';
-import fs from 'fs';
-import waitOn from 'wait-on';
 import buildDebug from 'debug';
+import fs from 'fs';
+import path from 'path';
+import waitOn from 'wait-on';
 
 import { silentNpm } from './process';
 

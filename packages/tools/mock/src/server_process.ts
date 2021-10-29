@@ -4,8 +4,9 @@ import { fork } from 'child_process';
 import { HTTP_STATUS } from '@verdaccio/core';
 
 import { CREDENTIALS } from './constants';
-import { IVerdaccioConfig, IServerProcess } from './types';
 import { IServerBridge } from './server';
+import { IServerProcess, IVerdaccioConfig } from './types';
+
 const defaultBinPath = require.resolve('verdaccio/bin/verdaccio');
 
 export default class VerdaccioProcess implements IServerProcess {

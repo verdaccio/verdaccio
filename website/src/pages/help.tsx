@@ -1,11 +1,11 @@
-import React from 'react';
-import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import { Follow } from 'react-twitter-widgets';
 import Translate from '@docusaurus/Translate';
-import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import clsx from 'clsx';
+import React from 'react';
+import { Follow } from 'react-twitter-widgets';
 
 import styles from './help.module.scss';
 

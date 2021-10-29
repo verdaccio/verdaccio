@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { screen, render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import RegistryInfoContent from './RegistryInfoContent';
 

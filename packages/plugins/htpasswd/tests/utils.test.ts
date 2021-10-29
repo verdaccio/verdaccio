@@ -1,17 +1,16 @@
 import crypto from 'crypto';
-
 import MockDate from 'mockdate';
 
 import { DEFAULT_BCRYPT_ROUNDS } from '../src/htpasswd';
 import {
-  verifyPassword,
-  lockAndRead,
-  parseHTPasswd,
+  HtpasswdHashAlgorithm,
   addUserToHTPasswd,
-  sanityCheck,
   changePasswordToHTPasswd,
   generateHtpasswdLine,
-  HtpasswdHashAlgorithm,
+  lockAndRead,
+  parseHTPasswd,
+  sanityCheck,
+  verifyPassword,
 } from '../src/utils';
 
 const mockReadFile = jest.fn();

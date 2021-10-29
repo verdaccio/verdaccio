@@ -1,4 +1,4 @@
-import { default as MaterialUIDialog, DialogProps } from '@material-ui/core/Dialog';
+import { DialogProps, default as MaterialUIDialog } from '@material-ui/core/Dialog';
 import React, { forwardRef } from 'react';
 
 type DialogRef = HTMLDivElement;

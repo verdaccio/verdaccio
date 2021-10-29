@@ -1,5 +1,6 @@
-import { PackageList, PackageAccess } from '@verdaccio/types';
 import minimatch from 'minimatch';
+
+import { PackageAccess, PackageList } from '@verdaccio/types';
 
 export function getMatchedPackagesSpec(
   pkgName: string,

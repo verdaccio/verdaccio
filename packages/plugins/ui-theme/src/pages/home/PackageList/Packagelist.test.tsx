@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
-import { renderWithStore, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, renderWithStore } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '../../../store';
-
 import { PackageList } from './PackageList';
 
 describe('<PackageList /> component', () => {

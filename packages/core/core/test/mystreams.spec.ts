@@ -1,5 +1,6 @@
 import { Stream } from 'stream';
-import { readableToString, ReadTarball, UploadTarball } from '../src/stream-utils';
+
+import { ReadTarball, UploadTarball, readableToString } from '../src/stream-utils';
 
 describe('mystreams', () => {
   test('should delay events on ReadTarball abort', (cb) => {

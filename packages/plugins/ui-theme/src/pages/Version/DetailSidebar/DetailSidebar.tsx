@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React, { useContext } from 'react';
-
 import ActionBar from 'verdaccio-ui/components/ActionBar';
 import Author from 'verdaccio-ui/components/Author';
 import Paper from 'verdaccio-ui/components/Paper';
@@ -8,7 +7,6 @@ import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { DetailContext } from '..';
 import loadable from '../../../App/utils/loadable';
-
 import DetailSidebarFundButton from './DetailSidebarFundButton';
 import DetailSidebarTitle from './DetailSidebarTitle';
 import Developers from './Developers';

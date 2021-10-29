@@ -1,5 +1,5 @@
-import { addRegistry, initialSetup } from '../utils/registry';
 import { npm } from '../utils/process';
+import { addRegistry, initialSetup } from '../utils/registry';
 
 describe('search a package', () => {
   jest.setTimeout(90000);

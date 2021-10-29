@@ -1,8 +1,9 @@
 import assert from 'assert';
-import { Package } from '@verdaccio/types';
-import { DIST_TAGS } from '@verdaccio/core';
-import { normalizePackage, mergeUplinkTimeIntoLocal, STORAGE } from '../src/storage-utils';
 
+import { DIST_TAGS } from '@verdaccio/core';
+import { Package } from '@verdaccio/types';
+
+import { STORAGE, mergeUplinkTimeIntoLocal, normalizePackage } from '../src/storage-utils';
 import { tagVersion } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';
 

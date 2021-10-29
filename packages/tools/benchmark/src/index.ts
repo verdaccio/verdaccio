@@ -1,4 +1,5 @@
 import { Cli } from 'clipanion';
+
 import { ApiCommand } from './api';
 
 const [node, app, ...args] = process.argv;

@@ -1,12 +1,10 @@
 import React from 'react';
-
 import { render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext } from '../../context';
 import { DetailContextProps } from '../../version-config';
-
-import data from './__partials__/data.json';
 import Repository from './Repository';
+import data from './__partials__/data.json';
 
 const detailContextValue: DetailContextProps = {
   packageName: 'foo',

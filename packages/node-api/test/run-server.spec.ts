@@ -1,5 +1,7 @@
 import request from 'supertest';
+
 import { runServer } from '../src';
+
 describe('startServer via API', () => {
   test('should provide all HTTP server data', async () => {
     const webServer = await runServer();

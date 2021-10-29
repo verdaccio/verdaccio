@@ -1,8 +1,8 @@
+import { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 
-import { Config as IConfig, ConfigRuntime } from '@verdaccio/types';
 import { Config as AppConfig } from '@verdaccio/config';
-import { FastifyInstance } from 'fastify';
+import { ConfigRuntime, Config as IConfig } from '@verdaccio/types';
 
 export default fp(
   async function (fastify: FastifyInstance, opts: { config: ConfigRuntime }) {

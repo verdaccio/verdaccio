@@ -1,10 +1,9 @@
 import { PackageAccess } from '@verdaccio/types';
 
-import S3PackageManager from '../src/s3PackageManager';
 import { S3Config } from '../src/config';
-
-import logger from './__mocks__/Logger';
+import S3PackageManager from '../src/s3PackageManager';
 import pkg from './__fixtures__/pkg';
+import logger from './__mocks__/Logger';
 
 const mockHeadObject = jest.fn();
 const mockPutObject = jest.fn();

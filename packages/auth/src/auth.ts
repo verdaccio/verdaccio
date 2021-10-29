@@ -1,7 +1,9 @@
-import _ from 'lodash';
-import { NextFunction, Request, Response } from 'express';
 import buildDebug from 'debug';
+import { NextFunction, Request, Response } from 'express';
+import _ from 'lodash';
+import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
 
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
   SUPPORT_ERRORS,
@@ -11,38 +13,33 @@ import {
   errorUtils,
 } from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
-import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
-
 import {
-  Config,
-  Logger,
-  Callback,
-  IPluginAuth,
-  RemoteUser,
-  JWTSignOptions,
-  Security,
-  AuthPluginPackage,
   AllowAccess,
+  AuthPluginPackage,
+  Callback,
+  Config,
+  IPluginAuth,
+  JWTSignOptions,
+  Logger,
   PackageAccess,
   PluginOptions,
+  RemoteUser,
+  Security,
 } from '@verdaccio/types';
-
-import { getMatchedPackagesSpec, isNil, isFunction } from '@verdaccio/utils';
-import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
-
-import {
-  getMiddlewareCredentials,
-  getDefaultPlugins,
-  verifyJWTPayload,
-  parseAuthTokenHeader,
-  isAuthHeaderValid,
-  isAESLegacy,
-  convertPayloadToBase64,
-} from './utils';
+import { getMatchedPackagesSpec, isFunction, isNil } from '@verdaccio/utils';
 
 import { signPayload } from './jwt-token';
 import { aesEncrypt } from './legacy-token';
 import { parseBasicPayload } from './token';
+import {
+  convertPayloadToBase64,
+  getDefaultPlugins,
+  getMiddlewareCredentials,
+  isAESLegacy,
+  isAuthHeaderValid,
+  parseAuthTokenHeader,
+  verifyJWTPayload,
+} from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');

@@ -1,17 +1,15 @@
 import React from 'react';
-
 import {
-  renderWithStore,
   act,
-  waitFor,
   fireEvent,
+  renderWithStore,
   screen,
+  waitFor,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
 // eslint-disable-next-line jest/no-mocks-import
 import { generateTokenWithTimeRange } from '../../jest/unit/components/__mocks__/token';
 import { store } from '../store';
-
 import App from './App';
 
 jest.mock('verdaccio-ui/utils/storage', () => {

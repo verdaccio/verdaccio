@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-
 import CardContent from 'verdaccio-ui/components/CardContent';
 
 import { PackageDependencies } from '../../../../../types/packageMeta';
 import { DetailContext } from '../../context';
 import NoItems from '../NoItems';
-
-import { CardWrap, StyledText, Tags, Tag } from './styles';
+import { CardWrap, StyledText, Tag, Tags } from './styles';
 
 interface DependencyBlockProps {
   title: string;

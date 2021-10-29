@@ -1,4 +1,5 @@
 import { warningUtils } from '@verdaccio/core';
+
 import { logger, setup } from '../src';
 
 const mockWarningUtils = jest.fn();

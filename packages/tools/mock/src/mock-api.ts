@@ -1,18 +1,18 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 import request from 'supertest';
-import buildDebug from 'debug';
 
 import {
   DIST_TAGS,
-  LATEST,
-  HEADER_TYPE,
   HEADERS,
+  HEADER_TYPE,
   HTTP_STATUS,
+  LATEST,
   TOKEN_BEARER,
 } from '@verdaccio/core';
+import { Package } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 import { generateRandomHexString } from '@verdaccio/utils';
-import { Package } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:mock:api');
 

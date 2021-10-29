@@ -1,11 +1,11 @@
-import https from 'https';
-
-import fetch from 'node-fetch';
-import createHttpsProxyAgent from 'https-proxy-agent';
-import express, { Request, Response } from 'express';
-import { Logger, IPluginMiddleware, IBasicAuth, PluginOptions } from '@verdaccio/types';
-
 import { json as jsonParser } from 'body-parser';
+import express, { Request, Response } from 'express';
+import https from 'https';
+import createHttpsProxyAgent from 'https-proxy-agent';
+import fetch from 'node-fetch';
+
+import { IBasicAuth, IPluginMiddleware, Logger, PluginOptions } from '@verdaccio/types';
+
 import { ConfigAudit } from './types';
 
 // FUTURE: we should be able to overwrite this

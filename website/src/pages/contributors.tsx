@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from '@theme/Layout';
-
 import Translate, { translate } from '@docusaurus/Translate';
+import Layout from '@theme/Layout';
+import React from 'react';
+
 import styles from './contributors.module.scss';
 
 const Contributors = (): React.ReactElement => (

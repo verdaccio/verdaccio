@@ -1,4 +1,5 @@
 import { TemplateUIOptions } from '@verdaccio/types';
+
 declare global {
   interface Window {
     __VERDACCIO_BASENAME_UI_OPTIONS: TemplateUIOptions;

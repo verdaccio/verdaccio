@@ -1,10 +1,8 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { PackageMetaInterface } from '../../../../../types/packageMeta';
 import { DetailContext } from '../../context';
-
 import Engine from './Engines';
 
 jest.mock('./img/node.png', () => '');

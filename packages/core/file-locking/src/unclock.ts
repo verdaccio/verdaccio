@@ -1,4 +1,5 @@
 import locker from 'lockfile';
+
 import { Callback } from '@verdaccio/types';
 
 // unlocks file by removing existing lock file

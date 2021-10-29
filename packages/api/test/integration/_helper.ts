@@ -1,14 +1,15 @@
-import path from 'path';
-import express, { Application } from 'express';
-import supertest from 'supertest';
 import bodyParser from 'body-parser';
+import express, { Application } from 'express';
+import path from 'path';
+import supertest from 'supertest';
 
-import { Config, parseConfigFile } from '@verdaccio/config';
-import { Storage } from '@verdaccio/store';
-import { generatePackageMetadata } from '@verdaccio/helper';
-import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth, IAuth } from '@verdaccio/auth';
+import { Config, parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/helper';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+
 import apiEndpoints from '../../src';
 
 const getConf = (conf) => {

@@ -1,8 +1,9 @@
 import _ from 'lodash';
+
 import { HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 
-import smartRequest, { PromiseAssert } from '../src/request';
 import { mockServer } from '../src/mock';
+import smartRequest, { PromiseAssert } from '../src/request';
 import { IRequestPromise } from '../src/types';
 
 describe('Request Functional', () => {

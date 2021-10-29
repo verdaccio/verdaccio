@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { configExample as config } from '@verdaccio/mock';
 
 export const authProfileConf = config({

@@ -1,6 +1,7 @@
 import fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
+import path from 'path';
+
 import { Config } from '@verdaccio/types';
 
 export function getFileStats(packagePath: string): Promise<fs.Stats> {

@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
 import Loading from 'verdaccio-ui/components/Loading';
 import NotFound from 'verdaccio-ui/components/NotFound';
 
 import { Dispatch, RootState } from '../../store/store';
-
-import getRouterPackageName from './get-route-package-name';
 import VersionLayout from './VersionLayout';
+import getRouterPackageName from './get-route-package-name';
 
 interface Params {
   scope?: string;

@@ -1,26 +1,26 @@
-import Path from 'path';
+import buildDebug from 'debug';
+import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
-import { Router } from 'express';
-import buildDebug from 'debug';
+import Path from 'path';
 
+import { IAuth } from '@verdaccio/auth';
 import {
-  API_MESSAGE,
-  HEADERS,
-  DIST_TAGS,
   API_ERROR,
+  API_MESSAGE,
+  DIST_TAGS,
+  HEADERS,
   HTTP_STATUS,
   errorUtils,
 } from '@verdaccio/core';
-import { validateMetadata, isObject, hasDiffOneKey } from '@verdaccio/utils';
-import { media, expectJson, allow } from '@verdaccio/middleware';
 import { notify } from '@verdaccio/hooks';
-import { Config, Callback, MergeTags, Version, Package, CallbackAction } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
-import { IAuth } from '@verdaccio/auth';
+import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
+import { Callback, CallbackAction, Config, MergeTags, Package, Version } from '@verdaccio/types';
+import { hasDiffOneKey, isObject, validateMetadata } from '@verdaccio/utils';
 
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import star from './star';
 import { isPublishablePackage, isRelatedToDeprecation } from './utils';
 

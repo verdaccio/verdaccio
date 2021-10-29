@@ -42,6 +42,7 @@
     "@changesets/cli": "2.15.0",
     "@changesets/get-dependents-graph": "1.2.2",
     "@crowdin/cli": "3.7.1",
+    "@trivago/prettier-plugin-sort-imports": "3.0.0",
     "@types/async": "3.2.7",
     "@types/autocannon": "4.1.1",
     "@types/autosuggest-highlight": "3.1.1",

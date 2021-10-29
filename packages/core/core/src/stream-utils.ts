@@ -1,4 +1,4 @@
-import { PassThrough, TransformOptions, Transform } from 'stream';
+import { PassThrough, Transform, TransformOptions } from 'stream';
 
 export interface IReadTarball {
   abort?: () => void;

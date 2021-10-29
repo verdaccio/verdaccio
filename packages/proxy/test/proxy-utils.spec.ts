@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { parseInterval } from '../src/proxy-utils';
 
 describe('Parse interval', () => {

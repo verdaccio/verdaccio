@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+
 /* eslint-disable no-invalid-this */
-import { logger } from '@verdaccio/logger';
 import { FastifyInstance } from 'fastify';
+
+import { logger } from '@verdaccio/logger';
 
 async function searchRoute(fastify: FastifyInstance) {
   fastify.get('/-/v1/search', async (request, reply) => {

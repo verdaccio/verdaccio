@@ -1,8 +1,10 @@
-import { HTTP_STATUS } from '@verdaccio/core';
 import supertest from 'supertest';
-import { API_ERROR, API_MESSAGE, HEADER_TYPE, HEADERS } from '@verdaccio/core';
+
+import { HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/helper';
-import { $ResponseExtend, $RequestExtend } from '../../types/custom';
+
+import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer, publishVersion } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(

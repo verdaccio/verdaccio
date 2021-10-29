@@ -1,7 +1,8 @@
 import assert from 'assert';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
-import { PackageList, UpLinksConfList } from '@verdaccio/types';
 import _ from 'lodash';
+
+import { PackageList, UpLinksConfList } from '@verdaccio/types';
+import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
 export const DEFAULT_UPLINK = 'npmjs';

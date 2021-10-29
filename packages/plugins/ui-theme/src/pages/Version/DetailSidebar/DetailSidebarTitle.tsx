@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Box from 'verdaccio-ui/components/Box';
 import Heading from 'verdaccio-ui/components/Heading';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
