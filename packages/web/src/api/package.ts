@@ -80,7 +80,7 @@ function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: 
                   pkgCopy.dist.tarball = getLocalRegistryTarballUri(
                     pkgCopy.dist.tarball,
                     pkg.name,
-                    req,
+                    { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
                     config?.url_prefix
                   );
                 }

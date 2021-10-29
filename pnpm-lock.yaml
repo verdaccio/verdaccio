@@ -398,7 +398,6 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.8
-      express: 4.17.1
       lodash: 4.17.21
       node-mocks-http: 1.10.1
     dependencies:
@@ -408,7 +407,6 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@verdaccio/types': link:../types
-      express: 4.17.1
       node-mocks-http: 1.10.1
 
   packages/core/types:

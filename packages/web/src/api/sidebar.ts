@@ -42,7 +42,7 @@ function addSidebarWebApi(route: Router, config: Config, storage: Storage, auth:
             let sideBarInfo = _.clone(info);
             sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
               info,
-              req,
+              { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
               config.url_prefix
             ).versions;
             if (typeof v === 'string' && isVersionValid(info, v)) {
