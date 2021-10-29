@@ -1,17 +1,17 @@
 import _ from 'lodash';
-import { HTTP_STATUS } from '../src/constants';
 
+import { HTTP_STATUS } from '../src/constants';
 import {
-  getNotFound,
-  VerdaccioError,
-  getConflict,
-  getBadData,
-  getInternalError,
   API_ERROR,
-  getUnauthorized,
-  getForbidden,
-  getServiceUnavailable,
+  VerdaccioError,
+  getBadData,
   getCode,
+  getConflict,
+  getForbidden,
+  getInternalError,
+  getNotFound,
+  getServiceUnavailable,
+  getUnauthorized,
 } from '../src/error-utils';
 
 describe('testing errors', () => {

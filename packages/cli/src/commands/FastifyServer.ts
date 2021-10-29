@@ -1,7 +1,8 @@
 import { Command, Option } from 'clipanion';
+
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { setup, logger } from '@verdaccio/logger';
 import server from '@verdaccio/fastify-migration';
+import { logger, setup } from '@verdaccio/logger';
 import { ConfigRuntime } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';

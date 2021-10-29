@@ -1,5 +1,7 @@
-import { Package } from '@verdaccio/types';
 import semver from 'semver';
+
+import { Package } from '@verdaccio/types';
+
 import { DIST_TAGS } from './constants';
 
 /**

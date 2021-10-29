@@ -1,12 +1,13 @@
-import mime from 'mime';
-import _ from 'lodash';
 import { Router } from 'express';
+import _ from 'lodash';
+import mime from 'mime';
 
-import { media, allow } from '@verdaccio/middleware';
-import { constants, VerdaccioError } from '@verdaccio/core';
-import { Package } from '@verdaccio/types';
-import { Storage } from '@verdaccio/store';
 import { IAuth } from '@verdaccio/auth';
+import { VerdaccioError, constants } from '@verdaccio/core';
+import { allow, media } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+import { Package } from '@verdaccio/types';
+
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 export default function (route: Router, auth: IAuth, storage: Storage): void {

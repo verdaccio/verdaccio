@@ -1,4 +1,4 @@
-import { default as MaterialUIGrid, GridProps } from '@material-ui/core/Grid';
+import { GridProps, default as MaterialUIGrid } from '@material-ui/core/Grid';
 import React, { forwardRef } from 'react';
 
 type GridRef = HTMLElementTagNameMap[keyof HTMLElementTagNameMap];

@@ -1,12 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
 import { spawn } from 'child_process';
 import buildDebug from 'debug';
+import fs from 'fs';
 import { yellow } from 'kleur';
-import { pnpmGlobal } from '../utils/process';
+import os from 'os';
+import path from 'path';
+
 import * as __global from '../utils/global.js';
+import { pnpmGlobal } from '../utils/process';
 import { SETUP_VERDACCIO_PORT } from '../utils/utils';
+
 // import { waitOnRegistry } from '../utils/registry';
 
 const debug = buildDebug('verdaccio:e2e:setup');

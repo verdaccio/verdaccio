@@ -1,9 +1,10 @@
 import { Command, Option } from 'clipanion';
+
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { setup, logger } from '@verdaccio/logger';
+import { warningUtils } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigRuntime } from '@verdaccio/types';
-import { warningUtils } from '@verdaccio/core';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 

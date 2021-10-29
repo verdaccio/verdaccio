@@ -1,7 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
 import { pseudoRandomBytes } from 'crypto';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+
 import { Version } from '@verdaccio/types';
 
 export function generateRamdonStorage() {

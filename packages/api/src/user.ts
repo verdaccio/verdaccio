@@ -1,16 +1,16 @@
-import _ from 'lodash';
-import { Response, Router } from 'express';
 import buildDebug from 'debug';
+import { Response, Router } from 'express';
+import _ from 'lodash';
 
-import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 import { getApiToken } from '@verdaccio/auth';
-import { logger } from '@verdaccio/logger';
-import { createRemoteUser } from '@verdaccio/config';
-
-import { Config, RemoteUser } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
+import { createRemoteUser } from '@verdaccio/config';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { $RequestExtend, $NextFunctionVer } from '../types/custom';
+import { logger } from '@verdaccio/logger';
+import { Config, RemoteUser } from '@verdaccio/types';
+import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
+
+import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 

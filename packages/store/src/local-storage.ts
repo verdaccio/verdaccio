@@ -1,44 +1,44 @@
 import assert from 'assert';
-import UrlNode from 'url';
-import { PassThrough } from 'stream';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import _ from 'lodash';
+import { PassThrough } from 'stream';
+import UrlNode from 'url';
 
-import { isObject, getLatestVersion } from '@verdaccio/utils';
-import { errorUtils, searchUtils, pluginUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils, pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, SUPPORT_ERRORS, USERS } from '@verdaccio/core';
-import { createTarballHash } from '@verdaccio/utils';
+import { VerdaccioError } from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
+  Author,
+  Callback,
+  CallbackAction,
+  Config,
+  DistFile,
+  IPackageStorage,
+  IReadTarball,
+  IUploadTarball,
+  Logger,
+  MergeTags,
+  Package,
+  StorageUpdateCallback,
+  StringValue,
   Token,
   TokenFilter,
-  Package,
-  Config,
-  IUploadTarball,
-  IReadTarball,
-  MergeTags,
   Version,
-  DistFile,
-  Callback,
-  Logger,
-  IPackageStorage,
-  Author,
-  CallbackAction,
-  StringValue,
-  StorageUpdateCallback,
 } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/core';
+import { getLatestVersion, isObject } from '@verdaccio/utils';
+import { createTarballHash } from '@verdaccio/utils';
 
 import {
+  STORAGE,
+  cleanUpReadme,
   generatePackageTemplate,
-  normalizePackage,
   generateRevision,
   getLatestReadme,
-  cleanUpReadme,
   normalizeContributors,
-  STORAGE,
+  normalizePackage,
   tagVersion,
 } from './storage-utils';
 

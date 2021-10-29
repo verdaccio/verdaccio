@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import List from 'verdaccio-ui/components/List';
 import ListItem from 'verdaccio-ui/components/ListItem';
 import { formatDateDistance } from 'verdaccio-ui/utils/package';
 
 import { DetailContext } from '../..';
 import NoItems from '../NoItems';
-
-import { StyledText, Spacer, ListItemText } from './styles';
+import { ListItemText, Spacer, StyledText } from './styles';
 
 const UpLinks: React.FC = () => {
   const { packageMeta } = useContext(DetailContext);

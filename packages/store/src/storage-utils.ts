@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import semver from 'semver';
-import { normalizeDistTags, generateRandomHexString, isNil } from '@verdaccio/utils';
 
-import { Package, Version, Author, StringValue } from '@verdaccio/types';
+import { errorUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
+import { Author, Package, StringValue, Version } from '@verdaccio/types';
+import { generateRandomHexString, isNil, normalizeDistTags } from '@verdaccio/utils';
 
-import { pkgUtils, validatioUtils, errorUtils } from '@verdaccio/core';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS } from '@verdaccio/core';
-import { SearchInstance } from './search';
 import { LocalStorage } from './local-storage';
+import { SearchInstance } from './search';
 
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',

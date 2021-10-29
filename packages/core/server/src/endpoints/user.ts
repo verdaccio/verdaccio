@@ -1,13 +1,15 @@
 /* eslint-disable no-console */
+
 /* eslint-disable no-invalid-this */
-import _ from 'lodash';
-import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
-import { RemoteUser } from '@verdaccio/types';
-import { logger } from '@verdaccio/logger';
-import { createRemoteUser } from '@verdaccio/config';
-import { getApiToken } from '@verdaccio/auth';
 import buildDebug from 'debug';
 import { FastifyInstance, FastifyRequest } from 'fastify';
+import _ from 'lodash';
+
+import { getApiToken } from '@verdaccio/auth';
+import { createRemoteUser } from '@verdaccio/config';
+import { logger } from '@verdaccio/logger';
+import { RemoteUser } from '@verdaccio/types';
+import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:api:user');
 

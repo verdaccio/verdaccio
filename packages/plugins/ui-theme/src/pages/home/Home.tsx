@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Loading from 'verdaccio-ui/components/Loading';
 
 import { Dispatch, RootState } from '../../store/store';
-
 import { PackageList } from './PackageList';
 
 const Home: React.FC = () => {

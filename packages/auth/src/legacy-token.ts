@@ -1,12 +1,13 @@
 import {
+  HexBase64BinaryEncoding,
+  Utf8AsciiBinaryEncoding,
   createCipheriv,
   createDecipheriv,
-  HexBase64BinaryEncoding,
   randomBytes,
-  Utf8AsciiBinaryEncoding,
 } from 'crypto';
-import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 import buildDebug from 'debug';
+
+import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 
 const debug = buildDebug('verdaccio:auth:token:legacy');
 

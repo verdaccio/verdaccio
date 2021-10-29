@@ -1,8 +1,10 @@
 import async from 'async';
+
 import { HTTP_STATUS } from '@verdaccio/core';
 
-let okTotalSum = 0;
 import racePkg from '../fixtures/package';
+
+let okTotalSum = 0;
 
 export default function (server) {
   describe('should test race condition on publish packages', () => {

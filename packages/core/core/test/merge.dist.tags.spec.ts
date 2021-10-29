@@ -1,4 +1,4 @@
-import { semverSort, mergeVersions } from '../src/pkg-utils';
+import { mergeVersions, semverSort } from '../src/pkg-utils';
 
 describe('Storage._merge_versions versions', () => {
   test('simple', () => {

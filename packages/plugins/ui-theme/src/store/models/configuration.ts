@@ -1,13 +1,12 @@
 import { createModel } from '@rematch/core';
-import { Package, TemplateUIOptions } from '@verdaccio/types';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
-import API from '../../providers/API/api';
+import { Package, TemplateUIOptions } from '@verdaccio/types';
 
 import type { RootModel } from '.';
+import API from '../../providers/API/api';
 
 const defaultValues: TemplateUIOptions = {
   primaryColor: PRIMARY_COLOR,

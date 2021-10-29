@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
 import { default as MuiCard } from '../Card';

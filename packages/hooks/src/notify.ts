@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
-
+import buildDebug from 'debug';
 import Handlebars from 'handlebars';
 
-import buildDebug from 'debug';
-import { Config, Package, RemoteUser, Notification } from '@verdaccio/types';
 import { logger } from '@verdaccio/logger';
-import { notifyRequest, FetchOptions } from './notify-request';
+import { Config, Notification, Package, RemoteUser } from '@verdaccio/types';
+
+import { FetchOptions, notifyRequest } from './notify-request';
 
 const debug = buildDebug('verdaccio:hooks');
 

@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken';
 import buildDebug from 'debug';
+import jwt from 'jsonwebtoken';
 
 import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
 

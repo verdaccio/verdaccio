@@ -1,13 +1,14 @@
-import { S3, AWSError } from 'aws-sdk';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
-import { Callback, Logger, Package, ILocalPackageManager, CallbackAction } from '@verdaccio/types';
+import { AWSError, S3 } from 'aws-sdk';
 import { HttpError } from 'http-errors';
 
-import { is404Error, convertS3Error, create409Error } from './s3Errors';
-import { deleteKeyPrefix } from './deleteKeyPrefix';
-import { S3Config } from './config';
+import { HEADERS, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+import { Callback, CallbackAction, ILocalPackageManager, Logger, Package } from '@verdaccio/types';
+
 import addTrailingSlash from './addTrailingSlash';
+import { S3Config } from './config';
+import { deleteKeyPrefix } from './deleteKeyPrefix';
+import { convertS3Error, create409Error, is404Error } from './s3Errors';
 
 const pkgFileName = 'package.json';
 

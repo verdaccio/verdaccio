@@ -1,13 +1,14 @@
-import path from 'path';
+import bodyParser from 'body-parser';
 import express from 'express';
 import { Application } from 'express';
-import bodyParser from 'body-parser';
-import { Config, parseConfigFile } from '@verdaccio/config';
-import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
+import path from 'path';
 
-import { Storage } from '@verdaccio/store';
 import { Auth, IAuth } from '@verdaccio/auth';
+import { Config, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+
 import routes from '../src';
 
 setup([]);

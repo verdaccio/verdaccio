@@ -1,6 +1,7 @@
-import { URL } from 'url';
 import buildDebug from 'debug';
+import { URL } from 'url';
 import isURLValidator from 'validator/lib/isURL';
+
 import { HEADERS } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:core:url');

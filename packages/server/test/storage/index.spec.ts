@@ -1,14 +1,13 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { Writable } from 'stream';
+
 import { Config as AppConfig } from '@verdaccio/config';
-import { Storage } from '@verdaccio/store';
-
-import { Config } from '@verdaccio/types';
 import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
-import { mockServer, configExample, DOMAIN_SERVERS, generateRamdonStorage } from '@verdaccio/mock';
-
-import { setup, logger } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
+import { DOMAIN_SERVERS, configExample, generateRamdonStorage, mockServer } from '@verdaccio/mock';
+import { Storage } from '@verdaccio/store';
+import { Config } from '@verdaccio/types';
 
 setup([]);
 

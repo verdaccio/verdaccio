@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Button from 'verdaccio-ui/components/Button';
 import { useConfig } from 'verdaccio-ui/providers/config';
 
 import { Dispatch, RootState } from '../../store/store';
-
 import HeaderInfoDialog from './HeaderInfoDialog';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
 import LoginDialog from './LoginDialog';
 import Search from './Search';
-import { NavBar, InnerNavBar, MobileNavBar, InnerMobileNavBar } from './styles';
+import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 
 interface Props {
   withoutSearch?: boolean;

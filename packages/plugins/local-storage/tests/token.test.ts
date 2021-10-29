@@ -2,6 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import { dirSync } from 'tmp-promise';
+
 import { Logger, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';

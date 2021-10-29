@@ -4,18 +4,17 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import { useConfig } from 'verdaccio-ui/providers/config';
 import {
-  getCLISetRegistry,
   getCLIChangePassword,
   getCLISetConfigRegistry,
+  getCLISetRegistry,
 } from 'verdaccio-ui/utils/cli-utils';
 import { NODE_MANAGER } from 'verdaccio-ui/utils/constants';
 

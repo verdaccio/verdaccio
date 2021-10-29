@@ -1,11 +1,9 @@
 import React from 'react';
-
 import List from 'verdaccio-ui/components/List';
 import ListItem from 'verdaccio-ui/components/ListItem';
 
 import { DistTags } from '../../../../../types/packageMeta';
-
-import { Spacer, ListItemText } from './styles';
+import { ListItemText, Spacer } from './styles';
 
 interface Props {
   tags: DistTags;

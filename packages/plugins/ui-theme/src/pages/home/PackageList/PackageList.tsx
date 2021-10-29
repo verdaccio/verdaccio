@@ -3,7 +3,6 @@ import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List, ListRowProps } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
-
 import Divider from 'verdaccio-ui/components/Divider';
 import { formatLicense } from 'verdaccio-ui/utils/package';
 

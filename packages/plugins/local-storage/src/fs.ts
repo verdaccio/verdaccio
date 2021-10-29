@@ -1,5 +1,5 @@
-import { promisify } from 'util';
 import fs from 'fs';
+import { promisify } from 'util';
 
 // FUTURE: when v15 is min replace by fs/promises
 const readFile = promisify(fs.readFile);

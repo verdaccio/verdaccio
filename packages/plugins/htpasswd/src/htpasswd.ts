@@ -1,18 +1,18 @@
 import fs from 'fs';
 import Path from 'path';
 
-import { Callback, Config, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
 import { unlockFile } from '@verdaccio/file-locking';
+import { Callback, Config, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
 
 import {
-  verifyPassword,
-  lockAndRead,
-  parseHTPasswd,
-  addUserToHTPasswd,
-  changePasswordToHTPasswd,
-  sanityCheck,
   HtpasswdHashAlgorithm,
   HtpasswdHashConfig,
+  addUserToHTPasswd,
+  changePasswordToHTPasswd,
+  lockAndRead,
+  parseHTPasswd,
+  sanityCheck,
+  verifyPassword,
 } from './utils';
 
 export type HTPasswdConfig = {

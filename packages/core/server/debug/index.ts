@@ -1,7 +1,9 @@
-import path from 'path';
 import buildDebug from 'debug';
+import path from 'path';
+
 import { parseConfigFile } from '@verdaccio/config';
-import { setup, logger } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
+
 import server from '../src/index';
 
 const debug = buildDebug('verdaccio:fastify:debug');

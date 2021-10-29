@@ -1,10 +1,11 @@
-import { errorUtils, HTTP_STATUS, API_ERROR } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+
 import {
   addVersion,
-  uploadPackageTarball,
+  publishPackage,
   removeTarball,
   unPublishPackage,
-  publishPackage,
+  uploadPackageTarball,
 } from '../../src/publish';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';

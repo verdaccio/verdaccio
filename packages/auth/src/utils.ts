@@ -1,26 +1,27 @@
-import _ from 'lodash';
 import buildDebug from 'debug';
+import _ from 'lodash';
+
+import { createAnonymousRemoteUser } from '@verdaccio/config';
 import {
+  API_ERROR,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+  VerdaccioError,
+  errorUtils,
+} from '@verdaccio/core';
+import {
+  AuthPackageAllow,
   Callback,
   Config,
   IPluginAuth,
   RemoteUser,
   Security,
-  AuthPackageAllow,
 } from '@verdaccio/types';
-import {
-  HTTP_STATUS,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-  API_ERROR,
-  VerdaccioError,
-  errorUtils,
-} from '@verdaccio/core';
 
-import { createAnonymousRemoteUser } from '@verdaccio/config';
-import { TokenEncryption, AESPayload } from './auth';
-import { aesDecrypt } from './legacy-token';
+import { AESPayload, TokenEncryption } from './auth';
 import { verifyPayload } from './jwt-token';
+import { aesDecrypt } from './legacy-token';
 import { parseBasicPayload } from './token';
 
 const debug = buildDebug('verdaccio:auth:utils');

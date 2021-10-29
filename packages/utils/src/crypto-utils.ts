@@ -1,4 +1,4 @@
-import { createHash, pseudoRandomBytes, Hash } from 'crypto';
+import { Hash, createHash, pseudoRandomBytes } from 'crypto';
 
 export const defaultTarballHashAlgorithm = 'sha1';
 

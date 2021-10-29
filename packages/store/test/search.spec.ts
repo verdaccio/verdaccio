@@ -1,8 +1,8 @@
 import { Config } from '@verdaccio/config';
-import { configExample } from '@verdaccio/mock';
-import { setup } from '@verdaccio/logger';
-
 import { searchUtils } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
+import { configExample } from '@verdaccio/mock';
+
 import { Storage, removeDuplicates } from '../src';
 import { SearchInstance } from '../src/search';
 

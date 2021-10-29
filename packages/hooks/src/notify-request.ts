@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 
-import { logger } from '@verdaccio/logger';
 import { HTTP_STATUS } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 
 const debug = buildDebug('verdaccio:hooks:request');
 const fetch = require('undici-fetch');

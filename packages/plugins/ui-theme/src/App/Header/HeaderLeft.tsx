@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import Logo from 'verdaccio-ui/components/Logo';
 
 import Search from './Search';

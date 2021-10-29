@@ -1,10 +1,10 @@
 import { createModel } from '@rematch/core';
-import { Package } from '@verdaccio/types';
 import { PackageMetaInterface } from 'types/packageMeta';
 
-import API from '../../providers/API/api';
+import { Package } from '@verdaccio/types';
 
 import type { RootModel } from '.';
+import API from '../../providers/API/api';
 
 function isPackageVersionValid(
   packageMeta: Partial<PackageMetaInterface>,

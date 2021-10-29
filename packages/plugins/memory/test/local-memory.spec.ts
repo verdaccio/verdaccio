@@ -1,9 +1,8 @@
-import { Logger, IPluginStorage } from '@verdaccio/types';
+import { IPluginStorage, Logger } from '@verdaccio/types';
 
+import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import { DataHandler } from '../src/memory-handler';
-import LocalMemory from '../src/index';
-
 import config from './partials/config';
 
 const logger: Logger = {

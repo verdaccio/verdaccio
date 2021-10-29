@@ -1,15 +1,16 @@
 import buildDebug from 'debug';
-import {
-  PluginOptions,
-  Callback,
-  PackageAccess,
-  IPluginAuth,
-  RemoteUser,
-  Logger,
-} from '@verdaccio/types';
-import { errorUtils, API_ERROR } from '@verdaccio/core';
 
-import { VerdaccioMemoryConfig, Users, UserMemory } from './types';
+import { API_ERROR, errorUtils } from '@verdaccio/core';
+import {
+  Callback,
+  IPluginAuth,
+  Logger,
+  PackageAccess,
+  PluginOptions,
+  RemoteUser,
+} from '@verdaccio/types';
+
+import { UserMemory, Users, VerdaccioMemoryConfig } from './types';
 
 const debug = buildDebug('verdaccio:plugin:auth:memory:user');
 

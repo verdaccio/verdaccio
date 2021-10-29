@@ -1,9 +1,7 @@
-import React, { useState, useContext } from 'react';
-
+import React, { useContext, useState } from 'react';
 import Box from 'verdaccio-ui/components/Box';
 
 import { DetailContext } from '../context';
-
 import Deprecated from './Deprecated';
 import DetailContainerContent from './DetailContainerContent';
 import DetailContainerTabs from './DetailContainerTabs';

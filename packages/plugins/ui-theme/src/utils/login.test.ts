@@ -1,11 +1,10 @@
 // eslint-disable-next-line jest/no-mocks-import
 import {
-  generateTokenWithTimeRange,
+  generateInvalidToken,
   generateTokenWithExpirationAsString,
   generateTokenWithOutExpiration,
-  generateInvalidToken,
+  generateTokenWithTimeRange,
 } from '../../jest/unit/components/__mocks__/token';
-
 import { isTokenExpire } from './login';
 
 /* eslint-disable no-console */

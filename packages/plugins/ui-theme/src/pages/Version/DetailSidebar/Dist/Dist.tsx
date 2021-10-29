@@ -1,13 +1,11 @@
 import React, { FC, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import List from 'verdaccio-ui/components/List';
 import fileSizeSI from 'verdaccio-ui/utils/file-size';
 import { formatLicense } from 'verdaccio-ui/utils/package';
 
 import { DetailContext } from '../../context';
-
-import { StyledText, DistListItem, DistChips } from './styles';
+import { DistChips, DistListItem, StyledText } from './styles';
 
 const DistChip: FC<{ name: string }> = ({ name, children }) =>
   children ? (

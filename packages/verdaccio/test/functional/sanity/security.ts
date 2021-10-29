@@ -1,4 +1,5 @@
 import _ from 'lodash';
+
 import { HTTP_STATUS } from '@verdaccio/core';
 
 export default function (server) {

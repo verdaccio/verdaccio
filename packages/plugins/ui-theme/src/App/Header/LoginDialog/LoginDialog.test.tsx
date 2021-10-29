@@ -1,17 +1,15 @@
 import React from 'react';
-
 import api from 'verdaccio-ui/providers/API/api';
 import {
-  renderWithStore,
-  waitFor,
-  fireEvent,
-  cleanup,
-  screen,
   act,
+  cleanup,
+  fireEvent,
+  renderWithStore,
+  screen,
+  waitFor,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '../../../store';
-
 import LoginDialog from './LoginDialog';
 
 describe('<LoginDialog /> component', () => {

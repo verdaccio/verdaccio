@@ -1,4 +1,5 @@
 import { Config, IPackageStorage, Token, TokenFilter } from '@verdaccio/types';
+
 import { searchUtils } from '.';
 
 interface IPlugin {

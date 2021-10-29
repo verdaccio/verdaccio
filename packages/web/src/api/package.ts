@@ -1,15 +1,15 @@
 import buildDebug from 'debug';
+import { Router } from 'express';
 import _ from 'lodash';
+
+import { IAuth } from '@verdaccio/auth';
+import { logger } from '@verdaccio/logger';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { formatAuthor } from '@verdaccio/utils';
 
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { logger } from '@verdaccio/logger';
-import { Router } from 'express';
-import { IAuth } from '@verdaccio/auth';
-import { Storage } from '@verdaccio/store';
-import { Config, Package, RemoteUser } from '@verdaccio/types';
-
-import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { generateGravatarUrl } from '../utils/user';
 import { AuthorAvatar, sortByName } from '../utils/web-utils';
 

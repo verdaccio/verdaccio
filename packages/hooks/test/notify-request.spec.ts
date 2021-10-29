@@ -1,6 +1,7 @@
+import { createRemoteUser, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
-import { parseConfigFile, createRemoteUser } from '@verdaccio/config';
+
 import { notify } from '../src/notify';
 import { parseConfigurationFile } from './__helper';
 

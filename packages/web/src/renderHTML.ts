@@ -1,12 +1,13 @@
-import { URL } from 'url';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
+import { URL } from 'url';
+
+import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
 import { getPublicUrl } from '@verdaccio/url';
 
-import { WEB_TITLE } from '@verdaccio/config';
-import { hasLogin, validatePrimaryColor } from './utils/web-utils';
 import renderTemplate from './template';
+import { hasLogin, validatePrimaryColor } from './utils/web-utils';
 
 const pkgJSON = require('../package.json');
 const DEFAULT_LANGUAGE = 'es-US';

@@ -1,7 +1,8 @@
-import fp from 'fastify-plugin';
-import { Config as IConfig } from '@verdaccio/types';
-import { Storage } from '@verdaccio/store';
 import { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
+
+import { Storage } from '@verdaccio/store';
+import { Config as IConfig } from '@verdaccio/types';
 
 export default fp(
   async function (fastify: FastifyInstance, opts: { config: IConfig; filters?: unknown }) {

@@ -1,11 +1,10 @@
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 import { dirSync } from 'tmp-promise';
 
 import { ILocalPackageManager, Logger, Package } from '@verdaccio/types';
 
-import LocalDriver, { fileExist, fSError, noSuchFile, resourceNotAvailable } from '../src/local-fs';
-
+import LocalDriver, { fSError, fileExist, noSuchFile, resourceNotAvailable } from '../src/local-fs';
 import pkg from './__fixtures__/pkg';
 
 let localTempStorage: string;

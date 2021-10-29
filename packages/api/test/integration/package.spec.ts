@@ -1,7 +1,8 @@
 import supertest from 'supertest';
 
-import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
-import { $ResponseExtend, $RequestExtend } from '../../types/custom';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+
+import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer, publishTaggedVersion, publishVersion } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(

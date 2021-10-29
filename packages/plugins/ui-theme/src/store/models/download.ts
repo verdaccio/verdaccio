@@ -1,9 +1,8 @@
 import { createModel } from '@rematch/core';
 
+import type { RootModel } from '.';
 import API from '../../providers/API/api';
 import { downloadFile, extractFileName } from '../../utils/url';
-
-import type { RootModel } from '.';
 
 export const download = createModel<RootModel>()({
   state: {},

@@ -1,7 +1,9 @@
 import assert from 'assert';
 import _ from 'lodash';
-import { PackageAccess } from '@verdaccio/types';
+
 import { errorUtils } from '@verdaccio/core';
+import { PackageAccess } from '@verdaccio/types';
+
 export interface LegacyPackageList {
   [key: string]: PackageAccess;
 }

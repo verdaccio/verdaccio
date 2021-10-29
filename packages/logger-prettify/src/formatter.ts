@@ -1,9 +1,9 @@
+import { green, red, white } from 'kleur';
 import { inspect } from 'util';
 
-import { white, red, green } from 'kleur';
-import { calculateLevel, LevelCode, levelsColors, subSystemLevels } from './levels';
-import { formatLoggingDate, isObject, padLeft, padRight } from './utils';
+import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from './levels';
 import { PrettyOptionsExtended } from './types';
+import { formatLoggingDate, isObject, padLeft, padRight } from './utils';
 
 let LEVEL_VALUE_MAX = 0;
 for (const l in levelsColors) {

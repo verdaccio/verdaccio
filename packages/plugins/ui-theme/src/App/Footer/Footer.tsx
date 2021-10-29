@@ -1,17 +1,17 @@
 /* eslint-disable react/jsx-max-depth */
+
 /* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
 import FlagsIcon from 'country-flag-icons/react/3x2';
 import React from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-
+import { Trans, useTranslation } from 'react-i18next';
 import { Earth } from 'verdaccio-ui/components/Icons';
 import Logo from 'verdaccio-ui/components/Logo';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useConfig } from 'verdaccio-ui/providers/config';
 import { goToVerdaccioWebsite } from 'verdaccio-ui/utils/windows';
 
-import { Wrapper, Left, Right, Love, Inner } from './styles';
+import { Inner, Left, Love, Right, Wrapper } from './styles';
 
 /* eslint-disable react/jsx-key */
 const Footer = () => {

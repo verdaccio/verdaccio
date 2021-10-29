@@ -1,11 +1,12 @@
 import { Cli } from 'clipanion';
 
 import { warningUtils } from '@verdaccio/core';
+
+import { FastifyServer } from './commands/FastifyServer';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
-import { FastifyServer } from './commands/FastifyServer';
-import { isVersionValid, MIN_NODE_VERSION } from './utils';
+import { MIN_NODE_VERSION, isVersionValid } from './utils';
 
 if (process.getuid && process.getuid() === 0) {
   warningUtils.emit(warningUtils.Codes.VERWAR001);

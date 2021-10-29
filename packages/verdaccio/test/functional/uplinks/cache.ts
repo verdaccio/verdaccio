@@ -1,12 +1,13 @@
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import crypto from 'crypto';
+
 import { HTTP_STATUS } from '@verdaccio/core';
 import { createTarballHash } from '@verdaccio/utils';
 
 import { TARBALL } from '../config.functional';
-import { readFile } from '../lib/test.utils';
 import requirePackage from '../fixtures/package';
+import { readFile } from '../lib/test.utils';
 
 function getBinary() {
   return readFile('../fixtures/binary');

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Text from 'verdaccio-ui/components/Text';
 
 interface Props {

@@ -1,6 +1,6 @@
 import {
-  default as MaterialUIInputAdornment,
   InputAdornmentProps,
+  default as MaterialUIInputAdornment,
 } from '@material-ui/core/InputAdornment';
 import React, { forwardRef } from 'react';
 

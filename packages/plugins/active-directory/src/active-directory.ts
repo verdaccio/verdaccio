@@ -1,6 +1,7 @@
+import ActiveDirectory from 'activedirectory2';
+
 import { errorUtils } from '@verdaccio/core';
 import { Callback, IPluginAuth, Logger } from '@verdaccio/types';
-import ActiveDirectory from 'activedirectory2';
 
 export const NotAuthMessage = 'AD - Active Directory authentication failed';
 

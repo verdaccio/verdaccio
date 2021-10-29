@@ -1,5 +1,7 @@
 import * as httpMocks from 'node-mocks-http';
+
 import { HEADERS } from '@verdaccio/core';
+
 import { convertDistRemoteToLocalTarballUrls } from '../src';
 
 describe('convertDistRemoteToLocalTarballUrls', () => {

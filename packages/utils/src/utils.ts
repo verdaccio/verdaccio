@@ -1,8 +1,9 @@
 import assert from 'assert';
 import _ from 'lodash';
 import semver from 'semver';
-import { Package, Version, Author } from '@verdaccio/types';
-import { DIST_TAGS, DEFAULT_USER } from '@verdaccio/core';
+
+import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
+import { Author, Package, Version } from '@verdaccio/types';
 
 /**
  * From normalize-package-data/lib/fixer.js

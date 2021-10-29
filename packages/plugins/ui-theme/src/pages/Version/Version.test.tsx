@@ -1,14 +1,12 @@
 import { waitFor } from '@testing-library/dom';
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-
 import { render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import translationEN from '../../i18n/crowdin/ui.json';
-
+import Version from './Version';
 import data from './__partials__/data.json';
 import { DetailContext } from './context';
-import Version from './Version';
 
 // :-) we mock this otherways fails on render, some weird issue on material-ui
 jest.mock('verdaccio-ui/components/Avatar');

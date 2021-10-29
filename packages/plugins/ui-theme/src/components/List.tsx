@@ -1,4 +1,4 @@
-import { default as MaterialUIList, ListProps } from '@material-ui/core/List';
+import { ListProps, default as MaterialUIList } from '@material-ui/core/List';
 import React, { forwardRef } from 'react';
 
 type ListRef = HTMLUListElement;

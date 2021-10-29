@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 export default function (route: Router): void {
   route.get(

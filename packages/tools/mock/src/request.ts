@@ -1,7 +1,8 @@
 import assert from 'assert';
+import buildDebug from 'debug';
 import _ from 'lodash';
 import request from 'request';
-import buildDebug from 'debug';
+
 import { IRequestPromise } from './server';
 
 const requestData = Symbol('smart_request_data');

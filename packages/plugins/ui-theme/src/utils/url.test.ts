@@ -1,4 +1,4 @@
-import { isURL, isEmail, extractFileName } from './url';
+import { extractFileName, isEmail, isURL } from './url';
 
 describe('utils', () => {
   describe('url', () => {

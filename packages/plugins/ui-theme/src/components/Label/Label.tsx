@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { Theme, FontWeight } from 'verdaccio-ui/design-tokens/theme';
+import { FontWeight, Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {
   text: string;

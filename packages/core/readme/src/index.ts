@@ -1,6 +1,6 @@
-import marked from 'marked';
 import createDOMPurify from 'dompurify';
 import { JSDOM } from 'jsdom';
+import marked from 'marked';
 
 const DOMPurify = createDOMPurify(new JSDOM('').window);
 

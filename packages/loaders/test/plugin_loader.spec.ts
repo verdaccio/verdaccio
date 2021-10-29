@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { setup } from '@verdaccio/logger';
 
 import { loadPlugin } from '../src/plugin-loader';

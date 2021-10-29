@@ -1,13 +1,12 @@
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import i18next from 'i18next';
-import React, { useEffect, useCallback } from 'react';
-
+import React, { useCallback, useEffect } from 'react';
 import { useConfig } from 'verdaccio-ui/providers/config';
 
-import loadDayJSLocale from './load-dayjs-locale';
-import { getTheme, ThemeMode } from './theme';
 import ThemeContext from './ThemeContext';
+import loadDayJSLocale from './load-dayjs-locale';
+import { ThemeMode, getTheme } from './theme';
 import useLocalStorage from './useLocalStorage';
 
 const ThemeProvider: React.FC = ({ children }) => {

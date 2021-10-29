@@ -1,8 +1,7 @@
-import { buildToken } from '@verdaccio/utils';
-
-import { constants, TOKEN_BASIC, TOKEN_BEARER, HEADERS } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
+import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, constants } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
+import { buildToken } from '@verdaccio/utils';
 
 import { ProxyStorage } from '../src/up-storage';
 

@@ -1,18 +1,18 @@
-import { Config as IConfig, RemoteUser } from '@verdaccio/types';
-import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/config';
-
-import fastify from 'fastify';
 import buildDebug from 'debug';
+import fastify from 'fastify';
 
-import search from './endpoints/search';
-import storagePlugin from './plugins/storage';
-import authPlugin from './plugins/auth';
-import coreUtils from './plugins/coreUtils';
-import configPlugin from './plugins/config';
+import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/config';
+import { Config as IConfig, RemoteUser } from '@verdaccio/types';
+
 import ping from './endpoints/ping';
+import search from './endpoints/search';
+import tarball from './endpoints/tarball';
 import user from './endpoints/user';
 import whoami from './endpoints/whoami';
-import tarball from './endpoints/tarball';
+import authPlugin from './plugins/auth';
+import configPlugin from './plugins/config';
+import coreUtils from './plugins/coreUtils';
+import storagePlugin from './plugins/storage';
 
 const debug = buildDebug('verdaccio:fastify');
 

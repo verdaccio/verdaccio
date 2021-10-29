@@ -1,7 +1,7 @@
 import { HTTP_STATUS } from '@verdaccio/core';
 
-import pkgReadmeJSON from './pkg-readme.json';
 import pkgNoReadmeJSON from './pkg-no-readme.json';
+import pkgReadmeJSON from './pkg-readme.json';
 
 export default function (server, server2) {
   const DEFAULT_NO_README = 'ERROR: No README data found!';

@@ -1,12 +1,12 @@
-import _ from 'lodash';
 import buildDebug from 'debug';
-import { Router, Response, Request } from 'express';
+import { Request, Response, Router } from 'express';
+import _ from 'lodash';
 
-import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
-
-import { API_ERROR, APP_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { IAuth } from '@verdaccio/auth';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 import { validatePassword } from '@verdaccio/utils';
+
 import { $NextFunctionVer } from './package';
 
 const debug = buildDebug('verdaccio:web:api:user');

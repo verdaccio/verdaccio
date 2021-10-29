@@ -1,7 +1,6 @@
 import React from 'react';
 
 import loadable from '../../../App/utils/loadable';
-
 import DetailContainerContentReadme from './DetailContainerContentReadme';
 
 export enum TabPosition {

@@ -1,8 +1,9 @@
-import _ from 'lodash';
 import buildDebug from 'debug';
-import { logger } from '@verdaccio/logger';
+import _ from 'lodash';
+
 import { IAuth } from '@verdaccio/auth';
 import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
 import { Package } from '@verdaccio/types';
 

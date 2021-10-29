@@ -1,4 +1,4 @@
-import { HTTP_STATUS, API_ERROR } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
 
 export default function (server2) {
   // credentials

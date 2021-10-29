@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-import { normalisePackageAccess, PACKAGE_ACCESS } from '../src/package-access';
 import { parseConfigFile } from '../src';
+import { PACKAGE_ACCESS, normalisePackageAccess } from '../src/package-access';
 import { parseConfigurationFile } from './utils';
 
 describe('Package access utilities', () => {

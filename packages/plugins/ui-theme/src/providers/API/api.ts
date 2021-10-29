@@ -1,5 +1,5 @@
-import storage from './storage';
 import '../../../types';
+import storage from './storage';
 
 /**
  * Handles response according to content type

@@ -1,4 +1,4 @@
-import { Config, IPluginStorageFilter, Callback } from '@verdaccio/types';
+import { Callback, Config, IPluginStorageFilter } from '@verdaccio/types';
 
 export interface IGetPackageOptions {
   callback: Callback;

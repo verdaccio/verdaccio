@@ -1,7 +1,6 @@
 /**
  * Token Utility
  */
-
 import dayjs from 'dayjs';
 import { Base64 } from 'js-base64';
 

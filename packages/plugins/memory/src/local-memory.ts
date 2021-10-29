@@ -1,6 +1,7 @@
-import { errorUtils } from '@verdaccio/core';
-import { Logger, Callback, Config, IPluginStorage, Token, PluginOptions } from '@verdaccio/types';
 import buildDebug from 'debug';
+
+import { errorUtils } from '@verdaccio/core';
+import { Callback, Config, IPluginStorage, Logger, PluginOptions, Token } from '@verdaccio/types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 

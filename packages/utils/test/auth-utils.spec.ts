@@ -1,4 +1,4 @@
-import { validatePassword, createSessionToken, getAuthenticatedMessage } from '../src';
+import { createSessionToken, getAuthenticatedMessage, validatePassword } from '../src';
 
 describe('Auth Utilities', () => {
   describe('validatePassword', () => {

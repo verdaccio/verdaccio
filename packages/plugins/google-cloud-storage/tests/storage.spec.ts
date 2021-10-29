@@ -1,15 +1,14 @@
+import { DownloadResponse } from '@google-cloud/storage';
 import fs from 'fs';
 import path from 'path';
 import { Writable } from 'stream';
 
-import { DownloadResponse } from '@google-cloud/storage';
+import { API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 import { IPackageStorageManager } from '@verdaccio/types';
-import { Logger, ILocalData, Callback, Package, IPackageStorage } from '@verdaccio/types';
-import { HTTP_STATUS, API_ERROR, VerdaccioError } from '@verdaccio/core';
+import { Callback, ILocalData, IPackageStorage, Logger, Package } from '@verdaccio/types';
 
 import { pkgFileName } from '../src/storage';
 import { VerdaccioConfigGoogleStorage } from '../src/types';
-
 import storageConfig from './partials/config';
 import pkgExample from './partials/pkg';
 import { generatePackage } from './partials/utils.helpers';

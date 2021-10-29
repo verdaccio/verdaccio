@@ -3,13 +3,12 @@ import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/core/styles';
 import LanguageIcon from '@material-ui/icons/Language';
 import i18next from 'i18next';
-import React, { useCallback, useContext, useState, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { AutoComplete } from 'verdaccio-ui/components/AutoComplete/AutoCompleteV2';
 import MenuItem from 'verdaccio-ui/components/MenuItem';
-import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
+import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { Language, listLanguages } from '../../i18n/enabledLanguages';
 

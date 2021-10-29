@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { Dispatch, RootState } from '../../store/store';
-
 import { DetailContext } from './context';
 import getRouterPackageName from './get-route-package-name';
 

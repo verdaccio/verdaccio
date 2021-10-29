@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify';
 import buildDebug from 'debug';
+import { FastifyInstance } from 'fastify';
 
 const debug = buildDebug('verdaccio:api:whoami');
 

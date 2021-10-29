@@ -1,6 +1,6 @@
-import path from 'path';
-import os from 'os';
 import fs from 'fs-extra';
+import os from 'os';
+import path from 'path';
 
 export function createProject(projectName: string) {
   // @ts-ignore
