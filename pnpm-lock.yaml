@@ -748,7 +748,7 @@ importers:
       '@types/react-virtualized': 9.21.14
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.23
-      autosuggest-highlight: 3.1.1
+      autosuggest-highlight: 3.2.0
       babel-loader: 8.2.3
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
@@ -830,7 +830,7 @@ importers:
       '@types/react-virtualized': 9.21.14
       '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
-      autosuggest-highlight: 3.1.1
+      autosuggest-highlight: 3.2.0
       babel-loader: 8.2.3_4eb5d49c3f84a314f0749e30d940d4cb
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
@@ -7952,8 +7952,8 @@ packages:
       postcss-value-parser: 4.1.0
     dev: true
 
-  /autosuggest-highlight/3.1.1:
-    resolution: {integrity: sha512-MQ6GNIGMMZbeA5FlBLXXgkZEthysCdYNkMV4MahB2/qB/9cwBnVsePUPnIqkMuzjzclTtDa67xln7cgLDu2f/g==}
+  /autosuggest-highlight/3.2.0:
+    resolution: {integrity: sha512-BI38Ju70l3XP7c/eZHOhEy1eUK0Bpweepcr+/ru1e0LOK2nWdEl8HysyNwibfNqcLFSNZ9t2Jcv3pjiSB+UG1Q==}
     dependencies:
       diacritic: 0.0.2
     dev: true
