@@ -75,7 +75,7 @@
     "react-router-dom": "5.3.0",
     "react-virtualized": "9.22.3",
     "react-redux": "7.2.6",
-    "redux": "4.1.1",
+    "redux": "4.1.2",
     "rimraf": "3.0.2",
     "msw": "0.35.0",
     "standard-version": "9.3.1",
