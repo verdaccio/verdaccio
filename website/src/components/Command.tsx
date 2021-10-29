@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import Translate, { translate } from '@docusaurus/Translate';
 import clsx from 'clsx';
 import copy from 'copy-text-to-clipboard';
-import Translate, { translate } from '@docusaurus/Translate';
+import React, { useState } from 'react';
 
 import styles from './Command.module.scss';
 

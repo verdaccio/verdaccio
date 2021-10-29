@@ -1,11 +1,11 @@
-import React from 'react';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import { Link } from '@docusaurus/router';
-import { Follow } from 'react-twitter-widgets';
 import Translate, { translate } from '@docusaurus/Translate';
+import { Link } from '@docusaurus/router';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Command from './Command';
+import React from 'react';
+import { Follow } from 'react-twitter-widgets';
 
+import Command from './Command';
 import styles from './Header.module.scss';
 
 const Header = (): React.ReactElement => {
