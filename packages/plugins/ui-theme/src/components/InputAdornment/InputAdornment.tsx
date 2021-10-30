@@ -1,7 +1,7 @@
 import {
   InputAdornmentProps,
   default as MaterialUIInputAdornment,
-} from '@material-ui/core/InputAdornment';
+} from '@mui/material/InputAdornment';
 import React, { forwardRef } from 'react';
 
 type InputAdornmentRef = HTMLDivElement;

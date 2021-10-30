@@ -101,7 +101,6 @@ describe('<LoginDialog /> component', () => {
       fireEvent.click(signInButton);
     });
     expect(props.onClose).toHaveBeenCalledTimes(1);
-    // screen.debug();
   });
 
   test.todo('validateCredentials: should validate credentials');

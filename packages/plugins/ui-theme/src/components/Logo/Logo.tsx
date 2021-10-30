@@ -47,7 +47,7 @@ const StyledLogo = styled('div')<Props & { theme?: Theme }>(({ size = 'small', t
   boxSizing: 'border-box',
   backgroundPosition: 'center',
   backgroundSize: 'contain',
-  backgroundImage: `url(${logos[theme?.palette.type]})`,
+  backgroundImage: `url(${logos[theme?.palette.mode]})`,
   backgroundRepeat: ' no-repeat',
   width: sizes[size],
   height: sizes[size],

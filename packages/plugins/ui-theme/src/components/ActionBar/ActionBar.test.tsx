@@ -1,5 +1,5 @@
 import React from 'react';
-import { cleanup, renderWithStore } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext, DetailContextProps } from '../../pages/Version';
 import { store } from '../../store/store';
@@ -72,18 +72,12 @@ describe('<ActionBar /> component', () => {
   });
 
   test('when there is a button to download a tarball', () => {
-    const { getByTitle } = renderWithStore(
-      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />,
-      store
-    );
-    expect(getByTitle('Download tarball')).toBeTruthy();
+    renderWithStore(<ComponentToBeRendered contextValue={{ ...detailContextValue }} />, store);
+    expect(screen.getByLabelText('Download tarball')).toBeTruthy();
   });
 
   test('when there is a button to open an issue', () => {
-    const { getByTitle } = renderWithStore(
-      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />,
-      store
-    );
-    expect(getByTitle('Open an issue')).toBeTruthy();
+    renderWithStore(<ComponentToBeRendered contextValue={{ ...detailContextValue }} />, store);
+    expect(screen.getByLabelText('Open an issue')).toBeTruthy();
   });
 });

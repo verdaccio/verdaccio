@@ -13,11 +13,13 @@ export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
 export const DistListItem = styled(ListItem)({
   paddingLeft: 0,
   paddingRight: 0,
+  flexWrap: 'wrap',
 });
 
 export const DistChips = styled(Chip)({
   marginRight: 5,
   textTransform: 'capitalize',
+  marginTop: 5,
 });
 
 export const DownloadButton = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({

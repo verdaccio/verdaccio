@@ -2,9 +2,12 @@ import { createModel } from '@rematch/core';
 import i18next from 'i18next';
 
 import type { RootModel } from '.';
-import { HEADERS } from '../../lib/constants';
 import API from '../../providers/API/api';
 import storage from '../../utils/storage';
+
+export const HEADERS = {
+  JSON: 'application/json',
+};
 
 export type LoginError = {
   type: string;

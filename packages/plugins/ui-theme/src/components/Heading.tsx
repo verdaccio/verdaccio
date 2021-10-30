@@ -1,4 +1,4 @@
-import { default as MaterialUITypography, TypographyProps } from '@material-ui/core/Typography';
+import { default as MaterialUITypography, TypographyProps } from '@mui/material/Typography';
 import React, { forwardRef } from 'react';
 
 type HeadingType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

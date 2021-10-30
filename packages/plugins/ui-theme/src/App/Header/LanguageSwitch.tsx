@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
-import { withStyles } from '@material-ui/core/styles';
-import LanguageIcon from '@material-ui/icons/Language';
+import LanguageIcon from '@mui/icons-material/Language';
+import withStyles from '@mui/styles/withStyles';
 import i18next from 'i18next';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';

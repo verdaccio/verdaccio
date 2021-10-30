@@ -1,7 +1,7 @@
 import {
   FormHelperTextProps,
   default as MaterialUIFormHelperText,
-} from '@material-ui/core/FormHelperText';
+} from '@mui/material/FormHelperText';
 import React, { forwardRef } from 'react';
 
 type FormHelperTextRef = HTMLParagraphElement;

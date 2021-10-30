@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import CloseIcon from '@material-ui/icons/Close';
-import LockOutlined from '@material-ui/icons/LockOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import LockOutlined from '@mui/icons-material/LockOutlined';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Avatar from 'verdaccio-ui/components/Avatar';
@@ -36,7 +36,7 @@ export default LoginDialogHeader;
 const StyledAvatar = styled(Avatar)<{ theme?: Theme }>(({ theme }) => ({
   margin: theme?.spacing(1),
   backgroundColor:
-    theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+    theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   color: theme?.palette.white,
 }));
 

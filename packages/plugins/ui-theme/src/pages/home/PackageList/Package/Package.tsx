@@ -1,8 +1,8 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import BugReport from '@material-ui/icons/BugReport';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import HomeIcon from '@material-ui/icons/Home';
+import BugReport from '@mui/icons-material/BugReport';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import HomeIcon from '@mui/icons-material/Home';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -69,7 +69,7 @@ const Package: React.FC<PackageInterface> = ({
   time,
   version,
 }) => {
-  const config = useSelector((state: RootState) => state.configuration);
+  const config = useSelector((state: RootState) => state.configuration.config);
   const dispatch = useDispatch<Dispatch>();
   const { t } = useTranslation();
 
@@ -132,7 +132,7 @@ const Package: React.FC<PackageInterface> = ({
     isURL(homepage) && (
       <Link external={true} to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
-          <IconButton aria-label={t('package.homepage')}>
+          <IconButton aria-label={t('package.homepage')} size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
@@ -144,7 +144,7 @@ const Package: React.FC<PackageInterface> = ({
     isURL(bugs.url) && (
       <Link external={true} to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
-          <IconButton aria-label={t('package.bugs')}>
+          <IconButton aria-label={t('package.bugs')} size="large">
             <BugReport />
           </IconButton>
         </Tooltip>
@@ -154,7 +154,6 @@ const Package: React.FC<PackageInterface> = ({
   const renderDownloadLink = (): React.ReactNode =>
     dist?.tarball &&
     isURL(dist.tarball) && (
-      // eslint-disable-next-line
       <Link
         external={true}
         onClick={() => {
@@ -164,7 +163,7 @@ const Package: React.FC<PackageInterface> = ({
         <Tooltip
           aria-label={t('package.download', { what: t('package.the-tar-file') })}
           title={t('package.tarball')}>
-          <IconButton aria-label={t('package.download')}>
+          <IconButton aria-label={t('package.download')} size="large">
             <DownloadIcon />
           </IconButton>
         </Tooltip>
@@ -174,7 +173,7 @@ const Package: React.FC<PackageInterface> = ({
   const renderPrimaryComponent = (): React.ReactNode => {
     return (
       <Grid container={true} item={true} xs={12}>
-        <Grid item={true} xs={true}>
+        <Grid item={true} xs={11}>
           <WrapperLink to={`/-/web/detail/${packageName}`}>
             <PackageTitle className="package-title">{packageName}</PackageTitle>
           </WrapperLink>
@@ -206,8 +205,6 @@ const Package: React.FC<PackageInterface> = ({
   const renderPackageListItemText = (): React.ReactNode => (
     <PackageListItemText
       className="package-link"
-      // @ts-ignore
-      component="div"
       primary={renderPrimaryComponent()}
       secondary={renderSecondaryComponent()}
     />
@@ -231,7 +228,7 @@ export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
   margin: 2px 10px 0 0;
-  fill: ${theme?.palette.type === 'light' ? theme?.palette.greyLight2 : theme?.palette.white};
+  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white};
 `;
 
 const StyledVersion = styled(Version)`

@@ -1,4 +1,4 @@
-import { default as MaterialUITooltip, TooltipProps } from '@material-ui/core/Tooltip';
+import { default as MaterialUITooltip, TooltipProps } from '@mui/material/Tooltip';
 import { TFunctionResult } from 'i18next';
 import React, { forwardRef } from 'react';
 

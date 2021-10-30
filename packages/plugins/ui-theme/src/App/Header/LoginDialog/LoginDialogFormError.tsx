@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Error from '@material-ui/icons/Error';
+import Error from '@mui/icons-material/Error';
 import React, { memo } from 'react';
 import Box from 'verdaccio-ui/components/Box';
 import SnackbarContent from 'verdaccio-ui/components/SnackbarContent';

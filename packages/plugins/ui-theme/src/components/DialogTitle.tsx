@@ -1,4 +1,4 @@
-import { DialogTitleProps, default as MaterialUIDialogTitle } from '@material-ui/core/DialogTitle';
+import { DialogTitleProps, default as MaterialUIDialogTitle } from '@mui/material/DialogTitle';
 import React, { forwardRef } from 'react';
 
 type DialogTitleRef = HTMLDivElement;

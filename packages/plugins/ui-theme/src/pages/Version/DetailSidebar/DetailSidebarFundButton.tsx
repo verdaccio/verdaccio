@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Favorite from '@material-ui/icons/Favorite';
+import Favorite from '@mui/icons-material/Favorite';
 import React, { useContext } from 'react';
 import { Trans } from 'react-i18next';
 import Button from 'verdaccio-ui/components/Button';

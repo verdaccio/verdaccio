@@ -40,6 +40,7 @@ declare module '@verdaccio/types' {
     darkMode?: boolean;
     protocol?: string;
     host?: string;
+    scope?: string;
     base: string;
     primaryColor?: string;
     version?: string;
@@ -576,4 +577,10 @@ declare module '@verdaccio/types' {
   interface IPluginStorageFilter<T> extends IPlugin<T> {
     filter_metadata(packageInfo: Package): Promise<Package>;
   }
+
+  export type SearchResultWeb = {
+    name: string;
+    version: string;
+    description: string;
+  };
 }

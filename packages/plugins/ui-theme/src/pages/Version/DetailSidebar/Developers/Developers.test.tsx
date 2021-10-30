@@ -109,7 +109,7 @@ describe('test Developers', () => {
     expect(wrapper.getByText('Contributors')).toBeInTheDocument();
     fireEvent.click(wrapper.getByTestId('fab'));
 
-    expect(wrapper.getByTitle(packageMeta.latest.contributors[0].name)).toBeInTheDocument();
-    expect(wrapper.getByTitle(packageMeta.latest.contributors[1].name)).toBeInTheDocument();
+    expect(wrapper.getByLabelText(packageMeta.latest.contributors[0].name)).toBeInTheDocument();
+    expect(wrapper.getByLabelText(packageMeta.latest.contributors[1].name)).toBeInTheDocument();
   });
 });

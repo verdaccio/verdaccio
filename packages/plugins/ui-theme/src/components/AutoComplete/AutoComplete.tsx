@@ -1,177 +1,101 @@
-/* eslint-disable react/jsx-no-bind */
 import styled from '@emotion/styled';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
-import React, { KeyboardEvent, memo } from 'react';
-import Autosuggest, {
-  ChangeEvent,
-  GetSuggestionValue,
-  InputProps,
-  RenderInputComponent,
-  RenderSuggestion,
-  RenderSuggestionsContainer,
-  SuggestionSelectedEventData,
-  SuggestionsFetchRequested,
-} from 'react-autosuggest';
+import Search from '@mui/icons-material/Search';
+import { Theme } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import InputAdornment from '@mui/material/InputAdornment';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
-import MenuItem from '../MenuItem';
-import { InputField, SuggestionContainer, Wrapper } from './styles';
+import { SearchResultWeb } from '@verdaccio/types';
 
-const StyledAnchor = styled('a')<{ highlight: boolean; theme?: Theme }>((props) => ({
-  fontWeight:
-    props.theme && props.highlight ? props.theme.fontWeight.semiBold : props.theme.fontWeight.light,
+import { StyledTextField } from './styles';
+import { Wrapper } from './styles';
+
+export type OnSelecItem = (
+  event: React.SyntheticEvent,
+  value: SearchResultWeb,
+  reason: string,
+  details?: string
+) => void;
+interface Props {
+  suggestions: SearchResultWeb[];
+  suggestionsLoading: boolean;
+  placeholder: string;
+  startAdornment?: JSX.Element;
+  onSuggestionsFetch: any;
+  onCleanSuggestions: (event: React.SyntheticEvent) => void;
+  onSelectItem: OnSelecItem;
+}
+
+const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>((props) => ({
+  color: props.theme?.palette.white,
 }));
 
-const StyledMenuItem = styled(MenuItem)({
-  cursor: 'pointer',
-});
+const AutoComplete: FC<Props> = ({
+  suggestions,
+  startAdornment,
+  onSuggestionsFetch,
+  onCleanSuggestions,
+  placeholder = '',
+  onSelectItem,
+  suggestionsLoading = false,
+}: Props) => {
+  const { t } = useTranslation();
+  const [inputValue, setInputValue] = useState('');
 
-interface Props {
-  suggestions: Suggestion[];
-  suggestionsLoading?: boolean;
-  suggestionsLoaded?: boolean;
-  suggestionsError?: boolean;
-  apiLoading?: boolean;
-  value?: string;
-  placeholder?: string;
-  startAdornment?: JSX.Element;
-  disableUnderline?: boolean;
-  onChange: (event: React.FormEvent<HTMLInputElement>, params: ChangeEvent) => void;
-  onSuggestionsFetch: SuggestionsFetchRequested;
-  onCleanSuggestions?: () => void;
-  onClick?: (
-    event: React.FormEvent<HTMLInputElement>,
-    data: SuggestionSelectedEventData<unknown>
-  ) => void;
-  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FormEvent<HTMLInputElement>) => void;
-}
+  const handleOnInputChange = (event: React.SyntheticEvent, value: string, reason: string) => {
+    if (reason === 'input') {
+      event.preventDefault();
+      onSuggestionsFetch({ value });
+      setInputValue(value);
+    } else if (reason === 'clear') {
+      onCleanSuggestions(event);
+      setInputValue('');
+    }
+  };
 
-interface Suggestion {
-  name: string;
-}
+  const handleOnClose = (event) => {
+    onCleanSuggestions(event);
+    setInputValue('');
+  };
 
-/* eslint-disable react/jsx-sort-props  */
-/* eslint-disable verdaccio/jsx-spread */
-const renderInputComponent: RenderInputComponent<Suggestion> = (inputProps) => {
-  // @ts-ignore
-  const { ref, startAdornment, disableUnderline, onKeyDown, ...others } = inputProps;
   return (
-    <InputField
-      fullWidth={true}
-      InputProps={{
-        inputRef: (node: any) => {
-          // @ts-ignore
-          ref(node);
-        },
-        startAdornment,
-        disableUnderline,
-        onKeyDown,
-      }}
-      {...others}
-    />
+    <Wrapper>
+      <Autocomplete
+        disablePortal={true}
+        freeSolo={true}
+        onChange={onSelectItem}
+        autoHighlight={true}
+        id="search-header-suggest"
+        options={suggestions}
+        inputValue={inputValue}
+        clearOnBlur={true}
+        loading={suggestionsLoading}
+        renderTags={() => null}
+        onClose={handleOnClose}
+        loadingText={t('autoComplete.loading')}
+        onInputChange={handleOnInputChange}
+        getOptionLabel={(option) => option.name}
+        fullWidth={true}
+        renderInput={(params) => (
+          <StyledTextField
+            {...params}
+            placeholder={placeholder}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: startAdornment || (
+                <StyledInputAdornment position="start">
+                  <Search />
+                </StyledInputAdornment>
+              ),
+            }}
+            label=""
+            variant="standard"
+          />
+        )}
+      />
+    </Wrapper>
   );
 };
-
-const getSuggestionValue: GetSuggestionValue<Suggestion> = (suggestion): string => suggestion.name;
-
-const renderSuggestion: RenderSuggestion<Suggestion> = (
-  suggestion,
-  { query, isHighlighted }
-): JSX.Element => {
-  const matches = match(suggestion.name, query);
-  const parts = parse(suggestion.name, matches);
-  return (
-    <StyledMenuItem component="div" selected={isHighlighted}>
-      <div>
-        {parts.map((part, index) => {
-          return (
-            <StyledAnchor highlight={part.highlight} key={String(index)}>
-              {part.text}
-            </StyledAnchor>
-          );
-        })}
-      </div>
-    </StyledMenuItem>
-  );
-};
-
-const renderMessage = (message: string): JSX.Element => {
-  return (
-    <MenuItem component="div" selected={false}>
-      <div>{message}</div>
-    </MenuItem>
-  );
-};
-
-const AutoComplete = memo(
-  ({
-    suggestions,
-    startAdornment,
-    onChange,
-    onSuggestionsFetch,
-    onCleanSuggestions,
-    value = '',
-    placeholder = '',
-    disableUnderline = false,
-    onClick,
-    onKeyDown,
-    onBlur,
-    suggestionsLoading = false,
-    suggestionsLoaded = false,
-    suggestionsError = false,
-  }: Props) => {
-    const { t } = useTranslation();
-
-    const inputProps: InputProps<Suggestion> = {
-      value,
-      onChange,
-      placeholder,
-      // material-ui@4.5.1 introduce better types for TextInput, check readme
-      // @ts-ignore
-      startAdornment,
-      disableUnderline,
-      onKeyDown,
-      onBlur,
-    };
-
-    // this format avoid arrow function eslint rule
-    const renderSuggestionsContainer: RenderSuggestionsContainer = function ({
-      containerProps,
-      children,
-      query,
-    }): JSX.Element {
-      return (
-        <SuggestionContainer {...containerProps} square={true}>
-          {suggestionsLoaded &&
-            children === null &&
-            query &&
-            renderMessage(t('autoComplete.no-results-found'))}
-          {suggestionsLoading && query && renderMessage(t('autoComplete.loading'))}
-          {suggestionsError && renderMessage(t('error.unspecific'))}
-          {children}
-        </SuggestionContainer>
-      );
-    };
-
-    return (
-      <Wrapper>
-        <Autosuggest<Suggestion>
-          renderInputComponent={renderInputComponent}
-          suggestions={suggestions}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          onSuggestionsFetchRequested={onSuggestionsFetch}
-          onSuggestionsClearRequested={onCleanSuggestions}
-          inputProps={inputProps}
-          onSuggestionSelected={onClick}
-          renderSuggestionsContainer={renderSuggestionsContainer}
-        />
-      </Wrapper>
-    );
-  }
-);
 
 export default AutoComplete;

@@ -1,8 +1,8 @@
-import Help from '@material-ui/icons/Help';
-import Info from '@material-ui/icons/Info';
-import NightsStay from '@material-ui/icons/NightsStay';
-import Search from '@material-ui/icons/Search';
-import WbSunny from '@material-ui/icons/WbSunny';
+import Help from '@mui/icons-material/Help';
+import Info from '@mui/icons-material/Info';
+import NightsStay from '@mui/icons-material/NightsStay';
+import Search from '@mui/icons-material/Search';
+import WbSunny from '@mui/icons-material/WbSunny';
 import React, { forwardRef } from 'react';
 import IconButton from 'verdaccio-ui/components/IconButton';
 
@@ -29,7 +29,7 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
           data-testid={'header--tooltip-documentation'}
           external={true}
           to={'https://verdaccio.org/docs/en/installation'}>
-          <IconButton color={'inherit'}>
+          <IconButton color={'inherit'} size="large">
             <Help />
           </IconButton>
         </StyledLink>
@@ -41,7 +41,8 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
           data-testid={'header--tooltip-info'}
           id="header--button-registryInfo"
           onClick={onClick}
-          ref={ref}>
+          ref={ref}
+          size="large">
           <Info />
         </IconButton>
       );
@@ -54,7 +55,7 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
     case 'dark-mode':
       // todo(Priscila): Add Zoom transition effect
       return (
-        <IconButton color="inherit" onClick={onClick} ref={ref}>
+        <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
           <NightsStay />
         </IconButton>
       );
@@ -62,7 +63,7 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
     case 'light-mode':
       // todo(Priscila): Add Zoom transition effect
       return (
-        <IconButton color="inherit" onClick={onClick} ref={ref}>
+        <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
           <WbSunny />
         </IconButton>
       );

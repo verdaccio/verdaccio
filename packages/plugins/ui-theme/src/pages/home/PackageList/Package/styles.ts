@@ -13,7 +13,7 @@ export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   margin: '0 0 0 16px',
-  color: theme?.palette.type === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
   fontSize: 12,
   [`@media (max-width: ${theme?.breakPoints.medium}px)`]: {
     ':nth-of-type(3)': {
@@ -28,14 +28,14 @@ export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 export const Published = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.type === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
   margin: '0 5px 0 0',
 }));
 
 export const Text = styled(Label)<{ theme?: Theme }>(({ theme }) => ({
   fontSize: '12px',
   fontWeight: theme?.fontWeight.semiBold,
-  color: theme?.palette.type === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
 }));
 
 export const Details = styled('span')({
@@ -64,7 +64,7 @@ export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   fontSize: 20,
   display: 'block',
   marginBottom: 12,
-  color: theme?.palette.type == 'dark' ? theme?.palette.dodgerBlue : theme?.palette.eclipse,
+  color: theme?.palette.mode == 'dark' ? theme?.palette.dodgerBlue : theme?.palette.eclipse,
   cursor: 'pointer',
   [`@media (max-width: ${theme?.breakPoints.small}px)`]: {
     fontSize: 14,
@@ -105,7 +105,7 @@ export const PackageListItemText = styled(ListItemText)({
 });
 
 export const Description = styled(MuiText)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.type === 'light' ? theme?.palette.greyDark2 : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.greyDark2 : theme?.palette.white,
   fontSize: '14px',
   paddingRight: 0,
 }));
