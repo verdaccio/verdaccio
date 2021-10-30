@@ -754,7 +754,7 @@ importers:
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
       country-flag-icons: 1.4.11
-      css-loader: 6.4.0
+      css-loader: 6.5.0
       dayjs: 1.10.7
       emotion: 10.0.27
       emotion-theming: 10.0.27
@@ -836,7 +836,7 @@ importers:
       babel-plugin-emotion: 10.2.2
       bundlesize: 0.18.1
       country-flag-icons: 1.4.11
-      css-loader: 6.4.0_webpack@5.60.0
+      css-loader: 6.5.0_webpack@5.60.0
       dayjs: 1.10.7
       emotion: 10.0.27
       emotion-theming: 10.0.27_33bb31e1d857102242df3642b32eda18
@@ -9649,8 +9649,8 @@ packages:
       webpack: 5.52.0_esbuild@0.12.25
     dev: false
 
-  /css-loader/6.4.0_webpack@5.60.0:
-    resolution: {integrity: sha512-Dlt6qfsxI/w1vU0r8qDd4BtMPxWqJeY5qQU7SmmZfvbpe6Xl18McO4GhyaMLns24Y2VNPiZwJPQ8JSbg4qvQLw==}
+  /css-loader/6.5.0_webpack@5.60.0:
+    resolution: {integrity: sha512-VmuSdQa3K+wJsl39i7X3qGBM5+ZHmtTnv65fqMGI+fzmHoYmszTVvTqC1XN8JwWDViCB1a8wgNim5SV4fb37xg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
