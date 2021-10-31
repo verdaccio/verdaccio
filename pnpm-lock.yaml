@@ -356,6 +356,7 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.10
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
+      '@verdaccio/readme': workspace:11.0.0-6-next.4
       '@verdaccio/store': workspace:6.0.0-6-next.15
       '@verdaccio/tarball': workspace:11.0.0-6-next.9
       '@verdaccio/types': workspace:11.0.0-6-next.9
@@ -373,6 +374,7 @@ importers:
       '@verdaccio/config': link:../../config
       '@verdaccio/core': link:../core
       '@verdaccio/logger': link:../../logger
+      '@verdaccio/readme': link:../readme
       '@verdaccio/store': link:../../store
       '@verdaccio/tarball': link:../tarball
       '@verdaccio/utils': link:../../utils
