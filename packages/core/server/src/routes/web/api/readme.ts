@@ -19,15 +19,10 @@ function getReadme(fastify: FastifyInstance, request: any, packageName, callback
         return;
       }
       try {
-        let parsedReadme;
-        try {
-          parsedReadme = parseReadme(readme.name, readme.readme);
-        } catch {
-          parsedReadme = sanitizyReadme(NOT_README_FOUND);
-        }
+        const parsedReadme = parseReadme(readme.name, readme.readme);
         callback(null, parsedReadme);
       } catch {
-        callback(fastify.statusCode.NOT_FOUND).send(sanitizyReadme(NOT_README_FOUND));
+        callback(fastify.statusCode.NOT_FOUND).send(err);
       }
     },
   });
