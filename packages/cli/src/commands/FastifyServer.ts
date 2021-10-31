@@ -1,6 +1,7 @@
 import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { warningUtils } from '@verdaccio/core';
 import server from '@verdaccio/fastify-migration';
 import { logger, setup } from '@verdaccio/logger';
 import { ConfigRuntime } from '@verdaccio/types';
@@ -28,7 +29,7 @@ export class FastifyServer extends Command {
   private initLogger(logConfig: ConfigRuntime) {
     try {
       if (logConfig.logs) {
-        process.emitWarning('config.logs is deprecated, rename configuration to "config.log"');
+        warningUtils.emit(warningUtils.Codes.VERDEP001);
       }
       // FUTURE: remove fallback when is ready
       setup(logConfig.log || logConfig.logs);
