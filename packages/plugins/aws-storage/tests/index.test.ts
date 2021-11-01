@@ -1,5 +1,5 @@
 import { S3 } from 'aws-sdk';
-import { IPluginStorage } from '@verdaccio/types';
+import { IPluginStorage, Token } from '@verdaccio/types';
 
 import S3Database from '../src/index';
 import { deleteKeyPrefix } from '../src/deleteKeyPrefix';
@@ -23,7 +23,7 @@ describe.skip('Local Database', () => {
   beforeEach(() => {
     config = Object.assign(new Config(), {
       store: {
-        's3-storage': {
+        'aws-s3-storage': {
           bucket,
           keyPrefix,
         },
@@ -37,7 +37,7 @@ describe.skip('Local Database', () => {
     // snapshot test the final state of s3
     await new Promise((resolve, reject): void => {
       s3.listObjectsV2(
-        { Bucket: bucket, Prefix: config.store['s3-storage'].keyPrefix },
+        { Bucket: bucket, Prefix: config.store['aws-s3-storage'].keyPrefix },
         (err, data) => {
           if (err) {
             reject(err);
@@ -137,6 +137,47 @@ describe.skip('Local Database', () => {
             });
           });
         });
+      });
+    });
+
+    describe('token', () => {
+      let token: Token = {
+        user: 'someUser',
+        token: 'viewToken',
+        key: 'someHash',
+        readonly: true,
+        created: new Date().getTime(),
+      };
+
+      test('should save and get token', async () => {
+        await db.saveToken(token);
+        const tokens = await db.readTokens({ user: token.user });
+        expect(tokens).toHaveLength(1);
+        expect(tokens[0]).toEqual(token);
+      });
+
+      test('should revoke and get token', async () => {
+        await db.saveToken(token);
+        const tokens = await db.readTokens({ user: token.user });
+        expect(tokens).toHaveLength(1);
+        expect(tokens[0]).toEqual(token);
+        await db.deleteToken(token.user, token.key);
+        const tokens2 = await db.readTokens({ user: token.user });
+        expect(tokens2).toHaveLength(0);
+      });
+
+      test('should fail on revoke', async () => {
+        await expect(db.deleteToken('foo', 'bar')).rejects.toThrow('user not found');
+      });
+
+      test('should verify save more than one token', async () => {
+        await db.saveToken(token);
+        const tokens = await db.readTokens({ user: token.user });
+        expect(tokens).toHaveLength(1);
+        expect(tokens[0]).toEqual(token);
+        await db.saveToken({ ...token, key: 'foo' });
+        expect(tokens).toHaveLength(2);
+        expect(tokens[1].key).toEqual('foo');
       });
     });
   });

@@ -8,7 +8,7 @@ import {
   Token,
   TokenFilter,
 } from '@verdaccio/types';
-import { getInternalError, VerdaccioError, getServiceUnavailable } from '@verdaccio/commons-api';
+import { getInternalError, VerdaccioError } from '@verdaccio/commons-api';
 import { S3 } from 'aws-sdk';
 
 import { S3Config } from './config';
@@ -22,6 +22,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
   public config: S3Config;
   private s3: S3;
   private _localData: LocalStorage | null;
+  private _tokensData: Record<string, Token[]> | null;
 
   public constructor(config: Config, options: PluginOptions<S3Config>) {
     this.logger = options.logger;
@@ -42,10 +43,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
     this.config.accessKeyId = setConfigValue(this.config.accessKeyId);
     this.config.secretAccessKey = setConfigValue(this.config.secretAccessKey);
     this.config.sessionToken = setConfigValue(this.config.sessionToken);
-
-    const configKeyPrefix = this.config.keyPrefix;
-    this._localData = null;
-    this.config.keyPrefix = addTrailingSlash(configKeyPrefix);
+    this.config.keyPrefix = addTrailingSlash(this.config.keyPrefix);
 
     this.logger.debug(
       { config: JSON.stringify(this.config, null, 4) },
@@ -60,6 +58,9 @@ export default class S3Database implements IPluginStorage<S3Config> {
       secretAccessKey: this.config.secretAccessKey,
       sessionToken: this.config.sessionToken,
     });
+
+    this._localData = null;
+    this._tokensData = null;
   }
 
   public init() {
@@ -248,21 +249,117 @@ export default class S3Database implements IPluginStorage<S3Config> {
     return this._localData as LocalStorage;
   }
 
-  public saveToken(token: Token): Promise<void> {
-    this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
+  public async saveToken(token: Token): Promise<void> {
+    this.logger.debug(token, 's3: [saveToken] token key @{key}');
 
-    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+    const data = await this._getTokensData();
+    const userData = data[token.user];
+    this.logger.debug({ userData }, 's3: [saveToken] user data @{userData}');
+
+    if (userData == null) {
+      data[token.user] = [token];
+      this.logger.trace(token, 's3: [saveToken] token user @{user} new database');
+    } else {
+      userData.push(token);
+    }
+
+    await this._syncTokens();
+    this.logger.debug(token, 's3: [saveToken] token saved @{user}');
   }
 
-  public deleteToken(user: string, tokenKey: string): Promise<void> {
-    this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
+  public async deleteToken(user: string, tokenKey: string): Promise<void> {
+    const data = await this._getTokensData();
+    const userData = data[user];
 
-    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+    if (userData == null) {
+      throw new Error('user not found');
+    }
+
+    this.logger.debug(
+      { userData, count: userData.length },
+      's3: [deleteToken] tokens @{userData} - @{count}'
+    );
+
+    data[user] = userData.filter(({ key }) => key !== tokenKey);
+    await this._syncTokens();
+    this.logger.debug({ tokenKey }, 's3: [deleteToken] removed tokens key @{tokenKey}');
   }
 
-  public readTokens(filter: TokenFilter): Promise<Token[]> {
-    this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
+  public async readTokens(filter: TokenFilter): Promise<Token[]> {
+    const { user } = filter;
+    this.logger.debug({ user }, 'read tokens with @{user}');
 
-    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
+    const data = await this._getTokensData();
+    const userData = data[user];
+    return userData ?? [];
+  }
+
+  private async _getTokensData(): Promise<Record<string, Token[]>> {
+    if (this._tokensData) {
+      this.logger.trace('s3: [_getTokensData] already exist');
+      return this._tokensData;
+    }
+
+    this._tokensData = await new Promise((resolve, reject): void => {
+      const { bucket, keyPrefix } = this.config;
+      this.logger.debug(
+        { keyPrefix, bucket },
+        's3: [_getTokensData] bucket: @{bucket} prefix: @{keyPrefix}'
+      );
+      this.logger.trace('s3: [_getTokensData] get database object');
+
+      this.s3.getObject(
+        {
+          Bucket: bucket,
+          Key: `${keyPrefix}token-db.json`,
+        },
+        (err, response) => {
+          if (err) {
+            const s3Err: VerdaccioError = convertS3Error(err);
+            this.logger.error({ err: s3Err.message }, 's3: [_getTokensData] err: @{err}');
+            if (is404Error(s3Err)) {
+              this.logger.error('s3: [_getTokensData] err 404 create new database');
+              resolve({});
+            } else {
+              reject(err);
+            }
+            return;
+          }
+
+          const body = response.Body ? response.Body.toString() : '';
+          const data = JSON.parse(body);
+          this.logger.trace({ body }, 's3: [_getTokensData] get data @{body}');
+          resolve(data);
+        }
+      );
+    });
+
+    return this._tokensData as Record<string, Token[]>;
+  }
+
+  private async _syncTokens(): Promise<void> {
+    await new Promise<void>((resolve, reject): void => {
+      const { bucket, keyPrefix } = this.config;
+      this.logger.debug(
+        { keyPrefix, bucket },
+        's3: [_syncTokens] bucket: @{bucket} prefix: @{keyPrefix}'
+      );
+      this.s3.putObject(
+        {
+          Bucket: this.config.bucket,
+          Key: `${this.config.keyPrefix}token-db.json`,
+          Body: JSON.stringify(this._localData),
+        },
+        (err) => {
+          if (err) {
+            this.logger.error({ err }, 's3: [_syncTokens] error: @{err}');
+            reject(err);
+            return;
+          }
+          this.logger.debug('s3: [_syncTokens] sucess');
+          resolve();
+        }
+      );
+    });
   }
 }
