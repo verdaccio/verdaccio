@@ -1,13 +1,14 @@
-import _ from 'lodash';
 import buildDebug from 'debug';
-import { isObject } from '@verdaccio/utils';
-import { Package, Author, ConfigYaml } from '@verdaccio/types';
-import { normalizeContributors } from '@verdaccio/store';
+import _ from 'lodash';
 
 import sanitizyReadme from '@verdaccio/readme';
+import { normalizeContributors } from '@verdaccio/store';
+import { Author, ConfigYaml, Package } from '@verdaccio/types';
+import { isObject } from '@verdaccio/utils';
+
+import { GENERIC_AVATAR, generateGravatarUrl } from './user';
 
 export type AuthorAvatar = Author & { avatar?: string };
-import { generateGravatarUrl, GENERIC_AVATAR } from './user';
 
 const debug = buildDebug('verdaccio:web:utils');
 

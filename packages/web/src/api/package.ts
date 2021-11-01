@@ -1,15 +1,15 @@
 import buildDebug from 'debug';
+import { Router } from 'express';
 import _ from 'lodash';
+
+import { IAuth } from '@verdaccio/auth';
+import { logger } from '@verdaccio/logger';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { formatAuthor } from '@verdaccio/utils';
 
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-import { logger } from '@verdaccio/logger';
-import { Router } from 'express';
-import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
-import { Config, Package, RemoteUser } from '@verdaccio/types';
-
-import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { generateGravatarUrl } from '../utils/user';
 import { AuthorAvatar, sortByName } from '../utils/web-utils';
 
@@ -23,13 +23,9 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 
 const debug = buildDebug('verdaccio:web:api:package');
 
-function addPackageWebApi(
-  route: Router,
-  storage: IStorageHandler,
-  auth: IAuth,
-  config: Config
-): void {
+function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: Config): void {
   const isLoginEnabled = config?.web?.login === true ?? true;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const anonymousRemoteUser: RemoteUser = {
     name: undefined,
     real_groups: [],
@@ -40,9 +36,10 @@ function addPackageWebApi(
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       debug('is login disabled %o', isLoginEnabled);
-      const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
+      // FIXME: this logic does not work, review
+      // const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
       try {
-        auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
+        auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
           if (err) {
             resolve(false);
           }
@@ -83,7 +80,7 @@ function addPackageWebApi(
                   pkgCopy.dist.tarball = getLocalRegistryTarballUri(
                     pkgCopy.dist.tarball,
                     pkg.name,
-                    req,
+                    { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
                     config?.url_prefix
                   );
                 }

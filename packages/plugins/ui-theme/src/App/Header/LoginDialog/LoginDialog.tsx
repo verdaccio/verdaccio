@@ -1,16 +1,12 @@
 import i18next from 'i18next';
 import isEmpty from 'lodash/isEmpty';
-import React, { useState, useContext, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
-
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Dialog from 'verdaccio-ui/components/Dialog';
 import DialogContent from 'verdaccio-ui/components/DialogContent';
-import { useAPI, LoginBody } from 'verdaccio-ui/providers/API/APIProvider';
-import { LoginError } from 'verdaccio-ui/utils/login';
-import storage from 'verdaccio-ui/utils/storage';
 
-import AppContext from '../../../App/AppContext';
-
+import { LoginBody } from '../../../store/models/login';
+import { Dispatch, RootState } from '../../../store/store';
 import LoginDialogCloseButton from './LoginDialogCloseButton';
 import LoginDialogForm, { FormValues } from './LoginDialogForm';
 import LoginDialogHeader from './LoginDialogHeader';
@@ -21,61 +17,47 @@ interface Props {
 }
 
 const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
-  const { t } = useTranslation();
-  const appContext = useContext(AppContext);
-  const { doLogin } = useAPI();
-
+  const loginStore = useSelector((state: RootState) => state.login);
+  const dispatch = useDispatch<Dispatch>();
   const makeLogin = useCallback(
-    async (username?: string, password?: string): Promise<LoginBody> => {
+    async (username?: string, password?: string): Promise<LoginBody | void> => {
       // checks isEmpty
       if (isEmpty(username) || isEmpty(password)) {
-        const error = {
+        dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.username-or-password-cant-be-empty'),
-        };
-        return { error };
+        });
+        return;
       }
 
       try {
-        const response: LoginBody = await doLogin(username as string, password as string);
-
-        return response;
+        dispatch.login.getUser({ username, password });
+        // const response: LoginBody = await doLogin(username as string, password as string);
+        dispatch.login.clearError();
       } catch (e: any) {
-        // eslint-disable-next-line no-console
-        console.error('login error', e.message);
-        const error = {
+        dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.unable-to-sign-in'),
-        };
-        return { error };
+        });
+        // eslint-disable-next-line no-console
+        console.error('login error', e.message);
       }
     },
-    [doLogin]
+    [dispatch]
   );
-
-  if (!appContext) {
-    throw Error(t('app-context-not-correct-used'));
-  }
-
-  const [error, setError] = useState<LoginError>();
 
   const handleDoLogin = useCallback(
     async (data: FormValues) => {
-      const { username, token, error } = await makeLogin(data.username, data.password);
-
-      if (error) {
-        setError(error);
-      }
-
-      if (username && token) {
-        storage.setItem('username', username);
-        storage.setItem('token', token);
-        appContext.setUser({ username });
-        onClose();
-      }
+      await makeLogin(data.username, data.password);
     },
-    [appContext, onClose, makeLogin]
+    [makeLogin]
   );
+
+  useEffect(() => {
+    if (loginStore.token && typeof loginStore.error === 'undefined') {
+      onClose();
+    }
+  }, [loginStore, onClose]);
 
   return (
     <Dialog
@@ -88,7 +70,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
       <LoginDialogCloseButton onClose={onClose} />
       <DialogContent>
         <LoginDialogHeader />
-        <LoginDialogForm error={error} onSubmit={handleDoLogin} />
+        <LoginDialogForm error={loginStore.error} onSubmit={handleDoLogin} />
       </DialogContent>
     </Dialog>
   );

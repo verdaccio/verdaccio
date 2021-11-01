@@ -29,6 +29,8 @@ Google Cloud Storage** or create your own plugin.
 
 ## Install
 
+> Latest Node.js v14
+
 Install with npm:
 
 ```bash
@@ -75,7 +77,7 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ### **Testing the integrity of your React components by publishing in a private registry - React Finland 2021**.
 
-[![beerjscrb](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://www.youtube.com/watch?v=5olfi5wbgF4)
+[![beerjscrb](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
 
 You might want to check out as well our previous talks:
 
@@ -190,7 +192,20 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
 
-## Core Team
+## Special Thanks
+
+Thanks to the following companies to help us to achieve our goals providing free open source licenses. Every company provides enough resources to move this project forward.
+
+| Company      | Logo                                                                                                                            | License                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| JetBrains    | [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)                                                     | JetBrains provides licenses for products for active maintainers, renewable yearly |
+| Crowdin      | [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)                                                              | Crowdin provides platform for translations                                        |
+| BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                        | BrowserStack provides plan to run End to End testing for the UI                   |
+| Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                      | Netlify provides pro plan for website deployment                                  |
+| Algolia      | [![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)                                     | Algolia provides search services for the website                                  |
+| Docker       | [![docker](https://cdn.verdaccio.dev/sponsor/logo/docker/docker.png)](https://www.docker.com/community/open-source/application) | Docker offers unlimited pulls and unlimited egress to any and all users           |
+
+## Maintainers
 
 | [Juan Picado](https://github.com/juanpicado)                                   | [Ayush Sharma](https://github.com/ayusharma)                             | [Sergio Hg](https://github.com/sergiohgz)                                 |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
@@ -244,18 +259,6 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 [![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio#backers)
 
-## Special Thanks
-
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
-
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)
-[![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)
-[![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)
-
-Verdaccio also is part of to the [Docker Open Source Program](https://www.docker.com/blog/expanded-support-for-open-source-software-projects/).
-
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
@@ -270,7 +273,7 @@ If you have any issue you can try the following options, do no desist to ask or 
 - [Donations](https://github.com/sponsors/verdaccio)
 - [Reporting an issue](https://github.com/verdaccio/verdaccio/issues/new/choose)
 - [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-- [Chat](http://chat.verdaccio.org/)
+- [Chat](https://discord.gg/7qWJxBf)
 - [Logos](https://verdaccio.org/docs/en/logo)
 - [Docker Examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
 - [FAQ](https://github.com/verdaccio/verdaccio/discussions/categories/q-a)

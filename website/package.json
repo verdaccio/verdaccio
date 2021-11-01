@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "5.1.3",
+  "version": "5.2.0",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
@@ -17,17 +17,17 @@
     "eslint:check": "eslint src/**/*.tsx",
     "eslint:write": "eslint src/**/*.tsx --fix",
     "prettier:check": "prettier src/**/* --check",
-    "prettier:write": "prettier src/**/* --write"
+    "prettier:write": "prettier src/**/* --write --config ../prettier.config.js"
   },
   "engines": {
     "node": ">=14"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.6",
-    "@docusaurus/plugin-google-analytics": "2.0.0-beta.6",
-    "@docusaurus/preset-classic": "2.0.0-beta.6",
-    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.6",
-    "@docusaurus/theme-search-algolia": "2.0.0-beta.6",
+    "@docusaurus/core": "2.0.0-beta.8",
+    "@docusaurus/plugin-google-analytics": "2.0.0-beta.8",
+    "@docusaurus/preset-classic": "2.0.0-beta.8",
+    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.8",
+    "@docusaurus/theme-search-algolia": "2.0.0-beta.8",
     "@mdx-js/react": "^1.6.22",
     "clsx": "^1.1.1",
     "copy-text-to-clipboard": "^3.0.1",
@@ -50,11 +50,11 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.6",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.8",
     "@tsconfig/docusaurus": "^1.0.2",
     "docusaurus-plugin-sass": "^0.2.1",
     "esbuild": "0.12.25",
-    "esbuild-loader": "2.15.1",
+    "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
     "sass": "1.39.0",
     "sass-loader": "^12.1.0",

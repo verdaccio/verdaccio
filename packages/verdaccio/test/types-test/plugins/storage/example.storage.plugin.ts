@@ -1,22 +1,20 @@
 // this file is not aim to be tested, just to check typescript definitions
-
+import { generatePackageTemplate } from '@verdaccio/store';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
-  Callback,
   Config as AppConfig,
+  Callback,
+  IReadTarball,
+  IUploadTarball,
   Logger,
   Package,
   Token,
   TokenFilter,
-  IUploadTarball,
-  IReadTarball,
 } from '@verdaccio/types';
-
-import { IPluginStorage, IPackageStorageManager, IPackageStorage } from '@verdaccio/types';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import { IPackageStorage, IPackageStorageManager, IPluginStorage } from '@verdaccio/types';
 
 import Config from '../../../../packages/config/src/config';
 import { logger } from '../../../../packages/logger/src/logger';
-import { generatePackageTemplate } from '@verdaccio/store';
 
 class PackageStorage implements IPackageStorageManager {
   path: string;

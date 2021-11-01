@@ -235,7 +235,7 @@ If you have any issue you can try the following options, do no desist to ask or 
 - [Roadmap](https://github.com/verdaccio/verdaccio/projects)
 - [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
 - [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-- [Chat](http://chat.verdaccio.org/)
+- [Chat](https://discord.gg/7qWJxBf)
 - [Logos](https://verdaccio.org/docs/en/logo)
 - [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
 - [Docker Examples](https://github.com/verdaccio/docker-examples)

@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { screen, render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import RegistryInfoContent from './RegistryInfoContent';
 
@@ -18,7 +17,6 @@ describe('<RegistryInfoContent /> component', () => {
     const props = { registryUrl: 'http://localhost:4872', scope: '@' };
     render(<RegistryInfoContent registryUrl={props.registryUrl} scope={props.scope} />);
 
-    screen.debug();
     expect(screen.getByText('pnpm set @:registry http://localhost:4872')).toBeInTheDocument();
     expect(screen.getByText('pnpm adduser --registry http://localhost:4872')).toBeInTheDocument();
     expect(

@@ -1,7 +1,7 @@
 /* eslint-disable curly */
 // ensure that all arguments are validated
-import path from 'path';
 import fs from 'fs';
+import path from 'path';
 
 /**
  * Validate.

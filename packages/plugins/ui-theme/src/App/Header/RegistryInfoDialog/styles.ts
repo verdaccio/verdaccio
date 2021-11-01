@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import DialogContent from 'verdaccio-ui/components/DialogContent';
 import DialogTitle from 'verdaccio-ui/components/DialogTitle';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';

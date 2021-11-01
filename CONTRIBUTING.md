@@ -19,6 +19,7 @@ guidelines for you:
     - [What's is not considered a bug?](#whats-is-not-considered-a-bug)
     - [Issue Search](#issue-search)
     - [Chat](#chat)
+  - [Translations](#translations)
   - [Request Features](#request-features)
   - [Contributing Guidelines](#contributing-guidelines)
     - [Submitting a Pull Request](#submitting-a-pull-request)
@@ -128,8 +129,22 @@ More details in the debug section
 
 ### Running and debugging
 
+> Check the debugging guidelines [here](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio)
+
 We use [`debug`](https://www.npmjs.com/package/debug) to add helpful debugging
 output to the code. Each package has it owns namespace.
+
+#### Useful Scripts
+
+To run the application from the source code, ensure the project has been built with `pnpm build`, once this is done, there are few commands that helps to run server:
+
+- `pnpm start`: Run the server and the UI with `concurrently`, the
+  server runs in the port `8000` and the UI on the port `4873`. This command
+  is useful if you want to contribute mostly on the UI.
+- `pnpm debug`: Run the server in debug mode `--inspect`, the UI is included but does not have hot reload. For automatic break use `pnpm debug:break`.
+- `pnpm debug:fastify`: To contribute on the [fastify migration](https://github.com/verdaccio/verdaccio/discussions/2155) this is a temporary command for such purpose.
+- `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
+- `pnpm docker`: Build the docker image. Requires `docker` command available in your system.
 
 #### Debugging compiled code
 
@@ -190,9 +205,27 @@ affecting multiple people.
 
 ### Chat
 
-Questions can be asked via [Discord](http://chat.verdaccio.org/)
+Questions can be asked via [Discord](https://discord.gg/7qWJxBf)
 
 **Please use the `#help` channel.**
+
+## Translations
+
+All translations are provided by the `crowdin` platform:
+[https://translate.verdaccio.org/](https://translate.verdaccio.org/)
+
+If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
+
+If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
+
+For adding a new **language** on the UI follow these steps:
+
+1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
+2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
+3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
+4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key fort he new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
+5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
+6. Add a `changeset` file, see more info below.
 
 ## Request Features
 

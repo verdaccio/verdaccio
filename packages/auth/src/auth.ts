@@ -1,54 +1,45 @@
-import _ from 'lodash';
-import { NextFunction, Request, Response } from 'express';
 import buildDebug from 'debug';
+import { NextFunction, Request, Response } from 'express';
+import _ from 'lodash';
+import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
 
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
   SUPPORT_ERRORS,
   TOKEN_BASIC,
   TOKEN_BEARER,
   VerdaccioError,
-  getBadRequest,
-  getInternalError,
-  getForbidden,
-} from '@verdaccio/commons-api';
+  errorUtils,
+} from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
-import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
-
 import {
-  Config,
-  Logger,
-  Callback,
-  IPluginAuth,
-  RemoteUser,
-  JWTSignOptions,
-  Security,
-  AuthPluginPackage,
   AllowAccess,
+  AuthPluginPackage,
+  Callback,
+  Config,
+  IPluginAuth,
+  JWTSignOptions,
+  Logger,
   PackageAccess,
   PluginOptions,
+  RemoteUser,
+  Security,
 } from '@verdaccio/types';
-
-import { isNil, isFunction } from '@verdaccio/utils';
-import {
-  getMatchedPackagesSpec,
-  createAnonymousRemoteUser,
-  createRemoteUser,
-} from '@verdaccio/config';
-
-import {
-  getMiddlewareCredentials,
-  getDefaultPlugins,
-  verifyJWTPayload,
-  parseAuthTokenHeader,
-  isAuthHeaderValid,
-  isAESLegacy,
-  convertPayloadToBase64,
-} from './utils';
+import { getMatchedPackagesSpec, isFunction, isNil } from '@verdaccio/utils';
 
 import { signPayload } from './jwt-token';
 import { aesEncrypt } from './legacy-token';
 import { parseBasicPayload } from './token';
+import {
+  convertPayloadToBase64,
+  getDefaultPlugins,
+  getMiddlewareCredentials,
+  isAESLegacy,
+  isAuthHeaderValid,
+  parseAuthTokenHeader,
+  verifyJWTPayload,
+} from './utils';
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const LoggerApi = require('@verdaccio/logger');
@@ -58,6 +49,7 @@ const debug = buildDebug('verdaccio:auth');
 export interface IBasicAuth<T> {
   config: T & Config;
   authenticate(user: string, password: string, cb: Callback): void;
+  invalidateToken?(token: string): Promise<void>;
   changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
   allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
   add_user(user: string, password: string, cb: Callback): any;
@@ -89,6 +81,7 @@ export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, TokenEncrypt
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
   allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+  invalidateToken(token: string): Promise<void>;
 }
 
 class Auth implements IAuth {
@@ -157,7 +150,7 @@ class Auth implements IAuth {
     const validPlugins = _.filter(this.plugins, (plugin) => isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
-      return cb(getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+      return cb(errorUtils.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
     for (const plugin of validPlugins) {
@@ -181,6 +174,12 @@ class Auth implements IAuth {
         });
       }
     }
+  }
+
+  public async invalidateToken(token: string) {
+    // eslint-disable-next-line no-console
+    console.log('invalidate token pending to implement', token);
+    return Promise.resolve();
   }
 
   public authenticate(username: string, password: string, cb: Callback): void {
@@ -414,22 +413,24 @@ class Auth implements IAuth {
       };
 
       if (this._isRemoteUserValid(req.remote_user)) {
-        debug('jwt has remote user');
+        debug('jwt has a valid authentication header');
         return next();
       }
 
       // in case auth header does not exist we return anonymous function
-      req.remote_user = createAnonymousRemoteUser();
+      const remoteUser = createAnonymousRemoteUser();
+      req.remote_user = remoteUser;
+      res.locals.remote_user = remoteUser;
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
-        debug('jwt invalid auth header');
+        debug('jwt, authentication header is missing');
         return next();
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        debug('api middleware auth heather is not valid');
-        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        debug('api middleware authentication heather is invalid');
+        return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
       const { secret, security } = this.config;
 
@@ -480,7 +481,7 @@ class Auth implements IAuth {
       } else {
         // with JWT throw 401
         debug('jwt invalid token');
-        next(getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+        next(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       }
     }
   }
@@ -514,7 +515,7 @@ class Auth implements IAuth {
     } else {
       // we force npm client to ask again with basic authentication
       debug('legacy invalid header');
-      return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+      return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
     }
   }
 
@@ -548,7 +549,7 @@ class Auth implements IAuth {
       }
 
       if (!isAuthHeaderValid(authorization)) {
-        return next(getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+        return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
       const token = (authorization || '').replace(`${TOKEN_BEARER} `, '');

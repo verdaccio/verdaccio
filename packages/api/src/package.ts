@@ -1,15 +1,16 @@
-import _ from 'lodash';
-import { Router } from 'express';
 import buildDebug from 'debug';
+import { Router } from 'express';
+import _ from 'lodash';
 
-import { allow } from '@verdaccio/middleware';
-import { getVersion, ErrorCode } from '@verdaccio/utils';
-import { HEADERS, DIST_TAGS, API_ERROR } from '@verdaccio/commons-api';
-import { Config, Package } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
+import { API_ERROR, DIST_TAGS, HEADERS, errorUtils } from '@verdaccio/core';
+import { allow } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../types/custom';
+import { Config, Package } from '@verdaccio/types';
+import { getVersion } from '@verdaccio/utils';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:package');
 
@@ -34,18 +35,13 @@ const downloadStream = (
   stream.pipe(res);
 };
 
-export default function (
-  route: Router,
-  auth: IAuth,
-  storage: IStorageHandler,
-  config: Config
-): void {
+export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
   const can = allow(auth);
   // TODO: anonymous user?
   route.get(
     '/:package/:version?',
     can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    function (req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
       debug('init package by version');
       const name = req.params.package;
       const getPackageMetaCallback = function (err, metadata: Package): void {
@@ -54,7 +50,11 @@ export default function (
           return next(err);
         }
         debug('convert dist remote to local with prefix %o', config?.url_prefix);
-        metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config?.url_prefix);
+        metadata = convertDistRemoteToLocalTarballUrls(
+          metadata,
+          { protocol: req.protocol, headers: req.headers as any, host: req.host },
+          config?.url_prefix
+        );
 
         let queryVersion = req.params.version;
         debug('query by param version: %o', queryVersion);
@@ -85,7 +85,7 @@ export default function (
         }
 
         debug('package version not found %o', queryVersion);
-        return next(ErrorCode.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`));
+        return next(errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`));
       };
 
       debug('get package name %o', name);

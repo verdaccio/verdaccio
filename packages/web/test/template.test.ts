@@ -1,4 +1,5 @@
 import template from '../src/template';
+
 const manifest = require('./partials/manifest/manifest.json');
 
 const exampleManifest = {

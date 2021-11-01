@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import Link from 'verdaccio-ui/components/Link';
 import { default as MuiListItemText } from 'verdaccio-ui/components/ListItemText';
 import Text from 'verdaccio-ui/components/Text';

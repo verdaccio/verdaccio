@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { PackageMetaInterface } from 'types/packageMeta';
 
-import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
-
+import { Dispatch, RootState } from '../../store/store';
 import { DetailContext } from './context';
 import getRouterPackageName from './get-route-package-name';
-import isPackageVersionValid from './is-package-version-valid';
 
 interface Params {
   scope?: string;
@@ -15,52 +13,23 @@ interface Params {
 }
 
 const VersionContextProvider: React.FC = ({ children }) => {
-  const { version, package: pkgName, scope } = useParams<Params>();
-  const [packageName, setPackageName] = useState(getRouterPackageName(pkgName, scope));
-  const [packageVersion, setPackageVersion] = useState(version);
-  const [packageMeta, setPackageMeta] = useState<PackageMetaInterface>();
-  const [readMe, setReadme] = useState<string>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [hasNotBeenFound, setHasNotBeenFound] = useState<boolean>();
-  const { callDetailPage, callReadme } = useAPI();
-
+  const { version: packageVersion, package: pkgName, scope } = useParams<Params>();
+  const { manifest, readme, packageName, hasNotBeenFound } = useSelector(
+    (state: RootState) => state.manifest
+  );
+  const isLoading = useSelector((state: RootState) => state?.loading?.models.manifest);
+  const dispatch = useDispatch<Dispatch>();
   useEffect(() => {
-    const updatedPackageName = getRouterPackageName(pkgName, scope);
-    setPackageName(updatedPackageName);
-  }, [pkgName, scope]);
-
-  useEffect(() => {
-    setPackageVersion(version);
-  }, [version]);
-
-  const doCalls = useCallback(async () => {
-    try {
-      const packageMeta = await callDetailPage(packageName, packageVersion);
-      const readMe = await callReadme(packageName, packageVersion);
-      if (isPackageVersionValid(packageMeta, packageVersion)) {
-        setReadme(readMe);
-        setPackageMeta(packageMeta);
-        setIsLoading(false);
-      } else {
-        setIsLoading(false);
-        setHasNotBeenFound(true);
-      }
-    } catch (error: any) {
-      setHasNotBeenFound(true);
-      setIsLoading(false);
-    }
-  }, [packageName, packageVersion, callDetailPage, callReadme]);
-
-  useEffect(() => {
-    doCalls();
-  }, [doCalls]);
+    const packageName = getRouterPackageName(pkgName, scope);
+    dispatch.manifest.getManifest({ packageName, packageVersion });
+  }, [dispatch, packageVersion, pkgName, scope]);
 
   return (
     <DetailContext.Provider
       value={{
-        packageMeta,
+        packageMeta: manifest,
         packageVersion,
-        readMe,
+        readMe: readme,
         packageName,
         isLoading,
         hasNotBeenFound,

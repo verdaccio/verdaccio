@@ -1,6 +1,8 @@
 import zlib from 'zlib';
+
+import { CHARACTER_ENCODING, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+
 import { readFile } from '../lib/test.utils';
-import { HEADER_TYPE, HEADERS, HTTP_STATUS, CHARACTER_ENCODING } from '@verdaccio/commons-api';
 
 export default function (server, express) {
   const PKG_NAME = 'testexp_gzip';

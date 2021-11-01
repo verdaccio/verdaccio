@@ -1,9 +1,9 @@
-import React from 'react';
 import Translate from '@docusaurus/Translate';
 import { Link } from '@docusaurus/router';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import Divider from './Divider';
+import React from 'react';
 
+import Divider from './Divider';
 import styles from './WhatIsVerdaccio.module.scss';
 
 const WhatIs = (): React.ReactElement => (

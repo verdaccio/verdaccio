@@ -1,7 +1,8 @@
 import supertest from 'supertest';
 
-import { HEADER_TYPE, HEADERS, HTTP_STATUS } from '@verdaccio/commons-api';
-import { $ResponseExtend, $RequestExtend } from '../../types/custom';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+
+import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer, publishTaggedVersion, publishVersion } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(
@@ -64,7 +65,7 @@ describe('package', () => {
     });
   });
 
-  // TODO: investigate the 404
+  // FIXME: investigate the 404
   test.skip('should return a package by dist-tag', async (done) => {
     // await publishVersion(app, 'package.yaml', 'foo3', '1.0.0');
     await publishVersion(app, 'package.yaml', 'foo-tagged', '1.0.0');
@@ -80,7 +81,7 @@ describe('package', () => {
       });
   });
 
-  test.skip('should return 404', async () => {
+  test('should return 404', async () => {
     return supertest(app)
       .get('/404-not-found')
       .set('Accept', HEADERS.JSON)

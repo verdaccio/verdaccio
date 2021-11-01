@@ -1,7 +1,6 @@
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import React, { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import IconButton from 'verdaccio-ui/components/IconButton';
 import Menu from 'verdaccio-ui/components/Menu';
 import MenuItem from 'verdaccio-ui/components/MenuItem';
@@ -30,7 +29,7 @@ const HeaderMenu: React.FC<Props> = ({
     <>
       <IconButton
         color="inherit"
-        data-testid="header--menu-accountcircle"
+        data-testid="logInDialogIcon"
         id="header--button-account"
         onClick={onLoggedInMenu}>
         <AccountCircle />
@@ -52,8 +51,8 @@ const HeaderMenu: React.FC<Props> = ({
         </MenuItem>
         <MenuItem
           button={true}
-          data-testid="header--button-logout"
-          id="header--button-logout"
+          data-testid="logOutDialogIcon"
+          id="logOutDialogIcon"
           onClick={onLogout}>
           {t('button.logout')}
         </MenuItem>

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "11.0.0-alpha.3",
+  "version": "11.0.0-6-next.4",
   "description": "library that handle file locking",
   "keywords": [
     "private",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "repository": {
@@ -40,7 +40,7 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

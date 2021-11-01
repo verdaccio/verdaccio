@@ -1,13 +1,13 @@
 import _ from 'lodash';
-import { ROLES, Config as AppConfig } from '@verdaccio/config';
-import { setup } from '@verdaccio/logger';
+
 import { IAuth } from '@verdaccio/auth';
+import { Config as AppConfig, ROLES } from '@verdaccio/config';
+import { errorUtils } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
-import { getInternalError } from '@verdaccio/commons-api';
 
 import { Auth } from '../src';
-
-import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf } from './helper/plugin';
+import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
 setup([]);
 
@@ -57,7 +57,7 @@ describe('AuthTest', () => {
 
         auth.authenticate('foo', 'bar', callback);
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(getInternalError());
+        expect(callback).toHaveBeenCalledWith(errorUtils.getInternalError());
       });
     });
 

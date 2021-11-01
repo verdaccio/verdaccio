@@ -1,29 +1,25 @@
 import _ from 'lodash';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
 
-import { readFile } from '../lib/test.utils';
+import { HTTP_STATUS } from '@verdaccio/core';
 
-const readTags = () => readFile('../fixtures/tags.json');
+import SimpleServer from '../lib/simple_server';
 
-export default function (server, express) {
-  test('tags - testing for 404', () => {
-    return (
-      server
-        .getPackage('testexp_tags')
-        // shouldn't exist yet
-        .status(HTTP_STATUS.NOT_FOUND)
-        .body_error(/no such package/)
-    );
-  });
+const simpleServer = new SimpleServer();
 
-  describe('tags', () => {
-    beforeAll(function () {
-      express.get('/testexp_tags', function (req, res) {
-        let f = readTags()
-          .toString()
-          .replace(/__NAME__/g, 'testexp_tags');
-        res.send(JSON.parse(f));
+export default function (server) {
+  describe('dist-tags', () => {
+    // jest.setTimeout(5000);
+    beforeAll(async function () {
+      simpleServer.server.get('/testexp_tags', function (_req, reply) {
+        const tagsPayload = require('./tags.json');
+        reply.send(tagsPayload);
       });
+      simpleServer.server.get('/testexp_tags2', function (_req, reply) {
+        const tagsPayload = require('./tags2.json');
+        reply.send(tagsPayload);
+      });
+
+      await simpleServer.start(55550);
     });
 
     test('fetching package again', () => {
@@ -38,161 +34,152 @@ export default function (server, express) {
         });
     });
 
-    const versions = ['0.1.1alpha', '0.1.1-alpha', '0000.00001.001-alpha'];
+    test.each([
+      ['0.1.1alpha', '0.1.1alpha'],
+      ['0.1.1-alpha', '0.1.1alpha'],
+      ['0000.00001.001-alpha', '0.1.1alpha'],
+    ])('should handle unusual version tags as %s', async (version, expected) => {
+      return server
+        .request({ uri: `/testexp_tags/${version}` })
+        .status(HTTP_STATUS.OK)
+        .then(function (body) {
+          expect(body.version).toEqual(expected);
+        });
+    });
 
-    versions.forEach(function (ver) {
-      test('fetching ' + ver, () => {
+    describe('dist-tags methods', () => {
+      // populate cache
+      beforeAll(function () {
+        return server.getPackage('testexp_tags2').status(200);
+      });
+
+      test('fetching tags', () => {
         return server
-          .request({ uri: '/testexp_tags/' + ver })
+          .request({
+            method: 'GET',
+            uri: '/-/package/testexp_tags2/dist-tags',
+          })
           .status(200)
           .then(function (body) {
-            expect(body.version).toEqual('0.1.1alpha');
+            const expected = {
+              latest: '1.1.0',
+            };
+
+            expect(body).toEqual(expected);
           });
       });
-    });
-  });
 
-  describe('dist-tags methods', () => {
-    beforeAll(function () {
-      express.get('/testexp_tags2', function (req, res) {
-        let f = readTags()
-          .toString()
-          .replace(/__NAME__/g, 'testexp_tags2');
-        res.send(JSON.parse(f));
+      test('merging tags', () => {
+        return server
+          .request({
+            method: 'POST',
+            uri: '/-/package/testexp_tags2/dist-tags',
+            json: {
+              foo: '0.1.2',
+              quux: '0.1.0',
+            },
+          })
+          .status(201)
+          .body_ok(/updated/)
+          .then(function () {
+            return server
+              .request({
+                method: 'GET',
+                uri: '/-/package/testexp_tags2/dist-tags',
+              })
+              .status(200)
+              .then(function (body) {
+                const expected = {
+                  latest: '1.1.0',
+                  foo: '0.1.2',
+                  quux: '0.1.0',
+                };
+
+                expect(body).toEqual(expected);
+              });
+          });
       });
-    });
 
-    // populate cache
-    beforeAll(function () {
-      return server.getPackage('testexp_tags2').status(200);
-    });
+      test('should add a dist-tag called foo', () => {
+        return server
+          .request({
+            method: 'PUT',
+            uri: '/-/package/testexp_tags2/dist-tags/foo',
+            json: '0.1.3alpha',
+          })
+          .status(201)
+          .body_ok(/tagged/)
+          .then(function () {
+            return server
+              .request({
+                method: 'GET',
+                uri: '/-/package/testexp_tags2/dist-tags',
+              })
+              .status(200)
+              .then(function (body) {
+                const expected = {
+                  foo: '0.1.3alpha',
+                  quux: '0.1.0',
+                  latest: '1.1.0',
+                };
 
-    test('fetching tags', () => {
-      return server
-        .request({
-          method: 'GET',
-          uri: '/-/package/testexp_tags2/dist-tags',
-        })
-        .status(200)
-        .then(function (body) {
-          const expected = {
-            latest: '1.1.0',
-          };
+                expect(body).toEqual(expected);
+              });
+          });
+      });
 
-          expect(body).toEqual(expected);
-        });
-    });
+      test('should remove a dis-tag called quux', () => {
+        return server
+          .request({
+            method: 'DELETE',
+            uri: '/-/package/testexp_tags2/dist-tags/latest',
+          })
+          .status(201)
+          .body_ok(/removed/)
+          .then(function () {
+            return server
+              .request({
+                method: 'GET',
+                uri: '/-/package/testexp_tags2/dist-tags',
+              })
+              .status(200)
+              .then(function (body) {
+                const expected = {
+                  latest: '1.1.0',
+                  quux: '0.1.0',
+                  foo: '0.1.3alpha',
+                };
 
-    test('merging tags', () => {
-      return server
-        .request({
-          method: 'POST',
-          uri: '/-/package/testexp_tags2/dist-tags',
-          json: {
-            foo: '0.1.2',
-            quux: '0.1.0',
-          },
-        })
-        .status(201)
-        .body_ok(/updated/)
-        .then(function () {
-          return server
-            .request({
-              method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags',
-            })
-            .status(200)
-            .then(function (body) {
-              const expected = {
-                latest: '1.1.0',
-                foo: '0.1.2',
-                quux: '0.1.0',
-              };
+                expect(body).toEqual(expected);
+              });
+          });
+      });
 
-              expect(body).toEqual(expected);
-            });
-        });
-    });
+      test('should remove a dis-tag called foo', () => {
+        return server
+          .request({
+            method: 'DELETE',
+            uri: '/-/package/testexp_tags2/dist-tags/foo',
+          })
+          .status(201)
+          .body_ok(/removed/)
+          .then(function () {
+            return server
+              .request({
+                method: 'GET',
+                uri: '/-/package/testexp_tags2/dist-tags',
+              })
+              .status(200)
+              .then(function (body) {
+                const expected = {
+                  latest: '1.1.0',
+                  quux: '0.1.0',
+                };
 
-    test('should add a dist-tag called foo', () => {
-      return server
-        .request({
-          method: 'PUT',
-          uri: '/-/package/testexp_tags2/dist-tags/foo',
-          json: '0.1.3alpha',
-        })
-        .status(201)
-        .body_ok(/tagged/)
-        .then(function () {
-          return server
-            .request({
-              method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags',
-            })
-            .status(200)
-            .then(function (body) {
-              const expected = {
-                foo: '0.1.3alpha',
-                quux: '0.1.0',
-                latest: '1.1.0',
-              };
-
-              expect(body).toEqual(expected);
-            });
-        });
-    });
-
-    test('should remove a dis-tag called quux', () => {
-      return server
-        .request({
-          method: 'DELETE',
-          uri: '/-/package/testexp_tags2/dist-tags/latest',
-        })
-        .status(201)
-        .body_ok(/removed/)
-        .then(function () {
-          return server
-            .request({
-              method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags',
-            })
-            .status(200)
-            .then(function (body) {
-              const expected = {
-                latest: '1.1.0',
-                quux: '0.1.0',
-                foo: '0.1.3alpha',
-              };
-
-              expect(body).toEqual(expected);
-            });
-        });
-    });
-
-    test('should remove a dis-tag called foo', () => {
-      return server
-        .request({
-          method: 'DELETE',
-          uri: '/-/package/testexp_tags2/dist-tags/foo',
-        })
-        .status(201)
-        .body_ok(/removed/)
-        .then(function () {
-          return server
-            .request({
-              method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags',
-            })
-            .status(200)
-            .then(function (body) {
-              const expected = {
-                latest: '1.1.0',
-                quux: '0.1.0',
-              };
-
-              expect(body).toEqual(expected);
-            });
-        });
+                expect(body).toEqual(expected);
+              });
+          });
+      });
     });
   });
 }

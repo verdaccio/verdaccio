@@ -1,23 +1,16 @@
 import React from 'react';
-
 import api from 'verdaccio-ui/providers/API/api';
 import {
-  render,
-  waitFor,
-  fireEvent,
-  cleanup,
-  screen,
   act,
+  cleanup,
+  fireEvent,
+  renderWithStore,
+  screen,
+  waitFor,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import AppContext, { AppContextProps } from '../../AppContext';
-
+import { store } from '../../../store';
 import LoginDialog from './LoginDialog';
-
-const appContextValue: AppContextProps = {
-  scope: '',
-  setUser: jest.fn(),
-};
 
 describe('<LoginDialog /> component', () => {
   beforeEach(() => {
@@ -30,11 +23,7 @@ describe('<LoginDialog /> component', () => {
     const props = {
       onClose: jest.fn(),
     };
-    const { container } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} />
-      </AppContext.Provider>
-    );
+    const { container } = renderWithStore(<LoginDialog onClose={props.onClose} />, store);
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -44,10 +33,9 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
+    const { getByTestId } = renderWithStore(
+      <LoginDialog onClose={props.onClose} open={props.open} />,
+      store
     );
 
     const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
@@ -60,18 +48,18 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
+    const { getByTestId } = renderWithStore(
+      <LoginDialog onClose={props.onClose} open={props.open} />,
+      store
     );
 
     const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
 
-    act(() => {
+    await act(() => {
       fireEvent.click(loginDialogButton, { open: false });
     });
+
     expect(props.onClose).toHaveBeenCalled();
   });
 
@@ -88,11 +76,9 @@ describe('<LoginDialog /> component', () => {
       })
     );
 
-    render(
-      <AppContext.Provider value={appContextValue}>
-        <LoginDialog onClose={props.onClose} open={props.open} />
-      </AppContext.Provider>
-    );
+    await act(async () => {
+      renderWithStore(<LoginDialog onClose={props.onClose} open={props.open} />, store);
+    });
 
     const userNameInput = screen.getByPlaceholderText('Your username');
     expect(userNameInput).toBeInTheDocument();
@@ -104,13 +90,18 @@ describe('<LoginDialog /> component', () => {
     const passwordInput = screen.getByPlaceholderText('Your strong password');
     expect(userNameInput).toBeInTheDocument();
     fireEvent.focus(passwordInput);
-    fireEvent.change(passwordInput, { target: { value: '1234' } });
 
-    act(async () => {
-      const signInButton = await screen.getByTestId('login-dialog-form-login-button');
-      expect(signInButton).not.toBeDisabled();
+    await act(async () => {
+      fireEvent.change(passwordInput, { target: { value: '1234' } });
+    });
+    const signInButton = screen.getByTestId('login-dialog-form-login-button');
+    expect(signInButton).not.toBeDisabled();
+
+    await act(async () => {
       fireEvent.click(signInButton);
     });
+    expect(props.onClose).toHaveBeenCalledTimes(1);
+    // screen.debug();
   });
 
   test.todo('validateCredentials: should validate credentials');

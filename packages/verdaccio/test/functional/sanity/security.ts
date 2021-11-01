@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+
+import { HTTP_STATUS } from '@verdaccio/core';
 
 export default function (server) {
   describe('should test security on endpoints', () => {

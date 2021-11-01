@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.4
+
+### Major Changes
+
+- 794af76c: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
 ## 10.0.0-alpha.3
 
 ### Patch Changes

@@ -1,6 +1,7 @@
-import { Package } from '@verdaccio/types';
-import { Request } from 'express';
 import _ from 'lodash';
+
+import { Package } from '@verdaccio/types';
+import { RequestOptions } from '@verdaccio/url';
 
 import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
 
@@ -13,7 +14,7 @@ import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
  */
 export function convertDistRemoteToLocalTarballUrls(
   pkg: Package,
-  req: Request,
+  request: RequestOptions,
   urlPrefix: string | void
 ): Package {
   for (const ver in pkg.versions) {
@@ -21,7 +22,12 @@ export function convertDistRemoteToLocalTarballUrls(
       const distName = pkg.versions[ver].dist;
 
       if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
+        distName.tarball = getLocalRegistryTarballUri(
+          distName.tarball,
+          pkg.name,
+          request,
+          urlPrefix
+        );
       }
     }
   }

@@ -1,125 +1,82 @@
 import assert from 'assert';
-import Stream from 'stream';
 import async, { AsyncResultArrayCallback } from 'async';
-import _ from 'lodash';
-import { Request } from 'express';
 import buildDebug from 'debug';
+import _ from 'lodash';
+import semver from 'semver';
 
+import { hasProxyTo } from '@verdaccio/config';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { pkgUtils, validatioUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { ProxyStorage } from '@verdaccio/proxy';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
+import { IProxy, ProxyList } from '@verdaccio/proxy';
 import { ReadTarball } from '@verdaccio/streams';
-import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from '@verdaccio/utils';
-import { ProxyList, IProxy } from '@verdaccio/proxy';
 import {
+  Callback,
+  CallbackAction,
+  Config,
+  DistFile,
+  GenericBody,
   IReadTarball,
   IUploadTarball,
-  Versions,
-  Package,
-  Config,
-  MergeTags,
-  Version,
-  DistFile,
-  StringValue,
-  IPluginStorageFilter,
-  IPluginStorage,
-  Callback,
   Logger,
-  StoragePackageActions,
-  GenericBody,
-  TokenFilter,
+  MergeTags,
+  Package,
+  StringValue,
   Token,
-  IStorageManager,
-  ITokenActions,
+  TokenFilter,
+  Version,
+  Versions,
 } from '@verdaccio/types';
-import { hasProxyTo } from '@verdaccio/config';
-import { logger } from '@verdaccio/logger';
-import { VerdaccioError } from '@verdaccio/commons-api';
-import { SearchInstance } from './search';
+import { normalizeDistTags } from '@verdaccio/utils';
 
 import { LocalStorage } from './local-storage';
-import { mergeVersions } from './metadata-utils';
-import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
+import { SearchInstance, SearchManager } from './search';
 import {
   checkPackageLocal,
-  publishPackage,
   checkPackageRemote,
   cleanUpLinksRef,
-  mergeUplinkTimeIntoLocal,
   generatePackageTemplate,
+  mergeUplinkTimeIntoLocal,
+  publishPackage,
 } from './storage-utils';
+import { IGetPackageOptions, IPluginFilters, ISyncUplinks } from './type';
+import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
+
+if (semver.lte(process.version, 'v15.0.0')) {
+  global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;
+}
 
 const debug = buildDebug('verdaccio:storage');
-
-export interface IGetPackageOptions {
-  callback: Callback;
-  name: string;
-  keepUpLinkData: boolean;
-  uplinksLook: boolean;
-  req: any;
-}
-
-export interface IBasicStorage<T> extends StoragePackageActions {
-  init(): Promise<void>;
-  addPackage(name: string, info: Package, callback: Callback): void;
-  updateVersions(name: string, packageInfo: Package, callback: Callback): void;
-  getPackageMetadata(name: string, callback: Callback): void;
-  search(startKey: string, options: any): IReadTarball;
-  getSecret(config: T & Config): Promise<any>;
-}
-
-export interface IStorage extends IBasicStorage<Config>, ITokenActions {
-  config: Config;
-  storagePlugin: IPluginStorage<Config> | null;
-  logger: Logger;
-}
-
-export interface ISyncUplinks {
-  uplinksLook?: boolean;
-  etag?: string;
-  req?: Request;
-}
-
-export type IPluginFilters = IPluginStorageFilter<Config>[];
-
-export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
-  config: Config;
-  localStorage: IStorage | null;
-  filters: IPluginFilters;
-  uplinks: ProxyList;
-  init(config: Config, filters: IPluginFilters): Promise<void>;
-  saveToken(token: Token): Promise<any>;
-  deleteToken(user: string, tokenKey: string): Promise<any>;
-  readTokens(filter: TokenFilter): Promise<Token[]>;
-  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
-  _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
-}
-
 class Storage {
-  public localStorage: IStorage;
-  public config: Config;
-  public logger: Logger;
-  public uplinks: ProxyList;
+  public localStorage: LocalStorage;
+  public searchManager: SearchManager | null;
+  public readonly config: Config;
+  public readonly logger: Logger;
+  public readonly uplinks: ProxyList;
   public filters: IPluginFilters;
 
   public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
-    debug('uplinks available %o', this.uplinks);
+    debug('uplinks available %o', Object.keys(this.uplinks));
     this.logger = logger.child({ module: 'storage' });
     this.filters = [];
     // @ts-ignore
     this.localStorage = null;
+    this.searchManager = null;
   }
 
   public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
     if (this.localStorage === null) {
-      this.filters = filters;
+      this.filters = filters || [];
       debug('filters available %o', filters);
       this.localStorage = new LocalStorage(this.config, logger);
       await this.localStorage.init();
       debug('local init storage initialized');
       await this.localStorage.getSecret(config);
       debug('local storage secret initialized');
+      this.searchManager = new SearchManager(this.uplinks, this.localStorage);
     } else {
       debug('storage has been already initialized');
     }
@@ -143,7 +100,7 @@ class Storage {
         this._syncUplinksMetadata.bind(this)
       );
       debug('publishing a package for %o', name);
-      await publishPackage(name, metadata, this.localStorage as IStorage);
+      await publishPackage(name, metadata, this.localStorage as LocalStorage);
       callback();
     } catch (err: any) {
       debug('error on add a package for %o with error %o', name, err?.error);
@@ -180,7 +137,7 @@ class Storage {
     version: string,
     metadata: Version,
     tag: StringValue,
-    callback: Callback
+    callback: CallbackAction
   ): void {
     debug('add the version %o for package %o', version, name);
     this.localStorage.addVersion(name, version, metadata, tag, callback);
@@ -190,7 +147,7 @@ class Storage {
    * Tags a package version with a provided tag
    Used storages: local (write)
    */
-  public mergeTags(name: string, tagHash: MergeTags, callback: Callback): void {
+  public mergeTags(name: string, tagHash: MergeTags, callback: CallbackAction): void {
     debug('merge tags for package %o tags %o', name, tagHash);
     this.localStorage.mergeTags(name, tagHash, callback);
   }
@@ -215,9 +172,9 @@ class Storage {
    Function removes a package from local storage
    Used storages: local (write)
    */
-  public removePackage(name: string, callback: Callback): void {
+  public async removePackage(name: string): Promise<void> {
     debug('remove packagefor package %o', name);
-    this.localStorage.removePackage(name, callback);
+    await this.localStorage.removePackage(name);
     // update the indexer
     SearchInstance.remove(name);
   }
@@ -229,7 +186,12 @@ class Storage {
    versions, i.e. package version should be unpublished first.
    Used storage: local (write)
    */
-  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
+  public removeTarball(
+    name: string,
+    filename: string,
+    revision: string,
+    callback: CallbackAction
+  ): void {
     this.localStorage.removeTarball(name, filename, revision, callback);
   }
 
@@ -398,7 +360,7 @@ class Storage {
   public getPackage(options: IGetPackageOptions): void {
     const { name } = options;
     debug('get package for %o', name);
-    this.localStorage.getPackageMetadata(name, (err, data): void => {
+    this.localStorage.getPackageMetadata(name, (err, data) => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
         debug('error on get package for %o with error %o', name, err?.message);
@@ -416,80 +378,16 @@ class Storage {
             return options.callback(err);
           }
 
-          normalizeDistTags(cleanUpLinksRef(options.keepUpLinkData, result));
+          normalizeDistTags(cleanUpLinksRef(result, options?.keepUpLinkData));
 
           // npm can throw if this field doesn't exist
           result._attachments = {};
 
-          debug('sync uplinks errors %o', uplinkErrors);
+          debug('no. sync uplinks errors %o', uplinkErrors?.length);
           options.callback(null, result, uplinkErrors);
         }
       );
     });
-  }
-
-  /**
-   Retrieve remote and local packages more recent than {startkey}
-   Function streams all packages from all uplinks first, and then
-   local packages.
-   Note that local packages could override registry ones just because
-   they appear in JSON last. That's a trade-off we make to avoid
-   memory issues.
-   Used storages: local && uplink (proxy_access)
-   * @param {*} startkey
-   * @param {*} options
-   * @return {Stream}
-   */
-  public search(startkey: string, options: any): IReadTarball {
-    const self = this;
-    // stream to write a tarball
-    const stream: any = new Stream.PassThrough({ objectMode: true });
-
-    async.eachSeries(
-      Object.keys(this.uplinks),
-      function (up_name, cb): void {
-        // shortcut: if `local=1` is supplied, don't call uplinks
-        if (options.req.query.local !== undefined) {
-          return cb();
-        }
-        // search by keyword for each uplink
-        const lstream: IUploadTarball = self.uplinks[up_name].search(options);
-        // join streams
-        lstream.pipe(stream, { end: false });
-        lstream.on('error', function (err): void {
-          self.logger.error({ err: err }, 'uplink error: @{err?.message}');
-          cb();
-          cb = function (): void {};
-        });
-        lstream.on('end', function (): void {
-          cb();
-          cb = function (): void {};
-        });
-
-        stream.abort = function (): void {
-          if (lstream.abort) {
-            lstream.abort();
-          }
-          cb();
-          cb = function (): void {};
-        };
-      },
-      // executed after all series
-      function (): void {
-        // attach a local search results
-        const lstream: IReadTarball = self.localStorage.search(startkey, options);
-        stream.abort = function (): void {
-          lstream.abort();
-        };
-        lstream.pipe(stream, { end: true });
-        lstream.on('error', function (err: VerdaccioError): void {
-          self.logger.error({ err: err }, 'search error: @{err?.message}');
-          stream.end();
-        });
-      }
-    );
-
-    return stream;
   }
 
   /**
@@ -500,53 +398,54 @@ class Storage {
     const self = this;
     debug('get local database');
     if (this.localStorage.storagePlugin !== null) {
-      this.localStorage.storagePlugin.get((err, locals): void => {
-        if (err) {
-          callback(err);
-        }
+      this.localStorage.storagePlugin
+        .get()
+        .then((locals) => {
+          const packages: Version[] = [];
+          const getPackage = function (itemPkg): void {
+            self.localStorage.getPackageMetadata(
+              locals[itemPkg],
+              function (err, pkgMetadata: Package): void {
+                if (_.isNil(err)) {
+                  const latest = pkgMetadata[DIST_TAGS].latest;
+                  if (latest && pkgMetadata.versions[latest]) {
+                    const version: Version = pkgMetadata.versions[latest];
+                    const timeList = pkgMetadata.time as GenericBody;
+                    const time = timeList[latest];
+                    // @ts-ignore
+                    version.time = time;
 
-        const packages: Version[] = [];
-        const getPackage = function (itemPkg): void {
-          self.localStorage.getPackageMetadata(
-            locals[itemPkg],
-            function (err, pkgMetadata: Package): void {
-              if (_.isNil(err)) {
-                const latest = pkgMetadata[DIST_TAGS].latest;
-                if (latest && pkgMetadata.versions[latest]) {
-                  const version: Version = pkgMetadata.versions[latest];
-                  const timeList = pkgMetadata.time as GenericBody;
-                  const time = timeList[latest];
-                  // @ts-ignore
-                  version.time = time;
+                    // Add for stars api
+                    // @ts-ignore
+                    version.users = pkgMetadata.users;
 
-                  // Add for stars api
-                  // @ts-ignore
-                  version.users = pkgMetadata.users;
+                    packages.push(version);
+                  } else {
+                    self.logger.warn(
+                      { package: locals[itemPkg] },
+                      'package @{package} does not have a "latest" tag?'
+                    );
+                  }
+                }
 
-                  packages.push(version);
+                if (itemPkg >= locals.length - 1) {
+                  callback(null, packages);
                 } else {
-                  self.logger.warn(
-                    { package: locals[itemPkg] },
-                    'package @{package} does not have a "latest" tag?'
-                  );
+                  getPackage(itemPkg + 1);
                 }
               }
+            );
+          };
 
-              if (itemPkg >= locals.length - 1) {
-                callback(null, packages);
-              } else {
-                getPackage(itemPkg + 1);
-              }
-            }
-          );
-        };
-
-        if (locals.length) {
-          getPackage(0);
-        } else {
-          callback(null, []);
-        }
-      });
+          if (locals.length) {
+            getPackage(0);
+          } else {
+            callback(null, []);
+          }
+        })
+        .catch((err) => {
+          callback(err);
+        });
     } else {
       debug('local stora instance is null');
     }
@@ -588,7 +487,7 @@ class Storage {
         const _options = Object.assign({}, options);
         const upLinkMeta = packageInfo._uplinks[upLink.upname];
 
-        if (isObject(upLinkMeta)) {
+        if (validatioUtils.isObject(upLinkMeta)) {
           const fetched = upLinkMeta.fetched;
 
           if (fetched && Date.now() - fetched < upLink.maxage) {
@@ -604,11 +503,11 @@ class Storage {
           }
 
           if (err || !upLinkResponse) {
-            return cb(null, [err || ErrorCode.getInternalError('no data')]);
+            return cb(null, [err || errorUtils.getInternalError('no data')]);
           }
 
           try {
-            validateMetadata(upLinkResponse, name);
+            validatioUtils.validateMetadata(upLinkResponse, name);
           } catch (err: any) {
             self.logger.error(
               {
@@ -630,7 +529,7 @@ class Storage {
           updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
           try {
-            mergeVersions(packageInfo, upLinkResponse);
+            pkgUtils.mergeVersions(packageInfo, upLinkResponse);
           } catch (err: any) {
             self.logger.error(
               {
@@ -671,9 +570,9 @@ class Storage {
           }
 
           if (uplinkTimeoutError) {
-            return callback(ErrorCode.getServiceUnavailable(), null, upLinksErrors);
+            return callback(errorUtils.getServiceUnavailable(), null, upLinksErrors);
           }
-          return callback(ErrorCode.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
+          return callback(errorUtils.getNotFound(API_ERROR.NO_PACKAGE), null, upLinksErrors);
         }
 
         if (upLinks.length === 0) {

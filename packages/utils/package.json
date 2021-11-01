@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "6.0.0-6-next.5",
+  "version": "6.0.0-6-next.8",
   "description": "verdaccio utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,11 +26,12 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "minimatch": "3.0.4",
     "semver": "7.3.5"
   },
   "devDependencies": {

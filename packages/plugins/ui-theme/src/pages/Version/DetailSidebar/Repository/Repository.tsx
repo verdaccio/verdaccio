@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Avatar from 'verdaccio-ui/components/Avatar';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import Link from 'verdaccio-ui/components/Link';
@@ -13,7 +12,6 @@ import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { isURL } from 'verdaccio-ui/utils/url';
 
 import { DetailContext } from '../../context';
-
 import git from './img/git.png';
 
 const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({

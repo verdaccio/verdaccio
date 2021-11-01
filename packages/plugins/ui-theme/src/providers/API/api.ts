@@ -1,5 +1,5 @@
-import storage from './storage';
 import '../../../types';
+import storage from './storage';
 
 /**
  * Handles response according to content type
@@ -29,6 +29,8 @@ export function handleResponseType(response: Response): Promise<[boolean, any]> 
   return Promise.all([response.ok, response.text()]);
 }
 
+const AuthHeader = 'Authorization';
+
 class API {
   public request<T>(
     url: string,
@@ -38,10 +40,12 @@ class API {
     const token = storage.getItem('token');
     const headers = new Headers(options.headers);
 
-    if (token && headers.has('Authorization') === false) {
-      headers.set('Authorization', `Bearer ${token}`);
+    if (token && headers.has(AuthHeader) === false) {
+      headers.set(AuthHeader, `Bearer ${token}`);
       options.headers = headers;
     }
+
+    headers.set('x-client', 'verdaccio-ui');
 
     return new Promise((resolve, reject) => {
       fetch(url, {

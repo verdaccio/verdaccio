@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import List from 'verdaccio-ui/components/List';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useConfig } from 'verdaccio-ui/providers/config';
 
 import { DetailContext } from '../..';
-
 import InstallListItem, { DependencyManager } from './InstallListItem';
 
 const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({

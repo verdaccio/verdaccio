@@ -1,16 +1,16 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
-import { isVersionValid, formatAuthor } from '@verdaccio/utils';
-import { HTTP_STATUS, DIST_TAGS } from '@verdaccio/commons-api';
-import { allow, $RequestExtend, $ResponseExtend, $NextFunctionVer } from '@verdaccio/middleware';
-
 import { Router } from 'express';
-import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
-import { Config, Package, Version } from '@verdaccio/types';
+import _ from 'lodash';
 
+import { IAuth } from '@verdaccio/auth';
+import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { addGravatarSupport, addScope, AuthorAvatar, deleteProperties } from '../utils/web-utils';
+import { Config, Package, Version } from '@verdaccio/types';
+import { formatAuthor, isVersionValid } from '@verdaccio/utils';
+
+import { AuthorAvatar, addGravatarSupport, addScope, deleteProperties } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
@@ -19,12 +19,7 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 export type $SidebarPackage = Package & { latest: Version };
 const debug = buildDebug('verdaccio:web:api:sidebar');
 
-function addSidebarWebApi(
-  route: Router,
-  config: Config,
-  storage: IStorageHandler,
-  auth: IAuth
-): void {
+function addSidebarWebApi(route: Router, config: Config, storage: Storage, auth: IAuth): void {
   debug('initialized sidebar web api');
   const can = allow(auth);
   // Get package readme
@@ -47,7 +42,7 @@ function addSidebarWebApi(
             let sideBarInfo = _.clone(info);
             sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
               info,
-              req,
+              { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
               config.url_prefix
             ).versions;
             if (typeof v === 'string' && isVersionValid(info, v)) {

@@ -1,21 +1,23 @@
-import { Storage } from '@google-cloud/storage';
 import { Datastore, DatastoreOptions } from '@google-cloud/datastore';
-import { getServiceUnavailable, getInternalError, VerdaccioError } from '@verdaccio/commons-api';
+import { entity } from '@google-cloud/datastore/build/src/entity';
+import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
+import { CommitResponse } from '@google-cloud/datastore/build/src/request';
+import { Storage } from '@google-cloud/storage';
+
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import {
-  Logger,
   Callback,
+  IPackageStorageManager,
   IPluginStorage,
+  Logger,
   Token,
   TokenFilter,
-  IPackageStorageManager,
 } from '@verdaccio/types';
-import { CommitResponse } from '@google-cloud/datastore/build/src/request';
-import { RunQueryResponse } from '@google-cloud/datastore/build/src/query';
-import { entity } from '@google-cloud/datastore/build/src/entity';
 
-import { VerdaccioConfigGoogleStorage, GoogleDataStorage } from './types';
-import StorageHelper, { IStorageHelper } from './storage-helper';
 import GoogleCloudStorageHandler from './storage';
+import StorageHelper, { IStorageHelper } from './storage-helper';
+import { GoogleDataStorage, VerdaccioConfigGoogleStorage } from './types';
+
 type Key = entity.Key;
 
 export const ERROR_MISSING_CONFIG =
@@ -87,19 +89,19 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
   public saveToken(token: Token): Promise<void> {
     this.logger.warn({ token }, 'save token has not been implemented yet @{token}');
 
-    return Promise.reject(getServiceUnavailable('[saveToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[saveToken] method not implemented'));
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<void> {
     this.logger.warn({ tokenKey, user }, 'delete token has not been implemented yet @{user}');
 
-    return Promise.reject(getServiceUnavailable('[deleteToken] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[deleteToken] method not implemented'));
   }
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
     this.logger.warn({ filter }, 'read tokens has not been implemented yet @{filter}');
 
-    return Promise.reject(getServiceUnavailable('[readTokens] method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('[readTokens] method not implemented'));
   }
 
   public getSecret(): Promise<string> {
@@ -119,10 +121,10 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
         return entities.secret;
       })
       .catch((err: Error): Promise<string> => {
-        const error: VerdaccioError = getInternalError(err.message);
+        const error: VerdaccioError = errorUtils.getInternalError(err.message);
 
         this.logger.warn({ error }, 'gcloud: [datastore getSecret] init error @{error}');
-        return Promise.reject(getServiceUnavailable('[getSecret] permissions error'));
+        return Promise.reject(errorUtils.getServiceUnavailable('[getSecret] permissions error'));
       });
   }
 
@@ -137,33 +139,35 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     return this.helper.datastore.upsert(entity);
   }
 
-  public add(name: string, cb: Callback): void {
-    const datastore = this.helper.datastore;
-    const key = datastore.key([this.kind, name]);
-    const data = {
-      name: name,
-    };
-    this.logger.debug('gcloud: [datastore add] @{name} init');
+  async add(name: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const datastore = this.helper.datastore;
+      const key = datastore.key([this.kind, name]);
+      const data = {
+        name: name,
+      };
+      this.logger.debug('gcloud: [datastore add] @{name} init');
 
-    datastore
-      .save({
-        key: key,
-        data: data,
-      })
-      .then((response: CommitResponse): void => {
-        const res = response[0];
+      datastore
+        .save({
+          key: key,
+          data: data,
+        })
+        .then((response: CommitResponse): void => {
+          const res = response[0];
 
-        this.logger.debug('gcloud: [datastore add] @{name} has been added');
-        this.logger.trace({ res }, 'gcloud: [datastore add] @{name} response: @{res}');
+          this.logger.debug('gcloud: [datastore add] @{name} has been added');
+          this.logger.trace({ res }, 'gcloud: [datastore add] @{name} response: @{res}');
 
-        cb(null);
-      })
-      .catch((err: Error): void => {
-        const error: VerdaccioError = getInternalError(err.message);
+          resolve();
+        })
+        .catch((err: Error): void => {
+          const error: VerdaccioError = errorUtils.getInternalError(err.message);
 
-        this.logger.debug({ error }, 'gcloud: [datastore add] @{name} error @{error}');
-        cb(getInternalError(error.message));
-      });
+          this.logger.debug({ error }, 'gcloud: [datastore add] @{name} error @{error}');
+          reject(errorUtils.getInternalError(error.message));
+        });
+    });
   }
 
   public async _deleteItem(name: string, item: any): Promise<void | Error> {
@@ -172,11 +176,11 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
       const key = datastore.key([this.kind, datastore.int(item.id)]);
       await datastore.delete(key);
     } catch (err: any) {
-      return getInternalError(err.message);
+      return errorUtils.getInternalError(err.message);
     }
   }
 
-  public remove(name: string, cb: Callback): void {
+  async remove(name: string): Promise<void> {
     this.logger.debug('gcloud: [datastore remove] @{name} init');
 
     // const deletedItems: any = [];
@@ -190,40 +194,37 @@ class GoogleCloudDatabase implements IPluginStorage<VerdaccioConfigGoogleStorage
     //     return getInternalError('this should not happen');
     //   }
     // };
-    this.helper
-      .getEntities(this.kind)
-      .then(async (entities: any): Promise<void> => {
-        for (const item of entities) {
-          if (item.name === name) {
-            await this._deleteItem(name, item);
-            // deletedItems.push(deletedItem);
-          }
+    return this.helper.getEntities(this.kind).then(async (entities: any): Promise<void> => {
+      for (const item of entities) {
+        if (item.name === name) {
+          await this._deleteItem(name, item);
+          // deletedItems.push(deletedItem);
         }
-        cb(null);
-      })
-      .catch((err: Error): void => {
-        cb(getInternalError(err.message));
-      });
+      }
+      return;
+    });
   }
 
-  public get(cb: Callback): void {
-    this.logger.debug('gcloud: [datastore get] init');
+  async get(): Promise<any> {
+    return new Promise((resolve) => {
+      this.logger.debug('gcloud: [datastore get] init');
 
-    const query = this.helper.datastore.createQuery(this.kind);
-    this.logger.trace({ query }, 'gcloud: [datastore get] query @{query}');
+      const query = this.helper.datastore.createQuery(this.kind);
+      this.logger.trace({ query }, 'gcloud: [datastore get] query @{query}');
 
-    this.helper.runQuery(query).then((data: RunQueryResponse): void => {
-      const response: object[] = data[0];
+      this.helper.runQuery(query).then((data: RunQueryResponse): void => {
+        const response: object[] = data[0];
 
-      this.logger.trace({ response }, 'gcloud: [datastore get] query results @{response}');
+        this.logger.trace({ response }, 'gcloud: [datastore get] query results @{response}');
 
-      const names = response.reduce((accumulator: string[], task: any): string[] => {
-        accumulator.push(task.name);
-        return accumulator;
-      }, []);
+        const names = response.reduce((accumulator: string[], task: any): string[] => {
+          accumulator.push(task.name);
+          return accumulator;
+        }, []);
 
-      this.logger.trace({ names }, 'gcloud: [datastore get] names @{names}');
-      cb(null, names);
+        this.logger.trace({ names }, 'gcloud: [datastore get] names @{names}');
+        return resolve(names);
+      });
     });
   }
 

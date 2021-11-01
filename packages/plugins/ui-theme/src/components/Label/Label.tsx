@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
-
-import { Theme, FontWeight } from 'verdaccio-ui/design-tokens/theme';
+import { FontWeight, Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {
   text: string;
@@ -15,7 +14,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled('div')<WrapperProps & { theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight[props.weight],
+  fontWeight: props.theme?.fontWeight[props.weight],
   textTransform: props.capitalize ? 'capitalize' : 'none',
 }));
 

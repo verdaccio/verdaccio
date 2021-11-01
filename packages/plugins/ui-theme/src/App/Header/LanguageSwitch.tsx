@@ -1,86 +1,24 @@
+/* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
 import { withStyles } from '@material-ui/core/styles';
 import LanguageIcon from '@material-ui/icons/Language';
-import i18next, { TFunctionKeys } from 'i18next';
-import React, { useCallback, useContext, useState, useMemo } from 'react';
+import i18next from 'i18next';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { AutoComplete } from 'verdaccio-ui/components/AutoComplete/AutoCompleteV2';
-import {
-  France,
-  Brazil,
-  Germany,
-  Spain,
-  China,
-  Russia,
-  Turkey,
-  Ukraine,
-  Khmer,
-  Japan,
-  Usa,
-  Czech,
-  Taiwan,
-} from 'verdaccio-ui/components/Icons';
 import MenuItem from 'verdaccio-ui/components/MenuItem';
-import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
+import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
-import { Language } from '../../../i18n/config';
+import { Language, listLanguages } from '../../i18n/enabledLanguages';
 
-const lngDetails: Record<Language, { translation: TFunctionKeys; icon: React.ReactElement }> = {
-  'fr-FR': {
-    translation: 'lng.french',
-    icon: <France size="md" />,
-  },
-  'pt-BR': {
-    translation: 'lng.portuguese',
-    icon: <Brazil size="md" />,
-  },
-  'de-DE': {
-    translation: 'lng.german',
-    icon: <Germany size="md" />,
-  },
-  'es-ES': {
-    translation: 'lng.spanish',
-    icon: <Spain size="md" />,
-  },
-  'zh-CN': {
-    translation: 'lng.chinese',
-    icon: <China size="md" />,
-  },
-  'ru-RU': {
-    translation: 'lng.russian',
-    icon: <Russia size="md" />,
-  },
-  'tr-TR': {
-    translation: 'lng.turkish',
-    icon: <Turkey size="md" />,
-  },
-  'uk-UA': {
-    translation: 'lng.ukraine',
-    icon: <Ukraine size="md" />,
-  },
-  'km-KH': {
-    translation: 'lng.khmer',
-    icon: <Khmer size="md" />,
-  },
-  'ja-JP': {
-    translation: 'lng.japanese',
-    icon: <Japan size="md" />,
-  },
-  'en-US': {
-    translation: 'lng.english',
-    icon: <Usa size="md" />,
-  },
-  'cs-CZ': {
-    translation: 'lng.czech',
-    icon: <Czech size="md" />,
-  },
-  'zh-TW': {
-    translation: 'lng.chineseTraditional',
-    icon: <Taiwan size="md" />,
-  },
-};
+const listConverted = listLanguages.reduce((prev, item) => {
+  prev[item.lng] = {
+    translation: item.menuKey,
+    icon: item.icon,
+  };
+  return prev;
+}, {});
 
 const LanguageSwitch = () => {
   const themeContext = useContext(ThemeContext);
@@ -104,10 +42,10 @@ const LanguageSwitch = () => {
 
   const getCurrentLngDetails = useCallback(
     (language: Language) => {
-      const { icon, translation } = lngDetails[language] || lngDetails['en-US'];
+      const lng = listConverted[language] || listConverted['en-US'];
       return {
-        icon,
-        translation: t(translation),
+        icon: <lng.icon />,
+        translation: t(lng.translation),
       };
     },
     [t]

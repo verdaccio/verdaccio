@@ -1,0 +1,59 @@
+{
+  "name": "@verdaccio/mock",
+  "version": "6.0.0-6-next.11",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "description": "mock server for testing",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "watch": "pnpm build:js -- --watch",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "dependencies": {
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.10",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.8",
+    "core-js": "3.17.2",
+    "debug": "4.3.2",
+    "fs-extra": "10.0.0",
+    "lodash": "4.17.21",
+    "request": "2.87.0",
+    "supertest": "6.1.6"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}

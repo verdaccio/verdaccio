@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import Error from '@material-ui/icons/Error';
 import React, { memo } from 'react';
-
 import Box from 'verdaccio-ui/components/Box';
 import SnackbarContent from 'verdaccio-ui/components/SnackbarContent';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';

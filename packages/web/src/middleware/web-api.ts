@@ -1,20 +1,21 @@
-import { Router } from 'express';
 import bodyParser from 'body-parser';
+import { Router } from 'express';
 
-import { SearchInstance } from '@verdaccio/store';
-import { match, validateName, validatePackage } from '@verdaccio/middleware';
-import { Config } from '@verdaccio/types';
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
-import addSearchWebApi from '../api/search';
+import { match, validateName, validatePackage } from '@verdaccio/middleware';
+import { SearchInstance } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
+import { Config } from '@verdaccio/types';
+
 import addPackageWebApi from '../api/package';
-import addUserAuthApi from '../api/user';
 import addReadmeWebApi from '../api/readme';
+import addSearchWebApi from '../api/search';
 import addSidebarWebApi from '../api/sidebar';
+import addUserAuthApi from '../api/user';
 import { hasLogin } from '../utils/web-utils';
 import { setSecurityWebHeaders } from './security';
 
-export function webAPI(config: Config, auth: IAuth, storage: IStorageHandler): Router {
+export function webAPI(config: Config, auth: IAuth, storage: Storage): Router {
   // eslint-disable-next-line new-cap
   const route = Router();
   SearchInstance.configureStorage(storage);

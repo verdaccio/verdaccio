@@ -1,11 +1,10 @@
-import React from 'react';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import Translate from '@docusaurus/Translate';
-
-import styles from './UsedBy.module.scss';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import React from 'react';
 
 import Divider from './Divider';
 import SponsorImage from './SponsorImage';
+import styles from './UsedBy.module.scss';
 
 const UsedBy = (): React.ReactElement => (
   <section className={styles.usedBy}>

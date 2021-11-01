@@ -1,19 +1,22 @@
 import buildDebug from 'debug';
-import { SearchInstance } from '@verdaccio/store';
-import { DIST_TAGS } from '@verdaccio/commons-api';
 import { Router } from 'express';
-import { Package } from '@verdaccio/types';
+
 import { IAuth } from '@verdaccio/auth';
-import { IStorageHandler } from '@verdaccio/store';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from './package';
+import { DIST_TAGS } from '@verdaccio/core';
+import { SearchInstance } from '@verdaccio/store';
+import { Storage } from '@verdaccio/store';
+import { Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
 
 const debug = buildDebug('verdaccio:web:api:search');
 
-function addSearchWebApi(route: Router, storage: IStorageHandler, auth: IAuth): void {
+function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
   const getPackageInfo = async function (name, remoteUser): Promise<any> {
     return new Promise((resolve, reject) => {
       debug('searching for %o', name);
       try {
+        // @ts-ignore
         storage.getPackage({
           name,
           uplinksLook: false,

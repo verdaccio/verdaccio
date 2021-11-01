@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+
+import { HTTP_STATUS } from '@verdaccio/core';
 import { createTarballHash } from '@verdaccio/utils';
 
 import { TARBALL } from '../config.functional';

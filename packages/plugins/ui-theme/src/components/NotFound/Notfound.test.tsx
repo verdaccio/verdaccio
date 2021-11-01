@@ -1,7 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
-
-import { render, fireEvent } from 'verdaccio-ui/utils/test-react-testing-library';
+import { fireEvent, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import NotFound from './NotFound';
 

@@ -1,29 +1,22 @@
+import _ from 'lodash';
 import path from 'path';
 import request from 'supertest';
-import _ from 'lodash';
 
-import {
-  HEADERS,
-  HTTP_STATUS,
-  HEADER_TYPE,
-  API_MESSAGE,
-  TOKEN_BEARER,
-} from '@verdaccio/commons-api';
-import { buildToken } from '@verdaccio/utils';
-import { setup, logger } from '@verdaccio/logger';
-
+import { API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 import { mockServer } from '@verdaccio/mock';
-
 import {
-  configExample,
   DOMAIN_SERVERS,
+  configExample,
+  generateRamdonStorage,
+  generateUnPublishURI,
   getNewToken,
   getPackage,
   putPackage,
-  generateRamdonStorage,
   verifyPackageVersionDoesExist,
-  generateUnPublishURI,
 } from '@verdaccio/mock';
+// import { generatePackageMetadata } from '@verdaccio/helper';
+import { buildToken } from '@verdaccio/utils';
 
 import endPointAPI from '../../src';
 import publishMetadata from './helpers/publish-api';
@@ -451,12 +444,10 @@ describe('endpoint unit test', () => {
 
     describe('should test search api', () => {
       test('should perform a search', (done) => {
-        const now = Date.now();
-        const cacheTime = now - 6000000;
         request(app)
-          .get('/-/all/since?stale=update_after&startkey=' + cacheTime)
-          // .set('accept-encoding', HEADERS.JSON)
-          // .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .get('/-/v1/search?text=npm7&size=2000&from=0&quality=1&popularity=0.1&maintenance=0.1')
+          .set('accept-encoding', HEADERS.JSON)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK)
           .end(function (err) {

@@ -1,80 +1,77 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import {
-  render,
+  cleanup,
   fireEvent,
-  waitFor,
+  renderWithStore,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
 } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import translationEN from '../../../i18n/translations/en-US.json';
-import { AppContextProvider } from '../../App';
-
+import translationEN from '../../i18n/crowdin/ui.json';
+import { store } from '../../store';
 import Header from './Header';
-
-const props = {
-  user: {
-    username: 'verddacio-user',
-  },
-  packages: [],
-};
 
 /* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
+  afterEach(cleanup);
+
   test('should load the component in logged out state', () => {
-    render(
+    renderWithStore(
       <Router>
-        <AppContextProvider>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
-    expect(screen.queryByTestId('header--menu-accountcircle')).toBeNull();
+    expect(screen.queryByTestId('logInDialogIcon')).toBeNull();
     expect(screen.getByText('Login')).toBeTruthy();
     expect(screen.queryByTestId('header--button-login')).toBeInTheDocument();
   });
 
-  test('should load the component in logged in state', () => {
-    const { getByTestId, queryByText } = render(
+  test('should load the component in logged in state', async () => {
+    renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
+    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
 
-    expect(getByTestId('header--menu-accountcircle')).toBeTruthy();
-    expect(queryByText('Login')).toBeNull();
+    await waitFor(() => {
+      expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
+      expect(screen.queryByText('Login')).toBeNull();
+    });
   });
 
   test('should open login dialog', async () => {
-    const { getByTestId } = render(
+    renderWithStore(
       <Router>
-        <AppContextProvider>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
-    const loginBtn = getByTestId('header--button-login');
+    store.dispatch.login.logOutUser();
+
+    const loginBtn = screen.getByTestId('header--button-login');
     fireEvent.click(loginBtn);
-    const loginDialog = await waitFor(() => getByTestId('login--dialog'));
+    const loginDialog = await waitFor(() => screen.getByTestId('login--dialog'));
     expect(loginDialog).toBeTruthy();
   });
 
   test('should logout the user', async () => {
-    const { getByText, getByTestId } = render(
+    const { getByText, getByTestId } = renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
-    const headerMenuAccountCircle = getByTestId('header--menu-accountcircle');
+    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
+
+    const headerMenuAccountCircle = getByTestId('logInDialogIcon');
     fireEvent.click(headerMenuAccountCircle);
 
     // wait for button Logout's appearance and return the element
@@ -84,12 +81,11 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test("The question icon should open a new tab of verdaccio's website - installation doc", () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
     const documentationBtn = getByTestId('header--tooltip-documentation');
@@ -99,12 +95,11 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
-    const { getByTestId } = render(
+    const { getByTestId } = renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
     const infoBtn = getByTestId('header--tooltip-info');
@@ -116,12 +111,11 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should close the registrationInfo modal when clicking on the button close', async () => {
-    const { getByTestId, getByText, queryByTestId } = render(
+    const { getByTestId, getByText, queryByTestId } = renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
     const infoBtn = getByTestId('header--tooltip-info');
@@ -138,17 +132,15 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide login if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       login: false,
     };
-    render(
+    renderWithStore(
       <Router>
-        <AppContextProvider user={props.user}>
-          <Header />
-        </AppContextProvider>
-      </Router>
+        <Header />
+      </Router>,
+      store
     );
 
     expect(screen.queryByTestId('header--button-login')).not.toBeInTheDocument();

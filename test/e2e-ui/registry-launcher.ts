@@ -1,7 +1,7 @@
 import { fork } from 'child_process';
 import path from 'path';
 
-import { HTTP_STATUS } from '@verdaccio/commons-api';
+import { HTTP_STATUS } from '@verdaccio/core';
 
 const debug = require('debug')('verdaccio:e2e:ui:launcher');
 

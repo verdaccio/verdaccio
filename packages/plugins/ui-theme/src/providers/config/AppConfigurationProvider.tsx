@@ -1,9 +1,9 @@
-import { TemplateUIOptions } from '@verdaccio/types';
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
-import React, { createContext, FunctionComponent, useContext, useMemo, useState } from 'react';
-
+import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
+
+import { TemplateUIOptions } from '@verdaccio/types';
 
 type ConfigProviderProps = {
   configOptions: TemplateUIOptions;

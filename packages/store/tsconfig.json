@@ -20,6 +20,9 @@
       "path": "../core/streams"
     },
     {
+      "path": "../core/core"
+    },
+    {
       "path": "../loaders"
     },
     {

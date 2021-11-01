@@ -3,16 +3,15 @@ import { withStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React, {
-  memo,
-  useState,
   ChangeEvent,
   KeyboardEvent,
+  memo,
+  useCallback,
   useEffect,
   useRef,
-  useCallback,
+  useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useOnClickOutside } from 'verdaccio-ui/design-tokens/useOnClickOutside';
 
@@ -20,7 +19,6 @@ import IconButton from '../IconButton';
 import MenuItem from '../MenuItem';
 import Paper from '../Paper';
 import TextField from '../TextField';
-
 import { createFilterOptions } from './useAutoComplete';
 
 const defaultFilterOptions = createFilterOptions();
@@ -37,7 +35,7 @@ interface Props<Option extends {}> extends Pick<TextFieldProps, 'variant'> {
   inputStartAdornment?: React.ReactNode;
   hasClearIcon?: boolean;
   className?: string;
-  onClick?: (option: Option) => void;
+  onClick?: (option: any) => void;
 }
 
 const AutoComplete = <Option extends {}>({

@@ -51,7 +51,9 @@ The above line will pull the latest prebuilt image from dockerhub, if you haven'
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
 
-You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem:
+You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem (example below).
+
+Note that if you do mount conf like this, that you will first need to supply a copy of config.yaml in that directory; the Docker container will not start properly if this file is missing. You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml. However, note the security warnings in that file; you will definitely want to lock it down in production.
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
@@ -131,7 +133,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   verdaccio/verdaccio
 ```
 
-Of course the numbers you give to `-p` paremeter need to match.
+Of course the numbers you give to the `-p` parameter need to match.
 
 ### Using HTTPS with Docker {#using-https-with-docker}
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration.

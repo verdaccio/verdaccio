@@ -1,29 +1,28 @@
-import _ from 'lodash';
 import buildDebug from 'debug';
-
-import {
-  validateName as utilValidateName,
-  validatePackage as utilValidatePackage,
-  isObject,
-  stringToMD5,
-  ErrorCode,
-} from '@verdaccio/utils';
-
 import { NextFunction, Request, Response } from 'express';
+import { HttpError } from 'http-errors';
+import _ from 'lodash';
 
-import { Config, Package, RemoteUser, Logger } from '@verdaccio/types';
-import { logger } from '@verdaccio/logger';
 import { IAuth } from '@verdaccio/auth';
 import {
   API_ERROR,
-  HEADER_TYPE,
   HEADERS,
+  HEADER_TYPE,
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
   VerdaccioError,
-} from '@verdaccio/commons-api';
-import { HttpError } from 'http-errors';
+  errorUtils,
+} from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
+import { Config, Logger, Package, RemoteUser } from '@verdaccio/types';
+import {
+  isObject,
+  stringToMD5,
+  validateName as utilValidateName,
+  validatePackage as utilValidatePackage,
+} from '@verdaccio/utils';
+
 import { getVersionFromTarball } from './middleware-utils';
 
 export type $RequestExtend = Request & { remote_user?: RemoteUser; log: Logger };
@@ -78,7 +77,7 @@ export function validateName(
   } else if (utilValidateName(value)) {
     next();
   } else {
-    next(ErrorCode.getForbidden('invalid ' + name));
+    next(errorUtils.getForbidden('invalid ' + name));
   }
 }
 
@@ -95,7 +94,7 @@ export function validatePackage(
   } else if (utilValidatePackage(value)) {
     next();
   } else {
-    next(ErrorCode.getForbidden('invalid ' + name));
+    next(errorUtils.getForbidden('invalid ' + name));
   }
 }
 
@@ -103,7 +102,7 @@ export function media(expect: string | null): any {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
       next(
-        ErrorCode.getCode(
+        errorUtils.getCode(
           HTTP_STATUS.UNSUPPORTED_MEDIA,
           'wrong content-type, expect: ' +
             expect +
@@ -135,7 +134,7 @@ export function expectJson(
   next: $NextFunctionVer
 ): void {
   if (!isObject(req.body)) {
-    return next(ErrorCode.getBadRequest("can't parse incoming json"));
+    return next(errorUtils.getBadRequest("can't parse incoming json"));
   }
   next();
 }
@@ -148,7 +147,7 @@ export function antiLoop(config: Config): Function {
       for (let i = 0; i < arr.length; i++) {
         const m = arr[i].match(/\s*(\S+)\s+(\S+)/);
         if (m && m[2] === config.server_id) {
-          return next(ErrorCode.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
+          return next(errorUtils.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
         }
       }
     }
@@ -183,7 +182,7 @@ export function allow(auth: IAuth): Function {
           } else {
             // last plugin (that's our built-in one) returns either
             // cb(err) or cb(null, true), so this should never happen
-            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+            throw errorUtils.getInternalError(API_ERROR.PLUGIN_ERROR);
           }
         }
       );

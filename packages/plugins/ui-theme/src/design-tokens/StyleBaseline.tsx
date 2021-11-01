@@ -1,6 +1,6 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import React from 'react';
 import 'normalize.css';
+import React from 'react';
 
 import ResetCSS from './ResetStyles';
 

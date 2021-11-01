@@ -1,10 +1,11 @@
-import { HTTP_STATUS, API_ERROR } from '@verdaccio/commons-api';
+import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+
 import {
   addVersion,
-  uploadPackageTarball,
+  publishPackage,
   removeTarball,
   unPublishPackage,
-  publishPackage,
+  uploadPackageTarball,
 } from '../../src/publish';
 
 const REVISION_MOCK = '15-e53a77096b0ee33e';
@@ -183,35 +184,31 @@ describe('Publish endpoints - un-publish package', () => {
     next = jest.fn();
   });
 
-  test('should un-publish package successfully', (done) => {
+  test('should un-publish package successfully', async () => {
     const storage = {
-      removePackage(packageName, cb) {
+      removePackage(packageName) {
         expect(packageName).toEqual(req.params.package);
-        cb();
-        done();
+        return Promise.resolve();
       },
     };
 
     // @ts-ignore
-    unPublishPackage(storage)(req, res, next);
+    await unPublishPackage(storage)(req, res, next);
     expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
     expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
   });
 
-  test('un-publish failed', (done) => {
-    const error = {
-      message: 'un-publish failed',
-    };
+  test('un-publish failed', async () => {
     const storage = {
-      removePackage(packageName, cb) {
-        cb(error);
-        done();
+      removePackage(packageName) {
+        expect(packageName).toEqual(req.params.package);
+        return Promise.reject(errorUtils.getInternalError());
       },
     };
 
     // @ts-ignore
-    unPublishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(error);
+    await unPublishPackage(storage)(req, res, next);
+    expect(next).toHaveBeenCalledWith(errorUtils.getInternalError());
   });
 });
 

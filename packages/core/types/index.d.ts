@@ -1,5 +1,4 @@
 /// <reference types="node" />
-
 import { PassThrough } from 'stream';
 
 declare module '@verdaccio/types' {
@@ -10,6 +9,7 @@ declare module '@verdaccio/types' {
   // FIXME: err should be something flexible enough for any implementation
   type CallbackAction = (err: any | null) => void;
   interface Author {
+    username?: string;
     name: string;
     email?: string;
     url?: string;
@@ -182,7 +182,7 @@ declare module '@verdaccio/types' {
     name: string;
     versions: Versions;
     'dist-tags': GenericBody;
-    time?: GenericBody;
+    time: GenericBody;
     readme?: string;
     users?: PackageUsers;
     _distfiles: DistFiles;
@@ -448,39 +448,18 @@ declare module '@verdaccio/types' {
   }
 
   /**
-   * This method expect return a Package object
-   * eg:
-   * {
-   *   name: string;
-   *   time: number;
-   *   ... and other props
-   * }
-   *
-   * The `cb` callback object will be executed if:
-   *  - it might return object (truly)
-   *  - it might reutrn null
+   * @deprecated use @verdaccio/core pluginUtils instead
    */
-  type onSearchPackage = (item: Package, cb: CallbackAction) => void;
-  // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
-  // but this type is on @verdaccio/commons-api and cannot be used here yet
-  type onEndSearchPackage = (error?: any) => void;
-  type onValidatePackage = (name: string) => boolean;
-
   interface ILocalData<T> extends IPlugin<T>, ITokenActions {
     logger: Logger;
     config: T & Config;
-    add(name: string, callback: Callback): void;
-    remove(name: string, callback: Callback): void;
-    get(callback: Callback): void;
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
     init(): Promise<void>;
     getSecret(): Promise<string>;
     setSecret(secret: string): Promise<any>;
     getPackageStorage(packageInfo: string): IPackageStorage;
-    search(
-      onPackage: onSearchPackage,
-      onEnd: onEndSearchPackage,
-      validateName: onValidatePackage
-    ): void;
   }
 
   type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
@@ -495,14 +474,14 @@ declare module '@verdaccio/types' {
     readTarball(pkgName: string): IReadTarball;
     readPackage(fileName: string, callback: ReadPackageCallback): void;
     createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
-    deletePackage(fileName: string, callback: CallbackAction): void;
-    removePackage(callback: CallbackAction): void;
+    deletePackage(fileName: string): Promise<void>;
+    removePackage(): Promise<void>;
     updatePackage(
       pkgFileName: string,
       updateHandler: StorageUpdateCallback,
       onWrite: StorageWriteCallback,
       transformPackage: PackageTransformer,
-      onEnd: CallbackAction
+      onEnd: Callback
     ): void;
     savePackage(fileName: string, json: Package, callback: CallbackAction): void;
   }
@@ -524,16 +503,6 @@ declare module '@verdaccio/types' {
     mergeTags(name: string, tags: MergeTags, callback: Callback): void;
     removePackage(name: string, callback: Callback): void;
     changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
-  }
-
-  interface IStorageManager<T> extends StoragePackageActions {
-    config: T & Config;
-    logger: Logger;
-    init(config: T & Config, filters: any): Promise<any>;
-    addPackage(name: string, metadata: any, callback: Callback): Promise<any>;
-    getPackage(options: any): void;
-    search(startkey: string, options: any): IReadTarball;
-    getLocalDatabase(callback: Callback): void;
   }
 
   // @deprecated use IBasicAuth from @verdaccio/auth
@@ -563,7 +532,7 @@ declare module '@verdaccio/types' {
 
   // FIXME: error should be export type `VerdaccioError = HttpError & { code: number };`
   // instead of AuthError
-  // but this type is on @verdaccio/commons-api and cannot be used here yet (I don't know why)
+  // but this type is on @verdaccio/core and cannot be used here yet (I don't know why)
   interface HttpError extends Error {
     status: number;
     statusCode: number;
@@ -601,7 +570,7 @@ declare module '@verdaccio/types' {
 
   // @deprecated use @verdaccio/server
   interface IPluginMiddleware<T> extends IPlugin<T> {
-    register_middlewares(app: any, auth: IBasicAuth<T>, storage: IStorageManager<T>): void;
+    register_middlewares(app: any, auth: IBasicAuth<T>, storage: any): void;
   }
 
   interface IPluginStorageFilter<T> extends IPlugin<T> {

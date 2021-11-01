@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/dev-types",
-  "version": "6.0.0-alpha.3",
+  "version": "6.0.0-6-next.5",
   "description": "types for verdaccio local dev",
   "main": "./index.ts",
   "types": "index.ts",
@@ -29,7 +29,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "license": "MIT",

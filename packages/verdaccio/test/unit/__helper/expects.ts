@@ -1,4 +1,4 @@
-import { DIST_TAGS, LATEST } from '@verdaccio/commons-api';
+import { DIST_TAGS, LATEST } from '@verdaccio/core';
 
 /**
  * Verify whether the package tag match with the desired version.

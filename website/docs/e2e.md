@@ -3,6 +3,15 @@ id: e2e
 title: "End to End testing"
 ---
 
+## Testing the integrity of React components by publishing in a private registry
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bRKZbrlQqLY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- [Slides](https://docs.google.com/presentation/d/1a2xkqj1KlUayR1Bva1bVYvavwOPVuLplxFtup9MI_U4/edit?usp=sharing)
+- [Demo](https://github.com/juanpicado/verdaccio-end-to-end-tests)
+
+## E2E and Verdaccio
+
 Some projects organize packages in multi-packages repositories or [monorepos](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). E2E testing is a topic that usually is only relevant for User Interfaces, but from a Node.js perspective, **publishing packages also need to be tested**.
 
 ```mdx-code-block

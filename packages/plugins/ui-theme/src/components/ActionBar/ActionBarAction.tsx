@@ -4,11 +4,10 @@ import DownloadIcon from '@material-ui/icons/CloudDownload';
 import HomeIcon from '@material-ui/icons/Home';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { useDispatch } from 'react-redux';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
-import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
-import { extractFileName, downloadFile } from 'verdaccio-ui/utils/url';
 
+import { Dispatch } from '../../store/store';
 import FloatingActionButton from '../FloatingActionButton';
 import Link from '../Link';
 import Tooltip from '../Tooltip';
@@ -34,13 +33,11 @@ export interface ActionBarActionProps {
 /* eslint-disable react/jsx-no-bind */
 const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link }) => {
   const { t } = useTranslation();
-  const { getResource } = useAPI();
+  const dispatch = useDispatch<Dispatch>();
 
   const handleDownload = useCallback(async () => {
-    const fileStream = await getResource(link);
-    const fileName = extractFileName(link);
-    downloadFile(fileStream, fileName);
-  }, [getResource, link]);
+    dispatch.download.getTarball({ link });
+  }, [dispatch, link]);
 
   switch (type) {
     case 'VISIT_HOMEPAGE':

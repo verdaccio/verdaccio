@@ -1,7 +1,7 @@
 import assert from 'assert';
-
-import { HTTP_STATUS, HEADERS, API_MESSAGE } from '@verdaccio/commons-api';
 import _ from 'lodash';
+
+import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 
 import { CREDENTIALS } from './registry-launcher';
 import smartRequest, { RequestPromise } from './request';

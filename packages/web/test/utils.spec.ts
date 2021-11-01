@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import { GENERIC_AVATAR, generateGravatarUrl } from '../src/utils/user';
 import { addGravatarSupport, parseReadme } from '../src/utils/web-utils';
-import { generateGravatarUrl, GENERIC_AVATAR } from '../src/utils/user';
 
 const readmeFile = (fileName = 'markdown.md') => {
   return fs.readFileSync(path.join(__dirname, `./partials/readme/${fileName}`));

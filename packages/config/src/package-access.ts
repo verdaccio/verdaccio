@@ -1,10 +1,8 @@
 import assert from 'assert';
 import _ from 'lodash';
-import minimatch from 'minimatch';
 
-import { PackageList, PackageAccess } from '@verdaccio/types';
-import { ErrorCode } from '@verdaccio/utils';
-import { MatchedPackage } from './config';
+import { errorUtils } from '@verdaccio/core';
+import { PackageAccess } from '@verdaccio/types';
 
 export interface LegacyPackageList {
   [key: string]: PackageAccess;
@@ -39,21 +37,12 @@ export function normalizeUserList(groupsList: any): any {
   } else if (Array.isArray(groupsList)) {
     result.push(groupsList);
   } else {
-    throw ErrorCode.getInternalError(
+    throw errorUtils.getInternalError(
       'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(groupsList)
     );
   }
 
   return _.flatten(result);
-}
-
-export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
-  for (const i in packages) {
-    if (minimatch.makeRe(i).exec(pkgName)) {
-      return packages[i];
-    }
-  }
-  return;
 }
 
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {

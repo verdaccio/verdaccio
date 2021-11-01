@@ -1,24 +1,17 @@
-import styled from '@emotion/styled';
-import React from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+/* eslint-disable react/jsx-max-depth */
 
-import {
-  Austria,
-  Brazil,
-  Earth,
-  Nicaragua,
-  Spain,
-  Germany,
-  India,
-  China,
-  Taiwan,
-} from 'verdaccio-ui/components/Icons';
+/* eslint-disable react/jsx-pascal-case */
+import styled from '@emotion/styled';
+import FlagsIcon from 'country-flag-icons/react/3x2';
+import React from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { Earth } from 'verdaccio-ui/components/Icons';
 import Logo from 'verdaccio-ui/components/Logo';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useConfig } from 'verdaccio-ui/providers/config';
 import { goToVerdaccioWebsite } from 'verdaccio-ui/utils/windows';
 
-import { Wrapper, Left, Right, Love, Inner } from './styles';
+import { Inner, Left, Love, Right, Wrapper } from './styles';
 
 /* eslint-disable react/jsx-key */
 const Footer = () => {
@@ -32,14 +25,30 @@ const Footer = () => {
           <ToolTip>
             <StyledEarth />
             <Flags>
-              <Spain />
-              <Nicaragua />
-              <India />
-              <Brazil />
-              <China />
-              <Austria />
-              <Germany />
-              <Taiwan />
+              <Icon>
+                <FlagsIcon.ES />
+              </Icon>
+              <Icon>
+                <FlagsIcon.NI />
+              </Icon>
+              <Icon>
+                <FlagsIcon.IN />
+              </Icon>
+              <Icon>
+                <FlagsIcon.BR />
+              </Icon>
+              <Icon>
+                <FlagsIcon.CN />
+              </Icon>
+              <Icon>
+                <FlagsIcon.AU />
+              </Icon>
+              <Icon>
+                <FlagsIcon.DE />
+              </Icon>
+              <Icon>
+                <FlagsIcon.TW />
+              </Icon>
             </Flags>
           </ToolTip>
         </Left>
@@ -86,6 +95,10 @@ const Flags = styled('span')<{ theme?: Theme }>(({ theme }) => ({
     transform: 'rotate(90deg)',
   },
 }));
+
+const Icon = styled('div')({
+  width: '10px',
+});
 
 const ToolTip = styled('span')({
   position: 'relative',

@@ -1,15 +1,16 @@
-import mime from 'mime';
-import _ from 'lodash';
 import { Router } from 'express';
+import _ from 'lodash';
+import mime from 'mime';
 
-import { media, allow } from '@verdaccio/middleware';
-import { API_MESSAGE, HTTP_STATUS, DIST_TAGS, VerdaccioError } from '@verdaccio/commons-api';
-import { Package } from '@verdaccio/types';
-import { IStorageHandler } from '@verdaccio/store';
 import { IAuth } from '@verdaccio/auth';
+import { VerdaccioError, constants } from '@verdaccio/core';
+import { allow, media } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+import { Package } from '@verdaccio/types';
+
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
-export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
+export default function (route: Router, auth: IAuth, storage: Storage): void {
   const can = allow(auth);
   const tag_package_version = function (
     req: $RequestExtend,
@@ -26,8 +27,8 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
       if (err) {
         return next(err);
       }
-      res.status(HTTP_STATUS.CREATED);
-      return next({ ok: API_MESSAGE.TAG_ADDED });
+      res.status(constants.HTTP_STATUS.CREATED);
+      return next({ ok: constants.API_MESSAGE.TAG_ADDED });
     });
   };
 
@@ -58,9 +59,9 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
         if (err) {
           return next(err);
         }
-        res.status(HTTP_STATUS.CREATED);
+        res.status(constants.HTTP_STATUS.CREATED);
         return next({
-          ok: API_MESSAGE.TAG_REMOVED,
+          ok: constants.API_MESSAGE.TAG_REMOVED,
         });
       });
     }
@@ -79,7 +80,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
             return next(err);
           }
 
-          next(info[DIST_TAGS]);
+          next(info[constants.DIST_TAGS]);
         },
       });
     }
@@ -96,9 +97,9 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
           if (err) {
             return next(err);
           }
-          res.status(HTTP_STATUS.CREATED);
+          res.status(constants.HTTP_STATUS.CREATED);
           return next({
-            ok: API_MESSAGE.TAG_UPDATED,
+            ok: constants.API_MESSAGE.TAG_UPDATED,
           });
         }
       );

@@ -1,26 +1,27 @@
-import {
-  IBasicStorage,
-  IStorageManager,
-  UpLinkConf,
-  Callback,
-  Versions,
-  Version,
-  RemoteUser,
-  Config,
-  Logger,
-  PackageAccess,
-  IPluginStorage,
-  StringValue as verdaccio$StringValue,
-  IReadTarball,
-  Package,
-  IPluginStorageFilter,
-  Author,
-  Token,
-  ITokenActions,
-  TokenFilter,
-} from '@verdaccio/types';
-import lunrMutable from 'lunr-mutable-indexes';
 import { NextFunction, Request, Response } from 'express';
+import lunrMutable from 'lunr-mutable-indexes';
+
+import {
+  Author,
+  Callback,
+  Config,
+  IBasicStorage,
+  IPluginStorage,
+  IPluginStorageFilter,
+  IReadTarball,
+  IStorageManager,
+  ITokenActions,
+  Logger,
+  Package,
+  PackageAccess,
+  RemoteUser,
+  Token,
+  TokenFilter,
+  UpLinkConf,
+  Version,
+  Versions,
+  StringValue as verdaccio$StringValue,
+} from '@verdaccio/types';
 
 export type StringValue = verdaccio$StringValue;
 
@@ -89,13 +90,13 @@ export type $SidebarPackage = Package & { latest: any };
 
 export interface IWebSearch {
   index: lunrMutable.index;
-  storage: IStorageHandler;
+  storage: Storage;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query(query: string): any;
   add(pkg: Version): void;
   remove(name: string): void;
   reindex(): void;
-  configureStorage(storage: IStorageHandler): void;
+  configureStorage(storage: Storage): void;
 }
 
 // FIXME: This prop should be on @verdaccio/types
@@ -144,7 +145,7 @@ export interface ISyncUplinks {
 
 export type IPluginFilters = IPluginStorageFilter<Config>[];
 
-export interface IStorageHandler extends IStorageManager<Config>, ITokenActions {
+export interface Storage extends IStorageManager<Config>, ITokenActions {
   config: Config;
   localStorage: IStorage | null;
   filters: IPluginFilters;

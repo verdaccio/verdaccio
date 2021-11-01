@@ -1,15 +1,14 @@
-import React from 'react';
-import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Layout from '@theme/Layout';
+import React from 'react';
 
-import Header from '../components/Header';
-import UsedBy from '../components/UsedBy';
 import Feature from '../components/Features';
-import WhatIsVerdaccio from '../components/WhatIsVerdaccio';
+import Header from '../components/Header';
 import PackageManagers from '../components/PackageManagers';
 import Testimonial from '../components/Testimonials';
+import UsedBy from '../components/UsedBy';
 import Wave from '../components/Wave';
-
+import WhatIsVerdaccio from '../components/WhatIsVerdaccio';
 import styles from './index.module.scss';
 
 const Home = (): React.ReactElement => {

@@ -15,13 +15,13 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "clipanion": "3.0.1",
+    "clipanion": "3.1.0",
     "temp-dir": "2.0.0",
     "get-port": "5.1.1",
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "autocannon": "7.4.0",
+    "autocannon": "7.5.0",
     "node-fetch": "3.0.0-beta.6-exportfix",
     "ts-node": "10.2.1"
   }

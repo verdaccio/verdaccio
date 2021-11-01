@@ -1,3 +1,5 @@
+import { warningUtils } from '@verdaccio/core';
+
 export const DEFAULT_PORT = '4873';
 export const DEFAULT_PROTOCOL = 'http';
 export const DEFAULT_DOMAIN = 'localhost';
@@ -71,11 +73,7 @@ export function getListListenAddresses(argListen: string | void, configListen: a
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {
-        process.emitWarning(
-          // eslint-disable-next-line max-len
-          `invalid address - ${addr}, we expect a port (e.g. "4873"), host:port (e.g. "localhost:4873") or full url '(e.g. "http://localhost:4873/")`
-        );
-        process.emitWarning('https://verdaccio.org/docs/en/configuration#listen-port');
+        warningUtils.emit(warningUtils.Codes.VERWAR004, addr);
       }
 
       return parsedAddr;

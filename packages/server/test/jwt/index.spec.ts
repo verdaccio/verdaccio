@@ -2,24 +2,23 @@ import path from 'path';
 import request from 'supertest';
 
 import {
-  HEADERS,
-  HTTP_STATUS,
-  HEADER_TYPE,
-  TOKEN_BEARER,
-  TOKEN_BASIC,
   API_ERROR,
-} from '@verdaccio/commons-api';
-import { mockServer, generateRamdonStorage } from '@verdaccio/mock';
-import { buildUserBuffer, buildToken } from '@verdaccio/utils';
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
+import { generateRamdonStorage, mockServer } from '@verdaccio/mock';
 import {
-  configExample,
   DOMAIN_SERVERS,
   addUser,
+  configExample,
   getPackage,
   loginUserToken,
 } from '@verdaccio/mock';
-
-import { setup, logger } from '@verdaccio/logger';
+import { buildToken, buildUserBuffer } from '@verdaccio/utils';
 
 import endPointAPI from '../../src';
 

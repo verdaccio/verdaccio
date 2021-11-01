@@ -1,27 +1,20 @@
+import { DownloadResponse, File } from '@google-cloud/storage';
+import { Response } from 'request';
 import { Readable } from 'stream';
 
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
+import { HTTP_STATUS, VerdaccioError, errorUtils } from '@verdaccio/core';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
-  Package,
   Callback,
-  Logger,
+  CallbackAction,
   IPackageStorageManager,
+  Logger,
+  Package,
+  PackageTransformer,
+  ReadPackageCallback,
   StorageUpdateCallback,
   StorageWriteCallback,
-  PackageTransformer,
-  CallbackAction,
-  ReadPackageCallback,
 } from '@verdaccio/types';
-import { File, DownloadResponse } from '@google-cloud/storage';
-import {
-  VerdaccioError,
-  getInternalError,
-  getBadRequest,
-  getNotFound,
-  getConflict,
-  HTTP_STATUS,
-} from '@verdaccio/commons-api';
-import { Response } from 'request';
 
 import { IStorageHelper } from './storage-helper';
 import { VerdaccioConfigGoogleStorage } from './types';
@@ -30,7 +23,7 @@ export const pkgFileName = 'package.json';
 export const defaultValidation = 'crc32c';
 
 const packageAlreadyExist = function (name: string): VerdaccioError {
-  return getConflict(`${name} package already exist`);
+  return errorUtils.getConflict(`${name} package already exist`);
 };
 
 class GoogleCloudStorageHandler implements IPackageStorageManager {
@@ -78,7 +71,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
                 { name: name, err: err.message },
                 'gcloud: on write update @{name} package has failed err: @{err}'
               );
-              return onEnd(getInternalError(err.message));
+              return onEnd(errorUtils.getInternalError(err.message));
             }
           });
         },
@@ -87,7 +80,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
             { name: name, err: err.message },
             'gcloud: update @{name} package has failed err: @{err}'
           );
-          onEnd(getInternalError(err.message));
+          onEnd(errorUtils.getInternalError(err.message));
         }
       )
       .catch((err: Error): Callback => {
@@ -96,64 +89,68 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           'gcloud: trying to update @{name} and was not found on storage err: @{error}'
         );
         // @ts-ignore
-        return onEnd(getNotFound());
+        return onEnd(errorUtils.getNotFound());
       });
   }
 
-  public deletePackage(fileName: string, cb: CallbackAction): void {
-    const file = this.helper.buildFilePath(this.name, fileName);
-    this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
-    try {
-      file
-        // @ts-ignore
-        .delete()
-        // FIXME: after upgrade this is broken
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        .then((_data: [Response]): void => {
-          this.logger.debug(
-            { name: file.name },
-            'gcloud: @{name} was deleted successfully from storage'
-          );
-          cb(null);
-        })
-        .catch((err: Error): void => {
-          this.logger.error(
-            { name: file.name, err: err.message },
-            'gcloud: delete @{name} file has failed err: @{err}'
-          );
-          cb(getInternalError(err.message));
-        });
-    } catch (err: any) {
-      this.logger.error(
-        { name: file.name, err: err.message },
-        'gcloud: delete @{name} file has failed err: @{err}'
-      );
-      cb(getInternalError('something went wrong'));
-    }
-  }
-
-  public removePackage(callback: CallbackAction): void {
-    // remove all files from storage
-    const file = this.helper.getBucket().file(`${this.name}`);
-    this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
-    // @ts-ignore
-    file.delete().then(
-      (): void => {
-        this.logger.debug(
-          { name: file.name },
-          'gcloud: package @{name} was deleted successfully from storage'
-        );
-        callback(null);
-      },
-      (err: Error): void => {
+  public deletePackage(fileName: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const file = this.helper.buildFilePath(this.name, fileName);
+      this.logger.debug({ name: file.name }, 'gcloud: deleting @{name} from storage');
+      try {
+        file
+          // @ts-ignore
+          .delete()
+          // FIXME: after upgrade this is broken
+          // @ts-ignore
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          .then((_data: [Response]): void => {
+            this.logger.debug(
+              { name: file.name },
+              'gcloud: @{name} was deleted successfully from storage'
+            );
+            resolve();
+          })
+          .catch((err: Error): void => {
+            this.logger.error(
+              { name: file.name, err: err.message },
+              'gcloud: delete @{name} file has failed err: @{err}'
+            );
+            reject(errorUtils.getInternalError(err.message));
+          });
+      } catch (err: any) {
         this.logger.error(
           { name: file.name, err: err.message },
-          'gcloud: delete @{name} package has failed err: @{err}'
+          'gcloud: delete @{name} file has failed err: @{err}'
         );
-        callback(getInternalError(err.message));
+        reject(errorUtils.getInternalError('something went wrong'));
       }
-    );
+    });
+  }
+
+  public removePackage(): Promise<void> {
+    // remove all files from storage
+    return new Promise((resolve, reject) => {
+      const file = this.helper.getBucket().file(`${this.name}`);
+      this.logger.debug({ name: file.name }, 'gcloud: removing the package @{name} from storage');
+      // @ts-ignore
+      file.delete().then(
+        (): void => {
+          this.logger.debug(
+            { name: file.name },
+            'gcloud: package @{name} was deleted successfully from storage'
+          );
+          resolve();
+        },
+        (err: Error): void => {
+          this.logger.error(
+            { name: file.name, err: err.message },
+            'gcloud: delete @{name} package has failed err: @{err}'
+          );
+          reject(errorUtils.getInternalError(err.message));
+        }
+      );
+    });
   }
 
   public createPackage(name: string, metadata: Package, cb: CallbackAction): void {
@@ -173,7 +170,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           { name: name, err: err.message },
           'gcloud: create package @{name} has failed err: @{err}'
         );
-        cb(getInternalError(err.message));
+        cb(errorUtils.getInternalError(err.message));
       }
     );
   }
@@ -213,7 +210,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
         });
         resolve(null);
       } catch (err: any) {
-        reject(getInternalError(err.message));
+        reject(errorUtils.getInternalError(err.message));
       }
     });
   }
@@ -259,7 +256,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           'gcloud: check exist package @{name} has failed, cause: @{err}'
         );
 
-        reject(getInternalError(err.message));
+        reject(errorUtils.getInternalError(err.message));
       }
     });
   }
@@ -276,7 +273,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
         resolve(response);
       } catch (err: any) {
         this.logger.debug({ name: this.name }, 'gcloud: @{name} package not found on storage');
-        reject(getNotFound());
+        reject(errorUtils.getNotFound());
       }
     });
   }
@@ -320,7 +317,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
               // [BadRequestError: Could not authenticate request
               //  getaddrinfo ENOTFOUND www.googleapis.com www.googleapis.com:443]
               if (err) {
-                uploadStream.emit('error', getBadRequest(err.message));
+                uploadStream.emit('error', errorUtils.getBadRequest(err.message));
                 fileStream.emit('close');
               }
             };
@@ -336,7 +333,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
             fileStream.on('error', (err: Error): void => {
               this.logger.error({ url: file.name }, 'gcloud: upload stream has failed for @{url}');
               fileStream.end();
-              uploadStream.emit('error', getBadRequest(err.message));
+              uploadStream.emit('error', errorUtils.getBadRequest(err.message));
             });
 
             uploadStream.abort = (): void => {
@@ -352,7 +349,7 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
           }
         },
         (err: Error): void => {
-          uploadStream.emit('error', getInternalError(err.message));
+          uploadStream.emit('error', errorUtils.getInternalError(err.message));
         }
       );
     } catch (err: any) {
@@ -375,13 +372,13 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       .on('error', (err: VerdaccioError): void => {
         if (err.code === HTTP_STATUS.NOT_FOUND) {
           this.logger.debug({ url: file.name }, 'gcloud: tarball @{url} do not found on storage');
-          localReadStream.emit('error', getNotFound());
+          localReadStream.emit('error', errorUtils.getNotFound());
         } else {
           this.logger.error(
             { url: file.name },
             'gcloud: tarball @{url} has failed to be retrieved from storage'
           );
-          localReadStream.emit('error', getBadRequest(err.message));
+          localReadStream.emit('error', errorUtils.getBadRequest(err.message));
         }
       })
       .on('response', (response): void => {
@@ -397,13 +394,13 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
               { url: file.name },
               'gcloud: tarball @{url} was fetched from storage and it is empty'
             );
-            localReadStream.emit('error', getInternalError('file content empty'));
+            localReadStream.emit('error', errorUtils.getInternalError('file content empty'));
           } else if (parseInt(size, 10) > 0 && statusCode === HTTP_STATUS.OK) {
             localReadStream.emit('content-length', response.headers['content-length']);
           }
         } else {
           this.logger.debug({ url: file.name }, 'gcloud: tarball @{url} do not found on storage');
-          localReadStream.emit('error', getNotFound());
+          localReadStream.emit('error', errorUtils.getNotFound());
         }
       })
       .pipe(localReadStream);

@@ -1,6 +1,7 @@
 import semver from 'semver';
-import { addNpmPrefix, addRegistry, addYarnPrefix, initialSetup, Setup } from '../utils/registry';
+
 import { npm, pnpm, yarn, yarnWithCwd } from '../utils/process';
+import { Setup, addNpmPrefix, addRegistry, addYarnPrefix, initialSetup } from '../utils/registry';
 import { createProject } from '../utils/utils';
 
 describe('install a package', () => {

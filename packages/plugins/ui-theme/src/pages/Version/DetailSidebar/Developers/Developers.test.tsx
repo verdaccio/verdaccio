@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { render, cleanup, fireEvent } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, fireEvent, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContextProvider } from '../../context';
-
 import Developers from './Developers';
 import { DeveloperType } from './DevelopersTitle';
 

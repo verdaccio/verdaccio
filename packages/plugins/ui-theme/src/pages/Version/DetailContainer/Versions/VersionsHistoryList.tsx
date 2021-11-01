@@ -1,13 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import List from 'verdaccio-ui/components/List';
 import ListItem from 'verdaccio-ui/components/ListItem';
 import { formatDateDistance } from 'verdaccio-ui/utils/package';
 
-import { Versions, Time } from '../../../../../types/packageMeta';
-
-import { Spacer, ListItemText, StyledLink } from './styles';
+import { Time, Versions } from '../../../../../types/packageMeta';
+import { ListItemText, Spacer, StyledLink } from './styles';
 
 interface Props {
   versions: Versions;

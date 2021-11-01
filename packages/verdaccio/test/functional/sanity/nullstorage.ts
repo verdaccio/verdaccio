@@ -1,6 +1,5 @@
+import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import { createTarballHash } from '@verdaccio/utils';
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/commons-api';
-import { DIST_TAGS } from '@verdaccio/commons-api';
 
 import { DOMAIN_SERVERS, PORT_SERVER_1, TARBALL } from '../config.functional';
 import generatePkg from '../fixtures/package';

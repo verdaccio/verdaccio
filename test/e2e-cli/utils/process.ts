@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import { SpawnOptions } from 'child_process';
-import readline from 'readline';
 import buildDebug from 'debug';
+import readline from 'readline';
 
 const debug = buildDebug('verdaccio:e2e:process');
 
@@ -67,8 +67,8 @@ export function pnpmGlobal(rootFolder, ...args) {
     {
       cwd: rootFolder,
     },
-    'pnpm',
-    args
+    process.execPath,
+    [pnpmCmd, ...args]
   );
 }
 

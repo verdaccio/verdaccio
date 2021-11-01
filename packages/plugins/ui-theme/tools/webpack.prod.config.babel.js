@@ -27,7 +27,7 @@ const prodConf = {
   devtool: 'inline-cheap-module-source-map',
 
   entry: {
-    main: ['@babel/polyfill', 'whatwg-fetch', `${env.SRC_ROOT}/index.tsx`],
+    main: ['whatwg-fetch', `${env.SRC_ROOT}/index.tsx`],
   },
 
   module: {

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "11.0.0-6-next.7",
+  "version": "11.0.0-6-next.9",
   "description": "verdaccio types definitions",
   "keywords": [
     "private",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "repository": {
@@ -38,7 +38,8 @@
     "build": "exit 0"
   },
   "devDependencies": {
-    "@types/node": "14.6.0"
+    "@types/node": "14.6.0",
+    "tsd": "0.18.0"
   },
   "funding": {
     "type": "opencollective",

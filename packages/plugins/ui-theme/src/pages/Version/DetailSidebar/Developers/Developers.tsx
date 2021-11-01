@@ -1,16 +1,14 @@
 import styled from '@emotion/styled';
 import Avatar from '@material-ui/core/Avatar';
 import Add from '@material-ui/icons/Add';
-import React, { useState, useCallback, useContext, useEffect, useMemo } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Box from 'verdaccio-ui/components/Box';
 import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
 import Tooltip from 'verdaccio-ui/components/Tooltip';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { DetailContext } from '../..';
-
 import DevelopersTitle from './DevelopersTitle';
 import getUniqueDeveloperValues from './get-unique-developer-values';
 

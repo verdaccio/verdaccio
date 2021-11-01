@@ -1,19 +1,11 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext } from '../../context';
-
 import UpLinks from './UpLinks';
 
 describe('<UpLinks /> component', () => {
   beforeEach(cleanup);
-
-  test('should return null without packageMeta', () => {
-    const wrapper = render(<UpLinks />);
-    wrapper.debug();
-    // expect(wrapper).toBeNull();
-  });
 
   test('should render the component when there is no uplink', () => {
     const packageMeta = {

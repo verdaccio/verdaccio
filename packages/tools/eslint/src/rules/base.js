@@ -15,7 +15,6 @@ module.exports = {
     'padded-blocks': 'off',
     'require-jsdoc': 'off',
     'valid-jsdoc': 'off',
-    'import/order': ['error'],
     'eol-last': 'error',
     'no-irregular-whitespace': 'error',
     'no-mixed-spaces-and-tabs': ['error', 'smart-tabs'],
@@ -59,7 +58,7 @@ module.exports = {
     'prefer-promise-reject-errors': ['warn'],
 
     '@typescript-eslint/prefer-optional-chain': ['warn'],
-    '@typescript-eslint/explicit-member-accessibility': ['warn'],
+    '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/no-unused-vars': ['error'],
   },
 };

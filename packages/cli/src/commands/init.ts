@@ -1,6 +1,8 @@
 import { Command, Option } from 'clipanion';
+
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { setup, logger } from '@verdaccio/logger';
+import { warningUtils } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigRuntime } from '@verdaccio/types';
 
@@ -46,7 +48,7 @@ export class InitCommand extends Command {
   private initLogger(logConfig: ConfigRuntime) {
     try {
       if (logConfig.logs) {
-        process.emitWarning('config.logs is deprecated, rename configuration to "config.log"');
+        warningUtils.emit(warningUtils.Codes.VERDEP001);
       }
       // FUTURE: remove fallback when is ready
       setup(logConfig.log || logConfig.logs);

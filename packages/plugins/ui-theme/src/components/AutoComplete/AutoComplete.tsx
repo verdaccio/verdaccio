@@ -4,22 +4,20 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import React, { KeyboardEvent, memo } from 'react';
 import Autosuggest, {
-  SuggestionSelectedEventData,
-  InputProps,
   ChangeEvent,
-  SuggestionsFetchRequested,
   GetSuggestionValue,
+  InputProps,
+  RenderInputComponent,
   RenderSuggestion,
   RenderSuggestionsContainer,
-  RenderInputComponent,
+  SuggestionSelectedEventData,
+  SuggestionsFetchRequested,
 } from 'react-autosuggest';
 import { useTranslation } from 'react-i18next';
-
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import MenuItem from '../MenuItem';
-
-import { Wrapper, InputField, SuggestionContainer } from './styles';
+import { InputField, SuggestionContainer, Wrapper } from './styles';
 
 const StyledAnchor = styled('a')<{ highlight: boolean; theme?: Theme }>((props) => ({
   fontWeight:

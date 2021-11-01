@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "11.0.0-6-next.6",
+  "version": "11.0.0-6-next.9",
   "description": "tarball utilities resolver",
   "keywords": [
     "private",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "repository": {
@@ -34,15 +34,13 @@
     "access": "public"
   },
   "dependencies": {
-    "debug": "4.3.2",
-    "lodash": "4.17.21",
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/url": "workspace:11.0.0-6-next.4",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.5"
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/url": "workspace:11.0.0-6-next.7",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.8",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.7",
-    "express": "4.17.1",
+    "@verdaccio/types": "workspace:11.0.0-6-next.9",
     "node-mocks-http": "1.10.1"
   },
   "scripts": {

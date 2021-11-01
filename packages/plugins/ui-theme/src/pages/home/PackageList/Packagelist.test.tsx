@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { cleanup, renderWithStore } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
-
+import { store } from '../../../store';
 import { PackageList } from './PackageList';
 
 describe('<PackageList /> component', () => {
@@ -12,7 +12,7 @@ describe('<PackageList /> component', () => {
     const props = {
       packages: [],
     };
-    const wrapper = render(<PackageList packages={props.packages} />);
+    const wrapper = renderWithStore(<PackageList packages={props.packages} />, store);
     expect(wrapper.getByText('No Package Published Yet.')).toBeInTheDocument();
   });
 
@@ -46,10 +46,11 @@ describe('<PackageList /> component', () => {
       help: false,
     };
 
-    const wrapper = render(
+    const wrapper = renderWithStore(
       <BrowserRouter>
         <PackageList packages={props.packages} />
-      </BrowserRouter>
+      </BrowserRouter>,
+      store
     );
 
     expect(wrapper.queryAllByTestId('package-item-list')).toHaveLength(3);

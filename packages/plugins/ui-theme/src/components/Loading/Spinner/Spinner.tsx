@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import React from 'react';
-
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import CircularProgress from '../../CircularProgress';

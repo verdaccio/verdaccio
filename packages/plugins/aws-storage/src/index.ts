@@ -1,9 +1,11 @@
+import { S3 } from 'aws-sdk';
+
+import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import {
+  Config,
+  IPluginStorage,
   LocalStorage,
   Logger,
-  Config,
-  Callback,
-  IPluginStorage,
   PluginOptions,
   Token,
   TokenFilter,
@@ -11,10 +13,10 @@ import {
 import { getInternalError, VerdaccioError } from '@verdaccio/commons-api';
 import { S3 } from 'aws-sdk';
 
-import { S3Config } from './config';
-import S3PackageManager from './s3PackageManager';
-import { convertS3Error, is404Error } from './s3Errors';
 import addTrailingSlash from './addTrailingSlash';
+import { S3Config } from './config';
+import { convertS3Error, is404Error } from './s3Errors';
+import S3PackageManager from './s3PackageManager';
 import setConfigValue from './setConfigValue';
 
 export default class S3Database implements IPluginStorage<S3Config> {
@@ -76,21 +78,23 @@ export default class S3Database implements IPluginStorage<S3Config> {
     await this._sync();
   }
 
-  public add(name: string, callback: Callback): void {
-    this.logger.debug({ name }, 's3: [add] private package @{name}');
-    this._getData().then(async (data) => {
-      if (data.list.indexOf(name) === -1) {
-        data.list.push(name);
-        this.logger.trace({ name }, 's3: [add] @{name} has been added');
-        try {
-          await this._sync();
-          callback(null);
-        } catch (err: any) {
-          callback(err);
+  async add(name: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.logger.debug({ name }, 's3: [add] private package @{name}');
+      this._getData().then(async (data) => {
+        if (data.list.indexOf(name) === -1) {
+          data.list.push(name);
+          this.logger.trace({ name }, 's3: [add] @{name} has been added');
+          try {
+            await this._sync();
+            resolve();
+          } catch (err: any) {
+            reject(err);
+          }
+        } else {
+          resolve();
         }
-      } else {
-        callback(null);
-      }
+      });
     });
   }
 
@@ -142,36 +146,36 @@ export default class S3Database implements IPluginStorage<S3Config> {
     });
   }
 
-  public remove(name: string, callback: Callback): void {
+  async remove(name: string): Promise<void> {
     this.logger.debug({ name }, 's3: [remove] @{name}');
-    this.get(async (err, data) => {
-      if (err) {
-        this.logger.error({ err }, 's3: [remove] error: @{err}');
-        callback(getInternalError('something went wrong on remove a package'));
-      }
+    let data;
+    try {
+      data = await this.get();
+    } catch (err) {
+      this.logger.error({ err }, 's3: [remove] error: @{err}');
+      throw errorUtils.getInternalError('something went wrong on remove a package');
+    }
 
-      const pkgName = data.indexOf(name);
-      if (pkgName !== -1) {
-        const data = await this._getData();
-        data.list.splice(pkgName, 1);
-        this.logger.debug({ pkgName }, 's3: [remove] sucessfully removed @{pkgName}');
-      }
+    const pkgName = data.indexOf(name);
+    if (pkgName !== -1) {
+      const data = await this._getData();
+      data.list.splice(pkgName, 1);
+      this.logger.debug({ pkgName }, 's3: [remove] sucessfully removed @{pkgName}');
+    }
 
-      try {
-        this.logger.trace('s3: [remove] starting sync');
-        await this._sync();
-        this.logger.trace('s3: [remove] finish sync');
-        callback(null);
-      } catch (err: any) {
-        this.logger.error({ err }, 's3: [remove] sync error: @{err}');
-        callback(err);
-      }
-    });
+    try {
+      this.logger.trace('s3: [remove] starting sync');
+      await this._sync();
+      this.logger.trace('s3: [remove] finish sync');
+    } catch (err: any) {
+      this.logger.error({ err }, 's3: [remove] sync error: @{err}');
+      throw err;
+    }
   }
 
-  public get(callback: Callback): void {
+  async get(): Promise<any> {
     this.logger.debug('s3: [get]');
-    this._getData().then((data) => callback(null, data.list));
+    return this._getData().then((data) => Promise.resolve(data.list));
   }
 
   // Create/write database file to s3
@@ -291,7 +295,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
     const data = await this._getTokensData();
     const userData = data[user];
-    return userData ?? [];
+    return userData ?? [];  
   }
 
   private async _getTokensData(): Promise<Record<string, Token[]>> {

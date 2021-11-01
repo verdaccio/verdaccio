@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { DIST_TAGS } from '../../../../../lib/constants';
 import { DetailContext } from '../../context';
-
-import { StyledText } from './styles';
 import VersionsHistoryList from './VersionsHistoryList';
 import VersionsTagList from './VersionsTagList';
+import { StyledText } from './styles';
 
 const Versions: React.FC = () => {
   const detailContext = useContext(DetailContext);

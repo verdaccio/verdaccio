@@ -1,10 +1,9 @@
-import { Logger, IPluginStorage, IPackageStorage, ILocalPackageManager } from '@verdaccio/types';
-import { getInternalError } from '@verdaccio/commons-api';
+import { errorUtils } from '@verdaccio/core';
+import { ILocalPackageManager, IPackageStorage, IPluginStorage, Logger } from '@verdaccio/types';
 
+import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
-import LocalMemory from '../src/index';
-
 import config from './partials/config';
 import pkgExample from './partials/pkg';
 
@@ -76,7 +75,7 @@ describe('memory unit test .', () => {
     const handler: IPackageStorage = localMemory.getPackageStorage(pkgName) as ILocalPackageManager;
 
     handler.savePackage(pkgName, pkgExample, (err) => {
-      expect(err).toEqual(getInternalError('error on parse'));
+      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
       done();
     });
   });
@@ -146,7 +145,7 @@ describe('memory unit test .', () => {
     expect(handler).toBeDefined();
     const onEnd = jest.fn((err) => {
       expect(err).not.toBeNull();
-      expect(err).toEqual(getInternalError('error on parse'));
+      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
       done();
     });
 
@@ -173,7 +172,7 @@ describe('memory unit test .', () => {
     expect(handler).toBeDefined();
     const onEnd = jest.fn((err) => {
       expect(err).not.toBeNull();
-      expect(err).toEqual(getInternalError('some error'));
+      expect(err).toEqual(errorUtils.getInternalError('some error'));
       done();
     });
 
@@ -187,7 +186,7 @@ describe('memory unit test .', () => {
             expect(json).toBeDefined();
             expect(json.name).toBe(pkgExample.name);
             expect(callback).toBeDefined();
-            callback(getInternalError('some error'));
+            callback(errorUtils.getInternalError('some error'));
           },
           () => {},
           // @ts-ignore
@@ -206,7 +205,7 @@ describe('memory unit test .', () => {
     expect(handler).toBeDefined();
     const onEnd = jest.fn((err) => {
       expect(err).not.toBeNull();
-      expect(err).toEqual(getInternalError('error on parse the metadata'));
+      expect(err).toEqual(errorUtils.getInternalError('error on parse the metadata'));
       done();
     });
 
@@ -247,8 +246,8 @@ describe('memory unit test .', () => {
     if (handler) {
       handler.createPackage(pkgName, pkgExample, (err) => {
         expect(err).toBeNull();
-        handler.deletePackage(pkgName, (err) => {
-          expect(err).toBeNull();
+        handler.deletePackage(pkgName).then((err) => {
+          expect(err).toBeUndefined();
           handler.readPackage(pkgName, (err) => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch(/no such package/);

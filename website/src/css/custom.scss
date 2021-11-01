@@ -67,10 +67,6 @@ div[role='banner'] {
   background: var(--verdaccio-color);
 }
 
-a:hover {
-  color: var(--ifm-color-primary);
-}
-
 ::selection {
   color: var(--ifm-color-white);
   background: var(--verdaccio-color);
@@ -78,6 +74,18 @@ a:hover {
 
 .main-wrapper {
   background-color: var(--grey-lighter);
+}
+
+a:hover {
+  color: var(--ifm-color-primary);
+}
+
+article a {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 a[aria-current='page'] {

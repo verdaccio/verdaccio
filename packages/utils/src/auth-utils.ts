@@ -1,4 +1,4 @@
-import { DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/commons-api';
+import { DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/core';
 
 export interface CookieSessionToken {
   expires: Date;

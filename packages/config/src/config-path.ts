@@ -1,10 +1,11 @@
-import fs from 'fs';
-import path from 'path';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import fs from 'fs';
+import _ from 'lodash';
+import path from 'path';
 
-import { CHARACTER_ENCODING } from '@verdaccio/commons-api';
-import { folderExists, fileExists } from './config-utils';
+import { CHARACTER_ENCODING } from '@verdaccio/core';
+
+import { fileExists, folderExists } from './config-utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';

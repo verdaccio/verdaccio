@@ -3,7 +3,6 @@ import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List, ListRowProps } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
-
 import Divider from 'verdaccio-ui/components/Divider';
 import { formatLicense } from 'verdaccio-ui/utils/package';
 
@@ -26,7 +25,6 @@ const PackageList: React.FC<Props> = ({ packages }) => {
       packages[index];
     // TODO: move format license to API side.
     const formattedLicense = formatLicense(license);
-
     return (
       <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
         <div style={style}>
@@ -56,21 +54,23 @@ const PackageList: React.FC<Props> = ({ packages }) => {
     <WindowScroller>
       {({ height, isScrolling, scrollTop, onChildScroll }) => (
         <AutoSizer disableHeight={true}>
-          {({ width }) => (
-            <List
-              autoHeight={true}
-              deferredMeasurementCache={cache}
-              height={height}
-              isScrolling={isScrolling}
-              onScroll={onChildScroll}
-              overscanRowCount={3}
-              rowCount={packages.length}
-              rowHeight={cache.rowHeight}
-              rowRenderer={renderRow}
-              scrollTop={scrollTop}
-              width={width}
-            />
-          )}
+          {({ width }) => {
+            return (
+              <List
+                autoHeight={true}
+                deferredMeasurementCache={cache}
+                height={height}
+                isScrolling={isScrolling}
+                onScroll={onChildScroll}
+                overscanRowCount={3}
+                rowCount={packages.length}
+                rowHeight={cache.rowHeight}
+                rowRenderer={renderRow}
+                scrollTop={scrollTop}
+                width={width}
+              />
+            );
+          }}
         </AutoSizer>
       )}
     </WindowScroller>

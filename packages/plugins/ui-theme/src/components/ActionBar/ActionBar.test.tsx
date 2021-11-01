@@ -1,9 +1,8 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, renderWithStore } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext, DetailContextProps } from '../../pages/Version';
-
+import { store } from '../../store/store';
 import ActionBar from './ActionBar';
 
 const detailContextValue: DetailContextProps = {
@@ -44,7 +43,10 @@ describe('<ActionBar /> component', () => {
   });
 
   test('should render the component in default state', () => {
-    const { container } = render(<ComponentToBeRendered contextValue={detailContextValue} />);
+    const { container } = renderWithStore(
+      <ComponentToBeRendered contextValue={detailContextValue} />,
+      store
+    );
     expect(container.firstChild).toMatchSnapshot();
   });
 
@@ -62,22 +64,25 @@ describe('<ActionBar /> component', () => {
       },
     };
 
-    const { container } = render(
-      <ComponentToBeRendered contextValue={{ ...detailContextValue, packageMeta }} />
+    const { container } = renderWithStore(
+      <ComponentToBeRendered contextValue={{ ...detailContextValue, packageMeta }} />,
+      store
     );
     expect(container.firstChild).toMatchSnapshot();
   });
 
   test('when there is a button to download a tarball', () => {
-    const { getByTitle } = render(
-      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />
+    const { getByTitle } = renderWithStore(
+      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />,
+      store
     );
     expect(getByTitle('Download tarball')).toBeTruthy();
   });
 
   test('when there is a button to open an issue', () => {
-    const { getByTitle } = render(
-      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />
+    const { getByTitle } = renderWithStore(
+      <ComponentToBeRendered contextValue={{ ...detailContextValue }} />,
+      store
     );
     expect(getByTitle('Open an issue')).toBeTruthy();
   });

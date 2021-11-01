@@ -1,6 +1,7 @@
-import { getServiceUnavailable } from '@verdaccio/commons-api';
-import { Logger, Callback, Config, IPluginStorage, Token, PluginOptions } from '@verdaccio/types';
 import buildDebug from 'debug';
+
+import { errorUtils } from '@verdaccio/core';
+import { Callback, Config, IPluginStorage, Logger, PluginOptions, Token } from '@verdaccio/types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 
@@ -45,43 +46,47 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     });
   }
 
-  public add(name: string, cb: Callback): void {
-    const { list } = this.data;
+  async add(name: string): Promise<void> {
+    return new Promise((resolve, reject): void => {
+      const { list } = this.data;
 
-    if (list.length < this.limit) {
-      if (list.indexOf(name) === -1) {
-        list.push(name);
+      if (list.length < this.limit) {
+        if (list.indexOf(name) === -1) {
+          list.push(name);
+        }
+        resolve();
+      } else {
+        this.logger.info(
+          { limit: this.limit },
+          'Storage memory has reached limit of @{limit} packages'
+        );
+        reject(new Error('Storage memory has reached limit of limit packages'));
       }
-      cb(null);
-    } else {
-      this.logger.info(
-        { limit: this.limit },
-        'Storage memory has reached limit of @{limit} packages'
-      );
-      cb(new Error('Storage memory has reached limit of limit packages'));
-    }
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public search(onPackage: Callback, onEnd: Callback, validateName: Function): void {
+  public search(onPackage: Callback, onEnd: Callback): void {
     this.logger.warn('[verdaccio/memory]: search method not implemented, PR is welcome');
     onEnd();
   }
 
-  public remove(name: string, cb: Callback): void {
-    const { list } = this.data;
-    const item = list.indexOf(name);
+  async remove(name: string): Promise<void> {
+    return new Promise((resolve): void => {
+      const { list } = this.data;
+      const item = list.indexOf(name);
 
-    if (item !== -1) {
-      list.splice(item, 1);
-    }
+      if (item !== -1) {
+        list.splice(item, 1);
+      }
 
-    cb(null);
+      return resolve();
+    });
   }
 
-  public get(cb: Callback): void {
+  async get(): Promise<any> {
     debug('data list length %o', this.data?.list?.length);
-    cb(null, this.data?.list);
+    return Promise.resolve(this.data?.list);
   }
 
   public getPackageStorage(packageInfo: string): MemoryHandler {
@@ -103,7 +108,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   public saveToken(): Promise<void> {
     this.logger.warn('[verdaccio/memory][saveToken] save token has not been implemented yet');
 
-    return Promise.reject(getServiceUnavailable('method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));
   }
 
   public deleteToken(user: string, tokenKey: string): Promise<void> {
@@ -112,13 +117,13 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
       '[verdaccio/memory][deleteToken] delete token has not been implemented yet @{user}'
     );
 
-    return Promise.reject(getServiceUnavailable('method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));
   }
 
   public readTokens(): Promise<Token[]> {
     this.logger.warn('[verdaccio/memory][readTokens] read tokens has not been implemented yet ');
 
-    return Promise.reject(getServiceUnavailable('method not implemented'));
+    return Promise.reject(errorUtils.getServiceUnavailable('method not implemented'));
   }
 }
 

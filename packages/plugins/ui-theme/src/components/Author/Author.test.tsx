@@ -1,9 +1,7 @@
 import React from 'react';
-
-import { render, cleanup } from 'verdaccio-ui/utils/test-react-testing-library';
+import { cleanup, render } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext } from '../../pages/Version';
-
 import Authors from './Author';
 
 const withAuthorComponent = (
@@ -51,7 +49,6 @@ describe('<Author /> component', () => {
     };
 
     const wrapper = render(withAuthorComponent(packageMeta));
-    wrapper.debug();
     expect(wrapper.queryAllByText('verdaccio')).toHaveLength(0);
   });
 

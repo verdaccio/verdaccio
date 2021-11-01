@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/active-directory",
-  "version": "11.0.0-alpha.3",
+  "version": "11.0.0-6-next.6",
   "description": "Active Directory authentication plugin for Verdaccio",
   "keywords": [
     "private",
@@ -30,16 +30,16 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "activedirectory2": "2.1.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "1.2.3",
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

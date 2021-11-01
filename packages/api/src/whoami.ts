@@ -1,7 +1,7 @@
-import { Response, Router } from 'express';
 import buildDebug from 'debug';
-import { $RequestExtend, $NextFunctionVer } from '../types/custom';
-// import { getUnauthorized } from '@verdaccio/commons-api';
+import { Response, Router } from 'express';
+
+import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 

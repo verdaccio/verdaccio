@@ -1,5 +1,58 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.23
+
+### Minor Changes
+
+- 6c1eb021: feat: use warning codes for deprecation warnings
+
+### Patch Changes
+
+- Updated dependencies [6c1eb021]
+  - @verdaccio/core@6.0.0-6-next.3
+  - @verdaccio/logger@6.0.0-6-next.7
+  - @verdaccio/config@6.0.0-6-next.10
+  - @verdaccio/server@6.0.0-6-next.22
+
+## 6.0.0-6-next.22
+
+### Major Changes
+
+- 794af76c: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+### Minor Changes
+
+- 154b2ecd: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+
+### Patch Changes
+
+- Updated dependencies [794af76c]
+- Updated dependencies [154b2ecd]
+  - @verdaccio/config@6.0.0-6-next.9
+  - @verdaccio/core@6.0.0-6-next.2
+  - @verdaccio/logger@6.0.0-6-next.6
+  - @verdaccio/server@6.0.0-6-next.21
+
+## 6.0.0-6-next.21
+
+### Patch Changes
+
+- Updated dependencies [2c594910]
+  - @verdaccio/logger@6.0.0-6-next.5
+  - @verdaccio/server@6.0.0-6-next.20
+
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [459b6fa7]
+  - @verdaccio/config@6.0.0-6-next.8
+  - @verdaccio/commons-api@11.0.0-6-next.4
+  - @verdaccio/server@6.0.0-6-next.19
+  - @verdaccio/logger@6.0.0-6-next.4
+
 ## 6.0.0-6-next.19
 
 ### Patch Changes

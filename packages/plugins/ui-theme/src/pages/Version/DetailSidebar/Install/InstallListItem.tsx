@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import Avatar from 'verdaccio-ui/components/Avatar';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import ListItem from 'verdaccio-ui/components/ListItem';

@@ -7,18 +7,19 @@
  * If you have any questions, ask at the http://chat.verdaccio.org #questions channel.
  *
  */
-import request from 'supertest';
 import _ from 'lodash';
 import path from 'path';
 import rimraf from 'rimraf';
+import request from 'supertest';
 
-import endPointAPI from '@verdaccio/server';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { parseConfigFile } from '@verdaccio/config';
+import { setup } from '@verdaccio/logger';
+import endPointAPI from '@verdaccio/server';
+
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';
-import { setup } from '@verdaccio/logger';
+import { mockServer } from '../../__helper/mock';
 
 // we must start logging without output
 setup([]);

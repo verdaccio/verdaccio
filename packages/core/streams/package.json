@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/streams",
-  "version": "11.0.0-alpha.3",
+  "version": "11.0.0-6-next.5",
   "description": "Stream extension for Verdaccio",
   "keywords": [
     "private",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

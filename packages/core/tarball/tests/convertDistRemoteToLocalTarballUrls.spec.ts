@@ -1,5 +1,7 @@
 import * as httpMocks from 'node-mocks-http';
-import { HEADERS } from '@verdaccio/commons-api';
+
+import { HEADERS } from '@verdaccio/core';
+
 import { convertDistRemoteToLocalTarballUrls } from '../src';
 
 describe('convertDistRemoteToLocalTarballUrls', () => {
@@ -30,7 +32,11 @@ describe('convertDistRemoteToLocalTarballUrls', () => {
       },
       url: '/',
     });
-    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
+    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
+      host: req.hostname,
+      headers: req.headers as any,
+      protocol: req.protocol,
+    });
     expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
     expect(convertDist.versions['1.0.1'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.1'));
   });
@@ -43,7 +49,11 @@ describe('convertDistRemoteToLocalTarballUrls', () => {
       },
       url: '/',
     });
-    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
+    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
+      host: req.hostname,
+      headers: req.headers as any,
+      protocol: req.protocol,
+    });
     expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
       convertDist.versions['1.0.0'].dist.tarball
     );
@@ -57,7 +67,11 @@ describe('convertDistRemoteToLocalTarballUrls', () => {
       },
       url: '/',
     });
-    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
+    const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), {
+      host: req.hostname,
+      headers: req.headers as any,
+      protocol: req.protocol,
+    });
     expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
       convertDist.versions['1.0.0'].dist.tarball
     );

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "6.0.0-6-next.5",
+  "version": "6.0.0-6-next.9",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,23 +26,23 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.7",
     "core-js": "3.17.2",
     "debug": "4.3.2",
     "handlebars": "4.7.7",
-    "undici": "4.5.1",
+    "undici": "4.7.3",
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.10",
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/config": "workspace:6.0.0-6-next.7",
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@types/node": "16.11.6",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.14",
+    "@verdaccio/config": "workspace:6.0.0-6-next.10",
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

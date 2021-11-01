@@ -1,13 +1,13 @@
-import React, { useState, useRef, useCallback } from 'react';
-import useThemeContext from '@theme/hooks/useThemeContext';
-import { Tweet } from 'react-twitter-widgets';
-import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { translate } from '@docusaurus/Translate';
-import Spinner from './Spinner';
-import useClampedIsInViewport from './hooks/useClampedIsInViewport';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useThemeContext from '@theme/hooks/useThemeContext';
+import clsx from 'clsx';
+import React, { useCallback, useRef, useState } from 'react';
+import { Tweet } from 'react-twitter-widgets';
 
+import Spinner from './Spinner';
 import styles from './TwitterCarrousel.module.scss';
+import useClampedIsInViewport from './hooks/useClampedIsInViewport';
 
 const Carrousel = ({ data }: { data: string[][] }): React.ReactElement => {
   const { isDarkTheme } = useThemeContext();

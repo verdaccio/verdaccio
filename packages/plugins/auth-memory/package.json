@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "11.0.0-alpha.3",
+  "version": "11.0.0-6-next.6",
   "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "private",
@@ -27,15 +27,15 @@
   "main": "build/index.js",
   "types": "build/src/index.d.ts",
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "dependencies": {
     "debug": "4.3.2",
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3"
+    "@verdaccio/core": "workspace:6.0.0-6-next.3"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.7"
+    "@verdaccio/types": "workspace:11.0.0-6-next.9"
   },
   "scripts": {
     "clean": "rimraf ./build",

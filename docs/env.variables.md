@@ -48,3 +48,7 @@ $ VERDACCIO_FORWARDED_PROTO=CloudFront-Forwarded-Proto verdaccio --listen 5000
 #### VERDACCIO_STORAGE_PATH
 
 By default, the storage is taken from config file, but using this variable allows to set it from environment variable.
+
+#### VERDACCIO_STORAGE_NAME
+
+The database name for `@verdaccio/local-storage` is by default `.verdaccio-db.json`, but this can be update by using this variable.

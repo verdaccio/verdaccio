@@ -11,10 +11,10 @@
       "path": "../../utils"
     },
     {
-      "path": "../commons-api"
+      "path": "../url"
     },
     {
-      "path": "../url"
+      "path": "../core"
     }
   ]
 }

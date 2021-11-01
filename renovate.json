@@ -1,0 +1,32 @@
+{
+  "extends": ["config:base"],
+  "prConcurrentLimit": 3,
+  "ignorePaths": ["docker-examples/**"],
+  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
+  "baseBranches": ["master", "5.x"],
+  "major": false,
+  "labels": ["bot: dependencies"],
+  "packageRules": [
+    {
+      "packageNames": ["aws-sdk"],
+      "allowedVersions": "2.607.0"
+    },
+    {
+      "packageNames": ["@google-cloud/datastore"],
+      "allowedVersions": "4.5.0"
+    },
+    {
+      "packageNames": ["@google-cloud/storage"],
+      "allowedVersions": "3.5.0"
+    },
+    {
+      "packageNames": ["fast-crc32c"],
+      "allowedVersions": "1.0.7"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "labels": ["bot: docker-update"]
+    }
+  ],
+  "pinVersions": false
+}

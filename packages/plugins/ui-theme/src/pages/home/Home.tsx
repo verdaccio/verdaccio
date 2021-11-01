@@ -1,36 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Loading from 'verdaccio-ui/components/Loading';
-import { useAPI } from 'verdaccio-ui/providers/API/APIProvider';
 
+import { Dispatch, RootState } from '../../store/store';
 import { PackageList } from './PackageList';
 
-interface Props {
-  isUserLoggedIn: boolean;
-}
-
-const Home: React.FC<Props> = ({ isUserLoggedIn }) => {
-  const [packages, setPackages] = useState([]);
-  const { getPackages } = useAPI();
-  const [isLoading, setIsLoading] = useState(true);
-  const loadPackages = useCallback(async () => {
-    try {
-      const packages = await getPackages();
-      // FIXME add correct type for package
-      setPackages(packages as never[]);
-    } catch (error: any) {
-      // FIXME: add dialog
-      // eslint-disable-next-line no-console
-      console.error({
-        title: 'Warning',
-        message: `Unable to load package list: ${error.message}`,
-      });
-    }
-    setIsLoading(false);
-  }, [getPackages]);
+const Home: React.FC = () => {
+  const packages = useSelector((state: RootState) => state.packages.response);
+  const isLoading = useSelector((state: RootState) => state?.loading?.models.packages);
+  const dispatch = useDispatch<Dispatch>();
   useEffect(() => {
-    loadPackages().then();
-  }, [isUserLoggedIn, loadPackages]);
+    dispatch.packages.getPackages();
+  }, [dispatch]);
 
   return (
     <div className="container content" data-testid="home-page-container">

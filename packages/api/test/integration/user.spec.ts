@@ -1,16 +1,14 @@
-import supertest from 'supertest';
 import _ from 'lodash';
+import supertest from 'supertest';
 
 import {
-  getBadRequest,
-  getConflict,
-  getUnauthorized,
+  API_ERROR,
+  API_MESSAGE,
   HEADERS,
   HEADER_TYPE,
-  API_MESSAGE,
   HTTP_STATUS,
-  API_ERROR,
-} from '@verdaccio/commons-api';
+  errorUtils,
+} from '@verdaccio/core';
 
 import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { initializeServer } from './_helper';
@@ -28,7 +26,7 @@ const mockAuthenticate = jest.fn(() => (_name, _password, callback): void => {
 });
 
 const mockAddUser = jest.fn(() => (_name, _password, callback): void => {
-  return callback(getConflict(API_ERROR.USERNAME_ALREADY_REGISTERED));
+  return callback(errorUtils.getConflict(API_ERROR.USERNAME_ALREADY_REGISTERED));
 });
 
 jest.mock('@verdaccio/auth', () => ({
@@ -143,7 +141,7 @@ describe('user', () => {
         }
     );
     mockAddUser.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(getBadRequest(API_ERROR.USERNAME_PASSWORD_REQUIRED));
+      return callback(errorUtils.getBadRequest(API_ERROR.USERNAME_PASSWORD_REQUIRED));
     });
     const credentialsShort = _.cloneDeep(credentials);
     delete credentialsShort.name;
@@ -208,7 +206,7 @@ describe('user', () => {
         }
     );
     mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+      return callback(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     });
     const credentialsShort = _.cloneDeep(credentials);
     credentialsShort.password = 'failPassword';
@@ -240,7 +238,7 @@ describe('user', () => {
         }
     );
     mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+      return callback(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
     });
     const credentialsShort = _.cloneDeep(credentials);
     credentialsShort.password = 'failPassword';

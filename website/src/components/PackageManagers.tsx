@@ -1,9 +1,9 @@
-import React from 'react';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import Translate, { translate } from '@docusaurus/Translate';
-import Divider from './Divider';
-import Command from './Command';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import React from 'react';
 
+import Command from './Command';
+import Divider from './Divider';
 import styles from './PackageManagers.module.scss';
 
 const PackageManagers = (): React.ReactElement => (

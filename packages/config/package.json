@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "6.0.0-6-next.7",
+  "version": "6.0.0-6-next.10",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "npm": ">=6"
   },
   "scripts": {
@@ -39,13 +39,13 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "workspace:11.0.0-alpha.3",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.5",
+    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.8",
     "debug": "4.3.2",
     "js-yaml": "3.14.1",
     "lodash": "4.17.21",
     "minimatch": "3.0.4",
-    "yup": "0.32.9"
+    "yup": "0.32.11"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.5",

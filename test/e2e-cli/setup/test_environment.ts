@@ -1,7 +1,8 @@
-import os from 'os';
-import path from 'path';
 import buildDebug from 'debug';
 import NodeEnvironment from 'jest-environment-node';
+import os from 'os';
+import path from 'path';
+
 const fs = require('fs');
 
 const __global = require('../utils/global');

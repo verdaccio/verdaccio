@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import Card from 'verdaccio-ui/components/Card';
 import { default as Typography } from 'verdaccio-ui/components/Heading';
 

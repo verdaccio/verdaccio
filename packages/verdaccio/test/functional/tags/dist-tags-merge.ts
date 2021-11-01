@@ -1,4 +1,4 @@
-import { DIST_TAGS, API_MESSAGE, HTTP_STATUS } from '@verdaccio/commons-api';
+import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 
 import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
 import { generateSha } from '../lib/test.utils';

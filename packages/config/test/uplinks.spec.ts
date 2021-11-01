@@ -1,5 +1,5 @@
-import { hasProxyTo, sanityCheckUplinksProps, uplinkSanityCheck } from '../src/uplinks';
 import { normalisePackageAccess, parseConfigFile } from '../src';
+import { hasProxyTo, sanityCheckUplinksProps, uplinkSanityCheck } from '../src/uplinks';
 import { parseConfigurationFile } from './utils';
 
 describe('Uplinks Utilities', () => {

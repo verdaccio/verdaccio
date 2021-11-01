@@ -1,5 +1,6 @@
 import Translate from '@docusaurus/Translate';
 import React from 'react';
+
 import styles from './Testimonials.module.scss';
 import TwitterCarrousel from './TwitterCarrousel';
 

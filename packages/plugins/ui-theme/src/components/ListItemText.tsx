@@ -1,6 +1,6 @@
 import {
-  default as MaterialUIListItemText,
   ListItemTextProps,
+  default as MaterialUIListItemText,
 } from '@material-ui/core/ListItemText';
 import React, { forwardRef } from 'react';
 

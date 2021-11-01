@@ -1,31 +1,28 @@
 import assert from 'assert';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import _ from 'lodash';
 
-import { generateRandomHexString, isObject } from '@verdaccio/utils';
-import { APP_ERROR } from '@verdaccio/commons-api';
+import { APP_ERROR } from '@verdaccio/core';
 import {
-  PackageList,
   Config as AppConfig,
-  ConfigRuntime,
-  Security,
-  PackageAccess,
-  ServerSettingsConf,
   AuthConf,
+  ConfigRuntime,
+  PackageAccess,
+  PackageList,
+  Security,
+  ServerSettingsConf,
 } from '@verdaccio/types';
+import { generateRandomHexString, getMatchedPackagesSpec, isObject } from '@verdaccio/utils';
 
-import { generateRandomSecretKey } from './token';
-import { getMatchedPackagesSpec, normalisePackageAccess } from './package-access';
-import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
-import { defaultSecurity } from './security';
 import { getUserAgent } from './agent';
+import { normalisePackageAccess } from './package-access';
+import { defaultSecurity } from './security';
 import serverSettings from './serverSettings';
+import { generateRandomSecretKey } from './token';
+import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
 
 const strategicConfigProps = ['uplinks', 'packages'];
 const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
-
-export type MatchedPackage = PackageAccess | void;
-
 const debug = buildDebug('verdaccio:config');
 
 export const WEB_TITLE = 'Verdaccio';
@@ -99,7 +96,8 @@ class Config implements AppConfig {
   /**
    * Check for package spec
    */
-  public getMatchedPackagesSpec(pkgName: string): MatchedPackage {
+  public getMatchedPackagesSpec(pkgName: string): PackageAccess | void {
+    // TODO: remove this method and replace by library utils
     return getMatchedPackagesSpec(pkgName, this.packages);
   }
 

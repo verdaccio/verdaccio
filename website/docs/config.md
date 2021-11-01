@@ -252,7 +252,7 @@ Here is one example:
 
 ```yaml
 experiments:
-  token: false
+  changePassword: false
 ```
 
 > To disable the experiments warning in the console, you must comment out the whole `experiments` section.

@@ -1,7 +1,8 @@
-import { URL } from 'url';
 import buildDebug from 'debug';
+import { URL } from 'url';
 import isURLValidator from 'validator/lib/isURL';
-import { HEADERS } from '@verdaccio/commons-api';
+
+import { HEADERS } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:core:url');
 
@@ -88,18 +89,26 @@ export function validateURL(publicUrl: string | void) {
   }
 }
 
-export function getPublicUrl(url_prefix: string = '', req): string {
+export type RequestOptions = {
+  host: string;
+  protocol: string;
+  headers: { [key: string]: string };
+};
+
+export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOptions): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
     const envURL = new URL(wrapPrefix(url_prefix), process.env.VERDACCIO_PUBLIC_URL as string).href;
     debug('public url by env %o', envURL);
     return envURL;
-  } else if (req.get('host')) {
-    const host = req.get('host');
+  } else if (requestOptions.headers['host']) {
+    const host = requestOptions.headers['host'];
     if (!isHost(host)) {
       throw new Error('invalid host');
     }
-    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO ?? HEADERS.FORWARDED_PROTO;
-    const protocol = getWebProtocol(req.get(protoHeader), req.protocol);
+    const protoHeader =
+      process.env.VERDACCIO_FORWARDED_PROTO?.toLocaleLowerCase() ??
+      HEADERS.FORWARDED_PROTO.toLowerCase();
+    const protocol = getWebProtocol(requestOptions.headers[protoHeader], requestOptions.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
     return combinedUrl;

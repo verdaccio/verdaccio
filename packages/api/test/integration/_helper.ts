@@ -1,13 +1,15 @@
-import path from 'path';
-import express, { Application } from 'express';
-import supertest from 'supertest';
 import bodyParser from 'body-parser';
+import express, { Application } from 'express';
+import path from 'path';
+import supertest from 'supertest';
 
-import { Config, parseConfigFile } from '@verdaccio/config';
-import { Storage } from '@verdaccio/store';
-import { final, handleError, errorReportingMiddleware } from '@verdaccio/middleware';
 import { Auth, IAuth } from '@verdaccio/auth';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, generatePackageMetadata } from '@verdaccio/commons-api';
+import { Config, parseConfigFile } from '@verdaccio/config';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/helper';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { Storage } from '@verdaccio/store';
+
 import apiEndpoints from '../../src';
 
 const getConf = (conf) => {
@@ -42,7 +44,7 @@ export async function initializeServer(configName): Promise<Application> {
   return app;
 }
 
-export function publishVersion(app, configFile, pkgName, version): supertest.Test {
+export function publishVersion(app, _configFile, pkgName, version): supertest.Test {
   const pkgMetadata = generatePackageMetadata(pkgName, version);
 
   return supertest(app)

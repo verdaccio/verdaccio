@@ -11,21 +11,6 @@
     "verdaccio"
   ],
   "rules": {
-    "import/order": ["error", {
-      "pathGroups": [
-        {
-          "pattern": "verdaccio-ui/**",
-          "group": "external",
-          "position": "after"
-        }
-      ],
-      "pathGroupsExcludedImportTypes": ["verdaccio-ui"],
-      "alphabetize": {
-        "order": "asc",
-        "caseInsensitive": true
-      },
-      "newlines-between": "always"
-    }],
     "react/display-name": 0,
     "react/no-deprecated": 1,
     "react/jsx-no-target-blank": 1,
