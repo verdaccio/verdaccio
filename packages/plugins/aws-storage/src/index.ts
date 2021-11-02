@@ -10,8 +10,6 @@ import {
   Token,
   TokenFilter,
 } from '@verdaccio/types';
-import { getInternalError, VerdaccioError } from '@verdaccio/commons-api';
-import { S3 } from 'aws-sdk';
 
 import addTrailingSlash from './addTrailingSlash';
 import { S3Config } from './config';
@@ -295,7 +293,7 @@ export default class S3Database implements IPluginStorage<S3Config> {
 
     const data = await this._getTokensData();
     const userData = data[user];
-    return userData ?? [];  
+    return userData ?? [];
   }
 
   private async _getTokensData(): Promise<Record<string, Token[]>> {

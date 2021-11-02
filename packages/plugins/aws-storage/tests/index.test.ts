@@ -1,4 +1,5 @@
 import { S3 } from 'aws-sdk';
+
 import { IPluginStorage, Token } from '@verdaccio/types';
 
 import { S3Config } from '../src/config';
