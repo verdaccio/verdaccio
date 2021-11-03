@@ -37,10 +37,10 @@ async function startServer({ logger, config }) {
     instance.register(search);
     instance.register(whoami);
     instance.register(tarball);
-    instance.register(readme, { prefix: '/-/verdaccio' });  
+    instance.register(readme, { prefix: '/-/verdaccio' });
     instance.register(sidebar, { prefix: '/-/verdaccio' });
     instance.register(login, { prefix: '/-/verdaccio' });
-    
+
     done();
   });
 
