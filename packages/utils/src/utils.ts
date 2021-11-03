@@ -307,6 +307,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
   return pkgInfoCopy;
 }
 
+const AVATAR_PROVIDER = 'https://www.gravatar.com/avatar/';
 export const GENERIC_AVATAR =
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
@@ -333,7 +334,7 @@ export function generateGravatarUrl(email: string | void = '', online: boolean =
   if (online && _.isString(email) && _.size(email) > 0) {
     email = email.trim().toLocaleLowerCase();
     const emailMD5 = stringToMD5(email);
-    return `https://www.gravatar.com/avatar/${emailMD5}`;
+    return `${AVATAR_PROVIDER}${emailMD5}`;
   }
   return GENERIC_AVATAR;
 }
