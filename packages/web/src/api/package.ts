@@ -8,9 +8,8 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/mi
 import { Storage } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
-import { formatAuthor } from '@verdaccio/utils';
+import { formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
-import { generateGravatarUrl } from '../utils/user';
 import { AuthorAvatar, sortByName } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages

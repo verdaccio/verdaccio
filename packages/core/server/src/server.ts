@@ -15,6 +15,7 @@ import coreUtils from './plugins/coreUtils';
 import storagePlugin from './plugins/storage';
 import login from './routes/web/api/login';
 import readme from './routes/web/api/readme';
+import sidebar from './routes/web/api/sidebar';
 
 const debug = buildDebug('verdaccio:fastify');
 
@@ -36,8 +37,10 @@ async function startServer({ logger, config }) {
     instance.register(search);
     instance.register(whoami);
     instance.register(tarball);
-    instance.register(readme, { prefix: '/-/verdaccio' });
+    instance.register(readme, { prefix: '/-/verdaccio' });  
+    instance.register(sidebar, { prefix: '/-/verdaccio' });
     instance.register(login, { prefix: '/-/verdaccio' });
+    
     done();
   });
 
