@@ -29,7 +29,7 @@ import {
   Version,
 } from '@verdaccio/types';
 import { getLatestVersion, isObject } from '@verdaccio/utils';
-import { createTarballHash } from '@verdaccio/utils';
+import { createTarballHash, normalizeContributors } from '@verdaccio/utils';
 
 import {
   STORAGE,
@@ -37,7 +37,6 @@ import {
   generatePackageTemplate,
   generateRevision,
   getLatestReadme,
-  normalizeContributors,
   normalizePackage,
   tagVersion,
 } from './storage-utils';

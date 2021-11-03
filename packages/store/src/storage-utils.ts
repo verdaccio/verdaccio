@@ -3,7 +3,7 @@ import semver from 'semver';
 
 import { errorUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
-import { Author, Package, StringValue, Version } from '@verdaccio/types';
+import { Package, StringValue, Version } from '@verdaccio/types';
 import { generateRandomHexString, isNil, normalizeDistTags } from '@verdaccio/utils';
 
 import { LocalStorage } from './local-storage';
@@ -96,24 +96,6 @@ export function cleanUpReadme(version: any): Version {
   }
 
   return version;
-}
-
-export function normalizeContributors(contributors: Author[]): Author[] {
-  if (isNil(contributors)) {
-    return [];
-  } else if (contributors && _.isArray(contributors) === false) {
-    // FIXME: this branch is clearly no an array, still tsc complains
-    // @ts-ignore
-    return [contributors];
-  } else if (_.isString(contributors)) {
-    return [
-      {
-        name: contributors,
-      },
-    ];
-  }
-
-  return contributors;
 }
 
 export const WHITELIST = [
