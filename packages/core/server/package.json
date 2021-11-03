@@ -42,7 +42,6 @@
     "@verdaccio/tarball": "workspace:11.0.0-6-next.9",
     "@verdaccio/utils": "workspace:6.0.0-6-next.8",
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
-    "@verdaccio/types": "6.0.0-6-next.5",
     "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.17.2",
     "debug": "4.3.2",
