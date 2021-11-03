@@ -13,6 +13,7 @@ import authPlugin from './plugins/auth';
 import configPlugin from './plugins/config';
 import coreUtils from './plugins/coreUtils';
 import storagePlugin from './plugins/storage';
+import login from './routes/web/api/login';
 import readme from './routes/web/api/readme';
 
 const debug = buildDebug('verdaccio:fastify');
@@ -23,10 +24,10 @@ async function startServer({ logger, config }) {
   debug('start server');
   const fastifyInstance = fastify({ logger });
   fastifyInstance.decorateRequest<RemoteUser>('userRemote', createAnonymousRemoteUser());
-  fastifyInstance.register(configPlugin, { config });
   fastifyInstance.register(coreUtils);
-  fastifyInstance.register(authPlugin, { config: configInstance });
+  fastifyInstance.register(configPlugin, { config });
   fastifyInstance.register(storagePlugin, { config: configInstance });
+  fastifyInstance.register(authPlugin, { config: configInstance });
 
   // api
   fastifyInstance.register((instance, opts, done) => {
@@ -36,6 +37,7 @@ async function startServer({ logger, config }) {
     instance.register(whoami);
     instance.register(tarball);
     instance.register(readme, { prefix: '/-/verdaccio' });
+    instance.register(login, { prefix: '/-/verdaccio' });
     done();
   });
 
