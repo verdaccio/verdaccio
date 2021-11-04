@@ -3003,10 +3003,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/async@npm:3.2.4":
-  version: 3.2.4
-  resolution: "@types/async@npm:3.2.4"
-  checksum: dbecc499452d1725c049b05e6d5c6e1190e0f6e71e64b4cd234dc37e1f1416357c899f43f746a60810d9d5104a404bfafd28894770f594cea2016d1f203a31a0
+"@types/async@npm:3.2.9":
+  version: 3.2.9
+  resolution: "@types/async@npm:3.2.9"
+  checksum: d76e3e991ea011f26faa33121f25d68fcae1dc6820b6cd1c07daa9644069cd5ace470a002367bc143fea1eb6dd7f3e5ba8bf36e41fb4da09f264ddc7e7dccc8d
   languageName: node
   linkType: hard
 
@@ -4304,10 +4304,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:3.2.1":
-  version: 3.2.1
-  resolution: "async@npm:3.2.1"
-  checksum: 2ec69da2266d9418eefbf828a4b238f62cf07a5d5ba2d7fb91bc74aa588e38bbf7aef03df6d267dd38999802e97061768e5f58c8a38c62d71eb5c1a0b2957ef4
+"async@npm:3.2.2":
+  version: 3.2.2
+  resolution: "async@npm:3.2.2"
+  checksum: 9f9873f96dc3d319262c0379979ae906fa17d9faaf8ae370c44e578eae54e48ee5db79ba40021fd0291b3d305e17ba9c6bdcdba78785c1ef71d586c52c0dea3b
   languageName: node
   linkType: hard
 
@@ -14174,7 +14174,7 @@ typescript@4.1.3:
     "@commitlint/cli": 12.1.4
     "@commitlint/config-conventional": 12.1.4
     "@octokit/rest": 18.6.0
-    "@types/async": 3.2.4
+    "@types/async": 3.2.9
     "@types/express": 4.17.6
     "@types/http-errors": 1.8.0
     "@types/jest": 26.0.14
@@ -14196,7 +14196,7 @@ typescript@4.1.3:
     "@verdaccio/ui-theme": 3.2.1
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
-    async: 3.2.1
+    async: 3.2.2
     babel-eslint: 10.1.0
     babel-jest: 26.6.3
     babel-loader: ^8.2.2
