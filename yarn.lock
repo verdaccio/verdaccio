@@ -13864,10 +13864,10 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"validator@npm:13.6.0":
-  version: 13.6.0
-  resolution: "validator@npm:13.6.0"
-  checksum: 6ae43bfd47ae7e3ed5803c6fff949c5cbabb4d248af38fce0ccafb637c85db8c0c5cee2a91817242865de4f5970d61de809f0975910ec78282307ffd23249466
+"validator@npm:13.7.0":
+  version: 13.7.0
+  resolution: "validator@npm:13.7.0"
+  checksum: d6621f541d49f354be0944544665ecca5853e7d08def5de58204c7ea3b4020ddc0d64d7232fa9ea9ff57656c8a955117c76f0267e6d4690d761cfd018857f62d
   languageName: node
   linkType: hard
 
@@ -14040,7 +14040,7 @@ typescript@4.1.3:
     supertest: 6.1.3
     ts-node: 10.2.0
     typescript: 4.1.3
-    validator: 13.6.0
+    validator: 13.7.0
     verdaccio-audit: 10.0.2
     verdaccio-auth-memory: 10.0.1
     verdaccio-htpasswd: 10.0.0
