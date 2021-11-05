@@ -21,6 +21,7 @@ const getConf = (configName: string) => {
 export async function initializeServer(configName: string): Promise<Application> {
   const app = express();
   const config = new Config(getConf(configName));
+  config.checkSecretKey('12345');
   const storage = new Storage(config);
   await storage.init(config, []);
   const auth: IAuth = new Auth(config);

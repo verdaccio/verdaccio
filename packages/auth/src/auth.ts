@@ -94,6 +94,9 @@ class Auth implements IAuth {
     this.config = config;
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
+    if (!this.secret) {
+      throw new TypeError('secret it is required value on initialize the auth class');
+    }
 
     this.plugins =
       _.isNil(config?.auth) === false ? this._loadPlugin(config) : this.loadDefaultPlugin(config);
