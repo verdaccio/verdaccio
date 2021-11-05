@@ -146,7 +146,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.11"],
             ["semver", "npm:7.3.5"],
-            ["standard-version", "npm:9.3.1"],
+            ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
@@ -7306,6 +7306,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/conventional-changelog-conventionalcommits-npm-4.5.0-038a4dc37b-0e57187fc7.zip/node_modules/conventional-changelog-conventionalcommits/",
           "packageDependencies": [
             ["conventional-changelog-conventionalcommits", "npm:4.5.0"],
+            ["compare-func", "npm:2.0.0"],
+            ["lodash", "npm:4.17.19"],
+            ["q", "npm:1.5.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:4.6.1", {
+          "packageLocation": "./.yarn/cache/conventional-changelog-conventionalcommits-npm-4.6.1-030ed159a8-c9a72b75eb.zip/node_modules/conventional-changelog-conventionalcommits/",
+          "packageDependencies": [
+            ["conventional-changelog-conventionalcommits", "npm:4.6.1"],
             ["compare-func", "npm:2.0.0"],
             ["lodash", "npm:4.17.19"],
             ["q", "npm:1.5.1"]
@@ -15726,14 +15736,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["standard-version", [
-        ["npm:9.3.1", {
-          "packageLocation": "./.yarn/cache/standard-version-npm-9.3.1-79f6c7de68-ed79532134.zip/node_modules/standard-version/",
+        ["npm:9.3.2", {
+          "packageLocation": "./.yarn/cache/standard-version-npm-9.3.2-f7862398c5-f469069be3.zip/node_modules/standard-version/",
           "packageDependencies": [
-            ["standard-version", "npm:9.3.1"],
+            ["standard-version", "npm:9.3.2"],
             ["chalk", "npm:2.4.2"],
             ["conventional-changelog", "npm:3.1.24"],
             ["conventional-changelog-config-spec", "npm:2.1.0"],
-            ["conventional-changelog-conventionalcommits", "npm:4.5.0"],
+            ["conventional-changelog-conventionalcommits", "npm:4.6.1"],
             ["conventional-recommended-bump", "npm:6.1.0"],
             ["detect-indent", "npm:6.0.0"],
             ["detect-newline", "npm:3.1.0"],
@@ -17066,7 +17076,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.11"],
             ["semver", "npm:7.3.5"],
-            ["standard-version", "npm:9.3.1"],
+            ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
