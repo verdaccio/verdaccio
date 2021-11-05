@@ -1,5 +1,13 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.9
+
+### Minor Changes
+
+- f86c31ed: feat: migrate web sidebar endpoint to fastify
+
+  reuse utils methods between packages
+
 ## 6.0.0-6-next.8
 
 ### Patch Changes

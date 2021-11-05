@@ -1,5 +1,27 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.21
+
+### Minor Changes
+
+- f86c31ed: feat: migrate web sidebar endpoint to fastify
+
+  reuse utils methods between packages
+
+- 20c9e43e: dist tags Implementation on Fastify
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+- Updated dependencies [20c9e43e]
+  - @verdaccio/store@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/auth@6.0.0-6-next.15
+  - @verdaccio/config@6.0.0-6-next.11
+  - @verdaccio/tarball@11.0.0-6-next.10
+  - @verdaccio/middleware@6.0.0-6-next.15
+  - @verdaccio/loaders@6.0.0-6-next.7
+
 ## 6.0.0-6-next.20
 
 ### Patch Changes

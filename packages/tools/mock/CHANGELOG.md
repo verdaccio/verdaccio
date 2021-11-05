@@ -1,5 +1,13 @@
 # @verdaccio/mock
 
+## 6.0.0-6-next.12
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/config@6.0.0-6-next.11
+
 ## 6.0.0-6-next.11
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.15
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+- Updated dependencies [20c9e43e]
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/auth@6.0.0-6-next.15
+
 ## 6.0.0-6-next.14
 
 ### Patch Changes

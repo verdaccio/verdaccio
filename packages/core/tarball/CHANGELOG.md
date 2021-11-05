@@ -1,5 +1,12 @@
 # Change Log
 
+## 11.0.0-6-next.10
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+  - @verdaccio/utils@6.0.0-6-next.9
+
 ## 11.0.0-6-next.9
 
 ### Patch Changes
