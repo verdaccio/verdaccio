@@ -14,6 +14,8 @@ setup([]);
 describe('AuthTest', () => {
   test('should be defined', () => {
     const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+    config.checkSecretKey('12345');
+
     const auth: IAuth = new Auth(config);
 
     expect(auth).toBeDefined();
@@ -23,6 +25,7 @@ describe('AuthTest', () => {
     describe('test authenticate states', () => {
       test('should be a success login', () => {
         const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
@@ -49,6 +52,7 @@ describe('AuthTest', () => {
 
       test('should be a fail on login', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginFailureConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
@@ -67,6 +71,7 @@ describe('AuthTest', () => {
     describe('test authenticate out of control inputs from plugins', () => {
       test('should skip falsy values', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
@@ -86,6 +91,7 @@ describe('AuthTest', () => {
 
       test('should error truthy non-array', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
@@ -103,6 +109,7 @@ describe('AuthTest', () => {
 
       test('should skip empty array', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
@@ -119,6 +126,7 @@ describe('AuthTest', () => {
 
       test('should accept valid array', () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
         expect(auth).toBeDefined();
