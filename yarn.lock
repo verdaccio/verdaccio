@@ -2997,10 +2997,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mime@npm:*, @types/mime@npm:2.0.1":
+"@types/mime@npm:*":
   version: 2.0.1
   resolution: "@types/mime@npm:2.0.1"
   checksum: 61a328979fb59648d4bcd557050f6270f3afd50602829e9fd182d70129cbd2ff057f36dd6db4be9b01e0f1c6463784efc854ed4bbe99075017483680865d1977
+  languageName: node
+  linkType: hard
+
+"@types/mime@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@types/mime@npm:2.0.3"
+  checksum: 6df548a912494f8579d548cd883be0425f30eaa2922283335c405e270600f49045a06d766460c0f0edabb41dff570c614d174d3c52215de3bddd11f190ec9ae9
   languageName: node
   linkType: hard
 
@@ -10154,12 +10161,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mime@npm:2.5.2":
-  version: 2.5.2
-  resolution: "mime@npm:2.5.2"
+"mime@npm:2.6.0":
+  version: 2.6.0
+  resolution: "mime@npm:2.6.0"
   bin:
     mime: cli.js
-  checksum: 3e5377f0a1891350247699c5fff0469752a35d5c0baeb7cbee86907c143215ee8621d17c17401f10ffe020a0b327aa503b98cb7340039fce69bc465aed414fb7
+  checksum: 844542a865e3c7096372c95fdf2eb3082e30152aedece8baaae0dd38d5e7a8d5662d2696fcbb63783e1639d7c304203667bc06d1de119af70162dea87286a084
   languageName: node
   linkType: hard
 
@@ -13958,7 +13965,7 @@ typescript@4.1.3:
     "@types/http-errors": 1.8.0
     "@types/jest": 26.0.14
     "@types/lodash": 4.14.167
-    "@types/mime": 2.0.1
+    "@types/mime": 2.0.3
     "@types/minimatch": 3.0.3
     "@types/node": 14.14.37
     "@types/pino": 6.3.12
@@ -14019,7 +14026,7 @@ typescript@4.1.3:
     lunr-mutable-indexes: 2.3.2
     marked: 2.1.3
     memoizee: 0.4.15
-    mime: 2.5.2
+    mime: 2.6.0
     minimatch: 3.0.4
     mkdirp: 1.0.4
     mv: 2.1.1

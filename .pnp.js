@@ -68,7 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/http-errors", "npm:1.8.0"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
-            ["@types/mime", "npm:2.0.1"],
+            ["@types/mime", "npm:2.0.3"],
             ["@types/minimatch", "npm:3.0.3"],
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
@@ -129,7 +129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:2.1.3"],
             ["memoizee", "npm:0.4.15"],
-            ["mime", "npm:2.5.2"],
+            ["mime", "npm:2.6.0"],
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
@@ -4619,6 +4619,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-mime-npm-2.0.1-1018885da5-61a328979f.zip/node_modules/@types/mime/",
           "packageDependencies": [
             ["@types/mime", "npm:2.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:2.0.3", {
+          "packageLocation": "./.yarn/cache/@types-mime-npm-2.0.3-809d6f0e0f-6df548a912.zip/node_modules/@types/mime/",
+          "packageDependencies": [
+            ["@types/mime", "npm:2.0.3"]
           ],
           "linkType": "HARD",
         }]
@@ -12866,10 +12873,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:2.5.2", {
-          "packageLocation": "./.yarn/cache/mime-npm-2.5.2-d3335c8166-3e5377f0a1.zip/node_modules/mime/",
+        ["npm:2.6.0", {
+          "packageLocation": "./.yarn/cache/mime-npm-2.6.0-88b89d8de0-844542a865.zip/node_modules/mime/",
           "packageDependencies": [
-            ["mime", "npm:2.5.2"]
+            ["mime", "npm:2.6.0"]
           ],
           "linkType": "HARD",
         }]
@@ -16981,7 +16988,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/http-errors", "npm:1.8.0"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
-            ["@types/mime", "npm:2.0.1"],
+            ["@types/mime", "npm:2.0.3"],
             ["@types/minimatch", "npm:3.0.3"],
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
@@ -17042,7 +17049,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:2.1.3"],
             ["memoizee", "npm:0.4.15"],
-            ["mime", "npm:2.5.2"],
+            ["mime", "npm:2.6.0"],
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
