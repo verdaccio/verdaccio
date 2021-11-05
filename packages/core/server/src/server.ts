@@ -4,6 +4,7 @@ import fastify from 'fastify';
 import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/config';
 import { Config as IConfig, RemoteUser } from '@verdaccio/types';
 
+import distTags from './endpoints/dist-tags';
 import ping from './endpoints/ping';
 import search from './endpoints/search';
 import tarball from './endpoints/tarball';
@@ -37,6 +38,7 @@ async function startServer({ logger, config }) {
     instance.register(search);
     instance.register(whoami);
     instance.register(tarball);
+    instance.register(distTags);
     instance.register(readme, { prefix: '/-/verdaccio' });
     instance.register(sidebar, { prefix: '/-/verdaccio' });
     instance.register(login, { prefix: '/-/verdaccio' });

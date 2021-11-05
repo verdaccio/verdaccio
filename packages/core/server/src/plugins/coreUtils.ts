@@ -1,11 +1,19 @@
 import fp from 'fastify-plugin';
 
-import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils, validatioUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  HTTP_STATUS,
+  constants,
+  errorUtils,
+  validatioUtils,
+} from '@verdaccio/core';
 
 export default fp(
   async function (fastify) {
     fastify.decorate('errorUtils', errorUtils);
     fastify.decorate('apiError', API_ERROR);
+    fastify.decorate('constants', constants);
     fastify.decorate('apiMessage', API_MESSAGE);
     fastify.decorate('validatioUtils', validatioUtils);
     fastify.decorate('statusCode', HTTP_STATUS);
@@ -21,5 +29,6 @@ declare module 'fastify' {
     apiMessage: typeof API_MESSAGE;
     statusCode: typeof HTTP_STATUS;
     errorUtils: typeof errorUtils;
+    constants: typeof constants;
   }
 }
