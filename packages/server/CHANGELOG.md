@@ -1,5 +1,20 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.23
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+- Updated dependencies [20c9e43e]
+  - @verdaccio/store@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/web@6.0.0-6-next.21
+  - @verdaccio/auth@6.0.0-6-next.15
+  - @verdaccio/api@6.0.0-6-next.18
+  - @verdaccio/config@6.0.0-6-next.11
+  - @verdaccio/middleware@6.0.0-6-next.15
+  - @verdaccio/loaders@6.0.0-6-next.7
+
 ## 6.0.0-6-next.22
 
 ### Patch Changes

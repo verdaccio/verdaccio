@@ -189,18 +189,18 @@ importers:
   packages/api:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/helper': 1.0.0
       '@verdaccio/hooks': workspace:6.0.0-6-next.9
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/middleware': workspace:6.0.0-6-next.14
-      '@verdaccio/server': workspace:6.0.0-6-next.22
-      '@verdaccio/store': workspace:6.0.0-6-next.15
-      '@verdaccio/tarball': workspace:11.0.0-6-next.9
+      '@verdaccio/middleware': workspace:6.0.0-6-next.15
+      '@verdaccio/server': workspace:6.0.0-6-next.23
+      '@verdaccio/store': workspace:6.0.0-6-next.16
+      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0
       cookies: 0.8.0
@@ -237,13 +237,13 @@ importers:
 
   packages/auth:
     specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       debug: 4.3.2
       express: 4.17.1
       jsonwebtoken: 8.5.1
@@ -266,11 +266,11 @@ importers:
 
   packages/cli:
     specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
-      '@verdaccio/fastify-migration': workspace:6.0.0-6-next.15
+      '@verdaccio/fastify-migration': workspace:6.0.0-6-next.16
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/node-api': workspace:6.0.0-6-next.23
+      '@verdaccio/node-api': workspace:6.0.0-6-next.24
       clipanion: 3.1.0
       envinfo: 7.8.1
       kleur: 3.0.3
@@ -294,7 +294,7 @@ importers:
       '@types/minimatch': 3.0.5
       '@types/yup': 0.29.13
       '@verdaccio/core': workspace:6.0.0-6-next.3
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       debug: 4.3.2
       js-yaml: 3.14.1
       lodash: 4.17.21
@@ -352,15 +352,15 @@ importers:
   packages/core/server:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/readme': workspace:11.0.0-6-next.4
-      '@verdaccio/store': workspace:6.0.0-6-next.15
-      '@verdaccio/tarball': workspace:11.0.0-6-next.9
+      '@verdaccio/store': workspace:6.0.0-6-next.16
+      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.2
@@ -401,7 +401,7 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       lodash: 4.17.21
       node-mocks-http: 1.10.1
     dependencies:
@@ -441,8 +441,8 @@ importers:
   packages/hooks:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/types': workspace:11.0.0-6-next.9
@@ -467,10 +467,10 @@ importers:
 
   packages/loaders:
     specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
       '@verdaccio/types': workspace:11.0.0-6-next.9
       debug: 4.3.2
       lodash: 4.17.21
@@ -524,10 +524,10 @@ importers:
 
   packages/middleware:
     specifiers:
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       debug: 4.3.2
       lodash: 4.17.21
     dependencies:
@@ -541,11 +541,11 @@ importers:
   packages/node-api:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
-      '@verdaccio/server': workspace:6.0.0-6-next.22
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
+      '@verdaccio/server': workspace:6.0.0-6-next.23
       '@verdaccio/types': workspace:11.0.0-6-next.9
       core-js: 3.17.2
       debug: 4.3.2
@@ -675,12 +675,12 @@ importers:
   packages/plugins/local-storage:
     specifiers:
       '@types/minimatch': 3.0.5
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/file-locking': workspace:11.0.0-6-next.4
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       async: 3.2.1
       core-js: 3.17.2
       debug: 4.3.2
@@ -749,7 +749,7 @@ importers:
       '@types/react-router-dom': 5.3.2
       '@types/react-virtualized': 9.21.14
       '@types/redux': 3.6.0
-      '@verdaccio/node-api': workspace:6.0.0-6-next.23
+      '@verdaccio/node-api': workspace:6.0.0-6-next.24
       autosuggest-highlight: 3.1.1
       babel-loader: 8.2.3
       babel-plugin-dynamic-import-node: 2.3.3
@@ -897,13 +897,13 @@ importers:
   packages/proxy:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       debug: 4.3.2
       get-stream: ^6.0.1
@@ -942,19 +942,19 @@ importers:
   packages/server:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/api': workspace:6.0.0-6-next.17
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/api': workspace:6.0.0-6-next.18
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/helper': 1.0.0
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/middleware': workspace:6.0.0-6-next.14
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
-      '@verdaccio/proxy': workspace:6.0.0-6-next.14
-      '@verdaccio/store': workspace:6.0.0-6-next.15
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
-      '@verdaccio/web': workspace:6.0.0-6-next.20
+      '@verdaccio/middleware': workspace:6.0.0-6-next.15
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
+      '@verdaccio/proxy': workspace:6.0.0-6-next.15
+      '@verdaccio/store': workspace:6.0.0-6-next.16
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
+      '@verdaccio/web': workspace:6.0.0-6-next.21
       compression: 1.7.4
       cors: 2.8.5
       debug: 4.3.2
@@ -992,7 +992,7 @@ importers:
 
   packages/standalone:
     specifiers:
-      '@verdaccio/cli': workspace:6.0.0-6-next.24
+      '@verdaccio/cli': workspace:6.0.0-6-next.25
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       fs-extra: 10.0.0
       webpack: 5.60.0
@@ -1011,16 +1011,16 @@ importers:
   packages/store:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
-      '@verdaccio/proxy': workspace:6.0.0-6-next.14
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
+      '@verdaccio/proxy': workspace:6.0.0-6-next.15
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       async: 3.1.1
       debug: 4.3.2
@@ -1112,10 +1112,10 @@ importers:
 
   packages/tools/mock:
     specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       core-js: 3.17.2
       debug: 4.3.2
       fs-extra: 10.0.0
@@ -1156,17 +1156,17 @@ importers:
 
   packages/verdaccio:
     specifiers:
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/cli': workspace:6.0.0-6-next.24
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/cli': workspace:6.0.0-6-next.25
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/hooks': workspace:6.0.0-6-next.9
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/mock': workspace:6.0.0-6-next.11
-      '@verdaccio/node-api': workspace:6.0.0-6-next.23
-      '@verdaccio/store': workspace:6.0.0-6-next.15
+      '@verdaccio/mock': workspace:6.0.0-6-next.12
+      '@verdaccio/node-api': workspace:6.0.0-6-next.24
+      '@verdaccio/store': workspace:6.0.0-6-next.16
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       fastify: 3.22.1
       verdaccio-audit: workspace:11.0.0-6-next.7
       verdaccio-htpasswd: workspace:11.0.0-6-next.10
@@ -1190,18 +1190,18 @@ importers:
   packages/web:
     specifiers:
       '@types/node': 16.11.6
-      '@verdaccio/auth': workspace:6.0.0-6-next.14
-      '@verdaccio/config': workspace:6.0.0-6-next.10
+      '@verdaccio/auth': workspace:6.0.0-6-next.15
+      '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.7
-      '@verdaccio/middleware': workspace:6.0.0-6-next.14
+      '@verdaccio/middleware': workspace:6.0.0-6-next.15
       '@verdaccio/readme': workspace:11.0.0-6-next.4
-      '@verdaccio/store': workspace:6.0.0-6-next.15
-      '@verdaccio/tarball': workspace:11.0.0-6-next.9
+      '@verdaccio/store': workspace:6.0.0-6-next.16
+      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
-      '@verdaccio/utils': workspace:6.0.0-6-next.8
+      '@verdaccio/utils': workspace:6.0.0-6-next.9
       body-parse: 0.1.0
       body-parser: 1.19.0
       debug: 4.3.2
@@ -4830,7 +4830,7 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      '@types/react': 17.0.33
+      '@types/react': 17.0.34
       prop-types: 15.7.2
       react: 17.0.2
     dev: false
@@ -6644,6 +6644,7 @@ packages:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.2
       csstype: 3.0.8
+    dev: true
 
   /@types/react/17.0.34:
     resolution: {integrity: sha512-46FEGrMjc2+8XhHXILr+3+/sTe3OfzSPU9YGKILLrUYbQ1CLQC9Daqo1KzENGXAWwrFwiY0l4ZbF20gRvgpWTg==}
@@ -6651,7 +6652,6 @@ packages:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.2
       csstype: 3.0.8
-    dev: true
 
   /@types/redux/3.6.0:
     resolution: {integrity: sha1-8evh5UEVGAcuT9/KXHbhbnTBOZo=}

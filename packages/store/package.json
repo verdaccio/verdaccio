@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "6.0.0-6-next.15",
+  "version": "6.0.0-6-next.16",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,14 +39,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.10",
+    "@verdaccio/config": "workspace:6.0.0-6-next.11",
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.7",
     "@verdaccio/local-storage": "workspace:11.0.0-6-next.10",
     "@verdaccio/logger": "workspace:6.0.0-6-next.7",
-    "@verdaccio/proxy": "workspace:6.0.0-6-next.14",
+    "@verdaccio/proxy": "workspace:6.0.0-6-next.15",
     "@verdaccio/streams": "workspace:11.0.0-6-next.5",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.8",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.9",
     "JSONStream": "1.3.5",
     "abortcontroller-polyfill": "1.7.3",
     "async": "3.1.1",
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.6",
-    "@verdaccio/mock": "workspace:6.0.0-6-next.11",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.12",
     "@verdaccio/types": "workspace:11.0.0-6-next.9",
     "undici": "4.7.3",
     "undici-fetch": "1.0.0-rc.4",

@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.15
+
+### Minor Changes
+
+- 20c9e43e: dist tags Implementation on Fastify
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/config@6.0.0-6-next.11
+  - @verdaccio/loaders@6.0.0-6-next.7
+
 ## 6.0.0-6-next.14
 
 ### Patch Changes

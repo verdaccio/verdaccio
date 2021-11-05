@@ -1,5 +1,22 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.16
+
+### Minor Changes
+
+- f86c31ed: feat: migrate web sidebar endpoint to fastify
+
+  reuse utils methods between packages
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/config@6.0.0-6-next.11
+  - @verdaccio/local-storage@11.0.0-6-next.10
+  - @verdaccio/proxy@6.0.0-6-next.15
+  - @verdaccio/loaders@6.0.0-6-next.7
+
 ## 6.0.0-6-next.15
 
 ### Patch Changes

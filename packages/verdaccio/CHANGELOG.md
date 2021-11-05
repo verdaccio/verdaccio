@@ -1,5 +1,17 @@
 # verdaccio
 
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- Updated dependencies [f86c31ed]
+  - @verdaccio/utils@6.0.0-6-next.9
+  - @verdaccio/cli@6.0.0-6-next.25
+  - @verdaccio/mock@6.0.0-6-next.12
+  - @verdaccio/hooks@6.0.0-6-next.9
+  - @verdaccio/node-api@6.0.0-6-next.24
+  - @verdaccio/ui-theme@6.0.0-6-next.12
+
 ## 6.0.0-6-next.26
 
 ### Patch Changes
