@@ -150,7 +150,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
-            ["validator", "npm:13.6.0"],
+            ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
             ["verdaccio-htpasswd", "npm:10.0.0"],
@@ -16928,10 +16928,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["validator", [
-        ["npm:13.6.0", {
-          "packageLocation": "./.yarn/cache/validator-npm-13.6.0-2ca88b50f3-6ae43bfd47.zip/node_modules/validator/",
+        ["npm:13.7.0", {
+          "packageLocation": "./.yarn/cache/validator-npm-13.7.0-624277e841-d6621f541d.zip/node_modules/validator/",
           "packageDependencies": [
-            ["validator", "npm:13.6.0"]
+            ["validator", "npm:13.7.0"]
           ],
           "linkType": "HARD",
         }]
@@ -17063,7 +17063,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
-            ["validator", "npm:13.6.0"],
+            ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
             ["verdaccio-htpasswd", "npm:10.0.0"],
