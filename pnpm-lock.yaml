@@ -1244,7 +1244,7 @@ importers:
       fs-extra: 10.0.0
       get-port: 5.1.1
       npm: 7.24.2
-      pnpm: 6.14.6
+      pnpm: 6.20.3
       request: 2.87.0
       semver: 7.3.5
       wait-on: ^6.0.0
@@ -1252,7 +1252,7 @@ importers:
     dependencies:
       debug: 4.3.2
       npm: 7.24.2
-      pnpm: 6.14.6
+      pnpm: 6.20.3
       request: 2.87.0
       yarn: 1.22.17
     devDependencies:
@@ -16815,8 +16815,8 @@ packages:
     resolution: {integrity: sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==}
     dev: true
 
-  /pnpm/6.14.6:
-    resolution: {integrity: sha512-PwBdhK7q/QqM8erzDuNu8a85bPNLV4Q3X6G0AFItogwhjDKEtJGKSIIGnvtq8AqnB2r1S9DGAOrQ8yqRJHU8xA==}
+  /pnpm/6.20.3:
+    resolution: {integrity: sha512-t16XiTxKTO+QdpsT3hBnlNN33T1JDCi+dtcVrT8ckJHt8bDQW4ax9hOYe4jtz9tUIxT0JhzYeDiyd5fiGMnu+w==}
     engines: {node: '>=12.17'}
     hasBin: true
     dev: false
