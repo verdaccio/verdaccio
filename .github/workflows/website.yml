@@ -24,7 +24,7 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@v2.3.5
+      - uses: actions/checkout@v2.4.0
 
       - name: Use Node 14
         uses: actions/setup-node@v2
