@@ -739,7 +739,7 @@ importers:
       '@material-ui/styles': 4.11.4
       '@rematch/core': 2.1.1
       '@rematch/loading': 2.1.1
-      '@testing-library/dom': 8.10.1
+      '@testing-library/dom': 8.11.0
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 12.1.2
       '@types/react': 17.0.34
@@ -821,7 +821,7 @@ importers:
       '@material-ui/styles': 4.11.4_c8c53a2a5a2c84791ce34d6dbdd05753
       '@rematch/core': 2.1.1_redux@4.1.2
       '@rematch/loading': 2.1.1_@rematch+core@2.1.1
-      '@testing-library/dom': 8.10.1
+      '@testing-library/dom': 8.11.0
       '@testing-library/jest-dom': 5.14.1
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
       '@types/react': 17.0.34
@@ -5627,7 +5627,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@types/yargs': 15.0.5
       chalk: 4.1.2
     dev: true
@@ -5638,7 +5638,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.3
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       '@types/yargs': 16.0.3
       chalk: 4.1.2
     dev: true
@@ -6128,8 +6128,8 @@ packages:
     dependencies:
       defer-to-connect: 1.1.3
 
-  /@testing-library/dom/8.10.1:
-    resolution: {integrity: sha512-rab7vpf1uGig5efWwsCOn9j4/doy+W3VBoUyzX7C4y77u0wAckwc7R8nyH6e2rw0rRzKJR+gWPiAg8zhiFbxWQ==}
+  /@testing-library/dom/8.11.0:
+    resolution: {integrity: sha512-8Ay4UDiMlB5YWy+ZvCeRyFFofs53ebxrWnOFvCoM1HpMAX4cHyuSrCuIM9l2lVuUWUt+Gr3loz/nCwdrnG6ShQ==}
     engines: {node: '>=12'}
     dependencies:
       '@babel/code-frame': 7.15.8
@@ -6165,7 +6165,7 @@ packages:
       react-dom: '*'
     dependencies:
       '@babel/runtime': 7.15.4
-      '@testing-library/dom': 8.10.1
+      '@testing-library/dom': 8.11.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: true
@@ -6347,7 +6347,7 @@ packages:
     resolution: {integrity: sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==}
     dependencies:
       '@types/minimatch': 3.0.3
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
 
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
@@ -6514,6 +6514,7 @@ packages:
 
   /@types/node/16.9.1:
     resolution: {integrity: sha512-QpLcX9ZSsq3YYUUnD3nFDY8H7wctAhQj/TFKL8Ya8v5fMm3CFXxo8zStsLAl780ltoYoo1WvKUVGBQK+1ifr7g==}
+    dev: true
 
   /@types/normalize-package-data/2.4.0:
     resolution: {integrity: sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==}
@@ -6700,7 +6701,7 @@ packages:
   /@types/set-cookie-parser/2.4.1:
     resolution: {integrity: sha512-N0IWe4vT1w5IOYdN9c9PNpQniHS+qe25W4tj4vfhJDJ9OkvA/YA55YUhaC+HNmMMeLlOSnBW9UMno0qlt5xu3Q==}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
     dev: true
 
   /@types/stack-utils/2.0.0:
@@ -6742,7 +6743,7 @@ packages:
   /@types/through/0.0.30:
     resolution: {integrity: sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
     dev: true
 
   /@types/tough-cookie/4.0.0:
@@ -14331,7 +14332,7 @@ packages:
     resolution: {integrity: sha512-mO4PHb2QWLn9yRXGp7rkvXLAYuxwhq1ZYUo0LoDhg8wqvv4QizP1ZWEJOeolgbEgAWZLIEU0wsku8J+lGWfBhg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
@@ -14340,7 +14341,7 @@ packages:
     resolution: {integrity: sha512-HTjEPZtcNKZ4LnhSp02NEH4vE+5OpJ0EsOWYvGQpHgUMLngydESAAMH5Wd/asPf29+XUDQZszxpLg1BkIIA2aw==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.6
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
