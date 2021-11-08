@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.2](https://github.com/verdaccio/verdaccio/compare/v5.2.1...v5.2.2) (2021-11-08)
+
+
+### Bug Fixes
+
+* update python dependency on docker image ([#2644](https://github.com/verdaccio/verdaccio/issues/2644)) ([0eab3e1](https://github.com/verdaccio/verdaccio/commit/0eab3e1746e4479bc9baad0e74e10cb23f197f0e))
+
 ### [5.2.1](https://github.com/verdaccio/verdaccio/compare/v5.2.0...v5.2.1) (2021-11-08)
 
 
