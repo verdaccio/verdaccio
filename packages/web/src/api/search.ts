@@ -5,7 +5,7 @@ import { IAuth } from '@verdaccio/auth';
 import { DIST_TAGS } from '@verdaccio/core';
 import { SearchInstance } from '@verdaccio/store';
 import { Storage } from '@verdaccio/store';
-import { Package, SearchResultWeb, Version } from '@verdaccio/types';
+import { Package } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
 
@@ -34,14 +34,8 @@ function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
                     reject(err);
                     return;
                   }
-                  const latestPkg: Version = pkg.versions[pkg[DIST_TAGS].latest];
-                  const item: SearchResultWeb = {
-                    name: latestPkg.name,
-                    version: latestPkg.version,
-                    description: latestPkg.description,
-                  };
                   debug('access succeed');
-                  resolve(item);
+                  resolve(pkg.versions[pkg[DIST_TAGS].latest]);
                 }
               );
             } else {
@@ -65,18 +59,17 @@ function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
       const results = SearchInstance.query(req.params.anything);
       debug('search results %o', results);
       if (results.length > 0) {
-        let packages: any[] = [];
+        let packages: Package[] = [];
         for (let result of results) {
           try {
-            const pkg = getPackageInfo(result.ref, req.remote_user);
+            const pkg = await getPackageInfo(result.ref, req.remote_user);
             debug('package found %o', result.ref);
             packages.push(pkg);
           } catch (err: any) {
             debug('search for %o failed err %o', result.ref, err?.message);
           }
         }
-        const packagesResolved: SearchResultWeb[] = await Promise.all(packages);
-        next(packagesResolved);
+        next(packages);
       } else {
         next([]);
       }
