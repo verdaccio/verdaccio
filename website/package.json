@@ -40,10 +40,7 @@
   "browserslist": {
     "production": [
       ">0.5%",
-      "last 2 versions",
       "not dead",
-      "Firefox ESR",
-      "maintained node versions",
       "not op_mini all"
     ],
     "development": [
