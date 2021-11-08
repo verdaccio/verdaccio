@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/verdaccio/verdaccio/compare/v5.2.0...v5.2.1) (2021-11-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency async to v3.2.2 ([#2633](https://github.com/verdaccio/verdaccio/issues/2633)) ([da5d7e9](https://github.com/verdaccio/verdaccio/commit/da5d7e96cbb05e0244347c39ae160e5008f85b8f))
+* **deps:** update dependency mime to v2.6.0 ([#2634](https://github.com/verdaccio/verdaccio/issues/2634)) ([089796c](https://github.com/verdaccio/verdaccio/commit/089796ca471af45def091736be5fcad54141f4e7))
+* **deps:** update dependency validator to v13.7.0 ([#2635](https://github.com/verdaccio/verdaccio/issues/2635)) ([ef2fbff](https://github.com/verdaccio/verdaccio/commit/ef2fbff7558a5417d13a44e32f2bdf90df7d480e))
+
 ## [5.2.0](https://github.com/verdaccio/verdaccio/compare/v5.1.6...v5.2.0) (2021-10-24)
 
 
