@@ -42,7 +42,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-emotion": "10.2.2",
     "bundlesize": "0.18.1",
-    "css-loader": "6.5.0",
+    "css-loader": "6.5.1",
     "dayjs": "1.10.7",
     "emotion": "10.0.27",
     "emotion-theming": "10.0.27",
