@@ -378,7 +378,7 @@ class Storage {
             return options.callback(err);
           }
 
-          normalizeDistTags(cleanUpLinksRef(result, options?.keepUpLinkData));
+          result = normalizeDistTags(cleanUpLinksRef(result, options?.keepUpLinkData));
 
           // npm can throw if this field doesn't exist
           result._attachments = {};

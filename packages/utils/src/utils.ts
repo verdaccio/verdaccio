@@ -1,9 +1,8 @@
 import assert from 'assert';
 import _ from 'lodash';
-import semver from 'semver';
 
 import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
-import { Author, Package, Version } from '@verdaccio/types';
+import { Author, Package } from '@verdaccio/types';
 
 import { stringToMD5 } from './crypto-utils';
 
@@ -95,87 +94,6 @@ export function validateMetadata(object: Package, name: string): Package {
   }
 
   return object;
-}
-
-/**
- * Gets version from a package object taking into account semver weirdness.
- * @return {String} return the semantic version of a package
- */
-export function getVersion(pkg: Package, version: any): Version | void {
-  // this condition must allow cast
-  if (_.isNil(pkg.versions[version]) === false) {
-    return pkg.versions[version];
-  }
-
-  try {
-    version = semver.parse(version, true);
-    for (const versionItem in pkg.versions) {
-      if (version.compare(semver.parse(versionItem, true)) === 0) {
-        return pkg.versions[versionItem];
-      }
-    }
-  } catch (err: any) {
-    return undefined;
-  }
-}
-
-/**
- * Function filters out bad semver versions and sorts the array.
- * @return {Array} sorted Array
- */
-export function semverSort(listVersions: string[] /* logger */): string[] {
-  return (
-    listVersions
-      .filter(function (x): boolean {
-        if (!semver.parse(x, true)) {
-          // FIXME: logger is always undefined
-          // logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
-}
-
-/**
- * Flatten arrays of tags.
- * @param {*} data
- */
-export function normalizeDistTags(pkg: Package): void {
-  let sorted;
-  if (!pkg[DIST_TAGS].latest) {
-    // overwrite latest with highest known version based on semver sort
-    sorted = semverSort(Object.keys(pkg.versions));
-    if (sorted?.length) {
-      pkg[DIST_TAGS].latest = sorted.pop();
-    }
-  }
-
-  for (const tag in pkg[DIST_TAGS]) {
-    if (_.isArray(pkg[DIST_TAGS][tag])) {
-      if (pkg[DIST_TAGS][tag].length) {
-        // sort array
-        // FIXME: this is clearly wrong, we need to research why this is like this.
-        // @ts-ignore
-        sorted = semverSort(pkg[DIST_TAGS][tag]);
-        if (sorted.length) {
-          // use highest version based on semver sort
-          pkg[DIST_TAGS][tag] = sorted.pop();
-        }
-      } else {
-        delete pkg[DIST_TAGS][tag];
-      }
-    } else if (_.isString(pkg[DIST_TAGS][tag])) {
-      if (!semver.parse(pkg[DIST_TAGS][tag], true)) {
-        // if the version is invalid, delete the dist-tag entry
-        delete pkg[DIST_TAGS][tag];
-      }
-    }
-  }
 }
 
 export function getLatestVersion(pkgInfo: Package): string {
