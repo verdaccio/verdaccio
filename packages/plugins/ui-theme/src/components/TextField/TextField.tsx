@@ -1,4 +1,4 @@
-import { default as MaterialUITextField, TextFieldProps } from '@material-ui/core/TextField';
+import { default as MaterialUITextField, TextFieldProps } from '@mui/material/TextField';
 import React, { forwardRef } from 'react';
 
 // The default element type of MUI's TextField is 'div'
@@ -11,7 +11,7 @@ const TextField = forwardRef<TextFieldRef, TextFieldProps>(function TextField(
   return (
     <MaterialUITextField
       {...props}
-      innerRef={ref}
+      ref={ref}
       InputProps={{
         ...InputProps,
         classes,

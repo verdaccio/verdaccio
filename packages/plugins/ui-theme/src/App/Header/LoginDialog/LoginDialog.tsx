@@ -68,7 +68,7 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
       onClose={onClose}
       open={open}>
       <LoginDialogCloseButton onClose={onClose} />
-      <DialogContent>
+      <DialogContent data-testid="dialogContentLogin">
         <LoginDialogHeader />
         <LoginDialogForm error={loginStore.error} onSubmit={handleDoLogin} />
       </DialogContent>

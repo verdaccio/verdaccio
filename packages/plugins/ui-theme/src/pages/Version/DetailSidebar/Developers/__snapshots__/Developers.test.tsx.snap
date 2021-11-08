@@ -3,32 +3,102 @@
 exports[`test Developers should render the component for contributors with items 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
+  "baseElement": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.emotion-2>* {
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 10px 0 10px 0;
+}
+
+.emotion-3>* {
   margin: 5px;
+}
+
+.emotion-4 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #bdbdbd;
+}
+
+.emotion-5 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+  width: 75%;
+  height: 75%;
 }
 
 <body>
     <div>
       <span
-        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Contributors
       </span>
       <div
-        class="MuiBox-root MuiBox-root-2 emotion-2 emotion-3"
+        class="emotion-2 MuiBox-root emotion-3"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-          title="dmethvin"
+          aria-label="dmethvin"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          data-mui-internal-clone-element="true"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiAvatar-fallback"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+            data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
@@ -38,12 +108,14 @@ Object {
           </svg>
         </div>
         <div
-          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-          title="mgol"
+          aria-label="mgol"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          data-mui-internal-clone-element="true"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiAvatar-fallback"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+            data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
@@ -55,31 +127,101 @@ Object {
       </div>
     </div>
   </body>,
-  "container": .emotion-0 {
+  "container": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.emotion-2>* {
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 10px 0 10px 0;
+}
+
+.emotion-3>* {
   margin: 5px;
+}
+
+.emotion-4 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #bdbdbd;
+}
+
+.emotion-5 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+  width: 75%;
+  height: 75%;
 }
 
 <div>
     <span
-      class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Contributors
     </span>
     <div
-      class="MuiBox-root MuiBox-root-2 emotion-2 emotion-3"
+      class="emotion-2 MuiBox-root emotion-3"
     >
       <div
-        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-        title="dmethvin"
+        aria-label="dmethvin"
+        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        data-mui-internal-clone-element="true"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiAvatar-fallback"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+          data-testid="PersonIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -89,12 +231,14 @@ Object {
         </svg>
       </div>
       <div
-        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-        title="mgol"
+        aria-label="mgol"
+        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        data-mui-internal-clone-element="true"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiAvatar-fallback"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+          data-testid="PersonIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -162,32 +306,102 @@ Object {
 exports[`test Developers should render the component for maintainers with items 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
+  "baseElement": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.emotion-2>* {
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 10px 0 10px 0;
+}
+
+.emotion-3>* {
   margin: 5px;
+}
+
+.emotion-4 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #bdbdbd;
+}
+
+.emotion-5 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+  width: 75%;
+  height: 75%;
 }
 
 <body>
     <div>
       <span
-        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Maintainers
       </span>
       <div
-        class="MuiBox-root MuiBox-root-1 emotion-2 emotion-3"
+        class="emotion-2 MuiBox-root emotion-3"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-          title="dmethvin"
+          aria-label="dmethvin"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          data-mui-internal-clone-element="true"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiAvatar-fallback"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+            data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
@@ -197,12 +411,14 @@ Object {
           </svg>
         </div>
         <div
-          class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-          title="mgol"
+          aria-label="mgol"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          data-mui-internal-clone-element="true"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiAvatar-fallback"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+            data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
           >
@@ -214,31 +430,101 @@ Object {
       </div>
     </div>
   </body>,
-  "container": .emotion-0 {
+  "container": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.emotion-2>* {
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 10px 0 10px 0;
+}
+
+.emotion-3>* {
   margin: 5px;
+}
+
+.emotion-4 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-size: 1.25rem;
+  line-height: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  background-color: #bdbdbd;
+}
+
+.emotion-5 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
+  width: 75%;
+  height: 75%;
 }
 
 <div>
     <span
-      class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Maintainers
     </span>
     <div
-      class="MuiBox-root MuiBox-root-1 emotion-2 emotion-3"
+      class="emotion-2 MuiBox-root emotion-3"
     >
       <div
-        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-        title="dmethvin"
+        aria-label="dmethvin"
+        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        data-mui-internal-clone-element="true"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiAvatar-fallback"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+          data-testid="PersonIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >
@@ -248,12 +534,14 @@ Object {
         </svg>
       </div>
       <div
-        class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-        title="mgol"
+        aria-label="mgol"
+        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        data-mui-internal-clone-element="true"
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiAvatar-fallback"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
+          data-testid="PersonIcon"
           focusable="false"
           viewBox="0 0 24 24"
         >

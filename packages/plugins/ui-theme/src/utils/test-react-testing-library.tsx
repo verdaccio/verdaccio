@@ -1,3 +1,4 @@
+import { StyledEngineProvider } from '@mui/material/styles';
 import { render } from '@testing-library/react';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
@@ -12,9 +13,11 @@ const renderWithStore = (ui, store) =>
     wrapper: ({ children }) => (
       <Provider store={store}>
         <AppConfigurationProvider>
-          <ThemeProvider>
-            <I18nextProvider i18n={i18nConfig}>{children}</I18nextProvider>
-          </ThemeProvider>
+          <StyledEngineProvider injectFirst={true}>
+            <ThemeProvider>
+              <I18nextProvider i18n={i18nConfig}>{children}</I18nextProvider>
+            </ThemeProvider>
+          </StyledEngineProvider>
         </AppConfigurationProvider>
       </Provider>
     ),
@@ -23,9 +26,11 @@ const renderWithStore = (ui, store) =>
 const customRender = (node: React.ReactElement, ...options: any) => {
   return render(
     <AppConfigurationProvider>
-      <ThemeProvider>
-        <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst={true}>
+        <ThemeProvider>
+          <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </AppConfigurationProvider>,
     ...options
   );

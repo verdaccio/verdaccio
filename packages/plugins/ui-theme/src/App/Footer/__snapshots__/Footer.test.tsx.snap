@@ -19,25 +19,24 @@ exports[`<Footer /> component should load the initial state of Footer component 
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
   -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
   justify-content: flex-end;
   width: 100%;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .emotion-2 {
     min-width: 400px;
     max-width: 800px;
     margin: auto;
     -webkit-box-pack: justify;
     -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
     justify-content: space-between;
   }
 }
 
-@media (min-width:1024px) {
+@media (min-width: 1024px) {
   .emotion-2 {
     max-width: 1240px;
   }
@@ -51,7 +50,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
   display: none;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .emotion-4 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -74,7 +73,21 @@ exports[`<Footer /> component should load the initial state of Footer component 
   visibility: visible;
 }
 
-.emotion-11 {
+.emotion-12 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: 1.5rem;
   width: 18px;
   height: 18px;
   margin: 0px 8px;
@@ -82,7 +95,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
 
 .emotion-13 {
   display: inline-grid;
-  grid-template-columns: repeat(8,max-content);
+  grid-template-columns: repeat(8, max-content);
   grid-gap: 0px 8px;
   position: absolute;
   background: #d3dddd;
@@ -106,6 +119,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
   border: 5px solid;
   border-color: #d3dddd transparent transparent transparent;
   -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
@@ -126,7 +140,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
   display: flex;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .emotion-31 {
     display: -webkit-box;
     display: -webkit-flex;
@@ -139,7 +153,9 @@ exports[`<Footer /> component should load the initial state of Footer component 
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  -webkit-background-position: center;
   background-position: center;
+  -webkit-background-size: contain;
   background-size: contain;
   background-image: url([object Object]);
   background-repeat: no-repeat;
@@ -168,7 +184,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root emotion-10 emotion-11 emotion-12"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-10 emotion-11 emotion-12"
           focusable="false"
           viewBox="0 0 45 45"
         >

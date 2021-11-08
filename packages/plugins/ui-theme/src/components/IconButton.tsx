@@ -1,4 +1,4 @@
-import { IconButtonProps, default as MaterialUIIconButton } from '@material-ui/core/IconButton';
+import { IconButtonProps, default as MaterialUIIconButton } from '@mui/material/IconButton';
 import React, { forwardRef } from 'react';
 
 type IconButtonRef = HTMLButtonElement;

@@ -1,4 +1,4 @@
-import { default as MaterialUIToolbar, ToolbarProps } from '@material-ui/core/Toolbar';
+import { default as MaterialUIToolbar, ToolbarProps } from '@mui/material/Toolbar';
 import React, { forwardRef } from 'react';
 
 type ToolbarRef = HTMLDivElement;

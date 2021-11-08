@@ -25,12 +25,10 @@ describe('/ (Verdaccio Page)', () => {
   };
 
   const logIn = async function () {
-    await clickElement('button[data-testid="header--button-login"]');
-    // we fill the sign in form
-    const signInDialog = await page.$('#login--dialog');
-    const userInput = await signInDialog.$('#login--dialog-username');
+    await clickElement('div[data-testid="dialogContentLogin"]');
+    const userInput = await page.$('#login--dialog-username');
     expect(userInput).not.toBeNull();
-    const passInput = await signInDialog.$('#login--dialog-password');
+    const passInput = await page.$('#login--dialog-password');
     expect(passInput).not.toBeNull();
     await userInput.type('test', { delay: 100 });
     await passInput.type('test', { delay: 100 });
@@ -116,19 +114,6 @@ describe('/ (Verdaccio Page)', () => {
     await clickElement('#logOutDialogIcon > span', { delay: 500 });
     await page.waitForTimeout(1000);
     await evaluateSignIn();
-  });
-  //
-
-  test('should check registry info dialog', async () => {
-    const registryInfoButton = await page.$('#header--button-registryInfo');
-    registryInfoButton.click();
-    await page.waitForTimeout(500);
-
-    const registryInfoDialog = await page.$('#registryInfo--dialog-container');
-    expect(registryInfoDialog).not.toBeNull();
-
-    const closeButton = await page.$('#registryInfo--dialog-close');
-    await closeButton.click();
   });
   //
 

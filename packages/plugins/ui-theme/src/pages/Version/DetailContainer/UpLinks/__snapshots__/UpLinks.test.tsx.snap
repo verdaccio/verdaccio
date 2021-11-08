@@ -3,18 +3,36 @@
 exports[`<UpLinks /> component should render the component when there is no uplink 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": <body>
+  "baseElement": .emotion-0 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 0.35em;
+}
+
+<body>
     <div>
       <span
-        class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom"
+        class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
       >
         verdaccio has no uplinks.
       </span>
     </div>
   </body>,
-  "container": <div>
+  "container": .emotion-0 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 0.35em;
+}
+
+<div>
     <span
-      class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom"
+      class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
     >
       verdaccio has no uplinks.
     </span>
@@ -76,11 +94,72 @@ Object {
 exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
+  "baseElement": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
 }
 
 .emotion-2 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.emotion-3.Mui-focusVisible {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.emotion-3.Mui-selected {
+  background-color: rgba(75, 94, 64, 0.08);
+}
+
+.emotion-3.Mui-selected.Mui-focusVisible {
+  background-color: rgba(75, 94, 64, 0.2);
+}
+
+.emotion-3.Mui-disabled {
+  opacity: 0.38;
+}
+
+.emotion-5 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -88,11 +167,20 @@ Object {
   opacity: 0.6;
 }
 
-.emotion-4 {
+.emotion-6 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: block;
+}
+
+.emotion-7 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  border-bottom: 1px dotted rgba(0,0,0,0.2);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   height: 0.5em;
 }
@@ -100,33 +188,33 @@ Object {
 <body>
     <div>
       <span
-        class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Uplinks
       </span>
       <ul
-        class="MuiList-root MuiList-padding"
+        class="MuiList-root MuiList-padding emotion-2"
       >
         <li
-          class="MuiListItem-root MuiListItem-gutters"
+          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
         >
           <div
-            class="MuiListItemText-root emotion-2 emotion-3"
+            class="MuiListItemText-root emotion-4 emotion-5"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
             >
               npmjs
             </span>
           </div>
           <div
-            class="emotion-4 emotion-5"
+            class="emotion-7 emotion-8"
           />
           <div
-            class="MuiListItemText-root emotion-2 emotion-3"
+            class="MuiListItemText-root emotion-4 emotion-5"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
             >
               3 years ago
             </span>
@@ -135,11 +223,72 @@ Object {
       </ul>
     </div>
   </body>,
-  "container": .emotion-0 {
+  "container": .emotion-1 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
   font-weight: 700;
 }
 
 .emotion-2 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.emotion-3.Mui-focusVisible {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.emotion-3.Mui-selected {
+  background-color: rgba(75, 94, 64, 0.08);
+}
+
+.emotion-3.Mui-selected.Mui-focusVisible {
+  background-color: rgba(75, 94, 64, 0.2);
+}
+
+.emotion-3.Mui-disabled {
+  opacity: 0.38;
+}
+
+.emotion-5 {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-top: 4px;
+  margin-bottom: 4px;
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
@@ -147,44 +296,53 @@ Object {
   opacity: 0.6;
 }
 
-.emotion-4 {
+.emotion-6 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: block;
+}
+
+.emotion-7 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  border-bottom: 1px dotted rgba(0,0,0,0.2);
+  border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   height: 0.5em;
 }
 
 <div>
     <span
-      class="MuiTypography-root emotion-0 emotion-1 MuiTypography-subtitle1"
+      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Uplinks
     </span>
     <ul
-      class="MuiList-root MuiList-padding"
+      class="MuiList-root MuiList-padding emotion-2"
     >
       <li
-        class="MuiListItem-root MuiListItem-gutters"
+        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
       >
         <div
-          class="MuiListItemText-root emotion-2 emotion-3"
+          class="MuiListItemText-root emotion-4 emotion-5"
         >
           <span
-            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
           >
             npmjs
           </span>
         </div>
         <div
-          class="emotion-4 emotion-5"
+          class="emotion-7 emotion-8"
         />
         <div
-          class="MuiListItemText-root emotion-2 emotion-3"
+          class="MuiListItemText-root emotion-4 emotion-5"
         >
           <span
-            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
+            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
           >
             3 years ago
           </span>

@@ -1,13 +1,13 @@
 import debounce from 'lodash/debounce';
-import React, { FormEvent, useCallback, useState } from 'react';
-import { SuggestionSelectedEventData } from 'react-autosuggest';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import AutoComplete from 'verdaccio-ui/components/AutoComplete';
 
+import { SearchResultWeb } from '@verdaccio/types';
+
 import { Dispatch, RootState } from '../../../store/store';
-import SearchAdornment from './SearchAdornment';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -16,10 +16,7 @@ const CONSTANTS = {
 
 const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const { t } = useTranslation();
-  const [loaded, setLoaded] = useState(false);
-  const [search, setSearch] = useState('');
-  // const mountedRef = useRef(true);
-  const { isError, suggestions } = useSelector((state: RootState) => state.search);
+  const { suggestions } = useSelector((state: RootState) => state.search);
   const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
   const dispatch = useDispatch<Dispatch>();
   /**
@@ -27,6 +24,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
    */
   const cancelAllSearchRequests = useCallback(() => {
     dispatch.search.clearRequestQueue();
+    dispatch.search.saveSearch({ suggestions: [] });
   }, [dispatch]);
 
   /**
@@ -34,7 +32,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
    * and set the API state parameters to default boolean values.
    */
   const handleOnBlur = useCallback(
-    (event: FormEvent<HTMLInputElement>) => {
+    (event: React.SyntheticEvent) => {
       // stops event bubbling
       event.stopPropagation();
       cancelAllSearchRequests();
@@ -43,50 +41,15 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   );
 
   /**
-   * onChange method for the input element.
-   */
-  const handleSearch = useCallback(
-    (event: FormEvent<HTMLInputElement>, { newValue, method }) => {
-      // stops event bubbling
-      event.stopPropagation();
-      if (method === 'type') {
-        const value = newValue.trim();
-        setSearch(value);
-        setLoaded(false);
-        /**
-         * A use case where User keeps adding and removing value in input field,
-         * so we cancel all the existing requests when input is empty.
-         */
-        if (value?.length === 0) {
-          cancelAllSearchRequests();
-        }
-      }
-    },
-    [cancelAllSearchRequests]
-  );
-
-  /**
-   * Cancel all the request from list and make request list empty.
-   */
-  const handlePackagesClearRequested = useCallback(() => {
-    dispatch.search.saveSearch({ suggestions: [] });
-  }, [dispatch]);
-
-  /**
    * When an user select any package by clicking or pressing return key.
    */
   const handleClickSearch = useCallback(
-    (
-      event: FormEvent<HTMLInputElement>,
-      { suggestionValue, method }: SuggestionSelectedEventData<unknown>
-    ): void | undefined => {
+    (event: React.SyntheticEvent, value: SearchResultWeb, reason: string): void => {
       // stops event bubbling
       event.stopPropagation();
-      switch (method) {
-        case 'click':
-        case 'enter':
-          setSearch('');
-          history.push(`/-/web/detail/${suggestionValue}`);
+      switch (reason) {
+        case 'selectOption':
+          history.push(`/-/web/detail/${value.name}`);
           break;
       }
     },
@@ -99,25 +62,21 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
    */
   const handleFetchPackages = useCallback(
     ({ value }: { value: string }) => {
-      dispatch.search.getSuggestions({ value });
+      if (value?.trim() !== '') {
+        dispatch.search.getSuggestions({ value });
+      }
     },
     [dispatch]
   );
 
   return (
     <AutoComplete
-      onBlur={handleOnBlur}
-      onChange={handleSearch}
-      onCleanSuggestions={handlePackagesClearRequested}
-      onClick={handleClickSearch}
+      onCleanSuggestions={handleOnBlur}
+      onSelectItem={handleClickSearch}
       onSuggestionsFetch={debounce(handleFetchPackages, CONSTANTS.API_DELAY)}
       placeholder={t('search.packages')}
-      startAdornment={<SearchAdornment />}
       suggestions={suggestions}
-      suggestionsError={isError}
-      suggestionsLoaded={loaded}
       suggestionsLoading={isLoading}
-      value={search}
     />
   );
 };

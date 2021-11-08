@@ -1,7 +1,7 @@
 import {
   default as MaterialUISnackbarContent,
   SnackbarContentProps,
-} from '@material-ui/core/SnackbarContent';
+} from '@mui/material/SnackbarContent';
 import React, { forwardRef } from 'react';
 
 type SnackbarContentRef = HTMLDivElement;

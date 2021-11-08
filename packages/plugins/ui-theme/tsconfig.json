@@ -4,12 +4,10 @@
     "skipLibCheck": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "strict": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "allowJs": true,
     "sourceMap": true,
-    "resolveJsonModule": true,
     "checkJs": false,
     "baseUrl": ".",
     "paths": {

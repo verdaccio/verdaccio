@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import FileCopy from '@material-ui/icons/FileCopy';
+import FileCopy from '@mui/icons-material/FileCopy';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { copyToClipBoardUtility } from 'verdaccio-ui/utils/cli-utils';
@@ -18,7 +18,7 @@ function CopyToClipBoard({ text, children, ...props }: Props) {
     <Wrapper {...props}>
       <Content>{children ?? text}</Content>
       <Tooltip disableFocusListener={true} title={t('copy-to-clipboard')}>
-        <IconButton onClick={copyToClipBoardUtility(text)} data-testid="copy-icon">
+        <IconButton onClick={copyToClipBoardUtility(text)} data-testid="copy-icon" size="large">
           <FileCopy />
         </IconButton>
       </Tooltip>

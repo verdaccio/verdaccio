@@ -1,4 +1,4 @@
-import { TypographyProps } from '@material-ui/core/Typography';
+import { TypographyProps } from '@mui/material/Typography';
 
 type TextType = 'subtitle1' | 'subtitle2' | 'body1' | 'body2';
 

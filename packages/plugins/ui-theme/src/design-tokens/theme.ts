@@ -1,4 +1,4 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { adaptV4Theme, createTheme } from '@mui/material/styles';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
 const colors = {
@@ -58,6 +58,7 @@ const fontSize = {
   md: 18,
   default: 16,
   sm: 14,
+  ssm: 12,
 };
 
 export type FontSize = keyof typeof fontSize;
@@ -91,40 +92,42 @@ type CustomizedTheme = typeof customizedTheme;
 
 export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
   const palette = applyPrimaryColor(themeMode, primaryColor);
-  return createMuiTheme({
-    typography: {
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-      ].join(','),
-    },
-    palette: {
-      type: themeMode,
-      ...palette,
-      primary: { main: palette.primary },
-      secondary: { main: palette.secondary },
-      error: { main: palette.red },
-      background: {
-        default: palette.background,
+  return createTheme(
+    adaptV4Theme({
+      typography: {
+        fontFamily: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          '"Helvetica Neue"',
+          'Arial',
+          'sans-serif',
+        ].join(','),
       },
-    },
-    ...customizedTheme,
-  });
+      palette: {
+        mode: themeMode,
+        ...palette,
+        primary: { main: palette.primary },
+        secondary: { main: palette.secondary },
+        error: { main: palette.red },
+        background: {
+          default: palette.background,
+        },
+      },
+      ...customizedTheme,
+    })
+  );
 };
 
 export type Theme = ReturnType<typeof getTheme>;
 
-declare module '@material-ui/core/styles/createMuiTheme' {
+declare module '@mui/material/styles/createMuiTheme' {
   /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
   interface Theme extends CustomizedTheme {}
   /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-  interface ThemeOptions extends CustomizedTheme {}
+  interface DeprecatedThemeOptions extends CustomizedTheme {}
 }
 
-declare module '@material-ui/core/styles/createPalette' {
+declare module '@mui/material/styles/createPalette' {
   interface CustomPalette {
     black: string;
     white: string;

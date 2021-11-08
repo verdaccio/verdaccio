@@ -1,7 +1,7 @@
 import {
   CircularProgressProps,
   default as MaterialUICircularProgress,
-} from '@material-ui/core/CircularProgress';
+} from '@mui/material/CircularProgress';
 import React, { forwardRef } from 'react';
 
 type CircularProgressRef = HTMLDivElement;

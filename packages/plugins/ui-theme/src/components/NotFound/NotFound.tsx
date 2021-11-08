@@ -45,6 +45,6 @@ const EmptyPackage = styled('img')({
 });
 
 const StyledHeading = styled(Heading)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.white,
   marginBottom: 16,
 }));

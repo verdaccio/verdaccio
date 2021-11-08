@@ -1,4 +1,4 @@
-import { css } from '@emotion/core';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import AppBar from 'verdaccio-ui/components/AppBar';
 import IconButton from 'verdaccio-ui/components/IconButton';
@@ -53,7 +53,7 @@ export const SearchWrapper = styled('div')({
 
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
-    theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+    theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   color: theme?.palette.white,
   minHeight: 60,
   display: 'flex',

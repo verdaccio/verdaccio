@@ -1,4 +1,4 @@
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import React, { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import IconButton from 'verdaccio-ui/components/IconButton';
@@ -31,7 +31,8 @@ const HeaderMenu: React.FC<Props> = ({
         color="inherit"
         data-testid="logInDialogIcon"
         id="header--button-account"
-        onClick={onLoggedInMenu}>
+        onClick={onLoggedInMenu}
+        size="large">
         <AccountCircle />
       </IconButton>
       <Menu
