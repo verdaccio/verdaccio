@@ -6,30 +6,47 @@ import { JWTSignOptions } from '@verdaccio/types';
 import { validatePassword } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:api:login');
+const bodySchema = {
+  body: {
+    type: 'object',
+    required: ['username', 'password'],
+    additionalProperties: false,
+    properties: {
+      username: { type: 'string' },
+      password: { type: 'string' },
+    },
+  },
+};
 
 async function loginRoute(fastify: FastifyInstance) {
-  fastify.post('/login', async (request, reply) => {
-    // @ts-expect-error
-    const { username, password } = request.body;
-    debug('authenticate %o', username);
-    fastify.auth.authenticate(
-      username,
-      password,
-      async function callbackAuthenticate(err, user): Promise<void> {
-        if (err) {
-          const errorCode = err.message
-            ? fastify.statusCode.UNAUTHORIZED
-            : fastify.statusCode.INTERNAL_ERROR;
-          reply.send(fastify.errorUtils.getCode(errorCode, err.message));
-        } else {
-          const jWTSignOptions: JWTSignOptions = fastify.configInstance.security.web.sign;
-          debug('jwtSignOptions: %o', jWTSignOptions);
-          const token = await fastify.auth.jwtEncrypt(user, jWTSignOptions);
-          reply.code(fastify.statusCode.OK).send({ token, username });
+  fastify.post(
+    '/login',
+    {
+      schema: bodySchema,
+    },
+    async (request, reply) => {
+      // @ts-expect-error
+      const { username, password } = request.body;
+      debug('authenticate %o', username);
+      fastify.auth.authenticate(
+        username,
+        password,
+        async function callbackAuthenticate(err, user): Promise<void> {
+          if (err) {
+            const errorCode = err.message
+              ? fastify.statusCode.UNAUTHORIZED
+              : fastify.statusCode.INTERNAL_ERROR;
+            reply.send(fastify.errorUtils.getCode(errorCode, err.message));
+          } else {
+            const jWTSignOptions: JWTSignOptions = fastify.configInstance.security.web.sign;
+            debug('jwtSignOptions: %o', jWTSignOptions);
+            const token = await fastify.auth.jwtEncrypt(user, jWTSignOptions);
+            reply.code(fastify.statusCode.OK).send({ token, username });
+          }
         }
-      }
-    );
-  });
+      );
+    }
+  );
 
   fastify.put('/reset_password', async (request, reply) => {
     if (_.isNil(request.userRemote.name)) {
