@@ -55,9 +55,7 @@ export function normalizePackage(pkg: Package): Package {
   }
 
   // normalize dist-tags
-  normalizeDistTags(pkg);
-
-  return pkg;
+  return normalizeDistTags(pkg);
 }
 
 export function generateRevision(rev: string): string {

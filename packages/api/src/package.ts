@@ -44,6 +44,13 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
     function (req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
       debug('init package by version');
       const name = req.params.package;
+      let queryVersion = req.params.version;
+      const requestOptions = {
+        protocol: req.protocol,
+        headers: req.headers as any,
+        // FIXME: if we migrate to req.hostname, the port is not longer included.
+        host: req.host,
+      };
       const getPackageMetaCallback = function (err, metadata: Package): void {
         if (err) {
           debug('error on fetch metadata for %o with error %o', name, err.message);
@@ -52,18 +59,17 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         debug('convert dist remote to local with prefix %o', config?.url_prefix);
         metadata = convertDistRemoteToLocalTarballUrls(
           metadata,
-          { protocol: req.protocol, headers: req.headers as any, host: req.host },
+          requestOptions,
           config?.url_prefix
         );
 
-        let queryVersion = req.params.version;
         debug('query by param version: %o', queryVersion);
         if (_.isNil(queryVersion)) {
           debug('param %o version found', queryVersion);
           return next(metadata);
         }
 
-        let version = getVersion(metadata, queryVersion);
+        let version = getVersion(metadata.versions, queryVersion);
         debug('query by latest version %o and result %o', queryVersion, version);
         if (_.isNil(version) === false) {
           debug('latest version found %o', version);
@@ -74,7 +80,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
           if (_.isNil(metadata[DIST_TAGS][queryVersion]) === false) {
             queryVersion = metadata[DIST_TAGS][queryVersion];
             debug('dist-tag version found %o', queryVersion);
-            version = getVersion(metadata, queryVersion);
+            version = getVersion(metadata.versions, queryVersion);
             if (_.isNil(version) === false) {
               debug('dist-tag found %o', version);
               return next(version);
