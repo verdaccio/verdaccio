@@ -14,20 +14,56 @@ import {
 
 const debug = buildDebug('verdaccio:web:api:sidebar');
 export type $SidebarPackage = Package & { latest: Version };
+const scopeParam = { type: 'string' };
+const packageNameParam = { type: 'string' };
+const packageNameSchema = { packageName: packageNameParam };
+const paramsSchema = {
+  scope: scopeParam,
+  packageName: packageNameParam,
+};
 
 async function sidebarRoute(fastify: FastifyInstance) {
-  fastify.get('/sidebar/(@:scope/)?:packageName', async (request, reply) => {
-    // @ts-ignore
-    const { packageName, scope } = request.params;
-    debug('pkg name %s, scope %s ', packageName, scope);
-    getSidebar(fastify, request, packageName, (err, sidebar) => {
-      if (err) {
-        reply.send(err);
-      } else {
-        reply.code(fastify.statusCode.OK).send(sidebar);
-      }
-    });
-  });
+  fastify.get(
+    '/sidebar/:scope/:packageName',
+    {
+      schema: {
+        params: paramsSchema,
+      },
+    },
+    async (request, reply) => {
+      // @ts-ignore
+      const { packageName, scope } = request.params;
+      debug('pkg name %s, scope %s ', packageName, scope);
+      getSidebar(fastify, request, packageName, (err, sidebar) => {
+        if (err) {
+          reply.send(err);
+        } else {
+          reply.code(fastify.statusCode.OK).send(sidebar);
+        }
+      });
+    }
+  );
+
+  fastify.get(
+    '/sidebar/:packageName',
+    {
+      schema: {
+        params: packageNameSchema,
+      },
+    },
+    async (request, reply) => {
+      // @ts-ignore
+      const { packageName, scope } = request.params;
+      debug('pkg name %s, scope %s ', packageName, scope);
+      getSidebar(fastify, request, packageName, (err, sidebar) => {
+        if (err) {
+          reply.send(err);
+        } else {
+          reply.code(fastify.statusCode.OK).send(sidebar);
+        }
+      });
+    }
+  );
 }
 
 function getSidebar(fastify: FastifyInstance, request: any, packageName, callback) {
