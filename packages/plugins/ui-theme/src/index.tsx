@@ -28,7 +28,9 @@ const renderApp = (Component: React.ElementType): void => {
 
 renderApp(App);
 
+// @ts-expect-error
 if (module.hot) {
+  // @ts-expect-error
   module.hot.accept('./App', () => {
     renderApp(App);
   });

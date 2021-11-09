@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { default as MaterialUISvgIcon, SvgIconProps } from '@material-ui/core/SvgIcon';
+import { default as MaterialUISvgIcon, SvgIconProps } from '@mui/material/SvgIcon';
 import React from 'react';
 
 type Size = 'sm' | 'md';

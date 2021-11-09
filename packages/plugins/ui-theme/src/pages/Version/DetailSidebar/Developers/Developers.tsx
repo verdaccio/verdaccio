@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import Avatar from '@material-ui/core/Avatar';
-import Add from '@material-ui/icons/Add';
+import Add from '@mui/icons-material/Add';
+import Avatar from '@mui/material/Avatar';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Box from 'verdaccio-ui/components/Box';

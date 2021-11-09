@@ -2,9 +2,9 @@ import styled from '@emotion/styled';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 export const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
-  background: theme?.palette.type === 'light' ? theme?.palette.snow : theme?.palette.cyanBlue,
+  background: theme?.palette.mode === 'light' ? theme?.palette.snow : theme?.palette.cyanBlue,
   borderTop: `1px solid ${theme?.palette.greyGainsboro}`,
-  color: theme?.palette.type === 'dark' ? theme?.palette.white : theme?.palette.nobel01,
+  color: theme?.palette.mode === 'dark' ? theme?.palette.white : theme?.palette.nobel01,
   fontSize: '14px',
   padding: '20px',
 }));

@@ -3,7 +3,40 @@
 exports[`<Spinner /> component should render the component in default state 1`] = `
 Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
+  "baseElement": @keyframes animation-0 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animation-1 {
+  0% {
+    stroke-dasharray: 1px,200px;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 100px,200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px,200px;
+    stroke-dashoffset: -125px;
+  }
+}
+
+.emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13,13 +46,29 @@ Object {
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
-.emotion-2 {
+.emotion-3 {
+  display: inline-block;
   color: #4b5e40;
+  -webkit-animation: animation-0 1.4s linear infinite;
+  animation: animation-0 1.4s linear infinite;
+  color: #4b5e40;
+}
+
+.emotion-4 {
+  display: block;
+}
+
+.emotion-5 {
+  stroke: currentColor;
+  stroke-dasharray: 80px,200px;
+  stroke-dashoffset: 0;
+  -webkit-animation: animation-1 1.4s ease-in-out infinite;
+  animation: animation-1 1.4s ease-in-out infinite;
 }
 
 <body>
@@ -27,17 +76,17 @@ Object {
       <div
         class="emotion-0 emotion-1"
       >
-        <div
-          class="MuiCircularProgress-root emotion-2 emotion-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+        <span
+          class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary emotion-2 emotion-3"
           role="progressbar"
           style="width: 50px; height: 50px;"
         >
           <svg
-            class="MuiCircularProgress-svg"
+            class="MuiCircularProgress-svg emotion-4"
             viewBox="22 22 44 44"
           >
             <circle
-              class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+              class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate emotion-5"
               cx="44"
               cy="44"
               fill="none"
@@ -45,11 +94,44 @@ Object {
               stroke-width="3.6"
             />
           </svg>
-        </div>
+        </span>
       </div>
     </div>
   </body>,
-  "container": .emotion-0 {
+  "container": @keyframes animation-0 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animation-1 {
+  0% {
+    stroke-dasharray: 1px,200px;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 100px,200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px,200px;
+    stroke-dashoffset: -125px;
+  }
+}
+
+.emotion-0 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -59,30 +141,46 @@ Object {
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 
-.emotion-2 {
+.emotion-3 {
+  display: inline-block;
   color: #4b5e40;
+  -webkit-animation: animation-0 1.4s linear infinite;
+  animation: animation-0 1.4s linear infinite;
+  color: #4b5e40;
+}
+
+.emotion-4 {
+  display: block;
+}
+
+.emotion-5 {
+  stroke: currentColor;
+  stroke-dasharray: 80px,200px;
+  stroke-dashoffset: 0;
+  -webkit-animation: animation-1 1.4s ease-in-out infinite;
+  animation: animation-1 1.4s ease-in-out infinite;
 }
 
 <div>
     <div
       class="emotion-0 emotion-1"
     >
-      <div
-        class="MuiCircularProgress-root emotion-2 emotion-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+      <span
+        class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary emotion-2 emotion-3"
         role="progressbar"
         style="width: 50px; height: 50px;"
       >
         <svg
-          class="MuiCircularProgress-svg"
+          class="MuiCircularProgress-svg emotion-4"
           viewBox="22 22 44 44"
         >
           <circle
-            class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+            class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate emotion-5"
             cx="44"
             cy="44"
             fill="none"
@@ -90,7 +188,7 @@ Object {
             stroke-width="3.6"
           />
         </svg>
-      </div>
+      </span>
     </div>
   </div>,
   "debug": [Function],

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
-import BugReportIcon from '@material-ui/icons/BugReport';
-import DownloadIcon from '@material-ui/icons/CloudDownload';
-import HomeIcon from '@material-ui/icons/Home';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import DownloadIcon from '@mui/icons-material/CloudDownload';
+import HomeIcon from '@mui/icons-material/Home';
+import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -10,15 +11,14 @@ import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { Dispatch } from '../../store/store';
 import FloatingActionButton from '../FloatingActionButton';
 import Link from '../Link';
-import Tooltip from '../Tooltip';
 
 export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
-    theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+    theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   color: theme?.palette.white,
   marginRight: 10,
   ':hover': {
-    color: theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+    color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
     background: theme?.palette.white,
   },
 }));

@@ -5,7 +5,9 @@ exports[`<Logo /> component should render the component in default state 1`] = `
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
+  -webkit-background-position: center;
   background-position: center;
+  -webkit-background-size: contain;
   background-size: contain;
   background-image: url([object Object]);
   background-repeat: no-repeat;

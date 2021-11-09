@@ -23,7 +23,7 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
   const [showMobileNavBar, setShowMobileNavBar] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const loginStore = useSelector((state: RootState) => state.login);
-  const configStore = useSelector((state: RootState) => state.configuration);
+  const configStore = useSelector((state: RootState) => state.configuration.config);
   const { configOptions } = useConfig();
   const dispatch = useDispatch<Dispatch>();
   const handleLogout = () => {
@@ -62,7 +62,7 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
           </Button>
         </MobileNavBar>
       )}
-      {!loginStore.user && (
+      {!loginStore.username && (
         <LoginDialog onClose={() => setShowLoginModal(false)} open={showLoginModal} />
       )}
     </>

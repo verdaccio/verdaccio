@@ -20,7 +20,7 @@ const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
 }));
 
 const GithubLink = styled(Link)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.type === 'light' ? theme?.palette.primary.main : theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.white,
   ':hover': {
     color: theme?.palette.dodgerBlue,
   },

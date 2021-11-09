@@ -1,4 +1,4 @@
-import { default as MaterialUITabs, TabsProps } from '@material-ui/core/Tabs';
+import { default as MaterialUITabs, TabsProps } from '@mui/material/Tabs';
 import React, { forwardRef } from 'react';
 
 type TabsRef = HTMLElementTagNameMap[keyof HTMLElementTagNameMap];

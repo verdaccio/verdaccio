@@ -1,8 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<NoItem /> component should load the component in default state 1`] = `
+.emotion-0 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 0.35em;
+}
+
 <span
-  class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom"
+  class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
 >
   test
 </span>

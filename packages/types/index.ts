@@ -32,3 +32,8 @@ export interface Profile {
 export interface Styles {
   [ruleOrSelector: string]: string | number | Styles;
 }
+
+export type SearchResultWeb = {
+  name: string;
+  version: string;
+};

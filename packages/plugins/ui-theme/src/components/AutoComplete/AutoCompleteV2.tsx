@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CloseIcon from '@mui/icons-material/Close';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import withStyles from '@mui/styles/withStyles';
 import React, {
   ChangeEvent,
   KeyboardEvent,
@@ -13,8 +13,8 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
-import { useOnClickOutside } from 'verdaccio-ui/design-tokens/useOnClickOutside';
 
+import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import IconButton from '../IconButton';
 import MenuItem from '../MenuItem';
 import Paper from '../Paper';

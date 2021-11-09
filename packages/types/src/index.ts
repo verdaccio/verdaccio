@@ -166,3 +166,8 @@ export interface Styles {
 }
 
 export type AuthorAvatar = Author & { avatar?: string };
+
+export type SearchResultWeb = {
+  name: string;
+  version: string;
+};

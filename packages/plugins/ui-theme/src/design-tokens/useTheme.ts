@@ -1,4 +1,4 @@
-import { useTheme as muiUseTheme } from '@material-ui/styles';
+import { useTheme as muiUseTheme } from '@mui/styles';
 
 import { Theme } from './theme';
 

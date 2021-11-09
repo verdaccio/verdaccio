@@ -1,4 +1,4 @@
-import Avatar from '@material-ui/core/Avatar';
+import Avatar from '@mui/material/Avatar';
 import React, { FC, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getAuthorName } from 'verdaccio-ui/utils/package';

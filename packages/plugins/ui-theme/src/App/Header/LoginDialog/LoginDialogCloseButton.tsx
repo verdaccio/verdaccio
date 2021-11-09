@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import DialogTitle from 'verdaccio-ui/components/DialogTitle';
