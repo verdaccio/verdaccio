@@ -6,7 +6,7 @@ import { JWTSignOptions } from '@verdaccio/types';
 import { validatePassword } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:api:login');
-const bodySchema = {
+const loginBodySchema = {
   body: {
     type: 'object',
     required: ['username', 'password'],
@@ -18,11 +18,22 @@ const bodySchema = {
   },
 };
 
+const resetPasswordSchema = {
+  body: {
+    type: 'object',
+    required: ['password'],
+    additionalProperties: false,
+    properties: {
+      password: { type: 'string' },
+    },
+  },
+};
+
 async function loginRoute(fastify: FastifyInstance) {
   fastify.post(
     '/login',
     {
-      schema: bodySchema,
+      schema: loginBodySchema,
     },
     async (request, reply) => {
       // @ts-expect-error
@@ -48,45 +59,51 @@ async function loginRoute(fastify: FastifyInstance) {
     }
   );
 
-  fastify.put('/reset_password', async (request, reply) => {
-    if (_.isNil(request.userRemote.name)) {
-      reply.send(
-        fastify.errorUtils.getCode(
-          fastify.statusCode.UNAUTHORIZED,
-          fastify.errorUtils.API_ERROR.MUST_BE_LOGGED
-        )
-      );
-    }
-    // @ts-ignore
-    const { password } = request.body;
-    const { name } = request.userRemote;
+  fastify.put(
+    '/reset_password',
+    {
+      schema: resetPasswordSchema,
+    },
+    async (request, reply) => {
+      if (_.isNil(request.userRemote.name)) {
+        reply.send(
+          fastify.errorUtils.getCode(
+            fastify.statusCode.UNAUTHORIZED,
+            fastify.errorUtils.API_ERROR.MUST_BE_LOGGED
+          )
+        );
+      }
+      // @ts-ignore
+      const { password } = request.body;
+      const { name } = request.userRemote;
 
-    if (validatePassword(password.new) === false) {
-      fastify.auth.changePassword(
-        name as string,
-        password.old,
-        password.new,
-        (err, isUpdated): void => {
-          if (_.isNil(err) && isUpdated) {
-            reply.code(fastify.statusCode.OK);
-          } else {
-            reply.send(
-              fastify.errorUtils.getInternalError(
-                fastify.errorUtils.API_ERROR.INTERNAL_SERVER_ERROR
-              )
-            );
+      if (validatePassword(password.new) === false) {
+        fastify.auth.changePassword(
+          name as string,
+          password.old,
+          password.new,
+          (err, isUpdated): void => {
+            if (_.isNil(err) && isUpdated) {
+              reply.code(fastify.statusCode.OK);
+            } else {
+              reply.send(
+                fastify.errorUtils.getInternalError(
+                  fastify.errorUtils.API_ERROR.INTERNAL_SERVER_ERROR
+                )
+              );
+            }
           }
-        }
-      );
-    } else {
-      reply.send(
-        fastify.errorUtils.getCode(
-          fastify.statusCode.BAD_REQUEST,
-          fastify.errorUtils.APP_ERROR.PASSWORD_VALIDATION
-        )
-      );
+        );
+      } else {
+        reply.send(
+          fastify.errorUtils.getCode(
+            fastify.statusCode.BAD_REQUEST,
+            fastify.errorUtils.APP_ERROR.PASSWORD_VALIDATION
+          )
+        );
+      }
     }
-  });
+  );
   // });
 }
 export default loginRoute;
