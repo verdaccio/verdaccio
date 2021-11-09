@@ -3,6 +3,7 @@ import _ from 'lodash';
 import pino from 'pino';
 
 import { warningUtils } from '@verdaccio/core';
+import prettifier, { fillInMsgTemplate } from '@verdaccio/logger-prettify';
 
 const debug = buildDebug('verdaccio:logger');
 
@@ -53,6 +54,7 @@ export function createLogger(
   // pretty logs are not allowed in production for performance reasons
   if ((format === DEFAULT_LOG_FORMAT || format !== 'json') && isProd() === false) {
     pinoConfig = Object.assign({}, pinoConfig, {
+      prettifier,
       // more info
       // https://github.com/pinojs/pino-pretty/issues/37
       prettyPrint: {
@@ -60,7 +62,23 @@ export function createLogger(
         prettyStamp: format === 'pretty-timestamped',
         ...prettyPrintOptions,
       },
-      prettifier: require('@verdaccio/logger-prettify'),
+    });
+  } else {
+    pinoConfig = Object.assign({}, pinoConfig, {
+      // more info
+      // https://github.com/pinojs/pino/blob/v7.1.0/docs/api.md#hooks-object
+      hooks: {
+        logMethod(inputArgs, method) {
+          const [templateObject, message, ...otherArgs] = inputArgs;
+          const templateVars =
+            !!templateObject && typeof templateObject === 'object'
+              ? Object.getOwnPropertyNames(templateObject)
+              : [];
+          if (!message || !templateVars.length) return method.apply(this, inputArgs);
+          const hydratedMessage = fillInMsgTemplate(message, templateObject, false);
+          return method.apply(this, [templateObject, hydratedMessage, ...otherArgs]);
+        },
+      },
     });
   }
   const logger = pino(pinoConfig, destination);
