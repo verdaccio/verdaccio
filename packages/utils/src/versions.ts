@@ -54,7 +54,18 @@ export function sortVersionsAndFilterInvalid(listVersions: string[] /* logger */
 }
 
 /**
- * Flatten arrays of tags.
+ * Normalize dist-tags.
+ *
+ * There is a legacy behaviour where the dist-tags could be an array, in such
+ * case, the array is orderded and the highest version becames the
+ * latest.
+ *
+ * The dist-tag tags must be plain strigs, if the latest is empty (for whatever reason) is
+ * normalized to be the highest version available.
+ *
+ * This function cleans up every invalid version on dist-tags, but does not remove
+ * invalid versions from the manifest.
+ *
  * @param {*} data
  */
 export function normalizeDistTags(manifest: Package): Package {
@@ -64,12 +75,14 @@ export function normalizeDistTags(manifest: Package): Package {
     // if there is no latest tag, set the highest known version based on semver sort
     sorted = sortVersionsAndFilterInvalid(Object.keys(manifest.versions));
     if (sorted?.length) {
+      // get the highest published version
       manifest[DIST_TAGS].latest = sorted.pop();
     }
   }
 
   for (const tag in manifest[DIST_TAGS]) {
-    // this should not happen
+    // deprecated (will be removed un future majors)
+    // this should not happen, tags should be plain strings, legacy fallback
     if (_.isArray(manifest[DIST_TAGS][tag])) {
       if (manifest[DIST_TAGS][tag].length) {
         // sort array

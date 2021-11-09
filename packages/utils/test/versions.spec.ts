@@ -77,7 +77,27 @@ describe('Utilities', () => {
     };
     const cloneMetadata: Package | any = (pkg = metadata) => Object.assign({}, pkg);
 
-    test('should delete a invalid latest version', () => {
+    describe('tag as arrays [deprecated]', () => {
+      test('should convert any array of dist-tags to a plain string', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {
+          latest: ['1.0.1'],
+        };
+
+        expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({ latest: '1.0.1' });
+      });
+
+      test('should convert any empty array to empty list of dist-tags', () => {
+        const pkg = cloneMetadata();
+        pkg[DIST_TAGS] = {
+          latest: [],
+        };
+
+        expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({});
+      });
+    });
+
+    test('should clean up a invalid latest version', () => {
       const pkg = cloneMetadata();
       pkg[DIST_TAGS] = {
         latest: '20000',
@@ -86,7 +106,7 @@ describe('Utilities', () => {
       expect(Object.keys(normalizeDistTags(pkg)[DIST_TAGS])).toHaveLength(0);
     });
 
-    test('should define last published version as latest', () => {
+    test('should handle empty dis-tags and define last published version as latest', () => {
       const pkg = cloneMetadata();
       pkg[DIST_TAGS] = {};
 
@@ -100,15 +120,6 @@ describe('Utilities', () => {
       };
 
       expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({ beta: '1.0.1', latest: '1.0.1' });
-    });
-
-    test('should convert any array of dist-tags to a plain string', () => {
-      const pkg = cloneMetadata();
-      pkg[DIST_TAGS] = {
-        latest: ['1.0.1'],
-      };
-
-      expect(normalizeDistTags(pkg)[DIST_TAGS]).toEqual({ latest: '1.0.1' });
     });
   });
 });
