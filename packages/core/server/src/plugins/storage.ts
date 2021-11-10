@@ -9,7 +9,7 @@ export default fp(
     const { config } = opts;
     const storage: Storage = new Storage(config);
     // @ts-ignore
-    await storage.init(config, {});
+    await storage.init(config, []);
     fastify.decorate('storage', storage);
   },
   {
