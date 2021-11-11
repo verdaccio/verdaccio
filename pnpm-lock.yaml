@@ -31,7 +31,7 @@ importers:
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.3
       '@crowdin/cli': 3.7.1
-      '@trivago/prettier-plugin-sort-imports': 3.0.0
+      '@trivago/prettier-plugin-sort-imports': 3.1.1
       '@types/async': 3.2.7
       '@types/autocannon': 4.1.1
       '@types/express': 4.17.13
@@ -121,7 +121,7 @@ importers:
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.3
       '@crowdin/cli': 3.7.1
-      '@trivago/prettier-plugin-sort-imports': 3.0.0_prettier@2.3.2
+      '@trivago/prettier-plugin-sort-imports': 3.1.1_prettier@2.3.2
       '@types/async': 3.2.7
       '@types/autocannon': 4.1.1
       '@types/express': 4.17.13
@@ -2006,8 +2006,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@babel/parser/7.13.10:
-    resolution: {integrity: sha512-0s7Mlrw9uTWkYua7xWr99Wpk2bnGa0ANleKfksYAES8LpWH4gW1OUr42vqKNf0us5UQNfru2wPqMqRITzq/SIQ==}
+  /@babel/parser/7.14.6:
+    resolution: {integrity: sha512-oG0ej7efjEXxb4UgE+klVx+3j4MVo+A2vCzm7OUN4CLo6WhQ+vSOD2yJ8m7B+DghObxtLxt3EfgMWpq+AsWehQ==}
     engines: {node: '>=6.0.0'}
     hasBin: true
     dev: true
@@ -6269,17 +6269,16 @@ packages:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
 
-  /@trivago/prettier-plugin-sort-imports/3.0.0_prettier@2.3.2:
-    resolution: {integrity: sha512-6n+shLUWKPZpSdY25VyDO+AKc5lCAuugDLtatWNrCBB2H7dJHmO4HO9EMRALrry9P4jBNi1T1orGQ/Fxm7pkNg==}
+  /@trivago/prettier-plugin-sort-imports/3.1.1_prettier@2.3.2:
+    resolution: {integrity: sha512-T9EJNEOugWts4WxdmpWeY+sp+2fUHhvGh9QSBCowEGJfcbnu355HQRqok5bKwejdieMaI1+uGZhuTNMZwjqOCQ==}
     peerDependencies:
       prettier: 2.x
     dependencies:
       '@babel/core': 7.13.10
       '@babel/generator': 7.13.9
-      '@babel/parser': 7.13.10
+      '@babel/parser': 7.14.6
       '@babel/traverse': 7.13.0
       '@babel/types': 7.13.0
-      '@types/lodash': 4.14.168
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
       prettier: 2.3.2
@@ -6536,10 +6535,6 @@ packages:
     resolution: {integrity: sha512-3PvY7Drp1zoLbcGlothCAkoc5o6Jp9KvUPwHadlHyKp3yPvyeIh7w2zQc9UXMzgDRkoeGXUEODtbEs5XCh9ZyA==}
     dependencies:
       '@types/node': 15.12.4
-    dev: true
-
-  /@types/lodash/4.14.168:
-    resolution: {integrity: sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==}
     dev: true
 
   /@types/lodash/4.14.175:
