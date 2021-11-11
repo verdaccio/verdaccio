@@ -57,6 +57,35 @@ Apache virtual server configuration.
     </IfModule>
 ````
 
+## Invalid checksum
+
+Sometimes the gzip compression can mess with the request when running `npm install` and result in error messages like this:
+
+````
+npm WARN tar TAR_ENTRY_INVALID checksum failure
+npm WARN tar zlib: incorrect data check
+````
+
+A possible fix for this, can be by disabling gzip compression for the virtual host, by adding this to your config:
+
+````
+SetEnv no-gzip 1
+````
+
+Resulting in a config like so:
+
+````
+<VirtualHost *:80>
+  AllowEncodedSlashes NoDecode
+  SetEnv no-gzip 1
+  ProxyPass /npm http://127.0.0.1:4873 nocanon
+  ProxyPassReverse /npm http://127.0.0.1:4873
+</VirtualHost>
+````
+
+You should only add it to your virtual host config, if you are experiencing the issue.
+
+
 # Nginx
 
 The following snippet is a full `docker` example can be tested in our [Docker examples repository](https://github.com/verdaccio/verdaccio/tree/5.x/docker-examples/reverse_proxy/nginx).
