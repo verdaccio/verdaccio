@@ -32,7 +32,7 @@
     "@mui/icons-material": "5.0.5",
     "@mui/material": "5.0.6",
     "@mui/styles": "5.0.2",
-    "@rematch/core": "2.1.1",
+    "@rematch/core": "2.2.0",
     "@rematch/loading": "2.1.2",
     "@testing-library/dom": "8.11.0",
     "@testing-library/jest-dom": "5.14.1",
