@@ -505,14 +505,14 @@ importers:
     specifiers:
       '@types/pino': ^6.3.3
       dayjs: 1.10.7
-      fast-safe-stringify: 2.0.8
+      fast-safe-stringify: 2.1.1
       kleur: 3.0.3
       lodash: 4.17.21
       pino: 6.13.3
       prettier-bytes: 1.0.4
     dependencies:
       dayjs: 1.10.7
-      fast-safe-stringify: 2.0.8
+      fast-safe-stringify: 2.1.1
       kleur: 3.0.3
       lodash: 4.17.21
       prettier-bytes: 1.0.4
@@ -11673,6 +11673,9 @@ packages:
   /fast-safe-stringify/2.0.8:
     resolution: {integrity: sha512-lXatBjf3WPjmWD6DpIZxkeSsCOwqI0maYMpgDlx8g4U2qi4lbjA9oH/HD2a87G+KfsUmo5WbJFmqBZlPxtptag==}
 
+  /fast-safe-stringify/2.1.1:
+    resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
+
   /fast-text-encoding/1.0.3:
     resolution: {integrity: sha512-dtm4QZH9nZtcDt8qJiOH9fcQd1NAgi+K1O2DbE6GG1PPCK/BWfOH3idCTRQ4ImXRUOyopDEgDEnVEE7Y/2Wrig==}
     dev: false
@@ -16769,7 +16772,7 @@ packages:
     hasBin: true
     dependencies:
       fast-redact: 3.0.0
-      fast-safe-stringify: 2.0.8
+      fast-safe-stringify: 2.1.1
       fastify-warning: 0.2.0
       flatstr: 1.0.12
       pino-std-serializers: 3.2.0
