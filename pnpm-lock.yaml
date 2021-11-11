@@ -205,7 +205,7 @@ importers:
       debug: 4.3.2
       express: 4.17.1
       lodash: 4.17.21
-      mime: 2.5.2
+      mime: 2.6.0
       semver: 7.3.5
       supertest: 6.1.6
     dependencies:
@@ -223,7 +223,7 @@ importers:
       debug: 4.3.2
       express: 4.17.1
       lodash: 4.17.21
-      mime: 2.5.2
+      mime: 2.6.0
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.11.6
@@ -15628,7 +15628,6 @@ packages:
     resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
     engines: {node: '>=4.0.0'}
     hasBin: true
-    dev: true
 
   /mimic-fn/2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
