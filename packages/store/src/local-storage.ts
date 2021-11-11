@@ -199,6 +199,7 @@ class LocalStorage {
       }
 
       let change = false;
+      let addList = false;
       // updating readme
       packageLocalJson.readme = getLatestReadme(packageInfo);
       if (packageInfo.readme !== packageLocalJson.readme) {
@@ -259,6 +260,7 @@ class LocalStorage {
 
           if (need_change) {
             change = true;
+            addList = this.config?.uplinks[up]?.add_list || false;
             packageLocalJson._uplinks[up] = packageInfo._uplinks[up];
           }
         }
@@ -272,6 +274,11 @@ class LocalStorage {
 
       if (change) {
         debug('updating package info %o', name);
+
+        if (addList) {
+          this.storagePlugin.add(name);
+        }
+
         this._writePackage(name, packageLocalJson, function (err): void {
           callback(err, packageLocalJson);
         });

@@ -211,6 +211,7 @@ declare module '@verdaccio/types' {
     url: string;
     ca?: string;
     cache?: boolean;
+    add_list?: boolean;
     timeout?: string | void;
     maxage?: string | void;
     max_fails?: number | void;

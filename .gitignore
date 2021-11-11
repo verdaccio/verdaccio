@@ -24,6 +24,7 @@ coverage/
 
 ## IDE
 .idea/
+.history/
 
 # Compiled script
 packages/partials
