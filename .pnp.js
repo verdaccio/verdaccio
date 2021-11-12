@@ -148,7 +148,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.3"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],
@@ -3817,10 +3817,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@cspotcode/source-map-support", [
-        ["npm:0.6.1", {
-          "packageLocation": "./.yarn/cache/@cspotcode-source-map-support-npm-0.6.1-2e72b80534-eda5227576.zip/node_modules/@cspotcode/source-map-support/",
+        ["npm:0.7.0", {
+          "packageLocation": "./.yarn/cache/@cspotcode-source-map-support-npm-0.7.0-456c3ea2ce-3a00934184.zip/node_modules/@cspotcode/source-map-support/",
           "packageDependencies": [
-            ["@cspotcode/source-map-support", "npm:0.6.1"],
+            ["@cspotcode/source-map-support", "npm:0.7.0"],
             ["@cspotcode/source-map-consumer", "npm:0.8.0"]
           ],
           "linkType": "HARD",
@@ -11275,7 +11275,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-validate", "npm:26.6.2"],
             ["micromatch", "npm:4.0.2"],
             ["pretty-format", "npm:26.6.2"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"]
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"]
           ],
           "packagePeers": [
             "@types/ts-node",
@@ -16433,18 +16433,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ts-node", [
-        ["npm:10.2.0", {
-          "packageLocation": "./.yarn/cache/ts-node-npm-10.2.0-022c53f9b2-7633bc5d27.zip/node_modules/ts-node/",
+        ["npm:10.4.0", {
+          "packageLocation": "./.yarn/cache/ts-node-npm-10.4.0-04cb6e2279-3c2797b6ca.zip/node_modules/ts-node/",
           "packageDependencies": [
-            ["ts-node", "npm:10.2.0"]
+            ["ts-node", "npm:10.4.0"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0", {
-          "packageLocation": "./.yarn/$$virtual/ts-node-virtual-01a627a5b7/0/cache/ts-node-npm-10.2.0-022c53f9b2-7633bc5d27.zip/node_modules/ts-node/",
+        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0", {
+          "packageLocation": "./.yarn/$$virtual/ts-node-virtual-84b6ecadff/0/cache/ts-node-npm-10.4.0-04cb6e2279-3c2797b6ca.zip/node_modules/ts-node/",
           "packageDependencies": [
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
-            ["@cspotcode/source-map-support", "npm:0.6.1"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
+            ["@cspotcode/source-map-support", "npm:0.7.0"],
             ["@swc/core", null],
             ["@swc/wasm", null],
             ["@tsconfig/node10", "npm:1.0.8"],
@@ -17078,7 +17078,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.3"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],

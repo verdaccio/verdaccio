@@ -2302,12 +2302,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cspotcode/source-map-support@npm:0.6.1":
-  version: 0.6.1
-  resolution: "@cspotcode/source-map-support@npm:0.6.1"
+"@cspotcode/source-map-support@npm:0.7.0":
+  version: 0.7.0
+  resolution: "@cspotcode/source-map-support@npm:0.7.0"
   dependencies:
     "@cspotcode/source-map-consumer": 0.8.0
-  checksum: eda5227576981f3a16bd1b0940f11bffe96a7dad36da6f2e5e3a8ee5b3ecb153359df08084684509adc63ffe12e14894b6f6f8f9423780895cf7cd9d66c8bbd6
+  checksum: 3a0093418424729e9ab0a0f032f16946cb1cd7659bdee7d017e564189a8447eda961e5f7bed370699e94d5228f3b8cd84cb366af5fd38518b2ce833c3e138cb6
   languageName: node
   linkType: hard
 
@@ -13445,11 +13445,11 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.2.0":
-  version: 10.2.0
-  resolution: "ts-node@npm:10.2.0"
+"ts-node@npm:10.4.0":
+  version: 10.4.0
+  resolution: "ts-node@npm:10.4.0"
   dependencies:
-    "@cspotcode/source-map-support": 0.6.1
+    "@cspotcode/source-map-support": 0.7.0
     "@tsconfig/node10": ^1.0.7
     "@tsconfig/node12": ^1.0.7
     "@tsconfig/node14": ^1.0.0
@@ -13477,7 +13477,7 @@ fsevents@~2.1.2:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: 7633bc5d27b08202a4d3e0c9a8def2933e98daf6316cb94992e21975f1432e28aeb34d601f69b912f61a1b2515677cb5f4015cab4848bcf4691c4bf1f6736963
+  checksum: 3c2797b6ca6a3811c04b194f9423f98db0ef218504f5246306ab2b45efe95f494a6e4b3b7f6ffdca97faee53b9a07568cb2a3fb9b7cc0f5d49e7e522646412dc
   languageName: node
   linkType: hard
 
@@ -14056,7 +14056,7 @@ typescript@4.1.3:
     semver: 7.3.5
     standard-version: 9.3.2
     supertest: 6.1.3
-    ts-node: 10.2.0
+    ts-node: 10.4.0
     typescript: 4.1.3
     validator: 13.7.0
     verdaccio-audit: 10.0.2
