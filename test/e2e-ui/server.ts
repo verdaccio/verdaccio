@@ -6,9 +6,9 @@ import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 import { CREDENTIALS } from './registry-launcher';
 import smartRequest, { RequestPromise } from './request';
 
-declare class PromiseAssert extends Promise<any> {
-  public constructor(options: any);
-}
+// declare class PromiseAssert extends Promise<any> {
+//   public constructor(options: any);
+// }
 
 const TARBALL = 'tarball-blahblah-file.name';
 
@@ -28,7 +28,7 @@ export interface ServerBridge {
   url: string;
   userAgent: string;
   authstr: string;
-  request(options: any): typeof PromiseAssert;
+  request(options: any);
   auth(name: string, password: string): RequestPromise;
   auth(name: string, password: string): RequestPromise;
   logout(token: string): Promise<any>;
