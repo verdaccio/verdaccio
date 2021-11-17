@@ -14,7 +14,7 @@ services:
       - verdaccio
       - verdaccio-root
   verdaccio:
-    image: verdaccio/verdaccio:local
+    image: verdaccio/verdaccio:5
     container_name: 'verdaccio_relative_path_v5'
     networks:
       - node-network
@@ -27,7 +27,7 @@ services:
       - './storage:/verdaccio/storage'
       - './conf/v5:/verdaccio/conf'
   verdaccio-root:
-    image: verdaccio/verdaccio:local
+    image: verdaccio/verdaccio:5
     container_name: 'verdaccio_relative_path_v5_root'
     networks:
       - node-network
