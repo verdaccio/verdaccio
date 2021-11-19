@@ -34,7 +34,7 @@
     "minimatch": "3.0.4",
     "semver": "7.3.5",
     "lodash": "4.17.21"
-  },  
+  },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
