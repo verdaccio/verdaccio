@@ -219,6 +219,7 @@ importers:
       '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
+      body-parser: 1.19.0
       cookies: 0.8.0
       debug: 4.3.2
       express: 4.17.1
@@ -230,7 +231,6 @@ importers:
       '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/server': link:../server
       '@verdaccio/types': link:../core/types
-      body-parser: 1.19.0
       supertest: 6.1.6
 
   packages/auth:
@@ -313,11 +313,13 @@ importers:
   packages/core/core:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
+      core-js: 3.17.2
       fastify-warning: 0.2.0
       http-errors: 1.8.0
       http-status-codes: 2.1.4
       semver: 7.3.5
     dependencies:
+      core-js: 3.17.2
       fastify-warning: 0.2.0
       http-errors: 1.8.0
       http-status-codes: 2.1.4
@@ -400,12 +402,14 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
+      debug: 4.3.2
       lodash: 4.17.21
       node-mocks-http: 1.10.1
     dependencies:
       '@verdaccio/core': link:../core
       '@verdaccio/url': link:../url
       '@verdaccio/utils': link:../../utils
+      debug: 4.3.2
       lodash: 4.17.21
     devDependencies:
       '@verdaccio/types': link:../types
@@ -526,6 +530,7 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
+      body-parser: 1.19.0
       debug: 4.3.2
       lodash: 4.17.21
     dependencies:
@@ -533,6 +538,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
+      body-parser: 1.19.0
       debug: 4.3.2
       lodash: 4.17.21
 
@@ -590,12 +596,12 @@ importers:
       node-fetch: 3.0.0-beta.6-exportfix
       supertest: 6.1.6
     dependencies:
+      body-parser: 1.19.0
       express: 4.17.1
       https-proxy-agent: 5.0.0
       node-fetch: 3.0.0-beta.6-exportfix
     devDependencies:
       '@verdaccio/types': link:../../core/types
-      body-parser: 1.19.0
       nock: 12.0.3
       supertest: 6.1.6
 
@@ -1141,10 +1147,9 @@ importers:
       semver: 7.3.5
     dependencies:
       '@verdaccio/core': link:../core/core
+      lodash: 4.17.21
       minimatch: 3.0.4
       semver: 7.3.5
-    devDependencies:
-      lodash: 4.17.21
 
   packages/verdaccio:
     specifiers:
@@ -1194,7 +1199,6 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      body-parse: 0.1.0
       body-parser: 1.19.0
       debug: 4.3.2
       express: 4.17.1
@@ -1216,7 +1220,6 @@ importers:
       '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/url': link:../core/url
       '@verdaccio/utils': link:../utils
-      body-parse: 0.1.0
       body-parser: 1.19.0
       debug: 4.3.2
       express: 4.17.1
@@ -9766,10 +9769,6 @@ packages:
 
   /bluebird/3.7.2:
     resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
-
-  /body-parse/0.1.0:
-    resolution: {integrity: sha512-k0PDF7vZZpspXlwoM8ywh9PIHZokooS0Rek4M8Vekoro7XuuaWVhjgTpdzIRrfKj5oLQahwjn621/4kG4d91xw==}
-    dev: false
 
   /body-parser/1.19.0:
     resolution: {integrity: sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==}
