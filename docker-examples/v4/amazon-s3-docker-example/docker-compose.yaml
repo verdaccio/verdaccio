@@ -14,7 +14,7 @@ services:
     links:
       - localstack-s3
   localstack-s3:
-    image: localstack/localstack:latest
+    image: localstack/localstack:0.10.9
     container_name: localstack-s3-1
     environment:
       - DEBUG=0

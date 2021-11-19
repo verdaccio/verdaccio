@@ -13,7 +13,6 @@ uplinks:
 
 packages:
   '@*/*':
-    # scoped packages
     access: $all
     publish: $all
     proxy: npmjs
