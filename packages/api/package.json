@@ -51,6 +51,7 @@
     "abortcontroller-polyfill": "1.7.3",
     "cookies": "0.8.0",
     "debug": "4.3.2",
+    "body-parser": "1.19.0",
     "express": "4.17.1",
     "lodash": "4.17.21",
     "mime": "2.6.0",
@@ -61,8 +62,6 @@
     "@verdaccio/server": "workspace:6.0.0-6-next.23",
     "@verdaccio/types": "workspace:11.0.0-6-next.9",
     "@verdaccio/helper": "1.0.0",
-    "body-parser": "1.19.0",
-    "lodash": "4.17.21",
     "supertest": "6.1.6"
   },
   "funding": {

@@ -11,11 +11,12 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-
 RUN npm -g i pnpm@6.10.3 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm recursive install --frozen-lockfile --ignore-scripts && \
-    pnpm run build
+    rm -Rf test && \
+    pnpm run build && \
+    pnpm install -P
 # FIXME: need to remove devDependencies from the build
 # RUN pnpm install --prod --ignore-scripts
 
