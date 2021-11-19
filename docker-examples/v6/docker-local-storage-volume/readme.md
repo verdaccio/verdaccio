@@ -24,7 +24,7 @@ If you use Dokku, an open-source alternative for Heroku, you can run this exampl
 
 1. Create a new application `dokku apps:create verdaccio`
 2. Pull the verdaccio image `docker pull verdaccio/verdaccio:`
-3. Tag the docker image for the app: `docker tag verdaccio/verdaccio:4 dokku/verdaccio:v1`
+3. Tag the docker image for the app: `docker tag verdaccio/verdaccio:nightly-master dokku/verdaccio:v1`
 4. Create the directories for persistent storage `mkdir -p /var/lib/dokku/data/storage/verdaccio/storage`, `mkdir -p /var/lib/dokku/data/storage/verdaccio/storage`
 5. Mount the volumes: `dokku storage:mount verdaccio /var/lib/dokku/data/storage/verdaccio/storage:/verdaccio/storage` and `dokku storage:mount verdaccio /var/lib/dokku/data/storage/verdaccio/conf:/verdaccio/conf`
 6. Deploy the docker image `dokku tags:deploy verdaccio v1`
