@@ -19,7 +19,7 @@ security:
       expiresIn: 7d
 
 ## IMPORTANT
-## This setup is required for relative path 
+## This setup is required for relative path
 url_prefix: /verdaccio/
 server:
   behindProxy: true

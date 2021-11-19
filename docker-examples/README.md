@@ -15,6 +15,7 @@ The following examples aim to be demonstrative and can be either improved or upd
 This folder aims to create a collection of Docker and Kubernetes examples.
 
 For more information about the **Helm** Chart, please check it [owns repo](https://github.com/verdaccio/charts).
+
 ### Kubernetes
 
 - Kubernetes (minikube) + Verdaccio (Basic Configuration)
