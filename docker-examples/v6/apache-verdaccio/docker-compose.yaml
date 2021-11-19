@@ -1,0 +1,21 @@
+services:
+  verdaccio:
+    image: verdaccio/verdaccio:nightly-master
+    container_name: verdaccio
+    ports:
+      - '4873:4873'
+    volumes:
+      - verdaccio:/verdaccio
+
+  apacheproxy:
+    build: apache_proxy/
+    links:
+      - verdaccio
+    ports:
+      - '80:80'
+    volumes_from:
+      - verdaccio
+
+volumes:
+  verdaccio:
+    driver: local
