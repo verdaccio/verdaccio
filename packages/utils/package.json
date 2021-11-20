@@ -32,9 +32,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "minimatch": "3.0.4",
-    "semver": "7.3.5"
-  },
-  "devDependencies": {
+    "semver": "7.3.5",
     "lodash": "4.17.21"
   },
   "scripts": {

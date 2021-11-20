@@ -32,12 +32,12 @@
   },
   "dependencies": {
     "express": "4.17.1",
+    "body-parser": "1.19.0",
     "https-proxy-agent": "5.0.0",
     "node-fetch": "3.0.0-beta.6-exportfix"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.9",
-    "body-parser": "1.19.0",
     "nock": "12.0.3",
     "supertest": "6.1.6"
   },
