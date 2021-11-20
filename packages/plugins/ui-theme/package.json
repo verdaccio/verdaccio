@@ -34,7 +34,7 @@
     "@mui/styles": "5.0.2",
     "@rematch/core": "2.2.0",
     "@rematch/loading": "2.1.2",
-    "@testing-library/dom": "8.11.0",
+    "@testing-library/dom": "8.11.1",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "12.1.2",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.24",
