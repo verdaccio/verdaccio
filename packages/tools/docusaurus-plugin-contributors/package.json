@@ -1,0 +1,29 @@
+{
+  "name": "docusaurus-plugin-contributors",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@docusaurus/types": "2.0.0-beta.9",
+    "@docusaurus/utils": "2.0.0-beta.9"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

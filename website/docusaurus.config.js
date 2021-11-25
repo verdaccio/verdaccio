@@ -39,6 +39,7 @@ module.exports = {
   i18n: i18nConfig,
   plugins: [
     'docusaurus-plugin-sass',
+    "docusaurus-plugin-contributors",
     isProductionDeployment && ['docusaurus-plugin-sentry', { DSN: 'a7bc89ee3f284570b1d9a47e600e7597' }]
   ].filter(Boolean),
   webpack: {
