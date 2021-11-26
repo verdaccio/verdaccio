@@ -48,7 +48,7 @@ jobs:
             - recursive: true
               args: [--frozen-lockfile]
       - name: Build Plugins
-        run: pnpm build --filter ...docusaurus-plugin-contributors
+        run: pnpm build --filter "docusaurus-plugin-contributors"
       - name: Lint And Pretty
         run: |
           pnpm eslint:check --filter ...@verdaccio/website
