@@ -65,7 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:18.6.0"],
             ["@types/async", "npm:3.2.9"],
             ["@types/express", "npm:4.17.6"],
-            ["@types/http-errors", "npm:1.8.0"],
+            ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
             ["@types/mime", "npm:2.0.3"],
@@ -113,7 +113,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-safe-stringify", "npm:2.0.8"],
             ["fs-extra", "npm:10.0.0"],
             ["handlebars", "npm:4.7.7"],
-            ["http-errors", "npm:1.8.0"],
+            ["http-errors", "npm:1.8.1"],
             ["husky", "npm:6.0.0"],
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
@@ -4530,10 +4530,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/http-errors", [
-        ["npm:1.8.0", {
-          "packageLocation": "./.yarn/cache/@types-http-errors-npm-1.8.0-962b3aae39-f6a0cf40d0.zip/node_modules/@types/http-errors/",
+        ["npm:1.8.1", {
+          "packageLocation": "./.yarn/cache/@types-http-errors-npm-1.8.1-03bdc8b2cb-394d9c07ff.zip/node_modules/@types/http-errors/",
           "packageDependencies": [
-            ["@types/http-errors", "npm:1.8.0"]
+            ["@types/http-errors", "npm:1.8.1"]
           ],
           "linkType": "HARD",
         }]
@@ -10341,6 +10341,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["setprototypeof", "npm:1.2.0"],
             ["statuses", "npm:1.5.0"],
             ["toidentifier", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.8.1", {
+          "packageLocation": "./.yarn/cache/http-errors-npm-1.8.1-fb60d9f6ae-f8bd2e837a.zip/node_modules/http-errors/",
+          "packageDependencies": [
+            ["http-errors", "npm:1.8.1"],
+            ["depd", "npm:1.1.2"],
+            ["inherits", "npm:2.0.4"],
+            ["setprototypeof", "npm:1.2.0"],
+            ["statuses", "npm:1.5.0"],
+            ["toidentifier", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -16340,6 +16352,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["toidentifier", "npm:1.0.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.0.1", {
+          "packageLocation": "./.yarn/cache/toidentifier-npm-1.0.1-f759712599-2b5c573af9.zip/node_modules/toidentifier/",
+          "packageDependencies": [
+            ["toidentifier", "npm:1.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["tough-cookie", [
@@ -16995,7 +17014,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:18.6.0"],
             ["@types/async", "npm:3.2.9"],
             ["@types/express", "npm:4.17.6"],
-            ["@types/http-errors", "npm:1.8.0"],
+            ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
             ["@types/mime", "npm:2.0.3"],
@@ -17043,7 +17062,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-safe-stringify", "npm:2.0.8"],
             ["fs-extra", "npm:10.0.0"],
             ["handlebars", "npm:4.7.7"],
-            ["http-errors", "npm:1.8.0"],
+            ["http-errors", "npm:1.8.1"],
             ["husky", "npm:6.0.0"],
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
