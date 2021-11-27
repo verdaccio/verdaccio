@@ -10474,7 +10474,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.1, node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1":
+"node-fetch@npm:2.6.6":
+  version: 2.6.6
+  resolution: "node-fetch@npm:2.6.6"
+  dependencies:
+    whatwg-url: ^5.0.0
+  checksum: c0a4450cca0568be1e75911a850758f7b78b0687b720cdb337f9729ceaa7af76d37b637472893e11d3cee8dfa7916d94aeb0a64f96b597234c2e1a8717eb4be9
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.0, node-fetch@npm:^2.6.1":
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
   checksum: cbb171635e538162b977eac5dfe7a1e07a9a02e991924377a6435502291e2f823d306b95aabc455caebf4a118ccf836868462bc70ccc3095af02bb9da61fda37
@@ -13456,6 +13465,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"tr46@npm:~0.0.3":
+  version: 0.0.3
+  resolution: "tr46@npm:0.0.3"
+  checksum: 37bdfff7c5b5f8feeb0d06d3fda1d8474d8b08a9f0bf453fd339eb0dc13939ed5a2b24d29d9a308674d6a7267a3a4f3a95e91538b87d0e76c14d83c33899a29f
+  languageName: node
+  linkType: hard
+
 "trim-newlines@npm:^1.0.0":
   version: 1.0.0
   resolution: "trim-newlines@npm:1.0.0"
@@ -13935,15 +13951,15 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:10.0.2":
-  version: 10.0.2
-  resolution: "verdaccio-audit@npm:10.0.2"
+"verdaccio-audit@npm:10.0.3":
+  version: 10.0.3
+  resolution: "verdaccio-audit@npm:10.0.3"
   dependencies:
     body-parser: 1.19.0
     express: 4.17.1
     https-proxy-agent: 5.0.0
-    node-fetch: 2.6.1
-  checksum: 857f6fd100e6326433341ebe7d10fb940c935361c962e1b6693dabf7cd4a0324915b3122e3d14d41a1c682b64b0edb0201eeff460d3d05079d769966d5549699
+    node-fetch: 2.6.6
+  checksum: 636fc56379a8dc68725e093f682b2681a8b869d217e8ab453f52840eb38291e798302e5a19752dbc64bb3e3b979d48989546229b1568b42c9227ca1da0acc3ab
   languageName: node
   linkType: hard
 
@@ -14098,7 +14114,7 @@ typescript@4.1.3:
     ts-node: 10.2.0
     typescript: 4.1.3
     validator: 13.7.0
-    verdaccio-audit: 10.0.2
+    verdaccio-audit: 10.0.3
     verdaccio-auth-memory: 10.0.1
     verdaccio-htpasswd: 10.0.1
     verdaccio-memory: 10.0.1
@@ -14156,6 +14172,13 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
+"webidl-conversions@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "webidl-conversions@npm:3.0.1"
+  checksum: 25ef547ff199f5a942f367f86c92b79bad77c27ad9baa51ed994de4ee91834d6246a120e24c4d6f2c6aba6b940238a5f6a0ed5f5ab0f24f6a863a2be75dd7644
+  languageName: node
+  linkType: hard
+
 "webidl-conversions@npm:^4.0.2":
   version: 4.0.2
   resolution: "webidl-conversions@npm:4.0.2"
@@ -14190,6 +14213,16 @@ typescript@4.1.3:
   version: 2.3.0
   resolution: "whatwg-mimetype@npm:2.3.0"
   checksum: 926e6ef8c7e53d158e501ce5e3c0e491d343c3c97e71b3d30451ffe4b1d6f81844c336b46a446a0b4f3fe4f327d76e3451d53ee8055344a0f5f2f35b84518011
+  languageName: node
+  linkType: hard
+
+"whatwg-url@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "whatwg-url@npm:5.0.0"
+  dependencies:
+    tr46: ~0.0.3
+    webidl-conversions: ^3.0.0
+  checksum: 55eca009f57013000f73721611e14cf7215bf2f19e9950b06f3214cfbd29f06eeea759748fa09016a05dca72a2213e49333ef4cbc911ba236a427a0b0060f415
   languageName: node
   linkType: hard
 
