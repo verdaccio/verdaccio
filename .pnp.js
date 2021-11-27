@@ -153,7 +153,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
-            ["verdaccio-htpasswd", "npm:10.0.0"],
+            ["verdaccio-htpasswd", "npm:10.0.1"],
             ["verdaccio-memory", "npm:10.0.1"]
           ],
           "linkType": "SOFT",
@@ -5322,6 +5322,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lockfile", "npm:1.0.4"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:10.0.1", {
+          "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-10.0.1-3212629520-1dfd93b358.zip/node_modules/@verdaccio/file-locking/",
+          "packageDependencies": [
+            ["@verdaccio/file-locking", "npm:10.0.1"],
+            ["lockfile", "npm:1.0.4"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@verdaccio/local-storage", [
@@ -5759,10 +5767,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["apache-md5", [
-        ["npm:1.1.2", {
-          "packageLocation": "./.yarn/cache/apache-md5-npm-1.1.2-0924392430-87a666376b.zip/node_modules/apache-md5/",
+        ["npm:1.1.7", {
+          "packageLocation": "./.yarn/cache/apache-md5-npm-1.1.7-249065fc1c-8a04215662.zip/node_modules/apache-md5/",
           "packageDependencies": [
-            ["apache-md5", "npm:1.1.2"]
+            ["apache-md5", "npm:1.1.7"]
           ],
           "linkType": "HARD",
         }]
@@ -17102,7 +17110,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.0.2"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
-            ["verdaccio-htpasswd", "npm:10.0.0"],
+            ["verdaccio-htpasswd", "npm:10.0.1"],
             ["verdaccio-memory", "npm:10.0.1"]
           ],
           "linkType": "SOFT",
@@ -17132,14 +17140,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-htpasswd", [
-        ["npm:10.0.0", {
-          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.0.0-e491098f58-2e79614b12.zip/node_modules/verdaccio-htpasswd/",
+        ["npm:10.0.1", {
+          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.0.1-01cfb9bbd0-4986dee11b.zip/node_modules/verdaccio-htpasswd/",
           "packageDependencies": [
-            ["verdaccio-htpasswd", "npm:10.0.0"],
-            ["@verdaccio/file-locking", "npm:10.0.0"],
-            ["apache-md5", "npm:1.1.2"],
+            ["verdaccio-htpasswd", "npm:10.0.1"],
+            ["@verdaccio/file-locking", "npm:10.0.1"],
+            ["apache-md5", "npm:1.1.7"],
             ["bcryptjs", "npm:2.4.3"],
-            ["http-errors", "npm:1.8.0"],
+            ["http-errors", "npm:1.8.1"],
             ["unix-crypt-td-js", "npm:1.1.4"]
           ],
           "linkType": "HARD",
