@@ -76,7 +76,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.4"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
-            ["@verdaccio/commons-api", "npm:10.0.1"],
+            ["@verdaccio/commons-api", "npm:10.0.2"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
             ["@verdaccio/local-storage", "npm:10.0.7"],
             ["@verdaccio/readme", "npm:10.0.0"],
@@ -5273,6 +5273,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@verdaccio/commons-api", "npm:10.0.1"],
             ["http-errors", "npm:1.8.0"],
+            ["http-status-codes", "npm:1.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:10.0.2", {
+          "packageLocation": "./.yarn/cache/@verdaccio-commons-api-npm-10.0.2-af66ccd29d-e506a3aa85.zip/node_modules/@verdaccio/commons-api/",
+          "packageDependencies": [
+            ["@verdaccio/commons-api", "npm:10.0.2"],
+            ["http-errors", "npm:1.8.1"],
             ["http-status-codes", "npm:1.4.0"]
           ],
           "linkType": "HARD",
@@ -17033,7 +17042,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.4"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
-            ["@verdaccio/commons-api", "npm:10.0.1"],
+            ["@verdaccio/commons-api", "npm:10.0.2"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
             ["@verdaccio/local-storage", "npm:10.0.7"],
             ["@verdaccio/readme", "npm:10.0.0"],
