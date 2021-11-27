@@ -3553,6 +3553,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/streams@npm:10.0.1":
+  version: 10.0.1
+  resolution: "@verdaccio/streams@npm:10.0.1"
+  checksum: 1ddaeafb3d28e260e8ede47d7746779c66ad78e2a27d49ff505fa36b8e4f631389ac28f5fe7d97e06c8a24d2f8b8c88e57d85672e2d558286968bcac755d8d81
+  languageName: node
+  linkType: hard
+
 "@verdaccio/types@npm:^9.7.2":
   version: 9.7.2
   resolution: "@verdaccio/types@npm:9.7.2"
@@ -14027,7 +14034,7 @@ typescript@4.1.3:
     "@verdaccio/eslint-config": ^8.5.0
     "@verdaccio/local-storage": 10.0.7
     "@verdaccio/readme": 10.0.1
-    "@verdaccio/streams": 10.0.0
+    "@verdaccio/streams": 10.0.1
     "@verdaccio/types": ^9.7.2
     "@verdaccio/ui-theme": 3.2.1
     JSONStream: 1.3.5
