@@ -100,7 +100,13 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         }
 
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-        next(parseReadme(info.name, info.readme));
+        let readMeHtml = parseReadme(info.name, info.readme);
+        if ('string' === typeof readMeHtml) {
+          readMeHtml = readMeHtml.replace(
+            /href="#/gi,
+            `href="${req.headers.referer}#`);
+        }
+        next(readMeHtml);
       },
     });
   });
