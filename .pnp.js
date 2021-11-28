@@ -78,7 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
             ["@verdaccio/commons-api", "npm:10.0.2"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
-            ["@verdaccio/local-storage", "npm:10.0.7"],
+            ["@verdaccio/local-storage", "npm:10.0.8"],
             ["@verdaccio/readme", "npm:10.0.1"],
             ["@verdaccio/streams", "npm:10.0.1"],
             ["@verdaccio/types", "npm:9.7.2"],
@@ -5324,14 +5324,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/file-locking", [
-        ["npm:10.0.0", {
-          "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-10.0.0-2cc8fac923-96ba68b6ce.zip/node_modules/@verdaccio/file-locking/",
-          "packageDependencies": [
-            ["@verdaccio/file-locking", "npm:10.0.0"],
-            ["lockfile", "npm:1.0.4"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:10.0.1", {
           "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-10.0.1-3212629520-1dfd93b358.zip/node_modules/@verdaccio/file-locking/",
           "packageDependencies": [
@@ -5342,15 +5334,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/local-storage", [
-        ["npm:10.0.7", {
-          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-npm-10.0.7-6978f7dba2-57472114d5.zip/node_modules/@verdaccio/local-storage/",
+        ["npm:10.0.8", {
+          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-npm-10.0.8-50c25e8438-bcc5de21aa.zip/node_modules/@verdaccio/local-storage/",
           "packageDependencies": [
-            ["@verdaccio/local-storage", "npm:10.0.7"],
-            ["@verdaccio/commons-api", "npm:10.0.1"],
-            ["@verdaccio/file-locking", "npm:10.0.0"],
-            ["@verdaccio/streams", "npm:10.0.0"],
-            ["async", "npm:3.2.0"],
-            ["debug", "virtual:6978f7dba2463aaa04b593c41c228a823e8a4f5575d34da50db703120c7938c991cf83fb4164ef7dd60326eb11cf21bc8ff5a707947433ced3cf80dc65edf2c5#npm:4.3.1"],
+            ["@verdaccio/local-storage", "npm:10.0.8"],
+            ["@verdaccio/commons-api", "npm:10.0.2"],
+            ["@verdaccio/file-locking", "npm:10.0.1"],
+            ["@verdaccio/streams", "npm:10.0.1"],
+            ["async", "npm:3.2.2"],
+            ["debug", "virtual:50c25e8438982f0930f1b48f19e4abcf267a458cd363e8151aa1076d6c13221db339d5c0a504beda4e67ecfc5ec1d4c3fd983211c90bc50858d105a29737fe47#npm:4.3.3"],
             ["lodash", "npm:4.17.21"],
             ["lowdb", "npm:1.0.0"],
             ["mkdirp", "npm:1.0.4"]
@@ -7836,17 +7828,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["npm:4.3.1", {
-          "packageLocation": "./.yarn/cache/debug-npm-4.3.1-22e08d605e-0d41ba5177.zip/node_modules/debug/",
-          "packageDependencies": [
-            ["debug", "npm:4.3.1"]
-          ],
-          "linkType": "SOFT",
-        }],
         ["npm:4.3.2", {
           "packageLocation": "./.yarn/cache/debug-npm-4.3.2-f0148b6afe-5543570879.zip/node_modules/debug/",
           "packageDependencies": [
             ["debug", "npm:4.3.2"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["npm:4.3.3", {
+          "packageLocation": "./.yarn/cache/debug-npm-4.3.3-710fd4cc7f-1bceffaa69.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "npm:4.3.3"]
           ],
           "linkType": "SOFT",
         }],
@@ -7874,10 +7866,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["virtual:6978f7dba2463aaa04b593c41c228a823e8a4f5575d34da50db703120c7938c991cf83fb4164ef7dd60326eb11cf21bc8ff5a707947433ced3cf80dc65edf2c5#npm:4.3.1", {
-          "packageLocation": "./.yarn/$$virtual/debug-virtual-66d523f53e/0/cache/debug-npm-4.3.1-22e08d605e-0d41ba5177.zip/node_modules/debug/",
+        ["virtual:50c25e8438982f0930f1b48f19e4abcf267a458cd363e8151aa1076d6c13221db339d5c0a504beda4e67ecfc5ec1d4c3fd983211c90bc50858d105a29737fe47#npm:4.3.3", {
+          "packageLocation": "./.yarn/$$virtual/debug-virtual-d95dd2290e/0/cache/debug-npm-4.3.3-710fd4cc7f-1bceffaa69.zip/node_modules/debug/",
           "packageDependencies": [
-            ["debug", "virtual:6978f7dba2463aaa04b593c41c228a823e8a4f5575d34da50db703120c7938c991cf83fb4164ef7dd60326eb11cf21bc8ff5a707947433ced3cf80dc65edf2c5#npm:4.3.1"],
+            ["debug", "virtual:50c25e8438982f0930f1b48f19e4abcf267a458cd363e8151aa1076d6c13221db339d5c0a504beda4e67ecfc5ec1d4c3fd983211c90bc50858d105a29737fe47#npm:4.3.3"],
             ["ms", "npm:2.1.2"],
             ["supports-color", null]
           ],
@@ -17066,7 +17058,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.13.0"],
             ["@verdaccio/commons-api", "npm:10.0.2"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
-            ["@verdaccio/local-storage", "npm:10.0.7"],
+            ["@verdaccio/local-storage", "npm:10.0.8"],
             ["@verdaccio/readme", "npm:10.0.1"],
             ["@verdaccio/streams", "npm:10.0.1"],
             ["@verdaccio/types", "npm:9.7.2"],
