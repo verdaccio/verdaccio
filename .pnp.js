@@ -151,7 +151,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
-            ["verdaccio-audit", "npm:10.0.2"],
+            ["verdaccio-audit", "npm:10.0.3"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
             ["verdaccio-htpasswd", "npm:10.0.1"],
             ["verdaccio-memory", "npm:10.0.1"]
@@ -13249,6 +13249,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-fetch", "npm:2.6.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.6.6", {
+          "packageLocation": "./.yarn/cache/node-fetch-npm-2.6.6-056db6b778-c0a4450cca.zip/node_modules/node-fetch/",
+          "packageDependencies": [
+            ["node-fetch", "npm:2.6.6"],
+            ["whatwg-url", "npm:5.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["node-forge", [
@@ -16426,6 +16434,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["tr46", [
+        ["npm:0.0.3", {
+          "packageLocation": "./.yarn/cache/tr46-npm-0.0.3-de53018915-37bdfff7c5.zip/node_modules/tr46/",
+          "packageDependencies": [
+            ["tr46", "npm:0.0.3"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:1.0.1", {
           "packageLocation": "./.yarn/cache/tr46-npm-1.0.1-9547f343a4-66e2e4d679.zip/node_modules/tr46/",
           "packageDependencies": [
@@ -17124,7 +17139,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
-            ["verdaccio-audit", "npm:10.0.2"],
+            ["verdaccio-audit", "npm:10.0.3"],
             ["verdaccio-auth-memory", "npm:10.0.1"],
             ["verdaccio-htpasswd", "npm:10.0.1"],
             ["verdaccio-memory", "npm:10.0.1"]
@@ -17133,14 +17148,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-audit", [
-        ["npm:10.0.2", {
-          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-10.0.2-2e2dbc8893-857f6fd100.zip/node_modules/verdaccio-audit/",
+        ["npm:10.0.3", {
+          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-10.0.3-ccbee4033e-636fc56379.zip/node_modules/verdaccio-audit/",
           "packageDependencies": [
-            ["verdaccio-audit", "npm:10.0.2"],
+            ["verdaccio-audit", "npm:10.0.3"],
             ["body-parser", "npm:1.19.0"],
             ["express", "npm:4.17.1"],
             ["https-proxy-agent", "npm:5.0.0"],
-            ["node-fetch", "npm:2.6.1"]
+            ["node-fetch", "npm:2.6.6"]
           ],
           "linkType": "HARD",
         }]
@@ -17234,6 +17249,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["webidl-conversions", [
+        ["npm:3.0.1", {
+          "packageLocation": "./.yarn/cache/webidl-conversions-npm-3.0.1-60310f6a2b-25ef547ff1.zip/node_modules/webidl-conversions/",
+          "packageDependencies": [
+            ["webidl-conversions", "npm:3.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:4.0.2", {
           "packageLocation": "./.yarn/cache/webidl-conversions-npm-4.0.2-1d159e6409-75c2ada426.zip/node_modules/webidl-conversions/",
           "packageDependencies": [
@@ -17276,6 +17298,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["whatwg-url", [
+        ["npm:5.0.0", {
+          "packageLocation": "./.yarn/cache/whatwg-url-npm-5.0.0-374fb45e60-55eca009f5.zip/node_modules/whatwg-url/",
+          "packageDependencies": [
+            ["whatwg-url", "npm:5.0.0"],
+            ["tr46", "npm:0.0.3"],
+            ["webidl-conversions", "npm:3.0.1"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:7.1.0", {
           "packageLocation": "./.yarn/cache/whatwg-url-npm-7.1.0-d6cae01571-ccbf75d3df.zip/node_modules/whatwg-url/",
           "packageDependencies": [
