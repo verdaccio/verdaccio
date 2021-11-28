@@ -104,7 +104,7 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         if ('string' === typeof readMeHtml) {
           readMeHtml = readMeHtml.replace(
             /href="#/gi,
-            `href="${req.headers.referer}#`);
+            `href="${(new URL(req.headers.referer)).pathname}#`);
         }
         next(readMeHtml);
       },
