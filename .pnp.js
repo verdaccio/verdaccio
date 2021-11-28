@@ -80,7 +80,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
             ["@verdaccio/local-storage", "npm:10.0.7"],
             ["@verdaccio/readme", "npm:10.0.1"],
-            ["@verdaccio/streams", "npm:10.0.0"],
+            ["@verdaccio/streams", "npm:10.0.1"],
             ["@verdaccio/types", "npm:9.7.2"],
             ["@verdaccio/ui-theme", "npm:3.2.1"],
             ["JSONStream", "npm:1.3.5"],
@@ -5375,6 +5375,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@verdaccio-streams-npm-10.0.0-487dd27cac-09abeaaa84.zip/node_modules/@verdaccio/streams/",
           "packageDependencies": [
             ["@verdaccio/streams", "npm:10.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:10.0.1", {
+          "packageLocation": "./.yarn/cache/@verdaccio-streams-npm-10.0.1-9963af9431-1ddaeafb3d.zip/node_modules/@verdaccio/streams/",
+          "packageDependencies": [
+            ["@verdaccio/streams", "npm:10.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -17046,7 +17053,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
             ["@verdaccio/local-storage", "npm:10.0.7"],
             ["@verdaccio/readme", "npm:10.0.1"],
-            ["@verdaccio/streams", "npm:10.0.0"],
+            ["@verdaccio/streams", "npm:10.0.1"],
             ["@verdaccio/types", "npm:9.7.2"],
             ["@verdaccio/ui-theme", "npm:3.2.1"],
             ["JSONStream", "npm:1.3.5"],
