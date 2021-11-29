@@ -489,11 +489,14 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
  * parse package readme - markdown/ascii
  * @param {String} packageName name of package
  * @param {String} readme package readme
+ * @param {Object} options sanitizyReadme options
  * @return {String} converted html template
  */
-export function parseReadme(packageName: string, readme: string): string | void {
+export function parseReadme(packageName: string,
+                            readme: string,
+                            options: { pathname?: string | void } = {}): string | void {
   if (_.isEmpty(readme) === false) {
-    return sanitizyReadme(readme);
+    return sanitizyReadme(readme, options);
   }
 
   // logs readme not found error

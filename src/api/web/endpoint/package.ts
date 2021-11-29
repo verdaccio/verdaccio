@@ -100,13 +100,9 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         }
 
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-        let readMeHtml = parseReadme(info.name, info.readme);
-        if ('string' === typeof readMeHtml && 'string' === typeof req.headers.referer) {
-          readMeHtml = readMeHtml.replace(
-            /href="#/gi,
-            `href="${(new URL(req.headers.referer)).pathname}#`);
-        }
-        next(readMeHtml);
+        const referer = req.get('Referer');
+        const pathname = referer ? (new URL(referer)).pathname : undefined;
+        next(parseReadme(info.name, info.readme, {pathname}));
       },
     });
   });
