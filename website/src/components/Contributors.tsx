@@ -12,15 +12,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import { blue, green, yellow } from '@material-ui/core/colors';
-//import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { green, yellow } from '@material-ui/core/colors';
 import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import MergeTypeIcon from '@material-ui/icons/MergeType';
 import StarIcon from '@material-ui/icons/Star';
 import Layout from '@theme/Layout';
-import { green500 } from 'material-ui/styles/colors';
 import React from 'react';
 
 const generateImage = (id) => `https://avatars3.githubusercontent.com/u/${id}?s=120&v=4`;
@@ -70,11 +68,10 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const StyledBadge = withStyles((theme) => ({
+const StyledBadge = withStyles(() => ({
   badge: {
     right: -3,
     top: 8,
-    // border: `2px solid ${theme.palette.background.paper}`,
     padding: '0 4px',
   },
 }))(Badge);
@@ -109,7 +106,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
     setOpen(false);
     setUser(null);
   };
@@ -125,9 +122,11 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
               const userItem = convertItemTo(item);
               return (
                 <div
-                  style={{ flex: 'auto' }}
+                  role="button"
+                  tabIndex="0"
+                  style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
-                  style={{ cursor: 'pointer', margin: '10px' }}
+                  onKeyDown={() => handleClickOpen(userItem)}
                   onClick={() => handleClickOpen(userItem)}>
                   <Avatar
                     src={generateImage(userItem.node.userId)}
@@ -157,7 +156,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                   <Grid item lg="6" md="6" sm="6">
                     <Typography variant="h6">{user.node.url}</Typography>
                   </Grid>
-                  <Grid item item lg="2" md="2" sm="2">
+                  <Grid lg="2" md="2" sm="2">
                     <Chip
                       icon={<EmojiEventsIcon className={classes.emojiEvent} />}
                       label={user.node.contributions}
