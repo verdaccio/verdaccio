@@ -75,7 +75,7 @@
     "concurrently": "6.3.0",
     "core-js": "3.17.2",
     "cross-env": "7.0.3",
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "detect-secrets": "1.0.6",
     "eslint": "7.32.0",
     "fs-extra": "10.0.0",

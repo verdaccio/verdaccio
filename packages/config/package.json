@@ -41,7 +41,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/utils": "workspace:6.0.0-6-next.9",
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "js-yaml": "3.14.1",
     "lodash": "4.17.21",
     "minimatch": "3.0.4",

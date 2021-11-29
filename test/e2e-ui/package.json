@@ -5,7 +5,7 @@
   "devDependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.12",
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "kleur": "3.0.3",
     "lodash": "4.17.21",
     "puppeteer": "10.2.0",

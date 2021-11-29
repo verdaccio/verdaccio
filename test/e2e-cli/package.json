@@ -3,7 +3,7 @@
   "name": "@verdaccio/e2e-cli",
   "version": "1.0.1-alpha.0",
   "dependencies": {
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "npm": "7.24.2",
     "pnpm": "6.20.3",
     "request": "2.87.0",
