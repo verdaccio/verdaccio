@@ -45,7 +45,7 @@ export default function contributorsPlugin(
       }
       const contributorsJsonPath = await createData('contributors.json', JSON.stringify(content));
       const routeOptions = {
-        path: normalizeUrl([baseUrl, 'contributors-two']),
+        path: normalizeUrl([baseUrl, 'contributors']),
         component: '@site/src/components/Contributors.tsx',
         modules: {
           contributors: contributorsJsonPath,
