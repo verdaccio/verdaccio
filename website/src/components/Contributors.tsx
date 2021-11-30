@@ -114,16 +114,15 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
   return (
     <>
       <Layout
-        title="Contributors 2"
+        title="Contributors"
         description="Verdaccio Contributors, thanks to the community Verdaccio keeps running">
         <ThemeProvider theme={theme}>
-          <div style={{ display: 'flex', width: '100%', flexFlow: 'wrap' }}>
+          <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
             {contributors.map((item) => {
               const userItem = convertItemTo(item);
               return (
                 <div
                   role="button"
-                  tabIndex="0"
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
                   onKeyDown={() => handleClickOpen(userItem)}
@@ -217,7 +216,6 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                     })}
                   </List>
                 </div>
-                {/* {JSON.stringify(user.node.repositories, null, 2)} */}
               </DialogContent>
             </Dialog>
           )}
