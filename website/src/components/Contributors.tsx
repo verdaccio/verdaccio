@@ -123,6 +123,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
               return (
                 <div
                   role="button"
+                  tabIndex={0}
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
                   onKeyDown={() => handleClickOpen(userItem)}
