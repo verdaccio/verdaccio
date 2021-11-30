@@ -64,7 +64,7 @@ importers:
       concurrently: 6.3.0
       core-js: 3.17.2
       cross-env: 7.0.3
-      debug: 4.3.2
+      debug: 4.3.3
       detect-secrets: 1.0.6
       eslint: 7.32.0
       fs-extra: 10.0.0
@@ -154,7 +154,7 @@ importers:
       concurrently: 6.3.0
       core-js: 3.17.2
       cross-env: 7.0.3
-      debug: 4.3.2
+      debug: 4.3.3
       detect-secrets: 1.0.6
       eslint: 7.32.0
       fs-extra: 10.0.0
@@ -202,7 +202,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0
       cookies: 0.8.0
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
       mime: 2.6.0
@@ -221,7 +221,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0
       cookies: 0.8.0
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
       mime: 2.6.0
@@ -242,7 +242,7 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.12
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       jsonwebtoken: 8.5.1
       lodash: 4.17.21
@@ -253,7 +253,7 @@ importers:
       '@verdaccio/loaders': link:../loaders
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       jsonwebtoken: 8.5.1
       lodash: 4.17.21
@@ -293,7 +293,7 @@ importers:
       '@types/yup': 0.29.13
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
@@ -301,7 +301,7 @@ importers:
     dependencies:
       '@verdaccio/core': link:../core/core
       '@verdaccio/utils': link:../utils
-      debug: 4.3.2
+      debug: 4.3.3
       js-yaml: 3.14.1
       lodash: 4.17.21
       minimatch: 3.0.4
@@ -363,7 +363,7 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       fastify: 3.23.1
       fastify-plugin: 3.0.0
       lodash: 4.17.21
@@ -380,7 +380,7 @@ importers:
       '@verdaccio/utils': link:../../utils
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       fastify: 3.23.1
       fastify-plugin: 3.0.0
       lodash: 4.17.21
@@ -402,14 +402,14 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
       node-mocks-http: 1.10.1
     dependencies:
       '@verdaccio/core': link:../core
       '@verdaccio/url': link:../url
       '@verdaccio/utils': link:../../utils
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
     devDependencies:
       '@verdaccio/types': link:../types
@@ -427,13 +427,13 @@ importers:
     specifiers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
       node-mocks-http: 1.10.1
       validator: 13.7.0
     dependencies:
       '@verdaccio/core': link:../core
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
       validator: 13.7.0
     devDependencies:
@@ -449,7 +449,7 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/types': workspace:11.0.0-6-next.9
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       handlebars: 4.7.7
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
@@ -457,7 +457,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       handlebars: 4.7.7
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
@@ -474,11 +474,11 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/mock': workspace:6.0.0-6-next.12
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
     dependencies:
       '@verdaccio/logger': link:../logger
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
     devDependencies:
       '@verdaccio/config': link:../config
@@ -492,13 +492,13 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger-prettify': workspace:6.0.0-6-next.4
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
       pino: 6.13.3
     dependencies:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger-prettify': link:../logger-prettify
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
       pino: 6.13.3
     devDependencies:
@@ -531,7 +531,7 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       body-parser: 1.19.0
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
     dependencies:
       '@verdaccio/auth': link:../auth
@@ -539,7 +539,7 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
       body-parser: 1.19.0
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
 
   packages/node-api:
@@ -552,7 +552,7 @@ importers:
       '@verdaccio/server': workspace:6.0.0-6-next.23
       '@verdaccio/types': workspace:11.0.0-6-next.9
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       jest-mock-process: 1.4.1
       lodash: 4.17.21
       selfsigned: 1.10.11
@@ -563,7 +563,7 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.11.10
@@ -609,10 +609,10 @@ importers:
     specifiers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
     dependencies:
       '@verdaccio/core': link:../../core/core
-      debug: 4.3.2
+      debug: 4.3.3
     devDependencies:
       '@verdaccio/types': link:../../core/types
 
@@ -687,7 +687,7 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       async: 3.2.1
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       globby: 11.0.4
       lockfile: 1.0.4
       lodash: 4.17.21
@@ -701,7 +701,7 @@ importers:
       '@verdaccio/streams': link:../../core/streams
       async: 3.2.1
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       globby: 11.0.4
       lockfile: 1.0.4
       lodash: 4.17.21
@@ -720,13 +720,13 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      debug: 4.3.2
+      debug: 4.3.3
       memfs: 3.2.4
       memory-fs: 0.5.0
     dependencies:
       '@verdaccio/core': link:../../core/core
       '@verdaccio/streams': link:../../core/streams
-      debug: 4.3.2
+      debug: 4.3.3
       memfs: 3.2.4
       memory-fs: 0.5.0
     devDependencies:
@@ -903,7 +903,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
-      debug: 4.3.2
+      debug: 4.3.3
       get-stream: ^6.0.1
       JSONStream: 1.3.5
       lodash: 4.17.21
@@ -922,7 +922,7 @@ importers:
       '@verdaccio/streams': link:../core/streams
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
-      debug: 4.3.2
+      debug: 4.3.3
       JSONStream: 1.3.5
       lodash: 4.17.21
       node-fetch: 2.6.6
@@ -955,7 +955,7 @@ importers:
       '@verdaccio/web': workspace:6.0.0-6-next.21
       compression: 1.7.4
       cors: 2.8.5
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       express-rate-limit: 5.3.0
       http-errors: 1.8.0
@@ -975,7 +975,7 @@ importers:
       '@verdaccio/web': link:../web
       compression: 1.7.4
       cors: 2.8.5
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       express-rate-limit: 5.3.0
       lodash: 4.17.21
@@ -1021,7 +1021,7 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
       async: 3.1.1
-      debug: 4.3.2
+      debug: 4.3.3
       JSONStream: 1.3.5
       lodash: 4.17.21
       lunr: 2.3.9
@@ -1042,7 +1042,7 @@ importers:
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
       async: 3.1.1
-      debug: 4.3.2
+      debug: 4.3.3
       JSONStream: 1.3.5
       lodash: 4.17.21
       lunr: 2.3.9
@@ -1115,7 +1115,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       fs-extra: 10.0.0
       lodash: 4.17.21
       request: 2.87.0
@@ -1125,7 +1125,7 @@ importers:
       '@verdaccio/core': link:../../core/core
       '@verdaccio/utils': link:../../utils
       core-js: 3.17.2
-      debug: 4.3.2
+      debug: 4.3.3
       fs-extra: 10.0.0
       lodash: 4.17.21
       request: 2.87.0
@@ -1200,7 +1200,7 @@ importers:
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       body-parser: 1.19.0
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
       lru-cache: 6.0.0
@@ -1221,7 +1221,7 @@ importers:
       '@verdaccio/url': link:../core/url
       '@verdaccio/utils': link:../utils
       body-parser: 1.19.0
-      debug: 4.3.2
+      debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
       lru-cache: 6.0.0
@@ -1235,7 +1235,7 @@ importers:
 
   test/e2e-cli:
     specifiers:
-      debug: 4.3.2
+      debug: 4.3.3
       fs-extra: 10.0.0
       get-port: 5.1.1
       npm: 7.24.2
@@ -1245,7 +1245,7 @@ importers:
       wait-on: ^6.0.0
       yarn: 1.22.17
     dependencies:
-      debug: 4.3.2
+      debug: 4.3.3
       npm: 7.24.2
       pnpm: 6.20.3
       request: 2.87.0
@@ -1260,7 +1260,7 @@ importers:
     specifiers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
-      debug: 4.3.2
+      debug: 4.3.3
       kleur: 3.0.3
       lodash: 4.17.21
       puppeteer: 10.2.0
@@ -1269,7 +1269,7 @@ importers:
     devDependencies:
       '@verdaccio/core': link:../../packages/core/core
       '@verdaccio/ui-theme': link:../../packages/plugins/ui-theme
-      debug: 4.3.2
+      debug: 4.3.3
       kleur: 3.0.3
       lodash: 4.17.21
       puppeteer: 10.2.0
@@ -1540,7 +1540,7 @@ packages:
       '@babel/traverse': 7.16.3
       '@babel/types': 7.16.0
       convert-source-map: 1.7.0
-      debug: 4.3.2
+      debug: 4.3.3
       gensync: 1.0.0-beta.2
       json5: 2.2.0
       lodash: 4.17.21
@@ -1633,7 +1633,7 @@ packages:
       '@babel/traverse': 7.16.3
       '@babel/types': 7.16.0
       convert-source-map: 1.7.0
-      debug: 4.3.2
+      debug: 4.3.3
       gensync: 1.0.0-beta.2
       json5: 2.2.0
       semver: 6.3.0
@@ -1917,7 +1917,7 @@ packages:
       '@babel/helper-module-imports': 7.16.0
       '@babel/helper-plugin-utils': 7.14.5
       '@babel/traverse': 7.16.3
-      debug: 4.3.2
+      debug: 4.3.3
       lodash.debounce: 4.0.8
       resolve: 1.20.0
       semver: 6.3.0
@@ -5185,7 +5185,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.15.4
       '@babel/parser': 7.15.8
       '@babel/types': 7.15.6
-      debug: 4.3.2
+      debug: 4.3.3
       globals: 11.12.0
       lodash: 4.17.21
     transitivePeerDependencies:
@@ -5217,7 +5217,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.16.0
       '@babel/parser': 7.15.8
       '@babel/types': 7.16.0
-      debug: 4.3.2
+      debug: 4.3.3
       globals: 11.12.0
       lodash: 4.17.21
     transitivePeerDependencies:
@@ -5268,7 +5268,7 @@ packages:
       '@babel/helper-split-export-declaration': 7.16.0
       '@babel/parser': 7.16.3
       '@babel/types': 7.16.0
-      debug: 4.3.2
+      debug: 4.3.3
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -6562,7 +6562,7 @@ packages:
     engines: {node: ^10.12.0 || >=12.0.0}
     dependencies:
       ajv: 6.12.6
-      debug: 4.3.2
+      debug: 4.3.3
       espree: 7.3.1
       globals: 13.11.0
       ignore: 4.0.6
@@ -6734,7 +6734,7 @@ packages:
     engines: {node: '>=10.10.0'}
     dependencies:
       '@humanwhocodes/object-schema': 1.2.0
-      debug: 4.3.2
+      debug: 4.3.3
       minimatch: 3.0.4
     transitivePeerDependencies:
       - supports-color
@@ -8253,7 +8253,7 @@ packages:
       '@typescript-eslint/experimental-utils': 4.33.0_eslint@7.32.0+typescript@4.4.4
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
       '@typescript-eslint/scope-manager': 4.33.0
-      debug: 4.3.2
+      debug: 4.3.3
       eslint: 7.32.0
       functional-red-black-tree: 1.0.1
       ignore: 5.1.8
@@ -8314,7 +8314,7 @@ packages:
       '@typescript-eslint/scope-manager': 4.33.0
       '@typescript-eslint/types': 4.33.0
       '@typescript-eslint/typescript-estree': 4.33.0_typescript@4.4.4
-      debug: 4.3.2
+      debug: 4.3.3
       eslint: 7.32.0
       typescript: 4.4.4
     transitivePeerDependencies:
@@ -8379,7 +8379,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 4.33.0
       '@typescript-eslint/visitor-keys': 4.33.0
-      debug: 4.3.2
+      debug: 4.3.3
       globby: 11.0.4
       is-glob: 4.0.1
       semver: 7.3.5
@@ -9386,7 +9386,7 @@ packages:
     resolution: {integrity: sha512-b+gox68dqD6c3S3t+bZBKN6rYbVWdwpN12sHQLFTiacDT2rcq7fm07Ww+IKt/AvAkyCIe1f5ArP1bC/vAlx97A==}
     dependencies:
       archy: 1.0.0
-      debug: 4.3.2
+      debug: 4.3.3
       fastq: 1.11.0
       queue-microtask: 1.2.3
     transitivePeerDependencies:
@@ -11578,6 +11578,17 @@ packages:
       ms: 2.1.2
       supports-color: 6.1.0
 
+  /debug/4.3.3:
+    resolution: {integrity: sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==}
+    engines: {node: '>=6.0'}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.2
+
   /decamelize-keys/1.1.0:
     resolution: {integrity: sha1-0XGoeTMlKAfrPLYdwcFEXQeN8tk=}
     engines: {node: '>=0.10.0'}
@@ -11781,7 +11792,7 @@ packages:
     engines: {node: '>=8.0.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.3
       which: 1.3.1
     transitivePeerDependencies:
       - supports-color
@@ -12679,7 +12690,7 @@ packages:
       ajv: 6.12.6
       chalk: 4.1.1
       cross-spawn: 7.0.3
-      debug: 4.3.2
+      debug: 4.3.3
       doctrine: 3.0.0
       enquirer: 2.3.6
       escape-string-regexp: 4.0.0
@@ -12998,7 +13009,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.2
+      debug: 4.3.3
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -15214,7 +15225,7 @@ packages:
     resolution: {integrity: sha512-c16LpFRkR8vQXyHZ5nLpY35JZtzj1PQY1iZmesUbf1FZHbIupcWfjgOXBY9YHkLEQ6puz1u4Dgj6qmU/DisrZg==}
     engines: {node: '>=8'}
     dependencies:
-      debug: 4.3.2
+      debug: 4.3.3
       istanbul-lib-coverage: 3.0.0
       source-map: 0.6.1
     transitivePeerDependencies:
@@ -16300,7 +16311,7 @@ packages:
       cli-truncate: 2.1.0
       commander: 7.2.0
       cosmiconfig: 7.0.0
-      debug: 4.3.2
+      debug: 4.3.3
       enquirer: 2.3.6
       execa: 5.1.1
       listr2: 3.11.1_enquirer@2.3.6
@@ -17275,7 +17286,7 @@ packages:
     resolution: {integrity: sha512-sKZltNkkWblkqqPAsjYW0bm3s9DcHRPiMOyKO/PkfJ+ANHZ2+LA2PLe22r4lLrKgXaiSaDQwW3qGsJFtIpQIeQ==}
     engines: {node: '>= 10.13'}
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.3
       json-stringify-safe: 5.0.1
       lodash.set: 4.3.2
       propagate: 2.0.1
@@ -22832,7 +22843,7 @@ packages:
       cookies: 0.8.0
       cors: 2.8.5
       dayjs: 1.10.7
-      debug: 4.3.2
+      debug: 4.3.3
       envinfo: 7.8.1
       eslint-import-resolver-node: 0.3.4
       express: 4.17.1

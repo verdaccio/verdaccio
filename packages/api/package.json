@@ -50,7 +50,7 @@
     "@verdaccio/utils": "workspace:6.0.0-6-next.9",
     "abortcontroller-polyfill": "1.7.3",
     "cookies": "0.8.0",
-    "debug": "4.3.2",
+    "debug": "4.3.3",
     "body-parser": "1.19.0",
     "express": "4.17.1",
     "lodash": "4.17.21",
