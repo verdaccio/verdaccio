@@ -20,7 +20,7 @@ import MergeTypeIcon from '@material-ui/icons/MergeType';
 import StarIcon from '@material-ui/icons/Star';
 import Layout from '@theme/Layout';
 import React from 'react';
-
+import Translate, { translate } from '@docusaurus/Translate';
 const generateImage = (id) => `https://avatars3.githubusercontent.com/u/${id}?s=120&v=4`;
 
 const theme = createMuiTheme({
@@ -116,7 +116,26 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
       <Layout
         title="Contributors"
         description="Verdaccio Contributors, thanks to the community Verdaccio keeps running">
+
+
         <ThemeProvider theme={theme}>
+          <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>  
+            <header>
+              <h1>
+                <Translate>Contributors</Translate>
+              </h1>
+              <p>
+                <Translate>
+                  Thanks to everyone involved in maintaining and improving Verdaccio, this page is to
+                  thank you every minute spent here.
+                </Translate>{' '}
+                <b>
+                  <Translate>Thanks</Translate>
+                </b>
+              </p>
+              </header>
+          </div>
+
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
             {contributors.map((item) => {
               const userItem = convertItemTo(item);
