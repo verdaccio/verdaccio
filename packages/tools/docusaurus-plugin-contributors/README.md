@@ -1,4 +1,6 @@
-# Contributors Page
+# Contributors Page for Docusaurus Website
+
+[https://verdaccio.org/contributors](https://verdaccio.org/contributors)
 
 It generates a dynamic page to render contributors based on a source file `contributors.json` file.
 
