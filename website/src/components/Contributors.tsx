@@ -1,4 +1,4 @@
-import Translate, { translate } from '@docusaurus/Translate';
+import Translate from '@docusaurus/Translate';
 import { ListItemSecondaryAction, Tooltip } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
