@@ -186,7 +186,7 @@ importers:
 
   packages/api:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -227,7 +227,7 @@ importers:
       mime: 2.6.0
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/server': link:../server
       '@verdaccio/types': link:../core/types
@@ -351,7 +351,7 @@ importers:
 
   packages/core/server:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -386,9 +386,9 @@ importers:
       lodash: 4.17.21
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/types': link:../types
-      ts-node: 10.2.1_7540702c48b7fe50dc1d100cfa6ffcf4
+      ts-node: 10.2.1_e96d100b8ba74e1707fe67af2ba5316c
 
   packages/core/streams:
     specifiers:
@@ -442,7 +442,7 @@ importers:
 
   packages/hooks:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -462,7 +462,7 @@ importers:
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/types': link:../core/types
@@ -544,7 +544,7 @@ importers:
 
   packages/node-api:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
@@ -566,7 +566,7 @@ importers:
       debug: 4.3.3
       lodash: 4.17.21
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.4.1_jest@27.3.1
@@ -894,7 +894,7 @@ importers:
 
   packages/proxy:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
@@ -930,7 +930,7 @@ importers:
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/types': link:../core/types
       get-stream: 6.0.1
       nock: 13.0.11
@@ -939,7 +939,7 @@ importers:
 
   packages/server:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/api': workspace:6.0.0-6-next.18
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
@@ -981,7 +981,7 @@ importers:
       lodash: 4.17.21
       verdaccio-audit: link:../plugins/audit
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/proxy': link:../proxy
@@ -1008,7 +1008,7 @@ importers:
 
   packages/store:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
@@ -1050,7 +1050,7 @@ importers:
       merge2: 1.4.1
       semver: 7.3.5
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       tmp-promise: 3.0.3
@@ -1194,7 +1194,7 @@ importers:
 
   packages/web:
     specifiers:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
@@ -1234,7 +1234,7 @@ importers:
       lodash: 4.17.21
       lru-cache: 6.0.0
     devDependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       '@verdaccio/types': link:../core/types
       node-html-parser: 4.1.5
       supertest: 6.1.6
@@ -8110,6 +8110,10 @@ packages:
 
   /@types/node/16.11.10:
     resolution: {integrity: sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==}
+    dev: true
+
+  /@types/node/16.11.11:
+    resolution: {integrity: sha512-KB0sixD67CeecHC33MYn+eYARkqTheIRNuu97y2XMjR7Wu3XibO1vaY6VBV6O/a89SPI81cEUIYT87UqUWlZNw==}
     dev: true
 
   /@types/node/16.11.6:
@@ -22332,7 +22336,7 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /ts-node/10.2.1_7540702c48b7fe50dc1d100cfa6ffcf4:
+  /ts-node/10.2.1_e96d100b8ba74e1707fe67af2ba5316c:
     resolution: {integrity: sha512-hCnyOyuGmD5wHleOQX6NIjJtYVIO8bPP8F2acWkB4W06wdlkgyvJtubO/I9NkI88hCFECbsEgoLc0VNkYmcSfw==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -22352,7 +22356,7 @@ packages:
       '@tsconfig/node12': 1.0.7
       '@tsconfig/node14': 1.0.0
       '@tsconfig/node16': 1.0.2
-      '@types/node': 16.11.10
+      '@types/node': 16.11.11
       acorn: 8.4.1
       acorn-walk: 8.1.1
       arg: 4.1.3
