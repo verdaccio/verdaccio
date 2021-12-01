@@ -112,6 +112,12 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
     setUser(null);
   };
 
+  const handleKeyDown = (event, userItem) => {
+    if (event.keyCode === 13) {
+      handleClickOpen(userItem);
+    }
+  };
+
   return (
     <>
       <Layout
@@ -121,30 +127,31 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
             <header>
               <h1>
-                <Translate>Contributors</Translate>
+                <Translate>Contributors </Translate>
+                <span>({contributors.length}) 🎉🎉🎉</span>
               </h1>
               <p>
                 <Translate>
-                  Thanks to everyone involved in maintaining and improving Verdaccio, this page is
-                  to thank you every minute spent here.
-                </Translate>{' '}
-                <b>
-                  <Translate>Thanks</Translate>
+                  Thanks to everyone involved in maintaining and improving Verdaccio, this page is a
+                  way to thank you for all the effort you have put on it.
+                </Translate>
+                <b style={{ marginLeft: '0.5rem' }}>
+                  <Translate>Thanks</Translate>!!!
                 </b>
               </p>
             </header>
           </div>
 
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
-            {contributors.map((item) => {
+            {contributors.map((item, index) => {
               const userItem = convertItemTo(item);
               return (
                 <div
                   role="button"
-                  tabIndex={0}
+                  tabIndex={index}
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
-                  onKeyDown={() => handleClickOpen(userItem)}
+                  onKeyDown={(event) => handleKeyDown(event, userItem)}
                   onClick={() => handleClickOpen(userItem)}>
                   <Avatar
                     src={generateImage(userItem.node.userId)}
