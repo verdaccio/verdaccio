@@ -55,7 +55,7 @@
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
-    "@types/node": "16.11.10",
+    "@types/node": "16.11.11",
     "@verdaccio/types": "workspace:11.0.0-6-next.9",
     "get-stream": "^6.0.1",
     "nock": "13.0.11",

@@ -39,7 +39,7 @@
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
-    "@types/node": "16.11.10",
+    "@types/node": "16.11.11",
     "@verdaccio/auth": "workspace:6.0.0-6-next.15",
     "@verdaccio/config": "workspace:6.0.0-6-next.11",
     "@verdaccio/types": "workspace:11.0.0-6-next.9"
