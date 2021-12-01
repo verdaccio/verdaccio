@@ -112,6 +112,12 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
     setUser(null);
   };
 
+  const handleKeyDown = (event, userItem) => {
+    if (event.keyCode === 13) {
+      handleClickOpen(userItem);
+    }
+  };
+
   return (
     <>
       <Layout
@@ -121,30 +127,32 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
             <header>
               <h1>
-                <Translate>Contributors</Translate>
+                <Translate>Contributors </Translate>
+                <span>({contributors.length}) 🎉🎉🎉</span>
               </h1>
               <p>
                 <Translate>
-                  Thanks to everyone involved in maintaining and improving Verdaccio, this page is
-                  to thank you every minute spent here.
-                </Translate>{' '}
-                <b>
-                  <Translate>Thanks</Translate>
+                  Thanks to everyone involved in maintaining and improving Verdaccio, this page is a
+                  way to thank you for all the effort you have put on it.
+                </Translate>
+                <b style={{ marginLeft: '0.5rem' }}>
+                  <Translate>Thanks</Translate>!!!
                 </b>
               </p>
             </header>
           </div>
 
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
-            {contributors.map((item) => {
+            {contributors.map((item, index) => {
               const userItem = convertItemTo(item);
               return (
                 <div
+                  title={userItem.node.url}
                   role="button"
-                  tabIndex={0}
+                  tabIndex={index}
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
-                  onKeyDown={() => handleClickOpen(userItem)}
+                  onKeyDown={(event) => handleKeyDown(event, userItem)}
                   onClick={() => handleClickOpen(userItem)}>
                   <Avatar
                     src={generateImage(userItem.node.userId)}
@@ -158,8 +166,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
           {user && (
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
               <DialogTitle id="simple-dialog-title">
-                <Grid container alignContent="center-flex" alignItems="center" justify="center">
-                  <Grid item lg="3" md="3" sm="3">
+                <Grid container justifyContent="center" alignItems="center" justify="center">
+                  <Grid item lg={3} md={3} sm={3}>
                     <a
                       href={'https://github.com/' + user.node.url}
                       target="_blank"
@@ -171,10 +179,10 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                       />
                     </a>
                   </Grid>
-                  <Grid item lg="6" md="6" sm="6">
+                  <Grid lg={6} md={6} sm={6}>
                     <Typography variant="h6">{user.node.url}</Typography>
                   </Grid>
-                  <Grid lg="2" md="2" sm="2">
+                  <Grid lg={2} md={2} sm={2}>
                     <Chip
                       icon={<EmojiEventsIcon className={classes.emojiEvent} />}
                       label={user.node.contributions}
@@ -223,7 +231,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                               href={'https://github.com/' + repo.full_name + '/stargazers'}
                               target="_blank"
                               rel="noreferrer">
-                              <IconButton edges="end" aria-label="delete">
+                              <IconButton edge="end" aria-label="delete">
                                 <StyledBadge badgeContent={repo.staergezers} max={999}>
                                   <StarIcon className={classes.starColor} />
                                 </StyledBadge>
