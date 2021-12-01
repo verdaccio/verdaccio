@@ -147,6 +147,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
               const userItem = convertItemTo(item);
               return (
                 <div
+                  title= { userItem.node.url}
                   role="button"
                   tabIndex={index}
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
@@ -165,10 +166,11 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
           {user && (
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
               <DialogTitle id="simple-dialog-title">
-                <Grid container alignContent="center-flex" alignItems="center" justify="center">
-                  <Grid item lg="3" md="3" sm="3">
+                <Grid container justifyContent="center" alignItems="center" justify="center">
+                  <Grid item lg={3}  md={3} sm={3}>
                     <a
                       href={'https://github.com/' + user.node.url}
+
                       target="_blank"
                       rel="noreferrer">
                       <Avatar
@@ -178,10 +180,10 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                       />
                     </a>
                   </Grid>
-                  <Grid item lg="6" md="6" sm="6">
+                  <Grid lg={6} md={6} sm={6}>
                     <Typography variant="h6">{user.node.url}</Typography>
                   </Grid>
-                  <Grid lg="2" md="2" sm="2">
+                  <Grid lg={2} md={2} sm={2}>
                     <Chip
                       icon={<EmojiEventsIcon className={classes.emojiEvent} />}
                       label={user.node.contributions}
@@ -204,7 +206,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                           rel="noreferrer">
                           <ListItemIcon>
                             <Badge
-                              badgeContent={repo.contributions}
+                              badgeContent={repo.contributions} 
                               color="green"
                               max={9999}
                               anchorOrigin={{
@@ -230,7 +232,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                               href={'https://github.com/' + repo.full_name + '/stargazers'}
                               target="_blank"
                               rel="noreferrer">
-                              <IconButton edges="end" aria-label="delete">
+                              <IconButton edge="end" aria-label="delete">
                                 <StyledBadge badgeContent={repo.staergezers} max={999}>
                                   <StarIcon className={classes.starColor} />
                                 </StyledBadge>
