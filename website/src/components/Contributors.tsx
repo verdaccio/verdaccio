@@ -147,7 +147,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
               const userItem = convertItemTo(item);
               return (
                 <div
-                  title= { userItem.node.url}
+                  title={userItem.node.url}
                   role="button"
                   tabIndex={index}
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
@@ -167,10 +167,9 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
               <DialogTitle id="simple-dialog-title">
                 <Grid container justifyContent="center" alignItems="center" justify="center">
-                  <Grid item lg={3}  md={3} sm={3}>
+                  <Grid item lg={3} md={3} sm={3}>
                     <a
                       href={'https://github.com/' + user.node.url}
-
                       target="_blank"
                       rel="noreferrer">
                       <Avatar
@@ -206,7 +205,7 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                           rel="noreferrer">
                           <ListItemIcon>
                             <Badge
-                              badgeContent={repo.contributions} 
+                              badgeContent={repo.contributions}
                               color="green"
                               max={9999}
                               anchorOrigin={{
