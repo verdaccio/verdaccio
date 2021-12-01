@@ -3516,14 +3516,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.0.1":
-  version: 10.0.1
-  resolution: "@verdaccio/readme@npm:10.0.1"
+"@verdaccio/readme@npm:10.1.0":
+  version: 10.1.0
+  resolution: "@verdaccio/readme@npm:10.1.0"
   dependencies:
     dompurify: ^2.2.6
     jsdom: 15.2.1
     marked: ^2.0.1
-  checksum: fa9671f10dcc84058051aea33212904b383354c3f9aaa0e74f16deb3c7d5dee8396c2804f42b5f636a3b8787ed3a4c9de7908dae8a907196182c7e80019d261f
+  checksum: 0d116bbd32b9f880d9cea7b6fe1a0fee0923f06472144c2c9001bf0680f76845704762c825cc372ea64f955af7817d4f21e685caec11b2fad93b9cc9c63c43e8
   languageName: node
   linkType: hard
 
@@ -14010,7 +14010,7 @@ typescript@4.1.3:
     "@verdaccio/commons-api": 10.0.2
     "@verdaccio/eslint-config": ^8.5.0
     "@verdaccio/local-storage": 10.0.8
-    "@verdaccio/readme": 10.0.1
+    "@verdaccio/readme": 10.1.0
     "@verdaccio/streams": 10.0.1
     "@verdaccio/types": ^9.7.2
     "@verdaccio/ui-theme": 3.2.1

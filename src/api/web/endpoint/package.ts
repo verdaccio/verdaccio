@@ -100,7 +100,9 @@ function addPackageWebApi(route: Router, storage: IStorageHandler, auth: IAuth, 
         }
 
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN);
-        next(parseReadme(info.name, info.readme));
+        const referer = req.get('Referer');
+        const pathname = referer ? (new URL(referer)).pathname : undefined;
+        next(parseReadme(info.name, info.readme, {pathname}));
       },
     });
   });
