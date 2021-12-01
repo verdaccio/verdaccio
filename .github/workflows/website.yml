@@ -47,7 +47,8 @@ jobs:
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
-
+      - name: Build Plugins
+        run: pnpm build --filter "docusaurus-plugin-contributors"
       - name: Lint And Pretty
         run: |
           pnpm eslint:check --filter ...@verdaccio/website
@@ -82,13 +83,11 @@ jobs:
 
       # Will deploy to Preview URL, only when a pull request is open with changes on the website
       - name: Build Deployment Preview
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         env:
           CONTEXT: deploy-preview
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
 
       - name: 🤖 Deploy Preview Netlify
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         uses: semoal/action-netlify-deploy@master
         id: netlify_preview
         with:
@@ -102,7 +101,6 @@ jobs:
           build-dir: './website/build'
 
       - name: Audit preview URL with Lighthouse
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@v3
         with:
@@ -112,7 +110,6 @@ jobs:
           temporaryPublicStorage: true
 
       - name: Format lighthouse score
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         id: format_lighthouse_score
         uses: actions/github-script@v3
         with:
@@ -137,7 +134,6 @@ jobs:
              core.setOutput("comment", comment);
 
       - name: Add comment to PR
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/master' && github.event.label.name == 'trigger-preview'
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v1
         with:
