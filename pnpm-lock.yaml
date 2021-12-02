@@ -759,7 +759,7 @@ importers:
       babel-loader: 8.2.3
       babel-plugin-dynamic-import-node: 2.3.3
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.16
+      country-flag-icons: 1.4.17
       css-loader: 6.5.1
       dayjs: 1.10.7
       friendly-errors-webpack-plugin: 1.7.0
@@ -838,7 +838,7 @@ importers:
       babel-loader: 8.2.3_be81cc65d07bf09c94d0221c44c664ac
       babel-plugin-dynamic-import-node: 2.3.3
       bundlesize: 0.18.1
-      country-flag-icons: 1.4.16
+      country-flag-icons: 1.4.17
       css-loader: 6.5.1_webpack@5.64.0
       dayjs: 1.10.7
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.64.0
@@ -11169,8 +11169,8 @@ packages:
       path-type: 4.0.0
       yaml: 1.10.2
 
-  /country-flag-icons/1.4.16:
-    resolution: {integrity: sha512-gHeNVG9lMJAXYJ/lM9ssHeJi+6cBMsI5546r4zg10UV2Un/PQ1li0Xgiw2zvsWWbuD2xqfrn8U5sTIFHp2G01g==}
+  /country-flag-icons/1.4.17:
+    resolution: {integrity: sha512-evlsgNrAgT23OVz6CxHljLaSnicCyKXZmNS7IgCUfeLin7/ipUulg3PAR4Tk1RBnc3T5hIxT0f/xRAyD0lqJNA==}
     dev: true
 
   /create-require/1.1.1:
