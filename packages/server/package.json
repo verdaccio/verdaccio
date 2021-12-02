@@ -53,7 +53,7 @@
     "@verdaccio/mock": "workspace:6.0.0-6-next.12",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.15",
     "@verdaccio/helper": "1.0.0",
-    "http-errors": "1.8.0",
+    "http-errors": "1.8.1",
     "request": "2.87.0"
   },
   "scripts": {
