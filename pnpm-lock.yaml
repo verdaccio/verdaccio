@@ -44,7 +44,7 @@ importers:
       '@types/request': 2.48.7
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
-      '@types/testing-library__jest-dom': 5.14.1
+      '@types/testing-library__jest-dom': 5.14.2
       '@types/validator': 13.6.6
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.16.3
@@ -134,7 +134,7 @@ importers:
       '@types/request': 2.48.7
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
-      '@types/testing-library__jest-dom': 5.14.1
+      '@types/testing-library__jest-dom': 5.14.2
       '@types/validator': 13.6.6
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.16.3
@@ -8352,8 +8352,8 @@ packages:
       '@types/superagent': 4.1.10
     dev: true
 
-  /@types/testing-library__jest-dom/5.14.1:
-    resolution: {integrity: sha512-Gk9vaXfbzc5zCXI9eYE9BI5BNHEp4D3FWjgqBE/ePGYElLAP+KvxBcsdkwfIVvezs605oiyd/VrpiHe3Oeg+Aw==}
+  /@types/testing-library__jest-dom/5.14.2:
+    resolution: {integrity: sha512-vehbtyHUShPxIa9SioxDwCvgxukDMH//icJG90sXQBUm5lJOHLT5kNeU9tnivhnA/TkOFMzGIXN2cTc4hY8/kg==}
     dependencies:
       '@types/jest': 27.0.3
     dev: true
