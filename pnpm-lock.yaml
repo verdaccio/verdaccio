@@ -79,7 +79,7 @@ importers:
       lint-staged: 11.1.2
       nock: 12.0.3
       node-fetch: 3.0.0-beta.6-exportfix
-      nodemon: 2.0.14
+      nodemon: 2.0.15
       npm-run-all: 4.1.5
       prettier: 2.3.2
       rimraf: 3.0.2
@@ -169,7 +169,7 @@ importers:
       lint-staged: 11.1.2
       nock: 12.0.3
       node-fetch: 3.0.0-beta.6-exportfix
-      nodemon: 2.0.14
+      nodemon: 2.0.15
       npm-run-all: 4.1.5
       prettier: 2.3.2
       rimraf: 3.0.2
@@ -17572,8 +17572,8 @@ packages:
     resolution: {integrity: sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA==}
     dev: true
 
-  /nodemon/2.0.14:
-    resolution: {integrity: sha512-frcpDx+PviKEQRSYzwhckuO2zoHcBYLHI754RE9z5h1RGtrngerc04mLpQQCPWBkH/2ObrX7We9YiwVSYZpFJQ==}
+  /nodemon/2.0.15:
+    resolution: {integrity: sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     requiresBuild: true
@@ -17586,7 +17586,7 @@ packages:
       semver: 5.7.1
       supports-color: 5.5.0
       touch: 3.1.0
-      undefsafe: 2.0.3
+      undefsafe: 2.0.5
       update-notifier: 5.1.0
     dev: true
 
@@ -22559,10 +22559,8 @@ packages:
       through: 2.3.8
     dev: true
 
-  /undefsafe/2.0.3:
-    resolution: {integrity: sha512-nrXZwwXrD/T/JXeygJqdCO6NZZ1L66HrxM/Z7mIq2oPanoN0F1nLx3lwJMu6AwJY69hdixaFQOuoYsMjE5/C2A==}
-    dependencies:
-      debug: 2.6.9
+  /undefsafe/2.0.5:
+    resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
 
   /undici-fetch/1.0.0-rc.4:
