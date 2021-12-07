@@ -152,7 +152,7 @@ export async function initServer(
 
     for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
       // Use once() so that receiving double signals exit the app.
-      process.once(signal, handleShutdownGracefully)
+      process.once(signal, handleShutdownGracefully);
     }
   });
 }
