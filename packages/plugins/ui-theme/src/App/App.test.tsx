@@ -66,7 +66,7 @@ describe('<App />', () => {
           expect(queryByTestId('greetings-label')).toBeFalsy();
         }
       }
-    });
+    }, 10000);
 
     test('isUserAlreadyLoggedIn: token already available in storage', async () => {
       const { queryByTestId, queryAllByText } = renderWithStore(<App />, store);
@@ -90,7 +90,7 @@ describe('<App />', () => {
           expect(queryAllByText('verdaccio')).toBeTruthy();
         }
       }
-    });
+    }, 10000);
   });
 
   describe('list packages', () => {
