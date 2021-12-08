@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/verdaccio/verdaccio/compare/v5.2.2...v5.3.0) (2021-12-08)
+
+
+### Bug Fixes
+
+* markdown anchor links in package readme.md broken [#2712](https://github.com/verdaccio/verdaccio/issues/2712) ([820c9d5](https://github.com/verdaccio/verdaccio/commit/820c9d5db2fe7e99cab3c75c431b8df7dfd096d0))
+* update pnpm and bum up core deps ([#2716](https://github.com/verdaccio/verdaccio/issues/2716)) ([60cd25c](https://github.com/verdaccio/verdaccio/commit/60cd25ce4fe107f7d25780447289b6fb0e21d4b6))
+* **deps:** update dependency @verdaccio/commons-api to v10.0.2 ([#2706](https://github.com/verdaccio/verdaccio/issues/2706)) ([73d565f](https://github.com/verdaccio/verdaccio/commit/73d565f5f558b7746f538d8fbbb15ea24dcedb23))
+* **deps:** update dependency @verdaccio/readme to v10.0.1 ([#2708](https://github.com/verdaccio/verdaccio/issues/2708)) ([41cadcc](https://github.com/verdaccio/verdaccio/commit/41cadccaef358bb11f4b2f015b0885f32dffa91a))
+* **deps:** update dependency @verdaccio/streams to v10.0.1 ([#2709](https://github.com/verdaccio/verdaccio/issues/2709)) ([74d7d02](https://github.com/verdaccio/verdaccio/commit/74d7d02c396185f76767f234592eb14f497d7929))
+* **deps:** update dependency http-errors to v1.8.1 ([#2705](https://github.com/verdaccio/verdaccio/issues/2705)) ([eee19a5](https://github.com/verdaccio/verdaccio/commit/eee19a5f791dd93f4ee078243ed310fa88aa5ae7))
+* **deps:** update dependency verdaccio-audit to v10.0.3 ([#2710](https://github.com/verdaccio/verdaccio/issues/2710)) ([8c074e8](https://github.com/verdaccio/verdaccio/commit/8c074e8f24e61e9c399bf4f2e6dbaa0d5d5da9fd))
+* **deps:** update dependency verdaccio-htpasswd to v10.0.1 ([#2711](https://github.com/verdaccio/verdaccio/issues/2711)) ([8e28848](https://github.com/verdaccio/verdaccio/commit/8e2884836b4d8a659ca1cec80794c7e30ef6c208))
+
 ### [5.2.2](https://github.com/verdaccio/verdaccio/compare/v5.2.1...v5.2.2) (2021-11-08)
 
 
