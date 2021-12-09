@@ -57,7 +57,7 @@ jobs:
           # - local
           - 3.13.1
           - 4.12.2
-          - 5.2.2
+          - 5.3.0
           - 6.0.0-6-next.27
     name: Benchmark autocannon
     runs-on: ubuntu-latest
@@ -118,7 +118,7 @@ jobs:
           # old versions to compare same test along previous releases
           - 3.13.1
           - 4.12.2
-          - 5.2.2
+          - 5.3.0
           - 6.0.0-6-next.27
     name: Benchmark hyperfine
     runs-on: ubuntu-latest
