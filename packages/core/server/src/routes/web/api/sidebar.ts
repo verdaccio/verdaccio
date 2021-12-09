@@ -14,12 +14,11 @@ import {
 
 const debug = buildDebug('verdaccio:web:api:sidebar');
 export type $SidebarPackage = Package & { latest: Version };
-const scopeParam = { type: 'string' };
-const packageNameParam = { type: 'string' };
-const packageNameSchema = { packageName: packageNameParam };
+const stringType = { type: 'string' };
+const packageNameSchema = { packageName: stringType };
 const paramsSchema = {
-  scope: scopeParam,
-  packageName: packageNameParam,
+  scope: stringType,
+  packageName: stringType,
 };
 
 async function sidebarRoute(fastify: FastifyInstance) {
