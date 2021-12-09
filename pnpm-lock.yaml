@@ -364,7 +364,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.3
-      fastify: 3.23.1
+      fastify: 3.24.1
       fastify-plugin: 3.0.0
       lodash: 4.17.21
       semver: 7.3.5
@@ -381,7 +381,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.3
-      fastify: 3.23.1
+      fastify: 3.24.1
       fastify-plugin: 3.0.0
       lodash: 4.17.21
       semver: 7.3.5
@@ -1172,7 +1172,7 @@ importers:
       '@verdaccio/store': workspace:6.0.0-6-next.16
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.12
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      fastify: 3.23.1
+      fastify: 3.24.1
       verdaccio-audit: workspace:11.0.0-6-next.7
       verdaccio-htpasswd: workspace:11.0.0-6-next.10
     dependencies:
@@ -1190,7 +1190,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/store': link:../store
-      fastify: 3.23.1
+      fastify: 3.24.1
 
   packages/web:
     specifiers:
@@ -12288,8 +12288,8 @@ packages:
   /fastify-warning/0.2.0:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
 
-  /fastify/3.23.1:
-    resolution: {integrity: sha512-Y+HasdpVHpr96W+gLKJXuKBVA4ydXUoW4khGtCnsE9E6R1C4MXlg5x/m3shyeR3xTDZwPBwu39FlUIgjsyLhGw==}
+  /fastify/3.24.1:
+    resolution: {integrity: sha512-ZL0V6u37d65tAY8lMwVMFtFvnEeJcG80QBNSdChqCm4i4x+is/38OU14gzJuRXhpenTL+pTJzNcu5Kn1ouzM3Q==}
     dependencies:
       '@fastify/ajv-compiler': 1.1.0
       abstract-logging: 2.0.1
