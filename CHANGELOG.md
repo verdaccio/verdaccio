@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.1](https://github.com/verdaccio/verdaccio/compare/v5.3.0...v5.3.1) (2021-12-11)
+
+
+### Bug Fixes
+
+* conflict core-js dependency ([#2754](https://github.com/verdaccio/verdaccio/issues/2754)) ([29d4551](https://github.com/verdaccio/verdaccio/commit/29d4551e5bfc066a5ff7109786a73ec8e782a65f))
+
 ## [5.3.0](https://github.com/verdaccio/verdaccio/compare/v5.2.2...v5.3.0) (2021-12-08)
 
 
