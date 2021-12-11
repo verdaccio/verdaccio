@@ -196,7 +196,6 @@ importers:
       '@verdaccio/middleware': workspace:6.0.0-6-next.15
       '@verdaccio/server': workspace:6.0.0-6-next.23
       '@verdaccio/store': workspace:6.0.0-6-next.16
-      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
@@ -216,7 +215,6 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/middleware': link:../middleware
       '@verdaccio/store': link:../store
-      '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0

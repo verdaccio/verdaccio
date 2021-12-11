@@ -1,14 +1,10 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import _ from 'lodash';
 
 import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, DIST_TAGS, HEADERS, errorUtils } from '@verdaccio/core';
+import { HEADERS } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Package } from '@verdaccio/types';
-import { getVersion } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
@@ -18,7 +14,7 @@ const downloadStream = (
   packageName: string,
   filename: string,
   storage: any,
-  req: $RequestExtend,
+  _req: $RequestExtend,
   res: $ResponseExtend
 ): void => {
   const stream = storage.getTarball(packageName, filename);

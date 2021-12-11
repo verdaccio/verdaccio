@@ -46,7 +46,6 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.7",
     "@verdaccio/middleware": "workspace:6.0.0-6-next.15",
     "@verdaccio/store": "workspace:6.0.0-6-next.16",
-    "@verdaccio/tarball": "workspace:11.0.0-6-next.10",
     "@verdaccio/utils": "workspace:6.0.0-6-next.9",
     "abortcontroller-polyfill": "1.7.3",
     "cookies": "0.8.0",

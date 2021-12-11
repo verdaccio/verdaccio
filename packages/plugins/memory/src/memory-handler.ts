@@ -91,6 +91,15 @@ class MemoryHandler implements IPackageStorageManager {
     }
   }
 
+  public async readPackageNext(name: string): Promise<Package> {
+    const json = this._getStorage(name);
+    try {
+      return typeof json === 'undefined' ? errorUtils.getNotFound() : null, parsePackage(json);
+    } catch (err: any) {
+      throw errorUtils.getNotFound();
+    }
+  }
+
   public readPackage(name: string, cb: ReadPackageCallback): void {
     debug('read package %o', name);
     const json = this._getStorage(name);
