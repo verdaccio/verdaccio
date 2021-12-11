@@ -35,7 +35,7 @@ describe('package', () => {
     app = await initializeServer('package.yaml');
   });
 
-  test.only('should return a package', async () => {
+  test('should return a package', async () => {
     await publishVersion(app, 'package.yaml', 'foo', '1.0.0');
     return new Promise((resolve) => {
       supertest(app)
