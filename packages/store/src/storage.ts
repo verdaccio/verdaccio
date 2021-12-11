@@ -384,7 +384,7 @@ class Storage {
       }
 
       // we have version, so we need to return specific version
-      const queryVersion = options.version;
+      const queryVersion = options.version as string;
       const version: Version | undefined = getVersion(convertedManifest.versions, options.version);
       debug('query by latest version %o and result %o', options.version, version);
       if (typeof version !== 'undefined') {
@@ -394,7 +394,6 @@ class Storage {
 
       // the version could be a dist-tag eg: beta, alpha, so we find the matched version
       // on disg-tag list
-      let newQueryVersion: string = queryVersion;
       if (_.isNil(convertedManifest[DIST_TAGS]) === false) {
         if (_.isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
           // the version found as a distag
@@ -415,7 +414,7 @@ class Storage {
 
       // we didn't find the version, not found error
       debug('package version not found %o', queryVersion);
-      throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${newQueryVersion}`);
+      throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`);
     } catch (err: any) {
       this.logger.error(
         { name, err: err.message },
