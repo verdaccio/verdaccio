@@ -5374,17 +5374,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.19.1, core-js@npm:^3.19.0":
-  version: 3.19.1
-  resolution: "core-js@npm:3.19.1"
-  checksum: 32b2ecead4b19f134b4c385271a0dd99f089ef90896d73a3b554b27832d1b56fc7ffaa5a8b396b670ef43c332b9a5522ccd9d1172189dcd911bbe5c08077d0d5
-  languageName: node
-  linkType: hard
-
 "core-js@npm:^2.6.5":
   version: 2.6.9
   resolution: "core-js@npm:2.6.9"
   checksum: 00c30207ebbd27d956ea572014804f46a13542c720c29fc0a4928cfd11a50a9bd8e4e64b58793da3067cd826d4a9c30250f65de1eccdae0e48a34a179987516c
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.19.0":
+  version: 3.19.1
+  resolution: "core-js@npm:3.19.1"
+  checksum: 32b2ecead4b19f134b4c385271a0dd99f089ef90896d73a3b554b27832d1b56fc7ffaa5a8b396b670ef43c332b9a5522ccd9d1172189dcd911bbe5c08077d0d5
   languageName: node
   linkType: hard
 
@@ -14025,7 +14025,6 @@ typescript@4.1.3:
     clipanion: 3.1.0
     compression: 1.7.4
     cookies: 0.8.0
-    core-js: 3.19.1
     cors: 2.8.5
     cross-env: 7.0.3
     dayjs: 1.10.7
