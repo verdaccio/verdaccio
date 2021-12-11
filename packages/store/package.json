@@ -62,9 +62,12 @@
     "@types/node": "16.11.11",
     "@verdaccio/mock": "workspace:6.0.0-6-next.12",
     "@verdaccio/types": "workspace:11.0.0-6-next.9",
+    "@verdaccio/helper": "workspace:1.0.0",
     "undici": "4.7.3",
+    "nock": "13.0.11",
     "undici-fetch": "1.0.0-rc.4",
-    "tmp-promise": "3.0.3"
+    "tmp-promise": "3.0.3",
+    "node-mocks-http": "1.10.1"
   },
   "funding": {
     "type": "opencollective",

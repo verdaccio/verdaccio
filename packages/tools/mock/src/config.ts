@@ -1,7 +1,10 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 import path from 'path';
 
 import { parseConfigFile } from '@verdaccio/config';
+
+const debug = buildDebug('verdaccio:mock:config');
 
 /**
  * Override the default.yaml configuration file with any new config provided.
@@ -14,8 +17,9 @@ function configExample(
   const locationFile = location
     ? path.join(location, configFile)
     : path.join(__dirname, `./config/yaml/${configFile}`);
+  debug('config location: %s', locationFile);
   const config = parseConfigFile(locationFile);
-
+  debug('config file: %o', JSON.stringify(config));
   return _.assign({}, _.cloneDeep(config), externalConfig);
 }
 

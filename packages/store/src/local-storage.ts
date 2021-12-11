@@ -710,6 +710,8 @@ class LocalStorage {
     const storage: IPackageStorage = this._getLocalStorage(name);
     debug('get package metadata for %o', name);
     if (typeof storage === 'undefined') {
+      // TODO: this might be a better an error to throw
+      // if storage is not there cannot be 404.
       throw errorUtils.getNotFound();
     }
 

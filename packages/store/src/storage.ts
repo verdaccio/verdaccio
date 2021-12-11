@@ -102,9 +102,10 @@ class Storage {
       );
       debug('publishing a package for %o', name);
       await publishPackage(name, metadata, this.localStorage as LocalStorage);
-      callback();
+      // TODO: return published data and replace callback by a promise
+      callback(null, true);
     } catch (err: any) {
-      debug('error on add a package for %o with error %o', name, err?.error);
+      debug('error on add a package for %o with error %o', name, err);
       callback(err);
     }
   }

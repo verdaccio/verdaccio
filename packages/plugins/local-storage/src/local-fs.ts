@@ -192,7 +192,8 @@ export default class LocalFS implements ILocalFSPackageManager {
         }
       })
       .catch((err) => {
-        this.logger.error({ err }, 'error on read storage file @{err.message}');
+        console.log('--err', err);
+        debug('error on read storage file %o', err.message);
         return cb(err);
       });
   }

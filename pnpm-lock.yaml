@@ -944,7 +944,7 @@ importers:
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
-      '@verdaccio/helper': 1.0.0
+      '@verdaccio/helper': workspace:1.0.0
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/middleware': workspace:6.0.0-6-next.15
@@ -1011,6 +1011,7 @@ importers:
       '@types/node': 16.11.11
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
+      '@verdaccio/helper': workspace:1.0.0
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
       '@verdaccio/logger': workspace:6.0.0-6-next.7
@@ -1028,6 +1029,8 @@ importers:
       lunr: 2.3.9
       lunr-mutable-indexes: 2.3.2
       merge2: 1.4.1
+      nock: 13.0.11
+      node-mocks-http: 1.10.1
       semver: 7.3.5
       tmp-promise: 3.0.3
       undici: 4.7.3
@@ -1053,8 +1056,11 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.11.11
+      '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
+      nock: 13.0.11
+      node-mocks-http: 1.10.1
       tmp-promise: 3.0.3
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4

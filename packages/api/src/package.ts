@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
-import { HEADERS } from '@verdaccio/core';
+import { HEADERS, errorUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
@@ -53,6 +53,10 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       };
 
       try {
+        if (!storage.getPackageNext) {
+          throw errorUtils.getInternalError('getPackageNext not implemented, check pr-2750');
+        }
+
         const manifest = await storage.getPackageNext({
           name,
           uplinksLook: true,
