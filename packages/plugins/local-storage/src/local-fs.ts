@@ -3,7 +3,6 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
-import sanitize from 'sanitize-filename';
 
 import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import { readFile, unlockFile } from '@verdaccio/file-locking';
@@ -35,22 +34,22 @@ const tempFile = function (str): string {
 const renameTmp = function (src, dst, _cb): void {
   const cb = (err): void => {
     if (err) {
-      fs.unlink(sanitize(src), () => {});
+      fs.unlink(src, () => {});
     }
     _cb(err);
   };
 
   if (process.platform !== 'win32') {
-    return fs.rename(sanitize(src), dst, cb);
+    return fs.rename(src, dst, cb);
   }
 
   // windows can't remove opened file,
   // but it seem to be able to rename it
   const tmp = tempFile(dst);
-  fs.rename(sanitize(dst), tmp, function (err) {
+  fs.rename(dst, tmp, function (err) {
     fs.rename(src, dst, cb);
     if (!err) {
-      fs.unlink(sanitize(tmp), () => {});
+      fs.unlink(tmp, () => {});
     }
   });
 };
@@ -209,7 +208,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     const pathName: string = this._getStorage(name);
 
-    fs.access(sanitize(pathName), (fileNotFound) => {
+    fs.access(pathName, (fileNotFound) => {
       const exists = !fileNotFound;
       if (exists) {
         uploadStream.emit('error', fSError(fileExist));
@@ -219,8 +218,8 @@ export default class LocalFS implements ILocalFSPackageManager {
           `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`
         );
         debug('write a temporal name %o', temporalName);
-        const file = fs.createWriteStream(sanitize(temporalName));
-        const removeTempFile = (): void => fs.unlink(sanitize(temporalName), () => {});
+        const file = fs.createWriteStream(temporalName);
+        const removeTempFile = (): void => fs.unlink(temporalName, () => {});
         let opened = false;
         uploadStream.pipe(file);
 
@@ -278,7 +277,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     const readTarballStream = new ReadTarball({});
 
-    const readStream = fs.createReadStream(sanitize(pathName));
+    const readStream = fs.createReadStream(pathName);
 
     readStream.on('error', function (err) {
       debug('error on read a tarball %o with error %o', name, err);
@@ -309,7 +308,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   private _createFile(name: string, contents: any, callback: Function): void {
     debug(' create a new file: %o', name);
 
-    fs.open(sanitize(name), 'wx', (err) => {
+    fs.open(name, 'wx', (err) => {
       if (err) {
         // native EEXIST used here to check exception on fs.open
         if (err.code === 'EEXIST') {
@@ -347,7 +346,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     const createTempFile = (cb): void => {
       const tempFilePath = tempFile(dest);
 
-      fs.writeFile(sanitize(tempFilePath), data, (err) => {
+      fs.writeFile(tempFilePath, data, (err) => {
         if (err) {
           debug('error on write the file: %o', dest);
           return cb(err);
@@ -360,7 +359,7 @@ export default class LocalFS implements ILocalFSPackageManager {
 
     createTempFile((err) => {
       if (err && err.code === noSuchFile) {
-        fs.mkdir(path.dirname(sanitize(dest)), { recursive: true }, function (err) {
+        fs.mkdir(path.dirname(dest), { recursive: true }, function (err) {
           if (err) {
             return cb(err);
           }
