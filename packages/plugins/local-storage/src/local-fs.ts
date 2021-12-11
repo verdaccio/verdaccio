@@ -3,6 +3,7 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
+import sanitize from 'sanitize-filename';
 
 import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import { readFile, unlockFile } from '@verdaccio/file-locking';
@@ -158,6 +159,21 @@ export default class LocalFS implements ILocalFSPackageManager {
     debug('save a package %o', name);
 
     this._writeFile(this._getStorage(packageJSONFileName), this._convertToString(value), cb);
+  }
+
+  public async readPackageNext(name: string): Promise<Package> {
+    debug('read a package %o', name);
+    try {
+      const res = await this._readStorageFile(this._getStorage(packageJSONFileName));
+      const data: any = JSON.parse(res.toString('utf8'));
+
+      debug('read storage file %o has succeed', name);
+      return data;
+    } catch (err: any) {
+      debug('parse error');
+      this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
+      throw err;
+    }
   }
 
   public readPackage(name: string, cb: Callback): void {

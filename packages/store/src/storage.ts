@@ -11,6 +11,7 @@ import { logger } from '@verdaccio/logger';
 import { ProxyStorage } from '@verdaccio/proxy';
 import { IProxy, ProxyList } from '@verdaccio/proxy';
 import { ReadTarball } from '@verdaccio/streams';
+import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import {
   Callback,
   CallbackAction,
@@ -28,7 +29,7 @@ import {
   Version,
   Versions,
 } from '@verdaccio/types';
-import { normalizeDistTags } from '@verdaccio/utils';
+import { getVersion, normalizeDistTags } from '@verdaccio/utils';
 
 import { LocalStorage } from './local-storage';
 import { SearchInstance, SearchManager } from './search';
@@ -40,7 +41,7 @@ import {
   mergeUplinkTimeIntoLocal,
   publishPackage,
 } from './storage-utils';
-import { IGetPackageOptions, IPluginFilters, ISyncUplinks } from './type';
+import { IGetPackageOptions, IGetPackageOptionsNext, IPluginFilters, ISyncUplinks } from './type';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 
 if (semver.lte(process.version, 'v15.0.0')) {
@@ -344,6 +345,114 @@ class Storage {
     }
   }
 
+  public async getPackageNext(options: IGetPackageOptionsNext): Promise<Package | Version> {
+    const { name } = options;
+    debug('get package for %o', name);
+    try {
+      let data: Package;
+      try {
+        data = await this.localStorage.getPackageMetadataNext(name);
+      } catch (err: any) {
+        // we don't have package locally, so we need to fetch it from uplinks
+        if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
+          throw err;
+        }
+      }
+
+      // time to sync with uplinks if we have any
+      debug('sync uplinks for %o', name);
+      // @ts-expect-error
+      const [manifest, errors] = await this._syncUplinksMetadataNext(name, data, {
+        req: options.req,
+        uplinksLook: options.uplinksLook,
+        keepUpLinkData: options.keepUpLinkData,
+      });
+      debug('no. sync uplinks errors %o', errors?.length);
+
+      // TODO: we could improve performance here, if a specific version is requested
+      // we just convert that version and return it otherwise we convert
+      // the whole manifest, bonus points for contribution :)
+      // convert dist remotes to local bars
+      const convertedManifest = convertDistRemoteToLocalTarballUrls(
+        manifest,
+        options.requestOptions,
+        this.config.url_prefix
+      );
+      // if no version we return the whole manifest
+      if (_.isNil(options.version)) {
+        return convertedManifest;
+      }
+
+      // we have version, so we need to return specific version
+      const queryVersion = options.version;
+      const version: Version | undefined = getVersion(convertedManifest.versions, options.version);
+      debug('query by latest version %o and result %o', options.version, version);
+      if (typeof version !== 'undefined') {
+        debug('latest version found %o', version);
+        return version;
+      }
+
+      // the version could be a dist-tag eg: beta, alpha, so we find the matched version
+      // on disg-tag list
+      let newQueryVersion: string = queryVersion;
+      if (_.isNil(convertedManifest[DIST_TAGS]) === false) {
+        if (_.isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
+          // the version found as a distag
+          const matchedDisTagVersion: string = convertedManifest[DIST_TAGS][queryVersion];
+          debug('dist-tag version found %o', matchedDisTagVersion);
+          const disTagVersion: Version | undefined = getVersion(
+            convertedManifest.versions,
+            matchedDisTagVersion
+          );
+          if (typeof disTagVersion !== 'undefined') {
+            debug('dist-tag found %o', disTagVersion);
+            return disTagVersion;
+          }
+        }
+      } else {
+        debug('dist tag not detected');
+      }
+
+      // we didn't find the version, not found error
+      debug('package version not found %o', queryVersion);
+      throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${newQueryVersion}`);
+    } catch (err: any) {
+      this.logger.error(
+        { name, err: err.message },
+        'error on get package for @{name} with error @{err}'
+      );
+      throw err;
+    }
+  }
+
+  private _syncUplinksMetadataNext(
+    name: string,
+    data: Package,
+    { uplinksLook, keepUpLinkData, req }
+  ): Promise<[Package, any[]]> {
+    return new Promise((resolve, reject) => {
+      this._syncUplinksMetadata(
+        name,
+        data,
+        { req: req, uplinksLook },
+        function getPackageSynUpLinksCallback(err, result: Package, uplinkErrors): void {
+          if (err) {
+            debug('error on sync package for %o with error %o', name, err?.message);
+            return reject(err);
+          }
+
+          const normalizedPkg = Object.assign({}, result, {
+            ...normalizeDistTags(cleanUpLinksRef(result, keepUpLinkData)),
+            _attachments: {},
+          });
+
+          debug('no. sync uplinks errors %o', uplinkErrors?.length);
+          resolve([normalizedPkg, uplinkErrors]);
+        }
+      );
+    });
+  }
+
   /**
    Retrieve a package metadata for {name} package
    Function invokes localStorage.getPackage and uplink.get_package for every
@@ -450,6 +559,8 @@ class Storage {
       debug('local stora instance is null');
     }
   }
+
+  // notas, debo migrar _syncUplinksMetadata algo mas lindo
 
   /**
    * Function fetches package metadata from uplinks and synchronizes it with local data

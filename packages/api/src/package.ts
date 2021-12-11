@@ -37,9 +37,43 @@ const downloadStream = (
 
 export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
   const can = allow(auth);
+
+  route.get(
+    '/:package/new',
+    can('access'),
+    async function (
+      req: $RequestExtend,
+      _res: $ResponseExtend,
+      next: $NextFunctionVer
+    ): Promise<void> {
+      debug('init package by version');
+      const name = req.params.package;
+      let queryVersion = req.params.version;
+      const requestOptions = {
+        protocol: req.protocol,
+        headers: req.headers as any,
+        // FIXME: if we migrate to req.hostname, the port is not longer included.
+        host: req.host,
+      };
+
+      try {
+        const manifest = await storage.getPackageNext({
+          name,
+          uplinksLook: true,
+          req,
+          version: queryVersion,
+          requestOptions,
+        });
+        next(null, manifest);
+      } catch (err) {
+        next(err);
+      }
+    }
+  );
+
   // TODO: anonymous user?
   route.get(
-    '/:package/:version?',
+    '/:package',
     can('access'),
     function (req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
       debug('init package by version');

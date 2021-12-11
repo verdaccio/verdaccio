@@ -5,6 +5,7 @@ import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/confi
 import { Config as IConfig, RemoteUser } from '@verdaccio/types';
 
 import distTags from './endpoints/dist-tags';
+import manifest from './endpoints/package';
 import ping from './endpoints/ping';
 import search from './endpoints/search';
 import tarball from './endpoints/tarball';
@@ -37,6 +38,7 @@ async function startServer({ logger, config }) {
     instance.register(user, { prefix: '/-/user' });
     instance.register(search);
     instance.register(whoami);
+    instance.register(manifest);
     instance.register(tarball);
     instance.register(distTags);
     instance.register(readme, { prefix: '/-/verdaccio' });

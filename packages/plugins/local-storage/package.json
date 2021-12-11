@@ -45,6 +45,7 @@
     "debug": "4.3.3",
     "globby": "11.0.4",
     "lockfile": "1.0.4",
+    "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
     "lru-cache": "6.0.0"

@@ -706,11 +706,22 @@ class LocalStorage {
     return stream;
   }
 
+  public async getPackageMetadataNext(name: string): Promise<Package> {
+    const storage: IPackageStorage = this._getLocalStorage(name);
+    debug('get package metadata for %o', name);
+    if (typeof storage === 'undefined') {
+      throw errorUtils.getNotFound();
+    }
+
+    return await this._readPackageNext(name, storage);
+  }
+
   /**
    * Retrieve a package by name.
    * @param {*} name
    * @param {*} callback
    * @return {Function}
+   * @deprecated
    */
   public getPackageMetadata(name: string, callback: Callback = (): void => {}): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
@@ -790,6 +801,7 @@ class LocalStorage {
    * Read a json file from storage.
    * @param {Object} storage
    * @param {Function} callback
+   * @deprecated
    */
   private _readPackage(name: string, storage: any, callback: Callback): void {
     storage.readPackage(name, (err, result): void => {
@@ -803,6 +815,24 @@ class LocalStorage {
 
       callback(err, normalizePackage(result));
     });
+  }
+
+  private async _readPackageNext(name: string, storage: any): Promise<Package> {
+    try {
+      const result: Package = await storage.readPackageNext(name);
+      return normalizePackage(result);
+    } catch (err: any) {
+      if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
+        debug('package %s not found', name);
+        throw errorUtils.getNotFound();
+      }
+      this.logger.error(
+        { err: err, file: STORAGE.PACKAGE_FILE_NAME },
+        `error reading  @{file}: @{!err.message}`
+      );
+
+      throw errorUtils.getInternalError();
+    }
   }
 
   /**
