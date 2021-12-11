@@ -2,7 +2,7 @@ import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
 
 import { Config } from '@verdaccio/config';
-import { API_ERROR, HEADERS, errorUtils } from '@verdaccio/core';
+import { HEADERS, errorUtils } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/helper';
 import { setup } from '@verdaccio/logger';
 import { configExample, generateRamdonStorage } from '@verdaccio/mock';
