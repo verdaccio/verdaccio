@@ -3470,6 +3470,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/commons-api@npm:10.1.0":
+  version: 10.1.0
+  resolution: "@verdaccio/commons-api@npm:10.1.0"
+  dependencies:
+    http-errors: 1.8.1
+    http-status-codes: 1.4.0
+  checksum: cb8022df35520c0be17b19f12099824dbc31487a7b9df4fee300aded87cd36fdbbdadbe02f2c6ad396bb308c455f2974900a6386f91fdbfc18b83190bcde82b6
+  languageName: node
+  linkType: hard
+
 "@verdaccio/eslint-config@npm:^8.5.0":
   version: 8.5.0
   resolution: "@verdaccio/eslint-config@npm:8.5.0"
@@ -3491,46 +3501,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/file-locking@npm:10.0.1":
-  version: 10.0.1
-  resolution: "@verdaccio/file-locking@npm:10.0.1"
+"@verdaccio/file-locking@npm:10.1.0":
+  version: 10.1.0
+  resolution: "@verdaccio/file-locking@npm:10.1.0"
   dependencies:
     lockfile: 1.0.4
-  checksum: 1dfd93b358d24e8ced32d416359f552d995eb20c50c039d57c548f7f5e9522646a394d878f2874c18ea1b6c3f3d3202cb209c1050ec0508c189bc2cbe487b0e1
+  checksum: 23eae7013e130be289ffc8df30c76b5667d2b6e79b2a17b79eaffc8a4e9e59901f79aa5b12b76db8bc1fc2bd3038c518cec0672f3106f9762773990b6cba6951
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.0.8":
-  version: 10.0.8
-  resolution: "@verdaccio/local-storage@npm:10.0.8"
+"@verdaccio/local-storage@npm:10.1.0":
+  version: 10.1.0
+  resolution: "@verdaccio/local-storage@npm:10.1.0"
   dependencies:
-    "@verdaccio/commons-api": 10.0.2
-    "@verdaccio/file-locking": 10.0.1
-    "@verdaccio/streams": 10.0.1
+    "@verdaccio/commons-api": 10.1.0
+    "@verdaccio/file-locking": 10.1.0
+    "@verdaccio/streams": 10.1.0
     async: 3.2.2
     debug: 4.3.3
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: bcc5de21aa103a4813ac970f98b2fffe842baf074e3f8ce2c41618b9b5e059fcf905ce9b8d965a908edbad75598acf5574db5695d27770780d3c92f8ea710332
+  checksum: 881a0a50ca51bd2c11e5141d8affbf0921d6d876a1d87912fda8c86ec82fa366017df6b5aa502fbe427a9d2d2e4af9c4b9d5c10521cf4114ed4b0bce3e990af7
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.1.0":
-  version: 10.1.0
-  resolution: "@verdaccio/readme@npm:10.1.0"
+"@verdaccio/readme@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@verdaccio/readme@npm:10.2.0"
   dependencies:
     dompurify: ^2.2.6
     jsdom: 15.2.1
     marked: ^2.0.1
-  checksum: 0d116bbd32b9f880d9cea7b6fe1a0fee0923f06472144c2c9001bf0680f76845704762c825cc372ea64f955af7817d4f21e685caec11b2fad93b9cc9c63c43e8
+  checksum: a85a5c75a5f6a1d423107a7dc4cb4d89e44d11c83b6e53b72fdebe117bd9d671953122e26a104bb8fb492974a674ab1b77eb90a7be6bcf6bf7a681ca11489df2
   languageName: node
   linkType: hard
 
-"@verdaccio/streams@npm:10.0.1":
-  version: 10.0.1
-  resolution: "@verdaccio/streams@npm:10.0.1"
-  checksum: 1ddaeafb3d28e260e8ede47d7746779c66ad78e2a27d49ff505fa36b8e4f631389ac28f5fe7d97e06c8a24d2f8b8c88e57d85672e2d558286968bcac755d8d81
+"@verdaccio/streams@npm:10.1.0":
+  version: 10.1.0
+  resolution: "@verdaccio/streams@npm:10.1.0"
+  checksum: 13d2504c3dd268b7097b7e8ae0f3b654550e6a12a9409227a81b1e8b8cfda8cf52c827ac85339e7dce15b5890d24370569a4630c9f352dabf7c19e5cdbcac5fc
   languageName: node
   linkType: hard
 
@@ -5374,17 +5384,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.19.1, core-js@npm:^3.19.0":
-  version: 3.19.1
-  resolution: "core-js@npm:3.19.1"
-  checksum: 32b2ecead4b19f134b4c385271a0dd99f089ef90896d73a3b554b27832d1b56fc7ffaa5a8b396b670ef43c332b9a5522ccd9d1172189dcd911bbe5c08077d0d5
-  languageName: node
-  linkType: hard
-
 "core-js@npm:^2.6.5":
   version: 2.6.9
   resolution: "core-js@npm:2.6.9"
   checksum: 00c30207ebbd27d956ea572014804f46a13542c720c29fc0a4928cfd11a50a9bd8e4e64b58793da3067cd826d4a9c30250f65de1eccdae0e48a34a179987516c
+  languageName: node
+  linkType: hard
+
+"core-js@npm:^3.19.0":
+  version: 3.19.1
+  resolution: "core-js@npm:3.19.1"
+  checksum: 32b2ecead4b19f134b4c385271a0dd99f089ef90896d73a3b554b27832d1b56fc7ffaa5a8b396b670ef43c332b9a5522ccd9d1172189dcd911bbe5c08077d0d5
   languageName: node
   linkType: hard
 
@@ -13919,48 +13929,48 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:10.0.3":
-  version: 10.0.3
-  resolution: "verdaccio-audit@npm:10.0.3"
+"verdaccio-audit@npm:10.1.0":
+  version: 10.1.0
+  resolution: "verdaccio-audit@npm:10.1.0"
   dependencies:
     body-parser: 1.19.0
     express: 4.17.1
     https-proxy-agent: 5.0.0
     node-fetch: 2.6.6
-  checksum: 636fc56379a8dc68725e093f682b2681a8b869d217e8ab453f52840eb38291e798302e5a19752dbc64bb3e3b979d48989546229b1568b42c9227ca1da0acc3ab
+  checksum: 813a94df220dc9bcb81ea6779d9b46ed6279911692cbe3132491a8aa2458b9e4cf3dec0c7e678ec2bc5a9cbffc594f73126017a1dd8c813a2b80157da679f152
   languageName: node
   linkType: hard
 
-"verdaccio-auth-memory@npm:10.0.2":
-  version: 10.0.2
-  resolution: "verdaccio-auth-memory@npm:10.0.2"
+"verdaccio-auth-memory@npm:10.1.0":
+  version: 10.1.0
+  resolution: "verdaccio-auth-memory@npm:10.1.0"
   dependencies:
-    "@verdaccio/commons-api": 10.0.2
-  checksum: a77d3c07f9c066da3a4dcd5e52b5fae53c49b2ceff422d3ec2e16f76cd19c76725e2655e9867793136c974202503e93d632effe469efc0288795daf4b24b45c3
+    "@verdaccio/commons-api": 10.1.0
+  checksum: 8cd84c69efed14b29cba033627f9e572d1204a079815e3cbc4a81a065739ae73829fada89a94b7d2be8e02820bcd4d6b29ada6b5a7b143b63c4270b3bc6bf3e5
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.0.1":
-  version: 10.0.1
-  resolution: "verdaccio-htpasswd@npm:10.0.1"
+"verdaccio-htpasswd@npm:10.1.0":
+  version: 10.1.0
+  resolution: "verdaccio-htpasswd@npm:10.1.0"
   dependencies:
-    "@verdaccio/file-locking": 10.0.1
+    "@verdaccio/file-locking": 10.1.0
     apache-md5: 1.1.7
     bcryptjs: 2.4.3
     http-errors: 1.8.1
     unix-crypt-td-js: 1.1.4
-  checksum: 4986dee11b56361169b8145e1189b26bd47172124b31fbfc2af9053e3b4f08427b4b8c96c239b30e151a99a2b2b89ac43fdcfd39a1e860c70cd00193510d3265
+  checksum: e59ba4b9e97281d4b13f40e0047e0a73dac5eae86f18e2ead5ec17e6af3f4c7d1cfe866ca581aea910986647fa44b4c126749e96774532f7b2620be354c2a797
   languageName: node
   linkType: hard
 
-"verdaccio-memory@npm:10.0.2":
-  version: 10.0.2
-  resolution: "verdaccio-memory@npm:10.0.2"
+"verdaccio-memory@npm:10.1.0":
+  version: 10.1.0
+  resolution: "verdaccio-memory@npm:10.1.0"
   dependencies:
-    "@verdaccio/commons-api": 10.0.2
-    "@verdaccio/streams": 10.0.1
+    "@verdaccio/commons-api": 10.1.0
+    "@verdaccio/streams": 10.1.0
     memory-fs: 0.5.0
-  checksum: d13542264cf91ddefdb6a24bbd32f5e1f6adaee5de45bf2128f92eb2b0a7f77d6bea0b0a27b96968a92ab09347998b17257e63788762fe7ebadaeff0486aaab1
+  checksum: f6d1a129ed401b7a3e93f3e1998e16267bb2f46666075ae2cbdd942b64341238b91222822d98c6c16e46ca1ab04386e45401d1ab504847e18c9e36c40fa2437c
   languageName: node
   linkType: hard
 
@@ -14009,9 +14019,9 @@ typescript@4.1.3:
     "@typescript-eslint/parser": 4.13.0
     "@verdaccio/commons-api": 10.0.2
     "@verdaccio/eslint-config": ^8.5.0
-    "@verdaccio/local-storage": 10.0.8
-    "@verdaccio/readme": 10.1.0
-    "@verdaccio/streams": 10.0.1
+    "@verdaccio/local-storage": 10.1.0
+    "@verdaccio/readme": 10.2.0
+    "@verdaccio/streams": 10.1.0
     "@verdaccio/types": ^9.7.2
     "@verdaccio/ui-theme": 3.2.1
     JSONStream: 1.3.5
@@ -14025,7 +14035,6 @@ typescript@4.1.3:
     clipanion: 3.1.0
     compression: 1.7.4
     cookies: 0.8.0
-    core-js: 3.19.1
     cors: 2.8.5
     cross-env: 7.0.3
     dayjs: 1.10.7
@@ -14083,10 +14092,10 @@ typescript@4.1.3:
     ts-node: 10.2.0
     typescript: 4.1.3
     validator: 13.7.0
-    verdaccio-audit: 10.0.3
-    verdaccio-auth-memory: 10.0.2
-    verdaccio-htpasswd: 10.0.1
-    verdaccio-memory: 10.0.2
+    verdaccio-audit: 10.1.0
+    verdaccio-auth-memory: 10.1.0
+    verdaccio-htpasswd: 10.1.0
+    verdaccio-memory: 10.1.0
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
