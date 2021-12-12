@@ -88,7 +88,7 @@ importers:
       ts-node: 10.2.1
       typescript: 4.4.4
       update-ts-references: 2.4.1
-      verdaccio: 5.2.2
+      verdaccio: 5.3.1
       verdaccio-audit: workspace:*
       verdaccio-auth-memory: workspace:*
       verdaccio-htpasswd: workspace:*
@@ -178,7 +178,7 @@ importers:
       ts-node: 10.2.1_6fc948d4599a6d595975f0dd8328fd81
       typescript: 4.4.4
       update-ts-references: 2.4.1_typescript@4.4.4
-      verdaccio: 5.2.2
+      verdaccio: 5.3.1
       verdaccio-audit: link:packages/plugins/audit
       verdaccio-auth-memory: link:packages/plugins/auth-memory
       verdaccio-htpasswd: link:packages/plugins/htpasswd
@@ -7652,30 +7652,38 @@ packages:
       eslint-visitor-keys: 2.1.0
     dev: true
 
-  /@verdaccio/commons-api/10.0.1:
-    resolution: {integrity: sha512-dO/3ocK2Cpx5GZ/HST7YWRMVXAZu5zkDglfcoxEnUh2V9D4detGn0sIDV9nCJJJiO70ZmhuOoA5oeUmrA1lELA==}
+  /@verdaccio/commons-api/10.0.2:
+    resolution: {integrity: sha512-bJdarFsuaAOMyk1qAFEsCqcl5Ol0LCRqlwPgi1aFBAgsPNuebLEnCrdT6B6FMnFdPSYVyP1byTLN+0W1t9Iqsg==}
     engines: {node: '>=8'}
     dependencies:
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       http-status-codes: 1.4.0
     dev: true
 
-  /@verdaccio/file-locking/10.0.0:
-    resolution: {integrity: sha512-2tQUbJF3tQ3CY9grAlpovaF/zu8G56CBYMaeHwMBHo9rAmsJI9i7LfliHGS6Jygbs8vd0cOCPT7vl2CL9T8upw==}
+  /@verdaccio/commons-api/10.1.0:
+    resolution: {integrity: sha512-7xidrFzpyS4QVqVSFK+2lJn3mefpAPvk2pPe4SbiCibjRBFTXdj2KaeaqMEh2ROGzag4+tbx7l4hZ1qkB/1mkA==}
+    engines: {node: '>=8'}
+    dependencies:
+      http-errors: 1.8.1
+      http-status-codes: 1.4.0
+    dev: true
+
+  /@verdaccio/file-locking/10.1.0:
+    resolution: {integrity: sha512-PULcFqfj8S8shY/Ry+v+q6aYhhJBG517Pfzf9DYgJW5AcAHk6SpLB+0XyjfBtJ66ic0jlVnx/Y0FanQXrJDkig==}
     engines: {node: '>=8'}
     dependencies:
       lockfile: 1.0.4
     dev: true
 
-  /@verdaccio/local-storage/10.0.7:
-    resolution: {integrity: sha512-DpR4RFDQXVFI9ILEU0xXIqGP7m59u4n5RJ9AYEbc6i/6Iv0Ba2K2Q4l/J22ZLURjqCKZY4ZPUJkhUwXSmzRFMQ==}
+  /@verdaccio/local-storage/10.1.0:
+    resolution: {integrity: sha512-NSW7uLOCLaqTpvPsHkMyir0G0EgaywsUyLHpEs4CeEVR5QIKBklQPx1zATL+KqsPH8yQSlMQFbDYkNylxSCB3A==}
     engines: {node: '>=8'}
     dependencies:
-      '@verdaccio/commons-api': 10.0.1
-      '@verdaccio/file-locking': 10.0.0
-      '@verdaccio/streams': 10.0.0
-      async: 3.2.0
-      debug: 4.3.1
+      '@verdaccio/commons-api': 10.1.0
+      '@verdaccio/file-locking': 10.1.0
+      '@verdaccio/streams': 10.1.0
+      async: 3.2.2
+      debug: 4.3.3
       lodash: 4.17.21
       lowdb: 1.0.0
       mkdirp: 1.0.4
@@ -7683,10 +7691,10 @@ packages:
       - supports-color
     dev: true
 
-  /@verdaccio/readme/10.0.0:
-    resolution: {integrity: sha512-OD3dMnRC8SvhgytEzczMBleN+K/3lMqyWw/epeXvolCpCd7mW/Dl5zSR25GiHh/2h3eTKP/HMs4km8gS1MMLgA==}
+  /@verdaccio/readme/10.2.0:
+    resolution: {integrity: sha512-M+yXLGSazt9lPJKhZwCL/UsY0+/wGjyYsYZBmAPTbxuBtcjjcRHpGxkN/eRtr6HMIgBiuP/V7+8OInAtgb+ZiA==}
     dependencies:
-      dompurify: 2.3.3
+      dompurify: 2.3.4
       jsdom: 15.2.1
       marked: 2.1.3
     transitivePeerDependencies:
@@ -7695,8 +7703,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@verdaccio/streams/10.0.0:
-    resolution: {integrity: sha512-PqxxY11HhweN6z1lwfn9ydLCdnOkCPpthMZs+SGCDz8Rt6gOyrjJVslV7o4uobDipjD9+hUPpJHDeO33Qt24uw==}
+  /@verdaccio/streams/10.1.0:
+    resolution: {integrity: sha512-19FebNvwNiJkk68fFEq/kNOcPNKYX/NoPFqOlZH6mGUGUo3htHh4tD5k2WepAZpBeK9SC868UiPbMizdIXquSg==}
     engines: {node: '>=8', npm: '>=5'}
     dev: true
 
@@ -8220,15 +8228,6 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  /ajv/8.4.0:
-    resolution: {integrity: sha512-7QD2l6+KBSLwf+7MuYocbWvRPdOu63/trReTLu2KFwkgctnub1auoF+Y1WYcm09CTM7quuscrzqmASaLHC/K4Q==}
-    dependencies:
-      fast-deep-equal: 3.1.3
-      json-schema-traverse: 1.0.0
-      require-from-string: 2.0.2
-      uri-js: 4.4.1
-    dev: true
-
   /ajv/8.8.2:
     resolution: {integrity: sha512-x9VuX+R/jcFj1DHo/fCp99esgGDWiHENrKxaCENuCxpoMCmAt/COCGVDwA7kleEpEzJjDnvh3yGoOuLu0Dtllw==}
     dependencies:
@@ -8236,7 +8235,6 @@ packages:
       json-schema-traverse: 1.0.0
       require-from-string: 2.0.2
       uri-js: 4.4.1
-    dev: false
 
   /algoliasearch-helper/3.6.1_algoliasearch@4.10.5:
     resolution: {integrity: sha512-uJkB/t/bU0tYE88ZoJJCGCNSD+9mTdsp/Yp5dG+qviIBYoUUZfKWwFcZBhW+eiqpO+EadTu7Xj3RYYnrvBOUyA==}
@@ -8363,15 +8361,9 @@ packages:
       normalize-path: 3.0.0
       picomatch: 2.3.0
 
-  /apache-md5/1.1.2:
-    resolution: {integrity: sha1-7klza2ObTxCLbp5ibG2pkwa0FpI=}
-    engines: {node: '>=4.6.1'}
-    dev: true
-
   /apache-md5/1.1.7:
     resolution: {integrity: sha512-JtHjzZmJxtzfTSjsCyHgPR155HBe5WGyUyHTaEkfy46qhwCFKx1Epm6nAxgUG3WfUZP1dWhGqj9Z2NOBeZ+uBw==}
     engines: {node: '>=8'}
-    dev: false
 
   /aproba/1.2.0:
     resolution: {integrity: sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==}
@@ -8556,10 +8548,6 @@ packages:
   /async/3.1.1:
     resolution: {integrity: sha512-X5Dj8hK1pJNC2Wzo2Rcp9FBVdJMGRR/S7V+lH46s8GVFhtbo5O4Le5GECCF/8PISVdkUA6mMPvgz7qTTD1rf1g==}
     dev: false
-
-  /async/3.2.0:
-    resolution: {integrity: sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw==}
-    dev: true
 
   /async/3.2.1:
     resolution: {integrity: sha512-XdD5lRO/87udXCMC9meWdYiR+Nq6ZjUfXidViUZGu2F1MO4T3XwZ1et0hb2++BgLfhyJwy44BGB/yx80ABx8hg==}
@@ -11162,13 +11150,8 @@ packages:
     dependencies:
       domelementtype: 2.2.0
 
-  /dompurify/2.3.3:
-    resolution: {integrity: sha512-dqnqRkPMAjOZE0FogZ+ceJNM2dZ3V/yNOuFB7+39qpO93hHhfRpHw3heYQC7DPK9FqbQTfBKUJhiSfz4MvXYwg==}
-    dev: true
-
   /dompurify/2.3.4:
     resolution: {integrity: sha512-6BVcgOAVFXjI0JTjEvZy901Rghm+7fDQOrNIcxB4+gdhj6Kwp6T9VBhBY/AbagKHJocRkDYGd6wvI+p4/10xtQ==}
-    dev: false
 
   /domutils/1.5.1:
     resolution: {integrity: sha1-3NhIiib1Y9YQeeSMn3t+Mjc2gs8=}
@@ -13654,17 +13637,6 @@ packages:
       setprototypeof: 1.1.1
       statuses: 1.5.0
       toidentifier: 1.0.0
-
-  /http-errors/1.8.0:
-    resolution: {integrity: sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==}
-    engines: {node: '>= 0.6'}
-    dependencies:
-      depd: 1.1.2
-      inherits: 2.0.4
-      setprototypeof: 1.2.0
-      statuses: 1.5.0
-      toidentifier: 1.0.0
-    dev: true
 
   /http-errors/1.8.1:
     resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==}
@@ -20823,7 +20795,7 @@ packages:
     resolution: {integrity: sha512-ZGum47Yi6KOOFDE8m223td53ath2enHcYLgOCjGr5ngu8bdIARQk6mN/wRMv4yMRcHnCSnHbCEha4sobQx5yWg==}
     engines: {node: '>=10.0.0'}
     dependencies:
-      ajv: 8.4.0
+      ajv: 8.8.2
       lodash.clonedeep: 4.5.0
       lodash.truncate: 4.4.2
       slice-ansi: 4.0.0
@@ -21977,38 +21949,38 @@ packages:
   /vendors/1.0.4:
     resolution: {integrity: sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==}
 
-  /verdaccio-audit/10.0.2:
-    resolution: {integrity: sha512-pcud2xwztYETO15r+a11cFkpvweLmnsuJJ0FLCifL3+z4IzYFgD5KgPwUD9sdMPHFz5efOrHeO71cu8hb8oEWg==}
+  /verdaccio-audit/10.1.0:
+    resolution: {integrity: sha512-lu2rpicM7PeVQ+7dlupP92Ddp7v+Rqae4gFfzd9GTxgzS7wWm7USM88GalEPTJtcn4zDh4nC3nbjE7eEQTVFKg==}
     engines: {node: '>=8'}
     dependencies:
       body-parser: 1.19.0
       express: 4.17.1
       https-proxy-agent: 5.0.0
-      node-fetch: 2.6.1
+      node-fetch: 2.6.6
     transitivePeerDependencies:
       - supports-color
     dev: true
 
-  /verdaccio-htpasswd/10.0.0:
-    resolution: {integrity: sha512-3TKwiLwl8/fbaTDawHvjSYcsyMmdARg58keP/1plv74x+Jw0sC66HbbRwQ/tPO5mqoG0UwoWW+lkO8h/OiWi9w==}
+  /verdaccio-htpasswd/10.1.0:
+    resolution: {integrity: sha512-HPpAJ62Y3FRA19Vp47VSeeeur5mqPUU4E/W4N914vUFw63iZqDBqhMQI5g99SqnlB97HplYsS5CpXj6cRv4hmw==}
     engines: {node: '>=8'}
     dependencies:
-      '@verdaccio/file-locking': 10.0.0
-      apache-md5: 1.1.2
+      '@verdaccio/file-locking': 10.1.0
+      apache-md5: 1.1.7
       bcryptjs: 2.4.3
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       unix-crypt-td-js: 1.1.4
     dev: true
 
-  /verdaccio/5.2.2:
-    resolution: {integrity: sha512-7TbQ2QWDIQBabYMUAJQtJl9qbxpBKl8tndNYtMl9gVUgWN67gr+kPeMoqY0m4whg/+OdWrMyBj3NQy5VoTQiIw==}
+  /verdaccio/5.3.1:
+    resolution: {integrity: sha512-IA+UxL6/73G5SgQ01ZZPPOFCpRge0DdXLrgaRpzi5SdGQDQkKsWnk90SI8q1qH1VuvgzVn0UEeq3SQTvx6ZXDg==}
     engines: {node: '>=12', npm: '>=6'}
     hasBin: true
     dependencies:
-      '@verdaccio/commons-api': 10.0.1
-      '@verdaccio/local-storage': 10.0.7
-      '@verdaccio/readme': 10.0.0
-      '@verdaccio/streams': 10.0.0
+      '@verdaccio/commons-api': 10.0.2
+      '@verdaccio/local-storage': 10.1.0
+      '@verdaccio/readme': 10.2.0
+      '@verdaccio/streams': 10.1.0
       '@verdaccio/ui-theme': 3.2.1
       async: 3.2.2
       body-parser: 1.19.0
@@ -22021,9 +21993,9 @@ packages:
       envinfo: 7.8.1
       eslint-import-resolver-node: 0.3.4
       express: 4.17.1
-      fast-safe-stringify: 2.0.8
+      fast-safe-stringify: 2.1.1
       handlebars: 4.7.7
-      http-errors: 1.8.0
+      http-errors: 1.8.1
       js-yaml: 4.1.0
       JSONStream: 1.3.5
       jsonwebtoken: 8.5.1
@@ -22044,8 +22016,8 @@ packages:
       request: 2.88.0
       semver: 7.3.5
       validator: 13.7.0
-      verdaccio-audit: 10.0.2
-      verdaccio-htpasswd: 10.0.0
+      verdaccio-audit: 10.1.0
+      verdaccio-htpasswd: 10.1.0
     transitivePeerDependencies:
       - bufferutil
       - canvas
