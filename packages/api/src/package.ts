@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
-import { HEADERS, errorUtils } from '@verdaccio/core';
+import { HEADERS } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
