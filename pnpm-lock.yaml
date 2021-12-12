@@ -1187,7 +1187,6 @@ importers:
       '@verdaccio/cli': link:../cli
       '@verdaccio/hooks': link:../hooks
       '@verdaccio/logger': link:../logger
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/node-api': link:../node-api
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
@@ -1197,6 +1196,7 @@ importers:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/store': link:../store
       fastify: 3.24.1
 
