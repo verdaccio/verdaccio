@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.18.1-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.18.2-alpine as builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -20,7 +20,7 @@ RUN npm -g i pnpm@6.10.3 && \
 # FIXME: need to remove devDependencies from the build
 # RUN pnpm install --prod --ignore-scripts
 
-FROM node:14.18.1-alpine
+FROM node:14.18.2-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
