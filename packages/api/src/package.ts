@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
-import { HEADERS } from '@verdaccio/core';
+import { HEADERS, errorUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
@@ -53,9 +53,13 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       };
 
       try {
-        // if (!storage.getPackageNext) {
-        //   throw errorUtils.getInternalError('getPackageNext not implemented, check pr-2750');
-        // }
+        // TODO: this is just temporary while I migrate all plugins to use the new API
+        // the method will be renamed to getPackage again but Promise Based.
+        if (!storage.getPackageNext) {
+          throw errorUtils.getInternalError(
+            'getPackageNext not implemented, check pr-2750 for more details'
+          );
+        }
 
         const manifest = await storage.getPackageNext({
           name,
