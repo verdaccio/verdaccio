@@ -28,7 +28,7 @@ const pkgJson = require('./package.json')
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Verdaccio',
-  tagline: 'A lightweight open source private npm proxy registry',
+  tagline: 'A lightweight private proxy registry built in Node.js',
   organizationName: 'verdaccio',
   projectName: 'verdaccio',
   url: 'https://verdaccio.org',
@@ -53,7 +53,7 @@ module.exports = {
     }),
   },
   customFields: {
-    description: 'A lightweight private NPM proxy registry built in Node.js.'
+    description: 'A lightweight private proxy registry built in Node.js'
   },
   themeConfig: {
     announcementBar: {
