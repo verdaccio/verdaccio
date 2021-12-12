@@ -944,7 +944,7 @@ importers:
       '@verdaccio/auth': workspace:6.0.0-6-next.15
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
-      '@verdaccio/helper': workspace:1.0.0
+      '@verdaccio/helper': 1.0.0
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/middleware': workspace:6.0.0-6-next.15

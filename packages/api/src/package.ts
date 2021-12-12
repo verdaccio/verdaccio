@@ -53,9 +53,9 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       };
 
       try {
-        if (!storage.getPackageNext) {
-          throw errorUtils.getInternalError('getPackageNext not implemented, check pr-2750');
-        }
+        // if (!storage.getPackageNext) {
+        //   throw errorUtils.getInternalError('getPackageNext not implemented, check pr-2750');
+        // }
 
         const manifest = await storage.getPackageNext({
           name,
