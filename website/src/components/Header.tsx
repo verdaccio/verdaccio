@@ -21,7 +21,7 @@ const Header = (): React.ReactElement => {
         <div className={styles['header--mt-2']}>
           <h1 className={styles['header--title']}>Verdaccio</h1>
           <p className={styles['header--subtitle']}>
-            <Translate>A lightweight private npm proxy registry</Translate>
+            <Translate>A lightweight Node.js private proxy registry</Translate>
           </p>
           <div className={styles['header--links']}>
             <a href="https://github.com/verdaccio/verdaccio" className="link-secondary">
