@@ -47,7 +47,7 @@
     "verdaccio-htpasswd": "workspace:11.0.0-6-next.10"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:6.0.0-6-next.12",    
+    "@verdaccio/mock": "workspace:6.0.0-6-next.12",
     "@verdaccio/auth": "workspace:6.0.0-6-next.15",
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/config": "workspace:6.0.0-6-next.11",
