@@ -8,17 +8,25 @@ import { IAuth } from '@verdaccio/auth';
 import {
   API_ERROR,
   API_MESSAGE,
-  DIST_TAGS,
-  HEADERS,
+  DIST_TAGS, // HEADERS,
   HTTP_STATUS,
   errorUtils,
+  validatioUtils,
 } from '@verdaccio/core';
 import { notify } from '@verdaccio/hooks';
 import { logger } from '@verdaccio/logger';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Callback, CallbackAction, Config, MergeTags, Package, Version } from '@verdaccio/types';
-import { hasDiffOneKey, isObject, validateMetadata } from '@verdaccio/utils';
+import {
+  Callback,
+  CallbackAction,
+  Config,
+  MergeTags,
+  Package,
+  RemoteUser,
+  Version,
+} from '@verdaccio/types';
+import { hasDiffOneKey, isObject } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import star from './star';
@@ -90,12 +98,12 @@ export default function publish(
    * is the users property which is part of the payload and the body only includes
    *
    * {
-		  "_id": pkgName,
-	  	"_rev": "3-b0cdaefc9bdb77c8",
-		  "users": {
-		    [username]: boolean value (true, false)
-		  }
-	}
+      "_id": pkgName,
+      "_rev": "3-b0cdaefc9bdb77c8",
+      "users": {
+        [username]: boolean value (true, false)
+      }
+  }
    *
    */
   router.put(
@@ -114,9 +122,10 @@ export default function publish(
    * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
      npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
    */
+  // 'DELETE /npm8/-/npm8-1.0.9.tgz/-rev/38-2075d1242dcaa029', bytes: 0/30
   router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
 
-  // removing a tarball
+  // removing a tarball // used by npm unpublish xxx@zzz
   router.delete(
     '/:package/-/:filename/-rev/:revision',
     can('unpublish'),
@@ -124,22 +133,14 @@ export default function publish(
     removeTarball(storage)
   );
 
-  // uploading package tarball
-  router.put(
-    '/:package/-/:filename/*',
-    can('publish'),
-    media(HEADERS.OCTET_STREAM),
-    uploadPackageTarball(storage)
-  );
-
-  // adding a version
-  router.put(
-    '/:package/:version/-tag/:tag',
-    can('publish'),
-    media(mime.getType('json')),
-    expectJson,
-    addVersion(storage)
-  );
+  // // adding a version NOT USED anymore
+  // router.put(
+  //   '/:package/:version/-tag/:tag',
+  //   can('publish'),
+  //   media(mime.getType('json')),
+  //   expectJson,
+  //   addVersion(storage)
+  // );
 }
 
 /**
@@ -300,7 +301,7 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
 
     try {
       debug('pre validation metadata to publish %o', req.body);
-      const metadata = validateMetadata(req.body, packageName);
+      const metadata = validatioUtils.validateMetadata(req.body, packageName);
       debug('post validation metadata to publish %o', metadata);
       // treating deprecation as updating a package
       if (req.params._rev || isRelatedToDeprecation(req.body)) {
@@ -319,6 +320,199 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
             afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
           });
         });
+      } else {
+        debug('adding a new version for the package %o', packageName);
+        storage.addPackage(packageName, metadata, function (error) {
+          debug('package metadata updated %o', metadata);
+          afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
+        });
+      }
+    } catch (error: any) {
+      debug('error on publish, bad package format %o', packageName);
+      logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
+      return next(errorUtils.getBadData(API_ERROR.BAD_PACKAGE_DATA));
+    }
+  };
+}
+
+// TODO: this should be promise native in the future, temporary wrap
+async function allowUnpublish(
+  auth: IAuth,
+  packageName: string,
+  remoteUser: RemoteUser
+): Promise<void> {
+  return new Promise((resolve, reject) => {
+    auth.allow_unpublish({ packageName }, remoteUser, (error) => {
+      debug('allowed to unpublish a package %o', packageName);
+      if (error) {
+        debug('not allowed to unpublish a version for  %o', packageName);
+        return reject(error);
+      }
+
+      debug('update a package');
+      return resolve();
+    });
+  });
+}
+
+/**
+ * Publish a package
+ */
+export function publishPackage2(storage: Storage, config: Config, auth: IAuth): any {
+  // const starApi = star(storage);
+  return async function (
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): Promise<void> {
+    const packageName = req.params.package;
+    debug('publishing or updating a new version for %o', packageName);
+    const createTarball = function (filename: string, data, cb: Callback): void {
+      const stream = storage.addTarball(packageName, filename);
+      stream.on('error', function (err) {
+        debug(
+          'error on stream a tarball %o for %o with error %o',
+          filename,
+          packageName,
+          err.message
+        );
+        cb(err);
+      });
+      stream.on('success', function () {
+        debug('success on stream a tarball %o for %o', filename, packageName);
+        cb();
+      });
+      // this is dumb and memory-consuming, but what choices do we have?
+      // flow: we need first refactor this file before decides which type use here
+      stream.end(Buffer.from(data.data, 'base64'));
+      stream.done();
+    };
+    const createVersion = function (version: string, metadata: Version, cb: CallbackAction): void {
+      debug('add a new package version %o to storage %o', version, metadata);
+      storage.addVersion(packageName, version, metadata, null, cb);
+    };
+    const addTags = function (tags: MergeTags, cb: CallbackAction): void {
+      debug('add new tag %o to storage', packageName);
+      storage.mergeTags(packageName, tags, cb);
+    };
+    const afterChange = function (error, okMessage, metadata: Package): void {
+      const metadataCopy: Package = { ...metadata };
+      debug('after change metadata %o', metadata);
+
+      const { _attachments, versions } = metadataCopy;
+
+      // `npm star` wouldn't have attachments
+      // and `npm deprecate` would have attachments as a empty object, i.e {}
+      if (_.isNil(_attachments) || JSON.stringify(_attachments) === '{}') {
+        debug('no attachments detected');
+        if (error) {
+          debug('no_attachments: after change error with %o', error.message);
+          return next(error);
+        }
+
+        debug('no_attachments: after change success');
+        res.status(HTTP_STATUS.CREATED);
+        return next({
+          ok: okMessage,
+          success: true,
+        });
+      }
+
+      /**
+       * npm-registry-client 0.3+ embeds tarball into the json upload
+       * issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
+       */
+
+      const isInvalidBodyFormat =
+        isObject(_attachments) === false ||
+        hasDiffOneKey(_attachments) ||
+        isObject(versions) === false ||
+        hasDiffOneKey(versions);
+
+      if (isInvalidBodyFormat) {
+        // npm is doing something strange again
+        // if this happens in normal circumstances, report it as a bug
+        debug('invalid body format');
+        logger.info({ packageName }, `wrong package format on publish a package @{packageName}`);
+        return next(errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL));
+      }
+
+      if (error && error.status !== HTTP_STATUS.CONFLICT) {
+        debug('error on change or update a package with %o', error.message);
+        return next(error);
+      }
+
+      // at this point document is either created or existed before
+      const [firstAttachmentKey] = Object.keys(_attachments);
+
+      createTarball(
+        Path.basename(firstAttachmentKey),
+        _attachments[firstAttachmentKey],
+        function (error) {
+          debug('creating a tarball %o', firstAttachmentKey);
+          if (error) {
+            debug('error on create a tarball for %o with error %o', packageName, error.message);
+            return next(error);
+          }
+
+          const versionToPublish = Object.keys(versions)[0];
+
+          versions[versionToPublish].readme =
+            _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
+
+          createVersion(versionToPublish, versions[versionToPublish], function (error) {
+            if (error) {
+              debug('error on create a version for %o with error %o', packageName, error.message);
+              return next(error);
+            }
+
+            addTags(metadataCopy[DIST_TAGS], async function (error) {
+              if (error) {
+                debug('error on create a tag for %o with error %o', packageName, error.message);
+                return next(error);
+              }
+
+              try {
+                await notify(
+                  metadataCopy,
+                  config,
+                  req.remote_user,
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+              } catch (error: any) {
+                debug(
+                  'error on notify add a new tag %o',
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+                logger.error({ error }, 'notify batch service has failed: @{error}');
+              }
+
+              debug('add a tag succesfully for %o', `${metadataCopy.name}@${versionToPublish}`);
+              res.status(HTTP_STATUS.CREATED);
+              return next({ ok: okMessage, success: true });
+            });
+          });
+        }
+      );
+    };
+
+    // if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {
+    //   debug('starting star a package');
+    //   return starApi(req, res, next);
+    // }
+
+    try {
+      const metadata = validatioUtils.validateMetadata(req.body, packageName);
+      debug('post validation metadata to publish %o', metadata);
+      // treating deprecation as updating a package
+      if (req.params._rev || isRelatedToDeprecation(req.body)) {
+        debug('updating a new version for %o', packageName);
+        // we check unpublish permissions, an update is basically remove versions
+        const remote = req.remote_user;
+        await allowUnpublish(auth, packageName, remote);
+        debug('update a package');
+        await storage.changePackageNext(packageName, metadata, req.params.revision);
+        // afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
       } else {
         debug('adding a new version for the package %o', packageName);
         storage.addPackage(packageName, metadata, function (error) {
@@ -384,57 +578,24 @@ export function removeTarball(storage: Storage) {
  * Adds a new version
  */
 export function addVersion(storage: Storage) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+  return async function (
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): Promise<void> {
     const { version, tag } = req.params;
     const packageName = req.params.package;
     debug('add a new version %o and tag %o for %o', version, tag, packageName);
-
-    storage.addVersion(packageName, version, req.body, tag, function (error) {
-      if (error) {
-        debug('error on add new version');
-        return next(error);
-      }
-
+    try {
+      await storage.addVersionNext(packageName, version, req.body, tag);
       debug('success on add new version');
       res.status(HTTP_STATUS.CREATED);
       return next({
         ok: API_MESSAGE.PKG_PUBLISHED,
       });
-    });
-  };
-}
-
-/**
- * uploadPackageTarball
- */
-export function uploadPackageTarball(storage: Storage) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    const packageName = req.params.package;
-    const stream = storage.addTarball(packageName, req.params.filename);
-    req.pipe(stream);
-
-    // checking if end event came before closing
-    let complete = false;
-    req.on('end', function () {
-      complete = true;
-      stream.done();
-    });
-
-    req.on('close', function () {
-      if (!complete) {
-        stream.abort();
-      }
-    });
-
-    stream.on('error', function (err) {
-      return res.locals.report_error(err);
-    });
-
-    stream.on('success', function () {
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.TARBALL_UPLOADED,
-      });
-    });
+    } catch (err: any) {
+      debug('error on add new version');
+      return next(err);
+    }
   };
 }

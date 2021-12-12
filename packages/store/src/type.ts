@@ -1,4 +1,4 @@
-import { Callback, Config, IPluginStorageFilter } from '@verdaccio/types';
+import { Callback, Config, IPluginStorageFilter, RemoteUser } from '@verdaccio/types';
 
 // @deprecated
 export interface IGetPackageOptions {
@@ -15,6 +15,7 @@ export type IGetPackageOptionsNext = {
   name: string;
   version?: string;
   keepUpLinkData?: boolean;
+  remoteUser?: RemoteUser;
   uplinksLook: boolean;
   requestOptions: {
     // RequestOptions from url package
@@ -28,6 +29,15 @@ export interface ISyncUplinks {
   uplinksLook?: boolean;
   etag?: string;
   req?: Request;
+}
+
+export type Users = {
+  [key: string]: string;
+};
+export interface StarBody {
+  _id: string;
+  _rev: string;
+  users: Users;
 }
 
 export type IPluginFilters = IPluginStorageFilter<Config>[];

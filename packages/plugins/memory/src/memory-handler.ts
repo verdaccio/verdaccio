@@ -193,6 +193,23 @@ class MemoryHandler implements IPackageStorageManager {
     debug('get storage %o', name);
     return this.data[name];
   }
+
+  // migration pending
+  public async updatePackageNext(
+    packageName: string,
+    handleUpdate: (manifest: Package) => Promise<Package>
+  ): Promise<Package> {
+    debug(packageName);
+    // @ts-expect-error
+    await handleUpdate({});
+    // @ts-expect-error
+    return Promise.resolve({});
+  }
+
+  public async savePackageNext(name: string, value: Package): Promise<void> {
+    debug(name);
+    debug(value);
+  }
 }
 
 export default MemoryHandler;

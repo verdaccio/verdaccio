@@ -6,6 +6,7 @@ import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
 import { Package, StringValue, Version } from '@verdaccio/types';
 import { generateRandomHexString, isNil, normalizeDistTags } from '@verdaccio/utils';
 
+// import { Users } from '.';
 import { LocalStorage } from './local-storage';
 import { SearchInstance } from './search';
 

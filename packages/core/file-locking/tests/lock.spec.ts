@@ -1,11 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 
-import { lockFile, readFile, unlockFile } from '../src/index';
-
-interface Error {
-  message: string;
-}
+import { lockFileNext, readFileNext, unlockFileNext } from '../src/index';
+import { statDir, statFile } from '../src/utils';
 
 const getFilePath = (filename: string): string => {
   return path.resolve(__dirname, `assets/${filename}`);
@@ -22,116 +19,110 @@ const removeTempFile = (filename: string): void => {
 
 describe('testing locking', () => {
   describe('lockFile', () => {
-    test('file should be found to be locked', (done) => {
-      lockFile(getFilePath('package.json'), (error: Error) => {
-        expect(error).toBeNull();
-        removeTempFile('package.json.lock');
-        done();
-      });
+    test('file should be found to be locked', async () => {
+      await lockFileNext(getFilePath('package.json'));
+      removeTempFile('package.json.lock');
     });
 
-    test('file should fail to be found to be locked', (done) => {
-      lockFile(getFilePath('package.fail.json'), (error: Error) => {
-        expect(error.message).toMatch(
-          /ENOENT: no such file or directory, stat '(.*)package.fail.json'/
-        );
-        done();
-      });
+    test('file should fail to be found to be locked', async () => {
+      await expect(lockFileNext(getFilePath('package.fail.json'))).rejects.toThrow(
+        'ENOENT: no such file or directory'
+      );
     });
   });
 
   describe('unlockFile', () => {
-    test('file should to be found to be unLock', (done) => {
-      unlockFile(getFilePath('package.json.lock'), (error: Error) => {
-        expect(error).toBeNull();
-        done();
-      });
+    test('file should to be found to be unLock', async () => {
+      await expect(unlockFileNext(getFilePath('package.json.lock'))).resolves.toBeUndefined();
+    });
+  });
+
+  describe('statDir', () => {
+    test('error on missing dir', async () => {
+      await expect(statDir(getFilePath('package.json/package.json'))).rejects.toThrow(
+        'is not a directory'
+      );
+    });
+  });
+
+  describe('statFile', () => {
+    test('error on missing dir', async () => {
+      await expect(statFile(getFilePath(''))).rejects.toThrow('is not a file');
     });
   });
 
   describe('readFile', () => {
-    test('read file with no options should to be found to be read it as string', (done) => {
-      readFile(getFilePath('package.json'), {}, (error: Error, data: string) => {
-        expect(error).toBeNull();
-        expect(data).toMatchInlineSnapshot(`
+    test('read file with no options should to be found to be read it as string', async () => {
+      const data = await readFileNext(getFilePath('package.json'), {});
+      expect(data).toMatchInlineSnapshot(`
             "{
               \\"name\\": \\"assets\\",
               \\"version\\": \\"0.0.1\\"
             }
             "
           `);
-        done();
-      });
     });
 
-    test('read file with no options should to be found to be read it as object', (done) => {
+    test('read file with no options should to be found to be read it as object', async () => {
       const options = {
         parse: true,
       };
-      readFile(getFilePath('package.json'), options, (error: Error, data: string) => {
-        expect(error).toBeNull();
-        expect(data).toMatchInlineSnapshot(`
-            Object {
-              "name": "assets",
-              "version": "0.0.1",
-            }
-          `);
-        done();
-      });
+      const data = await readFileNext(getFilePath('package.json'), options);
+      expect(data).toMatchInlineSnapshot(`
+              Object {
+                "name": "assets",
+                "version": "0.0.1",
+              }
+            `);
     });
 
-    test('read file with options (parse) should to be not found to be read it', (done) => {
+    test('read file with options (parse) should to be not found to be read it', async () => {
       const options = {
         parse: true,
       };
-      readFile(getFilePath('package.fail.json'), options, (error: Error) => {
-        expect(error.message).toMatch(
-          /ENOENT: no such file or directory, open '(.*)package.fail.json'/
-        );
-        done();
-      });
+      await expect(readFileNext(getFilePath('package.fail.json'), options)).rejects.toThrow(
+        /ENOENT: no such file or directory, open '(.*)package.fail.json'/
+      );
     });
 
-    test('read file with options should be found to be read it and fails to be parsed', (done) => {
+    test('read file with options should be found to be read it and fails to be parsed', async () => {
       const options = {
         parse: true,
       };
-      readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
-        expect(error.message).toMatch(/Unexpected token } in JSON at position \d+/);
-        done();
-      });
+      await expect(readFileNext(getFilePath('wrong.package.json'), options)).rejects.toThrow(
+        'Unexpected token } in JSON at position 44'
+      );
     });
 
-    test('read file with options (parse, lock) should be found to be read it as object', (done) => {
+    test('read file with options (parse, lock) should be found to be read it as object', async () => {
       const options = {
         parse: true,
         lock: true,
       };
-      readFile(getFilePath('package2.json'), options, (error: Error, data: string) => {
-        expect(error).toBeNull();
-        expect(data).toMatchInlineSnapshot(`
-            Object {
-              "name": "assets",
-              "version": "0.0.1",
-            }
-          `);
-        removeTempFile('package2.json.lock');
-        done();
-      });
+      await expect(
+        readFileNext(getFilePath('package2.json'), options)
+      ).resolves.toMatchInlineSnapshot(
+        `
+              Object {
+                "name": "assets",
+                "version": "0.0.1",
+              }
+            `
+      );
+      removeTempFile('package2.json.lock');
     });
 
     test(
       'read file with options (parse, lock) should be found to be read and ' + 'fails to be parsed',
-      (done) => {
+      async () => {
         const options = {
           parse: true,
           lock: true,
         };
-        readFile(getFilePath('wrong.package.json'), options, (error: Error) => {
-          expect(error.message).toMatch(/Unexpected token } in JSON at position \d+/);
-          removeTempFile('wrong.package.json.lock');
-          done();
-        });
+        await expect(readFileNext(getFilePath('wrong.package.json'), options)).rejects.toThrow(
+          'Unexpected token } in JSON at position 44'
+        );
+        removeTempFile('wrong.package.json.lock');
       }
     );
   });

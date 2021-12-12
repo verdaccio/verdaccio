@@ -477,6 +477,7 @@ declare module '@verdaccio/types' {
     createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
     deletePackage(fileName: string): Promise<void>;
     removePackage(): Promise<void>;
+    // @deprecated
     updatePackage(
       pkgFileName: string,
       updateHandler: StorageUpdateCallback,
@@ -484,7 +485,14 @@ declare module '@verdaccio/types' {
       transformPackage: PackageTransformer,
       onEnd: Callback
     ): void;
+    // @deprecated
     savePackage(fileName: string, json: Package, callback: CallbackAction): void;
+    //  next packages migration (this list is meant to replace the callback parent functions)
+    updatePackageNext(
+      packageName: string,
+      handleUpdate: (manifest: Package) => Promise<Package>
+    ): Promise<Package>;
+    savePackageNext(name: string, value: Package): Promise<void>;
   }
 
   interface TarballActions {

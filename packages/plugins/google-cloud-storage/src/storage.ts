@@ -406,6 +406,26 @@ class GoogleCloudStorageHandler implements IPackageStorageManager {
       .pipe(localReadStream);
     return localReadStream;
   }
+
+  // migration pending
+  public async updatePackageNext(
+    packageName: string,
+    handleUpdate: (manifest: Package) => Promise<Package>
+  ): Promise<Package> {
+    // eslint-disable-next-line no-console
+    console.log(packageName);
+    // @ts-expect-error
+    await handleUpdate({});
+    // @ts-expect-error
+    return Promise.resolve({});
+  }
+
+  public async savePackageNext(name: string, value: Package): Promise<void> {
+    // eslint-disable-next-line no-console
+    console.log(name);
+    // eslint-disable-next-line no-console
+    console.log(value);
+  }
 }
 
 export default GoogleCloudStorageHandler;

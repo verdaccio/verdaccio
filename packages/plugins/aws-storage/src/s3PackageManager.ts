@@ -314,7 +314,7 @@ export default class S3PackageManager implements ILocalPackageManager {
                   const error: HttpError = convertS3Error(err);
                   this.logger.error(
                     { error: error.message },
-                    `s3: [S3PackageManager writeTarball managedUpload send] 
+                    `s3: [S3PackageManager writeTarball managedUpload send]
                     emit error @{error}`
                   );
 
@@ -363,7 +363,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               } else {
                 this.logger.trace(
                   { name },
-                  `s3: [S3PackageManager writeTarball uploadStream] streamEnded 
+                  `s3: [S3PackageManager writeTarball uploadStream] streamEnded
                   false emit end @{name}`
                 );
                 uploadStream.on('end', onEnd);
@@ -386,7 +386,7 @@ export default class S3PackageManager implements ILocalPackageManager {
               } finally {
                 this.logger.debug(
                   { name, baseS3Params },
-                  `s3: [S3PackageManager writeTarball uploadStream abort] 
+                  `s3: [S3PackageManager writeTarball uploadStream abort]
                   s3.deleteObject @{name}/@baseS3Params`
                 );
 
@@ -494,5 +494,25 @@ export default class S3PackageManager implements ILocalPackageManager {
     };
 
     return readTarballStream;
+  }
+
+  // migration pending
+  public async updatePackageNext(
+    packageName: string,
+    handleUpdate: (manifest: Package) => Promise<Package>
+  ): Promise<Package> {
+    // eslint-disable-next-line no-console
+    console.log(packageName);
+    // @ts-expect-error
+    await handleUpdate({});
+    // @ts-expect-error
+    return Promise.resolve({});
+  }
+
+  public async savePackageNext(name: string, value: Package): Promise<void> {
+    // eslint-disable-next-line no-console
+    console.log(name);
+    // eslint-disable-next-line no-console
+    console.log(value);
   }
 }

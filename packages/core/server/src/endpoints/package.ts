@@ -12,7 +12,7 @@ async function manifestRoute(fastify: FastifyInstance) {
     const { packageName } = request.params;
     const storage = fastify.storage;
     debug('pkg name %s ', packageName);
-    const data = await storage?.getPackageNext({
+    const data = await storage?.getPackageByOptions({
       name: packageName,
       req: request.raw,
       uplinksLook: true,
@@ -30,7 +30,7 @@ async function manifestRoute(fastify: FastifyInstance) {
     const { packageName, version } = request.params;
     const storage = fastify.storage;
     debug('pkg name %s, with version / tag: %s ', packageName, version);
-    const data = await storage?.getPackageNext({
+    const data = await storage?.getPackageByOptions({
       name: packageName,
       req: request.raw,
       version,

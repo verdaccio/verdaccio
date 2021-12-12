@@ -5,11 +5,18 @@ import _ from 'lodash';
 import path from 'path';
 
 import { VerdaccioError, errorUtils } from '@verdaccio/core';
-import { readFile, unlockFile } from '@verdaccio/file-locking';
+import { readFile, readFileNext, unlockFile, unlockFileNext } from '@verdaccio/file-locking';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import { Callback, ILocalPackageManager, IUploadTarball, Logger, Package } from '@verdaccio/types';
 
-import { readFilePromise, rmdirPromise, unlinkPromise } from './fs';
+import {
+  mkdirPromise,
+  readFilePromise,
+  renamePromise,
+  rmdirPromise,
+  unlinkPromise,
+  writeFilePromise,
+} from './fs';
 
 export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
@@ -53,6 +60,21 @@ const renameTmp = function (src, dst, _cb): void {
     }
   });
 };
+
+export async function renameTmpNext(src: string, dst: string): Promise<void> {
+  if (process.platform !== 'win32') {
+    await renamePromise(src, dst);
+    await unlinkPromise(src);
+  } else {
+    // TODO: review if this still the cases
+    // windows can't remove opened file,
+    // but it seem to be able to rename it
+    const tmp = tempFile(dst);
+    await renamePromise(dst, tmp);
+    await renamePromise(src, dst);
+    await unlinkPromise(tmp);
+  }
+}
 
 export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
 
@@ -110,6 +132,7 @@ export default class LocalFS implements ILocalFSPackageManager {
           onEnd(..._args);
         }
       };
+      // //////////////////////////////////////
 
       if (!err) {
         locked = true;
@@ -136,6 +159,74 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
+  /**
+    * This function allows to update the package
+    * This function handle the update package logic, for this plugin
+    * we need to lock/unlock handlers for thread-safely and then apply
+    * the `handleUpdate` and return the result.
+    *
+    * The lock could fail on several steps so we need to ensure the
+    * file does not get locked if the whole process fails.
+    *
+      Algorithm:
+      1. lock package.json for writing
+      2. read package.json
+      3. apply external update package handler
+      4. return manifest (write is being hanlded into the core)
+      5. rename package.json.tmp package.json
+    * @param {*} packageName
+    * The update package handler could be different based
+    * on the action and handled into the core.
+    * @param {*} handleUpdate
+    */
+  public async updatePackageNext(
+    packageName: string,
+    handleUpdate: (manifest: Package) => Promise<Package>
+  ): Promise<Package> {
+    // this plugin lock files on write, we handle all possible scenarios
+    let locked = false;
+    let manifestUpdated: Package;
+    try {
+      const manifest = await this._lockAndReadJSONNext(packageJSONFileName);
+      locked = true;
+      manifestUpdated = await handleUpdate(manifest);
+      if (locked) {
+        debug('unlock %s', packageJSONFileName);
+        await this._unlockJSONNext(packageJSONFileName);
+        this.logger.debug({ packageName }, 'the package @{packageName}  has been updated');
+        return manifestUpdated;
+      } else {
+        this.logger.debug({ packageName }, 'the package @{packageName}  has been updated');
+        return manifestUpdated;
+      }
+    } catch (err: any) {
+      // we ensure lock the file
+      this.logger.error(
+        { err, packageName },
+        'error @{err.message}  on update package @{packageName}'
+      );
+      if (locked) {
+        // eslint-disable-next-line no-useless-catch
+        try {
+          await this._unlockJSONNext(packageJSONFileName);
+          // after unlock bubble up error.
+          throw err;
+        } catch (err: any) {
+          // unlock could fail, we bubble up error
+          throw errorUtils.getInternalError('resource temporarily unavailable');
+        }
+      } else {
+        if (err.code === resourceNotAvailable) {
+          throw errorUtils.getInternalError('resource temporarily unavailable');
+        } else if (err.code === noSuchFile) {
+          throw errorUtils.getNotFound();
+        } else {
+          throw err;
+        }
+      }
+    }
+  }
+
   public async deletePackage(packageName: string): Promise<void> {
     debug('delete a file/package %o', packageName);
 
@@ -158,6 +249,12 @@ export default class LocalFS implements ILocalFSPackageManager {
     debug('save a package %o', name);
 
     this._writeFile(this._getStorage(packageJSONFileName), this._convertToString(value), cb);
+  }
+
+  public async savePackageNext(name: string, value: Package): Promise<void> {
+    debug('save a package %o', name);
+
+    await this.writeFileNext(this._getStorage(packageJSONFileName), this._convertToString(value));
   }
 
   public async readPackageNext(name: string): Promise<Package> {
@@ -371,6 +468,35 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
   }
 
+  private async writeTempFileAndRename(dest: string, fileContent: string): Promise<any> {
+    const tempFilePath = tempFile(dest);
+    try {
+      // write file on temp location
+      await writeFilePromise(tempFilePath, fileContent);
+      debug('creating a new file:: %o', dest);
+      // rename tmp file to original
+      await renameTmpNext(tempFilePath, dest);
+    } catch (err: any) {
+      debug('error on write the file: %o', dest);
+      throw err;
+    }
+  }
+
+  private async writeFileNext(destiny: string, fileContent: string): Promise<void> {
+    try {
+      await this.writeTempFileAndRename(destiny, fileContent);
+    } catch (err: any) {
+      if (err && err.code === noSuchFile) {
+        // if fails, we create the folder for the package
+        await mkdirPromise(path.dirname(destiny), { recursive: true });
+        // we try again create the temp file
+        await this.writeTempFileAndRename(destiny, fileContent);
+      } else {
+        throw err;
+      }
+    }
+  }
+
   private _lockAndReadJSON(name: string, cb: Function): void {
     const fileName: string = this._getStorage(name);
     debug('lock and read a file %o', fileName);
@@ -396,5 +522,26 @@ export default class LocalFS implements ILocalFSPackageManager {
 
   private _unlockJSON(name: string, cb: Function): void {
     unlockFile(this._getStorage(name), cb);
+  }
+
+  private async _lockAndReadJSONNext(name: string): Promise<Package> {
+    const fileName: string = this._getStorage(name);
+    debug('lock and read a file %o', fileName);
+    try {
+      const data = await readFileNext<Package>(fileName, {
+        lock: true,
+        parse: true,
+      });
+      return data;
+    } catch (err) {
+      this.logger.error({ err }, 'error on lock file @{err.message}');
+      debug('error on lock and read json for file: %o', name);
+
+      throw err;
+    }
+  }
+
+  private async _unlockJSONNext(name: string): Promise<void> {
+    await unlockFileNext(this._getStorage(name));
   }
 }
