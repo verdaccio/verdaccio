@@ -56,7 +56,7 @@ export default function (config: Config, auth: IAuth, storage: Storage): Router 
   app.use(encodeScopePackage);
   // for "npm whoami"
   whoami(app);
-  pkg(app, auth, storage, config);
+  pkg(app, auth, storage);
   profile(app, auth);
   // @deprecated endpoint, 404 by default
   search(app);

@@ -160,6 +160,21 @@ export default class LocalFS implements ILocalFSPackageManager {
     this._writeFile(this._getStorage(packageJSONFileName), this._convertToString(value), cb);
   }
 
+  public async readPackageNext(name: string): Promise<Package> {
+    debug('read a package %o', name);
+    try {
+      const res = await this._readStorageFile(this._getStorage(packageJSONFileName));
+      const data: any = JSON.parse(res.toString('utf8'));
+
+      debug('read storage file %o has succeed', name);
+      return data;
+    } catch (err: any) {
+      debug('parse error');
+      this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
+      throw err;
+    }
+  }
+
   public readPackage(name: string, cb: Callback): void {
     debug('read a package %o', name);
 
@@ -177,7 +192,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         }
       })
       .catch((err) => {
-        this.logger.error({ err }, 'error on read storage file @{err.message}');
+        debug('error on read storage file %o', err.message);
         return cb(err);
       });
   }

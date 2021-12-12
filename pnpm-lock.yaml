@@ -196,7 +196,6 @@ importers:
       '@verdaccio/middleware': workspace:6.0.0-6-next.15
       '@verdaccio/server': workspace:6.0.0-6-next.23
       '@verdaccio/store': workspace:6.0.0-6-next.16
-      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
@@ -216,7 +215,6 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/middleware': link:../middleware
       '@verdaccio/store': link:../store
-      '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
       body-parser: 1.19.0
@@ -694,6 +692,7 @@ importers:
       lowdb: 1.0.0
       lru-cache: 6.0.0
       minimatch: 3.0.4
+      sanitize-filename: 1.6.3
       tmp-promise: 3.0.3
     dependencies:
       '@verdaccio/core': link:../../core/core
@@ -707,6 +706,7 @@ importers:
       lodash: 4.17.21
       lowdb: 1.0.0
       lru-cache: 6.0.0
+      sanitize-filename: 1.6.3
     devDependencies:
       '@types/minimatch': 3.0.5
       '@verdaccio/config': link:../../config
@@ -1011,12 +1011,14 @@ importers:
       '@types/node': 16.11.11
       '@verdaccio/config': workspace:6.0.0-6-next.11
       '@verdaccio/core': workspace:6.0.0-6-next.3
+      '@verdaccio/helper': workspace:1.0.0
       '@verdaccio/loaders': workspace:6.0.0-6-next.7
       '@verdaccio/local-storage': workspace:11.0.0-6-next.10
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/mock': workspace:6.0.0-6-next.12
       '@verdaccio/proxy': workspace:6.0.0-6-next.15
       '@verdaccio/streams': workspace:11.0.0-6-next.5
+      '@verdaccio/tarball': workspace:11.0.0-6-next.10
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
@@ -1027,6 +1029,8 @@ importers:
       lunr: 2.3.9
       lunr-mutable-indexes: 2.3.2
       merge2: 1.4.1
+      nock: 13.0.11
+      node-mocks-http: 1.10.1
       semver: 7.3.5
       tmp-promise: 3.0.3
       undici: 4.7.3
@@ -1039,6 +1043,7 @@ importers:
       '@verdaccio/logger': link:../logger
       '@verdaccio/proxy': link:../proxy
       '@verdaccio/streams': link:../core/streams
+      '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
       async: 3.1.1
@@ -1051,8 +1056,11 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.11.11
+      '@verdaccio/helper': link:../tools/helpers
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
+      nock: 13.0.11
+      node-mocks-http: 1.10.1
       tmp-promise: 3.0.3
       undici: 4.7.3
       undici-fetch: 1.0.0-rc.4
@@ -1179,7 +1187,6 @@ importers:
       '@verdaccio/cli': link:../cli
       '@verdaccio/hooks': link:../hooks
       '@verdaccio/logger': link:../logger
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/node-api': link:../node-api
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       '@verdaccio/utils': link:../utils
@@ -1189,6 +1196,7 @@ importers:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
+      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/store': link:../store
       fastify: 3.24.1
 
@@ -19586,6 +19594,12 @@ packages:
   /safer-buffer/2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
+  /sanitize-filename/1.6.3:
+    resolution: {integrity: sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==}
+    dependencies:
+      truncate-utf8-bytes: 1.0.2
+    dev: false
+
   /sass-loader/10.2.0_sass@1.39.0:
     resolution: {integrity: sha512-kUceLzC1gIHz0zNJPpqRsJyisWatGYNFRmv2CKZK2/ngMJgLqxTbXwe/hJ85luyvZkgqU3VlJ33UVF2T/0g6mw==}
     engines: {node: '>= 10.13.0'}
@@ -21226,6 +21240,12 @@ packages:
   /trough/1.0.5:
     resolution: {integrity: sha512-rvuRbTarPXmMb79SmzEp8aqXNKcK+y0XaB298IXueQ8I2PsrATcPBCSPyK/dDNa2iWOhKlfNnOjdAOTBU/nkFA==}
 
+  /truncate-utf8-bytes/1.0.2:
+    resolution: {integrity: sha1-QFkjkJWS1W94pYGENLC3hInKXys=}
+    dependencies:
+      utf8-byte-length: 1.0.4
+    dev: false
+
   /ts-essentials/2.0.12:
     resolution: {integrity: sha512-3IVX4nI6B5cc31/GFFE+i8ey/N2eA0CZDbo6n0yrz0zDX8ZJ8djmU1p+XRz7G3is0F3bB3pu2pAroFdAWQKU3w==}
     dev: false
@@ -21846,6 +21866,10 @@ packages:
   /use/3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
+
+  /utf8-byte-length/1.0.4:
+    resolution: {integrity: sha1-9F8VDExm7uloGGUFq5P8u4rWv2E=}
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}

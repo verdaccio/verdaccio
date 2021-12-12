@@ -1,14 +1,10 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import _ from 'lodash';
 
 import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, DIST_TAGS, HEADERS, errorUtils } from '@verdaccio/core';
+import { HEADERS, errorUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Package } from '@verdaccio/types';
-import { getVersion } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
@@ -18,7 +14,7 @@ const downloadStream = (
   packageName: string,
   filename: string,
   storage: any,
-  req: $RequestExtend,
+  _req: $RequestExtend,
   res: $ResponseExtend
 ): void => {
   const stream = storage.getTarball(packageName, filename);
@@ -35,13 +31,17 @@ const downloadStream = (
   stream.pipe(res);
 };
 
-export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
+export default function (route: Router, auth: IAuth, storage: Storage): void {
   const can = allow(auth);
-  // TODO: anonymous user?
+
   route.get(
     '/:package/:version?',
     can('access'),
-    function (req: $RequestExtend, _res: $ResponseExtend, next: $NextFunctionVer): void {
+    async function (
+      req: $RequestExtend,
+      _res: $ResponseExtend,
+      next: $NextFunctionVer
+    ): Promise<void> {
       debug('init package by version');
       const name = req.params.package;
       let queryVersion = req.params.version;
@@ -51,57 +51,27 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         // FIXME: if we migrate to req.hostname, the port is not longer included.
         host: req.host,
       };
-      const getPackageMetaCallback = function (err, metadata: Package): void {
-        if (err) {
-          debug('error on fetch metadata for %o with error %o', name, err.message);
-          return next(err);
+
+      try {
+        // TODO: this is just temporary while I migrate all plugins to use the new API
+        // the method will be renamed to getPackage again but Promise Based.
+        if (!storage.getPackageNext) {
+          throw errorUtils.getInternalError(
+            'getPackageNext not implemented, check pr-2750 for more details'
+          );
         }
-        debug('convert dist remote to local with prefix %o', config?.url_prefix);
-        metadata = convertDistRemoteToLocalTarballUrls(
-          metadata,
+
+        const manifest = await storage.getPackageNext({
+          name,
+          uplinksLook: true,
+          req,
+          version: queryVersion,
           requestOptions,
-          config?.url_prefix
-        );
-
-        debug('query by param version: %o', queryVersion);
-        if (_.isNil(queryVersion)) {
-          debug('param %o version found', queryVersion);
-          return next(metadata);
-        }
-
-        let version = getVersion(metadata.versions, queryVersion);
-        debug('query by latest version %o and result %o', queryVersion, version);
-        if (_.isNil(version) === false) {
-          debug('latest version found %o', version);
-          return next(version);
-        }
-
-        if (_.isNil(metadata[DIST_TAGS]) === false) {
-          if (_.isNil(metadata[DIST_TAGS][queryVersion]) === false) {
-            queryVersion = metadata[DIST_TAGS][queryVersion];
-            debug('dist-tag version found %o', queryVersion);
-            version = getVersion(metadata.versions, queryVersion);
-            if (_.isNil(version) === false) {
-              debug('dist-tag found %o', version);
-              return next(version);
-            }
-          }
-        } else {
-          debug('dist tag not detected');
-        }
-
-        debug('package version not found %o', queryVersion);
-        return next(errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`));
-      };
-
-      debug('get package name %o', name);
-      debug('uplinks look up enabled');
-      storage.getPackage({
-        name,
-        uplinksLook: true,
-        req,
-        callback: getPackageMetaCallback,
-      });
+        });
+        next(manifest);
+      } catch (err) {
+        next(err);
+      }
     }
   );
 

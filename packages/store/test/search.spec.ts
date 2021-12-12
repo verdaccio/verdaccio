@@ -8,8 +8,6 @@ import { SearchInstance } from '../src/search';
 
 setup([]);
 
-// jest.mock('@verdaccio/logger');
-
 describe('search', () => {
   describe('search manager utils', () => {
     test('remove duplicates', () => {
@@ -17,6 +15,9 @@ describe('search', () => {
         // @ts-expect-error
         package: {
           name: 'foo',
+        },
+        ['dist-tags']: {
+          latest: '1.0.0',
         },
         // @ts-expect-error
         score: {},
