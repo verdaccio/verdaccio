@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "express": "4.17.1",
-    "body-parser": "1.19.0",
+    "body-parser": "1.19.1",
     "https-proxy-agent": "5.0.0",
     "node-fetch": "3.0.0-beta.6-exportfix"
   },

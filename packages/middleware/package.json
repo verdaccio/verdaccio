@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "debug": "4.3.3",
-    "body-parser": "1.19.0",
+    "body-parser": "1.19.1",
     "@verdaccio/auth": "workspace:6.0.0-6-next.15",
     "@verdaccio/core": "workspace:6.0.0-6-next.3",
     "@verdaccio/logger": "workspace:6.0.0-6-next.7",

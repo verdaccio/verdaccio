@@ -199,7 +199,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/utils': workspace:6.0.0-6-next.9
       abortcontroller-polyfill: 1.7.3
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       cookies: 0.8.0
       debug: 4.3.3
       express: 4.17.1
@@ -217,7 +217,7 @@ importers:
       '@verdaccio/store': link:../store
       '@verdaccio/utils': link:../utils
       abortcontroller-polyfill: 1.7.3
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       cookies: 0.8.0
       debug: 4.3.3
       express: 4.17.1
@@ -528,7 +528,7 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.3
       '@verdaccio/logger': workspace:6.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       debug: 4.3.3
       lodash: 4.17.21
     dependencies:
@@ -536,7 +536,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
       '@verdaccio/utils': link:../utils
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       debug: 4.3.3
       lodash: 4.17.21
 
@@ -587,14 +587,14 @@ importers:
   packages/plugins/audit:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       express: 4.17.1
       https-proxy-agent: 5.0.0
       nock: 12.0.3
       node-fetch: 3.0.0-beta.6-exportfix
       supertest: 6.1.6
     dependencies:
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       express: 4.17.1
       https-proxy-agent: 5.0.0
       node-fetch: 3.0.0-beta.6-exportfix
@@ -1215,7 +1215,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.9
       '@verdaccio/url': workspace:11.0.0-6-next.7
       '@verdaccio/utils': workspace:6.0.0-6-next.9
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
@@ -1236,7 +1236,7 @@ importers:
       '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/url': link:../core/url
       '@verdaccio/utils': link:../utils
-      body-parser: 1.19.0
+      body-parser: 1.19.1
       debug: 4.3.3
       express: 4.17.1
       lodash: 4.17.21
@@ -9051,6 +9051,22 @@ packages:
       raw-body: 2.4.0
       type-is: 1.6.18
 
+  /body-parser/1.19.1:
+    resolution: {integrity: sha512-8ljfQi5eBk8EJfECMrgqNGWPEY5jWP+1IzkzkGdFFEwFQZZyaZ21UqdaHktgiMlH0xLHqIFtE/u2OYE5dOtViA==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.1
+      content-type: 1.0.4
+      debug: 2.6.9
+      depd: 1.1.2
+      http-errors: 1.8.1
+      iconv-lite: 0.4.24
+      on-finished: 2.3.0
+      qs: 6.9.6
+      raw-body: 2.4.2
+      type-is: 1.6.18
+    dev: false
+
   /bonjour/3.5.0:
     resolution: {integrity: sha1-jokKGD2O6aI5OzhExpGkK897yfU=}
     dependencies:
@@ -9238,6 +9254,11 @@ packages:
   /bytes/3.1.0:
     resolution: {integrity: sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==}
     engines: {node: '>= 0.8'}
+
+  /bytes/3.1.1:
+    resolution: {integrity: sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==}
+    engines: {node: '>= 0.8'}
+    dev: false
 
   /cache-base/1.0.1:
     resolution: {integrity: sha512-AKcdTnFSWATd5/GCPRxr2ChwIJ85CeyrEyjRHlKxQ56d4XJMGym0uAiKn0xbLOGOl3+yRpOTi484dVCEc5AUzQ==}
@@ -18516,6 +18537,11 @@ packages:
     resolution: {integrity: sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==}
     engines: {node: '>=0.6'}
 
+  /qs/6.9.6:
+    resolution: {integrity: sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==}
+    engines: {node: '>=0.6'}
+    dev: false
+
   /querystring/0.2.0:
     resolution: {integrity: sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=}
     engines: {node: '>=0.4.x'}
@@ -18556,6 +18582,16 @@ packages:
       http-errors: 1.7.2
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+
+  /raw-body/2.4.2:
+    resolution: {integrity: sha512-RPMAFUJP19WIet/99ngh6Iv8fzAbqum4Li7AD6DtGaW2RpMB/11xDoalPiJMTbu6I3hkbMVkATvZrqb9EEqeeQ==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.1
+      http-errors: 1.8.1
+      iconv-lite: 0.4.24
+      unpipe: 1.0.0
+    dev: false
 
   /rc/1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
