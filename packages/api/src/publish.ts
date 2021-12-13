@@ -299,33 +299,43 @@ export function publishPackage(storage: Storage, config: Config, auth: IAuth): a
     }
 
     try {
-      debug('pre validation metadata to publish %o', req.body);
-      const metadata = validateMetadata(req.body, packageName);
-      debug('post validation metadata to publish %o', metadata);
-      // treating deprecation as updating a package
-      if (req.params._rev || isRelatedToDeprecation(req.body)) {
-        debug('updating a new version for %o', packageName);
-        // we check unpublish permissions, an update is basically remove versions
-        const remote = req.remote_user;
-        auth.allow_unpublish({ packageName }, remote, (error) => {
-          debug('allowed to unpublish a package %o', packageName);
-          if (error) {
-            debug('not allowed to unpublish a version for  %o', packageName);
-            return next(error);
-          }
+      storage.getPackage({
+        name: packageName,
+        uplinksLook: true,
+        req,
+        callback: function () {
+          debug('pre validation metadata to publish %o', req.body);
+          const metadata = validateMetadata(req.body, packageName);
+          const metadataVersions = Object.keys(metadata.versions);
+          // false: publish new version with package.json#deprecated fields, that will make all old versions miss(local-storage will override package.json)
+          const allowPublishWithDeprecated = Object.keys(packageInfo.versions).every(item => metadataVersions.includes(item));
+          debug('post validation metadata to publish %o', metadata);
+          // treating deprecation as updating a package
+          if ((req.params._rev || isRelatedToDeprecation(req.body)) && allowPublishWithDeprecatedFiled) {
+            debug('updating a new version for %o', packageName);
+            // we check unpublish permissions, an update is basically remove versions
+            const remote = req.remote_user;
+            auth.allow_unpublish({ packageName }, remote, (error) => {
+              debug('allowed to unpublish a package %o', packageName);
+              if (error) {
+                debug('not allowed to unpublish a version for  %o', packageName);
+                return next(error);
+              }
 
-          debug('update a package');
-          storage.changePackage(packageName, metadata, req.params.revision, function (error) {
-            afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
-          });
-        });
-      } else {
-        debug('adding a new version for the package %o', packageName);
-        storage.addPackage(packageName, metadata, function (error) {
-          debug('package metadata updated %o', metadata);
-          afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
-        });
-      }
+              debug('update a package');
+              storage.changePackage(packageName, metadata, req.params.revision, function (error) {
+                afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
+              });
+            });
+          } else {
+            debug('adding a new version for the package %o', packageName);
+            storage.addPackage(packageName, metadata, function (error) {
+              debug('package metadata updated %o', metadata);
+              afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
+            });
+          } 
+        }
+      })
     } catch (error: any) {
       debug('error on publish, bad package format %o', packageName);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
