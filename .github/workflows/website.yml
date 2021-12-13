@@ -102,7 +102,7 @@ jobs:
 
       - name: Audit preview URL with Lighthouse
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v3
+        uses: treosh/lighthouse-ci-action@8.2.0
         with:
           urls: |
             ${{ steps.netlify_preview.outputs.preview-url }}
