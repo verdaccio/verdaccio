@@ -221,14 +221,17 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         req,
         callback: function (_, packageInfo) {
           const metadata = validateMetadata(req.body, packageName);
-          const metadataVersions = Object.keys(metadata.versions);
           // false: publish new version with package.json#deprecated fields, that will make all old versions miss(local-storage will override package.json)
-          const allowPublishWithDeprecated = packageInfo && Object.keys(packageInfo.versions).every(item =>
-            metadataVersions.includes(item)
-          );
           // treating deprecation as updating a package
+          const checkVersionsMatch = function () {
+            const metadataVersions = Object.keys(metadata.versions);
+
+            return Object.keys(packageInfo.versions).every(item =>
+              metadataVersions.includes(item)
+            );
+          };
           if (
-            req.params._rev || (isRelatedToDeprecation(req.body) && allowPublishWithDeprecated)
+            req.params._rev || (isRelatedToDeprecation(req.body) && checkVersionsMatch())
           ) {
             debug('updating a new version for %o', packageName);
             // we check unpublish permissions, an update is basically remove versions
