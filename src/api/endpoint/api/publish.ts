@@ -223,7 +223,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
           const metadata = validateMetadata(req.body, packageName);
           const metadataVersions = Object.keys(metadata.versions);
           // false: publish new version with package.json#deprecated fields, that will make all old versions miss(local-storage will override package.json)
-          const allowPublishWithDeprecated = Object.keys(packageInfo.versions).every(item => 
+          const allowPublishWithDeprecated = Object.keys(packageInfo.versions).every(item =>
             metadataVersions.includes(item)
           );
           // treating deprecation as updating a package
