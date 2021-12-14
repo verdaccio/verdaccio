@@ -212,9 +212,9 @@ module.exports = {
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
         },
-        googleAnalytics: isProductionDeployment ? {
+        googleAnalytics: {
           trackingID: 'UA-2527438-21'
-        } : undefined,        
+        },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
           blogDescription: 'The official Verdaccio NPM proxy registry blog',
