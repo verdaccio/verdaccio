@@ -228,7 +228,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
           );
           // treating deprecation as updating a package
           if (
-            (req.params._rev || isRelatedToDeprecation(req.body)) && allowPublishWithDeprecated
+            req.params._rev || (isRelatedToDeprecation(req.body) && allowPublishWithDeprecated)
           ) {
             debug('updating a new version for %o', packageName);
             // we check unpublish permissions, an update is basically remove versions
