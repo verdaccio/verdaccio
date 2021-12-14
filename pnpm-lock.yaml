@@ -769,7 +769,7 @@ importers:
       html-webpack-plugin: 5.4.0
       i18next: 20.6.1
       in-publish: 2.0.1
-      js-base64: 3.6.1
+      js-base64: 3.7.2
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
@@ -848,7 +848,7 @@ importers:
       html-webpack-plugin: 5.4.0_webpack@5.64.0
       i18next: 20.6.1
       in-publish: 2.0.1
-      js-base64: 3.6.1
+      js-base64: 3.7.2
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
@@ -14986,8 +14986,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /js-base64/3.6.1:
-    resolution: {integrity: sha512-Frdq2+tRRGLQUIQOgsIGSCd1VePCS2fsddTG5dTCqR0JHgltXWfsxnY0gIXPoMeRmdom6Oyq+UMOFg5suduOjQ==}
+  /js-base64/3.7.2:
+    resolution: {integrity: sha512-NnRs6dsyqUXejqk/yv2aiXlAvOs56sLkX6nUdeaNezI5LFFLlsZjOThmwnrcwh5ZZRwZlCMnVAY3CvhIhoVEKQ==}
     dev: true
 
   /js-levenshtein/1.1.6:
