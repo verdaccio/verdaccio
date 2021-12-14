@@ -66,9 +66,6 @@ module.exports = {
       indexName: 'verdaccio',
       contextualSearch: true
     },
-    googleAnalytics: isProductionDeployment ? {
-      trackingID: 'UA-2527438-21'
-    } : undefined,
     navbar: {
       title: `Verdaccio - v${pkgJson.version}`,
       logo: {
@@ -214,6 +211,9 @@ module.exports = {
             }
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
+        },
+        googleAnalytics: {
+          trackingID: 'UA-2527438-21'
         },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
