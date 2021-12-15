@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/mock",
-  "version": "6.0.0-6-next.12",
+  "version": "6.0.0-6-next.13",
   "private": true,
   "author": {
     "name": "Juan Picado",
@@ -40,9 +40,9 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.3",
-    "@verdaccio/config": "workspace:6.0.0-6-next.11",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.9",
+    "@verdaccio/core": "workspace:6.0.0-6-next.4",
+    "@verdaccio/config": "workspace:6.0.0-6-next.12",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "core-js": "3.17.2",
     "debug": "4.3.3",
     "fs-extra": "10.0.0",
@@ -51,7 +51,7 @@
     "supertest": "6.1.6"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.9"
+    "@verdaccio/types": "workspace:11.0.0-6-next.10"
   },
   "funding": {
     "type": "opencollective",

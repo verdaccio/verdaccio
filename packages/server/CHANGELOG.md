@@ -1,5 +1,55 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.24
+
+### Major Changes
+
+- a828271d: refactor: download manifest endpoint and integrate fastify
+
+  Much simpler API for fetching a package
+
+  ```
+   const manifest = await storage.getPackageNext({
+        name,
+        uplinksLook: true,
+        req,
+        version: queryVersion,
+        requestOptions,
+   });
+  ```
+
+  > not perfect, the `req` still is being passed to the proxy (this has to be refactored at proxy package) and then removed from here, in proxy we pass the request instance to the `request` library.
+
+  ### Details
+
+  - `async/await` sugar for getPackage()
+  - Improve and reuse code between current implementation and new fastify endpoint (add scaffolding for request manifest)
+  - Improve performance
+  - Add new tests
+
+  ### Breaking changes
+
+  All storage plugins will stop to work since the storage uses `getPackageNext` method which is Promise based, I won't replace this now because will force me to update all plugins, I'll follow up in another PR. Currently will throw http 500
+
+### Patch Changes
+
+- Updated dependencies [a828271d]
+- Updated dependencies [24b9be02]
+- Updated dependencies [e75c0a3b]
+- Updated dependencies [000d4374]
+- Updated dependencies [b13a3fef]
+  - @verdaccio/api@6.0.0-6-next.19
+  - @verdaccio/store@6.0.0-6-next.17
+  - @verdaccio/utils@6.0.0-6-next.10
+  - @verdaccio/core@6.0.0-6-next.4
+  - @verdaccio/middleware@6.0.0-6-next.16
+  - verdaccio-audit@11.0.0-6-next.8
+  - @verdaccio/web@6.0.0-6-next.22
+  - @verdaccio/logger@6.0.0-6-next.8
+  - @verdaccio/auth@6.0.0-6-next.16
+  - @verdaccio/config@6.0.0-6-next.12
+  - @verdaccio/loaders@6.0.0-6-next.8
+
 ## 6.0.0-6-next.23
 
 ### Patch Changes

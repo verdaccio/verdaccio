@@ -1,5 +1,15 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- e75c0a3b: hydrate template placeholders in log messages when format is set to 'json'
+- Updated dependencies [24b9be02]
+- Updated dependencies [e75c0a3b]
+  - @verdaccio/core@6.0.0-6-next.4
+  - @verdaccio/logger-prettify@6.0.0-6-next.5
+
 ## 6.0.0-6-next.7
 
 ### Minor Changes

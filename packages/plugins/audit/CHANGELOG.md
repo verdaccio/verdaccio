@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.8
+
+### Minor Changes
+
+- 24b9be02: refactor: improve docker image build with strict dependencies and prod build
+
 ## 11.0.0-6-next.7
 
 ### Major Changes

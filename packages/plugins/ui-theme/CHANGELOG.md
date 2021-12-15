@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.13
+
+### Major Changes
+
+- 000d4374: feat: upgrade to material ui 5
+
 ## 6.0.0-6-next.12
 
 ### Major Changes

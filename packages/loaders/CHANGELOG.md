@@ -1,5 +1,12 @@
 # @verdaccio/loaders
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [e75c0a3b]
+  - @verdaccio/logger@6.0.0-6-next.8
+
 ## 6.0.0-6-next.7
 
 ### Patch Changes
