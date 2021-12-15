@@ -217,7 +217,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     try {
       storage.getPackage({
         name: packageName,
-        uplinksLook: true,
+        uplinksLook: false,
         req,
         callback: function (_, packageInfo) {
           const metadata = validateMetadata(req.body, packageName);
