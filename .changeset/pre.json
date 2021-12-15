@@ -43,14 +43,18 @@
     "@verdaccio/benchmark": "1.0.0",
     "@verdaccio/website": "5.1.3",
     "@verdaccio/core": "6.0.0-next.0",
-    "@verdaccio/helper": "1.0.0"
+    "@verdaccio/helper": "1.0.0",
+    "docusaurus-plugin-contributors": "1.0.0"
   },
   "changesets": [
     "afraid-mice-obey",
     "big-lobsters-sin",
+    "bright-poems-obey",
     "calm-pants-impress",
     "dry-planes-tap",
+    "eleven-brooms-hunt",
     "eleven-spoons-matter",
+    "fair-lemons-beam",
     "few-cooks-destroy",
     "few-mangos-grow",
     "fifty-jars-rest",
@@ -78,6 +82,7 @@
     "pretty-hounds-tap",
     "proud-jeans-walk",
     "red-chefs-float",
+    "rich-ghosts-rule",
     "shaggy-carrots-unite",
     "shaggy-parrots-smash",
     "shiny-chefs-heal",
@@ -86,6 +91,7 @@
     "spicy-frogs-press",
     "ten-parents-breathe",
     "tender-bags-call",
+    "three-moles-drop",
     "three-pots-sit",
     "two-dolls-check",
     "wild-jokes-beam"

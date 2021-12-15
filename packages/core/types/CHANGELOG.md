@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.10
+
+### Major Changes
+
+- 000d4374: feat: upgrade to material ui 5
+
 ## 11.0.0-6-next.9
 
 ### Major Changes

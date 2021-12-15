@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-aws-s3-storage",
-  "version": "11.0.0-6-next.8",
+  "version": "11.0.0-6-next.9",
   "description": "AWS S3 storage implementation for Verdaccio",
   "keywords": [
     "private",
@@ -31,12 +31,12 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.3",
+    "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/streams": "workspace:11.0.0-6-next.5",
     "aws-sdk": "2.981.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.9",
+    "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "recursive-readdir": "2.2.2"
   },
   "scripts": {

@@ -1,5 +1,11 @@
 # @verdaccio/dev-types
 
+## 6.0.0-6-next.6
+
+### Major Changes
+
+- 000d4374: feat: upgrade to material ui 5
+
 ## 6.0.0-6-next.5
 
 ### Major Changes

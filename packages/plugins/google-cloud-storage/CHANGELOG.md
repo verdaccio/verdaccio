@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.9
+
+### Patch Changes
+
+- Updated dependencies [24b9be02]
+  - @verdaccio/core@6.0.0-6-next.4
+  - @verdaccio/streams@11.0.0-6-next.5
+
 ## 11.0.0-6-next.8
 
 ### Patch Changes

@@ -1,5 +1,49 @@
 # Change Log
 
+## 11.0.0-6-next.11
+
+### Major Changes
+
+- a828271d: refactor: download manifest endpoint and integrate fastify
+
+  Much simpler API for fetching a package
+
+  ```
+   const manifest = await storage.getPackageNext({
+        name,
+        uplinksLook: true,
+        req,
+        version: queryVersion,
+        requestOptions,
+   });
+  ```
+
+  > not perfect, the `req` still is being passed to the proxy (this has to be refactored at proxy package) and then removed from here, in proxy we pass the request instance to the `request` library.
+
+  ### Details
+
+  - `async/await` sugar for getPackage()
+  - Improve and reuse code between current implementation and new fastify endpoint (add scaffolding for request manifest)
+  - Improve performance
+  - Add new tests
+
+  ### Breaking changes
+
+  All storage plugins will stop to work since the storage uses `getPackageNext` method which is Promise based, I won't replace this now because will force me to update all plugins, I'll follow up in another PR. Currently will throw http 500
+
+### Minor Changes
+
+- 24b9be02: refactor: improve docker image build with strict dependencies and prod build
+
+### Patch Changes
+
+- Updated dependencies [a828271d]
+- Updated dependencies [24b9be02]
+- Updated dependencies [b13a3fef]
+  - @verdaccio/utils@6.0.0-6-next.10
+  - @verdaccio/core@6.0.0-6-next.4
+  - @verdaccio/url@11.0.0-6-next.8
+
 ## 11.0.0-6-next.10
 
 ### Patch Changes

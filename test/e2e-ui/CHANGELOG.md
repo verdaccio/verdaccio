@@ -1,5 +1,11 @@
 # @verdaccio/e2e-ui
 
+## 2.0.0-6-next.3
+
+### Major Changes
+
+- 000d4374: feat: upgrade to material ui 5
+
 ## 1.1.0-6-next.2
 
 ### Minor Changes

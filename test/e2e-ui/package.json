@@ -1,10 +1,10 @@
 {
   "private": true,
   "name": "@verdaccio/e2e-ui",
-  "version": "1.1.0-6-next.2",
+  "version": "2.0.0-6-next.3",
   "devDependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.3",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.12",
+    "@verdaccio/core": "workspace:6.0.0-6-next.4",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.13",
     "debug": "4.3.3",
     "kleur": "3.0.3",
     "lodash": "4.17.21",
