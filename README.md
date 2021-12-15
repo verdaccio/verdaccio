@@ -71,7 +71,7 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ### **Testing the integrity of your React components by publishing in a private registry - React Finland 2021**.
 
-[![beerjscrb](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://react-finland.fi/schedule/#testing-the-integrity-of-your-react-components-by-publishing-in-a-private-registry)
+[![react-finland-2021](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://www.youtube.com/watch?v=bRKZbrlQqLY)
 
 You might want to check out as well our previous talks:
 
