@@ -1073,7 +1073,7 @@ describe('endpoint unit test', () => {
         expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
         done();
       });
-      
+
       test('should deprecate when publish new version with deprecate field', async (done) => {
         await Promise.all([
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.0'), token),
