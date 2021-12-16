@@ -88,7 +88,7 @@ importers:
       ts-node: 10.2.1
       typescript: 4.4.4
       update-ts-references: 2.4.1
-      verdaccio: 5.3.1
+      verdaccio: 5.3.2
       verdaccio-audit: workspace:*
       verdaccio-auth-memory: workspace:*
       verdaccio-htpasswd: workspace:*
@@ -178,7 +178,7 @@ importers:
       ts-node: 10.2.1_6fc948d4599a6d595975f0dd8328fd81
       typescript: 4.4.4
       update-ts-references: 2.4.1_typescript@4.4.4
-      verdaccio: 5.3.1
+      verdaccio: 5.3.2
       verdaccio-audit: link:packages/plugins/audit
       verdaccio-auth-memory: link:packages/plugins/auth-memory
       verdaccio-htpasswd: link:packages/plugins/htpasswd
@@ -23343,8 +23343,8 @@ packages:
       unix-crypt-td-js: 1.1.4
     dev: true
 
-  /verdaccio/5.3.1:
-    resolution: {integrity: sha512-IA+UxL6/73G5SgQ01ZZPPOFCpRge0DdXLrgaRpzi5SdGQDQkKsWnk90SI8q1qH1VuvgzVn0UEeq3SQTvx6ZXDg==}
+  /verdaccio/5.3.2:
+    resolution: {integrity: sha512-DUzmVDNBpLfB5H13SWkziifpWX4RvAMRr8zASjk9/4hz70ZIHPJeywyg1yqBRnAoAcOYpplO6hM+cqgJcD8edw==}
     engines: {node: '>=12', npm: '>=6'}
     hasBin: true
     dependencies:
