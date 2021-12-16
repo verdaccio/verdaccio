@@ -30,7 +30,7 @@ importers:
       '@changesets/changelog-github': 0.2.8
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.4
-      '@crowdin/cli': 3.7.2
+      '@crowdin/cli': 3.7.3
       '@trivago/prettier-plugin-sort-imports': 3.1.1
       '@types/async': 3.2.7
       '@types/autocannon': 4.1.1
@@ -120,7 +120,7 @@ importers:
       '@changesets/changelog-github': 0.2.8
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.4
-      '@crowdin/cli': 3.7.2
+      '@crowdin/cli': 3.7.3
       '@trivago/prettier-plugin-sort-imports': 3.1.1_prettier@2.3.2
       '@types/async': 3.2.7
       '@types/autocannon': 4.1.1
@@ -5697,8 +5697,8 @@ packages:
       prettier: 1.19.1
     dev: true
 
-  /@crowdin/cli/3.7.2:
-    resolution: {integrity: sha512-dM7pQLHo10XnHvi0RAkOFAwqn/LB4NE42njn4dHSu8O30zLgsVbCEq4KvUajE2aFz0mDeAzMgxjEDJSssFUf2Q==}
+  /@crowdin/cli/3.7.3:
+    resolution: {integrity: sha512-Nk/W49LP2YOZiXyboJj3H7Lpu2s+g7M1YOfg+NLnflSEofZRMvzc3oRNMVdmOr/S5zPX7K7SQ6jw7x2xWINlOw==}
     hasBin: true
     dependencies:
       shelljs: 0.8.4
