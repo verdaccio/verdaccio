@@ -216,8 +216,8 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 
     try {
       const metadata = validateMetadata(req.body, packageName);
-      // treating deprecation as updating a package
-      if (req.params._rev || isRelatedToDeprecation(req.body)) {
+      // check _attachments to distinguish publish and deprecate
+      if (req.params._rev || (isRelatedToDeprecation(req.body) && _.isEmpty(req.body._attachments))) {
         debug('updating a new version for %o', packageName);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;

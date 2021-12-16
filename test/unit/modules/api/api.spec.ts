@@ -1073,6 +1073,28 @@ describe('endpoint unit test', () => {
         expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
         done();
       });
+
+      test('should deprecate when publish new version with deprecate field', async (done) => {
+        await Promise.all([
+          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.0'), token),
+          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.1'), token),
+          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.2'), token)
+        ]);
+
+        const pkg = generatePackageMetadata(pkgName, '2.0.3');
+        pkg.versions['2.0.3'].deprecated = 'get deprecated';
+        await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+
+        const [, res] = await getPackage(request(app), '', pkgName);
+        const versions = Object.keys(res.body.versions);
+
+        expect(res.body.versions['2.0.3'].deprecated).toEqual('get deprecated');
+        expect(versions).toContain('2.0.0');
+        expect(versions).toContain('2.0.1');
+        expect(versions).toContain('2.0.2');
+        expect(versions).toContain('2.0.3');
+        done();
+      });
     });
   });
 });
