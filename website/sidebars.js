@@ -23,6 +23,7 @@ module.exports = {
         "cli-registry",
         "who-is-using",
         "best",
+        "docker",
         "protect-your-dependencies",
         "security-policy",
         "logo",
@@ -79,8 +80,7 @@ module.exports = {
     {
       type: "category",
       label: "DevOps",
-      items: [
-        "docker",
+      items: [       
         "kubernetes",
         "ci",
         {
