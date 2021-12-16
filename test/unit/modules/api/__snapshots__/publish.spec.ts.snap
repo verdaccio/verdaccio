@@ -2,26 +2,27 @@
 
 exports[`Publish endpoints - publish package should change the existing package 1`] = `[MockFunction]`;
 
-exports[`Publish endpoints - publish package should publish a new a new package 1`] = `[MockFunction] {
-      "calls": Array [
-        Array [
-          "verdaccio",
-          Object {
-            "dist-tags": Object {},
-            "name": "verdaccio",
-            "time": Object {},
-            "versions": Object {},
-          },
-          [Function],
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
+exports[`Publish endpoints - publish package should publish a new a new package 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "verdaccio",
+      Object {
+        "dist-tags": Object {},
+        "name": "verdaccio",
+        "time": Object {},
+        "versions": Object {},
+      },
+      [Function],
+    ],
+  ],
+  "results": Array [
+    Object {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
 `;
 
 exports[`Publish endpoints - publish package test start should star a package 1`] = `
