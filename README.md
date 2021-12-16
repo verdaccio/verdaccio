@@ -75,15 +75,16 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 ## Talks
 
-### **Testing the integrity of your React components by publishing in a private registry - React Finland 2021**.
+### **Using Docker and Verdaccio to make Integration Testing Easy - Docker All Hands #4 December - 2021**.
 
-[![beerjscrb](https://cdn.verdaccio.dev/readme/react-finland-2021-jpicado.jpeg)](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
+[![docker](https://cdn.verdaccio.dev/readme/docker-all-hands-jpicado-talk.jpg)](https://www.youtube.com/watch?v=zRI0skF1f8I)
 
 You might want to check out as well our previous talks:
 
-- [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado**](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
-- [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado\***](https://www.youtube.com/watch?v=qTRADSp3Hpo)
-- [**OpenJS World 2020** about \*Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado\***](https://www.youtube.com/watch?v=oVCjDWeehAQ)
+- [**Juan Picado** – Testing the integrity of React components by publishing in a private registry](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
+- [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado** React Finland - 2021](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
+- [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado**](https://www.youtube.com/watch?v=qTRADSp3Hpo)
+- [**OpenJS World 2020** about \*Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado**](https://www.youtube.com/watch?v=oVCjDWeehAQ)
 - [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
 - [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
 - [GitNation Open Source Stage - How we have built a Node.js Registry with React - **Juan Picado** December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)

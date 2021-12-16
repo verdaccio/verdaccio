@@ -31,7 +31,6 @@ export default function contributorsPlugin(
       const contributorsFilesName = pathFileName || join(__dirname, 'contributors.json');
       try {
         content = JSON.parse(readFileSync(contributorsFilesName, 'utf8'));
-        console.log('content', content);
         return content;
       } catch (error) {
         console.log('error', error);

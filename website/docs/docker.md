@@ -3,8 +3,7 @@ id: docker
 title: Docker
 ---
 
-![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
-
+<iframe width="560" height="515" src="https://www.youtube.com/embed/zRI0skF1f8I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 To pull the latest pre-built [docker image](https://hub.docker.com/r/verdaccio/verdaccio/):
 
@@ -15,6 +14,8 @@ docker pull verdaccio/verdaccio
 ![Docker pull](/img/docker_verdaccio.gif)
 
 ## Tagged Versions {#tagged-versions}
+
+![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
