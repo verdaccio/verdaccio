@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 14.x
       - name: install pnpm
-        run: sudo npm i pnpm@6.6.1 -g
+        run: sudo npm i pnpm@6.24.1 -g
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
@@ -73,7 +73,7 @@ jobs:
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         # require fixed version
-        run: sudo npm i pnpm@6.6.1 -g
+        run: sudo npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -134,7 +134,7 @@ jobs:
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         # require fixed version
-        run: sudo npm i pnpm@6.6.1 -g
+        run: sudo npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
