@@ -45,7 +45,7 @@
     "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.17.2",
     "debug": "4.3.3",
-    "fastify": "3.24.1",
+    "fastify": "3.25.0",
     "fastify-plugin": "3.0.0",
     "lodash": "4.17.21",
     "semver": "7.3.5"
