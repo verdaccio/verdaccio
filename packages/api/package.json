@@ -51,7 +51,7 @@
     "cookies": "0.8.0",
     "debug": "4.3.3",
     "body-parser": "1.19.1",
-    "express": "4.17.1",
+    "express": "4.17.2",
     "lodash": "4.17.21",
     "mime": "2.6.0",
     "semver": "7.3.5"
