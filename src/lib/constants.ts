@@ -26,6 +26,7 @@ export const HEADERS = {
   JSON: 'application/json',
   CONTENT_TYPE: 'Content-type',
   CONTENT_LENGTH: 'content-length',
+  CACHE_CONTROL: 'Cache-Control',
   TEXT_PLAIN: 'text/plain',
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',

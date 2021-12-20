@@ -7,13 +7,7 @@ import publishMetadata from '../../partials/publish-api';
 import forbiddenPlace from '../../partials/forbidden-place';
 import endPointAPI from '../../../../src/api';
 
-import {
-  HEADERS,
-  API_ERROR,
-  HTTP_STATUS,
-  HEADER_TYPE,
-  DIST_TAGS
-} from '../../../../src/lib/constants';
+import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '../../../../src/lib/constants';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { mockServer } from '../../__helper/mock';
 import { addUser } from '../../__helper/api';
@@ -34,16 +28,16 @@ describe('endpoint web unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './web-api-storage/.htpasswd-web-api'
-            }
+              file: './web-api-storage/.htpasswd-web-api',
+            },
           },
           storage: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-            }
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            },
           },
-          self_path: store
+          self_path: store,
         },
         'api.web.spec.yaml'
       );
@@ -60,17 +54,9 @@ describe('endpoint web unit test', () => {
 
   describe('Registry WebUI endpoints', () => {
     beforeAll(async () => {
-      await request(app)
-        .put('/@scope%2fpk1-test')
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(JSON.stringify(publishMetadata))
-        .expect(HTTP_STATUS.CREATED);
+      await request(app).put('/@scope%2fpk1-test').set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(publishMetadata)).expect(HTTP_STATUS.CREATED);
 
-      await request(app)
-        .put('/forbidden-place')
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .send(JSON.stringify(forbiddenPlace))
-        .expect(HTTP_STATUS.CREATED);
+      await request(app).put('/forbidden-place').set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(forbiddenPlace)).expect(HTTP_STATUS.CREATED);
     });
 
     describe('Packages', () => {
@@ -209,7 +195,7 @@ describe('endpoint web unit test', () => {
             .post('/-/verdaccio/login')
             .send({
               username: credentials.name,
-              password: credentials.password
+              password: credentials.password,
             })
             .expect(HTTP_STATUS.OK)
             .end(function (err, res) {
@@ -217,6 +203,7 @@ describe('endpoint web unit test', () => {
               expect(res.body.token).toBeDefined();
               expect(res.body.token).toBeTruthy();
               expect(res.body.username).toMatch(credentials.name);
+              expect(res.get(HEADERS.CACHE_CONTROL)).toEqual('no-cache, no-store');
               done();
             });
         });
@@ -227,7 +214,7 @@ describe('endpoint web unit test', () => {
             .send(
               JSON.stringify({
                 username: 'fake',
-                password: 'fake'
+                password: 'fake',
               })
             )
             // FIXME: there should be 401

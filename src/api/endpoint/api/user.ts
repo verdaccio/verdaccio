@@ -4,7 +4,7 @@ import Cookies from 'cookies';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { Response, Router } from 'express';
 import { ErrorCode } from '../../../lib/utils';
-import { API_ERROR, API_MESSAGE, HTTP_STATUS } from '../../../lib/constants';
+import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
 import { logger } from '../../../lib/logger';
 
@@ -33,7 +33,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
         const token = await getApiToken(auth, config, restoredRemoteUser, password);
 
         res.status(HTTP_STATUS.CREATED);
-
+        res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         return next({
           ok: getAuthenticatedMessage(req.remote_user.name),
           token,
@@ -60,6 +60,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
         req.remote_user = user;
         res.status(HTTP_STATUS.CREATED);
+        res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         return next({
           ok: `user '${req.body.name}' created`,
           token,
