@@ -4,7 +4,7 @@ import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOp
 import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
 import { logger } from '../lib/logger';
 import { convertPayloadToBase64, ErrorCode } from './utils';
-import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_7D, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
+import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_1H, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 
 const debug = buildDebug('verdaccio');
@@ -115,8 +115,8 @@ export function createSessionToken(): CookieSessionToken {
 
 const defaultWebTokenOptions: JWTOptions = {
   sign: {
-    // The expiration token for the website is 7 days
-    expiresIn: TIME_EXPIRATION_7D,
+    // The expiration token for the website is 1 hour
+    expiresIn: TIME_EXPIRATION_1H,
   },
   verify: {},
 };
