@@ -200,7 +200,7 @@ describe('endpoint unit test', () => {
             const token = res.body.token;
             expect(typeof token).toBe('string');
             expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
-
+            expect(res.get(HEADERS.CACHE_CONTROL)).toEqual('no-cache, no-store');
             // testing JWT auth headers with token
             // we need it here, because token is required
             request(app)
@@ -272,6 +272,7 @@ describe('endpoint unit test', () => {
             if (err) {
               return done(err);
             }
+            expect(res.get(HEADERS.CACHE_CONTROL)).toEqual('no-cache, no-store');
             expect(res.body).toBeTruthy();
             done();
           });
@@ -1078,7 +1079,7 @@ describe('endpoint unit test', () => {
         await Promise.all([
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.0'), token),
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.1'), token),
-          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.2'), token)
+          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.2'), token),
         ]);
 
         const pkg = generatePackageMetadata(pkgName, '2.0.3');

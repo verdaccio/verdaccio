@@ -2,7 +2,7 @@ import _ from 'lodash';
 import buildDebug from 'debug';
 import { Response, Router } from 'express';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
-import { HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode, mask } from '../../../../lib/utils';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { stringToMD5 } from '../../../../lib/crypto-utils';
@@ -89,6 +89,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
 
         await storage.saveToken(saveToken);
         debug('token %o was created for user %o', key, name);
+        res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         return next(
           normalizeToken({
             token,

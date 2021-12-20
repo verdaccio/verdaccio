@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { Router, Response, Request } from 'express';
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
-import { API_ERROR, APP_ERROR, HTTP_STATUS } from '../../../lib/constants';
+import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { IAuth, $NextFunctionVer } from '../../../../types';
 import { ErrorCode } from '../../../lib/utils';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
@@ -23,7 +23,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       } else {
         req.remote_user = user;
         const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
-
+        res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         next({
           token: await auth.jwtEncrypt(user, jWTSignOptions),
           username: req.remote_user.name,
