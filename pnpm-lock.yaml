@@ -61,7 +61,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       codecov: 3.8.3
-      concurrently: 6.4.0
+      concurrently: 6.5.1
       core-js: 3.17.2
       cross-env: 7.0.3
       debug: 4.3.3
@@ -151,7 +151,7 @@ importers:
       babel-plugin-dynamic-import-node: 2.3.3
       babel-plugin-emotion: 10.2.2
       codecov: 3.8.3
-      concurrently: 6.4.0
+      concurrently: 6.5.1
       core-js: 3.17.2
       cross-env: 7.0.3
       debug: 4.3.3
@@ -11159,8 +11159,8 @@ packages:
       readable-stream: 3.6.0
       typedarray: 0.0.6
 
-  /concurrently/6.4.0:
-    resolution: {integrity: sha512-HZ3D0RTQMH3oS4gvtYj1P+NBc6PzE2McEra6yEFcQKrUQ9HvtTGU4Dbne083F034p+LRb7kWU0tPRNvSGs1UCQ==}
+  /concurrently/6.5.1:
+    resolution: {integrity: sha512-FlSwNpGjWQfRwPLXvJ/OgysbBxPkWpiVjy1042b0U7on7S7qwwMIILRj7WTN1mTgqa582bG6NFuScOoh6Zgdag==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     dependencies:
