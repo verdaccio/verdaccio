@@ -4,12 +4,7 @@ import _ from 'lodash';
 import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
 import { MatchedPackage, StartUpConfig } from '../../types';
 import { generateRandomHexString } from './crypto-utils';
-import {
-  getMatchedPackagesSpec,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck
-} from './config-utils';
+import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { getUserAgent, isObject } from './utils';
 import { APP_ERROR } from './constants';
 
@@ -22,6 +17,7 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
  */
 class Config implements AppConfig {
   public logger: Logger;
+  // @ts-ignore
   public user_agent: string;
   // @ts-ignore
   public secret: string;
@@ -49,7 +45,7 @@ class Config implements AppConfig {
     }
 
     // @ts-ignore
-    if (_.isNil(this.user_agent)) {
+    if (config?.user_agent) {
       this.user_agent = getUserAgent();
     }
 
