@@ -48,7 +48,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.14",
+    "@types/node": "16.11.15",
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "jest-mock-process": "1.4.1",
