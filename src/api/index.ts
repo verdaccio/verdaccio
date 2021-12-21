@@ -35,6 +35,8 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
       res.setHeader('X-Powered-By', config.user_agent);
       next();
     });
+  } else {
+    app.disable('x-powered-by');
   }
 
   app.use(compression());
