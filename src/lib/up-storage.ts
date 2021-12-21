@@ -278,7 +278,7 @@ class ProxyStorage implements IProxy {
     headers[accept] = headers[accept] || contentTypeAccept;
     headers[acceptEncoding] = headers[acceptEncoding] || 'gzip';
     // registry.npmjs.org will only return search result if user-agent include string 'npm'
-    headers[userAgent] = this.userAgent ? `npm (${this.userAgent})` : options.req.get('user-agent');
+    headers[userAgent] = this.userAgent ? `npm (${this.userAgent})` : options.req?.get('user-agent');
 
     return this._setAuth(headers);
   }
