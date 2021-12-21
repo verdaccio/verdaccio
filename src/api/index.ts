@@ -30,10 +30,14 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   // Router setup
   app.use(log(config));
   app.use(errorReportingMiddleware);
-  app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    res.setHeader('X-Powered-By', config.user_agent);
-    next();
-  });
+  if (config.user_agent) {
+    app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      res.setHeader('X-Powered-By', config.user_agent);
+      next();
+    });
+  } else {
+    app.disable('x-powered-by');
+  }
 
   app.use(compression());
 
