@@ -7,8 +7,7 @@ on:
 
 name: 'E2E Angular CLI with verdaccio'
 jobs:
-# todo: fix yarn global issue, cannot find ng
- yarn:
+  yarn:
    name: 'yarn:angular example'
    runs-on: ubuntu-latest
 
