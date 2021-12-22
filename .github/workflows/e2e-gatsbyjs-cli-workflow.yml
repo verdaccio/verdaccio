@@ -43,7 +43,7 @@ jobs:
           cd my-gatsby
           npm run build
   npm7:
-    name: 'npm:gatsby example'
+    name: 'npm7:gatsby example'
     runs-on: ubuntu-latest
 
     steps:
@@ -78,7 +78,7 @@ jobs:
           cd my-gatsby
           npm run build
   npm8:
-    name: 'npm:gatsby example'
+    name: 'npm8:gatsby example'
     runs-on: ubuntu-latest
 
     steps:
