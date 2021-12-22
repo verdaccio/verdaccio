@@ -7,39 +7,40 @@ on:
 
 name: 'E2E Angular CLI with verdaccio'
 jobs:
-  yarn:
-   name: 'yarn:angular example'
-   runs-on: ubuntu-latest
+  # todo: fix yarn global issue, cannot find ng
+  # yarn:
+  #  name: 'yarn:angular example'
+  #  runs-on: ubuntu-latest
 
-   steps:
-     - uses: actions/checkout@v2.3.3
+  #  steps:
+  #    - uses: actions/checkout@v2.3.3
 
-     - name: 'Use Node.js 14.x'
-       uses: actions/setup-node@v2.1.5
-       with:
-         node-version: 14.x
-     - name: Install Dependencies
-       run: yarn install --pure-lockfile
-     - name: 'Run verdaccio in the background'
-       run: |
-         nohup yarn node ./scripts/run-verdaccio.js &
-     - name: 'Ping to verdaccio'
-       run: |
-         npm ping --registry http://localhost:4873
-     - name: 'Running the integration test'
-       run: |
-         source scripts/e2e-setup-ci.sh
-         yarn init --yes
+  #    - name: 'Use Node.js 14.x'
+  #      uses: actions/setup-node@v2.1.5
+  #      with:
+  #        node-version: 14.x
+  #    - name: Install Dependencies
+  #      run: yarn install --pure-lockfile
+  #    - name: 'Run verdaccio in the background'
+  #      run: |
+  #        nohup yarn node ./scripts/run-verdaccio.js &
+  #    - name: 'Ping to verdaccio'
+  #      run: |
+  #        npm ping --registry http://localhost:4873
+  #    - name: 'Running the integration test'
+  #      run: |
+  #        source scripts/e2e-setup-ci.sh
+  #        yarn init --yes
 
-         yarn global add @angular/cli
-         which nodemon
-         ng new verdaccio-angular --interactive=false
+  #        yarn global add @angular/cli
+  #        which nodemon
+  #        ng new verdaccio-angular --interactive=false
 
-         cd verdaccio-angular
-         echo "registry=http://localhost:4873" > ~/.npmrc
-         yarn add @angular-devkit/core@next @babel/preset-env @babel/core -D
+  #        cd verdaccio-angular
+  #        echo "registry=http://localhost:4873" > ~/.npmrc
+  #        yarn add @angular-devkit/core@next @babel/preset-env @babel/core -D
 
-         ng build --aot
+  #        ng build --aot
   npm:
     name: 'npm6:angular example'
     runs-on: ubuntu-latest
