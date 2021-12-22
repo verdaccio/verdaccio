@@ -9747,6 +9747,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"lodash.set@npm:^4.3.2":
+  version: 4.3.2
+  resolution: "lodash.set@npm:4.3.2"
+  checksum: 4dfedacae1c1cf86385a2b6e30ba538f06c90d703a0abd83a11432d80ec24b4016fe27359cdc0554a02a31a468789cbb282801dd755e54581cf0295477e2341d
+  languageName: node
+  linkType: hard
+
 "lodash.sortby@npm:^4.7.0":
   version: 4.7.0
   resolution: "lodash.sortby@npm:4.7.0"
@@ -10445,15 +10452,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"nock@npm:12.0.3":
-  version: 12.0.3
-  resolution: "nock@npm:12.0.3"
+"nock@npm:13.2.1":
+  version: 13.2.1
+  resolution: "nock@npm:13.2.1"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
-    lodash: ^4.17.13
+    lodash.set: ^4.3.2
     propagate: ^2.0.0
-  checksum: 135b0be475ffd94b5cb1043e3d2de9061084d83c16e295c787eacf671682bf57c41df121efb17eb7bd4e8f5ef54008989d622e352a9ad57f5cacfdfd28b46894
+  checksum: 40bf0a1c2a2f325ebe0afed4c285006651da87941926bc2c714c1e58a3f60da30723a3a903167446bd18b39221d2c3fb6c20e4c02c286f36e98f5b9f374348d9
   languageName: node
   linkType: hard
 
@@ -13157,13 +13164,13 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"supertest@npm:6.1.3":
-  version: 6.1.3
-  resolution: "supertest@npm:6.1.3"
+"supertest@npm:6.1.6":
+  version: 6.1.6
+  resolution: "supertest@npm:6.1.6"
   dependencies:
     methods: ^1.1.2
     superagent: ^6.1.0
-  checksum: 4a3e07881952e54ada2b67be59a91d5222b0b36410b1f23fb363fc45a956aa5a82b7a1a9a33c90a63e3cac4222b3313d41398c85fe04d9f8a7f7757bd15b370b
+  checksum: ef4f0479a1803c1e7f21b3921345f66d36e42bf80d3078f6b54fecedd669571c799d5241721864f44f80140fae13ad458c039ddbb048bb947f7d2479186713d9
   languageName: node
   linkType: hard
 
@@ -14108,7 +14115,7 @@ typescript@4.1.3:
     minimatch: 3.0.4
     mkdirp: 1.0.4
     mv: 2.1.1
-    nock: 12.0.3
+    nock: 13.2.1
     node-mocks-http: ^1.10.1
     pino: 6.13.3
     pinst: 2.1.6
@@ -14122,7 +14129,7 @@ typescript@4.1.3:
     selfsigned: 1.10.11
     semver: 7.3.5
     standard-version: 9.3.2
-    supertest: 6.1.3
+    supertest: 6.1.6
     ts-node: 10.2.0
     typescript: 4.1.3
     validator: 13.7.0

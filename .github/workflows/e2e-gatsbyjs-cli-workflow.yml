@@ -89,7 +89,7 @@ jobs:
         with:
           node-version: 16.x
       - name: 'install npm 8'
-        run: npm i -g npm@latest-8
+        run: npm i -g npm@next-8
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
