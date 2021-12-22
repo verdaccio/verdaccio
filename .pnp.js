@@ -133,7 +133,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
-            ["nock", "npm:13.2.1"],
+            ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
             ["pino", "npm:6.13.3"],
             ["pinst", "npm:2.1.6"],
@@ -147,7 +147,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["selfsigned", "npm:1.10.11"],
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
-            ["supertest", "npm:6.1.6"],
+            ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
@@ -12475,15 +12475,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["lodash.set", [
-        ["npm:4.3.2", {
-          "packageLocation": "./.yarn/cache/lodash.set-npm-4.3.2-7586c942c2-4dfedacae1.zip/node_modules/lodash.set/",
-          "packageDependencies": [
-            ["lodash.set", "npm:4.3.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["lodash.sortby", [
         ["npm:4.7.0", {
           "packageLocation": "./.yarn/cache/lodash.sortby-npm-4.7.0-fda8ab950d-43cde11276.zip/node_modules/lodash.sortby/",
@@ -13216,13 +13207,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["nock", [
-        ["npm:13.2.1", {
-          "packageLocation": "./.yarn/cache/nock-npm-13.2.1-93bbd63b82-40bf0a1c2a.zip/node_modules/nock/",
+        ["npm:12.0.3", {
+          "packageLocation": "./.yarn/cache/nock-npm-12.0.3-6acd5fc71e-135b0be475.zip/node_modules/nock/",
           "packageDependencies": [
-            ["nock", "npm:13.2.1"],
+            ["nock", "npm:12.0.3"],
             ["debug", "virtual:24c0670a0dd5336de8e9d36ce94c8b696cc66bf2f157358e53a1649e6047bfc20104ef799a035ae68ee7761447ecfa64a6d54a5971d436f7ea6ab984abfab5de#npm:4.1.1"],
             ["json-stringify-safe", "npm:5.0.1"],
-            ["lodash.set", "npm:4.3.2"],
+            ["lodash", "npm:4.17.19"],
             ["propagate", "npm:2.0.1"]
           ],
           "linkType": "HARD",
@@ -16122,10 +16113,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["supertest", [
-        ["npm:6.1.6", {
-          "packageLocation": "./.yarn/cache/supertest-npm-6.1.6-6f73075270-ef4f0479a1.zip/node_modules/supertest/",
+        ["npm:6.1.3", {
+          "packageLocation": "./.yarn/cache/supertest-npm-6.1.3-629fe02e4c-4a3e078819.zip/node_modules/supertest/",
           "packageDependencies": [
-            ["supertest", "npm:6.1.6"],
+            ["supertest", "npm:6.1.3"],
             ["methods", "npm:1.1.2"],
             ["superagent", "npm:6.1.0"]
           ],
@@ -17136,7 +17127,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimatch", "npm:3.0.4"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
-            ["nock", "npm:13.2.1"],
+            ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
             ["pino", "npm:6.13.3"],
             ["pinst", "npm:2.1.6"],
@@ -17150,7 +17141,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["selfsigned", "npm:1.10.11"],
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
-            ["supertest", "npm:6.1.6"],
+            ["supertest", "npm:6.1.3"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.2.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
