@@ -17,7 +17,7 @@ describe('UpStorge', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
-    url: `http://0.0.0.0:${mockServerPort}`
+    url: `http://localhost:${mockServerPort}`,
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample());
@@ -150,10 +150,7 @@ describe('UpStorge', () => {
 
   describe('UpStorge::isUplinkValid', () => {
     describe('valid use cases', () => {
-      const validateUpLink = (
-        url: string,
-        tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`
-      ) => {
+      const validateUpLink = (url: string, tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`) => {
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 
@@ -183,12 +180,7 @@ describe('UpStorge', () => {
       // corner case https://github.com/verdaccio/verdaccio/issues/571
       test('should validate tarball path against uplink case#6', () => {
         // same protocol, same domain, port === 443 which is also the standard for https
-        expect(
-          validateUpLink(
-            'https://my.domain.test',
-            `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`
-          )
-        ).toBe(true);
+        expect(validateUpLink('https://my.domain.test', `https://my.domain.test:443/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`)).toBe(true);
       });
 
       test('should validate tarball path against uplink case#7', () => {
@@ -233,8 +225,7 @@ describe('UpStorge', () => {
       test('should fails on validate tarball path against uplink case#4', () => {
         // same domain, same protocol, different port
         const url = 'https://subdomain.domain:5001';
-        const tarBallUrl =
-          'https://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
+        const tarBallUrl = 'https://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
         const proxy: IProxy = generateProxy(uplinkConf);
 

@@ -24,9 +24,9 @@ const generateStorage = async function (port = mockServerPort) {
       storage: storagePath,
       uplinks: {
         npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${port}`
-        }
-      }
+          url: `http://${DOMAIN_SERVERS}:${port}`,
+        },
+      },
     },
     'store.spec.yaml'
   );
@@ -47,24 +47,24 @@ const generateSameUplinkStorage = async function (port = mockServerPort) {
         jquery: {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['cached']
+          proxy: ['cached'],
         },
         '@jquery/*': {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['notcached']
-        }
+          proxy: ['notcached'],
+        },
       },
       uplinks: {
         cached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: true
+          cache: true,
         },
         notcached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: false
-        }
-      }
+          cache: false,
+        },
+      },
     },
     'store.spec.yaml'
   );
@@ -80,7 +80,7 @@ const createNullStream = () =>
   new Writable({
     write: function (chunk, encoding, next) {
       next();
-    }
+    },
   });
 
 describe('StorageTest', () => {
@@ -115,7 +115,7 @@ describe('StorageTest', () => {
         reader.on('end', () => {
           expect(notcachedSpy).toHaveBeenCalledTimes(0);
           expect(cachedSpy).toHaveBeenCalledTimes(1);
-          expect(cachedSpy).toHaveBeenCalledWith('http://0.0.0.0:55548/jquery/-/jquery-1.5.1.tgz');
+          expect(cachedSpy).toHaveBeenCalledWith('http://localhost:55548/jquery/-/jquery-1.5.1.tgz');
           res();
         });
         reader.on('error', (err) => {
@@ -133,9 +133,7 @@ describe('StorageTest', () => {
         reader.on('end', () => {
           expect(cachedSpy).toHaveBeenCalledTimes(0);
           expect(notcachedSpy).toHaveBeenCalledTimes(1);
-          expect(notcachedSpy).toHaveBeenCalledWith(
-            'http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
-          );
+          expect(notcachedSpy).toHaveBeenCalledWith('http://localhost:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz');
           res();
         });
         reader.on('error', (err) => {

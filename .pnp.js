@@ -7575,14 +7575,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.19.1", {
-          "packageLocation": "./.yarn/cache/core-js-npm-3.19.1-772a85cbf5-32b2ecead4.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.19.1-772a85cbf5/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.19.1"]
           ],
@@ -14428,7 +14428,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:24c0670a0dd5336de8e9d36ce94c8b696cc66bf2f157358e53a1649e6047bfc20104ef799a035ae68ee7761447ecfa64a6d54a5971d436f7ea6ab984abfab5de#npm:4.1.1"],

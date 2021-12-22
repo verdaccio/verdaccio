@@ -95,7 +95,7 @@ describe('endpoint unit test', () => {
     test('should perform a search with results', (done) => {
       const searchAllResponse = require(path.join(__dirname, 'partials', 'search-all.json'));
       const query = '/-/all/since?stale=update_after&startkey=111';
-      nock('http://0.0.0.0:55549').get(query).reply(200, searchAllResponse);
+      nock('http://localhost:55549').get(query).reply(200, searchAllResponse);
       request(app)
         .get('/-/all/since?stale=update_after&startkey=111')
         .set('accept-encoding', HEADERS.JSON)
@@ -118,7 +118,7 @@ describe('endpoint unit test', () => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1-empty.json'));
       const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
-      nock('http://0.0.0.0:55549').get(query).reply(200, searchV1);
+      nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
         .get(query)
         .set('accept-encoding', HEADERS.JSON)
@@ -139,7 +139,7 @@ describe('endpoint unit test', () => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1.json'));
       const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
-      nock('http://0.0.0.0:55549').get(query).reply(200, searchV1);
+      nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
         .get(query)
         .set('accept-encoding', HEADERS.JSON)
@@ -162,7 +162,7 @@ describe('endpoint unit test', () => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1-forbidden.json'));
       const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
-      nock('http://0.0.0.0:55549').get(query).reply(200, searchV1);
+      nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
         .get(query)
         .set('accept-encoding', HEADERS.JSON)
@@ -183,7 +183,7 @@ describe('endpoint unit test', () => {
 
     test('should perform a search v1 with error', () => {
       const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
-      nock('http://0.0.0.0:55549').get(query).reply(500);
+      nock('http://localhost:55549').get(query).reply(500);
       return request(app)
         .get(query)
         .set('accept-encoding', HEADERS.JSON)
