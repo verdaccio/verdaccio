@@ -11,8 +11,7 @@ import publish from './api/publish';
 import search from './api/search';
 import pkg from './api/package';
 import stars from './api/stars';
-import profile from './api/v1/profile';
-import token from './api/v1/token';
+import npmV1 from './api/v1';
 import v1Search from './api/v1/search';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
@@ -50,8 +49,7 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage);
-  profile(app, auth);
-  token(app, auth, storage, config);
+  app.use('/-/npm/v1/', npmV1(auth, storage, config));
   user(app, auth, config);
   return app;
 }

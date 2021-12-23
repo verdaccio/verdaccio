@@ -18,7 +18,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (route: Router, auth: IAuth): void {
+export default function (auth: IAuth): Router {
   const profileRoute = Router(); /* eslint new-cap: 0 */
   profileRoute.use(limiter);
   function buildProfile(name: string): Profile {
@@ -80,5 +80,5 @@ export default function (route: Router, auth: IAuth): void {
     }
   });
 
-  route.use('/-/npm/v1', profileRoute);
+  return profileRoute;
 }

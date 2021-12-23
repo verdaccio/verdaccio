@@ -24,10 +24,10 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (route: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
+export default function (auth: IAuth, storage: IStorageHandler, config: Config): Router {
   const tokenRoute = Router(); /* eslint new-cap: 0 */
   tokenRoute.use(limiter);
-  tokenRoute.get('/', async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
+  tokenRoute.get('/tokens', async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
     const { name } = req.remote_user;
 
     if (_.isNil(name) === false) {
@@ -50,7 +50,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
     return next(ErrorCode.getUnauthorized());
   });
 
-  tokenRoute.post('/', function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
+  tokenRoute.post('/tokens', function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
     const { password, readonly, cidr_whitelist } = req.body;
     const { name } = req.remote_user;
 
@@ -110,7 +110,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
     });
   });
 
-  tokenRoute.delete('/token/:tokenKey', async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
+  tokenRoute.delete('/tokens/token/:tokenKey', async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
     const {
       params: { tokenKey },
     } = req;
@@ -130,5 +130,5 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
     return next(ErrorCode.getUnauthorized());
   });
 
-  route.use('/-/npm/v1/tokens', tokenRoute);
+  return tokenRoute;
 }
