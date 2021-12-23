@@ -64,8 +64,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/config-conventional", "npm:12.1.4"],
             ["@octokit/rest", "npm:18.6.0"],
             ["@types/async", "npm:3.2.9"],
-            ["@types/express", "npm:4.17.6"],
+            ["@types/express", "npm:4.17.11"],
             ["@types/express-rate-limit", "npm:5.1.3"],
+            ["@types/express-serve-static-core", "npm:4.17.19"],
             ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
@@ -4497,6 +4498,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/express", [
+        ["npm:4.17.11", {
+          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.11-1b3f17f056-2818120a0f.zip/node_modules/@types/express/",
+          "packageDependencies": [
+            ["@types/express", "npm:4.17.11"],
+            ["@types/body-parser", "npm:1.19.0"],
+            ["@types/express-serve-static-core", "npm:4.17.26"],
+            ["@types/qs", "npm:6.9.5"],
+            ["@types/serve-static", "npm:1.13.9"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:4.17.13", {
           "packageLocation": "./.yarn/cache/@types-express-npm-4.17.13-0e12fe9c24-9f17da703d.zip/node_modules/@types/express/",
           "packageDependencies": [
@@ -4504,18 +4516,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-parser", "npm:1.19.0"],
             ["@types/express-serve-static-core", "npm:4.17.26"],
             ["@types/qs", "npm:6.9.5"],
-            ["@types/serve-static", "npm:1.13.5"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:4.17.6", {
-          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.6-e48d33b003-45e31c66a0.zip/node_modules/@types/express/",
-          "packageDependencies": [
-            ["@types/express", "npm:4.17.6"],
-            ["@types/body-parser", "npm:1.19.0"],
-            ["@types/express-serve-static-core", "npm:4.17.13"],
-            ["@types/qs", "npm:6.9.5"],
-            ["@types/serve-static", "npm:1.13.5"]
+            ["@types/serve-static", "npm:1.13.9"]
           ],
           "linkType": "HARD",
         }]
@@ -4531,10 +4532,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/express-serve-static-core", [
-        ["npm:4.17.13", {
-          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.13-864c105004-6db6f2e0eb.zip/node_modules/@types/express-serve-static-core/",
+        ["npm:4.17.19", {
+          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.19-3f514f7e12-b6c8c357c5.zip/node_modules/@types/express-serve-static-core/",
           "packageDependencies": [
-            ["@types/express-serve-static-core", "npm:4.17.13"],
+            ["@types/express-serve-static-core", "npm:4.17.19"],
             ["@types/node", "npm:12.12.21"],
             ["@types/qs", "npm:6.9.5"],
             ["@types/range-parser", "npm:1.2.3"]
@@ -4648,10 +4649,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/mime", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/@types-mime-npm-2.0.1-1018885da5-61a328979f.zip/node_modules/@types/mime/",
+        ["npm:1.3.2", {
+          "packageLocation": "./.yarn/cache/@types-mime-npm-1.3.2-ea71878ab3-c354bc1356.zip/node_modules/@types/mime/",
           "packageDependencies": [
-            ["@types/mime", "npm:2.0.1"]
+            ["@types/mime", "npm:1.3.2"]
           ],
           "linkType": "HARD",
         }],
@@ -4798,12 +4799,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/serve-static", [
-        ["npm:1.13.5", {
-          "packageLocation": "./.yarn/cache/@types-serve-static-npm-1.13.5-9e6c8c7261-1d4e222e24.zip/node_modules/@types/serve-static/",
+        ["npm:1.13.9", {
+          "packageLocation": "./.yarn/cache/@types-serve-static-npm-1.13.9-59107a68c3-f261127514.zip/node_modules/@types/serve-static/",
           "packageDependencies": [
-            ["@types/serve-static", "npm:1.13.5"],
-            ["@types/express-serve-static-core", "npm:4.17.13"],
-            ["@types/mime", "npm:2.0.1"]
+            ["@types/serve-static", "npm:1.13.9"],
+            ["@types/mime", "npm:1.3.2"],
+            ["@types/node", "npm:12.12.21"]
           ],
           "linkType": "HARD",
         }]
@@ -17220,8 +17221,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/config-conventional", "npm:12.1.4"],
             ["@octokit/rest", "npm:18.6.0"],
             ["@types/async", "npm:3.2.9"],
-            ["@types/express", "npm:4.17.6"],
+            ["@types/express", "npm:4.17.11"],
             ["@types/express-rate-limit", "npm:5.1.3"],
+            ["@types/express-serve-static-core", "npm:4.17.19"],
             ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
