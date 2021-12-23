@@ -20,11 +20,9 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
   const limiter = new RateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
-    // @ts-ignore
-    ...config?.web?.rateLimit,
   });
-  route.use(limiter);
-  route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  userRouter.use(limiter);
+  userRouter.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 
     auth.authenticate(username, password, async (err, user: RemoteUser): Promise<void> => {
@@ -43,7 +41,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     });
   });
 
-  route.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  userRouter.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
