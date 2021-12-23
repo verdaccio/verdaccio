@@ -21,7 +21,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
     // @ts-ignore
-    ...config.web.rateLimit,
+    ...config?.web?.rateLimit,
   });
   route.use(limiter);
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {

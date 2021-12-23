@@ -66,7 +66,7 @@ export default function (config, auth, storage) {
   const limiter = new RateLimit({
     windowMs: 2 * 60 * 1000, // 2  minutes
     max: 5000, // limit each IP to 1000 requests per windowMs
-    ...config.web.rateLimit,
+    ...config?.web?.rateLimit,
   });
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
