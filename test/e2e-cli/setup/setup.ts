@@ -21,7 +21,7 @@ module.exports = async () => {
   const rootVerdaccio = path.resolve('./bin/verdaccio');
   console.log(green(`verdaccio root path: ${rootVerdaccio}`));
   // @ts-ignore
-  global.registryProcess = spawn('node', [path.resolve('./bin/verdaccio'), '-c', './verdaccio.yaml'], {
+  global.registryProcess = spawn('yarn node', [path.resolve('./bin/verdaccio'), '-c', './verdaccio.yaml'], {
     cwd: tempRoot,
     // stdio: 'pipe'
   });
