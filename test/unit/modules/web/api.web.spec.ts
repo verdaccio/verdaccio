@@ -211,12 +211,10 @@ describe('endpoint web unit test', () => {
         test('should fails on log unvalid user', (done) => {
           request(app)
             .post('/-/verdaccio/login')
-            .send(
-              JSON.stringify({
-                username: 'fake',
-                password: 'fake',
-              })
-            )
+            .send({
+              username: 'fake',
+              password: 'fake',
+            })
             // FIXME: there should be 401
             .expect(HTTP_STATUS.OK)
             .end(function (err, res) {
