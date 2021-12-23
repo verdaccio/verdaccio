@@ -1,4 +1,9 @@
 storage: ./storage_default_storage
+web:
+  title: Verdaccio
+  rateLimit:
+    windowMs: 5000000
+    max: 100000
 uplinks:
   npmjs:
     url: http://localhost:4873/
@@ -80,11 +85,11 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
-  # forbidden for search endpoint test package  
+  # forbidden for search endpoint test package
   'react*':
     access: non_existing_user
     publish: $all
-    proxy: npmjs  
+    proxy: npmjs
   '*':
     access: $all
     publish: $all
