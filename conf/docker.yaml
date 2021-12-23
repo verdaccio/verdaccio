@@ -26,6 +26,9 @@ web:
   # darkMode: true
   # logo: http://somedomain/somelogo.png
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
+  # rateLimit:
+  #   windowMs: 1000
+  #   max: 10000
 
 # translate your registry, api i18n not available yet
 # i18n:
@@ -80,7 +83,6 @@ middlewares:
 
 # log settings
 logs: { type: stdout, format: pretty, level: http }
-
 #experiments:
 #  # support for npm token command
 #  token: false

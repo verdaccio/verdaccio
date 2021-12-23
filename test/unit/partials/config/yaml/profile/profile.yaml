@@ -3,6 +3,9 @@ plugins: ./plugins
 
 web:
   title: Verdaccio
+  rateLimit:
+    windowMs: 5000000
+    max: 100000
 
 auth:
   htpasswd:

@@ -1,11 +1,10 @@
 /**
  * @prettier
- * @flow
  */
-
 import _ from 'lodash';
+import RateLimit from 'express-rate-limit';
 
-import { Router, Response, Request } from 'express';
+import express, { Router, Response, Request } from 'express';
 import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { IAuth, $NextFunctionVer } from '../../../../types';
@@ -13,6 +12,18 @@ import { ErrorCode } from '../../../lib/utils';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
+  /* eslint new-cap:off */
+  const userRouter = express.Router();
+
+  // we limit max 100 request per 15 minutes on user endpoints
+  // @ts-ignore
+  const limiter = new RateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100,
+    // @ts-ignore
+    ...config.web.rateLimit,
+  });
+  route.use(limiter);
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 
@@ -58,6 +69,8 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
     }
   });
+
+  route.use(userRouter);
 }
 
 export default addUserAuthApi;

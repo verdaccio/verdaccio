@@ -1,4 +1,9 @@
 storage: ./storage_default_storage
+web:
+  title: Verdaccio
+  rateLimit:
+    windowMs: 5000000
+    max: 100000
 uplinks:
   npmjs:
     url: http://localhost:4873/
