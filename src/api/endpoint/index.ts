@@ -44,14 +44,14 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   // for "npm whoami"
   whoami(app);
   pkg(app, auth, storage, config);
-  profile(app, auth);
   search(app, auth, storage);
-  user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage);
+  profile(app, auth);
   token(app, auth, storage, config);
+  user(app, auth, config);
   return app;
 }

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import Cookies from 'cookies';
-import RateLimit from 'express-rate-limit';
 
 import { Config, RemoteUser } from '@verdaccio/types';
 import express, { Response, Router } from 'express';
@@ -10,6 +9,7 @@ import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMess
 import { logger } from '../../../lib/logger';
 
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '../../../../types';
+import { limiter } from '../../user-rate-limit';
 
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */
@@ -17,10 +17,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
   // we limit max 100 request per 15 minutes on user endpoints
   // @ts-ignore
-  const limiter = new RateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000,
-  });
+
   userRouter.use(limiter);
 
   userRouter.get('/-/user/:org_couchdb_user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
