@@ -14,10 +14,6 @@ import { limiter } from '../../user-rate-limit';
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */
   const userRouter = express.Router();
-
-  // we limit max 100 request per 15 minutes on user endpoints
-  // @ts-ignore
-
   userRouter.use(limiter);
 
   userRouter.get('/-/user/:org_couchdb_user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {

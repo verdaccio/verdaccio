@@ -5,7 +5,6 @@ import { ErrorCode } from '../../../../lib/utils';
 import { validatePassword } from '../../../../lib/auth-utils';
 
 import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
-import { limiter } from '../../../user-rate-limit';
 
 export interface Profile {
   tfa: boolean;
@@ -20,7 +19,6 @@ export interface Profile {
 
 export default function (auth: IAuth): Router {
   const profileRoute = Router(); /* eslint new-cap: 0 */
-  profileRoute.use(limiter);
   function buildProfile(name: string): Profile {
     return {
       tfa: false,
