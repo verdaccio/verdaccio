@@ -7,7 +7,7 @@ import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@ver
 import Storage from '../lib/storage';
 import loadPlugin from '../lib/plugin-loader';
 import Auth from '../lib/auth';
-import { ErrorCode } from '../lib/utils';
+import { ErrorCode, getUserAgent } from '../lib/utils';
 import { API_ERROR, HTTP_STATUS } from '../lib/constants';
 import AppConfig from '../lib/config';
 import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
@@ -32,7 +32,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   app.use(errorReportingMiddleware);
   if (config.user_agent) {
     app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      res.setHeader('X-Powered-By', config.user_agent);
+      res.setHeader('X-Powered-By', getUserAgent(config.user_agent));
       next();
     });
   } else {

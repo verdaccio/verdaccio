@@ -9,10 +9,9 @@ import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constan
 import { IAuth, $NextFunctionVer } from '../../../../types';
 import { ErrorCode } from '../../../lib/utils';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
-import { limiter } from '../../user-rate-limit';
 
-function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
-  route.use(limiter);
+function addUserAuthApi(auth: IAuth, config: Config): Router {
+  const route = Router(); /* eslint new-cap: 0 */
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 
@@ -58,6 +57,8 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
     }
   });
+
+  return route;
 }
 
 export default addUserAuthApi;

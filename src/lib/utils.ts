@@ -30,9 +30,17 @@ const pkgVersion = module.exports.version;
 const pkgName = module.exports.name;
 const validProtocols = ['https', 'http'];
 
-export function getUserAgent(): string {
+export function getUserAgent(customUserAgent?: boolean | string): string {
   assert(_.isString(pkgName));
   assert(_.isString(pkgVersion));
+  if (customUserAgent === true) {
+    return `${pkgName}/${pkgVersion}`;
+  } else if (_.isString(customUserAgent) && _.isEmpty(customUserAgent) === false) {
+    return customUserAgent;
+  } else if (customUserAgent === false) {
+    return '';
+  }
+
   return `${pkgName}/${pkgVersion}`;
 }
 
@@ -457,21 +465,19 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
 
   // for contributors
   if (_.isEmpty(contributors) === false) {
-    pkgInfoCopy.latest.contributors = contributors.map(
-      (contributor): AuthorAvatar => {
-        if (isObject(contributor)) {
-          contributor.avatar = generateGravatarUrl(contributor.email, online);
-        } else if (_.isString(contributor)) {
-          contributor = {
-            avatar: GENERIC_AVATAR,
-            email: contributor,
-            name: contributor,
-          };
-        }
-
-        return contributor;
+    pkgInfoCopy.latest.contributors = contributors.map((contributor): AuthorAvatar => {
+      if (isObject(contributor)) {
+        contributor.avatar = generateGravatarUrl(contributor.email, online);
+      } else if (_.isString(contributor)) {
+        contributor = {
+          avatar: GENERIC_AVATAR,
+          email: contributor,
+          name: contributor,
+        };
       }
-    );
+
+      return contributor;
+    });
   }
 
   // for maintainers
@@ -492,9 +498,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
  * @param {Object} options sanitizyReadme options
  * @return {String} converted html template
  */
-export function parseReadme(packageName: string,
-                            readme: string,
-                            options: { pathname?: string | void } = {}): string | void {
+export function parseReadme(packageName: string, readme: string, options: { pathname?: string | void } = {}): string | void {
   if (_.isEmpty(readme) === false) {
     return sanitizyReadme(readme, options);
   }

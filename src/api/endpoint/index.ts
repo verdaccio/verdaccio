@@ -49,7 +49,7 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage);
-  app.use(npmV1(auth, storage, config));
   user(app, auth, config);
+  app.use(npmV1(auth, storage, config));
   return app;
 }

@@ -62,7 +62,7 @@ describe('endpoint web unit test', () => {
     describe('Packages', () => {
       test('should display all packages', (done) => {
         request(app)
-          .get('/-/verdaccio/packages')
+          .get('/-/verdaccio/data/packages')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             expect(res.body).toHaveLength(1);
@@ -72,7 +72,7 @@ describe('endpoint web unit test', () => {
 
       test.skip('should display scoped readme', (done) => {
         request(app)
-          .get('/-/verdaccio/package/readme/@scope/pk1-test')
+          .get('/-/verdaccio/data/package/readme/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function (err, res) {
@@ -84,7 +84,7 @@ describe('endpoint web unit test', () => {
       // FIXME: disabled, we need to inspect why fails randomly
       test.skip('should display scoped readme 404', (done) => {
         request(app)
-          .get('/-/verdaccio/package/readme/@scope/404')
+          .get('/-/verdaccio/data/package/readme/@scope/404')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_CHARSET)
           .end(function (err, res) {
@@ -95,7 +95,7 @@ describe('endpoint web unit test', () => {
 
       test('should display sidebar info', (done) => {
         request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test')
+          .get('/-/verdaccio/data/sidebar/@scope/pk1-test')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function (err, res) {
@@ -112,7 +112,7 @@ describe('endpoint web unit test', () => {
 
       test('should display sidebar info by version', (done) => {
         request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
+          .get('/-/verdaccio/data/sidebar/@scope/pk1-test?v=1.0.6')
           .expect(HTTP_STATUS.OK)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function (err, res) {
@@ -129,7 +129,7 @@ describe('endpoint web unit test', () => {
 
       test('should display sidebar info 404', (done) => {
         request(app)
-          .get('/-/verdaccio/sidebar/@scope/404')
+          .get('/-/verdaccio/data/sidebar/@scope/404')
           .expect(HTTP_STATUS.NOT_FOUND)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function () {
@@ -139,7 +139,7 @@ describe('endpoint web unit test', () => {
 
       test('should display sidebar info 404 with version', (done) => {
         request(app)
-          .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
+          .get('/-/verdaccio/data/sidebar/@scope/pk1-test?v=0.0.0-not-found')
           .expect(HTTP_STATUS.NOT_FOUND)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .end(function () {
@@ -151,7 +151,7 @@ describe('endpoint web unit test', () => {
     describe('Search', () => {
       test('should search pk1-test', (done) => {
         request(app)
-          .get('/-/verdaccio/search/scope')
+          .get('/-/verdaccio/data/search/scope')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             expect(res.body).toHaveLength(1);
@@ -161,7 +161,7 @@ describe('endpoint web unit test', () => {
 
       test('should search with 404', (done) => {
         request(app)
-          .get('/-/verdaccio/search/@')
+          .get('/-/verdaccio/data/search/@')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             // in a normal world, the output would be 1
@@ -173,7 +173,7 @@ describe('endpoint web unit test', () => {
 
       test('should not find forbidden-place', (done) => {
         request(app)
-          .get('/-/verdaccio/search/forbidden-place')
+          .get('/-/verdaccio/data/search/forbidden-place')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             // this is expected since we are not logged
@@ -192,7 +192,7 @@ describe('endpoint web unit test', () => {
       describe('login webui', () => {
         test('should log successfully', (done) => {
           request(app)
-            .post('/-/verdaccio/login')
+            .post('/-/verdaccio/sec/login')
             .send({
               username: credentials.name,
               password: credentials.password,
@@ -210,7 +210,7 @@ describe('endpoint web unit test', () => {
 
         test('should fails on log unvalid user', (done) => {
           request(app)
-            .post('/-/verdaccio/login')
+            .post('/-/verdaccio/sec/login')
             .send({
               username: 'fake',
               password: 'fake',

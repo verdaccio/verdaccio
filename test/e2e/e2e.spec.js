@@ -6,13 +6,13 @@ describe('/ (Verdaccio Page)', () => {
   // this might be increased based on the delays included in all test
   jest.setTimeout(20000);
 
-  const clickElement = async function(selector, options = { delay: 100 }) {
+  const clickElement = async function (selector, options = { delay: 100 }) {
     const button = await page.$(selector);
     await button.focus();
     await button.click(options);
   };
 
-  const evaluateSignIn = async function(matchText = 'Login') {
+  const evaluateSignIn = async function (matchText = 'Login') {
     const text = await page.evaluate(() => {
       return document.querySelector('button[data-testid="header--button-login"]').textContent;
     });
@@ -20,11 +20,11 @@ describe('/ (Verdaccio Page)', () => {
     expect(text).toMatch(matchText);
   };
 
-  const getPackages = async function() {
+  const getPackages = async function () {
     return await page.$$('.package-title');
   };
 
-  const logIn = async function() {
+  const logIn = async function () {
     await clickElement('button[data-testid="header--button-login"]');
     // we fill the sign in form
     const signInDialog = await page.$('#login--dialog');
@@ -47,7 +47,7 @@ describe('/ (Verdaccio Page)', () => {
     page = await global.__BROWSER__.newPage();
     await page.goto('http://0.0.0.0:55558');
     // eslint-disable-next-line no-console
-    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
   });
 
   afterAll(async () => {
@@ -162,7 +162,7 @@ describe('/ (Verdaccio Page)', () => {
     await page.waitFor(1000);
     const tags = await page.$$('.dep-tag');
     const tag = tags[0];
-    const label = await page.evaluate(el => el.innerText, tag);
+    const label = await page.evaluate((el) => el.innerText, tag);
     expect(label).toMatch('verdaccio@');
   });
 

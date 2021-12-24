@@ -125,6 +125,12 @@ const defaultApiTokenConf: APITokenOptions = {
   legacy: true,
 };
 
+// we limit max 1000 request per 15 minutes on user endpoints
+export const defaultUserRateLimiting = {
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000,
+};
+
 export const defaultSecurity: Security = {
   web: defaultWebTokenOptions,
   api: defaultApiTokenConf,
@@ -154,7 +160,6 @@ export function isAESLegacy(security: Security): boolean {
 
 export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
   const security: Security = getSecurity(config);
-
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {

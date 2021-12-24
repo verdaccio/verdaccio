@@ -4,7 +4,8 @@ import _ from 'lodash';
 
 import express from 'express';
 import buildDebug from 'debug';
-import RateLimit from 'express-rate-limit';
+
+import { Config } from '@verdaccio/types';
 
 import Search from '../../lib/search';
 import { HTTP_STATUS } from '../../lib/constants';
@@ -54,23 +55,15 @@ const sendFileCallback = (next) => (err) => {
   }
 };
 
-export default function (config, auth, storage) {
+export default function (config: Config, auth, storage) {
   let { staticPath, manifest, manifestFiles } = loadTheme(config) || require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
   Search.configureStorage(storage);
 
   /* eslint new-cap:off */
   const router = express.Router();
-  // limit 5k request on web peer 2 minutes is enough for a medium size company
-  // @ts-ignore
-  const limiter = new RateLimit({
-    windowMs: 2 * 60 * 1000, // 2  minutes
-    max: 5000, // limit each IP to 1000 requests per windowMs
-    ...config?.web?.rateLimit,
-  });
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
-  router.use(limiter);
   router.use(auth.webUIJWTmiddleware());
   router.use(setSecurityWebHeaders);
 
@@ -93,6 +86,7 @@ export default function (config, auth, storage) {
         // Use POSIX version `path.posix.join` instead.
         config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
         router.get(config.web.logo, function (_req, res, next) {
+          // @ts-ignore
           debug('serve custom logo  web:%s - local:%s', config.web.logo, absoluteLocalFile);
           res.sendFile(absoluteLocalFile, sendFileCallback(next));
         });

@@ -83,8 +83,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.1.0"],
             ["@verdaccio/readme", "npm:10.2.0"],
             ["@verdaccio/streams", "npm:10.1.0"],
-            ["@verdaccio/types", "npm:9.7.2"],
-            ["@verdaccio/ui-theme", "npm:3.2.1"],
+            ["@verdaccio/types", "npm:10.2.2"],
+            ["@verdaccio/ui-theme", "npm:3.4.1"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.2"],
@@ -5397,19 +5397,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/types", [
-        ["npm:9.7.2", {
-          "packageLocation": "./.yarn/cache/@verdaccio-types-npm-9.7.2-9a89bfb123-ad04a1cd1f.zip/node_modules/@verdaccio/types/",
+        ["npm:10.2.2", {
+          "packageLocation": "./.yarn/cache/@verdaccio-types-npm-10.2.2-3a8a5ff733-cd16cad480.zip/node_modules/@verdaccio/types/",
           "packageDependencies": [
-            ["@verdaccio/types", "npm:9.7.2"]
+            ["@verdaccio/types", "npm:10.2.2"]
           ],
           "linkType": "HARD",
         }]
       ]],
       ["@verdaccio/ui-theme", [
-        ["npm:3.2.1", {
-          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-3.2.1-86c131bd8f-bd0c23b2ff.zip/node_modules/@verdaccio/ui-theme/",
+        ["npm:3.4.1", {
+          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-3.4.1-ff9f347e40-9873985e77.zip/node_modules/@verdaccio/ui-theme/",
           "packageDependencies": [
-            ["@verdaccio/ui-theme", "npm:3.2.1"]
+            ["@verdaccio/ui-theme", "npm:3.4.1"]
           ],
           "linkType": "HARD",
         }]
@@ -17240,8 +17240,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.1.0"],
             ["@verdaccio/readme", "npm:10.2.0"],
             ["@verdaccio/streams", "npm:10.1.0"],
-            ["@verdaccio/types", "npm:9.7.2"],
-            ["@verdaccio/ui-theme", "npm:3.2.1"],
+            ["@verdaccio/types", "npm:10.2.2"],
+            ["@verdaccio/ui-theme", "npm:3.4.1"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.2"],

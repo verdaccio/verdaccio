@@ -11,7 +11,6 @@ import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { getNewToken } from '../../__helper/api';
 import { buildToken } from '../../../../src/lib/utils';
-import { expectJson } from '../../../../src/api/middleware';
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 

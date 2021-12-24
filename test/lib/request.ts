@@ -51,7 +51,6 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
   }
 
   public body_error(expected: any) {
-    // $FlowFixMe
     const selfData = this[requestData];
 
     return injectResponse(
@@ -97,7 +96,6 @@ export class PromiseAssert extends Promise<any> implements IRequestPromise {
 }
 
 function injectResponse(smartObject: any, promise: Promise<any>): Promise<any> {
-  // $FlowFixMe
   promise[requestData] = smartObject[requestData];
   return promise;
 }
