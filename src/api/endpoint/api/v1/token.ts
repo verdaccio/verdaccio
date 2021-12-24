@@ -26,7 +26,6 @@ function normalizeToken(token: Token): NormalizeToken {
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
 export default function (auth: IAuth, storage: IStorageHandler, config: Config): Router {
   const tokenRoute = Router(); /* eslint new-cap: 0 */
-  // tokenRoute.use(limiter);
   tokenRoute.get('/tokens', async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
     const { name } = req.remote_user;
 

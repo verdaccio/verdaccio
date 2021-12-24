@@ -17,13 +17,13 @@ import {
   Package,
   IPluginStorageFilter,
   Author,
-	AuthPluginPackage,
+  AuthPluginPackage,
   Token,
   ITokenActions,
-  TokenFilter
+  TokenFilter,
 } from '@verdaccio/types';
 import lunrMutable from 'lunr-mutable-indexes';
-import {NextFunction, Request, Response} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 export type StringValue = verdaccio$StringValue;
 
@@ -31,6 +31,7 @@ export interface StartUpConfig {
   storage: string;
   plugins?: string;
   self_path: string;
+  user_agent?: boolean;
 }
 
 // legacy should be removed in long term
@@ -46,13 +47,13 @@ export type LegacyPackageAccess = PackageAccess & {
   proxy_access?: string[];
   // FIXME: should be published on @verdaccio/types
   unpublish?: string[];
-}
+};
 
 export type MatchedPackage = PackageAccess | void;
 
 export type JWTPayload = RemoteUser & {
   password?: string;
-}
+};
 
 export interface AESPayload {
   user: string;
@@ -96,10 +97,10 @@ export interface Profile {
   fullname: string;
 }
 
-export type $RequestExtend = Request & {remote_user?: any; log: Logger}
-export type $ResponseExtend = Response & {cookies?: any}
+export type $RequestExtend = Request & { remote_user?: any; log: Logger };
+export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
-export type $SidebarPackage = Package & {latest: any}
+export type $SidebarPackage = Package & { latest: any };
 
 export interface IAuthWebUI {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
@@ -198,4 +199,3 @@ export interface Styles {
 }
 
 export type AuthorAvatar = Author & { avatar?: string };
-

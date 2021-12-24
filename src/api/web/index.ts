@@ -6,6 +6,8 @@ import express from 'express';
 import buildDebug from 'debug';
 import RateLimit from 'express-rate-limit';
 
+import { Config } from '@verdaccio/types';
+
 import Search from '../../lib/search';
 import { HTTP_STATUS } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';
@@ -54,7 +56,7 @@ const sendFileCallback = (next) => (err) => {
   }
 };
 
-export default function (config, auth, storage) {
+export default function (config: Config, auth, storage) {
   let { staticPath, manifest, manifestFiles } = loadTheme(config) || require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
   Search.configureStorage(storage);
@@ -93,6 +95,7 @@ export default function (config, auth, storage) {
         // Use POSIX version `path.posix.join` instead.
         config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
         router.get(config.web.logo, function (_req, res, next) {
+          // @ts-ignore
           debug('serve custom logo  web:%s - local:%s', config.web.logo, absoluteLocalFile);
           res.sendFile(absoluteLocalFile, sendFileCallback(next));
         });

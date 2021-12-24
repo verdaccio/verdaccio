@@ -12,7 +12,7 @@ import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 import { limiter } from '../../user-rate-limit';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
-  route.use(limiter);
+  route.use(limiter(config?.security?.userRateLimit));
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 

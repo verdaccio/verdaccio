@@ -7,6 +7,7 @@ import { generateRandomHexString } from './crypto-utils';
 import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { getUserAgent, isObject } from './utils';
 import { APP_ERROR } from './constants';
+import { defaultSecurity } from './auth-utils';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -18,7 +19,7 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 class Config implements AppConfig {
   public logger: Logger;
   // @ts-ignore
-  public user_agent: string;
+  public user_agent: boolean | string;
   // @ts-ignore
   public secret: string;
   public uplinks: any;
@@ -44,10 +45,14 @@ class Config implements AppConfig {
       }
     }
 
-    // @ts-ignore
     if (config?.user_agent) {
-      this.user_agent = getUserAgent();
+      this.user_agent = getUserAgent(config?.user_agent);
     }
+
+    // @ts-ignore
+    this.security = {
+      userRateLimit: defaultSecurity.userRateLimit,
+    };
 
     // some weird shell scripts are valid yaml files parsed as string
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);

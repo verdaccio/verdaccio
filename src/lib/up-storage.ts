@@ -63,6 +63,7 @@ class ProxyStorage implements IProxy {
   public constructor(config: UpLinkConfLocal, mainConfig: Config) {
     this.config = config;
     this.failed_requests = 0;
+    // @ts-ignore
     this.userAgent = mainConfig.user_agent;
     this.ca = config.ca;
     this.logger = logger;

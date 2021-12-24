@@ -14,7 +14,7 @@ import { limiter } from '../../user-rate-limit';
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */
   const userRouter = express.Router();
-  userRouter.use(limiter);
+  userRouter.use(limiter(config?.security?.userRateLimit));
 
   userRouter.get('/-/user/:org_couchdb_user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);

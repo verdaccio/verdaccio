@@ -1,11 +1,13 @@
 import RateLimit from 'express-rate-limit';
+import { defaultUserRateLimiting } from '../lib/auth-utils';
 
-// we limit max 1000 request per 15 minutes on user endpoints
-const defaultUserRateLimiting = {
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000,
-};
 // @ts-ignore
-const limiter = new RateLimit(defaultUserRateLimiting);
+const limiter = (userRateLimit) => {
+  // @ts-ignore
+  return new RateLimit({
+    defaultUserRateLimiting,
+    ...userRateLimit,
+  });
+};
 
 export { limiter };
