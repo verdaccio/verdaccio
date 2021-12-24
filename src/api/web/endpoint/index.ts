@@ -6,7 +6,7 @@ import user from './user';
 
 export default (auth, storage, config) => {
   const route = Router(); /* eslint new-cap: 0 */
-  route.use('/data/', limiter(config?.web.rateLimit));
+  route.use('/data/', limiter(config?.web?.rateLimit));
   route.use('/data/', packageApi(auth, storage, config));
   route.use('/data/', search(auth, storage));
   route.use('/sec/', limiter(config?.userRateLimit));
