@@ -14,16 +14,15 @@ import { limiter } from '../../rate-limiter';
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */
   const userRouter = express.Router();
-  userRouter.use('/-/user', limiter(config?.userRateLimit));
 
-  userRouter.get('/-/user/:org_couchdb_user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  userRouter.get('/-/user/:org_couchdb_user', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
       ok: getAuthenticatedMessage(req.remote_user.name),
     });
   });
 
-  userRouter.put('/-/user/:org_couchdb_user/:_rev?/:revision?', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  userRouter.put('/-/user/:org_couchdb_user/:_rev?/:revision?', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     const { name, password } = req.body;
     const remoteName = req.remote_user.name;
 
@@ -74,7 +73,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
     }
   });
 
-  userRouter.delete('/-/user/token/*', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  userRouter.delete('/-/user/token/*', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
       ok: API_MESSAGE.LOGGED_OUT,
