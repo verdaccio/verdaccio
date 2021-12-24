@@ -23,6 +23,6 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler):
   route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
   route.use(setSecurityWebHeaders);
-  route.use(webApi(storage, auth, config));
+  route.use(webApi(auth, storage, config));
   return route;
 }
