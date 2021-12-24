@@ -43,7 +43,7 @@
     "lru-cache": "6.0.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.15",
+    "@types/node": "16.11.17",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "node-html-parser": "4.1.5",
     "supertest": "6.1.6",
