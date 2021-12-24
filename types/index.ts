@@ -33,7 +33,7 @@ export interface StartUpConfig {
   plugins?: string;
   self_path: string;
   user_agent?: boolean;
-  userRateLimit: RateLimit;
+  userRateLimit?: RateLimit;
 }
 
 // legacy should be removed in long term
