@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import express, { Application } from 'express';
 import compression from 'compression';
+import RateLimit from 'express-rate-limit';
 import cors from 'cors';
 import { HttpError } from 'http-errors';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
@@ -66,7 +67,15 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
+    // limit 5k request on web peer 2 minutes is enough for a medium size company
+    // @ts-ignore
+    const limiter = new RateLimit({
+      windowMs: 2 * 60 * 1000, // 2  minutes
+      max: 5000, // limit each IP to 1000 requests per windowMs
+      ...config?.web?.rateLimit,
+    });
     app.use('/', web(config, auth, storage));
+    app.use('/-/verdaccio/', limiter);
     app.use('/-/verdaccio/', webAPI(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {

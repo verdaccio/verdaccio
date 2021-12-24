@@ -1,11 +1,10 @@
 import RateLimit from 'express-rate-limit';
+import { RateLimit as RateLimitType } from '@verdaccio/types';
 import { defaultUserRateLimiting } from '../lib/auth-utils';
 
-// @ts-ignore
-const limiter = (userRateLimit) => {
+const limiter = (userRateLimit: RateLimitType) => {
   // @ts-ignore
   return new RateLimit({
-    defaultUserRateLimiting,
     ...userRateLimit,
   });
 };

@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import express from 'express';
 import buildDebug from 'debug';
-import RateLimit from 'express-rate-limit';
 
 import { Config } from '@verdaccio/types';
 
@@ -63,16 +62,8 @@ export default function (config: Config, auth, storage) {
 
   /* eslint new-cap:off */
   const router = express.Router();
-  // limit 5k request on web peer 2 minutes is enough for a medium size company
-  // @ts-ignore
-  const limiter = new RateLimit({
-    windowMs: 2 * 60 * 1000, // 2  minutes
-    max: 5000, // limit each IP to 1000 requests per windowMs
-    ...config?.web?.rateLimit,
-  });
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
-  router.use(limiter);
   router.use(auth.webUIJWTmiddleware());
   router.use(setSecurityWebHeaders);
 

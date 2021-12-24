@@ -12,8 +12,8 @@ import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 import { limiter } from '../../user-rate-limit';
 
 function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
-  route.use(limiter(config?.userRateLimit));
-  route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  route.use('/sec/', limiter(config?.userRateLimit));
+  route.post('/sec/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
 
     auth.authenticate(username, password, async (err, user: RemoteUser): Promise<void> => {
@@ -32,7 +32,7 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
     });
   });
 
-  route.put('/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
+  route.put('/sec/reset_password', function (req: Request, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
