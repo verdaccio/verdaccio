@@ -50,7 +50,6 @@ class Config implements AppConfig {
       this.user_agent = getUserAgent(config?.user_agent);
     }
 
-    // temporary workaround until next major
     this.userRateLimit = { ...defaultUserRateLimiting, ...config?.userRateLimit };
 
     // some weird shell scripts are valid yaml files parsed as string
