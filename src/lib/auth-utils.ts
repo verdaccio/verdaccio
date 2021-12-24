@@ -134,7 +134,6 @@ export const defaultUserRateLimiting = {
 export const defaultSecurity: Security = {
   web: defaultWebTokenOptions,
   api: defaultApiTokenConf,
-  userRateLimit: defaultUserRateLimiting,
 };
 
 export function getSecurity(config: Config): Security {

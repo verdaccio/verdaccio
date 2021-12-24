@@ -1,13 +1,13 @@
 import assert from 'assert';
 import _ from 'lodash';
 
-import { PackageList, Config as AppConfig, Security, Logger } from '@verdaccio/types';
+import { PackageList, Config as AppConfig, Security, Logger, RateLimit } from '@verdaccio/types';
 import { MatchedPackage, StartUpConfig } from '../../types';
 import { generateRandomHexString } from './crypto-utils';
 import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { getUserAgent, isObject } from './utils';
 import { APP_ERROR } from './constants';
-import { defaultSecurity } from './auth-utils';
+import { defaultUserRateLimiting } from './auth-utils';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
@@ -25,7 +25,7 @@ class Config implements AppConfig {
   public uplinks: any;
   public packages: PackageList;
   public users: any;
-  public userRateLimit: string;
+  public userRateLimit: RateLimit;
   public server_id: string;
   public self_path: string;
   public storage: string | void;
@@ -51,8 +51,7 @@ class Config implements AppConfig {
     }
 
     // temporary workaround until next major
-    // @ts-ignore
-    this.userRateLimit = defaultSecurity.userRateLimit;
+    this.userRateLimit = { ...defaultUserRateLimiting, ...config?.userRateLimit };
 
     // some weird shell scripts are valid yaml files parsed as string
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
