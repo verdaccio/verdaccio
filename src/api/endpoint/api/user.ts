@@ -9,7 +9,7 @@ import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMess
 import { logger } from '../../../lib/logger';
 
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '../../../../types';
-import { limiter } from '../../user-rate-limit';
+import { limiter } from '../../rate-limiter';
 
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */

@@ -4,9 +4,7 @@ import { Config } from '@verdaccio/types';
 import Search from '../../lib/search';
 import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
 import { IAuth, IStorageHandler } from '../../../types';
-import addUserAuthApi from './endpoint/user';
-import addPackageWebApi from './endpoint/package';
-import addSearchWebApi from './endpoint/search';
+import webApi from './endpoint';
 
 const route = Router(); /* eslint new-cap: 0 */
 
@@ -25,9 +23,6 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler):
   route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
   route.use(setSecurityWebHeaders);
-
-  addPackageWebApi(route, storage, auth, config);
-  addSearchWebApi(route, storage, auth);
-  addUserAuthApi(route, auth, config);
+  route.use(webApi(storage, auth, config));
   return route;
 }

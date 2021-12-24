@@ -75,7 +75,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
       ...config?.web?.rateLimit,
     });
     app.use('/', web(config, auth, storage));
-    app.use('/-/verdaccio/', limiter);
+    app.use('/-/verdaccio/data/', limiter);
     app.use('/-/verdaccio/', webAPI(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {

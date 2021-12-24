@@ -1,5 +1,5 @@
 import { Response, Router } from 'express';
-import { limiter } from '../../../user-rate-limit';
+import { limiter } from '../../../rate-limiter';
 import profile from './profile';
 import token from './token';
 import v1Search from './search';

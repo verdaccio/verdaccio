@@ -9,7 +9,7 @@ import { stringToMD5 } from '../../../../lib/crypto-utils';
 import { logger } from '../../../../lib/logger';
 
 import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../../types';
-import { limiter } from '../../../user-rate-limit';
+import { limiter } from '../../../rate-limiter';
 
 const debug = buildDebug('verdaccio:token');
 export type NormalizeToken = Token & {
