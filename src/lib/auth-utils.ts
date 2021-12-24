@@ -161,7 +161,6 @@ export function isAESLegacy(security: Security): boolean {
 
 export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
   const security: Security = getSecurity(config);
-
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {

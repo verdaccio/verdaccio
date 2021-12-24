@@ -25,6 +25,7 @@ class Config implements AppConfig {
   public uplinks: any;
   public packages: PackageList;
   public users: any;
+  public userRateLimit: string;
   public server_id: string;
   public self_path: string;
   public storage: string | void;
@@ -49,10 +50,9 @@ class Config implements AppConfig {
       this.user_agent = getUserAgent(config?.user_agent);
     }
 
+    // temporary workaround until next major
     // @ts-ignore
-    this.security = {
-      userRateLimit: defaultSecurity.userRateLimit,
-    };
+    this.userRateLimit = defaultSecurity.userRateLimit;
 
     // some weird shell scripts are valid yaml files parsed as string
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
