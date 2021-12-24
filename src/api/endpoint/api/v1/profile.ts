@@ -5,6 +5,7 @@ import { ErrorCode } from '../../../../lib/utils';
 import { validatePassword } from '../../../../lib/auth-utils';
 
 import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
+import { limiter } from '../../../rate-limiter';
 
 export interface Profile {
   tfa: boolean;
@@ -17,7 +18,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (auth: IAuth): Router {
+export default function (auth: IAuth, config): Router {
   const profileRoute = Router(); /* eslint new-cap: 0 */
   function buildProfile(name: string): Profile {
     return {
@@ -32,7 +33,7 @@ export default function (auth: IAuth): Router {
     };
   }
 
-  profileRoute.get('/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  profileRoute.get('/user', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name) === false) {
       return next(buildProfile(req.remote_user.name));
     }
@@ -43,7 +44,7 @@ export default function (auth: IAuth): Router {
     });
   });
 
-  profileRoute.post('/user', function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
+  profileRoute.post('/user', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({

@@ -117,7 +117,7 @@ jobs:
         with:
           node-version: 12.x
       - name: 'install latest npm'
-        run: npm i -g npm
+        run: npm i -g npm@next-7
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -140,7 +140,7 @@ jobs:
           yarn jest module.test.js
 
   pnpm:
-    name: 'pnpm:jest example'
+    name: 'pnpm:latest:jest example'
     runs-on: ubuntu-latest
 
     steps:
