@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/verdaccio/verdaccio/compare/v5.3.2...v5.4.0) (2021-12-24)
+
+
+### Features
+
+* add cache-control header to endpoints ([#2791](https://github.com/verdaccio/verdaccio/issues/2791)) ([fd3ad1e](https://github.com/verdaccio/verdaccio/commit/fd3ad1e546f5293e862d767f23b3714e6dd5dc8c))
+* add rate limit to user api endpoints ([#2800](https://github.com/verdaccio/verdaccio/issues/2800)) ([#2799](https://github.com/verdaccio/verdaccio/issues/2799)) ([f64e403](https://github.com/verdaccio/verdaccio/commit/f64e403f0a1d710a0d866ca2db480199c83a3609))
+* add rate limit to web endpoints ([#2799](https://github.com/verdaccio/verdaccio/issues/2799)) ([c91d6be](https://github.com/verdaccio/verdaccio/commit/c91d6beb8bde1c5f275d7f570209cf723dce47c5))
+* allow override user rate limit and user agent ([#2803](https://github.com/verdaccio/verdaccio/issues/2803)) ([5b1264c](https://github.com/verdaccio/verdaccio/commit/5b1264c733ea249efc38e963f0e99fb093d61406))
+* jwt default time new set ([#2787](https://github.com/verdaccio/verdaccio/issues/2787)) ([1c17d09](https://github.com/verdaccio/verdaccio/commit/1c17d0986ea551b427994f8392a9d8ef29ba88e9))
+* user agent is the client by default ([#2793](https://github.com/verdaccio/verdaccio/issues/2793)) ([e5d79ce](https://github.com/verdaccio/verdaccio/commit/e5d79ce8f00a18f0c0646b761f22dc608b5baf87))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/commons-api to v10.1.0 ([#2789](https://github.com/verdaccio/verdaccio/issues/2789)) ([c5c0ef8](https://github.com/verdaccio/verdaccio/commit/c5c0ef8750abeb50d933c639a2041d25a889820b))
+* **deps:** update dependency body-parser to v1.19.1 ([#2788](https://github.com/verdaccio/verdaccio/issues/2788)) ([46e583f](https://github.com/verdaccio/verdaccio/commit/46e583f683520b3a69dbd14ed43146492c0e80be))
+
 ### [5.3.2](https://github.com/verdaccio/verdaccio/compare/v5.3.1...v5.3.2) (2021-12-16)
 
 
