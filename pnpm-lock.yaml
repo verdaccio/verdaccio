@@ -750,7 +750,7 @@ importers:
       '@types/react': 17.0.38
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.11
-      '@types/react-helmet': 6.1.4
+      '@types/react-helmet': 6.1.5
       '@types/react-router-dom': 5.3.2
       '@types/react-virtualized': 9.21.15
       '@types/redux': 3.6.0
@@ -829,7 +829,7 @@ importers:
       '@types/react': 17.0.38
       '@types/react-autosuggest': 10.1.5
       '@types/react-dom': 17.0.11
-      '@types/react-helmet': 6.1.4
+      '@types/react-helmet': 6.1.5
       '@types/react-router-dom': 5.3.2
       '@types/react-virtualized': 9.21.15
       '@types/redux': 3.6.0
@@ -7363,6 +7363,12 @@ packages:
 
   /@types/react-helmet/6.1.4:
     resolution: {integrity: sha512-jyx50RNZXVaTGHY3MsoRPNpeiVk8b0XTPgD/O6KHF6COTDnG/+lRjPYvTK5nfWtR3xDOux0w6bHLAsaHo2ZLTA==}
+    dependencies:
+      '@types/react': 17.0.38
+    dev: true
+
+  /@types/react-helmet/6.1.5:
+    resolution: {integrity: sha512-/ICuy7OHZxR0YCAZLNg9r7I9aijWUWvxaPR6uTuyxe8tAj5RL4Sw1+R6NhXUtOsarkGYPmaHdBDvuXh2DIN/uA==}
     dependencies:
       '@types/react': 17.0.38
     dev: true
