@@ -752,7 +752,7 @@ importers:
       '@types/react-dom': 17.0.11
       '@types/react-helmet': 6.1.5
       '@types/react-router-dom': 5.3.2
-      '@types/react-virtualized': 9.21.15
+      '@types/react-virtualized': 9.21.16
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.25
       '@verdaccio/types': workspace:*
@@ -831,7 +831,7 @@ importers:
       '@types/react-dom': 17.0.11
       '@types/react-helmet': 6.1.5
       '@types/react-router-dom': 5.3.2
-      '@types/react-virtualized': 9.21.15
+      '@types/react-virtualized': 9.21.16
       '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
       '@verdaccio/types': link:../../core/types
@@ -7416,8 +7416,8 @@ packages:
     dependencies:
       '@types/react': 17.0.38
 
-  /@types/react-virtualized/9.21.15:
-    resolution: {integrity: sha512-R4ntUW+Y/a7RgRpfeYz3iRe+kaDWtXieMeQum4AoYjjZsR/QhpKqFu4muSBhzA7OHJHd6qA0KkeTzxj5ah5tmQ==}
+  /@types/react-virtualized/9.21.16:
+    resolution: {integrity: sha512-25QMrouz1VKq5T68+9JfRq3GP4JmN20ARi+hl5z7NMmriy07XmGd1Yh3I4EIZjmifpXhHZoQS/ny2fzZRyiAiw==}
     dependencies:
       '@types/prop-types': 15.7.4
       '@types/react': 17.0.38
