@@ -80,7 +80,7 @@ security:
         someProp: [value]
    web:
      sign:
-       expiresIn: 7d # 7 days by default
+       expiresIn: 1h # 1 hour by default
      verify:
      	someProp: [value]
 ```
@@ -156,6 +156,32 @@ url_prefix: /verdaccio/
 ```
 
 > Verdaccio 5 has an improved prefix behaviour and the `VERDACCIO_PUBLIC_URL` is available for use, learn how to [here](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#url_prefix-improved-behavior).
+
+### User Agent {#user-agent}
+
+<small>Since: `verdaccio@5.4.0`</small>
+
+The user agent is disabled by default, in exchange the user agent client (package manager, browser, etc ...) is being bypassed to the remote. To enable the previous behaviour use boolean values.
+
+```yaml
+user_agent: true
+user_agent: false
+user_agent: 'custom user agent'
+```
+
+### User Rate Limit {#user-rate-limit}
+
+<small>Since: [verdaccio@5.4.0](https://github.com/verdaccio/verdaccio/releases/tag/v5.4.0)</small>
+
+Add default rate limit to user endpoints, `npm token`, `npm profile`, `npm loding/adduser` and login website to 100 request peer 15 min, customizable via:
+
+```
+userRateLimit:
+  windowMs: 50000
+  max: 1000
+```
+
+Additonal configuration (only feature flags) is also possible via the [middleware docs](https://github.com/nfriedly/express-rate-limit/#configuration-options).
 
 ### Max Body Size {#max-body-size}
 

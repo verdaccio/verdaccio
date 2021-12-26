@@ -18,6 +18,9 @@ web:
   sort_packages: asc | desc
   darkMode: false
   favicon: http://somedomain/favicon.ico | /path/favicon.ico
+  rateLimit:
+    windowMs: 50000
+    max: 1000
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
@@ -51,6 +54,7 @@ i18n:
 | scope         | string     | No       | @myscope                                                      | `>v3.x`    | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header |
 | darkMode      | boolean    | No       | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
 | favicon       | string     | No       | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
+| rateLimit       | object     | No       | use `userRateLimit` configuration  | `>=v5.4.0` | Increase or decrease rate limit, by default is 5k request every 2 minutes, only limit web api endpoints, the CSS, JS, etcc are ingnored |
 
 > The recommended logo size is `40x40` pixels.
 
