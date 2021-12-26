@@ -18,6 +18,9 @@ web:
   sort_packages: asc | desc
   darkMode: false
   favicon: http://somedomain/favicon.ico | /path/favicon.ico
+  rateLimit:
+    windowMs: 50000
+    max: 1000
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
