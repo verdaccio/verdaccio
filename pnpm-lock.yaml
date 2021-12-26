@@ -773,7 +773,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: 2.2.2
+      mini-css-extract-plugin: 2.4.5
       msw: 0.35.0
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.10.1
@@ -852,7 +852,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: 2.2.2_webpack@5.64.0
+      mini-css-extract-plugin: 2.4.5_webpack@5.64.0
       msw: 0.35.0
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.10.1
@@ -8274,7 +8274,6 @@ packages:
         optional: true
     dependencies:
       ajv: 8.8.2
-    dev: false
 
   /ajv-keywords/3.5.2_ajv@6.12.6:
     resolution: {integrity: sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==}
@@ -8290,7 +8289,6 @@ packages:
     dependencies:
       ajv: 8.8.2
       fast-deep-equal: 3.1.3
-    dev: false
 
   /ajv/5.5.2:
     resolution: {integrity: sha1-c7Xuyj+rZT49P5Qis0GtQiBdyWU=}
@@ -16353,13 +16351,13 @@ packages:
       webpack-sources: 1.4.3
     dev: false
 
-  /mini-css-extract-plugin/2.2.2_webpack@5.64.0:
-    resolution: {integrity: sha512-eUjQ/q1rQIeHWgIx7ny/DNgXHcMXHdBwgrZQK7Ev8dbR+HxhroFM2Cb6kMiswOYaq05IRJhPuQqXWUABIjjA3g==}
+  /mini-css-extract-plugin/2.4.5_webpack@5.64.0:
+    resolution: {integrity: sha512-oEIhRucyn1JbT/1tU2BhnwO6ft1jjH1iCX9Gc59WFMg0n5773rQU0oyQ0zzeYFFuBfONaRbQJyGoPtuNseMxjA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      schema-utils: 3.1.1
+      schema-utils: 4.0.0
       webpack: 5.64.0_webpack-cli@4.7.2
     dev: true
 
@@ -19902,7 +19900,6 @@ packages:
       ajv: 8.8.2
       ajv-formats: 2.1.1
       ajv-keywords: 5.1.0_ajv@8.8.2
-    dev: false
 
   /section-matter/1.0.0:
     resolution: {integrity: sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==}
