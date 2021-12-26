@@ -160,7 +160,7 @@ security:
         notBefore: 0
   web:
     sign:
-      expiresIn: 7d
+      expiresIn: 1h
 ```
 
 **Using this configuration will override the current system and you will be able to control how long the token will live**.
@@ -168,3 +168,27 @@ security:
 Using JWT also improves the performance with authentication plugins. The old system will perform an unpackage and validate the credentials on every request, while JWT will rely on the token signature instead, avoiding the overhead for the plugin.
 
 As a side note, be aware at **npmjs** and the **legacy** verdaccio token never expires\*\* unless you invalidate manually.
+
+### Rate Limit {#rate-limit}
+
+Since version `v5.4.0` critical endpoints have enabled by default rate limit. The following commands are considered user endpoints:
+
+- `npm token` all variants
+- `npm login/adduser`
+- `npm profile` all supported variants
+- User website `/sec/login` endpoint.
+
+The previous list of endpoints are limited to `100` request peer _15 minutes_ which is enough for a basic usage, if you need to increase this levels please check the `userRateLimit` configuration options.
+
+
+```yaml
+userRateLimit:
+  windowMs: 50000 <- (minutes * 60 * 1000)
+  max: 1000 (number of request peer windowMs)
+```
+
+The website endpoints as, _search_, _packages_, _sidebar_, and _detail_ are protected by default to 5,000 request peer 2 minutes, also configurable via web ui options.
+
+We recommend customize this values to those that addapt your needs to avoid any kind of (DDoS) or _brute-force_ attack to the critical endpoints.
+
+> The CLI API endpoints used by eg `npm install` are not limited at this point since are not considered critical, but if you find any good reason please open a discussion.
