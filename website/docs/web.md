@@ -51,6 +51,7 @@ i18n:
 | scope         | string     | No       | @myscope                                                      | `>v3.x`    | If you're using this registry for a specific module scope, specify that scope to set it in the webui instructions header |
 | darkMode      | boolean    | No       | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
 | favicon       | string     | No       | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
+| rateLimit       | object     | No       | use `userRateLimit` configuration  | `>=v5.4.0` | Increase or decrease rate limit, by default is 5k request every 2 minutes |
 
 > The recommended logo size is `40x40` pixels.
 
