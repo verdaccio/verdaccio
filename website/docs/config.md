@@ -164,8 +164,9 @@ url_prefix: /verdaccio/
 The user agent is disabled by default, in exchange the user agent client (package manager, browser, etc ...) is being bypassed to the remote. To enable the previous behaviour use boolean values.
 
 ```yaml
-
 user_agent: true
+user_agent: false
+user_agent: 'custom user agent'
 ```
 
 ### User Rate Limit {#user-rate-limit}
