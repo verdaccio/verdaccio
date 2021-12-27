@@ -74,7 +74,7 @@
     "react-redux": "7.2.6",
     "redux": "4.1.2",
     "rimraf": "3.0.2",
-    "msw": "0.35.0",
+    "msw": "0.36.3",
     "standard-version": "9.3.1",
     "style-loader": "3.2.1",
     "stylelint": "13.13.1",
