@@ -362,7 +362,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.3
-      fastify: 3.25.2
+      fastify: 3.25.3
       fastify-plugin: 3.0.0
       lodash: 4.17.21
       semver: 7.3.5
@@ -379,7 +379,7 @@ importers:
       abortcontroller-polyfill: 1.7.3
       core-js: 3.17.2
       debug: 4.3.3
-      fastify: 3.25.2
+      fastify: 3.25.3
       fastify-plugin: 3.0.0
       lodash: 4.17.21
       semver: 7.3.5
@@ -1180,7 +1180,7 @@ importers:
       '@verdaccio/store': workspace:6.0.0-6-next.17
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.13
       '@verdaccio/utils': workspace:6.0.0-6-next.10
-      fastify: 3.25.2
+      fastify: 3.25.3
       verdaccio-audit: workspace:11.0.0-6-next.8
       verdaccio-htpasswd: workspace:11.0.0-6-next.11
     dependencies:
@@ -1198,7 +1198,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/store': link:../store
-      fastify: 3.25.2
+      fastify: 3.25.3
 
   packages/web:
     specifiers:
@@ -12443,19 +12443,19 @@ packages:
   /fastify-warning/0.2.0:
     resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
 
-  /fastify/3.25.2:
-    resolution: {integrity: sha512-uH0RN/l2GrpvOpun5V4mLvreUjbTlgsEqodExGrmCDsBPfvUQ07Q0ZEY0HIB0TgJTr/ey6dAxlGzAZelV6CNXg==}
+  /fastify/3.25.3:
+    resolution: {integrity: sha512-20SbobjjMfjGNCU4PlcZis3d5XLDtQxIbcAf6ogi/8zPxRxOOkKwfjmj7yW9Q1VnxDpBwcllwPtbZ/LyvQzXbQ==}
     dependencies:
       '@fastify/ajv-compiler': 1.1.0
       abstract-logging: 2.0.1
       avvio: 7.2.1
       fast-json-stringify: 2.6.0
       fastify-error: 0.3.1
-      fastify-warning: 0.2.0
       find-my-way: 4.5.0
       flatstr: 1.0.12
       light-my-request: 4.4.1
-      pino: 6.13.3
+      pino: 6.13.4
+      process-warning: 1.0.0
       proxy-addr: 2.0.7
       rfdc: 1.3.0
       secure-json-parse: 2.4.0
@@ -17410,6 +17410,7 @@ packages:
       pino-std-serializers: 3.2.0
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
+    dev: true
 
   /pino/6.13.4:
     resolution: {integrity: sha512-g4tHSISmQJYUEKEMVdaZ+ZokWwFnTwZL5JPn+lnBVZ1BuBbrSchrXwQINknkM5+Q4fF6U9NjiI8PWwwMDHt9zA==}
