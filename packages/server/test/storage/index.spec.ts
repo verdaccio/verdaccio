@@ -119,7 +119,7 @@ describe('StorageTest', () => {
             expect(notcachedSpy).toHaveBeenCalledTimes(0);
             expect(cachedSpy).toHaveBeenCalledTimes(1);
             expect(cachedSpy).toHaveBeenCalledWith(
-              'http://0.0.0.0:55548/jquery/-/jquery-1.5.1.tgz'
+              'http://localhost:55548/jquery/-/jquery-1.5.1.tgz'
             );
             res();
           });
@@ -139,7 +139,7 @@ describe('StorageTest', () => {
             expect(cachedSpy).toHaveBeenCalledTimes(0);
             expect(notcachedSpy).toHaveBeenCalledTimes(1);
             expect(notcachedSpy).toHaveBeenCalledWith(
-              'http://0.0.0.0:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
+              'http://localhost:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
             );
             res();
           });
