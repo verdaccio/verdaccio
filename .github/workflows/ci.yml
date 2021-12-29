@@ -10,7 +10,7 @@ on:
       - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
-      - 'docker-examples/**'      
+      - 'docker-examples/**'
       - 'jest/**'
       - 'package.json'
       - 'pnpm-workspace.yaml'
@@ -28,11 +28,11 @@ jobs:
     - name: Use Node 14
       uses: actions/setup-node@v1
       with:
-        node-version: 14 
+        node-version: 14
     - name: Install pnpm
       run: npm i pnpm@6.24.1 -g
     - name: set store
-      run: | 
+      run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
     - name: Install
@@ -59,7 +59,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: Lint
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: Lint
@@ -100,7 +100,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}     
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: crowdin download
@@ -111,16 +111,16 @@ jobs:
         run: pnpm crowdin:download
         ## this step is optional, translations are not mandatory for PR
         ## secrets keys are not available on forks, the failure here is guaranteed
-        continue-on-error: true  
+        continue-on-error: true
       - name: build
         run: pnpm build
       - name: tar packages
-        run: |      
+        run: |
           tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
       - uses: actions/upload-artifact@v2
         with:
           name: verdaccio-artifact
-          path: pkg.tar.gz            
+          path: pkg.tar.gz
   test:
     needs: build
     strategy:
@@ -128,7 +128,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         ## Node 16 breaks UI test, jest issue
-        node_version: [14]
+        node_version: [14, 15, 16, 17]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -141,15 +141,15 @@ jobs:
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts 
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: Test
         run: pnpm test
   ci-e2e-ui:
@@ -165,20 +165,20 @@ jobs:
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         ## we need scripts, pupetter downloads aditional content
-        run: pnpm recursive install --frozen-lockfile 
+        run: pnpm recursive install --frozen-lockfile
       - name: Test UI
         run: pnpm test:e2e:ui
         # env:
-        #  DEBUG: verdaccio:e2e*       
+        #  DEBUG: verdaccio:e2e*
   ci-e2e-cli:
     needs: build
     runs-on: ubuntu-latest
@@ -192,20 +192,20 @@ jobs:
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
       - name: Test CLI
         run: pnpm test:e2e:cli
         env:
-          DEBUG: verdaccio* 
+          DEBUG: verdaccio*
   test-windows:
     needs: [format, lint]
     runs-on: windows-latest
@@ -222,9 +222,9 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                            
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts 
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
       - name: build
         run: pnpm build
       - name: Test
@@ -243,21 +243,21 @@ jobs:
         with:
           name: verdaccio-artifact
       - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages    
+        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}                                          
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
       - name: generate website translations
-        run: pnpm write-translations --filter ...@verdaccio/website       
+        run: pnpm write-translations --filter ...@verdaccio/website
       - name: sync
         env:
           CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
-        run: pnpm crowdin:sync              
+        run: pnpm crowdin:sync
