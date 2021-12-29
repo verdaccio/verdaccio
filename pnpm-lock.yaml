@@ -492,13 +492,13 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.10
       debug: 4.3.3
       lodash: 4.17.21
-      pino: 6.13.3
+      pino: 6.13.4
     dependencies:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger-prettify': link:../logger-prettify
       debug: 4.3.3
       lodash: 4.17.21
-      pino: 6.13.3
+      pino: 6.13.4
     devDependencies:
       '@types/pino': 6.3.12
       '@verdaccio/types': link:../core/types
@@ -510,7 +510,7 @@ importers:
       fast-safe-stringify: 2.1.1
       kleur: 3.0.3
       lodash: 4.17.21
-      pino: 6.13.3
+      pino: 6.13.4
       prettier-bytes: 1.0.4
     dependencies:
       dayjs: 1.10.7
@@ -520,7 +520,7 @@ importers:
       prettier-bytes: 1.0.4
     devDependencies:
       '@types/pino': 6.3.11
-      pino: 6.13.3
+      pino: 6.13.4
 
   packages/middleware:
     specifiers:
@@ -17411,6 +17411,18 @@ packages:
       quick-format-unescaped: 4.0.3
       sonic-boom: 1.1.0
 
+  /pino/6.13.4:
+    resolution: {integrity: sha512-g4tHSISmQJYUEKEMVdaZ+ZokWwFnTwZL5JPn+lnBVZ1BuBbrSchrXwQINknkM5+Q4fF6U9NjiI8PWwwMDHt9zA==}
+    hasBin: true
+    dependencies:
+      fast-redact: 3.0.0
+      fast-safe-stringify: 2.1.1
+      flatstr: 1.0.12
+      pino-std-serializers: 3.2.0
+      process-warning: 1.0.0
+      quick-format-unescaped: 4.0.3
+      sonic-boom: 1.1.0
+
   /pirates/4.0.1:
     resolution: {integrity: sha512-WuNqLTbMI3tmfef2TKxlQmAiLHKtFhlsCZnPIpuv2Ow0RDVO8lfy1Opf4NUzlMXLjPl+Men7AuVdX6TA+s+uGA==}
     engines: {node: '>= 6'}
@@ -18466,6 +18478,9 @@ packages:
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
+
+  /process-warning/1.0.0:
+    resolution: {integrity: sha512-du4wfLyj4yCZq1VupnVSZmRsPJsNuxoDQFdCFHLaYiEbFBD7QE0a+I4D7hOxrVnh78QE/YipFAj9lXHiXocV+Q==}
 
   /process/0.11.10:
     resolution: {integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=}

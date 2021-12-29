@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@types/pino": "^6.3.3",
-    "pino": "6.13.3"
+    "pino": "6.13.4"
   },
   "funding": {
     "type": "opencollective",
