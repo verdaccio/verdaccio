@@ -85,42 +85,42 @@ jobs:
       - name: Lint
         run: pnpm format:check
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   name: build
-  #   needs: [format, lint]
-  #   steps:
-  #     - uses: actions/checkout@v2.4.0
-  #     - name: Use Node 16
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 16
-  #     - name: Install pnpm
-  #       run: npm i pnpm@6.24.1 -g
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: ~/.pnpm-store
-  #         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-  #     - name: Install
-  #       run: pnpm recursive install --frozen-lockfile --ignore-scripts
-  #     - name: crowdin download
-  #       env:
-  #         CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
-  #         CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
-  #         CONTEXT: production
-  #       run: pnpm crowdin:download
-  #       ## this step is optional, translations are not mandatory for PR
-  #       ## secrets keys are not available on forks, the failure here is guaranteed
-  #       continue-on-error: true
-  #     - name: build
-  #       run: pnpm build
-  #     - name: tar packages
-  #       run: |
-  #         tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
-  #     - uses: actions/upload-artifact@v2
-  #       with:
-  #         name: verdaccio-artifact
-  #         path: pkg.tar.gz
+  build14:
+    runs-on: ubuntu-latest
+    name: build
+    needs: [format, lint]
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: Use Node 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: Install pnpm
+        run: npm i pnpm@6.24.1 -g
+      - uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+      - name: crowdin download
+        env:
+          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:download
+        ## this step is optional, translations are not mandatory for PR
+        ## secrets keys are not available on forks, the failure here is guaranteed
+        continue-on-error: true
+      - name: build
+        run: pnpm build
+      - name: tar packages
+        run: |
+          tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
+      - uses: actions/upload-artifact@v2
+        with:
+          name: verdaccio-artifact
+          path: pkg.tar.gz
   build:
     needs: [format, lint]
     strategy:
@@ -137,11 +137,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node_version }}
-      # - uses: actions/download-artifact@v2
-      #   with:
-      #     name: verdaccio-artifact
-      # - name: untar packages
-      #   run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
@@ -155,7 +150,7 @@ jobs:
       - name: Test
         run: pnpm test
   ci-e2e-ui:
-    needs: build
+    needs: build14
     runs-on: ubuntu-latest
     name: UI Test E2E Node 14
     steps:
@@ -182,7 +177,7 @@ jobs:
         # env:
         #  DEBUG: verdaccio:e2e*
   ci-e2e-cli:
-    needs: build
+    needs: build14
     runs-on: ubuntu-latest
     name: CLI Test E2E Node 14
     steps:
@@ -208,31 +203,8 @@ jobs:
         run: pnpm test:e2e:cli
         env:
           DEBUG: verdaccio*
-  # test-windows:
-  #   needs: [format, lint]
-  #   runs-on: windows-latest
-  #   name: windows test node 14
-  #   steps:
-  #     - uses: actions/checkout@v2.4.0
-  #     - name: Use Node 14
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 14
-  #     - name: Install pnpm
-  #       run: npm i pnpm@6.24.1 -g
-  #      # pnpm cache is not working for windows (we need a solution)
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: ~/.pnpm-store
-  #         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-  #     - name: Install
-  #       run: pnpm recursive install --frozen-lockfile --ignore-scripts
-  #     - name: build
-  #       run: pnpm build
-  #     - name: Test
-  #       run: pnpm test
   sync-translations:
-    needs: [ci-e2e-cli, ci-e2e-ui, build]
+    needs: [ci-e2e-cli, ci-e2e-ui, build14]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
