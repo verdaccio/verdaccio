@@ -87,7 +87,7 @@ jobs:
 
   build14:
     runs-on: ubuntu-latest
-    name: build
+    name: build-node-14
     needs: [format, lint]
     steps:
       - uses: actions/checkout@v2.4.0
@@ -128,7 +128,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         ## Node 16 breaks UI test, jest issue
-        node_version: [14, 15, 16, 17]
+        node_version: [14, 16, 17]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
