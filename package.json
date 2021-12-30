@@ -51,7 +51,7 @@
     "minimatch": "3.0.4",
     "mkdirp": "1.0.4",
     "mv": "2.1.1",
-    "pino": "6.13.3",
+    "pino": "6.13.4",
     "pkginfo": "0.4.1",
     "prettier-bytes": "^1.0.4",
     "pretty-ms": "^7.0.1",
