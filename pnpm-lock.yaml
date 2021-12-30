@@ -783,7 +783,7 @@ importers:
       prop-types: 15.7.2
       react: 17.0.2
       react-dom: 17.0.2
-      react-hook-form: 7.15.3
+      react-hook-form: 7.22.5
       react-hot-loader: 4.13.0
       react-i18next: 11.12.0
       react-redux: 7.2.6
@@ -862,7 +862,7 @@ importers:
       prop-types: 15.7.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-hook-form: 7.15.3_react@17.0.2
+      react-hook-form: 7.22.5_react@17.0.2
       react-hot-loader: 4.13.0_b3482aaf5744fc7c2aeb7941b0e0a78f
       react-i18next: 11.12.0_i18next@20.6.1+react@17.0.2
       react-redux: 7.2.6_react-dom@17.0.2+react@17.0.2
@@ -18845,8 +18845,9 @@ packages:
       react-side-effect: 2.1.1_react@17.0.2
     dev: false
 
-  /react-hook-form/7.15.3_react@17.0.2:
-    resolution: {integrity: sha512-z30aZoEHkWE8oZvad4OcYSBI0kQua/T5sFGH9tB2HfeykFnP/pGXNap8lDio4/U1yPj2ffpbvRIvqKd/6jjBVA==}
+  /react-hook-form/7.22.5_react@17.0.2:
+    resolution: {integrity: sha512-Q2zaeQFXdVQ8l3hcywhltH+Nzj4vo50wMVujHDVN/1Xy9IOaSZJwYBXA2CYTpK6rq41fnXviw3jTLb04c7Gu9Q==}
+    engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17
     dependencies:
