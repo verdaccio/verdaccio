@@ -1279,7 +1279,7 @@ importers:
       debug: 4.3.3
       kleur: 3.0.3
       lodash: 4.17.21
-      puppeteer: 10.2.0
+      puppeteer: 10.4.0
       request: 2.87.0
       rimraf: 3.0.2
     devDependencies:
@@ -1288,7 +1288,7 @@ importers:
       debug: 4.3.3
       kleur: 3.0.3
       lodash: 4.17.21
-      puppeteer: 10.2.0
+      puppeteer: 10.4.0
       request: 2.87.0
       rimraf: 3.0.2
 
@@ -7554,7 +7554,7 @@ packages:
     resolution: {integrity: sha512-A1b8SU4D10uoPjwb0lnHmmu8wZhR9d+9o2PKBQT2jU5YPTKsxac6M2qGAdY7VcL+dHHhARVUDmeg0rOrcd9EjA==}
     requiresBuild: true
     dependencies:
-      '@types/node': 15.12.4
+      '@types/node': 16.11.17
     dev: true
     optional: true
 
@@ -18627,8 +18627,8 @@ packages:
     dependencies:
       escape-goat: 2.1.1
 
-  /puppeteer/10.2.0:
-    resolution: {integrity: sha512-OR2CCHRashF+f30+LBOtAjK6sNtz2HEyTr5FqAvhf8lR/qB3uBRoIZOwQKgwoyZnMBsxX7ZdazlyBgGjpnkiMw==}
+  /puppeteer/10.4.0:
+    resolution: {integrity: sha512-2cP8mBoqnu5gzAVpbZ0fRaobBWZM8GEUF4I1F6WbgHrKV/rz7SX8PG2wMymZgD0wo0UBlg2FBPNxlF/xlqW6+w==}
     engines: {node: '>=10.18.1'}
     requiresBuild: true
     dependencies:
