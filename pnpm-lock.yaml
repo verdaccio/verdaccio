@@ -780,7 +780,7 @@ importers:
       normalize.css: 8.0.1
       optimize-css-assets-webpack-plugin: 6.0.1
       ora: 5.4.1
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2
       react-hook-form: 7.15.3
@@ -859,7 +859,7 @@ importers:
       normalize.css: 8.0.1
       optimize-css-assets-webpack-plugin: 6.0.1_webpack@5.64.0
       ora: 5.4.1
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-hook-form: 7.15.3_react@17.0.2
@@ -5054,7 +5054,7 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: false
 
@@ -5064,7 +5064,7 @@ packages:
       react: '*'
     dependencies:
       '@types/react': 17.0.38
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: false
 
@@ -6286,7 +6286,7 @@ packages:
       '@popperjs/core': 2.10.2
       '@types/react': 17.0.38
       clsx: 1.1.1
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
@@ -6338,7 +6338,7 @@ packages:
       clsx: 1.1.1
       csstype: 3.0.9
       hoist-non-react-statics: 3.3.2
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
@@ -6358,7 +6358,7 @@ packages:
       '@babel/runtime': 7.16.3
       '@mui/utils': 5.0.1_react@17.0.2
       '@types/react': 17.0.38
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: true
 
@@ -6379,7 +6379,7 @@ packages:
       '@emotion/cache': 11.5.0
       '@emotion/react': 11.5.0_b0bf9f023f082854c155a9ba9dc17441
       '@emotion/styled': 11.3.0_8e355cdfc2e80398eeec1f578f3d7a2e
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: true
 
@@ -6410,7 +6410,7 @@ packages:
       jss-plugin-props-sort: 10.8.2
       jss-plugin-rule-value-function: 10.8.2
       jss-plugin-vendor-prefixer: 10.8.2
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: true
 
@@ -6440,7 +6440,7 @@ packages:
       '@types/react': 17.0.38
       clsx: 1.1.1
       csstype: 3.0.9
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: true
 
@@ -6464,7 +6464,7 @@ packages:
       '@babel/runtime': 7.16.3
       '@types/prop-types': 15.7.4
       '@types/react-is': 17.0.3
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-is: 17.0.2
     dev: true
@@ -16311,14 +16311,14 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /mini-create-react-context/0.4.1_prop-types@15.7.2+react@17.0.2:
+  /mini-create-react-context/0.4.1_prop-types@15.8.0+react@17.0.2:
     resolution: {integrity: sha512-YWCYEmd5CQeHGSAKrYvXgmzzkrvssZcuuQDDeqkT+PziKGMgE+0MCCtcKbROzocGBG1meBLl2FotlRwf4gAzbQ==}
     peerDependencies:
       prop-types: ^15.0.0
       react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       '@babel/runtime': 7.16.3
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       tiny-warning: 1.0.3
 
@@ -18526,6 +18526,13 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  /prop-types/15.8.0:
+    resolution: {integrity: sha512-fDGekdaHh65eI3lMi5OnErU6a8Ighg2KjcjQxO7m8VHyWjcPyj5kiOgV1LQDOOOgVy3+5FgjXvdSSX7B8/5/4g==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+
   /propagate/2.0.1:
     resolution: {integrity: sha512-vGrhOavPSTz4QVNuBNdcNXePNdNMaO1xj9yBeH1ScQPjk/rhg9sSlCXPhMkFuaNNW/syTvYqsnbIJxMBfRbbag==}
     engines: {node: '>= 8'}
@@ -18869,7 +18876,7 @@ packages:
       global: 4.4.0
       hoist-non-react-statics: 3.3.2
       loader-utils: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-lifecycles-compat: 3.0.4
@@ -18943,7 +18950,7 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
     dev: false
 
@@ -18963,7 +18970,7 @@ packages:
       '@types/react-redux': 7.1.20
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
@@ -18999,7 +19006,7 @@ packages:
       '@babel/runtime': 7.16.5
       history: 4.10.1
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-router: 5.2.0_react@17.0.2
       tiny-invariant: 1.1.0
@@ -19014,7 +19021,7 @@ packages:
       '@babel/runtime': 7.15.4
       history: 4.10.1
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-router: 5.2.1_react@17.0.2
       tiny-invariant: 1.1.0
@@ -19029,9 +19036,9 @@ packages:
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      mini-create-react-context: 0.4.1_prop-types@15.7.2+react@17.0.2
+      mini-create-react-context: 0.4.1_prop-types@15.8.0+react@17.0.2
       path-to-regexp: 1.8.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-is: 16.13.1
       tiny-invariant: 1.1.0
@@ -19047,9 +19054,9 @@ packages:
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      mini-create-react-context: 0.4.1_prop-types@15.7.2+react@17.0.2
+      mini-create-react-context: 0.4.1_prop-types@15.8.0+react@17.0.2
       path-to-regexp: 1.8.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-is: 16.13.1
       tiny-invariant: 1.1.0
@@ -19109,7 +19116,7 @@ packages:
       clsx: 1.1.1
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-lifecycles-compat: 3.0.4
