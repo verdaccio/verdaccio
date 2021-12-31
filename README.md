@@ -29,7 +29,7 @@ Google Cloud Storage** or create your own plugin.
 
 ## Install
 
-> Latest Node.js v14
+> Latest Node.js v16 required
 
 Install with npm:
 
