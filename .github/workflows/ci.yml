@@ -185,11 +185,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - uses: actions/download-artifact@v2
-        with:
-          name: verdaccio-artifact
-      - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
@@ -199,6 +194,8 @@ jobs:
       - name: Install
         ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
+      - name: build
+        run: pnpm build
       - name: Test CLI
         run: pnpm test:e2e:cli
         env:
