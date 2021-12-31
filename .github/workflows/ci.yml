@@ -25,10 +25,10 @@ jobs:
           - 4873:4873
     steps:
     - uses: actions/checkout@v2.4.0
-    - name: Use Node 14
+    - name: Use Node 16
       uses: actions/setup-node@v1
       with:
-        node-version: 14
+        node-version: 16
     - name: Install pnpm
       run: npm i pnpm@6.24.1 -g
     - name: set store
@@ -85,9 +85,9 @@ jobs:
       - name: Lint
         run: pnpm format:check
 
-  build14:
+  build16:
     runs-on: ubuntu-latest
-    name: build-node-14
+    name: build-node-16
     needs: [format, lint]
     steps:
       - uses: actions/checkout@v2.4.0
@@ -128,7 +128,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         ## Node 16 breaks UI test, jest issue
-        node_version: [14, 16, 17]
+        node_version: [16, 17]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -150,14 +150,14 @@ jobs:
       - name: Test
         run: pnpm test
   ci-e2e-ui:
-    needs: build14
+    needs: build16
     runs-on: ubuntu-latest
-    name: UI Test E2E Node 14
+    name: UI Test E2E Node 16
     steps:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
@@ -177,14 +177,14 @@ jobs:
         # env:
         #  DEBUG: verdaccio:e2e*
   ci-e2e-cli:
-    needs: build14
+    needs: build16
     runs-on: ubuntu-latest
-    name: CLI Test E2E Node 14
+    name: CLI Test E2E Node 16
     steps:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
@@ -204,7 +204,7 @@ jobs:
         env:
           DEBUG: verdaccio*
   sync-translations:
-    needs: [ci-e2e-cli, ci-e2e-ui, build14]
+    needs: [ci-e2e-cli, ci-e2e-ui, build16]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
@@ -212,7 +212,7 @@ jobs:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
       - uses: actions/download-artifact@v2
         with:
           name: verdaccio-artifact
