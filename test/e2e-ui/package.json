@@ -9,7 +9,7 @@
     "kleur": "3.0.3",
     "lodash": "4.17.21",
     "puppeteer": "10.4.0",
-    "request": "2.87.0",
+    "request": "2.88.0",
     "rimraf": "3.0.2"
   },
   "scripts": {
