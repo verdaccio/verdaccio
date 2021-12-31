@@ -177,7 +177,7 @@ jobs:
         # env:
         #  DEBUG: verdaccio:e2e*
   ci-e2e-cli:
-    needs: build16
+    needs: [format, lint]
     runs-on: ubuntu-latest
     name: CLI Test E2E Node 16
     steps:
