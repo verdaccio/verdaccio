@@ -139,6 +139,7 @@ jobs:
   ci-e2e-cli:
     needs: [format, lint]
     runs-on: ubuntu-latest
+    # TODO: fails on migrate to node 16, we need to check why
     name: CLI Test E2E Node 14
     steps:
       - uses: actions/checkout@v2.4.0
