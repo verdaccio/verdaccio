@@ -150,7 +150,7 @@ jobs:
       - name: Test
         run: pnpm test
   ci-e2e-ui:
-    needs: build16
+    needs: [format, lint]
     runs-on: ubuntu-latest
     name: UI Test E2E Node 16
     steps:
@@ -158,11 +158,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - uses: actions/download-artifact@v2
-        with:
-          name: verdaccio-artifact
-      - name: untar packages
-        run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
@@ -172,6 +167,8 @@ jobs:
       - name: Install
         ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
+      - name: build
+        run: pnpm build
       - name: Test UI
         run: pnpm test:e2e:ui
         # env:
@@ -179,12 +176,12 @@ jobs:
   ci-e2e-cli:
     needs: [format, lint]
     runs-on: ubuntu-latest
-    name: CLI Test E2E Node 16
+    name: CLI Test E2E Node 14
     steps:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: 14
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
