@@ -138,7 +138,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
-            ["pino", "npm:6.13.3"],
+            ["pino", "npm:6.13.4"],
             ["pinst", "npm:2.1.6"],
             ["pkginfo", "npm:0.4.1"],
             ["prettier", "npm:2.3.2"],
@@ -7624,14 +7624,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.19.1", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.19.1-772a85cbf5/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-3.19.1-772a85cbf5-32b2ecead4.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.19.1"]
           ],
@@ -9487,15 +9487,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/fast-safe-stringify-npm-2.0.8-33b49729ad-2198ef6c49.zip/node_modules/fast-safe-stringify/",
           "packageDependencies": [
             ["fast-safe-stringify", "npm:2.0.8"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["fastify-warning", [
-        ["npm:0.2.0", {
-          "packageLocation": "./.yarn/cache/fastify-warning-npm-0.2.0-f9c53563fc-17b9e2ffdf.zip/node_modules/fastify-warning/",
-          "packageDependencies": [
-            ["fastify-warning", "npm:0.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -14238,15 +14229,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["pino", [
-        ["npm:6.13.3", {
-          "packageLocation": "./.yarn/cache/pino-npm-6.13.3-50e2aceb53-16a62ba4c6.zip/node_modules/pino/",
+        ["npm:6.13.4", {
+          "packageLocation": "./.yarn/cache/pino-npm-6.13.4-5dfd67b749-166d364416.zip/node_modules/pino/",
           "packageDependencies": [
-            ["pino", "npm:6.13.3"],
+            ["pino", "npm:6.13.4"],
             ["fast-redact", "npm:3.0.0"],
             ["fast-safe-stringify", "npm:2.0.8"],
-            ["fastify-warning", "npm:0.2.0"],
             ["flatstr", "npm:1.0.12"],
             ["pino-std-serializers", "npm:3.2.0"],
+            ["process-warning", "npm:1.0.0"],
             ["quick-format-unescaped", "npm:4.0.3"],
             ["sonic-boom", "npm:1.4.0"]
           ],
@@ -14441,6 +14432,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["process-warning", [
+        ["npm:1.0.0", {
+          "packageLocation": "./.yarn/cache/process-warning-npm-1.0.0-8b886c4a9d-fcf9ab626d.zip/node_modules/process-warning/",
+          "packageDependencies": [
+            ["process-warning", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["progress", [
         ["npm:2.0.3", {
           "packageLocation": "./.yarn/cache/progress-npm-2.0.3-d1f87e2ac6-c46ef5a1de.zip/node_modules/progress/",
@@ -14553,7 +14553,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:24c0670a0dd5336de8e9d36ce94c8b696cc66bf2f157358e53a1649e6047bfc20104ef799a035ae68ee7761447ecfa64a6d54a5971d436f7ea6ab984abfab5de#npm:4.1.1"],
@@ -17295,7 +17295,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
-            ["pino", "npm:6.13.3"],
+            ["pino", "npm:6.13.4"],
             ["pinst", "npm:2.1.6"],
             ["pkginfo", "npm:0.4.1"],
             ["prettier", "npm:2.3.2"],
