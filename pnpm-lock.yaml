@@ -794,7 +794,7 @@ importers:
       stylelint-config-recommended: 5.0.0
       stylelint-config-styled-components: 0.1.1
       stylelint-processor-styled-components: 1.10.0
-      stylelint-webpack-plugin: 3.0.1
+      stylelint-webpack-plugin: 3.1.0
       supertest: 6.1.6
       terser-webpack-plugin: 5.2.5
       url-loader: 4.1.1
@@ -873,7 +873,7 @@ importers:
       stylelint-config-recommended: 5.0.0_stylelint@13.13.1
       stylelint-config-styled-components: 0.1.1
       stylelint-processor-styled-components: 1.10.0
-      stylelint-webpack-plugin: 3.0.1_stylelint@13.13.1+webpack@5.64.0
+      stylelint-webpack-plugin: 3.1.0_stylelint@13.13.1+webpack@5.64.0
       supertest: 6.1.6
       terser-webpack-plugin: 5.2.5_webpack@5.64.0
       url-loader: 4.1.1_webpack@5.64.0
@@ -8801,8 +8801,8 @@ packages:
     resolution: {integrity: sha512-RJJrrySY7A8havqpGObOB4W92QXKJo63/jFLLgpvOtsGUqbQZ9Sbgl35KMm1DjC6j7AvmmU2bIno+3IyEaemaw==}
     dev: true
 
-  /@types/stylelint/13.13.2:
-    resolution: {integrity: sha512-5Yt1LQenR7uk+efCydQmN7ubOtO2qJ8Z9K/qqnlW87X1zkIQ8RkMCZbaOgZj/aBrR/h5Q738mJU6CYhXOj9sEg==}
+  /@types/stylelint/13.13.3:
+    resolution: {integrity: sha512-xvYwobi9L69FXbJTimKYRNHyMwtmcJxMd1woI3U822rkW/f7wcZ6fsV1DqYPT+sNaO0qUtngiBhTQfMeItUvUA==}
     dependencies:
       globby: 11.0.4
       postcss: 7.0.36
@@ -16376,15 +16376,6 @@ packages:
       string-length: 4.0.2
     dev: true
 
-  /jest-worker/27.1.0:
-    resolution: {integrity: sha512-mO4PHb2QWLn9yRXGp7rkvXLAYuxwhq1ZYUo0LoDhg8wqvv4QizP1ZWEJOeolgbEgAWZLIEU0wsku8J+lGWfBhg==}
-    engines: {node: '>= 10.13.0'}
-    dependencies:
-      '@types/node': 16.11.17
-      merge-stream: 2.0.0
-      supports-color: 8.1.1
-    dev: true
-
   /jest-worker/27.2.5:
     resolution: {integrity: sha512-HTjEPZtcNKZ4LnhSp02NEH4vE+5OpJ0EsOWYvGQpHgUMLngydESAAMH5Wd/asPf29+XUDQZszxpLg1BkIIA2aw==}
     engines: {node: '>= 10.13.0'}
@@ -17593,7 +17584,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       braces: 3.0.2
-      picomatch: 2.2.2
+      picomatch: 2.3.0
     dev: true
 
   /micromatch/4.0.4:
@@ -18710,11 +18701,6 @@ packages:
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
-
-  /picomatch/2.2.2:
-    resolution: {integrity: sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==}
-    engines: {node: '>=8.6'}
-    dev: true
 
   /picomatch/2.3.0:
     resolution: {integrity: sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==}
@@ -22182,16 +22168,16 @@ packages:
       - supports-color
     dev: true
 
-  /stylelint-webpack-plugin/3.0.1_stylelint@13.13.1+webpack@5.64.0:
-    resolution: {integrity: sha512-1qUJTjXSGEGxsdYelZCmDZgA87H6/XR0xrl5a4mwAlIcWcNvr0QeH0e0ZY3ZJTY/rJ2xjKnt5ETvFzOZpPbuDg==}
+  /stylelint-webpack-plugin/3.1.0_stylelint@13.13.1+webpack@5.64.0:
+    resolution: {integrity: sha512-qKBj9s2BVnxwQXdqRKd637gtASYel6FA/a9PfyfsplUqiBmBjJeeTrcJPp9v/HEN4FRw2CJDNbO2xuYUF7DsuA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
-      stylelint: ^13.0.0
+      stylelint: ^13.0.0 || ^14.0.0
       webpack: ^5.0.0
     dependencies:
-      '@types/stylelint': 13.13.2
+      '@types/stylelint': 13.13.3
       globby: 11.0.4
-      jest-worker: 27.1.0
+      jest-worker: 27.3.1
       micromatch: 4.0.4
       normalize-path: 3.0.0
       schema-utils: 3.1.1
