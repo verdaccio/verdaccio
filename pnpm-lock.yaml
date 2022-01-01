@@ -789,7 +789,7 @@ importers:
       redux: 4.1.2
       rimraf: 3.0.2
       standard-version: 9.3.1
-      style-loader: 3.2.1
+      style-loader: 3.3.1
       stylelint: 13.13.1
       stylelint-config-recommended: 5.0.0
       stylelint-config-styled-components: 0.1.1
@@ -868,7 +868,7 @@ importers:
       redux: 4.1.2
       rimraf: 3.0.2
       standard-version: 9.3.1
-      style-loader: 3.2.1_webpack@5.64.0
+      style-loader: 3.3.1_webpack@5.64.0
       stylelint: 13.13.1
       stylelint-config-recommended: 5.0.0_stylelint@13.13.1
       stylelint-config-styled-components: 0.1.1
@@ -22119,8 +22119,8 @@ packages:
   /stubs/3.0.0:
     resolution: {integrity: sha1-6NK6H6nJBXAwPAMLaQD31fiavls=}
 
-  /style-loader/3.2.1_webpack@5.64.0:
-    resolution: {integrity: sha512-1k9ZosJCRFaRbY6hH49JFlRB0fVSbmnyq1iTPjNxUmGVjBNEmwrrHPenhlp+Lgo51BojHSf6pl2FcqYaN3PfVg==}
+  /style-loader/3.3.1_webpack@5.64.0:
+    resolution: {integrity: sha512-GPcQ+LDJbrcxHORTRes6Jy2sfvK2kS6hpSfI/fXhPt+spVzxF6LJ1dHLN9zIGmVaaP044YKaIatFaufENRiDoQ==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
