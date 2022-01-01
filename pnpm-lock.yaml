@@ -1311,7 +1311,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       react-twitter-widgets: ^1.10.0
-      sass: 1.39.0
+      sass: 1.45.2
       sass-loader: ^12.1.0
       url-loader: 4.1.1
       use-is-in-viewport: ^1.0.9
@@ -1335,12 +1335,12 @@ importers:
     devDependencies:
       '@docusaurus/module-type-aliases': 2.0.0-beta.14_esbuild@0.12.25
       '@tsconfig/docusaurus': 1.0.2
-      docusaurus-plugin-sass: 0.2.1_0f38d66b0da992e8e901ded070d41bfb
+      docusaurus-plugin-sass: 0.2.1_ae39855cc32bc74de2e21076637bad79
       esbuild: 0.12.25
       esbuild-loader: 2.16.0
       prism-react-renderer: 1.2.1_react@17.0.2
-      sass: 1.39.0
-      sass-loader: 12.1.0_sass@1.39.0
+      sass: 1.45.2
+      sass-loader: 12.1.0_sass@1.45.2
       url-loader: 4.1.1
 
 packages:
@@ -5995,7 +5995,7 @@ packages:
       babel-plugin-dynamic-import-node: 2.3.0
       boxen: 5.0.1
       chalk: 4.1.1
-      chokidar: 3.5.1
+      chokidar: 3.5.2
       clean-css: 5.1.3
       commander: 5.1.0
       copy-webpack-plugin: 9.0.1_webpack@5.40.0
@@ -10914,20 +10914,6 @@ packages:
     optionalDependencies:
       fsevents: 1.2.13
 
-  /chokidar/3.5.1:
-    resolution: {integrity: sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==}
-    engines: {node: '>= 8.10.0'}
-    dependencies:
-      anymatch: 3.1.2
-      braces: 3.0.2
-      glob-parent: 5.1.2
-      is-binary-path: 2.1.0
-      is-glob: 4.0.1
-      normalize-path: 3.0.0
-      readdirp: 3.5.0
-    optionalDependencies:
-      fsevents: 2.3.2
-
   /chokidar/3.5.2:
     resolution: {integrity: sha512-ekGhOnNVPgT77r4K/U3GDhu+FQ2S8TnK/s2KbIGXi0SZWuwkZ2QNyfWdZW+TVfn84DpEP7rLeCt2UI6bJ8GwbQ==}
     engines: {node: '>= 8.10.0'}
@@ -12526,15 +12512,15 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /docusaurus-plugin-sass/0.2.1_0f38d66b0da992e8e901ded070d41bfb:
+  /docusaurus-plugin-sass/0.2.1_ae39855cc32bc74de2e21076637bad79:
     resolution: {integrity: sha512-cRugbRWnKLjFPQTo1k2cyn/AANYkXAPHv+DaLs7bkOfOofEgTSrMdpNidt3oZ0ltQcjUUbvmSRRjH9R1ifdRMA==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0
       sass: ^1.30.0
     dependencies:
       '@docusaurus/core': 2.0.0-beta.14_c6943d8d6b58e4a1eb3f31c5d0f383ec
-      sass: 1.39.0
-      sass-loader: 10.2.0_sass@1.39.0
+      sass: 1.45.2
+      sass-loader: 10.2.0_sass@1.45.2
     transitivePeerDependencies:
       - fibers
       - node-sass
@@ -15321,6 +15307,10 @@ packages:
   /immer/9.0.6:
     resolution: {integrity: sha512-G95ivKpy+EvVAnAab4fVa4YGYn24J1SpEktnJX7JJ45Bd7xqME/SCplFzYFmTbrkwZbQ4xJK1xMTUYBkN6pWsQ==}
     dev: false
+
+  /immutable/4.0.0:
+    resolution: {integrity: sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==}
+    dev: true
 
   /import-fresh/2.0.0:
     resolution: {integrity: sha1-2BNVwVYS04bGH53dOSLUMEgipUY=}
@@ -20589,12 +20579,6 @@ packages:
       micromatch: 3.1.10
       readable-stream: 2.3.7
 
-  /readdirp/3.5.0:
-    resolution: {integrity: sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==}
-    engines: {node: '>=8.10.0'}
-    dependencies:
-      picomatch: 2.3.0
-
   /readdirp/3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
@@ -21169,7 +21153,7 @@ packages:
       truncate-utf8-bytes: 1.0.2
     dev: false
 
-  /sass-loader/10.2.0_sass@1.39.0:
+  /sass-loader/10.2.0_sass@1.45.2:
     resolution: {integrity: sha512-kUceLzC1gIHz0zNJPpqRsJyisWatGYNFRmv2CKZK2/ngMJgLqxTbXwe/hJ85luyvZkgqU3VlJ33UVF2T/0g6mw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -21188,12 +21172,12 @@ packages:
       klona: 2.0.4
       loader-utils: 2.0.0
       neo-async: 2.6.2
-      sass: 1.39.0
+      sass: 1.45.2
       schema-utils: 3.1.1
       semver: 7.3.5
     dev: true
 
-  /sass-loader/12.1.0_sass@1.39.0:
+  /sass-loader/12.1.0_sass@1.45.2:
     resolution: {integrity: sha512-FVJZ9kxVRYNZTIe2xhw93n3xJNYZADr+q69/s98l9nTCrWASo+DR2Ot0s5xTKQDDEosUkatsGeHxcH4QBp5bSg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -21211,15 +21195,17 @@ packages:
     dependencies:
       klona: 2.0.4
       neo-async: 2.6.2
-      sass: 1.39.0
+      sass: 1.45.2
     dev: true
 
-  /sass/1.39.0:
-    resolution: {integrity: sha512-F4o+RhJkNOIG0b6QudYU8c78ZADKZjKDk5cyrf8XTKWfrgbtyVVXImFstJrc+1pkQDCggyidIOytq6gS4gCCZg==}
+  /sass/1.45.2:
+    resolution: {integrity: sha512-cKfs+F9AMPAFlbbTXNsbGvg3y58nV0mXA3E94jqaySKcC8Kq3/8983zVKQ0TLMUrHw7hF9Tnd3Bz9z5Xgtrl9g==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.1
+      chokidar: 3.5.2
+      immutable: 4.0.0
+      source-map-js: 0.6.2
     dev: true
 
   /sax/1.2.1:
