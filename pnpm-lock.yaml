@@ -41,7 +41,7 @@ importers:
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
-      '@types/request': 2.48.7
+      '@types/request': 2.48.8
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.2
@@ -131,7 +131,7 @@ importers:
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
       '@types/node': 14.6.0
-      '@types/request': 2.48.7
+      '@types/request': 2.48.8
       '@types/semver': 7.3.9
       '@types/supertest': 2.0.11
       '@types/testing-library__jest-dom': 5.14.2
@@ -7195,7 +7195,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       chalk: 4.1.2
       jest-message-util: 27.3.1
       jest-util: 27.3.1
@@ -7292,7 +7292,7 @@ packages:
       '@jest/test-result': 27.3.1
       '@jest/transform': 27.3.1
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       chalk: 4.1.2
       collect-v8-coverage: 1.0.1
       exit: 0.1.2
@@ -8404,7 +8404,7 @@ packages:
   /@types/connect/3.4.33:
     resolution: {integrity: sha512-2+FrkXY4zllzTNfJth7jOqEHC+enpLeGslEhpnTAkg21GkRrWV4SsAtqchtT4YS9/nODBU2/ZfsBY2X4J/dX7A==}
     dependencies:
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
     dev: true
 
   /@types/cookie/0.4.1:
@@ -8464,7 +8464,7 @@ packages:
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.17
     dev: true
 
   /@types/hast/2.3.2:
@@ -8754,11 +8754,11 @@ packages:
       redux: 4.1.2
     dev: true
 
-  /@types/request/2.48.7:
-    resolution: {integrity: sha512-GWP9AZW7foLd4YQxyFZDBepl0lPsWLMEXDZUjQ/c1gqVPDPECrRZyEzuhJdnPWioFCq3Tv0qoGpMD6U+ygd4ZA==}
+  /@types/request/2.48.8:
+    resolution: {integrity: sha512-whjk1EDJPcAR2kYHRbFl/lKeeKYTi05A15K9bnLInCVroNDCtXce57xKdI0/rQaA3K+6q0eFyUBPmqfSndUZdQ==}
     dependencies:
       '@types/caseless': 0.12.2
-      '@types/node': 15.12.4
+      '@types/node': 16.11.17
       '@types/tough-cookie': 4.0.0
       form-data: 2.5.1
     dev: true
@@ -15923,7 +15923,7 @@ packages:
       '@jest/environment': 27.3.1
       '@jest/test-result': 27.3.1
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       chalk: 4.1.2
       co: 4.6.0
       dedent: 0.7.0
@@ -16089,7 +16089,7 @@ packages:
     dependencies:
       '@jest/types': 27.2.5
       '@types/graceful-fs': 4.1.5
-      '@types/node': 16.9.1
+      '@types/node': 16.11.17
       anymatch: 3.1.2
       fb-watchman: 2.0.1
       graceful-fs: 4.2.6
@@ -16112,7 +16112,7 @@ packages:
       '@jest/source-map': 27.0.6
       '@jest/test-result': 27.3.1
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       chalk: 4.1.2
       co: 4.6.0
       expect: 27.3.1
@@ -16241,7 +16241,7 @@ packages:
       '@jest/test-result': 27.3.1
       '@jest/transform': 27.3.1
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       chalk: 4.1.2
       emittery: 0.8.1
       exit: 0.1.2
@@ -16303,7 +16303,7 @@ packages:
     resolution: {integrity: sha512-PtGdVK9EGC7dsaziskfqaAPib6wTViY3G8E5wz9tLVPhHyiDNTZn/xjZ4khAw+09QkoOVpn7vF5nPSN6dtBexA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      '@types/node': 16.9.1
+      '@types/node': 16.11.17
       graceful-fs: 4.2.6
     dev: true
 
@@ -16369,7 +16369,7 @@ packages:
     dependencies:
       '@jest/test-result': 27.3.1
       '@jest/types': 27.2.5
-      '@types/node': 16.11.10
+      '@types/node': 16.11.17
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       jest-util: 27.3.1
@@ -16380,7 +16380,7 @@ packages:
     resolution: {integrity: sha512-HTjEPZtcNKZ4LnhSp02NEH4vE+5OpJ0EsOWYvGQpHgUMLngydESAAMH5Wd/asPf29+XUDQZszxpLg1BkIIA2aw==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.11.6
+      '@types/node': 16.11.17
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
