@@ -953,7 +953,7 @@ importers:
       cors: 2.8.5
       debug: 4.3.3
       express: 4.17.2
-      express-rate-limit: 5.3.0
+      express-rate-limit: 5.5.1
       http-errors: 1.8.1
       lodash: 4.17.21
       request: 2.88.0
@@ -973,7 +973,7 @@ importers:
       cors: 2.8.5
       debug: 4.3.3
       express: 4.17.2
-      express-rate-limit: 5.3.0
+      express-rate-limit: 5.5.1
       lodash: 4.17.21
       verdaccio-audit: link:../plugins/audit
     devDependencies:
@@ -13735,8 +13735,8 @@ packages:
       jest-regex-util: 27.4.0
     dev: true
 
-  /express-rate-limit/5.3.0:
-    resolution: {integrity: sha512-qJhfEgCnmteSeZAeuOKQ2WEIFTX5ajrzE0xS6gCOBCoRQcU+xEzQmgYQQTpzCcqUAAzTEtu4YEih4pnLfvNtew==}
+  /express-rate-limit/5.5.1:
+    resolution: {integrity: sha512-MTjE2eIbHv5DyfuFz4zLYWxpqVhEhkTiwFGuB74Q9CSou2WHO52nlE5y3Zlg6SIsiYUIPj6ifFxnkPz6O3sIUg==}
     dev: false
 
   /express/4.17.1:
