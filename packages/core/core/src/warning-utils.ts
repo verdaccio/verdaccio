@@ -1,4 +1,4 @@
-import warning from 'fastify-warning';
+import warning from 'process-warning';
 
 const warningInstance = warning();
 const verdaccioWarning = 'VerdaccioWarning';
