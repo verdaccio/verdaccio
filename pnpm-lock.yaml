@@ -796,7 +796,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 3.1.0
       supertest: 6.1.6
-      terser-webpack-plugin: 5.2.5
+      terser-webpack-plugin: 5.3.0
       url-loader: 4.1.1
       validator: 13.7.0
       webpack: 5.65.0
@@ -875,7 +875,7 @@ importers:
       stylelint-processor-styled-components: 1.10.0
       stylelint-webpack-plugin: 3.1.0_stylelint@13.13.1+webpack@5.65.0
       supertest: 6.1.6
-      terser-webpack-plugin: 5.2.5_webpack@5.65.0
+      terser-webpack-plugin: 5.3.0_webpack@5.65.0
       url-loader: 4.1.1_webpack@5.65.0
       validator: 13.7.0
       webpack: 5.65.0_webpack-cli@4.7.2
@@ -8445,7 +8445,7 @@ packages:
     resolution: {integrity: sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==}
     dependencies:
       '@types/minimatch': 3.0.5
-      '@types/node': 16.11.17
+      '@types/node': 16.11.19
 
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
@@ -8601,10 +8601,10 @@ packages:
 
   /@types/node/16.11.17:
     resolution: {integrity: sha512-C1vTZME8cFo8uxY2ui41xcynEotVkczIVI5AjLmy5pkpBv/FtG+jhtOlfcPysI8VRVwoOMv6NJm44LGnoMSWkw==}
+    dev: true
 
   /@types/node/16.11.19:
     resolution: {integrity: sha512-BPAcfDPoHlRQNKktbsbnpACGdypPFBuX4xQlsWDE7B8XXcfII+SpOLay3/qZmCLb39kV5S1RTYwXdkx2lwLYng==}
-    dev: true
 
   /@types/normalize-package-data/2.4.0:
     resolution: {integrity: sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==}
@@ -8772,7 +8772,7 @@ packages:
   /@types/set-cookie-parser/2.4.1:
     resolution: {integrity: sha512-N0IWe4vT1w5IOYdN9c9PNpQniHS+qe25W4tj4vfhJDJ9OkvA/YA55YUhaC+HNmMMeLlOSnBW9UMno0qlt5xu3Q==}
     dependencies:
-      '@types/node': 16.11.17
+      '@types/node': 16.11.19
     dev: true
 
   /@types/stack-utils/2.0.0:
@@ -8808,7 +8808,7 @@ packages:
   /@types/through/0.0.30:
     resolution: {integrity: sha512-FvnCJljyxhPM3gkRgWmxmDZyAQSiBQQWLI0A0VFL0K7W1oRUrPJSqNO0NvTnLkBcotdlp3lKvaT0JrnyRDkzOg==}
     dependencies:
-      '@types/node': 16.11.17
+      '@types/node': 16.11.19
     dev: true
 
   /@types/tough-cookie/4.0.0:
@@ -16524,7 +16524,7 @@ packages:
     resolution: {integrity: sha512-ks3WCzsiZaOPJl/oMsDjaf0TRiSv7ctNgs0FqRr2nARsovz6AWWy4oLElwcquGSz692DzgZQrCLScPNs5YlC4g==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.11.17
+      '@types/node': 16.11.19
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -22731,8 +22731,8 @@ packages:
       webpack: 5.64.0
     dev: false
 
-  /terser-webpack-plugin/5.2.5_webpack@5.65.0:
-    resolution: {integrity: sha512-3luOVHku5l0QBeYS8r4CdHYWEGMmIj3H1U64jgkdZzECcSOJAyJ9TjuqcQZvw1Y+4AOBN9SeYJPJmFn2cM4/2g==}
+  /terser-webpack-plugin/5.3.0_webpack@5.65.0:
+    resolution: {integrity: sha512-LPIisi3Ol4chwAaPP8toUJ3L4qCM1G0wao7L3qNv57Drezxj6+VEyySpPw4B1HSO2Eg/hDY/MNF5XihCAoqnsQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -22747,7 +22747,7 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      jest-worker: 27.3.1
+      jest-worker: 27.4.6
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       source-map: 0.6.1
@@ -24442,7 +24442,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.0
-      terser-webpack-plugin: 5.2.5_webpack@5.65.0
+      terser-webpack-plugin: 5.3.0_webpack@5.65.0
       watchpack: 2.3.1
       webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
       webpack-sources: 3.2.2
@@ -24483,7 +24483,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.0
-      terser-webpack-plugin: 5.2.5_webpack@5.65.0
+      terser-webpack-plugin: 5.3.0_webpack@5.65.0
       watchpack: 2.3.1
       webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
       webpack-sources: 3.2.2
