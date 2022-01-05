@@ -55,7 +55,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "ts-node": "10.2.1"
+    "ts-node": "10.4.0"
   },
   "funding": {
     "type": "opencollective",
