@@ -62,7 +62,7 @@
     "normalize.css": "8.0.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
-    "prop-types": "15.7.2",
+    "prop-types": "15.8.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.22.5",
