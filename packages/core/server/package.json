@@ -53,7 +53,7 @@
   "devDependencies": {
     "@types/node": "16.11.19",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
-    "ts-node": "10.2.1"
+    "ts-node": "10.4.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
