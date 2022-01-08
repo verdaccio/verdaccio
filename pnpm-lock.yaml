@@ -449,7 +449,7 @@ importers:
       core-js: 3.17.2
       debug: 4.3.3
       handlebars: 4.7.7
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/core': link:../core/core
@@ -457,7 +457,7 @@ importers:
       core-js: 3.17.2
       debug: 4.3.3
       handlebars: 4.7.7
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@types/node': 16.11.19
@@ -908,7 +908,7 @@ importers:
       node-mocks-http: 1.11.0
       request: 2.88.0
       semver: 7.3.5
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/config': link:../config
@@ -923,7 +923,7 @@ importers:
       lodash: 4.17.21
       node-fetch: 2.6.6
       request: 2.88.0
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
     devDependencies:
       '@types/node': 16.11.19
@@ -1029,7 +1029,7 @@ importers:
       node-mocks-http: 1.11.0
       semver: 7.3.5
       tmp-promise: 3.0.3
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
     dependencies:
       '@verdaccio/config': link:../config
@@ -1058,7 +1058,7 @@ importers:
       nock: 13.2.1
       node-mocks-http: 1.11.0
       tmp-promise: 3.0.3
-      undici: 4.7.3
+      undici: 4.12.1
       undici-fetch: 1.0.0-rc.4
 
   packages/tools/benchmark:
@@ -23256,14 +23256,10 @@ packages:
     resolution: {integrity: sha512-+F9lSstpd0YJkBBAMe1UXlUVeadsd/AJrB0643smYHcKAdwCtoBVWfoFO0ibk1sA1BEFH7himsWC5aHLomGK0g==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      undici: 4.5.1
+      undici: 4.12.1
 
-  /undici/4.5.1:
-    resolution: {integrity: sha512-1Kmphp4SMwVbSauz9xH4gxt0m3sLGs5qRHs/XYgjeO3bNSt6hspDZqMhM8+ETu9ynB5bq9e6mnwcDz+NVCQ3UQ==}
-    engines: {node: '>=12.18'}
-
-  /undici/4.7.3:
-    resolution: {integrity: sha512-ecY0KLuZ3EVbiR+Z2kpxh3V3tLGhkxuNv5jhIYskZXO8KgpwcFxqScIMs6JO523VFnfRnN2Fm6yhLxc+BQvezw==}
+  /undici/4.12.1:
+    resolution: {integrity: sha512-MSfap7YiQJqTPP12C11PFRs9raZuVicDbwsZHTjB0a8+SsCqt7KdUis54f373yf7ZFhJzAkGJLaKm0202OIxHg==}
     engines: {node: '>=12.18'}
 
   /unherit/1.1.3:
