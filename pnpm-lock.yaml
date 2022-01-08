@@ -1311,7 +1311,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       react-twitter-widgets: ^1.10.0
-      sass: 1.45.2
+      sass: 1.47.0
       sass-loader: ^12.1.0
       url-loader: 4.1.1
       use-is-in-viewport: ^1.0.9
@@ -1335,12 +1335,12 @@ importers:
     devDependencies:
       '@docusaurus/module-type-aliases': 2.0.0-beta.14_esbuild@0.14.10
       '@tsconfig/docusaurus': 1.0.2
-      docusaurus-plugin-sass: 0.2.1_ae39855cc32bc74de2e21076637bad79
+      docusaurus-plugin-sass: 0.2.1_44bad98a296d0656e0cc6e2414510bd2
       esbuild: 0.14.10
       esbuild-loader: 2.16.0
       prism-react-renderer: 1.2.1_react@17.0.2
-      sass: 1.45.2
-      sass-loader: 12.1.0_sass@1.45.2
+      sass: 1.47.0
+      sass-loader: 12.1.0_sass@1.47.0
       url-loader: 4.1.1
 
 packages:
@@ -12474,15 +12474,15 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /docusaurus-plugin-sass/0.2.1_ae39855cc32bc74de2e21076637bad79:
+  /docusaurus-plugin-sass/0.2.1_44bad98a296d0656e0cc6e2414510bd2:
     resolution: {integrity: sha512-cRugbRWnKLjFPQTo1k2cyn/AANYkXAPHv+DaLs7bkOfOofEgTSrMdpNidt3oZ0ltQcjUUbvmSRRjH9R1ifdRMA==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0
       sass: ^1.30.0
     dependencies:
       '@docusaurus/core': 2.0.0-beta.14_db9e212de95c9dc98fd8c4e839bf04db
-      sass: 1.45.2
-      sass-loader: 10.2.0_sass@1.45.2
+      sass: 1.47.0
+      sass-loader: 10.2.0_sass@1.47.0
     transitivePeerDependencies:
       - fibers
       - node-sass
@@ -21293,7 +21293,7 @@ packages:
       truncate-utf8-bytes: 1.0.2
     dev: false
 
-  /sass-loader/10.2.0_sass@1.45.2:
+  /sass-loader/10.2.0_sass@1.47.0:
     resolution: {integrity: sha512-kUceLzC1gIHz0zNJPpqRsJyisWatGYNFRmv2CKZK2/ngMJgLqxTbXwe/hJ85luyvZkgqU3VlJ33UVF2T/0g6mw==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -21312,12 +21312,12 @@ packages:
       klona: 2.0.4
       loader-utils: 2.0.0
       neo-async: 2.6.2
-      sass: 1.45.2
+      sass: 1.47.0
       schema-utils: 3.1.1
       semver: 7.3.5
     dev: true
 
-  /sass-loader/12.1.0_sass@1.45.2:
+  /sass-loader/12.1.0_sass@1.47.0:
     resolution: {integrity: sha512-FVJZ9kxVRYNZTIe2xhw93n3xJNYZADr+q69/s98l9nTCrWASo+DR2Ot0s5xTKQDDEosUkatsGeHxcH4QBp5bSg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -21335,11 +21335,11 @@ packages:
     dependencies:
       klona: 2.0.4
       neo-async: 2.6.2
-      sass: 1.45.2
+      sass: 1.47.0
     dev: true
 
-  /sass/1.45.2:
-    resolution: {integrity: sha512-cKfs+F9AMPAFlbbTXNsbGvg3y58nV0mXA3E94jqaySKcC8Kq3/8983zVKQ0TLMUrHw7hF9Tnd3Bz9z5Xgtrl9g==}
+  /sass/1.47.0:
+    resolution: {integrity: sha512-GtXwvwgD7/6MLUZPnlA5/8cdRgC9SzT5kAnnJMRmEZQFRE3J56Foswig4NyyyQGsnmNvg6EUM/FP0Pe9Y2zywQ==}
     engines: {node: '>=8.9.0'}
     hasBin: true
     dependencies:
