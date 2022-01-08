@@ -769,7 +769,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: 2.4.5
+      mini-css-extract-plugin: 2.4.6
       msw: 0.36.3
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.11.0
@@ -848,7 +848,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      mini-css-extract-plugin: 2.4.5_webpack@5.65.0
+      mini-css-extract-plugin: 2.4.6_webpack@5.65.0
       msw: 0.36.3
       mutationobserver-shim: 0.3.7
       node-mocks-http: 1.11.0
@@ -17818,8 +17818,8 @@ packages:
       webpack-sources: 1.4.3
     dev: false
 
-  /mini-css-extract-plugin/2.4.5_webpack@5.65.0:
-    resolution: {integrity: sha512-oEIhRucyn1JbT/1tU2BhnwO6ft1jjH1iCX9Gc59WFMg0n5773rQU0oyQ0zzeYFFuBfONaRbQJyGoPtuNseMxjA==}
+  /mini-css-extract-plugin/2.4.6_webpack@5.65.0:
+    resolution: {integrity: sha512-khHpc29bdsE9EQiGSLqQieLyMbGca+bkC42/BBL1gXC8yAS0nHpOTUCBYUK6En1FuRdfE9wKXhGtsab8vmsugg==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
