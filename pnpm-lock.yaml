@@ -800,7 +800,7 @@ importers:
       url-loader: 4.1.1
       validator: 13.7.0
       webpack: 5.65.0
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: ^4.7.2
       webpack-dev-server: 3.11.3
@@ -879,9 +879,9 @@ importers:
       url-loader: 4.1.1_webpack@5.65.0
       validator: 13.7.0
       webpack: 5.65.0_webpack-cli@4.7.2
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-bundle-size-analyzer: 3.1.0
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
       webpack-dev-server: 3.11.3_webpack-cli@4.7.2+webpack@5.65.0
       webpack-manifest-plugin: 4.0.2_webpack@5.65.0
       webpack-merge: 5.8.0
@@ -990,7 +990,7 @@ importers:
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.13
       fs-extra: 10.0.0
       webpack: 5.65.0
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: 4.8.0
     devDependencies:
@@ -998,9 +998,9 @@ importers:
       '@verdaccio/ui-theme': link:../plugins/ui-theme
       fs-extra: 10.0.0
       webpack: 5.65.0_webpack-cli@4.8.0
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-bundle-size-analyzer: 3.1.0
-      webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
+      webpack-cli: 4.8.0_5b92130145ce81e9abcf23f2ab95d57c
 
   packages/store:
     specifiers:
@@ -9334,7 +9334,7 @@ packages:
       webpack-cli: 4.x.x
     dependencies:
       webpack: 5.65.0_webpack-cli@4.7.2
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
     dev: true
 
   /@webpack-cli/configtest/1.0.4_webpack-cli@4.8.0+webpack@5.65.0:
@@ -9344,7 +9344,7 @@ packages:
       webpack-cli: 4.x.x
     dependencies:
       webpack: 5.65.0_webpack-cli@4.8.0
-      webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
+      webpack-cli: 4.8.0_5b92130145ce81e9abcf23f2ab95d57c
     dev: true
 
   /@webpack-cli/info/1.3.0_webpack-cli@4.7.2:
@@ -9353,7 +9353,7 @@ packages:
       webpack-cli: 4.x.x
     dependencies:
       envinfo: 7.8.1
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
     dev: true
 
   /@webpack-cli/info/1.3.0_webpack-cli@4.8.0:
@@ -9362,7 +9362,7 @@ packages:
       webpack-cli: 4.x.x
     dependencies:
       envinfo: 7.8.1
-      webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
+      webpack-cli: 4.8.0_5b92130145ce81e9abcf23f2ab95d57c
     dev: true
 
   /@webpack-cli/serve/1.5.1_4ffe60b4c3b6253d907494fda49cde1f:
@@ -9374,7 +9374,7 @@ packages:
       webpack-dev-server:
         optional: true
     dependencies:
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
       webpack-dev-server: 3.11.3_webpack-cli@4.7.2+webpack@5.65.0
     dev: true
 
@@ -9387,7 +9387,7 @@ packages:
       webpack-dev-server:
         optional: true
     dependencies:
-      webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
+      webpack-cli: 4.8.0_5b92130145ce81e9abcf23f2ab95d57c
     dev: true
 
   /@xmldom/xmldom/0.7.5:
@@ -9507,6 +9507,7 @@ packages:
     resolution: {integrity: sha512-ULr0LDaEqQrMFGyQ3bhJkLsbtrQ8QibAseGZeaSUiT/6zb9IvIkomWHJIvgvwad+hinRAgsI51JcWk2yvwyL+w==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: false
 
   /acorn/8.4.1:
     resolution: {integrity: sha512-asabaBSkEKosYKMITunzX177CXxQ4Q8BSSzMTKD+FefUhipQC70gfW5SiUDhYQ3vk8G+81HqQk7Fv9OXwwn9KA==}
@@ -23903,6 +23904,26 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+    dev: false
+
+  /webpack-bundle-analyzer/4.5.0:
+    resolution: {integrity: sha512-GUMZlM3SKwS8Z+CKeIFx7CVoHn3dXFcUAjT/dcZQQmfSZGvitPfMob2ipjai7ovFFqPvTqkEZ/leL4O0YOdAYQ==}
+    engines: {node: '>= 10.13.0'}
+    hasBin: true
+    dependencies:
+      acorn: 8.4.1
+      acorn-walk: 8.1.1
+      chalk: 4.1.2
+      commander: 7.2.0
+      gzip-size: 6.0.0
+      lodash: 4.17.21
+      opener: 1.5.2
+      sirv: 1.0.12
+      ws: 7.4.6
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: true
 
   /webpack-bundle-size-analyzer/3.1.0:
     resolution: {integrity: sha512-8WlTT6uuCxZgZYNnCB0pRGukWRGH+Owg+HsqQUe1Zexakdno1eDYO+lE7ihBo9G0aCCZCJa8JWjYr9eLYfZrBA==}
@@ -23913,7 +23934,7 @@ packages:
       humanize: 0.0.9
     dev: true
 
-  /webpack-cli/4.7.2_515d48a6824b7c9383fc2e85a14fa22e:
+  /webpack-cli/4.7.2_1cfd1380a4e9b8401fb780accef05e9c:
     resolution: {integrity: sha512-mEoLmnmOIZQNiRl0ebnjzQ74Hk0iKS5SiEEnpq3dRezoyR3yPaeQZCMCe+db4524pj1Pd5ghZXjT41KLzIhSLw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -23946,12 +23967,12 @@ packages:
       rechoir: 0.7.0
       v8-compile-cache: 2.2.0
       webpack: 5.65.0_webpack-cli@4.7.2
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-dev-server: 3.11.3_webpack-cli@4.7.2+webpack@5.65.0
       webpack-merge: 5.8.0
     dev: true
 
-  /webpack-cli/4.8.0_60803d90179a0759a93137b19800d2ad:
+  /webpack-cli/4.8.0_5b92130145ce81e9abcf23f2ab95d57c:
     resolution: {integrity: sha512-+iBSWsX16uVna5aAYN6/wjhJy1q/GKk4KjKvfg90/6hykCTSgozbfz5iRgDTSJt/LgSbYxdBX3KBHeobIs+ZEw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -23984,7 +24005,7 @@ packages:
       rechoir: 0.7.0
       v8-compile-cache: 2.3.0
       webpack: 5.65.0_webpack-cli@4.8.0
-      webpack-bundle-analyzer: 4.4.2
+      webpack-bundle-analyzer: 4.5.0
       webpack-merge: 5.8.0
     dev: true
 
@@ -24118,7 +24139,7 @@ packages:
       supports-color: 6.1.0
       url: 0.11.0
       webpack: 5.65.0_webpack-cli@4.7.2
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
       webpack-dev-middleware: 3.7.2_webpack@5.65.0
       webpack-log: 2.0.0
       ws: 6.2.1
@@ -24406,7 +24427,7 @@ packages:
       tapable: 2.2.0
       terser-webpack-plugin: 5.3.0_webpack@5.65.0
       watchpack: 2.3.1
-      webpack-cli: 4.7.2_515d48a6824b7c9383fc2e85a14fa22e
+      webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
       webpack-sources: 3.2.2
     transitivePeerDependencies:
       - '@swc/core'
@@ -24447,7 +24468,7 @@ packages:
       tapable: 2.2.0
       terser-webpack-plugin: 5.3.0_webpack@5.65.0
       watchpack: 2.3.1
-      webpack-cli: 4.8.0_60803d90179a0759a93137b19800d2ad
+      webpack-cli: 4.8.0_5b92130145ce81e9abcf23f2ab95d57c
       webpack-sources: 3.2.2
     transitivePeerDependencies:
       - '@swc/core'
