@@ -78,7 +78,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 11.2.6
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: cjs
       nodemon: 2.0.15
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -168,7 +168,7 @@ importers:
       kleur: 3.0.3
       lint-staged: 11.2.6
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 2.6.6
       nodemon: 2.0.15
       npm-run-all: 4.1.5
       prettier: 2.3.2
@@ -587,13 +587,13 @@ importers:
       express: 4.17.2
       https-proxy-agent: 5.0.0
       nock: 12.0.3
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: cjs
       supertest: 6.1.6
     dependencies:
       body-parser: 1.19.1
       express: 4.17.2
       https-proxy-agent: 5.0.0
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 2.6.6
     devDependencies:
       '@verdaccio/types': link:../../core/types
       nock: 12.0.3
@@ -1066,7 +1066,7 @@ importers:
       autocannon: 7.5.1
       clipanion: 3.1.0
       get-port: 5.1.1
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: cjs
       semver: 7.3.5
       temp-dir: 2.0.0
       ts-node: 10.4.0
@@ -1077,7 +1077,7 @@ importers:
       temp-dir: 2.0.0
     devDependencies:
       autocannon: 7.5.1
-      node-fetch: 3.0.0-beta.6-exportfix
+      node-fetch: 2.6.6
       ts-node: 10.4.0_6e8cc8d02ca17e0a40f714472b01e9ea
 
   packages/tools/docusaurus-plugin-contributors:
@@ -12088,10 +12088,6 @@ packages:
     dependencies:
       assert-plus: 1.0.0
 
-  /data-uri-to-buffer/3.0.1:
-    resolution: {integrity: sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==}
-    engines: {node: '>= 6'}
-
   /data-urls/1.1.0:
     resolution: {integrity: sha512-YTWYI9se1P55u58gL5GkQHW4P6VJBJ5iBT+B5a7i2Tjadhv52paJG0qHX4A0OR6/t52odI64KP2YvFpkDOi3eQ==}
     dependencies:
@@ -13987,10 +13983,6 @@ packages:
     dependencies:
       xml-js: 1.6.11
     dev: false
-
-  /fetch-blob/1.0.6:
-    resolution: {integrity: sha512-XTotUY7hVtqdbHE0Ilm/u/nnXRv1T8nepxhMHzB885O0EkVvI05UlZq7rHQSd6hVDCNAGx4HTjbJO60Onjfckw==}
-    engines: {node: '>=6'}
 
   /figures/3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -18078,13 +18070,6 @@ packages:
     engines: {node: 4.x || >=6.0.0}
     dependencies:
       whatwg-url: 5.0.0
-
-  /node-fetch/3.0.0-beta.6-exportfix:
-    resolution: {integrity: sha512-jhW2arLPAddi7q04JxlQtApqMQF8GxlGZV+wj5/WuDz3hpDTnAU9haJ5Fi2a0N3b4e728O4EIVACNq9nDCzLYw==}
-    engines: {node: '>=10.16'}
-    dependencies:
-      data-uri-to-buffer: 3.0.1
-      fetch-blob: 1.0.6
 
   /node-forge/0.10.0:
     resolution: {integrity: sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==}
