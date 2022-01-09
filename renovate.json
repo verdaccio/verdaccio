@@ -81,7 +81,8 @@
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major core dependencies",
       "groupSlug": "all-minor-patch-core",
-      "extends": [":semanticCommitTypeAll(fix)"]
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
     },
     {
       "matchPackagePatterns": [
