@@ -22,7 +22,7 @@ module.exports = async () => {
   console.log(green(`verdaccio root path: ${rootVerdaccio}`));
   // @ts-ignore
   global.registryProcess = spawn('node', [path.resolve('./bin/verdaccio'), '-c', './verdaccio.yaml'], {
-    cwd: tempRoot,
+    cwd: tempRoot
     // stdio: 'pipe'
   });
 

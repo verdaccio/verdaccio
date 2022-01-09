@@ -16,7 +16,7 @@ export class InitCommand extends Command {
   static paths = [Command.Default];
 
   listen = Option.String('-l,--listen', {
-    description: 'host:port number to listen on (default: localhost:4873)',
+    description: 'host:port number to listen on (default: localhost:4873)'
   });
 
   // eslint-disable-next-line
@@ -38,12 +38,12 @@ export class InitCommand extends Command {
     examples: [
       [`Runs the server with the default configuration`, `verdaccio`],
       [`Runs the server in the port 5000`, `verdaccio --listen 5000`],
-      [`Runs the server by using a different absolute location of the configuration file`, `verdaccio --config /home/user/verdaccio/config.yaml`],
-    ],
+      [`Runs the server by using a different absolute location of the configuration file`, `verdaccio --config /home/user/verdaccio/config.yaml`]
+    ]
   });
 
   config = Option.String('-c,--config', {
-    description: 'use this configuration file (default: ./config.yaml)',
+    description: 'use this configuration file (default: ./config.yaml)'
   });
 
   async execute() {

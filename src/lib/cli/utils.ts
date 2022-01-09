@@ -16,7 +16,6 @@ export function isVersionValid(version) {
   return semver.satisfies(version, `>=${MIN_NODE_VERSION}`);
 }
 
-
 /**
  * Retrieve all addresses defined in the config file.
  * Verdaccio is able to listen multiple ports
@@ -48,9 +47,7 @@ export function getListListenAddresses(argListen: string, configListen: any): an
       if (!parsedAddr) {
         logger.logger.warn(
           { addr: addr },
-          'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
-            ' host:port (e.g. "localhost:4873") or full url' +
-            ' (e.g. "http://localhost:4873/")'
+          'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
         );
       }
 

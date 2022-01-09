@@ -3,20 +3,10 @@
 import Config from '../../../../src/lib/config';
 import { logger } from '../../../../src/lib/logger';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import {
-  Callback,
-  Config as AppConfig,
-  Logger,
-  Package,
-  Token,
-  TokenFilter,
-  IUploadTarball,
-  IReadTarball
-} from '@verdaccio/types';
+import { Callback, Config as AppConfig, Logger, Package, Token, TokenFilter, IUploadTarball, IReadTarball } from '@verdaccio/types';
 
 import { IPluginStorage, IPackageStorageManager, IPackageStorage } from '@verdaccio/types';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-
 
 class PackageStorage implements IPackageStorageManager {
   path: string;
@@ -27,13 +17,7 @@ class PackageStorage implements IPackageStorageManager {
     this.logger = logger;
   }
 
-  updatePackage(
-    name: string,
-    updateHandler: Callback,
-    onWrite: Callback,
-    transformPackage: Function,
-    onEnd: Callback
-  ) {
+  updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback) {
     onEnd();
   }
 

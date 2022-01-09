@@ -106,16 +106,7 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   return contributors;
 }
 
-export const WHITELIST = [
-  '_rev',
-  'name',
-  'versions',
-  'dist-tags',
-  'readme',
-  'time',
-  '_id',
-  'users'
-];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
@@ -165,11 +156,7 @@ export function publishPackage(name: string, metadata: any, localStorage: IStora
   });
 }
 
-export function checkPackageRemote(
-  name: string,
-  isAllowPublishOffline: boolean,
-  syncMetadata: Function
-): Promise<void> {
+export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<void> {
   return new Promise((resolve, reject): void => {
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {
       // something weird
@@ -212,8 +199,7 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
 export function prepareSearchPackage(data: Package, time: unknown): any {
   const listVersions: string[] = Object.keys(data.versions);
   const versions: string[] = semverSort(listVersions);
-  const latest: string | undefined =
-    data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+  const latest: string | undefined = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];

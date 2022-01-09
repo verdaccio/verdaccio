@@ -16,12 +16,7 @@ describe('verdaccio info', () => {
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
       paths: [verdaccioInstall]
     });
-    const hasMatch = await runVerdaccio(
-      pathVerdaccioModule,
-      verdaccioInstall,
-      ['--info'],
-      /Environment/
-    );
+    const hasMatch = await runVerdaccio(pathVerdaccioModule, verdaccioInstall, ['--info'], /Environment/);
 
     expect(hasMatch.ok).toBeTruthy();
   }, 20000);

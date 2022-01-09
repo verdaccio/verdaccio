@@ -3,7 +3,6 @@ import { STORAGE, DIST_TAGS } from '../../../../src/lib/constants';
 import { readFile } from '../../../functional/lib/test.utils';
 import { Package } from '@verdaccio/types';
 
-
 const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`);
 
 describe('Storage Utils', () => {
@@ -90,12 +89,7 @@ describe('Storage Utils', () => {
       };
 
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
-      expect(Object.keys(mergedPkg)).toEqual([
-        'modified',
-        'created',
-        ...Object.keys(vGroup1),
-        ...Object.keys(vGroup2)
-      ]);
+      expect(Object.keys(mergedPkg)).toEqual(['modified', 'created', ...Object.keys(vGroup1), ...Object.keys(vGroup2)]);
     });
 
     test('mergeTime remote empty', () => {

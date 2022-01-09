@@ -1,11 +1,5 @@
 import ProxyStorage from '../../../../src/lib/up-storage';
-import {
-  ERROR_CODE,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-  DEFAULT_REGISTRY,
-  HEADERS
-} from '../../../../src/lib/constants';
+import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_REGISTRY, HEADERS } from '../../../../src/lib/constants';
 import { buildToken } from '../../../../src/lib/utils';
 import { setup } from '../../../../src/lib/logger';
 

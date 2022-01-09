@@ -23,11 +23,11 @@ describe('npm search', () => {
     // @ts-ignore
     global.__namespace = __global;
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall],
+      paths: [verdaccioInstall]
     });
     registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
       cwd: verdaccioInstall,
-      silent: true,
+      silent: true
     });
   });
 

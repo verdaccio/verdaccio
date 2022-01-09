@@ -8,7 +8,7 @@ import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
   isVersionValid,
-  ErrorCode,
+  ErrorCode
 } from '../../../lib/utils';
 import { allow } from '../../middleware';
 import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -104,7 +104,7 @@ function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config)
         const referer = req.get('Referer');
         const pathname = referer ? new URL(referer).pathname : undefined;
         next(parseReadme(info.name, info.readme, { pathname }));
-      },
+      }
     });
   });
 
@@ -146,7 +146,7 @@ function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config)
           res.status(HTTP_STATUS.NOT_FOUND);
           res.end();
         }
-      },
+      }
     });
   });
 

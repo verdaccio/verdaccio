@@ -5,7 +5,7 @@ const manifest = require('./partials/manifest/manifest.json');
 const exampleManifest = {
   css: ['main.css'],
   js: ['runtime.js', 'main.js'],
-  ico: '/static/foo.ico',
+  ico: '/static/foo.ico'
 };
 
 describe('template', () => {
@@ -41,7 +41,7 @@ describe('template', () => {
         {
           options: { base: 'http://domain.com' },
           scriptsbodyBefore: [`<script src="fooBefore"/>`, `<script src="barBefore"/>`],
-          manifest: exampleManifest,
+          manifest: exampleManifest
         },
         manifest
       )

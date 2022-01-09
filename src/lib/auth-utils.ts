@@ -27,7 +27,7 @@ export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUs
   return {
     name,
     groups,
-    real_groups: pluginGroups,
+    real_groups: pluginGroups
   };
 }
 
@@ -40,7 +40,7 @@ export function createAnonymousRemoteUser(): RemoteUser {
     name: undefined,
     // groups without '$' are going to be deprecated eventually
     groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
-    real_groups: [],
+    real_groups: []
   };
 }
 
@@ -100,7 +100,7 @@ export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
     allow_access: allow_action('access', logger),
     // @ts-ignore
     allow_publish: allow_action('publish', logger),
-    allow_unpublish: handleSpecialUnpublish(),
+    allow_unpublish: handleSpecialUnpublish()
   };
 }
 
@@ -109,31 +109,31 @@ export function createSessionToken(): CookieSessionToken {
 
   return {
     // npmjs.org sets 10h expire
-    expires: new Date(Date.now() + tenHoursTime),
+    expires: new Date(Date.now() + tenHoursTime)
   };
 }
 
 const defaultWebTokenOptions: JWTOptions = {
   sign: {
     // The expiration token for the website is 1 hour
-    expiresIn: TIME_EXPIRATION_1H,
+    expiresIn: TIME_EXPIRATION_1H
   },
-  verify: {},
+  verify: {}
 };
 
 const defaultApiTokenConf: APITokenOptions = {
-  legacy: true,
+  legacy: true
 };
 
 // we limit max 1000 request per 15 minutes on user endpoints
 export const defaultUserRateLimiting = {
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000,
+  max: 1000
 };
 
 export const defaultSecurity: Security = {
   web: defaultWebTokenOptions,
-  api: defaultApiTokenConf,
+  api: defaultApiTokenConf
 };
 
 export function getSecurity(config: Config): Security {

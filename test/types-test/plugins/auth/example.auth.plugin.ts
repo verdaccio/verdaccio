@@ -3,15 +3,7 @@
 import Config from '../../../../src/lib/config';
 import { logger } from '../../../../src/lib/logger';
 import { Callback } from '@verdaccio/types';
-import {
-  Config as AppConfig,
-  PackageAccess,
-  IPluginAuth,
-  RemoteUser,
-  Logger,
-  PluginOptions
-} from '@verdaccio/types';
-
+import { Config as AppConfig, PackageAccess, IPluginAuth, RemoteUser, Logger, PluginOptions } from '@verdaccio/types';
 
 class ExampleAuthPlugin implements IPluginAuth<{}> {
   config: AppConfig;
@@ -22,7 +14,8 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     this.logger = options.logger;
   }
 
-  adduser(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
+  adduser(user: string, password: string, cb: Callback): void {
+    // pragma: allowlist secret
     cb();
   }
 
@@ -30,7 +23,8 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     cb();
   }
 
-  authenticate(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
+  authenticate(user: string, password: string, cb: Callback): void {
+    // pragma: allowlist secret
     cb();
   }
 
@@ -84,7 +78,7 @@ const config1: AppConfig = new Config({
 
 const options: PluginOptions<{}> = {
   config: config1,
-  logger: logger.child({sub: 'out'})
+  logger: logger.child({ sub: 'out' })
 };
 
 const auth = new ExampleAuthPlugin(config1, options);

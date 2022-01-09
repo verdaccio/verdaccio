@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-
-
 import Search from '../../lib/search';
 import { HTTP_STATUS } from '../../lib/constants';
 import loadPlugin from '../../lib/plugin-loader';

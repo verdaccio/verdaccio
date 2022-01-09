@@ -24,9 +24,9 @@ const generateStorage = async function (port = mockServerPort) {
       storage: storagePath,
       uplinks: {
         npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${port}`,
-        },
-      },
+          url: `http://${DOMAIN_SERVERS}:${port}`
+        }
+      }
     },
     'store.spec.yaml'
   );
@@ -47,24 +47,24 @@ const generateSameUplinkStorage = async function (port = mockServerPort) {
         jquery: {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['cached'],
+          proxy: ['cached']
         },
         '@jquery/*': {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['notcached'],
-        },
+          proxy: ['notcached']
+        }
       },
       uplinks: {
         cached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: true,
+          cache: true
         },
         notcached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: false,
-        },
-      },
+          cache: false
+        }
+      }
     },
     'store.spec.yaml'
   );
@@ -80,7 +80,7 @@ const createNullStream = () =>
   new Writable({
     write: function (chunk, encoding, next) {
       next();
-    },
+    }
   });
 
 describe('StorageTest', () => {

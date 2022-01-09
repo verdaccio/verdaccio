@@ -66,7 +66,7 @@ describe('search', () => {
     expect(result).toHaveLength(2);
     result = Search.query('@verdaccio');
     expect(result).toHaveLength(1);
-  })
+  });
 
   test('search remove item', () => {
     let item = {

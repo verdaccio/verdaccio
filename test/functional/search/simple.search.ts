@@ -6,10 +6,7 @@ export default function (server, server2, express) {
     const PKG_NAME = 'testpkg-search';
 
     beforeAll(function () {
-      return server
-        .putPackage(PKG_NAME, pkgExample)
-        .status(HTTP_STATUS.CREATED)
-        .body_ok(API_MESSAGE.PKG_CREATED);
+      return server.putPackage(PKG_NAME, pkgExample).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
     });
 
     describe('should test simple search', () => {

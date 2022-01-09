@@ -38,18 +38,13 @@ export function normalizeUserList(oldFormat: any, newFormat: any): any {
     } else if (Array.isArray(arguments[i])) {
       result.push(arguments[i]);
     } else {
-      throw ErrorCode.getInternalError(
-        'CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i])
-      );
+      throw ErrorCode.getInternalError('CONFIG: bad package acl (array or string expected): ' + JSON.stringify(arguments[i]));
     }
   }
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(
-  uplinks: UpLinksConfList,
-  users: any = BLACKLIST
-): UpLinksConfList {
+export function uplinkSanityCheck(uplinks: UpLinksConfList, users: any = BLACKLIST): UpLinksConfList {
   const newUplinks = _.clone(uplinks);
   let newUsers = _.clone(users);
 
@@ -66,14 +61,7 @@ export function uplinkSanityCheck(
 }
 
 export function sanityCheckNames(item: string, users: any): any {
-  assert(
-    item !== 'all' &&
-      item !== 'owner' &&
-      item !== 'anonymous' &&
-      item !== 'undefined' &&
-      item !== 'none',
-    'CONFIG: reserved uplink name: ' + item
-  );
+  assert(item !== 'all' && item !== 'owner' && item !== 'anonymous' && item !== 'undefined' && item !== 'none', 'CONFIG: reserved uplink name: ' + item);
   assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
   assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
   users[item] = true;
@@ -126,29 +114,15 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
 
   for (const pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
-      assert(
-        _.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false,
-        `CONFIG: bad "'${pkg}'" package description (object expected)`
-      );
-      normalizedPkgs[pkg].access = normalizeUserList(
-        packages[pkg].allow_access,
-        packages[pkg].access
-      );
+      assert(_.isObject(packages[pkg]) && _.isArray(packages[pkg]) === false, `CONFIG: bad "'${pkg}'" package description (object expected)`);
+      normalizedPkgs[pkg].access = normalizeUserList(packages[pkg].allow_access, packages[pkg].access);
       delete normalizedPkgs[pkg].allow_access;
-      normalizedPkgs[pkg].publish = normalizeUserList(
-        packages[pkg].allow_publish,
-        packages[pkg].publish
-      );
+      normalizedPkgs[pkg].publish = normalizeUserList(packages[pkg].allow_publish, packages[pkg].publish);
       delete normalizedPkgs[pkg].allow_publish;
-      normalizedPkgs[pkg].proxy = normalizeUserList(
-        packages[pkg].proxy_access,
-        packages[pkg].proxy
-      );
+      normalizedPkgs[pkg].proxy = normalizeUserList(packages[pkg].proxy_access, packages[pkg].proxy);
       delete normalizedPkgs[pkg].proxy_access;
       // if unpublish is not defined, we set to false to fallback in publish access
-      normalizedPkgs[pkg].unpublish = _.isUndefined(packages[pkg].unpublish)
-        ? false
-        : normalizeUserList([], packages[pkg].unpublish);
+      normalizedPkgs[pkg].unpublish = _.isUndefined(packages[pkg].unpublish) ? false : normalizeUserList([], packages[pkg].unpublish);
     }
   }
 

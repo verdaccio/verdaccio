@@ -11,9 +11,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
   }
 
   async setup() {
-    const tempRoot = fs.mkdtempSync(
-      path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-')
-    );
+    const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-'));
     __global.addItem('dir-root', tempRoot);
     this.global.__namespace = __global;
     // eslint-disable-next-line no-console

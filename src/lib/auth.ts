@@ -13,7 +13,7 @@ import {
   isAESLegacy,
   parseAuthTokenHeader,
   parseBasicPayload,
-  createRemoteUser,
+  createRemoteUser
 } from './auth-utils';
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { getMatchedPackagesSpec } from './config-utils';
@@ -42,7 +42,7 @@ class Auth implements IAuth {
   private _loadPlugin(config: Config): IPluginAuth<Config>[] {
     const pluginOptions = {
       config,
-      logger: this.logger,
+      logger: this.logger
     };
 
     return loadPlugin<IPluginAuth<Config>>(config, config.auth, pluginOptions, (plugin: IPluginAuth<Config>): boolean => {
@@ -422,7 +422,7 @@ class Auth implements IAuth {
     const payload: RemoteUser = {
       real_groups: realGroupsValidated,
       name,
-      groups: groupedGroups,
+      groups: groupedGroups
     };
 
     const token: string = await signPayload(payload, this.secret, signOptions);

@@ -30,7 +30,7 @@ export default function (storage: IStorageHandler): (req: $RequestExtend, res: R
       }
       res.status(HTTP_STATUS.OK);
       next({
-        success: true,
+        success: true
       });
     };
 
@@ -52,7 +52,7 @@ export default function (storage: IStorageHandler): (req: $RequestExtend, res: R
         const users = isStar
           ? {
               ...localStarUsers,
-              [remoteUsername]: true,
+              [remoteUsername]: true
             }
           : _.reduce(
               localStarUsers,
@@ -67,7 +67,7 @@ export default function (storage: IStorageHandler): (req: $RequestExtend, res: R
         storage.changePackage(name, { ...info, users }, req.body._rev, function (err) {
           afterChangePackage(err);
         });
-      },
+      }
     });
   };
 }

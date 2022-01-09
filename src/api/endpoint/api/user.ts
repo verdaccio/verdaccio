@@ -1,4 +1,3 @@
-
 import { ErrorCode } from '../../../lib/utils';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
@@ -18,7 +17,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
   userRouter.get('/-/user/:org_couchdb_user', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
-      ok: getAuthenticatedMessage(req.remote_user.name),
+      ok: getAuthenticatedMessage(req.remote_user.name)
     });
   });
 
@@ -40,7 +39,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
         res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         return next({
           ok: getAuthenticatedMessage(req.remote_user.name),
-          token,
+          token
         });
       });
     } else {
@@ -67,7 +66,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
         res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         return next({
           ok: `user '${req.body.name}' created`,
-          token,
+          token
         });
       });
     }
@@ -76,7 +75,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
   userRouter.delete('/-/user/token/*', limiter(config?.userRateLimit), function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
     res.status(HTTP_STATUS.OK);
     next({
-      ok: API_MESSAGE.LOGGED_OUT,
+      ok: API_MESSAGE.LOGGED_OUT
     });
   });
 
@@ -88,7 +87,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
     next({
       ok: true,
       name: 'somebody',
-      roles: [],
+      roles: []
     });
   });
 

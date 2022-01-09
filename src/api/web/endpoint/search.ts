@@ -37,7 +37,7 @@ function addSearchWebApi(storage: IStorageHandler, auth: IAuth): Router {
           } else {
             getPackageInfo(i + 1);
           }
-        },
+        }
       });
     };
 

@@ -49,29 +49,29 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-api-spec/.htpasswd',
-            },
+              file: './test-storage-api-spec/.htpasswd'
+            }
           },
           filters: {
             '../../modules/api/partials/plugin/filter': {
               pkg: 'npm_test',
-              version: '2.0.0',
-            },
+              version: '2.0.0'
+            }
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
             },
             socketTimeout: {
               url: `http://some.registry.timeout.com`,
               max_fails: 2,
               timeout: '1s',
-              fail_timeout: '1s',
-            },
+              fail_timeout: '1s'
+            }
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
         },
         'api.spec.yaml'
       );
@@ -517,7 +517,7 @@ describe('endpoint unit test', () => {
       const jqueryVersion = '2.1.2';
       const jqueryUpdatedVersion = {
         beta: '3.0.0',
-        jota: '1.6.3',
+        jota: '1.6.3'
       };
 
       test('should set a new tag on jquery', (done) => {
@@ -735,7 +735,7 @@ describe('endpoint unit test', () => {
           .send(
             JSON.stringify(
               _.assign({}, publishMetadata, {
-                name: 'super-admin-can-unpublish',
+                name: 'super-admin-can-unpublish'
               })
             )
           )
@@ -773,7 +773,7 @@ describe('endpoint unit test', () => {
           .send(
             JSON.stringify(
               _.assign({}, publishMetadata, {
-                name: 'all-can-unpublish',
+                name: 'all-can-unpublish'
               })
             )
           )
@@ -820,7 +820,7 @@ describe('endpoint unit test', () => {
           .send(
             JSON.stringify(
               generateStarMedatada(pkgName, {
-                [credentials.name]: true,
+                [credentials.name]: true
               })
             )
           )
@@ -872,7 +872,7 @@ describe('endpoint unit test', () => {
               .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
               .send(
                 JSON.stringify({
-                  key: [credentials.name],
+                  key: [credentials.name]
                 })
               )
               .expect(HTTP_STATUS.OK)
@@ -899,23 +899,23 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-api-spec/.htpasswd',
-            },
+              file: './test-storage-api-spec/.htpasswd'
+            }
           },
           filters: {
             '../../modules/api/partials/plugin/filter': {
               pkg: 'npm_test',
-              version: '2.0.0',
-            },
+              version: '2.0.0'
+            }
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
         },
         'api.spec.yaml'
       );
@@ -933,8 +933,8 @@ describe('endpoint unit test', () => {
           app2 = await endPointAPI({
             ...baseTestConfig,
             experiments: {
-              tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}',
-            },
+              tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}'
+            }
           });
           done();
         });
@@ -974,8 +974,8 @@ describe('endpoint unit test', () => {
             experiments: {
               tarball_url_redirect(context) {
                 return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`;
-              },
-            },
+              }
+            }
           });
           done();
         });
@@ -1066,7 +1066,7 @@ describe('endpoint unit test', () => {
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         pkg.versions['1.0.1'] = {
           ...generateVersion(pkgName, '1.0.1'),
-          deprecated: 'get deprecated',
+          deprecated: 'get deprecated'
         };
         await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
         const [, res] = await getPackage(request(app), '', pkgName);
@@ -1079,7 +1079,7 @@ describe('endpoint unit test', () => {
         await Promise.all([
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.0'), token),
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.1'), token),
-          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.2'), token),
+          putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.2'), token)
         ]);
 
         const pkg = generatePackageMetadata(pkgName, '2.0.3');

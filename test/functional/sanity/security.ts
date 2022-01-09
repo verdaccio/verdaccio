@@ -39,16 +39,13 @@ export default function (server) {
     });
 
     test('should fails on fetch silly things - reading #1', () => {
-      return server
-        .request({ uri: '/testpkg-sec/-/../../../../../../../../etc/passwd' })
-        .status(HTTP_STATUS.NOT_FOUND);
+      return server.request({ uri: '/testpkg-sec/-/../../../../../../../../etc/passwd' }).status(HTTP_STATUS.NOT_FOUND);
     });
 
     test('should fails on fetch silly things - reading #2', () => {
       return server
         .request({
-          uri:
-            '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'
+          uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'
         })
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);

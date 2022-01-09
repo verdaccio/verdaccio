@@ -37,7 +37,7 @@ describe('basic system test', () => {
     request(
       {
         url: 'http://localhost:' + port + '/',
-        timeout: 6000,
+        timeout: 6000
       },
       function (err, res, body) {
         // TEMP: figure out why is flacky, pls remove when is stable.
@@ -53,7 +53,7 @@ describe('basic system test', () => {
   test('server should respond on /___not_found_package', (done) => {
     request(
       {
-        url: `http://localhost:${port}/___not_found_package`,
+        url: `http://localhost:${port}/___not_found_package`
       },
       function (err, res, body) {
         expect(err).toBeNull();

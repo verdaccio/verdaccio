@@ -1,4 +1,3 @@
-
 import { HEADERS } from '../../../src/lib/constants';
 import { notify } from '../../../src/lib/notify';
 import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
@@ -52,9 +51,7 @@ export default function (express) {
       notify(metadata, config, publisherInfo, 'foo').then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {
@@ -79,9 +76,7 @@ export default function (express) {
       notify(metadata, configMultipleHeader, publisherInfo).then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {
@@ -116,9 +111,7 @@ export default function (express) {
         function (body) {
           body.forEach(function (notification) {
             const jsonBody = parseBody(notification);
-            expect(
-              `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-            ).toBe(jsonBody.message);
+            expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           });
           done();
         },
@@ -161,9 +154,7 @@ export default function (express) {
       notify(metadata, config, publisherInfo).then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {

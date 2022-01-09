@@ -23,6 +23,8 @@ jobs:
       run: yarn install --immutable
     - name: Build
       run: yarn code:build
+    - name: Format
+      run: yarn format:check
     - name: Lint
       run: yarn lint
     - name: Test

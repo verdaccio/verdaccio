@@ -28,9 +28,7 @@ class FunctionalEnvironment extends NodeEnvironment {
   public async setup() {
     const SILENCE_LOG = !process.env.VERDACCIO_DEBUG;
     // @ts-ignore
-    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT
-      ? process.env.VERDACCIO_DEBUG_INJECT
-      : false;
+    const DEBUG_INJECT: boolean = process.env.VERDACCIO_DEBUG_INJECT ? process.env.VERDACCIO_DEBUG_INJECT : false;
     const forkList: any[] = [];
     const serverList: IServerBridge[] = [];
     const pathStore = path.join(__dirname, '../store');

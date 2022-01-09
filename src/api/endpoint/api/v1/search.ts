@@ -130,7 +130,7 @@ async function sendResponse(resultBuf, resultStream, auth, req, from: number, si
         package: pkg,
         // not sure if flags is need it
         flags: {
-          unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0')) ? undefined : true,
+          unstable: Object.keys(pkg.versions).some((v) => semver.satisfies(v, '^1.0.0')) ? undefined : true
         },
         local: true,
         score: {
@@ -138,10 +138,10 @@ async function sendResponse(resultBuf, resultStream, auth, req, from: number, si
           detail: {
             quality: 1,
             popularity: 1,
-            maintenance: 0,
-          },
+            maintenance: 0
+          }
         },
-        searchScore: 100000,
+        searchScore: 100000
       };
     } else {
       return pkg;
@@ -159,7 +159,7 @@ async function sendResponse(resultBuf, resultStream, auth, req, from: number, si
   const response: SearchResults = {
     objects: final,
     total: final.length,
-    time: new Date().toUTCString(),
+    time: new Date().toUTCString()
   };
 
   logger.debug(`total response ${final.length}`);

@@ -154,7 +154,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         res.status(HTTP_STATUS.CREATED);
         return next({
           ok: okMessage,
-          success: true,
+          success: true
         });
       }
 
@@ -293,7 +293,7 @@ export function addVersion(storage: IStorageHandler) {
 
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.PKG_PUBLISHED,
+        ok: API_MESSAGE.PKG_PUBLISHED
       });
     });
   };
@@ -328,7 +328,7 @@ export function uploadPackageTarball(storage: IStorageHandler) {
     stream.on('success', function () {
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.TARBALL_UPLOADED,
+        ok: API_MESSAGE.TARBALL_UPLOADED
       });
     });
   };

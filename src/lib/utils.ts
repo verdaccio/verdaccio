@@ -19,8 +19,6 @@ import { Request } from 'express';
 // eslint-disable-next-line max-len
 import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
 
-
-
 const debug = buildDebug('verdaccio');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -232,7 +230,7 @@ export function parseAddress(urlAddress: any): any {
     return {
       proto: urlPattern[2] || DEFAULT_PROTOCOL,
       host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
-      port: urlPattern[8] || DEFAULT_PORT,
+      port: urlPattern[8] || DEFAULT_PORT
     };
   }
 
@@ -241,7 +239,7 @@ export function parseAddress(urlAddress: any): any {
   if (urlPattern) {
     return {
       proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      path: urlPattern[4],
+      path: urlPattern[4]
     };
   }
 
@@ -315,7 +313,7 @@ const parseIntervalTable = {
   d: 86400000,
   w: 7 * 86400000,
   M: 30 * 86400000,
-  y: 365 * 86400000,
+  y: 365 * 86400000
 };
 
 /**
@@ -375,7 +373,7 @@ export const ErrorCode = {
   getForbidden,
   getServiceUnavailable,
   getNotFound,
-  getCode,
+  getCode
 };
 
 export function parseConfigFile(configPath: string): any {
@@ -459,7 +457,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
     pkgInfoCopy.latest.author = {
       avatar: GENERIC_AVATAR,
       email: '',
-      author,
+      author
     };
   }
 
@@ -472,7 +470,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
         contributor = {
           avatar: GENERIC_AVATAR,
           email: contributor,
-          name: contributor,
+          name: contributor
         };
       }
 
@@ -535,7 +533,7 @@ export function formatAuthor(author: AuthorFormat): any {
   let authorDetails = {
     name: DEFAULT_USER,
     email: '',
-    url: '',
+    url: ''
   };
 
   if (_.isNil(author)) {
@@ -545,14 +543,14 @@ export function formatAuthor(author: AuthorFormat): any {
   if (_.isString(author)) {
     authorDetails = {
       ...authorDetails,
-      name: author as string,
+      name: author as string
     };
   }
 
   if (_.isObject(author)) {
     authorDetails = {
       ...authorDetails,
-      ...(author as Author),
+      ...(author as Author)
     };
   }
 
@@ -638,7 +636,7 @@ export function isHost(url: string = '', options = {}): boolean {
     // @ts-ignore
     require_port: false,
     require_tld: false,
-    ...options,
+    ...options
   });
 }
 

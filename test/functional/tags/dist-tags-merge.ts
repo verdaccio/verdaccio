@@ -10,10 +10,7 @@ export default function (server, server2, server3) {
     const PKG_VERSION = '0.0.1';
 
     beforeAll(function () {
-      return server
-        .putPackage(PKG_NAME, pkgExample)
-        .status(HTTP_STATUS.CREATED)
-        .body_ok(API_MESSAGE.PKG_CREATED);
+      return server.putPackage(PKG_NAME, pkgExample).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
     });
 
     describe('should check sha integrity', () => {
@@ -27,10 +24,8 @@ export default function (server, server2, server3) {
           });
       };
 
-      test('server1 should match with sha key from published package', () =>
-        matchTarBallSha(server));
-      test('server2 should match with sha key from published package', () =>
-        matchTarBallSha(server2));
+      test('server1 should match with sha key from published package', () => matchTarBallSha(server));
+      test('server2 should match with sha key from published package', () => matchTarBallSha(server2));
     });
 
     describe('should match dist-tags', () => {
@@ -44,9 +39,7 @@ export default function (server, server2, server3) {
             expect(body.time[PKG_VERSION]).toBeDefined();
             expect(body.time).toBeDefined();
             expect(body.versions[PKG_VERSION].name).toBe(PKG_NAME);
-            expect(body.versions[PKG_VERSION].dist.tarball).toBe(
-              `http://${DOMAIN_SERVERS}:${port}/${PKG_NAME}/-/${PKG_NAME}-${PKG_VERSION}.tgz`
-            );
+            expect(body.versions[PKG_VERSION].dist.tarball).toBe(`http://${DOMAIN_SERVERS}:${port}/${PKG_NAME}/-/${PKG_NAME}-${PKG_VERSION}.tgz`);
             expect(body[DIST_TAGS]).toEqual({ foo: PKG_VERSION, latest: PKG_VERSION });
           });
       };

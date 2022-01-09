@@ -62,17 +62,17 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-token-spec/.htpasswd-token',
-            },
+              file: './test-storage-token-spec/.htpasswd-token'
+            }
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }],
+          logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }]
         },
         'token.spec.yaml'
       );
@@ -113,7 +113,7 @@ describe('endpoint unit test', () => {
       const [, resp] = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: [],
+        cidr_whitelist: []
       });
       expect(resp.get(HEADERS.CACHE_CONTROL)).toEqual('no-cache, no-store');
 
@@ -145,7 +145,7 @@ describe('endpoint unit test', () => {
       const res = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: [],
+        cidr_whitelist: []
       });
 
       const t = res[1].body.token;
@@ -175,7 +175,7 @@ describe('endpoint unit test', () => {
           await generateTokenCLI(app, token, {
             password: 'wrongPassword',
             readonly: false,
-            cidr_whitelist: [],
+            cidr_whitelist: []
           });
           done();
         } catch (e) {
@@ -191,7 +191,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            cidr_whitelist: [],
+            cidr_whitelist: []
           });
 
           expect(res[0]).toBeNull();
@@ -206,7 +206,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            readonly: false,
+            readonly: false
           });
 
           expect(res[0]).toBeNull();

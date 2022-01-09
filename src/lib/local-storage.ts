@@ -26,7 +26,7 @@ import {
   CallbackAction,
   onSearchPackage,
   onEndSearchPackage,
-  StorageUpdateCallback,
+  StorageUpdateCallback
 } from '@verdaccio/types';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 import LocalDatabase from '@verdaccio/local-storage';
@@ -151,7 +151,7 @@ class LocalStorage implements IStorage {
             if (_.isNil(packageLocalJson._distfiles[filename])) {
               const hash: DistFile = (packageLocalJson._distfiles[filename] = {
                 url: version.dist.tarball,
-                sha: version.dist.shasum,
+                sha: version.dist.shasum
               });
               /* eslint spaced-comment: 0 */
               // $FlowFixMe
@@ -485,7 +485,7 @@ class LocalStorage implements IStorage {
         name,
         function updater(data, cb): void {
           data._attachments[filename] = {
-            shasum: shaOneHash.digest('hex'),
+            shasum: shaOneHash.digest('hex')
           };
           cb(null);
         },
@@ -838,18 +838,13 @@ class LocalStorage implements IStorage {
   private _loadStorePlugin(): IPluginStorage<Config> | void {
     const plugin_params = {
       config: this.config,
-      logger: this.logger,
+      logger: this.logger
     };
 
     // eslint-disable-next-line max-len
-    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(
-      this.config,
-      this.config.store,
-      plugin_params,
-      (plugin): IPluginStorage<Config> => {
-        return plugin.getPackageStorage;
-      }
-    );
+    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(this.config, this.config.store, plugin_params, (plugin): IPluginStorage<Config> => {
+      return plugin.getPackageStorage;
+    });
 
     return _.head(plugins);
   }

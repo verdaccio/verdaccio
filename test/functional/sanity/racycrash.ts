@@ -59,9 +59,7 @@ export default function (server, express) {
         res.socket.destroy();
       };
 
-      return server
-        .request({ uri: '/testexp-racycrash/-/test.tar.gz' })
-        .body_error(API_ERROR.INTERNAL_SERVER_ERROR);
+      return server.request({ uri: '/testexp-racycrash/-/test.tar.gz' }).body_error(API_ERROR.INTERNAL_SERVER_ERROR);
     });
   });
 }

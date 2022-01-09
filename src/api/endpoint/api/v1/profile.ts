@@ -29,7 +29,7 @@ export default function (auth: IAuth, config): Router {
       created: '',
       updated: '',
       cidr_whitelist: null,
-      fullname: '',
+      fullname: ''
     };
   }
 
@@ -40,7 +40,7 @@ export default function (auth: IAuth, config): Router {
 
     res.status(HTTP_STATUS.UNAUTHORIZED);
     return next({
-      message: API_ERROR.MUST_BE_LOGGED,
+      message: API_ERROR.MUST_BE_LOGGED
     });
   });
 
@@ -48,7 +48,7 @@ export default function (auth: IAuth, config): Router {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
-        message: API_ERROR.MUST_BE_LOGGED,
+        message: API_ERROR.MUST_BE_LOGGED
       });
     }
 

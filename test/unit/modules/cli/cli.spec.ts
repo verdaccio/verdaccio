@@ -19,8 +19,8 @@ jest.mock('../../../../src/lib/logger', () => ({
     trace: jest.fn(),
     warn: jest.fn(),
     error: jest.fn(),
-    fatal: jest.fn(),
-  },
+    fatal: jest.fn()
+  }
 }));
 
 describe('startServer via API', () => {
@@ -147,7 +147,7 @@ describe('startServer via API', () => {
       const conf = config();
       conf.https = {
         key: keyPath,
-        cert: certPath,
+        cert: certPath
       };
 
       await startServer(conf, address, store, version, serverName, (webServer, addrs) => {

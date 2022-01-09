@@ -19,7 +19,7 @@ export type NormalizeToken = Token & {
 function normalizeToken(token: Token): NormalizeToken {
   return {
     ...token,
-    created: new Date(token.created).toISOString(),
+    created: new Date(token.created).toISOString()
   };
 }
 
@@ -38,8 +38,8 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
         return next({
           objects: tokens.map(normalizeToken),
           urls: {
-            next: '', // TODO: pagination?
-          },
+            next: '' // TODO: pagination?
+          }
         });
       } catch (error) {
         logger.error({ error: error.msg }, 'token list has failed: @{error}');
@@ -86,7 +86,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
           key,
           cidr: cidr_whitelist,
           readonly,
-          created,
+          created
         };
 
         await storage.saveToken(saveToken);
@@ -99,7 +99,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
             key: saveToken.key,
             cidr: cidr_whitelist,
             readonly,
-            created: saveToken.created,
+            created: saveToken.created
           })
         );
       } catch (error) {
@@ -111,7 +111,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
 
   tokenRoute.delete('/tokens/token/:tokenKey', limiter(config?.userRateLimit), async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
     const {
-      params: { tokenKey },
+      params: { tokenKey }
     } = req;
     const { name } = req.remote_user;
 

@@ -28,16 +28,16 @@ describe('endpoint web unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './web-api-storage/.htpasswd-web-api',
-            },
+              file: './web-api-storage/.htpasswd-web-api'
+            }
           },
           storage: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+            }
           },
-          self_path: store,
+          self_path: store
         },
         'api.web.spec.yaml'
       );
@@ -195,7 +195,7 @@ describe('endpoint web unit test', () => {
             .post('/-/verdaccio/sec/login')
             .send({
               username: credentials.name,
-              password: credentials.password,
+              password: credentials.password
             })
             .expect(HTTP_STATUS.OK)
             .end(function (err, res) {
@@ -213,7 +213,7 @@ describe('endpoint web unit test', () => {
             .post('/-/verdaccio/sec/login')
             .send({
               username: 'fake',
-              password: 'fake',
+              password: 'fake'
             })
             // FIXME: there should be 401
             .expect(HTTP_STATUS.OK)

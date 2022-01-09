@@ -37,7 +37,7 @@ export function serveFavicon(config: Config) {
         if (
           validator.isURL(logoConf, {
             require_host: true,
-            require_valid_protocol: true,
+            require_valid_protocol: true
           })
         ) {
           debug('redirect to %o', logoConf);
@@ -299,7 +299,7 @@ export function log(config: Config) {
           {
             request: {
               method: req.method,
-              url: req.url,
+              url: req.url
             },
             user: (req.remote_user && req.remote_user.name) || null,
             remoteIP,
@@ -307,8 +307,8 @@ export function log(config: Config) {
             error: res.locals._verdaccio_error,
             bytes: {
               in: bytesin,
-              out: bytesout,
-            },
+              out: bytesout
+            }
           },
           message
         );

@@ -49,17 +49,16 @@ class Search implements IWebSearch {
       query = query.replace('@', '');
     }
 
-    const results = query === '*'
-      ? localStorage.storagePlugin.get((items): any => {
-          items.map(function (pkg): any {
-            return { ref: pkg, score: 1 };
-          });
-        })
-      : this.index.search(`*${query}*`);
+    const results =
+      query === '*'
+        ? localStorage.storagePlugin.get((items): any => {
+            items.map(function (pkg): any {
+              return { ref: pkg, score: 1 };
+            });
+          })
+        : this.index.search(`*${query}*`);
 
-    return hasScope
-      ? results.filter(({ ref }) => ref.startsWith('@'))
-      : results;
+    return hasScope ? results.filter(({ ref }) => ref.startsWith('@')) : results;
   }
 
   /**

@@ -91,7 +91,7 @@ function logHTTPSWarning(storageLocation) {
       'And then add to config file (' + storageLocation + '):',
       '  https:',
       `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
-      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
+      `    cert: ${resolveConfigPath(storageLocation, certPem)}`
     ].join('\n')
   );
   process.exit(2);
@@ -100,7 +100,7 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(app: express.Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 // disable insecure SSLv2 and SSLv3
     };
 
     const keyCertConfig = config.https as HttpsConfKeyCert;
@@ -115,7 +115,7 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
       const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
-        passphrase: passphrase || '',
+        passphrase: passphrase || ''
       });
     } else {
       const { key, cert, ca } = keyCertConfig;
@@ -123,8 +123,8 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
         key: fs.readFileSync(key),
         cert: fs.readFileSync(cert),
         ...(ca && {
-          ca: fs.readFileSync(ca),
-        }),
+          ca: fs.readFileSync(ca)
+        })
       });
     }
     return https.createServer(httpsOptions, app);
@@ -141,7 +141,7 @@ function listenDefaultCallback(webServer: Application, addr: any, pkgName: strin
       // send a message for tests
       if (isFunction(process.send)) {
         process.send({
-          verdaccio_started: true,
+          verdaccio_started: true
         });
       }
     })
@@ -170,15 +170,15 @@ function listenDefaultCallback(webServer: Application, addr: any, pkgName: strin
       addr: addr.path
         ? URL.format({
             protocol: 'unix',
-            pathname: addr.path,
+            pathname: addr.path
           })
         : URL.format({
             protocol: addr.proto,
             hostname: addr.host,
             port: addr.port,
-            pathname: '/',
+            pathname: '/'
           }),
-      version: pkgName + '/' + pkgVersion,
+      version: pkgName + '/' + pkgVersion
     },
     'http address - @{addr} - @{version}'
   );

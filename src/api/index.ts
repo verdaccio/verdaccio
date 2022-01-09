@@ -51,7 +51,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger,
+    logger: logger
   };
 
   const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function (plugin: IPluginMiddleware<IConfig>) {
@@ -107,7 +107,7 @@ export default (async function (configHash: any): Promise<any> {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger,
+    logger: logger
   };
   const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata);
   const storage: IStorageHandler = new Storage(config);

@@ -23,7 +23,7 @@ const [node, app, ...args] = process.argv;
 const cli = new Cli({
   binaryLabel: `verdaccio`,
   binaryName: `${node} ${app}`,
-  binaryVersion: pkgVersion,
+  binaryVersion: pkgVersion
 });
 
 cli.register(InfoCommand);

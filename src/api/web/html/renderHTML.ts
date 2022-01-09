@@ -7,7 +7,6 @@ import buildDebug from 'debug';
 import LRU from 'lru-cache';
 import { HEADERS } from '@verdaccio/commons-api';
 
-
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
 const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
@@ -16,7 +15,7 @@ const debug = buildDebug('verdaccio');
 
 const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
-  ico: 'favicon.ico',
+  ico: 'favicon.ico'
 };
 
 export function validatePrimaryColor(primaryColor) {
@@ -57,7 +56,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     {
       scriptsBodyAfter: [],
       bodyBefore: [],
-      metaScripts: [],
+      metaScripts: []
     },
     config?.web
   );
@@ -71,7 +70,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     logo: logoURI,
     title,
     scope,
-    language,
+    language
   };
 
   let webPage;
@@ -88,7 +87,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
           options,
           scriptsBodyAfter,
           metaScripts,
-          scriptsbodyBefore,
+          scriptsbodyBefore
         },
         manifest
       );

@@ -45,9 +45,7 @@ describe('plugin loader', () => {
           return p.authenticate || p.allow_access || p.allow_publish;
         });
       } catch (e) {
-        expect(e.message).toEqual(
-          `"${relativePath}/invalid-plugin" plugin does not have the right code structure`
-        );
+        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" plugin does not have the right code structure`);
       }
     });
 
@@ -59,9 +57,7 @@ describe('plugin loader', () => {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
       } catch (err) {
-        expect(err.message).toEqual(
-          `sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`
-        );
+        expect(err.message).toEqual(`sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
       }
     });
 

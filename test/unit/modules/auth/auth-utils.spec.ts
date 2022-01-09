@@ -6,13 +6,7 @@ import AppConfig from '../../../../src/lib/config';
 import { setup } from '../../../../src/lib/logger';
 
 import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
-import {
-  buildUserBuffer,
-  getApiToken,
-  getAuthenticatedMessage,
-  getMiddlewareCredentials,
-  getSecurity
-} from '../../../../src/lib/auth-utils';
+import { buildUserBuffer, getApiToken, getAuthenticatedMessage, getMiddlewareCredentials, getSecurity } from '../../../../src/lib/auth-utils';
 import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
 import { parseConfigurationFile } from '../../__helper';
 
@@ -38,14 +32,7 @@ describe('Auth utilities', () => {
     return config;
   }
 
-  async function signCredentials(
-    configFileName: string,
-    username: string,
-    password: string,
-    secret = '12345',
-    methodToSpy: string,
-    methodNotBeenCalled: string
-  ): Promise<string> {
+  async function signCredentials(configFileName: string, username: string, password: string, secret = '12345', methodToSpy: string, methodNotBeenCalled: string): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
     const auth: IAuth = new Auth(config);
     // @ts-ignore
@@ -74,9 +61,7 @@ describe('Auth utilities', () => {
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
-    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString(
-      CHARACTER_ENCODING.UTF8
-    );
+    const payload = aesDecrypt(convertPayloadToBase64(token), secret).toString(CHARACTER_ENCODING.UTF8);
     const content = payload.split(':');
 
     expect(content[0]).toBe(user);
@@ -85,98 +70,49 @@ describe('Auth utilities', () => {
 
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', async () => {
-      const token = await signCredentials(
-        'security-missing',
-        'test',
-        'test',
-        '1234567',
-        'aesEncrypt',
-        'jwtEncrypt'
-      );
+      const token = await signCredentials('security-missing', 'test', 'test', '1234567', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '1234567');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with aes and security empty', async () => {
-      const token = await signCredentials(
-        'security-empty',
-        'test',
-        'test',
-        '123456',
-        'aesEncrypt',
-        'jwtEncrypt'
-      );
+      const token = await signCredentials('security-empty', 'test', 'test', '123456', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '123456');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with aes', async () => {
-      const token = await signCredentials(
-        'security-basic',
-        'test',
-        'test',
-        '123456',
-        'aesEncrypt',
-        'jwtEncrypt'
-      );
+      const token = await signCredentials('security-basic', 'test', 'test', '123456', 'aesEncrypt', 'jwtEncrypt');
 
       verifyAES(token, 'test', 'test', '123456');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with legacy and jwt disabled', async () => {
-      const token = await signCredentials(
-        'security-no-legacy',
-        'test',
-        'test',
-        'x8T#ZCx=2t',
-        'aesEncrypt',
-        'jwtEncrypt'
-      );
+      const token = await signCredentials('security-no-legacy', 'test', 'test', 'x8T#ZCx=2t', 'aesEncrypt', 'jwtEncrypt');
 
       expect(_.isString(token)).toBeTruthy();
       verifyAES(token, 'test', 'test', 'x8T#ZCx=2t');
     });
 
     test('should sign token with legacy enabled and jwt enabled', async () => {
-      const token = await signCredentials(
-        'security-jwt-legacy-enabled',
-        'test',
-        'test',
-        'secret',
-        'jwtEncrypt',
-        'aesEncrypt'
-      );
+      const token = await signCredentials('security-jwt-legacy-enabled', 'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
 
       verifyJWT(token, 'test', 'test', 'secret');
       expect(_.isString(token)).toBeTruthy();
     });
 
     test('should sign token with jwt enabled', async () => {
-      const token = await signCredentials(
-        'security-jwt',
-        'test',
-        'test',
-        'secret',
-        'jwtEncrypt',
-        'aesEncrypt'
-      );
+      const token = await signCredentials('security-jwt', 'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
 
       expect(_.isString(token)).toBeTruthy();
       verifyJWT(token, 'test', 'test', 'secret');
     });
 
     test('should sign with jwt whether legacy is disabled', async () => {
-      const token = await signCredentials(
-        'security-legacy-disabled',
-        'test',
-        'test',
-        'secret',
-        'jwtEncrypt',
-        'aesEncrypt'
-      );
+      const token = await signCredentials('security-legacy-disabled', 'test', 'test', 'secret', 'jwtEncrypt', 'aesEncrypt');
 
       expect(_.isString(token)).toBeTruthy();
       verifyJWT(token, 'test', 'test', 'secret');
@@ -195,14 +131,7 @@ describe('Auth utilities', () => {
         const secret = 'secret';
         const user = 'test';
         const pass = 'test';
-        const token = await signCredentials(
-          'security-legacy',
-          user,
-          pass,
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
+        const token = await signCredentials('security-legacy', user, pass, secret, 'aesEncrypt', 'jwtEncrypt');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
@@ -230,41 +159,19 @@ describe('Auth utilities', () => {
 
       test.concurrent('should return empty credential wrong secret key', async () => {
         const secret = 'secret';
-        const token = await signCredentials(
-          'security-legacy',
-          'test',
-          'test',
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
+        const token = await signCredentials('security-legacy', 'test', 'test', secret, 'aesEncrypt', 'jwtEncrypt');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          'BAD_SECRET',
-          buildToken(TOKEN_BEARER, token)
-        );
+        const credentials = getMiddlewareCredentials(security, 'BAD_SECRET', buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();
       });
 
       test.concurrent('should return empty credential wrong scheme', async () => {
         const secret = 'secret';
-        const token = await signCredentials(
-          'security-legacy',
-          'test',
-          'test',
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
+        const token = await signCredentials('security-legacy', 'test', 'test', secret, 'aesEncrypt', 'jwtEncrypt');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken('BAD_SCHEME', token)
-        );
+        const credentials = getMiddlewareCredentials(security, secret, buildToken('BAD_SCHEME', token));
         expect(credentials).not.toBeDefined();
       });
 
@@ -274,11 +181,7 @@ describe('Auth utilities', () => {
         const auth: IAuth = new Auth(config);
         const token = auth.aesEncrypt(Buffer.from(`corruptedBuffer`)).toString('base64');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken(TOKEN_BEARER, token)
-        );
+        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).not.toBeDefined();
       });
     });
@@ -287,11 +190,7 @@ describe('Auth utilities', () => {
       test('should return anonymous whether token is corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          '12345',
-          buildToken(TOKEN_BEARER, 'fakeToken')
-        );
+        const credentials = getMiddlewareCredentials(security, '12345', buildToken(TOKEN_BEARER, 'fakeToken'));
 
         expect(credentials).toBeDefined();
         // @ts-ignore
@@ -305,11 +204,7 @@ describe('Auth utilities', () => {
       test('should return anonymous whether token and scheme are corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          '12345',
-          buildToken('FakeScheme', 'fakeToken')
-        );
+        const credentials = getMiddlewareCredentials(security, '12345', buildToken('FakeScheme', 'fakeToken'));
 
         expect(credentials).not.toBeDefined();
       });
@@ -318,20 +213,9 @@ describe('Auth utilities', () => {
         const secret = 'secret';
         const user = 'test';
         const config: Config = getConfig('security-jwt', secret);
-        const token = await signCredentials(
-          'security-jwt',
-          user,
-          'secretTest',
-          secret,
-          'jwtEncrypt',
-          'aesEncrypt'
-        );
+        const token = await signCredentials('security-jwt', user, 'secretTest', secret, 'jwtEncrypt', 'aesEncrypt');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken(TOKEN_BEARER, token)
-        );
+        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
         expect(credentials).toBeDefined();
         // @ts-ignore
         expect(credentials.name).toEqual(user);

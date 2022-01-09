@@ -14,13 +14,7 @@ export default class VerdaccioProcess implements IServerProcess {
   private silence: boolean;
   private cleanStore: boolean;
 
-  public constructor(
-    config: IVerdaccioConfig,
-    bridge: IServerBridge,
-    silence = true,
-    isDebug = false,
-    cleanStore = true
-  ) {
+  public constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true, isDebug = false, cleanStore = true) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
@@ -60,11 +54,7 @@ export default class VerdaccioProcess implements IServerProcess {
     }
 
     const { configPath, port } = this.config;
-    this.childFork = fork(
-      verdaccioRegisterWrap,
-      ['-c', configPath, '-l', port as string],
-      childOptions
-    );
+    this.childFork = fork(verdaccioRegisterWrap, ['-c', configPath, '-l', port as string], childOptions);
 
     this.childFork.on('message', (msg) => {
       // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started

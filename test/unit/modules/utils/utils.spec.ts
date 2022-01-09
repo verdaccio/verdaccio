@@ -15,7 +15,7 @@ import {
   sortByName,
   formatAuthor,
   isHTTPProtocol,
-  getPublicUrl,
+  getPublicUrl
 } from '../../../../src/lib/utils';
 import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
@@ -35,15 +35,15 @@ describe('Utilities', () => {
     versions: {
       '1.0.0': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
-        },
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz'
+        }
       },
       '1.0.1': {
         dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz',
-        },
-      },
-    },
+          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.1.tgz'
+        }
+      }
+    }
   };
 
   const cloneMetadata = (pkg = metadata) => Object.assign({}, pkg);
@@ -52,40 +52,40 @@ describe('Utilities', () => {
     describe('Sort packages', () => {
       const packages = [
         {
-          name: 'ghc',
+          name: 'ghc'
         },
         {
-          name: 'abc',
+          name: 'abc'
         },
         {
-          name: 'zxy',
-        },
+          name: 'zxy'
+        }
       ];
       test('should order ascending', () => {
         expect(sortByName(packages)).toEqual([
           {
-            name: 'abc',
+            name: 'abc'
           },
           {
-            name: 'ghc',
+            name: 'ghc'
           },
           {
-            name: 'zxy',
-          },
+            name: 'zxy'
+          }
         ]);
       });
 
       test('should order descending', () => {
         expect(sortByName(packages, false)).toEqual([
           {
-            name: 'zxy',
+            name: 'zxy'
           },
           {
-            name: 'ghc',
+            name: 'ghc'
           },
           {
-            name: 'abc',
-          },
+            name: 'abc'
+          }
         ]);
       });
     });
@@ -128,10 +128,10 @@ describe('Utilities', () => {
         const req = httpMocks.createRequest({
           method: 'GET',
           headers: {
-            host: fakeHost,
+            host: fakeHost
           },
           protocol: 'http',
-          url: '/',
+          url: '/'
         });
         const convertDist = convertDistRemoteToLocalTarballUrls(cloneMetadata(), req);
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(buildURI(fakeHost, '1.0.0'));
@@ -143,7 +143,7 @@ describe('Utilities', () => {
           headers: {},
           // @ts-ignore
           get: () => 'http',
-          protocol: 'http',
+          protocol: 'http'
         });
         expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
       });
@@ -153,7 +153,7 @@ describe('Utilities', () => {
       test('should delete a invalid latest version', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: '20000',
+          latest: '20000'
         };
 
         normalizeDistTags(pkg);
@@ -173,7 +173,7 @@ describe('Utilities', () => {
       test('should define last published version as latest with a custom dist-tag', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          beta: '1.0.1',
+          beta: '1.0.1'
         };
 
         normalizeDistTags(pkg);
@@ -184,7 +184,7 @@ describe('Utilities', () => {
       test('should convert any array of dist-tags to a plain string', () => {
         const pkg = cloneMetadata();
         pkg[DIST_TAGS] = {
-          latest: ['1.0.1'],
+          latest: ['1.0.1']
         };
 
         normalizeDistTags(pkg);
@@ -417,7 +417,7 @@ describe('Utilities', () => {
 
     test('author, contributors and maintainers fields are not present', () => {
       const packageInfo = {
-        latest: {},
+        latest: {}
       };
 
       // @ts-ignore
@@ -433,16 +433,16 @@ describe('Utilities', () => {
 
     test('author field is a string type', () => {
       const packageInfo = {
-        latest: { author: 'user@verdccio.org' },
+        latest: { author: 'user@verdccio.org' }
       };
       const result = {
         latest: {
           author: {
             author: 'user@verdccio.org',
             avatar: GENERIC_AVATAR,
-            email: '',
-          },
-        },
+            email: ''
+          }
+        }
       };
 
       // @ts-ignore
@@ -451,16 +451,16 @@ describe('Utilities', () => {
 
     test('author field is an object type with author information', () => {
       const packageInfo = {
-        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } },
+        latest: { author: { name: 'verdaccio', email: 'user@verdccio.org' } }
       };
       const result = {
         latest: {
           author: {
             avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
             email: 'user@verdccio.org',
-            name: 'verdaccio',
-          },
-        },
+            name: 'verdaccio'
+          }
+        }
       };
 
       // @ts-ignore
@@ -470,8 +470,8 @@ describe('Utilities', () => {
     test('contributor field is a blank array', () => {
       const packageInfo = {
         latest: {
-          contributors: [],
-        },
+          contributors: []
+        }
       };
 
       // @ts-ignore
@@ -484,9 +484,9 @@ describe('Utilities', () => {
           latest: {
             contributors: [
               { name: 'user', email: 'user@verdccio.org' },
-              { name: 'user1', email: 'user1@verdccio.org' },
-            ],
-          },
+              { name: 'user1', email: 'user1@verdccio.org' }
+            ]
+          }
         };
 
         const result = {
@@ -495,15 +495,15 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user',
+                name: 'user'
               },
               {
                 avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
                 email: 'user1@verdccio.org',
-                name: 'user1',
-              },
-            ],
-          },
+                name: 'user1'
+              }
+            ]
+          }
         };
 
         // @ts-ignore
@@ -513,8 +513,8 @@ describe('Utilities', () => {
       test('contributors field is an object', () => {
         const packageInfo = {
           latest: {
-            contributors: { name: 'user', email: 'user@verdccio.org' },
-          },
+            contributors: { name: 'user', email: 'user@verdccio.org' }
+          }
         };
 
         const result = {
@@ -523,10 +523,10 @@ describe('Utilities', () => {
               {
                 avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
                 email: 'user@verdccio.org',
-                name: 'user',
-              },
-            ],
-          },
+                name: 'user'
+              }
+            ]
+          }
         };
 
         // @ts-ignore
@@ -537,8 +537,8 @@ describe('Utilities', () => {
         const contributor = 'Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)';
         const packageInfo = {
           latest: {
-            contributors: contributor,
-          },
+            contributors: contributor
+          }
         };
 
         const result = {
@@ -547,10 +547,10 @@ describe('Utilities', () => {
               {
                 avatar: GENERIC_AVATAR,
                 email: contributor,
-                name: contributor,
-              },
-            ],
-          },
+                name: contributor
+              }
+            ]
+          }
         };
 
         // @ts-ignore
@@ -561,8 +561,8 @@ describe('Utilities', () => {
     test('maintainers field is a blank array', () => {
       const packageInfo = {
         latest: {
-          maintainers: [],
-        },
+          maintainers: []
+        }
       };
 
       // @ts-ignore
@@ -574,9 +574,9 @@ describe('Utilities', () => {
         latest: {
           maintainers: [
             { name: 'user', email: 'user@verdccio.org' },
-            { name: 'user1', email: 'user1@verdccio.org' },
-          ],
-        },
+            { name: 'user1', email: 'user1@verdccio.org' }
+          ]
+        }
       };
 
       const result = {
@@ -585,15 +585,15 @@ describe('Utilities', () => {
             {
               avatar: 'https://www.gravatar.com/avatar/794d7f6ef93d0689437de3c3e48fadc7',
               email: 'user@verdccio.org',
-              name: 'user',
+              name: 'user'
             },
             {
               avatar: 'https://www.gravatar.com/avatar/51105a49ce4a9c2bfabf0f6a2cba3762',
               email: 'user1@verdccio.org',
-              name: 'user1',
-            },
-          ],
-        },
+              name: 'user1'
+            }
+          ]
+        }
       };
 
       // @ts-ignore
@@ -610,7 +610,7 @@ describe('Utilities', () => {
       const user = {
         name: 'Verdaccion NPM',
         email: 'verdaccio@verdaccio.org',
-        url: 'https://verdaccio.org',
+        url: 'https://verdaccio.org'
       };
       expect(formatAuthor(user).url).toEqual(user.url);
       expect(formatAuthor(user).email).toEqual(user.email);
@@ -629,7 +629,7 @@ describe('Utilities', () => {
     test('get empty string with missing host header', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
-        url: '/',
+        url: '/'
       });
       expect(getPublicUrl(undefined, req)).toEqual('/');
     });
@@ -638,9 +638,9 @@ describe('Utilities', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
-          host: 'some.com',
+          host: 'some.com'
         },
-        url: '/',
+        url: '/'
       });
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
     });
@@ -649,9 +649,9 @@ describe('Utilities', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
-          host: `some.com"><svg onload="alert(1)">`,
+          host: `some.com"><svg onload="alert(1)">`
         },
-        url: '/',
+        url: '/'
       });
       expect(function () {
         // @ts-expect-error
@@ -663,9 +663,9 @@ describe('Utilities', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
-          host: 'some.com',
+          host: 'some.com'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl('/prefix/', req)).toEqual('http://some.com/prefix/');
@@ -675,9 +675,9 @@ describe('Utilities', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
-          host: 'some.com',
+          host: 'some.com'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl('/prefix-no-trailing', req)).toEqual('http://some.com/prefix-no-trailing/');
@@ -687,9 +687,9 @@ describe('Utilities', () => {
       const req = httpMocks.createRequest({
         method: 'GET',
         headers: {
-          host: 'some.com',
+          host: 'some.com'
         },
-        url: '/',
+        url: '/'
       });
 
       // @ts-ignore
@@ -703,9 +703,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
@@ -716,9 +716,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'invalidProto',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProto'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
@@ -729,9 +729,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https,https',
+          [HEADERS.FORWARDED_PROTO]: 'https,https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('https://some.com/');
@@ -742,9 +742,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'http,https',
+          [HEADERS.FORWARDED_PROTO]: 'http,https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
@@ -758,9 +758,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
@@ -773,9 +773,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'http',
+          [HEADERS.FORWARDED_PROTO]: 'http'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/urlPrefix/');
@@ -788,9 +788,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl('conf_url_prefix', req)).toEqual('https://env.domain.com/conf_url_prefix/');
@@ -803,9 +803,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl('/', req)).toEqual('https://env.domain.com/');
@@ -818,9 +818,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('https://env.domain.com/');
@@ -833,9 +833,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
@@ -848,9 +848,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
@@ -863,9 +863,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some',
-          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol',
+          [HEADERS.FORWARDED_PROTO]: 'invalidProtocol'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some/');
@@ -879,9 +879,9 @@ describe('Utilities', () => {
         headers: {
           host: 'some.com',
           'CloudFront-Forwarded-Proto': 'http',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl(undefined, req)).toEqual('http://some.com/');
@@ -894,9 +894,9 @@ describe('Utilities', () => {
         method: 'GET',
         headers: {
           host: 'some.com',
-          [HEADERS.FORWARDED_PROTO]: 'https',
+          [HEADERS.FORWARDED_PROTO]: 'https'
         },
-        url: '/',
+        url: '/'
       });
 
       expect(getPublicUrl('/test/', req)).toEqual('http://some.com/test/');

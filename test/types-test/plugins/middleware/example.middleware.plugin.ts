@@ -2,21 +2,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
-import {
-  Config as AppConfig,
-  IPluginMiddleware,
-  IStorageManager,
-  RemoteUser,
-  IBasicAuth
-} from '@verdaccio/types';
+import { Config as AppConfig, IPluginMiddleware, IStorageManager, RemoteUser, IBasicAuth } from '@verdaccio/types';
 import { Package } from '@verdaccio/types';
 
 import Config from '../../../../src/lib/config';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
 import { readFile } from '../../../functional/lib/test.utils';
 
-const readMetadata = (fileName: string): Package =>
-  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
+const readMetadata = (fileName: string): Package => JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
 
 import { generateVersion } from '../../../unit/__helper/utils';
 export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {

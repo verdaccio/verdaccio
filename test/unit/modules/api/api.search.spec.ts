@@ -49,29 +49,29 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-api-spec/.htpasswd',
-            },
+              file: './test-storage-api-spec/.htpasswd'
+            }
           },
           filters: {
             '../../modules/api/partials/plugin/filter': {
               pkg: 'npm_test',
-              version: '2.0.0',
-            },
+              version: '2.0.0'
+            }
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
             },
             socketTimeout: {
               url: `http://some.registry.timeout.com`,
               max_fails: 2,
               timeout: '1s',
-              fail_timeout: '1s',
-            },
+              fail_timeout: '1s'
+            }
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
         },
         'api.search.spec.yaml'
       );
