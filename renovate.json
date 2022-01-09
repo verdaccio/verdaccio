@@ -32,14 +32,58 @@
       "labels": ["bot: docker-update"]
     },
     {
-      "matchPackagePatterns": ["*", "!prettier", "!eslint-*"],
+      "matchPackagePatterns": [
+        "@babel/*",
+        "fast-safe-stringify",
+        "undici",
+        "verdaccio*",
+        "webpack",
+        "esbuild",
+        "@emotion/*",
+        "@mui/*",
+        "express*",
+        "http-status",
+        "babel-*",
+        "jest",
+        "jest-*",
+        "pino",
+        "react*",
+        "node*",
+        "mini-css*",
+        "autocannon",
+        "process-warning",
+        "fastify",
+        "core-js",
+        "debug",
+        "nock",
+        "rimraf",
+        "node-fetch",
+        "kleur",
+        "fs-extra",
+        "self-signed",
+        "supertest"
+      ],
       "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
+      "groupName": "all non-major core dependencies",
+      "groupSlug": "all-minor-patch-core"
     },
     {
-      "extends": "packages:linters",
-      "groupName": "linters"
+      "matchPackagePatterns": [
+        "@trivago/*",
+        "prettier",
+        "eslint-*",
+        "eslint",
+        "@typescript-eslint/*"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all non-major linting dependencies",
+      "groupSlug": "all-major-patch-linting"
+    },
+    {
+      "matchPackagePatterns": ["@types/*", "typescript"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all non-major typescript dependencies",
+      "groupSlug": "all-major-patch"
     }
   ],
   "pinVersions": false
