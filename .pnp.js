@@ -114,7 +114,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-verdaccio", "npm:9.6.1"],
             ["express", "npm:4.17.2"],
             ["express-rate-limit", "npm:5.5.1"],
-            ["fast-safe-stringify", "npm:2.0.8"],
+            ["fast-safe-stringify", "npm:2.1.1"],
             ["fs-extra", "npm:10.0.0"],
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:2.0.0"],
@@ -9721,6 +9721,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-safe-stringify", "npm:2.0.8"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.1.1", {
+          "packageLocation": "./.yarn/cache/fast-safe-stringify-npm-2.1.1-7ce89033ca-79c9940151.zip/node_modules/fast-safe-stringify/",
+          "packageDependencies": [
+            ["fast-safe-stringify", "npm:2.1.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["fastq", [
@@ -17730,7 +17737,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-verdaccio", "npm:9.6.1"],
             ["express", "npm:4.17.2"],
             ["express-rate-limit", "npm:5.5.1"],
-            ["fast-safe-stringify", "npm:2.0.8"],
+            ["fast-safe-stringify", "npm:2.1.1"],
             ["fs-extra", "npm:10.0.0"],
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:2.0.0"],

@@ -36,7 +36,7 @@
     "eslint-import-resolver-node": "0.3.6",
     "express": "4.17.2",
     "express-rate-limit": "5.5.1",
-    "fast-safe-stringify": "2.0.8",
+    "fast-safe-stringify": "2.1.1",
     "handlebars": "4.7.7",
     "http-errors": "2.0.0",
     "js-yaml": "4.1.0",
