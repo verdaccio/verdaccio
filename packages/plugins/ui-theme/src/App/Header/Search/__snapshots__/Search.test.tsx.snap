@@ -118,6 +118,10 @@ exports[`<Search /> component should load the component in default state 1`] = `
   padding: 2.5px 4px;
 }
 
+.emotion-2 .MuiInputBase-hiddenLabel {
+  padding-top: 8px;
+}
+
 .emotion-2 .MuiAutocomplete-input {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -448,7 +452,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
           aria-invalid="false"
           autocapitalize="none"
           autocomplete="off"
-          class="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused MuiAutocomplete-input MuiAutocomplete-inputFocused emotion-9"
+          class="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused emotion-9"
           id="search-header-suggest"
           placeholder="Search Packages"
           spellcheck="false"
