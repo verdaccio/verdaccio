@@ -45,7 +45,8 @@ const PackageManagers = (): React.ReactElement => (
             npm: <b>npm</b>,
             yarn: <b>yarn</b>,
             pnpm: <b>pnpm</b>,
-          }}>
+          }}
+        >
           {
             'Package managers such as {npm}, {yarn}, and {pnpm} are part of any development workflow.'
           }
@@ -74,7 +75,8 @@ const PackageManagers = (): React.ReactElement => (
           values={{
             docker: <b>Docker</b>,
             helm: <b>Kubernetes Helm</b>,
-          }}>
+          }}
+        >
           {
             'We have an official {docker} image ready to use and {helm} support for easy deployment.'
           }

@@ -159,10 +159,12 @@ const Package: React.FC<PackageInterface> = ({
         onClick={() => {
           handleDownload(dist.tarball);
         }}
-        to="#">
+        to="#"
+      >
         <Tooltip
           aria-label={t('package.download', { what: t('package.the-tar-file') })}
-          title={t('package.tarball')}>
+          title={t('package.tarball')}
+        >
           <IconButton aria-label={t('package.download')} size="large">
             <DownloadIcon />
           </IconButton>
@@ -183,7 +185,8 @@ const Package: React.FC<PackageInterface> = ({
           container={true}
           item={true}
           justify="flex-end"
-          xs={true}>
+          xs={true}
+        >
           {renderHomePageLink()}
           {renderBugsLink()}
           {renderDownloadLink()}

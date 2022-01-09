@@ -28,7 +28,8 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
         <StyledLink
           data-testid={'header--tooltip-documentation'}
           external={true}
-          to={'https://verdaccio.org/docs/en/installation'}>
+          to={'https://verdaccio.org/docs/en/installation'}
+        >
           <IconButton color={'inherit'} size="large">
             <Help />
           </IconButton>
@@ -42,7 +43,8 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
           id="header--button-registryInfo"
           onClick={onClick}
           ref={ref}
-          size="large">
+          size="large"
+        >
           <Info />
         </IconButton>
       );

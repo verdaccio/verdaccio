@@ -92,7 +92,7 @@
     "node-fetch": "cjs",
     "nodemon": "2.0.15",
     "npm-run-all": "4.1.5",
-    "prettier": "2.3.2",
+    "prettier": "2.5.1",
     "rimraf": "3.0.2",
     "selfsigned": "1.10.11",
     "supertest": "6.1.6",

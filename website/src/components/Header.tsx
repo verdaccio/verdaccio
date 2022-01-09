@@ -32,7 +32,8 @@ const Header = (): React.ReactElement => {
             </Link>
             <a
               href="https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md"
-              className="link-secondary">
+              className="link-secondary"
+            >
               <Translate>CONTRIBUTE</Translate>
             </a>
           </div>

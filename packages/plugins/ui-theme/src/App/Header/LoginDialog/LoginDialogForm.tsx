@@ -86,7 +86,8 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
         id="login--dialog-button-submit"
         size="large"
         type="submit"
-        variant="contained">
+        variant="contained"
+      >
         {t('button.login')}
       </StyledButton>
     </StyledForm>

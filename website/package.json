@@ -15,9 +15,7 @@
     "netlify:build:production": "docusaurus write-translations && pnpm -w crowdin:sync && docusaurus build",
     "netlify:build:deployPreview": "docusaurus write-translations --locale en && docusaurus build --locale en",
     "eslint:check": "eslint src/**/*.tsx",
-    "eslint:write": "eslint src/**/*.tsx --fix",
-    "prettier:check": "prettier src/**/* --check",
-    "prettier:write": "prettier src/**/* --write --config ../prettier.config.js"
+    "eslint:write": "eslint src/**/*.tsx --fix"
   },
   "engines": {
     "node": ">=14"

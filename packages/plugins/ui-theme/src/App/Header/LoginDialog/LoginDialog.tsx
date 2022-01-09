@@ -66,7 +66,8 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
       id="login--dialog"
       maxWidth="sm"
       onClose={onClose}
-      open={open}>
+      open={open}
+    >
       <LoginDialogCloseButton onClose={onClose} />
       <DialogContent data-testid="dialogContentLogin">
         <LoginDialogHeader />

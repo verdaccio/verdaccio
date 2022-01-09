@@ -27,7 +27,8 @@ const Engine: React.FC = () => {
           <List
             subheader={
               <StyledText variant={'subtitle1'}>{t('sidebar.engines.node-js')}</StyledText>
-            }>
+            }
+          >
             <EngineListItem button={true}>
               <Avatar src={node} />
               <ListItemText primary={engines.node} />
@@ -41,7 +42,8 @@ const Engine: React.FC = () => {
           <List
             subheader={
               <StyledText variant={'subtitle1'}>{t('sidebar.engines.npm-version')}</StyledText>
-            }>
+            }
+          >
             <EngineListItem button={true}>
               <Avatar src={npm} />
               <ListItemText primary={engines.npm} />

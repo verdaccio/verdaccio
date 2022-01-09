@@ -20,7 +20,8 @@ const _SupportLinks = (lang: string) => [
               <Translate>documentation on this site</Translate>
             </Link>
           ),
-        }}>
+        }}
+      >
         {'Learn more about Verdaccio using the {link}'}
       </Translate>
     ),
@@ -33,7 +34,8 @@ const _SupportLinks = (lang: string) => [
           follow: (
             <Follow username="verdaccio_npm" options={{ showCount: false, dnt: true, lang }} />
           ),
-        }}>
+        }}
+      >
         {'You can follow and contact us on {follow}'}
       </Translate>
     ),
@@ -48,7 +50,8 @@ const _SupportLinks = (lang: string) => [
               <Translate>Question Database</Translate>
             </a>
           ),
-        }}>
+        }}
+      >
         {'If the documentation is not enough help, you can try browsing into our {link}'}
       </Translate>
     ),
@@ -63,7 +66,8 @@ const _SupportLinks = (lang: string) => [
               <Translate>Stackoverflow Questions</Translate>
             </a>
           ),
-        }}>
+        }}
+      >
         {'Browse questions at Stackoverflow also could be useful {link}'}
       </Translate>
     ),
@@ -74,7 +78,8 @@ const _SupportLinks = (lang: string) => [
       <Translate
         values={{
           link: <a href="https://discord.gg/T7gJmBM6nv">Discord</a>,
-        }}>
+        }}
+      >
         {'and also you can chat with the Verdaccio community at {link}'}
       </Translate>
     ),
@@ -89,7 +94,8 @@ const _SupportLinks = (lang: string) => [
               <Translate>Community Chat</Translate>
             </a>
           ),
-        }}>
+        }}
+      >
         {'If you have specific pnpm questions, join their community chat {link}'}
       </Translate>
     ),
@@ -104,7 +110,8 @@ const _SupportLinks = (lang: string) => [
               <Translate>Community Chat</Translate>
             </a>
           ),
-        }}>
+        }}
+      >
         {'If you have specific yarn questions, join their community chat {link}'}
       </Translate>
     ),
@@ -116,7 +123,8 @@ const Help = (): React.ReactElement => {
   return (
     <Layout
       title="Help"
-      description="Verdaccio Help, where you'll find all the links to find help and assistance from Verdaccio contributors">
+      description="Verdaccio Help, where you'll find all the links to find help and assistance from Verdaccio contributors"
+    >
       <div className={styles.wrapper}>
         <header>
           <h1>
@@ -133,7 +141,8 @@ const Help = (): React.ReactElement => {
               styles['mt-2'],
               styles['grid-columns-fill'],
               styles['gap-2']
-            )}>
+            )}
+          >
             {_SupportLinks(i18n.currentLocale).map((supportSections) => (
               <article className={styles['article-card']} key={supportSections.title}>
                 <h2>{supportSections.title}</h2>

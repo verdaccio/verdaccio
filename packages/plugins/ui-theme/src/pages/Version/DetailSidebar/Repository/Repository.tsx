@@ -71,7 +71,8 @@ const Repository: React.FC = () => {
   return (
     <List
       dense={true}
-      subheader={<StyledText variant="subtitle1">{t('sidebar.repository.title')}</StyledText>}>
+      subheader={<StyledText variant="subtitle1">{t('sidebar.repository.title')}</StyledText>}
+    >
       <RepositoryListItem button={true}>
         <RepositoryAvatar src={git} />
         <RepositoryListItemText

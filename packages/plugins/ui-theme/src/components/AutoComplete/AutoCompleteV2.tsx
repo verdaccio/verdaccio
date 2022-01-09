@@ -171,7 +171,8 @@ const AutoComplete = <Option extends {}>({
           isSelected={index === activeOption}
           key={index}
           onClick={handleClickOption(option)}
-          tabIndex={0}>
+          tabIndex={0}
+        >
           {renderOptionProp(option)}
         </Option>
       ));
@@ -183,7 +184,8 @@ const AutoComplete = <Option extends {}>({
         key={index}
         onClick={handleClickOption(option)}
         selected={index === activeOption}
-        tabIndex={0}>
+        tabIndex={0}
+      >
         {getOptionLabel(option)}
       </MenuItem>
     ));
@@ -202,7 +204,8 @@ const AutoComplete = <Option extends {}>({
                   color="inherit"
                   onClick={handleClear}
                   size="small"
-                  title={t('autoComplete.clear')}>
+                  title={t('autoComplete.clear')}
+                >
                   <CloseIcon fontSize="small" />
                 </IconButton>
               )}
@@ -211,7 +214,8 @@ const AutoComplete = <Option extends {}>({
                 onClick={handleToggleShowOptions}
                 showOptions={showOptions}
                 size="small"
-                title={showOptions ? t('autoComplete.collapse') : t('autoComplete.expand')}>
+                title={showOptions ? t('autoComplete.collapse') : t('autoComplete.expand')}
+              >
                 <ExpandMoreIcon fontSize="small" />
               </ExpandButton>
             </EndAdornment>

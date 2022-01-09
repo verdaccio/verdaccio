@@ -26,7 +26,8 @@ const Link = React.forwardRef<LinkRef, Props>(function Link(
       ref={ref}
       rel="noopener noreferrer"
       target="_blank"
-      {...props}>
+      {...props}
+    >
       {LinkTextContent}
     </a>
   ) : (

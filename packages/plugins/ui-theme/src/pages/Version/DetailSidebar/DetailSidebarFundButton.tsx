@@ -27,7 +27,8 @@ const DetailSidebarFundButton: React.FC = () => {
         color="primary"
         fullWidth={true}
         startIcon={<StyledFavoriteIcon />}
-        variant="outlined">
+        variant="outlined"
+      >
         <Trans components={[<StyledFundStrong key="fund" />]} i18nKey="button.fund-this-package" />
       </Button>
     </StyledLink>
