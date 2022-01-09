@@ -65,7 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:18.6.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.12"],
-            ["@types/express", "npm:4.17.11"],
+            ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.27"],
             ["@types/http-errors", "npm:1.8.1"],
@@ -4635,17 +4635,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/express", [
-        ["npm:4.17.11", {
-          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.11-1b3f17f056-2818120a0f.zip/node_modules/@types/express/",
-          "packageDependencies": [
-            ["@types/express", "npm:4.17.11"],
-            ["@types/body-parser", "npm:1.19.0"],
-            ["@types/express-serve-static-core", "npm:4.17.26"],
-            ["@types/qs", "npm:6.9.5"],
-            ["@types/serve-static", "npm:1.13.9"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:4.17.13", {
           "packageLocation": "./.yarn/cache/@types-express-npm-4.17.13-0e12fe9c24-9f17da703d.zip/node_modules/@types/express/",
           "packageDependencies": [
@@ -17688,7 +17677,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:18.6.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.12"],
-            ["@types/express", "npm:4.17.11"],
+            ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.27"],
             ["@types/http-errors", "npm:1.8.1"],
