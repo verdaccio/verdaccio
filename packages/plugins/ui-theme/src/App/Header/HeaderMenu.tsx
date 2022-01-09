@@ -32,7 +32,8 @@ const HeaderMenu: React.FC<Props> = ({
         data-testid="logInDialogIcon"
         id="header--button-account"
         onClick={onLoggedInMenu}
-        size="large">
+        size="large"
+      >
         <AccountCircle />
       </IconButton>
       <Menu
@@ -46,7 +47,8 @@ const HeaderMenu: React.FC<Props> = ({
         transformOrigin={{
           vertical: 'top',
           horizontal: 'right',
-        }}>
+        }}
+      >
         <MenuItem>
           <HeaderGreetings username={username} />
         </MenuItem>
@@ -54,7 +56,8 @@ const HeaderMenu: React.FC<Props> = ({
           button={true}
           data-testid="logOutDialogIcon"
           id="logOutDialogIcon"
-          onClick={onLogout}>
+          onClick={onLogout}
+        >
           {t('button.logout')}
         </MenuItem>
       </Menu>

@@ -25,7 +25,8 @@ const NotFound: React.FC = () => {
       flexDirection="column"
       flexGrow={1}
       justifyContent="center"
-      p={2}>
+      p={2}
+    >
       <EmptyPackage alt={t('error.404.page-not-found')} src={PackageImg} />
       <StyledHeading className="not-found-text" variant="h4">
         {t('error.404.sorry-we-could-not-find-it')}

@@ -102,7 +102,8 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
           <AccordionSummary
             aria-controls="panel1a-content"
             expandIcon={<ExpandMoreIcon />}
-            id="panel1a-header">
+            id="panel1a-header"
+          >
             <Typography className={classes.heading}>{'npm'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -117,7 +118,8 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
           <AccordionSummary
             aria-controls="panel2a-content"
             expandIcon={<ExpandMoreIcon />}
-            id="panel2a-header">
+            id="panel2a-header"
+          >
             <Typography className={classes.heading}>{'yarn'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -132,7 +134,8 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
           <AccordionSummary
             aria-controls="panel3a-content"
             expandIcon={<ExpandMoreIcon />}
-            id="panel3a-header">
+            id="panel3a-header"
+          >
             {'pnpm'}
           </AccordionSummary>
           <AccordionDetails>

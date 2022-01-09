@@ -33,7 +33,8 @@ const VersionContextProvider: React.FC = ({ children }) => {
         packageName,
         isLoading,
         hasNotBeenFound,
-      }}>
+      }}
+    >
       {children}
     </DetailContext.Provider>
   );

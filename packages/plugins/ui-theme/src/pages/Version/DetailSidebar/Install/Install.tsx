@@ -33,7 +33,8 @@ const Install: React.FC = () => {
   return hasPkgManagers ? (
     <List
       data-testid={'installList'}
-      subheader={<StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>}>
+      subheader={<StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>}
+    >
       {hasNpm && (
         <InstallListItem dependencyManager={DependencyManager.NPM} packageName={packageName} />
       )}

@@ -44,7 +44,8 @@ describe.skip('test Version page', () => {
           value={{
             ...detailContextValue,
             hasNotBeenFound: true,
-          }}>
+          }}
+        >
           <Version />
         </DetailContext.Provider>
       </MemoryRouter>
