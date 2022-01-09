@@ -1,11 +1,5 @@
 import assert from 'assert';
 import Stream from 'stream';
-import _ from 'lodash';
-import async, { AsyncResultArrayCallback } from 'async';
-import { ReadTarball } from '@verdaccio/streams';
-import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
-import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '../../types';
 import { logger } from '../lib/logger';
 import ProxyStorage from './up-storage';
@@ -17,6 +11,12 @@ import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { mergeVersions } from './metadata-utils';
 import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
 import { hasProxyTo } from './config-utils';
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
+import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
+import { ReadTarball } from '@verdaccio/streams';
+import async, { AsyncResultArrayCallback } from 'async';
+import _ from 'lodash';
 
 class Storage implements IStorageHandler {
   public localStorage: IStorage;

@@ -1,10 +1,10 @@
 import path from 'path';
 import { fork } from 'child_process';
-import _ from 'lodash';
-import rimRaf from 'rimraf';
 import { CREDENTIALS } from '../functional/config.functional';
 import { HTTP_STATUS } from '../../src/lib/constants';
 import { IVerdaccioConfig, IServerBridge, IServerProcess } from '../types';
+import rimRaf from 'rimraf';
+import _ from 'lodash';
 
 export default class VerdaccioProcess implements IServerProcess {
   private bridge: IServerBridge;

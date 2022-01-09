@@ -1,8 +1,6 @@
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
-import _ from 'lodash';
-import selfsigned from 'selfsigned';
 
 import startServer from '../../../../src';
 import config from '../../partials/config';
@@ -10,6 +8,8 @@ import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/
 import { getListListenAddresses } from '../../../../src/lib/cli/utils';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import { logger } from '../../../../src/lib/logger';
+import selfsigned from 'selfsigned';
+import _ from 'lodash';
 
 jest.mock('../../../../src/lib/logger', () => ({
   setup: jest.fn(),

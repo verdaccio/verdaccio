@@ -1,5 +1,5 @@
-import buildDebug from 'debug';
 import { getManifestValue, Manifest } from './manifest';
+import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio');
 

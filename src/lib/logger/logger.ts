@@ -1,8 +1,8 @@
+import { padLeft } from './utils';
 import pino from 'pino';
 import _ from 'lodash';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
-import { padLeft } from './utils';
 
 function isProd() {
   return process.env.NODE_ENV === 'production';

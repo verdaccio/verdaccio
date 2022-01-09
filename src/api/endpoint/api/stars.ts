@@ -2,11 +2,11 @@
  * @prettier
 
  */
+import { USERS, HTTP_STATUS } from '../../../lib/constants';
+import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import _ from 'lodash';
 import { Response, Router } from 'express';
 import { Package } from '@verdaccio/types';
-import { USERS, HTTP_STATUS } from '../../../lib/constants';
-import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 
 type Packages = Package[];
 

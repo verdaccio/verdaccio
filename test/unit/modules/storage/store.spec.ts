@@ -1,8 +1,6 @@
 import path from 'path';
 import fs from 'fs';
 import { Writable } from 'stream';
-import rimraf from 'rimraf';
-import { Config } from '@verdaccio/types';
 import configExample from '../../partials/config';
 import AppConfig from '../../../../src/lib/config';
 import Storage from '../../../../src/lib/storage';
@@ -12,6 +10,8 @@ import { IStorageHandler } from '../../../../types';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { Config } from '@verdaccio/types';
+import rimraf from 'rimraf';
 
 setup([]);
 

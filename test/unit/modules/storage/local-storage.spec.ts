@@ -1,8 +1,6 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import { Config, MergeTags, Package } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 import LocalStorage from '../../../../src/lib/local-storage';
 import AppConfig from '../../../../src/lib/config';
 // @ts-ignore
@@ -17,6 +15,8 @@ const readMetadata = (fileName = 'metadata') =>
 
 import { IStorage } from '../../../../types';
 import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '../../../../src/lib/constants';
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { Config, MergeTags, Package } from '@verdaccio/types';
 
 setup([]);
 

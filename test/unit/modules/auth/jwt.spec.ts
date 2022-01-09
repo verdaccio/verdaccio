@@ -1,6 +1,4 @@
 import path from 'path';
-import request from 'supertest';
-import rimraf from 'rimraf';
 
 import endPointAPI from '../../../../src/api';
 
@@ -19,6 +17,8 @@ import { addUser, getPackage, loginUserToken } from '../../__helper/api';
 import { setup } from '../../../../src/lib/logger';
 import configDefault from '../../partials/config';
 import { buildUserBuffer } from '../../../../src/lib/auth-utils';
+import rimraf from 'rimraf';
+import request from 'supertest';
 
 setup([]);
 const credentials = { name: 'JotaJWT', password: 'secretPass' };

@@ -1,8 +1,8 @@
 // eslint-disable no-invalid-this
 
+import { IStorageHandler, IWebSearch, IStorage } from '../../types';
 import lunrMutable from 'lunr-mutable-indexes';
 import { Version } from '@verdaccio/types';
-import { IStorageHandler, IWebSearch, IStorage } from '../../types';
 /**
  * Handle the search Indexer.
  */

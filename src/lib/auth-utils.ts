@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import buildDebug from 'debug';
-import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
 import { CookieSessionToken, IAuthWebUI, AuthMiddlewarePayload, AuthTokenHeader, BasicPayload } from '../../types';
 import { logger } from '../lib/logger';
 import { convertPayloadToBase64, ErrorCode } from './utils';
 import { API_ERROR, HTTP_STATUS, ROLES, TIME_EXPIRATION_1H, TOKEN_BASIC, TOKEN_BEARER, DEFAULT_MIN_LIMIT_PASSWORD } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
+import { RemoteUser, Package, Callback, Config, Security, APITokenOptions, JWTOptions, IPluginAuth } from '@verdaccio/types';
+import buildDebug from 'debug';
+import _ from 'lodash';
 
 const debug = buildDebug('verdaccio');
 

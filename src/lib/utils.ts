@@ -1,6 +1,11 @@
 import fs from 'fs';
 import assert from 'assert';
 import DefaultURL, { URL } from 'url';
+import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
+import { StringValue, AuthorAvatar } from '../../types';
+import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
+import { normalizeContributors } from './storage-utils';
+import { logger } from './logger';
 import _ from 'lodash';
 import buildDebug from 'debug';
 import semver from 'semver';
@@ -13,13 +18,8 @@ import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
 // eslint-disable-next-line max-len
 import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
-import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
-import { StringValue, AuthorAvatar } from '../../types';
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
 
-import { normalizeContributors } from './storage-utils';
 
-import { logger } from './logger';
 
 const debug = buildDebug('verdaccio');
 

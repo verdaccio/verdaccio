@@ -1,4 +1,5 @@
 import async from 'async';
+
 import { HTTP_STATUS } from '../../../src/lib/constants';
 
 let okTotalSum = 0;

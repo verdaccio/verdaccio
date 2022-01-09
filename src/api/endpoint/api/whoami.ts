@@ -1,5 +1,5 @@
-import { Response, Router } from 'express';
 import { $RequestExtend, $NextFunctionVer } from '../../../../types';
+import { Response, Router } from 'express';
 
 export default function (route: Router): void {
   route.get('/whoami', (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

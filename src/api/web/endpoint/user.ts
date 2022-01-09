@@ -1,14 +1,14 @@
 /**
  * @prettier
  */
-import _ from 'lodash';
 
-import express, { Router, Response, Request } from 'express';
-import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { IAuth, $NextFunctionVer } from '../../../../types';
 import { ErrorCode } from '../../../lib/utils';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
+import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
+import express, { Router, Response, Request } from 'express';
+import _ from 'lodash';
 
 function addUserAuthApi(auth: IAuth, config: Config): Router {
   const route = Router(); /* eslint new-cap: 0 */

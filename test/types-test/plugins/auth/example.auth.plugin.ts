@@ -1,5 +1,7 @@
 // this file is not aim to be tested, just to check flow definitions
 
+import Config from '../../../../src/lib/config';
+import { logger } from '../../../../src/lib/logger';
 import { Callback } from '@verdaccio/types';
 import {
   Config as AppConfig,
@@ -9,8 +11,6 @@ import {
   Logger,
   PluginOptions
 } from '@verdaccio/types';
-import Config from '../../../../src/lib/config';
-import { logger } from '../../../../src/lib/logger';
 
 
 class ExampleAuthPlugin implements IPluginAuth<{}> {

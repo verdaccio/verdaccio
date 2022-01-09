@@ -1,5 +1,3 @@
-import * as httpMocks from 'node-mocks-http';
-import { HEADERS } from '@verdaccio/commons-api';
 import { generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
 import { spliceURL } from '../../../../src/utils/string';
 import {
@@ -22,6 +20,8 @@ import {
 import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
 import { readFile } from '../../../functional/lib/test.utils';
+import { HEADERS } from '@verdaccio/commons-api';
+import * as httpMocks from 'node-mocks-http';
 
 const readmeFile = (fileName = 'markdown.md') => readFile(`../../unit/partials/readme/${fileName}`);
 

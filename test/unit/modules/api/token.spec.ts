@@ -1,7 +1,4 @@
 import path from 'path';
-import request from 'supertest';
-import rimraf from 'rimraf';
-import _ from 'lodash';
 
 import configDefault from '../../partials/config';
 import endPointAPI from '../../../../src/api';
@@ -11,6 +8,9 @@ import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { getNewToken } from '../../__helper/api';
 import { buildToken } from '../../../../src/lib/utils';
+import _ from 'lodash';
+import rimraf from 'rimraf';
+import request from 'supertest';
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 

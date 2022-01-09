@@ -1,8 +1,8 @@
 import Path from 'path';
-import _ from 'lodash';
-import { Config, IPlugin } from '@verdaccio/types';
 import { logger } from './logger';
 import { MODULE_NOT_FOUND } from './constants';
+import _ from 'lodash';
+import { Config, IPlugin } from '@verdaccio/types';
 
 /**
  * Requires a module.

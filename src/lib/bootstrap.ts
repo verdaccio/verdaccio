@@ -3,14 +3,14 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import constants from 'constants';
+import endPointAPI from '../api/index';
+import { API_ERROR, certPem, csrPem, keyPem } from './constants';
+import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import express from 'express';
 import { assign, isObject, isFunction } from 'lodash';
 
 import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { Application } from 'express';
-import endPointAPI from '../api/index';
-import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 
 const logger = require('./logger');
 

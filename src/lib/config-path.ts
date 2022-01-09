@@ -1,11 +1,11 @@
 import fs from 'fs';
 import Path from 'path';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import { logger } from './logger';
 
 import { folderExists, fileExists } from './utils';
 import { CHARACTER_ENCODING } from './constants';
+import mkdirp from 'mkdirp';
+import _ from 'lodash';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';

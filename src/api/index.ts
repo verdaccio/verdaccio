@@ -1,9 +1,3 @@
-import _ from 'lodash';
-import express, { Application } from 'express';
-import compression from 'compression';
-import cors from 'cors';
-import { HttpError } from 'http-errors';
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 import Storage from '../lib/storage';
 import loadPlugin from '../lib/plugin-loader';
 import Auth from '../lib/auth';
@@ -17,6 +11,12 @@ import web from './web';
 import apiEndpoint from './endpoint';
 import hookDebug from './debug';
 import { log, final, errorReportingMiddleware, serveFavicon } from './middleware';
+import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
+import { HttpError } from 'http-errors';
+import cors from 'cors';
+import compression from 'compression';
+import express, { Application } from 'express';
+import _ from 'lodash';
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);

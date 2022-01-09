@@ -1,6 +1,6 @@
-import { Response, Router } from 'express';
 import profile from './profile';
 import token from './token';
+import { Response, Router } from 'express';
 
 export default (auth, storage, config) => {
   const route = Router(); /* eslint new-cap: 0 */

@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import { readFile } from '../lib/test.utils';
 import { HTTP_STATUS } from '../../../src/lib/constants';
+import _ from 'lodash';
 
 const readTags = () => readFile('../fixtures/tags.json');
 

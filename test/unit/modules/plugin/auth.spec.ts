@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import { Config } from '@verdaccio/types';
-import { getInternalError } from '@verdaccio/commons-api';
 import Auth from '../../../../src/lib/auth';
 import AppConfig from '../../../../src/lib/config';
 import { setup } from '../../../../src/lib/logger';
@@ -8,6 +5,9 @@ import { setup } from '../../../../src/lib/logger';
 import { IAuth } from '../../../../types';
 import { ROLES } from '../../../../src/lib/constants';
 import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf } from './helper/plugin';
+import { getInternalError } from '@verdaccio/commons-api';
+import { Config } from '@verdaccio/types';
+import _ from 'lodash';
 
 setup([]);
 

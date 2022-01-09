@@ -1,5 +1,4 @@
 import path from 'path';
-import _ from 'lodash';
 import { spliceURL } from '../../../../src/utils/string';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import {
@@ -10,6 +9,7 @@ import {
   uplinkSanityCheck
 } from '../../../../src/lib/config-utils';
 import { PACKAGE_ACCESS, ROLES } from '../../../../src/lib/constants';
+import _ from 'lodash';
 
 describe('Config Utilities', () => {
   const parseConfigurationFile = (conf) => {

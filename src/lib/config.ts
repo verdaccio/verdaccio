@@ -1,13 +1,13 @@
 import assert from 'assert';
-import _ from 'lodash';
 
-import { PackageList, Config as AppConfig, Security, Logger, RateLimit } from '@verdaccio/types';
 import { MatchedPackage, StartUpConfig } from '../../types';
 import { generateRandomHexString } from './crypto-utils';
 import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { getUserAgent, isObject } from './utils';
 import { APP_ERROR } from './constants';
 import { defaultUserRateLimiting } from './auth-utils';
+import { PackageList, Config as AppConfig, Security, Logger, RateLimit } from '@verdaccio/types';
+import _ from 'lodash';
 
 const LoggerApi = require('./logger');
 const strategicConfigProps = ['uplinks', 'packages'];
