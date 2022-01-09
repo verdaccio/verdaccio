@@ -3123,10 +3123,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:4.14.167":
-  version: 4.14.167
-  resolution: "@types/lodash@npm:4.14.167"
-  checksum: 40778f83a86392625b3d52c15f59171a0f6a35436128b8fb1e37f89162f7950dc98570f27bc99ce1e2e04084e64da41cb45146d091d5181e12c6733bcf16fac6
+"@types/lodash@npm:4.14.178":
+  version: 4.14.178
+  resolution: "@types/lodash@npm:4.14.178"
+  checksum: d2b59a463d1bb917514f888d3d2f9098f3c5d733a07b4e2fe5ae4839863f47586d5af1bf67340d80b91015631c8cb6753f6d260d8e0dcab275eee3ab562dc988
   languageName: node
   linkType: hard
 
@@ -14615,7 +14615,7 @@ typescript@4.1.3:
     "@types/express-serve-static-core": 4.17.27
     "@types/http-errors": 1.8.1
     "@types/jest": 26.0.14
-    "@types/lodash": 4.14.167
+    "@types/lodash": 4.14.178
     "@types/mime": 2.0.3
     "@types/minimatch": 3.0.3
     "@types/node": 14.14.37
