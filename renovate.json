@@ -24,6 +24,14 @@
       "allowedVersions": "1.0.7"
     },
     {
+      "packageNames": ["esbuild"],
+      "allowedVersions": "0.14.10"
+    },
+    {
+      "packageNames": ["esbuild-loader"],
+      "allowedVersions": "2.16.0"
+    },
+    {
       "packageNames": ["@changesets/cli"],
       "allowedVersions": "2.15.0"
     },
@@ -38,6 +46,9 @@
         "undici",
         "verdaccio*",
         "webpack",
+        "async",
+        "memfs",
+        "pnpm",
         "esbuild",
         "@emotion/*",
         "async",
