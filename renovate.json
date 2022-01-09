@@ -28,7 +28,7 @@
       "labels": ["bot: docker-update"]
     },
     {
-      "matchPackagePatterns": ["*"],
+      "matchPackagePatterns": ["*", "!prettier", "!eslint-*"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch"
