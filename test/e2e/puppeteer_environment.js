@@ -4,12 +4,12 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { yellow } = require('kleur');
-const NodeEnvironment = require('jest-environment-node');
-const puppeteer = require('puppeteer');
 const {VerdaccioConfig} = require("../lib/verdaccio-server");
 const VerdaccioProcess = require("../lib/server_process");
 const Server = require("../lib/server");
+const { yellow } = require('kleur');
+const NodeEnvironment = require('jest-environment-node');
+const puppeteer = require('puppeteer');
 
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');

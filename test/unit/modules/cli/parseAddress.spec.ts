@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import { parseAddress as parse } from '../../../../src/lib/utils';
 import { DEFAULT_DOMAIN, DEFAULT_PORT } from '../../../../src/lib/constants';
+import _ from 'lodash';
 
 describe('Parse listen address', () => {
   const useCases: any[] = [];

@@ -1,7 +1,3 @@
-import { Config } from '@verdaccio/types';
-import _ from 'lodash';
-import express from 'express';
-import bodyParser from 'body-parser';
 import { IAuth, IStorageHandler } from '../../../types';
 import whoami from './api/whoami';
 import ping from './api/ping';
@@ -13,6 +9,10 @@ import pkg from './api/package';
 import stars from './api/stars';
 import npmV1 from './api/v1';
 import v1Search from './api/v1/search';
+import bodyParser from 'body-parser';
+import express from 'express';
+import _ from 'lodash';
+import { Config } from '@verdaccio/types';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 

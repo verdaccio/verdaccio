@@ -4,12 +4,12 @@
  */
 
 import assert from 'assert';
+import { MatchedPackage, LegacyPackageList } from '../../types';
+import { ErrorCode } from './utils';
 import _ from 'lodash';
 import minimatch from 'minimatch';
 
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
-import { MatchedPackage, LegacyPackageList } from '../../types';
-import { ErrorCode } from './utils';
 
 const BLACKLIST = {
   all: true,

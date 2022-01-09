@@ -7,9 +7,6 @@
  *
  */
 import path from 'path';
-import request from 'supertest';
-import _ from 'lodash';
-import rimraf from 'rimraf';
 
 import endPointAPI from '../../../../src/api/index';
 import { mockServer } from '../../__helper/mock';
@@ -18,6 +15,9 @@ import { parseConfigFile } from '../../../../src/lib/utils';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';
 import { setup } from '../../../../src/lib/logger';
+import rimraf from 'rimraf';
+import _ from 'lodash';
+import request from 'supertest';
 
 // we must start logging without output
 setup([]);

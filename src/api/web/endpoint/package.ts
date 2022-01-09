@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import { Router } from 'express';
-import { Config, Package } from '@verdaccio/types';
 import {
   addScope,
   addGravatarSupport,
@@ -18,6 +15,9 @@ import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/const
 import { generateGravatarUrl } from '../../../utils/user';
 import { logger } from '../../../lib/logger';
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
+import { Config, Package } from '@verdaccio/types';
+import { Router } from 'express';
+import _ from 'lodash';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';

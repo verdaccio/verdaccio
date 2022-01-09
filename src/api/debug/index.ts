@@ -1,6 +1,6 @@
+import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
 import _ from 'lodash';
 import { Application } from 'express';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
 
 export default (app: Application, selfPath: string): void => {
   // Hook for tests only

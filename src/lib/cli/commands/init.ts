@@ -1,9 +1,9 @@
 import path from 'path';
-import { Command, Option } from 'clipanion';
 
 import { startVerdaccio, listenDefaultCallback } from '../../bootstrap';
 import findConfigFile from '../../config-path';
 import { parseConfigFile } from '../../utils';
+import { Command, Option } from 'clipanion';
 
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;

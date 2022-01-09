@@ -3,8 +3,8 @@
  * @flow
  */
 
-import { Router } from 'express';
 import { $RequestExtend, $ResponseExtend, $NextFunctionVer } from '../../../../types';
+import { Router } from 'express';
 
 export default function (route: Router): void {
   route.get(

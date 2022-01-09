@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import { Router } from 'express';
-import { Config, Package } from '@verdaccio/types';
 import { allow } from '../../middleware';
 import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '../../../lib/utils';
 import { HEADERS, DIST_TAGS, API_ERROR } from '../../../lib/constants';
@@ -11,6 +8,9 @@ import {
   $NextFunctionVer,
   IStorageHandler
 } from '../../../../types';
+import { Config, Package } from '@verdaccio/types';
+import { Router } from 'express';
+import _ from 'lodash';
 
 const downloadStream = (
   packageName: string,

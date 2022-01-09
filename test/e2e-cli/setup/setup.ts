@@ -4,9 +4,9 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { spawn } from 'child_process';
-import { green } from 'kleur';
 import { npm } from '../utils/process';
 import * as __global from '../utils/global.js';
+import { green } from 'kleur';
 
 module.exports = async () => {
   const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-cli-e2e-'));

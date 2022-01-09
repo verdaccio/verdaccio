@@ -1,10 +1,10 @@
 import path from 'path';
-import _ from 'lodash';
 
 import Config from '../../../../src/lib/config';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
+import _ from 'lodash';
 
 setup([]);
 

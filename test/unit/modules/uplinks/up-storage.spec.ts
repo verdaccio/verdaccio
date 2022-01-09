@@ -1,6 +1,3 @@
-import _ from 'lodash';
-import { Config, UpLinkConf } from '@verdaccio/types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import AppConfig from '../../../../src/lib/config';
 import configExample from '../../partials/config';
@@ -10,6 +7,9 @@ import { IProxy } from '../../../../types';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { mockServer } from '../../__helper/mock';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { Config, UpLinkConf } from '@verdaccio/types';
+import _ from 'lodash';
 
 setup([]);
 
@@ -17,7 +17,7 @@ describe('UpStorge', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
-    url: `http://localhost:${mockServerPort}`,
+    url: `http://localhost:${mockServerPort}`
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample());
@@ -145,7 +145,7 @@ describe('UpStorge', () => {
           });
         });
       });
-    });
+    }, 10000);
   });
 
   describe('UpStorge::isUplinkValid', () => {

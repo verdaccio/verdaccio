@@ -1,11 +1,11 @@
-import _ from 'lodash';
-import { Package, Version, Author } from '@verdaccio/types';
 import { generateRandomHexString } from '../lib/crypto-utils';
 import { IStorage } from '../../types';
 import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 import Search from './search';
 
 import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
+import { Package, Version, Author } from '@verdaccio/types';
+import _ from 'lodash';
 
 export function generatePackageTemplate(name: string): Package {
   return {

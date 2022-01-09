@@ -1,11 +1,11 @@
 // @flow
 
-import { Response } from 'express';
-import _ from 'lodash';
-import buildDebug from 'debug';
 import { USERS, HTTP_STATUS } from '../../../lib/constants';
 import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
 import { logger } from '../../../lib/logger';
+import { Response } from 'express';
+import _ from 'lodash';
+import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:star');
 export default function (storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {

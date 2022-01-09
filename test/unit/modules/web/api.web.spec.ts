@@ -1,6 +1,4 @@
 import path from 'path';
-import request from 'supertest';
-import rimraf from 'rimraf';
 
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
@@ -11,6 +9,8 @@ import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '../../.
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { mockServer } from '../../__helper/mock';
 import { addUser } from '../../__helper/api';
+import rimraf from 'rimraf';
+import request from 'supertest';
 
 require('../../../../src/lib/logger').setup([]);
 

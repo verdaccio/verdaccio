@@ -1,7 +1,4 @@
 import path from 'path';
-import request from 'supertest';
-import _ from 'lodash';
-import rimraf from 'rimraf';
 
 import endPointAPI from '../../../../src/api';
 import { mockServer } from '../../__helper/mock';
@@ -10,6 +7,9 @@ import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
 import { setup } from '../../../../src/lib/logger';
 import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
+import rimraf from 'rimraf';
+import _ from 'lodash';
+import request from 'supertest';
 
 setup([]);
 

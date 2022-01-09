@@ -1,12 +1,12 @@
 import { URL } from 'url';
 import path from 'path';
+import { getPublicUrl, isHTTPProtocol } from '../../../lib/utils';
+import { WEB_TITLE } from '../../../lib/constants';
+import renderTemplate from './template';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
 import { HEADERS } from '@verdaccio/commons-api';
 
-import { getPublicUrl, isHTTPProtocol } from '../../../lib/utils';
-import { WEB_TITLE } from '../../../lib/constants';
-import renderTemplate from './template';
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';

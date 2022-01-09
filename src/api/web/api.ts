@@ -1,10 +1,10 @@
-import { Router } from 'express';
-import bodyParser from 'body-parser';
-import { Config } from '@verdaccio/types';
 import Search from '../../lib/search';
 import { match, validateName, validatePackage, setSecurityWebHeaders } from '../middleware';
 import { IAuth, IStorageHandler } from '../../../types';
 import webApi from './endpoint';
+import { Config } from '@verdaccio/types';
+import bodyParser from 'body-parser';
+import { Router } from 'express';
 
 const route = Router(); /* eslint new-cap: 0 */
 

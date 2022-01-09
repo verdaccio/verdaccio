@@ -1,11 +1,11 @@
-import express from 'express';
-import request from 'request';
-import rimraf from 'rimraf';
 import { API_ERROR } from '../../../src/lib/constants';
 import endPointAPI from '../../../src/api/index';
 import config from '../partials/config/index';
 
 import { setup } from '../../../src/lib/logger';
+import rimraf from 'rimraf';
+import request from 'request';
+import express from 'express';
 
 setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 
@@ -48,7 +48,7 @@ describe('basic system test', () => {
         done();
       }
     );
-  });
+  }, 10000);
 
   test('server should respond on /___not_found_package', (done) => {
     request(
@@ -61,5 +61,5 @@ describe('basic system test', () => {
         done();
       }
     );
-  });
+  }, 10000);
 });

@@ -3,11 +3,11 @@
  * @flow
  */
 
-import { Router } from 'express';
-import { Package } from '@verdaccio/types';
 import Search from '../../../lib/search';
 import { DIST_TAGS } from '../../../lib/constants';
 import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
+import { Package } from '@verdaccio/types';
+import { Router } from 'express';
 
 function addSearchWebApi(storage: IStorageHandler, auth: IAuth): Router {
   const route = Router(); /* eslint new-cap: 0 */

@@ -1,5 +1,3 @@
-import _ from 'lodash';
-import { Config, Security, RemoteUser } from '@verdaccio/types';
 import Auth from '../../../../src/lib/auth';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
 // $FlowFixMe
@@ -19,6 +17,8 @@ import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
 import { parseConfigurationFile } from '../../__helper';
 
 import { IAuth } from '../../../../types';
+import { Config, Security, RemoteUser } from '@verdaccio/types';
+import _ from 'lodash';
 
 setup([]);
 

@@ -1,5 +1,5 @@
-import _ from 'lodash';
 import { HTTP_STATUS } from '../../../src/lib/constants';
+import _ from 'lodash';
 
 export default function (server) {
   describe('should test security on endpoints', () => {

@@ -1,5 +1,8 @@
 // this file is not aim to be tested, just to check typescript definitions
 
+import Config from '../../../../src/lib/config';
+import { logger } from '../../../../src/lib/logger';
+import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
 import {
   Callback,
   Config as AppConfig,
@@ -14,9 +17,6 @@ import {
 import { IPluginStorage, IPackageStorageManager, IPackageStorage } from '@verdaccio/types';
 import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
-import Config from '../../../../src/lib/config';
-import { logger } from '../../../../src/lib/logger';
-import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
 
 class PackageStorage implements IPackageStorageManager {
   path: string;
