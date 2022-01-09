@@ -1,5 +1,6 @@
-import { getManifestValue, Manifest } from './manifest';
 import buildDebug from 'debug';
+
+import { Manifest, getManifestValue } from './manifest';
 
 const debug = buildDebug('verdaccio');
 
@@ -52,7 +53,9 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
       <body class="body">
       ${template?.scriptsbodyBefore ? template.scriptsbodyBefore.join('') : ''}
         <div id="root"></div>
-        ${getManifestValue(template.manifest.js, manifest, template?.options.base).map((item) => `<script defer="defer" src="${item}"></script>`).join('')}
+        ${getManifestValue(template.manifest.js, manifest, template?.options.base)
+          .map((item) => `<script defer="defer" src="${item}"></script>`)
+          .join('')}
         ${template?.scriptsBodyAfter ? template.scriptsBodyAfter.join('') : ''}
       </body>
     </html>

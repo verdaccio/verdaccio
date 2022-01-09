@@ -1,15 +1,16 @@
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { ErrorCode, mask } from '../../../../lib/utils';
-import { getApiToken } from '../../../../lib/auth-utils';
-import { stringToMD5 } from '../../../../lib/crypto-utils';
-import { logger } from '../../../../lib/logger';
+import buildDebug from 'debug';
+import { Response, Router } from 'express';
+import _ from 'lodash';
+
+import { Config, RemoteUser, Token } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../../types';
+import { getApiToken } from '../../../../lib/auth-utils';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
+import { stringToMD5 } from '../../../../lib/crypto-utils';
+import { logger } from '../../../../lib/logger';
+import { ErrorCode, mask } from '../../../../lib/utils';
 import { limiter } from '../../../rate-limiter';
-import { Config, RemoteUser, Token } from '@verdaccio/types';
-import { Response, Router } from 'express';
-import buildDebug from 'debug';
-import _ from 'lodash';
 
 const debug = buildDebug('verdaccio:token');
 export type NormalizeToken = Token & {

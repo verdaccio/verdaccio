@@ -25,5 +25,5 @@ module.exports = {
     '<rootDir>functional/store/.*/package.json',
     '<rootDir>/../build',
     '<rootDir>/../.vscode/',
-  ]
+  ],
 };

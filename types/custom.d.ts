@@ -1,6 +1,5 @@
 /// <reference types="@verdaccio/types" />
-
-import { Logger, RemoteUser } from "@verdaccio/types";
+import { Logger, RemoteUser } from '@verdaccio/types';
 
 declare global {
   namespace Express {

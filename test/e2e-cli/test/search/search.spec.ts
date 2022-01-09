@@ -1,10 +1,11 @@
-import path from 'path';
 import fs from 'fs';
-import * as __global from '../../utils/global';
-import { spawnRegistry } from '../../utils/registry';
-import { execAndWaitForOutputToMatch } from '../../utils/process';
-import { installVerdaccio } from '../__partials/npm_commands';
+import path from 'path';
+
 import { expectFileToExist } from '../../utils/expect';
+import * as __global from '../../utils/global';
+import { execAndWaitForOutputToMatch } from '../../utils/process';
+import { spawnRegistry } from '../../utils/registry';
+import { installVerdaccio } from '../__partials/npm_commands';
 
 describe('npm search', () => {
   jest.setTimeout(90000);

@@ -9,18 +9,18 @@ const defaultPkg = {
       version: '0.1.0',
       dist: {
         shasum: 'fake',
-        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/content-length.tar.gz`
-      }
+        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/content-length.tar.gz`,
+      },
     },
     '0.1.1': {
       name: 'testexp_tags',
       version: '0.1.1',
       dist: {
         shasum: 'fake',
-        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/chunked.tar.gz`
-      }
-    }
-  }
+        tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-incomplete/-/chunked.tar.gz`,
+      },
+    },
+  },
 };
 
 export default function (server, express) {

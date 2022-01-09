@@ -1,5 +1,5 @@
-import envinfo from 'envinfo';
 import { Command } from 'clipanion';
+import envinfo from 'envinfo';
 
 export class InfoCommand extends Command {
   static paths = [[`--info`], [`-i`]];

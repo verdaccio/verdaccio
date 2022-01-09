@@ -1,11 +1,12 @@
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import crypto from 'crypto';
-import { readFile } from '../lib/test.utils';
+
 import { HTTP_STATUS } from '../../../src/lib/constants';
-import { TARBALL } from '../config.functional';
 import { createTarballHash } from '../../../src/lib/crypto-utils';
+import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
+import { readFile } from '../lib/test.utils';
 
 function getBinary() {
   return readFile('../fixtures/binary');
@@ -29,10 +30,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server
-        .putTarball(PKG_GH131, TARBALL, getBinary())
-        .status(HTTP_STATUS.CREATED)
-        .body_ok(/.*/);
+      return server.putTarball(PKG_GH131, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
     });
 
     beforeAll(function () {
@@ -62,10 +60,7 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server2
-        .putTarball(PKG_GH1312, TARBALL, getBinary())
-        .status(HTTP_STATUS.CREATED)
-        .body_ok(/.*/);
+      return server2.putTarball(PKG_GH1312, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
     });
 
     beforeAll(function () {

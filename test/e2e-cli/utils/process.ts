@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import * as child_process from 'child_process';
 import { SpawnOptions } from 'child_process';
 
@@ -14,7 +13,7 @@ export async function _exec(options, cmd, args) {
   console.log(`ENV: ${JSON.stringify(env)}`);
   const spawnOptions = {
     cwd,
-    ...(env ? { env } : {})
+    ...(env ? { env } : {}),
   };
 
   if (process.platform.startsWith('win')) {
@@ -78,12 +77,7 @@ export async function _exec(options, cmd, args) {
   });
 }
 
-export function execAndWaitForOutputToMatch(
-  cmd: string,
-  args: string[],
-  match: RegExp,
-  spawnOptions: SpawnOptions = {}
-): any {
+export function execAndWaitForOutputToMatch(cmd: string, args: string[], match: RegExp, spawnOptions: SpawnOptions = {}): any {
   return _exec({ waitForMatch: match, ...spawnOptions, silence: true }, cmd, args);
 }
 

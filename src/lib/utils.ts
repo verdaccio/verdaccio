@@ -1,25 +1,24 @@
-import fs from 'fs';
 import assert from 'assert';
-import DefaultURL, { URL } from 'url';
-import { generateGravatarUrl, GENERIC_AVATAR } from '../utils/user';
-import { StringValue, AuthorAvatar } from '../../types';
-import { APP_ERROR, DEFAULT_PORT, DEFAULT_DOMAIN, DEFAULT_PROTOCOL, HEADERS, DIST_TAGS, DEFAULT_USER } from './constants';
-import { normalizeContributors } from './storage-utils';
-import { logger } from './logger';
-import _ from 'lodash';
 import buildDebug from 'debug';
-import semver from 'semver';
-import YAML from 'js-yaml';
-import validator from 'validator';
-import memoizee from 'memoizee';
-import sanitizyReadme from '@verdaccio/readme';
-
-import { Package, Version, Author } from '@verdaccio/types';
 import { Request } from 'express';
+import fs from 'fs';
+import YAML from 'js-yaml';
+import _ from 'lodash';
+import memoizee from 'memoizee';
+import semver from 'semver';
+import DefaultURL, { URL } from 'url';
+import validator from 'validator';
+
 // eslint-disable-next-line max-len
-import { getConflict, getBadData, getBadRequest, getInternalError, getUnauthorized, getForbidden, getServiceUnavailable, getNotFound, getCode } from '@verdaccio/commons-api';
+import { getBadData, getBadRequest, getCode, getConflict, getForbidden, getInternalError, getNotFound, getServiceUnavailable, getUnauthorized } from '@verdaccio/commons-api';
+import sanitizyReadme from '@verdaccio/readme';
+import { Author, Package, Version } from '@verdaccio/types';
 
-
+import { AuthorAvatar, StringValue } from '../../types';
+import { GENERIC_AVATAR, generateGravatarUrl } from '../utils/user';
+import { APP_ERROR, DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL, DEFAULT_USER, DIST_TAGS, HEADERS } from './constants';
+import { logger } from './logger';
+import { normalizeContributors } from './storage-utils';
 
 const debug = buildDebug('verdaccio');
 

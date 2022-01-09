@@ -6,7 +6,7 @@ export default function (server2) {
       return server2
         .request({
           uri: '/test/route',
-          method: 'GET'
+          method: 'GET',
         })
         .status(HTTP_STATUS.OK)
         .body_ok('this is a custom route');
@@ -16,7 +16,7 @@ export default function (server2) {
       return server2
         .request({
           uri: '/test/route/es6',
-          method: 'GET'
+          method: 'GET',
         })
         .status(HTTP_STATUS.OK)
         .body_ok('this is a custom route es6');

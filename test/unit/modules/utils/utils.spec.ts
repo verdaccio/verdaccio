@@ -1,27 +1,29 @@
-import { generateGravatarUrl, GENERIC_AVATAR } from '../../../../src/utils/user';
-import { spliceURL } from '../../../../src/utils/string';
-import {
-  validateName,
-  convertDistRemoteToLocalTarballUrls,
-  parseReadme,
-  addGravatarSupport,
-  validatePackage,
-  validateMetadata,
-  combineBaseUrl,
-  getVersion,
-  normalizeDistTags,
-  getWebProtocol,
-  getVersionFromTarball,
-  sortByName,
-  formatAuthor,
-  isHTTPProtocol,
-  getPublicUrl,
-} from '../../../../src/lib/utils';
-import { DIST_TAGS, DEFAULT_USER } from '../../../../src/lib/constants';
-import { logger, setup } from '../../../../src/lib/logger';
-import { readFile } from '../../../functional/lib/test.utils';
-import { HEADERS } from '@verdaccio/commons-api';
 import * as httpMocks from 'node-mocks-http';
+
+import { HEADERS } from '@verdaccio/commons-api';
+
+import { DEFAULT_USER, DIST_TAGS } from '../../../../src/lib/constants';
+import { logger, setup } from '../../../../src/lib/logger';
+import {
+  addGravatarSupport,
+  combineBaseUrl,
+  convertDistRemoteToLocalTarballUrls,
+  formatAuthor,
+  getPublicUrl,
+  getVersion,
+  getVersionFromTarball,
+  getWebProtocol,
+  isHTTPProtocol,
+  normalizeDistTags,
+  parseReadme,
+  sortByName,
+  validateMetadata,
+  validateName,
+  validatePackage,
+} from '../../../../src/lib/utils';
+import { spliceURL } from '../../../../src/utils/string';
+import { GENERIC_AVATAR, generateGravatarUrl } from '../../../../src/utils/user';
+import { readFile } from '../../../functional/lib/test.utils';
 
 const readmeFile = (fileName = 'markdown.md') => readFile(`../../unit/partials/readme/${fileName}`);
 

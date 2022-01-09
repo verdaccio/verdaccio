@@ -1,30 +1,31 @@
+import { NextFunction, Request, Response } from 'express';
+import lunrMutable from 'lunr-mutable-indexes';
+
 import {
+  AuthPluginPackage,
+  Author,
+  Callback,
+  Config,
   IBasicAuth,
   IBasicStorage,
-  IStorageManager,
-  UpLinkConf,
-  Callback,
-  Versions,
-  Version,
-  RemoteUser,
-  Config,
-  Logger,
-  JWTSignOptions,
-  PackageAccess,
   IPluginStorage,
-  StringValue as verdaccio$StringValue,
-  IReadTarball,
-  Package,
   IPluginStorageFilter,
-  Author,
-  AuthPluginPackage,
-  Token,
+  IReadTarball,
+  IStorageManager,
   ITokenActions,
-  TokenFilter,
+  JWTSignOptions,
+  Logger,
+  Package,
+  PackageAccess,
   RateLimit,
+  RemoteUser,
+  Token,
+  TokenFilter,
+  UpLinkConf,
+  Version,
+  Versions,
+  StringValue as verdaccio$StringValue,
 } from '@verdaccio/types';
-import lunrMutable from 'lunr-mutable-indexes';
-import { NextFunction, Request, Response } from 'express';
 
 export type StringValue = verdaccio$StringValue;
 

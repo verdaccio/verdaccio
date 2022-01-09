@@ -1,8 +1,10 @@
-import { logger } from '../../../../lib/logger';
-import { HTTP_STATUS } from '../../../../lib/constants';
-import semver from 'semver';
 import _ from 'lodash';
+import semver from 'semver';
+
 import { Package } from '@verdaccio/types';
+
+import { HTTP_STATUS } from '../../../../lib/constants';
+import { logger } from '../../../../lib/logger';
 
 type PublisherMaintainer = {
   username: string;

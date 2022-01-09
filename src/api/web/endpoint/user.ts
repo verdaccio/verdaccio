@@ -1,14 +1,15 @@
 /**
  * @prettier
  */
-
-import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
-import { IAuth, $NextFunctionVer } from '../../../../types';
-import { ErrorCode } from '../../../lib/utils';
-import { getSecurity, validatePassword } from '../../../lib/auth-utils';
-import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
-import express, { Router, Response, Request } from 'express';
+import express, { Request, Response, Router } from 'express';
 import _ from 'lodash';
+
+import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+
+import { $NextFunctionVer, IAuth } from '../../../../types';
+import { getSecurity, validatePassword } from '../../../lib/auth-utils';
+import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { ErrorCode } from '../../../lib/utils';
 
 function addUserAuthApi(auth: IAuth, config: Config): Router {
   const route = Router(); /* eslint new-cap: 0 */

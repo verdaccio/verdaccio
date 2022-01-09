@@ -1,9 +1,9 @@
 import async from 'async';
 
 import { HTTP_STATUS } from '../../../src/lib/constants';
+import racePkg from '../fixtures/package';
 
 let okTotalSum = 0;
-import racePkg from '../fixtures/package';
 
 export default function (server) {
   describe('should test race condition on publish packages', () => {
@@ -61,10 +61,7 @@ export default function (server) {
             failCount++;
           }
 
-          if (
-            resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
-            ~body.error.indexOf(UNAVAILABLE)
-          ) {
+          if (resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
             failCount++;
           }
         });
@@ -112,10 +109,7 @@ export default function (server) {
           if (response.statusCode === HTTP_STATUS.CONFLICT && ~body.error.indexOf(PRESENT)) {
             failcount++;
           }
-          if (
-            response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
-            ~body.error.indexOf(UNAVAILABLE)
-          ) {
+          if (response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
             failcount++;
           }
         });

@@ -1,7 +1,8 @@
 /* eslint-disable jest/no-standalone-expect */
 import zlib from 'zlib';
+
+import { CHARACTER_ENCODING, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../src/lib/constants';
 import { readFile } from '../lib/test.utils';
-import { HEADER_TYPE, HEADERS, HTTP_STATUS, CHARACTER_ENCODING } from '../../../src/lib/constants';
 
 export default function (server, express) {
   const PKG_NAME = 'testexp_gzip';
@@ -64,9 +65,9 @@ export default function (server, express) {
           uri: `/${PKG_NAME}`,
           encoding: null,
           headers: {
-            [HEADER_TYPE.ACCEPT_ENCODING]: HEADERS.GZIP
+            [HEADER_TYPE.ACCEPT_ENCODING]: HEADERS.GZIP,
           },
-          json: false
+          json: false,
         })
         .status(HTTP_STATUS.OK)
         .response(function (res) {

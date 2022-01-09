@@ -1,15 +1,15 @@
-
-import { ErrorCode } from '../../../lib/utils';
-import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
-import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
-import { logger } from '../../../lib/logger';
-
-import { $RequestExtend, $ResponseExtend, $NextFunctionVer, IAuth } from '../../../../types';
-import { limiter } from '../../rate-limiter';
-import express, { Response, Router } from 'express';
-import { Config, RemoteUser } from '@verdaccio/types';
 import Cookies from 'cookies';
+import express, { Response, Router } from 'express';
 import _ from 'lodash';
+
+import { Config, RemoteUser } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../../../../types';
+import { createRemoteUser, createSessionToken, getApiToken, getAuthenticatedMessage, validatePassword } from '../../../lib/auth-utils';
+import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { logger } from '../../../lib/logger';
+import { ErrorCode } from '../../../lib/utils';
+import { limiter } from '../../rate-limiter';
 
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */

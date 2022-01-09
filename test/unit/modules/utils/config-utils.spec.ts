@@ -1,15 +1,10 @@
-import path from 'path';
-import { spliceURL } from '../../../../src/utils/string';
-import { parseConfigFile } from '../../../../src/lib/utils';
-import {
-  getMatchedPackagesSpec,
-  hasProxyTo,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck
-} from '../../../../src/lib/config-utils';
-import { PACKAGE_ACCESS, ROLES } from '../../../../src/lib/constants';
 import _ from 'lodash';
+import path from 'path';
+
+import { getMatchedPackagesSpec, hasProxyTo, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from '../../../../src/lib/config-utils';
+import { PACKAGE_ACCESS, ROLES } from '../../../../src/lib/constants';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import { spliceURL } from '../../../../src/utils/string';
 
 describe('Config Utilities', () => {
   const parseConfigurationFile = (conf) => {
@@ -21,9 +16,7 @@ describe('Config Utilities', () => {
 
   describe('uplinkSanityCheck', () => {
     test('should test basic conversion', () => {
-      const uplinks = uplinkSanityCheck(
-        parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks
-      );
+      const uplinks = uplinkSanityCheck(parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks);
       expect(Object.keys(uplinks)).toContain('server1');
       expect(Object.keys(uplinks)).toContain('server2');
     });
@@ -208,9 +201,7 @@ describe('Config Utilities', () => {
 
   describe('hasProxyTo', () => {
     test('should test basic config', () => {
-      const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-basic')).packages
-      );
+      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-basic')).packages);
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeFalsy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -225,9 +216,7 @@ describe('Config Utilities', () => {
     });
 
     test('should test resolve based on custom package access', () => {
-      const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-custom')).packages
-      );
+      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-custom')).packages);
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeTruthy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -242,9 +231,7 @@ describe('Config Utilities', () => {
     });
 
     test('should not resolve any proxy', () => {
-      const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-empty')).packages
-      );
+      const packages = normalisePackageAccess(parseConfigFile(parseConfigurationFile('pkgs-empty')).packages);
       // react
       expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();
       expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();

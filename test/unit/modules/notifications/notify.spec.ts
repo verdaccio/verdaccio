@@ -1,27 +1,21 @@
-import { parseConfigurationFile } from '../../__helper';
-import { parseConfigFile } from '../../../../src/lib/utils';
-import { notify } from '../../../../src/lib/notify';
-
-import { notifyRequest } from '../../../../src/lib/notify/notify-request';
-
 import { setup } from '../../../../src/lib/logger';
+import { notify } from '../../../../src/lib/notify';
+import { notifyRequest } from '../../../../src/lib/notify/notify-request';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import { parseConfigurationFile } from '../../__helper';
 
 setup([]);
 
 jest.mock('./../../../../src/lib/notify/notify-request', () => ({
-  notifyRequest: jest.fn((options, content) => Promise.resolve([options, content]))
+  notifyRequest: jest.fn((options, content) => Promise.resolve([options, content])),
 }));
 
 const parseConfigurationNotifyFile = (name) => {
   return parseConfigurationFile(`notify/${name}`);
 };
 const singleNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.notify'));
-const singleHeaderNotificationConfig = parseConfigFile(
-  parseConfigurationNotifyFile('single.header.notify')
-);
-const packagePatternNotificationConfig = parseConfigFile(
-  parseConfigurationNotifyFile('single.packagePattern.notify')
-);
+const singleHeaderNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.header.notify'));
+const packagePatternNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('single.packagePattern.notify'));
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
 
 describe('Notifications:: Notify', () => {

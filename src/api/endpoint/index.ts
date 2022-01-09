@@ -1,18 +1,20 @@
-import { IAuth, IStorageHandler } from '../../../types';
-import whoami from './api/whoami';
-import ping from './api/ping';
-import user from './api/user';
-import distTags from './api/dist-tags';
-import publish from './api/publish';
-import search from './api/search';
-import pkg from './api/package';
-import stars from './api/stars';
-import npmV1 from './api/v1';
-import v1Search from './api/v1/search';
 import bodyParser from 'body-parser';
 import express from 'express';
 import _ from 'lodash';
+
 import { Config } from '@verdaccio/types';
+
+import { IAuth, IStorageHandler } from '../../../types';
+import distTags from './api/dist-tags';
+import pkg from './api/package';
+import ping from './api/ping';
+import publish from './api/publish';
+import search from './api/search';
+import stars from './api/stars';
+import user from './api/user';
+import npmV1 from './api/v1';
+import v1Search from './api/v1/search';
+import whoami from './api/whoami';
 
 const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
 

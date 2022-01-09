@@ -1,6 +1,7 @@
-import { readFile } from '../lib/test.utils';
-import { HTTP_STATUS } from '../../../src/lib/constants';
 import _ from 'lodash';
+
+import { HTTP_STATUS } from '../../../src/lib/constants';
+import { readFile } from '../lib/test.utils';
 
 const readTags = () => readFile('../fixtures/tags.json');
 
@@ -70,12 +71,12 @@ export default function (server, express) {
       return server
         .request({
           method: 'GET',
-          uri: '/-/package/testexp_tags2/dist-tags'
+          uri: '/-/package/testexp_tags2/dist-tags',
         })
         .status(200)
         .then(function (body) {
           const expected = {
-            latest: '1.1.0'
+            latest: '1.1.0',
           };
 
           expect(body).toEqual(expected);
@@ -89,8 +90,8 @@ export default function (server, express) {
           uri: '/-/package/testexp_tags2/dist-tags',
           json: {
             foo: '0.1.2',
-            quux: '0.1.0'
-          }
+            quux: '0.1.0',
+          },
         })
         .status(201)
         .body_ok(/updated/)
@@ -98,14 +99,14 @@ export default function (server, express) {
           return server
             .request({
               method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags'
+              uri: '/-/package/testexp_tags2/dist-tags',
             })
             .status(200)
             .then(function (body) {
               const expected = {
                 latest: '1.1.0',
                 foo: '0.1.2',
-                quux: '0.1.0'
+                quux: '0.1.0',
               };
 
               expect(body).toEqual(expected);
@@ -118,7 +119,7 @@ export default function (server, express) {
         .request({
           method: 'PUT',
           uri: '/-/package/testexp_tags2/dist-tags/foo',
-          json: '0.1.3alpha'
+          json: '0.1.3alpha',
         })
         .status(201)
         .body_ok(/tagged/)
@@ -126,14 +127,14 @@ export default function (server, express) {
           return server
             .request({
               method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags'
+              uri: '/-/package/testexp_tags2/dist-tags',
             })
             .status(200)
             .then(function (body) {
               const expected = {
                 foo: '0.1.3alpha',
                 quux: '0.1.0',
-                latest: '1.1.0'
+                latest: '1.1.0',
               };
 
               expect(body).toEqual(expected);
@@ -145,7 +146,7 @@ export default function (server, express) {
       return server
         .request({
           method: 'DELETE',
-          uri: '/-/package/testexp_tags2/dist-tags/latest'
+          uri: '/-/package/testexp_tags2/dist-tags/latest',
         })
         .status(201)
         .body_ok(/removed/)
@@ -153,14 +154,14 @@ export default function (server, express) {
           return server
             .request({
               method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags'
+              uri: '/-/package/testexp_tags2/dist-tags',
             })
             .status(200)
             .then(function (body) {
               const expected = {
                 latest: '1.1.0',
                 quux: '0.1.0',
-                foo: '0.1.3alpha'
+                foo: '0.1.3alpha',
               };
 
               expect(body).toEqual(expected);
@@ -172,7 +173,7 @@ export default function (server, express) {
       return server
         .request({
           method: 'DELETE',
-          uri: '/-/package/testexp_tags2/dist-tags/foo'
+          uri: '/-/package/testexp_tags2/dist-tags/foo',
         })
         .status(201)
         .body_ok(/removed/)
@@ -180,13 +181,13 @@ export default function (server, express) {
           return server
             .request({
               method: 'GET',
-              uri: '/-/package/testexp_tags2/dist-tags'
+              uri: '/-/package/testexp_tags2/dist-tags',
             })
             .status(200)
             .then(function (body) {
               const expected = {
                 latest: '1.1.0',
-                quux: '0.1.0'
+                quux: '0.1.0',
               };
 
               expect(body).toEqual(expected);

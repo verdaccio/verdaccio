@@ -1,17 +1,18 @@
-import path from 'path';
 import fs from 'fs';
-import { Writable } from 'stream';
-import configExample from '../../partials/config';
-import AppConfig from '../../../../src/lib/config';
-import Storage from '../../../../src/lib/storage';
-import { setup } from '../../../../src/lib/logger';
-
-import { IStorageHandler } from '../../../../types';
-import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { Config } from '@verdaccio/types';
+import path from 'path';
 import rimraf from 'rimraf';
+import { Writable } from 'stream';
+
+import { Config } from '@verdaccio/types';
+
+import AppConfig from '../../../../src/lib/config';
+import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+import Storage from '../../../../src/lib/storage';
+import { IStorageHandler } from '../../../../types';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import configExample from '../../partials/config';
 
 setup([]);
 

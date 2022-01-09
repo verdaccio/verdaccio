@@ -1,8 +1,8 @@
-import {DOMAIN_SERVERS as localhost} from '../test.conf';
+import { DOMAIN_SERVERS as localhost } from '../test.conf';
 
 export const CREDENTIALS = {
   user: 'test',
-  password: 'test'
+  password: 'test',
 };
 
 export const TARBALL = 'tarball-blahblah-file.name';

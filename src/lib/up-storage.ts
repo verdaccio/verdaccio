@@ -1,16 +1,18 @@
-import zlib from 'zlib';
-import Stream from 'stream';
-import URL, { UrlWithStringQuery } from 'url';
-import { IProxy, UpLinkConfLocal } from '../../types';
-import { parseInterval, isObject, ErrorCode, buildToken, isObjectOrArray } from './utils';
-import { logger } from './logger';
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import request from 'request';
+import Stream from 'stream';
+import URL, { UrlWithStringQuery } from 'url';
+import zlib from 'zlib';
+
 import { ReadTarball } from '@verdaccio/streams';
-import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
+import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
+
+import { IProxy, UpLinkConfLocal } from '../../types';
+import { API_ERROR, CHARACTER_ENCODING, ERROR_CODE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import { logger } from './logger';
+import { ErrorCode, buildToken, isObject, isObjectOrArray, parseInterval } from './utils';
 
 const debug = buildDebug('verdaccio:up-storage');
 

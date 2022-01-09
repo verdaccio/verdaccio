@@ -1,8 +1,7 @@
 import { DEFAULT_NO_README, HTTP_STATUS } from '../../../src/lib/constants';
-
-import pkgReadmeJSON from './pkg-readme.json';
 import pkgNoReadmeJSON from './pkg-no-readme.json';
 import pkgNoReadmeJSONOldFormat from './pkg-readme-npm6.json';
+import pkgReadmeJSON from './pkg-readme.json';
 
 export default function (server, server2) {
   describe('should test readme', () => {
@@ -23,7 +22,7 @@ export default function (server, server2) {
       const matchReadme = (serverRef, pkgName = README_PKG1, readmeMessage = README_MESSAGE) => {
         return serverRef
           .request({
-            uri: `/-/verdaccio/package/readme/${pkgName}`
+            uri: `/-/verdaccio/package/readme/${pkgName}`,
           })
           .status(HTTP_STATUS.OK)
           .then(function (body) {

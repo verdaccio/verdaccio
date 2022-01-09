@@ -8,7 +8,7 @@ export function spawnRegistry(verdaccioPath: string, args: string[], childOption
 
     const childFork = fork(verdaccioPath, args, _childOptions);
 
-    childFork.on('message', (msg: {verdaccio_started: boolean}) => {
+    childFork.on('message', (msg: { verdaccio_started: boolean }) => {
       if (msg.verdaccio_started) {
         resolve(childFork);
       }

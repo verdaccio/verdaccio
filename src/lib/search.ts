@@ -1,8 +1,10 @@
 // eslint-disable no-invalid-this
-
-import { IStorageHandler, IWebSearch, IStorage } from '../../types';
 import lunrMutable from 'lunr-mutable-indexes';
+
 import { Version } from '@verdaccio/types';
+
+import { IStorage, IStorageHandler, IWebSearch } from '../../types';
+
 /**
  * Handle the search Indexer.
  */
@@ -49,17 +51,16 @@ class Search implements IWebSearch {
       query = query.replace('@', '');
     }
 
-    const results = query === '*'
-      ? localStorage.storagePlugin.get((items): any => {
-          items.map(function (pkg): any {
-            return { ref: pkg, score: 1 };
-          });
-        })
-      : this.index.search(`*${query}*`);
+    const results =
+      query === '*'
+        ? localStorage.storagePlugin.get((items): any => {
+            items.map(function (pkg): any {
+              return { ref: pkg, score: 1 };
+            });
+          })
+        : this.index.search(`*${query}*`);
 
-    return hasScope
-      ? results.filter(({ ref }) => ref.startsWith('@'))
-      : results;
+    return hasScope ? results.filter(({ ref }) => ref.startsWith('@')) : results;
   }
 
   /**
@@ -73,7 +74,7 @@ class Search implements IWebSearch {
       description: pkg.description,
       version: `v${pkg.version}`,
       keywords: pkg.keywords,
-      author: pkg._npmUser ? pkg._npmUser.name : '???'
+      author: pkg._npmUser ? pkg._npmUser.name : '???',
     });
   }
 

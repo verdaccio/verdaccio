@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { TARBALL } from '../config.functional';
+
 import { HTTP_STATUS } from '../../../src/lib/constants';
 import { createTarballHash } from '../../../src/lib/crypto-utils';
+import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
 
 function readfile(filePath) {
@@ -43,10 +44,7 @@ export default function (server, server2) {
 
     describe('tarball', () => {
       beforeAll(function () {
-        return server
-          .putTarball(pkgName, TARBALL, readfile(binary))
-          .status(HTTP_STATUS.CREATED)
-          .body_ok(/.*/);
+        return server.putTarball(pkgName, TARBALL, readfile(binary)).status(HTTP_STATUS.CREATED).body_ok(/.*/);
       });
 
       test('uploading new tarball / srv1', () => {});

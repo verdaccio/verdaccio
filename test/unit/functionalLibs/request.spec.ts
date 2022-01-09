@@ -1,9 +1,11 @@
-import smartRequest, { PromiseAssert } from '../../lib/request';
-import { mockServer } from '../__helper/mock';
-import { HTTP_STATUS } from '../../../src/lib/constants';
-import { IRequestPromise } from '../../types';
-import { VerdaccioError } from '@verdaccio/commons-api';
 import _ from 'lodash';
+
+import { VerdaccioError } from '@verdaccio/commons-api';
+
+import { HTTP_STATUS } from '../../../src/lib/constants';
+import smartRequest, { PromiseAssert } from '../../lib/request';
+import { IRequestPromise } from '../../types';
+import { mockServer } from '../__helper/mock';
 
 describe('Request Functional', () => {
   jest.setTimeout(20000);
@@ -40,7 +42,7 @@ describe('Request Functional', () => {
     test('basic rest', (done) => {
       const options: any = {
         url: restTest,
-        method: 'GET'
+        method: 'GET',
       };
 
       smartRequest(options).then((result) => {
@@ -53,7 +55,7 @@ describe('Request Functional', () => {
       test('basic check status 200', (done) => {
         const options: any = {
           url: restTest,
-          method: 'GET'
+          method: 'GET',
         };
         // @ts-ignore
         smartRequest(options)
@@ -68,7 +70,7 @@ describe('Request Functional', () => {
       test('basic check status 404', (done) => {
         const options: any = {
           url: 'http://www.google.fake',
-          method: 'GET'
+          method: 'GET',
         };
         // @ts-ignore
         smartRequest(options)

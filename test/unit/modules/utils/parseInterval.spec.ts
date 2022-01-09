@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 import { parseInterval } from '../../../../src/lib/utils';
 
 describe('Parse interval', () => {

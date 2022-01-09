@@ -1,16 +1,15 @@
 import path from 'path';
-
-import configDefault from '../../partials/config';
-import publishMetadata from '../../partials/publish-api';
-import forbiddenPlace from '../../partials/forbidden-place';
-import endPointAPI from '../../../../src/api';
-
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, DIST_TAGS } from '../../../../src/lib/constants';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { mockServer } from '../../__helper/mock';
-import { addUser } from '../../__helper/api';
 import rimraf from 'rimraf';
 import request from 'supertest';
+
+import endPointAPI from '../../../../src/api';
+import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../../src/lib/constants';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { addUser } from '../../__helper/api';
+import { mockServer } from '../../__helper/mock';
+import configDefault from '../../partials/config';
+import forbiddenPlace from '../../partials/forbidden-place';
+import publishMetadata from '../../partials/publish-api';
 
 require('../../../../src/lib/logger').setup([]);
 

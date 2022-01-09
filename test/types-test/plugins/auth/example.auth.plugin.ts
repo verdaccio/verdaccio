@@ -1,17 +1,9 @@
 // this file is not aim to be tested, just to check flow definitions
+import { Callback } from '@verdaccio/types';
+import { Config as AppConfig, IPluginAuth, Logger, PackageAccess, PluginOptions, RemoteUser } from '@verdaccio/types';
 
 import Config from '../../../../src/lib/config';
 import { logger } from '../../../../src/lib/logger';
-import { Callback } from '@verdaccio/types';
-import {
-  Config as AppConfig,
-  PackageAccess,
-  IPluginAuth,
-  RemoteUser,
-  Logger,
-  PluginOptions
-} from '@verdaccio/types';
-
 
 class ExampleAuthPlugin implements IPluginAuth<{}> {
   config: AppConfig;
@@ -22,7 +14,8 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     this.logger = options.logger;
   }
 
-  adduser(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
+  adduser(user: string, password: string, cb: Callback): void {
+    // pragma: allowlist secret
     cb();
   }
 
@@ -30,7 +23,8 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
     cb();
   }
 
-  authenticate(user: string, password: string, cb: Callback): void { // pragma: allowlist secret
+  authenticate(user: string, password: string, cb: Callback): void {
+    // pragma: allowlist secret
     cb();
   }
 
@@ -79,12 +73,12 @@ class ExampleAuthCustomPlugin implements IPluginAuth<{}> {
 
 const config1: AppConfig = new Config({
   storage: './storage',
-  self_path: '/home/sotrage'
+  self_path: '/home/sotrage',
 });
 
 const options: PluginOptions<{}> = {
   config: config1,
-  logger: logger.child({sub: 'out'})
+  logger: logger.child({ sub: 'out' }),
 };
 
 const auth = new ExampleAuthPlugin(config1, options);
@@ -92,7 +86,7 @@ const authSub = new ExampleAuthCustomPlugin(config1, options);
 const remoteUser: RemoteUser = {
   groups: [],
   real_groups: [],
-  name: 'test'
+  name: 'test',
 };
 
 auth.authenticate('user', 'pass', () => {});

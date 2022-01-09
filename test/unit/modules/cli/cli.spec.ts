@@ -1,15 +1,15 @@
-import path from 'path';
-import os from 'os';
 import fs from 'fs';
+import _ from 'lodash';
+import os from 'os';
+import path from 'path';
+import selfsigned from 'selfsigned';
 
 import startServer from '../../../../src';
-import config from '../../partials/config';
-import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
 import { getListListenAddresses } from '../../../../src/lib/cli/utils';
-import { parseConfigFile } from '../../../../src/lib/utils';
+import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
 import { logger } from '../../../../src/lib/logger';
-import selfsigned from 'selfsigned';
-import _ from 'lodash';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import config from '../../partials/config';
 
 jest.mock('../../../../src/lib/logger', () => ({
   setup: jest.fn(),

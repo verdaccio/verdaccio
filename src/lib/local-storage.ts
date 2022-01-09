@@ -1,37 +1,39 @@
 import assert from 'assert';
+import builDebug from 'debug';
+import _ from 'lodash';
 import UrlNode from 'url';
-import loadPlugin from '../lib/plugin-loader';
-import { IStorage, StringValue } from '../../types';
-import { ErrorCode, isObject, getLatestVersion, tagVersion, validateName } from './utils';
-import { generatePackageTemplate, normalizePackage, generateRevision, getLatestReadme, cleanUpReadme, normalizeContributors } from './storage-utils';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
-import { createTarballHash } from './crypto-utils';
-import { prepareSearchPackage } from './storage-utils';
+
 import { VerdaccioError } from '@verdaccio/commons-api';
+import LocalDatabase from '@verdaccio/local-storage';
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
+  Author,
+  Callback,
+  CallbackAction,
+  Config,
+  DistFile,
+  IPackageStorage,
+  IPluginStorage,
+  IReadTarball,
+  IUploadTarball,
+  Logger,
+  MergeTags,
+  Package,
+  StorageUpdateCallback,
   Token,
   TokenFilter,
-  Package,
-  Config,
-  IUploadTarball,
-  IReadTarball,
-  MergeTags,
   Version,
-  DistFile,
-  Callback,
-  Logger,
-  IPluginStorage,
-  IPackageStorage,
-  Author,
-  CallbackAction,
-  onSearchPackage,
   onEndSearchPackage,
-  StorageUpdateCallback,
+  onSearchPackage,
 } from '@verdaccio/types';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
-import LocalDatabase from '@verdaccio/local-storage';
-import _ from 'lodash';
-import builDebug from 'debug';
+
+import { IStorage, StringValue } from '../../types';
+import loadPlugin from '../lib/plugin-loader';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
+import { createTarballHash } from './crypto-utils';
+import { cleanUpReadme, generatePackageTemplate, generateRevision, getLatestReadme, normalizeContributors, normalizePackage } from './storage-utils';
+import { prepareSearchPackage } from './storage-utils';
+import { ErrorCode, getLatestVersion, isObject, tagVersion, validateName } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
 /**
@@ -842,14 +844,9 @@ class LocalStorage implements IStorage {
     };
 
     // eslint-disable-next-line max-len
-    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(
-      this.config,
-      this.config.store,
-      plugin_params,
-      (plugin): IPluginStorage<Config> => {
-        return plugin.getPackageStorage;
-      }
-    );
+    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(this.config, this.config.store, plugin_params, (plugin): IPluginStorage<Config> => {
+      return plugin.getPackageStorage;
+    });
 
     return _.head(plugins);
   }

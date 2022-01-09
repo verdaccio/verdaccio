@@ -1,11 +1,12 @@
-import { generateRandomHexString } from '../lib/crypto-utils';
-import { IStorage } from '../../types';
-import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
-import Search from './search';
-
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
-import { Package, Version, Author } from '@verdaccio/types';
 import _ from 'lodash';
+
+import { Author, Package, Version } from '@verdaccio/types';
+
+import { IStorage } from '../../types';
+import { generateRandomHexString } from '../lib/crypto-utils';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
+import Search from './search';
+import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 
 export function generatePackageTemplate(name: string): Package {
   return {
@@ -18,7 +19,7 @@ export function generatePackageTemplate(name: string): Package {
     _uplinks: {},
     _distfiles: {},
     _attachments: {},
-    _rev: ''
+    _rev: '',
   };
 }
 
@@ -98,24 +99,15 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   } else if (_.isString(contributors)) {
     return [
       {
-        name: contributors
-      }
+        name: contributors,
+      },
     ];
   }
 
   return contributors;
 }
 
-export const WHITELIST = [
-  '_rev',
-  'name',
-  'versions',
-  'dist-tags',
-  'readme',
-  'time',
-  '_id',
-  'users'
-];
+export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
@@ -165,11 +157,7 @@ export function publishPackage(name: string, metadata: any, localStorage: IStora
   });
 }
 
-export function checkPackageRemote(
-  name: string,
-  isAllowPublishOffline: boolean,
-  syncMetadata: Function
-): Promise<void> {
+export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<void> {
   return new Promise((resolve, reject): void => {
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {
       // something weird
@@ -212,8 +200,7 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
 export function prepareSearchPackage(data: Package, time: unknown): any {
   const listVersions: string[] = Object.keys(data.versions);
   const versions: string[] = semverSort(listVersions);
-  const latest: string | undefined =
-    data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+  const latest: string | undefined = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
@@ -231,9 +218,9 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
       bugs: version.bugs,
       license: version.license,
       time: {
-        modified: time
+        modified: time,
       },
-      versions
+      versions,
     };
 
     return pkg;

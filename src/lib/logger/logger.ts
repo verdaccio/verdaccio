@@ -1,8 +1,9 @@
-import { padLeft } from './utils';
-import pino from 'pino';
-import _ from 'lodash';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
+import _ from 'lodash';
+import pino from 'pino';
+
+import { padLeft } from './utils';
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -21,7 +22,7 @@ export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
 export function createLogger(
-  options = {level: 'http'},
+  options = { level: 'http' },
   destination = pino.destination(1),
   format: LogFormat = DEFAULT_LOG_FORMAT,
   prettyPrintOptions = {
@@ -63,10 +64,10 @@ export function createLogger(
   }
   const logger = pino(pinoConfig, destination);
 
-  if(process.env.DEBUG) {
+  if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
       debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
-    })
+    });
   }
 
   return logger;
@@ -110,9 +111,13 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   // next major will thrown an error
   let loggerConfig = isLegacyConf ? options[0] : options;
   if (!loggerConfig?.level) {
-    loggerConfig = Object.assign({}, {
-      level: 'http',
-    }, loggerConfig);
+    loggerConfig = Object.assign(
+      {},
+      {
+        level: 'http',
+      },
+      loggerConfig
+    );
   }
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {

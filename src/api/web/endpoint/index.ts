@@ -1,8 +1,9 @@
+import { Response, Router } from 'express';
+
 import { limiter } from '../../rate-limiter';
 import packageApi from './package';
 import search from './search';
 import user from './user';
-import { Response, Router } from 'express';
 
 export default (auth, storage, config) => {
   const route = Router(); /* eslint new-cap: 0 */

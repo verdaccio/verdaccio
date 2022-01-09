@@ -1,22 +1,24 @@
 import assert from 'assert';
-import Stream from 'stream';
-import { IStorage, IProxy, IStorageHandler, ProxyList, StringValue, IGetPackageOptions, ISyncUplinks, IPluginFilters } from '../../types';
-import { logger } from '../lib/logger';
-import ProxyStorage from './up-storage';
-import Search from './search';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from './constants';
-import LocalStorage from './local-storage';
-import { checkPackageLocal, publishPackage, checkPackageRemote, cleanUpLinksRef, mergeUplinkTimeIntoLocal, generatePackageTemplate } from './storage-utils';
-import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
-import { mergeVersions } from './metadata-utils';
-import { ErrorCode, normalizeDistTags, validateMetadata, isObject } from './utils';
-import { hasProxyTo } from './config-utils';
-import { VerdaccioError } from '@verdaccio/commons-api';
-import { GenericBody, TokenFilter, Token } from '@verdaccio/types';
-import { IReadTarball, IUploadTarball, Versions, Package, Config, MergeTags, Version, DistFile, Callback, Logger } from '@verdaccio/types';
-import { ReadTarball } from '@verdaccio/streams';
 import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
+import Stream from 'stream';
+
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { ReadTarball } from '@verdaccio/streams';
+import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
+import { Callback, Config, DistFile, IReadTarball, IUploadTarball, Logger, MergeTags, Package, Version, Versions } from '@verdaccio/types';
+
+import { IGetPackageOptions, IPluginFilters, IProxy, IStorage, IStorageHandler, ISyncUplinks, ProxyList, StringValue } from '../../types';
+import { logger } from '../lib/logger';
+import { hasProxyTo } from './config-utils';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
+import LocalStorage from './local-storage';
+import { mergeVersions } from './metadata-utils';
+import Search from './search';
+import { checkPackageLocal, checkPackageRemote, cleanUpLinksRef, generatePackageTemplate, mergeUplinkTimeIntoLocal, publishPackage } from './storage-utils';
+import ProxyStorage from './up-storage';
+import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
+import { ErrorCode, isObject, normalizeDistTags, validateMetadata } from './utils';
 
 class Storage implements IStorageHandler {
   public localStorage: IStorage;

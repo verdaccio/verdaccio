@@ -1,6 +1,7 @@
+import NodeEnvironment from 'jest-environment-node';
 import os from 'os';
 import path from 'path';
-import NodeEnvironment from 'jest-environment-node';
+
 const fs = require('fs');
 const __global = require('../utils/global');
 // import { npm } from '../utils/process';
@@ -11,9 +12,7 @@ class E2ECliTestEnvironment extends NodeEnvironment {
   }
 
   async setup() {
-    const tempRoot = fs.mkdtempSync(
-      path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-')
-    );
+    const tempRoot = fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), 'verdaccio-suite-test-'));
     __global.addItem('dir-root', tempRoot);
     this.global.__namespace = __global;
     // eslint-disable-next-line no-console

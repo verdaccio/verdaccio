@@ -1,16 +1,15 @@
-import path from 'path';
-
-import configDefault from '../../partials/config';
-import endPointAPI from '../../../../src/api';
-
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, API_ERROR, SUPPORT_ERRORS } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { getNewToken } from '../../__helper/api';
-import { buildToken } from '../../../../src/lib/utils';
 import _ from 'lodash';
+import path from 'path';
 import rimraf from 'rimraf';
 import request from 'supertest';
+
+import endPointAPI from '../../../../src/api';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { buildToken } from '../../../../src/lib/utils';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { getNewToken } from '../../__helper/api';
+import { mockServer } from '../../__helper/mock';
+import configDefault from '../../partials/config';
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 

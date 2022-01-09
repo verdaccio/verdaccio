@@ -1,8 +1,9 @@
-import { logger } from '../logger';
-import { HTTP_STATUS } from '../constants';
-import isNil from 'lodash/isNil';
 import buildDebug from 'debug';
+import isNil from 'lodash/isNil';
 import request, { RequiredUriUrl } from 'request';
+
+import { HTTP_STATUS } from '../constants';
+import { logger } from '../logger';
 
 const debug = buildDebug('verdaccio:notify-request');
 export function notifyRequest(options: RequiredUriUrl, content): Promise<any | Error> {

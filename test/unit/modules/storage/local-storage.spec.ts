@@ -1,22 +1,21 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import LocalStorage from '../../../../src/lib/local-storage';
-import AppConfig from '../../../../src/lib/config';
-// @ts-ignore
-import configExample from '../../partials/config';
-import { logger, setup } from '../../../../src/lib/logger';
-import { readFile } from '../../../functional/lib/test.utils';
-import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import { generateNewVersion } from '../../../lib/utils-test';
-
-const readMetadata = (fileName = 'metadata') =>
-  readFile(`../../unit/partials/${fileName}`).toString();
-
-import { IStorage } from '../../../../types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '../../../../src/lib/constants';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, MergeTags, Package } from '@verdaccio/types';
+
+import AppConfig from '../../../../src/lib/config';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '../../../../src/lib/constants';
+import LocalStorage from '../../../../src/lib/local-storage';
+import { logger, setup } from '../../../../src/lib/logger';
+import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
+import { IStorage } from '../../../../types';
+import { readFile } from '../../../functional/lib/test.utils';
+import { generateNewVersion } from '../../../lib/utils-test';
+// @ts-ignore
+import configExample from '../../partials/config';
+
+const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
 
 setup([]);
 
@@ -30,7 +29,7 @@ describe('LocalStorage', () => {
   const getStorage = (LocalStorageClass = LocalStorage) => {
     const config: Config = new AppConfig(
       configExample({
-        self_path: path.join('../partials/store')
+        self_path: path.join('../partials/store'),
       })
     );
 
@@ -47,15 +46,9 @@ describe('LocalStorage', () => {
 
   const addNewVersion = (pkgName: string, version: string) => {
     return new Promise((resolve) => {
-      storage.addVersion(
-        pkgName,
-        version,
-        generateNewVersion(pkgName, version),
-        '',
-        (err, data) => {
-          resolve(data);
-        }
-      );
+      storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
+        resolve(data);
+      });
     });
   };
   const addTarballToStore = (pkgName: string, tarballName) => {
@@ -153,7 +146,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err, data) => {
@@ -176,7 +169,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '2.0.0');
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
-          beta: '9999.0.0'
+          beta: '9999.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err) => {
@@ -190,7 +183,7 @@ describe('LocalStorage', () => {
       test('should fails on mergeTags', async (done) => {
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags('not-found', tags, async (err) => {
@@ -212,17 +205,11 @@ describe('LocalStorage', () => {
         await addTarballToStore(pkgName, `${pkgName}-9.0.0.tgz`);
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version),
-          '',
-          (err, data) => {
-            expect(err).toBeNull();
-            expect(data).toBeUndefined();
-            done();
-          }
-        );
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
+          expect(err).toBeNull();
+          expect(data).toBeUndefined();
+          done();
+        });
       });
 
       test('should fails on add a duplicated version without tag', async (done) => {
@@ -246,18 +233,12 @@ describe('LocalStorage', () => {
         const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version, 'fake'),
-          '',
-          (err) => {
-            expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
-            expect(err.message).toMatch(/shasum error/);
-            done();
-          }
-        );
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err) => {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
+          expect(err.message).toMatch(/shasum error/);
+          done();
+        });
       });
 
       test('should add new second version without tag', async (done) => {
@@ -267,17 +248,11 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, '1.0.3');
 
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version),
-          'beta',
-          (err, data) => {
-            expect(err).toBeNull();
-            expect(data).toBeUndefined();
-            done();
-          }
-        );
+        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), 'beta', (err, data) => {
+          expect(err).toBeNull();
+          expect(data).toBeUndefined();
+          done();
+        });
       });
     });
 

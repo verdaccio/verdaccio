@@ -1,27 +1,29 @@
+import buildDebug from 'debug';
+import { NextFunction } from 'express';
+import _ from 'lodash';
+
+import { VerdaccioError } from '@verdaccio/commons-api';
+import { AllowAccess, AuthPluginPackage, Callback, Config, IPluginAuth, JWTSignOptions, Logger, PackageAccess, RemoteUser, Security } from '@verdaccio/types';
+
+import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../../types';
 import loadPlugin from '../lib/plugin-loader';
-import { $RequestExtend, $ResponseExtend, IAuth, AESPayload } from '../../types';
+import {
+  createAnonymousRemoteUser,
+  createRemoteUser,
+  getDefaultPlugins,
+  getMiddlewareCredentials,
+  getSecurity,
+  isAESLegacy,
+  isAuthHeaderValid,
+  parseAuthTokenHeader,
+  parseBasicPayload,
+  verifyJWTPayload,
+} from './auth-utils';
+import { getMatchedPackagesSpec } from './config-utils';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import { logger } from './logger';
-import {
-  getDefaultPlugins,
-  getMiddlewareCredentials,
-  verifyJWTPayload,
-  createAnonymousRemoteUser,
-  isAuthHeaderValid,
-  getSecurity,
-  isAESLegacy,
-  parseAuthTokenHeader,
-  parseBasicPayload,
-  createRemoteUser,
-} from './auth-utils';
-import { convertPayloadToBase64, ErrorCode } from './utils';
-import { getMatchedPackagesSpec } from './config-utils';
-import { NextFunction } from 'express';
-import { Config, Logger, Callback, IPluginAuth, RemoteUser, JWTSignOptions, Security, AuthPluginPackage, AllowAccess, PackageAccess } from '@verdaccio/types';
-import buildDebug from 'debug';
-import { VerdaccioError } from '@verdaccio/commons-api';
-import _ from 'lodash';
+import { ErrorCode, convertPayloadToBase64 } from './utils';
 
 const debug = buildDebug('verdaccio:auth');
 

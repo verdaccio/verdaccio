@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { runVerdaccio } from '../../utils/process';
 import { installVerdaccio } from '../__partials/npm_commands';
 
@@ -14,14 +15,9 @@ describe('verdaccio info', () => {
 
   test('should run verdaccio info command', async () => {
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall]
+      paths: [verdaccioInstall],
     });
-    const hasMatch = await runVerdaccio(
-      pathVerdaccioModule,
-      verdaccioInstall,
-      ['--info'],
-      /Environment/
-    );
+    const hasMatch = await runVerdaccio(pathVerdaccioModule, verdaccioInstall, ['--info'], /Environment/);
 
     expect(hasMatch.ok).toBeTruthy();
   }, 20000);

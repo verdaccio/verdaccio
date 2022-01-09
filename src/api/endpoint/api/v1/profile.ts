@@ -1,11 +1,11 @@
-import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { ErrorCode } from '../../../../lib/utils';
-import { validatePassword } from '../../../../lib/auth-utils';
-
-import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
-import { limiter } from '../../../rate-limiter';
 import { Response, Router } from 'express';
 import _ from 'lodash';
+
+import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
+import { validatePassword } from '../../../../lib/auth-utils';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
+import { ErrorCode } from '../../../../lib/utils';
+import { limiter } from '../../../rate-limiter';
 
 export interface Profile {
   tfa: boolean;

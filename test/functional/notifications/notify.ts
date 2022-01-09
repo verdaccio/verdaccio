@@ -1,9 +1,10 @@
+import _ from 'lodash';
+
+import { RemoteUser } from '@verdaccio/types';
 
 import { HEADERS } from '../../../src/lib/constants';
 import { notify } from '../../../src/lib/notify';
 import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
-import { RemoteUser } from '@verdaccio/types';
-import _ from 'lodash';
 
 export default function (express) {
   const config = {
@@ -11,19 +12,19 @@ export default function (express) {
       method: 'POST',
       headers: [
         {
-          'Content-Type': HEADERS.JSON
-        }
+          'Content-Type': HEADERS.JSON,
+        },
       ],
       endpoint: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify`,
       // eslint-disable-next-line max-len
-      content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`
-    }
+      content: `{"color":"green","message":"New package published: * {{ name }}*. Publisher name: * {{ publisher.name }} *.","notify":true,"message_format":"text"}`,
+    },
   };
 
   const publisherInfo: RemoteUser = {
     name: 'publisher-name-test',
     real_groups: [],
-    groups: []
+    groups: [],
   };
 
   describe('notifications', () => {
@@ -45,16 +46,14 @@ export default function (express) {
 
     test('notification should be send', (done) => {
       const metadata = {
-        name: 'pkg-test'
+        name: 'pkg-test',
       };
 
       // @ts-ignore
       notify(metadata, config, publisherInfo, 'foo').then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {
@@ -66,22 +65,20 @@ export default function (express) {
 
     test('notification should be send single header', (done) => {
       const metadata = {
-        name: 'pkg-test'
+        name: 'pkg-test',
       };
 
       const configMultipleHeader = _.cloneDeep(config);
       configMultipleHeader.notify.headers = {
         // @ts-ignore
-        'Content-Type': HEADERS.JSON
+        'Content-Type': HEADERS.JSON,
       };
 
       // @ts-ignore
       notify(metadata, configMultipleHeader, publisherInfo).then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {
@@ -93,12 +90,12 @@ export default function (express) {
 
     test('notification should be send multiple notifications endpoints', (done) => {
       const metadata = {
-        name: 'pkg-test'
+        name: 'pkg-test',
       };
       // let notificationsCounter = 0;
 
       const multipleNotificationsEndpoint = {
-        notify: []
+        notify: [],
       };
 
       for (let i = 0; i < 10; i++) {
@@ -116,9 +113,7 @@ export default function (express) {
         function (body) {
           body.forEach(function (notification) {
             const jsonBody = parseBody(notification);
-            expect(
-              `New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`
-            ).toBe(jsonBody.message);
+            expect(`New package published: * ${metadata.name}*. Publisher name: * ${publisherInfo.name} *.`).toBe(jsonBody.message);
           });
           done();
         },
@@ -131,7 +126,7 @@ export default function (express) {
 
     test('notification should fails', (done) => {
       const metadata = {
-        name: 'pkg-test'
+        name: 'pkg-test',
       };
       const configFail = _.cloneDeep(config);
       configFail.notify.endpoint = `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/api/notify/bad`;
@@ -153,17 +148,15 @@ export default function (express) {
       const metadata = {
         name: 'pkg-test',
         publisher: {
-          name: 'existing-publisher-name'
-        }
+          name: 'existing-publisher-name',
+        },
       };
 
       // @ts-ignore
       notify(metadata, config, publisherInfo).then(
         function (body) {
           const jsonBody = parseBody(body);
-          expect(
-            `New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`
-          ).toBe(jsonBody.message);
+          expect(`New package published: * ${metadata.name}*. Publisher name: * ${metadata.publisher.name} *.`).toBe(jsonBody.message);
           done();
         },
         function (err) {

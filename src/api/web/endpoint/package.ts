@@ -1,23 +1,25 @@
-import {
-  addScope,
-  addGravatarSupport,
-  deleteProperties,
-  sortByName,
-  parseReadme,
-  formatAuthor,
-  convertDistRemoteToLocalTarballUrls,
-  getLocalRegistryTarballUri,
-  isVersionValid,
-  ErrorCode,
-} from '../../../lib/utils';
-import { allow } from '../../middleware';
-import { DIST_TAGS, HEADER_TYPE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
-import { generateGravatarUrl } from '../../../utils/user';
-import { logger } from '../../../lib/logger';
-import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, $SidebarPackage } from '../../../../types';
-import { Config, Package } from '@verdaccio/types';
 import { Router } from 'express';
 import _ from 'lodash';
+
+import { Config, Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage, IAuth, IStorageHandler } from '../../../../types';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
+import { logger } from '../../../lib/logger';
+import {
+  ErrorCode,
+  addGravatarSupport,
+  addScope,
+  convertDistRemoteToLocalTarballUrls,
+  deleteProperties,
+  formatAuthor,
+  getLocalRegistryTarballUri,
+  isVersionValid,
+  parseReadme,
+  sortByName,
+} from '../../../lib/utils';
+import { generateGravatarUrl } from '../../../utils/user';
+import { allow } from '../../middleware';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';

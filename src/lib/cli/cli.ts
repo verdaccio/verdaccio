@@ -1,8 +1,9 @@
+import { Cli } from 'clipanion';
+
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
-import { isVersionValid, MIN_NODE_VERSION } from './utils';
 import { VersionCommand } from './commands/version';
-import { Cli } from 'clipanion';
+import { MIN_NODE_VERSION, isVersionValid } from './utils';
 
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;

@@ -1,8 +1,8 @@
 import path from 'path';
-
-import { parseAddress } from '../utils';
-import { DEFAULT_PORT } from '../constants';
 import semver from 'semver';
+
+import { DEFAULT_PORT } from '../constants';
+import { parseAddress } from '../utils';
 
 const logger = require('../logger');
 
@@ -15,7 +15,6 @@ export const MIN_NODE_VERSION = '12';
 export function isVersionValid(version) {
   return semver.satisfies(version, `>=${MIN_NODE_VERSION}`);
 }
-
 
 /**
  * Retrieve all addresses defined in the config file.
@@ -48,9 +47,7 @@ export function getListListenAddresses(argListen: string, configListen: any): an
       if (!parsedAddr) {
         logger.logger.warn(
           { addr: addr },
-          'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
-            ' host:port (e.g. "localhost:4873") or full url' +
-            ' (e.g. "http://localhost:4873/")'
+          'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
         );
       }
 

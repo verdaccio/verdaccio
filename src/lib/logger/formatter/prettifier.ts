@@ -1,27 +1,27 @@
-import { inspect } from 'util';
-import {calculateLevel, LevelCode, levelsColors, subSystemLevels} from "../levels";
-import { padLeft, padRight } from '../utils';
-import { white, red, green } from 'kleur';
-import _ from 'lodash';
 import dayjs from 'dayjs';
-import {PrettyOptions} from "pino";
+import { green, red, white } from 'kleur';
+import _ from 'lodash';
+import { PrettyOptions } from 'pino';
+import { inspect } from 'util';
 
+import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from '../levels';
+import { padLeft, padRight } from '../utils';
 
 export const CUSTOM_PAD_LENGTH = 1;
 export const FORMAT_DATE = 'YYYY-MM-DD HH:mm:ss';
 
 export function isObject(obj: unknown): boolean {
-    return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
+  return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
 export function formatLoggingDate(time: number, message): string {
-    const timeFormatted = dayjs(time).format(FORMAT_DATE);
+  const timeFormatted = dayjs(time).format(FORMAT_DATE);
 
-    return `[${timeFormatted}]${message}`;
+  return `[${timeFormatted}]${message}`;
 }
 
-export interface  PrettyOptionsExtended extends PrettyOptions {
-	prettyStamp: boolean;
+export interface PrettyOptionsExtended extends PrettyOptions {
+  prettyStamp: boolean;
 }
 let LEVEL_VALUE_MAX = 0;
 // eslint-disable-next-line guard-for-in
@@ -42,7 +42,6 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
   const templateRegex = /@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g;
 
   return msg.replace(templateRegex, (_, name): string => {
-
     let str = templateOptions;
     let isError;
     if (name[0] === ERROR_FLAG) {
@@ -87,10 +86,7 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
   return padRight(logString);
 }
 
-export function printMessage(
-    templateObjects: ObjectTemplate,
-    options: PrettyOptionsExtended,
-    hasColors = true): string {
+export function printMessage(templateObjects: ObjectTemplate, options: PrettyOptionsExtended, hasColors = true): string {
   const { prettyStamp } = options;
   const { level, msg, sub } = templateObjects;
   const debugLevel = calculateLevel(level);

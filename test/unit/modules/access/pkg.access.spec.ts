@@ -1,16 +1,15 @@
 import path from 'path';
-import request from 'supertest';
 import rimraf from 'rimraf';
+import request from 'supertest';
 
+import endPointAPI from '../../../../src/api';
+import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import configDefault from '../../partials/config';
 
 setup([]);
-
-import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
-import configDefault from '../../partials/config';
-import endPointAPI from '../../../../src/api';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 
 require('../../../../src/lib/logger').setup([]);
 
@@ -28,16 +27,16 @@ describe('api with no limited access configuration', () => {
         {
           auth: {
             htpasswd: {
-              file: './access-storage/htpasswd-pkg-access'
-            }
+              file: './access-storage/htpasswd-pkg-access',
+            },
           },
           self_path: store,
           uplinks: {
             remote: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-            }
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
         },
         'pkg.access.spec.yaml'
       );

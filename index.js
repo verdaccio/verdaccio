@@ -1,1 +1,1 @@
-export {default as startVerdaccio} from './build/index';
+export { default as startVerdaccio } from './build/index';

@@ -1,4 +1,4 @@
-import { createDecipher, createCipher, createHash, pseudoRandomBytes, Hash } from 'crypto';
+import { Hash, createCipher, createDecipher, createHash, pseudoRandomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 
 import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
@@ -49,18 +49,14 @@ export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export async function signPayload(
-  payload: RemoteUser,
-  secretOrPrivateKey: string,
-  options: JWTSignOptions
-): Promise<string> {
+export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions): Promise<string> {
   return new Promise(function (resolve, reject): Promise<string> {
     return jwt.sign(
       payload,
       secretOrPrivateKey,
       {
         notBefore: '1', // Make sure the time will not rollback :)
-        ...options
+        ...options,
       },
       (error, token) => (error ? reject(error) : resolve(token))
     );

@@ -1,5 +1,5 @@
-import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
 import { API_ERROR, HEADER_TYPE, HTTP_STATUS } from '../../../src/lib/constants';
+import { DOMAIN_SERVERS, PORT_SERVER_APP } from '../config.functional';
 
 export default function (server, express) {
   describe('shoul test for unexpected client hangs', () => {
@@ -15,10 +15,10 @@ export default function (server, express) {
               version: '0.1.0',
               dist: {
                 shasum: 'fake',
-                tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-racycrash/-/test.tar.gz`
-              }
-            }
-          }
+                tarball: `http://${DOMAIN_SERVERS}:${PORT_SERVER_APP}/testexp-racycrash/-/test.tar.gz`,
+              },
+            },
+          },
         });
       });
 
@@ -59,9 +59,7 @@ export default function (server, express) {
         res.socket.destroy();
       };
 
-      return server
-        .request({ uri: '/testexp-racycrash/-/test.tar.gz' })
-        .body_error(API_ERROR.INTERNAL_SERVER_ERROR);
+      return server.request({ uri: '/testexp-racycrash/-/test.tar.gz' }).body_error(API_ERROR.INTERNAL_SERVER_ERROR);
     });
   });
 }

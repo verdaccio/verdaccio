@@ -1,8 +1,8 @@
-import Search from '../../../../src/lib/search';
 import Config from '../../../../src/lib/config';
+import { setup } from '../../../../src/lib/logger';
+import Search from '../../../../src/lib/search';
 import Storage from '../../../../src/lib/storage';
 import buildConfig from '../../partials/config';
-import { setup } from '../../../../src/lib/logger';
 
 setup([]);
 
@@ -11,37 +11,37 @@ let packages = [
     name: 'test1',
     description: 'description',
     _npmUser: {
-      name: 'test_user'
-    }
+      name: 'test_user',
+    },
   },
   {
     name: 'test2',
     description: 'description',
     _npmUser: {
-      name: 'test_user'
-    }
+      name: 'test_user',
+    },
   },
   {
     name: 'test3',
     description: 'description',
     _npmUser: {
-      name: 'test_user'
-    }
+      name: 'test_user',
+    },
   },
   {
     name: '@verdaccio/scope',
     description: 'scope',
     _npmUser: {
-      name: 'scope_user'
-    }
+      name: 'scope_user',
+    },
   },
   {
     name: '@any/scope',
     description: 'scope',
     _npmUser: {
-      name: 'scope_user'
-    }
-  }
+      name: 'scope_user',
+    },
+  },
 ];
 
 describe('search', () => {
@@ -66,15 +66,15 @@ describe('search', () => {
     expect(result).toHaveLength(2);
     result = Search.query('@verdaccio');
     expect(result).toHaveLength(1);
-  })
+  });
 
   test('search remove item', () => {
     let item = {
       name: 'test6',
       description: 'description',
       _npmUser: {
-        name: 'test_user'
-      }
+        name: 'test_user',
+      },
     };
     // @ts-ignore
     Search.add(item);
