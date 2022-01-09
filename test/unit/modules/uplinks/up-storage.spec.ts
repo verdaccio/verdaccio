@@ -17,7 +17,7 @@ describe('UpStorge', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
-    url: `http://localhost:${mockServerPort}`,
+    url: `http://localhost:${mockServerPort}`
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample());
@@ -145,7 +145,7 @@ describe('UpStorge', () => {
           });
         });
       });
-    });
+    }, 10000);
   });
 
   describe('UpStorge::isUplinkValid', () => {
