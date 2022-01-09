@@ -1,5 +1,5 @@
-import { readFile } from '../lib/test.utils';
 import { API_ERROR, HTTP_STATUS } from '../../../src/lib/constants';
+import { readFile } from '../lib/test.utils';
 
 const readTags = () => readFile('../fixtures/publish.json5');
 

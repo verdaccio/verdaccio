@@ -1,10 +1,11 @@
-import { inspect } from 'util';
-import { calculateLevel, LevelCode, levelsColors, subSystemLevels } from '../levels';
-import { padLeft, padRight } from '../utils';
-import { white, red, green } from 'kleur';
-import _ from 'lodash';
 import dayjs from 'dayjs';
+import { green, red, white } from 'kleur';
+import _ from 'lodash';
 import { PrettyOptions } from 'pino';
+import { inspect } from 'util';
+
+import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from '../levels';
+import { padLeft, padRight } from '../utils';
 
 export const CUSTOM_PAD_LENGTH = 1;
 export const FORMAT_DATE = 'YYYY-MM-DD HH:mm:ss';

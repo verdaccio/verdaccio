@@ -1,4 +1,5 @@
 import { Command } from 'clipanion';
+
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;
 

@@ -1,11 +1,13 @@
-import { media, allow } from '../../middleware';
-import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
-import { API_MESSAGE, HTTP_STATUS, DIST_TAGS } from '../../../lib/constants';
-import mime from 'mime';
-import _ from 'lodash';
 import { Router } from 'express';
+import _ from 'lodash';
+import mime from 'mime';
+
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
+import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
+import { allow, media } from '../../middleware';
 
 export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
   const can = allow(auth);
@@ -41,7 +43,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
       }
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.TAG_REMOVED
+        ok: API_MESSAGE.TAG_REMOVED,
       });
     });
   });
@@ -57,7 +59,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
         }
 
         next(info[DIST_TAGS]);
-      }
+      },
     });
   });
 
@@ -68,7 +70,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
       }
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.TAG_UPDATED
+        ok: API_MESSAGE.TAG_UPDATED,
       });
     });
   });

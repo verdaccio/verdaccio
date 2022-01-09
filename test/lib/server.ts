@@ -1,11 +1,12 @@
 import assert from 'assert';
-import { IServerBridge } from '../types';
+import _ from 'lodash';
+
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
 import { buildToken } from '../../src/lib/utils';
 import { CREDENTIALS } from '../functional/config.functional';
 import getPackage from '../functional/fixtures/package';
+import { IServerBridge } from '../types';
 import smartRequest from './request';
-import _ from 'lodash';
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
@@ -35,7 +36,7 @@ export default class Server implements IServerBridge {
       method: options.method || 'GET',
       headers: headers,
       encoding: options.encoding,
-      json: _.isNil(options.json) === false ? options.json : true
+      json: _.isNil(options.json) === false ? options.json : true,
     });
   }
 
@@ -51,22 +52,22 @@ export default class Server implements IServerBridge {
         _id: `org.couchdb.user:${name}`,
         type: 'user',
         roles: [],
-        date: new Date()
-      }
+        date: new Date(),
+      },
     });
   }
 
   public logout(token: string) {
     return this.request({
       uri: `/-/user/token/${encodeURIComponent(token)}`,
-      method: 'DELETE'
+      method: 'DELETE',
     });
   }
 
   public getPackage(name: string) {
     return this.request({
       uri: `/${encodeURIComponent(name)}`,
-      method: 'GET'
+      method: 'GET',
     });
   }
 
@@ -79,8 +80,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
+      },
     }).send(data);
   }
 
@@ -93,8 +94,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(version)}/-tag/latest`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
+      },
     }).send(data);
   }
 
@@ -102,7 +103,7 @@ export default class Server implements IServerBridge {
     return this.request({
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}`,
       method: 'GET',
-      encoding: null
+      encoding: null,
     });
   }
 
@@ -111,8 +112,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
+      },
     }).send(data);
   }
 
@@ -121,8 +122,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
+      },
     });
   }
 
@@ -131,8 +132,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
       method: 'DELETE',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
+      },
     });
   }
 
@@ -141,8 +142,8 @@ export default class Server implements IServerBridge {
       uri: `/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`,
       method: 'PUT',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
+      },
     }).send(JSON.stringify(version));
   }
 
@@ -152,9 +153,9 @@ export default class Server implements IServerBridge {
       method: 'PUT',
       headers: {
         [HEADERS.CONTENT_TYPE]: HEADERS.OCTET_STREAM,
-        [HEADERS.CONTENT_LENGTH]: headerContentSize
+        [HEADERS.CONTENT_LENGTH]: headerContentSize,
       },
-      timeout: 1000
+      timeout: 1000,
     });
 
     promise.request(function (req) {
@@ -187,7 +188,7 @@ export default class Server implements IServerBridge {
 
   public whoami() {
     return this.request({
-      uri: '/-/whoami'
+      uri: '/-/whoami',
     })
       .status(HTTP_STATUS.OK)
       .then(function (body) {
@@ -197,7 +198,7 @@ export default class Server implements IServerBridge {
 
   public ping() {
     return this.request({
-      uri: '/-/ping'
+      uri: '/-/ping',
     })
       .status(HTTP_STATUS.OK)
       .then(function (body) {
@@ -210,8 +211,8 @@ export default class Server implements IServerBridge {
       uri: '/-/_debug',
       method: 'GET',
       headers: {
-        [HEADERS.CONTENT_TYPE]: HEADERS.JSON
-      }
+        [HEADERS.CONTENT_TYPE]: HEADERS.JSON,
+      },
     });
   }
 }

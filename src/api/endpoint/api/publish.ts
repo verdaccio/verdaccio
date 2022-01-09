@@ -1,19 +1,19 @@
+import buildDebug from 'debug';
+import { Router } from 'express';
+import _ from 'lodash';
+import mime from 'mime';
 import Path from 'path';
 
-import { API_MESSAGE, HEADERS, DIST_TAGS, API_ERROR, HTTP_STATUS } from '../../../lib/constants';
-import { validateMetadata, isObject, ErrorCode, hasDiffOneKey, isRelatedToDeprecation } from '../../../lib/utils';
-import { media, expectJson, allow } from '../../middleware';
-import { notify } from '../../../lib/notify';
+import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
-import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
+import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
+import { notify } from '../../../lib/notify';
 import { isPublishablePackage } from '../../../lib/storage-utils';
+import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation, validateMetadata } from '../../../lib/utils';
+import { allow, expectJson, media } from '../../middleware';
 import star from './star';
-import { Config, Callback, MergeTags, Version, Package } from '@verdaccio/types';
-import { Router } from 'express';
-import mime from 'mime';
-import buildDebug from 'debug';
-import _ from 'lodash';
 
 const debug = buildDebug('verdaccio:publish');
 
@@ -154,7 +154,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
         res.status(HTTP_STATUS.CREATED);
         return next({
           ok: okMessage,
-          success: true
+          success: true,
         });
       }
 
@@ -293,7 +293,7 @@ export function addVersion(storage: IStorageHandler) {
 
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.PKG_PUBLISHED
+        ok: API_MESSAGE.PKG_PUBLISHED,
       });
     });
   };
@@ -328,7 +328,7 @@ export function uploadPackageTarball(storage: IStorageHandler) {
     stream.on('success', function () {
       res.status(HTTP_STATUS.CREATED);
       return next({
-        ok: API_MESSAGE.TARBALL_UPLOADED
+        ok: API_MESSAGE.TARBALL_UPLOADED,
       });
     });
   };

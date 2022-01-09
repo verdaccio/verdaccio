@@ -6,18 +6,18 @@
  * If you have any questions, ask at the http://chat.verdaccio.org #questions channel.
  *
  */
+import _ from 'lodash';
 import path from 'path';
+import rimraf from 'rimraf';
+import request from 'supertest';
 
 import endPointAPI from '../../../../src/api/index';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';
-import { setup } from '../../../../src/lib/logger';
-import rimraf from 'rimraf';
-import _ from 'lodash';
-import request from 'supertest';
+import { mockServer } from '../../__helper/mock';
 
 // we must start logging without output
 setup([]);
@@ -47,17 +47,17 @@ describe('endpoint example unit test', () => {
         storage: store,
         uplinks: {
           npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-          }
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
         },
         // 6. The self_path is important be the same as the store
         self_path: store,
         // 7. Define the location of the .htpasswd file, this is relative to self_path.
         auth: {
           htpasswd: {
-            file: './test-jwt-storage/.htpasswd'
-          }
-        }
+            file: './test-jwt-storage/.htpasswd',
+          },
+        },
       });
 
       // 8. Use the helper `endPointAPI` to mock the API

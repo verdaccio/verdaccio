@@ -1,4 +1,4 @@
-import { HTTP_STATUS, API_ERROR } from '../../../src/lib/constants';
+import { API_ERROR, HTTP_STATUS } from '../../../src/lib/constants';
 
 export default function (server2) {
   // credentials

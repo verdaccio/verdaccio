@@ -1,5 +1,6 @@
-import { HTTP_STATUS } from '../../../src/lib/constants';
 import _ from 'lodash';
+
+import { HTTP_STATUS } from '../../../src/lib/constants';
 
 export default function (server) {
   describe('should test security on endpoints', () => {
@@ -45,7 +46,7 @@ export default function (server) {
     test('should fails on fetch silly things - reading #2', () => {
       return server
         .request({
-          uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd'
+          uri: '/testpkg-sec/-/%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd',
         })
         .status(HTTP_STATUS.FORBIDDEN)
         .body_error(/invalid filename/);

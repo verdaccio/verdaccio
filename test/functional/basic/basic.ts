@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+
+import { DIST_TAGS, HTTP_STATUS } from '../../../src/lib/constants';
 import { createTarballHash } from '../../../src/lib/crypto-utils';
-import { HTTP_STATUS, DIST_TAGS } from '../../../src/lib/constants';
 import { CREDENTIALS, DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, TARBALL } from '../config.functional';
 import fixturePkg from '../fixtures/package';
-import whoIam from './whoIam';
 import ping from './ping';
+import whoIam from './whoIam';
 
 function readfile(folderPath) {
   return fs.readFileSync(path.join(__dirname, '/', folderPath));
@@ -135,7 +136,7 @@ export default function (server: any, server2: any) {
                   expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
                   expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_1}/${PKG_NAME}/-/${TARBALL}`);
                   expect(body[DIST_TAGS]).toEqual({
-                    latest: PKG_VERSION
+                    latest: PKG_VERSION,
                   });
                 });
             });
@@ -149,7 +150,7 @@ export default function (server: any, server2: any) {
                   expect(body.versions[PKG_VERSION].name).toEqual(PKG_NAME);
                   expect(body.versions[PKG_VERSION].dist.tarball).toEqual(`http://${DOMAIN_SERVERS}:${PORT_SERVER_2}/${PKG_NAME}/-/${TARBALL}`);
                   expect(body[DIST_TAGS]).toEqual({
-                    latest: PKG_VERSION
+                    latest: PKG_VERSION,
                   });
                 });
             });

@@ -9,15 +9,8 @@
     "resolveJsonModule": true,
     "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true   
+    "esModuleInterop": true
   },
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ],
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "types/*.d.ts"
-  ]
+  "exclude": ["node_modules", "**/*.spec.ts"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "types/*.d.ts"]
 }

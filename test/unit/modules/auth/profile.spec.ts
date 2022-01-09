@@ -1,15 +1,15 @@
+import _ from 'lodash';
 import path from 'path';
+import rimraf from 'rimraf';
+import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { mockServer } from '../../__helper/mock';
+import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
-import { setup } from '../../../../src/lib/logger';
-import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
-import rimraf from 'rimraf';
-import _ from 'lodash';
-import request from 'supertest';
+import { mockServer } from '../../__helper/mock';
 
 setup([]);
 
@@ -31,10 +31,10 @@ describe('endpoint user profile', () => {
         storage: store,
         auth: {
           htpasswd: {
-            file: './test-profile-storage/.htpasswd-auth-profile'
-          }
+            file: './test-profile-storage/.htpasswd-auth-profile',
+          },
         },
-        self_path: store
+        self_path: store,
       });
       app = await endPointAPI(configForTest);
       mockRegistry = await mockServer(mockServerPort).init();
@@ -63,8 +63,8 @@ describe('endpoint user profile', () => {
       const body = {
         password: {
           new: '12345678',
-          old: credentials.password
-        }
+          old: credentials.password,
+        },
       };
       const token = await getNewToken(request(app), credentials);
       const [err1, res1] = await postProfile(request(app), body, token);
@@ -79,8 +79,8 @@ describe('endpoint user profile', () => {
       const body = {
         password: {
           new: 'p1',
-          old: credentials.password
-        }
+          old: credentials.password,
+        },
       };
       const token = await getNewToken(request(app), credentials);
       const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.UNAUTHORIZED);
@@ -96,7 +96,7 @@ describe('endpoint user profile', () => {
     test('should report TFA is disabled', async (done) => {
       const credentials = { name: 'userTest2002', password: 'secretPass002' };
       const body = {
-        tfa: {}
+        tfa: {},
       };
       const token = await getNewToken(request(app), credentials);
       const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.SERVICE_UNAVAILABLE);

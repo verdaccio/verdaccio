@@ -1,11 +1,12 @@
-import { generateRandomHexString } from '../lib/crypto-utils';
-import { IStorage } from '../../types';
-import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
-import Search from './search';
-
-import { API_ERROR, HTTP_STATUS, DIST_TAGS, USERS, STORAGE } from './constants';
-import { Package, Version, Author } from '@verdaccio/types';
 import _ from 'lodash';
+
+import { Author, Package, Version } from '@verdaccio/types';
+
+import { IStorage } from '../../types';
+import { generateRandomHexString } from '../lib/crypto-utils';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
+import Search from './search';
+import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 
 export function generatePackageTemplate(name: string): Package {
   return {
@@ -18,7 +19,7 @@ export function generatePackageTemplate(name: string): Package {
     _uplinks: {},
     _distfiles: {},
     _attachments: {},
-    _rev: ''
+    _rev: '',
   };
 }
 
@@ -98,8 +99,8 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   } else if (_.isString(contributors)) {
     return [
       {
-        name: contributors
-      }
+        name: contributors,
+      },
     ];
   }
 
@@ -217,9 +218,9 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
       bugs: version.bugs,
       license: version.license,
       time: {
-        modified: time
+        modified: time,
       },
-      versions
+      versions,
     };
 
     return pkg;

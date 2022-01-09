@@ -1,12 +1,11 @@
 // this file is not aim to be tested, just to check typescript definitions
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+import { Config as AppConfig, Callback, IReadTarball, IUploadTarball, Logger, Package, Token, TokenFilter } from '@verdaccio/types';
+import { IPackageStorage, IPackageStorageManager, IPluginStorage } from '@verdaccio/types';
 
 import Config from '../../../../src/lib/config';
 import { logger } from '../../../../src/lib/logger';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import { Callback, Config as AppConfig, Logger, Package, Token, TokenFilter, IUploadTarball, IReadTarball } from '@verdaccio/types';
-
-import { IPluginStorage, IPackageStorageManager, IPackageStorage } from '@verdaccio/types';
-import { UploadTarball, ReadTarball } from '@verdaccio/streams';
 
 class PackageStorage implements IPackageStorageManager {
   path: string;
@@ -90,7 +89,7 @@ class ExampleStoragePlugin implements IPluginStorage<{}> {
       key: '12312',
       token: '12321', // pragma: allowlist secret
       readonly: false,
-      created: '123232'
+      created: '123232',
     };
 
     return Promise.resolve([token, token]);
@@ -130,7 +129,7 @@ export default ExampleStoragePlugin;
 
 const config1: AppConfig = new Config({
   storage: './storage',
-  self_path: '/home/sotrage'
+  self_path: '/home/sotrage',
 });
 
 const storage = new ExampleStoragePlugin(config1, logger.child());

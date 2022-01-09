@@ -1,11 +1,13 @@
-import { URL } from 'url';
-import path from 'path';
-import { getPublicUrl, isHTTPProtocol } from '../../../lib/utils';
-import { WEB_TITLE } from '../../../lib/constants';
-import renderTemplate from './template';
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
+import path from 'path';
+import { URL } from 'url';
+
 import { HEADERS } from '@verdaccio/commons-api';
+
+import { WEB_TITLE } from '../../../lib/constants';
+import { getPublicUrl, isHTTPProtocol } from '../../../lib/utils';
+import renderTemplate from './template';
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
@@ -15,7 +17,7 @@ const debug = buildDebug('verdaccio');
 
 const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
-  ico: 'favicon.ico'
+  ico: 'favicon.ico',
 };
 
 export function validatePrimaryColor(primaryColor) {
@@ -56,7 +58,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     {
       scriptsBodyAfter: [],
       bodyBefore: [],
-      metaScripts: []
+      metaScripts: [],
     },
     config?.web
   );
@@ -70,7 +72,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     logo: logoURI,
     title,
     scope,
-    language
+    language,
   };
 
   let webPage;
@@ -87,7 +89,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
           options,
           scriptsBodyAfter,
           metaScripts,
-          scriptsbodyBefore
+          scriptsbodyBefore,
         },
         manifest
       );

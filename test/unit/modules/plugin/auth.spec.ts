@@ -1,13 +1,14 @@
-import Auth from '../../../../src/lib/auth';
-import AppConfig from '../../../../src/lib/config';
-import { setup } from '../../../../src/lib/logger';
+import _ from 'lodash';
 
-import { IAuth } from '../../../../types';
-import { ROLES } from '../../../../src/lib/constants';
-import { authProfileConf, authPluginFailureConf, authPluginPassThrougConf } from './helper/plugin';
 import { getInternalError } from '@verdaccio/commons-api';
 import { Config } from '@verdaccio/types';
-import _ from 'lodash';
+
+import Auth from '../../../../src/lib/auth';
+import AppConfig from '../../../../src/lib/config';
+import { ROLES } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+import { IAuth } from '../../../../types';
+import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
 setup([]);
 
@@ -36,7 +37,7 @@ describe('AuthTest', () => {
         expect(callback).toHaveBeenCalledWith(null, {
           groups: ['test', ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL],
           name: 'foo',
-          real_groups: groups
+          real_groups: groups,
         });
       });
 

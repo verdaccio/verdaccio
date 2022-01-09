@@ -1,8 +1,10 @@
 // eslint-disable no-invalid-this
-
-import { IStorageHandler, IWebSearch, IStorage } from '../../types';
 import lunrMutable from 'lunr-mutable-indexes';
+
 import { Version } from '@verdaccio/types';
+
+import { IStorage, IStorageHandler, IWebSearch } from '../../types';
+
 /**
  * Handle the search Indexer.
  */
@@ -72,7 +74,7 @@ class Search implements IWebSearch {
       description: pkg.description,
       version: `v${pkg.version}`,
       keywords: pkg.keywords,
-      author: pkg._npmUser ? pkg._npmUser.name : '???'
+      author: pkg._npmUser ? pkg._npmUser.name : '???',
     });
   }
 

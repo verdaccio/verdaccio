@@ -1,7 +1,7 @@
 import { HEADERS, HTTP_STATUS } from '../../../src/lib/constants';
+import { DIST_TAGS } from '../../../src/lib/constants';
 import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2 } from '../config.functional';
 import { generateSha } from '../lib/test.utils';
-import { DIST_TAGS } from '../../../src/lib/constants';
 
 export default function (server, server2) {
   const SCOPE = '@test/scoped';
@@ -14,10 +14,10 @@ export default function (server, server2) {
         .request({
           uri: '/@test%2fscoped',
           headers: {
-            'content-type': HEADERS.JSON
+            'content-type': HEADERS.JSON,
           },
           method: 'PUT',
-          json: require('./scoped.json')
+          json: require('./scoped.json'),
         })
         .status(HTTP_STATUS.CREATED);
     });
@@ -64,7 +64,7 @@ export default function (server, server2) {
       test('should work nginx workaround', () => {
         return server2
           .request({
-            uri: '/@test/scoped/1.0.0'
+            uri: '/@test/scoped/1.0.0',
           })
           .status(HTTP_STATUS.OK)
           .then(function (body) {

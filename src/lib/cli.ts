@@ -16,7 +16,7 @@ require('./cli/cli');
 process.on('uncaughtException', function (err) {
   logger.logger.fatal(
     {
-      err: err
+      err: err,
     },
     'uncaught exception, please report this\n@{err.stack}'
   );

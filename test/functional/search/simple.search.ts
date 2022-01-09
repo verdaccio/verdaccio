@@ -18,25 +18,25 @@ export default function (server, server2, express) {
           author: '',
           license: 'ISC',
           'dist-tags': {
-            latest: '0.0.1'
+            latest: '0.0.1',
           },
           maintainers: [
             {
               name: 'alex',
-              email: 'user@domain.com'
-            }
+              email: 'user@domain.com',
+            },
           ],
           readmeFilename: '',
           time: {
-            modified: '2014-10-02T07:07:51.000Z'
+            modified: '2014-10-02T07:07:51.000Z',
           },
           versions: {
-            '0.0.1': 'latest'
+            '0.0.1': 'latest',
           },
           repository: {
             type: 'git',
-            url: ''
-          }
+            url: '',
+          },
         });
       };
 

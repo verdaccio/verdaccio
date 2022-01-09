@@ -1,4 +1,4 @@
-import { createDecipher, createCipher, createHash, pseudoRandomBytes, Hash } from 'crypto';
+import { Hash, createCipher, createDecipher, createHash, pseudoRandomBytes } from 'crypto';
 import jwt from 'jsonwebtoken';
 
 import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
@@ -56,7 +56,7 @@ export async function signPayload(payload: RemoteUser, secretOrPrivateKey: strin
       secretOrPrivateKey,
       {
         notBefore: '1', // Make sure the time will not rollback :)
-        ...options
+        ...options,
       },
       (error, token) => (error ? reject(error) : resolve(token))
     );

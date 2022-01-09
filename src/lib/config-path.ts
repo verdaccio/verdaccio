@@ -1,11 +1,11 @@
 import fs from 'fs';
-import Path from 'path';
-import { logger } from './logger';
-
-import { folderExists, fileExists } from './utils';
-import { CHARACTER_ENCODING } from './constants';
-import mkdirp from 'mkdirp';
 import _ from 'lodash';
+import mkdirp from 'mkdirp';
+import Path from 'path';
+
+import { CHARACTER_ENCODING } from './constants';
+import { logger } from './logger';
+import { fileExists, folderExists } from './utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
@@ -98,7 +98,7 @@ const getXDGDirectory = (): SetupDirectory | void => {
   if (XDGConfig && folderExists(XDGConfig)) {
     return {
       path: Path.join(XDGConfig, pkgJSON.name, CONFIG_FILE),
-      type: XDG
+      type: XDG,
     };
   }
 };
@@ -109,7 +109,7 @@ const getWindowsDirectory = (): SetupDirectory | void => {
   if (process.platform === WIN32 && process.env.APPDATA && folderExists(process.env.APPDATA)) {
     return {
       path: Path.resolve(Path.join(process.env.APPDATA, pkgJSON.name, CONFIG_FILE)),
-      type: WIN
+      type: WIN,
     };
   }
 };
@@ -117,14 +117,14 @@ const getWindowsDirectory = (): SetupDirectory | void => {
 const getRelativeDefaultDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', pkgJSON.name, CONFIG_FILE)),
-    type: 'def'
+    type: 'def',
   };
 };
 
 const getOldDirectory = (): SetupDirectory => {
   return {
     path: Path.resolve(Path.join('.', CONFIG_FILE)),
-    type: 'old'
+    type: 'old',
   };
 };
 

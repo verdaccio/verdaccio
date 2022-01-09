@@ -1,15 +1,16 @@
-import ProxyStorage from '../../../../src/lib/up-storage';
-import AppConfig from '../../../../src/lib/config';
-import configExample from '../../partials/config';
-import { setup } from '../../../../src/lib/logger';
+import _ from 'lodash';
 
-import { IProxy } from '../../../../types';
-import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, UpLinkConf } from '@verdaccio/types';
-import _ from 'lodash';
+
+import AppConfig from '../../../../src/lib/config';
+import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+import ProxyStorage from '../../../../src/lib/up-storage';
+import { IProxy } from '../../../../types';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import configExample from '../../partials/config';
 
 setup([]);
 
@@ -17,7 +18,7 @@ describe('UpStorge', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
-    url: `http://localhost:${mockServerPort}`
+    url: `http://localhost:${mockServerPort}`,
   };
   const generateProxy = (config: UpLinkConf = uplinkDefault) => {
     const appConfig: Config = new AppConfig(configExample());

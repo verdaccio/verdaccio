@@ -1,6 +1,7 @@
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer } from '../../../types';
-import _ from 'lodash';
 import { Application } from 'express';
+import _ from 'lodash';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
 export default (app: Application, selfPath: string): void => {
   // Hook for tests only
@@ -17,7 +18,7 @@ export default (app: Application, selfPath: string): void => {
       main: process.mainModule.filename,
       conf: selfPath,
       mem: process.memoryUsage(),
-      gc: doGarbabeCollector
+      gc: doGarbabeCollector,
     });
   });
 };

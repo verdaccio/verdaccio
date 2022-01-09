@@ -1,18 +1,18 @@
+import _ from 'lodash';
+
+import { Config, RemoteUser, Security } from '@verdaccio/types';
+
 import Auth from '../../../../src/lib/auth';
+import { buildUserBuffer, getApiToken, getAuthenticatedMessage, getMiddlewareCredentials, getSecurity } from '../../../../src/lib/auth-utils';
+import AppConfig from '../../../../src/lib/config';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
+import { setup } from '../../../../src/lib/logger';
+import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
+import { IAuth } from '../../../../types';
+import { parseConfigurationFile } from '../../__helper';
 // $FlowFixMe
 import configExample from '../../partials/config';
-import AppConfig from '../../../../src/lib/config';
-import { setup } from '../../../../src/lib/logger';
-
-import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
-import { buildUserBuffer, getApiToken, getAuthenticatedMessage, getMiddlewareCredentials, getSecurity } from '../../../../src/lib/auth-utils';
-import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
-import { parseConfigurationFile } from '../../__helper';
-
-import { IAuth } from '../../../../types';
-import { Config, Security, RemoteUser } from '@verdaccio/types';
-import _ from 'lodash';
 
 setup([]);
 
@@ -42,7 +42,7 @@ describe('Auth utilities', () => {
     const user: RemoteUser = {
       name: username,
       real_groups: [],
-      groups: []
+      groups: [],
     };
     const token = await getApiToken(auth, config, user, password);
     expect(spy).toHaveBeenCalled();

@@ -1,10 +1,12 @@
-import { HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
-import { buildToken, encodeScopedUri } from '../../../src/lib/utils';
-import { generateRandomHexString } from '../../../src/lib/crypto-utils';
-import { getTaggedVersionFromPackage } from './expects';
-import { Package } from '@verdaccio/types';
-import request from 'supertest';
 import _ from 'lodash';
+import request from 'supertest';
+
+import { Package } from '@verdaccio/types';
+
+import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
+import { generateRandomHexString } from '../../../src/lib/crypto-utils';
+import { buildToken, encodeScopedUri } from '../../../src/lib/utils';
+import { getTaggedVersionFromPackage } from './expects';
 
 // API Helpers
 

@@ -1,17 +1,16 @@
 import path from 'path';
-
-import endPointAPI from '../../../../src/api';
-
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, TOKEN_BASIC, API_ERROR } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { buildToken } from '../../../../src/lib/utils';
-import { addUser, getPackage, loginUserToken } from '../../__helper/api';
-import { setup } from '../../../../src/lib/logger';
-import configDefault from '../../partials/config';
-import { buildUserBuffer } from '../../../../src/lib/auth-utils';
 import rimraf from 'rimraf';
 import request from 'supertest';
+
+import endPointAPI from '../../../../src/api';
+import { buildUserBuffer } from '../../../../src/lib/auth-utils';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+import { buildToken } from '../../../../src/lib/utils';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { addUser, getPackage, loginUserToken } from '../../__helper/api';
+import { mockServer } from '../../__helper/mock';
+import configDefault from '../../partials/config';
 
 setup([]);
 const credentials = { name: 'JotaJWT', password: 'secretPass' };
@@ -33,16 +32,16 @@ describe('endpoint user auth JWT unit test', () => {
           storage: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-            }
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            },
           },
           self_path: store,
           auth: {
             htpasswd: {
-              file: './test-jwt-storage/.htpasswd_jwt_auth'
-            }
+              file: './test-jwt-storage/.htpasswd_jwt_auth',
+            },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
         },
         'api-jwt/jwt.yaml'
       );

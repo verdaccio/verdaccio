@@ -1,11 +1,11 @@
-import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
-import { ErrorCode } from '../../../../lib/utils';
-import { validatePassword } from '../../../../lib/auth-utils';
-
-import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
-import { limiter } from '../../../rate-limiter';
 import { Response, Router } from 'express';
 import _ from 'lodash';
+
+import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../../types';
+import { validatePassword } from '../../../../lib/auth-utils';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
+import { ErrorCode } from '../../../../lib/utils';
+import { limiter } from '../../../rate-limiter';
 
 export interface Profile {
   tfa: boolean;
@@ -29,7 +29,7 @@ export default function (auth: IAuth, config): Router {
       created: '',
       updated: '',
       cidr_whitelist: null,
-      fullname: ''
+      fullname: '',
     };
   }
 
@@ -40,7 +40,7 @@ export default function (auth: IAuth, config): Router {
 
     res.status(HTTP_STATUS.UNAUTHORIZED);
     return next({
-      message: API_ERROR.MUST_BE_LOGGED
+      message: API_ERROR.MUST_BE_LOGGED,
     });
   });
 
@@ -48,7 +48,7 @@ export default function (auth: IAuth, config): Router {
     if (_.isNil(req.remote_user.name)) {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
-        message: API_ERROR.MUST_BE_LOGGED
+        message: API_ERROR.MUST_BE_LOGGED,
       });
     }
 

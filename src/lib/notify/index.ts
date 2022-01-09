@@ -1,9 +1,10 @@
-import { notifyRequest } from './notify-request';
 import Handlebars from 'handlebars';
 import _ from 'lodash';
-
 import { OptionsWithUrl } from 'request';
+
 import { Config, Package, RemoteUser } from '@verdaccio/types';
+
+import { notifyRequest } from './notify-request';
 
 type TemplateMetadata = Package & { publishedPackage: string };
 
@@ -30,7 +31,7 @@ export function handleNotify(metadata: Package, notifyEntry, remoteUser: RemoteU
 
   const options: OptionsWithUrl = {
     body: content,
-    url: ''
+    url: '',
   };
 
   // provides fallback support, it's accept an Object {} and Array of {}

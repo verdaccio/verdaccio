@@ -8,7 +8,7 @@ export function generateNewVersion(pkgName: string, version: string, shashum = '
     description: '',
     main: 'index.js',
     dependencies: {
-      test: '^1.4.1'
+      test: '^1.4.1',
     },
     author: '',
     license: 'ISC',
@@ -16,12 +16,12 @@ export function generateNewVersion(pkgName: string, version: string, shashum = '
     _id: `${pkgName}@${version}`,
     _npmVersion: '5.5.1',
     _npmUser: {
-      name: 'Foo'
+      name: 'Foo',
     },
     dist: {
       integrity: 'sha512-zVEqt1JUCOPsash9q4wMkJEDPD+QCx95TRhQII+JnoS31uBUKoZxhzvvUJCcLVy2CQG4QdwXARU7dYWPnrwhGg==',
       shasum: shashum,
-      tarball: `http:\/\/localhost:4873\/${pkgName}\/-\/${pkgName}-${version}.tgz`
-    }
+      tarball: `http:\/\/localhost:4873\/${pkgName}\/-\/${pkgName}-${version}.tgz`,
+    },
   };
 }

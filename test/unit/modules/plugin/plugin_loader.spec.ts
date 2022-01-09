@@ -1,6 +1,7 @@
 import path from 'path';
-import loadPlugin from '../../../../src/lib/plugin-loader';
+
 import { setup } from '../../../../src/lib/logger';
+import loadPlugin from '../../../../src/lib/plugin-loader';
 
 setup([]);
 
@@ -11,8 +12,8 @@ describe('plugin loader', () => {
       self_path: path.join(__dirname, './'),
       max_users: 0,
       auth: {
-        [`${relativePath}/${name}`]: {}
-      }
+        [`${relativePath}/${name}`]: {},
+      },
     };
   };
 

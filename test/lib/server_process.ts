@@ -1,10 +1,11 @@
-import path from 'path';
 import { fork } from 'child_process';
-import { CREDENTIALS } from '../functional/config.functional';
-import { HTTP_STATUS } from '../../src/lib/constants';
-import { IVerdaccioConfig, IServerBridge, IServerProcess } from '../types';
-import rimRaf from 'rimraf';
 import _ from 'lodash';
+import path from 'path';
+import rimRaf from 'rimraf';
+
+import { HTTP_STATUS } from '../../src/lib/constants';
+import { CREDENTIALS } from '../functional/config.functional';
+import { IServerBridge, IServerProcess, IVerdaccioConfig } from '../types';
 
 export default class VerdaccioProcess implements IServerProcess {
   private bridge: IServerBridge;
@@ -41,7 +42,7 @@ export default class VerdaccioProcess implements IServerProcess {
   private _start(verdaccioPath: string, resolve: Function, reject: Function) {
     const verdaccioRegisterWrap: string = path.join(__dirname, verdaccioPath);
     let childOptions = {
-      silent: true
+      silent: true,
     };
 
     if (this.isDebug) {
@@ -49,7 +50,7 @@ export default class VerdaccioProcess implements IServerProcess {
       const debugPort = parseInt(this.config.port, 10) + 5;
 
       childOptions = Object.assign({}, childOptions, {
-        execArgv: [`--inspect=${debugPort}`]
+        execArgv: [`--inspect=${debugPort}`],
       });
     }
 

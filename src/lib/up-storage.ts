@@ -1,16 +1,18 @@
-import zlib from 'zlib';
-import Stream from 'stream';
-import URL, { UrlWithStringQuery } from 'url';
-import { IProxy, UpLinkConfLocal } from '../../types';
-import { parseInterval, isObject, ErrorCode, buildToken, isObjectOrArray } from './utils';
-import { logger } from './logger';
-import { ERROR_CODE, TOKEN_BASIC, TOKEN_BEARER, HEADERS, HTTP_STATUS, API_ERROR, HEADER_TYPE, CHARACTER_ENCODING } from './constants';
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
 import request from 'request';
+import Stream from 'stream';
+import URL, { UrlWithStringQuery } from 'url';
+import zlib from 'zlib';
+
 import { ReadTarball } from '@verdaccio/streams';
-import { Config, Callback, Headers, Logger, Package } from '@verdaccio/types';
+import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
+
+import { IProxy, UpLinkConfLocal } from '../../types';
+import { API_ERROR, CHARACTER_ENCODING, ERROR_CODE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import { logger } from './logger';
+import { ErrorCode, buildToken, isObject, isObjectOrArray, parseInterval } from './utils';
 
 const debug = buildDebug('verdaccio:up-storage');
 
@@ -81,7 +83,7 @@ class ProxyStorage implements IProxy {
           'Too big timeout value: ' + this.config.timeout,
           'We changed time format to nginx-like one',
           '(see http://nginx.org/en/docs/syntax.html)',
-          'so please update your config accordingly'
+          'so please update your config accordingly',
         ].join('\n')
       );
     }
@@ -95,7 +97,7 @@ class ProxyStorage implements IProxy {
     this.agent_options = setConfig(this.config, 'agent_options', {
       keepAlive: true,
       maxSockets: 40,
-      maxFreeSockets: 10
+      maxFreeSockets: 10,
     });
   }
 
@@ -137,7 +139,7 @@ class ProxyStorage implements IProxy {
       {
         method: method,
         headers: headers,
-        uri: uri
+        uri: uri,
       },
       "making request: '@{method} @{uri}'"
     );
@@ -197,8 +199,8 @@ class ProxyStorage implements IProxy {
                 error: error,
                 bytes: {
                   in: json ? json.length : 0,
-                  out: responseLength || 0
-                }
+                  out: responseLength || 0,
+                },
               },
               message
             );
@@ -216,12 +218,12 @@ class ProxyStorage implements IProxy {
       gzip: true,
       timeout: this.timeout,
       strictSSL: this.strict_ssl,
-      agentOptions: this.agent_options
+      agentOptions: this.agent_options,
     };
 
     if (this.ca) {
       requestOptions = Object.assign({}, requestOptions, {
-        ca: this.ca
+        ca: this.ca,
       });
     }
 
@@ -243,9 +245,9 @@ class ProxyStorage implements IProxy {
             {
               request: {
                 method: method,
-                url: uri
+                url: uri,
               },
-              status: _.isNull(res) === false ? res.statusCode : 'ERR'
+              status: _.isNull(res) === false ? res.statusCode : 'ERR',
             },
             message
           );
@@ -428,7 +430,7 @@ class ProxyStorage implements IProxy {
         uri: `/${encode(name)}`,
         json: true,
         headers: headers,
-        req: options.req
+        req: options.req,
       },
       (err, res, body): void => {
         if (err) {
@@ -463,8 +465,8 @@ class ProxyStorage implements IProxy {
       uri_full: url,
       encoding: null,
       headers: {
-        Accept: contentTypeAccept
-      }
+        Accept: contentTypeAccept,
+      },
     });
 
     readStream.on('response', function (res: any) {
@@ -511,8 +513,8 @@ class ProxyStorage implements IProxy {
       req: options.req,
       headers: {
         // query for search
-        referer: options.req.get('referer')
-      }
+        referer: options.req.get('referer'),
+      },
     });
 
     const parsePackage = (pkg: Package): void => {
@@ -595,7 +597,7 @@ class ProxyStorage implements IProxy {
       if (this.failed_requests >= this.max_fails) {
         this.logger.warn(
           {
-            host: this.url.host
+            host: this.url.host,
           },
           'host @{host} is back online'
         );
@@ -606,7 +608,7 @@ class ProxyStorage implements IProxy {
       if (this.failed_requests === this.max_fails) {
         this.logger.warn(
           {
-            host: this.url.host
+            host: this.url.host,
           },
           'host @{host} is now offline'
         );

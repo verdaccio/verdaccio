@@ -1,16 +1,17 @@
-import fs from 'fs';
-import path from 'path';
-import { validateName as utilValidateName, validatePackage as utilValidatePackage, getVersionFromTarball, isObject, ErrorCode } from '../lib/utils';
-import { API_ERROR, HEADER_TYPE, HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
-import { stringToMD5 } from '../lib/crypto-utils';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IAuth } from '../../types';
-import { logger } from '../lib/logger';
-import _ from 'lodash';
 import buildDebug from 'debug';
+import fs from 'fs';
+import _ from 'lodash';
+import path from 'path';
 import validator from 'validator';
 
-import { Config, Package, RemoteUser } from '@verdaccio/types';
 import { VerdaccioError } from '@verdaccio/commons-api';
+import { Config, Package, RemoteUser } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../../types';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
+import { stringToMD5 } from '../lib/crypto-utils';
+import { logger } from '../lib/logger';
+import { ErrorCode, getVersionFromTarball, isObject, validateName as utilValidateName, validatePackage as utilValidatePackage } from '../lib/utils';
 
 const debug = buildDebug('verdaccio');
 
@@ -37,7 +38,7 @@ export function serveFavicon(config: Config) {
         if (
           validator.isURL(logoConf, {
             require_host: true,
-            require_valid_protocol: true
+            require_valid_protocol: true,
           })
         ) {
           debug('redirect to %o', logoConf);
@@ -299,7 +300,7 @@ export function log(config: Config) {
           {
             request: {
               method: req.method,
-              url: req.url
+              url: req.url,
             },
             user: (req.remote_user && req.remote_user.name) || null,
             remoteIP,
@@ -307,8 +308,8 @@ export function log(config: Config) {
             error: res.locals._verdaccio_error,
             bytes: {
               in: bytesin,
-              out: bytesout
-            }
+              out: bytesout,
+            },
           },
           message
         );

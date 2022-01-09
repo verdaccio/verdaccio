@@ -1,8 +1,9 @@
 import path from 'path';
+
 import { DOMAIN_SERVERS } from '../../functional/config.functional';
+import Server from '../../lib/server';
 import VerdaccioProcess from '../../lib/server_process';
 import { VerdaccioConfig } from '../../lib/verdaccio-server';
-import Server from '../../lib/server';
 import { IServerBridge } from '../../types';
 
 /**

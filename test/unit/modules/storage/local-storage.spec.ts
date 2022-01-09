@@ -1,21 +1,21 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import LocalStorage from '../../../../src/lib/local-storage';
-import AppConfig from '../../../../src/lib/config';
-// @ts-ignore
-import configExample from '../../partials/config';
-import { logger, setup } from '../../../../src/lib/logger';
-import { readFile } from '../../../functional/lib/test.utils';
-import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import { generateNewVersion } from '../../../lib/utils-test';
-
-const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
-
-import { IStorage } from '../../../../types';
-import { API_ERROR, HTTP_STATUS, DIST_TAGS } from '../../../../src/lib/constants';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, MergeTags, Package } from '@verdaccio/types';
+
+import AppConfig from '../../../../src/lib/config';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '../../../../src/lib/constants';
+import LocalStorage from '../../../../src/lib/local-storage';
+import { logger, setup } from '../../../../src/lib/logger';
+import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
+import { IStorage } from '../../../../types';
+import { readFile } from '../../../functional/lib/test.utils';
+import { generateNewVersion } from '../../../lib/utils-test';
+// @ts-ignore
+import configExample from '../../partials/config';
+
+const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
 
 setup([]);
 
@@ -29,7 +29,7 @@ describe('LocalStorage', () => {
   const getStorage = (LocalStorageClass = LocalStorage) => {
     const config: Config = new AppConfig(
       configExample({
-        self_path: path.join('../partials/store')
+        self_path: path.join('../partials/store'),
       })
     );
 
@@ -146,7 +146,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err, data) => {
@@ -169,7 +169,7 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '2.0.0');
         await addNewVersion(pkgName, '3.0.0');
         const tags: MergeTags = {
-          beta: '9999.0.0'
+          beta: '9999.0.0',
         };
 
         storage.mergeTags(pkgName, tags, async (err) => {
@@ -183,7 +183,7 @@ describe('LocalStorage', () => {
       test('should fails on mergeTags', async (done) => {
         const tags: MergeTags = {
           beta: '3.0.0',
-          latest: '2.0.0'
+          latest: '2.0.0',
         };
 
         storage.mergeTags('not-found', tags, async (err) => {

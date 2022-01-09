@@ -1,11 +1,12 @@
+import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
-import crypto from 'crypto';
-import { readFile } from '../lib/test.utils';
+
 import { HTTP_STATUS } from '../../../src/lib/constants';
-import { TARBALL } from '../config.functional';
 import { createTarballHash } from '../../../src/lib/crypto-utils';
+import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
+import { readFile } from '../lib/test.utils';
 
 function getBinary() {
   return readFile('../fixtures/binary');

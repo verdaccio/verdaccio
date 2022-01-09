@@ -1,7 +1,7 @@
-import { readFile } from '../lib/test.utils';
 import { API_MESSAGE, HTTP_STATUS } from '../../../src/lib/constants';
-import generatePkg from '../fixtures/package';
 import { TARBALL } from '../config.functional';
+import generatePkg from '../fixtures/package';
+import { readFile } from '../lib/test.utils';
 
 const getBinary = () => readFile('../fixtures/binary');
 

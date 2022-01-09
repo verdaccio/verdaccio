@@ -1,10 +1,11 @@
-import path from 'path';
 import fs from 'fs';
-import * as __global from '../../utils/global';
-import { spawnRegistry } from '../../utils/registry';
-import { execAndWaitForOutputToMatch } from '../../utils/process';
-import { installVerdaccio } from '../__partials/npm_commands';
+import path from 'path';
+
 import { expectFileToExist } from '../../utils/expect';
+import * as __global from '../../utils/global';
+import { execAndWaitForOutputToMatch } from '../../utils/process';
+import { spawnRegistry } from '../../utils/registry';
+import { installVerdaccio } from '../__partials/npm_commands';
 
 describe('npm search', () => {
   jest.setTimeout(90000);
@@ -23,11 +24,11 @@ describe('npm search', () => {
     // @ts-ignore
     global.__namespace = __global;
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall]
+      paths: [verdaccioInstall],
     });
     registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
       cwd: verdaccioInstall,
-      silent: true
+      silent: true,
     });
   });
 

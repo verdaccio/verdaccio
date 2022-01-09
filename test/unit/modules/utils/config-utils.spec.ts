@@ -1,9 +1,10 @@
+import _ from 'lodash';
 import path from 'path';
-import { spliceURL } from '../../../../src/utils/string';
-import { parseConfigFile } from '../../../../src/lib/utils';
+
 import { getMatchedPackagesSpec, hasProxyTo, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from '../../../../src/lib/config-utils';
 import { PACKAGE_ACCESS, ROLES } from '../../../../src/lib/constants';
-import _ from 'lodash';
+import { parseConfigFile } from '../../../../src/lib/utils';
+import { spliceURL } from '../../../../src/utils/string';
 
 describe('Config Utilities', () => {
   const parseConfigurationFile = (conf) => {

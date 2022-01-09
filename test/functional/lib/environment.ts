@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
-
+import NodeEnvironment from 'jest-environment-node';
+import { blue, green, magenta, yellow } from 'kleur';
 import path from 'path';
-import { VerdaccioConfig } from '../../lib/verdaccio-server';
-import VerdaccioProcess from '../../lib/server_process';
+
 import Server from '../../lib/server';
+import VerdaccioProcess from '../../lib/server_process';
+import { VerdaccioConfig } from '../../lib/verdaccio-server';
 import { IServerBridge } from '../../types';
 import { DOMAIN_SERVERS, PORT_SERVER_1, PORT_SERVER_2, PORT_SERVER_3 } from '../config.functional';
 import ExpressServer from './simple_server';
-import NodeEnvironment from 'jest-environment-node';
-import { yellow, green, blue, magenta } from 'kleur';
 
 const EXPRESS_PORT = 55550;
 
@@ -36,18 +36,18 @@ class FunctionalEnvironment extends NodeEnvironment {
       {
         port: PORT_SERVER_1,
         config: '/config-1.yaml',
-        storage: '/test-storage'
+        storage: '/test-storage',
       },
       {
         port: PORT_SERVER_2,
         config: '/config-2.yaml',
-        storage: '/test-storage2'
+        storage: '/test-storage2',
       },
       {
         port: PORT_SERVER_3,
         config: '/config-3.yaml',
-        storage: '/test-storage3'
-      }
+        storage: '/test-storage3',
+      },
     ];
     console.log(green('Setup Verdaccio Servers'));
 

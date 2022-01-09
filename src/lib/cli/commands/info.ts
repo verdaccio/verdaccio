@@ -1,5 +1,5 @@
-import envinfo from 'envinfo';
 import { Command } from 'clipanion';
+import envinfo from 'envinfo';
 
 export class InfoCommand extends Command {
   static paths = [[`--info`], [`-i`]];
@@ -11,7 +11,7 @@ export class InfoCommand extends Command {
       Binaries: ['node', 'yarn', 'npm', 'pnpm'],
       Virtualization: ['Docker'],
       Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
-      npmGlobalPackages: ['verdaccio']
+      npmGlobalPackages: ['verdaccio'],
     });
 
     this.context.stdout.write(data);

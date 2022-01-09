@@ -2,11 +2,13 @@
  * @prettier
 
  */
-import { USERS, HTTP_STATUS } from '../../../lib/constants';
-import { $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
-import _ from 'lodash';
 import { Response, Router } from 'express';
+import _ from 'lodash';
+
 import { Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../../types';
+import { HTTP_STATUS, USERS } from '../../../lib/constants';
 
 type Packages = Package[];
 
@@ -24,8 +26,8 @@ export default function (route: Router, storage: IStorageHandler): void {
       res.status(HTTP_STATUS.OK);
       next({
         rows: filteredPackages.map((filteredPackage: Package) => ({
-          value: filteredPackage.name
-        }))
+          value: filteredPackage.name,
+        })),
       });
     });
   });

@@ -1,16 +1,17 @@
-import fs from 'fs';
-import path from 'path';
-
-import Search from '../../lib/search';
-import { HTTP_STATUS } from '../../lib/constants';
-import loadPlugin from '../../lib/plugin-loader';
-import { isHTTPProtocol } from '../../lib/utils';
-import { logger } from '../../lib/logger';
-import renderHTML from './html/renderHTML';
-import { Config } from '@verdaccio/types';
 import buildDebug from 'debug';
 import express from 'express';
+import fs from 'fs';
 import _ from 'lodash';
+import path from 'path';
+
+import { Config } from '@verdaccio/types';
+
+import { HTTP_STATUS } from '../../lib/constants';
+import { logger } from '../../lib/logger';
+import loadPlugin from '../../lib/plugin-loader';
+import Search from '../../lib/search';
+import { isHTTPProtocol } from '../../lib/utils';
+import renderHTML from './html/renderHTML';
 
 const { setSecurityWebHeaders } = require('../middleware');
 

@@ -1,4 +1,4 @@
-import { yellow, green, red, magenta, black, blue, cyan, white } from 'kleur';
+import { black, blue, cyan, green, magenta, red, white, yellow } from 'kleur';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 
@@ -32,14 +32,14 @@ export const levelsColors = {
   http: magenta,
   info: cyan,
   debug: green,
-  trace: white
+  trace: white,
 };
 
 enum ARROWS {
   LEFT = '<--',
   RIGHT = '-->',
   EQUAL = '-=-',
-  NEUTRAL = '---'
+  NEUTRAL = '---',
 }
 
 export const subSystemLevels = {
@@ -47,12 +47,12 @@ export const subSystemLevels = {
     in: green(ARROWS.LEFT),
     out: yellow(ARROWS.RIGHT),
     fs: black(ARROWS.EQUAL),
-    default: blue(ARROWS.NEUTRAL)
+    default: blue(ARROWS.NEUTRAL),
   },
   white: {
     in: ARROWS.LEFT,
     out: ARROWS.RIGHT,
     fs: ARROWS.EQUAL,
-    default: ARROWS.NEUTRAL
-  }
+    default: ARROWS.NEUTRAL,
+  },
 };

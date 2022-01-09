@@ -1,5 +1,5 @@
-import express from 'express';
 import bodyParser from 'body-parser';
+import express from 'express';
 
 /**
  * Simple Server
@@ -28,7 +28,7 @@ export default class ExpressServer {
       this.app.use(bodyParser.json());
       this.app.use(
         bodyParser.urlencoded({
-          extended: true
+          extended: true,
         })
       );
 

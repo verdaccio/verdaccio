@@ -1,33 +1,31 @@
 // we need this for notifications
 import { setup } from '../../src/lib/logger';
-
-setup({});
-
 import { IServerBridge } from '../types';
-
+import adduser from './adduser/adduser';
+import logout from './adduser/logout';
 import basic from './basic/basic';
+import notify from './notifications/notify';
 import packageAccess from './package/access';
 import packageGzip from './package/gzip';
 import packageScoped from './package/scoped';
-import tags from './tags/tags';
-import distTagsMerge from './tags/dist-tags-merge';
-import addtag from './tags/addtag';
-import adduser from './adduser/adduser';
-import logout from './adduser/logout';
-import notify from './notifications/notify';
-import incomplete from './sanity/incomplete';
-import mirror from './sanity/mirror';
-import readme from './readme/readme';
-import gh29 from './scenarios/gh29';
-import nullstorage from './sanity/nullstorage';
-import simpleSearch from './search/simple.search';
-import racycrash from './sanity/racycrash';
-import security from './sanity/security';
 import race from './performance/race';
 import pluginsAuth from './plugins/auth';
 import middleware from './plugins/middleware';
+import readme from './readme/readme';
+import incomplete from './sanity/incomplete';
+import mirror from './sanity/mirror';
+import nullstorage from './sanity/nullstorage';
+import racycrash from './sanity/racycrash';
+import security from './sanity/security';
+import gh29 from './scenarios/gh29';
+import simpleSearch from './search/simple.search';
+import addtag from './tags/addtag';
+import distTagsMerge from './tags/dist-tags-merge';
+import tags from './tags/tags';
 import upLinkCache from './uplinks/cache';
 import uplinkTimeout from './uplinks/timeout';
+
+setup({});
 
 describe('functional test verdaccio', function () {
   jest.setTimeout(20000);

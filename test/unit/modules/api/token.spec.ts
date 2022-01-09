@@ -1,16 +1,15 @@
-import path from 'path';
-
-import configDefault from '../../partials/config';
-import endPointAPI from '../../../../src/api';
-
-import { HEADERS, HTTP_STATUS, HEADER_TYPE, TOKEN_BEARER, API_ERROR, SUPPORT_ERRORS } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { getNewToken } from '../../__helper/api';
-import { buildToken } from '../../../../src/lib/utils';
 import _ from 'lodash';
+import path from 'path';
 import rimraf from 'rimraf';
 import request from 'supertest';
+
+import endPointAPI from '../../../../src/api';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { buildToken } from '../../../../src/lib/utils';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { getNewToken } from '../../__helper/api';
+import { mockServer } from '../../__helper/mock';
+import configDefault from '../../partials/config';
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
 
@@ -62,17 +61,17 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-token-spec/.htpasswd-token'
-            }
+              file: './test-storage-token-spec/.htpasswd-token',
+            },
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-            }
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }]
+          logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }],
         },
         'token.spec.yaml'
       );
@@ -113,7 +112,7 @@ describe('endpoint unit test', () => {
       const [, resp] = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: []
+        cidr_whitelist: [],
       });
       expect(resp.get(HEADERS.CACHE_CONTROL)).toEqual('no-cache, no-store');
 
@@ -145,7 +144,7 @@ describe('endpoint unit test', () => {
       const res = await generateTokenCLI(app, token, {
         password: credentials.password,
         readonly: false,
-        cidr_whitelist: []
+        cidr_whitelist: [],
       });
 
       const t = res[1].body.token;
@@ -175,7 +174,7 @@ describe('endpoint unit test', () => {
           await generateTokenCLI(app, token, {
             password: 'wrongPassword',
             readonly: false,
-            cidr_whitelist: []
+            cidr_whitelist: [],
           });
           done();
         } catch (e) {
@@ -191,7 +190,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            cidr_whitelist: []
+            cidr_whitelist: [],
           });
 
           expect(res[0]).toBeNull();
@@ -206,7 +205,7 @@ describe('endpoint unit test', () => {
         try {
           const res = await generateTokenCLI(app, token, {
             password: credentials.password,
-            readonly: false
+            readonly: false,
           });
 
           expect(res[0]).toBeNull();

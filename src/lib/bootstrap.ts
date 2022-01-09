@@ -1,16 +1,17 @@
-import URL from 'url';
+import constants from 'constants';
+import express from 'express';
+import { Application } from 'express';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import constants from 'constants';
-import endPointAPI from '../api/index';
-import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-import { getListListenAddresses, resolveConfigPath } from './cli/utils';
-import express from 'express';
-import { assign, isObject, isFunction } from 'lodash';
+import { assign, isFunction, isObject } from 'lodash';
+import URL from 'url';
 
 import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
-import { Application } from 'express';
+
+import endPointAPI from '../api/index';
+import { getListListenAddresses, resolveConfigPath } from './cli/utils';
+import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 
 const logger = require('./logger');
 
@@ -91,7 +92,7 @@ function logHTTPSWarning(storageLocation) {
       'And then add to config file (' + storageLocation + '):',
       '  https:',
       `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
-      `    cert: ${resolveConfigPath(storageLocation, certPem)}`
+      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
     ].join('\n')
   );
   process.exit(2);
@@ -100,7 +101,7 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(app: express.Application, configPath: string, config: ConfigWithHttps): https.Server {
   try {
     let httpsOptions = {
-      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 // disable insecure SSLv2 and SSLv3
+      secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
     };
 
     const keyCertConfig = config.https as HttpsConfKeyCert;
@@ -115,7 +116,7 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
       const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
-        passphrase: passphrase || ''
+        passphrase: passphrase || '',
       });
     } else {
       const { key, cert, ca } = keyCertConfig;
@@ -123,8 +124,8 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
         key: fs.readFileSync(key),
         cert: fs.readFileSync(cert),
         ...(ca && {
-          ca: fs.readFileSync(ca)
-        })
+          ca: fs.readFileSync(ca),
+        }),
       });
     }
     return https.createServer(httpsOptions, app);
@@ -141,7 +142,7 @@ function listenDefaultCallback(webServer: Application, addr: any, pkgName: strin
       // send a message for tests
       if (isFunction(process.send)) {
         process.send({
-          verdaccio_started: true
+          verdaccio_started: true,
         });
       }
     })
@@ -170,15 +171,15 @@ function listenDefaultCallback(webServer: Application, addr: any, pkgName: strin
       addr: addr.path
         ? URL.format({
             protocol: 'unix',
-            pathname: addr.path
+            pathname: addr.path,
           })
         : URL.format({
             protocol: addr.proto,
             hostname: addr.host,
             port: addr.port,
-            pathname: '/'
+            pathname: '/',
           }),
-      version: pkgName + '/' + pkgVersion
+      version: pkgName + '/' + pkgVersion,
     },
     'http address - @{addr} - @{version}'
   );

@@ -1,8 +1,9 @@
-import { padLeft } from './utils';
-import pino from 'pino';
-import _ from 'lodash';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
+import _ from 'lodash';
+import pino from 'pino';
+
+import { padLeft } from './utils';
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -27,7 +28,7 @@ export function createLogger(
   prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
     // https://getpino.io/#/docs/pretty?id=prettifier-api
-    suppressFlushSyncWarning: true
+    suppressFlushSyncWarning: true,
   }
 ) {
   if (_.isNil(format)) {
@@ -36,15 +37,15 @@ export function createLogger(
 
   let pinoConfig = {
     customLevels: {
-      http: 25
+      http: 25,
     },
     ...options,
     level: options.level,
     serializers: {
       err: pino.stdSerializers.err,
       req: pino.stdSerializers.req,
-      res: pino.stdSerializers.res
-    }
+      res: pino.stdSerializers.res,
+    },
   };
 
   debug('has prettifier? %o', !isProd());
@@ -56,9 +57,9 @@ export function createLogger(
       prettyPrint: {
         levelFirst: true,
         prettyStamp: format === 'pretty-timestamped',
-        ...prettyPrintOptions
+        ...prettyPrintOptions,
       },
-      prettifier: require('./formatter')
+      prettifier: require('./formatter'),
     });
   }
   const logger = pino(pinoConfig, destination);
@@ -84,7 +85,7 @@ export function getLogger() {
 const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
   type: 'stdout',
   format: 'pretty',
-  level: 'http'
+  level: 'http',
 };
 
 export type LoggerConfigItem = {
@@ -113,7 +114,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     loggerConfig = Object.assign(
       {},
       {
-        level: 'http'
+        level: 'http',
       },
       loggerConfig
     );

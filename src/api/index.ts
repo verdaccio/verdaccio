@@ -1,22 +1,24 @@
-import Storage from '../lib/storage';
-import loadPlugin from '../lib/plugin-loader';
-import Auth from '../lib/auth';
-import { ErrorCode, getUserAgent } from '../lib/utils';
-import { API_ERROR, HTTP_STATUS } from '../lib/constants';
-import AppConfig from '../lib/config';
-import { $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler, IAuth } from '../../types';
-import { setup, logger } from '../lib/logger';
-import webAPI from './web/api';
-import web from './web';
-import apiEndpoint from './endpoint';
-import hookDebug from './debug';
-import { log, final, errorReportingMiddleware, serveFavicon } from './middleware';
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
-import { HttpError } from 'http-errors';
-import cors from 'cors';
 import compression from 'compression';
+import cors from 'cors';
 import express, { Application } from 'express';
+import { HttpError } from 'http-errors';
 import _ from 'lodash';
+
+import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../types';
+import Auth from '../lib/auth';
+import AppConfig from '../lib/config';
+import { API_ERROR, HTTP_STATUS } from '../lib/constants';
+import { logger, setup } from '../lib/logger';
+import loadPlugin from '../lib/plugin-loader';
+import Storage from '../lib/storage';
+import { ErrorCode, getUserAgent } from '../lib/utils';
+import hookDebug from './debug';
+import apiEndpoint from './endpoint';
+import { errorReportingMiddleware, final, log, serveFavicon } from './middleware';
+import web from './web';
+import webAPI from './web/api';
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
@@ -51,7 +53,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger
+    logger: logger,
   };
 
   const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(config, config.middlewares, plugin_params, function (plugin: IPluginMiddleware<IConfig>) {
@@ -107,7 +109,7 @@ export default (async function (configHash: any): Promise<any> {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger
+    logger: logger,
   };
   const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata);
   const storage: IStorageHandler = new Storage(config);

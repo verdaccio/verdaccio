@@ -1,17 +1,18 @@
-import path from 'path';
 import fs from 'fs';
-import { Writable } from 'stream';
-import configExample from '../../partials/config';
-import AppConfig from '../../../../src/lib/config';
-import Storage from '../../../../src/lib/storage';
-import { setup } from '../../../../src/lib/logger';
-
-import { IStorageHandler } from '../../../../types';
-import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { Config } from '@verdaccio/types';
+import path from 'path';
 import rimraf from 'rimraf';
+import { Writable } from 'stream';
+
+import { Config } from '@verdaccio/types';
+
+import AppConfig from '../../../../src/lib/config';
+import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import { setup } from '../../../../src/lib/logger';
+import Storage from '../../../../src/lib/storage';
+import { IStorageHandler } from '../../../../types';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { mockServer } from '../../__helper/mock';
+import configExample from '../../partials/config';
 
 setup([]);
 
@@ -24,9 +25,9 @@ const generateStorage = async function (port = mockServerPort) {
       storage: storagePath,
       uplinks: {
         npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${port}`
-        }
-      }
+          url: `http://${DOMAIN_SERVERS}:${port}`,
+        },
+      },
     },
     'store.spec.yaml'
   );
@@ -47,24 +48,24 @@ const generateSameUplinkStorage = async function (port = mockServerPort) {
         jquery: {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['cached']
+          proxy: ['cached'],
         },
         '@jquery/*': {
           access: ['$all'],
           publish: ['$all'],
-          proxy: ['notcached']
-        }
+          proxy: ['notcached'],
+        },
       },
       uplinks: {
         cached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: true
+          cache: true,
         },
         notcached: {
           url: `http://${DOMAIN_SERVERS}:${port}`,
-          cache: false
-        }
-      }
+          cache: false,
+        },
+      },
     },
     'store.spec.yaml'
   );
@@ -80,7 +81,7 @@ const createNullStream = () =>
   new Writable({
     write: function (chunk, encoding, next) {
       next();
-    }
+    },
   });
 
 describe('StorageTest', () => {

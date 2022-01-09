@@ -1,20 +1,19 @@
+import _ from 'lodash';
+import nock from 'nock';
 import path from 'path';
+import rimraf from 'rimraf';
 import { Readable } from 'stream';
+import request from 'supertest';
 
+import endPointAPI from '../../../../src/api';
+import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
+import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { generateUnPublishURI, getNewToken, getPackage, putPackage, verifyPackageVersionDoesExist } from '../../__helper/api';
+import { mockServer } from '../../__helper/mock';
+import { generateDeprecateMetadata, generatePackageMetadata, generatePackageUnpublish, generateStarMedatada, generateVersion } from '../../__helper/utils';
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
-import endPointAPI from '../../../../src/api';
-
-import { HEADERS, API_ERROR, HTTP_STATUS, HEADER_TYPE, API_MESSAGE, TOKEN_BEARER } from '../../../../src/lib/constants';
-import { mockServer } from '../../__helper/mock';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
-import { getNewToken, getPackage, putPackage, verifyPackageVersionDoesExist, generateUnPublishURI } from '../../__helper/api';
-import { generatePackageMetadata, generatePackageUnpublish, generateStarMedatada, generateDeprecateMetadata, generateVersion } from '../../__helper/utils';
-import nock from 'nock';
-import rimraf from 'rimraf';
-import _ from 'lodash';
-import request from 'supertest';
 
 const sleep = (delay) => {
   return new Promise((resolve) => {
@@ -49,29 +48,29 @@ describe('endpoint unit test', () => {
         {
           auth: {
             htpasswd: {
-              file: './test-storage-api-spec/.htpasswd'
-            }
+              file: './test-storage-api-spec/.htpasswd',
+            },
           },
           filters: {
             '../../modules/api/partials/plugin/filter': {
               pkg: 'npm_test',
-              version: '2.0.0'
-            }
+              version: '2.0.0',
+            },
           },
           storage: store,
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
+              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
             },
             socketTimeout: {
               url: `http://some.registry.timeout.com`,
               max_fails: 2,
               timeout: '1s',
-              fail_timeout: '1s'
-            }
+              fail_timeout: '1s',
+            },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }]
+          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
         },
         'api.search.spec.yaml'
       );

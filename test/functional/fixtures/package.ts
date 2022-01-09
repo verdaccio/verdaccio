@@ -7,7 +7,7 @@ export default function (name, version = '0.0.0', port = PORT_SERVER_1, domain =
     readme,
     dist: {
       shasum: 'fake',
-      tarball: `${domain}/${encodeURIComponent(name)}/-/${fileName}`
-    }
+      tarball: `${domain}/${encodeURIComponent(name)}/-/${fileName}`,
+    },
   };
 }

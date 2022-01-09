@@ -1,8 +1,9 @@
-import path from 'path';
 import fs from 'fs';
-import { installVerdaccio } from '../__partials/npm_commands';
+import path from 'path';
+
 import { spawnRegistry } from '../../utils/registry';
 import { callRegistry } from '../../utils/web';
+import { installVerdaccio } from '../__partials/npm_commands';
 
 describe('npm install', () => {
   jest.setTimeout(90000);
@@ -21,12 +22,12 @@ describe('npm install', () => {
 
   test('should match the listing port and load metadata', async () => {
     const pathVerdaccioModule = require.resolve('verdaccio/bin/verdaccio', {
-      paths: [verdaccioInstall]
+      paths: [verdaccioInstall],
     });
 
     registryProcess = await spawnRegistry(pathVerdaccioModule, ['-c', configPath, '-l', port], {
       cwd: verdaccioInstall,
-      silent: false
+      silent: false,
     });
 
     const body = await callRegistry(`http://localhost:${port}/verdaccio`);

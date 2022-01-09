@@ -1,10 +1,12 @@
-import { allow } from '../../middleware';
-import { convertDistRemoteToLocalTarballUrls, getVersion, ErrorCode } from '../../../lib/utils';
-import { HEADERS, DIST_TAGS, API_ERROR } from '../../../lib/constants';
-import { IAuth, $ResponseExtend, $RequestExtend, $NextFunctionVer, IStorageHandler } from '../../../../types';
-import { Config, Package } from '@verdaccio/types';
 import { Router } from 'express';
 import _ from 'lodash';
+
+import { Config, Package } from '@verdaccio/types';
+
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
+import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
+import { ErrorCode, convertDistRemoteToLocalTarballUrls, getVersion } from '../../../lib/utils';
+import { allow } from '../../middleware';
 
 const downloadStream = (packageName: string, filename: string, storage: any, req: $RequestExtend, res: $ResponseExtend): void => {
   const stream = storage.getTarball(packageName, filename);
@@ -75,7 +77,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
       name: req.params.package,
       uplinksLook: true,
       req,
-      callback: getPackageMetaCallback
+      callback: getPackageMetaCallback,
     });
   });
 

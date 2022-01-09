@@ -1,14 +1,15 @@
 /**
  * @prettier
  */
-
-import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
-import { IAuth, $NextFunctionVer } from '../../../../types';
-import { ErrorCode } from '../../../lib/utils';
-import { getSecurity, validatePassword } from '../../../lib/auth-utils';
-import { Config, RemoteUser, JWTSignOptions } from '@verdaccio/types';
-import express, { Router, Response, Request } from 'express';
+import express, { Request, Response, Router } from 'express';
 import _ from 'lodash';
+
+import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
+
+import { $NextFunctionVer, IAuth } from '../../../../types';
+import { getSecurity, validatePassword } from '../../../lib/auth-utils';
+import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
+import { ErrorCode } from '../../../lib/utils';
 
 function addUserAuthApi(auth: IAuth, config: Config): Router {
   const route = Router(); /* eslint new-cap: 0 */
@@ -25,7 +26,7 @@ function addUserAuthApi(auth: IAuth, config: Config): Router {
         res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
         next({
           token: await auth.jwtEncrypt(user, jWTSignOptions),
-          username: req.remote_user.name
+          username: req.remote_user.name,
         });
       }
     });
@@ -36,7 +37,7 @@ function addUserAuthApi(auth: IAuth, config: Config): Router {
       res.status(HTTP_STATUS.UNAUTHORIZED);
       return next({
         // FUTURE: update to a more meaningful message
-        message: API_ERROR.MUST_BE_LOGGED
+        message: API_ERROR.MUST_BE_LOGGED,
       });
     }
 
@@ -47,7 +48,7 @@ function addUserAuthApi(auth: IAuth, config: Config): Router {
       auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
         if (_.isNil(err) && isUpdated) {
           next({
-            ok: true
+            ok: true,
           });
         } else {
           return next(ErrorCode.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));

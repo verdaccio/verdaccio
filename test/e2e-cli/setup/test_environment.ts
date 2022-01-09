@@ -1,6 +1,7 @@
+import NodeEnvironment from 'jest-environment-node';
 import os from 'os';
 import path from 'path';
-import NodeEnvironment from 'jest-environment-node';
+
 const fs = require('fs');
 const __global = require('../utils/global');
 // import { npm } from '../utils/process';
