@@ -3237,15 +3237,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/request@npm:2.48.5":
-  version: 2.48.5
-  resolution: "@types/request@npm:2.48.5"
+"@types/request@npm:2.48.8":
+  version: 2.48.8
+  resolution: "@types/request@npm:2.48.8"
   dependencies:
     "@types/caseless": "*"
     "@types/node": "*"
     "@types/tough-cookie": "*"
     form-data: ^2.5.0
-  checksum: 74f1a250cab068aec594cede9e57508e0b63d46110dd5d62611f087a4c0e9b524884b1d76f128e5ee86d3d91a40587986d85567b567653cd3e30873686ab195d
+  checksum: 6a3582c30e73b3326c360a036c619dc9e17c4479c9dce1d3a3161a1b1f6eca5f8a1dd59eaac04deb3f401ba762b70105b5d3084f9df34a3d0a8c7bc2a94da8a1
   languageName: node
   linkType: hard
 
@@ -14620,7 +14620,7 @@ typescript@4.1.3:
     "@types/minimatch": 3.0.3
     "@types/node": 14.14.37
     "@types/pino": 6.3.12
-    "@types/request": 2.48.5
+    "@types/request": 2.48.8
     "@types/semver": 7.3.4
     "@typescript-eslint/eslint-plugin": 4.33.0
     "@typescript-eslint/parser": 4.33.0
