@@ -40,6 +40,8 @@
         "webpack",
         "esbuild",
         "@emotion/*",
+        "async",
+        "@types/async",
         "@mui/*",
         "express*",
         "http-status",
@@ -48,7 +50,7 @@
         "jest-*",
         "pino",
         "react*",
-        "node*",
+        "ts-node",
         "mini-css*",
         "autocannon",
         "process-warning",
@@ -65,7 +67,8 @@
       ],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major core dependencies",
-      "groupSlug": "all-minor-patch-core"
+      "groupSlug": "all-minor-patch-core",
+      "extends": [":semanticCommitTypeAll(fix)"]
     },
     {
       "matchPackagePatterns": [
@@ -81,9 +84,10 @@
     },
     {
       "matchPackagePatterns": ["@types/*", "typescript"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major typescript dependencies",
-      "groupSlug": "all-major-patch"
+      "groupSlug": "all-major-patch",
+      "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
   "pinVersions": false
