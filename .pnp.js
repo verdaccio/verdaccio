@@ -67,7 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/async", "npm:3.2.12"],
             ["@types/express", "npm:4.17.11"],
             ["@types/express-rate-limit", "npm:5.1.3"],
-            ["@types/express-serve-static-core", "npm:4.17.19"],
+            ["@types/express-serve-static-core", "npm:4.17.27"],
             ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],
@@ -4669,20 +4669,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/express-serve-static-core", [
-        ["npm:4.17.19", {
-          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.19-3f514f7e12-b6c8c357c5.zip/node_modules/@types/express-serve-static-core/",
+        ["npm:4.17.26", {
+          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.26-e4eb025705-0026cc244f.zip/node_modules/@types/express-serve-static-core/",
           "packageDependencies": [
-            ["@types/express-serve-static-core", "npm:4.17.19"],
+            ["@types/express-serve-static-core", "npm:4.17.26"],
             ["@types/node", "npm:12.12.21"],
             ["@types/qs", "npm:6.9.5"],
             ["@types/range-parser", "npm:1.2.3"]
           ],
           "linkType": "HARD",
         }],
-        ["npm:4.17.26", {
-          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.26-e4eb025705-0026cc244f.zip/node_modules/@types/express-serve-static-core/",
+        ["npm:4.17.27", {
+          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.27-a6c300c8eb-0e33f2765f.zip/node_modules/@types/express-serve-static-core/",
           "packageDependencies": [
-            ["@types/express-serve-static-core", "npm:4.17.26"],
+            ["@types/express-serve-static-core", "npm:4.17.27"],
             ["@types/node", "npm:12.12.21"],
             ["@types/qs", "npm:6.9.5"],
             ["@types/range-parser", "npm:1.2.3"]
@@ -7766,14 +7766,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.19.1", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.19.1-772a85cbf5/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-3.19.1-772a85cbf5-32b2ecead4.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.19.1"]
           ],
@@ -14934,7 +14934,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:65523936f66795efc0bd6f7ca9a755f1be9f9bb998dc7cd39f5d823ea185c793a03b3f329f921a146569ee8bdffdd22dd15c2e08d286539b118e1cbbab91f8cf#npm:4.1.1"],
@@ -17683,7 +17683,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/async", "npm:3.2.12"],
             ["@types/express", "npm:4.17.11"],
             ["@types/express-rate-limit", "npm:5.1.3"],
-            ["@types/express-serve-static-core", "npm:4.17.19"],
+            ["@types/express-serve-static-core", "npm:4.17.27"],
             ["@types/http-errors", "npm:1.8.1"],
             ["@types/jest", "npm:26.0.14"],
             ["@types/lodash", "npm:4.14.167"],

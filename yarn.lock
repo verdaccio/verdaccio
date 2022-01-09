@@ -3007,14 +3007,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:4.17.19":
-  version: 4.17.19
-  resolution: "@types/express-serve-static-core@npm:4.17.19"
+"@types/express-serve-static-core@npm:4.17.27":
+  version: 4.17.27
+  resolution: "@types/express-serve-static-core@npm:4.17.27"
   dependencies:
     "@types/node": "*"
     "@types/qs": "*"
     "@types/range-parser": "*"
-  checksum: b6c8c357c5d093303c681616b7a80d6a044b47c4161a3459c65e451137832b29a485a8f8708414205f427dade6b4ff5ef799d51715d12f92da3468cf41a2cf06
+  checksum: 0e33f2765f4cc2a81a865dcf3c1e9b2bd944929e9d8dd19302d2d0b3307cbe192117a16c7fc141b2e708609c13c72021375b07455d884bf9f5ccc85b77b57d3b
   languageName: node
   linkType: hard
 
@@ -14617,7 +14617,7 @@ typescript@4.1.3:
     "@types/async": 3.2.12
     "@types/express": 4.17.11
     "@types/express-rate-limit": 5.1.3
-    "@types/express-serve-static-core": 4.17.19
+    "@types/express-serve-static-core": 4.17.27
     "@types/http-errors": 1.8.1
     "@types/jest": 26.0.14
     "@types/lodash": 4.14.167
