@@ -48,7 +48,7 @@ describe('basic system test', () => {
         done();
       }
     );
-  });
+  }, 10000);
 
   test('server should respond on /___not_found_package', (done) => {
     request(
@@ -61,5 +61,5 @@ describe('basic system test', () => {
         done();
       }
     );
-  });
+  }, 10000);
 });
