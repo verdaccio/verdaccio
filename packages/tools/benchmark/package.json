@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "autocannon": "7.5.1",
-    "node-fetch": "3.0.0-beta.6-exportfix",
+    "node-fetch": "3.1.0",
     "ts-node": "10.4.0"
   }
 }
