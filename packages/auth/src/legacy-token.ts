@@ -56,7 +56,8 @@ export function aesDecrypt(value: string, key: string): string | void {
     const secretKey = VERDACCIO_LEGACY_ENCRYPTION_KEY || key;
     // decipher the string
     const decipher = createDecipheriv(defaultAlgorithm, secretKey, IV);
-    let decrypted = decipher.update(encryptedText, outputEncoding, inputEncoding);
+    // FIXME: fix type here should allow Buffer
+    let decrypted = decipher.update(encryptedText as any, outputEncoding, inputEncoding);
     decrypted += decipher.final(inputEncoding);
     debug('token decrypted successfully');
     return decrypted.toString();
