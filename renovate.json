@@ -41,6 +41,8 @@
     },
     {
       "matchPackagePatterns": [
+        "@types/*",
+        "typescript",
         "@babel/*",
         "fast-safe-stringify",
         "undici",
@@ -53,7 +55,6 @@
         "esbuild",
         "@emotion/*",
         "async",
-        "@types/async",
         "@mui/*",
         "express*",
         "http-status",
@@ -93,13 +94,6 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all non-major linting dependencies",
       "groupSlug": "all-major-patch-linting"
-    },
-    {
-      "matchPackagePatterns": ["@types/*", "typescript"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major typescript dependencies",
-      "groupSlug": "all-major-patch",
-      "extends": [":semanticCommitTypeAll(fix)"]
     }
   ],
   "pinVersions": false
