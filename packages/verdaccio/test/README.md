@@ -248,7 +248,6 @@ Then import the feature and run the function within the main `describe` block.
 
 ```js
 // index.spec.ts
-
 import newFeature from './newFeature';
 
 describe('functional test verdaccio', function () {

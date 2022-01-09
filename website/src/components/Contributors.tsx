@@ -122,7 +122,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
     <>
       <Layout
         title="Contributors"
-        description="Verdaccio Contributors, thanks to the community Verdaccio keeps running">
+        description="Verdaccio Contributors, thanks to the community Verdaccio keeps running"
+      >
         <ThemeProvider theme={theme}>
           <div style={{ display: 'flex', width: '80%', flexFlow: 'wrap', margin: '1rem auto' }}>
             <header>
@@ -153,7 +154,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                   style={{ flex: 'auto', cursor: 'pointer', margin: '10px' }}
                   key={userItem.node.url}
                   onKeyDown={(event) => handleKeyDown(event, userItem)}
-                  onClick={() => handleClickOpen(userItem)}>
+                  onClick={() => handleClickOpen(userItem)}
+                >
                   <Avatar
                     src={generateImage(userItem.node.userId)}
                     alt={userItem.node.url}
@@ -171,7 +173,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                     <a
                       href={'https://github.com/' + user.node.url}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <Avatar
                         src={generateImage(user.node.userId)}
                         alt={user.node.url}
@@ -202,7 +205,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                           key={repo.name}
                           href={repo.html_url}
                           target="_blank"
-                          rel="noreferrer">
+                          rel="noreferrer"
+                        >
                           <ListItemIcon>
                             <Badge
                               badgeContent={repo.contributions}
@@ -211,7 +215,8 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                               anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',
-                              }}>
+                              }}
+                            >
                               <MergeTypeIcon />
                             </Badge>
                           </ListItemIcon>
@@ -226,11 +231,13 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                             />
                           </Tooltip>
                           <ListItemSecondaryAction
-                            className={repo.archived ? classes.archived : ''}>
+                            className={repo.archived ? classes.archived : ''}
+                          >
                             <a
                               href={'https://github.com/' + repo.full_name + '/stargazers'}
                               target="_blank"
-                              rel="noreferrer">
+                              rel="noreferrer"
+                            >
                               <IconButton edge="end" aria-label="delete">
                                 <StyledBadge badgeContent={repo.staergezers} max={999}>
                                   <StarIcon className={classes.starColor} />
