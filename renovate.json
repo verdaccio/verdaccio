@@ -24,6 +24,10 @@
       "allowedVersions": "1.0.7"
     },
     {
+      "packageNames": ["@changesets/cli"],
+      "allowedVersions": "2.15.0"
+    },
+    {
       "matchDatasources": ["docker"],
       "labels": ["bot: docker-update"]
     },
@@ -32,6 +36,10 @@
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch"
+    },
+    {
+      "extends": "packages:linters",
+      "groupName": "linters"
     }
   ],
   "pinVersions": false
