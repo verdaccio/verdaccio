@@ -1,6 +1,6 @@
 import {
-  HexBase64BinaryEncoding,
-  Utf8AsciiBinaryEncoding,
+  BinaryToTextEncoding,
+  CharacterEncoding,
   createCipheriv,
   createDecipheriv,
   randomBytes,
@@ -12,8 +12,8 @@ import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 const debug = buildDebug('verdaccio:auth:token:legacy');
 
 export const defaultAlgorithm = process.env.VERDACCIO_LEGACY_ALGORITHM || 'aes-256-ctr';
-const inputEncoding: Utf8AsciiBinaryEncoding = 'utf8';
-const outputEncoding: HexBase64BinaryEncoding = 'hex';
+const inputEncoding: CharacterEncoding = 'utf8';
+const outputEncoding: BinaryToTextEncoding = 'hex';
 // For AES, this is always 16
 const IV_LENGTH = 16;
 // Must be 256 bits (32 characters)
