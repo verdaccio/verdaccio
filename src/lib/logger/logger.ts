@@ -129,7 +129,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {
     debug('logging stdout enabled');
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger(pinoConfig, null, loggerConfig.format);
   }
 
   if (isProd()) {
