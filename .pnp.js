@@ -76,7 +76,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
             ["@types/request", "npm:2.48.8"],
-            ["@types/semver", "npm:7.3.4"],
+            ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@verdaccio/commons-api", "npm:10.1.0"],
@@ -4965,10 +4965,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/semver", [
-        ["npm:7.3.4", {
-          "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.4-96fde085ea-7e8588aa55.zip/node_modules/@types/semver/",
+        ["npm:7.3.9", {
+          "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.9-eb0d8b7243-62edbef515.zip/node_modules/@types/semver/",
           "packageDependencies": [
-            ["@types/semver", "npm:7.3.4"]
+            ["@types/semver", "npm:7.3.9"]
           ],
           "linkType": "HARD",
         }]
@@ -17652,7 +17652,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
             ["@types/request", "npm:2.48.8"],
-            ["@types/semver", "npm:7.3.4"],
+            ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@verdaccio/commons-api", "npm:10.1.0"],
