@@ -58,7 +58,7 @@
     "@types/node": "16.11.19",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "get-stream": "^6.0.1",
-    "nock": "13.2.1",
+    "nock": "13.2.2",
     "node-mocks-http": "1.11.0",
     "semver": "7.3.5"
   },
