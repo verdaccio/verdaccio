@@ -802,7 +802,7 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: ^4.7.2
       webpack-dev-server: 3.11.3
-      webpack-manifest-plugin: 4.0.2
+      webpack-manifest-plugin: 4.1.1
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
       xss: 1.0.10
@@ -879,7 +879,7 @@ importers:
       webpack-bundle-size-analyzer: 3.1.0
       webpack-cli: 4.7.2_1cfd1380a4e9b8401fb780accef05e9c
       webpack-dev-server: 3.11.3_webpack-cli@4.7.2+webpack@5.65.0
-      webpack-manifest-plugin: 4.0.2_webpack@5.65.0
+      webpack-manifest-plugin: 4.1.1_webpack@5.65.0
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
       xss: 1.0.10
@@ -23876,8 +23876,8 @@ packages:
       ansi-colors: 3.2.4
       uuid: 3.4.0
 
-  /webpack-manifest-plugin/4.0.2_webpack@5.65.0:
-    resolution: {integrity: sha512-Ld6j05pRblXAVoX8xdXFDsc/s97cFnR1FOmQawhTSlp6F6aeU1Jia5aqTmDpkueaAz8g9sXpgSOqmEgVAR61Xw==}
+  /webpack-manifest-plugin/4.1.1_webpack@5.65.0:
+    resolution: {integrity: sha512-YXUAwxtfKIJIKkhg03MKuiFAD72PlrqCiwdwO4VEXdRO5V0ORCNwaOwAZawPZalCbmH9kBDmXnNeQOw+BIEiow==}
     engines: {node: '>=12.22.0'}
     peerDependencies:
       webpack: ^4.44.2 || ^5.47.0
