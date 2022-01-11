@@ -61,7 +61,7 @@
     "@verdaccio/server": "workspace:6.0.0-6-next.24",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "@verdaccio/helper": "1.0.0",
-    "supertest": "6.1.6"
+    "supertest": "6.2.0"
   },
   "funding": {
     "type": "opencollective",
