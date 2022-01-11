@@ -194,7 +194,7 @@
     "*.{js,ts,tsx}": "eslint --fix  -c ./eslintrc.js"
   },
   "resolutions": {
-    "@types/serve-static": "1.13.9"
+    "@types/serve-static": "1.13.10"
   },
   "collective": {
     "type": "opencollective",
