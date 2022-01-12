@@ -3301,13 +3301,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/serve-static@npm:1.13.9":
-  version: 1.13.9
-  resolution: "@types/serve-static@npm:1.13.9"
+"@types/serve-static@npm:1.13.10":
+  version: 1.13.10
+  resolution: "@types/serve-static@npm:1.13.10"
   dependencies:
     "@types/mime": ^1
     "@types/node": "*"
-  checksum: f261127514057b5c038d76259128d7b765dd92bfeaf769d05b8ddf5f254d066ce6142a935e2fc707bb3009d6544a979591852f0d135d0ed4d0c56db08738df6b
+  checksum: 3ee9adfd05f8b2af942e26afe9ff3993e723e1af70718aa8c2b1c0f72fe5f45be69ac20aa7ee5859d1c18f2397d5fcf4eafcb30890d88e6836a98aa7a3adb6c3
   languageName: node
   linkType: hard
 
