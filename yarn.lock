@@ -3189,10 +3189,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/minimatch@npm:3.0.3":
-  version: 3.0.3
-  resolution: "@types/minimatch@npm:3.0.3"
-  checksum: 672ccdac197e8176eed1a9441d0caf8a29a90eb139b1cefdd4c9e71b1c48f5c749f5d101a2d85da15c6259214ebda95072835021407d60330a731a2672964b82
+"@types/minimatch@npm:3.0.5":
+  version: 3.0.5
+  resolution: "@types/minimatch@npm:3.0.5"
+  checksum: 517a8ea1bfad4cc9d2563fc70c3ecd9afb13f9ef2b2cb06f8910989baf199d24f2fc6a8ccaae16a27c856e022b311042ca67ff42ffbda48750f2f84a5bf48716
   languageName: node
   linkType: hard
 
@@ -14578,7 +14578,7 @@ typescript@4.1.3:
     "@types/jest": 26.0.24
     "@types/lodash": 4.14.178
     "@types/mime": 2.0.3
-    "@types/minimatch": 3.0.3
+    "@types/minimatch": 3.0.5
     "@types/node": 14.14.37
     "@types/pino": 6.3.12
     "@types/request": 2.48.8

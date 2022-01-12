@@ -72,7 +72,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
             ["@types/mime", "npm:2.0.3"],
-            ["@types/minimatch", "npm:3.0.3"],
+            ["@types/minimatch", "npm:3.0.5"],
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
             ["@types/request", "npm:2.48.8"],
@@ -4840,10 +4840,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/minimatch", [
-        ["npm:3.0.3", {
-          "packageLocation": "./.yarn/cache/@types-minimatch-npm-3.0.3-c8b0625f84-672ccdac19.zip/node_modules/@types/minimatch/",
+        ["npm:3.0.5", {
+          "packageLocation": "./.yarn/cache/@types-minimatch-npm-3.0.5-802bb0797f-517a8ea1bf.zip/node_modules/@types/minimatch/",
           "packageDependencies": [
-            ["@types/minimatch", "npm:3.0.3"]
+            ["@types/minimatch", "npm:3.0.5"]
           ],
           "linkType": "HARD",
         }]
@@ -17648,7 +17648,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
             ["@types/mime", "npm:2.0.3"],
-            ["@types/minimatch", "npm:3.0.3"],
+            ["@types/minimatch", "npm:3.0.5"],
             ["@types/node", "npm:14.14.37"],
             ["@types/pino", "npm:6.3.12"],
             ["@types/request", "npm:2.48.8"],
