@@ -46,7 +46,7 @@
     "@types/node": "16.11.19",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "node-html-parser": "4.1.5",
-    "supertest": "6.2.0",
+    "supertest": "6.2.1",
     "verdaccio-auth-memory": "workspace:11.0.0-6-next.7",
     "verdaccio-memory": "workspace:11.0.0-6-next.8"
   },
