@@ -63,7 +63,7 @@
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "@verdaccio/helper": "workspace:1.0.0",
-    "undici": "4.12.1",
+    "undici": "4.12.2",
     "nock": "13.2.2",
     "undici-fetch": "1.0.0-rc.4",
     "tmp-promise": "3.0.3",
