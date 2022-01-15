@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const protectedPackageMetadata = require('./partials/pkg-protected');
 const scopedPackageMetadata = require('./partials/pkg-scoped');
 
@@ -133,9 +134,7 @@ describe('/ (Verdaccio Page)', () => {
     const firstPackage = packagesList[0];
     await firstPackage.click({ delay: 200 });
     await page.waitForTimeout(1000);
-    const readmeText = await page.evaluate(
-      () => document.querySelector('.markdown-body').textContent
-    );
+    const readmeText = await page.evaluate(() => document.querySelector('.markdown-body').textContent);
 
     expect(readmeText).toMatch('test');
   });
@@ -183,10 +182,7 @@ describe('/ (Verdaccio Page)', () => {
   test('should publish a protected package', async () => {
     await page.goto('http://0.0.0.0:55552');
     await page.waitForTimeout(500);
-    await global.__SERVER_PROTECTED__.putPackage(
-      protectedPackageMetadata.name,
-      protectedPackageMetadata
-    );
+    await global.__SERVER_PROTECTED__.putPackage(protectedPackageMetadata.name, protectedPackageMetadata);
     await page.waitForTimeout(500);
     await page.reload();
     await page.waitForTimeout(500);
