@@ -1,5 +1,23 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.25
+
+### Minor Changes
+
+- 048ac95e: feat: align with v5 ui endpoints and ui small bugfix
+
+### Patch Changes
+
+- Updated dependencies [048ac95e]
+- Updated dependencies [730b5d8c]
+  - @verdaccio/web@6.0.0-6-next.23
+  - @verdaccio/logger@6.0.0-6-next.9
+  - @verdaccio/api@6.0.0-6-next.20
+  - @verdaccio/auth@6.0.0-6-next.17
+  - @verdaccio/loaders@6.0.0-6-next.9
+  - @verdaccio/middleware@6.0.0-6-next.17
+  - @verdaccio/store@6.0.0-6-next.18
+
 ## 6.0.0-6-next.24
 
 ### Major Changes
