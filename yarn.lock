@@ -3718,10 +3718,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:4.1.0-beta.1":
-  version: 4.1.0-beta.1
-  resolution: "@verdaccio/ui-theme@npm:4.1.0-beta.1"
-  checksum: 785799f4cae980c14ad34672fb4d4a0a7818448e6bfccb05fed30ec89dfea57fa10bbda8a64b859c44f51f3e526fb529dd7bc00766f849f87ed25afae9965137
+"@verdaccio/ui-theme@npm:4.1.0-beta.2":
+  version: 4.1.0-beta.2
+  resolution: "@verdaccio/ui-theme@npm:4.1.0-beta.2"
+  checksum: 44f00d3ce7595632b8b786a530ccf734e5e5e15254305017b794059879a9ea749b949a58f5ea9ac607079459a2196cf2379c0055ade97f9d15d65d85ead4d710
   languageName: node
   linkType: hard
 
@@ -14591,7 +14591,7 @@ typescript@4.1.3:
     "@verdaccio/readme": 10.2.0
     "@verdaccio/streams": 10.1.0
     "@verdaccio/types": 10.2.2
-    "@verdaccio/ui-theme": 4.1.0-beta.1
+    "@verdaccio/ui-theme": 4.1.0-beta.2
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.2
