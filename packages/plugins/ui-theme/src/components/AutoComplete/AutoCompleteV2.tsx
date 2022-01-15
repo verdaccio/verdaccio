@@ -290,9 +290,11 @@ const Option = styled('div')<{ isSelected: boolean }>(({ isSelected }) => ({
 const StyledPaper = withStyles((theme: Theme) => ({
   root: {
     marginTop: theme?.spacing(0.5),
+    position: 'absolute',
     borderRadius: 3,
     maxHeight: 165,
     overflowY: 'scroll',
+    zIndex: 10000,
     overflowX: 'hidden',
   },
 }))(Paper);

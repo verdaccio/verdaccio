@@ -55,7 +55,7 @@ describe.skip('sidebar api', () => {
       manifest: require('./partials/manifest/manifest.json'),
     });
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/sidebar/@scope/pk1-test')
+      .get('/-/verdaccio/data/sidebar/@scope/pk1-test')
       .set('Accept', HEADERS.TEXT_PLAIN)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);

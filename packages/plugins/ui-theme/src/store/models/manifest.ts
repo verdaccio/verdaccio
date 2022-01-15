@@ -72,12 +72,12 @@ export const manifest = createModel<RootModel>()({
         }
 
         const manifest: Package = await API.request(
-          `${basePath}-/verdaccio/sidebar/${packageName}${
+          `${basePath}-/verdaccio/data/sidebar/${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
           }`
         );
         const readme: string = await API.request<string>(
-          `${basePath}-/verdaccio/package/readme/${packageName}${
+          `${basePath}-/verdaccio/data/package/readme/${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
           }`,
           'GET'
