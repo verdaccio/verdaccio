@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 6.0.0-6-next.6
+
+### Major Changes
+
+- 730b5d8c: feat: upgrade to pino v7
+
 ## 6.0.0-6-next.5
 
 ### Minor Changes

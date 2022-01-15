@@ -43,7 +43,8 @@
     "@verdaccio/benchmark": "1.0.0",
     "@verdaccio/core": "6.0.0-next.0",
     "@verdaccio/helper": "1.0.0",
-    "docusaurus-plugin-contributors": "1.0.0"
+    "docusaurus-plugin-contributors": "1.0.0",
+    "@verdaccio/website": "5.4.0"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -67,6 +68,7 @@
     "hip-hounds-destroy",
     "late-adults-love",
     "late-parents-act",
+    "light-walls-begin",
     "little-stingrays-rule",
     "many-vans-care",
     "modern-spies-tell",
@@ -90,6 +92,7 @@
     "spicy-frogs-press",
     "ten-parents-breathe",
     "tender-bags-call",
+    "thick-countries-move",
     "three-moles-drop",
     "three-pots-sit",
     "two-dolls-check",

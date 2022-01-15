@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.14
+
+### Minor Changes
+
+- 048ac95e: feat: align with v5 ui endpoints and ui small bugfix
+
 ## 6.0.0-6-next.13
 
 ### Major Changes

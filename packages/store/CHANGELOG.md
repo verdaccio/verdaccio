@@ -1,5 +1,14 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.18
+
+### Patch Changes
+
+- Updated dependencies [730b5d8c]
+  - @verdaccio/logger@6.0.0-6-next.9
+  - @verdaccio/loaders@6.0.0-6-next.9
+  - @verdaccio/proxy@6.0.0-6-next.17
+
 ## 6.0.0-6-next.17
 
 ### Major Changes
