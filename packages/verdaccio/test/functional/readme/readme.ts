@@ -21,7 +21,7 @@ export default function (server, server2) {
       const matchReadme = (serverRef, pkgName = README_PKG1, readmeMessage = README_MESSAGE) => {
         return serverRef
           .request({
-            uri: `/-/verdaccio/package/readme/${pkgName}`,
+            uri: `/-/verdaccio/data/package/readme/${pkgName}`,
           })
           .status(HTTP_STATUS.OK)
           .then(function (body) {
