@@ -63,7 +63,7 @@ describe('endpoint web unit test', () => {
       test('should display sidebar info', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/sidebar/@scope/pk1-test')
+            .get('/-/verdaccio/data/sidebar/@scope/pk1-test')
             .expect(HTTP_STATUS.OK)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .end(function (err, res) {
@@ -85,7 +85,7 @@ describe('endpoint web unit test', () => {
       test('should display sidebar info by version', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/sidebar/@scope/pk1-test?v=1.0.6')
+            .get('/-/verdaccio/data/sidebar/@scope/pk1-test?v=1.0.6')
             .expect(HTTP_STATUS.OK)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .end(function (err, res) {
@@ -104,7 +104,7 @@ describe('endpoint web unit test', () => {
       test('should display sidebar info 404', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/sidebar/@scope/404')
+            .get('/-/verdaccio/data/sidebar/@scope/404')
             .expect(HTTP_STATUS.NOT_FOUND)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .end(function () {
@@ -116,7 +116,7 @@ describe('endpoint web unit test', () => {
       test('should display sidebar info 404 with version', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/sidebar/@scope/pk1-test?v=0.0.0-not-found')
+            .get('/-/verdaccio/data/sidebar/@scope/pk1-test?v=0.0.0-not-found')
             .expect(HTTP_STATUS.NOT_FOUND)
             .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .end(function () {
@@ -130,7 +130,7 @@ describe('endpoint web unit test', () => {
       test('should find @scope/pk1-test', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/search/@scope%2fpk1-test')
+            .get('/-/verdaccio/data/search/@scope%2fpk1-test')
             .expect(HTTP_STATUS.OK)
             .end(function (_err, res) {
               expect(res.body).toHaveLength(1);
@@ -142,7 +142,7 @@ describe('endpoint web unit test', () => {
       test('should not find forbidden-place', () => {
         return new Promise((resolve) => {
           request(app)
-            .get('/-/verdaccio/search/forbidden-place')
+            .get('/-/verdaccio/data/search/forbidden-place')
             .expect(HTTP_STATUS.OK)
             .end(function (err, res) {
               // this is expected since we are not logged
