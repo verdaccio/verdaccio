@@ -29,7 +29,7 @@ describe('test web server', () => {
 
   test('should get 401', async () => {
     return supertest(await initializeServer('default-test.yaml'))
-      .post('/-/verdaccio/login')
+      .post('/-/verdaccio/sec/login')
       .send(
         JSON.stringify({
           username: 'test',
@@ -46,7 +46,7 @@ describe('test web server', () => {
 
   test('should log in', async () => {
     return supertest(await initializeServer('default-test.yaml'))
-      .post('/-/verdaccio/login')
+      .post('/-/verdaccio/sec/login')
       .send(
         JSON.stringify({
           username: 'test',
@@ -66,7 +66,7 @@ describe('test web server', () => {
 
   test('log in should be disabled', async () => {
     return supertest(await initializeServer('login-disabled.yaml'))
-      .post('/-/verdaccio/login')
+      .post('/-/verdaccio/sec/login')
       .send(
         JSON.stringify({
           username: 'test',

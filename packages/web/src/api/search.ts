@@ -11,7 +11,8 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from './package';
 
 const debug = buildDebug('verdaccio:web:api:search');
 
-function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
+function addSearchWebApi(storage: Storage, auth: IAuth): Router {
+  const router = Router(); /* eslint new-cap: 0 */
   const getPackageInfo = async function (name, remoteUser): Promise<any> {
     return new Promise((resolve, reject) => {
       debug('searching for %o', name);
@@ -49,7 +50,7 @@ function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
     });
   };
 
-  route.get(
+  router.get(
     '/search/:anything',
     async function (
       req: $RequestExtend,
@@ -75,6 +76,7 @@ function addSearchWebApi(route: Router, storage: Storage, auth: IAuth): void {
       }
     }
   );
+  return router;
 }
 
 export default addSearchWebApi;

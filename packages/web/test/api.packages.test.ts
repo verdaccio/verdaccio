@@ -26,7 +26,7 @@ describe('test web server', () => {
       manifest: require('./partials/manifest/manifest.json'),
     }));
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/packages')
+      .get('/-/verdaccio/data/packages')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);

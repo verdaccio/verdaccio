@@ -22,8 +22,9 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 
 const debug = buildDebug('verdaccio:web:api:package');
 
-function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: Config): void {
+function addPackageWebApi(storage: Storage, auth: IAuth, config: Config): Router {
   const isLoginEnabled = config?.web?.login === true ?? true;
+  const pkgRouter = Router(); /* eslint new-cap: 0 */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const anonymousRemoteUser: RemoteUser = {
     name: undefined,
@@ -50,7 +51,7 @@ function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: 
     });
 
   // Get list of all visible package
-  route.get(
+  pkgRouter.get(
     '/packages',
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       debug('hit package web api %o');
@@ -109,6 +110,7 @@ function addPackageWebApi(route: Router, storage: Storage, auth: IAuth, config: 
       });
     }
   );
+  return pkgRouter;
 }
 
 export default addPackageWebApi;

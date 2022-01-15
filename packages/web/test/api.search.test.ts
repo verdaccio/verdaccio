@@ -59,7 +59,7 @@ describe('test web server', () => {
 
   test('should OK to search api', async () => {
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/keyword')
+      .get('/-/verdaccio/data/search/keyword')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);
@@ -69,7 +69,7 @@ describe('test web server', () => {
   test('should 404 to search api', async () => {
     mockQuery.mockReturnValue([]);
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/notFound')
+      .get('/-/verdaccio/data/search/notFound')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);
@@ -85,7 +85,7 @@ describe('test web server', () => {
       ];
     });
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/search/notFound')
+      .get('/-/verdaccio/data/search/notFound')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);

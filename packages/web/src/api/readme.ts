@@ -18,11 +18,12 @@ const debug = buildDebug('verdaccio:web:api:readme');
 
 export const NOT_README_FOUND = 'ERROR: No README data found!';
 
-function addReadmeWebApi(route: Router, storage: Storage, auth: IAuth): void {
+function addReadmeWebApi(storage: Storage, auth: IAuth): Router {
   debug('initialized readme web api');
   const can = allow(auth);
+  const pkgRouter = Router(); /* eslint new-cap: 0 */
 
-  route.get(
+  pkgRouter.get(
     '/package/readme/(@:scope/)?:package/:version?',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
@@ -53,6 +54,7 @@ function addReadmeWebApi(route: Router, storage: Storage, auth: IAuth): void {
       });
     }
   );
+  return pkgRouter;
 }
 
 export default addReadmeWebApi;

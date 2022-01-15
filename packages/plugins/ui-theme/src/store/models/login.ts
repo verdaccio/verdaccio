@@ -72,13 +72,17 @@ export const login = createModel<RootModel>()({
     async getUser({ username, password }, state) {
       const basePath = state.configuration.config.base;
       try {
-        const payload: LoginResponse = await API.request(`${basePath}-/verdaccio/login`, 'POST', {
-          body: JSON.stringify({ username, password }),
-          headers: {
-            Accept: HEADERS.JSON,
-            'Content-Type': HEADERS.JSON,
-          },
-        });
+        const payload: LoginResponse = await API.request(
+          `${basePath}-/verdaccio/sec/login`,
+          'POST',
+          {
+            body: JSON.stringify({ username, password }),
+            headers: {
+              Accept: HEADERS.JSON,
+              'Content-Type': HEADERS.JSON,
+            },
+          }
+        );
         dispatch.login.logInUser(payload);
         dispatch.packages.getPackages();
       } catch (error: any) {

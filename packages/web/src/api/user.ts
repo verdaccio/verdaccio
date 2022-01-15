@@ -11,7 +11,8 @@ import { $NextFunctionVer } from './package';
 
 const debug = buildDebug('verdaccio:web:api:user');
 
-function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
+function addUserAuthApi(auth: IAuth, config: Config): Router {
+  const route = Router(); /* eslint new-cap: 0 */
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
     debug('authenticate %o', username);
@@ -68,6 +69,8 @@ function addUserAuthApi(route: Router, auth: IAuth, config: Config): void {
       }
     );
   }
+
+  return route;
 }
 
 export default addUserAuthApi;

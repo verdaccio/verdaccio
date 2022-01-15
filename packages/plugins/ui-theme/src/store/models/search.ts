@@ -60,7 +60,7 @@ export const search = createModel<RootModel>()({
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#Browser_compatibility
         // FUTURE: signal is not well supported for IE and Samsung Browser
         const suggestions: SearchResultWeb[] = await API.request(
-          `${basePath}-/verdaccio/search/${encodeURIComponent(value)}`,
+          `${basePath}-/verdaccio/data/search/${encodeURIComponent(value)}`,
           'GET',
           {
             signal,

@@ -55,7 +55,7 @@ describe('readme api', () => {
 
   test('should fetch readme scoped package', async () => {
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/package/readme/@scope/pk1-test')
+      .get('/-/verdaccio/data/package/readme/@scope/pk1-test')
       .set('Accept', HEADERS.TEXT_PLAIN)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);
@@ -64,7 +64,7 @@ describe('readme api', () => {
 
   test('should fetch readme a package', async () => {
     const response = await supertest(await initializeServer('default-test.yaml'))
-      .get('/-/verdaccio/package/readme/pk1-test')
+      .get('/-/verdaccio/data/package/readme/pk1-test')
       .set('Accept', HEADERS.TEXT_PLAIN)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);

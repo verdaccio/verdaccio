@@ -19,11 +19,12 @@ export type PackageExt = Package & { author: AuthorAvatar; dist?: { tarball: str
 export type $SidebarPackage = Package & { latest: Version };
 const debug = buildDebug('verdaccio:web:api:sidebar');
 
-function addSidebarWebApi(route: Router, config: Config, storage: Storage, auth: IAuth): void {
+function addSidebarWebApi(config: Config, storage: Storage, auth: IAuth): Router {
   debug('initialized sidebar web api');
+  const router = Router(); /* eslint new-cap: 0 */
   const can = allow(auth);
   // Get package readme
-  route.get(
+  router.get(
     '/sidebar/(@:scope/)?:package',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
@@ -65,6 +66,8 @@ function addSidebarWebApi(route: Router, config: Config, storage: Storage, auth:
       });
     }
   );
+
+  return router;
 }
 
 export default addSidebarWebApi;
