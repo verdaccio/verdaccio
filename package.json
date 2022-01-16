@@ -135,7 +135,7 @@
     "prettier": "2.5.1",
     "puppeteer": "5.5.0",
     "rimraf": "3.0.2",
-    "selfsigned": "1.10.11",
+    "selfsigned": "1.10.14",
     "standard-version": "9.3.2",
     "supertest": "6.1.6",
     "ts-node": "10.4.0",

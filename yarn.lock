@@ -12814,12 +12814,12 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
-"selfsigned@npm:1.10.11":
-  version: 1.10.11
-  resolution: "selfsigned@npm:1.10.11"
+"selfsigned@npm:1.10.14":
+  version: 1.10.14
+  resolution: "selfsigned@npm:1.10.14"
   dependencies:
     node-forge: ^0.10.0
-  checksum: d07a97842bf90bcafe3e212f83e226f86c19eab1ea9342b7cdeffb0607a62f114dd7e8722c8223e8868d2a5a4f15808d3df3718877c5d33823220a18263b220e
+  checksum: bfd2717082dcb67f49cadb6f626c852a5cb185d841867fcb33bddb7948e7b0e07a253fd8d75e0fe4f8fdeab9f2f389c7713d2975bbe97aecc27dc5154e2e651b
   languageName: node
   linkType: hard
 
@@ -14669,7 +14669,7 @@ typescript@4.1.3:
     puppeteer: 5.5.0
     request: 2.88.0
     rimraf: 3.0.2
-    selfsigned: 1.10.11
+    selfsigned: 1.10.14
     semver: 7.3.5
     standard-version: 9.3.2
     supertest: 6.1.6
