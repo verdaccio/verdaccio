@@ -1979,7 +1979,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/register@npm:7.16.8, @babel/register@npm:^7.16.8":
+"@babel/register@npm:7.16.9":
+  version: 7.16.9
+  resolution: "@babel/register@npm:7.16.9"
+  dependencies:
+    clone-deep: ^4.0.1
+    find-cache-dir: ^2.0.0
+    make-dir: ^2.1.0
+    pirates: ^4.0.0
+    source-map-support: ^0.5.16
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: fc84d78c15ab65f435675be88771c59b0b0d223f0286b651978a5d41c26d3941660f5660ca7980c52ff699f228708f0f4a312f4b36c6ec87447dff4820c1acf8
+  languageName: node
+  linkType: hard
+
+"@babel/register@npm:^7.16.8":
   version: 7.16.8
   resolution: "@babel/register@npm:7.16.8"
   dependencies:
@@ -14564,7 +14579,7 @@ typescript@4.1.3:
     "@babel/polyfill": ^7.12.1
     "@babel/preset-env": 7.16.8
     "@babel/preset-typescript": 7.16.7
-    "@babel/register": 7.16.8
+    "@babel/register": 7.16.9
     "@babel/runtime": 7.16.7
     "@commitlint/cli": 12.1.4
     "@commitlint/config-conventional": 12.1.4
