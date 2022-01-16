@@ -68,7 +68,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.27"],
-            ["@types/http-errors", "npm:1.8.1"],
+            ["@types/http-errors", "npm:1.8.2"],
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
             ["@types/mime", "npm:2.0.3"],
@@ -4766,10 +4766,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/http-errors", [
-        ["npm:1.8.1", {
-          "packageLocation": "./.yarn/cache/@types-http-errors-npm-1.8.1-03bdc8b2cb-394d9c07ff.zip/node_modules/@types/http-errors/",
+        ["npm:1.8.2", {
+          "packageLocation": "./.yarn/cache/@types-http-errors-npm-1.8.2-1208ef5c6d-ca55012f3c.zip/node_modules/@types/http-errors/",
           "packageDependencies": [
-            ["@types/http-errors", "npm:1.8.1"]
+            ["@types/http-errors", "npm:1.8.2"]
           ],
           "linkType": "HARD",
         }]
@@ -17669,7 +17669,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.27"],
-            ["@types/http-errors", "npm:1.8.1"],
+            ["@types/http-errors", "npm:1.8.2"],
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
             ["@types/mime", "npm:2.0.3"],
