@@ -148,7 +148,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["puppeteer", "npm:5.5.0"],
             ["request", "npm:2.88.0"],
             ["rimraf", "npm:3.0.2"],
-            ["selfsigned", "npm:1.10.11"],
+            ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.6"],
@@ -15782,10 +15782,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["selfsigned", [
-        ["npm:1.10.11", {
-          "packageLocation": "./.yarn/cache/selfsigned-npm-1.10.11-b18173f015-d07a97842b.zip/node_modules/selfsigned/",
+        ["npm:1.10.14", {
+          "packageLocation": "./.yarn/cache/selfsigned-npm-1.10.14-bfd3922dfd-bfd2717082.zip/node_modules/selfsigned/",
           "packageDependencies": [
-            ["selfsigned", "npm:1.10.11"],
+            ["selfsigned", "npm:1.10.14"],
             ["node-forge", "npm:0.10.0"]
           ],
           "linkType": "HARD",
@@ -17749,7 +17749,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["puppeteer", "npm:5.5.0"],
             ["request", "npm:2.88.0"],
             ["rimraf", "npm:3.0.2"],
-            ["selfsigned", "npm:1.10.11"],
+            ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.5"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.1.6"],
