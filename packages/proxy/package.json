@@ -49,13 +49,13 @@
     "abortcontroller-polyfill": "1.7.3",
     "debug": "4.3.3",
     "lodash": "4.17.21",
-    "node-fetch": "2.6.6",
+    "node-fetch": "2.6.7",
     "request": "2.88.0",
     "undici": "4.12.2",
     "undici-fetch": "1.0.0-rc.4"
   },
   "devDependencies": {
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.20",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "get-stream": "^6.0.1",
     "nock": "13.2.2",

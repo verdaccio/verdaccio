@@ -43,12 +43,12 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/logger": "workspace:6.0.0-6-next.9",
     "@verdaccio/server": "workspace:6.0.0-6-next.25",
-    "core-js": "3.20.2",
+    "core-js": "3.20.3",
     "debug": "4.3.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.20",
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "jest-mock-process": "1.4.1",

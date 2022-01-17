@@ -43,7 +43,7 @@
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
     "abortcontroller-polyfill": "1.7.3",
-    "core-js": "3.20.2",
+    "core-js": "3.20.3",
     "debug": "4.3.3",
     "fastify": "3.25.3",
     "fastify-plugin": "3.0.0",
@@ -51,7 +51,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "@types/node": "16.11.19",
+    "@types/node": "16.11.20",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "ts-node": "10.4.0"
   },
