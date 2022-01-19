@@ -67,7 +67,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/async", "npm:3.2.12"],
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
-            ["@types/express-serve-static-core", "npm:4.17.27"],
+            ["@types/express-serve-static-core", "npm:4.17.28"],
             ["@types/http-errors", "npm:1.8.2"],
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
@@ -4759,10 +4759,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:4.17.27", {
-          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.27-a6c300c8eb-0e33f2765f.zip/node_modules/@types/express-serve-static-core/",
+        ["npm:4.17.28", {
+          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.28-608d4aa166-cd8873b603.zip/node_modules/@types/express-serve-static-core/",
           "packageDependencies": [
-            ["@types/express-serve-static-core", "npm:4.17.27"],
+            ["@types/express-serve-static-core", "npm:4.17.28"],
             ["@types/node", "npm:12.12.21"],
             ["@types/qs", "npm:6.9.5"],
             ["@types/range-parser", "npm:1.2.3"]
@@ -17683,7 +17683,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/async", "npm:3.2.12"],
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
-            ["@types/express-serve-static-core", "npm:4.17.27"],
+            ["@types/express-serve-static-core", "npm:4.17.28"],
             ["@types/http-errors", "npm:1.8.2"],
             ["@types/jest", "npm:26.0.24"],
             ["@types/lodash", "npm:4.14.178"],
