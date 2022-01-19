@@ -3724,14 +3724,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@verdaccio/readme@npm:10.2.0"
+"@verdaccio/readme@npm:10.2.1":
+  version: 10.2.1
+  resolution: "@verdaccio/readme@npm:10.2.1"
   dependencies:
     dompurify: ^2.2.6
     jsdom: 15.2.1
-    marked: ^2.0.1
-  checksum: a85a5c75a5f6a1d423107a7dc4cb4d89e44d11c83b6e53b72fdebe117bd9d671953122e26a104bb8fb492974a674ab1b77eb90a7be6bcf6bf7a681ca11489df2
+    marked: 4.0.10
+  checksum: b8fa411ff2016356c8446dda6ac20eb166ff1abf08daa8be8e9636225fe155ef3b842737ea00804ec853da6c7a368bb0981a6600d38c925a73868607b48668e5
   languageName: node
   linkType: hard
 
@@ -10398,12 +10398,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "marked@npm:2.0.1"
+"marked@npm:4.0.10":
+  version: 4.0.10
+  resolution: "marked@npm:4.0.10"
   bin:
-    marked: bin/marked
-  checksum: dd6f468a96ddfd6efbfdaa2f0fa61899b2ce1f8dac0a93c13d847d0fca6872d1f32362d7fe097932aeabc1dfbd83e33bb009a159860f60551d4c6adbdc5a0faf
+    marked: bin/marked.js
+  checksum: aa55dde6608b48331743de80e0dd4f9c90574faa5c43d458c3dc5d35de9b3dcdd2ab5ec66ce7ccae5c7ce80e55731b71b4135e420c0ad6f05ea3b356459135ba
   languageName: node
   linkType: hard
 
@@ -14619,7 +14619,7 @@ typescript@4.1.3:
     "@verdaccio/commons-api": 10.1.0
     "@verdaccio/eslint-config": ^8.5.0
     "@verdaccio/local-storage": 10.1.0
-    "@verdaccio/readme": 10.2.0
+    "@verdaccio/readme": 10.2.1
     "@verdaccio/streams": 10.1.0
     "@verdaccio/types": 10.2.2
     "@verdaccio/ui-theme": 6.0.0-6-next.14
