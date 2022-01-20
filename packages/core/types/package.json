@@ -38,7 +38,7 @@
     "build": "exit 0"
   },
   "devDependencies": {
-    "@types/node": "16.11.20",
+    "@types/node": "16.11.21",
     "tsd": "0.19.1"
   },
   "funding": {
