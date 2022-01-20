@@ -56,7 +56,6 @@ const prodConf = {
       primary_color: 'ToReplaceByPrimaryColor',
       filename: 'index.html',
       favicon: `${env.SRC_ROOT}/template/favicon.ico`,
-      verdaccioURL: 'ToReplaceByVerdaccio',
       version_app: 'ToReplaceByVersion',
       template: `${env.SRC_ROOT}/template/index.html`,
       debug: false,

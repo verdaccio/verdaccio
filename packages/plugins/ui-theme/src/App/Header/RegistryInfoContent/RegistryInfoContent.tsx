@@ -9,18 +9,23 @@ import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import { useConfig } from 'verdaccio-ui/providers/config';
 import {
   getCLIChangePassword,
+  getCLISBerryYamlRegistry,
   getCLISetConfigRegistry,
   getCLISetRegistry,
 } from 'verdaccio-ui/utils/cli-utils';
 import { NODE_MANAGER } from 'verdaccio-ui/utils/constants';
 
-const renderNpmTab = (scope: string, registryUrl: string): JSX.Element => {
+import { Description, TextContent } from './styles';
+
+const renderNpmTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
   return (
-    <Box display="flex" flexDirection="column" p={1}>
+    <Box display="flex" flexDirection="column">
       <CopyToClipBoard
         text={getCLISetConfigRegistry(`${NODE_MANAGER.npm} set`, scope, registryUrl)}
       />
@@ -30,9 +35,9 @@ const renderNpmTab = (scope: string, registryUrl: string): JSX.Element => {
   );
 };
 
-const renderPnpmTab = (scope: string, registryUrl: string): JSX.Element => {
+const renderPnpmTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
   return (
-    <Box display="flex" flexDirection="column" p={1}>
+    <Box display="flex" flexDirection="column">
       <CopyToClipBoard
         text={getCLISetConfigRegistry(`${NODE_MANAGER.pnpm} set`, scope, registryUrl)}
       />
@@ -42,12 +47,20 @@ const renderPnpmTab = (scope: string, registryUrl: string): JSX.Element => {
   );
 };
 
-const renderYarnTab = (scope: string, registryUrl: string): JSX.Element => {
+const renderYarnTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
   return (
-    <Box display="flex" flexDirection="column" p={1}>
+    <Box display="flex" flexDirection="column">
       <CopyToClipBoard
         text={getCLISetConfigRegistry(`${NODE_MANAGER.yarn} config set`, scope, registryUrl)}
       />
+    </Box>
+  );
+};
+
+const renderYarnBerryTab = (scope: string | undefined, registryUrl: string): JSX.Element => {
+  return (
+    <Box display="flex" flexDirection="column">
+      <CopyToClipBoard text={getCLISBerryYamlRegistry(scope, registryUrl)} />
     </Box>
   );
 };
@@ -63,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const AccordionContainer = styled('div')({
-  padding: 30,
+  padding: 0,
   paddingLeft: 0,
   paddingRight: 0,
 });
@@ -79,7 +92,7 @@ export const LinkContainer = styled('div')({
 
 export type Props = {
   registryUrl: string;
-  scope: string;
+  scope: string | undefined;
 };
 
 const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
@@ -90,15 +103,11 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
   const hasYarn = configOptions?.pkgManagers?.includes('yarn');
   const hasPnpm = configOptions?.pkgManagers?.includes('pnpm');
-  const hasPkgManagers = hasNpm | hasPnpm | hasYarn;
-  if (!hasPkgManagers || !scope || !registryUrl) {
-    return <AccordionContainer>{t('header.registry-no-conf')}</AccordionContainer>;
-  }
-
-  return hasPkgManagers ? (
-    <AccordionContainer>
-      {hasNpm && (
-        <Accordion>
+  return (
+    <>
+      <TextContent>{t('packageManagers.description')}</TextContent>
+      <AccordionContainer>
+        <Accordion disabled={!hasNpm}>
           <AccordionSummary
             aria-controls="panel1a-content"
             expandIcon={<ExpandMoreIcon />}
@@ -112,9 +121,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             </CommandContainer>
           </AccordionDetails>
         </Accordion>
-      )}
-      {hasYarn && (
-        <Accordion>
+        <Accordion disabled={!hasYarn}>
           <AccordionSummary
             aria-controls="panel2a-content"
             expandIcon={<ExpandMoreIcon />}
@@ -123,14 +130,26 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             <Typography className={classes.heading}>{'yarn'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
+            <Description>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t('packageManagers.yarnclassicDetails')}
+              </ReactMarkdown>
+            </Description>
             <CommandContainer data-testid={'tab-content'}>
               {renderYarnTab(scope, registryUrl)}
             </CommandContainer>
+            <Description>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {t('packageManagers.yarnBerryDetails')}
+              </ReactMarkdown>
+            </Description>
+            <CommandContainer data-testid={'tab-content'}>
+              {renderYarnBerryTab(scope, registryUrl)}
+            </CommandContainer>
           </AccordionDetails>
         </Accordion>
-      )}
-      {hasPnpm && (
-        <Accordion>
+
+        <Accordion disabled={!hasPnpm}>
           <AccordionSummary
             aria-controls="panel3a-content"
             expandIcon={<ExpandMoreIcon />}
@@ -144,14 +163,15 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             </CommandContainer>
           </AccordionDetails>
         </Accordion>
-      )}
-      <LinkContainer>
-        <Link href="https://verdaccio.org/docs/en/cli-registry" target="_blank">
-          <Typography>{t('header.registry-info-link')}</Typography>
-        </Link>
-      </LinkContainer>
-    </AccordionContainer>
-  ) : null;
+
+        <LinkContainer>
+          <Link href="https://verdaccio.org/docs/en/cli-registry" target="_blank">
+            <Typography>{t('header.registry-info-link')}</Typography>
+          </Link>
+        </LinkContainer>
+      </AccordionContainer>
+    </>
+  );
 };
 
 export default RegistryInfoContent;

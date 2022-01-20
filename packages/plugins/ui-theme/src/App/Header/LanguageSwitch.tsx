@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
-import LanguageIcon from '@mui/icons-material/Language';
-import withStyles from '@mui/styles/withStyles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import i18next from 'i18next';
-import React, { useCallback, useContext, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AutoComplete } from 'verdaccio-ui/components/AutoComplete/AutoCompleteV2';
-import MenuItem from 'verdaccio-ui/components/MenuItem';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
@@ -20,26 +20,42 @@ const listConverted = listLanguages.reduce((prev, item) => {
   return prev;
 }, {});
 
+export const CardSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
+  return {
+    backgroundColor: theme?.palette?.grey['600'],
+    opacity: '0.9',
+    color: theme?.palette?.error.contrastText,
+    fontWeight: 'bold',
+  };
+});
+
+export const CardUnSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
+  return {
+    cursor: 'pointer',
+    ':hover': {
+      backgroundColor: theme?.palette.greyGainsboro,
+    },
+  };
+});
+
+const LanguageContent = ({ translation, icon }) => (
+  <>
+    <CardContent>
+      <Typography display="block" gutterBottom={true} variant="caption">
+        {translation}
+      </Typography>
+    </CardContent>
+    <CardContent>{icon}</CardContent>
+  </>
+);
+
 const LanguageSwitch = () => {
-  const themeContext = useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext) as any;
   const [languages] = useState<Language[]>(
     Object.keys(i18next.options?.resources || {}) as Language[]
   );
   const { t } = useTranslation();
-
-  if (!themeContext) {
-    throw Error(t('theme-context-not-correct-used'));
-  }
-
   const currentLanguage = themeContext.language;
-
-  const switchLanguage = useCallback(
-    ({ language }: { language: Language }) => {
-      themeContext.setLanguage(language);
-    },
-    [themeContext]
-  );
-
   const getCurrentLngDetails = useCallback(
     (language: Language) => {
       const lng = listConverted[language] || listConverted['en-US'];
@@ -50,75 +66,38 @@ const LanguageSwitch = () => {
     },
     [t]
   );
-
-  const options = useMemo(
-    () =>
-      languages.map((language) => {
-        const { icon, translation } = getCurrentLngDetails(language);
-        return {
-          language,
-          icon,
-          translation,
-        };
-      }),
-    [languages, getCurrentLngDetails]
-  );
-
-  const option = useCallback(
-    ({ icon, translation }: ReturnType<typeof getCurrentLngDetails>) => (
-      <StyledMenuItem component="div">
-        {icon}
-        {translation}
-      </StyledMenuItem>
-    ),
-    []
-  );
-
-  const optionLabel = useCallback(
-    ({ translation }: ReturnType<typeof getCurrentLngDetails>) => translation,
-    []
+  const handleChangeLanguage = useCallback(
+    (language: Language) => {
+      themeContext.setLanguage(language);
+    },
+    [themeContext]
   );
 
   return (
-    <Wrapper>
-      <AutoComplete
-        defaultValue={getCurrentLngDetails(currentLanguage).translation}
-        getOptionLabel={optionLabel}
-        hasClearIcon={true}
-        inputStartAdornment={<StyledLanguageIcon />}
-        onClick={switchLanguage}
-        options={options}
-        renderOption={option}
-        variant="outlined"
-      />
-    </Wrapper>
+    <div>
+      <Grid columns={{ xs: 12, sm: 12, md: 12 }} container={true} spacing={{ xs: 1, md: 1 }}>
+        {languages.map((language, index) => {
+          const { icon, translation } = getCurrentLngDetails(language);
+          return (
+            <Grid item={true} key={index} sm={2} xs={6}>
+              {language === currentLanguage ? (
+                <CardSelected sx={{ maxWidth: 80 }}>
+                  <LanguageContent icon={icon} translation={translation} />
+                </CardSelected>
+              ) : (
+                <CardUnSelected
+                  onClick={() => handleChangeLanguage(language)}
+                  sx={{ maxWidth: 80 }}
+                >
+                  <LanguageContent icon={icon} translation={translation} />
+                </CardUnSelected>
+              )}
+            </Grid>
+          );
+        })}
+      </Grid>
+    </div>
   );
 };
 
 export default LanguageSwitch;
-
-const StyledLanguageIcon = styled(LanguageIcon)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.white,
-}));
-
-const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
-  width: 220,
-  display: 'none',
-  [`@media screen and (min-width: ${theme?.breakPoints.medium}px)`]: {
-    display: 'inline-block',
-  },
-}));
-
-const StyledMenuItem = withStyles((theme: Theme) => ({
-  root: {
-    display: 'grid',
-    cursor: 'pointer',
-    gridGap: theme?.spacing(0.5),
-    gridTemplateColumns: '20px 1fr',
-    alignItems: 'center',
-    '&:first-child': {
-      borderTopLeftRadius: 4,
-      borderTopRightRadius: 4,
-    },
-  },
-}))(MenuItem);

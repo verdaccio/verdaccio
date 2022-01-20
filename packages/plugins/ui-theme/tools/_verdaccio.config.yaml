@@ -6,6 +6,7 @@ web:
   pkgManagers:
     - npm
     - yarn
+    - pnpm
 
 plugins: ../
 

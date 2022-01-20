@@ -35,5 +35,7 @@ module.exports = Object.assign({}, config, {
     'verdaccio-ui/utils/(.*)': '<rootDir>/src/utils/$1',
     'verdaccio-ui/providers/(.*)': '<rootDir>/src/providers/$1',
     'verdaccio-ui/design-tokens/(.*)': '<rootDir>/src/design-tokens/$1',
+    'react-markdown': '<rootDir>/src/__mocks__/react-markdown.tsx',
+    'remark-*': '<rootDir>/src/__mocks__/remark-plugin.ts',
   },
 });

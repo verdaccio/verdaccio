@@ -66,9 +66,9 @@ exports[`<Help /> component should load the component in default state 1`] = `
 .emotion-9 {
   display: inline-block;
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
-  height: 21px;
+  height: auto;
+  white-space: break-spaces;
   font-size: 1rem;
 }
 

@@ -23,7 +23,6 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
   const [showMobileNavBar, setShowMobileNavBar] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const loginStore = useSelector((state: RootState) => state.login);
-  const configStore = useSelector((state: RootState) => state.configuration.config);
   const { configOptions } = useConfig();
   const dispatch = useDispatch<Dispatch>();
   const handleLogout = () => {
@@ -45,12 +44,12 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
             withoutSearch={withoutSearch}
           />
         </InnerNavBar>
-        <HeaderInfoDialog
-          isOpen={isInfoDialogOpen}
-          onCloseDialog={() => setOpenInfoDialog(false)}
-          registryUrl={configOptions.base}
-          scope={configStore.scope}
-        />
+        {isInfoDialogOpen && (
+          <HeaderInfoDialog
+            isOpen={isInfoDialogOpen}
+            onCloseDialog={() => setOpenInfoDialog(false)}
+          />
+        )}
       </NavBar>
       {showMobileNavBar && !withoutSearch && (
         <MobileNavBar>
