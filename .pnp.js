@@ -122,7 +122,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
             ["jest-environment-node", "npm:26.6.2"],
-            ["jest-junit", "npm:12.2.0"],
+            ["jest-junit", "npm:12.3.0"],
             ["js-yaml", "npm:4.1.0"],
             ["jsonwebtoken", "npm:8.5.1"],
             ["kleur", "npm:4.1.4"],
@@ -11891,10 +11891,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["jest-junit", [
-        ["npm:12.2.0", {
-          "packageLocation": "./.yarn/cache/jest-junit-npm-12.2.0-0c23823ec4-6009d37379.zip/node_modules/jest-junit/",
+        ["npm:12.3.0", {
+          "packageLocation": "./.yarn/cache/jest-junit-npm-12.3.0-867adfca6b-a8b90538db.zip/node_modules/jest-junit/",
           "packageDependencies": [
-            ["jest-junit", "npm:12.2.0"],
+            ["jest-junit", "npm:12.3.0"],
             ["mkdirp", "npm:1.0.4"],
             ["strip-ansi", "npm:5.2.0"],
             ["uuid", "npm:8.3.2"],
@@ -17603,7 +17603,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
             ["jest-environment-node", "npm:26.6.2"],
-            ["jest-junit", "npm:12.2.0"],
+            ["jest-junit", "npm:12.3.0"],
             ["js-yaml", "npm:4.1.0"],
             ["jsonwebtoken", "npm:8.5.1"],
             ["kleur", "npm:4.1.4"],
