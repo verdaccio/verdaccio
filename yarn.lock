@@ -9186,15 +9186,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jest-junit@npm:12.2.0":
-  version: 12.2.0
-  resolution: "jest-junit@npm:12.2.0"
+"jest-junit@npm:12.3.0":
+  version: 12.3.0
+  resolution: "jest-junit@npm:12.3.0"
   dependencies:
     mkdirp: ^1.0.4
     strip-ansi: ^5.2.0
     uuid: ^8.3.2
     xml: ^1.0.1
-  checksum: 6009d37379a346ccd884326ae227b926bc689249fa7bd0d93bd1f0004ed356ee2525a8eeb07b93b5e7adcfcae58b245afa5e8387129bf7e941dbf7d719a527b9
+  checksum: a8b90538db7c61dd2bd4c287914927a6631bbc602e221cf1252be729db9ab66473c2f38381d0baaa7358f9efcaee224b5b0de9b4965e58cab588405cfa7fdda8
   languageName: node
   linkType: hard
 
@@ -14499,7 +14499,7 @@ typescript@4.1.3:
     jest: 26.6.3
     jest-config: 26.6.3
     jest-environment-node: 26.6.2
-    jest-junit: 12.2.0
+    jest-junit: 12.3.0
     js-yaml: 4.1.0
     jsonwebtoken: 8.5.1
     kleur: 4.1.4
