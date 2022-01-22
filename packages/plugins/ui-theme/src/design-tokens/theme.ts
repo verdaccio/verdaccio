@@ -1,4 +1,4 @@
-import { adaptV4Theme, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
 const colors = {
@@ -92,30 +92,28 @@ type CustomizedTheme = typeof customizedTheme;
 
 export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
   const palette = applyPrimaryColor(themeMode, primaryColor);
-  return createTheme(
-    adaptV4Theme({
-      typography: {
-        fontFamily: [
-          '-apple-system',
-          'BlinkMacSystemFont',
-          '"Helvetica Neue"',
-          'Arial',
-          'sans-serif',
-        ].join(','),
+  return createTheme({
+    typography: {
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+      ].join(','),
+    },
+    palette: {
+      mode: themeMode,
+      ...palette,
+      primary: { main: palette.primary },
+      secondary: { main: palette.secondary },
+      error: { main: palette.red },
+      background: {
+        default: palette.background,
       },
-      palette: {
-        mode: themeMode,
-        ...palette,
-        primary: { main: palette.primary },
-        secondary: { main: palette.secondary },
-        error: { main: palette.red },
-        background: {
-          default: palette.background,
-        },
-      },
-      ...customizedTheme,
-    })
-  );
+    },
+    ...customizedTheme,
+  });
 };
 
 export type Theme = ReturnType<typeof getTheme>;

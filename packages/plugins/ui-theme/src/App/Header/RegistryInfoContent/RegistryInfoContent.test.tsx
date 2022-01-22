@@ -9,8 +9,10 @@ describe('<RegistryInfoContent /> component', () => {
   });
 
   test('should load the component with no data', () => {
-    render(<RegistryInfoContent registryUrl={''} scope={''} />);
-    expect(screen.getByText('No configurations available')).toBeInTheDocument();
+    render(<RegistryInfoContent registryUrl="http://localhost:4873" scope={''} />);
+    expect(
+      screen.getByText(/This is the configuration details for the registry./)
+    ).toBeInTheDocument();
   });
 
   test('should load the appropiate tab content when the tab is clicked', () => {

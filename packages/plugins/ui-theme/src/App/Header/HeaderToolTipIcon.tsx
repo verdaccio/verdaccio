@@ -50,7 +50,7 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
       );
     case 'search':
       return (
-        <IconSearchButton color="inherit" onClick={onClick}>
+        <IconSearchButton color="inherit" onClick={onClick} ref={ref}>
           <Search />
         </IconSearchButton>
       );

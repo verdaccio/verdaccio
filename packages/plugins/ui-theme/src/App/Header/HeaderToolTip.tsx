@@ -1,5 +1,4 @@
 import React from 'react';
-import Tooltip from 'verdaccio-ui/components/Tooltip';
 
 import HeaderToolTipIcon, { TooltipIconType } from './HeaderToolTipIcon';
 
@@ -9,10 +8,8 @@ interface Props {
   onClick?: () => void;
 }
 
-const HeaderToolTip: React.FC<Props> = ({ tooltipIconType, title, onClick }) => (
-  <Tooltip disableFocusListener={true} title={title}>
-    <HeaderToolTipIcon onClick={onClick} tooltipIconType={tooltipIconType} />
-  </Tooltip>
+const HeaderToolTip: React.FC<Props> = ({ tooltipIconType, onClick }) => (
+  <HeaderToolTipIcon onClick={onClick} tooltipIconType={tooltipIconType} />
 );
 
 export default HeaderToolTip;

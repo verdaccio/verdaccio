@@ -13,3 +13,8 @@ export const Content = styled(DialogContent)<{ theme?: Theme }>(({ theme }) => (
   padding: '0 24px',
   backgroundColor: theme?.palette.background.default,
 }));
+
+export const TextContent = styled('div')<{ theme?: Theme }>(({ theme }) => ({
+  padding: '10px 24px',
+  backgroundColor: theme?.palette.background.default,
+}));

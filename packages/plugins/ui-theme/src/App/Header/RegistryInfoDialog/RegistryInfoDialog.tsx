@@ -16,7 +16,7 @@ const RegistryInfoDialog: React.FC<Props> = ({ open = false, children, onClose }
       onClose={onClose}
       open={open}
     >
-      <Title disableTypography={true}>{t('dialog.registry-info.title')}</Title>
+      <Title>{t('dialog.registry-info.title')}</Title>
       <Content>{children}</Content>
       <DialogActions>
         <Button color="inherit" id="registryInfo--dialog-close" onClick={onClose}>

@@ -60,6 +60,8 @@
     "mutationobserver-shim": "0.3.7",
     "node-mocks-http": "1.11.0",
     "normalize.css": "8.0.1",
+    "react-markdown": "8.0.0",
+    "remark-gfm": "3.0.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
     "react": "17.0.2",

@@ -52,12 +52,7 @@ const HeaderMenu: React.FC<Props> = ({
         <MenuItem>
           <HeaderGreetings username={username} />
         </MenuItem>
-        <MenuItem
-          button={true}
-          data-testid="logOutDialogIcon"
-          id="logOutDialogIcon"
-          onClick={onLogout}
-        >
+        <MenuItem data-testid="logOutDialogIcon" id="logOutDialogIcon" onClick={onLogout}>
           {t('button.logout')}
         </MenuItem>
       </Menu>

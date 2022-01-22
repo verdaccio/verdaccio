@@ -11,12 +11,12 @@ type Props = Omit<TooltipProps, 'title'> & {
   title: TFunctionResult;
 };
 
-const Tooltip = forwardRef<TooltipRef, Props>(function ToolTip({ title, children, ...props }, ref) {
+const Tooltip = forwardRef<TooltipRef, Props>(function ToolTip({ title, children, ...props }) {
   if (!title) {
     return children;
   }
   return (
-    <MaterialUITooltip {...props} title={title} innerRef={ref}>
+    <MaterialUITooltip {...props} title={title}>
       {children}
     </MaterialUITooltip>
   );

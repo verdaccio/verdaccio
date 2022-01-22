@@ -22,11 +22,11 @@ export const copyToClipBoardUtility =
 
 export function getCLISetConfigRegistry(
   command: string,
-  scope: string,
+  scope: string | undefined,
   registryUrl: string
 ): string {
   // if there is a scope defined there needs to be a ":" separator between the scope and the registry
-  return `${command} ${scope}${scope !== '' ? ':' : ''}registry ${registryUrl}`;
+  return `${command} ${scope ? `${scope}:` : ''}registry ${registryUrl}`;
 }
 
 export function getCLISetRegistry(command: string, registryUrl: string): string {
@@ -35,4 +35,19 @@ export function getCLISetRegistry(command: string, registryUrl: string): string 
 
 export function getCLIChangePassword(command: string, registryUrl: string): string {
   return `${command} profile set password --registry ${registryUrl}`;
+}
+
+export function getCLISBerryYamlRegistry(scope: string | undefined, registryUrl: string): string {
+  return !scope
+    ? `// .yarnrc.yml    
+npmRegistryServer: "${registryUrl}"
+unsafeHttpWhitelist:
+  - ${new URL(registryUrl).host}`
+    : `
+// .yarnrc.yml
+npmRegistryServer: "${registryUrl}"
+npmScopes:
+  ${scope.replace('@', '')}:
+    npmRegistryServer: ${registryUrl}
+    npmPublishRegistry: ${registryUrl}`;
 }

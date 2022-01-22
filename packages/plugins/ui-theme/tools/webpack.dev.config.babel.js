@@ -39,7 +39,6 @@ export default {
       __UI_OPTIONS: JSON.stringify({
         ...configJsonFormat.web,
         filename: 'index.html',
-        verdaccioURL: '//localhost:4873',
         base: new URL('/', 'http://localhost:4873'),
       }),
       template: `${env.SRC_ROOT}/template/index.html`,

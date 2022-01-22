@@ -21,6 +21,11 @@ web:
   rateLimit:
     windowMs: 50000
     max: 1000
+  pkgManagers:
+    - npm
+    - yarn
+    - pnpm
+  login: true      
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
@@ -55,6 +60,8 @@ i18n:
 | darkMode      | boolean    | No       | false                                                         | `>=v4.6.0` | This mode is an special theme for those want to live in the dark side                                                    |
 | favicon       | string     | No       | false                                                         | `>=v5.0.1` | Display a custom favicon, can be local resource or valid url                                                             |
 | rateLimit       | object     | No       | use `userRateLimit` configuration  | `>=v5.4.0` | Increase or decrease rate limit, by default is 5k request every 2 minutes, only limit web api endpoints, the CSS, JS, etcc are ingnored |
+| pkgManagers       | npm, pnpm or yarn     | false       | npm                                                         | `>=v5.5.0` | Allow customise which package managers on the side bar and registry information dialog are visible |
+| login       | boolean     | true       | true or false                                                         | `>=v5.5.0` | Allow disable login on the UI (also include web endpoints).          |
 
 > The recommended logo size is `40x40` pixels.
 
