@@ -44,12 +44,12 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
             withoutSearch={withoutSearch}
           />
         </InnerNavBar>
-        {isInfoDialogOpen && (
+        {
           <HeaderInfoDialog
             isOpen={isInfoDialogOpen}
             onCloseDialog={() => setOpenInfoDialog(false)}
           />
-        )}
+        }
       </NavBar>
       {showMobileNavBar && !withoutSearch && (
         <MobileNavBar>

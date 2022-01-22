@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -37,11 +36,7 @@ function TabPanel(props) {
       role="tabpanel"
       {...other}
     >
-      {value === index && (
-        <Box sx={{ paddingTop: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box sx={{ paddingTop: 3 }}>{children}</Box>}
     </div>
   );
 }

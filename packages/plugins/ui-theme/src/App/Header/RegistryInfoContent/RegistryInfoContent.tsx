@@ -103,6 +103,8 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
   const hasYarn = configOptions?.pkgManagers?.includes('yarn');
   const hasPnpm = configOptions?.pkgManagers?.includes('pnpm');
+  // TODO: we can improve this logic, expanding only one accordion based on which package manager is enabled
+  // feel free to contribute here
   return (
     <>
       <TextContent>{t('packageManagers.description')}</TextContent>

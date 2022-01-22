@@ -85,10 +85,7 @@ const LanguageSwitch = () => {
                   <LanguageContent icon={icon} translation={translation} />
                 </CardSelected>
               ) : (
-                <CardUnSelected
-                  onClick={() => handleChangeLanguage(language)}
-                  sx={{ maxWidth: 80 }}
-                >
+                <CardUnSelected onClick={() => handleChangeLanguage(language)}>
                   <LanguageContent icon={icon} translation={translation} />
                 </CardUnSelected>
               )}
