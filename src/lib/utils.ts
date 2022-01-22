@@ -12,7 +12,7 @@ import validator from 'validator';
 // eslint-disable-next-line max-len
 import { getBadData, getBadRequest, getCode, getConflict, getForbidden, getInternalError, getNotFound, getServiceUnavailable, getUnauthorized } from '@verdaccio/commons-api';
 import sanitizyReadme from '@verdaccio/readme';
-import { Author, Package, Version } from '@verdaccio/types';
+import { Author, Config, Package, Version } from '@verdaccio/types';
 
 import { AuthorAvatar, StringValue } from '../../types';
 import { GENERIC_AVATAR, generateGravatarUrl } from '../utils/user';
@@ -688,4 +688,10 @@ export function wrapPrefix(prefix: string | void): string {
   } else {
     return prefix;
   }
+}
+
+export function hasLogin(config: Config) {
+  // FIXME: types are not yet on the library verdaccio/monorepo
+  // @ts-ignore
+  return _.isNil(config?.web?.login) || config?.web?.login === true;
 }

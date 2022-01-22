@@ -1,5 +1,6 @@
 import { Response, Router } from 'express';
 
+import { hasLogin } from '../../../lib/utils';
 import { limiter } from '../../rate-limiter';
 import packageApi from './package';
 import search from './search';
@@ -18,6 +19,8 @@ export default (auth, storage, config) => {
   route.use('/data/', packageApi(storage, auth, config));
   route.use('/data/', search(storage, auth));
   route.use('/sec/', limiter(config?.userRateLimit));
-  route.use('/sec/', user(auth, storage));
+  if (hasLogin(config)) {
+    route.use('/sec/', user(auth, storage));
+  }
   return route;
 };
