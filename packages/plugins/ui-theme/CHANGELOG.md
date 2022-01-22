@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.15
+
+### Minor Changes
+
+- 7ff4808b: feat: improve registry info dialog and language switch
+
 ## 6.0.0-6-next.14
 
 ### Minor Changes
