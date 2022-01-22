@@ -11,9 +11,7 @@ describe('<RegistryInfoContent /> component', () => {
   test('should load the component with no data', () => {
     render(<RegistryInfoContent registryUrl="http://localhost:4873" scope={''} />);
     expect(
-      screen.getByText(
-        'This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details.'
-      )
+      screen.getByText(/This is the configuration details for the registry./)
     ).toBeInTheDocument();
   });
 
