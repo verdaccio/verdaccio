@@ -59,7 +59,7 @@
     "semver": "7.3.5"
   },
   "devDependencies": {
-    "@types/node": "16.11.20",
+    "@types/node": "16.11.21",
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "@verdaccio/helper": "workspace:1.0.0",
