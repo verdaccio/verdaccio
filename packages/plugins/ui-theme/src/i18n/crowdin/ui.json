@@ -174,7 +174,8 @@
     "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yalm` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
   },
   "language": {
-    "title": "Language",
-    "description": "This is the configuration details for the language. Each language could have different configuration, expand each section for more details."
+    "title": "Translations",
+    "contribute": "If your language is not listed here or is not fully translated, please contribute to the translation. You can find the source code on [our main repository](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "This is the configuration details for the language. Select a language to select a client side translation."
   }
 }
