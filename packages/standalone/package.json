@@ -33,7 +33,7 @@
   "license": "MIT",
   "devDependencies": {
     "@verdaccio/cli": "workspace:6.0.0-6-next.27",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.14",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.15",
     "fs-extra": "10.0.0",
     "webpack": "5.66.0",
     "webpack-bundle-analyzer": "4.5.0",
