@@ -4,7 +4,7 @@
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
   "baseBranches": ["master", "5.x"],
-  "major": false,
+  "major": true,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
@@ -78,7 +78,7 @@
         "self-signed",
         "supertest"
       ],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all non-major core dependencies",
       "groupSlug": "all-minor-patch-core",
       "extends": [":semanticCommitTypeAll(fix)"],
