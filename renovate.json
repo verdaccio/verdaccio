@@ -1,6 +1,6 @@
 {
-  "extends": ["config:base"],
-  "prConcurrentLimit": 3,
+  "extends": ["config:base", "schedule:earlyMondays"],
+  "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
   "baseBranches": ["master", "5.x"],
