@@ -10576,7 +10576,16 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"mime@npm:2.6.0, mime@npm:^2.5.0":
+"mime@npm:3.0.0":
+  version: 3.0.0
+  resolution: "mime@npm:3.0.0"
+  bin:
+    mime: cli.js
+  checksum: 92e15d00a87a282fde7979a03016d900aaeb68ed5155bffd1477dd26765728a5fbdc51ca54c9f5a44f7a45cb6d0781291efb29402512428eafe72df152ddb828
+  languageName: node
+  linkType: hard
+
+"mime@npm:^2.5.0":
   version: 2.6.0
   resolution: "mime@npm:2.6.0"
   bin:
@@ -14543,7 +14552,7 @@ typescript@4.1.3:
     lunr-mutable-indexes: 2.3.2
     marked: 2.1.3
     memoizee: 0.4.15
-    mime: 2.6.0
+    mime: 3.0.0
     minimatch: 3.0.4
     mkdirp: 1.0.4
     mv: 2.1.1
