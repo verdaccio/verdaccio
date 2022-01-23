@@ -64,16 +64,12 @@
       "allowedVersions": "v3"
     },
     {
-      "matchDatasources": ["actions/github-script"],
-      "allowedVersions": "v3"
-    },
-    {
       "matchDatasources": ["lint-staged"],
       "allowedVersions": "11.2.6"
     },
     {
       "matchDatasources": ["get-port"],
-      "allowedVersions": "<= 5"
+      "allowedVersions": "5.1.1"
     },
     {
       "matchPackagePatterns": [
@@ -115,8 +111,8 @@
         "supertest"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all non-major core dependencies",
-      "groupSlug": "all-minor-patch-core",
+      "groupName": "all core dependencies",
+      "groupSlug": "all-core-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
       "baseBranchList": ["master"]
     },
@@ -130,8 +126,9 @@
         "@typescript-eslint/*"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all non-major linting dependencies",
-      "groupSlug": "all-major-patch-linting"
+      "groupName": "all linting dependencies",
+      "groupSlug": "all-linting",
+      "baseBranchList": ["master"]
     }
   ],
   "pinVersions": false
