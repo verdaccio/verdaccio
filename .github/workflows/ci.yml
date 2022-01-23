@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2.4.0
     - name: Use Node 16
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: 16
     - name: Install pnpm
@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Use Node 16
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 16
       - name: Install pnpm
@@ -71,7 +71,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Use Node 16
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 16
       - name: Install pnpm
@@ -97,7 +97,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
@@ -118,7 +118,7 @@ jobs:
     name: UI Test E2E Node 16
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 16
       - name: Install pnpm
@@ -143,7 +143,7 @@ jobs:
     name: CLI Test E2E Node 14
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 14
       - name: Install pnpm
@@ -168,7 +168,7 @@ jobs:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
           node-version: 16
       - name: Install pnpm

@@ -41,8 +41,8 @@
   ],
   "dependencies": {
     "dompurify": "2.3.4",
-    "jsdom": "17.0.0",
-    "marked": "3.0.8"
+    "jsdom": "19.0.0",
+    "marked": "4.0.10"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.10"

@@ -45,7 +45,7 @@
   "devDependencies": {
     "@types/node": "16.11.21",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
-    "node-html-parser": "4.1.5",
+    "node-html-parser": "5.2.0",
     "supertest": "6.2.2",
     "verdaccio-auth-memory": "workspace:11.0.0-6-next.7",
     "verdaccio-memory": "workspace:11.0.0-6-next.8"

@@ -41,7 +41,7 @@
   "dependencies": {
     "dayjs": "1.10.7",
     "fast-safe-stringify": "2.1.1",
-    "kleur": "3.0.3",
+    "kleur": "4.1.4",
     "lodash": "4.17.21",
     "prettier-bytes": "1.0.4"
   },

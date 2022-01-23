@@ -4,13 +4,13 @@
   "version": "1.0.1-alpha.0",
   "dependencies": {
     "debug": "4.3.3",
-    "npm": "7.24.2",
+    "npm": "8.3.2",
     "pnpm": "6.27.1",
     "request": "2.88.0",
     "yarn": "1.22.17"
   },
   "devDependencies": {
-    "get-port": "5.1.1",
+    "get-port": "6.0.0",
     "wait-on": "^6.0.0",
     "fs-extra": "10.0.0",
     "semver": "7.3.5"
