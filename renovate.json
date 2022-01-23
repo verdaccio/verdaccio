@@ -48,6 +48,38 @@
       "labels": ["bot: docker-update"]
     },
     {
+      "matchDatasources": ["crazy-max/ghaction-docker-meta"],
+      "allowedVersions": "< 1"
+    },
+    {
+      "matchDatasources": ["marocchino/sticky-pull-request-comment"],
+      "allowedVersions": "<= 1"
+    },
+    {
+      "matchDatasources": ["treosh/lighthouse-ci-action"],
+      "allowedVersions": "v3"
+    },
+    {
+      "matchDatasources": ["react-router"],
+      "allowedVersions": "< 6"
+    },
+    {
+      "matchDatasources": ["actions/github-script"],
+      "allowedVersions": "v3"
+    },
+    {
+      "matchDatasources": ["actions/github-script"],
+      "allowedVersions": "v3"
+    },
+    {
+      "matchDatasources": ["lint-staged"],
+      "allowedVersions": "< 12"
+    },
+    {
+      "matchDatasources": ["get-port"],
+      "allowedVersions": "<= 5"
+    },
+    {
       "matchPackagePatterns": [
         "@types/*",
         "typescript",
