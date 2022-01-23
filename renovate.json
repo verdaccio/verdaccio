@@ -49,19 +49,15 @@
     },
     {
       "matchDatasources": ["crazy-max/ghaction-docker-meta"],
-      "allowedVersions": "< 1"
-    },
-    {
-      "matchDatasources": ["marocchino/sticky-pull-request-comment"],
-      "allowedVersions": "<= 1"
-    },
-    {
-      "matchDatasources": ["treosh/lighthouse-ci-action"],
-      "allowedVersions": "v3"
+      "allowedVersions": "1.12.0"
     },
     {
       "matchDatasources": ["react-router"],
-      "allowedVersions": "< 6"
+      "allowedVersions": "5.2.1"
+    },
+    {
+      "matchDatasources": ["react-router-dom"],
+      "allowedVersions": "5.2.1"
     },
     {
       "matchDatasources": ["actions/github-script"],
@@ -73,7 +69,7 @@
     },
     {
       "matchDatasources": ["lint-staged"],
-      "allowedVersions": "< 12"
+      "allowedVersions": "11.2.6"
     },
     {
       "matchDatasources": ["get-port"],
@@ -130,6 +126,7 @@
         "prettier",
         "eslint-*",
         "eslint",
+        "stylelint",
         "@typescript-eslint/*"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
