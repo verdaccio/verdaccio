@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.5.1](https://github.com/verdaccio/verdaccio/compare/v5.5.0...v5.5.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* remove engines restriction from ui-theme dependency ([de7713e](https://github.com/verdaccio/verdaccio/commit/de7713ecc1390ff44899ae13737d934bb9bbb964))
+* **deps:** update dependency marked to v4 ([#2956](https://github.com/verdaccio/verdaccio/issues/2956)) ([5009797](https://github.com/verdaccio/verdaccio/commit/50097976ed965e6f28d3900859b73e52a1553ff0))
+* **deps:** update dependency mime to v3 ([#2957](https://github.com/verdaccio/verdaccio/issues/2957)) ([ac4392a](https://github.com/verdaccio/verdaccio/commit/ac4392a22135f5f4654b0e6fa6d0039a649ee899))
+
 ## [5.5.0](https://github.com/verdaccio/verdaccio/compare/v5.4.0...v5.5.0) (2022-01-22)
 
 
