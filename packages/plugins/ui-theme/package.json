@@ -12,10 +12,6 @@
   },
   "homepage": "https://verdaccio.org",
   "main": "index.js",
-  "engines": {
-    "node": ">=14",
-    "npm": ">=6"
-  },
   "devDependencies": {
     "@types/react": "17.0.38",
     "@types/react-autosuggest": "10.1.5",
