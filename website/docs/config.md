@@ -249,7 +249,7 @@ notify:
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```
 
-> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/conf).
+> For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/packages/config/src/conf).
 
 ### Audit {#audit}
 
