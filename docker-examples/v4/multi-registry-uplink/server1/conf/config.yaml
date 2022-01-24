@@ -7,7 +7,7 @@
 # see https://github.com/verdaccio/verdaccio/blob/master/wiki/docker.md#docker-and-custom-port-configuration
 #
 # Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/tree/master/conf
+# https://github.com/verdaccio/verdaccio/tree/master/packages/config/src/conf
 #
 
 # path to a directory with all packages
