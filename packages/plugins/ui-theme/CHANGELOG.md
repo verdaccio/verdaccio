@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.16
+
+### Minor Changes
+
+- ad3151c3: fix: remove engines from ui-theme
+
 ## 6.0.0-6-next.15
 
 ### Minor Changes
