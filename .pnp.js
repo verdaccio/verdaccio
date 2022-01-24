@@ -85,7 +85,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/readme", "npm:10.2.1"],
             ["@verdaccio/streams", "npm:10.1.0"],
             ["@verdaccio/types", "npm:10.2.2"],
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.15"],
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.16"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.3"],
@@ -5671,10 +5671,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/ui-theme", [
-        ["npm:6.0.0-6-next.15", {
-          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-6.0.0-6-next.15-d7af3e649e-758a7c074e.zip/node_modules/@verdaccio/ui-theme/",
+        ["npm:6.0.0-6-next.16", {
+          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-6.0.0-6-next.16-9bf54404f2-1bcb8a8260.zip/node_modules/@verdaccio/ui-theme/",
           "packageDependencies": [
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.15"]
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.16"]
           ],
           "linkType": "HARD",
         }]
@@ -7840,14 +7840,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.20.2", {
-          "packageLocation": "./.yarn/cache/core-js-npm-3.20.2-656ea79cc8-642927e21a.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.20.2-656ea79cc8/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.20.2"]
           ],
@@ -14898,7 +14898,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:65523936f66795efc0bd6f7ca9a755f1be9f9bb998dc7cd39f5d823ea185c793a03b3f329f921a146569ee8bdffdd22dd15c2e08d286539b118e1cbbab91f8cf#npm:4.1.1"],
@@ -17603,7 +17603,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/readme", "npm:10.2.1"],
             ["@verdaccio/streams", "npm:10.1.0"],
             ["@verdaccio/types", "npm:10.2.2"],
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.15"],
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.16"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.3"],
