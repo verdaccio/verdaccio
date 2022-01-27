@@ -141,7 +141,9 @@ export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_
   const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
-    logger = createLogger(pinoConfig, pino.destination(loggerConfig.path), loggerConfig.format);
+    const destination = pino.destination(loggerConfig.path);
+    process.on('SIGUSR2', () => destination.reopen());
+    logger = createLogger(pinoConfig, destination, loggerConfig.format);
   } else if (loggerConfig.type === 'rotating-file') {
     warningUtils.emit(warningUtils.Codes.VERWAR003);
     debug('logging stdout enabled');
