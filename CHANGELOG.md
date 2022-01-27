@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.5.2](https://github.com/verdaccio/verdaccio/compare/v5.5.1...v5.5.2) (2022-01-27)
+
+
+### Bug Fixes
+
+* re-opening log files using SIGUSR2 ([#2966](https://github.com/verdaccio/verdaccio/issues/2966)) ([b964c0d](https://github.com/verdaccio/verdaccio/commit/b964c0d4881cb998cb3e58f25b93cfa4326bdc28))
+
 ### [5.5.1](https://github.com/verdaccio/verdaccio/compare/v5.5.0...v5.5.1) (2022-01-24)
 
 
