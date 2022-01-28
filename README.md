@@ -45,7 +45,7 @@ docker pull verdaccio/verdaccio:nightly-master
 
 ## Donations
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
+Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider do a long support donation - **and your logo will be on this section of the readme.**
 
 **[Donate](https://github.com/sponsors/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
 
@@ -73,7 +73,15 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 Verdaccio has proved to be a lightweight registry that can be
 booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
 
-## Talks
+## Watch our Videos
+
+**Node Congress 2022, February 2022, Online Free**
+
+<div>
+   <a href="https://nodecongress.com/">
+     <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="300"/>
+  </a>
+</div>
 
 ### **Using Docker and Verdaccio to make Integration Testing Easy - Docker All Hands #4 December - 2021**.
 
@@ -101,7 +109,7 @@ verdaccio
 You would need set some npm configuration, this is optional.
 
 ```bash
-$ npm set registry http://localhost:4873/
+npm set registry http://localhost:4873/
 ```
 
 For one-off commands or to avoid setting the registry globally:
@@ -125,7 +133,7 @@ npm adduser --registry http://localhost:4873
 > if you use HTTPS, add an appropriate CA information ("null" means get CA list from OS)
 
 ```bash
-$ npm set ca null
+npm set ca null
 ```
 
 #### 2. publish your package
