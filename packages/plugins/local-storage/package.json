@@ -43,7 +43,7 @@
     "async": "3.2.3",
     "core-js": "3.20.3",
     "debug": "4.3.3",
-    "globby": "11.1.0",
+    "globby": "13.1.0",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",

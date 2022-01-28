@@ -6,9 +6,9 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.16",
     "debug": "4.3.3",
-    "kleur": "3.0.3",
+    "kleur": "4.1.4",
     "lodash": "4.17.21",
-    "puppeteer": "10.4.0",
+    "puppeteer": "13.1.2",
     "request": "2.88.0",
     "rimraf": "3.0.2"
   },
