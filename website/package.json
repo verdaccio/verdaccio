@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "5.4.0",
+  "version": "5.5.2",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
