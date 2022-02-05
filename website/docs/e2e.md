@@ -3,25 +3,19 @@ id: e2e
 title: "End to End testing"
 ---
 
-## Testing the integrity of React components by publishing in a private registry
+### Testing the integrity of React components by publishing in a private registry
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bRKZbrlQqLY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+> The final stage of a react component is when it is being published and distributed. How can I ensure my packages won’t crash in production? This talk will help you to test your React components by publishing them to a private registry and running End-to-End tests against them. 
+
+
+<iframe width="300" height="600" src="https://www.youtube.com/embed/bRKZbrlQqLY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 - [Slides](https://docs.google.com/presentation/d/1a2xkqj1KlUayR1Bva1bVYvavwOPVuLplxFtup9MI_U4/edit?usp=sharing)
 - [Demo](https://github.com/juanpicado/verdaccio-end-to-end-tests)
 
-## E2E and Verdaccio
+## End to End and Verdaccio
 
-Some projects organize packages in multi-packages repositories or [monorepos](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). E2E testing is a topic that usually is only relevant for User Interfaces, but from a Node.js perspective, **publishing packages also need to be tested**.
-
-```mdx-code-block
-import { Tweet } from 'react-twitter-widgets'
-
-<Tweet tweetId="951427674844680192" options={{
-  dnt: true,
-  align: 'center'
-}} />
-```
+Some projects organize packages in multi-packages repositories or [monorepos](https://github.com/babel/babel/blob/master/doc/design/monorepo.md). End to End testing is a topic that usually is only relevant for User Interfaces, but from a Node.js perspective, **publishing packages also need to be tested**.
 
 Such approach has been really hard to achieve considering:
 
@@ -36,7 +30,18 @@ Such approach has been really hard to achieve considering:
 There is no a silver bullet yet, each implementation seems to be specific for each project, you can check some of them in
 the following thread [clicking here](https://stackoverflow.com/a/50222427/308341).
 
-### Example using Bash {#example-using-bash}
+
+## Examples in Open Source
+
+The following projects have examples using Verdaccio in Open Source
+
+### Bash Examples
+
+* [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
+* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
+* [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
+* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
+* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
 
 This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
 
@@ -60,22 +65,27 @@ sh -c "npm-auth-to-token -u test -p test -e test@test.com -r $local_registry"
 sh -c "npm --registry $local_registry publish"
 ```
 
+### Docker Examples
 
-## Who is using it for E2E? {#who-is-using-it-for-e2e}
+* [Hyperledger](https://github.com/hyperledger/fabric-chaincode-node)
 
-* [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
+### Programtically Examples
+
 * [Storybook](https://github.com/storybooks/storybook) *(+44k ⭐️)*
 * [Gatsby](https://github.com/gatsbyjs/gatsby) *(+40k ⭐️)
-* [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
-* [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
+
+#### Verdaccio module
+
+Via CLI:
+
 * [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
-* [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
+* [Embark](https://embark.status.im/) *(+3k ⭐️)*
+#### Node.js `child_process` examples
+
+* [Angular CLI](https://github.com/angular/angular-cli) *(+25k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
 * [pnpm](https://github.com/pnpm/pnpm) *(+6k ⭐️)*
-* [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
-* [Embark](https://embark.status.im/) *(+3k ⭐️)*
-* [Hyperledger Composer](https://github.com/hyperledger/composer) *(+1.6k ⭐️)*
-* [Wix Yoshi](https://github.com/wix/yoshi)
+
 
 
 

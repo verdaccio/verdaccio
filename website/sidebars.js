@@ -25,12 +25,13 @@ module.exports = {
         "best",
         "docker",
         "protect-your-dependencies",
+        "e2e",
         "security-policy",
-        "logo",
+        "logo",        
         {
           type: "category",
           label: "Uses Cases",
-          items: ["e2e", "caching", "github-actions", "linking-remote-registry"]
+          items: ["caching", "github-actions", "linking-remote-registry"]
         },
         {
           type: "category",
