@@ -44,6 +44,17 @@ const Header = (): React.ReactElement => {
             alt={translate({ message: 'NPM command to install Verdaccio' })}
           />
         </div>
+        <div className={styles['header--node-congress-banner']}>          
+          <a href="https://nodecongress.com/" target="_blank">
+            <p>Don't miss the next <b>online and free</b> Verdaccio talk at Node Congress 2022
+            <br/>
+              18th February, 18:15 - 19:15 (CET) 
+            <br/>
+            <b>"Five Ways of Taking Advantage of Verdaccio, Your Private and Proxy Node.js Registry"</b>
+            </p>
+            <img src="https://cdn.verdaccio.dev/website/node-congress.svg" width="200px"/>
+          </a>
+        </div>
       </div>
       <div className={styles['header--absolute-links']}>
         <div>
