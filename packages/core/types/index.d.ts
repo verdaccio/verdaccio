@@ -178,6 +178,9 @@ declare module '@verdaccio/types' {
     [key: string]: boolean;
   }
 
+  /**
+   * @deprecated use Manifest instead
+   */
   interface Package {
     _id?: string;
     name: string;
@@ -191,6 +194,20 @@ declare module '@verdaccio/types' {
     _uplinks: UpLinks;
     _rev: string;
   }
+
+  interface Manifest {
+    _id?: string;
+    name: string;
+    versions: Versions;
+    'dist-tags': GenericBody;
+    time: GenericBody;
+    readme?: string;
+    users?: PackageUsers;
+    _distfiles: DistFiles;
+    _attachments: AttachMents;
+    _uplinks: UpLinks;
+    _rev: string;
+  }  
 
   interface IUploadTarball extends PassThrough {
     abort(): void;

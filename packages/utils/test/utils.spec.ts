@@ -5,7 +5,6 @@ import {
   addGravatarSupport,
   formatAuthor,
   generateGravatarUrl,
-  getVersion,
   normalizeDistTags,
   validateMetadata,
 } from '../src/index';
