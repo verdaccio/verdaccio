@@ -146,5 +146,11 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
+  },
+  "pnpm": {
+    "overrides": {
+      "ansi-regex@>2.1.1 <5.0.1": ">=5.0.1",
+      "json-schema@<0.4.0": ">=0.4.0"
+    }
   }
 }
