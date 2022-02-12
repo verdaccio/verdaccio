@@ -1,3 +1,15 @@
 {
-  "extends": "../../../.babelrc"
+  "extends": "../../../.babelrc",
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": 16
+        },
+        "modules": false
+      }
+    ],
+    "@babel/typescript"
+  ]
 }

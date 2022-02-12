@@ -315,14 +315,14 @@ importers:
   packages/core/core:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.10
-      core-js: 3.20.3
-      http-errors: 1.8.1
+      core-js: 3.21.0
+      http-errors: 2.0.0
       http-status-codes: 2.2.0
       process-warning: 1.0.0
       semver: 7.3.5
     dependencies:
-      core-js: 3.20.3
-      http-errors: 1.8.1
+      core-js: 3.21.0
+      http-errors: 2.0.0
       http-status-codes: 2.2.0
       process-warning: 1.0.0
       semver: 7.3.5
@@ -11646,6 +11646,11 @@ packages:
     resolution: {integrity: sha512-vVl8j8ph6tRS3B8qir40H7yw7voy17xL0piAjlbBUsH7WIfzoedL/ZOr1OV9FyZQLWXsayOJyV4tnRyXR85/ag==}
     requiresBuild: true
 
+  /core-js/3.21.0:
+    resolution: {integrity: sha512-YUdI3fFu4TF/2WykQ2xzSiTQdldLB4KVuL9WeAy5XONZYt5Cun/fpQvctoKbCgvPhmzADeesTk/j2Rdx77AcKQ==}
+    requiresBuild: true
+    dev: false
+
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
 
@@ -15354,7 +15359,6 @@ packages:
       setprototypeof: 1.2.0
       statuses: 2.0.1
       toidentifier: 1.0.1
-    dev: true
 
   /http-parser-js/0.5.2:
     resolution: {integrity: sha512-opCO9ASqg5Wy2FNo7A0sxy71yGbbkJJXLdgMK04Tcypw9jr2MgWbyubb0+WdmDmGnFflO7fRbqbaihh/ENDlRQ==}
@@ -22425,7 +22429,6 @@ packages:
   /statuses/2.0.1:
     resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
     engines: {node: '>= 0.8'}
-    dev: true
 
   /std-env/2.3.0:
     resolution: {integrity: sha512-4qT5B45+Kjef2Z6pE0BkskzsH0GO7GrND0wGlTM1ioUe3v0dGYx9ZJH0Aro/YyA8fqQ5EyIKDRjZojJYMFTflw==}
