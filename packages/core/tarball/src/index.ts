@@ -1,4 +1,4 @@
-import { RequestOptions } from '@verdaccio/url';
+import type { RequestOptions } from '@verdaccio/url';
 
 export {
   convertDistRemoteToLocalTarballUrls,

@@ -49,7 +49,7 @@
     "abortcontroller-polyfill": "1.7.3",
     "debug": "4.3.3",
     "lodash": "4.17.21",
-    "node-fetch": "2.6.7",
+    "node-fetch": "3.2.0",
     "request": "2.88.0",
     "undici": "4.12.2",
     "undici-fetch": "1.0.0-rc.4"

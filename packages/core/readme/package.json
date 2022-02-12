@@ -20,7 +20,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": "^14.13.1 || >=16.0.0",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "repository": {
@@ -35,9 +35,7 @@
     "access": "public"
   },
   "type": "module",
-  "exports": {
-    ".": "./build/index.js"
-  },
+  "exports": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
     "build"

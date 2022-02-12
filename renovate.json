@@ -36,10 +36,6 @@
       "allowedVersions": "1.0.0"
     },
     {
-      "packageNames": ["node-fetch"],
-      "allowedVersions": "< 3.0.0"
-    },
-    {
       "packageNames": ["@changesets/cli"],
       "allowedVersions": "2.15.0"
     },

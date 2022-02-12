@@ -1,4 +1,4 @@
-import { Hash, createHash, pseudoRandomBytes } from 'crypto';
+import { Hash, createHash, randomBytes } from 'crypto';
 
 export const defaultTarballHashAlgorithm = 'sha1';
 
@@ -18,5 +18,5 @@ export function stringToMD5(data: Buffer | string): string {
 }
 
 export function generateRandomHexString(length = 8): string {
-  return pseudoRandomBytes(length).toString('hex');
+  return randomBytes(length).toString('hex');
 }

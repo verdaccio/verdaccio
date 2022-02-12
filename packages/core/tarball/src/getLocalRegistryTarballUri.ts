@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import URL from 'url';
 
-import { RequestOptions } from '@verdaccio/url';
+import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:core:url');

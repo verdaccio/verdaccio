@@ -22,7 +22,7 @@
   },
   "types": "./build/index.d.ts",
   "engines": {
-    "node": "^14.13.1 || >=16.0.0",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "repository": {

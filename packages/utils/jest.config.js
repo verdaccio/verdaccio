@@ -1,3 +1,6 @@
-const config = require('../../jest/config');
+import config from '../../jest/config.js';
 
-module.exports = Object.assign({}, config, {});
+export default Object.assign({}, config, {
+  extensionsToTreatAsEsm: ['.ts'],
+  testEnvironment: 'node',
+});
