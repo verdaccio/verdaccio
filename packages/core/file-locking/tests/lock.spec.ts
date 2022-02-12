@@ -1,11 +1,15 @@
 import fs from 'fs';
-import path from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 
 import { lockFileNext, readFileNext, unlockFileNext } from '../src/index';
 import { statDir, statFile } from '../src/utils';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const getFilePath = (filename: string): string => {
-  return path.resolve(__dirname, `assets/${filename}`);
+  return resolve(__dirname, `assets/${filename}`);
 };
 
 const removeTempFile = (filename: string): void => {

@@ -5,7 +5,8 @@
       {
         "targets": {
           "node": 16
-        }
+        },
+        "modules": false
       }
     ],
     "@babel/typescript"

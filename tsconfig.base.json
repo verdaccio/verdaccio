@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "esnext",
-    "module": "ES2020",
+    "module": "ESNext",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "strict": true,

@@ -16,13 +16,13 @@
   "type": "module",
   "types": "./build/index.d.ts",
   "exports": {
-    ".": "./dist/src/main.js"
+    ".": "./build/index.js"
   },
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
+    "node": "^14.13.1 || >=16.0.0",
     "npm": ">=6"
   },
   "repository": {
