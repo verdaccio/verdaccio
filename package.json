@@ -18,7 +18,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/commons-api": "10.1.0",
+    "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/local-storage": "10.2.0",
     "@verdaccio/readme": "10.2.1",
     "@verdaccio/streams": "10.1.0",
