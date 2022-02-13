@@ -3762,19 +3762,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.1.1":
-  version: 10.1.1
-  resolution: "@verdaccio/local-storage@npm:10.1.1"
+"@verdaccio/file-locking@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@verdaccio/file-locking@npm:10.2.0"
   dependencies:
-    "@verdaccio/commons-api": 10.1.0
-    "@verdaccio/file-locking": 10.1.0
-    "@verdaccio/streams": 10.1.0
+    lockfile: 1.0.4
+  checksum: 583f7f0cb3227ac3dce94aeb165635b11d77e07cf164090fec9e4475c9832e400be5d7ee860e6228b6d5f21a2328a9d31a00be3f10fce32e15cf99e2145f90fd
+  languageName: node
+  linkType: hard
+
+"@verdaccio/local-storage@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@verdaccio/local-storage@npm:10.2.0"
+  dependencies:
+    "@verdaccio/commons-api": 10.2.0
+    "@verdaccio/file-locking": 10.2.0
+    "@verdaccio/streams": 10.2.0
     async: 3.2.3
     debug: 4.3.3
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: 2c0eb2dd71efd133a49036e67dbc557a5f352d29890645429d374e50deed05f8b2c4fc15f9356aa35adbaf2bfc680e7900e4d9542860084aaa99f6ab1498d6b7
+  checksum: 3774ec5b3fa979d8e64ade1ff9875ebe7ba275da7d96f99d9073f28087eaa1da044c606e139405e393055105e6d68b61a73c941cf9508cd5bf1d0c6b60d650cc
   languageName: node
   linkType: hard
 
@@ -3793,6 +3802,13 @@ __metadata:
   version: 10.1.0
   resolution: "@verdaccio/streams@npm:10.1.0"
   checksum: 13d2504c3dd268b7097b7e8ae0f3b654550e6a12a9409227a81b1e8b8cfda8cf52c827ac85339e7dce15b5890d24370569a4630c9f352dabf7c19e5cdbcac5fc
+  languageName: node
+  linkType: hard
+
+"@verdaccio/streams@npm:10.2.0":
+  version: 10.2.0
+  resolution: "@verdaccio/streams@npm:10.2.0"
+  checksum: 82663138aa1d761a9e44d507541547eb6e6d7ecbd9745d825fede4a324da55894ccd06ee2947f9f6fd94003a964b9aaadcafe01348c10a15d366d9a18e5e6743
   languageName: node
   linkType: hard
 
@@ -14517,7 +14533,7 @@ typescript@4.1.3:
     "@typescript-eslint/parser": 4.33.0
     "@verdaccio/commons-api": 10.1.0
     "@verdaccio/eslint-config": ^8.5.0
-    "@verdaccio/local-storage": 10.1.1
+    "@verdaccio/local-storage": 10.2.0
     "@verdaccio/readme": 10.2.1
     "@verdaccio/streams": 10.1.0
     "@verdaccio/types": 10.2.2
