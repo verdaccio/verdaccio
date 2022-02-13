@@ -156,7 +156,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.1.1"],
-            ["verdaccio-auth-memory", "npm:10.1.0"],
+            ["verdaccio-auth-memory", "npm:10.2.0"],
             ["verdaccio-htpasswd", "npm:10.1.0"],
             ["verdaccio-memory", "npm:10.1.0"]
           ],
@@ -5575,6 +5575,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["http-status-codes", "npm:1.4.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:10.2.0", {
+          "packageLocation": "./.yarn/cache/@verdaccio-commons-api-npm-10.2.0-d36a19383f-d93c93220a.zip/node_modules/@verdaccio/commons-api/",
+          "packageDependencies": [
+            ["@verdaccio/commons-api", "npm:10.2.0"],
+            ["http-errors", "npm:2.0.0"],
+            ["http-status-codes", "npm:2.2.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@verdaccio/eslint-config", [
@@ -10794,6 +10803,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/http-status-codes-npm-1.4.0-d998750b91-9cbb653241.zip/node_modules/http-status-codes/",
           "packageDependencies": [
             ["http-status-codes", "npm:1.4.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:2.2.0", {
+          "packageLocation": "./.yarn/cache/http-status-codes-npm-2.2.0-8d45a60399-4cd0d5e070.zip/node_modules/http-status-codes/",
+          "packageDependencies": [
+            ["http-status-codes", "npm:2.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -17681,7 +17697,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.1.1"],
-            ["verdaccio-auth-memory", "npm:10.1.0"],
+            ["verdaccio-auth-memory", "npm:10.2.0"],
             ["verdaccio-htpasswd", "npm:10.1.0"],
             ["verdaccio-memory", "npm:10.1.0"]
           ],
@@ -17702,11 +17718,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-auth-memory", [
-        ["npm:10.1.0", {
-          "packageLocation": "./.yarn/cache/verdaccio-auth-memory-npm-10.1.0-a34254105c-8cd84c69ef.zip/node_modules/verdaccio-auth-memory/",
+        ["npm:10.2.0", {
+          "packageLocation": "./.yarn/cache/verdaccio-auth-memory-npm-10.2.0-fedc45a279-b5d5db3659.zip/node_modules/verdaccio-auth-memory/",
           "packageDependencies": [
-            ["verdaccio-auth-memory", "npm:10.1.0"],
-            ["@verdaccio/commons-api", "npm:10.1.0"]
+            ["verdaccio-auth-memory", "npm:10.2.0"],
+            ["@verdaccio/commons-api", "npm:10.2.0"]
           ],
           "linkType": "HARD",
         }]
