@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "http-errors": "1.8.1",
+    "http-errors": "2.0.0",
     "http-status-codes": "2.2.0",
     "semver": "7.3.5",
     "process-warning": "1.0.0",

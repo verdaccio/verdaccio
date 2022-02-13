@@ -43,19 +43,19 @@
     "async": "3.2.3",
     "core-js": "3.20.3",
     "debug": "4.3.3",
-    "globby": "11.1.0",
+    "globby": "13.1.1",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
-    "lru-cache": "6.0.0"
+    "lru-cache": "7.3.1"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.5",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
-    "minimatch": "3.0.4",
+    "minimatch": "4.1.1",
     "tmp-promise": "3.0.3"
   },
   "scripts": {
