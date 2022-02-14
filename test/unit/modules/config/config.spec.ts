@@ -91,6 +91,19 @@ describe('Config file', () => {
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
     });
+    
+    test('when process.env.VERDACCIO_STORAGE_PATH is provided - should prefer it over value in file', () => {
+      const testPath = '/builds/project/foo/bar/baz';
+      // @ts-ignore
+      process.env.VERDACCIO_STORAGE_PATH = testPath;
+      try {
+        const config = new Config(parseConfigFile(resolveConf('default')));
+      } finally {
+        // @ts-ignore
+        delete process.env.VERDACCIO_STORAGE_PATH;
+      }
+      expect(config.storage).toBe(testPath);
+    });
   });
 
   describe('Config file', () => {});
