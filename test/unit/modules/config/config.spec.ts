@@ -98,13 +98,11 @@ describe('Config file', () => {
       process.env.VERDACCIO_STORAGE_PATH = testPath;
       try {
         const config = new Config(parseConfigFile(resolveConf('default')));
+        expect(config.storage).toBe(testPath);
       } finally {
         // @ts-ignore
         delete process.env.VERDACCIO_STORAGE_PATH;
       }
-      expect(config.storage).toBe(testPath);
     });
   });
-
-  describe('Config file', () => {});
 });
