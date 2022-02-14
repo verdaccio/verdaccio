@@ -91,7 +91,7 @@ describe('Config file', () => {
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
     });
-    
+
     test('with process.env.VERDACCIO_STORAGE_PATH', () => {
       const testPath = '/builds/project/foo/bar/baz';
       // @ts-ignore
