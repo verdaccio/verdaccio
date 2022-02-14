@@ -92,7 +92,7 @@ describe('Config file', () => {
       checkDefaultConfPackages(config);
     });
     
-    test('when process.env.VERDACCIO_STORAGE_PATH is provided - should prefer it over value in file', () => {
+    test('with process.env.VERDACCIO_STORAGE_PATH', () => {
       const testPath = '/builds/project/foo/bar/baz';
       // @ts-ignore
       process.env.VERDACCIO_STORAGE_PATH = testPath;
