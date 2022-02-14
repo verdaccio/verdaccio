@@ -3753,15 +3753,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/file-locking@npm:10.1.0":
-  version: 10.1.0
-  resolution: "@verdaccio/file-locking@npm:10.1.0"
-  dependencies:
-    lockfile: 1.0.4
-  checksum: 23eae7013e130be289ffc8df30c76b5667d2b6e79b2a17b79eaffc8a4e9e59901f79aa5b12b76db8bc1fc2bd3038c518cec0672f3106f9762773990b6cba6951
-  languageName: node
-  linkType: hard
-
 "@verdaccio/file-locking@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/file-locking@npm:10.2.0"
@@ -14461,16 +14452,16 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.1.0":
-  version: 10.1.0
-  resolution: "verdaccio-htpasswd@npm:10.1.0"
+"verdaccio-htpasswd@npm:10.2.0":
+  version: 10.2.0
+  resolution: "verdaccio-htpasswd@npm:10.2.0"
   dependencies:
-    "@verdaccio/file-locking": 10.1.0
+    "@verdaccio/file-locking": 10.2.0
     apache-md5: 1.1.7
     bcryptjs: 2.4.3
-    http-errors: 1.8.1
+    http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: e59ba4b9e97281d4b13f40e0047e0a73dac5eae86f18e2ead5ec17e6af3f4c7d1cfe866ca581aea910986647fa44b4c126749e96774532f7b2620be354c2a797
+  checksum: f53755384872c87d8379ea09b9a253cc527c332e64349260077c82af87b36ea8d446b7e6d3cf0efcfc8e00ca89731e14425f6fae9ea73b2f0f45dc4b6d630fe1
   languageName: node
   linkType: hard
 
@@ -14609,7 +14600,7 @@ typescript@4.1.3:
     validator: 13.7.0
     verdaccio-audit: 10.2.0
     verdaccio-auth-memory: 10.2.0
-    verdaccio-htpasswd: 10.1.0
+    verdaccio-htpasswd: 10.2.0
     verdaccio-memory: 10.1.0
   bin:
     verdaccio: ./bin/verdaccio

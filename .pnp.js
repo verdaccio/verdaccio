@@ -157,7 +157,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.0"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
-            ["verdaccio-htpasswd", "npm:10.1.0"],
+            ["verdaccio-htpasswd", "npm:10.2.0"],
             ["verdaccio-memory", "npm:10.1.0"]
           ],
           "linkType": "SOFT",
@@ -5623,14 +5623,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/file-locking", [
-        ["npm:10.1.0", {
-          "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-10.1.0-e5f4e390a6-23eae7013e.zip/node_modules/@verdaccio/file-locking/",
-          "packageDependencies": [
-            ["@verdaccio/file-locking", "npm:10.1.0"],
-            ["lockfile", "npm:1.0.4"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:10.2.0", {
           "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-10.2.0-ad8015422a-583f7f0cb3.zip/node_modules/@verdaccio/file-locking/",
           "packageDependencies": [
@@ -17713,7 +17705,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.0"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
-            ["verdaccio-htpasswd", "npm:10.1.0"],
+            ["verdaccio-htpasswd", "npm:10.2.0"],
             ["verdaccio-memory", "npm:10.1.0"]
           ],
           "linkType": "SOFT",
@@ -17743,14 +17735,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-htpasswd", [
-        ["npm:10.1.0", {
-          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.1.0-7b09bae943-e59ba4b9e9.zip/node_modules/verdaccio-htpasswd/",
+        ["npm:10.2.0", {
+          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.2.0-7ea4e77589-f537553848.zip/node_modules/verdaccio-htpasswd/",
           "packageDependencies": [
-            ["verdaccio-htpasswd", "npm:10.1.0"],
-            ["@verdaccio/file-locking", "npm:10.1.0"],
+            ["verdaccio-htpasswd", "npm:10.2.0"],
+            ["@verdaccio/file-locking", "npm:10.2.0"],
             ["apache-md5", "npm:1.1.7"],
             ["bcryptjs", "npm:2.4.3"],
-            ["http-errors", "npm:1.8.1"],
+            ["http-errors", "npm:2.0.0"],
             ["unix-crypt-td-js", "npm:1.1.4"]
           ],
           "linkType": "HARD",
