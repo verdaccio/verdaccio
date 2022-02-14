@@ -38,7 +38,7 @@ class Config implements AppConfig {
     const self = this;
     this.logger = LoggerApi.logger;
     this.self_path = config.self_path;
-    this.storage = config.storage;
+    this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
     this.plugins = config.plugins;
 
     for (const configProp in config) {
