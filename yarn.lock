@@ -14440,15 +14440,15 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:10.1.1":
-  version: 10.1.1
-  resolution: "verdaccio-audit@npm:10.1.1"
+"verdaccio-audit@npm:10.2.0":
+  version: 10.2.0
+  resolution: "verdaccio-audit@npm:10.2.0"
   dependencies:
     body-parser: 1.19.1
     express: 4.17.2
     https-proxy-agent: 5.0.0
     node-fetch: 2.6.7
-  checksum: f705909d2be59d4cae040a38d68d194ca6ec1c685b89066ff548482d008ec0135a19ee79620f244cdcb32dc9b10823d2d37e062b74411e35b005741b4c978b7d
+  checksum: eb64608a43b79888d55888fece43c9c7d7e9a6f805fc60d78f5253a0a5e28d14669b67458659e43be41543679c0e225f3929d4fcd29ea6ed6f8da9d0695f14d4
   languageName: node
   linkType: hard
 
@@ -14607,7 +14607,7 @@ typescript@4.1.3:
     ts-node: 10.4.0
     typescript: 4.1.3
     validator: 13.7.0
-    verdaccio-audit: 10.1.1
+    verdaccio-audit: 10.2.0
     verdaccio-auth-memory: 10.2.0
     verdaccio-htpasswd: 10.1.0
     verdaccio-memory: 10.1.0
