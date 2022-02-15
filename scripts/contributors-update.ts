@@ -1,4 +1,4 @@
-const token = process.env.GITHUB_TOKEN;
+const token = process.env.TOKEN;
 const contributors = require('@dianmora/contributors');
 const excludebots = [
   'verdacciobot',
@@ -15,6 +15,7 @@ const excludebots = [
 
 (async () => {
   try {
+    // Awesome script made by https://github.com/dianmorales
     const result = await contributors({
       token: token,
       organization: 'verdaccio',

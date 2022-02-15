@@ -12,7 +12,7 @@ on: pull_request
   # #     - master
 jobs:
   prepare: 
-    name: Prepare build
+    name: Run script
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -32,8 +32,8 @@ jobs:
       - name: update contributors
         run: pnpm run contributors        
         env:
-          TOKEN: ${{ secrets.UPDATE_CONTRIBUTORS_TOKEN }}
-          DEBUG: contributors
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # DEBUG: contributors
       # - name: Commit & Push changes
       #   uses: actions-js/push@v1.3
       #   with:
