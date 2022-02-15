@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.6.0](https://github.com/verdaccio/verdaccio/compare/v5.5.2...v5.6.0) (2022-02-15)
+
+
+### Features
+
+* new environment variable (storage path)  ([#2993](https://github.com/verdaccio/verdaccio/issues/2993)) ([681dc82](https://github.com/verdaccio/verdaccio/commit/681dc821aab9f031b959c802f172f06dc6672864)), closes [PR#2199](https://github.com/verdaccio/PR/issues/2199) [PR#2199](https://github.com/verdaccio/PR/issues/2199) [PR#2199](https://github.com/verdaccio/PR/issues/2199)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/commons-api to v10.2.0 ([#2986](https://github.com/verdaccio/verdaccio/issues/2986)) ([63fc4d1](https://github.com/verdaccio/verdaccio/commit/63fc4d1baf836ad3f6a52db0cc20ec4df34e7e4a))
+* **deps:** update dependency @verdaccio/local-storage to v10.2.0 ([#2987](https://github.com/verdaccio/verdaccio/issues/2987)) ([1db0a2e](https://github.com/verdaccio/verdaccio/commit/1db0a2ebf5137d6f5c1d82d4fc1437c4b6f060d9))
+* **deps:** update dependency @verdaccio/readme to v10.3.2 ([#2984](https://github.com/verdaccio/verdaccio/issues/2984)) ([fee3ac6](https://github.com/verdaccio/verdaccio/commit/fee3ac670a8fd0aa9446022f502c64fd07629eba))
+* **deps:** update dependency @verdaccio/streams to v10.2.0 ([#2995](https://github.com/verdaccio/verdaccio/issues/2995)) ([60fea02](https://github.com/verdaccio/verdaccio/commit/60fea02ad15cb84d07ed1072e3c8a83208026200))
+* **deps:** update dependency marked to v4.0.12 ([#2976](https://github.com/verdaccio/verdaccio/issues/2976)) ([2cd4a3b](https://github.com/verdaccio/verdaccio/commit/2cd4a3bb073cdf03fc39b5e90263da1a669c6748))
+* **deps:** update dependency verdaccio-audit to v10.2.0 ([#2998](https://github.com/verdaccio/verdaccio/issues/2998)) ([57c4ce5](https://github.com/verdaccio/verdaccio/commit/57c4ce5a19b6591b1a441879fdfcc2efa44acfc3))
+* **deps:** update dependency verdaccio-htpasswd to v10.2.0 ([#2999](https://github.com/verdaccio/verdaccio/issues/2999)) ([25b2212](https://github.com/verdaccio/verdaccio/commit/25b22128b8e966812cefd9b680db63f6df5aab8f))
+
 ### [5.5.2](https://github.com/verdaccio/verdaccio/compare/v5.5.1...v5.5.2) (2022-01-27)
 
 
