@@ -21,12 +21,14 @@ export async function signPayload(
     return jwt.sign(
       payload,
       secretOrPrivateKey,
+      // FIXME: upgrade to the latest library and types
+      // @ts-ignore
       {
         // 1 === 1ms (one millisecond)
         notBefore: '1', // Make sure the time will not rollback :)
         ...options,
       },
-      (error, token) => {
+      (error, token: string) => {
         debug('error on sign jwt token');
         return error ? reject(error) : resolve(token);
       }
@@ -36,5 +38,5 @@ export async function signPayload(
 
 export function verifyPayload(token: string, secretOrPrivateKey: string): RemoteUser {
   debug('verify jwt token');
-  return jwt.verify(token, secretOrPrivateKey);
+  return jwt.verify(token, secretOrPrivateKey) as RemoteUser;
 }

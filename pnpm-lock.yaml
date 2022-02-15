@@ -38,6 +38,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.2
       '@types/jest': 27.4.0
+      '@types/jsonwebtoken': 8.5.1
       '@types/lodash': 4.14.178
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
@@ -129,6 +130,7 @@ importers:
       '@types/express': 4.17.13
       '@types/http-errors': 1.8.2
       '@types/jest': 27.4.0
+      '@types/jsonwebtoken': 8.5.1
       '@types/lodash': 4.14.178
       '@types/mime': 2.0.3
       '@types/minimatch': 3.0.5
@@ -8696,6 +8698,12 @@ packages:
   /@types/json5/0.0.29:
     resolution: {integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=}
     dev: false
+
+  /@types/jsonwebtoken/8.5.1:
+    resolution: {integrity: sha512-rNAPdomlIUX0i0cg2+I+Q1wOUr531zHBQ+cV/28PJ39bSPKjahatZZ2LMuhiguETkCgLVzfruw/ZvNMNkKoSzw==}
+    dependencies:
+      '@types/node': 16.11.21
+    dev: true
 
   /@types/jsonwebtoken/8.5.8:
     resolution: {integrity: sha512-zm6xBQpFDIDM6o9r6HSgDeIcLy82TKWctCXEPbJJcXb5AKmi5BNNdLXneixK4lplX3PqIVcwLBCGE/kAGnlD4A==}
