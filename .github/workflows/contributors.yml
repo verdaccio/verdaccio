@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0      
       - uses: actions/setup-node@v2
         with:
           node-version: 17.x
@@ -41,3 +44,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "chore: update contributors list"
           branch: master
+          author_email: verdaccio.npm@gmail.com
+          author_name: verdacciobot
+          empty: true
