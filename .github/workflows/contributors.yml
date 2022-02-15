@@ -11,14 +11,14 @@ on:
   #   branches:
   #     - master
 jobs:
-  prepare: 
+  prepare:
     name: Run script
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           persist-credentials: false
-          fetch-depth: 0      
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: 17.x
@@ -27,23 +27,23 @@ jobs:
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store     
+          pnpm config set store-dir ~/.pnpm-store
       - name: setup pnpm config registry
         run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
         run: pnpm install
       - name: update contributors
-        run: pnpm run contributors        
+        run: pnpm run contributors
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: format
-        run: pnpm format          
+        run: pnpm format
       - name: Commit & Push changes
         uses: actions-js/push@v1.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: "chore: update contributors list"
           branch: master
-          author_email: verdaccio.npm@gmail.com
-          author_name: verdacciobot
+#          author_email: verdaccio.npm@gmail.com
+#          author_name: verdacciobot
           empty: true
