@@ -3712,16 +3712,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/commons-api@npm:10.1.0":
-  version: 10.1.0
-  resolution: "@verdaccio/commons-api@npm:10.1.0"
-  dependencies:
-    http-errors: 1.8.1
-    http-status-codes: 1.4.0
-  checksum: cb8022df35520c0be17b19f12099824dbc31487a7b9df4fee300aded87cd36fdbbdadbe02f2c6ad396bb308c455f2974900a6386f91fdbfc18b83190bcde82b6
-  languageName: node
-  linkType: hard
-
 "@verdaccio/commons-api@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/commons-api@npm:10.2.0"
@@ -3786,13 +3776,6 @@ __metadata:
     jsdom: 15.2.1
     marked: 4.0.10
   checksum: 59e95fda11500d1aa2f09a2555989967956e41f6552b5c3577e20d8c83248e1c4336482b560007bf2d91096e4e38e564b1683e2ff59c4c4f8ac7999ca2136fd7
-  languageName: node
-  linkType: hard
-
-"@verdaccio/streams@npm:10.1.0":
-  version: 10.1.0
-  resolution: "@verdaccio/streams@npm:10.1.0"
-  checksum: 13d2504c3dd268b7097b7e8ae0f3b654550e6a12a9409227a81b1e8b8cfda8cf52c827ac85339e7dce15b5890d24370569a4630c9f352dabf7c19e5cdbcac5fc
   languageName: node
   linkType: hard
 
@@ -8241,13 +8224,6 @@ fsevents@~2.1.2:
     jsprim: ^1.2.2
     sshpk: ^1.7.0
   checksum: d28227eed37cb0dae0e76c46b2a5e611c678808433e5642238f17dba7f2c9c8f8d1646122d57ec1a110ecc7e8b9f5b7aa0462f1e2a5fa3b41f2fca5a69af7edf
-  languageName: node
-  linkType: hard
-
-"http-status-codes@npm:1.4.0":
-  version: 1.4.0
-  resolution: "http-status-codes@npm:1.4.0"
-  checksum: 9cbb653241b80dd7e664488f11c1dc76a06c7c2cf64d20fd26ba0de984b0a44ea1a71839df5da73aa817b26091c4f063ed574b319625f583e41e3f1d8e246f1a
   languageName: node
   linkType: hard
 
@@ -14465,14 +14441,14 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-memory@npm:10.1.0":
-  version: 10.1.0
-  resolution: "verdaccio-memory@npm:10.1.0"
+"verdaccio-memory@npm:10.2.0":
+  version: 10.2.0
+  resolution: "verdaccio-memory@npm:10.2.0"
   dependencies:
-    "@verdaccio/commons-api": 10.1.0
-    "@verdaccio/streams": 10.1.0
+    "@verdaccio/commons-api": 10.2.0
+    "@verdaccio/streams": 10.2.0
     memory-fs: 0.5.0
-  checksum: f6d1a129ed401b7a3e93f3e1998e16267bb2f46666075ae2cbdd942b64341238b91222822d98c6c16e46ca1ab04386e45401d1ab504847e18c9e36c40fa2437c
+  checksum: b0f1acd1469c41c0edaa055880abcce205c08619e02d56fec34932cb42bc7e6ed84c72df8adc727d6a4c148370b2611dce44381e23cd819c396e4db4e7778789
   languageName: node
   linkType: hard
 
@@ -14601,7 +14577,7 @@ typescript@4.1.3:
     verdaccio-audit: 10.2.0
     verdaccio-auth-memory: 10.2.0
     verdaccio-htpasswd: 10.2.0
-    verdaccio-memory: 10.1.0
+    verdaccio-memory: 10.2.0
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
