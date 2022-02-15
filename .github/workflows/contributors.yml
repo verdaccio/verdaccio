@@ -33,10 +33,11 @@ jobs:
         run: pnpm run contributors        
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # DEBUG: contributors
-      # - name: Commit & Push changes
-      #   uses: actions-js/push@v1.3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     message: "chore: update contributors list"
-      #     branch: master
+      - name: format
+        run: pnpm format          
+      - name: Commit & Push changes
+        uses: actions-js/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: "chore: update contributors list"
+          branch: master

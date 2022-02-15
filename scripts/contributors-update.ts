@@ -1,7 +1,9 @@
-import contributors from '@dianmora/contributors';
+import fs from 'fs/promises';
+import path from 'path';
 
 const token = process.env.TOKEN;
-
+// TODO: migrate to ESM and import
+const contributors = require('@dianmora/contributors');
 const excludebots = [
   'verdacciobot',
   'dependabot-preview[bot]',
@@ -25,8 +27,11 @@ const excludebots = [
       allowFork: false,
       allowPrivateRepo: false,
     });
-    // eslint-disable-next-line no-console
-    console.log('JSON', JSON.stringify(result, null, 4));
+    const pathContributorsFile = path.join(
+      __dirname,
+      '../packages/tools/docusaurus-plugin-contributors/src/contributors.json'
+    );
+    await fs.writeFile(pathContributorsFile, JSON.stringify(result, null, 4));
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('error on update', err);
