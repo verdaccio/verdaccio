@@ -42,6 +42,8 @@ Is the location of the default storage. **Verdaccio is by default based on local
 storage: ./storage
 ```
 
+> Released at v5.6.0: The environment variable `VERDACCIO_STORAGE_PATH` could be used to replace the location of the storage (only for the default storage, does not apply to plugins unless it is implemented independently).
+
 ### Plugins {#plugins}
 
 Is the location of the plugin directory. Useful for Docker/Kubernetes-based deployments.
