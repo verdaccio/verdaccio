@@ -32,7 +32,7 @@ jobs:
       - name: update contributors
         run: pnpm run contributors        
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.UPDATE_CONTRIBUTORS_TOKEN }}
           DEBUG: contributors
       # - name: Commit & Push changes
       #   uses: actions-js/push@v1.3
