@@ -1,0 +1,41 @@
+---
+name: contributors
+
+on: pull_request
+  # workflow_dispatch:
+  # schedule:
+  #   # 1 peer week
+  #   # collecting enough data to draw some graphics
+  #   - cron: '0 1 * * *'
+  # # push:
+  # #   branches:
+  # #     - master
+jobs:
+  prepare: 
+    name: Prepare build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 17.x
+      - name: install pnpm
+        run: sudo npm i pnpm
+      - name: set store
+        run: | 
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store     
+      - name: setup pnpm config registry
+        run: pnpm config set registry https://registry.verdaccio.org
+      - name: install dependencies
+        run: pnpm install
+      - name: update contributors
+        run: pnpm run contributors        
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Commit & Push changes
+      #   uses: actions-js/push@v1.3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     message: "chore: update contributors list"
+      #     branch: master
