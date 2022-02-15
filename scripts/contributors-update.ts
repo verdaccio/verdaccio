@@ -1,5 +1,7 @@
+import contributors from '@dianmora/contributors';
+
 const token = process.env.TOKEN;
-const contributors = require('@dianmora/contributors');
+
 const excludebots = [
   'verdacciobot',
   'dependabot-preview[bot]',
