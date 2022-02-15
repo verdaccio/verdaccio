@@ -55,7 +55,7 @@
     "pkginfo": "0.4.1",
     "prettier-bytes": "^1.0.4",
     "pretty-ms": "^7.0.1",
-    "request": "2.88.0",
+    "request": "2.88.2",
     "semver": "7.3.5",
     "validator": "13.7.0",
     "verdaccio-audit": "10.2.0",

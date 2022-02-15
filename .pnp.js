@@ -146,7 +146,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier-bytes", "npm:1.0.4"],
             ["pretty-ms", "npm:7.0.1"],
             ["puppeteer", "npm:5.5.0"],
-            ["request", "npm:2.88.0"],
+            ["request", "npm:2.88.2"],
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.5"],
@@ -14888,13 +14888,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["punycode", [
-        ["npm:1.4.1", {
-          "packageLocation": "./.yarn/cache/punycode-npm-1.4.1-be4c23e6d2-5ce1e044ce.zip/node_modules/punycode/",
-          "packageDependencies": [
-            ["punycode", "npm:1.4.1"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.1.1", {
           "packageLocation": "./.yarn/cache/punycode-npm-2.1.1-26eb3e15cf-0202dc191c.zip/node_modules/punycode/",
           "packageDependencies": [
@@ -15347,33 +15340,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["request", [
-        ["npm:2.88.0", {
-          "packageLocation": "./.yarn/cache/request-npm-2.88.0-9de8117818-2735b6a5d6.zip/node_modules/request/",
-          "packageDependencies": [
-            ["request", "npm:2.88.0"],
-            ["aws-sign2", "npm:0.7.0"],
-            ["aws4", "npm:1.9.1"],
-            ["caseless", "npm:0.12.0"],
-            ["combined-stream", "npm:1.0.8"],
-            ["extend", "npm:3.0.2"],
-            ["forever-agent", "npm:0.6.1"],
-            ["form-data", "npm:2.3.3"],
-            ["har-validator", "npm:5.1.3"],
-            ["http-signature", "npm:1.2.0"],
-            ["is-typedarray", "npm:1.0.0"],
-            ["isstream", "npm:0.1.2"],
-            ["json-stringify-safe", "npm:5.0.1"],
-            ["mime-types", "npm:2.1.26"],
-            ["oauth-sign", "npm:0.9.0"],
-            ["performance-now", "npm:2.1.0"],
-            ["qs", "npm:6.5.2"],
-            ["safe-buffer", "npm:5.2.0"],
-            ["tough-cookie", "npm:2.4.3"],
-            ["tunnel-agent", "npm:0.6.0"],
-            ["uuid", "npm:3.4.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.88.2", {
           "packageLocation": "./.yarn/cache/request-npm-2.88.2-f4a57c72c4-7a74841f30.zip/node_modules/request/",
           "packageDependencies": [
@@ -16910,15 +16876,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["tough-cookie", [
-        ["npm:2.4.3", {
-          "packageLocation": "./.yarn/cache/tough-cookie-npm-2.4.3-494c5db064-48decf7021.zip/node_modules/tough-cookie/",
-          "packageDependencies": [
-            ["tough-cookie", "npm:2.4.3"],
-            ["psl", "npm:1.7.0"],
-            ["punycode", "npm:1.4.1"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.5.0", {
           "packageLocation": "./.yarn/cache/tough-cookie-npm-2.5.0-79a2fe43fe-bf5d6fac5c.zip/node_modules/tough-cookie/",
           "packageDependencies": [
@@ -17671,7 +17628,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier-bytes", "npm:1.0.4"],
             ["pretty-ms", "npm:7.0.1"],
             ["puppeteer", "npm:5.5.0"],
-            ["request", "npm:2.88.0"],
+            ["request", "npm:2.88.2"],
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.5"],
