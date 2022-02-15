@@ -1,4 +1,4 @@
-const token = process.env.VERDACCIO_TOKEN;
+const token = process.env.GITHUB_TOKEN;
 const contributors = require('@dianmora/contributors');
 const excludebots = [
   'verdacciobot',
@@ -13,14 +13,20 @@ const excludebots = [
   'renovate-bot',
 ];
 
-async () => {
-  const result = await contributors({
-    token: token,
-    organization: 'verdaccio',
-    excludebots,
-    allowFork: false,
-    allowPrivateRepo: false,
-  });
-  // eslint-disable-next-line no-console
-  console.log('JSON', JSON.stringify(result, null, 4));
-};
+(async () => {
+  try {
+    const result = await contributors({
+      token: token,
+      organization: 'verdaccio',
+      excludebots,
+      allowFork: false,
+      allowPrivateRepo: false,
+    });
+    // eslint-disable-next-line no-console
+    console.log('JSON', JSON.stringify(result, null, 4));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('error on update', err);
+    process.exit(1);
+  }
+})();

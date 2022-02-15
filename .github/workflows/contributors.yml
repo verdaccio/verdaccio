@@ -33,6 +33,7 @@ jobs:
         run: pnpm run contributors        
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: contributors
       # - name: Commit & Push changes
       #   uses: actions-js/push@v1.3
       #   with:

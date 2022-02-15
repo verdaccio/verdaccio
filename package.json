@@ -121,7 +121,7 @@
     "benchmark:hyper": "verdaccio-benchmark hyper -r ./hyper-results.json",
     "benchmark:api": "verdaccio-benchmark api",
     "benchmark:submit": "pnpm ts-node ./scripts/submit-metrics.ts",
-    "contributors": "pnpm ts-node ./scripts/contributors-update.ts",
+    "contributors": "ts-node ./scripts/contributors-update.ts",
     "start:watch": "concurrently --kill-others \"pnpm _build:watch\" \"pnpm _start:server\" \"pnpm _debug:reload\"",
     "_build:watch": "pnpm run --parallel watch --filter ./packages",
     "_start:server": "node --inspect packages/verdaccio/debug/bootstrap.js --listen 8000",
