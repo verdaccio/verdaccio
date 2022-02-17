@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 import { Callback } from '@verdaccio/types';
 
 import Memory from '../src/index';
