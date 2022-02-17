@@ -7,7 +7,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 
 > Any language is allowed
 
-## Core Team Articles {#core-team-articles}
+## Maintainer Articles {#maintainers-articles}
 
 * [An Introduction to Verdaccio](https://medium.com/@jotadeveloper/an-introduction-to-verdaccio-f6c72e865425)
 * [Five use cases where a npm private proxy fits in your workflow](https://medium.com/@jotadeveloper/five-use-cases-where-a-npm-private-proxy-fits-in-your-workflow-632a81779c14)
@@ -27,6 +27,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 
 ### Remarkable Articles {#remarkable-articles}
 
+* [Why Private Npm Registries Matter and How Verdaccio Makes It Easy](https://fusebit.io/blog/private-npm-verdaccio/?utm_source=verdaccio.org&utm_medium=referral)
 * [Automating package publishing in JavaScript projects](https://blog.codecentric.de/en/2021/02/automating-package-publishing-in-javascript-projects/)
 * [10 npm Security Best Practices](https://snyk.io/blog/ten-npm-security-best-practices/)
 * [Cover Your Apps While Still Using npm](https://nodesource.com/blog/cover-your-apps-while-still-using-npm/)
