@@ -1,4 +1,4 @@
-import { green, red, white } from 'kleur';
+import { green, red, white } from 'kleur/colors';
 import { inspect } from 'util';
 
 import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from './levels';

@@ -1,7 +1,9 @@
+import { describe, expect, test, vi } from 'vitest';
+
 import { printMessage } from '../src/formatter';
 import { LevelCode } from '../src/levels';
 
-jest.mock('dayjs', () => ({
+vi.mock('dayjs', () => ({
   __esModule: true,
   default: () => ({
     format: () => 'formatted-date',
@@ -22,7 +24,9 @@ describe('formatter', () => {
         msg: 'config file  - @{file}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions)).toEqual(
+        ' warn --- config file  - /Users/user/.config/verdaccio/config/config.yaml'
+      );
     });
 
     test('should display trace level', () => {

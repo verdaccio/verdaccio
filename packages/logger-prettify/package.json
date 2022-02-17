@@ -2,7 +2,8 @@
   "name": "@verdaccio/logger-prettify",
   "version": "6.0.0-6-next.6",
   "description": "logger",
-  "main": "./build/index.js",
+  "exports": "./build/index.js",
+  "type": "module",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -26,12 +27,12 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "vitest --run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -41,7 +42,7 @@
   "dependencies": {
     "dayjs": "1.10.7",
     "fast-safe-stringify": "2.1.1",
-    "kleur": "3.0.3",
+    "kleur": "4.1.4",
     "lodash": "4.17.21",
     "prettier-bytes": "1.0.4"
   },

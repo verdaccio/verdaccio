@@ -17,9 +17,6 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
       "path": "../core/htpasswd"
     },
     {

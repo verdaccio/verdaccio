@@ -1,4 +1,4 @@
-import { black, blue, cyan, green, magenta, red, white, yellow } from 'kleur';
+import { black, blue, cyan, green, magenta, red, white, yellow } from 'kleur/colors';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`prettyFactory should return a function with options 1`] = `
-" [37mtrace[39m[37m[34m---[39m[37m [trace]  - [32mfoo[39m[37m[39m
+exports[`prettyFactory > should return a function with options 1`] = `
+" trace--- [trace]  - foo
 "
 `;
