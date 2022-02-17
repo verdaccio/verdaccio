@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { Logger } from '@verdaccio/types';
 
 import ProxyAudit, { ConfigAudit } from '../src/index';
