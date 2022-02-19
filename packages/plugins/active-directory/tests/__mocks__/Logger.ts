@@ -1,3 +1,5 @@
+import { jest } from '@jest/globals';
+
 import { Logger } from '@verdaccio/types';
 
 const logger: Logger = {

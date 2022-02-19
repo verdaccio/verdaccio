@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import ActiveDirectory from 'activedirectory2';
 
 import { HTTP_STATUS } from '@verdaccio/core';
