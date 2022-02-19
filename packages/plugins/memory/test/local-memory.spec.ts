@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { IPluginStorage, Logger } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';

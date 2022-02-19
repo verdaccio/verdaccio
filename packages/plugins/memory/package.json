@@ -24,10 +24,11 @@
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
-  "main": "build/index.js",
+  "exports": "./build/index.js",
+  "type": "module",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "dependencies": {
@@ -47,7 +48,7 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
     "watch": "pnpm build:js -- --watch",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+    "test": "vitest --run --threads false"
   },
   "funding": {
     "type": "opencollective",

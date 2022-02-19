@@ -43,9 +43,9 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
       if (colors === false || (str as string).includes('\n')) {
         return str;
       } else if (isError) {
-        return red(str);
+        return red(str as string);
       }
-      return green(str);
+      return green(str as string);
     }
 
     // object, showHidden, depth, colors

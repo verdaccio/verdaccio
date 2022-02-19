@@ -1,3 +1,5 @@
+import { vi } from 'vitest';
+
 import { Config } from '@verdaccio/types';
 
 const config: Config = {
@@ -43,7 +45,7 @@ const config: Config = {
     content: '',
   },
   checkSecretKey: () => '1234',
-  getMatchedPackagesSpec: jest.fn(),
+  getMatchedPackagesSpec: vi.fn(),
   hasProxyTo: () => false,
 };
 

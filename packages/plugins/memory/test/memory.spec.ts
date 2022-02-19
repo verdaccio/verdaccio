@@ -1,9 +1,12 @@
+import { describe, expect, test, vi } from 'vitest';
+
 import { errorUtils } from '@verdaccio/core';
 import { ILocalPackageManager, IPackageStorage, IPluginStorage, Logger } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
+import * as utils from '../src/utils';
 import config from './partials/config';
 import pkgExample from './partials/pkg';
 
@@ -18,19 +21,6 @@ const logger: Logger = {
 };
 
 const defaultConfig = { logger, config: null };
-
-const mockStringify = jest.fn((value) => {
-  return jest.requireActual('../src/utils.ts').stringifyPackage(value);
-});
-
-const mockParsePackage = jest.fn((value) => {
-  return jest.requireActual('../src/utils.ts').parsePackage(value);
-});
-
-jest.mock('../src/utils.ts', () => ({
-  stringifyPackage: (value) => mockStringify(value),
-  parsePackage: (value) => mockParsePackage(value),
-}));
 
 describe('memory unit test .', () => {
   test('should create an MemoryHandler instance', () => {
@@ -64,23 +54,7 @@ describe('memory unit test .', () => {
     }
   });
 
-  test('should fails on save a package', (done) => {
-    mockStringify.mockImplementationOnce(() => {
-      throw new Error('error on parse');
-    });
-
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-    const pkgName = 'test';
-
-    const handler: IPackageStorage = localMemory.getPackageStorage(pkgName) as ILocalPackageManager;
-
-    handler.savePackage(pkgName, pkgExample, (err) => {
-      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
-      done();
-    });
-  });
-
-  test('should fails on read a package', (done) => {
+  test('should fails on read a package does not exist', (done) => {
     const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
@@ -102,7 +76,7 @@ describe('memory unit test .', () => {
 
     const handler = localMemory.getPackageStorage(pkgName);
     expect(handler).toBeDefined();
-    const onEnd = jest.fn();
+    const onEnd = vi.fn();
 
     if (handler) {
       handler.savePackage(pkgName, pkgExample, (err) => {
@@ -133,44 +107,13 @@ describe('memory unit test .', () => {
     }
   });
 
-  test('should parse fails on update a package', (done) => {
-    mockParsePackage.mockImplementationOnce(() => {
-      throw new Error('error on parse');
-    });
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
-
-    const pkgName = 'test';
-
-    const handler = localMemory.getPackageStorage(pkgName);
-    expect(handler).toBeDefined();
-    const onEnd = jest.fn((err) => {
-      expect(err).not.toBeNull();
-      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
-      done();
-    });
-
-    if (handler) {
-      handler.savePackage(pkgName, pkgExample, (err) => {
-        expect(err).toBeNull();
-        handler.updatePackage(
-          pkgName,
-          () => {},
-          () => {},
-          // @ts-ignore
-          () => {},
-          onEnd
-        );
-      });
-    }
-  });
-
   test('should fail updateHandler update a package', (done) => {
     const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
     const handler = localMemory.getPackageStorage(pkgName);
     expect(handler).toBeDefined();
-    const onEnd = jest.fn((err) => {
+    const onEnd = vi.fn((err) => {
       expect(err).not.toBeNull();
       expect(err).toEqual(errorUtils.getInternalError('some error'));
       done();
@@ -203,7 +146,7 @@ describe('memory unit test .', () => {
 
     const handler = localMemory.getPackageStorage(pkgName);
     expect(handler).toBeDefined();
-    const onEnd = jest.fn((err) => {
+    const onEnd = vi.fn((err) => {
       expect(err).not.toBeNull();
       expect(err).toEqual(errorUtils.getInternalError('error on parse the metadata'));
       done();
@@ -365,6 +308,55 @@ describe('reading files', () => {
         expect(err).not.toBeNull();
         expect(err.message).toMatch(/no such package/);
         done();
+      });
+    }
+  });
+
+  test('should fails on save a package', (done) => {
+    const spy = vi.spyOn(utils, 'stringifyPackage').mockImplementation(() => {
+      throw new Error('error on parse');
+    });
+
+    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const pkgName = 'test';
+
+    const handler: IPackageStorage = localMemory.getPackageStorage(pkgName) as ILocalPackageManager;
+
+    handler.savePackage(pkgName, pkgExample, (err) => {
+      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
+      spy.mockReset();
+      done();
+    });
+  });
+
+  test('should parse fails on update a package', (done) => {
+    const spy = vi.spyOn(utils, 'parsePackage').mockImplementation(() => {
+      throw new Error('error on parse');
+    });
+    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+
+    const pkgName = 'test';
+
+    const handler = localMemory.getPackageStorage(pkgName);
+    expect(handler).toBeDefined();
+    const onEnd = vi.fn((err) => {
+      expect(err).not.toBeNull();
+      expect(err).toEqual(errorUtils.getInternalError('error on parse'));
+      spy.mockReset();
+      done();
+    });
+
+    if (handler) {
+      handler.savePackage(pkgName, pkgExample, (err) => {
+        expect(err).toBeNull();
+        handler.updatePackage(
+          pkgName,
+          () => {},
+          () => {},
+          // @ts-ignore
+          () => {},
+          onEnd
+        );
       });
     }
   });
