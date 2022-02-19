@@ -2,7 +2,8 @@
   "name": "@verdaccio/logger",
   "version": "6.0.0-6-next.9",
   "description": "logger",
-  "main": "./build/index.js",
+  "exports": "./build/index.js",
+  "type": "module",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -26,12 +27,12 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --runTestsByPath",
+    "test": "vitest --run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -43,7 +44,7 @@
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.6",
     "debug": "4.3.3",
     "lodash": "4.17.21",
-    "pino": "7.6.4"
+    "pino": "7.8.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.10"
