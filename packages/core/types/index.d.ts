@@ -207,7 +207,7 @@ declare module '@verdaccio/types' {
     _attachments: AttachMents;
     _uplinks: UpLinks;
     _rev: string;
-  }  
+  }
 
   interface IUploadTarball extends PassThrough {
     abort(): void;
