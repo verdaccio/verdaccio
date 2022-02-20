@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { Package } from '@verdaccio/types';
+import { Package, Version } from '@verdaccio/types';
 import { RequestOptions } from '@verdaccio/url';
 
 import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
@@ -17,19 +17,47 @@ export function convertDistRemoteToLocalTarballUrls(
   request: RequestOptions,
   urlPrefix: string | void
 ): Package {
+  const { name, versions } = pkg;
+  const convertedPkg = { ...pkg };
+  const convertedVersions = versions;
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
-      const distName = pkg.versions[ver].dist;
-
-      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(
-          distName.tarball,
-          pkg.name,
-          request,
-          urlPrefix
-        );
-      }
+      const version = versions[ver];
+      convertedVersions[ver] = convertDistVersionToLocalTarballsUrl(
+        name,
+        version,
+        request,
+        urlPrefix
+      );
     }
   }
-  return pkg;
+
+  return {
+    ...convertedPkg,
+    versions: convertedVersions,
+  };
+}
+
+/**
+ * Convert single Version disst tarball
+ * @param name
+ * @param version
+ * @param request
+ * @param urlPrefix
+ * @returns
+ */
+export function convertDistVersionToLocalTarballsUrl(name, version: Version, request, urlPrefix) {
+  const distName = version.dist;
+
+  if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
+    return {
+      ...version,
+      dist: {
+        ...distName,
+        tarball: getLocalRegistryTarballUri(distName.tarball, name, request, urlPrefix),
+      },
+    };
+  }
+
+  return version;
 }

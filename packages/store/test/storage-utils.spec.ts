@@ -3,7 +3,13 @@ import assert from 'assert';
 import { DIST_TAGS } from '@verdaccio/core';
 import { Package } from '@verdaccio/types';
 
-import { STORAGE, mergeUplinkTimeIntoLocal, normalizePackage } from '../src/storage-utils';
+import {
+  STORAGE,
+  hasInvalidPublishBody,
+  isDifferentThanOne,
+  mergeUplinkTimeIntoLocal,
+  normalizePackage,
+} from '../src/storage-utils';
 import { tagVersion } from '../src/storage-utils';
 import { readFile } from './fixtures/test.utils';
 
@@ -170,6 +176,94 @@ describe('Storage Utils', () => {
         versions: {},
         'dist-tags': { foo: '1.1.1' },
       });
+    });
+  });
+
+  describe('isDifferentThanOne', () => {
+    test('isDifferentThanOne is true', () => {
+      expect(isDifferentThanOne({})).toBeTruthy();
+    });
+    test('isDifferentThanOne is false', () => {
+      expect(
+        isDifferentThanOne({
+          foo: 'bar',
+        })
+      ).toBeFalsy();
+    });
+    test('isDifferentThanOne with two items is true', () => {
+      expect(
+        isDifferentThanOne({
+          foo: 'bar',
+          foo1: 'bar',
+        })
+      ).toBeTruthy();
+    });
+  });
+
+  describe('hasInvalidPublishBody', () => {
+    test('should be valid', () => {
+      expect(
+        hasInvalidPublishBody({
+          _attachments: {
+            'forbidden-place-1.0.6.tgz': {
+              content_type: 'application/octet-stream',
+              data: 'foo',
+              length: 512,
+            },
+          },
+          versions: {
+            // @ts-expect-error
+            '1.0.0': {},
+          },
+        })
+      ).toBeFalsy();
+    });
+
+    test('should be invalid due missing versions', () => {
+      expect(
+        hasInvalidPublishBody({
+          _attachments: {},
+          versions: {},
+        })
+      ).toBeTruthy();
+    });
+
+    test('should be invalid due missing _attachments', () => {
+      expect(
+        hasInvalidPublishBody({
+          _attachments: {},
+          versions: {},
+        })
+      ).toBeTruthy();
+    });
+
+    test('should be invalid due invalid empty versions  object', () => {
+      expect(
+        hasInvalidPublishBody({
+          _attachments: {
+            'forbidden-place-1.0.6.tgz': {
+              content_type: 'application/octet-stream',
+              data: 'foo',
+              length: 512,
+            },
+          },
+          versions: {},
+        })
+      ).toBeTruthy();
+    });
+
+    test('should be invalid due empty _attachments object', () => {
+      expect(
+        hasInvalidPublishBody({
+          _attachments: {},
+          versions: {
+            // @ts-expect-error
+            '1.0.0': {},
+            // @ts-expect-error
+            '1.0.1': {},
+          },
+        })
+      ).toBeTruthy();
     });
   });
 });

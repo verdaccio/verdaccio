@@ -1,17 +1,24 @@
-import fs from 'fs';
-import { promisify } from 'util';
+import fs from 'fs/promises';
 
-// FUTURE: when v15 is min replace by fs/promises
-const readFile = promisify(fs.readFile);
-const mkdirPromise = promisify(fs.mkdir);
-const writeFilePromise = promisify(fs.writeFile);
-const readdirPromise = promisify(fs.readdir);
-const statPromise = promisify(fs.stat);
-const unlinkPromise = promisify(fs.unlink);
-const rmdirPromise = promisify(fs.rmdir);
+const readFile = fs.readFile;
+const mkdirPromise = fs.mkdir;
+const writeFilePromise = fs.writeFile;
+const readdirPromise = fs.readdir;
+const statPromise = fs.stat;
+const unlinkPromise = fs.unlink;
+const rmdirPromise = fs.rmdir;
+const renamePromise = fs.rename;
 
 export const readFilePromise = async (path) => {
   return await readFile(path, 'utf8');
 };
 
-export { mkdirPromise, writeFilePromise, readdirPromise, statPromise, unlinkPromise, rmdirPromise };
+export {
+  renamePromise,
+  mkdirPromise,
+  writeFilePromise,
+  readdirPromise,
+  statPromise,
+  unlinkPromise,
+  rmdirPromise,
+};

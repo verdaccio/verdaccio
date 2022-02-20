@@ -43,6 +43,8 @@ import {
 
 const debug = buildDebug('verdaccio:storage:local');
 
+export const noSuchFile = 'ENOENT';
+export const resourceNotAvailable = 'EAGAIN';
 export type IPluginStorage = pluginUtils.IPluginStorage<Config>;
 
 export function normalizeSearchPackage(
@@ -365,6 +367,144 @@ class LocalStorage {
     );
   }
 
+  public async addVersionNext(
+    name: string,
+    version: string,
+    metadata: Version,
+    tag: StringValue
+  ): Promise<void> {
+    debug(`add version %s package for %s`, version, name);
+    await this.updatePackageNext(name, async (data: Package): Promise<Package> => {
+      debug('%s package is being updated', name);
+      // keep only one readme per package
+      data.readme = metadata.readme;
+      debug('%s` readme mutated', name);
+      // TODO: lodash remove
+      metadata = cleanUpReadme(metadata);
+      metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
+      debug('%s` contributors normalized', name);
+      const hasVersion = data.versions[version] != null;
+      if (hasVersion) {
+        debug('%s version %s already exists', name, version);
+        throw errorUtils.getConflict();
+      }
+
+      // if uploaded tarball has a different shasum, it's very likely that we
+      // have some kind of error
+      if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
+        const tarball = metadata.dist.tarball.replace(/.*\//, '');
+
+        if (validatioUtils.isObject(data._attachments[tarball])) {
+          if (
+            _.isNil(data._attachments[tarball].shasum) === false &&
+            _.isNil(metadata.dist.shasum) === false
+          ) {
+            if (data._attachments[tarball].shasum != metadata.dist.shasum) {
+              const errorMessage =
+                `shasum error, ` +
+                `${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
+              throw errorUtils.getBadRequest(errorMessage);
+            }
+          }
+
+          const currentDate = new Date().toISOString();
+
+          // some old storage do not have this field #740
+          if (_.isNil(data.time)) {
+            data.time = {};
+          }
+
+          data.time['modified'] = currentDate;
+
+          if ('created' in data.time === false) {
+            data.time.created = currentDate;
+          }
+
+          data.time[version] = currentDate;
+          data._attachments[tarball].version = version;
+        }
+      }
+
+      data.versions[version] = metadata;
+      tagVersion(data, version, tag);
+
+      try {
+        debug('%s` add on database', name);
+        await this.storagePlugin.add(name);
+      } catch (err: any) {
+        throw errorUtils.getBadData(err.message);
+      }
+      return data;
+    });
+
+    // this._updatePackage(
+    //   name,
+    //   async (data, cb: Callback): Promise<void> => {
+    //     debug('%s package is being updated', name);
+    //     // keep only one readme per package
+    //     data.readme = metadata.readme;
+    //     debug('%s` readme mutated', name);
+    //     // TODO: lodash remove
+    //     metadata = cleanUpReadme(metadata);
+    //     metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
+    //     debug('%s` contributors normalized', name);
+    //     const hasVersion = data.versions[version] != null;
+    //     if (hasVersion) {
+    //       debug('%s version %s already exists', name, version);
+    //       return cb(errorUtils.getConflict());
+    //     }
+
+    //     // if uploaded tarball has a different shasum, it's very likely that we
+    //     // have some kind of error
+    //     if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
+    //       const tarball = metadata.dist.tarball.replace(/.*\//, '');
+
+    //       if (validatioUtils.isObject(data._attachments[tarball])) {
+    //         if (
+    //           _.isNil(data._attachments[tarball].shasum) === false &&
+    //           _.isNil(metadata.dist.shasum) === false
+    //         ) {
+    //           if (data._attachments[tarball].shasum != metadata.dist.shasum) {
+    //             const errorMessage =
+    //               `shasum error, ` +
+    //               `${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
+    //             return cb(errorUtils.getBadRequest(errorMessage));
+    //           }
+    //         }
+
+    //         const currentDate = new Date().toISOString();
+
+    //         // some old storage do not have this field #740
+    //         if (_.isNil(data.time)) {
+    //           data.time = {};
+    //         }
+
+    //         data.time['modified'] = currentDate;
+
+    //         if ('created' in data.time === false) {
+    //           data.time.created = currentDate;
+    //         }
+
+    //         data.time[version] = currentDate;
+    //         data._attachments[tarball].version = version;
+    //       }
+    //     }
+
+    //     data.versions[version] = metadata;
+    //     tagVersion(data, version, tag);
+
+    //     try {
+    //       debug('%s` add on database', name);
+    //       await this.storagePlugin.add(name);
+    //       cb();
+    //     } catch (err: any) {
+    //       cb(errorUtils.getBadData(err.message));
+    //     }
+    //   },
+    //   callback
+    // );
+  }
+
   /**
    * Merge a new list of tags for a local packages with the existing one.
    * @param {*} pkgName
@@ -408,7 +548,7 @@ class LocalStorage {
   public changePackage(
     name: string,
     incomingPkg: Package,
-    revision: string | void,
+    revision: string | undefined,
     callback: Callback
   ): void {
     debug(`change package tags for %o revision %s`, name, revision);
@@ -471,6 +611,70 @@ class LocalStorage {
       }
     );
   }
+
+  /**
+   * Update the package metadata, tags and attachments (tarballs).
+   * Note: Currently supports unpublishing and deprecation.
+   * @param {*} name
+   * @param {*} incomingPkg
+   * @param {*} revision
+   * @param {*} callback
+   * @return {Function}
+   */
+  public async changePackageNext(
+    name: string,
+    incomingPkg: Package,
+    revision: string | undefined
+  ): Promise<void> {
+    debug(`change package tags for %o revision %s`, name, revision);
+    if (
+      !validatioUtils.isObject(incomingPkg.versions) ||
+      !validatioUtils.isObject(incomingPkg[DIST_TAGS])
+    ) {
+      debug(`change package bad data for %o`, name);
+      throw errorUtils.getBadData();
+    }
+
+    debug(`change package udapting package for %o`, name);
+    await this.updatePackageNext(name, async (localData: Package): Promise<Package> => {
+      for (const version in localData.versions) {
+        const incomingVersion = incomingPkg.versions[version];
+        if (_.isNil(incomingVersion)) {
+          this.logger.info({ name: name, version: version }, 'unpublishing @{name}@@{version}');
+
+          // FIXME: I prefer return a new object rather mutate the metadata
+          delete localData.versions[version];
+          delete localData.time![version];
+
+          for (const file in localData._attachments) {
+            if (localData._attachments[file].version === version) {
+              delete localData._attachments[file].version;
+            }
+          }
+        } else if (Object.prototype.hasOwnProperty.call(incomingVersion, 'deprecated')) {
+          const incomingDeprecated = incomingVersion.deprecated;
+          if (incomingDeprecated != localData.versions[version].deprecated) {
+            if (!incomingDeprecated) {
+              this.logger.info(
+                { name: name, version: version },
+                'undeprecating @{name}@@{version}'
+              );
+              delete localData.versions[version].deprecated;
+            } else {
+              this.logger.info({ name: name, version: version }, 'deprecating @{name}@@{version}');
+              localData.versions[version].deprecated = incomingDeprecated;
+            }
+            localData.time!.modified = new Date().toISOString();
+          }
+        }
+      }
+
+      localData[USERS] = incomingPkg[USERS];
+      localData[DIST_TAGS] = incomingPkg[DIST_TAGS];
+      return localData;
+    });
+  }
+
   /**
    * Remove a tarball.
    * @param {*} name
@@ -890,12 +1094,12 @@ class LocalStorage {
   private _updatePackage(
     name: string,
     updateHandler: StorageUpdateCallback,
-    callback: Callback
+    onEnd: Callback
   ): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
-      return callback(errorUtils.getNotFound());
+      return onEnd(errorUtils.getNotFound());
     }
 
     storage.updatePackage(
@@ -903,8 +1107,40 @@ class LocalStorage {
       updateHandler,
       this._writePackage.bind(this),
       normalizePackage,
-      callback
+      onEnd
     );
+  }
+
+  /**
+   * @param {*} name package name
+   * @param {*} updateHandler function(package, cb) - update function
+   * @param {*} callback callback that gets invoked after it's all updated
+   * @return {Function}
+   */
+  private async updatePackageNext(
+    name: string,
+    updateHandler: (manifest: Package) => Promise<Package>
+  ): Promise<void> {
+    const storage: IPackageStorage = this._getLocalStorage(name);
+
+    if (!storage) {
+      throw errorUtils.getNotFound();
+    }
+
+    // we update the package on the local storage
+    const updatedManifest: Package = await storage.updatePackageNext(name, updateHandler);
+    // after correctly updated write to the storage
+    try {
+      await this.writePackageNext(name, normalizePackage(updatedManifest));
+    } catch (err: any) {
+      if (err.code === resourceNotAvailable) {
+        throw errorUtils.getInternalError('resource temporarily unavailable');
+      } else if (err.code === noSuchFile) {
+        throw errorUtils.getNotFound();
+      } else {
+        throw err;
+      }
+    }
   }
 
   /**
@@ -920,6 +1156,15 @@ class LocalStorage {
       return callback();
     }
     storage.savePackage(name, this._setDefaultRevision(json), callback);
+  }
+
+  private async writePackageNext(name: string, json: Package): Promise<void> {
+    const storage: any = this._getLocalStorage(name);
+    if (_.isNil(storage)) {
+      // TODO: replace here 500 error
+      throw errorUtils.getBadData();
+    }
+    await storage.savePackageNext(name, this._setDefaultRevision(json));
   }
 
   private _setDefaultRevision(json: Package): Package {

@@ -3,9 +3,10 @@ import semver from 'semver';
 
 import { errorUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
-import { Package, StringValue, Version } from '@verdaccio/types';
-import { generateRandomHexString, isNil, normalizeDistTags } from '@verdaccio/utils';
+import { AttachMents, Package, StringValue, Version, Versions } from '@verdaccio/types';
+import { generateRandomHexString, isNil, isObject, normalizeDistTags } from '@verdaccio/utils';
 
+// import { Users } from '.';
 import { LocalStorage } from './local-storage';
 import { SearchInstance } from './search';
 
@@ -245,4 +246,22 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
     return true;
   }
   return false;
+}
+
+export function isDifferentThanOne(versions: Versions | AttachMents): boolean {
+  return Object.keys(versions).length !== 1;
+}
+
+export function hasInvalidPublishBody(manifest: Pick<Package, '_attachments' | 'versions'>) {
+  if (!manifest) {
+    return false;
+  }
+
+  const { _attachments, versions } = manifest;
+  const res =
+    isObject(_attachments) === false ||
+    isDifferentThanOne(_attachments) ||
+    isObject(versions) === false ||
+    isDifferentThanOne(versions);
+  return res;
 }

@@ -5,13 +5,22 @@ import _ from 'lodash';
 import semver from 'semver';
 
 import { hasProxyTo } from '@verdaccio/config';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { pkgUtils, validatioUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  DIST_TAGS,
+  HTTP_STATUS,
+  errorUtils,
+  pkgUtils,
+  validatioUtils,
+} from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { ProxyStorage } from '@verdaccio/proxy';
 import { IProxy, ProxyList } from '@verdaccio/proxy';
 import { ReadTarball } from '@verdaccio/streams';
-import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
+import {
+  convertDistRemoteToLocalTarballUrls,
+  convertDistVersionToLocalTarballsUrl,
+} from '@verdaccio/tarball';
 import {
   Callback,
   CallbackAction,
@@ -33,6 +42,7 @@ import { getVersion, normalizeDistTags } from '@verdaccio/utils';
 
 import { LocalStorage } from './local-storage';
 import { SearchInstance, SearchManager } from './search';
+// import { isPublishablePackage, validateInputs } from './star-utils';
 import {
   checkPackageLocal,
   checkPackageRemote,
@@ -42,6 +52,7 @@ import {
   publishPackage,
 } from './storage-utils';
 import { IGetPackageOptions, IGetPackageOptionsNext, IPluginFilters, ISyncUplinks } from './type';
+// import { StarBody, Users } from './type';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 
 if (semver.lte(process.version, 'v15.0.0')) {
@@ -110,6 +121,33 @@ class Storage {
     }
   }
 
+  /**
+   * Add a {name} package to a system
+   Function checks if package with the same name is available from uplinks.
+   If it isn't, we create package locally
+   Used storages: local (write) && uplinks
+   */
+  public async addPackageNext(name: string, metadata: Package): Promise<Package> {
+    try {
+      debug('add package for %o', name);
+      await checkPackageLocal(name, this.localStorage);
+      debug('look up remote for %o', name);
+      await checkPackageRemote(
+        name,
+        this._isAllowPublishOffline(),
+        this._syncUplinksMetadata.bind(this)
+      );
+      debug('publishing a package for %o', name);
+      // FIXME: publishPackage should return fresh metadata from backend
+      // instead return metadata
+      await publishPackage(name, metadata, this.localStorage as LocalStorage);
+      return metadata;
+    } catch (err: any) {
+      debug('error on add a package for %o with error %o', name, err);
+      throw err;
+    }
+  }
+
   private _isAllowPublishOffline(): boolean {
     return (
       typeof this.config.publish !== 'undefined' &&
@@ -145,6 +183,16 @@ class Storage {
     this.localStorage.addVersion(name, version, metadata, tag, callback);
   }
 
+  public async addVersionNext(
+    name: string,
+    version: string,
+    metadata: Version,
+    tag: StringValue
+  ): Promise<void> {
+    debug('add the version %o for package %o', version, name);
+    return this.localStorage.addVersionNext(name, version, metadata, tag);
+  }
+
   /**
    * Tags a package version with a provided tag
    Used storages: local (write)
@@ -167,6 +215,16 @@ class Storage {
   ): void {
     debug('change existing package for package %o revision %o', name, revision);
     this.localStorage.changePackage(name, metadata, revision, callback);
+  }
+
+  /**
+   * Change an existing package (i.e. unpublish one version)
+   Function changes a package info from local storage and all uplinks with write access./
+   Used storages: local (write)
+   */
+  public async changePackageNext(name: string, metadata: Package, revision: string): Promise<void> {
+    debug('change existing package for package %o revision %o', name, revision);
+    this.localStorage.changePackageNext(name, metadata, revision);
   }
 
   /**
@@ -346,7 +404,130 @@ class Storage {
     }
   }
 
-  public async getPackageNext(options: IGetPackageOptionsNext): Promise<Package | Version> {
+  // public async starPackage(body: StarBody, options: IGetPackageOptionsNext): Promise<void> {
+  //   debug('star package');
+  //   const manifest = await this.getPackageNext(options);
+  //   const newStarUser = body[constants.USERS];
+  //   const remoteUsername: string = options.remoteUser.name as string;
+  //   const localStarUsers = manifest[constants.USERS];
+  //   // Check is star or unstar
+  //   const isStar = Object.keys(newStarUser).includes(remoteUsername);
+  //   debug('is start? %o', isStar);
+  //   if (
+  //     _.isNil(localStarUsers) === false &&
+  //     validateInputs(localStarUsers, remoteUsername, isStar)
+  //   ) {
+  //     // return afterChangePackage();
+  //   }
+  //   const users: Users = isStar
+  //     ? {
+  //         ...localStarUsers,
+  //         [remoteUsername]: true,
+  //       }
+  //     : _.reduce(
+  //         localStarUsers,
+  //         (users, value, key) => {
+  //           if (key !== remoteUsername) {
+  //             users[key] = value;
+  //           }
+  //           return users;
+  //         },
+  //         {}
+  //       );
+  //   debug('update package for  %o', name);
+  // }
+
+  // public async publish(body: any, options: IGetPackageOptionsNext): Promise<any> {
+  //   const { name } = options;
+  //   debug('publishing or updating a new version for %o', name);
+  //   // we check if the request is npm star
+  //   if (!isPublishablePackage(body) && isObject(body.users)) {
+  //     debug('starting star a package');
+  //     await this.starPackage(body as StarBody, options);
+  //   }
+
+  //   return { ok: API_MESSAGE.PKG_CHANGED, success: true };
+  // }
+
+  public async getPackageByVersion(options: IGetPackageOptionsNext): Promise<Version> {
+    const queryVersion = options.version as string;
+    if (_.isNil(queryVersion)) {
+      throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`);
+    }
+
+    // we have version, so we need to return specific version
+    const [convertedManifest] = await this.getPackageNext(options);
+
+    const version: Version | undefined = getVersion(convertedManifest.versions, queryVersion);
+
+    debug('query by latest version %o and result %o', queryVersion, version);
+    if (typeof version !== 'undefined') {
+      debug('latest version found %o', version);
+      return convertDistVersionToLocalTarballsUrl(
+        convertedManifest.name,
+        version,
+        options.requestOptions,
+        this.config.url_prefix
+      );
+    }
+
+    // the version could be a dist-tag eg: beta, alpha, so we find the matched version
+    // on disg-tag list
+    if (_.isNil(convertedManifest[DIST_TAGS]) === false) {
+      if (_.isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
+        // the version found as a distag
+        const matchedDisTagVersion: string = convertedManifest[DIST_TAGS][queryVersion];
+        debug('dist-tag version found %o', matchedDisTagVersion);
+        const disTagVersion: Version | undefined = getVersion(
+          convertedManifest.versions,
+          matchedDisTagVersion
+        );
+        if (typeof disTagVersion !== 'undefined') {
+          debug('dist-tag found %o', disTagVersion);
+          return convertDistVersionToLocalTarballsUrl(
+            convertedManifest.name,
+            disTagVersion,
+            options.requestOptions,
+            this.config.url_prefix
+          );
+        }
+      }
+    } else {
+      debug('dist tag not detected');
+    }
+
+    // we didn't find the version, not found error
+    debug('package version not found %o', queryVersion);
+    throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`);
+  }
+
+  public async getPackageManifest(options: IGetPackageOptionsNext): Promise<Package> {
+    // convert dist remotes to local bars
+    const [manifest] = await this.getPackageNext(options);
+    const convertedManifest = convertDistRemoteToLocalTarballUrls(
+      manifest,
+      options.requestOptions,
+      this.config.url_prefix
+    );
+
+    return convertedManifest;
+  }
+
+  /**
+   * Return a manifest or version based on the options.
+   * @param options {Object}
+   * @returns A package manifest or specific version
+   */
+  public async getPackageByOptions(options: IGetPackageOptionsNext): Promise<Package | Version> {
+    // if no version we return the whole manifest
+    if (_.isNil(options.version) === false) {
+      return this.getPackageByVersion(options);
+    } else {
+      return this.getPackageManifest(options);
+    }
+  }
+
+  public async getPackageNext(options: IGetPackageOptionsNext): Promise<[Package, any[]]> {
     const { name } = options;
     debug('get package for %o', name);
     try {
@@ -363,59 +544,11 @@ class Storage {
       // time to sync with uplinks if we have any
       debug('sync uplinks for %o', name);
       // @ts-expect-error
-      const [manifest, errors] = await this._syncUplinksMetadataNext(name, data, {
+      return this._syncUplinksMetadataNext(name, data, {
         req: options.req,
         uplinksLook: options.uplinksLook,
         keepUpLinkData: options.keepUpLinkData,
       });
-      debug('no. sync uplinks errors %o', errors?.length);
-
-      // TODO: we could improve performance here, if a specific version is requested
-      // we just convert that version and return it otherwise we convert
-      // the whole manifest, bonus points for contribution :)
-      // convert dist remotes to local bars
-      const convertedManifest = convertDistRemoteToLocalTarballUrls(
-        manifest,
-        options.requestOptions,
-        this.config.url_prefix
-      );
-      // if no version we return the whole manifest
-      if (_.isNil(options.version)) {
-        return convertedManifest;
-      }
-
-      // we have version, so we need to return specific version
-      const queryVersion = options.version as string;
-      const version: Version | undefined = getVersion(convertedManifest.versions, options.version);
-      debug('query by latest version %o and result %o', options.version, version);
-      if (typeof version !== 'undefined') {
-        debug('latest version found %o', version);
-        return version;
-      }
-
-      // the version could be a dist-tag eg: beta, alpha, so we find the matched version
-      // on disg-tag list
-      if (_.isNil(convertedManifest[DIST_TAGS]) === false) {
-        if (_.isNil(convertedManifest[DIST_TAGS][queryVersion]) === false) {
-          // the version found as a distag
-          const matchedDisTagVersion: string = convertedManifest[DIST_TAGS][queryVersion];
-          debug('dist-tag version found %o', matchedDisTagVersion);
-          const disTagVersion: Version | undefined = getVersion(
-            convertedManifest.versions,
-            matchedDisTagVersion
-          );
-          if (typeof disTagVersion !== 'undefined') {
-            debug('dist-tag found %o', disTagVersion);
-            return disTagVersion;
-          }
-        }
-      } else {
-        debug('dist tag not detected');
-      }
-
-      // we didn't find the version, not found error
-      debug('package version not found %o', queryVersion);
-      throw errorUtils.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${queryVersion}`);
     } catch (err: any) {
       this.logger.error(
         { name, err: err.message },

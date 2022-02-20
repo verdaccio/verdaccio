@@ -55,13 +55,13 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       try {
         // TODO: this is just temporary while I migrate all plugins to use the new API
         // the method will be renamed to getPackage again but Promise Based.
-        if (!storage.getPackageNext) {
+        if (!storage.getPackageByOptions) {
           throw errorUtils.getInternalError(
-            'getPackageNext not implemented, check pr-2750 for more details'
+            'getPackageByOptions not implemented, check pr-2750 for more details'
           );
         }
 
-        const manifest = await storage.getPackageNext({
+        const manifest = await storage.getPackageByOptions({
           name,
           uplinksLook: true,
           req,

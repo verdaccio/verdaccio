@@ -8,7 +8,7 @@ import { Package, Version, Versions } from '@verdaccio/types';
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-export function getVersion(versions: Versions, version: any): Version | undefined {
+export function getVersion(versions: Versions, version: string): Version | undefined {
   if (!versions) {
     return;
   }

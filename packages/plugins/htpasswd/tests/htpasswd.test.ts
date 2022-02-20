@@ -209,6 +209,9 @@ describe('HTPasswd', () => {
       test('reload should fails on check file', (done) => {
         jest.doMock('fs', () => {
           return {
+            readFile: (_name, callback): void => {
+              callback(new Error('stat error'), null);
+            },
             stat: (_name, callback): void => {
               callback(new Error('stat error'), null);
             },
@@ -228,6 +231,9 @@ describe('HTPasswd', () => {
       test('reload times match', (done) => {
         jest.doMock('fs', () => {
           return {
+            readFile: (_name, callback): void => {
+              callback(new Error('stat error'), null);
+            },
             stat: (_name, callback): void => {
               callback(null, {
                 mtime: null,

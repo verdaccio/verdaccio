@@ -178,7 +178,24 @@ declare module '@verdaccio/types' {
     [key: string]: boolean;
   }
 
+  /**
+   * @deprecated use Manifest instead
+   */
   interface Package {
+    _id?: string;
+    name: string;
+    versions: Versions;
+    'dist-tags': GenericBody;
+    time: GenericBody;
+    readme?: string;
+    users?: PackageUsers;
+    _distfiles: DistFiles;
+    _attachments: AttachMents;
+    _uplinks: UpLinks;
+    _rev: string;
+  }
+
+  interface Manifest {
     _id?: string;
     name: string;
     versions: Versions;
@@ -477,6 +494,7 @@ declare module '@verdaccio/types' {
     createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
     deletePackage(fileName: string): Promise<void>;
     removePackage(): Promise<void>;
+    // @deprecated
     updatePackage(
       pkgFileName: string,
       updateHandler: StorageUpdateCallback,
@@ -484,7 +502,14 @@ declare module '@verdaccio/types' {
       transformPackage: PackageTransformer,
       onEnd: Callback
     ): void;
+    // @deprecated
     savePackage(fileName: string, json: Package, callback: CallbackAction): void;
+    //  next packages migration (this list is meant to replace the callback parent functions)
+    updatePackageNext(
+      packageName: string,
+      handleUpdate: (manifest: Package) => Promise<Package>
+    ): Promise<Package>;
+    savePackageNext(name: string, value: Package): Promise<void>;
   }
 
   interface TarballActions {

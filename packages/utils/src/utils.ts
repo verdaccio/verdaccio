@@ -161,6 +161,7 @@ export function mask(str: string, charNum = 3): string {
   return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
 }
 
+// @deprecated
 export function hasDiffOneKey(versions): boolean {
   return Object.keys(versions).length !== 1;
 }

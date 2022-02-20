@@ -60,7 +60,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo',
             uplinksLook: true,
             req,
@@ -92,7 +92,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo',
             version: '1.0.0',
             uplinksLook: true,
@@ -125,7 +125,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo',
             version: 'latest',
             uplinksLook: true,
@@ -158,7 +158,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo',
             version: '1.0.0-does-not-exist',
             uplinksLook: true,
@@ -193,7 +193,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo2',
             uplinksLook: true,
             req,
@@ -228,7 +228,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.getPackageNext({
+          storage.getPackageByOptions({
             name: 'foo2',
             uplinksLook: true,
             req,

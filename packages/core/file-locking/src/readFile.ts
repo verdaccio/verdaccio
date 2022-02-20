@@ -1,14 +1,36 @@
-/* eslint-disable no-undef */
-import fs from 'fs';
-
-import { Callback } from '@verdaccio/types';
-
-import { lockFile } from './lockfile';
+import { lockFileNext } from './lockfile';
+import { readFile } from './utils';
 
 export type ReadFileOptions = {
   parse?: boolean;
   lock?: boolean;
 };
+
+async function lock(name: string, options: ReadFileOptions): Promise<null | void> {
+  if (!options.lock) {
+    return null;
+  }
+
+  await lockFileNext(name);
+}
+
+async function read(name: string): Promise<string> {
+  return readFile(name, 'utf8');
+}
+
+function parseJSON(contents: string, options): Promise<unknown> {
+  return new Promise((resolve, reject): void => {
+    if (!options.parse) {
+      return resolve(contents);
+    }
+    try {
+      contents = JSON.parse(contents);
+      return resolve(contents);
+    } catch (err: any) {
+      return reject(err);
+    }
+  });
+}
 
 /**
  *  Reads a local file, which involves
@@ -19,69 +41,13 @@ export type ReadFileOptions = {
  * @param {*} options
  * @param {*} callback
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-function readFile(
-  name: string,
-  options: ReadFileOptions = {},
-  callback: Callback = (): void => {}
-): void {
-  if (typeof options === 'function') {
-    callback = options;
-    options = {};
-  }
-
-  options.lock = options.lock || false;
-  options.parse = options.parse || false;
-
-  const lock = function (options: ReadFileOptions): Promise<null | NodeJS.ErrnoException> {
-    return new Promise((resolve, reject): void => {
-      if (!options.lock) {
-        return resolve(null);
-      }
-
-      lockFile(name, function (err: NodeJS.ErrnoException | null) {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(null);
-      });
-    });
+export async function readFileNext<T>(name: string, options: ReadFileOptions = {}): Promise<T> {
+  const _options = {
+    lock: options?.lock || false,
+    parse: options?.parse || false,
   };
-
-  const read = function (): Promise<NodeJS.ErrnoException | string> {
-    return new Promise((resolve, reject): void => {
-      fs.readFile(name, 'utf8', function (err, contents) {
-        if (err) {
-          return reject(err);
-        }
-
-        resolve(contents);
-      });
-    });
-  };
-
-  const parseJSON = function (contents: string): Promise<unknown> {
-    return new Promise((resolve, reject): void => {
-      if (!options.parse) {
-        return resolve(contents);
-      }
-      try {
-        contents = JSON.parse(contents);
-        return resolve(contents);
-      } catch (err: any) {
-        return reject(err);
-      }
-    });
-  };
-
-  Promise.resolve()
-    .then(() => lock(options))
-    .then(() => read())
-    .then((content) => parseJSON(content as string))
-    .then(
-      (result) => callback(null, result),
-      (err) => callback(err)
-    );
+  await lock(name, _options);
+  const content = await read(name);
+  const parsed = await parseJSON(content, options);
+  return parsed as T;
 }
-
-export { readFile };
