@@ -297,19 +297,15 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       if (err && err.code !== 'ENOENT') {
         return cb(err);
       }
-
       const body = this._stringToUt8(res);
       this.users = this.parseHTPasswd(body);
 
       if (!this.users[user]) {
         return cb(new Error('User not found'));
       }
-
       try {
-        this.writeFile(
-          changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig),
-          cb
-        );
+        const pass = changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig);
+        this.writeFile(pass, cb);
       } catch (err: any) {
         return cb(err);
       }

@@ -258,60 +258,75 @@ describe('HTPasswd', () => {
       //     expect(err).toBeUndefined();
       //     done();
       //   };
-        //       test('reload should fails on read file', (done) => {
-        //         jest.doMock('fs', () => {
-        //           return {
-        //             stat: jest.requireActual('fs').stat,
-        //             readFile: (_name, _format, callback): void => {
-        //               callback(new Error('read error'), null);
-        //             },
-        //           };
-        //         });
-        //         const callback = (err): void => {
-        //           expect(err).not.toBeNull();
-        //           expect(err.message).toMatch('read error');
-        //           done();
-        //         };
-        //         const HTPasswd = require('../src/htpasswd.ts').default;
-        //         const wrapper = new HTPasswd(config, stuff);
-        //         wrapper.reload(callback);
-        //       });
-        //     });
+      //       test('reload should fails on read file', (done) => {
+      //         jest.doMock('fs', () => {
+      //           return {
+      //             stat: jest.requireActual('fs').stat,
+      //             readFile: (_name, _format, callback): void => {
+      //               callback(new Error('read error'), null);
+      //             },
+      //           };
+      //         });
+      //         const callback = (err): void => {
+      //           expect(err).not.toBeNull();
+      //           expect(err.message).toMatch('read error');
+      //           done();
+      //         };
+      //         const HTPasswd = require('../src/htpasswd.ts').default;
+      //         const wrapper = new HTPasswd(config, stuff);
+      //         wrapper.reload(callback);
+      //       });
+      //     });
+    });
+    describe('changePassword', () => {
+      test('changePassword - it should throw an error for user not found', (done) => {
+        const callback = (error, isSuccess): void => {
+          expect(error).not.toBeNull();
+          expect(error.message).toBe('User not found');
+          expect(isSuccess).toBeFalsy();
+          done();
+        };
+        wrapper.changePassword('usernotpresent', 'oldPassword', 'newPassword', callback);
       });
-  //   test('changePassword - it should throw an error for user not found', (done) => {
-  //     const callback = (error, isSuccess): void => {
-  //       expect(error).not.toBeNull();
-  //       expect(error.message).toBe('User not found');
-  //       expect(isSuccess).toBeFalsy();
-  //       done();
-  //     };
-  //     wrapper.changePassword('usernotpresent', 'oldPassword', 'newPassword', callback);
-  //   });
 
-  //   test('changePassword - it should throw an error for wrong password', (done) => {
-  //     const callback = (error, isSuccess): void => {
-  //       expect(error).not.toBeNull();
-  //       expect(error.message).toBe('Invalid old Password');
-  //       expect(isSuccess).toBeFalsy();
-  //       done();
-  //     };
-  //     wrapper.changePassword('username', 'wrongPassword', 'newPassword', callback);
-  //   });
+      test('changePassword - it should throw an error for wrong password', (done) => {
+        wrapper.adduser('username', 'test', () => {
+          wrapper.changePassword(
+            'username',
+            'wrongPassword',
+            'newPassword',
+            (error, isSuccess): void => {
+              expect(error).not.toBeNull();
+              expect(error?.message).toBe('Invalid old Password');
+              expect(isSuccess).toBeFalsy();
+              done();
+            }
+          );
+        });
+      });
 
-  //   test('changePassword - it should change password', (done) => {
-  //     let dataToWrite;
-  //     // @ts-ignore
-  //     fs.writeFile = jest.fn((_name, data, callback) => {
-  //       dataToWrite = data;
-  //       callback();
-  //     });
-  //     const callback = (error, isSuccess): void => {
-  //       expect(error).toBeNull();
-  //       expect(isSuccess).toBeTruthy();
-  //       expect(fs.writeFile).toHaveBeenCalled();
-  //       expect(dataToWrite.indexOf('username')).not.toEqual(-1);
-  //       done();
-  //     };
-  //     wrapper.changePassword('username', 'password', 'newPassword', callback);
-  //   });
+      test('changePassword - it should change password', (done) => {
+        let dataToWrite;
+        class MockAddUser extends HTPasswd {
+          public writeFile(body: string, cb: any): void {
+            dataToWrite = body;
+            cb(null);
+          }
+          public _stringToUt8() {
+            return 'username:$66to3JK5RgZM:autocreated 2018-01-17T03:40:46.315Z';
+          }
+        }
+        const wrapper = new MockAddUser(getDefaultConfig(), stuff as unknown as VerdaccioConfigApp);
+        const callback = (error, isSuccess): void => {
+          expect(error).toBeNull();
+          expect(isSuccess).toBeTruthy();
+          expect(dataToWrite.indexOf('username')).not.toEqual(-1);
+          done();
+        };
+        wrapper.adduser('username', 'password', () => {
+          wrapper.changePassword('username', 'password', 'newPassword', callback);
+        });
+      });
+    });
+  });
 });

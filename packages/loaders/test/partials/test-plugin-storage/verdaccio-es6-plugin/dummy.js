@@ -1,5 +1,5 @@
 class Dummy {
-  constructor(config, logger){
+  constructor(config, logger) {
     this.config = config;
     this.logger = logger;
     this.data = [];
