@@ -41,7 +41,7 @@ export class FastifyServer extends Command {
   public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
-      const configParsed = parseConfigFile(configPathLocation);
+      const configParsed = await parseConfigFile(configPathLocation);
       const { web } = configParsed;
       this.initLogger(configParsed);
 

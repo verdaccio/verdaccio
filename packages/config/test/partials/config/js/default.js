@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   storage: './storage_default_storage',
   uplinks: { npmjs: { url: 'http://localhost:4873/' } },
   packages: {

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { describe, expect, test } from 'vitest';
 
 import {
   Config,
@@ -77,16 +78,16 @@ describe('check basic content parsed file', () => {
     expect(config.security).toEqual(defaultSecurity);
   };
 
-  test('parse default.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+  test('parse default.yaml', async () => {
+    const config = new Config(await parseConfigFile(resolveConf('default')));
     checkDefaultUplink(config);
     expect(config.storage).toBe('./storage');
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
     checkDefaultConfPackages(config);
   });
 
-  test('parse docker.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('docker')));
+  test('parse docker.yaml', async () => {
+    const config = new Config(await parseConfigFile(resolveConf('docker')));
     checkDefaultUplink(config);
     expect(config.storage).toBe('/verdaccio/storage/data');
     expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
@@ -95,25 +96,27 @@ describe('check basic content parsed file', () => {
 });
 
 describe('checkSecretKey', () => {
-  test('with default.yaml and pre selected secret', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+  test('with default.yaml and pre selected secret', async () => {
+    const config = new Config(await parseConfigFile(resolveConf('default')));
     expect(config.checkSecretKey('12345')).toEqual('12345');
   });
 
-  test('with default.yaml and void secret', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+  test('with default.yaml and void secret', async () => {
+    const config = new Config(await parseConfigFile(resolveConf('default')));
     expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
   });
 
-  test('with default.yaml and emtpy string secret', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+  test('with default.yaml and emtpy string secret', async () => {
+    const config = new Config(await parseConfigFile(resolveConf('default')));
     expect(typeof config.checkSecretKey('') === 'string').toBeTruthy();
   });
 });
 
 describe('getMatchedPackagesSpec', () => {
-  test('should match with react as defined in config file', () => {
-    const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
+  test('should match with react as defined in config file', async () => {
+    const configParsed = await parseConfigFile(
+      parseConfigurationFile('config-getMatchedPackagesSpec')
+    );
     const config = new Config(configParsed);
     expect(config.getMatchedPackagesSpec('react')).toEqual({
       access: ['admin'],
@@ -123,8 +126,10 @@ describe('getMatchedPackagesSpec', () => {
     });
   });
 
-  test('should not match with react as defined in config file', () => {
-    const configParsed = parseConfigFile(parseConfigurationFile('config-getMatchedPackagesSpec'));
+  test('should not match with react as defined in config file', async () => {
+    const configParsed = await parseConfigFile(
+      parseConfigurationFile('config-getMatchedPackagesSpec')
+    );
     const config = new Config(configParsed);
     expect(config.getMatchedPackagesSpec('somePackage')).toEqual({
       access: [ROLES.$ALL],
@@ -136,26 +141,26 @@ describe('getMatchedPackagesSpec', () => {
 });
 
 describe('VERDACCIO_STORAGE_PATH', () => {
-  test('should set storage to value set in VERDACCIO_STORAGE_PATH environment variable', () => {
+  test('should set storage to value set in VERDACCIO_STORAGE_PATH environment variable', async () => {
     const storageLocation = '/tmp/verdaccio';
     process.env.VERDACCIO_STORAGE_PATH = storageLocation;
-    const config = new Config(parseConfigFile(resolveConf('default')));
+    const config = new Config(await parseConfigFile(resolveConf('default')));
     expect(config.storage).toBe(storageLocation);
     delete process.env.VERDACCIO_STORAGE_PATH;
   });
 
-  test('should set storage path to VERDACCIO_STORAGE_PATH if both config and env are set', () => {
+  test('should set storage path to VERDACCIO_STORAGE_PATH if both config and env are set', async () => {
     const storageLocation = '/tmp/verdaccio';
     process.env.VERDACCIO_STORAGE_PATH = storageLocation;
-    const config = new Config(parseConfigFile(parseConfigurationFile('storage')));
+    const config = new Config(await parseConfigFile(parseConfigurationFile('storage')));
     expect(config.storage).toBe(storageLocation);
     delete process.env.VERDACCIO_STORAGE_PATH;
   });
 
-  test('should take storage from environment variable if not exists in configs', () => {
+  test('should take storage from environment variable if not exists in configs', async () => {
     const storageLocation = '/tmp/verdaccio';
     process.env.VERDACCIO_STORAGE_PATH = storageLocation;
-    const defaultConfig = parseConfigFile(resolveConf('default'));
+    const defaultConfig = await parseConfigFile(resolveConf('default'));
     delete defaultConfig.storage;
     const config = new Config(defaultConfig);
     expect(config.storage).toBe(storageLocation);

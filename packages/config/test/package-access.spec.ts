@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { describe, expect, test } from 'vitest';
 
 import { parseConfigFile } from '../src';
 import { PACKAGE_ACCESS, normalisePackageAccess } from '../src/package-access';
@@ -6,8 +7,8 @@ import { parseConfigurationFile } from './utils';
 
 describe('Package access utilities', () => {
   describe('normalisePackageAccess', () => {
-    test('should test basic conversion', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic'));
+    test('should test basic conversion', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-basic'));
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
@@ -18,8 +19,8 @@ describe('Package access utilities', () => {
       expect(all).toBeDefined();
     });
 
-    test('should define an empty publish array even if is not defined in packages', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
+    test('should define an empty publish array even if is not defined in packages', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-basic-no-publish'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -31,8 +32,8 @@ describe('Package access utilities', () => {
       expect(all.publish).toHaveLength(0);
     });
 
-    test('should define an empty access array even if is not defined in packages', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-access'));
+    test('should define an empty access array even if is not defined in packages', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-basic-no-access'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -44,8 +45,8 @@ describe('Package access utilities', () => {
       expect(all.access).toHaveLength(0);
     });
 
-    test('should define an empty proxy array even if is not defined in package', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-basic-no-proxy'));
+    test('should define an empty proxy array even if is not defined in package', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-basic-no-proxy'));
       const access = normalisePackageAccess(packages);
 
       const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -57,8 +58,8 @@ describe('Package access utilities', () => {
       expect(all.proxy).toHaveLength(0);
     });
 
-    test('should test multi user group definition', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-multi-group'));
+    test('should test multi user group definition', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-multi-group'));
       const access = normalisePackageAccess(packages);
 
       expect(access).toBeDefined();
@@ -81,8 +82,8 @@ describe('Package access utilities', () => {
 
     test(
       'should normalize deprecated packages into the new ones ' + '(backward props compatible)',
-      () => {
-        const { packages } = parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
+      async () => {
+        const { packages } = await parseConfigFile(parseConfigurationFile('deprecated-pkgs-basic'));
         const access = normalisePackageAccess(packages);
         expect(access).toBeDefined();
         const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
@@ -106,8 +107,8 @@ describe('Package access utilities', () => {
       }
     );
 
-    test('should check not default packages access', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-empty'));
+    test('should check not default packages access', async () => {
+      const { packages } = await parseConfigFile(parseConfigurationFile('pkgs-empty'));
       const access = normalisePackageAccess(packages);
       expect(access).toBeDefined();
 

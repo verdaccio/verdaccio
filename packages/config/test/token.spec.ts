@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest';
+
 import { TOKEN_VALID_LENGTH, generateRandomSecretKey } from '../src/token';
 
 test('token test valid length', () => {

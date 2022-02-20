@@ -1,19 +1,20 @@
+import { describe, expect, test } from 'vitest';
+
 import { normalisePackageAccess, parseConfigFile } from '../src';
 import { hasProxyTo, sanityCheckUplinksProps, uplinkSanityCheck } from '../src/uplinks';
 import { parseConfigurationFile } from './utils';
 
 describe('Uplinks Utilities', () => {
   describe('uplinkSanityCheck', () => {
-    test('should test basic conversion', () => {
-      const uplinks = uplinkSanityCheck(
-        parseConfigFile(parseConfigurationFile('uplink-basic')).uplinks
-      );
+    test('should test basic conversion', async () => {
+      const config = await parseConfigFile(parseConfigurationFile('uplink-basic'));
+      const uplinks = uplinkSanityCheck(config.uplinks);
       expect(Object.keys(uplinks)).toContain('server1');
       expect(Object.keys(uplinks)).toContain('server2');
     });
 
-    test('should throw error on blacklisted uplink name', () => {
-      const { uplinks } = parseConfigFile(parseConfigurationFile('uplink-wrong'));
+    test('should throw error on blacklisted uplink name', async () => {
+      const { uplinks } = await parseConfigFile(parseConfigurationFile('uplink-wrong'));
 
       expect(() => {
         uplinkSanityCheck(uplinks);
@@ -22,8 +23,8 @@ describe('Uplinks Utilities', () => {
   });
 
   describe('sanityCheckUplinksProps', () => {
-    test('should fails if url prop is missing', () => {
-      const { uplinks } = parseConfigFile(parseConfigurationFile('uplink-wrong'));
+    test('should fails if url prop is missing', async () => {
+      const { uplinks } = await parseConfigFile(parseConfigurationFile('uplink-wrong'));
       expect(() => {
         sanityCheckUplinksProps(uplinks);
       }).toThrow('CONFIG: no url for uplink: none-url');
@@ -36,10 +37,9 @@ describe('Uplinks Utilities', () => {
   });
 
   describe('hasProxyTo', () => {
-    test('should test basic config', () => {
-      const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-basic')).packages
-      );
+    test('should test basic config', async () => {
+      const config = await parseConfigFile(parseConfigurationFile('pkgs-basic'));
+      const packages = normalisePackageAccess(config.packages);
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeFalsy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -53,10 +53,9 @@ describe('Uplinks Utilities', () => {
       expect(hasProxyTo('angular', 'npmjs', packages)).toBeTruthy();
     });
 
-    test('should test resolve based on custom package access', () => {
-      const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-custom')).packages
-      );
+    test('should test resolve based on custom package access', async () => {
+      const config = await parseConfigFile(parseConfigurationFile('pkgs-custom'));
+      const packages = normalisePackageAccess(config.packages);
       // react
       expect(hasProxyTo('react', 'facebook', packages)).toBeTruthy();
       expect(hasProxyTo('react', 'google', packages)).toBeFalsy();
@@ -70,9 +69,9 @@ describe('Uplinks Utilities', () => {
       expect(hasProxyTo('angular', 'npmjs', packages)).toBeFalsy();
     });
 
-    test('should not resolve any proxy', () => {
+    test('should not resolve any proxy', async () => {
       const packages = normalisePackageAccess(
-        parseConfigFile(parseConfigurationFile('pkgs-empty')).packages
+        await parseConfigFile(parseConfigurationFile('pkgs-empty')).packages
       );
       // react
       expect(hasProxyTo('react', 'npmjs', packages)).toBeFalsy();

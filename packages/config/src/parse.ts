@@ -19,7 +19,7 @@ export async function parseConfigFile(configPath: string): Promise<ConfigRuntime
       });
     }
 
-    const jsonConfig = (await import(configPath)) as ConfigYaml;
+    const jsonConfig = (await import(configPath)).default as ConfigYaml;
     return Object.assign({}, jsonConfig, {
       configPath,
       // @deprecated use configPath instead

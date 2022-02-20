@@ -55,8 +55,8 @@ describe('Auth utilities', () => {
     return parseConfigurationFile(`security/${name}`);
   };
 
-  function getConfig(configFileName: string, secret: string) {
-    const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
+  async function getConfig(configFileName: string, secret: string) {
+    const conf = await parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
     const secConf = _.merge(configExample(), conf);
     secConf.secret = secret;
@@ -73,7 +73,7 @@ describe('Auth utilities', () => {
     methodToSpy: string,
     methodNotBeenCalled: string
   ): Promise<string> {
-    const config: Config = getConfig(configFileName, secret);
+    const config: Config = await getConfig(configFileName, secret);
     const auth: IAuth = new Auth(config);
     // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);

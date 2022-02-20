@@ -28,7 +28,7 @@ const debug = buildDebug('verdaccio:config');
  * @return {String} the config file path
  */
 function findConfigFile(configPath?: string): string {
-  // console.log(process.env);
+  console.log(process.env);
   if (typeof configPath !== 'undefined') {
     return path.resolve(configPath);
   }
@@ -40,6 +40,7 @@ function findConfigFile(configPath?: string): string {
     throw new Error('no configuration files can be processed');
   }
 
+  console.log('--configPaths', configPaths);
   // find the first location that already exist
   const primaryConf: SetupDirectory | void = _.find(configPaths, (configLocation: SetupDirectory) =>
     fileExists(configLocation.path)
@@ -49,7 +50,7 @@ function findConfigFile(configPath?: string): string {
     debug('previous location exist already %s', primaryConf?.path);
     return primaryConf.path;
   }
-
+  console.log('--configPaths', configPaths);
   // @ts-ignore
   return createConfigFile(_.head(configPaths)).path;
 }

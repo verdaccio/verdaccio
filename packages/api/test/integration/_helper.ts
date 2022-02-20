@@ -12,15 +12,15 @@ import { Storage } from '@verdaccio/store';
 
 import apiEndpoints from '../../src';
 
-const getConf = (conf) => {
+const getConf = async (conf) => {
   const configPath = path.join(__dirname, 'config', conf);
 
-  return parseConfigFile(configPath);
+  return await parseConfigFile(configPath);
 };
 
 export async function initializeServer(configName): Promise<Application> {
   const app = express();
-  const config = new Config(getConf(configName));
+  const config = new Config(await getConf(configName));
   const storage = new Storage(config);
   await storage.init(config, []);
   const auth: IAuth = new Auth(config);

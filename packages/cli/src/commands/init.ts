@@ -60,7 +60,7 @@ export class InitCommand extends Command {
   public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
-      const configParsed = parseConfigFile(configPathLocation);
+      const configParsed = await parseConfigFile(configPathLocation);
       this.initLogger(configParsed);
       const { web } = configParsed;
 
