@@ -2,22 +2,26 @@
   "name": "@verdaccio/benchmark",
   "version": "1.0.0",
   "bin": {
-    "verdaccio-benchmark": "./index.js"
+    "verdaccio-benchmark": "./index.mjs"
   },
   "private": "true",
   "description": "benchmark",
-  "main": "./build/index.js",
+  "exports": "./index.mjs",
+  "type": "module",
   "scripts": {
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "run": "ts-node src/init.ts"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },  
   "keywords": [],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "clipanion": "3.1.0",
     "temp-dir": "2.0.0",
-    "get-port": "5.1.1",
+    "get-port": "6.1.0",
     "semver": "7.3.5"
   },
   "devDependencies": {
