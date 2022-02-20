@@ -1,7 +1,8 @@
-const { defaults } = require('jest-config');
-const config = require('../../jest/config');
+import { defaults } from 'jest-config';
 
-module.exports = Object.assign({}, config, {
+import config from '../../jest/config.js';
+
+export default Object.assign({}, config, {
   name: 'verdaccio-e2e-cli-jest',
   verbose: true,
   collectCoverage: false,
