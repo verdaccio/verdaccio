@@ -1,8 +1,8 @@
 {
   "name": "@verdaccio/config",
   "version": "6.0.0-6-next.12",
-  "description": "logger",
-  "main": "./build/index.js",
+  "description": "configuration for verdaccio",
+  "type": "module",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -25,13 +25,14 @@
     "server",
     "verdaccio"
   ],
+  "exports": "./build/index.js",
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

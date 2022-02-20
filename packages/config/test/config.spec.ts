@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import path from 'path';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import {
   Config,
@@ -11,6 +12,9 @@ import {
   parseConfigFile,
 } from '../src';
 import { parseConfigurationFile } from './utils';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const resolveConf = (conf) => {
   const { name, ext } = path.parse(conf);

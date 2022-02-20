@@ -1,8 +1,10 @@
 import assert from 'assert';
 import _ from 'lodash';
 
-const pkgVersion = require('../package.json').version;
-const pkgName = require('../package.json').name;
+import meta from '../package.json';
+
+const { version: pkgVersion } = meta;
+const pkgName = 'verdaccio';
 
 export function getUserAgent(): string {
   assert(_.isString(pkgName));

@@ -8,7 +8,7 @@ import { ConfigRuntime, ConfigYaml } from '@verdaccio/types';
  * Parse a config file from yaml to JSON.
  * @param configPath the absolute path of the configuration file
  */
-export function parseConfigFile(configPath: string): ConfigRuntime {
+export async function parseConfigFile(configPath: string): Promise<ConfigRuntime> {
   try {
     if (/\.ya?ml$/i.test(configPath)) {
       const yamlConfig = YAML.safeLoad(fs.readFileSync(configPath, 'utf8')) as ConfigYaml;
@@ -19,7 +19,7 @@ export function parseConfigFile(configPath: string): ConfigRuntime {
       });
     }
 
-    const jsonConfig = require(configPath) as ConfigYaml;
+    const jsonConfig = (await import(configPath)) as ConfigYaml;
     return Object.assign({}, jsonConfig, {
       configPath,
       // @deprecated use configPath instead
