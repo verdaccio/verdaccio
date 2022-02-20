@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import _ from 'lodash';
 
 import { HTTP_STATUS, VerdaccioError } from '@verdaccio/core';

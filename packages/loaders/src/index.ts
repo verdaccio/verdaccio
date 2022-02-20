@@ -1,1 +1,1 @@
-export * from './plugin-loader';
+export { loadPlugin } from './plugin-loader';

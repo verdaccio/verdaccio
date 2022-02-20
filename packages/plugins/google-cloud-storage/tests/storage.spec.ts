@@ -1,4 +1,5 @@
 import { DownloadResponse } from '@google-cloud/storage';
+import { jest } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { Writable } from 'stream';
@@ -64,10 +65,9 @@ describe.skip('Google Cloud Storage', () => {
   });
 
   const getCloudDatabase = (storageConfig): any => {
-    const GoogleCloudDatabase = require('../src/index').default;
-    const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
-
-    return cloudDatabase;
+    // const GoogleCloudDatabase = require('../src/index').default;
+    // const cloudDatabase = new GoogleCloudDatabase(storageConfig, { logger });
+    // return cloudDatabase;
   };
 
   // storage test
@@ -407,9 +407,9 @@ describe.skip('Google Cloud Storage', () => {
 
     describe('GoogleCloudStorageHandler:: writeFile', () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const MemoryFileSystem = require('memory-fs');
-      const memfs = new MemoryFileSystem();
-      const tarballFile = path.join(__dirname, '/partials/test-pkg/', 'test-pkg-1.0.0.tgz');
+      // const MemoryFileSystem = new (class MemoryFileSystem {})(); // require('memory-fs');
+      const memfs = {};
+      const tarballFile = ''; // path.join(__dirname, '/partials/test-pkg/', 'test-pkg-1.0.0.tgz');
       const FileWriteMocked = class {
         public name: string;
         public exist: boolean;

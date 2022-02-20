@@ -635,16 +635,16 @@ importers:
 
   packages/plugins/google-cloud-storage:
     specifiers:
-      '@google-cloud/datastore': 6.5.0
-      '@google-cloud/storage': 5.14.0
+      '@google-cloud/datastore': 6.6.2
+      '@google-cloud/storage': 5.18.2
       '@verdaccio/core': workspace:6.0.0-6-next.4
       '@verdaccio/streams': workspace:11.0.0-6-next.5
       '@verdaccio/types': workspace:11.0.0-6-next.10
       fast-crc32c: 1.0.7
       memory-fs: 0.5.0
     dependencies:
-      '@google-cloud/datastore': 6.5.0
-      '@google-cloud/storage': 5.14.0
+      '@google-cloud/datastore': 6.6.2
+      '@google-cloud/storage': 5.18.2
       '@verdaccio/core': link:../../core/core
       '@verdaccio/streams': link:../../core/streams
     optionalDependencies:
@@ -7045,17 +7045,17 @@ packages:
       typescript: 4.5.5
     dev: true
 
-  /@google-cloud/common/3.7.2:
-    resolution: {integrity: sha512-5Q9f74IbZaY6xAwJSNFy5SrGwbm1j7mpv+6A/r+K2dymjsXBH5UauB0tziaMwWoVVaMq1IQnZF9lgtfqqvxcUg==}
+  /@google-cloud/common/3.9.0:
+    resolution: {integrity: sha512-R9PfmCKbpOizvcLY+fz/TS4HdOQhvmf4EY4xEXvWnotGbGXujuTLJTJ2URy8BGT8TDxlh6gjjfEwjJ8McnNPIg==}
     engines: {node: '>=10'}
     dependencies:
       '@google-cloud/projectify': 2.0.1
       '@google-cloud/promisify': 2.0.3
       arrify: 2.0.1
-      duplexify: 4.1.1
+      duplexify: 4.1.2
       ent: 2.2.0
       extend: 3.0.2
-      google-auth-library: 7.9.1
+      google-auth-library: 7.12.0
       retry-request: 4.2.2
       teeny-request: 7.1.1
     transitivePeerDependencies:
@@ -7063,8 +7063,8 @@ packages:
       - supports-color
     dev: false
 
-  /@google-cloud/datastore/6.5.0:
-    resolution: {integrity: sha512-S9YzhW/W2/kY2W2baecqSULIfaaXP0AwqNK4X17IqPouDMRJwKvummJsQwknJAhDdU4rEprS3K4pln1BlUjQog==}
+  /@google-cloud/datastore/6.6.2:
+    resolution: {integrity: sha512-gQxSusM1gREtUogVqtl/KuoFrstYns8ZxY3guso2Mg2eJ+ygJwWdxXmG23T+aSbzkofh2OF3Mz0p3a+0F9KoPg==}
     engines: {node: '>=10'}
     dependencies:
       '@google-cloud/promisify': 2.0.3
@@ -7076,11 +7076,12 @@ packages:
       split-array-stream: 2.0.0
       stream-events: 1.0.5
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
-  /@google-cloud/paginator/3.0.5:
-    resolution: {integrity: sha512-N4Uk4BT1YuskfRhKXBs0n9Lg2YTROZc6IMpkO/8DIHODtm5s3xY8K5vVBo23v/2XulY3azwITQlYWgT4GdLsUw==}
+  /@google-cloud/paginator/3.0.7:
+    resolution: {integrity: sha512-jJNutk0arIQhmpUUQJPJErsojqo834KcyB6X7a1mxuic8i1tKXxde8E69IZxNZawRIlZdIK2QY4WALvlK5MzYQ==}
     engines: {node: '>=10'}
     dependencies:
       arrify: 2.0.1
@@ -7097,23 +7098,26 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@google-cloud/storage/5.14.0:
-    resolution: {integrity: sha512-tc8IrD1ZfKOm0WoC2r3+YG8K7NdaxsubedM3KYOf0m2QqqD4j9gYuEqIegs+jGoV2fr1XMibb9g/4DLp5Sv5kg==}
+  /@google-cloud/storage/5.18.2:
+    resolution: {integrity: sha512-hL/6epBF2uPt7YtJoOKI6mVxe6RsKBs7S8o2grE0bFGdQKSOngVHBcstH8jDw7aN2rXGouA2TfVTxH+VapY5cg==}
     engines: {node: '>=10'}
     dependencies:
-      '@google-cloud/common': 3.7.2
-      '@google-cloud/paginator': 3.0.5
+      '@google-cloud/common': 3.9.0
+      '@google-cloud/paginator': 3.0.7
       '@google-cloud/promisify': 2.0.3
+      abort-controller: 3.0.0
       arrify: 2.0.1
       async-retry: 1.3.3
       compressible: 2.0.18
+      configstore: 5.0.1
       date-and-time: 2.0.0
-      duplexify: 4.1.1
+      duplexify: 4.1.2
       extend: 3.0.2
-      gcs-resumable-upload: 3.3.1
+      gaxios: 4.3.1
       get-stream: 6.0.1
+      google-auth-library: 7.9.1
       hash-stream-validation: 0.2.4
-      mime: 2.5.2
+      mime: 3.0.0
       mime-types: 2.1.31
       p-limit: 3.1.0
       pumpify: 2.0.1
@@ -7129,7 +7133,7 @@ packages:
     resolution: {integrity: sha512-CKQVuwuSPh40tgOkR7c0ZisxYRiN05PcKPW72mQL5y++qd7CwBRoaJZvU5xfXnCJDFBmS3qZGQ71Frx6Ofo2XA==}
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
-      '@types/node': 15.12.4
+      '@types/node': 16.11.21
     dev: false
 
   /@grpc/proto-loader/0.6.4:
@@ -11554,7 +11558,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       dot-prop: 5.3.0
-      graceful-fs: 4.2.6
+      graceful-fs: 4.2.9
       make-dir: 3.1.0
       unique-string: 2.0.0
       write-file-atomic: 3.0.3
@@ -12809,15 +12813,6 @@ packages:
 
   /duplexer3/0.1.4:
     resolution: {integrity: sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=}
-
-  /duplexify/4.1.1:
-    resolution: {integrity: sha512-DY3xVEmVHTv1wSzKNbwoU6nVjzI369Y6sPoqfYr0/xlx3IdX2n94xIszTcjPO8W8ZIv0Wb0PXNcjuZyT4wiICA==}
-    dependencies:
-      end-of-stream: 1.4.4
-      inherits: 2.0.4
-      readable-stream: 3.6.0
-      stream-shift: 1.0.1
-    dev: false
 
   /duplexify/4.1.2:
     resolution: {integrity: sha512-fz3OjcNCHmRP12MJoZMPglx8m4rrFP8rovnk4vT8Fs+aonZoCwGg10dSsQsfP/E62eZcPTMSMP6686fu9Qlqtw==}
@@ -14833,8 +14828,9 @@ packages:
       extend: 3.0.2
       https-proxy-agent: 5.0.0
       is-stream: 2.0.0
-      node-fetch: 2.6.1
+      node-fetch: 2.6.7
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -14846,8 +14842,9 @@ packages:
       extend: 3.0.2
       https-proxy-agent: 5.0.0
       is-stream: 2.0.0
-      node-fetch: 2.6.1
+      node-fetch: 2.6.7
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -14858,22 +14855,7 @@ packages:
       gaxios: 3.2.0
       json-bigint: 1.0.0
     transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /gcs-resumable-upload/3.3.1:
-    resolution: {integrity: sha512-WyC0i4VkslIdrdmeM5PNuGzANALLXTG5RoHb08OE30gYT+FEvCDPiA8KOjV2s1wOu9ngEW4+IuzBjtP/ni7UdQ==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      abort-controller: 3.0.0
-      configstore: 5.0.1
-      extend: 3.0.2
-      gaxios: 4.3.1
-      google-auth-library: 7.9.1
-      pumpify: 2.0.1
-      stream-events: 1.0.5
-    transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -15107,6 +15089,24 @@ packages:
     resolution: {integrity: sha1-L0SUrIkZ43Z8XLtpHp9GMyQoXUM=}
     dev: true
 
+  /google-auth-library/7.12.0:
+    resolution: {integrity: sha512-RS/whvFPMoF1hQNxnoVET3DWKPBt1Xgqe2rY0k+Jn7TNhoHlwdnSe7Rlcbo2Nub3Mt2lUVz26X65aDQrWp6x8w==}
+    engines: {node: '>=10'}
+    dependencies:
+      arrify: 2.0.1
+      base64-js: 1.5.1
+      ecdsa-sig-formatter: 1.0.11
+      fast-text-encoding: 1.0.3
+      gaxios: 4.3.1
+      gcp-metadata: 4.2.0
+      gtoken: 5.0.4
+      jws: 4.0.0
+      lru-cache: 6.0.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
   /google-auth-library/7.9.1:
     resolution: {integrity: sha512-cWGykH2WBR+UuYPGRnGVZ6Cjq2ftQiEIFjQWNIRIauZH7hUWoYTr/lkKUqLTYt5dex77nlWWVQ8aPV80mhfp5w==}
     engines: {node: '>=10'}
@@ -15121,6 +15121,7 @@ packages:
       jws: 4.0.0
       lru-cache: 6.0.0
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -15133,16 +15134,17 @@ packages:
       '@grpc/proto-loader': 0.6.4
       '@types/long': 4.0.1
       abort-controller: 3.0.0
-      duplexify: 4.1.1
+      duplexify: 4.1.2
       fast-text-encoding: 1.0.3
       google-auth-library: 7.9.1
       is-stream-ended: 0.1.4
-      node-fetch: 2.6.1
+      node-fetch: 2.6.7
       object-hash: 2.2.0
       proto3-json-serializer: 0.1.3
       protobufjs: 6.11.2
-      retry-request: 4.1.3
+      retry-request: 4.2.2
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -15202,8 +15204,9 @@ packages:
       gaxios: 3.2.0
       google-p12-pem: 3.0.3
       jws: 4.0.0
-      mime: 2.5.2
+      mime: 2.6.0
     transitivePeerDependencies:
+      - encoding
       - supports-color
     dev: false
 
@@ -18588,16 +18591,16 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  /mime/2.5.2:
-    resolution: {integrity: sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==}
-    engines: {node: '>=4.0.0'}
-    hasBin: true
-    dev: false
-
   /mime/2.6.0:
     resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
     engines: {node: '>=4.0.0'}
     hasBin: true
+
+  /mime/3.0.0:
+    resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    dev: false
 
   /mimic-fn/2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
@@ -20919,7 +20922,7 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.1
-      '@types/node': 15.12.4
+      '@types/node': 16.11.21
       long: 4.0.0
     dev: false
 
@@ -20957,7 +20960,7 @@ packages:
   /pumpify/2.0.1:
     resolution: {integrity: sha512-m7KOje7jZxrmutanlkS1daj1dS6z6BgslzOXmcSEpIlCxM3VJH7lG5QLeck/6hgF6F4crFf01UtQmNsJfweTAw==}
     dependencies:
-      duplexify: 4.1.1
+      duplexify: 4.1.2
       inherits: 2.0.4
       pump: 3.0.0
     dev: false
@@ -22033,20 +22036,11 @@ packages:
     resolution: {integrity: sha512-WKE0j11Pa0ZJI5YIk0nflGI7SQsfl2ljihVy7ogh7DeQSeYAUi0ubZ/yEueGtDfUPk6GH5LRw1hBdLq4IwUBWA==}
     dev: true
 
-  /retry-request/4.1.3:
-    resolution: {integrity: sha512-QnRZUpuPNgX0+D1xVxul6DbJ9slvo4Rm6iV/dn63e048MvGbUZiKySVt6Tenp04JqmchxjiLltGerOJys7kJYQ==}
-    engines: {node: '>=8.10.0'}
-    dependencies:
-      debug: 4.3.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /retry-request/4.2.2:
     resolution: {integrity: sha512-xA93uxUD/rogV7BV59agW/JHPGXeREMWiZc9jhcwY4YdZ7QOtC7qbomYg0n4wyk2lJhggjvKvhNX8wln/Aldhg==}
     engines: {node: '>=8.10.0'}
     dependencies:
-      debug: 4.3.2
+      debug: 4.3.3
       extend: 3.0.2
     transitivePeerDependencies:
       - supports-color

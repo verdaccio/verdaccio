@@ -1,9 +1,13 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import Path from 'path';
+import { dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
 
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin } from '@verdaccio/types';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const debug = buildDebug('verdaccio:plugin:loader');
 
@@ -14,9 +18,9 @@ export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
  * @param {*} path the module's path
  * @return {Object}
  */
-function tryLoad(path: string): any {
+async function tryLoad(path: string): Promise<any> {
   try {
-    return require(path);
+    return await import(path);
   } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
       return null;
@@ -30,11 +34,7 @@ function mergeConfig(appConfig, pluginConfig): Config {
 }
 
 function isValid(plugin): boolean {
-  return _.isFunction(plugin) || _.isFunction(plugin.default);
-}
-
-function isES6(plugin): boolean {
-  return Object.keys(plugin).includes('default');
+  return _.isFunction(plugin.default);
 }
 
 // export type PluginGeneric<R, T extends IPlugin<R> = ;
@@ -44,40 +44,42 @@ function isES6(plugin): boolean {
  * - First try to load from the internal directory plugins (which will disappear soon or later).
  * - A second attempt from the external plugin directory
  * - A third attempt from node_modules, in case to have multiple match as for instance
- * verdaccio-ldap
- * and sinopia-ldap. All verdaccio prefix will have preferences.
+ * verdaccio-ldap . All verdaccio prefix will have preferences.
  * @param {*} config a reference of the configuration settings
  * @param {*} pluginConfigs
  * @param {*} params a set of params to initialize the plugin
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export function loadPlugin<T extends IPlugin<T>>(
+export async function loadPlugin<T extends IPlugin<T>>(
   config: Config,
   pluginConfigs: any = {},
   params: any,
   sanityCheck: any,
   prefix: string = 'verdaccio'
-): any[] {
-  return Object.keys(pluginConfigs).map((pluginId: string): IPlugin<T> => {
+): Promise<any[]> {
+  const pluginKeys = Object.keys(pluginConfigs);
+  const plugins: IPlugin<T>[] = [];
+
+  for (const pluginId of pluginKeys) {
     let plugin;
 
-    const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
+    const localPlugin = resolve(__dirname, '/../plugins', pluginId);
     // try local plugins first
-    plugin = tryLoad(localPlugin);
+    plugin = await tryLoad(localPlugin);
 
     // try the external plugin directory
     if (plugin === null && config.plugins) {
       const pluginDir = config.plugins;
-      const externalFilePlugin = Path.resolve(pluginDir, pluginId);
+      const externalFilePlugin = resolve(pluginDir, pluginId);
       plugin = tryLoad(externalFilePlugin);
 
       // npm package
       if (plugin === null && pluginId.match(/^[^\.\/]/)) {
-        plugin = tryLoad(Path.resolve(pluginDir, `${prefix}-${pluginId}`));
+        plugin = tryLoad(resolve(pluginDir, `${prefix}-${pluginId}`));
         // compatibility for old sinopia plugins
         if (!plugin) {
-          plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
+          plugin = tryLoad(resolve(pluginDir, `sinopia-${pluginId}`));
         }
       }
     }
@@ -85,10 +87,6 @@ export function loadPlugin<T extends IPlugin<T>>(
     // npm package
     if (plugin === null && pluginId.match(/^[^\.\/]/)) {
       plugin = tryLoad(`${prefix}-${pluginId}`);
-      // compatibility for old sinopia plugins
-      if (!plugin) {
-        plugin = tryLoad(`sinopia-${pluginId}`);
-      }
     }
 
     if (plugin === null) {
@@ -97,7 +95,7 @@ export function loadPlugin<T extends IPlugin<T>>(
 
     // relative to config path
     if (plugin === null && pluginId.match(/^\.\.?($|\/)/)) {
-      plugin = tryLoad(Path.resolve(Path.dirname(config.config_path), pluginId));
+      plugin = tryLoad(resolve(dirname(config.config_path), pluginId));
     }
 
     if (plugin === null) {
@@ -119,9 +117,7 @@ export function loadPlugin<T extends IPlugin<T>>(
 
     /* eslint new-cap:off */
     try {
-      plugin = isES6(plugin)
-        ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
-        : plugin(pluginConfigs[pluginId], params);
+      plugin = new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params);
     } catch (error: any) {
       plugin = null;
       logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
@@ -137,6 +133,8 @@ export function loadPlugin<T extends IPlugin<T>>(
     }
 
     debug('Plugin successfully loaded: %o-%o', pluginId, prefix);
-    return plugin;
-  });
+    plugins.push(plugin);
+  }
+
+  return plugins;
 }
