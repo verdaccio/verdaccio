@@ -1,5 +1,6 @@
 import fs from 'fs';
-import Path from 'path';
+import { HttpError } from 'http-errors';
+import { dirname, resolve } from 'path';
 
 import { unlockFile } from '@verdaccio/file-locking';
 import { Callback, Config, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
@@ -88,7 +89,11 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       throw new Error('should specify "file" in config');
     }
 
-    this.path = Path.resolve(Path.dirname(this.verdaccioConfig.config_path), file);
+    this.path = this.getPath(file);
+  }
+
+  public getPath(file) {
+    return resolve(dirname(this.verdaccioConfig.config_path), file);
   }
 
   /**
@@ -106,7 +111,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       if (!this.users[user]) {
         return cb(null, false);
       }
-      if (!verifyPassword(password, this.users[user])) {
+      if (!this.verifyPassword(password, this.users[user])) {
         return cb(null, false);
       }
 
@@ -116,6 +121,35 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       // user herself)
       return cb(null, [user]);
     });
+  }
+
+  public verifyPassword(passwd: string, hash: string) {
+    return verifyPassword(passwd, hash);
+  }
+
+  public sanityCheck(user: string, password: string, verifyPassword): HttpError | null {
+    return sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+  }
+
+  public lockAndRead(name: string, cb: Callback): void {
+    lockAndRead(name, cb);
+  }
+
+  public unlockFile(name: string, cb: Callback): void {
+    unlockFile(name, cb);
+  }
+
+  public parseHTPasswd(input: string): Record<string, any> {
+    return parseHTPasswd(input);
+  }
+
+  public addUserToHTPasswd(
+    body: string,
+    user: string,
+    passwd: string,
+    hashConfig: HtpasswdHashConfig
+  ): string {
+    return addUserToHTPasswd(body, user, passwd, hashConfig);
   }
 
   /**
@@ -134,7 +168,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
    */
   public adduser(user: string, password: string, realCb: Callback): any {
     const pathPass = this.path;
-    let sanity = sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
+    let sanity = this.sanityCheck(user, password, this.verifyPassword);
 
     // preliminary checks, just to ensure that file won't be reloaded if it's
     // not needed
@@ -142,13 +176,13 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       return realCb(sanity, false);
     }
 
-    lockAndRead(pathPass, (err, res): void => {
+    this.lockAndRead(pathPass, (err, res): void => {
       let locked = false;
 
       // callback that cleans up lock first
       const cb = (err): void => {
         if (locked) {
-          unlockFile(pathPass, () => {
+          this.unlockFile(pathPass, () => {
             // ignore any error from the unlock
             realCb(err, !err);
           });
@@ -166,7 +200,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
         return cb(err);
       }
       const body = (res || '').toString('utf8');
-      this.users = parseHTPasswd(body);
+      this.users = this.parseHTPasswd(body);
 
       // real checks, to prevent race conditions
       // parsing users after reading file.
@@ -177,7 +211,8 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       }
 
       try {
-        this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+        const htpasswUser: string = this.addUserToHTPasswd(body, user, password, this.hashConfig);
+        this.writeFile(htpasswUser, cb);
       } catch (err: any) {
         return cb(err);
       }
@@ -198,14 +233,14 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       }
 
       this.lastTime = stats.mtime;
-
       fs.readFile(this.path, 'utf8', (err, buffer) => {
         if (err) {
           return callback(err);
         }
 
-        Object.assign(this.users, parseHTPasswd(buffer));
-        callback();
+        Object.assign(this.users, this.parseHTPasswd(buffer));
+
+        callback(null, this.users);
       });
     });
   }
@@ -214,7 +249,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
     return (authentication || '').toString();
   }
 
-  private _writeFile(body: string, cb: Callback): void {
+  public writeFile(body: string, cb: Callback): void {
     fs.writeFile(this.path, body, (err) => {
       if (err) {
         cb(err);
@@ -239,14 +274,14 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
     newPassword: string,
     realCb: Callback
   ): void {
-    lockAndRead(this.path, (err, res) => {
+    this.lockAndRead(this.path, (err, res) => {
       let locked = false;
       const pathPassFile = this.path;
 
       // callback that cleans up lock first
       const cb = (err): void => {
         if (locked) {
-          unlockFile(pathPassFile, () => {
+          this.unlockFile(pathPassFile, () => {
             // ignore any error from the unlock
             realCb(err, !err);
           });
@@ -264,14 +299,14 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
       }
 
       const body = this._stringToUt8(res);
-      this.users = parseHTPasswd(body);
+      this.users = this.parseHTPasswd(body);
 
       if (!this.users[user]) {
         return cb(new Error('User not found'));
       }
 
       try {
-        this._writeFile(
+        this.writeFile(
           changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig),
           cb
         );

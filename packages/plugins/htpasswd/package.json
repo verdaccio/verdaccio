@@ -19,18 +19,16 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/core/htpasswd"
+    "directory": "packages/plugins/htpasswd"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
-  "main": "./build/index.js",
+  "exports": "./build/index.js",
+  "type": "module",
   "types": "./build/index.d.ts",
-  "files": [
-    "build"
-  ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "dependencies": {
@@ -38,18 +36,18 @@
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.4",
     "apache-md5": "1.1.7",
     "bcryptjs": "2.4.3",
-    "core-js": "3.20.3",
-    "http-errors": "1.8.1",
+    "http-errors": "2.0.0",
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
-    "mockdate": "3.0.5"
+    "mockdate": "3.0.5",
+    "fs-extra": "10.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "vitest --run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

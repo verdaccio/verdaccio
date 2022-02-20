@@ -1,22 +1,30 @@
+import { describe, expect, test } from 'vitest';
+
 import { EncryptionMethod, createSalt } from '../src/crypt3';
 
-jest.mock('crypto', () => {
-  return {
-    randomBytes: (len: number): { toString: () => string } => {
-      return {
-        toString: (): string => '/UEGzD0RxSNDZA=='.substring(0, len),
-      };
-    },
-  };
-});
-
 describe('createSalt', () => {
-  test('should match with the correct salt type', () => {
-    expect(createSalt(EncryptionMethod.crypt)).toEqual('/U');
-    expect(createSalt(EncryptionMethod.md5)).toEqual('$1$/UEGzD0RxS');
-    expect(createSalt(EncryptionMethod.blowfish)).toEqual('$2a$/UEGzD0RxS');
-    expect(createSalt(EncryptionMethod.sha256)).toEqual('$5$/UEGzD0RxS');
-    expect(createSalt(EncryptionMethod.sha512)).toEqual('$6$/UEGzD0RxS');
+  test('md5', () => {
+    expect(createSalt(EncryptionMethod.md5).startsWith('$1$')).toBeTruthy();
+    expect(createSalt(EncryptionMethod.md5)).toHaveLength(19);
+  });
+
+  test('crypt', () => {
+    expect(createSalt(EncryptionMethod.crypt)).toHaveLength(4);
+  });
+
+  test('blowfish', () => {
+    expect(createSalt(EncryptionMethod.blowfish).startsWith('$2a$')).toBeTruthy();
+    expect(createSalt(EncryptionMethod.blowfish)).toHaveLength(20);
+  });
+
+  test('sha256', () => {
+    expect(createSalt(EncryptionMethod.sha256).startsWith('$5$')).toBeTruthy();
+    expect(createSalt(EncryptionMethod.sha256)).toHaveLength(19);
+  });
+
+  test('sha512', () => {
+    expect(createSalt(EncryptionMethod.sha512).startsWith('$6$')).toBeTruthy();
+    expect(createSalt(EncryptionMethod.sha512)).toHaveLength(19);
   });
 
   test('should fails on unkwon type', () => {
@@ -26,6 +34,6 @@ describe('createSalt', () => {
   });
 
   test('should generate legacy crypt salt by default', () => {
-    expect(createSalt()).toEqual(createSalt(EncryptionMethod.crypt));
+    expect(createSalt()).toHaveLength(createSalt(EncryptionMethod.crypt).length);
   });
 });
