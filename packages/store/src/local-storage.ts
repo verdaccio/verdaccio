@@ -101,7 +101,7 @@ class LocalStorage {
 
   public async init() {
     if (this.storagePlugin === null) {
-      this.storagePlugin = this._loadStorage(this.config, this.logger);
+      this.storagePlugin = await this._loadStorage(this.config, this.logger);
       debug('storage plugin init');
       await this.storagePlugin.init();
       debug('storage plugin initialized');
@@ -1229,8 +1229,8 @@ class LocalStorage {
     return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
   }
 
-  private _loadStorage(config: Config, logger: Logger): IPluginStorage {
-    const Storage = this._loadStorePlugin();
+  private async _loadStorage(config: Config, logger: Logger): Promise<IPluginStorage> {
+    const Storage = await this._loadStorePlugin();
 
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
@@ -1239,13 +1239,13 @@ class LocalStorage {
     return Storage as IPluginStorage;
   }
 
-  private _loadStorePlugin(): IPluginStorage | void {
+  private async _loadStorePlugin(): Promise<void | IPluginStorage> {
     const plugin_params = {
       config: this.config,
       logger: this.logger,
     };
 
-    const plugins: IPluginStorage[] = loadPlugin<IPluginStorage>(
+    const plugins: IPluginStorage[] = await loadPlugin<IPluginStorage>(
       this.config,
       this.config.store,
       plugin_params,

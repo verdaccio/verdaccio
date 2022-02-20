@@ -28,8 +28,9 @@ export interface IPluginMiddleware<T> extends IPlugin<T> {
 
 const debug = buildDebug('verdaccio:server');
 
-const defineAPI = function (config: IConfig, storage: Storage): any {
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
+  await auth.init();
   const app: Application = express();
   const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case
@@ -67,7 +68,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
     logger: logger,
   };
 
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
+  const plugins: IPluginMiddleware<IConfig>[] = await loadPlugin(
     config,
     config.middlewares,
     plugin_params,
@@ -142,7 +143,7 @@ export default (async function (configHash: ConfigRuntime): Promise<any> {
     config: config,
     logger: logger,
   };
-  const filters = loadPlugin(
+  const filters = await loadPlugin(
     config,
     config.filters || {},
     plugin_params,
@@ -160,5 +161,5 @@ export default (async function (configHash: ConfigRuntime): Promise<any> {
     logger.error({ error: err.msg }, 'storage has failed: @{error}');
     throw new Error(err);
   }
-  return defineAPI(config, storage);
+  return await defineAPI(config, storage);
 });

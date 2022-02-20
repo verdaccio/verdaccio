@@ -13,10 +13,10 @@ import { setSecurityWebHeaders } from './security';
 
 const debug = buildDebug('verdaccio:web:render');
 
-export function loadTheme(config) {
+export async function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
     return _.head(
-      loadPlugin(
+      await loadPlugin(
         config,
         config.theme,
         {},
@@ -41,6 +41,7 @@ const sendFileCallback = (next) => (err) => {
 };
 
 export function renderWebMiddleware(config, auth, storage): any {
+  // FIXME: here is missing await loadTheme()
   const { staticPath, manifest, manifestFiles } = require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
   SearchInstance.configureStorage(storage);

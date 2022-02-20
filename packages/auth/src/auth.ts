@@ -88,7 +88,7 @@ class Auth implements IAuth {
   public config: Config;
   public logger: Logger;
   public secret: string;
-  public plugins: IPluginAuth<Config>[];
+  public plugins: IPluginAuth<Config>[] = [];
 
   public constructor(config: Config) {
     this.config = config;
@@ -97,9 +97,13 @@ class Auth implements IAuth {
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
     }
+  }
 
+  public async init() {
     this.plugins =
-      _.isNil(config?.auth) === false ? this._loadPlugin(config) : this.loadDefaultPlugin(config);
+      _.isNil(this.config?.auth) === false
+        ? await this._loadPlugin(this.config)
+        : this.loadDefaultPlugin(this.config);
     this._applyDefaultPlugins();
   }
 
@@ -120,13 +124,13 @@ class Auth implements IAuth {
     return [authPlugin];
   }
 
-  private _loadPlugin(config: Config): IPluginAuth<Config>[] {
+  private async _loadPlugin(config: Config): Promise<IPluginAuth<Config>[]> {
     const pluginOptions = {
       config,
       logger: this.logger,
     };
 
-    return loadPlugin<IPluginAuth<Config>>(
+    return await loadPlugin<IPluginAuth<Config>>(
       config,
       config.auth,
       pluginOptions,
