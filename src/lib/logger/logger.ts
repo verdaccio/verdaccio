@@ -120,18 +120,24 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
+  const prettyPrintOptions = {
+    // we hide warning since the prettifier should not be used in production
+    // https://getpino.io/#/docs/pretty?id=prettifier-api
+    suppressFlushSyncWarning: true,
+    colorsize: 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY,
+  };  
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
     process.on('SIGUSR2', () => destination.reopen());
-    logger = createLogger(pinoConfig, destination, loggerConfig.format);
+    logger = createLogger(pinoConfig, destination, loggerConfig.format, prettyPrintOptions);
   } else if (loggerConfig.type === 'rotating-file') {
     process.emitWarning('rotating-file type is not longer supported, consider use [logrotate] instead');
     debug('logging stdout enabled');
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format, prettyPrintOptions);
   } else {
     debug('logging stdout enabled');
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format, prettyPrintOptions);
   }
 
   if (isProd()) {
