@@ -116,11 +116,13 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
+  let colors = 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY;
+  if ('VERDACCIO_LOGGER_COLORS' in process.env) colors = Boolean(process.env.VERDACCIO_LOGGER_COLORS);
   const prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
     // https://getpino.io/#/docs/pretty?id=prettifier-api
     suppressFlushSyncWarning: true,
-    colors: 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY,
+    colors,
   };  
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
