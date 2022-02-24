@@ -116,7 +116,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
-  let colors = 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY;
+  let colors = 'colors' in loggerConfig ? loggerConfig.colors : process.stdout.isTTY;
   if ('VERDACCIO_LOGGER_COLORS' in process.env) colors = Boolean(process.env.VERDACCIO_LOGGER_COLORS);
   const prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
