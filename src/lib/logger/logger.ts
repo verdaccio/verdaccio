@@ -120,7 +120,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     // we hide warning since the prettifier should not be used in production
     // https://getpino.io/#/docs/pretty?id=prettifier-api
     suppressFlushSyncWarning: true,
-    colorsize: 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY,
+    colors: 'colors' in loggerConfig ? loggerConfig.colors : process.stdin.isTTY,
   };  
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
