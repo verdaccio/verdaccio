@@ -11,7 +11,6 @@ module.exports = function prettyFactory(options: PrettyOptionsExtended): PrettyF
   // the break line must happens in the prettify component
   const breakLike = '\n';
   return (inputData): string => {
-    // FIXME: review colors by default is true
-    return printMessage(inputData, options, true) + breakLike;
+    return printMessage(inputData, options, options.colors) + breakLike;
   };
 };
