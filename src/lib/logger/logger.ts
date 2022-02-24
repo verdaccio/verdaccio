@@ -25,11 +25,7 @@ export function createLogger(
   options = { level: 'http' },
   destination = pino.destination(1),
   format: LogFormat = DEFAULT_LOG_FORMAT,
-  prettyPrintOptions = {
-    // we hide warning since the prettifier should not be used in production
-    // https://getpino.io/#/docs/pretty?id=prettifier-api
-    suppressFlushSyncWarning: true,
-  }
+  prettyPrintOptions
 ) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
