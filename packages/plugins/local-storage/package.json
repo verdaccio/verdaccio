@@ -13,6 +13,7 @@
     "server",
     "verdaccio"
   ],
+  "type": "module",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
@@ -27,13 +28,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./build/index.js",
+  "exports": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
     "build/"
   ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=7"
   },
   "dependencies": {
@@ -60,7 +61,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "vitest --run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

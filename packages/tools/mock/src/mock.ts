@@ -2,11 +2,16 @@ import fs from 'fs';
 import * as fsExtra from 'fs-extra';
 import os from 'os';
 import path from 'path';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import { DOMAIN_SERVERS } from './constants';
 import Server, { IServerBridge } from './server';
 import VerdaccioProcess from './server_process';
 import { VerdaccioConfig } from './verdaccio-server';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 /**
  * Fork a Verdaccio process with a custom configuration.

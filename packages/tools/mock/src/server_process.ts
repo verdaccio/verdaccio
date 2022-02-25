@@ -1,5 +1,6 @@
 import assert from 'assert';
 import { fork } from 'child_process';
+import { createRequire } from 'module';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 
@@ -7,6 +8,7 @@ import { CREDENTIALS } from './constants';
 import { IServerBridge } from './server';
 import { IServerProcess, IVerdaccioConfig } from './types';
 
+const require = createRequire(import.meta.url);
 const defaultBinPath = require.resolve('verdaccio/bin/verdaccio');
 
 export default class VerdaccioProcess implements IServerProcess {

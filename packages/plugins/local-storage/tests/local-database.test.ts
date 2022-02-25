@@ -1,29 +1,30 @@
 /* eslint-disable jest/no-mocks-import */
 import path from 'path';
 import { dirSync } from 'tmp-promise';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { IPluginStorage, Logger, PluginOptions } from '@verdaccio/types';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
 
-const mockWrite = jest.fn(() => Promise.resolve());
-const mockmkdir = jest.fn(() => Promise.resolve());
-const mockRead = jest.fn(() => Promise.resolve());
+const mockWrite = vi.fn(() => Promise.resolve());
+const mockmkdir = vi.fn(() => Promise.resolve());
+const mockRead = vi.fn(() => Promise.resolve());
 
-jest.mock('../src/fs', () => ({
+vi.mock('../src/fs', () => ({
   mkdirPromise: () => mockRead(),
   readFilePromise: () => mockmkdir(),
   writeFilePromise: () => mockWrite(),
 }));
 
 const logger: Logger = {
-  error: jest.fn(),
-  info: jest.fn(),
-  debug: jest.fn(),
-  child: jest.fn(),
-  warn: jest.fn(),
-  http: jest.fn(),
-  trace: jest.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn(),
+  child: vi.fn(),
+  warn: vi.fn(),
+  http: vi.fn(),
+  trace: vi.fn(),
 };
 
 // @ts-expect-error
@@ -53,8 +54,8 @@ describe('Local Database', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
+    vi.resetAllMocks();
+    vi.clearAllMocks();
     // tmpFolder.removeCallback();
   });
 
@@ -182,8 +183,8 @@ describe('Local Database', () => {
   // });
 
   // describe('search', () => {
-  //   const onPackageMock = jest.fn((item, cb) => cb());
-  //   const validatorMock = jest.fn(() => true);
+  //   const onPackageMock = vi.fn((item, cb) => cb());
+  //   const validatorMock = vi.fn(() => true);
   //   const callSearch = (db, numberTimesCalled, cb): void => {
   //     db.search(
   //       onPackageMock,
@@ -198,7 +199,7 @@ describe('Local Database', () => {
   //   test('should find scoped packages', (done) => {
   //     const scopedPackages = ['@pkg1/test'];
   //     const stats = { mtime: new Date() };
-  //     jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+  //     vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
   //     jest
   //       .spyOn(fs, 'readdir')
   //       .mockImplementation((storePath, cb) =>
@@ -211,7 +212,7 @@ describe('Local Database', () => {
   //   test('should find non scoped packages', (done) => {
   //     const nonScopedPackages = ['pkg1', 'pkg2'];
   //     const stats = { mtime: new Date() };
-  //     jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
+  //     vi.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
   //     jest
   //       .spyOn(fs, 'readdir')
   //       .mockImplementation((storePath, cb) =>

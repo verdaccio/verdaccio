@@ -172,7 +172,7 @@ export async function runServer(config?: string | ConfigRuntime): Promise<any> {
   let configurationParsed: ConfigRuntime;
   if (config === undefined || typeof config === 'string') {
     const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation);
+    configurationParsed = await parseConfigFile(configPathLocation);
   } else if (_.isObject(config)) {
     configurationParsed = config;
   } else {

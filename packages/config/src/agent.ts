@@ -1,13 +1,10 @@
 import assert from 'assert';
 import _ from 'lodash';
 
-import meta from '../package.json';
-
-const { version: pkgVersion } = meta;
-const pkgName = 'verdaccio';
+// FIXME: version from env variable
+const pkgVersion = '6.0.0';
 
 export function getUserAgent(): string {
-  assert(_.isString(pkgName));
   assert(_.isString(pkgVersion));
-  return `${pkgName}/${pkgVersion}`;
+  return `verdaccio/${pkgVersion}`;
 }

@@ -2,7 +2,8 @@
   "name": "@verdaccio/server",
   "version": "6.0.0-6-next.25",
   "description": "server logic",
-  "main": "./build/index.js",
+  "type": "module",
+  "exports": "./build/index.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -26,7 +27,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "dependencies": {
@@ -58,7 +59,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest --detectOpenHandles",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --detectOpenHandles",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "watch": "pnpm build:js -- --watch",

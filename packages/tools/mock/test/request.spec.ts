@@ -1,10 +1,12 @@
+import { jest } from '@jest/globals';
 import _ from 'lodash';
+import { createRequire } from 'module';
 
 import { HTTP_STATUS, VerdaccioError } from '@verdaccio/core';
 
 import { mockServer } from '../src/mock';
 import smartRequest, { PromiseAssert } from '../src/request';
-import { IRequestPromise } from '../src/types';
+import type { IRequestPromise } from '../src/types';
 
 describe('Request Functional', () => {
   jest.setTimeout(20000);
@@ -32,8 +34,10 @@ describe('Request Functional', () => {
 
   describe('smartRequest Rest', () => {
     beforeAll(async () => {
-      const binPath = require.resolve('verdaccio/bin/verdaccio');
-      mockRegistry = await mockServer(mockServerPort).init(binPath);
+      const require = createRequire(import.meta.url);
+      const pathName = require.resolve('verdaccio/bin/verdaccio');
+      // const binPath = await import.meta.resolve('verdaccio/bin/verdaccio');
+      mockRegistry = await mockServer(mockServerPort).init(pathName);
     });
 
     afterAll(function (done) {

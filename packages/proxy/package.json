@@ -2,7 +2,8 @@
   "name": "@verdaccio/proxy",
   "version": "6.0.0-6-next.17",
   "description": "verdaccio proxy fetcher",
-  "main": "./build/index.js",
+  "type": "module",
+  "exports": "./build/index.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -26,12 +27,12 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
+    "node": ">=16.0.0",
     "npm": ">=6"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
