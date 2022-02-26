@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "6.0.0-6-next.17",
+  "version": "6.0.0-6-next.18",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -41,8 +41,8 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.9",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.9",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.10",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "debug": "4.3.3",
     "express": "4.17.2",

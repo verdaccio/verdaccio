@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.10
+
+### Patch Changes
+
+- b78f3525: Fix re-opening log files using SIGUSR2
+
 ## 6.0.0-6-next.9
 
 ### Major Changes

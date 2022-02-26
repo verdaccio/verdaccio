@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.17
+
+### Patch Changes
+
+- c9089631: fix: specific version package detail page not showing
+
 ## 6.0.0-6-next.16
 
 ### Minor Changes

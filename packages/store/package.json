@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "6.0.0-6-next.18",
+  "version": "6.0.0-6-next.19",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -41,10 +41,10 @@
   "dependencies": {
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.9",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.10",
     "@verdaccio/local-storage": "workspace:11.0.0-6-next.11",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.9",
-    "@verdaccio/proxy": "workspace:6.0.0-6-next.17",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
+    "@verdaccio/proxy": "workspace:6.0.0-6-next.18",
     "@verdaccio/streams": "workspace:11.0.0-6-next.5",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.11",

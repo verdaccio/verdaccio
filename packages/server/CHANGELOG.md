@@ -1,5 +1,18 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.26
+
+### Patch Changes
+
+- Updated dependencies [b78f3525]
+  - @verdaccio/logger@6.0.0-6-next.10
+  - @verdaccio/api@6.0.0-6-next.21
+  - @verdaccio/auth@6.0.0-6-next.18
+  - @verdaccio/loaders@6.0.0-6-next.10
+  - @verdaccio/middleware@6.0.0-6-next.18
+  - @verdaccio/store@6.0.0-6-next.19
+  - @verdaccio/web@6.0.0-6-next.24
+
 ## 6.0.0-6-next.25
 
 ### Minor Changes
