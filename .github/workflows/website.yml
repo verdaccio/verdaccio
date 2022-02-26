@@ -3,20 +3,20 @@ name: Verdaccio Website CI
 on:
   workflow_dispatch:
   pull_request:
-    types:
-      - opened
-      - synchronize
-    paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+  #   types:
+  #     - opened
+  #     - synchronize
+  #   paths:
+  #     - 'website/**'
+  #     - 'package.json'
+  #     - './.github/workflows/website.yml'
+  # push:
+  #   branches:
+  #     - 'master'
+  #   paths:
+  #     - 'website/**'
+  #     - 'package.json'
+  #     - './.github/workflows/website.yml'
 
 jobs:
   build:
