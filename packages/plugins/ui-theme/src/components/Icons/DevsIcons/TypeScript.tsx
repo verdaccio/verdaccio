@@ -9,5 +9,5 @@ const ImgIcon = styled.img<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 export function TypeScript() {
-  return <ImgIcon alt="dsadsa" height="20" src={iconTS} width="20" />;
+  return <ImgIcon alt="typescript" height="20" src={iconTS} width="20" />;
 }

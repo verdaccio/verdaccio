@@ -9,5 +9,5 @@ const ImgIcon = styled.img<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 export function CommonJS() {
-  return <ImgIcon alt="dsadsa" height="20" src={icon} width="20" />;
+  return <ImgIcon alt="commonjs" height="20" src={icon} width="20" />;
 }

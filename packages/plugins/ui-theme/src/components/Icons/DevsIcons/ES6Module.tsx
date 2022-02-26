@@ -9,5 +9,5 @@ const ImgIcon = styled.img<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 export function ES6Modules() {
-  return <ImgIcon alt="dsadsa" height="20" src={icon} width="20" />;
+  return <ImgIcon alt="es6 modules" height="20" src={icon} width="20" />;
 }
