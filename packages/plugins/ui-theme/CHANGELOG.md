@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.18
+
+### Patch Changes
+
+- df53f61c: feat: add types and package module icons on sidebar
+
 ## 6.0.0-6-next.17
 
 ### Patch Changes
