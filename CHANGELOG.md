@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.6.2](https://github.com/verdaccio/verdaccio/compare/v5.6.1...v5.6.2) (2022-02-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.18 ([#3019](https://github.com/verdaccio/verdaccio/issues/3019)) ([7cff3f7](https://github.com/verdaccio/verdaccio/commit/7cff3f7693626aab4543d9c0ae0236416c8c2c9b))
+* **deps:** update dependency pino to v6.14.0 ([#3018](https://github.com/verdaccio/verdaccio/issues/3018)) ([08b72b4](https://github.com/verdaccio/verdaccio/commit/08b72b46638587041d42040875ff92f4c4409548))
+
 ### [5.6.1](https://github.com/verdaccio/verdaccio/compare/v5.6.0...v5.6.1) (2022-02-26)
 
 
