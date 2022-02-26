@@ -31,7 +31,7 @@ importers:
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.4
       '@crowdin/cli': 3.7.7
-      '@dianmora/contributors': 1.1.0
+      '@dianmora/contributors': 2.0.2
       '@trivago/prettier-plugin-sort-imports': 3.2.0
       '@types/async': 3.2.12
       '@types/autocannon': 4.1.1
@@ -123,7 +123,7 @@ importers:
       '@changesets/cli': 2.15.0
       '@changesets/get-dependents-graph': 1.2.4
       '@crowdin/cli': 3.7.7
-      '@dianmora/contributors': 1.1.0
+      '@dianmora/contributors': 2.0.2
       '@trivago/prettier-plugin-sort-imports': 3.2.0_prettier@2.5.1
       '@types/async': 3.2.12
       '@types/autocannon': 4.1.1
@@ -5836,12 +5836,12 @@ packages:
       '@cspotcode/source-map-consumer': 0.8.0
     dev: true
 
-  /@dianmora/contributors/1.1.0:
-    resolution: {integrity: sha512-1HQrfiNHWUEFMSur1twULb2WKURcDZw95Cl/RT9fRXT4gdReJHXlDKrTAy1KCPWL8cbcZ6B3/7ffy8dxeNUX6Q==}
+  /@dianmora/contributors/2.0.2:
+    resolution: {integrity: sha512-eJ+lrmm/AICnQx0t14uJimc7v4ocAhI9V7y8VSM6uZQiiwqll0CJH0O0e94vWCznQWV9wHvzJai2qvhYTZhAUA==}
     dependencies:
       '@octokit/auth-app': 3.6.1
       '@octokit/rest': 18.12.0
-      debug: 4.3.1
+      debug: 4.3.3
     transitivePeerDependencies:
       - encoding
       - supports-color

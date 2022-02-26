@@ -1,9 +1,8 @@
+import contributors from '@dianmora/contributors';
 import fs from 'fs/promises';
 import path from 'path';
 
 const token = process.env.TOKEN;
-// TODO: migrate to ESM and import
-const contributors = require('@dianmora/contributors');
 const excludebots = [
   'verdacciobot',
   'dependabot-preview[bot]',
@@ -21,7 +20,7 @@ const excludebots = [
   try {
     // Awesome script made by https://github.com/dianmorales
     const result = await contributors({
-      token: token,
+      token,
       organization: 'verdaccio',
       excludebots,
       allowFork: false,
