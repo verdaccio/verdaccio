@@ -139,7 +139,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
-            ["pino", "npm:6.13.4"],
+            ["pino", "npm:6.14.0"],
             ["pinst", "npm:2.1.6"],
             ["pkginfo", "npm:0.4.1"],
             ["prettier", "npm:2.5.1"],
@@ -14601,10 +14601,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["pino", [
-        ["npm:6.13.4", {
-          "packageLocation": "./.yarn/cache/pino-npm-6.13.4-5dfd67b749-166d364416.zip/node_modules/pino/",
+        ["npm:6.14.0", {
+          "packageLocation": "./.yarn/cache/pino-npm-6.14.0-d486952bad-1e8e661d47.zip/node_modules/pino/",
           "packageDependencies": [
-            ["pino", "npm:6.13.4"],
+            ["pino", "npm:6.14.0"],
             ["fast-redact", "npm:3.0.0"],
             ["fast-safe-stringify", "npm:2.0.8"],
             ["flatstr", "npm:1.0.12"],
@@ -17664,7 +17664,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
             ["node-mocks-http", "npm:1.10.1"],
-            ["pino", "npm:6.13.4"],
+            ["pino", "npm:6.14.0"],
             ["pinst", "npm:2.1.6"],
             ["pkginfo", "npm:0.4.1"],
             ["prettier", "npm:2.5.1"],
