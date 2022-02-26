@@ -67,15 +67,18 @@ export const manifest = createModel<RootModel>()({
     async getManifest({ packageName, packageVersion }, state) {
       const basePath = state.configuration.config.base;
       try {
-        if (!isPackageVersionValid(packageName, packageVersion)) {
-          throw new Error('not found');
-        }
-
         const manifest: Package = await API.request(
           `${basePath}-/verdaccio/data/sidebar/${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
           }`
         );
+
+        // FIXME: update types accordingly
+        // @ts-ignore
+        if (!isPackageVersionValid(manifest, packageVersion)) {
+          throw new Error('not found');
+        }
+
         const readme: string = await API.request<string>(
           `${basePath}-/verdaccio/data/package/readme/${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
