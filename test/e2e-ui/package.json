@@ -4,7 +4,7 @@
   "version": "2.0.0-6-next.3",
   "devDependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.16",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.17",
     "debug": "4.3.3",
     "kleur": "3.0.3",
     "lodash": "4.17.21",

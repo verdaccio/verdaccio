@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "6.0.0-6-next.9",
+  "version": "6.0.0-6-next.10",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -13,7 +13,7 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/logger": "workspace:6.0.0-6-next.9",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
     "debug": "4.3.3",
     "lodash": "4.17.21"
   },

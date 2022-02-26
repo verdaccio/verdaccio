@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "6.0.0-6-next.11",
+  "version": "6.0.0-6-next.12",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.9",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "handlebars": "4.7.7",
@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.21",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.17",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.18",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/types": "workspace:11.0.0-6-next.10"
   },
