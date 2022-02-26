@@ -21,7 +21,7 @@ const detailContextValue = {
   version: '1.0.0',
 };
 
-describe.skip('test Version page', () => {
+describe('test Version page', () => {
   test('should render the version page', async () => {
     const { getByTestId, getByText } = render(
       <MemoryRouter>
