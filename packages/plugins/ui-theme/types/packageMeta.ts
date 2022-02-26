@@ -1,3 +1,5 @@
+export type ModuleType = 'commonjs' | 'module';
+
 export interface PackageMetaInterface {
   versions?: Versions;
   'dist-tags'?: DistTags;
@@ -25,6 +27,9 @@ export interface PackageMetaInterface {
       type?: string;
       url?: string;
     };
+    main?: string;
+    type?: ModuleType;
+    types?: string;
     description?: string;
     funding?: Funding;
     maintainers?: Developer[];

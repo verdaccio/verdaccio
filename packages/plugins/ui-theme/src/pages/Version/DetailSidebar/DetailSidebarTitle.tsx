@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ModuleType } from 'types/packageMeta';
 import Box from 'verdaccio-ui/components/Box';
 import Heading from 'verdaccio-ui/components/Heading';
+import { CommonJS, ES6Modules, TypeScript } from 'verdaccio-ui/components/Icons';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {
@@ -10,13 +12,40 @@ interface Props {
   description?: string;
   version: string;
   isLatest: boolean;
+  hasTypes?: boolean;
+  moduleType: ModuleType | void;
 }
 
-const DetailSidebarTitle: React.FC<Props> = ({ description, packageName, version, isLatest }) => {
+const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
+  if (module === 'commonjs') {
+    return <CommonJS />;
+  } else if (module === 'module') {
+    return <ES6Modules />;
+  } else {
+    return null;
+  }
+};
+
+const DetailSidebarTitle: React.FC<Props> = ({
+  description,
+  packageName,
+  version,
+  isLatest,
+  hasTypes,
+  moduleType,
+}) => {
   const { t } = useTranslation();
   return (
     <Box className={'detail-info'} display="flex" flexDirection="column" marginBottom="8px">
-      <StyledHeading>{packageName}</StyledHeading>
+      <StyledHeading>
+        <TitleWrapper>
+          <>
+            {packageName}
+            {hasTypes && <TypeScript />}
+            <ModuleJS module={moduleType} />
+          </>
+        </TitleWrapper>
+      </StyledHeading>
       {description && <div>{description}</div>}
       <StyledBoxVersion>
         {isLatest
@@ -29,11 +58,16 @@ const DetailSidebarTitle: React.FC<Props> = ({ description, packageName, version
 
 export default DetailSidebarTitle;
 
+const TitleWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+});
+
 const StyledHeading = styled(Heading)({
   fontSize: '1rem',
   fontWeight: 700,
 });
 
 const StyledBoxVersion = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme && theme.palette.text.secondary,
+  color: theme?.palette.text.secondary,
 }));
