@@ -29,7 +29,9 @@ const DetailSidebar: React.FC = () => {
     <StyledPaper className={'sidebar-info'}>
       <DetailSidebarTitle
         description={packageMeta.latest?.description}
+        hasTypes={typeof packageMeta.latest.types === 'string'}
         isLatest={typeof packageVersion === 'undefined'}
+        moduleType={packageMeta.latest.type}
         packageName={packageName}
         version={packageVersion || packageMeta.latest.version}
       />
