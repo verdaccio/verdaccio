@@ -50,6 +50,6 @@ By default, the storage is taken from config file, but using this variable allow
 
 Overrides `logs.colors` from the `config.yaml`.
 
-Note The value is cast to boolean using `Boolean()` constructor, so any value that is not `false` or explicit empty-string will result in `true`.
+Note that any value that other than `false` will result in `true`.
 
 When both are not provided - the colors are on by default for TTY processes, and off for processes that are not.
