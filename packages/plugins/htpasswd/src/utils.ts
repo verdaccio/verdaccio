@@ -39,8 +39,9 @@ export function lockAndRead(name: string, cb: Callback): void {
  * @returns {object}
  */
 export function parseHTPasswd(input: string): Record<string, any> {
-  return input.split('\n').reduce((result, line) => {
-    const args = line.split(':', 3);
+  // The input is split on line ending styles that are both windows and unix compatible
+  return input.split(/[\r]?[\n]/).reduce((result, line) => {
+    const args = line.split(':', 3).map((str) => str.trim());
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
@@ -52,11 +53,13 @@ export function parseHTPasswd(input: string): Record<string, any> {
  * verifyPassword - matches password and it's hash.
  * @param {string} passwd
  * @param {string} hash
- * @returns {boolean}
+ * @returns {Promise<boolean>}
  */
-export function verifyPassword(passwd: string, hash: string): boolean {
-  if (hash.match(/^\$2(a|b|y)\$/)) {
-    return bcrypt.compareSync(passwd, hash);
+export async function verifyPassword(passwd: string, hash: string): Promise<boolean> {
+  if (hash.match(/^\$2([aby])\$/)) {
+    return new Promise((resolve, reject) =>
+      bcrypt.compare(passwd, hash, (error, result) => (error ? reject(error) : resolve(result)))
+    );
   } else if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.substr(7);
   } else if (hash.indexOf('{SHA}') === 0) {
@@ -112,6 +115,7 @@ export function generateHtpasswdLine(
  * @param {string} body
  * @param {string} user
  * @param {string} passwd
+ * @param {HtpasswdHashConfig} hashConfig
  * @returns {string}
  */
 export function addUserToHTPasswd(
@@ -139,16 +143,18 @@ export function addUserToHTPasswd(
  * Sanity check for a user
  * @param {string} user
  * @param {object} users
+ * @param {string} password
+ * @param {Callback} verifyFn
  * @param {number} maxUsers
  * @returns {object}
  */
-export function sanityCheck(
+export async function sanityCheck(
   user: string,
   password: string,
   verifyFn: Callback,
   users: {},
   maxUsers: number
-): HttpError | null {
+): Promise<HttpError | null> {
   let err;
 
   // check for user or password
@@ -167,7 +173,7 @@ export function sanityCheck(
   }
 
   if (hash) {
-    const auth = verifyFn(password, users[user]);
+    const auth = await verifyFn(password, users[user]);
     if (auth) {
       err = Error(API_ERROR.USERNAME_ALREADY_REGISTERED);
       err.status = HTTP_STATUS.CONFLICT;
@@ -191,28 +197,27 @@ export function sanityCheck(
  * @param {string} user
  * @param {string} passwd
  * @param {string} newPasswd
+ * @param {HtpasswdHashConfig} hashConfig
  * @returns {string}
  */
-export function changePasswordToHTPasswd(
+export async function changePasswordToHTPasswd(
   body: string,
   user: string,
   passwd: string,
   newPasswd: string,
   hashConfig: HtpasswdHashConfig
-): string {
+): Promise<string> {
   let lines = body.split('\n');
-  lines = lines.map((line) => {
-    const [username, hash] = line.split(':', 3);
-
-    if (username === user) {
-      if (verifyPassword(passwd, hash)) {
-        line = generateHtpasswdLine(user, newPasswd, hashConfig);
-      } else {
-        throw new Error('Invalid old Password');
-      }
-    }
-    return line;
-  });
-
+  const userLineIndex = lines.findIndex((line) => line.split(':', 1).shift() === user);
+  if (userLineIndex === -1) {
+    throw new Error(`Unable to change password for user '${user}': user does not currently exist`);
+  }
+  const [username, hash] = lines[userLineIndex].split(':', 2);
+  const passwordValid = await verifyPassword(passwd, hash);
+  if (!passwordValid) {
+    throw new Error(`Unable to change password for user '${user}': invalid old password`);
+  }
+  const updatedUserLine = generateHtpasswdLine(username, newPasswd, hashConfig);
+  lines.splice(userLineIndex, 1, updatedUserLine);
   return lines.join('\n');
 }

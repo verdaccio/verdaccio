@@ -1,36 +1,35 @@
 /* eslint-disable jest/no-mocks-import */
+// @ts-ignore: Module has no default export
+import bcrypt from 'bcryptjs';
+// @ts-ignore: Module has no default export
 import crypto from 'crypto';
-// @ts-ignore
+// @ts-ignore: Module has no default export
 import fs from 'fs';
 import MockDate from 'mockdate';
 
-import HTPasswd, { VerdaccioConfigApp } from '../src/htpasswd';
+import { PluginOptions } from '@verdaccio/types';
+
+import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
 import { HtpasswdHashAlgorithm } from '../src/utils';
 import Config from './__mocks__/Config';
-// FIXME: remove this mocks imports
-import Logger from './__mocks__/Logger';
 
-const stuff = {
-  logger: new Logger(),
+const options = {
+  logger: { warn: jest.fn() },
   config: new Config(),
-};
+} as any as PluginOptions<HTPasswdConfig>;
 
 const config = {
   file: './htpasswd',
   max_users: 1000,
-};
-
-const getDefaultConfig = (): VerdaccioConfigApp => ({
-  file: './htpasswd',
-  max_users: 1000,
-});
+} as HTPasswdConfig;
 
 describe('HTPasswd', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = new HTPasswd(getDefaultConfig(), stuff as unknown as VerdaccioConfigApp);
+    wrapper = new HTPasswd(config, options);
     jest.resetModules();
+    jest.clearAllMocks();
 
     crypto.randomBytes = jest.fn(() => {
       return {
@@ -40,46 +39,71 @@ describe('HTPasswd', () => {
   });
 
   describe('constructor()', () => {
-    const emptyPluginOptions = { config: {} } as VerdaccioConfigApp;
+    const emptyPluginOptions = { config: {} } as any as PluginOptions<HTPasswdConfig>;
 
-    test('should files whether file path does not exist', () => {
+    test('should ensure file path configuration exists', () => {
       expect(function () {
-        new HTPasswd({}, emptyPluginOptions);
+        new HTPasswd({} as HTPasswdConfig, emptyPluginOptions);
       }).toThrow(/should specify "file" in config/);
     });
 
     test('should throw error about incorrect algorithm', () => {
       expect(function () {
-        let config = getDefaultConfig();
-        config.algorithm = 'invalid' as any;
-        new HTPasswd(config, emptyPluginOptions);
+        let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
+        new HTPasswd(invalidConfig, emptyPluginOptions);
       }).toThrow(/Invalid algorithm "invalid"/);
     });
   });
 
   describe('authenticate()', () => {
     test('it should authenticate user with given credentials', (done) => {
-      const callbackTest = (a, b): void => {
-        expect(a).toBeNull();
-        expect(b).toContain('test');
-        done();
+      const users = [
+        { username: 'test', password: 'test' },
+        { username: 'username', password: 'password' },
+        { username: 'bcrypt', password: 'password' },
+      ];
+      let usersAuthenticated = 0;
+      const generateCallback = (username) => (error, userGroups) => {
+        usersAuthenticated += 1;
+        expect(error).toBeNull();
+        expect(userGroups).toContain(username);
+        usersAuthenticated === users.length && done();
       };
-      const callbackUsername = (a, b): void => {
-        expect(a).toBeNull();
-        expect(b).toContain('username');
-        done();
-      };
-      wrapper.authenticate('test', 'test', callbackTest);
-      wrapper.authenticate('username', 'password', callbackUsername);
+      users.forEach(({ username, password }) =>
+        wrapper.authenticate(username, password, generateCallback(username))
+      );
     });
 
     test('it should not authenticate user with given credentials', (done) => {
+      const users = ['test', 'username', 'bcrypt'];
+      let usersAuthenticated = 0;
+      const generateCallback = () => (error, userGroups) => {
+        usersAuthenticated += 1;
+        expect(error).toBeNull();
+        expect(userGroups).toBeFalsy();
+        usersAuthenticated === users.length && done();
+      };
+      users.forEach((username) =>
+        wrapper.authenticate(username, 'somerandompassword', generateCallback())
+      );
+    });
+
+    test('it should warn on slow password verification', (done) => {
+      bcrypt.compare = jest.fn((passwd, hash, callback) => {
+        setTimeout(() => callback(null, true), DEFAULT_SLOW_VERIFY_MS + 1);
+      });
       const callback = (a, b): void => {
         expect(a).toBeNull();
-        expect(b).toBeFalsy();
+        expect(b).toContain('bcrypt');
+        const mockWarn = options.logger.warn as jest.MockedFn<jest.MockableFunction>;
+        expect(mockWarn.mock.calls.length).toBe(1);
+        const [{ user, durationMs }, message] = mockWarn.mock.calls[0];
+        expect(user).toEqual('bcrypt');
+        expect(durationMs).toBeGreaterThan(DEFAULT_SLOW_VERIFY_MS);
+        expect(message).toEqual('Password for user "@{user}" took @{durationMs}ms to verify');
         done();
       };
-      wrapper.authenticate('test', 'somerandompassword', callback);
+      wrapper.authenticate('bcrypt', 'password', callback);
     });
   });
 
@@ -122,7 +146,7 @@ describe('HTPasswd', () => {
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('sanityCheck', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('some error');
@@ -140,7 +164,7 @@ describe('HTPasswd', () => {
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('lockAndRead', 'test', (sanity) => {
           expect(sanity.message).toBeDefined();
           expect(sanity.message).toMatch('lock error');
@@ -160,7 +184,7 @@ describe('HTPasswd', () => {
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('addUserToHTPasswd', 'test', () => {
           done();
         });
@@ -187,7 +211,7 @@ describe('HTPasswd', () => {
         });
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.adduser('addUserToHTPasswd', 'test', (err) => {
           expect(err).not.toBeNull();
           expect(err.message).toMatch('write error');
@@ -198,7 +222,11 @@ describe('HTPasswd', () => {
 
     describe('reload()', () => {
       test('it should read the file and set the users', (done) => {
-        const output = { test: '$6FrCaT/v0dwE', username: '$66to3JK5RgZM' };
+        const output = {
+          test: '$6FrCaT/v0dwE',
+          username: '$66to3JK5RgZM',
+          bcrypt: '$2y$04$K2Cn3StiXx4CnLmcTW/ymekOrj7WlycZZF9xgmoJ/U0zGPqSLPVBe',
+        };
         const callback = (): void => {
           expect(wrapper.users).toEqual(output);
           done();
@@ -224,7 +252,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
 
@@ -247,7 +275,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
 
@@ -267,7 +295,7 @@ describe('HTPasswd', () => {
         };
 
         const HTPasswd = require('../src/htpasswd.ts').default;
-        const wrapper = new HTPasswd(config, stuff);
+        const wrapper = new HTPasswd(config, options);
         wrapper.reload(callback);
       });
     });
@@ -276,7 +304,9 @@ describe('HTPasswd', () => {
   test('changePassword - it should throw an error for user not found', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
-      expect(error.message).toBe('User not found');
+      expect(error.message).toBe(
+        `Unable to change password for user 'usernotpresent': user does not currently exist`
+      );
       expect(isSuccess).toBeFalsy();
       done();
     };
@@ -286,7 +316,9 @@ describe('HTPasswd', () => {
   test('changePassword - it should throw an error for wrong password', (done) => {
     const callback = (error, isSuccess): void => {
       expect(error).not.toBeNull();
-      expect(error.message).toBe('Invalid old Password');
+      expect(error.message).toBe(
+        `Unable to change password for user 'username': invalid old password`
+      );
       expect(isSuccess).toBeFalsy();
       done();
     };
