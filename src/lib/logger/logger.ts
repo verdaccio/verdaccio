@@ -1,9 +1,9 @@
+import { padLeft } from './utils';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
 import _ from 'lodash';
 import pino from 'pino';
 
-import { padLeft } from './utils';
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -113,7 +113,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   const pinoConfig = { level: loggerConfig.level };
   let colors = 'colors' in loggerConfig ? loggerConfig.colors : process.stdout.isTTY;
   if ('EXPERIMENTAL_VERDACCIO_LOGGER_COLORS' in process.env) {
-    colors = process.env.EXPERIMENTAL_VERDACCIO_LOGGER_COLORS != "false";
+    colors = process.env.EXPERIMENTAL_VERDACCIO_LOGGER_COLORS != 'false';
   }
   const prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
