@@ -45,3 +45,11 @@ $ VERDACCIO_FORWARDED_PROTO=CloudFront-Forwarded-Proto verdaccio --listen 5000
 #### VERDACCIO_STORAGE_PATH
 
 By default, the storage is taken from config file, but using this variable allows to set it from environment variable.
+
+#### EXPERIMENTAL_VERDACCIO_LOGGER_COLORS
+
+Overrides `logs.colors` from the `config.yaml`.
+
+Note that any value that other than `false` will result in `true`.
+
+When both are not provided - the colors are on by default for TTY processes, and off for processes that are not.

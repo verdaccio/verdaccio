@@ -22,6 +22,7 @@ export function formatLoggingDate(time: number, message): string {
 
 export interface PrettyOptionsExtended extends PrettyOptions {
   prettyStamp: boolean;
+  colors: boolean;
 }
 let LEVEL_VALUE_MAX = 0;
 // eslint-disable-next-line guard-for-in
