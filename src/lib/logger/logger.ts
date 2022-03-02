@@ -1,9 +1,7 @@
-import { padLeft } from './utils';
 import buildDebug from 'debug';
 import { yellow } from 'kleur';
 import _ from 'lodash';
 import pino from 'pino';
-
 
 function isProd() {
   return process.env.NODE_ENV === 'production';
@@ -77,6 +75,7 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
   type: 'stdout',
   format: 'pretty',
   level: 'http',
+  colors: true,
 };
 
 export type LoggerConfigItem = {
@@ -85,6 +84,7 @@ export type LoggerConfigItem = {
   format?: LogFormat;
   path?: string;
   level?: string;
+  colors?: boolean;
 };
 
 export type LoggerConfig = LoggerConfigItem[];
@@ -111,7 +111,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
-  let colors = 'colors' in loggerConfig ? loggerConfig.colors : process.stdout.isTTY;
+  let colors = loggerConfig?.colors === true ? process.stdout.isTTY : false;
   if ('EXPERIMENTAL_VERDACCIO_LOGGER_COLORS' in process.env) {
     colors = process.env.EXPERIMENTAL_VERDACCIO_LOGGER_COLORS != 'false';
   }
