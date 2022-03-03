@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "6.0.0-6-next.24",
+  "version": "6.0.0-6-next.25",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -25,12 +25,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.18",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.19",
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/loaders": "workspace:6.0.0-6-next.10",
     "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.18",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.19",
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
     "@verdaccio/store": "workspace:6.0.0-6-next.19",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.11",

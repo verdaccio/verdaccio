@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- 635ca3f9: chore: force publish
+
 ## 6.0.0-6-next.19
 
 ### Patch Changes

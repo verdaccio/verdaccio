@@ -1,5 +1,12 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- @verdaccio/fastify-migration@6.0.0-6-next.20
+- @verdaccio/node-api@6.0.0-6-next.28
+
 ## 6.0.0-6-next.28
 
 ### Patch Changes
