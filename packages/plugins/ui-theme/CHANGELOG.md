@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.19
+
+### Patch Changes
+
+- aa0b2aa9: fix: replace ts icon by td and fix commonjs icon
+
 ## 6.0.0-6-next.18
 
 ### Patch Changes
