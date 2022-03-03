@@ -111,7 +111,7 @@ class Auth implements IAuth {
     };
     let authPlugin;
     try {
-      authPlugin = new HTPasswd(plugingConf, pluginOptions);
+      authPlugin = new HTPasswd(plugingConf, pluginOptions as any as PluginOptions<HTPasswdConfig>);
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       return [];
