@@ -1,5 +1,12 @@
 # @verdaccio/fastify-migration
 
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [aeff267d]
+  - @verdaccio/auth@6.0.0-6-next.19
+
 ## 6.0.0-6-next.19
 
 ### Patch Changes

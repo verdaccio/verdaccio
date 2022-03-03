@@ -1,5 +1,14 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.22
+
+### Patch Changes
+
+- Updated dependencies [aeff267d]
+  - @verdaccio/auth@6.0.0-6-next.19
+  - @verdaccio/hooks@6.0.0-6-next.12
+  - @verdaccio/middleware@6.0.0-6-next.19
+
 ## 6.0.0-6-next.21
 
 ### Patch Changes

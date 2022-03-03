@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "6.0.0-6-next.18",
+  "version": "6.0.0-6-next.19",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -48,7 +48,7 @@
     "express": "4.17.2",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
-    "verdaccio-htpasswd": "workspace:11.0.0-6-next.11"
+    "verdaccio-htpasswd": "workspace:11.0.0-6-next.12"
   },
   "devDependencies": {
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
