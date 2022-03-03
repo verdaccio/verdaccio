@@ -991,7 +991,7 @@ importers:
   packages/standalone:
     specifiers:
       '@verdaccio/cli': workspace:6.0.0-6-next.28
-      '@verdaccio/ui-theme': workspace:6.0.0-6-next.18
+      '@verdaccio/ui-theme': workspace:6.0.0-6-next.19
       fs-extra: 10.0.0
       webpack: 5.67.0
       webpack-bundle-analyzer: 4.5.0
@@ -1178,7 +1178,7 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.13
       '@verdaccio/node-api': workspace:6.0.0-6-next.27
       '@verdaccio/store': workspace:6.0.0-6-next.19
-      '@verdaccio/ui-theme': workspace:6.0.0-6-next.18
+      '@verdaccio/ui-theme': workspace:6.0.0-6-next.19
       '@verdaccio/utils': workspace:6.0.0-6-next.10
       fastify: 3.27.0
       verdaccio-audit: workspace:11.0.0-6-next.8
@@ -1275,7 +1275,7 @@ importers:
   test/e2e-ui:
     specifiers:
       '@verdaccio/core': workspace:6.0.0-6-next.4
-      '@verdaccio/ui-theme': workspace:6.0.0-6-next.18
+      '@verdaccio/ui-theme': workspace:6.0.0-6-next.19
       debug: 4.3.3
       kleur: 3.0.3
       lodash: 4.17.21
