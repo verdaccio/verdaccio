@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useContext } from 'react';
-import { ModuleType, PackageMetaInterface } from 'types/packageMeta';
+import { PackageMetaInterface } from 'types/packageMeta';
 import ActionBar from 'verdaccio-ui/components/ActionBar';
 import Author from 'verdaccio-ui/components/Author';
 import Paper from 'verdaccio-ui/components/Paper';
