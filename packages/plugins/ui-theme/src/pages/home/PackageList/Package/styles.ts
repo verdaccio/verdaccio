@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import { default as Photo } from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
-import { default as Photo } from 'verdaccio-ui/components/Avatar';
 import { default as MuiIconButton } from 'verdaccio-ui/components/IconButton';
 import Label from 'verdaccio-ui/components/Label';
 import { default as MuiText } from 'verdaccio-ui/components/Text';

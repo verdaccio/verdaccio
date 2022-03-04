@@ -3,7 +3,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Avatar from 'verdaccio-ui/components/Avatar';
+import Avatar from '@mui/material/Avatar';
+
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 
 // logos of package managers
