@@ -1,6 +1,6 @@
+import Button from '@mui/material/Button';
 import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
 import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
 
 import HeaderMenu from './HeaderMenu';

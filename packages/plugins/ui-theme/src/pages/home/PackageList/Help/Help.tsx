@@ -1,8 +1,8 @@
+import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import { default as Typography } from 'verdaccio-ui/components/Heading';
 import Text from 'verdaccio-ui/components/Text';

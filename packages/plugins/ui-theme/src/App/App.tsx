@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-max-depth */
 import styled from '@emotion/styled';
+import Box from '@mui/material/Box';
 import React, { Suspense, useEffect } from 'react';
 import { Router } from 'react-router-dom';
-import Box from 'verdaccio-ui/components/Box';
 import Loading from 'verdaccio-ui/components/Loading';
 import StyleBaseline from 'verdaccio-ui/design-tokens/StyleBaseline';
 import loadDayJSLocale from 'verdaccio-ui/design-tokens/load-dayjs-locale';

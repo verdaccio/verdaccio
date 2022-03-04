@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import Add from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Box from 'verdaccio-ui/components/Box';
 import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
