@@ -45,9 +45,9 @@ let config = {
 };
 
 startServer(
-    config, // Replace by undefined if you use a config file
+    config,
     6000,
-    undefined, // Config file path 
+    undefined,
     "1.0.0",
     "verdaccio",
     (webServer, addrs) => {
