@@ -1,16 +1,3 @@
-import {
-  FormHelperTextProps,
-  default as MaterialUIFormHelperText,
-} from '@mui/material/FormHelperText';
-import React, { forwardRef } from 'react';
+import { default as MaterialUIFormHelperText } from '@mui/material/FormHelperText';
 
-type FormHelperTextRef = HTMLParagraphElement;
-
-const FormHelperText = forwardRef<FormHelperTextRef, FormHelperTextProps>(function FormHelperText(
-  props,
-  ref
-) {
-  return <MaterialUIFormHelperText {...props} ref={ref} />;
-});
-
-export default FormHelperText;
+export default MaterialUIFormHelperText;

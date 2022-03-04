@@ -82,11 +82,11 @@ Object {
 
 <body>
     <div>
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Contributors
-      </span>
+      </h6>
       <div
         class="emotion-2 MuiBox-root emotion-3"
       >
@@ -205,11 +205,11 @@ Object {
 }
 
 <div>
-    <span
+    <h6
       class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Contributors
-    </span>
+    </h6>
     <div
       class="emotion-2 MuiBox-root emotion-3"
     >
@@ -385,11 +385,11 @@ Object {
 
 <body>
     <div>
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Maintainers
-      </span>
+      </h6>
       <div
         class="emotion-2 MuiBox-root emotion-3"
       >
@@ -508,11 +508,11 @@ Object {
 }
 
 <div>
-    <span
+    <h6
       class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Maintainers
-    </span>
+    </h6>
     <div
       class="emotion-2 MuiBox-root emotion-3"
     >

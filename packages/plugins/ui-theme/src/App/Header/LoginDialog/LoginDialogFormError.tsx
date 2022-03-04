@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import Error from '@mui/icons-material/Error';
+import Box from '@mui/material/Box';
+import SnackbarContent from '@mui/material/SnackbarContent';
 import React, { memo } from 'react';
-import Box from 'verdaccio-ui/components/Box';
-import SnackbarContent from 'verdaccio-ui/components/SnackbarContent';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { LoginError } from 'verdaccio-ui/utils/login';
 

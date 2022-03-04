@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import Box from '@mui/material/Box';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ModuleType } from 'types/packageMeta';
-import Box from 'verdaccio-ui/components/Box';
 import Heading from 'verdaccio-ui/components/Heading';
 import { CommonJS, ES6Modules, TypeScript } from 'verdaccio-ui/components/Icons';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
-import Chip from 'verdaccio-ui/components/Chip';
+import Chip from '@mui/material/Chip';
+import ListItem from '@mui/material/ListItem';
 import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
-import ListItem from 'verdaccio-ui/components/ListItem';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 

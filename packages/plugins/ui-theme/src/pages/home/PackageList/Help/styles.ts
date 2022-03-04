@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Card from 'verdaccio-ui/components/Card';
+import Card from '@mui/material/Card';
 import { default as Typography } from 'verdaccio-ui/components/Heading';
 
 export const CardStyled = styled(Card)({

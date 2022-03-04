@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import Tab from '@mui/material/Tab';
+import { default as MuiTabs } from '@mui/material/Tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Tab from 'verdaccio-ui/components/Tab';
-import { default as MuiTabs } from 'verdaccio-ui/components/Tabs';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {

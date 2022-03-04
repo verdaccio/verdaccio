@@ -18,7 +18,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.75;
+  line-height: 1.5;
 }
 
 .emotion-3 {
@@ -162,8 +162,8 @@ exports[`<ActionBar /> component should render the component in default state 1`
     rel="noopener noreferrer"
     target="_blank"
   >
-    <span
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-1"
+    <p
+      class="MuiTypography-root MuiTypography-body1 emotion-1"
     >
       <button
         class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall emotion-2 emotion-3"
@@ -186,7 +186,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
           class="MuiTouchRipple-root emotion-5"
         />
       </button>
-    </span>
+    </p>
   </a>
   <a
     aria-label="Open an issue"
@@ -196,8 +196,8 @@ exports[`<ActionBar /> component should render the component in default state 1`
     rel="noopener noreferrer"
     target="_blank"
   >
-    <span
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-1"
+    <p
+      class="MuiTypography-root MuiTypography-body1 emotion-1"
     >
       <button
         class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall emotion-2 emotion-3"
@@ -220,7 +220,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
           class="MuiTouchRipple-root emotion-5"
         />
       </button>
-    </span>
+    </p>
   </a>
   <button
     aria-label="Download tarball"

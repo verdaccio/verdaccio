@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
+import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
-
-import CircularProgress from '../../CircularProgress';
 
 interface Props {
   size?: number;

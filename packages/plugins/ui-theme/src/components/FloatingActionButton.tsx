@@ -1,12 +1,8 @@
-import { FabProps, default as MaterialUIFab } from '@mui/material/Fab';
-import React, { forwardRef } from 'react';
+import Fab from '@mui/material/Fab';
+import React from 'react';
 
-type FloatingActionButtonRef = HTMLButtonElement;
-
-const FloatingActionButton = forwardRef<FloatingActionButtonRef, FabProps>(
-  function FloatingActionButton(props, ref) {
-    return <MaterialUIFab {...props} ref={ref} data-testid="fab" />;
-  }
-);
+const FloatingActionButton = (props) => {
+  return <Fab {...props} data-testid="fab" />;
+};
 
 export default FloatingActionButton;
