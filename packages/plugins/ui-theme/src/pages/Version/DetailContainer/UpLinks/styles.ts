@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { default as MuiListItemText } from 'verdaccio-ui/components/ListItemText';
+import { default as MuiListItemText } from '@mui/material/ListItemText';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 

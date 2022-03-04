@@ -10,7 +10,6 @@ const Version: React.FC = () => {
   const manifestStore = useSelector((state: RootState) => state.manifest);
   const isLoading = useSelector((state: RootState) => state?.loading?.models.manifest);
 
-
   if (isLoading) {
     return <Loading />;
   }

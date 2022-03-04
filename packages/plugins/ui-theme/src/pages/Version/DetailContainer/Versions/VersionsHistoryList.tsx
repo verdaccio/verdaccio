@@ -1,7 +1,7 @@
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import List from 'verdaccio-ui/components/List';
-import ListItem from 'verdaccio-ui/components/ListItem';
 import { formatDateDistance } from 'verdaccio-ui/utils/package';
 
 import { Time, Versions } from '../../../../../types/packageMeta';

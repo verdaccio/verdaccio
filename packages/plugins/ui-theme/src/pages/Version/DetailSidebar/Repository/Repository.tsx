@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Avatar from 'verdaccio-ui/components/Avatar';
 import CopyToClipBoard from 'verdaccio-ui/components/CopyToClipBoard';
 import Link from 'verdaccio-ui/components/Link';
-import List from 'verdaccio-ui/components/List';
-import ListItem from 'verdaccio-ui/components/ListItem';
-import ListItemText from 'verdaccio-ui/components/ListItemText';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { isURL } from 'verdaccio-ui/utils/url';

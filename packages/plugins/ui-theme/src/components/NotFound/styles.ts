@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
+import List from '@mui/material/List';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
 import { default as MuiCard } from '../Card';
 import { default as Typography } from '../Heading';
-import List from '../List';
 
 export const Wrapper = styled('div')({
   display: 'flex',
