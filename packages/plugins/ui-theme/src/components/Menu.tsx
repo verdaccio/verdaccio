@@ -1,10 +1,3 @@
-import { default as MaterialUIMenu, MenuProps } from '@mui/material/Menu';
-import React, { forwardRef } from 'react';
+import { default as MaterialUIMenu } from '@mui/material/Menu';
 
-type MenuRef = HTMLDivElement;
-
-const Menu = forwardRef<MenuRef, MenuProps>(function Menu(props, ref) {
-  return <MaterialUIMenu {...props} ref={ref} />;
-});
-
-export default Menu;
+export default MaterialUIMenu;
