@@ -56,7 +56,7 @@ const Footer = () => {
           {configOptions?.version && (
             <>
               {t('footer.powered-by')}
-              <Logo onClick={goToVerdaccioWebsite} size="x-small" />
+              <Logo onClick={goToVerdaccioWebsite} size="x-small" isDefault={true} />
               {`/ ${configOptions.version}`}
             </>
           )}

@@ -21,11 +21,12 @@ interface Props {
   size?: keyof typeof sizes;
   onClick?: () => void;
   className?: string;
+  isDefault?: boolean;
 }
 
-const Logo: React.FC<Props> = ({ size, onClick, className }) => {
+const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false }) => {
   const { configOptions } = useConfig();
-  if (configOptions?.logo) {
+  if (!isDefault && configOptions?.logo) {
     return (
       <ImageLogo onClick={onClick} className={className}>
         <img alt="logo" height="40px" src={configOptions.logo} />
