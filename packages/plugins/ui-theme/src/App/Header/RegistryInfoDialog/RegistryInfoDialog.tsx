@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from 'verdaccio-ui/components/Button';
+import Button from '@mui/material/Button';
 import Dialog from 'verdaccio-ui/components/Dialog';
 import DialogActions from 'verdaccio-ui/components/DialogActions';
 

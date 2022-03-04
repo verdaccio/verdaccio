@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import Box from '../Box';
-import Button from '../Button';
+import Button from '@mui/material/Button';
 import Heading from '../Heading';
 import PackageImg from './img/package.svg';
 

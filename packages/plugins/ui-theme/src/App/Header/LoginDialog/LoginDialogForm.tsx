@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import React, { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import Button from 'verdaccio-ui/components/Button';
+import Button from '@mui/material/Button';
 import TextField from 'verdaccio-ui/components/TextField';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { LoginError } from 'verdaccio-ui/utils/login';
