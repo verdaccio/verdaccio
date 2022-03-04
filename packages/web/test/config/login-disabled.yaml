@@ -11,7 +11,7 @@ auth:
 
 web:
   title: verdaccio
-  login: true
+  login: false
 
 publish:
   allow_offline: false
