@@ -10,14 +10,56 @@ Verdaccio can be invoked programmatically. The Node API was introduced after ver
 #### Programmatically {#programmatically}
 
 ```js
- import startServer from 'verdaccio';
+const startServer = require("verdaccio").default;
 
- startServer(configJsonFormat, 6000, store, '1.0.0', 'verdaccio',
-    (webServer, addrs, pkgName, pkgVersion) => {
-		webServer.listen(addr.port || addr.path, addr.host, () => {
-			console.log('verdaccio running');
-		});
-  });
+let config = {
+    storage: "./storage",
+    auth: {
+        htpasswd: {
+            file: "./htpasswd"
+        }
+    },
+    uplinks: {
+        npmjs: {
+            url: "https://registry.npmjs.org/",
+        }
+    },
+    self_path: "./",
+    packages: {
+        "@*/*": {
+            access: "$all",
+            publish: "$authenticated",
+            proxy: "npmjs",
+        },
+        "**": {
+            proxy: "npmjs"
+        }
+    },
+    logs: [
+        {
+            type: "stdout",
+            format: "pretty",
+            level: "http",
+        }
+    ],
+};
+
+startServer(
+    config, // Replace by undefined if you use a config file
+    6000,
+    undefined, // Config file path 
+    "1.0.0",
+    "verdaccio",
+    (webServer, addrs) => {
+        webServer.listen(
+            addrs.port || addrs.path,
+            addrs.host,
+            () => {
+                console.log(`verdaccio running on : ${addrs.host}:${addrs.port}`);
+            }
+        );
+    }
+);
 ```
 
 ## Other implementations {#other-implementations}
