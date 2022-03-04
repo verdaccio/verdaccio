@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Content, Title } from './styles';
 import { Props } from './types';
