@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { copyToClipBoardUtility } from 'verdaccio-ui/utils/cli-utils';
 
-import IconButton from './IconButton';
+import IconButton from '@mui/material/IconButton';
 
 interface Props {
   text: string;

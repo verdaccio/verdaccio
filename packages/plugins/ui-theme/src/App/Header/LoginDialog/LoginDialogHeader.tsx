@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Heading from 'verdaccio-ui/components/Heading';
-import IconButton from 'verdaccio-ui/components/IconButton';
+import IconButton from '@mui/material/IconButton';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {

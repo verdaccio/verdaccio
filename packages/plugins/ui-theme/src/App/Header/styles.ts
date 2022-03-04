@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import IconButton from '@mui/material/IconButton';
 import AppBar from 'verdaccio-ui/components/AppBar';
-import IconButton from 'verdaccio-ui/components/IconButton';
 import Link from 'verdaccio-ui/components/Link';
 import Toolbar from 'verdaccio-ui/components/Toolbar';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';

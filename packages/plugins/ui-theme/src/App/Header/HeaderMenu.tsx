@@ -2,7 +2,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
 import React, { MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import IconButton from 'verdaccio-ui/components/IconButton';
+import IconButton from '@mui/material/IconButton';
 import MenuItem from 'verdaccio-ui/components/MenuItem';
 
 import HeaderGreetings from './HeaderGreetings';
