@@ -30,3 +30,4 @@ Note: Rotating log stream is not supported in cluster mode. [See here](https://g
 | path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
 | format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
 | level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| colors    | boolean | No     | false  | v5.7.0     | disable or enable colors                                     |
