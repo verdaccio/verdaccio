@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import FileCopy from '@mui/icons-material/FileCopy';
+import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { copyToClipBoardUtility } from 'verdaccio-ui/utils/cli-utils';
-
-import IconButton from '@mui/material/IconButton';
 
 interface Props {
   text: string;

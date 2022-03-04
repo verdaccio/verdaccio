@@ -1,9 +1,9 @@
+import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import Avatar from '@mui/material/Avatar';
 
 import { DetailContext } from '../../context';
 import npm from '../Install/img/npm.svg';

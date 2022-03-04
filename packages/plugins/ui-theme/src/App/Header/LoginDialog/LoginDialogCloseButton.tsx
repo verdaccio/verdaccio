@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import CloseIcon from '@mui/icons-material/Close';
 import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import IconButton from '@mui/material/IconButton';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({

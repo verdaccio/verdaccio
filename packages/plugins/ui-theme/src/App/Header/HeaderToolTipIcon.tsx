@@ -3,8 +3,8 @@ import Info from '@mui/icons-material/Info';
 import NightsStay from '@mui/icons-material/NightsStay';
 import Search from '@mui/icons-material/Search';
 import WbSunny from '@mui/icons-material/WbSunny';
-import React, { forwardRef } from 'react';
 import IconButton from '@mui/material/IconButton';
+import React, { forwardRef } from 'react';
 
 import { IconSearchButton, StyledLink } from './styles';
 
