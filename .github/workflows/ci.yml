@@ -122,7 +122,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@latest -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -147,7 +147,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@latest -g
       - uses: actions/cache@v2
         with:
           path: ~/.pnpm-store
@@ -159,8 +159,8 @@ jobs:
         run: pnpm build
       - name: Test CLI
         run: pnpm test:e2e:cli
-        # env:
-        #   DEBUG: verdaccio*
+        env:
+          DEBUG: verdaccio*
   sync-translations:
     needs: [ci-e2e-cli, ci-e2e-ui]
     runs-on: ubuntu-latest
