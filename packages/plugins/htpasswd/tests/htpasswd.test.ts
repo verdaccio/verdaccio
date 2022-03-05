@@ -104,7 +104,7 @@ describe('HTPasswd', () => {
         done();
       };
       wrapper.authenticate('bcrypt', 'password', callback);
-    });
+    }, 15000);
   });
 
   describe('addUser()', () => {

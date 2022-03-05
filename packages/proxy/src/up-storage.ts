@@ -4,7 +4,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import request from 'request';
 import Stream, { PassThrough, Readable } from 'stream';
-import { Headers, Request } from 'undici-fetch';
+import { Headers, Request, fetch } from 'undici';
 import { URL } from 'url';
 
 import {
@@ -27,7 +27,6 @@ import { parseInterval } from './proxy-utils';
 
 const LoggerApi = require('@verdaccio/logger');
 
-const fetch = require('undici-fetch');
 const debug = buildDebug('verdaccio:proxy');
 
 const encode = function (thing): string {

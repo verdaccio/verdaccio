@@ -1,3 +1,5 @@
+import { MockAgent, setGlobalDispatcher } from 'undici';
+
 import { createRemoteUser, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
@@ -16,8 +18,6 @@ const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('mu
 setup([]);
 
 const domain = 'http://slack-service';
-const { MockAgent } = require('undici');
-const { setGlobalDispatcher } = require('undici-fetch');
 
 const options = {
   path: '/foo?auth_token=mySecretToken',

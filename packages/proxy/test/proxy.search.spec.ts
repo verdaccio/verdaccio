@@ -4,6 +4,7 @@
 import getStream from 'get-stream';
 import path from 'path';
 import semver from 'semver';
+import { MockAgent, setGlobalDispatcher } from 'undici';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
@@ -38,8 +39,6 @@ jest.mock('@verdaccio/logger', () => {
   };
 });
 
-const { MockAgent } = require('undici');
-const { setGlobalDispatcher } = require('undici-fetch');
 const domain = 'https://registry.npmjs.org';
 
 describe('proxy', () => {

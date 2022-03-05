@@ -1,3 +1,5 @@
+import { setGlobalDispatcher } from 'undici';
+
 import { Config } from '@verdaccio/config';
 import { searchUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -30,7 +32,6 @@ describe('search', () => {
     test('search items', async () => {
       const { MockAgent } = require('undici');
       // FIXME: fetch is already part of undici
-      const { setGlobalDispatcher } = require('undici-fetch');
       const domain = 'http://localhost:4873';
       const url = '/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio';
       const response = require('./fixtures/search.json');
