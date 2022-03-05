@@ -62,7 +62,8 @@ module.exports = {
         'If you like Verdaccio, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/verdaccio/verdaccio">GitHub</a>! ⭐',
     },
     algolia: {
-      apiKey: 'a8b4d117e513cd8d71d6a95e3d9d4a91',
+      appId: 'B3TG5CBF5H',
+      apiKey: 'ed054733cb03418e9af25b7beb82c924',
       indexName: 'verdaccio',
       contextualSearch: true
     },
