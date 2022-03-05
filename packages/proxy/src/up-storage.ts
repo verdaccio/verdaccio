@@ -4,7 +4,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import requestDeprecated from 'request';
 import Stream, { PassThrough, Readable } from 'stream';
-import { Headers, request, fetch as undiciFetch } from 'undici';
+import { Headers, fetch as undiciFetch } from 'undici';
 import { URL } from 'url';
 
 import {
