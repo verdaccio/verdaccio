@@ -2,9 +2,9 @@
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import request from 'request';
+import requestDeprecated from 'request';
 import Stream, { PassThrough, Readable } from 'stream';
-import { Headers, Request, fetch } from 'undici';
+import { Headers, request, fetch as undiciFetch } from 'undici';
 import { URL } from 'url';
 
 import {
@@ -271,7 +271,7 @@ class ProxyStorage implements IProxy {
       });
     }
 
-    const req = request(requestOptions, requestCallback);
+    const req = requestDeprecated(requestOptions, requestCallback);
 
     let statusCalled = false;
     req.on('response', function (res): void {
@@ -547,7 +547,7 @@ class ProxyStorage implements IProxy {
       // FIXME: a better way to remove duplicate slashes?
       const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
-      const request = new Request(uri, {
+      response = await undiciFetch(uri, {
         method: 'GET',
         // FUTURE: whitelist domains what we are sending not need it headers, security check
         // headers: new Headers({
@@ -556,7 +556,6 @@ class ProxyStorage implements IProxy {
         // }),
         signal: abort?.signal,
       });
-      response = await fetch(request);
       debug('response.status  %o', response.status);
 
       if (response.status >= HTTP_STATUS.BAD_REQUEST) {
