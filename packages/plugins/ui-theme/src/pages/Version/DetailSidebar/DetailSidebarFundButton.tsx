@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import Favorite from '@mui/icons-material/Favorite';
+import Button from '@mui/material/Button';
 import React, { useContext } from 'react';
 import { Trans } from 'react-i18next';
-import Button from 'verdaccio-ui/components/Button';
 import Link from 'verdaccio-ui/components/Link';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { isURL } from 'verdaccio-ui/utils/url';

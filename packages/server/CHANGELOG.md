@@ -1,5 +1,15 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- Updated dependencies [aeff267d]
+  - @verdaccio/auth@6.0.0-6-next.19
+  - @verdaccio/api@6.0.0-6-next.22
+  - @verdaccio/middleware@6.0.0-6-next.19
+  - @verdaccio/web@6.0.0-6-next.25
+
 ## 6.0.0-6-next.26
 
 ### Patch Changes

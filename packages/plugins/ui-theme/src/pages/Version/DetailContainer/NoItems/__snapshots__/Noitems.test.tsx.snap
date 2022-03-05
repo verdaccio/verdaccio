@@ -10,9 +10,9 @@ exports[`<NoItem /> component should load the component in default state 1`] = `
   margin-bottom: 0.35em;
 }
 
-<span
+<h6
   class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
 >
   test
-</span>
+</h6>
 `;

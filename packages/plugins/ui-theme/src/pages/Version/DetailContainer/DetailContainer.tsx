@@ -1,5 +1,5 @@
+import Box from '@mui/material/Box';
 import React, { useContext, useState } from 'react';
-import Box from 'verdaccio-ui/components/Box';
 
 import { DetailContext } from '../context';
 import Deprecated from './Deprecated';

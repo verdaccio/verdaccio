@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
-import ListItem from '../ListItem';
-import ListItemText from '../ListItemText';
 import Text from '../Text';
 
 export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({

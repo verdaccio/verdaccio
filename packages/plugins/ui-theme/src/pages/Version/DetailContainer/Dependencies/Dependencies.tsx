@@ -1,7 +1,7 @@
+import CardContent from '@mui/material/CardContent';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import CardContent from 'verdaccio-ui/components/CardContent';
 
 import { PackageDependencies } from '../../../../../types/packageMeta';
 import { DetailContext } from '../../context';

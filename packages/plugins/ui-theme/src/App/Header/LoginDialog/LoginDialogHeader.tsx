@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import CloseIcon from '@mui/icons-material/Close';
 import LockOutlined from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Avatar from 'verdaccio-ui/components/Avatar';
-import Box from 'verdaccio-ui/components/Box';
 import Heading from 'verdaccio-ui/components/Heading';
-import IconButton from 'verdaccio-ui/components/IconButton';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 interface Props {

@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2.4.0
 
       - name: Use Node 14
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 14
 
@@ -97,7 +97,7 @@ jobs:
 
       - name: Audit preview URL with Lighthouse
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v9.3.0
+        uses: treosh/lighthouse-ci-action@9.3.0
         with:
           urls: |
             ${{ steps.netlify_preview.outputs.preview-url }}

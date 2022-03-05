@@ -1,8 +1,8 @@
+import Box from '@mui/material/Box';
 import React from 'react';
 import { isURL } from 'verdaccio-ui/utils/url';
 
 import { DetailContext } from '../../pages/Version';
-import Box from '../Box';
 import ActionBarAction, { ActionBarActionProps } from './ActionBarAction';
 
 /* eslint-disable verdaccio/jsx-spread */

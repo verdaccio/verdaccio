@@ -14,11 +14,11 @@ Object {
 
 <body>
     <div>
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
       >
         verdaccio has no uplinks.
-      </span>
+      </h6>
     </div>
   </body>,
   "container": .emotion-0 {
@@ -31,11 +31,11 @@ Object {
 }
 
 <div>
-    <span
+    <h6
       class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
     >
       verdaccio has no uplinks.
-    </span>
+    </h6>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],
@@ -187,11 +187,11 @@ Object {
 
 <body>
     <div>
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
       >
         Uplinks
-      </span>
+      </h6>
       <ul
         class="MuiList-root MuiList-padding emotion-2"
       >
@@ -315,11 +315,11 @@ Object {
 }
 
 <div>
-    <span
+    <h6
       class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
     >
       Uplinks
-    </span>
+    </h6>
     <ul
       class="MuiList-root MuiList-padding emotion-2"
     >

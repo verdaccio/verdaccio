@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import Card from 'verdaccio-ui/components/Card';
-import Chip from 'verdaccio-ui/components/Chip';
+import Card from '@mui/material/Card';
+import Chip from '@mui/material/Chip';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 

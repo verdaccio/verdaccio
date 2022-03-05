@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "6.0.0-6-next.21",
+  "version": "6.0.0-6-next.22",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,12 +39,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.18",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.19",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/hooks": "workspace:6.0.0-6-next.12",
     "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.18",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.19",
     "@verdaccio/store": "workspace:6.0.0-6-next.19",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "abortcontroller-polyfill": "1.7.3",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.21",
-    "@verdaccio/server": "workspace:6.0.0-6-next.26",
+    "@verdaccio/server": "workspace:6.0.0-6-next.27",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
     "@verdaccio/helper": "1.0.0",
     "supertest": "6.2.2"

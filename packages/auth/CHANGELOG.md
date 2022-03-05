@@ -1,5 +1,13 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.19
+
+### Patch Changes
+
+- aeff267d: Refactor htpasswd plugin to use the bcryptjs 'compare' api call instead of 'comparSync'. Add a new configuration value named 'slow_verify_ms' to the htpasswd plugin that when exceeded during password verification will log a warning message.
+- Updated dependencies [aeff267d]
+  - verdaccio-htpasswd@11.0.0-6-next.12
+
 ## 6.0.0-6-next.18
 
 ### Patch Changes

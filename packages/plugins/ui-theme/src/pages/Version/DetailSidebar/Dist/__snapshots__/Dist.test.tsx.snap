@@ -251,11 +251,11 @@ Object {
       <ul
         class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
       >
-        <span
+        <h6
           class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
         >
           Latest Distribution
-        </span>
+        </h6>
         <div
           class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
           role="button"
@@ -541,11 +541,11 @@ Object {
     <ul
       class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
     >
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
       >
         Latest Distribution
-      </span>
+      </h6>
       <div
         class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
         role="button"
@@ -888,11 +888,11 @@ Object {
       <ul
         class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
       >
-        <span
+        <h6
           class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
         >
           Latest Distribution
-        </span>
+        </h6>
         <div
           class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
           role="button"
@@ -1191,11 +1191,11 @@ Object {
     <ul
       class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
     >
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
       >
         Latest Distribution
-      </span>
+      </h6>
       <div
         class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
         role="button"
@@ -1551,11 +1551,11 @@ Object {
       <ul
         class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
       >
-        <span
+        <h6
           class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
         >
           Latest Distribution
-        </span>
+        </h6>
         <div
           class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
           role="button"
@@ -1854,11 +1854,11 @@ Object {
     <ul
       class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
     >
-      <span
+      <h6
         class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
       >
         Latest Distribution
-      </span>
+      </h6>
       <div
         class="MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button emotion-3 emotion-4"
         role="button"
