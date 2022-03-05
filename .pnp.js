@@ -134,7 +134,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["marked", "npm:4.0.12"],
             ["memoizee", "npm:0.4.15"],
             ["mime", "npm:3.0.0"],
-            ["minimatch", "npm:3.0.4"],
+            ["minimatch", "npm:5.0.1"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
@@ -6825,6 +6825,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["concat-map", "npm:0.0.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.0.1", {
+          "packageLocation": "./.yarn/cache/brace-expansion-npm-2.0.1-17aa2616f9-c499787968.zip/node_modules/brace-expansion/",
+          "packageDependencies": [
+            ["brace-expansion", "npm:2.0.1"],
+            ["balanced-match", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["braces", [
@@ -13435,6 +13443,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["brace-expansion", "npm:1.1.11"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:5.0.1", {
+          "packageLocation": "./.yarn/cache/minimatch-npm-5.0.1-612724f6f0-6554aca258.zip/node_modules/minimatch/",
+          "packageDependencies": [
+            ["minimatch", "npm:5.0.1"],
+            ["brace-expansion", "npm:2.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["minimist", [
@@ -17659,7 +17675,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["marked", "npm:4.0.12"],
             ["memoizee", "npm:0.4.15"],
             ["mime", "npm:3.0.0"],
-            ["minimatch", "npm:3.0.4"],
+            ["minimatch", "npm:5.0.1"],
             ["mkdirp", "npm:1.0.4"],
             ["mv", "npm:2.1.1"],
             ["nock", "npm:12.0.3"],
