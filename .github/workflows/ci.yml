@@ -140,12 +140,12 @@ jobs:
     needs: [format, lint]
     runs-on: ubuntu-latest
     # TODO: fails on migrate to node 16, we need to check why
-    name: CLI Test E2E Node 14
+    name: CLI Test E2E Node 16
     steps:
       - uses: actions/checkout@v2.4.0
       - uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
       - uses: actions/cache@v2
