@@ -14446,16 +14446,16 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.2.0":
-  version: 10.2.0
-  resolution: "verdaccio-htpasswd@npm:10.2.0"
+"verdaccio-htpasswd@npm:10.3.0":
+  version: 10.3.0
+  resolution: "verdaccio-htpasswd@npm:10.3.0"
   dependencies:
     "@verdaccio/file-locking": 10.2.0
     apache-md5: 1.1.7
     bcryptjs: 2.4.3
     http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: f53755384872c87d8379ea09b9a253cc527c332e64349260077c82af87b36ea8d446b7e6d3cf0efcfc8e00ca89731e14425f6fae9ea73b2f0f45dc4b6d630fe1
+  checksum: 7b4ab37d1dcaebafe9b7749337a9f4e59eec64860f3d4f0fc1e109c1db79c4f3bfe4d8ca9eb215295179c623a3f3fe5185259f6055cd1407386ddd2ad7460911
   languageName: node
   linkType: hard
 
@@ -14594,7 +14594,7 @@ typescript@4.1.3:
     validator: 13.7.0
     verdaccio-audit: 10.2.0
     verdaccio-auth-memory: 10.2.0
-    verdaccio-htpasswd: 10.2.0
+    verdaccio-htpasswd: 10.3.0
     verdaccio-memory: 10.2.0
   bin:
     verdaccio: ./bin/verdaccio
