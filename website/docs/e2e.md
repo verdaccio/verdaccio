@@ -38,9 +38,11 @@ The following projects have examples using Verdaccio in Open Source
 ### Bash Examples
 
 * [Babel.js](https://github.com/babel/babel) *(+35k ⭐️)*
+* [Docusaurus](https://github.com/facebook/docusaurus) *(+31k ⭐️)*
 * [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) *(+73.5k ⭐️)*
 * [Uppy](https://github.com/transloadit/uppy) *(+21k ⭐️)*
 * [ethereum/web3.js](https://github.com/ethereum/web3.js) *(+8k ⭐️)*
+* [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) *(+6k ⭐️)*
 * [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) *(+3k ⭐️)*
 
 This is the most simple example using Verdaccio in a bash script (extracted from *create-react-app*).
@@ -79,12 +81,16 @@ sh -c "npm --registry $local_registry publish"
 Via CLI:
 
 * [Aurelia Framework](https://github.com/aurelia) *(+12k ⭐️)*
+* [Netlify CLI](https://github.com/netlify/cli) *(+1k ⭐️)*
 * [Embark](https://embark.status.im/) *(+3k ⭐️)*
+* [Microsoft Beachball](https://github.com/microsoft/beachball)
 #### Node.js `child_process` examples
 
 * [Angular CLI](https://github.com/angular/angular-cli) *(+25k ⭐️)*
 * [bit](https://github.com/teambit/bit) *(+6k ⭐️)*
 * [pnpm](https://github.com/pnpm/pnpm) *(+6k ⭐️)*
+* [aws-sdk cli v3](https://github.com/aws/aws-sdk-js-v3) *(+1k ⭐️)*
+* [angular-eslint](https://github.com/angular-eslint/angular-eslint) *(+1k ⭐️)*
 
 
 
