@@ -159,8 +159,8 @@ jobs:
         run: pnpm build
       - name: Test CLI
         run: pnpm test:e2e:cli
-        env:
-          DEBUG: verdaccio*
+        # env:
+        #   DEBUG: verdaccio*
   sync-translations:
     needs: [ci-e2e-cli, ci-e2e-ui]
     runs-on: ubuntu-latest
