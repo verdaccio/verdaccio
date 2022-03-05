@@ -453,16 +453,14 @@ importers:
       core-js: 3.20.3
       debug: 4.3.3
       handlebars: 4.7.7
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
     dependencies:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
       core-js: 3.20.3
       debug: 4.3.3
       handlebars: 4.7.7
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
     devDependencies:
       '@types/node': 16.11.21
       '@verdaccio/auth': link:../auth
@@ -912,8 +910,7 @@ importers:
       node-mocks-http: 1.11.0
       request: 2.88.0
       semver: 7.3.5
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
     dependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
@@ -927,8 +924,7 @@ importers:
       lodash: 4.17.21
       node-fetch: 2.6.7
       request: 2.88.0
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
     devDependencies:
       '@types/node': 16.11.21
       '@verdaccio/types': link:../core/types
@@ -1033,8 +1029,7 @@ importers:
       node-mocks-http: 1.11.0
       semver: 7.3.5
       tmp-promise: 3.0.3
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
     dependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
@@ -1062,8 +1057,7 @@ importers:
       nock: 13.2.2
       node-mocks-http: 1.11.0
       tmp-promise: 3.0.3
-      undici: 4.12.2
-      undici-fetch: 1.0.0-rc.4
+      undici: 4.15.0
 
   packages/tools/benchmark:
     specifiers:
@@ -23583,14 +23577,8 @@ packages:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
 
-  /undici-fetch/1.0.0-rc.4:
-    resolution: {integrity: sha512-+F9lSstpd0YJkBBAMe1UXlUVeadsd/AJrB0643smYHcKAdwCtoBVWfoFO0ibk1sA1BEFH7himsWC5aHLomGK0g==}
-    engines: {node: '>=14.0.0'}
-    dependencies:
-      undici: 4.12.2
-
-  /undici/4.12.2:
-    resolution: {integrity: sha512-RZj6SbkQFs5O/pJCboGEo6l5DTCe3Zg4r/8Z/0/2qnIv08+s6zL4akohOPMYWKc3mzwv15WTvsfMWaafZcvYoQ==}
+  /undici/4.15.0:
+    resolution: {integrity: sha512-kHppwh/y49FLEXl/zYCCbGB0D3nrcWNBczNYCsDdNYzWPs80aQgfKic1PVkJEIc2YlR7m0Lf5i559zbr0AA7FQ==}
     engines: {node: '>=12.18'}
 
   /unherit/1.1.3:

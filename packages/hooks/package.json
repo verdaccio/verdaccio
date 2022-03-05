@@ -35,8 +35,7 @@
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "handlebars": "4.7.7",
-    "undici": "4.12.2",
-    "undici-fetch": "1.0.0-rc.4"
+    "undici": "4.15.0"
   },
   "devDependencies": {
     "@types/node": "16.11.21",
