@@ -35,7 +35,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/logo/symbol/svg/verdaccio-tiny.svg',
+  favicon: "img/logo/uk/verdaccio-tiny-uk-no-bg.svg",
   i18n: i18nConfig,
   plugins: [
     'docusaurus-plugin-sass',
@@ -59,7 +59,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        'If you like Verdaccio, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/verdaccio/verdaccio">GitHub</a>! ⭐',
+        'Verdaccio stands for peace, stop the war, we will be yellow/blue until that happens, <a target="_blank" rel="noopener noreferrer" href="https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md">Help Ukraine</a>! 🇺🇦',
     },
     algolia: {
       appId: 'B3TG5CBF5H',
@@ -71,7 +71,7 @@ module.exports = {
       title: `Verdaccio - v${pkgJson.version}`,
       logo: {
         alt: 'Verdaccio Logo',
-        src: 'img/verdaccio-tiny.svg',
+        src: "img/logo/uk/verdaccio-tiny-uk-no-bg.svg",
       },
       items: [
         {

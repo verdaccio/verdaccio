@@ -1,3 +1,7 @@
+[![SWUbanner](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner2-direct.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+
+> Verdaccio stands for **peace**, stop the war, we will be yellow / blue 🇺🇦 until that happens.
+
 ![verdaccio logo](https://cdn.verdaccio.dev/readme/verdaccio@2x.png)
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
@@ -26,6 +30,7 @@ Google Cloud Storage** or create your own plugin.
 
 [![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
+[![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
 ## Install
 

@@ -15,7 +15,7 @@ const Header = (): React.ReactElement => {
       <div className={styles['header--wrap']}>
         <img
           className={styles['header--imageLogo']}
-          src={useBaseUrl('/img/verdaccio-tiny.svg')}
+          src={useBaseUrl('/img/logo/uk/verdaccio-tiny-uk-no-bg.svg')}
           alt="Verdaccio Logo"
         />
         <div className={styles['header--mt-2']}>
