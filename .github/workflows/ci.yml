@@ -24,7 +24,7 @@ jobs:
         ports:
           - 4873:4873
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3
     - name: Use Node 16
       uses: actions/setup-node@v3
       with:
@@ -49,7 +49,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Use Node 16
         uses: actions/setup-node@v3
         with:
@@ -69,7 +69,7 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Use Node 16
         uses: actions/setup-node@v3
         with:
@@ -95,7 +95,7 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@v3
         with:
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     name: UI Test E2E Node 16
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -143,7 +143,7 @@ jobs:
   #   # TODO: fails on migrate to node 16, we need to check why
   #   name: CLI Test E2E Node 16
   #   steps:
-  #     - uses: actions/checkout@v2.4.0
+  #     - uses: actions/checkout@v3
   #     - uses: actions/setup-node@v3
   #       with:
   #         node-version: 16
@@ -169,7 +169,7 @@ jobs:
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
