@@ -15,7 +15,7 @@ jobs:
     name: Prepare build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 14.x
@@ -62,7 +62,7 @@ jobs:
     name: Benchmark autocannon
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 14.x
@@ -123,7 +123,7 @@ jobs:
     name: Benchmark hyperfine
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 14.x
