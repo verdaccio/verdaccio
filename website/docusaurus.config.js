@@ -59,7 +59,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        'Verdaccio stands for peace, stop the war, we will be yellow/blue until that happens, <a target="_blank" rel="noopener noreferrer" href="https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md">Help Ukraine</a>! 🇺🇦',
+        'Verdaccio stands for peace, stop the war, we will be yellow/blue until that happens, <a target="_blank" rel="noopener noreferrer" href="https://redcross.org.ua/en/">Help Ukraine Refugees</a>! 🇺🇦',
     },
     algolia: {
       appId: 'B3TG5CBF5H',
