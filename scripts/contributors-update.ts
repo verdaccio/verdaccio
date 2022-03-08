@@ -20,7 +20,7 @@ const excludebots = [
   try {
     // Awesome script made by https://github.com/dianmorales
     const result = await contributors({
-      token,
+      token: token as string,
       organization: 'verdaccio',
       excludebots,
       allowFork: false,
