@@ -111,7 +111,7 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
-  let colors = loggerConfig?.colors === true ? process.stdout.isTTY : false;
+  let colors = typeof loggerConfig?.colors === 'boolean' ? Boolean(loggerConfig?.colors) : process.stdout.isTTY;
   if ('EXPERIMENTAL_VERDACCIO_LOGGER_COLORS' in process.env) {
     colors = process.env.EXPERIMENTAL_VERDACCIO_LOGGER_COLORS != 'false';
   }
