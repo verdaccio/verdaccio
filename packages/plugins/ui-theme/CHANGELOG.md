@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.21
+
+### Patch Changes
+
+- a179f1fd: show verdaccio logo in the footer even when custom brand is set
+
 ## 6.0.0-6-next.20
 
 ### Patch Changes

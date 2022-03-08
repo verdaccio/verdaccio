@@ -1,5 +1,12 @@
 # verdaccio
 
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- Updated dependencies [a179f1fd]
+  - @verdaccio/ui-theme@6.0.0-6-next.21
+
 ## 6.0.0-6-next.35
 
 ### Patch Changes
