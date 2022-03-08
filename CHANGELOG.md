@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.7.1](https://github.com/verdaccio/verdaccio/compare/v5.7.0...v5.7.1) (2022-03-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.21 ([#3050](https://github.com/verdaccio/verdaccio/issues/3050)) ([ace754d](https://github.com/verdaccio/verdaccio/commit/ace754ddffb20ba4c465cfec409291d5d4f51142))
+* missing colors on terminal ([#3049](https://github.com/verdaccio/verdaccio/issues/3049)) ([0f51a6c](https://github.com/verdaccio/verdaccio/commit/0f51a6ced5ee453b1cb6d7b375960d4b21ea4834))
+* **deps:** update dependency dayjs to v1.10.8 ([#3036](https://github.com/verdaccio/verdaccio/issues/3036)) ([1221ffd](https://github.com/verdaccio/verdaccio/commit/1221ffd512fb678aee75cbe5f877670c32e1a056))
+* **deps:** update dependency express to v4.17.3 ([#3039](https://github.com/verdaccio/verdaccio/issues/3039)) ([21c66f6](https://github.com/verdaccio/verdaccio/commit/21c66f65c3eae4bc0048056258376300785e87ff))
+* **deps:** update dependency minimatch to v5 ([#3035](https://github.com/verdaccio/verdaccio/issues/3035)) ([2ef97d4](https://github.com/verdaccio/verdaccio/commit/2ef97d48470ee30bef59274472c14b14ba9cb29a))
+* **deps:** update dependency verdaccio-htpasswd to v10.3.0 ([#3038](https://github.com/verdaccio/verdaccio/issues/3038)) ([24830e0](https://github.com/verdaccio/verdaccio/commit/24830e06e8dd7c00f783177a2048be0524ef42aa))
+
 ## [5.7.0](https://github.com/verdaccio/verdaccio/compare/v5.6.2...v5.7.0) (2022-03-04)
 
 
