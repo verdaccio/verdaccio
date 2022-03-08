@@ -2,16 +2,16 @@
   {
     "id": 558752,
     "login": "juanpicado",
-    "contributions": 4671,
+    "contributions": 4693,
     "repositories": [
       {
         "name": "verdaccio",
-        "contributions": 2494,
+        "contributions": 2509,
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -70,8 +70,8 @@
         "full_name": "verdaccio/github-actions",
         "html_url": "https://github.com/verdaccio/github-actions",
         "description": "🤖Verdaccio GitHub Actions",
-        "watchers": 10,
-        "staergezers": 10,
+        "watchers": 11,
+        "staergezers": 11,
         "archived": false
       },
       {
@@ -160,8 +160,18 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
+        "archived": false
+      },
+      {
+        "name": "cdn-assets",
+        "contributions": 31,
+        "full_name": "verdaccio/cdn-assets",
+        "html_url": "https://github.com/verdaccio/cdn-assets",
+        "description": "Fancy cheap CDN for assets",
+        "watchers": 0,
+        "staergezers": 0,
         "archived": false
       },
       {
@@ -173,16 +183,6 @@
         "watchers": 2,
         "staergezers": 2,
         "archived": true
-      },
-      {
-        "name": "cdn-assets",
-        "contributions": 24,
-        "full_name": "verdaccio/cdn-assets",
-        "html_url": "https://github.com/verdaccio/cdn-assets",
-        "description": "Fancy cheap CDN for assets",
-        "watchers": 0,
-        "staergezers": 0,
-        "archived": false
       },
       {
         "name": "babel-preset",
@@ -337,8 +337,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -364,8 +364,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -531,8 +531,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -601,8 +601,8 @@
         "full_name": "verdaccio/github-actions",
         "html_url": "https://github.com/verdaccio/github-actions",
         "description": "🤖Verdaccio GitHub Actions",
-        "watchers": 10,
-        "staergezers": 10,
+        "watchers": 11,
+        "staergezers": 11,
         "archived": false
       },
       {
@@ -658,8 +658,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -724,21 +724,21 @@
   {
     "id": 41898282,
     "login": "github-actions[bot]",
-    "contributions": 48,
+    "contributions": 53,
     "repositories": [
       {
         "name": "verdaccio",
-        "contributions": 31,
+        "contributions": 35,
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
         "name": "monorepo",
-        "contributions": 14,
+        "contributions": 15,
         "full_name": "verdaccio/monorepo",
         "html_url": "https://github.com/verdaccio/monorepo",
         "description": "🏰Monorepo to keep all the packages for Verdaccio ecosystem (deprecated, only v5 changes)",
@@ -779,8 +779,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -796,8 +796,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -843,8 +843,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -890,8 +890,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -951,8 +951,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -968,8 +968,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1005,8 +1005,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1022,8 +1022,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1039,8 +1039,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1093,8 +1093,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1110,8 +1110,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1137,8 +1137,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1164,8 +1164,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1191,8 +1191,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1228,8 +1228,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1245,8 +1245,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1262,8 +1262,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1279,8 +1279,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1343,8 +1343,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1360,8 +1360,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1377,8 +1377,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1492,8 +1492,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1509,8 +1509,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1526,8 +1526,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1543,8 +1543,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1570,8 +1570,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1597,8 +1597,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1634,8 +1634,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -1651,8 +1651,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1668,8 +1668,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1685,8 +1685,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1702,8 +1702,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1719,8 +1719,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1736,8 +1736,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1753,8 +1753,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -1770,8 +1770,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -1807,8 +1807,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2027,8 +2027,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -2044,8 +2044,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2061,8 +2061,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2078,8 +2078,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2095,8 +2095,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2112,8 +2112,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2129,8 +2129,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2156,8 +2156,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2173,6 +2173,33 @@
     ]
   },
   {
+    "id": 5667395,
+    "login": "edclement",
+    "contributions": 3,
+    "repositories": [
+      {
+        "name": "verdaccio",
+        "contributions": 2,
+        "full_name": "verdaccio/verdaccio",
+        "html_url": "https://github.com/verdaccio/verdaccio",
+        "description": "📦🔐 A lightweight Node.js private proxy registry",
+        "watchers": 13062,
+        "staergezers": 13062,
+        "archived": false
+      },
+      {
+        "name": "monorepo",
+        "contributions": 1,
+        "full_name": "verdaccio/monorepo",
+        "html_url": "https://github.com/verdaccio/monorepo",
+        "description": "🏰Monorepo to keep all the packages for Verdaccio ecosystem (deprecated, only v5 changes)",
+        "watchers": 56,
+        "staergezers": 56,
+        "archived": false
+      }
+    ]
+  },
+  {
     "id": 1715380,
     "login": "ddhp",
     "contributions": 3,
@@ -2183,8 +2210,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2210,8 +2237,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2220,8 +2247,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -2237,8 +2264,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2274,8 +2301,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2301,8 +2328,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2318,8 +2345,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2355,8 +2382,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2473,8 +2500,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -2490,8 +2517,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -2507,8 +2534,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2524,8 +2551,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2541,8 +2568,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2558,8 +2585,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2575,8 +2602,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2592,8 +2619,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2609,8 +2636,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2626,8 +2653,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2643,8 +2670,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2660,8 +2687,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2677,8 +2704,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2694,8 +2721,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2711,8 +2738,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2728,8 +2755,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2745,8 +2772,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2762,8 +2789,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2779,8 +2806,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2796,8 +2823,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2813,8 +2840,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2830,8 +2857,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2847,8 +2874,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2864,8 +2891,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2881,8 +2908,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2898,8 +2925,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2915,8 +2942,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2932,8 +2959,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -2949,8 +2976,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -2976,8 +3003,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3003,8 +3030,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3030,8 +3057,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3057,8 +3084,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3084,8 +3111,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3111,8 +3138,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       },
       {
@@ -3477,8 +3504,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -3494,8 +3521,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -3511,8 +3538,25 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
+        "archived": false
+      }
+    ]
+  },
+  {
+    "id": 22884999,
+    "login": "hedocode",
+    "contributions": 1,
+    "repositories": [
+      {
+        "name": "verdaccio",
+        "contributions": 1,
+        "full_name": "verdaccio/verdaccio",
+        "html_url": "https://github.com/verdaccio/verdaccio",
+        "description": "📦🔐 A lightweight Node.js private proxy registry",
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3528,8 +3572,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3545,8 +3589,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3562,8 +3606,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3579,8 +3623,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3596,8 +3640,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3613,8 +3657,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3630,8 +3674,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3647,8 +3691,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3664,8 +3708,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3681,8 +3725,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3698,8 +3742,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3715,8 +3759,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3732,8 +3776,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3749,8 +3793,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3766,8 +3810,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3783,8 +3827,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3800,8 +3844,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3817,8 +3861,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3834,8 +3878,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3851,8 +3895,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3868,8 +3912,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3885,8 +3929,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3902,8 +3946,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3919,8 +3963,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3936,25 +3980,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
-        "archived": false
-      }
-    ]
-  },
-  {
-    "id": 5667395,
-    "login": "edclement",
-    "contributions": 1,
-    "repositories": [
-      {
-        "name": "verdaccio",
-        "contributions": 1,
-        "full_name": "verdaccio/verdaccio",
-        "html_url": "https://github.com/verdaccio/verdaccio",
-        "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3970,8 +3997,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -3987,8 +4014,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4004,8 +4031,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4021,8 +4048,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4038,8 +4065,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4055,8 +4082,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4072,8 +4099,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4089,8 +4116,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4106,8 +4133,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4123,8 +4150,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4140,8 +4167,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4157,8 +4184,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4174,8 +4201,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4191,8 +4218,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4208,8 +4235,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4225,8 +4252,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4242,8 +4269,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4259,8 +4286,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4276,8 +4303,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4293,8 +4320,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4310,8 +4337,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4327,8 +4354,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4344,8 +4371,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4361,8 +4388,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4378,8 +4405,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4395,8 +4422,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4412,8 +4439,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4429,8 +4456,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4446,8 +4473,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4463,8 +4490,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4480,8 +4507,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4497,8 +4524,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4514,8 +4541,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4531,8 +4558,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4548,8 +4575,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4565,8 +4592,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4582,8 +4609,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4599,8 +4626,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4616,8 +4643,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4633,8 +4660,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4650,8 +4677,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4667,8 +4694,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4684,8 +4711,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4701,8 +4728,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4718,8 +4745,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4735,8 +4762,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4752,8 +4779,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4769,8 +4796,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4786,8 +4813,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4803,8 +4830,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4820,8 +4847,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4837,8 +4864,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4854,8 +4881,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4871,8 +4898,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4888,8 +4915,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4905,8 +4932,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4922,8 +4949,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4939,8 +4966,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4956,8 +4983,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4973,8 +5000,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -4990,8 +5017,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5007,8 +5034,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5024,8 +5051,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5041,8 +5068,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5058,8 +5085,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5075,8 +5102,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5092,8 +5119,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5109,8 +5136,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5126,8 +5153,25 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
+        "archived": false
+      }
+    ]
+  },
+  {
+    "id": 8685618,
+    "login": "kuoruan",
+    "contributions": 1,
+    "repositories": [
+      {
+        "name": "verdaccio",
+        "contributions": 1,
+        "full_name": "verdaccio/verdaccio",
+        "html_url": "https://github.com/verdaccio/verdaccio",
+        "description": "📦🔐 A lightweight Node.js private proxy registry",
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5143,8 +5187,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5160,8 +5204,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5177,8 +5221,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5194,8 +5238,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5211,8 +5255,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5228,8 +5272,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5245,8 +5289,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5262,8 +5306,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5279,8 +5323,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5296,8 +5340,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5313,8 +5357,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5330,8 +5374,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5347,8 +5391,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5364,8 +5408,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5381,8 +5425,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5398,8 +5442,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5415,8 +5459,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5432,8 +5476,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5449,8 +5493,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5466,8 +5510,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5483,8 +5527,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5500,8 +5544,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -5517,8 +5561,8 @@
         "full_name": "verdaccio/verdaccio",
         "html_url": "https://github.com/verdaccio/verdaccio",
         "description": "📦🔐 A lightweight Node.js private proxy registry",
-        "watchers": 13021,
-        "staergezers": 13021,
+        "watchers": 13062,
+        "staergezers": 13062,
         "archived": false
       }
     ]
@@ -6867,23 +6911,6 @@
     ]
   },
   {
-    "id": 24694223,
-    "login": "zhuqingguang",
-    "contributions": 1,
-    "repositories": [
-      {
-        "name": "ui",
-        "contributions": 1,
-        "full_name": "verdaccio/ui",
-        "html_url": "https://github.com/verdaccio/ui",
-        "description": "🖼🎨 Verdaccio UI (deprecated, use verdaccio/verdaccio)",
-        "watchers": 122,
-        "staergezers": 122,
-        "archived": true
-      }
-    ]
-  },
-  {
     "id": 821228,
     "login": "liamjack",
     "contributions": 1,
@@ -7064,8 +7091,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7081,8 +7108,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7098,8 +7125,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7115,8 +7142,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7132,8 +7159,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7149,8 +7176,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7166,8 +7193,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7183,8 +7210,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7200,8 +7227,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7217,8 +7244,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7234,8 +7261,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7251,8 +7278,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
@@ -7268,8 +7295,8 @@
         "full_name": "verdaccio/charts",
         "html_url": "https://github.com/verdaccio/charts",
         "description": "☸️🐳 Verdaccio Helm chart repository",
-        "watchers": 34,
-        "staergezers": 34,
+        "watchers": 35,
+        "staergezers": 35,
         "archived": false
       }
     ]
