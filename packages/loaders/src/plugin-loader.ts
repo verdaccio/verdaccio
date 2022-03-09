@@ -121,7 +121,7 @@ export function loadPlugin<T extends IPlugin<T>>(
     try {
       plugin = isES6(plugin)
         ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
-        : plugin(pluginConfigs[pluginId], params);
+        : new plugin(pluginConfigs[pluginId], params);
     } catch (error: any) {
       plugin = null;
       logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
