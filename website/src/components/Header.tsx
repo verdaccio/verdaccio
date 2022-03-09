@@ -4,6 +4,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React from 'react';
 import { Follow } from 'react-twitter-widgets';
+import cx from 'classnames';
 
 import Command from './Command';
 import styles from './Header.module.scss';
@@ -31,10 +32,10 @@ const Header = (): React.ReactElement => {
               <Translate>GET STARTED</Translate>
             </Link>
             <a
-              href="https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md"
-              className="link-secondary"
+              href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1"
+              className={cx('link-secondary', 'specialButton')}
             >
-              <Translate>CONTRIBUTE</Translate>
+              <Translate>DONATE</Translate>
             </a>
           </div>
         </div>

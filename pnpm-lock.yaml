@@ -1300,6 +1300,7 @@ importers:
       '@material-ui/icons': ^4.11.2
       '@mdx-js/react': ^1.6.22
       '@tsconfig/docusaurus': ^1.0.2
+      classnames: 2.3.1
       clsx: ^1.1.1
       copy-text-to-clipboard: ^3.0.1
       docusaurus-plugin-contributors: workspace:1.0.0
@@ -1326,6 +1327,7 @@ importers:
       '@material-ui/core': 4.12.3_react-dom@17.0.2+react@17.0.2
       '@material-ui/icons': 4.11.2_fced322086cd04afb0b6feec9e866920
       '@mdx-js/react': 1.6.22_react@17.0.2
+      classnames: 2.3.1
       clsx: 1.1.1
       copy-text-to-clipboard: 3.0.1
       docusaurus-plugin-contributors: link:../packages/tools/docusaurus-plugin-contributors
@@ -11782,6 +11784,10 @@ packages:
       define-property: 0.2.5
       isobject: 3.0.1
       static-extend: 0.1.2
+
+  /classnames/2.3.1:
+    resolution: {integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==}
+    dev: false
 
   /clean-css/4.2.4:
     resolution: {integrity: sha512-EJUDT7nDVFDvaQgAo2G/PJvxmp1o/c6iXLbswsBbUFXi1Nr+AjA2cKmfbKDMjMvzEe75g3P6JkaDDAKk96A85A==}
