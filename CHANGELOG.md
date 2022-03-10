@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.13.0](https://github.com/verdaccio/verdaccio/compare/v4.12.2...v4.13.0) (2022-03-10)
+
+
+### Features
+
+* update docker base node to 14.x in 4.x branch ([#3046](https://github.com/verdaccio/verdaccio/issues/3046)) ([f40ea10](https://github.com/verdaccio/verdaccio/commit/f40ea10d1f5cc1e5c29a51c7750c27c4ceccd76f))
+
 ### [4.12.2](https://github.com/verdaccio/verdaccio/compare/v4.12.1...v4.12.2) (2021-06-23)
 
 
