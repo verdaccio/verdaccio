@@ -1,5 +1,12 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [31d661c7]
+  - @verdaccio/loaders@6.0.0-6-next.11
+
 ## 6.0.0-6-next.19
 
 ### Patch Changes
