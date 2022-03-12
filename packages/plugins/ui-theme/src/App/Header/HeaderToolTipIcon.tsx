@@ -55,7 +55,6 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
         </IconSearchButton>
       );
     case 'dark-mode':
-      // todo(Priscila): Add Zoom transition effect
       return (
         <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
           <NightsStay />
@@ -63,7 +62,6 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
       );
 
     case 'light-mode':
-      // todo(Priscila): Add Zoom transition effect
       return (
         <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
           <WbSunny />
