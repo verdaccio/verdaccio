@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.8.0](https://github.com/verdaccio/verdaccio/compare/v5.7.1...v5.8.0) (2022-03-12)
+
+
+### Features
+
+* update ui with new modal banner ([#3062](https://github.com/verdaccio/verdaccio/issues/3062)) ([2ad085a](https://github.com/verdaccio/verdaccio/commit/2ad085a8e2adf3c19b3b2c7172b50f1a9cd6c9df))
+
 ### [5.7.1](https://github.com/verdaccio/verdaccio/compare/v5.7.0...v5.7.1) (2022-03-08)
 
 
