@@ -42,7 +42,7 @@ const Support = () => {
       <Tooltip title={title}>
         <IconButton
           color="inherit"
-          data-testid={'header--tooltip-info'}
+          data-testid={'header--tooltip-support'}
           id="header--button-registryInfo"
           onClick={handleOpen}
           size="large"
