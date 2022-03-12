@@ -40,13 +40,7 @@ const Support = () => {
   return (
     <>
       <Tooltip title={title}>
-        <IconButton
-          color="inherit"
-          data-testid={'header--tooltip-support'}
-          id="header--button-registryInfo"
-          onClick={handleOpen}
-          size="large"
-        >
+        <IconButton color="inherit" onClick={handleOpen} size="large">
           <Flags>
             <FlagsIcon.UA />
           </Flags>
@@ -61,7 +55,7 @@ const Support = () => {
         <Box sx={style}>
           <Grid container={true} spacing={2}>
             <Grid item={true} xs={12}>
-              <Typography component="h2" id="modal-modal-title" variant="h6">
+              <Typography component="h2" variant="h6">
                 {title}
               </Typography>
               <Divider />
@@ -77,7 +71,7 @@ const Support = () => {
                 a  hard time suffering for a horrible and unjustified war. It would be great if you
                 decide today to make a difference and help others. You could help by donating 
                 to very well-known humanitarian organizations, helping in your local 
-                area with food, clothes, toys for kids, or your own time. Any help is very welcome.`}
+                area with food, clothes, donate blood, toys for kids, or your own time. Any help is very welcome.`}
                 </Typography>
               </span>
               <ul style={{ padding: '10px 0' }}>
@@ -120,6 +114,11 @@ const Support = () => {
                     target="_blank"
                   >
                     {'Read Reports from Human Rights Watch'}
+                  </a>
+                </li>
+                <li>
+                  <a href="https://europeanbloodalliance.eu/" rel="noreferrer" target="_blank">
+                    {'Donate blood in Europe'}
                   </a>
                 </li>
               </ul>
