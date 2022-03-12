@@ -38,6 +38,7 @@ export default {
     new HTMLWebpackPlugin({
       __UI_OPTIONS: JSON.stringify({
         ...configJsonFormat.web,
+        version: '1.0.0',
         filename: 'index.html',
         base: new URL('/', 'http://localhost:4873'),
       }),
