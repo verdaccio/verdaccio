@@ -99,7 +99,7 @@ const Support = () => {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    {'Donate to Save the Childrens'}
+                    {'Donate to Save the Children'}
                   </a>
                 </li>
                 <li>
