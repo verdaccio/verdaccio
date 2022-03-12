@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 6.0.0-6-next.11
+
+### Patch Changes
+
+- 31d661c7: always create plugin instance with new
+
 ## 6.0.0-6-next.10
 
 ### Patch Changes

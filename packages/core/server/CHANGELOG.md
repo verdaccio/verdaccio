@@ -1,5 +1,12 @@
 # @verdaccio/fastify-migration
 
+## 6.0.0-6-next.21
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.20
+- @verdaccio/store@6.0.0-6-next.20
+
 ## 6.0.0-6-next.20
 
 ### Patch Changes

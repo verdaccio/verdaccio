@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.22
+
+### Patch Changes
+
+- a2b69a08: add banner support ukraine
+
 ## 6.0.0-6-next.21
 
 ### Patch Changes
