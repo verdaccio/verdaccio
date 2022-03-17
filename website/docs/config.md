@@ -153,11 +153,37 @@ publish:
 
 The prefix is intended to be used when the server runs behinds the proxy and won't work properly if is used without a reverse proxy, check the **reverse proxy setup** page for more details.
 
+The internal logic builds correctly the public url, validates the `host` header and and bad shaped `url_prefix`.
+
+eg: `url_prefix: /verdaccio`, `url_prefix: verdaccio/`, `url_prefix: verdaccio` would be `/verdaccio/`
+
 ```yaml
 url_prefix: /verdaccio/
 ```
 
-> Verdaccio 5 has an improved prefix behaviour and the `VERDACCIO_PUBLIC_URL` is available for use, learn how to [here](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#url_prefix-improved-behavior).
+The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this variable will be used for:
+
+- Used as base path to serve UI resources as (js, favicon, etc)
+- Used on return metadata `dist` base path
+- Ignores `host` and `X-Forwarded-Proto` headers
+- If `url_prefix` is defined would be appened to the env variable.
+
+```
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/my_prefix'
+
+// url -> https://somedomain.org/my_prefix/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/'
+
+// url -> https://somedomain.org/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
+url_prefix: '/second_prefix'
+
+// url -> https://somedomain.org/second_prefix/'
+```
 
 ### User Agent {#user-agent}
 

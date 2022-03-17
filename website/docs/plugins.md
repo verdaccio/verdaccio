@@ -113,6 +113,70 @@ theme:
     option2: bar
 ```
 
+### Theme plugin development
+
+> Since v.5.0.0
+
+If you have a custom UI plugin for the them you will need to adapt your build to the new requirements.
+
+The previous version you only need to return a function with a string and the path of the directory.  
+
+```
+const path = require('path');
+
+module.exports = () => {
+  return path.join(__dirname, 'static');
+};
+```
+
+The module must return an object and the `index.html` is ignored since support dynamic rendering, eg:
+
+```
+  staticPath: '/somePath/node_modules/verdaccio-theme-custom/static',
+  manifest: {
+    'main.js': '-/static/main.c21a97b1dbe8456a9c76.js',
+    'runtime.js': '-/static/runtime.c21a97b1dbe8456a9c76.js',
+    'NotFound.js': '-/static/NotFound.c21a97b1dbe8456a9c76.js',
+    'Provider.js': '-/static/Provider.c21a97b1dbe8456a9c76.js',
+    'Version.js': '-/static/Version.c21a97b1dbe8456a9c76.js',
+    'Home.js': '-/static/Home.c21a97b1dbe8456a9c76.js',
+    'Versions.js': '-/static/Versions.c21a97b1dbe8456a9c76.js',
+    'UpLinks.js': '-/static/UpLinks.c21a97b1dbe8456a9c76.js',
+    'Dependencies.js': '-/static/Dependencies.c21a97b1dbe8456a9c76.js',
+    'Engines.js': '-/static/Engines.c21a97b1dbe8456a9c76.js',
+    'Dist.js': '-/static/Dist.c21a97b1dbe8456a9c76.js',
+    'Install.js': '-/static/Install.c21a97b1dbe8456a9c76.js',
+    'Repository.js': '-/static/Repository.c21a97b1dbe8456a9c76.js',
+    'vendors.js': '-/static/vendors.c21a97b1dbe8456a9c76.js',
+    '718.c21a97b1dbe8456a9c76.js': '-/static/718.c21a97b1dbe8456a9c76.js',
+    '238.c21a97b1dbe8456a9c76.js': '-/static/238.c21a97b1dbe8456a9c76.js',
+    '73.c21a97b1dbe8456a9c76.js': '-/static/73.c21a97b1dbe8456a9c76.js'
+  },
+  manifestFiles: { js: [ 'runtime.js', 'vendors.js', 'main.js' ] }
+```
+- `staticPath`: is the same data returned in Verdaccio 4.
+- `manifest`: A webpack manifest object.
+- `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
+
+#### Manifest and Webpack {#manifest-and-webpack}
+
+Verdaccio uses the webpack [manifest](https://webpack.js.org/concepts/manifest/) object to render the html dynamically, in combination with the `manifestFiles` the application understand what to render.
+
+> Currently only support `js` but if you also need `css`, we are open to discuss it and further improvements.
+
+```
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+
+  plugins: [
+    ...
+    new WebpackManifestPlugin({
+      removeKeyHash: true,
+    }),
+    ...
+  ],
+
+```
+
 ## Legacy plugins {#legacy-plugins}
 
 ### Sinopia Plugins {#sinopia-plugins}
