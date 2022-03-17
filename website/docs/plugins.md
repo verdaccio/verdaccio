@@ -112,9 +112,10 @@ theme:
     option1: foo
     option2: bar
 ```
-#### Theme plugin development
 
-### UI custom plugins themes {#ui-custom-plugins-themes}
+### Theme plugin development
+
+> Since v.5.0.0
 
 If you have a custom UI plugin for the them you will need to adapt your build to the new requirements.
 
@@ -128,7 +129,7 @@ module.exports = () => {
 };
 ```
 
-Since Verdaccio 5 the module must return an object and the `index.html` is ignored since support dynamic rendering, eg:
+The module must return an object and the `index.html` is ignored since support dynamic rendering, eg:
 
 ```
   staticPath: '/somePath/node_modules/verdaccio-theme-custom/static',
@@ -175,7 +176,6 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
   ],
 
 ```
-
 
 ## Legacy plugins {#legacy-plugins}
 
