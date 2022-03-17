@@ -59,7 +59,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">Yo could help donating Ukraine refugees</a>!',
+        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">You could help provide humanitarian support to Ukraine refugees, click here</a>!',
         isCloseable: false,
         backgroundColor: '#1595de',
         textColor: '#ffffff',
