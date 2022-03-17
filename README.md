@@ -8,7 +8,7 @@
 
 # Version 6 (Development branch)
 
-> Looking for Verdaccio 5? Check branch `5.x`.
+> Looking for Verdaccio 5? Check branch `5.x`
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
