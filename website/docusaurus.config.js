@@ -59,7 +59,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        'Verdaccio stands for peace, we will be yellow/blue until Russia stop the criminal war, <a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">Help Ukraine Donating to Refugees</a>! 🇺🇦',
+        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">Yo could help donating Ukraine refugees</a>!',
         isCloseable: false,
         backgroundColor: '#1595de',
         textColor: '#ffffff',

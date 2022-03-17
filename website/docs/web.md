@@ -25,7 +25,15 @@ web:
     - npm
     - yarn
     - pnpm
-  login: true      
+  login: true
+  scriptsBodyAfter:
+    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+  metaScripts:
+    - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
+    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
+    - '<meta name="robots" content="noindex" />'
+  scriptsbodyBefore:
+    - '<div id="myId">html before webpack scripts</div>'        
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
@@ -62,6 +70,10 @@ i18n:
 | rateLimit       | object     | No       | use `userRateLimit` configuration  | `>=v5.4.0` | Increase or decrease rate limit, by default is 5k request every 2 minutes, only limit web api endpoints, the CSS, JS, etcc are ingnored |
 | pkgManagers       | npm, pnpm or yarn     | false       | npm                                                         | `>=v5.5.0` | Allow customise which package managers on the side bar and registry information dialog are visible |
 | login       | boolean     | true       | true or false                                                         | `>=v5.5.0` | Allow disable login on the UI (also include web endpoints).          |
+| scriptsBodyAfter | string[] | No | any list of strings | `>=5.0.0` | inject scripts after the <body/> tag |
+| metaScripts | string[] | No | any list of strings | `>=5.0.0` | inject scripts inside <head/> |
+| scriptsbodyBefore | string[] | No | any list of strings | `>=5.0.0` |  inject scripts before the <body/>|
+
 
 > The recommended logo size is `40x40` pixels.
 
