@@ -51,7 +51,7 @@ i18n:
   web: en-US
 ```
 
-> ⚠️ Only the languages in this [list](https://github.com/verdaccio/ui/tree/master/i18n/translations) are available, feel free to contribute with more. The default
+> ⚠️ Only the enabled languages on this [file](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/enabledLanguages.ts) are available, you can contribute by adding new more languages. The default
 > one is en-US
 
 ### Configuration {#configuration}
