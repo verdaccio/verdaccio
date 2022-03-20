@@ -8,6 +8,9 @@ web:
     - yarn
     - pnpm
 
+flags:
+  searchRemote: true
+
 plugins: ../
 
 auth:

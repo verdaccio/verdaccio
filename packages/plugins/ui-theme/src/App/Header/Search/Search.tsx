@@ -1,13 +1,18 @@
+/* eslint-disable verdaccio/jsx-spread */
+import SearchMui from '@mui/icons-material/Search';
 import debounce from 'lodash/debounce';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
-import AutoComplete from 'verdaccio-ui/components/AutoComplete';
+import { useConfig } from 'verdaccio-ui/providers/config';
 
 import { SearchResultWeb } from '@verdaccio/types';
 
 import { Dispatch, RootState } from '../../../store/store';
+import AutoComplete from './AutoComplete';
+import SearchItem from './SearchItem';
+import { StyledInputAdornment, StyledTextField } from './styles';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -16,6 +21,10 @@ const CONSTANTS = {
 
 const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const { t } = useTranslation();
+  const {
+    configOptions: { flags },
+  } = useConfig();
+  const searchRemote = flags?.searchRemote || false;
   const { suggestions } = useSelector((state: RootState) => state.search);
   const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
   const dispatch = useDispatch<Dispatch>();
@@ -49,11 +58,15 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
       event.stopPropagation();
       switch (reason) {
         case 'selectOption':
-          history.push(`/-/web/detail/${value.name}`);
+          if (searchRemote) {
+            history.push(`/-/web/detail/${value.package.name}`);
+          } else {
+            history.push(`/-/web/detail/${value.name}`);
+          }
           break;
       }
     },
-    [history]
+    [history, searchRemote]
   );
 
   /**
@@ -69,12 +82,75 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
     [dispatch]
   );
 
+  const renderInput = (params) => {
+    return (
+      <StyledTextField
+        {...params}
+        InputProps={{
+          ...params.InputProps,
+          startAdornment: (
+            <StyledInputAdornment position="start">
+              <SearchMui />
+            </StyledInputAdornment>
+          ),
+        }}
+        label=""
+        placeholder={t('search.packages')}
+        variant="standard"
+      />
+    );
+  };
+
+  const getOptionLabel = () => {
+    if (searchRemote) {
+      return (option) => {
+        return option?.package?.name ?? '';
+      };
+    } else {
+      return (option) => {
+        return option?.name;
+      };
+    }
+  };
+
+  const renderOption = (props, option) => {
+    if (searchRemote) {
+      const item: SearchResultWeb = option.package;
+      const isPrivate = option?.verdaccioPrivate;
+      const isCached = option?.verdaccioPkgCached;
+      const isRemote = !isCached && !isPrivate;
+      return (
+        <SearchItem
+          {...props}
+          description={item?.description}
+          isCached={isCached}
+          isPrivate={isPrivate}
+          isRemote={isRemote}
+          name={item?.name}
+          version={item?.version}
+        />
+      );
+    } else {
+      return (
+        <SearchItem
+          {...props}
+          description={option?.description}
+          name={option?.name}
+          version={option?.version}
+        />
+      );
+    }
+  };
+
   return (
     <AutoComplete
+      getOptionLabel={getOptionLabel()}
       onCleanSuggestions={handleOnBlur}
       onSelectItem={handleClickSearch}
       onSuggestionsFetch={debounce(handleFetchPackages, CONSTANTS.API_DELAY)}
       placeholder={t('search.packages')}
+      renderInput={renderInput}
+      renderOption={renderOption}
       suggestions={suggestions}
       suggestionsLoading={isLoading}
     />

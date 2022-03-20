@@ -20,7 +20,10 @@
     "greetings": "Hi "
   },
   "search": {
-    "packages": "Search Packages"
+    "packages": "Search Packages",
+    "isPrivate": "Private",
+    "isRemote": "Remote",
+    "isCached": "Cached"
   },
   "autoComplete": {
     "loading": "Loading...",

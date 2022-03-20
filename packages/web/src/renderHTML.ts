@@ -4,6 +4,7 @@ import { URL } from 'url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
+import { TemplateUIOptions } from '@verdaccio/types';
 import { getPublicUrl } from '@verdaccio/url';
 
 import renderTemplate from './template';
@@ -32,6 +33,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const logoURI = config?.web?.logo ?? '';
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = pkgJSON.version;
+  const flags = {
+    ...config.flags,
+  };
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
     {},
@@ -42,7 +46,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     },
     config?.web
   );
-  const options = {
+  const options: TemplateUIOptions = {
     darkMode,
     url_prefix,
     basename,
@@ -50,6 +54,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     primaryColor,
     version,
     logoURI,
+    flags,
     login,
     pkgManagers,
     title,

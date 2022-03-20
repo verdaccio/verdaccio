@@ -958,10 +958,16 @@ class LocalStorage {
               reject(err);
             }
 
+            if (_.isEmpty(pkg?.versions)) {
+              return resolve({});
+            }
+
             const searchPackage = normalizeSearchPackage(pkg, searchItem);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
               score: searchItem.score,
+              verdaccioPkgCached: searchItem.verdaccioPkgCached,
+              verdaccioPrivate: searchItem.verdaccioPrivate,
               flags: searchItem?.flags,
               // FUTURE: find a better way to calculate the score
               searchScore: 1,

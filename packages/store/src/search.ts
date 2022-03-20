@@ -128,7 +128,7 @@ export class SearchManager {
       if (err) {
         throw errorUtils.getInternalError(err ? err.message : 'unknown error');
       } else {
-        debug('Pipeline succeeded.');
+        debug('pipeline succeeded');
       }
     });
 

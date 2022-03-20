@@ -16,10 +16,19 @@ export type SearchItemPkg = {
   time?: number | Date;
 };
 
-export type SearchItem = {
+type PrivatePackage = {
+  // note: prefixed to avoid external conflicts
+
+  // the package is published as private
+  verdaccioPrivate?: boolean;
+  // if the package is not private but is cached
+  verdaccioPkgCached?: boolean;
+};
+
+export interface SearchItem extends UnStable, PrivatePackage {
   package: SearchItemPkg;
   score: Score;
-} & UnStable;
+}
 
 export type Score = {
   final: number;
@@ -32,11 +41,13 @@ export type SearchResults = {
   time: string;
 };
 
+// @deprecated use @verdaccio/types
 type PublisherMaintainer = {
   username: string;
   email: string;
 };
 
+// @deprecated use @verdaccio/types
 export type SearchPackageBody = {
   name: string;
   scope: string;
@@ -55,11 +66,11 @@ export type SearchPackageBody = {
   maintainers?: PublisherMaintainer[];
 };
 
-export type SearchPackageItem = {
+export interface SearchPackageItem extends UnStable, PrivatePackage {
   package: SearchPackageBody;
   score: Score;
   searchScore?: number;
-} & UnStable;
+}
 
 export const UNSCOPED = 'unscoped';
 
