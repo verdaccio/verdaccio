@@ -4,12 +4,11 @@
 
 /* eslint-disable react/jsx-pascal-case */
 import styled from '@emotion/styled';
-import { Theme } from '@mui/material';
+import { Dialog, Link, Theme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
-import Modal from '@mui/material/Modal';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import FlagsIcon from 'country-flag-icons/react/3x2';
@@ -18,13 +17,6 @@ import React from 'react';
 import flag from './uk.jpg';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
   p: 4,
 };
 
@@ -33,10 +25,47 @@ const Flags = styled('span')<{ theme?: Theme }>(() => ({
 }));
 
 const title = 'Support people affected by the war in Ukraine';
+
+const links = [
+  {
+    href: 'https://twitter.com/denysdovhan/status/1501486563842211843',
+    text: 'Listen at Twitter OSS developers about the kjkjwar',
+  },
+  {
+    href: 'https://snyk.io/blog/celebrating-amazing-open-source-innovation-ukraine/',
+    text: 'Learn more about Open Source developers in Ukraine',
+  },
+  {
+    href: 'https://www.savethechildren.org/us/where-we-work/ukraine/',
+    text: 'Donate to Save the Children',
+  },
+  {
+    href: 'https://www.ifrc.org/',
+    text: 'Donate to the International Red Cross',
+  },
+  {
+    href: 'https://www.hrw.org/news/2022/03/10/ukraine-russian-air-dropped-bombs-hit-residential-area/',
+    text: 'Read Reports from Human Rights Watch',
+  },
+  {
+    href: 'https://europeanbloodalliance.eu/',
+    text: 'Donate blood in Europe',
+  },
+];
+
 const Support = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const linkElements = links.map((link) => (
+    <li key={link.text}>
+      <Link href={link.href} target="_blank">
+        <Typography>{link.text}</Typography>
+      </Link>
+    </li>
+  ));
+
   return (
     <>
       <Tooltip title={title}>
@@ -46,9 +75,10 @@ const Support = () => {
           </Flags>
         </IconButton>
       </Tooltip>
-      <Modal
+      <Dialog
         aria-describedby="modal-modal-description"
         aria-labelledby="modal-modal-title"
+        maxWidth="md"
         onClose={handleClose}
         open={open}
       >
@@ -74,54 +104,7 @@ const Support = () => {
                 area with food, clothes, donate blood, toys for kids, or your own time. Any help is very welcome.`}
                 </Typography>
               </span>
-              <ul style={{ padding: '10px 0' }}>
-                <li>
-                  <a
-                    href="https://twitter.com/denysdovhan/status/1501486563842211843"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {'Listen at Twitter OSS developers about the war'}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://snyk.io/blog/celebrating-amazing-open-source-innovation-ukraine/"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {'Learn more about Open Source developers in Ukraine'}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.savethechildren.org/us/where-we-work/ukraine/"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {'Donate to Save the Children'}
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.ifrc.org/" rel="noreferrer" target="_blank">
-                    {'Donate to the International Red Cross'}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.hrw.org/news/2022/03/10/ukraine-russian-air-dropped-bombs-hit-residential-area/"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {'Read Reports from Human Rights Watch'}
-                  </a>
-                </li>
-                <li>
-                  <a href="https://europeanbloodalliance.eu/" rel="noreferrer" target="_blank">
-                    {'Donate blood in Europe'}
-                  </a>
-                </li>
-              </ul>
+              <ul style={{ padding: '10px 0' }}>{linkElements}</ul>
               <div>
                 <Typography variant="div">{`Spread the voice, make the difference today.`}</Typography>
               </div>
@@ -131,7 +114,7 @@ const Support = () => {
             </Grid>
           </Grid>
         </Box>
-      </Modal>
+      </Dialog>
     </>
   );
 };
