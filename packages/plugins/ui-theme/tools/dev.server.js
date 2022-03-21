@@ -40,7 +40,7 @@ new WebpackDevServer(compiler, {
       target: 'http://localhost:8000',
     },
   ],
-}).listen(port, 'localhost', function (err) {
+}).listen(port, '0.0.0.0', function (err) {
   if (err) {
     return console.log(err);
   }

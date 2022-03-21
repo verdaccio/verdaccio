@@ -138,10 +138,8 @@ output to the code. Each package has it owns namespace.
 
 To run the application from the source code, ensure the project has been built with `pnpm build`, once this is done, there are few commands that helps to run server:
 
-- `pnpm start`: Run the server and the UI with `concurrently`, the
-  server runs in the port `8000` and the UI on the port `4873`. This command
-  is useful if you want to contribute mostly on the UI.
-- `pnpm debug`: Run the server in debug mode `--inspect`, the UI is included but does not have hot reload. For automatic break use `pnpm debug:break`.
+- `pnpm start`: Runs server on port `8000` and UI on port `4873`. This is particularly useful if you want to contribute to the UI, since it runs with hot reload.
+- `pnpm debug`: Run the server in debug mode `--inspect`. UI runs too but without hot reload. For automatic break use `pnpm debug:break`.
 - `pnpm debug:fastify`: To contribute on the [fastify migration](https://github.com/verdaccio/verdaccio/discussions/2155) this is a temporary command for such purpose.
 - `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
 - `pnpm docker`: Build the docker image. Requires `docker` command available in your system.
@@ -333,8 +331,8 @@ We use [changesets](https://github.com/atlassian/changesets) in order to
 generate a detailed Changelog as possible.
 
 Adding a changeset with your Pull Request is essential if you want your
-contribution to get merged (unless is a change that does not affect library
-functionality, eg: typo, docs, readme, add additional test or linting code). To
+contribution to get merged (unless it does not affect functionality or
+user-facing content, eg: docs, readme, adding test or typo/lint fixes). To
 create a changeset please run:
 
 ```
