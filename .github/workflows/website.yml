@@ -32,7 +32,7 @@ jobs:
           node-version: 14
 
       - name: Cache pnpm modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -50,7 +50,7 @@ jobs:
       - name: Build Plugins
         run: pnpm build --filter "docusaurus-plugin-contributors"
       - name: Cache Docusaurus Build
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
