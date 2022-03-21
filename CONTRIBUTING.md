@@ -331,8 +331,8 @@ We use [changesets](https://github.com/atlassian/changesets) in order to
 generate a detailed Changelog as possible.
 
 Adding a changeset with your Pull Request is essential if you want your
-contribution to get merged (unless is a change that does not affect library
-functionality, eg: typo, docs, readme, add additional test or linting code). To
+contribution to get merged (unless it does not affect functionality or
+user-facing content, eg: docs, readme, adding test or typo/lint fixes). To
 create a changeset please run:
 
 ```
