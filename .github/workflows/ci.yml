@@ -38,7 +38,7 @@ jobs:
     - name: Install
       run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -56,7 +56,7 @@ jobs:
           node-version: 16
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -76,7 +76,7 @@ jobs:
           node-version: 16
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -102,7 +102,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -123,7 +123,7 @@ jobs:
           node-version: 16
       - name: Install pnpm
         run: npm i pnpm@latest -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -149,7 +149,7 @@ jobs:
   #         node-version: 16
   #     - name: Install pnpm
   #       run: npm i pnpm@latest -g
-  #     - uses: actions/cache@v2
+  #     - uses: actions/cache@v3
   #       with:
   #         path: ~/.pnpm-store
   #         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -175,7 +175,7 @@ jobs:
           node-version: 16
       - name: Install pnpm
         run: npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}

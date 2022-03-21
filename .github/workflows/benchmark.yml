@@ -30,7 +30,7 @@ jobs:
       - name: install dependencies
         run: pnpm install
       - name: Cache .pnpm-store
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -74,7 +74,7 @@ jobs:
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
@@ -135,7 +135,7 @@ jobs:
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
