@@ -83,7 +83,7 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 **Node Congress 2022, February 2022, Online Free**
 
 <div>
-   <a href="https://nodecongress.com/">
+   <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">
      <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="300"/>
   </a>
 </div>
