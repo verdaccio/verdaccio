@@ -5,10 +5,13 @@
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
   },
-  "bin": {
-    "verdaccio": "./bin/verdaccio",
-    "verdaccio-cli": "./bin/verdaccio"
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
   },
+  "types": "build/types/index.d.ts",
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio"
@@ -31,16 +34,13 @@
   },
   "description": "verdaccio CLI",
   "license": "MIT",
-  "type": "module",
-  "exports": "./build/index.js",
-  "types": "build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules ",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js --F --watch",
+    "build:esm": "cross-env BABEL_ENV=esmUnbundled babel src --extensions '.ts' --out-dir 'build/esm' --source-maps",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --extensions '.ts' --out-dir 'build/cjs' --source-maps",
+    "build:js": "concurrently \"pnpm run build:cjs\" \"pnpm run build:esm\"",
     "build": "pnpm run build:js && pnpm run build:types",
     "start": "ts-node src/index.ts"
   },

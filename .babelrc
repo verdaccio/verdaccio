@@ -1,4 +1,24 @@
 {
+  "env": {
+    "esmUnbundled": {
+      "ignore": ["src/**/*.spec.ts", "**/*.d.ts"],
+      "presets": ["@babel/typescript"]
+    },
+    "esmBundled": {
+      "ignore": ["src/**/*.spec.ts", "**/*.d.ts"],
+       "presets": [["@babel/env", {
+        "targets": {
+          "node": 16
+        }
+      }], ["@babel/typescript"]]
+    },
+    "cjs": {
+      "ignore": ["src/**/*.spec.ts", "**/*.d.ts"],
+      "presets": [["@babel/env", {
+        "modules": "commonjs"
+      }], ["@babel/typescript"]]
+    }
+  },
   "presets": [
     [
       "@babel/env",

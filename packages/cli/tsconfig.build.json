@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "jsx": "react",
-    "outDir": "./build"
+    "outDir": "build/types"
   },
   "include": ["src/**/*"],
   "exclude": ["src/**/*.test.ts"]
