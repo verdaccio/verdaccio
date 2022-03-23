@@ -58,6 +58,7 @@ class TransFormResults extends Transform {
    */
   public _transform(chunk, _encoding, callback) {
     if (_.isArray(chunk)) {
+      // from remotes we should expect chunks as arrays
       (chunk as searchUtils.SearchItem[])
         .filter((pkgItem) => {
           debug(`streaming remote pkg name ${pkgItem?.package?.name}`);
@@ -68,6 +69,7 @@ class TransFormResults extends Transform {
         });
       return callback();
     } else {
+      // local we expect objects
       debug(`streaming local pkg name ${chunk?.package?.name}`);
       this.push(chunk);
       return callback();
@@ -105,23 +107,27 @@ export class SearchManager {
       if (!uplink) {
         // this should never tecnically happens
         logger.fatal({ uplinkId }, 'uplink @upLinkId not found');
-        throw new Error(`uplink ${uplinkId} not found`);
       }
       return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
     });
 
     try {
       debug('search uplinks');
-      await Promise.all([...searchUplinksStreams]);
+      // we only process those streams end successfully, if all fails
+      // we just include local storage
+      await Promise.allSettled([...searchUplinksStreams]);
       debug('search uplinks done');
-    } catch (err) {
-      logger.error({ err }, ' error on uplinks search @{err}');
+    } catch (err: any) {
+      logger.error({ err: err?.message }, ' error on uplinks search @{err}');
       streamPassThrough.emit('error', err);
-      throw err;
     }
     debug('search local');
-    await this.localStorage.search(streamPassThrough, options.query as searchUtils.SearchQuery);
-
+    try {
+      await this.localStorage.search(streamPassThrough, options.query as searchUtils.SearchQuery);
+    } catch (err: any) {
+      logger.error({ err: err?.message }, ' error on local search @{err}');
+      streamPassThrough.emit('error', err);
+    }
     const data: searchUtils.SearchPackageItem[] = [];
     const outPutStream = new PassThrough({ objectMode: true });
     pipeline(streamPassThrough, transformResults, outPutStream, (err) => {
