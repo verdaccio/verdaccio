@@ -117,12 +117,6 @@ function addSearchWebApi(storage: Storage, auth: IAuth, config: Config): Router 
             .filter((i) => !_.isNull(i))
             .slice(from, size);
 
-          // const response: searchUtils.SearchResults = {
-          //   objects: final,
-          //   total: final.length,
-          //   time: new Date().toUTCString(),
-          // };
-
           next(final);
         } catch (err: any) {
           next(errorUtils.getInternalError(err.message));

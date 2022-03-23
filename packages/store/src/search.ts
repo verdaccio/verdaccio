@@ -20,6 +20,7 @@ export interface ISearchResult {
   ref: string;
   score: number;
 }
+// @deprecated not longer used
 export interface IWebSearch {
   index: lunrMutable.index;
   storage: Storage;
@@ -33,7 +34,8 @@ export interface IWebSearch {
 
 export function removeDuplicates(results: searchUtils.SearchPackageItem[]) {
   const pkgNames: any[] = [];
-  return results.filter((pkg) => {
+  const orderByResults = _.orderBy(results, ['verdaccioPrivate', 'asc']);
+  return orderByResults.filter((pkg) => {
     if (pkgNames.includes(pkg?.package?.name)) {
       return false;
     }
@@ -144,9 +146,9 @@ export class SearchManager {
 
     return new Promise((resolve) => {
       outPutStream.on('finish', async () => {
-        const checkAccessPromises: searchUtils.SearchPackageItem[] = removeDuplicates(data);
-        debug('stream finish event %s', checkAccessPromises.length);
-        return resolve(checkAccessPromises);
+        const searchFinalResults: searchUtils.SearchPackageItem[] = removeDuplicates(data);
+        debug('search stream total results: %o', searchFinalResults.length);
+        return resolve(searchFinalResults);
       });
       debug('search done');
     });
@@ -177,6 +179,7 @@ export class SearchManager {
 
 /**
  * Handle the search Indexer.
+ * @deprecated
  */
 class Search implements IWebSearch {
   public readonly index: lunrMutable.index;
