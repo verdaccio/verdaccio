@@ -129,7 +129,7 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          npm init --force
+          npm init
           npm install jest --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
