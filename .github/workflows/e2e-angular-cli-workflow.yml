@@ -178,7 +178,7 @@ jobs:
 #      - name: 'Running the integration test'
 #        run: |
 #          source scripts/e2e-setup-ci.sh
-#          pnpm init --force
+#          pnpm init
 #
 #          pnpm install -g @angular/cli
 #          ng new verdaccio-angular --interactive=false
