@@ -217,10 +217,7 @@ module.exports = {
           },
         },
         googleAnalytics: {
-          trackingID: 'UA-2527438-21'
-        },
-        gtag: {
-          trackingID: 'G-PCYM9FYJZT',
+          trackingID: 'G-PCYM9FYJZT'
         },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
