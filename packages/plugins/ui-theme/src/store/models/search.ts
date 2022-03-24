@@ -68,12 +68,9 @@ export const search = createModel<RootModel>()({
             headers: {},
           }
         );
+        const orderedSuggestions = orderBy(suggestions, ['verdaccioPrivate'], ['desc']);
         dispatch.search.saveSearch({
-          suggestions: orderBy(
-            suggestions,
-            ['verdaccioPrivate', 'asc'],
-            ['verdaccioPkgCached', 'asc']
-          ),
+          suggestions: orderedSuggestions,
         });
       } catch (error: any) {
         if (error.name === CONSTANTS.ABORT_ERROR) {

@@ -67,7 +67,7 @@ class TransFormResults extends Transform {
           return true;
         })
         .forEach((pkgItem) => {
-          this.push(pkgItem);
+          this.push({ ...pkgItem, verdaccioPkgCached: false, verdaccioPrivate: false });
         });
       return callback();
     } else {
