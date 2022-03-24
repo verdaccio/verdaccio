@@ -217,7 +217,7 @@ module.exports = {
           },
         },
         googleAnalytics: {
-          trackingID: 'G-PCYM9FYJZT'
+          trackingID: 'UA-2527438-21'
         },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
