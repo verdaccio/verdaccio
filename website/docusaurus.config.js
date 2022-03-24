@@ -59,7 +59,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">You could help provide humanitarian support to Ukraine refugees, click here</a>!',
+        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">Help provide humanitarian support to Ukraine refugees</a>!',
         isCloseable: false,
         backgroundColor: '#1595de',
         textColor: '#ffffff',
@@ -218,6 +218,9 @@ module.exports = {
         },
         googleAnalytics: {
           trackingID: 'UA-2527438-21'
+        },
+        gtag: {
+          trackingID: 'G-PCYM9FYJZT',
         },
         blog: {
           blogTitle: 'Verdaccio Official Blog',

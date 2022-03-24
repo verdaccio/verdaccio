@@ -1292,6 +1292,7 @@ importers:
       '@docusaurus/module-type-aliases': 2.0.0-beta.14
       '@docusaurus/plugin-content-docs': 2.0.0-beta.17
       '@docusaurus/plugin-google-analytics': 2.0.0-beta.17
+      '@docusaurus/plugin-google-gtag': 2.0.0-beta.17
       '@docusaurus/preset-classic': 2.0.0-beta.17
       '@docusaurus/remark-plugin-npm2yarn': 2.0.0-beta.17
       '@docusaurus/theme-common': 2.0.0-beta.17
@@ -1320,6 +1321,7 @@ importers:
       '@docusaurus/core': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
       '@docusaurus/plugin-content-docs': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
       '@docusaurus/plugin-google-analytics': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
+      '@docusaurus/plugin-google-gtag': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
       '@docusaurus/preset-classic': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
       '@docusaurus/remark-plugin-npm2yarn': 2.0.0-beta.17
       '@docusaurus/theme-common': 2.0.0-beta.17_c154e6a3e9fb4d38bf8cbad136484e76
