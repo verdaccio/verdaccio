@@ -38,7 +38,7 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
   if (typeof headerProtocol === 'string' && headerProtocol !== '') {
     debug('header protocol: %o', protocol);
     const commaIndex = headerProtocol.indexOf(',');
-    returnProtocol = commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
+    returnProtocol = commaIndex > 0 ? headerProtocol.slice(0, commaIndex) : headerProtocol;
   } else {
     debug('req protocol: %o', headerProtocol);
     returnProtocol = protocol;
