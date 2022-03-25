@@ -35,7 +35,7 @@ export const fSError = function (message: string, code = 409): VerdaccioError {
 };
 
 const tempFile = function (str): string {
-  return `${str}.tmp${String(Math.random()).substr(2)}`;
+  return `${str}.tmp${String(Math.random()).slice(2)}`;
 };
 
 const renameTmp = function (src, dst, _cb): void {

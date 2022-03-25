@@ -158,7 +158,7 @@ export function pad(str, max): string {
  * @returns {String}
  */
 export function mask(str: string, charNum = 3): string {
-  return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
+  return `${str.slice(0, charNum)}...${str.slice(-charNum)}`;
 }
 
 // @deprecated

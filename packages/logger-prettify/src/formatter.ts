@@ -26,7 +26,7 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
     let str = templateOptions;
     let isError;
     if (name[0] === ERROR_FLAG) {
-      name = name.substr(1);
+      name = name.slice(1);
       isError = true;
     }
 
