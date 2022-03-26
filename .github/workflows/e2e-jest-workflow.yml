@@ -105,39 +105,6 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
-  npm7:
-    name: 'npm7:jest example'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2.4.0
-
-      - name: 'Use Node.js 12.x'
-        uses: actions/setup-node@v2.5.1
-        with:
-          node-version: 12.x
-      - name: 'install latest npm'
-        run: npm i -g npm@next-7
-      - name: Install Dependencies
-        run: yarn install
-      - name: 'Run verdaccio in the background'
-        run: |
-          nohup yarn node ./scripts/run-verdaccio.js  --config ./scripts/e2e-config.yaml  &
-      - name: 'Ping to verdaccio'
-        run: |
-          npm ping --registry http://localhost:4873
-      - name: 'Running the integration test'
-        run: |
-          source scripts/e2e-setup-ci.sh
-          npm init
-          npm install jest --registry http://localhost:4873
-
-          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
-          yarn jest pass.test.js
-
-          yarn add left-pad --registry http://localhost:4873 --verbose
-          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
-          yarn jest module.test.js
   npm8:
     name: 'npm8:jest example'
     runs-on: ubuntu-latest
