@@ -4,6 +4,7 @@ import path from 'path';
 import apiMiddleware from '@verdaccio/api';
 import { parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
+import { Storage } from '@verdaccio/logger';
 import { initializeServer as initializeServerHelper } from '@verdaccio/test-helper';
 
 import routes from '../src';
@@ -17,5 +18,5 @@ export const getConf = (configName: string) => {
 
 // @deprecated
 export async function initializeServer(configName): Promise<Application> {
-  return initializeServerHelper(getConf(configName), [apiMiddleware, routes]);
+  return initializeServerHelper(getConf(configName), [apiMiddleware, routes], Storage);
 }

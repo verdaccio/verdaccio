@@ -18,9 +18,6 @@
       "path": "../../utils"
     },
     {
-      "path": "../../store"
-    },
-    {
       "path": "../../middleware"
     },
     {

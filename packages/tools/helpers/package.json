@@ -14,7 +14,6 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.4",
     "@verdaccio/config": "workspace:6.0.0-6-next.12",
     "@verdaccio/middleware": "workspace:6.0.0-6-next.20",
-    "@verdaccio/store": "workspace:6.0.0-6-next.20",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "body-parser": "1.19.1",
     "express": "4.17.2",

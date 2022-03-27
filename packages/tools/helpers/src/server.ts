@@ -6,12 +6,12 @@ import path from 'path';
 import { Auth, IAuth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 export async function initializeServer(
   configName,
-  routesMiddleware: any[] = []
+  routesMiddleware: any[] = [],
+  Storage
 ): Promise<Application> {
   const app = express();
   const config = new Config(configName);

@@ -1112,7 +1112,6 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.12
       '@verdaccio/core': workspace:6.0.0-6-next.4
       '@verdaccio/middleware': workspace:6.0.0-6-next.20
-      '@verdaccio/store': workspace:6.0.0-6-next.20
       '@verdaccio/types': workspace:11.0.0-6-next.10
       '@verdaccio/utils': workspace:6.0.0-6-next.10
       body-parser: 1.19.1
@@ -1123,7 +1122,6 @@ importers:
       '@verdaccio/config': link:../../config
       '@verdaccio/core': link:../../core/core
       '@verdaccio/middleware': link:../../middleware
-      '@verdaccio/store': link:../../store
       '@verdaccio/types': link:../../core/types
       '@verdaccio/utils': link:../../utils
       body-parser: 1.19.1
