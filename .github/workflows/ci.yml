@@ -30,7 +30,7 @@ jobs:
       with:
         node-version: 16
     - name: Install pnpm
-      run: npm i pnpm@6.24.1 -g
+      run: npm i pnpm@6.32.3 -g
     - name: set store
       run: |
         mkdir ~/.pnpm-store
@@ -55,7 +55,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@6.32.3 -g
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
@@ -75,7 +75,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@6.32.3 -g
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
@@ -101,7 +101,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@6.32.3 -g
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
@@ -174,7 +174,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@6.24.1 -g
+        run: npm i pnpm@6.32.3 -g
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store

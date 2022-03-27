@@ -60,7 +60,7 @@
     "@types/node": "16.11.21",
     "@verdaccio/server": "workspace:6.0.0-6-next.28",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
-    "@verdaccio/test-helper": "1.0.0",
+    "@verdaccio/test-helper": "workspace:1.0.0",
     "supertest": "6.2.2"
   },
   "funding": {

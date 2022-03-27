@@ -52,7 +52,7 @@
     "@types/node": "16.11.21",
     "@verdaccio/mock": "workspace:6.0.0-6-next.13",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.18",
-    "@verdaccio/test-helper": "1.0.0",
+    "@verdaccio/test-helper": "workspace:1.0.0",
     "http-errors": "1.8.1",
     "request": "2.88.0"
   },

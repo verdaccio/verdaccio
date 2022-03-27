@@ -2,7 +2,6 @@ import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import semver from 'semver';
 
 import { hasProxyTo } from '@verdaccio/config';
 import {
@@ -54,10 +53,6 @@ import {
 import { IGetPackageOptions, IGetPackageOptionsNext, IPluginFilters, ISyncUplinks } from './type';
 // import { StarBody, Users } from './type';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
-
-if (semver.lte(process.version, 'v15.0.0')) {
-  global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;
-}
 
 const debug = buildDebug('verdaccio:storage');
 class Storage {

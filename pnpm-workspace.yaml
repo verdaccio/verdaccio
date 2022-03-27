@@ -2,6 +2,7 @@ packages:
   - packages/*
   - packages/core/*
   - packages/tools/*
+  - packages/experimental/*
   - packages/plugins/*
   - website
   - test/e2e-*

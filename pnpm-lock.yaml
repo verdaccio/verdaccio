@@ -203,7 +203,7 @@ importers:
       '@verdaccio/middleware': workspace:6.0.0-6-next.20
       '@verdaccio/server': workspace:6.0.0-6-next.28
       '@verdaccio/store': workspace:6.0.0-6-next.20
-      '@verdaccio/test-helper': 1.0.0
+      '@verdaccio/test-helper': workspace:1.0.0
       '@verdaccio/types': workspace:11.0.0-6-next.10
       '@verdaccio/utils': workspace:6.0.0-6-next.10
       abortcontroller-polyfill: 1.7.3
@@ -283,7 +283,7 @@ importers:
     dependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/fastify-migration': link:../core/server
+      '@verdaccio/fastify-migration': link:../experimental/fastify-server
       '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
       clipanion: 3.1.0
@@ -355,47 +355,6 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
 
-  packages/core/server:
-    specifiers:
-      '@types/node': 16.11.21
-      '@verdaccio/auth': workspace:6.0.0-6-next.20
-      '@verdaccio/config': workspace:6.0.0-6-next.12
-      '@verdaccio/core': workspace:6.0.0-6-next.4
-      '@verdaccio/logger': workspace:6.0.0-6-next.10
-      '@verdaccio/readme': workspace:11.0.0-6-next.4
-      '@verdaccio/store': workspace:6.0.0-6-next.20
-      '@verdaccio/tarball': workspace:11.0.0-6-next.11
-      '@verdaccio/types': workspace:11.0.0-6-next.10
-      '@verdaccio/utils': workspace:6.0.0-6-next.10
-      abortcontroller-polyfill: 1.7.3
-      core-js: 3.20.3
-      debug: 4.3.3
-      fastify: 3.27.0
-      fastify-plugin: 3.0.0
-      lodash: 4.17.21
-      semver: 7.3.5
-      ts-node: 10.4.0
-    dependencies:
-      '@verdaccio/auth': link:../../auth
-      '@verdaccio/config': link:../../config
-      '@verdaccio/core': link:../core
-      '@verdaccio/logger': link:../../logger
-      '@verdaccio/readme': link:../readme
-      '@verdaccio/store': link:../../store
-      '@verdaccio/tarball': link:../tarball
-      '@verdaccio/utils': link:../../utils
-      abortcontroller-polyfill: 1.7.3
-      core-js: 3.20.3
-      debug: 4.3.3
-      fastify: 3.27.0
-      fastify-plugin: 3.0.0
-      lodash: 4.17.21
-      semver: 7.3.5
-    devDependencies:
-      '@types/node': 16.11.21
-      '@verdaccio/types': link:../types
-      ts-node: 10.4.0_06de4b00c69b73d094e2c5b522a6ad57
-
   packages/core/streams:
     specifiers:
       '@verdaccio/types': workspace:11.0.0-6-next.10
@@ -445,6 +404,43 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
       node-mocks-http: 1.11.0
+
+  packages/experimental/fastify-server:
+    specifiers:
+      '@types/node': 16.11.21
+      '@verdaccio/auth': workspace:6.0.0-6-next.20
+      '@verdaccio/config': workspace:6.0.0-6-next.12
+      '@verdaccio/core': workspace:6.0.0-6-next.4
+      '@verdaccio/logger': workspace:6.0.0-6-next.10
+      '@verdaccio/readme': workspace:11.0.0-6-next.4
+      '@verdaccio/store': workspace:6.0.0-6-next.20
+      '@verdaccio/tarball': workspace:11.0.0-6-next.11
+      '@verdaccio/types': workspace:11.0.0-6-next.10
+      '@verdaccio/utils': workspace:6.0.0-6-next.10
+      core-js: 3.20.3
+      debug: 4.3.3
+      fastify: 3.27.0
+      fastify-plugin: 3.0.0
+      lodash: 4.17.21
+      ts-node: 10.4.0
+    dependencies:
+      '@verdaccio/auth': link:../../auth
+      '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/logger': link:../../logger
+      '@verdaccio/readme': link:../../core/readme
+      '@verdaccio/store': link:../../store
+      '@verdaccio/tarball': link:../../core/tarball
+      '@verdaccio/utils': link:../../utils
+      core-js: 3.20.3
+      debug: 4.3.3
+      fastify: 3.27.0
+      fastify-plugin: 3.0.0
+      lodash: 4.17.21
+    devDependencies:
+      '@types/node': 16.11.21
+      '@verdaccio/types': link:../../core/types
+      ts-node: 10.4.0_06de4b00c69b73d094e2c5b522a6ad57
 
   packages/hooks:
     specifiers:
@@ -950,7 +946,7 @@ importers:
       '@verdaccio/mock': workspace:6.0.0-6-next.13
       '@verdaccio/proxy': workspace:6.0.0-6-next.18
       '@verdaccio/store': workspace:6.0.0-6-next.20
-      '@verdaccio/test-helper': 1.0.0
+      '@verdaccio/test-helper': workspace:1.0.0
       '@verdaccio/utils': workspace:6.0.0-6-next.10
       '@verdaccio/web': workspace:6.0.0-6-next.26
       compression: 1.7.4
@@ -1021,7 +1017,6 @@ importers:
       '@verdaccio/test-helper': workspace:1.0.0
       '@verdaccio/types': workspace:11.0.0-6-next.10
       '@verdaccio/utils': workspace:6.0.0-6-next.10
-      abortcontroller-polyfill: 1.7.3
       async: 3.2.3
       debug: 4.3.3
       JSONStream: 1.3.5
@@ -1042,7 +1037,6 @@ importers:
       '@verdaccio/streams': link:../core/streams
       '@verdaccio/tarball': link:../core/tarball
       '@verdaccio/utils': link:../utils
-      abortcontroller-polyfill: 1.7.3
       async: 3.2.3
       debug: 4.3.3
       JSONStream: 1.3.5
@@ -1124,18 +1118,17 @@ importers:
       body-parser: 1.19.1
       express: 4.17.2
       supertest: 6.2.2
-    dependencies:
+    devDependencies:
       '@verdaccio/auth': link:../../auth
       '@verdaccio/config': link:../../config
       '@verdaccio/core': link:../../core/core
       '@verdaccio/middleware': link:../../middleware
       '@verdaccio/store': link:../../store
+      '@verdaccio/types': link:../../core/types
       '@verdaccio/utils': link:../../utils
       body-parser: 1.19.1
       express: 4.17.2
       supertest: 6.2.2
-    devDependencies:
-      '@verdaccio/types': link:../../core/types
 
   packages/tools/mock:
     specifiers:
@@ -1226,7 +1219,7 @@ importers:
       '@verdaccio/readme': workspace:11.0.0-6-next.4
       '@verdaccio/store': workspace:6.0.0-6-next.20
       '@verdaccio/tarball': workspace:11.0.0-6-next.11
-      '@verdaccio/test-helper': 1.0.0
+      '@verdaccio/test-helper': workspace:1.0.0
       '@verdaccio/types': workspace:11.0.0-6-next.10
       '@verdaccio/url': workspace:11.0.0-6-next.8
       '@verdaccio/utils': workspace:6.0.0-6-next.10
@@ -10100,7 +10093,6 @@ packages:
     dependencies:
       mime-types: 2.1.34
       negotiator: 0.6.3
-    dev: false
 
   /acorn-globals/4.3.4:
     resolution: {integrity: sha512-clfQEh21R+D0leSbUdWf3OcfqyaCSAQ8Ryq00bofSekfr9W8u1jyYZo6ir0xu9Gtcf7BjcHJpnbZH7JOCpP60A==}
@@ -10675,7 +10667,7 @@ packages:
     dependencies:
       archy: 1.0.0
       debug: 4.3.3
-      fastq: 1.11.0
+      fastq: 1.13.0
       queue-microtask: 1.2.3
     transitivePeerDependencies:
       - supports-color
@@ -12214,7 +12206,6 @@ packages:
   /cookie/0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
-    dev: false
 
   /cookiejar/2.1.3:
     resolution: {integrity: sha512-JxbCBUdrfr6AQjOXrxoTvAMJO4HBTUIlBzslcJPAz+/KT8yk53fXun51u+RenNYvad/+Vc2DIz5o9UxlCDymFQ==}
@@ -14616,7 +14607,7 @@ packages:
     resolution: {integrity: sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg==}
     engines: {node: '>= 0.10.0'}
     dependencies:
-      accepts: 1.3.7
+      accepts: 1.3.8
       array-flatten: 1.1.1
       body-parser: 1.19.1
       content-disposition: 0.5.4
@@ -15184,7 +15175,7 @@ packages:
     dependencies:
       asynckit: 0.4.0
       combined-stream: 1.0.8
-      mime-types: 2.1.31
+      mime-types: 2.1.34
 
   /formidable/2.0.1:
     resolution: {integrity: sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==}
@@ -15395,7 +15386,7 @@ packages:
     dependencies:
       function-bind: 1.1.1
       has: 1.0.3
-      has-symbols: 1.0.2
+      has-symbols: 1.0.3
 
   /get-own-enumerable-property-symbols/3.0.2:
     resolution: {integrity: sha512-I0UBV/XOz1XkIJHEUDMZAbzCThU/H8DxmSfmdGcKPnVhu2VfFqr34jr9777IyaTYvxjedWhqVIilEDsCdP5G6g==}
@@ -18096,7 +18087,7 @@ packages:
     resolution: {integrity: sha512-FDNRF2mYjthIRWE7O8d/X7AzDx4otQHl4/QXbu3Q/FRwBFcgb+ZoDaUd5HwN53uQXLAiw76osN+Va0NEaOW6rQ==}
     dependencies:
       ajv: 6.12.6
-      cookie: 0.4.1
+      cookie: 0.4.2
       fastify-warning: 0.2.0
       readable-stream: 3.6.0
       set-cookie-parser: 2.4.8
@@ -19413,7 +19404,6 @@ packages:
   /negotiator/0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
-    dev: false
 
   /neo-async/2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}

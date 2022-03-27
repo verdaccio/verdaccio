@@ -42,13 +42,11 @@
     "@verdaccio/tarball": "workspace:11.0.0-6-next.11",
     "@verdaccio/utils": "workspace:6.0.0-6-next.10",
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
-    "abortcontroller-polyfill": "1.7.3",
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "fastify": "3.27.0",
     "fastify-plugin": "3.0.0",
-    "lodash": "4.17.21",
-    "semver": "7.3.5"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@types/node": "16.11.21",
