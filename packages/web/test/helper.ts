@@ -4,7 +4,7 @@ import path from 'path';
 import apiMiddleware from '@verdaccio/api';
 import { parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
-import { Storage } from '@verdaccio/logger';
+import { Storage } from '@verdaccio/store';
 import { initializeServer as initializeServerHelper } from '@verdaccio/test-helper';
 
 import routes from '../src';
