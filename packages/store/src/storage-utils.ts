@@ -6,9 +6,7 @@ import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
 import { AttachMents, Package, StringValue, Version, Versions } from '@verdaccio/types';
 import { generateRandomHexString, isNil, isObject, normalizeDistTags } from '@verdaccio/utils';
 
-// import { Users } from '.';
 import { LocalStorage } from './local-storage';
-import { SearchInstance } from './search';
 
 export const STORAGE = {
   PACKAGE_FILE_NAME: 'package.json',
@@ -149,11 +147,9 @@ export function publishPackage(
   localStorage: LocalStorage
 ): Promise<any> {
   return new Promise<void>((resolve, reject): void => {
-    localStorage.addPackage(name, metadata, (err, latest): void => {
+    localStorage.addPackage(name, metadata, (err): void => {
       if (!_.isNull(err)) {
         return reject(err);
-      } else if (!_.isUndefined(latest)) {
-        SearchInstance.add(latest);
       }
       return resolve();
     });

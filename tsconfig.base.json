@@ -10,6 +10,7 @@
     "strictNullChecks": true,
     "types": ["node", "jest", "express"],
     "resolveJsonModule": true,
+    // "preserveSymlinks": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },

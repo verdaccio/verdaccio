@@ -64,7 +64,7 @@ describe('test web server', () => {
       });
   });
 
-  test('log in should be disabled', async () => {
+  test.skip('log in should be disabled', async () => {
     return supertest(await initializeServer('login-disabled.yaml'))
       .post('/-/verdaccio/sec/login')
       .send(

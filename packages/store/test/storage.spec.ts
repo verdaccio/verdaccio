@@ -3,9 +3,9 @@ import * as httpMocks from 'node-mocks-http';
 
 import { Config } from '@verdaccio/config';
 import { HEADERS, errorUtils } from '@verdaccio/core';
-import { generatePackageMetadata } from '@verdaccio/helper';
 import { setup } from '@verdaccio/logger';
 import { configExample, generateRamdonStorage } from '@verdaccio/mock';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import { Storage } from '../src';
 

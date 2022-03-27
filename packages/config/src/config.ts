@@ -7,6 +7,7 @@ import {
   Config as AppConfig,
   AuthConf,
   ConfigRuntime,
+  FlagsConfig,
   PackageAccess,
   PackageList,
   Security,
@@ -44,6 +45,7 @@ class Config implements AppConfig {
   public serverSettings: ServerSettingsConf;
   // @ts-ignore
   public secret: string;
+  public flags: FlagsConfig;
 
   public constructor(config: ConfigRuntime) {
     const self = this;
@@ -52,6 +54,9 @@ class Config implements AppConfig {
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
     this.serverSettings = serverSettings;
+    this.flags = {
+      searchRemote: config.flags?.searchRemote ?? true,
+    };
 
     for (const configProp in config) {
       if (self[configProp] == null) {

@@ -15,7 +15,6 @@ import {
   putPackage,
   verifyPackageVersionDoesExist,
 } from '@verdaccio/mock';
-// import { generatePackageMetadata } from '@verdaccio/helper';
 import { buildToken } from '@verdaccio/utils';
 
 import endPointAPI from '../../src';

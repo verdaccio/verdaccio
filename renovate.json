@@ -2,7 +2,7 @@
   "extends": ["config:base", "schedule:earlyMondays"],
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
-  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
+  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/test-helper"],
   "baseBranches": ["master", "5.x"],
   "major": true,
   "labels": ["bot: dependencies"],

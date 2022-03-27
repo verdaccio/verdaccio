@@ -3,7 +3,6 @@ import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
 import { match, validateName, validatePackage } from '@verdaccio/middleware';
-import { SearchInstance } from '@verdaccio/store';
 import { Storage } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
 
@@ -13,7 +12,6 @@ import { setSecurityWebHeaders } from './security';
 export function webAPI(config: Config, auth: IAuth, storage: Storage): Router {
   // eslint-disable-next-line new-cap
   const route = Router();
-  SearchInstance.configureStorage(storage);
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble=
   route.param('package', validatePackage);

@@ -1,4 +1,5 @@
 import { createModel } from '@rematch/core';
+import orderBy from 'lodash/orderBy';
 
 import { SearchResultWeb } from '@verdaccio/types';
 
@@ -67,8 +68,10 @@ export const search = createModel<RootModel>()({
             headers: {},
           }
         );
-
-        dispatch.search.saveSearch({ suggestions });
+        const orderedSuggestions = orderBy(suggestions, ['verdaccioPrivate'], ['desc']);
+        dispatch.search.saveSearch({
+          suggestions: orderedSuggestions,
+        });
       } catch (error: any) {
         if (error.name === CONSTANTS.ABORT_ERROR) {
           dispatch.search.saveSearch({ suggestions: [] });

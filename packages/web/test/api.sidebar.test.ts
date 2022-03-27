@@ -3,9 +3,8 @@ import supertest from 'supertest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { IGetPackageOptions } from '@verdaccio/store';
+import { publishVersion } from '@verdaccio/test-helper';
 
-import { NOT_README_FOUND } from '../src/api/readme';
 import { initializeServer } from './helper';
 
 setup([]);
@@ -13,36 +12,15 @@ setup([]);
 const mockManifest = jest.fn();
 jest.mock('@verdaccio/ui-theme', () => mockManifest());
 
-jest.mock('@verdaccio/store', () => ({
-  Storage: class {
-    public init() {
-      return Promise.resolve();
-    }
-    public getPackage({ name, callback }: IGetPackageOptions) {
-      callback(null, {
-        name,
-        ['dist-tags']: {
-          latest: '1.0.0',
-        },
-        versions: {
-          ['1.0.0']: {
-            name,
-          },
-        },
-      });
-    }
-  },
-  SearchInstance: {
-    configureStorage: () => {},
-  },
-}));
-
-describe.skip('sidebar api', () => {
+describe('sidebar api', () => {
   beforeAll(() => {
-    mockManifest.mockReturnValue({
+    mockManifest.mockReturnValue(() => ({
       staticPath: path.join(__dirname, 'static'),
+      manifestFiles: {
+        js: ['runtime.js', 'vendors.js', 'main.js'],
+      },
       manifest: require('./partials/manifest/manifest.json'),
-    });
+    }));
   });
 
   afterEach(() => {
@@ -50,15 +28,23 @@ describe.skip('sidebar api', () => {
     mockManifest.mockClear();
   });
 
-  test('should display sidebar info', async () => {
-    mockManifest.mockReturnValue({
-      manifest: require('./partials/manifest/manifest.json'),
-    });
-    const response = await supertest(await initializeServer('default-test.yaml'))
+  test('should display sidebar info scoped package', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, '@scope/pk1-test', '1.0.0', { readme: 'my readme scoped' });
+    const response = await supertest(app)
       .get('/-/verdaccio/data/sidebar/@scope/pk1-test')
-      .set('Accept', HEADERS.TEXT_PLAIN)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK);
-    expect(response.text).toMatch(NOT_README_FOUND);
+    expect(response.text).toMatch('@scope/pk1-test');
+  });
+
+  test('should display sidebar info package', async () => {
+    const app = await initializeServer('default-test.yaml');
+    await publishVersion(app, 'pk2-test', '1.0.0', { readme: 'my readme scoped' });
+    const response = await supertest(app)
+      .get('/-/verdaccio/data/sidebar/pk2-test')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.OK);
+    expect(response.text).toMatch('pk2-test');
   });
 });

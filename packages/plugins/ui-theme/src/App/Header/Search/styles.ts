@@ -1,17 +1,11 @@
 import styled from '@emotion/styled';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from 'verdaccio-ui/components/TextField';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
-
-import TextField from '../TextField';
 
 export interface InputFieldProps {
   color: string;
 }
-
-export const Wrapper = styled('div')({
-  width: '100%',
-  position: 'relative',
-  zIndex: 1,
-});
 
 export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => ({
   '& .MuiInputBase-root': {
@@ -40,4 +34,8 @@ export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => (
       color: props.theme?.palette.white,
     },
   },
+}));
+
+export const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>((props) => ({
+  color: props.theme?.palette.white,
 }));

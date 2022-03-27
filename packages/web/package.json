@@ -45,14 +45,18 @@
   "devDependencies": {
     "@types/node": "16.11.21",
     "@verdaccio/types": "workspace:11.0.0-6-next.10",
+    "@verdaccio/test-helper": "workspace:1.0.0",
+    "@verdaccio/api": "workspace:6.0.0-6-next.23",
     "node-html-parser": "4.1.5",
     "supertest": "6.2.2",
+    "nock": "13.2.2",
+    "undici": "4.15.0",
     "verdaccio-auth-memory": "workspace:11.0.0-6-next.7",
     "verdaccio-memory": "workspace:11.0.0-6-next.8"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "cross-env NODE_ENV=test DEBUG=verdaccido* jest -u",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

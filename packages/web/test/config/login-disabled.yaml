@@ -1,7 +1,3 @@
-store:
-  memory:
-    limit: 1000
-
 auth:
   auth-memory:
     users:

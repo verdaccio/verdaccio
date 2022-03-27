@@ -17,6 +17,7 @@ const defaultValues: ConfigProviderProps = {
     pkgManagers: ['yarn', 'pnpm', 'npm'],
     scope: '',
     base: '',
+    flags: {},
     login: true,
     url_prefix: '',
     title: 'Verdaccio',
@@ -37,7 +38,7 @@ function getConfiguration() {
 const AppConfigurationContext = createContext<ConfigProviderProps>(defaultValues);
 
 const AppConfigurationProvider: FunctionComponent = ({ children }) => {
-  const [configOptions, setConfigOptions] = useState(getConfiguration());
+  const [configOptions, setConfigOptions] = useState<TemplateUIOptions>(getConfiguration());
 
   const value = useMemo(
     () => ({

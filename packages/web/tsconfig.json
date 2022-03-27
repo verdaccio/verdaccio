@@ -29,6 +29,9 @@
       "path": "../loaders"
     },
     {
+      "path": "../api"
+    },
+    {
       "path": "../logger"
     },
     {
@@ -42,6 +45,9 @@
     },
     {
       "path": "../store"
+    },
+    {
+      "path": "../tools/helpers"
     },
     {
       "path": "../utils"

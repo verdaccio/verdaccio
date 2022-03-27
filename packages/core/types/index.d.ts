@@ -40,11 +40,14 @@ declare module '@verdaccio/types' {
     darkMode?: boolean;
     protocol?: string;
     host?: string;
+    // deprecated
+    basename?: string;
     scope?: string;
     base: string;
     primaryColor?: string;
     version?: string;
     logoURI?: string;
+    flags: FlagsConfig;
   } & CommonWebConf;
 
   /**
@@ -385,11 +388,11 @@ declare module '@verdaccio/types' {
     api: APITokenOptions;
   }
 
-  interface ConfigFlags {
-    token?: boolean;
-    search?: boolean;
+  export type FlagsConfig = {
+    searchRemote?: boolean;
     changePassword?: boolean;
-  }
+  };
+
   export type RateLimit = {
     windowMs: number;
     max: number;
@@ -438,7 +441,7 @@ declare module '@verdaccio/types' {
     filters?: any;
     url_prefix?: string;
     server?: ServerSettingsConf;
-    flags?: ConfigFlags;
+    flags?: FlagsConfig;
   }
 
   interface ConfigRuntime extends ConfigYaml {
@@ -454,6 +457,29 @@ declare module '@verdaccio/types' {
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
     [key: string]: any;
   }
+
+  type PublisherMaintainer = {
+    username: string;
+    email: string;
+  };
+
+  type SearchPackageBody = {
+    name: string;
+    scope: string;
+    description: string;
+    author: string | PublisherMaintainer;
+    version: string;
+    keywords: string | string[] | undefined;
+    date: string;
+    links?: {
+      npm: string; // only include placeholder for URL eg: {url}/{packageName}
+      homepage?: string;
+      repository?: string;
+      bugs?: string;
+    };
+    publisher?: any;
+    maintainers?: PublisherMaintainer[];
+  };
 
   interface ConfigWithHttps extends Config {
     https: HttpsConf;

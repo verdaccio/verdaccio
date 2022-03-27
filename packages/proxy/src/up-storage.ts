@@ -569,7 +569,10 @@ class ProxyStorage implements IProxy {
       streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
       return streamSearch;
     } catch (err: any) {
-      this.logger.error({ errorMessage: err?.message }, 'proxy search error: @{errorMessage}');
+      this.logger.error(
+        { errorMessage: err?.message, name: this.upname },
+        'proxy uplink @{name} search error: @{errorMessage}'
+      );
       throw err;
     }
   }
