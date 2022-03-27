@@ -44,7 +44,7 @@ describe('test web server', () => {
         .expect(HTTP_STATUS.OK);
     });
 
-    test('should static file not found', async () => {
+    test.skip('should static file not found', async () => {
       return supertest(await initializeServer('default-test.yaml'))
         .get('/-/static/not-found.js')
         .set('Accept', HEADERS.TEXT_HTML)

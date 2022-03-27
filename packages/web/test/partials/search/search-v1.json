@@ -1,0 +1,157 @@
+{
+  "objects": [
+    {
+      "package": {
+        "name": "verdaccio",
+        "scope": "unscoped",
+        "version": "5.1.2",
+        "description": "A lightweight private npm proxy registry",
+        "keywords": [
+          "private",
+          "package",
+          "repository",
+          "registry",
+          "enterprise",
+          "modules",
+          "proxy",
+          "server",
+          "verdaccio"
+        ],
+        "date": "2021-07-14T18:26:48.823Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/verdaccio",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/verdaccio/verdaccio",
+          "bugs": "https://github.com/verdaccio/verdaccio/issues"
+        },
+        "author": {
+          "name": "Verdaccio Maintainers",
+          "email": "verdaccio.npm@gmail.com",
+          "username": "verdaccio.npm"
+        },
+        "publisher": { "username": "verdaccio.npm", "email": "verdaccio.npm@gmail.com" },
+        "maintainers": [
+          { "username": "jotadeveloper", "email": "juanpicado19@gmail.com" },
+          { "username": "ayusharma", "email": "ayush.aceit@gmail.com" },
+          { "username": "trentearl", "email": "trent@trentearl.com" },
+          { "username": "jmwilkinson", "email": "J.Wilkinson@f5.com" },
+          { "username": "sergiohgz", "email": "sergio@sergiohgz.eu" },
+          { "username": "verdaccio.npm", "email": "verdaccio.npm@gmail.com" }
+        ]
+      },
+      "score": {
+        "final": 0.38839042352668346,
+        "detail": {
+          "quality": 0.6389690936404147,
+          "popularity": 0.22866579647969262,
+          "maintenance": 0.3333333333333333
+        }
+      },
+      "searchScore": 100000.375
+    },
+    {
+      "package": {
+        "name": "verdaccio-bitbucket",
+        "scope": "unscoped",
+        "version": "3.0.1",
+        "description": "Verdaccio module to authenticate users via Bitbucket",
+        "keywords": [
+          "sinopia",
+          "verdaccio",
+          "bitbucket",
+          "atlassian",
+          "auth",
+          "node",
+          "nodejs",
+          "js",
+          "javascript"
+        ],
+        "date": "2020-11-17T18:31:50.893Z",
+        "links": { "npm": "https://www.npmjs.com/package/verdaccio-bitbucket" },
+        "author": {
+          "name": "Idan Gozlan",
+          "email": "idangozlan@gmail.com",
+          "username": "idangozlan"
+        },
+        "publisher": { "username": "idangozlan", "email": "idangozlan@gmail.com" },
+        "maintainers": [{ "username": "idangozlan", "email": "idangozlan@gmail.com" }]
+      },
+      "score": {
+        "final": 0.3676150990565089,
+        "detail": {
+          "quality": 0.9333033508158308,
+          "popularity": 0.005251300076726234,
+          "maintenance": 0.2451032536711585
+        }
+      },
+      "searchScore": 0.00029462433
+    },
+    {
+      "package": {
+        "name": "verdaccio-badger",
+        "scope": "unscoped",
+        "version": "1.0.0",
+        "description": "verdaccio middleware plugin to serve svg badges",
+        "keywords": ["verdaccio", "plugin", "middleware", "badge", "badges"],
+        "date": "2020-08-02T18:08:10.321Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/verdaccio-badger",
+          "homepage": "https://github.com/PaddeK/verdaccio-badger",
+          "repository": "https://github.com/PaddeK/verdaccio-badger",
+          "bugs": "https://github.com/PaddeK/verdaccio-badger/issues"
+        },
+        "author": { "name": "Patrick Klös", "email": "pkloes@web.de", "username": "paddek" },
+        "publisher": { "username": "paddek", "email": "pkloes@web.de" },
+        "maintainers": [{ "username": "paddek", "email": "pkloes@web.de" }]
+      },
+      "score": {
+        "final": 0.3595405976501428,
+        "detail": {
+          "quality": 0.920245406776651,
+          "popularity": 0.0027140305161327217,
+          "maintenance": 0.23576304267571743
+        }
+      },
+      "searchScore": 0.00022687363
+    },
+    {
+      "package": {
+        "name": "@verdaccio/streams",
+        "scope": "verdaccio",
+        "version": "10.0.0",
+        "description": "Stream extension for Verdaccio",
+        "keywords": ["verdaccio", "streams"],
+        "date": "2021-03-29T13:01:49.263Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/%40verdaccio%2Fstreams",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/verdaccio/monorepo",
+          "bugs": "https://github.com/verdaccio/monorepo/issues"
+        },
+        "author": {
+          "name": "Juan Picado",
+          "email": "juanpicado19@gmail.com",
+          "username": "jotadeveloper"
+        },
+        "publisher": { "username": "verdaccio.npm", "email": "verdaccio.npm@gmail.com" },
+        "maintainers": [
+          { "username": "sergiohgz", "email": "sergio@sergiohgz.eu" },
+          { "username": "verdaccio.npm", "email": "verdaccio.npm@gmail.com" },
+          { "username": "jotadeveloper", "email": "juanpicado19@gmail.com" },
+          { "username": "ayusharma", "email": "ayush.aceit@gmail.com" }
+        ]
+      },
+      "score": {
+        "final": 0.34805712275547446,
+        "detail": {
+          "quality": 0.6324693223008875,
+          "popularity": 0.11950424927689082,
+          "maintenance": 0.3328281109094184
+        }
+      },
+      "searchScore": 0.00015023774
+    }
+  ],
+  "total": 218,
+  "time": "Sun Jul 25 2021 14:11:11 GMT+0000 (Coordinated Universal Time)"
+}

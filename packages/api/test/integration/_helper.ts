@@ -6,9 +6,9 @@ import supertest from 'supertest';
 import { Auth, IAuth } from '@verdaccio/auth';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
-import { generatePackageMetadata } from '@verdaccio/helper';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import apiEndpoints from '../../src';
 
@@ -18,6 +18,7 @@ const getConf = (conf) => {
   return parseConfigFile(configPath);
 };
 
+// TODO: replace by @verdaccio/test-helper
 export async function initializeServer(configName): Promise<Application> {
   const app = express();
   const config = new Config(getConf(configName));

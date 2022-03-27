@@ -1,5 +1,5 @@
 {
-  "name": "@verdaccio/helper",
+  "name": "@verdaccio/test-helper",
   "version": "1.0.0",
   "private": true,
   "description": "test helpers",
@@ -8,9 +8,17 @@
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "files": [
-    "build"
-  ],
+  "dependencies": {
+    "@verdaccio/auth": "workspace:6.0.0-6-next.20",
+    "@verdaccio/core": "workspace:6.0.0-6-next.4",
+    "@verdaccio/config": "workspace:6.0.0-6-next.12",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.20",
+    "@verdaccio/store": "workspace:6.0.0-6-next.20",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.10",
+    "body-parser": "1.19.1",
+    "express": "4.17.2",
+    "supertest": "6.2.2"
+  },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.10"
   },

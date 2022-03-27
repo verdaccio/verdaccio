@@ -39,12 +39,11 @@ function addReadmeWebApi(storage: Storage, auth: IAuth): Router {
         uplinksLook: true,
         req,
         callback: function (err, info): void {
-          debug('readme plg %o', info?.name);
+          debug('readme pkg %o', info?.name);
+          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
           if (err) {
             return next(err);
           }
-
-          res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
           try {
             next(parseReadme(info.name, info.readme));
           } catch {

@@ -18,6 +18,7 @@ if (semver.lte(process.version, 'v15.0.0')) {
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
+// TODO: we can mock this globally maybe
 const mockDebug = jest.fn();
 const mockInfo = jest.fn();
 const mockHttp = jest.fn();
@@ -55,7 +56,7 @@ describe('proxy', () => {
   };
 
   describe('search', () => {
-    test('get response from v1 endpoint', async () => {
+    test('get response from endpoint', async () => {
       const response = require('./partials/search-v1.json');
       const mockAgent = new MockAgent({ connections: 1 });
       mockAgent.disableNetConnect();
@@ -89,13 +90,13 @@ describe('proxy', () => {
       ).rejects.toThrow('bad status code 409 from uplink');
     });
 
-    test.todo('abort search from v1 endpoint');
+    test.todo('abort search from endpoint');
 
     // TODO: we should test the gzip deflate here, but is hard to test
     // fix me if you can deal with Incorrect Header Check issue
-    test.todo('get file from v1 endpoint with gzip headers');
+    test.todo('get file from endpoint with gzip headers');
 
-    test('search v1 endpoint fails', async () => {
+    test('search endpoint fails', async () => {
       const mockAgent = new MockAgent({ connections: 1 });
       mockAgent.disableNetConnect();
       setGlobalDispatcher(mockAgent);

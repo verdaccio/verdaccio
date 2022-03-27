@@ -42,7 +42,7 @@
     "@verdaccio/eslint-config": "1.0.0",
     "@verdaccio/benchmark": "1.0.0",
     "@verdaccio/core": "6.0.0-next.0",
-    "@verdaccio/helper": "1.0.0",
+    "@verdaccio/test-helper": "1.0.0",
     "docusaurus-plugin-contributors": "1.0.0",
     "@verdaccio/website": "5.4.0"
   },
