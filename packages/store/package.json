@@ -53,8 +53,6 @@
     "async": "3.2.3",
     "debug": "4.3.3",
     "lodash": "4.17.21",
-    "lunr": "2.3.9",
-    "lunr-mutable-indexes": "2.3.2",
     "merge2": "1.4.1",
     "semver": "7.3.5"
   },

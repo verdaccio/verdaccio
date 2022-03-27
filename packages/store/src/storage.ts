@@ -41,7 +41,7 @@ import {
 import { getVersion, normalizeDistTags } from '@verdaccio/utils';
 
 import { LocalStorage } from './local-storage';
-import { SearchInstance, SearchManager } from './search';
+import { SearchManager } from './search';
 // import { isPublishablePackage, validateInputs } from './star-utils';
 import {
   checkPackageLocal,
@@ -235,8 +235,6 @@ class Storage {
   public async removePackage(name: string): Promise<void> {
     debug('remove packagefor package %o', name);
     await this.localStorage.removePackage(name);
-    // update the indexer
-    SearchInstance.remove(name);
   }
 
   /**

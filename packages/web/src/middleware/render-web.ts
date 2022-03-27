@@ -5,7 +5,6 @@ import path from 'path';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { loadPlugin } from '@verdaccio/loaders';
-import { SearchInstance } from '@verdaccio/store';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import renderHTML from '../renderHTML';
@@ -40,10 +39,9 @@ const sendFileCallback = (next) => (err) => {
   }
 };
 
-export function renderWebMiddleware(config, auth, storage): any {
+export function renderWebMiddleware(config, auth): any {
   const { staticPath, manifest, manifestFiles } = require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
-  SearchInstance.configureStorage(storage);
 
   /* eslint new-cap:off */
   const router = express.Router();

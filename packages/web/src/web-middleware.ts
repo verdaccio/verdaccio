@@ -7,7 +7,7 @@ export default (config, auth, storage) => {
   // eslint-disable-next-line new-cap
   const app = express.Router();
   // load application
-  app.use('/', renderWebMiddleware(config, auth, storage));
+  app.use('/', renderWebMiddleware(config, auth));
   // web endpoints, search, packages, etc
   app.use('/-/verdaccio/', webAPI(config, auth, storage));
   return app;

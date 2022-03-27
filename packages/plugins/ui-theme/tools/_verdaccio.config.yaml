@@ -9,7 +9,7 @@ web:
     - pnpm
 
 flags:
-  searchRemote: true
+  searchRemote: false
 
 plugins: ../
 

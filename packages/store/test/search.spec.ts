@@ -6,7 +6,6 @@ import { setup } from '@verdaccio/logger';
 import { configExample } from '@verdaccio/mock';
 
 import { Storage, removeDuplicates } from '../src';
-import { SearchInstance } from '../src/search';
 
 setup([]);
 
@@ -51,70 +50,6 @@ describe('search', () => {
       // @ts-expect-error
       const results = await storage.searchManager.search({ url, query: { text: 'foo' } });
       expect(results).toHaveLength(4);
-    });
-  });
-
-  describe('search index', () => {
-    const packages = [
-      {
-        name: 'test1',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-      {
-        name: 'test2',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-      {
-        name: 'test3',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-    ];
-
-    test('search query item', async () => {
-      const config = new Config(configExample());
-      const storage = new Storage(config);
-      await storage.init(config);
-      SearchInstance.configureStorage(storage);
-      packages.map(function (item) {
-        // @ts-ignore
-        SearchInstance.add(item);
-      });
-      const result = SearchInstance.query('t');
-      expect(result).toHaveLength(3);
-    });
-
-    test('search remove item', async () => {
-      const config = new Config(configExample());
-      const storage = new Storage(config);
-      await storage.init(config);
-      SearchInstance.configureStorage(storage);
-      packages.map(function (item) {
-        // @ts-ignore
-        SearchInstance.add(item);
-      });
-      const item = {
-        name: 'test6',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      };
-      // @ts-ignore
-      SearchInstance.add(item);
-      let result = SearchInstance.query('test6');
-      expect(result).toHaveLength(1);
-      SearchInstance.remove(item.name);
-      result = SearchInstance.query('test6');
-      expect(result).toHaveLength(0);
     });
   });
 });
