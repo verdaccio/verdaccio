@@ -5,7 +5,7 @@ import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { publishVersion } from '@verdaccio/test-helper';
 
-import { getConf, initializeServer } from './helper';
+import { initializeServer } from './helper';
 
 setup([]);
 
@@ -30,7 +30,7 @@ describe('test web server', () => {
   });
 
   test('should find results to search api', async () => {
-    const app = await initializeServer(getConf('default-test.yaml'));
+    const app = await initializeServer('default-test.yaml');
     await publishVersion(app, 'foo', '1.0.0');
     const response = await supertest(app)
       .get('/-/verdaccio/data/search/foo')
@@ -42,7 +42,7 @@ describe('test web server', () => {
   });
 
   test('should found no results to search', async () => {
-    const response = await supertest(await initializeServer(getConf('default-test.yaml')))
+    const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/data/search/notFound')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
@@ -52,7 +52,7 @@ describe('test web server', () => {
 
   // TODO: need a way to make this fail
   test.skip('should fail search api', async () => {
-    const response = await supertest(await initializeServer(getConf('default-test.yaml')))
+    const response = await supertest(await initializeServer('default-test.yaml'))
       .get('/-/verdaccio/data/search/thisWillFail')
       .set('Accept', HEADERS.JSON_CHARSET)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
