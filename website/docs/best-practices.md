@@ -121,7 +121,7 @@ packages:
     proxy: npmjs
 ```
 
-This means, if a private packaged eg: `@my-company/auth` is published locally, the registry will look up at the public registry. If your intention is fully protection, remove the `proxy` property from your configuration, for instance:
+This means that even if a private package like `@my-company/auth` is published locally, the server will look up at the public registry. If that's not your intention, remove the `proxy` property and use a configuration like this one:
 
 ```yaml
 packages:
@@ -139,7 +139,7 @@ packages:
     proxy: npmjs
 ```
 
-This configuration will **avoid downloading needlessly to external registries**, merging external metadata and download external tarballs.
+This will **avoid downloading tarballs, and merge metadata needlessly from external registries**.
 
 ## Server {#server}
 
