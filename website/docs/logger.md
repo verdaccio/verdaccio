@@ -7,14 +7,14 @@ As with any web application, Verdaccio has a customisable built-in logger. You c
 
 ```yaml
 # console output
-logs: { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: http }
 ```
 
 or file output.
 
 ```yaml
 # file output
-logs: { type: file, path: verdaccio.log, level: info }
+log: { type: file, path: verdaccio.log, level: info }
 ```
 
 > Verdaccio 5 does not support rotation file anymore, [here more details](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide#pinojs-is-the-new-logger).

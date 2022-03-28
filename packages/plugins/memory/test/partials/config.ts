@@ -32,7 +32,7 @@ const config: Config = {
     title: 'string',
     logo: 'string',
   },
-  logs: [],
+  log: {},
   auth: {},
   notifications: {
     method: '',

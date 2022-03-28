@@ -1,7 +1,4 @@
 ---
 storage: './storage_default_storage'
 
-logs:
-  - type: stdout
-    format: pretty
-    level: warn
+log: { type: stdout, format: pretty, level: warn }

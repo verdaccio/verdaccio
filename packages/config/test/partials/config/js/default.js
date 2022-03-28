@@ -11,5 +11,5 @@ module.exports = {
     vue: { access: '$authenticated', publish: '$authenticated', proxy: 'npmjs' },
     '*': { access: '$all', publish: '$all', proxy: 'npmjs' },
   },
-  logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+  log: { type: 'stdout', format: 'pretty', level: 'warn' },
 };

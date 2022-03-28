@@ -26,12 +26,12 @@ export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 export function createLogger(
   options = { level: 'http' },
   destination = pino.destination(1),
-  format: LogFormat = DEFAULT_LOG_FORMAT,
   prettyPrintOptions = {
     // we hide warning since the prettifier should not be used in production
     // https://getpino.io/#/docs/pretty?id=prettifier-api
     suppressFlushSyncWarning: true,
-  }
+  },
+  format: LogFormat = DEFAULT_LOG_FORMAT
 ) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
@@ -116,19 +116,11 @@ export type LoggerConfigItem = {
   level?: string;
 };
 
-export type LoggerConfig = LoggerConfigItem[];
+export type LoggerConfig = LoggerConfigItem;
 
-export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_CONF) {
+export function setup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
   debug('setup logger');
-  const isLegacyConf = Array.isArray(options);
-  if (isLegacyConf) {
-    warningUtils.emit(warningUtils.Codes.VERDEP002);
-  }
-
-  // verdaccio 5 does not allow multiple logger configuration
-  // backward compatible, pick only the first option
-  // next major will thrown an error
-  let loggerConfig = isLegacyConf ? options[0] : options;
+  let loggerConfig = options;
   if (!loggerConfig?.level) {
     loggerConfig = Object.assign(
       {},
@@ -143,13 +135,17 @@ export function setup(options: LoggerConfig | LoggerConfigItem = DEFAULT_LOGGER_
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
     process.on('SIGUSR2', () => destination.reopen());
+    // @ts-ignore
     logger = createLogger(pinoConfig, destination, loggerConfig.format);
+    // @ts-ignore
   } else if (loggerConfig.type === 'rotating-file') {
     warningUtils.emit(warningUtils.Codes.VERWAR003);
     debug('logging stdout enabled');
+    // @ts-ignore
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   } else {
     debug('logging stdout enabled');
+    // @ts-ignore
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
   }
 

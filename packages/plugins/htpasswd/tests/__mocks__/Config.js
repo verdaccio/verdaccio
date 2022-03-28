@@ -32,13 +32,11 @@ export default class Config {
         proxy: [],
       },
     };
-    this.logs = [
-      {
-        type: 'stdout',
-        format: 'pretty',
-        level: 35,
-      },
-    ];
+    this.log = {
+      type: 'stdout',
+      format: 'pretty',
+      level: 35,
+    };
     this.config_path = './tests/__fixtures__/config.yaml';
     this.https = {
       enable: false,

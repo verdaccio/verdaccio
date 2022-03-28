@@ -17,5 +17,4 @@ packages:
     publish: $all
     unpublish: xxx
     proxy: remote
-logs:
-  - { type: stdout, format: pretty, level: error }
+log: { type: stdout, format: pretty, level: warn }

@@ -14,7 +14,7 @@ auth:
         name: test
         password: test
 
-logs: { type: stdout, format: pretty, level: info }
+log: { type: stdout, format: pretty, level: info }
 
 packages:
   'protected-*':

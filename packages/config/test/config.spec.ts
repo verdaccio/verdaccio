@@ -57,11 +57,11 @@ describe('check basic content parsed file', () => {
     expect(config.middlewares).toBeDefined();
     expect(config.middlewares.audit).toBeDefined();
     expect(config.middlewares.audit.enabled).toBeTruthy();
-    // logs
-    expect(config.logs).toBeDefined();
-    expect(config.logs.type).toEqual('stdout');
-    expect(config.logs.format).toEqual('pretty');
-    expect(config.logs.level).toEqual('http');
+    // log
+    expect(config.log).toBeDefined();
+    expect(config.log.type).toEqual('stdout');
+    expect(config.log.format).toEqual('pretty');
+    expect(config.log.level).toEqual('http');
     // must not be enabled by default
     expect(config.notify).toBeUndefined();
     expect(config.store).toBeUndefined();

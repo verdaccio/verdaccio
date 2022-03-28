@@ -35,13 +35,11 @@ let config = {
             proxy: "npmjs"
         }
     },
-    logs: [
-        {
+    log: {
             type: "stdout",
             format: "pretty",
             level: "http",
-        }
-    ],
+        };
 };
 
 startServer(
