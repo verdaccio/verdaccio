@@ -9,7 +9,7 @@ import url from 'url';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR } from '@verdaccio/core';
-import { logger, setup } from '@verdaccio/logger';
+import { setup } from '@verdaccio/logger';
 import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
 import server from '@verdaccio/server';
 import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
@@ -109,7 +109,7 @@ export async function initServer(
   return new Promise(async (resolve, reject) => {
     // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
-    const logger = setup((config as ConfigRuntime)?.log);
+    const logger = setup(config?.log as LoggerConfigItem);
     displayExperimentsInfoBox(config.flags);
     const app = await server(config);
     const serverFactory = createServerFactory(config, addr, app);
