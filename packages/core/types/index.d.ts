@@ -335,10 +335,6 @@ declare module '@verdaccio/types' {
     sync(): void;
   }
 
-  interface LoggerConf {
-    [key: string]: LoggerConfItem;
-  }
-
   interface ListenAddress {
     [key: string]: string;
   }
@@ -420,9 +416,8 @@ declare module '@verdaccio/types' {
     storage?: string | void;
     packages: PackageList;
     uplinks: UpLinksConfList;
-    // @deprecated in favor of log
-    logs?: LoggerConf[];
-    log?: LoggerConf[];
+    // FUTURE: log should be mandatory
+    log?: LoggerConfItem;
     web?: WebConf;
     auth?: AuthConf;
     security: Security;

@@ -1,8 +1,8 @@
 import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
+import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigRuntime } from '@verdaccio/types';
 
@@ -47,13 +47,13 @@ export class InitCommand extends Command {
 
   private initLogger(logConfig: ConfigRuntime) {
     try {
+      // @ts-expect-error
       if (logConfig.logs) {
-        warningUtils.emit(warningUtils.Codes.VERDEP001);
+        throw Error('logger as array not longer supported');
       }
-      // FUTURE: remove fallback when is ready
-      setup(logConfig.log || logConfig.logs);
-    } catch {
-      throw new Error('error on init logger');
+      setup(logConfig.log as LoggerConfigItem);
+    } catch (err: any) {
+      throw new Error(err);
     }
   }
 

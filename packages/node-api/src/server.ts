@@ -10,6 +10,7 @@ import url from 'url';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
+import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
 import server from '@verdaccio/server';
 import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
@@ -108,7 +109,7 @@ export async function initServer(
   return new Promise(async (resolve, reject) => {
     // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
-    const logger = setup((config as ConfigRuntime).logs);
+    const logger = setup((config as ConfigRuntime)?.log);
     displayExperimentsInfoBox(config.flags);
     const app = await server(config);
     const serverFactory = createServerFactory(config, addr, app);
@@ -172,14 +173,14 @@ export async function runServer(config?: string | ConfigRuntime): Promise<any> {
   let configurationParsed: ConfigRuntime;
   if (config === undefined || typeof config === 'string') {
     const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation);
+    configurationParsed = parseConfigFile(configPathLocation) as ConfigRuntime;
   } else if (_.isObject(config)) {
     configurationParsed = config;
   } else {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  setup(configurationParsed.logs);
+  setup(configurationParsed.log as LoggerConfigItem);
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
   const [addr] = getListListenAddresses(undefined, configurationParsed.listen);

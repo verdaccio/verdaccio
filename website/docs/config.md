@@ -26,8 +26,7 @@ packages:
     proxy: npmjs
   "**":
     proxy: npmjs
-logs:
-  - { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: http }
 ```
 
 ## Sections {#sections}

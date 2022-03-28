@@ -10,8 +10,6 @@
 storage: ./storage
 # path to a directory with plugins to include
 plugins: ./plugins
-# print logs
-# logs: ./logs
 
 web:
   title: Verdaccio
@@ -87,7 +85,7 @@ middlewares:
     enabled: true
 
 # log settings
-logs:
+log:
   # Logger as STDOUT
   { type: stdout, format: pretty, level: http }
   # Logger as STDOUT as JSON

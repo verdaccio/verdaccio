@@ -11,7 +11,7 @@ class Config implements VerdaccioConfigGoogleStorage {
   server_id: string;
   packages: PackageList;
   uplinks: UpLinksConfList;
-  logs: LoggerConf[];
+  log: LoggerConfItem;
   // @ts-ignore
   security: Security;
   $key: any;
@@ -28,7 +28,7 @@ class Config implements VerdaccioConfigGoogleStorage {
     this.server_id = '';
     this.user_agent = '';
     this.packages = {};
-    this.logs = [];
+    this.log = {};
     this.kind = 'partial_test_metadataDatabaseKey';
     this.bucket = 'verdaccio-plugin';
     this.projectId = 'verdaccio-01';

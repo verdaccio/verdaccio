@@ -32,5 +32,4 @@ middlewares:
   audit:
     enabled: true
 
-logs:
-  - { type: stdout, format: pretty, level: warn }
+log: { type: stdout, format: pretty, level: warn }

@@ -22,7 +22,8 @@ invalid address - xxxxxx, we expect a port (e.g. "4873"),
 
 ## VERDEP002
 
-'deprecate: multiple logger configuration is deprecated, please check the migration guide.'
+> After version `verdaccio@6.0.0-6-next.38` this is not longer a warning and
+> will crash your application
 
 ## VERDEP003
 

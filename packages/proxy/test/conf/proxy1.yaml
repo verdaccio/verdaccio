@@ -28,4 +28,4 @@ server:
 middlewares:
   audit:
     enabled: true
-logs: { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: http }
