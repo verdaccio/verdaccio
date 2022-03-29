@@ -38,7 +38,9 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "nock": "12.0.3",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
+    "nock": "13.2.9",
     "supertest": "6.2.2"
   },
   "scripts": {

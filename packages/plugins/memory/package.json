@@ -32,13 +32,14 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/streams": "workspace:11.0.0-6-next.5",
     "memory-fs": "0.5.0",
     "debug": "4.3.3",
-    "memfs": "3.4.1"
+    "memfs": "3.4.7"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "@verdaccio/types": "workspace:11.0.0-6-next.12",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11"
   },
   "scripts": {
     "clean": "rimraf ./build",

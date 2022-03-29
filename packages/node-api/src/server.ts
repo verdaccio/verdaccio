@@ -10,9 +10,8 @@ import url from 'url';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
 import server from '@verdaccio/server';
-import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import { getListListenAddresses } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
@@ -31,7 +30,7 @@ function unlinkAddressPath(addr) {
  * @param addr
  * @param app
  */
-export function createServerFactory(config: ConfigRuntime, addr, app) {
+export function createServerFactory(config: ConfigYaml, addr, app) {
   let serverFactory;
   if (addr.proto === 'https') {
     debug('https enabled');
@@ -101,7 +100,7 @@ export function createServerFactory(config: ConfigRuntime, addr, app) {
  * @param pkgName
  */
 export async function initServer(
-  config: ConfigRuntime,
+  config: ConfigYaml,
   port: string | void,
   version: string,
   pkgName: string
@@ -109,7 +108,7 @@ export async function initServer(
   return new Promise(async (resolve, reject) => {
     // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
-    const logger = setup(config?.log as LoggerConfigItem);
+    const logger = setup(config?.log as any);
     displayExperimentsInfoBox(config.flags);
     const app = await server(config);
     const serverFactory = createServerFactory(config, addr, app);
@@ -144,7 +143,7 @@ export async function initServer(
       });
 
     function handleShutdownGracefully() {
-      logger.fatal('received shutdown signal - closing server gracefully...');
+      logger.warn('received shutdown signal - closing server gracefully...');
       serverFactory.close(() => {
         logger.info('server closed.');
         process.exit(0);
@@ -169,18 +168,18 @@ export async function initServer(
     });
  * @param config
  */
-export async function runServer(config?: string | ConfigRuntime): Promise<any> {
-  let configurationParsed: ConfigRuntime;
+export async function runServer(config?: string | ConfigYaml): Promise<any> {
+  let configurationParsed: ConfigYaml;
   if (config === undefined || typeof config === 'string') {
     const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation) as ConfigRuntime;
+    configurationParsed = parseConfigFile(configPathLocation);
   } else if (_.isObject(config)) {
     configurationParsed = config;
   } else {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  setup(configurationParsed.log as LoggerConfigItem);
+  setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
   const [addr] = getListListenAddresses(undefined, configurationParsed.listen);

@@ -11,9 +11,6 @@
       "path": "../auth"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
       "path": "../logger"
     },
     {

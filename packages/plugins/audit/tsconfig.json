@@ -5,5 +5,13 @@
     "outDir": "./build"
   },
   "include": ["src/**/*", "types/*.d.ts"],
-  "exclude": ["src/**/*.test.ts"]
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../logger"
+    }
+  ]
 }

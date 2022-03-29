@@ -8,6 +8,7 @@ export interface LegacyPackageList {
   [key: string]: PackageAccess;
 }
 
+// @deprecated use @verdaccio/core:authUtils
 export const ROLES = {
   $ALL: '$all',
   ALL: 'all',
@@ -18,6 +19,7 @@ export const ROLES = {
   DEPRECATED_ANONYMOUS: '@anonymous',
 };
 
+// @deprecated use @verdaccio/core:authUtils
 export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
   ALL: '**',

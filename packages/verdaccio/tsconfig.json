@@ -17,10 +17,10 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
+      "path": "../core/htpasswd"
     },
     {
-      "path": "../core/htpasswd"
+      "path": "../tools/helper"
     },
     {
       "path": "../hooks"

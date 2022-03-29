@@ -20,7 +20,7 @@ async function searchRoute(fastify: FastifyInstance) {
     const { url, query } = request.query;
     const storage = fastify.storage;
 
-    const data = await storage.searchManager?.search({
+    const data = await storage.search({
       query,
       url,
       abort,

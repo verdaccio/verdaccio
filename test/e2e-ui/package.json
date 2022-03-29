@@ -3,16 +3,17 @@
   "name": "@verdaccio/e2e-ui",
   "version": "2.0.0-6-next.3",
   "devDependencies": {
+    "verdaccio": "workspace:6.0.0-6-next.41",
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.25",
-    "debug": "4.3.3",
-    "kleur": "3.0.3",
-    "lodash": "4.17.21",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
+    "debug": "4.3.4",
+    "kleur": "^3.0.3",
+    "lodash": "^4.17.21",
     "puppeteer": "10.4.0",
-    "request": "2.88.0",
     "rimraf": "3.0.2"
   },
   "scripts": {
-    "test": "jest --config jest.config.e2e.js"
+    "test": "jest --config jest.config.js"
   }
 }

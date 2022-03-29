@@ -17,6 +17,9 @@ export function copyConfigFile(rootFolder, configTemplate): string {
   return configPath;
 }
 
+/**
+ * @deprecated  use @verdaccio/core:createTempFolder async function instead
+ */
 export function createTempFolder(prefix: string) {
   return fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), prefix));
 }

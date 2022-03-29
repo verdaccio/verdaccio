@@ -1,5 +1,2 @@
-import DataStorage from './data-storage';
-
-export { DataStorage };
-
-export default DataStorage;
+// eslint-disable-next-line no-console
+console.log('rewriting from scratch ...');

@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import lunrMutable from 'lunr-mutable-indexes';
 
 import {
   Author,
@@ -8,18 +7,12 @@ import {
   IBasicStorage,
   IPluginStorage,
   IPluginStorageFilter,
-  IReadTarball,
-  IStorageManager,
   ITokenActions,
   Logger,
   Package,
   PackageAccess,
   RemoteUser,
-  Token,
-  TokenFilter,
   UpLinkConf,
-  Version,
-  Versions,
   StringValue as verdaccio$StringValue,
 } from '@verdaccio/types';
 
@@ -54,10 +47,6 @@ export interface AuthTokenHeader {
 export type BasicPayload = AESPayload | void;
 export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
 
-export interface ProxyList {
-  [key: string]: IProxy;
-}
-
 export interface CookieSessionToken {
   expires: Date;
 }
@@ -88,40 +77,10 @@ export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Package & { latest: any };
 
-export interface IWebSearch {
-  index: lunrMutable.index;
-  storage: Storage;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query(query: string): any;
-  add(pkg: Version): void;
-  remove(name: string): void;
-  reindex(): void;
-  configureStorage(storage: Storage): void;
-}
-
 // FIXME: This prop should be on @verdaccio/types
 export type UpLinkConfLocal = UpLinkConf & {
   no_proxy?: string;
 };
-
-export interface IProxy {
-  config: UpLinkConfLocal;
-  failed_requests: number;
-  userAgent: string;
-  ca?: string | void;
-  logger: Logger;
-  server_id: string;
-  url: any;
-  maxage: number;
-  timeout: number;
-  max_fails: number;
-  fail_timeout: number;
-  upname: string;
-  fetchTarball(url: string): IReadTarball;
-  isUplinkValid(url: string): boolean;
-  search(options: any);
-  getRemoteMetadata(name: string, options: any, callback: Callback): void;
-}
 
 export interface IStorage extends IBasicStorage<Config>, ITokenActions {
   config: Config;
@@ -137,26 +96,7 @@ export interface IGetPackageOptions {
   req: any;
 }
 
-export interface ISyncUplinks {
-  uplinksLook?: boolean;
-  etag?: string;
-  req?: Request;
-}
-
 export type IPluginFilters = IPluginStorageFilter<Config>[];
-
-export interface Storage extends IStorageManager<Config>, ITokenActions {
-  config: Config;
-  localStorage: IStorage | null;
-  filters: IPluginFilters;
-  uplinks: ProxyList;
-  init(config: Config, filters: IPluginFilters): Promise<string>;
-  saveToken(token: Token): Promise<any>;
-  deleteToken(user: string, tokenKey: string): Promise<any>;
-  readTokens(filter: TokenFilter): Promise<Token[]>;
-  _syncUplinksMetadata(name: string, packageInfo: Package, options: any, callback: Callback): void;
-  _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void;
-}
 
 /**
  * @property { string | number | Styles }  [ruleOrSelector]

@@ -17,9 +17,12 @@
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",
     "body-parser": "1.19.1",
     "express": "4.17.2",
-    "supertest": "6.2.2"
+    "supertest": "6.2.2",
+    "debug": "4.3.4",
+    "fs-extra": "10.1.0"
   },
   "scripts": {
+    "test": "jest .",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",

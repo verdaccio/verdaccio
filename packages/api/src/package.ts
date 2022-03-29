@@ -2,34 +2,13 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
-import { HEADERS, errorUtils } from '@verdaccio/core';
+import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:package');
-
-const downloadStream = (
-  packageName: string,
-  filename: string,
-  storage: any,
-  _req: $RequestExtend,
-  res: $ResponseExtend
-): void => {
-  const stream = storage.getTarball(packageName, filename);
-
-  stream.on('content-length', function (content): void {
-    res.header('Content-Length', content);
-  });
-
-  stream.on('error', function (err): void {
-    return res.locals.report_error(err);
-  });
-
-  res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
-  stream.pipe(res);
-};
 
 export default function (route: Router, auth: IAuth, storage: Storage): void {
   const can = allow(auth);
@@ -44,28 +23,22 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
     ): Promise<void> {
       debug('init package by version');
       const name = req.params.package;
-      let queryVersion = req.params.version;
+      let version = req.params.version;
+      const write = req.query.write === 'true';
       const requestOptions = {
         protocol: req.protocol,
         headers: req.headers as any,
         // FIXME: if we migrate to req.hostname, the port is not longer included.
         host: req.host,
+        remoteAddress: req.socket.remoteAddress,
+        byPassCache: write,
       };
 
       try {
-        // TODO: this is just temporary while I migrate all plugins to use the new API
-        // the method will be renamed to getPackage again but Promise Based.
-        if (!storage.getPackageByOptions) {
-          throw errorUtils.getInternalError(
-            'getPackageByOptions not implemented, check pr-2750 for more details'
-          );
-        }
-
         const manifest = await storage.getPackageByOptions({
           name,
           uplinksLook: true,
-          req,
-          version: queryVersion,
+          version,
           requestOptions,
         });
         next(manifest);
@@ -78,18 +51,72 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
   route.get(
     '/:scopedPackage/-/:scope/:filename',
     can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend): void {
-      const { scopedPackage, filename } = req.params;
+    async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
+      const { pkg, filename } = req.params;
+      const abort = new AbortController();
+      try {
+        const stream = (await storage.getTarballNext(pkg, filename, {
+          signal: abort.signal,
+          // enableRemote: true,
+        })) as any;
 
-      downloadStream(scopedPackage, filename, storage, req, res);
+        stream.on('content-length', (size) => {
+          res.header(HEADER_TYPE.CONTENT_LENGTH, size);
+        });
+
+        stream.once('error', (err) => {
+          res.locals.report_error(err);
+          next(err);
+        });
+
+        req.on('abort', () => {
+          debug('request aborted for %o', req.url);
+          abort.abort();
+        });
+
+        res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
+        stream.pipe(res);
+      } catch (err: any) {
+        // console.log('catch API error request', err);
+        res.locals.report_error(err);
+        next(err);
+      }
     }
   );
 
   route.get(
-    '/:package/-/:filename',
+    '/:pkg/-/:filename',
     can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend): void {
-      downloadStream(req.params.package, req.params.filename, storage, req, res);
+    async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
+      const { pkg, filename } = req.params;
+      const abort = new AbortController();
+      try {
+        const stream = (await storage.getTarballNext(pkg, filename, {
+          signal: abort.signal,
+          // enableRemote: true,
+        })) as any;
+
+        stream.on('content-length', (size) => {
+          res.header(HEADER_TYPE.CONTENT_LENGTH, size);
+        });
+
+        stream.once('error', (err) => {
+          res.locals.report_error(err);
+          next(err);
+        });
+
+        req.on('abort', () => {
+          debug('request aborted for %o', req.url);
+          abort.abort();
+        });
+
+        res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
+        stream.pipe(res);
+      } catch (err: any) {
+        // console.log('catch API error request', err);
+        res.locals.report_error(err);
+        next(err);
+      }
     }
   );
 }

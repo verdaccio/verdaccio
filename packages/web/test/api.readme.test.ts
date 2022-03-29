@@ -38,7 +38,7 @@ describe('readme api', () => {
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8)
       .expect(HTTP_STATUS.OK);
     expect(response.text).toMatch('my readme scoped');
-  });
+  }, 70000);
 
   test('should fetch readme scoped package with not found message', async () => {
     const app = await initializeServer('default-test.yaml');

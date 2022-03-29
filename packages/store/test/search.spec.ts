@@ -48,7 +48,7 @@ describe('search', () => {
       await storage.init(config);
 
       // @ts-expect-error
-      const results = await storage.searchManager.search({ url, query: { text: 'foo' } });
+      const results = await storage.search({ url, query: { text: 'foo' } });
       expect(results).toHaveLength(4);
     });
   });

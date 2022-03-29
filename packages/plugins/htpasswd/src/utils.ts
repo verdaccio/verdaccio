@@ -57,9 +57,7 @@ export function parseHTPasswd(input: string): Record<string, any> {
  */
 export async function verifyPassword(passwd: string, hash: string): Promise<boolean> {
   if (hash.match(/^\$2([aby])\$/)) {
-    return new Promise((resolve, reject) =>
-      bcrypt.compare(passwd, hash, (error, result) => (error ? reject(error) : resolve(result)))
-    );
+    return await bcrypt.compare(passwd, hash);
   } else if (hash.indexOf('{PLAIN}') === 0) {
     return passwd === hash.slice(7);
   } else if (hash.indexOf('{SHA}') === 0) {

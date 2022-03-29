@@ -93,6 +93,14 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
   }
 
+  public async hasTarball(/* fileName: string */): Promise<boolean> {
+    throw new Error('not  implemented');
+  }
+
+  public async hasPackage(): Promise<boolean> {
+    return false;
+  }
+
   private _createEmtpyDatabase(): MemoryLocalStorage {
     const list: string[] = [];
     const files = {};

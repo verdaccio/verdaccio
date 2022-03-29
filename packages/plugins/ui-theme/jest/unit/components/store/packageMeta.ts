@@ -77,7 +77,6 @@ export const packageMeta = {
     bin: { verdaccio: './bin/verdaccio' },
     dependencies: {
       '@verdaccio/file-locking': '0.0.3',
-      '@verdaccio/streams': '0.0.2',
       JSONStream: '^1.1.1',
       'apache-md5': '^1.1.2',
       async: '^2.0.1',

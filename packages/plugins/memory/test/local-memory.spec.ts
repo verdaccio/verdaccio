@@ -1,21 +1,18 @@
-import { IPluginStorage, Logger } from '@verdaccio/types';
+import { join } from 'path';
+
+import { Config, parseConfigFile } from '@verdaccio/config';
+import { logger, setup } from '@verdaccio/logger';
+import { IPluginStorage } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import { DataHandler } from '../src/memory-handler';
-import config from './partials/config';
 
-const logger: Logger = {
-  error: (e) => console.warn(e),
-  info: (e) => console.warn(e),
-  debug: (e) => console.warn(e),
-  child: (e) => console.warn(e),
-  warn: (e) => console.warn(e),
-  http: (e) => console.warn(e),
-  trace: (e) => console.warn(e),
-};
+setup();
 
-const defaultConfig = { logger, config: null };
+const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
+
+const defaultConfig = { logger, config };
 
 describe('memory unit test .', () => {
   describe('LocalMemory', () => {
@@ -36,8 +33,11 @@ describe('memory unit test .', () => {
     });
 
     test('should reach max limit', (done) => {
-      config.limit = 2;
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(
+        // @ts-ignore
+        { limit: 2 },
+        defaultConfig
+      );
 
       localMemory.add('test1').then(() => {
         localMemory.add('test2').then(() => {

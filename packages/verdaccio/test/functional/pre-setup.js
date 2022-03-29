@@ -3,4 +3,7 @@
 require('@babel/register')({
   extensions: ['.ts', '.js'],
 });
-module.exports = require('./lib/setup');
+
+module.exports = async function () {
+  // here we should create dynamically config files
+};

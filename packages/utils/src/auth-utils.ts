@@ -27,3 +27,18 @@ export function getAuthenticatedMessage(user: string): string {
 export function buildUserBuffer(name: string, password: string): Buffer {
   return Buffer.from(`${name}:${password}`, 'utf8');
 }
+
+export const ROLES = {
+  $ALL: '$all',
+  ALL: 'all',
+  $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  DEPRECATED_ANONYMOUS: '@anonymous',
+};
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};

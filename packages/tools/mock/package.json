@@ -48,7 +48,8 @@
     "fs-extra": "10.0.0",
     "lodash": "4.17.21",
     "request": "2.88.0",
-    "supertest": "6.2.2"
+    "supertest": "6.2.2",
+    "verdaccio": "5.13.1"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

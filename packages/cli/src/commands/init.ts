@@ -2,9 +2,9 @@ import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
-import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
+import { LoggerConfigItem } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
-import { ConfigRuntime } from '@verdaccio/types';
+import { ConfigYaml } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -45,7 +45,7 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  private initLogger(logConfig: ConfigRuntime) {
+  private initLogger(logConfig: ConfigYaml) {
     try {
       // @ts-expect-error
       if (logConfig.logs) {

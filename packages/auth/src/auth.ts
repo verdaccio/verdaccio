@@ -497,10 +497,10 @@ class Auth implements IAuth {
     next: Function
   ): void {
     debug('handle legacy api middleware');
-    debug('api middleware secret %o', secret);
-    debug('api middleware authorization %o', authorization);
+    debug('api middleware secret %o', typeof secret === 'string');
+    debug('api middleware authorization %o', typeof authorization === 'string');
     const credentials: any = getMiddlewareCredentials(security, secret, authorization);
-    debug('api middleware credentials %o', credentials);
+    debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
       const { user, password } = credentials;
       debug('authenticating %o', user);

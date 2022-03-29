@@ -49,10 +49,10 @@ uplinks:
     url: https://private-registry.domain.com/registry
     auth:
       type: bearer
-      token_env: true # defaults to `process.env['NPM_TOKEN']`
+      token_env: true # by defaults points to the environment variable `NPM_TOKEN`
 ```
 
-or via a specified environment variable:
+or via a specified _custom_ environment variable:
 
 ```yaml
 uplinks:
@@ -60,12 +60,12 @@ uplinks:
     url: https://private-registry.domain.com/registry
     auth:
       type: bearer
-      token_env: FOO_TOKEN
+      token_env: FOO_TOKEN # override the default `NPM_TOKEN` by a custom one
 ```
 
 `token_env: FOO_TOKEN `internally will use `process.env['FOO_TOKEN']`
 
-or by directly specifying a token:
+or by directly specifying a token oh the configuration file (not recommended by security corcerns):
 
 ```yaml
 uplinks:

@@ -46,6 +46,7 @@ export const subSystemLevels = {
   color: {
     in: green(ARROWS.LEFT),
     out: yellow(ARROWS.RIGHT),
+    auth: blue(ARROWS.NEUTRAL),
     fs: black(ARROWS.EQUAL),
     default: blue(ARROWS.NEUTRAL),
   },

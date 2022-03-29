@@ -60,9 +60,9 @@ describe('publish', () => {
   describe('handle invalid publish formats', () => {
     const pkgName = 'test';
     const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
-    test.skip('should fail on publish a bad _attachments package', async (done) => {
+    test('should fail on publish a bad _attachments package', async () => {
       const app = await initializeServer('publish.yaml');
-      return supertest(app)
+      const response = await supertest(app)
         .put(`/${encodeURIComponent(pkgName)}`)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
         .send(
@@ -73,12 +73,8 @@ describe('publish', () => {
           )
         )
         .set('accept', HEADERS.GZIP)
-        .expect(HTTP_STATUS.BAD_REQUEST)
-        .then((response) => {
-          console.log('response.body', response.body);
-          expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
-          done();
-        });
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
     });
 
     test('should fail on publish a bad versions package', async () => {
@@ -97,7 +93,6 @@ describe('publish', () => {
           .set('accept', HEADERS.GZIP)
           .expect(HTTP_STATUS.BAD_REQUEST)
           .then((response) => {
-            console.log('response.body', response.body);
             expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
             resolve(response);
           });
@@ -109,7 +104,7 @@ describe('publish', () => {
     test('should publish a package', async () => {
       const app = await initializeServer('publish.yaml');
       return new Promise((resolve) => {
-        publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
+        publishVersion(app, 'foo', '1.0.0')
           .expect(HTTP_STATUS.CREATED)
           .then((response) => {
             expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
@@ -126,13 +121,7 @@ describe('publish', () => {
         supertest(app)
           .put(`/${encodeURIComponent(pkgName)}`)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .send(
-            JSON.stringify(
-              Object.assign({}, pkgMetadata, {
-                _attachments: null,
-              })
-            )
-          )
+          .send(JSON.stringify(Object.assign({}, pkgMetadata)))
           .set('accept', HEADERS.GZIP)
           .expect(HTTP_STATUS.CREATED)
           .then((response) => {
@@ -173,12 +162,11 @@ describe('publish', () => {
 
   test('should fails on publish a duplicated package', async () => {
     const app = await initializeServer('publish.yaml');
-    await publishVersion(app, 'publish.yaml', 'foo', '1.0.0');
+    await publishVersion(app, 'foo', '1.0.0');
     return new Promise((resolve) => {
-      publishVersion(app, 'publish.yaml', 'foo', '1.0.0')
+      publishVersion(app, 'foo', '1.0.0')
         .expect(HTTP_STATUS.CONFLICT)
         .then((response) => {
-          console.log('response.body', response.body);
           expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
           resolve(response);
         });
@@ -186,14 +174,61 @@ describe('publish', () => {
   });
 
   describe('unpublish a package', () => {
-    let app;
-
-    beforeEach(async () => {
-      app = await initializeServer('publish.yaml');
-      await publishVersion(app, 'publish.yaml', 'foo', '1.0.0');
+    test('should unpublish entirely a package', async () => {
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, 'foo', '1.0.0');
+      const response = await supertest(app)
+        // FIXME: should be filtered by revision to avoid
+        // conflicts
+        .delete(`/${encodeURIComponent('foo')}/-rev/xxx`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toEqual(API_MESSAGE.PKG_REMOVED);
+      // package should be completely un published
+      await supertest(app)
+        .get('/foo')
+        .set('Accept', HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.NOT_FOUND);
     });
 
-    test('should unpublish a package', () => {});
+    test('should fails unpublish entirely a package', async () => {
+      const app = await initializeServer('publish.yaml');
+      const response = await supertest(app)
+        .delete(`/${encodeURIComponent('foo')}/-rev/1cf3-fe3`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.NOT_FOUND);
+      expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+    });
+
+    test('should fails remove a tarball of a package does not exist', async () => {
+      const app = await initializeServer('publish.yaml');
+      const response = await supertest(app)
+        .delete(`/foo/-/foo-1.0.3.tgz/-rev/revision`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.NOT_FOUND);
+      expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+    });
+
+    test('should fails on try remove a tarball does not exist', async () => {
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, 'foo', '1.0.0');
+      const response = await supertest(app)
+        .delete(`/foo/-/foo-1.0.3.tgz/-rev/revision`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.NOT_FOUND);
+      expect(response.body.error).toEqual(API_ERROR.NO_SUCH_FILE);
+    });
+
+    test('should remove a tarball that does exist', async () => {
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, 'foo', '1.0.0');
+      const response = await supertest(app)
+        .delete(`/foo/-/foo-1.0.0.tgz/-rev/revision`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toEqual(API_MESSAGE.TARBALL_REMOVED);
+    });
   });
 
   describe('star a package', () => {});

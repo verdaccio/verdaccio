@@ -1,8 +1,8 @@
 /* eslint-disable jest/no-mocks-import */
 import fs from 'fs';
 import path from 'path';
-import { dirSync } from 'tmp-promise';
 
+import { fileUtils } from '@verdaccio/core';
 import { Logger, Token } from '@verdaccio/types';
 
 import LocalDatabase from '../src/local-database';
@@ -21,13 +21,13 @@ describe('Local Database', () => {
   let tmpFolder;
   let locaDatabase;
   beforeEach(async () => {
-    tmpFolder = dirSync({ unsafeCleanup: true });
-    const tempFolder = path.join(tmpFolder.name, 'verdaccio-test.yaml');
+    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
+    const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
     locaDatabase = new LocalDatabase( // @ts-expect-error
       {
         storage: 'storage',
-        config_path: tempFolder,
+        configPath: tempFolder,
         checkSecretKey: () => 'fooX',
       },
       logger

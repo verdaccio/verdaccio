@@ -52,6 +52,7 @@ web:
   #  publicPath: http://somedomain.org/
 
 # https://verdaccio.org/docs/configuration#authentication
+
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd

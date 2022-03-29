@@ -3,6 +3,7 @@ import _ from 'lodash';
 import path from 'path';
 
 import { parseConfigFile } from '@verdaccio/config';
+import { ConfigYaml } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:mock:config');
 
@@ -10,7 +11,7 @@ const debug = buildDebug('verdaccio:mock:config');
  * Override the default.yaml configuration file with any new config provided.
  */
 function configExample(
-  externalConfig = {},
+  externalConfig: Partial<ConfigYaml> = {},
   configFile: string = 'default.yaml',
   location: string = ''
 ) {

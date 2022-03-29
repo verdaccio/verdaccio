@@ -23,7 +23,10 @@ export default class ProxyAudit implements IPluginMiddleware<{}> {
   }
 
   public register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>): void {
-    const fetchAudit = (req: Request, res: Response & { report_error?: Function }): void => {
+    const fetchAudit = async (
+      req: Request,
+      res: Response & { report_error?: Function }
+    ): Promise<void> => {
       const headers = req.headers;
 
       headers['host'] = 'registry.npmjs.org';
@@ -45,29 +48,27 @@ export default class ProxyAudit implements IPluginMiddleware<{}> {
         });
       }
 
-      (async () => {
-        try {
-          const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
-          this.logger.debug('fetching audit from ' + auditEndpoint);
+      try {
+        const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
+        this.logger.debug('fetching audit from ' + auditEndpoint);
 
-          const response = await fetch(auditEndpoint, requestOptions);
+        const response = await fetch(auditEndpoint, requestOptions);
 
-          if (response.ok) {
-            res.status(response.status).send(await response.json());
-          } else {
-            this.logger.warn('could not fetch audit: ' + JSON.stringify(await response.json()));
-            res.status(response.status).end();
-          }
-        } catch (error) {
-          this.logger.warn('could not fetch audit: ' + error);
-          res.status(500).end();
+        if (response.ok) {
+          res.status(response.status).send(await response.json());
+        } else {
+          this.logger.warn('could not fetch audit: ' + JSON.stringify(await response.json()));
+          res.status(response.status).end();
         }
-      })();
+      } catch (error) {
+        this.logger.warn('could not fetch audit: ' + error);
+        res.status(500).end();
+      }
     };
 
-    const handleAudit = (req: Request, res: Response): void => {
+    const handleAudit = async (req: Request, res: Response): Promise<void> => {
       if (this.enabled) {
-        fetchAudit(req, res);
+        await fetchAudit(req, res);
       } else {
         res.status(500).end();
       }

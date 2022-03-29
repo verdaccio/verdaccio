@@ -93,6 +93,7 @@ export type RequestOptions = {
   host: string;
   protocol: string;
   headers: { [key: string]: string };
+  remoteAddress?: string;
 };
 
 export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOptions): string {

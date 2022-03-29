@@ -1,19 +1,23 @@
 /* eslint-disable no-undef */
 import buildDebug from 'debug';
 import fs from 'fs';
-import _ from 'lodash';
 import path from 'path';
+import sanitzers from 'sanitize-filename';
+import { Readable, Writable, addAbortSignal } from 'stream';
 
 import { VerdaccioError, errorUtils } from '@verdaccio/core';
-import { readFile, readFileNext, unlockFile, unlockFileNext } from '@verdaccio/file-locking';
-import { ReadTarball, UploadTarball } from '@verdaccio/streams';
-import { Callback, ILocalPackageManager, IUploadTarball, Logger, Package } from '@verdaccio/types';
+import { readFileNext, unlockFileNext } from '@verdaccio/file-locking';
+import { ILocalPackageManager, Logger, Manifest } from '@verdaccio/types';
 
 import {
+  accessPromise,
+  fstatPromise,
   mkdirPromise,
+  openPromise,
   readFilePromise,
   renamePromise,
   rmdirPromise,
+  statPromise,
   unlinkPromise,
   writeFilePromise,
 } from './fs';
@@ -22,6 +26,8 @@ export const fileExist = 'EEXISTS';
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const packageJSONFileName = 'package.json';
+
+export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
 
 const debug = buildDebug('verdaccio:plugin:local-storage:local-fs');
 
@@ -38,45 +44,15 @@ const tempFile = function (str): string {
   return `${str}.tmp${String(Math.random()).slice(2)}`;
 };
 
-const renameTmp = function (src, dst, _cb): void {
-  const cb = (err): void => {
-    if (err) {
-      fs.unlink(src, () => {});
-    }
-    _cb(err);
-  };
-
-  if (process.platform !== 'win32') {
-    return fs.rename(src, dst, cb);
-  }
-
-  // windows can't remove opened file,
-  // but it seem to be able to rename it
-  const tmp = tempFile(dst);
-  fs.rename(dst, tmp, function (err) {
-    fs.rename(src, dst, cb);
-    if (!err) {
-      fs.unlink(tmp, () => {});
-    }
-  });
-};
-
-export async function renameTmpNext(src: string, dst: string): Promise<void> {
-  if (process.platform !== 'win32') {
+export async function renameTmp(src: string, dst: string): Promise<void> {
+  debug('rename %s to %s', src, dst);
+  try {
     await renamePromise(src, dst);
+  } catch (err: any) {
+    debug('error rename %s error %s', src, err?.message);
     await unlinkPromise(src);
-  } else {
-    // TODO: review if this still the cases
-    // windows can't remove opened file,
-    // but it seem to be able to rename it
-    const tmp = tempFile(dst);
-    await renamePromise(dst, tmp);
-    await renamePromise(src, dst);
-    await unlinkPromise(tmp);
   }
 }
-
-export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
 
 export default class LocalFS implements ILocalFSPackageManager {
   public path: string;
@@ -85,78 +61,6 @@ export default class LocalFS implements ILocalFSPackageManager {
   public constructor(path: string, logger: Logger) {
     this.path = path;
     this.logger = logger;
-  }
-
-  /**
-    *  This function allows to update the package thread-safely
-      Algorithm:
-      1. lock package.json for writing
-      2. read package.json
-      3. updateFn(pkg, cb), and wait for cb
-      4. write package.json.tmp
-      5. move package.json.tmp package.json
-      6. callback(err?)
-    * @param {*} name
-    * @param {*} updateHandler
-    * @param {*} onWrite
-    * @param {*} transformPackage
-    * @param {*} onEnd
-    */
-  public updatePackage(
-    name: string,
-    updateHandler: Callback,
-    onWrite: Callback,
-    transformPackage: Function,
-    onEnd: Callback
-  ): void {
-    this._lockAndReadJSON(packageJSONFileName, (err, json) => {
-      let locked = false;
-      const self = this;
-      // callback that cleans up lock first
-      const unLockCallback = function (lockError: Error): void {
-        // eslint-disable-next-line prefer-rest-params
-        const _args = arguments;
-
-        if (locked) {
-          debug('unlock %s', packageJSONFileName);
-          self._unlockJSON(packageJSONFileName, () => {
-            // ignore any error from the unlock
-            if (lockError !== null) {
-              debug('lock file: %o has failed with error %o', name, lockError);
-            }
-
-            onEnd.apply(lockError, _args);
-          });
-        } else {
-          debug('file: %o has been updated', name);
-          onEnd(..._args);
-        }
-      };
-      // //////////////////////////////////////
-
-      if (!err) {
-        locked = true;
-        debug('file: %o has been locked', name);
-      }
-
-      if (_.isNil(err) === false) {
-        if (err.code === resourceNotAvailable) {
-          return unLockCallback(errorUtils.getInternalError('resource temporarily unavailable'));
-        } else if (err.code === noSuchFile) {
-          return unLockCallback(errorUtils.getNotFound());
-        } else {
-          return unLockCallback(err);
-        }
-      }
-
-      updateHandler(json, (err) => {
-        if (err) {
-          return unLockCallback(err);
-        }
-
-        onWrite(name, transformPackage(json), unLockCallback);
-      });
-    });
   }
 
   /**
@@ -179,20 +83,20 @@ export default class LocalFS implements ILocalFSPackageManager {
     * on the action and handled into the core.
     * @param {*} handleUpdate
     */
-  public async updatePackageNext(
+  public async updatePackage(
     packageName: string,
-    handleUpdate: (manifest: Package) => Promise<Package>
-  ): Promise<Package> {
+    handleUpdate: (manifest: Manifest) => Promise<Manifest>
+  ): Promise<Manifest> {
     // this plugin lock files on write, we handle all possible scenarios
     let locked = false;
-    let manifestUpdated: Package;
+    let manifestUpdated: Manifest;
     try {
-      const manifest = await this._lockAndReadJSONNext(packageJSONFileName);
+      const manifest = await this._lockAndReadJSON(packageJSONFileName);
       locked = true;
       manifestUpdated = await handleUpdate(manifest);
       if (locked) {
         debug('unlock %s', packageJSONFileName);
-        await this._unlockJSONNext(packageJSONFileName);
+        await this._unlockJSON(packageJSONFileName);
         this.logger.debug({ packageName }, 'the package @{packageName}  has been updated');
         return manifestUpdated;
       } else {
@@ -208,7 +112,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       if (locked) {
         // eslint-disable-next-line no-useless-catch
         try {
-          await this._unlockJSONNext(packageJSONFileName);
+          await this._unlockJSON(packageJSONFileName);
           // after unlock bubble up error.
           throw err;
         } catch (err: any) {
@@ -239,183 +143,189 @@ export default class LocalFS implements ILocalFSPackageManager {
     await rmdirPromise(this._getStorage('.'));
   }
 
-  public createPackage(name: string, value: Package, cb: Callback): void {
-    debug('create a package %o', name);
-
-    this._createFile(this._getStorage(packageJSONFileName), this._convertToString(value), cb);
+  /**
+   * Verify if the package exists already.
+   * @param name package name
+   * @returns
+   */
+  public async hasPackage(): Promise<boolean> {
+    const pathName: string = this._getStorage(packageJSONFileName);
+    try {
+      const stat = await statPromise(pathName);
+      return stat.isFile();
+    } catch (err: any) {
+      if (err.code === noSuchFile) {
+        debug('dir: %o does not exist %s', pathName, err?.code);
+        return false;
+      } else {
+        this.logger.error('error on verify a package exist %o', err);
+        throw errorUtils.getInternalError('error on verify a package exist');
+      }
+    }
   }
 
-  public savePackage(name: string, value: Package, cb: Callback): void {
+  /**
+   * Create a package in the local storage, if package already exist fails.
+   * @param name package name
+   * @param manifest package manifest
+   */
+  public async createPackage(name: string, manifest: Manifest): Promise<void> {
+    debug('create a a new package %o', name);
+    const pathPackage = this._getStorage(packageJSONFileName);
+    try {
+      // https://nodejs.org/dist/latest-v17.x/docs/api/fs.html#file-system-flags
+      // 'wx': Like 'w' but fails if the path exists
+      await openPromise(pathPackage, 'wx');
+    } catch (err: any) {
+      // cannot override a pacakge that already exist
+      if (err.code === 'EEXIST') {
+        debug('file %o cannot be created, it already exists: %o', name);
+        throw fSError(fileExist);
+      }
+    }
+    // Create a new file and it´s folder if does not exist previously
+    await this.writeFile(pathPackage, this._convertToString(manifest));
+  }
+
+  public async savePackage(name: string, value: Manifest): Promise<void> {
     debug('save a package %o', name);
 
-    this._writeFile(this._getStorage(packageJSONFileName), this._convertToString(value), cb);
+    await this.writeFile(this._getStorage(packageJSONFileName), this._convertToString(value));
   }
 
-  public async savePackageNext(name: string, value: Package): Promise<void> {
-    debug('save a package %o', name);
-
-    await this.writeFileNext(this._getStorage(packageJSONFileName), this._convertToString(value));
-  }
-
-  public async readPackageNext(name: string): Promise<Package> {
+  public async readPackage(name: string): Promise<Manifest> {
     debug('read a package %o', name);
     try {
       const res = await this._readStorageFile(this._getStorage(packageJSONFileName));
       const data: any = JSON.parse(res.toString('utf8'));
 
-      debug('read storage file %o has succeed', name);
+      debug('read storage file %o has succeeded', name);
       return data;
     } catch (err: any) {
-      debug('parse error');
-      this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
+      if (err.code !== noSuchFile) {
+        debug('parse error');
+        this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
+      }
       throw err;
     }
   }
 
-  public readPackage(name: string, cb: Callback): void {
-    debug('read a package %o', name);
-
-    this._readStorageFile(this._getStorage(packageJSONFileName))
-      .then((res) => {
-        try {
-          const data: any = JSON.parse(res.toString('utf8'));
-
-          debug('read storage file %o has succeed', name);
-          cb(null, data);
-        } catch (err: any) {
-          debug('parse error');
-          this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
-          throw err;
-        }
-      })
-      .catch((err) => {
-        debug('error on read storage file %o', err.message);
-        return cb(err);
-      });
+  public async hasTarball(fileName: string): Promise<boolean> {
+    const pathName: string = this._getStorage(fileName);
+    return new Promise((resolve) => {
+      accessPromise(pathName)
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => resolve(false));
+    });
   }
 
-  public writeTarball(name: string): IUploadTarball {
-    const uploadStream = new UploadTarball({});
-    debug('write a tarball for a package %o', name);
+  // remove the temporary file
+  private async removeTempFile(temporalName): Promise<void> {
+    debug('remove temporal file %o', temporalName);
+    await unlinkPromise(temporalName);
+    debug('removed temporal file %o', temporalName);
+  }
 
-    let _ended = 0;
-    uploadStream.on('end', function () {
-      _ended = 1;
+  /**
+   * Write a tarball into the storage
+   * @param fileName package name
+   * @param param1
+   * @returns
+   */
+  public async writeTarball(fileName: string, { signal }): Promise<Writable> {
+    debug('write a tarball %o', fileName);
+    const pathName: string = this._getStorage(fileName);
+    // create a temporary file to avoid conflicts or prev corruption files
+    const temporalName = path.join(
+      this.path,
+      `${fileName}.tmp-${String(Math.random()).replace(/^0\./, '')}`
+    );
+
+    debug('write a temporal name %o', temporalName);
+    let opened = false;
+    const writeStream = fs.createWriteStream(temporalName);
+
+    writeStream.on('open', () => {
+      opened = true;
     });
 
-    const pathName: string = this._getStorage(name);
-
-    fs.access(pathName, (fileNotFound) => {
-      const exists = !fileNotFound;
-      if (exists) {
-        uploadStream.emit('error', fSError(fileExist));
-      } else {
-        const temporalName = path.join(
-          this.path,
-          `${name}.tmp-${String(Math.random()).replace(/^0\./, '')}`
+    writeStream.on('error', async (err) => {
+      if (opened) {
+        this.logger.error(
+          { err: err.message, fileName },
+          'error on open write tarball for @{pkgName}'
         );
-        debug('write a temporal name %o', temporalName);
-        const file = fs.createWriteStream(temporalName);
-        const removeTempFile = (): void => fs.unlink(temporalName, () => {});
-        let opened = false;
-        uploadStream.pipe(file);
-
-        uploadStream.done = function (): void {
-          const onend = function (): void {
-            file.on('close', function () {
-              renameTmp(temporalName, pathName, function (err) {
-                if (err) {
-                  uploadStream.emit('error', err);
-                } else {
-                  uploadStream.emit('success');
-                }
-              });
-            });
-            file.end();
-          };
-          if (_ended) {
-            onend();
-          } else {
-            uploadStream.on('end', onend);
-          }
-        };
-
-        uploadStream.abort = function (): void {
-          if (opened) {
-            opened = false;
-            file.on('close', function () {
-              removeTempFile();
-            });
-          } else {
-            // if the file does not recieve any byte never is opened and has to be removed anyway.
-            removeTempFile();
-          }
-          file.end();
-        };
-
-        file.on('open', function () {
-          opened = true;
-          // re-emitting open because it's handled in storage.js
-          uploadStream.emit('open');
+        // TODO: maybe add .once
+        writeStream.on('close', async () => {
+          await this.removeTempFile(temporalName);
         });
-
-        file.on('error', function (err) {
-          uploadStream.emit('error', err);
-        });
+      } else {
+        this.logger.error(
+          { err: err.message, fileName },
+          'error a non open write tarball for @{pkgName}'
+        );
+        await this.removeTempFile(temporalName);
       }
     });
 
-    return uploadStream;
-  }
-
-  public readTarball(name: string): ReadTarball {
-    const pathName: string = this._getStorage(name);
-    debug('read a a tarball %o on path %o', name, pathName);
-
-    const readTarballStream = new ReadTarball({});
-
-    const readStream = fs.createReadStream(pathName);
-
-    readStream.on('error', function (err) {
-      debug('error on read a tarball %o with error %o', name, err);
-      readTarballStream.emit('error', err);
-    });
-
-    readStream.on('open', function (fd) {
-      fs.fstat(fd, function (err, stats) {
-        if (_.isNil(err) === false) {
-          debug('error on read a tarball %o with error %o', name, err);
-          return readTarballStream.emit('error', err);
-        }
-        readTarballStream.emit('content-length', stats.size);
-        readTarballStream.emit('open');
-        debug('open on read a tarball %o', name);
-        readStream.pipe(readTarballStream);
-      });
-    });
-
-    readTarballStream.abort = function (): void {
-      debug('abort on read a tarball %o', name);
-      readStream.close();
-    };
-
-    return readTarballStream;
-  }
-
-  private _createFile(name: string, contents: any, callback: Function): void {
-    debug(' create a new file: %o', name);
-
-    fs.open(name, 'wx', (err) => {
-      if (err) {
-        // native EEXIST used here to check exception on fs.open
-        if (err.code === 'EEXIST') {
-          debug('file %o cannot be created, it already exists: %o', name);
-          return callback(fSError(fileExist));
-        }
+    // the 'close' event is emitted when the stream and any of its
+    // underlying resources (a file descriptor, for example) have been closed.
+    // TODO: maybe add .once
+    writeStream.on('close', async () => {
+      try {
+        await renameTmp(temporalName, pathName);
+      } catch (err) {
+        this.logger.error(
+          { err },
+          'error on rename temporal file, please report this is a bug @{err}'
+        );
       }
-
-      this._writeFile(name, contents, callback);
     });
+
+    // if upload is aborted, we clean up the temporal file
+    signal.addEventListener(
+      'abort',
+      async () => {
+        if (opened) {
+          // close always happens, even if error
+          writeStream.once('close', async () => {
+            await this.removeTempFile(temporalName);
+          });
+        } else {
+          await this.removeTempFile(temporalName);
+        }
+      },
+      { once: true }
+    );
+
+    return writeStream;
+  }
+
+  /**
+   * Read a tarball from the storage
+   * @param tarballName tarball name eg: foo-1.0.0.tgz
+   * @param options {signal} abort signal
+   * @returns Readable stream
+   */
+  public async readTarball(tarballName: string, { signal }): Promise<Readable> {
+    const pathName: string = this._getStorage(tarballName);
+    debug('read a tarball %o', pathName);
+    const readStream = addAbortSignal(signal, fs.createReadStream(pathName));
+    readStream.on('open', async function (fileDescriptorId: number) {
+      // if abort, the descriptor is null
+      debug('file descriptor id %o', fileDescriptorId);
+      if (fileDescriptorId) {
+        const stats = await fstatPromise(fileDescriptorId);
+        debug('file size %o', stats.size);
+        readStream.emit('content-length', stats.size);
+      }
+    });
+    readStream.on('error', (error) => {
+      debug('not tarball found %o for %s message %s', pathName, tarballName, error.message);
+    });
+    return readStream;
   }
 
   private async _readStorageFile(name: string): Promise<any> {
@@ -429,106 +339,57 @@ export default class LocalFS implements ILocalFSPackageManager {
     }
   }
 
-  private _convertToString(value: Package): string {
-    return JSON.stringify(value, null, '\t');
+  private _convertToString(value: Manifest): string {
+    return JSON.stringify(value);
   }
 
-  private _getStorage(fileName = ''): string {
-    const storagePath: string = path.join(this.path, fileName);
-
+  public _getStorage(fileName = ''): string {
+    const storagePath: string = path.join(this.path, sanitzers(fileName));
+    debug('get storage %s', storagePath);
     return storagePath;
-  }
-
-  private _writeFile(dest: string, data: string, cb: Callback): void {
-    const createTempFile = (cb): void => {
-      const tempFilePath = tempFile(dest);
-
-      fs.writeFile(tempFilePath, data, (err) => {
-        if (err) {
-          debug('error on write the file: %o', dest);
-          return cb(err);
-        }
-
-        debug('creating a new file:: %o', dest);
-        renameTmp(tempFilePath, dest, cb);
-      });
-    };
-
-    createTempFile((err) => {
-      if (err && err.code === noSuchFile) {
-        fs.mkdir(path.dirname(dest), { recursive: true }, function (err) {
-          if (err) {
-            return cb(err);
-          }
-          createTempFile(cb);
-        });
-      } else {
-        cb(err);
-      }
-    });
   }
 
   private async writeTempFileAndRename(dest: string, fileContent: string): Promise<any> {
     const tempFilePath = tempFile(dest);
     try {
-      // write file on temp location
+      // write file on temp locatio
+      // TODO: we need to handle when directory does not exist
       await writeFilePromise(tempFilePath, fileContent);
       debug('creating a new file:: %o', dest);
       // rename tmp file to original
-      await renameTmpNext(tempFilePath, dest);
+      await renameTmp(tempFilePath, dest);
     } catch (err: any) {
       debug('error on write the file: %o', dest);
       throw err;
     }
   }
 
-  private async writeFileNext(destiny: string, fileContent: string): Promise<void> {
+  private async writeFile(destiny: string, fileContent: string): Promise<void> {
     try {
       await this.writeTempFileAndRename(destiny, fileContent);
+      debug('write file success %s', destiny);
     } catch (err: any) {
       if (err && err.code === noSuchFile) {
+        const dir = path.dirname(destiny);
         // if fails, we create the folder for the package
-        await mkdirPromise(path.dirname(destiny), { recursive: true });
+        debug('write file has failed, creating folder %s', dir);
+        await mkdirPromise(dir, { recursive: true });
         // we try again create the temp file
+        debug('writing a temp file %s', destiny);
         await this.writeTempFileAndRename(destiny, fileContent);
+        debug('write file success %s', destiny);
       } else {
+        this.logger.error({ err: err.message }, 'error on write file @{err}');
         throw err;
       }
     }
   }
 
-  private _lockAndReadJSON(name: string, cb: Function): void {
-    const fileName: string = this._getStorage(name);
-    debug('lock and read a file %o', fileName);
-    readFile(
-      fileName,
-      {
-        lock: true,
-        parse: true,
-      },
-      (err, res) => {
-        if (err) {
-          this.logger.error({ err }, 'error on lock file @{err.message}');
-          debug('error on lock and read json for file: %o', name);
-
-          return cb(err);
-        }
-        debug('lock and read json for file: %o', name);
-
-        return cb(null, res);
-      }
-    );
-  }
-
-  private _unlockJSON(name: string, cb: Function): void {
-    unlockFile(this._getStorage(name), cb);
-  }
-
-  private async _lockAndReadJSONNext(name: string): Promise<Package> {
+  private async _lockAndReadJSON(name: string): Promise<Manifest> {
     const fileName: string = this._getStorage(name);
     debug('lock and read a file %o', fileName);
     try {
-      const data = await readFileNext<Package>(fileName, {
+      const data = await readFileNext<Manifest>(fileName, {
         lock: true,
         parse: true,
       });
@@ -541,7 +402,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     }
   }
 
-  private async _unlockJSONNext(name: string): Promise<void> {
+  private async _unlockJSON(name: string): Promise<void> {
     await unlockFileNext(this._getStorage(name));
   }
 }

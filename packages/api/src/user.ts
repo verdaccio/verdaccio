@@ -8,7 +8,7 @@ import { createRemoteUser } from '@verdaccio/config';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
+import { getAuthenticatedMessage, mask, validatePassword } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
@@ -28,6 +28,23 @@ export default function (route: Router, auth: IAuth, config: Config): void {
     }
   );
 
+  /**
+ *  
+ *  body example
+ *  req.body = {
+      _id: "org.couchdb.user:jjjj",
+      name: "jjjj",
+      password: "jjjj",
+      type: "user",
+      roles: [],
+      date: "2022-07-08T15:51:04.002Z",
+    }
+ * 
+ * @export
+ * @param {Router} route
+ * @param {IAuth} auth
+ * @param {Config} config
+ */
   route.put(
     '/-/user/:org_couchdb_user/:_rev?/:revision?',
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
@@ -92,7 +109,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
           const token =
             name && password ? await getApiToken(auth, config, user, password) : undefined;
-          debug('adduser: new token %o', token);
+          debug('adduser: new token %o', mask(token as string, 4));
           if (!token) {
             return next(errorUtils.getUnauthorized());
           }

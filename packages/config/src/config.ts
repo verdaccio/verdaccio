@@ -6,7 +6,7 @@ import { APP_ERROR } from '@verdaccio/core';
 import {
   Config as AppConfig,
   AuthConf,
-  ConfigRuntime,
+  ConfigYaml,
   FlagsConfig,
   PackageAccess,
   PackageList,
@@ -38,8 +38,11 @@ class Config implements AppConfig {
   public users: any;
   public auth: AuthConf;
   public server_id: string;
+  // @deprecated use configPath instead
   public config_path: string;
+  public configPath: string;
   public storage: string | void;
+
   public plugins: string | void;
   public security: Security;
   public serverSettings: ServerSettingsConf;
@@ -47,10 +50,15 @@ class Config implements AppConfig {
   public secret: string;
   public flags: FlagsConfig;
 
-  public constructor(config: ConfigRuntime) {
+  public constructor(config: ConfigYaml & { config_path: string }) {
     const self = this;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
-    this.config_path = config.config_path;
+    if (!config.configPath) {
+      throw new Error('config_path is required');
+    }
+    this.config_path = config.config_path ?? (config.configPath as string);
+    this.configPath = config.configPath;
+    debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
     this.serverSettings = serverSettings;

@@ -7,4 +7,9 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**', '!**/partials/**', '!**/fixture/**'],
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
+  coverageThreshold: {
+    global: {
+      lines: 90,
+    },
+  },
 };

@@ -1,35 +1,55 @@
-import { Callback, Config, IPluginStorageFilter, RemoteUser } from '@verdaccio/types';
+import { FetchOptions } from '@verdaccio/proxy';
+import { Config, IPluginStorageFilter, RemoteUser } from '@verdaccio/types';
+import { RequestOptions } from '@verdaccio/url';
 
-// @deprecated
-export interface IGetPackageOptions {
-  callback: Callback;
-  name: string;
-  keepUpLinkData?: boolean;
-  uplinksLook: boolean;
-  req: any;
-}
-
+// @deprecated use IGetPackageOptionsNext
 export type IGetPackageOptionsNext = {
-  // @deprecated remove this soon
-  req: any;
+  /**
+   * Package name, could be scoped
+   * eg: @scope/package-name or package-name
+   */
+  name: string;
+  /**
+   * Package version, optional.
+   *
+   * @type {string}
+   */
+  version?: string;
+  /**
+   * @deprecated use `TBA` instead
+   */
+  keepUpLinkData?: boolean;
+  remoteUser?: RemoteUser;
+  // fetch library retry options (mostly used by unit tests)
+  retry?: FetchOptions['retry'];
+  /**
+   * Define if the package should be look up in the uplinks
+   */
+  uplinksLook: boolean;
+  requestOptions: RequestOptions;
+  /**
+   *
+   * The property write=true is used by package managers to get the most frest data
+   * internally indicates to avoid any cache layer.
+   */
+  byPassCache?: boolean;
+};
+
+// @deprecate remove this type
+export type PublishOptions = {
+  signal: AbortSignal;
+} & IGetPackageOptionsNext;
+
+export type UpdateManifestOptions = {
   name: string;
   version?: string;
+  revision?: string;
   keepUpLinkData?: boolean;
   remoteUser?: RemoteUser;
   uplinksLook: boolean;
-  requestOptions: {
-    // RequestOptions from url package
-    host: string;
-    protocol: string;
-    headers: { [key: string]: string };
-  };
+  requestOptions: RequestOptions;
+  signal: AbortSignal;
 };
-
-export interface ISyncUplinks {
-  uplinksLook?: boolean;
-  etag?: string;
-  req?: Request;
-}
 
 export type Users = {
   [key: string]: string;

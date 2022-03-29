@@ -3,34 +3,32 @@ import _ from 'lodash';
 
 import { HTTP_STATUS, USERS } from '@verdaccio/core';
 import { Storage } from '@verdaccio/store';
-import { Package } from '@verdaccio/types';
+import { Version } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend } from '../types/custom';
-
-type Packages = Package[];
 
 export default function (route: Router, storage: Storage): void {
   route.get(
     '/-/_view/starredByUser',
-    (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
+    async (req: $RequestExtend, res: Response, next: $NextFunctionVer): Promise<void> => {
       const remoteUsername = req.remote_user.name;
 
-      storage.getLocalDatabase((err, localPackages: Packages) => {
-        if (err) {
-          return next(err);
-        }
+      try {
+        const localPackages: Version[] = await storage.getLocalDatabaseNext();
 
-        const filteredPackages: Packages = localPackages.filter((localPackage: Package) =>
+        const filteredPackages: Version[] = localPackages.filter((localPackage: Version) =>
           _.keys(localPackage[USERS]).includes(remoteUsername)
         );
 
         res.status(HTTP_STATUS.OK);
         next({
-          rows: filteredPackages.map((filteredPackage: Package) => ({
+          rows: filteredPackages.map((filteredPackage: Version) => ({
             value: filteredPackage.name,
           })),
         });
-      });
+      } catch (err: any) {
+        return next(err);
+      }
     }
   );
 }

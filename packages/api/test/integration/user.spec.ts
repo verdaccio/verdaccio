@@ -47,6 +47,7 @@ jest.mock('@verdaccio/auth', () => ({
   },
 }));
 
+// FIXME:  This might be covered with user.jwt.spec
 describe('user', () => {
   const credentials = { name: 'test', password: 'test' };
 

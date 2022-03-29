@@ -3,9 +3,9 @@ import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, constants } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { buildToken } from '@verdaccio/utils';
 
-import { ProxyStorage } from '../src/up-storage';
+import { ProxyStorage } from '../src';
 
-setup([]);
+setup();
 
 function createUplink(config) {
   const defaultConfig = {
@@ -16,17 +16,14 @@ function createUplink(config) {
   return new ProxyStorage(mergeConfig, {});
 }
 
-function setHeaders(config: unknown = {}, headers: unknown = {}) {
+function setHeadersNext(config: unknown = {}, headers: any = {}) {
   const uplink = createUplink(config);
-  // @ts-expect-error
-  return uplink._setHeaders({
-    headers,
-  });
+  return uplink.getHeadersNext({ ...headers });
 }
 
-describe('uplink headers auth test', () => {
+describe('setHeadersNext', () => {
   test('if set headers empty should return default headers', () => {
-    const headers = setHeaders();
+    const headers = setHeadersNext();
     const keys = Object.keys(headers);
     const keysExpected = [HEADERS.ACCEPT, HEADERS.ACCEPT_ENCODING, HEADERS.USER_AGENT];
 
@@ -36,7 +33,7 @@ describe('uplink headers auth test', () => {
 
   test('if assigns value invalid to attribute auth', () => {
     const fnError = function () {
-      setHeaders({
+      setHeadersNext({
         auth: '',
       });
     };
@@ -47,7 +44,7 @@ describe('uplink headers auth test', () => {
   });
 
   test('if assigns the header authorization', () => {
-    const headers = setHeaders(
+    const headers = setHeadersNext(
       {},
       {
         [HEADERS.AUTHORIZATION]: buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='),
@@ -59,7 +56,7 @@ describe('uplink headers auth test', () => {
   });
 
   test('if assigns headers authorization and token the header precedes', () => {
-    const headers = setHeaders(
+    const headers = setHeadersNext(
       {
         auth: {
           type: TOKEN_BEARER,
@@ -75,7 +72,7 @@ describe('uplink headers auth test', () => {
   });
 
   test('set type auth basic', () => {
-    const headers = setHeaders({
+    const headers = setHeadersNext({
       auth: {
         type: TOKEN_BASIC,
         token: 'Zm9vX2Jhcg==',
@@ -87,7 +84,7 @@ describe('uplink headers auth test', () => {
   });
 
   test('set type auth bearer', () => {
-    const headers = setHeaders({
+    const headers = setHeadersNext({
       auth: {
         type: TOKEN_BEARER,
         token: 'Zm9vX2Jhcf===',
@@ -100,7 +97,7 @@ describe('uplink headers auth test', () => {
 
   test('set auth type invalid', () => {
     const fnError = function () {
-      setHeaders({
+      setHeadersNext({
         auth: {
           type: 'null',
           token: 'Zm9vX2Jhcf===',
@@ -115,7 +112,7 @@ describe('uplink headers auth test', () => {
 
   test('set auth with NPM_TOKEN', () => {
     process.env.NPM_TOKEN = 'myToken';
-    const headers = setHeaders({
+    const headers = setHeadersNext({
       auth: {
         type: TOKEN_BEARER,
       },
@@ -127,7 +124,7 @@ describe('uplink headers auth test', () => {
 
   test('set auth with token name and assigns in env', () => {
     process.env.NPM_TOKEN_TEST = 'myTokenTest';
-    const headers = setHeaders({
+    const headers = setHeadersNext({
       auth: {
         type: TOKEN_BASIC,
         token_env: 'NPM_TOKEN_TEST',
@@ -140,7 +137,7 @@ describe('uplink headers auth test', () => {
 
   test('if token not set', () => {
     const fnError = function () {
-      setHeaders({
+      setHeadersNext({
         auth: {
           type: TOKEN_BASIC,
         },
