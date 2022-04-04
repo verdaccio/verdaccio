@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "6.0.0-6-next.20",
+  "version": "6.0.0-6-next.21",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,20 +39,20 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/config": "workspace:6.0.0-6-next.12",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.11",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.10",
+    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/config": "workspace:6.0.0-6-next.13",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.12",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.11",
     "debug": "4.3.3",
     "express": "4.17.2",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
-    "verdaccio-htpasswd": "workspace:11.0.0-6-next.12"
+    "verdaccio-htpasswd": "workspace:11.0.0-6-next.13"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:6.0.0-6-next.13",
-    "@verdaccio/types": "workspace:11.0.0-6-next.10"
+    "@verdaccio/mock": "workspace:6.0.0-6-next.14",
+    "@verdaccio/types": "workspace:11.0.0-6-next.11"
   },
   "funding": {
     "type": "opencollective",
