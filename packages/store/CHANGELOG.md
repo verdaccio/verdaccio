@@ -1,5 +1,30 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.21
+
+### Minor Changes
+
+- 5167bb52: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+### Patch Changes
+
+- Updated dependencies [82cb0f2b]
+- Updated dependencies [5167bb52]
+  - @verdaccio/config@6.0.0-6-next.13
+  - @verdaccio/core@6.0.0-6-next.5
+  - @verdaccio/logger@6.0.0-6-next.11
+  - @verdaccio/local-storage@11.0.0-6-next.12
+  - @verdaccio/proxy@6.0.0-6-next.19
+  - @verdaccio/loaders@6.0.0-6-next.12
+  - @verdaccio/tarball@11.0.0-6-next.12
+  - @verdaccio/utils@6.0.0-6-next.11
+  - @verdaccio/streams@11.0.0-6-next.5
+
 ## 6.0.0-6-next.20
 
 ### Patch Changes

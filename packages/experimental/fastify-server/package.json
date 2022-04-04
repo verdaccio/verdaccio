@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/fastify-migration",
-  "version": "6.0.0-6-next.21",
+  "version": "6.0.0-6-next.22",
   "description": "Fastify server migration package",
   "keywords": [
     "private",
@@ -34,13 +34,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/config": "workspace:6.0.0-6-next.12",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.20",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "@verdaccio/store": "workspace:6.0.0-6-next.20",
-    "@verdaccio/tarball": "workspace:11.0.0-6-next.11",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.10",
+    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/config": "workspace:6.0.0-6-next.13",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.21",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
+    "@verdaccio/store": "workspace:6.0.0-6-next.21",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.12",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.11",
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
     "core-js": "3.20.3",
     "debug": "4.3.3",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.21",
-    "@verdaccio/types": "workspace:11.0.0-6-next.10",
+    "@verdaccio/types": "workspace:11.0.0-6-next.11",
     "ts-node": "10.4.0"
   },
   "scripts": {

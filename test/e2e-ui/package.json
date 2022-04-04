@@ -3,8 +3,8 @@
   "name": "@verdaccio/e2e-ui",
   "version": "2.0.0-6-next.3",
   "devDependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.22",
+    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.23",
     "debug": "4.3.3",
     "kleur": "3.0.3",
     "lodash": "4.17.21",

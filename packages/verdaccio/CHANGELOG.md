@@ -1,5 +1,46 @@
 # verdaccio
 
+## 6.0.0-6-next.38
+
+### Major Changes
+
+- 82cb0f2b: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+### Patch Changes
+
+- Updated dependencies [82cb0f2b]
+- Updated dependencies [5167bb52]
+- Updated dependencies [5b390396]
+  - @verdaccio/cli@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.11
+  - @verdaccio/node-api@6.0.0-6-next.30
+  - verdaccio-htpasswd@11.0.0-6-next.13
+  - @verdaccio/ui-theme@6.0.0-6-next.23
+  - @verdaccio/hooks@6.0.0-6-next.13
+  - @verdaccio/utils@6.0.0-6-next.11
+  - verdaccio-audit@11.0.0-6-next.8
+
 ## 6.0.0-6-next.37
 
 ### Patch Changes

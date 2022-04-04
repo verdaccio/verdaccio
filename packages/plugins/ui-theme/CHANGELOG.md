@@ -1,5 +1,45 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.23
+
+### Major Changes
+
+- 82cb0f2b: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+### Minor Changes
+
+- 5167bb52: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+### Patch Changes
+
+- 5b390396: fix: fixes some style issues on mobile, particularly related to the Ukraine support message - [@s-h-a-d-o-w](https://github.com/s-h-a-d-o-w)
+
 ## 6.0.0-6-next.22
 
 ### Patch Changes
