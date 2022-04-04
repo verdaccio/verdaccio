@@ -49,7 +49,9 @@ export class InitCommand extends Command {
     try {
       // @ts-expect-error
       if (logConfig.logs) {
-        throw Error('logger as array not longer supported');
+        throw Error(
+          'the property config "logs" property is longer supported, rename to "log" and use object instead'
+        );
       }
       setup(logConfig.log as LoggerConfigItem);
     } catch (err: any) {
