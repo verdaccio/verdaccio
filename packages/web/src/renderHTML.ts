@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import _ from 'lodash';
 import LRU from 'lru-cache';
 import { URL } from 'url';
 
@@ -66,8 +67,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
+    const needHtmlCache = _.get(config, 'web.cache', undefined) || _.get(config, 'web.cache', true);
 
-    if (!webPage) {
+    if (!webPage || needHtmlCache) {
       debug('web options %o', options);
       debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
