@@ -1,5 +1,12 @@
 # verdaccio
 
+## 6.0.0-6-next.39
+
+### Patch Changes
+
+- Updated dependencies [d78c8b51]
+  - @verdaccio/cli@6.0.0-6-next.32
+
 ## 6.0.0-6-next.38
 
 ### Major Changes

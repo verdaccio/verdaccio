@@ -1,5 +1,11 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- d78c8b51: chore: improve error logger message
+
 ## 6.0.0-6-next.31
 
 ### Major Changes
