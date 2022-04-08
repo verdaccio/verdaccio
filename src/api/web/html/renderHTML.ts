@@ -83,6 +83,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
+    const needHtmlCache = [undefined, null].includes(config?.web?.html_cache) ? true : config.web.html_cache;
 
     if (!webPage) {
       debug('web options %o', options);
@@ -98,7 +99,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         manifest
       );
       debug('template :: %o', webPage);
-      cache.set('template', webPage);
+      if (needHtmlCache) {
+        cache.set('template', webPage);
+      }
       debug('set template cache');
     } else {
       debug('reuse template cache');
