@@ -988,7 +988,7 @@ importers:
 
   packages/standalone:
     specifiers:
-      '@verdaccio/cli': workspace:6.0.0-6-next.31
+      '@verdaccio/cli': workspace:6.0.0-6-next.32
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.23
       fs-extra: 10.0.0
       webpack: 5.67.0
@@ -1176,7 +1176,7 @@ importers:
   packages/verdaccio:
     specifiers:
       '@verdaccio/auth': workspace:6.0.0-6-next.21
-      '@verdaccio/cli': workspace:6.0.0-6-next.31
+      '@verdaccio/cli': workspace:6.0.0-6-next.32
       '@verdaccio/config': workspace:6.0.0-6-next.13
       '@verdaccio/core': workspace:6.0.0-6-next.5
       '@verdaccio/hooks': workspace:6.0.0-6-next.13
