@@ -41,7 +41,7 @@ jobs:
       - name: tar packages
         run: |      
           tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-artifact
           path: pkg.tar.gz
@@ -87,7 +87,7 @@ jobs:
         shell: bash
         env:
           DEBUG: metrics*
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-metrics-api
           path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
@@ -153,7 +153,7 @@ jobs:
         shell: bash
       - name: rename
         run: mv ./hyper-results.json ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-metrics
           path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
