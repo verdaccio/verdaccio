@@ -134,6 +134,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.issue.number }}
+          delete: true
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}
