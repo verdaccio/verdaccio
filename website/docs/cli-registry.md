@@ -119,7 +119,7 @@ npm config set always-auth true
 
 For defining a registry you must use the `.yarnrc.yml` located in the root of your project or global configuration.
 
-When you publish a package the ``must be used, keep on mind the`publishConfig.registry`in the`package.json` will override this configuration.
+When you publish a package the `npmRegistryServer` must be used. Keep in mind the `publishConfig.registry` in the `package.json` will override this configuration.
 
 ```yaml
 // .yarnrc.yml
