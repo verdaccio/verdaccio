@@ -19,6 +19,7 @@ web:
   # sort_packages: asc
   # convert your UI to the dark side
   # darkMode: true
+  # html_cache: true
   # logo: http://somedomain/somelogo.png
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
   # rateLimit:
