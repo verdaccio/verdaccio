@@ -1,13 +1,13 @@
-import buildDebug from 'debug';
-import LRU from 'lru-cache';
 import path from 'path';
 import { URL } from 'url';
 
-import { HEADERS } from '@verdaccio/commons-api';
 
 import { WEB_TITLE } from '../../../lib/constants';
 import { getPublicUrl, hasLogin, isHTTPProtocol } from '../../../lib/utils';
 import renderTemplate from './template';
+import { HEADERS } from '@verdaccio/commons-api';
+import LRU from 'lru-cache';
+import buildDebug from 'debug';
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
@@ -47,6 +47,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache) ? true : config.web.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const scope = config?.web?.scope ?? '';
@@ -83,8 +84,6 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-    const needHtmlCache = [undefined, null].includes(config?.web?.html_cache) ? true : config.web.html_cache;
-
     if (!webPage) {
       debug('web options %o', options);
       debug('web manifestFiles %o', manifestFiles);
