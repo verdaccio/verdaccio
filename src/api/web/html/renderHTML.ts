@@ -47,6 +47,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache) ? true : config.web.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const scope = config?.web?.scope ?? '';
@@ -83,7 +84,6 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-
     if (!webPage) {
       debug('web options %o', options);
       debug('web manifestFiles %o', manifestFiles);
@@ -98,8 +98,10 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         manifest
       );
       debug('template :: %o', webPage);
-      cache.set('template', webPage);
-      debug('set template cache');
+      if (needHtmlCache) {
+        cache.set('template', webPage);
+        debug('set template cache');
+      }
     } else {
       debug('reuse template cache');
     }

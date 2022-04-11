@@ -24,6 +24,7 @@ web:
   # by default packages are ordercer ascendant (asc|desc)
   # sort_packages: asc
   # darkMode: true
+  # html_cache: true
   # logo: http://somedomain/somelogo.png
   # favicon: http://somedomain/favicon.ico | /path/favicon.ico
   # rateLimit:
