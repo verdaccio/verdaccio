@@ -101,8 +101,8 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
       debug('template :: %o', webPage);
       if (needHtmlCache) {
         cache.set('template', webPage);
+        debug('set template cache');
       }
-      debug('set template cache');
     } else {
       debug('reuse template cache');
     }
