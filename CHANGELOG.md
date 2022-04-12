@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.9.0](https://github.com/verdaccio/verdaccio/compare/v5.8.0...v5.9.0) (2022-04-12)
+
+
+### Features
+
+* **web:** add a config item to web，let the developer can select whether enable the html cache ([#3110](https://github.com/verdaccio/verdaccio/issues/3110)) ([b30ba81](https://github.com/verdaccio/verdaccio/commit/b30ba81b86d3fa11a18bdb32a7adf162f16794e0))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.23 ([#3106](https://github.com/verdaccio/verdaccio/issues/3106)) ([b963f7d](https://github.com/verdaccio/verdaccio/commit/b963f7db2a2273983c0d5b4792a84601be732823))
+* **deps:** update dependency body-parser to v1.19.2 ([#3087](https://github.com/verdaccio/verdaccio/issues/3087)) ([8cee85f](https://github.com/verdaccio/verdaccio/commit/8cee85f811effe5ba95458f18381beddaa2850dc))
+* **deps:** update dependency dayjs to v1.11.0 ([#3094](https://github.com/verdaccio/verdaccio/issues/3094)) ([4cc1877](https://github.com/verdaccio/verdaccio/commit/4cc18773b73e387ef362de6438965ca198114bcb))
+
 ## [5.8.0](https://github.com/verdaccio/verdaccio/compare/v5.7.1...v5.8.0) (2022-03-12)
 
 
