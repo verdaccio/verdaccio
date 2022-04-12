@@ -149,7 +149,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["request", "npm:2.88.0"],
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.14"],
-            ["semver", "npm:7.3.5"],
+            ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.2.2"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
@@ -16115,6 +16115,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:6.0.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:7.3.7", {
+          "packageLocation": "./.yarn/cache/semver-npm-7.3.7-3bfe704194-a9e88cefbc.zip/node_modules/semver/",
+          "packageDependencies": [
+            ["semver", "npm:7.3.7"],
+            ["lru-cache", "npm:6.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["semver-compare", [
@@ -17978,7 +17986,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["request", "npm:2.88.0"],
             ["rimraf", "npm:3.0.2"],
             ["selfsigned", "npm:1.10.14"],
-            ["semver", "npm:7.3.5"],
+            ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.2.2"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
