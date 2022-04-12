@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: install pnpm
         run: sudo npm i pnpm@6.24.1 -g
       - name: set store
@@ -41,7 +41,7 @@ jobs:
       - name: tar packages
         run: |      
           tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-artifact
           path: pkg.tar.gz
@@ -65,8 +65,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-      - uses: actions/download-artifact@v2
+          node-version: 16.x
+      - uses: actions/download-artifact@v3
         with:
           name: verdaccio-artifact
       - name: untar packages
@@ -87,7 +87,7 @@ jobs:
         shell: bash
         env:
           DEBUG: metrics*
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-metrics-api
           path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
@@ -126,8 +126,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-      - uses: actions/download-artifact@v2
+          node-version: 16.x
+      - uses: actions/download-artifact@v3
         with:
           name: verdaccio-artifact
       - name: untar packages
@@ -153,7 +153,7 @@ jobs:
         shell: bash
       - name: rename
         run: mv ./hyper-results.json ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: verdaccio-metrics
           path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
