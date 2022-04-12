@@ -56,7 +56,7 @@
     "prettier-bytes": "^1.0.4",
     "pretty-ms": "^7.0.1",
     "request": "2.88.0",
-    "semver": "7.3.5",
+    "semver": "7.3.7",
     "validator": "13.7.0",
     "verdaccio-audit": "10.2.0",
     "verdaccio-htpasswd": "10.3.0"
