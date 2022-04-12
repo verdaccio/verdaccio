@@ -81,7 +81,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
-            ["@verdaccio/local-storage", "npm:10.2.0"],
+            ["@verdaccio/local-storage", "npm:10.2.1"],
             ["@verdaccio/readme", "npm:10.3.2"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["@verdaccio/types", "npm:10.3.0"],
@@ -100,7 +100,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cors", "npm:2.8.5"],
             ["cross-env", "npm:7.0.3"],
             ["dayjs", "npm:1.11.0"],
-            ["debug", "virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3"],
+            ["debug", "virtual:44803748c385256482276a059663c9d93a122525d7df78de895035f2094d58f689eb1258584fe7d8ae04f57812d99d6941b8ab97fcbc6cb4b2a2a014dc247b61#npm:4.3.3"],
             ["detect-secrets", "npm:1.0.6"],
             ["envinfo", "npm:7.8.1"],
             ["eslint", "npm:7.32.0"],
@@ -5801,15 +5801,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/local-storage", [
-        ["npm:10.2.0", {
-          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-npm-10.2.0-0a555efb4c-3774ec5b3f.zip/node_modules/@verdaccio/local-storage/",
+        ["npm:10.2.1", {
+          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-npm-10.2.1-05867a37a5-781f9d03ee.zip/node_modules/@verdaccio/local-storage/",
           "packageDependencies": [
-            ["@verdaccio/local-storage", "npm:10.2.0"],
+            ["@verdaccio/local-storage", "npm:10.2.1"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/file-locking", "npm:10.2.0"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["async", "npm:3.2.3"],
-            ["debug", "virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3"],
+            ["debug", "virtual:05867a37a5883963fce5af2afd7844011b45603ec184cdfccf7849a40a882ed9069ff4f980e8498e497a099d18fd72ffb4f8ee25779a6d796cb494e7481a90d3#npm:4.3.4"],
             ["lodash", "npm:4.17.21"],
             ["lowdb", "npm:1.0.0"],
             ["mkdirp", "npm:1.0.4"]
@@ -8356,10 +8356,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3", {
-          "packageLocation": "./.yarn/$$virtual/debug-virtual-cf6e0e2d18/0/cache/debug-npm-4.3.3-710fd4cc7f-1bceffaa69.zip/node_modules/debug/",
+        ["npm:4.3.4", {
+          "packageLocation": "./.yarn/cache/debug-npm-4.3.4-4513954577-7d71c93be2.zip/node_modules/debug/",
           "packageDependencies": [
-            ["debug", "virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3"],
+            ["debug", "npm:4.3.4"]
+          ],
+          "linkType": "SOFT",
+        }],
+        ["virtual:05867a37a5883963fce5af2afd7844011b45603ec184cdfccf7849a40a882ed9069ff4f980e8498e497a099d18fd72ffb4f8ee25779a6d796cb494e7481a90d3#npm:4.3.4", {
+          "packageLocation": "./.yarn/$$virtual/debug-virtual-b58fb8ba32/0/cache/debug-npm-4.3.4-4513954577-7d71c93be2.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "virtual:05867a37a5883963fce5af2afd7844011b45603ec184cdfccf7849a40a882ed9069ff4f980e8498e497a099d18fd72ffb4f8ee25779a6d796cb494e7481a90d3#npm:4.3.4"],
             ["ms", "npm:2.1.2"],
             ["supports-color", null]
           ],
@@ -8384,6 +8391,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/$$virtual/debug-virtual-e3e6a78bc0/0/cache/debug-npm-4.3.2-f0148b6afe-5543570879.zip/node_modules/debug/",
           "packageDependencies": [
             ["debug", "virtual:3785458429b40d080567944bbb839a24d7aa8b36873caeca7a235d93fae6d4f4ef5a046cb5dc4a42114a67f641a26cd1f0a9126f72125d2e751187951ee62a7e#npm:4.3.2"],
+            ["ms", "npm:2.1.2"],
+            ["supports-color", null]
+          ],
+          "packagePeers": [
+            "supports-color"
+          ],
+          "linkType": "HARD",
+        }],
+        ["virtual:44803748c385256482276a059663c9d93a122525d7df78de895035f2094d58f689eb1258584fe7d8ae04f57812d99d6941b8ab97fcbc6cb4b2a2a014dc247b61#npm:4.3.3", {
+          "packageLocation": "./.yarn/$$virtual/debug-virtual-d54fca323a/0/cache/debug-npm-4.3.3-710fd4cc7f-1bceffaa69.zip/node_modules/debug/",
+          "packageDependencies": [
+            ["debug", "virtual:44803748c385256482276a059663c9d93a122525d7df78de895035f2094d58f689eb1258584fe7d8ae04f57812d99d6941b8ab97fcbc6cb4b2a2a014dc247b61#npm:4.3.3"],
             ["ms", "npm:2.1.2"],
             ["supports-color", null]
           ],
@@ -16932,7 +16951,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["superagent", "npm:7.1.1"],
             ["component-emitter", "npm:1.3.0"],
             ["cookiejar", "npm:2.1.3"],
-            ["debug", "virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3"],
+            ["debug", "virtual:44803748c385256482276a059663c9d93a122525d7df78de895035f2094d58f689eb1258584fe7d8ae04f57812d99d6941b8ab97fcbc6cb4b2a2a014dc247b61#npm:4.3.3"],
             ["fast-safe-stringify", "npm:2.1.1"],
             ["form-data", "npm:4.0.0"],
             ["formidable", "npm:2.0.1"],
@@ -17932,7 +17951,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.5.0"],
-            ["@verdaccio/local-storage", "npm:10.2.0"],
+            ["@verdaccio/local-storage", "npm:10.2.1"],
             ["@verdaccio/readme", "npm:10.3.2"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["@verdaccio/types", "npm:10.3.0"],
@@ -17951,7 +17970,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cors", "npm:2.8.5"],
             ["cross-env", "npm:7.0.3"],
             ["dayjs", "npm:1.11.0"],
-            ["debug", "virtual:0a555efb4cab6fe58f395d6452b892ca24d2e1f9df5a635d924dc03626b4b31aa8129ef42bf95c3c2623e90ad53d52caf188df0e3405b83aa752e2c800b1a108#npm:4.3.3"],
+            ["debug", "virtual:44803748c385256482276a059663c9d93a122525d7df78de895035f2094d58f689eb1258584fe7d8ae04f57812d99d6941b8ab97fcbc6cb4b2a2a014dc247b61#npm:4.3.3"],
             ["detect-secrets", "npm:1.0.6"],
             ["envinfo", "npm:7.8.1"],
             ["eslint", "npm:7.32.0"],
