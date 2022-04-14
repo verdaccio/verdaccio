@@ -33,7 +33,8 @@ web:
     - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
     - '<meta name="robots" content="noindex" />'
   scriptsbodyBefore:
-    - '<div id="myId">html before webpack scripts</div>'        
+    - '<div id="myId">html before webpack scripts</div>'
+  html_cache: true
 ```
 
 All access restrictions defined to [protect your packages](protect-your-dependencies.md) will also apply to the Web Interface.
@@ -73,7 +74,7 @@ i18n:
 | scriptsBodyAfter | string[] | No | any list of strings | `>=5.0.0` | inject scripts after the <body/> tag |
 | metaScripts | string[] | No | any list of strings | `>=5.0.0` | inject scripts inside <head/> |
 | scriptsbodyBefore | string[] | No | any list of strings | `>=5.0.0` |  inject scripts before the <body/>|
-
+| html_cache    | boolean    | No       | false                                                         | `>=v5.9.0`  | whether the html cache is enabled, default true                                                                          |
 
 > The recommended logo size is `40x40` pixels.
 
