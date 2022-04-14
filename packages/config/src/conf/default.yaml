@@ -19,6 +19,7 @@ web:
   # sort_packages: asc
   # convert your UI to the dark side
   # darkMode: true
+  # html_cache: true
   #  HTML tags injected after manifest <scripts/>
   # scriptsBodyAfter:
   #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
