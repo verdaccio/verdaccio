@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
 import LRU from 'lru-cache';
 import { URL } from 'url';
 
@@ -27,6 +26,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache)
+    ? true
+    : config.web.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
@@ -67,9 +69,8 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-    const needHtmlCache = _.get(config, 'web.cache', undefined) || _.get(config, 'web.cache', true);
 
-    if (!webPage || needHtmlCache) {
+    if (!webPage) {
       debug('web options %o', options);
       debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
@@ -83,8 +84,10 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         manifest
       );
       debug('template :: %o', webPage);
-      cache.set('template', webPage);
-      debug('set template cache');
+      if (needHtmlCache) {
+        cache.set('template', webPage);
+        debug('set template cache');
+      }
     } else {
       debug('reuse template cache');
     }
