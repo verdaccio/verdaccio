@@ -74,7 +74,7 @@ i18n:
 | scriptsBodyAfter | string[] | No | any list of strings | `>=5.0.0` | inject scripts after the <body/> tag |
 | metaScripts | string[] | No | any list of strings | `>=5.0.0` | inject scripts inside <head/> |
 | scriptsbodyBefore | string[] | No | any list of strings | `>=5.0.0` |  inject scripts before the <body/>|
-| html_cache    | boolean    | No       | false                                                         | `>=v5.9.0`  | whether the html cache is enabled, default true                                                                          |
+| html_cache    | boolean    | No       | true                                                         | `>=v5.9.0`  | whether the html cache is enabled, default true                                                                          |
 
 > The recommended logo size is `40x40` pixels.
 
