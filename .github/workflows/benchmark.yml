@@ -4,9 +4,9 @@ name: ci - benchmark
 on:
   workflow_dispatch:
   schedule:
-    # 3 times day
+    # 1 time peer week
     # collecting enough data to draw some graphics
-    - cron: '0 1 * * *'
+    - cron: '0 1 * * 1'
   # push:
   #   branches:
   #     - master
