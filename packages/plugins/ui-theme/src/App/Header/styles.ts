@@ -42,9 +42,10 @@ export const InnerMobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   margin: '0 10px 0 0',
 }));
 
-export const IconSearchButton = styled(IconButton)({
-  display: 'block',
-});
+export const IconSearchButton = styled(IconButton)({});
+export const InfoButton = styled(IconButton)({});
+export const SwitchThemeButton = styled(IconButton)({});
+export const SettingsButtom = styled(IconButton)({});
 
 export const SearchWrapper = styled('div')({
   display: 'none',
@@ -58,12 +59,20 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   minHeight: 60,
   display: 'flex',
   justifyContent: 'center',
+  [`@media (max-width: ${theme?.breakPoints.xsmall}px)`]: css`
+    ${InfoButton} {
+      display: none;
+    }
+    ${SwitchThemeButton} {
+      display: none;
+    }
+    ${SettingsButtom} {
+      display: none;
+    }
+  `,
   [`@media (min-width: ${theme?.breakPoints.medium}px)`]: css`
     ${SearchWrapper} {
       display: flex;
-    }
-    ${IconSearchButton} {
-      display: none;
     }
     ${MobileNavBar} {
       display: none;

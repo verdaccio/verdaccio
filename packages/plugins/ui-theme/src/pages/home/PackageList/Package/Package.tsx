@@ -55,6 +55,7 @@ export interface PackageInterface {
   homepage?: string;
   bugs?: Bugs;
   dist?: Dist;
+  showDownload?: boolean;
 }
 
 const Package: React.FC<PackageInterface> = ({
@@ -67,6 +68,7 @@ const Package: React.FC<PackageInterface> = ({
   license,
   name: packageName,
   time,
+  showDownload = true,
   version,
 }) => {
   const config = useSelector((state: RootState) => state.configuration.config);
@@ -189,7 +191,7 @@ const Package: React.FC<PackageInterface> = ({
         >
           {renderHomePageLink()}
           {renderBugsLink()}
-          {renderDownloadLink()}
+          {showDownload && renderDownloadLink()}
         </GridRightAligned>
       </Grid>
     );

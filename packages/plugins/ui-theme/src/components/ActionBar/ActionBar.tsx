@@ -1,12 +1,19 @@
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useState } from 'react';
 import { isURL } from 'verdaccio-ui/utils/url';
 
 import { DetailContext } from '../../pages/Version';
+import RawViewer from '../RawViewer';
 import ActionBarAction, { ActionBarActionProps } from './ActionBarAction';
 
+type Props = {
+  showRaw?: boolean;
+  showDownloadTarball?: boolean;
+};
+
 /* eslint-disable verdaccio/jsx-spread */
-const ActionBar: React.FC = () => {
+const ActionBar: React.FC<Props> = ({ showRaw, showDownloadTarball = true }) => {
+  const [isRawViewerOpen, setIsRawViewerOpen] = useState(false);
   const detailContext = React.useContext(DetailContext);
 
   const { packageMeta } = detailContext;
@@ -27,8 +34,12 @@ const ActionBar: React.FC = () => {
     actions.push({ type: 'OPEN_AN_ISSUE', link: bugs.url });
   }
 
-  if (dist?.tarball && isURL(dist.tarball)) {
+  if (dist?.tarball && isURL(dist.tarball) && showDownloadTarball) {
     actions.push({ type: 'DOWNLOAD_TARBALL', link: dist.tarball });
+  }
+
+  if (showRaw) {
+    actions.push({ type: 'RAW_DATA', action: () => setIsRawViewerOpen(true) });
   }
 
   return (
@@ -36,6 +47,14 @@ const ActionBar: React.FC = () => {
       {actions.map((action) => (
         <ActionBarAction key={action.link} {...action} />
       ))}
+      {isRawViewerOpen && (
+        <RawViewer
+          isOpen={isRawViewerOpen}
+          onClose={() => {
+            setIsRawViewerOpen(false);
+          }}
+        />
+      )}
     </Box>
   );
 };

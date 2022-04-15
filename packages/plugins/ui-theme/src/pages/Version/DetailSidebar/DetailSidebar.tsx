@@ -5,6 +5,7 @@ import ActionBar from 'verdaccio-ui/components/ActionBar';
 import Author from 'verdaccio-ui/components/Author';
 import Paper from 'verdaccio-ui/components/Paper';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { useConfig } from 'verdaccio-ui/providers/config';
 
 import { DetailContext } from '..';
 import loadable from '../../../App/utils/loadable';
@@ -30,6 +31,7 @@ const getModuleType = (manifest: PackageMetaInterface) => {
 const DetailSidebar: React.FC = () => {
   const detailContext = useContext(DetailContext);
   const { packageMeta, packageName, packageVersion } = detailContext;
+  const { configOptions } = useConfig();
 
   if (!packageMeta || !packageName) {
     return null;
@@ -45,7 +47,10 @@ const DetailSidebar: React.FC = () => {
         packageName={packageName}
         version={packageVersion || packageMeta.latest.version}
       />
-      <ActionBar />
+      <ActionBar
+        showDownloadTarball={configOptions.showDownloadTarball}
+        showRaw={configOptions.showRaw}
+      />
       <Install />
       <DetailSidebarFundButton />
       <Repository />

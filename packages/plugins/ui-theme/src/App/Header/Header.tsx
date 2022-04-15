@@ -8,18 +8,16 @@ import { Dispatch, RootState } from '../../store/store';
 import HeaderInfoDialog from './HeaderInfoDialog';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
+import HeaderSettingsDialog from './HeaderSettingsDialog';
 import LoginDialog from './LoginDialog';
 import Search from './Search';
 import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 
-interface Props {
-  withoutSearch?: boolean;
-}
-
 /* eslint-disable react/jsx-no-bind*/
-const Header: React.FC<Props> = ({ withoutSearch }) => {
+const Header: React.FC = () => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
+  const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
   const [showMobileNavBar, setShowMobileNavBar] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const loginStore = useSelector((state: RootState) => state.login);
@@ -28,30 +26,35 @@ const Header: React.FC<Props> = ({ withoutSearch }) => {
   const handleLogout = () => {
     dispatch.login.logOutUser();
   };
-
   return (
     <>
       <NavBar data-testid="header" position="static">
         <InnerNavBar>
-          <HeaderLeft />
+          <HeaderLeft showSearch={configOptions.showSearch} />
           <HeaderRight
             hasLogin={configOptions?.login}
             onLogout={handleLogout}
             onOpenRegistryInfoDialog={() => setOpenInfoDialog(true)}
+            onOpenSettingsDialog={() => setSettingsDialogOpen(true)}
             onToggleLogin={() => setShowLoginModal(!showLoginModal)}
             onToggleMobileNav={() => setShowMobileNavBar(!showMobileNavBar)}
+            showInfo={configOptions.showInfo}
+            showSearch={configOptions.showSearch}
+            showSettings={configOptions.showSettings}
+            showThemeSwitch={configOptions.showThemeSwitch}
             username={loginStore?.username}
-            withoutSearch={withoutSearch}
           />
         </InnerNavBar>
-        {
-          <HeaderInfoDialog
-            isOpen={isInfoDialogOpen}
-            onCloseDialog={() => setOpenInfoDialog(false)}
-          />
-        }
+        <HeaderSettingsDialog
+          isOpen={isSettingsDialogOpen}
+          onCloseDialog={() => setSettingsDialogOpen(false)}
+        />
+        <HeaderInfoDialog
+          isOpen={isInfoDialogOpen}
+          onCloseDialog={() => setOpenInfoDialog(false)}
+        />
       </NavBar>
-      {showMobileNavBar && !withoutSearch && (
+      {showMobileNavBar && (
         <MobileNavBar>
           <InnerMobileNavBar>
             <Search />

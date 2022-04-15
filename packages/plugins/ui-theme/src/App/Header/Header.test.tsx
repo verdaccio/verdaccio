@@ -80,33 +80,39 @@ describe('<Header /> component with logged in state', () => {
     expect(getByText('Login')).toBeTruthy();
   });
 
-  test("The question icon should open a new tab of verdaccio's website - installation doc", () => {
-    const { getByTestId } = renderWithStore(
+  test("should display info button", () => {
+    renderWithStore(
       <Router>
         <Header />
       </Router>,
       store
     );
+    expect(screen.getByTestId('header--tooltip-info')).toBeInTheDocument();
+  });
 
-    const documentationBtn = getByTestId('header--tooltip-documentation');
-    expect(documentationBtn.getAttribute('href')).toBe(
-      'https://verdaccio.org/docs/en/installation'
+  test("should display settings button", () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
     );
+    expect(screen.getByTestId('header--tooltip-settings')).toBeInTheDocument();
   });
 
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
-    const { getByTestId } = renderWithStore(
+    renderWithStore(
       <Router>
         <Header />
       </Router>,
       store
     );
 
-    const infoBtn = getByTestId('header--tooltip-info');
+    const infoBtn = screen.getByTestId('header--tooltip-info');
+    expect(infoBtn).toBeInTheDocument();
     fireEvent.click(infoBtn);
-
     // wait for registrationInfo modal appearance and return the element
-    const registrationInfoModal = await waitFor(() => getByTestId('registryInfo--dialog'));
+    const registrationInfoModal = await waitFor(() => screen.getByTestId('registryInfo--dialog'));
     expect(registrationInfoModal).toBeTruthy();
   });
 

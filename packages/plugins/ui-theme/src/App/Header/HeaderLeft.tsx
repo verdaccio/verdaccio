@@ -7,19 +7,19 @@ import Search from './Search';
 import { LeftSide, SearchWrapper } from './styles';
 
 interface Props {
-  withoutSearch?: boolean;
+  showSearch?: boolean;
 }
 
 const StyledLink = styled(Link)({
   marginRight: '1em',
 });
 
-const HeaderLeft: React.FC<Props> = ({ withoutSearch = false }) => (
+const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
   <LeftSide>
     <StyledLink to={'/'}>
       <Logo />
     </StyledLink>
-    {!withoutSearch && (
+    {showSearch && (
       <SearchWrapper>
         <Search />
       </SearchWrapper>

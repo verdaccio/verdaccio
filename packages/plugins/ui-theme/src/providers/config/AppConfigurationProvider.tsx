@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
@@ -20,6 +21,13 @@ const defaultValues: ConfigProviderProps = {
     flags: {},
     login: true,
     url_prefix: '',
+    showInfo: true,
+    showSettings: true,
+    showThemeSwitch: true,
+    showFooter: true,
+    showSearch: true,
+    showRaw: false,
+    showDownloadTarball: true,
     title: 'Verdaccio',
   },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -27,7 +35,15 @@ const defaultValues: ConfigProviderProps = {
 };
 
 function getConfiguration() {
-  const uiConfiguration = window?.__VERDACCIO_BASENAME_UI_OPTIONS ?? defaultValues.configOptions;
+  const uiConfiguration = merge(
+    defaultValues.configOptions,
+    window?.__VERDACCIO_BASENAME_UI_OPTIONS
+  );
+
+  if (window?.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers) {
+    uiConfiguration.pkgManagers = window?.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers;
+  }
+
   if (isNil(uiConfiguration.primaryColor) || isEmpty(uiConfiguration.primaryColor)) {
     uiConfiguration.primaryColor = PRIMARY_COLOR;
   }
