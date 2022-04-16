@@ -19,7 +19,7 @@ const ViewerTitle = (props: ViewerTitleProps) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other} data-testid="raw-viewver-dialog">
       {children}
       {onClose ? (
         <IconButton

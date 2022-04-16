@@ -1,5 +1,10 @@
 import React from 'react';
-import { cleanup, renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
+import {
+  cleanup,
+  fireEvent,
+  renderWithStore,
+  screen,
+} from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { DetailContext, DetailContextProps } from '../../pages/Version';
 import { store } from '../../store/store';
@@ -83,6 +88,15 @@ describe('<ActionBar /> component', () => {
       store
     );
     expect(screen.getByLabelText('Raw Manifest')).toBeTruthy();
+  });
+
+  test('when click button to raw manifest open a dialog with viewver', () => {
+    renderWithStore(
+      <ComponentToBeRendered contextValue={{ ...detailContextValue }} props={{ showRaw: true }} />,
+      store
+    );
+    fireEvent.click(screen.getByLabelText('Raw Manifest'));
+    expect(screen.getByTestId('raw-viewver-dialog')).toBeInTheDocument();
   });
 
   test('should not display download tarball button', () => {

@@ -118,4 +118,19 @@ describe('<App />', () => {
       expect(store.getState().packages.response).toHaveLength(1);
     }, 10000);
   });
+
+  describe('footer', () => {
+    test('should display the Header component', () => {
+      renderWithStore(<App />, store);
+      expect(screen.getByTestId('footer')).toBeInTheDocument();
+    });
+
+    test('should not display the Header component', () => {
+      window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+        showFooter: false,
+      };
+      renderWithStore(<App />, store);
+      expect(screen.queryByTestId('footer')).toBeFalsy();
+    });
+  });
 });

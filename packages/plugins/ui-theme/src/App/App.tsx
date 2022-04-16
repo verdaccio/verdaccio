@@ -33,7 +33,6 @@ const App: React.FC = () => {
   useEffect(() => {
     loadDayJSLocale();
   }, []);
-
   return (
     <Suspense fallback={<Loading />}>
       <StyleBaseline />

@@ -44,7 +44,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
   switch (type) {
     case 'VISIT_HOMEPAGE':
       return (
-        <Tooltip title={t('action-bar-action.visit-home-page')}>
+        <Tooltip title={t('action-bar-action.visit-home-page') as string}>
           <Link external={true} to={link}>
             <Fab size="small">
               <HomeIcon />
@@ -54,7 +54,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
       );
     case 'OPEN_AN_ISSUE':
       return (
-        <Tooltip title={t('action-bar-action.open-an-issue')}>
+        <Tooltip title={t('action-bar-action.open-an-issue') as string}>
           <Link external={true} to={link}>
             <Fab size="small">
               <BugReportIcon />
@@ -64,7 +64,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
       );
     case 'DOWNLOAD_TARBALL':
       return (
-        <Tooltip title={t('action-bar-action.download-tarball')}>
+        <Tooltip title={t('action-bar-action.download-tarball') as string}>
           <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
             <DownloadIcon />
           </Fab>
@@ -72,7 +72,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
       );
     case 'RAW_DATA':
       return (
-        <Tooltip title={t('action-bar-action.raw')}>
+        <Tooltip title={t('action-bar-action.raw') as string}>
           <Fab data-testid="raw-btn" onClick={action} size="small">
             <RawOnIcon />
           </Fab>

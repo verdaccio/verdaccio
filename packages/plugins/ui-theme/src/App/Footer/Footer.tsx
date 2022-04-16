@@ -18,7 +18,7 @@ const Footer = () => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
   return (
-    <Wrapper>
+    <Wrapper data-testid="footer">
       <Inner>
         <Left>
           <Trans components={[<Love />]} i18nKey="footer.made-with-love-on" />
