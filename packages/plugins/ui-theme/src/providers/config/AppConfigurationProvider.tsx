@@ -26,7 +26,7 @@ const defaultValues: ConfigProviderProps = {
     showThemeSwitch: true,
     showFooter: true,
     showSearch: true,
-    showRaw: false,
+    showRaw: true,
     showDownloadTarball: true,
     title: 'Verdaccio',
   },
