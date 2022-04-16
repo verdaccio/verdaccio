@@ -26,6 +26,15 @@ web:
   # convert your UI to the dark side
   # darkMode: true
   # html_cache: true
+  # by default all features are displayed
+  # login: true
+  # showInfo: true
+  # showSettings: true
+  # showThemeSwitch: true
+  # showFooter: true
+  # showSearch: true
+  # showRaw: true
+  # showDownloadTarball: true
   #  HTML tags injected after manifest <scripts/>
   # scriptsBodyAfter:
   #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
