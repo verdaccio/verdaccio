@@ -3,8 +3,8 @@ import React from 'react';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 import { useConfig } from 'verdaccio-ui/providers/config';
 
-import blackAndWithLogo from './img/logo-uk.svg';
-import defaultLogo from './img/logo-uk.svg';
+import blackAndWithLogo from './img/logo-black-and-white.svg';
+import defaultLogo from './img/logo.svg';
 
 const sizes = {
   'x-small': '30px',

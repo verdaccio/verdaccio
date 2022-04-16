@@ -43,6 +43,13 @@ declare module '@verdaccio/types' {
     // deprecated
     basename?: string;
     scope?: string;
+    showInfo?: boolean;
+    showSettings?: boolean;
+    showSearch?: boolean;
+    showFooter?: boolean;
+    showThemeSwitch?: boolean;
+    showDownloadTarball?: boolean;
+    showRaw?: boolean;
     base: string;
     primaryColor?: string;
     version?: string;

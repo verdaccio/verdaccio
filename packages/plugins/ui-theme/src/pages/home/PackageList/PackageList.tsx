@@ -4,6 +4,7 @@ import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
 import { List, ListRowProps } from 'react-virtualized/dist/commonjs/List';
 import { WindowScroller } from 'react-virtualized/dist/commonjs/WindowScroller';
+import { useConfig } from 'verdaccio-ui/providers/config';
 import { formatLicense } from 'verdaccio-ui/utils/package';
 
 import Help from './Help';
@@ -20,6 +21,7 @@ const cache = new CellMeasurerCache({
 
 /* eslint-disable  verdaccio/jsx-no-style */
 const PackageList: React.FC<Props> = ({ packages }) => {
+  const { configOptions } = useConfig();
   const renderRow = ({ index, key, parent, style }: ListRowProps) => {
     const { name, version, description, time, keywords, dist, homepage, bugs, author, license } =
       packages[index];
@@ -38,6 +40,7 @@ const PackageList: React.FC<Props> = ({ packages }) => {
             keywords={keywords}
             license={formattedLicense}
             name={name}
+            showDownload={configOptions.showDownloadTarball}
             time={time}
             version={version}
           />

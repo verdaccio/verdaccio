@@ -13,15 +13,23 @@ declare module '@mui/styles/defaultTheme' {
   interface DefaultTheme extends Theme {}
 }
 
-const ThemeProviderWrapper: React.FC = ({ children }) => {
+function getDarkModeDefault(darkModeConfig) {
   const prefersDarkMode = window.matchMedia?.('(prefers-color-scheme:dark)').matches;
-  const isDarkModeDefault = window?.__VERDACCIO_BASENAME_UI_OPTIONS?.darkMode || prefersDarkMode;
+  if (typeof darkModeConfig === 'boolean') {
+    return darkModeConfig;
+  } else {
+    return prefersDarkMode;
+  }
+}
+
+const ThemeProviderWrapper: React.FC = ({ children }) => {
   const currentLanguage = i18next.languages?.[0];
   const { configOptions } = useConfig();
-
-  const [isDarkMode, setIsDarkMode] = useLocalStorage('darkMode', !!isDarkModeDefault);
+  const isDarkModeDefault = getDarkModeDefault(configOptions.darkMode);
+  const isSwitchThemeEnabled = configOptions.showThemeSwitch;
+  const [isDarkModeStorage, setIsDarkMode] = useLocalStorage('darkMode', isDarkModeDefault);
   const [language, setLanguage] = useLocalStorage('language', currentLanguage);
-
+  const isDarkMode = isSwitchThemeEnabled === true ? isDarkModeStorage : isDarkModeDefault;
   const themeMode: ThemeMode = isDarkMode ? 'dark' : 'light';
 
   const changeLanguage = useCallback(async () => {

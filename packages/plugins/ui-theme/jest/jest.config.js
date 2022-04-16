@@ -30,6 +30,7 @@ module.exports = Object.assign({}, config, {
     '\\.(png)$': '<rootDir>/jest/identity.js',
     '\\.(svg)$': '<rootDir>/jest/unit/empty.ts',
     '\\.(jpg)$': '<rootDir>/jest/unit/empty.ts',
+    '\\.(md)$': '<rootDir>/jest/unit/empty-string.ts',
     'github-markdown-css': '<rootDir>/jest/identity.js',
     // note: this section has to be on sync with webpack configuration
     'verdaccio-ui/components/(.*)': '<rootDir>/src/components/$1',

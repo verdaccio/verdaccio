@@ -5,27 +5,34 @@ import ThemeContext from 'verdaccio-ui/design-tokens/ThemeContext';
 
 import HeaderMenu from './HeaderMenu';
 import HeaderToolTip from './HeaderToolTip';
-import { Support } from './Support';
 import { RightSide } from './styles';
 
 interface Props {
-  withoutSearch?: boolean;
+  showSearch?: boolean;
   username?: string | null;
   hasLogin?: boolean;
+  showInfo?: boolean;
+  showSettings?: boolean;
+  showThemeSwitch?: boolean;
   onToggleLogin: () => void;
   onOpenRegistryInfoDialog: () => void;
+  onOpenSettingsDialog: () => void;
   onToggleMobileNav: () => void;
   onLogout: () => void;
 }
 
 const HeaderRight: React.FC<Props> = ({
-  withoutSearch = false,
+  showSearch,
   username,
   onToggleLogin,
   hasLogin,
+  showInfo,
+  showSettings,
+  showThemeSwitch,
   onLogout,
   onToggleMobileNav,
   onOpenRegistryInfoDialog,
+  onOpenSettingsDialog,
 }) => {
   const themeContext = useContext(ThemeContext);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -72,25 +79,35 @@ const HeaderRight: React.FC<Props> = ({
 
   return (
     <RightSide data-testid="header-right">
-      {!withoutSearch && (
+      {showSearch === true && (
         <HeaderToolTip
           onClick={onToggleMobileNav}
           title={t('search.packages')}
           tooltipIconType={'search'}
         />
       )}
-      <Support />
-      <HeaderToolTip title={t('header.documentation')} tooltipIconType={'help'} />
-      <HeaderToolTip
-        onClick={onOpenRegistryInfoDialog}
-        title={t('header.registry-info')}
-        tooltipIconType={'info'}
-      />
-      <HeaderToolTip
-        onClick={handleToggleDarkLightMode}
-        title={t('header.documentation')}
-        tooltipIconType={themeContext.isDarkMode ? 'dark-mode' : 'light-mode'}
-      />
+
+      {showSettings === true && (
+        <HeaderToolTip
+          onClick={onOpenSettingsDialog}
+          title={t('header.settings')}
+          tooltipIconType={'settings'}
+        />
+      )}
+      {showInfo === true && (
+        <HeaderToolTip
+          onClick={onOpenRegistryInfoDialog}
+          title={t('header.registry-info')}
+          tooltipIconType={'info'}
+        />
+      )}
+      {showThemeSwitch === true && (
+        <HeaderToolTip
+          onClick={handleToggleDarkLightMode}
+          title={t('header.documentation')}
+          tooltipIconType={themeContext.isDarkMode ? 'dark-mode' : 'light-mode'}
+        />
+      )}
 
       {!hideLoginSection && (
         <>

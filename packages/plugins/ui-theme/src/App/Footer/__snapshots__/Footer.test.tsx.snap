@@ -165,6 +165,7 @@ exports[`<Footer /> component should load the initial state of Footer component 
 
 <div
   class="emotion-0 emotion-1"
+  data-testid="footer"
 >
   <div
     class="emotion-2 emotion-3"

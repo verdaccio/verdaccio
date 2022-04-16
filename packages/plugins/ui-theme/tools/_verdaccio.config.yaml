@@ -2,7 +2,8 @@ web:
   title: Verdaccio Local Dev
   sort_packages: asc
   primary_color: #CCC
-  login: true
+  # showRaw: true
+  # darkMode: true
   pkgManagers:
     - npm
     - yarn

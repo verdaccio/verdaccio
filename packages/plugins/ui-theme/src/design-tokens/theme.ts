@@ -73,6 +73,7 @@ const fontWeight = {
 export type FontWeight = keyof typeof fontWeight;
 
 export const breakPoints = {
+  xsmall: 400,
   small: 576,
   medium: 768,
   large: 1024,

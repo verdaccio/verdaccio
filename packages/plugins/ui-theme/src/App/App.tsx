@@ -7,6 +7,7 @@ import Loading from 'verdaccio-ui/components/Loading';
 import StyleBaseline from 'verdaccio-ui/design-tokens/StyleBaseline';
 import loadDayJSLocale from 'verdaccio-ui/design-tokens/load-dayjs-locale';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { useConfig } from 'verdaccio-ui/providers/config';
 
 import '../i18n/config';
 import AppRoute, { history } from './AppRoute';
@@ -27,10 +28,11 @@ const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 const App: React.FC = () => {
+  const { configOptions } = useConfig();
+
   useEffect(() => {
     loadDayJSLocale();
   }, []);
-
   return (
     <Suspense fallback={<Loading />}>
       <StyleBaseline />
@@ -42,7 +44,7 @@ const App: React.FC = () => {
               <AppRoute />
             </StyledBoxContent>
           </Router>
-          <Footer />
+          {configOptions.showFooter && <Footer />}
         </>
       </StyledBox>
     </Suspense>

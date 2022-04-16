@@ -1,14 +1,13 @@
-import Help from '@mui/icons-material/Help';
 import Info from '@mui/icons-material/Info';
 import NightsStay from '@mui/icons-material/NightsStay';
 import Search from '@mui/icons-material/Search';
+import Settings from '@mui/icons-material/Settings';
 import WbSunny from '@mui/icons-material/WbSunny';
-import IconButton from '@mui/material/IconButton';
 import React, { forwardRef } from 'react';
 
-import { IconSearchButton, StyledLink } from './styles';
+import { IconSearchButton, InfoButton, SettingsButtom, SwitchThemeButton } from './styles';
 
-export type TooltipIconType = 'search' | 'help' | 'info' | 'dark-mode' | 'light-mode';
+export type TooltipIconType = 'search' | 'info' | 'dark-mode' | 'light-mode' | 'settings';
 interface Props {
   tooltipIconType: TooltipIconType;
   onClick?: () => void;
@@ -23,21 +22,9 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
   ref
 ) {
   switch (tooltipIconType) {
-    case 'help':
-      return (
-        <StyledLink
-          data-testid={'header--tooltip-documentation'}
-          external={true}
-          to={'https://verdaccio.org/docs/en/installation'}
-        >
-          <IconButton color={'inherit'} size="large">
-            <Help />
-          </IconButton>
-        </StyledLink>
-      );
     case 'info':
       return (
-        <IconButton
+        <InfoButton
           color="inherit"
           data-testid={'header--tooltip-info'}
           id="header--button-registryInfo"
@@ -46,7 +33,20 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
           size="large"
         >
           <Info />
-        </IconButton>
+        </InfoButton>
+      );
+    case 'settings':
+      return (
+        <SettingsButtom
+          color="inherit"
+          data-testid={'header--tooltip-settings'}
+          id="header--button-settings"
+          onClick={onClick}
+          ref={ref}
+          size="large"
+        >
+          <Settings />
+        </SettingsButtom>
       );
     case 'search':
       return (
@@ -56,16 +56,28 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
       );
     case 'dark-mode':
       return (
-        <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
+        <SwitchThemeButton
+          color="inherit"
+          data-testid={'header--button--dark'}
+          onClick={onClick}
+          ref={ref}
+          size="large"
+        >
           <NightsStay />
-        </IconButton>
+        </SwitchThemeButton>
       );
 
     case 'light-mode':
       return (
-        <IconButton color="inherit" onClick={onClick} ref={ref} size="large">
+        <SwitchThemeButton
+          color="inherit"
+          data-testid={'header--button--light'}
+          onClick={onClick}
+          ref={ref}
+          size="large"
+        >
           <WbSunny />
-        </IconButton>
+        </SwitchThemeButton>
       );
     default:
       return null;

@@ -80,33 +80,61 @@ describe('<Header /> component with logged in state', () => {
     expect(getByText('Login')).toBeTruthy();
   });
 
-  test("The question icon should open a new tab of verdaccio's website - installation doc", () => {
-    const { getByTestId } = renderWithStore(
+  test('should display info button', () => {
+    renderWithStore(
       <Router>
         <Header />
       </Router>,
       store
     );
+    expect(screen.getByTestId('header--tooltip-info')).toBeInTheDocument();
+  });
 
-    const documentationBtn = getByTestId('header--tooltip-documentation');
-    expect(documentationBtn.getAttribute('href')).toBe(
-      'https://verdaccio.org/docs/en/installation'
+  test('should display settings button', () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
     );
+    expect(screen.getByTestId('header--tooltip-settings')).toBeInTheDocument();
+  });
+
+  test('should display light button switch', () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+    expect(screen.getByTestId('header--button--light')).toBeInTheDocument();
+  });
+
+  test.todo('should test display dark button switch');
+
+  test('should display search box', () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+    expect(screen.getByTestId('search-container')).toBeInTheDocument();
   });
 
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
-    const { getByTestId } = renderWithStore(
+    renderWithStore(
       <Router>
         <Header />
       </Router>,
       store
     );
 
-    const infoBtn = getByTestId('header--tooltip-info');
+    const infoBtn = screen.getByTestId('header--tooltip-info');
+    expect(infoBtn).toBeInTheDocument();
     fireEvent.click(infoBtn);
-
     // wait for registrationInfo modal appearance and return the element
-    const registrationInfoModal = await waitFor(() => getByTestId('registryInfo--dialog'));
+    const registrationInfoModal = await waitFor(() => screen.getByTestId('registryInfo--dialog'));
     expect(registrationInfoModal).toBeTruthy();
   });
 
@@ -143,7 +171,67 @@ describe('<Header /> component with logged in state', () => {
       store
     );
 
-    expect(screen.queryByTestId('header--button-login')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('header--button-login')).toBeNull();
+  });
+
+  test('should hide search if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSearch: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTestId('search-container')).toBeNull();
+  });
+
+  test('should hide settings if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSettings: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header--tooltip-settings')).toBeNull();
+  });
+
+  test('should hide info if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSettings: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header.registry-info')).toBeNull();
+  });
+
+  test('should hide theme switch if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showThemeSwitch: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header.registry-info')).toBeNull();
   });
 
   test.todo('autocompletion should display suggestions according to the type value');

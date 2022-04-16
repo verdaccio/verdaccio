@@ -5,17 +5,25 @@
   "action-bar-action": {
     "visit-home-page": "Visit homepage",
     "open-an-issue": "Open an issue",
-    "download-tarball": "Download tarball"
+    "download-tarball": "Download tarball",
+    "raw": "Raw Manifest"
   },
   "dialog": {
     "registry-info": {
-      "title": "Configuration Details"
-    }
+      "title": "Information"
+    },
+    "settings": {
+      "title": "Configuration"
+    },
+    "license": "License",
+    "totalContributors": "Total contributors"
   },
   "header": {
     "documentation": "Documentation",
     "registry-info": "Registry Information",
     "registry-info-link": "Learn more",
+    "settings": "Settings",
+    "help": "Help",
     "registry-no-conf": "No configurations available",
     "greetings": "Hi "
   },
@@ -152,13 +160,14 @@
     "portuguese": "Portuguese",
     "spanish": "Spanish",
     "german": "German",
-    "chinese": "Chinese",
-    "chineseTraditional": "Chinese (Traditional)",
+    "italian": "Italian",
     "french": "French",
     "russian": "Russian",
     "turkish": "Turkish",
     "ukraine": "Ukraine",
-    "khmer": "Khmer"
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
   },
   "flag": {
     "austria": "Austria",

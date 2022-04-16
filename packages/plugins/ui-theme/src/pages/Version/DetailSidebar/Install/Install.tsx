@@ -24,7 +24,6 @@ const Install: React.FC = () => {
   if (!packageMeta || !packageName) {
     return null;
   }
-
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
   const hasYarn = configOptions?.pkgManagers?.includes('yarn');
   const hasPnpm = configOptions?.pkgManagers?.includes('pnpm') ?? true;
