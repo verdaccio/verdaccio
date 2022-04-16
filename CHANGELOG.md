@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.13.2](https://github.com/verdaccio/verdaccio/compare/v4.13.0...v4.13.2) (2022-04-16)
+
+
+### Bug Fixes
+
+* update async and lodash to latest patches ([df541c4](https://github.com/verdaccio/verdaccio/commit/df541c43c1fac7af064ef6cbf25007d78a812666))
+
+### [4.13.1](https://github.com/verdaccio/verdaccio/compare/v4.13.0...v4.13.1) (2022-04-16)
+
+
+### Bug Fixes
+
+* update async and lodash to latest patches ([df541c4](https://github.com/verdaccio/verdaccio/commit/df541c43c1fac7af064ef6cbf25007d78a812666))
+
 ## [4.13.0](https://github.com/verdaccio/verdaccio/compare/v4.12.2...v4.13.0) (2022-03-10)
 
 
