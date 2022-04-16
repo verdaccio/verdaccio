@@ -56,14 +56,26 @@ const HeaderToolTipIcon = forwardRef<HeaderToolTipIconRef, Props>(function Heade
       );
     case 'dark-mode':
       return (
-        <SwitchThemeButton color="inherit" onClick={onClick} ref={ref} size="large">
+        <SwitchThemeButton
+          color="inherit"
+          data-testid={'header--button--dark'}
+          onClick={onClick}
+          ref={ref}
+          size="large"
+        >
           <NightsStay />
         </SwitchThemeButton>
       );
 
     case 'light-mode':
       return (
-        <SwitchThemeButton color="inherit" onClick={onClick} ref={ref} size="large">
+        <SwitchThemeButton
+          color="inherit"
+          data-testid={'header--button--light'}
+          onClick={onClick}
+          ref={ref}
+          size="large"
+        >
           <WbSunny />
         </SwitchThemeButton>
       );

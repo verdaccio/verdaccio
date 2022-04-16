@@ -13,8 +13,8 @@ type ConfigProviderProps = {
 
 const defaultValues: ConfigProviderProps = {
   configOptions: {
+    // note: dark mode set as undefined by design
     primaryColor: PRIMARY_COLOR,
-    darkMode: false,
     pkgManagers: ['yarn', 'pnpm', 'npm'],
     scope: '',
     base: '',

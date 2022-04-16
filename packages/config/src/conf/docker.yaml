@@ -30,6 +30,7 @@ web:
   # login: true
   # showInfo: true
   # showSettings: true
+  # In combination with darkMode you can force specific theme
   # showThemeSwitch: true
   # showFooter: true
   # showSearch: true

@@ -100,6 +100,28 @@ describe('<Header /> component with logged in state', () => {
     expect(screen.getByTestId('header--tooltip-settings')).toBeInTheDocument();
   });
 
+  test('should display light button switch', () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+    expect(screen.getByTestId('header--button--light')).toBeInTheDocument();
+  });
+
+  test.todo('should test display dark button switch');
+
+  test('should display search box', () => {
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+    expect(screen.getByTestId('search-container')).toBeInTheDocument();
+  });
+
   test('should open the registrationInfo modal when clicking on the info icon', async () => {
     renderWithStore(
       <Router>
@@ -149,7 +171,67 @@ describe('<Header /> component with logged in state', () => {
       store
     );
 
-    expect(screen.queryByTestId('header--button-login')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('header--button-login')).toBeNull();
+  });
+
+  test('should hide search if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSearch: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTestId('search-container')).toBeNull();
+  });
+
+  test('should hide settings if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSettings: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header--tooltip-settings')).toBeNull();
+  });
+
+  test('should hide info if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showSettings: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header.registry-info')).toBeNull();
+  });
+
+  test('should hide theme switch if is disabled', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS = {
+      base: 'foo',
+      showThemeSwitch: false,
+    };
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+
+    expect(screen.queryByTitle('header.registry-info')).toBeNull();
   });
 
   test.todo('autocompletion should display suggestions according to the type value');

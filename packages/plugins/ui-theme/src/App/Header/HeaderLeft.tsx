@@ -20,7 +20,7 @@ const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
       <Logo />
     </StyledLink>
     {showSearch && (
-      <SearchWrapper>
+      <SearchWrapper data-testid="search-container">
         <Search />
       </SearchWrapper>
     )}
