@@ -26,7 +26,7 @@ const PackageList: React.FC<Props> = ({ packages }) => {
     const { name, version, description, time, keywords, dist, homepage, bugs, author, license } =
       packages[index];
     // TODO: move format license to API side.
-    const formattedLicense = formatLicense(license);    
+    const formattedLicense = formatLicense(license);
     return (
       <CellMeasurer cache={cache} columnIndex={0} key={key} parent={parent} rowIndex={index}>
         <div style={style}>

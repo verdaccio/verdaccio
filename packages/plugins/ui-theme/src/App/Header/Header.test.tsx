@@ -80,7 +80,7 @@ describe('<Header /> component with logged in state', () => {
     expect(getByText('Login')).toBeTruthy();
   });
 
-  test("should display info button", () => {
+  test('should display info button', () => {
     renderWithStore(
       <Router>
         <Header />
@@ -90,7 +90,7 @@ describe('<Header /> component with logged in state', () => {
     expect(screen.getByTestId('header--tooltip-info')).toBeInTheDocument();
   });
 
-  test("should display settings button", () => {
+  test('should display settings button', () => {
     renderWithStore(
       <Router>
         <Header />

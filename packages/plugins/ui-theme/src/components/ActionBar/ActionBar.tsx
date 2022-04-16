@@ -6,7 +6,7 @@ import { DetailContext } from '../../pages/Version';
 import RawViewer from '../RawViewer';
 import ActionBarAction, { ActionBarActionProps } from './ActionBarAction';
 
-type Props = {
+export type Props = {
   showRaw?: boolean;
   showDownloadTarball?: boolean;
 };
@@ -45,7 +45,7 @@ const ActionBar: React.FC<Props> = ({ showRaw, showDownloadTarball = true }) => 
   return (
     <Box alignItems="center" display="flex" marginBottom="14px">
       {actions.map((action) => (
-        <ActionBarAction key={action.link} {...action} />
+        <ActionBarAction key={action.type} {...action} />
       ))}
       {isRawViewerOpen && (
         <RawViewer

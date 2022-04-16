@@ -1,13 +1,13 @@
-import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import IconButton from '@mui/material/IconButton';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 
 import { DetailContext } from '../../pages/Version';
-import { useTranslation } from 'react-i18next';
 
 export interface ViewerTitleProps {
   id: string;
