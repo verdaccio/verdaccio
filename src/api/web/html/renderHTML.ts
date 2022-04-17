@@ -65,8 +65,14 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     },
     config?.web
   );
+  const { showInfo, showSettings, showThemeSwitch, showFooter, showSearch, showDownloadTarball } = config?.web;
   const options = {
-    ...config?.web,
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
     darkMode,
     url_prefix,
     basename,
