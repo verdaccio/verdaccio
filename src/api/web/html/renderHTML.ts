@@ -3,16 +3,11 @@ import LRU from 'lru-cache';
 import path from 'path';
 import { URL } from 'url';
 
-
-
 import { HEADERS } from '@verdaccio/commons-api';
-
-
 
 import { WEB_TITLE } from '../../../lib/constants';
 import { getPublicUrl, hasLogin, isHTTPProtocol } from '../../../lib/utils';
 import renderTemplate from './template';
-
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
