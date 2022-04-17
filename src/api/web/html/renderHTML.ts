@@ -56,7 +56,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
+  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore, showInfo, showSettings, showThemeSwitch, showFooter, showSearch, showDownloadTarball } = Object.assign(
     {},
     {
       scriptsBodyAfter: [],
@@ -66,6 +66,12 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     config?.web
   );
   const options = {
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
     darkMode,
     url_prefix,
     basename,
