@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.22
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.22
+- @verdaccio/core@6.0.0-6-next.5
+- @verdaccio/logger@6.0.0-6-next.11
+
 ## 6.0.0-6-next.21
 
 ### Patch Changes

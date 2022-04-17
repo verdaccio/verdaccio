@@ -39,9 +39,9 @@
   },
   "devDependencies": {
     "@types/node": "16.11.21",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.21",
-    "@verdaccio/config": "workspace:6.0.0-6-next.13",
-    "@verdaccio/types": "workspace:11.0.0-6-next.11"
+    "@verdaccio/auth": "workspace:6.0.0-6-next.22",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/types": "workspace:11.0.0-6-next.12"
   },
   "scripts": {
     "clean": "rimraf ./build",

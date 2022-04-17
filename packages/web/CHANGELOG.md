@@ -1,5 +1,26 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.28
+
+### Minor Changes
+
+- d08fe29d: feat(web): add a config item to web，let the developer can select whet……her enable the html cache
+
+### Patch Changes
+
+- Updated dependencies [d43894e8]
+- Updated dependencies [d08fe29d]
+  - @verdaccio/config@6.0.0-6-next.14
+  - @verdaccio/auth@6.0.0-6-next.22
+  - @verdaccio/loaders@6.0.0-6-next.12
+  - @verdaccio/store@6.0.0-6-next.22
+  - @verdaccio/core@6.0.0-6-next.5
+  - @verdaccio/readme@11.0.0-6-next.4
+  - @verdaccio/tarball@11.0.0-6-next.12
+  - @verdaccio/url@11.0.0-6-next.9
+  - @verdaccio/logger@6.0.0-6-next.11
+  - @verdaccio/middleware@6.0.0-6-next.22
+
 ## 6.0.0-6-next.27
 
 ### Major Changes
