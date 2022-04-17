@@ -37,7 +37,7 @@
     "node-fetch": "cjs"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.11",
+    "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "nock": "12.0.3",
     "supertest": "6.2.2"
   },

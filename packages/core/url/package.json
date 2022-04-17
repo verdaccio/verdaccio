@@ -40,7 +40,7 @@
     "validator": "13.7.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.11",
+    "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "node-mocks-http": "1.11.0"
   },
   "scripts": {

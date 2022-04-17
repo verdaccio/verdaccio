@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/config": "workspace:6.0.0-6-next.13",
-    "@verdaccio/mock": "workspace:6.0.0-6-next.14",
-    "@verdaccio/types": "workspace:11.0.0-6-next.11"
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/mock": "workspace:6.0.0-6-next.15",
+    "@verdaccio/types": "workspace:11.0.0-6-next.12"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [
