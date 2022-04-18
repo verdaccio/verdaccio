@@ -1,6 +1,7 @@
 #
-# This is the config file used for the docker images.
-# It allows all users to do anything, so don't use it on production systems.
+# This is the default configuration file. It allows all users to do anything,
+# please read carefully the documentation and best practices to
+# improve security.
 #
 # Do not configure host and port under `listen` in this file
 # as it will be ignored when using docker.
