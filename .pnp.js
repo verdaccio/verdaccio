@@ -115,7 +115,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express", "npm:4.17.3"],
             ["express-rate-limit", "npm:5.5.1"],
             ["fast-safe-stringify", "npm:2.1.1"],
-            ["fs-extra", "npm:10.0.1"],
+            ["fs-extra", "npm:10.1.0"],
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:2.0.0"],
             ["husky", "npm:6.0.0"],
@@ -10309,10 +10309,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["fs-extra", [
-        ["npm:10.0.1", {
-          "packageLocation": "./.yarn/cache/fs-extra-npm-10.0.1-7c8ee14050-60715480ae.zip/node_modules/fs-extra/",
+        ["npm:10.1.0", {
+          "packageLocation": "./.yarn/cache/fs-extra-npm-10.1.0-86573680ed-ea286a767c.zip/node_modules/fs-extra/",
           "packageDependencies": [
-            ["fs-extra", "npm:10.0.1"],
+            ["fs-extra", "npm:10.1.0"],
             ["graceful-fs", "npm:4.2.3"],
             ["jsonfile", "npm:6.1.0"],
             ["universalify", "npm:2.0.0"]
@@ -17952,7 +17952,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["express", "npm:4.17.3"],
             ["express-rate-limit", "npm:5.5.1"],
             ["fast-safe-stringify", "npm:2.1.1"],
-            ["fs-extra", "npm:10.0.1"],
+            ["fs-extra", "npm:10.1.0"],
             ["handlebars", "npm:4.7.7"],
             ["http-errors", "npm:2.0.0"],
             ["husky", "npm:6.0.0"],
