@@ -51,10 +51,6 @@ web:
   #    - '<div id="myId">html before webpack scripts</div>'
   #  Public path for template manifest scripts (only manifest)
   #  publicPath: http://somedomain.org/
-# translate your registry, api i18n not available yet
-# i18n:
-# list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
-#   web: en-US
 
 # https://verdaccio.org/docs/configuration#authentication
 auth:
@@ -192,6 +188,7 @@ logs: { type: stdout, format: pretty, level: http }
 #    return signedUrl;
 #  }
 
-# This affect the web and api (not developed yet)
-#i18n:
-#web: en-US
+# translate your registry, api i18n not available yet
+# i18n:
+# list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
+#   web: en-US
