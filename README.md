@@ -168,7 +168,7 @@ To run the docker container:
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-Docker examples are available [in this repository](https://github.com/verdaccio/docker-examples).
+Docker examples are available [in this repository](https://github.com/verdaccio/verdaccio/tree/master/docker-examples).
 
 ## Compatibility
 
