@@ -95,7 +95,7 @@
     "@types/express-serve-static-core": "4.17.28",
     "@types/http-errors": "1.8.2",
     "@types/jest": "26.0.24",
-    "@types/lodash": "4.14.181",
+    "@types/lodash": "4.14.182",
     "@types/mime": "2.0.3",
     "@types/minimatch": "3.0.5",
     "@types/node": "14.14.37",
