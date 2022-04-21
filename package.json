@@ -98,7 +98,7 @@
     "@types/lodash": "4.14.181",
     "@types/mime": "2.0.3",
     "@types/minimatch": "3.0.5",
-    "@types/node": "14.14.37",
+    "@types/node": "14.18.13",
     "@types/pino": "6.3.12",
     "@types/request": "2.48.8",
     "@types/semver": "7.3.9",
