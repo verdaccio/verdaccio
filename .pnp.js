@@ -152,7 +152,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.2.2"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.1"],
@@ -12007,7 +12007,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-validate", "npm:26.6.2"],
             ["micromatch", "npm:4.0.2"],
             ["pretty-format", "npm:26.6.2"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"]
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"]
           ],
           "packagePeers": [
             "@types/ts-node",
@@ -17319,17 +17319,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ts-node", [
-        ["npm:10.4.0", {
-          "packageLocation": "./.yarn/cache/ts-node-npm-10.4.0-04cb6e2279-3c2797b6ca.zip/node_modules/ts-node/",
+        ["npm:10.7.0", {
+          "packageLocation": "./.yarn/cache/ts-node-npm-10.7.0-ef39b1d45e-f037c1e8b5.zip/node_modules/ts-node/",
           "packageDependencies": [
-            ["ts-node", "npm:10.4.0"]
+            ["ts-node", "npm:10.7.0"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0", {
-          "packageLocation": "./.yarn/$$virtual/ts-node-virtual-84b6ecadff/0/cache/ts-node-npm-10.4.0-04cb6e2279-3c2797b6ca.zip/node_modules/ts-node/",
+        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0", {
+          "packageLocation": "./.yarn/$$virtual/ts-node-virtual-ef4712e861/0/cache/ts-node-npm-10.7.0-ef39b1d45e-f037c1e8b5.zip/node_modules/ts-node/",
           "packageDependencies": [
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"],
             ["@cspotcode/source-map-support", "npm:0.7.0"],
             ["@swc/core", null],
             ["@swc/wasm", null],
@@ -17349,6 +17349,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["diff", "npm:4.0.2"],
             ["make-error", "npm:1.3.6"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
+            ["v8-compile-cache-lib", "npm:3.0.1"],
             ["yn", "npm:3.1.1"]
           ],
           "packagePeers": [
@@ -17818,6 +17819,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["v8-compile-cache-lib", [
+        ["npm:3.0.1", {
+          "packageLocation": "./.yarn/cache/v8-compile-cache-lib-npm-3.0.1-4886071ece-673fafc82a.zip/node_modules/v8-compile-cache-lib/",
+          "packageDependencies": [
+            ["v8-compile-cache-lib", "npm:3.0.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["v8-to-istanbul", [
         ["npm:7.1.2", {
           "packageLocation": "./.yarn/cache/v8-to-istanbul-npm-7.1.2-f29c35e9aa-ff653089c9.zip/node_modules/v8-to-istanbul/",
@@ -17989,7 +17999,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
             ["supertest", "npm:6.2.2"],
-            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.4.0"],
+            ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.1"],
