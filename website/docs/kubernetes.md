@@ -102,6 +102,19 @@ use:
 helm install npm --set existingConfigMap=verdaccio-config verdaccio/verdaccio
 ```
 
+### Authenticate with private upstreams using Helm
+
+As of version `4.8.0` of the helm chart, a new `secretEnvVars` field has been added.  
+This allows you to inject sensitive values to the container via a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
+
+1. Update your Verdaccio config according to the [Uplinks](./uplinks.md#auth-property) documentation
+2. Pass the secret environment variable to your values file or via `--set secretEnvVars.FOO_TOKEN=superSecretBarToken`
+```yaml
+# values.yaml
+secretEnvVars:
+  FOO_TOKEN: superSecretBarToken
+```
+
 #### NGINX proxy body-size limit {#nginx-proxy-body-size-limit}
 
 The standard k8s NGINX ingress proxy allows for 1MB for body-size which can be increased
