@@ -104,7 +104,7 @@ helm install npm --set existingConfigMap=verdaccio-config verdaccio/verdaccio
 
 ### Authenticate with private upstreams using Helm
 
-As of version `4.8.0` of the helm chart, a new `secretEnvVars` field was added.  
+As of version `4.8.0` of the helm chart, a new `secretEnvVars` field has been added.  
 This allows you to inject sensitive values to the container via a [Kubernetes Secret](https://kubernetes.io/docs/concepts/configuration/secret/).
 
 1. Update your Verdaccio config according to the [Uplinks](./uplinks.md#auth-property) documentation
