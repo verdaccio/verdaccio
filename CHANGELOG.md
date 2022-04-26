@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.10.0](https://github.com/verdaccio/verdaccio/compare/v5.9.0...v5.10.0) (2022-04-26)
+
+
+### Features
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.24 (5.x) ([#3130](https://github.com/verdaccio/verdaccio/issues/3130)) ([da01a14](https://github.com/verdaccio/verdaccio/commit/da01a14e70de722aab0c99bb81997886fae35727))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/local-storage to v10.2.1 ([#3118](https://github.com/verdaccio/verdaccio/issues/3118)) ([0f9d6ec](https://github.com/verdaccio/verdaccio/commit/0f9d6eca34476505df95e67acd2f77fbce3a1c96))
+* **deps:** update dependency @verdaccio/readme to v10.3.3 ([#3119](https://github.com/verdaccio/verdaccio/issues/3119)) ([78b9c8b](https://github.com/verdaccio/verdaccio/commit/78b9c8b33ee1c1894d654b69b8c88631c5139cc9))
+* **deps:** update dependency body-parser to v1.20.0 ([#3123](https://github.com/verdaccio/verdaccio/issues/3123)) ([954886d](https://github.com/verdaccio/verdaccio/commit/954886d2db32088ea246dd3b5748c25ac56c30b0))
+* **deps:** update dependency dayjs to v1.11.1 ([#3131](https://github.com/verdaccio/verdaccio/issues/3131)) ([27035f9](https://github.com/verdaccio/verdaccio/commit/27035f9403261b342d9d3a3826e6b92c45de1954))
+* **deps:** update dependency lru-cache to v7 ([#3124](https://github.com/verdaccio/verdaccio/issues/3124)) ([7ceaa17](https://github.com/verdaccio/verdaccio/commit/7ceaa1799c80a6cde23255affbfe076f6e44cb9d))
+* **deps:** update dependency marked to v4.0.14 ([#3120](https://github.com/verdaccio/verdaccio/issues/3120)) ([8a60050](https://github.com/verdaccio/verdaccio/commit/8a60050b8b4594aae0d3c942b23aaf33f857ebcf))
+* **deps:** update dependency semver to v7.3.7 ([#3121](https://github.com/verdaccio/verdaccio/issues/3121)) ([157d5c5](https://github.com/verdaccio/verdaccio/commit/157d5c5ce415d81500bdc71435ccf30b19631aef))
+* **deps:** update dependency verdaccio-audit to v10.2.1 ([#3122](https://github.com/verdaccio/verdaccio/issues/3122)) ([decd7f1](https://github.com/verdaccio/verdaccio/commit/decd7f1e5cfc48bbf159f1ac42ecaa7861e6a5f9))
+
 ## [5.9.0](https://github.com/verdaccio/verdaccio/compare/v5.8.0...v5.9.0) (2022-04-12)
 
 
