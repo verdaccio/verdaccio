@@ -183,7 +183,7 @@
     "title": "Package Managers",
     "description": "This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details. If the section is disable review your configuration.",
     "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
-    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yalm` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
   },
   "language": {
     "title": "Translations",

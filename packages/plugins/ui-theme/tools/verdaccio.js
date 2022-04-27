@@ -1,14 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const yalm = require('js-yaml');
+const yaml = require('js-yaml');
 const startServer = require('verdaccio').default;
 
 const storageLocation = path.join(__dirname, '../partials/storage');
 const pluginsLocation = path.join(__dirname, '../partials/plugins');
 const configJsonFormat = Object.assign(
   {},
-  yalm.safeLoad(fs.readFileSync('./tools/_verdaccio.config.yaml', 'utf8')),
+  yaml.safeLoad(fs.readFileSync('./tools/_verdaccio.config.yaml', 'utf8')),
   {
     storage: storageLocation,
     plugins: pluginsLocation,
