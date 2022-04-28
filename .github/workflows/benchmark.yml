@@ -10,6 +10,9 @@ on:
   # push:
   #   branches:
   #     - master
+permissions:
+  contents: read
+
 jobs:
   prepare: 
     name: Prepare build
