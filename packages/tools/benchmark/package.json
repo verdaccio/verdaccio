@@ -17,7 +17,7 @@
   "dependencies": {
     "clipanion": "3.1.0",
     "temp-dir": "2.0.0",
-    "get-port": "5.1.1",
+    "get-port": "6.1.2",
     "semver": "7.3.5"
   },
   "devDependencies": {

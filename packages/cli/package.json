@@ -51,7 +51,7 @@
     "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.23",
     "clipanion": "3.1.0",
     "envinfo": "7.8.1",
-    "kleur": "3.0.3",
+    "kleur": "4.1.4",
     "semver": "7.3.5"
   },
   "devDependencies": {

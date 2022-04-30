@@ -60,7 +60,7 @@
     "@verdaccio/mock": "workspace:6.0.0-6-next.15",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.0",
-    "undici": "4.15.0",
+    "undici": "5.0.0",
     "nock": "13.2.2",
     "tmp-promise": "3.0.3",
     "node-mocks-http": "1.11.0"

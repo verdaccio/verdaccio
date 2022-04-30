@@ -52,7 +52,7 @@
     "@verdaccio/mock": "workspace:6.0.0-6-next.15",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "jest-mock-process": "1.4.1",
-    "selfsigned": "1.10.14",
+    "selfsigned": "2.0.1",
     "supertest": "6.2.2"
   },
   "publishConfig": {

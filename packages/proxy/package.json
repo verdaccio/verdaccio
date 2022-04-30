@@ -51,7 +51,7 @@
     "lodash": "4.17.21",
     "node-fetch": "2.6.7",
     "request": "2.88.0",
-    "undici": "4.15.0"
+    "undici": "5.0.0"
   },
   "devDependencies": {
     "@types/node": "16.11.21",

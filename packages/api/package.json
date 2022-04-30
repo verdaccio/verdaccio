@@ -53,7 +53,7 @@
     "body-parser": "1.19.1",
     "express": "4.17.2",
     "lodash": "4.17.21",
-    "mime": "2.6.0",
+    "mime": "3.0.0",
     "semver": "7.3.5"
   },
   "devDependencies": {
