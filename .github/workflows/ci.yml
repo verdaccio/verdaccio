@@ -125,7 +125,7 @@ jobs:
         with:
           node-version: 16
       - name: Install pnpm
-        run: npm i pnpm@latest -g
+        run: npm i pnpm@6.32.3 -g
       - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
