@@ -3,7 +3,15 @@ import _ from 'lodash';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
 
 import Auth from '../../../../src/lib/auth';
-import { buildUserBuffer, getApiToken, getAuthenticatedMessage, getMiddlewareCredentials, getSecurity } from '../../../../src/lib/auth-utils';
+import {
+  buildUserBuffer,
+  createAnonymousRemoteUser,
+  createRemoteUser,
+  getApiToken,
+  getAuthenticatedMessage,
+  getMiddlewareCredentials,
+  getSecurity,
+} from '../../../../src/lib/auth-utils';
 import AppConfig from '../../../../src/lib/config';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
 import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
@@ -41,8 +49,8 @@ describe('Auth utilities', () => {
     const spyNotCalled = jest.spyOn(auth, methodNotBeenCalled);
     const user: RemoteUser = {
       name: username,
-      real_groups: [],
-      groups: [],
+      real_groups: ['test', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+      groups: ['company-role1', 'company-role2'],
     };
     const token = await getApiToken(auth, config, user, password);
     expect(spy).toHaveBeenCalled();
@@ -57,7 +65,9 @@ describe('Auth utilities', () => {
     const payload = verifyPayload(token, secret);
     expect(payload.name).toBe(user);
     expect(payload.groups).toBeDefined();
+    expect(payload.groups).toEqual(['company-role1', 'company-role2', 'test', '$all', '$authenticated', '@all', '@authenticated', 'all']);
     expect(payload.real_groups).toBeDefined();
+    expect(payload.real_groups).toEqual(['test', '$all', '$authenticated', '@all', '@authenticated', 'all']);
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
@@ -67,6 +77,30 @@ describe('Auth utilities', () => {
     expect(content[0]).toBe(user);
     expect(content[0]).toBe(password);
   };
+
+  describe('createRemoteUser', () => {
+    test('create remote user', () => {
+      expect(createRemoteUser('test', [])).toEqual({
+        name: 'test',
+        real_groups: [],
+        groups: ['$all', '$authenticated', '@all', '@authenticated', 'all'],
+      });
+    });
+    test('create remote user with groups', () => {
+      expect(createRemoteUser('test', ['group1', 'group2'])).toEqual({
+        name: 'test',
+        real_groups: ['group1', 'group2'],
+        groups: ['group1', 'group2', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+      });
+    });
+    test('create anonymous remote user', () => {
+      expect(createAnonymousRemoteUser()).toEqual({
+        name: undefined,
+        real_groups: [],
+        groups: ['$all', '$anonymous', '@all', '@anonymous'],
+      });
+    });
+  });
 
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', async () => {
@@ -190,15 +224,13 @@ describe('Auth utilities', () => {
       test('should return anonymous whether token is corrupted', () => {
         const config: Config = getConfig('security-jwt', '12345');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, '12345', buildToken(TOKEN_BEARER, 'fakeToken'));
+        const credentials = getMiddlewareCredentials(security, '12345', buildToken(TOKEN_BEARER, 'fakeToken')) as RemoteUser;
 
         expect(credentials).toBeDefined();
-        // @ts-ignore
         expect(credentials.name).not.toBeDefined();
-        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // @ts-ignore
         expect(credentials.real_groups).toEqual([]);
+        expect(credentials.groups).toEqual(['$all', '$anonymous', '@all', '@anonymous']);
       });
 
       test('should return anonymous whether token and scheme are corrupted', () => {
@@ -215,14 +247,12 @@ describe('Auth utilities', () => {
         const config: Config = getConfig('security-jwt', secret);
         const token = await signCredentials('security-jwt', user, 'secretTest', secret, 'jwtEncrypt', 'aesEncrypt');
         const security: Security = getSecurity(config);
-        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token));
+        const credentials = getMiddlewareCredentials(security, secret, buildToken(TOKEN_BEARER, token)) as RemoteUser;
         expect(credentials).toBeDefined();
-        // @ts-ignore
         expect(credentials.name).toEqual(user);
-        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // @ts-ignore
-        expect(credentials.real_groups).toEqual([]);
+        expect(credentials.real_groups).toEqual(['test', '$all', '$authenticated', '@all', '@authenticated', 'all']);
+        expect(credentials.groups).toEqual(['company-role1', 'company-role2', 'test', '$all', '$authenticated', '@all', '@authenticated', 'all']);
       });
     });
   });
