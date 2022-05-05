@@ -39,9 +39,9 @@ Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdac
 
 ## Donations
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider making a donation - **your logo might end up in this readme.** 😉
+Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development and maintenance.
 
-**[Donate](https://github.com/sponsors/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
+You can donate **[GitHub Sponsors](https://github.com/sponsors/verdaccio)** or **[Open Collective](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
 
 ## What does Verdaccio do for me?
 
@@ -67,14 +67,22 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 Verdaccio has proved to be a lightweight registry that can be
 booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
 
-## Talks
+## Next talks
 
-### **Using Docker and Verdaccio to make Integration Testing Easy - Docker All Hands #4 December - 2021**.
+- [**Deep dive into Verdaccio, a lightweight Node.js registry - June 29th 2022**](https://www.nodetlv.com/)
+- [**How to improve your workflows with Verdaccio, your private Node.js registry - Global Summit for Node.js - May 18th 2022**](https://events.geekle.us/nodejs/)
 
-[![docker](https://cdn.verdaccio.dev/readme/docker-all-hands-jpicado-talk.jpg)](https://www.youtube.com/watch?v=zRI0skF1f8I)
+## The latest talk
+
+<div>
+   <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">
+     <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="300"/>
+  </a>
+</div>
 
 You might want to check out as well our previous talks:
 
+- [Using Docker and Verdaccio to make Integration Testing Easy - Docker All Hands #4 December - **Juan Picado** - 2021](https://www.youtube.com/watch?v=zRI0skF1f8I)
 - [**Juan Picado** – Testing the integrity of React components by publishing in a private registry](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
 - [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado** React Finland - 2021](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
 - [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado**](https://www.youtube.com/watch?v=qTRADSp3Hpo)
