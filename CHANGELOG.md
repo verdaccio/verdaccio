@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.10.1](https://github.com/verdaccio/verdaccio/compare/v5.10.0...v5.10.1) (2022-05-05)
+
+
+### Bug Fixes
+
+* duplicated groups on use jwt tokens ([#3151](https://github.com/verdaccio/verdaccio/issues/3151)) ([51803c3](https://github.com/verdaccio/verdaccio/commit/51803c34776ca1e868399ede4f17a087c9a39bc5))
+
 ## [5.10.0](https://github.com/verdaccio/verdaccio/compare/v5.9.0...v5.10.0) (2022-04-26)
 
 
