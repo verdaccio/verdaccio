@@ -75,7 +75,7 @@
     "raw-loader": "4.0.2",
     "msw": "0.36.5",
     "style-loader": "3.3.1",
-    "stylelint": "14.6.0",
+    "stylelint": "14.8.2",
     "stylelint-config-recommended": "7.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-processor-styled-components": "1.10.0",
