@@ -112,7 +112,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:24.7.0"],
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.0.0"],
             ["eslint-plugin-verdaccio", "npm:9.6.1"],
-            ["express", "npm:4.17.3"],
+            ["express", "npm:4.18.1"],
             ["express-rate-limit", "npm:5.5.1"],
             ["fast-safe-stringify", "npm:2.1.1"],
             ["fs-extra", "npm:10.1.0"],
@@ -8128,6 +8128,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookie", "npm:0.4.2"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.5.0", {
+          "packageLocation": "./.yarn/cache/cookie-npm-0.5.0-e2d58a161a-d8775419ba.zip/node_modules/cookie/",
+          "packageDependencies": [
+            ["cookie", "npm:0.5.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["cookie-signature", [
@@ -9911,6 +9918,44 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["vary", "npm:1.1.2"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:4.18.1", {
+          "packageLocation": "./.yarn/cache/express-npm-4.18.1-842e583ae1-1483f1b9f2.zip/node_modules/express/",
+          "packageDependencies": [
+            ["express", "npm:4.18.1"],
+            ["accepts", "npm:1.3.8"],
+            ["array-flatten", "npm:1.1.1"],
+            ["body-parser", "npm:1.20.0"],
+            ["content-disposition", "npm:0.5.4"],
+            ["content-type", "npm:1.0.4"],
+            ["cookie", "npm:0.5.0"],
+            ["cookie-signature", "npm:1.0.6"],
+            ["debug", "virtual:1820eff49a3510f59844b6605d494e2deca1520fa9e3aa7cf6600a27b1172a18c035fa06a11454e24c22ee26b6472ef79ca6bf8d7f3c9067161707279e01bef3#npm:2.6.9"],
+            ["depd", "npm:2.0.0"],
+            ["encodeurl", "npm:1.0.2"],
+            ["escape-html", "npm:1.0.3"],
+            ["etag", "npm:1.8.1"],
+            ["finalhandler", "npm:1.2.0"],
+            ["fresh", "npm:0.5.2"],
+            ["http-errors", "npm:2.0.0"],
+            ["merge-descriptors", "npm:1.0.1"],
+            ["methods", "npm:1.1.2"],
+            ["on-finished", "npm:2.4.1"],
+            ["parseurl", "npm:1.3.3"],
+            ["path-to-regexp", "npm:0.1.7"],
+            ["proxy-addr", "npm:2.0.7"],
+            ["qs", "npm:6.10.3"],
+            ["range-parser", "npm:1.2.1"],
+            ["safe-buffer", "npm:5.2.1"],
+            ["send", "npm:0.18.0"],
+            ["serve-static", "npm:1.15.0"],
+            ["setprototypeof", "npm:1.2.0"],
+            ["statuses", "npm:2.0.1"],
+            ["type-is", "npm:1.6.18"],
+            ["utils-merge", "npm:1.0.1"],
+            ["vary", "npm:1.1.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["express-rate-limit", [
@@ -10202,6 +10247,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["on-finished", "npm:2.3.0"],
             ["parseurl", "npm:1.3.3"],
             ["statuses", "npm:1.5.0"],
+            ["unpipe", "npm:1.0.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.2.0", {
+          "packageLocation": "./.yarn/cache/finalhandler-npm-1.2.0-593d001463-5ade13dca8.zip/node_modules/finalhandler/",
+          "packageDependencies": [
+            ["finalhandler", "npm:1.2.0"],
+            ["debug", "virtual:1820eff49a3510f59844b6605d494e2deca1520fa9e3aa7cf6600a27b1172a18c035fa06a11454e24c22ee26b6472ef79ca6bf8d7f3c9067161707279e01bef3#npm:2.6.9"],
+            ["encodeurl", "npm:1.0.2"],
+            ["escape-html", "npm:1.0.3"],
+            ["on-finished", "npm:2.4.1"],
+            ["parseurl", "npm:1.3.3"],
+            ["statuses", "npm:2.0.1"],
             ["unpipe", "npm:1.0.0"]
           ],
           "linkType": "HARD",
@@ -16332,6 +16391,26 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["statuses", "npm:1.5.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:0.18.0", {
+          "packageLocation": "./.yarn/cache/send-npm-0.18.0-faadf6353f-a5de80329a.zip/node_modules/send/",
+          "packageDependencies": [
+            ["send", "npm:0.18.0"],
+            ["debug", "virtual:1820eff49a3510f59844b6605d494e2deca1520fa9e3aa7cf6600a27b1172a18c035fa06a11454e24c22ee26b6472ef79ca6bf8d7f3c9067161707279e01bef3#npm:2.6.9"],
+            ["depd", "npm:2.0.0"],
+            ["destroy", "npm:1.2.0"],
+            ["encodeurl", "npm:1.0.2"],
+            ["escape-html", "npm:1.0.3"],
+            ["etag", "npm:1.8.1"],
+            ["fresh", "npm:0.5.2"],
+            ["http-errors", "npm:2.0.0"],
+            ["mime", "npm:1.6.0"],
+            ["ms", "npm:2.1.3"],
+            ["on-finished", "npm:2.4.1"],
+            ["range-parser", "npm:1.2.1"],
+            ["statuses", "npm:2.0.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["serve-static", [
@@ -16343,6 +16422,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["escape-html", "npm:1.0.3"],
             ["parseurl", "npm:1.3.3"],
             ["send", "npm:0.17.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:1.15.0", {
+          "packageLocation": "./.yarn/cache/serve-static-npm-1.15.0-86c81879f5-5bf154f7dd.zip/node_modules/serve-static/",
+          "packageDependencies": [
+            ["serve-static", "npm:1.15.0"],
+            ["encodeurl", "npm:1.0.2"],
+            ["escape-html", "npm:1.0.3"],
+            ["parseurl", "npm:1.3.3"],
+            ["send", "npm:0.18.0"]
           ],
           "linkType": "HARD",
         }]
@@ -18167,7 +18257,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:24.7.0"],
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.0.0"],
             ["eslint-plugin-verdaccio", "npm:9.6.1"],
-            ["express", "npm:4.17.3"],
+            ["express", "npm:4.18.1"],
             ["express-rate-limit", "npm:5.5.1"],
             ["fast-safe-stringify", "npm:2.1.1"],
             ["fs-extra", "npm:10.1.0"],
