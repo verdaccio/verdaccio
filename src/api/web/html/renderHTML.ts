@@ -11,7 +11,7 @@ import renderTemplate from './template';
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
-const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
+const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio');
 
