@@ -6169,7 +6169,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4.3.4":
+"debug@npm:4.3.4, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -12373,7 +12373,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"qs@npm:6.10.3, qs@npm:^6.10.1":
+"qs@npm:6.10.3, qs@npm:^6.10.3":
   version: 6.10.3
   resolution: "qs@npm:6.10.3"
   dependencies:
@@ -13270,7 +13270,7 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
-"semver@npm:7.3.7":
+"semver@npm:7.3.7, semver@npm:^7.3.7":
   version: 7.3.7
   resolution: "semver@npm:7.3.7"
   dependencies:
@@ -14047,32 +14047,32 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
-"superagent@npm:^7.1.0":
-  version: 7.1.1
-  resolution: "superagent@npm:7.1.1"
+"superagent@npm:^7.1.3":
+  version: 7.1.3
+  resolution: "superagent@npm:7.1.3"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.3
-    debug: ^4.3.3
+    debug: ^4.3.4
     fast-safe-stringify: ^2.1.1
     form-data: ^4.0.0
     formidable: ^2.0.1
     methods: ^1.1.2
     mime: ^2.5.0
-    qs: ^6.10.1
+    qs: ^6.10.3
     readable-stream: ^3.6.0
-    semver: ^7.3.5
-  checksum: 7c6ce91fb9d9203e8d4a4d6e74b9a56db7c02d6633291474fc86a15e613e1cf4b8ba7346800058df3ae4f204f229d4cb0b0b01f3375f0308866fbfb1680aa842
+    semver: ^7.3.7
+  checksum: a841b2232e626d44a49a6219b8d1428c8f7893bb31eb387487e90120a84324a3a5ae03977d7bf257527c0dd5caf0a6439d79268a3c809af7b70767f30824e9c2
   languageName: node
   linkType: hard
 
-"supertest@npm:6.2.2":
-  version: 6.2.2
-  resolution: "supertest@npm:6.2.2"
+"supertest@npm:6.2.3":
+  version: 6.2.3
+  resolution: "supertest@npm:6.2.3"
   dependencies:
     methods: ^1.1.2
-    superagent: ^7.1.0
-  checksum: a8cf293648f84cb935c62f87908ca9c0fd38aabaf284702cd0e9d2aa05215d81cd85ef1f620a81d5ff2efc889f5311d284568984d5d28391f07a7f77e2f0cd51
+    superagent: ^7.1.3
+  checksum: 485d478e76ebc53851fc96ea62f09f2200cea61c957241895fd2fd35dc9f4a28cd23c1951ed09d154bcac186f86e8704dc6940099a8ae4370d6896afe8f98e73
   languageName: node
   linkType: hard
 
@@ -15087,7 +15087,7 @@ typescript@4.1.3:
     selfsigned: 1.10.14
     semver: 7.3.7
     standard-version: 9.3.2
-    supertest: 6.2.2
+    supertest: 6.2.3
     ts-node: 10.7.0
     typescript: 4.1.3
     validator: 13.7.0
