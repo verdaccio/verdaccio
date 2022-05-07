@@ -1,17 +1,17 @@
-import buildDebug from 'debug';
-import LRU from 'lru-cache';
 import path from 'path';
 import { URL } from 'url';
 
-import { HEADERS } from '@verdaccio/commons-api';
 
 import { WEB_TITLE } from '../../../lib/constants';
 import { getPublicUrl, hasLogin, isHTTPProtocol } from '../../../lib/utils';
 import renderTemplate from './template';
+import { HEADERS } from '@verdaccio/commons-api';
+import LRU from 'lru-cache';
+import buildDebug from 'debug';
 
 const pkgJSON = require('../../../../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
-const cache = new LRU({ max: 500, maxAge: 1000 * 60 * 60 });
+const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio');
 
