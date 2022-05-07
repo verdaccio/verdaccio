@@ -70,6 +70,12 @@ module.exports = {
       indexName: 'verdaccio',
       contextualSearch: true
     },
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
+    },
     navbar: {
       title: `Verdaccio - v${pkgJson.version}`,
       logo: {
@@ -185,8 +191,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
-    },
-    hideableSidebar: true,
+    },    
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
