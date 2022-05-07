@@ -5884,6 +5884,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:0.5.0":
+  version: 0.5.0
+  resolution: "cookie@npm:0.5.0"
+  checksum: d8775419ba4dd8cc169aa7e070b0d33ca3d9d9a456b0c871b15f492a2032962f7c436c7f1fa81d9275c6b3af27611e68f70714da9ff3c15ebf6bb69ed9e0333a
+  languageName: node
+  linkType: hard
+
 "cookiejar@npm:^2.1.3":
   version: 2.1.3
   resolution: "cookiejar@npm:2.1.3"
@@ -7386,6 +7393,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"express@npm:4.18.1":
+  version: 4.18.1
+  resolution: "express@npm:4.18.1"
+  dependencies:
+    accepts: ~1.3.8
+    array-flatten: 1.1.1
+    body-parser: 1.20.0
+    content-disposition: 0.5.4
+    content-type: ~1.0.4
+    cookie: 0.5.0
+    cookie-signature: 1.0.6
+    debug: 2.6.9
+    depd: 2.0.0
+    encodeurl: ~1.0.2
+    escape-html: ~1.0.3
+    etag: ~1.8.1
+    finalhandler: 1.2.0
+    fresh: 0.5.2
+    http-errors: 2.0.0
+    merge-descriptors: 1.0.1
+    methods: ~1.1.2
+    on-finished: 2.4.1
+    parseurl: ~1.3.3
+    path-to-regexp: 0.1.7
+    proxy-addr: ~2.0.7
+    qs: 6.10.3
+    range-parser: ~1.2.1
+    safe-buffer: 5.2.1
+    send: 0.18.0
+    serve-static: 1.15.0
+    setprototypeof: 1.2.0
+    statuses: 2.0.1
+    type-is: ~1.6.18
+    utils-merge: 1.0.1
+    vary: ~1.1.2
+  checksum: 1483f1b9f21f4be2480ae750c458fcade2565142b8abc3e78fa8874c61dc82bf72ea5c6b2d5f6e8b3296608a49cb384274ed80ad9e5c2ba4d2aed22f9b7ed18e
+  languageName: node
+  linkType: hard
+
 "ext@npm:^1.1.2":
   version: 1.4.0
   resolution: "ext@npm:1.4.0"
@@ -7632,6 +7678,21 @@ __metadata:
   dependencies:
     to-regex-range: ^5.0.1
   checksum: efca43d59b487ad4bc0b2b1cb9e51617c75a7b0159db51fa190c75c3d634ea5fad1ff4750d7c14346add4cd065e3c46e8f99af333edf2b4ec2a424f87e491a85
+  languageName: node
+  linkType: hard
+
+"finalhandler@npm:1.2.0":
+  version: 1.2.0
+  resolution: "finalhandler@npm:1.2.0"
+  dependencies:
+    debug: 2.6.9
+    encodeurl: ~1.0.2
+    escape-html: ~1.0.3
+    on-finished: 2.4.1
+    parseurl: ~1.3.3
+    statuses: 2.0.1
+    unpipe: ~1.0.0
+  checksum: 5ade13dca8ecbb238a3fb55bff67d0d189330d75b75f597fe8a6c4ebb42e7fc52171a94131ded9e64ac476013a13896cfcd7b0702fcfbf85f2918c7247adb24f
   languageName: node
   linkType: hard
 
@@ -13340,6 +13401,27 @@ resolve@^1.20.0:
   languageName: node
   linkType: hard
 
+"send@npm:0.18.0":
+  version: 0.18.0
+  resolution: "send@npm:0.18.0"
+  dependencies:
+    debug: 2.6.9
+    depd: 2.0.0
+    destroy: 1.2.0
+    encodeurl: ~1.0.2
+    escape-html: ~1.0.3
+    etag: ~1.8.1
+    fresh: 0.5.2
+    http-errors: 2.0.0
+    mime: 1.6.0
+    ms: 2.1.3
+    on-finished: 2.4.1
+    range-parser: ~1.2.1
+    statuses: 2.0.1
+  checksum: a5de80329a1e347a888e27b1734c51eb3d04c7c49e5aeeb94f6ed0c3f0bc06b214a9005fdf2ba450e5a88015c7b33723849c766ef3b506bb7bfae99e690fcff4
+  languageName: node
+  linkType: hard
+
 "serve-static@npm:1.14.2":
   version: 1.14.2
   resolution: "serve-static@npm:1.14.2"
@@ -13349,6 +13431,18 @@ resolve@^1.20.0:
     parseurl: ~1.3.3
     send: 0.17.2
   checksum: 5a38fdf841ceb30ad63ef26dace35805c0813fe9864a76f66cf5469018638c64aa182558d26f6210f4ba27d6c99d3307bf9427e6b842d81e0705bc57efb39a0b
+  languageName: node
+  linkType: hard
+
+"serve-static@npm:1.15.0":
+  version: 1.15.0
+  resolution: "serve-static@npm:1.15.0"
+  dependencies:
+    encodeurl: ~1.0.2
+    escape-html: ~1.0.3
+    parseurl: ~1.3.3
+    send: 0.18.0
+  checksum: 5bf154f7ddecdbb2c3710fcda40a6947c370150856a709f464adbdde9f2d87c31ca4869054b696cd7736a6a6a04e3d4532acc353dc67a8fdbcc866471cb250c7
   languageName: node
   linkType: hard
 
@@ -15048,7 +15142,7 @@ typescript@4.1.3:
     eslint-plugin-jest: 24.7.0
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-verdaccio: 9.6.1
-    express: 4.17.3
+    express: 4.18.1
     express-rate-limit: 5.5.1
     fast-safe-stringify: 2.1.1
     fs-extra: 10.1.0
