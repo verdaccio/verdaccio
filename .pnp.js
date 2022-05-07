@@ -129,7 +129,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
-            ["lru-cache", "npm:7.8.1"],
+            ["lru-cache", "npm:7.9.0"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:4.0.15"],
             ["memoizee", "npm:0.4.15"],
@@ -13411,10 +13411,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:7.8.1", {
-          "packageLocation": "./.yarn/cache/lru-cache-npm-7.8.1-c3cb0369b1-06d057fda2.zip/node_modules/lru-cache/",
+        ["npm:7.9.0", {
+          "packageLocation": "./.yarn/cache/lru-cache-npm-7.9.0-d803108233-50694dcf60.zip/node_modules/lru-cache/",
           "packageDependencies": [
-            ["lru-cache", "npm:7.8.1"]
+            ["lru-cache", "npm:7.9.0"]
           ],
           "linkType": "HARD",
         }]
@@ -18184,7 +18184,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
-            ["lru-cache", "npm:7.8.1"],
+            ["lru-cache", "npm:7.9.0"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:4.0.15"],
             ["memoizee", "npm:0.4.15"],
