@@ -30,7 +30,7 @@
     "compression": "1.7.4",
     "cookies": "0.8.0",
     "cors": "2.8.5",
-    "dayjs": "1.11.1",
+    "dayjs": "1.11.2",
     "debug": "^4.3.3",
     "envinfo": "7.8.1",
     "eslint-import-resolver-node": "0.3.6",
