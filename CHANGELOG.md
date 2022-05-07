@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.10.2](https://github.com/verdaccio/verdaccio/compare/v5.10.1...v5.10.2) (2022-05-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dayjs to v1.11.2 ([#3159](https://github.com/verdaccio/verdaccio/issues/3159)) ([cd39a42](https://github.com/verdaccio/verdaccio/commit/cd39a429b61dad097e69782ce5f6201380353256))
+* **deps:** update dependency express to v4.18.1 ([#3160](https://github.com/verdaccio/verdaccio/issues/3160)) ([5fffeac](https://github.com/verdaccio/verdaccio/commit/5fffeacda98837730ecba3a7a5fc7534b469238f))
+* **deps:** update dependency lru-cache to v7.9.0 ([#3161](https://github.com/verdaccio/verdaccio/issues/3161)) ([f16a1ea](https://github.com/verdaccio/verdaccio/commit/f16a1ea68d911f69be73fecc794d47ae07593b15))
+* remove lru deprecation warning ([#3158](https://github.com/verdaccio/verdaccio/issues/3158)) ([adfbefc](https://github.com/verdaccio/verdaccio/commit/adfbefc59eb9a3e39b67bf0dcec1fc068338770f))
+* **deps:** update dependency marked to v4.0.15 ([#3153](https://github.com/verdaccio/verdaccio/issues/3153)) ([61249a4](https://github.com/verdaccio/verdaccio/commit/61249a4edd1c84527d7d2c19be75c62d1b073cef))
+
 ### [5.10.1](https://github.com/verdaccio/verdaccio/compare/v5.10.0...v5.10.1) (2022-05-05)
 
 
