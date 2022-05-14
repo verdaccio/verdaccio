@@ -1,10 +1,5 @@
-import buildDebug from 'debug';
-import { Router } from 'express';
-import _ from 'lodash';
-import mime from 'mime';
 import Path from 'path';
 
-import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -14,6 +9,11 @@ import { isPublishablePackage } from '../../../lib/storage-utils';
 import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation, validateMetadata } from '../../../lib/utils';
 import { allow, expectJson, media } from '../../middleware';
 import star from './star';
+import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
+import mime from 'mime';
+import _ from 'lodash';
+import { Router } from 'express';
+import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:publish');
 
@@ -57,10 +57,26 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
    *
    * Example flow of unpublish.
    *
-   * npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1680ms
-     npm http fetch PUT 201 http://localhost:4873/@scope%2ftest1/-rev/14-5d500cfce92f90fd 956606ms attempt #2
-     npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1601ms
-     npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
+   * There are two possible flows:
+   *
+   * - Remove all pacakges
+   *   eg: npm unpublish package-name@* --force
+   *   eg: npm unpublish package-name  --force
+   *
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1680ms
+   * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
+   *
+   * - Remove a specific version
+   *   eg: npm unpublish package-name@1.0.0 --force
+   *
+   * Get fresh manifest
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1680ms
+   * Update manifest without the version to be unpublished
+   * npm http fetch PUT 201 http://localhost:4873/custom-name/-rev/14-5d500cfce92f90fd 956606ms
+   * Get fresh manifest (revision should be different)
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1601ms
+   * Remove the tarball
+   * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
    *
    * 3. Star a package
    *
@@ -79,7 +95,8 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
 	}
    *
    */
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config, auth));
+  router.put('/:package/-rev/:revision', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config, auth));
+  router.put('/:package', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config, auth));
 
   /**
    * Un-publishing an entire package.
@@ -89,7 +106,7 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
    * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
      npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+  router.delete('/:package/-rev/:revision', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
   router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));
@@ -217,7 +234,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     try {
       const metadata = validateMetadata(req.body, packageName);
       // check _attachments to distinguish publish and deprecate
-      if (req.params._rev || (isRelatedToDeprecation(req.body) && _.isEmpty(req.body._attachments))) {
+      if (req.params?.revision || (isRelatedToDeprecation(req.body) && _.isEmpty(req.body._attachments))) {
         debug('updating a new version for %o', packageName);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;
@@ -226,7 +243,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
             logger.error({ packageName }, `not allowed to unpublish a version for @{packageName}`);
             return next(error);
           }
-          storage.changePackage(packageName, metadata, req.params.revision, function (error) {
+          storage.changePackage(packageName, metadata, req.params?.revision, function (error) {
             afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
           });
         });
