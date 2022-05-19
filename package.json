@@ -77,7 +77,7 @@
     "concurrently": "6.5.1",
     "core-js": "3.20.3",
     "cross-env": "7.0.3",
-    "debug": "4.3.3",
+    "debug": "4.3.4",
     "detect-secrets": "1.0.6",
     "pretty-format": "27.5.1",
     "jest-diff": "27.5.1",
