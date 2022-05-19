@@ -147,6 +147,10 @@
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download --verbose",
     "postinstall": "husky install"
   },
+  "engines": {
+    "node": ">=16.5",
+    "pnpm": ">=6.32.15"
+  },
   "license": "MIT",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
