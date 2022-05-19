@@ -12,7 +12,7 @@ nvm install
 Verdaccio uses **pnpm** as monorepo management. To install
 
 ```bash
-npm i -g pnpm@latest
+npm i -g pnpm@latest-6
 ```
 
 Install all needed packages

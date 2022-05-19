@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 17.x
       - name: install pnpm
-        run: sudo npm i pnpm@6.24.1 -g
+        run: sudo npm i pnpm@latest-6 -g
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
