@@ -61,8 +61,8 @@
     "@types/validator": "13.7.1",
     "@types/webpack": "5.28.0",
     "@types/webpack-env": "1.16.3",
-    "@typescript-eslint/eslint-plugin": "5.22.0",
-    "@typescript-eslint/parser": "5.22.0",
+    "@typescript-eslint/eslint-plugin": "5.25.0",
+    "@typescript-eslint/parser": "5.25.0",
     "@verdaccio/benchmark": "workspace:*",
     "@verdaccio/eslint-config": "workspace:*",
     "@verdaccio/types": "workspace:*",
@@ -77,7 +77,7 @@
     "concurrently": "6.5.1",
     "core-js": "3.20.3",
     "cross-env": "7.0.3",
-    "debug": "4.3.3",
+    "debug": "4.3.4",
     "detect-secrets": "1.0.6",
     "pretty-format": "27.5.1",
     "jest-diff": "27.5.1",
@@ -146,6 +146,10 @@
     "crowdin:download": "crowdin download --verbose --config ./crowdin.yaml",
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download --verbose",
     "postinstall": "husky install"
+  },
+  "engines": {
+    "node": ">=16.5",
+    "pnpm": ">=6.32.3 <=6.32.15"
   },
   "license": "MIT",
   "lint-staged": {
