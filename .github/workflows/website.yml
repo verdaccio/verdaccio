@@ -26,10 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Use Node 14
+      - name: Use Node 16
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Cache pnpm modules
         uses: actions/cache@v3
@@ -43,7 +43,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2.2.1
         with:
-          version: 6.10.2
+          version: 6.32.15
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
