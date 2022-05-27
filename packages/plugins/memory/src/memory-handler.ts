@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import { fs } from 'memfs';
+import path from 'path';
 
 import { VerdaccioError, errorUtils } from '@verdaccio/core';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
@@ -35,7 +36,7 @@ class MemoryHandler implements IPackageStorageManager {
     this.data = data;
     this.name = packageName;
     this.logger = logger;
-    this.path = '/';
+    this.path = `/${packageName}`;
     debug('initialized');
   }
 
@@ -113,40 +114,45 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   public writeTarball(name: string): IUploadTarball {
-    debug('write tarball %o', name);
     const uploadStream: IUploadTarball = new UploadTarball({});
-    const temporalName = `/${name}`;
+    const temporalName = `${this.path}/${name}`;
+    debug('write tarball %o', temporalName);
 
     process.nextTick(function () {
-      fs.stat(temporalName, function (fileError, stats) {
-        if (!fileError && stats) {
-          return uploadStream.emit('error', errorUtils.getConflict());
+      fs.mkdirp(path.dirname(temporalName), (mkdirpError) => {
+        if (mkdirpError) {
+          return uploadStream.emit('error', mkdirpError);
         }
+        fs.stat(temporalName, function (fileError, stats) {
+          if (!fileError && stats) {
+            return uploadStream.emit('error', errorUtils.getConflict());
+          }
 
-        try {
-          const file = fs.createWriteStream(temporalName);
+          try {
+            const file = fs.createWriteStream(temporalName);
 
-          uploadStream.pipe(file);
+            uploadStream.pipe(file);
 
-          uploadStream.done = function (): void {
-            const onEnd = function (): void {
-              uploadStream.emit('success');
+            uploadStream.done = function (): void {
+              const onEnd = function (): void {
+                uploadStream.emit('success');
+              };
+
+              uploadStream.on('end', onEnd);
             };
 
-            uploadStream.on('end', onEnd);
-          };
+            uploadStream.abort = function (): void {
+              uploadStream.emit('error', errorUtils.getBadRequest('transmision aborted'));
+              file.end();
+            };
 
-          uploadStream.abort = function (): void {
-            uploadStream.emit('error', errorUtils.getBadRequest('transmision aborted'));
-            file.end();
-          };
-
-          uploadStream.emit('open');
-          return;
-        } catch (err: any) {
-          uploadStream.emit('error', err);
-          return;
-        }
+            uploadStream.emit('open');
+            return;
+          } catch (err: any) {
+            uploadStream.emit('error', err);
+            return;
+          }
+        });
       });
     });
 
@@ -154,8 +160,8 @@ class MemoryHandler implements IPackageStorageManager {
   }
 
   public readTarball(name: string): IReadTarball {
-    const pathName = `/${name}`;
-    debug('read tarball %o', name);
+    const pathName = `${this.path}/${name}`;
+    debug('read tarball %o', pathName);
 
     const readTarballStream: IReadTarball = new ReadTarball({});
 

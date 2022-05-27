@@ -299,6 +299,46 @@ describe('writing files', () => {
       });
     }
   });
+
+  test('should support writting identical tarball filenames from different packages', (done) => {
+    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const pkgName1 = 'package1';
+    const pkgName2 = 'package2';
+    const filename = 'tarball-3.0.0.tgz';
+    const dataTarball1 = '12345';
+    const dataTarball2 = '12345678';
+    const handler = localMemory.getPackageStorage(pkgName1);
+    if (handler) {
+      const stream = handler.writeTarball(filename);
+      stream.on('data', (data) => {
+        expect(data.toString()).toBe(dataTarball1);
+      });
+      stream.on('open', () => {
+        stream.done();
+        stream.end();
+      });
+      stream.on('success', () => {
+        const handler = localMemory.getPackageStorage(pkgName2);
+        if (handler) {
+          const stream = handler.writeTarball(filename);
+          stream.on('data', (data) => {
+            expect(data.toString()).toBe(dataTarball2);
+          });
+          stream.on('open', () => {
+            stream.done();
+            stream.end();
+          });
+          stream.on('success', () => {
+            done();
+          });
+
+          stream.write(dataTarball2);
+        }
+      });
+
+      stream.write(dataTarball1);
+    }
+  });
 });
 
 describe('reading files', () => {
