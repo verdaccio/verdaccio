@@ -158,7 +158,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["verdaccio-audit", "npm:10.2.2"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
             ["verdaccio-htpasswd", "npm:10.3.0"],
-            ["verdaccio-memory", "npm:10.2.0"]
+            ["verdaccio-memory", "npm:10.2.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -18084,7 +18084,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["verdaccio-audit", "npm:10.2.2"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
             ["verdaccio-htpasswd", "npm:10.3.0"],
-            ["verdaccio-memory", "npm:10.2.0"]
+            ["verdaccio-memory", "npm:10.2.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -18127,10 +18127,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-memory", [
-        ["npm:10.2.0", {
-          "packageLocation": "./.yarn/cache/verdaccio-memory-npm-10.2.0-54bd6fecb3-b0f1acd146.zip/node_modules/verdaccio-memory/",
+        ["npm:10.2.1", {
+          "packageLocation": "./.yarn/cache/verdaccio-memory-npm-10.2.1-78db7eb20e-585bb22c23.zip/node_modules/verdaccio-memory/",
           "packageDependencies": [
-            ["verdaccio-memory", "npm:10.2.0"],
+            ["verdaccio-memory", "npm:10.2.1"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["memory-fs", "npm:0.5.0"]
