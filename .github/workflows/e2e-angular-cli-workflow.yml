@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v3.0.2
 
       - name: 'Use Node.js 14.x'
         uses: actions/setup-node@v2.5.1
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v3.0.2
 
       - name: 'Use Node.js 14.x'
         uses: actions/setup-node@v2.5.1
@@ -120,7 +120,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v3.0.2
 
       - name: 'Use Node.js 16.x'
         uses: actions/setup-node@v2.5.1
