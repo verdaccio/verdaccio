@@ -8,7 +8,12 @@
 
 # Version 6 (Development branch)
 
-> Looking for Verdaccio 5? Check branch `5.x`
+> Looking for Verdaccio 5 version? Check the branch `5.x`
+> The plugins for the `v5.x` that are hosted within this organization are located
+> at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository, while for the v6.x
+> are hosted on this project `./packages/plugins`, keep on mind `v6.x` plugins will eventually would be
+> incompatible with `v5.x` versions.
+> Note that contributing guidelines might be different based on the branch.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
