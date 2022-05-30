@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.10.3](https://github.com/verdaccio/verdaccio/compare/v5.10.2...v5.10.3) (2022-05-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/readme to v10.3.4 ([#3197](https://github.com/verdaccio/verdaccio/issues/3197)) ([2443900](https://github.com/verdaccio/verdaccio/commit/2443900329176ff856e4790f089e15897c612a56))
+* **deps:** update dependency marked to v4.0.16 ([#3187](https://github.com/verdaccio/verdaccio/issues/3187)) ([a17378d](https://github.com/verdaccio/verdaccio/commit/a17378d252d90c79cd2bd17ece131c7870a5a25b))
+* **deps:** update dependency verdaccio-audit to v10.2.2 ([#3201](https://github.com/verdaccio/verdaccio/issues/3201)) ([9e743f4](https://github.com/verdaccio/verdaccio/commit/9e743f493ef19c1c8b734c48498fe3d01f91fb0e))
+
 ### [5.10.2](https://github.com/verdaccio/verdaccio/compare/v5.10.1...v5.10.2) (2022-05-07)
 
 
