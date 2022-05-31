@@ -71,11 +71,13 @@ jobs:
 
       # Will deploy to Preview URL, only when a pull request is open with changes on the website
       - name: Build Deployment Preview
+        if: github.repository == 'verdaccio/verdaccio'
         env:
           CONTEXT: deploy-preview
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
 
       - name: 🤖 Deploy Preview Netlify
+        if: github.repository == 'verdaccio/verdaccio'
         uses: semoal/action-netlify-deploy@master
         id: netlify_preview
         with:
@@ -89,6 +91,7 @@ jobs:
           build-dir: './website/build'
 
       - name: Audit preview URL with Lighthouse
+        if: github.repository == 'verdaccio/verdaccio'
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@9.3.0
         with:
@@ -122,6 +125,7 @@ jobs:
              core.setOutput("comment", comment);
 
       - name: Add comment to PR
+        if: github.repository == 'verdaccio/verdaccio'
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v2
         with:
