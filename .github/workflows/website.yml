@@ -71,7 +71,6 @@ jobs:
 
       # Will deploy to Preview URL, only when a pull request is open with changes on the website
       - name: Build Deployment Preview
-        if: github.repository == 'verdaccio/verdaccio'
         env:
           CONTEXT: deploy-preview
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
