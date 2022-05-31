@@ -76,6 +76,7 @@ jobs:
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
 
       - name: 🤖 Deploy Preview Netlify
+        if: github.repository == 'verdaccio/verdaccio'
         uses: semoal/action-netlify-deploy@master
         id: netlify_preview
         with:
@@ -89,6 +90,7 @@ jobs:
           build-dir: './website/build'
 
       - name: Audit preview URL with Lighthouse
+        if: github.repository == 'verdaccio/verdaccio'
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@9.3.0
         with:
@@ -122,6 +124,7 @@ jobs:
              core.setOutput("comment", comment);
 
       - name: Add comment to PR
+        if: github.repository == 'verdaccio/verdaccio'
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v2
         with:
