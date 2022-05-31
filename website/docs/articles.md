@@ -81,6 +81,11 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 * [NPM privado: 5 razones y 7 recomendaciones para utilizarlo](https://www.todojs.com/npm-privado-5-razones-y-7-recomendaciones/)
 
 
+### Portuguese-BR {#portuguese-BR}
+
+* [Problemas com pacotes do npm? Verdaccio pode ser a solução](https://dev.to/dxwebster/pt-br-problemas-com-pacotes-do-npm-verdaccio-pode-ser-a-solucao-2966)
+
+
 ### German {#german}
 
 * [Struktur für große Angular-Anwendungen: Microservices, Module, MonoRepo?](https://jaxenter.de/struktur-angular-anwendungen-67467)
