@@ -1,12 +1,12 @@
+import { Command, Option } from 'clipanion';
 import path from 'path';
 
+import { ConfigRuntime } from '@verdaccio/types';
 
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
 import findConfigFile from '../../config-path';
 import { LoggerConfigItem, setup } from '../../logger/logger';
 import { parseConfigFile } from '../../utils';
-import { ConfigRuntime } from '@verdaccio/types';
-import { Command, Option } from 'clipanion';
 
 require('pkginfo')(module);
 const pkgVersion = module.exports.version;

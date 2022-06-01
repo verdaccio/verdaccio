@@ -1,9 +1,14 @@
 import constants from 'constants';
+import buildDebug from 'debug';
+import express from 'express';
+import { Application } from 'express';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import _, { assign, isFunction, isObject } from 'lodash';
 import URL from 'url';
 
+import { Callback, ConfigRuntime, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
@@ -11,11 +16,6 @@ import findConfigFile from './config-path';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 import { setup } from './logger';
 import { parseConfigFile } from './utils';
-import { Callback, ConfigRuntime, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
-import _, { assign, isFunction, isObject } from 'lodash';
-import express from 'express';
-import { Application } from 'express';
-import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:node-api');
 

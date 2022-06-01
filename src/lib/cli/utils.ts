@@ -1,8 +1,8 @@
 import path from 'path';
+import semver from 'semver';
 
 import { DEFAULT_PORT } from '../constants';
 import { parseAddress } from '../utils';
-import semver from 'semver';
 
 const logger = require('../logger');
 
