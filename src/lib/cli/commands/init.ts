@@ -1,8 +1,11 @@
 import path from 'path';
 
+
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
 import findConfigFile from '../../config-path';
+import { setup } from '../../logger';
 import { parseConfigFile } from '../../utils';
+import { ConfigRuntime } from '@verdaccio/types';
 import { Command, Option } from 'clipanion';
 
 require('pkginfo')(module);
@@ -46,11 +49,23 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
+  private initLogger(logConfig: ConfigRuntime) {
+    try {
+      if (logConfig.logs) {
+        throw Error('the property config "logs" property is longer supported, rename to "log" and use object instead');
+      }
+      setup(logConfig.logs);
+    } catch (err: any) {
+      throw new Error(err);
+    }
+  }
+
   async execute() {
     let configPathLocation;
     try {
       configPathLocation = findConfigFile(this.config as string);
       const verdaccioConfiguration = parseConfigFile(configPathLocation);
+      this.initLogger(verdaccioConfiguration);
       if (!verdaccioConfiguration.self_path) {
         verdaccioConfiguration.self_path = path.resolve(configPathLocation);
       }
