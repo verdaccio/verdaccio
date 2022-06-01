@@ -51,10 +51,7 @@ export class InitCommand extends Command {
 
   private initLogger(logConfig: ConfigRuntime) {
     try {
-      if (logConfig.logs) {
-        throw Error('the property config "logs" property is longer supported, rename to "log" and use object instead');
-      }
-      setup(logConfig.logs);
+      setup(logConfig.logs as any);
     } catch (err: any) {
       throw new Error(err);
     }
