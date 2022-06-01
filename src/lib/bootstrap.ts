@@ -13,8 +13,8 @@ import { setup } from './logger';
 import { parseConfigFile } from './utils';
 import { Callback, ConfigRuntime, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import _, { assign, isFunction, isObject } from 'lodash';
-import { Application } from 'express';
 import express from 'express';
+import { Application } from 'express';
 import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:node-api');
