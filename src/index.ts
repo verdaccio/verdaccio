@@ -1,4 +1,1 @@
-// @flow
-import { startVerdaccio } from './lib/bootstrap';
-
-export default startVerdaccio;
+export { startVerdaccio as default, initServer, runServer } from './lib/bootstrap';

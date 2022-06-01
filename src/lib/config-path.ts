@@ -1,11 +1,13 @@
 import fs from 'fs';
-import _ from 'lodash';
-import mkdirp from 'mkdirp';
 import Path from 'path';
 
-import { CHARACTER_ENCODING } from './constants';
 import { logger } from './logger';
 import { fileExists, folderExists } from './utils';
+import mkdirp from 'mkdirp';
+import _ from 'lodash';
+import buildDebug from 'debug';
+
+const debug = buildDebug('verdaccio:config');
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
@@ -23,19 +25,20 @@ export type SetupDirectory = {
  * Find and get the first config file that match.
  * @return {String} the config file path
  */
-function findConfigFile(configPath: string): string {
-  if (_.isNil(configPath) === false) {
+function findConfigFile(configPath?: string): string {
+  if (typeof configPath !== 'undefined') {
     return Path.resolve(configPath);
   }
 
   const configPaths: SetupDirectory[] = getConfigPaths();
-
+  debug('%o posible locations found', configPaths.length);
   if (_.isEmpty(configPaths)) {
     throw new Error('no configuration files can be processed');
   }
 
   const primaryConf: any = _.find(configPaths, (configLocation: any) => fileExists(configLocation.path));
-  if (_.isNil(primaryConf) === false) {
+  if (typeof primaryConf !== 'undefined') {
+    debug('previous location exist already %s', primaryConf?.path);
     return primaryConf.path;
   }
 

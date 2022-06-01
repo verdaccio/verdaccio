@@ -1,8 +1,8 @@
 import path from 'path';
-import semver from 'semver';
 
 import { DEFAULT_PORT } from '../constants';
 import { parseAddress } from '../utils';
+import semver from 'semver';
 
 const logger = require('../logger');
 
@@ -27,7 +27,7 @@ export function isVersionValid(version) {
  - localhost:5557
  @return {Array}
  */
-export function getListListenAddresses(argListen: string, configListen: any): any {
+export function getListListenAddresses(argListen: string | void, configListen: any): any {
   // command line || config file || default
   let addresses;
   if (argListen) {
