@@ -1,11 +1,11 @@
+import buildDebug from 'debug';
 import fs from 'fs';
+import _ from 'lodash';
+import mkdirp from 'mkdirp';
 import Path from 'path';
 
 import { logger } from './logger';
 import { fileExists, folderExists } from './utils';
-import mkdirp from 'mkdirp';
-import _ from 'lodash';
-import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio:config');
 
