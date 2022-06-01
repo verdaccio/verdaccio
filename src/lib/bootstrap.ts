@@ -10,8 +10,8 @@ import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { assign, isFunction, isObject } from 'lodash';
-import { Application } from 'express';
 import express from 'express';
+import { Application } from 'express';
 
 const logger = require('./logger');
 
