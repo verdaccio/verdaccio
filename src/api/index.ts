@@ -1,16 +1,10 @@
-import compression from 'compression';
-import cors from 'cors';
-import express, { Application } from 'express';
-import { HttpError } from 'http-errors';
-import _ from 'lodash';
 
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../types';
 import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR, HTTP_STATUS } from '../lib/constants';
-import { logger } from '../lib/logger';
+import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode, getUserAgent } from '../lib/utils';
@@ -19,6 +13,12 @@ import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, final, log, serveFavicon } from './middleware';
 import web from './web';
 import webAPI from './web/api';
+import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
+import _ from 'lodash';
+import { HttpError } from 'http-errors';
+import express, { Application } from 'express';
+import cors from 'cors';
+import compression from 'compression';
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
@@ -104,9 +104,13 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 };
 
 export default (async function (configHash: any): Promise<any> {
+  setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins
-  const plugin_params = { config, logger };
+  const plugin_params = {
+    config: config,
+    logger: logger,
+  };
   const filters = loadPlugin(config, config.filters || {}, plugin_params, (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata);
   const storage: IStorageHandler = new Storage(config);
   // waits until init calls have been initialized
