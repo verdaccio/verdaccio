@@ -21,7 +21,6 @@ uplinks:
 
 packages:
   '@*/*':
-    # scoped packages
     access: $all
     publish: $authenticated
     unpublish: $authenticated
@@ -40,5 +39,4 @@ middlewares:
   audit:
     enabled: true
 
-logs:
-  - { type: stdout, format: json, level: warn }
+logs: { type: stdout, format: json, level: warn }

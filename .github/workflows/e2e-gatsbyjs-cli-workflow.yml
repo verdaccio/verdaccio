@@ -32,7 +32,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873
-          loglevel="silent"
+          loglevel="warn"
           fetch-retries=10
           fetch-retry-factor=2
           fetch-retry-mintimeout=10000
