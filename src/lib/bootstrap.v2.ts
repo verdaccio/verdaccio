@@ -9,7 +9,6 @@ import endPointAPI from '../api/index';
 import { getListListenAddresses } from './cli/utils';
 import findConfigFile from './config-path';
 import { API_ERROR } from './constants';
-import { setup } from './logger';
 import { parseConfigFile } from './utils';
 import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import _, { assign, isFunction } from 'lodash';
@@ -78,7 +77,6 @@ export async function initServer(config: ConfigRuntime, port: string | void, ver
   return new Promise((resolve, reject) => {
     // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
-    setup(config?.logs as any);
     // @ts-expect-error
     displayExperimentsInfoBox(config.experiments);
     endPointAPI(config).then((app) => {
