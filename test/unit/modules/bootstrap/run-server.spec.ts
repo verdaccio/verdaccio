@@ -39,5 +39,10 @@ describe('bootstrap modern', () => {
         });
       });
     });
+
+    test('run server should fails with wrong path', async () => {
+      const configPath = join(__dirname, './this_does_not_exist.yaml');
+      await expect(runServer(configPath)).rejects.toThrow(/Error: CONFIG: it does not look like a valid config file/);
+    });
   });
 });
