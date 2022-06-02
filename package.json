@@ -48,7 +48,7 @@
     "marked": "4.0.16",
     "memoizee": "0.4.15",
     "mime": "3.0.0",
-    "minimatch": "5.0.1",
+    "minimatch": "5.1.0",
     "mkdirp": "1.0.4",
     "mv": "2.1.1",
     "pino": "6.14.0",
