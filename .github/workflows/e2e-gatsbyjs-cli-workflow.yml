@@ -8,7 +8,7 @@ on:
 name: 'E2E Gatsby.js CLI with verdaccio'
 jobs:
   npm6:
-    name: 'npm:gatsby example'
+    name: 'npm6:gatsby example'
     runs-on: ubuntu-latest
 
     steps:
