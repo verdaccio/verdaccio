@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.11.0](https://github.com/verdaccio/verdaccio/compare/v5.10.3...v5.11.0) (2022-06-02)
+
+
+### Features
+
+* run server init as promise ([#3210](https://github.com/verdaccio/verdaccio/issues/3210)) ([42194c7](https://github.com/verdaccio/verdaccio/commit/42194c7302dea42d30ef4ef2d17f1af97887d582))
+
 ### [5.10.3](https://github.com/verdaccio/verdaccio/compare/v5.10.2...v5.10.3) (2022-05-30)
 
 
