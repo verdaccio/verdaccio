@@ -1,4 +1,10 @@
+import compression from 'compression';
+import cors from 'cors';
+import express, { Application } from 'express';
+import { HttpError } from 'http-errors';
+import _ from 'lodash';
 
+import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../types';
 import Auth from '../lib/auth';
@@ -13,12 +19,6 @@ import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, final, log, serveFavicon } from './middleware';
 import web from './web';
 import webAPI from './web/api';
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
-import _ from 'lodash';
-import { HttpError } from 'http-errors';
-import express, { Application } from 'express';
-import cors from 'cors';
-import compression from 'compression';
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);

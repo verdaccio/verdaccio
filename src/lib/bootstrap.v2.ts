@@ -1,18 +1,18 @@
 import constants from 'constants';
+import buildDebug from 'debug';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import _, { assign } from 'lodash';
 import path from 'path';
 
+import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses } from './cli/utils';
 import findConfigFile from './config-path';
 import { API_ERROR } from './constants';
 import { parseConfigFile } from './utils';
-import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
-import _, { assign } from 'lodash';
-import buildDebug from 'debug';
 
 const debug = buildDebug('verdaccio');
 
