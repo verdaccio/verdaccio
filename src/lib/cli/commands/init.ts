@@ -62,7 +62,7 @@ export class InitCommand extends Command {
     try {
       configPathLocation = findConfigFile(this.config as string);
       const verdaccioConfiguration = parseConfigFile(configPathLocation);
-      this.initLogger(verdaccioConfiguration);
+      // this.initLogger(verdaccioConfiguration);
       if (!verdaccioConfiguration.self_path) {
         verdaccioConfiguration.self_path = path.resolve(configPathLocation);
       }
