@@ -27,7 +27,7 @@ export function isVersionValid(version) {
  - localhost:5557
  @return {Array}
  */
-export function getListListenAddresses(argListen: string, configListen: any): any {
+export function getListListenAddresses(argListen: string | void, configListen: any): any {
   // command line || config file || default
   let addresses;
   if (argListen) {

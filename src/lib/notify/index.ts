@@ -67,6 +67,7 @@ export function sendNotification(metadata: Package, notify: any, remoteUser: Rem
 
 export function notify(metadata: Package, config: Config, remoteUser: RemoteUser, publishedPackage: string): Promise<any> | void {
   if (config.notify) {
+    // @ts-ignore
     if (config.notify.content) {
       return sendNotification(metadata, config.notify as unknown as any, remoteUser, publishedPackage);
     }

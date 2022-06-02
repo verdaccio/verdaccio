@@ -1,0 +1,29 @@
+web:
+  enable: true
+  title: verdaccio-bootstrap
+
+store:
+  memory:
+    limit: 10
+
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+logs: { type: stdout, format: pretty, level: warn }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
