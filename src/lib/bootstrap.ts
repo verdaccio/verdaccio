@@ -10,8 +10,8 @@ import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
 import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 import { assign, isFunction, isObject } from 'lodash';
-import { Application } from 'express';
 import express from 'express';
+import { Application } from 'express';
 
 const logger = require('./logger');
 
@@ -32,6 +32,7 @@ function displayExperimentsInfoBox(experiments) {
  * @param {String} configPath
  * @param {String} pkgVersion
  * @param {String} pkgName
+ * @deprecated use runServer instead
  */
 function startVerdaccio(config: any, cliListen: string, configPath: string, pkgVersion: string, pkgName: string, callback: Callback): void {
   if (isObject(config) === false) {
@@ -44,6 +45,10 @@ function startVerdaccio(config: any, cliListen: string, configPath: string, pkgV
 
   endPointAPI(config).then((app): void => {
     const addresses = getListListenAddresses(cliListen, config.listen);
+
+    if (addresses.length > 1) {
+      process.emitWarning('multiple listen addresses are deprecated, please use only one');
+    }
 
     addresses.forEach(function (addr): void {
       let webServer;
@@ -135,7 +140,14 @@ function handleHTTPS(app: express.Application, configPath: string, config: Confi
     process.exit(2);
   }
 }
-
+/**
+ *
+ * @param webServer
+ * @param addr
+ * @param pkgName
+ * @param pkgVersion
+ * @deprecated use initServer instead
+ */
 function listenDefaultCallback(webServer: Application, addr: any, pkgName: string, pkgVersion: string): void {
   const server = webServer
     .listen(addr.port || addr.path, addr.host, (): void => {

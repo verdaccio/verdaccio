@@ -2,7 +2,7 @@ import constants from 'constants';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import URL from 'url';
+import path from 'path';
 
 
 import endPointAPI from '../api/index';
@@ -11,10 +11,10 @@ import findConfigFile from './config-path';
 import { API_ERROR } from './constants';
 import { parseConfigFile } from './utils';
 import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
-import _, { assign, isFunction } from 'lodash';
+import _, { assign } from 'lodash';
 import buildDebug from 'debug';
 
-const debug = buildDebug('verdaccio:node-api');
+const debug = buildDebug('verdaccio');
 
 const logger = require('./logger');
 
@@ -43,7 +43,7 @@ export function displayExperimentsInfoBox(flags) {
     const app = await runServer('./config/config.yaml');
     const app = await runServer({ configuration });
     app.listen(4000, (event) => {
-    // do something
+      // do something
     });
  * @param config
  */
@@ -52,8 +52,14 @@ export async function runServer(config?: string): Promise<any> {
   if (config === undefined || typeof config === 'string') {
     const configPathLocation = findConfigFile(config);
     configurationParsed = parseConfigFile(configPathLocation) as ConfigRuntime;
+    if (!configurationParsed.self_path) {
+      configurationParsed.self_path = path.resolve(configPathLocation);
+    }
   } else if (_.isObject(config)) {
     configurationParsed = config;
+    if (!configurationParsed.self_path) {
+      throw new Error('self_path is required, please provide a valid root path for storage');
+    }
   } else {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
@@ -62,69 +68,9 @@ export async function runServer(config?: string): Promise<any> {
   if (addresses.length > 1) {
     process.emitWarning('You have specified multiple listen addresses, using this method only the first will be used');
   }
+
   const app = await endPointAPI(configurationParsed);
   return createServerFactory(configurationParsed, addresses[0], app);
-}
-
-/**
- * Start the server on the port defined
- * @param config
- * @param port
- * @param version
- * @param pkgName
- */
-export async function initServer(config: ConfigRuntime, port: string | void, version: string, pkgName: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    // FIXME: get only the first match, the multiple address will be removed
-    const [addr] = getListListenAddresses(port, config.listen);
-    // @ts-expect-error
-    displayExperimentsInfoBox(config.experiments);
-    endPointAPI(config).then((app) => {
-      const serverFactory = createServerFactory(config, addr, app);
-      serverFactory
-        .listen(addr.port || addr.path, addr.host, (): void => {
-          // send a message for test
-          if (isFunction(process.send)) {
-            process.send({
-              verdaccio_started: true,
-            });
-          }
-          const addressServer = `${
-            addr.path
-              ? URL.format({
-                  protocol: 'unix',
-                  pathname: addr.path,
-                })
-              : URL.format({
-                  protocol: addr.proto,
-                  hostname: addr.host,
-                  port: addr.port,
-                  pathname: '/',
-                })
-          }`;
-          logger.info(`http address ${addressServer}`);
-          logger.info(`version: ${version}`);
-          resolve();
-        })
-        .on('error', function (err): void {
-          reject(err);
-          process.exitCode = 1;
-        });
-
-      function handleShutdownGracefully() {
-        logger.fatal('received shutdown signal - closing server gracefully...');
-        serverFactory.close(() => {
-          logger.info('server closed.');
-          process.exit(0);
-        });
-      }
-
-      for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
-        // Use once() so that receiving double signals exit the app.
-        process.once(signal as any, handleShutdownGracefully);
-      }
-    });
-  });
 }
 
 /**
@@ -148,7 +94,6 @@ export function createServerFactory(config: ConfigRuntime, addr, app) {
 
       // https must either have key and cert or a pfx and (optionally) a passphrase
       if (!((keyCertConfig.key && keyCertConfig.cert) || pfxConfig.pfx)) {
-        // logHTTPSError(configPath);
         throw Error('bad format https configuration');
       }
 
