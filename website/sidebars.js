@@ -26,6 +26,7 @@ module.exports = {
         "docker",
         "protect-your-dependencies",
         "e2e",
+        "verdaccio-programmatically",
         "security-policy",
         "logo",        
         {
