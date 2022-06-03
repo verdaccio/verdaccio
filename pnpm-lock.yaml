@@ -1237,7 +1237,7 @@ importers:
       supertest: 6.2.2
       undici: 4.15.0
       verdaccio-auth-memory: workspace:11.0.0-6-next.8
-      verdaccio-memory: workspace:11.0.0-6-next.9
+      verdaccio-memory: workspace:11.0.0-6-next.10
     dependencies:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config

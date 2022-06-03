@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.10
+
+### Patch Changes
+
+- b8981136: Fix storing tarballs with identical names from different packages in memory plugin
+
 ## 11.0.0-6-next.9
 
 ### Major Changes
