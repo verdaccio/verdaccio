@@ -9,7 +9,6 @@ RUN mkdir -p /verdaccio/plugins
 ADD plugins/verdaccio-docker-memory /verdaccio/plugins/verdaccio-docker-memory
 # Install the production dependencies (be careful install devDependencies here)
 RUN cd /verdaccio/plugins/verdaccio-docker-memory \
-  && ls -ls \
   && npm install --production
 
 # The final built image will be based on the standard Verdaccio docker image.
