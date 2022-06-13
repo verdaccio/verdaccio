@@ -3226,10 +3226,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/async@npm:3.2.12":
-  version: 3.2.12
-  resolution: "@types/async@npm:3.2.12"
-  checksum: 7faa00e30f2d6a5695430116a504d51301590993fe683b84faff99ed784f16d83ecf3254af53d236c915b522b9affc066ce9fd516638b7f2e4469de48146c440
+"@types/async@npm:3.2.13":
+  version: 3.2.13
+  resolution: "@types/async@npm:3.2.13"
+  checksum: ca2d43fde30282cfcddb898ed542d0db90b7a42ceea239fef912b9129e74740dcc3cd63e7a993d6ffe7e8dbaf273721a99adbdc94609ea48abc964666a5e92b4
   languageName: node
   linkType: hard
 
@@ -4555,6 +4555,13 @@ __metadata:
   version: 3.2.3
   resolution: "async@npm:3.2.3"
   checksum: 566b6d62e3108757bca3bfbd2313d833bf3b13fb8d65a7715db8b5de7a284271584aee2029f7f39cc6f39cd9cb58336ea204003f76ca02c31240919022948b97
+  languageName: node
+  linkType: hard
+
+"async@npm:3.2.4":
+  version: 3.2.4
+  resolution: "async@npm:3.2.4"
+  checksum: 0b6cc550522408998c6b5d998aff60048c43faa139f403232435c984d65a1c7cf135be45692820c90f8c2aec662b768ab8897c71983726302033a3e9e57eb023
   languageName: node
   linkType: hard
 
@@ -15018,7 +15025,7 @@ typescript@4.1.3:
     "@commitlint/config-conventional": 12.1.4
     "@octokit/rest": 18.12.0
     "@trivago/prettier-plugin-sort-imports": 3.1.1
-    "@types/async": 3.2.12
+    "@types/async": 3.2.13
     "@types/express": 4.17.13
     "@types/express-rate-limit": 5.1.3
     "@types/express-serve-static-core": 4.17.28
@@ -15042,7 +15049,7 @@ typescript@4.1.3:
     "@verdaccio/ui-theme": 6.0.0-6-next.24
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
-    async: 3.2.3
+    async: 3.2.4
     babel-eslint: 10.1.0
     babel-jest: 26.6.3
     babel-loader: ^8.2.3
