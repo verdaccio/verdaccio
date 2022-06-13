@@ -3923,15 +3923,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/file-locking@npm:10.2.0":
-  version: 10.2.0
-  resolution: "@verdaccio/file-locking@npm:10.2.0"
-  dependencies:
-    lockfile: 1.0.4
-  checksum: 583f7f0cb3227ac3dce94aeb165635b11d77e07cf164090fec9e4475c9832e400be5d7ee860e6228b6d5f21a2328a9d31a00be3f10fce32e15cf99e2145f90fd
-  languageName: node
-  linkType: hard
-
 "@verdaccio/file-locking@npm:10.3.0":
   version: 10.3.0
   resolution: "@verdaccio/file-locking@npm:10.3.0"
@@ -3941,19 +3932,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.2.1":
-  version: 10.2.1
-  resolution: "@verdaccio/local-storage@npm:10.2.1"
+"@verdaccio/local-storage@npm:10.3.0":
+  version: 10.3.0
+  resolution: "@verdaccio/local-storage@npm:10.3.0"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
-    "@verdaccio/file-locking": 10.2.0
+    "@verdaccio/file-locking": 10.3.0
     "@verdaccio/streams": 10.2.0
     async: 3.2.3
     debug: 4.3.4
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: 781f9d03ee168715c48afc3dde0b4073a8ded5c17a687643f7b70f9a7963156508d9364758b215bbc5c7783f1d6caa3653b5b592e3b7db25c818eef469f08d63
+  checksum: 7972bd7813dde9f256f570c8b10d610bef63a47e4d4b7f66b077831400e98b77d3fd43b03d89106c8d699bb29b50d2fbdcd2f76d58c5c2c560ab96da2d7e826f
   languageName: node
   linkType: hard
 
@@ -15044,7 +15035,7 @@ typescript@4.1.3:
     "@typescript-eslint/parser": 4.33.0
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/eslint-config": ^10.0.0
-    "@verdaccio/local-storage": 10.2.1
+    "@verdaccio/local-storage": 10.3.0
     "@verdaccio/readme": 10.3.4
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.5.1
