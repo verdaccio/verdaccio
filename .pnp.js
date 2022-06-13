@@ -64,7 +64,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/config-conventional", "npm:12.1.4"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
-            ["@types/async", "npm:3.2.12"],
+            ["@types/async", "npm:3.2.13"],
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.28"],
@@ -88,7 +88,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/ui-theme", "npm:6.0.0-6-next.24"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
-            ["async", "npm:3.2.3"],
+            ["async", "npm:3.2.4"],
             ["babel-eslint", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.1.0"],
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
             ["babel-loader", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.2.3"],
@@ -4859,10 +4859,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/async", [
-        ["npm:3.2.12", {
-          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.12-f4a70c9a60-7faa00e30f.zip/node_modules/@types/async/",
+        ["npm:3.2.13", {
+          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.13-439ef6b218-ca2d43fde3.zip/node_modules/@types/async/",
           "packageDependencies": [
-            ["@types/async", "npm:3.2.12"]
+            ["@types/async", "npm:3.2.13"]
           ],
           "linkType": "HARD",
         }]
@@ -6486,6 +6486,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/async-npm-3.2.3-e9d6b79c88-566b6d62e3.zip/node_modules/async/",
           "packageDependencies": [
             ["async", "npm:3.2.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.2.4", {
+          "packageLocation": "./.yarn/cache/async-npm-3.2.4-aba13508f9-0b6cc55052.zip/node_modules/async/",
+          "packageDependencies": [
+            ["async", "npm:3.2.4"]
           ],
           "linkType": "HARD",
         }]
@@ -18082,7 +18089,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/config-conventional", "npm:12.1.4"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
-            ["@types/async", "npm:3.2.12"],
+            ["@types/async", "npm:3.2.13"],
             ["@types/express", "npm:4.17.13"],
             ["@types/express-rate-limit", "npm:5.1.3"],
             ["@types/express-serve-static-core", "npm:4.17.28"],
@@ -18106,7 +18113,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/ui-theme", "npm:6.0.0-6-next.24"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
-            ["async", "npm:3.2.3"],
+            ["async", "npm:3.2.4"],
             ["babel-eslint", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.1.0"],
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:26.6.3"],
             ["babel-loader", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.2.3"],
