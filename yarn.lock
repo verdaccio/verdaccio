@@ -14985,14 +14985,14 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"verdaccio-memory@npm:10.2.1":
-  version: 10.2.1
-  resolution: "verdaccio-memory@npm:10.2.1"
+"verdaccio-memory@npm:10.3.0":
+  version: 10.3.0
+  resolution: "verdaccio-memory@npm:10.3.0"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/streams": 10.2.0
     memory-fs: 0.5.0
-  checksum: 585bb22c23bbf76fdb7c94f9c0f66c88de3a067bf2b5572a46cbcea6ab41d86e4611ac8dbf0967c1fd6141d5fd216c087810abee48d3cd49043fcff4acdeaa38
+  checksum: bcbfae86b3048c5f8c4acb07966022ee6706c215bd8b4b20d07d1bc472e05c5260a81049e4bd2b92ac11a5f370bdb80b537fefaaff627ee83b341d590aa75018
   languageName: node
   linkType: hard
 
@@ -15121,7 +15121,7 @@ typescript@4.1.3:
     verdaccio-audit: 10.2.2
     verdaccio-auth-memory: 10.2.0
     verdaccio-htpasswd: 10.3.1
-    verdaccio-memory: 10.2.1
+    verdaccio-memory: 10.3.0
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
