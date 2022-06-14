@@ -80,7 +80,7 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
         if (!plugin) {
           plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
           if (plugin) {
-            logger.warn({ name: pluginId }, `plugins name start with sinopia-* will be removed in the future, please rename package to verdaccio-*`);
+            logger.warn({ name: pluginId }, `plugin names that start with sinopia-* will be removed in the future, please rename package to verdaccio-*`);
           }
         }
       }
