@@ -1,0 +1,56 @@
+{
+  "name": "verdaccio-docker-memory",
+  "version": "11.0.0-6-next.10",
+  "description": "Storage implementation in memory",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/memory"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "@verdaccio/core": "6.0.0-6-next.5",
+    "@verdaccio/streams": "11.0.0-6-next.5",
+    "memory-fs": "0.5.0",
+    "debug": "4.3.3",
+    "memfs": "3.4.1"
+  },
+  "devDependencies": {
+    "@verdaccio/types": "11.0.0-6-next.12"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "watch": "pnpm build:js -- --watch",
+    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
