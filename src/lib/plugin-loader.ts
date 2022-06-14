@@ -1,11 +1,11 @@
+import Path from 'path';
+import { MODULE_NOT_FOUND } from './constants';
+import { logger } from './logger';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import Path from 'path';
 
 import { Config, IPlugin } from '@verdaccio/types';
 
-import { MODULE_NOT_FOUND } from './constants';
-import { logger } from './logger';
 
 const debug = buildDebug('verdaccio:plugin:loader');
 
@@ -45,6 +45,7 @@ function isES6(plugin): boolean {
 /**
  * Load a plugin following the rules
  * - First try to load from the internal directory plugins (which will disappear soon or later).
+ * - If the package is scoped eg: @scope/foo, try to load as a package
  * - A second attempt from the external plugin directory
  * - A third attempt from node_modules, in case to have multiple match as for instance verdaccio-ldap
  * and sinopia-ldap. All verdaccio prefix will have preferences.

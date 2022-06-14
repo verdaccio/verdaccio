@@ -28,6 +28,26 @@ describe('plugin loader', () => {
       expect(plugins).toHaveLength(1);
     });
 
+    test('fails on load scoped auth missing package', () => {
+      const _config = buildConf('@scope/package');
+      try {
+        // @ts-ignore
+        loadPlugin(_config, { '@scope/package': {} }, {}, undefined);
+      } catch (e) {
+        expect(e.message).toMatch(`@scope/package plugin not found. try \"npm install @scope/package\"`);
+      }
+    });
+
+    // TODO: move this package to the public registry
+    test('should load @non-babel/verdaccio-auth-custom-test scoped package', () => {
+      const _config = buildConf('@non-babel/verdaccio-auth-custom-test');
+      // @ts-ignore
+      const plugins = loadPlugin(_config, { '@non-babel/verdaccio-auth-custom-test': {} }, {}, function (plugin) {
+        return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+      });
+      expect(plugins).toHaveLength(1);
+    });
+
     test('testing storage valid plugin loader', () => {
       const _config = buildConf('verdaccio-es6-plugin');
       // @ts-ignore

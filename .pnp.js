@@ -62,6 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],
@@ -4563,6 +4564,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@non-babel/verdaccio-auth-custom-test", [
+        ["npm:0.0.1", {
+          "packageLocation": "./.yarn/cache/@non-babel-verdaccio-auth-custom-test-npm-0.0.1-32f89f49d3-8529deb062.zip/node_modules/@non-babel/verdaccio-auth-custom-test/",
+          "packageDependencies": [
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
+            ["@verdaccio/commons-api", "npm:10.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@octokit/auth-token", [
         ["npm:2.4.5", {
           "packageLocation": "./.yarn/cache/@octokit-auth-token-npm-2.4.5-91cd7149bb-4cd8ef3bc0.zip/node_modules/@octokit/auth-token/",
@@ -8036,14 +8047,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.22.4", {
-          "packageLocation": "./.yarn/cache/core-js-npm-3.22.4-4469b89edf-1305b2b9c1.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.22.4-4469b89edf/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.22.4"]
           ],
@@ -15286,7 +15297,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:fada3bd8ad326a7c196d0c24aae1d5410b84126805d4b297cac3abf549e077c61a437968e49905247d38e2ca430b4cee29c78b779ec928550ea7a1cdf2adc3c1#npm:4.1.1"],
@@ -18087,6 +18098,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],
