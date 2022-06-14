@@ -62,7 +62,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],
@@ -4565,10 +4565,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@non-babel/verdaccio-auth-custom-test", [
-        ["npm:0.0.1", {
-          "packageLocation": "./.yarn/cache/@non-babel-verdaccio-auth-custom-test-npm-0.0.1-32f89f49d3-8529deb062.zip/node_modules/@non-babel/verdaccio-auth-custom-test/",
+        ["npm:0.0.2", {
+          "packageLocation": "./.yarn/cache/@non-babel-verdaccio-auth-custom-test-npm-0.0.2-f986d3e445-5041afa4d2.zip/node_modules/@non-babel/verdaccio-auth-custom-test/",
           "packageDependencies": [
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
             ["@verdaccio/commons-api", "npm:10.2.0"]
           ],
           "linkType": "HARD",
@@ -18098,7 +18098,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.1"],
+            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],

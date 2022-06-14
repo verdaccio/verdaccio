@@ -3000,12 +3000,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@non-babel/verdaccio-auth-custom-test@npm:0.0.1":
-  version: 0.0.1
-  resolution: "@non-babel/verdaccio-auth-custom-test@npm:0.0.1"
+"@non-babel/verdaccio-auth-custom-test@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@non-babel/verdaccio-auth-custom-test@npm:0.0.2"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
-  checksum: 8529deb0623d9f4d337bfa18d4262aab6f32c15fbcd09ab3e9a07caeaf1a6539c339e809bb31a83928e5f3ab4a104c10aa9570b9b492075a80598479de08e911
+  checksum: 5041afa4d2d94c4fff9c1cb2cb251931fdeb278e139626f476fd742e4ebb99fc2f0d52717740a2ac8bbabee51f94f0708147e531f61c0eaa6e2e44e544918d61
   languageName: node
   linkType: hard
 
@@ -15032,7 +15032,7 @@ typescript@4.1.3:
     "@babel/runtime": 7.17.9
     "@commitlint/cli": 12.1.4
     "@commitlint/config-conventional": 12.1.4
-    "@non-babel/verdaccio-auth-custom-test": 0.0.1
+    "@non-babel/verdaccio-auth-custom-test": 0.0.2
     "@octokit/rest": 18.12.0
     "@trivago/prettier-plugin-sort-imports": 3.1.1
     "@types/async": 3.2.13
