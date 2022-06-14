@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "schedule:earlyMondays","helpers:pinGitHubActionDigests"],
+  "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/test-helper"],
