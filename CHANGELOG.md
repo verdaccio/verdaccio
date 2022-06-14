@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.12.0](https://github.com/verdaccio/verdaccio/compare/v5.11.0...v5.12.0) (2022-06-14)
+
+
+### Features
+
+* add scope support loading plugins ([#3227](https://github.com/verdaccio/verdaccio/issues/3227)) ([5c50ec9](https://github.com/verdaccio/verdaccio/commit/5c50ec9a2ced21c06ce690bb45af2019a514149d))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/local-storage to v10.3.0 ([#3223](https://github.com/verdaccio/verdaccio/issues/3223)) ([2b8ac7a](https://github.com/verdaccio/verdaccio/commit/2b8ac7a1aca0c898edad89ea8e3dbb5c33ee8134))
+* **deps:** update dependency async to v3.2.4 ([#3224](https://github.com/verdaccio/verdaccio/issues/3224)) ([c486af2](https://github.com/verdaccio/verdaccio/commit/c486af23eaa583f4c5042f51769f363731bd6f84))
+* **deps:** update dependency dayjs to v1.11.3 ([#3225](https://github.com/verdaccio/verdaccio/issues/3225)) ([325e536](https://github.com/verdaccio/verdaccio/commit/325e536f0323f6c1b17de594afe1fce5d6368624))
+* **deps:** update dependency lru-cache to v7.10.1 ([#3182](https://github.com/verdaccio/verdaccio/issues/3182)) ([7bc60ff](https://github.com/verdaccio/verdaccio/commit/7bc60ffca8109adbdea2462370b7c553129dcdcb))
+* **deps:** update dependency marked to v4.0.17 ([#3226](https://github.com/verdaccio/verdaccio/issues/3226)) ([9d9c086](https://github.com/verdaccio/verdaccio/commit/9d9c086ba36fca787eb97fe70cf6c7eea9128c3c))
+* **deps:** update dependency minimatch to v5.1.0 ([#3183](https://github.com/verdaccio/verdaccio/issues/3183)) ([e5dbd9b](https://github.com/verdaccio/verdaccio/commit/e5dbd9bbd1306ef5856717eb440ba8694c6e81e4))
+* **deps:** update dependency verdaccio-htpasswd to v10.3.1 ([#3220](https://github.com/verdaccio/verdaccio/issues/3220)) ([25a2825](https://github.com/verdaccio/verdaccio/commit/25a2825f8b98d8563ad850e354941fb65a4024af))
+
 ## [5.11.0](https://github.com/verdaccio/verdaccio/compare/v5.10.3...v5.11.0) (2022-06-02)
 
 
