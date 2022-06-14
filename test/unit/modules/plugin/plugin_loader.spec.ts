@@ -38,6 +38,7 @@ describe('plugin loader', () => {
       }
     });
 
+    // This package is locally installed, just a dummy scoped auth plugin
     // TODO: move this package to the public registry
     test('should load @non-babel/verdaccio-auth-custom-test scoped package', () => {
       const _config = buildConf('@non-babel/verdaccio-auth-custom-test');
