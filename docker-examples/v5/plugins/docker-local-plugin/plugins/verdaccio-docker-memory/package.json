@@ -1,0 +1,19 @@
+{
+  "name": "verdaccio-docker-memory",
+  "version": "1.0.3",
+  "description": "storage implementation in memory",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@verdaccio/streams": "1.0.0",
+    "http-errors": "1.6.3",
+    "memory-fs": "0.4.1"
+  },
+  "keywords": [
+    "verdaccio",
+    "plugin",
+    "storage"
+  ],
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "private": true,
+  "license": "MIT"
+}

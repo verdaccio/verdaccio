@@ -11,3 +11,4 @@ wiki/
 dist/
 docs/
 test/functional/store/*
+docker-examples/**/lib/**/*.js

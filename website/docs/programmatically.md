@@ -1,6 +1,6 @@
 ---
 id: verdaccio-programmatically
-title: "Using Verdaccio Programmatically"
+title: "Node.js API"
 ---
 
 Verdaccio is a binary command which is available in your enviroment when you install globally the package eg `npm i -g verdaccio`, but also can be dependency in your project and use it programmatically.
