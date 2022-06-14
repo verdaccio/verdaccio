@@ -62,7 +62,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],
@@ -80,6 +79,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],
             ["@verdaccio/local-storage", "npm:10.3.0"],
@@ -4564,16 +4564,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@non-babel/verdaccio-auth-custom-test", [
-        ["npm:0.0.2", {
-          "packageLocation": "./.yarn/cache/@non-babel-verdaccio-auth-custom-test-npm-0.0.2-f986d3e445-5041afa4d2.zip/node_modules/@non-babel/verdaccio-auth-custom-test/",
-          "packageDependencies": [
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
-            ["@verdaccio/commons-api", "npm:10.2.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@octokit/auth-token", [
         ["npm:2.4.5", {
           "packageLocation": "./.yarn/cache/@octokit-auth-token-npm-2.4.5-91cd7149bb-4cd8ef3bc0.zip/node_modules/@octokit/auth-token/",
@@ -5730,6 +5720,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/visitor-keys", "npm:4.33.0"],
             ["@typescript-eslint/types", "npm:4.33.0"],
             ["eslint-visitor-keys", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@verdaccio-scope/verdaccio-auth-foo", [
+        ["npm:0.0.2", {
+          "packageLocation": "./.yarn/cache/@verdaccio-scope-verdaccio-auth-foo-npm-0.0.2-e8d6fdf0d9-99f4727a67.zip/node_modules/@verdaccio-scope/verdaccio-auth-foo/",
+          "packageDependencies": [
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
+            ["@verdaccio/commons-api", "npm:10.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -18098,7 +18098,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.17.9"],
             ["@commitlint/cli", "npm:12.1.4"],
             ["@commitlint/config-conventional", "npm:12.1.4"],
-            ["@non-babel/verdaccio-auth-custom-test", "npm:0.0.2"],
             ["@octokit/rest", "npm:18.12.0"],
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.1.1"],
             ["@types/async", "npm:3.2.13"],
@@ -18116,6 +18115,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],
             ["@verdaccio/local-storage", "npm:10.3.0"],

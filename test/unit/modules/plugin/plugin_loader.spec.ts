@@ -40,10 +40,10 @@ describe('plugin loader', () => {
 
     // This package is locally installed, just a dummy scoped auth plugin
     // TODO: move this package to the public registry
-    test('should load @non-babel/verdaccio-auth-custom-test scoped package', () => {
-      const _config = buildConf('@non-babel/verdaccio-auth-custom-test');
+    test('should load @verdaccio-scope/verdaccio-auth-foo scoped package', () => {
+      const _config = buildConf('@verdaccio-scope/verdaccio-auth-foo');
       // @ts-ignore
-      const plugins = loadPlugin(_config, { '@non-babel/verdaccio-auth-custom-test': {} }, {}, function (plugin) {
+      const plugins = loadPlugin(_config, { '@verdaccio-scope/verdaccio-auth-foo': {} }, {}, function (plugin) {
         return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
       });
       expect(plugins).toHaveLength(1);
