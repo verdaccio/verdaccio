@@ -3892,6 +3892,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio-scope/verdaccio-auth-foo@npm:0.0.2":
+  version: 0.0.2
+  resolution: "@verdaccio-scope/verdaccio-auth-foo@npm:0.0.2"
+  dependencies:
+    "@verdaccio/commons-api": 10.2.0
+  checksum: 99f4727a6795691d6eef0f697c49267b324351429e7a2f2207fa2a6ffce224298a187a5821e2aa1d2fa1809aa382ea2c328d4ab0bc7eec164702aee44e4ffdb3
+  languageName: node
+  linkType: hard
+
 "@verdaccio/commons-api@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/commons-api@npm:10.2.0"
@@ -15049,6 +15058,7 @@ typescript@4.1.3:
     "@types/semver": 7.3.9
     "@typescript-eslint/eslint-plugin": 4.33.0
     "@typescript-eslint/parser": 4.33.0
+    "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/eslint-config": ^10.0.0
     "@verdaccio/local-storage": 10.3.0

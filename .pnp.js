@@ -79,6 +79,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],
             ["@verdaccio/local-storage", "npm:10.3.0"],
@@ -5723,6 +5724,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@verdaccio-scope/verdaccio-auth-foo", [
+        ["npm:0.0.2", {
+          "packageLocation": "./.yarn/cache/@verdaccio-scope-verdaccio-auth-foo-npm-0.0.2-e8d6fdf0d9-99f4727a67.zip/node_modules/@verdaccio-scope/verdaccio-auth-foo/",
+          "packageDependencies": [
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
+            ["@verdaccio/commons-api", "npm:10.2.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@verdaccio/commons-api", [
         ["npm:10.2.0", {
           "packageLocation": "./.yarn/cache/@verdaccio-commons-api-npm-10.2.0-d36a19383f-d93c93220a.zip/node_modules/@verdaccio/commons-api/",
@@ -8036,14 +8047,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.22.4", {
-          "packageLocation": "./.yarn/cache/core-js-npm-3.22.4-4469b89edf-1305b2b9c1.zip/node_modules/core-js/",
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.22.4-4469b89edf/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.22.4"]
           ],
@@ -15293,7 +15304,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:fada3bd8ad326a7c196d0c24aae1d5410b84126805d4b297cac3abf549e077c61a437968e49905247d38e2ca430b4cee29c78b779ec928550ea7a1cdf2adc3c1#npm:4.1.1"],
@@ -18111,6 +18122,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.9"],
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.33.0"],
+            ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],
             ["@verdaccio/commons-api", "npm:10.2.0"],
             ["@verdaccio/eslint-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],
             ["@verdaccio/local-storage", "npm:10.3.0"],

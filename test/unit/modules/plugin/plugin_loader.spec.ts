@@ -28,6 +28,27 @@ describe('plugin loader', () => {
       expect(plugins).toHaveLength(1);
     });
 
+    test('fails on load scoped auth missing package', () => {
+      const _config = buildConf('@scope/package');
+      try {
+        // @ts-ignore
+        loadPlugin(_config, { '@scope/package': {} }, {}, undefined);
+      } catch (e) {
+        expect(e.message).toMatch(`@scope/package plugin not found. try \"npm install @scope/package\"`);
+      }
+    });
+
+    // This package is locally installed, just a dummy scoped auth plugin
+    // TODO: move this package to the public registry
+    test('should load @verdaccio-scope/verdaccio-auth-foo scoped package', () => {
+      const _config = buildConf('@verdaccio-scope/verdaccio-auth-foo');
+      // @ts-ignore
+      const plugins = loadPlugin(_config, { '@verdaccio-scope/verdaccio-auth-foo': {} }, {}, function (plugin) {
+        return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+      });
+      expect(plugins).toHaveLength(1);
+    });
+
     test('testing storage valid plugin loader', () => {
       const _config = buildConf('verdaccio-es6-plugin');
       // @ts-ignore

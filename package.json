@@ -104,6 +104,7 @@
     "@types/semver": "7.3.9",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
+    "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "@verdaccio/eslint-config": "^10.0.0",
     "@verdaccio/types": "10.5.1",
     "all-contributors-cli": "6.20.0",
