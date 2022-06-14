@@ -94,7 +94,7 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
         plugin = tryLoad(`sinopia-${pluginId}`);
       }
       if (plugin) {
-        debug('plugin %s is a npm package', pluginId);
+        debug('plugin %s is an npm package', pluginId);
       }
     }
 
