@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.13.0](https://github.com/verdaccio/verdaccio/compare/v5.12.0...v5.13.0) (2022-06-17)
+
+
+### Features
+
+* allow other password hashing algorithms ([#3229](https://github.com/verdaccio/verdaccio/issues/3229)) ([87fbc0f](https://github.com/verdaccio/verdaccio/commit/87fbc0fb7c0dbddbd6c53726e12f69cf02368127))
+
 ## [5.12.0](https://github.com/verdaccio/verdaccio/compare/v5.11.0...v5.12.0) (2022-06-14)
 
 
