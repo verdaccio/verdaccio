@@ -66,12 +66,21 @@ auth:
     file: ./htpasswd
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to -1 to disable registration.
-    #max_users: 1000
+    # max_users: 1000
+    # Hash algorithm, possible options are: "bcrypt", "md5", "sha1", "crypt".
+    algorithm: bcrypt # by default is crypt, but is recommended use bcrypt for new installations
+    # Rounds number for "bcrypt", will be ignored for other algorithms.
+    rounds: 10    
 ```
+
+> The default algorithm is `crypt`, considered not secure for production environments, it's recommended for new installations use `bcrypt` instead. Note after verdaccio 6.x
+the default will be `bcrypt`.
 
 Property | Type | Required | Example | Support | Description
 --- | --- | --- | --- | --- | ---
 file | string | Yes | ./htpasswd | all | file that host the encrypted credentials
 max_users | number | No | 1000 | all | set limit of users
+algorithm | string | No | bcrypt/md5/sha1/crypt | >=5.13.0 | set hasing password algorithm
+rounds | number | No | 10 | >=5.13.0 | Rounds number for "bcrypt", will be ignored for other algorithms
 
-In case you decide to prevent users from signing up themselves, you can set `max_users: -1`.
+> In case you decide to prevent users from signing up themselves, you can set `max_users: -1`.

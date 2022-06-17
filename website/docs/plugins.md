@@ -34,10 +34,33 @@ Open the `config.yaml` file and update the `auth` section as follows:
 
 The default configuration looks like this, due we use a build-in `htpasswd` plugin by default that you can disable just commenting out the following lines.
 
+### Naming convention  {#naming-convention}
 
+Since version `2.0.0` until version plugins must start with the following convention:
+
+- `sinopia-xxx` (deprecated and will be removed on 6.x.x)
+- `verdaccio-xxx`
+
+After version `5.12.0` scoped plugins are supported, for example:
+
+```yaml
+auth:
+  '@my-org/auth-awesome-plugin':
+    foo: some value
+    bar: another value
+store:
+  '@my-org/store-awesome-plugin':
+    foo: some value
+    bar: another value    
+middleware:
+  '@my-org/middleware-awesome-plugin':
+    foo: some value
+    bar: another value        
+```
 ### Authentication Configuration {#authentication-configuration}
 
 ```yaml
+auth:
   htpasswd:
     file: ./htpasswd
     # max_users: 1000
