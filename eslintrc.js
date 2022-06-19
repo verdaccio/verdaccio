@@ -6,9 +6,9 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:import/typescript',
-    'prettier',
+    'plugin:prettier/recommended',
   ],
-  plugins: ['import', 'jest'],
+  plugins: ['import', 'jest', 'prettier'],
   env: {
     es6: true,
     node: true,
@@ -23,20 +23,18 @@ module.exports = {
     ecmaVersion: 11,
     ecmaFeatures: {
       impliedStrict: true,
-      jsx: true,
     },
   },
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts', '.tsx'],
+        extensions: ['.js', '.ts'],
       },
     },
   },
   parser: '@typescript-eslint/parser',
   rules: {
     curly: ['error', 'all'],
-    'react/prop-types': 0,
     'jest/no-export': 0,
     'jest/no-test-callback': 0,
     'jest/expect-expect': 0,
