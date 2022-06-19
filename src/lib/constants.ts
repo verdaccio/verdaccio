@@ -1,9 +1,3 @@
-/**
- * @prettier
- */
-
-// @flow
-
 export const DEFAULT_PORT = '4873';
 export const DEFAULT_PROTOCOL = 'http';
 export const DEFAULT_DOMAIN = 'localhost';

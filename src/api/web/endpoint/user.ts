@@ -1,6 +1,3 @@
-/**
- * @prettier
- */
 import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
