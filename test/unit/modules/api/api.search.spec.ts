@@ -1,40 +1,15 @@
-import _ from 'lodash';
 import nock from 'nock';
 import path from 'path';
 import rimraf from 'rimraf';
-import { Readable } from 'stream';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../../src/lib/constants';
-import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../../src/lib/constants';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { generateUnPublishURI, getNewToken, getPackage, putPackage, verifyPackageVersionDoesExist } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
-import { generateDeprecateMetadata, generatePackageMetadata, generatePackageUnpublish, generateStarMedatada, generateVersion } from '../../__helper/utils';
 import configDefault from '../../partials/config';
-import publishMetadata from '../../partials/publish-api';
-
-const sleep = (delay) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'debug' }]);
-
-const credentials = { name: 'jota', password: 'secretPass' };
-
-const putVersion = (app, name, publishMetadata) => {
-  return request(app)
-    .put(name)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .send(JSON.stringify(publishMetadata))
-    .expect(HTTP_STATUS.CREATED)
-    .set('accept', 'gzip')
-    .set('accept-encoding', HEADERS.JSON)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
-};
 
 describe('endpoint unit test', () => {
   let app;

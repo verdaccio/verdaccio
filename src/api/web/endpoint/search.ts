@@ -1,7 +1,3 @@
-/**
- * @prettier
- * @flow
- */
 import { Router } from 'express';
 
 import { Package } from '@verdaccio/types';

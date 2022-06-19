@@ -1,3 +1,4 @@
+# files
 node_modules
 coverage/
 wiki/
@@ -5,10 +6,16 @@ static/
 flow-typed/
 website/
 build/
+Dockerfile
+test/unit/partials/
+types/custom.d.ts
+LICENSE
+.pnp.js
+
+# extensions 
 *.md
 *.lock
 *.yaml
-Dockerfile
 *.rpi
 *.html
 *.scss
@@ -16,8 +23,3 @@ Dockerfile
 *.jpg
 *.sh
 *.ico
-test/unit/partials/
-types/custom.d.ts
-docker-examples/
-LICENSE
-.pnp.js

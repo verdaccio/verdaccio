@@ -5,8 +5,8 @@ import Stream from 'stream';
 
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { ReadTarball } from '@verdaccio/streams';
-import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 import { Callback, Config, DistFile, IReadTarball, IUploadTarball, Logger, MergeTags, Package, Version, Versions } from '@verdaccio/types';
+import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 
 import { IGetPackageOptions, IPluginFilters, IProxy, IStorage, IStorageHandler, ISyncUplinks, ProxyList, StringValue } from '../../types';
 import { logger } from '../lib/logger';

@@ -1,10 +1,6 @@
 {
-  "extends": [
-    "eslint:recommended"
-  ],
   "env": {
     "node": true,
-    "mocha": true,
     "es6": true,
     "browser": true
   },
@@ -24,10 +20,7 @@
       }
     ],
     "no-useless-escape": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-empty-function": 0,
     "handle-callback-err": 0,
-    "import/order": 0,
     "prefer-const": 0,
     "prefer-promise-reject-errors": 1
   }

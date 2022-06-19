@@ -1,7 +1,7 @@
 /**
  * @prettier
  */
-import express, { Request, Response, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
