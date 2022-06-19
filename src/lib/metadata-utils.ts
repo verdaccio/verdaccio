@@ -1,7 +1,3 @@
-/**
- * @prettier
- * @flow
- */
 import _ from 'lodash';
 import semver from 'semver';
 

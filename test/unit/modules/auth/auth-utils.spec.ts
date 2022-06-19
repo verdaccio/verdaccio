@@ -19,7 +19,6 @@ import { setup } from '../../../../src/lib/logger';
 import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
 import { IAuth } from '../../../../types';
 import { parseConfigurationFile } from '../../__helper';
-// $FlowFixMe
 import configExample from '../../partials/config';
 
 setup([]);

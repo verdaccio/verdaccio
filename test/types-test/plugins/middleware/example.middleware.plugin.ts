@@ -4,8 +4,8 @@
 
 /* eslint-disable no-unused-vars */
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
-import { Config as AppConfig, IBasicAuth, IPluginMiddleware, IStorageManager, RemoteUser } from '@verdaccio/types';
 import { Package } from '@verdaccio/types';
+import { Config as AppConfig, IBasicAuth, IPluginMiddleware, IStorageManager, RemoteUser } from '@verdaccio/types';
 
 import Config from '../../../../src/lib/config';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
