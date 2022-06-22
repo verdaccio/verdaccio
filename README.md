@@ -53,7 +53,7 @@ or
 docker pull verdaccio/verdaccio:nightly-master
 ```
 
-or with _helm_ official chart
+or with _helm_ [official chart](https://github.com/verdaccio/charts).
 
 ```bash
 helm repo add verdaccio https://charts.verdaccio.org
