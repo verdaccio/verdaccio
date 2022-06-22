@@ -12368,12 +12368,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.6.2":
-  version: 2.6.2
-  resolution: "prettier@npm:2.6.2"
+"prettier@npm:2.7.1":
+  version: 2.7.1
+  resolution: "prettier@npm:2.7.1"
   bin:
     prettier: bin-prettier.js
-  checksum: 10af3147eeb6e7038d6bb4cab48bace7095c4f35e9da45215a8fd3aa8785b4ca6e6cc2cc2fee073a19e230ec0271bae0660031b9252c5263eae7c08113aa8f50
+  checksum: 74e646bf9416eaf01d2aaf3e63f0227bc956eae5901bc0701885e790ea28fba5a68216a4bc766b916b48a9c0637f6a48181d6c995a2e4173bdff90bcf64b6bcf
   languageName: node
   linkType: hard
 
@@ -15281,7 +15281,7 @@ typescript@4.1.3:
     pino: 6.14.0
     pinst: 2.1.6
     pkginfo: 0.4.1
-    prettier: 2.6.2
+    prettier: 2.7.1
     prettier-bytes: ^1.0.4
     pretty-ms: ^7.0.1
     puppeteer: 5.5.0
