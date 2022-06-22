@@ -92,8 +92,11 @@ Via CLI:
 * [aws-sdk cli v3](https://github.com/aws/aws-sdk-js-v3) *(+1k ⭐️)*
 * [angular-eslint](https://github.com/angular-eslint/angular-eslint) *(+1k ⭐️)*
 
+## Example repositories 
 
-
+- [e2e-ci-example-gh-actions](https://github.com/juanpicado/e2e-ci-example-gh-actions)
+- [verdaccio-end-to-end-tests](https://github.com/juanpicado/verdaccio-end-to-end-tests)
+- [verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
 
 
 
