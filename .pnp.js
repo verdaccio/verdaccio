@@ -160,7 +160,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.2"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
-            ["verdaccio-htpasswd", "npm:10.4.0"],
+            ["verdaccio-htpasswd", "npm:10.5.0"],
             ["verdaccio-memory", "npm:10.3.0"]
           ],
           "linkType": "SOFT",
@@ -8143,14 +8143,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.22.4", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.22.4-4469b89edf/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-3.22.4-4469b89edf-1305b2b9c1.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.22.4"]
           ],
@@ -8179,7 +8179,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js-pure", [
         ["npm:3.23.1", {
-          "packageLocation": "./.yarn/unplugged/core-js-pure-npm-3.23.1-352ee71e9f/node_modules/core-js-pure/",
+          "packageLocation": "./.yarn/cache/core-js-pure-npm-3.23.1-352ee71e9f-bb20413b8f.zip/node_modules/core-js-pure/",
           "packageDependencies": [
             ["core-js-pure", "npm:3.23.1"]
           ],
@@ -15476,7 +15476,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:fada3bd8ad326a7c196d0c24aae1d5410b84126805d4b297cac3abf549e077c61a437968e49905247d38e2ca430b4cee29c78b779ec928550ea7a1cdf2adc3c1#npm:4.1.1"],
@@ -18393,7 +18393,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.7.0"],
             ["verdaccio-audit", "npm:10.2.2"],
             ["verdaccio-auth-memory", "npm:10.2.0"],
-            ["verdaccio-htpasswd", "npm:10.4.0"],
+            ["verdaccio-htpasswd", "npm:10.5.0"],
             ["verdaccio-memory", "npm:10.3.0"]
           ],
           "linkType": "SOFT",
@@ -18423,10 +18423,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["verdaccio-htpasswd", [
-        ["npm:10.4.0", {
-          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.4.0-045bc61722-1ea4dd6816.zip/node_modules/verdaccio-htpasswd/",
+        ["npm:10.5.0", {
+          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-10.5.0-66239eb3c7-f8b3392cbe.zip/node_modules/verdaccio-htpasswd/",
           "packageDependencies": [
-            ["verdaccio-htpasswd", "npm:10.4.0"],
+            ["verdaccio-htpasswd", "npm:10.5.0"],
             ["@verdaccio/file-locking", "npm:10.3.0"],
             ["apache-md5", "npm:1.1.7"],
             ["bcryptjs", "npm:2.4.3"],
