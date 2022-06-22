@@ -53,6 +53,8 @@ or
 docker pull verdaccio/verdaccio:nightly-master
 ```
 
+Furthermore, you can read the [**Debugging Guidelines**](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio) and the [**Docker Examples**](https://github.com/verdaccio/verdaccio/tree/master/docker-examples) for more advanced development.
+
 ## Donations
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider do a long support donation - **and your logo will be on this section of the readme.**
@@ -81,7 +83,13 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 ### E2E Testing
 
 Verdaccio has proved to be a lightweight registry that can be
-booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **alfresco** or **eclipse theia**. You can read more in dedicated article to E2E in our blog.
+booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js, **angular-cli** or **docusaurus\*\*. You can read more in [here](https://verdaccio.org/docs/e2e).
+
+Furthermore, here few examples how to start:
+
+- [e2e-ci-example-gh-actions](https://github.com/juanpicado/e2e-ci-example-gh-actions)
+- [verdaccio-end-to-end-tests](https://github.com/juanpicado/verdaccio-end-to-end-tests)
+- [verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
 
 ## Watch our Videos
 
@@ -89,16 +97,13 @@ booted in a couple of seconds, fast enough for any CI. Many open source projects
 
 <div>
    <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">
-     <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="300"/>
+     <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="200"/>
   </a>
 </div>
 
-### **Using Docker and Verdaccio to make Integration Testing Easy - Docker All Hands #4 December - 2021**.
-
-[![docker](https://cdn.verdaccio.dev/readme/docker-all-hands-jpicado-talk.jpg)](https://www.youtube.com/watch?v=zRI0skF1f8I)
-
 You might want to check out as well our previous talks:
 
+- [Using Docker and Verdaccio to make Integration Testing Easy - **Docker All Hands #4 December - 2021**](https://www.youtube.com/watch?v=zRI0skF1f8I)
 - [**Juan Picado** – Testing the integrity of React components by publishing in a private registry - React Finland - 2021](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
 - [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado**](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
 - [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado**](https://www.youtube.com/watch?v=qTRADSp3Hpo)
@@ -241,6 +246,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 - [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+86.2k ⭐️)_
 - [Gatsby](https://github.com/gatsbyjs/gatsby) _(+49.2k ⭐️)_
 - [Babel.js](https://github.com/babel/babel) _(+38.5k ⭐️)_
+- [Docusaurus](https://github.com/facebook/docusaurus) _(+34k ⭐️)_
 - [Vue CLI](https://github.com/vuejs/vue-cli) _(+27.4k ⭐️)_
 - [Angular CLI](https://github.com/angular/angular-cli) _(+24.3k ⭐️)_
 - [Uppy](https://github.com/transloadit/uppy) _(+23.8k ⭐️)_
@@ -255,7 +261,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 - [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
 - [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
 
-🤓 Don't be shy, you also can be in [the list](https://github.com/verdaccio/website/blob/master/docs/who-is-using.md).
+🤓 Don't be shy, add yourself to this readme.
 
 ## Open Collective Sponsors
 
