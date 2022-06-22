@@ -53,6 +53,14 @@ or
 docker pull verdaccio/verdaccio:nightly-master
 ```
 
+or with _helm_ official chart
+
+```bash
+helm repo add verdaccio https://charts.verdaccio.org
+helm repo update
+helm install verdaccio/verdaccio
+```
+
 Furthermore, you can read the [**Debugging Guidelines**](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio) and the [**Docker Examples**](https://github.com/verdaccio/verdaccio/tree/master/docker-examples) for more advanced development.
 
 ## Plugins
