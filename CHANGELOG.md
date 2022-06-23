@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.13.1](https://github.com/verdaccio/verdaccio/compare/v5.13.0...v5.13.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/local-storage to v10.3.1 ([#3245](https://github.com/verdaccio/verdaccio/issues/3245)) ([991cf10](https://github.com/verdaccio/verdaccio/commit/991cf1083de7c5a4fe0694a995e888ad47290c1e))
+* **deps:** update dependency verdaccio-htpasswd to v10.5.0 ([#3242](https://github.com/verdaccio/verdaccio/issues/3242)) ([884e05b](https://github.com/verdaccio/verdaccio/commit/884e05b13ef4161ea0619ed4c78396c2f934c113))
+
 ## [5.13.0](https://github.com/verdaccio/verdaccio/compare/v5.12.0...v5.13.0) (2022-06-17)
 
 
