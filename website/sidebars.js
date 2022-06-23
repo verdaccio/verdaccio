@@ -20,7 +20,11 @@ module.exports = {
         "what-is-verdaccio",
         "installation",
         "cli",
-        "cli-registry",
+        {
+          type: "category",
+          label: "Setting up Verdaccio",
+          items: ["cli-registry", "setup-npm", "setup-yarn", "setup-pnpm"]
+        },
         "who-is-using",
         "best",
         "docker",
