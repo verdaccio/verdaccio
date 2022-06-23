@@ -3977,19 +3977,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.3.0":
-  version: 10.3.0
-  resolution: "@verdaccio/local-storage@npm:10.3.0"
+"@verdaccio/local-storage@npm:10.3.1":
+  version: 10.3.1
+  resolution: "@verdaccio/local-storage@npm:10.3.1"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/file-locking": 10.3.0
     "@verdaccio/streams": 10.2.0
-    async: 3.2.3
+    async: 3.2.4
     debug: 4.3.4
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: 7972bd7813dde9f256f570c8b10d610bef63a47e4d4b7f66b077831400e98b77d3fd43b03d89106c8d699bb29b50d2fbdcd2f76d58c5c2c560ab96da2d7e826f
+  checksum: 5d466607c9dc63352fc028a86ea7e92d2eed827c9ad26dec460cd387b2eec4aa3a2f6820b47294f8dd2841941c247c038782bcf0cef092aed9d1f0c2e89c0ea6
   languageName: node
   linkType: hard
 
@@ -4610,13 +4610,6 @@ __metadata:
   version: 2.0.0
   resolution: "astral-regex@npm:2.0.0"
   checksum: bf049ee7048b70af5473580020f98faf09159af31a7fa5e223099966dc90e9e87760bd34030e19a6dcac05b45614b428f559bd71f027344d123555e524cb95ac
-  languageName: node
-  linkType: hard
-
-"async@npm:3.2.3":
-  version: 3.2.3
-  resolution: "async@npm:3.2.3"
-  checksum: 566b6d62e3108757bca3bfbd2313d833bf3b13fb8d65a7715db8b5de7a284271584aee2029f7f39cc6f39cd9cb58336ea204003f76ca02c31240919022948b97
   languageName: node
   linkType: hard
 
@@ -15218,7 +15211,7 @@ typescript@4.1.3:
     "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/eslint-config": ^10.0.0
-    "@verdaccio/local-storage": 10.3.0
+    "@verdaccio/local-storage": 10.3.1
     "@verdaccio/readme": 10.3.4
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.5.1
