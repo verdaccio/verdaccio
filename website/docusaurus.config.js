@@ -157,7 +157,7 @@ module.exports = {
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/verdaccio',
+              href: 'https://discord.gg/7qWJxBf',
             },
             {
               label: 'Twitter',
