@@ -91,7 +91,7 @@ Or a `publishConfig` in your `package.json`
 }
 ```
 
-For alternative configurations, please read the [Using a privare registry](cli-registry.md) section.
+For alternative configurations, please read the [Using a private registry](cli-registry.md) section.
 
 ## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}
 
