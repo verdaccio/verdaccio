@@ -54,7 +54,7 @@ describe('test web server', () => {
             darkMode: false,
             url_prefix: '/prefix',
             basename: '/prefix/',
-            primaryColor: '#4b5e40',
+            primaryColor: '#ffffff',
             // FIXME: mock these values, avoid random
             // base: 'http://127.0.0.1:60864/prefix/',
             // version: '6.0.0-6-next.28',

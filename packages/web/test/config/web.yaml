@@ -19,7 +19,7 @@ web:
   showThemeSwitch: true
   showDownloadTarball: true
   showRaw: true
-  primaryColor: '#FFFFFF'
+  primary_color: '#ffffff'
   logoURI: 'http://logo.org/logo.png'
   flags:
     - something: false

@@ -10,7 +10,7 @@ export type AuthorAvatar = Author & { avatar?: string };
 const debug = buildDebug('verdaccio:web:utils');
 
 export function validatePrimaryColor(primaryColor) {
-  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
+  const isHex = /^#([0-9A-F]{3}){1,2}$/i.test(primaryColor);
   if (!isHex) {
     debug('invalid primary color %o', primaryColor);
     return;

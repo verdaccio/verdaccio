@@ -1,13 +1,22 @@
 import fs from 'fs';
 import path from 'path';
 
-import { parseReadme } from '../src/utils/web-utils';
+import { parseReadme, validatePrimaryColor } from '../src/utils/web-utils';
 
 const readmeFile = (fileName = 'markdown.md') => {
   return fs.readFileSync(path.join(__dirname, `./partials/readme/${fileName}`));
 };
 
 describe('Utilities', () => {
+  describe('validatePrimaryColor', () => {
+    test('is valid', () => {
+      expect(validatePrimaryColor('#222222')).toEqual('#222222');
+      expect(validatePrimaryColor('#222fff')).toEqual('#222fff');
+    });
+    test('is invalid', () => {
+      expect(validatePrimaryColor('fff')).toBeUndefined();
+    });
+  });
   describe('parseReadme', () => {
     test('should parse makrdown text to html template', () => {
       const markdown = '# markdown';
