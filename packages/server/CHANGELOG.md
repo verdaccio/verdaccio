@@ -1,5 +1,14 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- Updated dependencies [a828a5f6]
+  - @verdaccio/web@6.0.0-6-next.29
+  - @verdaccio/api@6.0.0-6-next.25
+  - @verdaccio/store@6.0.0-6-next.22
+
 ## 6.0.0-6-next.30
 
 ### Patch Changes

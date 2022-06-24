@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "1.1.0-6-next.0",
+  "version": "1.1.0-6-next.1",
   "private": true,
   "description": "test helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
