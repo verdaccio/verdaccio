@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- a828a5f6: fix: #3174 set correctly ui values to html render
+
 ## 6.0.0-6-next.24
 
 ### Minor Changes

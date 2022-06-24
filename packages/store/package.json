@@ -59,7 +59,7 @@
     "@types/node": "16.11.21",
     "@verdaccio/mock": "workspace:6.0.0-6-next.15",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "@verdaccio/test-helper": "workspace:1.1.0-6-next.0",
+    "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
     "undici": "4.15.0",
     "nock": "13.2.2",
     "tmp-promise": "3.0.3",

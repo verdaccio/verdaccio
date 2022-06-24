@@ -1,5 +1,12 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- a828a5f6: fix: #3174 set correctly ui values to html render
+  - @verdaccio/store@6.0.0-6-next.22
+
 ## 6.0.0-6-next.28
 
 ### Minor Changes

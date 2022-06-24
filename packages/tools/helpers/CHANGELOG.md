@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0-6-next.1
+
+### Patch Changes
+
+- a828a5f6: fix: #3174 set correctly ui values to html render
+
 ## 1.1.0-6-next.0
 
 ### Minor Changes

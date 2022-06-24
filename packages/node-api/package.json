@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "6.0.0-6-next.31",
+  "version": "6.0.0-6-next.32",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -42,7 +42,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
-    "@verdaccio/server": "workspace:6.0.0-6-next.30",
+    "@verdaccio/server": "workspace:6.0.0-6-next.31",
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "lodash": "4.17.21"
