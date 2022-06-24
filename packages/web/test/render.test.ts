@@ -1,3 +1,4 @@
+import { JSDOM } from 'jsdom';
 import path from 'path';
 import supertest from 'supertest';
 
@@ -29,14 +30,47 @@ describe('test web server', () => {
 
   describe('render', () => {
     describe('output', () => {
-      test('should match render', async () => {
-        const response = await supertest(await initializeServer('default-test.yaml'))
+      const render = async (config = 'default-test.yaml') => {
+        const response = await supertest(await initializeServer(config))
           .get('/')
           .set('Accept', HEADERS.TEXT_HTML)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
           .expect(HTTP_STATUS.OK);
-        expect(response.text).toMatchSnapshot();
+        return new JSDOM(response.text, { runScripts: 'dangerously' });
+      };
+
+      test('should match render set ui properties', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('web.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS).toEqual(
+          expect.objectContaining({
+            showInfo: true,
+            showSettings: true,
+            showThemeSwitch: true,
+            showFooter: true,
+            showSearch: true,
+            showDownloadTarball: true,
+            darkMode: false,
+            url_prefix: '/prefix',
+            basename: '/prefix/',
+            primaryColor: '#4b5e40',
+            // FIXME: mock these values, avoid random
+            // base: 'http://127.0.0.1:60864/prefix/',
+            // version: '6.0.0-6-next.28',
+            logoURI: '',
+            flags: { searchRemote: true },
+            login: true,
+            pkgManagers: ['pnpm', 'yarn'],
+            title: 'verdaccio web',
+            scope: '@scope',
+            language: 'es-US',
+          })
+        );
       });
+
+      test.todo('test default title');
+      test.todo('test need html cache');
     });
 
     describe('status', () => {

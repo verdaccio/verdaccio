@@ -85,10 +85,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-
     if (!webPage) {
-      debug('web options %o', options);
-      debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
         {
           manifest: manifestFiles ?? defaultManifestFiles,
@@ -99,7 +96,6 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         },
         manifest
       );
-      debug('template :: %o', webPage);
       if (needHtmlCache) {
         cache.set('template', webPage);
         debug('set template cache');
@@ -112,5 +108,5 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   }
   res.setHeader('Content-Type', HEADERS.TEXT_HTML);
   res.send(webPage);
-  debug('render web');
+  debug('web rendered');
 }
