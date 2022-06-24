@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test web server render output should match render 1`] = `
+"
+    <!DOCTYPE html>
+      <html lang=\\"en-us\\"> 
+      <head>
+        <meta charset=\\"utf-8\\">
+        <base href=\\"http://127.0.0.1:51411/\\">
+        <title>verdaccio</title>        
+        <link rel=\\"icon\\" href=\\"http://127.0.0.1:51411/-/static/favicon.ico\\"/>
+        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <script>
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"darkMode\\":false,\\"basename\\":\\"/\\",\\"base\\":\\"http://127.0.0.1:51411/\\",\\"primaryColor\\":\\"#4b5e40\\",\\"version\\":\\"6.0.0-6-next.28\\",\\"logoURI\\":\\"\\",\\"flags\\":{\\"searchRemote\\":true},\\"login\\":true,\\"pkgManagers\\":[\\"yarn\\",\\"pnpm\\",\\"npm\\"],\\"title\\":\\"verdaccio\\",\\"scope\\":\\"\\",\\"language\\":\\"es-US\\"}
+        </script>
+        
+      </head>    
+      <body class=\\"body\\">
+      
+        <div id=\\"root\\"></div>
+        <script defer=\\"defer\\" src=\\"http://127.0.0.1:51411//-/static/runtime.6126058572f989c948b1.js\\"></script><script defer=\\"defer\\" src=\\"http://127.0.0.1:51411//-/static/vendors.6126058572f989c948b1.js\\"></script><script defer=\\"defer\\" src=\\"http://127.0.0.1:51411//-/static/main.6126058572f989c948b1.js\\"></script>
+        
+      </body>
+    </html>
+  "
+`;

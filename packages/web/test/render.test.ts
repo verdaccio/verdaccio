@@ -28,34 +28,47 @@ describe('test web server', () => {
   });
 
   describe('render', () => {
-    test('should return the root', async () => {
-      return supertest(await initializeServer('default-test.yaml'))
-        .get('/')
-        .set('Accept', HEADERS.TEXT_HTML)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
-        .expect(HTTP_STATUS.OK);
+    describe('output', () => {
+      test('should match render', async () => {
+        const response = await supertest(await initializeServer('default-test.yaml'))
+          .get('/')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .expect(HTTP_STATUS.OK);
+        expect(response.text).toMatchSnapshot();
+      });
     });
 
-    test('should return the body for a package detail page', async () => {
-      return supertest(await initializeServer('default-test.yaml'))
-        .get('/-/web/section/some-package')
-        .set('Accept', HEADERS.TEXT_HTML)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
-        .expect(HTTP_STATUS.OK);
-    });
+    describe('status', () => {
+      test('should return the http status 200 for root', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .expect(HTTP_STATUS.OK);
+      });
 
-    test.skip('should static file not found', async () => {
-      return supertest(await initializeServer('default-test.yaml'))
-        .get('/-/static/not-found.js')
-        .set('Accept', HEADERS.TEXT_HTML)
-        .expect(HTTP_STATUS.NOT_FOUND);
-    });
+      test('should return the body for a package detail page', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/web/section/some-package')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .expect(HTTP_STATUS.OK);
+      });
 
-    test('should static file found', async () => {
-      return supertest(await initializeServer('default-test.yaml'))
-        .get('/-/static/main.js')
-        .set('Accept', HEADERS.TEXT_HTML)
-        .expect(HTTP_STATUS.OK);
+      test('should static file not found', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/not-found.js')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .expect(HTTP_STATUS.NOT_FOUND);
+      });
+
+      test('should static file found', async () => {
+        return supertest(await initializeServer('default-test.yaml'))
+          .get('/-/static/main.js')
+          .set('Accept', HEADERS.TEXT_HTML)
+          .expect(HTTP_STATUS.OK);
+      });
     });
   });
 });
