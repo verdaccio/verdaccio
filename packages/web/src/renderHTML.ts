@@ -40,7 +40,17 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     ...config.flags,
   };
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
+  const {
+    scriptsBodyAfter,
+    metaScripts,
+    scriptsbodyBefore,
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
+  } = Object.assign(
     {},
     {
       scriptsBodyAfter: [],
@@ -50,6 +60,12 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     config?.web
   );
   const options: TemplateUIOptions = {
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
     darkMode,
     url_prefix,
     basename,
@@ -69,10 +85,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-
     if (!webPage) {
-      debug('web options %o', options);
-      debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
         {
           manifest: manifestFiles ?? defaultManifestFiles,
@@ -83,7 +96,6 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         },
         manifest
       );
-      debug('template :: %o', webPage);
       if (needHtmlCache) {
         cache.set('template', webPage);
         debug('set template cache');
@@ -96,5 +108,5 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   }
   res.setHeader('Content-Type', HEADERS.TEXT_HTML);
   res.send(webPage);
-  debug('render web');
+  debug('web rendered');
 }

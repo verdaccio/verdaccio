@@ -5,6 +5,7 @@ import path from 'path';
 
 import { Auth, IAuth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
+import { API_ERROR, errorUtils } from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
@@ -27,6 +28,12 @@ export async function initializeServer(
   routesMiddleware.map((route: any) => {
     app.use(route(config, auth, storage));
   });
+
+  // catch 404
+  app.get('/*', function (req, res, next) {
+    next(errorUtils.getNotFound(API_ERROR.FILE_NOT_FOUND));
+  });
+
   // @ts-ignore
   app.use(handleError);
   // @ts-ignore
