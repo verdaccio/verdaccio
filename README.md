@@ -102,7 +102,7 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 ### E2E Testing
 
 Verdaccio has proved to be a lightweight registry that can be
-booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js, **angular-cli** or **docusaurus\*\*. You can read more in [here](https://verdaccio.org/docs/e2e).
+booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js**, **angular-cli** or **docusaurus**. You can read more in [here](https://verdaccio.org/docs/e2e).
 
 Furthermore, here few examples how to start:
 
