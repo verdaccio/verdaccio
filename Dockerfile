@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.18.2-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.20.0-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -7,7 +7,7 @@ ENV NODE_ENV=production \
     HUSKY_DEBUG=1
 
 RUN apk --no-cache add openssl ca-certificates wget && \
-    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python2 && \
+    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
     apk add glibc-2.25-r0.apk
@@ -24,7 +24,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn cache clean && \
     yarn workspaces focus --production
 
-FROM node:14.18.2-alpine
+FROM node:14.20.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
