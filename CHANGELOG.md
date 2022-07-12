@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.13.2](https://github.com/verdaccio/verdaccio/compare/v5.13.1...v5.13.2) (2022-07-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.25 ([#3258](https://github.com/verdaccio/verdaccio/issues/3258)) ([af9cc6d](https://github.com/verdaccio/verdaccio/commit/af9cc6d4f993d07e396a0391f3a964b0c7d36268))
+* update nodejs to 14.20.0 to fix CVE-2022-32212 ([#3262](https://github.com/verdaccio/verdaccio/issues/3262)) ([5f83dc2](https://github.com/verdaccio/verdaccio/commit/5f83dc294e763d578b5d9f95cfee00e44fa6fd6e))
+
 ### [5.13.1](https://github.com/verdaccio/verdaccio/compare/v5.13.0...v5.13.1) (2022-06-23)
 
 
