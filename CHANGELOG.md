@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.13.3](https://github.com/verdaccio/verdaccio/compare/v5.13.2...v5.13.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/readme to v10.4.0 ([#3265](https://github.com/verdaccio/verdaccio/issues/3265)) ([531f468](https://github.com/verdaccio/verdaccio/commit/531f4685abe37e5d7487f665c9d480e0d085df5f))
+* **deps:** update dependency kleur to v4.1.5 ([#3263](https://github.com/verdaccio/verdaccio/issues/3263)) ([cc1c2a5](https://github.com/verdaccio/verdaccio/commit/cc1c2a5e50ca7e0e6bade2f8f18ec31c35b3fb53))
+* **deps:** update dependency lru-cache to v7.13.0 ([#3266](https://github.com/verdaccio/verdaccio/issues/3266)) ([0a611c0](https://github.com/verdaccio/verdaccio/commit/0a611c0b7df404c6ea66e104eb9ec80ffd7c49f3))
+* **deps:** update dependency marked to v4.0.18 ([#3264](https://github.com/verdaccio/verdaccio/issues/3264)) ([b3f964d](https://github.com/verdaccio/verdaccio/commit/b3f964d93aa15334b685c9b66fe44912c1aa5447))
+
 ### [5.13.2](https://github.com/verdaccio/verdaccio/compare/v5.13.1...v5.13.2) (2022-07-12)
 
 
