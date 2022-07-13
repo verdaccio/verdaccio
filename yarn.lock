@@ -10685,6 +10685,15 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"marked@npm:4.0.18":
+  version: 4.0.18
+  resolution: "marked@npm:4.0.18"
+  bin:
+    marked: bin/marked.js
+  checksum: 45174f93f994e0c08170731bf8c75dedbf8f48b9079599f59b5db841153ad9c9bcaecb947d207e3e991c92d005ac98592b80688171377a61959c0e8e9c01b8ea
+  languageName: node
+  linkType: hard
+
 "media-typer@npm:0.3.0":
   version: 0.3.0
   resolution: "media-typer@npm:0.3.0"
@@ -15055,7 +15064,7 @@ typescript@4.1.3:
     lodash: 4.17.21
     lru-cache: 7.10.1
     lunr-mutable-indexes: 2.3.2
-    marked: 4.0.17
+    marked: 4.0.18
     memoizee: 0.4.15
     mime: 3.0.0
     minimatch: 5.1.0
