@@ -128,7 +128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-junit", "npm:12.3.0"],
             ["js-yaml", "npm:4.1.0"],
             ["jsonwebtoken", "npm:8.5.1"],
-            ["kleur", "npm:4.1.4"],
+            ["kleur", "npm:4.1.5"],
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
@@ -13026,10 +13026,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:4.1.4", {
-          "packageLocation": "./.yarn/cache/kleur-npm-4.1.4-7a73ff57c6-18e52c52a0.zip/node_modules/kleur/",
+        ["npm:4.1.5", {
+          "packageLocation": "./.yarn/cache/kleur-npm-4.1.5-46b6135f41-98b8fc52e2.zip/node_modules/kleur/",
           "packageDependencies": [
-            ["kleur", "npm:4.1.4"]
+            ["kleur", "npm:4.1.5"]
           ],
           "linkType": "HARD",
         }]
@@ -18324,7 +18324,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-junit", "npm:12.3.0"],
             ["js-yaml", "npm:4.1.0"],
             ["jsonwebtoken", "npm:8.5.1"],
-            ["kleur", "npm:4.1.4"],
+            ["kleur", "npm:4.1.5"],
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
