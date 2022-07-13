@@ -10259,10 +10259,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"kleur@npm:4.1.4":
-  version: 4.1.4
-  resolution: "kleur@npm:4.1.4"
-  checksum: 18e52c52a0138448dea0137d09ace853e096f1bbc32b99d8781254258b892214718f5f7c2bc25f25d5fb84b4086bca465a4c0b7562e27ae3a25116f77ea6436f
+"kleur@npm:4.1.5":
+  version: 4.1.5
+  resolution: "kleur@npm:4.1.5"
+  checksum: 98b8fc52e2be8406f0384b4a1f0365130205ff924cd13c35378d8a036a9fec6dd8feae8c78b20f3e57ed20e22b10aa0415732057e3017a8f3298c997b57c6914
   languageName: node
   linkType: hard
 
@@ -15219,7 +15219,7 @@ typescript@4.1.3:
     jest-junit: 12.3.0
     js-yaml: 4.1.0
     jsonwebtoken: 8.5.1
-    kleur: 4.1.4
+    kleur: 4.1.5
     lint-staged: 11.0.1
     lockfile-lint: 4.6.2
     lodash: 4.17.21
