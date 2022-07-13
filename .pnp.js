@@ -134,7 +134,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash", "npm:4.17.21"],
             ["lru-cache", "npm:7.10.1"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
-            ["marked", "npm:4.0.17"],
+            ["marked", "npm:4.0.18"],
             ["memoizee", "npm:0.4.15"],
             ["mime", "npm:3.0.0"],
             ["minimatch", "npm:5.1.0"],
@@ -13514,6 +13514,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["marked", "npm:4.0.17"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:4.0.18", {
+          "packageLocation": "./.yarn/cache/marked-npm-4.0.18-3f495ac058-45174f93f9.zip/node_modules/marked/",
+          "packageDependencies": [
+            ["marked", "npm:4.0.18"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["media-typer", [
@@ -18171,7 +18178,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash", "npm:4.17.21"],
             ["lru-cache", "npm:7.10.1"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
-            ["marked", "npm:4.0.17"],
+            ["marked", "npm:4.0.18"],
             ["memoizee", "npm:0.4.15"],
             ["mime", "npm:3.0.0"],
             ["minimatch", "npm:5.1.0"],
