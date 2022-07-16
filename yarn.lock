@@ -10546,10 +10546,10 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:7.13.0":
-  version: 7.13.0
-  resolution: "lru-cache@npm:7.13.0"
-  checksum: a767bf9f5185321e0e0b9c11979b11a877698149cf9c11a0c40be83c4bd19779087acc69859ef73d60880949883a12fb388991e965038a0c06ed624adf2d83b1
+"lru-cache@npm:7.13.1":
+  version: 7.13.1
+  resolution: "lru-cache@npm:7.13.1"
+  checksum: 1f3a063cd8ad6f837b7be35cda494f135beb59fd1ba26db583d6f4366f407359f293485562827e2eff2bdb44fac9c3284d67b5c14be2d1a35608e3442e339bd6
   languageName: node
   linkType: hard
 
@@ -15014,7 +15014,7 @@ typescript@4.1.3:
     lint-staged: 11.0.1
     lockfile-lint: 4.6.2
     lodash: 4.17.21
-    lru-cache: 7.13.0
+    lru-cache: 7.13.1
     lunr-mutable-indexes: 2.3.2
     marked: 4.0.18
     memoizee: 0.4.15
