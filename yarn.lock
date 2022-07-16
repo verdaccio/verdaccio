@@ -3927,14 +3927,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.4.0":
-  version: 10.4.0
-  resolution: "@verdaccio/readme@npm:10.4.0"
+"@verdaccio/readme@npm:10.4.1":
+  version: 10.4.1
+  resolution: "@verdaccio/readme@npm:10.4.1"
   dependencies:
-    dompurify: 2.3.8
-    jsdom: 16.5.0
-    marked: 4.0.17
-  checksum: 4cf83c0ce5e92df5a8da3e0712edfb2afa855e002b5cd37a365deae6d5bbaba4effe2cd5edd362260902e3ba4d651bc42a463047f0533800c54cb3c538f75a3f
+    dompurify: 2.3.9
+    jsdom: 16.7.0
+    marked: 4.0.18
+  checksum: 58a0fc359f94492ab28c4e990f84cf7271472e026e79595ef66f6a456cc8f81fccdff21835d32182d7c6e70bec5dc7dd0efc270407acbd29c33c0448e848c9be
   languageName: node
   linkType: hard
 
@@ -4051,15 +4051,6 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 2bde98c28c1be9a08e41e581179b776b43396c9486ce52b2b9848d73c53df38c516b7edba4bacdc84cabc9d7a3299f3b46ef240ae261c38dbf8ddd89f635bd32
-  languageName: node
-  linkType: hard
-
-"acorn@npm:^8.0.5":
-  version: 8.7.1
-  resolution: "acorn@npm:8.7.1"
-  bin:
-    acorn: bin/acorn
-  checksum: f02336f3bfa79d08f35af2263409cc59a7cfac351e83416f9b9c0ca1386b5772742fb24d817dc8b2b5a0406e859ed6f6674ddc3fbfef3cb6ba997ab56f297fa6
   languageName: node
   linkType: hard
 
@@ -6357,10 +6348,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:2.3.8":
-  version: 2.3.8
-  resolution: "dompurify@npm:2.3.8"
-  checksum: fce6c31ccba1c6cd275a0d310e40bbb535d5bee8f0dad431f443c07696683f50a5e88b0e145099fd6a37606674b9be5d8af6f37b801d6c15708905c3d068a1be
+"dompurify@npm:2.3.9":
+  version: 2.3.9
+  resolution: "dompurify@npm:2.3.9"
+  checksum: 27faec25daf679e447a0b8e13bd4708f97f973bd387c692f1fa9db48f84662b5a9e4374327a56a2b64ea3aa27e59984c5a3595381b9815aebad4bc5eafc0e574
   languageName: node
   linkType: hard
 
@@ -9056,7 +9047,7 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"is-potential-custom-element-name@npm:^1.0.0, is-potential-custom-element-name@npm:^1.0.1":
+"is-potential-custom-element-name@npm:^1.0.1":
   version: 1.0.1
   resolution: "is-potential-custom-element-name@npm:1.0.1"
   checksum: 25520ce8de393b87c8a2ce4d410c424d16baab0d5a43cbf76af148940725e489dbf3541a43371bcc0881fcb186d9a4ed18b774a11ac8743dd064303cea8de50d
@@ -9828,12 +9819,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"jsdom@npm:16.5.0":
-  version: 16.5.0
-  resolution: "jsdom@npm:16.5.0"
+"jsdom@npm:16.7.0":
+  version: 16.7.0
+  resolution: "jsdom@npm:16.7.0"
   dependencies:
     abab: ^2.0.5
-    acorn: ^8.0.5
+    acorn: ^8.2.4
     acorn-globals: ^6.0.0
     cssom: ^0.4.4
     cssstyle: ^2.3.0
@@ -9841,12 +9832,13 @@ fsevents@~2.1.2:
     decimal.js: ^10.2.1
     domexception: ^2.0.1
     escodegen: ^2.0.0
+    form-data: ^3.0.0
     html-encoding-sniffer: ^2.0.1
-    is-potential-custom-element-name: ^1.0.0
+    http-proxy-agent: ^4.0.1
+    https-proxy-agent: ^5.0.0
+    is-potential-custom-element-name: ^1.0.1
     nwsapi: ^2.2.0
     parse5: 6.0.1
-    request: ^2.88.2
-    request-promise-native: ^1.0.9
     saxes: ^5.0.1
     symbol-tree: ^3.2.4
     tough-cookie: ^4.0.0
@@ -9855,15 +9847,15 @@ fsevents@~2.1.2:
     webidl-conversions: ^6.1.0
     whatwg-encoding: ^1.0.5
     whatwg-mimetype: ^2.3.0
-    whatwg-url: ^8.0.0
-    ws: ^7.4.4
+    whatwg-url: ^8.5.0
+    ws: ^7.4.6
     xml-name-validator: ^3.0.0
   peerDependencies:
     canvas: ^2.5.0
   peerDependenciesMeta:
     canvas:
       optional: true
-  checksum: 651e1f01ea322496f3e55210662195fc5aa9bae15dd7105f2404d8048532b2668f1194ba12f9e9df1c8947be9e1fdcf32393637d587b92b188ed9c40c4baf3ea
+  checksum: a8592d024a55655a37eef355b020d2dcbd6700f5eb18da51ee946db597a82efd6a80efea20d2a9eb262e37e2312ec2b2f3809518f8583d7f3583cd48157b0825
   languageName: node
   linkType: hard
 
@@ -10673,15 +10665,6 @@ fsevents@~2.1.2:
   dependencies:
     object-visit: ^1.0.0
   checksum: 9e85e6d802183927229d9ad04d70a0e0c7225451994605674d3ed4e4a21f817b4d9aba42a775e98078ffe47cf67df44a50eb07f965f14afead5015c8692503bd
-  languageName: node
-  linkType: hard
-
-"marked@npm:4.0.17":
-  version: 4.0.17
-  resolution: "marked@npm:4.0.17"
-  bin:
-    marked: bin/marked.js
-  checksum: 8b81f4fe809ef30c282771c8ee53ecdd54ce90b37f2eb780f022e9e4564ec54ecc4db5dd516fd0838e40124ec30df335ab8f4587d7c4df58fd245dc3627e13b8
   languageName: node
   linkType: hard
 
@@ -12773,30 +12756,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"request-promise-core@npm:1.1.4":
-  version: 1.1.4
-  resolution: "request-promise-core@npm:1.1.4"
-  dependencies:
-    lodash: ^4.17.19
-  peerDependencies:
-    request: ^2.34
-  checksum: 7c9c90bf00158f6669e7167425cd113edadaca44b5aebc7c6a7969d9f50d93bfae8275038bdf6389b4e94f1cacacca7e5830d28701692818bdfba353eeb2ddfd
-  languageName: node
-  linkType: hard
-
-"request-promise-native@npm:^1.0.9":
-  version: 1.0.9
-  resolution: "request-promise-native@npm:1.0.9"
-  dependencies:
-    request-promise-core: 1.1.4
-    stealthy-require: ^1.1.1
-    tough-cookie: ^2.3.3
-  peerDependencies:
-    request: ^2.34
-  checksum: 532570f00559f826ad372d36a152c3cf1aa184d0876b04ed7c18a9fa391fa2108978eca837ae1fb681d2dab63bd6c74c6660022b82ecdb2682d77859314d0b6e
-  languageName: node
-  linkType: hard
-
 "request@npm:2.88.0":
   version: 2.88.0
   resolution: "request@npm:2.88.0"
@@ -13738,13 +13697,6 @@ resolve@^1.22.0:
   languageName: node
   linkType: hard
 
-"stealthy-require@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "stealthy-require@npm:1.1.1"
-  checksum: f24a9bc613817dea37afcbf64578f2ba0195916d906ebdaa1c1d5b8e9d51fd462cbf4c61ae04217babd0cf662e6c0115fd972dffa8e62a7f6f44f3109fb4c796
-  languageName: node
-  linkType: hard
-
 "steno@npm:^0.4.1":
   version: 0.4.4
   resolution: "steno@npm:0.4.4"
@@ -14308,16 +14260,6 @@ resolve@^1.22.0:
   languageName: node
   linkType: hard
 
-"tough-cookie@npm:^2.3.3, tough-cookie@npm:~2.5.0":
-  version: 2.5.0
-  resolution: "tough-cookie@npm:2.5.0"
-  dependencies:
-    psl: ^1.1.28
-    punycode: ^2.1.1
-  checksum: bf5d6fac5ce0bebc5876cb9b9a79d3d9ea21c9e4099f3d3e64701d6ba170a052cb88cece6737ec2473bac4f0a4f6c75d46ec17985be8587c6bbdd38d91625cb4
-  languageName: node
-  linkType: hard
-
 "tough-cookie@npm:^4.0.0":
   version: 4.0.0
   resolution: "tough-cookie@npm:4.0.0"
@@ -14336,6 +14278,16 @@ resolve@^1.22.0:
     psl: ^1.1.24
     punycode: ^1.4.1
   checksum: 48decf702128d2ac20cc572dcac02051f2201d7d2dbc80fb216cef92fb7f68f0a89b6260d1c19aff13af66f51af61ab4a7ec266948a7f2ee0395cef38fb71fab
+  languageName: node
+  linkType: hard
+
+"tough-cookie@npm:~2.5.0":
+  version: 2.5.0
+  resolution: "tough-cookie@npm:2.5.0"
+  dependencies:
+    psl: ^1.1.28
+    punycode: ^2.1.1
+  checksum: bf5d6fac5ce0bebc5876cb9b9a79d3d9ea21c9e4099f3d3e64701d6ba170a052cb88cece6737ec2473bac4f0a4f6c75d46ec17985be8587c6bbdd38d91625cb4
   languageName: node
   linkType: hard
 
@@ -15013,7 +14965,7 @@ typescript@4.1.3:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/eslint-config": ^10.0.0
     "@verdaccio/local-storage": 10.3.1
-    "@verdaccio/readme": 10.4.0
+    "@verdaccio/readme": 10.4.1
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.5.1
     "@verdaccio/ui-theme": 6.0.0-6-next.25
@@ -15325,21 +15277,6 @@ typescript@4.1.3:
   languageName: node
   linkType: hard
 
-"ws@npm:^7.4.4":
-  version: 7.5.8
-  resolution: "ws@npm:7.5.8"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ^5.0.2
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 99602c2eec02a6b0983c5832792402d407d93cc32405e59ef191e7f0a69aba90204e4043c5a8dc40f26cda97bf15322f3a5dc3fc83aedab745fca0fe04929cac
-  languageName: node
-  linkType: hard
-
 "ws@npm:^7.4.5":
   version: 7.4.6
   resolution: "ws@npm:7.4.6"
@@ -15352,6 +15289,21 @@ typescript@4.1.3:
     utf-8-validate:
       optional: true
   checksum: ffeb626d92f14aa3a67aa3784824c1d290131e25d225f4ca6b1b6b6d7ea754fca67694d89a5b99b144382365e1bccf1f7ec2f92df56f0d25f44939b070452f06
+  languageName: node
+  linkType: hard
+
+"ws@npm:^7.4.6":
+  version: 7.5.9
+  resolution: "ws@npm:7.5.9"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: a94fb8a1151d5b379798e9cb380fdfa8ee93bc18e7e53ded14a90ac045082828b666b1d173526e272865d843ecae3d462ca802746c506584c1c785ade129fa02
   languageName: node
   linkType: hard
 
