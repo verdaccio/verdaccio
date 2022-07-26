@@ -103,6 +103,9 @@ packages:
 # WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
   keepAliveTimeout: 60
+  # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
+  # See: https://expressjs.com/en/guide/behind-proxies.html
+  # trustProxy: '127.0.0.1'
 
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:
