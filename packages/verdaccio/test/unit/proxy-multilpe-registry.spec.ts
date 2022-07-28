@@ -101,7 +101,7 @@ describe('multiple proxy registries configuration', () => {
       .addUplink('local3', { url: `http://localhost:${registry3.getPort()}` })
       .addUplink('broken', { url: `http://doesnotexist.local` })
       .addUplink('no-retry', { url: `http://no-retry.local`, max_fails: 0 })
-      .addUplink('timeout', { url: `http://timeout.local`, timeout: '1s' });
+      .addUplink('timeout', { url: `http://timeout.local`, max_fails: 0, timeout: '1s' });
     const confRegistry2 = await Registry.fromConfigToPath(configuration2.getConfig());
     registry2 = new Registry(confRegistry2.configPath);
     await registry2.init();

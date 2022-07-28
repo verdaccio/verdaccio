@@ -17,22 +17,30 @@ const buildAuthHeader = (token: string): string => {
 
 const debug = buildDebug('verdaccio:registry');
 
-export const CREDENTIALS = {
-  user: 'fooooo',
-  password: 'sms_8tn>V%zPZ_+6', // pragma: allowlist secret
-};
-
 export class Registry {
   private childFork: any;
   private configPath: string;
   private domain: string;
   private authstr: string | null = null;
   private port: number;
+  private credentials;
   private token: string | null = null;
-  public constructor(configPath: string, domain: string = 'localhost', port: number = 8080) {
+  private debug: boolean;
+  public constructor(
+    configPath: string,
+    domain: string = 'localhost',
+    port: number = 8080,
+    credentials = {
+      user: 'fooooo',
+      password: 'sms_8tn>V%zPZ_+6', // pragma: allowlist secret
+    },
+    debug = false
+  ) {
     this.configPath = configPath;
     this.port = port;
     this.domain = domain;
+    this.debug = debug;
+    this.credentials = credentials;
   }
 
   public static async fromConfigToPath(
@@ -111,17 +119,19 @@ export class Registry {
               const server = new ServerQuery(`http://${this.domain}:` + port);
               // const req = await server.debug();
               // req.status(HTTP_STATUS.OK);
-              const user = await server.createUser(CREDENTIALS.user, CREDENTIALS.password);
-              user.status(HTTP_STATUS.CREATED).body_ok(new RegExp(CREDENTIALS.user));
+              const user = await server.createUser(
+                this.credentials.user,
+                this.credentials.password
+              );
+              user.status(HTTP_STATUS.CREATED).body_ok(new RegExp(this.credentials.user));
               // @ts-ignore
               this.token = user?.response?.body.token;
               this.authstr = buildAuthHeader(this.token as string);
               return resolve(this.childFork);
-            } else {
-              // eslint-disable-next-line no-console
-              console.log('msg =>', msg);
             }
           } catch (e) {
+            // eslint-disable-next-line no-console
+            console.error(e);
             // eslint-disable-next-line prefer-promise-reject-errors
             return reject([e, this]);
           }
