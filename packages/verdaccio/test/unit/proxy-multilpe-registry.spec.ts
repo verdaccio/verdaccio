@@ -134,7 +134,7 @@ describe('multiple proxy registries configuration', () => {
     (await server2.getPackage('pnpm')).status(HTTP_STATUS.NOT_FOUND);
   }, 30000);
 
-  test('should fail with timeout', async function () {
+  test.skip('should fail with timeout', async function () {
     const server2 = new ServerQuery(registry2.getRegistryUrl());
     (await server2.getPackage('timeout-pkg')).status(HTTP_STATUS.SERVICE_UNAVAILABLE);
   }, 20000);
