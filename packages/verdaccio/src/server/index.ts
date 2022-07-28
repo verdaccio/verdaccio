@@ -1,2 +1,2 @@
-export { Registry, CREDENTIALS } from './registry';
+export { Registry } from './registry';
 export { ServerQuery, createRequest, ResponseAssert } from './request';
