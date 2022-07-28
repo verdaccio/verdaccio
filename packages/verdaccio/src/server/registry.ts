@@ -94,7 +94,7 @@ export class Registry {
         childOptions = Object.assign({}, childOptions, {
           execArgv: [`--inspect=${debugPort}`],
           env: {
-            DEBUG: 'verdaccio*',
+            DEBUG: process.env.DEBUG,
           },
         });
 

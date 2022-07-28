@@ -107,12 +107,6 @@ describe('multiple proxy registries configuration', () => {
     await registry2.init();
   });
 
-  afterAll(() => {
-    registry.stop();
-    registry2.stop();
-    registry3.stop();
-  });
-
   test('should fetch package through a proxy', async function () {
     const server = new ServerQuery(registry.getRegistryUrl());
     const server2 = new ServerQuery(registry2.getRegistryUrl());
@@ -144,4 +138,10 @@ describe('multiple proxy registries configuration', () => {
     const server2 = new ServerQuery(registry2.getRegistryUrl());
     (await server2.getPackage('timeout-pkg')).status(HTTP_STATUS.SERVICE_UNAVAILABLE);
   }, 20000);
+
+  afterAll(() => {
+    registry.stop();
+    registry2.stop();
+    registry3.stop();
+  });
 });

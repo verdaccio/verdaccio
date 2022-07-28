@@ -131,7 +131,7 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "start": "babel-node tools/dev.server.js",
     "test:clean": "jest --clearCache",
-    "test": "cross-env BABEL_ENV=test cross-env NODE_ENV=test cross-env TZ=UTC jest --config ./jest/jest.config.js --runInBand",
+    "test": "cross-env TZ=UTC jest --config ./jest/jest.config.js",
     "test:update-snapshot": "yarn run test -- -u",
     "test:size": "bundlesize",
     "lint": "pnpm lint:js && pnpm lint:css",
