@@ -106,7 +106,7 @@
     "@typescript-eslint/parser": "5.22.0",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "@verdaccio/eslint-config": "^10.0.0",
-    "@verdaccio/types": "10.5.1",
+    "@verdaccio/types": "10.5.2",
     "all-contributors-cli": "6.20.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",

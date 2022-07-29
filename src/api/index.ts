@@ -27,6 +27,13 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
+
+  // Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
+  // See: https://expressjs.com/en/guide/behind-proxies.html
+  if (config.server?.trustProxy) {
+    app.set('trust proxy', config.server.trustProxy);
+  }
+
   app.use(cors());
 
   // Router setup
