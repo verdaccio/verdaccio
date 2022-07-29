@@ -19,6 +19,7 @@ export const CHARACTER_ENCODING = {
   UTF8: 'utf8',
 };
 
+// @deprecated use Bearer instead
 export const TOKEN_BASIC = 'Basic';
 export const TOKEN_BEARER = 'Bearer';
 
@@ -42,6 +43,7 @@ export const HEADERS = {
   CSP: 'Content-Security-Policy',
   CTO: 'X-Content-Type-Options',
   XSS: 'X-XSS-Protection',
+  NONE_MATCH: 'If-None-Match',
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
@@ -82,6 +84,7 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
+  OK: 'ok',
   LOGGED_OUT: 'Logged out',
 };
 
@@ -89,3 +92,18 @@ export const LOG_STATUS_MESSAGE =
   "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+
+export const ROLES = {
+  $ALL: '$all',
+  ALL: 'all',
+  $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  DEPRECATED_ANONYMOUS: '@anonymous',
+};
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};

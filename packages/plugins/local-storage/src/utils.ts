@@ -77,11 +77,8 @@ export async function findPackages(
   });
 }
 
-export function _dbGenPath(
-  dbName: string,
-  config: Pick<Config, 'config_path' | 'storage'>
-): string {
+export function _dbGenPath(dbName: string, config: Pick<Config, 'configPath' | 'storage'>): string {
   return path.join(
-    path.resolve(path.dirname(config.config_path || ''), config.storage as string, dbName)
+    path.resolve(path.dirname(config.configPath || ''), config.storage as string, dbName)
   );
 }

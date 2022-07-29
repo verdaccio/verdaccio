@@ -1,0 +1,17 @@
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  'foo':
+    access: $all
+    publish: $authenticated
+    proxy: _____this_uplink_does_not_march
+  '*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+log: { type: stdout, format: pretty, level: warn }

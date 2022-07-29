@@ -1,40 +1,21 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import _ from 'lodash';
 import mime from 'mime';
-import Path from 'path';
 
 import { IAuth } from '@verdaccio/auth';
-import {
-  API_ERROR,
-  API_MESSAGE,
-  DIST_TAGS,
-  HEADERS,
-  HTTP_STATUS,
-  errorUtils,
-} from '@verdaccio/core';
-import { notify } from '@verdaccio/hooks';
+import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Callback, CallbackAction, Config, MergeTags, Package, Version } from '@verdaccio/types';
-import { hasDiffOneKey, isObject, validateMetadata } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
-import star from './star';
-import { isPublishablePackage, isRelatedToDeprecation } from './utils';
+
+// import star from './star';
+// import { isPublishablePackage, isRelatedToDeprecation } from './utils';
 
 const debug = buildDebug('verdaccio:api:publish');
 
-export default function publish(
-  router: Router,
-  auth: IAuth,
-  storage: Storage,
-  config: Config
-): void {
-  const can = allow(auth);
-
-  /**
+/**
    * Publish a package / update package / un/start a package
    *
    * There are multiples scenarios here to be considered:
@@ -73,13 +54,27 @@ export default function publish(
    *
    * Example flow of unpublish.
    *
-   * npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1680ms
-   * npm http fetch PUT 201 http://localhost:4873/@scope%2ftest1/-rev/14-5d500cfce92f90fd
-   * 956606ms attempt #2
-   * npm http fetch GET 200 http://localhost:4873/@scope%2ftest1?write=true 1601ms
-   * npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-/test1-1.0.3.tgz/-rev/16
-   * -e11c8db282b2d992 19ms
+   * There are two possible flows:
    *
+   * - Remove all pacakges (entirely)
+   *   eg: npm unpublish package-name@* --force
+   *   eg: npm unpublish package-name  --force
+   *
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1680ms
+   * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
+   *
+   * - Remove a specific version
+   *   eg: npm unpublish package-name@1.0.0 --force
+   *
+   * Get fresh manifest
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1680ms
+   * Update manifest without the version to be unpublished
+   * npm http fetch PUT 201 http://localhost:4873/custom-name/-rev/14-5d500cfce92f90fd 956606ms
+   * Get fresh manifest (revision should be different)
+   * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1601ms
+   * Remove the tarball
+   * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
+   * 
    * 3. Star a package
    *
    * Permissions: start a package depends of the publish and unpublish permissions, there is no
@@ -98,12 +93,24 @@ export default function publish(
 	}
    *
    */
+export default function publish(router: Router, auth: IAuth, storage: Storage): void {
+  const can = allow(auth);
+  // publish (update manifest) v6
   router.put(
-    '/:package/:_rev?/:revision?',
+    '/:package',
     can('publish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackage(storage, config, auth)
+    publishPackageNext(storage)
+  );
+
+  // unpublish a pacakge v6
+  router.put(
+    '/:package/-rev/:revision',
+    can('unpublish'),
+    media(mime.getType('json')),
+    expectJson,
+    publishPackageNext(storage)
   );
 
   /**
@@ -111,330 +118,102 @@ export default function publish(
    *
    * This scenario happens when the first call detect there is only one version remaining
    * in the metadata, then the client decides to DELETE the resource
-   * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
-     npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
+   * npm http fetch GET 304 http://localhost:4873/package-name?write=true 1076ms (from cache)
+   * npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+  // v6
+  router.delete(
+    '/:package/-rev/:revision',
+    can('unpublish'),
+    async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+      const packageName = req.params.package;
+      const rev = req.params.revision;
 
-  // removing a tarball
+      logger.debug({ packageName }, `unpublishing @{packageName}`);
+      try {
+        await storage.removePackage(packageName, rev);
+        debug('package %s unpublished', packageName);
+        res.status(HTTP_STATUS.CREATED);
+        return next({ ok: API_MESSAGE.PKG_REMOVED });
+      } catch (err) {
+        return next(err);
+      }
+    }
+  );
+
+  /*
+   Remove a tarball, this happens when npm unpublish a package unique version.
+   npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
+  */
   router.delete(
     '/:package/-/:filename/-rev/:revision',
     can('unpublish'),
     can('publish'),
-    removeTarball(storage)
-  );
-
-  // uploading package tarball
-  router.put(
-    '/:package/-/:filename/*',
-    can('publish'),
-    media(HEADERS.OCTET_STREAM),
-    uploadPackageTarball(storage)
-  );
-
-  // adding a version
-  router.put(
-    '/:package/:version/-tag/:tag',
-    can('publish'),
-    media(mime.getType('json')),
-    expectJson,
-    addVersion(storage)
-  );
-}
-
-/**
- * Publish a package
- */
-export function publishPackage(storage: Storage, config: Config, auth: IAuth): any {
-  const starApi = star(storage);
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    const packageName = req.params.package;
-
-    debug('publishing or updating a new version for %o', packageName);
-
-    /**
-     * Write tarball of stream data from package clients.
-     */
-    const createTarball = function (filename: string, data, cb: Callback): void {
-      const stream = storage.addTarball(packageName, filename);
-      stream.on('error', function (err) {
-        debug(
-          'error on stream a tarball %o for %o with error %o',
-          filename,
-          packageName,
-          err.message
-        );
-        cb(err);
-      });
-      stream.on('success', function () {
-        debug('success on stream a tarball %o for %o', filename, packageName);
-        cb();
-      });
-      // this is dumb and memory-consuming, but what choices do we have?
-      // flow: we need first refactor this file before decides which type use here
-      stream.end(Buffer.from(data.data, 'base64'));
-      stream.done();
-    };
-
-    /**
-     * Add new package version in storage
-     */
-    const createVersion = function (version: string, metadata: Version, cb: CallbackAction): void {
-      debug('add a new package version %o to storage %o', version, metadata);
-      storage.addVersion(packageName, version, metadata, null, cb);
-    };
-
-    /**
-     * Add new tags in storage
-     */
-    const addTags = function (tags: MergeTags, cb: CallbackAction): void {
-      debug('add new tag %o to storage', packageName);
-      storage.mergeTags(packageName, tags, cb);
-    };
-
-    const afterChange = function (error, okMessage, metadata: Package): void {
-      const metadataCopy: Package = { ...metadata };
-      debug('after change metadata %o', metadata);
-
-      const { _attachments, versions } = metadataCopy;
-
-      // `npm star` wouldn't have attachments
-      // and `npm deprecate` would have attachments as a empty object, i.e {}
-      if (_.isNil(_attachments) || JSON.stringify(_attachments) === '{}') {
-        debug('no attachments detected');
-        if (error) {
-          debug('no_attachments: after change error with %o', error.message);
-          return next(error);
-        }
-
-        debug('no_attachments: after change success');
-        res.status(HTTP_STATUS.CREATED);
-        return next({
-          ok: okMessage,
-          success: true,
-        });
-      }
-
-      /**
-       * npm-registry-client 0.3+ embeds tarball into the json upload
-       * issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
-       */
-
-      const isInvalidBodyFormat =
-        isObject(_attachments) === false ||
-        hasDiffOneKey(_attachments) ||
-        isObject(versions) === false ||
-        hasDiffOneKey(versions);
-
-      if (isInvalidBodyFormat) {
-        // npm is doing something strange again
-        // if this happens in normal circumstances, report it as a bug
-        debug('invalid body format');
-        logger.info({ packageName }, `wrong package format on publish a package @{packageName}`);
-        return next(errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL));
-      }
-
-      if (error && error.status !== HTTP_STATUS.CONFLICT) {
-        debug('error on change or update a package with %o', error.message);
-        return next(error);
-      }
-
-      // at this point document is either created or existed before
-      const [firstAttachmentKey] = Object.keys(_attachments);
-
-      createTarball(
-        Path.basename(firstAttachmentKey),
-        _attachments[firstAttachmentKey],
-        function (error) {
-          debug('creating a tarball %o', firstAttachmentKey);
-          if (error) {
-            debug('error on create a tarball for %o with error %o', packageName, error.message);
-            return next(error);
-          }
-
-          const versionToPublish = Object.keys(versions)[0];
-
-          versions[versionToPublish].readme =
-            _.isNil(metadataCopy.readme) === false ? String(metadataCopy.readme) : '';
-
-          createVersion(versionToPublish, versions[versionToPublish], function (error) {
-            if (error) {
-              debug('error on create a version for %o with error %o', packageName, error.message);
-              return next(error);
-            }
-
-            addTags(metadataCopy[DIST_TAGS], async function (error) {
-              if (error) {
-                debug('error on create a tag for %o with error %o', packageName, error.message);
-                return next(error);
-              }
-
-              try {
-                await notify(
-                  metadataCopy,
-                  config,
-                  req.remote_user,
-                  `${metadataCopy.name}@${versionToPublish}`
-                );
-              } catch (error: any) {
-                debug(
-                  'error on notify add a new tag %o',
-                  `${metadataCopy.name}@${versionToPublish}`
-                );
-                logger.error({ error }, 'notify batch service has failed: @{error}');
-              }
-
-              debug('add a tag succesfully for %o', `${metadataCopy.name}@${versionToPublish}`);
-              res.status(HTTP_STATUS.CREATED);
-              return next({ ok: okMessage, success: true });
-            });
-          });
-        }
-      );
-    };
-
-    if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {
-      debug('starting star a package');
-      return starApi(req, res, next);
-    }
-
-    try {
-      debug('pre validation metadata to publish %o', req.body);
-      const metadata = validateMetadata(req.body, packageName);
-      debug('post validation metadata to publish %o', metadata);
-      // treating deprecation as updating a package
-      if (req.params._rev || isRelatedToDeprecation(req.body)) {
-        debug('updating a new version for %o', packageName);
-        // we check unpublish permissions, an update is basically remove versions
-        const remote = req.remote_user;
-        auth.allow_unpublish({ packageName }, remote, (error) => {
-          debug('allowed to unpublish a package %o', packageName);
-          if (error) {
-            debug('not allowed to unpublish a version for  %o', packageName);
-            return next(error);
-          }
-
-          debug('update a package');
-          storage.changePackage(packageName, metadata, req.params.revision, function (error) {
-            afterChange(error, API_MESSAGE.PKG_CHANGED, metadata);
-          });
-        });
-      } else {
-        debug('adding a new version for the package %o', packageName);
-        storage.addPackage(packageName, metadata, function (error) {
-          debug('package metadata updated %o', metadata);
-          afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
-        });
-      }
-    } catch (error: any) {
-      debug('error on publish, bad package format %o', packageName);
-      logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
-      return next(errorUtils.getBadData(API_ERROR.BAD_PACKAGE_DATA));
-    }
-  };
-}
-
-/**
- * un-publish a package
- */
-export function unPublishPackage(storage: Storage) {
-  return async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    const packageName = req.params.package;
-
-    logger.debug({ packageName }, `unpublishing @{packageName}`);
-    try {
-      await storage.removePackage(packageName);
-    } catch (err) {
-      if (err) {
-        return next(err);
-      }
-    }
-    res.status(HTTP_STATUS.CREATED);
-    return next({ ok: API_MESSAGE.PKG_REMOVED });
-  };
-}
-
-/**
- * Delete tarball
- */
-export function removeTarball(storage: Storage) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    const packageName = req.params.package;
-    const { filename, revision } = req.params;
-
-    logger.debug(
-      { packageName, filename, revision },
-      `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
-    );
-    storage.removeTarball(packageName, filename, revision, function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.status(HTTP_STATUS.CREATED);
+    async function (
+      req: $RequestExtend,
+      res: $ResponseExtend,
+      next: $NextFunctionVer
+    ): Promise<void> {
+      const packageName = req.params.package;
+      const { filename, revision } = req.params;
 
       logger.debug(
         { packageName, filename, revision },
-        `success remove tarball for @{packageName}-@{tarballName}-@{revision}`
+        `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
       );
-      return next({ ok: API_MESSAGE.TARBALL_REMOVED });
-    });
-  };
-}
-/**
- * Adds a new version
- */
-export function addVersion(storage: Storage) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    const { version, tag } = req.params;
-    const packageName = req.params.package;
-    debug('add a new version %o and tag %o for %o', version, tag, packageName);
+      try {
+        await storage.removeTarball(packageName, filename, revision);
+        res.status(HTTP_STATUS.CREATED);
 
-    storage.addVersion(packageName, version, req.body, tag, function (error) {
-      if (error) {
-        debug('error on add new version');
-        return next(error);
+        logger.debug(
+          { packageName, filename, revision },
+          `success remove tarball for @{packageName}-@{tarballName}-@{revision}`
+        );
+        return next({ ok: API_MESSAGE.TARBALL_REMOVED });
+      } catch (err) {
+        return next(err);
       }
-
-      debug('success on add new version');
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.PKG_PUBLISHED,
-      });
-    });
-  };
+    }
+  );
 }
 
-/**
- * uploadPackageTarball
- */
-export function uploadPackageTarball(storage: Storage) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function publishPackageNext(storage: Storage): any {
+  return async function (
+    req: $RequestExtend,
+    _res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): Promise<void> {
+    const ac = new AbortController();
     const packageName = req.params.package;
-    const stream = storage.addTarball(packageName, req.params.filename);
-    req.pipe(stream);
+    const { revision } = req.params;
+    const metadata = req.body;
 
-    // checking if end event came before closing
-    let complete = false;
-    req.on('end', function () {
-      complete = true;
-      stream.done();
-    });
-
-    req.on('close', function () {
-      if (!complete) {
-        stream.abort();
-      }
-    });
-
-    stream.on('error', function (err) {
-      return res.locals.report_error(err);
-    });
-
-    stream.on('success', function () {
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.TARBALL_UPLOADED,
+    try {
+      debug('publishing %s', packageName);
+      await storage.updateManifest(metadata, {
+        name: packageName,
+        revision,
+        signal: ac.signal,
+        requestOptions: {
+          host: req.hostname,
+          protocol: req.protocol,
+          // @ts-ignore
+          headers: req.headers,
+        },
       });
-    });
+      _res.status(HTTP_STATUS.CREATED);
+
+      return next({
+        // TODO: this could be also Package Updated based on the
+        // action, deprecate, star, publish new version, or create a package
+        // the mssage some return from the method
+        ok: API_MESSAGE.PKG_CREATED,
+        success: true,
+      });
+    } catch (err: any) {
+      // TODO: review if we need the abort controller here
+      ac.abort();
+      next(err);
+    }
   };
 }

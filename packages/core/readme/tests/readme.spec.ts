@@ -29,6 +29,7 @@ describe('readme', () => {
   });
 
   test('should handle wrong text', () => {
+    // @ts-expect-error
     expect(parseReadme(undefined)).toBeUndefined();
   });
 

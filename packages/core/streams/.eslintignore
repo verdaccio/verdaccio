@@ -1,6 +1,0 @@
-node_modules
-coverage/
-lib/
-.nyc_output
-tests-report/
-build/

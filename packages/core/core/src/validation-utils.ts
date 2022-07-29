@@ -1,8 +1,10 @@
 import assert from 'assert';
 
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS } from './constants';
+
+export { validatePublishSingleVersion } from './schemes/publish-manifest';
 
 export function isPackageNameScoped(name: string): boolean {
   return name.startsWith('@');
@@ -62,27 +64,29 @@ export function validatePackage(name: string): boolean {
 /**
  * Validate the package metadata, add additional properties whether are missing within
  * the metadata properties.
- * @param {*} object
+ * @param {*} manifest
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
+ * FUTURE: rename to normalizeMetadata
  */
-export function validateMetadata(object: Package, name: string): Package {
-  assert(isObject(object), 'not a json object');
-  assert.strictEqual(object.name, name);
+export function normalizeMetadata(manifest: Manifest, name: string): Manifest {
+  assert.strictEqual(manifest.name, name);
+  const _manifest = { ...manifest };
 
-  if (!isObject(object[DIST_TAGS])) {
-    object[DIST_TAGS] = {};
+  if (!isObject(manifest[DIST_TAGS])) {
+    _manifest[DIST_TAGS] = {};
   }
 
-  if (!isObject(object['versions'])) {
-    object['versions'] = {};
+  // This may not be nee dit
+  if (!isObject(manifest['versions'])) {
+    _manifest['versions'] = {};
   }
 
-  if (!isObject(object['time'])) {
-    object['time'] = {};
+  if (!isObject(manifest['time'])) {
+    _manifest['time'] = {};
   }
 
-  return object;
+  return _manifest;
 }
 
 /**
@@ -91,7 +95,7 @@ export function validateMetadata(object: Package, name: string): Package {
  * @return {Boolean}
  */
 export function isObject(obj: any): boolean {
-  if (obj === null || typeof obj === 'undefined') {
+  if (obj === null || typeof obj === 'undefined' || typeof obj === 'string') {
     return false;
   }
 

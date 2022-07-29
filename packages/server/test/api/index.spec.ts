@@ -27,20 +27,9 @@ import {
   generateVersion,
 } from './helpers/utils';
 
-setup([]);
+setup();
 
 const credentials = { name: 'server_user_api_spec', password: 'secretPass' };
-
-const putVersion = (app, name, publishMetadata) => {
-  return request(app)
-    .put(name)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-    .send(JSON.stringify(publishMetadata))
-    .expect(HTTP_STATUS.CREATED)
-    .set('accept', 'gzip')
-    .set('accept-encoding', HEADERS.JSON)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
-};
 
 describe('endpoint unit test', () => {
   let app;
@@ -316,11 +305,12 @@ describe('endpoint unit test', () => {
 
       test('should fetch a scoped tarball from remote uplink', (done) => {
         request(app)
-          .get('/@jquery/jquery/-/@jquery/jquery-1.5.1.tgz')
+          .get('/@jquery/jquery/-/jquery-1.5.1.tgz')
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             if (err) {
+              console.log('err', err);
               return done(err);
             }
 
@@ -340,102 +330,6 @@ describe('endpoint unit test', () => {
               return done(err);
             }
 
-            done();
-          });
-      });
-    });
-
-    describe('should test dist-tag api', () => {
-      const jqueryVersion = '2.1.2';
-      const jqueryUpdatedVersion = {
-        beta: '3.0.0',
-        jota: '1.6.3',
-      };
-
-      test('should set a new tag on jquery', (done) => {
-        putVersion(app, '/jquery/verdaccio-tag', jqueryVersion)
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(/package tagged/);
-            done();
-          });
-      });
-
-      test('should fetch all tag for jquery', (done) => {
-        request(app)
-          .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', HEADERS.JSON)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-
-            expect(res.body).toBeDefined();
-            expect(res.body['verdaccio-tag']).toMatch(jqueryVersion);
-            done();
-          });
-      });
-
-      test('should update a new tag on jquery', (done) => {
-        request(app)
-          .post('/-/package/jquery/dist-tags')
-          .send(JSON.stringify(jqueryUpdatedVersion))
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(API_MESSAGE.TAG_UPDATED);
-            done();
-          });
-      });
-
-      test('should fetch all tags for jquery and ccheck previous update', (done) => {
-        request(app)
-          .get('/-/package/jquery/dist-tags')
-          .set('accept-encoding', HEADERS.JSON)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-
-            expect(res.body).toBeDefined();
-            expect(res.body['beta']).toMatch(jqueryUpdatedVersion['beta']);
-            done();
-          });
-      });
-
-      test('should set a remove a tag on jquery', (done) => {
-        request(app)
-          .del('/-/package/jquery/dist-tags/verdaccio-tag')
-          .set('accept-encoding', HEADERS.JSON)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          // .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.ok).toMatch(API_MESSAGE.TAG_REMOVED);
             done();
           });
       });

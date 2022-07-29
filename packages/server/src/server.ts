@@ -15,7 +15,7 @@ import { loadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { ConfigRuntime } from '@verdaccio/types';
+import { ConfigYaml } from '@verdaccio/types';
 import { Config as IConfig, IPlugin, IPluginStorageFilter } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
 
@@ -58,7 +58,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
 
   // Hook for tests only
   if (config._debug) {
-    hookDebug(app, config.config_path);
+    hookDebug(app, config.configPath);
   }
 
   // register middleware plugins
@@ -104,7 +104,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
 
   // Catch 404
   app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-    next(errorUtils.getNotFound(API_ERROR.FILE_NOT_FOUND));
+    next(errorUtils.getNotFound('resource not found'));
   });
 
   app.use(function (
@@ -134,9 +134,9 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
   return app;
 };
 
-export default (async function (configHash: ConfigRuntime): Promise<any> {
+export default (async function (configHash: ConfigYaml): Promise<any> {
   debug('start server');
-  const config: IConfig = new AppConfig(_.cloneDeep(configHash));
+  const config: IConfig = new AppConfig(_.cloneDeep(configHash) as any);
   // register middleware plugins
   const plugin_params = {
     config: config,

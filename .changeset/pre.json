@@ -10,7 +10,6 @@
     "verdaccio-htpasswd": "11.0.0-alpha.0",
     "@verdaccio/local-storage": "11.0.0-alpha.0",
     "@verdaccio/readme": "11.0.0-alpha.0",
-    "@verdaccio/streams": "11.0.0-alpha.0",
     "@verdaccio/types": "11.0.0-alpha.0",
     "@verdaccio/hooks": "6.0.0-alpha.0",
     "@verdaccio/loaders": "6.0.0-alpha.0",

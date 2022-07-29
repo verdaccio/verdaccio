@@ -7,7 +7,6 @@
 // import { readFile } from '../../../functional/lib/test.utils';
 // import { Package } from '@verdaccio/types';
 // import { Config as AppConfig, RemoteUser } from '@verdaccio/types';
-// import { IUploadTarball, IReadTarball } from '@verdaccio/streams';
 // import { generateVersion } from '../../../unit/__helper/utils';
 // // FIXME: add package here
 // import Config from '../../../../packages/config/src/config';

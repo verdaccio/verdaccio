@@ -40,16 +40,19 @@
     "bcryptjs": "2.4.3",
     "core-js": "3.20.3",
     "http-errors": "1.8.1",
+    "debug": "4.3.4",
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.2",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
     "mockdate": "3.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

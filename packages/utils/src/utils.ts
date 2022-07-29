@@ -1,4 +1,3 @@
-import assert from 'assert';
 import _ from 'lodash';
 
 import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
@@ -67,33 +66,6 @@ export function validatePackage(name: string): boolean {
  */
 export function isObject(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
-}
-
-/**
- * Validate the package metadata, add additional properties whether are missing within
- * the metadata properties.
- * @param {*} object
- * @param {*} name
- * @return {Object} the object with additional properties as dist-tags ad versions
- * @deprecated
- */
-export function validateMetadata(object: Package, name: string): Package {
-  assert(isObject(object), 'not a json object');
-  assert.strictEqual(object.name, name);
-
-  if (!isObject(object[DIST_TAGS])) {
-    object[DIST_TAGS] = {};
-  }
-
-  if (!isObject(object['versions'])) {
-    object['versions'] = {};
-  }
-
-  if (!isObject(object['time'])) {
-    object['time'] = {};
-  }
-
-  return object;
 }
 
 export function getLatestVersion(pkgInfo: Package): string {

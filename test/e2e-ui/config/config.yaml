@@ -1,0 +1,20 @@
+web:
+  enable: true
+  title: verdaccio-server-e2e
+  login: true
+
+log: { type: stdout, format: pretty, level: debug }
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+
+_debug: true

@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser';
 import express, { Router } from 'express';
-import semver from 'semver';
 
 import { IAuth } from '@verdaccio/auth';
 import {
@@ -24,10 +23,6 @@ import profile from './v1/profile';
 import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
-
-if (semver.lte(process.version, 'v15.0.0')) {
-  global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;
-}
 
 export default function (config: Config, auth: IAuth, storage: Storage): Router {
   /* eslint new-cap:off */
@@ -62,7 +57,7 @@ export default function (config: Config, auth: IAuth, storage: Storage): Router 
   search(app);
   user(app, auth, config);
   distTags(app, auth, storage);
-  publish(app, auth, storage, config);
+  publish(app, auth, storage);
   ping(app);
   stars(app, storage);
   // @ts-ignore

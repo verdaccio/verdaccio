@@ -31,7 +31,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -42,7 +42,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",
     "debug": "4.3.3",
-    "js-yaml": "3.14.1",
+    "yaml": "2.1.1",
     "lodash": "4.17.21",
     "minimatch": "3.0.4",
     "yup": "0.32.11"

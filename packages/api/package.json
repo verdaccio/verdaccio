@@ -30,7 +30,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -42,7 +42,6 @@
     "@verdaccio/auth": "workspace:6.0.0-6-next.22",
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/hooks": "workspace:6.0.0-6-next.13",
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
     "@verdaccio/middleware": "workspace:6.0.0-6-next.22",
     "@verdaccio/store": "workspace:6.0.0-6-next.22",
@@ -61,7 +60,9 @@
     "@verdaccio/server": "workspace:6.0.0-6-next.31",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
-    "supertest": "6.2.2"
+    "supertest": "6.2.2",
+    "nock": "13.2.8",
+    "mockdate": "3.0.5"
   },
   "funding": {
     "type": "opencollective",

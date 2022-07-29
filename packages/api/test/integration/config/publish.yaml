@@ -1,14 +1,6 @@
-store:
-  memory:
-    limit: 1000
-
 auth:
-  auth-memory:
-    users:
-      test:
-        name: test
-        password: test
-
+  htpasswd:
+    file: ./htpasswd-publish
 web:
   enable: true
   title: verdaccio
@@ -24,7 +16,9 @@ packages:
   '@*/*':
     access: $anonymous
     publish: $anonymous
+    unpublish: $anonymous
   '**':
     access: $anonymous
     publish: $anonymous
+    unpublish: $anonymous
 _debug: true

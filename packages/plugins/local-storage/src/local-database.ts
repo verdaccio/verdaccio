@@ -16,7 +16,7 @@ import { _dbGenPath } from './utils';
 
 const DB_NAME = process.env.VERDACCIO_STORAGE_NAME ?? fileUtils.Files.DatabaseName;
 
-const debug = buildDebug('verdaccio:plugin:local-storage:experimental');
+const debug = buildDebug('verdaccio:plugin:local-storage');
 
 export const ERROR_DB_LOCKED =
   'Database is locked, please check error message printed during startup to prevent data loss';
@@ -37,8 +37,10 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
     this.logger = logger;
     this.locked = false;
     this.data = undefined;
+    debug('config path %o', config.configPath);
     this.path = _dbGenPath(DB_NAME, config);
     this.storages = this._getCustomPackageLocalStorages();
+    this.logger.debug({ path: this.path }, 'local storage path @{path}');
     debug('plugin storage path %o', this.path);
   }
 
@@ -101,7 +103,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
   }
 
   private getBaseConfigPath(): string {
-    return path.dirname(this.config.config_path);
+    return path.dirname(this.config.configPath);
   }
 
   /**
@@ -246,7 +248,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
 
     try {
       await writeFilePromise(this.path, JSON.stringify(this.data));
-      debug('sync write succeed');
+      debug('sync write succeeded');
 
       return null;
     } catch (err: any) {
@@ -258,8 +260,8 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
   private _getLocalStoragePath(storage: string | void): string {
     const globalConfigStorage = this.getStoragePath();
     if (_.isNil(globalConfigStorage)) {
-      this.logger.error('property storage in config.yaml is required for using  this plugin');
-      throw new Error('property storage in config.yaml is required for using  this plugin');
+      this.logger.error('property storage in config.yaml is required for using this plugin');
+      throw new Error('property storage in config.yaml is required for using this plugin');
     } else {
       if (typeof storage === 'string') {
         return path.join(globalConfigStorage as string, storage as string);

@@ -11,12 +11,6 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
-      "path": "../core/local-storage"
-    },
-    {
       "path": "../core/streams"
     },
     {

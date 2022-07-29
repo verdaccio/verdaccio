@@ -5,6 +5,7 @@ import path from 'path';
 
 import { Version } from '@verdaccio/types';
 
+// @deprecated use await fileUtils.createTempFolder('verdaccio-test')
 export function generateRamdonStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));

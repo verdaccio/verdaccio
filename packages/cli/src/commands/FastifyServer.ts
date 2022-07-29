@@ -3,7 +3,7 @@ import { Command, Option } from 'clipanion';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import server from '@verdaccio/fastify-migration';
 import { logger, setup } from '@verdaccio/logger';
-import { ConfigRuntime } from '@verdaccio/types';
+import { ConfigYaml } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -25,7 +25,7 @@ export class FastifyServer extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  private initLogger(logConfig: ConfigRuntime) {
+  private initLogger(logConfig: ConfigYaml) {
     try {
       if (logConfig.log) {
         throw Error('logger as array not longer supported');

@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { PassThrough } from 'stream';
+import { PassThrough, PipelinePromise, Readable, Stream, Writable } from 'stream';
 
 declare module '@verdaccio/types' {
   type StringValue = string | void | null;
@@ -71,9 +71,17 @@ declare module '@verdaccio/types' {
     bodyAfter?: string[];
   } & CommonWebConf;
 
+  interface Signatures {
+    keyid: string;
+    sig: string;
+  }
+
   interface Dist {
+    'npm-signature'?: string;
+    fileCount?: number;
     integrity?: string;
     shasum: string;
+    unpackedSize?: number;
     tarball: string;
   }
 
@@ -156,8 +164,8 @@ declare module '@verdaccio/types' {
   }
 
   interface AttachMentsItem {
-    content_type?: string;
     data?: string;
+    content_type?: string;
     length?: number;
     shasum?: string;
     version?: string;
@@ -205,27 +213,77 @@ declare module '@verdaccio/types' {
     _rev: string;
   }
 
-  interface Manifest {
+  interface PublishManifest {
+    /**
+     * The `_attachments` object has different usages:
+     *
+     * - When a package is published, it contains the tarball as an string, this string is used to be
+     * converted as a tarball, usually attached to the package but not stored in the database.
+     * - If user runs `npm star` the _attachments will be at the manifest body but empty.
+     *
+     * It has also an internal usage:
+     *
+     * - Used as a cache for the tarball, quick access to the tarball shasum, etc. Instead
+     * iterate versions and find the right one, just using the tarball as a key which is what
+     * the package manager sends to the registry.
+     *
+     * - A `_attachments` object is added every time a private tarball is published, upstream cached tarballs are
+     * not being part of this object, only for published private packages.
+     *
+     * Note: This field is removed when the package is accesed through the web user interface.
+     * */
+    _attachments: AttachMents;
+  }
+
+  /**
+   * Represents upstream manifest from another registry
+   */
+  interface FullRemoteManifest {
     _id?: string;
+    _rev?: string;
     name: string;
-    versions: Versions;
+    description?: string;
     'dist-tags': GenericBody;
     time: GenericBody;
+    versions: Versions;
+    maintainers?: Author[];
+    /** store the latest readme **/
     readme?: string;
+    /** store star assigned to this packages by users */
     users?: PackageUsers;
+    // TODO: not clear what access exactly means
+    access?: any;
+    bugs?: { url: string };
+    license?: string;
+    homepage?: string;
+    repository?: string | { type?: string; url: string; directory?: string };
+    keywords?: string[];
+  }
+
+  interface Manifest extends FullRemoteManifest, PublishManifest {
+    // private fields only used by verdaccio
+    /**
+     * store fast access to the dist url of an specific tarball, instead search version
+     * by id, just the tarball id is faster.
+     *
+     * The _distfiles is created only when a package is being sync from an upstream.
+     * also used to fetch tarballs from upstream, the private publish tarballs are not stored in
+     * this object because they are not published in the upstream registry.
+     */
     _distfiles: DistFiles;
-    _attachments: AttachMents;
+    /**
+     * Store access cache metadata, to avoid to fetch the same metadata multiple times.
+     *
+     * The key represents the uplink id which is composed of a etag and a fetched timestamp.
+     *
+     * The fetched timestamp is the time when the metadata was fetched, used to avoid to fetch the
+     * same metadata until the metadata is older than the last fetch.
+     */
     _uplinks: UpLinks;
+    /**
+     * store the revision of the manifest
+     */
     _rev: string;
-  }
-
-  interface IUploadTarball extends PassThrough {
-    abort(): void;
-    done(): void;
-  }
-
-  interface IReadTarball extends PassThrough {
-    abort(): void;
   }
 
   interface UpLinkTokenConf {
@@ -262,6 +320,14 @@ declare module '@verdaccio/types' {
     unpublish: string[];
   }
 
+  interface PackageAccessYaml {
+    storage?: string;
+    publish?: string;
+    proxy?: string;
+    access?: string;
+    unpublish?: string;
+  }
+
   // info passed to the auth plugin when a package is package is being published
   interface AllowAccess {
     name: string;
@@ -275,12 +341,15 @@ declare module '@verdaccio/types' {
     [key: string]: PackageAccess;
   }
 
+  interface PackageListYaml {
+    [key: string]: PackageAccessYaml;
+  }
   interface UpLinksConfList {
     [key: string]: UpLinkConf;
   }
 
   type LoggerType = 'stdout' | 'stderr' | 'file';
-  type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'file';
+  type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'file' | 'json';
   type LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace';
 
   interface LoggerConfItem {
@@ -326,7 +395,7 @@ declare module '@verdaccio/types' {
     user: string;
   }
 
-  type IPackageStorage = ILocalPackageManager | void;
+  type IPackageStorage = ILocalPackageManager | undefined;
   type IPackageStorageManager = ILocalPackageManager;
   type IPluginStorage<T> = ILocalData<T>;
 
@@ -418,16 +487,19 @@ declare module '@verdaccio/types' {
     basePath: string;
   };
 
+  /**
+   * YAML configuration file available options.
+   */
   interface ConfigYaml {
     _debug?: boolean;
     storage?: string | void;
-    packages: PackageList;
+    packages?: PackageListYaml;
     uplinks: UpLinksConfList;
     // FUTURE: log should be mandatory
     log?: LoggerConfItem;
     web?: WebConf;
     auth?: AuthConf;
-    security: Security;
+    security?: Security;
     publish?: PublishOptions;
     store?: any;
     listen?: ListenAddress;
@@ -444,19 +516,32 @@ declare module '@verdaccio/types' {
     url_prefix?: string;
     server?: ServerSettingsConf;
     flags?: FlagsConfig;
+    // internal objects, added by internal yaml to JS config parser
+    // @deprecated use configPath instead
+    config_path?: string;
+    // save the configuration file path
+    configPath?: string;
   }
 
-  interface ConfigRuntime extends ConfigYaml {
-    config_path: string;
-  }
-
-  interface Config extends ConfigYaml, ConfigRuntime {
+  /**
+   * Configuration object with additonal methods for configuration, includes yaml and internal medatada.
+   * @interface Config
+   * @extends {ConfigYaml}
+   */
+  interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'configPath'> {
     user_agent: string;
     server_id: string;
     secret: string;
-    // deprecated
+    // save the configuration file path, it's fails without thi configPath
+    configPath: string;
+    // packages from yaml file looks different from packages inside the config file
+    packages: PackageList;
+    // security object defaults is added by the config file but optional in the yaml file
+    security: Security;
+    // @deprecated (pending adding the replacement)
     checkSecretKey(token: string): string;
     getMatchedPackagesSpec(storage: string): PackageAccess | void;
+    // TODO: verify how to handle this in the future
     [key: string]: any;
   }
 
@@ -508,55 +593,24 @@ declare module '@verdaccio/types' {
     getPackageStorage(packageInfo: string): IPackageStorage;
   }
 
-  type StorageUpdateCallback = (data: Package, cb: CallbackAction) => void;
-  type StorageUpdateHandler = (name: string, cb: StorageUpdateCallback) => void;
-  type StorageWriteCallback = (name: string, json: Package, callback: Callback) => void;
-  type PackageTransformer = (pkg: Package) => Package;
-  type ReadPackageCallback = (err: any | null, data?: Package) => void;
-
   interface ILocalPackageManager {
     logger: Logger;
-    writeTarball(pkgName: string): IUploadTarball;
-    readTarball(pkgName: string): IReadTarball;
-    readPackage(fileName: string, callback: ReadPackageCallback): void;
-    createPackage(pkgName: string, value: Package, cb: CallbackAction): void;
     deletePackage(fileName: string): Promise<void>;
     removePackage(): Promise<void>;
-    // @deprecated
-    updatePackage(
-      pkgFileName: string,
-      updateHandler: StorageUpdateCallback,
-      onWrite: StorageWriteCallback,
-      transformPackage: PackageTransformer,
-      onEnd: Callback
-    ): void;
-    // @deprecated
-    savePackage(fileName: string, json: Package, callback: CallbackAction): void;
     //  next packages migration (this list is meant to replace the callback parent functions)
-    updatePackageNext(
+    updatePackage(
       packageName: string,
-      handleUpdate: (manifest: Package) => Promise<Package>
-    ): Promise<Package>;
-    savePackageNext(name: string, value: Package): Promise<void>;
-  }
-
-  interface TarballActions {
-    addTarball(name: string, filename: string): IUploadTarball;
-    getTarball(name: string, filename: string): IReadTarball;
-    removeTarball(name: string, filename: string, revision: string, callback: Callback): void;
-  }
-
-  interface StoragePackageActions extends TarballActions {
-    addVersion(
-      name: string,
-      version: string,
-      metadata: Version,
-      tag: StringValue,
-      callback: Callback
-    ): void;
-    mergeTags(name: string, tags: MergeTags, callback: Callback): void;
-    removePackage(name: string, callback: Callback): void;
-    changePackage(name: string, metadata: Package, revision: string, callback: Callback): void;
+      handleUpdate: (manifest: Manifest) => Promise<Manifest>
+    ): Promise<Manifest>;
+    readPackage(name: string): Promise<Manifest>;
+    savePackage(pkgName: string, value: Manifest): Promise<void>;
+    readTarball(pkgName: string, { signal }): Promise<Readable>;
+    createPackage(name: string, manifest: Manifest): Promise<void>;
+    writeTarball(tarballName: string, { signal }): Promise<Writable>;
+    // verify if tarball exist in the storage
+    hasTarball(fileName: string): Promise<boolean>;
+    // verify if package exist in the storage
+    hasPackage(): Promise<boolean>;
   }
 
   // @deprecated use IBasicAuth from @verdaccio/auth
@@ -628,7 +682,7 @@ declare module '@verdaccio/types' {
   }
 
   interface IPluginStorageFilter<T> extends IPlugin<T> {
-    filter_metadata(packageInfo: Package): Promise<Package>;
+    filter_metadata(packageInfo: Manifest): Promise<Package>;
   }
 
   export type SearchResultWeb = {

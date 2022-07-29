@@ -1,0 +1,253 @@
+{
+  "_id": "foo",
+  "_rev": "18-216e297d46df22554bd6d962330269bd",
+  "name": "foo",
+  "description": "An opinionated git cli for oss",
+  "dist-tags": { "latest": "0.0.7" },
+  "versions": {
+    "1.0.0": {
+      "author": {
+        "name": "AJ ONeal",
+        "email": "coolaj86@gmail.com",
+        "url": "http://coolaj86.info"
+      },
+      "name": "foo",
+      "description": "A test module with no `main`, `lib`, or `dependencies` specified",
+      "version": "1.0.0",
+      "repository": { "type": "git", "url": "git://github.com/coolaj86/node-pakman.git" },
+      "engines": { "node": ">= v0.2" },
+      "_npmUser": { "name": "coolaj86", "email": "coolaj86@gmail.com" },
+      "_id": "foo@1.0.0",
+      "dependencies": {},
+      "devDependencies": {},
+      "_engineSupported": true,
+      "_npmVersion": "1.0.101",
+      "_nodeVersion": "v0.4.8",
+      "_defaultsLoaded": true,
+      "dist": {
+        "shasum": "943e0ec03df00ebeb6273a5b94b916ba54b47581",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-1.0.0.tgz"
+      },
+      "maintainers": [{ "name": "coolaj86", "email": "coolaj86@gmail.com" }],
+      "directories": {}
+    },
+    "0.0.3": {
+      "name": "foo",
+      "version": "0.0.3",
+      "description": "An opinionated git cli for oss",
+      "main": "index.js",
+      "bin": { "foo": "./bin/foo" },
+      "scripts": { "test": "jest" },
+      "repository": { "url": "git://github.com/devtools-html/foo.git", "type": "git" },
+      "author": { "name": "Jason Laster" },
+      "files": ["src", "index.js"],
+      "license": "ISC",
+      "dependencies": {
+        "commander": "^2.11.0",
+        "hankey": "^0.0.3",
+        "jest": "^21.2.1",
+        "node-pager": "^0.3.1",
+        "shelljs": "^0.7.8"
+      },
+      "gitHead": "518d46379d17319b354c1cb1d145174bb6f6c93a",
+      "bugs": { "url": "https://github.com/devtools-html/foo/issues" },
+      "homepage": "https://github.com/devtools-html/foo#readme",
+      "_id": "foo@0.0.3",
+      "_npmVersion": "5.4.2",
+      "_nodeVersion": "8.5.0",
+      "_npmUser": { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" },
+      "dist": {
+        "integrity": "sha512-IFkwMdDXr3D48FHhrC79x9dFv/hc6liJaNkY4YlKfhZkIIlXlIa+X+ERMrQSn096IEEPRXpA12Ebit44gJQZlg==",
+        "shasum": "9dc6bd8406c6e2aa0ab804c42569f42312ee70a6",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-0.0.3.tgz"
+      },
+      "maintainers": [{ "email": "jason.laster.11@gmail.com", "name": "jasonlaster11" }],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages",
+        "tmp": "tmp/foo-0.0.3.tgz_1509558625556_0.48447197722271085"
+      },
+      "directories": {}
+    },
+    "0.0.4": {
+      "name": "foo",
+      "version": "0.0.4",
+      "description": "An opinionated git cli for oss",
+      "main": "index.js",
+      "bin": { "foo": "./bin/foo" },
+      "scripts": { "test": "jest" },
+      "repository": { "url": "git://github.com/jasonLaster/foo.git", "type": "git" },
+      "author": { "name": "Jason Laster" },
+      "files": ["src", "index.js"],
+      "license": "ISC",
+      "dependencies": {
+        "commander": "^2.11.0",
+        "hankey": "^0.0.3",
+        "jest": "^21.2.1",
+        "node-pager": "^0.3.1",
+        "shelljs": "^0.7.8"
+      },
+      "gitHead": "5e0fea032d7289e452b362ce7d0bdf3e3a27d47e",
+      "bugs": { "url": "https://github.com/jasonLaster/foo/issues" },
+      "homepage": "https://github.com/jasonLaster/foo#readme",
+      "_id": "foo@0.0.4",
+      "_npmVersion": "5.4.2",
+      "_nodeVersion": "8.5.0",
+      "_npmUser": { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" },
+      "dist": {
+        "integrity": "sha512-K9zNKnhoFlnhed2e4IHfbwTsWgCnQtqx8h12xwAHdAD3drWsxiw4uRze+m0YpMnsMdhKtvexOssOnl776lmDQQ==",
+        "shasum": "6bd48a7db360e710bb17399b48970b0bace89072",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-0.0.4.tgz"
+      },
+      "maintainers": [{ "email": "jason.laster.11@gmail.com", "name": "jasonlaster11" }],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages",
+        "tmp": "tmp/foo-0.0.4.tgz_1509558677201_0.8135302173905075"
+      },
+      "directories": {}
+    },
+    "0.0.5": {
+      "name": "foo",
+      "version": "0.0.5",
+      "description": "An opinionated git cli for oss",
+      "main": "index.js",
+      "bin": { "foo": "./bin/foo.js" },
+      "scripts": { "test": "jest" },
+      "repository": { "url": "git://github.com/jasonLaster/foo.git", "type": "git" },
+      "author": { "name": "Jason Laster" },
+      "files": ["src", "index.js"],
+      "license": "ISC",
+      "dependencies": {
+        "commander": "^2.11.0",
+        "hankey": "^0.0.3",
+        "jest": "^21.2.1",
+        "node-pager": "^0.3.1",
+        "shelljs": "^0.7.8"
+      },
+      "gitHead": "b17d994ae78b6ebfc48623132085787e99d8a0d9",
+      "bugs": { "url": "https://github.com/jasonLaster/foo/issues" },
+      "homepage": "https://github.com/jasonLaster/foo#readme",
+      "_id": "foo@0.0.5",
+      "_shasum": "c84cb90deb756f18ff45081e8930c2e8b308ddbf",
+      "_from": ".",
+      "_npmVersion": "4.2.0",
+      "_nodeVersion": "7.10.0",
+      "_npmUser": { "name": "bomsy", "email": "b4bomsy@gmail.com" },
+      "dist": {
+        "shasum": "c84cb90deb756f18ff45081e8930c2e8b308ddbf",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-0.0.5.tgz"
+      },
+      "maintainers": [
+        { "name": "bomsy", "email": "b4bomsy@gmail.com" },
+        { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages",
+        "tmp": "tmp/foo-0.0.5.tgz_1509564029608_0.9241615766659379"
+      },
+      "directories": {}
+    },
+    "0.0.6": {
+      "name": "foo",
+      "version": "0.0.6",
+      "description": "An opinionated git cli for oss",
+      "main": "index.js",
+      "bin": { "foo": "./bin/foo.js" },
+      "scripts": { "test": "jest" },
+      "repository": { "url": "git://github.com/jasonLaster/foo.git", "type": "git" },
+      "author": { "name": "Jason Laster" },
+      "files": ["src", "bin", "index.js"],
+      "license": "ISC",
+      "dependencies": {
+        "commander": "^2.11.0",
+        "hankey": "^0.0.3",
+        "jest": "^21.2.1",
+        "node-pager": "^0.3.1",
+        "shelljs": "^0.7.8"
+      },
+      "gitHead": "b17d994ae78b6ebfc48623132085787e99d8a0d9",
+      "bugs": { "url": "https://github.com/jasonLaster/foo/issues" },
+      "homepage": "https://github.com/jasonLaster/foo#readme",
+      "_id": "foo@0.0.6",
+      "_npmVersion": "5.4.2",
+      "_nodeVersion": "8.5.0",
+      "_npmUser": { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" },
+      "dist": {
+        "integrity": "sha512-7zqUo0JFgxP4enOqnRmOoBEX9/GmLHBZnqTcYoscOTXjE8H52JacKBNNhQ+jQXt49z7skmAtH8VTSfZ6NXxF4A==",
+        "shasum": "3d8959706a341a653a86dcf238ed437cf274cf5c",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-0.0.6.tgz"
+      },
+      "maintainers": [
+        { "name": "bomsy", "email": "b4bomsy@gmail.com" },
+        { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages",
+        "tmp": "tmp/foo-0.0.6.tgz_1509567719527_0.14949515601620078"
+      },
+      "directories": {}
+    },
+    "0.0.7": {
+      "name": "foo",
+      "version": "0.0.7",
+      "description": "An opinionated git cli for oss",
+      "main": "index.js",
+      "bin": { "foo": "./bin/foo.js" },
+      "scripts": { "test": "jest" },
+      "repository": { "url": "git://github.com/jasonLaster/foo.git", "type": "git" },
+      "author": { "name": "Jason Laster" },
+      "files": ["src", "bin", "index.js"],
+      "license": "ISC",
+      "dependencies": {
+        "commander": "^2.11.0",
+        "hankey": "^0.0.3",
+        "jest": "^21.2.1",
+        "node-pager": "^0.3.1",
+        "shelljs": "^0.7.8"
+      },
+      "gitHead": "c8806dc86790375c795338a31c72806a9a5d6492",
+      "bugs": { "url": "https://github.com/jasonLaster/foo/issues" },
+      "homepage": "https://github.com/jasonLaster/foo#readme",
+      "_id": "foo@0.0.7",
+      "_npmVersion": "5.4.2",
+      "_nodeVersion": "8.5.0",
+      "_npmUser": { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" },
+      "dist": {
+        "integrity": "sha512-sXEK8jkulv5gGs7z98MHihWOf0eiYnwQzSO9BH5Zro/9ABA52njlIt9iJhzXwHkupyajampMPNUmv9lCAiP8xw==",
+        "shasum": "7a27337c6c629fe9bed36961c697db15a689cab3",
+        "tarball": "https://registry.npmjs.org/foo/-/foo-0.0.7.tgz"
+      },
+      "maintainers": [
+        { "name": "bomsy", "email": "b4bomsy@gmail.com" },
+        { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages",
+        "tmp": "tmp/foo-0.0.7.tgz_1509567920081_0.6064721783623099"
+      },
+      "directories": {}
+    }
+  },
+  "maintainers": [
+    { "name": "bomsy", "email": "b4bomsy@gmail.com" },
+    { "name": "jasonlaster11", "email": "jason.laster.11@gmail.com" }
+  ],
+  "time": {
+    "modified": "2017-11-01T20:25:20.984Z",
+    "created": "2011-10-21T23:45:45.286Z",
+    "1.0.0": "2011-10-21T23:45:45.878Z",
+    "0.0.3": "2017-11-01T17:50:26.500Z",
+    "0.0.4": "2017-11-01T17:51:18.122Z",
+    "0.0.5": "2017-11-01T19:20:30.539Z",
+    "0.0.6": "2017-11-01T20:22:00.495Z",
+    "0.0.7": "2017-11-01T20:25:20.984Z"
+  },
+  "author": { "name": "Jason Laster" },
+  "repository": { "url": "git://github.com/jasonLaster/foo.git", "type": "git" },
+  "users": {},
+  "readme": "## Foo\n\nAn opinionated git cli for OSS.\n\n### How to install\n\n```js\nnpm install -g foo | yarn global add foo\n```\n\n### Checkout\n\nGets a remote branch. This will add a remote origin if it does not exist, fetches it and checkouts the specified PR branch.\n\n```bash\nfoo checkout <id|url|branch>\nfoo co <id|url|branch>\n```\n- `branch` - The username and branch e.g `@[user]/[branch]` or `@[user]:[branch]`\n- `id` - The pull request id e.g `4381` or `#4381` (in development)\n- `url` - The pull request url e.g `https://github.com/devtools-html/debugger.html/pull/4381` (in development)\n\n\n### Diff\n\nShows changes between commits, commit and working tree, etc\n\n```bash\nfoo diff\n```\n\n### Log\n\nShows the commit logs.\n\n```bash\nfoo log\n```\n\n### Push\n\nPushes your local branch to GH, regardless of remote.\n\n```bash\nfoo push\n```\n\n\n## Todo\n* **delete** delete local branches\n* **remote** add a new remote\n* **new** create a new branch\n* **update** update a branch\n* **squash** squash local commits\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/jasonLaster/foo#readme",
+  "bugs": { "url": "https://github.com/jasonLaster/foo/issues" },
+  "license": "ISC",
+  "_attachments": {}
+}

@@ -1,0 +1,21 @@
+uplinks:
+  ver:
+    url: https://registry.verdaccio.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  'foo':
+    access: $all
+    publish: $authenticated
+    proxy: ver
+  'foo-no-data':
+    access: $all
+    publish: $authenticated
+    proxy: ver
+  '*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+log: { type: stdout, format: pretty, level: warn }

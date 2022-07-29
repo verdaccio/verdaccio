@@ -14,6 +14,8 @@ async function manifestRoute(fastify: FastifyInstance) {
     debug('pkg name %s ', packageName);
     const data = await storage?.getPackageByOptions({
       name: packageName,
+      // remove on refactor getPackageByOptions
+      // @ts-ignore
       req: request.raw,
       uplinksLook: true,
       requestOptions: {
@@ -32,6 +34,8 @@ async function manifestRoute(fastify: FastifyInstance) {
     debug('pkg name %s, with version / tag: %s ', packageName, version);
     const data = await storage?.getPackageByOptions({
       name: packageName,
+      // remove on refactor getPackageByOptions
+      // @ts-ignore
       req: request.raw,
       version,
       uplinksLook: true,

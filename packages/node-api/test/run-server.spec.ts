@@ -11,12 +11,11 @@ describe('startServer via API', () => {
 
   test('should fail on start with empty configuration', async () => {
     // @ts-expect-error
-    await expect(runServer({})).rejects.toThrow(
-      'AssertionError [ERR_ASSERTION]: CONFIG: storage path not defined'
-    );
+    await expect(runServer({})).rejects.toThrow('config_path is required');
   });
 
   test('should fail on start with null as entry', async () => {
-    await expect(runServer(null)).rejects.toThrow('config file must be an object');
+    // @ts-expected-error
+    await expect(runServer(null)).rejects.toThrow();
   });
 });

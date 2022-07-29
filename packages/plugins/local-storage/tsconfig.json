@@ -14,6 +14,12 @@
       "path": "../streams"
     },
     {
+      "path": "../config"
+    },
+    {
+      "path": "../logger"
+    },
+    {
       "path": "../core"
     }
   ]

@@ -1,5 +1,10 @@
 const config = require('../../../jest/config');
 
 module.exports = Object.assign({}, config, {
-  collectCoverage: true,
+  coverageThreshold: {
+    global: {
+      // FIXME: increase to 90
+      lines: 29,
+    },
+  },
 });

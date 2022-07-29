@@ -39,8 +39,6 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.4",
-    "@verdaccio/streams": "workspace:11.0.0-6-next.5",
-    "async": "3.2.3",
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "globby": "11.1.0",
@@ -54,13 +52,14 @@
     "@types/minimatch": "3.0.5",
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",
-    "minimatch": "3.0.4",
-    "tmp-promise": "3.0.3"
+    "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
+    "minimatch": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
