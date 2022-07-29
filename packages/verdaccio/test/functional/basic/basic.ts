@@ -86,14 +86,6 @@ export default function (server: any, server2: any) {
           return server.removeTarball(PKG_NAME).status(HTTP_STATUS.CREATED);
         });
 
-        test('remove a tarball', () => {
-          /* test for before() */
-        });
-
-        test('uploading new tarball', () => {
-          /* test for after() */
-        });
-
         test('remove non existing tarball', () => {
           return server.removeTarball('testpkg404').status(HTTP_STATUS.NOT_FOUND);
         });

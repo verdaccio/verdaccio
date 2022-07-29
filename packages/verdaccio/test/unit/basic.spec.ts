@@ -43,6 +43,11 @@ describe('basic test endpoints', () => {
       await server.addPackage('testpkg-single-tarball-1');
     });
 
+    test('should create a scoped package', async function () {
+      const server = new ServerQuery(registry.getRegistryUrl());
+      await server.addPackage('@private/pkg1');
+    });
+
     test('should create new versions', async function () {
       const server = new ServerQuery(registry.getRegistryUrl());
       await server.addPackage('testpkg-single-tarball-2');
@@ -67,6 +72,10 @@ describe('basic test endpoints', () => {
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.OK);
       (await server.removePackage('unpublish-new-package', '_rev')).status(HTTP_STATUS.CREATED);
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.NOT_FOUND);
+      // FIXME: throws 500 instead 404
+      // (await server.getTarball('unpublish-new-package', 'unpublish-new-package-1.0.0.tgz')).status(
+      //   HTTP_STATUS.NOT_FOUND
+      // );
     });
   });
 
@@ -82,7 +91,20 @@ describe('basic test endpoints', () => {
       const server = new ServerQuery(registry.getRegistryUrl());
       await server.addPackage('non-exist-package', '1.0.0');
       (await server.getPackage('non-exist-package')).status(HTTP_STATUS.OK);
-      (await server.getTarball('non-exist-package', 'non-exist-package-1.0.1.tgz')).status(404);
+      (await server.getTarball('non-exist-package', 'non-exist-package-1.0.1.tgz')).status(
+        HTTP_STATUS.NOT_FOUND
+      );
+    });
+  });
+
+  describe('get tarball', () => {
+    test('should get a fetch a tarball', async function () {
+      const server = new ServerQuery(registry.getRegistryUrl());
+      await server.addPackage('new-package-tarball', '1.0.0');
+      (await server.getPackage('new-package-tarball')).status(200);
+      (await server.getTarball('new-package-tarball', 'new-package-tarball-1.0.0.tgz')).status(
+        HTTP_STATUS.OK
+      );
     });
   });
 });
