@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.14.0](https://github.com/verdaccio/verdaccio/compare/v5.13.3...v5.14.0) (2022-07-29)
+
+
+### Features
+
+* allow express 'trust proxy' to be set for ip resolution behind proxies and load-balancers ([#3274](https://github.com/verdaccio/verdaccio/issues/3274)) ([0bc26e3](https://github.com/verdaccio/verdaccio/commit/0bc26e395a9fa348da52793526e3f13e614900ab))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/readme to v10.4.1 ([#3267](https://github.com/verdaccio/verdaccio/issues/3267)) ([080bd45](https://github.com/verdaccio/verdaccio/commit/080bd4578f27481a0681914e1e77e7e85cd4bbe6))
+* **deps:** update dependency lru-cache to v7.13.1 ([#3268](https://github.com/verdaccio/verdaccio/issues/3268)) ([d995cc5](https://github.com/verdaccio/verdaccio/commit/d995cc516e012295dae56aa6a62b97d60c2f4da6))
+
 ### [5.13.3](https://github.com/verdaccio/verdaccio/compare/v5.13.2...v5.13.3) (2022-07-13)
 
 
