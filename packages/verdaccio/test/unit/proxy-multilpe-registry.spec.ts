@@ -8,6 +8,10 @@ describe('multiple proxy registries configuration', () => {
   let registry2;
   let registry3;
 
+  // CI is slow, so we need to increase the timeout for the test
+  // some test uses retry with long timeouts
+  jest.setTimeout(40000);
+
   beforeAll(async function () {
     // server 1 configuration
     const storage = await fileUtils.createTempStorageFolder('storage-server1');
@@ -132,7 +136,7 @@ describe('multiple proxy registries configuration', () => {
   test('should fail fetch pnpm with not found if proxy is down', async function () {
     const server2 = new ServerQuery(registry2.getRegistryUrl());
     (await server2.getPackage('pnpm')).status(HTTP_STATUS.NOT_FOUND);
-  }, 30000);
+  });
 
   test.skip('should fail with timeout', async function () {
     const server2 = new ServerQuery(registry2.getRegistryUrl());
