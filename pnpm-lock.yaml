@@ -1273,10 +1273,10 @@ importers:
 
   test/cli/e2e-npm6:
     specifiers:
-      '@verdaccio/e2e-cli-commons': workspace:1.0.0
+      '@verdaccio/test-cli-commons': workspace:1.0.0
       npm: latest-6
     dependencies:
-      '@verdaccio/e2e-cli-commons': link:../cli-commons
+      '@verdaccio/test-cli-commons': link:../cli-commons
       npm: 6.14.17
 
   website:

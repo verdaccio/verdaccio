@@ -1,9 +1,9 @@
-import { addRegistry, initialSetup } from '@verdaccio/e2e-cli-commons';
+import { addRegistry, initialSetup } from '@verdaccio/test-cli-commons';
 
 import { npm } from './utils';
 
 describe('install a package', () => {
-  jest.setTimeout(1000);
+  jest.setTimeout(10000);
   let registry;
 
   beforeAll(async () => {

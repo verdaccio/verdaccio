@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@verdaccio/e2e-cli-commons",
+  "name": "@verdaccio/test-cli-commons",
   "version": "1.0.0",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
