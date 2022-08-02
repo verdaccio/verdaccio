@@ -96,15 +96,22 @@ export class Registry {
           silent: false,
         };
 
-        // @ts-ignore
-        const debugPort = parseInt(port, 10) + 5;
-
-        childOptions = Object.assign({}, childOptions, {
-          execArgv: [`--inspect=${debugPort}`],
-          env: {
-            DEBUG: process.env.DEBUG,
-          },
-        });
+        if (this.debug) {
+          const debugPort = port + 5;
+          debug('debug port %o', debugPort);
+          childOptions = Object.assign({}, childOptions, {
+            execArgv: [`--inspect=${debugPort}`],
+            env: {
+              DEBUG: process.env.DEBUG,
+            },
+          });
+        } else {
+          childOptions = Object.assign({}, childOptions, {
+            env: {
+              DEBUG: process.env.DEBUG,
+            },
+          });
+        }
 
         const { configPath } = this;
         debug('configPath %s', configPath);

@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@verdaccio/e2e-cli-npm6",
+  "version": "2.0.0-6-next.1",
+  "dependencies": {
+    "@verdaccio/test-cli-commons": "workspace:1.0.0",
+    "npm": "latest-6"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
