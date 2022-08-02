@@ -7,3 +7,4 @@ export * from './uplinks';
 export * from './security';
 export * from './user';
 export { default as ConfigBuilder } from './builder';
+export { getDefaultConfig } from './conf';

@@ -8,6 +8,7 @@ import {
   ROLES,
   WEB_TITLE,
   defaultSecurity,
+  getDefaultConfig,
   parseConfigFile,
 } from '../src';
 import { parseConfigurationFile } from './utils';
@@ -74,7 +75,7 @@ describe('check basic content parsed file', () => {
   };
 
   test('parse default.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+    const config = new Config(getDefaultConfig());
     checkDefaultUplink(config);
     expect(config.storage).toBe('./storage');
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
@@ -82,7 +83,7 @@ describe('check basic content parsed file', () => {
   });
 
   test('parse docker.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('docker')));
+    const config = new Config(getDefaultConfig('docker.yaml'));
     checkDefaultUplink(config);
     expect(config.storage).toBe('/verdaccio/storage/data');
     expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
