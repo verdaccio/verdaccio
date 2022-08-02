@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "references": [
+    {
+      "path": "../../../packages/core/core"
+    },
+    {
+      "path": "../../../packages/verdaccio"
+    },
+    {
+      "path": "../../../packages/config"
+    },
+    {
+      "path": "../../../packages/tools/helpers"
+    }
+  ]
+}

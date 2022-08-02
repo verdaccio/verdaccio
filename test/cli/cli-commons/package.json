@@ -1,0 +1,27 @@
+{
+  "private": true,
+  "name": "@verdaccio/e2e-cli-commons",
+  "version": "1.0.0",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "dependencies": {
+    "debug": "4.3.3",
+    "npm": "6.14.5",
+    "get-port": "5.1.1",
+    "wait-on": "^6.0.0",
+    "fs-extra": "10.0.0",
+    "semver": "7.3.5",
+    "got": "11.8.3",
+    "verdaccio": "workspace:6.0.0-6-next.41",
+    "@verdaccio/core": "workspace:6.0.0-6-next.5",
+    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "@verdaccio/test-helper": "workspace:1.1.0-6-next.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types"
+  }
+}

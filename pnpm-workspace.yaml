@@ -10,5 +10,5 @@ packages:
   - packages/plugins/memory
   - packages/plugins/local-storage
   - website
-  - test/e2e-*
+  - test/cli/*
   - test/helpers
