@@ -26,6 +26,7 @@ describe('/ (Verdaccio Page)', () => {
 
     page = await global.__BROWSER__.newPage();
     await page.goto(`http://0.0.0.0:${registry1.getPort()}`);
+    // eslint-disable-next-line no-console
     page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
   });
 
@@ -39,7 +40,6 @@ describe('/ (Verdaccio Page)', () => {
 
   test('should publish a package', async () => {
     const server = new ServerQuery(registry1.getRegistryUrl());
-    console.log('-registry1.getToken()', registry1.getToken());
     await server.putPackage(scopedPackageMetadata.name, scopedPackageMetadata, {
       [HEADERS.AUTHORIZATION]: `Bearer ${registry1.getToken()}`,
     });

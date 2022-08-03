@@ -22,6 +22,7 @@ describe('sign in user', () => {
 
     page = await global.__BROWSER__.newPage();
     await page.goto(`http://0.0.0.0:${registry1.getPort()}`);
+    // eslint-disable-next-line no-console
     page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
   });
 
