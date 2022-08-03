@@ -12,3 +12,4 @@ dist/
 docs/
 test/functional/store/*
 docker-examples/**/lib/**/*.js
+test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
