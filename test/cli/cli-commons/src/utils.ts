@@ -1,4 +1,5 @@
 import fs from 'fs-extra';
+import { copyFile, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { fileUtils } from '@verdaccio/core';
@@ -38,8 +39,25 @@ export function addNpmPrefix(installFolder) {
   return ['--prefix', installFolder];
 }
 
-export function addYarnPrefix(installFolder) {
+export function addYarnClassicPrefix(installFolder) {
   // info regarding cwd flag
   // https://github.com/yarnpkg/yarn/pull/4174
   return ['--cwd', installFolder];
+}
+
+export async function prepareYarnModernProject(
+  templatePath: string,
+  projectName: string,
+  registryDomain: string,
+  yarnPath: string
+) {
+  const tempFolder = await createTempFolder(projectName);
+  // FUTURE: native copy folder instead fs-extra
+  fs.copySync(templatePath, tempFolder);
+  const yamlPath = join(tempFolder, '.yarnrc.yml');
+  const yamlContent = await readFile(yamlPath, 'utf8');
+  const finalYamlContent = yamlContent.replace('${registry}', registryDomain);
+  await writeFile(yamlPath, finalYamlContent);
+  await copyFile(yarnPath, join(tempFolder, '.yarn/releases/yarn.js'));
+  return { tempFolder };
 }
