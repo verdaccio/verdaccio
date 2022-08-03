@@ -27,8 +27,6 @@
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major
-'@verdaccio/e2e-cli': major
-'@verdaccio/e2e-ui': major
 ---
 
 feat!: replace deprecated request dependency by got

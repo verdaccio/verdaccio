@@ -17,8 +17,6 @@
 '@verdaccio/mock': major
 'verdaccio': major
 '@verdaccio/web': major
-'@verdaccio/e2e-cli': major
-'@verdaccio/website': major
 ---
 
 feat!: config.logs throw an error, logging config not longer accept array or logs property

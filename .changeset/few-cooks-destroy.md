@@ -30,7 +30,6 @@
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major
-'@verdaccio/website': major
 ---
 
 feat!: experiments config renamed to flags

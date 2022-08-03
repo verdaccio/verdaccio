@@ -24,7 +24,6 @@
 '@verdaccio/utils': minor
 'verdaccio': minor
 '@verdaccio/web': minor
-'@verdaccio/website': minor
 ---
 
 feat: add typescript project references settings
