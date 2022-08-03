@@ -1,0 +1,52 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: -1
+
+web:
+  enable: false
+  title: verdaccio-e2e-pkg
+
+uplinks:
+  npmjs:
+    url: https://registry.verdaccio.org/
+    max_fails: 30
+    fail_timeout: 10m
+    timeout: 60s
+    cache: true
+    maxage: 30m
+    agent_options:
+      keepAlive: true
+      maxSockets: 40
+      maxFreeSockets: 10
+logs: { type: stdout, format: pretty, level: warn }
+
+packages:
+  ## ui-theme still lives outside of the core project
+  '@verdaccio/ui-theme':
+    access: $anonymous
+    publish: $anonymous
+    proxy: npmjs
+  '@verdaccio/*':
+    access: $anonymous
+    publish: $anonymous
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+  'verdaccio-*':
+    access: $anonymous
+    publish: $anonymous
+  'verdaccio':
+    access: $anonymous
+    publish: $anonymous
+  '**':
+    access: $anonymous
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+
+_debug: true
