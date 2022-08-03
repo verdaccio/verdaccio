@@ -4,7 +4,7 @@
 
 - Default configuration only
 - Basic commands eg (`install / add`, `info`, `publish`, `search`).
-- Test with all popular package managers (`yarn classic` and `yarn modern (2,3)`, `pnpm 6,7` and `npm 6, 7 and 8`)
+- Test with all popular package managers (`yarn classic` and `yarn modern (2,3, 4)`, `pnpm 6,7` and `npm 6, 7 and 8`)
 
 ## How it works?
 
