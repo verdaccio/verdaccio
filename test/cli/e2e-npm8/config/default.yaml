@@ -1,0 +1,34 @@
+storage: ./storage
+
+store:
+  memory:
+    limit: 1000
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+    max_users: -1
+
+web:
+  enable: true
+  title: verdaccio-default
+
+uplinks:
+  local:
+    url: http://localhost:6001
+
+logs: { type: stdout, format: json, level: http }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $anonymous
+    unpublish: $authenticated
+    proxy: local
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $authenticated
+    proxy: local
+
+_debug: true

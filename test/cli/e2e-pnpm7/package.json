@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@verdaccio/e2e-cli-pnpm7",
+  "version": "1.0.0",
+  "dependencies": {
+    "@verdaccio/test-cli-commons": "workspace:1.0.0",
+    "pnpm": "next-7"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
