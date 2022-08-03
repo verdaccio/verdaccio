@@ -10,6 +10,7 @@ describe('install a package', () => {
   let projectFolder;
 
   beforeAll(async () => {
+    console.log('--getYarnCommand()', getYarnCommand());
     const setup = await initialSetup();
     registry = setup.registry;
     await registry.init();

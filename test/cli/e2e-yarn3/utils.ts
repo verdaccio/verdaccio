@@ -7,7 +7,7 @@ export function getCommand(projectFolder) {
 }
 
 export function getYarnCommand() {
-  return join(__dirname, './node_modules/@yarnpkg/cli-dist/bin/yarn.js');
+  return join('./node_modules/@yarnpkg/cli-dist/bin/yarn.js');
 }
 
 export function yarn(projectFolder, ...args: string[]) {
