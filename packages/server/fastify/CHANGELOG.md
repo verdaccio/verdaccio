@@ -1,4 +1,4 @@
-# @verdaccio/fastify-migration
+# @verdaccio/server-fastify
 
 ## 6.0.0-6-next.23
 

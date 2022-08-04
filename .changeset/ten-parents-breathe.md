@@ -1,6 +1,6 @@
 ---
 '@verdaccio/auth': minor
-'@verdaccio/fastify-migration': minor
+'@verdaccio/server-fastify': minor
 '@verdaccio/web': minor
 ---
 

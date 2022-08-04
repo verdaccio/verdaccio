@@ -1,6 +1,6 @@
 ---
 '@verdaccio/api': major
-'@verdaccio/fastify-migration': major
+'@verdaccio/server-fastify': major
 '@verdaccio/tarball': major
 '@verdaccio/local-storage': major
 'verdaccio-memory': major

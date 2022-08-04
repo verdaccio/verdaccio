@@ -6,7 +6,7 @@
 '@verdaccio/core': minor
 'verdaccio-htpasswd': minor
 '@verdaccio/local-storage': minor
-'@verdaccio/fastify-migration': minor
+'@verdaccio/server-fastify': minor
 '@verdaccio/tarball': minor
 '@verdaccio/types': minor
 '@verdaccio/url': minor

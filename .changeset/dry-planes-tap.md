@@ -6,7 +6,7 @@
 '@verdaccio/commons-api': major
 '@verdaccio/core': major
 '@verdaccio/local-storage': major
-'@verdaccio/fastify-migration': major
+'@verdaccio/server-fastify': major
 '@verdaccio/streams': major
 '@verdaccio/types': major
 '@verdaccio/hooks': major
