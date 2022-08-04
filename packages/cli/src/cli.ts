@@ -2,7 +2,6 @@ import { Cli } from 'clipanion';
 
 import { warningUtils } from '@verdaccio/core';
 
-import { FastifyServer } from './commands/FastifyServer';
 import { InfoCommand } from './commands/info';
 import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
@@ -30,7 +29,6 @@ const cli = new Cli({
 cli.register(InfoCommand);
 cli.register(InitCommand);
 cli.register(VersionCommand);
-cli.register(FastifyServer);
 cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {
