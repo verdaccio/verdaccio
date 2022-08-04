@@ -119,7 +119,7 @@
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "lint": "eslint --max-warnings 100 \"**/*.{js,jsx,ts,tsx}\"",
     "test": "pnpm recursive test --filter ./packages",
-    "test:e2e:cli": "pnpm test --filter ...@verdaccio/e2e-*",
+    "test:e2e:cli": "pnpm test --filter ...@verdaccio/e2e-* -- --coverage=false",
     "test:e2e:ui": "pnpm test --filter ...@verdaccio/e2e-ui",
     "start": "concurrently --kill-others \"pnpm _start:server\" \"pnpm _start:web\"",
     "benchmark:hyper": "verdaccio-benchmark hyper -r ./hyper-results.json",

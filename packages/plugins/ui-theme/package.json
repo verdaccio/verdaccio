@@ -37,7 +37,6 @@
     "@verdaccio/types": "workspace:*",
     "babel-loader": "8.2.3",
     "babel-plugin-dynamic-import-node": "2.3.3",
-    "bundlesize": "0.18.1",
     "css-loader": "6.5.1",
     "dayjs": "1.10.7",
     "friendly-errors-webpack-plugin": "1.7.0",
@@ -105,35 +104,12 @@
     "server",
     "verdaccio"
   ],
-  "bundlesize": [
-    {
-      "path": "./static/vendors.*.js",
-      "maxSize": "900 kB"
-    },
-    {
-      "path": "./static/main.*.js",
-      "maxSize": "400 kB"
-    },
-    {
-      "path": "./static/*.svg",
-      "maxSize": "1.3 kB"
-    },
-    {
-      "path": "./static/*.png",
-      "maxSize": "15 kB"
-    },
-    {
-      "path": "./static/fonts/*.{woff,woff2}",
-      "maxSize": "20 kB"
-    }
-  ],
   "scripts": {
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "start": "babel-node tools/dev.server.js",
     "test:clean": "jest --clearCache",
     "test": "cross-env TZ=UTC jest --config ./jest/jest.config.js",
     "test:update-snapshot": "yarn run test -- -u",
-    "test:size": "bundlesize",
     "lint": "pnpm lint:js && pnpm lint:css",
     "lint:css": "yarn stylelint \"src/**/styles.ts\"",
     "verdaccio:server": "node tools/verdaccio.js",

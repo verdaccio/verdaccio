@@ -31,3 +31,5 @@ api/**
 packages/core/local-storage/tests/__fixtures__/test-storage/
 packages/plugins/ui-theme/static/
 .verdaccio-db.json
+test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
+yarn.js

@@ -1,10 +1,10 @@
 {
   "private": true,
-  "name": "@verdaccio/e2e-cli-npm8",
+  "name": "@verdaccio/e2e-cli-yarn2",
   "version": "1.0.0",
   "dependencies": {
     "@verdaccio/test-cli-commons": "workspace:1.0.0",
-    "npm": "next-8"
+    "@yarnpkg/cli-dist": "2.4.1"
   },
   "scripts": {
     "test": "jest"
