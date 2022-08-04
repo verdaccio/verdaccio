@@ -10,7 +10,6 @@ describe('install a package', () => {
   let projectFolder;
 
   beforeAll(async () => {
-    console.log('--getYarnCommand()', getYarnCommand());
     const setup = await initialSetup();
     registry = setup.registry;
     await registry.init();
@@ -23,7 +22,7 @@ describe('install a package', () => {
     projectFolder = tempFolder;
   });
 
-  test('should run yarn info json body', async () => {
+  test('should run yarn 2 info json body', async () => {
     const resp = await yarn(projectFolder, 'npm', 'info', 'verdaccio', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.name).toEqual('verdaccio');

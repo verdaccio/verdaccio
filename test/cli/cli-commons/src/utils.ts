@@ -52,14 +52,12 @@ export async function prepareYarnModernProject(
   yarnPath: string
 ) {
   const tempFolder = await createTempFolder(projectName);
-  console.log('-tempFolder->', tempFolder);
   // FUTURE: native copy folder instead fs-extra
   fs.copySync(templatePath, tempFolder);
   const yamlPath = join(tempFolder, '.yarnrc.yml');
   const yamlContent = await readFile(yamlPath, 'utf8');
   const finalYamlContent = yamlContent.replace('${registry}', registryDomain);
   await writeFile(yamlPath, finalYamlContent);
-  console.log('-yarnPath->', yarnPath);
   await cp(yarnPath, join(tempFolder, '.yarn/releases/yarn.js'), { dereference: true });
   return { tempFolder };
 }

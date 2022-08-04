@@ -15,14 +15,14 @@ describe('install a package', () => {
     await registry.init();
     const { tempFolder } = await prepareYarnModernProject(
       join(__dirname, './yarn-project'),
-      'yarn-2',
+      'yarn-4',
       registry.getRegistryUrl(),
       getYarnCommand()
     );
     projectFolder = tempFolder;
   });
 
-  test('should run yarn info json body', async () => {
+  test('should run yarn 4 info json body', async () => {
     const resp = await yarn(projectFolder, 'npm', 'info', 'verdaccio', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.name).toEqual('verdaccio');
