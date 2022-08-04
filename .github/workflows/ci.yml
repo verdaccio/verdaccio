@@ -155,11 +155,10 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        ## we need scripts, pupetter downloads aditional content
         run: pnpm recursive install --frozen-lockfile
       - name: build
         run: pnpm build
-      - nane: ls
+      - name: ls
         run: ls -ls /home/runner/work/verdaccio/verdaccio/test/cli/e2e-yarn2/node_modules/@yarnpkg/cli-dist/bin/yarn.js  
       - name: Test CLI
         run: pnpm test:e2e:cli
