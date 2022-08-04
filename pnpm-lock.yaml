@@ -234,7 +234,7 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.11.21
-      '@verdaccio/server': link:../server/server-express
+      '@verdaccio/server': link:../server/express
       '@verdaccio/test-helper': link:../tools/helpers
       '@verdaccio/types': link:../core/types
       mockdate: 3.0.5
@@ -520,7 +520,7 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
-      '@verdaccio/server': link:../server/server-express
+      '@verdaccio/server': link:../server/express
       core-js: 3.20.3
       debug: 4.3.3
       lodash: 4.17.21
@@ -856,7 +856,7 @@ importers:
       node-mocks-http: 1.11.0
       semver: 7.3.5
 
-  packages/server/server-express:
+  packages/server/express:
     specifiers:
       '@types/node': 16.11.21
       '@verdaccio/api': workspace:6.0.0-6-next.25
@@ -905,7 +905,7 @@ importers:
       '@verdaccio/test-helper': link:../../tools/helpers
       http-errors: 1.8.1
 
-  packages/server/server-fastify:
+  packages/server/fastify:
     specifiers:
       '@types/node': 16.11.21
       '@verdaccio/auth': workspace:6.0.0-6-next.22
@@ -920,7 +920,7 @@ importers:
       core-js: 3.20.3
       debug: 4.3.3
       fastify: 4.3.0
-      fastify-plugin: 3.0.0
+      fastify-plugin: 4.0.0
       lodash: 4.17.21
       ts-node: 10.4.0
     dependencies:
@@ -935,7 +935,7 @@ importers:
       core-js: 3.20.3
       debug: 4.3.3
       fastify: 4.3.0
-      fastify-plugin: 3.0.0
+      fastify-plugin: 4.0.0
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.11.21
@@ -15408,8 +15408,8 @@ packages:
     resolution: {integrity: sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==}
     dev: true
 
-  /fastify-plugin/3.0.0:
-    resolution: {integrity: sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==}
+  /fastify-plugin/4.0.0:
+    resolution: {integrity: sha512-ZJcXPPcqkj7HFDYqbsCuOIAgIZ/sd2b+OnBxNGyxAcUDUJfIpxp4t23CwxO2E7LZpqUrIliA4TnjxTXG8mLoqw==}
     dev: false
 
   /fastify/4.3.0:
