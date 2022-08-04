@@ -3,10 +3,9 @@
   "name": "@verdaccio/e2e-cli-yarn3",
   "version": "1.0.0",
   "dependencies": {
-    "@verdaccio/test-cli-commons": "workspace:1.0.0",
-    "@yarnpkg/cli-dist": "3.2.2"
+    "@verdaccio/test-cli-commons": "workspace:1.0.0"
   },
   "scripts": {
-    "test": "tree ./node_modules && jest"
+    "test": "jest"
   }
 }
