@@ -7,6 +7,6 @@
     "@yarnpkg/cli-dist": "2.4.1"
   },
   "scripts": {
-    "test": "jest"
+    "test": "tree ./node_modules && jest"
   }
 }
