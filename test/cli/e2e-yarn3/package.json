@@ -6,6 +6,6 @@
     "@verdaccio/test-cli-commons": "workspace:1.0.0"
   },
   "scripts": {
-    "test": "jest"
+    "test": "pwd && tree && jest"
   }
 }
