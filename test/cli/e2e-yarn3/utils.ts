@@ -8,7 +8,7 @@ export function getCommand(projectFolder) {
 
 export function getYarnCommand() {
   // TODO: temporary location for yarn bin
-  return join(__dirname, './bin/yarn.js');
+  return join('./bin/yarn.js');
 }
 
 export function yarn(projectFolder, ...args: string[]) {
