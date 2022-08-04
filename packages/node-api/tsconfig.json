@@ -20,7 +20,7 @@
       "path": "../mock"
     },
     {
-      "path": "../server"
+      "path": "../server-express"
     }
   ]
 }
