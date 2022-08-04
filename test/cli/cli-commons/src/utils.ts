@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { copyFile, readFile, writeFile } from 'fs/promises';
+import { cp, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { fileUtils } from '@verdaccio/core';
@@ -52,12 +52,14 @@ export async function prepareYarnModernProject(
   yarnPath: string
 ) {
   const tempFolder = await createTempFolder(projectName);
+  console.log('-tempFolder->', tempFolder);
   // FUTURE: native copy folder instead fs-extra
   fs.copySync(templatePath, tempFolder);
   const yamlPath = join(tempFolder, '.yarnrc.yml');
   const yamlContent = await readFile(yamlPath, 'utf8');
   const finalYamlContent = yamlContent.replace('${registry}', registryDomain);
   await writeFile(yamlPath, finalYamlContent);
-  await copyFile(yarnPath, join(tempFolder, '.yarn/releases/yarn.js'));
+  console.log('-yarnPath->', yarnPath);
+  await cp(yarnPath, join(tempFolder, '.yarn/releases/yarn.js'), { dereference: true });
   return { tempFolder };
 }
