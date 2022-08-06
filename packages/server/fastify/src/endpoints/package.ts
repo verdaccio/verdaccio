@@ -6,9 +6,13 @@ import { Package, Version } from '@verdaccio/types';
 const debug = buildDebug('verdaccio:fastify:api:sidebar');
 export type $SidebarPackage = Package & { latest: Version };
 
+interface ParamsInterface {
+  packageName: string;
+  version: string;
+}
+
 async function manifestRoute(fastify: FastifyInstance) {
-  fastify.get('/:packageName', async (request) => {
-    // @ts-ignore
+  fastify.get<{ Params: ParamsInterface }>('/:packageName', async (request) => {
     const { packageName } = request.params;
     const storage = fastify.storage;
     debug('pkg name %s ', packageName);
@@ -27,8 +31,7 @@ async function manifestRoute(fastify: FastifyInstance) {
     return data;
   });
 
-  fastify.get('/:packageName/:version', async (request) => {
-    // @ts-ignore
+  fastify.get<{ Params: ParamsInterface }>('/:packageName/:version', async (request) => {
     const { packageName, version } = request.params;
     const storage = fastify.storage;
     debug('pkg name %s, with version / tag: %s ', packageName, version);

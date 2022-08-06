@@ -7,9 +7,7 @@ import { logger } from '@verdaccio/logger';
 
 async function pingRoute(fastify: FastifyInstance) {
   fastify.get('/-/ping', async () => {
-    logger.http('ping endpoint');
-    console.log('-storage->', fastify.storage);
-    console.log('-config->', fastify.configInstance);
+    logger.http('ping');
     return {};
   });
 }

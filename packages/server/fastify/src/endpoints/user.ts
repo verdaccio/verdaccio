@@ -2,7 +2,7 @@
 
 /* eslint-disable no-invalid-this */
 import buildDebug from 'debug';
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
@@ -15,28 +15,37 @@ const debug = buildDebug('verdaccio:fastify:user');
 
 async function userRoute(fastify: FastifyInstance) {
   fastify.get('/:org_couchdb_user', async (request, reply) => {
-    // @ts-expect-error
+    // @ts-ignore
     const message = getAuthenticatedMessage(request.userRemote.name);
     logger.info('user authenticated message %o', message);
     reply.code(fastify.statusCode.OK);
     return { ok: message };
   });
 
-  fastify.delete('/token/:token', async (request: FastifyRequest, reply) => {
-    debug('loging out');
-    // FIXME: type params correctly
-    // @ts-ignore
-    const { token } = request.params;
-    const userRemote: RemoteUser = request.userRemote;
-    await fastify.auth.invalidateToken(token);
-    console.log('userRoute', userRemote);
-    reply.code(fastify.statusCode.OK);
-    return { ok: fastify.apiMessage.LOGGED_OUT };
-  });
+  interface DeleteTokenParamsInterface {
+    token: string;
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  fastify.delete<{ Params: DeleteTokenParamsInterface }>(
+    '/token/:token',
+    async (request, reply) => {
+      debug('loging out');
+      const { token } = request.params;
+      const userRemote: RemoteUser = request.userRemote;
+      await fastify.auth.invalidateToken(token);
+      console.log('userRoute', userRemote);
+      reply.code(fastify.statusCode.OK);
+      return { ok: fastify.apiMessage.LOGGED_OUT };
+    }
+  );
+
+  interface UpdateUserParamsInterface {
+    username: string;
+  }
+
   fastify.put<{
     Body: { name: string; password: string };
+    Params: UpdateUserParamsInterface;
   }>('/:username', async (request, reply) => {
     const { name, password } = request.body;
     const remoteName = request.userRemote.name;

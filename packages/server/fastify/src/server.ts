@@ -22,6 +22,8 @@ import sidebar from './routes/web/api/sidebar';
 
 const debug = buildDebug('verdaccio:fastify');
 
+const VERDACCIO_WEB_PREFIX = '/-/verdaccio';
+
 async function startServer(config: ConfigYaml): Promise<any> {
   // eslint-disable-next-line prettier/prettier
   const configInstance: IConfig = new AppConfig({ ...config } as any);
@@ -42,9 +44,9 @@ async function startServer(config: ConfigYaml): Promise<any> {
     instance.register(manifest);
     instance.register(tarball);
     instance.register(distTags);
-    instance.register(readme, { prefix: '/-/verdaccio' });
-    instance.register(sidebar, { prefix: '/-/verdaccio' });
-    instance.register(login, { prefix: '/-/verdaccio' });
+    instance.register(readme, { prefix: VERDACCIO_WEB_PREFIX });
+    instance.register(sidebar, { prefix: VERDACCIO_WEB_PREFIX });
+    instance.register(login, { prefix: VERDACCIO_WEB_PREFIX });
 
     done();
   });
