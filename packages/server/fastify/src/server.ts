@@ -2,7 +2,8 @@ import buildDebug from 'debug';
 import fastify from 'fastify';
 
 import { Config as AppConfig, createAnonymousRemoteUser } from '@verdaccio/config';
-import { Config as IConfig, RemoteUser } from '@verdaccio/types';
+import { logger } from '@verdaccio/logger';
+import { ConfigYaml, Config as IConfig, RemoteUser } from '@verdaccio/types';
 
 import distTags from './endpoints/dist-tags';
 import manifest from './endpoints/package';
@@ -21,10 +22,10 @@ import sidebar from './routes/web/api/sidebar';
 
 const debug = buildDebug('verdaccio:fastify');
 
-async function startServer({ logger, config }) {
+async function startServer(config: ConfigYaml): Promise<any> {
   // eslint-disable-next-line prettier/prettier
-  const configInstance: IConfig = new AppConfig(Object.assign({}, config));
-  debug('start server');
+  const configInstance: IConfig = new AppConfig({ ...config } as any);
+  debug('start fastify server');
   const fastifyInstance = fastify({ logger });
   fastifyInstance.decorateRequest<RemoteUser>('userRemote', createAnonymousRemoteUser());
   fastifyInstance.register(coreUtils);

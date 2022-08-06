@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import sanitizyReadme from '@verdaccio/readme';
 
-const debug = buildDebug('verdaccio:api:whoami');
+const debug = buildDebug('verdaccio:fastify:web:readme');
 export const NOT_README_FOUND = 'ERROR: No README data found!';
 
 async function readmeRoute(fastify: FastifyInstance) {

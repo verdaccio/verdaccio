@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify';
 
 import { Manifest, Version } from '@verdaccio/types';
 
-const debug = buildDebug('verdaccio:web:api:sidebar');
+const debug = buildDebug('verdaccio:fastify:web:sidebar');
 export type $SidebarPackage = Manifest & { latest: Version };
 const stringType = { type: 'string' };
 const packageNameSchema = { packageName: stringType };

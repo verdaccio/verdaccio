@@ -21,6 +21,9 @@
     },
     {
       "path": "../server/express"
+    },
+    {
+      "path": "../server/fastify"
     }
   ]
 }

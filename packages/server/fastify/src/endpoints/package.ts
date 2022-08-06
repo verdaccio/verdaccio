@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify';
 
 import { Package, Version } from '@verdaccio/types';
 
-const debug = buildDebug('verdaccio:web:api:sidebar');
+const debug = buildDebug('verdaccio:fastify:api:sidebar');
 export type $SidebarPackage = Package & { latest: Version };
 
 async function manifestRoute(fastify: FastifyInstance) {

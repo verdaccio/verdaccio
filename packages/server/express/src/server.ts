@@ -140,7 +140,7 @@ export default (async function (configHash: ConfigYaml): Promise<any> {
   // register middleware plugins
   const plugin_params = {
     config: config,
-    logger: logger,
+    logger,
   };
   const filters = loadPlugin(
     config,

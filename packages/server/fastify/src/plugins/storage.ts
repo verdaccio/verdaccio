@@ -13,7 +13,7 @@ export default fp(
     fastify.decorate('storage', storage);
   },
   {
-    fastify: '>=3.x',
+    fastify: '>=4.x',
   }
 );
 

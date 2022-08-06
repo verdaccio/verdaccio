@@ -11,7 +11,7 @@ import { logger } from '@verdaccio/logger';
 import { RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 
-const debug = buildDebug('verdaccio:api:user');
+const debug = buildDebug('verdaccio:fastify:user');
 
 async function userRoute(fastify: FastifyInstance) {
   fastify.get('/:org_couchdb_user', async (request, reply) => {

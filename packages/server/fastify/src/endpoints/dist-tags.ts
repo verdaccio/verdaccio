@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
 
-const debug = buildDebug('verdaccio:api:dist-tags');
+const debug = buildDebug('verdaccio:fastify:dist-tags');
 
 async function distTagsRoute(fastify: FastifyInstance) {
   fastify.get('/-/package/:packageName/dist-tags', async (request, reply) => {

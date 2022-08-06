@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
 
-const debug = buildDebug('verdaccio:api:whoami');
+const debug = buildDebug('verdaccio:fastify:whoami');
 
 async function whoamiRoute(fastify: FastifyInstance) {
   fastify.get('/-/whoami', async (request, reply) => {

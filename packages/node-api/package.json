@@ -43,6 +43,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
     "@verdaccio/server": "workspace:6.0.0-6-next.31",
+    "@verdaccio/server-fastify": "workspace:6.0.0-6-next.23",
     "core-js": "3.20.3",
     "debug": "4.3.3",
     "lodash": "4.17.21"

@@ -509,6 +509,7 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.11
       '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/server': workspace:6.0.0-6-next.31
+      '@verdaccio/server-fastify': workspace:6.0.0-6-next.23
       '@verdaccio/types': workspace:11.0.0-6-next.12
       core-js: 3.20.3
       debug: 4.3.3
@@ -521,6 +522,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
       '@verdaccio/server': link:../server/express
+      '@verdaccio/server-fastify': link:../server/fastify
       core-js: 3.20.3
       debug: 4.3.3
       lodash: 4.17.21
@@ -919,8 +921,8 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.11
       core-js: 3.20.3
       debug: 4.3.3
-      fastify: 4.3.0
-      fastify-plugin: 4.0.0
+      fastify: '4'
+      fastify-plugin: '4'
       lodash: 4.17.21
       ts-node: 10.4.0
     dependencies:

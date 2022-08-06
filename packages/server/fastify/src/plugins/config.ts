@@ -11,7 +11,7 @@ export default fp(
     fastify.decorate('configInstance', configInstance);
   },
   {
-    fastify: '>=3.x',
+    fastify: '>=4.x',
   }
 );
 

@@ -23,14 +23,16 @@ export {
   DEFAULT_USER,
   USERS,
 } from './constants';
-
+const validationUtils = validatioUtils;
 export {
   fileUtils,
   pkgUtils,
   searchUtils,
   streamUtils,
   errorUtils,
+  // TODO: remove this typo
   validatioUtils,
+  validationUtils,
   constants,
   pluginUtils,
   warningUtils,

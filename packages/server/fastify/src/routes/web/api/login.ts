@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { JWTSignOptions } from '@verdaccio/types';
 import { validatePassword } from '@verdaccio/utils';
 
-const debug = buildDebug('verdaccio:api:login');
+const debug = buildDebug('verdaccio:fastify:web:login');
 const loginBodySchema = {
   body: {
     type: 'object',
