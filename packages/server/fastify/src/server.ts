@@ -6,7 +6,7 @@ import { logger } from '@verdaccio/logger';
 import { ConfigYaml, Config as IConfig, RemoteUser } from '@verdaccio/types';
 
 import distTags from './endpoints/dist-tags';
-import manifest from './endpoints/package';
+import manifest from './endpoints/manifest';
 import ping from './endpoints/ping';
 import search from './endpoints/search';
 import tarball from './endpoints/tarball';
@@ -21,8 +21,10 @@ import readme from './routes/web/api/readme';
 import sidebar from './routes/web/api/sidebar';
 
 const debug = buildDebug('verdaccio:fastify');
-
-const VERDACCIO_WEB_PREFIX = '/-/verdaccio';
+enum PREFIX {
+  WEB = '/-/verdaccio',
+  USER = '/-/user',
+}
 
 async function startServer(config: ConfigYaml): Promise<any> {
   // eslint-disable-next-line prettier/prettier
@@ -41,15 +43,15 @@ async function startServer(config: ConfigYaml): Promise<any> {
   // api
   fastifyInstance.register((instance, opts, done) => {
     instance.register(ping);
-    instance.register(user, { prefix: '/-/user' });
+    instance.register(user, { prefix: PREFIX.USER });
     instance.register(search);
     instance.register(whoami);
     instance.register(manifest);
     instance.register(tarball);
     instance.register(distTags);
-    instance.register(readme, { prefix: VERDACCIO_WEB_PREFIX });
-    instance.register(sidebar, { prefix: VERDACCIO_WEB_PREFIX });
-    instance.register(login, { prefix: VERDACCIO_WEB_PREFIX });
+    instance.register(readme, { prefix: PREFIX.WEB });
+    instance.register(sidebar, { prefix: PREFIX.WEB });
+    instance.register(login, { prefix: PREFIX.WEB });
 
     done();
   });
@@ -59,7 +61,6 @@ async function startServer(config: ConfigYaml): Promise<any> {
     instance.register(ping, { prefix: '/web' });
     done();
   });
-
   return fastifyInstance;
 }
 

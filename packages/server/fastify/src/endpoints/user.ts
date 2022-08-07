@@ -14,8 +14,13 @@ import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
 const debug = buildDebug('verdaccio:fastify:user');
 
 async function userRoute(fastify: FastifyInstance) {
-  fastify.get('/:org_couchdb_user', async (request, reply) => {
+  interface UserParamsInterface {
+    org_couchdb_user: string;
+  }
+
+  fastify.get<{ Params: UserParamsInterface }>('/:org_couchdb_user', async (request, reply) => {
     // @ts-ignore
+    // TODO: compare org_couchdb_user with remote user name
     const message = getAuthenticatedMessage(request.userRemote.name);
     logger.info('user authenticated message %o', message);
     reply.code(fastify.statusCode.OK);

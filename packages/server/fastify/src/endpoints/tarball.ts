@@ -8,9 +8,7 @@ const debug = buildDebug('verdaccio:fastify:tarball');
 
 interface ParamsInterface {
   package: string;
-  version: string;
   filename: string;
-  scopedPackage: string;
 }
 
 async function tarballRoute(fastify: FastifyInstance) {
@@ -31,11 +29,18 @@ async function tarballRoute(fastify: FastifyInstance) {
     return reply.send(stream);
   });
 
-  fastify.get<{ Params: ParamsInterface }>(
-    '/:scopedPackage/-/:scope/:filename',
+  interface ScopeParamsInterface {
+    filename: string;
+    scope: string;
+    name: string;
+  }
+
+  fastify.get<{ Params: ScopeParamsInterface }>(
+    '/:scope/:name/-/:filename',
     async (request, reply) => {
       const abort = new AbortController();
-      const { scopedPackage, filename } = request.params;
+      const { scope, name, filename } = request.params;
+      const scopedPackage = `${scope}/${name}`;
       debug('stream scope tarball for %s@%s', scopedPackage, filename);
       const stream = (await fastify.storage.getTarballNext(scopedPackage, filename, {
         signal: abort.signal,
