@@ -278,7 +278,7 @@ clean git history.
 #### Before Commit
 
 Before committing, **you must ensure there are no linting errors and
-all tests pass.** To do this, run these commands before create the PR:
+all tests pass.** To do this, run these commands before creating the PR:
 
 ```bash
 pnpm lint
