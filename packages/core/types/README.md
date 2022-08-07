@@ -1,13 +1,13 @@
-# Typescript types for Verdaccio
+# TypeScript types for Verdaccio
 
-Typescript definitions for verdaccio plugins and internal code
+TypeScript definitions for Verdaccio plugins and internal code.
 
-# Typescript
+# TypeScript
 
 For usage with the library, the `tsconfig.json` should looks like this.
 
-```
-//tsconfig.json
+```json5
+// tsconfig.json
 {
   "compilerOptions": {
     "target": "esnext",
@@ -32,11 +32,10 @@ For usage with the library, the `tsconfig.json` should looks like this.
 
 ### Imports
 
-```
+```ts
 import type {ILocalData, LocalStorage, Logger, Config} from '@verdaccio/types';
 
- class LocalData implements ILocalData {
-
+class LocalData implements ILocalData {
   path: string;
   logger: Logger;
   data: LocalStorage;
