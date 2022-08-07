@@ -29,7 +29,10 @@ async function startServer(config: ConfigYaml): Promise<any> {
   const configInstance: IConfig = new AppConfig({ ...config } as any);
   debug('start fastify server');
   const fastifyInstance = fastify({ logger });
-  fastifyInstance.decorateRequest<RemoteUser>('userRemote', createAnonymousRemoteUser());
+  fastifyInstance.addHook('onRequest', (request, reply, done) => {
+    request.userRemote = createAnonymousRemoteUser();
+    done();
+  });
   fastifyInstance.register(coreUtils);
   fastifyInstance.register(configPlugin, { config });
   fastifyInstance.register(storagePlugin, { config: configInstance });
