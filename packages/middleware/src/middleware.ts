@@ -334,6 +334,7 @@ export function log(req: $RequestExtend, res: $ResponseExtend, next: $NextFuncti
   });
 
   const _end = res.end;
+  // @ts-ignore
   res.end = function (buf): void {
     if (buf) {
       bytesout += buf.length;
