@@ -157,7 +157,7 @@ exports[`<NotFound /> component should load the component in default state 1`] =
     Sorry, we couldn't find it...
   </h4>
   <button
-    class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  emotion-5"
+    class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium emotion-5"
     data-testid="not-found-go-to-home-button"
     tabindex="0"
     type="button"

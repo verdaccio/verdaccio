@@ -228,10 +228,10 @@ label+.emotion-5 {
 }
 
 .emotion-5.Mui-focused:after {
-  -webkit-transform: scaleX(1);
-  -moz-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
+  -webkit-transform: scaleX(1) translateX(0);
+  -moz-transform: scaleX(1) translateX(0);
+  -ms-transform: scaleX(1) translateX(0);
+  transform: scaleX(1) translateX(0);
 }
 
 .emotion-5.Mui-error:after {
@@ -406,26 +406,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
   animation-name: mui-auto-fill;
 }
 
-.emotion-10 {
-  position: absolute;
-  right: 0;
-  top: calc(50% - 14px);
-}
-
 <div
   class="emotion-0 emotion-1"
 >
   <div
-    aria-expanded="false"
     class="MuiAutocomplete-root MuiAutocomplete-fullWidth emotion-2"
-    role="combobox"
   >
     <div
       class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root emotion-3 emotion-4"
     >
-      
       <div
-        class="MuiInput-root MuiInput-underline MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd MuiAutocomplete-inputRoot emotion-5"
+        class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiAutocomplete-inputRoot emotion-5"
       >
         <div
           class="MuiInputAdornment-root MuiInputAdornment-positionStart MuiInputAdornment-standard MuiInputAdornment-sizeMedium emotion-6 emotion-7"
@@ -449,18 +440,17 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-9:focus::-ms-input-p
         </div>
         <input
           aria-autocomplete="list"
+          aria-expanded="false"
           aria-invalid="false"
           autocapitalize="none"
           autocomplete="off"
-          class="MuiInput-input MuiInputBase-input MuiInputBase-inputAdornedStart MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused emotion-9"
+          class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart MuiAutocomplete-input MuiAutocomplete-inputFocused emotion-9"
           id="search-header-suggest"
           placeholder="Search Packages"
+          role="combobox"
           spellcheck="false"
           type="text"
           value=""
-        />
-        <div
-          class="MuiAutocomplete-endAdornment emotion-10"
         />
       </div>
     </div>

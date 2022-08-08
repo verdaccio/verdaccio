@@ -67,6 +67,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
   min-width: 0;
   width: 40px;
   height: 40px;
+  z-index: 1050;
   box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
   color: rgba(0, 0, 0, 0.87);
   background-color: #e0e0e0;
@@ -166,7 +167,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
       class="MuiTypography-root MuiTypography-body1 emotion-1"
     >
       <button
-        class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall emotion-2 emotion-3"
+        class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-default emotion-2 emotion-3"
         data-testid="fab"
         tabindex="0"
         type="button"
@@ -200,7 +201,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
       class="MuiTypography-root MuiTypography-body1 emotion-1"
     >
       <button
-        class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall emotion-2 emotion-3"
+        class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-default emotion-2 emotion-3"
         data-testid="fab"
         tabindex="0"
         type="button"
@@ -224,7 +225,7 @@ exports[`<ActionBar /> component should render the component in default state 1`
   </a>
   <button
     aria-label="Download tarball"
-    class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall  emotion-2 emotion-3"
+    class="MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-default  emotion-2 emotion-3"
     data-mui-internal-clone-element="true"
     data-testid="fab"
     tabindex="0"
