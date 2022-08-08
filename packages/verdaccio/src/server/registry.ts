@@ -103,12 +103,14 @@ export class Registry {
             execArgv: [`--inspect=${debugPort}`],
             env: {
               DEBUG: process.env.DEBUG,
+              VERDACCIO_SERVER: process.env.VERDACCIO_SERVER,
             },
           });
         } else {
           childOptions = Object.assign({}, childOptions, {
             env: {
               DEBUG: process.env.DEBUG,
+              VERDACCIO_SERVER: process.env.VERDACCIO_SERVER,
             },
           });
         }

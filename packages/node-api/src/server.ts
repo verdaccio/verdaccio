@@ -115,7 +115,7 @@ export async function initServer(
     let app;
     if (process.env.VERDACCIO_SERVER === 'fastify') {
       app = await fastifyServer(config);
-      app.listen({ port: 4873 }, (err) => {
+      app.listen({ port: addr.port, host: addr.host }, (err) => {
         if (err) {
           reject(err);
         } else {

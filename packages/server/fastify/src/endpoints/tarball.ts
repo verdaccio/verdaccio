@@ -21,12 +21,16 @@ async function tarballRoute(fastify: FastifyInstance) {
       // enableRemote: true,
     })) as any;
 
-    request.socket.on('abort', () => {
-      debug('request aborted for %o', request.url);
-      abort.abort();
+    stream.on('content-length', (size: number) => {
+      reply.header(HEADER_TYPE.CONTENT_LENGTH, size);
     });
 
-    return reply.send(stream);
+    // request.socket.on('abort', () => {
+    //   debug('request aborted for %o', request.url);
+    //   abort.abort();
+    // });
+
+    return stream;
   });
 
   interface ScopeParamsInterface {
@@ -51,13 +55,13 @@ async function tarballRoute(fastify: FastifyInstance) {
         reply.header(HEADER_TYPE.CONTENT_LENGTH, size);
       });
 
-      request.socket.on('abort', () => {
-        debug('request aborted for %o', request.url);
-        abort.abort();
-      });
+      // request.socket.on('abort', () => {
+      //   debug('request aborted for %o', request.url);
+      //   abort.abort();
+      // });
 
       reply.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
-      return reply.send(stream);
+      return stream;
     }
   );
 }
