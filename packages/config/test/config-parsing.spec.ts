@@ -18,7 +18,7 @@ describe('parse', () => {
       test('parse invalid.json', () => {
         expect(function () {
           parseConfigFile(parseConfigurationFile('invalid.json'));
-        }).toThrow(/CONFIG: it does not look like a valid config file/);
+        }).toThrow(new RegExp(/CONFIG: it does not look like a valid config file/));
       });
 
       test('parse not-exists.json', () => {
@@ -38,7 +38,7 @@ describe('parse', () => {
       test('parse invalid.js', () => {
         expect(function () {
           parseConfigFile(parseConfigurationFile('invalid.js'));
-        }).toThrow(/CONFIG: it does not look like a valid config file/);
+        }).toThrow(new RegExp(/CONFIG: it does not look like a valid config file/));
       });
 
       test('parse not-exists.js', () => {
