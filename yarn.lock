@@ -11015,21 +11015,21 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
+"mime@npm:2.6.0":
+  version: 2.6.0
+  resolution: "mime@npm:2.6.0"
+  bin:
+    mime: cli.js
+  checksum: 844542a865e3c7096372c95fdf2eb3082e30152aedece8baaae0dd38d5e7a8d5662d2696fcbb63783e1639d7c304203667bc06d1de119af70162dea87286a084
+  languageName: node
+  linkType: hard
+
 "mime@npm:3.0.0":
   version: 3.0.0
   resolution: "mime@npm:3.0.0"
   bin:
     mime: cli.js
   checksum: 92e15d00a87a282fde7979a03016d900aaeb68ed5155bffd1477dd26765728a5fbdc51ca54c9f5a44f7a45cb6d0781291efb29402512428eafe72df152ddb828
-  languageName: node
-  linkType: hard
-
-"mime@npm:^2.5.0":
-  version: 2.6.0
-  resolution: "mime@npm:2.6.0"
-  bin:
-    mime: cli.js
-  checksum: 844542a865e3c7096372c95fdf2eb3082e30152aedece8baaae0dd38d5e7a8d5662d2696fcbb63783e1639d7c304203667bc06d1de119af70162dea87286a084
   languageName: node
   linkType: hard
 
@@ -14077,9 +14077,9 @@ resolve@^1.22.0:
   languageName: node
   linkType: hard
 
-"superagent@npm:^7.1.3":
-  version: 7.1.3
-  resolution: "superagent@npm:7.1.3"
+"superagent@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "superagent@npm:8.0.0"
   dependencies:
     component-emitter: ^1.3.0
     cookiejar: ^2.1.3
@@ -14088,21 +14088,21 @@ resolve@^1.22.0:
     form-data: ^4.0.0
     formidable: ^2.0.1
     methods: ^1.1.2
-    mime: ^2.5.0
+    mime: 2.6.0
     qs: ^6.10.3
     readable-stream: ^3.6.0
     semver: ^7.3.7
-  checksum: a841b2232e626d44a49a6219b8d1428c8f7893bb31eb387487e90120a84324a3a5ae03977d7bf257527c0dd5caf0a6439d79268a3c809af7b70767f30824e9c2
+  checksum: 30c2831165dd57157d88fbd54d720ea2bee12947ce3e986d398ed10ecf489d821c623d00bf1a3cf66ee5171b4f2cf8b233e883296c8ffee56e0b143827f9d22d
   languageName: node
   linkType: hard
 
-"supertest@npm:6.2.3":
-  version: 6.2.3
-  resolution: "supertest@npm:6.2.3"
+"supertest@npm:6.2.4":
+  version: 6.2.4
+  resolution: "supertest@npm:6.2.4"
   dependencies:
     methods: ^1.1.2
-    superagent: ^7.1.3
-  checksum: 485d478e76ebc53851fc96ea62f09f2200cea61c957241895fd2fd35dc9f4a28cd23c1951ed09d154bcac186f86e8704dc6940099a8ae4370d6896afe8f98e73
+    superagent: ^8.0.0
+  checksum: 40f005923291a61073326526b8dcb0d5537504555bfeba669818330eefbea2fbcaf83be0d3bd2d58032071a4b7677c41a252cf2f6a8e6daceb01708e76ef1654
   languageName: node
   linkType: hard
 
@@ -15133,7 +15133,7 @@ typescript@4.1.3:
     selfsigned: 1.10.14
     semver: 7.3.7
     standard-version: 9.3.2
-    supertest: 6.2.3
+    supertest: 6.2.4
     ts-node: 10.7.0
     typescript: 4.1.3
     validator: 13.7.0
