@@ -142,6 +142,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;
@@ -433,6 +434,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;
@@ -779,6 +781,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;
@@ -1083,6 +1086,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;
@@ -1442,6 +1446,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;
@@ -1746,6 +1751,7 @@ Object {
 }
 
 .emotion-6 {
+  max-width: 100%;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-size: 0.8125rem;
   display: -webkit-inline-box;

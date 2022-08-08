@@ -384,7 +384,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
     class="MuiCardActions-root MuiCardActions-spacing emotion-23"
   >
     <a
-      class="MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButtonBase-root  emotion-24"
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall emotion-24"
       href="https://verdaccio.org/docs/en/installation"
       tabindex="0"
     >

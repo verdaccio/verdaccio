@@ -16,6 +16,10 @@
       "allowedVersions": "4.5.0"
     },
     {
+      "packageNames": ["@docusaurus/*"],
+      "allowedVersions": "2.0.0-beta.14"
+    },
+    {
       "packageNames": ["@google-cloud/storage"],
       "allowedVersions": "3.5.0"
     },

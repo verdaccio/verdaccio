@@ -38,8 +38,8 @@
     "build": "exit 0"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
-    "tsd": "0.19.1"
+    "@types/node": "16.11.47",
+    "tsd": "0.22.0"
   },
   "funding": {
     "type": "opencollective",

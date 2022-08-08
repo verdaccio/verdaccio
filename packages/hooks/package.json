@@ -32,13 +32,13 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
-    "core-js": "3.20.3",
-    "debug": "4.3.3",
+    "core-js": "3.24.1",
+    "debug": "4.3.4",
     "handlebars": "4.7.7",
-    "undici": "4.15.0"
+    "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
+    "@types/node": "16.11.47",
     "@verdaccio/auth": "workspace:6.0.0-6-next.22",
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

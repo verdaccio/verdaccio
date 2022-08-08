@@ -43,13 +43,13 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",
-    "core-js": "3.20.3",
-    "debug": "4.3.3",
-    "fs-extra": "10.0.0",
+    "core-js": "3.24.1",
+    "debug": "4.3.4",
+    "fs-extra": "10.1.0",
     "lodash": "4.17.21",
-    "request": "2.88.0",
-    "supertest": "6.2.2",
-    "verdaccio": "5.13.1"
+    "request": "2.88.2",
+    "supertest": "6.2.4",
+    "verdaccio": "5.14.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

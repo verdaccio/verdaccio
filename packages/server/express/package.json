@@ -43,13 +43,13 @@
     "verdaccio-audit": "workspace:11.0.0-6-next.8",
     "compression": "1.7.4",
     "cors": "2.8.5",
-    "debug": "4.3.3",
-    "express": "4.17.2",
+    "debug": "4.3.4",
+    "express": "4.18.1",
     "express-rate-limit": "5.5.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
+    "@types/node": "16.11.47",
     "@verdaccio/mock": "workspace:6.0.0-6-next.15",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.20",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",

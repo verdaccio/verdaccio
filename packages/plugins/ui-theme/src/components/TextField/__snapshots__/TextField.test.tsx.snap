@@ -195,6 +195,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-2:focus::-ms-input-p
 
 .emotion-4 {
   float: unset;
+  overflow: hidden;
   padding: 0;
   line-height: 11px;
   -webkit-transition: width 150ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
@@ -205,11 +206,11 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-2:focus::-ms-input-p
   class="MuiFormControl-root MuiTextField-root emotion-0"
 >
   <div
-    class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-1"
+    class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl emotion-1"
   >
     <input
       aria-invalid="false"
-      class="MuiOutlinedInput-input MuiInputBase-input emotion-2"
+      class="MuiInputBase-input MuiOutlinedInput-input emotion-2"
       id="mui-1"
       name="test"
       type="text"
