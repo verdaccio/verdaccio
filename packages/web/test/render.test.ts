@@ -69,8 +69,8 @@ describe('test web server', () => {
         );
       });
 
-      test.todo('test default title');
-      test.todo('test need html cache');
+      test.todo('should default title');
+      test.todo('should need html cache');
     });
 
     describe('status', () => {
