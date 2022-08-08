@@ -78,6 +78,7 @@ declare module '@verdaccio/types' {
 
   interface Dist {
     'npm-signature'?: string;
+    signatures?: Signatures[];
     fileCount?: number;
     integrity?: string;
     shasum: string;
