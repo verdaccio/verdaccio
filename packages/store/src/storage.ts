@@ -424,6 +424,7 @@ class Storage {
   public async getTarballNext(name: string, filename: string, { signal }): Promise<PassThrough> {
     debug('get tarball for package %o filename %o', name, filename);
     // TODO: check if isOpen is need it after all.
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let isOpen = false;
     const localTarballStream = new PassThrough();
     const localStream = await this.getLocalTarball(name, filename, { signal });

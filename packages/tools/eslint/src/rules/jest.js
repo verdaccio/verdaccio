@@ -11,6 +11,7 @@ module.exports = {
     'jest/no-try-expect': 0,
     'jest/no-done-callback': 'off',
     'jest/no-conditional-expect': 'off',
+    'jest/valid-title': 'off',
     // rules to fix
     'jest/no-identical-title': ['warn'],
     'jest/no-disabled-tests': ['warn'],
