@@ -39,8 +39,8 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.4",
-    "core-js": "3.20.3",
-    "debug": "4.3.3",
+    "core-js": "3.24.1",
+    "debug": "4.3.4",
     "globby": "11.1.0",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
@@ -55,7 +55,7 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
-    "minimatch": "3.0.4"
+    "minimatch": "3.1.2"
   },
   "scripts": {
     "clean": "rimraf ./build",

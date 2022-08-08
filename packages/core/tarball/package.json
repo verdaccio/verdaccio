@@ -34,7 +34,7 @@
     "access": "public"
   },
   "dependencies": {
-    "debug": "4.3.3",
+    "debug": "4.3.4",
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/url": "workspace:11.0.0-6-next.9",
     "@verdaccio/utils": "workspace:6.0.0-6-next.11",

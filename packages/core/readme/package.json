@@ -40,7 +40,7 @@
     "build"
   ],
   "dependencies": {
-    "dompurify": "2.3.4",
+    "dompurify": "2.3.10",
     "jsdom": "17.0.0",
     "marked": "3.0.8"
   },

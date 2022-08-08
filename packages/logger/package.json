@@ -41,10 +41,10 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.6",
-    "pino-pretty": "7.6.0",
-    "debug": "4.3.3",
+    "pino-pretty": "7.6.1",
+    "debug": "4.3.4",
     "lodash": "4.17.21",
-    "pino": "7.6.4"
+    "pino": "7.11.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

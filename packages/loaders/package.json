@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@verdaccio/logger": "workspace:6.0.0-6-next.11",
-    "debug": "4.3.3",
+    "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {

@@ -21,13 +21,13 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.20",
-    "@docusaurus/plugin-google-analytics": "2.0.0-beta.20",
-    "@docusaurus/preset-classic": "2.0.0-beta.20",
-    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.20",
-    "@docusaurus/theme-search-algolia": "2.0.0-beta.20",
-    "@docusaurus/plugin-content-docs": "2.0.0-beta.20",
-    "@docusaurus/theme-common": "2.0.0-beta.20",
+    "@docusaurus/core": "2.0.1",
+    "@docusaurus/plugin-google-analytics": "2.0.1",
+    "@docusaurus/preset-classic": "2.0.1",
+    "@docusaurus/remark-plugin-npm2yarn": "2.0.1",
+    "@docusaurus/theme-search-algolia": "2.0.1",
+    "@docusaurus/plugin-content-docs": "2.0.1",
+    "@docusaurus/theme-common": "2.0.1",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@mdx-js/react": "^1.6.22",
@@ -54,13 +54,13 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.14",
+    "@docusaurus/module-type-aliases": "2.0.1",
     "@tsconfig/docusaurus": "^1.0.2",
     "docusaurus-plugin-sass": "^0.2.1",
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
-    "sass": "1.49.0",
+    "sass": "1.54.3",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }
