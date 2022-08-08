@@ -21,13 +21,13 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.14",
-    "@docusaurus/plugin-google-analytics": "2.0.0-beta.14",
-    "@docusaurus/preset-classic": "2.0.0-beta.14",
-    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.14",
-    "@docusaurus/theme-search-algolia": "2.0.0-beta.14",
-    "@docusaurus/plugin-content-docs": "2.0.0-beta.14",
-    "@docusaurus/theme-common": "2.0.0-beta.14",
+    "@docusaurus/core": "2.0.0-beta.20",
+    "@docusaurus/plugin-google-analytics": "2.0.0-beta.20",
+    "@docusaurus/preset-classic": "2.0.0-beta.20",
+    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.20",
+    "@docusaurus/theme-search-algolia": "2.0.0-beta.20",
+    "@docusaurus/plugin-content-docs": "2.0.0-beta.20",
+    "@docusaurus/theme-common": "2.0.0-beta.20",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@mdx-js/react": "^1.6.22",
@@ -54,7 +54,7 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.14",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.20",
     "@tsconfig/docusaurus": "^1.0.2",
     "docusaurus-plugin-sass": "^0.2.1",
     "esbuild": "0.14.10",
