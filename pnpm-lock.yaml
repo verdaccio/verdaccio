@@ -921,8 +921,8 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.11
       core-js: 3.20.3
       debug: 4.3.3
-      fastify: '4'
-      fastify-plugin: '4'
+      fastify: 4.3.0
+      fastify-plugin: 4.1.0
       lodash: 4.17.21
       ts-node: 10.4.0
     dependencies:
@@ -937,7 +937,7 @@ importers:
       core-js: 3.20.3
       debug: 4.3.3
       fastify: 4.3.0
-      fastify-plugin: 4.0.0
+      fastify-plugin: 4.1.0
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.11.21
@@ -1307,7 +1307,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.9.0-0
+      pnpm: 7.9.0
 
   test/cli/e2e-yarn1:
     specifiers:
@@ -15410,8 +15410,8 @@ packages:
     resolution: {integrity: sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==}
     dev: true
 
-  /fastify-plugin/4.0.0:
-    resolution: {integrity: sha512-ZJcXPPcqkj7HFDYqbsCuOIAgIZ/sd2b+OnBxNGyxAcUDUJfIpxp4t23CwxO2E7LZpqUrIliA4TnjxTXG8mLoqw==}
+  /fastify-plugin/4.1.0:
+    resolution: {integrity: sha512-Mf6lkbxHtFgI4sVaC0P/7sqlBvdpoyEUaOCD0cyKpqxjsdN+3EdD/FfSHByb7uXqxYu/DilH9Lb6mTCumN9TQQ==}
     dev: false
 
   /fastify/4.3.0:
@@ -21296,8 +21296,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.9.0-0:
-    resolution: {integrity: sha512-M1uckEBRCCWHTfMieGyqw00MTUPyjHE3RNbe3PBnI5Z+gFyhOHJeGMTAt8eZ3+qYn7sJ0X5DlqO+IIOoWVNpSA==}
+  /pnpm/7.9.0:
+    resolution: {integrity: sha512-xkIVw73yJm/h5M4VvFIS5Q+gQCRDrp3r92g58PtcCK86aZCa7EQ6q6ivdfTAz0KsAVgloA6Anub28n6wju5v3w==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false

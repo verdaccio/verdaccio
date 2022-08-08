@@ -44,8 +44,8 @@
     "@verdaccio/readme": "workspace:11.0.0-6-next.4",
     "core-js": "3.20.3",
     "debug": "4.3.3",
-    "fastify": "4",
-    "fastify-plugin": "4",
+    "fastify": "4.3.0",
+    "fastify-plugin": "4.1.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
