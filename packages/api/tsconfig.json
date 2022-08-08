@@ -29,7 +29,7 @@
       "path": "../middleware"
     },
     {
-      "path": "../server"
+      "path": "../server/express"
     },
     {
       "path": "../store"

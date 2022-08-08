@@ -7,7 +7,7 @@
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
 '@verdaccio/readme': major
-'@verdaccio/fastify-migration': major
+'@verdaccio/server-fastify': major
 '@verdaccio/streams': major
 '@verdaccio/tarball': major
 '@verdaccio/types': major

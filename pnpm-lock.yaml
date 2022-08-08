@@ -234,7 +234,7 @@ importers:
       semver: 7.3.5
     devDependencies:
       '@types/node': 16.11.21
-      '@verdaccio/server': link:../server
+      '@verdaccio/server': link:../server/express
       '@verdaccio/test-helper': link:../tools/helpers
       '@verdaccio/types': link:../core/types
       mockdate: 3.0.5
@@ -274,7 +274,6 @@ importers:
     specifiers:
       '@verdaccio/config': workspace:6.0.0-6-next.14
       '@verdaccio/core': workspace:6.0.0-6-next.5
-      '@verdaccio/fastify-migration': workspace:6.0.0-6-next.23
       '@verdaccio/logger': workspace:6.0.0-6-next.11
       '@verdaccio/node-api': workspace:6.0.0-6-next.32
       clipanion: 3.1.0
@@ -285,7 +284,6 @@ importers:
     dependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/fastify-migration': link:../experimental/fastify-server
       '@verdaccio/logger': link:../logger
       '@verdaccio/node-api': link:../node-api
       clipanion: 3.1.0
@@ -405,43 +403,6 @@ importers:
       '@verdaccio/types': link:../types
       node-mocks-http: 1.11.0
 
-  packages/experimental/fastify-server:
-    specifiers:
-      '@types/node': 16.11.21
-      '@verdaccio/auth': workspace:6.0.0-6-next.22
-      '@verdaccio/config': workspace:6.0.0-6-next.14
-      '@verdaccio/core': workspace:6.0.0-6-next.5
-      '@verdaccio/logger': workspace:6.0.0-6-next.11
-      '@verdaccio/readme': workspace:11.0.0-6-next.4
-      '@verdaccio/store': workspace:6.0.0-6-next.22
-      '@verdaccio/tarball': workspace:11.0.0-6-next.12
-      '@verdaccio/types': workspace:11.0.0-6-next.12
-      '@verdaccio/utils': workspace:6.0.0-6-next.11
-      core-js: 3.20.3
-      debug: 4.3.3
-      fastify: 3.27.0
-      fastify-plugin: 3.0.0
-      lodash: 4.17.21
-      ts-node: 10.4.0
-    dependencies:
-      '@verdaccio/auth': link:../../auth
-      '@verdaccio/config': link:../../config
-      '@verdaccio/core': link:../../core/core
-      '@verdaccio/logger': link:../../logger
-      '@verdaccio/readme': link:../../core/readme
-      '@verdaccio/store': link:../../store
-      '@verdaccio/tarball': link:../../core/tarball
-      '@verdaccio/utils': link:../../utils
-      core-js: 3.20.3
-      debug: 4.3.3
-      fastify: 3.27.0
-      fastify-plugin: 3.0.0
-      lodash: 4.17.21
-    devDependencies:
-      '@types/node': 16.11.21
-      '@verdaccio/types': link:../../core/types
-      ts-node: 10.4.0_06de4b00c69b73d094e2c5b522a6ad57
-
   packages/hooks:
     specifiers:
       '@types/node': 16.11.21
@@ -548,6 +509,7 @@ importers:
       '@verdaccio/logger': workspace:6.0.0-6-next.11
       '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/server': workspace:6.0.0-6-next.31
+      '@verdaccio/server-fastify': workspace:6.0.0-6-next.23
       '@verdaccio/types': workspace:11.0.0-6-next.12
       core-js: 3.20.3
       debug: 4.3.3
@@ -559,7 +521,8 @@ importers:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger
-      '@verdaccio/server': link:../server
+      '@verdaccio/server': link:../server/express
+      '@verdaccio/server-fastify': link:../server/fastify
       core-js: 3.20.3
       debug: 4.3.3
       lodash: 4.17.21
@@ -895,7 +858,7 @@ importers:
       node-mocks-http: 1.11.0
       semver: 7.3.5
 
-  packages/server:
+  packages/server/express:
     specifiers:
       '@types/node': 16.11.21
       '@verdaccio/api': workspace:6.0.0-6-next.25
@@ -920,29 +883,66 @@ importers:
       lodash: 4.17.21
       verdaccio-audit: workspace:11.0.0-6-next.8
     dependencies:
-      '@verdaccio/api': link:../api
-      '@verdaccio/auth': link:../auth
-      '@verdaccio/config': link:../config
-      '@verdaccio/core': link:../core/core
-      '@verdaccio/loaders': link:../loaders
-      '@verdaccio/logger': link:../logger
-      '@verdaccio/middleware': link:../middleware
-      '@verdaccio/store': link:../store
-      '@verdaccio/utils': link:../utils
-      '@verdaccio/web': link:../web
+      '@verdaccio/api': link:../../api
+      '@verdaccio/auth': link:../../auth
+      '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/loaders': link:../../loaders
+      '@verdaccio/logger': link:../../logger
+      '@verdaccio/middleware': link:../../middleware
+      '@verdaccio/store': link:../../store
+      '@verdaccio/utils': link:../../utils
+      '@verdaccio/web': link:../../web
       compression: 1.7.4
       cors: 2.8.5
       debug: 4.3.3
       express: 4.17.2
       express-rate-limit: 5.5.1
       lodash: 4.17.21
-      verdaccio-audit: link:../plugins/audit
+      verdaccio-audit: link:../../plugins/audit
     devDependencies:
       '@types/node': 16.11.21
-      '@verdaccio/mock': link:../tools/mock
-      '@verdaccio/proxy': link:../proxy
-      '@verdaccio/test-helper': link:../tools/helpers
+      '@verdaccio/mock': link:../../tools/mock
+      '@verdaccio/proxy': link:../../proxy
+      '@verdaccio/test-helper': link:../../tools/helpers
       http-errors: 1.8.1
+
+  packages/server/fastify:
+    specifiers:
+      '@types/node': 16.11.21
+      '@verdaccio/auth': workspace:6.0.0-6-next.22
+      '@verdaccio/config': workspace:6.0.0-6-next.14
+      '@verdaccio/core': workspace:6.0.0-6-next.5
+      '@verdaccio/logger': workspace:6.0.0-6-next.11
+      '@verdaccio/readme': workspace:11.0.0-6-next.4
+      '@verdaccio/store': workspace:6.0.0-6-next.22
+      '@verdaccio/tarball': workspace:11.0.0-6-next.12
+      '@verdaccio/types': workspace:11.0.0-6-next.12
+      '@verdaccio/utils': workspace:6.0.0-6-next.11
+      core-js: 3.20.3
+      debug: 4.3.3
+      fastify: 4.3.0
+      fastify-plugin: 4.1.0
+      lodash: 4.17.21
+      ts-node: 10.4.0
+    dependencies:
+      '@verdaccio/auth': link:../../auth
+      '@verdaccio/config': link:../../config
+      '@verdaccio/core': link:../../core/core
+      '@verdaccio/logger': link:../../logger
+      '@verdaccio/readme': link:../../core/readme
+      '@verdaccio/store': link:../../store
+      '@verdaccio/tarball': link:../../core/tarball
+      '@verdaccio/utils': link:../../utils
+      core-js: 3.20.3
+      debug: 4.3.3
+      fastify: 4.3.0
+      fastify-plugin: 4.1.0
+      lodash: 4.17.21
+    devDependencies:
+      '@types/node': 16.11.21
+      '@verdaccio/types': link:../../core/types
+      ts-node: 10.4.0_06de4b00c69b73d094e2c5b522a6ad57
 
   packages/standalone:
     specifiers:
@@ -1151,7 +1151,7 @@ importers:
       '@verdaccio/test-helper': workspace:1.1.0-6-next.1
       '@verdaccio/ui-theme': workspace:6.0.0-6-next.25
       '@verdaccio/utils': workspace:6.0.0-6-next.11
-      fastify: 4.2.0
+      fastify: 4.3.0
       get-port: 5.1.1
       got: 11.8.3
       lodash: 4.17.21
@@ -1176,7 +1176,7 @@ importers:
       '@verdaccio/mock': link:../tools/mock
       '@verdaccio/store': link:../store
       '@verdaccio/test-helper': link:../tools/helpers
-      fastify: 4.2.0
+      fastify: 4.3.0
       get-port: 5.1.1
       got: 11.8.3
       lodash: 4.17.21
@@ -1307,7 +1307,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.9.0-0
+      pnpm: 7.9.0
 
   test/cli/e2e-yarn1:
     specifiers:
@@ -7786,29 +7786,20 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@fastify/ajv-compiler/1.1.0:
-    resolution: {integrity: sha512-gvCOUNpXsWrIQ3A4aXCLIdblL0tDq42BG/2Xw7oxbil9h11uow10ztS2GuFazNBfjbrsZ5nl+nPl5jDSjj5TSg==}
-    dependencies:
-      ajv: 6.12.6
-    dev: false
-
   /@fastify/ajv-compiler/3.1.2:
     resolution: {integrity: sha512-m2nzzQJeuVmeGOB9rnII9sZiY8AZ02a9WMQfMBfK1jxdFnxm3FPYKGbYpPjODj4halNogwpolyugbTNpnDCi0A==}
     dependencies:
       ajv: 8.11.0
       ajv-formats: 2.1.1
       fast-uri: 2.1.0
-    dev: true
 
   /@fastify/error/3.0.0:
     resolution: {integrity: sha512-dPRyT40GiHRzSCll3/Jn2nPe25+E1VXc9tDwRAIKwFCxd5Np5wzgz1tmooWG3sV0qKgrBibihVoCna2ru4SEFg==}
-    dev: true
 
   /@fastify/fast-json-stringify-compiler/4.0.0:
     resolution: {integrity: sha512-9pCi6c6tmGt/qfuf2koZQuSIG6ckP9q3mz+JoMmAq9eQ4EtA92sWoK7E0LJUn2FFTS/hp5kag+4+dWsV5ZfcXg==}
     dependencies:
       fast-json-stringify: 5.0.6
-    dev: true
 
   /@formatjs/cli/2.15.0_babel-core@7.0.0-bridge.0:
     resolution: {integrity: sha512-Hv7Z3xeGcgTpn1jA1/x7tc9UYbF9Udn/77xRf7E22Vn1mGJM/DftVqnpgLeNpd0d3xSftYw+rhaShNO19BsT6A==}
@@ -10363,7 +10354,6 @@ packages:
     engines: {node: '>=6.5'}
     dependencies:
       event-target-shim: 5.0.1
-    dev: true
 
   /abortcontroller-polyfill/1.7.3:
     resolution: {integrity: sha512-zetDJxd89y3X99Kvo4qFx8GKlt6GsvN3UcRZHwU6iFA/0KiOmhkTVhe8oRoTBiTVPZu09x3vCra47+w8Yz1+2Q==}
@@ -10449,6 +10439,7 @@ packages:
   /acorn-walk/8.1.1:
     resolution: {integrity: sha512-FbJdceMlPHEAWJOILDk1fXD8lnTlEIWFkqtfk+MvmL5q/qlHfN7GEHcsFZWt/Tea9jRNPWUZG4G976nqAAmU9w==}
     engines: {node: '>=0.4.0'}
+    dev: false
 
   /acorn-walk/8.2.0:
     resolution: {integrity: sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==}
@@ -10957,17 +10948,6 @@ packages:
       postcss: 8.4.13
       postcss-value-parser: 4.2.0
 
-  /avvio/7.2.1:
-    resolution: {integrity: sha512-b+gox68dqD6c3S3t+bZBKN6rYbVWdwpN12sHQLFTiacDT2rcq7fm07Ww+IKt/AvAkyCIe1f5ArP1bC/vAlx97A==}
-    dependencies:
-      archy: 1.0.0
-      debug: 4.3.3
-      fastq: 1.13.0
-      queue-microtask: 1.2.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /avvio/8.1.3:
     resolution: {integrity: sha512-tl9TC0yDRKzP6gFLkrInqPyx8AkfBC/0QRnwkE9Jo31+OJjLrE/73GJuE0QgSB0Vpv38CTJJZGqU9hczowclWw==}
     dependencies:
@@ -10977,7 +10957,6 @@ packages:
       queue-microtask: 1.2.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /aws-sign2/0.7.0:
     resolution: {integrity: sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg=}
@@ -12363,13 +12342,13 @@ packages:
     resolution: {integrity: sha512-AF3r7P5dWxL8MxyITRMlORQNaOA2IkAFaTr4k7BUumjPtRpGDTZpl0Pb1XCO6JeDCBdp126Cgs9sMxqSjgYyRg==}
     engines: {node: '>= 0.6'}
     dependencies:
-      mime-db: 1.48.0
+      mime-db: 1.51.0
 
   /compression/1.7.4:
     resolution: {integrity: sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      accepts: 1.3.7
+      accepts: 1.3.8
       bytes: 3.0.0
       compressible: 2.0.18
       debug: 2.6.9
@@ -12383,7 +12362,7 @@ packages:
     resolution: {integrity: sha512-jaSIDzP9pZVS4ZfQ+TzvtiWhdpFhE2RDHz8QJkpX9SIpLq88VueF5jJw6t+6CUQcAoA6t+x89MLrWAqpfDE8iQ==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      accepts: 1.3.7
+      accepts: 1.3.8
       bytes: 3.0.0
       compressible: 2.0.18
       debug: 2.6.9_supports-color@6.1.0
@@ -14942,7 +14921,6 @@ packages:
   /event-target-shim/5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
-    dev: true
 
   /eventemitter3/4.0.6:
     resolution: {integrity: sha512-s3GJL04SQoM+gn2c14oyqxvZ3Pcq7cduSDqy3sBFXx6UPSUmgVYwQM9zwkTn9je0lrfg0gHEwR42pF3Q2dCQkQ==}
@@ -15367,10 +15345,6 @@ packages:
     engines: {'0': node >=0.6.0}
     dev: false
 
-  /fast-decode-uri-component/1.0.1:
-    resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
-    dev: false
-
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
 
@@ -15401,16 +15375,6 @@ packages:
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
 
-  /fast-json-stringify/2.6.0:
-    resolution: {integrity: sha512-xTZtZRopWp2Aun7sGX2EB2mFw4bMQ+xnR8BmD5Rn4K0hKXGkbcZAzTtxEX0P4KNaNx1RAwvf+FESfuM0+F4WZg==}
-    engines: {node: '>= 10.0.0'}
-    dependencies:
-      ajv: 6.12.6
-      deepmerge: 4.2.2
-      rfdc: 1.3.0
-      string-similarity: 4.0.4
-    dev: false
-
   /fast-json-stringify/5.0.6:
     resolution: {integrity: sha512-iZM2VJ19wBOjznp9AQ3PEXTAvwcwJXDsz5xEoTs+31s/lCyOYrqHicXHzt0VoLz16pZStsWx3HIvRFB6AQaWeA==}
     dependencies:
@@ -15419,7 +15383,6 @@ packages:
       deepmerge: 4.2.2
       fast-uri: 2.1.0
       rfdc: 1.3.0
-    dev: true
 
   /fast-levenshtein/2.0.6:
     resolution: {integrity: sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=}
@@ -15437,7 +15400,6 @@ packages:
 
   /fast-uri/2.1.0:
     resolution: {integrity: sha512-qKRta6N7BWEFVlyonVY/V+BMLgFqktCUV0QjT259ekAIlbVrMaFnFLxJ4s/JPl4tou56S1BzPufI60bLe29fHA==}
-    dev: true
 
   /fast-url-parser/1.1.3:
     resolution: {integrity: sha1-9K8+qfNNiicc9YrSs3WfQx8LMY0=}
@@ -15448,42 +15410,12 @@ packages:
     resolution: {integrity: sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==}
     dev: true
 
-  /fastify-error/0.3.1:
-    resolution: {integrity: sha512-oCfpcsDndgnDVgiI7bwFKAun2dO+4h84vBlkWsWnz/OUK9Reff5UFoFl241xTiLeHWX/vU9zkDVXqYUxjOwHcQ==}
+  /fastify-plugin/4.1.0:
+    resolution: {integrity: sha512-Mf6lkbxHtFgI4sVaC0P/7sqlBvdpoyEUaOCD0cyKpqxjsdN+3EdD/FfSHByb7uXqxYu/DilH9Lb6mTCumN9TQQ==}
     dev: false
 
-  /fastify-plugin/3.0.0:
-    resolution: {integrity: sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==}
-    dev: false
-
-  /fastify-warning/0.2.0:
-    resolution: {integrity: sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==}
-    dev: false
-
-  /fastify/3.27.0:
-    resolution: {integrity: sha512-p99Fd7xt4DFew39U5Wnp/Soy7jkpxpaqToekwQ3XWv+ECUPXd6bSF9l79EiwkutWALtEU/JiRlzS9qjP2gLHFg==}
-    dependencies:
-      '@fastify/ajv-compiler': 1.1.0
-      abstract-logging: 2.0.1
-      avvio: 7.2.1
-      fast-json-stringify: 2.6.0
-      fastify-error: 0.3.1
-      find-my-way: 4.5.0
-      flatstr: 1.0.12
-      light-my-request: 4.4.1
-      pino: 6.13.4
-      process-warning: 1.0.0
-      proxy-addr: 2.0.7
-      rfdc: 1.3.0
-      secure-json-parse: 2.4.0
-      semver: 7.3.5
-      tiny-lru: 7.0.6
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /fastify/4.2.0:
-    resolution: {integrity: sha512-0QXEp+8ceKc0fwVakeBLM/1Ss/+fc7a3auuygT+1GjbSAgHfwqxSucUuu0rYjziu32UgEZXfjItYN/a89HWKhw==}
+  /fastify/4.3.0:
+    resolution: {integrity: sha512-9q5Ron8jWmX6ElFkgZH4zmIIXdnkGIu16JozWG2ohcs7th5rAo1ymNi+rn6xCmbWc6jl9lf+9OxVe93LOg6/2w==}
     dependencies:
       '@fastify/ajv-compiler': 3.1.2
       '@fastify/error': 3.0.0
@@ -15501,7 +15433,6 @@ packages:
       tiny-lru: 8.0.2
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /fastq/1.11.0:
     resolution: {integrity: sha512-7Eczs8gIPDrVzT+EksYBcupqMyxSHXXrHOLRRxU2/DicV8789MRBRR8+Hc2uWzUupOs4YS4JzBmBxjjCVBxD/g==}
@@ -15687,23 +15618,12 @@ packages:
       make-dir: 3.1.0
       pkg-dir: 4.2.0
 
-  /find-my-way/4.5.0:
-    resolution: {integrity: sha512-kVEY1lW/zXETKEEwRboCWPySygBFVNJpdY7lRnFllDdYxQD6cwcaT3Ddh8P7v824jRN3cld+8+zRbnFBxeVUxA==}
-    engines: {node: '>=10'}
-    dependencies:
-      fast-decode-uri-component: 1.0.1
-      fast-deep-equal: 3.1.3
-      safe-regex2: 2.0.0
-      semver-store: 0.3.0
-    dev: false
-
   /find-my-way/7.0.0:
     resolution: {integrity: sha512-NHVohYPYRXgj6jxXVRwm4iMQjA2ggJpyewHz7Nq7hvBnHoYJJIyHuxNzs8QLPTLQfoqxZzls2g6Zm79XMbhXjA==}
     engines: {node: '>=14'}
     dependencies:
       fast-deep-equal: 3.1.3
       safe-regex2: 2.0.0
-    dev: true
 
   /find-root/1.1.0:
     resolution: {integrity: sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==}
@@ -18652,16 +18572,6 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  /light-my-request/4.4.1:
-    resolution: {integrity: sha512-FDNRF2mYjthIRWE7O8d/X7AzDx4otQHl4/QXbu3Q/FRwBFcgb+ZoDaUd5HwN53uQXLAiw76osN+Va0NEaOW6rQ==}
-    dependencies:
-      ajv: 6.12.6
-      cookie: 0.4.2
-      fastify-warning: 0.2.0
-      readable-stream: 3.6.0
-      set-cookie-parser: 2.4.8
-    dev: false
-
   /light-my-request/5.0.0:
     resolution: {integrity: sha512-0OPHKV+uHgBOnRokzL1LqeMCnSAo5l/rZS7kyB6G1I8qxGCvhXpq1M6WK565Y9A5CSn50l3DVaHnJ5FCdpguZQ==}
     dependencies:
@@ -18669,7 +18579,6 @@ packages:
       cookie: 0.5.0
       process-warning: 1.0.0
       set-cookie-parser: 2.4.8
-    dev: true
 
   /lilconfig/2.0.3:
     resolution: {integrity: sha512-EHKqr/+ZvdKCifpNrJCKxBTgk5XupZA3y/aCPY9mxfgBzmgh93Mt/WqjjQ38oMxXuvDokaKiM3lAgvSH2sjtHg==}
@@ -20814,7 +20723,6 @@ packages:
 
   /on-exit-leak-free/2.1.0:
     resolution: {integrity: sha512-VuCaZZAjReZ3vUwgOB8LxAosIurDiAW0s13rI1YwmaP++jvcxP77AWoQvenZebpCA2m8WC1/EosPYPMjnRAp/w==}
-    dev: true
 
   /on-finished/2.3.0:
     resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=}
@@ -21264,7 +21172,6 @@ packages:
     dependencies:
       readable-stream: 4.0.0
       split2: 4.1.0
-    dev: true
 
   /pino-pretty/7.6.0:
     resolution: {integrity: sha512-sCthHDn8umVSlxEsOFakXZTNoCiTKYEuPwPXMDGq29QDt/38HEmVIKLxmgFLLg1RkLl4Dfxzp9Spz9pAtSBq0Q==}
@@ -21294,20 +21201,6 @@ packages:
 
   /pino-std-serializers/5.6.0:
     resolution: {integrity: sha512-VdUXCw8gO+xhir7sFuoYSjTnzB+TMDGxhAC/ph3YS3sdHnXNdsK0wMtADNUltfeGkn2KDxEM21fnjF3RwXyC8A==}
-    dev: true
-
-  /pino/6.13.4:
-    resolution: {integrity: sha512-g4tHSISmQJYUEKEMVdaZ+ZokWwFnTwZL5JPn+lnBVZ1BuBbrSchrXwQINknkM5+Q4fF6U9NjiI8PWwwMDHt9zA==}
-    hasBin: true
-    dependencies:
-      fast-redact: 3.0.0
-      fast-safe-stringify: 2.1.1
-      flatstr: 1.0.12
-      pino-std-serializers: 3.2.0
-      process-warning: 1.0.0
-      quick-format-unescaped: 4.0.3
-      sonic-boom: 1.1.0
-    dev: false
 
   /pino/6.14.0:
     resolution: {integrity: sha512-iuhEDel3Z3hF9Jfe44DPXR8l07bhjuFY3GMHIXbjnY9XcafbyDDwl2sN2vw2GjMPf5Nkoe+OFao7ffn9SXaKDg==}
@@ -21352,7 +21245,6 @@ packages:
       safe-stable-stringify: 2.3.1
       sonic-boom: 3.0.0
       thread-stream: 1.0.1
-    dev: true
 
   /pirates/4.0.4:
     resolution: {integrity: sha512-ZIrVPH+A52Dw84R0L3/VS9Op04PuQ2SEoJL6bkshmiTic/HldyW9Tf7oH5mhJZBK7NmDx27vSMrYEXPXclpDKw==}
@@ -21404,8 +21296,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.9.0-0:
-    resolution: {integrity: sha512-M1uckEBRCCWHTfMieGyqw00MTUPyjHE3RNbe3PBnI5Z+gFyhOHJeGMTAt8eZ3+qYn7sJ0X5DlqO+IIOoWVNpSA==}
+  /pnpm/7.9.0:
+    resolution: {integrity: sha512-xkIVw73yJm/h5M4VvFIS5Q+gQCRDrp3r92g58PtcCK86aZCa7EQ6q6ivdfTAz0KsAVgloA6Anub28n6wju5v3w==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
@@ -22402,7 +22294,6 @@ packages:
 
   /process-warning/2.0.0:
     resolution: {integrity: sha512-+MmoAXoUX+VTHAlwns0h+kFUWFs/3FZy+ZuchkgjyOu3oioLAo2LB5aCfKPh2+P9O18i3m43tUEv3YqttSy0Ww==}
-    dev: true
 
   /process/0.11.10:
     resolution: {integrity: sha1-czIwDoQBYb2j5podHZGn1LwW8YI=}
@@ -23190,7 +23081,6 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       abort-controller: 3.0.0
-    dev: true
 
   /readdirp/2.2.1_supports-color@6.1.0:
     resolution: {integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==}
@@ -23930,10 +23820,6 @@ packages:
     dependencies:
       semver: 6.3.0
 
-  /semver-store/0.3.0:
-    resolution: {integrity: sha512-TcZvGMMy9vodEFSse30lWinkj+JgOBvPn8wRItpQRSayhc+4ssDs335uklkfvQQJgL/WvmHLVj4Ycv2s7QCQMg==}
-    dev: false
-
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
     hasBin: true
@@ -24428,7 +24314,6 @@ packages:
     resolution: {integrity: sha512-p5DiZOZHbJ2ZO5MADczp5qrfOd3W5Vr2vHxfCpe7G4AzPwVOweIjbfgku8wSQUuk+Y5Yuo8W7JqRe6XKmKistg==}
     dependencies:
       atomic-sleep: 1.0.0
-    dev: true
 
   /sort-css-media-queries/1.5.4:
     resolution: {integrity: sha512-YP5W/h4Sid/YP7Lp87ejJ5jP13/Mtqt2vx33XyhO+IAugKlufRPbOrPlIiEUuxmpNBSBd3EeeQpFhdu3RfI2Ag==}
@@ -24706,10 +24591,6 @@ packages:
     dependencies:
       char-regex: 1.0.2
       strip-ansi: 6.0.1
-
-  /string-similarity/4.0.4:
-    resolution: {integrity: sha512-/q/8Q4Bl4ZKAPjj8WerIBJWALKkaPRfrvhfF8k/B23i4nzrlRj2/go1m90In7nG/3XDSbOo0+pu6RvCTM9RGMQ==}
-    dev: false
 
   /string-width/2.1.1:
     resolution: {integrity: sha512-nOqH59deCq9SRHlxq1Aw85Jnt4w6KvLKqWVik6oA9ZklXLNIOlqg4F2yrT1MVaTjAqvVwdfeZ7w7aCvJD7ugkw==}
@@ -25390,7 +25271,6 @@ packages:
     resolution: {integrity: sha512-JuZyfzx81e5MBk8uIr8ZH76bXyjEQvbRDEkSdlV1JFBdq/rbby2RuvzBYlTBd/xCljxy6lPxrTLXzB9Jl1bNrw==}
     dependencies:
       real-require: 0.1.0
-    dev: true
 
   /throat/6.0.1:
     resolution: {integrity: sha512-8hmiGIJMDlwjg7dlJ4yKGLK8EsYqKgPWbG3b4wjJddKNwc7N7Dpn08Df4szr/sZdMVeOstrdYSsqzX6BYbcB+w==}
@@ -25422,15 +25302,9 @@ packages:
   /tiny-invariant/1.2.0:
     resolution: {integrity: sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==}
 
-  /tiny-lru/7.0.6:
-    resolution: {integrity: sha512-zNYO0Kvgn5rXzWpL0y3RS09sMK67eGaQj9805jlK9G6pSadfriTczzLHFXa/xcW4mIRfmlB9HyQ/+SgL0V1uow==}
-    engines: {node: '>=6'}
-    dev: false
-
   /tiny-lru/8.0.2:
     resolution: {integrity: sha512-ApGvZ6vVvTNdsmt676grvCkUCGwzG9IqXma5Z07xJgiC5L7akUMof5U8G2JTI9Rz/ovtVhJBlY6mNhEvtjzOIg==}
     engines: {node: '>=6'}
-    dev: true
 
   /tiny-warning/1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
@@ -25600,8 +25474,8 @@ packages:
       '@tsconfig/node14': 1.0.0
       '@tsconfig/node16': 1.0.2
       '@types/node': 16.11.21
-      acorn: 8.7.0
-      acorn-walk: 8.1.1
+      acorn: 8.7.1
+      acorn-walk: 8.2.0
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2

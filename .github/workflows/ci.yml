@@ -2,9 +2,6 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
-      - 'changeset-release/master'
   pull_request:
     paths:
       - .changeset/**

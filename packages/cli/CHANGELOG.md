@@ -13,7 +13,7 @@
 - Updated dependencies [d43894e8]
 - Updated dependencies [d08fe29d]
   - @verdaccio/config@6.0.0-6-next.14
-  - @verdaccio/fastify-migration@6.0.0-6-next.23
+  - @verdaccio/server-fastify@6.0.0-6-next.23
   - @verdaccio/node-api@6.0.0-6-next.31
   - @verdaccio/core@6.0.0-6-next.5
   - @verdaccio/logger@6.0.0-6-next.11
@@ -59,20 +59,20 @@
   - @verdaccio/core@6.0.0-6-next.5
   - @verdaccio/logger@6.0.0-6-next.11
   - @verdaccio/node-api@6.0.0-6-next.30
-  - @verdaccio/fastify-migration@6.0.0-6-next.22
+  - @verdaccio/server-fastify@6.0.0-6-next.22
 
 ## 6.0.0-6-next.30
 
 ### Patch Changes
 
-- @verdaccio/fastify-migration@6.0.0-6-next.21
+- @verdaccio/server-fastify@6.0.0-6-next.21
 - @verdaccio/node-api@6.0.0-6-next.29
 
 ## 6.0.0-6-next.29
 
 ### Patch Changes
 
-- @verdaccio/fastify-migration@6.0.0-6-next.20
+- @verdaccio/server-fastify@6.0.0-6-next.20
 - @verdaccio/node-api@6.0.0-6-next.28
 
 ## 6.0.0-6-next.28
@@ -81,7 +81,7 @@
 
 - Updated dependencies [b78f3525]
   - @verdaccio/logger@6.0.0-6-next.10
-  - @verdaccio/fastify-migration@6.0.0-6-next.19
+  - @verdaccio/server-fastify@6.0.0-6-next.19
   - @verdaccio/node-api@6.0.0-6-next.27
 
 ## 6.0.0-6-next.27
@@ -91,7 +91,7 @@
 - Updated dependencies [730b5d8c]
   - @verdaccio/logger@6.0.0-6-next.9
   - @verdaccio/node-api@6.0.0-6-next.26
-  - @verdaccio/fastify-migration@6.0.0-6-next.18
+  - @verdaccio/server-fastify@6.0.0-6-next.18
 
 ## 6.0.0-6-next.26
 
@@ -100,7 +100,7 @@
 - Updated dependencies [a828271d]
 - Updated dependencies [24b9be02]
 - Updated dependencies [e75c0a3b]
-  - @verdaccio/fastify-migration@6.0.0-6-next.17
+  - @verdaccio/server-fastify@6.0.0-6-next.17
   - @verdaccio/core@6.0.0-6-next.4
   - @verdaccio/logger@6.0.0-6-next.8
   - @verdaccio/node-api@6.0.0-6-next.25
@@ -112,7 +112,7 @@
 
 - Updated dependencies [f86c31ed]
 - Updated dependencies [20c9e43e]
-  - @verdaccio/fastify-migration@6.0.0-6-next.16
+  - @verdaccio/server-fastify@6.0.0-6-next.16
   - @verdaccio/config@6.0.0-6-next.11
   - @verdaccio/node-api@6.0.0-6-next.24
 
@@ -129,7 +129,7 @@
   - @verdaccio/logger@6.0.0-6-next.7
   - @verdaccio/node-api@6.0.0-6-next.23
   - @verdaccio/config@6.0.0-6-next.10
-  - @verdaccio/fastify-migration@6.0.0-6-next.15
+  - @verdaccio/server-fastify@6.0.0-6-next.15
 
 ## 6.0.0-6-next.23
 
@@ -149,7 +149,7 @@
 - Updated dependencies [b702ea36]
 - Updated dependencies [154b2ecd]
   - @verdaccio/config@6.0.0-6-next.9
-  - @verdaccio/fastify-migration@6.0.0-6-next.14
+  - @verdaccio/server-fastify@6.0.0-6-next.14
   - @verdaccio/logger@6.0.0-6-next.6
   - @verdaccio/node-api@6.0.0-6-next.22
 
@@ -159,7 +159,7 @@
 
 - Updated dependencies [2c594910]
   - @verdaccio/logger@6.0.0-6-next.5
-  - @verdaccio/fastify-migration@6.0.0-6-next.13
+  - @verdaccio/server-fastify@6.0.0-6-next.13
   - @verdaccio/node-api@6.0.0-6-next.21
 
 ## 6.0.0-6-next.21
@@ -203,7 +203,7 @@
 
 - Updated dependencies [459b6fa7]
   - @verdaccio/config@6.0.0-6-next.8
-  - @verdaccio/fastify-migration@6.0.0-6-next.12
+  - @verdaccio/server-fastify@6.0.0-6-next.12
   - @verdaccio/node-api@6.0.0-6-next.20
   - @verdaccio/logger@6.0.0-6-next.4
 
@@ -212,7 +212,7 @@
 ### Patch Changes
 
 - Updated dependencies [df0da3d6]
-  - @verdaccio/fastify-migration@6.0.0-6-next.11
+  - @verdaccio/server-fastify@6.0.0-6-next.11
   - @verdaccio/node-api@6.0.0-6-next.19
 
 ## 6.0.0-6-next.19
@@ -236,7 +236,7 @@
 ### Patch Changes
 
 - Updated dependencies [55ee3fdd]
-  - @verdaccio/fastify-migration@6.0.0-6-next.10
+  - @verdaccio/server-fastify@6.0.0-6-next.10
   - @verdaccio/config@6.0.0-6-next.7
   - @verdaccio/node-api@6.0.0-6-next.17
 
@@ -250,7 +250,7 @@
 
 ### Patch Changes
 
-- @verdaccio/fastify-migration@6.0.0-6-next.9
+- @verdaccio/server-fastify@6.0.0-6-next.9
 - @verdaccio/logger@6.0.0-6-next.4
 - @verdaccio/node-api@6.0.0-6-next.15
 
@@ -258,7 +258,7 @@
 
 ### Patch Changes
 
-- @verdaccio/fastify-migration@6.0.0-6-next.9
+- @verdaccio/server-fastify@6.0.0-6-next.9
 - @verdaccio/logger@6.0.0-6-next.4
 - @verdaccio/node-api@6.0.0-6-next.14
 
@@ -291,7 +291,7 @@
 
 - Updated dependencies [19d272d1]
   - @verdaccio/node-api@6.0.0-6-next.12
-  - @verdaccio/fastify-migration@6.0.0-6-next.9
+  - @verdaccio/server-fastify@6.0.0-6-next.9
   - @verdaccio/logger@6.0.0-6-next.4
 
 ## 6.0.0-6-next.11

@@ -49,42 +49,6 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
   );
 
   route.get(
-    '/:scopedPackage/-/:scope/:filename',
-    can('access'),
-    async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
-      const { pkg, filename } = req.params;
-      const abort = new AbortController();
-      try {
-        const stream = (await storage.getTarballNext(pkg, filename, {
-          signal: abort.signal,
-          // enableRemote: true,
-        })) as any;
-
-        stream.on('content-length', (size) => {
-          res.header(HEADER_TYPE.CONTENT_LENGTH, size);
-        });
-
-        stream.once('error', (err) => {
-          res.locals.report_error(err);
-          next(err);
-        });
-
-        req.on('abort', () => {
-          debug('request aborted for %o', req.url);
-          abort.abort();
-        });
-
-        res.header(HEADERS.CONTENT_TYPE, HEADERS.OCTET_STREAM);
-        stream.pipe(res);
-      } catch (err: any) {
-        // console.log('catch API error request', err);
-        res.locals.report_error(err);
-        next(err);
-      }
-    }
-  );
-
-  route.get(
     '/:pkg/-/:filename',
     can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {

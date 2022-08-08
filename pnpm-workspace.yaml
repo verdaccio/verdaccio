@@ -2,7 +2,7 @@ packages:
   - packages/*
   - packages/core/*
   - packages/tools/*
-  - packages/experimental/*
+  - packages/server/*
   - packages/plugins/audit
   - packages/plugins/auth-memory
   - packages/plugins/htpasswd

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.reference.json",
+  "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./build"
@@ -8,22 +8,22 @@
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
-      "path": "../config"
+      "path": "../../store"
     },
     {
-      "path": "../core/cli-ui"
+      "path": "../../config"
     },
     {
-      "path": "../logger"
+      "path": "../../auth"
     },
     {
-      "path": "../mock"
+      "path": "../../logger"
     },
     {
-      "path": "../server/express"
+      "path": "../../utils"
     },
     {
-      "path": "../server/fastify"
+      "path": "../../core/core"
     }
   ]
 }
