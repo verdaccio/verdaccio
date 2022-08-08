@@ -9,24 +9,18 @@ For usage with the library, the `tsconfig.json` should looks like this.
 ```json5
 // tsconfig.json
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "commonjs",
-    "declaration": true,
-    "noImplicitAny": false,
-    "strict": true,
-    "outDir": "lib",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "typeRoots": [
-      "./node_modules/@verdaccio/types/lib/verdaccio",
-      "./node_modules/@types"
-    ]
+  compilerOptions: {
+    target: 'esnext',
+    module: 'commonjs',
+    declaration: true,
+    noImplicitAny: false,
+    strict: true,
+    outDir: 'lib',
+    allowSyntheticDefaultImports: true,
+    esModuleInterop: true,
+    typeRoots: ['./node_modules/@verdaccio/types/lib/verdaccio', './node_modules/@types'],
   },
-  "include": [
-    "src/*.ts",
-    "types/*.d.ts"
-  ]
+  include: ['src/*.ts', 'types/*.d.ts'],
 }
 ```
 
