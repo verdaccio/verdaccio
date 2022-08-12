@@ -6136,10 +6136,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.3":
-  version: 1.11.3
-  resolution: "dayjs@npm:1.11.3"
-  checksum: 47dd6d278edfe89805e53d32b9b9738b17bbfc1a805fe388672f7917e49e3587882d625a9f5dae03fb8ea297f0c24dd83920109ac691840bbbb25ce38a860b0e
+"dayjs@npm:1.11.5":
+  version: 1.11.5
+  resolution: "dayjs@npm:1.11.5"
+  checksum: 145971e490c47f118b3b86a7d3a4c67d76824c54283fbe1775f9de7c8ed7c95a74eb5093f6e048109463cd1511b3e9a047d93c51a6f9311c5bb7bbed3010db46
   languageName: node
   linkType: hard
 
@@ -15079,7 +15079,7 @@ typescript@4.1.3:
     cookies: 0.8.0
     cors: 2.8.5
     cross-env: 7.0.3
-    dayjs: 1.11.3
+    dayjs: 1.11.5
     debug: ^4.3.3
     detect-secrets: 1.0.6
     envinfo: 7.8.1
