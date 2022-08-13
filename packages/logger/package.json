@@ -43,8 +43,8 @@
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.6",
     "pino-pretty": "7.6.1",
     "debug": "4.3.4",
-    "lodash": "4.17.21",
-    "pino": "7.11.0"
+    "colorette": "2.0.7",
+    "pino": "8.4.1"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

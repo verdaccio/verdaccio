@@ -1,18 +1,28 @@
-import * as factory from '../src';
+import pino from 'pino';
+import { Writable } from 'stream';
+
+import { buildPretty } from '../src';
 
 describe('prettyFactory', () => {
-  const prettyfierOptions = { messageKey: 'msg', levelFirst: true, prettyStamp: false };
-  test('should return a function', () => {
-    expect(typeof factory['default']({})).toEqual('function');
-  });
-
-  test('should return a function with options', () => {
-    const log = {
-      level: 10,
-      foo: 'foo',
-      msg: '[trace]  - @{foo}',
-    };
-
-    expect(factory['default'](prettyfierOptions)(log)).toMatchSnapshot();
+  const prettyfierOptions = {
+    messageKey: 'msg',
+    levelFirst: true,
+    prettyStamp: false,
+    colors: false,
+  };
+  test('should return a function', (done) => {
+    const pretty = buildPretty(prettyfierOptions);
+    const log = pino(
+      new Writable({
+        objectMode: true,
+        write(chunk, enc, cb) {
+          const formatted = pretty(JSON.parse(chunk));
+          expect(formatted).toBe('info --- test message ');
+          cb();
+          done();
+        },
+      })
+    );
+    log.info({ test: 'test' }, '@{test} message');
   });
 });

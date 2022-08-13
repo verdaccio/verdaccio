@@ -41,12 +41,14 @@
   "dependencies": {
     "dayjs": "1.11.4",
     "fast-safe-stringify": "2.1.1",
-    "kleur": "3.0.3",
+    "pino-abstract-transport": "1.0.0",
+    "colorette": "2.0.7",
     "lodash": "4.17.21",
+    "sonic-boom": "3.2.0",
     "prettier-bytes": "1.0.4"
   },
   "devDependencies": {
-    "pino": "7.11.0"
+    "pino": "8.4.1"
   },
   "funding": {
     "type": "opencollective",

@@ -2,9 +2,8 @@ import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
-import { LoggerConfigItem } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
-import { ConfigYaml } from '@verdaccio/types';
+import { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 

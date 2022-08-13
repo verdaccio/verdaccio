@@ -11,7 +11,7 @@ import { ConfigAudit } from './types';
 // FUTURE: we should be able to overwrite this
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
 
-export default class ProxyAudit implements IPluginMiddleware<{}> {
+export default class ProxyAudit implements IPluginMiddleware<{}, {}> {
   public enabled: boolean;
   public logger: Logger;
   public strict_ssl: boolean;

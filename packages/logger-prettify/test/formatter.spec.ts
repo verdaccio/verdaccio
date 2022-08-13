@@ -22,7 +22,7 @@ describe('formatter', () => {
         msg: 'config file  - @{file}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display trace level', () => {
@@ -32,7 +32,7 @@ describe('formatter', () => {
         msg: '[trace]  - @{foo}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display trace level with pretty stamp', () => {
@@ -48,7 +48,8 @@ describe('formatter', () => {
           log,
           Object.assign({}, prettyfierOptions, {
             prettyStamp: true,
-          })
+          }),
+          false
         )
       ).toMatchSnapshot();
     });
@@ -72,7 +73,7 @@ describe('formatter', () => {
           'bytes: @{bytes.in}/@{bytes.out}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display an error request', () => {
@@ -101,7 +102,7 @@ describe('formatter', () => {
         msg: "@{!status}, req: '@{request.method} @{request.url}', error: @{!error}",
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display an fatal request', () => {
@@ -126,7 +127,7 @@ describe('formatter', () => {
         msg: "@{!status}, req: '@{request.method} @{request.url}', error: @{!error}",
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display a streaming request', () => {
@@ -142,7 +143,7 @@ describe('formatter', () => {
         msg: "@{!status}, req: '@{request.method} @{request.url}' (streaming)",
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display version and http address', () => {
@@ -157,7 +158,7 @@ describe('formatter', () => {
         msg: 'http address - @{addr} - @{version}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display custom log message', () => {
@@ -168,7 +169,7 @@ describe('formatter', () => {
         msg: 'custom - @{something} - @{missingParam}',
       };
 
-      expect(printMessage(log, prettyfierOptions)).toMatchSnapshot();
+      expect(printMessage(log, prettyfierOptions, false)).toMatchSnapshot();
     });
 
     test('should display a resource request', () => {

@@ -1,4 +1,4 @@
-import { green, red, white } from 'kleur';
+import { green, red, white } from 'colorette';
 import { inspect } from 'util';
 
 import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from './levels';
@@ -19,7 +19,11 @@ export interface ObjectTemplate {
   [key: string]: string | number | object | null | void;
 }
 
-export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors): string {
+export function fillInMsgTemplate(
+  msg: string,
+  templateOptions: ObjectTemplate,
+  colors: boolean
+): string {
   const templateRegex = /@{(!?[$A-Za-z_][$0-9A-Za-z\._]*)}/g;
 
   return msg.replace(templateRegex, (_, name): string => {
@@ -53,10 +57,12 @@ export function fillInMsgTemplate(msg, templateOptions: ObjectTemplate, colors):
   });
 }
 
-function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
+function getMessage(debugLevel, msg, sub, templateObjects, hasColors: boolean) {
   const finalMessage = fillInMsgTemplate(msg, templateObjects, hasColors);
 
-  const subSystemType = subSystemLevels.color[sub ?? 'default'];
+  const subSystemType = hasColors
+    ? subSystemLevels.color[sub ?? 'default']
+    : subSystemLevels.white[sub ?? 'default'];
   if (hasColors) {
     const logString = `${levelsColors[debugLevel](padRight(debugLevel, LEVEL_VALUE_MAX))}${white(
       `${subSystemType} ${finalMessage}`
@@ -71,8 +77,8 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors) {
 
 export function printMessage(
   templateObjects: ObjectTemplate,
-  options: PrettyOptionsExtended,
-  hasColors = true
+  options: Pick<PrettyOptionsExtended, 'prettyStamp'>,
+  hasColors: boolean
 ): string {
   const { prettyStamp } = options;
   const { level, msg, sub } = templateObjects;

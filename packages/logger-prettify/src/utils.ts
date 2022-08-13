@@ -16,7 +16,7 @@ export function padRight(message: string, max = message.length + CUSTOM_PAD_LENG
   return message.padEnd(max, ' ');
 }
 
-export function formatLoggingDate(time: number, message): string {
+export function formatLoggingDate(time: number, message: string): string {
   const timeFormatted = dayjs(time).format(FORMAT_DATE);
 
   return `[${timeFormatted}]${message}`;
