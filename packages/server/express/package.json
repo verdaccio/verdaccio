@@ -57,7 +57,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "echo 0",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "watch": "pnpm build:js -- --watch",

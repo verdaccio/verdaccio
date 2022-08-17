@@ -14,7 +14,7 @@ export default (app: Application, configPath?: string): void => {
       next({
         pid: process.pid,
         // @ts-ignore
-        main: process.mainModule.filename,
+        main: process.main,
         conf: configPath,
         mem: process.memoryUsage(),
         gc: global.gc,

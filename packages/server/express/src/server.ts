@@ -21,6 +21,7 @@ import webMiddleware from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import hookDebug from './debug';
+import { getUserAgent } from './utils';
 
 export interface IPluginMiddleware<T> extends IPlugin<T> {
   register_middlewares(app: any, auth: IBasicAuth<T>, storage: Storage): void;
@@ -42,7 +43,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
   app.use(log);
   app.use(errorReportingMiddleware);
   app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    res.setHeader('X-Powered-By', config.user_agent);
+    res.setHeader('x-powered-by', getUserAgent(config.user_agent));
     next();
   });
 

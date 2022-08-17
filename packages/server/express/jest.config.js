@@ -1,5 +1,10 @@
-const config = require('../../jest/config');
+const config = require('../../../jest/config');
 
 module.exports = Object.assign({}, config, {
-  setupFilesAfterEnv: ['./jest.setup.js'],
+  coverageThreshold: {
+    global: {
+      // FIXME: increase to 90
+      lines: 85,
+    },
+  },
 });

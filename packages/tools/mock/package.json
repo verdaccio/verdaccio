@@ -46,10 +46,7 @@
     "core-js": "3.24.1",
     "debug": "4.3.4",
     "fs-extra": "10.1.0",
-    "lodash": "4.17.21",
-    "request": "2.88.2",
-    "supertest": "6.2.4",
-    "verdaccio": "5.14.0"
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

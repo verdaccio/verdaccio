@@ -8,6 +8,7 @@ import {
   createRemoteUser,
   parseConfigFile,
 } from '@verdaccio/config';
+import { getDefaultConfig } from '@verdaccio/config';
 import {
   API_ERROR,
   CHARACTER_ENCODING,
@@ -16,14 +17,9 @@ import {
   errorUtils,
 } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample } from '@verdaccio/mock';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
-import {
-  AllowActionCallbackResponse,
-  buildToken,
-  buildUserBuffer,
-  getAuthenticatedMessage,
-} from '@verdaccio/utils';
+import { buildToken, buildUserBuffer, getAuthenticatedMessage } from '@verdaccio/utils';
+import type { AllowActionCallbackResponse } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
@@ -58,7 +54,7 @@ describe('Auth utilities', () => {
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
-    const secConf = _.merge(configExample(), conf);
+    const secConf = _.merge(getDefaultConfig(), conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
 

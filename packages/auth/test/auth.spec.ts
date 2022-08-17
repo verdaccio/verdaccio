@@ -51,7 +51,7 @@ describe('AuthTest', () => {
       });
 
       test('should be a fail on login', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginFailureConf));
+        const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
 
