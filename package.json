@@ -88,7 +88,7 @@
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-conventional": "12.1.4",
     "@octokit/rest": "18.12.0",
-    "@trivago/prettier-plugin-sort-imports": "3.2.0",
+    "@trivago/prettier-plugin-sort-imports": "3.3.0",
     "@types/async": "3.2.13",
     "@types/express": "4.17.13",
     "@types/express-rate-limit": "5.1.3",
