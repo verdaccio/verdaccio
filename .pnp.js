@@ -154,7 +154,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
-            ["supertest", "npm:6.2.3"],
+            ["supertest", "npm:6.2.4"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
@@ -17087,10 +17087,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["superagent", [
-        ["npm:7.1.3", {
-          "packageLocation": "./.yarn/cache/superagent-npm-7.1.3-4752f38843-a841b2232e.zip/node_modules/superagent/",
+        ["npm:8.0.0", {
+          "packageLocation": "./.yarn/cache/superagent-npm-8.0.0-23cfd5d736-30c2831165.zip/node_modules/superagent/",
           "packageDependencies": [
-            ["superagent", "npm:7.1.3"],
+            ["superagent", "npm:8.0.0"],
             ["component-emitter", "npm:1.3.0"],
             ["cookiejar", "npm:2.1.3"],
             ["debug", "virtual:e892033b2ad7b98578fbb2dca69034eaf1d78f26127c15ecb8d2167598d70aa0b98ec3076fc83eefdbb470cb6a6f132ad13889c6dc33bfadcf738c0f702bfa93#npm:4.3.4"],
@@ -17107,12 +17107,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["supertest", [
-        ["npm:6.2.3", {
-          "packageLocation": "./.yarn/cache/supertest-npm-6.2.3-280f27cd97-485d478e76.zip/node_modules/supertest/",
+        ["npm:6.2.4", {
+          "packageLocation": "./.yarn/cache/supertest-npm-6.2.4-6901daa695-40f0059232.zip/node_modules/supertest/",
           "packageDependencies": [
-            ["supertest", "npm:6.2.3"],
+            ["supertest", "npm:6.2.4"],
             ["methods", "npm:1.1.2"],
-            ["superagent", "npm:7.1.3"]
+            ["superagent", "npm:8.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -18230,7 +18230,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["selfsigned", "npm:1.10.14"],
             ["semver", "npm:7.3.7"],
             ["standard-version", "npm:9.3.2"],
-            ["supertest", "npm:6.2.3"],
+            ["supertest", "npm:6.2.4"],
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.7.0"],
             ["typescript", "patch:typescript@npm%3A4.1.3#builtin<compat/typescript>::version=4.1.3&hash=a45b0e"],
             ["validator", "npm:13.7.0"],
