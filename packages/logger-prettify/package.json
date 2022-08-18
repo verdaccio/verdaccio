@@ -31,7 +31,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "TZ=utc jest",
+    "test": "cross-env TZ=utc jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
