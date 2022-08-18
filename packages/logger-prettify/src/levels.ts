@@ -53,6 +53,7 @@ export const subSystemLevels = {
   white: {
     in: ARROWS.LEFT,
     out: ARROWS.RIGHT,
+    auth: ARROWS.NEUTRAL,
     fs: ARROWS.EQUAL,
     default: ARROWS.NEUTRAL,
   },

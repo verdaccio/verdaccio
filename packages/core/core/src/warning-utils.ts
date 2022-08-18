@@ -6,7 +6,6 @@ const verdaccioDeprecation = 'VerdaccioDeprecation';
 
 export enum Codes {
   VERWAR001 = 'VERWAR001',
-  VERWAR002 = 'VERWAR002',
   VERWAR003 = 'VERWAR003',
   VERWAR004 = 'VERWAR004',
   // deprecation warnings
@@ -18,8 +17,6 @@ warningInstance.create(
   Codes.VERWAR001,
   `Verdaccio doesn't need superuser privileges. don't run it under root`
 );
-
-warningInstance.create(verdaccioWarning, Codes.VERWAR002, 'logger is not defined');
 
 warningInstance.create(
   verdaccioWarning,

@@ -1,16 +1,22 @@
+// <reference types="node" />
+import { isColorSupported } from 'colorette';
 import buildDebug from 'debug';
-import _ from 'lodash';
-import pino from 'pino';
+import pino, { Logger } from 'pino';
 
-import { warningUtils } from '@verdaccio/core';
-import prettifier, { fillInMsgTemplate } from '@verdaccio/logger-prettify';
+import { fillInMsgTemplate } from '@verdaccio/logger-prettify';
+import { LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:logger');
 
-export let logger;
-
 function isProd() {
   return process.env.NODE_ENV === 'production';
+}
+
+function hasColors(colors: boolean | undefined) {
+  if (colors) {
+    return isColorSupported;
+  }
+  return typeof colors === 'undefined' ? true : colors;
 }
 
 const DEFAULT_LOG_FORMAT = isProd() ? 'json' : 'pretty';
@@ -20,28 +26,19 @@ export type LogPlugin = {
   options?: any[];
 };
 
-export type LogType = 'file' | 'stdout';
-export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
+type LoggerOptions = { level?: string; path?: string; colors?: boolean; sync?: boolean };
 
 export function createLogger(
-  options = { level: 'http' },
-  destination = pino.destination(1),
-  prettyPrintOptions = {
-    // we hide warning since the prettifier should not be used in production
-    // https://getpino.io/#/docs/pretty?id=prettifier-api
-    suppressFlushSyncWarning: true,
-  },
-  format: LogFormat = DEFAULT_LOG_FORMAT
+  options: LoggerOptions = { level: 'http' },
+  // eslint-disable-next-line no-undef
+  destination: NodeJS.WritableStream = pino.destination(1),
+  format: LoggerFormat = DEFAULT_LOG_FORMAT
 ) {
-  if (_.isNil(format)) {
-    format = DEFAULT_LOG_FORMAT;
-  }
-
+  debug('setup logger');
   let pinoConfig = {
     customLevels: {
       http: 25,
     },
-    ...options,
     level: options.level,
     serializers: {
       err: pino.stdSerializers.err,
@@ -52,23 +49,32 @@ export function createLogger(
 
   debug('has prettifier? %o', !isProd());
   // pretty logs are not allowed in production for performance reasons
-  if ((format === DEFAULT_LOG_FORMAT || format !== 'json') && isProd() === false) {
+  if (['pretty-timestamped', 'pretty'].includes(format) && isProd() === false) {
     pinoConfig = Object.assign({}, pinoConfig, {
-      prettifier,
-      // more info
-      // https://github.com/pinojs/pino-pretty/issues/37
-      prettyPrint: {
-        levelFirst: true,
-        prettyStamp: format === 'pretty-timestamped',
-        ...prettyPrintOptions,
+      transport: {
+        target: '@verdaccio/logger-prettify',
+        options: {
+          // string or 1 (file descriptor for process.stdout)
+          destination: options.path || 1,
+          colors: hasColors(options.colors),
+          prettyStamp: format === 'pretty-timestamped',
+        },
       },
     });
   } else {
-    pinoConfig = Object.assign({}, pinoConfig, {
+    pinoConfig = {
+      ...pinoConfig,
       // more info
       // https://github.com/pinojs/pino/blob/v7.1.0/docs/api.md#hooks-object
+      // TODO: improve typings here
+      // @ts-ignore
       hooks: {
-        logMethod(inputArgs, method) {
+        logMethod(
+          inputArgs: [any, any, ...any[]],
+          method: {
+            apply: (arg0: { logMethod: (inputArgs: any, method: any) => any }, arg1: any[]) => any;
+          }
+        ) {
           const [templateObject, message, ...otherArgs] = inputArgs;
           const templateVars =
             !!templateObject && typeof templateObject === 'object'
@@ -79,24 +85,16 @@ export function createLogger(
           return method.apply(this, [templateObject, hydratedMessage, ...otherArgs]);
         },
       },
-    });
+    };
   }
   const logger = pino(pinoConfig, destination);
 
+  /* eslint-disable */
+  /* istanbul ignore next */
   if (process.env.DEBUG) {
     logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
       debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
     });
-  }
-
-  return logger;
-}
-
-export function getLogger() {
-  if (_.isNil(logger)) {
-    // FIXME: not sure about display here a warning
-    warningUtils.emit(warningUtils.Codes.VERWAR002);
-    return;
   }
 
   return logger;
@@ -108,18 +106,14 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
   level: 'http',
 };
 
-export type LoggerConfigItem = {
-  type?: LogType;
-  plugin?: LogPlugin;
-  format?: LogFormat;
-  path?: string;
-  level?: string;
-};
-
 export type LoggerConfig = LoggerConfigItem;
 
-export function setup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
-  debug('setup logger');
+export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
+  let logger: Logger<{
+    customLevels: { http: number };
+    level: string | undefined;
+    serializers: { err: any; req: any; res: any };
+  }>;
   let loggerConfig = options;
   if (!loggerConfig?.level) {
     loggerConfig = Object.assign(
@@ -134,40 +128,35 @@ export function setup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
+    /* eslint-disable */
+    /* istanbul ignore next */
     process.on('SIGUSR2', () => destination.reopen());
     // @ts-ignore
-    logger = createLogger(pinoConfig, destination, loggerConfig.format);
-    // @ts-ignore
-  } else if (loggerConfig.type === 'rotating-file') {
-    warningUtils.emit(warningUtils.Codes.VERWAR003);
-    debug('logging stdout enabled');
-    // @ts-ignore
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger(
+      { level: loggerConfig.level, path: loggerConfig.path, colors: loggerConfig.colors },
+      destination,
+      loggerConfig.format
+    );
+    return logger;
   } else {
     debug('logging stdout enabled');
     // @ts-ignore
-    logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format);
+    logger = createLogger(
+      { level: loggerConfig.level, colors: loggerConfig.colors },
+      pino.destination(1),
+      loggerConfig.format
+    );
+    return logger;
+  }
+}
+
+export let logger: Logger;
+
+export function setup(options: LoggerConfigItem) {
+  if (typeof logger !== 'undefined') {
+    return logger;
   }
 
-  if (isProd()) {
-    // why only on prod? https://github.com/pinojs/pino/issues/920#issuecomment-710807667
-    const finalHandler = pino.final(logger, (err, finalLogger, event) => {
-      finalLogger.info(`${event} caught`);
-      if (err) {
-        finalLogger.error(err, 'error caused exit');
-      }
-      process.exit(err ? 1 : 0);
-    });
-
-    process.on('uncaughtException', (err) => finalHandler(err, 'uncaughtException'));
-    process.on('unhandledRejection', (err) => finalHandler(err as Error, 'unhandledRejection'));
-    process.on('beforeExit', () => finalHandler(null, 'beforeExit'));
-    process.on('exit', () => finalHandler(null, 'exit'));
-    process.on('uncaughtException', (err) => finalHandler(err, 'uncaughtException'));
-    process.on('SIGINT', () => finalHandler(null, 'SIGINT'));
-    process.on('SIGQUIT', () => finalHandler(null, 'SIGQUIT'));
-    process.on('SIGTERM', () => finalHandler(null, 'SIGTERM'));
-  }
-
+  logger = prepareSetup(options);
   return logger;
 }

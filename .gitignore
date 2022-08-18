@@ -46,7 +46,8 @@ api-results.json
 hyper-results.json
 hyper-results*.json
 api-results*.json
+.clinic/
 
 #docs 
 ./api
-packages/core/core/docs
+**/docs/**

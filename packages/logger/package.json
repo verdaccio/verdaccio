@@ -31,7 +31,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "cross-env TZ=utc jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -41,10 +41,9 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.6",
-    "pino-pretty": "7.6.1",
     "debug": "4.3.4",
-    "lodash": "4.17.21",
-    "pino": "7.11.0"
+    "colorette": "2.0.7",
+    "pino": "8.4.1"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12"

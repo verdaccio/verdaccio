@@ -1,1 +1,1 @@
-export { setup, createLogger, logger, LoggerConfigItem } from './logger';
+export { setup, createLogger, logger, prepareSetup } from './logger';

@@ -6,6 +6,7 @@ module.exports = {
   },
   globals: {
     __APP_VERSION__: true,
+    NodeJS: true,
   },
   parserOptions: {
     allowImportExportEverywhere: true,
