@@ -6,7 +6,7 @@ describe('formatLoggingDate', () => {
   test('basic', () => {
     const mockDate = '2018-01-14T11:17:40.712Z';
     MockDate.set(mockDate);
-    expect(formatLoggingDate(Date.now(), ' message')).toEqual('2018-01-14 12:17:40] message');
+    expect(formatLoggingDate(Date.now(), ' message')).toEqual('[2018-01-14 12:17:40] message');
   });
 });
 
