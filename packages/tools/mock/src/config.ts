@@ -12,7 +12,7 @@ const debug = buildDebug('verdaccio:mock:config');
  */
 function configExample(
   externalConfig: Partial<ConfigYaml> = {},
-  configFile: string = 'default.yaml',
+  configFile: string,
   location: string = ''
 ) {
   const locationFile = location
