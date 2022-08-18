@@ -474,6 +474,7 @@ importers:
       dayjs: 1.11.4
       fast-safe-stringify: 2.1.1
       lodash: 4.17.21
+      mockdate: 3.0.5
       pino: 8.4.1
       pino-abstract-transport: 1.0.0
       prettier-bytes: 1.0.4
@@ -487,6 +488,7 @@ importers:
       prettier-bytes: 1.0.4
       sonic-boom: 3.2.0
     devDependencies:
+      mockdate: 3.0.5
       pino: 8.4.1
 
   packages/middleware:
@@ -1297,7 +1299,7 @@ importers:
       npm: next-8
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      npm: 8.17.0
+      npm: 8.18.0
 
   test/cli/e2e-pnpm6:
     specifiers:
@@ -1313,7 +1315,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.9.1
+      pnpm: 7.9.4-0
 
   test/cli/e2e-yarn1:
     specifiers:
@@ -17904,8 +17906,8 @@ packages:
       - which
       - write-file-atomic
 
-  /npm/8.17.0:
-    resolution: {integrity: sha512-tIcfZd541v86Sqrf+t/GW6ivqiT8b/2b3EAjNw3vRe+eVnL4mlkVwu17hjCOrsPVntLb5C6tQG4jPUE5Oveeyw==}
+  /npm/8.18.0:
+    resolution: {integrity: sha512-G07/yKvNUwhwxYhk8BxcuDPB/4s+y755i6CnH3lf9LQBHP5siUx66WbuNGWEnN3xaBER4+IR3OWApKX7eBO5Dw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16}
     hasBin: true
     dev: false
@@ -18670,8 +18672,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.9.1:
-    resolution: {integrity: sha512-5vyV+FwZj5y31UDDsiq9xcVzF+mvS+IPdgAgkZ9rVxYPNKCCVwVn5LsHh9jcfuApiKYVgpyisAMcuSDbe1/C0Q==}
+  /pnpm/7.9.4-0:
+    resolution: {integrity: sha512-qTilkdOOxwKLXcH7eqReARfMetXZqfWoObZkJCYgPsKD+pJQS+IGuYf1S2w+J+/0Y5518icXnc+nZ6c0CX24Ew==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false

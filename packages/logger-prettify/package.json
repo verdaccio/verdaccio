@@ -48,7 +48,8 @@
     "prettier-bytes": "1.0.4"
   },
   "devDependencies": {
-    "pino": "8.4.1"
+    "pino": "8.4.1",
+    "mockdate": "3.0.5"
   },
   "funding": {
     "type": "opencollective",
