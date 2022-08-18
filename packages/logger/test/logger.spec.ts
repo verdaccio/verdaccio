@@ -7,7 +7,7 @@ import { fileUtils } from '@verdaccio/core';
 import { prepareSetup } from '../src';
 
 async function readLogFile(path: string) {
-  await setTimeout(300, 'resolved');
+  await setTimeout(1000, 'resolved');
   return readFile(path, 'utf8');
 }
 
