@@ -10,5 +10,5 @@ issue in CI, scripts, etc. Below are some articles detailing how to use `npm log
 CI platforms.
 
 - [Travis CI](https://remysharp.com/2015/10/26/using-travis-with-private-npm-deps)
-- [Circle CI 1.0](https://circleci.com/docs/1.0/npm-login/) or [Circle CI 2.0](https://circleci.com/docs/2.0/deployment-integrations/#npm)
-- [Gitlab CI](https://www.exclamationlabs.com/blog/continuous-deployment-to-npm-using-gitlab-ci/)
+- [Circle CI](https://circleci.com/docs/deploy-to-npm-registry)
+- [GitHub Actions](https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages)
