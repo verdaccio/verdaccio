@@ -36,7 +36,7 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
   // tagging a package.
   route.put(
     '/:package/:tag',
-    can('publishf'),
+    can('publish'),
     media(mime.getType('json')),
     addTagPackageVersionMiddleware
   );
