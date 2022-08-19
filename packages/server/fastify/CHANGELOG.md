@@ -1,5 +1,43 @@
 # @verdaccio/server-fastify
 
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- 00d1d2a1: chore: env variable for launch fastify
+
+  - Update fastify to major release `v4.3.0`
+  - Update CLI launcher
+
+  via CLI
+
+  ```
+  VERDACCIO_SERVER=fastify verdaccio
+  ```
+
+  with docker
+
+  ```
+  docker run -it --rm --name verdaccio \
+    -e "VERDACCIO_SERVER=8080" -p 8080:8080 \
+    -e "VERDACCIO_SERVER=fastify" \
+    verdaccio/verdaccio
+  ```
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/auth@6.0.0-6-next.23
+  - @verdaccio/config@6.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/readme@11.0.0-6-next.5
+  - @verdaccio/tarball@11.0.0-6-next.13
+  - @verdaccio/logger@6.0.0-6-next.12
+  - @verdaccio/store@6.0.0-6-next.23
+  - @verdaccio/utils@6.0.0-6-next.12
+
 ## 6.0.0-6-next.23
 
 ### Patch Changes

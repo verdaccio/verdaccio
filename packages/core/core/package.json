@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "6.0.0-6-next.5",
+  "version": "6.0.0-6-next.6",
   "description": "core utilities",
   "keywords": [
     "private",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "lodash": "4.17.21",
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "@verdaccio/types": "workspace:11.0.0-6-next.13"
   },
   "scripts": {
     "clean": "rimraf ./build",
