@@ -1,9 +1,8 @@
 import { setGlobalDispatcher } from 'undici';
 
-import { Config } from '@verdaccio/config';
+import { Config, getDefaultConfig } from '@verdaccio/config';
 import { searchUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample } from '@verdaccio/mock';
 
 import { Storage, removeDuplicates } from '../src';
 
@@ -31,7 +30,7 @@ describe('search', () => {
     test('search items', async () => {
       const { MockAgent } = require('undici');
       // FIXME: fetch is already part of undici
-      const domain = 'http://localhost:4873';
+      const domain = 'https://registry.npmjs.org';
       const url = '/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio';
       const response = require('./fixtures/search.json');
       const options = {
@@ -43,7 +42,7 @@ describe('search', () => {
       setGlobalDispatcher(mockAgent);
       const mockClient = mockAgent.get(domain);
       mockClient.intercept(options).reply(200, JSON.stringify(response));
-      const config = new Config(configExample());
+      const config = new Config(getDefaultConfig());
       const storage = new Storage(config);
       await storage.init(config);
 

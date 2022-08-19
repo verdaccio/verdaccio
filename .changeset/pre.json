@@ -16,7 +16,6 @@
     "@verdaccio/logger": "6.0.0-alpha.0",
     "@verdaccio/logger-prettify": "6.0.0-alpha.0",
     "@verdaccio/middleware": "6.0.0-alpha.0",
-    "@verdaccio/mock": "6.0.0-alpha.0",
     "@verdaccio/node-api": "6.0.0-alpha.0",
     "@verdaccio/proxy": "6.0.0-alpha.0",
     "@verdaccio/server": "6.0.0-alpha.0",

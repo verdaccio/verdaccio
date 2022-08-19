@@ -1,12 +1,14 @@
+import { pseudoRandomBytes } from 'crypto';
+import fs from 'fs';
 import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
+import os from 'os';
 import path from 'path';
 
-import { Config } from '@verdaccio/config';
+import { Config, getDefaultConfig } from '@verdaccio/config';
 import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, errorUtils, fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample, generateRamdonStorage } from '@verdaccio/mock';
 import {
   addNewVersion,
   generatePackageMetadata,
@@ -16,6 +18,14 @@ import { Manifest, Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
+import { configExample } from './helpers';
+
+function generateRamdonStorage() {
+  const tempStorage = pseudoRandomBytes(5).toString('hex');
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
+
+  return path.join(tempRoot, tempStorage);
+}
 
 setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
@@ -60,6 +70,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
+            ...getDefaultConfig(),
             storage: generateRamdonStorage(),
           },
           './fixtures/config/updateManifest-1.yaml',
@@ -264,6 +275,7 @@ describe('storage', () => {
     test('should not found a package anywhere', (done) => {
       const config = new Config(
         configExample({
+          ...getDefaultConfig(),
           storage: generateRamdonStorage(),
         })
       );
@@ -684,6 +696,7 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
             storage: generateRamdonStorage(),
           })
         );
@@ -715,6 +728,7 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
             storage: generateRamdonStorage(),
           })
         );
@@ -747,6 +761,7 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
             storage: generateRamdonStorage(),
           })
         );
@@ -779,6 +794,7 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
             storage: generateRamdonStorage(),
           })
         );
@@ -813,6 +829,12 @@ describe('storage', () => {
         nock(domain).get('/foo2').reply(404);
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
+            uplinks: {
+              npmjs: {
+                url: domain,
+              },
+            },
             storage: generateRamdonStorage(),
           })
         );
@@ -847,6 +869,12 @@ describe('storage', () => {
         });
         const config = new Config(
           configExample({
+            ...getDefaultConfig(),
+            uplinks: {
+              npmjs: {
+                url: domain,
+              },
+            },
             storage: generateRamdonStorage(),
           })
         );

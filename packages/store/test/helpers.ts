@@ -1,14 +1,22 @@
-import { Manifest } from '@verdaccio/types';
+import buildDebug from 'debug';
+import path from 'path';
 
-import { Storage } from '../src/storage';
+import { parseConfigFile } from '@verdaccio/config';
 
-export const addPackageToStore = (storage: Storage, pkgName: string, metadata: Manifest) => {
-  return new Promise((resolve, reject) => {
-    storage.addPackage(pkgName, metadata, (err, data) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve(data);
-    });
-  });
-};
+const debug = buildDebug('verdaccio:mock:config');
+
+/**
+ * Override the default.yaml configuration file with any new config provided.
+ */
+function configExample(externalConfig: any = {}, configFile?: string, location?: string) {
+  let config = {};
+  if (location && configFile) {
+    const locationFile = path.join(location, configFile);
+    debug('config location: %s', locationFile);
+    config = parseConfigFile(locationFile);
+    debug('config file: %o', JSON.stringify(config));
+  }
+  return { ...externalConfig, ...config };
+}
+
+export { configExample };

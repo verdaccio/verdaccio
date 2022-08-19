@@ -1,21 +1,24 @@
 import path from 'path';
 
-import { configExample as config } from '@verdaccio/mock';
+import { getDefaultConfig } from '@verdaccio/config';
 
-export const authProfileConf = config({
+export const authProfileConf = {
+  ...getDefaultConfig(),
   auth: {
     [`${path.join(__dirname, '../partials/plugin/authenticate.success')}`]: {},
   },
-});
+};
 
-export const authPluginFailureConf = config({
+export const authPluginFailureConf = {
+  ...getDefaultConfig(),
   auth: {
-    [`${path.join(__dirname, '../partials/plugin/authenticate.fail')}`]: {},
+    [`${path.join(__dirname, '../partials/plugin/authenticate.fail.js')}`]: {},
   },
-});
+};
 
-export const authPluginPassThrougConf = config({
+export const authPluginPassThrougConf = {
+  ...getDefaultConfig(),
   auth: {
     [`${path.join(__dirname, '../partials/plugin/authenticate.passthroug')}`]: {},
   },
-});
+};
