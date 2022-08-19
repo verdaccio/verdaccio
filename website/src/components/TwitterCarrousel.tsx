@@ -1,5 +1,4 @@
 import { translate } from '@docusaurus/Translate';
-import { useColorMode } from '@docusaurus/theme-common';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import clsx from 'clsx';
 import React, { useCallback, useRef, useState } from 'react';
@@ -10,7 +9,6 @@ import styles from './TwitterCarrousel.module.scss';
 import useClampedIsInViewport from './hooks/useClampedIsInViewport';
 
 const Carrousel = ({ data }: { data: string[][] }): React.ReactElement => {
-  const { isDarkTheme } = useColorMode();
   const { i18n } = useDocusaurusContext();
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -37,7 +35,7 @@ const Carrousel = ({ data }: { data: string[][] }): React.ReactElement => {
           {data[page].map((tweetId) => (
             <Tweet
               options={{
-                theme: isDarkTheme ? 'dark' : 'light',
+                theme: 'light',
                 lang: i18n.currentLocale,
                 dnt: true,
                 align: 'center',
