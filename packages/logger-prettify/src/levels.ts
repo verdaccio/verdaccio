@@ -1,4 +1,4 @@
-import { black, blue, cyan, green, magenta, red, white, yellow } from 'kleur';
+import { black, blue, cyan, green, magenta, red, white, yellow } from 'colorette';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 
