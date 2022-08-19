@@ -433,7 +433,6 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.14
       '@verdaccio/core': workspace:6.0.0-6-next.5
       '@verdaccio/logger': workspace:6.0.0-6-next.11
-      '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/types': workspace:11.0.0-6-next.12
       debug: 4.3.4
       lodash: 4.17.21
@@ -444,7 +443,6 @@ importers:
     devDependencies:
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
 
   packages/logger:
@@ -505,7 +503,6 @@ importers:
       '@verdaccio/config': workspace:6.0.0-6-next.14
       '@verdaccio/core': workspace:6.0.0-6-next.5
       '@verdaccio/logger': workspace:6.0.0-6-next.11
-      '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/server': workspace:6.0.0-6-next.31
       '@verdaccio/server-fastify': workspace:6.0.0-6-next.23
       '@verdaccio/types': workspace:11.0.0-6-next.12
@@ -526,7 +523,6 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@types/node': 16.11.47
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/types': link:../core/types
       jest-mock-process: 1.5.1_jest@27.5.1
       selfsigned: 1.10.14
@@ -866,7 +862,6 @@ importers:
       '@verdaccio/loaders': workspace:6.0.0-6-next.12
       '@verdaccio/logger': workspace:6.0.0-6-next.11
       '@verdaccio/middleware': workspace:6.0.0-6-next.22
-      '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/proxy': workspace:6.0.0-6-next.20
       '@verdaccio/store': workspace:6.0.0-6-next.22
       '@verdaccio/test-helper': workspace:1.1.0-6-next.1
@@ -900,7 +895,6 @@ importers:
       verdaccio-audit: link:../../plugins/audit
     devDependencies:
       '@types/node': 16.11.47
-      '@verdaccio/mock': link:../../tools/mock
       '@verdaccio/proxy': link:../../proxy
       '@verdaccio/test-helper': link:../../tools/helpers
       http-errors: 1.8.1
@@ -969,7 +963,6 @@ importers:
       '@verdaccio/loaders': workspace:6.0.0-6-next.12
       '@verdaccio/local-storage': workspace:11.0.0-6-next.12
       '@verdaccio/logger': workspace:6.0.0-6-next.11
-      '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/proxy': workspace:6.0.0-6-next.20
       '@verdaccio/tarball': workspace:11.0.0-6-next.12
       '@verdaccio/test-helper': workspace:1.1.0-6-next.1
@@ -1003,7 +996,6 @@ importers:
       semver: 7.3.7
     devDependencies:
       '@types/node': 16.11.47
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/test-helper': link:../tools/helpers
       '@verdaccio/types': link:../core/types
       mockdate: 3.0.5
@@ -1090,27 +1082,6 @@ importers:
       fs-extra: 10.1.0
       supertest: 6.2.4
 
-  packages/tools/mock:
-    specifiers:
-      '@verdaccio/config': workspace:6.0.0-6-next.14
-      '@verdaccio/core': workspace:6.0.0-6-next.5
-      '@verdaccio/types': workspace:11.0.0-6-next.12
-      '@verdaccio/utils': workspace:6.0.0-6-next.11
-      core-js: 3.24.1
-      debug: 4.3.4
-      fs-extra: 10.1.0
-      lodash: 4.17.21
-    dependencies:
-      '@verdaccio/config': link:../../config
-      '@verdaccio/core': link:../../core/core
-      '@verdaccio/utils': link:../../utils
-      core-js: 3.24.1
-      debug: 4.3.4
-      fs-extra: 10.1.0
-      lodash: 4.17.21
-    devDependencies:
-      '@verdaccio/types': link:../../core/types
-
   packages/types:
     specifiers:
       lunr-mutable-indexes: 2.3.2
@@ -1137,7 +1108,6 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.5
       '@verdaccio/hooks': workspace:6.0.0-6-next.13
       '@verdaccio/logger': workspace:6.0.0-6-next.11
-      '@verdaccio/mock': workspace:6.0.0-6-next.15
       '@verdaccio/node-api': workspace:6.0.0-6-next.32
       '@verdaccio/store': workspace:6.0.0-6-next.22
       '@verdaccio/test-helper': workspace:1.1.0-6-next.1
@@ -1165,7 +1135,6 @@ importers:
       '@verdaccio/auth': link:../auth
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
-      '@verdaccio/mock': link:../tools/mock
       '@verdaccio/store': link:../store
       '@verdaccio/test-helper': link:../tools/helpers
       fastify: 4.3.0
