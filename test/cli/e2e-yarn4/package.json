@@ -1,9 +1,9 @@
 {
   "private": true,
   "name": "@verdaccio/e2e-cli-yarn4",
-  "version": "1.0.0",
+  "version": "1.0.1-6-next.0",
   "dependencies": {
-    "@verdaccio/test-cli-commons": "workspace:1.0.0"
+    "@verdaccio/test-cli-commons": "workspace:1.0.1-6-next.0"
   },
   "scripts": {
     "test": "jest"

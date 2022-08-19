@@ -1,5 +1,70 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.32
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Minor Changes
+
+- 00d1d2a1: chore: env variable for launch fastify
+
+  - Update fastify to major release `v4.3.0`
+  - Update CLI launcher
+
+  via CLI
+
+  ```
+  VERDACCIO_SERVER=fastify verdaccio
+  ```
+
+  with docker
+
+  ```
+  docker run -it --rm --name verdaccio \
+    -e "VERDACCIO_SERVER=8080" -p 8080:8080 \
+    -e "VERDACCIO_SERVER=fastify" \
+    verdaccio/verdaccio
+  ```
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/api@6.0.0-6-next.26
+  - @verdaccio/auth@6.0.0-6-next.23
+  - @verdaccio/config@6.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/loaders@6.0.0-6-next.13
+  - @verdaccio/logger@6.0.0-6-next.12
+  - @verdaccio/middleware@6.0.0-6-next.23
+  - verdaccio-audit@11.0.0-6-next.9
+  - @verdaccio/store@6.0.0-6-next.23
+  - @verdaccio/utils@6.0.0-6-next.12
+  - @verdaccio/web@6.0.0-6-next.30
+
 ## 6.0.0-6-next.31
 
 ### Patch Changes

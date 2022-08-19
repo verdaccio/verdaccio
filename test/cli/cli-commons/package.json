@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/test-cli-commons",
-  "version": "1.0.0",
+  "version": "1.0.1-6-next.0",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "dependencies": {
@@ -12,9 +12,9 @@
     "fs-extra": "10.1.0",
     "semver": "7.3.7",
     "got": "11.8.5",
-    "verdaccio": "workspace:6.0.0-6-next.41",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/config": "workspace:6.0.0-6-next.14",
+    "verdaccio": "workspace:6.0.0-6-next.42",
+    "@verdaccio/core": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.15",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1"
   },
   "scripts": {
