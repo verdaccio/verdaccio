@@ -14,7 +14,6 @@
 '@verdaccio/ui-theme': major
 '@verdaccio/proxy': major
 '@verdaccio/server': major
-'@verdaccio/mock': major
 'verdaccio': major
 '@verdaccio/web': major
 ---

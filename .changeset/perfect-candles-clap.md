@@ -14,7 +14,6 @@
 '@verdaccio/loaders': minor
 '@verdaccio/logger': minor
 '@verdaccio/middleware': minor
-'@verdaccio/mock': minor
 '@verdaccio/node-api': minor
 '@verdaccio/active-directory': minor
 'verdaccio-auth-memory': minor

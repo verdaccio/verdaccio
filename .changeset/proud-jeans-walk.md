@@ -3,7 +3,6 @@
 '@verdaccio/local-storage': patch
 '@verdaccio/server-fastify': patch
 '@verdaccio/hooks': patch
-'@verdaccio/mock': patch
 '@verdaccio/node-api': patch
 ---
 

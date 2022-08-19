@@ -15,7 +15,6 @@
 '@verdaccio/logger': minor
 '@verdaccio/logger-prettify': minor
 '@verdaccio/middleware': minor
-'@verdaccio/mock': minor
 '@verdaccio/node-api': minor
 '@verdaccio/active-directory': minor
 'verdaccio-audit': minor

@@ -14,7 +14,6 @@
 '@verdaccio/logger': patch
 '@verdaccio/logger-prettify': patch
 '@verdaccio/middleware': patch
-'@verdaccio/mock': patch
 '@verdaccio/node-api': patch
 '@verdaccio/proxy': patch
 '@verdaccio/server': patch

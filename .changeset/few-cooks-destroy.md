@@ -15,7 +15,6 @@
 '@verdaccio/logger': major
 '@verdaccio/logger-prettify': major
 '@verdaccio/middleware': major
-'@verdaccio/mock': major
 '@verdaccio/node-api': major
 '@verdaccio/active-directory': major
 'verdaccio-audit': major

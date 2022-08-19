@@ -6,7 +6,6 @@
 '@verdaccio/logger-prettify': major
 'verdaccio-audit': major
 '@verdaccio/eslint-config': major
-'@verdaccio/mock': major
 ---
 
 feat: migrate to pino.js 8
