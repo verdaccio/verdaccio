@@ -35,7 +35,7 @@ const Header = (): React.ReactElement => {
               <Translate>GET STARTED</Translate>
             </Link>
             <a
-              href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1"
+              href="https://www.wfp.org/support-us/stories/ukraine-appeal"
               className={cx('link-secondary', 'specialButton')}
             >
               <Translate>DONATE</Translate>
