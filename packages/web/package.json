@@ -43,7 +43,7 @@
     "lru-cache": "6.0.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.51",
     "@verdaccio/types": "workspace:11.0.0-6-next.13",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
     "@verdaccio/api": "workspace:6.0.0-6-next.26",
