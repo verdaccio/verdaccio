@@ -41,7 +41,7 @@
     "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.51",
     "typedoc": "beta",
     "typedoc-plugin-missing-exports": "1.0.0"
   },

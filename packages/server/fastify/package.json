@@ -44,12 +44,12 @@
     "@verdaccio/readme": "workspace:11.0.0-6-next.5",
     "core-js": "3.24.1",
     "debug": "4.3.4",
-    "fastify": "4.3.0",
-    "fastify-plugin": "4.1.0",
+    "fastify": "4.5.2",
+    "fastify-plugin": "4.2.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.51",
     "@verdaccio/types": "workspace:11.0.0-6-next.13",
     "ts-node": "10.9.1"
   },

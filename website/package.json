@@ -31,7 +31,7 @@
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
     "@mdx-js/react": "^1.6.22",
-    "clsx": "1.1.1",
+    "clsx": "1.2.1",
     "classnames": "2.3.1",
     "copy-text-to-clipboard": "3.0.1",
     "docusaurus-plugin-contributors": "workspace:1.0.0",
@@ -60,7 +60,7 @@
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
-    "sass": "1.54.3",
+    "sass": "1.54.5",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }
