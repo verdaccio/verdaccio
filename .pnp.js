@@ -86,7 +86,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/readme", "npm:10.4.1"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["@verdaccio/types", "npm:10.5.2"],
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.25"],
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.26"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.4"],
@@ -5955,10 +5955,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@verdaccio/ui-theme", [
-        ["npm:6.0.0-6-next.25", {
-          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-6.0.0-6-next.25-820ec707f7-91d6556389.zip/node_modules/@verdaccio/ui-theme/",
+        ["npm:6.0.0-6-next.26", {
+          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-6.0.0-6-next.26-f50c253dcd-a5cf12c136.zip/node_modules/@verdaccio/ui-theme/",
           "packageDependencies": [
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.25"]
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.26"]
           ],
           "linkType": "HARD",
         }]
@@ -18162,7 +18162,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/readme", "npm:10.4.1"],
             ["@verdaccio/streams", "npm:10.2.0"],
             ["@verdaccio/types", "npm:10.5.2"],
-            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.25"],
+            ["@verdaccio/ui-theme", "npm:6.0.0-6-next.26"],
             ["JSONStream", "npm:1.3.5"],
             ["all-contributors-cli", "npm:6.20.0"],
             ["async", "npm:3.2.4"],
