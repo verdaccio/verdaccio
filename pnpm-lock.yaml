@@ -1325,11 +1325,13 @@ importers:
       prism-react-renderer: ^1.2.1
       react: 17.0.2
       react-dom: 17.0.2
+      react-player: 2.10.1
       react-twitter-widgets: ^1.10.0
       sass: 1.54.3
       sass-loader: ^12.1.0
       url-loader: 4.1.1
       use-is-in-viewport: ^1.0.9
+      usehooks-ts: 2.6.0
     dependencies:
       '@docusaurus/core': 2.0.1_c09acd9e01a17a05cefa9b9fd3e27187
       '@docusaurus/plugin-content-docs': 2.0.1_c09acd9e01a17a05cefa9b9fd3e27187
@@ -1348,8 +1350,10 @@ importers:
       docusaurus-plugin-sentry: 1.0.0_c09acd9e01a17a05cefa9b9fd3e27187
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      react-player: 2.10.1_react@17.0.2
       react-twitter-widgets: 1.10.0_react@17.0.2
       use-is-in-viewport: 1.0.9_react@17.0.2
+      usehooks-ts: 2.6.0_react@17.0.2
     devDependencies:
       '@docusaurus/module-type-aliases': 2.0.1_e04bad828ac717e6587f05c972df8358
       '@tsconfig/docusaurus': 1.0.2
@@ -14622,6 +14626,10 @@ packages:
       strip-bom: 3.0.0
     dev: true
 
+  /load-script/1.0.0:
+    resolution: {integrity: sha512-kPEjMFtZvwL9TaZo0uZ2ml+Ye9HUMmPwbYRJ324qF9tqMejwykJ5ggTyvzmrbBeapCAbk98BSbTeovHEEP1uCA==}
+    dev: false
+
   /load-yaml-file/0.2.0:
     resolution: {integrity: sha512-OfCBkGEw4nN6JLtgRidPX6QxjBQGQf72q3si2uvqyFEMbycSFFHwAZeXx6cJgFM9wmLrf9zBwCP3Ivqa+LLZPw==}
     engines: {node: '>=6'}
@@ -15107,6 +15115,10 @@ packages:
     engines: {node: '>= 4.0.0'}
     dependencies:
       fs-monkey: 1.0.3
+
+  /memoize-one/5.2.1:
+    resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
+    dev: false
 
   /memory-fs/0.4.1:
     resolution: {integrity: sha1-OpoguEYlI+RHz7x+i7gO1me/xVI=}
@@ -18316,6 +18328,19 @@ packages:
       - supports-color
     dev: true
 
+  /react-player/2.10.1_react@17.0.2:
+    resolution: {integrity: sha512-ova0jY1Y1lqLYxOehkzbNEju4rFXYVkr5rdGD71nsiG4UKPzRXQPTd3xjoDssheoMNjZ51mjT5ysTrdQ2tEvsg==}
+    peerDependencies:
+      react: '>=16.6.0'
+    dependencies:
+      deepmerge: 4.2.2
+      load-script: 1.0.0
+      memoize-one: 5.2.1
+      prop-types: 15.8.1
+      react: 17.0.2
+      react-fast-compare: 3.2.0
+    dev: false
+
   /react-redux/7.2.8_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-6+uDjhs3PSIclqoCk0kd6iX74gzrGc3W5zcAjbrFgEdIjRSQObdIwfx80unTkVUYvbQ95Y8Av3OvFHq1w5EOUw==}
     peerDependencies:
@@ -21208,6 +21233,14 @@ packages:
   /use/3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
+
+  /usehooks-ts/2.6.0_react@17.0.2:
+    resolution: {integrity: sha512-Kj/4oc2nOxRDGTDb2v1ZulF7+tpeXFuqI6cUesM0Vic7TPPDlFORxKh4ivsYg+NTvX/YbM+lhqqkfFTiIt23eg==}
+    peerDependencies:
+      react: '>=16.9.0'
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /utf8-byte-length/1.0.4:
     resolution: {integrity: sha1-9F8VDExm7uloGGUFq5P8u4rWv2E=}
