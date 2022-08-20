@@ -29,14 +29,14 @@ const UsedBy = (): React.ReactElement => (
           url: 'https://pnpm.io',
         },
         {
-          name: 'React',
+          name: 'create-react-app',
           image: useBaseUrl('/img/sponsors/react.svg'),
-          url: ' https://reactjs.org',
+          url: ' https://create-react-app.dev/',
         },
         {
-          name: 'Angular',
+          name: 'Angular CLI',
           image: useBaseUrl('/img/sponsors/angular.svg'),
-          url: 'https://angular.io',
+          url: 'https://angular.io/cli',
         },
         {
           name: 'vendure',
