@@ -3,14 +3,17 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React from 'react';
+import ReactPlayer from 'react-player/youtube'
 import { Follow } from 'react-twitter-widgets';
 import cx from 'classnames';
+import { useMediaQuery } from 'usehooks-ts'
 
 import Command from './Command';
 import styles from './Header.module.scss';
 
 const Header = (): React.ReactElement => {
   const { i18n } = useDocusaurusContext();
+  const matches = useMediaQuery('(min-width: 768px)')
   return (
     <div className={styles.header}>
       <div className={styles['header--wrap']}>
@@ -43,8 +46,11 @@ const Header = (): React.ReactElement => {
           <Command
             command="npm install --global verdaccio"
             alt={translate({ message: 'NPM command to install Verdaccio' })}
-          />
-        </div>       
+          />          
+        </div>      
+        {matches && <div className={styles['header--m-2']}>
+          <ReactPlayer url='https://www.youtube.com/watch?v=qRMucS3i3kQ' controls />
+        </div>}
       </div>
       <div className={styles['header--absolute-links']}>
         <div>
@@ -54,6 +60,7 @@ const Header = (): React.ReactElement => {
           />
         </div>
       </div>
+
     </div>
   );
 };

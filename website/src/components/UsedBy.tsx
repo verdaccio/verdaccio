@@ -8,9 +8,9 @@ import styles from './UsedBy.module.scss';
 
 const UsedBy = (): React.ReactElement => (
   <section className={styles.usedBy}>
-    <div className={styles['usedBy--main']}>
+    <div className={styles['usedBy--main']}>    
       <b>
-        <Translate>SPONSORED BY</Translate>
+        <Translate>USED BY</Translate>
       </b>
       {[
         {
@@ -23,19 +23,6 @@ const UsedBy = (): React.ReactElement => (
           image: useBaseUrl('/img/sponsors/gatsbysvg.svg'),
           url: 'https://www.gatsbyjs.com/',
         },
-      ].map((sponsor) => (
-        <SponsorImage
-          key={sponsor.name}
-          name={sponsor.name}
-          image={sponsor.image}
-          url={sponsor.url}
-        />
-      ))}
-      <Divider vertical />
-      <b>
-        <Translate>USED BY</Translate>
-      </b>
-      {[
         {
           name: 'pnpm',
           image: useBaseUrl('/img/sponsors/pnpm.svg'),
