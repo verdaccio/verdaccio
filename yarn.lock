@@ -5651,14 +5651,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog-conventionalcommits@npm:4.6.1":
-  version: 4.6.1
-  resolution: "conventional-changelog-conventionalcommits@npm:4.6.1"
+"conventional-changelog-conventionalcommits@npm:4.6.3":
+  version: 4.6.3
+  resolution: "conventional-changelog-conventionalcommits@npm:4.6.3"
   dependencies:
     compare-func: ^2.0.0
     lodash: ^4.17.15
     q: ^1.5.1
-  checksum: c9a72b75eb68c0c5d837a5cce26a81ff2f726eedf3af4e4e616eb6de013e7884ef7a092483dec8edf2d18199ea9f3deb093eeb6febd0ccc7dda772bdedef0058
+  checksum: 6436c2e28dbc012c4412cc5a9aafad618500bd4988a0fe30e50c4ac4c16758e9464d35a3b03d48f3002039ca239df56a1f5fa75bc24b4ee9c9c4ea2b3d6374ef
   languageName: node
   linkType: hard
 
@@ -5769,9 +5769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"conventional-changelog@npm:3.1.24":
-  version: 3.1.24
-  resolution: "conventional-changelog@npm:3.1.24"
+"conventional-changelog@npm:3.1.25":
+  version: 3.1.25
+  resolution: "conventional-changelog@npm:3.1.25"
   dependencies:
     conventional-changelog-angular: ^5.0.12
     conventional-changelog-atom: ^2.0.8
@@ -5784,7 +5784,7 @@ __metadata:
     conventional-changelog-jquery: ^3.0.11
     conventional-changelog-jshint: ^2.0.9
     conventional-changelog-preset-loader: ^2.3.4
-  checksum: bf255c433c2fa99269786ca9606ac75f313b46a9a1d109e4cc63d9d5df0a553575edbf08ca8c889c17701e92c63a98865c06f387b1aa9a5cf76b3e175fb7fe00
+  checksum: 3d8875f8a6c755715122a064ef868f1e73892828d33316b14a6ac148b74a4c55137da55eba491d87768725de3381d6bdf3ae36f30bba3a0b11b1471054324e2c
   languageName: node
   linkType: hard
 
@@ -7860,15 +7860,6 @@ __metadata:
   version: 1.3.2
   resolution: "fromentries@npm:1.3.2"
   checksum: 5cc722e4e3fd333ba75f31dd3ef80b4a6c405d8814e86e343b4676c1483c00f4f29b39aca462d268e918b3316a4fb03cea8022458fd8ad965f251362a129783f
-  languageName: node
-  linkType: hard
-
-"fs-access@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "fs-access@npm:1.0.1"
-  dependencies:
-    null-check: ^1.0.0
-  checksum: 4baee19389d3dacda35876cfe61c9d5aeba960af2c78535e899444e68feba1003b5e52800bd81a77b9f9b30f012cb516d0fdf9f914cf732dde7deff8e8082cae
   languageName: node
   linkType: hard
 
@@ -11513,13 +11504,6 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"null-check@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "null-check@npm:1.0.0"
-  checksum: f455aa3f6b73eb60f50f4e5223aa05cb51368db8452e2ed008ed25e0e871f0510dcb12cefb78dfbe7d1b0b880b1d3eba291ea8e318739d1d2974fdd34c47cb28
-  languageName: node
-  linkType: hard
-
 "number-is-nan@npm:^1.0.0":
   version: 1.0.1
   resolution: "number-is-nan@npm:1.0.1"
@@ -13752,28 +13736,27 @@ resolve@^1.22.0:
   languageName: node
   linkType: hard
 
-"standard-version@npm:9.3.2":
-  version: 9.3.2
-  resolution: "standard-version@npm:9.3.2"
+"standard-version@npm:9.5.0":
+  version: 9.5.0
+  resolution: "standard-version@npm:9.5.0"
   dependencies:
     chalk: ^2.4.2
-    conventional-changelog: 3.1.24
+    conventional-changelog: 3.1.25
     conventional-changelog-config-spec: 2.1.0
-    conventional-changelog-conventionalcommits: 4.6.1
+    conventional-changelog-conventionalcommits: 4.6.3
     conventional-recommended-bump: 6.1.0
     detect-indent: ^6.0.0
     detect-newline: ^3.1.0
     dotgitignore: ^2.1.0
     figures: ^3.1.0
     find-up: ^5.0.0
-    fs-access: ^1.0.1
     git-semver-tags: ^4.0.0
     semver: ^7.1.1
     stringify-package: ^1.0.1
     yargs: ^16.0.0
   bin:
     standard-version: bin/cli.js
-  checksum: f469069be3e1c343cbd04c5fab7ca5ce821eb893ba10ffd896e4af09691f2c4917902907266836d693e70becd97262068cc65809faf1ec0e3274a06c3221cc67
+  checksum: a4cf6713fc73bdffcb668319df6572d23f12356dc2533a942e1fad1304a0fae66147118de2489defc3a376f01a1dfed3056b95713bbbd96ba9695d2260b95dd2
   languageName: node
   linkType: hard
 
@@ -15132,7 +15115,7 @@ typescript@4.1.3:
     rimraf: 3.0.2
     selfsigned: 1.10.14
     semver: 7.3.7
-    standard-version: 9.3.2
+    standard-version: 9.5.0
     supertest: 6.2.4
     ts-node: 10.7.0
     typescript: 4.1.3
