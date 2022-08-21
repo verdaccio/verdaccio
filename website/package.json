@@ -31,15 +31,15 @@
     "@mui/material": "5.10.1",
     "@mui/icons-material": "5.8.4",
     "@mui/styles": "5.9.3",
-    "@mdx-js/react": "^1.6.22",
+    "@mdx-js/react": "^2.0.0",
     "clsx": "1.2.1",
     "classnames": "2.3.1",
     "copy-text-to-clipboard": "3.0.1",
     "docusaurus-plugin-contributors": "workspace:1.0.0",
     "docusaurus-plugin-sentry": "1.0.0",
-    "react": "17.0.2",
+    "react": "18.2.0",
     "react-player": "2.10.1",
-    "react-dom": "17.0.2",
+    "react-dom": "18.2.0",
     "usehooks-ts": "2.6.0",
     "react-twitter-widgets": "^1.10.0",
     "use-is-in-viewport": "^1.0.9"
@@ -64,7 +64,7 @@
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
     "sass": "1.54.5",
-    "sass-loader": "^12.1.0",
+    "sass-loader": "^13.0.0",
     "url-loader": "4.1.1"
   }
 }

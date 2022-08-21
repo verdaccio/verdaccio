@@ -8,9 +8,9 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.14",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
     "debug": "4.3.4",
-    "kleur": "^3.0.3",
+    "kleur": "^4.0.0",
     "lodash": "^4.17.21",
-    "puppeteer": "10.4.0",
+    "puppeteer": "16.2.0",
     "rimraf": "3.0.2"
   },
   "scripts": {

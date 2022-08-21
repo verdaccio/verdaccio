@@ -6,7 +6,7 @@
   "types": "./build/index.d.ts",
   "dependencies": {
     "debug": "4.3.4",
-    "npm": "6.14.17",
+    "npm": "8.18.0",
     "get-port": "5.1.1",
     "wait-on": "^6.0.0",
     "fs-extra": "10.1.0",

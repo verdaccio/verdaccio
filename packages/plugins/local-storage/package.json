@@ -41,12 +41,12 @@
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.5",
     "core-js": "3.24.1",
     "debug": "4.3.4",
-    "globby": "11.1.0",
+    "globby": "12.2.0",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
-    "lru-cache": "6.0.0"
+    "lru-cache": "7.14.0"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.5",
@@ -55,7 +55,7 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.12",
     "@verdaccio/utils": "workspace:6.0.0-6-next.12",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
-    "minimatch": "3.1.2"
+    "minimatch": "5.1.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

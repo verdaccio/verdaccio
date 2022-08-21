@@ -59,7 +59,7 @@
     "@types/node": "16.11.51",
     "@verdaccio/types": "workspace:11.0.0-6-next.13",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
-    "undici": "4.16.0",
+    "undici": "5.9.1",
     "nock": "13.2.9",
     "node-mocks-http": "1.11.0",
     "mockdate": "3.0.5"

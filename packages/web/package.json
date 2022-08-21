@@ -40,18 +40,18 @@
     "debug": "4.3.4",
     "express": "4.18.1",
     "lodash": "4.17.21",
-    "lru-cache": "6.0.0"
+    "lru-cache": "7.14.0"
   },
   "devDependencies": {
     "@types/node": "16.11.51",
     "@verdaccio/types": "workspace:11.0.0-6-next.13",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
     "@verdaccio/api": "workspace:6.0.0-6-next.26",
-    "node-html-parser": "4.1.5",
+    "node-html-parser": "5.4.1",
     "supertest": "6.2.4",
     "nock": "13.2.9",
     "jsdom": "20.0.0",
-    "undici": "4.16.0",
+    "undici": "5.9.1",
     "verdaccio-auth-memory": "workspace:11.0.0-6-next.9",
     "verdaccio-memory": "workspace:11.0.0-6-next.11"
   },

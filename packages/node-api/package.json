@@ -51,8 +51,8 @@
   "devDependencies": {
     "@types/node": "16.11.51",
     "@verdaccio/types": "workspace:11.0.0-6-next.13",
-    "jest-mock-process": "1.5.1",
-    "selfsigned": "1.10.14",
+    "jest-mock-process": "2.0.0",
+    "selfsigned": "2.0.1",
     "supertest": "6.2.4"
   },
   "publishConfig": {

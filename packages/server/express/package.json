@@ -45,14 +45,14 @@
     "cors": "2.8.5",
     "debug": "4.3.4",
     "express": "4.18.1",
-    "express-rate-limit": "5.5.1",
+    "express-rate-limit": "6.5.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@types/node": "16.11.51",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.21",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
-    "http-errors": "1.8.1"
+    "http-errors": "2.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

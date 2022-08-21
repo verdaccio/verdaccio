@@ -44,7 +44,7 @@
     "debug": "4.3.4",
     "yaml": "2.1.1",
     "lodash": "4.17.21",
-    "minimatch": "3.1.2",
+    "minimatch": "5.1.0",
     "yup": "0.32.11"
   },
   "devDependencies": {
