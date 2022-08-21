@@ -18,7 +18,7 @@
     "eslint:write": "eslint src/**/*.tsx --fix"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.1 ",
@@ -28,8 +28,9 @@
     "@docusaurus/theme-search-algolia": "2.0.1 ",
     "@docusaurus/plugin-content-docs": "2.0.1 ",
     "@docusaurus/theme-common": "2.0.1 ",
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
+    "@mui/material": "5.10.1",
+    "@mui/icons-material": "5.8.4",
+    "@mui/styles": "5.9.3",
     "@mdx-js/react": "^1.6.22",
     "clsx": "1.2.1",
     "classnames": "2.3.1",
