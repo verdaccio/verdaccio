@@ -15,10 +15,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { green, yellow } from '@mui/material/colors';
-import { createStyles } from '@mui/material/styles';
 import { makeStyles, withStyles } from '@mui/styles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import styled from '@emotion/styled';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MergeTypeIcon from '@mui/icons-material/MergeType';
 import StarIcon from '@mui/icons-material/Star';
@@ -40,23 +38,6 @@ const theme = createTheme({
 
 const useStyles = makeStyles(({ theme }: { theme: any }) =>({
   '@global': {
-    // small: {
-    //   width: theme.spacing(3),
-    //   height: theme.spacing(3),
-    // },
-    // medium: {
-    //   width: theme.spacing(6),
-    //   height: theme.spacing(6),
-    // },
-    // large: {
-    //   width: theme.spacing(12),
-    //   height: theme.spacing(12),
-    // },
-    // root: {
-    //   width: '100%',
-    //   maxWidth: 360,
-    //   backgroundColor: theme.palette.background.paper,
-    // },
     inline: {
       display: 'inline',
     },
