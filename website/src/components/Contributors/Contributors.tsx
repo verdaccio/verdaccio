@@ -57,18 +57,18 @@ const useStyles = makeStyles(({ theme }: { theme: any }) =>({
     //   maxWidth: 360,
     //   backgroundColor: theme.palette.background.paper,
     // },
-    // inline: {
-    //   display: 'inline',
-    // },
-    // starColor: {
-    //   color: yellow[500],
-    // },
-    // archived: {
-    //   opacity: `0.4`,
-    // },
-    // emojiEvent: {
-    //   color: green[800],
-    // },
+    inline: {
+      display: 'inline',
+    },
+    starColor: {
+      color: yellow[500],
+    },
+    archived: {
+      opacity: `0.4`,
+    },
+    emojiEvent: {
+      color: green[800],
+    },
   },
 }));
 
@@ -85,7 +85,7 @@ function ListItemLink(props) {
 }
 
 type ContributorsProps = {
-  data: any;
+  contributors: any;
 };
 
 function convertItemTo(item) {
@@ -100,11 +100,10 @@ function convertItemTo(item) {
   return { node };
 }
 
-const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement => {
+const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.ReactElement => {
   const [user, setUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const {contributors, repositories} = data;
 
   const handleClickOpen = (item) => {
     setUser(item);
@@ -163,6 +162,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                   <Avatar
                     src={generateImage(userItem.node.userId)}
                     alt={userItem.node.url}
+                    className={classes.large}
                   />
                 </div>
               );
@@ -171,7 +171,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
           {user && (
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
               <DialogTitle id="simple-dialog-title">
-                <Grid container={true} spacing={2}>
+                <Grid justifyContent="center" alignItems="center" justify="center">
                   <Grid item lg={3} md={3} sm={3}>
                     <a
                       href={'https://github.com/' + user.node.url}
@@ -185,10 +185,10 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                       />
                     </a>
                   </Grid>
-                  <Grid item lg={6} md={6} sm={6}>
+                  <Grid lg={6} md={6} sm={6}>
                     <Typography variant="h6">{user.node.url}</Typography>
                   </Grid>
-                  <Grid item lg={2} md={2} sm={2}>
+                  <Grid lg={2} md={2} sm={2}>
                     <Chip
                       icon={<EmojiEventsIcon className={classes.emojiEvent} />}
                       label={user.node.contributions}
@@ -201,27 +201,20 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
               <DialogContent>
                 <div className={classes.root}>
                   <List component="nav" aria-label="main mailbox folders">
-                    {user.node.repositories.map(({name, contributions}) => {
-                      const repo = repositories.find((repo) => repo.name === name);
-                      if (!repo) {
-                        return null;
-                      }
-
-                      console.log('-->', repo);
-
+                    {user.node.repositories.map((repo) => {
                       return (
                         <ListItemLink
                           className={repo.archived ? classes.archived : ''}
                           key={repo.name}
-                          href={`${repo.html_url}/pulls?q=is%3Apr+author%3A${user.node.url}+is%3Aclosed`}
+                          href={repo.html_url}
                           target="_blank"
                           rel="noreferrer"
                         >
                           <ListItemIcon>
                             <Badge
-                              badgeContent={contributions}
-                              color="primary"
-                              max={9999}  
+                              badgeContent={repo.contributions}
+                              color="green"
+                              max={9999}
                               anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',
