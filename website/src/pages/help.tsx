@@ -85,12 +85,12 @@ const _SupportLinks = (lang: string) => [
     ),
   },
   {
-    title: 'pnpm Chat',
+    title: 'pnpm',
     content: (
       <Translate
         values={{
           link: (
-            <a href="https://discord.gg/PKwUpW">
+            <a href="https://r.pnpm.io/chat">
               <Translate>Community Chat</Translate>
             </a>
           ),
@@ -101,18 +101,39 @@ const _SupportLinks = (lang: string) => [
     ),
   },
   {
-    title: 'Yarn Chat',
+    title: 'yarn',
     content: (
       <Translate
         values={{
           link: (
-            <a href="https://discord.gg/x9F2jJ">
+            <a href="https://discord.com/invite/yarnpkg">
               <Translate>Community Chat</Translate>
             </a>
           ),
         }}
       >
         {'If you have specific yarn questions, join their community chat {link}'}
+      </Translate>
+    ),
+  },
+  {
+    title: 'npm',
+    content: (
+      <Translate
+        values={{
+          rfcs: (
+            <a href="https://github.com/npm/rfcs">
+              <Translate>npm RFCS</Translate>
+            </a>
+          ),
+          feedback: (
+            <a href=">https://github.com/npm/feedback">
+              <Translate>npm Feedback</Translate>
+            </a>
+          ),
+        }}
+        >
+        {'If you have specific npm questions, you can interact via {rfcs} and {feedback}'}
       </Translate>
     ),
   },
