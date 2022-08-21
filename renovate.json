@@ -8,10 +8,11 @@
     "docker/setup-buildx-action",
     "docker/login-action",
     "docker/build-push-action",
-    "crazy-max/ghaction-docker-meta"
+    "crazy-max/ghaction-docker-meta",
+    "pnpm"
   ],
   "baseBranches": ["master", "5.x"],
-  "major": true,
+  "major": false,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
