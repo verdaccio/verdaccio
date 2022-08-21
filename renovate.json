@@ -2,7 +2,14 @@
   "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
-  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/test-helper"],
+  "ignoreDeps": [
+    "eslint-plugin-verdaccio",
+    "@verdaccio/test-helper",
+    "docker/setup-buildx-action",
+    "docker/login-action",
+    "docker/build-push-action",
+    "crazy-max/ghaction-docker-meta"
+  ],
   "baseBranches": ["master", "5.x"],
   "major": true,
   "labels": ["bot: dependencies"],
@@ -10,6 +17,18 @@
     {
       "packageNames": ["aws-sdk"],
       "allowedVersions": "2.607.0"
+    },
+    {
+      "packageNames": ["got"],
+      "allowedVersions": "^11.8.5"
+    },
+    {
+      "packageNames": ["globby"],
+      "allowedVersions": "^12.2.0"
+    },
+    {
+      "packageNames": ["get-port"],
+      "allowedVersions": "^5.1.1"
     },
     {
       "packageNames": ["@google-cloud/datastore"],
