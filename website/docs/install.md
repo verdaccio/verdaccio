@@ -23,7 +23,7 @@ Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdac
 
 Learn the basics before getting started, how to install, where is the location of the configuration file and more.
 
-<iframe width="560" height="415" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="515" src="https://www.youtube.com/embed/hDIFKzmoCaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installing the CLI {#installing-the-cli}
 
@@ -50,6 +50,22 @@ pnpm install -g verdaccio
 ```
 
 ![install verdaccio](/img/install_verdaccio.gif)
+
+### Next major release (verdaccio 6 alpha) {#next-major-release}
+
+Next [major release is under development](https://github.com/verdaccio/verdaccio/discussions/2970), byt can try it out already, either for testing purposes or helping to catch any possible bug, if you find something report it under the label [6.x bugs](https://github.com/verdaccio/verdaccio/labels/6.x%20bugs).
+
+```bash
+npm install --global verdaccio@6-next
+```
+
+or with the docker image
+
+```bash
+docker pull verdaccio/verdaccio:nightly-master
+```
+
+> The docker image `verdaccio/verdaccio:nightly-master` is alinged with the latest commits in master branch, while the npmjs version has a longer release cycle. **It is highly recommended  don't use alpha versions for production**.
 
 ## Basic Usage {#basic-usage}
 
