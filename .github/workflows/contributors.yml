@@ -15,11 +15,11 @@ jobs:
     name: Run script
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
           node-version: 17.x
       - name: install pnpm
@@ -39,7 +39,7 @@ jobs:
       - name: format
         run: pnpm format
       - name: Commit & Push changes
-        uses: actions-js/push@v1.3
+        uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # tag=v1.3
         with:
           github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
           message: "chore: updated contributors list"

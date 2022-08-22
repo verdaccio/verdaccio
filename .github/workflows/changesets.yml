@@ -20,12 +20,12 @@ jobs:
     if: github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
     steps:
       - name: checkout code repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
         with:
           fetch-depth: 0
 
       - name: setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
