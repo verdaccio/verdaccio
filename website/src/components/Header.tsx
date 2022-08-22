@@ -27,6 +27,14 @@ const Header = (): React.ReactElement => {
           <p className={styles['header--subtitle']}>
             <Translate>A lightweight Node.js private proxy registry</Translate>
           </p>
+          <iframe
+              src={"https://ghbtns.com/github-btn.html?user=verdaccio&repo=verdaccio&type=star&count=true&size=large"}
+              frameBorder="0"
+              scrolling="0"
+              width="160px"
+              height="30px"
+              style={{ marginTop: '8px' }}
+            />
           <div className={styles['header--links']}>
             <a href="https://github.com/verdaccio/verdaccio" className="link-secondary">
               GITHUB
