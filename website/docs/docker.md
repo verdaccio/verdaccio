@@ -108,21 +108,26 @@ If you want to make the directory accessible only to a specific container, use `
 An alternative solution is to use [z and Z flags](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label). To add the `z` flag to the mountpoint `./conf:/verdaccio/conf` simply change it to `./conf:/verdaccio/conf:z`. The `z` flag relabels the directory and makes it accessible by every container while the `Z` flags relables the directory and makes it accessible only to that specific container. However using these flags is dangerous. A small configuration mistake, like mounting `/home/user` or `/var` can mess up the labels on those directories and make the system unbootable.
 
 ### Plugins {#plugins}
+
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
 ```docker
-FROM verdaccio/verdaccio
-
-USER root
-
-ENV NODE_ENV=production
-
-RUN npm i && npm install verdaccio-s3-storage
-
-USER verdaccio
+FROM node:lts-alpine as builder
+RUN mkdir -p /verdaccio/plugins \
+  && cd /verdaccio/plugins \
+  && npm install --global-style --no-bin-links --omit=optional verdaccio-auth-memory@latest
+FROM verdaccio/verdaccio:5
+ADD docker.yaml /verdaccio/conf/config.yaml  
+COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
+  /verdaccio/plugins/node_modules/verdaccio-auth-memory \
+  /verdaccio/plugins/verdaccio-auth-memory
 ```
 
+For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins).
+
+
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
+
 Any `host:port` configured in `conf/config.yaml` under `listen` **is currently ignored when using docker**.
 
 If you want to reach Verdaccio docker instance under different port, lets say `5000`
@@ -137,6 +142,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
 Of course the numbers you give to the `-p` parameter need to match.
 
 ### Using HTTPS with Docker {#using-https-with-docker}
+
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration.
 You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
@@ -197,6 +203,7 @@ $ docker volume inspect verdaccio_verdaccio
 ```
 
 ## Build your own Docker image {#build-your-own-docker-image}
+
 
 ```bash
 docker build -t verdaccio .
