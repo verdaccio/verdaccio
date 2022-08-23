@@ -92,7 +92,6 @@ export interface Tags {
 export interface Version {
   name: string;
   version: string;
-  devDependencies?: string;
   directories?: any;
   dist: Dist;
   author: string | Author;
@@ -113,7 +112,9 @@ export interface Version {
   scripts?: any;
   homepage?: string;
   etag?: string;
-  dependencies: any;
+  dependencies: Dependencies;
+  peerDependencies: Dependencies;
+  devDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;
   _id: string;
@@ -121,6 +122,16 @@ export interface Version {
   _npmUser: Author;
   _hasShrinkwrap?: boolean;
   deprecated?: string;
+  funding?: { type: string; url: string };
+  engines?: Engines;
+}
+
+export interface Dependencies {
+  [key: string]: string;
+}
+
+export interface Engines {
+  [key: string]: string;
 }
 
 export interface Versions {
@@ -194,6 +205,31 @@ export interface Manifest extends FullRemoteManifest, PublishManifest {
    */
   _rev: string;
 }
+
+export type AbbreviatedVersion = Pick<
+  Version,
+  | 'name'
+  | 'version'
+  | 'dependencies'
+  | 'devDependencies'
+  | 'bin'
+  | 'dist'
+  | 'engines'
+  | 'funding'
+  | 'peerDependencies'
+>;
+
+export interface AbbreviatedVersions {
+  [key: string]: AbbreviatedVersion;
+}
+/**
+ *
+ */
+export type AbbreviatedManifest = Pick<Manifest, 'name' | 'dist-tags'> & {
+  modified: string;
+  versions: AbbreviatedVersions;
+};
+
 export interface PublishManifest {
   /**
    * The `_attachments` object has different usages:

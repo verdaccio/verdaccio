@@ -523,6 +523,19 @@ class Storage {
     return convertedManifest;
   }
 
+  private convertAbbreviatedManifest(
+    manifest: Manifest
+  ): Pick<Manifest, 'name | dist-tags | versions'> {
+    const convertedManifest = {
+      name: manifest['name'],
+      [DIST_TAGS]: manifest[DIST_TAGS],
+      versions: manifest['versions'],
+      modified: manifest.time.modified,
+    };
+
+    return convertedManifest;
+  }
+
   /**
    * Return a manifest or version based on the options.
    * @param options {Object}
@@ -533,7 +546,11 @@ class Storage {
     if (_.isNil(options.version) === false) {
       return this.getPackageByVersion(options);
     } else {
-      return this.getPackageManifest(options);
+      const manifest = await this.getPackageManifest(options);
+      if (options.abbreviated === true) {
+        return this.convertAbbreviatedManifest(manifest);
+      }
+      return manifest;
     }
   }
 
