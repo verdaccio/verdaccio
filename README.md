@@ -44,7 +44,18 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio@6-next
+npm install --location=global verdaccio@6-next
+```
+With `yarn`
+
+```bash
+yarn global add verdaccio@6-next
+```
+
+With `pnpm`
+
+```bash
+pnpm i -g verdaccio@6-next
 ```
 
 or
@@ -68,8 +79,8 @@ Furthermore, you can read the [**Debugging Guidelines**](https://github.com/verd
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
 
 ```
-npm install -g yo
-npm install -g generator-verdaccio-plugin
+npm install --location=global yo
+npm install --location=global generator-verdaccio-plugin
 ```
 
 Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins. Share your plugins with the community.
