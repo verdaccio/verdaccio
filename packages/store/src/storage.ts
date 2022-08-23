@@ -25,6 +25,7 @@ import {
   convertDistVersionToLocalTarballsUrl,
 } from '@verdaccio/tarball';
 import {
+  AbbreviatedManifest,
   Author,
   Config,
   DistFile,
@@ -523,14 +524,14 @@ class Storage {
     return convertedManifest;
   }
 
-  private convertAbbreviatedManifest(
-    manifest: Manifest
-  ): Pick<Manifest, 'name | dist-tags | versions'> {
+  private convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
     const convertedManifest = {
       name: manifest['name'],
       [DIST_TAGS]: manifest[DIST_TAGS],
       versions: manifest['versions'],
       modified: manifest.time.modified,
+      // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
+      time: manifest.time,
     };
 
     return convertedManifest;
@@ -541,7 +542,9 @@ class Storage {
    * @param options {Object}
    * @returns A package manifest or specific version
    */
-  public async getPackageByOptions(options: IGetPackageOptionsNext): Promise<Manifest | Version> {
+  public async getPackageByOptions(
+    options: IGetPackageOptionsNext
+  ): Promise<Manifest | AbbreviatedManifest | Version> {
     // if no version we return the whole manifest
     if (_.isNil(options.version) === false) {
       return this.getPackageByVersion(options);

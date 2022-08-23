@@ -112,8 +112,8 @@ export interface Version {
   scripts?: any;
   homepage?: string;
   etag?: string;
-  dependencies: Dependencies;
-  peerDependencies: Dependencies;
+  dependencies?: Dependencies;
+  peerDependencies?: Dependencies;
   devDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;
@@ -225,7 +225,7 @@ export interface AbbreviatedVersions {
 /**
  *
  */
-export type AbbreviatedManifest = Pick<Manifest, 'name' | 'dist-tags'> & {
+export type AbbreviatedManifest = Pick<Manifest, 'name' | 'dist-tags' | 'time'> & {
   modified: string;
   versions: AbbreviatedVersions;
 };

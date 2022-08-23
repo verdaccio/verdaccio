@@ -3,6 +3,7 @@ import { FastifyInstance } from 'fastify';
 import _ from 'lodash';
 
 import sanitizyReadme from '@verdaccio/readme';
+import { Manifest } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:fastify:web:readme');
 export const NOT_README_FOUND = 'ERROR: No README data found!';
@@ -12,7 +13,7 @@ async function readmeRoute(fastify: FastifyInstance) {
     // @ts-ignore
     const { version, packageName } = request.params;
     debug('readme name %s   version: %s', packageName, version);
-    const manifest = await fastify.storage?.getPackageByOptions({
+    const manifest = (await fastify.storage?.getPackageByOptions({
       name: packageName,
       // remove on refactor getPackageByOptions
       // @ts-ignore
@@ -24,7 +25,7 @@ async function readmeRoute(fastify: FastifyInstance) {
         headers: request.headers as any,
         host: request.hostname,
       },
-    });
+    })) as Manifest;
     try {
       const parsedReadme = parseReadme(manifest.name, manifest.readme as string);
       reply.code(fastify.statusCode.OK).send(parsedReadme);
@@ -37,7 +38,7 @@ async function readmeRoute(fastify: FastifyInstance) {
     // @ts-ignore
     const { version, packageName } = request.params;
     debug('readme name %s   version: %s', packageName, version);
-    const manifest = await fastify.storage?.getPackageByOptions({
+    const manifest = (await fastify.storage?.getPackageByOptions({
       name: packageName,
       // remove on refactor getPackageByOptions
       // @ts-ignore
@@ -49,7 +50,7 @@ async function readmeRoute(fastify: FastifyInstance) {
         headers: request.headers as any,
         host: request.hostname,
       },
-    });
+    })) as Manifest;
     try {
       const parsedReadme = parseReadme(manifest.name, manifest.readme as string);
       reply.code(fastify.statusCode.OK).send(parsedReadme);
