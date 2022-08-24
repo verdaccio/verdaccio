@@ -26,6 +26,7 @@ import {
 } from '@verdaccio/tarball';
 import {
   AbbreviatedManifest,
+  AbbreviatedVersions,
   Author,
   Config,
   DistFile,
@@ -525,10 +526,30 @@ class Storage {
   }
 
   private convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
+    const abbreviatedVersions = Object.keys(manifest.versions).reduce(
+      (acc: AbbreviatedVersions, version: string) => {
+        const _version = manifest.versions[version];
+        const _version_abbreviated = {
+          name: _version.name,
+          version: _version.version,
+          description: _version.description,
+          dependencies: _version.dependencies,
+          devDependencies: _version.devDependencies,
+          bin: _version.bin,
+          dist: _version.dist,
+          engines: _version.engines,
+          funding: _version.funding,
+          peerDependencies: _version.peerDependencies,
+        };
+        acc[version] = _version_abbreviated;
+        return acc;
+      },
+      {}
+    );
     const convertedManifest = {
       name: manifest['name'],
       [DIST_TAGS]: manifest[DIST_TAGS],
-      versions: manifest['versions'],
+      versions: abbreviatedVersions,
       modified: manifest.time.modified,
       // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
       time: manifest.time,
@@ -551,6 +572,7 @@ class Storage {
     } else {
       const manifest = await this.getPackageManifest(options);
       if (options.abbreviated === true) {
+        debug('abbreviated manifest');
         return this.convertAbbreviatedManifest(manifest);
       }
       return manifest;

@@ -210,6 +210,7 @@ export type AbbreviatedVersion = Pick<
   Version,
   | 'name'
   | 'version'
+  | 'description'
   | 'dependencies'
   | 'devDependencies'
   | 'bin'
