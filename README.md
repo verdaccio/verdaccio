@@ -46,6 +46,7 @@ Install with npm:
 ```bash
 npm install --location=global verdaccio@6-next
 ```
+
 With `yarn`
 
 ```bash
