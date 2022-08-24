@@ -5,6 +5,9 @@ title: "What is Verdaccio?"
 
 Verdaccio is a **lightweight private npm proxy registry** built in **Node.js**
 
+Using a private npm registry like Verdaccio is one of the [Top 10 NPM Security Best Practices](https://cheatsheetseries.owasp.org/cheatsheets/NPM_Security_Cheat_Sheet.html#6-use-a-local-npm-proxy)
+recommended by the Open Web Application Security Project ([OWASP](https://owasp.org/)).
+
 <iframe width="560" height="515" src="https://www.youtube.com/embed/qRMucS3i3kQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What's a registry? {#whats-a-registry}
