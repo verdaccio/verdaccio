@@ -1699,7 +1699,7 @@ class Storage {
     // merge time field cache and remote
     _cacheManifest = mergeUplinkTimeIntoLocalNext(_cacheManifest, remoteManifest);
     // update the _uplinks field in the cache
-    _cacheManifest = updateVersionsHiddenUpLinkNext(cachedManifest, uplink);
+    _cacheManifest = updateVersionsHiddenUpLinkNext(_cacheManifest, uplink);
     try {
       // merge versions from remote into the cache
       _cacheManifest = mergeVersions(_cacheManifest, remoteManifest);

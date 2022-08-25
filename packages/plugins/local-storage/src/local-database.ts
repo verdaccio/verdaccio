@@ -40,7 +40,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
     debug('config path %o', config.configPath);
     this.path = _dbGenPath(DB_NAME, config);
     this.storages = this._getCustomPackageLocalStorages();
-    this.logger.debug({ path: this.path }, 'local storage path @{path}');
+    this.logger.info({ path: this.path }, 'local storage path @{path}');
     debug('plugin storage path %o', this.path);
   }
 
