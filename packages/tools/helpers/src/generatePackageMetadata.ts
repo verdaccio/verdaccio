@@ -1,4 +1,4 @@
-import { Manifest } from '@verdaccio/types';
+import { GenericBody, Manifest } from '@verdaccio/types';
 
 export interface DistTags {
   [key: string]: string;
@@ -73,7 +73,8 @@ export function addNewVersion(
 export function generateLocalPackageMetadata(
   pkgName: string,
   version = '1.0.0',
-  domain: string = 'http://localhost:5555'
+  domain: string = 'http://localhost:5555',
+  time?: GenericBody
 ): Manifest {
   // @ts-ignore
   return {
@@ -114,6 +115,11 @@ export function generateLocalPackageMetadata(
           tarball: `${domain}/${pkgName}\/-\/${getTarball(pkgName)}-${version}.tgz`,
         },
       },
+    },
+    time: time ?? {
+      modified: new Date().toISOString(),
+      created: new Date().toISOString(),
+      [version]: new Date().toISOString(),
     },
     readme: '# test',
     _attachments: {

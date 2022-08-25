@@ -11,6 +11,7 @@ import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, errorUtils, fileUtils } fro
 import { setup } from '@verdaccio/logger';
 import {
   addNewVersion,
+  generateLocalPackageMetadata,
   generatePackageMetadata,
   generateRemotePackageMetadata,
 } from '@verdaccio/test-helper';
@@ -600,7 +601,7 @@ describe('storage', () => {
 
     describe('success scenarios', () => {
       test('should handle one proxy success', async () => {
-        const fooManifest = generatePackageMetadata('foo', '8.0.0');
+        const fooManifest = generateLocalPackageMetadata('foo', '8.0.0');
         nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
@@ -617,7 +618,28 @@ describe('storage', () => {
         const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect(Object.keys((response as Manifest).versions)).toEqual([
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
+        expect(Object.keys((response as Manifest).time)).toEqual([
+          'modified',
+          'created',
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+        expect((response as Manifest).time['8.0.0']).toBeDefined();
       });
 
       test('should handle one proxy success with no local cache manifest', async () => {

@@ -1655,7 +1655,7 @@ class Storage {
    * @param options options
    * @returns Returns a promise that resolves with the merged manifest.
    */
-  public async mergeCacheRemoteMetadata(
+  private async mergeCacheRemoteMetadata(
     uplink: IProxy,
     cachedManifest: Manifest,
     options: ISyncUplinksOptions
@@ -1684,7 +1684,7 @@ class Storage {
     );
 
     try {
-      _cacheManifest = validatioUtils.normalizeMetadata(remoteManifest, _cacheManifest.name);
+      _cacheManifest = validatioUtils.normalizeMetadata(_cacheManifest, _cacheManifest.name);
     } catch (err: any) {
       this.logger.error(
         {
@@ -1709,7 +1709,7 @@ class Storage {
         {
           err: err,
         },
-        'package.json mergin has failed @{!err?.message}\n@{err.stack}'
+        'package.json merge has failed @{!err?.message}\n@{err.stack}'
       );
       throw err;
     }
