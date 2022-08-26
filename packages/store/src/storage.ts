@@ -532,17 +532,26 @@ class Storage {
     const abbreviatedVersions = Object.keys(manifest.versions).reduce(
       (acc: AbbreviatedVersions, version: string) => {
         const _version = manifest.versions[version];
+        // This should be align with this document
+        // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object
         const _version_abbreviated = {
           name: _version.name,
           version: _version.version,
           description: _version.description,
-          dependencies: _version.dependencies,
-          devDependencies: _version.devDependencies,
+          deprecated: _version.deprecated,
           bin: _version.bin,
           dist: _version.dist,
           engines: _version.engines,
           funding: _version.funding,
+          directories: _version.directories,
+          dependencies: _version.dependencies,
+          devDependencies: _version.devDependencies,
           peerDependencies: _version.peerDependencies,
+          optionalDependencies: _version.optionalDependencies,
+          bundleDependencies: _version.bundleDependencies,
+          // npm cli specifics
+          _hasShrinkwrap: _version._hasShrinkwrap,
+          hasInstallScript: _version.hasInstallScript,
         };
         acc[version] = _version_abbreviated;
         return acc;

@@ -1125,13 +1125,19 @@ describe('storage', () => {
           'name',
           'version',
           'description',
-          'dependencies',
-          'devDependencies',
+          'deprecated',
           'bin',
           'dist',
           'engines',
           'funding',
+          'directories',
+          'dependencies',
+          'devDependencies',
           'peerDependencies',
+          'optionalDependencies',
+          'bundleDependencies',
+          '_hasShrinkwrap',
+          'hasInstallScript',
         ]);
         expect(manifest.modified).toBeDefined();
         // special case for pnpm/rfcs/pull/2

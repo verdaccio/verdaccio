@@ -115,6 +115,8 @@ export interface Version {
   dependencies?: Dependencies;
   peerDependencies?: Dependencies;
   devDependencies?: Dependencies;
+  optionalDependencies?: Dependencies;
+  bundleDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;
   _id: string;
@@ -124,6 +126,7 @@ export interface Version {
   deprecated?: string;
   funding?: { type: string; url: string };
   engines?: Engines;
+  hasInstallScript?: boolean;
 }
 
 export interface Dependencies {
