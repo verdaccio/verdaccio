@@ -56,7 +56,7 @@ const debug = buildDebug('verdaccio:api:publish');
    *
    * There are two possible flows:
    *
-   * - Remove all pacakges (entirely)
+   * - Remove all packages (entirely)
    *   eg: npm unpublish package-name@* --force
    *   eg: npm unpublish package-name  --force
    *

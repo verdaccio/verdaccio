@@ -25,9 +25,7 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       const name = req.params.package;
       let version = req.params.version;
       const write = req.query.write === 'true';
-      const abbreviated =
-        req.get('Accept') ===
-        'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
+      const abbreviated = req.get('Accept') === Storage.ABBREVIATED_HEADER;
       const requestOptions = {
         protocol: req.protocol,
         headers: req.headers as any,

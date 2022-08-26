@@ -16,6 +16,8 @@ async function manifestRoute(fastify: FastifyInstance) {
     const { name } = request.params;
     const storage = fastify.storage;
     debug('pkg name %s ', name);
+    // @ts-ignore
+    const abbreviated = request.headers['accept'] === Storage.ABBREVIATED_HEADER;
     const data = await storage?.getPackageByOptions({
       name,
       // @ts-ignore
@@ -25,6 +27,7 @@ async function manifestRoute(fastify: FastifyInstance) {
         headers: request.headers as any,
         host: request.hostname,
       },
+      abbreviated,
     });
     return data;
   });

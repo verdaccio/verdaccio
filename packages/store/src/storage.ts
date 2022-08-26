@@ -93,6 +93,9 @@ class Storage {
     debug('uplinks available %o', Object.keys(this.uplinks));
   }
 
+  static ABBREVIATED_HEADER =
+    'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
+
   /**
    * Change an existing package (i.e. unpublish one version)
    Function changes a package info from local storage and all uplinks with write access./
@@ -638,7 +641,7 @@ class Storage {
   }
 
   /**
-   * Initialize the storage asyncronously.
+   * Initialize the storage asynchronously.
    * @param config Config
    * @param filters IPluginFilters
    * @returns Storage instance
