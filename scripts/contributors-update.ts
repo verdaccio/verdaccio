@@ -31,9 +31,8 @@ const excludedAccounts = [
       __dirname,
       '../packages/tools/docusaurus-plugin-contributors/src/contributors.json'
     );
-    // const lastContributors = await fs.readFile(pathContributorsFile);
     // for the website
-    await fs.writeFile(pathContributorsFile + '.bk.json', JSON.stringify(result, null, 4));
+    await fs.writeFile(pathContributorsFile, JSON.stringify(result, null, 4));
     const contributorsListId = result.contributors.map((contributor: any) => {
       return { username: contributor?.login, id: contributor.id };
     });
