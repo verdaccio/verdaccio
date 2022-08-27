@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "1.1.0-6-next.1",
+  "version": "1.1.0-6-next.2",
   "private": true,
   "description": "test helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -9,7 +9,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.13",
+    "@verdaccio/types": "workspace:11.0.0-6-next.14",
     "@verdaccio/auth": "workspace:6.0.0-6-next.23",
     "@verdaccio/core": "workspace:6.0.0-6-next.6",
     "@verdaccio/config": "workspace:6.0.0-6-next.15",

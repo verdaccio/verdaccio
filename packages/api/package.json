@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "6.0.0-6-next.26",
+  "version": "6.0.0-6-next.27",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -44,7 +44,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.6",
     "@verdaccio/logger": "workspace:6.0.0-6-next.12",
     "@verdaccio/middleware": "workspace:6.0.0-6-next.23",
-    "@verdaccio/store": "workspace:6.0.0-6-next.23",
+    "@verdaccio/store": "workspace:6.0.0-6-next.24",
     "@verdaccio/utils": "workspace:6.0.0-6-next.12",
     "abortcontroller-polyfill": "1.7.3",
     "cookies": "0.8.0",
@@ -57,9 +57,9 @@
   },
   "devDependencies": {
     "@types/node": "16.11.51",
-    "@verdaccio/server": "workspace:6.0.0-6-next.32",
-    "@verdaccio/types": "workspace:11.0.0-6-next.13",
-    "@verdaccio/test-helper": "workspace:1.1.0-6-next.1",
+    "@verdaccio/server": "workspace:6.0.0-6-next.33",
+    "@verdaccio/types": "workspace:11.0.0-6-next.14",
+    "@verdaccio/test-helper": "workspace:1.1.0-6-next.2",
     "supertest": "6.2.4",
     "nock": "13.2.9",
     "mockdate": "3.0.5"
