@@ -30,7 +30,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           yarn init --yes
-          yarn add jest --registry http://localhost:4873
+          yarn add jest@26.0.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -97,7 +97,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest --registry http://localhost:4873
+          npm install jest@26.0.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -130,7 +130,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest --registry http://localhost:4873
+          npm install jest@26.0.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -164,7 +164,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           pnpm init --force
-          pnpm install jest --registry http://localhost:4873
+          pnpm install jest@26.0.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -197,7 +197,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           pnpm init
-          pnpm install jest --registry http://localhost:4873
+          pnpm install jest@26.0.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
