@@ -52,7 +52,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.15",
     "@verdaccio/store": "workspace:6.0.0-6-next.24",
     "@verdaccio/test-helper": "workspace:1.1.0-6-next.2",
-    "fastify": "4.5.2",
+    "fastify": "4.5.3",
     "yaml": "2.1.1",
     "got": "11.8.5",
     "lodash": "4.17.21",
