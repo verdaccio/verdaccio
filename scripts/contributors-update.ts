@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const token = process.env.TOKEN;
-const excludebots = [
+const excludedAccounts = [
   'verdacciobot',
   'github-actions[bot]',
   'dependabot-preview[bot]',
@@ -23,7 +23,7 @@ const excludebots = [
     const result = await contributors({
       token: token as string,
       organization: 'verdaccio',
-      excludebots,
+      excludedAccounts,
       allowFork: false,
       allowPrivateRepo: false,
     });
@@ -33,11 +33,9 @@ const excludebots = [
     );
     // for the website
     await fs.writeFile(pathContributorsFile, JSON.stringify(result, null, 4));
-    const contributorsListId = result.map((contributor: any) => {
+    const contributorsListId = result.contributors.map((contributor: any) => {
       return { username: contributor?.login, id: contributor.id };
     });
-    // .sort()
-    // .slice(0, 15);
     // for the  ui, list of ids to be added on the contributors.
     const pathContributorsUIFile = path.join(
       __dirname,
