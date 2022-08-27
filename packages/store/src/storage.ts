@@ -25,6 +25,8 @@ import {
   convertDistVersionToLocalTarballsUrl,
 } from '@verdaccio/tarball';
 import {
+  AbbreviatedManifest,
+  AbbreviatedVersions,
   Author,
   Config,
   DistFile,
@@ -90,6 +92,9 @@ class Storage {
     this.localStorage = null;
     debug('uplinks available %o', Object.keys(this.uplinks));
   }
+
+  static ABBREVIATED_HEADER =
+    'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
 
   /**
    * Change an existing package (i.e. unpublish one version)
@@ -523,17 +528,66 @@ class Storage {
     return convertedManifest;
   }
 
+  private convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
+    const abbreviatedVersions = Object.keys(manifest.versions).reduce(
+      (acc: AbbreviatedVersions, version: string) => {
+        const _version = manifest.versions[version];
+        // This should be align with this document
+        // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object
+        const _version_abbreviated = {
+          name: _version.name,
+          version: _version.version,
+          description: _version.description,
+          deprecated: _version.deprecated,
+          bin: _version.bin,
+          dist: _version.dist,
+          engines: _version.engines,
+          funding: _version.funding,
+          directories: _version.directories,
+          dependencies: _version.dependencies,
+          devDependencies: _version.devDependencies,
+          peerDependencies: _version.peerDependencies,
+          optionalDependencies: _version.optionalDependencies,
+          bundleDependencies: _version.bundleDependencies,
+          // npm cli specifics
+          _hasShrinkwrap: _version._hasShrinkwrap,
+          hasInstallScript: _version.hasInstallScript,
+        };
+        acc[version] = _version_abbreviated;
+        return acc;
+      },
+      {}
+    );
+    const convertedManifest = {
+      name: manifest['name'],
+      [DIST_TAGS]: manifest[DIST_TAGS],
+      versions: abbreviatedVersions,
+      modified: manifest.time.modified,
+      // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
+      time: manifest.time,
+    };
+
+    return convertedManifest;
+  }
+
   /**
    * Return a manifest or version based on the options.
    * @param options {Object}
    * @returns A package manifest or specific version
    */
-  public async getPackageByOptions(options: IGetPackageOptionsNext): Promise<Manifest | Version> {
+  public async getPackageByOptions(
+    options: IGetPackageOptionsNext
+  ): Promise<Manifest | AbbreviatedManifest | Version> {
     // if no version we return the whole manifest
     if (_.isNil(options.version) === false) {
       return this.getPackageByVersion(options);
     } else {
-      return this.getPackageManifest(options);
+      const manifest = await this.getPackageManifest(options);
+      if (options.abbreviated === true) {
+        debug('abbreviated manifest');
+        return this.convertAbbreviatedManifest(manifest);
+      }
+      return manifest;
     }
   }
 
@@ -596,7 +650,7 @@ class Storage {
   }
 
   /**
-   * Initialize the storage asyncronously.
+   * Initialize the storage asynchronously.
    * @param config Config
    * @param filters IPluginFilters
    * @returns Storage instance
@@ -1613,7 +1667,7 @@ class Storage {
    * @param options options
    * @returns Returns a promise that resolves with the merged manifest.
    */
-  public async mergeCacheRemoteMetadata(
+  private async mergeCacheRemoteMetadata(
     uplink: IProxy,
     cachedManifest: Manifest,
     options: ISyncUplinksOptions
@@ -1642,7 +1696,7 @@ class Storage {
     );
 
     try {
-      _cacheManifest = validatioUtils.normalizeMetadata(remoteManifest, _cacheManifest.name);
+      _cacheManifest = validatioUtils.normalizeMetadata(_cacheManifest, _cacheManifest.name);
     } catch (err: any) {
       this.logger.error(
         {
@@ -1657,7 +1711,7 @@ class Storage {
     // merge time field cache and remote
     _cacheManifest = mergeUplinkTimeIntoLocalNext(_cacheManifest, remoteManifest);
     // update the _uplinks field in the cache
-    _cacheManifest = updateVersionsHiddenUpLinkNext(cachedManifest, uplink);
+    _cacheManifest = updateVersionsHiddenUpLinkNext(_cacheManifest, uplink);
     try {
       // merge versions from remote into the cache
       _cacheManifest = mergeVersions(_cacheManifest, remoteManifest);
@@ -1667,7 +1721,7 @@ class Storage {
         {
           err: err,
         },
-        'package.json mergin has failed @{!err?.message}\n@{err.stack}'
+        'package.json merge has failed @{!err?.message}\n@{err.stack}'
       );
       throw err;
     }

@@ -75,7 +75,7 @@ function addPackageWebApi(storage: Storage, auth: IAuth, config: Config): Router
         }
       } catch (err: any) {
         debug('process packages error %o', err);
-        logger.logger.error(
+        logger.error(
           { name: pkg.name, error: err },
           'permission process for @{name} has failed: @{error}'
         );

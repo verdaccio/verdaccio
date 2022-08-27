@@ -11,16 +11,17 @@ import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, errorUtils, fileUtils } fro
 import { setup } from '@verdaccio/logger';
 import {
   addNewVersion,
+  generateLocalPackageMetadata,
   generatePackageMetadata,
   generateRemotePackageMetadata,
 } from '@verdaccio/test-helper';
-import { Manifest, Version } from '@verdaccio/types';
+import { AbbreviatedManifest, Manifest, Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample } from './helpers';
 
-function generateRamdonStorage() {
+function generateRandomStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
 
@@ -29,7 +30,7 @@ function generateRamdonStorage() {
 
 setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
-const domain = 'http://localhost:4873';
+const domain = 'https://registry.npmjs.org';
 const fakeHost = 'localhost:4873';
 const fooManifest = generatePackageMetadata('foo', '1.0.0');
 
@@ -39,23 +40,6 @@ describe('storage', () => {
     nock.abortPendingRequests();
     jest.clearAllMocks();
   });
-
-  // describe('add packages', () => {
-  //   test('add package item', async () => {
-  //     nock(domain).get('/foo').reply(404);
-  //     const config = new Config(
-  //       configExample({
-  //         storage: generateRamdonStorage(),
-  //       })
-  //     );
-  //     const storage = new Storage(config);
-  //     await storage.init(config);
-
-  //     await storage.addPackage('foo', fooManifest, (err) => {
-  //       expect(err).toBeNull();
-  //     });
-  //   });
-  // });
 
   describe('updateManifest', () => {
     test('create private package', async () => {
@@ -71,7 +55,7 @@ describe('storage', () => {
         configExample(
           {
             ...getDefaultConfig(),
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/updateManifest-1.yaml',
           __dirname
@@ -114,7 +98,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/updateManifest-1.yaml',
           __dirname
@@ -155,7 +139,7 @@ describe('storage', () => {
         },
       };
       const pkgName = 'upstream';
-      // const storage = generateRamdonStorage();
+      // const storage = generateRandomStorage();
       const config = new Config(
         configExample(
           {
@@ -246,7 +230,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/getTarballNext-getupstream.yaml',
           __dirname
@@ -276,7 +260,7 @@ describe('storage', () => {
       const config = new Config(
         configExample({
           ...getDefaultConfig(),
-          storage: generateRamdonStorage(),
+          storage: generateRandomStorage(),
         })
       );
       const storage = new Storage(config);
@@ -313,7 +297,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/getTarballNext-getupstream.yaml',
           __dirname
@@ -357,7 +341,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/getTarballNext-getupstream.yaml',
           __dirname
@@ -417,7 +401,7 @@ describe('storage', () => {
         .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
           [HEADER_TYPE.CONTENT_LENGTH]: 277,
         });
-      const storagePath = generateRamdonStorage();
+      const storagePath = generateRandomStorage();
       const config = new Config(
         configExample(
           {
@@ -474,7 +458,7 @@ describe('storage', () => {
       const config = new Config(
         configExample(
           {
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           },
           './fixtures/config/getTarballNext-getupstream.yaml',
           __dirname
@@ -532,7 +516,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncDoubleUplinksMetadata.yaml',
             __dirname
@@ -562,7 +546,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
             __dirname
@@ -583,7 +567,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
             __dirname
@@ -600,12 +584,12 @@ describe('storage', () => {
 
     describe('success scenarios', () => {
       test('should handle one proxy success', async () => {
-        const fooManifest = generatePackageMetadata('foo', '8.0.0');
+        const fooManifest = generateLocalPackageMetadata('foo', '8.0.0');
         nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
             __dirname
@@ -617,7 +601,28 @@ describe('storage', () => {
         const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect(Object.keys((response as Manifest).versions)).toEqual([
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
+        expect(Object.keys((response as Manifest).time)).toEqual([
+          'modified',
+          'created',
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+        expect((response as Manifest).time['8.0.0']).toBeDefined();
       });
 
       test('should handle one proxy success with no local cache manifest', async () => {
@@ -625,7 +630,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
             __dirname
@@ -647,7 +652,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncNoUplinksMetadata.yaml',
             __dirname
@@ -670,7 +675,7 @@ describe('storage', () => {
         const config = new Config(
           configExample(
             {
-              storage: generateRamdonStorage(),
+              storage: generateRandomStorage(),
             },
             './fixtures/config/syncSingleUplinksMetadata.yaml',
             __dirname
@@ -689,7 +694,184 @@ describe('storage', () => {
     });
   });
 
-  // TODO: getPackageNext should replace getPackage eventually
+  describe('getLocalDatabaseNext', () => {
+    test('should return 0 local packages', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      await storage.init(config);
+      await expect(storage.getLocalDatabaseNext()).resolves.toHaveLength(0);
+    });
+
+    test('should return 1 local packages', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: 'host',
+        },
+        url: '/',
+      });
+      const storage = new Storage(config);
+      await storage.init(config);
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      const response = await storage.getLocalDatabaseNext();
+      expect(response).toHaveLength(1);
+      expect(response[0]).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
+    });
+  });
+
+  describe('tokens', () => {
+    describe('saveToken', () => {
+      test('should retrieve tokens created', async () => {
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        await storage.saveToken({
+          user: 'foo',
+          token: 'secret',
+          key: 'key',
+          created: 'created',
+          readonly: true,
+        });
+        const tokens = await storage.readTokens({ user: 'foo' });
+        expect(tokens).toEqual([
+          { user: 'foo', token: 'secret', key: 'key', readonly: true, created: 'created' },
+        ]);
+      });
+
+      test('should delete a token created', async () => {
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        await storage.saveToken({
+          user: 'foo',
+          token: 'secret',
+          key: 'key',
+          created: 'created',
+          readonly: true,
+        });
+        const tokens = await storage.readTokens({ user: 'foo' });
+        expect(tokens).toHaveLength(1);
+        await storage.deleteToken('foo', 'key');
+        const tokens2 = await storage.readTokens({ user: 'foo' });
+        expect(tokens2).toHaveLength(0);
+      });
+    });
+  });
+
+  describe('removeTarball', () => {
+    test('should fail on remove tarball of package does not exist', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      await storage.init(config);
+      await expect(storage.removeTarball('foo', 'foo-1.0.0.tgz', 'rev')).rejects.toThrow(
+        API_ERROR.NO_PACKAGE
+      );
+    });
+  });
+
+  describe('removePackage', () => {
+    test('should remove entirely a package', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: fakeHost,
+          [HEADERS.FORWARDED_PROTO]: 'http',
+        },
+        url: '/',
+      });
+      const storage = new Storage(config);
+      await storage.init(config);
+
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      // 1. publish a package
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. remove the tarball
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev)
+      ).resolves.toBeDefined();
+      // 4. remove the package
+      await storage.removePackage(manifest1.name, _rev);
+      // 5. fails if package does not exist anymore in storage
+      await expect(
+        storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: false,
+          requestOptions: {
+            headers: req.headers as any,
+            protocol: req.protocol,
+            host: req.get('host') as string,
+          },
+        })
+      ).rejects.toThrowError('package does not exist on uplink: foo');
+    });
+  });
+
   describe('get packages getPackageByOptions()', () => {
     describe('with uplinks', () => {
       test('should get 201 and merge from uplink', async () => {
@@ -697,7 +879,7 @@ describe('storage', () => {
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -729,7 +911,7 @@ describe('storage', () => {
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -762,7 +944,7 @@ describe('storage', () => {
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -795,7 +977,7 @@ describe('storage', () => {
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -835,7 +1017,7 @@ describe('storage', () => {
                 url: domain,
               },
             },
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -875,7 +1057,7 @@ describe('storage', () => {
                 url: domain,
               },
             },
-            storage: generateRamdonStorage(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -901,6 +1083,72 @@ describe('storage', () => {
             },
           })
         ).rejects.toThrow(errorUtils.getServiceUnavailable('ETIMEDOUT'));
+      });
+
+      test('should fetch abbreviated version of manifest ', async () => {
+        const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
+        nock(domain).get('/foo').reply(201, fooManifest);
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const req = httpMocks.createRequest({
+          method: 'GET',
+          connection: { remoteAddress: fakeHost },
+          headers: {
+            host: fakeHost,
+            [HEADERS.FORWARDED_PROTO]: 'http',
+          },
+          url: '/',
+        });
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const manifest = (await storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: true,
+          requestOptions: {
+            headers: req.headers as any,
+            protocol: req.protocol,
+            host: req.get('host') as string,
+          },
+          abbreviated: true,
+        })) as AbbreviatedManifest;
+        const { versions, name } = manifest;
+        expect(name).toEqual('foo');
+        expect(Object.keys(versions)).toEqual(['1.0.0']);
+        expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        const version = versions['1.0.0'];
+        expect(Object.keys(version)).toEqual([
+          'name',
+          'version',
+          'description',
+          'deprecated',
+          'bin',
+          'dist',
+          'engines',
+          'funding',
+          'directories',
+          'dependencies',
+          'devDependencies',
+          'peerDependencies',
+          'optionalDependencies',
+          'bundleDependencies',
+          '_hasShrinkwrap',
+          'hasInstallScript',
+        ]);
+        expect(manifest.modified).toBeDefined();
+        // special case for pnpm/rfcs/pull/2
+        expect(manifest.time).toBeDefined();
+        // fields must not have
+        // @ts-expect-error
+        expect(manifest.readme).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._attachments).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._rev).not.toBeDefined();
       });
     });
   });

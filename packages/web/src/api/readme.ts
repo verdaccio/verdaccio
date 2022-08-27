@@ -45,11 +45,12 @@ function addReadmeWebApi(storage: Storage, auth: IAuth): Router {
         remoteAddress: req.socket.remoteAddress,
       };
       try {
-        const manifest = await storage.getPackageByOptions({
+        const manifest = (await storage.getPackageByOptions({
           name,
           uplinksLook: true,
+          abbreviated: false,
           requestOptions,
-        });
+        })) as Manifest;
         debug('readme pkg %o', manifest?.name);
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
         try {

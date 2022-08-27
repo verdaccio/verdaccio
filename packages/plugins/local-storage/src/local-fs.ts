@@ -285,7 +285,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     });
 
     // if upload is aborted, we clean up the temporal file
-    signal.addEventListener(
+    signal?.addEventListener(
       'abort',
       async () => {
         if (opened) {

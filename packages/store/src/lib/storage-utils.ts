@@ -256,12 +256,18 @@ export function hasInvalidPublishBody(manifest: Pick<Manifest, '_attachments' | 
   */
 export function mergeVersions(cacheManifest: Manifest, remoteManifest: Manifest): Manifest {
   let _cacheManifest = { ...cacheManifest };
-  const { versions } = remoteManifest;
+  const { versions, time } = remoteManifest;
   // copy new versions to a cache
   // NOTE: if a certain version was updated, we can't refresh it reliably
   for (const i in versions) {
     if (typeof cacheManifest.versions[i] === 'undefined') {
       _cacheManifest.versions[i] = versions[i];
+    }
+  }
+
+  for (const i in time) {
+    if (typeof cacheManifest.time[i] === 'undefined') {
+      _cacheManifest.time[i] = time[i];
     }
   }
 
