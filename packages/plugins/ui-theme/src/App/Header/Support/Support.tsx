@@ -13,7 +13,7 @@ const title = 'Support people affected by the war in Ukraine';
 const links = [
   {
     href: 'https://twitter.com/denysdovhan/status/1501486563842211843',
-    text: 'Listen at Twitter OSS developers about the kjkjwar',
+    text: 'Listen OSS developers about the war on Twitter',
   },
   {
     href: 'https://snyk.io/blog/celebrating-amazing-open-source-innovation-ukraine/',
@@ -21,7 +21,7 @@ const links = [
   },
   {
     href: 'https://www.savethechildren.org/us/where-we-work/ukraine/',
-    text: 'Donate to Save the Children',
+    text: 'Donate to save children',
   },
   {
     href: 'https://www.ifrc.org/',
@@ -29,7 +29,7 @@ const links = [
   },
   {
     href: 'https://www.hrw.org/news/2022/03/10/ukraine-russian-air-dropped-bombs-hit-residential-area/',
-    text: 'Read Reports from Human Rights Watch',
+    text: 'Read reports from Human Rights Watch',
   },
   {
     href: 'https://europeanbloodalliance.eu/',
@@ -59,7 +59,7 @@ const Support = () => {
             <Typography>
               {`Hi, this is a message that I've composed to call your attention to ask 
                 for humanitarian support for more than 44 million Ukrainians that are having 
-                a  hard time suffering for a horrible and unjustified war. It would be great if you
+                a hard time suffering for a horrible and unjustified war. It would be great if you
                 decide today to make a difference and help others. You could help by donating 
                 to very well-known humanitarian organizations, helping in your local 
                 area with food, clothes, donate blood, toys for kids, or your own time. Any help is very welcome.`}
