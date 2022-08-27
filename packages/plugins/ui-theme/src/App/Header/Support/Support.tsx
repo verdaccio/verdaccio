@@ -21,7 +21,7 @@ const links = [
   },
   {
     href: 'https://www.savethechildren.org/us/where-we-work/ukraine/',
-    text: 'Donate to save children',
+    text: 'Donate to save children in Ukraine',
   },
   {
     href: 'https://www.ifrc.org/',
