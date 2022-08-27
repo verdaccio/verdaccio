@@ -1,9 +1,9 @@
 {
   "private": true,
   "name": "@verdaccio/e2e-cli-npm7",
-  "version": "1.0.1-6-next.0",
+  "version": "1.0.1-6-next.1",
   "dependencies": {
-    "@verdaccio/test-cli-commons": "workspace:1.0.1-6-next.0",
+    "@verdaccio/test-cli-commons": "workspace:1.0.1-6-next.1",
     "npm": "latest-7"
   },
   "scripts": {

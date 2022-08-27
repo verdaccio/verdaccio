@@ -37,7 +37,7 @@
     "memfs": "3.4.7"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.13",
+    "@verdaccio/types": "workspace:11.0.0-6-next.14",
     "@verdaccio/config": "workspace:6.0.0-6-next.15",
     "@verdaccio/logger": "workspace:6.0.0-6-next.12"
   },

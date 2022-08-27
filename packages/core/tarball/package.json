@@ -41,7 +41,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.13",
+    "@verdaccio/types": "workspace:11.0.0-6-next.14",
     "node-mocks-http": "1.11.0"
   },
   "scripts": {

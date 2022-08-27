@@ -41,7 +41,7 @@
     "@types/node": "16.11.51",
     "@verdaccio/auth": "workspace:6.0.0-6-next.23",
     "@verdaccio/config": "workspace:6.0.0-6-next.15",
-    "@verdaccio/types": "workspace:11.0.0-6-next.13"
+    "@verdaccio/types": "workspace:11.0.0-6-next.14"
   },
   "scripts": {
     "clean": "rimraf ./build",

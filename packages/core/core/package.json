@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "lodash": "4.17.21",
-    "@verdaccio/types": "workspace:11.0.0-6-next.13"
+    "@verdaccio/types": "workspace:11.0.0-6-next.14"
   },
   "scripts": {
     "clean": "rimraf ./build",

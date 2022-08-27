@@ -51,7 +51,7 @@
     "verdaccio-htpasswd": "workspace:11.0.0-6-next.14"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.13"
+    "@verdaccio/types": "workspace:11.0.0-6-next.14"
   },
   "funding": {
     "type": "opencollective",

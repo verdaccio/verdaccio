@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "6.0.0-6-next.35",
+  "version": "6.0.0-6-next.36",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -47,7 +47,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.6",
     "@verdaccio/config": "workspace:6.0.0-6-next.15",
     "@verdaccio/logger": "workspace:6.0.0-6-next.12",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.33",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.34",
     "clipanion": "3.1.0",
     "envinfo": "7.8.1",
     "kleur": "3.0.3",

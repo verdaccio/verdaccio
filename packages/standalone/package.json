@@ -32,7 +32,7 @@
   "homepage": "https://verdaccio.org",
   "license": "MIT",
   "devDependencies": {
-    "@verdaccio/cli": "workspace:6.0.0-6-next.35",
+    "@verdaccio/cli": "workspace:6.0.0-6-next.36",
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.26",
     "fs-extra": "10.1.0",
     "webpack": "5.74.0",
