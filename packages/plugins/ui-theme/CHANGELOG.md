@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- 20d63dc3: ui: basic grammatical fixes in the Ukraine Message
+
 ## 6.0.0-6-next.26
 
 ### Major Changes
