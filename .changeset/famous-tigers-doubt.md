@@ -37,7 +37,6 @@
 '@verdaccio/e2e-cli-yarn2': patch
 '@verdaccio/e2e-cli-yarn3': patch
 '@verdaccio/e2e-cli-yarn4': patch
-'@verdaccio/website': patch
 ---
 
 fix(deps): @verdaccio/utils should be a prod dep of local-storage
