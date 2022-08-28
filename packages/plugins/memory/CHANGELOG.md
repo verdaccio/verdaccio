@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.12
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+
 ## 11.0.0-6-next.11
 
 ### Major Changes

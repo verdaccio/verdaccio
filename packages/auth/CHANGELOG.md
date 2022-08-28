@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.24
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/loaders@6.0.0-6-next.14
+  - @verdaccio/logger@6.0.0-6-next.13
+  - verdaccio-htpasswd@11.0.0-6-next.15
+  - @verdaccio/config@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.13
+
 ## 6.0.0-6-next.23
 
 ### Major Changes

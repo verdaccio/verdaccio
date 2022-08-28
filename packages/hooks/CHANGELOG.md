@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.15
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/logger@6.0.0-6-next.13
+
 ## 6.0.0-6-next.14
 
 ### Major Changes

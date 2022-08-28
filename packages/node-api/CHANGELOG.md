@@ -1,5 +1,17 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.35
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/logger@6.0.0-6-next.13
+  - @verdaccio/server@6.0.0-6-next.34
+  - @verdaccio/server-fastify@6.0.0-6-next.26
+  - @verdaccio/config@6.0.0-6-next.16
+
 ## 6.0.0-6-next.34
 
 ### Patch Changes

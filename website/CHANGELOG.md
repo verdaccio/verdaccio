@@ -1,5 +1,12 @@
 # @verdaccio/website
 
+## 5.14.1-6-next.0
+
+### Patch Changes
+
+- Updated dependencies [351aeeaa]
+  - docusaurus-plugin-contributors@1.0.1-6-next.0
+
 ## 6.0.0-6-next.0
 
 ### Major Changes

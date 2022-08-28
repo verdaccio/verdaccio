@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "11.0.0-6-next.5",
+  "version": "11.0.0-6-next.6",
   "description": "library that handle file locking",
   "keywords": [
     "private",
@@ -40,7 +40,7 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.14"
+    "@verdaccio/types": "workspace:11.0.0-6-next.15"
   },
   "scripts": {
     "clean": "rimraf ./build",

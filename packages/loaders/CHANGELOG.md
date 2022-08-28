@@ -1,5 +1,13 @@
 # @verdaccio/loaders
 
+## 6.0.0-6-next.14
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/logger@6.0.0-6-next.13
+
 ## 6.0.0-6-next.13
 
 ### Major Changes

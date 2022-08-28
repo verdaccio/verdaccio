@@ -1,5 +1,16 @@
 # @verdaccio/test-cli-commons
 
+## 1.0.1-6-next.3
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/test-helper@1.1.0-6-next.3
+  - verdaccio@6.0.0-6-next.45
+  - @verdaccio/config@6.0.0-6-next.16
+
 ## 1.0.1-6-next.2
 
 ### Patch Changes
