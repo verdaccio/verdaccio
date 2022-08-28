@@ -1,5 +1,13 @@
 # @verdaccio/e2e-cli-yarn4
 
+## 1.0.1-6-next.3
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/test-cli-commons@1.0.1-6-next.3
+
 ## 1.0.1-6-next.2
 
 ### Patch Changes

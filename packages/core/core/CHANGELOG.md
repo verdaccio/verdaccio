@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.7
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+
 ## 6.0.0-6-next.6
 
 ### Major Changes

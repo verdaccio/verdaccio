@@ -1,5 +1,20 @@
 # verdaccio
 
+## 6.0.0-6-next.45
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/cli@6.0.0-6-next.37
+  - @verdaccio/hooks@6.0.0-6-next.15
+  - @verdaccio/logger@6.0.0-6-next.13
+  - @verdaccio/node-api@6.0.0-6-next.35
+  - verdaccio-audit@11.0.0-6-next.10
+  - verdaccio-htpasswd@11.0.0-6-next.15
+  - @verdaccio/ui-theme@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.13
+
 ## 6.0.0-6-next.44
 
 ### Patch Changes
