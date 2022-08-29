@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4809,
+      "contributions": 4815,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2580
+          "contributions": 2586
         },
         {
           "name": "verdaccio-cookbook",
@@ -911,6 +911,21 @@
       ]
     },
     {
+      "id": 1927579,
+      "login": "zkochan",
+      "contributions": 4,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        },
+        {
+          "name": "website",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 22656541,
       "login": "semoal",
       "contributions": 4,
@@ -1196,21 +1211,6 @@
         },
         {
           "name": "monorepo",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 1927579,
-      "login": "zkochan",
-      "contributions": 3,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        },
-        {
-          "name": "website",
           "contributions": 1
         }
       ]
@@ -3383,6 +3383,17 @@
       ]
     },
     {
+      "id": 46757266,
+      "login": "okyanusoz",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 30210,
       "login": "robi-wan",
       "contributions": 1,
@@ -4666,7 +4677,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 13814,
+      "stargazers_count": 13813,
       "archived": false
     },
     {
