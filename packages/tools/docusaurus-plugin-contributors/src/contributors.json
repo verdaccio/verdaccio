@@ -2184,6 +2184,17 @@
       ]
     },
     {
+      "id": 3322693,
+      "login": "hafffe",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 1901955,
       "login": "BarthV",
       "contributions": 1,
@@ -4677,7 +4688,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 13813,
+      "stargazers_count": 13826,
       "archived": false
     },
     {
