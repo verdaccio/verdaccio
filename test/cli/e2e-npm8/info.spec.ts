@@ -14,6 +14,7 @@ describe('install a package', () => {
 
   test('should run npm info json body', async () => {
     const resp = await npm(
+      {},
       'info',
       'verdaccio',
       '--json',

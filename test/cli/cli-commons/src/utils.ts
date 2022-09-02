@@ -61,3 +61,43 @@ export async function prepareYarnModernProject(
   await cp(yarnPath, join(tempFolder, '.yarn/releases/yarn.js'), { dereference: true });
   return { tempFolder };
 }
+
+export async function prepareGenericEmptyProject(
+  packageName: string,
+  version: string,
+  port: number,
+  token: string,
+  registryDomain: string
+) {
+  const getPackageJSON = (packageName, version = '1.0.0') => {
+    const json = {
+      name: packageName,
+      version,
+      description: 'some cool project',
+      main: 'index.js',
+      scripts: {
+        test: 'echo exit 1',
+      },
+      keywords: ['foo', 'bar'],
+      author: 'Juan Picado <jotadeveloper@gmail.com>',
+      license: 'MIT',
+    };
+    return JSON.stringify(json);
+  };
+  const getREADME = (packageName) => `
+   # My README ${packageName}
+
+   some text
+
+   ## subtitle
+
+   more text
+  `;
+  const getNPMrc = (port, token, registry) => `//localhost:${port}/:_authToken=${token}
+  registry=${registry}`;
+  const tempFolder = await createTempFolder('temp-folder');
+  await writeFile(join(tempFolder, 'package.json'), getPackageJSON(packageName, version));
+  await writeFile(join(tempFolder, 'README.md'), getREADME(packageName));
+  await writeFile(join(tempFolder, '.npmrc'), getNPMrc(port, token, registryDomain));
+  return { tempFolder };
+}

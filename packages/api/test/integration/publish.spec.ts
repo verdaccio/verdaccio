@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { basename } from 'path';
 import supertest from 'supertest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
@@ -80,10 +81,10 @@ describe('publish', () => {
 
   describe('publish a package', () => {
     describe('no proxies setup', () => {
-      test('should publish a package', async () => {
+      test.each([['foo', '@scope/foo']])('should publish a package', async (pkgName) => {
         const app = await initializeServer('publish.yaml');
         return new Promise((resolve) => {
-          publishVersion(app, 'foo', '1.0.0')
+          publishVersion(app, pkgName, '1.0.0')
             .expect(HTTP_STATUS.CREATED)
             .then((response) => {
               expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
@@ -92,8 +93,7 @@ describe('publish', () => {
         });
       });
 
-      test('should publish a new package', async () => {
-        const pkgName = 'test';
+      test.each([['foo', '@scope/foo']])('should publish a new package', async (pkgName) => {
         const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
         const app = await initializeServer('publish.yaml');
         return new Promise((resolve) => {
@@ -139,98 +139,120 @@ describe('publish', () => {
       });
     });
     describe('proxies setup', () => {
-      test('should publish a a patch package that already exist on a remote', async () => {
-        const upstreamManifest = generateRemotePackageMetadata(
-          'vue',
-          '1.0.0',
-          'https://registry.npmjs.org',
-          ['1.0.1', '1.0.2', '1.0.3']
-        );
-        nock('https://registry.npmjs.org').get(`/vue`).reply(200, upstreamManifest);
-        const app = await initializeServer('publish-proxy.yaml');
-        const manifest = await getPackage(app, '', 'vue');
-        expect(manifest.body.name).toEqual('vue');
-        const response = await publishVersion(app, 'vue', '1.0.1-patch').expect(
-          HTTP_STATUS.CREATED
-        );
-        expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-        const response2 = await publishVersion(app, 'vue', '1.0.2-patch').expect(
-          HTTP_STATUS.CREATED
-        );
-        expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-      });
+      test.each([['foo', '@scope%2Ffoo']])(
+        'should publish a a patch package that already exist on a remote',
+        async (pkgName) => {
+          const upstreamManifest = generateRemotePackageMetadata(
+            pkgName,
+            '1.0.0',
+            'https://registry.npmjs.org',
+            ['1.0.1', '1.0.2', '1.0.3']
+          );
+          nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(200, upstreamManifest);
+          const app = await initializeServer('publish-proxy.yaml');
+          const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
+          expect(manifest.body.name).toEqual(decodeURIComponent(pkgName));
+          const response = await publishVersion(
+            app,
+            decodeURIComponent(pkgName),
+            '1.0.1-patch'
+          ).expect(HTTP_STATUS.CREATED);
+          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+          const response2 = await publishVersion(
+            app,
+            decodeURIComponent(pkgName),
+            '1.0.2-patch'
+          ).expect(HTTP_STATUS.CREATED);
+          expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+        }
+      );
     });
   });
 
-  test('should fails on publish a duplicated package', async () => {
-    const app = await initializeServer('publish.yaml');
-    await publishVersion(app, 'foo', '1.0.0');
-    return new Promise((resolve) => {
-      publishVersion(app, 'foo', '1.0.0')
-        .expect(HTTP_STATUS.CONFLICT)
-        .then((response) => {
-          expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
-          resolve(response);
-        });
-    });
-  });
+  test.each([['foo', '@scope/foo']])(
+    'should fails on publish a duplicated package',
+    async (pkgName) => {
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, pkgName, '1.0.0');
+      return new Promise((resolve) => {
+        publishVersion(app, pkgName, '1.0.0')
+          .expect(HTTP_STATUS.CONFLICT)
+          .then((response) => {
+            expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
+            resolve(response);
+          });
+      });
+    }
+  );
 
   describe('unpublish a package', () => {
-    test('should unpublish entirely a package', async () => {
+    test.each([['foo', '@scope/foo']])('should unpublish entirely a package', async (pkgName) => {
       const app = await initializeServer('publish.yaml');
-      await publishVersion(app, 'foo', '1.0.0');
+      await publishVersion(app, pkgName, '1.0.0');
       const response = await supertest(app)
         // FIXME: should be filtered by revision to avoid
         // conflicts
-        .delete(`/${encodeURIComponent('foo')}/-rev/xxx`)
+        .delete(`/${encodeURIComponent(pkgName)}/-rev/xxx`)
         .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
         .expect(HTTP_STATUS.CREATED);
       expect(response.body.ok).toEqual(API_MESSAGE.PKG_REMOVED);
       // package should be completely un published
       await supertest(app)
-        .get('/foo')
+        .get(`/${pkgName}`)
         .set('Accept', HEADERS.JSON)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.NOT_FOUND);
     });
 
-    test('should fails unpublish entirely a package', async () => {
-      const app = await initializeServer('publish.yaml');
-      const response = await supertest(app)
-        .delete(`/${encodeURIComponent('foo')}/-rev/1cf3-fe3`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .expect(HTTP_STATUS.NOT_FOUND);
-      expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
-    });
+    test.each([['foo', '@scope/foo']])(
+      'should fails unpublish entirely a package',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        const response = await supertest(app)
+          .delete(`/${encodeURIComponent(pkgName)}/-rev/1cf3-fe3`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+      }
+    );
 
-    test('should fails remove a tarball of a package does not exist', async () => {
-      const app = await initializeServer('publish.yaml');
-      const response = await supertest(app)
-        .delete(`/foo/-/foo-1.0.3.tgz/-rev/revision`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .expect(HTTP_STATUS.NOT_FOUND);
-      expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
-    });
+    test.each([['foo', '@scope/foo']])(
+      'should fails remove a tarball of a package does not exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.3.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+      }
+    );
 
-    test('should fails on try remove a tarball does not exist', async () => {
-      const app = await initializeServer('publish.yaml');
-      await publishVersion(app, 'foo', '1.0.0');
-      const response = await supertest(app)
-        .delete(`/foo/-/foo-1.0.3.tgz/-rev/revision`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .expect(HTTP_STATUS.NOT_FOUND);
-      expect(response.body.error).toEqual(API_ERROR.NO_SUCH_FILE);
-    });
+    test.each([['foo', '@scope/foo']])(
+      'should fails on try remove a tarball does not exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.3.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_SUCH_FILE);
+      }
+    );
 
-    test('should remove a tarball that does exist', async () => {
-      const app = await initializeServer('publish.yaml');
-      await publishVersion(app, 'foo', '1.0.0');
-      const response = await supertest(app)
-        .delete(`/foo/-/foo-1.0.0.tgz/-rev/revision`)
-        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-        .expect(HTTP_STATUS.CREATED);
-      expect(response.body.ok).toEqual(API_MESSAGE.TARBALL_REMOVED);
-    });
+    test.each([['foo', '@scope/foo']])(
+      'should remove a tarball that does exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.0.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED);
+        expect(response.body.ok).toEqual(API_MESSAGE.TARBALL_REMOVED);
+      }
+    );
   });
 
   describe('star a package', () => {});
