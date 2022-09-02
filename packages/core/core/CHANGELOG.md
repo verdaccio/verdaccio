@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.8
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+
 ## 6.0.0-6-next.7
 
 ### Patch Changes

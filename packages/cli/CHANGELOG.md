@@ -1,5 +1,16 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/config@6.0.0-6-next.17
+  - @verdaccio/logger@6.0.0-6-next.14
+  - @verdaccio/node-api@6.0.0-6-next.36
+
 ## 6.0.0-6-next.37
 
 ### Patch Changes

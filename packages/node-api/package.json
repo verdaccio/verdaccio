@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "6.0.0-6-next.35",
+  "version": "6.0.0-6-next.36",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -39,18 +39,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.7",
-    "@verdaccio/config": "workspace:6.0.0-6-next.16",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.13",
-    "@verdaccio/server": "workspace:6.0.0-6-next.34",
-    "@verdaccio/server-fastify": "workspace:6.0.0-6-next.26",
+    "@verdaccio/core": "workspace:6.0.0-6-next.8",
+    "@verdaccio/config": "workspace:6.0.0-6-next.17",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.14",
+    "@verdaccio/server": "workspace:6.0.0-6-next.35",
+    "@verdaccio/server-fastify": "workspace:6.0.0-6-next.27",
     "core-js": "3.25.0",
     "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@types/node": "16.11.56",
-    "@verdaccio/types": "workspace:11.0.0-6-next.15",
+    "@verdaccio/types": "workspace:11.0.0-6-next.16",
     "jest-mock-process": "1.5.1",
     "selfsigned": "1.10.14",
     "supertest": "6.2.4"

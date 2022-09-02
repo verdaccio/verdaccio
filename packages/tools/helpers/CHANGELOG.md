@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0-6-next.4
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+
 ## 1.1.0-6-next.3
 
 ### Patch Changes

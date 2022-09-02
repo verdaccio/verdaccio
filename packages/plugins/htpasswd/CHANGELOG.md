@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.16
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/file-locking@11.0.0-6-next.6
+
 ## 11.0.0-6-next.15
 
 ### Patch Changes
