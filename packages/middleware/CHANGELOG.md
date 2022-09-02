@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/auth@6.0.0-6-next.25
+  - @verdaccio/logger@6.0.0-6-next.14
+  - @verdaccio/utils@6.0.0-6-next.14
+
 ## 6.0.0-6-next.24
 
 ### Patch Changes

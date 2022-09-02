@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/store@6.0.0-6-next.26
+  - @verdaccio/auth@6.0.0-6-next.25
+  - @verdaccio/config@6.0.0-6-next.17
+  - @verdaccio/logger@6.0.0-6-next.14
+  - @verdaccio/middleware@6.0.0-6-next.25
+  - @verdaccio/utils@6.0.0-6-next.14
+
 ## 6.0.0-6-next.28
 
 ### Patch Changes

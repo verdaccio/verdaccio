@@ -50,7 +50,8 @@
     "@verdaccio/e2e-cli-yarn1": "1.0.1-6-next.1",
     "@verdaccio/e2e-cli-yarn2": "1.0.1-6-next.1",
     "@verdaccio/e2e-cli-yarn3": "1.0.1-6-next.1",
-    "@verdaccio/e2e-cli-yarn4": "1.0.1-6-next.1"
+    "@verdaccio/e2e-cli-yarn4": "1.0.1-6-next.1",
+    "@verdaccio/local-publish": "0.0.1"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -128,6 +129,7 @@
     "tiny-seals-join",
     "tricky-taxis-watch",
     "two-dolls-check",
-    "wild-jokes-beam"
+    "wild-jokes-beam",
+    "witty-ties-speak"
   ]
 }
