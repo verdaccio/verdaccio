@@ -1,6 +1,7 @@
 import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { initServer } from '@verdaccio/node-api';
 import { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
@@ -45,17 +46,13 @@ export class InitCommand extends Command {
   });
 
   private initLogger(logConfig: ConfigYaml) {
-    try {
+    // @ts-expect-error
+    if (logConfig.logs) {
       // @ts-expect-error
-      if (logConfig.logs) {
-        throw Error(
-          'the property config "logs" property is longer supported, rename to "log" and use object instead'
-        );
-      }
-      setup(logConfig.log as LoggerConfigItem);
-    } catch (err: any) {
-      throw new Error(err);
+      logConfig.log = logConfig.logs;
+      warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
+    setup(logConfig.log as LoggerConfigItem);
   }
 
   public async execute() {

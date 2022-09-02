@@ -668,8 +668,9 @@ describe('storage', () => {
       });
       test.todo('should handle double proxy with last one success');
     });
+
     describe('options', () => {
-      test('should handle disable uplinks via options.uplinksLook=false', async () => {
+      test('should handle disable uplinks via options.uplinksLook=false with cache', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
         nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
         const config = new Config(
@@ -690,6 +691,35 @@ describe('storage', () => {
 
         expect((response as Manifest).name).toEqual(fooManifest.name);
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+      });
+
+      test('should handle disable uplinks via options.uplinksLook=false without cache', async () => {
+        const fooRemoteManifest = generateRemotePackageMetadata(
+          'foo',
+          '9.0.0',
+          'https://registry.verdaccio.org',
+          ['9.0.0', '9.0.1', '9.0.2', '9.0.3']
+        );
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, fooRemoteManifest);
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext('foo', null, {
+          uplinksLook: true,
+        });
+
+        expect((response as Manifest).name).toEqual('foo');
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('9.0.0');
       });
     });
   });

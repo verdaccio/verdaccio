@@ -1,8 +1,6 @@
-import nock from 'nock';
 import supertest from 'supertest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 import { buildToken } from '@verdaccio/utils';
 
 import { createUser, getPackage, initializeServer } from './_helper';
@@ -13,13 +11,6 @@ describe('token', () => {
   describe('basics', () => {
     const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
     test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
-      const upstreamManifest = generateRemotePackageMetadata(
-        'vue',
-        '1.0.0',
-        'https://registry.verdaccio.org'
-      );
-      nock('https://registry.verdaccio.org').get(`/vue`).reply(201, upstreamManifest);
-
       const app = await initializeServer(conf);
       const credentials = { name: 'JotaJWT', password: 'secretPass' };
       const response = await createUser(app, credentials.name, credentials.password);

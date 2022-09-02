@@ -81,7 +81,7 @@ const debug = buildDebug('verdaccio:api:publish');
    * specific flag for star or un start.
    * The URL for star is similar to the unpublish (change package format)
    *
-   * npm has no enpoint for star a package, rather mutate the metadata and acts as, the difference
+   * npm has no endpoint for star a package, rather mutate the metadata and acts as, the difference
    * is the users property which is part of the payload and the body only includes
    *
    * {
@@ -206,13 +206,12 @@ export function publishPackageNext(storage: Storage): any {
       return next({
         // TODO: this could be also Package Updated based on the
         // action, deprecate, star, publish new version, or create a package
-        // the mssage some return from the method
+        // the message some return from the method
         ok: API_MESSAGE.PKG_CREATED,
         success: true,
       });
     } catch (err: any) {
       // TODO: review if we need the abort controller here
-      ac.abort();
       next(err);
     }
   };

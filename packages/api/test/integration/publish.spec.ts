@@ -1,11 +1,12 @@
+import nock from 'nock';
 import supertest from 'supertest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
+import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
 import { $RequestExtend, $ResponseExtend } from '../../types/custom';
-import { initializeServer, publishVersion } from './_helper';
+import { getPackage, initializeServer, publishVersion } from './_helper';
 
 const mockApiJWTmiddleware = jest.fn(
   () =>
@@ -33,31 +34,8 @@ jest.mock('@verdaccio/auth', () => ({
   },
 }));
 
-// const mockStorage = jest.fn(() => {
-// 	const { Storage } = jest.requireActual('@verdaccio/store');
-// 	return {
-// 		Storage: class extends Storage {
-// 			addPackage(name, metadata, cb) {
-// 				super.addPackage(name, metadata, cb);
-// 			}
-// 		}
-// 	};
-// });
-
-// jest.mock('@verdaccio/store', () => {
-// 	const { Storage } = jest.requireActual('@verdaccio/store');
-// 	return ({
-// 		Storage: class extends Storage {
-// 			addPackage(name, metadata, cb) {
-// 				// super.addPackage(name, metadata, cb);
-// 				return mockStorage(name, metadata, cb);
-// 			}
-// 		}
-// 	})
-// });
-
 describe('publish', () => {
-  describe('handle invalid publish formats', () => {
+  describe('handle errors', () => {
     const pkgName = 'test';
     const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
     test('should fail on publish a bad _attachments package', async () => {
@@ -101,61 +79,85 @@ describe('publish', () => {
   });
 
   describe('publish a package', () => {
-    test('should publish a package', async () => {
-      const app = await initializeServer('publish.yaml');
-      return new Promise((resolve) => {
-        publishVersion(app, 'foo', '1.0.0')
-          .expect(HTTP_STATUS.CREATED)
-          .then((response) => {
-            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-            resolve(response);
-          });
+    describe('no proxies setup', () => {
+      test('should publish a package', async () => {
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          publishVersion(app, 'foo', '1.0.0')
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
       });
-    });
 
-    test('should publish a new package', async () => {
-      const pkgName = 'test';
-      const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
-      const app = await initializeServer('publish.yaml');
-      return new Promise((resolve) => {
-        supertest(app)
-          .put(`/${encodeURIComponent(pkgName)}`)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .send(JSON.stringify(Object.assign({}, pkgMetadata)))
-          .set('accept', HEADERS.GZIP)
-          .expect(HTTP_STATUS.CREATED)
-          .then((response) => {
-            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-            resolve(response);
-          });
+      test('should publish a new package', async () => {
+        const pkgName = 'test';
+        const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          supertest(app)
+            .put(`/${encodeURIComponent(pkgName)}`)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify(Object.assign({}, pkgMetadata)))
+            .set('accept', HEADERS.GZIP)
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
       });
-    });
 
-    test('should publish a new package with no readme', async () => {
-      const pkgName = 'test';
-      const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
-      const app = await initializeServer('publish.yaml');
-      return new Promise((resolve) => {
-        supertest(app)
-          .put(`/${encodeURIComponent(pkgName)}`)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-          .send(
-            JSON.stringify(
-              Object.assign({}, pkgMetadata, {
-                versions: {
-                  ['1.0.0']: {
-                    readme: null,
+      test('should publish a new package with no readme', async () => {
+        const pkgName = 'test';
+        const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          supertest(app)
+            .put(`/${encodeURIComponent(pkgName)}`)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(
+              JSON.stringify(
+                Object.assign({}, pkgMetadata, {
+                  versions: {
+                    ['1.0.0']: {
+                      readme: null,
+                    },
                   },
-                },
-              })
+                })
+              )
             )
-          )
-          .set('accept', HEADERS.GZIP)
-          .expect(HTTP_STATUS.CREATED)
-          .then((response) => {
-            expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
-            resolve(response);
-          });
+            .set('accept', HEADERS.GZIP)
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
+      });
+    });
+    describe('proxies setup', () => {
+      test('should publish a a patch package that already exist on a remote', async () => {
+        const upstreamManifest = generateRemotePackageMetadata(
+          'vue',
+          '1.0.0',
+          'https://registry.npmjs.org',
+          ['1.0.1', '1.0.2', '1.0.3']
+        );
+        nock('https://registry.npmjs.org').get(`/vue`).reply(200, upstreamManifest);
+        const app = await initializeServer('publish-proxy.yaml');
+        const manifest = await getPackage(app, '', 'vue');
+        expect(manifest.body.name).toEqual('vue');
+        const response = await publishVersion(app, 'vue', '1.0.1-patch').expect(
+          HTTP_STATUS.CREATED
+        );
+        expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+        const response2 = await publishVersion(app, 'vue', '1.0.2-patch').expect(
+          HTTP_STATUS.CREATED
+        );
+        expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
       });
     });
   });
