@@ -183,7 +183,7 @@ a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
 - _Features clearly flagged as not supported_
 - _Node.js issues installation in any platform_: If you cannot install the
   global package (this is considered external issue)
-- Any ticket which has beed flagged as an [external issue
+- Any ticket which has been flagged as an [external issue
   ](https://github.com/verdaccio/verdaccio/labels/external-issue)
 
 If you intend to report a **security** issue, please follow our [Security policy
@@ -234,7 +234,7 @@ the project. Adding in context and the use-case will really help!
 
 - A detailed description the advantages of your request
 - Whether or not it's compatible with `npm`, `pnpm` and [_yarn classic_
-  ](https://github.com/yarnpkg/yarn) or [_yarn berry_
+  ](https://github.com/yarnpkg/yarn) or [_yarn modern_
   ](https://github.com/yarnpkg/berry).
 - A potential implementation or design
 - Whatever else is on your mind! 🤓
@@ -420,3 +420,25 @@ If you want to develop your own plugin:
 3. You are free to host your plugin in your repository
 4. Provide a detailed description of your plugin to help users understand how to
    use it
+
+## Testing your changes in a local registry
+
+Once you have perform your changes in the code base, the build and tests passes you can publish a local version:
+
+- Ensure you have build all modules (or the one you have modified)
+- Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
+
+```
+pnpm build
+pnpm local:publish:release
+```
+
+The last step consist on install globally the package from the local registry.
+
+```
+npm i -g verdaccio --registry=http://localhost:4873
+
+verdaccio
+```
+
+If you perform more changes in the source code, repeat this process, there is not _hot reloading_ support.

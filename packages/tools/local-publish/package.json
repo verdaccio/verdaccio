@@ -1,0 +1,22 @@
+{
+  "name": "@verdaccio/local-publish",
+  "version": "0.0.1",
+  "private": true,
+  "description": "trigger server for local development",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "devDependencies": {
+    "@verdaccio/types": "workspace:11.0.0-6-next.15",
+    "@verdaccio/core": "workspace:6.0.0-6-next.7",
+    "@verdaccio/config": "workspace:6.0.0-6-next.16",
+    "verdaccio": "5.14.0",
+    "ts-node": "10.9.1"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "echo 0"
+  }
+}
