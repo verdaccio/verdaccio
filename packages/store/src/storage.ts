@@ -1,7 +1,8 @@
 import assert from 'assert';
 import buildDebug from 'debug';
 import _, { isEmpty, isNil } from 'lodash';
-import { PassThrough, Readable, Transform, Writable, pipeline as streamPipeline } from 'stream';
+import { basename } from 'path';
+import { PassThrough, Readable, Transform, pipeline as streamPipeline } from 'stream';
 import { pipeline } from 'stream/promises';
 import { default as URL } from 'url';
 
@@ -961,7 +962,7 @@ class Storage {
     // if (typeof storage === 'undefined') {
     //   throw errorUtils.getNotFound();
     // }
-    throw errorUtils.getInternalError('no implemenation ready for npm deprecate');
+    throw errorUtils.getInternalError('no implementation ready for npm deprecate');
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -972,7 +973,7 @@ class Storage {
     //   throw errorUtils.getNotFound();
     // }
 
-    throw errorUtils.getInternalError('no implemenation ready for npm star');
+    throw errorUtils.getInternalError('no implementation ready for npm star');
   }
 
   /**
@@ -1060,9 +1061,9 @@ class Storage {
         debug('%s version %s already exists', name, versionToPublish);
         throw errorUtils.getConflict();
       }
-
+      const uplinksLook = this.config?.publish?.allow_offline === false;
       // if execution get here, package does not exist locally, we search upstream
-      const remoteManifest = await this.checkPackageRemote(name, this.isAllowPublishOffline());
+      const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists', name, versionToPublish);
         throw errorUtils.getConflict();
@@ -1112,7 +1113,7 @@ class Storage {
     // 3. upload the tarball to the storage
     try {
       const readable = Readable.from(buffer);
-      await this.uploadTarball(name, firstAttachmentKey, readable, {
+      await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
         signal: options.signal,
       });
     } catch (err: any) {
@@ -1148,43 +1149,46 @@ class Storage {
    * @param options
    * @returns
    */
-  public async uploadTarball(
+  public uploadTarball(
     name: string,
     fileName: string,
     contentReadable: Readable,
     { signal }
   ): Promise<void> {
     return new Promise((resolve, reject) => {
-      (async () => {
-        const stream: Writable = await this.uploadTarballAsStream(name, fileName, {
-          signal,
+      this.uploadTarballAsStream(name, fileName, {
+        signal,
+      })
+        .then((stream) => {
+          stream.on('error', (err) => {
+            debug(
+              'error on stream a tarball %o for %o with error %o',
+              'foo.tar.gz',
+              name,
+              err.message
+            );
+            reject(err);
+          });
+          stream.on('success', () => {
+            this.logger.debug(
+              { fileName, name },
+              'file @{fileName} for package @{name} has been successfully uploaded'
+            );
+            resolve();
+          });
+          return stream;
+        })
+        .then((stream) => {
+          pipeline(contentReadable, stream, { signal })
+            .then(() => {
+              debug('success pipe upload tarball');
+            })
+            .catch(reject);
         });
-
-        stream.on('error', (err) => {
-          debug(
-            'error on stream a tarball %o for %o with error %o',
-            'foo.tar.gz',
-            name,
-            err.message
-          );
-          reject(err);
-        });
-        stream.on('success', () => {
-          this.logger.debug(
-            { fileName, name },
-            'file @{fileName} for package @{name} has been succesfully uploaded'
-          );
-          resolve();
-        });
-
-        await pipeline(contentReadable, stream, { signal });
-      })().catch((err) => {
-        reject(err);
-      });
     });
   }
 
-  public async uploadTarballAsStream(
+  private async uploadTarballAsStream(
     pkgName: string,
     filename: string,
     { signal }
@@ -1395,14 +1399,6 @@ class Storage {
     }
   }
 
-  private isAllowPublishOffline(): boolean {
-    return (
-      typeof this.config.publish !== 'undefined' &&
-      _.isBoolean(this.config.publish.allow_offline) &&
-      this.config.publish.allow_offline
-    );
-  }
-
   /**
    *
    * @param name package name
@@ -1567,8 +1563,8 @@ class Storage {
 
     A package requires uplinks syncronization if enables the proxy section, uplinks
     can be more than one, the more are the most slow request will take, the request
-    are made in serie and if 1st call fails, the second will be triggered, otherwise
-    the 1st will reply and others will be discareded. The order is important.
+    are made in serial and if 1st call fails, the second will be triggered, otherwise
+    the 1st will reply and others will be discarded. The order is important.
 
     Errors on upkinks are considered are, time outs, connection fails and http status 304,
     in that case the request returns empty body and we want ask next on the list if has fresh

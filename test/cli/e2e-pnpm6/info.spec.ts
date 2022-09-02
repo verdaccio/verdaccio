@@ -1,6 +1,6 @@
 import { addRegistry, initialSetup } from '@verdaccio/test-cli-commons';
 
-import { npm } from './utils';
+import { pnpm } from './utils';
 
 describe('install a package', () => {
   jest.setTimeout(10000);
@@ -13,7 +13,8 @@ describe('install a package', () => {
   });
 
   test('should run pnpm info json body', async () => {
-    const resp = await npm(
+    const resp = await pnpm(
+      {},
       'info',
       'verdaccio',
       '--json',

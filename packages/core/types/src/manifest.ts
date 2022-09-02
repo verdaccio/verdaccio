@@ -181,6 +181,7 @@ export interface FullRemoteManifest {
   homepage?: string;
   repository?: string | { type?: string; url: string; directory?: string };
   keywords?: string[];
+  author?: string | Author;
 }
 
 export interface Manifest extends FullRemoteManifest, PublishManifest {

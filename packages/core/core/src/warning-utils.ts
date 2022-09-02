@@ -6,11 +6,18 @@ const verdaccioDeprecation = 'VerdaccioDeprecation';
 
 export enum Codes {
   VERWAR001 = 'VERWAR001',
+  VERWAR002 = 'VERWAR002',
   VERWAR003 = 'VERWAR003',
   VERWAR004 = 'VERWAR004',
   // deprecation warnings
   VERDEP003 = 'VERDEP003',
 }
+
+warningInstance.create(
+  verdaccioWarning,
+  Codes.VERWAR002,
+  `The property config "logs" property is longer supported, rename to "log" and use object instead`
+);
 
 warningInstance.create(
   verdaccioWarning,

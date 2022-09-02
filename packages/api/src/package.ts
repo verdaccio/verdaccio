@@ -59,6 +59,7 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       try {
         const stream = (await storage.getTarballNext(pkg, filename, {
           signal: abort.signal,
+          // TODO: review why this param
           // enableRemote: true,
         })) as any;
 

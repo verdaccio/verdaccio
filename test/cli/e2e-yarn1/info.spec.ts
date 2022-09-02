@@ -14,6 +14,7 @@ describe('install a package', () => {
 
   test('should run yarn info json body', async () => {
     const resp = await yarn(
+      {},
       'info',
       'verdaccio',
       '--json',
