@@ -6,7 +6,7 @@ import { Readable } from 'stream';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { generateUnPublishURI, getNewToken, getPackage, putPackage, verifyPackageVersionDoesExist } from '../../__helper/api';
@@ -335,6 +335,30 @@ describe('endpoint unit test', () => {
 
             expect(res.body).toBeDefined();
             expect(res.body.name).toMatch(/jquery/);
+            done();
+          });
+      });
+
+      test('should fetch abbreviated jquery package from remote uplink', (done) => {
+        request(app)
+          .get('/jquery')
+          .set('accept', 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+            const manifest = res.body;
+            expect(manifest).toBeDefined();
+            expect(manifest.name).toMatch(/jquery/);
+            expect(manifest.description).toBeDefined();
+            expect(manifest[DIST_TAGS]).toBeDefined();
+            expect(manifest.modified).toBeDefined();
+            expect(Object.keys(manifest.versions).length).toHaveLength(48);
+            // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
+            expect(Object.keys(manifest.times).length).toHaveLength(48);
             done();
           });
       });

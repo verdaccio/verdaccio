@@ -171,6 +171,7 @@ export interface IGetPackageOptions {
   keepUpLinkData: boolean;
   uplinksLook: boolean;
   req: any;
+  abbreviated?: boolean;
 }
 
 export interface ISyncUplinks {
