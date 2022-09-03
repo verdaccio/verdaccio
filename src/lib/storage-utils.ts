@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { Author, Package, Version } from '@verdaccio/types';
+import { AbbreviatedManifest, AbbreviatedVersions, Author, Manifest, Package, Version } from '@verdaccio/types';
 
 import { IStorage } from '../../types';
 import { generateRandomHexString } from '../lib/crypto-utils';
@@ -235,4 +235,45 @@ export function isPublishablePackage(pkg: Package): boolean {
   const keys: string[] = Object.keys(pkg);
 
   return _.includes(keys, 'versions');
+}
+
+export function convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
+  const abbreviatedVersions = Object.keys(manifest.versions).reduce((acc: AbbreviatedVersions, version: string) => {
+    const _version = manifest.versions[version];
+    // This should be align with this document
+    // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object
+    const _version_abbreviated = {
+      name: _version.name,
+      version: _version.version,
+      description: _version.description,
+      deprecated: _version.deprecated,
+      bin: _version.bin,
+      dist: _version.dist,
+      engines: _version.engines,
+      funding: _version.funding,
+      directories: _version.directories,
+      dependencies: _version.dependencies,
+      devDependencies: _version.devDependencies,
+      peerDependencies: _version.peerDependencies,
+      optionalDependencies: _version.optionalDependencies,
+      bundleDependencies: _version.bundleDependencies,
+      // npm cli specifics
+      _hasShrinkwrap: _version._hasShrinkwrap,
+      hasInstallScript: _version.hasInstallScript,
+    };
+    acc[version] = _version_abbreviated;
+    return acc;
+  }, {});
+  const convertedManifest = {
+    name: manifest['name'],
+    [DIST_TAGS]: manifest[DIST_TAGS],
+    versions: abbreviatedVersions,
+    // @ts-ignore
+    modified: manifest?.time?.modified,
+    // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
+    time: manifest?.time,
+  };
+
+  // @ts-ignore
+  return convertedManifest;
 }

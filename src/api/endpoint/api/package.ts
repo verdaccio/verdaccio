@@ -8,6 +8,7 @@ import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { ErrorCode, convertDistRemoteToLocalTarballUrls, getVersion } from '../../../lib/utils';
 import { allow } from '../../middleware';
 
+const ABBREVIATED_HEADER = 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
 const downloadStream = (packageName: string, filename: string, storage: any, req: $RequestExtend, res: $ResponseExtend): void => {
   const stream = storage.getTarball(packageName, filename);
 
@@ -72,11 +73,12 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
       }
       return next(ErrorCode.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${req.params.version}`));
     };
-
+    const abbreviated = req.get('Accept') === ABBREVIATED_HEADER;
     storage.getPackage({
       name: req.params.package,
       uplinksLook: true,
       req,
+      abbreviated,
       callback: getPackageMetaCallback,
     });
   });
