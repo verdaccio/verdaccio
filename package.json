@@ -43,7 +43,7 @@
     "jsonwebtoken": "8.5.1",
     "kleur": "4.1.5",
     "lodash": "4.17.21",
-    "lru-cache": "7.13.1",
+    "lru-cache": "7.14.0",
     "lunr-mutable-indexes": "2.3.2",
     "marked": "4.0.19",
     "memoizee": "0.4.15",
