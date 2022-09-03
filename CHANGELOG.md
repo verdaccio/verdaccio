@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.15.0](https://github.com/verdaccio/verdaccio/compare/v5.14.0...v5.15.0) (2022-09-03)
+
+
+### Features
+
+* implement abbreviated manifest ([#3343](https://github.com/verdaccio/verdaccio/issues/3343)) ([966139f](https://github.com/verdaccio/verdaccio/commit/966139ffd832dcaa9f8ebc29da8b583dbbfc729d))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.26 ([#3313](https://github.com/verdaccio/verdaccio/issues/3313)) ([80755f2](https://github.com/verdaccio/verdaccio/commit/80755f21c9a8733073787a5c915c7c64077213f3))
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.28 ([#3335](https://github.com/verdaccio/verdaccio/issues/3335)) ([b1ec0da](https://github.com/verdaccio/verdaccio/commit/b1ec0daecae6ea1532ac020bdda7fc6fbc60606f))
+* **deps:** update dependency dayjs to v1.11.5 ([#3300](https://github.com/verdaccio/verdaccio/issues/3300)) ([6a2b2fa](https://github.com/verdaccio/verdaccio/commit/6a2b2fa36a45bbb5b59f197cba5163e5963e8e31))
+* **deps:** update dependency lru-cache to v7.14.0 ([#3345](https://github.com/verdaccio/verdaccio/issues/3345)) ([628616c](https://github.com/verdaccio/verdaccio/commit/628616ce323577d295d981cfe449da9359b162e4))
+* **deps:** update dependency marked to v4.0.19 (5.x) ([#3328](https://github.com/verdaccio/verdaccio/issues/3328)) ([b80794a](https://github.com/verdaccio/verdaccio/commit/b80794a46f1c1a0aaf41a58fad6af427c87bb0f0))
+* **deps:** update dependency marked to v4.1.0 ([#3346](https://github.com/verdaccio/verdaccio/issues/3346)) ([354f9ee](https://github.com/verdaccio/verdaccio/commit/354f9ee16ceff7f479799f63834da84635d0e6a9))
+
 ## [5.14.0](https://github.com/verdaccio/verdaccio/compare/v5.13.3...v5.14.0) (2022-07-29)
 
 
