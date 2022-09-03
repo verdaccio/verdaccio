@@ -45,7 +45,7 @@
     "lodash": "4.17.21",
     "lru-cache": "7.14.0",
     "lunr-mutable-indexes": "2.3.2",
-    "marked": "4.0.19",
+    "marked": "4.1.0",
     "memoizee": "0.4.15",
     "mime": "3.0.0",
     "minimatch": "5.1.0",
