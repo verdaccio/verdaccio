@@ -56,7 +56,41 @@ helm repo update
 helm install verdaccio/verdaccio
 ```
 
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
+Are you still using **Verdaccio 4**?. Check the [migration guide from 4.x to 5.x](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
+
+## Programmatic API
+
+Verdaccio can be used as a module for launch a server programmatically, [you can find more info at the website](https://verdaccio.org/docs/verdaccio-programmatically#using-the-module-api).
+
+```
+ const {runServer} = require('verdaccio');
+ const app = await runServer(); // default configuration
+ const app = await runServer('./config/config.yaml');
+ const app = await runServer({ configuration });
+ app.listen(4873, (event) => {
+   // do something
+ });
+```
+
+## Verdaccio 6 next
+
+[Verdaccio 6 is on the way](https://github.com/verdaccio/verdaccio/discussions/2970), meanwhile is ready you can start testing (not for production) the new release with:
+
+> Latest Node.js v16 required
+
+Install with npm:
+
+```bash
+npm install --location=global verdaccio@6-next
+```
+
+or
+
+```bash
+docker pull verdaccio/verdaccio:nightly-master
+```
+
+The migration notes can be find [here](https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md).
 
 ## Plugins
 
