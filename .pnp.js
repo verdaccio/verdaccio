@@ -132,7 +132,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
-            ["lru-cache", "npm:7.13.1"],
+            ["lru-cache", "npm:7.14.0"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:4.0.19"],
             ["memoizee", "npm:0.4.15"],
@@ -8138,14 +8138,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js", [
         ["npm:2.6.9", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.9-f821bf686c/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-2.6.9-f821bf686c-00c30207eb.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:2.6.9"]
           ],
           "linkType": "HARD",
         }],
         ["npm:3.22.4", {
-          "packageLocation": "./.yarn/unplugged/core-js-npm-3.22.4-4469b89edf/node_modules/core-js/",
+          "packageLocation": "./.yarn/cache/core-js-npm-3.22.4-4469b89edf-1305b2b9c1.zip/node_modules/core-js/",
           "packageDependencies": [
             ["core-js", "npm:3.22.4"]
           ],
@@ -8174,7 +8174,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["core-js-pure", [
         ["npm:3.23.1", {
-          "packageLocation": "./.yarn/unplugged/core-js-pure-npm-3.23.1-352ee71e9f/node_modules/core-js-pure/",
+          "packageLocation": "./.yarn/cache/core-js-pure-npm-3.23.1-352ee71e9f-bb20413b8f.zip/node_modules/core-js-pure/",
           "packageDependencies": [
             ["core-js-pure", "npm:3.23.1"]
           ],
@@ -13475,10 +13475,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:7.13.1", {
-          "packageLocation": "./.yarn/cache/lru-cache-npm-7.13.1-521ddcc43f-1f3a063cd8.zip/node_modules/lru-cache/",
+        ["npm:7.14.0", {
+          "packageLocation": "./.yarn/cache/lru-cache-npm-7.14.0-354cf654ec-66d0fa6b96.zip/node_modules/lru-cache/",
           "packageDependencies": [
-            ["lru-cache", "npm:7.13.1"]
+            ["lru-cache", "npm:7.14.0"]
           ],
           "linkType": "HARD",
         }]
@@ -15379,7 +15379,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],
       ["puppeteer", [
         ["npm:5.5.0", {
-          "packageLocation": "./.yarn/unplugged/puppeteer-npm-5.5.0-bba75ba998/node_modules/puppeteer/",
+          "packageLocation": "./.yarn/cache/puppeteer-npm-5.5.0-bba75ba998-08ba8a7da5.zip/node_modules/puppeteer/",
           "packageDependencies": [
             ["puppeteer", "npm:5.5.0"],
             ["debug", "virtual:e9a07d9e500f265638a80b6a2d60a63d2c1402dd6a58d2f05af9d82e52be33df29a16291c32b33b9e23f1a0efea054868bd3312893433fe0583e4dba376fe47e#npm:4.1.1"],
@@ -18195,7 +18195,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],
             ["lockfile-lint", "npm:4.6.2"],
             ["lodash", "npm:4.17.21"],
-            ["lru-cache", "npm:7.13.1"],
+            ["lru-cache", "npm:7.14.0"],
             ["lunr-mutable-indexes", "npm:2.3.2"],
             ["marked", "npm:4.0.19"],
             ["memoizee", "npm:0.4.15"],
