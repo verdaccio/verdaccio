@@ -31,7 +31,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --global verdaccio
+npm install --location=global verdaccio
 ```
 
 > Node.js v12 or higher is required for Verdaccio 5
@@ -97,8 +97,8 @@ The migration notes can be find [here](https://github.com/verdaccio/verdaccio/bl
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
 
 ```
-npm install -g yo
-npm install -g generator-verdaccio-plugin
+npm install --location=global yo
+npm install --location=global generator-verdaccio-plugin
 ```
 
 Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins. Share your plugins with the community.
@@ -139,27 +139,13 @@ Furthermore, here few examples how to start:
 - [verdaccio-end-to-end-tests](https://github.com/juanpicado/verdaccio-end-to-end-tests)
 - [verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
 
-## Watch our Videos
+## Talks
 
-**Node Congress 2022, February 2022, Online Free**
+- [**NodeTLV 20222** - Deep dive into Verdaccio, a lightweight Node.js registry - **Juan Picado**](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
+- [Five Ways of Taking Advantage of Verdaccio, Your Private and Proxy Node.js Registry **Node Congress 2022** - **Juan Picado**](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
+- [Using Docker and Verdaccio to make Integration Testing Easy - **Docker All Hands #4 December - 2021** - **Juan Picado**](https://www.youtube.com/watch?v=zRI0skF1f8I)
 
-<div>
-   <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">
-     <img src="https://cdn.verdaccio.dev/readme/nodejscongress2022.jpg" alt="nodejs" width="200"/>
-  </a>
-</div>
-
-You might want to check out as well our previous talks:
-
-- [Using Docker and Verdaccio to make Integration Testing Easy - **Docker All Hands #4 December - 2021**](https://www.youtube.com/watch?v=zRI0skF1f8I)
-- [**Juan Picado** – Testing the integrity of React components by publishing in a private registry - React Finland - 2021](https://www.youtube.com/watch?v=bRKZbrlQqLY&t=16s&ab_channel=ReactFinland)
-- [BeerJS Cba Meetup No. 53 May 2021 - **Juan Picado**](https://www.youtube.com/watch?v=6SyjqBmS49Y&ab_channel=BeerJSCba)
-- [Node.js Dependency Confusion Attacks - April 2021 - **Juan Picado**](https://www.youtube.com/watch?v=qTRADSp3Hpo)
-- [**OpenJS World 2020** about \*Cover your Projects with a Multi purpose Lightweight Node.js Registry - **Juan Picado**](https://www.youtube.com/watch?v=oVCjDWeehAQ)
-- [ViennaJS Meetup - Introduction to Verdaccio by **Priscila Olivera** and **Juan Picado**](https://www.youtube.com/watch?v=hDIFKzmoCa)
-- [Open Source? trivago - Verdaccio (**Ayush** and **Juan Picado**) January 2020](https://www.youtube.com/watch?v=A5CWxJC9xzc)
-- [GitNation Open Source Stage - How we have built a Node.js Registry with React - **Juan Picado** December 2019](https://www.youtube.com/watch?v=gpjC8Qp9B9A)
-- [Verdaccio - A lightweight Private Proxy Registry built in Node.js | **Juan Picado** at The Destro Dev Show](https://www.youtube.com/watch?reload=9&v=P_hxy7W-IL4&ab_channel=TheDestroDevShow)
+[View more in the YouTube channel](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w).
 
 ## Get Started
 
@@ -282,20 +268,19 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 
 ## Who is using Verdaccio?
 
-- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+86.2k ⭐️)_
-- [Gatsby](https://github.com/gatsbyjs/gatsby) _(+49.2k ⭐️)_
-- [Babel.js](https://github.com/babel/babel) _(+38.5k ⭐️)_
-- [Docusaurus](https://github.com/facebook/docusaurus) _(+34k ⭐️)_
-- [Vue CLI](https://github.com/vuejs/vue-cli) _(+27.4k ⭐️)_
-- [Angular CLI](https://github.com/angular/angular-cli) _(+24.3k ⭐️)_
-- [Uppy](https://github.com/transloadit/uppy) _(+23.8k ⭐️)_
-- [bit](https://github.com/teambit/bit) _(+13k ⭐️)_
+- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+96.2k ⭐️)_
+- [Gatsby](https://github.com/gatsbyjs/gatsby) _(+53.5k ⭐️)_
+- [Babel.js](https://github.com/babel/babel) _(+41.3k ⭐️)_
+- [Docusaurus](https://github.com/facebook/docusaurus) _(+37k ⭐️)_
+- [Vue CLI](https://github.com/vuejs/vue-cli) _(+29.4k ⭐️)_
+- [Angular CLI](https://github.com/angular/angular-cli) _(+25.6k ⭐️)_
+- [Uppy](https://github.com/transloadit/uppy) _(+25.8k ⭐️)_
+- [pnpm](https://github.com/pnpm/pnpm) _(+19.2k ⭐️)_
+- [bit](https://github.com/teambit/bit) _(+15k ⭐️)_
+- [NX](https://github.com/nrwl/nx) _(+14.1k ⭐️)_
 - [Aurelia Framework](https://github.com/aurelia/framework) _(+11.6k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+10.1k ⭐️)_
 - [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+9.8k ⭐️)_
-- [NX](https://github.com/nrwl/nx) _(+6.1k ⭐️)_
-- [webiny-js](https://github.com/webiny/webiny-js) _(+4.3k ⭐️)_
-- [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3.7k ⭐️)_
+- [webiny-js](https://github.com/webiny/webiny-js) _(+5.9k ⭐️)_
 - [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1k ⭐️)_
 - [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
 - [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
