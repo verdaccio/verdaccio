@@ -357,9 +357,9 @@ describe('endpoint unit test', () => {
             expect(manifest.readme).not.toBeDefined();
             expect(manifest[DIST_TAGS]).toBeDefined();
             expect(manifest.modified).toBeDefined();
-            expect(Object.keys(manifest.versions).length).toHaveLength(48);
+            expect(Object.keys(manifest.versions)).toHaveLength(48);
             // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
-            expect(Object.keys(manifest.times).length).toHaveLength(48);
+            expect(Object.keys(manifest.time)).toHaveLength(51);
             done();
           });
       });
