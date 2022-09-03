@@ -353,7 +353,8 @@ describe('endpoint unit test', () => {
             const manifest = res.body;
             expect(manifest).toBeDefined();
             expect(manifest.name).toMatch(/jquery/);
-            expect(manifest.description).toBeDefined();
+            expect(manifest.description).not.toBeDefined();
+            expect(manifest.readme).not.toBeDefined();
             expect(manifest[DIST_TAGS]).toBeDefined();
             expect(manifest.modified).toBeDefined();
             expect(Object.keys(manifest.versions).length).toHaveLength(48);
