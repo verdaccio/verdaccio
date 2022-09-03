@@ -254,17 +254,17 @@ Verdaccio aims to support all features of a standard npm client that make sense 
 
 If you want to report a security vulnerability, please follow the steps which we have defined for you in our [security policy](https://github.com/verdaccio/verdaccio/security/policy).
 
-## Core Team
+## Contributors
 
-| [Juan Picado](https://github.com/juanpicado)                                   | [Ayush Sharma](https://github.com/ayusharma)                             | [Sergio Hg](https://github.com/sergiohgz)                                 |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------- |
-| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=120&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=120&v=4) |
-| [@jotadeveloper](https://twitter.com/jotadeveloper)                            | [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@sergiohgz](https://twitter.com/sergiohgz)                               |
-| [Priscila Oliveria](https://github.com/priscilawebdev)                         | [Daniel Ruf](https://github.com/DanielRuf)                               |
-| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  |
-| [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          |
+| [Juan Picado](https://github.com/juanpicado)                                  | [Ayush Sharma](https://github.com/ayusharma)                            | [Sergio Hg](https://github.com/sergiohgz)                                |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=80&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=80&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=80&v=4) |
+| [@jotadeveloper](https://twitter.com/jotadeveloper)                           | [@ayusharma\_](https://twitter.com/ayusharma_)                          | [@sergiohgz](https://twitter.com/sergiohgz)                              |
+| [Priscila Oliveria](https://github.com/priscilawebdev)                        | [Daniel Ruf](https://github.com/DanielRuf)                              |
+| ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=80&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=80&v=4)  |
+| [@priscilawebdev](https://twitter.com/priscilawebdev)                         | [@DanielRufde](https://twitter.com/DanielRufde)                         |
 
-You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at _Twitter_.
+[See the full list of contributors is at the website.](https://verdaccio.org/contributors)
 
 ## Who is using Verdaccio?
 
