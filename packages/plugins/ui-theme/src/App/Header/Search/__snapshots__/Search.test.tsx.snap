@@ -81,7 +81,9 @@ exports[`<Search /> component should load the component in default state 1`] = `
 }
 
 .emotion-2 .MuiOutlinedInput-root.MuiInputBase-sizeSmall {
-  padding: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
 }
 
 .emotion-2 .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input {
