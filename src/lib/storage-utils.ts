@@ -228,7 +228,7 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
 }
 
 /**
- * Check whether the package metadta has enough data to be published
+ * Check whether the package metadata has enough data to be published
  * @param pkg metadata
  */
 export function isPublishablePackage(pkg: Package): boolean {
