@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.15.1](https://github.com/verdaccio/verdaccio/compare/v5.15.0...v5.15.1) (2022-09-04)
+
+
+### Bug Fixes
+
+* add missing fields to abbreviated metadata ([#3347](https://github.com/verdaccio/verdaccio/issues/3347)) ([317177a](https://github.com/verdaccio/verdaccio/commit/317177a937c1c4d7e47317eff0039c8bcb28d602))
+
 ## [5.15.0](https://github.com/verdaccio/verdaccio/compare/v5.14.0...v5.15.0) (2022-09-03)
 
 
