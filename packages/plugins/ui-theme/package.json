@@ -72,7 +72,7 @@
     "redux": "4.2.0",
     "rimraf": "3.0.2",
     "raw-loader": "4.0.2",
-    "msw": "0.46.1",
+    "msw": "0.47.0",
     "style-loader": "3.3.1",
     "stylelint": "14.10.0",
     "stylelint-config-recommended": "7.0.0",
