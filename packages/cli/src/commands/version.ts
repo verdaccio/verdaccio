@@ -6,7 +6,7 @@ export class VersionCommand extends Command {
 
   async execute() {
     const version = require('../../package.json').version;
-    this.context.stdout.write(`v${version}`);
+    this.context.stdout.write(`v${version}\n`);
     process.exit(0);
   }
 }
