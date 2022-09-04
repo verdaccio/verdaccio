@@ -4071,10 +4071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/types@npm:10.6.0":
-  version: 10.6.0
-  resolution: "@verdaccio/types@npm:10.6.0"
-  checksum: 7065a8551b9e3f622143fba73e0088a824bf432fb4ea9b02d6f3042929f1faf3a2c1289a0b724963631bdbd5d9a17c96471bede5452a2538f4ecc63e3880628c
+"@verdaccio/types@npm:10.7.0":
+  version: 10.7.0
+  resolution: "@verdaccio/types@npm:10.7.0"
+  checksum: 5f88847beaaa9e58884b1e82b884d0ab6adb176be59ae5926c27170937cca4d00ba654e5ca6b6cd6ec420ce37fbd9f1f7f0bd9a4201764ed29a2a1020fd56675
   languageName: node
   linkType: hard
 
@@ -15056,7 +15056,7 @@ typescript@4.1.3:
     "@verdaccio/local-storage": 10.3.1
     "@verdaccio/readme": 10.4.1
     "@verdaccio/streams": 10.2.0
-    "@verdaccio/types": 10.6.0
+    "@verdaccio/types": 10.7.0
     "@verdaccio/ui-theme": 6.0.0-6-next.28
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
