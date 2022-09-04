@@ -85,7 +85,6 @@ importers:
       nodemon: 2.0.19
       npm-run-all: 4.1.5
       prettier: 2.7.1
-      pretty-format: 29.0.2
       rimraf: 3.0.2
       selfsigned: 1.10.14
       supertest: 6.2.4
@@ -178,7 +177,6 @@ importers:
       nodemon: 2.0.19
       npm-run-all: 4.1.5
       prettier: 2.7.1
-      pretty-format: 29.0.2
       rimraf: 3.0.2
       selfsigned: 1.10.14
       supertest: 6.2.4
@@ -7887,7 +7885,7 @@ packages:
     resolution: {integrity: sha512-YYknwy0D0iOwKQgz9v8nOzt2J6l4gouBmDnWqUUznltOTaon+r8US8ky8HvN0tXvc38U9m6z/t2RsVsnd1zM0g==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.48
+      '@types/react': 17.0.49
 
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}

@@ -79,7 +79,6 @@
     "cross-env": "7.0.3",
     "debug": "4.3.4",
     "detect-secrets": "1.0.6",
-    "pretty-format": "29.0.2",
     "jest-diff": "29.0.2",
     "eslint": "8.22.0",
     "fs-extra": "10.1.0",
