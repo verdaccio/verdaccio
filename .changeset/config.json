@@ -2,7 +2,9 @@
   "$schema": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "linked": [],
+  "fixed": [
+    ["verdaccio", "@verdaccio/cli", "@verdaccio/core", "@verdaccio/config", "@verdaccio/node-api"]
+  ],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
