@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`test Developers should render the component for contributors with items 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-1 {
   margin: 0;
@@ -304,7 +304,7 @@ Object {
 `;
 
 exports[`test Developers should render the component for maintainers with items 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-1 {
   margin: 0;
@@ -607,7 +607,7 @@ Object {
 `;
 
 exports[`test Developers should render the component with no items 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div />
