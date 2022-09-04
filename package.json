@@ -74,7 +74,6 @@
     "babel-jest": "27.5.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "babel-plugin-emotion": "10.2.2",
-    "codecov": "3.8.3",
     "concurrently": "6.5.1",
     "core-js": "3.25.0",
     "cross-env": "7.0.3",
