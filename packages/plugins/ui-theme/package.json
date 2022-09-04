@@ -33,7 +33,7 @@
     "@testing-library/dom": "8.17.1",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.36",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.47",
     "@verdaccio/types": "workspace:*",
     "babel-loader": "8.2.5",
     "babel-plugin-dynamic-import-node": "2.3.3",
