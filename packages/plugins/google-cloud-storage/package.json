@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@google-cloud/datastore": "6.5.0",
-    "@google-cloud/storage": "5.14.0",
+    "@google-cloud/storage": "5.20.5",
     "@verdaccio/core": "workspace:6.0.0-6-next.5"
   },
   "devDependencies": {
