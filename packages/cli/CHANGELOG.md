@@ -1,5 +1,15 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.47
+
+### Patch Changes
+
+- 020ede43: fix: version with breakline
+  - @verdaccio/core@6.0.0-6-next.47
+  - @verdaccio/config@6.0.0-6-next.47
+  - @verdaccio/node-api@6.0.0-6-next.47
+  - @verdaccio/logger@6.0.0-6-next.15
+
 ## 6.0.0-6-next.38
 
 ### Patch Changes

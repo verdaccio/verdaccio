@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger",
-  "version": "6.0.0-6-next.14",
+  "version": "6.0.0-6-next.15",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,7 +39,7 @@
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.8",
+    "@verdaccio/core": "workspace:6.0.0-6-next.47",
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.7",
     "debug": "4.3.4",
     "colorette": "2.0.19",
