@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<UpLinks /> component should render the component when there is no uplink 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-0 {
   margin: 0;
@@ -92,7 +92,7 @@ Object {
 `;
 
 exports[`<UpLinks /> component should render the component with uplinks 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-1 {
   margin: 0;

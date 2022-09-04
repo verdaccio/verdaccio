@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Author /> component should render the component in default state 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-0 {
   list-style: none;
@@ -560,7 +560,7 @@ Object {
 `;
 
 exports[`<Author /> component should render the component when there is no author email 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": .emotion-0 {
   list-style: none;

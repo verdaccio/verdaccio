@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Spinner /> component should render the component in default state 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": @keyframes animation-0 {
   0% {

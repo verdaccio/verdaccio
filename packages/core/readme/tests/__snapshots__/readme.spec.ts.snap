@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`readme mix readmes / markdown should parse marked 1`] = `"<h1 id="mix-html-and-xss-markdown">mix html and XSS markdown</h1><p><a>Basic</a></p><p><a href="https://github.com/webpack/webpack"><img src="https://webpack.js.org/assets/icon-square-big.svg" height="200" width="200"></a></p>"`;
