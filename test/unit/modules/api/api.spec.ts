@@ -339,12 +339,40 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('should fetch abbreviated jquery package from remote uplink', (done) => {
+      test.each(['application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*', 'application/json; q=1.0; q=1.0, */*', 'application/json'])(
+        'should not fetch abbreviated jquery package from remote uplink with %s',
+        (accept, done: any) => {
+          request(app)
+            .get('/jquery')
+            .set('accept', accept)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+            .expect(HTTP_STATUS.OK)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              const manifest = res.body;
+              expect(manifest).toBeDefined();
+              expect(manifest.name).toMatch(/jquery/);
+              expect(manifest.readme).toBeDefined();
+              done();
+            });
+        }
+      );
+
+      test.each([
+        'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*',
+        'application/vnd.npm.install-v1+json; q=1.0, */*',
+        'application/vnd.npm.install-v1+json',
+      ])('should fetch abbreviated jquery package from remote uplink with %s', (accept, done: any) => {
         request(app)
           .get('/jquery')
-          .set('accept', 'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*')
+          .set('accept', accept)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             if (err) {
