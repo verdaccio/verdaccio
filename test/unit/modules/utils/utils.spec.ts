@@ -21,7 +21,7 @@ import {
   validateName,
   validatePackage,
 } from '../../../../src/lib/utils';
-import { spliceURL } from '../../../../src/utils/string';
+import { getByQualityPriorityValue, spliceURL } from '../../../../src/utils/string';
 import { GENERIC_AVATAR, generateGravatarUrl } from '../../../../src/utils/user';
 import { readFile } from '../../../functional/lib/test.utils';
 
@@ -368,6 +368,23 @@ describe('Utilities', () => {
       expect(isHTTPProtocol('.logo.png')).toBeFalsy();
       expect(isHTTPProtocol('/static/logo.png')).toBeFalsy();
       expect(isHTTPProtocol('F:\\static\\logo.png')).toBeFalsy();
+    });
+
+    test('getByQualityPriorityValue', () => {
+      expect(getByQualityPriorityValue('')).toEqual('');
+      expect(getByQualityPriorityValue(null)).toEqual('');
+      expect(getByQualityPriorityValue(undefined)).toEqual('');
+      expect(getByQualityPriorityValue('something')).toEqual('something');
+      expect(getByQualityPriorityValue('something,')).toEqual('something');
+      expect(getByQualityPriorityValue('0,')).toEqual('0');
+      expect(getByQualityPriorityValue('application/json')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json; q=1')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json; q=')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json;')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=, */*')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.9, */*')).toEqual('application/vnd.npm.install-v1+json');
+      expect(getByQualityPriorityValue('application/vnd.npm.install-v1+json; q=, application/json; q=0.9, */*')).toEqual('application/json');
     });
   });
 
