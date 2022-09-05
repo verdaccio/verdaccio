@@ -346,8 +346,8 @@ describe('endpoint unit test', () => {
             .get('/jquery')
             .set('accept', accept)
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-            .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+            .expect(HEADERS.CONTENT_TYPE, HEADERS.JSON_CHARSET)
             .expect(HTTP_STATUS.OK)
             .end(function (err, res) {
               if (err) {
@@ -371,8 +371,8 @@ describe('endpoint unit test', () => {
           .get('/jquery')
           .set('accept', accept)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+          .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
             if (err) {

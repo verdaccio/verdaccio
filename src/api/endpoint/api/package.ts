@@ -46,6 +46,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
   const can = allow(auth);
   // TODO: anonymous user?
   route.get('/:package/:version?', can('access'), function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    const abbreviated = getByQualityPriorityValue(req.get('Accept')) === 'application/vnd.npm.install-v1+json';
     const getPackageMetaCallback = function (err, metadata: Package): void {
       if (err) {
         return next(err);
@@ -54,11 +55,18 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
 
       let queryVersion = req.params.version;
       if (_.isNil(queryVersion)) {
+        if (abbreviated) {
+          res.setHeader(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json');
+        } else {
+          res.setHeader(HEADERS.CONTENT_TYPE, HEADERS.JSON);
+        }
+
         return next(metadata);
       }
 
       let version = getVersion(metadata, queryVersion);
       if (_.isNil(version) === false) {
+        res.setHeader(HEADERS.CONTENT_TYPE, HEADERS.JSON);
         return next(version);
       }
 
@@ -67,6 +75,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
           queryVersion = metadata[DIST_TAGS][queryVersion];
           version = getVersion(metadata, queryVersion);
           if (_.isNil(version) === false) {
+            res.setHeader(HEADERS.CONTENT_TYPE, HEADERS.JSON);
             return next(version);
           }
         }
@@ -74,7 +83,6 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler, c
       return next(ErrorCode.getNotFound(`${API_ERROR.VERSION_NOT_EXIST}: ${req.params.version}`));
     };
 
-    const abbreviated = getByQualityPriorityValue(req.get('Accept')) === 'application/vnd.npm.install-v1+json';
     storage.getPackage({
       name: req.params.package,
       uplinksLook: true,
