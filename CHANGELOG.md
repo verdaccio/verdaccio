@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.15.2](https://github.com/verdaccio/verdaccio/compare/v5.15.1...v5.15.2) (2022-09-05)
+
+
+### Bug Fixes
+
+* get header by quality priority value ([#3359](https://github.com/verdaccio/verdaccio/issues/3359)) ([cdb80aa](https://github.com/verdaccio/verdaccio/commit/cdb80aac20b98855638ac9c8eeca700076b2c519))
+
 ### [5.15.1](https://github.com/verdaccio/verdaccio/compare/v5.15.0...v5.15.1) (2022-09-04)
 
 
