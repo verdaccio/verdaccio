@@ -379,6 +379,8 @@ describe('Utilities', () => {
       expect(getByQualityPriorityValue('0,')).toEqual('0');
       expect(getByQualityPriorityValue('application/json')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/json; q=1')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json; q=')).toEqual('application/json');
+      expect(getByQualityPriorityValue('application/json;')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=, */*')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.9, */*')).toEqual('application/vnd.npm.install-v1+json');
