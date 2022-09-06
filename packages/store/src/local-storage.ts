@@ -60,6 +60,7 @@ class LocalStorage {
 
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
+      debug('no custom storage found, loading default storage @verdaccio/local-storage');
       return new LocalDatabase(config, logger);
     }
     return Storage as IPluginStorage;
@@ -77,7 +78,8 @@ class LocalStorage {
       plugin_params,
       (plugin): IPluginStorage => {
         return plugin.getPackageStorage;
-      }
+      },
+      this.config?.server?.pluginPrefix
     );
 
     return _.head(plugins);

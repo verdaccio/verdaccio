@@ -147,7 +147,8 @@ export default (async function (configHash: ConfigYaml): Promise<any> {
     config,
     config.filters || {},
     plugin_params,
-    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata
+    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata,
+    config?.server?.pluginPrefix
   );
   debug('loaded filter plugin');
   // @ts-ignore

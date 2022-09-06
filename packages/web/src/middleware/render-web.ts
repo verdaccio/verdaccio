@@ -12,19 +12,20 @@ import { setSecurityWebHeaders } from './security';
 
 const debug = buildDebug('verdaccio:web:render');
 
-export function loadTheme(config) {
+export function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
-    return _.head(
+    const plugin = _.head(
       loadPlugin(
         config,
         config.theme,
         {},
         function (plugin) {
-          return _.isString(plugin);
+          return typeof plugin === 'string';
         },
-        'verdaccio-theme'
+        config?.server?.pluginPrefix ?? 'verdaccio-theme'
       )
     );
+    return plugin;
   }
 }
 
@@ -40,7 +41,8 @@ const sendFileCallback = (next) => (err) => {
 };
 
 export function renderWebMiddleware(config, auth): any {
-  const { staticPath, manifest, manifestFiles } = require('@verdaccio/ui-theme')();
+  const { staticPath, manifest, manifestFiles } =
+    loadTheme(config) || require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
 
   /* eslint new-cap:off */

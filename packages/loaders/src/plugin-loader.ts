@@ -16,11 +16,14 @@ export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
  */
 function tryLoad(path: string): any {
   try {
+    debug('loading plugin %s', path);
     return require(path);
   } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
+      debug('plugin %s not found', path);
       return null;
     }
+    logger.error({ err: err.msg }, 'error loading plugin @{err}');
     throw err;
   }
 }
@@ -42,6 +45,7 @@ function isES6(plugin): boolean {
 /**
  * Load a plugin following the rules
  * - First try to load from the internal directory plugins (which will disappear soon or later).
+ * - If the package is scoped eg: @scope/foo, try to load as a package
  * - A second attempt from the external plugin directory
  * - A third attempt from node_modules, in case to have multiple match as for instance
  * verdaccio-ldap
@@ -50,6 +54,7 @@ function isES6(plugin): boolean {
  * @param {*} pluginConfigs
  * @param {*} params a set of params to initialize the plugin
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
+ * @param {*} prefix by default is verdaccio but can be override with config.server.pluginPrefix
  * @return {Array} list of plugins
  */
 export function loadPlugin<T extends IPlugin<T>>(
@@ -61,8 +66,15 @@ export function loadPlugin<T extends IPlugin<T>>(
 ): any[] {
   return Object.keys(pluginConfigs).map((pluginId: string): IPlugin<T> => {
     let plugin;
+    const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
+    debug('isScoped %s', isScoped);
+    if (isScoped) {
+      plugin = tryLoad(pluginId);
+    }
 
+    // let isDirectory = false;
     const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
+    // console.log('--localPlugin', localPlugin);
     // try local plugins first
     plugin = tryLoad(localPlugin);
 
@@ -75,20 +87,16 @@ export function loadPlugin<T extends IPlugin<T>>(
       // npm package
       if (plugin === null && pluginId.match(/^[^\.\/]/)) {
         plugin = tryLoad(Path.resolve(pluginDir, `${prefix}-${pluginId}`));
-        // compatibility for old sinopia plugins
-        if (!plugin) {
-          plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
-        }
+      }
+
+      if (plugin) {
+        debug('plugin %s is an npm package', pluginId);
       }
     }
 
     // npm package
     if (plugin === null && pluginId.match(/^[^\.\/]/)) {
       plugin = tryLoad(`${prefix}-${pluginId}`);
-      // compatibility for old sinopia plugins
-      if (!plugin) {
-        plugin = tryLoad(`sinopia-${pluginId}`);
-      }
     }
 
     if (plugin === null) {
@@ -102,12 +110,20 @@ export function loadPlugin<T extends IPlugin<T>>(
     }
 
     if (plugin === null) {
-      logger.error(
-        { content: pluginId, prefix },
-        'plugin not found. try npm install @{prefix}-@{content}'
-      );
-      throw Error(`
-        ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`);
+      if (isScoped) {
+        logger.error({ content: pluginId }, 'plugin not found. try npm install @{content}');
+      } else {
+        logger.error(
+          { content: pluginId, prefix },
+          'plugin not found. try npm install @{prefix}-@{content}'
+        );
+      }
+      const msg = isScoped
+        ? `
+      ${pluginId} plugin not found. try "npm install ${pluginId}"`
+        : `
+      ${prefix}-${pluginId} plugin not found. try "npm install ${prefix}-${pluginId}"`;
+      throw Error(msg);
     }
 
     if (!isValid(plugin)) {
@@ -120,9 +136,13 @@ export function loadPlugin<T extends IPlugin<T>>(
 
     /* eslint new-cap:off */
     try {
-      plugin = isES6(plugin)
-        ? new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params)
-        : new plugin(pluginConfigs[pluginId], params);
+      if (isES6(plugin)) {
+        debug('plugin is ES6');
+        plugin = new plugin.default(mergeConfig(config, pluginConfigs[pluginId]), params);
+      } else {
+        debug('plugin is commonJS');
+        plugin = plugin(pluginConfigs[pluginId], params);
+      }
     } catch (error: any) {
       plugin = null;
       logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
@@ -130,14 +150,26 @@ export function loadPlugin<T extends IPlugin<T>>(
     /* eslint new-cap:off */
 
     if (plugin === null || !sanityCheck(plugin)) {
-      logger.error(
-        { content: pluginId, prefix },
-        "@{prefix}-@{content} doesn't look like a valid plugin"
-      );
+      if (isScoped) {
+        logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
+      } else {
+        logger.error(
+          { content: pluginId, prefix },
+          "@{prefix}-@{content} doesn't look like a valid plugin"
+        );
+      }
       throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
     }
 
-    debug('Plugin successfully loaded: %o-%o', pluginId, prefix);
+    debug('Plugin successfully loaded: %o-%o', prefix, pluginId);
+    if (isScoped) {
+      logger.info({ content: pluginId }, 'plugin successfully loaded: @{content}');
+    } else {
+      logger.info(
+        { content: pluginId, prefix },
+        'plugin successfully loaded: @{prefix}-@{content}'
+      );
+    }
     return plugin;
   });
 }

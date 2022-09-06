@@ -226,6 +226,13 @@ export type ServerSettingsConf = {
   // express-rate-limit settings
   rateLimit: RateLimit;
   keepAliveTimeout?: number;
+  /**
+   * Plugins should be prefixed verdaccio-XXXXXX by default.
+   * To override the default prefix, use this property without `-`
+   * If you set pluginPrefix: acme, the packages to resolve will be
+   * acme-XXXXXX
+   */
+  pluginPrefix?: string;
 };
 
 /**

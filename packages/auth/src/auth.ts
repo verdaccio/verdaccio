@@ -135,7 +135,8 @@ class Auth implements IAuth {
 
         // @ts-ignore
         return authenticate || allow_access || allow_publish;
-      }
+      },
+      config?.server?.pluginPrefix
     );
   }
 
