@@ -5,6 +5,7 @@ import * as pkgUtils from './pkg-utils';
 import * as pluginUtils from './plugin-utils';
 import * as searchUtils from './search-utils';
 import * as streamUtils from './stream-utils';
+import * as stringUtils from './string-utils';
 import * as validatioUtils from './validation-utils';
 import * as warningUtils from './warning-utils';
 
@@ -33,6 +34,7 @@ export {
   // TODO: remove this typo
   validatioUtils,
   validationUtils,
+  stringUtils,
   constants,
   pluginUtils,
   warningUtils,

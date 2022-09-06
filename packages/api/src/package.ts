@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { IAuth } from '@verdaccio/auth';
-import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
@@ -25,7 +25,8 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
       const name = req.params.package;
       let version = req.params.version;
       const write = req.query.write === 'true';
-      const abbreviated = req.get('Accept') === Storage.ABBREVIATED_HEADER;
+      const abbreviated =
+        stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
       const requestOptions = {
         protocol: req.protocol,
         headers: req.headers as any,
@@ -43,6 +44,12 @@ export default function (route: Router, auth: IAuth, storage: Storage): void {
           version,
           requestOptions,
         });
+        if (abbreviated) {
+          _res.setHeader(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET);
+        } else {
+          _res.setHeader(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+        }
+
         next(manifest);
       } catch (err) {
         next(err);
