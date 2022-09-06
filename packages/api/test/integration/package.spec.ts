@@ -90,7 +90,7 @@ describe('package', () => {
           .get(`/${pkg}`)
           .set(HEADERS.ACCEPT, HEADERS.JSON)
           .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
           .expect(HTTP_STATUS.OK);
         expect(response.body.name).toEqual(pkg);
         expect(response.body.time).toBeDefined();

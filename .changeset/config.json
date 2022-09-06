@@ -3,7 +3,14 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [
-    ["verdaccio", "@verdaccio/cli", "@verdaccio/core", "@verdaccio/config", "@verdaccio/node-api"]
+    [
+      "verdaccio",
+      "@verdaccio/cli",
+      "@verdaccio/core",
+      "@verdaccio/config",
+      "@verdaccio/node-api",
+      "@verdaccio/ui-theme"
+    ]
   ],
   "access": "public",
   "baseBranch": "master",

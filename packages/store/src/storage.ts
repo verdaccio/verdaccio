@@ -94,8 +94,7 @@ class Storage {
     debug('uplinks available %o', Object.keys(this.uplinks));
   }
 
-  static ABBREVIATED_HEADER =
-    'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*';
+  static ABBREVIATED_HEADER = 'application/vnd.npm.install-v1+json';
 
   /**
    * Change an existing package (i.e. unpublish one version)

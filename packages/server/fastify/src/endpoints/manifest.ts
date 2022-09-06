@@ -1,6 +1,8 @@
 import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
 
+import { stringUtils } from '@verdaccio/core';
+import { Storage } from '@verdaccio/store';
 import { Package, Version } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:fastify:api:sidebar');
@@ -17,7 +19,9 @@ async function manifestRoute(fastify: FastifyInstance) {
     const storage = fastify.storage;
     debug('pkg name %s ', name);
     // @ts-ignore
-    const abbreviated = request.headers['accept'] === Storage.ABBREVIATED_HEADER;
+    const abbreviated =
+      stringUtils.getByQualityPriorityValue(request.headers['accept']) ===
+      Storage.ABBREVIATED_HEADER;
     const data = await storage?.getPackageByOptions({
       name,
       // @ts-ignore
