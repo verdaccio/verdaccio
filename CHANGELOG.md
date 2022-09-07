@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.15.3](https://github.com/verdaccio/verdaccio/compare/v5.15.2...v5.15.3) (2022-09-07)
+
+
+### Bug Fixes
+
+* remove stringify with space responses ([#3364](https://github.com/verdaccio/verdaccio/issues/3364)) ([90e7cfd](https://github.com/verdaccio/verdaccio/commit/90e7cfd1edcd7e7111ff742e001e454c54bc6efd))
+
 ### [5.15.2](https://github.com/verdaccio/verdaccio/compare/v5.15.1...v5.15.2) (2022-09-05)
 
 
