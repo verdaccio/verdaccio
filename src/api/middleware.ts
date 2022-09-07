@@ -200,7 +200,7 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
         if (typeof (body as MiddlewareError).error === 'string') {
           res.locals._verdaccio_error = (body as MiddlewareError).error;
         }
-        body = JSON.stringify(body, undefined, '  ') + '\n';
+        body = JSON.stringify(body);
       }
 
       // don't send etags with errors
