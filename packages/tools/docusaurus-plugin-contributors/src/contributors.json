@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4829,
+      "contributions": 4830,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2595
+          "contributions": 2596
         },
         {
           "name": "verdaccio-cookbook",
@@ -506,6 +506,21 @@
       ]
     },
     {
+      "id": 4052340,
+      "login": "rblaine95",
+      "contributions": 9,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        },
+        {
+          "name": "charts",
+          "contributions": 8
+        }
+      ]
+    },
+    {
       "id": 90692458,
       "login": "Meeeeow",
       "contributions": 8,
@@ -566,21 +581,6 @@
         {
           "name": "monorepo",
           "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 4052340,
-      "login": "rblaine95",
-      "contributions": 8,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        },
-        {
-          "name": "charts",
-          "contributions": 7
         }
       ]
     },
@@ -4692,7 +4692,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 13838,
+      "stargazers_count": 13853,
       "archived": false
     },
     {
@@ -4773,7 +4773,7 @@
       "full_name": "verdaccio/local-storage",
       "html_url": "https://github.com/verdaccio/local-storage",
       "description": "📦 File system storage plugin for verdaccio (built-in)",
-      "stargazers_count": 17,
+      "stargazers_count": 18,
       "archived": true
     },
     {
@@ -4818,7 +4818,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 62,
+      "stargazers_count": 63,
       "archived": false
     },
     {
@@ -4971,7 +4971,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 40,
+      "stargazers_count": 41,
       "archived": false
     },
     {
