@@ -224,7 +224,7 @@ Please note that for any of the above docker commands you need to have docker in
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
-[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
+[https://github.com/verdaccio/docker-examples](https://[github.com/verdaccio/docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples))
 
 ## Docker Custom Builds {#docker-custom-builds}
 
