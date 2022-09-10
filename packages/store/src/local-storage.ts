@@ -3,7 +3,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { errorUtils, pluginUtils } from '@verdaccio/core';
-import { loadPlugin } from '@verdaccio/loaders';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
 import { Config, Logger } from '@verdaccio/types';
 
@@ -31,7 +31,7 @@ class LocalStorage {
 
   public async init() {
     if (this.storagePlugin === null) {
-      this.storagePlugin = this._loadStorage(this.config, this.logger);
+      this.storagePlugin = await this.loadStorage(this.config, this.logger);
       debug('storage plugin init');
       await this.storagePlugin.init();
       debug('storage plugin initialized');
@@ -55,9 +55,8 @@ class LocalStorage {
     return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
   }
 
-  private _loadStorage(config: Config, logger: Logger): IPluginStorage {
-    const Storage = this._loadStorePlugin();
-
+  private async loadStorage(config: Config, logger: Logger): Promise<IPluginStorage> {
+    const Storage = await this.loadStorePlugin();
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
@@ -66,21 +65,24 @@ class LocalStorage {
     return Storage as IPluginStorage;
   }
 
-  private _loadStorePlugin(): IPluginStorage | void {
-    const plugin_params = {
-      config: this.config,
-      logger: this.logger,
-    };
-
-    const plugins: IPluginStorage[] = loadPlugin<IPluginStorage>(
-      this.config,
+  private async loadStorePlugin(): Promise<IPluginStorage | undefined> {
+    const plugins: IPluginStorage[] = await asyncLoadPlugin<IPluginStorage>(
       this.config.store,
-      plugin_params,
+      {
+        config: this.config,
+        logger: this.logger,
+      },
       (plugin): IPluginStorage => {
         return plugin.getPackageStorage;
       },
       this.config?.server?.pluginPrefix
     );
+
+    if (plugins.length > 1) {
+      this.logger.warn(
+        'more than one storage plugins has been detected, multiple storage are not supported, one will be selected automatically'
+      );
+    }
 
     return _.head(plugins);
   }

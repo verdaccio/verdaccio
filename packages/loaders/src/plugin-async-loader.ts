@@ -35,7 +35,7 @@ export type Params = { config: Config; logger: Logger };
  * @return {Array} list of plugins
  */
 export async function asyncLoadPlugin<T extends IPlugin<T>>(
-  pluginConfigs: any,
+  pluginConfigs: any = {},
   params: Params,
   sanityCheck: any,
   prefix: string = 'verdaccio'

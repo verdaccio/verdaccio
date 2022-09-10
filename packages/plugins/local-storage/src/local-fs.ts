@@ -97,10 +97,10 @@ export default class LocalFS implements ILocalFSPackageManager {
       if (locked) {
         debug('unlock %s', packageJSONFileName);
         await this._unlockJSON(packageJSONFileName);
-        this.logger.debug({ packageName }, 'the package @{packageName}  has been updated');
+        this.logger.debug({ packageName }, 'the package @{packageName} has been updated');
         return manifestUpdated;
       } else {
-        this.logger.debug({ packageName }, 'the package @{packageName}  has been updated');
+        this.logger.debug({ packageName }, 'the package @{packageName} has been updated');
         return manifestUpdated;
       }
     } catch (err: any) {
