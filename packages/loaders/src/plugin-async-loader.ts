@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { lstat } from 'fs/promises';
-import { resolve } from 'path';
+import { isAbsolute, join, resolve } from 'path';
 
 import { logger, setup } from '@verdaccio/logger';
 import { Config, IPlugin, Logger } from '@verdaccio/types';
@@ -47,10 +47,24 @@ export async function asyncLoadPlugin<T extends IPlugin<T>>(
     debug('plugin %s', pluginId);
     try {
       if (typeof config.plugins === 'string') {
-        logger.debug({ path: config.plugins }, 'loading plugins from @{path} ');
+        let pluginsPath = config.plugins;
+        if (!isAbsolute(pluginsPath)) {
+          if (typeof config.config_path === 'string' && !config.configPath) {
+            logger.error(
+              'configPath is missing and the legacy config.config_path is not available for loading plugins'
+            );
+          }
+
+          if (!config.configPath) {
+            throw new Error('config path property is required for loading plugins');
+          }
+          pluginsPath = resolve(join(config.configPath, pluginsPath));
+        }
+
+        logger.debug({ path: pluginsPath }, 'loading plugins from @{path} ');
         // throws if is nto a directory
-        await isDirectory(config.plugins);
-        const pluginDir = config.plugins;
+        await isDirectory(pluginsPath);
+        const pluginDir = pluginsPath;
         const externalFilePlugin = resolve(pluginDir, `${prefix}-${pluginId}`);
         let plugin = tryLoad(externalFilePlugin);
         if (plugin && isValid(plugin)) {
