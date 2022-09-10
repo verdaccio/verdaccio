@@ -4,7 +4,7 @@ import { setup } from '@verdaccio/logger';
 
 import { loadPlugin } from '../src/plugin-loader';
 
-setup([]);
+setup();
 
 describe('plugin loader', () => {
   const relativePath = path.join(__dirname, './partials/test-plugin-storage');

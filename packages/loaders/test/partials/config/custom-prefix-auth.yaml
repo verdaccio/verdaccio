@@ -1,0 +1,3 @@
+auth:
+  '@verdaccio-scope/verdaccio-auth-foo':
+    enabled: true

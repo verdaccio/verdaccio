@@ -10,7 +10,7 @@ import url from 'url';
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import server from '@verdaccio/server';
+import expressServer from '@verdaccio/server';
 import fastifyServer from '@verdaccio/server-fastify';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
@@ -123,7 +123,7 @@ export async function initServer(
         }
       });
     } else {
-      app = await server(config);
+      app = await expressServer(config);
       const serverFactory = createServerFactory(config, addr, app);
       serverFactory
         .listen(addr.port || addr.path, addr.host, (): void => {

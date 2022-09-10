@@ -1,44 +1,12 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
 import Path from 'path';
 
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin } from '@verdaccio/types';
 
+import { isES6, isValid, mergeConfig, tryLoad } from './utils';
+
 const debug = buildDebug('verdaccio:plugin:loader');
-
-export const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
-
-/**
- * Requires a module.
- * @param {*} path the module's path
- * @return {Object}
- */
-function tryLoad(path: string): any {
-  try {
-    debug('loading plugin %s', path);
-    return require(path);
-  } catch (err: any) {
-    if (err.code === MODULE_NOT_FOUND) {
-      debug('plugin %s not found', path);
-      return null;
-    }
-    logger.error({ err: err.msg }, 'error loading plugin @{err}');
-    throw err;
-  }
-}
-
-function mergeConfig(appConfig, pluginConfig): Config {
-  return _.merge(appConfig, pluginConfig);
-}
-
-function isValid(plugin): boolean {
-  return _.isFunction(plugin) || _.isFunction(plugin.default);
-}
-
-function isES6(plugin): boolean {
-  return Object.keys(plugin).includes('default');
-}
 
 // export type PluginGeneric<R, T extends IPlugin<R> = ;
 
@@ -72,11 +40,15 @@ export function loadPlugin<T extends IPlugin<T>>(
       plugin = tryLoad(pluginId);
     }
 
-    // let isDirectory = false;
+    let isDirectory = false;
     const localPlugin = Path.resolve(__dirname + '/../plugins', pluginId);
     // console.log('--localPlugin', localPlugin);
     // try local plugins first
     plugin = tryLoad(localPlugin);
+
+    if (plugin !== null) {
+      isDirectory = true;
+    }
 
     // try the external plugin directory
     if (plugin === null && config.plugins) {
@@ -113,10 +85,14 @@ export function loadPlugin<T extends IPlugin<T>>(
       if (isScoped) {
         logger.error({ content: pluginId }, 'plugin not found. try npm install @{content}');
       } else {
-        logger.error(
-          { content: pluginId, prefix },
-          'plugin not found. try npm install @{prefix}-@{content}'
-        );
+        if (isDirectory) {
+          logger.error({ content: pluginId }, 'plugin not found.');
+        } else {
+          logger.error(
+            { content: pluginId, prefix },
+            'plugin not found. try npm install @{prefix}-@{content}'
+          );
+        }
       }
       const msg = isScoped
         ? `
@@ -127,10 +103,17 @@ export function loadPlugin<T extends IPlugin<T>>(
     }
 
     if (!isValid(plugin)) {
-      logger.error(
-        { content: pluginId },
-        '@{prefix}-@{content} plugin does not have the right code structure'
-      );
+      if (isDirectory) {
+        logger.error(
+          { content: pluginId },
+          'plugin located at @{content} does not have the right code structure'
+        );
+      } else {
+        logger.error(
+          { content: pluginId },
+          '@{prefix}-@{content} plugin does not have the right code structure'
+        );
+      }
       throw Error(`"${pluginId}" plugin does not have the right code structure`);
     }
 
@@ -153,10 +136,14 @@ export function loadPlugin<T extends IPlugin<T>>(
       if (isScoped) {
         logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
       } else {
-        logger.error(
-          { content: pluginId, prefix },
-          "@{prefix}-@{content} doesn't look like a valid plugin"
-        );
+        if (isDirectory) {
+          logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
+        } else {
+          logger.error(
+            { content: pluginId, prefix },
+            "@{prefix}-@{content} doesn't look like a valid plugin"
+          );
+        }
       }
       throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
     }
@@ -165,10 +152,14 @@ export function loadPlugin<T extends IPlugin<T>>(
     if (isScoped) {
       logger.info({ content: pluginId }, 'plugin successfully loaded: @{content}');
     } else {
-      logger.info(
-        { content: pluginId, prefix },
-        'plugin successfully loaded: @{prefix}-@{content}'
-      );
+      if (isDirectory) {
+        logger.info({ content: pluginId }, 'plugin successfully loaded: @{content}');
+      } else {
+        logger.info(
+          { content: pluginId, prefix },
+          'plugin successfully loaded: @{prefix}-@{content}'
+        );
+      }
     }
     return plugin;
   });

@@ -135,9 +135,9 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
   return app;
 };
 
-export default (async function (configHash: ConfigYaml): Promise<any> {
+export default (async function startServer(configHash: ConfigYaml): Promise<any> {
   debug('start server');
-  const config: IConfig = new AppConfig(_.cloneDeep(configHash) as any);
+  const config: IConfig = new AppConfig({ ...configHash } as any);
   // register middleware plugins
   const plugin_params = {
     config: config,

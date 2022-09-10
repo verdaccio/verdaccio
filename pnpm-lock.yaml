@@ -434,6 +434,7 @@ importers:
       customprefix-auth: 0.0.1
       debug: 4.3.4
       lodash: 4.17.21
+      verdaccio-auth-memory: workspace:*
     dependencies:
       '@verdaccio/logger': link:../logger
       debug: 4.3.4
@@ -444,6 +445,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/types': link:../core/types
       customprefix-auth: link:../tools/verdaccio-prefix-fake-plugin
+      verdaccio-auth-memory: link:../plugins/auth-memory
 
   packages/logger:
     specifiers:
