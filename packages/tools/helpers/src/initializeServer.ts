@@ -31,10 +31,14 @@ export async function initializeServer(
   app.use(bodyParser.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware);
-  // @ts-ignore
-  routesMiddleware.map((route: any) => {
-    app.use(route(config, auth, storage));
-  });
+  for (let route of routesMiddleware) {
+    if (route.async) {
+      const middleware = await route.routes(config, auth, storage);
+      app.use(middleware);
+    } else {
+      app.use(route(config, auth, storage));
+    }
+  }
 
   // catch 404
   app.get('/*', function (req, res, next) {

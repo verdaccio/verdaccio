@@ -29,7 +29,7 @@ export interface IPluginMiddleware<T> extends IPlugin<T> {
 
 const debug = buildDebug('verdaccio:server');
 
-const defineAPI = function (config: IConfig, storage: Storage): any {
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
   const app: Application = express();
   const limiter = new RateLimit(config.serverSettings.rateLimit);
@@ -96,7 +96,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use(webMiddleware(config, auth, storage));
+    app.use(await webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(errorUtils.getNotFound(API_ERROR.WEB_DISABLED));
@@ -162,5 +162,5 @@ export default (async function startServer(configHash: ConfigYaml): Promise<any>
     logger.error({ error: err.msg }, 'storage has failed: @{error}');
     throw new Error(err);
   }
-  return defineAPI(config, storage);
+  return await defineAPI(config, storage);
 });
