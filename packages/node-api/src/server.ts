@@ -196,6 +196,6 @@ export async function runServer(config?: string | ConfigYaml): Promise<any> {
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
   const [addr] = getListListenAddresses(undefined, configurationParsed.listen);
-  const app = await server(configurationParsed);
+  const app = await expressServer(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
 }
