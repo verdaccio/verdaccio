@@ -4,21 +4,24 @@ import { getDefaultConfig } from '@verdaccio/config';
 
 export const authProfileConf = {
   ...getDefaultConfig(),
+  plugins: path.join(__dirname, '../partials/plugin'),
   auth: {
-    [`${path.join(__dirname, '../partials/plugin/authenticate.success')}`]: {},
+    success: {},
   },
 };
 
 export const authPluginFailureConf = {
   ...getDefaultConfig(),
+  plugins: path.join(__dirname, '../partials/plugin'),
   auth: {
-    [`${path.join(__dirname, '../partials/plugin/authenticate.fail.js')}`]: {},
+    fail: {},
   },
 };
 
 export const authPluginPassThrougConf = {
   ...getDefaultConfig(),
+  plugins: path.join(__dirname, '../partials/plugin'),
   auth: {
-    [`${path.join(__dirname, '../partials/plugin/authenticate.passthroug')}`]: {},
+    passthroug: {},
   },
 };

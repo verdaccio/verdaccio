@@ -20,7 +20,7 @@ jest.mock('../src/fs', () => ({
 setup();
 
 // @ts-expect-error
-const optionsPlugin: PluginOptions<{}> = {
+const optionsPlugin: PluginOptions = {
   logger,
 };
 

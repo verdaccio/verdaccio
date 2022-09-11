@@ -8,6 +8,7 @@ export default fp(
   async function (fastify: FastifyInstance, opts: { config: IConfig; filters?: unknown }) {
     const { config } = opts;
     const auth: IAuth = new Auth(config);
+    await auth.init();
     fastify.decorate('auth', auth);
   },
   {

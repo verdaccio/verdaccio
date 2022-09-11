@@ -71,6 +71,7 @@ describe('Auth utilities', () => {
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
     const auth: IAuth = new Auth(config);
+    await auth.init();
     // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);
     // @ts-ignore
@@ -409,6 +410,7 @@ describe('Auth utilities', () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
         const auth: IAuth = new Auth(config);
+        await auth.init();
         const token = auth.aesEncrypt(null);
         const security: Security = config.security;
         const credentials = getMiddlewareCredentials(

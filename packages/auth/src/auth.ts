@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import _ from 'lodash';
-import { HTPasswd, HTPasswdConfig } from 'verdaccio-htpasswd';
+import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
@@ -12,7 +12,7 @@ import {
   VerdaccioError,
   errorUtils,
 } from '@verdaccio/core';
-import { loadPlugin } from '@verdaccio/loaders';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import {
   AllowAccess,
   AuthPluginPackage,
@@ -82,6 +82,7 @@ export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, TokenEncrypt
   plugins: any[];
   allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
   invalidateToken(token: string): Promise<void>;
+  init(): Promise<void>;
 }
 
 class Auth implements IAuth {
@@ -94,24 +95,33 @@ class Auth implements IAuth {
     this.config = config;
     this.logger = LoggerApi.logger.child({ sub: 'auth' });
     this.secret = config.secret;
+    this.plugins = [];
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
     }
+  }
 
-    this.plugins =
-      _.isNil(config?.auth) === false ? this._loadPlugin(config) : this.loadDefaultPlugin(config);
+  public async init() {
+    // this.plugins =
+    let plugins = await this.loadPlugin();
+    debug('auth plugins found %s', plugins.length);
+    if (!plugins || plugins.length === 0) {
+      plugins = this.loadDefaultPlugin();
+    }
+    this.plugins = plugins;
+
     this._applyDefaultPlugins();
   }
 
-  private loadDefaultPlugin(config: Config) {
-    const plugingConf: HTPasswdConfig = { ...config, file: './htpasswd' };
-    const pluginOptions: PluginOptions<{}> = {
-      config,
+  private loadDefaultPlugin() {
+    debug('load default auth plugin');
+    const pluginOptions: PluginOptions = {
+      config: this.config,
       logger: this.logger,
     };
     let authPlugin;
     try {
-      authPlugin = new HTPasswd(plugingConf, pluginOptions as any as PluginOptions<HTPasswdConfig>);
+      authPlugin = new HTPasswd({ file: './htpasswd' }, pluginOptions as any as PluginOptions);
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       return [];
@@ -120,23 +130,20 @@ class Auth implements IAuth {
     return [authPlugin];
   }
 
-  private _loadPlugin(config: Config): IPluginAuth<Config>[] {
-    const pluginOptions = {
-      config,
-      logger: this.logger,
-    };
-
-    return loadPlugin<IPluginAuth<Config>>(
-      config,
-      config.auth,
-      pluginOptions,
+  private async loadPlugin(): Promise<IPluginAuth<Config>[]> {
+    return asyncLoadPlugin<IPluginAuth<Config>>(
+      this.config.auth,
+      {
+        config: this.config,
+        logger: this.logger,
+      },
       (plugin: IPluginAuth<Config>): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
 
         // @ts-ignore
         return authenticate || allow_access || allow_publish;
       },
-      config?.server?.pluginPrefix
+      this.config?.server?.pluginPrefix
     );
   }
 

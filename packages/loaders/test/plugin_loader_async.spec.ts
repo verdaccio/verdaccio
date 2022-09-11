@@ -115,6 +115,13 @@ describe('plugin loader', () => {
       expect(plugins).toHaveLength(1);
     });
 
+    test('should handle not found installed package', async () => {
+      const config = getConfig('npm-plugin-not-found.yaml');
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, (p) => p.anyMethod);
+
+      expect(plugins).toHaveLength(0);
+    });
+
     test('testing load auth npm package invalid method check', async () => {
       const config = getConfig('npm-plugin-auth.yaml');
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, (p) => p.anyMethod);
@@ -137,6 +144,24 @@ describe('plugin loader', () => {
     test('testing load auth scope npm package', async () => {
       const config = getConfig('scope-auth.yaml');
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+      expect(plugins).toHaveLength(1);
+    });
+  });
+
+  describe('fallback plugins', () => {
+    test('should fallback to npm package if does not find on plugins folder', async () => {
+      const config = getConfig('npm-plugin-auth.yaml');
+      config.plugins = pluginsPartialsFolder;
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+      expect(plugins).toHaveLength(1);
+    });
+
+    test('should fallback to npm package if plugins folder does not exist', async () => {
+      const config = getConfig('npm-plugin-auth.yaml');
+      config.plugins = '/does-not-exist';
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
       expect(plugins).toHaveLength(1);
     });
   });

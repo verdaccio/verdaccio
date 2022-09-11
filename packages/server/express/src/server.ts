@@ -31,6 +31,7 @@ const debug = buildDebug('verdaccio:server');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
+  await auth.init();
   const app: Application = express();
   const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case

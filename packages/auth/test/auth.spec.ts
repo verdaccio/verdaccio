@@ -12,22 +12,22 @@ import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from
 setup([]);
 
 describe('AuthTest', () => {
-  test('should be defined', () => {
+  test('should be defined', async () => {
     const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
     config.checkSecretKey('12345');
 
     const auth: IAuth = new Auth(config);
-
+    await auth.init();
     expect(auth).toBeDefined();
   });
 
   describe('test authenticate method', () => {
     describe('test authenticate states', () => {
-      test('should be a success login', () => {
+      test('should be a success login', async () => {
         const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -50,11 +50,11 @@ describe('AuthTest', () => {
         });
       });
 
-      test('should be a fail on login', () => {
+      test('should be a fail on login', async () => {
         const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -69,11 +69,11 @@ describe('AuthTest', () => {
     // that might make break the request
     // the @ts-ignore below are intended
     describe('test authenticate out of control inputs from plugins', () => {
-      test('should skip falsy values', () => {
+      test('should skip falsy values', async () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -89,11 +89,11 @@ describe('AuthTest', () => {
         }
       });
 
-      test('should error truthy non-array', () => {
+      test('should error truthy non-array', async () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -107,11 +107,11 @@ describe('AuthTest', () => {
         }
       });
 
-      test('should skip empty array', () => {
+      test('should skip empty array', async () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -124,11 +124,11 @@ describe('AuthTest', () => {
         expect(callback.mock.calls[0][1]).toBeUndefined();
       });
 
-      test('should accept valid array', () => {
+      test('should accept valid array', async () => {
         const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
-
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();

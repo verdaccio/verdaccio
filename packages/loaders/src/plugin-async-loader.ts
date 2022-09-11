@@ -2,12 +2,10 @@ import buildDebug from 'debug';
 import { lstat } from 'fs/promises';
 import { isAbsolute, join, resolve } from 'path';
 
-import { logger, setup } from '@verdaccio/logger';
+import { logger } from '@verdaccio/logger';
 import { Config, IPlugin, Logger } from '@verdaccio/types';
 
 import { isES6, isValid, tryLoad } from './utils';
-
-setup({ level: 'debug' });
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
@@ -45,24 +43,26 @@ export async function asyncLoadPlugin<T extends IPlugin<T>>(
   let plugins: any[] = [];
   for (let pluginId of pluginsIds) {
     debug('plugin %s', pluginId);
-    try {
-      if (typeof config.plugins === 'string') {
-        let pluginsPath = config.plugins;
-        if (!isAbsolute(pluginsPath)) {
-          if (typeof config.config_path === 'string' && !config.configPath) {
-            logger.error(
-              'configPath is missing and the legacy config.config_path is not available for loading plugins'
-            );
-          }
-
-          if (!config.configPath) {
-            throw new Error('config path property is required for loading plugins');
-          }
-          pluginsPath = resolve(join(config.configPath, pluginsPath));
+    if (typeof config.plugins === 'string') {
+      let pluginsPath = config.plugins;
+      debug('plugin path %s', pluginsPath);
+      if (!isAbsolute(pluginsPath)) {
+        if (typeof config.config_path === 'string' && !config.configPath) {
+          logger.error(
+            'configPath is missing and the legacy config.config_path is not available for loading plugins'
+          );
         }
 
-        logger.debug({ path: pluginsPath }, 'loading plugins from @{path} ');
-        // throws if is nto a directory
+        if (!config.configPath) {
+          logger.error('config path property is required for loading plugins');
+          continue;
+        }
+        pluginsPath = resolve(join(config.configPath, pluginsPath));
+      }
+
+      logger.debug({ path: pluginsPath }, 'loading plugins from @{path} ');
+      // throws if is nto a directory
+      try {
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
         const externalFilePlugin = resolve(pluginDir, `${prefix}-${pluginId}`);
@@ -79,28 +79,38 @@ export async function asyncLoadPlugin<T extends IPlugin<T>>(
           plugins.push(plugin);
           continue;
         }
-      } else if (typeof pluginId === 'string') {
-        const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
-        const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
-        let plugin = tryLoad(pluginName);
-        if (plugin && isValid(plugin)) {
-          plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
-          if (!sanityCheck(plugin)) {
-            logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
-            continue;
-          }
-          plugins.push(plugin);
+      } catch (err: any) {
+        logger.error(
+          { err: err.message, pluginsPath, pluginId },
+          'error @{err} on loading plugins at @{pluginsPath} for @{pluginId} '
+        );
+      }
+    }
+
+    if (typeof pluginId === 'string') {
+      const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
+      debug('is scoped plugin %s', isScoped);
+      const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
+      debug('plugin pkg name %s', pluginName);
+      let plugin = tryLoad(pluginName);
+      if (plugin && isValid(plugin)) {
+        plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
+        if (!sanityCheck(plugin)) {
+          logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
           continue;
         }
+        plugins.push(plugin);
+        continue;
+      } else {
+        logger.error(
+          { pluginName },
+          'package not found, try to install @{pluginName} with a package manager'
+        );
+        continue;
       }
-    } catch (err: any) {
-      logger.error(
-        { content: config.plugins, err: err.message },
-        'error @{err} processing plugin @{content}'
-      );
     }
   }
-
+  debug('plugin found %s', plugins.length);
   return plugins;
 }
 

@@ -16,7 +16,7 @@ class ExampleAuthPlugin implements IPluginAuth<{}> {
   config: AppConfig;
   logger: Logger;
 
-  constructor(config: AppConfig, options: PluginOptions<{}>) {
+  constructor(config: AppConfig, options: PluginOptions) {
     this.config = config;
     this.logger = options.logger;
   }
@@ -50,7 +50,7 @@ class ExampleAuthCustomPlugin implements IPluginAuth<{}> {
   config: AppConfig;
   logger: Logger;
 
-  constructor(config: AppConfig, options: PluginOptions<{}>) {
+  constructor(config: AppConfig, options: PluginOptions) {
     this.config = config;
     this.logger = options.logger;
   }
@@ -81,7 +81,7 @@ const config1: AppConfig = new Config({
   config_path: '/home/sotrage',
 });
 
-const options: PluginOptions<{}> = {
+const options: PluginOptions = {
   config: config1,
   logger: logger.child(),
 };
