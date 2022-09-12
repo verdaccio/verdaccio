@@ -8,6 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test for public javascript library vulnerabilities
-        uses: lirantal/is-website-vulnerable@1.15.10
+        uses: lirantal/is-website-vulnerable@02d7916b29a1fd9d6a9bea0d83960d4288afa1a6 # tag=1.15.10
         with:
           scan-url: "https://registry.verdaccio.org"
