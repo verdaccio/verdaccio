@@ -48,6 +48,10 @@ This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
 
 ## Breaking Changes
 
+### sinopia plugins
+
+- `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
 ### plugin filter
 
 - method rename `filter_metadata`->`filterMetadata`
