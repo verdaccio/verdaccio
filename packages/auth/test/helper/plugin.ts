@@ -25,3 +25,11 @@ export const authPluginPassThrougConf = {
     passthroug: {},
   },
 };
+
+export const authFailInvalidMethod = {
+  ...getDefaultConfig(),
+  plugins: path.join(__dirname, '../partials/plugin'),
+  auth: {
+    'fail-invalid-method': {},
+  },
+};

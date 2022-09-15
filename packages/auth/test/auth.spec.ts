@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import path from 'path';
 
 import { IAuth } from '@verdaccio/auth';
-import { Config as AppConfig, ROLES } from '@verdaccio/config';
+import { Config as AppConfig, ROLES, getDefaultConfig } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
@@ -12,8 +12,17 @@ import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from
 setup([]);
 
 describe('AuthTest', () => {
-  test('should be defined', async () => {
-    const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+  test('should init correctly', async () => {
+    const config: Config = new AppConfig({ ...authProfileConf });
+    config.checkSecretKey('12345');
+
+    const auth: IAuth = new Auth(config);
+    await auth.init();
+    expect(auth).toBeDefined();
+  });
+
+  test('should load default auth plugin', async () => {
+    const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
     config.checkSecretKey('12345');
 
     const auth: IAuth = new Auth(config);
@@ -24,7 +33,7 @@ describe('AuthTest', () => {
   describe('test authenticate method', () => {
     describe('test authenticate states', () => {
       test('should be a success login', async () => {
-        const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+        const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
         await auth.init();
@@ -70,7 +79,7 @@ describe('AuthTest', () => {
     // the @ts-ignore below are intended
     describe('test authenticate out of control inputs from plugins', () => {
       test('should skip falsy values', async () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
         await auth.init();
@@ -90,7 +99,7 @@ describe('AuthTest', () => {
       });
 
       test('should error truthy non-array', async () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
         await auth.init();
@@ -108,7 +117,7 @@ describe('AuthTest', () => {
       });
 
       test('should skip empty array', async () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
         await auth.init();
@@ -125,7 +134,7 @@ describe('AuthTest', () => {
       });
 
       test('should accept valid array', async () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
         const auth: IAuth = new Auth(config);
         await auth.init();
@@ -141,6 +150,33 @@ describe('AuthTest', () => {
           expect(call[0]).toBeNull();
           expect(call[1].real_groups).toBe(value);
         }
+      });
+    });
+  });
+
+  describe('test multiple authenticate methods', () => {
+    test('should skip falsy values', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          success: {},
+          'fail-invalid-method': {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: IAuth = new Auth(config);
+      await auth.init();
+
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
+          });
+          resolve(value);
+        });
       });
     });
   });

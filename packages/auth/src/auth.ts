@@ -102,7 +102,6 @@ class Auth implements IAuth {
   }
 
   public async init() {
-    // this.plugins =
     let plugins = await this.loadPlugin();
     debug('auth plugins found %s', plugins.length);
     if (!plugins || plugins.length === 0) {

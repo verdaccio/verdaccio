@@ -11,7 +11,7 @@ import apiEndpoint from '@verdaccio/api';
 import { Auth, IBasicAuth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
 import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { loadPlugin } from '@verdaccio/loaders';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -63,27 +63,21 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     hookDebug(app, config.configPath);
   }
 
-  // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger: logger,
-  };
-
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
-    config,
+  const plugins: IPluginMiddleware<IConfig>[] = await asyncLoadPlugin(
     config.middlewares,
-    plugin_params,
+    {
+      config,
+      logger,
+    },
     function (plugin: IPluginMiddleware<IConfig>) {
       return plugin.register_middlewares;
     }
   );
 
-  if (_.isEmpty(plugins)) {
+  if (plugins.length === 0) {
+    logger.info('none middleware plugins has been defined, adding audit middleware by default');
     plugins.push(
-      new AuditMiddleware(
-        { ...config, enabled: true, strict_ssl: true },
-        { config, logger: logger }
-      )
+      new AuditMiddleware({ ...config, enabled: true, strict_ssl: true }, { config, logger })
     );
   }
 
