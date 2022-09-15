@@ -16,7 +16,7 @@ import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
-import { Config as IConfig, IPlugin, IPluginStorageFilter } from '@verdaccio/types';
+import { Config as IConfig, IPlugin } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
@@ -140,24 +140,13 @@ export default (async function startServer(configHash: ConfigYaml): Promise<any>
   debug('start server');
   const config: IConfig = new AppConfig({ ...configHash } as any);
   // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger,
-  };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata,
-    config?.server?.pluginPrefix
-  );
   debug('loaded filter plugin');
   // @ts-ignore
   const storage: Storage = new Storage(config);
   try {
     // waits until init calls have been initialized
     debug('storage init start');
-    await storage.init(config, filters);
+    await storage.init(config);
     debug('storage init end');
   } catch (err: any) {
     logger.error({ error: err.msg }, 'storage has failed: @{error}');
