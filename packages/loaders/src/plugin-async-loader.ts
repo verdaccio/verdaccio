@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { lstat } from 'fs/promises';
-import { isAbsolute, join, resolve } from 'path';
+import { dirname, isAbsolute, join, resolve } from 'path';
 
 import { logger } from '@verdaccio/logger';
 import { Config, IPlugin, Logger } from '@verdaccio/types';
@@ -63,10 +63,10 @@ export async function asyncLoadPlugin<T extends IPlugin<T>>(
           logger.error('config path property is required for loading plugins');
           continue;
         }
-        pluginsPath = resolve(join(config.configPath, pluginsPath));
+        pluginsPath = resolve(join(dirname(config.configPath), pluginsPath));
       }
 
-      logger.debug({ path: pluginsPath }, 'loading plugins from @{path} ');
+      logger.debug({ path: pluginsPath }, 'plugins folder defined, loading plugins from @{path} ');
       // throws if is nto a directory
       try {
         await isDirectory(pluginsPath);
@@ -86,9 +86,9 @@ export async function asyncLoadPlugin<T extends IPlugin<T>>(
           continue;
         }
       } catch (err: any) {
-        logger.error(
+        logger.warn(
           { err: err.message, pluginsPath, pluginId },
-          'error @{err} on loading plugins at @{pluginsPath} for @{pluginId} '
+          '@{err} on loading plugins at @{pluginsPath} for @{pluginId}'
         );
       }
     }

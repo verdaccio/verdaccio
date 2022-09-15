@@ -14,7 +14,8 @@
 
 # path to a directory with all packages
 storage: /verdaccio/storage/data
-# path to a directory with plugins to include
+# path to a directory with plugins to include, the plugins folder has the higher priority for loading plugins
+# disable this folder to avoid warnings if is not used
 plugins: /verdaccio/plugins
 
 # https://verdaccio.org/docs/webui
