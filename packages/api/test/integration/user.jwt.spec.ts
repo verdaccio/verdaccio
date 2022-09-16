@@ -7,6 +7,8 @@ import { createUser, getPackage, initializeServer } from './_helper';
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
+jest.setTimeout(20000);
+
 describe('token', () => {
   describe('basics', () => {
     const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
@@ -24,25 +26,21 @@ describe('token', () => {
       expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
     });
 
-    test.each([['user.yaml'], ['user.jwt.yaml']])(
-      'should test add a new user',
-      async (conf) => {
-        const app = await initializeServer(conf);
-        const credentials = { name: 'JotaJWT', password: 'secretPass' };
-        const response = await createUser(app, credentials.name, credentials.password);
-        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
-        const response2 = await supertest(app)
-          .put(`/-/user/org.couchdb.user:${credentials.name}`)
-          .send({
-            name: credentials.name,
-            password: credentials.password,
-          })
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.CONFLICT);
-        expect(response2.body.error).toBe(API_ERROR.USERNAME_ALREADY_REGISTERED);
-      },
-      20000
-    );
+    test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'JotaJWT', password: 'secretPass' };
+      const response = await createUser(app, credentials.name, credentials.password);
+      expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+      const response2 = await supertest(app)
+        .put(`/-/user/org.couchdb.user:${credentials.name}`)
+        .send({
+          name: credentials.name,
+          password: credentials.password,
+        })
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.CONFLICT);
+      expect(response2.body.error).toBe(API_ERROR.USERNAME_ALREADY_REGISTERED);
+    });
 
     test.each([['user.yaml'], ['user.jwt.yaml']])(
       'should fails on login if user credentials are invalid even if jwt',
