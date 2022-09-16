@@ -41,7 +41,7 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
     childProcess.on('exit', (error) => {
-      if (!error && typeof stderr !== 'undefined') {
+      if (!error) {
         resolve({ stdout, stderr });
       } else {
         err.message += `${error}...\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}\n`;
