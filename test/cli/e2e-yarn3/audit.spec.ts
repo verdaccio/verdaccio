@@ -4,7 +4,7 @@ import { initialSetup, prepareYarnModernProject } from '@verdaccio/test-cli-comm
 
 import { getYarnCommand, yarn } from './utils';
 
-describe('audit a package yarn 4', () => {
+describe('audit a package yarn 3', () => {
   jest.setTimeout(10000);
   let registry;
   let projectFolder;
@@ -22,7 +22,7 @@ describe('audit a package yarn 4', () => {
     projectFolder = tempFolder;
   });
 
-  test('should run yarn npm audit info json body', async () => {
+  test.skip('should run yarn npm audit info json body', async () => {
     await yarn(projectFolder, 'install');
     const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
