@@ -23,7 +23,7 @@ describe('audit a package yarn 3', () => {
   });
 
   test('should run yarn npm audit info json body', async () => {
-    await yarn(projectFolder, 'install', '--no-immutable');
+    await yarn(projectFolder, 'install');
     const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.advisories).toBeDefined();
