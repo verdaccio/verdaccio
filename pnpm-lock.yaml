@@ -426,20 +426,26 @@ importers:
 
   packages/loaders:
     specifiers:
+      '@verdaccio-scope/verdaccio-auth-foo': 0.0.2
       '@verdaccio/config': workspace:6.0.0-6-next.47
       '@verdaccio/core': workspace:6.0.0-6-next.47
       '@verdaccio/logger': workspace:6.0.0-6-next.15
       '@verdaccio/types': workspace:11.0.0-6-next.16
+      customprefix-auth: 0.0.1
       debug: 4.3.4
       lodash: 4.17.21
+      verdaccio-auth-memory: workspace:*
     dependencies:
       '@verdaccio/logger': link:../logger
       debug: 4.3.4
       lodash: 4.17.21
     devDependencies:
+      '@verdaccio-scope/verdaccio-auth-foo': 0.0.2
       '@verdaccio/config': link:../config
       '@verdaccio/core': link:../core/core
       '@verdaccio/types': link:../core/types
+      customprefix-auth: link:../tools/verdaccio-prefix-fake-plugin
+      verdaccio-auth-memory: link:../plugins/auth-memory
 
   packages/logger:
     specifiers:
@@ -1091,6 +1097,9 @@ importers:
       '@verdaccio/types': link:../../core/types
       ts-node: 10.9.1_03bba433ca420ee50bf31a7f62506788
       verdaccio: link:../../verdaccio
+
+  packages/tools/verdaccio-prefix-fake-plugin:
+    specifiers: {}
 
   packages/types:
     specifiers:
@@ -9340,6 +9349,21 @@ packages:
       '@typescript-eslint/types': 5.37.0
       eslint-visitor-keys: 3.3.0
 
+  /@verdaccio-scope/verdaccio-auth-foo/0.0.2:
+    resolution: {integrity: sha512-BqeDqLcYcm3CRYlrQnAueKg8vabBtqwgZ4jRLZJtig+JWzSX50sKdWrzbhf6waQT/HjRO+ADUs/2gjl1tdOTMQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@verdaccio/commons-api': 10.2.0
+    dev: true
+
+  /@verdaccio/commons-api/10.2.0:
+    resolution: {integrity: sha512-F/YZANu4DmpcEV0jronzI7v2fGVWkQ5Mwi+bVmV+ACJ+EzR0c9Jbhtbe5QyLUuzR97t8R5E/Xe53O0cc2LukdQ==}
+    engines: {node: '>=8'}
+    dependencies:
+      http-errors: 2.0.0
+      http-status-codes: 2.2.0
+    dev: true
+
   /@vue/compiler-core/3.0.11:
     resolution: {integrity: sha512-6sFj6TBac1y2cWCvYCA8YzHJEbsVkX7zdRs/3yK/n1ilvRqcn983XvpBbnN3v4mZ1UiQycTvOiajJmOgN9EVgw==}
     dependencies:
@@ -15119,7 +15143,6 @@ packages:
 
   /http-status-codes/2.2.0:
     resolution: {integrity: sha512-feERVo9iWxvnejp3SEfm/+oNG517npqL2/PIA8ORjyOZjGC7TwCRQsZylciLS64i6pJ0wRYz3rkXLRwbtFa8Ng==}
-    dev: false
 
   /http2-wrapper/1.0.3:
     resolution: {integrity: sha512-V+23sDMr12Wnz7iTcDeJr3O6AIxlnvT/bmaAAAP/Xda35C90p9599p0F1eHR/N1KILWSoWVAiOMFjBBXaXSMxg==}

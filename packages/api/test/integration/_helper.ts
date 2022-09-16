@@ -27,7 +27,8 @@ export const getConf = (conf) => {
 };
 
 export async function initializeServer(configName): Promise<Application> {
-  return initializeServerHelper(getConf(configName), [apiMiddleware], Storage);
+  const config = getConf(configName);
+  return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
 export function createUser(app, name: string, password: string): supertest.Test {

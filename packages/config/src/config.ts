@@ -43,7 +43,7 @@ class Config implements AppConfig {
   public configPath: string;
   public storage: string | void;
 
-  public plugins: string | void;
+  public plugins: string | void | null;
   public security: Security;
   public serverSettings: ServerSettingsConf;
   // @ts-ignore

@@ -1,0 +1,13 @@
+{
+  "name": "customprefix-auth",
+  "version": "0.0.1",
+  "private": true,
+  "description": "fake plugin for test",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 0"
+  }
+}

@@ -1,11 +1,11 @@
 import buildDebug from 'debug';
 
 import { errorUtils } from '@verdaccio/core';
-import { Callback, Config, IPluginStorage, Logger, PluginOptions, Token } from '@verdaccio/types';
+import { Callback, IPluginStorage, Logger, PluginOptions, Token } from '@verdaccio/types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 
-export type ConfigMemory = Config & { limit?: number };
+export type ConfigMemory = { limit?: number };
 export interface MemoryLocalStorage {
   secret: string;
   list: string[];
@@ -22,7 +22,7 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   private data: MemoryLocalStorage;
   public config: ConfigMemory;
 
-  public constructor(config: ConfigMemory, options: PluginOptions<ConfigMemory>) {
+  public constructor(config: ConfigMemory, options: PluginOptions) {
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;

@@ -3,6 +3,7 @@ import buildDebug from 'debug';
 import { API_ERROR, errorUtils } from '@verdaccio/core';
 import {
   Callback,
+  Config,
   IPluginAuth,
   Logger,
   PackageAccess,
@@ -18,12 +19,9 @@ export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
   public _logger: Logger;
   public _users: Users;
   public _config: {};
-  public _app_config: VerdaccioMemoryConfig;
+  public _app_config: Config;
 
-  public constructor(
-    config: VerdaccioMemoryConfig,
-    appOptions: PluginOptions<VerdaccioMemoryConfig>
-  ) {
+  public constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions) {
     this._users = config.users || {};
     this._config = config;
     this._logger = appOptions.logger;

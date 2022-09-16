@@ -84,7 +84,7 @@ export type IPackageStorageManager = ILocalPackageManager;
  */
 interface ILocalData<T> extends IPlugin<T>, ITokenActions {
   logger: Logger;
-  config: T & Config;
+  config: T;
   add(name: string): Promise<void>;
   remove(name: string): Promise<void>;
   get(): Promise<any>;

@@ -226,6 +226,13 @@ export type ServerSettingsConf = {
   // express-rate-limit settings
   rateLimit: RateLimit;
   keepAliveTimeout?: number;
+  /**
+   * Plugins should be prefixed verdaccio-XXXXXX by default.
+   * To override the default prefix, use this property without `-`
+   * If you set pluginPrefix: acme, the packages to resolve will be
+   * acme-XXXXXX
+   */
+  pluginPrefix?: string;
 };
 
 /**
@@ -245,7 +252,7 @@ export interface ConfigYaml {
   listen?: ListenAddress;
   https?: HttpsConf;
   http_proxy?: string;
-  plugins?: string | void;
+  plugins?: string | void | null;
   https_proxy?: string;
   no_proxy?: string;
   max_body_size?: string;
@@ -264,7 +271,7 @@ export interface ConfigYaml {
 }
 
 /**
- * Configuration object with additonal methods for configuration, includes yaml and internal medatada.
+ * Configuration object with additional methods for configuration, includes yaml and internal medatada.
  * @interface Config
  * @extends {ConfigYaml}
  */

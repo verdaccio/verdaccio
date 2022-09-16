@@ -4,7 +4,8 @@ import _ from 'lodash';
 import path from 'path';
 
 import { HTTP_STATUS } from '@verdaccio/core';
-import { loadPlugin } from '@verdaccio/loaders';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
+import { logger } from '@verdaccio/logger';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import renderHTML from '../renderHTML';
@@ -12,19 +13,24 @@ import { setSecurityWebHeaders } from './security';
 
 const debug = buildDebug('verdaccio:web:render');
 
-export function loadTheme(config) {
+export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
-    return _.head(
-      loadPlugin(
-        config,
-        config.theme,
-        {},
-        function (plugin) {
-          return _.isString(plugin);
-        },
-        'verdaccio-theme'
-      )
+    const plugin = await asyncLoadPlugin(
+      config.theme,
+      // @ts-ignore
+      { config, logger },
+      function (plugin: string) {
+        return typeof plugin === 'string';
+      },
+      config?.server?.pluginPrefix ?? 'verdaccio-theme'
     );
+    if (plugin.length > 1) {
+      logger.warn(
+        'multiple ui themes has been detected and is not supported, only the first one will be used'
+      );
+    }
+
+    return _.head(plugin);
   }
 }
 
@@ -39,8 +45,9 @@ const sendFileCallback = (next) => (err) => {
   }
 };
 
-export function renderWebMiddleware(config, auth): any {
-  const { staticPath, manifest, manifestFiles } = require('@verdaccio/ui-theme')();
+export async function renderWebMiddleware(config, auth): Promise<any> {
+  const { staticPath, manifest, manifestFiles } =
+    (await loadTheme(config)) || require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
 
   /* eslint new-cap:off */

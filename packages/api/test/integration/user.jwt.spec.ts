@@ -7,6 +7,8 @@ import { createUser, getPackage, initializeServer } from './_helper';
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
+jest.setTimeout(20000);
+
 describe('token', () => {
   describe('basics', () => {
     const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');

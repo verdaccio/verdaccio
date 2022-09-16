@@ -19,6 +19,7 @@ import {
   searchUtils,
   validatioUtils,
 } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { IProxy, ISyncUplinksOptions, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
 import {
@@ -33,6 +34,7 @@ import {
   DistFile,
   GenericBody,
   IPackageStorage,
+  IPluginStorageFilter,
   Logger,
   Manifest,
   MergeTags,
@@ -80,7 +82,7 @@ export const PROTO_NAME = '__proto__';
 
 class Storage {
   public localStorage: LocalStorage;
-  public filters: IPluginFilters;
+  public filters: IPluginFilters | null;
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
@@ -88,7 +90,7 @@ class Storage {
     this.config = config;
     this.uplinks = setupUpLinks(config);
     this.logger = logger.child({ module: 'storage' });
-    this.filters = [];
+    this.filters = null;
     // @ts-ignore
     this.localStorage = null;
     debug('uplinks available %o', Object.keys(this.uplinks));
@@ -655,10 +657,8 @@ class Storage {
    * @param filters IPluginFilters
    * @returns Storage instance
    */
-  public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
+  public async init(config: Config): Promise<void> {
     if (this.localStorage === null) {
-      this.filters = filters || [];
-      debug('filters available %o', filters);
       this.localStorage = new LocalStorage(this.config, logger);
       await this.localStorage.init();
       debug('local init storage initialized');
@@ -666,6 +666,20 @@ class Storage {
       debug('local storage secret initialized');
     } else {
       debug('storage has been already initialized');
+    }
+    if (!this.filters) {
+      this.filters = await asyncLoadPlugin<IPluginStorageFilter<any>>(
+        this.config.filters,
+        {
+          config: this.config,
+          logger: this.logger,
+        },
+        (plugin) => {
+          return plugin.filterMetadata;
+        },
+        this.config?.server?.pluginPrefix
+      );
+      debug('filters available %o', this.filters);
     }
     return;
   }
@@ -1728,7 +1742,7 @@ class Storage {
    * @returns
    */
   public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
-    if (this.filters.length === 0) {
+    if (this.filters === null || this.filters.length === 0) {
       return [manifest, []];
     }
 
@@ -1739,7 +1753,7 @@ class Storage {
       // and return it directly for
       // performance (i.e. need not be pure)
       try {
-        filteredManifest = await filter.filter_metadata(manifest);
+        filteredManifest = await filter.filterMetadata(manifest);
       } catch (err: any) {
         this.logger.error({ err: err.message }, 'filter has failed @{err}');
         filterPluginErrors.push(err);

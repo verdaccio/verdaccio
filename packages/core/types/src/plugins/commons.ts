@@ -1,7 +1,7 @@
 import { Config, Logger } from '../configuration';
 
 export class Plugin<T> {
-  public constructor(config: T, options: PluginOptions<T>) {}
+  public constructor(config: T, options: PluginOptions) {}
 }
 
 export interface IPlugin<T> {
@@ -9,7 +9,7 @@ export interface IPlugin<T> {
   version?: string;
 }
 
-export interface PluginOptions<T> {
-  config: T & Config;
+export interface PluginOptions {
+  config: Config;
   logger: Logger;
 }

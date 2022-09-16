@@ -16,7 +16,7 @@ export default class ProxyAudit implements IPluginMiddleware<{}, {}> {
   public logger: Logger;
   public strict_ssl: boolean;
 
-  public constructor(config: ConfigAudit, options: PluginOptions<{}>) {
+  public constructor(config: ConfigAudit, options: PluginOptions) {
     this.enabled = config.enabled || false;
     this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
     this.logger = options.logger;

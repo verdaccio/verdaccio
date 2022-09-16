@@ -14,7 +14,8 @@
 
 # path to a directory with all packages
 storage: /verdaccio/storage/data
-# path to a directory with plugins to include
+# path to a directory with plugins to include, the plugins folder has the higher priority for loading plugins
+# disable this folder to avoid warnings if is not used
 plugins: /verdaccio/plugins
 
 # https://verdaccio.org/docs/webui
@@ -105,6 +106,9 @@ packages:
 # https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
   keepAliveTimeout: 60
+  # The pluginPrefix replaces the default plugins prefix which is `verdaccio`, please don't include `-`. If `something` is provided
+  # the resolve package will be `something-xxxx`.
+  # pluginPrefix: something
 
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:

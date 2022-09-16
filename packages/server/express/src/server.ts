@@ -11,12 +11,12 @@ import apiEndpoint from '@verdaccio/api';
 import { Auth, IBasicAuth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
 import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { loadPlugin } from '@verdaccio/loaders';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
-import { Config as IConfig, IPlugin, IPluginStorageFilter } from '@verdaccio/types';
+import { Config as IConfig, IPlugin } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
@@ -29,8 +29,9 @@ export interface IPluginMiddleware<T> extends IPlugin<T> {
 
 const debug = buildDebug('verdaccio:server');
 
-const defineAPI = function (config: IConfig, storage: Storage): any {
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
+  await auth.init();
   const app: Application = express();
   const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case
@@ -62,27 +63,21 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
     hookDebug(app, config.configPath);
   }
 
-  // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger: logger,
-  };
-
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
-    config,
+  const plugins: IPluginMiddleware<IConfig>[] = await asyncLoadPlugin(
     config.middlewares,
-    plugin_params,
+    {
+      config,
+      logger,
+    },
     function (plugin: IPluginMiddleware<IConfig>) {
       return plugin.register_middlewares;
     }
   );
 
-  if (_.isEmpty(plugins)) {
+  if (plugins.length === 0) {
+    logger.info('none middleware plugins has been defined, adding audit middleware by default');
     plugins.push(
-      new AuditMiddleware(
-        { ...config, enabled: true, strict_ssl: true },
-        { config, logger: logger }
-      )
+      new AuditMiddleware({ ...config, enabled: true, strict_ssl: true }, { config, logger })
     );
   }
 
@@ -96,7 +91,7 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use(webMiddleware(config, auth, storage));
+    app.use(await webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(errorUtils.getNotFound(API_ERROR.WEB_DISABLED));
@@ -135,31 +130,21 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
   return app;
 };
 
-export default (async function (configHash: ConfigYaml): Promise<any> {
+export default (async function startServer(configHash: ConfigYaml): Promise<any> {
   debug('start server');
-  const config: IConfig = new AppConfig(_.cloneDeep(configHash) as any);
+  const config: IConfig = new AppConfig({ ...configHash } as any);
   // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger,
-  };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata
-  );
   debug('loaded filter plugin');
   // @ts-ignore
   const storage: Storage = new Storage(config);
   try {
     // waits until init calls have been initialized
     debug('storage init start');
-    await storage.init(config, filters);
+    await storage.init(config);
     debug('storage init end');
   } catch (err: any) {
     logger.error({ error: err.msg }, 'storage has failed: @{error}');
     throw new Error(err);
   }
-  return defineAPI(config, storage);
+  return await defineAPI(config, storage);
 });

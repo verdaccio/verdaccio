@@ -1,0 +1,3 @@
+auth:
+  plugin:
+    enabled: true

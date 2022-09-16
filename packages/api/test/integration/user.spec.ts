@@ -35,6 +35,9 @@ jest.mock('@verdaccio/auth', () => ({
     apiJWTmiddleware() {
       return mockApiJWTmiddleware();
     }
+    init() {
+      return Promise.resolve();
+    }
     allow_access(_d, f_, cb) {
       cb(null, true);
     }
