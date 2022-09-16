@@ -4,7 +4,7 @@ import { initialSetup, prepareYarnModernProject } from '@verdaccio/test-cli-comm
 
 import { getYarnCommand, yarn } from './utils';
 
-describe('install a package', () => {
+describe('audit a package yarn 2', () => {
   jest.setTimeout(10000);
   let registry;
   let projectFolder;
@@ -15,19 +15,22 @@ describe('install a package', () => {
     await registry.init();
     const { tempFolder } = await prepareYarnModernProject(
       join(__dirname, './yarn-project'),
-      'yarn-3',
+      'yarn-2',
       registry.getRegistryUrl(),
       getYarnCommand()
     );
     projectFolder = tempFolder;
   });
 
-  test('should run yarn 3 info json body', async () => {
+  test('should run yarn npm audit info json body', async () => {
     await yarn(projectFolder, 'install');
-    const resp = await yarn(projectFolder, 'npm', 'info', 'verdaccio', '--json');
+    const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
-    expect(parsedBody.name).toEqual('verdaccio');
-    expect(parsedBody.dependencies).toBeDefined();
+    expect(parsedBody.advisories).toBeDefined();
+    expect(parsedBody.advisories['1069969']).toBeDefined();
+    expect(parsedBody.advisories['1069969'].recommendation).toEqual(
+      'Upgrade to version 3.4.0 or later'
+    );
   });
 
   afterAll(async () => {

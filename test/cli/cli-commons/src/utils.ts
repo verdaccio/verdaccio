@@ -67,7 +67,9 @@ export async function prepareGenericEmptyProject(
   version: string,
   port: number,
   token: string,
-  registryDomain: string
+  registryDomain: string,
+  dependencies = {},
+  devDependencies = {}
 ) {
   const getPackageJSON = (packageName, version = '1.0.0') => {
     const json = {
@@ -78,6 +80,8 @@ export async function prepareGenericEmptyProject(
       scripts: {
         test: 'echo exit 1',
       },
+      dependencies,
+      devDependencies,
       keywords: ['foo', 'bar'],
       author: 'Juan Picado <jotadeveloper@gmail.com>',
       license: 'MIT',

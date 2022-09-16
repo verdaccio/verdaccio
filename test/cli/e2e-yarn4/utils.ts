@@ -8,6 +8,8 @@ export function getCommand(projectFolder) {
 
 export function getYarnCommand() {
   // FUTURE: yarn 4 rc still not available via registry
+  // tags: https://repo.yarnpkg.com/tags
+  // download binary: https://repo.yarnpkg.com/4.0.0-rc.14/packages/yarnpkg-cli/bin/yarn.js
   return join(__dirname, './bin/yarn-4.0.0-rc.14.cjs');
 }
 
