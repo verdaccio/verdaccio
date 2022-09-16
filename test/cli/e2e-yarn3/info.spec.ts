@@ -23,7 +23,7 @@ describe('install a package', () => {
   });
 
   test('should run yarn 3 info json body', async () => {
-    await yarn(projectFolder, 'install');
+    await yarn(projectFolder, 'install', '--no-immutable');
     const resp = await yarn(projectFolder, 'npm', 'info', 'verdaccio', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.name).toEqual('verdaccio');

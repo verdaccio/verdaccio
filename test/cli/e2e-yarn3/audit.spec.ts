@@ -22,8 +22,8 @@ describe('audit a package yarn 3', () => {
     projectFolder = tempFolder;
   });
 
-  test.skip('should run yarn npm audit info json body', async () => {
-    await yarn(projectFolder, 'install');
+  test('should run yarn npm audit info json body', async () => {
+    await yarn(projectFolder, 'install', '--no-immutable');
     const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.advisories).toBeDefined();
