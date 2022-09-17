@@ -196,6 +196,19 @@ describe('validatePassword', () => {
     expect(validatePassword('12345', /.{10}$/)).toBeFalsy();
   });
 
+  test('should fails on validate complex validation', () => {
+    expect(validatePassword('12345', /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)).toBeFalsy();
+  });
+
+  test('should validate complex validation', () => {
+    expect(
+      validatePassword(
+        'c<?_:srdsj&WyZgY}r4:l[F<RgV<}',
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+      )
+    ).toBeTruthy();
+  });
+
   test('should fails on validate password according the length and default config', () => {
     expect(validatePassword('12')).toBeFalsy();
   });
