@@ -22,9 +22,9 @@ describe('install a packages', () => {
     projectFolder = tempFolder;
   });
 
-  test('should run yarn npm audit info json body', async () => {
+  test('should run yarn install', async () => {
     const resp = await yarn(projectFolder, 'install');
-    expect(resp.stdout).toMatch(/Completed➤ YN0000: Done in/);
+    expect(resp.stdout).toMatch(/Completed/);
   });
 
   afterAll(async () => {

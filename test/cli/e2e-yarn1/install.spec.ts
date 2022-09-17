@@ -12,7 +12,7 @@ describe('install a project packages', () => {
     await registry.init();
   });
 
-  test('should run npm install json body', async () => {
+  test('should run yarn install', async () => {
     const { tempFolder } = await prepareGenericEmptyProject(
       'something',
       '1.0.0-patch',
