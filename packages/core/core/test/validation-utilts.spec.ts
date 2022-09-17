@@ -196,11 +196,11 @@ describe('validatePassword', () => {
     expect(validatePassword('12345', /.{10}$/)).toBeFalsy();
   });
 
-  test('should fails on validate complex validation', () => {
+  test('should fails handle complex password validation', () => {
     expect(validatePassword('12345', /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)).toBeFalsy();
   });
 
-  test('should validate complex validation', () => {
+  test('should handle complex password validation', () => {
     expect(
       validatePassword(
         'c<?_:srdsj&WyZgY}r4:l[F<RgV<}',
