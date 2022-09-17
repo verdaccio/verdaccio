@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import { Manifest } from '@verdaccio/types';
 
-import { DIST_TAGS } from './constants';
+import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from './constants';
 
 export { validatePublishSingleVersion } from './schemes/publish-manifest';
 
@@ -103,4 +103,13 @@ export function isObject(obj: any): boolean {
     (typeof obj === 'object' || typeof obj.prototype === 'undefined') &&
     Array.isArray(obj) === false
   );
+}
+
+export function validatePassword(
+  password: string,
+  validation: RegExp = DEFAULT_PASSWORD_VALIDATION
+): boolean {
+  return typeof password === 'string' && validation instanceof RegExp
+    ? password.match(validation) !== null
+    : false;
 }

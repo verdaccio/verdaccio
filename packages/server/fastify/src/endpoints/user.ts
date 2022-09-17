@@ -7,9 +7,10 @@ import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
+import { validatioUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
+import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:fastify:user');
 
@@ -96,13 +97,18 @@ async function userRoute(fastify: FastifyInstance) {
         }
       );
     } else {
-      if (validatePassword(password) === false) {
+      if (
+        validatioUtils.validatePassword(
+          password as string,
+          fastify.configInstance?.server?.passwordValidationRegex
+        ) === false
+      ) {
         debug('adduser: invalid password');
         reply.code(fastify.statusCode.BAD_REQUEST).send(
           fastify.errorUtils.getCode(
             fastify.statusCode.BAD_REQUEST,
             // eslint-disable-next-line new-cap
-            fastify.apiError.PASSWORD_SHORT()
+            fastify.apiError.PASSWORD_SHORT
           )
         );
         return;

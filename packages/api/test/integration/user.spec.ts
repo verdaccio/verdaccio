@@ -1,267 +1,169 @@
-import _ from 'lodash';
 import supertest from 'supertest';
 
-import {
-  API_ERROR,
-  API_MESSAGE,
-  HEADERS,
-  HEADER_TYPE,
-  HTTP_STATUS,
-  errorUtils,
-} from '@verdaccio/core';
+import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { buildToken } from '@verdaccio/utils';
 
-import { $RequestExtend, $ResponseExtend } from '../../types/custom';
-import { initializeServer } from './_helper';
+import { createUser, getPackage, initializeServer } from './_helper';
 
-const mockApiJWTmiddleware = jest.fn(
-  () =>
-    (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'test', groups: [], real_groups: [] };
-      _next();
-    }
-);
+const FORBIDDEN_VUE = 'authorization required to access package vue';
 
-const mockAuthenticate = jest.fn(() => (_name, _password, callback): void => {
-  return callback(null, ['all']);
-});
+jest.setTimeout(20000);
 
-const mockAddUser = jest.fn(() => (_name, _password, callback): void => {
-  return callback(errorUtils.getConflict(API_ERROR.USERNAME_ALREADY_REGISTERED));
-});
+describe('token', () => {
+  describe('basics', () => {
+    const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
+    test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'JotaJWT', password: 'secretPass' };
+      const response = await createUser(app, credentials.name, credentials.password);
+      expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
 
-jest.mock('@verdaccio/auth', () => ({
-  getApiToken: () => 'token',
-  Auth: class {
-    apiJWTmiddleware() {
-      return mockApiJWTmiddleware();
-    }
-    init() {
-      return Promise.resolve();
-    }
-    allow_access(_d, f_, cb) {
-      cb(null, true);
-    }
-    add_user(name, password, callback) {
-      mockAddUser()(name, password, callback);
-    }
-    authenticate(_name, _password, callback) {
-      mockAuthenticate()(_name, _password, callback);
-    }
-  },
-}));
+      const vueResponse = await getPackage(app, response.body.token, 'vue');
+      expect(vueResponse.body).toBeDefined();
+      expect(vueResponse.body.name).toMatch('vue');
 
-// FIXME:  This might be covered with user.jwt.spec
-describe('user', () => {
-  const credentials = { name: 'test', password: 'test' };
-
-  test('should test add a new user', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: undefined };
-          _next();
-        }
-    );
-
-    mockAddUser.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(null, true);
+      const vueFailResp = await getPackage(app, FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
+      expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
     });
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put(`/-/user/org.couchdb.user:newUser`)
+
+    test.each([['user.yaml'], ['user.jwt.yaml']])('should login an user', async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'test', password: 'test' };
+      const response = await createUser(app, credentials.name, credentials.password);
+      expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+
+      await supertest(app)
+        .put(`/-/user/org.couchdb.user:${credentials.name}`)
         .send({
-          name: 'newUser',
-          password: 'newUser',
+          name: credentials.name,
+          password: credentials.password,
         })
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.CREATED)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
-          expect(res.body.ok).toBeDefined();
-          expect(res.body.token).toBeDefined();
-          const token = res.body.token;
-          expect(typeof token).toBe('string');
-          expect(res.body.ok).toMatch(`user 'newUser' created`);
-          resolve(null);
-        });
+        .expect(HTTP_STATUS.CREATED);
     });
-  });
 
-  test('should test fails on add a existing user with login', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: undefined };
-          _next();
-        }
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should fails login a valid user',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'test', password: 'test' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+
+        await supertest(app)
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
+          .send({
+            name: credentials.name,
+            password: 'failPassword',
+          })
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+      }
     );
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put('/-/user/org.couchdb.user:jotaNew')
-        .send(credentials)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.CONFLICT)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
-          expect(res.body.error).toBeDefined();
-          expect(res.body.error).toMatch(API_ERROR.USERNAME_ALREADY_REGISTERED);
-          resolve(res.body);
-        });
-    });
-  });
 
-  test('should log in as existing user', async () => {
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put(`/-/user/org.couchdb.user:${credentials.name}`)
-        .send(credentials)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.CREATED)
-        .end((err, res) => {
-          if (err) {
-            return reject(err);
-          }
-
-          expect(res.body).toBeTruthy();
-          expect(res.body.ok).toMatch(`you are authenticated as \'${credentials.name}\'`);
-          resolve(res);
-        });
-    });
-  });
-
-  test('should test fails add a new user with missing name', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: undefined };
-          _next();
-        }
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should test conflict create new user',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'JotaJWT', password: 'secretPass' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+        const response2 = await supertest(app)
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
+          .send({
+            name: credentials.name,
+            password: credentials.password,
+          })
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.CONFLICT);
+        expect(response2.body.error).toBe(API_ERROR.USERNAME_ALREADY_REGISTERED);
+      }
     );
-    mockAddUser.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(errorUtils.getBadRequest(API_ERROR.USERNAME_PASSWORD_REQUIRED));
-    });
-    const credentialsShort = _.cloneDeep(credentials);
-    delete credentialsShort.name;
 
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put(`/-/user/org.couchdb.user:${credentials.name}`)
-        .send(credentialsShort)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.BAD_REQUEST)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
-
-          expect(res.body.error).toBeDefined();
-          expect(res.body.error).toMatch(API_ERROR.USERNAME_PASSWORD_REQUIRED);
-          resolve(app);
-        });
-    });
-  });
-
-  test('should test fails add a new user with missing password', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: undefined };
-          _next();
-        }
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should fails on login if user credentials are invalid',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'newFailsUser', password: 'secretPass' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+        const response2 = await supertest(app)
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
+          .send({
+            name: credentials.name,
+            password: 'BAD_PASSWORD',
+          })
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.UNAUTHORIZED);
+        expect(response2.body.error).toBe(API_ERROR.UNAUTHORIZED_ACCESS);
+      }
     );
-    const credentialsShort = _.cloneDeep(credentials);
-    delete credentialsShort.password;
 
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put(`/-/user/org.couchdb.user:${credentials.name}`)
-        .send(credentialsShort)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.BAD_REQUEST)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
-
-          expect(res.body.error).toBeDefined();
-          // FIXME: message is not 100% accurate
-          // eslint-disable-next-line new-cap
-          expect(res.body.error).toMatch(API_ERROR.PASSWORD_SHORT());
-          resolve(res);
-        });
-    });
-  });
-
-  test('should test fails add a new user with wrong password', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: 'test' };
-          _next();
-        }
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should fails password validation',
+      async (conf) => {
+        const credentials = { name: 'test', password: '12' };
+        const app = await initializeServer(conf);
+        const response = await supertest(app)
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
+          .send({
+            name: credentials.name,
+            password: credentials.password,
+          })
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.BAD_REQUEST);
+        expect(response.body.error).toBe(API_ERROR.PASSWORD_SHORT);
+      }
     );
-    mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
-    });
-    const credentialsShort = _.cloneDeep(credentials);
-    credentialsShort.password = 'failPassword';
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .put('/-/user/org.couchdb.user:test')
-        .send(credentialsShort)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.UNAUTHORIZED)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
 
-          expect(res.body.error).toBeDefined();
-          expect(res.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);
-          resolve(res);
-        });
-    });
-  });
-
-  test('should be able to logout an user', async () => {
-    mockApiJWTmiddleware.mockImplementationOnce(
-      () =>
-        (req: $RequestExtend, _res: $ResponseExtend, _next): void => {
-          req.remote_user = { name: 'test' };
-          _next();
-        }
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should fails missing password validation',
+      async (conf) => {
+        const credentials = { name: 'test' };
+        const app = await initializeServer(conf);
+        const response = await supertest(app)
+          .put(`/-/user/org.couchdb.user:${credentials.name}`)
+          .send({
+            name: credentials.name,
+            password: undefined,
+          })
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.BAD_REQUEST);
+        expect(response.body.error).toBe(API_ERROR.PASSWORD_SHORT);
+      }
     );
-    mockAuthenticate.mockImplementationOnce(() => (_name, _password, callback): void => {
-      return callback(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
-    });
-    const credentialsShort = _.cloneDeep(credentials);
-    credentialsShort.password = 'failPassword';
 
-    const app = await initializeServer('user.yaml');
-    return new Promise((resolve, reject) => {
-      supertest(app)
-        .delete('/-/user/token/someSecretToken')
-        .send(credentialsShort)
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should verify if user is logged',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'jota', password: 'secretPass' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+        const response2 = await supertest(app)
+          .get(`/-/user/org.couchdb.user:${credentials.name}`)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK);
+        expect(response2.body.ok).toBe(`you are authenticated as '${credentials.name}'`);
+      }
+    );
+
+    test.each([['user.yaml'], ['user.jwt.yaml']])('should logout user', async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota', password: 'secretPass' };
+      const response = await createUser(app, credentials.name, credentials.password);
+      await supertest(app)
+        .get(`/-/user/org.couchdb.user:${credentials.name}`)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .end(function (err, res) {
-          if (err) {
-            return reject(err);
-          }
-
-          expect(res.body.ok).toMatch(API_MESSAGE.LOGGED_OUT);
-          resolve(res);
-        });
+        .expect(HTTP_STATUS.OK);
+      await supertest(app)
+        .delete(`/-/user/token/someSecretToken:${response.body.token}`)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
     });
   });
 });

@@ -52,7 +52,7 @@ export default function (config: Config, auth: IAuth, storage: Storage): Router 
   // for "npm whoami"
   whoami(app);
   pkg(app, auth, storage);
-  profile(app, auth);
+  profile(app, auth, config);
   // @deprecated endpoint, 404 by default
   search(app);
   user(app, auth, config);

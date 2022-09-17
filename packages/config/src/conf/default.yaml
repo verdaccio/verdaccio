@@ -103,6 +103,9 @@ server:
   # The pluginPrefix replaces the default plugins prefix which is `verdaccio`, please don't include `-`. If `something` is provided
   # the resolve package will be `something-xxxx`.
   # pluginPrefix: something
+  # A regex for the password validation /.{3}$/ (3 characters min)
+  # An example to limit to 10 characters minimum
+  # passwordValidationRegex: /.{10}$/
 
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:

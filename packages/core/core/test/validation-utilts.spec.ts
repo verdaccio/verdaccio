@@ -1,10 +1,11 @@
-import { DIST_TAGS } from '../src/constants';
+import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from '../src/constants';
 import { validatePublishSingleVersion } from '../src/schemes/publish-manifest';
 import {
   isObject,
   normalizeMetadata,
   validateName,
   validatePackage,
+  validatePassword,
 } from '../src/validation-utils';
 
 describe('validatePackage', () => {
@@ -164,5 +165,55 @@ describe('validatePublishSingleVersion', () => {
         versions: { '1': {} },
       })
     ).toBeFalsy();
+  });
+});
+
+describe('validatePassword', () => {
+  test('should validate password according the length', () => {
+    expect(validatePassword('12345', DEFAULT_PASSWORD_VALIDATION)).toBeTruthy();
+  });
+
+  test('should validate invalid regex', () => {
+    // @ts-expect-error
+    expect(validatePassword('12345', 34234342)).toBeFalsy();
+  });
+
+  test('should validate invalid regex (undefined)', () => {
+    expect(validatePassword('12345', undefined)).toBeTruthy();
+  });
+
+  test('should validate invalid password)', () => {
+    // @ts-expect-error
+    expect(validatePassword(undefined)).toBeFalsy();
+  });
+
+  test('should validate invalid password number)', () => {
+    // @ts-expect-error
+    expect(validatePassword(2342344234342)).toBeFalsy();
+  });
+
+  test('should fails on validate password according the length', () => {
+    expect(validatePassword('12345', /.{10}$/)).toBeFalsy();
+  });
+
+  test('should fails handle complex password validation', () => {
+    expect(validatePassword('12345', /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)).toBeFalsy();
+  });
+
+  test('should handle complex password validation', () => {
+    expect(
+      validatePassword(
+        'c<?_:srdsj&WyZgY}r4:l[F<RgV<}',
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+      )
+    ).toBeTruthy();
+  });
+
+  test('should fails on validate password according the length and default config', () => {
+    expect(validatePassword('12')).toBeFalsy();
+  });
+
+  test('should validate password according the length and default config', () => {
+    expect(validatePassword('1235678910')).toBeTruthy();
   });
 });

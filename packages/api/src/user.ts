@@ -1,14 +1,13 @@
 import buildDebug from 'debug';
 import { Response, Router } from 'express';
-import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { IAuth } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils, validatioUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage, mask, validatePassword } from '@verdaccio/utils';
+import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
@@ -50,9 +49,9 @@ export default function (route: Router, auth: IAuth, config: Config): void {
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');
-      const remoteName = req.remote_user.name;
+      const remoteName = req?.remote_user?.name;
 
-      if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
+      if (typeof remoteName !== 'undefined' && typeof name === 'string' && remoteName === name) {
         debug('login: no remote user detected');
         auth.authenticate(
           name,
@@ -87,10 +86,15 @@ export default function (route: Router, auth: IAuth, config: Config): void {
           }
         );
       } else {
-        if (validatePassword(password) === false) {
+        if (
+          validatioUtils.validatePassword(
+            password,
+            config?.serverSettings?.passwordValidationRegex
+          ) === false
+        ) {
           debug('adduser: invalid password');
           // eslint-disable-next-line new-cap
-          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 
         auth.add_user(name, password, async function (err, user): Promise<void> {
@@ -109,7 +113,9 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
           const token =
             name && password ? await getApiToken(auth, config, user, password) : undefined;
-          debug('adduser: new token %o', mask(token as string, 4));
+          if (token) {
+            debug('adduser: new token %o', mask(token as string, 4));
+          }
           if (!token) {
             return next(errorUtils.getUnauthorized());
           }

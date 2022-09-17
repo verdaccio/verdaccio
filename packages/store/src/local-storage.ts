@@ -75,7 +75,7 @@ class LocalStorage {
       (plugin): IPluginStorage => {
         return plugin.getPackageStorage;
       },
-      this.config?.server?.pluginPrefix
+      this.config?.serverSettings?.pluginPrefix
     );
 
     if (plugins.length > 1) {

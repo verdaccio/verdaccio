@@ -3,9 +3,8 @@ import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, APP_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { API_ERROR, APP_ERROR, HTTP_STATUS, errorUtils, validatioUtils } from '@verdaccio/core';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
-import { validatePassword } from '@verdaccio/utils';
 
 import { $NextFunctionVer } from './package';
 
@@ -48,7 +47,12 @@ function addUserAuthApi(auth: IAuth, config: Config): Router {
         const { password } = req.body;
         const { name } = req.remote_user;
 
-        if (validatePassword(password.new) === false) {
+        if (
+          validatioUtils.validatePassword(
+            password.new,
+            config?.serverSettings?.passwordValidationRegex
+          ) === false
+        ) {
           auth.changePassword(
             name as string,
             password.old,
