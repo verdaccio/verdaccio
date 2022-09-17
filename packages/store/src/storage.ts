@@ -677,7 +677,7 @@ class Storage {
         (plugin) => {
           return plugin.filterMetadata;
         },
-        this.config?.server?.pluginPrefix
+        this.config?.serverSettings?.pluginPrefix
       );
       debug('filters available %o', this.filters);
     }

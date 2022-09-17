@@ -1,6 +1,7 @@
 import httpCodes from 'http-status-codes';
 
 export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
+export const DEFAULT_PASSWORD_VALIDATION = /.{3}$/;
 export const TIME_EXPIRATION_24H = '24h';
 export const TIME_EXPIRATION_7D = '7d';
 export const DIST_TAGS = 'dist-tags';

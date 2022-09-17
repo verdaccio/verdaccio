@@ -233,6 +233,7 @@ export type ServerSettingsConf = {
    * acme-XXXXXX
    */
   pluginPrefix?: string;
+  passwordValidationRegex?: RegExp;
 };
 
 /**

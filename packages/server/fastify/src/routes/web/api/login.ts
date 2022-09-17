@@ -2,8 +2,8 @@ import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
 import _ from 'lodash';
 
+import { validatioUtils } from '@verdaccio/core';
 import { JWTSignOptions } from '@verdaccio/types';
-import { validatePassword } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:fastify:web:login');
 const loginBodySchema = {
@@ -77,7 +77,12 @@ async function loginRoute(fastify: FastifyInstance) {
       const { password } = request.body;
       const { name } = request.userRemote;
 
-      if (validatePassword(password.new) === false) {
+      if (
+        validatioUtils.validatePassword(
+          password.new,
+          fastify.configInstance?.server?.passwordValidationRegex
+        ) === false
+      ) {
         fastify.auth.changePassword(
           name as string,
           password.old,

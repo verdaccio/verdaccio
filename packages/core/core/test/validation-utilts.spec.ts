@@ -1,10 +1,11 @@
-import { DIST_TAGS } from '../src/constants';
+import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from '../src/constants';
 import { validatePublishSingleVersion } from '../src/schemes/publish-manifest';
 import {
   isObject,
   normalizeMetadata,
   validateName,
   validatePackage,
+  validatePassword,
 } from '../src/validation-utils';
 
 describe('validatePackage', () => {
@@ -164,5 +165,23 @@ describe('validatePublishSingleVersion', () => {
         versions: { '1': {} },
       })
     ).toBeFalsy();
+  });
+});
+
+describe('validatePassword', () => {
+  test('should validate password according the length', () => {
+    expect(validatePassword('12345', DEFAULT_PASSWORD_VALIDATION)).toBeTruthy();
+  });
+
+  test('should fails on validate password according the length', () => {
+    expect(validatePassword('12345', /.{10}$/)).toBeFalsy();
+  });
+
+  test('should fails on validate password according the length and default config', () => {
+    expect(validatePassword('12')).toBeFalsy();
+  });
+
+  test('should validate password according the length and default config', () => {
+    expect(validatePassword('1235678910')).toBeTruthy();
   });
 });

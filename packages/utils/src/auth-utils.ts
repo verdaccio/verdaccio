@@ -1,14 +1,5 @@
-import { DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/core';
-
 export interface CookieSessionToken {
   expires: Date;
-}
-
-export function validatePassword(
-  password: string,
-  minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
-): boolean {
-  return typeof password === 'string' && password.length >= minLength;
 }
 
 export function createSessionToken(): CookieSessionToken {

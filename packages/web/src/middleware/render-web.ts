@@ -22,7 +22,7 @@ export async function loadTheme(config: any) {
       function (plugin: string) {
         return typeof plugin === 'string';
       },
-      config?.server?.pluginPrefix ?? 'verdaccio-theme'
+      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'
     );
     if (plugin.length > 1) {
       logger.warn(
