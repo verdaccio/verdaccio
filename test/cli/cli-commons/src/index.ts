@@ -6,5 +6,6 @@ export {
   addRegistry,
   prepareYarnModernProject,
   prepareGenericEmptyProject,
+  nJSONParse,
 } from './utils';
 export { exec, ExecOutput } from './process';
