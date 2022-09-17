@@ -105,3 +105,12 @@ export async function prepareGenericEmptyProject(
   await writeFile(join(tempFolder, '.npmrc'), getNPMrc(port, token, registryDomain));
   return { tempFolder };
 }
+
+export function nJSONParse(jsonString) {
+  const type = typeof jsonString;
+  if (type !== 'string') throw new Error(`Input have to be string but got ${type}`);
+
+  const jsonRows = jsonString.split(/\n|\n\r/).filter(Boolean);
+  console.log('--jsonRows', jsonRows);
+  return jsonRows.map((jsonStringRow) => JSON.parse(jsonStringRow));
+}

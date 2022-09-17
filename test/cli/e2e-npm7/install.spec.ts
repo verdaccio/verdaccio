@@ -19,8 +19,7 @@ describe('install a project packages', () => {
       registry.port,
       registry.getToken(),
       registry.getRegistryUrl(),
-      { react: '18.2.0' },
-      { webpack: '5.74.0', eslint: '8.23.1' }
+      { react: '18.2.0' }
     );
     const resp = await npm(
       { cwd: tempFolder },
