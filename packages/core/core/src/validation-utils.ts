@@ -109,5 +109,7 @@ export function validatePassword(
   password: string,
   validation: RegExp = DEFAULT_PASSWORD_VALIDATION
 ): boolean {
-  return password ? password.match(validation) !== null : false;
+  return typeof password === 'string' && validation instanceof RegExp
+    ? password.match(validation) !== null
+    : false;
 }

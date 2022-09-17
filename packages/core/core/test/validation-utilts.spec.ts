@@ -173,6 +173,25 @@ describe('validatePassword', () => {
     expect(validatePassword('12345', DEFAULT_PASSWORD_VALIDATION)).toBeTruthy();
   });
 
+  test('should validate invalid regex', () => {
+    // @ts-expect-error
+    expect(validatePassword('12345', 34234342)).toBeFalsy();
+  });
+
+  test('should validate invalid regex (undefined)', () => {
+    expect(validatePassword('12345', undefined)).toBeTruthy();
+  });
+
+  test('should validate invalid password)', () => {
+    // @ts-expect-error
+    expect(validatePassword(undefined)).toBeFalsy();
+  });
+
+  test('should validate invalid password number)', () => {
+    // @ts-expect-error
+    expect(validatePassword(2342344234342)).toBeFalsy();
+  });
+
   test('should fails on validate password according the length', () => {
     expect(validatePassword('12345', /.{10}$/)).toBeFalsy();
   });
