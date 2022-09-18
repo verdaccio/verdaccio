@@ -17,7 +17,7 @@ permissions:
 jobs:
   prepare:
     runs-on: ubuntu-latest
-    name: setup verdaccio
+    name: setup e2e verdaccio
     services:
       verdaccio:
         image: verdaccio/verdaccio:nightly-master
@@ -72,7 +72,7 @@ jobs:
           restore-keys: |
             packages-
   e2e-cli:
-    needs: [prepare]
+    needs: [prepare, build]
     strategy:
       fail-fast: true
       matrix:
