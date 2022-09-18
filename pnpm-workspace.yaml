@@ -11,5 +11,3 @@ packages:
   - packages/plugins/local-storage
   - website
   - e2e/cli/*
-  - e2e/ui/*
-  - test/helpers
