@@ -15,7 +15,7 @@ export type Setup = {
 const log =
   process.env.NODE_ENV === 'production'
     ? { type: 'stdout', format: 'json', level: 'warn' }
-    : { type: 'stdout', format: 'pretty', level: 'info' };
+    : { type: 'stdout', format: 'pretty', level: 'warn' };
 const defaultConfig = {
   ...getDefaultConfig(),
   log,
