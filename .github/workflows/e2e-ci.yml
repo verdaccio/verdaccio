@@ -75,7 +75,7 @@ jobs:
         uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         id: cache-test
         with:
-          path: ./test/
+          path: ./e2e/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             test-
@@ -107,7 +107,7 @@ jobs:
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
-          path: ./test/
+          path: ./e2e/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}      
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
