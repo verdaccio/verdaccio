@@ -28,7 +28,7 @@ jobs:
           NODE_ENV: production          
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-    - name: Use Node 16
+    - name: Node
       uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
       with:
         node-version-file: '.nvmrc'
@@ -53,7 +53,7 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-      - name: Use Node 16
+      - name: Node
         uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
           node-version-file: '.nvmrc'
@@ -64,7 +64,7 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:
@@ -88,38 +88,7 @@ jobs:
       - name: Lint
         run: pnpm format:check
   build:
-    needs: [prepare]
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]    
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-      - name: Use Node 
-        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - name: build
-        run: pnpm build
-      - name: Cache packages
-        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        id: cache-packages
-        with:
-          path: ./packages/
-          key:  
-          restore-keys: |
-            ${{ matrix.os }}-packages-
-  test:
-    needs: [build]
+    needs: [format, lint]
     strategy:
       fail-fast: true
       matrix:
@@ -140,18 +109,15 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        with:
-          path: ./packages/
-          key: ${{ matrix.os }}-packages-${{ hashFiles('pnpm-lock.yaml') }}        
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+      - name: build
+        run: pnpm build
       - name: Test
-        run: pnpm test        
+        run: pnpm test
   ci-e2e-ui:
-    needs: [build]
+    needs: [format, lint]
     runs-on: ubuntu-latest
-    name: UI Test E2E Node 16
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    name: UI Test E2E
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
@@ -165,10 +131,8 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        with:
-          path: ./packages/
-          key: ${{ matrix.os }}-packages-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: build
+        run: pnpm build
       - name: Test UI
         run: pnpm test:e2e:ui
         # env:
