@@ -86,7 +86,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        pkg: [npm6]
+        pkg: [npm6, npm7, npm8, pnpm6, pnpm7, yarn1, yarn2]
     name: CLI Test E2E ${{ matrix.pkg }} / ${{ matrix.os }} / Node 16
     runs-on: ${{ matrix.os }}
     steps:
