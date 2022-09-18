@@ -44,6 +44,33 @@ jobs:
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
         restore-keys: |
           pnpm-
+  build:
+    needs: [prepare]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - name: Use Node 16
+        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+        with:
+          node-version: 16
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --ignore-scripts --registry http://localhost:4873
+      - name: build
+        run: pnpm build
+      - name: Cache .pnpm-store
+        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        id: cache-packages
+        with:
+          path: ./packages/
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            packages-
   e2e-cli:
     needs: [prepare]
     strategy:
@@ -65,9 +92,11 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile
-      - name: build
-        run: pnpm build
+        run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        with:
+          path: ./packages/
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}      
       - name: Test CLI
         run: pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
         # env:
