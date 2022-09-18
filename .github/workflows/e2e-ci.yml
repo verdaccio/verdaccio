@@ -1,0 +1,74 @@
+name: E2E
+
+on:
+  push:
+  pull_request:
+    paths:
+      - .changeset/**
+      - .github/workflows/e2e-ci.yml
+      - 'packages/**'
+      - 'test/**'
+      - 'jest/**'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    name: setup verdaccio
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:nightly-master
+        ports:
+          - 4873:4873
+    steps:
+    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+    - name: Use Node 16
+      uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+      with:
+        node-version: 16
+    - name: Install pnpm
+      run: npm i pnpm@6.32.15 -g
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store
+    - name: Install
+      run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+    - name: Cache .pnpm-store
+      uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+      with:
+        path: ~/.pnpm-store
+        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          pnpm-
+  e2e-cli:
+    needs: [prepare]
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        pkg: [npm6]
+    name: CLI Test E2E ${{ matrix.pkg }} / ${{ matrix.os }} / Node 16
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+        with:
+          node-version: 16
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile
+      - name: build
+        run: pnpm build
+      - name: Test CLI
+        run: pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
+        # env:
+        #   DEBUG: verdaccio*
