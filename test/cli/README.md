@@ -7,12 +7,17 @@
 
 ### Commands Tested
 
-| cmd     | npm6 | npm7 | npm8 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
-| ------- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- |
-| publish | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
-| info    | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
-| audit   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
-| install | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
+| cmd       | npm6 | npm7 | npm8 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- |
+| publish   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
+| info      | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+
+❌ = no tested
+✅ = tested
+⛔ = no supported
 
 ## How it works?
 

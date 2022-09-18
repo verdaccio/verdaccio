@@ -23,9 +23,9 @@ describe('install a package', () => {
   });
 
   test('should run yarn 4 info json body', async () => {
-    const resp = await yarn(projectFolder, 'npm', 'info', 'verdaccio', '--json');
+    const resp = await yarn(projectFolder, 'npm', 'info', 'react', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
-    expect(parsedBody.name).toEqual('verdaccio');
+    expect(parsedBody.name).toEqual('react');
     expect(parsedBody.dependencies).toBeDefined();
   });
 

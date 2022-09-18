@@ -12,9 +12,24 @@ export type Setup = {
   tempFolder: string;
 };
 
+const log =
+  process.env.NODE_ENV === 'production'
+    ? { type: 'stdout', format: 'json', level: 'warn' }
+    : { type: 'stdout', format: 'pretty', level: 'warn' };
+const defaultConfig = {
+  ...getDefaultConfig(),
+  log,
+};
+
 export async function initialSetup(customConfig?: ConfigYaml): Promise<Setup> {
+  // @ts-ignore
   const { configPath, tempFolder } = await Registry.fromConfigToPath({
-    ...(customConfig ? customConfig : { ...getDefaultConfig(), _debug: true }),
+    ...(customConfig
+      ? customConfig
+      : {
+          ...defaultConfig,
+          _debug: true,
+        }),
   });
   debug(`configPath %o`, configPath);
   debug(`tempFolder %o`, tempFolder);

@@ -95,22 +95,20 @@ const debug = buildDebug('verdaccio:api:publish');
    */
 export default function publish(router: Router, auth: IAuth, storage: Storage): void {
   const can = allow(auth);
-  // publish (update manifest) v6
   router.put(
     '/:package',
     can('publish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackageNext(storage)
+    publishPackage(storage)
   );
 
-  // unpublish a pacakge v6
   router.put(
     '/:package/-rev/:revision',
     can('unpublish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackageNext(storage)
+    publishPackage(storage)
   );
 
   /**
@@ -121,7 +119,6 @@ export default function publish(router: Router, auth: IAuth, storage: Storage): 
    * npm http fetch GET 304 http://localhost:4873/package-name?write=true 1076ms (from cache)
    * npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  // v6
   router.delete(
     '/:package/-rev/:revision',
     can('unpublish'),
@@ -177,7 +174,7 @@ export default function publish(router: Router, auth: IAuth, storage: Storage): 
   );
 }
 
-export function publishPackageNext(storage: Storage): any {
+export function publishPackage(storage: Storage): any {
   return async function (
     req: $RequestExtend,
     _res: $ResponseExtend,
