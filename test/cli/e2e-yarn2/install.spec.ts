@@ -5,7 +5,7 @@ import { initialSetup, prepareYarnModernProject } from '@verdaccio/test-cli-comm
 import { getYarnCommand, yarn } from './utils';
 
 describe('install a packages', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   let registry;
   let projectFolder;
 
