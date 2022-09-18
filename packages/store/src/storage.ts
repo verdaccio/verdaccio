@@ -103,11 +103,7 @@ class Storage {
    Function changes a package info from local storage and all uplinks with write access./
    Used storages: local (write)
    */
-  public async changePackageNext(
-    name: string,
-    metadata: Manifest,
-    revision: string
-  ): Promise<void> {
+  public async changePackage(name: string, metadata: Manifest, revision: string): Promise<void> {
     debug('change existing package for package %o revision %o', name, revision);
     debug(`change manifest tags for %o revision %s`, name, revision);
     if (
@@ -119,7 +115,7 @@ class Storage {
     }
 
     debug(`change manifest udapting manifest for %o`, name);
-    await this.updatePackageNext(name, async (localData: Manifest): Promise<Manifest> => {
+    await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
         const incomingVersion = metadata.versions[version];
@@ -194,14 +190,11 @@ class Storage {
       throw err;
     }
 
-    const manifest = await this.updatePackageNext(
-      name,
-      async (data: Manifest): Promise<Manifest> => {
-        let newData: Manifest = { ...data };
-        delete data._attachments[filename];
-        return newData;
-      }
-    );
+    const manifest = await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
+      let newData: Manifest = { ...data };
+      delete data._attachments[filename];
+      return newData;
+    });
 
     try {
       const storage: IPackageStorage = this.getPrivatePackageStorage(name);
@@ -879,7 +872,7 @@ class Storage {
    * @param tags list of dist-tags
    */
   public async mergeTagsNext(name: string, tags: MergeTags): Promise<Manifest> {
-    return await this.updatePackageNext(name, async (data: Manifest): Promise<Manifest> => {
+    return await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       let newData: Manifest = { ...data };
       for (const tag of Object.keys(tags)) {
         // this handle dist-tag rm command
@@ -922,14 +915,6 @@ class Storage {
     return uplink;
   }
 
-  public async updateLocalMetadata(pkgName: string) {
-    const storage = this.getPrivatePackageStorage(pkgName);
-
-    if (!storage) {
-      throw errorUtils.getNotFound();
-    }
-  }
-
   public async updateManifest(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
     if (isDeprecatedManifest(manifest)) {
       // if the manifest is deprecated, we need to update the package.json
@@ -968,14 +953,10 @@ class Storage {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async deprecate(_body: Manifest, _options: PublishOptions): Promise<void> {
-    // // const storage: IPackageStorage = this.getPrivatePackageStorage(opname);
-
-    // if (typeof storage === 'undefined') {
-    //   throw errorUtils.getNotFound();
-    // }
-    throw errorUtils.getInternalError('no implementation ready for npm deprecate');
+  private async deprecate(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
+    const { name } = manifest;
+    debug('deprecating %s', name);
+    return this.changePackage(name, manifest, options.revision as string);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1253,7 +1234,7 @@ class Storage {
         try {
           debug('uploaded tarball %o for %o', filename, pkgName);
           // update the package metadata
-          await this.updatePackageNext(pkgName, async (data: Manifest): Promise<Manifest> => {
+          await this.updatePackage(pkgName, async (data: Manifest): Promise<Manifest> => {
             const newData: Manifest = { ...data };
             debug('added _attachment for %o', pkgName);
             newData._attachments[filename] = {
@@ -1301,7 +1282,7 @@ class Storage {
     tag: StringValue
   ): Promise<void> {
     debug(`add version %s package for %s`, version, name);
-    await this.updatePackageNext(name, async (data: Manifest): Promise<Manifest> => {
+    await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       // keep only one readme per package
       data.readme = metadata.readme;
       debug('%s` readme mutated', name);
@@ -1460,13 +1441,15 @@ class Storage {
 
     // this is intended in debug mode we do not want modify the store revision
     if (_.isNil(this.config._debug)) {
+      const prev = json._rev;
       json._rev = generateRevision(json._rev);
+      debug('revision metadata for %s updated from %s to %s', json.name, prev, json._rev);
     }
 
     return json;
   }
 
-  private async writePackageNext(name: string, json: Manifest): Promise<void> {
+  private async writePackage(name: string, json: Manifest): Promise<void> {
     const storage: any = this.getPrivatePackageStorage(name);
     if (_.isNil(storage)) {
       // TODO: replace here 500 error
@@ -1481,7 +1464,7 @@ class Storage {
    * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  private async updatePackageNext(
+  private async updatePackage(
     name: string,
     updateHandler: (manifest: Manifest) => Promise<Manifest>
   ): Promise<Manifest> {
@@ -1495,7 +1478,7 @@ class Storage {
     const updatedManifest: Manifest = await storage.updatePackage(name, updateHandler);
     // after correctly updated write to the storage
     try {
-      await this.writePackageNext(name, normalizePackage(updatedManifest));
+      await this.writePackage(name, normalizePackage(updatedManifest));
       return updatedManifest;
     } catch (err: any) {
       if (err.code === resourceNotAvailable) {
@@ -1913,7 +1896,7 @@ class Storage {
 
     if (change) {
       debug('updating package info %o', name);
-      await this.writePackageNext(name, cacheManifest);
+      await this.writePackage(name, cacheManifest);
       return cacheManifest;
     } else {
       return cacheManifest;

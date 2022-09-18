@@ -3,6 +3,7 @@ export {
   addNewVersion,
   generateLocalPackageMetadata,
   generateRemotePackageMetadata,
+  getDeprecatedPackageMetadata,
 } from './generatePackageMetadata';
 export { generatePublishNewVersionManifest } from './generatePublishNewVersionManifest';
 export { initializeServer } from './initializeServer';
