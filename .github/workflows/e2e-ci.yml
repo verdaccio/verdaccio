@@ -23,6 +23,8 @@ jobs:
         image: verdaccio/verdaccio:nightly-master
         ports:
           - 4873:4873
+        env:
+          NODE_ENV: production
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
     - name: Use Node 16
@@ -85,9 +87,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        pkg: [npm6, npm7, npm8, pnpm6, pnpm7, yarn1, yarn2]
-    name: CLI Test E2E ${{ matrix.pkg }} / ${{ matrix.os }} / Node 16
+        os: [ubuntu-latest, windows-latest]
+        pkg: [npm6, npm7, npm8, pnpm6, pnpm7, yarn1, yarn2,  yarn3, yarn4]
+    name:  E2E / ${{ matrix.pkg }} / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
@@ -112,5 +114,6 @@ jobs:
           key: test-${{ hashFiles('pnpm-lock.yaml') }}      
       - name: Test CLI
         run: pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
-        # env:
+        env:
+          NODE_ENV: production
         #   DEBUG: verdaccio*
