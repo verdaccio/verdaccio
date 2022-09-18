@@ -21,7 +21,7 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
   const spawnOptions = {
     cwd: options.cwd,
     stdio: options.stdio || 'pipe',
-    ...(env ? { env } : {}),
+    env: process.env,
   };
 
   if (process.platform.startsWith('win')) {

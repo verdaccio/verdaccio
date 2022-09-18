@@ -155,7 +155,7 @@ export async function initServer(
           process.exitCode = 1;
         });
       function handleShutdownGracefully() {
-        logger.warn('received shutdown signal - closing server gracefully...');
+        logger.info('received shutdown signal - closing server gracefully...');
         serverFactory.close(() => {
           logger.info('server closed.');
           process.exit(0);
