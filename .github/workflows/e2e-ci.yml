@@ -1,4 +1,4 @@
-name: E2E
+name: E2E CLI
 
 on:
   push:
@@ -73,7 +73,7 @@ jobs:
             packages-
       - name: Cache test
         uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        id: cache-packages
+        id: cache-test
         with:
           path: ./test/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}
@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         pkg: [npm6]
     name: CLI Test E2E ${{ matrix.pkg }} / ${{ matrix.os }} / Node 16
     runs-on: ${{ matrix.os }}
