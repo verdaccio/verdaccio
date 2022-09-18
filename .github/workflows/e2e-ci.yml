@@ -63,7 +63,7 @@ jobs:
         run: pnpm recursive install --frozen-lockfile --ignore-scripts --registry http://localhost:4873
       - name: build
         run: pnpm build
-      - name: Cache .pnpm-store
+      - name: Cache packages
         uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         id: cache-packages
         with:
@@ -71,6 +71,15 @@ jobs:
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             packages-
+      - name: Cache test
+        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        id: cache-packages
+        with:
+          path: ./test/
+          key: test-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            test-
+
   e2e-cli:
     needs: [prepare, build]
     strategy:
@@ -96,7 +105,11 @@ jobs:
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}      
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        with:
+          path: ./test/
+          key: test-${{ hashFiles('pnpm-lock.yaml') }}      
       - name: Test CLI
         run: pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
         # env:
