@@ -6,16 +6,11 @@
   "types": "./build/index.d.ts",
   "dependencies": {
     "debug": "4.3.4",
-    "npm": "6.14.17",
-    "get-port": "5.1.1",
-    "wait-on": "^6.0.0",
     "fs-extra": "10.1.0",
-    "semver": "7.3.7",
     "got": "11.8.5",
     "verdaccio": "workspace:6.0.0-6-next.47",
     "@verdaccio/core": "workspace:6.0.0-6-next.47",
-    "@verdaccio/config": "workspace:6.0.0-6-next.47",
-    "@verdaccio/test-helper": "workspace:1.1.0-6-next.4"
+    "@verdaccio/config": "workspace:6.0.0-6-next.47"
   },
   "scripts": {
     "test": "jest",

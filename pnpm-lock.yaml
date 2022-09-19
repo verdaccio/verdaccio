@@ -192,27 +192,17 @@ importers:
     specifiers:
       '@verdaccio/config': workspace:6.0.0-6-next.47
       '@verdaccio/core': workspace:6.0.0-6-next.47
-      '@verdaccio/test-helper': workspace:1.1.0-6-next.4
       debug: 4.3.4
       fs-extra: 10.1.0
-      get-port: 5.1.1
       got: 11.8.5
-      npm: 6.14.17
-      semver: 7.3.7
       verdaccio: workspace:6.0.0-6-next.47
-      wait-on: ^6.0.0
     dependencies:
       '@verdaccio/config': link:../../../packages/config
       '@verdaccio/core': link:../../../packages/core/core
-      '@verdaccio/test-helper': link:../../../packages/tools/helpers
       debug: 4.3.4
       fs-extra: 10.1.0
-      get-port: 5.1.1
       got: 11.8.5
-      npm: 6.14.17
-      semver: 7.3.7
       verdaccio: link:../../../packages/verdaccio
-      wait-on: 6.0.1_debug@4.3.4
 
   e2e/cli/e2e-npm6:
     specifiers:
