@@ -25,10 +25,10 @@ jobs:
           NODE_ENV: production
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-    - name: Use Node 16
+    - name: Use Node
       uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
       with:
-        node-version: 16
+        node-version-file: '.nvmrc'
     - name: Install pnpm
       run: npm i pnpm@6.32.15 -g
     - name: set store
@@ -52,7 +52,7 @@ jobs:
       - name: Use Node 16
         uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@6.32.15 -g
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
@@ -60,7 +60,7 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+        run: pnpm recursive install --frozen-lockfile --reporter=silence --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Cache packages
@@ -75,7 +75,7 @@ jobs:
         uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         id: cache-test
         with:
-          path: ./test/
+          path: ./e2e/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             test-
@@ -86,7 +86,7 @@ jobs:
       fail-fast: true
       matrix:
         pkg: [npm6, npm7, npm8, pnpm6, pnpm7, yarn1, yarn2,  yarn3, yarn4]
-    name:  E2E / ${{ matrix.pkg }} / ${{ matrix.os }}
+    name:  ${{ matrix.pkg }} / ${{ matrix.os }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
@@ -107,7 +107,7 @@ jobs:
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
-          path: ./test/
+          path: ./e2e/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}      
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}

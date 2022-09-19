@@ -9,6 +9,6 @@ packages:
   - packages/plugins/ui-theme
   - packages/plugins/memory
   - packages/plugins/local-storage
+  - e2e/cli/*
+  - e2e/ui
   - website
-  - test/cli/*
-  - test/helpers
