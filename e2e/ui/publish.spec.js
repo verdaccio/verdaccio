@@ -8,7 +8,7 @@ const { getPackages } = require('./helper');
 const protectedPackageMetadata = generatePackageMetadata('pkg-protected', '5.0.5');
 const scopedPackageMetadata = generatePackageMetadata('pkg-scoped', '1.0.6');
 
-describe('/ (Verdaccio Page)', () => {
+describe('publish package', () => {
   let registry1;
   let page;
   beforeAll(async () => {
