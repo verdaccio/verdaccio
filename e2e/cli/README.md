@@ -14,6 +14,12 @@
 | audit     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
 | install   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
 | deprecate | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+
+> notes:
+>
+> - yarn search exist in modern but do not use the search registry endpoint
 
 ❌ = no tested
 ✅ = tested
