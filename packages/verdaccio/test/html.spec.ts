@@ -1,13 +1,15 @@
+import got from 'got';
+
 import { ConfigBuilder } from '@verdaccio/config';
-import { HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
+import { constants, fileUtils } from '@verdaccio/core';
 
-import { Registry, ServerQuery } from '../../src/server';
+import { Registry } from '../src/server';
 
-describe('basic test endpoints', () => {
+describe('html', () => {
   let registry;
 
   beforeAll(async function () {
-    const storage = await fileUtils.createTempStorageFolder('basic-test');
+    const storage = await fileUtils.createTempStorageFolder('race-test');
     const configuration = ConfigBuilder.build()
       .addStorage(storage)
       .addPackageAccess(constants.PACKAGE_ACCESS.ALL, {
@@ -16,7 +18,7 @@ describe('basic test endpoints', () => {
       })
       .addAuth({
         htpasswd: {
-          file: './htpasswd',
+          file: './htpasswd-race',
         },
       })
       .addLogger({ level: 'debug', type: 'stdout', format: 'pretty' })
@@ -30,11 +32,8 @@ describe('basic test endpoints', () => {
     registry.stop();
   });
 
-  test('whoami', async () => {
-    const server = new ServerQuery(registry.getRegistryUrl());
-    // TODO: review this should be OK
-    (await server.whoami()).status(HTTP_STATUS.UNAUTHORIZED);
-    const q1 = await server.logout(registry.getToken());
-    q1.status(HTTP_STATUS.OK);
+  test('should find html on root', async () => {
+    const data = await got.get(`http://localhost:${registry.getPort()}`, {}).text();
+    expect(data).toContain('<title>Verdaccio</title>');
   });
 });

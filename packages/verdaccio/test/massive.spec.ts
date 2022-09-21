@@ -1,11 +1,9 @@
-import got from 'got';
-
 import { ConfigBuilder } from '@verdaccio/config';
 import { constants, fileUtils } from '@verdaccio/core';
 
-import { Registry } from '../../src/server';
+import { Registry, ServerQuery } from '../src/server';
 
-describe('html', () => {
+describe('race publishing packages', () => {
   let registry;
 
   beforeAll(async function () {
@@ -21,7 +19,7 @@ describe('html', () => {
           file: './htpasswd-race',
         },
       })
-      .addLogger({ level: 'debug', type: 'stdout', format: 'pretty' })
+      .addLogger({ level: 'warn', type: 'stdout', format: 'pretty' })
       .addUplink('upstream', { url: 'https://registry.verdaccio.org' });
     const { configPath } = await Registry.fromConfigToPath(configuration.getConfig());
     registry = new Registry(configPath);
@@ -32,8 +30,19 @@ describe('html', () => {
     registry.stop();
   });
 
-  test('should find html on root', async () => {
-    const data = await got.get(`http://localhost:${registry.getPort()}`, {}).text();
-    expect(data).toContain('<title>Verdaccio</title>');
-  });
+  test('should publish multiple packages', async () => {
+    const server = new ServerQuery(registry.getRegistryUrl());
+    const times = 100;
+    let success = 0;
+
+    for (const time of Array.from(Array(times).keys())) {
+      try {
+        await server.addPackage('race-pkg', `1.0.${time}`);
+        success++;
+      } catch (error) {
+        console.error('this should not trigger', error);
+      }
+    }
+    expect(success).toBe(times);
+  }, 30000);
 });

@@ -1,7 +1,7 @@
 import { ConfigBuilder } from '@verdaccio/config';
 import { HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
 
-import { Registry, ServerQuery } from '../../src/server';
+import { Registry, ServerQuery } from '../src/server';
 
 describe('multiple proxy registries configuration', () => {
   let registry;

@@ -3,7 +3,7 @@ import path from 'path';
 
 import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
-import { Registry, ServerQuery } from '../../src/server';
+import { Registry, ServerQuery } from '../src/server';
 
 describe('server query', () => {
   test('server run', async () => {
