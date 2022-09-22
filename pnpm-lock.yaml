@@ -225,10 +225,18 @@ importers:
   e2e/cli/e2e-npm8:
     specifiers:
       '@verdaccio/test-cli-commons': workspace:1.0.1-6-next.5
-      npm: next-8
+      npm: 8.19.2
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
       npm: 8.19.2
+
+  e2e/cli/e2e-npm9:
+    specifiers:
+      '@verdaccio/test-cli-commons': workspace:1.0.1-6-next.5
+      npm: 9.0.0-pre.1
+    dependencies:
+      '@verdaccio/test-cli-commons': link:../cli-commons
+      npm: 9.0.0-pre.1
 
   e2e/cli/e2e-pnpm6:
     specifiers:
@@ -18508,6 +18516,87 @@ packages:
   /npm/8.19.2:
     resolution: {integrity: sha512-MWkISVv5f7iZbfNkry5/5YBqSYJEDAKSJdL+uzSQuyLg+hgLQUyZynu3SH6bOZlvR9ZvJYk2EiJO6B1r+ynwHg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16}
+    hasBin: true
+    dev: false
+    bundledDependencies:
+      - '@isaacs/string-locale-compare'
+      - '@npmcli/arborist'
+      - '@npmcli/ci-detect'
+      - '@npmcli/config'
+      - '@npmcli/fs'
+      - '@npmcli/map-workspaces'
+      - '@npmcli/package-json'
+      - '@npmcli/promise-spawn'
+      - '@npmcli/run-script'
+      - abbrev
+      - archy
+      - cacache
+      - chalk
+      - chownr
+      - cli-columns
+      - cli-table3
+      - columnify
+      - fastest-levenshtein
+      - fs-minipass
+      - glob
+      - graceful-fs
+      - hosted-git-info
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-even-better-errors
+      - libnpmaccess
+      - libnpmdiff
+      - libnpmexec
+      - libnpmfund
+      - libnpmhook
+      - libnpmorg
+      - libnpmpack
+      - libnpmpublish
+      - libnpmsearch
+      - libnpmteam
+      - libnpmversion
+      - make-fetch-happen
+      - minimatch
+      - minipass
+      - minipass-pipeline
+      - mkdirp
+      - mkdirp-infer-owner
+      - ms
+      - node-gyp
+      - nopt
+      - npm-audit-report
+      - npm-install-checks
+      - npm-package-arg
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - npmlog
+      - opener
+      - p-map
+      - pacote
+      - parse-conflict-json
+      - proc-log
+      - qrcode-terminal
+      - read
+      - read-package-json
+      - read-package-json-fast
+      - readdir-scoped-modules
+      - rimraf
+      - semver
+      - ssri
+      - tar
+      - text-table
+      - tiny-relative-date
+      - treeverse
+      - validate-npm-package-name
+      - which
+      - write-file-atomic
+
+  /npm/9.0.0-pre.1:
+    resolution: {integrity: sha512-vsSgXGc4/sogKvPE3BQuRzrci0Gx1ddlfV8DJCDifaiMXYw42edXpNpDr/4tmy7Yv/KRQqMDBSAMp4FrMleHug==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
     dev: false
     bundledDependencies:
