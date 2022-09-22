@@ -195,6 +195,7 @@ importers:
       debug: 4.3.4
       fs-extra: 10.1.0
       got: 11.8.5
+      lodash: 4.17.21
       verdaccio: workspace:6.0.0-6-next.47
     dependencies:
       '@verdaccio/config': link:../../../packages/config
@@ -202,6 +203,7 @@ importers:
       debug: 4.3.4
       fs-extra: 10.1.0
       got: 11.8.5
+      lodash: 4.17.21
       verdaccio: link:../../../packages/verdaccio
 
   e2e/cli/e2e-npm6:
@@ -242,7 +244,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.12.0
+      pnpm: 7.12.1
 
   e2e/cli/e2e-yarn1:
     specifiers:
@@ -19188,8 +19190,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.12.0:
-    resolution: {integrity: sha512-Zc38WaMNkomazbIFl5nq2TR1e97R4iG+G7f9QKUL+YHbHOnkOYV3UuR45xYPhhpn1ArLfTpxjxmRu1H3gn6SPw==}
+  /pnpm/7.12.1:
+    resolution: {integrity: sha512-kk60T3TKXutcEnpUNAlJBpG+PzVdYZ3e/g4eivgvmWsY4H3R/8c/nVWTS5Ji/NCPfzO2oUudkN5AyCd0eTKODQ==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false

@@ -29,9 +29,6 @@
       "path": "../logger"
     },
     {
-      "path": "../mock"
-    },
-    {
       "path": "../node-api"
     },
     {

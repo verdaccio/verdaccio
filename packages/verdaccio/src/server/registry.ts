@@ -17,30 +17,43 @@ const buildAuthHeader = (token: string): string => {
 
 const debug = buildDebug('verdaccio:registry');
 
+const defaultOptions: Options = {
+  domain: 'localhost',
+  port: 4873,
+  createUser: false,
+  credentials: {
+    user: 'foo',
+    password: '12345',
+  },
+  debug: false,
+};
+
+type Options = {
+  domain: string;
+  port: number;
+  createUser: boolean;
+  credentials: { user: string; password: string };
+  debug: boolean;
+};
+
 export class Registry {
   private childFork: any;
   private configPath: string;
   private domain: string;
+  private createUser: boolean;
   private authstr: string | null = null;
   private port: number;
   private credentials;
   private token: string | null = null;
   private debug: boolean;
-  public constructor(
-    configPath: string,
-    domain: string = 'localhost',
-    port: number = 8080,
-    credentials = {
-      user: 'fooooo',
-      password: 'sms_8tn>V%zPZ_+6', // pragma: allowlist secret
-    },
-    debug = false
-  ) {
+  public constructor(configPath: string, options: Partial<Options> = {}) {
+    const _options = { ...defaultOptions, ...options };
     this.configPath = configPath;
-    this.port = port;
-    this.domain = domain;
-    this.debug = debug;
-    this.credentials = credentials;
+    this.createUser = _options.createUser;
+    this.port = _options.port;
+    this.domain = _options.domain;
+    this.debug = _options.debug;
+    this.credentials = _options.credentials;
   }
 
   public static async fromConfigToPath(
@@ -126,19 +139,20 @@ export class Registry {
           try {
             if ('verdaccio_started' in msg) {
               const server = new ServerQuery(`http://${this.domain}:` + port);
-              // const req = await server.debug();
-              // req.status(HTTP_STATUS.OK);
-              const user = await server.createUser(
-                this.credentials.user,
-                this.credentials.password
-              );
-              user.status(HTTP_STATUS.CREATED).body_ok(new RegExp(this.credentials.user));
-              // @ts-ignore
-              this.token = user?.response?.body.token;
-              this.authstr = buildAuthHeader(this.token as string);
+              if (this.createUser) {
+                const user = await server.createUser(
+                  this.credentials.user,
+                  this.credentials.password
+                );
+                user.status(HTTP_STATUS.CREATED).body_ok(new RegExp(this.credentials.user));
+                // @ts-ignore
+                this.token = user?.response?.body.token;
+                this.authstr = buildAuthHeader(this.token as string);
+              }
+
               return resolve(this.childFork);
             }
-          } catch (e) {
+          } catch (e: any) {
             // eslint-disable-next-line no-console
             console.error(e);
             // eslint-disable-next-line prefer-promise-reject-errors

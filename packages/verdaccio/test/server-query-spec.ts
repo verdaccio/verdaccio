@@ -5,11 +5,12 @@ import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
 import { Registry, ServerQuery } from '../src/server';
 
+const configFile = path.join(__dirname, './config.yaml');
+
 describe('server query', () => {
   test('server run', async () => {
-    const configFile = path.join(__dirname, '../functional/store/server1/config-1.yaml');
     const registry = new Registry(configFile);
-    const vPath = path.join(__dirname, '../../bin/verdaccio');
+    const vPath = path.join(__dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
     expect(registry.getPort()).toBeDefined();
@@ -18,24 +19,11 @@ describe('server query', () => {
     registry.stop();
   });
 
-  test('server get package', async () => {
-    const pkgName = 'upstream';
-    const upstreamManifest = generateRemotePackageMetadata(
-      pkgName,
-      '1.0.0',
-      'https://registry.something.org'
-    );
-    nock('https://registry.verdaccio.org').get(`/upstream`).reply(201, upstreamManifest);
-    const configFile = path.join(__dirname, '../functional/store/server1/config-1.yaml');
-    const registry = new Registry(configFile);
-    const vPath = path.join(__dirname, '../../bin/verdaccio');
+  test('server create user', async () => {
+    const registry = new Registry(configFile, { createUser: true });
+    const vPath = path.join(__dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
-    expect(registry.getPort()).toBeDefined();
-    expect(registry.getAuthStr()).toBeDefined();
-    expect(registry.getToken).toBeDefined();
-    const server = new ServerQuery('http://localhost:' + registry.getPort());
-    (await server.getPackage('/upstream')).status(403);
     registry.stop();
   });
 

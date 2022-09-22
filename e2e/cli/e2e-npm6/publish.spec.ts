@@ -22,6 +22,7 @@ describe('publish a package', () => {
         registry.getToken(),
         registry.getRegistryUrl()
       );
+
       const resp = await npm(
         { cwd: tempFolder },
         'publish',
