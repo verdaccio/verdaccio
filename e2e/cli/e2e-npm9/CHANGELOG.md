@@ -1,4 +1,4 @@
-# @verdaccio/e2e-cli-npm8
+# @verdaccio/e2e-cli-npm9
 
 ## 1.0.1-6-next.5
 
