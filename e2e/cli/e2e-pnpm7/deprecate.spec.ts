@@ -1,25 +1,10 @@
 import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
 
-import { pnpm } from './utils';
+import { bumbUp, getInfoVersions, pnpm, publish } from './utils';
 
 describe('deprecate a package', () => {
   jest.setTimeout(15000);
   let registry;
-
-  async function bumbUp(tempFolder, registry) {
-    await pnpm({ cwd: tempFolder }, 'version', 'minor', ...addRegistry(registry.getRegistryUrl()));
-  }
-
-  async function publish(tempFolder, pkgName, registry) {
-    const resp = await pnpm(
-      { cwd: tempFolder },
-      'publish',
-      '--json',
-      ...addRegistry(registry.getRegistryUrl())
-    );
-    const parsedBody = JSON.parse(resp.stdout as string);
-    expect(parsedBody.name).toEqual(pkgName);
-  }
 
   async function deprecate(tempFolder, packageVersion, registry, message) {
     await pnpm(
@@ -30,18 +15,6 @@ describe('deprecate a package', () => {
       '--json',
       ...addRegistry(registry.getRegistryUrl())
     );
-  }
-
-  async function getInfoVersions(pkgName, registry) {
-    const infoResp = await pnpm(
-      {},
-      'info',
-      pkgName,
-      '--json',
-      ...addRegistry(registry.getRegistryUrl())
-    );
-    const infoBody = JSON.parse(infoResp.stdout as string);
-    return infoBody;
   }
 
   beforeAll(async () => {
