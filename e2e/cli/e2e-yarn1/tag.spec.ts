@@ -33,7 +33,7 @@ describe('install a package', () => {
     );
 
     expect(resp2.stdout).toMatch(
-      '{"type":"step","data":{"message":"Getting tags","current":1,"total":1}}{"type":"info","data":"Package @verdaccio%2fbar"}{"type":"info","data":"latest: 1.0.0-patch"}'
+      '{"type":"info","data":"Package @verdaccio%2fbar"}{"type":"info","data":"latest: 1.0.0-patch"}'
     );
   });
 
@@ -70,7 +70,7 @@ describe('install a package', () => {
     );
 
     expect(resp2.stdout).toMatch(
-      '{"type":"step","data":{"message":"Getting tags","current":1,"total":1}}{"type":"info","data":"Package @verdaccio%2ffoo"}{"type":"info","data":"latest: 1.1.0"}{"type":"info","data":"beta: 1.0.0"}'
+      '{"type":"info","data":"Package @verdaccio%2ffoo"}{"type":"info","data":"latest: 1.1.0"}{"type":"info","data":"beta: 1.0.0"}'
     );
   });
 
@@ -107,7 +107,7 @@ describe('install a package', () => {
     );
 
     expect(resp2.stdout).toMatch(
-      '{"type":"step","data":{"message":"Getting tags","current":1,"total":1}}{"type":"info","data":"Package @verdaccio%2fthird"}{"type":"info","data":"latest: 1.1.0"}{"type":"info","data":"beta: 1.0.0"}'
+      '{"type":"info","data":"Package @verdaccio%2fthird"}{"type":"info","data":"latest: 1.1.0"}{"type":"info","data":"beta: 1.0.0"}'
     );
 
     const resp4 = await yarn(
@@ -133,7 +133,7 @@ describe('install a package', () => {
     );
 
     expect(resp3.stdout).toMatch(
-      '{"type":"step","data":{"message":"Getting tags","current":1,"total":1}}{"type":"info","data":"Package @verdaccio%2fthird"}{"type":"info","data":"latest: 1.1.0"}'
+      '{"type":"info","data":"Package @verdaccio%2fthird"}{"type":"info","data":"latest: 1.1.0"}'
     );
   });
 
