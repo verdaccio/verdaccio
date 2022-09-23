@@ -18,7 +18,7 @@ describe('publish package', () => {
       ...configProtected,
       storage: registry1storage,
     });
-    registry1 = new Registry(protectedRegistry.configPath);
+    registry1 = new Registry(protectedRegistry.configPath, { createUser: true });
     await registry1.init();
 
     const query1 = new ServerQuery(registry1.getRegistryUrl());
