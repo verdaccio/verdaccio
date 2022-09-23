@@ -3,7 +3,7 @@ import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdacci
 import { bumbUp, getInfoVersions, npm, publish } from './utils';
 
 describe('deprecate a package', () => {
-  jest.setTimeout(15000);
+  jest.setTimeout(20000);
   let registry;
 
   async function deprecate(tempFolder, packageVersion, registry, message) {
