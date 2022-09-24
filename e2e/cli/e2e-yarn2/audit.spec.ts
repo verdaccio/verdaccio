@@ -22,7 +22,7 @@ describe('audit a package yarn 2', () => {
     projectFolder = tempFolder;
   });
 
-  test.skip('should run yarn npm audit info json body', async () => {
+  test('should run yarn npm audit info json body', async () => {
     await yarn(projectFolder, 'install');
     const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
     console.log('--resp********:', resp);
