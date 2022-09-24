@@ -12,22 +12,6 @@ function pnpm(options: SpawnOptions, ...args: string[]) {
   return exec(options, getCommand(), args);
 }
 
-async function bumbUp(tempFolder, registry) {
-  await pnpm({ cwd: tempFolder }, 'version', 'minor', ...addRegistry(registry.getRegistryUrl()));
-}
-
-async function publish(tempFolder, pkgName, registry, arg: string[] = []) {
-  const resp = await pnpm(
-    { cwd: tempFolder },
-    'publish',
-    ...arg,
-    '--json',
-    ...addRegistry(registry.getRegistryUrl())
-  );
-  const parsedBody = JSON.parse(resp.stdout as string);
-  expect(parsedBody.name).toEqual(pkgName);
-}
-
 async function getInfoVersions(pkgName, registry) {
   const infoResp = await pnpm(
     {},
@@ -40,4 +24,4 @@ async function getInfoVersions(pkgName, registry) {
   return infoBody;
 }
 
-export { getInfoVersions, pnpm, publish, bumbUp };
+export { getInfoVersions, pnpm };
