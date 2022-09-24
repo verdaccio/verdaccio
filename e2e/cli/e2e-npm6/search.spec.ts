@@ -3,7 +3,7 @@ import { addRegistry, initialSetup } from '@verdaccio/test-cli-commons';
 import { npm } from './utils';
 
 describe('search a package', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   let registry;
 
   beforeAll(async () => {

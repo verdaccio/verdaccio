@@ -3,7 +3,7 @@ import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdacci
 import { npm } from './utils';
 
 describe('publish a package', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   let registry;
 
   beforeAll(async () => {

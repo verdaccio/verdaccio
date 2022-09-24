@@ -1,22 +1,11 @@
-import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
+import {
+  addRegistry,
+  initialSetup,
+  pnpmUtils,
+  prepareGenericEmptyProject,
+} from '@verdaccio/test-cli-commons';
 
 import { pnpm } from './utils';
-
-async function bumbUp(tempFolder, registry) {
-  await pnpm({ cwd: tempFolder }, 'version', 'minor', ...addRegistry(registry.getRegistryUrl()));
-}
-
-async function publish(tempFolder, pkgName, registry, arg: string[] = []) {
-  const resp = await pnpm(
-    { cwd: tempFolder },
-    'publish',
-    ...arg,
-    '--json',
-    ...addRegistry(registry.getRegistryUrl())
-  );
-  const parsedBody = JSON.parse(resp.stdout as string);
-  expect(parsedBody.name).toEqual(pkgName);
-}
 
 describe('publish a package', () => {
   jest.setTimeout(20000);
@@ -36,9 +25,9 @@ describe('publish a package', () => {
       registry.getToken(),
       registry.getRegistryUrl()
     );
-    await publish(tempFolder, pkgName, registry);
-    await bumbUp(tempFolder, registry);
-    await publish(tempFolder, pkgName, registry, ['--tag', 'beta']);
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
+    await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry, ['--tag', 'beta']);
     const resp2 = await pnpm(
       { cwd: tempFolder },
       'dist-tag',
@@ -57,9 +46,9 @@ describe('publish a package', () => {
       registry.getToken(),
       registry.getRegistryUrl()
     );
-    await publish(tempFolder, pkgName, registry);
-    await bumbUp(tempFolder, registry);
-    await publish(tempFolder, pkgName, registry, ['--tag', 'beta']);
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
+    await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry, ['--tag', 'beta']);
     const resp2 = await pnpm(
       { cwd: tempFolder },
       'dist-tag',
@@ -81,9 +70,9 @@ describe('publish a package', () => {
         registry.getToken(),
         registry.getRegistryUrl()
       );
-      await publish(tempFolder, pkgName, registry);
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
+      await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       const resp2 = await pnpm(
         { cwd: tempFolder },
         'dist-tag',

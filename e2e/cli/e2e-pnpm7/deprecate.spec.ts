@@ -1,6 +1,11 @@
-import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
+import {
+  addRegistry,
+  initialSetup,
+  pnpmUtils,
+  prepareGenericEmptyProject,
+} from '@verdaccio/test-cli-commons';
 
-import { bumbUp, getInfoVersions, pnpm, publish } from './utils';
+import { pnpm } from './utils';
 
 describe('deprecate a package', () => {
   jest.setTimeout(20000);
@@ -34,11 +39,11 @@ describe('deprecate a package', () => {
         registry.getToken(),
         registry.getRegistryUrl()
       );
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       // deprecate one version
       await deprecate(tempFolder, `${pkgName}@1.0.0`, registry, message);
       // verify is deprecated
-      const infoBody = await getInfoVersions(`${pkgName}`, registry);
+      const infoBody = await pnpmUtils.getInfoVersions(pnpm, `${pkgName}`, registry);
       expect(infoBody.name).toEqual(pkgName);
       expect(infoBody.deprecated).toEqual(message);
     }
@@ -53,15 +58,15 @@ describe('deprecate a package', () => {
       registry.getToken(),
       registry.getRegistryUrl()
     );
-    await publish(tempFolder, pkgName, registry);
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
     // deprecate one version
     await deprecate(tempFolder, `${pkgName}@1.0.0`, registry, message);
     // verify is deprecated
-    const infoBody = await getInfoVersions(`${pkgName}`, registry);
+    const infoBody = await pnpmUtils.getInfoVersions(pnpm, `${pkgName}`, registry);
     expect(infoBody.deprecated).toEqual(message);
     // empty string is same as undeprecate
     await deprecate(tempFolder, `${pkgName}@1.0.0`, registry, '');
-    const infoBody2 = await getInfoVersions(`${pkgName}`, registry);
+    const infoBody2 = await pnpmUtils.getInfoVersions(pnpm, `${pkgName}`, registry);
     expect(infoBody2.deprecated).toBeUndefined();
   });
 
@@ -77,28 +82,28 @@ describe('deprecate a package', () => {
         registry.getRegistryUrl()
       );
       // publish 1.0.0
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       // publish 1.1.0
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       // publish 1.2.0
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       // publish 1.3.0
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
+      await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
       // // deprecate all version
       await deprecate(tempFolder, pkgName, registry, message);
       // verify is deprecated
       for (let v of ['1.0.0', '1.1.0', '1.2.0', '1.3.0']) {
-        const infoResp = await getInfoVersions(`${pkgName}@${v}`, registry);
+        const infoResp = await pnpmUtils.getInfoVersions(pnpm, `${pkgName}@${v}`, registry);
         expect(infoResp.deprecated).toEqual(message);
       }
       // publish normal version
       // publish 1.4.0
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
-      const infoResp = await getInfoVersions(`${pkgName}@1.4.0`, registry);
+      await pnpmUtils.bumbUp(pnpm, tempFolder, registry);
+      await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
+      const infoResp = await pnpmUtils.getInfoVersions(pnpm, `${pkgName}@1.4.0`, registry);
       // must be not deprecated
       expect(infoResp.deprecated).toBeUndefined();
     }
