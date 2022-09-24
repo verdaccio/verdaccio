@@ -21,7 +21,7 @@
     "semver": "7.3.7"
   },
   "devDependencies": {
-    "autocannon": "7.9.0",
+    "autocannon": "7.10.0",
     "node-fetch": "cjs",
     "ts-node": "10.9.1"
   }
