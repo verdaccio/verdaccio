@@ -1,6 +1,10 @@
 import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
 
-import { bumbUp, yarn } from './utils';
+import { yarn } from './utils';
+
+export async function bumbUp(tempFolder, registry) {
+  await yarn({ cwd: tempFolder }, 'version', '--minor', ...addRegistry(registry.getRegistryUrl()));
+}
 
 describe('install a package', () => {
   jest.setTimeout(20000);
