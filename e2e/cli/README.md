@@ -24,6 +24,7 @@
 > notes:
 >
 > - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
+> - yarn _modern_ has two info commands, the one used here is `yarn npm info`
 
 ❌ = no tested
 ✅ = tested
