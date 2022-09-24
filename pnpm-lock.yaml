@@ -206,10 +206,18 @@ importers:
       lodash: 4.17.21
       verdaccio: link:../../../packages/verdaccio
 
+  e2e/cli/e2e-npm5:
+    specifiers:
+      '@verdaccio/test-cli-commons': workspace:1.0.1-6-next.5
+      npm: 5.10.0
+    dependencies:
+      '@verdaccio/test-cli-commons': link:../cli-commons
+      npm: 5.10.0
+
   e2e/cli/e2e-npm6:
     specifiers:
       '@verdaccio/test-cli-commons': workspace:1.0.1-6-next.5
-      npm: latest-6
+      npm: 6.14.17
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
       npm: 6.14.17
@@ -217,7 +225,7 @@ importers:
   e2e/cli/e2e-npm7:
     specifiers:
       '@verdaccio/test-cli-commons': workspace:1.0.1-6-next.5
-      npm: latest-7
+      npm: 7.24.2
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
       npm: 7.24.2
@@ -252,7 +260,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.12.1
+      pnpm: 7.12.2
 
   e2e/cli/e2e-yarn1:
     specifiers:
@@ -18306,6 +18314,128 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
+  /npm/5.10.0:
+    resolution: {integrity: sha512-lvjvjgR5wG2RJ2uqak1xtZcVAWMwVOzN5HkUlUj/n8rU1f3A0fNn+7HwOzH9Lyf0Ppyu9ApgsEpHczOSnx1cwA==}
+    hasBin: true
+    dev: false
+    bundledDependencies:
+      - abbrev
+      - ansi-regex
+      - ansicolors
+      - ansistyles
+      - aproba
+      - archy
+      - byte-size
+      - cacache
+      - call-limit
+      - bluebird
+      - bin-links
+      - chownr
+      - cli-table2
+      - cmd-shim
+      - columnify
+      - config-chain
+      - debuglog
+      - detect-indent
+      - detect-newline
+      - dezalgo
+      - editor
+      - find-npm-prefix
+      - fs-vacuum
+      - fs-write-stream-atomic
+      - gentle-fs
+      - glob
+      - graceful-fs
+      - has-unicode
+      - hosted-git-info
+      - iferr
+      - imurmurhash
+      - inflight
+      - inherits
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-better-errors
+      - JSONStream
+      - lazy-property
+      - libcipm
+      - libnpx
+      - lockfile
+      - lodash._baseindexof
+      - lodash._baseuniq
+      - lodash._bindcallback
+      - lodash._cacheindexof
+      - lodash._createcache
+      - lodash._getnative
+      - lodash.clonedeep
+      - lodash.restparam
+      - lodash.union
+      - lodash.uniq
+      - lodash.without
+      - lru-cache
+      - meant
+      - mkdirp
+      - mississippi
+      - move-concurrently
+      - nopt
+      - normalize-package-data
+      - npm-cache-filename
+      - npm-lifecycle
+      - npm-install-checks
+      - npm-package-arg
+      - npm-packlist
+      - npm-profile
+      - npm-registry-client
+      - npm-user-validate
+      - npmlog
+      - once
+      - opener
+      - osenv
+      - pacote
+      - path-is-inside
+      - promise-inflight
+      - query-string
+      - qrcode-terminal
+      - qw
+      - read
+      - read-cmd-shim
+      - read-installed
+      - read-package-json
+      - read-package-tree
+      - readable-stream
+      - readdir-scoped-modules
+      - request
+      - retry
+      - rimraf
+      - semver
+      - sha
+      - slide
+      - sorted-object
+      - sorted-union-stream
+      - ssri
+      - strip-ansi
+      - tar
+      - text-table
+      - uid-number
+      - umask
+      - unique-filename
+      - unpipe
+      - update-notifier
+      - uuid
+      - validate-npm-package-license
+      - validate-npm-package-name
+      - which
+      - wrappy
+      - write-file-atomic
+      - safe-buffer
+      - worker-farm
+      - tiny-relative-date
+      - cli-columns
+      - node-gyp
+      - npm-audit-report
+      - npm-registry-fetch
+      - lock-verify
+
   /npm/6.14.17:
     resolution: {integrity: sha512-CxEDn1ydVRPDl4tHrlnq+WevYAhv4GF2AEHzJKQ4prZDZ96IS3Uo6t0Sy6O9kB6XzqkI+J00WfYCqqk0p6IJ1Q==}
     engines: {node: 6 >=6.2.0 || 8 || >=9.3.0}
@@ -19279,8 +19409,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.12.1:
-    resolution: {integrity: sha512-kk60T3TKXutcEnpUNAlJBpG+PzVdYZ3e/g4eivgvmWsY4H3R/8c/nVWTS5Ji/NCPfzO2oUudkN5AyCd0eTKODQ==}
+  /pnpm/7.12.2:
+    resolution: {integrity: sha512-8QvnKANKN+YZXDmVYGI7zRJysdKldZI+w3AYnxu9IwtnLv1x6WuzrJr0nxMcTeuUAT908RjDqK+/6KJB9wNqxA==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false

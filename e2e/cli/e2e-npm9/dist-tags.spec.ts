@@ -1,6 +1,11 @@
-import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
+import {
+  addRegistry,
+  initialSetup,
+  npmUtils,
+  prepareGenericEmptyProject,
+} from '@verdaccio/test-cli-commons';
 
-import { bumbUp, npm, publish } from './utils';
+import { npm } from './utils';
 
 describe('publish a package', () => {
   jest.setTimeout(20000);
@@ -20,9 +25,9 @@ describe('publish a package', () => {
       registry.getToken(),
       registry.getRegistryUrl()
     );
-    await publish(tempFolder, pkgName, registry);
-    await bumbUp(tempFolder, registry);
-    await publish(tempFolder, pkgName, registry, ['--tag', 'beta']);
+    await npmUtils.publish(npm, tempFolder, pkgName, registry);
+    await npmUtils.bumbUp(npm, tempFolder, registry);
+    await npmUtils.publish(npm, tempFolder, pkgName, registry, ['--tag', 'beta']);
     const resp2 = await npm(
       { cwd: tempFolder },
       'dist-tag',
@@ -41,9 +46,9 @@ describe('publish a package', () => {
       registry.getToken(),
       registry.getRegistryUrl()
     );
-    await publish(tempFolder, pkgName, registry);
-    await bumbUp(tempFolder, registry);
-    await publish(tempFolder, pkgName, registry, ['--tag', 'beta']);
+    await npmUtils.publish(npm, tempFolder, pkgName, registry);
+    await npmUtils.bumbUp(npm, tempFolder, registry);
+    await npmUtils.publish(npm, tempFolder, pkgName, registry, ['--tag', 'beta']);
     const resp2 = await npm(
       { cwd: tempFolder },
       'dist-tag',
@@ -65,9 +70,9 @@ describe('publish a package', () => {
         registry.getToken(),
         registry.getRegistryUrl()
       );
-      await publish(tempFolder, pkgName, registry);
-      await bumbUp(tempFolder, registry);
-      await publish(tempFolder, pkgName, registry);
+      await npmUtils.publish(npm, tempFolder, pkgName, registry);
+      await npmUtils.bumbUp(npm, tempFolder, registry);
+      await npmUtils.publish(npm, tempFolder, pkgName, registry);
       const resp2 = await npm(
         { cwd: tempFolder },
         'dist-tag',
