@@ -1,15 +1,6 @@
 name: E2E CLI
 
-on:
-  pull_request:
-    paths:
-      - .changeset/**
-      - .github/workflows/e2e-ci.yml
-      - 'packages/**'
-      - 'test/**'
-      - 'jest/**'
-      - 'package.json'
-      - 'pnpm-workspace.yaml'
+on: [pull_request]
 permissions:
   contents: read
 jobs:
