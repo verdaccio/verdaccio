@@ -195,6 +195,7 @@ label[data-shrink=false]+.MuiInputBase-formControl .emotion-2:focus::-ms-input-p
 
 .emotion-4 {
   float: unset;
+  width: auto;
   overflow: hidden;
   padding: 0;
   line-height: 11px;

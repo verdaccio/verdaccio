@@ -28,9 +28,9 @@
     "@docusaurus/theme-search-algolia": "2.1.0",
     "@docusaurus/plugin-content-docs": "2.1.0",
     "@docusaurus/theme-common": "2.1.0",
-    "@mui/material": "5.10.5",
-    "@mui/icons-material": "5.10.3",
-    "@mui/styles": "5.10.3",
+    "@mui/material": "5.10.6",
+    "@mui/icons-material": "5.10.6",
+    "@mui/styles": "5.10.6",
     "@mdx-js/react": "^1.6.22",
     "clsx": "1.2.1",
     "classnames": "2.3.2",
@@ -38,9 +38,9 @@
     "docusaurus-plugin-contributors": "workspace:1.0.1-6-next.0",
     "docusaurus-plugin-sentry": "1.0.0",
     "react": "17.0.2",
-    "react-player": "2.10.1",
+    "react-player": "2.11.0",
     "react-dom": "17.0.2",
-    "usehooks-ts": "2.6.0",
+    "usehooks-ts": "2.7.1",
     "react-twitter-widgets": "^1.10.0",
     "use-is-in-viewport": "^1.0.9"
   },
@@ -63,7 +63,7 @@
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
-    "sass": "1.54.9",
+    "sass": "1.55.0",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }
