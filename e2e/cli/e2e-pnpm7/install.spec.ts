@@ -27,7 +27,7 @@ describe('install a project packages', () => {
       '--reporter=default',
       ...addRegistry(registry.getRegistryUrl())
     );
-    expect(resp.stdout).toMatch(/react 18.2.0/);
+    expect(resp.stdout).toMatch(/react/);
   });
 
   afterAll(async () => {
