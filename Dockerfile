@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.20.1-alpine as builder
+=======
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:16.17.0-alpine as builder
+>>>>>>> 38d829db (chore: update yarn)
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -9,17 +13,18 @@ ENV NODE_ENV=production \
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
-    apk add glibc-2.25-r0.apk
+    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.29-r0/glibc-2.29-r0.apk && \
+    apk add glibc-2.29-r0.apk
 
 WORKDIR /opt/verdaccio-build
 COPY . .
 
 RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableProgressBars true && \
-    yarn config set enableTelemetry true && \
+    yarn config set enableTelemetry false && \
     yarn config set enableGlobalCache false && \
-    yarn install && \
+    yarn config set enableScripts false && \
+    yarn install --immutable && \
     yarn code:docker-build && \
     yarn cache clean && \
     yarn workspaces focus --production
