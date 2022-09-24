@@ -138,7 +138,7 @@ export class ServerQuery {
   public constructor(url) {
     this.url = url.replace(/\/$/, '');
     debug('server url %s', this.url);
-    this.userAgent = 'node/v8.1.2 linux x64';
+    this.userAgent = 'node/v14.1.2 linux x64';
   }
 
   private request(options: any): Promise<ResponseAssert> {

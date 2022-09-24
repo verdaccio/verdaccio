@@ -3,23 +3,27 @@
 ## What is included on these test?
 
 - Default configuration only
-- Test with all popular package managers (`yarn classic` and `yarn modern (2,3, 4)`, `pnpm 6,7` and `npm 6, 7 and 8`)
+- Test with all popular package managers:
+- `yarn classic` and `yarn modern (2, 3, 4 RC)`
+- `pnpm 6, 7`
+- `npm 6, 7, 8 and 9`
 
 ### Commands Tested
 
-| cmd       | npm6 | npm7 | npm8 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
-| --------- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- |
-| publish   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
-| info      | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
-| audit     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
-| install   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
-| deprecate | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
-| ping      | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
-| search    | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| cmd       | npm6 | npm7 | npm8 | npm9 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- |
+| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
+| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ⛔    | ⛔    | ⛔    | ⛔    |
+| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
 
 > notes:
 >
-> - yarn search exist in modern but do not use the search registry endpoint
+> - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
 
 ❌ = no tested
 ✅ = tested

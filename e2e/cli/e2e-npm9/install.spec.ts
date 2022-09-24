@@ -1,9 +1,9 @@
 import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
 
-import { pnpm } from './utils';
+import { npm } from './utils';
 
 describe('install a project packages', () => {
-  jest.setTimeout(80000);
+  jest.setTimeout(100000);
   let registry;
 
   beforeAll(async () => {
@@ -21,13 +21,15 @@ describe('install a project packages', () => {
       registry.getRegistryUrl(),
       { react: '18.2.0' }
     );
-    const resp = await pnpm(
+    const resp = await npm(
       { cwd: tempFolder },
       'install',
-      '--reporter=default',
+      '--json',
       ...addRegistry(registry.getRegistryUrl())
     );
-    expect(resp.stdout).toMatch(/react/);
+    const parsedBody = JSON.parse(resp.stdout as string);
+    expect(parsedBody.added).toBeDefined();
+    expect(parsedBody.audit).toBeDefined();
   });
 
   afterAll(async () => {

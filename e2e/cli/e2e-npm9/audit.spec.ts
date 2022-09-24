@@ -2,7 +2,7 @@ import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdacci
 
 import { npm } from './utils';
 
-describe('publish a package', () => {
+describe('audit a package', () => {
   jest.setTimeout(10000);
   let registry;
 
@@ -12,27 +12,29 @@ describe('publish a package', () => {
     await registry.init();
   });
 
-  test.each([['verdaccio-memory', 'verdaccio', '@verdaccio/foo', '@verdaccio/some-foo']])(
-    'should publish a package %s',
+  test.each([['verdaccio-memory', '@verdaccio/cli']])(
+    'should audit a package %s',
     async (pkgName) => {
       const { tempFolder } = await prepareGenericEmptyProject(
         pkgName,
         '1.0.0-patch',
         registry.port,
         registry.getToken(),
-        registry.getRegistryUrl()
+        registry.getRegistryUrl(),
+        { jquery: '3.6.1' }
       );
-
+      // install is required to create package lock file
+      await npm({ cwd: tempFolder }, 'install', ...addRegistry(registry.getRegistryUrl()));
       const resp = await npm(
         { cwd: tempFolder },
-        'publish',
+        'audit',
         '--json',
         ...addRegistry(registry.getRegistryUrl())
       );
       const parsedBody = JSON.parse(resp.stdout as string);
-      expect(parsedBody.name).toEqual(pkgName);
-      expect(parsedBody.files).toBeDefined();
-      expect(parsedBody.files).toBeDefined();
+      expect(parsedBody.metadata).toBeDefined();
+      expect(parsedBody.auditReportVersion).toBeDefined();
+      expect(parsedBody.vulnerabilities).toBeDefined();
     }
   );
 

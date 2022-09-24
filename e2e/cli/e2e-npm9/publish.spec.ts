@@ -2,7 +2,7 @@ import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdacci
 
 import { npm } from './utils';
 
-describe('publish a package', () => {
+describe('install a package', () => {
   jest.setTimeout(10000);
   let registry;
 
@@ -22,7 +22,6 @@ describe('publish a package', () => {
         registry.getToken(),
         registry.getRegistryUrl()
       );
-
       const resp = await npm(
         { cwd: tempFolder },
         'publish',
