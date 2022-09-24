@@ -25,6 +25,7 @@ describe('audit a package yarn 2', () => {
   test('should run yarn npm audit info json body', async () => {
     await yarn(projectFolder, 'install');
     const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
+    console.log('--resp********:', resp);
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.advisories).toBeDefined();
     expect(parsedBody.advisories['1069969']).toBeDefined();
