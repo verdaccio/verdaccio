@@ -32,7 +32,7 @@ jobs:
       uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
       with:
         path: ~/.pnpm-store
-        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
         restore-keys: |
           pnpm-
   build:
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
       - name: Install
         run: pnpm recursive install --frozen-lockfile --reporter=silence --registry http://localhost:4873
       - name: build
@@ -59,7 +59,7 @@ jobs:
         id: cache-packages
         with:
           path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
           restore-keys: |
             packages-
       - name: Cache test
@@ -67,7 +67,7 @@ jobs:
         id: cache-test
         with:
           path: ./e2e/
-          key: test-${{ hashFiles('pnpm-lock.yaml') }}
+          key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
           restore-keys: |
             test-
 
@@ -89,16 +89,16 @@ jobs:
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
       - name: Install
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ./e2e/
-          key: test-${{ hashFiles('pnpm-lock.yaml') }}      
+          key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}      
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
