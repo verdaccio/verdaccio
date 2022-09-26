@@ -74,6 +74,9 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
     ${SearchWrapper} {
       display: flex;
     }
+    ${IconSearchButton} {
+      display: none;
+    }
     ${MobileNavBar} {
       display: none;
     }
