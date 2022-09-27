@@ -96,10 +96,10 @@ jobs:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}
       - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-      - name: build e2e
-        run: pnpm run build --filter=./e2e      
         with:
           path: ./e2e/
           key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}      
+      - name: build e2e
+        run: pnpm run build --filter=./e2e
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
