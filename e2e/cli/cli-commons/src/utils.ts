@@ -62,33 +62,30 @@ export async function prepareYarnModernProject(
   return { tempFolder };
 }
 
-export async function prepareGenericEmptyProject(
-  packageName: string,
-  version: string,
-  port: number,
-  token: string,
-  registryDomain: string,
+export const getPackageJSON = (
+  packageName,
+  version = '1.0.0',
   dependencies = {},
   devDependencies = {}
-) {
-  const getPackageJSON = (packageName, version = '1.0.0') => {
-    const json = {
-      name: packageName,
-      version,
-      description: 'some cool project',
-      main: 'index.js',
-      scripts: {
-        test: 'echo exit 1',
-      },
-      dependencies,
-      devDependencies,
-      keywords: ['foo', 'bar'],
-      author: 'Juan Picado <jotadeveloper@gmail.com>',
-      license: 'MIT',
-    };
-    return JSON.stringify(json);
+) => {
+  const json = {
+    name: packageName,
+    version,
+    description: 'some cool project',
+    main: 'index.js',
+    scripts: {
+      test: 'echo exit 1',
+    },
+    dependencies,
+    devDependencies,
+    keywords: ['foo', 'bar'],
+    author: 'Yoooooo <jota@some.org>',
+    license: 'MIT',
   };
-  const getREADME = (packageName) => `
+  return JSON.stringify(json);
+};
+
+export const getREADME = (packageName) => `
    # My README ${packageName}
 
    some text
@@ -97,10 +94,23 @@ export async function prepareGenericEmptyProject(
 
    more text
   `;
+
+export async function prepareGenericEmptyProject(
+  packageName: string,
+  version: string,
+  port: number,
+  token: string,
+  registryDomain: string,
+  dependencies: any = {},
+  devDependencies: any = {}
+) {
   const getNPMrc = (port, token, registry) => `//localhost:${port}/:_authToken=${token}
   registry=${registry}`;
   const tempFolder = await createTempFolder('temp-folder');
-  await writeFile(join(tempFolder, 'package.json'), getPackageJSON(packageName, version));
+  await writeFile(
+    join(tempFolder, 'package.json'),
+    getPackageJSON(packageName, version, dependencies, devDependencies)
+  );
   await writeFile(join(tempFolder, 'README.md'), getREADME(packageName));
   await writeFile(join(tempFolder, '.npmrc'), getNPMrc(port, token, registryDomain));
   return { tempFolder };

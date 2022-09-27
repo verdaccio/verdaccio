@@ -1,11 +1,9 @@
-import { join } from 'path';
-
-import { initialSetup, prepareYarnModernProject } from '@verdaccio/test-cli-commons';
+import { initialSetup, yarnModernUtils } from '@verdaccio/test-cli-commons';
 
 import { getYarnCommand, yarn } from './utils';
 
 describe('install a package', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   let registry;
   let projectFolder;
 
@@ -13,16 +11,21 @@ describe('install a package', () => {
     const setup = await initialSetup();
     registry = setup.registry;
     await registry.init();
-    const { tempFolder } = await prepareYarnModernProject(
-      join(__dirname, './yarn-project'),
-      'yarn-4',
+    const { tempFolder } = await yarnModernUtils.prepareYarnModernProject(
+      'yarn-2',
       registry.getRegistryUrl(),
-      getYarnCommand()
+      getYarnCommand(),
+      {
+        packageName: '@scope/name',
+        version: '1.0.0',
+        dependencies: { jquery: '3.6.0' },
+        devDependencies: {},
+      }
     );
     projectFolder = tempFolder;
   });
 
-  test('should run yarn 4 info json body', async () => {
+  test('should run yarn 2 info json body', async () => {
     const resp = await yarn(projectFolder, 'npm', 'info', 'react', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.name).toEqual('react');

@@ -14,3 +14,4 @@ export { exec, ExecOutput } from './process';
 export { callRegistry } from './web';
 export * as npmUtils from './npm-utils';
 export * as pnpmUtils from './npm-utils';
+export * as yarnModernUtils from './yarn-modern-utils';

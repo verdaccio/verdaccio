@@ -1,15 +1,7 @@
 {
   "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 1,
-  "ignorePaths": [
-    "docker-examples/**",
-    "e2e/cli/e2e-yarn2/yarn-project/**",
-    "e2e/cli/e2e-yarn3/yarn-project/**",
-    "e2e/cli/e2e-yarn4/yarn-project/**",
-    "e2e/cli/e2e-yarn2/yarn-install/**",
-    "e2e/cli/e2e-yarn3/yarn-install/**",
-    "e2e/cli/e2e-yarn4/yarn-install/**"
-  ],
+  "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": [
     "eslint-plugin-verdaccio",
     "@verdaccio/test-helper",

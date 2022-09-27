@@ -2,8 +2,8 @@ import { initialSetup, yarnModernUtils } from '@verdaccio/test-cli-commons';
 
 import { getYarnCommand, yarn } from './utils';
 
-describe('audit a package yarn 2', () => {
-  jest.setTimeout(10000);
+describe('install a packages', () => {
+  jest.setTimeout(20000);
   let registry;
   let projectFolder;
 
@@ -18,22 +18,19 @@ describe('audit a package yarn 2', () => {
       {
         packageName: '@scope/name',
         version: '1.0.0',
-        dependencies: { jquery: '3.0.0' },
+        dependencies: { jquery: '3.6.0' },
         devDependencies: {},
-      }
+      },
+      registry.getToken()
     );
     projectFolder = tempFolder;
   });
 
-  test('should run yarn npm audit info json body', async () => {
-    await yarn(projectFolder, 'install');
-    const resp = await yarn(projectFolder, 'npm', 'audit', '--json');
-    const parsedBody = JSON.parse(resp.stdout as string);
-    expect(parsedBody.advisories).toBeDefined();
-    expect(parsedBody.advisories['1069969']).toBeDefined();
-    expect(parsedBody.advisories['1069969'].recommendation).toEqual(
-      'Upgrade to version 3.4.0 or later'
-    );
+  test('should run yarn publish', async () => {
+    const resp = await yarn(projectFolder, 'install');
+    expect(resp.stdout).toMatch(/Completed/);
+    const resp1 = await yarn(projectFolder, 'npm', 'publish');
+    expect(resp1.stdout).toMatch(/Package archive published/);
   });
 
   afterAll(async () => {

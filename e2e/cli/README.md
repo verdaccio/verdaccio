@@ -12,7 +12,7 @@
 
 | cmd       | npm6 | npm7 | npm8 | npm9 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
 | --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- |
-| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌    | ❌    | ❌    |
+| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
 | info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
 | audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ❌    |
 | install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
@@ -24,6 +24,7 @@
 > notes:
 >
 > - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
+> - yarn _modern_ has two info commands, the one used here is `yarn npm info`
 
 ❌ = no tested
 ✅ = tested
