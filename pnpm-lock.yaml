@@ -192,6 +192,7 @@ importers:
     specifiers:
       '@verdaccio/config': workspace:6.0.0-6-next.47
       '@verdaccio/core': workspace:6.0.0-6-next.47
+      '@verdaccio/types': workspace:11.0.0-6-next.16
       debug: 4.3.4
       fs-extra: 10.1.0
       got: 11.8.5
@@ -205,6 +206,8 @@ importers:
       got: 11.8.5
       lodash: 4.17.21
       verdaccio: link:../../../packages/verdaccio
+    devDependencies:
+      '@verdaccio/types': link:../../../packages/core/types
 
   e2e/cli/e2e-npm6:
     specifiers:
@@ -906,7 +909,7 @@ importers:
       react-i18next: 11.18.6_ad209b3ec0793904285d43906e66750b
       react-json-view: 1.21.3_3a28dae5d20d968467088dcb8f1d3843
       react-markdown: 8.0.3_7df2e632d193aca1f14601bd0dc974c3
-      react-redux: 7.2.9_react@17.0.2
+      react-redux: 7.2.9_react-dom@17.0.2+react@17.0.2
       react-router: 5.3.3_react@17.0.2
       react-router-dom: 5.3.3_react@17.0.2
       react-virtualized: 9.22.3_react-dom@17.0.2+react@17.0.2
@@ -7648,6 +7651,9 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/is-prop-valid': 1.2.0
@@ -7669,6 +7675,9 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/is-prop-valid': 1.2.0
@@ -7692,6 +7701,9 @@ packages:
       '@mui/material': ^5.0.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/material': 5.10.6_17a1432779ecebed8795c1bcaeaaf2fe
@@ -7706,6 +7718,9 @@ packages:
       '@mui/material': ^5.0.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/material': 5.10.6_react-dom@17.0.2+react@17.0.2
@@ -7721,6 +7736,13 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/react': 11.10.4_934231c287e6ee895010b95c7785347a
@@ -7750,6 +7772,13 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/base': 5.0.0-alpha.98_react-dom@17.0.2+react@17.0.2
@@ -7773,6 +7802,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/utils': 5.10.6_react@17.0.2
@@ -7787,6 +7819,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/utils': 5.10.6_react@17.0.2
@@ -7801,6 +7836,11 @@ packages:
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/cache': 11.10.3
@@ -7818,6 +7858,11 @@ packages:
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/cache': 11.10.3
@@ -7832,6 +7877,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0
       react: ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/hash': 0.9.0
@@ -7860,6 +7908,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0
       react: ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/hash': 0.9.0
@@ -7889,6 +7940,13 @@ packages:
       '@emotion/styled': ^11.3.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/react': 11.10.4_934231c287e6ee895010b95c7785347a
@@ -7912,6 +7970,13 @@ packages:
       '@emotion/styled': ^11.3.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/private-theming': 5.10.6_react@17.0.2
@@ -7928,12 +7993,18 @@ packages:
     resolution: {integrity: sha512-lGXtFKe5lp3UxTBGqKI1l7G8sE2xBik8qCfrLHD5olwP/YU0/ReWoWT7Lp1//ri32dK39oPMrJN8TgbkCSbsNA==}
     peerDependencies:
       '@types/react': '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dev: false
 
   /@mui/types/7.2.0_@types+react@17.0.50:
     resolution: {integrity: sha512-lGXtFKe5lp3UxTBGqKI1l7G8sE2xBik8qCfrLHD5olwP/YU0/ReWoWT7Lp1//ri32dK39oPMrJN8TgbkCSbsNA==}
     peerDependencies:
       '@types/react': '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@types/react': 17.0.50
     dev: true
@@ -9810,6 +9881,9 @@ packages:
 
   /ajv-formats/2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependenciesMeta:
+      ajv:
+        optional: true
     dependencies:
       ajv: 8.11.0
 
@@ -18007,6 +18081,9 @@ packages:
     requiresBuild: true
     peerDependencies:
       typescript: '>= 4.2.x <= 4.8.x'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       '@mswjs/cookies': 0.2.2
       '@mswjs/interceptors': 0.17.5
@@ -20705,10 +20782,17 @@ packages:
       react-fast-compare: 3.2.0
     dev: false
 
-  /react-redux/7.2.9_react@17.0.2:
+  /react-redux/7.2.9_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-Gx4L3uM182jEEayZfRbI/G11ZpYdNAnBs70lFVMNdHJI76XYtR+7m0MN+eAs7UHBPhWXcnFPaS+9owSCJQHNpQ==}
     peerDependencies:
       react: ^16.8.3 || ^17 || ^18
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@types/react-redux': 7.1.20
@@ -20716,6 +20800,7 @@ packages:
       loose-envify: 1.4.0
       prop-types: 15.8.1
       react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
     dev: true
 

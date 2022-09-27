@@ -13,6 +13,9 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.47",
     "@verdaccio/config": "workspace:6.0.0-6-next.47"
   },
+  "devDependencies": {
+    "@verdaccio/types": "workspace:11.0.0-6-next.16"
+  },
   "scripts": {
     "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
