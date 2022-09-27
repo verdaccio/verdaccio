@@ -1,9 +1,32 @@
-import { cp, readFile, writeFile } from 'fs/promises';
+import { cp, writeFile } from 'fs/promises';
 import { join } from 'path';
+import { URL } from 'url';
+import YAML from 'yaml';
 
 import { Dependencies } from '@verdaccio/types';
 
 import { createTempFolder, getPackageJSON, getREADME } from './utils';
+
+export function createYamlConfig(registry: string, token?: string) {
+  const defaultYaml: any = {
+    npmRegistryServer: registry,
+    yarnPath: '.yarn/releases/yarn.js',
+    enableImmutableInstalls: false,
+    unsafeHttpWhitelist: ['localhost'],
+  };
+
+  if (typeof token === 'string') {
+    const url = new URL(registry);
+    defaultYaml.npmRegistries = {
+      [`//${url.hostname}:${url.port}`]: {
+        npmAlwaysAuth: true,
+        npmAuthToken: token,
+      },
+    };
+  }
+
+  return YAML.stringify(defaultYaml);
+}
 
 export async function prepareYarnModernProject(
   projectName: string,
@@ -14,13 +37,12 @@ export async function prepareYarnModernProject(
     version: string;
     dependencies: Dependencies;
     devDependencies: Dependencies;
-  }
+  },
+  token?: string
 ) {
   const tempFolder = await createTempFolder(projectName);
-  const yamlPath = join(__dirname, '../partials', '.yarnrc.yml');
-  const yamlContent = await readFile(yamlPath, 'utf8');
-  const finalYamlContent = yamlContent.replace('${registry}', registryDomain);
-  await writeFile(join(tempFolder, '.yarnrc.yml'), finalYamlContent);
+  const yamlContent = createYamlConfig(registryDomain, token);
+  await writeFile(join(tempFolder, '.yarnrc.yml'), yamlContent);
   const { packageName, version, dependencies, devDependencies } = pkgJson;
   await writeFile(
     join(tempFolder, 'package.json'),

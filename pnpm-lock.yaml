@@ -198,16 +198,17 @@ importers:
       got: 11.8.5
       lodash: 4.17.21
       verdaccio: workspace:6.0.0-6-next.47
-    dependencies:
+      yaml: 2.1.1
+    devDependencies:
       '@verdaccio/config': link:../../../packages/config
       '@verdaccio/core': link:../../../packages/core/core
+      '@verdaccio/types': link:../../../packages/core/types
       debug: 4.3.4
       fs-extra: 10.1.0
       got: 11.8.5
       lodash: 4.17.21
       verdaccio: link:../../../packages/verdaccio
-    devDependencies:
-      '@verdaccio/types': link:../../../packages/core/types
+      yaml: 2.1.1
 
   e2e/cli/e2e-npm6:
     specifiers:
