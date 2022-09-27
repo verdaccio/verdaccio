@@ -62,14 +62,14 @@ jobs:
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
           restore-keys: |
             packages-
-      - name: Cache test
-        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        id: cache-test
-        with:
-          path: ./e2e/
-          key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-          restore-keys: |
-            test-
+      # - name: Cache test
+      #   uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+      #   id: cache-test
+      #   with:
+      #     path: ./e2e/
+      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      #     restore-keys: |
+      #       test-
   e2e-cli:
     needs: [prepare, build]
     strategy:
@@ -95,11 +95,11 @@ jobs:
         with:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
-        with:
-          path: ./e2e/
-          key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}      
+      # - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+      #   with:
+      #     path: ./e2e/
+      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: build e2e
-        run: pnpm run build --filter=./e2e
+        run: pnpm run build --filter=./e2e      
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
