@@ -11,7 +11,7 @@ There are many ways to extend `verdaccio`, the kind of plugins supported are:
 * Theme
 * Filter plugins
 
-> We recommend developing plugins using our [TypeScript type definitions](https://github.com/verdaccio/verdaccio/tree/master/packages/types).
+> We recommend developing plugins using our [TypeScript type definitions](https://github.com/verdaccio/monorepo/tree/9.x/core/types).
 
 # Other plugins
 
