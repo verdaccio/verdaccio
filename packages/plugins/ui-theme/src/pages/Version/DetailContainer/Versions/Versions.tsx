@@ -21,10 +21,10 @@ const Versions: React.FC = () => {
 
   return (
     <>
-      {distTags && Object.keys(distTags).length > 0 && (
+      {distTags && Object.keys(distTags).length > 0 && packageName && (
         <>
           <StyledText variant="subtitle1">{t('versions.current-tags')}</StyledText>
-          <VersionsTagList tags={distTags} />
+          <VersionsTagList packageName={packageName} tags={distTags} time={time} />
         </>
       )}
       {versions && Object.keys(versions).length > 0 && packageName && (
