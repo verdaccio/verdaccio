@@ -1,5 +1,15 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.48
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- 43f32687: fix: abbreviated headers handle quality values
+
 ## 6.0.0-6-next.47
 
 ## 6.0.0-6-next.8

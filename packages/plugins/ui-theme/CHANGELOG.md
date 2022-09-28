@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.48
+
+### Patch Changes
+
+- 02771805: Hide search icon on medium or larger devices
+- d4019f63: Add links to "Current Tags" and sort them in descending order
+
 ## 6.0.0-6-next.28
 
 ### Patch Changes

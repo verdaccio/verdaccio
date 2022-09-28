@@ -1,5 +1,86 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.35
+
+### Major Changes
+
+- 9fc2e796: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- Updated dependencies [43f32687]
+- Updated dependencies [9fc2e796]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/store@6.0.0-6-next.28
+  - @verdaccio/auth@6.0.0-6-next.27
+  - @verdaccio/config@6.0.0-6-next.48
+  - @verdaccio/loaders@6.0.0-6-next.17
+  - @verdaccio/utils@6.0.0-6-next.16
+  - @verdaccio/tarball@11.0.0-6-next.17
+  - @verdaccio/url@11.0.0-6-next.14
+  - @verdaccio/logger@6.0.0-6-next.16
+  - @verdaccio/middleware@6.0.0-6-next.27
+  - @verdaccio/readme@11.0.0-6-next.6
+
 ## 6.0.0-6-next.34
 
 ### Patch Changes
