@@ -56,7 +56,7 @@
     "semver": "7.3.7"
   },
   "devDependencies": {
-    "@types/node": "16.11.60",
+    "@types/node": "16.11.62",
     "@verdaccio/server": "workspace:6.0.0-6-next.37",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.5",
