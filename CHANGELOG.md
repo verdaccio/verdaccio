@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.15.4](https://github.com/verdaccio/verdaccio/compare/v5.15.3...v5.15.4) (2022-09-29)
+
+
+### Bug Fixes
+
+* docker base image upgraded 14.20.1 ([#3405](https://github.com/verdaccio/verdaccio/issues/3405)) ([1d6b763](https://github.com/verdaccio/verdaccio/commit/1d6b7632d72107043465429f4c0fab716fe07f0e))
+* **deps:** update dependency @verdaccio/ui-theme to v6.0.0-6-next.48 ([#3404](https://github.com/verdaccio/verdaccio/issues/3404)) ([be5c9f9](https://github.com/verdaccio/verdaccio/commit/be5c9f93ed47a2a3b3489ab5672c0085860cc37b))
+
 ### [5.15.3](https://github.com/verdaccio/verdaccio/compare/v5.15.2...v5.15.3) (2022-09-07)
 
 
