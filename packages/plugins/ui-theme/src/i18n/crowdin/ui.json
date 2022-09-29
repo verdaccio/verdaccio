@@ -96,7 +96,8 @@
   "sidebar": {
     "detail": {
       "latest-version": "Latest v{{version}}",
-      "version": "v{{version}}"
+      "version": "v{{version}}",
+      "published": "Published"
     },
     "installation": {
       "title": "Installation",

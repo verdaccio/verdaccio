@@ -2,7 +2,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatDateDistance } from 'verdaccio-ui/utils/package';
+import { formatDate, formatDateDistance } from 'verdaccio-ui/utils/package';
 
 import { Time, Versions } from '../../../../../types/packageMeta';
 import { ListItemText, Spacer, StyledLink } from './styles';
@@ -26,7 +26,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               <ListItemText>{version}</ListItemText>
             </StyledLink>
             <Spacer />
-            <ListItemText>
+            <ListItemText title={formatDate(time[version])}>
               {time[version] ? formatDateDistance(time[version]) : t('versions.not-available')}
             </ListItemText>
           </ListItem>

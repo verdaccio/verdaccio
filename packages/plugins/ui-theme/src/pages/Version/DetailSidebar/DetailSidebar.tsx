@@ -32,6 +32,8 @@ const DetailSidebar: React.FC = () => {
   const detailContext = useContext(DetailContext);
   const { packageMeta, packageName, packageVersion } = detailContext;
   const { configOptions } = useConfig();
+  const version = packageVersion || packageMeta?.latest.version || '';
+  const time = packageMeta?.time ? packageMeta.time[version] : '';
 
   if (!packageMeta || !packageName) {
     return null;
@@ -45,7 +47,8 @@ const DetailSidebar: React.FC = () => {
         isLatest={typeof packageVersion === 'undefined'}
         moduleType={getModuleType(packageMeta)}
         packageName={packageName}
-        version={packageVersion || packageMeta.latest.version}
+        time={time}
+        version={version}
       />
       <ActionBar
         showDownloadTarball={configOptions.showDownloadTarball}

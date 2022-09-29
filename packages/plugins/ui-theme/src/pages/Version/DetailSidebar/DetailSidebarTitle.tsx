@@ -6,6 +6,7 @@ import { ModuleType } from 'types/packageMeta';
 import Heading from 'verdaccio-ui/components/Heading';
 import { CommonJS, ES6Modules, TypeScript } from 'verdaccio-ui/components/Icons';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
+import { formatDate, formatDateDistance } from 'verdaccio-ui/utils/package';
 
 interface Props {
   packageName: string;
@@ -14,6 +15,7 @@ interface Props {
   isLatest: boolean;
   hasTypes?: boolean;
   moduleType: ModuleType | void;
+  time: string;
 }
 
 const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
@@ -33,6 +35,7 @@ const DetailSidebarTitle: React.FC<Props> = ({
   isLatest,
   hasTypes,
   moduleType,
+  time,
 }) => {
   const { t } = useTranslation();
   return (
@@ -47,10 +50,13 @@ const DetailSidebarTitle: React.FC<Props> = ({
         </TitleWrapper>
       </StyledHeading>
       {description && <div>{description}</div>}
-      <StyledBoxVersion>
+      <StyledBoxVersion title={formatDate(time)}>
         {isLatest
           ? t('sidebar.detail.latest-version', { version })
           : t('sidebar.detail.version', { version })}
+        {time
+          ? ' - ' + t('sidebar.detail.published') + ' ' + formatDateDistance(time)
+          : t('versions.not-available')}
       </StyledBoxVersion>
     </Box>
   );
