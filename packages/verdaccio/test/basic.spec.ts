@@ -1,5 +1,5 @@
 import { ConfigBuilder } from '@verdaccio/config';
-import { HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
+import { API_MESSAGE, HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
 
 import { Registry, ServerQuery } from '../src/server';
 
@@ -41,8 +41,8 @@ describe('basic test endpoints', () => {
     test('shoud unpublish the whole package of many published', async function () {
       const server = new ServerQuery(registry.getRegistryUrl());
       await server.addPackage('unpublish-new-package', '1.0.0');
-      await server.addPackage('unpublish-new-package', '1.0.1');
-      await server.addPackage('unpublish-new-package', '1.0.2');
+      await server.addPackage('unpublish-new-package', '1.0.1', API_MESSAGE.PKG_CHANGED);
+      await server.addPackage('unpublish-new-package', '1.0.2', API_MESSAGE.PKG_CHANGED);
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.OK);
       (await server.removePackage('unpublish-new-package', '_rev')).status(HTTP_STATUS.CREATED);
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.NOT_FOUND);

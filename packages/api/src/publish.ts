@@ -11,7 +11,6 @@ import { Storage } from '@verdaccio/store';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
 // import star from './star';
-// import { isPublishablePackage, isRelatedToDeprecation } from './utils';
 
 const debug = buildDebug('verdaccio:api:publish');
 
@@ -177,17 +176,17 @@ export default function publish(router: Router, auth: IAuth, storage: Storage): 
 export function publishPackage(storage: Storage): any {
   return async function (
     req: $RequestExtend,
-    _res: $ResponseExtend,
+    res: $ResponseExtend,
     next: $NextFunctionVer
   ): Promise<void> {
     const ac = new AbortController();
     const packageName = req.params.package;
     const { revision } = req.params;
     const metadata = req.body;
+    const username = req?.remote_user?.name;
 
     try {
-      debug('publishing %s', packageName);
-      await storage.updateManifest(metadata, {
+      const message = await storage.updateManifest(metadata, {
         name: packageName,
         revision,
         signal: ac.signal,
@@ -196,16 +195,15 @@ export function publishPackage(storage: Storage): any {
           protocol: req.protocol,
           // @ts-ignore
           headers: req.headers,
+          username,
         },
       });
-      _res.status(HTTP_STATUS.CREATED);
+
+      res.status(HTTP_STATUS.CREATED);
 
       return next({
-        // TODO: this could be also Package Updated based on the
-        // action, deprecate, star, publish new version, or create a package
-        // the message some return from the method
-        ok: API_MESSAGE.PKG_CREATED,
         success: true,
+        ok: message,
       });
     } catch (err: any) {
       // TODO: review if we need the abort controller here

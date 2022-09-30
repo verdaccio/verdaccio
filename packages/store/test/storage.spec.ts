@@ -7,7 +7,15 @@ import os from 'os';
 import path from 'path';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, errorUtils, fileUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  DIST_TAGS,
+  HEADERS,
+  HEADER_TYPE,
+  errorUtils,
+  fileUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import {
   addNewVersion,
@@ -16,7 +24,7 @@ import {
   generateRemotePackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import { AbbreviatedManifest, ConfigYaml, Manifest, Version } from '@verdaccio/types';
+import { AbbreviatedManifest, ConfigYaml, Manifest, PackageUsers, Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
@@ -54,6 +62,31 @@ const defaultRequestOptions = {
   host: 'localhost',
   protocol: 'http',
   headers: {},
+};
+
+const executeStarPackage = async (
+  storage,
+  options: {
+    users: PackageUsers;
+    username: string;
+    name: string;
+    _rev: string;
+    _id?: string;
+  }
+) => {
+  const { name, _rev, _id, users, username } = options;
+  const starManifest = {
+    _rev,
+    _id,
+    users,
+  };
+  return storage.updateManifest(starManifest, {
+    signal: new AbortController().signal,
+    name,
+    uplinksLook: true,
+    revision: '1',
+    requestOptions: { ...defaultRequestOptions, username },
+  });
 };
 
 describe('storage', () => {
@@ -398,6 +431,182 @@ describe('storage', () => {
         expect(manifest3.versions['1.0.0'].deprecated).toBeUndefined();
         // important revision is updated
         expect(manifest3._rev !== deprecatedManifest._rev).toBeTruthy();
+      });
+    });
+    describe('star', () => {
+      test.each([['foo']])('star package %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+        });
+      });
+
+      test.each([['foo']])('should add multiple users to package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'owner',
+          users: { owner: true },
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+          owner: true,
+        });
+      });
+
+      test.each([['foo']])('should ignore duplicate users to package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+        });
+      });
+
+      test.each([['foo']])('should unstar a package %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: {},
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({});
+      });
+
+      test.each([['foo']])('should handle missing username %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        await expect(
+          executeStarPackage(storage, {
+            _rev: bodyNewManifest._rev,
+            _id: bodyNewManifest._id,
+            name: pkgName,
+            // @ts-expect-error
+            username: undefined,
+            users: { fooUser: true },
+          })
+        ).rejects.toThrow();
       });
     });
   });

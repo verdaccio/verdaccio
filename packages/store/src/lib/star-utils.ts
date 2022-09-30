@@ -1,17 +1,8 @@
-import _ from 'lodash';
-
 import { validatioUtils } from '@verdaccio/core';
-import { Manifest } from '@verdaccio/types';
-
-import { Users } from '../type';
+import { Manifest, PackageUsers } from '@verdaccio/types';
 
 /**
- * Check whether the package metadta has enough data to be published
- * @param pkg metadata
- */
-
-/**
- * Check whether the package metadta has enough data to be published
+ * Check whether the package metadata has enough data to be published
  * @param pkg metadata
  */
 export function isPublishablePackage(pkg: Manifest): boolean {
@@ -21,27 +12,31 @@ export function isPublishablePackage(pkg: Manifest): boolean {
   return keys.includes('versions');
 }
 
-// @deprecated don't think this is used anymore (REMOVE)
-export function isRelatedToDeprecation(pkgInfo: Manifest): boolean {
-  const { versions } = pkgInfo;
-  for (const version in versions) {
-    if (Object.prototype.hasOwnProperty.call(versions[version], 'deprecated')) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function validateInputs(localUsers: Users, username: string, isStar: boolean): boolean {
-  const isExistlocalUsers = _.isNil(localUsers[username]) === false;
-  if (isStar && isExistlocalUsers && localUsers[username]) {
-    return true;
-  } else if (!isStar && isExistlocalUsers) {
+/**
+ * Verify if the user is actually executing an action, to avoid unnecessary calls
+ * to the storage.
+ * @param localUsers current state at cache
+ * @param username user is executing the action
+ * @param userIsAddingStar whether user is removing or adding star
+ * @returns boolean
+ */
+export function isExecutingStarCommand(
+  localUsers: PackageUsers,
+  username: string,
+  userIsAddingStar: boolean
+): boolean {
+  const isExist = typeof localUsers[username] !== 'undefined';
+  // fails if user already exist and us trying to add star.
+  if (userIsAddingStar && isExist && localUsers[username]) {
     return false;
-  } else if (!isStar && !isExistlocalUsers) {
+    // if is not adding a start but user exists (removing star)
+  } else if (!userIsAddingStar && isExist) {
     return true;
+    // fails if user does not exist and is not adding any star
+  } else if (!userIsAddingStar && !isExist) {
+    return false;
   }
-  return false;
+  return true;
 }
 
 export function isStarManifest(manifest: Manifest): boolean {

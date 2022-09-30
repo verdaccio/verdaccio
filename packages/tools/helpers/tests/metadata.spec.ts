@@ -1,8 +1,9 @@
-import { addNewVersion, generatePackageMetadata } from '../src';
 import {
+  addNewVersion,
   generateLocalPackageMetadata,
+  generatePackageMetadata,
   generateRemotePackageMetadata,
-} from '../src/generatePackageMetadata';
+} from '../src';
 
 describe('generate metadata', () => {
   describe('generatePackageMetadata', () => {

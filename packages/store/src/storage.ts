@@ -9,6 +9,7 @@ import { default as URL } from 'url';
 import { hasProxyTo } from '@verdaccio/config';
 import {
   API_ERROR,
+  API_MESSAGE,
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
@@ -38,6 +39,7 @@ import {
   Logger,
   Manifest,
   MergeTags,
+  PackageUsers,
   StringValue,
   Token,
   TokenFilter,
@@ -57,6 +59,7 @@ import {
 import { TransFormResults } from './lib/TransFormResults';
 import { removeDuplicates } from './lib/search-utils';
 import { isPublishablePackage } from './lib/star-utils';
+import { isExecutingStarCommand } from './lib/star-utils';
 import {
   STORAGE,
   cleanUpLinksRef,
@@ -72,7 +75,7 @@ import {
 import { ProxyInstanceList, setupUpLinks, updateVersionsHiddenUpLinkNext } from './lib/uplink-util';
 import { getVersion } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import { IGetPackageOptionsNext, IPluginFilters } from './type';
+import { IGetPackageOptionsNext, IPluginFilters, StarManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -915,26 +918,33 @@ class Storage {
     return uplink;
   }
 
-  public async updateManifest(manifest: Manifest, options: UpdateManifestOptions): Promise<void> {
-    if (isDeprecatedManifest(manifest)) {
+  public async updateManifest(
+    manifest: Manifest | StarManifestBody,
+    options: UpdateManifestOptions
+  ): Promise<string | undefined> {
+    if (isDeprecatedManifest(manifest as Manifest)) {
       // if the manifest is deprecated, we need to update the package.json
-      await this.deprecate(manifest, {
+      await this.deprecate(manifest as Manifest, {
         ...options,
       });
     } else if (
-      isPublishablePackage(manifest) === false &&
+      isPublishablePackage(manifest as Manifest) === false &&
       validatioUtils.isObject(manifest.users)
     ) {
       // if user request to apply a star to the manifest
-      await this.star(manifest, {
+      await this.star(manifest as StarManifestBody, {
         ...options,
       });
+      return API_MESSAGE.PKG_CHANGED;
     } else if (validatioUtils.validatePublishSingleVersion(manifest)) {
       // if continue, the version to be published does not exist
       // we create a new package
-      const [mergedManifest, version] = await this.publishANewVersion(manifest, {
-        ...options,
-      });
+      const [mergedManifest, version, message] = await this.publishANewVersion(
+        manifest as Manifest,
+        {
+          ...options,
+        }
+      );
       // send notification of publication (notification step, non transactional)
       try {
         const { name } = mergedManifest;
@@ -943,6 +953,7 @@ class Storage {
       } catch (error: any) {
         logger.error({ error: error.message }, 'notify batch service has failed: @{error}');
       }
+      return message;
     } else {
       debug('invalid body format');
       logger.info(
@@ -959,15 +970,51 @@ class Storage {
     return this.changePackage(name, manifest, options.revision as string);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private async star(_body: Manifest, _options: PublishOptions): Promise<void> {
-    // // const storage: IPackageStorage = this.getPrivatePackageStorage(opname);
+  private async star(manifest: StarManifestBody, options: UpdateManifestOptions): Promise<string> {
+    const { users } = manifest;
+    const { requestOptions, name } = options;
+    debug('star %s', name);
+    const { username } = requestOptions;
+    if (!username) {
+      throw errorUtils.getBadRequest('update users only allowed to logged users');
+    }
 
-    // if (typeof storage === 'undefined') {
-    //   throw errorUtils.getNotFound();
-    // }
+    const localPackage = await this.getPackageManifest({
+      name,
+      requestOptions,
+      uplinksLook: false,
+    });
+    // backward compatible in case users are not in the storage.
+    const localStarUsers = localPackage.users || {};
+    // if trying to add a star
+    const userIsAddingStar = Object.keys(users as PackageUsers).includes(username);
+    if (!isExecutingStarCommand(localPackage.users as PackageUsers, username, userIsAddingStar)) {
+      return API_MESSAGE.PKG_CHANGED;
+    }
 
-    throw errorUtils.getInternalError('no implementation ready for npm star');
+    const newUsers = userIsAddingStar
+      ? {
+          ...localStarUsers,
+          [username]: true,
+        }
+      : _.reduce(
+          localStarUsers,
+          (users, value, key) => {
+            if (key !== username) {
+              users[key] = value;
+            }
+            return users;
+          },
+          {}
+        );
+
+    await this.changePackage(
+      name,
+      { ...localPackage, users: newUsers },
+      options.revision as string
+    );
+
+    return API_MESSAGE.PKG_CHANGED;
   }
 
   /**
@@ -1025,10 +1072,10 @@ class Storage {
   private async publishANewVersion(
     body: Manifest,
     options: PublishOptions
-  ): Promise<[Manifest, string]> {
+  ): Promise<[Manifest, string, string]> {
     const { name } = options;
     debug('publishing a new package for %o', name);
-
+    let successResponseMessage;
     const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
 
@@ -1066,6 +1113,9 @@ class Storage {
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
         await this.createNewLocalCachePackage(name, versionToPublish);
+        successResponseMessage = API_MESSAGE.PKG_CREATED;
+      } else {
+        successResponseMessage = API_MESSAGE.PKG_CHANGED;
       }
     } catch (err: any) {
       debug('error on change or update a package with %o', err.message);
@@ -1120,7 +1170,7 @@ class Storage {
       'package @{name}@@{version} has been published'
     );
 
-    return [mergedManifest, versionToPublish];
+    return [mergedManifest, versionToPublish, successResponseMessage];
   }
 
   // TODO: pending implementation

@@ -1,5 +1,5 @@
 import { ConfigBuilder } from '@verdaccio/config';
-import { constants, fileUtils } from '@verdaccio/core';
+import { API_MESSAGE, constants, fileUtils } from '@verdaccio/core';
 
 import { Registry, ServerQuery } from '../src/server';
 
@@ -37,12 +37,13 @@ describe('race publishing packages', () => {
 
     for (const time of Array.from(Array(times).keys())) {
       try {
-        await server.addPackage('race-pkg', `1.0.${time}`);
+        let message = success === 0 ? API_MESSAGE.PKG_CREATED : API_MESSAGE.PKG_CHANGED;
+        await server.addPackage('race-pkg', `1.0.${time}`, message);
         success++;
       } catch (error) {
         console.error('this should not trigger', error);
       }
     }
     expect(success).toBe(times);
-  }, 30000);
+  }, 40000);
 });
