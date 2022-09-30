@@ -90,10 +90,23 @@ export function validateURL(publicUrl: string | void) {
 }
 
 export type RequestOptions = {
+  /**
+   * Request host.
+   */
   host: string;
+  /**
+   * Request protocol.
+   */
   protocol: string;
+  /**
+   * Request headers.
+   */
   headers: { [key: string]: string };
   remoteAddress?: string;
+  /**
+   * Logged username the request, usually after token verification.
+   */
+  username?: string;
 };
 
 export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOptions): string {

@@ -4,9 +4,9 @@ module.exports = Object.assign({}, config, {
   coverageThreshold: {
     global: {
       // FIXME: increase to 90
-      branches: 51,
-      functions: 69,
-      lines: 66,
+      branches: 62,
+      functions: 86,
+      lines: 76,
     },
   },
 });

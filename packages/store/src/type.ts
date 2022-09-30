@@ -1,5 +1,5 @@
 import { FetchOptions } from '@verdaccio/proxy';
-import { Config, IPluginStorageFilter, RemoteUser } from '@verdaccio/types';
+import { Config, IPluginStorageFilter, Manifest, RemoteUser } from '@verdaccio/types';
 import { RequestOptions } from '@verdaccio/url';
 
 // @deprecated use IGetPackageOptionsNext
@@ -57,13 +57,10 @@ export type UpdateManifestOptions = {
   signal: AbortSignal;
 };
 
-export type Users = {
-  [key: string]: string;
-};
-export interface StarBody {
-  _id: string;
-  _rev: string;
-  users: Users;
-}
-
 export type IPluginFilters = IPluginStorageFilter<Config>[];
+
+/**
+ * When the command `npm star` is executed, the body only contains the following
+ * values in the body.
+ */
+export type StarManifestBody = Pick<Manifest, '_id' | 'users' | '_rev'>;

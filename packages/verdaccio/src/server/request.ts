@@ -275,10 +275,14 @@ export class ServerQuery {
     });
   }
 
-  public async addPackage(name: string, version: string = '1.0.0'): Promise<ResponseAssert> {
+  public async addPackage(
+    name: string,
+    version: string = '1.0.0',
+    message = API_MESSAGE.PKG_CREATED
+  ): Promise<ResponseAssert> {
     return (await this.putPackage(name, generatePackageMetadata(name, version)))
       .status(HTTP_STATUS.CREATED)
-      .body_ok(API_MESSAGE.PKG_CREATED);
+      .body_ok(message);
   }
 
   public async addPackageAssert(name: string, version: string = '1.0.0'): Promise<ResponseAssert> {

@@ -160,13 +160,13 @@ describe('publish', () => {
             decodeURIComponent(pkgName),
             '1.0.1-patch'
           ).expect(HTTP_STATUS.CREATED);
-          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CHANGED);
           const response2 = await publishVersion(
             app,
             decodeURIComponent(pkgName),
             '1.0.2-patch'
           ).expect(HTTP_STATUS.CREATED);
-          expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+          expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CHANGED);
         }
       );
     });

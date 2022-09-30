@@ -11,3 +11,12 @@ import path from 'path';
 export function createTempFolder(prefix: string): string {
   return fs.mkdtempSync(path.join(fs.realpathSync(os.tmpdir()), prefix));
 }
+
+export const getTarball = (name: string): string => {
+  const r = name.split('/');
+  if (r.length === 1) {
+    return r[0];
+  } else {
+    return r[1];
+  }
+};
