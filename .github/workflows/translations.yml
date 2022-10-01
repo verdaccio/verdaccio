@@ -23,6 +23,8 @@ jobs:
         run: sudo npm i pnpm@latest-6 -g
       - name: Install dependencies
         run: pnpm install
+      - name: Build Translations percentage
+        run: pnpm build --filter "@verdaccio/crowdin-translations"
       - name: update translations
         run: pnpm run translations
         env:
