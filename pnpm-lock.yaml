@@ -54,6 +54,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.37.0
       '@typescript-eslint/parser': 5.37.0
       '@verdaccio/benchmark': workspace:*
+      '@verdaccio/crowdin-translations': workspace:*
       '@verdaccio/eslint-config': workspace:*
       '@verdaccio/types': workspace:*
       '@verdaccio/ui-theme': workspace:*
@@ -146,6 +147,7 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.37.0_44c7ca7727a920b33eab97b6957f2740
       '@typescript-eslint/parser': 5.37.0_eslint@8.23.1+typescript@4.8.4
       '@verdaccio/benchmark': link:packages/tools/benchmark
+      '@verdaccio/crowdin-translations': link:packages/tools/translations
       '@verdaccio/eslint-config': link:packages/tools/eslint
       '@verdaccio/types': link:packages/core/types
       '@verdaccio/ui-theme': link:packages/plugins/ui-theme
@@ -1220,6 +1222,17 @@ importers:
       ts-node: 10.9.1_8274f11304fdf7eb271c33cd723ceaff
       verdaccio: link:../../verdaccio
 
+  packages/tools/translations:
+    specifiers:
+      '@crowdin/crowdin-api-client': 1.19.1
+      clipanion: 3.1.0
+      ts-node: 10.9.1
+    dependencies:
+      '@crowdin/crowdin-api-client': 1.19.1_debug@4.3.4
+      clipanion: 3.1.0
+    devDependencies:
+      ts-node: 10.9.1_8274f11304fdf7eb271c33cd723ceaff
+
   packages/tools/verdaccio-prefix-fake-plugin:
     specifiers: {}
 
@@ -1360,6 +1373,7 @@ importers:
       '@mui/material': 5.10.7
       '@mui/styles': 5.10.7
       '@tsconfig/docusaurus': ^1.0.2
+      '@verdaccio/crowdin-translations': workspace:*
       classnames: 2.3.2
       clsx: 1.2.1
       copy-text-to-clipboard: 3.0.1
@@ -1404,6 +1418,7 @@ importers:
     devDependencies:
       '@docusaurus/module-type-aliases': 2.1.0_e04bad828ac717e6587f05c972df8358
       '@tsconfig/docusaurus': 1.0.2
+      '@verdaccio/crowdin-translations': link:../packages/tools/translations
       docusaurus-plugin-sass: 0.2.1_f2ce3bf55a04081984944a3e75e8d1ea
       esbuild: 0.14.10
       esbuild-loader: 2.16.0
@@ -5695,6 +5710,15 @@ packages:
       - encoding
     dev: true
 
+  /@crowdin/crowdin-api-client/1.19.1_debug@4.3.4:
+    resolution: {integrity: sha512-sQJBjYchn0yRnqgjqPgqy81byflfpSnwPhIMKcFvhCTJDnp4cHGsbsLO49qWBT52peklZvi6qlsjW9/PB0yHGg==}
+    engines: {node: '>=12.9.0'}
+    dependencies:
+      axios: 0.21.3_debug@4.3.4
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cspotcode/source-map-support/0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
     engines: {node: '>=12'}
@@ -5929,7 +5953,7 @@ packages:
       wait-on: 6.0.1_debug@4.3.4
       webpack: 5.74.0_esbuild@0.14.10
       webpack-bundle-analyzer: 4.6.1
-      webpack-dev-server: 4.9.3_debug@4.3.4+webpack@5.74.0
+      webpack-dev-server: 4.9.3_webpack@5.74.0
       webpack-merge: 5.8.0
       webpackbar: 5.0.2_webpack@5.74.0
     transitivePeerDependencies:
@@ -6026,7 +6050,7 @@ packages:
       wait-on: 6.0.1_debug@4.3.4
       webpack: 5.74.0_esbuild@0.14.10
       webpack-bundle-analyzer: 4.6.1
-      webpack-dev-server: 4.9.3_debug@4.3.4+webpack@5.74.0
+      webpack-dev-server: 4.9.3_webpack@5.74.0
       webpack-merge: 5.8.0
       webpackbar: 5.0.2_webpack@5.74.0
     transitivePeerDependencies:
@@ -7341,6 +7365,9 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
     dependencies:
       '@jest/console': 29.1.0
       '@jest/reporters': 29.1.0
@@ -7425,6 +7452,9 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
     dependencies:
       '@bcoe/v8-coverage': 0.2.3
       '@jest/console': 29.1.0
@@ -7646,6 +7676,9 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/is-prop-valid': 1.2.0
@@ -7667,6 +7700,9 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/is-prop-valid': 1.2.0
@@ -7725,6 +7761,13 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/react': 11.10.4_2752b159547514dc9531b132ed99b44b
@@ -7754,6 +7797,13 @@ packages:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
       react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/base': 5.0.0-alpha.99_react-dom@17.0.2+react@17.0.2
@@ -7777,6 +7827,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/utils': 5.10.6_react@17.0.2
@@ -7791,6 +7844,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/utils': 5.10.6_react@17.0.2
@@ -7805,6 +7861,11 @@ packages:
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/cache': 11.10.3
@@ -7822,6 +7883,11 @@ packages:
       '@emotion/react': ^11.4.1
       '@emotion/styled': ^11.3.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/cache': 11.10.3
@@ -7836,6 +7902,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0
       react: ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/hash': 0.9.0
@@ -7864,6 +7933,9 @@ packages:
     peerDependencies:
       '@types/react': ^17.0.0
       react: ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/hash': 0.9.0
@@ -7893,6 +7965,13 @@ packages:
       '@emotion/styled': ^11.3.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@emotion/react': 11.10.4_2752b159547514dc9531b132ed99b44b
@@ -7916,6 +7995,13 @@ packages:
       '@emotion/styled': ^11.3.0
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      '@types/react':
+        optional: true
     dependencies:
       '@babel/runtime': 7.19.0
       '@mui/private-theming': 5.10.6_react@17.0.2
@@ -7932,12 +8018,18 @@ packages:
     resolution: {integrity: sha512-lGXtFKe5lp3UxTBGqKI1l7G8sE2xBik8qCfrLHD5olwP/YU0/ReWoWT7Lp1//ri32dK39oPMrJN8TgbkCSbsNA==}
     peerDependencies:
       '@types/react': '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dev: false
 
   /@mui/types/7.2.0_@types+react@17.0.50:
     resolution: {integrity: sha512-lGXtFKe5lp3UxTBGqKI1l7G8sE2xBik8qCfrLHD5olwP/YU0/ReWoWT7Lp1//ri32dK39oPMrJN8TgbkCSbsNA==}
     peerDependencies:
       '@types/react': '*'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
       '@types/react': 17.0.50
     dev: true
@@ -10202,7 +10294,15 @@ packages:
   /axios/0.21.1_debug@4.3.4:
     resolution: {integrity: sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.3
+      follow-redirects: 1.14.9_debug@4.3.4
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios/0.21.3_debug@4.3.4:
+    resolution: {integrity: sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==}
+    dependencies:
+      follow-redirects: 1.14.9_debug@4.3.4
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10210,7 +10310,7 @@ packages:
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.3
+      follow-redirects: 1.14.9_debug@4.3.4
     transitivePeerDependencies:
       - debug
 
@@ -14237,16 +14337,9 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /follow-redirects/1.14.9_debug@4.3.3:
+  /follow-redirects/1.14.9:
     resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
     engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.3_supports-color@6.1.0
 
   /follow-redirects/1.14.9_debug@4.3.4:
     resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
@@ -15171,19 +15264,18 @@ packages:
       - supports-color
     dev: true
 
-  /http-proxy-middleware/0.19.1_debug@4.3.3+supports-color@6.1.0:
+  /http-proxy-middleware/0.19.1_supports-color@6.1.0:
     resolution: {integrity: sha512-yHYTgWMQO8VvwNS22eLLloAkvungsKdKTLO8AJlftYIKNfJr3GK3zK0ZCfzDDGUBttdGc8xFy1mCitvNKQtC3Q==}
     engines: {node: '>=4.0.0'}
     dependencies:
-      http-proxy: 1.18.1_debug@4.3.3
+      http-proxy: 1.18.1
       is-glob: 4.0.3
       lodash: 4.17.21
       micromatch: 3.1.10_supports-color@6.1.0
     transitivePeerDependencies:
-      - debug
       - supports-color
 
-  /http-proxy-middleware/2.0.3_adbe487640bba2b97136947cd1213f1b:
+  /http-proxy-middleware/2.0.3_@types+express@4.17.13:
     resolution: {integrity: sha512-1bloEwnrHMnCoO/Gcwbz7eSVvW50KPES01PecpagI+YLNLci4AcuKJrujW4Mc3sBLpFxMSlsLNHS5Nl/lvrTPA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -15194,32 +15286,18 @@ packages:
     dependencies:
       '@types/express': 4.17.13
       '@types/http-proxy': 1.17.8
-      http-proxy: 1.18.1_debug@4.3.4
+      http-proxy: 1.18.1
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
       micromatch: 4.0.5
-    transitivePeerDependencies:
-      - debug
 
-  /http-proxy/1.18.1_debug@4.3.3:
+  /http-proxy/1.18.1:
     resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.6
-      follow-redirects: 1.14.9_debug@4.3.3
+      follow-redirects: 1.14.9
       requires-port: 1.0.0
-    transitivePeerDependencies:
-      - debug
-
-  /http-proxy/1.18.1_debug@4.3.4:
-    resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      eventemitter3: 4.0.6
-      follow-redirects: 1.14.9_debug@4.3.4
-      requires-port: 1.0.0
-    transitivePeerDependencies:
-      - debug
 
   /http-status-codes/2.2.0:
     resolution: {integrity: sha512-feERVo9iWxvnejp3SEfm/+oNG517npqL2/PIA8ORjyOZjGC7TwCRQsZylciLS64i6pJ0wRYz3rkXLRwbtFa8Ng==}
@@ -15977,6 +16055,9 @@ packages:
     hasBin: true
     peerDependencies:
       node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
     dependencies:
       '@jest/core': 29.1.1_ts-node@10.9.1
       '@jest/test-result': 29.1.0
@@ -16001,6 +16082,11 @@ packages:
     peerDependencies:
       '@types/node': '*'
       ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      ts-node:
+        optional: true
     dependencies:
       '@babel/core': 7.19.3
       '@jest/test-sequencer': 29.1.0
@@ -16035,6 +16121,11 @@ packages:
     peerDependencies:
       '@types/node': '*'
       ts-node: '>=9.0.0'
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      ts-node:
+        optional: true
     dependencies:
       '@babel/core': 7.19.3
       '@jest/test-sequencer': 29.1.0
@@ -16235,6 +16326,9 @@ packages:
     engines: {node: '>=6'}
     peerDependencies:
       jest-resolve: '*'
+    peerDependenciesMeta:
+      jest-resolve:
+        optional: true
     dependencies:
       jest-resolve: 29.1.0
 
@@ -16419,6 +16513,9 @@ packages:
     hasBin: true
     peerDependencies:
       node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
+    peerDependenciesMeta:
+      node-notifier:
+        optional: true
     dependencies:
       '@jest/core': 29.1.1_ts-node@10.9.1
       '@jest/types': 29.1.0
@@ -24047,7 +24144,7 @@ packages:
       del: 4.1.1
       express: 4.17.1_supports-color@6.1.0
       html-entities: 1.3.1
-      http-proxy-middleware: 0.19.1_debug@4.3.3+supports-color@6.1.0
+      http-proxy-middleware: 0.19.1_supports-color@6.1.0
       import-local: 2.0.0
       internal-ip: 4.3.0
       ip: 1.1.5
@@ -24097,7 +24194,7 @@ packages:
       del: 4.1.1
       express: 4.17.1_supports-color@6.1.0
       html-entities: 1.3.1
-      http-proxy-middleware: 0.19.1_debug@4.3.3+supports-color@6.1.0
+      http-proxy-middleware: 0.19.1_supports-color@6.1.0
       import-local: 2.0.0
       internal-ip: 4.3.0
       ip: 1.1.5
@@ -24127,7 +24224,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /webpack-dev-server/4.9.3_debug@4.3.4+webpack@5.74.0:
+  /webpack-dev-server/4.9.3_webpack@5.74.0:
     resolution: {integrity: sha512-3qp/eoboZG5/6QgiZ3llN8TUzkSpYg1Ko9khWX1h40MIEUNS2mDoIa8aXsPfskER+GbTvs/IJZ1QTBBhhuetSw==}
     engines: {node: '>= 12.13.0'}
     hasBin: true
@@ -24155,7 +24252,7 @@ packages:
       express: 4.18.1
       graceful-fs: 4.2.9
       html-entities: 2.3.2
-      http-proxy-middleware: 2.0.3_adbe487640bba2b97136947cd1213f1b
+      http-proxy-middleware: 2.0.3_@types+express@4.17.13
       ipaddr.js: 2.0.1
       open: 8.4.0
       p-retry: 4.6.1
@@ -24170,7 +24267,6 @@ packages:
       ws: 8.8.0
     transitivePeerDependencies:
       - bufferutil
-      - debug
       - supports-color
       - utf-8-validate
 

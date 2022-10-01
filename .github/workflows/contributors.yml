@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 17.x
+          node-version: 18.x
       - name: install pnpm
         run: sudo npm i pnpm@latest-6 -g
       - name: set store

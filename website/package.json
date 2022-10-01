@@ -59,6 +59,7 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.1.0",
     "@tsconfig/docusaurus": "^1.0.2",
+    "@verdaccio/crowdin-translations": "workspace:*",
     "docusaurus-plugin-sass": "^0.2.1",
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
