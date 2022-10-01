@@ -6,7 +6,6 @@ const progress = translations;
 const isDeployPreview = process.env.CONTEXT === "deploy-preview";
 const isProductionDeployment = process.env.CONTEXT === "production";
 
-// const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "ja-JP", "ko-KR", "pt-PT", "sr-SP", "tg-TJ", "ro-RO", "zh-CN"];
 const i18nConfig = {
   defaultLocale: 'en',
   locales: isDeployPreview ? ['en'] : [
@@ -106,7 +105,11 @@ module.exports = {
           label: 'Docs',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
-        { to: '/help', label: 'Help', position: 'left' },        
+        { to: '/help', label: 'Help', position: 'left' }, 
+        {
+          type: 'docsVersionDropdown',
+          "position": "right",
+        },       
         {
           href: 'https://opencollective.com/verdaccio',
           label: 'Sponsor us',
@@ -139,7 +142,7 @@ module.exports = {
           'aria-label': 'GitHub repository',
         },
       ],
-    },
+    },   
     footer: {
       style: 'dark',
       links: [
@@ -236,6 +239,15 @@ module.exports = {
             }
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
+          lastVersion : '5.x',
+          versions: {
+            current: {
+              label: `6.x`, 
+            },
+            '5.x': {
+              label: `5.x (Latest)`, 
+            },
+          },
         },
         googleAnalytics: {
           trackingID: 'UA-2527438-21'
@@ -259,7 +271,7 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
-        },
+        },       
       },
     ],
   ],
