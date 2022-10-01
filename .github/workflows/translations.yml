@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: update translations
-        run: pnpm run website:translations
+        run: pnpm run translations
         env:
           TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
       - name: Commit & Push changes
