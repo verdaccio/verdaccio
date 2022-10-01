@@ -8,7 +8,7 @@ const isProductionDeployment = process.env.CONTEXT === "production";
 
 const i18nConfig = {
   defaultLocale: 'en',
-  locales: isDeployPreview ? ['en', 'it-IT'] : [
+  locales: isDeployPreview ? ['en'] : [
     "en", "cs-CZ", "de-DE",
     "es-ES", "fr-FR",
     "it-IT", "pl-PL",
