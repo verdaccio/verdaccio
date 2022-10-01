@@ -1,8 +1,8 @@
 // @ts-check
 
-const translations = require('@verdaccio/translations');
+const translations = require('@verdaccio/crowdin-translations/build/progress_lang.json');
 // @ts-ignore
-const progress = translations.data;
+const progress = translations;
 const isDeployPreview = process.env.CONTEXT === "deploy-preview";
 const isProductionDeployment = process.env.CONTEXT === "production";
 
@@ -56,7 +56,7 @@ module.exports = {
   plugins: [
     'docusaurus-plugin-sass',
     "docusaurus-plugin-contributors",
-    isProductionDeployment && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }]
+    isProductionDeployment && typeof process.env.SENTRY_KEY === 'string' && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }]
   ].filter(Boolean),
   webpack: {
     jsLoader: (isServer) => ({

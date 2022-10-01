@@ -54,8 +54,8 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.37.0
       '@typescript-eslint/parser': 5.37.0
       '@verdaccio/benchmark': workspace:*
+      '@verdaccio/crowdin-translations': workspace:*
       '@verdaccio/eslint-config': workspace:*
-      '@verdaccio/translations': workspace:*
       '@verdaccio/types': workspace:*
       '@verdaccio/ui-theme': workspace:*
       autocannon: 7.10.0
@@ -147,8 +147,8 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.37.0_44c7ca7727a920b33eab97b6957f2740
       '@typescript-eslint/parser': 5.37.0_eslint@8.23.1+typescript@4.8.4
       '@verdaccio/benchmark': link:packages/tools/benchmark
+      '@verdaccio/crowdin-translations': link:packages/tools/translations
       '@verdaccio/eslint-config': link:packages/tools/eslint
-      '@verdaccio/translations': link:packages/tools/translations
       '@verdaccio/types': link:packages/core/types
       '@verdaccio/ui-theme': link:packages/plugins/ui-theme
       autocannon: 7.10.0
@@ -1227,9 +1227,10 @@ importers:
       '@crowdin/crowdin-api-client': 1.19.1
       clipanion: 3.1.0
       ts-node: 10.9.1
-    devDependencies:
+    dependencies:
       '@crowdin/crowdin-api-client': 1.19.1_debug@4.3.4
       clipanion: 3.1.0
+    devDependencies:
       ts-node: 10.9.1_8274f11304fdf7eb271c33cd723ceaff
 
   packages/tools/verdaccio-prefix-fake-plugin:
@@ -1372,7 +1373,7 @@ importers:
       '@mui/material': 5.10.7
       '@mui/styles': 5.10.7
       '@tsconfig/docusaurus': ^1.0.2
-      '@verdaccio/translations': workspace:*
+      '@verdaccio/crowdin-translations': workspace:*
       classnames: 2.3.2
       clsx: 1.2.1
       copy-text-to-clipboard: 3.0.1
@@ -1417,7 +1418,7 @@ importers:
     devDependencies:
       '@docusaurus/module-type-aliases': 2.1.0_e04bad828ac717e6587f05c972df8358
       '@tsconfig/docusaurus': 1.0.2
-      '@verdaccio/translations': link:../packages/tools/translations
+      '@verdaccio/crowdin-translations': link:../packages/tools/translations
       docusaurus-plugin-sass: 0.2.1_f2ce3bf55a04081984944a3e75e8d1ea
       esbuild: 0.14.10
       esbuild-loader: 2.16.0
@@ -5716,7 +5717,7 @@ packages:
       axios: 0.21.3_debug@4.3.4
     transitivePeerDependencies:
       - debug
-    dev: true
+    dev: false
 
   /@cspotcode/source-map-support/0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -10304,7 +10305,7 @@ packages:
       follow-redirects: 1.14.9_debug@4.3.4
     transitivePeerDependencies:
       - debug
-    dev: true
+    dev: false
 
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
@@ -11263,6 +11264,7 @@ packages:
     resolution: {integrity: sha512-v025Hz+IDQ15FpOyK8p02h5bFznMu6rLFsJSyOPR+7WrbSnZ1Ek6pblPukV7K5tC/dsWfncQPIrJ4iUy2PXkbw==}
     dependencies:
       typanion: 3.3.1
+    dev: false
 
   /cliui/5.0.0:
     resolution: {integrity: sha512-PYeGSEmmHM6zvoef2w8TPzlrnNpXIjTipYK780YswmIP9vjxmd6Y2a3CB2Ks6/AU8NHjZugXvo8w3oWM2qnwXA==}
@@ -23121,6 +23123,7 @@ packages:
 
   /typanion/3.3.1:
     resolution: {integrity: sha512-VogBiMj3ZQuWaHkbhXwSgd9jXE4s7EMaaV7VSEiKTNYnKJs/bPjvcOGbD7rTM9aPqTABvgLVEZ+iFP6ab12HtQ==}
+    dev: false
 
   /type-check/0.3.2:
     resolution: {integrity: sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=}

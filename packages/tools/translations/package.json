@@ -1,5 +1,5 @@
 {
-  "name": "@verdaccio/translations",
+  "name": "@verdaccio/crowdin-translations",
   "version": "1.0.0",
   "bin": {
     "local-crowdin-api": "./index.js"
@@ -14,9 +14,11 @@
   "keywords": [],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "clipanion": "3.1.0",
-    "@crowdin/crowdin-api-client": "1.19.1",
+    "@crowdin/crowdin-api-client": "1.19.1"
+  },
+  "devDependencies": {
     "ts-node": "10.9.1"
   }
 }
