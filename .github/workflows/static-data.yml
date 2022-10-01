@@ -1,5 +1,5 @@
 ---
-name: contributors
+name: static data
 
 on:
   workflow_dispatch:
@@ -32,17 +32,23 @@ jobs:
         run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
         run: pnpm install
+      - name: Build Translations percentage
+        run: pnpm build --filter "@verdaccio/crowdin-translations"
       - name: update contributors
         run: pnpm run contributors
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: update translations
+        run: pnpm run translations
+        env:
+          TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}          
       - name: format
         run: pnpm format
       - name: Commit & Push changes
         uses: actions-js/push@a52398fac807b0c1e5f1492c969b477c8560a0ba # tag=v1.3
         with:
           github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
-          message: "chore: updated contributors list"
+          message: "chore: updated static data"
           branch: master
           author_email: verdaccio.npm@gmail.com
           author_name: verdacciobot
