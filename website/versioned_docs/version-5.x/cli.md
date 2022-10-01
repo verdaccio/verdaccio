@@ -13,9 +13,10 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 Command | Default | Example | Description
 --- | --- | --- | ---
---listen \ **-l** | 4873 |  -p 7000 | http port
---config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file
---info \ **-i** | | | prints local environment information
+--listen \ **-l** | http:localhost:4873 | 7000 | Define protocol + host + port ([formats](https://github.com/verdaccio/verdaccio/blob/08c36e688e8635733f92080eb3598239d43259cb/packages/node-api/src/cli-utils.ts#L7-L16))
+--config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | Set location of the configuration file
+--info \ **-i** | | | Print local environment information
+--version \ **-v** | | | Show version information
 
 ## Default config file location {#default-config-file-location}
 
