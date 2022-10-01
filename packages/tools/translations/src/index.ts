@@ -5,7 +5,7 @@ import { ApiCommand } from './api';
 const [node, app, ...args] = process.argv;
 
 const cli = new Cli({
-  binaryLabel: `benckmark`,
+  binaryLabel: `translations`,
   binaryName: `${node} ${app}`,
   binaryVersion: require('../package.json').version,
 });
@@ -21,3 +21,7 @@ process.on('uncaughtException', function (err) {
   );
   process.exit(1);
 });
+
+const data = require('./progress_lang.json');
+
+export { data };

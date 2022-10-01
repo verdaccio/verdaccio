@@ -1,10 +1,12 @@
 // @ts-check
 
+const translations = require('@verdaccio/translations');
+// @ts-ignore
+const progress = translations.data;
 const isDeployPreview = process.env.CONTEXT === "deploy-preview";
 const isProductionDeployment = process.env.CONTEXT === "production";
 
-const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "ja-JP", "ko-KR", "pt-PT", "sr-SP", "tg-TJ", "ro-RO", "zh-CN"];
-/** @type {import('@docusaurus/types').DocusaurusConfig['i18n']} */
+// const localesWithLowRatioOfTranslation = ["ar-SA", "fil-PH", "gl-ES", "hi-IN", "ja-JP", "ko-KR", "pt-PT", "sr-SP", "tg-TJ", "ro-RO", "zh-CN"];
 const i18nConfig = {
   defaultLocale: 'en',
   locales: isDeployPreview ? ['en'] : [
@@ -17,9 +19,20 @@ const i18nConfig = {
     "zh-CN"
   ],
   localeConfigs: {
-    ar: {
-      direction: 'rtl'
-    }
+    en: { label: "English" },
+    'it-IT': { label: `Italiano (${progress["it"].translationProgress}%)` },
+    'es-ES': { label: `Español (${progress["es-ES"].translationProgress}%)` },
+    'de-DE': { label: `Deutsch (${progress["de"].translationProgress}%)` },
+    'cs-CZ': { label: `Čeština (Česko) (${progress["cs"].translationProgress}%)` },
+    'fr-FR': { label: `Français (${progress["fr"].translationProgress}%)` },
+    'pl-PL': { label: `Polski (Polska) (${progress["pl"].translationProgress}%)` },
+    'pt-BR': { label: `Português (Brasil) (${progress["pt-BR"].translationProgress}%)` },
+    'ru-RU': { label: `Русский (Россия) (${progress["ru"].translationProgress}%)` },
+    'zh-CN': { label: `中文（中国）(${progress["zh-CN"].translationProgress}%)` },
+    'zh-TW': { label: `中文（台灣）(${progress["zh-TW"].translationProgress}%)` },
+    'yo-NG': { label: `Èdè Yorùbá (Nàìjíríà) (${progress["yo"].translationProgress}%)` },
+    'sr-CS': { label: `Српски (Србија) (${progress["sr-CS"].translationProgress}%)` },
+    'vi-VN': { label: `Tiếng Việt (Việt Nam) (${progress["vi"].translationProgress}%)` },
   }
 }
 
@@ -43,7 +56,7 @@ module.exports = {
   plugins: [
     'docusaurus-plugin-sass',
     "docusaurus-plugin-contributors",
-    isProductionDeployment && ['docusaurus-plugin-sentry', { DSN: 'a7bc89ee3f284570b1d9a47e600e7597' }]
+    isProductionDeployment && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }]
   ].filter(Boolean),
   webpack: {
     jsLoader: (isServer) => ({
@@ -51,7 +64,7 @@ module.exports = {
       options: {
         loader: 'tsx',
         format: isServer ? 'cjs' : undefined,
-        target: isServer ? 'node12' : 'es2017',
+        target: isServer ? 'node16' : 'es2017',
       },
     }),
   },
