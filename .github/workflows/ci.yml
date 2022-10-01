@@ -162,7 +162,6 @@ jobs:
         run: pnpm write-translations --filter ...@verdaccio/website
       - name: sync
         env:
-          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:sync
