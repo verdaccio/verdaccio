@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4843,
+      "contributions": 4849,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2608
+          "contributions": 2613
         },
         {
           "name": "verdaccio-cookbook",
@@ -123,7 +123,7 @@
         },
         {
           "name": "charts",
-          "contributions": 34
+          "contributions": 35
         },
         {
           "name": "verdaccio-e2e-example",
@@ -585,6 +585,17 @@
       ]
     },
     {
+      "id": 59966492,
+      "login": "mbtools",
+      "contributions": 7,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 7
+        }
+      ]
+    },
+    {
       "id": 1486340,
       "login": "UnitedMarsupials-zz",
       "contributions": 7,
@@ -665,17 +676,6 @@
     {
       "id": 316371,
       "login": "lirantal",
-      "contributions": 6,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 6
-        }
-      ]
-    },
-    {
-      "id": 59966492,
-      "login": "mbtools",
       "contributions": 6,
       "repositories": [
         {
@@ -4703,7 +4703,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 13924,
+      "stargazers_count": 13937,
       "archived": false
     },
     {
@@ -4829,7 +4829,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 64,
+      "stargazers_count": 65,
       "archived": false
     },
     {
