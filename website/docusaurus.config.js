@@ -260,6 +260,9 @@ module.exports = {
           // trackingID: 'UA-2527438-21'
           trackingID: 'G-PCYM9FYJZT'
         },
+        gtag: {
+          trackingID: 'G-PCYM9FYJZT'
+        },        
         blog: {
           blogTitle: 'Verdaccio Official Blog',
           blogDescription: 'The official Verdaccio NPM proxy registry blog',
