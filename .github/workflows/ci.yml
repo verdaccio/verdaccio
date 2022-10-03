@@ -29,7 +29,7 @@ jobs:
     steps:
     - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
     - name: Node
-      uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+      uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Node
-        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -74,7 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Use Node
-        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -99,7 +99,7 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
@@ -120,7 +120,7 @@ jobs:
     name: UI Test E2E
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+      - uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -144,7 +144,7 @@ jobs:
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
-      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
+      - uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
