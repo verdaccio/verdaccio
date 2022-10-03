@@ -33,7 +33,7 @@ jobs:
       - name: install dependencies
         run: pnpm install
       - name: Cache .pnpm-store
-        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+        uses: actions/cache@ac8075791e805656e71b4ba23325ace9e3421120 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -77,7 +77,7 @@ jobs:
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@latest-6 -g
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+      - uses: actions/cache@ac8075791e805656e71b4ba23325ace9e3421120 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
@@ -138,7 +138,7 @@ jobs:
       - name: install pnpm
         # require fixed version
         run: sudo npm i pnpm@latest-6 -g
-      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
+      - uses: actions/cache@ac8075791e805656e71b4ba23325ace9e3421120 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
