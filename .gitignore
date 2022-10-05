@@ -49,5 +49,5 @@ api-results*.json
 .clinic/
 
 #docs 
-./api
-**/docs/**
+website/docs/api/**/*.md
+!website/docs/api/index.md
