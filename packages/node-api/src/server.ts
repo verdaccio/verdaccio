@@ -173,12 +173,14 @@ export async function initServer(
 /**
  * Exposes a server factory to be instantiated programmatically.
  *
+    ```ts
     const app = await runServer(); // default configuration
     const app = await runServer('./config/config.yaml');
     const app = await runServer({ configuration });
     app.listen(4000, (event) => {
     // do something
     });
+    ```
  * @param config
  */
 export async function runServer(config?: string | ConfigYaml): Promise<any> {

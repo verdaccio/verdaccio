@@ -19,6 +19,7 @@
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
     "test": "jest --detectOpenHandles",
+    "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
     "test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest.js --config ./test/jest.config.functional.js --testPathPattern ./test/unit/* --passWithNoTests",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
@@ -58,7 +59,10 @@
     "lodash": "4.17.21",
     "node-mocks-http": "1.11.0",
     "get-port": "5.1.1",
-    "nock": "13.2.9"
+    "nock": "13.2.9",
+    "typedoc": "latest",
+    "typedoc-plugin-missing-exports": "1.0.0",
+    "typedoc-plugin-markdown": "3.13.6"
   },
   "keywords": [
     "private",
