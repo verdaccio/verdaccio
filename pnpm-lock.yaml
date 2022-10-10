@@ -1244,12 +1244,6 @@ importers:
   packages/tools/verdaccio-prefix-fake-plugin:
     specifiers: {}
 
-  packages/types:
-    specifiers:
-      lunr-mutable-indexes: 2.3.2
-    dependencies:
-      lunr-mutable-indexes: 2.3.2
-
   packages/utils:
     specifiers:
       '@verdaccio/core': workspace:6.0.0-6-next.48
@@ -17233,12 +17227,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
-
-  /lunr-mutable-indexes/2.3.2:
-    resolution: {integrity: sha512-Han6cdWAPPFM7C2AigS2Ofl3XjAT0yVMrUixodJEpyg71zCtZ2yzXc3s+suc/OaNt4ca6WJBEzVnEIjxCTwFMw==}
-    dependencies:
-      lunr: 2.3.9
-    dev: false
 
   /lunr/2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
