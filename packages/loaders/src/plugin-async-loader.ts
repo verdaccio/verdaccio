@@ -2,8 +2,9 @@ import buildDebug from 'debug';
 import { lstat } from 'fs/promises';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
+import { pluginUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
-import { Config, IPlugin, Logger } from '@verdaccio/types';
+import { Config, Logger } from '@verdaccio/types';
 
 import { isES6, isValid, tryLoad } from './utils';
 
@@ -38,7 +39,7 @@ export type Params = { config: Config; logger: Logger };
  * @param {*} prefix by default is verdaccio but can be override with config.server.pluginPrefix
  * @return {Array} list of plugins
  */
-export async function asyncLoadPlugin<T extends IPlugin<T>>(
+export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginConfigs: any = {},
   params: Params,
   sanityCheck: any,

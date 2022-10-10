@@ -14,9 +14,6 @@
       "path": "../plugins/local-storage"
     },
     {
-      "path": "../core/streams"
-    },
-    {
       "path": "../core/url"
     },
     {
@@ -30,9 +27,6 @@
     },
     {
       "path": "../logger"
-    },
-    {
-      "path": "../mock"
     },
     {
       "path": "../proxy"

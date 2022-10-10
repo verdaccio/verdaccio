@@ -8,24 +8,20 @@ import _ from 'lodash';
 import AuditMiddleware from 'verdaccio-audit';
 
 import apiEndpoint from '@verdaccio/api';
-import { Auth, IBasicAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
-import { API_ERROR, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, errorUtils, pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
-import { Config as IConfig, IPlugin } from '@verdaccio/types';
+import { Config as IConfig } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import hookDebug from './debug';
 import { getUserAgent } from './utils';
-
-export interface IPluginMiddleware<T> extends IPlugin<T> {
-  register_middlewares(app: any, auth: IBasicAuth<T>, storage: Storage): void;
-}
 
 const debug = buildDebug('verdaccio:server');
 
@@ -63,25 +59,24 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     hookDebug(app, config.configPath);
   }
 
-  const plugins: IPluginMiddleware<IConfig>[] = await asyncLoadPlugin(
+  const plugins: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
       config,
       logger,
     },
-    function (plugin: IPluginMiddleware<IConfig>) {
+    function (plugin: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>) {
       return plugin.register_middlewares;
     }
   );
 
   if (plugins.length === 0) {
     logger.info('none middleware plugins has been defined, adding audit middleware by default');
-    plugins.push(
-      new AuditMiddleware({ ...config, enabled: true, strict_ssl: true }, { config, logger })
-    );
+    // @ts-ignore
+    plugins.push(new AuditMiddleware({ enabled: true, strict_ssl: true }, { config, logger }));
   }
 
-  plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
+  plugins.forEach((plugin: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>) => {
     plugin.register_middlewares(app, auth, storage);
   });
 

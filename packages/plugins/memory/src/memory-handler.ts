@@ -6,8 +6,8 @@ import path from 'path';
 import { PassThrough, Writable, addAbortSignal } from 'stream';
 import { pipeline } from 'stream/promises';
 
-import { errorUtils } from '@verdaccio/core';
-import { IPackageStorageManager, Logger, Manifest } from '@verdaccio/types';
+import { errorUtils, pluginUtils } from '@verdaccio/core';
+import { Logger, Manifest } from '@verdaccio/types';
 
 import { parsePackage, stringifyPackage } from './utils';
 
@@ -39,7 +39,7 @@ export type DataHandler = {
   [key: string]: string;
 };
 
-class MemoryHandler implements IPackageStorageManager {
+class MemoryHandler implements pluginUtils.IPackageStorage {
   private data: DataHandler;
   private name: string;
   private path: string;

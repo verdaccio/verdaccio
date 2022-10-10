@@ -1,27 +1,23 @@
 import buildDebug from 'debug';
 
-import { API_ERROR, errorUtils } from '@verdaccio/core';
-import {
-  Callback,
-  Config,
-  IPluginAuth,
-  Logger,
-  PackageAccess,
-  PluginOptions,
-  RemoteUser,
-} from '@verdaccio/types';
+import { API_ERROR, errorUtils, pluginUtils } from '@verdaccio/core';
+import { Callback, Config, Logger, PackageAccess, RemoteUser } from '@verdaccio/types';
 
 import { UserMemory, Users, VerdaccioMemoryConfig } from './types';
 
 const debug = buildDebug('verdaccio:plugin:auth:memory:user');
 
-export default class Memory implements IPluginAuth<VerdaccioMemoryConfig> {
+export default class Memory
+  extends pluginUtils.Plugin<VerdaccioMemoryConfig>
+  implements pluginUtils.IPluginAuth<VerdaccioMemoryConfig>
+{
   public _logger: Logger;
   public _users: Users;
   public _config: {};
   public _app_config: Config;
 
-  public constructor(config: VerdaccioMemoryConfig, appOptions: PluginOptions) {
+  public constructor(config: VerdaccioMemoryConfig, appOptions: pluginUtils.PluginOptions) {
+    super(config, appOptions);
     this._users = config.users || {};
     this._config = config;
     this._logger = appOptions.logger;

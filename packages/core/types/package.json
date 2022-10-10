@@ -36,14 +36,13 @@
   "scripts": {
     "clean": "rimraf ./build",
     "test": "pnpm type-check",
-    "build:docs": "typedoc --options ./typedoc.json --excludeExternals --tsconfig tsconfig.build.json",
+    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "devDependencies": {
     "@types/node": "16.11.62",
-    "typedoc": "beta",
-    "typedoc-plugin-missing-exports": "1.0.0"
+    "typedoc": "0.23.15"
   },
   "typedoc": {
     "entryPoint": "./src/types.ts",

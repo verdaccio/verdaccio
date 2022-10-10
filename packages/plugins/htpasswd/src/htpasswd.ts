@@ -2,8 +2,9 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import { dirname, join, resolve } from 'path';
 
+import { pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
-import { Callback, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
+import { Callback, Logger } from '@verdaccio/types';
 
 import {
   HtpasswdHashAlgorithm,
@@ -32,7 +33,10 @@ export const DEFAULT_SLOW_VERIFY_MS = 200;
 /**
  * HTPasswd - Verdaccio auth class
  */
-export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
+export default class HTPasswd
+  extends pluginUtils.Plugin<HTPasswdConfig>
+  implements pluginUtils.IPluginAuth<HTPasswdConfig>
+{
   /**
    *
    * @param {*} config htpasswd file
@@ -46,7 +50,8 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   private logger: Logger;
   private lastTime: any;
   // constructor
-  public constructor(config: HTPasswdConfig, options: PluginOptions) {
+  public constructor(config: HTPasswdConfig, options: pluginUtils.PluginOptions) {
+    super(config, options);
     this.users = {};
 
     // verdaccio logger

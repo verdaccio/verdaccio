@@ -5,9 +5,9 @@ import path from 'path';
 import sanitzers from 'sanitize-filename';
 import { Readable, Writable, addAbortSignal } from 'stream';
 
-import { VerdaccioError, errorUtils } from '@verdaccio/core';
+import { VerdaccioError, errorUtils, pluginUtils } from '@verdaccio/core';
 import { readFileNext, unlockFileNext } from '@verdaccio/file-locking';
-import { ILocalPackageManager, Logger, Manifest } from '@verdaccio/types';
+import { Logger, Manifest } from '@verdaccio/types';
 
 import {
   accessPromise,
@@ -27,7 +27,7 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const packageJSONFileName = 'package.json';
 
-export type ILocalFSPackageManager = ILocalPackageManager & { path: string };
+export type ILocalFSPackageManager = pluginUtils.IPackageStorage & { path: string };
 
 const debug = buildDebug('verdaccio:plugin:local-storage:local-fs');
 

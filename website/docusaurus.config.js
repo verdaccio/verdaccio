@@ -62,8 +62,68 @@ module.exports = {
   plugins: [
     'docusaurus-plugin-sass',
     "docusaurus-plugin-contributors",
-    isProductionDeployment && typeof process.env.SENTRY_KEY === 'string' && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }]
-  ].filter(Boolean),
+    isProductionDeployment && typeof process.env.SENTRY_KEY === 'string' && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }],    
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../packages/node-api/src/index.ts'],
+        tsconfig: '../packages/node-api/tsconfig.build.json',
+        id: 'api/node-api',
+        out: 'api/node-api',
+        // theme: 'default',
+        excludePrivate: false,
+        excludeProtected: true,
+        categorizeByGroup: false,
+        excludeInternal: true,
+        sidebar: {
+          categoryLabel: '@verdaccio/node-api',
+          // position: 1,
+          fullNames: true
+        },
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../packages/config/src/index.ts'],
+        tsconfig: '../packages/config/tsconfig.build.json',
+        id: 'api/config',
+        out: 'api/config',
+        sidebar: {
+          categoryLabel: '@verdaccio/config',
+          fullNames: true
+        },
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../packages/core/core/src/index.ts'],
+        tsconfig: '../packages/core/core/tsconfig.build.json',
+        id: 'api/core',
+        out: 'api/core',
+        sidebar: {
+          categoryLabel: '@verdaccio/core',
+          fullNames: true
+        },
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../packages/core/types/src/types.ts'],
+        tsconfig: '../packages/core/types/tsconfig.build.json',
+        id: 'api/types',
+        out: 'api/types',
+        categorizeByGroup: false,
+        includeVersion: true,
+        sidebar: {
+          categoryLabel: '@verdaccio/types',
+          fullNames: true
+        },
+      },
+    ],
+  ],
   webpack: {
     jsLoader: (isServer) => ({
       loader: require.resolve('esbuild-loader'),
@@ -110,6 +170,12 @@ module.exports = {
           docId: 'what-is-verdaccio',
           position: 'left',
           label: 'Docs',
+        },
+        {
+          type: 'doc',
+          docId: 'api/node-api/index',
+          position: 'left',
+          label: 'API'
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         { to: '/help', label: 'Help', position: 'left' }, 
@@ -265,7 +331,7 @@ module.exports = {
         },        
         blog: {
           blogTitle: 'Verdaccio Official Blog',
-          blogDescription: 'The official Verdaccio NPM proxy registry blog',
+          blogDescription: 'The official Verdaccio Node.js proxy registry blog',
           showReadingTime: true,
           postsPerPage: 3,
           feedOptions: {

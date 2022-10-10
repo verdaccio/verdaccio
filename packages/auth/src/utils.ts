@@ -9,15 +9,9 @@ import {
   TOKEN_BEARER,
   VerdaccioError,
   errorUtils,
+  pluginUtils,
 } from '@verdaccio/core';
-import {
-  AuthPackageAllow,
-  Callback,
-  Config,
-  IPluginAuth,
-  RemoteUser,
-  Security,
-} from '@verdaccio/types';
+import { AuthPackageAllow, Callback, Config, RemoteUser, Security } from '@verdaccio/types';
 
 import { AESPayload, TokenEncryption } from './auth';
 import { verifyPayload } from './jwt-token';
@@ -161,7 +155,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
+export function getDefaultPlugins(logger: any): pluginUtils.IPluginAuth<Config> {
   return {
     authenticate(user: string, password: string, cb: Callback): void {
       cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));

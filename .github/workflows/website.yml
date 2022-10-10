@@ -37,8 +37,8 @@ jobs:
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
-      - name: Build Plugins
-        run: pnpm build --filter "docusaurus-plugin-contributors"
+      - name: Build 
+        run: pnpm build
       - name: Build Translations percentage
         run: pnpm build --filter "@verdaccio/crowdin-translations"
       - name: Cache Docusaurus Build

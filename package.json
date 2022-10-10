@@ -111,7 +111,7 @@
   "scripts": {
     "prepare": "husky install",
     "husky:pre-commit": "lint-staged",
-    "clean": "pnpm run clean",
+    "clean": "pnpm run clean --filter=./packages",
     "build": "pnpm run build --filter=./packages && pnpm run build --filter=./e2e",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
@@ -150,6 +150,12 @@
     "local:registry": "pnpm start --filter ...@verdaccio/local-publish",
     "local:publish": "cross-env npm_config_registry=http://localhost:4873 pnpm ci:publish",
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
+  },
+  "pnpm": {
+    "overrides": {
+      "got": "11.8.5",
+      "p-cancelable": "2.1.1"
+    }
   },
   "engines": {
     "node": ">=16.5",

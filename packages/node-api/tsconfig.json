@@ -4,20 +4,14 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*.ts", "types/*.d.ts"],
   "exclude": ["src/**/*.test.ts"],
   "references": [
     {
       "path": "../config"
     },
     {
-      "path": "../core/cli-ui"
-    },
-    {
       "path": "../logger"
-    },
-    {
-      "path": "../mock"
     },
     {
       "path": "../server/express"

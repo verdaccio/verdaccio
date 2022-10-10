@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.62",
+    "p-cancelable": "2.1.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "get-stream": "^6.0.1",
     "nock": "13.2.9",

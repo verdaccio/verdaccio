@@ -6,7 +6,6 @@
 '@verdaccio/auth': patch
 '@verdaccio/cli': patch
 '@verdaccio/config': patch
-'@verdaccio/commons-api': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/readme': patch
