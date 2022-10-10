@@ -1,3 +1,3 @@
-# Home API
+# Verdaccio API
 
 TBA

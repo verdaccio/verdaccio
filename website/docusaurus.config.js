@@ -115,16 +115,10 @@ module.exports = {
         tsconfig: '../packages/core/types/tsconfig.build.json',
         id: 'api/types',
         out: 'api/types',
-        // theme: 'default',
-        // excludePrivate: false,
-        // excludeProtected: false,
-        // excludeInternal: false,
         categorizeByGroup: false,
-        // sort: ["source-order"],
         includeVersion: true,
         sidebar: {
           categoryLabel: '@verdaccio/types',
-          // position: 3,
           fullNames: true
         },
       },
