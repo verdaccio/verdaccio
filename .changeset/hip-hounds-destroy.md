@@ -25,7 +25,6 @@
 'verdaccio-memory': patch
 '@verdaccio/proxy': patch
 '@verdaccio/store': patch
-'@verdaccio/dev-types': patch
 '@verdaccio/utils': patch
 'verdaccio': patch
 '@verdaccio/web': patch

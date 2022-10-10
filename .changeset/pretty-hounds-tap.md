@@ -18,7 +18,6 @@
 '@verdaccio/proxy': patch
 '@verdaccio/server': patch
 '@verdaccio/store': patch
-'@verdaccio/dev-types': patch
 '@verdaccio/utils': patch
 'verdaccio': patch
 '@verdaccio/web': patch

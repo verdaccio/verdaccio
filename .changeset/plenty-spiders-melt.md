@@ -18,7 +18,6 @@
 '@verdaccio/proxy': minor
 '@verdaccio/server': minor
 '@verdaccio/store': minor
-'@verdaccio/dev-types': minor
 '@verdaccio/utils': minor
 'verdaccio': minor
 '@verdaccio/web': minor
