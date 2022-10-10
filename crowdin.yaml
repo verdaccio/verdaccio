@@ -1,5 +1,5 @@
 project_id: 295539
-# api_token_env: CROWDIN_VERDACCIO_API_KEY
+api_token_env: CROWDIN_VERDACCIO_API_KEY
 # token local testing
 # api_token: token_secret
 
