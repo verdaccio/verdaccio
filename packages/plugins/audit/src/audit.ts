@@ -4,25 +4,31 @@ import https from 'https';
 import createHttpsProxyAgent from 'https-proxy-agent';
 import fetch from 'node-fetch';
 
-import { IBasicAuth, IPluginMiddleware, Logger, PluginOptions } from '@verdaccio/types';
+import type { Auth } from '@verdaccio/auth';
+import { pluginUtils } from '@verdaccio/core';
+import { Logger } from '@verdaccio/types';
 
 import { ConfigAudit } from './types';
 
 // FUTURE: we should be able to overwrite this
 export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
 
-export default class ProxyAudit implements IPluginMiddleware<{}, {}> {
+export default class ProxyAudit
+  extends pluginUtils.Plugin<ConfigAudit>
+  implements pluginUtils.IPluginMiddleware<ConfigAudit, {}, Auth>
+{
   public enabled: boolean;
   public logger: Logger;
   public strict_ssl: boolean;
 
-  public constructor(config: ConfigAudit, options: PluginOptions) {
+  public constructor(config: ConfigAudit, options: pluginUtils.PluginOptions) {
+    super(config, options);
     this.enabled = config.enabled || false;
     this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
     this.logger = options.logger;
   }
 
-  public register_middlewares(app: any, auth: IBasicAuth<ConfigAudit>): void {
+  public register_middlewares(app: any, auth: Auth): void {
     const fetchAudit = async (
       req: Request,
       res: Response & { report_error?: Function }

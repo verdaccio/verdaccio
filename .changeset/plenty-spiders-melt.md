@@ -3,7 +3,6 @@
 '@verdaccio/auth': minor
 '@verdaccio/cli': minor
 '@verdaccio/config': minor
-'@verdaccio/commons-api': minor
 '@verdaccio/file-locking': minor
 'verdaccio-htpasswd': minor
 '@verdaccio/local-storage': minor

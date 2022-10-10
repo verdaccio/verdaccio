@@ -10,7 +10,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
   coverageThreshold: {
     global: {
-      lines: 90,
+      lines: 85,
     },
   },
 };

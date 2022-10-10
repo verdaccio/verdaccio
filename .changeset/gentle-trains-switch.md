@@ -3,7 +3,6 @@
 '@verdaccio/auth': major
 '@verdaccio/cli': major
 '@verdaccio/config': major
-'@verdaccio/commons-api': major
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
 '@verdaccio/local-storage': major

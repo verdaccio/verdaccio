@@ -17,7 +17,7 @@
       "path": "../config"
     },
     {
-      "path": "../core/htpasswd"
+      "path": "../plugins/htpasswd"
     },
     {
       "path": "../tools/helper"

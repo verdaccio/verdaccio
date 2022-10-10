@@ -70,13 +70,14 @@ module.exports = {
         tsconfig: '../packages/node-api/tsconfig.build.json',
         id: 'api/node-api',
         out: 'api/node-api',
-        theme: 'default',
-        excludePrivate: true,
+        // theme: 'default',
+        excludePrivate: false,
         excludeProtected: true,
+        categorizeByGroup: false,
         excludeInternal: true,
         sidebar: {
-          categoryLabel: '@verdaccio/core',
-          position: 1,
+          categoryLabel: '@verdaccio/node-api',
+          // position: 1,
           fullNames: true
         },
       },
@@ -88,13 +89,21 @@ module.exports = {
         tsconfig: '../packages/config/tsconfig.build.json',
         id: 'api/config',
         out: 'api/config',
-        theme: 'default',
-        excludePrivate: true,
-        excludeProtected: true,
-        excludeInternal: true,
         sidebar: {
           categoryLabel: '@verdaccio/config',
-          position: 2,
+          fullNames: true
+        },
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
+        entryPoints: ['../packages/core/core/src/index.ts'],
+        tsconfig: '../packages/core/core/tsconfig.build.json',
+        id: 'api/core',
+        out: 'api/core',
+        sidebar: {
+          categoryLabel: '@verdaccio/core',
           fullNames: true
         },
       },
@@ -106,13 +115,16 @@ module.exports = {
         tsconfig: '../packages/core/types/tsconfig.build.json',
         id: 'api/types',
         out: 'api/types',
-        theme: 'default',
-        excludePrivate: false,
-        excludeProtected: false,
-        excludeInternal: false,
+        // theme: 'default',
+        // excludePrivate: false,
+        // excludeProtected: false,
+        // excludeInternal: false,
+        categorizeByGroup: false,
+        // sort: ["source-order"],
+        includeVersion: true,
         sidebar: {
           categoryLabel: '@verdaccio/types',
-          position: 3,
+          // position: 3,
           fullNames: true
         },
       },

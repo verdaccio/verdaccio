@@ -11,18 +11,16 @@ import {
   TOKEN_BEARER,
   VerdaccioError,
   errorUtils,
+  pluginUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import {
   AllowAccess,
-  AuthPluginPackage,
   Callback,
   Config,
-  IPluginAuth,
   JWTSignOptions,
   Logger,
   PackageAccess,
-  PluginOptions,
   RemoteUser,
   Security,
 } from '@verdaccio/types';
@@ -46,15 +44,6 @@ const LoggerApi = require('@verdaccio/logger');
 
 const debug = buildDebug('verdaccio:auth');
 
-export interface IBasicAuth<T> {
-  config: T & Config;
-  authenticate(user: string, password: string, cb: Callback): void;
-  invalidateToken?(token: string): Promise<void>;
-  changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
-  allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
-  add_user(user: string, password: string, cb: Callback): any;
-}
-
 export interface TokenEncryption {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
   aesEncrypt(buf: string): string | void;
@@ -74,13 +63,13 @@ export interface IAuthMiddleware {
   webUIJWTmiddleware(): $NextFunctionVer;
 }
 
-export interface IAuth extends IBasicAuth<Config>, IAuthMiddleware, TokenEncryption {
+export interface IAuth extends IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   config: Config;
   logger: Logger;
   secret: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   plugins: any[];
-  allow_unpublish(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
+  allow_unpublish(pkg: pluginUtils.AuthPluginPackage, user: RemoteUser, callback: Callback): void;
   invalidateToken(token: string): Promise<void>;
   init(): Promise<void>;
 }
@@ -89,7 +78,7 @@ class Auth implements IAuth {
   public config: Config;
   public logger: Logger;
   public secret: string;
-  public plugins: IPluginAuth<Config>[];
+  public plugins: pluginUtils.IPluginAuth<Config>[];
 
   public constructor(config: Config) {
     this.config = config;
@@ -114,13 +103,16 @@ class Auth implements IAuth {
 
   private loadDefaultPlugin() {
     debug('load default auth plugin');
-    const pluginOptions: PluginOptions = {
+    const pluginOptions: pluginUtils.PluginOptions = {
       config: this.config,
       logger: this.logger,
     };
     let authPlugin;
     try {
-      authPlugin = new HTPasswd({ file: './htpasswd' }, pluginOptions as any as PluginOptions);
+      authPlugin = new HTPasswd(
+        { file: './htpasswd' },
+        pluginOptions as any as pluginUtils.PluginOptions
+      );
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       return [];
@@ -129,14 +121,14 @@ class Auth implements IAuth {
     return [authPlugin];
   }
 
-  private async loadPlugin(): Promise<IPluginAuth<Config>[]> {
-    return asyncLoadPlugin<IPluginAuth<Config>>(
+  private async loadPlugin(): Promise<pluginUtils.IPluginAuth<Config>[]> {
+    return asyncLoadPlugin<pluginUtils.IPluginAuth<any>>(
       this.config.auth,
       {
         config: this.config,
         logger: this.logger,
       },
-      (plugin: IPluginAuth<Config>): boolean => {
+      (plugin: pluginUtils.IPluginAuth<Config>): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
 
         // @ts-ignore
@@ -195,7 +187,7 @@ class Auth implements IAuth {
   public authenticate(username: string, password: string, cb: Callback): void {
     const plugins = this.plugins.slice(0);
     (function next(): void {
-      const plugin = plugins.shift() as IPluginAuth<Config>;
+      const plugin = plugins.shift() as pluginUtils.IPluginAuth<Config>;
 
       if (isFunction(plugin.authenticate) === false) {
         return next();
@@ -239,7 +231,7 @@ class Auth implements IAuth {
     debug('add user %o', user);
 
     (function next(): void {
-      const plugin = plugins.shift() as IPluginAuth<Config>;
+      const plugin = plugins.shift() as pluginUtils.IPluginAuth<Config>;
       let method = 'adduser';
       if (isFunction(plugin[method]) === false) {
         method = 'add_user';
@@ -272,7 +264,7 @@ class Auth implements IAuth {
    * Allow user to access a package.
    */
   public allow_access(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {
@@ -286,7 +278,8 @@ class Auth implements IAuth {
     debug('allow access for %o', packageName);
 
     (function next(): void {
-      const plugin: IPluginAuth<Config> = plugins.shift() as IPluginAuth<Config>;
+      const plugin: pluginUtils.IPluginAuth<Config> =
+        plugins.shift() as pluginUtils.IPluginAuth<Config>;
 
       if (_.isNil(plugin) || isFunction(plugin.allow_access) === false) {
         return next();
@@ -309,7 +302,7 @@ class Auth implements IAuth {
   }
 
   public allow_unpublish(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {
@@ -354,7 +347,7 @@ class Auth implements IAuth {
    * Allow user to publish a package.
    */
   public allow_publish(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {

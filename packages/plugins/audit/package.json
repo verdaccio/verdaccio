@@ -31,6 +31,9 @@
     "npm": ">=6"
   },
   "dependencies": {
+    "@verdaccio/core": "workspace:6.0.0-6-next.48",
+    "@verdaccio/config": "workspace:6.0.0-6-next.48",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.16",
     "express": "4.18.1",
     "body-parser": "1.20.0",
     "https-proxy-agent": "5.0.1",
@@ -38,8 +41,7 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
-    "@verdaccio/config": "workspace:6.0.0-6-next.48",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.16",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.27",
     "nock": "13.2.9",
     "supertest": "6.2.4"
   },

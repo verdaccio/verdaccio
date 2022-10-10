@@ -1,8 +1,13 @@
 import _ from 'lodash';
 
-import { LocalStorage, Logger, StorageList } from '@verdaccio/types';
+import { Logger, StorageList } from '@verdaccio/types';
 
 import { readFilePromise } from './fs';
+
+export type LocalStorage = {
+  list: any;
+  secret: string;
+};
 
 export async function loadPrivatePackages(path: string, logger: Logger): Promise<LocalStorage> {
   const list: StorageList = [];

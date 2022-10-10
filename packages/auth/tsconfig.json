@@ -11,16 +11,13 @@
       "path": "../config"
     },
     {
-      "path": "../core/htpasswd"
+      "path": "../plugins/htpasswd"
     },
     {
       "path": "../loaders"
     },
     {
       "path": "../logger"
-    },
-    {
-      "path": "../mock"
     },
     {
       "path": "../utils"

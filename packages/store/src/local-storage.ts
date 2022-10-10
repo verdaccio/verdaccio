@@ -66,7 +66,7 @@ class LocalStorage {
   }
 
   private async loadStorePlugin(): Promise<IPluginStorage | undefined> {
-    const plugins: IPluginStorage[] = await asyncLoadPlugin<IPluginStorage>(
+    const plugins: IPluginStorage[] = await asyncLoadPlugin<pluginUtils.IPluginStorage<any>>(
       this.config.store,
       {
         config: this.config,
