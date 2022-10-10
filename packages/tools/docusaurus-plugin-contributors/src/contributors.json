@@ -2167,7 +2167,7 @@
     },
     {
       "id": 48300131,
-      "login": "andrewmjordan",
+      "login": "zensharp",
       "contributions": 1,
       "repositories": [
         {
@@ -4714,7 +4714,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 13947,
+      "stargazers_count": 13959,
       "archived": false
     },
     {
@@ -4723,7 +4723,7 @@
       "full_name": "verdaccio/ansible-verdaccio",
       "html_url": "https://github.com/verdaccio/ansible-verdaccio",
       "description": "Ansible role that is capable of installing and configuring Verdaccio on various Linux distributions.",
-      "stargazers_count": 24,
+      "stargazers_count": 25,
       "archived": false
     },
     {
