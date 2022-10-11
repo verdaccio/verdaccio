@@ -74,17 +74,18 @@ import {
 import { ProxyInstanceList, setupUpLinks, updateVersionsHiddenUpLinkNext } from './lib/uplink-util';
 import { getVersion } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import { IGetPackageOptionsNext, IPluginFilters, StarManifestBody } from './type';
+import { IGetPackageOptionsNext, StarManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
+export type Filters = pluginUtils.ManifestFilter<Config>[];
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
 
 class Storage {
   public localStorage: LocalStorage;
-  public filters: IPluginFilters | null;
+  public filters: Filters | null;
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
@@ -173,7 +174,7 @@ class Storage {
   public async removeTarball(name: string, filename: string, _revision: string): Promise<Manifest> {
     debug('remove tarball %s for %s', filename, name);
     assert(validatioUtils.validateName(filename));
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(name);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
     if (!storage) {
       debug(`method not implemented for storage`);
       this.logger.error('method for remove tarball not implemented');
@@ -199,7 +200,7 @@ class Storage {
     });
 
     try {
-      const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(name);
+      const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
       if (!storage) {
         debug(`method not implemented for storage`);
         this.logger.error('method for remove tarball not implemented');
@@ -649,7 +650,7 @@ class Storage {
   /**
    * Initialize the storage asynchronously.
    * @param config Config
-   * @param filters IPluginFilters
+   * @param filters Filters
    * @returns Storage instance
    */
   public async init(config: Config): Promise<void> {
@@ -663,14 +664,14 @@ class Storage {
       debug('storage has been already initialized');
     }
     if (!this.filters) {
-      this.filters = await asyncLoadPlugin<pluginUtils.IPluginStorageFilter<any>>(
+      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
         this.config.filters,
         {
           config: this.config,
           logger: this.logger,
         },
         (plugin) => {
-          return plugin.filterMetadata;
+          return typeof plugin.filterMetadata !== 'undefined';
         },
         this.config?.serverSettings?.pluginPrefix
       );
@@ -706,7 +707,7 @@ class Storage {
    * @param {Object} pkgName package name.
    * @return {Object}
    */
-  private getPrivatePackageStorage(pkgName: string): pluginUtils.IPackageStorage {
+  private getPrivatePackageStorage(pkgName: string): pluginUtils.StorageHandler {
     debug('get local storage for %o', pkgName);
     return this.localStorage.getStoragePlugin().getPackageStorage(pkgName);
   }
@@ -724,7 +725,7 @@ class Storage {
     { signal }: { signal: AbortSignal }
   ): Promise<Readable> {
     assert(validatioUtils.validateName(filename));
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(pkgName);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     if (typeof storage === 'undefined') {
       return this.createFailureStreamResponseNext();
     }
@@ -775,7 +776,7 @@ class Storage {
   }
 
   private async removePackageByRevision(pkgName: string, revision: string): Promise<void> {
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(pkgName);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     debug('get package metadata for %o', pkgName);
     if (typeof storage === 'undefined') {
       throw errorUtils.getServiceUnavailable('storage not initialized');
@@ -830,7 +831,7 @@ class Storage {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async getPackageLocalMetadata(name: string, _revision?: string): Promise<Manifest> {
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(name);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
     debug('get package metadata for %o', name);
     if (typeof storage === 'undefined') {
       throw errorUtils.getServiceUnavailable('storage not initialized');
@@ -1051,7 +1052,7 @@ class Storage {
    * @returns boolean
    */
   private async hasPackage(pkgName: string): Promise<boolean> {
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(pkgName);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     if (typeof storage === 'undefined') {
       throw errorUtils.getNotFound();
     }
@@ -1409,7 +1410,7 @@ class Storage {
    * @returns
    */
   private async createNewLocalCachePackage(name: string, latestVersion: string): Promise<void> {
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(name);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
       debug(`storage is missing for %o package cannot be added`, name);
@@ -1517,7 +1518,7 @@ class Storage {
     name: string,
     updateHandler: (manifest: Manifest) => Promise<Manifest>
   ): Promise<Manifest> {
-    const storage: pluginUtils.IPackageStorage = this.getPrivatePackageStorage(name);
+    const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
       throw errorUtils.getNotFound();

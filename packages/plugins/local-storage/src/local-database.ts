@@ -24,9 +24,9 @@ const debug = buildDebug('verdaccio:plugin:local-storage');
 export const ERROR_DB_LOCKED =
   'Database is locked, please check error message printed during startup to prevent data loss';
 
-type IPluginStorage = pluginUtils.IPluginStorage<{}>;
+type Storage = pluginUtils.Storage<{}>;
 
-class LocalDatabase extends pluginUtils.Plugin<{}> implements IPluginStorage {
+class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   private readonly path: string;
   private readonly logger: Logger;
   public readonly config: Config;
@@ -189,7 +189,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements IPluginStorage {
     return Promise.resolve(list);
   }
 
-  public getPackageStorage(packageName: string): pluginUtils.IPackageStorage {
+  public getPackageStorage(packageName: string): pluginUtils.StorageHandler {
     const packageAccess = getMatchedPackagesSpec(packageName, this.config.packages);
 
     const packagePath: string = this._getLocalStoragePath(

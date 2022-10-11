@@ -35,7 +35,7 @@ export const DEFAULT_SLOW_VERIFY_MS = 200;
  */
 export default class HTPasswd
   extends pluginUtils.Plugin<HTPasswdConfig>
-  implements pluginUtils.IPluginAuth<HTPasswdConfig>
+  implements pluginUtils.Auth<HTPasswdConfig>
 {
   /**
    *

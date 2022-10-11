@@ -26,9 +26,6 @@
       "path": "../../middleware"
     },
     {
-      "path": "../../mock"
-    },
-    {
       "path": "../../plugins/audit"
     },
     {

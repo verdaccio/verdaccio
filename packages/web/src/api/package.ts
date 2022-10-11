@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -20,7 +20,7 @@ const getOrder = (order = 'asc') => {
 
 const debug = buildDebug('verdaccio:web:api:package');
 
-function addPackageWebApi(storage: Storage, auth: IAuth, config: Config): Router {
+function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
   const isLoginEnabled = config?.web?.login === true ?? true;
   const pkgRouter = Router(); /* eslint new-cap: 0 */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -41,7 +41,7 @@ function addPackageWebApi(storage: Storage, auth: IAuth, config: Config): Router
           if (err) {
             resolve(false);
           }
-          resolve(allowed);
+          return resolve(allowed as boolean);
         });
       } catch (err: any) {
         reject(err);

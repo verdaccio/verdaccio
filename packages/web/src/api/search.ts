@@ -3,7 +3,7 @@ import { Router } from 'express';
 import _ from 'lodash';
 import { URLSearchParams } from 'url';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { errorUtils, searchUtils } from '@verdaccio/core';
 import { SearchQuery } from '@verdaccio/core/src/search-utils';
 import { Storage } from '@verdaccio/store';
@@ -32,7 +32,7 @@ function checkAccess(pkg: any, auth: any, remoteUser): Promise<Manifest | null> 
   });
 }
 
-function addSearchWebApi(storage: Storage, auth: IAuth): Router {
+function addSearchWebApi(storage: Storage, auth: Auth): Router {
   const router = Router(); /* eslint new-cap: 0 */
   router.get(
     '/search/:anything',

@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
 import sanitizyReadme from '@verdaccio/readme';
@@ -19,7 +19,7 @@ const debug = buildDebug('verdaccio:web:api:readme');
 
 export const NOT_README_FOUND = 'ERROR: No README data found!';
 
-function addReadmeWebApi(storage: Storage, auth: IAuth): Router {
+function addReadmeWebApi(storage: Storage, auth: Auth): Router {
   debug('initialized readme web api');
   const can = allow(auth);
   const pkgRouter = Router(); /* eslint new-cap: 0 */

@@ -30,7 +30,8 @@ async function startServer(config: ConfigYaml): Promise<any> {
   // eslint-disable-next-line prettier/prettier
   const configInstance: IConfig = new AppConfig({ ...config } as any);
   debug('start fastify server');
-  const fastifyInstance = fastify({ logger });
+  // TODO: custom logger type and logger accepted by fastify does not match
+  const fastifyInstance = fastify({ logger: logger as any });
   fastifyInstance.addHook('onRequest', (request, reply, done) => {
     request.userRemote = createAnonymousRemoteUser();
     done();

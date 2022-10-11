@@ -17,7 +17,7 @@ const debug = buildDebug('verdaccio:plugin:storage:local-memory');
 const DEFAULT_LIMIT = 1000;
 class LocalMemory
   extends pluginUtils.Plugin<ConfigMemory>
-  implements pluginUtils.IPluginStorage<ConfigMemory>
+  implements pluginUtils.Storage<ConfigMemory>
 {
   private path: string;
   private limit: number;

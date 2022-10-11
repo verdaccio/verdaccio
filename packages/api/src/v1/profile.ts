@@ -1,7 +1,7 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import {
   API_ERROR,
   APP_ERROR,
@@ -25,7 +25,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (route: Router, auth: IAuth, config: Config): void {
+export default function (route: Router, auth: Auth, config: Config): void {
   function buildProfile(name: string): Profile {
     return {
       tfa: false,

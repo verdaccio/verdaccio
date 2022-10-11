@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { match, validateName, validatePackage } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
@@ -9,7 +9,7 @@ import { Config } from '@verdaccio/types';
 import webEndpointsApi from '../api';
 import { setSecurityWebHeaders } from './security';
 
-export function webAPI(config: Config, auth: IAuth, storage: Storage): Router {
+export function webAPI(config: Config, auth: Auth, storage: Storage): Router {
   // eslint-disable-next-line new-cap
   const route = Router();
   // validate all of these params as a package name

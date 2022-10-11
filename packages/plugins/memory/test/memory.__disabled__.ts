@@ -1,16 +1,15 @@
 import { join } from 'path';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { errorUtils } from '@verdaccio/core';
+import { errorUtils, pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
-import { ILocalPackageManager, IPackageStorage, IPluginStorage } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
 import pkgExample from './partials/pkg';
 
-setup();
+setup({});
 
 const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
 
@@ -42,8 +41,9 @@ describe('memory unit test .', () => {
     expect(memoryHandler).toBeDefined();
   });
 
+  // eslint-disable-next-line jest/no-commented-out-tests
   // test('should save a package', (done) => {
-  //   const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+  //   const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
   //   const pkgName = 'test';
 
   //   const handler = localMemory.getPackageStorage(pkgName);
@@ -66,10 +66,10 @@ describe('memory unit test .', () => {
       throw new Error('error on parse');
     });
 
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
-    const handler: IPackageStorage = localMemory.getPackageStorage(pkgName) as ILocalPackageManager;
+    const handler = localMemory.getPackageStorage(pkgName);
 
     handler.savePackage(pkgName, pkgExample, (err) => {
       expect(err).toEqual(errorUtils.getInternalError('error on parse'));
@@ -78,7 +78,7 @@ describe('memory unit test .', () => {
   });
 
   test('should fails on read a package', async () => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
     const handler = localMemory.getPackageStorage(pkgName);
@@ -90,7 +90,7 @@ describe('memory unit test .', () => {
   });
 
   test('should update a package', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
     const handler = localMemory.getPackageStorage(pkgName);
@@ -130,7 +130,7 @@ describe('memory unit test .', () => {
     mockParsePackage.mockImplementationOnce(() => {
       throw new Error('error on parse');
     });
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
 
     const pkgName = 'test';
 
@@ -158,7 +158,7 @@ describe('memory unit test .', () => {
   });
 
   test('should fail updateHandler update a package', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
     const handler = localMemory.getPackageStorage(pkgName);
@@ -191,7 +191,7 @@ describe('memory unit test .', () => {
   });
 
   test('should onWrite update a package', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
 
     const handler = localMemory.getPackageStorage(pkgName);
@@ -231,10 +231,10 @@ describe('memory unit test .', () => {
   });
 
   test('should delete a package', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test2';
 
-    const handler: IPackageStorage = localMemory.getPackageStorage(pkgName);
+    const handler = localMemory.getPackageStorage(pkgName);
     expect(handler).toBeDefined();
     if (handler) {
       handler.createPackage(pkgName, pkgExample, (err) => {
@@ -254,7 +254,7 @@ describe('memory unit test .', () => {
 
 describe('writing files', () => {
   test('should write a tarball', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test';
     const dataTarball = '12345';
 
@@ -276,7 +276,7 @@ describe('writing files', () => {
     }
   });
   test('should abort while write a tarball', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test-abort.tar.gz';
     const handler = localMemory.getPackageStorage(pkgName);
 
@@ -294,7 +294,7 @@ describe('writing files', () => {
   });
 
   test('should support writting identical tarball filenames from different packages', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName1 = 'package1';
     const pkgName2 = 'package2';
     const filename = 'tarball-3.0.0.tgz';
@@ -336,7 +336,7 @@ describe('writing files', () => {
 
 describe('reading files', () => {
   test('should read a tarball', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test.tar.gz';
     const dataTarball = '12345';
 
@@ -360,7 +360,7 @@ describe('reading files', () => {
   });
 
   test('should abort read a tarball', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test2.tar.gz';
     const dataTarball = '12345';
 
@@ -388,7 +388,7 @@ describe('reading files', () => {
   });
 
   test('should fails read a tarball not found', (done) => {
-    const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+    const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(config, defaultConfig);
     const pkgName = 'test2.tar.gz';
     const handler = localMemory.getPackageStorage(pkgName);
 

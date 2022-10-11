@@ -1,9 +1,8 @@
 /* eslint-disable jest/no-mocks-import */
 import path from 'path';
 
-import { fileUtils } from '@verdaccio/core';
+import { fileUtils, pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
-import { IPluginStorage, PluginOptions } from '@verdaccio/types';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
 
@@ -19,12 +18,13 @@ jest.mock('../src/fs', () => ({
 
 setup();
 
-// @ts-expect-error
-const optionsPlugin: PluginOptions = {
+const optionsPlugin: pluginUtils.PluginOptions = {
   logger,
+  // @ts-expect-error
+  config: null,
 };
 
-let locaDatabase: IPluginStorage<{}>;
+let locaDatabase: pluginUtils.Storage<{}>;
 
 describe('Local Database', () => {
   let tmpFolder;

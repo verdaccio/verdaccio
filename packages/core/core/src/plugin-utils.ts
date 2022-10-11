@@ -1,10 +1,10 @@
+import { Express, RequestHandler } from 'express';
 import { Readable, Writable } from 'stream';
 
 import {
   AllowAccess,
   Callback,
   Config,
-  HttpError,
   Logger,
   Manifest,
   PackageAccess,
@@ -13,11 +13,7 @@ import {
   TokenFilter,
 } from '@verdaccio/types';
 
-import { searchUtils } from '.';
-
-export type AuthError = HttpError & { code: number };
-export type AuthAccessCallback = (error: AuthError | null, access: boolean) => void;
-export type AuthCallback = (error: AuthError | null, groups: string[] | false) => void;
+import { VerdaccioError, searchUtils } from '.';
 
 export interface AuthPluginPackage {
   packageName: string;
@@ -34,12 +30,12 @@ export interface PluginOptions {
  * plugins.
  * @alpha
  * */
-export class Plugin<T> {
+export class Plugin<PluginConfig> {
   static version = 1;
-  public version: number;
-  public config: T;
-  public options: PluginOptions;
-  public constructor(config: T, options: PluginOptions) {
+  public readonly version: number;
+  public readonly config: PluginConfig | unknown;
+  public readonly options: PluginOptions;
+  public constructor(config: PluginConfig, options: PluginOptions) {
     this.version = Plugin.version;
     this.config = config;
     this.options = options;
@@ -49,7 +45,7 @@ export class Plugin<T> {
     return this.version;
   }
 }
-export interface IPackageStorage {
+export interface StorageHandler {
   logger: Logger;
   deletePackage(fileName: string): Promise<void>;
   removePackage(): Promise<void>;
@@ -60,27 +56,109 @@ export interface IPackageStorage {
   ): Promise<Manifest>;
   readPackage(name: string): Promise<Manifest>;
   savePackage(pkgName: string, value: Manifest): Promise<void>;
-  readTarball(pkgName: string, { signal }): Promise<Readable>;
+  readTarball(pkgName: string, { signal }: { signal: AbortSignal }): Promise<Readable>;
   createPackage(name: string, manifest: Manifest): Promise<void>;
-  writeTarball(tarballName: string, { signal }): Promise<Writable>;
+  writeTarball(tarballName: string, { signal }: { signal: AbortSignal }): Promise<Writable>;
   // verify if tarball exist in the storage
   hasTarball(fileName: string): Promise<boolean>;
   // verify if package exist in the storage
   hasPackage(): Promise<boolean>;
 }
 
-export interface IPluginStorage<T> extends Plugin<T> {
+export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
   add(name: string): Promise<void>;
   remove(name: string): Promise<void>;
   get(): Promise<any>;
   init(): Promise<void>;
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
-  getPackageStorage(packageInfo: string): IPackageStorage;
+  getPackageStorage(packageInfo: string): StorageHandler;
   search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
   saveToken(token: Token): Promise<any>;
   deleteToken(user: string, tokenKey: string): Promise<any>;
   readTokens(filter: TokenFilter): Promise<Token[]>;
+}
+
+/**
+ * This function allow add additional middleware to the application.
+ *
+ *  ```ts
+ *  import express, { Request, Response } from 'express';
+ * 
+ *  class Middleware extends Plugin {
+ *    // instances of auth and storage are injected
+ *    register_middlewares(app, auth, storage) {
+ *      const router = express.Router();
+ *      router.post('/my-endpoint', (req: Request, res: Response): void => {
+        res.status(200).end();
+      });
+ *    }
+ *  }
+ * 
+ *  
+ *  const [plugin] = await asyncLoadPlugin(...);
+ *  plugin.register_middlewares(app, auth, storage);
+ *  ```
+ */
+export interface ExpressMiddleware<PluginConfig, Storage, Auth> extends Plugin<PluginConfig> {
+  register_middlewares(app: Express, auth: Auth, storage: Storage): void;
+}
+
+/**
+ * dasdsa
+ */
+export type AuthCallback = (error: VerdaccioError | null, groups?: string[] | false) => void;
+
+export type AuthAccessCallback = (error: VerdaccioError | null, access?: boolean) => void;
+export type AuthUserCallback = (error: VerdaccioError | null, access?: boolean | string) => void;
+export type AuthChangePasswordCallback = (error: VerdaccioError | null, access?: boolean) => void;
+export type AccessCallback = (error: VerdaccioError | null, ok?: boolean) => void;
+export interface Auth<T> extends Plugin<T> {
+  /**
+   * Handles the authenticated method.
+   * ```ts
+   *  class Auth {
+      public authenticate(user: string, password: string, done: AuthCallback): void {
+        if (!password) {
+          return done(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+        }
+        // always return an array of users
+        return done(null, [user]);      
+   *  }
+   * ```
+   */
+  authenticate(user: string, password: string, cb: AuthCallback): void;
+  /**
+   * Handles the authenticated method.
+   * ```ts
+   *  class Auth {
+      public adduser(user: string, password: string, done: AuthCallback): void {
+        if (!password) {
+          return done(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+        }
+        // return boolean
+        return done(null, true);      
+   *  }
+   * ```
+   */
+  adduser?(user: string, password: string, cb: AuthUserCallback): void;
+  changePassword?(
+    user: string,
+    password: string,
+    newPassword: string,
+    cb: AuthChangePasswordCallback
+  ): void;
+  allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+  allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
+  allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AccessCallback): void;
+  allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AccessCallback): void;
+  allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+  allow_unpublish?(
+    user: RemoteUser,
+    pkg: AllowAccess & PackageAccess,
+    cb: AuthAccessCallback
+  ): void;
+  apiJWTmiddleware?(helpers: any): RequestHandler;
 }
 
 export interface IBasicAuth {
@@ -91,30 +169,6 @@ export interface IBasicAuth {
   add_user(user: string, password: string, cb: Callback): any;
 }
 
-export interface IPluginMiddleware<T, K, L> extends Plugin<T> {
-  register_middlewares(app: any, auth: L, storage: K): void;
-}
-
-export interface IPluginAuth<T> extends Plugin<T> {
-  /**
-   * @param props user from Application component
-   */
-  authenticate(user: string, password: string, cb: AuthCallback): void;
-  adduser?(user: string, password: string, cb: AuthCallback): void;
-  changePassword?(user: string, password: string, newPassword: string, cb: AuthCallback): void;
-  allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-  allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-  allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-  allow_access?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
-  allow_unpublish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
-  allow_unpublish?(
-    user: RemoteUser,
-    pkg: AllowAccess & PackageAccess,
-    cb: AuthAccessCallback
-  ): void;
-  apiJWTmiddleware?(helpers: any): Function;
-}
-
-export interface IPluginStorageFilter<T> extends Plugin<T> {
+export interface ManifestFilter<T> extends Plugin<T> {
   filterMetadata(packageInfo: Manifest): Promise<Manifest>;
 }

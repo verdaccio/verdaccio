@@ -35,6 +35,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.48"
   },
   "devDependencies": {
+    "@verdaccio/config": "workspace:6.0.0-6-next.48",
     "@verdaccio/types": "workspace:11.0.0-6-next.17"
   },
   "scripts": {

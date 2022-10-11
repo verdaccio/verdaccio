@@ -262,7 +262,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.13.3
+      pnpm: 7.13.4
 
   e2e/cli/e2e-yarn1:
     specifiers:
@@ -448,6 +448,8 @@ importers:
       lodash: 4.17.21
       process-warning: 1.0.0
       semver: 7.3.7
+      typedoc: 0.23.15
+      typedoc-plugin-missing-exports: latest
     dependencies:
       ajv: 8.11.0
       core-js: 3.25.3
@@ -458,6 +460,8 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
       lodash: 4.17.21
+      typedoc: 0.23.15_typescript@4.8.4
+      typedoc-plugin-missing-exports: 1.0.0_typedoc@0.23.15
 
   packages/core/file-locking:
     specifiers:
@@ -685,6 +689,7 @@ importers:
 
   packages/plugins/auth-memory:
     specifiers:
+      '@verdaccio/config': workspace:6.0.0-6-next.48
       '@verdaccio/core': workspace:6.0.0-6-next.48
       '@verdaccio/types': workspace:11.0.0-6-next.17
       debug: 4.3.4
@@ -692,6 +697,7 @@ importers:
       '@verdaccio/core': link:../../core/core
       debug: 4.3.4
     devDependencies:
+      '@verdaccio/config': link:../../config
       '@verdaccio/types': link:../../core/types
 
   packages/plugins/htpasswd:
@@ -19347,8 +19353,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.13.3:
-    resolution: {integrity: sha512-6avqSfzfAr/9w1ZleaMI276ZuZUu88eOIe6v2mTCuwtSjUEqheboH1G4m7jgF+4arMUfnBrz371UAU+DCeCiSA==}
+  /pnpm/7.13.4:
+    resolution: {integrity: sha512-ZaP5+PRzXI0g4KijU7zx4hi7RUJcSYBJIb90e+lyTeQyRw91+peJoFAzWa63+4fjJIz6CqY0cNkP7trZXh5l8w==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false
@@ -23176,6 +23182,14 @@ packages:
     resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
+    dev: true
+
+  /typedoc-plugin-missing-exports/1.0.0_typedoc@0.23.15:
+    resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
+    peerDependencies:
+      typedoc: 0.22.x || 0.23.x
+    dependencies:
+      typedoc: 0.23.15_typescript@4.8.4
     dev: true
 
   /typedoc/0.23.15_typescript@4.8.4:

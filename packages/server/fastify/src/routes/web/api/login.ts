@@ -3,7 +3,7 @@ import { FastifyInstance } from 'fastify';
 import _ from 'lodash';
 
 import { validatioUtils } from '@verdaccio/core';
-import { JWTSignOptions } from '@verdaccio/types';
+import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:fastify:web:login');
 const loginBodySchema = {
@@ -51,7 +51,7 @@ async function loginRoute(fastify: FastifyInstance) {
           } else {
             const jWTSignOptions: JWTSignOptions = fastify.configInstance.security.web.sign;
             debug('jwtSignOptions: %o', jWTSignOptions);
-            const token = await fastify.auth.jwtEncrypt(user, jWTSignOptions);
+            const token = await fastify.auth.jwtEncrypt(user as RemoteUser, jWTSignOptions);
             reply.code(fastify.statusCode.OK).send({ token, username });
           }
         }

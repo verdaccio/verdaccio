@@ -27,7 +27,7 @@ export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const packageJSONFileName = 'package.json';
 
-export type ILocalFSPackageManager = pluginUtils.IPackageStorage & { path: string };
+export type ILocalFSPackageManager = pluginUtils.StorageHandler & { path: string };
 
 const debug = buildDebug('verdaccio:plugin:local-storage:local-fs');
 

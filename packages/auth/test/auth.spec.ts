@@ -1,6 +1,5 @@
 import path from 'path';
 
-import { IAuth } from '@verdaccio/auth';
 import { Config as AppConfig, ROLES, getDefaultConfig } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -9,14 +8,14 @@ import { Config } from '@verdaccio/types';
 import { Auth } from '../src';
 import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
-setup([]);
+setup({});
 
 describe('AuthTest', () => {
   test('should init correctly', async () => {
     const config: Config = new AppConfig({ ...authProfileConf });
     config.checkSecretKey('12345');
 
-    const auth: IAuth = new Auth(config);
+    const auth: Auth = new Auth(config);
     await auth.init();
     expect(auth).toBeDefined();
   });
@@ -25,7 +24,7 @@ describe('AuthTest', () => {
     const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
     config.checkSecretKey('12345');
 
-    const auth: IAuth = new Auth(config);
+    const auth: Auth = new Auth(config);
     await auth.init();
     expect(auth).toBeDefined();
   });
@@ -35,7 +34,7 @@ describe('AuthTest', () => {
       test('should be a success login', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -62,7 +61,7 @@ describe('AuthTest', () => {
       test('should be a fail on login', async () => {
         const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -81,7 +80,7 @@ describe('AuthTest', () => {
       test('should skip falsy values', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -101,7 +100,7 @@ describe('AuthTest', () => {
       test('should error truthy non-array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -119,7 +118,7 @@ describe('AuthTest', () => {
       test('should skip empty array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -136,7 +135,7 @@ describe('AuthTest', () => {
       test('should accept valid array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -165,7 +164,7 @@ describe('AuthTest', () => {
         },
       });
       config.checkSecretKey('12345');
-      const auth: IAuth = new Auth(config);
+      const auth: Auth = new Auth(config);
       await auth.init();
 
       return new Promise((resolve) => {

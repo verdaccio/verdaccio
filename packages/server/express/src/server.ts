@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import buildDebug from 'debug';
-import express, { Application } from 'express';
+import express from 'express';
 import RateLimit from 'express-rate-limit';
 import { HttpError } from 'http-errors';
 import _ from 'lodash';
@@ -28,7 +28,7 @@ const debug = buildDebug('verdaccio:server');
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
   await auth.init();
-  const app: Application = express();
+  const app = express();
   const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
@@ -59,14 +59,14 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     hookDebug(app, config.configPath);
   }
 
-  const plugins: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
       config,
       logger,
     },
-    function (plugin: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>) {
-      return plugin.register_middlewares;
+    function (plugin) {
+      return typeof plugin.register_middlewares !== 'undefined';
     }
   );
 
@@ -76,7 +76,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     plugins.push(new AuditMiddleware({ enabled: true, strict_ssl: true }, { config, logger }));
   }
 
-  plugins.forEach((plugin: pluginUtils.IPluginMiddleware<IConfig, {}, Auth>) => {
+  plugins.forEach((plugin: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>) => {
     plugin.register_middlewares(app, auth, storage);
   });
 

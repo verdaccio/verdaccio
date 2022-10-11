@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -18,7 +18,7 @@ export type PackageExt = Manifest & { author: AuthorAvatar; dist?: { tarball: st
 export type $SidebarPackage = Manifest & { latest: Version };
 const debug = buildDebug('verdaccio:web:api:sidebar');
 
-function addSidebarWebApi(config: Config, storage: Storage, auth: IAuth): Router {
+function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router {
   debug('initialized sidebar web api');
   const router = Router(); /* eslint new-cap: 0 */
   const can = allow(auth);

@@ -6,16 +6,21 @@ import { pluginUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Config, Logger } from '@verdaccio/types';
 
-import { isES6, isValid, tryLoad } from './utils';
+import { PluginType, isES6, isValid, tryLoad } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
-async function isDirectory(pathFolder) {
+async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);
   return stat.isDirectory();
 }
 
 export type Params = { config: Config; logger: Logger };
+
+// type Plugins<T> =
+//   | pluginUtils.Auth<T>
+//   | pluginUtils.Storage<T>
+//   | pluginUtils.ExpressMiddleware<T, unknown, unknown>;
 
 /**
  * The plugin loader find recursively plugins, if one plugin fails is ignored and report the error to the logger.
@@ -42,12 +47,12 @@ export type Params = { config: Config; logger: Logger };
 export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginConfigs: any = {},
   params: Params,
-  sanityCheck: any,
+  sanityCheck: (plugin: PluginType<T>) => boolean,
   prefix: string = 'verdaccio'
-): Promise<any> {
+): Promise<PluginType<T>[]> {
   const pluginsIds = Object.keys(pluginConfigs);
   const { config } = params;
-  let plugins: any[] = [];
+  let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
     debug('plugin %s', pluginId);
     if (typeof config.plugins === 'string') {
@@ -73,7 +78,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
         const externalFilePlugin = resolve(pluginDir, `${prefix}-${pluginId}`);
-        let plugin = tryLoad(externalFilePlugin);
+        let plugin = tryLoad<T>(externalFilePlugin);
         if (plugin && isValid(plugin)) {
           plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
           if (!sanityCheck(plugin)) {
@@ -99,7 +104,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       debug('is scoped plugin %s', isScoped);
       const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
       debug('plugin pkg name %s', pluginName);
-      let plugin = tryLoad(pluginName);
+      let plugin = tryLoad<T>(pluginName);
       if (plugin && isValid(plugin)) {
         plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
         if (!sanityCheck(plugin)) {
@@ -121,13 +126,19 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   return plugins;
 }
 
-export function executePlugin(plugin, pluginConfig, params: Params) {
+export function executePlugin<T>(
+  plugin: PluginType<T>,
+  pluginConfig: unknown,
+  params: Params
+): PluginType<T> {
   if (isES6(plugin)) {
     debug('plugin is ES6');
+    // @ts-expect-error no relevant for the code
     // eslint-disable-next-line new-cap
-    return new plugin.default(pluginConfig, params);
+    return new plugin.default(pluginConfig, params) as Plugin;
   } else {
     debug('plugin is commonJS');
-    return plugin(pluginConfig, params);
+    // @ts-expect-error improve this type
+    return plugin(pluginConfig, params) as PluginType<T>;
   }
 }

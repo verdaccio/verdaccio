@@ -43,12 +43,15 @@
   },
   "devDependencies": {
     "lodash": "4.17.21",
+    "typedoc": "0.23.15",
+    "typedoc-plugin-missing-exports": "latest",
     "@verdaccio/types": "workspace:11.0.0-6-next.17"
   },
   "scripts": {
     "clean": "rimraf ./build",
     "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",

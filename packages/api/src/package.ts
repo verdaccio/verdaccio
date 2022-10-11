@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -10,7 +10,7 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/cust
 
 const debug = buildDebug('verdaccio:api:package');
 
-export default function (route: Router, auth: IAuth, storage: Storage): void {
+export default function (route: Router, auth: Auth, storage: Storage): void {
   const can = allow(auth);
 
   route.get(

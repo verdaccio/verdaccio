@@ -75,7 +75,7 @@ async function userRoute(fastify: FastifyInstance) {
                 )
               );
           }
-          const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
+          const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
           const token = await getApiToken(
             fastify.auth,
             fastify.configInstance,
@@ -133,7 +133,7 @@ async function userRoute(fastify: FastifyInstance) {
         }
         const token =
           name && password
-            ? await getApiToken(fastify.auth, fastify.configInstance, user, password)
+            ? await getApiToken(fastify.auth, fastify.configInstance, user as RemoteUser, password)
             : undefined;
         debug('adduser: new token %o', token);
         if (!token) {

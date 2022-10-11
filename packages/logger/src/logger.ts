@@ -1,10 +1,10 @@
 // <reference types="node" />
 import { isColorSupported } from 'colorette';
 import buildDebug from 'debug';
-import pino, { Logger } from 'pino';
+import pino from 'pino';
 
 import { fillInMsgTemplate } from '@verdaccio/logger-prettify';
-import { LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
+import { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:logger');
 
@@ -31,9 +31,10 @@ type LoggerOptions = { level?: string; path?: string; colors?: boolean; sync?: b
 export function createLogger(
   options: LoggerOptions = { level: 'http' },
   // eslint-disable-next-line no-undef
+  // @ts-ignore
   destination: NodeJS.WritableStream = pino.destination(1),
   format: LoggerFormat = DEFAULT_LOG_FORMAT
-) {
+): any {
   debug('setup logger');
   let pinoConfig = {
     customLevels: {
@@ -109,11 +110,7 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
 export type LoggerConfig = LoggerConfigItem;
 
 export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
-  let logger: Logger<{
-    customLevels: { http: number };
-    level: string | undefined;
-    serializers: { err: any; req: any; res: any };
-  }>;
+  let logger: Logger;
   let loggerConfig = options;
   if (!loggerConfig?.level) {
     loggerConfig = Object.assign(
@@ -134,6 +131,7 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
     // @ts-ignore
     logger = createLogger(
       { level: loggerConfig.level, path: loggerConfig.path, colors: loggerConfig.colors },
+      // @ts-ignore
       destination,
       loggerConfig.format
     );
@@ -143,6 +141,7 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
     // @ts-ignore
     logger = createLogger(
       { level: loggerConfig.level, colors: loggerConfig.colors },
+      // @ts-ignore
       pino.destination(1),
       loggerConfig.format
     );
