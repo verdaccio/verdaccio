@@ -11,7 +11,7 @@ import {
   errorUtils,
   pluginUtils,
 } from '@verdaccio/core';
-import { AuthPackageAllow, Callback, Config, RemoteUser, Security } from '@verdaccio/types';
+import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
 import { AESPayload, TokenEncryption } from './auth';
 import { verifyPayload } from './jwt-token';
@@ -155,13 +155,18 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getDefaultPlugins(logger: any): pluginUtils.IPluginAuth<Config> {
+/**
+ * Return a default configuration for authentication if none is provided.
+ * @param logger {Logger}
+ * @returns object of default implementations.
+ */
+export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
   return {
-    authenticate(user: string, password: string, cb: Callback): void {
+    authenticate(_user: string, _password: string, cb: pluginUtils.AuthCallback): void {
       cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    adduser(user: string, password: string, cb: Callback): void {
+    adduser(_user: string, _password: string, cb: pluginUtils.AuthUserCallback): void {
       return cb(errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
@@ -176,7 +181,7 @@ export function getDefaultPlugins(logger: any): pluginUtils.IPluginAuth<Config> 
 
 export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
 
-export function allow_action(action: ActionsAllowed, logger): AllowAction {
+export function allow_action(action: ActionsAllowed, logger: Logger): AllowAction {
   return function allowActionCallback(
     user: RemoteUser,
     pkg: AuthPackageAllow,
@@ -211,7 +216,7 @@ export function allow_action(action: ActionsAllowed, logger): AllowAction {
 /**
  *
  */
-export function handleSpecialUnpublish(logger): any {
+export function handleSpecialUnpublish(logger: Logger): any {
   return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined

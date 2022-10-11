@@ -2,7 +2,7 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
@@ -23,7 +23,7 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
+export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
   route.get(
     '/-/npm/v1/tokens',
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
@@ -61,7 +61,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         return next(errorUtils.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       }
 
-      auth.authenticate(name, password, async (err, user: RemoteUser) => {
+      auth.authenticate(name, password, async (err, user?: RemoteUser) => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
           return next(errorUtils.getCode(errorCode, err.message));
@@ -76,7 +76,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         }
 
         try {
-          const token = await getApiToken(auth, config, user, password);
+          const token = await getApiToken(auth, config, user as RemoteUser, password);
           if (!token) {
             throw errorUtils.getInternalError();
           }

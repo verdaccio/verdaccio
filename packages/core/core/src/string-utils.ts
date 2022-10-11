@@ -29,7 +29,7 @@ export function getByQualityPriorityValue(headerValue: string | undefined | null
       }
       return acc;
     }, [] as any)
-    .sort(function (a, b) {
+    .sort(function (a: number[], b: number[]) {
       return b[1] - a[1];
     });
   return header[0];

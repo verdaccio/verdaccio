@@ -1,6 +1,7 @@
 import path from 'path';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import { asyncLoadPlugin } from '../src/plugin-async-loader';
@@ -16,7 +17,7 @@ const authSanitize = function (plugin) {
 
 const pluginsPartialsFolder = path.join(__dirname, './partials/test-plugin-storage');
 
-setup();
+setup({});
 
 describe('plugin loader', () => {
   describe('file plugins', () => {
@@ -43,7 +44,12 @@ describe('plugin loader', () => {
       test('testing load auth npm package invalid method check', async () => {
         const config = getConfig('valid-plugin.yaml');
         config.plugins = pluginsPartialsFolder;
-        const plugins = await asyncLoadPlugin(config.auth, { config, logger }, (p) => p.anyMethod);
+        const plugins = await asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+          config.auth,
+          { config, logger },
+          // @ts-expect-error
+          (p) => typeof p.somethingFake !== 'undefined'
+        );
 
         expect(plugins).toHaveLength(0);
       });
@@ -117,14 +123,23 @@ describe('plugin loader', () => {
 
     test('should handle not found installed package', async () => {
       const config = getConfig('npm-plugin-not-found.yaml');
-      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, (p) => p.anyMethod);
+      const plugins = await asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+        config.auth,
+        { config, logger },
+        (p) => typeof p.authenticate !== 'undefined'
+      );
 
       expect(plugins).toHaveLength(0);
     });
 
     test('testing load auth npm package invalid method check', async () => {
       const config = getConfig('npm-plugin-auth.yaml');
-      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, (p) => p.anyMethod);
+      const plugins = await asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+        config.auth,
+        { config, logger },
+        // @ts-expect-error
+        (p) => typeof p.somethingFake !== 'undefined'
+      );
 
       expect(plugins).toHaveLength(0);
     });

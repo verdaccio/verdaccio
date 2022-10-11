@@ -1,5 +1,5 @@
 import { json as jsonParser } from 'body-parser';
-import express, { Request, Response } from 'express';
+import express, { Express, Request, Response } from 'express';
 import https from 'https';
 import createHttpsProxyAgent from 'https-proxy-agent';
 import fetch from 'node-fetch';
@@ -15,7 +15,7 @@ export const REGISTRY_DOMAIN = 'https://registry.npmjs.org';
 
 export default class ProxyAudit
   extends pluginUtils.Plugin<ConfigAudit>
-  implements pluginUtils.IPluginMiddleware<ConfigAudit, {}, Auth>
+  implements pluginUtils.ExpressMiddleware<ConfigAudit, {}, Auth>
 {
   public enabled: boolean;
   public logger: Logger;
@@ -28,7 +28,7 @@ export default class ProxyAudit
     this.logger = options.logger;
   }
 
-  public register_middlewares(app: any, auth: Auth): void {
+  public register_middlewares(app: Express, auth: Auth): void {
     const fetchAudit = async (
       req: Request,
       res: Response & { report_error?: Function }

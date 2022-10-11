@@ -2,14 +2,14 @@ import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { constants, errorUtils } from '@verdaccio/core';
 import { allow, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
-export default function (route: Router, auth: IAuth, storage: Storage): void {
+export default function (route: Router, auth: Auth, storage: Storage): void {
   const can = allow(auth);
   const addTagPackageVersionMiddleware = async function (
     req: $RequestExtend,

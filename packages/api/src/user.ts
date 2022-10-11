@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Response, Router } from 'express';
 
 import { getApiToken } from '@verdaccio/auth';
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils, validatioUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
@@ -13,7 +13,7 @@ import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
-export default function (route: Router, auth: IAuth, config: Config): void {
+export default function (route: Router, auth: Auth, config: Config): void {
   route.get(
     '/-/user/:org_couchdb_user',
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
@@ -41,7 +41,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
  * 
  * @export
  * @param {Router} route
- * @param {IAuth} auth
+ * @param {Auth} auth
  * @param {Config} config
  */
   route.put(
@@ -67,7 +67,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
               );
             }
 
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
+            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
             const token = await getApiToken(auth, config, restoredRemoteUser, password);
             debug('login: new token');
             if (!token) {
@@ -112,7 +112,9 @@ export default function (route: Router, auth: IAuth, config: Config): void {
           }
 
           const token =
-            name && password ? await getApiToken(auth, config, user, password) : undefined;
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
           if (token) {
             debug('adduser: new token %o', mask(token as string, 4));
           }

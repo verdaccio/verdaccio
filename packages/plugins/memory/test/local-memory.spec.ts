@@ -1,8 +1,8 @@
 import { join } from 'path';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
-import { IPluginStorage } from '@verdaccio/types';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
@@ -17,13 +17,19 @@ const defaultConfig = { logger, config };
 describe('memory unit test .', () => {
   describe('LocalMemory', () => {
     test('should create an LocalMemory instance', () => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        { limit: 10 },
+        { ...defaultConfig, config }
+      );
 
       expect(localMemory).toBeDefined();
     });
 
     test('should create add a package', (done) => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        { limit: 10 },
+        { ...defaultConfig, config }
+      );
       localMemory.add('test').then(() => {
         localMemory.get().then((data: DataHandler) => {
           expect(data).toHaveLength(1);
@@ -33,8 +39,7 @@ describe('memory unit test .', () => {
     });
 
     test('should reach max limit', (done) => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(
-        // @ts-ignore
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
         { limit: 2 },
         defaultConfig
       );
@@ -52,7 +57,10 @@ describe('memory unit test .', () => {
 
     test('should remove a package', (done) => {
       const pkgName = 'test';
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        {},
+        { ...defaultConfig, config }
+      );
       localMemory.add(pkgName).then(() => {
         localMemory.remove(pkgName).then(() => {
           localMemory.get().then((data) => {

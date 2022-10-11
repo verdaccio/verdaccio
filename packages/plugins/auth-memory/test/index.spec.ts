@@ -1,10 +1,11 @@
-import { Callback } from '@verdaccio/types';
+import { Config, getDefaultConfig } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
 
 import Memory from '../src/index';
-import { VerdaccioMemoryConfig } from '../src/types';
+import { Users, VerdaccioMemoryConfig } from '../src/types';
 
 describe('Memory', function () {
-  let auth;
+  let auth: pluginUtils.Auth<VerdaccioMemoryConfig>;
   const logger = {
     child: jest.fn(() => {}),
     http: jest.fn(() => {}),
@@ -16,27 +17,38 @@ describe('Memory', function () {
     fatal: jest.fn(() => {}),
   };
 
+  const config = new Config(getDefaultConfig());
+  const users: Users = {
+    test: {
+      name: 'foo',
+      password: 'foo',
+    },
+  };
+
   beforeEach(function () {
-    auth = new Memory({ max_users: 100 } as VerdaccioMemoryConfig, {
-      config: {} as VerdaccioMemoryConfig,
-      logger,
-    });
+    auth = new Memory(
+      { max_users: 100, users },
+      {
+        config,
+        logger,
+      }
+    ) as pluginUtils.Auth<VerdaccioMemoryConfig>;
   });
 
   describe('#adduser', function () {
     test('adds users', function (done) {
-      auth.adduser('test', 'secret', function (err, user) {
+      auth.adduser?.('test', 'secret', function (err, user) {
         expect(err).toBeNull();
-        expect(user).toEqual('test');
+        expect(user).toEqual(true);
         done();
       });
     });
 
     test('login existing users', function (done) {
-      auth.adduser('test', 'secret', function (err, user) {
+      auth.adduser?.('test', 'secret', function (err, user) {
         expect(err).toBeNull();
-        expect(user).toEqual('test');
-        auth.adduser('test', 'secret', function (err, user) {
+        expect(user).toEqual(true);
+        auth.adduser?.('test', 'secret', function (err, user) {
           expect(err).toBeNull();
           expect(user).toBe(true);
           done();
@@ -45,48 +57,28 @@ describe('Memory', function () {
     });
 
     test('max users reached', function (done) {
-      const auth = new Memory({} as VerdaccioMemoryConfig, {
-        config: {
-          max_users: -1,
-        } as VerdaccioMemoryConfig,
+      const auth = new Memory({ users } as VerdaccioMemoryConfig, {
+        // @ts-expect-error
+        config: { ...config, max_users: -1 },
         logger,
       });
-      auth.adduser('test', 'secret', function (err) {
+      auth.adduser?.('fooooooooo', 'secret', function (err) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/maximum amount of users reached/);
+        expect(err?.message).toMatch(/maximum amount of users reached/);
         done();
-      });
-    });
-  });
-
-  describe('replace user', function () {
-    beforeAll(function (done) {
-      auth.adduser('test', 'secret', function () {
-        done();
-      });
-    });
-
-    test('replaces password', function (done) {
-      auth.adduser('test', 'new_secret', function (err, user) {
-        expect(err).toBeNull();
-        expect(user).toEqual('test');
-        auth.authenticate('test', 'new_secret', function (err) {
-          expect(err).toBeNull();
-          done();
-        });
       });
     });
   });
 
   describe('#allow_access', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function () {
+      auth.adduser?.('test', 'secret', function () {
         done();
       });
     });
 
-    const accessBy = (roles: string[], done: Callback): void => {
-      auth.allow_access(
+    const accessBy = (roles: string[], done): void => {
+      auth.allow_access?.(
         {
           name: 'test',
           groups: [],
@@ -118,17 +110,19 @@ describe('Memory', function () {
     });
 
     test('should not to be allowed to access any package', function (done) {
-      auth.allow_access({}, { access: [], publish: [], proxy: [] }, function (err) {
+      // @ts-expect-error
+      auth.allow_access?.({}, { access: [], publish: [], proxy: [] }, function (err) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to access package/);
+        expect(err?.message).toMatch(/not allowed to access package/);
         done();
       });
     });
 
     test('should not to be allowed to access the anyOtherUser package', function (done) {
-      auth.allow_access({}, { access: ['anyOtherUser'], publish: [], proxy: [] }, function (err) {
+      // @ts-expect-error
+      auth.allow_access?.({}, { access: ['anyOtherUser'], publish: [], proxy: [] }, function (err) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to access package/);
+        expect(err?.message).toMatch(/not allowed to access package/);
         done();
       });
     });
@@ -136,13 +130,13 @@ describe('Memory', function () {
 
   describe('#allow_publish', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function () {
+      auth.adduser?.('test', 'secret', function () {
         done();
       });
     });
 
-    const accessBy = (roles: string[], done: Callback): void => {
-      auth.allow_publish(
+    const accessBy = (roles: string[], done): void => {
+      auth.allow_publish?.(
         {
           name: 'test',
           groups: [],
@@ -174,17 +168,19 @@ describe('Memory', function () {
     });
 
     test('should not to be allowed to access any package', function (done) {
-      auth.allow_publish({}, { publish: [], proxy: [], access: [] }, function (err) {
+      // @ts-expect-error
+      auth.allow_publish?.({}, { publish: [], proxy: [], access: [] }, function (err) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to publish package/);
+        expect(err?.message).toMatch(/not allowed to publish package/);
         done();
       });
     });
 
     test('should not to be allowed to access the anyOtherUser package', function (done) {
+      // @ts-expect-error
       auth.allow_publish({}, { publish: ['anyOtherUser'], proxy: [], access: [] }, function (err) {
         expect(err).not.toBeNull();
-        expect(err.message).toMatch(/not allowed to publish package/);
+        expect(err?.message).toMatch(/not allowed to publish package/);
         done();
       });
     });
@@ -194,19 +190,22 @@ describe('Memory', function () {
     let auth;
 
     beforeEach(function (done) {
-      auth = new Memory({} as VerdaccioMemoryConfig, {
-        config: {} as VerdaccioMemoryConfig,
-        logger,
-      });
+      auth = new Memory(
+        { users: {} },
+        {
+          config,
+          logger,
+        }
+      );
       auth.adduser('test', 'secret', function () {
         done();
       });
     });
 
     test('should change password', function (done) {
-      auth.changePassword('test', 'secret', 'newSecret', function (err, user) {
+      auth.changePassword('test', 'secret', 'newSecret', function (err, ok) {
         expect(err).toBeNull();
-        expect(user.password).toEqual('newSecret');
+        expect(ok).toBe(true);
         done();
       });
     });
@@ -222,7 +221,14 @@ describe('Memory', function () {
 
   describe('#authenticate', function () {
     beforeEach(function (done) {
-      auth.adduser('test', 'secret', function () {
+      auth = new Memory(
+        { users: {} },
+        {
+          config,
+          logger,
+        }
+      );
+      auth.adduser?.('test', 'secret', function () {
         done();
       });
     });
@@ -242,7 +248,7 @@ describe('Memory', function () {
       });
     });
 
-    test('fails if user doesnt exist', function (done) {
+    test('fails if user does not exist', function (done) {
       auth.authenticate('john', 'secret', function (err, groups) {
         expect(err).toBeNull();
         expect(groups).toBeFalsy();

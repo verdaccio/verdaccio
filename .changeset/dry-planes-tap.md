@@ -18,7 +18,6 @@
 '@verdaccio/server': major
 '@verdaccio/store': major
 '@verdaccio/eslint-config': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major

@@ -45,6 +45,6 @@ warningInstance.create(
   'multiple addresses will be deprecated in the next major, only use one'
 );
 
-export function emit(code, a?: string, b?: string, c?: string) {
+export function emit(code: string, a?: string, b?: string, c?: string) {
   warningInstance.emit(code, a, b, c);
 }

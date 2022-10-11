@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express, { Router } from 'express';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
@@ -24,7 +24,7 @@ import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
 
-export default function (config: Config, auth: IAuth, storage: Storage): Router {
+export default function (config: Config, auth: Auth, storage: Storage): Router {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */

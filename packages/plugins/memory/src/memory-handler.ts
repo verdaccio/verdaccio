@@ -39,7 +39,7 @@ export type DataHandler = {
   [key: string]: string;
 };
 
-class MemoryHandler implements pluginUtils.IPackageStorage {
+class MemoryHandler implements pluginUtils.StorageHandler {
   private data: DataHandler;
   private name: string;
   private path: string;

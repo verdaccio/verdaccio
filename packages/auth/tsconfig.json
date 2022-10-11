@@ -2,16 +2,19 @@
   "extends": "../../tsconfig.reference",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "noImplicitAny": true
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.test.ts"],
   "references": [
     {
       "path": "../config"
     },
     {
       "path": "../plugins/htpasswd"
+    },
+    {
+      "path": "../core/core"
     },
     {
       "path": "../loaders"

@@ -17,9 +17,8 @@ export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
     const plugin = await asyncLoadPlugin(
       config.theme,
-      // @ts-ignore
       { config, logger },
-      function (plugin: string) {
+      function (plugin) {
         return typeof plugin === 'string';
       },
       config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'

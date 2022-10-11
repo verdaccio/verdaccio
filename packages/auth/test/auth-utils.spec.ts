@@ -24,7 +24,6 @@ import type { AllowActionCallbackResponse } from '@verdaccio/utils';
 import {
   ActionsAllowed,
   Auth,
-  IAuth,
   aesDecrypt,
   allow_action,
   getApiToken,
@@ -70,7 +69,7 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
-    const auth: IAuth = new Auth(config);
+    const auth: Auth = new Auth(config);
     await auth.init();
     // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);
@@ -409,7 +408,7 @@ describe('Auth utilities', () => {
       test.concurrent('should return empty credential corrupted payload', async () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
         await auth.init();
         const token = auth.aesEncrypt(null);
         const security: Security = config.security;

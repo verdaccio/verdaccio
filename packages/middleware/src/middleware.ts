@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { HttpError } from 'http-errors';
 import _ from 'lodash';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import {
   API_ERROR,
   HEADERS,
@@ -155,7 +155,7 @@ export function antiLoop(config: Config): Function {
   };
 }
 
-export function allow(auth: IAuth): Function {
+export function allow(auth: Auth): Function {
   return function (action: string): Function {
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();

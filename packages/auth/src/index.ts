@@ -1,4 +1,4 @@
-export { Auth, IAuth, TokenEncryption } from './auth';
+export { Auth, TokenEncryption } from './auth';
 export * from './utils';
 export * from './legacy-token';
 export * from './jwt-token';

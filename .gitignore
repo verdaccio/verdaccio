@@ -52,4 +52,4 @@ api-results*.json
 website/docs/api/**/*.md
 website/docs/api/**/*.yml
 !website/docs/api/index.md
-packages/core/types/docs
+packages/**/docs

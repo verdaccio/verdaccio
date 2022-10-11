@@ -1,6 +1,5 @@
-import { pluginUtils } from '@verdaccio/core';
 import { FetchOptions } from '@verdaccio/proxy';
-import { Config, Manifest, RemoteUser } from '@verdaccio/types';
+import { Manifest, RemoteUser } from '@verdaccio/types';
 import { RequestOptions } from '@verdaccio/url';
 
 // @deprecated use IGetPackageOptionsNext
@@ -57,8 +56,6 @@ export type UpdateManifestOptions = {
   requestOptions: RequestOptions;
   signal: AbortSignal;
 };
-
-export type IPluginFilters = pluginUtils.IPluginStorageFilter<Config>[];
 
 /**
  * When the command `npm star` is executed, the body only contains the following

@@ -27,7 +27,6 @@
 '@verdaccio/server': major
 '@verdaccio/cli-standalone': major
 '@verdaccio/store': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major

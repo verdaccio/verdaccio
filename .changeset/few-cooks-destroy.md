@@ -24,7 +24,6 @@
 '@verdaccio/proxy': major
 '@verdaccio/server': major
 '@verdaccio/store': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major

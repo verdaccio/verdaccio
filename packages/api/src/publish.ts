@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 import mime from 'mime';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { allow, expectJson, media } from '@verdaccio/middleware';
@@ -92,7 +92,7 @@ const debug = buildDebug('verdaccio:api:publish');
 	}
    *
    */
-export default function publish(router: Router, auth: IAuth, storage: Storage): void {
+export default function publish(router: Router, auth: Auth, storage: Storage): void {
   const can = allow(auth);
   router.put(
     '/:package',

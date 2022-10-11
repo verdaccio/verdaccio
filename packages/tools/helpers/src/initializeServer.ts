@@ -4,7 +4,7 @@ import express, { Application } from 'express';
 import os from 'os';
 import path from 'path';
 
-import { Auth, IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
@@ -26,7 +26,7 @@ export async function initializeServer(
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
   await storage.init(config, []);
-  const auth: IAuth = new Auth(config);
+  const auth: Auth = new Auth(config);
   await auth.init();
   // TODO: this might not be need it, used in apiEndpoints
   app.use(bodyParser.json({ strict: false, limit: '10mb' }));
