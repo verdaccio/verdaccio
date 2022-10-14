@@ -10,7 +10,6 @@ describe('sign spec', () => {
 
   it('should login user', () => {
     cy.visit(ctx.url);
-    cy.getByTestId('header--button-login').click();
     cy.login(credentials.user, credentials.password);
     cy.wait('@sign');
     cy.getByTestId('logInDialogIcon').click();
@@ -20,7 +19,6 @@ describe('sign spec', () => {
 
   it('should logout an user', () => {
     cy.visit(ctx.url);
-    cy.getByTestId('header--button-login').click();
     cy.login(credentials.user, credentials.password);
     cy.wait('@sign');
     cy.getByTestId('logInDialogIcon').click();

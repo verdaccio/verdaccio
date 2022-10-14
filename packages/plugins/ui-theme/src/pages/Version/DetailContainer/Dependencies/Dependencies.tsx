@@ -27,7 +27,7 @@ const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }
   }
 
   return (
-    <CardWrap>
+    <CardWrap data-testid={title}>
       <CardContent>
         <StyledText variant="subtitle1">{`${title} (${deps.length})`}</StyledText>
         <Tags>
@@ -35,6 +35,7 @@ const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }
             <Tag
               className={'dep-tag'}
               clickable={true}
+              data-testid={name}
               key={name}
               label={t('dependencies.dependency-block', { package: name, version })}
               // eslint-disable-next-line
