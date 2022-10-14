@@ -1,9 +1,0 @@
-{
-  "globals": {
-    "VERDACCIO_API_URL": true,
-    "__DEBUG__": true
-  },
-  "env": {
-    "browser": true
-  }
-}

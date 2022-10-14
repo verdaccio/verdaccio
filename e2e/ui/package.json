@@ -11,9 +11,12 @@
     "colorette": "2.0.19",
     "lodash": "^4.17.21",
     "puppeteer": "17.1.3",
+    "cypress": "10.10.0",
     "rimraf": "3.0.2"
   },
   "scripts": {
-    "test": "jest --runInBand"
+    "cypress:open": "cypress open",
+    "test": "cypress run",
+    "old:test": "jest --runInBand"
   }
 }

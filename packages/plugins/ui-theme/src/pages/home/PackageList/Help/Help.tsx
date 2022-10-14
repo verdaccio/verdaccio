@@ -25,7 +25,7 @@ const Help: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Card id="help-card">
+    <Card data-testid="help-card" id="help-card">
       <CardContent>
         <Typography gutterBottom={true} id="help-card__title" variant="h5">
           {t('help.title')}
