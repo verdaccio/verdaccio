@@ -7,3 +7,7 @@
   - Check navigation
   - Check sidebar
   - Check protected packages works
+
+## Contribute
+
+More tests could be added to verify UI works as expected.
