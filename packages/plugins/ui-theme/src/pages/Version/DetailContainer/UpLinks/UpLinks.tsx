@@ -19,7 +19,7 @@ const UpLinks: React.FC = () => {
   const { _uplinks: uplinks, latest } = packageMeta;
 
   if (Object.keys(uplinks).length === 0) {
-    return <NoItems text={t('uplinks.no-items', { name: latest.name })} />;
+    return <NoItems data-testid="no-uplinks" text={t('uplinks.no-items', { name: latest.name })} />;
   }
 
   return (

@@ -68,6 +68,7 @@ describe('publish spec', () => {
     cy.wait('@sidebar');
     cy.wait('@readme');
     cy.getByTestId('versions-tab').click();
+    cy.getByTestId('tag-latest').children().invoke('text').should('match', /1.0.6/);
     cy.screenshot();
   });
 
@@ -80,6 +81,7 @@ describe('publish spec', () => {
     cy.wait('@sidebar');
     cy.wait('@readme');
     cy.getByTestId('uplinks-tab').click();
+    cy.getByTestId('no-uplinks').should('be.visible');
     cy.screenshot();
   });
 });

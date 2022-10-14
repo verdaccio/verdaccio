@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { DIST_TAGS } from '../../../../../lib/constants';
 import { DetailContext } from '../../context';
 import VersionsHistoryList from './VersionsHistoryList';
 import VersionsTagList from './VersionsTagList';
@@ -17,7 +16,7 @@ const Versions: React.FC = () => {
     return null;
   }
 
-  const { versions = {}, time = {}, [DIST_TAGS]: distTags = {} } = packageMeta;
+  const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta;
 
   return (
     <>

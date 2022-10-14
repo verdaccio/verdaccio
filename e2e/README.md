@@ -3,4 +3,4 @@
 This folder is composed of two strategies:
 
 - E2E for CLI
-- E2E for the UI (puppeteer)
+- E2E for the UI (cypress)

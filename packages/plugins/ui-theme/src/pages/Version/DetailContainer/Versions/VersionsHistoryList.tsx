@@ -21,7 +21,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
       {Object.keys(versions)
         .reverse()
         .map((version) => (
-          <ListItem className="version-item" key={version}>
+          <ListItem className="version-item" data-testid={`version-${version}`} key={version}>
             <StyledLink to={`/-/web/detail/${packageName}/v/${version}`}>
               <ListItemText>{version}</ListItemText>
             </StyledLink>

@@ -19,7 +19,7 @@ const VersionsTagList: React.FC<Props> = ({ tags, packageName, time }) => (
         return time[tags[a]] < time[tags[b]] ? 1 : time[tags[a]] > time[tags[b]] ? -1 : 0;
       })
       .map((tag) => (
-        <ListItem className="version-item" key={tag}>
+        <ListItem className="version-item" data-testid={`tag-${tag}`} key={tag}>
           <StyledLink to={`/-/web/detail/${packageName}/v/${tags[tag]}`}>
             <ListItemText>{tag}</ListItemText>
           </StyledLink>
