@@ -10952,12 +10952,12 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"marked@npm:4.1.0":
-  version: 4.1.0
-  resolution: "marked@npm:4.1.0"
+"marked@npm:4.1.1":
+  version: 4.1.1
+  resolution: "marked@npm:4.1.1"
   bin:
     marked: bin/marked.js
-  checksum: 6ddb369cda1a21df6015271210aeb626319e3ac271acce1eb91f958a1e4f139a61e02e8fbedf8ad8027aede8b5ed098238695f94f411b573bf524f4531ceb535
+  checksum: c69c7e5a2384ffa54ad4fb1dc11f30b658300acbb598a0452e9c69c2810594591e8fa713178dc0748010a7d199f17d9f2c34604c19164d31b953dad4c72a3589
   languageName: node
   linkType: hard
 
@@ -15285,7 +15285,7 @@ typescript@4.1.3:
     lodash: 4.17.21
     lru-cache: 7.14.0
     lunr-mutable-indexes: 2.3.2
-    marked: 4.1.0
+    marked: 4.1.1
     memoizee: 0.4.15
     mime: 3.0.0
     minimatch: 5.1.0
