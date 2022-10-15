@@ -47,6 +47,7 @@ describe('publish spec', () => {
     cy.login(credentials.user, credentials.password);
     cy.wait('@sign');
     cy.wait('@pkgs');
+    cy.wait(300);
     cy.getByTestId('package-title').click();
     cy.wait('@sidebar');
     cy.wait('@readme');
@@ -65,6 +66,7 @@ describe('publish spec', () => {
     cy.login(credentials.user, credentials.password);
     cy.wait('@sign');
     cy.wait('@pkgs');
+    cy.wait(300);
     cy.getByTestId('package-title').click();
     cy.wait('@sidebar');
     cy.wait('@readme');
@@ -78,6 +80,7 @@ describe('publish spec', () => {
     cy.login(credentials.user, credentials.password);
     cy.wait('@sign');
     cy.wait('@pkgs');
+    cy.wait(300);
     cy.getByTestId('package-title').click();
     cy.wait('@sidebar');
     cy.wait('@readme');
