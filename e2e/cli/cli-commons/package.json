@@ -5,9 +5,9 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "devDependencies": {
-    "verdaccio": "workspace:6.0.0-6-next.48",
-    "@verdaccio/core": "workspace:6.0.0-6-next.48",
-    "@verdaccio/config": "workspace:6.0.0-6-next.48",
+    "verdaccio": "workspace:6.0.0-6-next.49",
+    "@verdaccio/core": "workspace:6.0.0-6-next.49",
+    "@verdaccio/config": "workspace:6.0.0-6-next.49",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "yaml": "2.1.1",
     "debug": "4.3.4",

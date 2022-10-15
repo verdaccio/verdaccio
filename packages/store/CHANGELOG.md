@@ -1,5 +1,25 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.29
+
+### Minor Changes
+
+- ce013d2f: refactor: npm star command support reimplemented
+
+### Patch Changes
+
+- Updated dependencies [ce013d2f]
+  - @verdaccio/url@11.0.0-6-next.15
+  - @verdaccio/tarball@11.0.0-6-next.18
+  - @verdaccio/local-storage@11.0.0-6-next.19
+  - @verdaccio/core@6.0.0-6-next.49
+  - @verdaccio/config@6.0.0-6-next.49
+  - @verdaccio/hooks@6.0.0-6-next.19
+  - @verdaccio/loaders@6.0.0-6-next.18
+  - @verdaccio/logger@6.0.0-6-next.17
+  - @verdaccio/proxy@6.0.0-6-next.27
+  - @verdaccio/utils@6.0.0-6-next.17
+
 ## 6.0.0-6-next.28
 
 ### Major Changes

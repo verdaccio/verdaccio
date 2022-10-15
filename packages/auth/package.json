@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/auth",
-  "version": "6.0.0-6-next.27",
+  "version": "6.0.0-6-next.28",
   "description": "logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -39,16 +39,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.48",
-    "@verdaccio/config": "workspace:6.0.0-6-next.48",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.17",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.16",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.16",
+    "@verdaccio/core": "workspace:6.0.0-6-next.49",
+    "@verdaccio/config": "workspace:6.0.0-6-next.49",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.18",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.17",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.17",
     "debug": "4.3.4",
     "express": "4.18.1",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
-    "verdaccio-htpasswd": "workspace:11.0.0-6-next.18"
+    "verdaccio-htpasswd": "workspace:11.0.0-6-next.19"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.17"

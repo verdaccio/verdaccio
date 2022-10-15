@@ -1,5 +1,15 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.49
+
+### Patch Changes
+
+- @verdaccio/server@6.0.0-6-next.38
+- @verdaccio/server-fastify@6.0.0-6-next.30
+- @verdaccio/core@6.0.0-6-next.49
+- @verdaccio/config@6.0.0-6-next.49
+- @verdaccio/logger@6.0.0-6-next.17
+
 ## 6.0.0-6-next.48
 
 ### Major Changes
