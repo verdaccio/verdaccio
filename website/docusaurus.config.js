@@ -83,6 +83,16 @@ module.exports = {
       },
     ],
     [
+      'content-docs',
+      ({
+        id: 'community',
+        path: 'community',
+        routeBasePath: 'community',
+        sidebarPath: require.resolve('./sidebarsCommunity.js'),
+        showLastUpdateTime: true,
+      }),
+    ],
+    [
       'docusaurus-plugin-typedoc',
       {
         entryPoints: ['../packages/config/src/index.ts'],
@@ -178,7 +188,6 @@ module.exports = {
           label: 'API'
         },
         { to: '/blog', label: 'Blog', position: 'left' },
-        { to: '/help', label: 'Help', position: 'left' }, 
         {
           type: 'docsVersionDropdown',
           "position": "right",
@@ -189,14 +198,9 @@ module.exports = {
           position: 'right',
         },
         {
-          href: 'https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w',
-          label: 'YouTube',
-          position: 'right',
-        },
-        {
-          href: '/contributors',
-          label: 'Contributors',
-          position: 'right',
+          href: '/community',
+          label: 'Community',
+          position: 'left',
         },
         {
           type: 'localeDropdown',
