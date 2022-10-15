@@ -1,5 +1,16 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+- @verdaccio/config@6.0.0-6-next.49
+- @verdaccio/loaders@6.0.0-6-next.18
+- @verdaccio/logger@6.0.0-6-next.17
+- verdaccio-htpasswd@11.0.0-6-next.19
+- @verdaccio/utils@6.0.0-6-next.17
+
 ## 6.0.0-6-next.27
 
 ### Major Changes

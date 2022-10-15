@@ -1,5 +1,23 @@
 # verdaccio
 
+## 6.0.0-6-next.49
+
+### Minor Changes
+
+- ce013d2f: refactor: npm star command support reimplemented
+
+### Patch Changes
+
+- Updated dependencies [6ad13de8]
+  - @verdaccio/ui-theme@6.0.0-6-next.49
+  - @verdaccio/node-api@6.0.0-6-next.49
+  - @verdaccio/cli@6.0.0-6-next.49
+  - @verdaccio/hooks@6.0.0-6-next.19
+  - @verdaccio/logger@6.0.0-6-next.17
+  - verdaccio-audit@11.0.0-6-next.12
+  - verdaccio-htpasswd@11.0.0-6-next.19
+  - @verdaccio/utils@6.0.0-6-next.17
+
 ## 6.0.0-6-next.48
 
 ### Major Changes

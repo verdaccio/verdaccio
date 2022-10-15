@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.49
+
+### Patch Changes
+
+- 6ad13de8: feat: Display publication time on sidebar
+
 ## 6.0.0-6-next.48
 
 ### Patch Changes

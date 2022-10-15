@@ -54,7 +54,8 @@
     "@verdaccio/local-publish": "0.0.1",
     "@verdaccio/e2e-cli-npm9": "1.0.1-6-next.5",
     "@verdaccio/e2e-ui": "2.0.0-6-next.3",
-    "customprefix-auth": "0.0.1"
+    "customprefix-auth": "0.0.1",
+    "@verdaccio/crowdin-translations": "1.0.0"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -114,6 +115,7 @@
     "proud-jobs-hope",
     "red-chefs-float",
     "red-yaks-sell",
+    "rich-badgers-begin",
     "rich-ghosts-rule",
     "shaggy-carrots-unite",
     "shaggy-parrots-smash",
@@ -138,6 +140,7 @@
     "tiny-seals-join",
     "tricky-taxis-watch",
     "two-dolls-check",
+    "unlucky-hairs-wonder",
     "wild-jokes-beam",
     "witty-ties-speak"
   ]

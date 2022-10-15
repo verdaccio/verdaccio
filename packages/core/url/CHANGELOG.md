@@ -1,5 +1,15 @@
 # Change Log
 
+## 11.0.0-6-next.15
+
+### Minor Changes
+
+- ce013d2f: refactor: npm star command support reimplemented
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+
 ## 11.0.0-6-next.14
 
 ### Patch Changes

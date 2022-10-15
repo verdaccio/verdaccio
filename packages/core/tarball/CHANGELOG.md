@@ -1,5 +1,14 @@
 # Change Log
 
+## 11.0.0-6-next.18
+
+### Patch Changes
+
+- Updated dependencies [ce013d2f]
+  - @verdaccio/url@11.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.49
+  - @verdaccio/utils@6.0.0-6-next.17
+
 ## 11.0.0-6-next.17
 
 ### Patch Changes
