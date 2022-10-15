@@ -29,9 +29,9 @@
     "@docusaurus/theme-common": "2.1.0",
     "@docusaurus/theme-search-algolia": "2.1.0",
     "@mdx-js/react": "^1.6.22",
-    "@mui/icons-material": "5.10.6",
-    "@mui/material": "5.10.7",
-    "@mui/styles": "5.10.7",
+    "@mui/icons-material": "5.10.9",
+    "@mui/material": "5.10.9",
+    "@mui/styles": "5.10.9",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.0.1",
@@ -43,10 +43,10 @@
     "react-dom": "17.0.2",
     "react-player": "2.11.0",
     "react-twitter-widgets": "^1.10.0",
-    "typedoc": "0.23.15",
+    "typedoc": "0.23.16",
     "typedoc-plugin-markdown": "3.13.6",
     "use-is-in-viewport": "^1.0.9",
-    "usehooks-ts": "2.7.1"
+    "usehooks-ts": "2.9.1"
   },
   "browserslist": {
     "production": [
