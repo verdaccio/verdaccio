@@ -8,8 +8,11 @@ Cypress.Commands.add('getByTestId', (selector, ...args) => {
 // -- This is a parent command --
 Cypress.Commands.add('login', (user, password) => {
   cy.getByTestId('header--button-login').click();
+  cy.wait(300);
   cy.get('#login--dialog-username').type(user);
+  cy.wait(200);
   cy.get('#login--dialog-password').type(password);
+  cy.wait(500);
   cy.get('#login--dialog-button-submit').click();
 });
 //
