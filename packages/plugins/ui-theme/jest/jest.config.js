@@ -1,8 +1,6 @@
 const config = require('../../../../jest/config');
 
 module.exports = Object.assign({}, config, {
-  name: 'verdaccio-ui-jest',
-  verbose: true,
   automock: false,
   collectCoverage: false,
   testEnvironment: 'jest-environment-jsdom-global',
@@ -10,7 +8,9 @@ module.exports = Object.assign({}, config, {
     '^.+\\.(js|ts|tsx)$': 'babel-jest',
   },
   moduleFileExtensions: ['js', 'ts', 'tsx'],
-  testURL: 'http://localhost:9000/',
+  testEnvironmentOptions: {
+    url: 'http://localhost:9000/',
+  },
   rootDir: '..',
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/jest/setup-env.ts'],
   setupFiles: ['<rootDir>/jest/setup.ts'],

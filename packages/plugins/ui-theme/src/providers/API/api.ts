@@ -51,6 +51,7 @@ class API {
       fetch(url, {
         method,
         credentials: 'same-origin',
+        signal: options.signal,
         ...options,
       })
         .then(handleResponseType)
