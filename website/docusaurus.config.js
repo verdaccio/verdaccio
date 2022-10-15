@@ -1,14 +1,48 @@
 // @ts-check
 
 const translations = require('@verdaccio/crowdin-translations/build/progress_lang.json');
+
+const lgnMapping = {
+  'de-DE': 'de',
+  'pl-PL': 'pl',
+  'cs-CZ': 'cs',
+  'fr-FR': 'fr',
+  'it-IT': 'it' ,
+  'ru-RU': 'ru',
+  'vi-VN': 'vi',
+  'yo-NG': 'yo',
+};
+
 // @ts-ignore
 const progress = translations;
+const limitLngIncluded = 19;
+console.log('limit translation is on %s%', limitLngIncluded)
 const isDeployPreview = process.env.CONTEXT === "deploy-preview";
 const isProductionDeployment = process.env.CONTEXT === "production";
+const filterByProgress = (items) => {
+  const originLng = Object.keys(translations);
+  return items.filter((lgn => {
+    if(lgn === 'en') {
+      return true;
+    }
+    const _lgn = lgnMapping[lgn] ? lgnMapping[lgn] : lgn;
+    if(!originLng.includes(_lgn)) {
+      console.log(`language ${_lgn} excluded, does not exist in origin`);
+      return false;
+    }
+    
+    if (translations[_lgn].approvalProgress <= limitLngIncluded) {
+      console.log('language %s is being excluded due does not met limit of translation, current: %s%', _lgn, translations[_lgn].approvalProgress);
+      return false;
+    }
+
+    return true;
+  }))
+}
 
 const i18nConfig = {
   defaultLocale: 'en',
-  locales: isDeployPreview ? ['en'] : [
+  locales: isDeployPreview ? ['en'] : filterByProgress([
     "en",
     "cs-CZ",
     "de-DE",
@@ -23,7 +57,7 @@ const i18nConfig = {
     "yo-NG", 
     "zh-TW",
     "zh-CN"
-  ],
+  ]),
   localeConfigs: {
     en: { label: "English" },
     'it-IT': { label: `Italiano (${progress["it"].translationProgress}%)` },
