@@ -1,0 +1,130 @@
+name: CI windows
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 0 * * SUN' 
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: windows-latest
+    name: setup verdaccio
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:nightly-master
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production          
+    steps:
+    - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+    - name: Node
+      uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
+      with:
+        node-version-file: '.nvmrc'
+    - name: Install pnpm
+      run: npm i pnpm@6.32.15 -g
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store
+    - name: Install
+      run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+    - name: Cache .pnpm-store
+      uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+      with:
+        path: ~/.pnpm-store
+        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+        restore-keys: |
+          pnpm-
+  lint:
+    runs-on: windows-latest
+    name: Lint
+    needs: prepare
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - name: Node
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+      - name: Lint
+        run: pnpm lint
+  format:
+    runs-on: windows-latest
+    name: Format
+    needs: prepare
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - name: Use Node
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+      - name: Lint
+        run: pnpm format:check
+  build:
+    needs: [format, lint]
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [windows-latest]
+        node_version: [18]
+    name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - name: Use Node ${{ matrix.node_version }}
+        uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+      - name: build
+        run: pnpm build
+      - name: Test
+        run: pnpm test
+  ci-e2e-ui:
+    needs: [format, lint]
+    runs-on: windows-latest
+    name: UI Test E2E
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - uses: actions/setup-node@969bd2663942d722d85b6a8626225850c2f7be4b # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Install
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
+      - name: build
+        run: pnpm build
+      - name: Test UI
+        run: pnpm test:e2e:ui
+        # env:
+        #  DEBUG: verdaccio:e2e*
