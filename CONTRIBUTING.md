@@ -1,59 +1,33 @@
 # Contributing
 
-> Any change matters, whatever the size, just do it.
+> This guidelines refers to the main (`master`) that host the v6.x, if you want to contribute to `5.x` please read the following [link](https://github.com/verdaccio/verdaccio/blob/5.x/CONTRIBUTING.md).
 
-We're happy that you're considering contributing! To help, we've prepared these
-guidelines for you:
+We're happy that you're considering contributing!
 
-**Table of Contents**
-
-- [Contributing](#contributing)
-  - [How Do I Contribute?](#how-do-i-contribute)
-  - [Development Setup](#development-setup)
-    - [Building the project](#building-the-project)
-    - [Running test](#running-test)
-    - [Running and debugging](#running-and-debugging)
-    - [Debugging compiled code](#debugging-compiled-code)
-  - [Reporting Bugs](#reporting-bugs)
-    - [Read the documentation](#read-the-documentation)
-    - [What's is not considered a bug?](#whats-is-not-considered-a-bug)
-    - [Issue Search](#issue-search)
-    - [Chat](#chat)
-  - [Translations](#translations)
-  - [Request Features](#request-features)
-  - [Contributing Guidelines](#contributing-guidelines)
-    - [Submitting a Pull Request](#submitting-a-pull-request)
-    - [Make Changes and Commit](#make-changes-and-commit)
-      - [Caveats](#caveats)
-      - [Before Commit](#before-commit)
-      - [Commit Guidelines](#commit-guidelines)
-    - [Adding a changeset](#adding-a-changeset)
-    - [Update Tests](#update-tests)
-  - [Develop Plugins](#develop-plugins)
+To help you getting started we've prepared these guidelines for you, any change matter, just do it:
 
 ## How Do I Contribute?
 
 There are many ways to contribute:
 
-- Report a bug
-- Request a feature you think would be great for Verdaccio
-- Fix bugs
-- Test and triage bugs reported by others
-- Work on requested/approved features
-- Improve the codebase (linting, naming, comments, test descriptions, etc...)
+- [Report a bug](#reporting-bugs)
+- [Request a feature you think would be great for Verdaccio](#feature-request)
+- [Fixing bugs](https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3A%22issue%3A+bug%22)
+- [Test and triage bugs reported by others](https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3Aissue_needs_triage)
+- [Working on requested/approved features](https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3A%22topic%3A+feature+request%22+)
+- [Improve the codebase (linting, naming, comments, test descriptions, etc...)](https://github.com/verdaccio/verdaccio/discussions/1461)
+- Improve code coverage for unit testing for every module, [end to end](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli) or [UI test](https://github.com/verdaccio/verdaccio/tree/master/e2e/ui) (with cypress).
 
-The Verdaccio project is split into several areas:
+The Verdaccio project is split into several areas, the first three hosted in the main repository:
 
 - **Core**: The [core](https://github.com/verdaccio/verdaccio) is the main repository, built with **Node.js**.
 - **Website**: we use [**Docusaurus**](https://docusaurus.io/) for the **website** and if you are familiar with this technology, you might become the official webmaster.
 - **User Interface**: The [user Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
 - **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
-> There are other areas to contribute, like documentation, translation which are
-> not hosted on this repo but check the last section of this notes for further
-> information.
+> There are other areas to contribute, like [documentation](https://github.com/verdaccio/verdaccio/tree/master/website/docs) or [translations](#translations}).
 
-## Development Setup
+## Prepare local setup {#local-setup}
 
 Verdaccio uses [pnpm](https://pnpm.io) as the package manager for development in this repository.
 
@@ -144,7 +118,7 @@ To run the application from the source code, ensure the project has been built w
 - `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
 - `pnpm docker`: Build the docker image. Requires `docker` command available in your system.
 
-#### Debugging compiled code
+#### Debugging compiled code {#debugging-compiled-code}
 
 Currently you can only run pre-compiled packages in debug mode. To enable debug
 while running add the `verdaccio` namespace using the `DEBUG` environment
@@ -164,13 +138,50 @@ DEBUG=verdaccio:plugin:* node packages/verdaccio/debug/bootstrap.js
 The debug code is intended to analyze what is happening under the hood and none
 of the output is sent to the logger module.
 
-## Reporting Bugs
+> [See the full guide how to debug with Verdaccio](https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio)
+
+#### Testing your changes in a local registry {#testing-local-registry}
+
+Once you have perform your changes in the code base, the build and tests passes you can publish a local version:
+
+- Ensure you have build all modules (or the one you have modified)
+- Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
+
+```
+pnpm build
+pnpm local:publish:release
+```
+
+The last step consist on install globally the package from the local registry which runs on the default port (4873).
+
+```
+npm i -g verdaccio --registry=http://localhost:4873
+verdaccio
+```
+
+If you perform more changes in the source code, repeat this process, there is not _hot reloading_ support.
+
+## Feature Request {#feature-request}
+
+New feature requests are welcome. Analyse whether the idea fits within scope of the project. Adding in context and the use-case will really help!
+
+**Please provide:**
+
+- Create a [discussion](https://github.com/verdaccio/verdaccio/discussions/new).
+- A detailed description the advantages of your request.
+- Whether or not it's compatible with `npm`, `pnpm` and [_yarn classic_
+  ](https://github.com/yarnpkg/yarn) or [_yarn modern_
+  ](https://github.com/yarnpkg/berry).
+- A potential implementation or design
+- Whatever else is on your mind! 🤓
+
+## Reporting Bugs {#reporting-bugs}
 
 **Bugs are considered features that are not working as described in
 documentation.**
 
 If you've found a bug in Verdaccio **that isn't a security risk**, please file
-a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
+a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues), if you think a potential vulnerability please read the [security policy](https://verdaccio.org/community/security) .
 
 > **NOTE: Verdaccio still does not support all npm commands. Some were not
 > considered important and others have not been requested yet.**
@@ -189,7 +200,7 @@ a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues).
 If you intend to report a **security** issue, please follow our [Security policy
 guidelines](https://github.com/verdaccio/verdaccio/security/policy).
 
-### Issue Search
+### Issues {#issues}
 
 Before reporting a bug please:
 
@@ -201,53 +212,21 @@ In case any of those match with your search, up-vote it (using GitHub reactions)
 or add additional helpful details to the existing issue to show that it's
 affecting multiple people.
 
-### Chat
+### Contributing support
 
 Questions can be asked via [Discord](https://discord.gg/7qWJxBf)
 
-**Please use the `#help` channel.**
+**Please use the `#contribute` channel.**
 
-## Translations
+## Development Guidelines {#development-guidelines}
 
-All translations are provided by the `crowdin` platform:
-[https://translate.verdaccio.org/](https://translate.verdaccio.org/)
+It's recommended use a UNIX system for local development, Windows should works fine for development, but is not daily tested could not be perfect. To ensure a fast code review and merge, please follow the next guidelines:
 
-If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
+Any contribution gives you the right to be part of this organization as _collaborator_ and your avatar will be automatically added to the [contributors page](https://verdaccio.org/contributors).
 
-If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
+## Pull Request {#pull-request}
 
-For adding a new **language** on the UI follow these steps:
-
-1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
-2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
-3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
-4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key fort he new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
-5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
-6. Add a `changeset` file, see more info below.
-
-## Request Features
-
-New feature requests are welcome. Analyse whether the idea fits within scope of
-the project. Adding in context and the use-case will really help!
-
-**Please provide:**
-
-- A detailed description the advantages of your request
-- Whether or not it's compatible with `npm`, `pnpm` and [_yarn classic_
-  ](https://github.com/yarnpkg/yarn) or [_yarn modern_
-  ](https://github.com/yarnpkg/berry).
-- A potential implementation or design
-- Whatever else is on your mind! 🤓
-
-## Contributing Guidelines
-
-It's very exciting to become a Verdaccio contributor 🙌🏼. To ensure a fast code
-review and merge, please follow the next guidelines:
-
-> Any contribution gives you the right to be part of this organization as
-> _collaborator_.
-
-### Submitting a Pull Request
+### Submitting a Pull Request {#submit-pull-request}
 
 The following are the steps you should follow when creating a pull request.
 Subsequent pull requests only need to follow step 3 and beyond.
@@ -275,10 +254,10 @@ Feel free to commit as much times you want in your branch, but keep on mind on
 this repository we `git squash` on merge by default, as we like to maintain a
 clean git history.
 
-#### Before Commit
+#### Before Push {#before-push}
 
-Before committing, **you must ensure there are no linting errors and
-all tests pass.** To do this, run these commands before creating the PR:
+Before committing or push, **you must ensure there are no linting errors and
+all tests passes**. To do verify, run these commands before creating the PR:
 
 ```bash
 pnpm lint
@@ -292,40 +271,11 @@ pnpm test
 
 All good? Perfect! You should create the pull request.
 
-#### Commit Guidelines
+#### Commit Guidelines {#commits}
 
-For example:
+On a pull request, commit messages are not important, please focus on document properly the pull request content. The commit message will be taken from the pull request title, it is recommended to use lowercase format.
 
-- `feat: A new feature`
-- `fix: A bug fix`
-
-A commit of the type feat introduces a new feature to the codebase (this
-correlates with MINOR in semantic versioning).
-
-e.g.:
-
-```
-feat: xxxxxxxxxx
-```
-
-A commit of the type fix patches a bug in your codebase (this correlates with
-PATCH in semantic versioning).
-
-e.g.:
-
-```
-fix: xxxxxxxxxxx
-```
-
-Commits types such as as `docs:`,`style:`,`refactor:`,`perf:`,`test:` and
-`chore:` are valid but have no effect on versioning: **please use them!**
-
-All commits message are going to be validated when they are created using
-_husky_ hooks.
-
-> Please try to provide one single commit to help a clean and easy merge process
-
-### Adding a changeset
+### Adding a changeset {#changeset}
 
 We use [changesets](https://github.com/atlassian/changesets) in order to
 generate a detailed Changelog as possible.
@@ -407,7 +357,25 @@ If you need help with how testing works, please [refer to the following guide
 **If you are introducing new features, you MUST include new tests. PRs for
 features without tests will not be merged.**
 
-## Develop Plugins
+## Translations {#translations}
+
+All translations are provided by the **[crowdin](http://crowdin.com)** platform,
+[https://translate.verdaccio.org/](https://translate.verdaccio.org/)
+
+If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
+
+If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
+
+For adding a new **language** on the UI follow these steps:
+
+1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
+2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
+3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
+4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key fort he new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
+5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
+6. Add a `changeset` file, see more info below.
+
+## Develop Plugins {#develop-plugins}
 
 Plugins are add-ons that extend the functionality of the application.
 
@@ -420,25 +388,3 @@ If you want to develop your own plugin:
 3. You are free to host your plugin in your repository
 4. Provide a detailed description of your plugin to help users understand how to
    use it
-
-## Testing your changes in a local registry
-
-Once you have perform your changes in the code base, the build and tests passes you can publish a local version:
-
-- Ensure you have build all modules (or the one you have modified)
-- Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
-
-```
-pnpm build
-pnpm local:publish:release
-```
-
-The last step consist on install globally the package from the local registry.
-
-```
-npm i -g verdaccio --registry=http://localhost:4873
-
-verdaccio
-```
-
-If you perform more changes in the source code, repeat this process, there is not _hot reloading_ support.
