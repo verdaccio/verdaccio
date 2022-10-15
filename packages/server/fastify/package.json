@@ -42,14 +42,14 @@
     "@verdaccio/tarball": "workspace:11.0.0-6-next.18",
     "@verdaccio/utils": "workspace:6.0.0-6-next.17",
     "@verdaccio/readme": "workspace:11.0.0-6-next.6",
-    "core-js": "3.25.3",
+    "core-js": "3.25.5",
     "debug": "4.3.4",
-    "fastify": "4.6.0",
-    "fastify-plugin": "4.2.1",
+    "fastify": "4.8.1",
+    "fastify-plugin": "4.3.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.62",
+    "@types/node": "16.11.65",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "ts-node": "10.9.1"
   },
