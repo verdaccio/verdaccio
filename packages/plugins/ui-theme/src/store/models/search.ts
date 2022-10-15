@@ -24,7 +24,9 @@ export const search = createModel<RootModel>()({
   reducers: {
     clearRequestQueue(state) {
       const controllers = state.controller;
-      controllers.forEach((request) => request.abort());
+      controllers.forEach((request) => {
+        request?.abort();
+      });
       return {
         ...state,
         controller: [],

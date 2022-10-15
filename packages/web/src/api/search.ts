@@ -44,7 +44,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
       try {
         let data;
         const abort = new AbortController();
-        req.on('aborted', () => {
+        req.socket.on('close', function () {
           debug('search web aborted');
           abort.abort();
         });

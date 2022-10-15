@@ -76,6 +76,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const handleFetchPackages = useCallback(
     ({ value }: { value: string }) => {
       if (value?.trim() !== '') {
+        dispatch.search.clearRequestQueue();
         dispatch.search.getSuggestions({ value });
       }
     },
