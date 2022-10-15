@@ -53,3 +53,7 @@ website/docs/api/**/*.md
 website/docs/api/**/*.yml
 !website/docs/api/index.md
 packages/**/docs
+
+# cypress
+e2e/ui/cypress/videos/**/*
+e2e/ui/cypress/screenshots/**/*

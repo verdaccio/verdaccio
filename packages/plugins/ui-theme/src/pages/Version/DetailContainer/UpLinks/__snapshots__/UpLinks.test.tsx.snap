@@ -16,6 +16,7 @@ exports[`<UpLinks /> component should render the component when there is no upli
     <div>
       <h6
         class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
+        data-testid="no-uplinks"
       >
         verdaccio has no uplinks.
       </h6>
@@ -33,6 +34,7 @@ exports[`<UpLinks /> component should render the component when there is no upli
 <div>
     <h6
       class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom emotion-0"
+      data-testid="no-uplinks"
     >
       verdaccio has no uplinks.
     </h6>

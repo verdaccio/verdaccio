@@ -179,7 +179,9 @@ const Package: React.FC<PackageInterface> = ({
       <Grid container={true} item={true} xs={12}>
         <Grid item={true} xs={11}>
           <WrapperLink to={`/-/web/detail/${packageName}`}>
-            <PackageTitle className="package-title">{packageName}</PackageTitle>
+            <PackageTitle className="package-title" data-testid="package-title">
+              {packageName}
+            </PackageTitle>
           </WrapperLink>
         </Grid>
         <GridRightAligned

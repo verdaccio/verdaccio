@@ -284,6 +284,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
 
 <div
   class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0 emotion-1"
+  data-testid="help-card"
   id="help-card"
 >
   <div

@@ -20,6 +20,7 @@
     "eslint-plugin-jsx-a11y": "6.6.1",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.31.8",
+    "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-verdaccio": "10.0.0"

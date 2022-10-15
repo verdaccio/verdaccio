@@ -6,8 +6,9 @@ interface Props {
   className?: string;
 }
 
-const NoItems: React.FC<Props> = ({ className, text }) => (
-  <Text className={className} gutterBottom={true} variant="subtitle1">
+const NoItems: React.FC<Props> = ({ className, text, ...props }) => (
+  // eslint-disable-next-line verdaccio/jsx-spread
+  <Text {...props} className={className} gutterBottom={true} variant="subtitle1">
     {text}
   </Text>
 );
