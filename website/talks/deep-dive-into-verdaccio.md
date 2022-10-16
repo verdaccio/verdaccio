@@ -6,12 +6,15 @@ keywords:
   - advanced
 sidebar_label: Deep dive into Verdaccio - 2022
 slug: deep-dive-into-verdaccio-nodetlv-2022-israel
+last_update:
+  date: 06/29/2022
+  author: Juan Picado
 ---
 
 ## Deep dive into Verdaccio - NodeTLV 2022 - Israel
 
-- Location: Tel Aviv-Yafo
-- Date: 29/07/2022 
+- Location: Tel Aviv-Yafo (Israel)
+- Conference: [Node.TLV](https://www.nodetlv.com)
 
 In this talk, you will discover a deep understanding of how a Node.js registry works. Advanced features that will help boost your registry productivity and what´s new for the next major release.
 
