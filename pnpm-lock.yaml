@@ -1395,6 +1395,7 @@ importers:
       prism-react-renderer: ^1.2.1
       react: 17.0.2
       react-dom: 17.0.2
+      react-iframe: 1.8.4
       react-player: 2.11.0
       react-twitter-widgets: ^1.10.0
       sass: 1.55.0
@@ -1426,6 +1427,7 @@ importers:
       p-cancelable: 2.1.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      react-iframe: 1.8.4_react@17.0.2
       react-player: 2.11.0_react@17.0.2
       react-twitter-widgets: 1.10.0_react@17.0.2
       typedoc: 0.23.16_typescript@4.8.4
@@ -20980,6 +20982,15 @@ packages:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: true
+
+  /react-iframe/1.8.4_react@17.0.2:
+    resolution: {integrity: sha512-/yhhubhUBjcckJyPJ/83ZLitM81wAptVpgdBVx5+d8D7U/lyynZGgFjY0SQpfUYvMK8UEh5QvCGpH94O5ehQsA==}
+    peerDependencies:
+      react: '>=16.x.x'
+    dependencies:
+      object-assign: 4.1.1
+      react: 17.0.2
+    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
