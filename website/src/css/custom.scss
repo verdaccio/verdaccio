@@ -128,3 +128,9 @@ html[data-theme='dark'] {
   background-color:#ffd700;
   color:  #1595de; 
 }
+
+.react-pdf__Page__canvas {
+  margin: 0 auto;
+  width: 80% !important;
+  height: 100% !important;
+}
