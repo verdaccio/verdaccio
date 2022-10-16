@@ -248,7 +248,7 @@ module.exports = {
         },
         {
           href: '/talks',
-          label: 'Talks',
+          label: 'Video Talks',
           position: 'left',
         },
         {

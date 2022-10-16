@@ -1,7 +1,6 @@
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube'
 
 import Feature from '../components/Features';
 import Header from '../components/Header';
@@ -18,8 +17,7 @@ const Home = (): React.ReactElement => {
     <Layout title={siteConfig.tagline} description={siteConfig.customFields.description}>
       <header className={styles.header}>
         <Wave />
-        <Header />
-        
+        <Header />        
       </header>
       <main className={styles.main}>
         <UsedBy />        
