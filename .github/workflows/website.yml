@@ -8,6 +8,11 @@ on:
         - './.github/workflows/website.yml'
   schedule:
     - cron: '0 0 * * *' 
+
+concurrency: 
+  group: ${{ github.head_ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
