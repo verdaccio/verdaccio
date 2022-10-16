@@ -13,7 +13,7 @@ Subscribe to the channel watch more talks in the future.
 
 [![logo](https://cdn.verdaccio.dev/website/watch-us.png)](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w)
 
-> If you are interested to reference any of your talks or tutorials that includes, please request it in our Discord channel `#contribute`.
+> If you are interested to reference any of your talks or tutorials that includes or refer to verdaccio tooling, please request it in our Discord channel `#contribute`.
 
 ## The Latest Talks
 
