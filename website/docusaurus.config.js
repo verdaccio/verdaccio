@@ -127,6 +127,16 @@ module.exports = {
       }),
     ],
     [
+      'content-docs',
+      ({
+        id: 'talks',
+        path: 'talks',
+        routeBasePath: 'talks',
+        sidebarPath: require.resolve('./sidebarsTalk.js'),
+        showLastUpdateTime: true,
+      }),
+    ],
+    [
       'docusaurus-plugin-typedoc',
       {
         entryPoints: ['../packages/config/src/index.ts'],
@@ -234,6 +244,11 @@ module.exports = {
         {
           href: '/community',
           label: 'Community',
+          position: 'left',
+        },
+        {
+          href: '/talks',
+          label: 'Talks',
           position: 'left',
         },
         {
