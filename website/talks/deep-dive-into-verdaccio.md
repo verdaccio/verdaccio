@@ -8,8 +8,7 @@ sidebar_label: Deep dive into Verdaccio - 2022
 slug: deep-dive-into-verdaccio-nodetlv-2022-israel
 ---
 
-### Description
-
+## Deep dive into Verdaccio - NodeTLV 2022 - Israel
 
 - Location: Tel Aviv-Yafo
 - Date: 29/07/2022 
