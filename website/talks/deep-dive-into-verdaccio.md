@@ -6,7 +6,6 @@ keywords:
   - advanced
 sidebar_label: Deep dive into Verdaccio - 2022
 slug: deep-dive-into-verdaccio-nodetlv-2022-israel
-hide_table_of_contents: true
 ---
 
 ### Description
@@ -28,10 +27,4 @@ import ReactPlayer from 'react-player/youtube'
 
 ### Slides
 
-```mdx-code-block
-import {
-  ReactPdf
-} from '@site/src/components/PDF';
-
-<ReactPdf url="https://cdn.verdaccio.dev/talks/deep-dive-into-verdaccio/slides.pdf"/>
-```
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/JkZpcKs7mir0Xx?hostedIn=slideshare&page=upload" width="476" height="800" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
