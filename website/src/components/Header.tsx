@@ -3,7 +3,6 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube'
 import { Follow } from 'react-twitter-widgets';
 import cx from 'classnames';
 import { useMediaQuery } from 'usehooks-ts'
@@ -36,8 +35,8 @@ const Header = (): React.ReactElement => {
               style={{ marginTop: '8px' }}
             />
           <div className={styles['header--links']}>
-            <a href="https://github.com/verdaccio/verdaccio" className="link-secondary">
-              GITHUB
+            <a href="/Talks" className="link-secondary">
+              WATCH
             </a>
             <Link to={useBaseUrl('/docs/what-is-verdaccio')} className="link-primary">
               <Translate>GET STARTED</Translate>
@@ -55,10 +54,7 @@ const Header = (): React.ReactElement => {
             command="npm install --global verdaccio"
             alt={translate({ message: 'NPM command to install Verdaccio' })}
           />          
-        </div>      
-        {matches && <div className={styles['header--m-2']}>
-          <ReactPlayer url='https://www.youtube.com/watch?v=qRMucS3i3kQ' controls />
-        </div>}
+        </div>             
       </div>
       <div className={styles['header--absolute-links']}>
         <div>

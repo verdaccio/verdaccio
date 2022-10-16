@@ -42,6 +42,7 @@
     "p-cancelable": "2.1.1",
     "react-dom": "17.0.2",
     "react-player": "2.11.0",
+    "react-iframe": "1.8.4",
     "react-twitter-widgets": "^1.10.0",
     "typedoc": "0.23.16",
     "typedoc-plugin-markdown": "3.13.6",

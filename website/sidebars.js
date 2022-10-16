@@ -28,11 +28,7 @@ module.exports = {
           label: "Uses Cases",
           items: ["caching", "linking-remote-registry"]
         },
-        {
-          type: "category",
-          label: "Talks & Articles",
-          items: ["articles", "talks"]
-        },
+        "articles"
       ]
     },
     {
