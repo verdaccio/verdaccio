@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.50
+
+### Patch Changes
+
+- b4cc8001: fix: improve abort request search
+
 ## 6.0.0-6-next.49
 
 ### Patch Changes

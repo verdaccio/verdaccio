@@ -1,5 +1,21 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.37
+
+### Patch Changes
+
+- b4cc8001: fix: improve abort request search
+  - @verdaccio/core@6.0.0-6-next.50
+  - @verdaccio/config@6.0.0-6-next.50
+  - @verdaccio/auth@6.0.0-6-next.29
+  - @verdaccio/tarball@11.0.0-6-next.19
+  - @verdaccio/url@11.0.0-6-next.16
+  - @verdaccio/loaders@6.0.0-6-next.19
+  - @verdaccio/logger@6.0.0-6-next.18
+  - @verdaccio/middleware@6.0.0-6-next.29
+  - @verdaccio/store@6.0.0-6-next.30
+  - @verdaccio/utils@6.0.0-6-next.18
+
 ## 6.0.0-6-next.36
 
 ### Patch Changes
