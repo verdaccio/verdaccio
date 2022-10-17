@@ -126,7 +126,7 @@ jobs:
       - name: Add comment to PR
         if: github.repository == 'verdaccio/verdaccio'
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2
+        uses: marocchino/sticky-pull-request-comment@97bddef64db61b9d80edc69593cc4e4c415c3362 # tag=v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.issue.number }}
