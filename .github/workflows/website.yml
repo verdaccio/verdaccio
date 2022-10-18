@@ -23,7 +23,7 @@ jobs:
           node-version: 16
 
       - name: Cache pnpm modules
-        uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -43,7 +43,7 @@ jobs:
       - name: Build Translations percentage
         run: pnpm build --filter "@verdaccio/crowdin-translations"
       - name: Cache Docusaurus Build
-        uses: actions/cache@56461b9eb0f8438fd15c7a9968e3c9ebb18ceff1 # tag=v3
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
