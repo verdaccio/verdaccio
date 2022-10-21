@@ -1090,7 +1090,7 @@ describe('storage', () => {
       );
       const storage = new Storage(config);
       await storage.init(config);
-      await expect(storage.getLocalDatabaseNext()).resolves.toHaveLength(0);
+      await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
     });
 
     test('should return 1 local packages', async () => {
@@ -1122,7 +1122,7 @@ describe('storage', () => {
           host: req.get('host') as string,
         },
       });
-      const response = await storage.getLocalDatabaseNext();
+      const response = await storage.getLocalDatabase();
       expect(response).toHaveLength(1);
       expect(response[0]).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
     });

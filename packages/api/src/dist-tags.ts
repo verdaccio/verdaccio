@@ -98,24 +98,4 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
       }
     }
   );
-
-  route.post(
-    '/-/package/:package/dist-tags',
-    can('publish'),
-    async function (
-      req: $RequestExtend,
-      res: $ResponseExtend,
-      next: $NextFunctionVer
-    ): Promise<void> {
-      try {
-        await storage.mergeTagsNext(req.params.package, req.body);
-        res.status(constants.HTTP_STATUS.CREATED);
-        return next({
-          ok: constants.API_MESSAGE.TAG_UPDATED,
-        });
-      } catch (err) {
-        next(err);
-      }
-    }
-  );
 }
