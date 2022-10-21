@@ -1,7 +1,7 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { HTTP_STATUS, USERS } from '@verdaccio/core';
+import { HTTP_STATUS, USERS, errorUtils } from '@verdaccio/core';
 import { Storage } from '@verdaccio/store';
 import { Version } from '@verdaccio/types';
 
@@ -11,13 +11,15 @@ export default function (route: Router, storage: Storage): void {
   route.get(
     '/-/_view/starredByUser',
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer): Promise<void> => {
-      const remoteUsername = req.remote_user.name;
+      const query: { key: string } = req.query;
+      if (typeof query?.key !== 'string') {
+        return next(errorUtils.getBadRequest('missing query key username'));
+      }
 
       try {
-        const localPackages: Version[] = await storage.getLocalDatabaseNext();
-
+        const localPackages: Version[] = await storage.getLocalDatabase();
         const filteredPackages: Version[] = localPackages.filter((localPackage: Version) =>
-          _.keys(localPackage[USERS]).includes(remoteUsername)
+          _.keys(localPackage[USERS]).includes(query?.key.toString().replace(/['"]+/g, ''))
         );
 
         res.status(HTTP_STATUS.OK);

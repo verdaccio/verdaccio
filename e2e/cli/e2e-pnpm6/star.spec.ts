@@ -63,6 +63,26 @@ describe('star a package', () => {
     expect(resp1.stdout).toEqual(`☆  ${pkgName}`);
   });
 
+  test('should list stars of a user %s', async () => {
+    const pkgName = '@verdaccio/stars';
+    const { tempFolder } = await prepareGenericEmptyProject(
+      pkgName,
+      '1.0.0-patch',
+      registry.port,
+      registry.getToken(),
+      registry.getRegistryUrl()
+    );
+    await pnpmUtils.publish(pnpm, tempFolder, pkgName, registry);
+    await pnpm({ cwd: tempFolder }, 'star', pkgName, ...addRegistry(registry.getRegistryUrl()));
+    const resp = await pnpm(
+      { cwd: tempFolder },
+      'stars',
+      ...addRegistry(registry.getRegistryUrl())
+    );
+    // side effects: this result is affected the the package published in the previous step
+    expect(resp.stdout).toEqual(`@verdaccio/foo@verdaccio/stars`);
+  });
+
   afterAll(async () => {
     registry.stop();
   });

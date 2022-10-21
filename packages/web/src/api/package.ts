@@ -97,7 +97,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
       debug('hit package web api %o');
 
       try {
-        const localPackages: Version[] = await storage.getLocalDatabaseNext();
+        const localPackages: Version[] = await storage.getLocalDatabase();
 
         const order = getOrder(config?.web?.sort_packages);
         debug('order %o', order);

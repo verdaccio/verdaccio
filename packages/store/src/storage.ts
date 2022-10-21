@@ -589,7 +589,7 @@ class Storage {
     }
   }
 
-  public async getLocalDatabaseNext(): Promise<Version[]> {
+  public async getLocalDatabase(): Promise<Version[]> {
     debug('get local database');
     const storage = this.localStorage.getStoragePlugin();
     const database = await storage.get();
@@ -988,7 +988,7 @@ class Storage {
     const localStarUsers = localPackage.users || {};
     // if trying to add a star
     const userIsAddingStar = Object.keys(users as PackageUsers).includes(username);
-    if (!isExecutingStarCommand(localPackage.users as PackageUsers, username, userIsAddingStar)) {
+    if (!isExecutingStarCommand(localPackage?.users as PackageUsers, username, userIsAddingStar)) {
       return API_MESSAGE.PKG_CHANGED;
     }
 
@@ -1128,7 +1128,7 @@ class Storage {
       // TODO: review why do this
       versions[versionToPublish].readme =
         _.isNil(manifest.readme) === false ? String(manifest.readme) : '';
-      await this.addVersionNext(name, versionToPublish, versions[versionToPublish], null);
+      await this.addVersion(name, versionToPublish, versions[versionToPublish], null);
     } catch (err: any) {
       logger.error({ err: err.message }, 'updated version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
@@ -1139,7 +1139,7 @@ class Storage {
     // 2. update and merge tags
     let mergedManifest;
     try {
-      // note: I could merge this with addVersionNext
+      // note: I could merge this with addVersion()
       // 1. add version
       // 2. merge versions
       // 3. upload tarball
@@ -1325,7 +1325,7 @@ class Storage {
    * @param metadata version metadata
    * @param tag tag of the version
    */
-  public async addVersionNext(
+  private async addVersion(
     name: string,
     version: string,
     metadata: Version,

@@ -6,37 +6,7 @@ import { HTTP_STATUS } from '@verdaccio/core';
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { generatePackageMetadata, generateRemotePackageMetadata } from '@verdaccio/test-helper';
 
-import { $RequestExtend, $ResponseExtend } from '../../types/custom';
 import { getPackage, initializeServer, publishVersion } from './_helper';
-
-const mockApiJWTmiddleware = jest.fn(
-  () =>
-    (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'foo', groups: [], real_groups: [] };
-      _next();
-    }
-);
-
-jest.mock('@verdaccio/auth', () => ({
-  Auth: class {
-    apiJWTmiddleware() {
-      return mockApiJWTmiddleware();
-    }
-    init() {
-      return Promise.resolve();
-    }
-    allow_access(_d, f_, cb) {
-      cb(null, true);
-    }
-    allow_publish(_d, f_, cb) {
-      cb(null, true);
-    }
-
-    allow_unpublish(_d, f_, cb) {
-      cb(null, true);
-    }
-  },
-}));
 
 describe('publish', () => {
   describe('handle errors', () => {
@@ -80,6 +50,22 @@ describe('publish', () => {
           });
       });
     });
+
+    test.each([['foo', '@scope/foo']])(
+      'should fails on publish a duplicated package',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        return new Promise((resolve) => {
+          publishVersion(app, pkgName, '1.0.0')
+            .expect(HTTP_STATUS.CONFLICT)
+            .then((response) => {
+              expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
+              resolve(response);
+            });
+        });
+      }
+    );
   });
 
   describe('publish a package', () => {
@@ -141,6 +127,7 @@ describe('publish', () => {
         });
       });
     });
+
     describe('proxies setup', () => {
       test.each([['foo', '@scope%2Ffoo']])(
         'should publish a a patch package that already exist on a remote',
@@ -171,22 +158,6 @@ describe('publish', () => {
       );
     });
   });
-
-  test.each([['foo', '@scope/foo']])(
-    'should fails on publish a duplicated package',
-    async (pkgName) => {
-      const app = await initializeServer('publish.yaml');
-      await publishVersion(app, pkgName, '1.0.0');
-      return new Promise((resolve) => {
-        publishVersion(app, pkgName, '1.0.0')
-          .expect(HTTP_STATUS.CONFLICT)
-          .then((response) => {
-            expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
-            resolve(response);
-          });
-      });
-    }
-  );
 
   describe('unpublish a package', () => {
     test.each([['foo', '@scope/foo']])('should unpublish entirely a package', async (pkgName) => {
@@ -257,6 +228,4 @@ describe('publish', () => {
       }
     );
   });
-
-  describe('star a package', () => {});
 });
