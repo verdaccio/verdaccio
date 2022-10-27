@@ -100,7 +100,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookies", "npm:0.8.0"],
             ["cors", "npm:2.8.5"],
             ["cross-env", "npm:7.0.3"],
-            ["dayjs", "npm:1.11.5"],
+            ["dayjs", "npm:1.11.6"],
             ["debug", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.3"],
             ["detect-secrets", "npm:1.0.6"],
             ["envinfo", "npm:7.8.1"],
@@ -8539,10 +8539,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["dayjs", [
-        ["npm:1.11.5", {
-          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.5-a825142dc5-145971e490.zip/node_modules/dayjs/",
+        ["npm:1.11.6", {
+          "packageLocation": "./.yarn/cache/dayjs-npm-1.11.6-44daf311a9-a1c0a3a3e3.zip/node_modules/dayjs/",
           "packageDependencies": [
-            ["dayjs", "npm:1.11.5"]
+            ["dayjs", "npm:1.11.6"]
           ],
           "linkType": "HARD",
         }]
@@ -18356,7 +18356,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookies", "npm:0.8.0"],
             ["cors", "npm:2.8.5"],
             ["cross-env", "npm:7.0.3"],
-            ["dayjs", "npm:1.11.5"],
+            ["dayjs", "npm:1.11.6"],
             ["debug", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.3"],
             ["detect-secrets", "npm:1.0.6"],
             ["envinfo", "npm:7.8.1"],
