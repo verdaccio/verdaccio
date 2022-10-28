@@ -2,7 +2,7 @@ import httpCodes from 'http-status-codes';
 
 export const DEFAULT_PASSWORD_VALIDATION = /.{3}$/;
 export const TIME_EXPIRATION_24H = '24h';
-export const TIME_EXPIRATION_7D = '7d';
+export const TIME_EXPIRATION_1H = '1h';
 export const DIST_TAGS = 'dist-tags';
 export const LATEST = 'latest';
 export const USERS = 'users';
@@ -35,6 +35,7 @@ export const HEADERS = {
   TEXT_HTML_UTF8: 'text/html; charset=utf-8',
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
+  CACHE_CONTROL: 'Cache-Control',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
   FORWARDED_PROTO: 'X-Forwarded-Proto',

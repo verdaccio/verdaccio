@@ -29,7 +29,9 @@ export const defaultNonLoggedUserRoles = [
  */
 export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = (isGroupValid ? pluginGroups : []).concat([...defaultLoggedUserRoles]);
+  const groups = Array.from(
+    new Set((isGroupValid ? pluginGroups : []).concat([...defaultLoggedUserRoles]))
+  );
 
   return {
     name,

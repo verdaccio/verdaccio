@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { Auth } from '@verdaccio/auth';
-import { HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
@@ -102,6 +102,7 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
 
           await storage.saveToken(saveToken);
           logger.debug({ key, name }, 'token @{key} was created for user @{name}');
+          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           return next(
             normalizeToken({
               token,

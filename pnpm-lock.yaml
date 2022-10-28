@@ -741,7 +741,7 @@ importers:
       lockfile: 1.0.4
       lodash: 4.17.21
       lowdb: 1.0.0
-      lru-cache: 6.0.0
+      lru-cache: 7.14.0
       minimatch: 3.1.2
       sanitize-filename: 1.6.3
     dependencies:
@@ -754,7 +754,7 @@ importers:
       lockfile: 1.0.4
       lodash: 4.17.21
       lowdb: 1.0.0
-      lru-cache: 6.0.0
+      lru-cache: 7.14.0
       sanitize-filename: 1.6.3
     devDependencies:
       '@types/minimatch': 3.0.5
@@ -1329,7 +1329,7 @@ importers:
       express: 4.18.2
       jsdom: 20.0.1
       lodash: 4.17.21
-      lru-cache: 6.0.0
+      lru-cache: 7.14.0
       nock: 13.2.9
       node-html-parser: 4.1.5
       supertest: 6.3.0
@@ -1352,7 +1352,7 @@ importers:
       debug: 4.3.4
       express: 4.18.2
       lodash: 4.17.21
-      lru-cache: 6.0.0
+      lru-cache: 7.14.0
     devDependencies:
       '@types/node': 16.11.65
       '@verdaccio/api': link:../api
@@ -9286,6 +9286,10 @@ packages:
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       '@typescript-eslint/parser': 5.41.0_eslint@8.26.0+typescript@4.8.4
       '@typescript-eslint/scope-manager': 5.41.0
@@ -9297,24 +9301,28 @@ packages:
       regexpp: 3.2.0
       semver: 7.3.8
       tsutils: 3.21.0_typescript@4.8.4
+      typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   /@typescript-eslint/parser/5.41.0_eslint@8.26.0+typescript@4.8.4:
     resolution: {integrity: sha512-HQVfix4+RL5YRWZboMD1pUfFN8MpRH4laziWkkAzyO1fvNOY/uinZcvo3QiFJVS/siNHupV8E5+xSwQZrl6PZA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       '@typescript-eslint/scope-manager': 5.41.0
       '@typescript-eslint/types': 5.41.0
       '@typescript-eslint/typescript-estree': 5.41.0_typescript@4.8.4
       debug: 4.3.4
       eslint: 8.26.0
+      typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   /@typescript-eslint/scope-manager/5.33.1:
     resolution: {integrity: sha512-8ibcZSqy4c5m69QpzJn8XQq9NnqAToC8OdH/W6IXPXv83vRyEDPYLdjAlUx8h/rbusq6MkW4YdQzURGOqsn3CA==}
@@ -9336,15 +9344,19 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '*'
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       '@typescript-eslint/typescript-estree': 5.41.0_typescript@4.8.4
       '@typescript-eslint/utils': 5.41.0_eslint@8.26.0+typescript@4.8.4
       debug: 4.3.4
       eslint: 8.26.0
       tsutils: 3.21.0_typescript@4.8.4
+      typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   /@typescript-eslint/types/5.33.1:
     resolution: {integrity: sha512-7K6MoQPQh6WVEkMrMW5QOA5FO+BOwzHSNd0j3+BlBwd6vtzfZceJ8xJ7Um2XDi/O3umS8/qDX6jdy2i7CijkwQ==}
@@ -9379,6 +9391,11 @@ packages:
   /@typescript-eslint/typescript-estree/5.41.0_typescript@4.8.4:
     resolution: {integrity: sha512-SlzFYRwFSvswzDSQ/zPkIWcHv8O5y42YUskko9c4ki+fV6HATsTODUPbRbcGDFYP86gaJL5xohUEytvyNNcXWg==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
       '@typescript-eslint/types': 5.41.0
       '@typescript-eslint/visitor-keys': 5.41.0
@@ -9387,9 +9404,9 @@ packages:
       is-glob: 4.0.3
       semver: 7.3.8
       tsutils: 3.21.0_typescript@4.8.4
+      typescript: 4.8.4
     transitivePeerDependencies:
       - supports-color
-      - typescript
 
   /@typescript-eslint/utils/5.33.1_eslint@8.26.0+typescript@4.8.4:
     resolution: {integrity: sha512-uphZjkMaZ4fE8CR4dU7BquOV6u0doeQAr8n6cQenl/poMaIyJtBu8eys5uk6u5HiDH01Mj5lzbJ5SfeDz7oqMQ==}
@@ -17234,6 +17251,11 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lru-cache/7.14.0:
+    resolution: {integrity: sha512-EIRtP1GrSJny0dqb50QXRUNBxHJhcpxHC++M5tD7RYbvLLn5KVWKsbyswSSqDuU15UFi3bgTQIY8nhDMeF6aDQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /lunr/2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
