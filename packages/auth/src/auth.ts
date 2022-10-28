@@ -574,7 +574,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const { real_groups, name, groups } = user;
     debug('jwt encrypt %o', name);
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
-    const groupedGroups = _.isNil(groups) ? real_groups : groups.concat(realGroupsValidated);
+    const groupedGroups = _.isNil(groups)
+      ? real_groups
+      : Array.from(new Set([...groups.concat(realGroupsValidated)]));
     const payload: RemoteUser = {
       real_groups: realGroupsValidated,
       name,
