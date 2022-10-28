@@ -6,6 +6,7 @@ import { Auth } from '@verdaccio/auth';
 import {
   API_ERROR,
   APP_ERROR,
+  HEADERS,
   HTTP_STATUS,
   VerdaccioError,
   errorUtils,
@@ -33,7 +34,7 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
         } else {
           req.remote_user = user as RemoteUser;
           const jWTSignOptions: JWTSignOptions = config.security.web.sign;
-
+          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           next({
             token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
             username: req.remote_user.name,

@@ -18,8 +18,9 @@ export async function loadTheme(config: any) {
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
-      function (plugin) {
-        return typeof plugin === 'string';
+      // TODO: add types { staticPath: string; manifest: unknown; manifestFiles: unknown }
+      function (plugin: any) {
+        return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
       config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'
     );
