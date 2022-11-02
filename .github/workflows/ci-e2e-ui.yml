@@ -23,5 +23,3 @@ jobs:
         run: yarn install --immutable
       - name: Build
         run: yarn code:build
-      - name: Test UI
-        run: yarn run test:e2e
