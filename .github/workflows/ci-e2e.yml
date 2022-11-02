@@ -23,3 +23,5 @@ jobs:
         run: yarn install
       - name: Build
         run: yarn code:build
+      - name: Test CLI
+        run: yarn test:e2e:cli
