@@ -74,7 +74,7 @@ describe('endpoint example unit test', () => {
     done();
   });
 
-  test('should test add a new user with JWT enabled', async (done) => {
+  test('should test add a new user with JWT enabled', async () => {
     // At this point the server is running and you can run the test
 
     const credentials = { name: 'JotaJWT', password: 'secretPass' };
@@ -86,8 +86,5 @@ describe('endpoint example unit test', () => {
     expect(err).toBeNull();
     expect(res.body.ok).toBeDefined();
     expect(res.body.token).toBeDefined();
-
-    // 13. end the async test
-    done();
   });
 });
