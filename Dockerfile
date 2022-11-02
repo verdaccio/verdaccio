@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:14.20.1-alpine as builder
-=======
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:16.17.0-alpine as builder
->>>>>>> 38d829db (chore: update yarn)
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -29,7 +25,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn cache clean && \
     yarn workspaces focus --production
 
-FROM node:14.20.1-alpine
+FROM node:16.17.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
