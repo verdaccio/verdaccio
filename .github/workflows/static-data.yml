@@ -10,6 +10,10 @@ on:
   # push:
   #   branches:
   #     - master
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
 jobs:
   prepare:
     name: Run script
