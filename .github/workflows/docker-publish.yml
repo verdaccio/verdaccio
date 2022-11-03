@@ -15,6 +15,10 @@ on:
       - 'master'
     tags:
       - 'v*'
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
 jobs:
   docker:
     runs-on: ubuntu-latest
