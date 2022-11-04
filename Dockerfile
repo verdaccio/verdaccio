@@ -1,4 +1,4 @@
-FROM nodesource/nsolid:gallium-alpine-4.7.3 as builder
+FROM nodesource/nsolid:hydrogen-alpine-4.8.3 as builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -20,7 +20,7 @@ RUN npm -g i pnpm@6.32.15 && \
 # FIXME: need to remove devDependencies from the build
 # RUN pnpm install --prod --ignore-scripts
 
-FROM nodesource/nsolid:gallium-alpine-4.7.3
+FROM nodesource/nsolid:hydrogen-alpine-4.8.3
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
