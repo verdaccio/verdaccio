@@ -17,9 +17,11 @@
             "setup-pnpm"
           ]
         },
+        "configuration",
         "who-is-using",
         "best",
         "docker",
+        "env",
         "protect-your-dependencies",
         "e2e",
         "verdaccio-programmatically",
@@ -41,7 +43,6 @@
       "type": "category",
       "label": "Features",
       "items": [
-        "configuration",
         "uplinks",
         "packages",
         "authentication",

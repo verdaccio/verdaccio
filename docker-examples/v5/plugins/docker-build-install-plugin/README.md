@@ -38,9 +38,11 @@ FROM verdaccio/verdaccio:5
 
 # copy your modified config.yaml into the image
 ADD docker.yaml /verdaccio/conf/config.yaml
-
-COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
-  /verdaccio/plugins/node_modules/verdaccio-auth-memory \
-  /verdaccio/plugins/verdaccio-auth-memory
-
+# need it for install global plugins
+USER root
+# install plugins with npm global
+RUN npm install --global verdaccio-static-token \
+  && npm install --global verdaccio-auth-memory
+# back to original user
+USER $VERDACCIO_USER_UID
 ```

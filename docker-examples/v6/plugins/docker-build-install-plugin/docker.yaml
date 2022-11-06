@@ -176,6 +176,13 @@ server:
 middlewares:
   audit:
     enabled: true
+  static-token:
+    - token: mySecureToken
+      user: systemUser
+      password: systemPassword
+    - token: ABCD1234
+      user: uncle
+      password: tom
 
 # https://verdaccio.org/docs/logger
 # log settings
