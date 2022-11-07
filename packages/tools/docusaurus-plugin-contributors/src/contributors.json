@@ -3,7 +3,7 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4873,
+      "contributions": 4884,
       "repositories": [
         {
           "name": "verdaccio",
@@ -132,6 +132,10 @@
         {
           "name": "cdn-assets",
           "contributions": 33
+        },
+        {
+          "name": "e2e-5.x",
+          "contributions": 11
         }
       ]
     },
@@ -1954,7 +1958,7 @@
     },
     {
       "id": 1165381,
-      "login": "adnsio",
+      "login": "alessiodionisi",
       "contributions": 2,
       "repositories": [
         {
@@ -4714,7 +4718,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14058,
+      "stargazers_count": 14080,
       "archived": false
     },
     {
@@ -4741,7 +4745,7 @@
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
       "description": " 🧩 yeoman verdaccio plugin generator",
-      "stargazers_count": 10,
+      "stargazers_count": 11,
       "archived": false
     },
     {
@@ -5011,6 +5015,15 @@
       "full_name": "verdaccio/cdn-assets",
       "html_url": "https://github.com/verdaccio/cdn-assets",
       "description": "Fancy cheap CDN for assets",
+      "stargazers_count": 0,
+      "archived": false
+    },
+    {
+      "name": "e2e-5.x",
+      "login": "verdaccio",
+      "full_name": "verdaccio/e2e-5.x",
+      "html_url": "https://github.com/verdaccio/e2e-5.x",
+      "description": "e2e test for package managers 5.x",
       "stargazers_count": 0,
       "archived": false
     }
