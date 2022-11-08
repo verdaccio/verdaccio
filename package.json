@@ -17,11 +17,15 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
-  "files": ["./build", "./index.js", "./conf/"],
+  "files": [
+    "./build",
+    "./index.js",
+    "./conf/"
+  ],
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/local-storage": "10.3.1",
-    "@verdaccio/readme": "10.4.1",
+    "@verdaccio/readme": "10.4.2",
     "@verdaccio/streams": "10.2.0",
     "@verdaccio/ui-theme": "6.0.0-6-next.50",
     "JSONStream": "1.3.5",
@@ -32,7 +36,7 @@
     "cookies": "0.8.0",
     "cors": "2.8.5",
     "dayjs": "1.11.6",
-    "debug": "^4.3.3",
+    "debug": "^4.3.4",
     "envinfo": "7.8.1",
     "eslint-import-resolver-node": "0.3.6",
     "express": "4.18.2",
@@ -46,7 +50,7 @@
     "lodash": "4.17.21",
     "lru-cache": "7.14.0",
     "lunr-mutable-indexes": "2.3.2",
-    "marked": "4.1.1",
+    "marked": "4.2.2",
     "memoizee": "0.4.15",
     "mime": "3.0.0",
     "minimatch": "5.1.0",
@@ -59,8 +63,8 @@
     "request": "2.88.0",
     "semver": "7.3.7",
     "validator": "13.7.0",
-    "verdaccio-audit": "10.2.2",
-    "verdaccio-htpasswd": "10.5.0"
+    "verdaccio-audit": "10.2.3",
+    "verdaccio-htpasswd": "10.5.1"
   },
   "devDependencies": {
     "@babel/cli": "7.19.3",
