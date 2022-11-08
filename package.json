@@ -203,5 +203,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@3.2.4"
 }
