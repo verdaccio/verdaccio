@@ -1,10 +1,9 @@
-name: Release
+name: Release 5.x
 
 on:
-  workflow_dispatch:
   push:
-    tags:
-      - '*'
+    # tags:
+    #   - '*'
 jobs:
   release:
     name: Release
