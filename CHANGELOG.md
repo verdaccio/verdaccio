@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.16.0](https://github.com/verdaccio/verdaccio/compare/v5.15.4...v5.16.0) (2022-11-08)
+
+
+### Features
+
+* docker image refactor a new internal binary run  ([#3475](https://github.com/verdaccio/verdaccio/issues/3475)) ([ebaaf3f](https://github.com/verdaccio/verdaccio/commit/ebaaf3f6811c11f5407482628df40198d97c4b83))
+* update to docker base image to node v18.12.0 ([#3469](https://github.com/verdaccio/verdaccio/issues/3469)) ([644938c](https://github.com/verdaccio/verdaccio/commit/644938c0f31dd375af6023362ea9596de1dfa3c5))
+
+
+### Bug Fixes
+
+* **deps:** update dependency body-parser to v1.20.1 ([#3438](https://github.com/verdaccio/verdaccio/issues/3438)) ([b3b44f6](https://github.com/verdaccio/verdaccio/commit/b3b44f6317cf7e47689e336bfa6e2c8c8e3d1a93))
+* **deps:** update dependency dayjs to v1.11.6 ([#3459](https://github.com/verdaccio/verdaccio/issues/3459)) ([106e00a](https://github.com/verdaccio/verdaccio/commit/106e00a751ff7f89b660861e5cdd95811a8069a3))
+* **deps:** update dependency express to v4.18.2 ([#3435](https://github.com/verdaccio/verdaccio/issues/3435)) ([128ab21](https://github.com/verdaccio/verdaccio/commit/128ab21a8ae6a83a8650acc1021a460339b0ba74))
+* **deps:** update dependency marked to v4.1.1 ([#3439](https://github.com/verdaccio/verdaccio/issues/3439)) ([1a1572f](https://github.com/verdaccio/verdaccio/commit/1a1572ff9e8eeffb35f2beac2bb24a760b6326bc))
+* update core deps ([#3485](https://github.com/verdaccio/verdaccio/issues/3485)) ([7a000bc](https://github.com/verdaccio/verdaccio/commit/7a000bccdb2af156936a7118cb8b64c51a27015e))
+
 ### [5.15.4](https://github.com/verdaccio/verdaccio/compare/v5.15.3...v5.15.4) (2022-09-29)
 
 
