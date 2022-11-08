@@ -2,8 +2,8 @@ name: Release 5.x
 
 on:
   push:
-    # tags:
-    #   - '*'
+    tags:
+      - '*'
 jobs:
   release:
     name: Release
