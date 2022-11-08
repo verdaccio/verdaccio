@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.16.1](https://github.com/verdaccio/verdaccio/compare/v5.16.0...v5.16.1) (2022-11-08)
+
+
+### Bug Fixes
+
+* missing files on release ([61e0136](https://github.com/verdaccio/verdaccio/commit/61e01368f4170d3cf33e1ed4997f002fd8317368))
+
 ## [5.16.0](https://github.com/verdaccio/verdaccio/compare/v5.15.4...v5.16.0) (2022-11-08)
 
 
