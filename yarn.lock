@@ -2978,14 +2978,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.4.1":
-  version: 10.4.1
-  resolution: "@verdaccio/readme@npm:10.4.1"
+"@verdaccio/readme@npm:10.4.2":
+  version: 10.4.2
+  resolution: "@verdaccio/readme@npm:10.4.2"
   dependencies:
-    dompurify: 2.3.9
+    dompurify: 2.4.0
     jsdom: 16.7.0
-    marked: 4.0.18
-  checksum: c2ae5465a780628e21e320af2f8894305cd5e14ccd8b4a2af70e7fda15e4b1c0ca8ec1700c635d617066e90d97c2f70452921dfe80a7d9b97488137aaaf5ae36
+    marked: 4.2.2
+  checksum: 73492f11378cb2d4047caa693bde9e322b730b1d79c84ecea92098b4fda104b644d6098b016819069c5a7482bff993e28c35fbbc69f98f23ce0a042cc30dbfc4
   languageName: node
   linkType: hard
 
@@ -3256,10 +3256,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apache-md5@npm:1.1.7":
-  version: 1.1.7
-  resolution: "apache-md5@npm:1.1.7"
-  checksum: a248de461d0993fd3721255b270caf67a06bd98ff5b4653724eaed8fa8be53a1e8ab88274bf6c0cce190fe8e796a309505f8805ad212a9a6dec297a6c3ab99ad
+"apache-md5@npm:1.1.8":
+  version: 1.1.8
+  resolution: "apache-md5@npm:1.1.8"
+  checksum: 5f93fe00a4c75c947a8ba88054cfa9c141ea13d1581515a59637d580747581345f8cee41204af354f7280439ab19120f4bec4a1ee5cf1ac7033a7a89dbb05ada
   languageName: node
   linkType: hard
 
@@ -3703,26 +3703,6 @@ __metadata:
   version: 2.2.0
   resolution: "binary-extensions@npm:2.2.0"
   checksum: ccd267956c58d2315f5d3ea6757cf09863c5fc703e50fbeb13a7dc849b812ef76e3cf9ca8f35a0c48498776a7478d7b4a0418e1e2b8cb9cb9731f2922aaad7f8
-  languageName: node
-  linkType: hard
-
-"body-parser@npm:1.20.0":
-  version: 1.20.0
-  resolution: "body-parser@npm:1.20.0"
-  dependencies:
-    bytes: 3.1.2
-    content-type: ~1.0.4
-    debug: 2.6.9
-    depd: 2.0.0
-    destroy: 1.2.0
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    on-finished: 2.4.1
-    qs: 6.10.3
-    raw-body: 2.5.1
-    type-is: ~1.6.18
-    unpipe: 1.0.0
-  checksum: 12fffdeac82fe20dddcab7074215d5156e7d02a69ae90cbe9fee1ca3efa2f28ef52097cbea76685ee0a1509c71d85abd0056a08e612c09077cad6277a644cf88
   languageName: node
   linkType: hard
 
@@ -5014,10 +4994,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:2.3.9":
-  version: 2.3.9
-  resolution: "dompurify@npm:2.3.9"
-  checksum: 68fb9503fcc64a5e2c4e8869c2d51836f78eedfc5833eb8e8844d7f4f9dfe1abfaba2e5a00f1b0395aa4651f0bcafdda5bfbf32d16f74509544432e9cde7fe9b
+"dompurify@npm:2.4.0":
+  version: 2.4.0
+  resolution: "dompurify@npm:2.4.0"
+  checksum: c93ea73cf8e3ba044588450198563e56ce6902e36d0e16e3699df2fa59e82c4fdd11d4ad04ef5024569ce96a35b46f29d0bbea522516add33cd39a7f56a8a675
   languageName: node
   linkType: hard
 
@@ -5757,45 +5737,6 @@ __metadata:
   version: 5.5.1
   resolution: "express-rate-limit@npm:5.5.1"
   checksum: 264820bd5fe350794f90497c5bdc7b323eec4394873cd4b9f9d3654b2c47b285e87270a5a11721fb7fb895d56218e9657ea7bb9a544dd43770c6e7beaad217e8
-  languageName: node
-  linkType: hard
-
-"express@npm:4.18.1":
-  version: 4.18.1
-  resolution: "express@npm:4.18.1"
-  dependencies:
-    accepts: ~1.3.8
-    array-flatten: 1.1.1
-    body-parser: 1.20.0
-    content-disposition: 0.5.4
-    content-type: ~1.0.4
-    cookie: 0.5.0
-    cookie-signature: 1.0.6
-    debug: 2.6.9
-    depd: 2.0.0
-    encodeurl: ~1.0.2
-    escape-html: ~1.0.3
-    etag: ~1.8.1
-    finalhandler: 1.2.0
-    fresh: 0.5.2
-    http-errors: 2.0.0
-    merge-descriptors: 1.0.1
-    methods: ~1.1.2
-    on-finished: 2.4.1
-    parseurl: ~1.3.3
-    path-to-regexp: 0.1.7
-    proxy-addr: ~2.0.7
-    qs: 6.10.3
-    range-parser: ~1.2.1
-    safe-buffer: 5.2.1
-    send: 0.18.0
-    serve-static: 1.15.0
-    setprototypeof: 1.2.0
-    statuses: 2.0.1
-    type-is: ~1.6.18
-    utils-merge: 1.0.1
-    vary: ~1.1.2
-  checksum: c3d44c92e48226ef32ec978becfedb0ecf0ca21316bfd33674b3c5d20459840584f2325726a4f17f33d9c99f769636f728982d1c5433a5b6fe6eb95b8cf0c854
   languageName: node
   linkType: hard
 
@@ -8728,21 +8669,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:4.0.18":
-  version: 4.0.18
-  resolution: "marked@npm:4.0.18"
+"marked@npm:4.2.2":
+  version: 4.2.2
+  resolution: "marked@npm:4.2.2"
   bin:
     marked: bin/marked.js
-  checksum: a13e886d5059a8500a6fd552feecc16e18fc3636aa491fce372384b1fdea67e323d67ac49f7618f6977e66ca96e39f27400eb5c1273d5ee9c2301e8c33e90dce
-  languageName: node
-  linkType: hard
-
-"marked@npm:4.1.1":
-  version: 4.1.1
-  resolution: "marked@npm:4.1.1"
-  bin:
-    marked: bin/marked.js
-  checksum: 717e3357952ee53de831bf0eb110ed075bebca2376c58bcdf7ee523ef540d45308ad6d51b2c933da0968832ea4386f31c142ca65443e77c098e84f6cce73e418
+  checksum: 1593e0632ff8dee1b9c8b669f26c8ce41e675bcb08ef75052845d4943db2c4d887edacd5b2120cf99a2cc06e9fbffc346ebaf98a7555273fda6a935adbfacf50
   languageName: node
   linkType: hard
 
@@ -10063,15 +9995,6 @@ __metadata:
   version: 1.5.1
   resolution: "q@npm:1.5.1"
   checksum: 147baa93c805bc1200ed698bdf9c72e9e42c05f96d007e33a558b5fdfd63e5ea130e99313f28efc1783e90e6bdb4e48b67a36fcc026b7b09202437ae88a1fb12
-  languageName: node
-  linkType: hard
-
-"qs@npm:6.10.3":
-  version: 6.10.3
-  resolution: "qs@npm:6.10.3"
-  dependencies:
-    side-channel: ^1.0.4
-  checksum: 0fac5e6c7191d0295a96d0e83c851aeb015df7e990e4d3b093897d3ac6c94e555dbd0a599739c84d7fa46d7fee282d94ba76943983935cf33bba6769539b8019
   languageName: node
   linkType: hard
 
@@ -12098,15 +12021,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:10.2.2":
-  version: 10.2.2
-  resolution: "verdaccio-audit@npm:10.2.2"
+"verdaccio-audit@npm:10.2.3":
+  version: 10.2.3
+  resolution: "verdaccio-audit@npm:10.2.3"
   dependencies:
-    body-parser: 1.20.0
-    express: 4.18.1
+    body-parser: 1.20.1
+    express: 4.18.2
     https-proxy-agent: 5.0.1
     node-fetch: 2.6.7
-  checksum: 0d38c66f0404f3c18234fd72d733dd869a252fe37443d509a09e5932fad01bb25e5ba4fcb0ed09f18e6878a24374f1d1f4f83d40b886e4f30f417e9bdc9b7d76
+  checksum: 4bba83c84cc6acb9fd9fbf59b6853ffd8275ac45d6e626597ce09753c09c9b642752c29e3ce497d97e8f03f2cdda9613fb2d60e904a33c413aae6a54db52666a
   languageName: node
   linkType: hard
 
@@ -12119,16 +12042,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.5.0":
-  version: 10.5.0
-  resolution: "verdaccio-htpasswd@npm:10.5.0"
+"verdaccio-htpasswd@npm:10.5.1":
+  version: 10.5.1
+  resolution: "verdaccio-htpasswd@npm:10.5.1"
   dependencies:
     "@verdaccio/file-locking": 10.3.0
-    apache-md5: 1.1.7
+    apache-md5: 1.1.8
     bcryptjs: 2.4.3
     http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: 4d323a2e211efcdf1d57d01b0ce739e5d550985ff92f4d6817b46d6cfda5f71cfb0840fc5c9295396c6368a7d731152aebe5ad548649e811f9e9d60d0b711f21
+  checksum: 26a4fd039106f37287e2d298a7adf812521cf97c22fe2567563fcddc4c69e0e666ec33df5cc213b1b4ee97e28cb04845ee6fa3e3b88366be351c3cd7273e39b6
   languageName: node
   linkType: hard
 
@@ -12192,7 +12115,7 @@ __metadata:
     "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/local-storage": 10.3.1
-    "@verdaccio/readme": 10.4.1
+    "@verdaccio/readme": 10.4.2
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.7.0
     "@verdaccio/ui-theme": 6.0.0-6-next.50
@@ -12209,7 +12132,7 @@ __metadata:
     cors: 2.8.5
     cross-env: 7.0.3
     dayjs: 1.11.6
-    debug: ^4.3.3
+    debug: ^4.3.4
     detect-secrets: 1.0.6
     envinfo: 7.8.1
     eslint: 7.32.0
@@ -12242,7 +12165,7 @@ __metadata:
     lodash: 4.17.21
     lru-cache: 7.14.0
     lunr-mutable-indexes: 2.3.2
-    marked: 4.1.1
+    marked: 4.2.2
     memoizee: 0.4.15
     mime: 3.0.0
     minimatch: 5.1.0
@@ -12265,9 +12188,9 @@ __metadata:
     ts-node: 10.7.0
     typescript: 4.1.3
     validator: 13.7.0
-    verdaccio-audit: 10.2.2
+    verdaccio-audit: 10.2.3
     verdaccio-auth-memory: 10.2.0
-    verdaccio-htpasswd: 10.5.0
+    verdaccio-htpasswd: 10.5.1
     verdaccio-memory: 10.3.0
   bin:
     verdaccio: ./bin/verdaccio
