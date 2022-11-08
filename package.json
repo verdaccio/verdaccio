@@ -18,7 +18,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "files": [
-    "./build",
+    "./build/**/*",
     "./index.js",
     "./conf/"
   ],
