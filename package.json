@@ -17,11 +17,6 @@
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
-  "files": [
-    "./build/**/*",
-    "./index.js",
-    "./conf/"
-  ],
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
     "@verdaccio/local-storage": "10.3.1",
