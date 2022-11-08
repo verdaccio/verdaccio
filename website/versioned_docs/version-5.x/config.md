@@ -165,24 +165,11 @@ The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this varia
 - Used as base path to serve UI resources as (js, favicon, etc)
 - Used on return metadata `dist` base path
 - Ignores `host` and `X-Forwarded-Proto` headers
-- If `url_prefix` is defined would be appened to the env variable.
+- If `url_prefix` is defined would be appended to the env variable.
 
-```
-VERDACCIO_PUBLIC_URL='https://somedomain.org';
-url_prefix: '/my_prefix'
 
-// url -> https://somedomain.org/my_prefix/
+Read more about `VERDACCIO_PUBLIC_URL` [at the environment variables page](env.md#public-url).
 
-VERDACCIO_PUBLIC_URL='https://somedomain.org';
-url_prefix: '/'
-
-// url -> https://somedomain.org/
-
-VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
-url_prefix: '/second_prefix'
-
-// url -> https://somedomain.org/second_prefix/'
-```
 
 ### User Agent {#user-agent}
 
