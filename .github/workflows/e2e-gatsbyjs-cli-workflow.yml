@@ -38,7 +38,7 @@ jobs:
           fetch-retry-mintimeout=10000
           fetch-retry-maxtimeout=80000" > ~/.npmrc
           npm config list
-          npm i -g gatsby
+          npm i -g gatsby@4.24.7
           gatsby new my-gatsby
           cd my-gatsby
           npm run build
