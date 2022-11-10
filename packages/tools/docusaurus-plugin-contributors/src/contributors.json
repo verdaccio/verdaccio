@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4884,
+      "contributions": 4888,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2636
+          "contributions": 2637
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 183
+          "contributions": 184
         },
         {
           "name": "authentication-plugin-sample",
@@ -135,7 +135,7 @@
         },
         {
           "name": "e2e-5.x",
-          "contributions": 11
+          "contributions": 13
         }
       ]
     },
@@ -4718,7 +4718,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14080,
+      "stargazers_count": 14092,
       "archived": false
     },
     {
@@ -4844,7 +4844,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 65,
+      "stargazers_count": 67,
       "archived": false
     },
     {
@@ -5023,7 +5023,7 @@
       "login": "verdaccio",
       "full_name": "verdaccio/e2e-5.x",
       "html_url": "https://github.com/verdaccio/e2e-5.x",
-      "description": "e2e test for package managers 5.x",
+      "description": "e2e tests 5.x only ",
       "stargazers_count": 0,
       "archived": false
     }
