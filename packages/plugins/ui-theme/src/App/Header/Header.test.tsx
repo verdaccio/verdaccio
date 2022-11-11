@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import {
+  act,
   cleanup,
   fireEvent,
   renderWithStore,
@@ -15,9 +16,15 @@ import Header from './Header';
 
 /* eslint-disable react/jsx-no-bind*/
 describe('<Header /> component with logged in state', () => {
-  afterEach(cleanup);
+  beforeEach(() => {
+    store.dispatch.login.logOutUser();
+  });
 
-  test('should load the component in logged out state', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  test('should load the component n logged out state', () => {
     renderWithStore(
       <Router>
         <Header />
@@ -53,15 +60,15 @@ describe('<Header /> component with logged in state', () => {
       store
     );
 
-    store.dispatch.login.logOutUser();
-
     const loginBtn = screen.getByTestId('header--button-login');
     fireEvent.click(loginBtn);
+
     const loginDialog = await waitFor(() => screen.getByTestId('login--dialog'));
+
     expect(loginDialog).toBeTruthy();
   });
 
-  test('should logout the user', async () => {
+  test('should login and logout the user', async () => {
     const { getByText, getByTestId } = renderWithStore(
       <Router>
         <Header />
@@ -69,14 +76,27 @@ describe('<Header /> component with logged in state', () => {
       store
     );
 
-    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
-
+    fireEvent.click(screen.getByText('Login'));
+    const userNameInput = screen.getByPlaceholderText('Your username');
+    fireEvent.focus(userNameInput);
+    fireEvent.change(userNameInput, { target: { value: 'xyz' } });
+    const passwordInput = screen.getByPlaceholderText('Your strong password');
+    fireEvent.focus(passwordInput);
+    await act(async () => {
+      fireEvent.change(passwordInput, { target: { value: '1234' } });
+    });
+    const signInButton = screen.getByTestId('login-dialog-form-login-button');
+    await act(async () => {
+      fireEvent.click(signInButton);
+    });
+    await waitFor(() => getByTestId('logInDialogIcon'));
     const headerMenuAccountCircle = getByTestId('logInDialogIcon');
     fireEvent.click(headerMenuAccountCircle);
 
-    // wait for button Logout's appearance and return the element
+    // // wait for button Logout's appearance and return the element
     const logoutBtn = await waitFor(() => getByText('Logout'));
     fireEvent.click(logoutBtn);
+    await waitFor(() => getByText('Login'));
     expect(getByText('Login')).toBeTruthy();
   });
 

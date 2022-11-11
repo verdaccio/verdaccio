@@ -69,6 +69,7 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
           required: { value: true, message: t('form-validation.required-field') },
           minLength: { value: 2, message: t('form-validation.required-min-length', { length: 2 }) },
         })}
+        data-testid="password"
         label={t('form.password')}
         margin="normal"
         name="password"
