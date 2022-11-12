@@ -21,7 +21,9 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: |
+         corepack enable
+         corepack prepare --activate pnpm@6.32.15
       - name: Install
         run: pnpm install --frozen-lockfile --reporter=silence --registry http://localhost:4873
       - name: build

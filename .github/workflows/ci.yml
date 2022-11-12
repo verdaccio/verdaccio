@@ -110,6 +110,8 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+      - name: build
+        run: pnpm build
       - name: Test
         run: pnpm test
   sync-translations:
