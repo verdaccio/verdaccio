@@ -5,7 +5,6 @@ permissions:
   contents: read
 jobs:
   test:
-    needs: [prepare]
     runs-on: ubuntu-latest
     name: UI Test E2E
     services:
