@@ -2,10 +2,10 @@ import styled from '@emotion/styled';
 import Add from '@mui/icons-material/Add';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import FabMUI from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { DetailContext } from '../..';
@@ -17,7 +17,7 @@ export enum DeveloperType {
   MAINTAINERS = 'maintainers',
 }
 
-export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
+export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme?.palette.primary.main,
   color: props.theme?.palette.white,
 }));
@@ -70,11 +70,13 @@ const Developers: React.FC<Props> = ({ type, visibleMax = VISIBLE_MAX }) => {
     <>
       <DevelopersTitle type={type} />
       <StyledBox display="flex" flexWrap="wrap" margin="10px 0 10px 0">
-        {visibleDevelopers.map((visibleDeveloper) => (
-          <Tooltip key={visibleDeveloper.email} title={visibleDeveloper.name}>
-            <Avatar alt={visibleDeveloper.name} src={visibleDeveloper.avatar} />
-          </Tooltip>
-        ))}
+        {visibleDevelopers.map((visibleDeveloper) => {
+          return (
+            <Tooltip key={visibleDeveloper.email} title={visibleDeveloper.name}>
+              <Avatar alt={visibleDeveloper.name} src={visibleDeveloper.avatar} />
+            </Tooltip>
+          );
+        })}
         {visibleDevelopersMax < developers.length && (
           <Fab onClick={handleSetVisibleDevelopersMax} size="small">
             <Add />

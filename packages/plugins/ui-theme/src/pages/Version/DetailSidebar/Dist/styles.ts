@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
+import FabMUI from '@mui/material/Fab';
 import ListItem from '@mui/material/ListItem';
-import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
@@ -22,7 +22,7 @@ export const DistChips = styled(Chip)({
   marginTop: 5,
 });
 
-export const DownloadButton = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
+export const DownloadButton = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme && props.theme.palette.primary.main,
   color: props.theme && props.theme.palette.white,
 }));

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import FloatingActionButton from 'verdaccio-ui/components/FloatingActionButton';
+import FabMUI from '@mui/material/Fab';
 import Text from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
@@ -24,7 +24,7 @@ export const StyledText = styled(Text)<{ theme?: Theme }>((props) => ({
   textTransform: 'capitalize',
 }));
 
-export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>((props) => ({
+export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme?.palette.primary.main,
   color: props.theme?.palette.white,
 }));
