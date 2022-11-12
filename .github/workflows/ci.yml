@@ -87,7 +87,7 @@ jobs:
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm format:check
-  build:
+  test:
     needs: [format, lint]
     strategy:
       fail-fast: true
@@ -110,35 +110,10 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - name: build
-        run: pnpm build
       - name: Test
         run: pnpm test
-  ci-e2e-ui:
-    needs: [format, lint]
-    runs-on: ubuntu-latest
-    name: UI Test E2E
-    steps:
-      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
-      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
-      - name: build
-        run: pnpm build
-      - name: Test UI
-        run: pnpm test:e2e:ui
-        # env:
-        #  DEBUG: verdaccio:e2e*
   sync-translations:
-    needs: [ci-e2e-ui]
+    needs: [test]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
