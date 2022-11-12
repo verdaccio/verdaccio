@@ -254,7 +254,7 @@ importers:
       pnpm: latest-6
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 6.35.0
+      pnpm: 6.35.1
 
   e2e/cli/e2e-pnpm7:
     specifiers:
@@ -301,6 +301,7 @@ importers:
       '@verdaccio/test-helper': workspace:2.0.0-6-next.6
       cypress: 10.10.0
       debug: 4.3.4
+      uuid: 9.0.0
       verdaccio: workspace:6.0.0-6-next.50
     devDependencies:
       '@verdaccio/config': link:../../packages/config
@@ -308,6 +309,7 @@ importers:
       '@verdaccio/test-helper': link:../../packages/tools/helpers
       cypress: 10.10.0
       debug: 4.3.4
+      uuid: 9.0.0
       verdaccio: link:../../packages/verdaccio
 
   packages/api:
@@ -19360,8 +19362,8 @@ packages:
       semver-compare: 1.0.0
     dev: true
 
-  /pnpm/6.35.0:
-    resolution: {integrity: sha512-XKAxyK1weNV0x8Ip8/beHY1JGcO8c8fnYNL4yzZx3TxZjYOYY6r2ltrUM2R8vCD+Vmjtbq1YAKhIT7Q4Q79XSg==}
+  /pnpm/6.35.1:
+    resolution: {integrity: sha512-Pt5JEjV2JSORAqw/XtjfF4k34PBQFpqV3kUMFYSlyrWJsio5Hr3lqy2oJkpprMrVbOyBJsxXfZDQOlvmytIrgA==}
     engines: {node: '>=12.17'}
     hasBin: true
     dev: false
@@ -23795,6 +23797,11 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: true
 
   /uvu/0.5.3:
     resolution: {integrity: sha512-brFwqA3FXzilmtnIyJ+CxdkInkY/i4ErvP7uV0DnUVxQcQ55reuHphorpF+tZoVHK2MniZ/VJzI7zJQoc9T9Yw==}

@@ -8,6 +8,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.50",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.6",
     "debug": "4.3.4",
+    "uuid": "9.0.0",
     "cypress": "10.10.0"
   },
   "scripts": {
