@@ -12,9 +12,6 @@ env:
   CI: true
   PNPM_CACHE_FOLDER: .pnpm-store
 
-permissions:
-  contents: read  #  to fetch code (actions/checkout)
-
 jobs:
   # Update package versions from changesets.
   version:
