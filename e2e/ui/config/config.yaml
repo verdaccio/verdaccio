@@ -3,7 +3,7 @@ web:
   title: verdaccio-server-e2e
   login: true
 
-log: { type: stdout, format: pretty, level: debug }
+log: { type: stdout, format: pretty, level: warn }
 
 auth:
   htpasswd:
