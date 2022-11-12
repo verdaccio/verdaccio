@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  act,
-  renderWithStore,
-  screen,
-  waitFor,
-} from 'verdaccio-ui/utils/test-react-testing-library';
+import { renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '../store';
 import App from './App';
@@ -38,32 +33,6 @@ jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
 /* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
-  describe('list packages', () => {
-    test('should display the Header component', async () => {
-      renderWithStore(<App />, store);
-
-      await waitFor(() => {
-        expect(screen.queryByTestId('loading')).toBeTruthy();
-      });
-
-      // wait for the Header component appearance and return the element
-      const headerElement = await waitFor(() => screen.queryByTestId('header'));
-      expect(headerElement).toBeTruthy();
-    });
-
-    test('should display package lists', async () => {
-      act(() => {
-        renderWithStore(<App />, store);
-      });
-
-      await waitFor(() => {
-        expect(screen.getByTestId('package-item-list')).toBeInTheDocument();
-      });
-
-      expect(store.getState().packages.response).toHaveLength(1);
-    }, 10000);
-  });
-
   describe('footer', () => {
     test('should display the Header component', () => {
       renderWithStore(<App />, store);

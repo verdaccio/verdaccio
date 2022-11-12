@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-max-depth */
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
-import React, { Suspense, useEffect } from 'react';
+import React, { StrictMode, Suspense, useEffect } from 'react';
 import { Router } from 'react-router-dom';
 import Loading from 'verdaccio-ui/components/Loading';
 import StyleBaseline from 'verdaccio-ui/design-tokens/StyleBaseline';
@@ -34,20 +34,22 @@ const App: React.FC = () => {
     loadDayJSLocale();
   }, []);
   return (
-    <Suspense fallback={<Loading />}>
-      <StyleBaseline />
-      <StyledBox display="flex" flexDirection="column" height="100%">
-        <>
-          <Router history={history}>
-            <Header />
-            <StyledBoxContent flexGrow={1}>
-              <AppRoute />
-            </StyledBoxContent>
-          </Router>
-          {configOptions.showFooter && <Footer />}
-        </>
-      </StyledBox>
-    </Suspense>
+    <StrictMode>
+      <Suspense fallback={<Loading />}>
+        <StyleBaseline />
+        <StyledBox display="flex" flexDirection="column" height="100%">
+          <>
+            <Router history={history}>
+              <Header />
+              <StyledBoxContent flexGrow={1}>
+                <AppRoute />
+              </StyledBoxContent>
+            </Router>
+            {configOptions.showFooter && <Footer />}
+          </>
+        </StyledBox>
+      </Suspense>
+    </StrictMode>
   );
 };
 
