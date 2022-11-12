@@ -9,8 +9,16 @@ on:
   schedule:
     - cron: '0 0 * * *' 
 
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
 jobs:
   build:
+    permissions:
+      contents: read  #  to fetch code (actions/checkout)
+      deployments: write
+      pull-requests: write  #  to comment on pull-requests
+
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max_old_space_size=4096
