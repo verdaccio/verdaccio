@@ -22,7 +22,7 @@ function getDarkModeDefault(darkModeConfig) {
   }
 }
 
-const ThemeProviderWrapper: React.FC = ({ children }) => {
+const ThemeProviderWrapper: React.FC<{ children: any }> = ({ children }) => {
   const currentLanguage = i18next.languages?.[0];
   const { configOptions } = useConfig();
   const isDarkModeDefault = getDarkModeDefault(configOptions.darkMode);

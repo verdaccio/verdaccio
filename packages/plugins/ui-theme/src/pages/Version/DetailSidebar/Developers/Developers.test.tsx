@@ -107,7 +107,7 @@ describe('test Developers', () => {
     // item2.simulate('click');
 
     expect(wrapper.getByText('Contributors')).toBeInTheDocument();
-    fireEvent.click(wrapper.getByTestId('fab'));
+    fireEvent.click(wrapper.getByRole('button'));
 
     expect(wrapper.getByLabelText(packageMeta.latest.contributors[0].name)).toBeInTheDocument();
     expect(wrapper.getByLabelText(packageMeta.latest.contributors[1].name)).toBeInTheDocument();

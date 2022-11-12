@@ -1,0 +1,36 @@
+name: E2E UI
+
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: UI Test E2E
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:5
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8 # tag=v3
+      - name: Use Node
+        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: |
+         corepack enable
+         corepack prepare --activate pnpm@6.32.15
+      - name: Install
+        run: pnpm install --frozen-lockfile --reporter=silence --registry http://localhost:4873
+      - name: build
+        run: pnpm build
+      - name: Test UI
+        run: pnpm test:e2e:ui
+      - uses: actions/upload-artifact@v3
+        with:
+          name: videos
+          path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos

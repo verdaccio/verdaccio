@@ -25,6 +25,7 @@ const Header: React.FC = () => {
   const dispatch = useDispatch<Dispatch>();
   const handleLogout = () => {
     dispatch.login.logOutUser();
+    setShowLoginModal(false);
   };
   return (
     <>

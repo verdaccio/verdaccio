@@ -3,6 +3,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
 import RawOnIcon from '@mui/icons-material/RawOn';
+import FabMUI from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,10 +11,9 @@ import { useDispatch } from 'react-redux';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { Dispatch } from '../../store/store';
-import FloatingActionButton from '../FloatingActionButton';
 import Link from '../Link';
 
-export const Fab = styled(FloatingActionButton)<{ theme?: Theme }>(({ theme }) => ({
+export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   color: theme?.palette.white,

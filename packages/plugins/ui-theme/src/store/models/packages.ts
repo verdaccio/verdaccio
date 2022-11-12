@@ -1,16 +1,16 @@
 import { createModel } from '@rematch/core';
 
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import API from '../../providers/API/api';
 
 export const packages = createModel<RootModel>()({
   state: {
-    response: [] as Package[],
+    response: [] as Manifest[],
   },
   reducers: {
-    savePackages(state, response: Package[]) {
+    savePackages(state, response: Manifest[]) {
       return {
         ...state,
         response,
@@ -21,7 +21,10 @@ export const packages = createModel<RootModel>()({
     async getPackages(_payload, state) {
       const basePath = state.configuration.config.base;
       try {
-        const payload: Package[] = await API.request(`${basePath}-/verdaccio/data/packages`, 'GET');
+        const payload: Manifest[] = await API.request(
+          `${basePath}-/verdaccio/data/packages`,
+          'GET'
+        );
         dispatch.packages.savePackages(payload);
       } catch (error: any) {
         // eslint-disable-next-line no-console

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
+import { renderWithStore, screen, waitFor } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '../../../store';
 import { DetailContext } from '../context';
@@ -14,6 +14,13 @@ const ComponentToBeRendered: React.FC<{ contextValue: DetailContextProps }> = ({
     <DetailSidebar />
   </DetailContext.Provider>
 );
+
+// https://stackoverflow.com/a/54010619/308341
+jest.mock('react', () => {
+  const React = jest.requireActual('react');
+  React.Suspense = ({ children }) => children;
+  return React;
+});
 
 const detailContextValue: DetailContextProps = {
   packageName: 'foo',
@@ -40,8 +47,8 @@ const detailContextValue: DetailContextProps = {
 };
 
 describe('DetailSidebar', () => {
-  test('should render commonjs module icon', () => {
-    renderWithStore(
+  test('should render commonjs module icon', async () => {
+    const { getByAltText } = renderWithStore(
       <ComponentToBeRendered
         contextValue={_.merge(detailContextValue, {
           packageMeta: {
@@ -53,7 +60,8 @@ describe('DetailSidebar', () => {
       />,
       store
     );
-    expect(screen.getByAltText('commonjs')).toBeInTheDocument();
+
+    await waitFor(() => expect(getByAltText('commonjs')).toBeInTheDocument());
   });
 
   test('should render ts module icon', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import { createRoot } from 'react-dom/client';
+import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
 import AppConfigurationContext from 'verdaccio-ui/providers/config';
 
@@ -9,29 +9,23 @@ import StyleBaseline from './design-tokens/StyleBaseline';
 import ThemeProvider from './design-tokens/ThemeProvider';
 import { store } from './store';
 
-const rootNode = document.getElementById('root');
-const renderApp = (Component: React.ElementType): void => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <AppContainer>
-        <AppConfigurationContext>
-          <ThemeProvider>
-            <StyleBaseline />
-            <Component />
-          </ThemeProvider>
-        </AppConfigurationContext>
-      </AppContainer>
-    </Provider>,
-    rootNode
-  );
-};
+const container = document.getElementById('root');
+const root = createRoot(container as HTMLElement);
 
-renderApp(App);
+const AppContainer = () => (
+  <Provider store={store}>
+    <AppConfigurationContext>
+      <ThemeProvider>
+        <StyleBaseline />
+        <App />
+      </ThemeProvider>
+    </AppConfigurationContext>
+  </Provider>
+);
+
+root.render(<AppContainer />);
 
 // @ts-expect-error
 if (module.hot) {
-  // @ts-expect-error
-  module.hot.accept('./App', () => {
-    renderApp(App);
-  });
+  hot(AppContainer);
 }

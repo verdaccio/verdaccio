@@ -25,6 +25,7 @@ describe('sign spec', () => {
     cy.wait(100);
     cy.getByTestId('logOutDialogIcon').click();
     cy.screenshot();
+    cy.wait(200);
     cy.getByTestId('header--button-login').contains('Login');
     cy.screenshot();
   });

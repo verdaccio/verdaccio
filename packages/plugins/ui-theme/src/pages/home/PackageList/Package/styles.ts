@@ -6,7 +6,6 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 import Label from 'verdaccio-ui/components/Label';
-import { default as MuiText } from 'verdaccio-ui/components/Text';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
@@ -104,7 +103,7 @@ export const PackageListItemText = styled(ListItemText)({
   paddingRight: 0,
 });
 
-export const Description = styled(MuiText)<{ theme?: Theme }>(({ theme }) => ({
+export const Description = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   color: theme?.palette.mode === 'light' ? theme?.palette.greyDark2 : theme?.palette.white,
   fontSize: '14px',
   paddingRight: 0,

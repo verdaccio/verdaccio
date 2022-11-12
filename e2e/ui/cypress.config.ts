@@ -29,8 +29,8 @@ export default defineConfig({
       });
 
       on('task', {
-        publishScoped() {
-          const scopedPackageMetadata = generatePackageMetadata('pkg-scoped', '1.0.6');
+        publishScoped({ pkgName }) {
+          const scopedPackageMetadata = generatePackageMetadata(pkgName, '1.0.6');
           const server = new ServerQuery(registry1.getRegistryUrl());
           server
             .putPackage(scopedPackageMetadata.name, scopedPackageMetadata, {
