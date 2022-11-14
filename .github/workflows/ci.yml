@@ -43,7 +43,7 @@ jobs:
     - name: Install
       run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
+      uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -63,7 +63,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@6.32.15
-      - uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
+      - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -85,7 +85,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@6.32.15
-      - uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
+      - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -112,7 +112,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@6.32.15
-      - uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
+      - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -136,7 +136,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare --activate pnpm@6.32.15
-      - uses: actions/cache@1c73980b09e7aea7201f325a7aa3ad00beddcdda # tag=v3
+      - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
