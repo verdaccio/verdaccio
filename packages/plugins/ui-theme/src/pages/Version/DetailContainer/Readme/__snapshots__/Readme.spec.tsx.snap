@@ -9,16 +9,16 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   padding: 16px 24px;
 }
 
-.emotion-0 ul {
-  list-style: disc;
-}
-
 <body>
     <div>
       <div
         class="markdown-body emotion-0 emotion-1"
       >
-        test
+        <p>
+          test
+        </p>
+        
+
       </div>
     </div>
   </body>,
@@ -28,15 +28,15 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   padding: 16px 24px;
 }
 
-.emotion-0 ul {
-  list-style: disc;
-}
-
 <div>
     <div
       class="markdown-body emotion-0 emotion-1"
     >
-      test
+      <p>
+        test
+      </p>
+      
+
     </div>
   </div>,
   "debug": [Function],

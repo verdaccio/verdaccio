@@ -40,7 +40,6 @@
     "css-loader": "6.7.1",
     "dayjs": "1.11.5",
     "friendly-errors-webpack-plugin": "1.7.0",
-    "github-markdown-css": "4.0.0",
     "harmony-reflect": "1.6.2",
     "history": "4.10.1",
     "html-webpack-plugin": "5.5.0",
@@ -57,6 +56,9 @@
     "normalize.css": "8.0.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
+    "dompurify": "2.4.0",
+    "highlight.js": "11.6.0",
+    "marked": "4.2.2",
     "raw-loader": "4.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -90,8 +92,7 @@
     "webpack-dev-server": "3.11.3",
     "webpack-manifest-plugin": "4.1.1",
     "webpack-merge": "5.8.0",
-    "whatwg-fetch": "3.6.2",
-    "xss": "1.0.14"
+    "whatwg-fetch": "3.6.2"
   },
   "keywords": [
     "private",

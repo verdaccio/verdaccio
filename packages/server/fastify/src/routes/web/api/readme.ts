@@ -1,8 +1,6 @@
 import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
-import _ from 'lodash';
 
-import sanitizyReadme from '@verdaccio/readme';
 import { Manifest } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:fastify:web:readme');
@@ -27,7 +25,7 @@ async function readmeRoute(fastify: FastifyInstance) {
       },
     })) as Manifest;
     try {
-      const parsedReadme = parseReadme(manifest.name, manifest.readme as string);
+      const parsedReadme = manifest.readme;
       reply.code(fastify.statusCode.OK).send(parsedReadme);
     } catch {
       reply.code(fastify.statusCode.OK).send(NOT_README_FOUND);
@@ -52,8 +50,7 @@ async function readmeRoute(fastify: FastifyInstance) {
       },
     })) as Manifest;
     try {
-      const parsedReadme = parseReadme(manifest.name, manifest.readme as string);
-      reply.code(fastify.statusCode.OK).send(parsedReadme);
+      reply.code(fastify.statusCode.OK).send(manifest.readme);
     } catch {
       reply.code(fastify.statusCode.OK).send(NOT_README_FOUND);
     }
@@ -61,17 +58,3 @@ async function readmeRoute(fastify: FastifyInstance) {
 }
 
 export default readmeRoute;
-
-/**
- * parse package readme - markdown/ascii
- * @param {String} packageName name of package
- * @param {String} readme package readme
- * @return {String} converted html template
- */
-export function parseReadme(packageName: string, readme: string): string | void {
-  if (_.isEmpty(readme) === false) {
-    debug('sanizity readme');
-    return sanitizyReadme(readme);
-  }
-  throw new Error('ERROR: No README data found!');
-}
