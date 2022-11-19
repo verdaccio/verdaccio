@@ -5,7 +5,7 @@ title: "yarn"
 
 # yarn {#yarn}
 
-#### Yarn (1.x) {#yarn-1x}
+#### `yarn` classic (1.x) {#yarn-classic-1x}
 
 > Be aware npm configurations are valid on the classic version
 
@@ -26,7 +26,7 @@ npm config set always-auth true
 
 `yarn@1.x` does not send the authorization header on `yarn install` if your packages requires authentication, by enabling `always-auth` will force yarn do it on each request.
 
-#### Yarn Berry (>=2.x) {#yarn-berry-2x}
+#### `yarn` modern (>=2.x) {#yarn-modern-2x}
 
 > Yarn berry does not recognize `--registry` or `.npmrc` file anymore.
 
