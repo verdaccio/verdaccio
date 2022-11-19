@@ -1,5 +1,22 @@
 # @verdaccio/server-fastify
 
+## 6.0.0-6-next.32
+
+### Minor Changes
+
+- a23628be: feat: parse and sanitize on ui
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/auth@6.0.0-6-next.30
+  - @verdaccio/config@6.0.0-6-next.51
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/store@6.0.0-6-next.31
+  - @verdaccio/tarball@11.0.0-6-next.20
+  - @verdaccio/logger@6.0.0-6-next.19
+  - @verdaccio/utils@6.0.0-6-next.19
+
 ## 6.0.0-6-next.31
 
 ### Patch Changes
