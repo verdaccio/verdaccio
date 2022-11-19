@@ -2978,17 +2978,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/readme@npm:10.4.2":
-  version: 10.4.2
-  resolution: "@verdaccio/readme@npm:10.4.2"
-  dependencies:
-    dompurify: 2.4.0
-    jsdom: 16.7.0
-    marked: 4.2.2
-  checksum: 73492f11378cb2d4047caa693bde9e322b730b1d79c84ecea92098b4fda104b644d6098b016819069c5a7482bff993e28c35fbbc69f98f23ce0a042cc30dbfc4
-  languageName: node
-  linkType: hard
-
 "@verdaccio/streams@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/streams@npm:10.2.0"
@@ -3003,10 +2992,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:6.0.0-6-next.50":
-  version: 6.0.0-6-next.50
-  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.50"
-  checksum: 1e7ac1608f89cacb058c6b822928ef5828d8797419a5bf8470502f17d4b3af9e48037ed22d19d5efa8d12612131d4fc4eef4bf7aa1b281b5b685cafc30b5583c
+"@verdaccio/ui-theme@npm:6.0.0-6-next.51":
+  version: 6.0.0-6-next.51
+  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.51"
+  checksum: b478cb7cd8bef2b6dfe924728d9869765b5f540536df84dfdb2318406c595cef39ab80d5f4a2296795ad476ea427f477830212170f9c10cd01f74dc728fe0481
   languageName: node
   linkType: hard
 
@@ -4991,13 +4980,6 @@ __metadata:
   dependencies:
     webidl-conversions: ^5.0.0
   checksum: d638e9cb05c52999f1b2eb87c374b03311ea5b1d69c2f875bc92da73e17db60c12142b45c950228642ff7f845c536b65305483350d080df59003a653da80b691
-  languageName: node
-  linkType: hard
-
-"dompurify@npm:2.4.0":
-  version: 2.4.0
-  resolution: "dompurify@npm:2.4.0"
-  checksum: c93ea73cf8e3ba044588450198563e56ce6902e36d0e16e3699df2fa59e82c4fdd11d4ad04ef5024569ce96a35b46f29d0bbea522516add33cd39a7f56a8a675
   languageName: node
   linkType: hard
 
@@ -7950,7 +7932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:16.7.0, jsdom@npm:^16.4.0":
+"jsdom@npm:^16.4.0":
   version: 16.7.0
   resolution: "jsdom@npm:16.7.0"
   dependencies:
@@ -12115,10 +12097,9 @@ __metadata:
     "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/local-storage": 10.3.1
-    "@verdaccio/readme": 10.4.2
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.7.0
-    "@verdaccio/ui-theme": 6.0.0-6-next.50
+    "@verdaccio/ui-theme": 6.0.0-6-next.51
     JSONStream: 1.3.5
     all-contributors-cli: 6.20.0
     async: 3.2.4
