@@ -47,7 +47,7 @@ If you only want to publish your package to Verdaccio but keep installing from o
 }
 ```
 
-## Troubleshooting
+## Troubleshooting {#troubleshooting}
 
 ### `npm login` with npm@9 or higher
 
