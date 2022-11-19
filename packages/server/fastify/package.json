@@ -41,7 +41,6 @@
     "@verdaccio/store": "workspace:6.0.0-6-next.30",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.19",
     "@verdaccio/utils": "workspace:6.0.0-6-next.18",
-    "@verdaccio/readme": "workspace:11.0.0-6-next.6",
     "core-js": "3.25.5",
     "debug": "4.3.4",
     "fastify": "4.8.1",

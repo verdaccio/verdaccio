@@ -18,7 +18,11 @@ exports[`<Readme /> component should load the component in default state 1`] = `
       <div
         class="markdown-body emotion-0 emotion-1"
       >
-        test
+        <p>
+          test
+        </p>
+        
+
       </div>
     </div>
   </body>,
@@ -36,7 +40,11 @@ exports[`<Readme /> component should load the component in default state 1`] = `
     <div
       class="markdown-body emotion-0 emotion-1"
     >
-      test
+      <p>
+        test
+      </p>
+      
+
     </div>
   </div>,
   "debug": [Function],

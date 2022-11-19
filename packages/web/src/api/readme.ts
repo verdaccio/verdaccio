@@ -4,11 +4,10 @@ import { Router } from 'express';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
-import sanitizyReadme from '@verdaccio/readme';
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
 
-import { AuthorAvatar, addScope, parseReadme } from '../utils/web-utils';
+import { AuthorAvatar, addScope } from '../utils/web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
@@ -54,9 +53,9 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
         debug('readme pkg %o', manifest?.name);
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
         try {
-          next(parseReadme(manifest.name, manifest.readme as string));
+          next(manifest.readme);
         } catch {
-          next(sanitizyReadme(NOT_README_FOUND));
+          next(NOT_README_FOUND);
         }
       } catch (err) {
         next(err);

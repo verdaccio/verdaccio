@@ -31,7 +31,6 @@
     "@verdaccio/loaders": "workspace:6.0.0-6-next.19",
     "@verdaccio/logger": "workspace:6.0.0-6-next.18",
     "@verdaccio/middleware": "workspace:6.0.0-6-next.29",
-    "@verdaccio/readme": "workspace:11.0.0-6-next.6",
     "@verdaccio/store": "workspace:6.0.0-6-next.30",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.19",
     "@verdaccio/url": "workspace:11.0.0-6-next.16",

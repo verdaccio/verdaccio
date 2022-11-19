@@ -4,11 +4,16 @@ import React from 'react';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
 
 import { Props } from './types';
+import { parseReadme } from './utils';
 
-const Readme: React.FC<Props> = ({ description }) => (
-  <Wrapper className="markdown-body" dangerouslySetInnerHTML={{ __html: description }} />
-);
-
+const Readme: React.FC<Props> = ({ description }) => {
+  return (
+    <Wrapper
+      className="markdown-body"
+      dangerouslySetInnerHTML={{ __html: parseReadme(description) }}
+    />
+  );
+};
 export default Readme;
 
 const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
