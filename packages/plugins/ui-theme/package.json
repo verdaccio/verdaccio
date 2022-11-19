@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-theme",
-  "version": "6.0.0-6-next.50",
+  "version": "6.0.0-6-next.51",
   "description": "Verdaccio User Interface",
   "author": {
     "name": "Verdaccio Contributors",
@@ -32,7 +32,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/react-virtualized": "9.21.21",
     "@types/redux": "3.6.0",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.50",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.51",
     "@verdaccio/types": "workspace:*",
     "babel-loader": "8.2.5",
     "babel-plugin-dynamic-import-node": "2.3.3",

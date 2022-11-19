@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.51
+
+### Minor Changes
+
+- 0481b9a3: feat: upgrade to react 18
+- a23628be: feat: parse and sanitize on ui
+
 ## 6.0.0-6-next.50
 
 ### Patch Changes
