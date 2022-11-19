@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.17.0](https://github.com/verdaccio/verdaccio/compare/v5.16.3...v5.17.0) (2022-11-19)
+
+
+### Features
+
+* highlight readme source code ([#3506](https://github.com/verdaccio/verdaccio/issues/3506)) ([8715a5c](https://github.com/verdaccio/verdaccio/commit/8715a5cfa2cc6af65e64f034c72a4c02bf24d8f7))
+
+
+### Bug Fixes
+
+* **sec:** update base image to v18.12.1-alpine ([#3489](https://github.com/verdaccio/verdaccio/issues/3489)) ([07144c9](https://github.com/verdaccio/verdaccio/commit/07144c9886035945e6c0d0dbb1f310794efa4298))
+
 ### [5.16.3](https://github.com/verdaccio/verdaccio/compare/v5.16.2...v5.16.3) (2022-11-08)
 
 
