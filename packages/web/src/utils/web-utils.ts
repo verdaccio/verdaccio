@@ -1,7 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-// import sanitizyReadme from '@verdaccio/readme';
 // import { normalizeContributors } from '@verdaccio/store';
 import { Author, ConfigYaml } from '@verdaccio/types';
 
@@ -18,23 +17,6 @@ export function validatePrimaryColor(primaryColor) {
 
   return primaryColor;
 }
-
-/**
- * parse package readme - markdown/ascii
- * @param {String} packageName name of package
- * @param {String} readme package readme
- * @return {String} converted html template
- */
-// export function parseReadme(packageName: string, readme: string): string | void {
-//   if (_.isEmpty(readme) === false) {
-//     debug('sanizity readme');
-//     return sanitizyReadme(readme);
-//   }
-
-//   // logs readme not found error
-//   // logger.error({ packageName }, '@{packageName}: No readme found');
-//   throw new Error('ERROR: No README data found!');
-// }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
   debug('deleted unused version properties');

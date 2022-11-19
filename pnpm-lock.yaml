@@ -800,8 +800,8 @@ importers:
       dayjs: 1.11.5
       dompurify: 2.4.0
       friendly-errors-webpack-plugin: 1.7.0
-      github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
+      highlight.js: 11.6.0
       history: 4.10.1
       html-webpack-plugin: 5.5.0
       i18next: 20.6.1
@@ -852,7 +852,6 @@ importers:
       webpack-manifest-plugin: 4.1.1
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
-      xss: 1.0.14
     devDependencies:
       '@emotion/babel-plugin': 11.10.2_@babel+core@7.19.3
       '@emotion/css': 11.10.0_@babel+core@7.19.3
@@ -882,8 +881,8 @@ importers:
       dayjs: 1.11.5
       dompurify: 2.4.0
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.74.0
-      github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
+      highlight.js: 11.6.0
       history: 4.10.1
       html-webpack-plugin: 5.5.0_webpack@5.74.0
       i18next: 20.6.1
@@ -934,7 +933,6 @@ importers:
       webpack-manifest-plugin: 4.1.1_webpack@5.74.0
       webpack-merge: 5.8.0
       whatwg-fetch: 3.6.2
-      xss: 1.0.14
 
   packages/proxy:
     specifiers:
@@ -11835,10 +11833,6 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  /cssfilter/0.0.10:
-    resolution: {integrity: sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=}
-    dev: true
-
   /cssnano-preset-advanced/5.3.8_postcss@8.4.16:
     resolution: {integrity: sha512-xUlLLnEB1LjpEik+zgRNlk8Y/koBPPtONZjp7JKbXigeAmCrFvq9H0pXW5jJV45bQWAlmJ0sKy+IMr0XxLYQZg==}
     engines: {node: ^10 || ^12 || >=14.0}
@@ -14620,10 +14614,6 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
-  /github-markdown-css/4.0.0:
-    resolution: {integrity: sha512-mH0bcIKv4XAN0mQVokfTdKo2OD5K8WJE9+lbMdM32/q0Ie5tXgVN/2o+zvToRMxSTUuiTRcLg5hzkFfOyBYreg==}
-    dev: true
-
   /github-slugger/1.4.0:
     resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
 
@@ -14989,6 +14979,11 @@ packages:
   /hexoid/1.0.0:
     resolution: {integrity: sha512-QFLV0taWQOZtvIRIAdBChesmogZrtuXvVWsFHZTk2SU+anspqZ2vMnoLg7IE1+Uk16N19APic1BuF8bC8c2m5g==}
     engines: {node: '>=8'}
+    dev: true
+
+  /highlight.js/11.6.0:
+    resolution: {integrity: sha512-ig1eqDzJaB0pqEvlPVIpSSyMaO92bH1N2rJpLMN/nX396wTpDA4Eq0uK+7I/2XG17pFaaKE0kjV/XPeGt7Evjw==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /history/4.10.1:
@@ -24934,15 +24929,6 @@ packages:
 
   /xmlchars/2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
-    dev: true
-
-  /xss/1.0.14:
-    resolution: {integrity: sha512-og7TEJhXvn1a7kzZGQ7ETjdQVS2UfZyTlsEdDOqvQF7GoxNfY+0YLCzBy1kPdsDDx4QuNAonQPddpsn6Xl/7sw==}
-    engines: {node: '>= 0.10.0'}
-    hasBin: true
-    dependencies:
-      commander: 2.20.3
-      cssfilter: 0.0.10
     dev: true
 
   /xtend/4.0.2:

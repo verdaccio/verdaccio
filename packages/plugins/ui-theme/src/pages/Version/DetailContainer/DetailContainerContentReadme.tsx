@@ -1,5 +1,4 @@
 import React from 'react';
-import { preventXSS } from 'verdaccio-ui/utils/sec-utils';
 
 import Readme from './Readme';
 
@@ -11,8 +10,8 @@ const DetailContainerContentReadme: React.FC<Props> = ({ description }) => {
   if (!description) {
     return null;
   }
-  const encodedReadme = preventXSS(description);
-  return <Readme description={encodedReadme} />;
+
+  return <Readme description={description} />;
 };
 
 export default DetailContainerContentReadme;
