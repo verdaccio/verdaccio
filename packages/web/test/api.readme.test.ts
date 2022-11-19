@@ -8,7 +8,7 @@ import { publishVersion } from '@verdaccio/test-helper';
 import { NOT_README_FOUND } from '../src/api/readme';
 import { initializeServer } from './helper';
 
-setup([]);
+setup({});
 
 const mockManifest = jest.fn();
 jest.mock('@verdaccio/ui-theme', () => mockManifest());
