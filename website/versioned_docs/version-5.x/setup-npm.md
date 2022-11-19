@@ -49,6 +49,16 @@ If you only want to publish your package to Verdaccio but keep installing from o
 
 ## Troubleshooting
 
+### `npm login` with npm@9 or higher
+
+If you are running into issues login with `npm@9.x` or higher you could try use the legacy mode.
+
+```bash
+npm login --auth-type=legacy
+```
+
+For progress on the native support on future you can track the following [issue#3413](https://github.com/verdaccio/verdaccio/issues/3413).
+
 ### npm does not save authToken when authenticating to Verdaccio
 
 If you are using either `npm@5.4.x` or `npm@5.5.x`, there are [known issues with tokens](https://github.com/verdaccio/verdaccio/issues/509#issuecomment-359193762), please upgrade to either `6.x` or downgrade to `npm@5.3.0`.
