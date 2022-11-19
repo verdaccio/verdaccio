@@ -404,26 +404,10 @@ describe('Utilities', () => {
   });
 
   describe('parseReadme', () => {
-    test('should parse makrdown text to html template', () => {
-      const markdown = '# markdown';
-      expect(parseReadme('testPackage', markdown)).toEqual('<h1 id="markdown">markdown</h1>');
-      expect(parseReadme('testPackage', String(readmeFile('markdown.md')))).toMatchSnapshot();
-    });
-
-    test('should pass for conversion of non-ascii to markdown text', () => {
-      const simpleText = 'simple text';
-      const randomText = '%%%%%**##==';
-      const randomTextMarkdown = 'simple text \n # markdown';
-
-      expect(parseReadme('testPackage', randomText)).toEqual('<p>%%%%%**##==</p>');
-      expect(parseReadme('testPackage', simpleText)).toEqual('<p>simple text</p>');
-      expect(parseReadme('testPackage', randomTextMarkdown)).toEqual('<p>simple text </p>\n<h1 id="markdown">markdown</h1>');
-    });
-
     test('should show error for no readme data', () => {
       const noData = '';
-      const spy = jest.spyOn(logger, 'error');
-      expect(parseReadme('testPackage', noData)).toEqual('<p>ERROR: No README data found!</p>');
+      const spy = jest.spyOn(logger, 'info');
+      expect(parseReadme('testPackage', noData)).toEqual('ERROR: No README data found!');
       expect(spy).toHaveBeenCalledWith({ packageName: 'testPackage' }, '@{packageName}: No readme found');
     });
   });

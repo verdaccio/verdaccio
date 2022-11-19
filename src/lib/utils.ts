@@ -11,7 +11,6 @@ import validator from 'validator';
 
 // eslint-disable-next-line max-len
 import { getBadData, getBadRequest, getCode, getConflict, getForbidden, getInternalError, getNotFound, getServiceUnavailable, getUnauthorized } from '@verdaccio/commons-api';
-import sanitizyReadme from '@verdaccio/readme';
 import { Author, Config, Package, Version } from '@verdaccio/types';
 
 import { AuthorAvatar, StringValue } from '../../types';
@@ -494,18 +493,18 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
  * parse package readme - markdown/ascii
  * @param {String} packageName name of package
  * @param {String} readme package readme
- * @param {Object} options sanitizyReadme options
+
  * @return {String} converted html template
  */
-export function parseReadme(packageName: string, readme: string, options: { pathname?: string | void } = {}): string | void {
+export function parseReadme(packageName: string, readme: string): string | void {
   if (_.isEmpty(readme) === false) {
-    return sanitizyReadme(readme, options);
+    return readme;
   }
 
   // logs readme not found error
-  logger.error({ packageName }, '@{packageName}: No readme found');
+  logger.info({ packageName }, '@{packageName}: No readme found');
 
-  return sanitizyReadme('ERROR: No README data found!');
+  return 'ERROR: No README data found!';
 }
 
 export function buildToken(type: string, token: string): string {
