@@ -1,7 +1,6 @@
 import Translate from '@docusaurus/Translate';
 import Tooltip from '@mui/material/Tooltip';
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
-import Avatar from '@mui/material/Avatar';
 import Badge from '@mui/material/Badge';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -14,11 +13,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { green, yellow } from '@mui/material/colors';
-import { createStyles } from '@mui/material/styles';
 import { makeStyles, withStyles } from '@mui/styles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import styled from '@emotion/styled';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MergeTypeIcon from '@mui/icons-material/MergeType';
 import StarIcon from '@mui/icons-material/Star';
@@ -160,9 +156,11 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                   onKeyDown={(event) => handleKeyDown(event, userItem)}
                   onClick={() => handleClickOpen(userItem)}
                 >
-                  <Avatar
+                  <img
                     src={generateImage(userItem.node.userId)}
                     alt={userItem.node.url}
+                    width="40px"
+                    style={{borderRadius: '10px'}}
                   />
                 </div>
               );
@@ -178,10 +176,12 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Avatar
+                      <img
                         src={generateImage(user.node.userId)}
                         alt={user.node.url}
                         className={classes.medium}
+                        width="40px"
+                        style={{borderRadius: '10px'}}
                       />
                     </a>
                   </Grid>
