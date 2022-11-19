@@ -95,7 +95,7 @@ module.exports = {
   ],
   plugins: [
     'docusaurus-plugin-sass',
-    "docusaurus-plugin-contributors",
+    'docusaurus-plugin-contributors',
     isProductionDeployment && typeof process.env.SENTRY_KEY === 'string' && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }],    
     [
       'docusaurus-plugin-typedoc',
