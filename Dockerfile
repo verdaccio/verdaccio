@@ -6,8 +6,8 @@ ENV NODE_ENV=development \
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
-    apk add glibc-2.25-r0.apk
+    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
+    apk add --force-overwrite glibc-2.35-r0.apk
 
 WORKDIR /opt/verdaccio-build
 COPY . .
