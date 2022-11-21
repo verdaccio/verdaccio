@@ -1,6 +1,6 @@
-import { PrettyOptions } from 'pino';
+import { LoggerOptions } from 'pino';
 
-export interface PrettyOptionsExtended extends PrettyOptions {
+export interface PrettyOptionsExtended extends LoggerOptions {
   prettyStamp: boolean;
   colors?: boolean;
 }
