@@ -41,14 +41,14 @@
     "@verdaccio/store": "workspace:6.0.0-6-next.31",
     "@verdaccio/tarball": "workspace:11.0.0-6-next.20",
     "@verdaccio/utils": "workspace:6.0.0-6-next.19",
-    "core-js": "3.25.5",
+    "core-js": "3.26.1",
     "debug": "4.3.4",
-    "fastify": "4.8.1",
+    "fastify": "4.10.0",
     "fastify-plugin": "4.3.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.65",
+    "@types/node": "16.18.3",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "ts-node": "10.9.1"
   },

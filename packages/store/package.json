@@ -56,12 +56,12 @@
     "semver": "7.3.8"
   },
   "devDependencies": {
-    "@types/node": "16.11.65",
+    "@types/node": "16.18.3",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.6",
     "undici": "4.16.0",
     "nock": "13.2.9",
-    "node-mocks-http": "1.11.0",
+    "node-mocks-http": "1.12.1",
     "mockdate": "3.0.5"
   },
   "funding": {

@@ -44,16 +44,16 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.19",
     "@verdaccio/server": "workspace:6.0.0-6-next.40",
     "@verdaccio/server-fastify": "workspace:6.0.0-6-next.32",
-    "core-js": "3.25.5",
+    "core-js": "3.26.1",
     "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.65",
+    "@types/node": "16.18.3",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "jest-mock-process": "1.5.1",
     "selfsigned": "1.10.14",
-    "supertest": "6.3.0"
+    "supertest": "6.3.1"
   },
   "publishConfig": {
     "access": "public"

@@ -48,16 +48,16 @@
     "debug": "4.3.4",
     "lodash": "4.17.21",
     "got": "11.8.5",
-    "hpagent": "1.1.0",
+    "hpagent": "1.2.0",
     "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.65",
+    "@types/node": "16.18.3",
     "p-cancelable": "2.1.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "get-stream": "^6.0.1",
     "nock": "13.2.9",
-    "node-mocks-http": "1.11.0",
+    "node-mocks-http": "1.12.1",
     "semver": "7.3.8"
   },
   "funding": {

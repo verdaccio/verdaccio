@@ -40,14 +40,14 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.51",
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.6",
     "@verdaccio/utils": "workspace:6.0.0-6-next.19",
-    "core-js": "3.25.5",
+    "core-js": "3.26.1",
     "debug": "4.3.4",
     "globby": "11.1.0",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
-    "lru-cache": "7.14.0"
+    "lru-cache": "7.14.1"
   },
   "devDependencies": {
     "@types/minimatch": "3.0.5",
