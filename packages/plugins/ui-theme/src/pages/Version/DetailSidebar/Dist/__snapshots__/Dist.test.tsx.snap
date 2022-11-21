@@ -210,9 +210,9 @@ exports[`<Dist /> component should render the component in default state 1`] = `
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {
@@ -502,9 +502,9 @@ exports[`<Dist /> component should render the component in default state 1`] = `
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {
@@ -849,9 +849,9 @@ exports[`<Dist /> component should render the component with license as object 1
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {
@@ -1154,9 +1154,9 @@ exports[`<Dist /> component should render the component with license as object 1
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {
@@ -1514,9 +1514,9 @@ exports[`<Dist /> component should render the component with license as string 1
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {
@@ -1819,9 +1819,9 @@ exports[`<Dist /> component should render the component with license as string 1
 }
 
 .emotion-6 .MuiChip-icon {
-  color: #616161;
   margin-left: 5px;
   margin-right: -6px;
+  color: #616161;
 }
 
 .emotion-6 .MuiChip-deleteIcon {

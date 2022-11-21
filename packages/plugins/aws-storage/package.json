@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "recursive-readdir": "2.2.2"
+    "recursive-readdir": "2.2.3"
   },
   "scripts": {
     "clean": "rimraf ./build",

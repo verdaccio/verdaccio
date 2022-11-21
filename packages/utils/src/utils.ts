@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
-import { Author, Package } from '@verdaccio/types';
+import { Author, Manifest, Package } from '@verdaccio/types';
 
 import { stringToMD5 } from './crypto-utils';
 
@@ -148,7 +148,7 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
   return hasMatchVersion;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
+export function addGravatarSupport(pkgInfo: Manifest, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
   const contributors: AuthorAvatar[] = normalizeContributors(
@@ -190,6 +190,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
     pkgInfoCopy.latest.maintainers = maintainers.map((maintainer): void => {
+      // @ts-ignore
       maintainer.avatar = generateGravatarUrl(maintainer.email, online);
       return maintainer;
     });
