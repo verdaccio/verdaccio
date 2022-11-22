@@ -6,7 +6,6 @@ import _ from 'lodash';
 
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../types';
 import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR, HTTP_STATUS } from '../lib/constants';
@@ -14,6 +13,7 @@ import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode, getUserAgent } from '../lib/utils';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, final, log, serveFavicon } from './middleware';

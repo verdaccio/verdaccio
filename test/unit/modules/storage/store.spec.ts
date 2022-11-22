@@ -9,8 +9,8 @@ import AppConfig from '../../../../src/lib/config';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
-import { IStorageHandler } from '../../../types';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
+import { IStorageHandler } from '../../../types';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
