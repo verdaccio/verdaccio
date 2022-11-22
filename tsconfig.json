@@ -7,10 +7,11 @@
     "strict": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
-    "outDir": "lib",
+    "rootDir": "./src",
+    "outDir": "./build",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
   "exclude": ["node_modules", "**/*.spec.ts"],
-  "include": ["src/**/*.ts", "test/**/*.ts", "types/*.d.ts"]
+  "include": ["src/**/*.ts", "types/*.d.ts"]
 }

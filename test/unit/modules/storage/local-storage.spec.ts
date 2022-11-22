@@ -9,9 +9,9 @@ import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '../../../../src/lib/constants
 import LocalStorage from '../../../../src/lib/local-storage';
 import { logger, setup } from '../../../../src/lib/logger';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
-import { IStorage } from '../../../../types';
 import { readFile } from '../../../functional/lib/test.utils';
 import { generateNewVersion } from '../../../lib/utils-test';
+import { IStorage } from '../../../types';
 // @ts-ignore
 import configExample from '../../partials/config';
 

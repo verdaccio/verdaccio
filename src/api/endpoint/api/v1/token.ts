@@ -4,12 +4,12 @@ import _ from 'lodash';
 
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../../types';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { stringToMD5 } from '../../../../lib/crypto-utils';
 import { logger } from '../../../../lib/logger';
 import { ErrorCode, mask } from '../../../../lib/utils';
+import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../types';
 import { limiter } from '../../../rate-limiter';
 
 const debug = buildDebug('verdaccio:token');

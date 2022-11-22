@@ -12,8 +12,6 @@
   ],
   "files.exclude": {
     "**/.idea": false,
-    "**/.nyc_output": true,
-    "**/build": true,
     "**/coverage": true
   },
   "editor.formatOnSave": true,

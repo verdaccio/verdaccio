@@ -3,9 +3,9 @@ import _ from 'lodash';
 
 import { Config, Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { ErrorCode, convertDistRemoteToLocalTarballUrls, getVersion } from '../../../lib/utils';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
 import { getByQualityPriorityValue } from '../../../utils/string';
 import { allow } from '../../middleware';
 

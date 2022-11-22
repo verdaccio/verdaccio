@@ -5,8 +5,8 @@ import mime from 'mime';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
 import { allow, media } from '../../middleware';
 
 export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {

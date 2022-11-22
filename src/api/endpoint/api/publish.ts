@@ -6,12 +6,12 @@ import Path from 'path';
 
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { notify } from '../../../lib/notify';
 import { isPublishablePackage } from '../../../lib/storage-utils';
 import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation, validateMetadata } from '../../../lib/utils';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
 import { allow, expectJson, media } from '../../middleware';
 import star from './star';
 

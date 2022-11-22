@@ -12,6 +12,7 @@
   },
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": "./bin/verdaccio",
   "funding": {
     "type": "opencollective",
@@ -105,7 +106,6 @@
     "@typescript-eslint/parser": "5.22.0",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "@verdaccio/types": "10.7.0",
-    "all-contributors-cli": "6.20.0",
     "babel-eslint": "10.1.0",
     "babel-jest": "26.6.3",
     "babel-plugin-dynamic-import-node": "2.3.3",
@@ -174,6 +174,7 @@
     "start:debug": "yarn node debug/bootstrap.js",
     "start:run-server": "yarn node debug/bootstrap-runserver.js",
     "code:build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps inline",
+    "code:types": "tsc --emitDeclarationOnly -p tsconfig.json",
     "code:docker-build": "yarn babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
@@ -194,7 +195,8 @@
     "*.{js,ts,tsx}": "eslint --fix  -c ./eslintrc.js"
   },
   "resolutions": {
-    "@types/serve-static": "1.13.10"
+    "@types/serve-static": "1.13.10",
+    "yarn3_test": "portal:/Users/jpicado/projects/sandbox/yarn3_test"
   },
   "collective": {
     "type": "opencollective",

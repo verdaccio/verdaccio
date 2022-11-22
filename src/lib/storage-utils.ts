@@ -2,8 +2,8 @@ import _ from 'lodash';
 
 import { AbbreviatedManifest, AbbreviatedVersions, Author, Manifest, Package, Version } from '@verdaccio/types';
 
-import { IStorage } from '../../types';
 import { generateRandomHexString } from '../lib/crypto-utils';
+import { IStorage } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import Search from './search';
 import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';

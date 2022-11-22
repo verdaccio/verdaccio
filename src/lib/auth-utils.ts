@@ -3,8 +3,8 @@ import _ from 'lodash';
 
 import { APITokenOptions, Callback, Config, IPluginAuth, JWTOptions, Package, RemoteUser, Security } from '@verdaccio/types';
 
-import { AuthMiddlewarePayload, AuthTokenHeader, BasicPayload, CookieSessionToken, IAuthWebUI } from '../../types';
 import { logger } from '../lib/logger';
+import { AuthMiddlewarePayload, AuthTokenHeader, BasicPayload, CookieSessionToken, IAuthWebUI } from '../types';
 import { API_ERROR, DEFAULT_MIN_LIMIT_PASSWORD, HTTP_STATUS, ROLES, TIME_EXPIRATION_1H, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 import { ErrorCode, convertPayloadToBase64 } from './utils';

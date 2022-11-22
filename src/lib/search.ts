@@ -3,7 +3,7 @@ import lunrMutable from 'lunr-mutable-indexes';
 
 import { Version } from '@verdaccio/types';
 
-import { IStorage, IStorageHandler, IWebSearch } from '../../types';
+import { IStorage, IStorageHandler, IWebSearch } from '../types';
 
 /**
  * Handle the search Indexer.

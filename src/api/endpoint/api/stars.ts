@@ -3,8 +3,8 @@ import _ from 'lodash';
 
 import { Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../../types';
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
+import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../types';
 
 type Packages = Package[];
 

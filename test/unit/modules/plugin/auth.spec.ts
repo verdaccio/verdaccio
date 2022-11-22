@@ -7,7 +7,7 @@ import Auth from '../../../../src/lib/auth';
 import AppConfig from '../../../../src/lib/config';
 import { ROLES } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { IAuth } from '../../../../types';
+import { IAuth } from '../../../types';
 import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
 setup([]);

@@ -2,9 +2,9 @@ import { Router } from 'express';
 
 import { Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
 import { DIST_TAGS } from '../../../lib/constants';
 import Search from '../../../lib/search';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
 
 function addSearchWebApi(storage: IStorageHandler, auth: IAuth): Router {
   const route = Router(); /* eslint new-cap: 0 */

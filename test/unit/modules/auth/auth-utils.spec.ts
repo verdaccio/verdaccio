@@ -17,7 +17,7 @@ import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants'
 import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
 import { setup } from '../../../../src/lib/logger';
 import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
-import { IAuth } from '../../../../types';
+import { IAuth } from '../../../types';
 import { parseConfigurationFile } from '../../__helper';
 import configExample from '../../partials/config';
 
