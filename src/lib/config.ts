@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Config as AppConfig, Logger, PackageList, RateLimit, Security } from '@verdaccio/types';
 
-import { MatchedPackage, StartUpConfig } from '../../types';
+import { MatchedPackage, StartUpConfig } from '../types';
 import { defaultUserRateLimiting } from './auth-utils';
 import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { APP_ERROR } from './constants';

@@ -7,7 +7,7 @@ import AppConfig from '../../../../src/lib/config';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
-import { IProxy } from '../../../../types';
+import { IProxy } from '../../../types';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';

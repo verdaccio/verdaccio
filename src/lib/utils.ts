@@ -8,12 +8,13 @@ import memoizee from 'memoizee';
 import semver from 'semver';
 import DefaultURL, { URL } from 'url';
 import validator from 'validator';
+import {StringValue} from '@verdaccio/types';
 
 // eslint-disable-next-line max-len
 import { getBadData, getBadRequest, getCode, getConflict, getForbidden, getInternalError, getNotFound, getServiceUnavailable, getUnauthorized } from '@verdaccio/commons-api';
 import { Author, Config, Package, Version } from '@verdaccio/types';
 
-import { AuthorAvatar, StringValue } from '../../types';
+import { AuthorAvatar } from '../types';
 import { GENERIC_AVATAR, generateGravatarUrl } from '../utils/user';
 import { APP_ERROR, DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL, DEFAULT_USER, DIST_TAGS, HEADERS } from './constants';
 import { logger } from './logger';

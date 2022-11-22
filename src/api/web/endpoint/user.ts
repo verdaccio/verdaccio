@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import { $NextFunctionVer, IAuth } from '../../../../types';
+import { $NextFunctionVer, IAuth } from '../../../types';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';

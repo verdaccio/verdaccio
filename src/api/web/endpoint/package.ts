@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Config, Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage, IAuth, IStorageHandler } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage, IAuth, IStorageHandler } from '../../../types';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import {

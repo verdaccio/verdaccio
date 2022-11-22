@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../types';
 import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR, HTTP_STATUS } from '../lib/constants';

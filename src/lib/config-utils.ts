@@ -4,7 +4,7 @@ import minimatch from 'minimatch';
 
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
 
-import { LegacyPackageList, MatchedPackage } from '../../types';
+import { LegacyPackageList, MatchedPackage } from '../types';
 import { ErrorCode } from './utils';
 
 const BLACKLIST = {

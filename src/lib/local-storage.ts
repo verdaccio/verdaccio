@@ -27,7 +27,7 @@ import {
   onSearchPackage,
 } from '@verdaccio/types';
 
-import { IStorage, StringValue } from '../../types';
+import { IStorage, StringValue } from '../types';
 import loadPlugin from '../lib/plugin-loader';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';

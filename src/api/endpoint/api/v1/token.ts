@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../../types';
+import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../types';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { stringToMD5 } from '../../../../lib/crypto-utils';

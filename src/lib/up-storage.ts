@@ -9,7 +9,7 @@ import zlib from 'zlib';
 import { ReadTarball } from '@verdaccio/streams';
 import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
 
-import { IProxy, UpLinkConfLocal } from '../../types';
+import { IProxy, UpLinkConfLocal } from '../types';
 import { API_ERROR, CHARACTER_ENCODING, ERROR_CODE, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { logger } from './logger';
 import { ErrorCode, buildToken, isObject, isObjectOrArray, parseInterval } from './utils';

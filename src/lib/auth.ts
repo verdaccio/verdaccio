@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { AllowAccess, AuthPluginPackage, Callback, Config, IPluginAuth, JWTSignOptions, Logger, PackageAccess, RemoteUser, Security } from '@verdaccio/types';
 
-import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../../types';
+import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../types';
 import loadPlugin from '../lib/plugin-loader';
 import {
   createAnonymousRemoteUser,

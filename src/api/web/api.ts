@@ -3,7 +3,7 @@ import { Router } from 'express';
 
 import { Config } from '@verdaccio/types';
 
-import { IAuth, IStorageHandler } from '../../../types';
+import { IAuth, IStorageHandler } from '../../types';
 import Search from '../../lib/search';
 import { match, setSecurityWebHeaders, validateName, validatePackage } from '../middleware';
 import webApi from './endpoint';

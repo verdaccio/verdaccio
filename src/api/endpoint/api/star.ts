@@ -3,7 +3,7 @@ import buildDebug from 'debug';
 import { Response } from 'express';
 import _ from 'lodash';
 
-import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../types';
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 

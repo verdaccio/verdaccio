@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { Config, Package } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { ErrorCode, convertDistRemoteToLocalTarballUrls, getVersion } from '../../../lib/utils';
 import { getByQualityPriorityValue } from '../../../utils/string';

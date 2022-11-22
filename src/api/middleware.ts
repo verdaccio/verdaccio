@@ -7,7 +7,7 @@ import validator from 'validator';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../types';
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import { logger } from '../lib/logger';
