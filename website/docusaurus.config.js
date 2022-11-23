@@ -177,7 +177,11 @@ module.exports = {
         },
       },
     ],
-  ],
+  ], 
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   webpack: {
     jsLoader: (isServer) => ({
       loader: require.resolve('esbuild-loader'),
@@ -192,6 +196,9 @@ module.exports = {
     description: 'A lightweight Node.js private proxy registry'
   },
   themeConfig: {
+    mermaid: {
+      theme: {light: 'neutral', dark: 'forest'},
+    },
     announcementBar: {
       id: 'announcementBar',
       content:
