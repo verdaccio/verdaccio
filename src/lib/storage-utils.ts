@@ -238,11 +238,13 @@ export function isPublishablePackage(pkg: Package): boolean {
 }
 
 export function hasInstallScript(version: Version) {
-  if(version?.scripts) {
+  if (version?.scripts) {
     const scripts = Object.keys(version.scripts);
-    return scripts.find(item => {
-      return ['install', 'preinstall', 'postinstall'].includes(item);
-    }) !== undefined;
+    return (
+      scripts.find((item) => {
+        return ['install', 'preinstall', 'postinstall'].includes(item);
+      }) !== undefined
+    );
   }
   return false;
 }
