@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.18.0](https://github.com/verdaccio/verdaccio/compare/v5.17.0...v5.18.0) (2022-11-23)
+
+
+### Features
+
+* export module types  ([#3508](https://github.com/verdaccio/verdaccio/issues/3508)) ([0a0b772](https://github.com/verdaccio/verdaccio/commit/0a0b772f524d146867a999ef09fce52eb4bf4188))
+
+
+### Bug Fixes
+
+* add hasInstallScript calculation ([#3509](https://github.com/verdaccio/verdaccio/issues/3509)) ([0b49566](https://github.com/verdaccio/verdaccio/commit/0b495661763a12d6c3539ed30d5dc1269348571d))
+
 ## [5.17.0](https://github.com/verdaccio/verdaccio/compare/v5.16.3...v5.17.0) (2022-11-19)
 
 
