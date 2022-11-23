@@ -392,6 +392,30 @@ describe('endpoint unit test', () => {
           });
       });
 
+      test.each([
+        'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*',
+        'application/vnd.npm.install-v1+json; q=1.0, */*',
+        'application/vnd.npm.install-v1+json',
+      ])('should fetch abbreviated puppeteer package from remote uplink with %s', (accept, done: any) => {
+        request(app)
+          .get('/puppeteer')
+          .set('accept', accept)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+          .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
+          .expect(HTTP_STATUS.OK)
+          .end(function (err, res) {
+            if (err) {
+              return done(err);
+            }
+            const manifest = res.body;
+            expect(manifest).toBeDefined();
+            expect(manifest.name).toMatch(/puppeteer/);
+            expect(manifest.versions['19.2.2'].hasInstallScript).toBeTruthy();
+            done();
+          });
+      });
+
       test('should fails with socket time out fetch tarball timeout package from remote uplink', async () => {
         const timeOutPkg = generatePackageMetadata('timeout', '1.5.1');
         const responseText = 'fooooooooooooooooo';
