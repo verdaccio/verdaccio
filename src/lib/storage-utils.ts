@@ -237,6 +237,18 @@ export function isPublishablePackage(pkg: Package): boolean {
   return _.includes(keys, 'versions');
 }
 
+export function hasInstallScript(version: Version) {
+  if (version?.scripts) {
+    const scripts = Object.keys(version.scripts);
+    return (
+      scripts.find((item) => {
+        return ['install', 'preinstall', 'postinstall'].includes(item);
+      }) !== undefined
+    );
+  }
+  return false;
+}
+
 export function convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
   const abbreviatedVersions = Object.keys(manifest.versions).reduce((acc: AbbreviatedVersions, version: string) => {
     const _version = manifest.versions[version];
@@ -262,7 +274,7 @@ export function convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManif
       bundleDependencies: _version.bundleDependencies,
       // npm cli specifics
       _hasShrinkwrap: _version._hasShrinkwrap,
-      hasInstallScript: _version.hasInstallScript,
+      hasInstallScript: hasInstallScript(_version),
     };
     acc[version] = _version_abbreviated;
     return acc;
