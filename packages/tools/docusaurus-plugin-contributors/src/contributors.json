@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4901,
+      "contributions": 4902,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2645
+          "contributions": 2646
         },
         {
           "name": "verdaccio-cookbook",
@@ -458,6 +458,21 @@
       ]
     },
     {
+      "id": 4052340,
+      "login": "rblaine95",
+      "contributions": 11,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        },
+        {
+          "name": "charts",
+          "contributions": 10
+        }
+      ]
+    },
+    {
       "id": 17836030,
       "login": "jmwilkinson",
       "contributions": 10,
@@ -506,21 +521,6 @@
         {
           "name": "verdaccio",
           "contributions": 9
-        }
-      ]
-    },
-    {
-      "id": 4052340,
-      "login": "rblaine95",
-      "contributions": 9,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        },
-        {
-          "name": "charts",
-          "contributions": 8
         }
       ]
     },
@@ -4729,7 +4729,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14135,
+      "stargazers_count": 14147,
       "archived": false
     },
     {
@@ -4801,7 +4801,7 @@
       "full_name": "verdaccio/flow-types",
       "html_url": "https://github.com/verdaccio/flow-types",
       "description": "👣🤖Typescript Types definitions for Verdaccio ",
-      "stargazers_count": 2,
+      "stargazers_count": 1,
       "archived": true
     },
     {
@@ -4837,7 +4837,7 @@
       "full_name": "verdaccio/verdaccio-google-cloud",
       "html_url": "https://github.com/verdaccio/verdaccio-google-cloud",
       "description": "☁️📦 Google Cloud storage plugin for verdaccio",
-      "stargazers_count": 18,
+      "stargazers_count": 17,
       "archived": true
     },
     {
