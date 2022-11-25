@@ -87,7 +87,7 @@
   "help": {
     "title": "No Package Published Yet.",
     "sub-title": "To publish your first package just:",
-    "first-step": "1. Login",
+    "first-step": "1. Create user",
     "first-step-command-line": "npm adduser --registry {{registryUrl}}",
     "second-step": "2. Publish",
     "second-step-command-line": "npm publish --registry {{registryUrl}}",

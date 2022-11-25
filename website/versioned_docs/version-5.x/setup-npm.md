@@ -7,7 +7,7 @@ title: "npm"
 
 The minimum supported NPM version is 5.
 
-## Using Verdaccio for all my projects (recommended)
+## Setting up global registry for all projects {#all}
 
 To set the registry for all your local projects in any terminal window run:
 
@@ -16,7 +16,7 @@ npm set registry http://localhost:4873/
 ```
 This will set the registry for your operational system user and you can find it on the file `~/.npmrc`.
 
-## Using Verdaccio only to a specific project
+## Using registry for a specific project {#specific}
 
 To set this value for a specific project open its root folder on a terminal window and run:
 ```bash
@@ -24,7 +24,13 @@ npm set registry http://localhost:4873/ --location project
 ```
 This will set the registry in a `.npmrc` file in your project root directory.
 
-## Using Verdaccio only on specific commands
+or by specific scope eg: `@my-scope/auth`:
+
+```
+npm config set @my-scope:registry http://localhost:4873
+```
+
+## Using registry only on specific command {#command}
 
 If you want one single use append `--registry http://localhost:4873/` to the required command.
 Some examples:
@@ -47,15 +53,35 @@ If you only want to publish your package to Verdaccio but keep installing from o
 }
 ```
 
+## Creating user {#creating-user}
+
+With npm 8 or below, either `adduser` or `login` are able to create users and login at the same time.
+
+```bash
+npm adduser --registry http://localhost:4873
+```
+
+after version `npm@9` the commands works separately:
+
+- `login` does not create users.
+```bash
+npm login --registry http://localhost:4873
+```
+
+- `adduser` does not login users.
+```bash
+npm adduser --registry http://localhost:4873
+```
+
+Both commands relies on web login by default, but adding `--auth-type=legacy` you can get back the previous behaviour.
+
+> [Web login is not supported for verdaccio.](https://github.com/verdaccio/verdaccio/issues/3413)
+
 ## Troubleshooting {#troubleshooting}
 
 ### `npm login` with npm@9 or higher
 
-If you are running into issues login with `npm@9.x` or higher you could try use the legacy mode.
-
-```bash
-npm login --auth-type=legacy
-```
+If you are running into issues login with `npm@9.x` or higher you could try use the legacy mode (see above).
 
 For progress on the native support on future you can track the following [issue#3413](https://github.com/verdaccio/verdaccio/issues/3413).
 
