@@ -304,7 +304,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
     <p
       class="MuiTypography-root MuiTypography-body1 emotion-6"
     >
-      1. Login
+      1. Create user
     </p>
     <div
       class="emotion-7 emotion-8"
@@ -386,7 +386,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   >
     <a
       class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall emotion-24"
-      href="https://verdaccio.org/docs/en/installation"
+      href="https://verdaccio.org/docs/cli-registry"
       tabindex="0"
     >
       Learn More
