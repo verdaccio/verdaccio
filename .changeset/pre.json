@@ -35,7 +35,6 @@
     "@verdaccio/url": "11.0.0-alpha.3",
     "@verdaccio/server-fastify": "6.0.0-6-next.9",
     "@verdaccio/eslint-config": "1.0.0",
-    "@verdaccio/benchmark": "1.0.0",
     "@verdaccio/core": "6.0.0-next.0",
     "@verdaccio/test-helper": "1.0.0",
     "docusaurus-plugin-contributors": "1.0.0",

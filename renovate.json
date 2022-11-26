@@ -118,7 +118,6 @@
         "react*",
         "ts-node",
         "mini-css*",
-        "autocannon",
         "process-warning",
         "fastify",
         "core-js",
