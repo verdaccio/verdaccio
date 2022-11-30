@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import 'github-markdown-css';
 import 'highlight.js/styles/default.css';
 import React from 'react';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';

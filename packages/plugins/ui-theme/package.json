@@ -58,6 +58,7 @@
     "ora": "5.4.1",
     "dompurify": "2.4.1",
     "highlight.js": "11.6.0",
+    "github-markdown-css": "4.0.0",
     "marked": "4.2.3",
     "raw-loader": "4.0.2",
     "react": "18.2.0",
