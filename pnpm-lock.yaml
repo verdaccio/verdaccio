@@ -262,7 +262,7 @@ importers:
       pnpm: next-7
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      pnpm: 7.17.0
+      pnpm: 7.17.1
 
   e2e/cli/e2e-yarn1:
     specifiers:
@@ -800,6 +800,7 @@ importers:
       dayjs: 1.11.6
       dompurify: 2.4.1
       friendly-errors-webpack-plugin: 1.7.0
+      github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
       highlight.js: 11.6.0
       history: 4.10.1
@@ -881,6 +882,7 @@ importers:
       dayjs: 1.11.6
       dompurify: 2.4.1
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.75.0
+      github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
       highlight.js: 11.6.0
       history: 4.10.1
@@ -16280,6 +16282,10 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
+  /github-markdown-css/4.0.0:
+    resolution: {integrity: sha512-mH0bcIKv4XAN0mQVokfTdKo2OD5K8WJE9+lbMdM32/q0Ie5tXgVN/2o+zvToRMxSTUuiTRcLg5hzkFfOyBYreg==}
+    dev: true
+
   /github-slugger/1.4.0:
     resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
 
@@ -20957,8 +20963,8 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm/7.17.0:
-    resolution: {integrity: sha512-0oy+VI/6r248MzFrr3jBTQ5qxC1wM+wP3YoGcoohPEMk+5LfQBYHsazdu8QDtuigr2jjaDi0hfg/c8k89jxiEA==}
+  /pnpm/7.17.1:
+    resolution: {integrity: sha512-O76jPxzoeja81Z/8YyTfuXt+f7qkpsyEJsNBreWYBLHY5rJkjvNE/bIUGQ2uD/rcYPEtmrZZYox21OjAMC9EGw==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: false

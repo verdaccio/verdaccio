@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import 'github-markdown-css';
 import 'highlight.js/styles/default.css';
 import React from 'react';
 import { Theme } from 'verdaccio-ui/design-tokens/theme';
@@ -20,4 +21,10 @@ const Wrapper = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   background: theme?.palette.white,
   color: theme?.palette.black,
   padding: theme?.spacing(2, 3),
+  ul: {
+    listStyle: 'disc',
+  },
+  img: {
+    maxWidth: '100%',
+  },
 }));
