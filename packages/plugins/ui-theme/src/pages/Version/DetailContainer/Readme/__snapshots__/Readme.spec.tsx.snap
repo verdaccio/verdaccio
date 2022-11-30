@@ -9,6 +9,14 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   padding: 16px 24px;
 }
 
+.emotion-0 ul {
+  list-style: disc;
+}
+
+.emotion-0 img {
+  max-width: 100%;
+}
+
 <body>
     <div>
       <div
@@ -26,6 +34,14 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   background: #fff;
   color: #000;
   padding: 16px 24px;
+}
+
+.emotion-0 ul {
+  list-style: disc;
+}
+
+.emotion-0 img {
+  max-width: 100%;
 }
 
 <div>
