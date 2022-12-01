@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.52
+
+### Patch Changes
+
+- bf4ac500: fix: markdown ul and img styles
+- 5d9b65a1: chore: improve info regarding using private registries
+
 ## 6.0.0-6-next.51
 
 ### Minor Changes
