@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/config@6.0.0-6-next.52
+- @verdaccio/tarball@11.0.0-6-next.21
+- @verdaccio/url@11.0.0-6-next.18
+- @verdaccio/hooks@6.0.0-6-next.22
+- @verdaccio/loaders@6.0.0-6-next.21
+- @verdaccio/logger@6.0.0-6-next.20
+- @verdaccio/local-storage@11.0.0-6-next.22
+- @verdaccio/proxy@6.0.0-6-next.30
+- @verdaccio/utils@6.0.0-6-next.20
+
 ## 6.0.0-6-next.31
 
 ### Patch Changes
