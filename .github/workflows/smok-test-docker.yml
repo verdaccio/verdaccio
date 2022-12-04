@@ -10,7 +10,7 @@ on:
 permissions:
   contents: read
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3
@@ -22,3 +22,4 @@ jobs:
             mkdir project
             cd project
             npm install -g verdaccio --registry http://localhost:4873
+            npm install -g gatsby-cli --registry http://localhost:4873
