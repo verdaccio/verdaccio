@@ -1,0 +1,24 @@
+name: Docker Smoke Test 5.x
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 5.x  
+  schedule:
+    # run every sunday
+    - cron: '0 0 * * 0'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Docker test
+        run: |
+            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5.x-next
+            mkdir project
+            cd project
+            npm install -g verdaccio --registry http://localhost:4873
