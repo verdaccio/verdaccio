@@ -19,7 +19,11 @@ jobs:
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5.x-next
-            mkdir project
-            cd project
-            npm install -g verdaccio --registry http://localhost:4873
-            npm install -g gatsby-cli --registry http://localhost:4873
+      - name: verdaccio cli 
+        run:  npm install -g verdaccio --registry http://localhost:4873                        
+      - name: gastby cli 
+        run:  npm install -g gatsby-cli --registry http://localhost:4873
+      - name: netlify cli 
+        run:  npm install -g netlify-cli --registry http://localhost:4873
+      - name: angular cli 
+        run:  npm install -g @angular/cli --registry http://localhost:4873
