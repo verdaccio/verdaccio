@@ -10,7 +10,7 @@ build({
   bundle: true,
   platform: `node`,
   target: `node16`,
-  sourcemap: 'linked',
+  sourcemap: 'external',
   outdir: './build',
   plugins: [esbuildPluginPino({ transports: ['@verdaccio/logger-prettify'] })],
 }).catch((err) => {
