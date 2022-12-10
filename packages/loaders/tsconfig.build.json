@@ -5,6 +5,6 @@
     "outDir": "./build",
     "noImplicitAny": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "types/*.d.ts"],
   "exclude": ["src/**/*.test.ts"]
 }

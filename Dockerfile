@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:16-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:18-alpine as builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
@@ -11,16 +11,15 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-RUN npm -g i pnpm@6.32.15 && \
+RUN corepack enable && \
+    corepack prepare --activate pnpm@next-6 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm recursive install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
     pnpm run build && \
     pnpm install -P
-# FIXME: need to remove devDependencies from the build
-# RUN pnpm install --prod --ignore-scripts
 
-FROM node:16-alpine
+FROM node:18-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \

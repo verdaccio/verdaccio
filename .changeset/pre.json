@@ -30,7 +30,6 @@
     "verdaccio-google-cloud": "11.0.0-alpha.0",
     "verdaccio-memory": "11.0.0-alpha.0",
     "@verdaccio/ui-theme": "6.0.0-alpha.1",
-    "@verdaccio/cli-standalone": "6.0.0-alpha.3",
     "@verdaccio/tarball": "11.0.0-alpha.3",
     "@verdaccio/url": "11.0.0-alpha.3",
     "@verdaccio/server-fastify": "6.0.0-6-next.9",

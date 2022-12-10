@@ -26,7 +26,7 @@ export function isES6<T>(plugin: PluginType<T>): boolean {
 export function tryLoad<T>(path: string): PluginType<T> | null {
   try {
     debug('loading plugin %s', path);
-    return require(path) as PluginType<T>;
+    return require(path) as PluginType<T>; // webpack-ignore
   } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
       debug('plugin %s not found', path);
