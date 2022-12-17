@@ -1,18 +1,13 @@
 import Translate, { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import React from 'react';
-import { Follow } from 'react-twitter-widgets';
 import cx from 'classnames';
-import { useMediaQuery } from 'usehooks-ts'
 
 import Command from './Command';
 import styles from './Header.module.scss';
 
 const Header = (): React.ReactElement => {
-  const { i18n } = useDocusaurusContext();
-  const matches = useMediaQuery('(min-width: 768px)')
   return (
     <div className={styles.header}>
       <div className={styles['header--wrap']}>
@@ -56,15 +51,6 @@ const Header = (): React.ReactElement => {
           />          
         </div>             
       </div>
-      <div className={styles['header--absolute-links']}>
-        <div>
-          <Follow
-            username="verdaccio_npm"
-            options={{ size: 'large', dnt: true, lang: i18n.currentLocale }}
-          />
-        </div>
-      </div>
-
     </div>
   );
 };

@@ -274,6 +274,12 @@ module.exports = {
           className: 'header-github-link',
           'aria-label': 'GitHub repository',
         },
+        {
+          href: 'https://fosstodon.org/@verdaccio',
+          position: 'right',
+          className: 'header-mastodon-link',
+          'aria-label': 'Follow us at Fosstodon',
+        },
       ],
     },   
     footer: {
@@ -312,8 +318,8 @@ module.exports = {
               href: 'https://discord.gg/7qWJxBf',
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/verdaccio_npm',
+              label: 'Mastodon',
+              href: 'https://fosstodon.org/@verdaccio',
             },
           ],
         },
@@ -329,8 +335,8 @@ module.exports = {
               href: 'https://github.com/verdaccio/verdaccio',
             },
             {
-              label: 'Twitter',
-              href: 'https://twitter.com/verdaccio_npm',
+              label: 'Mastodon',
+              href: 'https://fosstodon.org/@verdaccio',
             },
             {
               html: `
