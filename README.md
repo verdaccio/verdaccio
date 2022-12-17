@@ -22,7 +22,6 @@ Google Cloud Storage** or create your own plugin.
 [![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
 
-[![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
@@ -259,7 +258,7 @@ If you want to report a security vulnerability, please follow the steps which we
 | [Juan Picado](https://github.com/juanpicado)                                  | [Ayush Sharma](https://github.com/ayusharma)                            | [Sergio Hg](https://github.com/sergiohgz)                                |
 | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | ![jotadeveloper](https://avatars3.githubusercontent.com/u/558752?s=80&v=4)    | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=80&v=4) | ![sergiohgz](https://avatars2.githubusercontent.com/u/14012309?s=80&v=4) |
-| [@jotadeveloper](https://twitter.com/jotadeveloper)                           | [@ayusharma\_](https://twitter.com/ayusharma_)                          | [@sergiohgz](https://twitter.com/sergiohgz)                              |
+| [@jotadeveloper](https://fosstodon.org/@jotadeveloper)                           | [@ayusharma\_](https://twitter.com/ayusharma_)                          | [@sergiohgz](https://twitter.com/sergiohgz)                              |
 | [Priscila Oliveria](https://github.com/priscilawebdev)                        | [Daniel Ruf](https://github.com/DanielRuf)                              |
 | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=80&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=80&v=4)  |
 | [@priscilawebdev](https://twitter.com/priscilawebdev)                         | [@DanielRufde](https://twitter.com/DanielRufde)                         |
