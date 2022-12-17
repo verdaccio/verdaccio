@@ -318,8 +318,11 @@ module.exports = {
               href: 'https://discord.gg/7qWJxBf',
             },
             {
-              label: 'Mastodon',
-              href: 'https://fosstodon.org/@verdaccio',
+              html: `
+              <a href="https://fosstodon.org/@verdaccio" rel="me">
+                Mastodon
+              </a>
+              `,
             },
           ],
         },
