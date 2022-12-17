@@ -1371,6 +1371,7 @@ importers:
       react-dom: 17.0.2
       react-iframe: 1.8.5
       react-player: 2.11.0
+      react-twitter-widgets: ^1.10.0
       sass: 1.56.1
       sass-loader: ^12.1.0
       typedoc: 0.23.21
@@ -1403,6 +1404,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-iframe: 1.8.5_react@17.0.2
       react-player: 2.11.0_react@17.0.2
+      react-twitter-widgets: 1.11.0_react@17.0.2
       typedoc: 0.23.21_typescript@4.9.3
       typedoc-plugin-markdown: 3.13.6_typedoc@0.23.21
       use-is-in-viewport: 1.0.9_react@17.0.2
@@ -18658,6 +18660,10 @@ packages:
     resolution: {integrity: sha512-HVl9ZqccQihZ7JM85dco1MvO9G+ONvxoGa9rkhzFsneGLKSUg1gJf9bWzhRhcvm2qChhWpebQhP44qxjKIUCaQ==}
     engines: {node: '>= 12.13.0'}
 
+  /loadjs/4.2.0:
+    resolution: {integrity: sha512-AgQGZisAlTPbTEzrHPb6q+NYBMD+DP9uvGSIjSUM5uG+0jG15cb8axWpxuOIqrmQjn6scaaH8JwloiP27b2KXA==}
+    dev: false
+
   /localstorage-memory/1.0.3:
     resolution: {integrity: sha512-t9P8WB6DcVttbw/W4PIE8HOqum8Qlvx5SjR6oInwR9Uia0EEmyUeBh7S+weKByW+l/f45Bj4L/dgZikGFDM6ng==}
     dev: true
@@ -22884,6 +22890,15 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: true
+
+  /react-twitter-widgets/1.11.0_react@17.0.2:
+    resolution: {integrity: sha512-PMCLJQc30iqy01y1b2+HnMfCX+ZkOxWaPKJb4BhHgOgjSjoZb68K5T0nq3q+3YbX9K7OH0bhptgDihtBG/BqRQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      loadjs: 4.2.0
+      react: 17.0.2
+    dev: false
 
   /react-virtualized/9.22.3_react-dom@18.2.0+react@18.2.0:
     resolution: {integrity: sha512-MKovKMxWTcwPSxE1kK1HcheQTWfuCxAuBoSTf2gwyMM21NdX/PXUhnoP8Uc5dRKd+nKm8v41R36OellhdCpkrw==}
