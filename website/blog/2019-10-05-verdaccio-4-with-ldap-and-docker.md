@@ -93,18 +93,18 @@ auth:
   ldap:
     type: ldap
     client_options:
-      url: "ldap://ldap.verdaccio.private.rocks"
+      url: 'ldap://ldap.verdaccio.private.rocks'
       # Only required if you need auth to bind
-      adminDn: "cn=readonly,dc=verdaccio.private,dc=rocks"
-      adminPassword: "********"
+      adminDn: 'cn=readonly,dc=verdaccio.private,dc=rocks'
+      adminPassword: '********'
       # Search base for users
-      searchBase: "dc=verdaccio.private,dc=rocks"
-      searchFilter: "(&(uid={{username}})(memberOf=cn=npm_users,ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks))"
+      searchBase: 'dc=verdaccio.private,dc=rocks'
+      searchFilter: '(&(uid={{username}})(memberOf=cn=npm_users,ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks))'
       # # If you are using groups, this is also needed
-      groupDnProperty: "cn"
-      groupSearchBase: "ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks"
+      groupDnProperty: 'cn'
+      groupSearchBase: 'ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks'
       # If you have memberOf support on your ldap
-      searchAttributes: ["*", "memberOf"]
+      searchAttributes: ['*', 'memberOf']
       # Else, if you don't (use one or the other):
       # groupSearchFilter: '(memberUid={{dn}})'
       #
@@ -120,24 +120,24 @@ uplinks:
     url: https://registry.npmjs.org/
 
 packages:
-  "@scope-*/*":
+  '@scope-*/*':
     # scoped packages
     access: npm_access
     publish: npm_publisher
     unpublish: npm_publisher
 
-  "@scope/*":
+  '@scope/*':
     # scoped packages
     access: npm_access
     publish: npm_publisher
     unpublish: npm_publisher
 
-  "@*/*":
+  '@*/*':
     # scoped packages
     access: $all
     publish: $authenticated
     proxy: npmjs
-  "**":
+  '**':
     # allow all users (including non-authenticated users) to read and
     # publish all packages
     #
@@ -176,7 +176,7 @@ I use the `memberOf` overlay, and this LDAP query will allow to connect only use
 If you are not using the `memberOf` overlay, you can allow all users to login as follow:
 
 ```yaml
-searchFilter: "(&(uid={{username}}))"
+searchFilter: '(&(uid={{username}}))'
 ```
 
 **`groupSearchBase`**
@@ -184,7 +184,7 @@ searchFilter: "(&(uid={{username}}))"
 I use an organization unit to store all my group for verdaccio-ldap security.
 
 ```yaml
-groupSearchBase: "ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks"
+groupSearchBase: 'ou=npm,ou=groups,ou=developers,dc=verdaccio.private,dc=rocks'
 ```
 
 ### Security {#security}
@@ -198,12 +198,12 @@ Note that we do not use `proxy: npmjs` because they only exist on our private re
 I recommend you to create scope for all of your private packages, and reserve the group on npmjs registry so no one will be able to publish publicly in it in the futur.
 
 ```yaml
-"@scope-*/*":
+'@scope-*/*':
   access: npm_access
   publish: npm_publisher
   unpublish: npm_publisher
 
-"@scope/*":
+'@scope/*':
   # scoped packages
   access: npm_access
   publish: npm_publisher
@@ -215,7 +215,7 @@ They are some public package on npmjs registry which are scoped, this will proxy
 I recommend not to change this, otherwise you might get issue to download them.
 
 ```yaml
-"@*/*":
+'@*/*':
   # scoped packages
   access: $all
   publish: $authenticated
@@ -228,7 +228,7 @@ We also use `proxy: npmjs` so we also serve all the public package on npmjs regi
 We allow `$all` to download from our registry, because it is public, but if you want to preserve your bandwidth or just forbid unknown user to authenticate, just use `$authenticated` as well.
 
 ```yaml
-"**":
+'**':
   access: $all
   publish: $authenticated
   proxy: npmjs

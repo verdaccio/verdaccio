@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: "Configuration File"
+title: 'Configuration File'
 ---
 
 This file is the cornerstone of Verdaccio where you can modify the default behaviour, enable plugins and extend features.
@@ -20,11 +20,11 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 packages:
-  "@*/*":
+  '@*/*':
     access: $all
     publish: $authenticated
     proxy: npmjs
-  "**":
+  '**':
     proxy: npmjs
 log: { type: stdout, format: pretty, level: http }
 ```
@@ -129,7 +129,7 @@ This section allows you to control how packages are accessed. For more informati
 
 ```yaml
 packages:
-  "@*/*":
+  '@*/*':
     access: $all
     publish: $authenticated
     proxy: npmjs
@@ -271,7 +271,7 @@ Enabling notifications to third-party tools is fairly easy via webhooks. For mor
 ```yaml
 notify:
   method: POST
-  headers: [{ "Content-Type": "application/json" }]
+  headers: [{ 'Content-Type': 'application/json' }]
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```

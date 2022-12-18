@@ -18,7 +18,7 @@ module.exports = {
       type: 'link',
       label: 'Watch us on YouTube',
       href: 'https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w',
-    },    
+    },
     {
       type: 'link',
       label: 'Chat on Discord',
@@ -38,6 +38,6 @@ module.exports = {
       type: 'link',
       label: 'LICENSE',
       href: 'https://github.com/verdaccio/verdaccio/blob/master/LICENSE',
-    },    
+    },
   ],
 };

@@ -1,0 +1,15 @@
+{
+  "extends": "../../.babelrc",
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": ["last 5 versions"],
+        "bugfixes": true,
+        "modules": "auto",
+        "debug": false
+      }
+    ],
+    "@babel/preset-react"
+  ],
+}

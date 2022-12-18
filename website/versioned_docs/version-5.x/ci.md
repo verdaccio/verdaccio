@@ -1,6 +1,6 @@
 ---
 id: ci
-title: "Continuous Integration"
+title: 'Continuous Integration'
 ---
 
 Verdaccio can be used with continuous integration (CI) platforms to install or publish packages.

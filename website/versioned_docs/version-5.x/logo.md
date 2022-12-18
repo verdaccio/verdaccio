@@ -1,20 +1,20 @@
 ---
 id: logo
-title: "Logotype"
+title: 'Logotype'
 ---
 
-The logotype was designed by __[Breno Rodrigues](https://github.com/rodriguesbreno)__ which
+The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbreno)** which
 won the [contest](https://github.com/verdaccio/verdaccio/issues/237)
 ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
 
 > All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
 
-Special thanks to *[@Lisapressmar](https://github.com/Lisapressmar)* for her contribution
+Special thanks to _[@Lisapressmar](https://github.com/Lisapressmar)_ for her contribution
 with multiple image formats and sizes.
 
 ## Symbols {#symbols}
 
-__With text__
+**With text**
 
 ![symbol tiny with text](/img/logo/symbol/png/logo-small-header-bottom.png)
 
@@ -22,11 +22,11 @@ __With text__
 
 ![symbol big with text](/img/logo/symbol/png/logo-small-header-bottom@3x.png)
 
-__SVG__
+**SVG**
 
 ![symbol svg](/img/logo/symbol/svg/logo-small-header-bottom.svg)
 
-__No text__
+**No text**
 
 ![symbol tiny](/img/logo/symbol/png/verdaccio-tiny.png)
 
@@ -34,11 +34,9 @@ __No text__
 
 ![symbol big](/img/logo/symbol/png/verdaccio-tiny@3x.png)
 
-__SVG__
+**SVG**
 
 ![svg format symbol no text](/img/logo/symbol/svg/verdaccio-tiny.svg)
-
-
 
 ### Black&White {#blackwhite}
 
@@ -48,10 +46,9 @@ __SVG__
 
 ![symbol bw big](/img/logo/symbol/png/verdaccio-blackwhite@3x.png)
 
-__SVG__
+**SVG**
 
 ![symbol bw svg](/img/logo/symbol/svg/verdaccio-blackwhite.svg)
-
 
 ## Banner {#banner}
 
@@ -60,5 +57,3 @@ __SVG__
 ![banner medium](/img/logo/banner/png/verdaccio-banner@2x.png)
 
 ![banner big](/img/logo/banner/png/verdaccio-banner@3x.png)
-
-

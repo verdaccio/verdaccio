@@ -1,9 +1,9 @@
 ---
 id: kubernetes
-title: "Kubernetes"
+title: 'Kubernetes'
 ---
 
- You can find instructions to deploy Verdaccio on a Kubernetes cluster on the
+You can find instructions to deploy Verdaccio on a Kubernetes cluster on the
 [verdaccio/docker-example](https://github.com/verdaccio/verdaccio/tree/5.x/docker-examples/kubernetes-example)
 repository. However, the recommended method to install Verdaccio on a Kubernetes
 cluster is to use [Helm](https://helm.sh). Helm is a
@@ -61,10 +61,9 @@ helm uninstall npm
 **Note:** this command delete all the resources, including packages that you may
 have previously published to the registry.
 
-
 ### Custom Verdaccio configuration {#custom-verdaccio-configuration}
 
-You can customize the Verdaccio configuration using a Kubernetes *configMap*.
+You can customize the Verdaccio configuration using a Kubernetes _configMap_.
 
 #### Prepare {#prepare}
 
@@ -109,6 +108,7 @@ This allows you to inject sensitive values to the container via a [Kubernetes Se
 
 1. Update your Verdaccio config according to the [Uplinks](./uplinks.md#auth-property) documentation
 2. Pass the secret environment variable to your values file or via `--set secretEnvVars.FOO_TOKEN=superSecretBarToken`
+
 ```yaml
 # values.yaml
 secretEnvVars:
@@ -119,6 +119,7 @@ secretEnvVars:
 
 The standard k8s NGINX ingress proxy allows for 1MB for body-size which can be increased
 by modifying the default deployment options according to the [documentation](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#custom-max-body-size):
+
 ```yaml
 ...
 
@@ -126,7 +127,7 @@ annotations:
 ...
 
     kubernetes.io/proxy-body-size: 20m
-....    
+....
 ...
 
 ```
@@ -135,4 +136,4 @@ annotations:
 
 [Rancher](http://rancher.com/) is a complete container management platform that makes managing and using containers in production really easy.
 
-* [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)
+- [verdaccio-rancher](https://github.com/lgaticaq/verdaccio-rancher)

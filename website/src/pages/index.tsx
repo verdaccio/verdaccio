@@ -17,10 +17,10 @@ const Home = (): React.ReactElement => {
     <Layout title={siteConfig.tagline} description={siteConfig.customFields.description}>
       <header className={styles.header}>
         <Wave />
-        <Header />        
+        <Header />
       </header>
       <main className={styles.main}>
-        <UsedBy />        
+        <UsedBy />
         <WhatIsVerdaccio />
         <Feature />
         <PackageManagers />

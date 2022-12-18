@@ -1,6 +1,6 @@
 ---
 id: server-configuration
-title: "Server Configuration"
+title: 'Server Configuration'
 ---
 
 This is mostly basic Linux server configuration stuff but I felt it important to document and share the steps I took to get Verdaccio running permanently on my server. You will need root (or sudo) permissions for the following steps.
@@ -31,6 +31,7 @@ The `cd` command sends you to the home directory of the Verdaccio user. Make sur
 ## Listening on all addresses {#listening-on-all-addresses}
 
 If you want to listen to every external address set the listen directive in the config to:
+
 ```yaml
 # you can specify listen address (or simply a port)
 listen: 0.0.0.0:4873
@@ -85,7 +86,9 @@ $ which verdaccio
 ## Using systemd {#using-systemd}
 
 Instead of `forever` you can use `systemd` for starting Verdaccio and keeping it running. Verdaccio installation has systemd unit, you only need to copy it:
+
 ```bash
 $ sudo cp /usr/lib/node_modules/verdaccio/systemd/verdaccio.service /lib/systemd/system/ && sudo systemctl daemon-reload
 ```
+
 This unit assumes you have configuration in `/etc/verdaccio/config.yaml` and store data in `/var/lib/verdaccio`, so either move your files to those locations or edit the unit.

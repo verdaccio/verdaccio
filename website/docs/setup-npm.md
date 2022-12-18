@@ -1,6 +1,6 @@
 ---
 id: setup-npm
-title: "npm"
+title: 'npm'
 ---
 
 # npm {#npm}
@@ -14,14 +14,17 @@ To set the registry for all your local projects in any terminal window run:
 ```bash
 npm set registry http://localhost:4873/
 ```
+
 This will set the registry for your operational system user and you can find it on the file `~/.npmrc`.
 
 ## Using registry for a specific project {#specific}
 
 To set this value for a specific project open its root folder on a terminal window and run:
+
 ```bash
 npm set registry http://localhost:4873/ --location project
 ```
+
 This will set the registry in a `.npmrc` file in your project root directory.
 
 or by specific scope eg: `@my-scope/auth`:
@@ -64,11 +67,13 @@ npm adduser --registry http://localhost:4873
 after version `npm@9` the commands works separately:
 
 - `login` does not create users.
+
 ```bash
 npm login --registry http://localhost:4873
 ```
 
 - `adduser` does not login users.
+
 ```bash
 npm adduser --registry http://localhost:4873
 ```

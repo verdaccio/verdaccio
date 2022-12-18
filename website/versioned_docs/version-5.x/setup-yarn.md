@@ -1,6 +1,6 @@
 ---
 id: setup-yarn
-title: "yarn"
+title: 'yarn'
 ---
 
 # yarn {#yarn}
@@ -18,7 +18,7 @@ To set up a registry, create a file and define a registry.
 registry "http://localhost:4873"
 ```
 
-`yarn@1.x` by default does not send the token on every request unless is being opt-in manually, this might causes `403 error` if you have protected the access of your packages. 
+`yarn@1.x` by default does not send the token on every request unless is being opt-in manually, this might causes `403 error` if you have protected the access of your packages.
 
 To change this behaviour enable `always-auth` in your configuration :
 
@@ -26,7 +26,7 @@ To change this behaviour enable `always-auth` in your configuration :
 always-auth=true
 ```
 
-or running 
+or running
 
 ```
 npm config set always-auth true

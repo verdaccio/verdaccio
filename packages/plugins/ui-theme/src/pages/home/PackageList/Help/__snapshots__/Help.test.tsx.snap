@@ -63,7 +63,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   justify-content: space-between;
 }
 
-.emotion-9 {
+.emotion-8 {
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -72,7 +72,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   font-size: 1rem;
 }
 
-.emotion-11 {
+.emotion-9 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -120,38 +120,38 @@ exports[`<Help /> component should load the component in default state 1`] = `
   font-size: 1.75rem;
 }
 
-.emotion-11::-moz-focus-inner {
+.emotion-9::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-11.Mui-disabled {
+.emotion-9.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-11 {
+  .emotion-9 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-11:hover {
+.emotion-9:hover {
   background-color: rgba(0, 0, 0, 0.04);
 }
 
 @media (hover: none) {
-  .emotion-11:hover {
+  .emotion-9:hover {
     background-color: transparent;
   }
 }
 
-.emotion-11.Mui-disabled {
+.emotion-9.Mui-disabled {
   background-color: transparent;
   color: rgba(0, 0, 0, 0.26);
 }
 
-.emotion-12 {
+.emotion-10 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -168,7 +168,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   font-size: 1.5rem;
 }
 
-.emotion-13 {
+.emotion-11 {
   overflow: hidden;
   pointer-events: none;
   position: absolute;
@@ -180,7 +180,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   border-radius: inherit;
 }
 
-.emotion-22 {
+.emotion-18 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -188,7 +188,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   line-height: 1.43;
 }
 
-.emotion-23 {
+.emotion-19 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -200,11 +200,11 @@ exports[`<Help /> component should load the component in default state 1`] = `
   padding: 8px;
 }
 
-.emotion-23>:not(:first-of-type) {
+.emotion-19>:not(:first-of-type) {
   margin-left: 8px;
 }
 
-.emotion-24 {
+.emotion-20 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -250,35 +250,35 @@ exports[`<Help /> component should load the component in default state 1`] = `
   color: #4b5e40;
 }
 
-.emotion-24::-moz-focus-inner {
+.emotion-20::-moz-focus-inner {
   border-style: none;
 }
 
-.emotion-24.Mui-disabled {
+.emotion-20.Mui-disabled {
   pointer-events: none;
   cursor: default;
 }
 
 @media print {
-  .emotion-24 {
+  .emotion-20 {
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
 }
 
-.emotion-24:hover {
+.emotion-20:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
   background-color: rgba(75, 94, 64, 0.04);
 }
 
 @media (hover: none) {
-  .emotion-24:hover {
+  .emotion-20:hover {
     background-color: transparent;
   }
 }
 
-.emotion-24.Mui-disabled {
+.emotion-20.Mui-disabled {
   color: rgba(0, 0, 0, 0.26);
 }
 
@@ -307,16 +307,16 @@ exports[`<Help /> component should load the component in default state 1`] = `
       1. Create user
     </p>
     <div
-      class="emotion-7 emotion-8"
+      class="emotion-7"
     >
       <span
-        class="emotion-9 emotion-10"
+        class="emotion-8"
       >
         npm adduser --registry http://localhost:9000/
       </span>
       <button
         aria-label="Copy to clipboard"
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-11"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-9"
         data-mui-internal-clone-element="true"
         data-testid="copy-icon"
         tabindex="0"
@@ -324,7 +324,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-12"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-10"
           data-testid="FileCopyIcon"
           focusable="false"
           viewBox="0 0 24 24"
@@ -334,7 +334,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
           />
         </svg>
         <span
-          class="MuiTouchRipple-root emotion-13"
+          class="MuiTouchRipple-root emotion-11"
         />
       </button>
     </div>
@@ -344,16 +344,16 @@ exports[`<Help /> component should load the component in default state 1`] = `
       2. Publish
     </p>
     <div
-      class="emotion-7 emotion-8"
+      class="emotion-7"
     >
       <span
-        class="emotion-9 emotion-10"
+        class="emotion-8"
       >
         npm publish --registry http://localhost:9000/
       </span>
       <button
         aria-label="Copy to clipboard"
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-11"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-9"
         data-mui-internal-clone-element="true"
         data-testid="copy-icon"
         tabindex="0"
@@ -361,7 +361,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
       >
         <svg
           aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-12"
+          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium emotion-10"
           data-testid="FileCopyIcon"
           focusable="false"
           viewBox="0 0 24 24"
@@ -371,27 +371,27 @@ exports[`<Help /> component should load the component in default state 1`] = `
           />
         </svg>
         <span
-          class="MuiTouchRipple-root emotion-13"
+          class="MuiTouchRipple-root emotion-11"
         />
       </button>
     </div>
     <p
-      class="MuiTypography-root MuiTypography-body2 emotion-22"
+      class="MuiTypography-root MuiTypography-body2 emotion-18"
     >
       3. Refresh this page
     </p>
   </div>
   <div
-    class="MuiCardActions-root MuiCardActions-spacing emotion-23"
+    class="MuiCardActions-root MuiCardActions-spacing emotion-19"
   >
     <a
-      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall emotion-24"
+      class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeSmall MuiButton-textSizeSmall emotion-20"
       href="https://verdaccio.org/docs/cli-registry"
       tabindex="0"
     >
       Learn More
       <span
-        class="MuiTouchRipple-root emotion-13"
+        class="MuiTouchRipple-root emotion-11"
       />
     </a>
   </div>

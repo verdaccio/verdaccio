@@ -8,6 +8,6 @@ module.exports = {
       type: 'link',
       label: 'Follow us on YouTube',
       href: 'https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w',
-    }
+    },
   ],
 };

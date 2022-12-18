@@ -1,6 +1,6 @@
 ---
 id: setup-yarn
-title: "yarn"
+title: 'yarn'
 ---
 
 # yarn {#yarn}

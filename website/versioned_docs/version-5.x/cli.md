@@ -1,6 +1,6 @@
 ---
 id: cli
-title: "Command Line Tool"
+title: 'Command Line Tool'
 ---
 
 The Verdaccio CLI is your tool to start and stop the application.
@@ -11,12 +11,12 @@ The Verdaccio CLI is your tool to start and stop the application.
 verdaccio --listen 4000 --config ~./config.yaml
 ```
 
-Command | Default | Example | Description
---- | --- | --- | ---
---listen \ **-l** | http:localhost:4873 | 7000 | Define protocol + host + port ([formats](https://github.com/verdaccio/verdaccio/blob/08c36e688e8635733f92080eb3598239d43259cb/packages/node-api/src/cli-utils.ts#L7-L16))
---config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | Set location of the configuration file
---info \ **-i** | | | Print local environment information
---version \ **-v** | | | Show version information
+| Command            | Default                        | Example        | Description                                                                                                                                                               |
+| ------------------ | ------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --listen \ **-l**  | http:localhost:4873            | 7000           | Define protocol + host + port ([formats](https://github.com/verdaccio/verdaccio/blob/08c36e688e8635733f92080eb3598239d43259cb/packages/node-api/src/cli-utils.ts#L7-L16)) |
+| --config \ **-c**  | ~/.local/verdaccio/config.yaml | ~./config.yaml | Set location of the configuration file                                                                                                                                    |
+| --info \ **-i**    |                                |                | Print local environment information                                                                                                                                       |
+| --version \ **-v** |                                |                | Show version information                                                                                                                                                  |
 
 ## Default config file location {#default-config-file-location}
 
@@ -31,7 +31,7 @@ Config files should be YAML, JSON or a NodeJS module. YAML format is detected by
 We use the **$XDG_DATA_HOME** environment by variable default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share.
 If you are using a custom storage, this location is irrelevant.
 
-You can use `VERDACCIO_STORAGE_PATH` to define an alternative storage path,  read more about `VERDACCIO_STORAGE_PATH` [at the environment variables page](env.md#storage-path).
+You can use `VERDACCIO_STORAGE_PATH` to define an alternative storage path, read more about `VERDACCIO_STORAGE_PATH` [at the environment variables page](env.md#storage-path).
 
 ## Default database file location {#default-database-file-location}
 
@@ -41,8 +41,6 @@ When upgrading an existing Verdaccio server, the file name will remain **.sinopi
 
 > The database name `sinopia-db.json` is deprecated and support will be removed after v6.x
 
-
 ## Environment variables {#environment-variables}
 
 [Full list of environment variables](env.md).
-

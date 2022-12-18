@@ -1,8 +1,8 @@
-import Translate, { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
+import Translate, { translate } from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import React from 'react';
 import cx from 'classnames';
+import React from 'react';
 
 import Command from './Command';
 import styles from './Header.module.scss';
@@ -22,13 +22,15 @@ const Header = (): React.ReactElement => {
             <Translate>A lightweight Node.js private proxy registry</Translate>
           </p>
           <iframe
-              src={"https://ghbtns.com/github-btn.html?user=verdaccio&repo=verdaccio&type=star&count=true&size=large"}
-              frameBorder="0"
-              scrolling="0"
-              width="160px"
-              height="30px"
-              style={{ marginTop: '8px' }}
-            />
+            src={
+              'https://ghbtns.com/github-btn.html?user=verdaccio&repo=verdaccio&type=star&count=true&size=large'
+            }
+            frameBorder="0"
+            scrolling="0"
+            width="160px"
+            height="30px"
+            style={{ marginTop: '8px' }}
+          />
           <div className={styles['header--links']}>
             <a href="/Talks" className="link-secondary">
               WATCH
@@ -48,8 +50,8 @@ const Header = (): React.ReactElement => {
           <Command
             command="npm install --global verdaccio"
             alt={translate({ message: 'NPM command to install Verdaccio' })}
-          />          
-        </div>             
+          />
+        </div>
       </div>
     </div>
   );
