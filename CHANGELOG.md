@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.19.0](https://github.com/verdaccio/verdaccio/compare/v5.18.0...v5.19.0) (2022-12-25)
+
+
+### Features
+
+* **security:**  update dependencies ([#3540](https://github.com/verdaccio/verdaccio/issues/3540)) ([99a39d5](https://github.com/verdaccio/verdaccio/commit/99a39d55a20c4c2da872e4c609de1fdeffe00717))
+
+
+### Bug Fixes
+
+* update core dependencies ([#3519](https://github.com/verdaccio/verdaccio/issues/3519)) ([9353b3e](https://github.com/verdaccio/verdaccio/commit/9353b3ebf084edf697407958aa91b3a47a4f925f))
+
 ## [5.18.0](https://github.com/verdaccio/verdaccio/compare/v5.17.0...v5.18.0) (2022-11-23)
 
 
