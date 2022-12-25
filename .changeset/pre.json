@@ -33,7 +33,7 @@
     "@verdaccio/cli-standalone": "6.0.0-alpha.3",
     "@verdaccio/tarball": "11.0.0-alpha.3",
     "@verdaccio/url": "11.0.0-alpha.3",
-    "@verdaccio/ui-components": "1.0.0",
+    "@verdaccio/ui-components": "2.0.0-alpha.0",
     "@verdaccio/server-fastify": "6.0.0-6-next.9",
     "@verdaccio/eslint-config": "2.0.0-alpha.0",
     "@verdaccio/core": "6.0.0-next.0",
