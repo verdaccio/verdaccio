@@ -21,8 +21,8 @@ jobs:
         node-version: ${{ matrix.node_version }}
     - name: Install
       run: yarn install --immutable
-    - name: Format
-      run: yarn format:check      
+    # - name: Format
+    #   run: yarn format:check      
     - name: Build
       run: yarn code:build
     - name: Lint
