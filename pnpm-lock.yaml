@@ -1383,6 +1383,7 @@ importers:
       docusaurus-plugin-sass: ^0.2.1
       docusaurus-plugin-sentry: 1.0.0
       docusaurus-plugin-typedoc: latest
+      dompurify: 2.4.1
       esbuild: 0.14.10
       esbuild-loader: 2.16.0
       p-cancelable: 2.1.1
@@ -1426,6 +1427,7 @@ importers:
       docusaurus-plugin-contributors: link:../packages/tools/docusaurus-plugin-contributors
       docusaurus-plugin-sentry: 1.0.0_2f57db70698bd2859b2d57df28b32a0e
       docusaurus-plugin-typedoc: 0.18.0_adb48f418f538905674ba0692c183df0
+      dompurify: 2.4.1
       p-cancelable: 2.1.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -14464,7 +14466,6 @@ packages:
 
   /dompurify/2.4.1:
     resolution: {integrity: sha512-ewwFzHzrrneRjxzmK6oVz/rZn9VWspGFRDb4/rRtIsM1n36t9AKma/ye8syCpcw+XJ25kOK/hOG7t1j2I2yBqA==}
-    dev: true
 
   /domutils/1.7.0:
     resolution: {integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==}
