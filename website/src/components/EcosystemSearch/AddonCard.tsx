@@ -19,7 +19,6 @@ import { FC } from 'react';
 
 import Icon from './Icon';
 import { Addon } from './types';
-import { parseDescription } from './utils';
 
 const Content = styled(Typography)({
   display: 'inline-block',
@@ -61,7 +60,7 @@ const AddonCard: FC<Addon> = ({
             <Grid xs={12} sx={{ padding: theme.spacing(1) }}>
               <Content sx={{ minHeight: '100px' }}>
                 <Typography variant="body2" color="text.secondary">
-                  {parseDescription(description)}
+                  {description}
                 </Typography>
               </Content>
             </Grid>
