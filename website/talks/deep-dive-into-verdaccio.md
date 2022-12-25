@@ -28,7 +28,6 @@ import ReactPlayer from 'react-player/youtube'
 
 ### Slides
 
-
 ```mdx-code-block
 import Iframe from 'react-iframe'
 
@@ -39,4 +38,3 @@ import Iframe from 'react-iframe'
     scrolling={false}
     position="relative"/>
 ```
-

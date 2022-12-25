@@ -7,7 +7,7 @@ const lgnMapping = {
   'pl-PL': 'pl',
   'cs-CZ': 'cs',
   'fr-FR': 'fr',
-  'it-IT': 'it' ,
+  'it-IT': 'it',
   'ru-RU': 'ru',
   'vi-VN': 'vi',
   'yo-NG': 'yo',
@@ -16,67 +16,73 @@ const lgnMapping = {
 // @ts-ignore
 const progress = translations;
 const limitLngIncluded = 19;
-console.log('limit translation is on %s%', limitLngIncluded)
-const isDeployPreview = process.env.CONTEXT === "deploy-preview";
-const isProductionDeployment = process.env.CONTEXT === "production";
+console.log('limit translation is on %s%', limitLngIncluded);
+const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const isProductionDeployment = process.env.CONTEXT === 'production';
 const filterByProgress = (items) => {
   const originLng = Object.keys(translations);
-  return items.filter((lgn => {
-    if(lgn === 'en') {
+  return items.filter((lgn) => {
+    if (lgn === 'en') {
       return true;
     }
     const _lgn = lgnMapping[lgn] ? lgnMapping[lgn] : lgn;
-    if(!originLng.includes(_lgn)) {
+    if (!originLng.includes(_lgn)) {
       console.log(`language ${_lgn} excluded, does not exist in origin`);
       return false;
     }
-    
+
     if (translations[_lgn].approvalProgress <= limitLngIncluded) {
-      console.log('language %s is being excluded due does not met limit of translation, current: %s%', _lgn, translations[_lgn].approvalProgress);
+      console.log(
+        'language %s is being excluded due does not met limit of translation, current: %s%',
+        _lgn,
+        translations[_lgn].approvalProgress
+      );
       return false;
     }
 
     return true;
-  }))
-}
+  });
+};
 
 const i18nConfig = {
   defaultLocale: 'en',
-  locales: isDeployPreview ? ['en'] : filterByProgress([
-    "en",
-    "cs-CZ",
-    "de-DE",
-    "es-ES",
-     "fr-FR",
-    "it-IT",
-     "pl-PL",
-    "pt-BR",
-     "ru-RU",
-    "sr-CS",
-     "vi-VN",
-    "yo-NG", 
-    "zh-TW",
-    "zh-CN"
-  ]),
+  locales: isDeployPreview
+    ? ['en']
+    : filterByProgress([
+        'en',
+        'cs-CZ',
+        'de-DE',
+        'es-ES',
+        'fr-FR',
+        'it-IT',
+        'pl-PL',
+        'pt-BR',
+        'ru-RU',
+        'sr-CS',
+        'vi-VN',
+        'yo-NG',
+        'zh-TW',
+        'zh-CN',
+      ]),
   localeConfigs: {
-    en: { label: "English" },
-    'it-IT': { label: `Italiano (${progress["it"].translationProgress}%)` },
-    'es-ES': { label: `Español (${progress["es-ES"].translationProgress}%)` },
-    'de-DE': { label: `Deutsch (${progress["de"].translationProgress}%)` },
-    'cs-CZ': { label: `Čeština (Česko) (${progress["cs"].translationProgress}%)` },
-    'fr-FR': { label: `Français (${progress["fr"].translationProgress}%)` },
-    'pl-PL': { label: `Polski (Polska) (${progress["pl"].translationProgress}%)` },
-    'pt-BR': { label: `Português (Brasil) (${progress["pt-BR"].translationProgress}%)` },
-    'ru-RU': { label: `Русский (Россия) (${progress["ru"].translationProgress}%)` },
-    'zh-CN': { label: `中文（中国）(${progress["zh-CN"].translationProgress}%)` },
-    'zh-TW': { label: `中文（台灣）(${progress["zh-TW"].translationProgress}%)` },
-    'yo-NG': { label: `Èdè Yorùbá (Nàìjíríà) (${progress["yo"].translationProgress}%)` },
-    'sr-CS': { label: `Српски (Србија) (${progress["sr-CS"].translationProgress}%)` },
-    'vi-VN': { label: `Tiếng Việt (Việt Nam) (${progress["vi"].translationProgress}%)` },
-  }
-}
+    en: { label: 'English' },
+    'it-IT': { label: `Italiano (${progress['it'].translationProgress}%)` },
+    'es-ES': { label: `Español (${progress['es-ES'].translationProgress}%)` },
+    'de-DE': { label: `Deutsch (${progress['de'].translationProgress}%)` },
+    'cs-CZ': { label: `Čeština (Česko) (${progress['cs'].translationProgress}%)` },
+    'fr-FR': { label: `Français (${progress['fr'].translationProgress}%)` },
+    'pl-PL': { label: `Polski (Polska) (${progress['pl'].translationProgress}%)` },
+    'pt-BR': { label: `Português (Brasil) (${progress['pt-BR'].translationProgress}%)` },
+    'ru-RU': { label: `Русский (Россия) (${progress['ru'].translationProgress}%)` },
+    'zh-CN': { label: `中文（中国）(${progress['zh-CN'].translationProgress}%)` },
+    'zh-TW': { label: `中文（台灣）(${progress['zh-TW'].translationProgress}%)` },
+    'yo-NG': { label: `Èdè Yorùbá (Nàìjíríà) (${progress['yo'].translationProgress}%)` },
+    'sr-CS': { label: `Српски (Србија) (${progress['sr-CS'].translationProgress}%)` },
+    'vi-VN': { label: `Tiếng Việt (Việt Nam) (${progress['vi'].translationProgress}%)` },
+  },
+};
 
-const pkgJson = require('./package.json')
+const pkgJson = require('./package.json');
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
@@ -88,15 +94,17 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: "img/logo/uk/verdaccio-tiny-uk-no-bg.svg",
+  favicon: 'img/logo/uk/verdaccio-tiny-uk-no-bg.svg',
   i18n: i18nConfig,
-  scripts: [
-    "https://buttons.github.io/buttons.js",    
-  ],
+  scripts: ['https://buttons.github.io/buttons.js'],
   plugins: [
     'docusaurus-plugin-sass',
     'docusaurus-plugin-contributors',
-    isProductionDeployment && typeof process.env.SENTRY_KEY === 'string' && ['docusaurus-plugin-sentry', { DSN: process.env.SENTRY_KEY }],    
+    isProductionDeployment &&
+      typeof process.env.SENTRY_KEY === 'string' && [
+        'docusaurus-plugin-sentry',
+        { DSN: process.env.SENTRY_KEY },
+      ],
     [
       'docusaurus-plugin-typedoc',
       {
@@ -112,29 +120,39 @@ module.exports = {
         sidebar: {
           categoryLabel: '@verdaccio/node-api',
           // position: 1,
-          fullNames: true
+          fullNames: true,
         },
       },
     ],
     [
       'content-docs',
-      ({
+      {
         id: 'community',
         path: 'community',
         routeBasePath: 'community',
         sidebarPath: require.resolve('./sidebarsCommunity.js'),
         showLastUpdateTime: true,
-      }),
+      },
     ],
     [
       'content-docs',
-      ({
+      {
+        id: 'dev',
+        path: 'dev',
+        routeBasePath: 'dev',
+        sidebarPath: require.resolve('./sidebarsDev.js'),
+        showLastUpdateTime: true,
+      },
+    ],
+    [
+      'content-docs',
+      {
         id: 'talks',
         path: 'talks',
         routeBasePath: 'talks',
         sidebarPath: require.resolve('./sidebarsTalk.js'),
         showLastUpdateTime: true,
-      }),
+      },
     ],
     [
       'docusaurus-plugin-typedoc',
@@ -145,7 +163,7 @@ module.exports = {
         out: 'api/config',
         sidebar: {
           categoryLabel: '@verdaccio/config',
-          fullNames: true
+          fullNames: true,
         },
       },
     ],
@@ -158,7 +176,7 @@ module.exports = {
         out: 'api/core',
         sidebar: {
           categoryLabel: '@verdaccio/core',
-          fullNames: true
+          fullNames: true,
         },
       },
     ],
@@ -173,11 +191,11 @@ module.exports = {
         includeVersion: true,
         sidebar: {
           categoryLabel: '@verdaccio/types',
-          fullNames: true
+          fullNames: true,
         },
       },
     ],
-  ], 
+  ],
   markdown: {
     mermaid: true,
   },
@@ -193,25 +211,25 @@ module.exports = {
     }),
   },
   customFields: {
-    description: 'A lightweight Node.js private proxy registry'
+    description: 'A lightweight Node.js private proxy registry',
   },
   themeConfig: {
     mermaid: {
-      theme: {light: 'neutral', dark: 'forest'},
+      theme: { light: 'neutral', dark: 'forest' },
     },
     announcementBar: {
       id: 'announcementBar',
       content:
         '<a target="_blank" rel="noopener noreferrer" href="https://www.wfp.org/support-us/stories/ukraine-appeal">Help provide humanitarian support to Ukraine refugees</a>!',
-        isCloseable: false,
-        backgroundColor: '#1595de',
-        textColor: '#ffffff',
+      isCloseable: false,
+      backgroundColor: '#1595de',
+      textColor: '#ffffff',
     },
     algolia: {
       appId: 'B3TG5CBF5H',
       apiKey: 'ed054733cb03418e9af25b7beb82c924',
       indexName: 'verdaccio',
-      contextualSearch: true
+      contextualSearch: true,
     },
     docs: {
       sidebar: {
@@ -223,7 +241,7 @@ module.exports = {
       title: `Verdaccio - v${pkgJson.version}`,
       logo: {
         alt: 'Verdaccio Logo',
-        src: "img/logo/uk/verdaccio-tiny-uk-no-bg.svg",
+        src: 'img/logo/uk/verdaccio-tiny-uk-no-bg.svg',
       },
       items: [
         {
@@ -236,13 +254,13 @@ module.exports = {
           type: 'doc',
           docId: 'api/node-api/index',
           position: 'left',
-          label: 'API'
+          label: 'API',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
           type: 'docsVersionDropdown',
-          "position": "right",
-        },       
+          position: 'right',
+        },
         {
           href: 'https://opencollective.com/verdaccio',
           label: 'Sponsor us',
@@ -281,7 +299,7 @@ module.exports = {
           'aria-label': 'Follow us at Fosstodon',
         },
       ],
-    },   
+    },
     footer: {
       style: 'dark',
       links: [
@@ -352,7 +370,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
-    },    
+    },
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
@@ -372,32 +390,30 @@ module.exports = {
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           sidebarCollapsible: true,
-          remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-          ],
+          remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]],
           editUrl: ({ locale, docPath }) => {
             if (locale !== 'en') {
               return `https://crowdin.com/project/verdaccio/${locale}`;
             }
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
-          lastVersion : '5.x',
+          lastVersion: '5.x',
           versions: {
             current: {
-              label: `6.x`, 
+              label: `6.x`,
             },
             '5.x': {
-              label: `5.x (Latest)`, 
+              label: `5.x (Latest)`,
             },
           },
         },
         googleAnalytics: {
           // trackingID: 'UA-2527438-21'
-          trackingID: 'G-PCYM9FYJZT'
+          trackingID: 'G-PCYM9FYJZT',
         },
         gtag: {
-          trackingID: 'G-PCYM9FYJZT'
-        },        
+          trackingID: 'G-PCYM9FYJZT',
+        },
         blog: {
           blogTitle: 'Verdaccio Official Blog',
           blogDescription: 'The official Verdaccio Node.js proxy registry blog',
@@ -417,7 +433,7 @@ module.exports = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
-        },       
+        },
       },
     ],
   ],

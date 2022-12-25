@@ -20,6 +20,9 @@
   "references": [
     {
       "path": "../../node-api"
+    },
+    {
+      "path": "../../ui-components"
     }
   ]
 }

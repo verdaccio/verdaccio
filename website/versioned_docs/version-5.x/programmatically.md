@@ -1,6 +1,6 @@
 ---
 id: verdaccio-programmatically
-title: "Node.js API"
+title: 'Node.js API'
 ---
 
 Verdaccio is a binary command which is available in your enviroment when you install globally the package eg `npm i -g verdaccio`, but also can be dependency in your project and use it programmatically.
@@ -12,27 +12,23 @@ Using the binary is the faster way to use verdaccio programatically, you need to
 > If you are using ESM modules the `require` won't be available.
 
 ```typescript
-export function runRegistry(
-  args: string[] = [],
-  childOptions: {}
-): Promise<ChildProcess> {
+export function runRegistry(args: string[] = [], childOptions: {}): Promise<ChildProcess> {
   return new Promise((resolve, reject) => {
-        const childFork = fork(require.resolve('verdaccio/bin/verdaccio'), args, childOptions);
-    childFork.on('message', (msg: {verdaccio_started: boolean}) => {
-      if(msg.verdaccio_started){
+    const childFork = fork(require.resolve('verdaccio/bin/verdaccio'), args, childOptions);
+    childFork.on('message', (msg: { verdaccio_started: boolean }) => {
+      if (msg.verdaccio_started) {
         resolve(childFork);
       }
     });
     childFork.on('error', (err: any) => reject([err]));
-    childFork.on('disconnect', (err: any) => reject([err]));  
+    childFork.on('disconnect', (err: any) => reject([err]));
   });
 }
 ```
 
 You can see the full example on this repository.
 
-[https://github.com/juanpicado/verdaccio-fork](https://github.com/juanpicado/verdaccio-fork
-)
+[https://github.com/juanpicado/verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
 
 ### Using the module API
 
@@ -59,13 +55,13 @@ There are three ways to use it:
 With an object you need to add `self_path`, manually (it's not nice but would be a breaking change changing it now) on v6 this is not longer need it.
 
 ```js
-      const {runServer, parseConfigFile} = require('verdaccio');
-      const configPath = join(__dirname, './config.yaml');
-      const c = parseConfigFile(configPath);
-      // workaround
-      // on v5 the `self_path` still exists and will be removed in v6
-      c.self_path = 'foo';
-      runServer(c).then(() => {});
+const { runServer, parseConfigFile } = require('verdaccio');
+const configPath = join(__dirname, './config.yaml');
+const c = parseConfigFile(configPath);
+// workaround
+// on v5 the `self_path` still exists and will be removed in v6
+c.self_path = 'foo';
+runServer(c).then(() => {});
 ```
 
 Feature available minor than `v5.11.0`.
@@ -79,20 +75,20 @@ const verdaccio = require('verdaccio').default;
 const YAML = require('js-yaml');
 
 const getConfig = () => {
- return YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yaml'), 'utf8'));
-}
+  return YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yaml'), 'utf8'));
+};
 
 const cache = path.join(__dirname, 'cache');
 const config = Object.assign({}, getConfig(), {
-  self_path: cache
+  self_path: cache,
 });
 
 verdaccio(config, 6000, cache, '1.0.0', 'verdaccio', (webServer, addrs, pkgName, pkgVersion) => {
   try {
-      webServer.unref();
-      webServer.listen(addrs.port || addrs.path, addrs.host, () => {
-          console.log('verdaccio running');
-      });
+    webServer.unref();
+    webServer.listen(addrs.port || addrs.path, addrs.host, () => {
+      console.log('verdaccio running');
+    });
   } catch (error) {
     console.error(error);
   }

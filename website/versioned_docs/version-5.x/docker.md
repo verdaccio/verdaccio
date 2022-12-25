@@ -15,7 +15,7 @@ docker pull verdaccio/verdaccio
 
 ## Tagged Versions {#tagged-versions}
 
-![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio 'Docker Pulls Count')
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
@@ -24,6 +24,7 @@ For a major version:
 ```bash
 docker pull verdaccio/verdaccio:4
 ```
+
 For a minor version:
 
 ```bash
@@ -51,12 +52,11 @@ The above line will pull the latest prebuilt image from dockerhub, if you haven'
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
-
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem (example below).
 
-Note that if you do mount conf like this, that [you first need to supply a copy of config.yaml in that directory](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins/docker-build-install-plugin). The Docker container will not start properly if this file is missing. 
+Note that if you do mount conf like this, that [you first need to supply a copy of config.yaml in that directory](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins/docker-build-install-plugin). The Docker container will not start properly if this file is missing.
 
-You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml. 
+You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml.
 
 However, note the security warnings in that file; you will definitely want to lock it down in production.
 
@@ -68,12 +68,13 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
+
 > if you are running in a server, you might want to add -d to run it in the background
 
->Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default, 
-you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise 
-you will get permission errors at runtime. 
-[Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default,
+> you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise
+> you will get permission errors at runtime.
+> [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 ### Environment variables
 
@@ -109,11 +110,11 @@ Plugins can be installed in a separate directory and mounted using Docker or Kub
 
 ### Creating your own `Dockerfile` using `verdaccio/verdaccio:tag` as base
 
-If the plugin already exist in some registry, it could be installed globally with `npm` command. 
+If the plugin already exist in some registry, it could be installed globally with `npm` command.
 
 ```docker
 FROM verdaccio/verdaccio:5
-ADD docker.yaml /verdaccio/conf/config.yaml  
+ADD docker.yaml /verdaccio/conf/config.yaml
 USER root
 RUN npm install --global verdaccio-static-token \
   && npm install --global verdaccio-auth-memory
@@ -138,7 +139,7 @@ ADD plugins/verdaccio-docker-memory /verdaccio/plugins/verdaccio-docker-memory
 RUN cd /verdaccio/plugins/verdaccio-docker-memory \
   && npm install --production
 FROM verdaccio/verdaccio:5
-ADD docker.yaml /verdaccio/conf/config.yaml  
+ADD docker.yaml /verdaccio/conf/config.yaml
 COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
   /verdaccio/plugins/verdaccio-docker-memory \
   /verdaccio/plugins/verdaccio-docker-memory
@@ -158,7 +159,7 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   -v $V_PATH/storage:/verdaccio/storage \
   -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
-```  
+```
 
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
 
@@ -169,7 +170,7 @@ in your `docker run` command add the environment variable `VERDACCIO_PORT=5000` 
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
-  -e "VERDACCIO_PORT=8080" -p 8080:8080 \  
+  -e "VERDACCIO_PORT=8080" -p 8080:8080 \
   verdaccio/verdaccio
 ```
 
@@ -197,24 +198,23 @@ $ docker-compose up --build
 
 You can set the port to use (for both container and host) by prefixing the above command with `VERDACCIO_PORT=5000 `.
 
-
 ```yaml
 version: '3.1'
 
 services:
   verdaccio:
     image: verdaccio/verdaccio
-    container_name: "verdaccio"
+    container_name: 'verdaccio'
     networks:
       - node-network
     environment:
       - VERDACCIO_PORT=4873
     ports:
-      - "4873:4873"
+      - '4873:4873'
     volumes:
-      - "./storage:/verdaccio/storage"
-      - "./config:/verdaccio/conf"
-      - "./plugins:/verdaccio/plugins"  
+      - './storage:/verdaccio/storage'
+      - './config:/verdaccio/conf'
+      - './plugins:/verdaccio/plugins'
 networks:
   node-network:
     driver: bridge
@@ -261,20 +261,19 @@ There is a separate repository that hosts multiple configurations to compose Doc
 
 [https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
 
-
 ## Docker Custom Builds {#docker-custom-builds}
 
 > If you have made an image based on Verdaccio, feel free to add it to this list.
 
-* [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
-* [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
-* [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
-* [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
-* [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
-* [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
-* [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
-* [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
-* [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
-* [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)
+- [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
+- [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
+- [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
+- [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+- [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
+- [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
+- [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
+- [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
+- [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
+- [verdaccio-server](https://github.com/andru255/verdaccio-server)
+- [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+- [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)

@@ -1,11 +1,10 @@
 ---
 id: reverse-proxy
-title: "Reverse Proxy Setup"
+title: 'Reverse Proxy Setup'
 ---
 
 Using a reverse proxy is a common practice. The following configurations are the
 most recommended and used ones.
-
 
 **Important**, the headers are considered to resolve the public are `X-Forwarded-Proto` for the protocol and `Host` for the domain, please include them in your configuration.
 
@@ -15,16 +14,17 @@ Apache and `mod_proxy` should **not decode/encode slashes** and leave them as th
 
 For installing at relative path, `/npm`, on the server
 
-````
+```
 <VirtualHost *:80>
   AllowEncodedSlashes NoDecode
   ProxyPass /npm http://127.0.0.1:4873 nocanon
   ProxyPassReverse /npm http://127.0.0.1:4873
 </VirtualHost>
-````
+```
 
 For installing at root path, `/`, on the server
-````
+
+```
 <VirtualHost *:80>
   ServerName your.domain.com
   ServerAdmin hello@your.domain.com
@@ -33,13 +33,13 @@ For installing at root path, `/`, on the server
   ProxyPass / http://127.0.0.1:4873/ nocanon
   ProxyPassReverse / http://127.0.0.1:4873/
 </VirtualHost>
-````
+```
 
 ### Configuration with SSL {#configuration-with-ssl}
 
 Apache virtual server configuration.
 
-````apache
+```apache
     <IfModule mod_ssl.c>
     <VirtualHost *:443>
         ServerName npm.your.domain.com
@@ -55,42 +55,41 @@ Apache virtual server configuration.
         RequestHeader set       X-Forwarded-Proto "https"
     </VirtualHost>
     </IfModule>
-````
+```
 
 ## Invalid checksum
 
 Sometimes the gzip compression can mess with the request when running `npm install` and result in error messages like this:
 
-````
+```
 npm WARN tar TAR_ENTRY_INVALID checksum failure
 npm WARN tar zlib: incorrect data check
-````
+```
 
 A possible fix for this, can be by disabling gzip compression for the virtual host, by adding this to your config:
 
-````
+```
 SetEnv no-gzip 1
-````
+```
 
 Resulting in a config like so:
 
-````
+```
 <VirtualHost *:80>
   AllowEncodedSlashes NoDecode
   SetEnv no-gzip 1
   ProxyPass /npm http://127.0.0.1:4873 nocanon
   ProxyPassReverse /npm http://127.0.0.1:4873
 </VirtualHost>
-````
+```
 
 You should only add it to your virtual host config, if you are experiencing the issue.
-
 
 # Nginx
 
 The following snippet is a full `docker` example can be tested in our [Docker examples repository](https://github.com/verdaccio/verdaccio/tree/5.x/docker-examples/reverse_proxy/nginx).
 
-````nginx
+```nginx
 upstream verdaccio_v4 {
     server verdaccio_relative_path_v4:4873;
     keepalive 8;
@@ -139,11 +138,11 @@ server {
       proxy_redirect off;
     }
 }
-````
+```
 
 ## SSL example {#ssl-example}
 
-````nginx
+```nginx
 server {
     listen 80;
     return 302 https://$host$request_uri;
@@ -181,7 +180,7 @@ server {
         proxy_redirect off;
     }
 }
-````
+```
 
 ## Run behind reverse proxy with different domain and port {#run-behind-reverse-proxy-with-different-domain-and-port}
 
@@ -208,6 +207,7 @@ location / {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
 For this case, `url_prefix` should **NOT** set in Verdaccio config
 
 ---
@@ -222,6 +222,7 @@ location ~ ^/verdaccio/(.*)$ {
     proxy_set_header X-Forwarded-Proto $scheme;
 }
 ```
+
 For this case, `url_prefix` should set to `/verdaccio/`
 
 > Note: There is a slash after the install path (`https://your-domain:port/verdaccio/`)!
@@ -229,7 +230,6 @@ For this case, `url_prefix` should set to `/verdaccio/`
 ### Overriding the public url
 
 > Since `verdaccio@5.0.0`
-
 
 The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this variable will be used for:
 

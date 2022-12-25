@@ -1,6 +1,6 @@
 ---
 id: linking-remote-registry
-title: "Linking a Remote Registry"
+title: 'Linking a Remote Registry'
 ---
 
 Verdaccio is a proxy and by default [links](uplinks.md) the public registry.
@@ -25,10 +25,10 @@ registry=https://registry.npmjs.org
 
 This approach is valid, but comes with several disadvantages:
 
-* It **only works with scopes**
-* Scope must match, **no Regular Expressions are allowed**
-* One scope **cannot fetch from multiple registries**
-* Tokens/passwords **must be defined within** `.npmrc` and checked in into the repo.
+- It **only works with scopes**
+- Scope must match, **no Regular Expressions are allowed**
+- One scope **cannot fetch from multiple registries**
+- Tokens/passwords **must be defined within** `.npmrc` and checked in into the repo.
 
 See a full example [here](https://stackoverflow.com/questions/54543979/npmrc-multiple-registries-for-the-same-scope/54550940#54550940).
 
@@ -78,7 +78,6 @@ Having a full Offline Registry is completely possible. If you don't want any con
 can do the following.
 
 ```yaml
-
 auth:
   htpasswd:
     file: ./htpasswd

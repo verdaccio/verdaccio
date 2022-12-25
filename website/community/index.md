@@ -4,7 +4,6 @@ hide_title: true
 sidebar_label: Help
 ---
 
-
 This project is maintained by the Verdaccio community, maintainers and users that provide helps to other users. Independently the source you select for seeking answers **remind to be polite and patience**.
 
 ## Questions {#questions}
@@ -26,7 +25,7 @@ If you have a question, most probably has already been answer, few ways to disco
     height="500"
     frameBorder="0"
     />
-```    
+```
 
 ## Package Managers {#package-managers}
 
@@ -40,7 +39,7 @@ A private registry is mostly used with a package manager, some issues or questio
 
 ## News {#news}
 
- - [Twitter](http://twitter.com/verdaccio)
- - [Twitter Community](https://twitter.com/i/communities/1502550839499579393)
- - [Telegram](https://t.me/verdaccio)
- - [Blog](https://verdaccio.org/blog)
+- [Twitter](http://twitter.com/verdaccio)
+- [Twitter Community](https://twitter.com/i/communities/1502550839499579393)
+- [Telegram](https://t.me/verdaccio)
+- [Blog](https://verdaccio.org/blog)

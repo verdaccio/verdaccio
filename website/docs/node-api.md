@@ -1,6 +1,6 @@
 ---
 id: node-api
-title: "Node API"
+title: 'Node API'
 ---
 
 Verdaccio can be invoked programmatically. The Node API was introduced after version `verdaccio@3.0.0`.
@@ -62,11 +62,12 @@ startServer(
 
 ## Other implementations {#other-implementations}
 
-* [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
+- [verdaccio-server](https://github.com/boringame/verdaccio-server) local npm registry proxy server
 
 ```js
 // js
-import * as verdaccioServer from "verdaccio-server";
+import * as verdaccioServer from 'verdaccio-server';
+
 verdaccioServer.start();
 verdaccioServer.stop();
 verdaccioServer.list();

@@ -1,6 +1,6 @@
 ---
 id: installation
-title: "Installation"
+title: 'Installation'
 ---
 
 Verdaccio is a Node.js private and proxy registry. To install it, you need a few basic prerequisites.
@@ -65,7 +65,7 @@ or with the docker image
 docker pull verdaccio/verdaccio:nightly-master
 ```
 
-> The docker image `verdaccio/verdaccio:nightly-master` is alinged with the latest commits in master branch, while the npmjs version has a longer release cycle. **It is highly recommended  don't use alpha versions for production**.
+> The docker image `verdaccio/verdaccio:nightly-master` is alinged with the latest commits in master branch, while the npmjs version has a longer release cycle. **It is highly recommended don't use alpha versions for production**.
 
 ## Basic Usage {#basic-usage}
 
@@ -106,6 +106,7 @@ Or a `publishConfig` in your `package.json`
   }
 }
 ```
+
 For alternative configurations, please read the [Using a private registry](cli-registry.md) section.
 
 ## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}

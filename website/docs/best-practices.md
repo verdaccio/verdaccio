@@ -1,6 +1,6 @@
 ---
 id: best
-title: "Best Practices"
+title: 'Best Practices'
 ---
 
 The following guide is a list of the best practices collected and that we usually recommend to all users. Do not take this guide as
@@ -52,7 +52,7 @@ There's two options here:
 
    ```yaml
    packages:
-     "@my-company/*":
+     '@my-company/*':
        access: $all
        publish: $authenticated
        # comment it out or leave it empty
@@ -84,7 +84,7 @@ Additional reading:
 - **[Avoiding npm substitution attacks](https://github.blog/2021-02-12-avoiding-npm-substitution-attacks/)**
 - **[Dependency Confusion: When Are Your npm Packages Vulnerable?](https://blog.includesecurity.com/2021/02/dependency-confusion-when-are-your-npm-packages-vulnerable/)**
 - **[Practical Mitigations For Dependency Confusion Attack](https://www.kernelcrypt.com/posts/depedency-confusion-explained/)**
-> Feel free to attach here new useful articles to improve the security.
+  > Feel free to attach here new useful articles to improve the security.
 
 ### Strong package access with `$authenticated` {#strong-package-access-with-authenticated}
 
@@ -92,13 +92,13 @@ By default all packages you publish in Verdaccio are accessible for all users. W
 
 ```yaml
 packages:
-  "@my-company/*":
+  '@my-company/*':
     access: $authenticated
     publish: $authenticated
-  "@*/*":
+  '@*/*':
     access: $authenticated
     publish: $authenticated
-  "**":
+  '**':
     access: $authenticated
     publish: $authenticated
 ```
@@ -111,11 +111,11 @@ After a clean installation, by default all packages will be resolved to the defa
 
 ```yaml
 packages:
-  "@*/*":
+  '@*/*':
     access: $authenticated
     publish: $authenticated
     proxy: npmjs
-  "**":
+  '**':
     access: $authenticated
     publish: $authenticated
     proxy: npmjs
@@ -125,15 +125,15 @@ This means that even if a private package like `@my-company/auth` is published l
 
 ```yaml
 packages:
-  "@my-company/*":
+  '@my-company/*':
     access: $authenticated
     publish: $authenticated
     unpublish: $authenticated
-  "@*/*":
+  '@*/*':
     access: $authenticated
     publish: $authenticated
     proxy: npmjs
-  "**":
+  '**':
     access: $authenticated
     publish: $authenticated
     proxy: npmjs
@@ -179,7 +179,6 @@ Since version `v5.4.0` critical endpoints have enabled by default rate limit. Th
 - User website `/sec/login` endpoint.
 
 The previous list of endpoints are limited to `100` request peer _15 minutes_ which is enough for a basic usage, if you need to increase this levels please check the `userRateLimit` configuration options.
-
 
 ```yaml
 userRateLimit:

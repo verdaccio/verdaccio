@@ -37,14 +37,12 @@ import ReactPlayer from 'react-player/youtube'
 <ReactPlayer url='https://youtube.com/playlist?list=PLP8UI_MhLljIDZOFHd7YlvUVhV89caeyu' height="600px" width="100%" pip controls/>
 ```
 
-
 ## Contributors Tutorials
 
 ```mdx-code-block
 
 <ReactPlayer url='https://youtube.com/playlist?list=PLP8UI_MhLljIkGcN-czMCR3ET82prbs0O' height="600px" width="100%" pip controls/>
 ```
-
 
 ## Tutoriales en Español
 

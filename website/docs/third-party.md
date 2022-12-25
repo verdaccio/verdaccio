@@ -1,6 +1,6 @@
 ---
 id: third-party
-title: "Third-party Integrations"
+title: 'Third-party Integrations'
 ---
 
 ## Cloudron {#cloudron}

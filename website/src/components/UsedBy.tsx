@@ -8,7 +8,7 @@ import styles from './UsedBy.module.scss';
 
 const UsedBy = (): React.ReactElement => (
   <section className={styles.usedBy}>
-    <div className={styles['usedBy--main']}>    
+    <div className={styles['usedBy--main']}>
       <b>
         <Translate>USED BY</Translate>
       </b>

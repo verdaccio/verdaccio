@@ -1,6 +1,6 @@
 ---
 id: logger
-title: "Logger"
+title: 'Logger'
 ---
 
 As with any web application, Verdaccio has a customisable built-in logger. You can define multiple types of outputs.
@@ -24,10 +24,10 @@ Note: Rotating log stream is not supported in cluster mode. [See here](https://g
 
 ### Configuration {#configuration}
 
-| Property | Type   | Required | Example                                        | Support | Description                                       |
-| -------- | ------ | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
-| type     | string | No       | [stdout, file]                                 | all     | define the output                                 |
-| path     | string | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
-| format   | string | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
-| level    | string | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
-| colors    | boolean | No     | false  | v5.7.0     | disable or enable colors                                     |
+| Property | Type    | Required | Example                                        | Support | Description                                       |
+| -------- | ------- | -------- | ---------------------------------------------- | ------- | ------------------------------------------------- |
+| type     | string  | No       | [stdout, file]                                 | all     | define the output                                 |
+| path     | string  | No       | verdaccio.log                                  | all     | if type is file, define the location of that file |
+| format   | string  | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
+| level    | string  | No       | [fatal, error, warn, http, info, debug, trace] | all     | verbose level                                     |
+| colors   | boolean | No       | false                                          | v5.7.0  | disable or enable colors                          |

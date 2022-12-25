@@ -1,6 +1,6 @@
 ---
 id: github-actions
-title: "GitHub Actions"
+title: 'GitHub Actions'
 ---
 
 With [GitHub Actions](https://github.com/features/actions) you can automate your workflow, each GitHub Action performs a specific step in a process.

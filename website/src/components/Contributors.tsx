@@ -1,6 +1,7 @@
 import Translate from '@docusaurus/Translate';
-import Tooltip from '@mui/material/Tooltip';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import MergeTypeIcon from '@mui/icons-material/MergeType';
+import StarIcon from '@mui/icons-material/Star';
 import Badge from '@mui/material/Badge';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -11,13 +12,12 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { makeStyles, withStyles } from '@mui/styles';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import MergeTypeIcon from '@mui/icons-material/MergeType';
-import StarIcon from '@mui/icons-material/Star';
+import { makeStyles, withStyles } from '@mui/styles';
 import Layout from '@theme/Layout';
 import React from 'react';
 
@@ -34,38 +34,8 @@ const theme = createTheme({
   },
 });
 
-const useStyles = makeStyles(({ theme }: { theme: any }) =>({
-  '@global': {
-    // small: {
-    //   width: theme.spacing(3),
-    //   height: theme.spacing(3),
-    // },
-    // medium: {
-    //   width: theme.spacing(6),
-    //   height: theme.spacing(6),
-    // },
-    // large: {
-    //   width: theme.spacing(12),
-    //   height: theme.spacing(12),
-    // },
-    // root: {
-    //   width: '100%',
-    //   maxWidth: 360,
-    //   backgroundColor: theme.palette.background.paper,
-    // },
-    // inline: {
-    //   display: 'inline',
-    // },
-    // starColor: {
-    //   color: yellow[500],
-    // },
-    // archived: {
-    //   opacity: `0.4`,
-    // },
-    // emojiEvent: {
-    //   color: green[800],
-    // },
-  },
+const useStyles = makeStyles(({ theme }: { theme: any }) => ({
+  '@global': {},
 }));
 
 const StyledBadge = withStyles(() => ({
@@ -100,7 +70,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
   const [user, setUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
-  const {contributors, repositories} = data;
+  const { contributors, repositories } = data;
 
   const handleClickOpen = (item) => {
     setUser(item);
@@ -160,7 +130,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                     src={generateImage(userItem.node.userId)}
                     alt={userItem.node.url}
                     width="40px"
-                    style={{borderRadius: '10px'}}
+                    style={{ borderRadius: '10px' }}
                   />
                 </div>
               );
@@ -181,7 +151,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                         alt={user.node.url}
                         className={classes.medium}
                         width="40px"
-                        style={{borderRadius: '10px'}}
+                        style={{ borderRadius: '10px' }}
                       />
                     </a>
                   </Grid>
@@ -201,7 +171,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
               <DialogContent>
                 <div className={classes.root}>
                   <List component="nav" aria-label="main mailbox folders">
-                    {user.node.repositories.map(({name, contributions}) => {
+                    {user.node.repositories.map(({ name, contributions }) => {
                       const repo = repositories.find((repo) => repo.name === name);
                       if (!repo) {
                         return null;
@@ -221,7 +191,7 @@ const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement
                             <Badge
                               badgeContent={contributions}
                               color="primary"
-                              max={9999}  
+                              max={9999}
                               anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',

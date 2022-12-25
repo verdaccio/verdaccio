@@ -1,6 +1,6 @@
 ---
 id: installation
-title: "Installation"
+title: 'Installation'
 ---
 
 Verdaccio is a Node.js private and proxy registry. To install it, you need a few basic prerequisites.
@@ -35,7 +35,7 @@ Using `npm`
 npm install --location=global verdaccio@6-next
 ```
 
-or using `yarn@1.x` _classic_, 
+or using `yarn@1.x` _classic_,
 
 ```bash
 yarn global add verdaccio

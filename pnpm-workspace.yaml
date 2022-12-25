@@ -2,6 +2,7 @@ packages:
   - packages/*
   - packages/core/*
   - packages/tools/*
+  - packages/ui/*
   - packages/server/*
   - packages/plugins/audit
   - packages/plugins/auth-memory

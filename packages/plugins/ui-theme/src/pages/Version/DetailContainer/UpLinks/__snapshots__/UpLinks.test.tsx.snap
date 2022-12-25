@@ -218,7 +218,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
             <span
               class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
             >
-              4 years ago
+              5 years ago
             </span>
           </div>
         </li>
@@ -346,7 +346,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
           >
-            4 years ago
+            5 years ago
           </span>
         </div>
       </li>
