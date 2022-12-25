@@ -68,7 +68,6 @@ const ToolList: FC<Props> = ({ addons = [], filters }): React.ReactElement => {
     if (filters.keyword !== '') {
       const dbResults = search(db, {
         term: filters.keyword,
-        properties: ['name'],
       });
       results = [...normalizeResults(dbResults.hits)];
     }
