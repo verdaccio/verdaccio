@@ -806,7 +806,7 @@ importers:
       '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.52
       '@verdaccio/types': workspace:*
-      '@verdaccio/ui-components': workspace:1.0.0
+      '@verdaccio/ui-components': workspace:2.0.0-alpha.0
       babel-loader: 8.3.0
       babel-plugin-dynamic-import-node: 2.3.3
       country-flag-icons: 1.5.5
@@ -1375,7 +1375,7 @@ importers:
       '@mui/styles': 5.11.1
       '@tsconfig/docusaurus': ^1.0.2
       '@verdaccio/crowdin-translations': workspace:*
-      '@verdaccio/ui-components': workspace:1.0.0
+      '@verdaccio/ui-components': workspace:2.0.0-alpha.0
       classnames: 2.3.2
       clsx: 1.2.1
       copy-text-to-clipboard: 3.0.1

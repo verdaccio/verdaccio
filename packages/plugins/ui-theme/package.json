@@ -37,7 +37,7 @@
     "@types/react-virtualized": "9.21.21",
     "@types/redux": "3.6.0",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.52",
-    "@verdaccio/ui-components": "workspace:1.0.0",
+    "@verdaccio/ui-components": "workspace:2.0.0-alpha.0",
     "@verdaccio/types": "workspace:*",
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",

@@ -39,7 +39,7 @@
     "@mui/material": "5.11.1",
     "@mui/styles": "5.11.1",
     "@lyrasearch/lyra": "^0.3.1",
-    "@verdaccio/ui-components": "workspace:1.0.0",
+    "@verdaccio/ui-components": "workspace:2.0.0-alpha.0",
     "dompurify": "2.4.1",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
