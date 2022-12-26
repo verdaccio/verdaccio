@@ -1,27 +1,27 @@
 {
   "cs": {
-    "translationProgress": 10,
-    "approvalProgress": 10
+    "translationProgress": 9,
+    "approvalProgress": 9
   },
   "de": {
-    "translationProgress": 19,
-    "approvalProgress": 19
+    "translationProgress": 18,
+    "approvalProgress": 18
   },
   "es-ES": {
-    "translationProgress": 25,
-    "approvalProgress": 25
+    "translationProgress": 23,
+    "approvalProgress": 23
   },
   "fr": {
-    "translationProgress": 25,
-    "approvalProgress": 25
+    "translationProgress": 23,
+    "approvalProgress": 23
   },
   "gl": {
     "translationProgress": 1,
     "approvalProgress": 1
   },
   "it": {
-    "translationProgress": 78,
-    "approvalProgress": 75
+    "translationProgress": 70,
+    "approvalProgress": 68
   },
   "ja": {
     "translationProgress": 1,
@@ -36,20 +36,20 @@
     "approvalProgress": 1
   },
   "pl": {
-    "translationProgress": 20,
-    "approvalProgress": 20
+    "translationProgress": 19,
+    "approvalProgress": 19
   },
   "pt-BR": {
-    "translationProgress": 34,
-    "approvalProgress": 34
+    "translationProgress": 32,
+    "approvalProgress": 32
   },
   "ru": {
-    "translationProgress": 47,
-    "approvalProgress": 47
+    "translationProgress": 45,
+    "approvalProgress": 45
   },
   "sr-CS": {
-    "translationProgress": 11,
-    "approvalProgress": 11
+    "translationProgress": 10,
+    "approvalProgress": 10
   },
   "tr": {
     "translationProgress": 2,
@@ -60,19 +60,19 @@
     "approvalProgress": 0
   },
   "vi": {
-    "translationProgress": 8,
-    "approvalProgress": 8
+    "translationProgress": 7,
+    "approvalProgress": 7
   },
   "yo": {
-    "translationProgress": 17,
-    "approvalProgress": 17
+    "translationProgress": 16,
+    "approvalProgress": 16
   },
   "zh-CN": {
-    "translationProgress": 37,
-    "approvalProgress": 37
+    "translationProgress": 36,
+    "approvalProgress": 35
   },
   "zh-TW": {
-    "translationProgress": 18,
-    "approvalProgress": 18
+    "translationProgress": 17,
+    "approvalProgress": 17
   }
 }
