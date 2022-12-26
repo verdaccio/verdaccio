@@ -41,8 +41,8 @@
     "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/node": "16.18.3",
-    "typedoc": "0.23.21"
+    "@types/node": "16.18.10",
+    "typedoc": "0.23.23"
   },
   "typedoc": {
     "entryPoint": "./src/types.ts",

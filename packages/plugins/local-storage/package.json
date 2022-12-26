@@ -40,7 +40,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.52",
     "@verdaccio/file-locking": "workspace:11.0.0-6-next.6",
     "@verdaccio/utils": "workspace:6.0.0-6-next.20",
-    "core-js": "3.26.1",
+    "core-js": "3.27.0",
     "debug": "4.3.4",
     "globby": "11.1.0",
     "lockfile": "1.0.4",
