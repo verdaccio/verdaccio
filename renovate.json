@@ -64,10 +64,6 @@
       "allowedVersions": "< 3.0.0"
     },
     {
-      "packageNames": ["@changesets/cli"],
-      "allowedVersions": "2.15.0"
-    },
-    {
       "matchDatasources": ["docker"],
       "labels": ["bot: docker-update"]
     },

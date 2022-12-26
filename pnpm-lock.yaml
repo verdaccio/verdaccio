@@ -54,9 +54,10 @@ importers:
       '@types/node': 16.18.10
       '@types/node-fetch': 2.6.2
       '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
+      '@types/react-dom': 18.0.9
       '@types/react-router-dom': 5.3.3
       '@types/react-virtualized': 9.21.21
+      '@types/redux': 3.6.0
       '@types/request': 2.48.8
       '@types/semver': 7.3.13
       '@types/supertest': 2.0.12
@@ -156,9 +157,10 @@ importers:
       '@types/node': 16.18.10
       '@types/node-fetch': 2.6.2
       '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
+      '@types/react-dom': 18.0.9
       '@types/react-router-dom': 5.3.3
       '@types/react-virtualized': 9.21.21
+      '@types/redux': 3.6.0
       '@types/request': 2.48.8
       '@types/semver': 7.3.13
       '@types/supertest': 2.0.12
@@ -387,7 +389,7 @@ importers:
       '@verdaccio/utils': workspace:6.0.0-6-next.20
       debug: 4.3.4
       express: 4.18.2
-      jsonwebtoken: 8.5.1
+      jsonwebtoken: 9.0.0
       lodash: 4.17.21
       verdaccio-htpasswd: workspace:11.0.0-6-next.22
     dependencies:
@@ -398,7 +400,7 @@ importers:
       '@verdaccio/utils': link:../utils
       debug: 4.3.4
       express: 4.18.2
-      jsonwebtoken: 8.5.1
+      jsonwebtoken: 9.0.0
       lodash: 4.17.21
       verdaccio-htpasswd: link:../plugins/htpasswd
     devDependencies:
@@ -799,11 +801,6 @@ importers:
       '@testing-library/dom': 8.19.1
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0
-      '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
-      '@types/react-router-dom': 5.3.3
-      '@types/react-virtualized': 9.21.21
-      '@types/redux': 3.6.0
       '@verdaccio/node-api': workspace:6.0.0-6-next.52
       '@verdaccio/types': workspace:*
       '@verdaccio/ui-components': workspace:2.0.0-alpha.0
@@ -877,11 +874,6 @@ importers:
       '@testing-library/dom': 8.19.1
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0_react-dom@18.2.0+react@18.2.0
-      '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
-      '@types/react-router-dom': 5.3.3
-      '@types/react-virtualized': 9.21.21
-      '@types/redux': 3.6.0
       '@verdaccio/node-api': link:../../node-api
       '@verdaccio/types': link:../../core/types
       '@verdaccio/ui-components': link:../../ui-components
@@ -10420,10 +10412,16 @@ packages:
       '@types/react': 18.0.26
     dev: true
 
+  /@types/react-dom/18.0.9:
+    resolution: {integrity: sha512-qnVvHxASt/H7i+XG1U1xMiY5t+IHcPGUK7TDMDzom08xa7e86eCeKOiLZezwCKVxJn6NEiiy2ekgX8aQssjIKg==}
+    dependencies:
+      '@types/react': 18.0.26
+    dev: true
+
   /@types/react-is/17.0.3:
     resolution: {integrity: sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==}
     dependencies:
-      '@types/react': 18.0.25
+      '@types/react': 18.0.26
 
   /@types/react-redux/7.1.20:
     resolution: {integrity: sha512-q42es4c8iIeTgcnB+yJgRTTzftv3eYYvCZOh1Ckn2eX/3o5TdsQYKUWpLoLuGlcY/p+VAhV9IOEZJcWk/vfkXw==}
@@ -10457,7 +10455,7 @@ packages:
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
-      '@types/react': 18.0.25
+      '@types/react': 18.0.26
 
   /@types/react-virtualized/9.21.21:
     resolution: {integrity: sha512-Exx6I7p4Qn+BBA1SRyj/UwQlZ0I0Pq7g7uhAp0QQ4JWzZunqEqNBGTmCmMmS/3N9wFgAGWuBD16ap7k8Y14VPA==}
@@ -10489,7 +10487,7 @@ packages:
       csstype: 3.1.1
 
   /@types/redux/3.6.0:
-    resolution: {integrity: sha1-8evh5UEVGAcuT9/KXHbhbnTBOZo=}
+    resolution: {integrity: sha512-ic+60DXHW5seNyqFvfr7Sk5cnXs+HsF9tIeIaxjOuSP5kzgDXC+AzKTYmjAfuLx4Sccm/0vjwBQj3OOkUkwOqg==}
     deprecated: This is a stub types definition for Redux (https://github.com/reactjs/redux). Redux provides its own type definitions, so you don't need @types/redux installed!
     dependencies:
       redux: 4.2.0
@@ -12242,7 +12240,7 @@ packages:
     dev: true
 
   /buffer-equal-constant-time/1.0.1:
-    resolution: {integrity: sha1-+OcRMvf/5uAaXJaXpMbz5I1cyBk=}
+    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
 
   /buffer-from/1.1.1:
     resolution: {integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==}
@@ -18660,6 +18658,17 @@ packages:
       lodash.once: 4.1.1
       ms: 2.1.3
       semver: 5.7.1
+    dev: true
+
+  /jsonwebtoken/9.0.0:
+    resolution: {integrity: sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==}
+    engines: {node: '>=12', npm: '>=6'}
+    dependencies:
+      jws: 3.2.2
+      lodash: 4.17.21
+      ms: 2.1.3
+      semver: 7.3.8
+    dev: false
 
   /jsprim/2.0.2:
     resolution: {integrity: sha512-gqXddjPqQ6G40VdnI6T6yObEC+pDNvyP95wdQhkWkg7crHH3km5qP1FsOXEkzEQwnz6gz5qGTn1c2Y52wP3OyQ==}
@@ -19029,21 +19038,27 @@ packages:
 
   /lodash.includes/4.3.0:
     resolution: {integrity: sha1-YLuYqHy5I8aMoeUTJUgzFISfVT8=}
+    dev: true
 
   /lodash.isboolean/3.0.3:
     resolution: {integrity: sha1-bC4XHbKiV82WgC/UOwGyDV9YcPY=}
+    dev: true
 
   /lodash.isinteger/4.0.4:
     resolution: {integrity: sha1-YZwK89A/iwTDH1iChAt3sRzWg0M=}
+    dev: true
 
   /lodash.isnumber/3.0.3:
     resolution: {integrity: sha1-POdoEMWSjQM1IwGsKHMX8RwLH/w=}
+    dev: true
 
   /lodash.isplainobject/4.0.6:
     resolution: {integrity: sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=}
+    dev: true
 
   /lodash.isstring/4.0.1:
     resolution: {integrity: sha1-1SfftUVuynzJu5XV2ur4i6VKVFE=}
+    dev: true
 
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=}
@@ -19053,6 +19068,7 @@ packages:
 
   /lodash.once/4.1.1:
     resolution: {integrity: sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=}
+    dev: true
 
   /lodash.startcase/4.4.0:
     resolution: {integrity: sha1-lDbjTtJgk+1/+uGTYUQ1CRXZrdg=}
