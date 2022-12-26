@@ -1,0 +1,74 @@
+name: UI Components
+
+on: 
+  pull_request:
+    paths:
+    - .github/workflows/ui-components.yml
+    - 'packages/ui-components/**'
+    - 'package.json'
+    - 'pnpm-workspace.yaml'
+    - 'pnpm-lock.yaml'
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
+jobs:
+  deploy:
+    permissions:
+      contents: read  #  to fetch code (actions/checkout)
+      deployments: write
+      pull-requests: write  #  to comment on pull-requests
+
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
+    steps:
+      - uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # tag=v3
+
+      - name: Use Node
+        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516 # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Cache pnpm modules
+        uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+            corepack prepare --activate pnpm@6.32.15
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile  
+      - name: Build storybook
+        run: pnpm ui:storybook:build
+      - name: Copy public content
+        # the msw.js worker is need it at the storybook-static folder in production
+        run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
+      - name: 🔥 Deploy Production UI Netlify
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        uses: verdaccio/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
+          build-dir: './packages/ui-components/storybook-static'          
+      - name: 🤖 Deploy Preview UI Components Netlify
+        if: github.repository == 'verdaccio/verdaccio'
+        uses: verdaccio/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
+        id: netlify_preview_ui
+        with:
+          draft: true
+          comment-on-pull-request: true
+          github-deployment-is-production: false
+          github-deployment-is-transient: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
+          build-dir: './packages/ui-components/storybook-static'

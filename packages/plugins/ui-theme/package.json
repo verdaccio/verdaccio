@@ -12,16 +12,12 @@
   },
   "homepage": "https://verdaccio.org",
   "main": "index.js",
-  "peerDependencies": {
+  "devDependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
-    "@mui/material": "5.11.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "@mui/icons-material": "5.11.0",
-    "@mui/styles": "5.11.1"
-  },
-  "devDependencies": {
+    "@mui/styles": "5.11.1",
+    "@mui/material": "5.11.1",
     "@emotion/babel-plugin": "11.10.5",
     "@emotion/css": "11.10.5",
     "@emotion/jest": "11.10.5",
@@ -34,6 +30,7 @@
     "@verdaccio/node-api": "workspace:6.0.0-6-next.52",
     "@verdaccio/ui-components": "workspace:2.0.0-alpha.0",
     "@verdaccio/types": "workspace:*",
+    "normalize.css": "8.0.1",
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.5",
@@ -53,7 +50,6 @@
     "msw": "0.49.2",
     "mutationobserver-shim": "0.3.7",
     "node-mocks-http": "1.12.1",
-    "normalize.css": "8.0.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
     "dompurify": "2.4.1",

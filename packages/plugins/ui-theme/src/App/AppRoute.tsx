@@ -2,26 +2,13 @@ import { createBrowserHistory } from 'history';
 import React from 'react';
 import { Route as ReactRouterDomRoute, Router, Switch } from 'react-router-dom';
 
-import loadable from './utils/loadable';
+import { NotFound, Route, VersionProvider, loadable } from '@verdaccio/ui-components';
 
-const NotFound = loadable(
-  () => import(/* webpackChunkName: "NotFound" */ 'verdaccio-ui/components/NotFound')
-);
-const VersionContextProvider = loadable(
-  () => import(/* webpackChunkName: "Provider" */ '../pages/Version/VersionContextProvider')
-);
 const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../pages/Version'));
-const HomePage = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/home'));
-
-enum Route {
-  ROOT = '/',
-  SCOPE_PACKAGE = '/-/web/detail/@:scope/:package',
-  SCOPE_PACKAGE_VERSION = '/-/web/detail/@:scope/:package/v/:version',
-  PACKAGE = '/-/web/detail/:package',
-  PACKAGE_VERSION = '/-/web/detail/:package/v/:version',
-}
+const HomePage = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Home'));
 
 export const history = createBrowserHistory({
+  // @ts-ignore
   basename: window?.__VERDACCIO_BASENAME_UI_OPTIONS?.url_prefix,
 });
 
@@ -33,24 +20,24 @@ const AppRoute: React.FC = () => {
           <HomePage />
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.PACKAGE}>
-          <VersionContextProvider>
+          <VersionProvider>
             <VersionPage />
-          </VersionContextProvider>
+          </VersionProvider>
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.PACKAGE_VERSION}>
-          <VersionContextProvider>
+          <VersionProvider>
             <VersionPage />
-          </VersionContextProvider>
+          </VersionProvider>
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.SCOPE_PACKAGE_VERSION}>
-          <VersionContextProvider>
+          <VersionProvider>
             <VersionPage />
-          </VersionContextProvider>
+          </VersionProvider>
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.SCOPE_PACKAGE}>
-          <VersionContextProvider>
+          <VersionProvider>
             <VersionPage />
-          </VersionContextProvider>
+          </VersionProvider>
         </ReactRouterDomRoute>
         <ReactRouterDomRoute>
           <NotFound />
