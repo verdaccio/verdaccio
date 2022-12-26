@@ -39,11 +39,11 @@
     "semver": "7.3.8",
     "ajv": "8.11.2",
     "process-warning": "1.0.0",
-    "core-js": "3.26.1"
+    "core-js": "3.27.0"
   },
   "devDependencies": {
     "lodash": "4.17.21",
-    "typedoc": "0.23.21",
+    "typedoc": "0.23.23",
     "typedoc-plugin-missing-exports": "latest",
     "@verdaccio/types": "workspace:11.0.0-6-next.17"
   },

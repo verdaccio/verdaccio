@@ -42,12 +42,12 @@
     "lru-cache": "7.14.1"
   },
   "devDependencies": {
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.10",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.6",
     "@verdaccio/api": "workspace:6.0.0-6-next.35",
     "node-html-parser": "4.1.5",
-    "supertest": "6.3.1",
+    "supertest": "6.3.3",
     "nock": "13.2.9",
     "jsdom": "20.0.3",
     "undici": "4.16.0",

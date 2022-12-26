@@ -39,14 +39,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "dayjs": "1.11.6",
+    "dayjs": "1.11.7",
     "pino-abstract-transport": "1.0.0",
     "colorette": "2.0.19",
     "lodash": "4.17.21",
-    "sonic-boom": "3.2.0"
+    "sonic-boom": "3.2.1"
   },
   "devDependencies": {
-    "pino": "8.7.0"
+    "pino": "8.8.0"
   },
   "funding": {
     "type": "opencollective",

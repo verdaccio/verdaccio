@@ -53,15 +53,15 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.52",
     "@verdaccio/store": "workspace:6.0.0-6-next.32",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.6",
-    "fastify": "4.10.0",
-    "yaml": "2.1.3",
-    "got": "11.8.5",
+    "fastify": "4.10.2",
+    "yaml": "2.2.0",
+    "got": "11.8.6",
     "lodash": "4.17.21",
     "node-mocks-http": "1.12.1",
     "get-port": "5.1.1",
     "nock": "13.2.9",
     "typedoc-plugin-missing-exports": "1.0.0",
-    "typedoc-plugin-markdown": "3.13.6"
+    "typedoc-plugin-markdown": "3.14.0"
   },
   "keywords": [
     "private",

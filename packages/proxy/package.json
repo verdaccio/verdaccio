@@ -47,12 +47,12 @@
     "JSONStream": "1.3.5",
     "debug": "4.3.4",
     "lodash": "4.17.21",
-    "got": "11.8.5",
+    "got": "11.8.6",
     "hpagent": "1.2.0",
     "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.10",
     "p-cancelable": "2.1.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.17",
     "get-stream": "^6.0.1",
