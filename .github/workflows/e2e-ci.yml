@@ -29,7 +29,7 @@ jobs:
     - name: Install
       run: pnpm recursive install --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+      uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -46,7 +46,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+      - uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -55,7 +55,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: Cache packages
-        uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+        uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
         id: cache-packages
         with:
           path: ./packages/
@@ -85,13 +85,13 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+      - uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: Install
         run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@c1a5de879eb890d062a85ee0252d6036480b1fe2 # v3
+      - uses: actions/cache@4723a57e26efda3a62cbde1812113b730952852d # v3
         with:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
