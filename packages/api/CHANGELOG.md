@@ -1,5 +1,17 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.32
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/logger@6.0.0-6-next.21
+- @verdaccio/store@6.0.0-6-next.33
+- @verdaccio/config@6.0.0-6-next.53
+- @verdaccio/middleware@6.0.0-6-next.32
+- @verdaccio/utils@6.0.0-6-next.21
+
 ## 6.0.0-6-next.35
 
 ### Patch Changes

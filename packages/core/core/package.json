@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "6.0.0-6-next.52",
+  "version": "6.0.0-6-next.53",
   "description": "core utilities",
   "keywords": [
     "private",
@@ -45,7 +45,7 @@
     "lodash": "4.17.21",
     "typedoc": "0.23.23",
     "typedoc-plugin-missing-exports": "latest",
-    "@verdaccio/types": "workspace:11.0.0-6-next.17"
+    "@verdaccio/types": "workspace:11.0.0-6-next.18"
   },
   "scripts": {
     "clean": "rimraf ./build",
