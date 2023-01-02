@@ -38,7 +38,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   line-height: 1.6;
   margin-bottom: 0.35em;
   color: rgba(0, 0, 0, 0.6);
-  margin-bottom: 160px;
+  margin-bottom: 8px;
 }
 
 .emotion-5 {
