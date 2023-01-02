@@ -5,7 +5,7 @@ import { Route as ReactRouterDomRoute, Router, Switch } from 'react-router-dom';
 import { NotFound, Route, VersionProvider, loadable } from '@verdaccio/ui-components';
 
 const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../pages/Version'));
-const HomePage = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Home'));
+const Front = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Front'));
 
 export const history = createBrowserHistory({
   // @ts-ignore
@@ -17,7 +17,7 @@ const AppRoute: React.FC = () => {
     <Router history={history}>
       <Switch>
         <ReactRouterDomRoute exact={true} path={Route.ROOT}>
-          <HomePage />
+          <Front />
         </ReactRouterDomRoute>
         <ReactRouterDomRoute exact={true} path={Route.PACKAGE}>
           <VersionProvider>
