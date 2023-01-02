@@ -126,7 +126,7 @@ export type TemplateUIOptions = {
   showDownloadTarball?: boolean;
   showRaw?: boolean;
   base: string;
-  primaryColor?: string;
+  primaryColor: string;
   version?: string;
   logoURI?: string;
   flags: FlagsConfig;

@@ -39,7 +39,7 @@ const excludedAccounts = [
     // for the  ui, list of ids to be added on the contributors.
     const pathContributorsUIFile = path.join(
       __dirname,
-      '../packages/plugins/ui-theme/src/App/Header/generated_contributors_list.json'
+      '../packages/plugins/ui-theme/src/components/Contributors/generated_contributors_list.json'
     );
     await fs.writeFile(pathContributorsUIFile, JSON.stringify(contributorsListId, null, 4));
   } catch (err) {

@@ -1,30 +1,9 @@
 import React from 'react';
 import { renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
-import { store } from '../store';
-import App from './App';
+import { store } from '@verdaccio/ui-components';
 
-jest.mock('verdaccio-ui/utils/storage', () => {
-  class LocalStorageMock {
-    private store: Record<string, string>;
-    public constructor() {
-      this.store = {};
-    }
-    public clear(): void {
-      this.store = {};
-    }
-    public getItem(key: string): unknown {
-      return this.store[key] || null;
-    }
-    public setItem(key: string, value: string): void {
-      this.store[key] = value.toString();
-    }
-    public removeItem(key: string): void {
-      delete this.store[key];
-    }
-  }
-  return new LocalStorageMock();
-});
+import App from './App';
 
 // force the windows to expand to display items
 // https://github.com/bvaughn/react-virtualized/issues/493#issuecomment-640084107
@@ -40,6 +19,7 @@ describe('<App />', () => {
     });
 
     test('should not display the Header component', () => {
+      // @ts-ignore
       window.__VERDACCIO_BASENAME_UI_OPTIONS = {
         showFooter: false,
       };

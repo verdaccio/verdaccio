@@ -1,9 +1,22 @@
 {
   "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./build"
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "rootDir": ".",
+    "outDir": "./build",
+    "preserveSymlinks": true,
+    "jsx": "react",
+    "allowJs": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "include": ["src/**/*", "./src/types/index.d.ts"],
+  "references": [
+    {
+      "path": "../core/types"
+    }
+  ]
 }

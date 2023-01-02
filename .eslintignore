@@ -14,3 +14,7 @@ test/functional/store/*
 docker-examples/**/lib/**/*.js
 test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
 yarn.js
+# storybook
+packages/ui-components/storybook-static
+dist.js
+bundle.js
