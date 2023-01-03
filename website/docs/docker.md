@@ -227,7 +227,6 @@ There is a separate repository that hosts multiple configurations to compose Doc
 > If you have made an image based on Verdaccio, feel free to add it to this list.
 
 - [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
-- [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 - [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
 - [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
 - [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
@@ -238,3 +237,4 @@ There is a separate repository that hosts multiple configurations to compose Doc
 - [verdaccio-server](https://github.com/andru255/verdaccio-server)
 - [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
 - [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)
+- [verdaccio-auth-gitlab](https://github.com/johanneslosch/verdaccio-auth-gitlab)
