@@ -9,7 +9,7 @@ To install install the dependency in a local project.
 
 :::caution
 
-The UI components are in _experimental_ mode, currently used to build the main user interfance `@verdaccio/ui-theme`, If you are willing to use it **feedback is welcome**.
+The UI components are in _experimental_ mode, currently used to build the main user interface [`@verdaccio/ui-theme`](https://github.com/verdaccio/verdaccio/tree/master/packages/plugins/ui-theme), If you are willing to use it **feedback is welcome**.
 
 :::
 
@@ -52,6 +52,7 @@ import { Route, Router, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import {
   Home,
+  store,
   Loading,
   NotFound,
   Route as Routes,
