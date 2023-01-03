@@ -41,7 +41,11 @@ module.exports = {
         'authentication',
         'notifications',
         'logger',
-        'webui',
+        {
+          type: 'category',
+          label: 'User Interface',
+          items: ['webui', 'ui-components'],
+        },
       ],
     },
     {
