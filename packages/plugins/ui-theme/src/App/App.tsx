@@ -89,11 +89,7 @@ const App: React.FC = () => {
   }, []);
   return (
     <StrictMode>
-      <TranslatorProvider
-        i18n={i18n}
-        listLanguages={listLanguages}
-        loadDayJSLocale={loadDayJSLocale}
-      >
+      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={loadDayJSLocale}>
         <Suspense fallback={<Loading />}>
           <StyledBox display="flex" flexDirection="column" height="100%">
             <Router history={history}>
