@@ -72,7 +72,7 @@ const App: React.FC = () => {
       <Provider store={store}>
         <AppConfigurationProvider>
           <ThemeProvider>
-            <TranslatorProvider i18n={i18n} listLanguages={listLanguages} loadDayJSLocale={() => {}}>
+            <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => {}}>
               <Suspense fallback={<Loading />}>
                 <Router history={history}>
                   <Header HeaderInfoDialog={CustomInfoDialog} />
