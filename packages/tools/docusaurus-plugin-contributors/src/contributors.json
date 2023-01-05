@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4924,
+      "contributions": 4928,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2658
+          "contributions": 2662
         },
         {
           "name": "verdaccio-cookbook",
@@ -2434,6 +2434,17 @@
       ]
     },
     {
+      "id": 20465797,
+      "login": "ericmutta",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 619048,
       "login": "einfallstoll",
       "contributions": 1,
@@ -2590,6 +2601,17 @@
     {
       "id": 2779583,
       "login": "jeremymoritz",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 15651065,
+      "login": "johanneslosch",
       "contributions": 1,
       "repositories": [
         {
@@ -4729,7 +4751,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14273,
+      "stargazers_count": 14290,
       "archived": false
     },
     {
@@ -4810,7 +4832,7 @@
       "full_name": "verdaccio/local-storage",
       "html_url": "https://github.com/verdaccio/local-storage",
       "description": "📦 File system storage plugin for verdaccio (built-in)",
-      "stargazers_count": 18,
+      "stargazers_count": 19,
       "archived": true
     },
     {
