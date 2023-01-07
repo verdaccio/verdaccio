@@ -5,6 +5,10 @@ import { Manifest } from '@verdaccio/types';
 import type { RootModel } from '.';
 import API from '../api';
 
+/**
+ *
+ * @category Model
+ */
 export const packages = createModel<RootModel>()({
   state: {
     response: [] as Manifest[],

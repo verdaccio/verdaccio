@@ -19,6 +19,10 @@ export function getAuthorName(authorName?: string): string {
   return authorName;
 }
 
+/**
+ * @param param0
+ * @returns
+ */
 const Author: FC<{ packageMeta }> = ({ packageMeta }) => {
   const { t } = useTranslation();
 

@@ -18,6 +18,10 @@ const I18nTranslatorContext = createContext<TranslatorProviderProps>({
   listLanguages: [],
 });
 
+/**
+ * Translator provider
+ * @category Provider
+ */
 const TranslatorProvider: FunctionComponent<{
   children: React.ReactElement<any>;
   i18n: any;

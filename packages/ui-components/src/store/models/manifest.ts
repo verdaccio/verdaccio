@@ -22,6 +22,10 @@ function isPackageVersionValid(
   return false;
 }
 
+/**
+ *
+ * @category Model
+ */
 export const manifest = createModel<RootModel>()({
   state: {},
   reducers: {

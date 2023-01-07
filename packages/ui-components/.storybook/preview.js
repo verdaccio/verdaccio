@@ -33,7 +33,7 @@ export const parameters = {
 // required by AppConfigurationProvider
 export const withMuiTheme = (Story) => (
   <Provider store={store}>
-    <TranslatorProvider loadDayJSLocale={() => {}} i18n={config} listLanguages={listLanguages}>
+    <TranslatorProvider onMount={() => {}} i18n={config} listLanguages={listLanguages}>
       <AppConfigurationProvider>
         <ThemeProvider>
           <StyleBaseline />

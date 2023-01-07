@@ -40,6 +40,25 @@ interface Params {
   version?: string;
 }
 
+/**
+ * 
+*  @example
+    Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
+    ```jsx
+    function CustomComponent() {
+      const { packageMeta, packageName, packageVersion } = useVersion();
+      return <div />;
+    }
+
+    <Route path={Routes.PACKAGE}>
+      <VersionProvider>
+        <CustomComponent />
+      </VersionProvider>
+    </Route>;
+    ```
+    On mount, the provider will fetch data from the store for specific package or version provided via router.
+   @category Provider
+ */
 const VersionProvider: React.FC<{ children: any }> = ({ children }) => {
   const { version: packageVersion, package: pkgName, scope } = useParams<Params>();
   // @ts-ignore
@@ -50,6 +69,7 @@ const VersionProvider: React.FC<{ children: any }> = ({ children }) => {
   const dispatch = useDispatch<Dispatch>();
   useEffect(() => {
     const packageName = getRouterPackageName(pkgName, scope);
+
     dispatch.manifest.getManifest({ packageName, packageVersion });
   }, [dispatch, packageVersion, pkgName, scope]);
 

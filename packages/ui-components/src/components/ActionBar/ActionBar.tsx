@@ -11,7 +11,9 @@ export type Props = {
   packageMeta: any;
 };
 
-/* eslint-disable verdaccio/jsx-spread */
+/**
+   @category Components
+ */
 const ActionBar: React.FC<Props> = ({ showRaw, showDownloadTarball = true, packageMeta }) => {
   const [isRawViewerOpen, setIsRawViewerOpen] = useState(false);
 
