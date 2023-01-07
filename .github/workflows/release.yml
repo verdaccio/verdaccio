@@ -18,6 +18,8 @@ jobs:
       run: yarn install
     - name: Build
       run: yarn code:build
+    - name: Types
+      run: yarn code:types      
     - name: Publish
       run: sh scripts/publish.sh
       env:
