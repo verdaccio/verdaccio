@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.19.1](https://github.com/verdaccio/verdaccio/compare/v5.19.0...v5.19.1) (2023-01-07)
+
+
+### Bug Fixes
+
+* include ts types and systemd into the published package ([#3556](https://github.com/verdaccio/verdaccio/issues/3556)) ([a774e29](https://github.com/verdaccio/verdaccio/commit/a774e2971528aaa59155f271595588d4c945840d))
+
 ## [5.19.0](https://github.com/verdaccio/verdaccio/compare/v5.18.0...v5.19.0) (2022-12-25)
 
 
