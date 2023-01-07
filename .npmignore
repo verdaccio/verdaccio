@@ -41,5 +41,4 @@ contrib/
 storage_default_storage/
 docker-bin/
 yarn-plugins/
-tsconfig.json 
-systemd/
+tsconfig.json
