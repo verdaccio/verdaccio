@@ -2,13 +2,24 @@ import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
-import React from 'react';
+import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { PackageMetaInterface } from '../../types/packageMeta';
 import { NodeJS, Npm, Pnpm, Yarn } from '../Icons';
 import { EngineListItem, StyledText } from './styles';
 
-const EngineItem = ({ title, element, engineText }) => (
+/**
+ * The props type for {@link EngineItem}.
+ */
+type EngineItemProps = { title: string; element: React.ReactElement; engineText?: string };
+
+/**
+ *
+ *
+ * @category Component
+ */
+const EngineItem: FC<EngineItemProps> = ({ title, element, engineText }) => (
   <Grid item={true} xs={6}>
     <List subheader={<StyledText variant={'subtitle1'}>{title}</StyledText>}>
       <EngineListItem>
@@ -19,7 +30,23 @@ const EngineItem = ({ title, element, engineText }) => (
   </Grid>
 );
 
-const Engine: React.FC<{ packageMeta }> = ({ packageMeta }) => {
+interface EngineMetadata extends Omit<PackageMetaInterface, 'latest'> {
+  latest: {
+    engines?: { npm?: string; node?: string; pnpm?: string; yarn?: string };
+  };
+}
+
+/**
+ * The props type for {@link Engine}.
+ */
+export type Props = { packageMeta: EngineMetadata };
+
+/**
+ *
+ *
+ * @category Component
+ */
+const Engine: React.FC<Props> = ({ packageMeta }) => {
   const { t } = useTranslation();
 
   const engines = packageMeta?.latest?.engines;

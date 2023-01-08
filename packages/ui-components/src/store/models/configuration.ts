@@ -29,6 +29,10 @@ function getConfiguration() {
   return uiConfiguration;
 }
 
+/**
+ *
+ * @category Model
+ */
 export const configuration = createModel<RootModel>()({
   state: {
     config: getConfiguration(),

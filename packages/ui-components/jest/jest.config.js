@@ -1,8 +1,6 @@
 const config = require('../../../jest/config');
 
 module.exports = Object.assign({}, config, {
-  automock: false,
-  collectCoverage: false,
   testEnvironment: 'jest-environment-jsdom-global',
   transform: {
     '^.+\\.(js|ts|tsx)$': 'babel-jest',
@@ -15,15 +13,9 @@ module.exports = Object.assign({}, config, {
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/jest/setup-env.ts'],
   setupFiles: ['<rootDir>/jest/setup.ts'],
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!react-syntax-highlighter)'],
-  modulePathIgnorePatterns: [
-    '<rootDir>/coverage',
-    '<rootDir>/scripts',
-    '<rootDir>/tools',
-    '<rootDir>/build',
-    '<rootDir>/.vscode/',
-    '<rootDir>/test/e2e/',
-  ],
   snapshotSerializers: ['@emotion/jest/serializer'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/node_modules/**'],
+  modulePathIgnorePatterns: ['<rootDir>/build/'],
   moduleNameMapper: {
     '\\.(s?css)$': '<rootDir>/jest/identity.js',
     '\\.(png)$': '<rootDir>/jest/identity.js',
@@ -33,5 +25,14 @@ module.exports = Object.assign({}, config, {
     'github-markdown-css': '<rootDir>/jest/identity.js',
     'react-markdown': '<rootDir>/src/__mocks__/react-markdown.tsx',
     'remark-*': '<rootDir>/src/__mocks__/remark-plugin.ts',
+  },
+  coverageReporters: [['text', { skipFull: true }]],
+  coverageThreshold: {
+    global: {
+      branches: 68,
+      functions: 65,
+      lines: 73,
+      statements: 73,
+    },
   },
 });

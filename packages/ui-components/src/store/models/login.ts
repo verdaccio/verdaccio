@@ -30,6 +30,10 @@ const defaultUserState: LoginBody = {
   username,
 };
 
+/**
+ *
+ * @category Model
+ */
 export const login = createModel<RootModel>()({
   state: {
     username: defaultUserState.username,

@@ -1,27 +1,6 @@
----
-id: ui-components
-title: 'UI Components'
----
+# UI Components
 
-If you need a more advanced user interface, the option might be use the UI components that provides a set of reusable React components just to plug and play. **The UI components are compatible with v5.x and ahead**.
-
-To install install the dependency in a local project.
-
-:::caution
-
-The UI components are in _experimental_ mode, currently used to build the main user interface [`@verdaccio/ui-theme`](https://github.com/verdaccio/verdaccio/tree/master/packages/plugins/ui-theme), If you are willing to use it **feedback is welcome**.
-
-:::
-
-```bash
-npm i -D @verdaccio/ui-components@6-next
-```
-
-Browser all available components at [https://ui-components.verdaccio.org/](https://ui-components.verdaccio.org/)
-
-## How to use it {#how-to-useit}
-
-There are a set of tools can be used in order to build your own user interface:
+A collection of components ready to use for building complex user interfaces.
 
 - `components`: Independent components to use to build different layouts, all components are based on [MUI (Material UI)](https://mui.com/).
 - `providers`: Providers are useful components that uses the React [`Context`](https://reactjs.org/docs/context.html), for instance, the `VersionProvider` connects the Redux store with independent components. The `AppConfigurationProvider` is able to read the
@@ -31,20 +10,45 @@ There are a set of tools can be used in order to build your own user interface:
 - `layouts`: Are the combination of one or more sections ready to use.
 - `hooks`: A collection of useful React hooks.
 
-The combination of them depend of your needs, it could be used to inject custom components, routes or addition of new pages or components.
+```bash
+npm i -D @verdaccio/ui-components@6-next
+```
 
-## Requirements {#requirements}
+## Requirements
 
-The list of mandatory libraries need it to using with ui components.
+The set of components requires libraries available in a project:
 
 - React >17
 - Material UI >5.x
 - Redux >4.x
 - Emotion >11
 - i18next >20.x
-- TypeScript is optional
+- TypeScript is optional but recommended.
 
-## Examples {#examples}
+### The store
+
+All components assume there is a Redux storage, thus a `<Provider/>` wrap is the required that wrap the application.
+
+```jsx
+import { store } from '@verdaccio/ui-components';
+
+<Provider store={store}>....APP</Provider>;
+```
+
+The default storage is powered by Rematch and contains the required `dispatch` to fetch data from the registry.
+
+- Fetch all private packages
+
+```jsx
+import { useDispatch, useSelector } from 'react-redux';
+
+const packages = useSelector((state: RootState) => state.packages.response);
+useEffect(() => {
+  dispatch.packages.getPackages();
+}, [dispatch]);
+```
+
+## How to use it
 
 ```jsx
 import React from 'react';
@@ -95,4 +99,5 @@ const App: React.FC = () => {
       </Provider>
   );
 };
+``
 ```

@@ -1,10 +1,11 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "5.19.0",
+  "version": "5.19.1",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --no-open",
+    "start:typedoc": "TYPEDOC_WATCH=true docusaurus start --no-open",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -46,7 +47,7 @@
     "copy-text-to-clipboard": "3.0.1",
     "docusaurus-plugin-contributors": "workspace:1.0.1-6-next.0",
     "docusaurus-plugin-sentry": "1.0.0",
-    "docusaurus-plugin-typedoc": "latest",
+    "docusaurus-plugin-typedoc": "0.18.0",
     "p-cancelable": "2.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -55,6 +56,8 @@
     "react-twitter-widgets": "^1.10.0",
     "typedoc": "0.23.23",
     "typedoc-plugin-markdown": "3.14.0",
+    "typedoc-plugin-merge-modules": "4.0.1",
+    "typedoc-github-wiki-theme": "^1.0.1",
     "use-is-in-viewport": "^1.0.9",
     "usehooks-ts": "2.9.1"
   },
@@ -80,7 +83,6 @@
     "prism-react-renderer": "^1.2.1",
     "sass": "1.57.1",
     "sass-loader": "^12.1.0",
-    "typedoc-github-wiki-theme": "^1.0.1",
     "url-loader": "4.1.1"
   }
 }

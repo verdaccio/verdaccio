@@ -4,9 +4,6 @@ import 'whatwg-fetch';
 
 import { server } from './server';
 
-// mock load translations to avoid warnings
-// jest.mock('../src/i18n/loadTranslationFile');
-
 beforeAll(() => {
   server.listen({
     onUnhandledRequest: 'warn',

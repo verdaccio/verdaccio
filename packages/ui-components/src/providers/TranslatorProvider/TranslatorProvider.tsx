@@ -18,12 +18,16 @@ const I18nTranslatorContext = createContext<TranslatorProviderProps>({
   listLanguages: [],
 });
 
+/**
+ * Translator provider
+ * @category Provider
+ */
 const TranslatorProvider: FunctionComponent<{
   children: React.ReactElement<any>;
   i18n: any;
   listLanguages: any;
-  loadDayJSLocale: () => {};
-}> = ({ children, loadDayJSLocale, i18n, listLanguages }) => {
+  onMount: () => {};
+}> = ({ children, onMount, i18n, listLanguages }) => {
   const currentLanguage = i18n.languages?.[0];
   const [language, setLanguage] = useLocalStorage<string>('language', currentLanguage);
   const changeLanguage = useCallback(async () => {
@@ -32,8 +36,8 @@ const TranslatorProvider: FunctionComponent<{
 
   useEffect(() => {
     changeLanguage();
-    loadDayJSLocale();
-  }, [language, loadDayJSLocale, changeLanguage]);
+    onMount();
+  }, [language, onMount, changeLanguage]);
 
   return (
     <I18nextProvider i18n={i18n}>

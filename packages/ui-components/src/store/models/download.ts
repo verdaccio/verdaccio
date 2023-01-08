@@ -4,6 +4,10 @@ import type { RootModel } from '.';
 import { downloadFile, extractFileName } from '../../utils/url';
 import API from '../api';
 
+/**
+ *
+ * @category Model
+ */
 export const download = createModel<RootModel>()({
   state: {},
   reducers: {},

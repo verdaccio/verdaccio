@@ -1,41 +1,45 @@
 export type ModuleType = 'commonjs' | 'module';
 
+export type Latest = {
+  author?: Author;
+  deprecated?: string;
+  name: string;
+  dist: {
+    fileCount: number;
+    unpackedSize: number;
+    tarball?: string;
+  };
+  engines?: {
+    node?: string;
+    npm?: string;
+    pnpm?: string;
+    yarn?: string;
+  };
+  license?: Partial<LicenseInterface> | string;
+  version: string;
+  homepage?: string;
+  bugs?: {
+    url: string;
+  };
+  repository?: {
+    type?: string;
+    url?: string;
+  };
+  main?: string;
+  type?: ModuleType;
+  types?: string;
+  description?: string;
+  funding?: Funding;
+  maintainers?: Developer[];
+  contributors?: Developer[];
+};
+
 export interface PackageMetaInterface {
   versions?: Versions;
   'dist-tags'?: DistTags;
   time?: Time;
-  latest: {
-    author?: Author;
-    deprecated?: string;
-    name: string;
-    dist: {
-      fileCount: number;
-      unpackedSize: number;
-      tarball?: string;
-    };
-    engines?: {
-      node?: string;
-      npm?: string;
-    };
-    license?: Partial<LicenseInterface> | string;
-    version: string;
-    homepage?: string;
-    bugs?: {
-      url: string;
-    };
-    repository?: {
-      type?: string;
-      url?: string;
-    };
-    main?: string;
-    type?: ModuleType;
-    types?: string;
-    description?: string;
-    funding?: Funding;
-    maintainers?: Developer[];
-    contributors?: Developer[];
-  };
-  _uplinks: Record<string, { fetched: number }>;
+  latest: Latest;
+  _uplinks?: Record<string, { fetched: number }>;
 }
 
 export interface Developer {

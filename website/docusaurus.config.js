@@ -170,6 +170,20 @@ module.exports = {
     [
       'docusaurus-plugin-typedoc',
       {
+        entryPoints: ['../packages/ui-components/src/index.ts'],
+        tsconfig: '../packages/ui-components/tsconfig.build.json',
+        id: 'api/ui-components',
+        out: 'api/ui-components',
+        sidebar: {
+          categoryLabel: '@verdaccio/ui-components',
+          fullNames: true,
+          watch: process.env.TYPEDOC_WATCH,
+        },
+      },
+    ],
+    [
+      'docusaurus-plugin-typedoc',
+      {
         entryPoints: ['../packages/core/core/src/index.ts'],
         tsconfig: '../packages/core/core/tsconfig.build.json',
         id: 'api/core',

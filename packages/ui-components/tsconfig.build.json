@@ -12,5 +12,10 @@
     "skipLibCheck": true,
     "jsx": "react"
   },
-  "include": ["src/**/*", "./src/types/index.d.ts"]
+  "include": ["src/**/*", "./src/types/index.d.ts"],
+  "typedocOptions": {
+    "categoryOrder": ["Model", "Component", "Provider", "*"],
+    "defaultCategory": "Component",
+    "categorizeByGroup": "false"
+  }
 }
