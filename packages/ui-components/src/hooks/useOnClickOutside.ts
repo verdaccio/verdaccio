@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 
-// based on https://usehooks.com/useOnClickOutside/
+/**
+* 
+*  @example
+   based on https://usehooks.com/useOnClickOutside/
+   @category Hooks
+ */
 function useOnClickOutside<R extends HTMLElementTagNameMap[keyof HTMLElementTagNameMap]>(
   ref: React.RefObject<R>,
   handler: (event: MouseEvent | TouchEvent) => void

@@ -1,6 +1,15 @@
 import { useState } from 'react';
 
-// based on https://usehooks.com/useLocalStorage/
+/**
+* 
+*  @example
+    ```jsx
+    const [isDarkModeStorage, setIsDarkMode] = useLocalStorage('darkMode', isDarkModeDefault);
+   ```
+
+   based on https://usehooks.com/useLocalStorage/
+   @category Hooks
+ */
 const useLocalStorage = <V>(key: string, initialValue: V) => {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once

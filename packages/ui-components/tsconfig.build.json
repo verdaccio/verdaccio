@@ -14,8 +14,8 @@
   },
   "include": ["src/**/*", "./src/types/index.d.ts"],
   "typedocOptions": {
-    "categoryOrder": ["Model", "Components", "Provider", "*"],
-    "defaultCategory": "Components",
+    "categoryOrder": ["Model", "Component", "Provider", "*"],
+    "defaultCategory": "Component",
     "categorizeByGroup": "false"
   }
 }

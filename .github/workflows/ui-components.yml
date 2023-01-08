@@ -13,6 +13,9 @@ on:
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
+env:
+  DEBUG: verdaccio*
+
 jobs:
   deploy:
     permissions:

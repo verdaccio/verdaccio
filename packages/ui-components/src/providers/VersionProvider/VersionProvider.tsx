@@ -41,7 +41,7 @@ interface Params {
 }
 
 /**
- * 
+* 
 *  @example
     Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
     ```jsx
