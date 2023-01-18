@@ -2936,10 +2936,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.37":
-  version: 14.14.37
-  resolution: "@types/node@npm:14.14.37"
-  checksum: 647e671ac3815f428a07ae9353ebab93c5335d4d0a461ca837a79eebf55c04f28bee80f0c43881cdd8696f595feb112bc8eb74f6124125e02f79a7677374c187
+"@types/node@npm:14.18.36":
+  version: 14.18.36
+  resolution: "@types/node@npm:14.18.36"
+  checksum: da7f479b3fc996d585e60b8329987c6e310ddbf051e14f2d900ce04f7768f42fa7b760f0eb376008d3eca130ce9431018fb5c9e44027dcb7bb139c547e44b9c5
   languageName: node
   linkType: hard
 
@@ -3269,10 +3269,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:6.0.0-6-next.52":
-  version: 6.0.0-6-next.52
-  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.52"
-  checksum: 5f93176b0ddabe02b26d7ac10d1f5b8bc6429d76af33cbecea00731cdad2433969cda91140348b361911876309ddeac89423af278e5a748bda9b035af58f3584
+"@verdaccio/ui-theme@npm:6.0.0-6-next.53":
+  version: 6.0.0-6-next.53
+  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.53"
+  checksum: 5e88f58ed6956c109dd41b5342943e8d9d0dc1449a5983518c59bb887bdaf1e19fb841e4c6f9e6c66abd464138f0bc79447479336bf1a12251300a9c02a8b455
   languageName: node
   linkType: hard
 
@@ -4118,14 +4118,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.1.0":
-  version: 3.1.0
-  resolution: "clipanion@npm:3.1.0"
+"clipanion@npm:3.2.0-rc.14":
+  version: 3.2.0-rc.14
+  resolution: "clipanion@npm:3.2.0-rc.14"
   dependencies:
-    typanion: ^3.3.1
+    typanion: ^3.8.0
   peerDependencies:
     typanion: "*"
-  checksum: bf350082e8953c697cfe35262845700012bdeb1cc490f81cd17de2fe985c8861750164509795ad95d3ee6a2b3742a1d5c6394cdf0f3ff4c4d24173a9fec3418e
+  checksum: 0bedf6c70d8f3f986fe105ba4a2182cf8d398201ed639095927ceef5d50f370ee2bb7e14239be2b5ddcf3dc8f3b72a1666d67e903ee405fcddf1f378a4704c54
   languageName: node
   linkType: hard
 
@@ -10582,7 +10582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typanion@npm:^3.3.1":
+"typanion@npm:^3.8.0":
   version: 3.12.1
   resolution: "typanion@npm:3.12.1"
   checksum: a2e26fa216f8a1dbd2ffbaacb75b1e2dc042a0356e9702fba05a968cad95d9f661b24e37f6c6d8c3adad2c8582c99fca4826ff26a2d07cd2ae617ea87e6187eb
@@ -11011,7 +11011,7 @@ __metadata:
     "@types/lodash": 4.14.182
     "@types/mime": 2.0.3
     "@types/minimatch": 3.0.5
-    "@types/node": 14.14.37
+    "@types/node": 14.18.36
     "@types/pino": 6.3.12
     "@types/request": 2.48.8
     "@types/semver": 7.3.9
@@ -11022,14 +11022,14 @@ __metadata:
     "@verdaccio/local-storage": 10.3.1
     "@verdaccio/streams": 10.2.0
     "@verdaccio/types": 10.7.0
-    "@verdaccio/ui-theme": 6.0.0-6-next.52
+    "@verdaccio/ui-theme": 6.0.0-6-next.53
     JSONStream: 1.3.5
     async: 3.2.4
     babel-eslint: 10.1.0
     babel-jest: 29.3.1
     babel-plugin-dynamic-import-node: 2.3.3
     body-parser: 1.20.1
-    clipanion: 3.1.0
+    clipanion: 3.2.0-rc.14
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5
