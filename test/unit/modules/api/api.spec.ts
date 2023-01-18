@@ -45,6 +45,8 @@ require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty',
 
 const credentials = { name: 'jota', password: 'secretPass' };
 
+jest.setTimeout(10000);
+
 const putVersion = (app, name, publishMetadata) => {
   return request(app)
     .put(name)
@@ -780,22 +782,25 @@ describe('endpoint unit test', () => {
       };
 
       describe('un/publish scenarios with credentials', () => {
-        test('should flow with no credentials', async (done) => {
+        test('should flow with no credentials', async () => {
           const pkgName = '@public-anyone-can-publish/pk1-test';
-          runPublishUnPublishFlow(pkgName, done, undefined);
+          return new Promise((resolve) => {
+            runPublishUnPublishFlow(pkgName, resolve, undefined);
+          });
         });
 
-        test('should flow with credentials', async (done) => {
+        test('should flow with credentials', async () => {
           const credentials = { name: 'jota_unpublish', password: 'secretPass' };
           const token = await getNewToken(request(app), credentials);
           const pkgName = '@only-one-can-publish/pk1-test';
-
-          runPublishUnPublishFlow(pkgName, done, token);
+          return new Promise((resolve) => {
+            runPublishUnPublishFlow(pkgName, resolve, token);
+          });
         });
       });
 
       describe('test error handling', () => {
-        test('should fail if user is not allowed to unpublish', async (done) => {
+        test('should fail if user is not allowed to unpublish', async () => {
           /**
            * Context:
            *
@@ -840,10 +845,9 @@ describe('endpoint unit test', () => {
           expect(res2.body.error).toMatch(
             /user jota_unpublish_fail is not allowed to unpublish package non-unpublish/
           );
-          done();
         });
 
-        test('should fail if publish prop is not defined', async (done) => {
+        test('should fail if publish prop is not defined', async () => {
           /**
            * Context:
            *
@@ -876,14 +880,13 @@ describe('endpoint unit test', () => {
           expect(resp.body.error).toMatch(
             /user jota_only_unpublish_fail is not allowed to publish package only-unpublish/
           );
-          done();
         });
       });
 
-      test('should be able to publish/unpublish by only super_admin user', async (done) => {
+      test('should be able to publish/unpublish by only super_admin user', async () => {
         const credentials = { name: 'super_admin', password: 'secretPass' };
         const token = await getNewToken(request(app), credentials);
-        request(app)
+        const res = await request(app)
           .put('/super-admin-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
@@ -894,34 +897,24 @@ describe('endpoint unit test', () => {
               })
             )
           )
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
-            request(app)
-              .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
-              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-              .expect(HTTP_STATUS.CREATED)
-              .end(function (err, res) {
-                expect(err).toBeNull();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
-                done();
-              });
-          });
+          .expect(HTTP_STATUS.CREATED);
+        expect(res.body.ok).toBeDefined();
+        expect(res.body.success).toBeDefined();
+        expect(res.body.success).toBeTruthy();
+        expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+        const res2 = await request(app)
+          .del('/super-admin-can-unpublish/-rev/4-6abcdb4efd41a576')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .expect(HTTP_STATUS.CREATED);
+        expect(res2.body.ok).toBeDefined();
+        expect(res2.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
       });
 
-      test('should be able to publish/unpublish by any user', async (done) => {
+      test('should be able to publish/unpublish by any user', async () => {
         const credentials = { name: 'any_user', password: 'secretPass' };
         const token = await getNewToken(request(app), credentials);
-        request(app)
+        const res = await request(app)
           .put('/all-can-unpublish')
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
@@ -932,28 +925,18 @@ describe('endpoint unit test', () => {
               })
             )
           )
-          .expect(HTTP_STATUS.CREATED)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.ok).toBeDefined();
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
-            request(app)
-              .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
-              .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-              .expect(HTTP_STATUS.CREATED)
-              .end(function (err, res) {
-                expect(err).toBeNull();
-                expect(res.body.ok).toBeDefined();
-                expect(res.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
-                done();
-              });
-          });
+          .expect(HTTP_STATUS.CREATED);
+        expect(res.body.ok).toBeDefined();
+        expect(res.body.success).toBeDefined();
+        expect(res.body.success).toBeTruthy();
+        expect(res.body.ok).toMatch(API_MESSAGE.PKG_CREATED);
+        const res2 = await request(app)
+          .del('/all-can-unpublish/-rev/4-6abcdb4efd41a576')
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+          .expect(HTTP_STATUS.CREATED);
+        expect(res2.body.ok).toBeDefined();
+        expect(res2.body.ok).toMatch(API_MESSAGE.PKG_REMOVED);
       });
     });
 
@@ -961,10 +944,9 @@ describe('endpoint unit test', () => {
       const pkgName = '@scope/starPackage';
       const credentials = { name: 'jota_star', password: 'secretPass' };
       let token = '';
-      beforeAll(async (done) => {
+      beforeAll(async () => {
         token = await getNewToken(request(app), credentials);
         await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
-        done();
       });
 
       test('should star a package', (done) => {
@@ -991,25 +973,18 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test('should unstar a package', (done) => {
-        request(app)
+      test('should unstar a package', async () => {
+        const res = await request(app)
           .put(`/${pkgName}`)
           .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
           .send(JSON.stringify(generateStarMedatada(pkgName, {})))
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            if (err) {
-              expect(err).toBeNull();
-              return done(err);
-            }
-            expect(res.body.success).toBeDefined();
-            expect(res.body.success).toBeTruthy();
-            done();
-          });
+          .expect(HTTP_STATUS.OK);
+        expect(res.body.success).toBeDefined();
+        expect(res.body.success).toBeTruthy();
       });
 
-      test('should retrieve stars list with credentials', async (done) => {
+      test('should retrieve stars list with credentials', (done) => {
         request(app)
           .put(`/${pkgName}`)
           .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
@@ -1075,7 +1050,7 @@ describe('endpoint unit test', () => {
         'api.spec.yaml'
       );
       let token;
-      beforeAll(async (done) => {
+      beforeAll(async () => {
         token = await getNewToken(request(app), tarballUrlRedirectCredentials);
         await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
         await putPackage(
@@ -1084,12 +1059,11 @@ describe('endpoint unit test', () => {
           generatePackageMetadata(scopedPkgName),
           token
         );
-        done();
       });
 
       describe('for a string value of tarball_url_redirect', () => {
         let app2;
-        beforeAll(async (done) => {
+        beforeAll(async () => {
           app2 = await endPointAPI({
             ...baseTestConfig,
             experiments: {
@@ -1097,7 +1071,6 @@ describe('endpoint unit test', () => {
                 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}',
             },
           });
-          done();
         });
 
         test('should redirect for package tarball', (done) => {
@@ -1133,7 +1106,7 @@ describe('endpoint unit test', () => {
 
       describe('for a function value of tarball_url_redirect', () => {
         let app2;
-        beforeAll(async (done) => {
+        beforeAll(async () => {
           app2 = await endPointAPI({
             ...baseTestConfig,
             experiments: {
@@ -1142,7 +1115,6 @@ describe('endpoint unit test', () => {
               },
             },
           });
-          done();
         });
 
         test('should redirect for package tarball', (done) => {
@@ -1182,7 +1154,7 @@ describe('endpoint unit test', () => {
       const credentials = { name: 'jota_deprecate', password: 'secretPass' };
       const version = '1.0.0';
       let token = '';
-      beforeAll(async (done) => {
+      beforeAll(async () => {
         token = await getNewToken(request(app), credentials);
         await putPackage(
           request(app),
@@ -1190,10 +1162,9 @@ describe('endpoint unit test', () => {
           generatePackageMetadata(pkgName, version),
           token
         );
-        done();
       });
 
-      test('should deprecate a package', async (done) => {
+      test('should deprecate a package', async () => {
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
         if (err) {
@@ -1202,10 +1173,9 @@ describe('endpoint unit test', () => {
         }
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
-        done();
       });
 
-      test('should undeprecate a package', async (done) => {
+      test('should undeprecate a package', async () => {
         let pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
         pkg = generateDeprecateMetadata(pkgName, version, '');
@@ -1216,7 +1186,6 @@ describe('endpoint unit test', () => {
         }
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).not.toBeDefined();
-        done();
       });
 
       test('should require both publish and unpublish access to (un)deprecate a package', async () => {
@@ -1249,7 +1218,7 @@ describe('endpoint unit test', () => {
         );
       });
 
-      test('should deprecate multiple packages', async (done) => {
+      test('should deprecate multiple packages', async () => {
         await putPackage(
           request(app),
           `/${pkgName}`,
@@ -1265,10 +1234,9 @@ describe('endpoint unit test', () => {
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
         expect(res.body.versions['1.0.1'].deprecated).toEqual('get deprecated');
-        done();
       });
 
-      test('should deprecate when publish new version with deprecate field', async (done) => {
+      test('should deprecate when publish new version with deprecate field', async () => {
         await Promise.all([
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.0'), token),
           putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '2.0.1'), token),
@@ -1287,7 +1255,6 @@ describe('endpoint unit test', () => {
         expect(versions).toContain('2.0.1');
         expect(versions).toContain('2.0.2');
         expect(versions).toContain('2.0.3');
-        done();
       });
     });
   });

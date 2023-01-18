@@ -1,12 +1,11 @@
 /* eslint comma-dangle: 0 */
 
 module.exports = {
-  name: 'verdaccio-unit-jest',
-  verbose: true,
-  collectCoverage: true,
   reporters: ['default', ['jest-junit', { outputDirectory: 'reports' }]],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  testURL: 'http://localhost',
+  testEnvironmentOptions: {
+    url: 'http://localhost',
+  },
   testRegex: '(test/unit.*\\.spec)\\.ts',
   // Some unit tests rely on data folders that look like packages.  This confuses jest-hast-map
   // when it tries to scan for package.json files.

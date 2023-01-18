@@ -4,20 +4,20 @@ exports[`Publish endpoints - publish package should change the existing package 
 
 exports[`Publish endpoints - publish package should publish a new a new package 1`] = `
 [MockFunction] {
-  "calls": Array [
-    Array [
+  "calls": [
+    [
       "verdaccio",
-      Object {
-        "dist-tags": Object {},
+      {
+        "dist-tags": {},
         "name": "verdaccio",
-        "time": Object {},
-        "versions": Object {},
+        "time": {},
+        "versions": {},
       },
       [Function],
     ],
   ],
-  "results": Array [
-    Object {
+  "results": [
+    {
       "type": "return",
       "value": undefined,
     },
@@ -27,11 +27,11 @@ exports[`Publish endpoints - publish package should publish a new a new package 
 
 exports[`Publish endpoints - publish package test start should star a package 1`] = `
 [MockFunction] {
-  "calls": Array [
-    Array [
+  "calls": [
+    [
       "verdaccio",
-      Object {
-        "users": Object {
+      {
+        "users": {
           "verdaccio": true,
         },
       },
@@ -39,8 +39,8 @@ exports[`Publish endpoints - publish package test start should star a package 1`
       [Function],
     ],
   ],
-  "results": Array [
-    Object {
+  "results": [
+    {
       "type": "return",
       "value": undefined,
     },

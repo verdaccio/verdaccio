@@ -47,18 +47,17 @@ describe('endpoint user profile', () => {
     done();
   });
 
-  test('should fetch a profile of logged user', async (done) => {
+  test('should fetch a profile of logged user', async () => {
     const credentials = { name: 'JotaJWT', password: 'secretPass' };
     const token = await getNewToken(request(app), credentials);
     const [err1, res1] = await getProfile(request(app), token);
 
     expect(err1).toBeNull();
     expect(res1.body.name).toBe(credentials.name);
-    done();
   });
 
   describe('change password', () => {
-    test('should change password successfully', async (done) => {
+    test('should change password successfully', async () => {
       const credentials = { name: 'userTest2000', password: 'secretPass000' };
       const body = {
         password: {
@@ -71,10 +70,9 @@ describe('endpoint user profile', () => {
 
       expect(err1).toBeNull();
       expect(res1.body.name).toBe(credentials.name);
-      done();
     });
 
-    test('should change password is too short', async (done) => {
+    test('should change password is too short', async () => {
       const credentials = { name: 'userTest2001', password: 'secretPass001' };
       const body = {
         password: {
@@ -88,12 +86,11 @@ describe('endpoint user profile', () => {
       expect(resp.error).not.toBeNull();
       /* eslint new-cap: 0 */
       expect(resp.error.text).toMatch(API_ERROR.PASSWORD_SHORT());
-      done();
     });
   });
 
   describe('change tfa', () => {
-    test('should report TFA is disabled', async (done) => {
+    test('should report TFA is disabled', async () => {
       const credentials = { name: 'userTest2002', password: 'secretPass002' };
       const body = {
         tfa: {},
@@ -108,25 +105,22 @@ describe('endpoint user profile', () => {
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(SUPPORT_ERRORS.TFA_DISABLED);
-      done();
     });
   });
 
   describe('error handling', () => {
-    test('should forbid to fetch a profile with invalid token', async (done) => {
+    test('should forbid to fetch a profile with invalid token', async () => {
       const [, resp] = await getProfile(request(app), `fakeToken`, HTTP_STATUS.UNAUTHORIZED);
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(API_ERROR.MUST_BE_LOGGED);
-      done();
     });
 
-    test('should forbid to update a profile with invalid token', async (done) => {
+    test('should forbid to update a profile with invalid token', async () => {
       const [, resp] = await postProfile(request(app), {}, `fakeToken`, HTTP_STATUS.UNAUTHORIZED);
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(API_ERROR.MUST_BE_LOGGED);
-      done();
     });
   });
 });

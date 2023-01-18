@@ -20,12 +20,14 @@ describe('basic system test', () => {
     rimraf(__dirname + '/store/test-storage', done);
   });
 
-  beforeAll(async function (done) {
+  beforeAll(async function () {
     app.use(await endPointAPI(config()));
 
-    server.listen(0, function () {
-      port = server.address().port;
-      done();
+    await new Promise((resolve) => {
+      server.listen(0, function () {
+        port = server.address().port;
+        resolve();
+      });
     });
   });
 

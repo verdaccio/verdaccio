@@ -106,7 +106,7 @@ describe('StorageTest', () => {
   });
 
   describe('test getTarball', () => {
-    test('should select right uplink given package.proxy for upstream tarballs', async (done) => {
+    test('should select right uplink given package.proxy for upstream tarballs', async () => {
       const storage: IStorageHandler = await generateSameUplinkStorage();
       const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
       const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
@@ -146,51 +146,54 @@ describe('StorageTest', () => {
         });
         reader.pipe(createNullStream());
       });
-
-      done();
     });
   });
 
   describe('test _syncUplinksMetadata', () => {
-    test('should fetch from uplink jquery metadata from registry', async (done) => {
+    test('should fetch from uplink jquery metadata from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
 
-      // @ts-ignore
-      storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
-        expect(err).toBeNull();
-        expect(metadata).toBeDefined();
-        expect(metadata).toBeInstanceOf(Object);
-        done();
+      return new Promise((resolve) => {
+        storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
+          expect(err).toBeNull();
+          expect(metadata).toBeDefined();
+          expect(metadata).toBeInstanceOf(Object);
+          resolve();
+        });
       });
     });
 
-    test('should fails on fetch from uplink non existing from registry', async (done) => {
+    test('should fails on fetch from uplink non existing from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
 
-      // @ts-ignore
-      storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
-        expect(err).not.toBeNull();
-        expect(errors).toBeInstanceOf(Array);
-        expect(errors[0][0].statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-        expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
-        done();
+      return new Promise((resolve) => {
+        // @ts-ignore
+        storage._syncUplinksMetadata('@verdaccio/404', null, {}, (err, metadata, errors) => {
+          expect(err).not.toBeNull();
+          expect(errors).toBeInstanceOf(Array);
+          expect(errors[0][0].statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          expect(errors[0][0].message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
+          resolve();
+        });
       });
     });
 
-    test('should fails on fetch from uplink corrupted pkg from registry', async (done) => {
+    test('should fails on fetch from uplink corrupted pkg from registry', async () => {
       const storage: IStorageHandler = await generateStorage();
 
-      // @ts-ignore
-      storage._syncUplinksMetadata('corrupted-package', null, {}, (err, metadata, errors) => {
-        expect(err).not.toBeNull();
-        expect(errors).toBeInstanceOf(Array);
-        expect(errors[0][0].statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
-        expect(errors[0][0].message).toMatch(API_ERROR.BAD_STATUS_CODE);
-        done();
+      return new Promise((resolve) => {
+        // @ts-ignore
+        storage._syncUplinksMetadata('corrupted-package', null, {}, (err, metadata, errors) => {
+          expect(err).not.toBeNull();
+          expect(errors).toBeInstanceOf(Array);
+          expect(errors[0][0].statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+          expect(errors[0][0].message).toMatch(API_ERROR.BAD_STATUS_CODE);
+          resolve();
+        });
       });
     });
 
-    test('should not touch if the package exists and has no uplinks', async (done) => {
+    test('should not touch if the package exists and has no uplinks', async () => {
       const storage: IStorageHandler = (await generateStorage()) as IStorageHandler;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
@@ -201,11 +204,13 @@ describe('StorageTest', () => {
       // @ts-ignore
       storage.localStorage.updateVersions = jest.fn(storage.localStorage.updateVersions);
       expect(metadata).toBeDefined();
-      storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
-        expect(err).toBeNull();
-        // @ts-ignore
-        expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
-        done();
+      return new Promise((resolve) => {
+        storage._syncUplinksMetadata('npm_test', metadata, {}, (err) => {
+          expect(err).toBeNull();
+          // @ts-ignore
+          expect(storage.localStorage.updateVersions).not.toHaveBeenCalled();
+          resolve();
+        });
       });
     });
   });

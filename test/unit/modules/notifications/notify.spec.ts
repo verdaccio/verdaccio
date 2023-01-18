@@ -58,6 +58,7 @@ describe('Notifications:: Notify', () => {
   });
 
   test('should send multiple notification', async () => {
+    const name = 'package';
     // @ts-ignore
     await notify({ name }, multiNotificationConfig, { name: 'foo' }, 'bar');
 

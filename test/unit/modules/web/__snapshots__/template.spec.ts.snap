@@ -3,23 +3,23 @@
 exports[`template custom body after 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title></title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
-        <script src=\\"foo\\"/>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
+        <script src="foo"/>
       </body>
     </html>
   "
@@ -28,22 +28,22 @@ exports[`template custom body after 1`] = `
 exports[`template custom body before 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title></title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
-      <script src=\\"fooBefore\\"/><script src=\\"barBefore\\"/>
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+      <body class="body">
+      <script src="fooBefore"/><script src="barBefore"/>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>
@@ -53,22 +53,22 @@ exports[`template custom body before 1`] = `
 exports[`template custom logo 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title></title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\",\\"logo\\":\\"http://domain/logo.png\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com","logo":"http://domain/logo.png"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>
@@ -78,22 +78,22 @@ exports[`template custom logo 1`] = `
 exports[`template custom render 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title></title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>
@@ -103,22 +103,22 @@ exports[`template custom render 1`] = `
 exports[`template custom title 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title>foo title</title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\",\\"title\\":\\"foo title\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com","title":"foo title"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>
@@ -128,22 +128,22 @@ exports[`template custom title 1`] = `
 exports[`template custom title 2`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title>foo title</title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\",\\"title\\":\\"foo title\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com","title":"foo title"}
         </script>
         
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>
@@ -153,22 +153,22 @@ exports[`template custom title 2`] = `
 exports[`template meta scripts 1`] = `
 "
     <!DOCTYPE html>
-      <html lang=\\"en-us\\"> 
+      <html lang="en-us"> 
       <head>
-        <meta charset=\\"utf-8\\">
-        <base href=\\"http://domain.com\\">
+        <meta charset="utf-8">
+        <base href="http://domain.com">
         <title></title>        
-        <link rel=\\"icon\\" href=\\"http://domain.com-/static/favicon.ico\\"/>
-        <meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1\\" /> 
+        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
-            window.__VERDACCIO_BASENAME_UI_OPTIONS={\\"base\\":\\"http://domain.com\\"}
+            window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
         </script>
         <style>.someclass{font-size:10px;}</style>
       </head>    
-      <body class=\\"body\\">
+      <body class="body">
       
-        <div id=\\"root\\"></div>
-        <script defer=\\"defer\\" src=\\"http://domain.com-/static/runtime.9be80fd172e81558124c.js\\"></script><script defer=\\"defer\\" src=\\"http://domain.com-/static/main.9be80fd172e81558124c.js\\"></script>
+        <div id="root"></div>
+        <script defer="defer" src="http://domain.com-/static/runtime.9be80fd172e81558124c.js"></script><script defer="defer" src="http://domain.com-/static/main.9be80fd172e81558124c.js"></script>
         
       </body>
     </html>

@@ -11,6 +11,8 @@ import configDefault from '../../partials/config';
 
 require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'debug' }]);
 
+jest.setTimeout(10000);
+
 describe('endpoint unit test', () => {
   let app;
   const mockServerPort = 55549;
