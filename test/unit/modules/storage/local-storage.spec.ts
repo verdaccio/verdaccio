@@ -145,7 +145,7 @@ describe('LocalStorage', () => {
     });
 
     describe('LocalStorage::mergeTags', () => {
-      test('should mergeTags', async (done) => {
+      test('should mergeTags', async () => {
         const pkgName = 'merge-tags-test-1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, '1.0.0');
@@ -156,19 +156,21 @@ describe('LocalStorage', () => {
           latest: '2.0.0',
         };
 
-        storage.mergeTags(pkgName, tags, async (err, data) => {
-          expect(err).toBeNull();
-          expect(data).toBeUndefined();
-          const metadata: Package = await getPackageMetadataFromStore(pkgName);
-          expect(metadata[DIST_TAGS]).toBeDefined();
-          expect(metadata[DIST_TAGS]['beta']).toBeDefined();
-          expect(metadata[DIST_TAGS]['beta']).toBe('3.0.0');
-          expect(metadata[DIST_TAGS]['latest']).toBe('2.0.0');
-          done();
+        return new Promise((resolve) => {
+          storage.mergeTags(pkgName, tags, async (err, data) => {
+            expect(err).toBeNull();
+            expect(data).toBeUndefined();
+            const metadata: Package = await getPackageMetadataFromStore(pkgName);
+            expect(metadata[DIST_TAGS]).toBeDefined();
+            expect(metadata[DIST_TAGS]['beta']).toBeDefined();
+            expect(metadata[DIST_TAGS]['beta']).toBe('3.0.0');
+            expect(metadata[DIST_TAGS]['latest']).toBe('2.0.0');
+            resolve();
+          });
         });
       });
 
-      test('should fails mergeTags version not found', async (done) => {
+      test('should fails mergeTags version not found', async () => {
         const pkgName = 'merge-tags-test-1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         // const tarballName: string = `${pkgName}-${version}.tgz`;
@@ -179,31 +181,34 @@ describe('LocalStorage', () => {
           beta: '9999.0.0',
         };
 
-        storage.mergeTags(pkgName, tags, async (err) => {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
-          expect(err.message).toMatch(API_ERROR.VERSION_NOT_EXIST);
-          done();
+        return new Promise((done) => {
+          storage.mergeTags(pkgName, tags, async (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+            expect(err.message).toMatch(API_ERROR.VERSION_NOT_EXIST);
+            done();
+          });
         });
       });
 
-      test('should fails on mergeTags', async (done) => {
+      test('should fails on mergeTags', async () => {
         const tags: MergeTags = {
           beta: '3.0.0',
           latest: '2.0.0',
         };
-
-        storage.mergeTags('not-found', tags, async (err) => {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
-          expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
-          done();
+        return new Promise((done) => {
+          storage.mergeTags('not-found', tags, async (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
+            expect(err.message).toMatch(API_ERROR.NO_PACKAGE);
+            done();
+          });
         });
       });
     });
 
     describe('LocalStorage::addVersion', () => {
-      test('should add new version without tag', async (done) => {
+      test('should add new version without tag', async () => {
         const pkgName = 'add-version-test-1';
         const version = '1.0.1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
@@ -212,72 +217,78 @@ describe('LocalStorage', () => {
         await addTarballToStore(pkgName, `${pkgName}-9.0.0.tgz`);
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version),
-          '',
-          (err, data) => {
-            expect(err).toBeNull();
-            expect(data).toBeUndefined();
-            done();
-          }
-        );
+        return new Promise((done) => {
+          storage.addVersion(
+            pkgName,
+            version,
+            generateNewVersion(pkgName, version),
+            '',
+            (err, data) => {
+              expect(err).toBeNull();
+              expect(data).toBeUndefined();
+              done();
+            }
+          );
+        });
       });
 
-      test('should fails on add a duplicated version without tag', async (done) => {
+      test('should fails on add a duplicated version without tag', async () => {
         const pkgName = 'add-version-test-2';
         const version = '1.0.1';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, version);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err) => {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
-          expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
-          done();
+        return new Promise((done) => {
+          storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
+            expect(err.message).toMatch(API_ERROR.PACKAGE_EXIST);
+            done();
+          });
         });
       });
 
-      test('should fails add new version wrong shasum', async (done) => {
+      test('should fails add new version wrong shasum', async () => {
         const pkgName = 'add-version-test-4';
         const version = '4.0.0';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
-
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version, 'fake'),
-          '',
-          (err) => {
-            expect(err).not.toBeNull();
-            expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
-            expect(err.message).toMatch(/shasum error/);
-            done();
-          }
-        );
+        return new Promise((done) => {
+          storage.addVersion(
+            pkgName,
+            version,
+            generateNewVersion(pkgName, version, 'fake'),
+            '',
+            (err) => {
+              expect(err).not.toBeNull();
+              expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
+              expect(err.message).toMatch(/shasum error/);
+              done();
+            }
+          );
+        });
       });
 
-      test('should add new second version without tag', async (done) => {
+      test('should add new second version without tag', async () => {
         const pkgName = 'add-version-test-3';
         const version = '1.0.2';
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, '1.0.3');
-
-        storage.addVersion(
-          pkgName,
-          version,
-          generateNewVersion(pkgName, version),
-          'beta',
-          (err, data) => {
-            expect(err).toBeNull();
-            expect(data).toBeUndefined();
-            done();
-          }
-        );
+        return new Promise((done) => {
+          storage.addVersion(
+            pkgName,
+            version,
+            generateNewVersion(pkgName, version),
+            'beta',
+            (err, data) => {
+              expect(err).toBeNull();
+              expect(data).toBeUndefined();
+              done();
+            }
+          );
+        });
       });
     });
 
@@ -299,22 +310,24 @@ describe('LocalStorage', () => {
         });
       });
 
-      test('should update versions from external source', async (done) => {
-        _storage.updateVersions(pkgName, metadata, (err, data) => {
-          expect(err).toBeNull();
-          expect(_storage._writePackage).toHaveBeenCalledTimes(1);
-          expect(data.versions['1.0.1']).toBeDefined();
-          expect(data.versions[version]).toBeDefined();
-          expect(data.versions['1.0.4']).toBeDefined();
-          expect(data[DIST_TAGS]['latest']).toBeDefined();
-          expect(data[DIST_TAGS]['latest']).toBe('1.0.1');
-          expect(data[DIST_TAGS]['beta']).toBeDefined();
-          expect(data[DIST_TAGS]['beta']).toBe('1.0.2');
-          expect(data[DIST_TAGS]['next']).toBeDefined();
-          expect(data[DIST_TAGS]['next']).toBe('1.0.4');
-          expect(data['_rev'] === metadata['_rev']).toBeFalsy();
-          expect(data.readme).toBe('readme 1.0.4');
-          done();
+      test('should update versions from external source', async () => {
+        return new Promise((done) => {
+          _storage.updateVersions(pkgName, metadata, (err, data) => {
+            expect(err).toBeNull();
+            expect(_storage._writePackage).toHaveBeenCalledTimes(1);
+            expect(data.versions['1.0.1']).toBeDefined();
+            expect(data.versions[version]).toBeDefined();
+            expect(data.versions['1.0.4']).toBeDefined();
+            expect(data[DIST_TAGS]['latest']).toBeDefined();
+            expect(data[DIST_TAGS]['latest']).toBe('1.0.1');
+            expect(data[DIST_TAGS]['beta']).toBeDefined();
+            expect(data[DIST_TAGS]['beta']).toBe('1.0.2');
+            expect(data[DIST_TAGS]['next']).toBeDefined();
+            expect(data[DIST_TAGS]['next']).toBe('1.0.4');
+            expect(data['_rev'] === metadata['_rev']).toBeFalsy();
+            expect(data.readme).toBe('readme 1.0.4');
+            done();
+          });
         });
       });
 
@@ -333,7 +346,7 @@ describe('LocalStorage', () => {
     describe('LocalStorage::changePackage', () => {
       const pkgName = 'change-package';
 
-      test('should unpublish a version', async (done) => {
+      test('should unpublish a version', async () => {
         await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, '1.0.2');
@@ -341,14 +354,16 @@ describe('LocalStorage', () => {
         const metadata = JSON.parse(readMetadata('changePackage/metadata-change'));
         const rev: string = metadata['_rev'];
 
-        storage.changePackage(pkgName, metadata, rev, (err) => {
-          expect(err).toBeUndefined();
-          storage.getPackageMetadata(pkgName, (err, data) => {
-            expect(err).toBeNull();
-            expect(data.versions['1.0.1']).toBeDefined();
-            expect(data.versions['1.0.2']).toBeUndefined();
-            expect(data.versions['1.0.3']).toBeUndefined();
-            done();
+        return new Promise((done) => {
+          storage.changePackage(pkgName, metadata, rev, (err) => {
+            expect(err).toBeUndefined();
+            storage.getPackageMetadata(pkgName, (err, data) => {
+              expect(err).toBeNull();
+              expect(data.versions['1.0.1']).toBeDefined();
+              expect(data.versions['1.0.2']).toBeUndefined();
+              expect(data.versions['1.0.3']).toBeUndefined();
+              done();
+            });
           });
         });
       });
@@ -467,9 +482,6 @@ describe('LocalStorage', () => {
           const stream = storage.getTarball(pkgName, tarballName);
           stream.on('content-length', function (contentLength) {
             expect(contentLength).toBe(279);
-            done();
-          });
-          stream.on('open', function () {
             done();
           });
         });

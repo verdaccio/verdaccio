@@ -29,13 +29,13 @@ describe('startServer via API', () => {
   };
 
   describe('startServer launcher', () => {
-    test('should provide all HTTP server data', async (done) => {
+    test('should provide all HTTP server data', async () => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const port = '6000';
 
-      await startServer(
+      return startServer(
         config(),
         port,
         store,
@@ -51,18 +51,17 @@ describe('startServer via API', () => {
           expect(pkgVersion).toBeDefined();
           expect(pkgVersion).toBe(version);
           expect(pkgName).toBe(serverName);
-          done();
         }
       );
     });
 
-    test('should set keepAliveTimeout to 0 seconds', async (done) => {
+    test('should set keepAliveTimeout to 0 seconds', (done) => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const port = '6100';
 
-      await startServer(
+      startServer(
         config(parseConfigurationFile('server/keepalivetimeout-0')),
         port,
         store,
@@ -85,13 +84,13 @@ describe('startServer via API', () => {
       );
     });
 
-    test('should set keepAliveTimeout to 60 seconds', async (done) => {
+    test('should set keepAliveTimeout to 60 seconds', (done) => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const port = '6200';
 
-      await startServer(
+      startServer(
         config(parseConfigurationFile('server/keepalivetimeout-60')),
         port,
         store,
@@ -114,13 +113,13 @@ describe('startServer via API', () => {
       );
     });
 
-    test('should set keepAliveTimeout to 5 seconds per default', async (done) => {
+    test('should set keepAliveTimeout to 5 seconds per default', (done) => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
       const port = '6300';
 
-      await startServer(
+      startServer(
         config(parseConfigurationFile('server/keepalivetimeout-undefined')),
         port,
         store,
@@ -161,7 +160,7 @@ describe('startServer via API', () => {
       });
     });
 
-    test('should start a https server with key and cert', async (done) => {
+    test('should start a https server with key and cert', (done) => {
       const store = path.join(__dirname, 'partials/store');
       const serverName = 'verdaccio-test';
       const version = '1.0.0';
@@ -178,7 +177,7 @@ describe('startServer via API', () => {
         cert: certPath,
       };
 
-      await startServer(conf, address, store, version, serverName, (webServer, addrs) => {
+      startServer(conf, address, store, version, serverName, (webServer, addrs) => {
         expect(webServer).toBeDefined();
         expect(addrs).toBeDefined();
         expect(addrs.proto).toBe('https');
