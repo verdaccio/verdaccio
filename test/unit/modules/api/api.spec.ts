@@ -828,10 +828,7 @@ describe('endpoint unit test', () => {
             generatePackageMetadata(pkgName, newVersion),
             token
           );
-          if (newErr) {
-            expect(newErr).toBeNull();
-            return done(newErr);
-          }
+          expect(newErr).toBeNull();
 
           const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
           const [err2, res2] = await putPackage(
@@ -1167,10 +1164,7 @@ describe('endpoint unit test', () => {
       test('should deprecate a package', async () => {
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
-        if (err) {
-          expect(err).toBeNull();
-          return done(err);
-        }
+        expect(err).toBeNull();
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).toEqual('get deprecated');
       });
@@ -1180,10 +1174,7 @@ describe('endpoint unit test', () => {
         await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
         pkg = generateDeprecateMetadata(pkgName, version, '');
         const [err] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
-        if (err) {
-          expect(err).toBeNull();
-          return done(err);
-        }
+        expect(err).toBeNull();
         const [, res] = await getPackage(request(app), '', pkgName);
         expect(res.body.versions[version].deprecated).not.toBeDefined();
       });
