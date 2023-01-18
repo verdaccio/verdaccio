@@ -19,7 +19,12 @@ export type LogPlugin = {
 export type LogType = 'file' | 'stdout';
 export type LogFormat = 'json' | 'pretty-timestamped' | 'pretty';
 
-export function createLogger(options = { level: 'http' }, destination = pino.destination(1), format: LogFormat = DEFAULT_LOG_FORMAT, prettyPrintOptions) {
+export function createLogger(
+  options = { level: 'http' },
+  destination = pino.destination(1),
+  format: LogFormat = DEFAULT_LOG_FORMAT,
+  prettyPrintOptions
+) {
   if (_.isNil(format)) {
     format = DEFAULT_LOG_FORMAT;
   }
@@ -93,7 +98,8 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
   debug('setup logger');
   const isLegacyConf = Array.isArray(options);
   if (isLegacyConf) {
-    const deprecateMessage = 'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
+    const deprecateMessage =
+      'deprecate: multiple logger configuration is deprecated, please check the migration guide.';
     process.emitWarning(deprecateMessage);
   }
 
@@ -111,7 +117,10 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     );
   }
   const pinoConfig = { level: loggerConfig.level };
-  let colors = typeof loggerConfig?.colors === 'boolean' ? Boolean(loggerConfig?.colors) : process.stdout.isTTY;
+  let colors =
+    typeof loggerConfig?.colors === 'boolean'
+      ? Boolean(loggerConfig?.colors)
+      : process.stdout.isTTY;
   if ('EXPERIMENTAL_VERDACCIO_LOGGER_COLORS' in process.env) {
     colors = process.env.EXPERIMENTAL_VERDACCIO_LOGGER_COLORS != 'false';
   }
@@ -127,7 +136,9 @@ export function setup(options: LoggerConfig | LoggerConfigItem = [DEFAULT_LOGGER
     process.on('SIGUSR2', () => destination.reopen());
     logger = createLogger(pinoConfig, destination, loggerConfig.format, prettyPrintOptions);
   } else if (loggerConfig.type === 'rotating-file') {
-    process.emitWarning('rotating-file type is not longer supported, consider use [logrotate] instead');
+    process.emitWarning(
+      'rotating-file type is not longer supported, consider use [logrotate] instead'
+    );
     debug('logging stdout enabled');
     logger = createLogger(pinoConfig, pino.destination(1), loggerConfig.format, prettyPrintOptions);
   } else {

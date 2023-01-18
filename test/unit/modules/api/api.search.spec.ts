@@ -90,7 +90,8 @@ describe('endpoint unit test', () => {
 
     test('should perform a search v1 emtpy results', (done) => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1-empty.json'));
-      const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
+      const query =
+        '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
       nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
@@ -104,14 +105,19 @@ describe('endpoint unit test', () => {
             expect(err).toBeNull();
             return done(err);
           }
-          expect(res.body).toStrictEqual({ objects: [], total: 0, time: 'Fri, 14 May 2021 21:29:10 GMT' });
+          expect(res.body).toStrictEqual({
+            objects: [],
+            total: 0,
+            time: 'Fri, 14 May 2021 21:29:10 GMT',
+          });
           done();
         });
     });
 
     test('should perform a search v1 with results', (done) => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1.json'));
-      const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
+      const query =
+        '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
       nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
@@ -134,7 +140,8 @@ describe('endpoint unit test', () => {
 
     test('should perform a search v1 with react forbidden access', (done) => {
       const searchV1 = require(path.join(__dirname, 'partials', 'search-v1-forbidden.json'));
-      const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
+      const query =
+        '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       jest.spyOn(Date.prototype, 'toUTCString').mockReturnValue('Fri, 14 May 2021 21:29:10 GMT');
       nock('http://localhost:55549').get(query).reply(200, searchV1);
       request(app)
@@ -156,7 +163,8 @@ describe('endpoint unit test', () => {
     });
 
     test('should perform a search v1 with error', () => {
-      const query = '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
+      const query =
+        '/-/v1/search?text=verdaccio&size=3&quality=0.65&popularity=0.98&maintenance=0.5';
       nock('http://localhost:55549').get(query).reply(500);
       return request(app)
         .get(query)

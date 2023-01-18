@@ -61,7 +61,10 @@ export default function (server) {
             failCount++;
           }
 
-          if (resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
+          if (
+            resp.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
+            ~body.error.indexOf(UNAVAILABLE)
+          ) {
             failCount++;
           }
         });
@@ -109,7 +112,10 @@ export default function (server) {
           if (response.statusCode === HTTP_STATUS.CONFLICT && ~body.error.indexOf(PRESENT)) {
             failcount++;
           }
-          if (response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE && ~body.error.indexOf(UNAVAILABLE)) {
+          if (
+            response.statusCode === HTTP_STATUS.SERVICE_UNAVAILABLE &&
+            ~body.error.indexOf(UNAVAILABLE)
+          ) {
             failcount++;
           }
         });

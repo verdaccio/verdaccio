@@ -38,7 +38,10 @@ export class InitCommand extends Command {
     examples: [
       [`Runs the server with the default configuration`, `verdaccio`],
       [`Runs the server in the port 5000`, `verdaccio --listen 5000`],
-      [`Runs the server by using a different absolute location of the configuration file`, `verdaccio --config /home/user/verdaccio/config.yaml`],
+      [
+        `Runs the server by using a different absolute location of the configuration file`,
+        `verdaccio --config /home/user/verdaccio/config.yaml`,
+      ],
     ],
   });
 
@@ -59,11 +62,22 @@ export class InitCommand extends Command {
       }
 
       logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
-      process.title = (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
+      process.title =
+        (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
 
-      startVerdaccio(verdaccioConfiguration, this.listen as string, configPathLocation, pkgVersion, pkgName, listenDefaultCallback);
+      startVerdaccio(
+        verdaccioConfiguration,
+        this.listen as string,
+        configPathLocation,
+        pkgVersion,
+        pkgName,
+        listenDefaultCallback
+      );
     } catch (err) {
-      logger.logger.fatal({ file: configPathLocation, err: err }, 'cannot open config file @{file}: @{!err.message}');
+      logger.logger.fatal(
+        { file: configPathLocation, err: err },
+        'cannot open config file @{file}: @{!err.message}'
+      );
       process.exit(1);
     }
   }

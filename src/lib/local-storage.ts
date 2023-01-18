@@ -31,7 +31,14 @@ import loadPlugin from '../lib/plugin-loader';
 import { IStorage, StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import { createTarballHash } from './crypto-utils';
-import { cleanUpReadme, generatePackageTemplate, generateRevision, getLatestReadme, normalizeContributors, normalizePackage } from './storage-utils';
+import {
+  cleanUpReadme,
+  generatePackageTemplate,
+  generateRevision,
+  getLatestReadme,
+  normalizeContributors,
+  normalizePackage,
+} from './storage-utils';
 import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, getLatestVersion, isObject, tagVersion, validateName } from './utils';
 
@@ -60,7 +67,10 @@ class LocalStorage implements IStorage {
     storage.createPackage(name, generatePackageTemplate(name), (err) => {
       // FIXME: it will be fixed here https://github.com/verdaccio/verdaccio/pull/1360
       // @ts-ignore
-      if (_.isNull(err) === false && (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT)) {
+      if (
+        _.isNull(err) === false &&
+        (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT)
+      ) {
         return callback(ErrorCode.getConflict());
       }
 
@@ -99,7 +109,10 @@ class LocalStorage implements IStorage {
       this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
-          this.logger.error({ name }, `[storage/removePackage] the database is locked, removed has failed for @{name}`);
+          this.logger.error(
+            { name },
+            `[storage/removePackage] the database is locked, removed has failed for @{name}`
+          );
           return callback(ErrorCode.getBadData(removeFailed.message));
         }
 
@@ -168,7 +181,10 @@ class LocalStorage implements IStorage {
       }
 
       for (const tag in packageInfo[DIST_TAGS]) {
-        if (!packageLocalJson[DIST_TAGS][tag] || packageLocalJson[DIST_TAGS][tag] !== packageInfo[DIST_TAGS][tag]) {
+        if (
+          !packageLocalJson[DIST_TAGS][tag] ||
+          packageLocalJson[DIST_TAGS][tag] !== packageInfo[DIST_TAGS][tag]
+        ) {
           change = true;
           packageLocalJson[DIST_TAGS][tag] = packageInfo[DIST_TAGS][tag];
         }
@@ -212,7 +228,13 @@ class LocalStorage implements IStorage {
    * @param {*} tag
    * @param {*} callback
    */
-  public addVersion(name: string, version: string, metadata: Version, tag: StringValue, callback: CallbackAction): void {
+  public addVersion(
+    name: string,
+    version: string,
+    metadata: Version,
+    tag: StringValue,
+    callback: CallbackAction
+  ): void {
     this._updatePackage(
       name,
       (data, cb: Callback): void => {
@@ -233,7 +255,10 @@ class LocalStorage implements IStorage {
           const tarball = metadata.dist.tarball.replace(/.*\//, '');
 
           if (isObject(data._attachments[tarball])) {
-            if (_.isNil(data._attachments[tarball].shasum) === false && _.isNil(metadata.dist.shasum) === false) {
+            if (
+              _.isNil(data._attachments[tarball].shasum) === false &&
+              _.isNil(metadata.dist.shasum) === false
+            ) {
               if (data._attachments[tarball].shasum != metadata.dist.shasum) {
                 const errorMessage = `shasum error, ${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
                 return cb(ErrorCode.getBadRequest(errorMessage));
@@ -330,7 +355,12 @@ class LocalStorage implements IStorage {
    * @param {*} callback
    * @return {Function}
    */
-  public changePackage(name: string, incomingPkg: Package, revision: string | void, callback: Callback): void {
+  public changePackage(
+    name: string,
+    incomingPkg: Package,
+    revision: string | void,
+    callback: Callback
+  ): void {
     if (!isObject(incomingPkg.versions) || !isObject(incomingPkg[DIST_TAGS])) {
       this.logger.error({ name }, `changePackage bad data for @{name}`);
       return callback(ErrorCode.getBadData());
@@ -357,10 +387,16 @@ class LocalStorage implements IStorage {
             const incomingDeprecated = incomingVersion.deprecated;
             if (incomingDeprecated != localData.versions[version].deprecated) {
               if (!incomingDeprecated) {
-                this.logger.info({ name: name, version: version }, 'undeprecating @{name}@@{version}');
+                this.logger.info(
+                  { name: name, version: version },
+                  'undeprecating @{name}@@{version}'
+                );
                 delete localData.versions[version].deprecated;
               } else {
-                this.logger.info({ name: name, version: version }, 'deprecating @{name}@@{version}');
+                this.logger.info(
+                  { name: name, version: version },
+                  'deprecating @{name}@@{version}'
+                );
                 localData.versions[version].deprecated = incomingDeprecated;
               }
               localData.time!.modified = new Date().toISOString();
@@ -387,7 +423,12 @@ class LocalStorage implements IStorage {
    * @param {*} revision
    * @param {*} callback
    */
-  public removeTarball(name: string, filename: string, revision: string, callback: CallbackAction): void {
+  public removeTarball(
+    name: string,
+    filename: string,
+    revision: string,
+    callback: CallbackAction
+  ): void {
     assert(validateName(filename));
 
     this._updatePackage(
@@ -740,14 +781,24 @@ class LocalStorage implements IStorage {
    * @param {*} callback callback that gets invoked after it's all updated
    * @return {Function}
    */
-  private _updatePackage(name: string, updateHandler: StorageUpdateCallback, callback: CallbackAction): void {
+  private _updatePackage(
+    name: string,
+    updateHandler: StorageUpdateCallback,
+    callback: CallbackAction
+  ): void {
     const storage: IPackageStorage = this._getLocalStorage(name);
 
     if (!storage) {
       return callback(ErrorCode.getNotFound());
     }
 
-    storage.updatePackage(name, updateHandler, this._writePackage.bind(this), normalizePackage, callback);
+    storage.updatePackage(
+      name,
+      updateHandler,
+      this._writePackage.bind(this),
+      normalizePackage,
+      callback
+    );
   }
 
   /**
@@ -844,16 +895,23 @@ class LocalStorage implements IStorage {
     };
 
     // eslint-disable-next-line max-len
-    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(this.config, this.config.store, plugin_params, (plugin): IPluginStorage<Config> => {
-      return plugin.getPackageStorage;
-    });
+    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(
+      this.config,
+      this.config.store,
+      plugin_params,
+      (plugin): IPluginStorage<Config> => {
+        return plugin.getPackageStorage;
+      }
+    );
 
     return _.head(plugins);
   }
 
   public saveToken(token: Token): Promise<any> {
     if (_.isFunction(this.storagePlugin.saveToken) === false) {
-      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+      return Promise.reject(
+        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+      );
     }
 
     return this.storagePlugin.saveToken(token);
@@ -861,7 +919,9 @@ class LocalStorage implements IStorage {
 
   public deleteToken(user: string, tokenKey: string): Promise<any> {
     if (_.isFunction(this.storagePlugin.deleteToken) === false) {
-      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+      return Promise.reject(
+        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+      );
     }
 
     return this.storagePlugin.deleteToken(user, tokenKey);
@@ -869,7 +929,9 @@ class LocalStorage implements IStorage {
 
   public readTokens(filter: TokenFilter): Promise<Token[]> {
     if (_.isFunction(this.storagePlugin.readTokens) === false) {
-      return Promise.reject(ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
+      return Promise.reject(
+        ErrorCode.getCode(HTTP_STATUS.SERVICE_UNAVAILABLE, SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+      );
     }
 
     return this.storagePlugin.readTokens(filter);

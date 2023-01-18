@@ -1,4 +1,10 @@
-import { DEFAULT_REGISTRY, ERROR_CODE, HEADERS, TOKEN_BASIC, TOKEN_BEARER } from '../../../../src/lib/constants';
+import {
+  DEFAULT_REGISTRY,
+  ERROR_CODE,
+  HEADERS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import { buildToken } from '../../../../src/lib/utils';

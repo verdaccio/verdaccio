@@ -32,5 +32,10 @@ module.exports = {
     '<rootDir>/.vscode/',
   ],
   testPathIgnorePatterns: ['__snapshots__', '<rootDir>/build'],
-  coveragePathIgnorePatterns: ['node_modules', 'fixtures', '<rootDir>/src/api/debug', '<rootDir>/test'],
+  coveragePathIgnorePatterns: [
+    'node_modules',
+    'fixtures',
+    '<rootDir>/src/api/debug',
+    '<rootDir>/test',
+  ],
 };

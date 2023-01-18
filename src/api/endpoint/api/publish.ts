@@ -10,14 +10,31 @@ import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../.
 import { logger } from '../../../lib/logger';
 import { notify } from '../../../lib/notify';
 import { isPublishablePackage } from '../../../lib/storage-utils';
-import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation, validateMetadata } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
+import {
+  ErrorCode,
+  hasDiffOneKey,
+  isObject,
+  isRelatedToDeprecation,
+  validateMetadata,
+} from '../../../lib/utils';
+import {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  IAuth,
+  IStorageHandler,
+} from '../../../types';
 import { allow, expectJson, media } from '../../middleware';
 import star from './star';
 
 const debug = buildDebug('verdaccio:publish');
 
-export default function publish(router: Router, auth: IAuth, storage: IStorageHandler, config: Config): void {
+export default function publish(
+  router: Router,
+  auth: IAuth,
+  storage: IStorageHandler,
+  config: Config
+): void {
   const can = allow(auth);
 
   /**
@@ -79,7 +96,13 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
 	}
    *
    */
-  router.put('/:package/:_rev?/:revision?', can('publish'), media(mime.getType('json')), expectJson, publishPackage(storage, config, auth));
+  router.put(
+    '/:package/:_rev?/:revision?',
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    publishPackage(storage, config, auth)
+  );
 
   /**
    * Un-publishing an entire package.
@@ -92,13 +115,29 @@ export default function publish(router: Router, auth: IAuth, storage: IStorageHa
   router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
-  router.delete('/:package/-/:filename/-rev/:revision', can('unpublish'), can('publish'), removeTarball(storage));
+  router.delete(
+    '/:package/-/:filename/-rev/:revision',
+    can('unpublish'),
+    can('publish'),
+    removeTarball(storage)
+  );
 
   // uploading package tarball
-  router.put('/:package/-/:filename/*', can('publish'), media(HEADERS.OCTET_STREAM), uploadPackageTarball(storage));
+  router.put(
+    '/:package/-/:filename/*',
+    can('publish'),
+    media(HEADERS.OCTET_STREAM),
+    uploadPackageTarball(storage)
+  );
 
   // adding a version
-  router.put('/:package/:version/-tag/:tag', can('publish'), media(mime.getType('json')), expectJson, addVersion(storage));
+  router.put(
+    '/:package/:version/-tag/:tag',
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    addVersion(storage)
+  );
 }
 
 /**
@@ -161,7 +200,11 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // npm-registry-client 0.3+ embeds tarball into the json upload
       // https://github.com/isaacs/npm-registry-client/commit/e9fbeb8b67f249394f735c74ef11fe4720d46ca0
       // issue https://github.com/rlidwka/sinopia/issues/31, dealing with it here:
-      const isInvalidBodyFormat = isObject(_attachments) === false || hasDiffOneKey(_attachments) || isObject(versions) === false || hasDiffOneKey(versions);
+      const isInvalidBodyFormat =
+        isObject(_attachments) === false ||
+        hasDiffOneKey(_attachments) ||
+        isObject(versions) === false ||
+        hasDiffOneKey(versions);
 
       if (isInvalidBodyFormat) {
         // npm is doing something strange again
@@ -177,37 +220,49 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
       // at this point document is either created or existed before
       const [firstAttachmentKey] = Object.keys(_attachments);
 
-      createTarball(Path.basename(firstAttachmentKey), _attachments[firstAttachmentKey], function (error) {
-        if (error) {
-          return next(error);
-        }
-
-        const versionToPublish = Object.keys(versions)[0];
-        const versionMetadataToPublish = versions[versionToPublish];
-
-        versionMetadataToPublish.readme = _.isNil(versionMetadataToPublish.readme) === false ? String(versionMetadataToPublish.readme) : '';
-
-        createVersion(versionToPublish, versionMetadataToPublish, function (error) {
+      createTarball(
+        Path.basename(firstAttachmentKey),
+        _attachments[firstAttachmentKey],
+        function (error) {
           if (error) {
             return next(error);
           }
 
-          addTags(metadataCopy[DIST_TAGS], async function (error) {
+          const versionToPublish = Object.keys(versions)[0];
+          const versionMetadataToPublish = versions[versionToPublish];
+
+          versionMetadataToPublish.readme =
+            _.isNil(versionMetadataToPublish.readme) === false
+              ? String(versionMetadataToPublish.readme)
+              : '';
+
+          createVersion(versionToPublish, versionMetadataToPublish, function (error) {
             if (error) {
               return next(error);
             }
 
-            try {
-              await notify(metadataCopy, config, req.remote_user, `${metadataCopy.name}@${versionToPublish}`);
-            } catch (error) {
-              logger.error({ error }, 'notify batch service has failed: @{error}');
-            }
+            addTags(metadataCopy[DIST_TAGS], async function (error) {
+              if (error) {
+                return next(error);
+              }
 
-            res.status(HTTP_STATUS.CREATED);
-            return next({ ok: okMessage, success: true });
+              try {
+                await notify(
+                  metadataCopy,
+                  config,
+                  req.remote_user,
+                  `${metadataCopy.name}@${versionToPublish}`
+                );
+              } catch (error) {
+                logger.error({ error }, 'notify batch service has failed: @{error}');
+              }
+
+              res.status(HTTP_STATUS.CREATED);
+              return next({ ok: okMessage, success: true });
+            });
           });
-        });
-      });
+        }
+      );
     };
 
     if (isPublishablePackage(req.body) === false && isObject(req.body.users)) {
@@ -217,7 +272,10 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     try {
       const metadata = validateMetadata(req.body, packageName);
       // check _attachments to distinguish publish and deprecate
-      if (req.params._rev || (isRelatedToDeprecation(req.body) && _.isEmpty(req.body._attachments))) {
+      if (
+        req.params._rev ||
+        (isRelatedToDeprecation(req.body) && _.isEmpty(req.body._attachments))
+      ) {
         debug('updating a new version for %o', packageName);
         // we check unpublish permissions, an update is basically remove versions
         const remote = req.remote_user;

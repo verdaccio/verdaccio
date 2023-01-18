@@ -3,7 +3,13 @@ import rimraf from 'rimraf';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { API_ERROR, DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../../src/lib/constants';
+import {
+  API_ERROR,
+  DIST_TAGS,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+} from '../../../../src/lib/constants';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { addUser } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
@@ -53,9 +59,17 @@ describe('endpoint web unit test', () => {
 
   describe('Registry WebUI endpoints', () => {
     beforeAll(async () => {
-      await request(app).put('/@scope%2fpk1-test').set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(publishMetadata)).expect(HTTP_STATUS.CREATED);
+      await request(app)
+        .put('/@scope%2fpk1-test')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(publishMetadata))
+        .expect(HTTP_STATUS.CREATED);
 
-      await request(app).put('/forbidden-place').set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON).send(JSON.stringify(forbiddenPlace)).expect(HTTP_STATUS.CREATED);
+      await request(app)
+        .put('/forbidden-place')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(JSON.stringify(forbiddenPlace))
+        .expect(HTTP_STATUS.CREATED);
     });
 
     describe('Packages', () => {

@@ -31,7 +31,11 @@ export function displayExperimentsInfoBox(flags) {
     );
     experimentList.forEach((experiment) => {
       // eslint-disable-next-line max-len
-      logger.info(`support for experiment [${experiment}] ${flags[experiment] ? 'is enabled' : ' is disabled'}`);
+      logger.info(
+        `support for experiment [${experiment}] ${
+          flags[experiment] ? 'is enabled' : ' is disabled'
+        }`
+      );
     });
   }
 }
@@ -66,7 +70,9 @@ export async function runServer(config?: string): Promise<any> {
 
   const addresses = getListListenAddresses(undefined, configurationParsed.listen);
   if (addresses.length > 1) {
-    process.emitWarning('You have specified multiple listen addresses, using this method only the first will be used');
+    process.emitWarning(
+      'You have specified multiple listen addresses, using this method only the first will be used'
+    );
   }
 
   const app = await endPointAPI(configurationParsed);

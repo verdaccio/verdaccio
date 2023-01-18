@@ -7,16 +7,34 @@ import validator from 'validator';
 import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../lib/constants';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '../lib/constants';
 import { stringToMD5 } from '../lib/crypto-utils';
 import { logger } from '../lib/logger';
-import { ErrorCode, getVersionFromTarball, isObject, validateName as utilValidateName, validatePackage as utilValidatePackage } from '../lib/utils';
+import {
+  ErrorCode,
+  getVersionFromTarball,
+  isObject,
+  validateName as utilValidateName,
+  validatePackage as utilValidatePackage,
+} from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../types';
 
 const debug = buildDebug('verdaccio');
 
 export function match(regexp: RegExp): any {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string): void {
+  return function (
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer,
+    value: string
+  ): void {
     if (regexp.exec(value)) {
       next();
     } else {
@@ -70,7 +88,11 @@ export function serveFavicon(config: Config) {
   };
 }
 
-export function setSecurityWebHeaders(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function setSecurityWebHeaders(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   // disable loading in frames (clickjacking, etc.)
   res.header(HEADERS.FRAMES_OPTIONS, 'deny');
   // avoid stablish connections outside of domain
@@ -84,7 +106,13 @@ export function setSecurityWebHeaders(req: $RequestExtend, res: $ResponseExtend,
 
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
+export function validateName(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer,
+  value: string,
+  name: string
+): void {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
@@ -97,7 +125,13 @@ export function validateName(req: $RequestExtend, res: $ResponseExtend, next: $N
 
 // flow: express does not match properly
 // flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer, value: string, name: string): void {
+export function validatePackage(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer,
+  value: string,
+  name: string
+): void {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
@@ -111,14 +145,23 @@ export function validatePackage(req: $RequestExtend, res: $ResponseExtend, next:
 export function media(expect: string | null): any {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
-      next(ErrorCode.getCode(HTTP_STATUS.UNSUPPORTED_MEDIA, 'wrong content-type, expect: ' + expect + ', got: ' + req.get(HEADER_TYPE.CONTENT_TYPE)));
+      next(
+        ErrorCode.getCode(
+          HTTP_STATUS.UNSUPPORTED_MEDIA,
+          'wrong content-type, expect: ' + expect + ', got: ' + req.get(HEADER_TYPE.CONTENT_TYPE)
+        )
+      );
     } else {
       next();
     }
   };
 }
 
-export function encodeScopePackage(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function encodeScopePackage(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   if (req.url.indexOf('@') !== -1) {
     // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
     req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
@@ -126,7 +169,11 @@ export function encodeScopePackage(req: $RequestExtend, res: $ResponseExtend, ne
   next();
 }
 
-export function expectJson(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function expectJson(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   if (!isObject(req.body)) {
     return next(ErrorCode.getBadRequest("can't parse incoming json"));
   }
@@ -153,7 +200,9 @@ export function allow(auth: IAuth): Function {
   return function (action: string): Function {
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
-      const packageName = req.params.scope ? `@${req.params.scope}/${req.params.package}` : req.params.package;
+      const packageName = req.params.scope
+        ? `@${req.params.scope}/${req.params.package}`
+        : req.params.package;
       let packageVersion: string | undefined = undefined;
       if (req.params.filename) {
         packageVersion = getVersionFromTarball(req.params.filename) || undefined;
@@ -162,18 +211,22 @@ export function allow(auth: IAuth): Function {
       }
       const remote: RemoteUser = req.remote_user;
       debug('[middleware/allow][%o] allow for %o', action, remote?.name);
-      auth['allow_' + action]({ packageName, packageVersion }, remote, function (error, allowed): void {
-        req.resume();
-        if (error) {
-          next(error);
-        } else if (allowed) {
-          next();
-        } else {
-          // last plugin (that's our built-in one) returns either
-          // cb(err) or cb(null, true), so this should never happen
-          throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+      auth['allow_' + action](
+        { packageName, packageVersion },
+        remote,
+        function (error, allowed): void {
+          req.resume();
+          if (error) {
+            next(error);
+          } else if (allowed) {
+            next();
+          } else {
+            // last plugin (that's our built-in one) returns either
+            // cb(err) or cb(null, true), so this should never happen
+            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
+          }
         }
-      });
+      );
     };
   };
 }
@@ -184,7 +237,12 @@ export interface MiddlewareError {
 
 export type FinalBody = Package | MiddlewareError | string;
 
-export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function final(
+  body: FinalBody,
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   if (res.statusCode === HTTP_STATUS.UNAUTHORIZED && !res.getHeader(HEADERS.WWW_AUTH)) {
     // they say it's required for 401, so...
     res.header(HEADERS.WWW_AUTH, `${TOKEN_BASIC}, ${TOKEN_BEARER}`);
@@ -204,7 +262,10 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
       }
 
       // don't send etags with errors
-      if (!res.statusCode || (res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)) {
+      if (
+        !res.statusCode ||
+        (res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)
+      ) {
         res.header(HEADERS.ETAG, '"' + stringToMD5(body as string) + '"');
       }
     } else {
@@ -227,7 +288,8 @@ export function final(body: FinalBody, req: $RequestExtend, res: $ResponseExtend
   res.send(body);
 }
 
-export const LOG_STATUS_MESSAGE = "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
+export const LOG_STATUS_MESSAGE =
+  "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
 
@@ -336,7 +398,11 @@ export function log(config: Config) {
 }
 
 // Middleware
-export function errorReportingMiddleware(req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+export function errorReportingMiddleware(
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+): void {
   res.locals.report_error =
     res.locals.report_error ||
     function (err: VerdaccioError): void {

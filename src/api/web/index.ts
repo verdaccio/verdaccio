@@ -55,7 +55,8 @@ const sendFileCallback = (next) => (err) => {
 };
 
 export default function (config: Config, auth, storage) {
-  let { staticPath, manifest, manifestFiles } = loadTheme(config) || require('@verdaccio/ui-theme')();
+  let { staticPath, manifest, manifestFiles } =
+    loadTheme(config) || require('@verdaccio/ui-theme')();
   debug('static path %o', staticPath);
   Search.configureStorage(storage);
 
@@ -80,7 +81,10 @@ export default function (config: Config, auth, storage) {
     const absoluteLocalFile = path.posix.resolve(config.web.logo);
     debug('serve local logo %s', absoluteLocalFile);
     try {
-      if (fs.existsSync(absoluteLocalFile) && typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined') {
+      if (
+        fs.existsSync(absoluteLocalFile) &&
+        typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined'
+      ) {
         // Note: `path.join` will break on Windows, because it transforms `/` to `\`
         // Use POSIX version `path.posix.join` instead.
         config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
@@ -92,7 +96,9 @@ export default function (config: Config, auth, storage) {
         debug('enabled custom logo %s', config.web.logo);
       } else {
         config.web.logo = undefined;
-        logger.warn(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
+        logger.warn(
+          `web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`
+        );
       }
     } catch {
       config.web.logo = undefined;

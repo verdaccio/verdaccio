@@ -69,7 +69,18 @@
         "scope": "unscoped",
         "version": "7.0.1",
         "description": "Reactive Extensions for modern JavaScript",
-        "keywords": ["Rx", "RxJS", "ReactiveX", "ReactiveExtensions", "Streams", "Observables", "Observable", "Stream", "ES6", "ES2015"],
+        "keywords": [
+          "Rx",
+          "RxJS",
+          "ReactiveX",
+          "ReactiveExtensions",
+          "Streams",
+          "Observables",
+          "Observable",
+          "Stream",
+          "ES6",
+          "ES2015"
+        ],
         "date": "2021-05-12T02:26:13.432Z",
         "links": {
           "npm": "https://www.npmjs.com/package/rxjs",

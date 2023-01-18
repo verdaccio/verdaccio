@@ -147,7 +147,9 @@ describe('Utilities', () => {
           get: () => 'http',
           protocol: 'http',
         });
-        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(convertDist.versions['1.0.0'].dist.tarball);
+        expect(convertDist.versions['1.0.0'].dist.tarball).toEqual(
+          convertDist.versions['1.0.0'].dist.tarball
+        );
       });
     });
 
@@ -219,15 +221,25 @@ describe('Utilities', () => {
       test('should create a base url for registry', () => {
         expect(combineBaseUrl('http', 'domain.com', '')).toEqual('http://domain.com/');
         expect(combineBaseUrl('http', 'domain.com', '/')).toEqual('http://domain.com/');
-        expect(combineBaseUrl('http', 'domain.com', '/prefix/')).toEqual('http://domain.com/prefix/');
-        expect(combineBaseUrl('http', 'domain.com', '/prefix/deep')).toEqual('http://domain.com/prefix/deep/');
-        expect(combineBaseUrl('http', 'domain.com', 'prefix/')).toEqual('http://domain.com/prefix/');
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/')).toEqual(
+          'http://domain.com/prefix/'
+        );
+        expect(combineBaseUrl('http', 'domain.com', '/prefix/deep')).toEqual(
+          'http://domain.com/prefix/deep/'
+        );
+        expect(combineBaseUrl('http', 'domain.com', 'prefix/')).toEqual(
+          'http://domain.com/prefix/'
+        );
         expect(combineBaseUrl('http', 'domain.com', 'prefix')).toEqual('http://domain.com/prefix/');
       });
 
       test('invalid url prefix', () => {
-        expect(combineBaseUrl('http', 'domain.com', 'only-prefix')).toEqual('http://domain.com/only-prefix/');
-        expect(combineBaseUrl('https', 'domain.com', 'only-prefix')).toEqual('https://domain.com/only-prefix/');
+        expect(combineBaseUrl('http', 'domain.com', 'only-prefix')).toEqual(
+          'http://domain.com/only-prefix/'
+        );
+        expect(combineBaseUrl('https', 'domain.com', 'only-prefix')).toEqual(
+          'https://domain.com/only-prefix/'
+        );
       });
     });
 
@@ -381,10 +393,26 @@ describe('Utilities', () => {
       expect(getByQualityPriorityValue('application/json; q=1')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/json; q=')).toEqual('application/json');
       expect(getByQualityPriorityValue('application/json;')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/json; q=1.0, application/vnd.npm.install-v1+json; q=, */*')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.9, */*')).toEqual('application/vnd.npm.install-v1+json');
-      expect(getByQualityPriorityValue('application/vnd.npm.install-v1+json; q=, application/json; q=0.9, */*')).toEqual('application/json');
+      expect(
+        getByQualityPriorityValue(
+          'application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*'
+        )
+      ).toEqual('application/json');
+      expect(
+        getByQualityPriorityValue(
+          'application/json; q=1.0, application/vnd.npm.install-v1+json; q=, */*'
+        )
+      ).toEqual('application/json');
+      expect(
+        getByQualityPriorityValue(
+          'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.9, */*'
+        )
+      ).toEqual('application/vnd.npm.install-v1+json');
+      expect(
+        getByQualityPriorityValue(
+          'application/vnd.npm.install-v1+json; q=, application/json; q=0.9, */*'
+        )
+      ).toEqual('application/json');
     });
   });
 
@@ -408,7 +436,10 @@ describe('Utilities', () => {
       const noData = '';
       const spy = jest.spyOn(logger, 'info');
       expect(parseReadme('testPackage', noData)).toEqual('ERROR: No README data found!');
-      expect(spy).toHaveBeenCalledWith({ packageName: 'testPackage' }, '@{packageName}: No readme found');
+      expect(spy).toHaveBeenCalledWith(
+        { packageName: 'testPackage' },
+        '@{packageName}: No readme found'
+      );
     });
   });
 
@@ -683,7 +714,9 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl('/prefix-no-trailing', req)).toEqual('http://some.com/prefix-no-trailing/');
+      expect(getPublicUrl('/prefix-no-trailing', req)).toEqual(
+        'http://some.com/prefix-no-trailing/'
+      );
     });
 
     test('get a valid host with null prefix', () => {
@@ -796,7 +829,9 @@ describe('Utilities', () => {
         url: '/',
       });
 
-      expect(getPublicUrl('conf_url_prefix', req)).toEqual('https://env.domain.com/conf_url_prefix/');
+      expect(getPublicUrl('conf_url_prefix', req)).toEqual(
+        'https://env.domain.com/conf_url_prefix/'
+      );
       delete process.env.VERDACCIO_PUBLIC_URL;
     });
 

@@ -99,7 +99,12 @@ describe('endpoint user profile', () => {
         tfa: {},
       };
       const token = await getNewToken(request(app), credentials);
-      const [, resp] = await postProfile(request(app), body, token, HTTP_STATUS.SERVICE_UNAVAILABLE);
+      const [, resp] = await postProfile(
+        request(app),
+        body,
+        token,
+        HTTP_STATUS.SERVICE_UNAVAILABLE
+      );
 
       expect(resp.error).not.toBeNull();
       expect(resp.error.text).toMatch(SUPPORT_ERRORS.TFA_DISABLED);

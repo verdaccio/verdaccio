@@ -56,32 +56,33 @@ Each `[xxx].spec.ts` file usually triggers a `mockServer` on in the`beforeAll` p
 Let's analyze the following example:
 
 ```js
-const configForTest = configDefault({
+const configForTest = configDefault(
+  {
     auth: {
       htpasswd: {
-        file: './test-storage-api-spec/.htpasswd'
-      }
+        file: './test-storage-api-spec/.htpasswd',
+      },
     },
     filters: {
       '../../modules/api/partials/plugin/filter': {
         pkg: 'npm_test',
-        version: '2.0.0'
-      }
+        version: '2.0.0',
+      },
     },
     storage: store,
     self_path: store,
     uplinks: {
       npmjs: {
-        url: `http://${DOMAIN_SERVERS}:${mockServerPort}`
-      }
+        url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+      },
     },
-    logs: [
-      { type: 'stdout', format: 'pretty', level: 'trace' }
-    ]
-  }, 'api.spec.yaml');
+    logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }],
+  },
+  'api.spec.yaml'
+);
 
-  app = await endPointAPI(configForTest);
-  mockRegistry = await mockServer(mockServerPort).init();
+app = await endPointAPI(configForTest);
+mockRegistry = await mockServer(mockServerPort).init();
 ```
 
 The `configDefault({}, 'myConfig.yaml)` function is a method that returns a configuration file that will be the config used for your test.

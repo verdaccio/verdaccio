@@ -1,6 +1,15 @@
 // this file is not aim to be tested, just to check typescript definitions
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
-import { Config as AppConfig, Callback, IReadTarball, IUploadTarball, Logger, Package, Token, TokenFilter } from '@verdaccio/types';
+import {
+  Config as AppConfig,
+  Callback,
+  IReadTarball,
+  IUploadTarball,
+  Logger,
+  Package,
+  Token,
+  TokenFilter,
+} from '@verdaccio/types';
 import { IPackageStorage, IPackageStorageManager, IPluginStorage } from '@verdaccio/types';
 
 import Config from '../../../../src/lib/config';
@@ -16,7 +25,13 @@ class PackageStorage implements IPackageStorageManager {
     this.logger = logger;
   }
 
-  updatePackage(name: string, updateHandler: Callback, onWrite: Callback, transformPackage: Function, onEnd: Callback) {
+  updatePackage(
+    name: string,
+    updateHandler: Callback,
+    onWrite: Callback,
+    transformPackage: Function,
+    onEnd: Callback
+  ) {
     onEnd();
   }
 

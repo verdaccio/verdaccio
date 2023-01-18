@@ -4,7 +4,14 @@ import rimraf from 'rimraf';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import { buildToken } from '../../../../src/lib/utils';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { getNewToken } from '../../__helper/api';

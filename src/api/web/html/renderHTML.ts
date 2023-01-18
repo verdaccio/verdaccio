@@ -47,7 +47,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
-  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache) ? true : config.web.html_cache;
+  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache)
+    ? true
+    : config.web.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const scope = config?.web?.scope ?? '';
@@ -56,7 +58,17 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = pkgJSON.version;
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore, showInfo, showSettings, showThemeSwitch, showFooter, showSearch, showDownloadTarball } = Object.assign(
+  const {
+    scriptsBodyAfter,
+    metaScripts,
+    scriptsbodyBefore,
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
+  } = Object.assign(
     {},
     {
       scriptsBodyAfter: [],
