@@ -167,7 +167,7 @@
     "test:all": "yarn run test && yarn run test:functional",
     "pre:ci": "yarn run lint",
     "lint:ts": "yarn run type-check",
-    "lint": "eslint -c ./eslint/index.js \"**/*.{js,jsx,ts}\" --max-warnings 145 -c ./eslintrc.js",
+    "lint": "eslint \"**/*.{js,jsx,ts}\" --max-warnings 145 -c ./eslintrc.js",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts verdaccio npm yarn",
     "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
     "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
