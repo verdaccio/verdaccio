@@ -24,7 +24,10 @@ export default function (server, server2) {
 
       describe(`testing mirror for ${pkg}`, () => {
         beforeAll(function () {
-          return server2.putPackage(pkg, generatePkg(pkg)).status(HTTP_STATUS.CREATED).body_ok(API_MESSAGE.PKG_CREATED);
+          return server2
+            .putPackage(pkg, generatePkg(pkg))
+            .status(HTTP_STATUS.CREATED)
+            .body_ok(API_MESSAGE.PKG_CREATED);
         });
 
         test(prefix + 'creating new package', () => {});
@@ -45,7 +48,10 @@ export default function (server, server2) {
 
           describe('should put a tarball', () => {
             beforeAll(function () {
-              return server2.putTarball(pkg, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+              return server2
+                .putTarball(pkg, TARBALL, getBinary())
+                .status(HTTP_STATUS.CREATED)
+                .body_ok(/.*/);
             });
 
             test(`should ${prefix} uploading new tarball`, () => {});

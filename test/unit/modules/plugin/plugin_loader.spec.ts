@@ -34,7 +34,9 @@ describe('plugin loader', () => {
         // @ts-ignore
         loadPlugin(_config, { '@scope/package': {} }, {}, undefined);
       } catch (e) {
-        expect(e.message).toMatch(`@scope/package plugin not found. try \"npm install @scope/package\"`);
+        expect(e.message).toMatch(
+          `@scope/package plugin not found. try \"npm install @scope/package\"`
+        );
       }
     });
 
@@ -43,9 +45,14 @@ describe('plugin loader', () => {
     test('should load @verdaccio-scope/verdaccio-auth-foo scoped package', () => {
       const _config = buildConf('@verdaccio-scope/verdaccio-auth-foo');
       // @ts-ignore
-      const plugins = loadPlugin(_config, { '@verdaccio-scope/verdaccio-auth-foo': {} }, {}, function (plugin) {
-        return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
-      });
+      const plugins = loadPlugin(
+        _config,
+        { '@verdaccio-scope/verdaccio-auth-foo': {} },
+        {},
+        function (plugin) {
+          return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
+        }
+      );
       expect(plugins).toHaveLength(1);
     });
 
@@ -67,7 +74,9 @@ describe('plugin loader', () => {
           return p.authenticate || p.allow_access || p.allow_publish;
         });
       } catch (e) {
-        expect(e.message).toEqual(`"${relativePath}/invalid-plugin" plugin does not have the right code structure`);
+        expect(e.message).toEqual(
+          `"${relativePath}/invalid-plugin" plugin does not have the right code structure`
+        );
       }
     });
 
@@ -79,7 +88,9 @@ describe('plugin loader', () => {
           return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
         });
       } catch (err) {
-        expect(err.message).toEqual(`sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`);
+        expect(err.message).toEqual(
+          `sanity check has failed, "${relativePath}/invalid-plugin-sanity" is not a valid plugin`
+        );
       }
     });
 

@@ -116,7 +116,9 @@ describe('StorageTest', () => {
         reader.on('end', () => {
           expect(notcachedSpy).toHaveBeenCalledTimes(0);
           expect(cachedSpy).toHaveBeenCalledTimes(1);
-          expect(cachedSpy).toHaveBeenCalledWith('http://localhost:55548/jquery/-/jquery-1.5.1.tgz');
+          expect(cachedSpy).toHaveBeenCalledWith(
+            'http://localhost:55548/jquery/-/jquery-1.5.1.tgz'
+          );
           res();
         });
         reader.on('error', (err) => {
@@ -134,7 +136,9 @@ describe('StorageTest', () => {
         reader.on('end', () => {
           expect(cachedSpy).toHaveBeenCalledTimes(0);
           expect(notcachedSpy).toHaveBeenCalledTimes(1);
-          expect(notcachedSpy).toHaveBeenCalledWith('http://localhost:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz');
+          expect(notcachedSpy).toHaveBeenCalledWith(
+            'http://localhost:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
+          );
           res();
         });
         reader.on('error', (err) => {

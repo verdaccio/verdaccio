@@ -49,7 +49,11 @@ export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
 }
 
-export async function signPayload(payload: RemoteUser, secretOrPrivateKey: string, options: JWTSignOptions): Promise<string> {
+export async function signPayload(
+  payload: RemoteUser,
+  secretOrPrivateKey: string,
+  options: JWTSignOptions
+): Promise<string> {
   return new Promise(function (resolve, reject): Promise<string> {
     return jwt.sign(
       payload,

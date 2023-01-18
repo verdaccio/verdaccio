@@ -38,6 +38,7 @@ module.exports = {
     'jest/no-export': 0,
     'jest/no-test-callback': 0,
     'jest/expect-expect': 0,
+    'jest/valid-title': 0,
     'jest/no-try-expect': 0,
     'jest/no-done-callback': 'off',
     'jest/no-conditional-expect': 'off',
@@ -70,6 +71,7 @@ module.exports = {
     'prefer-spread': 'error',
     'handle-callback-err': 0,
     'prefer-const': 0,
+    // typescript
     '@typescript-eslint/camelcase': 0,
     '@typescript-eslint/ban-ts-ignore': 0,
     '@typescript-eslint/no-var-requires': 0,

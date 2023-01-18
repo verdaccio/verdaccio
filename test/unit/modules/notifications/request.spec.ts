@@ -39,7 +39,10 @@ describe('Notifications:: notifyRequest', () => {
     });
 
     const notification = require('../../../../src/lib/notify/notify-request');
-    const args = [{ errorMessage: 'bad data' }, 'notify service has thrown an error: @{errorMessage}'];
+    const args = [
+      { errorMessage: 'bad data' },
+      'notify service has thrown an error: @{errorMessage}',
+    ];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
     expect(logger.logger.error).toHaveBeenCalledWith(...args);
@@ -56,7 +59,10 @@ describe('Notifications:: notifyRequest', () => {
     });
 
     const notification = require('../../../../src/lib/notify/notify-request');
-    const args = [{ errorMessage: 'bad data' }, 'notify service has thrown an error: @{errorMessage}'];
+    const args = [
+      { errorMessage: 'bad data' },
+      'notify service has thrown an error: @{errorMessage}',
+    ];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
     expect(logger.logger.error).toHaveBeenCalledWith(...args);
@@ -76,7 +82,9 @@ describe('Notifications:: notifyRequest', () => {
     const infoArgs = [{ content }, 'A notification has been shipped: @{content}'];
     const debugArgs = [{ body: 'Successfully delivered' }, ' body: @{body}'];
 
-    await expect(notification.notifyRequest(options, content)).resolves.toEqual('Successfully delivered');
+    await expect(notification.notifyRequest(options, content)).resolves.toEqual(
+      'Successfully delivered'
+    );
     expect(logger.logger.info).toHaveBeenCalledWith(...infoArgs);
     expect(logger.logger.debug).toHaveBeenCalledWith(...debugArgs);
   });

@@ -55,7 +55,13 @@ function isES6(plugin): boolean {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginConfigs: any = {}, params: any, sanityCheck: any, prefix: string = 'verdaccio'): any[] {
+export default function loadPlugin<T extends IPlugin<T>>(
+  config: Config,
+  pluginConfigs: any = {},
+  params: any,
+  sanityCheck: any,
+  prefix: string = 'verdaccio'
+): any[] {
   return Object.keys(pluginConfigs).map((pluginId: string): IPlugin<T> => {
     let plugin;
     const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
@@ -81,7 +87,10 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
         if (!plugin) {
           plugin = tryLoad(Path.resolve(pluginDir, `sinopia-${pluginId}`));
           if (plugin) {
-            logger.warn({ name: pluginId }, `plugin names that start with sinopia-* will be removed in the future, please rename package to verdaccio-*`);
+            logger.warn(
+              { name: pluginId },
+              `plugin names that start with sinopia-* will be removed in the future, please rename package to verdaccio-*`
+            );
           }
         }
       }
@@ -112,7 +121,10 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
       if (isScoped) {
         logger.error({ content: pluginId }, 'plugin not found. try npm install @{content}');
       } else {
-        logger.error({ content: pluginId, prefix }, 'plugin not found. try npm install @{prefix}-@{content}');
+        logger.error(
+          { content: pluginId, prefix },
+          'plugin not found. try npm install @{prefix}-@{content}'
+        );
       }
       const msg = isScoped
         ? `
@@ -123,7 +135,10 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
     }
 
     if (!isValid(plugin)) {
-      logger.error({ content: pluginId }, '@{prefix}-@{content} plugin does not have the right code structure');
+      logger.error(
+        { content: pluginId },
+        '@{prefix}-@{content} plugin does not have the right code structure'
+      );
       throw Error(`"${pluginId}" plugin does not have the right code structure`);
     }
 
@@ -146,7 +161,10 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
       if (isScoped) {
         logger.error({ content: pluginId }, "@{content} doesn't look like a valid plugin");
       } else {
-        logger.error({ content: pluginId, prefix }, "@{prefix}-@{content} doesn't look like a valid plugin");
+        logger.error(
+          { content: pluginId, prefix },
+          "@{prefix}-@{content} doesn't look like a valid plugin"
+        );
       }
       throw Error(`sanity check has failed, "${pluginId}" is not a valid plugin`);
     }
@@ -154,7 +172,10 @@ export default function loadPlugin<T extends IPlugin<T>>(config: Config, pluginC
     if (isScoped) {
       logger.info({ content: pluginId }, 'plugin successfully loaded: @{content}');
     } else {
-      logger.info({ content: pluginId, prefix }, 'plugin successfully loaded: @{prefix}-@{content}');
+      logger.info(
+        { content: pluginId, prefix },
+        'plugin successfully loaded: @{prefix}-@{content}'
+      );
     }
     return plugin;
   });

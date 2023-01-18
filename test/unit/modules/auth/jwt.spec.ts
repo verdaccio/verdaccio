@@ -4,7 +4,14 @@ import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
 import { buildUserBuffer } from '../../../../src/lib/auth-utils';
-import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '../../../../src/lib/constants';
+import {
+  API_ERROR,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import { buildToken } from '../../../../src/lib/utils';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
@@ -74,7 +81,12 @@ describe('endpoint user auth JWT unit test', () => {
     expect(resp1.body).toBeDefined();
     expect(resp1.body.name).toMatch('vue');
 
-    const [err2, resp2] = await getPackage(request(app), FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
+    const [err2, resp2] = await getPackage(
+      request(app),
+      FAKE_TOKEN,
+      'vue',
+      HTTP_STATUS.UNAUTHORIZED
+    );
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
@@ -108,7 +120,12 @@ describe('endpoint user auth JWT unit test', () => {
   });
 
   test('should fails on try to access with corrupted token', async (done) => {
-    const [err2, resp2] = await getPackage(request(app), FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
+    const [err2, resp2] = await getPackage(
+      request(app),
+      FAKE_TOKEN,
+      'vue',
+      HTTP_STATUS.UNAUTHORIZED
+    );
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);
@@ -128,7 +145,13 @@ describe('endpoint user auth JWT unit test', () => {
 
     // we login when token is valid
     const newCredentials = { name: 'newFailsUser', password: 'BAD_PASSWORD' };
-    const [err2, resp2] = await loginUserToken(request(app), newCredentials.name, newCredentials, token, HTTP_STATUS.UNAUTHORIZED);
+    const [err2, resp2] = await loginUserToken(
+      request(app),
+      newCredentials.name,
+      newCredentials,
+      token,
+      HTTP_STATUS.UNAUTHORIZED
+    );
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(API_ERROR.BAD_USERNAME_PASSWORD);

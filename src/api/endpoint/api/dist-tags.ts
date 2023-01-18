@@ -6,12 +6,22 @@ import { VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
 
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth, IStorageHandler } from '../../../types';
+import {
+  $NextFunctionVer,
+  $RequestExtend,
+  $ResponseExtend,
+  IAuth,
+  IStorageHandler,
+} from '../../../types';
 import { allow, media } from '../../middleware';
 
 export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
   const can = allow(auth);
-  const tag_package_version = function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): $NextFunctionVer {
+  const tag_package_version = function (
+    req: $RequestExtend,
+    res: $ResponseExtend,
+    next: $NextFunctionVer
+  ): $NextFunctionVer {
     if (_.isString(req.body) === false) {
       return next('route');
     }
@@ -30,48 +40,74 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
   // tagging a package
   route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
 
-  route.post('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
+  route.post(
+    '/-/package/:package/dist-tags/:tag',
+    can('publish'),
+    media(mime.getType('json')),
+    tag_package_version
+  );
 
-  route.put('/-/package/:package/dist-tags/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put(
+    '/-/package/:package/dist-tags/:tag',
+    can('publish'),
+    media(mime.getType('json')),
+    tag_package_version
+  );
 
-  route.delete('/-/package/:package/dist-tags/:tag', can('publish'), function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    const tags = {};
-    tags[req.params.tag] = null;
-    storage.mergeTags(req.params.package, tags, function (err: VerdaccioError): $NextFunctionVer {
-      if (err) {
-        return next(err);
-      }
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.TAG_REMOVED,
-      });
-    });
-  });
-
-  route.get('/-/package/:package/dist-tags', can('access'), function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    storage.getPackage({
-      name: req.params.package,
-      uplinksLook: true,
-      req,
-      callback: function (err: VerdaccioError, info: Package): $NextFunctionVer {
+  route.delete(
+    '/-/package/:package/dist-tags/:tag',
+    can('publish'),
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      const tags = {};
+      tags[req.params.tag] = null;
+      storage.mergeTags(req.params.package, tags, function (err: VerdaccioError): $NextFunctionVer {
         if (err) {
           return next(err);
         }
-
-        next(info[DIST_TAGS]);
-      },
-    });
-  });
-
-  route.post('/-/package/:package/dist-tags', can('publish'), function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    storage.mergeTags(req.params.package, req.body, function (err: VerdaccioError): $NextFunctionVer {
-      if (err) {
-        return next(err);
-      }
-      res.status(HTTP_STATUS.CREATED);
-      return next({
-        ok: API_MESSAGE.TAG_UPDATED,
+        res.status(HTTP_STATUS.CREATED);
+        return next({
+          ok: API_MESSAGE.TAG_REMOVED,
+        });
       });
-    });
-  });
+    }
+  );
+
+  route.get(
+    '/-/package/:package/dist-tags',
+    can('access'),
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      storage.getPackage({
+        name: req.params.package,
+        uplinksLook: true,
+        req,
+        callback: function (err: VerdaccioError, info: Package): $NextFunctionVer {
+          if (err) {
+            return next(err);
+          }
+
+          next(info[DIST_TAGS]);
+        },
+      });
+    }
+  );
+
+  route.post(
+    '/-/package/:package/dist-tags',
+    can('publish'),
+    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+      storage.mergeTags(
+        req.params.package,
+        req.body,
+        function (err: VerdaccioError): $NextFunctionVer {
+          if (err) {
+            return next(err);
+          }
+          res.status(HTTP_STATUS.CREATED);
+          return next({
+            ok: API_MESSAGE.TAG_UPDATED,
+          });
+        }
+      );
+    }
+  );
 }

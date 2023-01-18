@@ -1,6 +1,13 @@
 import _ from 'lodash';
 
-import { AbbreviatedManifest, AbbreviatedVersions, Author, Manifest, Package, Version } from '@verdaccio/types';
+import {
+  AbbreviatedManifest,
+  AbbreviatedVersions,
+  Author,
+  Manifest,
+  Package,
+  Version,
+} from '@verdaccio/types';
 
 import { generateRandomHexString } from '../lib/crypto-utils';
 import { IStorage } from '../types';
@@ -107,7 +114,16 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   return contributors;
 }
 
-export const WHITELIST = ['_rev', 'name', 'versions', 'dist-tags', 'readme', 'time', '_id', 'users'];
+export const WHITELIST = [
+  '_rev',
+  'name',
+  'versions',
+  'dist-tags',
+  'readme',
+  'time',
+  '_id',
+  'users',
+];
 
 export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
   const propertyToKeep = [...WHITELIST];
@@ -157,7 +173,11 @@ export function publishPackage(name: string, metadata: any, localStorage: IStora
   });
 }
 
-export function checkPackageRemote(name: string, isAllowPublishOffline: boolean, syncMetadata: Function): Promise<void> {
+export function checkPackageRemote(
+  name: string,
+  isAllowPublishOffline: boolean,
+  syncMetadata: Function
+): Promise<void> {
   return new Promise((resolve, reject): void => {
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {
       // something weird
@@ -200,7 +220,8 @@ export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata:
 export function prepareSearchPackage(data: Package, time: unknown): any {
   const listVersions: string[] = Object.keys(data.versions);
   const versions: string[] = semverSort(listVersions);
-  const latest: string | undefined = data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+  const latest: string | undefined =
+    data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
@@ -250,35 +271,38 @@ export function hasInstallScript(version: Version) {
 }
 
 export function convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManifest {
-  const abbreviatedVersions = Object.keys(manifest.versions).reduce((acc: AbbreviatedVersions, version: string) => {
-    const _version = manifest.versions[version];
-    // This should be align with this document
-    // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object
-    const _version_abbreviated = {
-      name: _version.name,
-      version: _version.version,
-      description: _version.description,
-      deprecated: _version.deprecated,
-      bin: _version.bin,
-      dist: _version.dist,
-      engines: _version.engines,
-      cpu: _version.cpu,
-      os: _version.os,
-      funding: _version.funding,
-      directories: _version.directories,
-      dependencies: _version.dependencies,
-      devDependencies: _version.devDependencies,
-      peerDependencies: _version.peerDependencies,
-      peerDependenciesMeta: _version.peerDependenciesMeta,
-      optionalDependencies: _version.optionalDependencies,
-      bundleDependencies: _version.bundleDependencies,
-      // npm cli specifics
-      _hasShrinkwrap: _version._hasShrinkwrap,
-      hasInstallScript: hasInstallScript(_version),
-    };
-    acc[version] = _version_abbreviated;
-    return acc;
-  }, {});
+  const abbreviatedVersions = Object.keys(manifest.versions).reduce(
+    (acc: AbbreviatedVersions, version: string) => {
+      const _version = manifest.versions[version];
+      // This should be align with this document
+      // https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object
+      const _version_abbreviated = {
+        name: _version.name,
+        version: _version.version,
+        description: _version.description,
+        deprecated: _version.deprecated,
+        bin: _version.bin,
+        dist: _version.dist,
+        engines: _version.engines,
+        cpu: _version.cpu,
+        os: _version.os,
+        funding: _version.funding,
+        directories: _version.directories,
+        dependencies: _version.dependencies,
+        devDependencies: _version.devDependencies,
+        peerDependencies: _version.peerDependencies,
+        peerDependenciesMeta: _version.peerDependenciesMeta,
+        optionalDependencies: _version.optionalDependencies,
+        bundleDependencies: _version.bundleDependencies,
+        // npm cli specifics
+        _hasShrinkwrap: _version._hasShrinkwrap,
+        hasInstallScript: hasInstallScript(_version),
+      };
+      acc[version] = _version_abbreviated;
+      return acc;
+    },
+    {}
+  );
   const convertedManifest = {
     name: manifest['name'],
     [DIST_TAGS]: manifest[DIST_TAGS],

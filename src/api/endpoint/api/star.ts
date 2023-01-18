@@ -8,7 +8,9 @@ import { logger } from '../../../lib/logger';
 import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../types';
 
 const debug = buildDebug('verdaccio:star');
-export default function (storage: IStorageHandler): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
+export default function (
+  storage: IStorageHandler
+): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;
     if (isStar && isExistlocalUsers && localUsers[username]) {
@@ -46,7 +48,10 @@ export default function (storage: IStorageHandler): (req: $RequestExtend, res: R
         const localStarUsers = info[USERS];
         // Check is star or unstar
         const isStar = Object.keys(newStarUser).includes(remoteUsername);
-        if (_.isNil(localStarUsers) === false && validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)) {
+        if (
+          _.isNil(localStarUsers) === false &&
+          validateInputs(newStarUser, localStarUsers, remoteUsername, isStar)
+        ) {
           return afterChangePackage();
         }
         const users = isStar

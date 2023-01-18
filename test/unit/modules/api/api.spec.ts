@@ -6,12 +6,32 @@ import { Readable } from 'stream';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
-import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../../src/lib/constants';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  DIST_TAGS,
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../../src/lib/utils';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { generateUnPublishURI, getNewToken, getPackage, putPackage, verifyPackageVersionDoesExist } from '../../__helper/api';
+import {
+  generateUnPublishURI,
+  getNewToken,
+  getPackage,
+  putPackage,
+  verifyPackageVersionDoesExist,
+} from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
-import { generateDeprecateMetadata, generatePackageMetadata, generatePackageUnpublish, generateStarMedatada, generateVersion } from '../../__helper/utils';
+import {
+  generateDeprecateMetadata,
+  generatePackageMetadata,
+  generatePackageUnpublish,
+  generateStarMedatada,
+  generateVersion,
+} from '../../__helper/utils';
 import configDefault from '../../partials/config';
 import publishMetadata from '../../partials/publish-api';
 
@@ -152,7 +172,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -165,7 +187,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -178,7 +202,9 @@ describe('endpoint unit test', () => {
             .expect(HTTP_STATUS.FORBIDDEN)
             .end(function (err, res) {
               expect(res.body.error).toBeDefined();
-              expect(res.body.error).toMatch(/authorization required to access package auth-package/);
+              expect(res.body.error).toMatch(
+                /authorization required to access package auth-package/
+              );
               done();
             });
         });
@@ -339,7 +365,11 @@ describe('endpoint unit test', () => {
           });
       });
 
-      test.each(['application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*', 'application/json; q=1.0; q=1.0, */*', 'application/json'])(
+      test.each([
+        'application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*',
+        'application/json; q=1.0; q=1.0, */*',
+        'application/json',
+      ])(
         'should not fetch abbreviated jquery package from remote uplink with %s',
         (accept, done: any) => {
           request(app)
@@ -366,72 +396,92 @@ describe('endpoint unit test', () => {
         'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*',
         'application/vnd.npm.install-v1+json; q=1.0, */*',
         'application/vnd.npm.install-v1+json',
-      ])('should fetch abbreviated jquery package from remote uplink with %s', (accept, done: any) => {
-        request(app)
-          .get('/jquery')
-          .set('accept', accept)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
-          .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            if (err) {
-              return done(err);
-            }
-            const manifest = res.body;
-            expect(manifest).toBeDefined();
-            expect(manifest.name).toMatch(/jquery/);
-            expect(manifest.description).not.toBeDefined();
-            expect(manifest.readme).not.toBeDefined();
-            expect(manifest[DIST_TAGS]).toBeDefined();
-            expect(manifest.modified).toBeDefined();
-            expect(Object.keys(manifest.versions)).toHaveLength(48);
-            // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
-            expect(Object.keys(manifest.time)).toHaveLength(51);
-            done();
-          });
-      });
+      ])(
+        'should fetch abbreviated jquery package from remote uplink with %s',
+        (accept, done: any) => {
+          request(app)
+            .get('/jquery')
+            .set('accept', accept)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+            .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
+            .expect(HTTP_STATUS.OK)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              const manifest = res.body;
+              expect(manifest).toBeDefined();
+              expect(manifest.name).toMatch(/jquery/);
+              expect(manifest.description).not.toBeDefined();
+              expect(manifest.readme).not.toBeDefined();
+              expect(manifest[DIST_TAGS]).toBeDefined();
+              expect(manifest.modified).toBeDefined();
+              expect(Object.keys(manifest.versions)).toHaveLength(48);
+              // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
+              expect(Object.keys(manifest.time)).toHaveLength(51);
+              done();
+            });
+        }
+      );
 
       test.each([
         'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.8, */*',
         'application/vnd.npm.install-v1+json; q=1.0, */*',
         'application/vnd.npm.install-v1+json',
-      ])('should fetch abbreviated puppeteer package from remote uplink with %s', (accept, done: any) => {
-        request(app)
-          .get('/puppeteer')
-          .set('accept', accept)
-          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
-          .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            if (err) {
-              return done(err);
-            }
-            const manifest = res.body;
-            expect(manifest).toBeDefined();
-            expect(manifest.name).toMatch(/puppeteer/);
-            expect(manifest.versions['19.2.2'].hasInstallScript).toBeTruthy();
-            done();
-          });
-      });
+      ])(
+        'should fetch abbreviated puppeteer package from remote uplink with %s',
+        (accept, done: any) => {
+          request(app)
+            .get('/puppeteer')
+            .set('accept', accept)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+            .expect(HEADER_TYPE.CONTENT_ENCODING, HEADERS.GZIP)
+            .expect(HEADERS.CONTENT_TYPE, 'application/vnd.npm.install-v1+json; charset=utf-8')
+            .expect(HTTP_STATUS.OK)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              const manifest = res.body;
+              expect(manifest).toBeDefined();
+              expect(manifest.name).toMatch(/puppeteer/);
+              expect(manifest.versions['19.2.2'].hasInstallScript).toBeTruthy();
+              done();
+            });
+        }
+      );
 
       test('should fails with socket time out fetch tarball timeout package from remote uplink', async () => {
         const timeOutPkg = generatePackageMetadata('timeout', '1.5.1');
         const responseText = 'fooooooooooooooooo';
         const readable = Readable.from([responseText]);
-        timeOutPkg.versions['1.5.1'].dist.tarball = 'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
+        timeOutPkg.versions['1.5.1'].dist.tarball =
+          'http://some.registry.timeout.com/timeout/-/timeout-1.5.1.tgz';
         nock('http://some.registry.timeout.com').get('/timeout').reply(200, timeOutPkg);
-        nock('http://some.registry.timeout.com').get('/timeout/-/timeout-1.5.1.tgz').twice().socketDelay(50000).reply(200);
+        nock('http://some.registry.timeout.com')
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .twice()
+          .socketDelay(50000)
+          .reply(200);
         nock('http://some.registry.timeout.com')
           .get('/timeout/-/timeout-1.5.1.tgz')
           .reply(200, () => readable);
         const agent = request.agent(app);
-        await agent.get('/timeout/-/timeout-1.5.1.tgz').expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM).expect(HTTP_STATUS.INTERNAL_ERROR);
-        await agent.get('/timeout/-/timeout-1.5.1.tgz').expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM).expect(HTTP_STATUS.INTERNAL_ERROR);
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.INTERNAL_ERROR);
         await sleep(2000);
         // await agent
-        await agent.get('/timeout/-/timeout-1.5.1.tgz').expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM).expect(HTTP_STATUS.OK);
+        await agent
+          .get('/timeout/-/timeout-1.5.1.tgz')
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+          .expect(HTTP_STATUS.OK);
       }, 10000);
 
       test('should fetch jquery specific version package from remote uplink', (done) => {
@@ -701,14 +751,24 @@ describe('endpoint unit test', () => {
         }
 
         const newVersion = '2.0.1';
-        const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+        const [newErr] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          generatePackageMetadata(pkgName, newVersion),
+          token
+        );
         if (newErr) {
           expect(newErr).toBeNull();
           return done(newErr);
         }
 
         const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
-        const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+        const [err2, res2] = await putPackage(
+          request(app),
+          generateUnPublishURI(pkgName),
+          deletePayload,
+          token
+        );
 
         expect(err2).toBeNull();
         expect(res2.body.ok).toMatch(API_MESSAGE.PKG_CHANGED);
@@ -757,17 +817,29 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
           if (newErr) {
             expect(newErr).toBeNull();
             return done(newErr);
           }
 
           const deletePayload = generatePackageUnpublish(pkgName, ['2.0.0']);
-          const [err2, res2] = await putPackage(request(app), generateUnPublishURI(pkgName), deletePayload, token);
+          const [err2, res2] = await putPackage(
+            request(app),
+            generateUnPublishURI(pkgName),
+            deletePayload,
+            token
+          );
 
           expect(err2).not.toBeNull();
-          expect(res2.body.error).toMatch(/user jota_unpublish_fail is not allowed to unpublish package non-unpublish/);
+          expect(res2.body.error).toMatch(
+            /user jota_unpublish_fail is not allowed to unpublish package non-unpublish/
+          );
           done();
         });
 
@@ -793,10 +865,17 @@ describe('endpoint unit test', () => {
           const newVersion = '1.0.0';
           const token = await getNewToken(request(app), credentials);
 
-          const [newErr, resp] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, generatePackageMetadata(pkgName, newVersion), token);
+          const [newErr, resp] = await putPackage(
+            request(app),
+            `/${encodeScopedUri(pkgName)}`,
+            generatePackageMetadata(pkgName, newVersion),
+            token
+          );
 
           expect(newErr).not.toBeNull();
-          expect(resp.body.error).toMatch(/user jota_only_unpublish_fail is not allowed to publish package only-unpublish/);
+          expect(resp.body.error).toMatch(
+            /user jota_only_unpublish_fail is not allowed to publish package only-unpublish/
+          );
           done();
         });
       });
@@ -999,7 +1078,12 @@ describe('endpoint unit test', () => {
       beforeAll(async (done) => {
         token = await getNewToken(request(app), tarballUrlRedirectCredentials);
         await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
-        await putPackage(request(app), `/${scopedPkgName}`, generatePackageMetadata(scopedPkgName), token);
+        await putPackage(
+          request(app),
+          `/${scopedPkgName}`,
+          generatePackageMetadata(scopedPkgName),
+          token
+        );
         done();
       });
 
@@ -1009,7 +1093,8 @@ describe('endpoint unit test', () => {
           app2 = await endPointAPI({
             ...baseTestConfig,
             experiments: {
-              tarball_url_redirect: 'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}',
+              tarball_url_redirect:
+                'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}',
             },
           });
           done();
@@ -1023,7 +1108,9 @@ describe('endpoint unit test', () => {
               if (err) {
                 return done(err);
               }
-              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
               done();
             });
         });
@@ -1036,7 +1123,9 @@ describe('endpoint unit test', () => {
               if (err) {
                 return done(err);
               }
-              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
               done();
             });
         });
@@ -1064,7 +1153,9 @@ describe('endpoint unit test', () => {
               if (err) {
                 return done(err);
               }
-              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
               done();
             });
         });
@@ -1077,7 +1168,9 @@ describe('endpoint unit test', () => {
               if (err) {
                 return done(err);
               }
-              expect(res.headers.location).toEqual('https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz');
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
               done();
             });
         });
@@ -1091,7 +1184,12 @@ describe('endpoint unit test', () => {
       let token = '';
       beforeAll(async (done) => {
         token = await getNewToken(request(app), credentials);
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, version), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, version),
+          token
+        );
         done();
       });
 
@@ -1125,20 +1223,39 @@ describe('endpoint unit test', () => {
         let credentials = { name: 'only_publish', password: 'secretPass' };
         let token = await getNewToken(request(app), credentials);
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
-        const [err, res] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err, res] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err).not.toBeNull();
         expect(res.body.error).toBeDefined();
-        expect(res.body.error).toMatch(/user only_publish is not allowed to unpublish package @scope\/deprecate/);
+        expect(res.body.error).toMatch(
+          /user only_publish is not allowed to unpublish package @scope\/deprecate/
+        );
         credentials = { name: 'only_unpublish', password: 'secretPass' };
         token = await getNewToken(request(app), credentials);
-        const [err2, res2] = await putPackage(request(app), `/${encodeScopedUri(pkgName)}`, pkg, token);
+        const [err2, res2] = await putPackage(
+          request(app),
+          `/${encodeScopedUri(pkgName)}`,
+          pkg,
+          token
+        );
         expect(err2).not.toBeNull();
         expect(res2.body.error).toBeDefined();
-        expect(res2.body.error).toMatch(/user only_unpublish is not allowed to publish package @scope\/deprecate/);
+        expect(res2.body.error).toMatch(
+          /user only_unpublish is not allowed to publish package @scope\/deprecate/
+        );
       });
 
       test('should deprecate multiple packages', async (done) => {
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName, '1.0.1'), token);
+        await putPackage(
+          request(app),
+          `/${pkgName}`,
+          generatePackageMetadata(pkgName, '1.0.1'),
+          token
+        );
         const pkg = generateDeprecateMetadata(pkgName, version, 'get deprecated');
         pkg.versions['1.0.1'] = {
           ...generateVersion(pkgName, '1.0.1'),

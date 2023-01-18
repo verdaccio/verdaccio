@@ -5,7 +5,12 @@ import { Config as AppConfig, Logger, PackageList, RateLimit, Security } from '@
 
 import { MatchedPackage, StartUpConfig } from '../types';
 import { defaultUserRateLimiting } from './auth-utils';
-import { getMatchedPackagesSpec, normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
+import {
+  getMatchedPackagesSpec,
+  normalisePackageAccess,
+  sanityCheckUplinksProps,
+  uplinkSanityCheck,
+} from './config-utils';
 import { APP_ERROR } from './constants';
 import { generateRandomHexString } from './crypto-utils';
 import { getUserAgent, isObject } from './utils';

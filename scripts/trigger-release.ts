@@ -18,7 +18,9 @@ console.log('repoOwner', repoOwner);
 
 (async () => {
   try {
-    const changelog = execSync(`git show $GITHUB_SHA --unified=0 CHANGELOG.md | tail +12 | sed -e 's/^\+//'`);
+    const changelog = execSync(
+      `git show $GITHUB_SHA --unified=0 CHANGELOG.md | tail +12 | sed -e 's/^\+//'`
+    );
     console.log('changelog', changelog.toString());
     await octokit.repos.createRelease({
       owner: repoOwner,

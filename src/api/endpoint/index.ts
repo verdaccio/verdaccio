@@ -16,7 +16,13 @@ import npmV1 from './api/v1';
 import v1Search from './api/v1/search';
 import whoami from './api/whoami';
 
-const { match, validateName, validatePackage, encodeScopePackage, antiLoop } = require('../middleware');
+const {
+  match,
+  validateName,
+  validatePackage,
+  encodeScopePackage,
+  antiLoop,
+} = require('../middleware');
 
 export default function (config: Config, auth: IAuth, storage: IStorageHandler) {
   /* eslint new-cap:off */

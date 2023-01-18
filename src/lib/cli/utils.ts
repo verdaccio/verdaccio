@@ -47,7 +47,9 @@ export function getListListenAddresses(argListen: string | void, configListen: a
       if (!parsedAddr) {
         logger.logger.warn(
           { addr: addr },
-          'invalid address - @{addr}, we expect a port (e.g. "4873"),' + ' host:port (e.g. "localhost:4873") or full url' + ' (e.g. "http://localhost:4873/")'
+          'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
+            ' host:port (e.g. "localhost:4873") or full url' +
+            ' (e.g. "http://localhost:4873/")'
         );
       }
 

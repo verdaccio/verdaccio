@@ -1,11 +1,34 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { APITokenOptions, Callback, Config, IPluginAuth, JWTOptions, Package, RemoteUser, Security } from '@verdaccio/types';
+import {
+  APITokenOptions,
+  Callback,
+  Config,
+  IPluginAuth,
+  JWTOptions,
+  Package,
+  RemoteUser,
+  Security,
+} from '@verdaccio/types';
 
 import { logger } from '../lib/logger';
-import { AuthMiddlewarePayload, AuthTokenHeader, BasicPayload, CookieSessionToken, IAuthWebUI } from '../types';
-import { API_ERROR, DEFAULT_MIN_LIMIT_PASSWORD, HTTP_STATUS, ROLES, TIME_EXPIRATION_1H, TOKEN_BASIC, TOKEN_BEARER } from './constants';
+import {
+  AuthMiddlewarePayload,
+  AuthTokenHeader,
+  BasicPayload,
+  CookieSessionToken,
+  IAuthWebUI,
+} from '../types';
+import {
+  API_ERROR,
+  DEFAULT_MIN_LIMIT_PASSWORD,
+  HTTP_STATUS,
+  ROLES,
+  TIME_EXPIRATION_1H,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
 import { ErrorCode, convertPayloadToBase64 } from './utils';
 
@@ -24,7 +47,17 @@ export function validatePassword(
  */
 export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = Array.from(new Set((isGroupValid ? pluginGroups : []).concat([ROLES.$ALL, ROLES.$AUTH, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_AUTH, ROLES.ALL])));
+  const groups = Array.from(
+    new Set(
+      (isGroupValid ? pluginGroups : []).concat([
+        ROLES.$ALL,
+        ROLES.$AUTH,
+        ROLES.DEPRECATED_ALL,
+        ROLES.DEPRECATED_AUTH,
+        ROLES.ALL,
+      ])
+    )
+  );
 
   return {
     name,
@@ -60,9 +93,13 @@ export function allow_action(action: string): Function {
     }
 
     if (name) {
-      callback(ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`));
+      callback(
+        ErrorCode.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`)
+      );
     } else {
-      callback(ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`));
+      callback(
+        ErrorCode.getUnauthorized(`authorization required to ${action} package ${pkg.name}`)
+      );
     }
   };
 }
@@ -160,12 +197,19 @@ export function isAESLegacy(security: Security): boolean {
   return _.isNil(legacy) === false && _.isNil(jwt) && legacy === true;
 }
 
-export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: RemoteUser, aesPassword: string): Promise<string> {
+export async function getApiToken(
+  auth: IAuthWebUI,
+  config: Config,
+  remoteUser: RemoteUser,
+  aesPassword: string
+): Promise<string> {
   const security: Security = getSecurity(config);
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
-      resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
+      resolve(
+        auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
+      );
     });
   }
   // i am wiling to use here _.isNil but flow does not like it yet.
@@ -175,7 +219,9 @@ export async function getApiToken(auth: IAuthWebUI, config: Config, remoteUser: 
     return await auth.jwtEncrypt(remoteUser, jwt.sign);
   }
   return await new Promise((resolve): void => {
-    resolve(auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64'));
+    resolve(
+      auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
+    );
   });
 }
 
@@ -237,7 +283,11 @@ export function isAuthHeaderValid(authorization: string): boolean {
   return authorization.split(' ').length === 2;
 }
 
-export function getMiddlewareCredentials(security: Security, secret: string, authorizationHeader: string): AuthMiddlewarePayload {
+export function getMiddlewareCredentials(
+  security: Security,
+  secret: string,
+  authorizationHeader: string
+): AuthMiddlewarePayload {
   if (isAESLegacy(security)) {
     const credentials = parseAESCredentials(authorizationHeader, secret);
     if (!credentials) {

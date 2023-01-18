@@ -15,7 +15,8 @@ import { IStorage } from '../../../types';
 // @ts-ignore
 import configExample from '../../partials/config';
 
-const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`).toString();
+const readMetadata = (fileName = 'metadata') =>
+  readFile(`../../unit/partials/${fileName}`).toString();
 
 setup([]);
 
@@ -46,9 +47,15 @@ describe('LocalStorage', () => {
 
   const addNewVersion = (pkgName: string, version: string) => {
     return new Promise((resolve) => {
-      storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
-        resolve(data);
-      });
+      storage.addVersion(
+        pkgName,
+        version,
+        generateNewVersion(pkgName, version),
+        '',
+        (err, data) => {
+          resolve(data);
+        }
+      );
     });
   };
   const addTarballToStore = (pkgName: string, tarballName) => {
@@ -205,11 +212,17 @@ describe('LocalStorage', () => {
         await addTarballToStore(pkgName, `${pkgName}-9.0.0.tgz`);
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), '', (err, data) => {
-          expect(err).toBeNull();
-          expect(data).toBeUndefined();
-          done();
-        });
+        storage.addVersion(
+          pkgName,
+          version,
+          generateNewVersion(pkgName, version),
+          '',
+          (err, data) => {
+            expect(err).toBeNull();
+            expect(data).toBeUndefined();
+            done();
+          }
+        );
       });
 
       test('should fails on add a duplicated version without tag', async (done) => {
@@ -233,12 +246,18 @@ describe('LocalStorage', () => {
         const tarballName = `${pkgName}-${version}.tgz`;
         await addTarballToStore(pkgName, tarballName);
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version, 'fake'), '', (err) => {
-          expect(err).not.toBeNull();
-          expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
-          expect(err.message).toMatch(/shasum error/);
-          done();
-        });
+        storage.addVersion(
+          pkgName,
+          version,
+          generateNewVersion(pkgName, version, 'fake'),
+          '',
+          (err) => {
+            expect(err).not.toBeNull();
+            expect(err.statusCode).toEqual(HTTP_STATUS.BAD_REQUEST);
+            expect(err.message).toMatch(/shasum error/);
+            done();
+          }
+        );
       });
 
       test('should add new second version without tag', async (done) => {
@@ -248,11 +267,17 @@ describe('LocalStorage', () => {
         await addNewVersion(pkgName, '1.0.1');
         await addNewVersion(pkgName, '1.0.3');
 
-        storage.addVersion(pkgName, version, generateNewVersion(pkgName, version), 'beta', (err, data) => {
-          expect(err).toBeNull();
-          expect(data).toBeUndefined();
-          done();
-        });
+        storage.addVersion(
+          pkgName,
+          version,
+          generateNewVersion(pkgName, version),
+          'beta',
+          (err, data) => {
+            expect(err).toBeNull();
+            expect(data).toBeUndefined();
+            done();
+          }
+        );
       });
     });
 

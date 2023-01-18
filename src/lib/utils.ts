@@ -10,13 +10,31 @@ import DefaultURL, { URL } from 'url';
 import validator from 'validator';
 
 // eslint-disable-next-line max-len
-import { getBadData, getBadRequest, getCode, getConflict, getForbidden, getInternalError, getNotFound, getServiceUnavailable, getUnauthorized } from '@verdaccio/commons-api';
+import {
+  getBadData,
+  getBadRequest,
+  getCode,
+  getConflict,
+  getForbidden,
+  getInternalError,
+  getNotFound,
+  getServiceUnavailable,
+  getUnauthorized,
+} from '@verdaccio/commons-api';
 import { StringValue } from '@verdaccio/types';
 import { Author, Config, Package, Version } from '@verdaccio/types';
 
 import { AuthorAvatar } from '../types';
 import { GENERIC_AVATAR, generateGravatarUrl } from '../utils/user';
-import { APP_ERROR, DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL, DEFAULT_USER, DIST_TAGS, HEADERS } from './constants';
+import {
+  APP_ERROR,
+  DEFAULT_DOMAIN,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
+  DEFAULT_USER,
+  DIST_TAGS,
+  HEADERS,
+} from './constants';
 import { logger } from './logger';
 import { normalizeContributors } from './storage-utils';
 
@@ -142,7 +160,11 @@ export function extractTarballFromUrl(url: string): string {
  * @param {*} config
  * @return {String} a filtered package
  */
-export function convertDistRemoteToLocalTarballUrls(pkg: Package, req: Request, urlPrefix: string | void): Package {
+export function convertDistRemoteToLocalTarballUrls(
+  pkg: Package,
+  req: Request,
+  urlPrefix: string | void
+): Package {
   for (const ver in pkg.versions) {
     if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
       const distName = pkg.versions[ver].dist;
@@ -162,7 +184,12 @@ const memoizedgetPublicUrl = memoizee(getPublicUrl);
  * @param {*} uri
  * @return {String} a parsed url
  */
-export function getLocalRegistryTarballUri(uri: string, pkgName: string, req: Request, urlPrefix: string | void): string {
+export function getLocalRegistryTarballUri(
+  uri: string,
+  pkgName: string,
+  req: Request,
+  urlPrefix: string | void
+): string {
   const currentHost = req.get('host');
 
   if (!currentHost) {
@@ -333,7 +360,11 @@ export function parseInterval(interval: any): number {
       return;
     }
     const m = x.match(/^((0|[1-9][0-9]*)(\.[0-9]+)?)(ms|s|m|h|d|w|M|y|)$/);
-    if (!m || parseIntervalTable[m[4]] >= last_suffix || (m[4] === '' && last_suffix !== Infinity)) {
+    if (
+      !m ||
+      parseIntervalTable[m[4]] >= last_suffix ||
+      (m[4] === '' && last_suffix !== Infinity)
+    ) {
       throw Error('invalid interval: ' + interval);
     }
     last_suffix = parseIntervalTable[m[4]];
@@ -445,7 +476,9 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
 export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors: AuthorAvatar[] = normalizeContributors(_.get(pkgInfo, 'latest.contributors', []));
+  const contributors: AuthorAvatar[] = normalizeContributors(
+    _.get(pkgInfo, 'latest.contributors', [])
+  );
   const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
   // for author.

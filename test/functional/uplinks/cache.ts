@@ -30,7 +30,10 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server.putTarball(PKG_GH131, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+      return server
+        .putTarball(PKG_GH131, TARBALL, getBinary())
+        .status(HTTP_STATUS.CREATED)
+        .body_ok(/.*/);
     });
 
     beforeAll(function () {
@@ -60,7 +63,10 @@ export default function (server, server2, server3) {
     });
 
     beforeAll(function () {
-      return server2.putTarball(PKG_GH1312, TARBALL, getBinary()).status(HTTP_STATUS.CREATED).body_ok(/.*/);
+      return server2
+        .putTarball(PKG_GH1312, TARBALL, getBinary())
+        .status(HTTP_STATUS.CREATED)
+        .body_ok(/.*/);
     });
 
     beforeAll(function () {

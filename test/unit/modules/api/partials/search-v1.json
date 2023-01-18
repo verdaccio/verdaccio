@@ -6,7 +6,17 @@
         "scope": "unscoped",
         "version": "5.0.4",
         "description": "A lightweight private npm proxy registry",
-        "keywords": ["private", "package", "repository", "registry", "enterprise", "modules", "proxy", "server", "verdaccio"],
+        "keywords": [
+          "private",
+          "package",
+          "repository",
+          "registry",
+          "enterprise",
+          "modules",
+          "proxy",
+          "server",
+          "verdaccio"
+        ],
         "date": "2021-04-28T05:24:23.696Z",
         "links": {
           "npm": "https://www.npmjs.com/package/verdaccio",
@@ -66,7 +76,17 @@
         "scope": "unscoped",
         "version": "3.0.1",
         "description": "Verdaccio module to authenticate users via Bitbucket",
-        "keywords": ["sinopia", "verdaccio", "bitbucket", "atlassian", "auth", "node", "nodejs", "js", "javascript"],
+        "keywords": [
+          "sinopia",
+          "verdaccio",
+          "bitbucket",
+          "atlassian",
+          "auth",
+          "node",
+          "nodejs",
+          "js",
+          "javascript"
+        ],
         "date": "2020-11-17T18:31:50.893Z",
         "links": {
           "npm": "https://www.npmjs.com/package/verdaccio-bitbucket"
@@ -103,7 +123,17 @@
         "scope": "unscoped",
         "version": "2.0.3",
         "description": "Verdaccio module to authenticate users via Bitbucket",
-        "keywords": ["sinopia", "verdaccio", "bitbucket", "atlassian", "auth", "node", "nodejs", "js", "javascript"],
+        "keywords": [
+          "sinopia",
+          "verdaccio",
+          "bitbucket",
+          "atlassian",
+          "auth",
+          "node",
+          "nodejs",
+          "js",
+          "javascript"
+        ],
         "date": "2020-11-12T16:44:32.807Z",
         "links": {
           "npm": "https://www.npmjs.com/package/verdaccio-auth-bitbucket",
