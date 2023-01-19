@@ -17,7 +17,7 @@ jobs:
     - name: Install
       run: yarn install
     - name: Build
-      run: yarn code:build
+      run: yarn build
     - name: Types
       run: yarn code:types      
     - name: Publish
