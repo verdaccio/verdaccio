@@ -206,7 +206,7 @@ The debug display request headers and other handy information about what is happ
 
 The functional tests aim to run only **cli endpoint** and **web point** using real request to an existing and compiled running Verdaccio server.
 
-> Be aware if you change something in the `{root}/src` source code, you must run `yarn code:build` before to be able to see your changes because functional tests use the transpiled code.
+> Be aware if you change something in the `{root}/src` source code, you must run `yarn build` before to be able to see your changes because functional tests use the transpiled code.
 
 All tests must be included in the `test/functional/index.spec.ts` file, which bootstraps the whole process. There is only one spec file and **must be only one**.
 

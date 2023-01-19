@@ -1,6 +1,5 @@
 import bodyParser from 'body-parser';
 import express from 'express';
-import _ from 'lodash';
 
 import { Config } from '@verdaccio/types';
 
