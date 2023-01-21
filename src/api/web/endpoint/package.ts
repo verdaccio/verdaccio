@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import {
+  convertDistRemoteToLocalTarballUrls,
+  getLocalRegistryTarballUri,
+} from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
+import { generateGravatarUrl } from '@verdaccio/utils';
 
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
@@ -9,10 +14,8 @@ import {
   ErrorCode,
   addGravatarSupport,
   addScope,
-  convertDistRemoteToLocalTarballUrls,
   deleteProperties,
   formatAuthor,
-  getLocalRegistryTarballUri,
   isVersionValid,
   parseReadme,
   sortByName,
@@ -25,7 +28,6 @@ import {
   IAuth,
   IStorageHandler,
 } from '../../../types';
-import { generateGravatarUrl } from '../../../utils/user';
 import { allow } from '../../middleware';
 
 const getOrder = (order = 'asc') => {

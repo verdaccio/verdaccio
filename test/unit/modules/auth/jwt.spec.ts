@@ -2,8 +2,9 @@ import path from 'path';
 import rimraf from 'rimraf';
 import request from 'supertest';
 
+import { buildUserBuffer } from '@verdaccio/utils';
+
 import endPointAPI from '../../../../src/api';
-import { buildUserBuffer } from '../../../../src/lib/auth-utils';
 import {
   API_ERROR,
   HEADERS,

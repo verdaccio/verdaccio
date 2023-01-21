@@ -3,7 +3,7 @@ import async, { AsyncResultArrayCallback } from 'async';
 import _ from 'lodash';
 import Stream from 'stream';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
+import { validatioUtils } from '@verdaccio/core';
 import { ReadTarball } from '@verdaccio/streams';
 import {
   Callback,
@@ -46,7 +46,7 @@ import {
 } from './storage-utils';
 import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
-import { ErrorCode, isObject, normalizeDistTags, validateMetadata } from './utils';
+import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
 class Storage implements IStorageHandler {
   public localStorage: IStorage;
@@ -439,7 +439,7 @@ class Storage implements IStorageHandler {
           localSearchStream.abort();
         };
         localSearchStream.pipe(searchStream, { end: true });
-        localSearchStream.on('error', function (err: VerdaccioError): void {
+        localSearchStream.on('error', function (err: any): void {
           self.logger.error({ err: err }, 'search error: @{err.message}');
           searchStream.end();
         });
@@ -557,7 +557,7 @@ class Storage implements IStorageHandler {
           }
 
           try {
-            validateMetadata(upLinkResponse, name);
+            upLinkResponse = validatioUtils.normalizeMetadata(upLinkResponse, name);
           } catch (err) {
             self.logger.error(
               {
@@ -574,7 +574,7 @@ class Storage implements IStorageHandler {
             fetched: Date.now(),
           };
 
-          packageInfo.time = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
+          packageInfo = mergeUplinkTimeIntoLocal(packageInfo, upLinkResponse);
 
           updateVersionsHiddenUpLink(upLinkResponse.versions, upLink);
 
@@ -668,7 +668,6 @@ class Storage implements IStorageHandler {
         const version = versions[i];
 
         // holds a "hidden" value to be used by the package storage.
-        // $FlowFixMe
         version[Symbol.for('__verdaccio_uplink')] = upLink.upname;
       }
     }

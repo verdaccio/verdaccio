@@ -1,0 +1,26 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-ping
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+  'verdaccio':
+    access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+_debug: true

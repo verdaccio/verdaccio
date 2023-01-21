@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
+import { createTarballHash } from '@verdaccio/utils';
+
 import { DIST_TAGS, HTTP_STATUS } from '../../../src/lib/constants';
-import { createTarballHash } from '../../../src/lib/crypto-utils';
 import {
   CREDENTIALS,
   DOMAIN_SERVERS,

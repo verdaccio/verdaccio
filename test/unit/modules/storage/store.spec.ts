@@ -14,7 +14,9 @@ import { IStorageHandler } from '../../../types';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
-setup([]);
+setup({});
+
+jest.setTimeout(20000);
 
 const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
 const mockServerPort = 55548;
@@ -137,7 +139,7 @@ describe('StorageTest', () => {
           expect(cachedSpy).toHaveBeenCalledTimes(0);
           expect(notcachedSpy).toHaveBeenCalledTimes(1);
           expect(notcachedSpy).toHaveBeenCalledWith(
-            'http://localhost:55548/@jquery%2fjquery/-/jquery-1.5.1.tgz'
+            'http://localhost:55548/@jquery/jquery/-/jquery-1.5.1.tgz'
           );
           res();
         });

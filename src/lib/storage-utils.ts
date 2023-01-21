@@ -1,15 +1,15 @@
 import _ from 'lodash';
 
+import { pkgUtils } from '@verdaccio/core';
 import {
   AbbreviatedManifest,
   AbbreviatedVersions,
-  Author,
   Manifest,
   Package,
   Version,
 } from '@verdaccio/types';
+import { generateRandomHexString } from '@verdaccio/utils';
 
-import { generateRandomHexString } from '../lib/crypto-utils';
 import { IStorage } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import Search from './search';
@@ -94,24 +94,6 @@ export function cleanUpReadme(version: Version): Version {
   }
 
   return version;
-}
-
-export function normalizeContributors(contributors: Author[]): Author[] {
-  if (_.isNil(contributors)) {
-    return [];
-  } else if (contributors && _.isArray(contributors) === false) {
-    // FIXME: this branch is clearly no an array, still tsc complains
-    // @ts-ignore
-    return [contributors];
-  } else if (_.isString(contributors)) {
-    return [
-      {
-        name: contributors,
-      },
-    ];
-  }
-
-  return contributors;
 }
 
 export const WHITELIST = [
@@ -209,19 +191,18 @@ export function checkPackageRemote(
   });
 }
 
-export function mergeUplinkTimeIntoLocal(localMetadata: Package, remoteMetadata: Package): any {
-  if ('time' in remoteMetadata) {
-    return Object.assign({}, localMetadata.time, remoteMetadata.time);
+// tested on v6
+export function mergeUplinkTimeIntoLocal(cacheManifest: Manifest, remoteManifest: Manifest): any {
+  if ('time' in remoteManifest) {
+    // remote override cache time conflicts
+    return { ...cacheManifest, time: { ...cacheManifest.time, ...remoteManifest.time } };
   }
 
-  return localMetadata.time;
+  return cacheManifest;
 }
 
-export function prepareSearchPackage(data: Package, time: unknown): any {
-  const listVersions: string[] = Object.keys(data.versions);
-  const versions: string[] = semverSort(listVersions);
-  const latest: string | undefined =
-    data[DIST_TAGS] && data[DIST_TAGS].latest ? data[DIST_TAGS].latest : versions.pop();
+export function prepareSearchPackage(data: Manifest): any {
+  const latest = pkgUtils.getLatest(data);
 
   if (latest && data.versions[latest]) {
     const version: Version = data.versions[latest];
@@ -238,9 +219,6 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
       keywords: version.keywords,
       bugs: version.bugs,
       license: version.license,
-      time: {
-        modified: time,
-      },
       versions,
     };
 
@@ -252,10 +230,10 @@ export function prepareSearchPackage(data: Package, time: unknown): any {
  * Check whether the package metadta has enough data to be published
  * @param pkg metadata
  */
-export function isPublishablePackage(pkg: Package): boolean {
+export function isPublishablePackage(pkg: Manifest): boolean {
   const keys: string[] = Object.keys(pkg);
 
-  return _.includes(keys, 'versions');
+  return keys.includes('versions');
 }
 
 export function hasInstallScript(version: Version) {
@@ -303,6 +281,7 @@ export function convertAbbreviatedManifest(manifest: Manifest): AbbreviatedManif
     },
     {}
   );
+
   const convertedManifest = {
     name: manifest['name'],
     [DIST_TAGS]: manifest[DIST_TAGS],

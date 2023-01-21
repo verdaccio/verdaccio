@@ -1,0 +1,37 @@
+storage: ./storage
+plugins: ./plugins
+
+web:
+  title: Verdaccio
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+uplinks:
+  ver:
+    url: https://registry.verdaccio.org
+
+security:
+  api:
+    jwt:
+      sign:
+        expiresIn: 10m
+        notBefore: 0
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+  'vue':
+    access: $authenticated
+    publish: $authenticated
+    proxy: ver
+  '**':
+    access: $all
+    publish: $authenticated
+
+middlewares:
+  audit:
+    enabled: true
+
+logs: { type: stdout, format: pretty, level: info }

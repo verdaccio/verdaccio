@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, UpLinkConf } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
@@ -98,7 +97,7 @@ describe('UpStorge', () => {
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
 
-      stream.on('error', function (err: VerdaccioError) {
+      stream.on('error', function (err: any) {
         expect(err).not.toBeNull();
         expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
         expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
@@ -136,7 +135,7 @@ describe('UpStorge', () => {
             // expect(err.statusCode).toBe(404);
             expect(proxy.failed_requests).toBe(2);
             const streamThirdTry = proxy.fetchTarball(tarball);
-            streamThirdTry.on('error', function (err: VerdaccioError) {
+            streamThirdTry.on('error', function (err: any) {
               expect(err).not.toBeNull();
               expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
               expect(proxy.failed_requests).toBe(2);

@@ -1,0 +1,29 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-search
+
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  'private-*':
+    access: $all
+    publish: jota
+  '@private/*':
+    access: $all
+    publish: jota
+  '@*/*':
+    access: $all
+    publish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+
+_debug: true

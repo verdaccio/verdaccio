@@ -3,7 +3,6 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import LocalDatabase from '@verdaccio/local-storage';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
@@ -26,21 +25,25 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
+import {
+  createTarballHash,
+  getLatestVersion,
+  normalizeContributors,
+  validateName,
+} from '@verdaccio/utils';
 
 import loadPlugin from '../lib/plugin-loader';
 import { IStorage, StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
-import { createTarballHash } from './crypto-utils';
 import {
   cleanUpReadme,
   generatePackageTemplate,
   generateRevision,
   getLatestReadme,
-  normalizeContributors,
   normalizePackage,
 } from './storage-utils';
 import { prepareSearchPackage } from './storage-utils';
-import { ErrorCode, getLatestVersion, isObject, tagVersion, validateName } from './utils';
+import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
 /**
@@ -169,7 +172,6 @@ class LocalStorage implements IStorage {
                 sha: version.dist.shasum,
               });
               /* eslint spaced-comment: 0 */
-              // $FlowFixMe
               const upLink: string = version[Symbol.for('__verdaccio_uplink')];
 
               if (_.isNil(upLink) === false) {
@@ -333,7 +335,7 @@ class LocalStorage implements IStorage {
    * @return {String}
    * @private
    */
-  private _getVersionNotFound(): VerdaccioError {
+  private _getVersionNotFound(): any {
     return ErrorCode.getNotFound(API_ERROR.VERSION_NOT_EXIST);
   }
 
@@ -342,7 +344,7 @@ class LocalStorage implements IStorage {
    * @return {String}
    * @private
    */
-  private _getFileNotAvailable(): VerdaccioError {
+  private _getFileNotAvailable(): any {
     return ErrorCode.getNotFound('no such file available');
   }
 
@@ -441,7 +443,7 @@ class LocalStorage implements IStorage {
           cb(this._getFileNotAvailable());
         }
       },
-      (err: VerdaccioError): void => {
+      (err: any): void => {
         if (err) {
           return callback(err);
         }
@@ -506,7 +508,7 @@ class LocalStorage implements IStorage {
         // @ts-ignore
       } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         // check if package exists to throw an appropriate message
-        this.getPackageMetadata(name, function (_err: VerdaccioError, _res: Package): void {
+        this.getPackageMetadata(name, function (_err: any, _res: Package): void {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -660,7 +662,7 @@ class LocalStorage implements IStorage {
       (item: Package, cb: CallbackAction): void => {
         // @ts-ignore
         if (item.time > parseInt(startKey, 10)) {
-          this.getPackageMetadata(item.name, (err: VerdaccioError, data: Package): void => {
+          this.getPackageMetadata(item.name, (err: any, data: Package): void => {
             if (err) {
               return cb(err);
             }
@@ -769,7 +771,7 @@ class LocalStorage implements IStorage {
    * @param {*} message
    * @return {Object} Error instance
    */
-  private _internalError(err: string, file: string, message: string): VerdaccioError {
+  private _internalError(err: string, file: string, message: string): any {
     this.logger.error({ err: err, file: file }, `${message}  @{file}: @{!err.message}`);
 
     return ErrorCode.getInternalError();

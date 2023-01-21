@@ -2,7 +2,6 @@ import buildDebug from 'debug';
 import { NextFunction } from 'express';
 import _ from 'lodash';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import {
   AllowAccess,
   AuthPluginPackage,
@@ -15,6 +14,7 @@ import {
   RemoteUser,
   Security,
 } from '@verdaccio/types';
+import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import loadPlugin from '../lib/plugin-loader';
 import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../types';
@@ -30,7 +30,6 @@ import {
   parseBasicPayload,
   verifyJWTPayload,
 } from './auth-utils';
-import { getMatchedPackagesSpec } from './config-utils';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { aesEncrypt, signPayload } from './crypto-utils';
 import { logger } from './logger';
@@ -297,7 +296,7 @@ class Auth implements IAuth {
       }
 
       // @ts-ignore
-      plugin.allow_publish(user, pkg, (err: VerdaccioError, ok: boolean): void => {
+      plugin.allow_publish(user, pkg, (err: any, ok: boolean): void => {
         if (_.isNil(err) === false && _.isError(err)) {
           self.logger.error(
             { packageName, user: user?.name },
@@ -331,7 +330,7 @@ class Auth implements IAuth {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       req.pause();
 
-      const next = function (err: VerdaccioError | void): void {
+      const next = function (err: any | void): void {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)
@@ -447,7 +446,7 @@ class Auth implements IAuth {
       }
 
       req.pause();
-      const next = (err: VerdaccioError | void): void => {
+      const next = (err: any | void): void => {
         req.resume();
         if (err) {
           // req.remote_user.error = err.message;
@@ -480,7 +479,6 @@ class Auth implements IAuth {
 
       if (this._isRemoteUserValid(credentials)) {
         const { name, groups } = credentials;
-        // $FlowFixMe
         req.remote_user = createRemoteUser(name, groups);
       } else {
         req.remote_user = createAnonymousRemoteUser();

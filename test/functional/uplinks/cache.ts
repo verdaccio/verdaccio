@@ -2,8 +2,9 @@ import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
+import { createTarballHash } from '@verdaccio/utils';
+
 import { HTTP_STATUS } from '../../../src/lib/constants';
-import { createTarballHash } from '../../../src/lib/crypto-utils';
 import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
 import { readFile } from '../lib/test.utils';

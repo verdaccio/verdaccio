@@ -1,7 +1,6 @@
 import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
-import { HttpError } from 'http-errors';
 import _ from 'lodash';
 
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
@@ -22,7 +21,7 @@ import {
 } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
-import { errorReportingMiddleware, final, log, serveFavicon } from './middleware';
+import { errorReportingMiddleware, final, handleError, log, serveFavicon } from './middleware';
 import web from './web';
 import webAPI from './web/api';
 
@@ -98,29 +97,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
-
-  app.use(function (
-    err: HttpError,
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
-    if (_.isError(err)) {
-      if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
-        return next();
-      }
-      if (_.isFunction(res.locals.report_error) === false) {
-        // in case of very early error this middleware may not be loaded before error is generated
-        // fixing that
-        errorReportingMiddleware(req, res, _.noop);
-      }
-      res.locals.report_error(err);
-    } else {
-      // Fall to Middleware.final
-      return next(err);
-    }
-  });
-
+  app.use(handleError);
   app.use(final);
 
   return app;

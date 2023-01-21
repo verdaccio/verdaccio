@@ -1,0 +1,24 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-publish
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+    unpublish: $anonymous
+  '**':
+    access: $anonymous
+    publish: $anonymous
+    unpublish: $anonymous
+_debug: true

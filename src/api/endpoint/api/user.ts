@@ -3,14 +3,9 @@ import express, { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { Config, RemoteUser } from '@verdaccio/types';
+import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
-import {
-  createRemoteUser,
-  createSessionToken,
-  getApiToken,
-  getAuthenticatedMessage,
-  validatePassword,
-} from '../../../lib/auth-utils';
+import { createRemoteUser, getApiToken, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
@@ -68,7 +63,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
       } else {
         if (validatePassword(password) === false) {
           // eslint-disable-next-line new-cap
-          return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
+          return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 
         auth.add_user(name, password, async function (err, user): Promise<void> {

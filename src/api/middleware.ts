@@ -1,11 +1,16 @@
 import buildDebug from 'debug';
 import fs from 'fs';
+import { HttpError } from 'http-errors';
 import _ from 'lodash';
 import path from 'path';
 import validator from 'validator';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, Package, RemoteUser } from '@verdaccio/types';
+import { stringToMD5 } from '@verdaccio/utils';
+import {
+  validateName as utilValidateName,
+  validatePackage as utilValidatePackage,
+} from '@verdaccio/utils';
 
 import {
   API_ERROR,
@@ -15,15 +20,8 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
 } from '../lib/constants';
-import { stringToMD5 } from '../lib/crypto-utils';
 import { logger } from '../lib/logger';
-import {
-  ErrorCode,
-  getVersionFromTarball,
-  isObject,
-  validateName as utilValidateName,
-  validatePackage as utilValidatePackage,
-} from '../lib/utils';
+import { ErrorCode, getVersionFromTarball, isObject } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../types';
 
 const debug = buildDebug('verdaccio');
@@ -194,6 +192,33 @@ export function antiLoop(config: Config): Function {
     }
     next();
   };
+}
+
+export function handleError(
+  err: HttpError,
+  req: $RequestExtend,
+  res: $ResponseExtend,
+  next: $NextFunctionVer
+) {
+  debug('error handler init');
+  if (_.isError(err)) {
+    debug('is native error');
+    if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
+      return next();
+    }
+    if (_.isFunction(res.locals.report_error) === false) {
+      debug('is locals error report ref');
+      // in case of very early error this middleware may not be loaded before error is generated
+      // fixing that
+      errorReportingMiddleware(req, res, _.noop);
+    }
+    debug('set locals error report ref');
+    res.locals.report_error(err);
+  } else {
+    // Fall to Middleware.final
+    debug('no error to report, jump next layer');
+    return next(err);
+  }
 }
 
 export function allow(auth: IAuth): Function {
@@ -405,7 +430,7 @@ export function errorReportingMiddleware(
 ): void {
   res.locals.report_error =
     res.locals.report_error ||
-    function (err: VerdaccioError): void {
+    function (err: any): void {
       if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
         if (!res.headersSent) {
           res.status(err.status);

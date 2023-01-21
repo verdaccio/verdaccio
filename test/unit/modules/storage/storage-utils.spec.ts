@@ -1,4 +1,4 @@
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS, STORAGE } from '../../../../src/lib/constants';
 import { mergeUplinkTimeIntoLocal, normalizePackage } from '../../../../src/lib/storage-utils';
@@ -59,7 +59,7 @@ describe('Storage Utils', () => {
       '1.0.7': '2018-06-12T20:35:07.621Z',
     };
     test('mergeTime basic', () => {
-      const pkg1: Package = {
+      const pkg1: Manifest = {
         _attachments: {},
         _distfiles: {},
         _rev: '',
@@ -74,7 +74,7 @@ describe('Storage Utils', () => {
         [DIST_TAGS]: {},
       };
 
-      const pkg2: Package = {
+      const pkg2: Manifest = {
         _attachments: {},
         _distfiles: {},
         _rev: '',
@@ -90,7 +90,7 @@ describe('Storage Utils', () => {
       };
 
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
-      expect(Object.keys(mergedPkg)).toEqual([
+      expect(Object.keys(mergedPkg.time)).toEqual([
         'modified',
         'created',
         ...Object.keys(vGroup1),
@@ -99,7 +99,7 @@ describe('Storage Utils', () => {
     });
 
     test('mergeTime remote empty', () => {
-      const pkg1: Package = {
+      const pkg1: Manifest = {
         _attachments: {},
         _distfiles: {},
         _rev: '',
@@ -114,7 +114,7 @@ describe('Storage Utils', () => {
         [DIST_TAGS]: {},
       };
 
-      const pkg2: Package = {
+      const pkg2: Manifest = {
         _attachments: {},
         _distfiles: {},
         _rev: '',
@@ -124,7 +124,7 @@ describe('Storage Utils', () => {
         [DIST_TAGS]: {},
       };
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
-      expect(Object.keys(mergedPkg)).toEqual(['modified', 'created', ...Object.keys(vGroup1)]);
+      expect(Object.keys(mergedPkg.time)).toEqual(['modified', 'created', ...Object.keys(vGroup1)]);
     });
   });
 });

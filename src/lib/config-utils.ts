@@ -1,8 +1,8 @@
 import assert from 'assert';
 import _ from 'lodash';
-import minimatch from 'minimatch';
 
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
+import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { LegacyPackageList, MatchedPackage } from '../types';
 import { ErrorCode } from './utils';
@@ -102,15 +102,6 @@ export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): 
   }
 
   return false;
-}
-
-export function getMatchedPackagesSpec(pkgName: string, packages: PackageList): MatchedPackage {
-  for (const i in packages) {
-    if (minimatch.makeRe(i).exec(pkgName)) {
-      return packages[i];
-    }
-  }
-  return;
 }
 
 export function normalisePackageAccess(packages: LegacyPackageList): LegacyPackageList {

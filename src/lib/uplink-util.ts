@@ -28,7 +28,7 @@ export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): 
       const version = versions[i];
 
       // holds a "hidden" value to be used by the package storage.
-      // $FlowFixMe
+
       version[Symbol.for('__verdaccio_uplink')] = upLink.upname;
     }
   }

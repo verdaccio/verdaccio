@@ -1,0 +1,19 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@token/*':
+    access: $authenticated
+    publish: $authenticated
+  'only-you-can-publish':
+    access: $authenticated
+    publish: $authenticated
+
+logs: { type: stdout, format: pretty, level: debug }
+
+## enable token for testing
+flags:
+  token: true

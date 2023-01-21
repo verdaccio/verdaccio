@@ -1,7 +1,6 @@
 import path from 'path';
 import rimRaf from 'rimraf';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import { Config, MergeTags, Package } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
@@ -405,7 +404,7 @@ describe('LocalStorage', () => {
         test('should fails on add a duplicated new tarball', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball(pkgName, tarballName);
-          stream.on('error', (err: VerdaccioError) => {
+          stream.on('error', (err: any) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.CONFLICT);
             expect(err.message).toMatch(/this package is already present/);
@@ -418,7 +417,7 @@ describe('LocalStorage', () => {
         test('should fails on add a new tarball on missing package', (done) => {
           const tarballData = JSON.parse(readMetadata('addTarball'));
           const stream = storage.addTarball('unexsiting-package', tarballName);
-          stream.on('error', (err: VerdaccioError) => {
+          stream.on('error', (err: any) => {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such package available/);
@@ -435,7 +434,7 @@ describe('LocalStorage', () => {
 
         test('should fails on use invalid package name on add a new tarball', (done) => {
           const stream = storage.addTarball(pkgName, `${pkgName}-fails-add-tarball-1.0.4.tgz`);
-          stream.on('error', function (err: VerdaccioError) {
+          stream.on('error', function (err: any) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.BAD_DATA);
             expect(err.message).toMatch(/refusing to accept zero-length file/);
@@ -448,7 +447,7 @@ describe('LocalStorage', () => {
         test('should fails on abort on add a new tarball', (done) => {
           const stream = storage.addTarball('__proto__', `${pkgName}-fails-add-tarball-1.0.4.tgz`);
           stream.abort();
-          stream.on('error', function (err: VerdaccioError) {
+          stream.on('error', function (err: any) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.FORBIDDEN);
             expect(err.message).toMatch(/can't use this filename/);
@@ -488,7 +487,7 @@ describe('LocalStorage', () => {
 
         test('should fails on get a tarball that does not exist', (done) => {
           const stream = storage.getTarball('fake', tarballName);
-          stream.on('error', function (err: VerdaccioError) {
+          stream.on('error', function (err: any) {
             expect(err).not.toBeNull();
             expect(err.statusCode).toEqual(HTTP_STATUS.NOT_FOUND);
             expect(err.message).toMatch(/no such file available/);
