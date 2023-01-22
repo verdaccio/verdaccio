@@ -1,5 +1,18 @@
 # Change Log
 
+## 11.0.0-6-next.23
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/url@11.0.0-6-next.20
+  - @verdaccio/utils@6.0.0-6-next.22
+
 ## 11.0.0-6-next.22
 
 ### Patch Changes

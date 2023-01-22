@@ -1,5 +1,17 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/logger@6.0.0-6-next.22
+
 ## 6.0.0-6-next.23
 
 ### Patch Changes
