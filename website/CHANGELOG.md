@@ -1,5 +1,11 @@
 # @verdaccio/website
 
+## 5.19.2-6-next.0
+
+### Patch Changes
+
+- @verdaccio/ui-components@2.0.0-6-next.2
+
 ## 5.18.1-6-next.0
 
 ### Patch Changes

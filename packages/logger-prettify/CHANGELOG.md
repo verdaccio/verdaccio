@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 6.0.0-6-next.8
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
 ## 6.0.0-6-next.7
 
 ### Major Changes

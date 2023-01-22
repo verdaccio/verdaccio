@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.19
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
 ## 11.0.0-6-next.18
 
 ### Major Changes

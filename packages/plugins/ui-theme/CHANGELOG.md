@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.54
+
 ## 6.0.0-6-next.53
 
 ### Major Changes

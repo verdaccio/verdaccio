@@ -1,5 +1,22 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.37
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/config@6.0.0-6-next.54
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/logger@6.0.0-6-next.22
+  - @verdaccio/utils@6.0.0-6-next.22
+  - @verdaccio/auth@6.0.0-6-next.33
+  - @verdaccio/store@6.0.0-6-next.34
+  - @verdaccio/middleware@6.0.0-6-next.33
+
 ## 6.0.0-6-next.36
 
 ### Patch Changes

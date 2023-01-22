@@ -1,5 +1,23 @@
 # verdaccio
 
+## 6.0.0-6-next.54
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/hooks@6.0.0-6-next.24
+  - @verdaccio/logger@6.0.0-6-next.22
+  - @verdaccio/utils@6.0.0-6-next.22
+  - @verdaccio/cli@6.0.0-6-next.54
+  - @verdaccio/node-api@6.0.0-6-next.54
+  - verdaccio-audit@11.0.0-6-next.17
+  - verdaccio-htpasswd@11.0.0-6-next.24
+  - @verdaccio/ui-theme@6.0.0-6-next.54
+
 ## 6.0.0-6-next.53
 
 ### Patch Changes

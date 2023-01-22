@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.54
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
 ## 6.0.0-6-next.53
 
 ## 6.0.0-6-next.52
