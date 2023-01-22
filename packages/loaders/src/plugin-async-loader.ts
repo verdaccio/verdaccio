@@ -10,7 +10,7 @@ import { PluginType, isES6, isValid, tryLoad } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
-const { lstat } = fs.promises;
+const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);

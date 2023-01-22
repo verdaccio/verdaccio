@@ -11,7 +11,7 @@ import { buildToken } from '@verdaccio/utils';
 
 import { ServerQuery } from './request';
 
-const { writeFile } = fs.promises;
+const { writeFile } = fs.promises ? fs.promises : require('fs/promises');
 
 const buildAuthHeader = (token: string): string => {
   return buildToken(TOKEN_BEARER, token);

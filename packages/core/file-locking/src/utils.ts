@@ -3,8 +3,10 @@ import locker from 'lockfile';
 import path from 'path';
 import { promisify } from 'util';
 
-export const readFile = fs.promises.readFile;
-const statPromise = fs.promises.stat;
+const fsP = fs.promises ? fs.promises : require('fs/promises');
+
+export const readFile = fsP.readFile;
+const statPromise = fsP.stat;
 // https://github.com/npm/lockfile/issues/33
 const lfLock = promisify(locker.lock);
 const lfUnlock = promisify(locker.unlock);

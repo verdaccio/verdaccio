@@ -6,7 +6,7 @@ export const Files = {
   DatabaseName: '.verdaccio-db.json',
 };
 
-const { mkdir, mkdtemp } = fs.promises;
+const { mkdir, mkdtemp } = fs.promises ? fs.promises : require('fs/promises');
 
 /**
  * Create a temporary folder.

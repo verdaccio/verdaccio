@@ -1,16 +1,18 @@
 import fsCallback from 'fs';
 import fs from 'fs';
 
-const readFile = fs.promises.readFile;
-const mkdirPromise = fs.promises.mkdir;
-const accessPromise = fs.promises.access;
-const writeFilePromise = fs.promises.writeFile;
-const readdirPromise = fs.promises.readdir;
-const statPromise = fs.promises.stat;
-const unlinkPromise = fs.promises.unlink;
-const rmdirPromise = fs.promises.rmdir;
-const renamePromise = fs.promises.rename;
-const openPromise = fs.promises.open;
+const fsP = fs.promises ? fs.promises : require('fs/promises');
+
+const readFile = fsP.readFile;
+const mkdirPromise = fsP.mkdir;
+const accessPromise = fsP.access;
+const writeFilePromise = fsP.writeFile;
+const readdirPromise = fsP.readdir;
+const statPromise = fsP.stat;
+const unlinkPromise = fsP.unlink;
+const rmdirPromise = fsP.rmdir;
+const renamePromise = fsP.rename;
+const openPromise = fsP.open;
 
 const readFilePromise = async (path) => {
   return await readFile(path, 'utf8');
