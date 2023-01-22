@@ -1,10 +1,12 @@
-import { mkdir, mkdtemp } from 'fs/promises';
+import fs from 'fs';
 import os from 'os';
 import path from 'path';
 
 export const Files = {
   DatabaseName: '.verdaccio-db.json',
 };
+
+const { mkdir, mkdtemp } = fs.promises ? fs.promises : require('fs/promises');
 
 /**
  * Create a temporary folder.

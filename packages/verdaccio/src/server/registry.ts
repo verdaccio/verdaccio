@@ -1,6 +1,6 @@
 import { ChildProcess, fork } from 'child_process';
 import buildDebug from 'debug';
-import { writeFile } from 'fs/promises';
+import fs from 'fs';
 import getPort from 'get-port';
 import path from 'path';
 
@@ -10,6 +10,8 @@ import { ConfigYaml } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 
 import { ServerQuery } from './request';
+
+const { writeFile } = fs.promises ? fs.promises : require('fs/promises');
 
 const buildAuthHeader = (token: string): string => {
   return buildToken(TOKEN_BEARER, token);

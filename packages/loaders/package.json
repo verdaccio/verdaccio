@@ -38,8 +38,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=12"
   },
   "license": "MIT",
   "scripts": {
