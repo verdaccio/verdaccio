@@ -58,13 +58,13 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   );
 
   route.get(
-    '/:pkg/-/:filename',
+    '/:package/-/:filename',
     can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
-      const { pkg, filename } = req.params;
+      const { package, filename } = req.params;
       const abort = new AbortController();
       try {
-        const stream = (await storage.getTarballNext(pkg, filename, {
+        const stream = (await storage.getTarballNext(package, filename, {
           signal: abort.signal,
           // TODO: review why this param
           // enableRemote: true,
