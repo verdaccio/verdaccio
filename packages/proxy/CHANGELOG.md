@@ -1,5 +1,16 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.33
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/utils@6.0.0-6-next.23
+  - @verdaccio/local-storage@11.0.0-6-next.25
+  - @verdaccio/logger@6.0.0-6-next.23
+
 ## 6.0.0-6-next.32
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.21
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+
 ## 11.0.0-6-next.20
 
 ### Minor Changes

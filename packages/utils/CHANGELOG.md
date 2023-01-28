@@ -1,5 +1,13 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.23
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+
 ## 6.0.0-6-next.22
 
 ### Minor Changes
