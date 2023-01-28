@@ -1,303 +1,233 @@
-import {
-  addVersion,
-  publishPackage,
-  removeTarball,
-  unPublishPackage,
-  uploadPackageTarball,
-} from '../../../../src/api/endpoint/api/publish';
-import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import nock from 'nock';
+import { basename } from 'path';
+import supertest from 'supertest';
 
-const REVISION_MOCK = '15-e53a77096b0ee33e';
+import { HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 
-require('../../../../src/lib/logger').setup([{ type: 'stdout', format: 'pretty', level: 'info' }]);
+import { generatePackageMetadata } from '../../../helpers/generatePackageMetadata';
+import { generateRemotePackageMetadata } from '../../../helpers/generateRemotePackageMetadata';
+import { getPackage, initializeServer, publishVersion } from './_helper';
 
-describe('Publish endpoints - add a tag', () => {
-  let req;
-  let res;
-  let next;
-
-  beforeEach(() => {
-    req = {
-      params: {
-        version: '1.0.0',
-        tag: 'tag',
-        package: 'verdaccio',
-      },
-      body: '',
-    };
-    res = {
-      status: jest.fn(),
-    };
-
-    next = jest.fn();
-  });
-
-  test('should add a version', (done) => {
-    const storage = {
-      addVersion: (packageName, version, body, tag, cb) => {
-        expect(packageName).toEqual(req.params.package);
-        expect(version).toEqual(req.params.version);
-        expect(body).toEqual(req.body);
-        expect(tag).toEqual(req.params.tag);
-        cb();
-        done();
-      },
-    };
-
-    // @ts-ignore
-    addVersion(storage)(req, res, next);
-
-    expect(res.status).toHaveBeenLastCalledWith(HTTP_STATUS.CREATED);
-    expect(next).toHaveBeenLastCalledWith({ ok: 'package published' });
-  });
-
-  test('when failed to add a version', (done) => {
-    const storage = {
-      addVersion: (packageName, version, body, tag, cb) => {
-        const error = {
-          message: 'failure',
-        };
-        cb(error);
-        done();
-      },
-    };
-
-    // @ts-ignore
-    addVersion(storage)(req, res, next);
-
-    expect(next).toHaveBeenLastCalledWith({ message: 'failure' });
-  });
-});
-
-/**
- * upload package: '/:package/-/:filename/*'
- */
-describe('Publish endpoints - upload package tarball', () => {
-  let req;
-  let res;
-  let next;
-
-  beforeEach(() => {
-    req = {
-      params: {
-        filename: 'verdaccio.gzip',
-        package: 'verdaccio',
-      },
-      pipe: jest.fn(),
-      on: jest.fn(),
-    };
-    res = { status: jest.fn(), report_error: jest.fn() };
-    next = jest.fn();
-  });
-
-  test('should upload package tarball successfully', () => {
-    const stream = {
-      done: jest.fn(),
-      abort: jest.fn(),
-      on: jest.fn(() => (status, cb) => cb()),
-    };
-    const storage = {
-      addTarball(packageName, filename) {
-        expect(packageName).toEqual(req.params.package);
-        expect(filename).toEqual(req.params.filename);
-        return stream;
-      },
-    };
-
-    // @ts-ignore
-    uploadPackageTarball(storage)(req, res, next);
-    expect(req.pipe).toHaveBeenCalled();
-    expect(req.on).toHaveBeenCalled();
-  });
-});
-
-/**
- * Delete tarball: '/:package/-/:filename/-rev/:revision'
- */
-describe('Publish endpoints - delete tarball', () => {
-  let req;
-  let res;
-  let next;
-
-  beforeEach(() => {
-    req = {
-      params: {
-        filename: 'verdaccio.gzip',
-        package: 'verdaccio',
-        revision: REVISION_MOCK,
-      },
-    };
-    res = { status: jest.fn() };
-    next = jest.fn();
-  });
-
-  test('should delete tarball successfully', (done) => {
-    const storage = {
-      removeTarball(packageName, filename, revision, cb) {
-        expect(packageName).toEqual(req.params.package);
-        expect(filename).toEqual(req.params.filename);
-        expect(revision).toEqual(req.params.revision);
-        cb();
-        done();
-      },
-    };
-
-    // @ts-ignore
-    removeTarball(storage)(req, res, next);
-    expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
-    expect(next).toHaveBeenCalledWith({ ok: 'tarball removed' });
-  });
-
-  test('failed while deleting the tarball', (done) => {
-    const error = {
-      message: 'deletion failed',
-    };
-    const storage = {
-      removeTarball(packageName, filename, revision, cb) {
-        cb(error);
-        done();
-      },
-    };
-
-    // @ts-ignore
-    removeTarball(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(error);
-  });
-});
-
-/**
- * Un-publish package: '/:package/-rev/*'
- */
-describe('Publish endpoints - un-publish package', () => {
-  let req;
-  let res;
-  let next;
-
-  beforeEach(() => {
-    req = {
-      params: {
-        package: 'verdaccio',
-      },
-    };
-    res = { status: jest.fn() };
-    next = jest.fn();
-  });
-
-  test('should un-publish package successfully', (done) => {
-    const storage = {
-      removePackage(packageName, cb) {
-        expect(packageName).toEqual(req.params.package);
-        cb();
-        done();
-      },
-    };
-
-    // @ts-ignore
-    unPublishPackage(storage)(req, res, next);
-    expect(res.status).toHaveBeenCalledWith(HTTP_STATUS.CREATED);
-    expect(next).toHaveBeenCalledWith({ ok: 'package removed' });
-  });
-
-  test('un-publish failed', (done) => {
-    const error = {
-      message: 'un-publish failed',
-    };
-    const storage = {
-      removePackage(packageName, cb) {
-        cb(error);
-        done();
-      },
-    };
-
-    // @ts-ignore
-    unPublishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(error);
-  });
-});
-
-/**
- * Publish package: '/:package/:_rev?/:revision?'
- */
-describe('Publish endpoints - publish package', () => {
-  let req;
-  let res;
-  let next;
-
-  beforeEach(() => {
-    req = {
-      body: {
-        name: 'verdaccio',
-      },
-      params: {
-        package: 'verdaccio',
-      },
-    };
-    res = { status: jest.fn() };
-    next = jest.fn();
-  });
-
-  test('should change the existing package', () => {
-    const storage = {
-      changePackage: jest.fn(),
-    };
-
-    req.params._rev = REVISION_MOCK;
-
-    // @ts-ignore
-    publishPackage(storage)(req, res, next);
-    expect(storage.changePackage).toMatchSnapshot();
-  });
-
-  test('should publish a new a new package', () => {
-    const storage = {
-      addPackage: jest.fn(),
-    };
-
-    // @ts-ignore
-    publishPackage(storage)(req, res, next);
-    expect(storage.addPackage).toMatchSnapshot();
-  });
-
-  test('should throw an error while publishing package', () => {
-    const storage = {
-      addPackage() {
-        throw new Error();
-      },
-    };
-
-    // @ts-ignore
-    publishPackage(storage)(req, res, next);
-    expect(next).toHaveBeenCalledWith(new Error(API_ERROR.BAD_PACKAGE_DATA));
-  });
-
-  describe('test start', () => {
-    test('should star a package', () => {
-      const storage = {
-        changePackage: jest.fn(),
-        getPackage({ callback }) {
-          callback(null, {
-            users: {},
-          });
-        },
-      };
-      req = {
-        params: {
-          package: 'verdaccio',
-        },
-        body: {
-          _rev: REVISION_MOCK,
-          users: {
-            verdaccio: true,
-          },
-        },
-        remote_user: {
-          name: 'verdaccio',
-        },
-      };
-
-      // @ts-ignore
-      publishPackage(storage)(req, res, next);
-      expect(storage.changePackage).toMatchSnapshot();
+describe('publish', () => {
+  describe('handle errors', () => {
+    const pkgName = 'test';
+    const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
+    // TODO: validation not implemented yet (v6)
+    test.skip('should fail on publish a bad _attachments package', async () => {
+      const app = await initializeServer('publish.yaml');
+      const response = await supertest(app)
+        .put(`/${encodeURIComponent(pkgName)}`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .send(
+          JSON.stringify(
+            Object.assign({}, pkgMetadata, {
+              _attachments: {},
+            })
+          )
+        )
+        .set('accept', HEADERS.GZIP)
+        .expect(HTTP_STATUS.BAD_REQUEST);
+      expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
     });
+
+    test('should fail on publish a bad versions package', async () => {
+      const app = await initializeServer('publish.yaml');
+      return new Promise((resolve) => {
+        supertest(app)
+          .put(`/${encodeURIComponent(pkgName)}`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .send(
+            JSON.stringify(
+              Object.assign({}, pkgMetadata, {
+                versions: '',
+              })
+            )
+          )
+          .set('accept', HEADERS.GZIP)
+          .expect(HTTP_STATUS.BAD_REQUEST)
+          .then((response) => {
+            expect(response.body.error).toEqual(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+            resolve(response);
+          });
+      });
+    });
+
+    test.each([['foo', '@scope/foo']])(
+      'should fails on publish a duplicated package',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        return new Promise((resolve) => {
+          publishVersion(app, pkgName, '1.0.0')
+            .expect(HTTP_STATUS.CONFLICT)
+            .then((response) => {
+              expect(response.body.error).toEqual(API_ERROR.PACKAGE_EXIST);
+              resolve(response);
+            });
+        });
+      }
+    );
+  });
+
+  describe('publish a package', () => {
+    describe('no proxies setup', () => {
+      test.each([['foo', '@scope/foo']])('should publish a package', async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          publishVersion(app, pkgName, '1.0.0')
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
+      });
+
+      test.each([['foo', '@scope/foo']])('should publish a new package', async (pkgName) => {
+        const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          supertest(app)
+            .put(`/${encodeURIComponent(pkgName)}`)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(JSON.stringify(Object.assign({}, pkgMetadata)))
+            .set('accept', HEADERS.GZIP)
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
+      });
+
+      test('should publish a new package with no readme', async () => {
+        const pkgName = 'test';
+        const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
+        const app = await initializeServer('publish.yaml');
+        return new Promise((resolve) => {
+          supertest(app)
+            .put(`/${encodeURIComponent(pkgName)}`)
+            .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+            .send(
+              JSON.stringify(
+                Object.assign({}, pkgMetadata, {
+                  versions: {
+                    ['1.0.0']: {
+                      readme: null,
+                    },
+                  },
+                })
+              )
+            )
+            .set('accept', HEADERS.GZIP)
+            .expect(HTTP_STATUS.CREATED)
+            .then((response) => {
+              expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+              resolve(response);
+            });
+        });
+      });
+    });
+
+    describe('proxies setup', () => {
+      test.each([['foo', '@scope%2Ffoo']])(
+        'should publish a a patch package that already exist on a remote',
+        async (pkgName) => {
+          const upstreamManifest = generateRemotePackageMetadata(
+            pkgName,
+            '1.0.0',
+            'https://registry.npmjs.org',
+            ['1.0.1', '1.0.2', '1.0.3']
+          );
+          nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(200, upstreamManifest);
+          const app = await initializeServer('publish-proxy.yaml');
+          const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
+          expect(manifest.body.name).toEqual(decodeURIComponent(pkgName));
+          const response = await publishVersion(
+            app,
+            decodeURIComponent(pkgName),
+            '1.0.1-patch'
+          ).expect(HTTP_STATUS.CREATED);
+          expect(response.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+          const response2 = await publishVersion(
+            app,
+            decodeURIComponent(pkgName),
+            '1.0.2-patch'
+          ).expect(HTTP_STATUS.CREATED);
+          expect(response2.body.ok).toEqual(API_MESSAGE.PKG_CREATED);
+        }
+      );
+    });
+  });
+
+  describe('unpublish a package', () => {
+    test.each([['foo', '@scope/foo']])('should unpublish entirely a package', async (pkgName) => {
+      const app = await initializeServer('publish.yaml');
+      await publishVersion(app, pkgName, '1.0.0');
+      const response = await supertest(app)
+        // FIXME: should be filtered by revision to avoid
+        // conflicts
+        .delete(`/${encodeURIComponent(pkgName)}/-rev/xxx`)
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        .expect(HTTP_STATUS.CREATED);
+      expect(response.body.ok).toEqual(API_MESSAGE.PKG_REMOVED);
+      // package should be completely un published
+      await supertest(app)
+        .get(`/${pkgName}`)
+        .set('Accept', HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.NOT_FOUND);
+    });
+
+    test.each([['foo', '@scope/foo']])(
+      'should fails unpublish entirely a package',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        const response = await supertest(app)
+          .delete(`/${encodeURIComponent(pkgName)}/-rev/1cf3-fe3`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+      }
+    );
+
+    test.each([['foo', '@scope/foo']])(
+      'should fails remove a tarball of a package does not exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.3.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_PACKAGE);
+      }
+    );
+
+    test.each([['foo', '@scope/foo']])(
+      'should fails on try remove a tarball does not exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.3.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.NOT_FOUND);
+        expect(response.body.error).toEqual(API_ERROR.NO_SUCH_FILE);
+      }
+    );
+
+    test.each([['foo', '@scope/foo']])(
+      'should remove a tarball that does exist',
+      async (pkgName) => {
+        const app = await initializeServer('publish.yaml');
+        await publishVersion(app, pkgName, '1.0.0');
+        const response = await supertest(app)
+          .delete(`/${pkgName}/-/${basename(pkgName)}-1.0.0.tgz/-rev/revision`)
+          .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+          .expect(HTTP_STATUS.CREATED);
+        expect(response.body.ok).toEqual(API_MESSAGE.TARBALL_REMOVED);
+      }
+    );
   });
 });

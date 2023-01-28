@@ -1,16 +1,35 @@
 import assert from 'assert';
 import buildDebug from 'debug';
-import { Request } from 'express';
 import fs from 'fs';
 import YAML from 'js-yaml';
 import _ from 'lodash';
-import memoizee from 'memoizee';
 import semver from 'semver';
-import DefaultURL, { URL } from 'url';
+import { URL } from 'url';
 import validator from 'validator';
 
 // eslint-disable-next-line max-len
+import { errorUtils, validatioUtils } from '@verdaccio/core';
+import { StringValue } from '@verdaccio/types';
+import { Author, Config, Package, Version } from '@verdaccio/types';
 import {
+  GENERIC_AVATAR,
+  buildToken as buildTokenUtil,
+  generateGravatarUrl,
+  normalizeContributors,
+} from '@verdaccio/utils';
+
+import { AuthorAvatar } from '../types';
+import {
+  APP_ERROR,
+  DEFAULT_DOMAIN,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
+  DEFAULT_USER,
+  DIST_TAGS,
+} from './constants';
+import { logger } from './logger';
+
+const {
   getBadData,
   getBadRequest,
   getCode,
@@ -20,24 +39,7 @@ import {
   getNotFound,
   getServiceUnavailable,
   getUnauthorized,
-} from '@verdaccio/commons-api';
-import { StringValue } from '@verdaccio/types';
-import { Author, Config, Package, Version } from '@verdaccio/types';
-
-import { AuthorAvatar } from '../types';
-import { GENERIC_AVATAR, generateGravatarUrl } from '../utils/user';
-import {
-  APP_ERROR,
-  DEFAULT_DOMAIN,
-  DEFAULT_PORT,
-  DEFAULT_PROTOCOL,
-  DEFAULT_USER,
-  DIST_TAGS,
-  HEADERS,
-} from './constants';
-import { logger } from './logger';
-import { normalizeContributors } from './storage-utils';
-
+} = errorUtils;
 const debug = buildDebug('verdaccio');
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -66,139 +68,17 @@ export function convertPayloadToBase64(payload: string): Buffer {
 }
 
 /**
- * From normalize-package-data/lib/fixer.js
- * @param {*} name  the package name
- * @return {Boolean} whether is valid or not
- */
-export function validateName(name: string): boolean {
-  if (_.isString(name) === false) {
-    return false;
-  }
-
-  const normalizedName: string = name.toLowerCase();
-
-  /**
-   * Some context about the first regex
-   * - npm used to have a different tarball naming system.
-   * eg: http://registry.npmjs.com/thirty-two
-   * https://registry.npmjs.org/thirty-two/-/thirty-two@0.0.1.tgz
-   * The file name thirty-two@0.0.1.tgz, the version and the pkg name was separated by an at (@)
-   * while nowadays the naming system is based in dashes
-   * https://registry.npmjs.org/verdaccio/-/verdaccio-1.4.0.tgz
-   *
-   * more info here: https://github.com/rlidwka/sinopia/issues/75
-   */
-  return !(
-    !normalizedName.match(/^[-a-zA-Z0-9_.!~*'()@]+$/) ||
-    normalizedName.startsWith('.') || // ".bin", etc.
-    ['node_modules', '__proto__', 'favicon.ico'].includes(normalizedName)
-  );
-}
-
-/**
- * Validate a package.
- * @return {Boolean} whether the package is valid or not
- */
-export function validatePackage(name: string): boolean {
-  const nameList = name.split('/', 2);
-  if (nameList.length === 1) {
-    // normal package
-    return validateName(nameList[0]);
-  }
-  // scoped package
-  return nameList[0][0] === '@' && validateName(nameList[0].slice(1)) && validateName(nameList[1]);
-}
-
-/**
  * Check whether an element is an Object
  * @param {*} obj the element
  * @return {Boolean}
  */
-export function isObject(obj: any): boolean {
-  return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
-}
+export const isObject = validatioUtils.isObject;
 
+/**
+ * @deprecated not used un v6
+ */
 export function isObjectOrArray(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false;
-}
-
-/**
- * Validate the package metadata, add additional properties whether are missing within
- * the metadata properties.
- * @param {*} object
- * @param {*} name
- * @return {Object} the object with additional properties as dist-tags ad versions
- */
-export function validateMetadata(object: Package, name: string): Package {
-  assert(isObject(object), 'not a json object');
-  assert.strictEqual(object.name, name);
-
-  if (!isObject(object[DIST_TAGS])) {
-    object[DIST_TAGS] = {};
-  }
-
-  if (!isObject(object['versions'])) {
-    object['versions'] = {};
-  }
-
-  if (!isObject(object['time'])) {
-    object['time'] = {};
-  }
-
-  return object;
-}
-
-export function extractTarballFromUrl(url: string): string {
-  // @ts-ignore
-  return DefaultURL.parse(url).pathname.replace(/^.*\//, '');
-}
-
-/**
- * Iterate a packages's versions and filter each original tarball url.
- * @param {*} pkg
- * @param {*} req
- * @param {*} config
- * @return {String} a filtered package
- */
-export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
-  req: Request,
-  urlPrefix: string | void
-): Package {
-  for (const ver in pkg.versions) {
-    if (Object.prototype.hasOwnProperty.call(pkg.versions, ver)) {
-      const distName = pkg.versions[ver].dist;
-
-      if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
-        distName.tarball = getLocalRegistryTarballUri(distName.tarball, pkg.name, req, urlPrefix);
-      }
-    }
-  }
-  return pkg;
-}
-
-const memoizedgetPublicUrl = memoizee(getPublicUrl);
-
-/**
- * Filter a tarball url.
- * @param {*} uri
- * @return {String} a parsed url
- */
-export function getLocalRegistryTarballUri(
-  uri: string,
-  pkgName: string,
-  req: Request,
-  urlPrefix: string | void
-): string {
-  const currentHost = req.get('host');
-
-  if (!currentHost) {
-    return uri;
-  }
-  const tarballName = extractTarballFromUrl(uri);
-  const domainRegistry = memoizedgetPublicUrl(urlPrefix || '', req);
-
-  return `${domainRegistry}${encodeScopedUri(pkgName)}/-/${tarballName}`;
 }
 
 export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
@@ -223,7 +103,6 @@ export function getVersion(pkg: Package, version: any): Version | void {
   try {
     version = semver.parse(version, true);
     for (const versionItem in pkg.versions) {
-      // $FlowFixMe
       if (version.compare(semver.parse(versionItem, true)) === 0) {
         return pkg.versions[versionItem];
       }
@@ -392,10 +271,6 @@ export function getWebProtocol(headerProtocol: string | void, protocol: string):
   return validProtocols.includes(returnProtocol) ? returnProtocol : defaultProtocol;
 }
 
-export function getLatestVersion(pkgInfo: Package): string {
-  return pkgInfo[DIST_TAGS].latest;
-}
-
 export const ErrorCode = {
   getConflict,
   getBadData,
@@ -541,10 +416,6 @@ export function parseReadme(packageName: string, readme: string): string | void 
   return 'ERROR: No README data found!';
 }
 
-export function buildToken(type: string, token: string): string {
-  return `${_.capitalize(type)} ${token}`;
-}
-
 /**
  * return package version from tarball name
  * @param {String} name
@@ -674,57 +545,10 @@ export function isHost(url: string = '', options = {}): boolean {
   });
 }
 
-export function getPublicUrl(url_prefix: string = '', req): string {
-  if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
-    const envURL = new URL(wrapPrefix(url_prefix), process.env.VERDACCIO_PUBLIC_URL as string).href;
-    debug('public url by env %o', envURL);
-    return envURL;
-  } else if (req.get('host')) {
-    const host = req.get('host');
-    if (!isHost(host)) {
-      throw new Error('invalid host');
-    }
-    const protoHeader = process.env.VERDACCIO_FORWARDED_PROTO ?? HEADERS.FORWARDED_PROTO;
-    const protocol = getWebProtocol(req.get(protoHeader.toLowerCase()), req.protocol);
-    const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
-    debug('public url by request %o', combinedUrl);
-    return combinedUrl;
-  } else {
-    return '/';
-  }
-}
-
-/**
- * Create base url for registry.
- * @return {String} base registry url
- */
-export function combineBaseUrl(protocol: string, host: string, prefix: string = ''): string {
-  debug('combined protocol %o', protocol);
-  debug('combined host %o', host);
-  const newPrefix = wrapPrefix(prefix);
-  debug('combined prefix %o', newPrefix);
-  const groupedURI = new URL(wrapPrefix(prefix), `${protocol}://${host}`);
-  const result = groupedURI.href;
-  debug('combined url %o', result);
-  return result;
-}
-
-export function wrapPrefix(prefix: string | void): string {
-  if (prefix === '' || typeof prefix === 'undefined' || prefix === null) {
-    return '';
-  } else if (!prefix.startsWith('/') && prefix.endsWith('/')) {
-    return `/${prefix}`;
-  } else if (!prefix.startsWith('/') && !prefix.endsWith('/')) {
-    return `/${prefix}/`;
-  } else if (prefix.startsWith('/') && !prefix.endsWith('/')) {
-    return `${prefix}/`;
-  } else {
-    return prefix;
-  }
-}
-
 export function hasLogin(config: Config) {
   // FIXME: types are not yet on the library verdaccio/monorepo
   // @ts-ignore
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
+
+export { buildTokenUtil as buildToken };

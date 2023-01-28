@@ -2,7 +2,6 @@ import _ from 'lodash';
 import path from 'path';
 
 import {
-  getMatchedPackagesSpec,
   hasProxyTo,
   normalisePackageAccess,
   sanityCheckUplinksProps,
@@ -178,32 +177,6 @@ describe('Config Utilities', () => {
       expect(_.isArray(all.access)).toBeTruthy();
       expect(all.publish).toBeDefined();
       expect(_.isArray(all.publish)).toBeTruthy();
-    });
-  });
-
-  describe('getMatchedPackagesSpec', () => {
-    test('should test basic config', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-custom'));
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('vue', packages).proxy).toMatch('npmjs');
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('@scope/vue', packages).proxy).toMatch('npmjs');
-    });
-
-    test('should test no ** wildcard on config', () => {
-      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-nosuper-wildcard-custom'));
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('react', packages).proxy).toMatch('facebook');
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('angular', packages).proxy).toMatch('google');
-      // @ts-ignore
-      expect(getMatchedPackagesSpec('@fake/angular', packages).proxy).toMatch('npmjs');
-      expect(getMatchedPackagesSpec('vue', packages)).toBeUndefined();
-      expect(getMatchedPackagesSpec('@scope/vue', packages)).toBeUndefined();
     });
   });
 

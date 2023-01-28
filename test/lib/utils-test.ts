@@ -5,7 +5,6 @@ export function generateNewVersion(
   version: string,
   shashum = '238e7641e59508dc9c20eb4ad37a8aa57ab777b4'
 ): Version {
-  // $FlowFixMe
   return {
     name: pkgName,
     version: version,

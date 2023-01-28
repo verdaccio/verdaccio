@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { getInternalError } from '@verdaccio/commons-api';
+import { errorUtils } from '@verdaccio/core';
 import { Config } from '@verdaccio/types';
 
 import Auth from '../../../../src/lib/auth';
@@ -58,7 +58,7 @@ describe('AuthTest', () => {
 
         auth.authenticate('foo', 'bar', callback);
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(getInternalError());
+        expect(callback).toHaveBeenCalledWith(errorUtils.getInternalError());
       });
     });
 

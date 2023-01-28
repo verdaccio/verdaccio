@@ -1,14 +1,13 @@
 import _ from 'lodash';
 
 import { Config, RemoteUser, Security } from '@verdaccio/types';
+import { buildUserBuffer } from '@verdaccio/utils';
 
 import Auth from '../../../../src/lib/auth';
 import {
-  buildUserBuffer,
   createAnonymousRemoteUser,
   createRemoteUser,
   getApiToken,
-  getAuthenticatedMessage,
   getMiddlewareCredentials,
   getSecurity,
 } from '../../../../src/lib/auth-utils';
@@ -223,12 +222,6 @@ describe('Auth utilities', () => {
 
       expect(_.isString(token)).toBeTruthy();
       verifyJWT(token, 'test', 'test', 'secret');
-    });
-  });
-
-  describe('getAuthenticatedMessage test', () => {
-    test('should sign token with jwt enabled', () => {
-      expect(getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
     });
   });
 

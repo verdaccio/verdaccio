@@ -2,9 +2,9 @@ import _ from 'lodash';
 import request from 'supertest';
 
 import { Package } from '@verdaccio/types';
+import { generateRandomHexString } from '@verdaccio/utils';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
-import { generateRandomHexString } from '../../../src/lib/crypto-utils';
 import { buildToken, encodeScopedUri } from '../../../src/lib/utils';
 import { getTaggedVersionFromPackage } from './expects';
 
@@ -92,7 +92,6 @@ export function loginUserToken(
   token: string,
   statusCode: number = HTTP_STATUS.CREATED
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .put(`/-/user/org.couchdb.user:${user}`)
@@ -112,7 +111,6 @@ export function addUser(
   credentials: any,
   statusCode: number = HTTP_STATUS.CREATED
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .put(`/-/user/org.couchdb.user:${user}`)
@@ -143,7 +141,6 @@ export function getProfile(
   token: string,
   statusCode: number = HTTP_STATUS.OK
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .get(`/-/npm/v1/user`)
@@ -162,7 +159,6 @@ export function postProfile(
   token: string,
   statusCode: number = HTTP_STATUS.OK
 ): Promise<any[]> {
-  // $FlowFixMe
   return new Promise((resolve) => {
     request
       .post(`/-/npm/v1/user`)

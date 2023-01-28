@@ -65,7 +65,7 @@ export default function (auth: IAuth, config): Router {
       if (_.isNil(password) === false) {
         if (validatePassword(password.new) === false) {
           /* eslint new-cap:off */
-          return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+          return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
           /* eslint new-cap:off */
         }
 

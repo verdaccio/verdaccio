@@ -4,6 +4,7 @@ import _ from 'lodash';
 import mime from 'mime';
 import Path from 'path';
 
+import { validatioUtils } from '@verdaccio/core';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -270,7 +271,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
     }
 
     try {
-      const metadata = validateMetadata(req.body, packageName);
+      const metadata = validatioUtils.normalizeMetadata(req.body, packageName);
       // check _attachments to distinguish publish and deprecate
       if (
         req.params._rev ||

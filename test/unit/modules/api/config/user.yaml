@@ -1,0 +1,30 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-user
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  ver:
+    url: https://registry.verdaccio.org
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: $all
+  'verdaccio':
+    access: $all
+    publish: $all
+  'vue':
+    access: $authenticated
+    publish: $authenticated
+    proxy: ver
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $all
+_debug: true

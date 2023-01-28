@@ -1,0 +1,26 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-publish-proxy
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+logs: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $anonymous
+    unpublish: $anonymous
+    proxy: npmjs
+
+_debug: true

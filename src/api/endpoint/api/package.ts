@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
-import { ErrorCode, convertDistRemoteToLocalTarballUrls, getVersion } from '../../../lib/utils';
+import { ErrorCode, getVersion } from '../../../lib/utils';
 import {
   $NextFunctionVer,
   $RequestExtend,

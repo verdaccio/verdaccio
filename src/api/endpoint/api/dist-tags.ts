@@ -2,7 +2,6 @@ import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
 
-import { VerdaccioError } from '@verdaccio/commons-api';
 import { Package } from '@verdaccio/types';
 
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
@@ -60,7 +59,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const tags = {};
       tags[req.params.tag] = null;
-      storage.mergeTags(req.params.package, tags, function (err: VerdaccioError): $NextFunctionVer {
+      storage.mergeTags(req.params.package, tags, function (err: any): $NextFunctionVer {
         if (err) {
           return next(err);
         }
@@ -80,7 +79,7 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
         name: req.params.package,
         uplinksLook: true,
         req,
-        callback: function (err: VerdaccioError, info: Package): $NextFunctionVer {
+        callback: function (err: any, info: Package): $NextFunctionVer {
           if (err) {
             return next(err);
           }
@@ -95,19 +94,15 @@ export default function (route: Router, auth: IAuth, storage: IStorageHandler): 
     '/-/package/:package/dist-tags',
     can('publish'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      storage.mergeTags(
-        req.params.package,
-        req.body,
-        function (err: VerdaccioError): $NextFunctionVer {
-          if (err) {
-            return next(err);
-          }
-          res.status(HTTP_STATUS.CREATED);
-          return next({
-            ok: API_MESSAGE.TAG_UPDATED,
-          });
+      storage.mergeTags(req.params.package, req.body, function (err: any): $NextFunctionVer {
+        if (err) {
+          return next(err);
         }
-      );
+        res.status(HTTP_STATUS.CREATED);
+        return next({
+          ok: API_MESSAGE.TAG_UPDATED,
+        });
+      });
     }
   );
 }

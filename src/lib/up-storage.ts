@@ -8,6 +8,7 @@ import zlib from 'zlib';
 
 import { ReadTarball } from '@verdaccio/streams';
 import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
+import { buildToken } from '@verdaccio/utils';
 
 import { IProxy, UpLinkConfLocal } from '../types';
 import {
@@ -21,7 +22,7 @@ import {
   TOKEN_BEARER,
 } from './constants';
 import { logger } from './logger';
-import { ErrorCode, buildToken, isObject, isObjectOrArray, parseInterval } from './utils';
+import { ErrorCode, isObject, isObjectOrArray, parseInterval } from './utils';
 
 const debug = buildDebug('verdaccio:up-storage');
 
@@ -81,7 +82,7 @@ class ProxyStorage implements IProxy {
     this.server_id = mainConfig.server_id;
 
     this.url = URL.parse(this.config.url);
-    // $FlowFixMe
+
     this._setupProxy(this.url.hostname, config, mainConfig, this.url.protocol === 'https:');
 
     this.config.url = this.config.url.replace(/\/$/, '');
@@ -128,7 +129,7 @@ class ProxyStorage implements IProxy {
         }
         streamRead.emit('error', ErrorCode.getInternalError(API_ERROR.UPLINK_OFFLINE));
       });
-      // $FlowFixMe
+
       streamRead._read = function (): void {};
       // preventing 'Uncaught, unspecified "error" event'
       streamRead.on('error', function (): void {});
@@ -162,10 +163,10 @@ class ProxyStorage implements IProxy {
       ? function (err, res, body): void {
           let error;
           const responseLength = err ? 0 : body.length;
-          // $FlowFixMe
+
           processBody();
           logActivity();
-          // $FlowFixMe
+
           cb(err, res, body);
 
           /**
@@ -179,7 +180,6 @@ class ProxyStorage implements IProxy {
 
             if (options.json && res.statusCode < 300) {
               try {
-                // $FlowFixMe
                 body = JSON.parse(body.toString(CHARACTER_ENCODING.UTF8));
               } catch (_err) {
                 body = {};
@@ -411,7 +411,6 @@ class ProxyStorage implements IProxy {
    * @return {Boolean}
    */
   public isUplinkValid(url: string): boolean {
-    // $FlowFixMe
     const urlParsed: UrlWithStringQuery = URL.parse(url);
     const isHTTPS = (urlDomainParsed: URL): boolean =>
       urlDomainParsed.protocol === 'https:' &&
@@ -457,7 +456,7 @@ class ProxyStorage implements IProxy {
           const error = ErrorCode.getInternalError(
             `${API_ERROR.BAD_STATUS_CODE}: ${res.statusCode}`
           );
-          // $FlowFixMe
+
           error.remoteStatus = res.statusCode;
           return callback(error);
         }
@@ -677,7 +676,6 @@ class ProxyStorage implements IProxy {
       this.proxy = mainconfig[proxy_key];
     }
     if ('no_proxy' in config) {
-      // $FlowFixMe
       noProxyList = config.no_proxy;
     } else if ('no_proxy' in mainconfig) {
       noProxyList = mainconfig.no_proxy;
@@ -689,7 +687,6 @@ class ProxyStorage implements IProxy {
     }
 
     if (_.isString(noProxyList) && noProxyList.length) {
-      // $FlowFixMe
       noProxyList = noProxyList.split(',');
     }
 

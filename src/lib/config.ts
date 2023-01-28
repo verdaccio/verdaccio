@@ -2,17 +2,12 @@ import assert from 'assert';
 import _ from 'lodash';
 
 import { Config as AppConfig, Logger, PackageList, RateLimit, Security } from '@verdaccio/types';
+import { generateRandomHexString, getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { MatchedPackage, StartUpConfig } from '../types';
 import { defaultUserRateLimiting } from './auth-utils';
-import {
-  getMatchedPackagesSpec,
-  normalisePackageAccess,
-  sanityCheckUplinksProps,
-  uplinkSanityCheck,
-} from './config-utils';
+import { normalisePackageAccess, sanityCheckUplinksProps, uplinkSanityCheck } from './config-utils';
 import { APP_ERROR } from './constants';
-import { generateRandomHexString } from './crypto-utils';
 import { getUserAgent, isObject } from './utils';
 
 const LoggerApi = require('./logger');

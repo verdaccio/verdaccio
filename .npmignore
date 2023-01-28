@@ -42,3 +42,7 @@ storage_default_storage/
 docker-bin/
 yarn-plugins/
 tsconfig.json
+CHANGELOG.md
+SECURITY.md
+CONTRIBUTING.md
+CONTRIBUTORS.md

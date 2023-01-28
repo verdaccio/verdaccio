@@ -85,7 +85,7 @@ describe('endpoint user profile', () => {
 
       expect(resp.error).not.toBeNull();
       /* eslint new-cap: 0 */
-      expect(resp.error.text).toMatch(API_ERROR.PASSWORD_SHORT());
+      expect(resp.error.text).toMatch(API_ERROR.PASSWORD_SHORT);
     });
   });
 

@@ -1,6 +1,7 @@
+import { createTarballHash } from '@verdaccio/utils';
+
 import { API_ERROR, HTTP_STATUS } from '../../../src/lib/constants';
 import { DIST_TAGS } from '../../../src/lib/constants';
-import { createTarballHash } from '../../../src/lib/crypto-utils';
 import { DOMAIN_SERVERS, PORT_SERVER_1, TARBALL } from '../config.functional';
 import generatePkg from '../fixtures/package';
 import { readFile } from '../lib/test.utils';
