@@ -1,5 +1,12 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.23
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+
 ## 6.0.0-6-next.22
 
 ### Minor Changes

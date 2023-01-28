@@ -1,5 +1,22 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.35
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/tarball@11.0.0-6-next.24
+  - @verdaccio/url@11.0.0-6-next.21
+  - @verdaccio/utils@6.0.0-6-next.23
+  - @verdaccio/hooks@6.0.0-6-next.25
+  - @verdaccio/loaders@6.0.0-6-next.24
+  - @verdaccio/local-storage@11.0.0-6-next.25
+  - @verdaccio/proxy@6.0.0-6-next.33
+  - @verdaccio/logger@6.0.0-6-next.23
+
 ## 6.0.0-6-next.34
 
 ### Patch Changes

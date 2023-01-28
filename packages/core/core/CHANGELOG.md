@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.55
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+
 ## 6.0.0-6-next.54
 
 ### Minor Changes
