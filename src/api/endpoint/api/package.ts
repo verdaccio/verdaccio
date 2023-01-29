@@ -83,7 +83,16 @@ export default function (
         if (err) {
           return next(err);
         }
-        metadata = convertDistRemoteToLocalTarballUrls(metadata, req, config.url_prefix);
+        metadata = convertDistRemoteToLocalTarballUrls(
+          metadata,
+          {
+            protocol: req.protocol,
+            headers: req.headers as any,
+            host: req.host,
+            remoteAddress: req.socket.remoteAddress,
+          },
+          config.url_prefix
+        );
 
         let queryVersion = req.params.version;
         if (_.isNil(queryVersion)) {

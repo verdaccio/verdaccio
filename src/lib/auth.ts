@@ -343,6 +343,7 @@ class Auth implements IAuth {
       };
 
       if (this._isRemoteUserValid(req.remote_user)) {
+        // @ts-ignore
         return next();
       }
 
@@ -351,6 +352,7 @@ class Auth implements IAuth {
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
+        // @ts-ignore
         return next();
       }
 
@@ -458,6 +460,7 @@ class Auth implements IAuth {
 
       const { authorization } = req.headers;
       if (_.isNil(authorization)) {
+        // @ts-ignore
         return next();
       }
 
@@ -467,6 +470,7 @@ class Auth implements IAuth {
 
       const token = (authorization || '').replace(`${TOKEN_BEARER} `, '');
       if (!token) {
+        // @ts-ignore
         return next();
       }
 
@@ -483,7 +487,7 @@ class Auth implements IAuth {
       } else {
         req.remote_user = createAnonymousRemoteUser();
       }
-
+      // @ts-ignore
       next();
     };
   }

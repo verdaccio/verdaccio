@@ -11,6 +11,7 @@ export default (app: Application, selfPath: string): void => {
       const doGarbabeCollector = _.isNil(global.gc) === false;
 
       if (doGarbabeCollector) {
+        // @ts-ignore
         global.gc();
       }
 

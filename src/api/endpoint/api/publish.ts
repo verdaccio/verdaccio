@@ -11,13 +11,7 @@ import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../.
 import { logger } from '../../../lib/logger';
 import { notify } from '../../../lib/notify';
 import { isPublishablePackage } from '../../../lib/storage-utils';
-import {
-  ErrorCode,
-  hasDiffOneKey,
-  isObject,
-  isRelatedToDeprecation,
-  validateMetadata,
-} from '../../../lib/utils';
+import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation } from '../../../lib/utils';
 import {
   $NextFunctionVer,
   $RequestExtend,

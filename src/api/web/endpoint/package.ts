@@ -81,7 +81,7 @@ function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config)
                   pkgCopy.dist.tarball = getLocalRegistryTarballUri(
                     pkgCopy.dist.tarball,
                     pkg.name,
-                    req,
+                    { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
                     config.url_prefix
                   );
                 }
@@ -158,7 +158,7 @@ function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config)
             let sideBarInfo: any = _.clone(info);
             sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
               info,
-              req,
+              { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
               config.url_prefix
             ).versions;
             if (isVersionValid(info, v)) {

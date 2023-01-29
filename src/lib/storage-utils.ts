@@ -201,7 +201,7 @@ export function mergeUplinkTimeIntoLocal(cacheManifest: Manifest, remoteManifest
   return cacheManifest;
 }
 
-export function prepareSearchPackage(data: Manifest): any {
+export function prepareSearchPackage(data: Manifest, time: unknown): any {
   const latest = pkgUtils.getLatest(data);
 
   if (latest && data.versions[latest]) {
@@ -217,6 +217,9 @@ export function prepareSearchPackage(data: Manifest): any {
       readmeFilename: version.readmeFilename || '',
       homepage: version.homepage,
       keywords: version.keywords,
+      time: {
+        modified: time,
+      },
       bugs: version.bugs,
       license: version.license,
       versions,
