@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
-import { match, validateName, validatePackage } from '@verdaccio/middleware';
+import { validateName, validatePackage } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config } from '@verdaccio/types';
 
@@ -17,7 +17,6 @@ export function webAPI(config: Config, auth: Auth, storage: Storage): Router {
   route.param('package', validatePackage);
   route.param('filename', validateName);
   route.param('version', validateName);
-  route.param('anything', match(/.*/));
   route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
   route.use(setSecurityWebHeaders);
