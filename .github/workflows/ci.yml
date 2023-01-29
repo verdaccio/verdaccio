@@ -29,6 +29,8 @@ jobs:
       run: yarn lint        
     - name: Build
       run: yarn build
+    - name: Types
+      run: yarn code:types            
     - name: Test
       ## jest does not support node 12
       if: "!contains(matrix.node_version, '12')"
