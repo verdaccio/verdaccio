@@ -17,11 +17,8 @@ export function antiLoop(config: Config): Function {
           // the "via" header must contains an specific headers, this has to be on sync
           // with the proxy request
           // match eg: Server 1 or Server 2
-          const m = arr[i]
-            // removes all leading and trailing whitespace
-            .replace(/^\s+|\s+$/g, '')
-            .trim()
-            .match(/\s*(\S+)\s+(\S+)/);
+          // TODO: improve this RegEX
+          const m = arr[i].trim().match(/\s*(\S+)\s+(\S+)/);
           if (m && m[2] === config.server_id) {
             return next(errorUtils.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
           }
