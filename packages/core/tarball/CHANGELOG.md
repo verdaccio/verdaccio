@@ -1,5 +1,14 @@
 # Change Log
 
+## 11.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/url@11.0.0-6-next.22
+
 ## 11.0.0-6-next.24
 
 ### Patch Changes

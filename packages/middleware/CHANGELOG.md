@@ -1,5 +1,18 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.35
+
+### Minor Changes
+
+- a1986e09: feat: expose middleware utils
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/logger@6.0.0-6-next.24
+
 ## 6.0.0-6-next.34
 
 ### Patch Changes
