@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.24
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.56
+
 ## 6.0.0-6-next.23
 
 ### Patch Changes
