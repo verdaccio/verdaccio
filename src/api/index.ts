@@ -3,11 +3,13 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { final } from '@verdaccio/middleware';
+import { log } from '@verdaccio/middleware';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
 
 import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
-import { API_ERROR, HTTP_STATUS } from '../lib/constants';
+import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
@@ -21,7 +23,7 @@ import {
 } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
-import { errorReportingMiddleware, final, handleError, log, serveFavicon } from './middleware';
+import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
 import web from './web';
 import webAPI from './web/api';
 
@@ -42,7 +44,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   app.use(cors());
 
   // Router setup
-  app.use(log(config));
+  app.use(log(logger));
   app.use(errorReportingMiddleware);
   if (config.user_agent) {
     app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {

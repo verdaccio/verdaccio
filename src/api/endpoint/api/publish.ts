@@ -5,6 +5,7 @@ import mime from 'mime';
 import Path from 'path';
 
 import { validatioUtils } from '@verdaccio/core';
+import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -19,7 +20,6 @@ import {
   IAuth,
   IStorageHandler,
 } from '../../../types';
-import { allow, expectJson, media } from '../../middleware';
 import star from './star';
 
 const debug = buildDebug('verdaccio:publish');
@@ -30,7 +30,10 @@ export default function publish(
   storage: IStorageHandler,
   config: Config
 ): void {
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (params, message) => logger.trace(params, message),
+    afterAll: (params, message) => logger.trace(params, message),
+  });
 
   /**
    * Publish a package / update package / un/start a package

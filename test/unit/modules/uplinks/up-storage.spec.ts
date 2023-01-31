@@ -7,11 +7,10 @@ import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { IProxy } from '../../../types';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
-setup([]);
+setup({});
 
 describe('UpStorge', () => {
   const mockServerPort = 55547;
@@ -155,7 +154,7 @@ describe('UpStorge', () => {
         tarBallUrl = `${url}/artifactory/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz`
       ) => {
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         return proxy.isUplinkValid(tarBallUrl);
       };
@@ -205,7 +204,7 @@ describe('UpStorge', () => {
         const url = 'https://artifactory.mydomain.com';
         const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
@@ -215,7 +214,7 @@ describe('UpStorge', () => {
         const url = 'https://domain';
         const tarBallUrl = 'https://localhost/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
@@ -225,7 +224,7 @@ describe('UpStorge', () => {
         const url = 'http://localhost:5001';
         const tarBallUrl = 'https://localhost:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
@@ -236,7 +235,7 @@ describe('UpStorge', () => {
         const tarBallUrl =
           'https://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });
@@ -246,7 +245,7 @@ describe('UpStorge', () => {
         const url = 'https://subdomain.my:5001';
         const tarBallUrl = 'http://subdomain.domain:4000/api/npm/npm/pk1-juan/-/pk1-juan-1.0.7.tgz';
         const uplinkConf = { url };
-        const proxy: IProxy = generateProxy(uplinkConf);
+        const proxy: any = generateProxy(uplinkConf);
 
         expect(proxy.isUplinkValid(tarBallUrl)).toBe(false);
       });

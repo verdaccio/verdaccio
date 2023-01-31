@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
+import { logger } from '../../../lib/logger';
 import { ErrorCode, getVersion } from '../../../lib/utils';
 import {
   $NextFunctionVer,
@@ -14,7 +16,6 @@ import {
   IStorageHandler,
 } from '../../../types';
 import { getByQualityPriorityValue } from '../../../utils/string';
-import { allow } from '../../middleware';
 
 const downloadStream = (
   packageName: string,
@@ -71,7 +72,10 @@ export default function (
   storage: IStorageHandler,
   config: Config
 ): void {
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (params, message) => logger.trace(params, message),
+    afterAll: (params, message) => logger.trace(params, message),
+  });
   // TODO: anonymous user?
   route.get(
     '/:package/:version?',

@@ -5,9 +5,10 @@ import os from 'os';
 import path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
+import { final } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
-import { errorReportingMiddleware, final, handleError } from '../../src/api/middleware';
+import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
 import Auth from '../../src/lib/auth';
 import Config from '../../src/lib/config';
 
