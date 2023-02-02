@@ -37,8 +37,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   app.use(limiter);
 
   // Router setup
-  app.use(log);
-  app.use(errorReportingMiddleware);
+  app.use(log(logger));
+  app.use(errorReportingMiddleware(logger));
   app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     res.setHeader('x-powered-by', getUserAgent(config.user_agent));
     next();
@@ -111,7 +111,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
       if (_.isFunction(res.locals.report_error) === false) {
         // in case of very early error this middleware may not be loaded before error is generated
         // fixing that
-        errorReportingMiddleware(req, res, _.noop);
+        errorReportingMiddleware(logger)(req, res, _.noop);
       }
       res.locals.report_error(err);
     } else {

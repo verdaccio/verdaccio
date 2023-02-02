@@ -7,6 +7,7 @@ import path from 'path';
 import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
@@ -31,7 +32,7 @@ export async function initializeServer(
   // TODO: this might not be need it, used in apiEndpoints
   app.use(bodyParser.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
-  app.use(errorReportingMiddleware);
+  app.use(errorReportingMiddleware(logger));
   for (let route of routesMiddleware) {
     if (route.async) {
       const middleware = await route.routes(config, auth, storage);
@@ -47,7 +48,7 @@ export async function initializeServer(
   });
 
   // @ts-ignore
-  app.use(handleError);
+  app.use(handleError(logger));
   // @ts-ignore
   app.use(final);
 
