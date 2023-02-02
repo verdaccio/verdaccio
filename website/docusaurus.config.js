@@ -252,7 +252,7 @@ module.exports = {
       },
     },
     navbar: {
-      title: `Verdaccio - v${pkgJson.version}`,
+      title: `Verdaccio - v5.x`,
       logo: {
         alt: 'Verdaccio Logo',
         src: 'img/logo/uk/verdaccio-tiny-uk-no-bg.svg',
