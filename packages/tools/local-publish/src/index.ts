@@ -12,7 +12,7 @@ fileUtils
       logs: { level: 'info', type: 'stdout', format: 'pretty' },
       uplinks: {},
       packages: {},
-      self_path: folderPath,
+      configPath: folderPath,
     })
       .addUplink('npmjs', { url: 'https://registry.npmjs.org' })
       .addPackageAccess('@verdaccio/*', {
