@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- 9943e2b1: fix: extract logger from middleware
+  - @verdaccio/core@6.0.0-6-next.57
+  - @verdaccio/utils@6.0.0-6-next.25
+
 ## 6.0.0-6-next.35
 
 ### Minor Changes

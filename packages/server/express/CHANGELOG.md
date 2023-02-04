@@ -1,5 +1,23 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.46
+
+### Patch Changes
+
+- 9943e2b1: fix: extract logger from middleware
+- Updated dependencies [9943e2b1]
+  - @verdaccio/middleware@6.0.0-6-next.36
+  - @verdaccio/api@6.0.0-6-next.40
+  - @verdaccio/web@6.0.0-6-next.44
+  - @verdaccio/store@6.0.0-6-next.37
+  - @verdaccio/core@6.0.0-6-next.57
+  - @verdaccio/config@6.0.0-6-next.57
+  - @verdaccio/auth@6.0.0-6-next.36
+  - @verdaccio/loaders@6.0.0-6-next.26
+  - @verdaccio/logger@6.0.0-6-next.25
+  - verdaccio-audit@11.0.0-6-next.20
+  - @verdaccio/utils@6.0.0-6-next.25
+
 ## 6.0.0-6-next.45
 
 ### Patch Changes
