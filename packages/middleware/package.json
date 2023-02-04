@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "6.0.0-6-next.35",
+  "version": "6.0.0-6-next.36",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -38,8 +38,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.56",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.24",
+    "@verdaccio/core": "workspace:6.0.0-6-next.57",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.25",
     "debug": "4.3.4",
     "lodash": "4.17.21",
     "mime": "2.6.0"
@@ -49,7 +49,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:6.0.0-6-next.24",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.25",
     "body-parser": "1.20.1",
     "supertest": "6.3.3"
   }

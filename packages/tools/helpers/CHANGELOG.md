@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-6-next.7
+
+### Patch Changes
+
+- 9943e2b1: fix: extract logger from middleware
+
 ## 2.0.0-6-next.6
 
 ### Minor Changes
