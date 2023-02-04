@@ -157,7 +157,8 @@
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download --verbose",
     "postinstall": "husky install",
     "local:registry": "pnpm start --filter ...@verdaccio/local-publish",
-    "local:publish": "cross-env npm_config_registry=http://localhost:4873 pnpm ci:publish",
+    "local:snapshots": "changeset version --snapshot",
+    "local:publish": "cross-env npm_config_registry=http://localhost:4873 pnpm ci:publish -- --no-git-tag",
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
   },
   "pnpm": {
