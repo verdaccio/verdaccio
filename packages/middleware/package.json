@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "6.0.0-6-next.36",
+  "version": "6.0.0-6-next.35",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
