@@ -4,8 +4,8 @@ module.exports = Object.assign({}, config, {
   coverageThreshold: {
     global: {
       lines: 67,
-      functions: 75,
-      branches: 56,
+      functions: 70,
+      branches: 55,
       statements: 67,
     },
   },

@@ -93,7 +93,10 @@ const debug = buildDebug('verdaccio:api:publish');
    *
    */
 export default function publish(router: Router, auth: Auth, storage: Storage): void {
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (a, b) => logger.trace(a, b),
+    afterAll: (a, b) => logger.trace(a, b),
+  });
   router.put(
     '/:package',
     can('publish'),

@@ -1,3 +1,4 @@
+import pino from 'pino';
 import { Writable } from 'stream';
 
 import { createLogger } from '../src';
@@ -13,7 +14,7 @@ describe('logger test', () => {
           callback();
         },
       });
-      const logger = createLogger({ level: 'http' }, stream, 'json');
+      const logger = createLogger({ level: 'http' }, stream, 'json', pino);
       logger.info('test');
     });
   });

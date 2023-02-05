@@ -80,7 +80,9 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
         const externalFilePlugin = resolve(pluginDir, `${prefix}-${pluginId}`);
-        let plugin = tryLoad<T>(externalFilePlugin);
+        let plugin = tryLoad<T>(externalFilePlugin, (a: any, b: any) => {
+          logger.error(a, b);
+        });
         if (plugin && isValid(plugin)) {
           plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
           if (!sanityCheck(plugin)) {
@@ -106,7 +108,9 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       debug('is scoped plugin %s', isScoped);
       const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
       debug('plugin pkg name %s', pluginName);
-      let plugin = tryLoad<T>(pluginName);
+      let plugin = tryLoad<T>(pluginName, (a: any, b: any) => {
+        logger.error(a, b);
+      });
       if (plugin && isValid(plugin)) {
         plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
         if (!sanityCheck(plugin)) {

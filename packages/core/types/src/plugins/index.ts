@@ -1,1 +1,1 @@
-export * from './storage';
+export * from '@verdaccio/types/src/plugins/storage';

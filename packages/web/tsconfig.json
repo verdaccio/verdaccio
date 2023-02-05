@@ -14,9 +14,6 @@
       "path": "../config"
     },
     {
-      "path": "../core/readme"
-    },
-    {
       "path": "../core/tarball"
     },
     {
@@ -29,7 +26,7 @@
       "path": "../api"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../middleware"

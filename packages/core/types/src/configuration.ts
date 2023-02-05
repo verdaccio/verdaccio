@@ -1,4 +1,4 @@
-import { PackageAccess, PackageList } from './manifest';
+import { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 

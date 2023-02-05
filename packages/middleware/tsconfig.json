@@ -11,7 +11,7 @@
       "path": "../auth"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../utils"

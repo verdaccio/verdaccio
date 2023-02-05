@@ -2,7 +2,6 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { pluginUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 
 const debug = buildDebug('verdaccio:plugin:loader:utils');
 const MODULE_NOT_FOUND = 'MODULE_NOT_FOUND';
@@ -23,7 +22,7 @@ export function isES6<T>(plugin: PluginType<T>): boolean {
  * @param {*} path the module's path
  * @return {Object}
  */
-export function tryLoad<T>(path: string): PluginType<T> | null {
+export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
   try {
     debug('loading plugin %s', path);
     return require(path) as PluginType<T>;
@@ -32,7 +31,7 @@ export function tryLoad<T>(path: string): PluginType<T> | null {
       debug('plugin %s not found', path);
       return null;
     }
-    logger.error({ err: err.msg }, 'error loading plugin @{err}');
+    onError({ err: err.msg }, 'error loading plugin @{err}');
     throw err;
   }
 }

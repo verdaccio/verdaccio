@@ -7,16 +7,10 @@
   "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../../core/file-locking"
+      "path": "../logger-prettify"
     },
     {
-      "path": "../../config"
-    },
-    {
-      "path": "../../logger/logger"
-    },
-    {
-      "path": "../../core/core"
+      "path": "../logger-commons"
     }
   ]
 }

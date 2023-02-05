@@ -3,6 +3,7 @@ import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
@@ -28,7 +29,10 @@ const getReadme = (readme) => {
 
 function addReadmeWebApi(storage: Storage, auth: Auth): Router {
   debug('initialized readme web api');
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (a, b) => logger.trace(a, b),
+    afterAll: (a, b) => logger.trace(a, b),
+  });
   const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   pkgRouter.get(

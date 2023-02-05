@@ -23,7 +23,7 @@
       "path": "../hooks"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../middleware"

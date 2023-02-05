@@ -15,7 +15,7 @@
       "path": "../core/core"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     }
   ]
 }

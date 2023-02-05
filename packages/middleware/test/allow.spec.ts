@@ -1,7 +1,7 @@
 import request from 'supertest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 
 import { allow } from '../src';
 import { getApp } from './helper';
@@ -9,11 +9,14 @@ import { getApp } from './helper';
 setup({});
 
 test('should allow request', async () => {
-  const can = allow({
-    allow_publish: (params, remove, cb) => {
-      return cb(null, true);
+  const can = allow(
+    {
+      allow_publish: (params, remove, cb) => {
+        return cb(null, true);
+      },
     },
-  });
+    logger
+  );
   const app = getApp([]);
   // @ts-ignore
   app.get('/:package', can('publish'), (req, res) => {
@@ -24,11 +27,14 @@ test('should allow request', async () => {
 });
 
 test('should allow scope request', async () => {
-  const can = allow({
-    allow_publish: (params, remove, cb) => {
-      return cb(null, true);
+  const can = allow(
+    {
+      allow_publish: (params, remove, cb) => {
+        return cb(null, true);
+      },
     },
-  });
+    logger
+  );
   const app = getApp([]);
   // @ts-ignore
   app.get('/:package/:scope', can('publish'), (req, res) => {
@@ -39,11 +45,14 @@ test('should allow scope request', async () => {
 });
 
 test('should allow filename request', async () => {
-  const can = allow({
-    allow_publish: (params, remove, cb) => {
-      return cb(null, true);
+  const can = allow(
+    {
+      allow_publish: (params, remove, cb) => {
+        return cb(null, true);
+      },
     },
-  });
+    logger
+  );
   const app = getApp([]);
   // @ts-ignore
   app.get('/:filename', can('publish'), (req, res) => {
@@ -54,11 +63,14 @@ test('should allow filename request', async () => {
 });
 
 test('should not allow request', async () => {
-  const can = allow({
-    allow_publish: (params, remove, cb) => {
-      return cb(null, false);
+  const can = allow(
+    {
+      allow_publish: (params, remove, cb) => {
+        return cb(null, false);
+      },
     },
-  });
+    logger
+  );
   const app = getApp([]);
   // @ts-ignore
   app.get('/sec', can('publish'), (req, res) => {
@@ -69,11 +81,14 @@ test('should not allow request', async () => {
 });
 
 test('should handle error request', async () => {
-  const can = allow({
-    allow_publish: (params, remove, cb) => {
-      return cb(Error('foo error'));
+  const can = allow(
+    {
+      allow_publish: (params, remove, cb) => {
+        return cb(Error('foo error'));
+      },
     },
-  });
+    logger
+  );
   const app = getApp([]);
   // @ts-ignore
   app.get('/err', can('publish'));

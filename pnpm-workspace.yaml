@@ -4,6 +4,7 @@ packages:
   - packages/tools/*
   - packages/ui/*
   - packages/server/*
+  - packages/logger/*
   - packages/plugins/audit
   - packages/plugins/auth-memory
   - packages/plugins/htpasswd

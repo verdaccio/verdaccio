@@ -20,7 +20,7 @@
       "path": "../loaders"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../utils"
