@@ -22,4 +22,4 @@
 '@verdaccio/logger-commons': minor
 ---
 
-feat: refacor logger
+feat: refactor logger

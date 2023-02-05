@@ -54,7 +54,9 @@
     "@verdaccio/e2e-cli-npm9": "1.0.1-6-next.5",
     "@verdaccio/e2e-ui": "2.0.0-6-next.3",
     "customprefix-auth": "0.0.1",
-    "@verdaccio/crowdin-translations": "1.0.0"
+    "@verdaccio/crowdin-translations": "1.0.0",
+    "@verdaccio/logger-7": "6.0.0-6-next.1",
+    "@verdaccio/logger-commons": "6.0.0-6-next.25"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -82,6 +84,7 @@
     "few-cooks-destroy",
     "few-mangos-grow",
     "fifty-jars-rest",
+    "fifty-stingrays-fold",
     "fluffy-papayas-lay",
     "four-ways-try",
     "fuzzy-drinks-taste",
