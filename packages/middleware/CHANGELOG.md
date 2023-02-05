@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.37
+
+### Patch Changes
+
+- fa274ee4: chore: bumb up package
+  - @verdaccio/core@6.0.0-6-next.58
+  - @verdaccio/utils@6.0.0-6-next.26
+
 ## 6.0.0-6-next.36
 
 ### Patch Changes
