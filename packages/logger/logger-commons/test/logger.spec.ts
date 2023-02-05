@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
+import pino from 'pino';
 import { setTimeout } from 'timers/promises';
 
 import { fileUtils } from '@verdaccio/core';
@@ -27,7 +28,7 @@ describe('logger test', () => {
   describe('basic', () => {
     test('should include default level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({ type: 'file', path: file, colors: false });
+      const logger = prepareSetup({ type: 'file', path: file, colors: false }, pino);
       logger.info({ packageName: 'test' }, `testing @{packageName}`);
       // Note: this should not be logged
       logger.debug(`this should not be logged`);
@@ -40,7 +41,10 @@ describe('logger test', () => {
 
     test('should include all logging level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({ type: 'file', level: 'trace', path: file, colors: false });
+      const logger = prepareSetup(
+        { type: 'file', level: 'trace', path: file, colors: false },
+        pino
+      );
       logger.info({ packageName: 'test' }, `testing @{packageName}`);
       logger.debug(`this should not be logged`);
       logger.trace(`this should not be logged`);
@@ -55,13 +59,16 @@ describe('logger test', () => {
   describe('json format', () => {
     test('should log into a file with json format', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({
-        ...defaultOptions,
-        format: 'json',
-        type: 'file',
-        path: file,
-        level: 'info',
-      });
+      const logger = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+        },
+        pino
+      );
       logger.info(
         { packageName: 'test' },
         `publishing or updating a new version for @{packageName}`
@@ -79,13 +86,16 @@ describe('logger test', () => {
   describe('pretty format', () => {
     test('should log into a file with pretty', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({
-        format: 'pretty',
-        type: 'file',
-        path: file,
-        level: 'trace',
-        colors: false,
-      });
+      const logger = prepareSetup(
+        {
+          format: 'pretty',
+          type: 'file',
+          path: file,
+          level: 'trace',
+          colors: false,
+        },
+        pino
+      );
       logger.info(
         { packageName: 'test' },
         `publishing or updating a new version for @{packageName}`
@@ -96,13 +106,16 @@ describe('logger test', () => {
 
     test('should log into a file with pretty-timestamped', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({
-        format: 'pretty-timestamped',
-        type: 'file',
-        path: file,
-        level: 'trace',
-        colors: false,
-      });
+      const logger = prepareSetup(
+        {
+          format: 'pretty-timestamped',
+          type: 'file',
+          path: file,
+          level: 'trace',
+          colors: false,
+        },
+        pino
+      );
       logger.info(
         { packageName: 'test' },
         `publishing or updating a new version for @{packageName}`

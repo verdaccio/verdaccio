@@ -14,7 +14,7 @@
       "path": "../config"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     }
   ]
 }

@@ -3,6 +3,7 @@ import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 
@@ -11,8 +12,10 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/cust
 const debug = buildDebug('verdaccio:api:package');
 
 export default function (route: Router, auth: Auth, storage: Storage): void {
-  const can = allow(auth);
-
+  const can = allow(auth, {
+    beforeAll: (a, b) => logger.trace(a, b),
+    afterAll: (a, b) => logger.trace(a, b),
+  });
   route.get(
     '/:package/:version?',
     can('access'),

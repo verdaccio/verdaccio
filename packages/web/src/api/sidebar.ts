@@ -3,6 +3,7 @@ import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
+import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
@@ -21,7 +22,10 @@ const debug = buildDebug('verdaccio:web:api:sidebar');
 function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router {
   debug('initialized sidebar web api');
   const router = Router(); /* eslint new-cap: 0 */
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (a, b) => logger.trace(a, b),
+    afterAll: (a, b) => logger.trace(a, b),
+  });
   // Get package readme
   router.get(
     '/sidebar/(@:scope/)?:package',

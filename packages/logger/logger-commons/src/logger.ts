@@ -1,7 +1,6 @@
 // <reference types="node" />
 import { isColorSupported } from 'colorette';
 import buildDebug from 'debug';
-import pino from 'pino';
 
 import { fillInMsgTemplate } from '@verdaccio/logger-prettify';
 import { Logger, LoggerConfigItem, LoggerFormat } from '@verdaccio/types';
@@ -33,7 +32,8 @@ export function createLogger(
   // eslint-disable-next-line no-undef
   // @ts-ignore
   destination: NodeJS.WritableStream = pino.destination(1),
-  format: LoggerFormat = DEFAULT_LOG_FORMAT
+  format: LoggerFormat = DEFAULT_LOG_FORMAT,
+  pino
 ): any {
   debug('setup logger');
   let pinoConfig = {
@@ -109,7 +109,7 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
 
 export type LoggerConfig = LoggerConfigItem;
 
-export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
+export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pino) {
   let logger: Logger;
   let loggerConfig = options;
   if (!loggerConfig?.level) {
@@ -133,7 +133,8 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
       { level: loggerConfig.level, path: loggerConfig.path, colors: loggerConfig.colors },
       // @ts-ignore
       destination,
-      loggerConfig.format
+      loggerConfig.format,
+      pino
     );
     return logger;
   } else {
@@ -143,7 +144,8 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
       { level: loggerConfig.level, colors: loggerConfig.colors },
       // @ts-ignore
       pino.destination(1),
-      loggerConfig.format
+      loggerConfig.format,
+      pino
     );
     return logger;
   }
@@ -151,11 +153,11 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF) {
 
 export let logger: Logger;
 
-export function setup(options: LoggerConfigItem) {
+export function setup(options: LoggerConfigItem, pino) {
   if (typeof logger !== 'undefined') {
     return logger;
   }
 
-  logger = prepareSetup(options);
+  logger = prepareSetup(options, pino);
   return logger;
 }

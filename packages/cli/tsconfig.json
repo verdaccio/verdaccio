@@ -20,7 +20,7 @@
       "path": "../node-api"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     }
   ]
 }
