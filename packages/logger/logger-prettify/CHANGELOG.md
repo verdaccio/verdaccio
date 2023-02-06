@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 6.0.0-6-next.9
+
+### Patch Changes
+
+- 65f88b82: bump logger packages
+
 ## 6.0.0-6-next.8
 
 ### Minor Changes
