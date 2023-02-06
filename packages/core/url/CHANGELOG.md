@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.25
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.59
+
 ## 11.0.0-6-next.24
 
 ### Patch Changes

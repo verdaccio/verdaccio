@@ -1,5 +1,13 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- 65f88b82: bump logger packages
+  - @verdaccio/core@6.0.0-6-next.59
+  - @verdaccio/utils@6.0.0-6-next.27
+
 ## 6.0.0-6-next.37
 
 ### Patch Changes
