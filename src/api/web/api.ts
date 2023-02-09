@@ -1,11 +1,11 @@
 import bodyParser from 'body-parser';
 import { Router } from 'express';
 
+import { setSecurityWebHeaders, validateName, validatePackage } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 
 import Search from '../../lib/search';
 import { IAuth, IStorageHandler } from '../../types';
-import { match, setSecurityWebHeaders, validateName, validatePackage } from '../middleware';
 import webApi from './endpoint';
 
 const route = Router(); /* eslint new-cap: 0 */
@@ -20,7 +20,6 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler):
   route.param('package', validatePackage);
   route.param('filename', validateName);
   route.param('version', validateName);
-  route.param('anything', match(/.*/));
 
   route.use(bodyParser.urlencoded({ extended: false }));
   route.use(auth.webUIJWTmiddleware());
