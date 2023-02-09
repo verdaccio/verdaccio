@@ -20,7 +20,7 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 ## Default config file location {#default-config-file-location}
 
-To locate the home directory, we rely on **$XDG_DATA_HOME** as a first choice and for Windows environments we look for the [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
+To locate the home directory, verdaccio relies on **$XDG_DATA_HOME** as a first choice and for Windows environments we look for the [APPDATA environment variable](https://www.howtogeek.com/318177/what-is-the-appdata-folder-in-windows/).
 
 ## Config file format {#config-file-format}
 
