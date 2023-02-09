@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4968,
+      "contributions": 4969,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2682
+          "contributions": 2683
         },
         {
           "name": "verdaccio-cookbook",
@@ -4762,7 +4762,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14398,
+      "stargazers_count": 14405,
       "archived": false
     },
     {
@@ -4888,7 +4888,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 69,
+      "stargazers_count": 71,
       "archived": false
     },
     {
@@ -5041,7 +5041,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 42,
+      "stargazers_count": 43,
       "archived": false
     },
     {
