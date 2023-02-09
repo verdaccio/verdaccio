@@ -13,7 +13,7 @@ import Search from '../../lib/search';
 import { isHTTPProtocol } from '../../lib/utils';
 import renderHTML from './html/renderHTML';
 
-const { setSecurityWebHeaders } = require('../middleware');
+const { setSecurityWebHeaders } = require('@verdaccio/middleware');
 
 const debug = buildDebug('verdaccio');
 
