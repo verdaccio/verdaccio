@@ -54,7 +54,7 @@ jobs:
         with:
           node-version: 18.x
       - name: 'install npm 9'
-        run: npm i -g npm@latest-9
+        run: npm i -g npm@9.4.2
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
