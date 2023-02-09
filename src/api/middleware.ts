@@ -5,41 +5,13 @@ import _ from 'lodash';
 import path from 'path';
 import validator from 'validator';
 
-import { Config, Package, RemoteUser } from '@verdaccio/types';
-import { stringToMD5 } from '@verdaccio/utils';
-import {
-  validateName as utilValidateName,
-  validatePackage as utilValidatePackage,
-} from '@verdaccio/utils';
+import { Config, Package } from '@verdaccio/types';
 
-import {
-  API_ERROR,
-  HEADERS,
-  HEADER_TYPE,
-  HTTP_STATUS,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-} from '../lib/constants';
+import { API_ERROR, HTTP_STATUS } from '../lib/constants';
 import { logger } from '../lib/logger';
-import { ErrorCode, getVersionFromTarball, isObject } from '../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio');
-
-export function match(regexp: RegExp): any {
-  return function (
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer,
-    value: string
-  ): void {
-    if (regexp.exec(value)) {
-      next();
-    } else {
-      next('route');
-    }
-  };
-}
 
 export function serveFavicon(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -86,114 +58,6 @@ export function serveFavicon(config: Config) {
   };
 }
 
-export function setSecurityWebHeaders(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
-  // disable loading in frames (clickjacking, etc.)
-  res.header(HEADERS.FRAMES_OPTIONS, 'deny');
-  // avoid stablish connections outside of domain
-  res.header(HEADERS.CSP, "connect-src 'self'");
-  // https://stackoverflow.com/questions/18337630/what-is-x-content-type-options-nosniff
-  res.header(HEADERS.CTO, 'nosniff');
-  // https://stackoverflow.com/questions/9090577/what-is-the-http-header-x-xss-protection
-  res.header(HEADERS.XSS, '1; mode=block');
-  next();
-}
-
-// flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validateName(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
-  if (value === '-') {
-    // special case in couchdb usually
-    next('route');
-  } else if (utilValidateName(value)) {
-    next();
-  } else {
-    next(ErrorCode.getForbidden('invalid ' + name));
-  }
-}
-
-// flow: express does not match properly
-// flow info https://github.com/flowtype/flow-typed/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+express
-export function validatePackage(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
-  if (value === '-') {
-    // special case in couchdb usually
-    next('route');
-  } else if (utilValidatePackage(value)) {
-    next();
-  } else {
-    next(ErrorCode.getForbidden('invalid ' + name));
-  }
-}
-
-export function media(expect: string | null): any {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    if (req.headers[HEADER_TYPE.CONTENT_TYPE] !== expect) {
-      next(
-        ErrorCode.getCode(
-          HTTP_STATUS.UNSUPPORTED_MEDIA,
-          'wrong content-type, expect: ' + expect + ', got: ' + req.get(HEADER_TYPE.CONTENT_TYPE)
-        )
-      );
-    } else {
-      next();
-    }
-  };
-}
-
-export function encodeScopePackage(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
-  if (req.url.indexOf('@') !== -1) {
-    // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
-    req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
-  }
-  next();
-}
-
-export function expectJson(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
-  if (!isObject(req.body)) {
-    return next(ErrorCode.getBadRequest("can't parse incoming json"));
-  }
-  next();
-}
-
-export function antiLoop(config: Config): Function {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    if (req?.headers?.via != null) {
-      const arr = req.headers.via.split(',');
-
-      for (let i = 0; i < arr.length; i++) {
-        const m = arr[i].match(/\s*(\S+)\s+(\S+)/);
-        if (m && m[2] === config.server_id) {
-          return next(ErrorCode.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
-        }
-      }
-    }
-    next();
-  };
-}
-
 export function handleError(
   err: HttpError,
   req: $RequestExtend,
@@ -219,41 +83,6 @@ export function handleError(
     debug('no error to report, jump next layer');
     return next(err);
   }
-}
-
-export function allow(auth: IAuth): Function {
-  return function (action: string): Function {
-    return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      req.pause();
-      const packageName = req.params.scope
-        ? `@${req.params.scope}/${req.params.package}`
-        : req.params.package;
-      let packageVersion: string | undefined = undefined;
-      if (req.params.filename) {
-        packageVersion = getVersionFromTarball(req.params.filename) || undefined;
-      } else if (typeof req.body.versions === 'object') {
-        packageVersion = Object.keys(req.body.versions)[0];
-      }
-      const remote: RemoteUser = req.remote_user;
-      debug('[middleware/allow][%o] allow for %o', action, remote?.name);
-      auth['allow_' + action](
-        { packageName, packageVersion },
-        remote,
-        function (error, allowed): void {
-          req.resume();
-          if (error) {
-            next(error);
-          } else if (allowed) {
-            next();
-          } else {
-            // last plugin (that's our built-in one) returns either
-            // cb(err) or cb(null, true), so this should never happen
-            throw ErrorCode.getInternalError(API_ERROR.PLUGIN_ERROR);
-          }
-        }
-      );
-    };
-  };
 }
 
 export interface MiddlewareError {
