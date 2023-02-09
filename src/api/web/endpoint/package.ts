@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
@@ -28,7 +29,6 @@ import {
   IAuth,
   IStorageHandler,
 } from '../../../types';
-import { allow } from '../../middleware';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
@@ -37,7 +37,12 @@ const getOrder = (order = 'asc') => {
 export type PackcageExt = Package & { author: any; dist?: { tarball: string } };
 
 function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config): Router {
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (params, message) => {
+      logger.debug(params, message);
+    },
+    afterAll: (params, message) => logger.debug(params, message),
+  });
   const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   const checkAllow = (name, remoteUser): Promise<boolean> =>

@@ -10,7 +10,6 @@ import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { IStorageHandler } from '../../../types';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
@@ -35,7 +34,7 @@ const generateStorage = async function (port = mockServerPort) {
   );
 
   const config: Config = new AppConfig(storageConfig);
-  const store: IStorageHandler = new Storage(config);
+  const store: any = new Storage(config);
   await store.init(config, []);
 
   return store;
@@ -73,7 +72,7 @@ const generateSameUplinkStorage = async function (port = mockServerPort) {
   );
 
   const config: Config = new AppConfig(storageConfig);
-  const store: IStorageHandler = new Storage(config);
+  const store: any = new Storage(config);
   await store.init(config, []);
 
   return store;
@@ -102,14 +101,14 @@ describe('StorageTest', () => {
   });
 
   test('should be defined', async () => {
-    const storage: IStorageHandler = await generateStorage();
+    const storage: any = await generateStorage();
 
     expect(storage).toBeDefined();
   });
 
   describe('test getTarball', () => {
     test('should select right uplink given package.proxy for upstream tarballs', async () => {
-      const storage: IStorageHandler = await generateSameUplinkStorage();
+      const storage: any = await generateSameUplinkStorage();
       const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
       const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
 
@@ -153,7 +152,7 @@ describe('StorageTest', () => {
 
   describe('test _syncUplinksMetadata', () => {
     test('should fetch from uplink jquery metadata from registry', async () => {
-      const storage: IStorageHandler = await generateStorage();
+      const storage: any = await generateStorage();
 
       return new Promise((resolve) => {
         storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
@@ -166,7 +165,7 @@ describe('StorageTest', () => {
     });
 
     test('should fails on fetch from uplink non existing from registry', async () => {
-      const storage: IStorageHandler = await generateStorage();
+      const storage: any = await generateStorage();
 
       return new Promise((resolve) => {
         // @ts-ignore
@@ -181,7 +180,7 @@ describe('StorageTest', () => {
     });
 
     test('should fails on fetch from uplink corrupted pkg from registry', async () => {
-      const storage: IStorageHandler = await generateStorage();
+      const storage: any = await generateStorage();
 
       return new Promise((resolve) => {
         // @ts-ignore
@@ -196,7 +195,7 @@ describe('StorageTest', () => {
     });
 
     test('should not touch if the package exists and has no uplinks', async () => {
-      const storage: IStorageHandler = (await generateStorage()) as IStorageHandler;
+      const storage: any = (await generateStorage()) as any;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
 

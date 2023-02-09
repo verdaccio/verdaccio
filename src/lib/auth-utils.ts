@@ -13,7 +13,6 @@ import {
 } from '@verdaccio/types';
 import { buildUserBuffer } from '@verdaccio/utils';
 
-import { logger } from '../lib/logger';
 import {
   AuthMiddlewarePayload,
   AuthTokenHeader,
@@ -31,6 +30,7 @@ import {
   TOKEN_BEARER,
 } from './constants';
 import { aesDecrypt, verifyPayload } from './crypto-utils';
+import { logger } from './logger';
 import { ErrorCode, convertPayloadToBase64 } from './utils';
 
 const debug = buildDebug('verdaccio');

@@ -2,9 +2,11 @@ import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
 
+import { allow, media } from '@verdaccio/middleware';
 import { Package } from '@verdaccio/types';
 
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
+import { logger } from '../../../lib/logger';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -12,10 +14,12 @@ import {
   IAuth,
   IStorageHandler,
 } from '../../../types';
-import { allow, media } from '../../middleware';
 
 export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
-  const can = allow(auth);
+  const can = allow(auth, {
+    beforeAll: (params, message) => logger.trace(params, message),
+    afterAll: (params, message) => logger.trace(params, message),
+  });
   const tag_package_version = function (
     req: $RequestExtend,
     res: $ResponseExtend,
