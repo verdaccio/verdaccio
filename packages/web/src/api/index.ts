@@ -23,7 +23,6 @@ export default (auth, storage, config) => {
   route.use('/data/', search(storage, auth));
   route.use('/data/', sidebar(config, storage, auth));
   route.use('/data/', readme(storage, auth));
-  route.use('/sec/', rateLimit(config?.userRateLimit));
   if (hasLogin(config)) {
     route.use('/sec/', user(auth, config));
   }
