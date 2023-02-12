@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import express from 'express';
 import _ from 'lodash';
 
-import renderMiddleware from '@verdaccio/web-middlewares';
+import { webMiddleware } from '@verdaccio/middleware';
 
 import loadPlugin from '../../lib/plugin-loader';
 import Search from '../../lib/search';
@@ -33,7 +33,7 @@ export default (config, auth, storage) => {
   const router = express.Router();
   // load application
   router.use(
-    renderMiddleware(
+    webMiddleware(
       config,
       {
         tokenMiddleware: auth.webUIJWTmiddleware(),

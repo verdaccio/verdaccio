@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 
 /**
@@ -25,9 +24,9 @@ export default class ExpressServer {
 
   public start(port: number): Promise<ExpressServer> {
     return new Promise((resolve) => {
-      this.app.use(bodyParser.json());
+      this.app.use(express.json());
       this.app.use(
-        bodyParser.urlencoded({
+        express.urlencoded({
           extended: true,
         })
       );
