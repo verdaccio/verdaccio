@@ -298,7 +298,7 @@ class Storage {
       let expected_length;
       const passThroughRemoteStream = new PassThrough();
       const proxy = this.getUpLinkForDistFile(name, distFile);
-      const remoteStream = proxy.fetchTarballNext(distFile.url, {});
+      const remoteStream = proxy.fetchTarball(distFile.url, {});
 
       remoteStream.on('request', async () => {
         try {
@@ -392,7 +392,7 @@ class Storage {
       }
 
       const proxy = this.getUpLinkForDistFile(name, distFile);
-      const remoteStream = proxy.fetchTarballNext(distFile.url, {});
+      const remoteStream = proxy.fetchTarball(distFile.url, {});
       remoteStream.on('response', async () => {
         try {
           const storage = this.getPrivatePackageStorage(name);
@@ -1732,7 +1732,7 @@ class Storage {
     });
 
     // get the latest metadata from the uplink
-    const [remoteManifest, etag] = await uplink.getRemoteMetadataNext(
+    const [remoteManifest, etag] = await uplink.getRemoteMetadata(
       _cacheManifest.name,
       remoteOptions
     );

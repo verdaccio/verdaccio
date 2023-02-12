@@ -10,7 +10,7 @@ import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { addGravatarSupport, formatAuthor, isVersionValid } from '@verdaccio/utils';
 
-import { AuthorAvatar, addScope, deleteProperties } from '../utils/web-utils';
+import { AuthorAvatar, addScope, deleteProperties } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

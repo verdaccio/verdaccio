@@ -1,4 +1,3 @@
-import { json as jsonParser } from 'body-parser';
 import express, { Express, Request, Response } from 'express';
 import https from 'https';
 import createHttpsProxyAgent from 'https-proxy-agent';
@@ -84,10 +83,10 @@ export default class ProxyAudit
     const router = express.Router();
     /* eslint new-cap:off */
 
-    router.post('/audits', jsonParser({ limit: '10mb' }), handleAudit);
-    router.post('/audits/quick', jsonParser({ limit: '10mb' }), handleAudit);
+    router.post('/audits', express.json({ limit: '10mb' }), handleAudit);
+    router.post('/audits/quick', express.json({ limit: '10mb' }), handleAudit);
 
-    router.post('/advisories/bulk', jsonParser({ limit: '10mb' }), handleAudit);
+    router.post('/advisories/bulk', express.json({ limit: '10mb' }), handleAudit);
 
     app.use('/-/npm/v1/security', router);
   }

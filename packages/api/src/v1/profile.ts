@@ -10,6 +10,7 @@ import {
   errorUtils,
   validatioUtils,
 } from '@verdaccio/core';
+import { rateLimit } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
@@ -41,6 +42,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
 
   route.get(
     '/-/npm/v1/user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name) === false) {
         return next(buildProfile(req.remote_user.name));
@@ -55,6 +57,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
 
   route.post(
     '/-/npm/v1/user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);

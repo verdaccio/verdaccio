@@ -252,6 +252,7 @@ export interface ConfigYaml {
   store?: any;
   listen?: ListenAddress;
   https?: HttpsConf;
+  user_agent?: string;
   http_proxy?: string;
   plugins?: string | void | null;
   https_proxy?: string;
@@ -264,6 +265,7 @@ export interface ConfigYaml {
   url_prefix?: string;
   server?: ServerSettingsConf;
   flags?: FlagsConfig;
+  userRateLimit?: RateLimit;
   // internal objects, added by internal yaml to JS config parser
   // @deprecated use configPath instead
   config_path?: string;
@@ -277,7 +279,6 @@ export interface ConfigYaml {
  * @extends {ConfigYaml}
  */
 export interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'configPath'> {
-  user_agent: string;
   server_id: string;
   secret: string;
   // save the configuration file path, it's fails without thi configPath

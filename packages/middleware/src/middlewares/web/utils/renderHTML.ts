@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import LRU from 'lru-cache';
+import path from 'path';
 import { URL } from 'url';
 
 import { WEB_TITLE } from '@verdaccio/config';
@@ -8,9 +9,8 @@ import { TemplateUIOptions } from '@verdaccio/types';
 import { getPublicUrl } from '@verdaccio/url';
 
 import renderTemplate from './template';
-import { hasLogin, validatePrimaryColor } from './utils/web-utils';
+import { hasLogin, validatePrimaryColor } from './web-utils';
 
-const pkgJSON = require('../package.json');
 const DEFAULT_LANGUAGE = 'es-US';
 const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
 
@@ -20,6 +20,26 @@ const defaultManifestFiles = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
   ico: 'favicon.ico',
 };
+
+/**
+ * Check if URI is starting with "http://", "https://" or "//"
+ * @param {string} uri
+ */
+export function isHTTPProtocol(uri: string): boolean {
+  return /^(https?:)?\/\//.test(uri);
+}
+
+export function resolveLogo(config, req) {
+  const isLocalFile = config?.web?.logo && !isHTTPProtocol(config?.web?.logo);
+
+  if (isLocalFile) {
+    return `${getPublicUrl(config?.url_prefix, req)}-/static/${path.basename(config?.web?.logo)}`;
+  } else if (isHTTPProtocol(config?.web?.logo)) {
+    return config?.web?.logo;
+  } else {
+    return '';
+  }
+}
 
 export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const { url_prefix } = config;
@@ -33,11 +53,13 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
-  const logoURI = config?.web?.logo ?? '';
+  const logoURI = resolveLogo(config, req);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
-  const version = pkgJSON.version;
+  const version = config?.web?.version;
   const flags = {
     ...config.flags,
+    // legacy from 5.x
+    ...config.experiments,
   };
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
   const {

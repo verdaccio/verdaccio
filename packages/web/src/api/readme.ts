@@ -8,7 +8,7 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verda
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
 
-import { AuthorAvatar, addScope } from '../utils/web-utils';
+import { AuthorAvatar, addScope } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

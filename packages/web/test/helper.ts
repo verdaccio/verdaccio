@@ -9,7 +9,7 @@ import { initializeServer as initializeServerHelper } from '@verdaccio/test-help
 
 import routes from '../src';
 
-setup([]);
+setup({});
 
 export const getConf = (configName: string) => {
   const configPath = path.join(__dirname, 'config', configName);

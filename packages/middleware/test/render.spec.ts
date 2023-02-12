@@ -1,3 +1,4 @@
+import express from 'express';
 import { JSDOM } from 'jsdom';
 import path from 'path';
 import supertest from 'supertest';
@@ -5,33 +6,30 @@ import supertest from 'supertest';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 
-import { initializeServer } from './helper';
+import { webMiddleware } from '../src';
+import { getConf } from './_helper';
 
-setup([]);
+const pluginOptions = {
+  manifestFiles: {
+    js: ['runtime.js', 'vendors.js', 'main.js'],
+  },
+  staticPath: path.join(__dirname, 'static'),
+  manifest: require('./partials/manifest/manifest.json'),
+};
 
-const mockManifest = jest.fn();
-jest.mock('@verdaccio/ui-theme', () => mockManifest());
+const initializeServer = (configName: string, middlewares = {}) => {
+  const app = express();
+  app.use(webMiddleware(getConf(configName), middlewares, pluginOptions));
+  return app;
+};
+
+setup({});
 
 describe('test web server', () => {
-  beforeAll(() => {
-    mockManifest.mockReturnValue(() => ({
-      manifestFiles: {
-        js: ['runtime.js', 'vendors.js', 'main.js'],
-      },
-      staticPath: path.join(__dirname, 'static'),
-      manifest: require('./partials/manifest/manifest.json'),
-    }));
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-    mockManifest.mockClear();
-  });
-
   describe('render', () => {
     describe('output', () => {
       const render = async (config = 'default-test.yaml') => {
-        const response = await supertest(await initializeServer(config))
+        const response = await supertest(initializeServer(config))
           .get('/')
           .set('Accept', HEADERS.TEXT_HTML)
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
@@ -59,7 +57,7 @@ describe('test web server', () => {
             // base: 'http://127.0.0.1:60864/prefix/',
             // version: '6.0.0-6-next.28',
             logoURI: '',
-            flags: { searchRemote: true },
+            flags: { changePassword: true },
             login: true,
             pkgManagers: ['pnpm', 'yarn'],
             title: 'verdaccio web',

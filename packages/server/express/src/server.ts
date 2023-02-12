@@ -2,7 +2,6 @@ import compression from 'compression';
 import cors from 'cors';
 import buildDebug from 'debug';
 import express from 'express';
-import RateLimit from 'express-rate-limit';
 import { HttpError } from 'http-errors';
 import _ from 'lodash';
 import AuditMiddleware from 'verdaccio-audit';
@@ -13,7 +12,7 @@ import { Config as AppConfig } from '@verdaccio/config';
 import { API_ERROR, HTTP_STATUS, errorUtils, pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
-import { errorReportingMiddleware, final, log } from '@verdaccio/middleware';
+import { errorReportingMiddleware, final, log, rateLimit, userAgent } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
 import { Config as IConfig } from '@verdaccio/types';
@@ -21,7 +20,6 @@ import webMiddleware from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import hookDebug from './debug';
-import { getUserAgent } from './utils';
 
 const debug = buildDebug('verdaccio:server');
 
@@ -29,23 +27,18 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   const auth: Auth = new Auth(config);
   await auth.init();
   const app = express();
-  const limiter = new RateLimit(config.serverSettings.rateLimit);
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
   app.use(cors());
-  app.use(limiter);
+  app.use(rateLimit(config.serverSettings.rateLimit));
 
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
   // Router setup
   app.use(log(logger));
   app.use(errorReportingMiddlewareWrap);
-  app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-    res.setHeader('x-powered-by', getUserAgent(config.user_agent));
-    next();
-  });
-
+  app.use(userAgent(config));
   app.use(compression());
 
   app.get(

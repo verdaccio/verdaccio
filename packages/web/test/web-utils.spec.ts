@@ -1,4 +1,4 @@
-import { sortByName } from '../src/utils/web-utils';
+import { sortByName } from '../src/web-utils';
 
 describe('Utilities', () => {
   describe('Sort packages', () => {

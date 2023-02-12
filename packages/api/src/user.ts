@@ -13,6 +13,7 @@ import {
   validatioUtils,
 } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
+import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
 
@@ -23,6 +24,7 @@ const debug = buildDebug('verdaccio:api:user');
 export default function (route: Router, auth: Auth, config: Config): void {
   route.get(
     '/-/user/:org_couchdb_user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
       const message = getAuthenticatedMessage(req.remote_user.name);
@@ -53,6 +55,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
  */
   route.put(
     '/-/user/:org_couchdb_user/:_rev?/:revision?',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');

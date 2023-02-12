@@ -39,13 +39,13 @@ describe('tarball proxy', () => {
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
 
-  describe('fetchTarballNext', () => {
+  describe('fetchTarball', () => {
     test('get file tarball fetch', (done) => {
       nock('https://registry.verdaccio.org')
         .get('/jquery/-/jquery-0.0.1.tgz')
         .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const stream = prox1.fetchTarballNext(
+      const stream = prox1.fetchTarball(
         'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
         {}
       );
@@ -66,7 +66,7 @@ describe('tarball proxy', () => {
         .once()
         .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-      const stream = prox1.fetchTarballNext(
+      const stream = prox1.fetchTarball(
         'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
         { retry: { limit: 2 } }
       );

@@ -1,11 +1,6 @@
 import { HEADERS } from '@verdaccio/core';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
 
-export function setSecurityWebHeaders(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
+export function setSecurityWebHeaders(_req, res, next): void {
   // disable loading in frames (clickjacking, etc.)
   res.header(HEADERS.FRAMES_OPTIONS, 'deny');
   // avoid stablish connections outside of domain

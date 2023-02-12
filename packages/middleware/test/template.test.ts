@@ -1,4 +1,4 @@
-import template from '../src/template';
+import template from '../src/middlewares/web/utils/template';
 
 const manifest = require('./partials/manifest/manifest.json');
 

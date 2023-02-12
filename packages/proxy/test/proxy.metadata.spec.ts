@@ -59,7 +59,7 @@ describe('proxy', () => {
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
 
-  describe('getRemoteMetadataNext', () => {
+  describe('getRemoteMetadata', () => {
     beforeEach(() => {
       nock.cleanAll();
       nock.abortPendingRequests();
@@ -78,7 +78,7 @@ describe('proxy', () => {
           .get('/jquery')
           .reply(200, { body: 'test' });
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        const [manifest] = await prox1.getRemoteMetadataNext('jquery', {
+        const [manifest] = await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
         expect(manifest).toEqual({ body: 'test' });
@@ -104,7 +104,7 @@ describe('proxy', () => {
             }
           );
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        const [manifest, etag] = await prox1.getRemoteMetadataNext('jquery', {
+        const [manifest, etag] = await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
         expect(etag).toEqual('_ref_4444');
@@ -131,7 +131,7 @@ describe('proxy', () => {
             }
           );
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        const [manifest, etag] = await prox1.getRemoteMetadataNext('jquery', {
+        const [manifest, etag] = await prox1.getRemoteMetadata('jquery', {
           etag: 'foo',
           remoteAddress: '127.0.0.1',
         });
@@ -146,7 +146,7 @@ describe('proxy', () => {
           .get('/jquery')
           .reply(200, { body: { name: 'foo', version: '1.0.0' } }, {});
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        await prox1.getRemoteMetadataNext('jquery', {
+        await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
         expect(mockHttp).toHaveBeenCalledTimes(2);
@@ -175,7 +175,7 @@ describe('proxy', () => {
       test('proxy call with 304', async () => {
         nock(domain).get('/jquery').reply(304);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        await expect(prox1.getRemoteMetadataNext('jquery', { etag: 'rev_3333' })).rejects.toThrow(
+        await expect(prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' })).rejects.toThrow(
           'no data'
         );
       });
@@ -184,7 +184,7 @@ describe('proxy', () => {
         nock(domain).get('/jquery').replyWithError('something awful happened');
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
         ).rejects.toThrowError(new Error('something awful happened'));
@@ -193,7 +193,7 @@ describe('proxy', () => {
       test('reply with 409 error', async () => {
         nock(domain).get('/jquery').reply(409);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        await expect(prox1.getRemoteMetadataNext('jquery', { retry: 0 })).rejects.toThrow(
+        await expect(prox1.getRemoteMetadata('jquery', { retry: 0 })).rejects.toThrow(
           new Error('bad status code: 409')
         );
       });
@@ -202,7 +202,7 @@ describe('proxy', () => {
         nock(domain).get('/jquery').reply(200, 'some-text');
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
         ).rejects.toThrowError(
@@ -216,7 +216,7 @@ describe('proxy', () => {
         nock(domain).get('/jquery').reply(409);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
         ).rejects.toThrowError(
@@ -228,7 +228,7 @@ describe('proxy', () => {
         nock(domain).get('/jquery').reply(404);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
         ).rejects.toThrowError(errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
@@ -254,7 +254,7 @@ describe('proxy', () => {
           .reply(200, { body: { name: 'foo', version: '1.0.0' } });
 
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
-        const [manifest] = await prox1.getRemoteMetadataNext('jquery', {
+        const [manifest] = await prox1.getRemoteMetadata('jquery', {
           retry: { limit: 2 },
         });
         expect(manifest).toEqual({ body: { name: 'foo', version: '1.0.0' } });
@@ -274,13 +274,13 @@ describe('proxy', () => {
 
         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
         ).rejects.toThrowError();
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
@@ -311,14 +311,14 @@ describe('proxy', () => {
         );
         // force retry
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
         ).rejects.toThrowError();
         // display offline error on exausted retry
         await expect(
-          prox1.getRemoteMetadataNext('jquery', {
+          prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
@@ -338,7 +338,7 @@ describe('proxy', () => {
         );
         // this is based on max_fails, if change that also change here acordingly
         await setTimeout(3000);
-        const [manifest] = await prox1.getRemoteMetadataNext('jquery', {
+        const [manifest] = await prox1.getRemoteMetadata('jquery', {
           retry: { limit: 2 },
         });
         expect(manifest).toEqual({ body: { name: 'foo', version: '1.0.0' } });

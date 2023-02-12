@@ -10,6 +10,7 @@ import {
   FlagsConfig,
   PackageAccess,
   PackageList,
+  RateLimit,
   Security,
   ServerSettingsConf,
 } from '@verdaccio/types';
@@ -28,11 +29,17 @@ const debug = buildDebug('verdaccio:config');
 
 export const WEB_TITLE = 'Verdaccio';
 
+// we limit max 1000 request per 15 minutes on user endpoints
+export const defaultUserRateLimiting = {
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000,
+};
+
 /**
  * Coordinates the application configuration
  */
 class Config implements AppConfig {
-  public user_agent: string;
+  public user_agent: string | undefined;
   public uplinks: any;
   public packages: PackageList;
   public users: any;
@@ -49,7 +56,7 @@ class Config implements AppConfig {
   // @ts-ignore
   public secret: string;
   public flags: FlagsConfig;
-
+  public userRateLimit: RateLimit;
   public constructor(config: ConfigYaml & { config_path: string }) {
     const self = this;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
@@ -65,6 +72,7 @@ class Config implements AppConfig {
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
     };
+    this.user_agent = config.user_agent;
 
     for (const configProp in config) {
       if (self[configProp] == null) {
@@ -72,10 +80,13 @@ class Config implements AppConfig {
       }
     }
 
-    // @ts-ignore
-    if (_.isNil(this.user_agent)) {
-      this.user_agent = getUserAgent();
+    if (typeof this.user_agent === 'undefined') {
+      // by default user agent is hidden
+      debug('set default user agent');
+      this.user_agent = getUserAgent(false);
     }
+
+    this.userRateLimit = { ...defaultUserRateLimiting, ...config?.userRateLimit };
 
     // some weird shell scripts are valid yaml files parsed as string
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
