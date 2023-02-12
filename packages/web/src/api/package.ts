@@ -10,7 +10,7 @@ import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { Config, RemoteUser, Version } from '@verdaccio/types';
 import { formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
-import { sortByName } from '../utils/web-utils';
+import { sortByName } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 

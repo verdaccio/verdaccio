@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 
 import { TemplateUIOptions } from '@verdaccio/types';
 
-import { Manifest, getManifestValue } from './utils/manifest';
+import { Manifest, getManifestValue } from './manifest';
 
 const debug = buildDebug('verdaccio:web:render:template');
 

@@ -9,7 +9,7 @@ import { logger, setup } from '@verdaccio/logger';
 import { HTTP_STATUS } from '../../local-storage/node_modules/@verdaccio/core/build';
 import ProxyAudit, { ConfigAudit } from '../src/index';
 
-setup();
+setup({});
 
 const auditConfig: ConfigAudit = {
   enabled: true,

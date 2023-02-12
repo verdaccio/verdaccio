@@ -5,6 +5,7 @@ import { getApiToken } from '@verdaccio/auth';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
+import { rateLimit } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { mask, stringToMD5 } from '@verdaccio/utils';
@@ -26,6 +27,7 @@ function normalizeToken(token: Token): NormalizeToken {
 export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
   route.get(
     '/-/npm/v1/tokens',
+    rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
 
@@ -53,6 +55,7 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
 
   route.post(
     '/-/npm/v1/tokens',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password, readonly, cidr_whitelist } = req.body;
       const { name } = req.remote_user;
@@ -123,6 +126,7 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
 
   route.delete(
     '/-/npm/v1/tokens/token/:tokenKey',
+    rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
       const {
         params: { tokenKey },

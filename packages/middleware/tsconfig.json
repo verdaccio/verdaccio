@@ -11,6 +11,12 @@
       "path": "../auth"
     },
     {
+      "path": "../core/url"
+    },
+    {
+      "path": "../core/core"
+    },
+    {
       "path": "../logger/logger"
     },
     {

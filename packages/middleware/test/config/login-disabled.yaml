@@ -1,0 +1,29 @@
+auth:
+  auth-memory:
+    users:
+      test:
+        name: test
+        password: test
+
+web:
+  title: verdaccio
+  login: false
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+  '**':
+    access: $anonymous
+    publish: $anonymous
+_debug: true
+
+flags:
+  changePassword: true

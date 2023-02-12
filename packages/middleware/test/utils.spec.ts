@@ -1,4 +1,4 @@
-import { validatePrimaryColor } from '../src/utils/web-utils';
+import { validatePrimaryColor } from '../src/middlewares/web/utils/web-utils';
 
 describe('Utilities', () => {
   describe('validatePrimaryColor', () => {

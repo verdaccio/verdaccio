@@ -70,8 +70,8 @@ export interface IProxy {
   fail_timeout: number;
   upname: string;
   search(options: ProxySearchParams): Promise<Stream.Readable>;
-  getRemoteMetadataNext(name: string, options: ISyncUplinksOptions): Promise<[Manifest, string]>;
-  fetchTarballNext(
+  getRemoteMetadata(name: string, options: ISyncUplinksOptions): Promise<[Manifest, string]>;
+  fetchTarball(
     url: string,
     options: Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'>
   ): PassThrough;
@@ -116,7 +116,7 @@ class ProxyStorage implements IProxy {
   public constructor(config: UpLinkConfLocal, mainConfig: Config, agent?: Agents) {
     this.config = config;
     this.failed_requests = 0;
-    this.userAgent = mainConfig.user_agent;
+    this.userAgent = mainConfig.user_agent ?? 'hidden';
     this.ca = config.ca;
     this.logger = LoggerApi.logger.child({ sub: 'out' });
     this.server_id = mainConfig.server_id;
@@ -294,7 +294,7 @@ class ProxyStorage implements IProxy {
     return headers;
   }
 
-  public async getRemoteMetadataNext(
+  public async getRemoteMetadata(
     name: string,
     options: ISyncUplinksOptions
   ): Promise<[Manifest, string]> {
@@ -443,7 +443,7 @@ class ProxyStorage implements IProxy {
   }
 
   // FIXME: handle stream and retry
-  public fetchTarballNext(
+  public fetchTarball(
     url: string,
     overrideOptions: Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'>
   ): any {

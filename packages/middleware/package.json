@@ -40,9 +40,14 @@
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.59",
     "@verdaccio/utils": "workspace:6.0.0-6-next.27",
+    "@verdaccio/config": "workspace:6.0.0-6-next.59",
+    "@verdaccio/url": "workspace:11.0.0-6-next.25",
     "debug": "4.3.4",
+    "lru-cache": "7.14.1",
+    "express": "4.18.2",
     "lodash": "4.17.21",
-    "mime": "2.6.0"
+    "mime": "2.6.0",
+    "express-rate-limit": "5.5.1"
   },
   "funding": {
     "type": "opencollective",

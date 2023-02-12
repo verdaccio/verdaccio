@@ -1,1 +1,1 @@
-export { default } from './web-middleware';
+export { default } from './middleware';

@@ -55,15 +55,15 @@ test('should contains etag', async () => {
   expect(typeof etag === 'string').toBeTruthy();
 });
 
-test('should contains powered by header', async () => {
+test('should be hidden by default', async () => {
   const app = await initializeServer('conf.yaml');
   const response = await supertest(app)
     .get('/')
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
     .expect(HTTP_STATUS.OK);
   const powered = response.get('x-powered-by');
-  expect(powered).toMatch('verdaccio/6');
-});
+  expect(powered).toMatch('hidden');
+}, 40000);
 
 test('should not contains powered header', async () => {
   const app = await initializeServer('powered-disabled.yaml');

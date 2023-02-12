@@ -4,15 +4,7 @@ import {
   validatePackage as utilValidatePackage,
 } from '@verdaccio/utils';
 
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
-
-export function validateName(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
+export function validateName(_req, _res, next, value: string, name: string) {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
@@ -23,13 +15,7 @@ export function validateName(
   }
 }
 
-export function validatePackage(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer,
-  value: string,
-  name: string
-): void {
+export function validatePackage(_req, _res, next, value: string, name: string) {
   if (value === '-') {
     // special case in couchdb usually
     next('route');
