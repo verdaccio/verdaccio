@@ -4474,7 +4474,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["@verdaccio/config", [\
         ["npm:6.0.0-6-next.59", {\
-          "packageLocation": "./.yarn/unplugged/@verdaccio-config-npm-6.0.0-6-next.59-2d6264d914/node_modules/@verdaccio/config/",\
+          "packageLocation": "./.yarn/cache/@verdaccio-config-npm-6.0.0-6-next.59-2d6264d914-094559079d.zip/node_modules/@verdaccio/config/",\
           "packageDependencies": [\
             ["@verdaccio/config", "npm:6.0.0-6-next.59"],\
             ["@verdaccio/core", "npm:6.0.0-6-next.59"],\

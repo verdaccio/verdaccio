@@ -9,3 +9,8 @@ declare global {
     }
   }
 }
+
+declare module '@verdaccio/types' {
+  export type PackageAccessYaml = any;
+  export type FlagsConfig = any;
+}

@@ -10611,19 +10611,6 @@ __metadata:
     verdaccio-auth-memory: 10.2.0
     verdaccio-htpasswd: 10.5.2
     verdaccio-memory: 10.3.0
-  dependenciesMeta:
-    "@verdaccio/config@6.0.0-6-next.59":
-      unplugged: true
-    "@verdaccio/logger-7@6.0.0-6-next.3":
-      unplugged: true
-    "@verdaccio/middleware@6.0.0-6-next.38":
-      unplugged: true
-    "@verdaccio/web-middlewares@6.0.0-6-next.1":
-      unplugged: true
-    "@verdaccio/web-middlewares@6.0.0-6-next.2":
-      unplugged: true
-    jest@29.3.1:
-      unplugged: true
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
