@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { getUserAgent } from '@verdaccio/config';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
@@ -13,7 +14,7 @@ import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
-import { ErrorCode, getUserAgent } from '../lib/utils';
+import { ErrorCode } from '../lib/utils';
 import {
   $NextFunctionVer,
   $RequestExtend,

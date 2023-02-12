@@ -6,8 +6,6 @@ import {
   addGravatarSupport,
   formatAuthor,
   getVersion,
-  getWebProtocol,
-  isHTTPProtocol,
   normalizeDistTags,
   parseReadme,
   sortByName,
@@ -74,39 +72,6 @@ describe('Utilities', () => {
             name: 'abc',
           },
         ]);
-      });
-    });
-
-    describe('getWebProtocol', () => {
-      test('should handle undefined header', () => {
-        expect(getWebProtocol(undefined, 'http')).toBe('http');
-      });
-
-      test('should handle emtpy string', () => {
-        expect(getWebProtocol('', 'http')).toBe('http');
-      });
-
-      test('should have header priority over request protocol', () => {
-        expect(getWebProtocol('https', 'http')).toBe('https');
-      });
-
-      test('should have handle empty protocol', () => {
-        expect(getWebProtocol('https', '')).toBe('https');
-      });
-
-      test('should have handle invalid protocol', () => {
-        expect(getWebProtocol('ftp', '')).toBe('http');
-      });
-
-      describe('getWebProtocol and HAProxy variant', () => {
-        // https://github.com/verdaccio/verdaccio/issues/695
-        test('should handle http', () => {
-          expect(getWebProtocol('http,http', 'https')).toBe('http');
-        });
-
-        test('should handle https', () => {
-          expect(getWebProtocol('https,https', 'http')).toBe('https');
-        });
       });
     });
 
@@ -182,26 +147,6 @@ describe('Utilities', () => {
       const url: string = spliceURL('', '/-/static/logo.png');
 
       expect(url).toMatch('/-/static/logo.png');
-    });
-
-    test('should check HTTP protocol correctly', () => {
-      expect(isHTTPProtocol('http://domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('https://www.domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('//domain.com/-/static/logo.png')).toBeTruthy();
-      expect(isHTTPProtocol('file:///home/user/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('file:///F:/home/user/logo.png')).toBeFalsy();
-      // Note that uses ftp protocol in src was deprecated in modern browsers
-      expect(isHTTPProtocol('ftp://1.2.3.4/home/user/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('./logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('.\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('../logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('..\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('../../static/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('..\\..\\static\\logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('.logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('/static/logo.png')).toBeFalsy();
-      expect(isHTTPProtocol('F:\\static\\logo.png')).toBeFalsy();
     });
 
     test('getByQualityPriorityValue', () => {
