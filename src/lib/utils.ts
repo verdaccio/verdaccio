@@ -412,14 +412,6 @@ export function formatAuthor(author: AuthorFormat): any {
 }
 
 /**
- * Check if URI is starting with "http://", "https://" or "//"
- * @param {string} uri
- */
-export function isHTTPProtocol(uri: string): boolean {
-  return /^(https?:)?\/\//.test(uri);
-}
-
-/**
  * Apply whitespaces based on the length
  * @param {*} str the log message
  * @return {String}
