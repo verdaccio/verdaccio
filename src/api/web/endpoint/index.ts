@@ -1,4 +1,4 @@
-import { Response, Router } from 'express';
+import { Router } from 'express';
 
 import { hasLogin } from '../../../lib/utils';
 import { limiter } from '../../rate-limiter';
