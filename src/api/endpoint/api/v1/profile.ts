@@ -1,11 +1,12 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { rateLimit } from '@verdaccio/middleware';
+
 import { validatePassword } from '../../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../types';
-import { limiter } from '../../../rate-limiter';
 
 export interface Profile {
   tfa: boolean;
@@ -35,7 +36,7 @@ export default function (auth: IAuth, config): Router {
 
   profileRoute.get(
     '/user',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name) === false) {
         return next(buildProfile(req.remote_user.name));
@@ -50,7 +51,7 @@ export default function (auth: IAuth, config): Router {
 
   profileRoute.post(
     '/user',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);
