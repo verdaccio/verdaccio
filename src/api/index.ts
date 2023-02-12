@@ -24,8 +24,23 @@ import {
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
-import web from './web';
-import webAPI from './web/api';
+import webMiddleware from './web';
+
+export function loadTheme(config) {
+  if (_.isNil(config.theme) === false) {
+    return _.head(
+      loadPlugin(
+        config,
+        config.theme,
+        {},
+        function (plugin) {
+          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
+        },
+        'verdaccio-theme'
+      )
+    );
+  }
+}
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
@@ -87,8 +102,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use('/', web(config, auth, storage));
-    app.use('/-/verdaccio/', webAPI(config, auth, storage));
+    app.use('/', webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));

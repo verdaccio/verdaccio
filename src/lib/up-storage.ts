@@ -24,7 +24,7 @@ import {
 import { logger } from './logger';
 import { ErrorCode, isObject, isObjectOrArray, parseInterval } from './utils';
 
-const debug = buildDebug('verdaccio:up-storage');
+const debug = buildDebug('verdaccio:proxy');
 
 const encode = function (thing): string {
   return encodeURIComponent(thing).replace(/^%40/, '@');

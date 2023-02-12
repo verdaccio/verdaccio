@@ -1,21 +1,15 @@
 import buildDebug from 'debug';
 import express from 'express';
-import fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
 
-import { Config } from '@verdaccio/types';
+import renderMiddleware from '@verdaccio/web-middlewares';
 
-import { HTTP_STATUS } from '../../lib/constants';
-import { logger } from '../../lib/logger';
 import loadPlugin from '../../lib/plugin-loader';
 import Search from '../../lib/search';
 import { isHTTPProtocol } from '../../lib/utils';
-import renderHTML from './html/renderHTML';
+import webApi from './endpoint';
 
-const { setSecurityWebHeaders } = require('@verdaccio/middleware');
-
-const debug = buildDebug('verdaccio');
+const debug = buildDebug('verdaccio:web');
 
 export function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
@@ -33,88 +27,107 @@ export function loadTheme(config) {
   }
 }
 
-export function validatePrimaryColor(primaryColor) {
-  const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
-  if (!isHex) {
-    debug('invalid primary color %o', primaryColor);
-    return;
-  }
-
-  return primaryColor;
-}
-
-const sendFileCallback = (next) => (err) => {
-  if (!err) {
-    return;
-  }
-  if (err.status === HTTP_STATUS.NOT_FOUND) {
-    next();
-  } else {
-    next(err);
-  }
+export default (config, auth, storage) => {
+  const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();
+  Search.configureStorage(storage);
+  // eslint-disable-next-line new-cap
+  const router = express.Router();
+  // load application
+  router.use(
+    renderMiddleware(
+      config,
+      {
+        tokenMiddleware: auth.webUIJWTmiddleware(),
+        webEndpointsApi: webApi(auth, storage, config),
+      },
+      pluginOptions
+    )
+  );
+  return router;
 };
 
-export default function (config: Config, auth, storage) {
-  let { staticPath, manifest, manifestFiles } =
-    loadTheme(config) || require('@verdaccio/ui-theme')();
-  debug('static path %o', staticPath);
-  Search.configureStorage(storage);
+// export function validatePrimaryColor(primaryColor) {
+//   const isHex = /^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$/i.test(primaryColor);
+//   if (!isHex) {
+//     debug('invalid primary color %o', primaryColor);
+//     return;
+//   }
 
-  /* eslint new-cap:off */
-  const router = express.Router();
-  // run in production mode by default, just in case
-  // it shouldn't make any difference anyway
-  router.use(auth.webUIJWTmiddleware());
-  router.use(setSecurityWebHeaders);
+//   return primaryColor;
+// }
 
-  // static assets
-  router.get('/-/static/*', function (req, res, next) {
-    const filename = req.params[0];
-    const file = `${staticPath}/${filename}`;
-    debug('render static file %o', file);
-    res.sendFile(file, sendFileCallback(next));
-  });
+// const sendFileCallback = (next) => (err) => {
+//   if (!err) {
+//     return;
+//   }
+//   if (err.status === HTTP_STATUS.NOT_FOUND) {
+//     next();
+//   } else {
+//     next(err);
+//   }
+// };
 
-  // logo
-  if (config?.web?.logo && !isHTTPProtocol(config?.web?.logo)) {
-    // URI related to a local file
-    const absoluteLocalFile = path.posix.resolve(config.web.logo);
-    debug('serve local logo %s', absoluteLocalFile);
-    try {
-      if (
-        fs.existsSync(absoluteLocalFile) &&
-        typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined'
-      ) {
-        // Note: `path.join` will break on Windows, because it transforms `/` to `\`
-        // Use POSIX version `path.posix.join` instead.
-        config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
-        router.get(config.web.logo, function (_req, res, next) {
-          // @ts-ignore
-          debug('serve custom logo  web:%s - local:%s', config.web.logo, absoluteLocalFile);
-          res.sendFile(absoluteLocalFile, sendFileCallback(next));
-        });
-        debug('enabled custom logo %s', config.web.logo);
-      } else {
-        config.web.logo = undefined;
-        logger.warn(
-          `web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`
-        );
-      }
-    } catch {
-      config.web.logo = undefined;
-      logger.warn(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
-    }
-  }
+// export default function (config: Config, auth, storage) {
+//   let { staticPath, manifest, manifestFiles } =
+//     loadTheme(config) || require('@verdaccio/ui-theme')();
+//   debug('static path %o', staticPath);
+//   Search.configureStorage(storage);
 
-  router.get('/-/web/:section/*', function (req, res) {
-    renderHTML(config, manifest, manifestFiles, req, res);
-    debug('render html section');
-  });
+//   /* eslint new-cap:off */
+//   const router = express.Router();
+//   // run in production mode by default, just in case
+//   // it shouldn't make any difference anyway
+//   router.use(auth.webUIJWTmiddleware());
+//   router.use(setSecurityWebHeaders);
 
-  router.get('/', function (req, res, next) {
-    renderHTML(config, manifest, manifestFiles, req, res);
-    debug('render root');
-  });
+//   // static assets
+//   router.get('/-/static/*', function (req, res, next) {
+//     const filename = req.params[0];
+//     const file = `${staticPath}/${filename}`;
+//     debug('render static file %o', file);
+//     res.sendFile(file, sendFileCallback(next));
+//   });
 
-  return router;
-}
+//   // logo
+//   if (config?.web?.logo && !isHTTPProtocol(config?.web?.logo)) {
+//     // URI related to a local file
+//     const absoluteLocalFile = path.posix.resolve(config.web.logo);
+//     debug('serve local logo %s', absoluteLocalFile);
+//     try {
+//       if (
+//         fs.existsSync(absoluteLocalFile) &&
+//         typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined'
+//       ) {
+//         // Note: `path.join` will break on Windows, because it transforms `/` to `\`
+//         // Use POSIX version `path.posix.join` instead.
+//         config.web.logo = path.posix.join('/-/static/', path.basename(config.web.logo));
+//         router.get(config.web.logo, function (_req, res, next) {
+//           // @ts-ignore
+//           debug('serve custom logo  web:%s - local:%s', config.web.logo, absoluteLocalFile);
+//           res.sendFile(absoluteLocalFile, sendFileCallback(next));
+//         });
+//         debug('enabled custom logo %s', config.web.logo);
+//       } else {
+//         config.web.logo = undefined;
+//         logger.warn(
+//           `web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`
+//         );
+//       }
+//     } catch {
+//       config.web.logo = undefined;
+//       logger.warn(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
+//     }
+//   }
+
+//   router.get('/-/web/:section/*', function (req, res) {
+//     renderHTML(config, manifest, manifestFiles, req, res);
+//     debug('render html section');
+//   });
+
+//   router.get('/', function (req, res, next) {
+//     renderHTML(config, manifest, manifestFiles, req, res);
+//     debug('render root');
+//   });
+
+//   return router;
+// }
