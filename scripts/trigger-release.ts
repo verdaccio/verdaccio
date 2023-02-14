@@ -1,5 +1,4 @@
 import { Octokit } from '@octokit/rest';
-import { execSync } from 'child_process';
 
 const [, , /* node */ /* file */ tag] = process.argv;
 // eslint-disable-next-line no-console
@@ -11,12 +10,7 @@ const octokit = new Octokit({
 
 (async () => {
   try {
-    // retrieve the latest changes from CHANGELOG.md
-    const changelog = execSync(
-      `git show -1 --unified=0  CHANGELOG.md | tail +12 | sed -e 's/^\+//'`
-    );
     // eslint-disable-next-line no-console
-    console.log('changelog', changelog.toString());
     await octokit.repos.createRelease({
       owner: 'verdaccio',
       repo: 'verdaccio',
