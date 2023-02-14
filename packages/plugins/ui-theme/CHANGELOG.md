@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.60
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
 ## 6.0.0-6-next.59
 
 ## 6.0.0-6-next.58

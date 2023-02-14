@@ -1,5 +1,16 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.30
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+- @verdaccio/logger@6.0.0-6-next.28
+
 ## 6.0.0-6-next.29
 
 ### Patch Changes

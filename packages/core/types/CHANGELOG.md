@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.20
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
 ## 11.0.0-6-next.19
 
 ### Minor Changes

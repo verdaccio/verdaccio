@@ -1,5 +1,18 @@
 # @verdaccio/server-fastify
 
+## 6.0.0-6-next.41
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/store@6.0.0-6-next.40
+  - @verdaccio/auth@6.0.0-6-next.39
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/tarball@11.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.28
+
 ## 6.0.0-6-next.40
 
 ### Patch Changes

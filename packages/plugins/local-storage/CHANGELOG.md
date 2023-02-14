@@ -1,5 +1,13 @@
 # Change Log
 
+## 11.0.0-6-next.30
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+- @verdaccio/file-locking@11.0.0-6-next.7
+- @verdaccio/utils@6.0.0-6-next.28
+
 ## 11.0.0-6-next.29
 
 ### Patch Changes
