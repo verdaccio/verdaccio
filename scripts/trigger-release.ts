@@ -21,7 +21,7 @@ const octokit = new Octokit({
       owner: 'verdaccio',
       repo: 'verdaccio',
       tag_name: tag,
-      body: changelog.toString(),
+      body: '## Release /n TBA',
       draft: true,
       discussion_category_name: 'Announcements',
     });
