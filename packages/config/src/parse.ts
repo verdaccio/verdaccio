@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import fs from 'fs';
+import YAML from 'js-yaml';
 import { isObject } from 'lodash';
-import YAML from 'yaml';
 
 import { APP_ERROR } from '@verdaccio/core';
 import { ConfigYaml } from '@verdaccio/types';
@@ -26,7 +26,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   debug('parsing config file: %o', configPath);
   try {
     if (/\.ya?ml$/i.test(configPath)) {
-      const yamlConfig = YAML.parse(fs.readFileSync(configPath, 'utf8'), {
+      const yamlConfig = YAML.load(fs.readFileSync(configPath, 'utf8'), {
         strict: false,
       }) as ConfigYaml;
 
@@ -56,7 +56,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
 export function fromJStoYAML(config: Partial<ConfigYaml>): string | null {
   debug('convert config from JSON to YAML');
   if (isObject(config)) {
-    return YAML.stringify(config);
+    return YAML.dump(config);
   } else {
     throw new Error(`config is not a valid object`);
   }

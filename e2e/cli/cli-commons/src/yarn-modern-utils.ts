@@ -1,7 +1,7 @@
 import { cp, writeFile } from 'fs/promises';
+import YAML from 'js-yaml';
 import { join } from 'path';
 import { URL } from 'url';
-import YAML from 'yaml';
 
 import { Dependencies } from '@verdaccio/types';
 
@@ -25,7 +25,7 @@ export function createYamlConfig(registry: string, token?: string) {
     };
   }
 
-  return YAML.stringify(defaultYaml);
+  return YAML.dump(defaultYaml);
 }
 
 export async function prepareYarnModernProject(

@@ -6,7 +6,7 @@ uplinks:
   npmjs:
     url: http://localhost:4873/
 packages:
-  "@*/*":
+  '@*/*':
     access: $all
     publish: $all
     proxy: npmjs
@@ -32,7 +32,7 @@ packages:
     access: $authenticated
     publish: $authenticated
     proxy: npmjs
-  "*":
+  '*':
     access: $all
     publish: $all
     proxy: npmjs
