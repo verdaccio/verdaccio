@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.21.0](https://github.com/verdaccio/verdaccio/compare/v5.20.1...v5.21.0) (2023-02-14)
+
+
+### Features
+
+* refactor render middleware and audit plugin ([#3602](https://github.com/verdaccio/verdaccio/issues/3602)) ([f9f269e](https://github.com/verdaccio/verdaccio/commit/f9f269ee04ce45e7985fe61a56d0013ff943896a))
+* replace middleware and logger core ([#3586](https://github.com/verdaccio/verdaccio/issues/3586)) ([bf9ed26](https://github.com/verdaccio/verdaccio/commit/bf9ed26d90d14cc7aafd04a5ff2ecde431931b98))
+
 ### [5.20.1](https://github.com/verdaccio/verdaccio/compare/v5.20.0...v5.20.1) (2023-01-29)
 
 
