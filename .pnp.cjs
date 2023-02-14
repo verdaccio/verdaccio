@@ -13548,7 +13548,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["verdaccio-audit", [\
         ["npm:11.0.0-6-next.23", {\
-          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-11.0.0-6-next.23-3db6245969-e629c3e7f7.zip/node_modules/verdaccio-audit/",\
+          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-11.0.0-6-next.23-3db6245969-3c07ee4aaf.zip/node_modules/verdaccio-audit/",\
           "packageDependencies": [\
             ["verdaccio-audit", "npm:11.0.0-6-next.23"],\
             ["@verdaccio/config", "npm:6.0.0-6-next.60"],\
