@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:18.13.0-alpine as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:18.14.0-alpine as builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
@@ -21,7 +21,7 @@ COPY . .
 RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableProgressBars true && \
     yarn config set enableScripts false && \
-    yarn install && \
+    yarn install --immutable && \
     yarn build
 ## pack the project     
 RUN yarn pack --out verdaccio.tgz \
@@ -30,7 +30,7 @@ RUN yarn pack --out verdaccio.tgz \
 ## clean up and reduce bundle size
 RUN rm -Rf /opt/verdaccio-build
 
-FROM node:18.13.0-alpine
+FROM node:18.14.0-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \

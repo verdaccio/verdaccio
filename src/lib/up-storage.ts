@@ -24,7 +24,7 @@ import {
 import { logger } from './logger';
 import { ErrorCode, isObject, isObjectOrArray, parseInterval } from './utils';
 
-const debug = buildDebug('verdaccio:up-storage');
+const debug = buildDebug('verdaccio:proxy');
 
 const encode = function (thing): string {
   return encodeURIComponent(thing).replace(/^%40/, '@');
@@ -76,7 +76,7 @@ class ProxyStorage implements IProxy {
     this.config = config;
     this.failed_requests = 0;
     // @ts-ignore
-    this.userAgent = mainConfig.user_agent;
+    this.userAgent = mainConfig.user_agent ?? 'hidden';
     this.ca = config.ca;
     this.logger = logger;
     this.server_id = mainConfig.server_id;
@@ -148,7 +148,6 @@ class ProxyStorage implements IProxy {
     self.logger.info(
       {
         method: method,
-        headers: headers,
         uri: uri,
       },
       "making request: '@{method} @{uri}'"
@@ -216,7 +215,6 @@ class ProxyStorage implements IProxy {
           }
         }
       : undefined;
-
     let requestOptions = {
       url: uri,
       method: method,

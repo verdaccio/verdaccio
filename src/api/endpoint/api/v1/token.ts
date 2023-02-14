@@ -2,6 +2,7 @@ import buildDebug from 'debug';
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { stringToMD5 } from '@verdaccio/utils';
 
@@ -10,7 +11,6 @@ import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants'
 import { logger } from '../../../../lib/logger';
 import { ErrorCode, mask } from '../../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../types';
-import { limiter } from '../../../rate-limiter';
 
 const debug = buildDebug('verdaccio:token');
 export type NormalizeToken = Token & {
@@ -29,7 +29,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
   const tokenRoute = Router(); /* eslint new-cap: 0 */
   tokenRoute.get(
     '/tokens',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
 
@@ -56,7 +56,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
 
   tokenRoute.post(
     '/tokens',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password, readonly, cidr_whitelist } = req.body;
       const { name } = req.remote_user;
@@ -122,7 +122,7 @@ export default function (auth: IAuth, storage: IStorageHandler, config: Config):
 
   tokenRoute.delete(
     '/tokens/token/:tokenKey',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
       const {
         params: { tokenKey },

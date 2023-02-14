@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 
 import { Config } from '@verdaccio/types';
@@ -42,7 +41,7 @@ export default function (config: Config, auth: IAuth, storage: IStorageHandler) 
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
 
   app.use(auth.apiJWTmiddleware());
-  app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
+  app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);

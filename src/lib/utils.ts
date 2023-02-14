@@ -41,28 +41,7 @@ const {
   getUnauthorized,
 } = errorUtils;
 const debug = buildDebug('verdaccio');
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('pkginfo')(module);
-const pkgVersion = module.exports.version;
-const pkgName = module.exports.name;
 const validProtocols = ['https', 'http'];
-
-export function getUserAgent(customUserAgent?: boolean | string): string {
-  assert(_.isString(pkgName));
-  assert(_.isString(pkgVersion));
-  if (customUserAgent === true) {
-    return `${pkgName}/${pkgVersion}`;
-  } else if (_.isString(customUserAgent) && _.isEmpty(customUserAgent) === false) {
-    return customUserAgent;
-  } else if (customUserAgent === false) {
-    return '';
-  }
-
-  return `${pkgName}/${pkgVersion}`;
-}
-
 export function convertPayloadToBase64(payload: string): Buffer {
   return Buffer.from(payload, 'base64');
 }
@@ -252,25 +231,6 @@ export function parseInterval(interval: any): number {
   return result;
 }
 
-/**
- * Detect running protocol (http or https)
- */
-export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
-  let returnProtocol;
-  const [, defaultProtocol] = validProtocols;
-  // HAProxy variant might return http,http with X-Forwarded-Proto
-  if (typeof headerProtocol === 'string' && headerProtocol !== '') {
-    debug('header protocol: %o', protocol);
-    const commaIndex = headerProtocol.indexOf(',');
-    returnProtocol = commaIndex > 0 ? headerProtocol.substr(0, commaIndex) : headerProtocol;
-  } else {
-    debug('req protocol: %o', headerProtocol);
-    returnProtocol = protocol;
-  }
-
-  return validProtocols.includes(returnProtocol) ? returnProtocol : defaultProtocol;
-}
-
 export const ErrorCode = {
   getConflict,
   getBadData,
@@ -449,14 +409,6 @@ export function formatAuthor(author: AuthorFormat): any {
   }
 
   return authorDetails;
-}
-
-/**
- * Check if URI is starting with "http://", "https://" or "//"
- * @param {string} uri
- */
-export function isHTTPProtocol(uri: string): boolean {
-  return /^(https?:)?\/\//.test(uri);
 }
 
 /**

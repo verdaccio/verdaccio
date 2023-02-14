@@ -2,6 +2,7 @@ import Cookies from 'cookies';
 import express, { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
@@ -10,7 +11,6 @@ import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/const
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../../../types';
-import { limiter } from '../../rate-limiter';
 
 export default function (route: Router, auth: IAuth, config: Config): void {
   /* eslint new-cap:off */
@@ -18,7 +18,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
   userRouter.get(
     '/-/user/:org_couchdb_user',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       res.status(HTTP_STATUS.OK);
       next({
@@ -29,7 +29,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
   userRouter.put(
     '/-/user/:org_couchdb_user/:_rev?/:revision?',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       const remoteName = req.remote_user.name;
@@ -96,7 +96,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
 
   userRouter.delete(
     '/-/user/token/*',
-    limiter(config?.userRateLimit),
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       res.status(HTTP_STATUS.OK);
       next({

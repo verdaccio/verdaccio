@@ -19,16 +19,16 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/config": "6.0.0-6-next.55",
-    "@verdaccio/core": "6.0.0-6-next.59",
+    "@verdaccio/config": "6.0.0-6-next.61",
+    "@verdaccio/core": "6.0.0-6-next.61",
     "@verdaccio/local-storage": "10.3.1",
-    "@verdaccio/logger-7": "6.0.0-6-next.4",
-    "@verdaccio/middleware": "6.0.0-6-next.38",
+    "@verdaccio/logger-7": "6.0.0-6-next.6",
+    "@verdaccio/middleware": "6.0.0-6-next.40",
     "@verdaccio/streams": "10.2.0",
-    "@verdaccio/tarball": "11.0.0-6-next.28",
-    "@verdaccio/ui-theme": "6.0.0-6-next.59",
-    "@verdaccio/url": "11.0.0-6-next.25",
-    "@verdaccio/utils": "6.0.0-6-next.27",
+    "@verdaccio/tarball": "11.0.0-6-next.30",
+    "@verdaccio/ui-theme": "3.4.1",
+    "@verdaccio/url": "11.0.0-6-next.27",
+    "@verdaccio/utils": "6.0.0-6-next.29",
     "JSONStream": "1.3.5",
     "async": "3.2.4",
     "body-parser": "1.20.1",
@@ -39,14 +39,12 @@
     "debug": "^4.3.4",
     "envinfo": "7.8.1",
     "express": "4.18.2",
-    "express-rate-limit": "5.5.1",
     "fast-safe-stringify": "2.1.1",
     "handlebars": "4.7.7",
     "js-yaml": "4.1.0",
     "jsonwebtoken": "9.0.0",
     "kleur": "4.1.5",
     "lodash": "4.17.21",
-    "lru-cache": "7.14.1",
     "lunr-mutable-indexes": "2.3.2",
     "mime": "3.0.0",
     "mkdirp": "1.0.4",
@@ -55,7 +53,7 @@
     "request": "2.88.0",
     "semver": "7.3.8",
     "validator": "13.7.0",
-    "verdaccio-audit": "10.2.4",
+    "verdaccio-audit": "11.0.0-6-next.23",
     "verdaccio-htpasswd": "10.5.2"
   },
   "devDependencies": {
@@ -86,7 +84,6 @@
     "@trivago/prettier-plugin-sort-imports": "4.0.0",
     "@types/async": "3.2.16",
     "@types/express": "4.17.14",
-    "@types/express-rate-limit": "5.1.3",
     "@types/express-serve-static-core": "4.17.28",
     "@types/http-errors": "2.0.1",
     "@types/jest": "26.0.24",
@@ -151,6 +148,7 @@
   "scripts": {
     "release": "standard-version -a -s",
     "type-check": "tsc --noEmit",
+    "cache:clean": "yarn cache clean --mirror && yarn cache clean --all",
     "type-check:watch": "yarn run type-check -- --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
@@ -191,13 +189,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.3.1",
-  "dependenciesMeta": {
-    "@verdaccio/logger-7@6.0.0-6-next.3": {
-      "unplugged": true
-    },
-    "jest@29.3.1": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.3.1"
 }

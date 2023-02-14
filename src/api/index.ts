@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { getUserAgent } from '@verdaccio/config';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
@@ -13,7 +14,7 @@ import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
-import { ErrorCode, getUserAgent } from '../lib/utils';
+import { ErrorCode } from '../lib/utils';
 import {
   $NextFunctionVer,
   $RequestExtend,
@@ -24,8 +25,23 @@ import {
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
-import web from './web';
-import webAPI from './web/api';
+import webMiddleware from './web';
+
+export function loadTheme(config) {
+  if (_.isNil(config.theme) === false) {
+    return _.head(
+      loadPlugin(
+        config,
+        config.theme,
+        {},
+        function (plugin) {
+          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
+        },
+        'verdaccio-theme'
+      )
+    );
+  }
+}
 
 const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   const auth: IAuth = new Auth(config);
@@ -87,8 +103,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
-    app.use('/', web(config, auth, storage));
-    app.use('/-/verdaccio/', webAPI(config, auth, storage));
+    app.use('/', webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
