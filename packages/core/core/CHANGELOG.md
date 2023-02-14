@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.61
+
 ## 6.0.0-6-next.60
 
 ## 6.0.0-6-next.59

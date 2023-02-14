@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.40
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/core@6.0.0-6-next.61
+  - @verdaccio/url@11.0.0-6-next.27
+  - @verdaccio/utils@6.0.0-6-next.29
+
 ## 6.0.0-6-next.39
 
 ### Minor Changes

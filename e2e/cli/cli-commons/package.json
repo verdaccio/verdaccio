@@ -1,13 +1,13 @@
 {
   "private": true,
   "name": "@verdaccio/test-cli-commons",
-  "version": "1.0.1-6-next.5",
+  "version": "1.1.0-6-next.6",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "devDependencies": {
-    "verdaccio": "workspace:6.0.0-6-next.60",
-    "@verdaccio/core": "workspace:6.0.0-6-next.60",
-    "@verdaccio/config": "workspace:6.0.0-6-next.60",
+    "verdaccio": "workspace:6.0.0-6-next.61",
+    "@verdaccio/core": "workspace:6.0.0-6-next.61",
+    "@verdaccio/config": "workspace:6.0.0-6-next.61",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "js-yaml": "4.1.0",
     "debug": "4.3.4",

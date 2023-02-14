@@ -1,5 +1,12 @@
 # @verdaccio/e2e-cli-yarn3
 
+## 1.0.1-6-next.6
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/test-cli-commons@1.1.0-6-next.6
+
 ## 1.0.1-6-next.5
 
 ### Patch Changes

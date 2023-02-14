@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-memory",
-  "version": "11.0.0-6-next.27",
+  "version": "11.0.0-6-next.28",
   "description": "Storage implementation in memory",
   "keywords": [
     "private",
@@ -31,15 +31,15 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.60",
+    "@verdaccio/core": "workspace:6.0.0-6-next.61",
     "memory-fs": "0.5.0",
     "debug": "4.3.4",
     "memfs": "3.4.12"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
-    "@verdaccio/config": "workspace:6.0.0-6-next.60",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.28"
+    "@verdaccio/config": "workspace:6.0.0-6-next.61",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.29"
   },
   "scripts": {
     "clean": "rimraf ./build",
