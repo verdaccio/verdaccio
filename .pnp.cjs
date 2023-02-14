@@ -4583,7 +4583,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["@verdaccio/middleware", [\
         ["npm:6.0.0-6-next.39", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-middleware-npm-6.0.0-6-next.39-a689ab88ca-22815aa240.zip/node_modules/@verdaccio/middleware/",\
+          "packageLocation": "./.yarn/cache/@verdaccio-middleware-npm-6.0.0-6-next.39-a689ab88ca-29f16008a1.zip/node_modules/@verdaccio/middleware/",\
           "packageDependencies": [\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.39"],\
             ["@verdaccio/config", "npm:6.0.0-6-next.60"],\
