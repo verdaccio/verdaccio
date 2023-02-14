@@ -1,5 +1,11 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+
 ## 6.0.0-6-next.27
 
 ### Patch Changes

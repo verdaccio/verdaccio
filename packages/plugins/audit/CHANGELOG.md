@@ -1,5 +1,17 @@
 # Change Log
 
+## 11.0.0-6-next.23
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/core@6.0.0-6-next.60
+
 ## 11.0.0-6-next.22
 
 ### Patch Changes

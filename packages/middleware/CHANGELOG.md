@@ -1,5 +1,19 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.39
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/url@11.0.0-6-next.26
+  - @verdaccio/utils@6.0.0-6-next.28
+
 ## 6.0.0-6-next.38
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.38
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/local-storage@11.0.0-6-next.30
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/logger@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.28
+
 ## 6.0.0-6-next.37
 
 ### Patch Changes
