@@ -1,5 +1,16 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.61
+
+### Minor Changes
+
+- d167f92e: chore: rollback yaml dep support old nodejs versions
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.61
+- @verdaccio/utils@6.0.0-6-next.29
+
 ## 6.0.0-6-next.60
 
 ### Minor Changes

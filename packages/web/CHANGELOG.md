@@ -1,5 +1,21 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.48
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/auth@6.0.0-6-next.40
+  - @verdaccio/loaders@6.0.0-6-next.30
+  - @verdaccio/middleware@6.0.0-6-next.40
+  - @verdaccio/store@6.0.0-6-next.41
+  - @verdaccio/core@6.0.0-6-next.61
+  - @verdaccio/tarball@11.0.0-6-next.30
+  - @verdaccio/url@11.0.0-6-next.27
+  - @verdaccio/utils@6.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.29
+
 ## 6.0.0-6-next.47
 
 ### Minor Changes

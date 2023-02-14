@@ -1,5 +1,11 @@
 # @verdaccio/test-cli-commons
 
+## 1.1.0-6-next.6
+
+### Minor Changes
+
+- d167f92e: chore: rollback yaml dep support old nodejs versions
+
 ## 1.0.1-6-next.5
 
 ### Patch Changes
