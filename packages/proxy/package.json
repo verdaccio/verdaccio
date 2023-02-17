@@ -49,7 +49,7 @@
     "lodash": "4.17.21",
     "got": "11.8.6",
     "hpagent": "1.2.0",
-    "undici": "4.16.0"
+    "undici": "5.19.1"
   },
   "devDependencies": {
     "@types/node": "16.18.10",
