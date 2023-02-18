@@ -299,10 +299,10 @@ importers:
   e2e/cli/e2e-yarn3:
     specifiers:
       '@verdaccio/test-cli-commons': workspace:1.1.0-6-next.6
-      '@yarnpkg/cli-dist': 3.3.1
+      '@yarnpkg/cli-dist': 3.4.1
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      '@yarnpkg/cli-dist': 3.3.1
+      '@yarnpkg/cli-dist': 3.4.1
 
   e2e/cli/e2e-yarn4:
     specifiers:
@@ -13057,8 +13057,8 @@ packages:
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist/3.3.1:
-    resolution: {integrity: sha512-OLhsQRU/zZwngMuk/PVGdfX9DOe6pF6AnsfaZLkUBPktEQeiPam0sUFUuV+6VrhfiK0s/MSsc4woFJjAtzt8vQ==}
+  /@yarnpkg/cli-dist/3.4.1:
+    resolution: {integrity: sha512-165Y6mm0chgIcjdY2MsJJbm9eYFqnpU2HN+xy6yEltngxld11EBdGCNCHXzL2pvxqlHzL2V3OnIDa7diov1wng==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     hasBin: true
     dev: false
