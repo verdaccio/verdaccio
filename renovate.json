@@ -13,7 +13,7 @@
     "pnpm"
   ],
   "baseBranches": ["master"],
-  "major": true,
+  "major": false,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
