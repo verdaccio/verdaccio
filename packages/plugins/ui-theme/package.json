@@ -15,9 +15,9 @@
   "devDependencies": {
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
-    "@mui/icons-material": "5.11.0",
-    "@mui/styles": "5.11.1",
-    "@mui/material": "5.11.1",
+    "@mui/icons-material": "5.11.9",
+    "@mui/styles": "5.11.9",
+    "@mui/material": "5.11.9",
     "@emotion/babel-plugin": "11.10.5",
     "@emotion/css": "11.10.5",
     "@emotion/jest": "11.10.5",
