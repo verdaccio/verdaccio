@@ -3,6 +3,7 @@
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": [
+    "customprefix-auth",
     "eslint-plugin-verdaccio",
     "@verdaccio/test-helper",
     "docker/setup-buildx-action",
