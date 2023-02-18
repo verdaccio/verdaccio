@@ -410,7 +410,7 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.61
       '@verdaccio/logger': workspace:6.0.0-6-next.29
       '@verdaccio/node-api': workspace:6.0.0-6-next.61
-      clipanion: 3.1.0
+      clipanion: 3.2.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.8
@@ -420,7 +420,7 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/logger': link:../logger/logger
       '@verdaccio/node-api': link:../node-api
-      clipanion: 3.1.0
+      clipanion: 3.2.0
       envinfo: 7.8.1
       kleur: 3.0.3
       semver: 7.3.8
@@ -1253,11 +1253,11 @@ importers:
   packages/tools/translations:
     specifiers:
       '@crowdin/crowdin-api-client': 1.20.0
-      clipanion: 3.1.0
+      clipanion: 3.2.0
       ts-node: 10.9.1
     dependencies:
       '@crowdin/crowdin-api-client': 1.20.0_debug@4.3.4
-      clipanion: 3.1.0
+      clipanion: 3.2.0
     devDependencies:
       ts-node: 10.9.1_5cc4fd05cdbba7efed0227e61dc065e1
 
@@ -15053,10 +15053,10 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /clipanion/3.1.0:
-    resolution: {integrity: sha512-v025Hz+IDQ15FpOyK8p02h5bFznMu6rLFsJSyOPR+7WrbSnZ1Ek6pblPukV7K5tC/dsWfncQPIrJ4iUy2PXkbw==}
+  /clipanion/3.2.0:
+    resolution: {integrity: sha512-XaPQiJQZKbyaaDbv5yR/cAt/ORfZfENkr4wGQj+Go/Uf/65ofTQBCPirgWFeJctZW24V3mxrFiEnEmqBflrJYA==}
     dependencies:
-      typanion: 3.3.1
+      typanion: 3.12.1
     dev: false
 
   /cliui/5.0.0:
@@ -29817,8 +29817,8 @@ packages:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
     dev: true
 
-  /typanion/3.3.1:
-    resolution: {integrity: sha512-VogBiMj3ZQuWaHkbhXwSgd9jXE4s7EMaaV7VSEiKTNYnKJs/bPjvcOGbD7rTM9aPqTABvgLVEZ+iFP6ab12HtQ==}
+  /typanion/3.12.1:
+    resolution: {integrity: sha512-3SJF/czpzqq6G3lprGFLa6ps12yb1uQ1EmitNnep2fDMNh1aO/Zbq9sWY+3lem0zYb2oHJnQWyabTGUZ+L1ScQ==}
     dev: false
 
   /type-check/0.3.2:
