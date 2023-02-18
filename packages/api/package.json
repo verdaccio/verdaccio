@@ -56,12 +56,12 @@
     "semver": "7.3.8"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "16.18.12",
     "@verdaccio/server": "workspace:6.0.0-6-next.50",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.7",
     "supertest": "6.3.3",
-    "nock": "13.2.9",
+    "nock": "13.3.0",
     "mockdate": "3.0.5"
   },
   "funding": {

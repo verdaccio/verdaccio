@@ -36,7 +36,7 @@
     "@verdaccio/ui-theme": "workspace:6.0.0-6-next.61",
     "fs-extra": "10.1.0",
     "webpack": "5.75.0",
-    "webpack-bundle-analyzer": "4.7.0",
+    "webpack-bundle-analyzer": "4.8.0",
     "webpack-bundle-size-analyzer": "3.1.0",
     "webpack-cli": "4.10.0"
   },
