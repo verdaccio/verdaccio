@@ -16,13 +16,13 @@
     "eslint-config-prettier": "8.6.0",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-jest": "26.9.0",
+    "eslint-plugin-jest": "27.2.1",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-simple-import-sort": "10.0.0",
     "eslint-plugin-verdaccio": "10.0.0"
   },
   "repository": {
