@@ -13,8 +13,6 @@ There are 5 types of plugins:
 - [Theme UI](plugin-theme.md)
 - [Filters](plugin-filter.md)
 
-> If you are interested to develop your own plugin, read the [development](dev-plugins.md) section.
-
 ## Usage {#usage}
 
 ### Installation {#installation}
