@@ -105,66 +105,18 @@
       "baseBranchList": ["5.x"]
     },
     {
-      "matchPackagePatterns": ["@types/*", "typescript", "@babel/*", "debug", "babel-*"],
+      "matchPackagePatterns": ["@types/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all build dependencies",
-      "groupSlug": "all-build-dependencies",
+      "groupName": "all typescript dependencies",
+      "groupSlug": "all-typescript-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
       "baseBranchList": ["master"]
     },
     {
-      "matchPackagePatterns": [
-        "jest",
-        "jest-*",
-        "fs-extra",
-        "ts-node",
-        "debug",
-        "nock",
-        "rimraf",
-        "supertest"
-      ],
+      "matchPackagePatterns": ["jest", "jest-*", "nock", "supertest"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all tests dependencies",
       "groupSlug": "all-tests-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
-      "matchPackagePatterns": [
-        "@docusaurus/*",
-        "webpack",
-        "esbuild",
-        "globby",
-        "pnpm",
-        "@emotion/*",
-        "@mui/*",
-        "react",
-        "react*",
-        "mini-css*",
-        "core-js",
-        "rimraf"
-      ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all ui dependencies",
-      "groupSlug": "all-ui-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
-      "matchPackagePatterns": [
-        "fast-safe-stringify",
-        "undici",
-        "express*",
-        "http-status",
-        "pino",
-        "process-warning",
-        "fastify",
-        "debug",
-        "node-fetch"
-      ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "server dependencies",
-      "groupSlug": "server-core-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
       "baseBranchList": ["master"]
     },
