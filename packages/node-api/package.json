@@ -44,12 +44,12 @@
     "@verdaccio/logger": "workspace:6.0.0-6-next.29",
     "@verdaccio/server": "workspace:6.0.0-6-next.50",
     "@verdaccio/server-fastify": "workspace:6.0.0-6-next.42",
-    "core-js": "3.27.0",
+    "core-js": "3.28.0",
     "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "16.18.12",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "jest-mock-process": "1.5.1",
     "selfsigned": "1.10.14",

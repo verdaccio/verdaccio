@@ -15,8 +15,8 @@
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "clipanion": "3.1.0",
-    "@crowdin/crowdin-api-client": "1.20.0"
+    "clipanion": "3.2.0",
+    "@crowdin/crowdin-api-client": "1.21.2"
   },
   "devDependencies": {
     "ts-node": "10.9.1"

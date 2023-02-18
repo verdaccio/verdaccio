@@ -40,7 +40,7 @@
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "@verdaccio/auth": "workspace:6.0.0-6-next.40",
     "@verdaccio/logger": "workspace:6.0.0-6-next.29",
-    "nock": "13.2.9",
+    "nock": "13.3.0",
     "supertest": "6.3.3"
   },
   "scripts": {
