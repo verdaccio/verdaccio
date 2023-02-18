@@ -89,38 +89,6 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["pnpm", "npm", "@yarnpkg/*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all pkg-managers dependencies",
-      "groupSlug": "all-pkg-managers-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
-      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all 5.x dependencies",
-      "groupSlug": "all-5.x-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["5.x"]
-    },
-    {
-      "matchPackagePatterns": ["@types/*", "typescript"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all typescript dependencies",
-      "groupSlug": "all-typescript-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
-      "matchPackagePatterns": ["jest", "jest-*", "nock", "supertest"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all tests dependencies",
-      "groupSlug": "all-tests-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
       "matchPackagePatterns": [
         "@trivago/*",
         "prettier",
