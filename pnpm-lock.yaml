@@ -251,10 +251,10 @@ importers:
   e2e/cli/e2e-npm8:
     specifiers:
       '@verdaccio/test-cli-commons': workspace:1.1.0-6-next.6
-      npm: 8.19.3
+      npm: 8.19.4
     dependencies:
       '@verdaccio/test-cli-commons': link:../cli-commons
-      npm: 8.19.3
+      npm: 8.19.4
 
   e2e/cli/e2e-npm9:
     specifiers:
@@ -24112,8 +24112,8 @@ packages:
       - which
       - write-file-atomic
 
-  /npm/8.19.3:
-    resolution: {integrity: sha512-0QjmyPtDxSyMWWD8I91QGbrgx9KzbV6C9FK1liEb/K0zppiZkr5KxXc990G+LzPwBHDfRjUBlO9T1qZ08vl9mA==}
+  /npm/8.19.4:
+    resolution: {integrity: sha512-3HANl8i9DKnUA89P4KEgVNN28EjSeDCmvEqbzOAuxCFDzdBZzjUl99zgnGpOUumvW5lvJo2HKcjrsc+tfyv1Hw==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     hasBin: true
     dev: false
