@@ -124,6 +124,21 @@ exports[`<Search /> component should load the component in default state 1`] = `
   padding-top: 8px;
 }
 
+.emotion-2 .MuiFilledInput-root.MuiInputBase-hiddenLabel {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.emotion-2 .MuiFilledInput-root.MuiInputBase-hiddenLabel .MuiAutocomplete-input {
+  padding-top: 16px;
+  padding-bottom: 17px;
+}
+
+.emotion-2 .MuiFilledInput-root.MuiInputBase-hiddenLabel.MuiInputBase-sizeSmall .MuiAutocomplete-input {
+  padding-top: 8px;
+  padding-bottom: 9px;
+}
+
 .emotion-2 .MuiAutocomplete-input {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -241,13 +256,6 @@ label+.emotion-5 {
   border-bottom-color: #d32f2f;
 }
 
-.emotion-5.Mui-error:focus-within:after {
-  -webkit-transform: scaleX(1);
-  -moz-transform: scaleX(1);
-  -ms-transform: scaleX(1);
-  transform: scaleX(1);
-}
-
 .emotion-5:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
   left: 0;
@@ -261,7 +269,7 @@ label+.emotion-5 {
 }
 
 .emotion-5:hover:not(.Mui-disabled, .Mui-error):before {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.87);
 }
 
 @media (hover: none) {
