@@ -93,7 +93,7 @@ auth:
 
 ### Middleware Configuration {#middleware-configuration}
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -105,7 +105,13 @@ middlewares:
 
 ### Storage Configuration {#storage-configuration}
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+:::caution
+
+If the `store` property is defined in the `config.yaml` file, the `storage` property is being ignored.
+
+:::caution
+
+Example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
 ```yaml
 store:
@@ -115,16 +121,9 @@ store:
 
 ### Theme Configuration {#theme-configuration}
 
-Verdaccio allows to replace the User Interface with a custom one, we call it **theme**.
-By default, uses `@verdaccio/ui-theme` that comes built-in, but, you can use something different installing your own plugin.
-
 ```bash
-
-$> npm install --global verdaccio-theme-dark
-
+npm install --global verdaccio-theme-dark
 ```
-
-> The plugin name prefix must start with `verdaccio-theme`, otherwise the plugin won't load.
 
 You can load only one theme at a time and pass through options if you need it.
 

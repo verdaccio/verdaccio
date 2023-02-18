@@ -37,7 +37,13 @@ stateDiagram-v2
 
 ### How the assets of the theme loads? {#loads}
 
-The theme loads only in the client side, the application renders HTML with `<script>` tags to render the application,
+:::caution
+
+By default the application loads on `http://localhost:4873`, but in cases where a resverse proxy with custom domain are involved the assets are loaded based on the property `__VERDACCIO_BASENAME_UI_OPTIONS.base` and `__VERDACCIO_BASENAME_UI_OPTIONS.basename`, thus only one domain configuration can be used.
+
+:::caution
+
+The theme loads only in the client side, the application renders HTML with `<script>` tags to render the application, the bundler takes care of load any other assets as `svg`, `images` or _chunks_ associated with it.
 
 ### The `__VERDACCIO_BASENAME_UI_OPTIONS` object
 
@@ -121,7 +127,7 @@ module.exports = () => {
 
 If any of the following properties are not available, the plugin won't load, thus follow this structure.
 
-- `staticPath`: is the absolute/relative location of the statics files, could be any path either with `require.resolve` or build your self, what's important is inside of the package or any location that the Express.js middleware is able to find, behind the scenes the []`res.sendFile`](https://expressjs.com/en/api.html#res.sendFile) is being used.
+- `staticPath`: is the absolute/relative location of the statics files, could be any path either with `require.resolve` or build your self, what's important is inside of the package or any location that the Express.js middleware is able to find, behind the scenes the [`res.sendFile`](https://expressjs.com/en/api.html#res.sendFile) is being used.
 - `manifest`: A Webpack manifest object.
 - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
 - The `manifestFiles` refers to the main files must be loaded as part of the `html` scripts in order to load the page, you don't have to include the _chunks_ since are dynamically loaded by the bundler.

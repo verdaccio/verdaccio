@@ -93,7 +93,7 @@ auth:
 
 ### Middleware Configuration {#middleware-configuration}
 
-This is an example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
+Example how to set up a middleware plugin. All middleware plugins must be defined in the **middlewares** namespace.
 
 ```yaml
 middlewares:
@@ -105,12 +105,48 @@ middlewares:
 
 ### Storage Configuration {#storage-configuration}
 
-This is an example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
+:::caution
+
+If the `store` property is defined in the `config.yaml` file, the `storage` property is being ignored.
+
+:::caution
+
+Example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
 ```yaml
 store:
   memory:
     limit: 1000
+```
+
+### Theme Configuration {#theme-configuration}
+
+```bash
+npm install --global verdaccio-theme-dark
+```
+
+You can load only one theme at a time and pass through options if you need it.
+
+```yaml
+theme:
+  dark:
+    option1: foo
+    option2: bar
+```
+
+### Filter Configuration (Experimental) {#filter-configuration}
+
+A real example from [npm i -g verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter) filter plugin.
+
+```yaml
+filters:
+  plugin-secfilter:
+    block:
+      - scope: @evil # block all packages in scope
+      - package: semvver # block a malicious package
+      - package: @coolauthor/stolen
+        versions: '>2.0.1' # block some malicious versions of previously ok package
+                           # uses https://www.npmjs.com/package/semver syntax
 ```
 
 ## Legacy plugins {#legacy-plugins}
