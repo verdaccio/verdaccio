@@ -14,6 +14,12 @@ export async function loadTheme(config: any) {
       { config, logger },
       // TODO: add types { staticPath: string; manifest: unknown; manifestFiles: unknown }
       function (plugin: any) {
+        /**
+         * 
+          - `staticPath`: is the same data returned in Verdaccio 5.
+          - `manifest`: A webpack manifest object.
+          - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
+         */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
       config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'
@@ -27,7 +33,7 @@ export async function loadTheme(config: any) {
 }
 
 export default async (config, auth, storage) => {
-  const pluginOptions = (await loadTheme(config)) || require('@verdaccio/ui-theme')();
+  const pluginOptions = (await loadTheme(config)) || require('@verdaccio/ui-theme')(config.web);
 
   // eslint-disable-next-line new-cap
   const router = express.Router();

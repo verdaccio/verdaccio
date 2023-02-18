@@ -67,7 +67,14 @@ module.exports = {
         {
           type: 'category',
           label: 'Dev Guides',
-          items: ['plugin-generator', 'plugin-auth', 'plugin-middleware', 'plugin-storage'],
+          items: [
+            'plugin-generator',
+            'plugin-auth',
+            'plugin-middleware',
+            'plugin-storage',
+            'plugin-theme',
+            'plugin-filter',
+          ],
         },
         'node-api',
       ],
