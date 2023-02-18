@@ -9,11 +9,10 @@
     "docker/setup-buildx-action",
     "docker/login-action",
     "docker/build-push-action",
-    "crazy-max/ghaction-docker-meta",
-    "pnpm"
+    "crazy-max/ghaction-docker-meta"
   ],
   "baseBranches": ["master"],
-  "major": false,
+  "major": true,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
@@ -90,7 +89,7 @@
     },
     {
       "matchPackagePatterns": ["pnpm", "npm", "@yarnpkg/*"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
+      "matchUpdateTypes": ["minor", "patch"],
       "groupName": "all pkg-managers dependencies",
       "groupSlug": "all-pkg-managers-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
