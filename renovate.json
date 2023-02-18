@@ -89,20 +89,20 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["memfs", "rimraf", "kleur", "self-signed"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all core dependencies",
-      "groupSlug": "all-core-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
-    },
-    {
       "matchPackagePatterns": ["pnpm", "npm", "@yarnpkg/*"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all pkg-managers dependencies",
       "groupSlug": "all-pkg-managers-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
       "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all 5.x dependencies",
+      "groupSlug": "all-5.x-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["5.x"]
     },
     {
       "matchPackagePatterns": ["@types/*", "typescript", "@babel/*", "debug", "babel-*"],
@@ -115,13 +115,12 @@
     {
       "matchPackagePatterns": [
         "jest",
-        "kleur",
         "jest-*",
+        "fs-extra",
         "ts-node",
         "debug",
         "nock",
         "rimraf",
-        "fs-extra",
         "supertest"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
@@ -155,16 +154,13 @@
       "matchPackagePatterns": [
         "fast-safe-stringify",
         "undici",
-        "pnpm",
         "express*",
         "http-status",
         "pino",
         "process-warning",
         "fastify",
         "debug",
-        "node-fetch",
-        "fs-extra",
-        "self-signed"
+        "node-fetch"
       ],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "server dependencies",
