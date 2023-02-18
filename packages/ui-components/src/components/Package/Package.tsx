@@ -84,8 +84,10 @@ const Package: React.FC<PackageInterface> = ({
   const renderVersionInfo = (): React.ReactNode =>
     version && (
       <OverviewItem>
-        <StyledVersion />
-        {t('package.version', { version })}
+        <>
+          <StyledVersion />
+          {t('package.version', { version })}
+        </>
       </OverviewItem>
     );
 
@@ -113,25 +115,31 @@ const Package: React.FC<PackageInterface> = ({
   const renderFileSize = (): React.ReactNode =>
     dist?.unpackedSize && (
       <OverviewItem>
-        <StyledFileBinary />
-        {utils.fileSizeSI(dist.unpackedSize)}
+        <>
+          <StyledFileBinary />
+          {utils.fileSizeSI(dist.unpackedSize)}
+        </>
       </OverviewItem>
     );
 
   const renderLicenseInfo = (): React.ReactNode =>
     license && (
       <OverviewItem>
-        <StyledLaw />
-        {license}
+        <>
+          <StyledLaw />
+          {license}
+        </>
       </OverviewItem>
     );
 
   const renderPublishedInfo = (): React.ReactNode =>
     time && (
       <OverviewItem>
-        <StyledTime />
-        <Published>{t('package.published-on', { time: utils.formatDate(time) })}</Published>
-        {utils.formatDateDistance(time)}
+        <>
+          <StyledTime />
+          <Published>{t('package.published-on', { time: utils.formatDate(time) })}</Published>
+          {utils.formatDateDistance(time)}
+        </>
       </OverviewItem>
     );
 
