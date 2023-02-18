@@ -49,19 +49,19 @@
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.40",
-    "@verdaccio/core": "workspace:6.0.0-6-next.61",
     "@verdaccio/config": "workspace:6.0.0-6-next.61",
+    "@verdaccio/core": "workspace:6.0.0-6-next.61",
     "@verdaccio/store": "workspace:6.0.0-6-next.41",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.7",
-    "fastify": "4.10.2",
-    "yaml": "2.2.0",
-    "got": "11.8.6",
-    "lodash": "4.17.21",
-    "node-mocks-http": "1.12.1",
+    "fastify": "4.13.0",
     "get-port": "5.1.1",
+    "got": "11.8.5",
+    "lodash": "4.17.21",
     "nock": "13.2.9",
+    "node-mocks-http": "1.12.1",
+    "typedoc-plugin-markdown": "3.14.0",
     "typedoc-plugin-missing-exports": "1.0.0",
-    "typedoc-plugin-markdown": "3.14.0"
+    "yaml": "2.2.0"
   },
   "keywords": [
     "private",
