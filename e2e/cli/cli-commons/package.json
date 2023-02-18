@@ -11,7 +11,7 @@
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "js-yaml": "4.1.0",
     "debug": "4.3.4",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "got": "11.8.6",
     "lodash": "4.17.21"
   },

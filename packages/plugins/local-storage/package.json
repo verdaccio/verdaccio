@@ -42,7 +42,7 @@
     "@verdaccio/utils": "workspace:6.0.0-6-next.29",
     "core-js": "3.27.0",
     "debug": "4.3.4",
-    "globby": "11.1.0",
+    "globby": "12.2.0",
     "lockfile": "1.0.4",
     "sanitize-filename": "1.6.3",
     "lodash": "4.17.21",
@@ -50,12 +50,12 @@
     "lru-cache": "7.14.1"
   },
   "devDependencies": {
-    "@types/minimatch": "3.0.5",
+    "@types/minimatch": "5.1.2",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "@verdaccio/config": "workspace:6.0.0-6-next.61",
     "@verdaccio/logger": "workspace:6.0.0-6-next.29",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.7",
-    "minimatch": "3.1.2"
+    "minimatch": "6.2.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

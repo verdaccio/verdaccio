@@ -40,7 +40,7 @@
     "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "18.14.0",
     "typedoc": "0.23.23"
   },
   "typedoc": {

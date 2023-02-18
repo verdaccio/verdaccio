@@ -49,11 +49,11 @@
     "lodash": "4.17.21",
     "got": "11.8.6",
     "hpagent": "1.2.0",
-    "undici": "4.16.0"
+    "undici": "5.20.0"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
-    "p-cancelable": "2.1.1",
+    "@types/node": "18.14.0",
+    "p-cancelable": "4.0.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
     "get-stream": "^6.0.1",
     "nock": "13.2.9",

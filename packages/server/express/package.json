@@ -48,10 +48,10 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "18.14.0",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.39",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.7",
-    "http-errors": "1.8.1"
+    "http-errors": "2.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",

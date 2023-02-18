@@ -49,10 +49,10 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "18.14.0",
     "@verdaccio/types": "workspace:11.0.0-6-next.20",
-    "jest-mock-process": "1.5.1",
-    "selfsigned": "1.10.14",
+    "jest-mock-process": "2.0.0",
+    "selfsigned": "2.1.1",
     "supertest": "6.3.3"
   },
   "publishConfig": {

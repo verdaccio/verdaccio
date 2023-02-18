@@ -43,11 +43,11 @@
     "debug": "4.3.4",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "minimatch": "3.1.2",
-    "yup": "0.32.11"
+    "minimatch": "6.2.0",
+    "yup": "1.0.0"
   },
   "devDependencies": {
-    "@types/minimatch": "3.0.5",
+    "@types/minimatch": "5.1.2",
     "@types/yup": "0.29.14"
   },
   "funding": {
