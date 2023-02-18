@@ -141,7 +141,7 @@ theme:
 
 :::caution
 
-Plugins from sinopia era are deprecated but still available in verdacci@5.x versions but already removed from next 6.x versions, consider migrate them or stop using them for future updates.
+Plugins from sinopia era are deprecated but still available in verdaccio@5.x versions but already removed from next 6.x versions, consider migrate them or stop using them for future updates.
 
 :::caution
 

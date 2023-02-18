@@ -13,7 +13,7 @@ Filter plugins are **experimental** and requires more users feedback
 
 ### When to use a filter plugin? {#when-to-use}
 
-If you need to mutate the metadata for different reasons this is a way to do it, all manifest request are intercepted, but the tarballs, user, profile or tokens requests are not included.
+If you need to mutate the metadata for different reasons this is a way to do it, all manifest request are intercepted, but the tarballs, user, profile or tokens requests are not included. A good example to review is the [verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter).
 
 ### Plugin structure {#build-structure}
 
