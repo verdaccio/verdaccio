@@ -57,17 +57,23 @@ module.exports = {
       type: 'category',
       label: 'Development',
       items: [
-        'plugins',
-        'dev-plugins',
-        {
-          type: 'link',
-          label: 'Search Plugins',
-          href: '/dev/plugins-search',
-        },
         {
           type: 'category',
-          label: 'Dev Guides',
-          items: ['plugin-generator', 'plugin-auth', 'plugin-middleware', 'plugin-storage'],
+          label: 'Plugins',
+          items: [
+            'plugins',
+            'plugin-generator',
+            'plugin-auth',
+            'plugin-middleware',
+            'plugin-storage',
+            'plugin-theme',
+            'plugin-filter',
+            {
+              type: 'link',
+              label: 'Search Plugins',
+              href: '/dev/plugins-search',
+            },
+          ],
         },
         'node-api',
       ],

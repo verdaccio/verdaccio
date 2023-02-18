@@ -8,7 +8,8 @@
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "files": [
-    "./build"
+    "./build",
+    "./src"
   ],
   "scripts": {
     "test": "cross-env TZ=UTC jest --config jest/jest.config.js",

@@ -3,7 +3,7 @@ id: plugin-storage
 title: 'Storage Plugin'
 ---
 
-## What's an Storage Plugin? {#whats-an-storage-plugin}
+## What's a Storage Plugin? {#whats-a-storage-plugin}
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/verdaccio/tree/master/packages/plugins/local-storage). The default storage can be easily replaced, either using a community plugin or creating one by your own.
 

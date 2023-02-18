@@ -3,7 +3,7 @@ id: plugin-auth
 title: 'Authentication Plugin'
 ---
 
-## What's an Authentication Plugin? {#whats-an-authentication-plugin}
+## What's an authentication plugin? {#whats-an-authentication-plugin}
 
 Is a sort plugin that allows to handle who access or publish to a specific package. By default the `htpasswd` is built-in, but can
 easily be replaced by your own.
