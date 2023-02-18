@@ -187,7 +187,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrowError(new Error('something awful happened'));
+        ).rejects.toThrow(new Error('something awful happened'));
       });
 
       test('reply with 409 error', async () => {
@@ -205,7 +205,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrowError(
+        ).rejects.toThrow(
           new Error(
             'Unexpected token s in JSON at position 0 in "https://registry.npmjs.org/jquery"'
           )
@@ -219,7 +219,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrowError(
+        ).rejects.toThrow(
           errorUtils.getInternalError(`${errorUtils.API_ERROR.BAD_STATUS_CODE}: 409`)
         );
       });
@@ -231,7 +231,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrowError(errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
+        ).rejects.toThrow(errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK));
         expect(mockHttp).toHaveBeenCalledTimes(1);
         expect(mockHttp).toHaveBeenLastCalledWith(
           {
@@ -278,13 +278,13 @@ describe('proxy', () => {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
-        ).rejects.toThrowError();
+        ).rejects.toThrow();
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
-        ).rejects.toThrowError(errorUtils.getInternalError(errorUtils.API_ERROR.UPLINK_OFFLINE));
+        ).rejects.toThrow(errorUtils.getInternalError(errorUtils.API_ERROR.UPLINK_OFFLINE));
         expect(mockWarn).toHaveBeenCalledTimes(1);
         expect(mockWarn).toHaveBeenLastCalledWith(
           {
@@ -315,14 +315,14 @@ describe('proxy', () => {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
-        ).rejects.toThrowError();
+        ).rejects.toThrow();
         // display offline error on exausted retry
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
             retry: { limit: 2 },
           })
-        ).rejects.toThrowError(errorUtils.getInternalError(errorUtils.API_ERROR.UPLINK_OFFLINE));
+        ).rejects.toThrow(errorUtils.getInternalError(errorUtils.API_ERROR.UPLINK_OFFLINE));
         expect(mockWarn).toHaveBeenCalledTimes(2);
         expect(mockWarn).toHaveBeenLastCalledWith(
           {

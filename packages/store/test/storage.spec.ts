@@ -1254,7 +1254,7 @@ describe('storage', () => {
             host: req.get('host') as string,
           },
         })
-      ).rejects.toThrowError('package does not exist on uplink: foo');
+      ).rejects.toThrow('package does not exist on uplink: foo');
     });
   });
 
