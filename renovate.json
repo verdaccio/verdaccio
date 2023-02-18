@@ -36,10 +36,6 @@
       "allowedVersions": "4.5.0"
     },
     {
-      "packageNames": ["@docusaurus/*"],
-      "allowedVersions": "2.0.0-beta.14"
-    },
-    {
       "packageNames": ["@google-cloud/storage"],
       "allowedVersions": "3.5.0"
     },
@@ -92,43 +88,86 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": [
-        "@types/*",
-        "typescript",
-        "@babel/*",
-        "fast-safe-stringify",
-        "undici",
-        "webpack",
-        "memfs",
-        "globby",
-        "pnpm",
-        "esbuild",
-        "@emotion/*",
-        "@mui/*",
-        "express*",
-        "http-status",
-        "babel-*",
-        "jest",
-        "jest-*",
-        "pino",
-        "react*",
-        "ts-node",
-        "mini-css*",
-        "process-warning",
-        "fastify",
-        "core-js",
-        "debug",
-        "nock",
-        "rimraf",
-        "node-fetch",
-        "kleur",
-        "fs-extra",
-        "self-signed",
-        "supertest"
-      ],
+      "matchPackagePatterns": ["memfs", "rimraf", "kleur", "self-signed"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all core dependencies",
       "groupSlug": "all-core-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": ["pnpm", "npm", "@yarnpkg/*"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all pkg-managers dependencies",
+      "groupSlug": "all-pkg-managers-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": ["@types/*", "typescript", "@babel/*", "debug", "babel-*"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all build dependencies",
+      "groupSlug": "all-build-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": [
+        "jest",
+        "kleur",
+        "jest-*",
+        "ts-node",
+        "debug",
+        "nock",
+        "rimraf",
+        "fs-extra",
+        "supertest"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all tests dependencies",
+      "groupSlug": "all-tests-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": [
+        "@docusaurus/*",
+        "webpack",
+        "esbuild",
+        "globby",
+        "pnpm",
+        "@emotion/*",
+        "@mui/*",
+        "react",
+        "react*",
+        "mini-css*",
+        "core-js",
+        "rimraf"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all ui dependencies",
+      "groupSlug": "all-ui-dependencies",
+      "extends": [":semanticCommitTypeAll(fix)"],
+      "baseBranchList": ["master"]
+    },
+    {
+      "matchPackagePatterns": [
+        "fast-safe-stringify",
+        "undici",
+        "pnpm",
+        "express*",
+        "http-status",
+        "pino",
+        "process-warning",
+        "fastify",
+        "debug",
+        "node-fetch",
+        "fs-extra",
+        "self-signed"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "server dependencies",
+      "groupSlug": "server-core-dependencies",
       "extends": [":semanticCommitTypeAll(fix)"],
       "baseBranchList": ["master"]
     },
