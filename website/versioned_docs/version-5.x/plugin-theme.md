@@ -179,4 +179,4 @@ The package export parts of the user interface that could be reused:
 
 https://ui-components.verdaccio.org
 
-<iframe src="https://ui-components.verdaccio.org" height="900"/>
+<iframe src="https://ui-components.verdaccio.org" height="900"></iframe>
