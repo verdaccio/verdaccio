@@ -68,7 +68,7 @@
     "react-router": "5.3.4",
     "react-router-dom": "5.3.4",
     "react-virtualized": "9.22.3",
-    "redux": "4.2.0",
+    "redux": "4.2.1",
     "redux-persist": "6.0.0",
     "remark-gfm": "3.0.1",
     "rimraf": "3.0.2",

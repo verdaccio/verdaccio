@@ -54,7 +54,7 @@
     "history": "4.10.1",
     "react-markdown": "8.0.4",
     "remark-gfm": "3.0.1",
-    "redux": "4.2.0",
+    "redux": "4.2.1",
     "validator": "13.7.0"
   },
   "devDependencies": {
