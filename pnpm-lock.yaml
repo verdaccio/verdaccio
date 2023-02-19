@@ -61,7 +61,7 @@ importers:
       '@types/semver': 7.3.13
       '@types/supertest': 2.0.12
       '@types/testing-library__jest-dom': 5.14.5
-      '@types/validator': 13.7.10
+      '@types/validator': 13.7.12
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.18.0
       '@typescript-eslint/eslint-plugin': 5.52.0
@@ -162,7 +162,7 @@ importers:
       '@types/semver': 7.3.13
       '@types/supertest': 2.0.12
       '@types/testing-library__jest-dom': 5.14.5
-      '@types/validator': 13.7.10
+      '@types/validator': 13.7.12
       '@types/webpack': 5.28.0
       '@types/webpack-env': 1.18.0
       '@typescript-eslint/eslint-plugin': 5.52.0_d1402a3c775d59de9a6ff6c6d7c040b2
@@ -518,12 +518,12 @@ importers:
       debug: 4.3.4
       lodash: 4.17.21
       node-mocks-http: 1.12.1
-      validator: 13.7.0
+      validator: 13.9.0
     dependencies:
       '@verdaccio/core': link:../core
       debug: 4.3.4
       lodash: 4.17.21
-      validator: 13.7.0
+      validator: 13.9.0
     devDependencies:
       '@verdaccio/types': link:../types
       node-mocks-http: 1.12.1
@@ -891,7 +891,7 @@ importers:
       supertest: 6.3.3
       terser-webpack-plugin: 5.3.6
       url-loader: 4.1.1
-      validator: 13.7.0
+      validator: 13.9.0
       webpack: 5.75.0
       webpack-bundle-analyzer: 4.7.0
       webpack-bundle-size-analyzer: 3.1.0
@@ -969,7 +969,7 @@ importers:
       supertest: 6.3.3
       terser-webpack-plugin: 5.3.6_webpack@5.75.0
       url-loader: 4.1.1_webpack@5.75.0
-      validator: 13.7.0
+      validator: 13.9.0
       webpack: 5.75.0_webpack-cli@4.10.0
       webpack-bundle-analyzer: 4.7.0
       webpack-bundle-size-analyzer: 3.1.0
@@ -1317,7 +1317,7 @@ importers:
       react-virtualized: 9.22.3
       redux: 4.2.1
       remark-gfm: 3.0.1
-      validator: 13.7.0
+      validator: 13.9.0
     dependencies:
       '@emotion/react': 11.10.5_d9a21222110f86937be541128834ca1a
       '@emotion/styled': 11.10.5_7da6f0611f7e3e4120a29d52100b7b21
@@ -1351,7 +1351,7 @@ importers:
       react-virtualized: 9.22.3_react-dom@18.2.0+react@18.2.0
       redux: 4.2.1
       remark-gfm: 3.0.1
-      validator: 13.7.0
+      validator: 13.9.0
     devDependencies:
       '@babel/core': 7.20.7
       '@emotion/babel-plugin': 11.10.5_@babel+core@7.20.7
@@ -9059,8 +9059,8 @@ packages:
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
 
-  /@types/validator/13.7.10:
-    resolution: {integrity: sha512-t1yxFAR2n0+VO6hd/FJ9F2uezAZVWHLmpmlJzm1eX03+H7+HsuTAp7L8QJs+2pQCfWkP1+EXsGK9Z9v7o/qPVQ==}
+  /@types/validator/13.7.12:
+    resolution: {integrity: sha512-YVtyAPqpefU+Mm/qqnOANW6IkqKpCSrarcyV269C8MA8Ux0dbkEuQwM/4CjL47kVEM2LgBef/ETfkH+c6+moFA==}
     dev: true
 
   /@types/webpack-env/1.18.0:
@@ -26245,8 +26245,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /validator/13.7.0:
-    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
+  /validator/13.9.0:
+    resolution: {integrity: sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==}
     engines: {node: '>= 0.10'}
 
   /value-equal/1.0.1:
