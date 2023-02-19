@@ -460,7 +460,7 @@ importers:
       lodash: 4.17.21
       process-warning: 1.0.0
       semver: 7.3.8
-      typedoc: 0.23.23
+      typedoc: 0.23.25
       typedoc-plugin-missing-exports: latest
     dependencies:
       ajv: 8.11.2
@@ -472,8 +472,8 @@ importers:
     devDependencies:
       '@verdaccio/types': link:../types
       lodash: 4.17.21
-      typedoc: 0.23.23_typescript@4.9.4
-      typedoc-plugin-missing-exports: 1.0.0_typedoc@0.23.23
+      typedoc: 0.23.25_typescript@4.9.4
+      typedoc-plugin-missing-exports: 1.0.0_typedoc@0.23.25
 
   packages/core/file-locking:
     specifiers:
@@ -506,10 +506,10 @@ importers:
   packages/core/types:
     specifiers:
       '@types/node': 16.18.10
-      typedoc: 0.23.23
+      typedoc: 0.23.25
     devDependencies:
       '@types/node': 16.18.10
-      typedoc: 0.23.23_typescript@4.9.4
+      typedoc: 0.23.25_typescript@4.9.4
 
   packages/core/url:
     specifiers:
@@ -1530,7 +1530,7 @@ importers:
       react-twitter-widgets: ^1.10.0
       sass: 1.57.1
       sass-loader: ^12.1.0
-      typedoc: 0.23.23
+      typedoc: 0.23.25
       typedoc-github-wiki-theme: ^1.0.1
       typedoc-plugin-markdown: 3.14.0
       typedoc-plugin-merge-modules: 4.0.1
@@ -1562,7 +1562,7 @@ importers:
       copy-text-to-clipboard: 3.0.1
       docusaurus-plugin-contributors: link:../packages/tools/docusaurus-plugin-contributors
       docusaurus-plugin-sentry: 1.0.0_67096f8b2a2bc215adc7db3ca9fcde4b
-      docusaurus-plugin-typedoc: 0.18.0_2747ec8d715acf48563f8c7d6f95fee8
+      docusaurus-plugin-typedoc: 0.18.0_d26ba2e1aeb21cf91c4fec6a1144127b
       dompurify: 2.4.4
       p-cancelable: 2.1.1
       react: 17.0.2
@@ -1570,10 +1570,10 @@ importers:
       react-iframe: 1.8.5_react@17.0.2
       react-player: 2.11.0_react@17.0.2
       react-twitter-widgets: 1.11.0_react@17.0.2
-      typedoc: 0.23.23_typescript@4.9.4
-      typedoc-github-wiki-theme: 1.0.1_2747ec8d715acf48563f8c7d6f95fee8
-      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.23
-      typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.23
+      typedoc: 0.23.25_typescript@4.9.4
+      typedoc-github-wiki-theme: 1.0.1_d26ba2e1aeb21cf91c4fec6a1144127b
+      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.25
+      typedoc-plugin-merge-modules: 4.0.1_typedoc@0.23.25
       use-is-in-viewport: 1.0.9_react@17.0.2
       usehooks-ts: 2.9.1_react-dom@17.0.2+react@17.0.2
     devDependencies:
@@ -9884,6 +9884,9 @@ packages:
     resolution: {integrity: sha512-n5M855fKb2SsfMIiFFoVrABHJC8QtHwVx+mHWP3QcEqBHYienj5dHSgjbxtC0WEZXYt4wcD6zrQElDPhFuZgfA==}
     engines: {node: '>=12'}
 
+  /ansi-sequence-parser/1.1.0:
+    resolution: {integrity: sha512-lEm8mt52to2fT8GhciPCGeCXACSz2UwIN4X2e2LJSnZ5uAbn2/dsYdOmUXq0AtWS5cpAupysIneExOgH0Vd2TQ==}
+
   /ansi-styles/2.2.1:
     resolution: {integrity: sha512-kmCevFghRiWM7HB5zTPULl4r9bVFSWjz62MhqizDGUrq2NWuNMQyuv4tHHoKJHs69M/MF64lEcHdYIocrdWQYA==}
     engines: {node: '>=0.10.0'}
@@ -13460,14 +13463,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /docusaurus-plugin-typedoc/0.18.0_2747ec8d715acf48563f8c7d6f95fee8:
+  /docusaurus-plugin-typedoc/0.18.0_d26ba2e1aeb21cf91c4fec6a1144127b:
     resolution: {integrity: sha512-kurIUu8LhVIOPT88HoeBcu0/D2GMDdg0pUYaFlqeuXT9an6Wlgvuy0C22ZMYcJUcp/gA/Mw2XdUHubsLK2M4uA==}
     peerDependencies:
       typedoc: '>=0.23.0'
       typedoc-plugin-markdown: '>=3.13.0'
     dependencies:
-      typedoc: 0.23.23_typescript@4.9.4
-      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.23
+      typedoc: 0.23.25_typescript@4.9.4
+      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.25
     dev: false
 
   /dom-accessibility-api/0.5.9:
@@ -18156,8 +18159,8 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  /jsonc-parser/3.1.0:
-    resolution: {integrity: sha512-DRf0QjnNeCUds3xTjKlQQ3DpJD51GvDjJfnxUVWg6PZTo2otSm+slzNAxU/35hF8/oJIKoG9slq30JYOsF2azg==}
+  /jsonc-parser/3.2.0:
+    resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
 
   /jsonfile/4.0.0:
     resolution: {integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=}
@@ -18824,6 +18827,11 @@ packages:
 
   /markdown-table/3.0.2:
     resolution: {integrity: sha512-y8j3a5/DkJCmS5x4dMCQL+OR0+2EAq3DOtio1COSHsmW2BGXnNCK3v12hJt1LrUz5iZH5g0LmuYOjDdI+czghA==}
+
+  /marked/4.2.12:
+    resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
+    engines: {node: '>= 12'}
+    hasBin: true
 
   /marked/4.2.5:
     resolution: {integrity: sha512-jPueVhumq7idETHkb203WDD4fMA3yV9emQ5vLwop58lu8bTclMghBWcYAavlDqIEMaisADinV1TooIFCfqOsYQ==}
@@ -19518,8 +19526,8 @@ packages:
     dependencies:
       brace-expansion: 1.1.11
 
-  /minimatch/5.1.2:
-    resolution: {integrity: sha512-bNH9mmM9qsJ2X4r2Nat1B//1dJVcn3+iBLa3IgqJ7EbGaDNepL9QSHOxN4ng33s52VMMhhIfgCYDk3C4ZmlDAg==}
+  /minimatch/6.2.0:
+    resolution: {integrity: sha512-sauLxniAmvnhhRjFwPNnJKaPFYyddAgbYdeUpHULtCT/GhzdCx/MDNy+Y40lBxTQUrMzDE8e0S43Z5uqfO0REg==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
@@ -24060,12 +24068,13 @@ packages:
       interpret: 1.4.0
       rechoir: 0.6.2
 
-  /shiki/0.11.1:
-    resolution: {integrity: sha512-EugY9VASFuDqOexOgXR18ZV+TbFrQHeCpEYaXamO+SZlsnT/2LxuLBX25GGtIrwaEVFXUAbUQ601SWE2rMwWHA==}
+  /shiki/0.14.1:
+    resolution: {integrity: sha512-+Jz4nBkCBe0mEDqo1eKRcCdjRtrCjozmcbTUjbPTX7OOJfEbTZzlUWlZtGe3Gb5oV1/jnojhG//YZc3rs9zSEw==}
     dependencies:
-      jsonc-parser: 3.1.0
-      vscode-oniguruma: 1.6.2
-      vscode-textmate: 6.0.0
+      ansi-sequence-parser: 1.1.0
+      jsonc-parser: 3.2.0
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 8.0.0
 
   /side-channel/1.0.4:
     resolution: {integrity: sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw==}
@@ -25595,14 +25604,14 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typedoc-github-wiki-theme/1.0.1_2747ec8d715acf48563f8c7d6f95fee8:
+  /typedoc-github-wiki-theme/1.0.1_d26ba2e1aeb21cf91c4fec6a1144127b:
     resolution: {integrity: sha512-FaO7fENGK6IJLpkddbNXxJfNbooF9KBC7xfk7Lj4uqG5SCC7YQFPTLDyNmbpJKO93QEenRYgqBwI5E5d/bKrHw==}
     peerDependencies:
       typedoc: '>=0.22.9'
       typedoc-plugin-markdown: '>=3.11.10'
     dependencies:
-      typedoc: 0.23.23_typescript@4.9.4
-      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.23
+      typedoc: 0.23.25_typescript@4.9.4
+      typedoc-plugin-markdown: 3.14.0_typedoc@0.23.25
     dev: false
 
   /typedoc-plugin-markdown/3.14.0:
@@ -25613,21 +25622,21 @@ packages:
       handlebars: 4.7.7
     dev: true
 
-  /typedoc-plugin-markdown/3.14.0_typedoc@0.23.23:
+  /typedoc-plugin-markdown/3.14.0_typedoc@0.23.25:
     resolution: {integrity: sha512-UyQLkLRkfTFhLdhSf3RRpA3nNInGn+k6sll2vRXjflaMNwQAAiB61SYbisNZTg16t4K1dt1bPQMMGLrxS0GZ0Q==}
     peerDependencies:
       typedoc: '>=0.23.0'
     dependencies:
       handlebars: 4.7.7
-      typedoc: 0.23.23_typescript@4.9.4
+      typedoc: 0.23.25_typescript@4.9.4
     dev: false
 
-  /typedoc-plugin-merge-modules/4.0.1_typedoc@0.23.23:
+  /typedoc-plugin-merge-modules/4.0.1_typedoc@0.23.25:
     resolution: {integrity: sha512-peuoWT/xcpEO71kNuaTBAS2IVwc8qm5tiIXnJc0vW/Cy9HHoVGkYecarkwtLBl5VmrhZjZN6LQNriqYfgHA1+A==}
     peerDependencies:
       typedoc: 0.23.x
     dependencies:
-      typedoc: 0.23.23_typescript@4.9.4
+      typedoc: 0.23.25_typescript@4.9.4
     dev: false
 
   /typedoc-plugin-missing-exports/1.0.0:
@@ -25636,25 +25645,25 @@ packages:
       typedoc: 0.22.x || 0.23.x
     dev: true
 
-  /typedoc-plugin-missing-exports/1.0.0_typedoc@0.23.23:
+  /typedoc-plugin-missing-exports/1.0.0_typedoc@0.23.25:
     resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
     dependencies:
-      typedoc: 0.23.23_typescript@4.9.4
+      typedoc: 0.23.25_typescript@4.9.4
     dev: true
 
-  /typedoc/0.23.23_typescript@4.9.4:
-    resolution: {integrity: sha512-cg1YQWj+/BU6wq74iott513U16fbrPCbyYs04PHZgvoKJIc6EY4xNobyDZh4KMfRGW8Yjv6wwIzQyoqopKOUGw==}
+  /typedoc/0.23.25_typescript@4.9.4:
+    resolution: {integrity: sha512-O1he153qVyoCgJYSvIyY3bPP1wAJTegZfa6tL3APinSZhJOf8CSd8F/21M6ex8pUY/fuY6n0jAsT4fIuMGA6sA==}
     engines: {node: '>= 14.14'}
     hasBin: true
     peerDependencies:
       typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x
     dependencies:
       lunr: 2.3.9
-      marked: 4.2.5
-      minimatch: 5.1.2
-      shiki: 0.11.1
+      marked: 4.2.12
+      minimatch: 6.2.0
+      shiki: 0.14.1
       typescript: 4.9.4
 
   /typescript/4.9.4:
@@ -26335,11 +26344,11 @@ packages:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
 
-  /vscode-oniguruma/1.6.2:
-    resolution: {integrity: sha512-KH8+KKov5eS/9WhofZR8M8dMHWN2gTxjMsG4jd04YhpbPR91fUj7rYQ2/XjeHCJWbg7X++ApRIU9NUwM2vTvLA==}
+  /vscode-oniguruma/1.7.0:
+    resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
 
-  /vscode-textmate/6.0.0:
-    resolution: {integrity: sha512-gu73tuZfJgu+mvCSy4UZwd2JXykjK9zAZsfmDeut5dx/1a7FeTk0XwJsSuqQn+cuMCGVbIBfl+s53X4T19DnzQ==}
+  /vscode-textmate/8.0.0:
+    resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
 
   /w3c-xmlserializer/4.0.0:
     resolution: {integrity: sha512-d+BFHzbiCx6zGfz0HyQ6Rg69w9k19nviJspaj4yNscGjrHu94sVP+aRm75yEbCh+r2/yR+7q6hux9LVtbuTGBw==}
