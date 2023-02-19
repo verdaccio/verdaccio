@@ -1252,11 +1252,11 @@ importers:
 
   packages/tools/translations:
     specifiers:
-      '@crowdin/crowdin-api-client': 1.20.0
+      '@crowdin/crowdin-api-client': 1.21.2
       clipanion: 3.2.0
       ts-node: 10.9.1
     dependencies:
-      '@crowdin/crowdin-api-client': 1.20.0_debug@4.3.4
+      '@crowdin/crowdin-api-client': 1.21.2_debug@4.3.4
       clipanion: 3.2.0
     devDependencies:
       ts-node: 10.9.1_5cc4fd05cdbba7efed0227e61dc065e1
@@ -3701,8 +3701,8 @@ packages:
       - encoding
     dev: true
 
-  /@crowdin/crowdin-api-client/1.20.0_debug@4.3.4:
-    resolution: {integrity: sha512-b6rdkvGI5Y3QzSpI1HTkCnC4R0MbXecn/8n8TVLKsE1MeEgNjbDuP+Cx+uL5HGoiq1G/Ya/OhJ2Evuoheg0wDg==}
+  /@crowdin/crowdin-api-client/1.21.2_debug@4.3.4:
+    resolution: {integrity: sha512-i3X2bdGIBD6kQp5hfwVcZ/w/nn3lKamulGeP3LoVAAKRtmBOch12TCsrCvFZ1wY5g1IJAiyWI56h0KJfeCX6qw==}
     engines: {node: '>=12.9.0'}
     dependencies:
       axios: 0.21.3_debug@4.3.4
