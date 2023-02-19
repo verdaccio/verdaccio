@@ -41,7 +41,7 @@
     "@mui/styles": "5.11.9",
     "@lyrasearch/lyra": "^0.3.1",
     "@verdaccio/ui-components": "workspace:2.0.0-6-next.3",
-    "dompurify": "2.4.1",
+    "dompurify": "2.4.4",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.0.1",

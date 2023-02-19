@@ -52,7 +52,7 @@
     "node-mocks-http": "1.12.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
-    "dompurify": "2.4.1",
+    "dompurify": "2.4.4",
     "highlight.js": "11.7.0",
     "github-markdown-css": "4.0.0",
     "marked": "4.2.5",

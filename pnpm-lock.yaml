@@ -845,7 +845,7 @@ importers:
       country-flag-icons: 1.5.5
       css-loader: 6.7.3
       dayjs: 1.11.7
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       friendly-errors-webpack-plugin: 1.7.0
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
@@ -923,7 +923,7 @@ importers:
       country-flag-icons: 1.5.5
       css-loader: 6.7.3_webpack@5.75.0
       dayjs: 1.11.7
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       friendly-errors-webpack-plugin: 1.7.0_webpack@5.75.0
       github-markdown-css: 4.0.0
       harmony-reflect: 1.6.2
@@ -1294,7 +1294,7 @@ importers:
       babel-loader: ^8.3.0
       country-flag-icons: 1.5.5
       dayjs: 1.11.7
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       github-markdown-css: 5.1.0
       highlight.js: 11.7.0
       history: 4.10.1
@@ -1330,7 +1330,7 @@ importers:
       '@verdaccio/types': link:../core/types
       country-flag-icons: 1.5.5
       dayjs: 1.11.7
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       github-markdown-css: 5.1.0
       highlight.js: 11.7.0
       history: 4.10.1
@@ -1518,7 +1518,7 @@ importers:
       docusaurus-plugin-sass: ^0.2.1
       docusaurus-plugin-sentry: 1.0.0
       docusaurus-plugin-typedoc: 0.18.0
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       esbuild: 0.14.10
       esbuild-loader: 2.16.0
       p-cancelable: 2.1.1
@@ -1563,7 +1563,7 @@ importers:
       docusaurus-plugin-contributors: link:../packages/tools/docusaurus-plugin-contributors
       docusaurus-plugin-sentry: 1.0.0_67096f8b2a2bc215adc7db3ca9fcde4b
       docusaurus-plugin-typedoc: 0.18.0_2747ec8d715acf48563f8c7d6f95fee8
-      dompurify: 2.4.1
+      dompurify: 2.4.4
       p-cancelable: 2.1.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -17341,8 +17341,8 @@ packages:
     resolution: {integrity: sha512-Be9tbQMZds4a3C6xTmz68NlMfeONA//4dOavl/1rNw50E+/QO0KVpbcU0PcaW0nsQxurXls9ZocqFxk8R2mWEA==}
     dev: false
 
-  /dompurify/2.4.1:
-    resolution: {integrity: sha512-ewwFzHzrrneRjxzmK6oVz/rZn9VWspGFRDb4/rRtIsM1n36t9AKma/ye8syCpcw+XJ25kOK/hOG7t1j2I2yBqA==}
+  /dompurify/2.4.4:
+    resolution: {integrity: sha512-1e2SpqHiRx4DPvmRuXU5J0di3iQACwJM+mFGE2HAkkK7Tbnfk9WcghcAmyWc9CRrjyRRUpmuhPUH6LphQQR3EQ==}
 
   /domutils/1.7.0:
     resolution: {integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==}
