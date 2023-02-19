@@ -7,7 +7,7 @@ import { HTTP_STATUS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import { setSecurityWebHeaders } from './security';
-import renderHTML, { isHTTPProtocol } from './utils/renderHTML';
+import renderHTML from './utils/renderHTML';
 
 const debug = buildDebug('verdaccio:web:render');
 
@@ -31,23 +31,10 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   if (typeof tokenMiddleware === 'function') {
     router.use(tokenMiddleware);
   }
+
   router.use(setSecurityWebHeaders);
 
-  // Logo
-  let logoURI = config?.web?.logo ?? '';
-  if (logoURI && !isURLhasValidProtocol(logoURI)) {
-    // URI related to a local file
-
-    // Note: `path.join` will break on Windows, because it transforms `/` to `\`
-    // Use POSIX version `path.posix.join` instead.
-    logoURI = path.posix.join('/-/static/', path.basename(logoURI));
-    router.get(logoURI, function (req, res, next) {
-      res.sendFile(path.resolve(config.web.logo), sendFileCallback(next));
-      debug('render static');
-    });
-  }
-
-  // Static
+  // any match within the static is routed to the file system
   router.get('/-/static/*', function (req, res, next) {
     const filename = req.params[0];
     const file = `${staticPath}/${filename}`;
@@ -55,13 +42,13 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     res.sendFile(file, sendFileCallback(next));
   });
 
-  // logo
-  if (config?.web?.logo && !isHTTPProtocol(config?.web?.logo)) {
+  // check the origin of the logo
+  if (config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo)) {
     // URI related to a local file
     const absoluteLocalFile = path.posix.resolve(config.web.logo);
     debug('serve local logo %s', absoluteLocalFile);
     try {
-      // TODO: remove existsSync by async alternative
+      // TODO: replace existsSync by async alternative
       if (
         fs.existsSync(absoluteLocalFile) &&
         typeof fs.accessSync(absoluteLocalFile, fs.constants.R_OK) === 'undefined'

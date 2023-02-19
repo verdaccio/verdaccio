@@ -37,6 +37,10 @@ describe('test web server', () => {
         return new JSDOM(response.text, { runScripts: 'dangerously' });
       };
 
+      const loadLogo = async (config = 'default-test.yaml', url) => {
+        return supertest(initializeServer(config)).get(url).expect(HTTP_STATUS.OK);
+      };
+
       test('should match render set ui properties', async () => {
         const {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
@@ -56,7 +60,7 @@ describe('test web server', () => {
             // FIXME: mock these values, avoid random
             // base: 'http://127.0.0.1:60864/prefix/',
             // version: '6.0.0-6-next.28',
-            logoURI: '',
+            logo: 'http://logo.org/logo.png',
             flags: { changePassword: true },
             login: true,
             pkgManagers: ['pnpm', 'yarn'],
@@ -65,6 +69,28 @@ describe('test web server', () => {
             language: 'es-US',
           })
         );
+      });
+
+      test('should render logo as file', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('file-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch('/prefix/-/static/dark-logo.png');
+        return loadLogo('file-logo.yaml', '/-/static/dark-logo.png');
+      });
+
+      test('should not render logo as absolute file is wrong', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('wrong-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toEqual('');
+      });
+
+      test('should render not render a logo', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('no-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toEqual('');
       });
 
       test.todo('should default title');

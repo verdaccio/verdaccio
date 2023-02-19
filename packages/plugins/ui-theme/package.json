@@ -109,9 +109,10 @@
     "test": "cross-env TZ=UTC jest --config ./jest/jest.config.js",
     "test:update-snapshot": "yarn run test -- -u",
     "lint": "pnpm lint:js && pnpm lint:css",
+    "clean": "rimraf ./static",
     "lint:css": "yarn stylelint \"src/**/styles.ts\"",
     "verdaccio:server": "node tools/verdaccio.js",
-    "build": "webpack --config tools/webpack.prod.config.babel.js",
+    "build": "pnpm clean && webpack --config tools/webpack.prod.config.babel.js",
     "build:stats": "webpack --config tools/webpack.prod.config.babel.js --json > stats.json",
     "build:size": "webpack --config tools/webpack.prod.config.babel.js --json | webpack-bundle-size-analyzer"
   },

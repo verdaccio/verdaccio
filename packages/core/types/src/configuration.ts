@@ -128,7 +128,6 @@ export type TemplateUIOptions = {
   base: string;
   primaryColor: string;
   version?: string;
-  logoURI?: string;
   flags: FlagsConfig;
 } & CommonWebConf;
 
