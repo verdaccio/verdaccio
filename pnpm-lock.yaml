@@ -878,7 +878,7 @@ importers:
       react-router: 5.3.4
       react-router-dom: 5.3.4
       react-virtualized: 9.22.3
-      redux: 4.2.0
+      redux: 4.2.1
       redux-persist: 6.0.0
       remark-gfm: 3.0.1
       rimraf: 3.0.2
@@ -909,9 +909,9 @@ importers:
       '@mui/icons-material': 5.11.9_500bd11b7aa6ba4f630b96b42066bfa4
       '@mui/material': 5.11.9_5c94f60a4347d0fa7a0fa01f8a77c83b
       '@mui/styles': 5.11.9_5642dd39ea6eb7af96c6ee336ce01d77
-      '@rematch/core': 2.2.0_redux@4.2.0
+      '@rematch/core': 2.2.0_redux@4.2.1
       '@rematch/loading': 2.1.2_@rematch+core@2.2.0
-      '@rematch/persist': 2.1.2_e4509283c1984516d02fe029893bd118
+      '@rematch/persist': 2.1.2_49f4ce88aec1c208303e34869198b28f
       '@testing-library/dom': 8.19.1
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0_react-dom@18.2.0+react@18.2.0
@@ -956,8 +956,8 @@ importers:
       react-router: 5.3.4_react@18.2.0
       react-router-dom: 5.3.4_react@18.2.0
       react-virtualized: 9.22.3_react-dom@18.2.0+react@18.2.0
-      redux: 4.2.0
-      redux-persist: 6.0.0_react@18.2.0+redux@4.2.0
+      redux: 4.2.1
+      redux-persist: 6.0.0_react@18.2.0+redux@4.2.1
       remark-gfm: 3.0.1
       rimraf: 3.0.2
       style-loader: 3.3.1_webpack@5.75.0
@@ -1315,7 +1315,7 @@ importers:
       react-router: 5.3.4
       react-router-dom: 5.3.4
       react-virtualized: 9.22.3
-      redux: 4.2.0
+      redux: 4.2.1
       remark-gfm: 3.0.1
       validator: 13.7.0
     dependencies:
@@ -1324,9 +1324,9 @@ importers:
       '@mui/icons-material': 5.11.9_500bd11b7aa6ba4f630b96b42066bfa4
       '@mui/material': 5.11.9_5c94f60a4347d0fa7a0fa01f8a77c83b
       '@mui/styles': 5.11.9_5642dd39ea6eb7af96c6ee336ce01d77
-      '@rematch/core': 2.2.0_redux@4.2.0
+      '@rematch/core': 2.2.0_redux@4.2.1
       '@rematch/loading': 2.1.2_@rematch+core@2.2.0
-      '@rematch/persist': 2.1.2_e4509283c1984516d02fe029893bd118
+      '@rematch/persist': 2.1.2_49f4ce88aec1c208303e34869198b28f
       '@verdaccio/types': link:../core/types
       country-flag-icons: 1.5.5
       dayjs: 1.11.7
@@ -1349,7 +1349,7 @@ importers:
       react-router: 5.3.4_react@18.2.0
       react-router-dom: 5.3.4_react@18.2.0
       react-virtualized: 9.22.3_react-dom@18.2.0+react@18.2.0
-      redux: 4.2.0
+      redux: 4.2.1
       remark-gfm: 3.0.1
       validator: 13.7.0
     devDependencies:
@@ -6667,30 +6667,30 @@ packages:
   /@popperjs/core/2.11.6:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
 
-  /@rematch/core/2.2.0_redux@4.2.0:
+  /@rematch/core/2.2.0_redux@4.2.1:
     resolution: {integrity: sha512-Sj3nC/2X+bOBZeOf4jdJ00nhCcx9wLbVK9SOs6eFR4Y1qKXqRY0hGigbQgfTpCdjRFlwTHHfN3m41MlNvMhDgw==}
     engines: {node: '>=10'}
     peerDependencies:
       redux: '>=4'
     dependencies:
-      redux: 4.2.0
+      redux: 4.2.1
 
   /@rematch/loading/2.1.2_@rematch+core@2.2.0:
     resolution: {integrity: sha512-3fWUvWkIxP+BEi2LCKYKaUkMFCT0MDcN1xQD19tPNufMry7skqybahqm9/ugs9wIji1n3ObF7yHkrb01E+N3Tw==}
     peerDependencies:
       '@rematch/core': '>=2'
     dependencies:
-      '@rematch/core': 2.2.0_redux@4.2.0
+      '@rematch/core': 2.2.0_redux@4.2.1
 
-  /@rematch/persist/2.1.2_e4509283c1984516d02fe029893bd118:
+  /@rematch/persist/2.1.2_49f4ce88aec1c208303e34869198b28f:
     resolution: {integrity: sha512-QiXo3pKCZFv8WW6zeMtBXGOXXp+BuUnoYNpr6p8Euah6gWThoWtbDS8NmlbKj3igmG9TtowuBVSxJCAgFk45zQ==}
     peerDependencies:
       '@rematch/core': '>=2'
       redux: '>=4'
     dependencies:
-      '@rematch/core': 2.2.0_redux@4.2.0
-      redux: 4.2.0
-      redux-persist: 6.0.0_react@18.2.0+redux@4.2.0
+      '@rematch/core': 2.2.0_redux@4.2.1
+      redux: 4.2.1
+      redux-persist: 6.0.0_react@18.2.0+redux@4.2.1
     transitivePeerDependencies:
       - react
 
@@ -8897,7 +8897,7 @@ packages:
       '@types/hoist-non-react-statics': 3.3.1
       '@types/react': 18.0.26
       hoist-non-react-statics: 3.3.2
-      redux: 4.2.0
+      redux: 4.2.1
 
   /@types/react-router-config/5.0.6:
     resolution: {integrity: sha512-db1mx37a1EJDf1XeX8jJN7R3PZABmJQXR8r28yUjVMFSjkmnQo6X6pOEEmNl+Tp2gYQOGPdYbFIipBtdElZ3Yg==}
@@ -10248,7 +10248,7 @@ packages:
   /axios/0.21.3_debug@4.3.4:
     resolution: {integrity: sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10256,7 +10256,7 @@ packages:
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
 
@@ -13482,7 +13482,7 @@ packages:
   /dom-helpers/5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
     dependencies:
-      '@babel/runtime': 7.20.7
+      '@babel/runtime': 7.20.13
       csstype: 3.1.1
 
   /dom-serializer/0.1.1:
@@ -23172,7 +23172,7 @@ packages:
       strip-indent: 3.0.0
     dev: true
 
-  /redux-persist/6.0.0_react@18.2.0+redux@4.2.0:
+  /redux-persist/6.0.0_react@18.2.0+redux@4.2.1:
     resolution: {integrity: sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==}
     peerDependencies:
       react: '>=16'
@@ -23182,12 +23182,18 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
-      redux: 4.2.0
+      redux: 4.2.1
 
   /redux/4.2.0:
     resolution: {integrity: sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==}
     dependencies:
       '@babel/runtime': 7.20.7
+    dev: true
+
+  /redux/4.2.1:
+    resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
+    dependencies:
+      '@babel/runtime': 7.20.13
 
   /regenerate-unicode-properties/10.0.1:
     resolution: {integrity: sha512-vn5DU6yg6h8hP/2OkQo3K7uVILvY4iu0oI4t3HFa81UPkhGJwkRwM10JEc3upjdhHjs/k8GJY1sRBhk5sr69Bw==}
