@@ -74,6 +74,13 @@ describe('test web server', () => {
         expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch('/prefix/-/static/dark-logo.png');
       });
 
+      test('should render not render a logo', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('no-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toEqual('');
+      });
+
       test.todo('should default title');
       test.todo('should need html cache');
     });
