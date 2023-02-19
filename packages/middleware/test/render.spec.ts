@@ -37,6 +37,10 @@ describe('test web server', () => {
         return new JSDOM(response.text, { runScripts: 'dangerously' });
       };
 
+      const loadLogo = async (config = 'default-test.yaml', url) => {
+        return supertest(initializeServer(config)).get(url).expect(HTTP_STATUS.OK);
+      };
+
       test('should match render set ui properties', async () => {
         const {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
@@ -72,6 +76,14 @@ describe('test web server', () => {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
         } = await render('file-logo.yaml');
         expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch('/prefix/-/static/dark-logo.png');
+        return loadLogo('file-logo.yaml', '/-/static/dark-logo.png');
+      });
+
+      test('should not render logo as absolute file is wrong', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('wrong-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toEqual('');
       });
 
       test('should render not render a logo', async () => {
