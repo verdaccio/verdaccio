@@ -56,7 +56,7 @@ describe('test web server', () => {
             // FIXME: mock these values, avoid random
             // base: 'http://127.0.0.1:60864/prefix/',
             // version: '6.0.0-6-next.28',
-            logo: '',
+            logo: 'http://logo.org/logo.png',
             flags: { changePassword: true },
             login: true,
             pkgManagers: ['pnpm', 'yarn'],
