@@ -646,7 +646,6 @@ importers:
       lodash: 4.17.21
       lru-cache: 7.14.1
       mime: 2.6.0
-      sanitize-filename: 1.6.3
       supertest: 6.3.3
     dependencies:
       '@verdaccio/config': link:../config
@@ -659,7 +658,6 @@ importers:
       lodash: 4.17.21
       lru-cache: 7.14.1
       mime: 2.6.0
-      sanitize-filename: 1.6.3
     devDependencies:
       '@verdaccio/logger': link:../logger/logger
       body-parser: 1.20.1
@@ -10250,7 +10248,7 @@ packages:
   /axios/0.21.3_debug@4.3.4:
     resolution: {integrity: sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10258,7 +10256,7 @@ packages:
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
 

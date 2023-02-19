@@ -2,7 +2,6 @@ import buildDebug from 'debug';
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import sanitzers from 'sanitize-filename';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
@@ -46,7 +45,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   // check the origin of the logo
   if (config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo)) {
     // URI related to a local file
-    const absoluteLocalFile = path.posix.resolve(sanitzers(config.web.logo));
+    const absoluteLocalFile = path.posix.resolve(config.web.logo);
     debug('serve local logo %s', absoluteLocalFile);
     try {
       // TODO: replace existsSync by async alternative

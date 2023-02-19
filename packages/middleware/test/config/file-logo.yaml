@@ -13,7 +13,7 @@ web:
   showDownloadTarball: true
   showRaw: true
   primary_color: '#ffffff'
-  logo: 'http://logo.org/logo.png'
+  logo: './test/config/dark-logo.png'
   html_cache: false
 
 url_prefix: /prefix

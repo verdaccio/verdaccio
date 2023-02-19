@@ -8,6 +8,7 @@ auth:
 web:
   title: verdaccio
   login: false
+  html_cache: false
 
 publish:
   allow_offline: false
