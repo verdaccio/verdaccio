@@ -20,7 +20,7 @@ web:
   showDownloadTarball: true
   showRaw: true
   primary_color: '#ffffff'
-  logoURI: 'http://logo.org/logo.png'
+  logo: 'http://logo.org/logo.png'
   flags:
     - something: false
 

@@ -6,6 +6,7 @@ import { URL } from 'url';
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
 import { TemplateUIOptions } from '@verdaccio/types';
+import { isURLhasValidProtocol } from '@verdaccio/url';
 import { getPublicUrl } from '@verdaccio/url';
 
 import renderTemplate from './template';
@@ -21,20 +22,12 @@ const defaultManifestFiles = {
   ico: 'favicon.ico',
 };
 
-/**
- * Check if URI is starting with "http://", "https://" or "//"
- * @param {string} uri
- */
-export function isHTTPProtocol(uri: string): boolean {
-  return /^(https?:)?\/\//.test(uri);
-}
-
 export function resolveLogo(config, req) {
-  const isLocalFile = config?.web?.logo && !isHTTPProtocol(config?.web?.logo);
+  const isLocalFile = config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo);
 
   if (isLocalFile) {
     return `${getPublicUrl(config?.url_prefix, req)}-/static/${path.basename(config?.web?.logo)}`;
-  } else if (isHTTPProtocol(config?.web?.logo)) {
+  } else if (isURLhasValidProtocol(config?.web?.logo)) {
     return config?.web?.logo;
   } else {
     return '';
@@ -53,7 +46,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
-  const logoURI = resolveLogo(config, req);
+  const logo = resolveLogo(config, req);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = config?.web?.version;
   const flags = {
@@ -94,7 +87,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     base,
     primaryColor,
     version,
-    logoURI,
+    logo,
     flags,
     login,
     pkgManagers,

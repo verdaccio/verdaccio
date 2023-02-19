@@ -646,6 +646,7 @@ importers:
       lodash: 4.17.21
       lru-cache: 7.14.1
       mime: 2.6.0
+      sanitize-filename: 1.6.3
       supertest: 6.3.3
     dependencies:
       '@verdaccio/config': link:../config
@@ -658,6 +659,7 @@ importers:
       lodash: 4.17.21
       lru-cache: 7.14.1
       mime: 2.6.0
+      sanitize-filename: 1.6.3
     devDependencies:
       '@verdaccio/logger': link:../logger/logger
       body-parser: 1.20.1
@@ -25406,7 +25408,7 @@ packages:
     resolution: {integrity: sha512-FnHq5sTMxC0sk957wHDzRnemFnNBvt/gSY99HzK8F7UP5WAbvP70yX5bd7CjEQkN+TjdxwI7g7lJ6podqrG2/w==}
 
   /truncate-utf8-bytes/1.0.2:
-    resolution: {integrity: sha1-QFkjkJWS1W94pYGENLC3hInKXys=}
+    resolution: {integrity: sha512-95Pu1QXQvruGEhv62XCMO3Mm90GscOCClvrIUwCM0PYOXK3kaF3l3sIHxx71ThJfcbM2O5Au6SO3AWCSEfW4mQ==}
     dependencies:
       utf8-byte-length: 1.0.4
     dev: false
@@ -26157,7 +26159,7 @@ packages:
     dev: false
 
   /utf8-byte-length/1.0.4:
-    resolution: {integrity: sha1-9F8VDExm7uloGGUFq5P8u4rWv2E=}
+    resolution: {integrity: sha512-4+wkEYLBbWxqTahEsWrhxepcoVOJ+1z5PGIjPZxRkytcdSUaNjIjBM7Xn8E+pdSuV7SzvWovBFA54FO0JSoqhA==}
     dev: false
 
   /util-deprecate/1.0.2:
