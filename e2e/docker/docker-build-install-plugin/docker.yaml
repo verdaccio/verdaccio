@@ -1,6 +1,8 @@
-store:
-  memory:
-    limit: 1000
+# store:
+#   memory:
+#     limit: 1000
+
+storage: ./storage
 
 plugins: /verdaccio/plugins
 
