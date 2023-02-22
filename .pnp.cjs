@@ -103,6 +103,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:9.0.0"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
             ["express", "npm:4.18.2"],\
+            ["express-rate-limit", "npm:5.5.1"],\
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["get-port", "npm:5.1.1"],\
@@ -118,6 +119,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],\
             ["lockfile-lint", "npm:4.6.2"],\
             ["lodash", "npm:4.17.21"],\
+            ["lru-cache", "npm:7.17.0"],\
             ["lunr-mutable-indexes", "npm:2.3.2"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
@@ -10244,6 +10246,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:7.14.1"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:7.17.0", {\
+          "packageLocation": "./.yarn/cache/lru-cache-npm-7.17.0-6d84356a7c-28c2a98ad3.zip/node_modules/lru-cache/",\
+          "packageDependencies": [\
+            ["lru-cache", "npm:7.17.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["lunr", [\
@@ -13519,6 +13528,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:9.0.0"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
             ["express", "npm:4.18.2"],\
+            ["express-rate-limit", "npm:5.5.1"],\
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["get-port", "npm:5.1.1"],\
@@ -13534,6 +13544,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lint-staged", "npm:11.0.1"],\
             ["lockfile-lint", "npm:4.6.2"],\
             ["lodash", "npm:4.17.21"],\
+            ["lru-cache", "npm:7.17.0"],\
             ["lunr-mutable-indexes", "npm:2.3.2"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\

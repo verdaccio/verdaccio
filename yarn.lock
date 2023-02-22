@@ -7631,6 +7631,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:7.17.0":
+  version: 7.17.0
+  resolution: "lru-cache@npm:7.17.0"
+  checksum: 28c2a98ad313b8d61beac1f08257b6f0ca990e39d24a9bc831030b6e209447cfb11c6d9d1a774282189bfc9609d1dfd17ebe485228dd68f7b96b6b9b7740894e
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^5.1.1":
   version: 5.1.1
   resolution: "lru-cache@npm:5.1.1"
@@ -10615,6 +10622,7 @@ __metadata:
     eslint-plugin-simple-import-sort: 9.0.0
     eslint-plugin-verdaccio: 10.0.0
     express: 4.18.2
+    express-rate-limit: 5.5.1
     fast-safe-stringify: 2.1.1
     fs-extra: 10.1.0
     get-port: 5.1.1
@@ -10630,6 +10638,7 @@ __metadata:
     lint-staged: 11.0.1
     lockfile-lint: 4.6.2
     lodash: 4.17.21
+    lru-cache: 7.17.0
     lunr-mutable-indexes: 2.3.2
     mime: 3.0.0
     mkdirp: 1.0.4
