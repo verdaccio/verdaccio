@@ -858,7 +858,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      marked: 4.2.5
+      marked: 4.2.12
       mini-css-extract-plugin: 2.7.2
       msw: 0.49.2
       mutationobserver-shim: 0.3.7
@@ -936,7 +936,7 @@ importers:
       js-yaml: 3.14.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      marked: 4.2.5
+      marked: 4.2.12
       mini-css-extract-plugin: 2.7.2_webpack@5.75.0
       msw: 0.49.2_typescript@4.9.4
       mutationobserver-shim: 0.3.7
@@ -1301,7 +1301,7 @@ importers:
       i18next: 20.6.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      marked: 4.2.5
+      marked: 4.2.12
       mockdate: 3.0.5
       msw: 0.49.2
       normalize.css: 8.0.1
@@ -1337,7 +1337,7 @@ importers:
       i18next: 20.6.1
       localstorage-memory: 1.0.3
       lodash: 4.17.21
-      marked: 4.2.5
+      marked: 4.2.12
       normalize.css: 8.0.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -10251,7 +10251,7 @@ packages:
   /axios/0.21.3_debug@4.3.4:
     resolution: {integrity: sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10259,7 +10259,7 @@ packages:
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
 
@@ -18806,11 +18806,6 @@ packages:
 
   /marked/4.2.12:
     resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
-    engines: {node: '>= 12'}
-    hasBin: true
-
-  /marked/4.2.5:
-    resolution: {integrity: sha512-jPueVhumq7idETHkb203WDD4fMA3yV9emQ5vLwop58lu8bTclMghBWcYAavlDqIEMaisADinV1TooIFCfqOsYQ==}
     engines: {node: '>= 12'}
     hasBin: true
 
