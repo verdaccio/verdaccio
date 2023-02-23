@@ -215,10 +215,11 @@ class ProxyStorage implements IProxy {
           }
         }
       : undefined;
-    let requestOptions = {
+    let requestOptions: request.OptionsWithUrl = {
       url: uri,
       method: method,
       headers: headers,
+      body: json,
       proxy: this.proxy,
       encoding: null,
       gzip: true,
@@ -226,11 +227,6 @@ class ProxyStorage implements IProxy {
       strictSSL: this.strict_ssl,
       agentOptions: this.agent_options,
     };
-
-    // GET requests should not have a body, otherwise the request might fail(return 413 status code)
-    if (method.toUpperCase() !== 'GET') {
-      requestOptions.body = json
-    }
 
     if (this.ca) {
       requestOptions = Object.assign({}, requestOptions, {

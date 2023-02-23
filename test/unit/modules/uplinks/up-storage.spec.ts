@@ -12,7 +12,7 @@ import configExample from '../../partials/config';
 
 setup({});
 
-describe('UpStorge', () => {
+describe('UpStorage', () => {
   const mockServerPort = 55547;
   let mockRegistry;
   const uplinkDefault = {
@@ -39,7 +39,7 @@ describe('UpStorge', () => {
     expect(proxy).toBeDefined();
   });
 
-  describe('UpStorge::getRemoteMetadata', () => {
+  describe('UpStorage::getRemoteMetadata', () => {
     test('should be get remote metadata', (done) => {
       const proxy = generateProxy();
 
@@ -72,9 +72,19 @@ describe('UpStorge', () => {
         done();
       });
     });
+
+    test('should be get remote metadata with json when uplink is npmmirror', (done) => {
+      const proxy = generateProxy({ url: 'https://registry.npmmirror.com' });
+
+      proxy.getRemoteMetadata('jquery', { json: true }, (err, data) => {
+        expect(err).toBeNull();
+        expect(data.name).toBe('jquery');
+        done();
+      });
+    });
   });
 
-  describe('UpStorge::fetchTarball', () => {
+  describe('UpStorage::fetchTarball', () => {
     test('should fetch a tarball from uplink', (done) => {
       const proxy = generateProxy();
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
@@ -147,7 +157,7 @@ describe('UpStorge', () => {
     }, 10000);
   });
 
-  describe('UpStorge::isUplinkValid', () => {
+  describe('UpStorage::isUplinkValid', () => {
     describe('valid use cases', () => {
       const validateUpLink = (
         url: string,
