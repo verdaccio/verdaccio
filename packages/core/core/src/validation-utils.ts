@@ -95,14 +95,15 @@ export function normalizeMetadata(manifest: Manifest, name: string): Manifest {
  * @return {Boolean}
  */
 export function isObject(obj: any): boolean {
-  if (obj === null || typeof obj === 'undefined' || typeof obj === 'string') {
-    return false;
-  }
+  // if (obj === null || typeof obj === 'undefined' || typeof obj === 'string') {
+  //   return false;
+  // }
 
-  return (
-    (typeof obj === 'object' || typeof obj.prototype === 'undefined') &&
-    Array.isArray(obj) === false
-  );
+  // return (
+  //   (typeof obj === 'object' || typeof obj.prototype === 'undefined') &&
+  //   Array.isArray(obj) === false
+  // );
+  return Object.prototype.toString.call(obj) === '[object Object]';
 }
 
 export function validatePassword(
