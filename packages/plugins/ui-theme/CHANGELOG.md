@@ -1,5 +1,15 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.62
+
+### Major Changes
+
+- 781ac9ac: fix package configuration issues
+
+### Patch Changes
+
+- 4fc21146: fix: missing logo on header
+
 ## 6.0.0-6-next.61
 
 ## 6.0.0-6-next.60

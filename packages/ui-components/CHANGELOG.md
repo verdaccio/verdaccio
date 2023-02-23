@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.4
+
+### Major Changes
+
+- 781ac9ac: fix package configuration issues
+
+### Patch Changes
+
+- Updated dependencies [4fc21146]
+  - @verdaccio/types@11.0.0-6-next.21
+
 ## 2.0.0-6-next.3
 
 ### Patch Changes

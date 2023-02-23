@@ -1,5 +1,16 @@
 # @verdaccio/node-api
 
+## 6.0.0-6-next.62
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/logger@6.0.0-6-next.30
+  - @verdaccio/server-fastify@6.0.0-6-next.43
+  - @verdaccio/server@6.0.0-6-next.51
+  - @verdaccio/config@6.0.0-6-next.62
+
 ## 6.0.0-6-next.61
 
 ### Patch Changes

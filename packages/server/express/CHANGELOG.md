@@ -1,5 +1,24 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.51
+
+### Patch Changes
+
+- Updated dependencies [4fc21146]
+- Updated dependencies [378e907d]
+- Updated dependencies [781ac9ac]
+  - @verdaccio/middleware@6.0.0-6-next.41
+  - @verdaccio/web@6.0.0-6-next.49
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/api@6.0.0-6-next.45
+  - @verdaccio/auth@6.0.0-6-next.41
+  - @verdaccio/loaders@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.30
+  - verdaccio-audit@11.0.0-6-next.25
+  - @verdaccio/store@6.0.0-6-next.42
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
 ## 6.0.0-6-next.50
 
 ### Patch Changes

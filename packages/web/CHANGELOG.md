@@ -1,5 +1,27 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.49
+
+### Major Changes
+
+- 781ac9ac: fix package configuration issues
+
+### Patch Changes
+
+- 4fc21146: fix: missing logo on header
+- Updated dependencies [4fc21146]
+- Updated dependencies [378e907d]
+  - @verdaccio/middleware@6.0.0-6-next.41
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/auth@6.0.0-6-next.41
+  - @verdaccio/tarball@11.0.0-6-next.31
+  - @verdaccio/url@11.0.0-6-next.28
+  - @verdaccio/loaders@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.30
+  - @verdaccio/store@6.0.0-6-next.42
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
 ## 6.0.0-6-next.48
 
 ### Patch Changes

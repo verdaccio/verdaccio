@@ -1,5 +1,16 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.41
+
+### Patch Changes
+
+- 4fc21146: fix: missing logo on header
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/url@11.0.0-6-next.28
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
 ## 6.0.0-6-next.40
 
 ### Patch Changes
