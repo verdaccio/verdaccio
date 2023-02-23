@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.21
+
+### Patch Changes
+
+- 4fc21146: fix: missing logo on header
+
 ## 11.0.0-6-next.20
 
 ### Minor Changes

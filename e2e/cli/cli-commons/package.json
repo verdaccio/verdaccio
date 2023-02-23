@@ -5,15 +5,15 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.61",
-    "@verdaccio/core": "workspace:6.0.0-6-next.61",
-    "@verdaccio/types": "workspace:11.0.0-6-next.20",
+    "@verdaccio/config": "workspace:6.0.0-6-next.62",
+    "@verdaccio/core": "workspace:6.0.0-6-next.62",
+    "@verdaccio/types": "workspace:11.0.0-6-next.21",
     "debug": "4.3.4",
     "fs-extra": "10.1.0",
     "got": "11.8.5",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "verdaccio": "workspace:6.0.0-6-next.61"
+    "verdaccio": "workspace:6.0.0-6-next.62"
   },
   "scripts": {
     "test": "jest",

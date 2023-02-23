@@ -1,5 +1,12 @@
 # Change Log
 
+## 11.0.0-6-next.27
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+
 ## 11.0.0-6-next.26
 
 ### Patch Changes

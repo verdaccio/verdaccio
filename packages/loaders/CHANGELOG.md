@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- @verdaccio/logger@6.0.0-6-next.30
+
 ## 6.0.0-6-next.30
 
 ### Patch Changes

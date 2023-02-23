@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.62
+
+### Patch Changes
+
+- 378e907d: fix(core): fix `isObject` function.`isObject(true)` should return false.
+
 ## 6.0.0-6-next.61
 
 ## 6.0.0-6-next.60
