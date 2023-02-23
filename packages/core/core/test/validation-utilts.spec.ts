@@ -31,6 +31,7 @@ describe('isObject', () => {
     expect(isObject(['foo'])).toBeFalsy();
     expect(isObject(null)).toBeFalsy();
     expect(isObject(undefined)).toBeFalsy();
+    expect(isObject(true)).toBeFalsy();
   });
 });
 
