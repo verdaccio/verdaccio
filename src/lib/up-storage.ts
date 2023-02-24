@@ -215,7 +215,7 @@ class ProxyStorage implements IProxy {
           }
         }
       : undefined;
-    let requestOptions = {
+    let requestOptions: request.OptionsWithUrl = {
       url: uri,
       method: method,
       headers: headers,

@@ -69,7 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.49.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
             ["@verdaccio/config", "npm:6.0.0-6-next.61"],\
-            ["@verdaccio/core", "npm:6.0.0-6-next.61"],\
+            ["@verdaccio/core", "npm:6.0.0-6-next.62"],\
             ["@verdaccio/local-storage", "npm:10.3.1"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.6"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.40"],\
@@ -4530,6 +4530,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["semver", "npm:7.3.8"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:6.0.0-6-next.62", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-core-npm-6.0.0-6-next.62-8bb88ecdeb-628c35522e.zip/node_modules/@verdaccio/core/",\
+          "packageDependencies": [\
+            ["@verdaccio/core", "npm:6.0.0-6-next.62"],\
+            ["ajv", "npm:8.11.2"],\
+            ["core-js", "npm:3.28.0"],\
+            ["http-errors", "npm:1.8.1"],\
+            ["http-status-codes", "npm:2.2.0"],\
+            ["process-warning", "npm:1.0.0"],\
+            ["semver", "npm:7.3.8"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@verdaccio/file-locking", [\
@@ -6314,6 +6327,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/unplugged/core-js-npm-3.27.2-99146711a6/node_modules/core-js/",\
           "packageDependencies": [\
             ["core-js", "npm:3.27.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:3.28.0", {\
+          "packageLocation": "./.yarn/unplugged/core-js-npm-3.28.0-495770dfdb/node_modules/core-js/",\
+          "packageDependencies": [\
+            ["core-js", "npm:3.28.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13494,7 +13514,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.49.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
             ["@verdaccio/config", "npm:6.0.0-6-next.61"],\
-            ["@verdaccio/core", "npm:6.0.0-6-next.61"],\
+            ["@verdaccio/core", "npm:6.0.0-6-next.62"],\
             ["@verdaccio/local-storage", "npm:10.3.1"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.6"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.40"],\
