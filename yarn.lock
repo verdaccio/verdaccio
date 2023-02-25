@@ -2646,10 +2646,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.14.1":
-  version: 18.14.1
-  resolution: "@types/node@npm:18.14.1"
-  checksum: 58556bbdb0050e44a4934742c1da2530812782c06d266a758e669e44c5aa196166c5fce45fdb03f016876717e3840478b3220129bb77367f979607564047f0a3
+"@types/node@npm:18.11.18":
+  version: 18.11.18
+  resolution: "@types/node@npm:18.11.18"
+  checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
   languageName: node
   linkType: hard
 
@@ -10972,7 +10972,7 @@ __metadata:
     "@types/lodash": 4.14.191
     "@types/mime": 2.0.3
     "@types/minimatch": 3.0.5
-    "@types/node": 18.14.1
+    "@types/node": 18.11.18
     "@types/pino": 7.0.5
     "@types/request": 2.48.8
     "@types/semver": 7.3.13

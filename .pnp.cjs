@@ -61,7 +61,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.191"],\
             ["@types/mime", "npm:2.0.3"],\
             ["@types/minimatch", "npm:3.0.5"],\
-            ["@types/node", "npm:18.14.1"],\
+            ["@types/node", "npm:18.11.18"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.8"],\
             ["@types/semver", "npm:7.3.13"],\
@@ -4562,17 +4562,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
+        ["npm:18.11.18", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.11.18-d61e8a4a20-03f17f9480.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.11.18"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:18.11.19", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-18.11.19-dd4a5b3ed6-d7cd19fcfc.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:18.11.19"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:18.14.1", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.14.1-39865d8170-58556bbdb0.zip/node_modules/@types/node/",\
-          "packageDependencies": [\
-            ["@types/node", "npm:18.14.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9961,7 +9961,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.20.12"],\
             ["@jest/test-sequencer", "npm:29.4.3"],\
             ["@jest/types", "npm:29.4.3"],\
-            ["@types/node", "npm:18.14.1"],\
+            ["@types/node", "npm:18.11.18"],\
             ["@types/ts-node", null],\
             ["babel-jest", "virtual:5d6ebd8c19d0997f5b64473b0387cd6c3e470e2d7d7b1df631ac8a09dabd5b905414eb77fc7d9e686182a8827eb578c8dfb1225d2b1dc0219a8e1c985c81d3c1#npm:29.4.3"],\
             ["chalk", "npm:4.1.2"],\
@@ -13754,7 +13754,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.11"],\
             ["@tsconfig/node14", "npm:1.0.3"],\
             ["@tsconfig/node16", "npm:1.0.3"],\
-            ["@types/node", "npm:18.14.1"],\
+            ["@types/node", "npm:18.11.18"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -14269,7 +14269,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.191"],\
             ["@types/mime", "npm:2.0.3"],\
             ["@types/minimatch", "npm:3.0.5"],\
-            ["@types/node", "npm:18.14.1"],\
+            ["@types/node", "npm:18.11.18"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.8"],\
             ["@types/semver", "npm:7.3.13"],\
