@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.21.2](https://github.com/verdaccio/verdaccio/compare/v5.21.1...v5.21.2) (2023-02-25)
+
+
+### Bug Fixes
+
+* avoid setting body for GET requests ([#3643](https://github.com/verdaccio/verdaccio/issues/3643)) ([e4573c7](https://github.com/verdaccio/verdaccio/commit/e4573c7e15b2b99d4f49b5c8bdb8555d70c1f6c3)), closes [#3601](https://github.com/verdaccio/verdaccio/issues/3601) [#3601](https://github.com/verdaccio/verdaccio/issues/3601)
+* update dependencies ([#3649](https://github.com/verdaccio/verdaccio/issues/3649)) ([ed80a25](https://github.com/verdaccio/verdaccio/commit/ed80a25c08bf2971169b8ccfec96e404d019f2b1))
+
 ### [5.21.1](https://github.com/verdaccio/verdaccio/compare/v5.21.0...v5.21.1) (2023-02-14)
 
 
