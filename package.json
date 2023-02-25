@@ -88,7 +88,7 @@
     "detect-secrets": "1.0.6",
     "eslint": "8.34.0",
     "fs-extra": "10.1.0",
-    "got": "11.8.5",
+    "got": "11.8.6",
     "husky": "7.0.4",
     "in-publish": "2.0.1",
     "jest": "29.4.3",
