@@ -129,15 +129,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
             ["prettier", "npm:2.8.4"],\
-            ["request", "npm:2.88.0"],\
+            ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
-            ["selfsigned", "npm:1.10.14"],\
+            ["selfsigned", "npm:2.1.1"],\
             ["semver", "npm:7.3.8"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.1.3#~builtin<compat/typescript>::version=4.1.3&hash=4a8eb8"],\
-            ["validator", "npm:13.7.0"],\
+            ["validator", "npm:13.9.0"],\
             ["verdaccio-audit", "npm:11.0.0-6-next.23"],\
             ["verdaccio-auth-memory", "npm:10.2.0"],\
             ["verdaccio-htpasswd", "npm:10.5.2"],\
@@ -11515,10 +11515,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["node-forge", [\
-        ["npm:0.10.0", {\
-          "packageLocation": "./.yarn/cache/node-forge-npm-0.10.0-605ba7b28b-5aa6dc9922.zip/node_modules/node-forge/",\
+        ["npm:1.3.1", {\
+          "packageLocation": "./.yarn/cache/node-forge-npm-1.3.1-f31fd566cc-08fb072d3d.zip/node_modules/node-forge/",\
           "packageDependencies": [\
-            ["node-forge", "npm:0.10.0"]\
+            ["node-forge", "npm:1.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12360,13 +12360,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["punycode", [\
-        ["npm:1.4.1", {\
-          "packageLocation": "./.yarn/cache/punycode-npm-1.4.1-be4c23e6d2-fa6e698cb5.zip/node_modules/punycode/",\
-          "packageDependencies": [\
-            ["punycode", "npm:1.4.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:2.3.0", {\
           "packageLocation": "./.yarn/cache/punycode-npm-2.3.0-df4bdce06b-39f760e09a.zip/node_modules/punycode/",\
           "packageDependencies": [\
@@ -12689,10 +12682,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["request", [\
-        ["npm:2.88.0", {\
-          "packageLocation": "./.yarn/cache/request-npm-2.88.0-9de8117818-aecf4f8cdb.zip/node_modules/request/",\
+        ["npm:2.88.2", {\
+          "packageLocation": "./.yarn/cache/request-npm-2.88.2-f4a57c72c4-4e112c087f.zip/node_modules/request/",\
           "packageDependencies": [\
-            ["request", "npm:2.88.0"],\
+            ["request", "npm:2.88.2"],\
             ["aws-sign2", "npm:0.7.0"],\
             ["aws4", "npm:1.12.0"],\
             ["caseless", "npm:0.12.0"],\
@@ -12710,7 +12703,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["performance-now", "npm:2.1.0"],\
             ["qs", "npm:6.5.3"],\
             ["safe-buffer", "npm:5.2.1"],\
-            ["tough-cookie", "npm:2.4.3"],\
+            ["tough-cookie", "npm:2.5.0"],\
             ["tunnel-agent", "npm:0.6.0"],\
             ["uuid", "npm:3.4.0"]\
           ],\
@@ -12905,11 +12898,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["selfsigned", [\
-        ["npm:1.10.14", {\
-          "packageLocation": "./.yarn/cache/selfsigned-npm-1.10.14-bfd3922dfd-616d131b18.zip/node_modules/selfsigned/",\
+        ["npm:2.1.1", {\
+          "packageLocation": "./.yarn/cache/selfsigned-npm-2.1.1-311d9b0b6d-aa9ce2150a.zip/node_modules/selfsigned/",\
           "packageDependencies": [\
-            ["selfsigned", "npm:1.10.14"],\
-            ["node-forge", "npm:0.10.0"]\
+            ["selfsigned", "npm:2.1.1"],\
+            ["node-forge", "npm:1.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13707,12 +13700,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["tough-cookie", [\
-        ["npm:2.4.3", {\
-          "packageLocation": "./.yarn/cache/tough-cookie-npm-2.4.3-494c5db064-af5c7b03f2.zip/node_modules/tough-cookie/",\
+        ["npm:2.5.0", {\
+          "packageLocation": "./.yarn/cache/tough-cookie-npm-2.5.0-79a2fe43fe-16a8cd0902.zip/node_modules/tough-cookie/",\
           "packageDependencies": [\
-            ["tough-cookie", "npm:2.4.3"],\
+            ["tough-cookie", "npm:2.5.0"],\
             ["psl", "npm:1.9.0"],\
-            ["punycode", "npm:1.4.1"]\
+            ["punycode", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14207,13 +14200,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["validator", [\
-        ["npm:13.7.0", {\
-          "packageLocation": "./.yarn/cache/validator-npm-13.7.0-624277e841-2b83283de1.zip/node_modules/validator/",\
-          "packageDependencies": [\
-            ["validator", "npm:13.7.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:13.9.0", {\
           "packageLocation": "./.yarn/cache/validator-npm-13.9.0-54b07e9e81-e2c936f041.zip/node_modules/validator/",\
           "packageDependencies": [\
@@ -14337,15 +14323,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
             ["prettier", "npm:2.8.4"],\
-            ["request", "npm:2.88.0"],\
+            ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
-            ["selfsigned", "npm:1.10.14"],\
+            ["selfsigned", "npm:2.1.1"],\
             ["semver", "npm:7.3.8"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.1"],\
             ["typescript", "patch:typescript@npm%3A4.1.3#~builtin<compat/typescript>::version=4.1.3&hash=4a8eb8"],\
-            ["validator", "npm:13.7.0"],\
+            ["validator", "npm:13.9.0"],\
             ["verdaccio-audit", "npm:11.0.0-6-next.23"],\
             ["verdaccio-auth-memory", "npm:10.2.0"],\
             ["verdaccio-htpasswd", "npm:10.5.2"],\
