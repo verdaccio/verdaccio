@@ -185,6 +185,7 @@ export interface APITokenOptions {
 }
 
 export interface Security {
+  enhancedLegacySignature?: boolean;
   web: JWTOptions;
   api: APITokenOptions;
 }
@@ -266,8 +267,6 @@ export interface ConfigYaml {
   flags?: FlagsConfig;
   userRateLimit?: RateLimit;
   // internal objects, added by internal yaml to JS config parser
-  // @deprecated use configPath instead
-  config_path?: string;
   // save the configuration file path
   configPath?: string;
 }
@@ -282,6 +281,8 @@ export interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'conf
   secret: string;
   // save the configuration file path, it's fails without thi configPath
   configPath: string;
+  // @deprecated use configPath
+  self_path?: string;
   // packages from yaml file looks different from packages inside the config file
   packages: PackageList;
   // security object defaults is added by the config file but optional in the yaml file

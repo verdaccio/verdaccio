@@ -11,7 +11,7 @@ describe('startServer via API', () => {
 
   test('should fail on start with empty configuration', async () => {
     // @ts-expect-error
-    await expect(runServer({})).rejects.toThrow('config_path is required');
+    await expect(runServer({})).rejects.toThrow('configPath property is required');
   });
 
   test('should fail on start with null as entry', async () => {
