@@ -1,5 +1,10 @@
-import { BasicPayload } from './utils';
+import { BasicPayload } from './types';
 
+/**
+ *
+ * @param credentials
+ * @returns
+ */
 export function parseBasicPayload(credentials: string): BasicPayload {
   const index = credentials.indexOf(':');
   if (index < 0) {

@@ -1,4 +1,4 @@
-import { aesDecrypt, aesEncrypt } from '../src/legacy-token';
+import { aesDecrypt, aesEncrypt } from '../src';
 
 describe('test crypto utils', () => {
   test('decrypt payload flow', () => {

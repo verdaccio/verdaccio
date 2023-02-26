@@ -15,6 +15,7 @@ import {
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
+import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
@@ -27,9 +28,6 @@ import {
 } from '@verdaccio/types';
 import { getMatchedPackagesSpec, isFunction, isNil } from '@verdaccio/utils';
 
-import { signPayload } from './jwt-token';
-import { aesEncrypt } from './legacy-token';
-import { parseBasicPayload } from './token';
 import {
   convertPayloadToBase64,
   getDefaultPlugins,
@@ -47,6 +45,7 @@ export interface TokenEncryption {
   aesEncrypt(buf: string): string | void;
 }
 
+// remove
 export interface AESPayload {
   user: string;
   password: string;

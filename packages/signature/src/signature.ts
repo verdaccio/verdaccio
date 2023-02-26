@@ -14,8 +14,6 @@ const debug = buildDebug('verdaccio:auth:token:legacy');
 export const defaultAlgorithm = process.env.VERDACCIO_LEGACY_ALGORITHM || 'aes-256-ctr';
 const inputEncoding: CharacterEncoding = 'utf8';
 const outputEncoding: BinaryToTextEncoding = 'hex';
-// For AES, this is always 16
-const IV_LENGTH = 16;
 // Must be 256 bits (32 characters)
 // https://stackoverflow.com/questions/50963160/invalid-key-length-in-crypto-createcipheriv#50963356
 const VERDACCIO_LEGACY_ENCRYPTION_KEY = process.env.VERDACCIO_LEGACY_ENCRYPTION_KEY;
@@ -25,7 +23,8 @@ export function aesEncrypt(value: string, key: string): string | void {
   // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
   debug('encrypt %o', value);
   debug('algorithm %o', defaultAlgorithm);
-  const iv = Buffer.from(randomBytes(IV_LENGTH));
+  // IV must be a buffer of length 16
+  const iv = Buffer.from(randomBytes(16));
   const secretKey = VERDACCIO_LEGACY_ENCRYPTION_KEY || key;
   const isKeyValid = secretKey?.length === TOKEN_VALID_LENGTH;
   debug('length secret key %o', secretKey?.length);

@@ -391,11 +391,11 @@ importers:
       '@verdaccio/core': workspace:6.0.0-6-next.62
       '@verdaccio/loaders': workspace:6.0.0-6-next.31
       '@verdaccio/logger': workspace:6.0.0-6-next.30
+      '@verdaccio/signature': workspace:6.0.0-6-next.1
       '@verdaccio/types': workspace:11.0.0-6-next.21
       '@verdaccio/utils': workspace:6.0.0-6-next.30
       debug: 4.3.4
       express: 4.18.2
-      jsonwebtoken: 9.0.0
       lodash: 4.17.21
       verdaccio-htpasswd: workspace:11.0.0-6-next.32
     dependencies:
@@ -403,10 +403,10 @@ importers:
       '@verdaccio/core': link:../core/core
       '@verdaccio/loaders': link:../loaders
       '@verdaccio/logger': link:../logger/logger
+      '@verdaccio/signature': link:../signature
       '@verdaccio/utils': link:../utils
       debug: 4.3.4
       express: 4.18.2
-      jsonwebtoken: 9.0.0
       lodash: 4.17.21
       verdaccio-htpasswd: link:../plugins/htpasswd
     devDependencies:
@@ -1107,6 +1107,21 @@ importers:
       '@types/node': 16.18.10
       '@verdaccio/types': link:../../core/types
       ts-node: 10.9.1_5cc4fd05cdbba7efed0227e61dc065e1
+
+  packages/signature:
+    specifiers:
+      '@verdaccio/config': workspace:6.0.0-6-next.62
+      '@verdaccio/types': workspace:11.0.0-6-next.21
+      debug: 4.3.4
+      jsonwebtoken: 9.0.0
+      lodash: 4.17.21
+    dependencies:
+      debug: 4.3.4
+      jsonwebtoken: 9.0.0
+      lodash: 4.17.21
+    devDependencies:
+      '@verdaccio/config': link:../config
+      '@verdaccio/types': link:../core/types
 
   packages/standalone:
     specifiers:
@@ -10911,7 +10926,7 @@ packages:
     dev: true
 
   /buffer-equal-constant-time/1.0.1:
-    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
+    resolution: {integrity: sha1-+OcRMvf/5uAaXJaXpMbz5I1cyBk=}
 
   /buffer-from/1.1.1:
     resolution: {integrity: sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==}
@@ -15583,7 +15598,7 @@ packages:
       map-cache: 0.2.2
 
   /fresh/0.5.2:
-    resolution: {integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=}
+    resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
   /friendly-errors-webpack-plugin/1.7.0_webpack@5.75.0:
@@ -18164,7 +18179,7 @@ packages:
     dev: true
 
   /jsonparse/1.3.1:
-    resolution: {integrity: sha1-P02uSpH6wxX3EGL4UhzCOfE2YoA=}
+    resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
     engines: {'0': node >= 0.2.0}
     dev: false
 
@@ -19074,7 +19089,7 @@ packages:
     dev: true
 
   /merge-descriptors/1.0.1:
-    resolution: {integrity: sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E=}
+    resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
 
   /merge-stream/2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}

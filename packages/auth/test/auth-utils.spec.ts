@@ -17,24 +17,22 @@ import {
   errorUtils,
 } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
+import { aesDecrypt, signPayload, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
 import { buildToken, buildUserBuffer, getAuthenticatedMessage } from '@verdaccio/utils';
-import type { AllowActionCallbackResponse } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
+  AllowActionCallbackResponse,
   Auth,
-  aesDecrypt,
   allow_action,
   getApiToken,
   getDefaultPlugins,
   getMiddlewareCredentials,
-  signPayload,
   verifyJWTPayload,
-  verifyPayload,
 } from '../src';
 
-setup([]);
+setup({});
 
 const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -452,6 +450,7 @@ describe('Auth utilities', () => {
         const config: Config = getConfig('security-legacy', secret);
         const auth: Auth = new Auth(config);
         await auth.init();
+        // @ts-expect-error
         const token = auth.aesEncrypt(null);
         const security: Security = config.security;
         const credentials = getMiddlewareCredentials(

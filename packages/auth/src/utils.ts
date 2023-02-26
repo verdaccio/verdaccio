@@ -11,12 +11,10 @@ import {
   errorUtils,
   pluginUtils,
 } from '@verdaccio/core';
+import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
 import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
 import { AESPayload, TokenEncryption } from './auth';
-import { verifyPayload } from './jwt-token';
-import { aesDecrypt } from './legacy-token';
-import { parseBasicPayload } from './token';
 
 const debug = buildDebug('verdaccio:auth:utils');
 

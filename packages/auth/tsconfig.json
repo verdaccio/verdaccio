@@ -20,6 +20,9 @@
       "path": "../loaders"
     },
     {
+      "path": "../signature"
+    },
+    {
       "path": "../logger/logger"
     },
     {
