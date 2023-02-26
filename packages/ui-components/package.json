@@ -7,10 +7,6 @@
   "homepage": "https://verdaccio.org",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
-  "files": [
-    "./build",
-    "./src"
-  ],
   "scripts": {
     "test": "cross-env TZ=UTC jest --config jest/jest.config.js",
     "test:html": "cross-env TZ=UTC jest --config jest/jest.config.js --coverage-reporters=html",
