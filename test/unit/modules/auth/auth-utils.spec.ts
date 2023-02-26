@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import { aesDecryptDeprecated as aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
 import { buildUserBuffer } from '@verdaccio/utils';
 
@@ -13,7 +14,6 @@ import {
 } from '../../../../src/lib/auth-utils';
 import AppConfig from '../../../../src/lib/config';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
-import { aesDecrypt, verifyPayload } from '../../../../src/lib/crypto-utils';
 import { setup } from '../../../../src/lib/logger';
 import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
 import { IAuth } from '../../../types';

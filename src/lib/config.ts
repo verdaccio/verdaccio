@@ -2,6 +2,7 @@ import assert from 'assert';
 import _ from 'lodash';
 
 import { getUserAgent } from '@verdaccio/config';
+import { generateRandomSecretKeyDeprecated } from '@verdaccio/signature';
 import { Config as AppConfig, Logger, PackageList, RateLimit, Security } from '@verdaccio/types';
 import { generateRandomHexString, getMatchedPackagesSpec } from '@verdaccio/utils';
 

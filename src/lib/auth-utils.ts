@@ -1,6 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
+import { aesDecryptDeprecated as aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import {
   APITokenOptions,
   Callback,
@@ -29,7 +30,6 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
 } from './constants';
-import { aesDecrypt, verifyPayload } from './crypto-utils';
 import { logger } from './logger';
 import { ErrorCode, convertPayloadToBase64 } from './utils';
 

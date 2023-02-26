@@ -3103,6 +3103,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/signature@npm:6.0.0-6-next.1":
+  version: 6.0.0-6-next.1
+  resolution: "@verdaccio/signature@npm:6.0.0-6-next.1"
+  dependencies:
+    debug: 4.3.4
+    jsonwebtoken: 9.0.0
+    lodash: 4.17.21
+  checksum: f372f8a24ac0bc9282055914108b2fbe740b1ddd37f5355d4570ed30d34633c832d8ed1f2183b6c97a58467c591ec0ea90dd1cd302a28d97000f1fefd78be166
+  languageName: node
+  linkType: hard
+
 "@verdaccio/streams@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/streams@npm:10.2.0"
@@ -10970,6 +10981,7 @@ __metadata:
     "@verdaccio/local-storage": 10.3.1
     "@verdaccio/logger-7": 6.0.0-6-next.7
     "@verdaccio/middleware": 6.0.0-6-next.41
+    "@verdaccio/signature": 6.0.0-6-next.1
     "@verdaccio/streams": 10.2.0
     "@verdaccio/tarball": 11.0.0-6-next.31
     "@verdaccio/types": 10.7.0
