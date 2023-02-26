@@ -55,7 +55,7 @@
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.7",
     "fastify": "4.13.0",
     "get-port": "5.1.1",
-    "got": "11.8.5",
+    "got": "11.8.6",
     "lodash": "4.17.21",
     "nock": "13.2.9",
     "node-mocks-http": "1.12.1",
