@@ -29,14 +29,6 @@ import {
 
 export type StringValue = verdaccio$StringValue;
 
-export interface StartUpConfig {
-  storage: string;
-  plugins?: string;
-  self_path: string;
-  user_agent?: boolean;
-  userRateLimit?: RateLimit;
-}
-
 // legacy should be removed in long term
 
 export interface LegacyPackageList {

@@ -156,12 +156,6 @@ const defaultApiTokenConf: APITokenOptions = {
   legacy: true,
 };
 
-// we limit max 1000 request per 15 minutes on user endpoints
-export const defaultUserRateLimiting = {
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 1000,
-};
-
 export const defaultSecurity: Security = {
   web: defaultWebTokenOptions,
   api: defaultApiTokenConf,

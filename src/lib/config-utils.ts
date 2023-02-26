@@ -42,25 +42,6 @@ export function normalizeUserList(oldFormat: any, newFormat: any): any {
   return _.flatten(result);
 }
 
-export function uplinkSanityCheck(
-  uplinks: UpLinksConfList,
-  users: any = BLACKLIST
-): UpLinksConfList {
-  const newUplinks = _.clone(uplinks);
-  let newUsers = _.clone(users);
-
-  for (const uplink in newUplinks) {
-    if (Object.prototype.hasOwnProperty.call(newUplinks, uplink)) {
-      if (_.isNil(newUplinks[uplink].cache)) {
-        newUplinks[uplink].cache = true;
-      }
-      newUsers = sanityCheckNames(uplink, newUsers);
-    }
-  }
-
-  return newUplinks;
-}
-
 export function sanityCheckNames(item: string, users: any): any {
   assert(
     item !== 'all' &&
@@ -75,20 +56,6 @@ export function sanityCheckNames(item: string, users: any): any {
   users[item] = true;
 
   return users;
-}
-
-export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinksConfList {
-  const uplinks = _.clone(configUpLinks);
-
-  for (const uplink in uplinks) {
-    if (Object.prototype.hasOwnProperty.call(uplinks, uplink)) {
-      assert(uplinks[uplink].url, 'CONFIG: no url for uplink: ' + uplink);
-      assert(_.isString(uplinks[uplink].url), 'CONFIG: wrong url format for uplink: ' + uplink);
-      uplinks[uplink].url = uplinks[uplink].url.replace(/\/$/, '');
-    }
-  }
-
-  return uplinks;
 }
 
 /**

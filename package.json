@@ -20,16 +20,16 @@
   },
   "dependencies": {
     "@verdaccio/config": "6.0.0-6-next.62",
-    "@verdaccio/core": "6.0.0-6-next.62",
+    "@verdaccio/core": "6-next",
     "@verdaccio/local-storage": "10.3.1",
-    "@verdaccio/logger-7": "6.0.0-6-next.7",
-    "@verdaccio/middleware": "6.0.0-6-next.41",
-    "@verdaccio/signature": "6.0.0-6-next.1",
+    "@verdaccio/logger-7": "6-next",
+    "@verdaccio/middleware": "6-next",
+    "@verdaccio/signature": "6-next",
     "@verdaccio/streams": "10.2.0",
-    "@verdaccio/tarball": "11.0.0-6-next.31",
-    "@verdaccio/ui-theme": "6.0.0-6-next.62",
-    "@verdaccio/url": "11.0.0-6-next.28",
-    "@verdaccio/utils": "6.0.0-6-next.30",
+    "@verdaccio/tarball": "6-next",
+    "@verdaccio/ui-theme": "6-next",
+    "@verdaccio/url": "6-next",
+    "@verdaccio/utils": "6-next",
     "JSONStream": "1.3.5",
     "async": "3.2.4",
     "body-parser": "1.20.2",
@@ -56,7 +56,7 @@
     "request": "2.88.2",
     "semver": "7.3.8",
     "validator": "13.9.0",
-    "verdaccio-audit": "11.0.0-6-next.23",
+    "verdaccio-audit": "6-next",
     "verdaccio-htpasswd": "10.5.2"
   },
   "devDependencies": {
@@ -100,7 +100,7 @@
     "@typescript-eslint/eslint-plugin": "5.49.0",
     "@typescript-eslint/parser": "5.49.0",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/types": "10.7.0",
+    "@verdaccio/types": "10.7.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "29.4.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
@@ -192,5 +192,13 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.3.1"
+  "packageManager": "yarn@3.3.1",
+  "dependenciesMeta": {
+    "@verdaccio/config@6.0.0-6-next.62": {
+      "unplugged": true
+    },
+    "@verdaccio/types@10.7.0": {
+      "unplugged": true
+    }
+  }
 }

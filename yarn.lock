@@ -2967,21 +2967,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/config@npm:6.0.0-6-next.60":
-  version: 6.0.0-6-next.60
-  resolution: "@verdaccio/config@npm:6.0.0-6-next.60"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.60
-    "@verdaccio/utils": 6.0.0-6-next.28
-    debug: 4.3.4
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    yaml: 2.2.0
-    yup: 0.32.11
-  checksum: 93e7e22a65383a55376da87618d6280dfa2922f42dda17f1c4cf5e2f3f676358a45a7d20398d0e85b335800b7635ce488d10fbd6d3b5a15f03390d0f109953dc
-  languageName: node
-  linkType: hard
-
 "@verdaccio/config@npm:6.0.0-6-next.62":
   version: 6.0.0-6-next.62
   resolution: "@verdaccio/config@npm:6.0.0-6-next.62"
@@ -2997,21 +2982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/core@npm:6.0.0-6-next.60":
-  version: 6.0.0-6-next.60
-  resolution: "@verdaccio/core@npm:6.0.0-6-next.60"
-  dependencies:
-    ajv: 8.11.2
-    core-js: 3.27.0
-    http-errors: 1.8.1
-    http-status-codes: 2.2.0
-    process-warning: 1.0.0
-    semver: 7.3.8
-  checksum: 059d6e906c78470b36f2fda368614e8c1f471b4853aa5a7461a1e067e9fcfa4e6b6dd10eb5bd7613cb2898cd1d10cc0a36d0d80e0dd54cf5fbc2d49c0000ae1f
-  languageName: node
-  linkType: hard
-
-"@verdaccio/core@npm:6.0.0-6-next.62":
+"@verdaccio/core@npm:6-next, @verdaccio/core@npm:6.0.0-6-next.62":
   version: 6.0.0-6-next.62
   resolution: "@verdaccio/core@npm:6.0.0-6-next.62"
   dependencies:
@@ -3050,7 +3021,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/logger-7@npm:6.0.0-6-next.7":
+"@verdaccio/logger-7@npm:6-next":
   version: 6.0.0-6-next.7
   resolution: "@verdaccio/logger-7@npm:6.0.0-6-next.7"
   dependencies:
@@ -3085,7 +3056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/middleware@npm:6.0.0-6-next.41":
+"@verdaccio/middleware@npm:6-next":
   version: 6.0.0-6-next.41
   resolution: "@verdaccio/middleware@npm:6.0.0-6-next.41"
   dependencies:
@@ -3103,7 +3074,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/signature@npm:6.0.0-6-next.1":
+"@verdaccio/signature@npm:6-next":
   version: 6.0.0-6-next.1
   resolution: "@verdaccio/signature@npm:6.0.0-6-next.1"
   dependencies:
@@ -3121,7 +3092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/tarball@npm:11.0.0-6-next.31":
+"@verdaccio/tarball@npm:6-next":
   version: 11.0.0-6-next.31
   resolution: "@verdaccio/tarball@npm:11.0.0-6-next.31"
   dependencies:
@@ -3141,14 +3112,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:6.0.0-6-next.62":
+"@verdaccio/ui-theme@npm:6-next":
   version: 6.0.0-6-next.62
   resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.62"
   checksum: 1a404d0f1d9df941f5d907ee2fba03124b87f0d0d23a2976cf3fdd5dc859864352cbfb46961a3497f7f1eaa9cd51bcb22702c7524c0864dc23ca0a244a5a2380
   languageName: node
   linkType: hard
 
-"@verdaccio/url@npm:11.0.0-6-next.28":
+"@verdaccio/url@npm:11.0.0-6-next.28, @verdaccio/url@npm:6-next":
   version: 11.0.0-6-next.28
   resolution: "@verdaccio/url@npm:11.0.0-6-next.28"
   dependencies:
@@ -3160,19 +3131,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/utils@npm:6.0.0-6-next.28":
-  version: 6.0.0-6-next.28
-  resolution: "@verdaccio/utils@npm:6.0.0-6-next.28"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.60
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    semver: 7.3.8
-  checksum: cea635e77c7083252c1fe512d7116d97b1e4d74385b4c294b441ffbcf222e5d4f3cbfd693004252de0fee58389d2c69cd8efa2cb81589a9e68d77c598d613bfc
-  languageName: node
-  linkType: hard
-
-"@verdaccio/utils@npm:6.0.0-6-next.30":
+"@verdaccio/utils@npm:6-next, @verdaccio/utils@npm:6.0.0-6-next.30":
   version: 6.0.0-6-next.30
   resolution: "@verdaccio/utils@npm:6.0.0-6-next.30"
   dependencies:
@@ -4573,13 +4532,6 @@ __metadata:
   dependencies:
     browserslist: ^4.21.4
   checksum: 4574d4507de8cba9a75e37401b3ca6e5908ab066ec717e3b34866d25f623e1aa614fb886e10973be64a6250f325dcba6809e4fae4ed43375cc3e4276c5514c13
-  languageName: node
-  linkType: hard
-
-"core-js@npm:3.27.0":
-  version: 3.27.0
-  resolution: "core-js@npm:3.27.0"
-  checksum: 14bf6772e1c73a1cb3848ff63cae8d8f28354195e95ff550f2c4a7ae04650987691e37d6c9fe73789ffd97055b024fc7df825c203965f9a9b9aa6fb9f26f8571
   languageName: node
   linkType: hard
 
@@ -10886,16 +10838,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:11.0.0-6-next.23":
-  version: 11.0.0-6-next.23
-  resolution: "verdaccio-audit@npm:11.0.0-6-next.23"
+"verdaccio-audit@npm:6-next":
+  version: 11.0.0-6-next.25
+  resolution: "verdaccio-audit@npm:11.0.0-6-next.25"
   dependencies:
-    "@verdaccio/config": 6.0.0-6-next.60
-    "@verdaccio/core": 6.0.0-6-next.60
+    "@verdaccio/config": 6.0.0-6-next.62
+    "@verdaccio/core": 6.0.0-6-next.62
     express: 4.18.2
     https-proxy-agent: 5.0.1
     node-fetch: cjs
-  checksum: 3c07ee4aaf596257ef71e3d84641fd8785a2848b07f6fd6124bd3ca1ab08eead61391c4cbd5f4b7bc5ef2717f26d1f553c9b85af36dc6786eb8309f4ed946274
+  checksum: b92e412bfa298c25839c9f456eaea8a23e106bfdee74c92ac0de25d30d008c08913dcccb8d6e9556d65422c2764906e88c3963f648e4348792e6d675f1ef34ea
   languageName: node
   linkType: hard
 
@@ -10977,17 +10929,17 @@ __metadata:
     "@typescript-eslint/parser": 5.49.0
     "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/config": 6.0.0-6-next.62
-    "@verdaccio/core": 6.0.0-6-next.62
+    "@verdaccio/core": 6-next
     "@verdaccio/local-storage": 10.3.1
-    "@verdaccio/logger-7": 6.0.0-6-next.7
-    "@verdaccio/middleware": 6.0.0-6-next.41
-    "@verdaccio/signature": 6.0.0-6-next.1
+    "@verdaccio/logger-7": 6-next
+    "@verdaccio/middleware": 6-next
+    "@verdaccio/signature": 6-next
     "@verdaccio/streams": 10.2.0
-    "@verdaccio/tarball": 11.0.0-6-next.31
+    "@verdaccio/tarball": 6-next
     "@verdaccio/types": 10.7.0
-    "@verdaccio/ui-theme": 6.0.0-6-next.62
-    "@verdaccio/url": 11.0.0-6-next.28
-    "@verdaccio/utils": 6.0.0-6-next.30
+    "@verdaccio/ui-theme": 6-next
+    "@verdaccio/url": 6-next
+    "@verdaccio/utils": 6-next
     JSONStream: 1.3.5
     async: 3.2.4
     babel-eslint: 10.1.0
@@ -11047,10 +10999,15 @@ __metadata:
     ts-node: 10.9.1
     typescript: 4.1.3
     validator: 13.9.0
-    verdaccio-audit: 11.0.0-6-next.23
+    verdaccio-audit: 6-next
     verdaccio-auth-memory: 10.2.0
     verdaccio-htpasswd: 10.5.2
     verdaccio-memory: 10.3.0
+  dependenciesMeta:
+    "@verdaccio/config@6.0.0-6-next.62":
+      unplugged: true
+    "@verdaccio/types@10.7.0":
+      unplugged: true
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
@@ -11246,13 +11203,6 @@ __metadata:
   version: 4.0.0
   resolution: "yallist@npm:4.0.0"
   checksum: 343617202af32df2a15a3be36a5a8c0c8545208f3d3dfbc6bb7c3e3b7e8c6f8e7485432e4f3b88da3031a6e20afa7c711eded32ddfb122896ac5d914e75848d5
-  languageName: node
-  linkType: hard
-
-"yaml@npm:2.2.0":
-  version: 2.2.0
-  resolution: "yaml@npm:2.2.0"
-  checksum: 6c89da40c3c553648595a476f23f7082c17e51b268ecce7ee0464302cbc1ffc20ba86f1b876688eb9c7d8f4b71dc28efbd7b3b86bf414a959ce5150831a9233f
   languageName: node
   linkType: hard
 

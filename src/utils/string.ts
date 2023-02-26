@@ -1,11 +1,3 @@
-// @flow
-
-export function spliceURL(...args: string[]): string {
-  return Array.from(args)
-    .reduce((lastResult, current) => lastResult + current)
-    .replace(/([^:])(\/)+(.)/g, `$1/$3`);
-}
-
 /**
  * Quality values, or q-values and q-factors, are used to describe the order
  * of priority of values in a comma-separated list.
