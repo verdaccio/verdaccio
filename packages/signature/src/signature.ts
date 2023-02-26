@@ -20,7 +20,7 @@ const VERDACCIO_LEGACY_ENCRYPTION_KEY = process.env.VERDACCIO_LEGACY_ENCRYPTION_
 
 export function aesEncrypt(value: string, key: string): string | void {
   // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
-  // https://www.grainger.xyz/changing-from-cipher-to-cipheriv/
+  // https://www.grainger.xyz/posts/changing-from-cipher-to-cipheriv
   debug('encrypt %o', value);
   debug('algorithm %o', defaultAlgorithm);
   // IV must be a buffer of length 16

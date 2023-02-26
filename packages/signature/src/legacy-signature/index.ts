@@ -43,8 +43,7 @@ export function aesDecryptDeprecated(buf: Buffer, secret: string): Buffer {
 export const TOKEN_VALID_LENGTH_DEPRECATED = 64;
 
 /**
- * Genrate a secret key of 64 characters.
- * @deprecated keys should be length max of 64
+ * Generate a secret key of 64 characters.
  */
 export function generateRandomSecretKeyDeprecated(): string {
   return generateRandomHexString(6);

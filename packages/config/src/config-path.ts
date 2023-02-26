@@ -28,7 +28,6 @@ const debug = buildDebug('verdaccio:config');
  * @return {String} the config file path
  */
 function findConfigFile(configPath?: string): string {
-  // console.log(process.env);
   if (typeof configPath !== 'undefined') {
     return path.resolve(configPath);
   }
