@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 4969,
+      "contributions": 5007,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2683
+          "contributions": 2713
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 187
+          "contributions": 190
         },
         {
           "name": "authentication-plugin-sample",
@@ -135,7 +135,7 @@
         },
         {
           "name": "e2e-5.x",
-          "contributions": 44
+          "contributions": 49
         }
       ]
     },
@@ -228,7 +228,7 @@
     {
       "id": 6918450,
       "login": "ayusharma",
-      "contributions": 188,
+      "contributions": 167,
       "repositories": [
         {
           "name": "verdaccio",
@@ -269,10 +269,6 @@
         {
           "name": "github-actions",
           "contributions": 3
-        },
-        {
-          "name": "github-actions-test",
-          "contributions": 21
         }
       ]
     },
@@ -413,17 +409,6 @@
         {
           "name": "ui",
           "contributions": 16
-        }
-      ]
-    },
-    {
-      "id": 6511559,
-      "login": "indiescripter",
-      "contributions": 14,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 14
         }
       ]
     },
@@ -914,17 +899,6 @@
     {
       "id": 7912231,
       "login": "markpeterfejes",
-      "contributions": 4,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 4
-        }
-      ]
-    },
-    {
-      "id": 5180548,
-      "login": "steve-p-com",
       "contributions": 4,
       "repositories": [
         {
@@ -3479,6 +3453,17 @@
       ]
     },
     {
+      "id": 7045092,
+      "login": "profanis",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 30210,
       "login": "robi-wan",
       "contributions": 1,
@@ -3580,6 +3565,17 @@
     {
       "id": 338102,
       "login": "hiwanz",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 26846212,
+      "login": "melodyVoid",
       "contributions": 1,
       "repositories": [
         {
@@ -4762,7 +4758,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14405,
+      "stargazers_count": 14460,
       "archived": false
     },
     {
@@ -4888,7 +4884,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 71,
+      "stargazers_count": 72,
       "archived": false
     },
     {
@@ -4951,7 +4947,7 @@
       "full_name": "verdaccio/ui",
       "html_url": "https://github.com/verdaccio/ui",
       "description": "🖼🎨 Verdaccio UI (deprecated, use verdaccio/verdaccio)",
-      "stargazers_count": 121,
+      "stargazers_count": 120,
       "archived": true
     },
     {
@@ -4960,7 +4956,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 15,
+      "stargazers_count": 14,
       "archived": false
     },
     {
@@ -4980,15 +4976,6 @@
       "description": "🚔verdaccio eslint shareable config",
       "stargazers_count": 0,
       "archived": true
-    },
-    {
-      "name": "github-actions-test",
-      "login": "verdaccio",
-      "full_name": "verdaccio/github-actions-test",
-      "html_url": "https://github.com/verdaccio/github-actions-test",
-      "description": "Experimental GitHub actions ",
-      "stargazers_count": 0,
-      "archived": false
     },
     {
       "name": "readme",
