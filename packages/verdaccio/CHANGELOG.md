@@ -1,5 +1,18 @@
 # verdaccio
 
+## 6.0.0-6-next.63
+
+### Patch Changes
+
+- @verdaccio/hooks@6.0.0-6-next.33
+- verdaccio-audit@11.0.0-6-next.26
+- @verdaccio/cli@6.0.0-6-next.63
+- @verdaccio/node-api@6.0.0-6-next.63
+- verdaccio-htpasswd@11.0.0-6-next.33
+- @verdaccio/ui-theme@6.0.0-6-next.63
+- @verdaccio/utils@6.0.0-6-next.31
+- @verdaccio/logger@6.0.0-6-next.31
+
 ## 6.0.0-6-next.62
 
 ### Patch Changes

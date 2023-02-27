@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "6.0.0-6-next.1",
+  "version": "6.0.0-6-next.2",
   "description": "verdaccio signature utils",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -43,8 +43,8 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.62",
-    "@verdaccio/types": "workspace:11.0.0-6-next.21"
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22"
   },
   "funding": {
     "type": "opencollective",

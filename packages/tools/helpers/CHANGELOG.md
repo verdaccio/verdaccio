@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-6-next.8
+
+### Minor Changes
+
+- dc571aab: feat: add forceEnhancedLegacySignature
+
 ## 2.0.0-6-next.7
 
 ### Patch Changes

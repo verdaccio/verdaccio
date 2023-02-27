@@ -1,5 +1,12 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+
 ## 6.0.0-6-next.30
 
 ### Patch Changes

@@ -56,7 +56,9 @@
     "customprefix-auth": "0.0.1",
     "@verdaccio/crowdin-translations": "1.0.0",
     "@verdaccio/logger-7": "6.0.0-6-next.1",
-    "@verdaccio/logger-commons": "6.0.0-6-next.25"
+    "@verdaccio/logger-commons": "6.0.0-6-next.25",
+    "@verdaccio/e2e-cli-pnpm8": "1.0.1-6-next.6",
+    "@verdaccio/signature": "6.0.0-6-next.1"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -101,6 +103,7 @@
     "heavy-ravens-lay",
     "hip-hounds-destroy",
     "kind-bears-nail",
+    "kind-ladybugs-admire",
     "late-adults-love",
     "late-parents-act",
     "light-pumas-brake",
@@ -128,6 +131,7 @@
     "pretty-hounds-tap",
     "proud-jeans-walk",
     "proud-jobs-hope",
+    "rare-planets-travel",
     "red-chefs-float",
     "red-yaks-sell",
     "rich-badgers-begin",

@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.63
+
+### Minor Changes
+
+- dc571aab: feat: add forceEnhancedLegacySignature
+
 ## 6.0.0-6-next.62
 
 ### Patch Changes

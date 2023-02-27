@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "11.0.0-6-next.31",
+  "version": "11.0.0-6-next.32",
   "description": "tarball utilities resolver",
   "keywords": [
     "private",
@@ -34,13 +34,13 @@
   },
   "dependencies": {
     "debug": "4.3.4",
-    "@verdaccio/core": "workspace:6.0.0-6-next.62",
-    "@verdaccio/url": "workspace:11.0.0-6-next.28",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.30",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/url": "workspace:11.0.0-6-next.29",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.31",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.21",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22",
     "node-mocks-http": "1.12.1"
   },
   "scripts": {
