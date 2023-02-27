@@ -76,7 +76,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/signature", "npm:6.0.0-6-next.1"],\
             ["@verdaccio/streams", "npm:10.2.0"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.31"],\
-            ["@verdaccio/types", "npm:10.7.0"],\
+            ["@verdaccio/types", "npm:10.7.1"],\
             ["@verdaccio/ui-theme", "npm:6.0.0-6-next.62"],\
             ["@verdaccio/url", "npm:11.0.0-6-next.28"],\
             ["@verdaccio/utils", "npm:6.0.0-6-next.30"],\
@@ -5172,10 +5172,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/types", [\
-        ["npm:10.7.0", {\
-          "packageLocation": "./.yarn/unplugged/@verdaccio-types-npm-10.7.0-28c6045ab8/node_modules/@verdaccio/types/",\
+        ["npm:10.7.1", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-types-npm-10.7.1-3c42d169da-086ef79ef1.zip/node_modules/@verdaccio/types/",\
           "packageDependencies": [\
-            ["@verdaccio/types", "npm:10.7.0"]\
+            ["@verdaccio/types", "npm:10.7.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14238,7 +14238,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/signature", "npm:6.0.0-6-next.1"],\
             ["@verdaccio/streams", "npm:10.2.0"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.31"],\
-            ["@verdaccio/types", "npm:10.7.0"],\
+            ["@verdaccio/types", "npm:10.7.1"],\
             ["@verdaccio/ui-theme", "npm:6.0.0-6-next.62"],\
             ["@verdaccio/url", "npm:11.0.0-6-next.28"],\
             ["@verdaccio/utils", "npm:6.0.0-6-next.30"],\
