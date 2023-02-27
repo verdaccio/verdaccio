@@ -52,10 +52,10 @@ export function displayExperimentsInfoBox(flags) {
  * @param config
  */
 export async function runServer(config?: string): Promise<any> {
-  let configurationParsed: ConfigRuntime;
+  let configurationParsed: ReturnType<any>;
   if (config === undefined || typeof config === 'string') {
     const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation) as ConfigRuntime;
+    configurationParsed = parseConfigFile(configPathLocation);
     if (!configurationParsed.self_path) {
       configurationParsed.self_path = path.resolve(configPathLocation);
     }
