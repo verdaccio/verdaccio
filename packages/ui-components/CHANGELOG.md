@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.5
+
+### Minor Changes
+
+- ddb6a223: feat: signature package
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/types@11.0.0-6-next.22
+
 ## 2.0.0-6-next.4
 
 ### Major Changes

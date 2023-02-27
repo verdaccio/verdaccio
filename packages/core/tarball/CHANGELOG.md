@@ -1,5 +1,14 @@
 # Change Log
 
+## 11.0.0-6-next.32
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/url@11.0.0-6-next.29
+  - @verdaccio/utils@6.0.0-6-next.31
+
 ## 11.0.0-6-next.31
 
 ### Patch Changes

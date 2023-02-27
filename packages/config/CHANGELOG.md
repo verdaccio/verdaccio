@@ -1,5 +1,18 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.63
+
+### Minor Changes
+
+- ddb6a223: feat: signature package
+- dc571aab: feat: add forceEnhancedLegacySignature
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/utils@6.0.0-6-next.31
+
 ## 6.0.0-6-next.62
 
 ### Patch Changes

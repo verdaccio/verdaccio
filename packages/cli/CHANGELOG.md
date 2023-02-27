@@ -1,5 +1,16 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.63
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+- Updated dependencies [dc571aab]
+  - @verdaccio/config@6.0.0-6-next.63
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/node-api@6.0.0-6-next.63
+  - @verdaccio/logger@6.0.0-6-next.31
+
 ## 6.0.0-6-next.62
 
 ### Patch Changes
