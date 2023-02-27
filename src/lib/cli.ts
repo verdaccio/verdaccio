@@ -9,12 +9,11 @@ if (process.getuid && process.getuid() === 0) {
 
 // eslint-disable-next-line import/order
 const logger = require('./logger');
-logger.setup(null, { logStart: false }); // default setup
 
 require('./cli/cli');
 
 process.on('uncaughtException', function (err) {
-  logger.logger.fatal(
+  logger?.logger?.fatal(
     {
       err: err,
     },

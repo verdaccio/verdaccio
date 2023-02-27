@@ -61,7 +61,6 @@ export class InitCommand extends Command {
         verdaccioConfiguration.https = { enable: false };
       }
 
-      logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
       process.title =
         (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
 
@@ -73,6 +72,7 @@ export class InitCommand extends Command {
         pkgName,
         listenDefaultCallback
       );
+      logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err) {
       logger.logger.fatal(
         { file: configPathLocation, err: err },
