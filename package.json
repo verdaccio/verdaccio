@@ -24,7 +24,7 @@
     "@verdaccio/local-storage": "10.3.1",
     "@verdaccio/logger-7": "6.0.0-6-next.8",
     "@verdaccio/middleware": "6.0.0-6-next.42",
-    "@verdaccio/signature": "6-next",
+    "@verdaccio/signature": "6.0.0-6-next.2",
     "@verdaccio/streams": "10.2.0",
     "@verdaccio/tarball": "11.0.0-6-next.32",
     "@verdaccio/ui-theme": "6.0.0-6-next.63",

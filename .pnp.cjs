@@ -73,7 +73,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.3.1"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.8"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.42"],\
-            ["@verdaccio/signature", "npm:6.0.0-6-next.1"],\
+            ["@verdaccio/signature", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/streams", "npm:10.2.0"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.32"],\
             ["@verdaccio/types", "npm:10.7.1"],\
@@ -5137,10 +5137,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/signature", [\
-        ["npm:6.0.0-6-next.1", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-signature-npm-6.0.0-6-next.1-196a1bbec1-f372f8a24a.zip/node_modules/@verdaccio/signature/",\
+        ["npm:6.0.0-6-next.2", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-signature-npm-6.0.0-6-next.2-84876e53f2-6e5331ee23.zip/node_modules/@verdaccio/signature/",\
           "packageDependencies": [\
-            ["@verdaccio/signature", "npm:6.0.0-6-next.1"],\
+            ["@verdaccio/signature", "npm:6.0.0-6-next.2"],\
             ["debug", "virtual:29474417206615456729b7a578bf418b358d5457cdcef4bbfee11068b4718e28ceca45b525022e3820e15bd79419301ec7f358c2f28eae1e78ba4bae24d15383#npm:4.3.4"],\
             ["jsonwebtoken", "npm:9.0.0"],\
             ["lodash", "npm:4.17.21"]\
@@ -14235,7 +14235,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.3.1"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.8"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.42"],\
-            ["@verdaccio/signature", "npm:6.0.0-6-next.1"],\
+            ["@verdaccio/signature", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/streams", "npm:10.2.0"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.32"],\
             ["@verdaccio/types", "npm:10.7.1"],\

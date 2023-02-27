@@ -3074,14 +3074,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/signature@npm:6-next":
-  version: 6.0.0-6-next.1
-  resolution: "@verdaccio/signature@npm:6.0.0-6-next.1"
+"@verdaccio/signature@npm:6.0.0-6-next.2":
+  version: 6.0.0-6-next.2
+  resolution: "@verdaccio/signature@npm:6.0.0-6-next.2"
   dependencies:
     debug: 4.3.4
     jsonwebtoken: 9.0.0
     lodash: 4.17.21
-  checksum: f372f8a24ac0bc9282055914108b2fbe740b1ddd37f5355d4570ed30d34633c832d8ed1f2183b6c97a58467c591ec0ea90dd1cd302a28d97000f1fefd78be166
+  checksum: 6e5331ee231be43cf521596f9ee6d1c39d73f249822e5cbe0e83ac91b3a4849adf53c6e9b4566a674b4134ecd2706e6734a1344cc8fa8dbe82232642ee07f631
   languageName: node
   linkType: hard
 
@@ -10933,7 +10933,7 @@ __metadata:
     "@verdaccio/local-storage": 10.3.1
     "@verdaccio/logger-7": 6.0.0-6-next.8
     "@verdaccio/middleware": 6.0.0-6-next.42
-    "@verdaccio/signature": 6-next
+    "@verdaccio/signature": 6.0.0-6-next.2
     "@verdaccio/streams": 10.2.0
     "@verdaccio/tarball": 11.0.0-6-next.32
     "@verdaccio/types": 10.7.1
