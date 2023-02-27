@@ -28,12 +28,6 @@ jobs:
           node-version: 18.x
       - name: install pnpm
         run: sudo npm i pnpm@latest-6 -g
-      - name: set store
-        run: | 
-          mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store
-      - name: setup pnpm config registry
-        run: pnpm config set registry https://registry.verdaccio.org
       - name: install dependencies
         run: pnpm install
       - name: Build Translations percentage
