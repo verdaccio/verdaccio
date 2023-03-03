@@ -63,7 +63,7 @@ function readDefaultConfig(): string {
 
 function createConfigFolder(configLocation): void {
   mkdirp.sync(Path.dirname(configLocation.path));
-  logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
+  // logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 
 function updateStorageLinks(configLocation, defaultConfig): string {
