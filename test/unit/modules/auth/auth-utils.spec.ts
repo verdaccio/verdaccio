@@ -5,13 +5,7 @@ import { Config, RemoteUser, Security } from '@verdaccio/types';
 import { buildUserBuffer } from '@verdaccio/utils';
 
 import Auth from '../../../../src/lib/auth';
-import {
-  createAnonymousRemoteUser,
-  createRemoteUser,
-  getApiToken,
-  getMiddlewareCredentials,
-  getSecurity,
-} from '../../../../src/lib/auth-utils';
+import { getApiToken, getMiddlewareCredentials, getSecurity } from '../../../../src/lib/auth-utils';
 import AppConfig from '../../../../src/lib/config';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
@@ -100,30 +94,6 @@ describe('Auth utilities', () => {
     expect(content[0]).toBe(user);
     expect(content[0]).toBe(password);
   };
-
-  describe('createRemoteUser', () => {
-    test('create remote user', () => {
-      expect(createRemoteUser('test', [])).toEqual({
-        name: 'test',
-        real_groups: [],
-        groups: ['$all', '$authenticated', '@all', '@authenticated', 'all'],
-      });
-    });
-    test('create remote user with groups', () => {
-      expect(createRemoteUser('test', ['group1', 'group2'])).toEqual({
-        name: 'test',
-        real_groups: ['group1', 'group2'],
-        groups: ['group1', 'group2', '$all', '$authenticated', '@all', '@authenticated', 'all'],
-      });
-    });
-    test('create anonymous remote user', () => {
-      expect(createAnonymousRemoteUser()).toEqual({
-        name: undefined,
-        real_groups: [],
-        groups: ['$all', '$anonymous', '@all', '@anonymous'],
-      });
-    });
-  });
 
   describe('getApiToken test', () => {
     test('should sign token with aes and security missing', async () => {

@@ -1,6 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
+import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { aesDecryptDeprecated as aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import {
   APITokenOptions,
@@ -14,18 +15,11 @@ import {
 } from '@verdaccio/types';
 import { buildUserBuffer } from '@verdaccio/utils';
 
-import {
-  AuthMiddlewarePayload,
-  AuthTokenHeader,
-  BasicPayload,
-  CookieSessionToken,
-  IAuthWebUI,
-} from '../types';
+import { AuthMiddlewarePayload, AuthTokenHeader, BasicPayload, IAuthWebUI } from '../types';
 import {
   API_ERROR,
   DEFAULT_MIN_LIMIT_PASSWORD,
   HTTP_STATUS,
-  ROLES,
   TIME_EXPIRATION_1H,
   TOKEN_BASIC,
   TOKEN_BEARER,
@@ -40,44 +34,6 @@ export function validatePassword(
   minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
 ): boolean {
   return typeof password === 'string' && password.length >= minLength;
-}
-
-/**
- * Create a RemoteUser object
- * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
- */
-export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
-  const isGroupValid: boolean = Array.isArray(pluginGroups);
-  const groups = Array.from(
-    new Set(
-      (isGroupValid ? pluginGroups : []).concat([
-        ROLES.$ALL,
-        ROLES.$AUTH,
-        ROLES.DEPRECATED_ALL,
-        ROLES.DEPRECATED_AUTH,
-        ROLES.ALL,
-      ])
-    )
-  );
-
-  return {
-    name,
-    groups,
-    real_groups: pluginGroups,
-  };
-}
-
-/**
- * Builds an anonymous remote user in case none is logged in.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
- */
-export function createAnonymousRemoteUser(): RemoteUser {
-  return {
-    name: undefined,
-    // groups without '$' are going to be deprecated eventually
-    groups: [ROLES.$ALL, ROLES.$ANONYMOUS, ROLES.DEPRECATED_ALL, ROLES.DEPRECATED_ANONYMOUS],
-    real_groups: [],
-  };
 }
 
 export function allow_action(action: string): Function {

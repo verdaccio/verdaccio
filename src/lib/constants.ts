@@ -10,7 +10,7 @@ export {
   SUPPORT_ERRORS,
   APP_ERROR,
 } from '@verdaccio/core';
-export { ROLES, PACKAGE_ACCESS } from '@verdaccio/utils';
+export { PACKAGE_ACCESS } from '@verdaccio/utils';
 
 export const DEFAULT_PORT = '4873';
 export const DEFAULT_PROTOCOL = 'http';

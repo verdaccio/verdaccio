@@ -2,6 +2,7 @@ import buildDebug from 'debug';
 import { NextFunction } from 'express';
 import _ from 'lodash';
 
+import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
 import {
   AllowAccess,
@@ -20,8 +21,6 @@ import { getMatchedPackagesSpec } from '@verdaccio/utils';
 import loadPlugin from '../lib/plugin-loader';
 import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../types';
 import {
-  createAnonymousRemoteUser,
-  createRemoteUser,
   getDefaultPlugins,
   getMiddlewareCredentials,
   getSecurity,

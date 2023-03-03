@@ -67,10 +67,6 @@ export interface ProxyList {
   [key: string]: IProxy;
 }
 
-export interface CookieSessionToken {
-  expires: Date;
-}
-
 export interface Utils {
   ErrorCode: any;
   getLatestVersion: Callback;

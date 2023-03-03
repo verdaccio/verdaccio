@@ -2,11 +2,12 @@ import Cookies from 'cookies';
 import express, { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { createRemoteUser } from '@verdaccio/config';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
-import { createRemoteUser, getApiToken, validatePassword } from '../../../lib/auth-utils';
+import { getApiToken, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
