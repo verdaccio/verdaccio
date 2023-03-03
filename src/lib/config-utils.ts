@@ -1,19 +1,11 @@
 import assert from 'assert';
 import _ from 'lodash';
 
-import { PackageList, UpLinksConfList } from '@verdaccio/types';
+import { PackageList } from '@verdaccio/types';
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { LegacyPackageList, MatchedPackage } from '../types';
 import { ErrorCode } from './utils';
-
-const BLACKLIST = {
-  all: true,
-  anonymous: true,
-  undefined: true,
-  owner: true,
-  none: true,
-};
 
 /**
  * Normalize user list.
@@ -40,22 +32,6 @@ export function normalizeUserList(oldFormat: any, newFormat: any): any {
     }
   }
   return _.flatten(result);
-}
-
-export function sanityCheckNames(item: string, users: any): any {
-  assert(
-    item !== 'all' &&
-      item !== 'owner' &&
-      item !== 'anonymous' &&
-      item !== 'undefined' &&
-      item !== 'none',
-    'CONFIG: reserved uplink name: ' + item
-  );
-  assert(!item.match(/\s/), 'CONFIG: invalid uplink name: ' + item);
-  assert(_.isNil(users[item]), 'CONFIG: duplicate uplink name: ' + item);
-  users[item] = true;
-
-  return users;
 }
 
 /**
