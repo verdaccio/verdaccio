@@ -72,13 +72,9 @@ export class InitCommand extends Command {
         pkgName,
         listenDefaultCallback
       );
-      logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
+      logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err) {
-      console.error('-error:', err);
-      logger?.logger?.fatal(
-        { file: configPathLocation, err: err },
-        'cannot open config file @{file}: @{!err.message}'
-      );
+      console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
       process.exit(1);
     }
   }

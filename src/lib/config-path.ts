@@ -4,7 +4,6 @@ import _ from 'lodash';
 import mkdirp from 'mkdirp';
 import Path from 'path';
 
-import { logger } from './logger';
 import { fileExists, folderExists } from './utils';
 
 const debug = buildDebug('verdaccio:config');
@@ -63,7 +62,6 @@ function readDefaultConfig(): string {
 
 function createConfigFolder(configLocation): void {
   mkdirp.sync(Path.dirname(configLocation.path));
-  // logger.info({ file: configLocation.path }, 'Creating default config file in @{file}');
 }
 
 function updateStorageLinks(configLocation, defaultConfig): string {
