@@ -74,6 +74,7 @@ export class InitCommand extends Command {
       );
       logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
       process.exit(1);
     }
