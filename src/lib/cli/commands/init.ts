@@ -53,7 +53,7 @@ export class InitCommand extends Command {
     let configPathLocation;
     try {
       configPathLocation = findConfigFile(this.config as string);
-      const verdaccioConfiguration = parseConfigFile(configPathLocation);
+      const verdaccioConfiguration: ReturnType<any> = parseConfigFile(configPathLocation);
       if (!verdaccioConfiguration.self_path) {
         verdaccioConfiguration.self_path = path.resolve(configPathLocation);
       }
@@ -61,7 +61,6 @@ export class InitCommand extends Command {
         verdaccioConfiguration.https = { enable: false };
       }
 
-      logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
       process.title =
         (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
 
@@ -73,11 +72,10 @@ export class InitCommand extends Command {
         pkgName,
         listenDefaultCallback
       );
+      logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err) {
-      logger.logger.fatal(
-        { file: configPathLocation, err: err },
-        'cannot open config file @{file}: @{!err.message}'
-      );
+      // eslint-disable-next-line no-console
+      console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
       process.exit(1);
     }
   }

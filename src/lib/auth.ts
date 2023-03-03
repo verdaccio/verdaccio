@@ -2,6 +2,7 @@ import buildDebug from 'debug';
 import { NextFunction } from 'express';
 import _ from 'lodash';
 
+import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
 import {
   AllowAccess,
   AuthPluginPackage,
@@ -31,7 +32,6 @@ import {
   verifyJWTPayload,
 } from './auth-utils';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
-import { aesEncrypt, signPayload } from './crypto-utils';
 import { logger } from './logger';
 import { ErrorCode, convertPayloadToBase64 } from './utils';
 

@@ -10,7 +10,7 @@ import {
   parseReadme,
   sortByName,
 } from '../../../../src/lib/utils';
-import { getByQualityPriorityValue, spliceURL } from '../../../../src/utils/string';
+import { getByQualityPriorityValue } from '../../../../src/utils/string';
 
 setup([]);
 
@@ -137,18 +137,6 @@ describe('Utilities', () => {
   });
 
   describe('String utilities', () => {
-    test('should splice two strings and generate a url', () => {
-      const url: string = spliceURL('http://domain.com', '/-/static/logo.png');
-
-      expect(url).toMatch('http://domain.com/-/static/logo.png');
-    });
-
-    test('should splice a empty strings and generate a url', () => {
-      const url: string = spliceURL('', '/-/static/logo.png');
-
-      expect(url).toMatch('/-/static/logo.png');
-    });
-
     test('getByQualityPriorityValue', () => {
       expect(getByQualityPriorityValue('')).toEqual('');
       expect(getByQualityPriorityValue(null)).toEqual('');

@@ -7,6 +7,7 @@ import semver from 'semver';
 import { URL } from 'url';
 import validator from 'validator';
 
+import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
 import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
@@ -20,7 +21,6 @@ import {
 
 import { AuthorAvatar } from '../types';
 import {
-  APP_ERROR,
   DEFAULT_DOMAIN,
   DEFAULT_PORT,
   DEFAULT_PROTOCOL,
@@ -40,7 +40,6 @@ const {
   getServiceUnavailable,
   getUnauthorized,
 } = errorUtils;
-const debug = buildDebug('verdaccio');
 const validProtocols = ['https', 'http'];
 export function convertPayloadToBase64(payload: string): Buffer {
   return Buffer.from(payload, 'base64');
@@ -243,23 +242,6 @@ export const ErrorCode = {
   getCode,
 };
 
-export function parseConfigFile(configPath: string): any {
-  try {
-    if (/\.ya?ml$/i.test(configPath)) {
-      return YAML.load(fs.readFileSync(configPath, 'utf-8'));
-    }
-    debug('yaml parsed');
-    return require(configPath);
-  } catch (e) {
-    debug('yaml parse failed');
-    if (e.code !== 'MODULE_NOT_FOUND') {
-      e.message = APP_ERROR.CONFIG_NOT_VALID;
-    }
-
-    throw new Error(e);
-  }
-}
-
 /**
  * Check whether the path already exist.
  * @param {String} path
@@ -365,6 +347,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
 
  * @return {String} converted html template
  */
+// TODO: rename, does not parse anymore
 export function parseReadme(packageName: string, readme: string): string | void {
   if (_.isEmpty(readme) === false) {
     return readme;
@@ -492,4 +475,4 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
-export { buildTokenUtil as buildToken };
+export { buildTokenUtil as buildToken, parseConfigFile };

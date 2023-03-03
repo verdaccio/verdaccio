@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import path from 'path';
 
-import {parseConfigFile} from '../../../../src/lib/utils';
+import {parseConfigFile} from '@verdaccio/config';
 
 /**
  * Override the default.yaml configuration file with any new config provided.
