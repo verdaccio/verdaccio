@@ -74,7 +74,8 @@ export class InitCommand extends Command {
       );
       logger.logger.warn({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err) {
-      logger.logger.fatal(
+      console.error('-error:', err);
+      logger?.logger?.fatal(
         { file: configPathLocation, err: err },
         'cannot open config file @{file}: @{!err.message}'
       );
