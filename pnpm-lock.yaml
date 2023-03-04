@@ -881,7 +881,7 @@ importers:
       react-hot-loader: 4.13.1
       react-i18next: 12.1.1
       react-json-view: 1.21.3
-      react-markdown: 8.0.4
+      react-markdown: 8.0.5
       react-redux: 7.2.9
       react-router: 5.3.4
       react-router-dom: 5.3.4
@@ -959,7 +959,7 @@ importers:
       react-hot-loader: 4.13.1_4076cec502acd4bd096bfc1f1d17cbac
       react-i18next: 12.1.1_49ab98587cdf78714a39caebaf863e18
       react-json-view: 1.21.3_4076cec502acd4bd096bfc1f1d17cbac
-      react-markdown: 8.0.4_5642dd39ea6eb7af96c6ee336ce01d77
+      react-markdown: 8.0.5_5642dd39ea6eb7af96c6ee336ce01d77
       react-redux: 7.2.9_react-dom@18.2.0+react@18.2.0
       react-router: 5.3.4_react@18.2.0
       react-router-dom: 5.3.4_react@18.2.0
@@ -1333,7 +1333,7 @@ importers:
       react-hook-form: 7.41.1
       react-i18next: 12.1.1
       react-json-view: 1.21.3
-      react-markdown: 8.0.4
+      react-markdown: 8.0.5
       react-redux: 7.2.9
       react-router: 5.3.4
       react-router-dom: 5.3.4
@@ -1367,7 +1367,7 @@ importers:
       react-hook-form: 7.41.1_react@18.2.0
       react-i18next: 12.1.1_49ab98587cdf78714a39caebaf863e18
       react-json-view: 1.21.3_4076cec502acd4bd096bfc1f1d17cbac
-      react-markdown: 8.0.4_5642dd39ea6eb7af96c6ee336ce01d77
+      react-markdown: 8.0.5_5642dd39ea6eb7af96c6ee336ce01d77
       react-redux: 7.2.9_react-dom@18.2.0+react@18.2.0
       react-router: 5.3.4_react@18.2.0
       react-router-dom: 5.3.4_react@18.2.0
@@ -10274,7 +10274,7 @@ packages:
   /axios/0.21.3_debug@4.3.4:
     resolution: {integrity: sha512-JtoZ3Ndke/+Iwt5n+BgSli/3idTvpt5OjKyoCmz4LX5+lPiY5l7C1colYezhlxThjNa/NhngCUWZSZFypIFuaA==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10282,7 +10282,7 @@ packages:
   /axios/0.25.0_debug@4.3.4:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9_debug@4.3.3
     transitivePeerDependencies:
       - debug
 
@@ -22763,8 +22763,8 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-markdown/8.0.4_5642dd39ea6eb7af96c6ee336ce01d77:
-    resolution: {integrity: sha512-2oxHa6oDxc1apg/Gnc1Goh06t3B617xeywqI/92wmDV9FELI6ayRkwge7w7DoEqM0gRpZGTNU6xQG+YpJISnVg==}
+  /react-markdown/8.0.5_5642dd39ea6eb7af96c6ee336ce01d77:
+    resolution: {integrity: sha512-jGJolWWmOWAvzf+xMdB9zwStViODyyFQhNB/bwCerbBKmrTmgmA599CGiOlP58OId1IMoIRsA8UdI1Lod4zb5A==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
@@ -22782,7 +22782,7 @@ packages:
       remark-parse: 10.0.1
       remark-rehype: 10.1.0
       space-separated-tokens: 2.0.1
-      style-to-object: 0.3.0
+      style-to-object: 0.4.1
       unified: 10.1.1
       unist-util-visit: 4.1.0
       vfile: 5.3.0
@@ -24765,6 +24765,11 @@ packages:
 
   /style-to-object/0.3.0:
     resolution: {integrity: sha512-CzFnRRXhzWIdItT3OmF8SQfWyahHhjq3HwcMNCNLn+N7klOOqPjMeG/4JSu77D7ypZdGvSzvkrbyeTMizz2VrA==}
+    dependencies:
+      inline-style-parser: 0.1.1
+
+  /style-to-object/0.4.1:
+    resolution: {integrity: sha512-HFpbb5gr2ypci7Qw+IOhnP2zOU7e77b+rzM+wTzXzfi1PrtBCX0E7Pk4wL4iTLnhzZ+JgEGAhX81ebTg/aYjQw==}
     dependencies:
       inline-style-parser: 0.1.1
 

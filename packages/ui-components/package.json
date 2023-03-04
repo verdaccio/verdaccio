@@ -48,7 +48,7 @@
     "react-virtualized": "9.22.3",
     "country-flag-icons": "1.5.5",
     "history": "4.10.1",
-    "react-markdown": "8.0.4",
+    "react-markdown": "8.0.5",
     "remark-gfm": "3.0.1",
     "redux": "4.2.1",
     "validator": "13.9.0"
