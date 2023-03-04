@@ -1,0 +1,54 @@
+---
+name: static data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # twice peer week
+    - cron: '0 0 * * 1,4'
+  # for now, scheduled, we can enable on push master but not make much sense now
+  # push:
+  #   branches:
+  #     - master
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
+jobs:
+  prepare:
+    name: Run script
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
+        with:
+          node-version: 18.x
+      - name: install pnpm
+        run: sudo npm i pnpm@latest-6 -g
+      - name: install dependencies
+        run: pnpm install
+      - name: Build Translations percentage
+        run: pnpm build --filter "@verdaccio/crowdin-translations"
+      - name: update contributors
+        run: pnpm run contributors
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: update addson data
+        run: pnpm script:addson
+      - name: update translations
+        run: pnpm run translations
+        env:
+          TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}          
+      - name: format
+        run: pnpm format
+      - name: Commit & Push changes
+        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # tag=v1.4
+        with:
+          github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
+          message: "chore: updated static data"
+          branch: master
+          author_email: verdaccio.npm@gmail.com
+          author_name: verdacciobot

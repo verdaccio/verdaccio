@@ -2,7 +2,8 @@
   "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "noImplicitAny": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts"]

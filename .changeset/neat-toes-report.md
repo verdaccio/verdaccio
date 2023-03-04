@@ -3,7 +3,6 @@
 '@verdaccio/auth': minor
 '@verdaccio/cli': minor
 '@verdaccio/config': minor
-'@verdaccio/commons-api': minor
 '@verdaccio/file-locking': minor
 'verdaccio-htpasswd': minor
 '@verdaccio/local-storage': minor
@@ -15,7 +14,6 @@
 '@verdaccio/logger': minor
 '@verdaccio/logger-prettify': minor
 '@verdaccio/middleware': minor
-'@verdaccio/mock': minor
 '@verdaccio/node-api': minor
 '@verdaccio/active-directory': minor
 'verdaccio-audit': minor
@@ -27,7 +25,6 @@
 '@verdaccio/proxy': minor
 '@verdaccio/server': minor
 '@verdaccio/store': minor
-'@verdaccio/dev-types': minor
 '@verdaccio/utils': minor
 'verdaccio': minor
 '@verdaccio/web': minor

@@ -1,83 +1,166 @@
-import bodyParser from 'body-parser';
-import express, { Application } from 'express';
+import { Application } from 'express';
+import _ from 'lodash';
 import path from 'path';
 import supertest from 'supertest';
 
-import { Auth, IAuth } from '@verdaccio/auth';
-import { Config, parseConfigFile } from '@verdaccio/config';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
-import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { parseConfigFile } from '@verdaccio/config';
+import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { setup } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
+import {
+  generatePackageMetadata,
+  initializeServer as initializeServerHelper,
+} from '@verdaccio/test-helper';
+import { GenericBody, PackageUsers } from '@verdaccio/types';
+import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
-import apiEndpoints from '../../src';
+import apiMiddleware from '../../src';
 
-const getConf = (conf) => {
+setup({});
+
+export const getConf = (conf) => {
   const configPath = path.join(__dirname, 'config', conf);
-
-  return parseConfigFile(configPath);
+  const config = parseConfigFile(configPath);
+  // custom config to avoid conflict with other tests
+  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${generateRandomHexString()}`;
+  return config;
 };
 
-// TODO: replace by @verdaccio/test-helper
 export async function initializeServer(configName): Promise<Application> {
-  const app = express();
-  const config = new Config(getConf(configName));
-  const storage = new Storage(config);
-  await storage.init(config, []);
-  const auth: IAuth = new Auth(config);
-  // TODO: this might not be need it, used in apiEndpoints
-  app.use(bodyParser.json({ strict: false, limit: '10mb' }));
-  // @ts-ignore
-  app.use(errorReportingMiddleware);
-  // @ts-ignore
-  app.use(apiEndpoints(config, auth, storage));
-  // @ts-ignore
-  app.use(handleError);
-  // @ts-ignore
-  app.use(final);
-
-  app.use(function (request, response) {
-    response.status(590);
-    console.log('respo', response);
-    response.json({ error: 'cannot handle this' });
-  });
-
-  return app;
+  const config = getConf(configName);
+  return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
-export function publishVersion(app, _configFile, pkgName, version): supertest.Test {
-  const pkgMetadata = generatePackageMetadata(pkgName, version);
+export function createUser(app, name: string, password: string): supertest.Test {
+  return supertest(app)
+    .put(`/-/user/org.couchdb.user:${name}`)
+    .send({
+      name: name,
+      password: password,
+    })
+    .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+    .expect(HEADERS.CACHE_CONTROL, 'no-cache, no-store')
+    .expect(HTTP_STATUS.CREATED);
+}
+
+export async function getNewToken(app: any, credentials: any): Promise<string> {
+  const response = await createUser(app, credentials.name, credentials.password);
+  const { token, ok } = response.body;
+  expect(ok).toBeDefined();
+  expect(token).toBeDefined();
+  expect(typeof token).toBe('string');
+  return token;
+}
+
+export async function generateTokenCLI(app, token, payload): Promise<any> {
+  return supertest(app)
+    .post('/-/npm/v1/tokens')
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .send(JSON.stringify(payload))
+    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET);
+}
+
+export async function deleteTokenCLI(app, token, tokenToDelete): Promise<any> {
+  return supertest(app)
+    .delete(`/-/npm/v1/tokens/token/${tokenToDelete}`)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+    .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+    .expect(HTTP_STATUS.OK);
+}
+
+export function publishVersionWithToken(
+  app,
+  pkgName: string,
+  version: string,
+  token: string,
+  distTags?: GenericBody
+): supertest.Test {
+  const pkgMetadata = generatePackageMetadata(pkgName, version, distTags);
 
   return supertest(app)
     .put(`/${encodeURIComponent(pkgName)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
     .send(JSON.stringify(pkgMetadata))
     .set('accept', HEADERS.GZIP)
-    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
 }
 
-export async function publishTaggedVersion(
+export function publishVersion(
   app,
-  configFile,
   pkgName: string,
   version: string,
-  tag: string
-) {
-  const pkgMetadata = generatePackageMetadata(pkgName, version, {
-    [tag]: version,
-  });
+  distTags?: GenericBody,
+  token?: string
+): supertest.Test {
+  const pkgMetadata = generatePackageMetadata(pkgName, version, distTags);
 
-  return supertest(app)
-    .put(
-      `/${encodeURIComponent(pkgName)}/${encodeURIComponent(version)}/-tag/${encodeURIComponent(
-        tag
-      )}`
-    )
+  const test = supertest(app)
+    .put(`/${encodeURIComponent(pkgName)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .send(JSON.stringify(pkgMetadata))
-    .expect(HTTP_STATUS.CREATED)
     .set('accept', HEADERS.GZIP)
-    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
-    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
+    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
+
+  if (typeof token === 'string') {
+    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  }
+
+  return test;
+}
+
+export function starPackage(
+  app,
+  options: {
+    users: PackageUsers;
+    name: string;
+    _rev: string;
+    _id?: string;
+  },
+  token?: string
+): supertest.Test {
+  const { _rev, _id, users } = options;
+  const starManifest = {
+    _rev,
+    _id,
+    users,
+  };
+
+  const test = supertest(app)
+    .put(`/${encodeURIComponent(options.name)}`)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .send(JSON.stringify(starManifest))
+    .set('accept', HEADERS.GZIP)
+    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
+
+  if (typeof token === 'string') {
+    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  }
+
+  return test;
+}
+
+export function getDisTags(app, pkgName) {
+  return supertest(app)
+    .get(`/-/package/${encodeURIComponent(pkgName)}/dist-tags`)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+    .expect(HTTP_STATUS.OK);
+}
+
+export function getPackage(
+  app: any,
+  token: string,
+  pkgName: string,
+  statusCode: number = HTTP_STATUS.OK
+): supertest.Test {
+  const test = supertest(app).get(`/${pkgName}`);
+
+  if (_.isNil(token) === false || _.isEmpty(token) === false) {
+    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  }
+
+  return test.expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET).expect(statusCode);
 }

@@ -1,5 +1,457 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.43
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+- Updated dependencies [dc571aab]
+  - @verdaccio/config@6.0.0-6-next.63
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/hooks@6.0.0-6-next.33
+  - @verdaccio/loaders@6.0.0-6-next.32
+  - @verdaccio/local-storage@11.0.0-6-next.33
+  - @verdaccio/proxy@6.0.0-6-next.41
+  - @verdaccio/tarball@11.0.0-6-next.32
+  - @verdaccio/url@11.0.0-6-next.29
+  - @verdaccio/utils@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.31
+
+## 6.0.0-6-next.42
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/tarball@11.0.0-6-next.31
+  - @verdaccio/url@11.0.0-6-next.28
+  - @verdaccio/hooks@6.0.0-6-next.32
+  - @verdaccio/loaders@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.30
+  - @verdaccio/local-storage@11.0.0-6-next.32
+  - @verdaccio/proxy@6.0.0-6-next.40
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
+## 6.0.0-6-next.41
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/hooks@6.0.0-6-next.31
+  - @verdaccio/loaders@6.0.0-6-next.30
+  - @verdaccio/local-storage@11.0.0-6-next.31
+  - @verdaccio/proxy@6.0.0-6-next.39
+  - @verdaccio/core@6.0.0-6-next.61
+  - @verdaccio/tarball@11.0.0-6-next.30
+  - @verdaccio/url@11.0.0-6-next.27
+  - @verdaccio/utils@6.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.29
+
+## 6.0.0-6-next.40
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/hooks@6.0.0-6-next.30
+  - @verdaccio/proxy@6.0.0-6-next.38
+  - @verdaccio/loaders@6.0.0-6-next.29
+  - @verdaccio/local-storage@11.0.0-6-next.30
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/tarball@11.0.0-6-next.29
+  - @verdaccio/url@11.0.0-6-next.26
+  - @verdaccio/logger@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.28
+
+## 6.0.0-6-next.39
+
+### Patch Changes
+
+- Updated dependencies [65f88b82]
+  - @verdaccio/logger@6.0.0-6-next.27
+  - @verdaccio/hooks@6.0.0-6-next.29
+  - @verdaccio/loaders@6.0.0-6-next.28
+  - @verdaccio/local-storage@11.0.0-6-next.29
+  - @verdaccio/proxy@6.0.0-6-next.37
+  - @verdaccio/core@6.0.0-6-next.59
+  - @verdaccio/config@6.0.0-6-next.59
+  - @verdaccio/tarball@11.0.0-6-next.28
+  - @verdaccio/url@11.0.0-6-next.25
+  - @verdaccio/utils@6.0.0-6-next.27
+
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+- @verdaccio/config@6.0.0-6-next.58
+- @verdaccio/tarball@11.0.0-6-next.27
+- @verdaccio/url@11.0.0-6-next.24
+- @verdaccio/hooks@6.0.0-6-next.28
+- @verdaccio/loaders@6.0.0-6-next.27
+- @verdaccio/local-storage@11.0.0-6-next.28
+- @verdaccio/proxy@6.0.0-6-next.36
+- @verdaccio/utils@6.0.0-6-next.26
+- @verdaccio/logger@6.0.0-6-next.26
+
+## 6.0.0-6-next.37
+
+### Patch Changes
+
+- @verdaccio/local-storage@11.0.0-6-next.27
+- @verdaccio/core@6.0.0-6-next.57
+- @verdaccio/config@6.0.0-6-next.57
+- @verdaccio/tarball@11.0.0-6-next.26
+- @verdaccio/url@11.0.0-6-next.23
+- @verdaccio/hooks@6.0.0-6-next.27
+- @verdaccio/loaders@6.0.0-6-next.26
+- @verdaccio/logger@6.0.0-6-next.25
+- @verdaccio/proxy@6.0.0-6-next.35
+- @verdaccio/utils@6.0.0-6-next.25
+
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/config@6.0.0-6-next.56
+  - @verdaccio/tarball@11.0.0-6-next.25
+  - @verdaccio/local-storage@11.0.0-6-next.26
+  - @verdaccio/proxy@6.0.0-6-next.34
+  - @verdaccio/hooks@6.0.0-6-next.26
+  - @verdaccio/loaders@6.0.0-6-next.25
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/url@11.0.0-6-next.22
+  - @verdaccio/logger@6.0.0-6-next.24
+
+## 6.0.0-6-next.35
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/tarball@11.0.0-6-next.24
+  - @verdaccio/url@11.0.0-6-next.21
+  - @verdaccio/utils@6.0.0-6-next.23
+  - @verdaccio/hooks@6.0.0-6-next.25
+  - @verdaccio/loaders@6.0.0-6-next.24
+  - @verdaccio/local-storage@11.0.0-6-next.25
+  - @verdaccio/proxy@6.0.0-6-next.33
+  - @verdaccio/logger@6.0.0-6-next.23
+
+## 6.0.0-6-next.34
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/config@6.0.0-6-next.54
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/tarball@11.0.0-6-next.23
+  - @verdaccio/url@11.0.0-6-next.20
+  - @verdaccio/hooks@6.0.0-6-next.24
+  - @verdaccio/loaders@6.0.0-6-next.23
+  - @verdaccio/logger@6.0.0-6-next.22
+  - @verdaccio/local-storage@11.0.0-6-next.24
+  - @verdaccio/utils@6.0.0-6-next.22
+  - @verdaccio/proxy@6.0.0-6-next.32
+
+## 6.0.0-6-next.33
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/tarball@11.0.0-6-next.22
+- @verdaccio/url@11.0.0-6-next.19
+- @verdaccio/hooks@6.0.0-6-next.23
+- @verdaccio/loaders@6.0.0-6-next.22
+- @verdaccio/logger@6.0.0-6-next.21
+- @verdaccio/local-storage@11.0.0-6-next.23
+- @verdaccio/proxy@6.0.0-6-next.31
+- @verdaccio/config@6.0.0-6-next.53
+- @verdaccio/utils@6.0.0-6-next.21
+
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/config@6.0.0-6-next.52
+- @verdaccio/tarball@11.0.0-6-next.21
+- @verdaccio/url@11.0.0-6-next.18
+- @verdaccio/hooks@6.0.0-6-next.22
+- @verdaccio/loaders@6.0.0-6-next.21
+- @verdaccio/logger@6.0.0-6-next.20
+- @verdaccio/local-storage@11.0.0-6-next.22
+- @verdaccio/proxy@6.0.0-6-next.30
+- @verdaccio/utils@6.0.0-6-next.20
+
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/config@6.0.0-6-next.51
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/url@11.0.0-6-next.17
+  - @verdaccio/local-storage@11.0.0-6-next.21
+  - @verdaccio/hooks@6.0.0-6-next.21
+  - @verdaccio/loaders@6.0.0-6-next.20
+  - @verdaccio/proxy@6.0.0-6-next.29
+  - @verdaccio/tarball@11.0.0-6-next.20
+  - @verdaccio/logger@6.0.0-6-next.19
+  - @verdaccio/utils@6.0.0-6-next.19
+
+## 6.0.0-6-next.30
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+- @verdaccio/config@6.0.0-6-next.50
+- @verdaccio/tarball@11.0.0-6-next.19
+- @verdaccio/url@11.0.0-6-next.16
+- @verdaccio/hooks@6.0.0-6-next.20
+- @verdaccio/loaders@6.0.0-6-next.19
+- @verdaccio/logger@6.0.0-6-next.18
+- @verdaccio/local-storage@11.0.0-6-next.20
+- @verdaccio/proxy@6.0.0-6-next.28
+- @verdaccio/utils@6.0.0-6-next.18
+
+## 6.0.0-6-next.29
+
+### Minor Changes
+
+- ce013d2f: refactor: npm star command support reimplemented
+
+### Patch Changes
+
+- Updated dependencies [ce013d2f]
+  - @verdaccio/url@11.0.0-6-next.15
+  - @verdaccio/tarball@11.0.0-6-next.18
+  - @verdaccio/local-storage@11.0.0-6-next.19
+  - @verdaccio/core@6.0.0-6-next.49
+  - @verdaccio/config@6.0.0-6-next.49
+  - @verdaccio/hooks@6.0.0-6-next.19
+  - @verdaccio/loaders@6.0.0-6-next.18
+  - @verdaccio/logger@6.0.0-6-next.17
+  - @verdaccio/proxy@6.0.0-6-next.27
+  - @verdaccio/utils@6.0.0-6-next.17
+
+## 6.0.0-6-next.28
+
+### Major Changes
+
+- 9fc2e796: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- 43f32687: fix: abbreviated headers handle quality values
+- Updated dependencies [43f32687]
+- Updated dependencies [9fc2e796]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/config@6.0.0-6-next.48
+  - @verdaccio/loaders@6.0.0-6-next.17
+  - @verdaccio/local-storage@11.0.0-6-next.18
+  - @verdaccio/utils@6.0.0-6-next.16
+  - @verdaccio/tarball@11.0.0-6-next.17
+  - @verdaccio/url@11.0.0-6-next.14
+  - @verdaccio/hooks@6.0.0-6-next.18
+  - @verdaccio/logger@6.0.0-6-next.16
+  - @verdaccio/proxy@6.0.0-6-next.26
+
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+- @verdaccio/config@6.0.0-6-next.47
+- @verdaccio/tarball@11.0.0-6-next.16
+- @verdaccio/url@11.0.0-6-next.13
+- @verdaccio/hooks@6.0.0-6-next.17
+- @verdaccio/loaders@6.0.0-6-next.16
+- @verdaccio/logger@6.0.0-6-next.15
+- @verdaccio/local-storage@11.0.0-6-next.17
+- @verdaccio/proxy@6.0.0-6-next.25
+- @verdaccio/utils@6.0.0-6-next.15
+
+## 6.0.0-6-next.26
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/config@6.0.0-6-next.17
+  - @verdaccio/tarball@11.0.0-6-next.15
+  - @verdaccio/url@11.0.0-6-next.12
+  - @verdaccio/hooks@6.0.0-6-next.16
+  - @verdaccio/loaders@6.0.0-6-next.15
+  - @verdaccio/logger@6.0.0-6-next.14
+  - @verdaccio/local-storage@11.0.0-6-next.16
+  - @verdaccio/proxy@6.0.0-6-next.24
+  - @verdaccio/utils@6.0.0-6-next.14
+
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/tarball@11.0.0-6-next.14
+  - @verdaccio/url@11.0.0-6-next.11
+  - @verdaccio/hooks@6.0.0-6-next.15
+  - @verdaccio/loaders@6.0.0-6-next.14
+  - @verdaccio/logger@6.0.0-6-next.13
+  - @verdaccio/local-storage@11.0.0-6-next.15
+  - @verdaccio/proxy@6.0.0-6-next.23
+  - @verdaccio/config@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.13
+
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- 37274e4c: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+### Patch Changes
+
+- Updated dependencies [37274e4c]
+  - @verdaccio/local-storage@11.0.0-6-next.14
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/tarball@11.0.0-6-next.13
+  - @verdaccio/url@11.0.0-6-next.10
+  - @verdaccio/hooks@6.0.0-6-next.14
+  - @verdaccio/loaders@6.0.0-6-next.13
+  - @verdaccio/logger@6.0.0-6-next.12
+  - @verdaccio/proxy@6.0.0-6-next.22
+
+## 6.0.0-6-next.23
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/config@6.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/tarball@11.0.0-6-next.13
+  - @verdaccio/url@11.0.0-6-next.10
+  - @verdaccio/hooks@6.0.0-6-next.14
+  - @verdaccio/loaders@6.0.0-6-next.13
+  - @verdaccio/logger@6.0.0-6-next.12
+  - @verdaccio/local-storage@11.0.0-6-next.13
+  - @verdaccio/proxy@6.0.0-6-next.21
+  - @verdaccio/utils@6.0.0-6-next.12
+
 ## 6.0.0-6-next.22
 
 ### Patch Changes

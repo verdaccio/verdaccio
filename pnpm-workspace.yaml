@@ -2,8 +2,15 @@ packages:
   - packages/*
   - packages/core/*
   - packages/tools/*
-  - packages/experimental/*
-  - packages/plugins/*
+  - packages/ui/*
+  - packages/server/*
+  - packages/logger/*
+  - packages/plugins/audit
+  - packages/plugins/auth-memory
+  - packages/plugins/htpasswd
+  - packages/plugins/ui-theme
+  - packages/plugins/memory
+  - packages/plugins/local-storage
+  - e2e/cli/*
+  - e2e/ui
   - website
-  - test/e2e-*
-  - test/helpers

@@ -1,32 +1,35 @@
-import { IPluginStorage, Logger } from '@verdaccio/types';
+import { join } from 'path';
+
+import { Config, parseConfigFile } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 import { DataHandler } from '../src/memory-handler';
-import config from './partials/config';
 
-const logger: Logger = {
-  error: (e) => console.warn(e),
-  info: (e) => console.warn(e),
-  debug: (e) => console.warn(e),
-  child: (e) => console.warn(e),
-  warn: (e) => console.warn(e),
-  http: (e) => console.warn(e),
-  trace: (e) => console.warn(e),
-};
+setup();
 
-const defaultConfig = { logger, config: null };
+const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
+
+const defaultConfig = { logger, config };
 
 describe('memory unit test .', () => {
   describe('LocalMemory', () => {
     test('should create an LocalMemory instance', () => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        { limit: 10 },
+        { ...defaultConfig, config }
+      );
 
       expect(localMemory).toBeDefined();
     });
 
     test('should create add a package', (done) => {
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        { limit: 10 },
+        { ...defaultConfig, config }
+      );
       localMemory.add('test').then(() => {
         localMemory.get().then((data: DataHandler) => {
           expect(data).toHaveLength(1);
@@ -36,8 +39,10 @@ describe('memory unit test .', () => {
     });
 
     test('should reach max limit', (done) => {
-      config.limit = 2;
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        { limit: 2 },
+        defaultConfig
+      );
 
       localMemory.add('test1').then(() => {
         localMemory.add('test2').then(() => {
@@ -52,7 +57,10 @@ describe('memory unit test .', () => {
 
     test('should remove a package', (done) => {
       const pkgName = 'test';
-      const localMemory: IPluginStorage<ConfigMemory> = new LocalMemory(config, defaultConfig);
+      const localMemory: pluginUtils.Storage<ConfigMemory> = new LocalMemory(
+        {},
+        { ...defaultConfig, config }
+      );
       localMemory.add(pkgName).then(() => {
         localMemory.remove(pkgName).then(() => {
           localMemory.get().then((data) => {

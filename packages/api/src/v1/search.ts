@@ -1,11 +1,11 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:api:search');
 
@@ -15,8 +15,8 @@ const debug = buildDebug('verdaccio:api:search');
  *  - {"objects":[],"total":0,"time":"Sun Jul 25 2021 14:09:11 GMT+0000 (Coordinated Universal Time)"}
  * req: 'GET /-/v1/search?text=react&size=20&frpom=0&quality=0.65&popularity=0.98&maintenance=0.5'
  */
-export default function (route, auth: IAuth, storage: Storage): void {
-  function checkAccess(pkg: any, auth: any, remoteUser): Promise<Package | null> {
+export default function (route, auth: Auth, storage: Storage): void {
+  function checkAccess(pkg: any, auth: any, remoteUser): Promise<Manifest | null> {
     return new Promise((resolve, reject) => {
       auth.allow_access({ packageName: pkg?.package?.name }, remoteUser, function (err, allowed) {
         if (err) {
@@ -41,7 +41,8 @@ export default function (route, auth: IAuth, storage: Storage): void {
     let data;
     const abort = new AbortController();
 
-    req.on('aborted', () => {
+    req.socket.on('close', function () {
+      debug('search web aborted');
       abort.abort();
     });
 
@@ -49,7 +50,7 @@ export default function (route, auth: IAuth, storage: Storage): void {
     from = parseInt(from, 10) || 0;
 
     try {
-      data = await storage.searchManager?.search({
+      data = await storage.search({
         query,
         url,
         abort,

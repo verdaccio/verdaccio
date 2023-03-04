@@ -1,8 +1,6 @@
 const config = require('../../../../jest/config');
 
 module.exports = Object.assign({}, config, {
-  name: 'verdaccio-ui-jest',
-  verbose: true,
   automock: false,
   collectCoverage: false,
   testEnvironment: 'jest-environment-jsdom-global',
@@ -10,7 +8,9 @@ module.exports = Object.assign({}, config, {
     '^.+\\.(js|ts|tsx)$': 'babel-jest',
   },
   moduleFileExtensions: ['js', 'ts', 'tsx'],
-  testURL: 'http://localhost:9000/',
+  testEnvironmentOptions: {
+    url: 'http://localhost:9000/',
+  },
   rootDir: '..',
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/jest/setup-env.ts'],
   setupFiles: ['<rootDir>/jest/setup.ts'],
@@ -35,8 +35,6 @@ module.exports = Object.assign({}, config, {
     // note: this section has to be on sync with webpack configuration
     'verdaccio-ui/components/(.*)': '<rootDir>/src/components/$1',
     'verdaccio-ui/utils/(.*)': '<rootDir>/src/utils/$1',
-    'verdaccio-ui/providers/(.*)': '<rootDir>/src/providers/$1',
-    'verdaccio-ui/design-tokens/(.*)': '<rootDir>/src/design-tokens/$1',
     'react-markdown': '<rootDir>/src/__mocks__/react-markdown.tsx',
     'remark-*': '<rootDir>/src/__mocks__/remark-plugin.ts',
   },

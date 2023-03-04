@@ -24,7 +24,7 @@ export function uplinkSanityCheck(
 
   for (const uplink in newUplinks) {
     if (Object.prototype.hasOwnProperty.call(newUplinks, uplink)) {
-      if (_.isNil(newUplinks[uplink].cache)) {
+      if (typeof newUplinks[uplink].cache === 'undefined') {
         newUplinks[uplink].cache = true;
       }
       newUsers = sanityCheckNames(uplink, newUsers);

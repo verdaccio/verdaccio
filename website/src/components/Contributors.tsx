@@ -1,30 +1,29 @@
 import Translate from '@docusaurus/Translate';
-import { ListItemSecondaryAction, Tooltip } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
-import Chip from '@material-ui/core/Chip';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import { green, yellow } from '@material-ui/core/colors';
-import { createStyles, makeStyles, withStyles } from '@material-ui/core/styles';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
-import MergeTypeIcon from '@material-ui/icons/MergeType';
-import StarIcon from '@material-ui/icons/Star';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import MergeTypeIcon from '@mui/icons-material/MergeType';
+import StarIcon from '@mui/icons-material/Star';
+import Badge from '@mui/material/Badge';
+import Chip from '@mui/material/Chip';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import ListItemText from '@mui/material/ListItemText';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { makeStyles, withStyles } from '@mui/styles';
 import Layout from '@theme/Layout';
 import React from 'react';
 
 const generateImage = (id) => `https://avatars3.githubusercontent.com/u/${id}?s=120&v=4`;
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: {
       main: '#4B5E40',
@@ -35,39 +34,9 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    small: {
-      width: theme.spacing(3),
-      height: theme.spacing(3),
-    },
-    medium: {
-      width: theme.spacing(6),
-      height: theme.spacing(6),
-    },
-    large: {
-      width: theme.spacing(12),
-      height: theme.spacing(12),
-    },
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-      display: 'inline',
-    },
-    starColor: {
-      color: yellow[500],
-    },
-    archived: {
-      opacity: `0.4`,
-    },
-    emojiEvent: {
-      color: green[800],
-    },
-  })
-);
+const useStyles = makeStyles(({ theme }: { theme: any }) => ({
+  '@global': {},
+}));
 
 const StyledBadge = withStyles(() => ({
   badge: {
@@ -82,7 +51,7 @@ function ListItemLink(props) {
 }
 
 type ContributorsProps = {
-  contributors: any;
+  data: any;
 };
 
 function convertItemTo(item) {
@@ -97,10 +66,11 @@ function convertItemTo(item) {
   return { node };
 }
 
-const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.ReactElement => {
+const Contributors: React.FC<ContributorsProps> = ({ data }): React.ReactElement => {
   const [user, setUser] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
+  const { contributors, repositories } = data;
 
   const handleClickOpen = (item) => {
     setUser(item);
@@ -156,10 +126,11 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
                   onKeyDown={(event) => handleKeyDown(event, userItem)}
                   onClick={() => handleClickOpen(userItem)}
                 >
-                  <Avatar
+                  <img
                     src={generateImage(userItem.node.userId)}
                     alt={userItem.node.url}
-                    className={classes.large}
+                    width="40px"
+                    style={{ borderRadius: '10px' }}
                   />
                 </div>
               );
@@ -168,24 +139,26 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
           {user && (
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
               <DialogTitle id="simple-dialog-title">
-                <Grid container justifyContent="center" alignItems="center" justify="center">
+                <Grid container={true} spacing={2}>
                   <Grid item lg={3} md={3} sm={3}>
                     <a
                       href={'https://github.com/' + user.node.url}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Avatar
+                      <img
                         src={generateImage(user.node.userId)}
                         alt={user.node.url}
                         className={classes.medium}
+                        width="40px"
+                        style={{ borderRadius: '10px' }}
                       />
                     </a>
                   </Grid>
-                  <Grid lg={6} md={6} sm={6}>
+                  <Grid item lg={6} md={6} sm={6}>
                     <Typography variant="h6">{user.node.url}</Typography>
                   </Grid>
-                  <Grid lg={2} md={2} sm={2}>
+                  <Grid item lg={2} md={2} sm={2}>
                     <Chip
                       icon={<EmojiEventsIcon className={classes.emojiEvent} />}
                       label={user.node.contributions}
@@ -198,19 +171,26 @@ const Contributors: React.FC<ContributorsProps> = ({ contributors }): React.Reac
               <DialogContent>
                 <div className={classes.root}>
                   <List component="nav" aria-label="main mailbox folders">
-                    {user.node.repositories.map((repo) => {
+                    {user.node.repositories.map(({ name, contributions }) => {
+                      const repo = repositories.find((repo) => repo.name === name);
+                      if (!repo) {
+                        return null;
+                      }
+
+                      console.log('-->', repo);
+
                       return (
                         <ListItemLink
                           className={repo.archived ? classes.archived : ''}
                           key={repo.name}
-                          href={repo.html_url}
+                          href={`${repo.html_url}/pulls?q=is%3Apr+author%3A${user.node.url}+is%3Aclosed`}
                           target="_blank"
                           rel="noreferrer"
                         >
                           <ListItemIcon>
                             <Badge
-                              badgeContent={repo.contributions}
-                              color="green"
+                              badgeContent={contributions}
+                              color="primary"
                               max={9999}
                               anchorOrigin={{
                                 vertical: 'top',

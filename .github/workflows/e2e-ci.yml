@@ -1,0 +1,106 @@
+name: E2E CLI
+
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    name: setup e2e verdaccio
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:nightly-master
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production
+    steps:
+    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+    - name: Use Node
+      uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
+      with:
+        node-version-file: '.nvmrc'
+    - name: Install pnpm
+      run: npm i pnpm@6.32.15 -g
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store
+    - name: Install
+      run: pnpm recursive install --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+    - name: Cache .pnpm-store
+      uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+      with:
+        path: ~/.pnpm-store
+        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+        restore-keys: |
+          pnpm-
+  build:
+    needs: [prepare]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - name: Use Node 16
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: Install
+        run: pnpm recursive install --frozen-lockfile --reporter=silence --registry http://localhost:4873
+      - name: build
+        run: pnpm build
+      - name: Cache packages
+        uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+        id: cache-packages
+        with:
+          path: ./packages/
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+          restore-keys: |
+            packages-
+      # - name: Cache test
+      #   uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
+      #   id: cache-test
+      #   with:
+      #     path: ./e2e/
+      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      #     restore-keys: |
+      #       test-
+  e2e-cli:
+    needs: [prepare, build]
+    strategy:
+      fail-fast: false
+      matrix:
+        pkg: [npm6, npm7, npm8, npm9, pnpm6, pnpm7, pnpm8, yarn1, yarn2, yarn3, yarn4]
+        node: [16, 18, 19]
+    name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install pnpm
+        run: npm i pnpm@6.32.15 -g
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: Install
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
+        with:
+          path: ./packages/
+          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
+      #   with:
+      #     path: ./e2e/
+      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: build e2e
+        run: pnpm run build --filter=./e2e      
+      - name: Test CLI
+        run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}

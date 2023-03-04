@@ -2,9 +2,10 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
-import { IAuth } from '@verdaccio/auth';
-import { HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
+import { Auth } from '@verdaccio/auth';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
+import { rateLimit } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { mask, stringToMD5 } from '@verdaccio/utils';
@@ -23,9 +24,10 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (route: Router, auth: IAuth, storage: Storage, config: Config): void {
+export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
   route.get(
     '/-/npm/v1/tokens',
+    rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
 
@@ -53,6 +55,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
 
   route.post(
     '/-/npm/v1/tokens',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password, readonly, cidr_whitelist } = req.body;
       const { name } = req.remote_user;
@@ -61,7 +64,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         return next(errorUtils.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       }
 
-      auth.authenticate(name, password, async (err, user: RemoteUser) => {
+      auth.authenticate(name, password, async (err, user?: RemoteUser) => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
           return next(errorUtils.getCode(errorCode, err.message));
@@ -76,7 +79,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
         }
 
         try {
-          const token = await getApiToken(auth, config, user, password);
+          const token = await getApiToken(auth, config, user as RemoteUser, password);
           if (!token) {
             throw errorUtils.getInternalError();
           }
@@ -102,6 +105,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
 
           await storage.saveToken(saveToken);
           logger.debug({ key, name }, 'token @{key} was created for user @{name}');
+          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           return next(
             normalizeToken({
               token,
@@ -122,6 +126,7 @@ export default function (route: Router, auth: IAuth, storage: Storage, config: C
 
   route.delete(
     '/-/npm/v1/tokens/token/:tokenKey',
+    rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
       const {
         params: { tokenKey },

@@ -11,10 +11,13 @@
       "path": "../auth"
     },
     {
-      "path": "../core/commons-api"
+      "path": "../core/url"
     },
     {
-      "path": "../logger"
+      "path": "../core/core"
+    },
+    {
+      "path": "../logger/logger"
     },
     {
       "path": "../utils"

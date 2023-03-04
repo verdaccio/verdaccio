@@ -3,7 +3,7 @@ import { Router } from 'express';
 import _ from 'lodash';
 import { URLSearchParams } from 'url';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { errorUtils, searchUtils } from '@verdaccio/core';
 import { SearchQuery } from '@verdaccio/core/src/search-utils';
 import { Storage } from '@verdaccio/store';
@@ -32,7 +32,7 @@ function checkAccess(pkg: any, auth: any, remoteUser): Promise<Manifest | null> 
   });
 }
 
-function addSearchWebApi(storage: Storage, auth: IAuth): Router {
+function addSearchWebApi(storage: Storage, auth: Auth): Router {
   const router = Router(); /* eslint new-cap: 0 */
   router.get(
     '/search/:anything',
@@ -44,7 +44,7 @@ function addSearchWebApi(storage: Storage, auth: IAuth): Router {
       try {
         let data;
         const abort = new AbortController();
-        req.on('aborted', () => {
+        req.socket.on('close', function () {
           debug('search web aborted');
           abort.abort();
         });
@@ -64,7 +64,7 @@ function addSearchWebApi(storage: Storage, auth: IAuth): Router {
         // @ts-ignore
         const urlParams = new URLSearchParams(query);
         debug('search web init');
-        data = await storage.searchManager?.search({
+        data = await storage?.search({
           query,
           url: `/-/v1/search?${urlParams.toString()}`,
           abort,

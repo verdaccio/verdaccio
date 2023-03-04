@@ -1,6 +1,6 @@
 {
   "name": "verdaccio",
-  "version": "6.0.0-6-next.40",
+  "version": "6.0.0-6-next.63",
   "description": "A lightweight private npm proxy registry",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -18,13 +18,14 @@
   "scripts": {
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
-    "test": "cross-env NODE_ENV=test jest --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests --detectOpenHandles",
-    "test:debug": "cross-env NODE_ENV=test node --inspect-brk ../../node_modules/jest/bin/jest.js --config ./test/jest.config.functional.js --testPathPattern ./test/functional/index* --passWithNoTests",
+    "test": "jest --detectOpenHandles",
+    "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
+    "test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest.js --config ./test/jest.config.functional.js --testPathPattern ./test/unit/* --passWithNoTests",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
-    "code:docker-build": "cross-env BABEL_ENV=registry-docker babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
+    "code:docker-build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\"",
     "build:docker": "docker build -t verdaccio/verdaccio:local . --no-cache"
   },
   "author": {
@@ -37,22 +38,30 @@
   },
   "homepage": "https://verdaccio.org",
   "dependencies": {
-    "@verdaccio/cli": "workspace:6.0.0-6-next.33",
-    "@verdaccio/hooks": "workspace:6.0.0-6-next.13",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.31",
-    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.24",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.11",
-    "verdaccio-audit": "workspace:11.0.0-6-next.8",
-    "verdaccio-htpasswd": "workspace:11.0.0-6-next.13"
+    "@verdaccio/cli": "workspace:6.0.0-6-next.63",
+    "@verdaccio/hooks": "workspace:6.0.0-6-next.33",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.31",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.63",
+    "@verdaccio/ui-theme": "workspace:6.0.0-6-next.63",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.31",
+    "verdaccio-audit": "workspace:11.0.0-6-next.26",
+    "verdaccio-htpasswd": "workspace:11.0.0-6-next.33"
   },
   "devDependencies": {
-    "@verdaccio/mock": "workspace:6.0.0-6-next.15",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.22",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/config": "workspace:6.0.0-6-next.14",
-    "@verdaccio/store": "workspace:6.0.0-6-next.22",
-    "fastify": "3.27.0"
+    "@verdaccio/auth": "workspace:6.0.0-6-next.42",
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/store": "workspace:6.0.0-6-next.43",
+    "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
+    "fastify": "4.13.0",
+    "get-port": "5.1.1",
+    "got": "11.8.6",
+    "lodash": "4.17.21",
+    "nock": "13.2.9",
+    "node-mocks-http": "1.12.1",
+    "typedoc-plugin-markdown": "3.14.0",
+    "typedoc-plugin-missing-exports": "1.0.0",
+    "yaml": "2.2.0"
   },
   "keywords": [
     "private",

@@ -2,14 +2,12 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
-      - 'changeset-release/master'
   pull_request:
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
       - 'packages/**'
+      - 'test/**'
       - 'docker-examples/**'
       - 'jest/**'
       - 'package.json'
@@ -26,14 +24,18 @@ jobs:
         image: verdaccio/verdaccio:nightly-master
         ports:
           - 4873:4873
+        env:
+          NODE_ENV: production          
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node 16
-      uses: actions/setup-node@v3
+    - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+    - name: Node
+      uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
       with:
-        node-version: 16
+        node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@6.32.15 -g
+      run: |
+        corepack enable
+        corepack prepare --activate pnpm@6.32.15
     - name: set store
       run: |
         mkdir ~/.pnpm-store
@@ -41,7 +43,7 @@ jobs:
     - name: Install
       run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@v3
+      uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -52,19 +54,21 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node 16
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - name: Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@v3
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@6.32.15
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:
@@ -72,126 +76,79 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node 16
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - name: Use Node
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@v3
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@6.32.15
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm format:check
-  build:
+  test:
     needs: [format, lint]
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        ## Node 16 breaks UI test, jest issue
-        node_version: [16, 17]
+        os: [ubuntu-latest]
+        node_version: [16, 18]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@v3
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@6.32.15
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --frozen-lockfile --ignore-scripts
+        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test
         run: pnpm test
-  ci-e2e-ui:
-    needs: [format, lint]
-    runs-on: ubuntu-latest
-    name: UI Test E2E Node 16
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: Install
-        ## we need scripts, pupetter downloads aditional content
-        run: pnpm recursive install --frozen-lockfile
-      - name: build
-        run: pnpm build
-      - name: Test UI
-        run: pnpm test:e2e:ui
-        # env:
-        #  DEBUG: verdaccio:e2e*
-  # FIXME verify why fails on Node 16 (locally works fine) 
-  # ci-e2e-cli:
-  #   needs: [format, lint]
-  #   runs-on: ubuntu-latest
-  #   # TODO: fails on migrate to node 16, we need to check why
-  #   name: CLI Test E2E Node 16
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #     - name: Install pnpm
-  #       run: npm i pnpm@latest -g
-  #     - uses: actions/cache@v3
-  #       with:
-  #         path: ~/.pnpm-store
-  #         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-  #     - name: Install
-  #       ## we need scripts, pupetter downloads aditional content
-  #       run: pnpm recursive install --frozen-lockfile
-  #     - name: build
-  #       run: pnpm build
-  #     - name: Test CLI
-  #       run: pnpm test:e2e:cli
-  #       env:
-  #         DEBUG: verdaccio*
   sync-translations:
-    # needs: [ci-e2e-cli, ci-e2e-ui]
-    needs: [ci-e2e-ui]
+    needs: [test]
     runs-on: ubuntu-latest
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
-      - uses: actions/cache@v3
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@6.32.15
+      - uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
         ## we need scripts, pupetter downloads aditional content
-        run: pnpm recursive install --frozen-lockfile
+        run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: generate website translations
         run: pnpm write-translations --filter ...@verdaccio/website
       - name: sync
         env:
-          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:sync

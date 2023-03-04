@@ -1,11 +1,19 @@
 module.exports = {
-  extends: ['./rules/base.js', './rules/prettier.js', './rules/react.js', './rules/jest.js'],
+  extends: [
+    './rules/base.js',
+    './rules/prettier.js',
+    './rules/react.js',
+    './rules/jest.js',
+    './rules/cypress.js',
+  ],
   env: {
     es6: true,
     node: true,
   },
   globals: {
     __APP_VERSION__: true,
+    NodeJS: true,
+    cy: true,
   },
   parserOptions: {
     allowImportExportEverywhere: true,

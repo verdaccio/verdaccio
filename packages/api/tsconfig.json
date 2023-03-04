@@ -23,13 +23,13 @@
       "path": "../hooks"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../middleware"
     },
     {
-      "path": "../server"
+      "path": "../server/express"
     },
     {
       "path": "../store"

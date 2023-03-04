@@ -1,0 +1,4 @@
+plugins: '../test-plugin-storage'
+auth:
+  plugin:
+    enabled: true

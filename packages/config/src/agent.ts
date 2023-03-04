@@ -1,11 +1,17 @@
-import assert from 'assert';
 import _ from 'lodash';
 
-const pkgVersion = require('../package.json').version;
-const pkgName = require('../package.json').name;
+export function getUserAgent(
+  customUserAgent?: boolean | string,
+  version?: string,
+  name?: string
+): string {
+  if (customUserAgent === true) {
+    return `${name}/${version}`;
+  } else if (_.isString(customUserAgent) && _.isEmpty(customUserAgent) === false) {
+    return customUserAgent;
+  } else if (customUserAgent === false) {
+    return 'hidden';
+  }
 
-export function getUserAgent(): string {
-  assert(_.isString(pkgName));
-  assert(_.isString(pkgVersion));
-  return `${pkgName}/${pkgVersion}`;
+  return `${name}/${version}`;
 }

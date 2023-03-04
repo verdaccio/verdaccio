@@ -3,7 +3,6 @@
 '@verdaccio/auth': patch
 '@verdaccio/cli': patch
 '@verdaccio/config': patch
-'@verdaccio/commons-api': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/local-storage': patch
@@ -14,12 +13,10 @@
 '@verdaccio/logger': patch
 '@verdaccio/logger-prettify': patch
 '@verdaccio/middleware': patch
-'@verdaccio/mock': patch
 '@verdaccio/node-api': patch
 '@verdaccio/proxy': patch
 '@verdaccio/server': patch
 '@verdaccio/store': patch
-'@verdaccio/dev-types': patch
 '@verdaccio/utils': patch
 'verdaccio': patch
 ---

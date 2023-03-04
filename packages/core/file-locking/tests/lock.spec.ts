@@ -55,12 +55,12 @@ describe('testing locking', () => {
     test('read file with no options should to be found to be read it as string', async () => {
       const data = await readFileNext(getFilePath('package.json'), {});
       expect(data).toMatchInlineSnapshot(`
-            "{
-              \\"name\\": \\"assets\\",
-              \\"version\\": \\"0.0.1\\"
-            }
-            "
-          `);
+        "{
+          "name": "assets",
+          "version": "0.0.1"
+        }
+        "
+      `);
     });
 
     test('read file with no options should to be found to be read it as object', async () => {
@@ -69,11 +69,11 @@ describe('testing locking', () => {
       };
       const data = await readFileNext(getFilePath('package.json'), options);
       expect(data).toMatchInlineSnapshot(`
-              Object {
-                "name": "assets",
-                "version": "0.0.1",
-              }
-            `);
+        {
+          "name": "assets",
+          "version": "0.0.1",
+        }
+      `);
     });
 
     test('read file with options (parse) should to be not found to be read it', async () => {
@@ -99,16 +99,13 @@ describe('testing locking', () => {
         parse: true,
         lock: true,
       };
-      await expect(
-        readFileNext(getFilePath('package2.json'), options)
-      ).resolves.toMatchInlineSnapshot(
-        `
-              Object {
-                "name": "assets",
-                "version": "0.0.1",
-              }
-            `
-      );
+      await expect(readFileNext(getFilePath('package2.json'), options)).resolves
+        .toMatchInlineSnapshot(`
+        {
+          "name": "assets",
+          "version": "0.0.1",
+        }
+      `);
       removeTempFile('package2.json.lock');
     });
 

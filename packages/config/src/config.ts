@@ -2,14 +2,16 @@ import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { APP_ERROR } from '@verdaccio/core';
+import { APP_ERROR, warningUtils } from '@verdaccio/core';
+import { Codes } from '@verdaccio/core/build/warning-utils';
 import {
   Config as AppConfig,
   AuthConf,
-  ConfigRuntime,
+  ConfigYaml,
   FlagsConfig,
   PackageAccess,
   PackageList,
+  RateLimit,
   Security,
   ServerSettingsConf,
 } from '@verdaccio/types';
@@ -28,35 +30,62 @@ const debug = buildDebug('verdaccio:config');
 
 export const WEB_TITLE = 'Verdaccio';
 
+// we limit max 1000 request per 15 minutes on user endpoints
+export const defaultUserRateLimiting = {
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000,
+};
+
 /**
  * Coordinates the application configuration
  */
 class Config implements AppConfig {
-  public user_agent: string;
+  public user_agent: string | undefined;
   public uplinks: any;
   public packages: PackageList;
   public users: any;
   public auth: AuthConf;
   public server_id: string;
-  public config_path: string;
+  public configPath: string;
+  /**
+   * @deprecated use configPath or config.getConfigPath();
+   */
+  public self_path: string;
   public storage: string | void;
-  public plugins: string | void;
+
+  public plugins: string | void | null;
   public security: Security;
   public serverSettings: ServerSettingsConf;
   // @ts-ignore
   public secret: string;
   public flags: FlagsConfig;
-
-  public constructor(config: ConfigRuntime) {
+  public userRateLimit: RateLimit;
+  private configOptions: { forceEnhancedLegacySignature: boolean };
+  public constructor(
+    config: ConfigYaml & { config_path: string },
+    configOptions = { forceEnhancedLegacySignature: true }
+  ) {
     const self = this;
+    this.configOptions = configOptions;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
-    this.config_path = config.config_path;
+    if (!config.configPath) {
+      // backport self_path for previous to version 6
+      // @ts-expect-error
+      config.configPath = config.config_path ?? config.self_path;
+      if (!config.configPath) {
+        throw new Error('configPath property is required');
+      }
+    }
+    this.configPath = config.configPath;
+    this.self_path = this.configPath;
+    debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
     this.security = _.merge(defaultSecurity, config.security);
     this.serverSettings = serverSettings;
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
     };
+    this.user_agent = config.user_agent;
 
     for (const configProp in config) {
       if (self[configProp] == null) {
@@ -64,10 +93,13 @@ class Config implements AppConfig {
       }
     }
 
-    // @ts-ignore
-    if (_.isNil(this.user_agent)) {
-      this.user_agent = getUserAgent();
+    if (typeof this.user_agent === 'undefined') {
+      // by default user agent is hidden
+      debug('set default user agent');
+      this.user_agent = getUserAgent(false);
     }
+
+    this.userRateLimit = { ...defaultUserRateLimiting, ...config?.userRateLimit };
 
     // some weird shell scripts are valid yaml files parsed as string
     assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
@@ -98,6 +130,10 @@ class Config implements AppConfig {
     }
   }
 
+  public getConfigPath() {
+    return this.configPath;
+  }
+
   /**
    * Check for package spec
    */
@@ -108,18 +144,35 @@ class Config implements AppConfig {
 
   /**
    * Store or create whether receive a secret key
+   * @secret external secret key
    */
   public checkSecretKey(secret?: string): string {
     debug('check secret key');
-    if (_.isString(secret) && _.isEmpty(secret) === false) {
+    if (typeof secret === 'string' && _.isEmpty(secret) === false) {
       this.secret = secret;
       debug('reusing previous key');
       return secret;
     }
-    // it generates a secret key
+    // generate a new a secret key
     // FUTURE: this might be an external secret key, perhaps within config file?
     debug('generate a new key');
-    this.secret = generateRandomSecretKey();
+    //
+    if (this.configOptions.forceEnhancedLegacySignature) {
+      this.secret = generateRandomSecretKey();
+    } else {
+      this.secret =
+        this.security.enhancedLegacySignature === true
+          ? generateRandomSecretKey()
+          : generateRandomHexString(32);
+      // set this to false allow use old token signature and is not recommended
+      // only use for migration reasons, major release will remove this property and
+      // set it by default
+      if (this.security.enhancedLegacySignature === false) {
+        warningUtils.emit(Codes.VERWAR005);
+      }
+    }
+
+    debug('generated a new secret key %s', this.secret?.length);
     return this.secret;
   }
 }

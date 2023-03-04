@@ -1,9 +1,8 @@
 ---
-'@verdaccio/fastify-migration': minor
+'@verdaccio/server-fastify': minor
 '@verdaccio/store': minor
 '@verdaccio/utils': minor
 '@verdaccio/web': minor
-'@verdaccio/website': minor
 ---
 
 feat: migrate web sidebar endpoint to fastify

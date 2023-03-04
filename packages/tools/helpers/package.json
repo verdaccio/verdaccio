@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "1.1.0-6-next.0",
+  "version": "2.0.0-6-next.8",
   "private": true,
   "description": "test helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -9,17 +9,21 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.22",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/config": "workspace:6.0.0-6-next.14",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.22",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.11",
-    "body-parser": "1.19.1",
-    "express": "4.17.2",
-    "supertest": "6.2.2"
+    "@verdaccio/types": "workspace:11.0.0-6-next.22",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.42",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.42",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.31",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.31",
+    "body-parser": "1.20.1",
+    "express": "4.18.2",
+    "supertest": "6.3.3",
+    "debug": "4.3.4",
+    "fs-extra": "10.1.0"
   },
   "scripts": {
+    "test": "jest .",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",

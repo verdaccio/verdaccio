@@ -1,7 +1,6 @@
-import _ from 'lodash';
+import path from 'path';
 
-import { IAuth } from '@verdaccio/auth';
-import { Config as AppConfig, ROLES } from '@verdaccio/config';
+import { Config as AppConfig, ROLES, getDefaultConfig } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { Config } from '@verdaccio/types';
@@ -9,25 +8,34 @@ import { Config } from '@verdaccio/types';
 import { Auth } from '../src';
 import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
-setup([]);
+setup({});
 
 describe('AuthTest', () => {
-  test('should be defined', () => {
-    const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+  test('should init correctly', async () => {
+    const config: Config = new AppConfig({ ...authProfileConf });
     config.checkSecretKey('12345');
 
-    const auth: IAuth = new Auth(config);
+    const auth: Auth = new Auth(config);
+    await auth.init();
+    expect(auth).toBeDefined();
+  });
 
+  test('should load default auth plugin', async () => {
+    const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
+    config.checkSecretKey('12345');
+
+    const auth: Auth = new Auth(config);
+    await auth.init();
     expect(auth).toBeDefined();
   });
 
   describe('test authenticate method', () => {
     describe('test authenticate states', () => {
-      test('should be a success login', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authProfileConf));
+      test('should be a success login', async () => {
+        const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -50,11 +58,11 @@ describe('AuthTest', () => {
         });
       });
 
-      test('should be a fail on login', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginFailureConf));
+      test('should be a fail on login', async () => {
+        const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -69,11 +77,11 @@ describe('AuthTest', () => {
     // that might make break the request
     // the @ts-ignore below are intended
     describe('test authenticate out of control inputs from plugins', () => {
-      test('should skip falsy values', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+      test('should skip falsy values', async () => {
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -89,11 +97,11 @@ describe('AuthTest', () => {
         }
       });
 
-      test('should error truthy non-array', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+      test('should error truthy non-array', async () => {
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -107,11 +115,11 @@ describe('AuthTest', () => {
         }
       });
 
-      test('should skip empty array', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+      test('should skip empty array', async () => {
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -124,11 +132,11 @@ describe('AuthTest', () => {
         expect(callback.mock.calls[0][1]).toBeUndefined();
       });
 
-      test('should accept valid array', () => {
-        const config: Config = new AppConfig(_.cloneDeep(authPluginPassThrougConf));
+      test('should accept valid array', async () => {
+        const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: IAuth = new Auth(config);
-
+        const auth: Auth = new Auth(config);
+        await auth.init();
         expect(auth).toBeDefined();
 
         const callback = jest.fn();
@@ -141,6 +149,33 @@ describe('AuthTest', () => {
           expect(call[0]).toBeNull();
           expect(call[1].real_groups).toBe(value);
         }
+      });
+    });
+  });
+
+  describe('test multiple authenticate methods', () => {
+    test('should skip falsy values', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          success: {},
+          'fail-invalid-method': {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config);
+      await auth.init();
+
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
+          });
+          resolve(value);
+        });
       });
     });
   });

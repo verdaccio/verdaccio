@@ -7,7 +7,7 @@
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
 '@verdaccio/readme': major
-'@verdaccio/fastify-migration': major
+'@verdaccio/server-fastify': major
 '@verdaccio/streams': major
 '@verdaccio/tarball': major
 '@verdaccio/types': major
@@ -16,7 +16,6 @@
 '@verdaccio/loaders': major
 '@verdaccio/logger': major
 '@verdaccio/middleware': major
-'@verdaccio/mock': major
 '@verdaccio/node-api': major
 '@verdaccio/active-directory': major
 'verdaccio-audit': major
@@ -28,7 +27,6 @@
 '@verdaccio/server': major
 '@verdaccio/cli-standalone': major
 '@verdaccio/store': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major

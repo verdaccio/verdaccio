@@ -1,16 +1,13 @@
-import Translate, { translate } from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
+import Translate, { translate } from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import React from 'react';
-import { Follow } from 'react-twitter-widgets';
 import cx from 'classnames';
+import React from 'react';
 
 import Command from './Command';
 import styles from './Header.module.scss';
 
 const Header = (): React.ReactElement => {
-  const { i18n } = useDocusaurusContext();
   return (
     <div className={styles.header}>
       <div className={styles['header--wrap']}>
@@ -24,15 +21,25 @@ const Header = (): React.ReactElement => {
           <p className={styles['header--subtitle']}>
             <Translate>A lightweight Node.js private proxy registry</Translate>
           </p>
+          <iframe
+            src={
+              'https://ghbtns.com/github-btn.html?user=verdaccio&repo=verdaccio&type=star&count=true&size=large'
+            }
+            frameBorder="0"
+            scrolling="0"
+            width="160px"
+            height="30px"
+            style={{ marginTop: '8px' }}
+          />
           <div className={styles['header--links']}>
-            <a href="https://github.com/verdaccio/verdaccio" className="link-secondary">
-              GITHUB
+            <a href="/Talks" className="link-secondary">
+              WATCH
             </a>
             <Link to={useBaseUrl('/docs/what-is-verdaccio')} className="link-primary">
               <Translate>GET STARTED</Translate>
             </Link>
             <a
-              href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1"
+              href="https://www.wfp.org/support-us/stories/ukraine-appeal"
               className={cx('link-secondary', 'specialButton')}
             >
               <Translate>DONATE</Translate>
@@ -43,14 +50,6 @@ const Header = (): React.ReactElement => {
           <Command
             command="npm install --global verdaccio"
             alt={translate({ message: 'NPM command to install Verdaccio' })}
-          />
-        </div>       
-      </div>
-      <div className={styles['header--absolute-links']}>
-        <div>
-          <Follow
-            username="verdaccio_npm"
-            options={{ size: 'large', dnt: true, lang: i18n.currentLocale }}
           />
         </div>
       </div>

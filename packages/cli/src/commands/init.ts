@@ -1,10 +1,10 @@
 import { Command, Option } from 'clipanion';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
+import { warningUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
-import { LoggerConfigItem } from '@verdaccio/logger/src/logger';
 import { initServer } from '@verdaccio/node-api';
-import { ConfigRuntime } from '@verdaccio/types';
+import { ConfigYaml, LoggerConfigItem } from '@verdaccio/types';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
 
@@ -45,18 +45,14 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  private initLogger(logConfig: ConfigRuntime) {
-    try {
+  private initLogger(logConfig: ConfigYaml) {
+    // @ts-expect-error
+    if (logConfig.logs) {
       // @ts-expect-error
-      if (logConfig.logs) {
-        throw Error(
-          'the property config "logs" property is longer supported, rename to "log" and use object instead'
-        );
-      }
-      setup(logConfig.log as LoggerConfigItem);
-    } catch (err: any) {
-      throw new Error(err);
+      logConfig.log = logConfig.logs;
+      warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
+    setup(logConfig.log as LoggerConfigItem);
   }
 
   public async execute() {

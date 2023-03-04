@@ -3,4 +3,4 @@ export * from './utils';
 export * from './crypto-utils';
 export * from './replace-lodash';
 export * from './matcher';
-export * from './versions';
+export * from './middleware-utils';

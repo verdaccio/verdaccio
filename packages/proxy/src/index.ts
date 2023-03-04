@@ -1,1 +1,1 @@
-export * from './up-storage';
+export * from './proxy';

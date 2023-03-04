@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    {
+      "path": "../logger-prettify"
+    },
+    {
+      "path": "../logger-commons"
+    }
+  ]
+}

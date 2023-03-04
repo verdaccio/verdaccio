@@ -1,14 +1,5 @@
-import { DEFAULT_MIN_LIMIT_PASSWORD } from '@verdaccio/core';
-
 export interface CookieSessionToken {
   expires: Date;
-}
-
-export function validatePassword(
-  password: string,
-  minLength: number = DEFAULT_MIN_LIMIT_PASSWORD
-): boolean {
-  return typeof password === 'string' && password.length >= minLength;
 }
 
 export function createSessionToken(): CookieSessionToken {
@@ -27,3 +18,18 @@ export function getAuthenticatedMessage(user: string): string {
 export function buildUserBuffer(name: string, password: string): Buffer {
   return Buffer.from(`${name}:${password}`, 'utf8');
 }
+
+export const ROLES = {
+  $ALL: '$all',
+  ALL: 'all',
+  $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  DEPRECATED_ANONYMOUS: '@anonymous',
+};
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};

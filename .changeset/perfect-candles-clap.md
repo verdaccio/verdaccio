@@ -6,7 +6,7 @@
 '@verdaccio/core': minor
 'verdaccio-htpasswd': minor
 '@verdaccio/local-storage': minor
-'@verdaccio/fastify-migration': minor
+'@verdaccio/server-fastify': minor
 '@verdaccio/tarball': minor
 '@verdaccio/types': minor
 '@verdaccio/url': minor
@@ -14,7 +14,6 @@
 '@verdaccio/loaders': minor
 '@verdaccio/logger': minor
 '@verdaccio/middleware': minor
-'@verdaccio/mock': minor
 '@verdaccio/node-api': minor
 '@verdaccio/active-directory': minor
 'verdaccio-auth-memory': minor

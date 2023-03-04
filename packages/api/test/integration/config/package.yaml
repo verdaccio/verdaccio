@@ -1,13 +1,8 @@
-store:
-  memory:
-    limit: 1000
+storage: ./storage
 
 auth:
-  auth-memory:
-    users:
-      test:
-        name: test
-        password: test
+  htpasswd:
+    file: ./htpasswd-package
 
 web:
   enable: true

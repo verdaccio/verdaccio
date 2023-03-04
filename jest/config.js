@@ -5,6 +5,12 @@ module.exports = {
   },
   verbose: false,
   collectCoverage: true,
+  coverageReporters: ['text', 'html'],
   collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**', '!**/partials/**', '!**/fixture/**'],
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
+  coverageThreshold: {
+    global: {
+      lines: 85,
+    },
+  },
 };

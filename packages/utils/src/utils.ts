@@ -1,8 +1,7 @@
-import assert from 'assert';
 import _ from 'lodash';
 
 import { DEFAULT_USER, DIST_TAGS } from '@verdaccio/core';
-import { Author, Package } from '@verdaccio/types';
+import { Author, Manifest, Package } from '@verdaccio/types';
 
 import { stringToMD5 } from './crypto-utils';
 
@@ -67,33 +66,6 @@ export function validatePackage(name: string): boolean {
  */
 export function isObject(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
-}
-
-/**
- * Validate the package metadata, add additional properties whether are missing within
- * the metadata properties.
- * @param {*} object
- * @param {*} name
- * @return {Object} the object with additional properties as dist-tags ad versions
- * @deprecated
- */
-export function validateMetadata(object: Package, name: string): Package {
-  assert(isObject(object), 'not a json object');
-  assert.strictEqual(object.name, name);
-
-  if (!isObject(object[DIST_TAGS])) {
-    object[DIST_TAGS] = {};
-  }
-
-  if (!isObject(object['versions'])) {
-    object['versions'] = {};
-  }
-
-  if (!isObject(object['time'])) {
-    object['time'] = {};
-  }
-
-  return object;
 }
 
 export function getLatestVersion(pkgInfo: Package): string {
@@ -176,7 +148,7 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
   return hasMatchVersion;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
+export function addGravatarSupport(pkgInfo: Manifest, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
   const contributors: AuthorAvatar[] = normalizeContributors(
@@ -218,6 +190,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
     pkgInfoCopy.latest.maintainers = maintainers.map((maintainer): void => {
+      // @ts-ignore
       maintainer.avatar = generateGravatarUrl(maintainer.email, online);
       return maintainer;
     });

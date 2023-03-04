@@ -1,7 +1,7 @@
 import ActiveDirectory from 'activedirectory2';
 
-import { errorUtils } from '@verdaccio/core';
-import { Callback, IPluginAuth, Logger } from '@verdaccio/types';
+import { errorUtils, pluginUtils } from '@verdaccio/core';
+import { Callback, Logger } from '@verdaccio/types';
 
 export const NotAuthMessage = 'AD - Active Directory authentication failed';
 
@@ -12,7 +12,7 @@ export interface ActiveDirectoryConfig {
   groupName?: string | string[];
 }
 
-class ActiveDirectoryPlugin implements IPluginAuth<ActiveDirectoryConfig> {
+class ActiveDirectoryPlugin implements pluginUtils.Auth<ActiveDirectoryConfig> {
   private config: ActiveDirectoryConfig;
   private logger: Logger;
 

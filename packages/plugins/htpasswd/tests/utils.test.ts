@@ -1,5 +1,6 @@
 // @ts-ignore: Module has no default export
 import crypto from 'crypto';
+import { HttpError } from 'http-errors';
 import MockDate from 'mockdate';
 
 import { DEFAULT_BCRYPT_ROUNDS } from '../src/htpasswd';
@@ -24,6 +25,7 @@ const defaultHashConfig = {
 
 const mockTimeAndRandomBytes = () => {
   MockDate.set('2018-01-14T11:17:40.712Z');
+  // @ts-ignore: Module has no default export
   crypto.randomBytes = jest.fn(() => {
     return {
       toString: (): string => '$6',
@@ -156,8 +158,6 @@ describe('addUserToHTPasswd - bcrypt', () => {
 
 describe('lockAndRead', () => {
   it('should call the readFile method', () => {
-    // console.log(fileLocking);
-    // const spy = jest.spyOn(fileLocking, 'readFile');
     const cb = (): void => {};
     lockAndRead('.htpasswd', cb);
     expect(mockReadFile).toHaveBeenCalled();
@@ -174,23 +174,23 @@ describe('sanityCheck', () => {
   test('should throw error for user already exists', async () => {
     const verifyFn = jest.fn();
     const input = await sanityCheck('test', users.test, verifyFn, users, Infinity);
-    expect(input.status).toEqual(401);
-    expect(input.message).toEqual('unauthorized access');
+    expect((input as HttpError<number>).status).toEqual(401);
+    expect((input as HttpError<number>).message).toEqual('unauthorized access');
     expect(verifyFn).toHaveBeenCalled();
   });
 
   test('should throw error for registration disabled of users', async () => {
     const verifyFn = (): void => {};
     const input = await sanityCheck('username', users.test, verifyFn, users, -1);
-    expect(input.status).toEqual(409);
-    expect(input.message).toEqual('user registration disabled');
+    expect((input as HttpError<number>).status).toEqual(409);
+    expect((input as HttpError<number>).message).toEqual('user registration disabled');
   });
 
   test('should throw error max number of users', async () => {
     const verifyFn = (): void => {};
     const input = await sanityCheck('username', users.test, verifyFn, users, 1);
-    expect(input.status).toEqual(403);
-    expect(input.message).toEqual('maximum amount of users reached');
+    expect((input as HttpError<number>).status).toEqual(403);
+    expect((input as HttpError<number>).message).toEqual('maximum amount of users reached');
   });
 
   test('should not throw anything and sanity check', async () => {
@@ -201,30 +201,33 @@ describe('sanityCheck', () => {
 
   test('should throw error for required username field', async () => {
     const verifyFn = (): void => {};
+    // @ts-expect-error
     const input = await sanityCheck(undefined, users.test, verifyFn, users, 2);
-    expect(input.message).toEqual('username and password is required');
-    expect(input.status).toEqual(400);
+    expect((input as HttpError<number>).message).toEqual('username and password is required');
+    expect((input as HttpError<number>).status).toEqual(400);
   });
 
   test('should throw error for required password field', async () => {
     const verifyFn = (): void => {};
+    // @ts-expect-error
     const input = await sanityCheck('username', undefined, verifyFn, users, 2);
-    expect(input.message).toEqual('username and password is required');
-    expect(input.status).toEqual(400);
+    expect((input as HttpError<number>).message).toEqual('username and password is required');
+    expect((input as HttpError<number>).status).toEqual(400);
   });
 
   test('should throw error for required username & password fields', async () => {
     const verifyFn = (): void => {};
+    // @ts-expect-error
     const input = await sanityCheck(undefined, undefined, verifyFn, users, 2);
-    expect(input.message).toEqual('username and password is required');
-    expect(input.status).toEqual(400);
+    expect((input as HttpError<number>).message).toEqual('username and password is required');
+    expect((input as HttpError<number>).status).toEqual(400);
   });
 
   test('should throw error for existing username and password', async () => {
     const verifyFn = jest.fn(() => true);
     const input = await sanityCheck('test', users.test, verifyFn, users, 2);
-    expect(input.status).toEqual(409);
-    expect(input.message).toEqual('username is already registered');
+    expect((input as HttpError<number>).status).toEqual(409);
+    expect((input as HttpError<number>).message).toEqual('username is already registered');
     expect(verifyFn).toHaveBeenCalledTimes(1);
   });
 
@@ -233,8 +236,8 @@ describe('sanityCheck', () => {
     async () => {
       const verifyFn = jest.fn(() => true);
       const input = await sanityCheck('test', users.test, verifyFn, users, 1);
-      expect(input.status).toEqual(409);
-      expect(input.message).toEqual('username is already registered');
+      expect((input as HttpError<number>).status).toEqual(409);
+      expect((input as HttpError<number>).message).toEqual('username is already registered');
       expect(verifyFn).toHaveBeenCalledTimes(1);
     }
   );

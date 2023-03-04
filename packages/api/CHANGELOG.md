@@ -1,5 +1,439 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.46
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+- Updated dependencies [dc571aab]
+  - @verdaccio/auth@6.0.0-6-next.42
+  - @verdaccio/config@6.0.0-6-next.63
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/middleware@6.0.0-6-next.42
+  - @verdaccio/store@6.0.0-6-next.43
+  - @verdaccio/utils@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.31
+
+## 6.0.0-6-next.45
+
+### Patch Changes
+
+- Updated dependencies [4fc21146]
+- Updated dependencies [378e907d]
+  - @verdaccio/middleware@6.0.0-6-next.41
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/auth@6.0.0-6-next.41
+  - @verdaccio/logger@6.0.0-6-next.30
+  - @verdaccio/store@6.0.0-6-next.42
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
+## 6.0.0-6-next.44
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/auth@6.0.0-6-next.40
+  - @verdaccio/middleware@6.0.0-6-next.40
+  - @verdaccio/store@6.0.0-6-next.41
+  - @verdaccio/core@6.0.0-6-next.61
+  - @verdaccio/utils@6.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.29
+
+## 6.0.0-6-next.43
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/middleware@6.0.0-6-next.39
+  - @verdaccio/store@6.0.0-6-next.40
+  - @verdaccio/auth@6.0.0-6-next.39
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/logger@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.28
+
+## 6.0.0-6-next.42
+
+### Patch Changes
+
+- Updated dependencies [65f88b82]
+  - @verdaccio/logger@6.0.0-6-next.27
+  - @verdaccio/middleware@6.0.0-6-next.38
+  - @verdaccio/auth@6.0.0-6-next.38
+  - @verdaccio/store@6.0.0-6-next.39
+  - @verdaccio/core@6.0.0-6-next.59
+  - @verdaccio/config@6.0.0-6-next.59
+  - @verdaccio/utils@6.0.0-6-next.27
+
+## 6.0.0-6-next.41
+
+### Patch Changes
+
+- Updated dependencies [fa274ee4]
+  - @verdaccio/middleware@6.0.0-6-next.37
+  - @verdaccio/core@6.0.0-6-next.58
+  - @verdaccio/config@6.0.0-6-next.58
+  - @verdaccio/auth@6.0.0-6-next.37
+  - @verdaccio/store@6.0.0-6-next.38
+  - @verdaccio/utils@6.0.0-6-next.26
+  - @verdaccio/logger@6.0.0-6-next.26
+
+## 6.0.0-6-next.40
+
+### Patch Changes
+
+- Updated dependencies [9943e2b1]
+  - @verdaccio/middleware@6.0.0-6-next.36
+  - @verdaccio/store@6.0.0-6-next.37
+  - @verdaccio/core@6.0.0-6-next.57
+  - @verdaccio/config@6.0.0-6-next.57
+  - @verdaccio/auth@6.0.0-6-next.36
+  - @verdaccio/logger@6.0.0-6-next.25
+  - @verdaccio/utils@6.0.0-6-next.25
+
+## 6.0.0-6-next.39
+
+### Minor Changes
+
+- a1986e09: feat: expose middleware utils
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/middleware@6.0.0-6-next.35
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/auth@6.0.0-6-next.35
+  - @verdaccio/config@6.0.0-6-next.56
+  - @verdaccio/store@6.0.0-6-next.36
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/logger@6.0.0-6-next.24
+
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/store@6.0.0-6-next.35
+  - @verdaccio/utils@6.0.0-6-next.23
+  - @verdaccio/auth@6.0.0-6-next.34
+  - @verdaccio/logger@6.0.0-6-next.23
+  - @verdaccio/middleware@6.0.0-6-next.34
+
+## 6.0.0-6-next.37
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/config@6.0.0-6-next.54
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/logger@6.0.0-6-next.22
+  - @verdaccio/utils@6.0.0-6-next.22
+  - @verdaccio/auth@6.0.0-6-next.33
+  - @verdaccio/store@6.0.0-6-next.34
+  - @verdaccio/middleware@6.0.0-6-next.33
+
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.32
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/logger@6.0.0-6-next.21
+- @verdaccio/store@6.0.0-6-next.33
+- @verdaccio/config@6.0.0-6-next.53
+- @verdaccio/middleware@6.0.0-6-next.32
+- @verdaccio/utils@6.0.0-6-next.21
+
+## 6.0.0-6-next.35
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/config@6.0.0-6-next.52
+- @verdaccio/auth@6.0.0-6-next.31
+- @verdaccio/logger@6.0.0-6-next.20
+- @verdaccio/middleware@6.0.0-6-next.31
+- @verdaccio/store@6.0.0-6-next.32
+- @verdaccio/utils@6.0.0-6-next.20
+
+## 6.0.0-6-next.34
+
+### Minor Changes
+
+- 4b29d715: chore: move improvements from v5 to v6
+
+  Migrate improvements form v5 to v6:
+
+  - https://github.com/verdaccio/verdaccio/pull/3158
+  - https://github.com/verdaccio/verdaccio/pull/3151
+  - https://github.com/verdaccio/verdaccio/pull/2271
+  - https://github.com/verdaccio/verdaccio/pull/2787
+  - https://github.com/verdaccio/verdaccio/pull/2791
+  - https://github.com/verdaccio/verdaccio/pull/2205
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/auth@6.0.0-6-next.30
+  - @verdaccio/config@6.0.0-6-next.51
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/middleware@6.0.0-6-next.30
+  - @verdaccio/store@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.19
+  - @verdaccio/utils@6.0.0-6-next.19
+
+## 6.0.0-6-next.33
+
+### Patch Changes
+
+- b4cc8001: fix: improve abort request search
+  - @verdaccio/core@6.0.0-6-next.50
+  - @verdaccio/config@6.0.0-6-next.50
+  - @verdaccio/auth@6.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.18
+  - @verdaccio/middleware@6.0.0-6-next.29
+  - @verdaccio/store@6.0.0-6-next.30
+  - @verdaccio/utils@6.0.0-6-next.18
+
+## 6.0.0-6-next.32
+
+### Minor Changes
+
+- ce013d2f: refactor: npm star command support reimplemented
+
+### Patch Changes
+
+- Updated dependencies [ce013d2f]
+  - @verdaccio/store@6.0.0-6-next.29
+  - @verdaccio/core@6.0.0-6-next.49
+  - @verdaccio/config@6.0.0-6-next.49
+  - @verdaccio/auth@6.0.0-6-next.28
+  - @verdaccio/logger@6.0.0-6-next.17
+  - @verdaccio/middleware@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.17
+
+## 6.0.0-6-next.31
+
+### Major Changes
+
+- 9fc2e796: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- 43f32687: fix: abbreviated headers handle quality values
+- Updated dependencies [43f32687]
+- Updated dependencies [9fc2e796]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/store@6.0.0-6-next.28
+  - @verdaccio/auth@6.0.0-6-next.27
+  - @verdaccio/config@6.0.0-6-next.48
+  - @verdaccio/utils@6.0.0-6-next.16
+  - @verdaccio/logger@6.0.0-6-next.16
+  - @verdaccio/middleware@6.0.0-6-next.27
+
+## 6.0.0-6-next.30
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+- @verdaccio/config@6.0.0-6-next.47
+- @verdaccio/auth@6.0.0-6-next.26
+- @verdaccio/logger@6.0.0-6-next.15
+- @verdaccio/middleware@6.0.0-6-next.26
+- @verdaccio/store@6.0.0-6-next.27
+- @verdaccio/utils@6.0.0-6-next.15
+
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- b849128d: fix: handle upload scoped tarball
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/store@6.0.0-6-next.26
+  - @verdaccio/auth@6.0.0-6-next.25
+  - @verdaccio/config@6.0.0-6-next.17
+  - @verdaccio/logger@6.0.0-6-next.14
+  - @verdaccio/middleware@6.0.0-6-next.25
+  - @verdaccio/utils@6.0.0-6-next.14
+
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/auth@6.0.0-6-next.24
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/logger@6.0.0-6-next.13
+  - @verdaccio/store@6.0.0-6-next.25
+  - @verdaccio/middleware@6.0.0-6-next.24
+  - @verdaccio/config@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.13
+
+## 6.0.0-6-next.27
+
+### Minor Changes
+
+- 37274e4c: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+### Patch Changes
+
+- Updated dependencies [37274e4c]
+  - @verdaccio/store@6.0.0-6-next.24
+  - @verdaccio/auth@6.0.0-6-next.23
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/logger@6.0.0-6-next.12
+
+## 6.0.0-6-next.26
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Minor Changes
+
+- 00d1d2a1: chore: env variable for launch fastify
+
+  - Update fastify to major release `v4.3.0`
+  - Update CLI launcher
+
+  via CLI
+
+  ```
+  VERDACCIO_SERVER=fastify verdaccio
+  ```
+
+  with docker
+
+  ```
+  docker run -it --rm --name verdaccio \
+    -e "VERDACCIO_SERVER=8080" -p 8080:8080 \
+    -e "VERDACCIO_SERVER=fastify" \
+    verdaccio/verdaccio
+  ```
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/auth@6.0.0-6-next.23
+  - @verdaccio/config@6.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/logger@6.0.0-6-next.12
+  - @verdaccio/middleware@6.0.0-6-next.23
+  - @verdaccio/store@6.0.0-6-next.23
+  - @verdaccio/utils@6.0.0-6-next.12
+
 ## 6.0.0-6-next.25
 
 ### Patch Changes

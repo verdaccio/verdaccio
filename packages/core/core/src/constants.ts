@@ -1,8 +1,8 @@
 import httpCodes from 'http-status-codes';
 
-export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
+export const DEFAULT_PASSWORD_VALIDATION = /.{3}$/;
 export const TIME_EXPIRATION_24H = '24h';
-export const TIME_EXPIRATION_7D = '7d';
+export const TIME_EXPIRATION_1H = '1h';
 export const DIST_TAGS = 'dist-tags';
 export const LATEST = 'latest';
 export const USERS = 'users';
@@ -19,6 +19,7 @@ export const CHARACTER_ENCODING = {
   UTF8: 'utf8',
 };
 
+// @deprecated use Bearer instead
 export const TOKEN_BASIC = 'Basic';
 export const TOKEN_BEARER = 'Bearer';
 
@@ -34,6 +35,7 @@ export const HEADERS = {
   TEXT_HTML_UTF8: 'text/html; charset=utf-8',
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
+  CACHE_CONTROL: 'Cache-Control',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
   FORWARDED_PROTO: 'X-Forwarded-Proto',
@@ -42,8 +44,10 @@ export const HEADERS = {
   CSP: 'Content-Security-Policy',
   CTO: 'X-Content-Type-Options',
   XSS: 'X-XSS-Protection',
+  NONE_MATCH: 'If-None-Match',
   ETAG: 'ETag',
   JSON_CHARSET: 'application/json; charset=utf-8',
+  JSON_INSTALL_CHARSET: 'application/vnd.npm.install-v1+json; charset=utf-8',
   OCTET_STREAM: 'application/octet-stream; charset=utf-8',
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
@@ -82,6 +86,7 @@ export const API_MESSAGE = {
   TAG_UPDATED: 'tags updated',
   TAG_REMOVED: 'tag removed',
   TAG_ADDED: 'package tagged',
+  OK: 'ok',
   LOGGED_OUT: 'Logged out',
 };
 
@@ -89,3 +94,18 @@ export const LOG_STATUS_MESSAGE =
   "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+
+export const ROLES = {
+  $ALL: '$all',
+  ALL: 'all',
+  $AUTH: '$authenticated',
+  $ANONYMOUS: '$anonymous',
+  DEPRECATED_ALL: '@all',
+  DEPRECATED_AUTH: '@authenticated',
+  DEPRECATED_ANONYMOUS: '@anonymous',
+};
+
+export const PACKAGE_ACCESS = {
+  SCOPE: '@*/*',
+  ALL: '**',
+};

@@ -11,25 +11,22 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
+      "path": "../plugins/local-storage"
     },
     {
-      "path": "../core/local-storage"
-    },
-    {
-      "path": "../core/streams"
+      "path": "../core/url"
     },
     {
       "path": "../core/core"
     },
     {
+      "path": "../hooks"
+    },
+    {
       "path": "../loaders"
     },
     {
-      "path": "../logger"
-    },
-    {
-      "path": "../mock"
+      "path": "../logger/logger"
     },
     {
       "path": "../proxy"

@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "@verdaccio/test-cli-commons",
+  "version": "1.1.0-6-next.6",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "devDependencies": {
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22",
+    "debug": "4.3.4",
+    "fs-extra": "10.1.0",
+    "got": "11.8.6",
+    "js-yaml": "4.1.0",
+    "lodash": "4.17.21",
+    "verdaccio": "workspace:6.0.0-6-next.63"
+  },
+  "scripts": {
+    "test": "jest",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types"
+  }
+}

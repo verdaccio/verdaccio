@@ -1,22 +1,30 @@
 import buildDebug from 'debug';
 import { Response, Router } from 'express';
-import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { API_ERROR, API_MESSAGE, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  HEADERS,
+  HTTP_STATUS,
+  errorUtils,
+  validatioUtils,
+} from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
+import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage, validatePassword } from '@verdaccio/utils';
+import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
-export default function (route: Router, auth: IAuth, config: Config): void {
+export default function (route: Router, auth: Auth, config: Config): void {
   route.get(
     '/-/user/:org_couchdb_user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
       const message = getAuthenticatedMessage(req.remote_user.name);
@@ -28,14 +36,32 @@ export default function (route: Router, auth: IAuth, config: Config): void {
     }
   );
 
+  /**
+ *  
+ *  body example
+ *  req.body = {
+      _id: "org.couchdb.user:jjjj",
+      name: "jjjj",
+      password: "jjjj",
+      type: "user",
+      roles: [],
+      date: "2022-07-08T15:51:04.002Z",
+    }
+ * 
+ * @export
+ * @param {Router} route
+ * @param {Auth} auth
+ * @param {Config} config
+ */
   route.put(
     '/-/user/:org_couchdb_user/:_rev?/:revision?',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');
-      const remoteName = req.remote_user.name;
+      const remoteName = req?.remote_user?.name;
 
-      if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
+      if (typeof remoteName !== 'undefined' && typeof name === 'string' && remoteName === name) {
         debug('login: no remote user detected');
         auth.authenticate(
           name,
@@ -51,7 +77,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
               );
             }
 
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
+            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
             const token = await getApiToken(auth, config, restoredRemoteUser, password);
             debug('login: new token');
             if (!token) {
@@ -59,6 +85,7 @@ export default function (route: Router, auth: IAuth, config: Config): void {
             }
 
             res.status(HTTP_STATUS.CREATED);
+            res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
 
             const message = getAuthenticatedMessage(req.remote_user.name);
             debug('login: created user message %o', message);
@@ -70,10 +97,15 @@ export default function (route: Router, auth: IAuth, config: Config): void {
           }
         );
       } else {
-        if (validatePassword(password) === false) {
+        if (
+          validatioUtils.validatePassword(
+            password,
+            config?.serverSettings?.passwordValidationRegex
+          ) === false
+        ) {
           debug('adduser: invalid password');
           // eslint-disable-next-line new-cap
-          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT()));
+          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 
         auth.add_user(name, password, async function (err, user): Promise<void> {
@@ -91,14 +123,19 @@ export default function (route: Router, auth: IAuth, config: Config): void {
           }
 
           const token =
-            name && password ? await getApiToken(auth, config, user, password) : undefined;
-          debug('adduser: new token %o', token);
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
+          if (token) {
+            debug('adduser: new token %o', mask(token as string, 4));
+          }
           if (!token) {
             return next(errorUtils.getUnauthorized());
           }
 
           req.remote_user = user;
           res.status(HTTP_STATUS.CREATED);
+          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           debug('adduser: user has been created');
           return next({
             ok: `user '${req.body.name}' created`,

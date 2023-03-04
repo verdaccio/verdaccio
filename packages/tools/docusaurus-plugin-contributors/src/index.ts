@@ -31,7 +31,10 @@ export default function contributorsPlugin(
       const contributorsFilesName = pathFileName || join(__dirname, 'contributors.json');
       try {
         content = JSON.parse(readFileSync(contributorsFilesName, 'utf8'));
-        return content;
+        return {
+          contributors: content.contributors,
+          repositories: content.repositories,
+        };
       } catch (error) {
         console.log('error', error);
         return { error: true };
@@ -47,7 +50,7 @@ export default function contributorsPlugin(
         path: normalizeUrl([baseUrl, 'contributors']),
         component: '@site/src/components/Contributors.tsx',
         modules: {
-          contributors: contributorsJsonPath,
+          data: contributorsJsonPath,
         },
         exact: true,
       };

@@ -9,7 +9,7 @@ import { initializeServer as initializeServerHelper } from '@verdaccio/test-help
 
 import routes from '../src';
 
-setup([]);
+setup({});
 
 export const getConf = (configName: string) => {
   const configPath = path.join(__dirname, 'config', configName);
@@ -18,5 +18,9 @@ export const getConf = (configName: string) => {
 
 // @deprecated
 export async function initializeServer(configName): Promise<Application> {
-  return initializeServerHelper(getConf(configName), [apiMiddleware, routes], Storage);
+  return initializeServerHelper(
+    getConf(configName),
+    [apiMiddleware, { async: true, routes }],
+    Storage
+  );
 }

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formatter printMessage should display a bytes request 1`] = `"fatal<-- 200, user: null(127.0.0.1), req: 'GET /verdaccio', bytes: 0/150186 "`;
+
+exports[`formatter printMessage should display a resource request 1`] = `"info <-- 127.0.0.1 requested 'GET /verdaccio' "`;
+
+exports[`formatter printMessage should display a streaming request 1`] = `"fatal--> 304, req: 'GET https://registry.npmjs.org/verdaccio' (streaming) "`;
+
+exports[`formatter printMessage should display an error request 1`] = `"fatal--> ERR, req: 'GET https://registry.fake.org/aaa', error: getaddrinfo ENOTFOUND registry.fake.org "`;
+
+exports[`formatter printMessage should display an fatal request 1`] = `"fatal--> ERR, req: 'GET https://registry.fake.org/aaa', error: fatal error "`;
+
+exports[`formatter printMessage should display config file 1`] = `"warn --- config file  - /Users/user/.config/verdaccio/config/config.yaml "`;
+
+exports[`formatter printMessage should display custom log message 1`] = `"fatal--- custom - foo - undefined "`;
+
+exports[`formatter printMessage should display trace level 1`] = `"trace--- [trace]  - foo "`;
+
+exports[`formatter printMessage should display trace level with pretty stamp 1`] = `"[formatted-date]trace--- [trace]  - foo "`;
+
+exports[`formatter printMessage should display version and http address 1`] = `"warn --- http address - http://localhost:4873/ - verdaccio/5.0.0 "`;

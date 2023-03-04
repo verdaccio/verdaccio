@@ -3,36 +3,35 @@ name: Verdaccio Website CI
 on:
   workflow_dispatch:
   pull_request:
-    types:
-      - opened
-      - synchronize
     paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
-  push:
-    branches:
-      - 'master'
-    paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+        - 'website/**'
+        - './.github/workflows/website.yml'
+  schedule:
+    - cron: '0 0 * * *' 
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
 
 jobs:
   build:
+    permissions:
+      contents: read  #  to fetch code (actions/checkout)
+      deployments: write
+      pull-requests: write  #  to comment on pull-requests
+
     runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
 
       - name: Use Node 16
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
           node-version: 16
 
       - name: Cache pnpm modules
-        uses: actions/cache@v3
+        uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -41,16 +40,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
 
-      - uses: pnpm/action-setup@v2.2.1
+      - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # tag=v2.2.4
         with:
           version: 6.32.15
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
-      - name: Build Plugins
-        run: pnpm build --filter "docusaurus-plugin-contributors"
+      - name: Build 
+        run: pnpm build
+      - name: Build Translations percentage
+        run: pnpm build --filter "@verdaccio/crowdin-translations"
       - name: Cache Docusaurus Build
-        uses: actions/cache@v3
+        uses: actions/cache@69d9d449aced6a2ede0bc19182fadc3a0a42d2b0 # v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -62,14 +63,14 @@ jobs:
       - name: Build Production
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         env:
-          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
           CONTEXT: production
         run: pnpm netlify:build:production --filter ...@verdaccio/website
 
       - name: 🔥 Deploy Production Netlify
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: semoal/action-netlify-deploy@master
+        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -83,7 +84,8 @@ jobs:
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
 
       - name: 🤖 Deploy Preview Netlify
-        uses: semoal/action-netlify-deploy@master
+        if: github.repository == 'verdaccio/verdaccio'
+        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
         id: netlify_preview
         with:
           draft: true
@@ -96,8 +98,9 @@ jobs:
           build-dir: './website/build'
 
       - name: Audit preview URL with Lighthouse
+        if: github.repository == 'verdaccio/verdaccio'
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@9.3.0
+        uses: treosh/lighthouse-ci-action@e0fe113967eee84b631d526ed18ce001f35fe9e9 # tag=9.3.1
         with:
           urls: |
             ${{ steps.netlify_preview.outputs.preview-url }}
@@ -106,7 +109,7 @@ jobs:
 
       - name: Format lighthouse score
         id: format_lighthouse_score
-        uses: actions/github-script@v6
+        uses: actions/github-script@98814c53be79b1d30f795b907e553d8679345975 # tag=v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -129,8 +132,9 @@ jobs:
              core.setOutput("comment", comment);
 
       - name: Add comment to PR
+        if: github.repository == 'verdaccio/verdaccio'
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@3d60a5b2dae89d44e0c6ddc69dd7536aec2071cd # tag=v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.issue.number }}

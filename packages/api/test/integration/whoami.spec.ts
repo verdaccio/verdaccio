@@ -1,53 +1,35 @@
 import supertest from 'supertest';
 
-import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import { buildToken } from '@verdaccio/utils';
 
-import { $RequestExtend, $ResponseExtend } from '../../types/custom';
-import { initializeServer } from './_helper';
-
-const mockApiJWTmiddleware = jest.fn(
-  () =>
-    (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'foo', groups: [], real_groups: [] };
-      _next();
-    }
-);
-
-jest.mock('@verdaccio/auth', () => ({
-  Auth: class {
-    apiJWTmiddleware() {
-      return mockApiJWTmiddleware();
-    }
-    allow_access(_d, f_, cb) {
-      cb(null, true);
-    }
-  },
-}));
+import { createUser, initializeServer } from './_helper';
 
 describe('whoami', () => {
-  test.skip('should test referer /whoami endpoint', async (done) => {
-    return supertest(await initializeServer('whoami.yaml'))
-      .get('/whoami')
-      .set('referer', 'whoami')
-      .expect(HTTP_STATUS.OK)
-      .end(done);
-  });
-
-  test.skip('should test no referer /whoami endpoint', async (done) => {
-    return supertest(await initializeServer('whoami.yaml'))
-      .get('/whoami')
-      .expect(HTTP_STATUS.NOT_FOUND)
-      .end(done);
-  });
-
   test('should return the logged username', async () => {
-    return supertest(await initializeServer('whoami.yaml'))
+    const app = await initializeServer('whoami.yaml');
+    // @ts-expect-error internal property
+    const { _body } = await createUser(app, 'test', 'test');
+    return supertest(app)
       .get('/-/whoami')
       .set('Accept', HEADERS.JSON)
+      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, _body.token))
       .expect('Content-Type', HEADERS.JSON_CHARSET)
       .expect(HTTP_STATUS.OK)
       .then((response) => {
-        expect(response.body.username).toEqual('foo');
+        expect(response.body.username).toEqual('test');
       });
+  });
+
+  test('should fails with 401 if is not logged in', async () => {
+    const app = await initializeServer('whoami.yaml');
+    // @ts-expect-error internal property
+    const { _body } = await createUser(app, 'test', 'test');
+    return supertest(app)
+      .get('/-/whoami')
+      .set('Accept', HEADERS.JSON)
+      .set(HEADERS.AUTHORIZATION, buildToken('invalid-token', _body.token))
+      .expect('Content-Type', HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.UNAUTHORIZED);
   });
 });

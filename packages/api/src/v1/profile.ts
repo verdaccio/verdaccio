@@ -1,9 +1,17 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { IAuth } from '@verdaccio/auth';
-import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
-import { validatePassword } from '@verdaccio/utils';
+import { Auth } from '@verdaccio/auth';
+import {
+  API_ERROR,
+  APP_ERROR,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  errorUtils,
+  validatioUtils,
+} from '@verdaccio/core';
+import { rateLimit } from '@verdaccio/middleware';
+import { Config } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
@@ -18,7 +26,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (route: Router, auth: IAuth): void {
+export default function (route: Router, auth: Auth, config: Config): void {
   function buildProfile(name: string): Profile {
     return {
       tfa: false,
@@ -34,6 +42,7 @@ export default function (route: Router, auth: IAuth): void {
 
   route.get(
     '/-/npm/v1/user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name) === false) {
         return next(buildProfile(req.remote_user.name));
@@ -48,6 +57,7 @@ export default function (route: Router, auth: IAuth): void {
 
   route.post(
     '/-/npm/v1/user',
+    rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);
@@ -60,9 +70,14 @@ export default function (route: Router, auth: IAuth): void {
       const { name } = req.remote_user;
 
       if (_.isNil(password) === false) {
-        if (validatePassword(password.new) === false) {
+        if (
+          validatioUtils.validatePassword(
+            password.new,
+            config?.serverSettings?.passwordValidationRegex
+          ) === false
+        ) {
           /* eslint new-cap:off */
-          return next(errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT()));
+          return next(errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
           /* eslint new-cap:off */
         }
 

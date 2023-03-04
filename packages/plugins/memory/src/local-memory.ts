@@ -1,11 +1,11 @@
 import buildDebug from 'debug';
 
-import { errorUtils } from '@verdaccio/core';
-import { Callback, Config, IPluginStorage, Logger, PluginOptions, Token } from '@verdaccio/types';
+import { errorUtils, pluginUtils, searchUtils } from '@verdaccio/core';
+import { Logger, Token } from '@verdaccio/types';
 
 import MemoryHandler, { DataHandler } from './memory-handler';
 
-export type ConfigMemory = Config & { limit?: number };
+export type ConfigMemory = { limit?: number };
 export interface MemoryLocalStorage {
   secret: string;
   list: string[];
@@ -15,14 +15,19 @@ export interface MemoryLocalStorage {
 const debug = buildDebug('verdaccio:plugin:storage:local-memory');
 
 const DEFAULT_LIMIT = 1000;
-class LocalMemory implements IPluginStorage<ConfigMemory> {
+class LocalMemory
+  extends pluginUtils.Plugin<ConfigMemory>
+  implements pluginUtils.Storage<ConfigMemory>
+{
   private path: string;
   private limit: number;
   public logger: Logger;
   private data: MemoryLocalStorage;
+  // @ts-ignore
   public config: ConfigMemory;
 
-  public constructor(config: ConfigMemory, options: PluginOptions<ConfigMemory>) {
+  public constructor(config: ConfigMemory, options: pluginUtils.PluginOptions) {
+    super(config, options);
     this.config = config;
     this.limit = config.limit || DEFAULT_LIMIT;
     this.logger = options.logger;
@@ -66,9 +71,9 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public search(onPackage: Callback, onEnd: Callback): void {
+  public async search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
     this.logger.warn('[verdaccio/memory]: search method not implemented, PR is welcome');
-    onEnd();
+    return Promise.reject('not implemented');
   }
 
   async remove(name: string): Promise<void> {
@@ -91,6 +96,14 @@ class LocalMemory implements IPluginStorage<ConfigMemory> {
 
   public getPackageStorage(packageInfo: string): MemoryHandler {
     return new MemoryHandler(packageInfo, this.data.files, this.logger);
+  }
+
+  public async hasTarball(/* fileName: string */): Promise<boolean> {
+    throw new Error('not  implemented');
+  }
+
+  public async hasPackage(): Promise<boolean> {
+    return false;
   }
 
   private _createEmtpyDatabase(): MemoryLocalStorage {

@@ -3,7 +3,6 @@
 '@verdaccio/auth': major
 '@verdaccio/cli': major
 '@verdaccio/config': major
-'@verdaccio/commons-api': major
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
 '@verdaccio/local-storage': major
@@ -15,7 +14,6 @@
 '@verdaccio/logger': major
 '@verdaccio/logger-prettify': major
 '@verdaccio/middleware': major
-'@verdaccio/mock': major
 '@verdaccio/node-api': major
 '@verdaccio/active-directory': major
 'verdaccio-audit': major
@@ -26,11 +24,9 @@
 '@verdaccio/proxy': major
 '@verdaccio/server': major
 '@verdaccio/store': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major
-'@verdaccio/website': major
 ---
 
 feat!: experiments config renamed to flags

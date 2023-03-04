@@ -4,7 +4,8 @@
     "rootDir": "./src",
     "outDir": "./build",
     "composite": true,
-    "declaration": true
+    "declaration": true,
+    "noImplicitAny": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts"]

@@ -66,6 +66,6 @@ middlewares:
     enabled: true
 
 # log settings
-logs:
+log:
   - { type: stdout, format: pretty, level: trace }
   #- {type: file, path: verdaccio.log, level: info}

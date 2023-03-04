@@ -8,6 +8,7 @@ import {
   createRemoteUser,
   parseConfigFile,
 } from '@verdaccio/config';
+import { getDefaultConfig } from '@verdaccio/config';
 import {
   API_ERROR,
   CHARACTER_ENCODING,
@@ -16,30 +17,22 @@ import {
   errorUtils,
 } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample } from '@verdaccio/mock';
+import { aesDecrypt, signPayload, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
-import {
-  AllowActionCallbackResponse,
-  buildToken,
-  buildUserBuffer,
-  getAuthenticatedMessage,
-} from '@verdaccio/utils';
+import { buildToken, buildUserBuffer, getAuthenticatedMessage } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
+  AllowActionCallbackResponse,
   Auth,
-  IAuth,
-  aesDecrypt,
   allow_action,
   getApiToken,
   getDefaultPlugins,
   getMiddlewareCredentials,
-  signPayload,
   verifyJWTPayload,
-  verifyPayload,
 } from '../src';
 
-setup([]);
+setup({});
 
 const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -58,7 +51,7 @@ describe('Auth utilities', () => {
   function getConfig(configFileName: string, secret: string) {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
-    const secConf = _.merge(configExample(), conf);
+    const secConf = _.merge(getDefaultConfig(), conf);
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
 
@@ -74,15 +67,16 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
-    const auth: IAuth = new Auth(config);
+    const auth: Auth = new Auth(config);
+    await auth.init();
     // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);
     // @ts-ignore
     const spyNotCalled = jest.spyOn(auth, methodNotBeenCalled);
     const user: RemoteUser = {
       name: username,
-      real_groups: [],
-      groups: [],
+      real_groups: ['test', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+      groups: ['company-role1', 'company-role2'],
     };
     const token = await getApiToken(auth, config, user, password);
     expect(spy).toHaveBeenCalled();
@@ -97,7 +91,25 @@ describe('Auth utilities', () => {
     const payload = verifyPayload(token, secret);
     expect(payload.name).toBe(user);
     expect(payload.groups).toBeDefined();
+    expect(payload.groups).toEqual([
+      'company-role1',
+      'company-role2',
+      'test',
+      '$all',
+      '$authenticated',
+      '@all',
+      '@authenticated',
+      'all',
+    ]);
     expect(payload.real_groups).toBeDefined();
+    expect(payload.real_groups).toEqual([
+      'test',
+      '$all',
+      '$authenticated',
+      '@all',
+      '@authenticated',
+      'all',
+    ]);
   };
 
   const verifyAES = (token: string, user: string, password: string, secret: string) => {
@@ -220,6 +232,30 @@ describe('Auth utilities', () => {
           );
         }
       );
+    });
+  });
+
+  describe('createRemoteUser', () => {
+    test('create remote user', () => {
+      expect(createRemoteUser('test', [])).toEqual({
+        name: 'test',
+        real_groups: [],
+        groups: ['$all', '$authenticated', '@all', '@authenticated', 'all'],
+      });
+    });
+    test('create remote user with groups', () => {
+      expect(createRemoteUser('test', ['group1', 'group2'])).toEqual({
+        name: 'test',
+        real_groups: ['group1', 'group2'],
+        groups: ['group1', 'group2', '$all', '$authenticated', '@all', '@authenticated', 'all'],
+      });
+    });
+    test('create anonymous remote user', () => {
+      expect(createAnonymousRemoteUser()).toEqual({
+        name: undefined,
+        real_groups: [],
+        groups: ['$all', '$anonymous', '@all', '@anonymous'],
+      });
     });
   });
 
@@ -412,7 +448,9 @@ describe('Auth utilities', () => {
       test.concurrent('should return empty credential corrupted payload', async () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
-        const auth: IAuth = new Auth(config);
+        const auth: Auth = new Auth(config);
+        await auth.init();
+        // @ts-expect-error
         const token = auth.aesEncrypt(null);
         const security: Security = config.security;
         const credentials = getMiddlewareCredentials(
@@ -448,15 +486,13 @@ describe('Auth utilities', () => {
           security,
           '12345',
           buildToken(TOKEN_BEARER, 'fakeToken')
-        );
+        ) as RemoteUser;
 
         expect(credentials).toBeDefined();
-        // @ts-ignore
         expect(credentials.name).not.toBeDefined();
-        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // @ts-ignore
-        expect(credentials.real_groups).toEqual([]);
+
+        expect(credentials.groups).toEqual(['$all', '$anonymous', '@all', '@anonymous']);
       });
 
       test('should return anonymous whether token and scheme are corrupted', () => {
@@ -488,14 +524,29 @@ describe('Auth utilities', () => {
           security,
           secret,
           buildToken(TOKEN_BEARER, token)
-        );
+        ) as RemoteUser;
         expect(credentials).toBeDefined();
-        // @ts-ignore
+
         expect(credentials.name).toEqual(user);
-        // @ts-ignore
         expect(credentials.real_groups).toBeDefined();
-        // @ts-ignore
-        expect(credentials.real_groups).toEqual([]);
+        expect(credentials.real_groups).toEqual([
+          'test',
+          '$all',
+          '$authenticated',
+          '@all',
+          '@authenticated',
+          'all',
+        ]);
+        expect(credentials.groups).toEqual([
+          'company-role1',
+          'company-role2',
+          'test',
+          '$all',
+          '$authenticated',
+          '@all',
+          '@authenticated',
+          'all',
+        ]);
       });
     });
   });

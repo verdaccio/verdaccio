@@ -9,17 +9,22 @@ export enum Codes {
   VERWAR002 = 'VERWAR002',
   VERWAR003 = 'VERWAR003',
   VERWAR004 = 'VERWAR004',
+  VERWAR005 = 'VERWAR005',
   // deprecation warnings
   VERDEP003 = 'VERDEP003',
 }
 
 warningInstance.create(
   verdaccioWarning,
+  Codes.VERWAR002,
+  `The property config "logs" property is longer supported, rename to "log" and use object instead`
+);
+
+warningInstance.create(
+  verdaccioWarning,
   Codes.VERWAR001,
   `Verdaccio doesn't need superuser privileges. don't run it under root`
 );
-
-warningInstance.create(verdaccioWarning, Codes.VERWAR002, 'logger is not defined');
 
 warningInstance.create(
   verdaccioWarning,
@@ -36,11 +41,17 @@ https://verdaccio.org/docs/en/configuration#listen-port`
 );
 
 warningInstance.create(
+  verdaccioWarning,
+  Codes.VERWAR005,
+  'disable enhanced legacy signature is considered a security risk, please reconsider enable it'
+);
+
+warningInstance.create(
   verdaccioDeprecation,
   Codes.VERDEP003,
   'multiple addresses will be deprecated in the next major, only use one'
 );
 
-export function emit(code, a?: string, b?: string, c?: string) {
+export function emit(code: string, a?: string, b?: string, c?: string) {
   warningInstance.emit(code, a, b, c);
 }

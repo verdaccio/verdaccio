@@ -17,19 +17,16 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
+      "path": "../plugins/htpasswd"
     },
     {
-      "path": "../core/htpasswd"
+      "path": "../tools/helper"
     },
     {
       "path": "../hooks"
     },
     {
-      "path": "../logger"
-    },
-    {
-      "path": "../mock"
+      "path": "../logger/logger"
     },
     {
       "path": "../node-api"

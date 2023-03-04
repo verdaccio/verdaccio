@@ -1,0 +1,8 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "references": [
+    {
+      "path": "../cli-commons"
+    }
+  ]
+}

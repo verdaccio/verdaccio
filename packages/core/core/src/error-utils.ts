@@ -1,11 +1,9 @@
 import createError, { HttpError } from 'http-errors';
 
-import { DEFAULT_MIN_LIMIT_PASSWORD, HTTP_STATUS } from './constants';
+import { HTTP_STATUS } from './constants';
 
 export const API_ERROR = {
-  PASSWORD_SHORT: (passLength = DEFAULT_MIN_LIMIT_PASSWORD): string =>
-    `The provided password is too short. Please pick a password longer than ` +
-    `${passLength} characters.`,
+  PASSWORD_SHORT: `The provided password does not pass the validation`,
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
@@ -20,10 +18,12 @@ export const API_ERROR = {
   NOT_PACKAGE_UPLINK: 'package does not exist on uplink',
   UPLINK_OFFLINE_PUBLISH: 'one of the uplinks is down, refuse to publish',
   UPLINK_OFFLINE: 'uplink is offline',
+  NOT_MODIFIED_NO_DATA: 'no data',
   CONTENT_MISMATCH: 'content length mismatch',
   NOT_FILE_UPLINK: "file doesn't exist on uplink",
   MAX_USERS_REACHED: 'maximum amount of users reached',
   VERSION_NOT_EXIST: "this version doesn't exist",
+  NO_SUCH_FILE: 'no such file available',
   UNSUPORTED_REGISTRY_CALL: 'unsupported registry call',
   FILE_NOT_FOUND: 'File not found',
   REGISTRATION_DISABLED: 'user registration disabled',

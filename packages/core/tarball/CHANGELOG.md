@@ -1,5 +1,209 @@
 # Change Log
 
+## 11.0.0-6-next.32
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/url@11.0.0-6-next.29
+  - @verdaccio/utils@6.0.0-6-next.31
+
+## 11.0.0-6-next.31
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/url@11.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.30
+
+## 11.0.0-6-next.30
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.61
+- @verdaccio/url@11.0.0-6-next.27
+- @verdaccio/utils@6.0.0-6-next.29
+
+## 11.0.0-6-next.29
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+- @verdaccio/url@11.0.0-6-next.26
+- @verdaccio/utils@6.0.0-6-next.28
+
+## 11.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.59
+- @verdaccio/url@11.0.0-6-next.25
+- @verdaccio/utils@6.0.0-6-next.27
+
+## 11.0.0-6-next.27
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+- @verdaccio/url@11.0.0-6-next.24
+- @verdaccio/utils@6.0.0-6-next.26
+
+## 11.0.0-6-next.26
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.57
+- @verdaccio/url@11.0.0-6-next.23
+- @verdaccio/utils@6.0.0-6-next.25
+
+## 11.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/url@11.0.0-6-next.22
+
+## 11.0.0-6-next.24
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/url@11.0.0-6-next.21
+  - @verdaccio/utils@6.0.0-6-next.23
+
+## 11.0.0-6-next.23
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/url@11.0.0-6-next.20
+  - @verdaccio/utils@6.0.0-6-next.22
+
+## 11.0.0-6-next.22
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/url@11.0.0-6-next.19
+- @verdaccio/utils@6.0.0-6-next.21
+
+## 11.0.0-6-next.21
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/url@11.0.0-6-next.18
+- @verdaccio/utils@6.0.0-6-next.20
+
+## 11.0.0-6-next.20
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/url@11.0.0-6-next.17
+  - @verdaccio/utils@6.0.0-6-next.19
+
+## 11.0.0-6-next.19
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+- @verdaccio/url@11.0.0-6-next.16
+- @verdaccio/utils@6.0.0-6-next.18
+
+## 11.0.0-6-next.18
+
+### Patch Changes
+
+- Updated dependencies [ce013d2f]
+  - @verdaccio/url@11.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.49
+  - @verdaccio/utils@6.0.0-6-next.17
+
+## 11.0.0-6-next.17
+
+### Patch Changes
+
+- Updated dependencies [43f32687]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/utils@6.0.0-6-next.16
+  - @verdaccio/url@11.0.0-6-next.14
+
+## 11.0.0-6-next.16
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+- @verdaccio/url@11.0.0-6-next.13
+- @verdaccio/utils@6.0.0-6-next.15
+
+## 11.0.0-6-next.15
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/url@11.0.0-6-next.12
+  - @verdaccio/utils@6.0.0-6-next.14
+
+## 11.0.0-6-next.14
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/url@11.0.0-6-next.11
+  - @verdaccio/utils@6.0.0-6-next.13
+
+## 11.0.0-6-next.13
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/url@11.0.0-6-next.10
+  - @verdaccio/utils@6.0.0-6-next.12
+
 ## 11.0.0-6-next.12
 
 ### Patch Changes

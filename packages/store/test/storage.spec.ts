@@ -1,19 +1,93 @@
+import { pseudoRandomBytes } from 'crypto';
+import fs from 'fs';
+import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
+import os from 'os';
+import path from 'path';
 
-import { Config } from '@verdaccio/config';
-import { HEADERS, errorUtils } from '@verdaccio/core';
+import { Config, getDefaultConfig } from '@verdaccio/config';
+import {
+  API_ERROR,
+  API_MESSAGE,
+  DIST_TAGS,
+  HEADERS,
+  HEADER_TYPE,
+  errorUtils,
+  fileUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample, generateRamdonStorage } from '@verdaccio/mock';
-import { generatePackageMetadata } from '@verdaccio/test-helper';
+import {
+  addNewVersion,
+  generateLocalPackageMetadata,
+  generatePackageMetadata,
+  generateRemotePackageMetadata,
+  getDeprecatedPackageMetadata,
+} from '@verdaccio/test-helper';
+import { AbbreviatedManifest, ConfigYaml, Manifest, PackageUsers, Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
+import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
+import { configExample } from './helpers';
 
-setup([]);
+function generateRandomStorage() {
+  const tempStorage = pseudoRandomBytes(5).toString('hex');
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
 
-const domain = 'http://localhost:4873';
+  return path.join(tempRoot, tempStorage);
+}
+
+setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+
+const domain = 'https://registry.npmjs.org';
 const fakeHost = 'localhost:4873';
 const fooManifest = generatePackageMetadata('foo', '1.0.0');
+
+const getConfig = (file, override: Partial<ConfigYaml> = {}): Config => {
+  const config = new Config(
+    configExample(
+      {
+        ...getDefaultConfig(),
+        storage: generateRandomStorage(),
+        ...override,
+      },
+      `./fixtures/config/${file}`,
+      __dirname
+    )
+  );
+  return config;
+};
+
+const defaultRequestOptions = {
+  host: 'localhost',
+  protocol: 'http',
+  headers: {},
+};
+
+const executeStarPackage = async (
+  storage,
+  options: {
+    users: PackageUsers;
+    username: string;
+    name: string;
+    _rev: string;
+    _id?: string;
+  }
+) => {
+  const { name, _rev, _id, users, username } = options;
+  const starManifest = {
+    _rev,
+    _id,
+    users,
+  };
+  return storage.updateManifest(starManifest, {
+    signal: new AbortController().signal,
+    name,
+    uplinksLook: true,
+    revision: '1',
+    requestOptions: { ...defaultRequestOptions, username },
+  });
+};
 
 describe('storage', () => {
   beforeEach(() => {
@@ -21,31 +95,1177 @@ describe('storage', () => {
     nock.abortPendingRequests();
     jest.clearAllMocks();
   });
-  describe('add packages', () => {
-    test('add package item', async () => {
-      nock(domain).get('/foo').reply(404);
-      const config = new Config(
-        configExample({
-          storage: generateRamdonStorage(),
-        })
-      );
-      const storage = new Storage(config);
-      await storage.init(config);
 
-      await storage.addPackage('foo', fooManifest, (err) => {
-        expect(err).toBeNull();
+  describe('updateManifest', () => {
+    describe('publishing', () => {
+      test('create private package', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const pkgName = 'upstream';
+        const requestOptions = {
+          host: 'localhost',
+          protocol: 'http',
+          headers: {},
+        };
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions,
+        })) as Manifest;
+        expect(manifest.name).toEqual(pkgName);
+        expect(manifest._id).toEqual(pkgName);
+        expect(Object.keys(manifest.versions)).toEqual(['1.0.0']);
+        expect(manifest.time).toEqual({
+          '1.0.0': mockDate,
+          created: mockDate,
+          modified: mockDate,
+        });
+        expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        expect(manifest.readme).toEqual('# test');
+        expect(manifest._attachments).toEqual({});
+        expect(typeof manifest._rev).toBeTruthy();
+      });
+
+      // TODO: Review triggerUncaughtException exception on abort
+      test.skip('abort creating a private package', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const pkgName = 'upstream';
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const ac = new AbortController();
+        setTimeout(() => {
+          ac.abort();
+        }, 10);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await expect(
+          storage.updateManifest(bodyNewManifest, {
+            signal: ac.signal,
+            name: pkgName,
+            uplinksLook: true,
+            revision: '1',
+            requestOptions: {
+              host: 'localhost',
+              protocol: 'http',
+              headers: {},
+            },
+          })
+        ).rejects.toThrow('should throw here');
+      });
+
+      test('create private package with multiple consecutive versions', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const settings = {
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        };
+        const pkgName = 'upstream';
+        // const storage = generateRandomStorage();
+        const config = new Config(
+          configExample(
+            {
+              storage: await fileUtils.createTempStorageFolder('storage-test'),
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        // create a package
+        const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest1, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        // publish second version
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.1');
+        await storage.updateManifest(bodyNewManifest2, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        // retrieve package metadata
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        })) as Manifest;
+        expect(manifest.name).toEqual(pkgName);
+        expect(manifest._id).toEqual(pkgName);
+        expect(Object.keys(manifest.versions)).toEqual(['1.0.0', '1.0.1']);
+        expect(manifest.time).toEqual({
+          '1.0.0': mockDate,
+          '1.0.1': mockDate,
+          created: mockDate,
+          modified: mockDate,
+        });
+        expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.1' });
+        expect(manifest.readme).toEqual('# test');
+        expect(manifest._attachments).toEqual({});
+        expect(typeof manifest._rev).toBeTruthy();
+        // verify the version structure is correct
+        const manifestVersion = (await storage.getPackageByOptions({
+          name: pkgName,
+          version: '1.0.1',
+          uplinksLook: true,
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        })) as Version;
+        expect(manifestVersion.name).toEqual(pkgName);
+        expect(manifestVersion.version).toEqual('1.0.1');
+        expect(manifestVersion._id).toEqual(`${pkgName}@1.0.1`);
+        expect(manifestVersion.description).toEqual('package generated');
+        expect(manifestVersion.dist).toEqual({
+          integrity:
+            'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
+          shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
+          tarball: 'http://localhost:5555/upstream/-/upstream-1.0.1.tgz',
+        });
+
+        expect(manifestVersion.contributors).toEqual([]);
+        expect(manifestVersion.main).toEqual('index.js');
+        expect(manifestVersion.author).toEqual({ name: 'User NPM', email: 'user@domain.com' });
+        expect(manifestVersion.dependencies).toEqual({ verdaccio: '^2.7.2' });
+      });
+
+      test('fails if version already exist', async () => {
+        const settings = {
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        };
+        const pkgName = 'upstream';
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/getTarballNext-getupstream.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest1, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        await expect(
+          storage.updateManifest(bodyNewManifest2, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            ...settings,
+          })
+        ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
+      });
+    });
+    describe('deprecate', () => {
+      test.each([['foo'], ['@scope/foo']])('deprecate package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest1.versions['1.0.0'].deprecated).toBeUndefined();
+
+        const deprecatedManifest = getDeprecatedPackageMetadata(
+          pkgName,
+          '1.0.0',
+          {
+            ['latest']: '1.0.0',
+          },
+          'some deprecation message',
+          manifest1._rev
+        );
+        await storage.updateManifest(deprecatedManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest.name).toEqual(pkgName);
+        expect(manifest.versions['1.0.0'].deprecated).toEqual('some deprecation message');
+        // important revision is updated
+        expect(manifest._rev !== deprecatedManifest._rev).toBeTruthy();
+      });
+      test.each([['foo'], ['@scope/foo']])('undeprecate package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        // publish new package
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+
+        // verify not deprecated
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest1.versions['1.0.0'].deprecated).toBeUndefined();
+
+        // deprecate version
+        const deprecatedManifest = getDeprecatedPackageMetadata(
+          pkgName,
+          '1.0.0',
+          {
+            ['latest']: '1.0.0',
+          },
+          'some deprecation message',
+          manifest1._rev
+        );
+        await storage.updateManifest(deprecatedManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest.name).toEqual(pkgName);
+        expect(manifest.versions['1.0.0'].deprecated).toEqual('some deprecation message');
+        // important revision is updated
+        expect(manifest._rev !== deprecatedManifest._rev).toBeTruthy();
+
+        // un deprecated the previous deprecated
+        const undeprecatedManifest = {
+          ...manifest,
+        };
+        undeprecatedManifest.versions['1.0.0'].deprecated = '';
+        await storage.updateManifest(undeprecatedManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+
+        const manifest3 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest3.name).toEqual(pkgName);
+        expect(manifest3.versions['1.0.0'].deprecated).toBeUndefined();
+        // important revision is updated
+        expect(manifest3._rev !== deprecatedManifest._rev).toBeTruthy();
+      });
+    });
+    describe('star', () => {
+      test.each([['foo']])('star package %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+        });
+      });
+
+      test.each([['foo']])('should add multiple users to package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'owner',
+          users: { owner: true },
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+          owner: true,
+        });
+      });
+
+      test.each([['foo']])('should ignore duplicate users to package %s', async (pkgName) => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({
+          fooUser: true,
+        });
+      });
+
+      test.each([['foo']])('should unstar a package %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        const message = await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: { fooUser: true },
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        await executeStarPackage(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          users: {},
+        });
+        const manifest1 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+
+        expect(manifest1?.users).toEqual({});
+      });
+
+      test.each([['foo']])('should handle missing username %s', async (pkgName) => {
+        const config = getConfig('deprecate.yaml');
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: defaultRequestOptions,
+        });
+        await expect(
+          executeStarPackage(storage, {
+            _rev: bodyNewManifest._rev,
+            _id: bodyNewManifest._id,
+            name: pkgName,
+            // @ts-expect-error
+            username: undefined,
+            users: { fooUser: true },
+          })
+        ).rejects.toThrow();
       });
     });
   });
 
-  // TODO: getPackageNext should replace getPackage eventually
-  describe('get packages getPackageNext()', () => {
+  describe('getTarballNext', () => {
+    test('should not found a package anywhere', (done) => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const abort = new AbortController();
+        storage
+          .getTarballNext('some-tarball', 'some-tarball-1.0.0.tgz', {
+            signal: abort.signal,
+          })
+          .then((stream) => {
+            stream.on('error', (err) => {
+              expect(err).toEqual(errorUtils.getNotFound(API_ERROR.NO_PACKAGE));
+              done();
+            });
+          });
+      });
+    });
+
+    test('should create a package if tarball is requested and does not exist locally', (done) => {
+      const pkgName = 'upstream';
+      const upstreamManifest = generateRemotePackageMetadata(
+        pkgName,
+        '1.0.0',
+        'https://registry.something.org'
+      );
+      nock('https://registry.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+      nock('https://registry.something.org')
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        // types does not match here with documentation
+        // @ts-expect-error
+        .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          [HEADER_TYPE.CONTENT_LENGTH]: 277,
+        });
+      const config = new Config(
+        configExample(
+          {
+            storage: generateRandomStorage(),
+          },
+          './fixtures/config/getTarballNext-getupstream.yaml',
+          __dirname
+        )
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const abort = new AbortController();
+        storage
+          .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+            signal: abort.signal,
+          })
+          .then((stream) => {
+            stream.on('data', (dat) => {
+              expect(dat).toBeDefined();
+            });
+            stream.on('end', () => {
+              done();
+            });
+            stream.on('error', () => {
+              done('this should not happen');
+            });
+          });
+      });
+    });
+
+    test('should serve fetch tarball from upstream without dist info local', (done) => {
+      const pkgName = 'upstream';
+      const upstreamManifest = addNewVersion(
+        generateRemotePackageMetadata(pkgName, '1.0.0'),
+        '1.0.1'
+      );
+      nock('https://registry.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
+      nock('http://localhost:5555')
+        .get(`/${pkgName}/-/${pkgName}-1.0.1.tgz`)
+        // types does not match here with documentation
+        // @ts-expect-error
+        .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          [HEADER_TYPE.CONTENT_LENGTH]: 277,
+        });
+      const config = new Config(
+        configExample(
+          {
+            storage: generateRandomStorage(),
+          },
+          './fixtures/config/getTarballNext-getupstream.yaml',
+          __dirname
+        )
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const ac = new AbortController();
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        storage
+          .updateManifest(bodyNewManifest, {
+            signal: ac.signal,
+            name: pkgName,
+            uplinksLook: true,
+            revision: '1',
+            requestOptions: {
+              host: 'localhost',
+              protocol: 'http',
+              headers: {},
+            },
+          })
+          .then(() => {
+            const abort = new AbortController();
+            storage
+              .getTarballNext(pkgName, `${pkgName}-1.0.1.tgz`, {
+                signal: abort.signal,
+              })
+              .then((stream) => {
+                stream.on('data', (dat) => {
+                  expect(dat).toBeDefined();
+                });
+                stream.on('end', () => {
+                  done();
+                });
+                stream.on('error', () => {
+                  done('this should not happen');
+                });
+              });
+          });
+      });
+    });
+
+    test('should serve fetch tarball from upstream without with info local', (done) => {
+      const pkgName = 'upstream';
+      const upstreamManifest = addNewVersion(
+        addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0'), '1.0.1'),
+        '1.0.2'
+      );
+      nock('https://registry.verdaccio.org')
+        .get(`/${pkgName}`)
+        .times(10)
+        .reply(201, upstreamManifest);
+      nock('http://localhost:5555')
+        .get(`/${pkgName}/-/${pkgName}-1.0.0.tgz`)
+        // types does not match here with documentation
+        // @ts-expect-error
+        .replyWithFile(201, path.join(__dirname, 'fixtures/tarball.tgz'), {
+          [HEADER_TYPE.CONTENT_LENGTH]: 277,
+        });
+      const storagePath = generateRandomStorage();
+      const config = new Config(
+        configExample(
+          {
+            storage: storagePath,
+          },
+          './fixtures/config/getTarballNext-getupstream.yaml',
+          __dirname
+        )
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const req = httpMocks.createRequest({
+          method: 'GET',
+          connection: { remoteAddress: fakeHost },
+          headers: {
+            host: fakeHost,
+            [HEADERS.FORWARDED_PROTO]: 'http',
+          },
+          url: '/',
+        });
+        return storage
+          .getPackageByOptions({
+            name: pkgName,
+            uplinksLook: true,
+            requestOptions: {
+              headers: req.headers as any,
+              protocol: req.protocol,
+              host: req.get('host') as string,
+            },
+          })
+          .then(() => {
+            const abort = new AbortController();
+            storage
+              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+                signal: abort.signal,
+              })
+              .then((stream) => {
+                stream.on('data', (dat) => {
+                  expect(dat).toBeDefined();
+                });
+                stream.on('end', () => {
+                  done();
+                });
+                stream.once('error', () => {
+                  done('this should not happen');
+                });
+              });
+          });
+      });
+    });
+
+    test('should serve local cache', (done) => {
+      const pkgName = 'upstream';
+      const config = new Config(
+        configExample(
+          {
+            storage: generateRandomStorage(),
+          },
+          './fixtures/config/getTarballNext-getupstream.yaml',
+          __dirname
+        )
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const ac = new AbortController();
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        storage
+          .updateManifest(bodyNewManifest, {
+            signal: ac.signal,
+            name: pkgName,
+            uplinksLook: true,
+            revision: '1',
+            requestOptions: {
+              host: 'localhost',
+              protocol: 'http',
+              headers: {},
+            },
+          })
+          .then(() => {
+            const abort = new AbortController();
+            storage
+              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+                signal: abort.signal,
+              })
+              .then((stream) => {
+                stream.on('data', (dat) => {
+                  expect(dat).toBeDefined();
+                });
+                stream.on('end', () => {
+                  done();
+                });
+                stream.on('error', () => {
+                  done('this should not happen');
+                });
+              });
+          });
+      });
+    });
+  });
+
+  describe('syncUplinksMetadataNext()', () => {
+    describe('error handling', () => {
+      test('should handle double failure on uplinks with timeout', async () => {
+        const fooManifest = generatePackageMetadata('timeout', '8.0.0');
+
+        nock('https://registry.domain.com')
+          .get('/timeout')
+          .times(10)
+          .delayConnection(2000)
+          .reply(201, manifestFooRemoteNpmjs);
+
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncDoubleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+
+        const storage = new Storage(config);
+        await storage.init(config);
+        await expect(
+          storage.syncUplinksMetadataNext(fooManifest.name, null, {
+            retry: { limit: 0 },
+            timeout: {
+              lookup: 100,
+              connect: 50,
+              secureConnect: 50,
+              socket: 500,
+              // send: 10000,
+              response: 1000,
+            },
+          })
+        ).rejects.toThrow('ETIMEDOUT');
+      }, 10000);
+
+      test('should handle one proxy fails', async () => {
+        const fooManifest = generatePackageMetadata('foo', '8.0.0');
+        nock('https://registry.verdaccio.org').get('/foo').replyWithError('service in holidays');
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        await expect(
+          storage.syncUplinksMetadataNext(fooManifest.name, null, {
+            retry: { limit: 0 },
+          })
+        ).rejects.toThrow(API_ERROR.NO_PACKAGE);
+      });
+
+      test('should handle one proxy reply 304', async () => {
+        const fooManifest = generatePackageMetadata('foo-no-data', '8.0.0');
+        nock('https://registry.verdaccio.org').get('/foo-no-data').reply(304);
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const [manifest] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+          retry: 0,
+        });
+        expect(manifest).toBe(fooManifest);
+      });
+    });
+
+    describe('success scenarios', () => {
+      test('should handle one proxy success', async () => {
+        const fooManifest = generateLocalPackageMetadata('foo', '8.0.0');
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        expect(response).not.toBeNull();
+        expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect(Object.keys((response as Manifest).versions)).toEqual([
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
+        expect(Object.keys((response as Manifest).time)).toEqual([
+          'modified',
+          'created',
+          '8.0.0',
+          '1.0.0',
+          '0.0.3',
+          '0.0.4',
+          '0.0.5',
+          '0.0.6',
+          '0.0.7',
+        ]);
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+        expect((response as Manifest).time['8.0.0']).toBeDefined();
+      });
+
+      test('should handle one proxy success with no local cache manifest', async () => {
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, null);
+        // the latest from the remote manifest
+        expect(response).not.toBeNull();
+        expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('0.0.7');
+      });
+
+      test('should handle no proxy found with local cache manifest', async () => {
+        const fooManifest = generatePackageMetadata('foo', '8.0.0');
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncNoUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        expect(response).not.toBeNull();
+        expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+      });
+      test.todo('should handle double proxy with last one success');
+    });
+
+    describe('options', () => {
+      test('should handle disable uplinks via options.uplinksLook=false with cache', async () => {
+        const fooManifest = generatePackageMetadata('foo', '8.0.0');
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, manifestFooRemoteNpmjs);
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+          uplinksLook: false,
+        });
+
+        expect((response as Manifest).name).toEqual(fooManifest.name);
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
+      });
+
+      test('should handle disable uplinks via options.uplinksLook=false without cache', async () => {
+        const fooRemoteManifest = generateRemotePackageMetadata(
+          'foo',
+          '9.0.0',
+          'https://registry.verdaccio.org',
+          ['9.0.0', '9.0.1', '9.0.2', '9.0.3']
+        );
+        nock('https://registry.verdaccio.org').get('/foo').reply(201, fooRemoteManifest);
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/syncSingleUplinksMetadata.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const [response] = await storage.syncUplinksMetadataNext('foo', null, {
+          uplinksLook: true,
+        });
+
+        expect((response as Manifest).name).toEqual('foo');
+        expect((response as Manifest)[DIST_TAGS].latest).toEqual('9.0.0');
+      });
+    });
+  });
+
+  describe('getLocalDatabase', () => {
+    test('should return 0 local packages', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      await storage.init(config);
+      await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
+    });
+
+    test('should return 1 local packages', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: 'host',
+        },
+        url: '/',
+      });
+      const storage = new Storage(config);
+      await storage.init(config);
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      const response = await storage.getLocalDatabase();
+      expect(response).toHaveLength(1);
+      expect(response[0]).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
+    });
+  });
+
+  describe('tokens', () => {
+    describe('saveToken', () => {
+      test('should retrieve tokens created', async () => {
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        await storage.saveToken({
+          user: 'foo',
+          token: 'secret',
+          key: 'key',
+          created: 'created',
+          readonly: true,
+        });
+        const tokens = await storage.readTokens({ user: 'foo' });
+        expect(tokens).toEqual([
+          { user: 'foo', token: 'secret', key: 'key', readonly: true, created: 'created' },
+        ]);
+      });
+
+      test('should delete a token created', async () => {
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        await storage.saveToken({
+          user: 'foo',
+          token: 'secret',
+          key: 'key',
+          created: 'created',
+          readonly: true,
+        });
+        const tokens = await storage.readTokens({ user: 'foo' });
+        expect(tokens).toHaveLength(1);
+        await storage.deleteToken('foo', 'key');
+        const tokens2 = await storage.readTokens({ user: 'foo' });
+        expect(tokens2).toHaveLength(0);
+      });
+    });
+  });
+
+  describe('removeTarball', () => {
+    test('should fail on remove tarball of package does not exist', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      await storage.init(config);
+      await expect(storage.removeTarball('foo', 'foo-1.0.0.tgz', 'rev')).rejects.toThrow(
+        API_ERROR.NO_PACKAGE
+      );
+    });
+  });
+
+  describe('removePackage', () => {
+    test('should remove entirely a package', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: fakeHost,
+          [HEADERS.FORWARDED_PROTO]: 'http',
+        },
+        url: '/',
+      });
+      const storage = new Storage(config);
+      await storage.init(config);
+
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      // 1. publish a package
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. remove the tarball
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev)
+      ).resolves.toBeDefined();
+      // 4. remove the package
+      await storage.removePackage(manifest1.name, _rev);
+      // 5. fails if package does not exist anymore in storage
+      await expect(
+        storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: false,
+          requestOptions: {
+            headers: req.headers as any,
+            protocol: req.protocol,
+            host: req.get('host') as string,
+          },
+        })
+      ).rejects.toThrow('package does not exist on uplink: foo');
+    });
+  });
+
+  describe('getPackageByOptions()', () => {
     describe('with uplinks', () => {
       test('should get 201 and merge from uplink', async () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -63,11 +1283,10 @@ describe('storage', () => {
           storage.getPackageByOptions({
             name: 'foo',
             uplinksLook: true,
-            req,
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
         ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
@@ -77,7 +1296,8 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -96,11 +1316,10 @@ describe('storage', () => {
             name: 'foo',
             version: '1.0.0',
             uplinksLook: true,
-            req,
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
         ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
@@ -110,7 +1329,8 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -129,11 +1349,10 @@ describe('storage', () => {
             name: 'foo',
             version: 'latest',
             uplinksLook: true,
-            req,
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
         ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
@@ -143,7 +1362,8 @@ describe('storage', () => {
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -162,11 +1382,10 @@ describe('storage', () => {
             name: 'foo',
             version: '1.0.0-does-not-exist',
             uplinksLook: true,
-            req,
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
         ).rejects.toThrow(
@@ -178,7 +1397,13 @@ describe('storage', () => {
         nock(domain).get('/foo2').reply(404);
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            uplinks: {
+              npmjs: {
+                url: domain,
+              },
+            },
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -196,11 +1421,10 @@ describe('storage', () => {
           storage.getPackageByOptions({
             name: 'foo2',
             uplinksLook: true,
-            req,
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
         ).rejects.toThrow(errorUtils.getNotFound());
@@ -213,7 +1437,13 @@ describe('storage', () => {
         });
         const config = new Config(
           configExample({
-            storage: generateRamdonStorage(),
+            ...getDefaultConfig(),
+            uplinks: {
+              npmjs: {
+                url: domain,
+              },
+            },
+            storage: generateRandomStorage(),
           })
         );
         const req = httpMocks.createRequest({
@@ -231,14 +1461,80 @@ describe('storage', () => {
           storage.getPackageByOptions({
             name: 'foo2',
             uplinksLook: true,
-            req,
+            retry: { limit: 0 },
             requestOptions: {
               headers: req.headers as any,
               protocol: req.protocol,
-              host: req.get('host'),
+              host: req.get('host') as string,
             },
           })
-        ).rejects.toThrow(errorUtils.getServiceUnavailable());
+        ).rejects.toThrow(errorUtils.getServiceUnavailable('ETIMEDOUT'));
+      });
+
+      test('should fetch abbreviated version of manifest ', async () => {
+        const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
+        nock(domain).get('/foo').reply(201, fooManifest);
+        const config = new Config(
+          configExample({
+            ...getDefaultConfig(),
+            storage: generateRandomStorage(),
+          })
+        );
+        const req = httpMocks.createRequest({
+          method: 'GET',
+          connection: { remoteAddress: fakeHost },
+          headers: {
+            host: fakeHost,
+            [HEADERS.FORWARDED_PROTO]: 'http',
+          },
+          url: '/',
+        });
+        const storage = new Storage(config);
+        await storage.init(config);
+
+        const manifest = (await storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: true,
+          requestOptions: {
+            headers: req.headers as any,
+            protocol: req.protocol,
+            host: req.get('host') as string,
+          },
+          abbreviated: true,
+        })) as AbbreviatedManifest;
+        const { versions, name } = manifest;
+        expect(name).toEqual('foo');
+        expect(Object.keys(versions)).toEqual(['1.0.0']);
+        expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        const version = versions['1.0.0'];
+        expect(Object.keys(version)).toEqual([
+          'name',
+          'version',
+          'description',
+          'deprecated',
+          'bin',
+          'dist',
+          'engines',
+          'funding',
+          'directories',
+          'dependencies',
+          'devDependencies',
+          'peerDependencies',
+          'optionalDependencies',
+          'bundleDependencies',
+          '_hasShrinkwrap',
+          'hasInstallScript',
+        ]);
+        expect(manifest.modified).toBeDefined();
+        // special case for pnpm/rfcs/pull/2
+        expect(manifest.time).toBeDefined();
+        // fields must not have
+        // @ts-expect-error
+        expect(manifest.readme).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._attachments).not.toBeDefined();
+        // @ts-expect-error
+        expect(manifest._rev).not.toBeDefined();
       });
     });
   });

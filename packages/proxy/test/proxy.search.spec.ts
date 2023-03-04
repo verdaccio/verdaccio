@@ -3,18 +3,12 @@
 /* global AbortController */
 import getStream from 'get-stream';
 import path from 'path';
-import semver from 'semver';
 import { MockAgent, setGlobalDispatcher } from 'undici';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
 
-import { ProxyStorage } from '../src/up-storage';
-
-// FUTURE: remove me when v15 is the min required version
-if (semver.lte(process.version, 'v15.0.0')) {
-  global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;
-}
+import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 

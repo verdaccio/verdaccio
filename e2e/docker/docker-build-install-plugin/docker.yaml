@@ -1,0 +1,46 @@
+# store:
+#   memory:
+#     limit: 1000
+
+storage: ./storage
+
+plugins: /verdaccio/plugins
+
+web:
+  title: Verdaccio Publish Config Test
+auth:
+  auth-memory:
+    users:
+      foo:
+        name: foo
+        password: s3cret
+      bar:
+        name: bar
+        password: s3cret
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+    proxy: npmjs
+server:
+  keepAliveTimeout: 60
+middlewares:
+  audit:
+    enabled: true
+  static-token:
+    - token: mySecureToken
+      user: systemUser
+      password: systemPassword
+    - token: ABCD1234
+      user: uncle
+      password: tom
+log: { type: stdout, format: pretty, level: http }

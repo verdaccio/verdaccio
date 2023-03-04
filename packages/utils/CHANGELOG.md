@@ -1,5 +1,174 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+
+## 6.0.0-6-next.30
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.61
+
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.59
+
+## 6.0.0-6-next.26
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.57
+
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- a1986e09: feat: expose middleware utils
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.56
+
+## 6.0.0-6-next.23
+
+### Patch Changes
+
+- 9718e033: fix: build targets for 5x modules
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+
+## 6.0.0-6-next.22
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/core@6.0.0-6-next.54
+
+## 6.0.0-6-next.21
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+
+## 6.0.0-6-next.19
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/core@6.0.0-6-next.51
+
+## 6.0.0-6-next.18
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+
+## 6.0.0-6-next.17
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+
+## 6.0.0-6-next.16
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- Updated dependencies [43f32687]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+
+## 6.0.0-6-next.15
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+
+## 6.0.0-6-next.14
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+
+## 6.0.0-6-next.13
+
+### Patch Changes
+
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+
+## 6.0.0-6-next.12
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/core@6.0.0-6-next.6
+
 ## 6.0.0-6-next.11
 
 ### Patch Changes

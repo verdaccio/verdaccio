@@ -3,8 +3,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
-import ThemeProvider from 'verdaccio-ui/design-tokens/ThemeProvider';
-import AppConfigurationProvider from 'verdaccio-ui/providers/config';
+
+import { AppConfigurationProvider, ThemeProvider } from '@verdaccio/ui-components';
 
 import i18nConfig from '../i18n/config';
 

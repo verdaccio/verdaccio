@@ -1,6 +1,6 @@
 ---
 '@verdaccio/api': minor
-'@verdaccio/fastify-migration': minor
+'@verdaccio/server-fastify': minor
 '@verdaccio/hooks': minor
 '@verdaccio/logger-prettify': minor
 '@verdaccio/proxy': minor

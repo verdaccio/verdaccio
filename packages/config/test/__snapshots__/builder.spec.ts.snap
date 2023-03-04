@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Config builder should create a configuration file as yaml 1`] = `
+"uplinks:
+  upstream:
+    url: https://registry.verdaccio.org
+  upstream2:
+    url: https://registry.verdaccio.org
+packages:
+  upstream/*:
+    access: public
+    publish: foo, bar
+    unpublish: foo, bar
+    proxy: some
+security:
+  api:
+    legacy: true
+log:
+  level: info
+  type: stdout
+  format: json
+storage: /tmp/verdaccio
+"
+`;

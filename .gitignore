@@ -41,12 +41,15 @@ packages/plugins/ui-theme/static
 # CI Pnpm cache
 .pnpm-store/
 
-# benchmark
-api-results.json
-hyper-results.json
-hyper-results*.json
-api-results*.json
-
 #docs 
-./api
-packages/core/core/docs
+website/docs/api/**/*.md
+website/docs/api/**/*.yml
+!website/docs/api/index.md
+packages/**/docs
+
+# cypress
+e2e/ui/cypress/videos/**/*
+e2e/ui/cypress/screenshots/**/*
+
+# storybook
+packages/ui-components/storybook-static

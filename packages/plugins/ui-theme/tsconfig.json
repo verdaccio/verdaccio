@@ -12,7 +12,6 @@
     "baseUrl": ".",
     "paths": {
       "verdaccio-ui/components/*": ["src/components/*"],
-      "verdaccio-ui/design-tokens/*": ["src/design-tokens/*"],
       "verdaccio-ui/utils/*": ["src/utils/*"]
     }
   },
@@ -20,6 +19,9 @@
   "references": [
     {
       "path": "../../node-api"
+    },
+    {
+      "path": "../../ui-components"
     }
   ]
 }

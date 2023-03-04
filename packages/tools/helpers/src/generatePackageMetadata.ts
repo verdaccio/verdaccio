@@ -1,8 +1,7 @@
 import { Manifest } from '@verdaccio/types';
 
-export interface DistTags {
-  [key: string]: string;
-}
+import { DistTags } from './types';
+import { getTarball } from './utils';
 
 export function generatePackageMetadata(
   pkgName: string,
@@ -20,7 +19,7 @@ export function generatePackageMetadata(
       [version]: {
         name: pkgName,
         version: version,
-        description: 'package generated ',
+        description: 'package generated',
         main: 'index.js',
         scripts: {
           test: 'echo "Error: no test specified" && exit 1',
@@ -46,13 +45,13 @@ export function generatePackageMetadata(
             'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cm' +
             'E6dUBf+XoPoH4g==',
           shasum: '2c03764f651a9f016ca0b7620421457b619151b9', // pragma: allowlist secret
-          tarball: `http:\/\/localhost:5555\/${pkgName}\/-\/${pkgName}-${version}.tgz`,
+          tarball: `http:\/\/localhost:5555\/${pkgName}\/-\/${getTarball(pkgName)}-${version}.tgz`,
         },
       },
     },
     readme: '# test',
     _attachments: {
-      [`${pkgName}-${version}.tgz`]: {
+      [`${getTarball(pkgName)}-${version}.tgz`]: {
         content_type: 'application/octet-stream',
         data:
           'H4sIAAAAAAAAE+2W32vbMBDH85y/QnjQp9qxLEeBMsbGlocNBmN7bFdQ5WuqxJaEpGQdo//79KPeQsnI' +
@@ -67,5 +66,8 @@ export function generatePackageMetadata(
         length: 512,
       },
     },
+    _uplinks: {},
+    _distfiles: {},
+    _rev: '',
   };
 }

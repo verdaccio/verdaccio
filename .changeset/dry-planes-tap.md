@@ -3,10 +3,9 @@
 '@verdaccio/auth': major
 '@verdaccio/cli': major
 '@verdaccio/config': major
-'@verdaccio/commons-api': major
 '@verdaccio/core': major
 '@verdaccio/local-storage': major
-'@verdaccio/fastify-migration': major
+'@verdaccio/server-fastify': major
 '@verdaccio/streams': major
 '@verdaccio/types': major
 '@verdaccio/hooks': major
@@ -19,7 +18,6 @@
 '@verdaccio/server': major
 '@verdaccio/store': major
 '@verdaccio/eslint-config': major
-'@verdaccio/dev-types': major
 '@verdaccio/utils': major
 'verdaccio': major
 '@verdaccio/web': major

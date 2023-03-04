@@ -1,5 +1,140 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.63
+
+## 6.0.0-6-next.62
+
+### Major Changes
+
+- 781ac9ac: fix package configuration issues
+
+### Patch Changes
+
+- 4fc21146: fix: missing logo on header
+
+## 6.0.0-6-next.61
+
+## 6.0.0-6-next.60
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+## 6.0.0-6-next.59
+
+## 6.0.0-6-next.58
+
+## 6.0.0-6-next.57
+
+## 6.0.0-6-next.56
+
+## 6.0.0-6-next.55
+
+## 6.0.0-6-next.54
+
+## 6.0.0-6-next.53
+
+### Major Changes
+
+- 99978797: feat(web): components for custom user interfaces
+
+  Provides a package that includes all components from the user interface, instead being embedded at the `@verdaccio/ui-theme` package.
+
+  ```
+  npm i -D @verdaccio/ui-components
+  ```
+
+  The package contains
+
+  - Components
+  - Providers
+  - Redux Storage
+  - Layouts (precomposed layouts ready to use)
+  - Custom Material Theme
+
+  The `@verdaccio/ui-theme` will consume this package and will use only those are need it.
+
+  > Prerequisites are using Redux, Material-UI and Translations with `i18next`.
+
+  Users could have their own Material UI theme and build custom layouts, adding new features without the need to modify the default project.
+
+## 6.0.0-6-next.52
+
+### Patch Changes
+
+- bf4ac500: fix: markdown ul and img styles
+- 5d9b65a1: chore: improve info regarding using private registries
+
+## 6.0.0-6-next.51
+
+### Minor Changes
+
+- 0481b9a3: feat: upgrade to react 18
+- a23628be: feat: parse and sanitize on ui
+
+## 6.0.0-6-next.50
+
+### Patch Changes
+
+- b4cc8001: fix: improve abort request search
+
+## 6.0.0-6-next.49
+
+### Patch Changes
+
+- 6ad13de8: feat: Display publication time on sidebar
+
+## 6.0.0-6-next.48
+
+### Patch Changes
+
+- 02771805: Hide search icon on medium or larger devices
+- d4019f63: Add links to "Current Tags" and sort them in descending order
+
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- 20d63dc3: ui: basic grammatical fixes in the Ukraine Message
+
+## 6.0.0-6-next.26
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- a828a5f6: fix: #3174 set correctly ui values to html render
+
 ## 6.0.0-6-next.24
 
 ### Minor Changes

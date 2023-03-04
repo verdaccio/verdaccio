@@ -210,7 +210,7 @@ web:
 
 If you have a custom UI plugin for the them you will need to adapt your build to the new requirements.
 
-The previous version you only need to return a function with a string and the path of the directory.  
+The previous version you only need to return a function with a string and the path of the directory.
 
 ```
 const path = require('path');
@@ -245,6 +245,7 @@ Since Verdaccio 5 the module must return an object and the `index.html` is ignor
   },
   manifestFiles: { js: [ 'runtime.js', 'vendors.js', 'main.js' ] }
 ```
+
 - `staticPath`: is the same data returned in Verdaccio 4.
 - `manifest`: A webpack manifest object.
 - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
@@ -268,7 +269,6 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 ```
 
-
 # Troubleshooting
 
 ### After upgrade I don't see packages on the UI {#after-upgrade-i-dont-see-packages-on-the-ui}
@@ -280,4 +280,3 @@ storage: ./storage
 ```
 
 Use an absolute path instead, more info [here](https://github.com/verdaccio/verdaccio/issues/2204).
-

@@ -1,15 +1,15 @@
 ---
 id: installation
-title: "Installation"
+title: 'Installation'
 ---
 
-Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites.
+Verdaccio is a Node.js private and proxy registry. To install it, you need a few basic prerequisites.
 
 ## Prerequisites {#prerequisites}
 
-1. **Node.js** `v12` or higher.
+1. **Node.js** `v16` or higher.
 
-2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and berry).
+2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and modern).
 
 > We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older.
 
@@ -17,15 +17,11 @@ Verdaccio is a multiplatform web application. To install it, you need a few basi
 
 > Verdaccio will support latest Node.js version according the [Node.js Release Working Group](https://github.com/nodejs/Release) recomendations.
 
-Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
-
 ### Quick Introduction {#quick-introduction}
 
 Learn the basics before getting started, how to install, where is the location of the configuration file and more.
 
-[![logo](https://cdn.verdaccio.dev/website/watch-us.png)](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="515" src="https://www.youtube.com/embed/hDIFKzmoCaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installing the CLI {#installing-the-cli}
 
@@ -36,10 +32,10 @@ Learn the basics before getting started, how to install, where is the location o
 Using `npm`
 
 ```bash
-npm install -g verdaccio
+npm install --location=global verdaccio@6-next
 ```
 
-or using `yarn`
+or using `yarn@1.x` _classic_,
 
 ```bash
 yarn global add verdaccio
@@ -59,8 +55,11 @@ Once it has been installed, you only need to execute the CLI command:
 
 ```bash
 $> verdaccio
-warn --- config file  - /home/.config/verdaccio/config.yaml
-warn --- http address - http://localhost:4873/ - verdaccio/5.0.0
+ info -=- local storage path /Users/user/.local/share/verdaccio/storage/.verdaccio-db.json
+ info --- using htpasswd file: /Users/user/.config/verdaccio/htpasswd
+ info --- http address http://localhost:4873/
+ info --- version: 6.0.0-6-next.48
+ info --- server started
 ```
 
 For more information about the CLI, please [read the cli section](cli.md).
@@ -93,6 +92,8 @@ Or a `publishConfig` in your `package.json`
 }
 ```
 
+For alternative configurations, please read the [Using a private registry](cli-registry.md) section.
+
 ## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}
 
 If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio.
@@ -102,19 +103,15 @@ If you'd like a broader explanation, don't miss the tutorial created by [thedevl
 ## Docker Image {#docker-image}
 
 ```bash
-docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
+docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:nightly-master
 ```
 
-`Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md), furthermore you can learn more about combining Docker images in our [docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples) repository.
 
-## Cloudron {#cloudron}
+## Helm Chart {#helm-chart}
 
-`Verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
-
-[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
-
-## Heroku with Docker
-
-For easy deployment you could use [Heroku](https://www.heroku.com/home), the _free_ dyno tier allows you to test their platform using a Docker container, check this example.
-
-[https://github.com/juanpicado/verdaccio-heroku-example](https://github.com/juanpicado/verdaccio-heroku-example)
+```bash
+$ helm repo add verdaccio https://charts.verdaccio.org
+$ helm repo update
+$ helm install registry --set image.tag=nightly-master verdaccio/verdaccio
+```

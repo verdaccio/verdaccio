@@ -54,12 +54,12 @@ describe('testing locking', () => {
       readFile(getFilePath('package.json'), {}, (error: Error, data: string) => {
         expect(error).toBeNull();
         expect(data).toMatchInlineSnapshot(`
-            "{
-              \\"name\\": \\"assets\\",
-              \\"version\\": \\"0.0.1\\"
-            }
-            "
-          `);
+          "{
+            "name": "assets",
+            "version": "0.0.1"
+          }
+          "
+        `);
         done();
       });
     });
@@ -71,11 +71,11 @@ describe('testing locking', () => {
       readFile(getFilePath('package.json'), options, (error: Error, data: string) => {
         expect(error).toBeNull();
         expect(data).toMatchInlineSnapshot(`
-            Object {
-              "name": "assets",
-              "version": "0.0.1",
-            }
-          `);
+          {
+            "name": "assets",
+            "version": "0.0.1",
+          }
+        `);
         done();
       });
     });
@@ -110,11 +110,11 @@ describe('testing locking', () => {
       readFile(getFilePath('package2.json'), options, (error: Error, data: string) => {
         expect(error).toBeNull();
         expect(data).toMatchInlineSnapshot(`
-            Object {
-              "name": "assets",
-              "version": "0.0.1",
-            }
-          `);
+          {
+            "name": "assets",
+            "version": "0.0.1",
+          }
+        `);
         removeTempFile('package2.json.lock');
         done();
       });

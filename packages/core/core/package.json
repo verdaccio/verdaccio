@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "6.0.0-6-next.5",
+  "version": "6.0.0-6-next.63",
   "description": "core utilities",
   "keywords": [
     "private",
@@ -19,8 +19,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=12"
   },
   "repository": {
     "type": "https",
@@ -36,17 +35,22 @@
   "dependencies": {
     "http-errors": "1.8.1",
     "http-status-codes": "2.2.0",
-    "semver": "7.3.5",
+    "semver": "7.3.8",
+    "ajv": "8.11.2",
     "process-warning": "1.0.0",
-    "core-js": "3.20.3"
+    "core-js": "3.28.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "lodash": "4.17.21",
+    "typedoc": "0.23.25",
+    "typedoc-plugin-missing-exports": "latest",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",

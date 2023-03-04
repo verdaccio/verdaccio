@@ -1,6 +1,6 @@
 ---
 id: configuration
-title: "Configuration File"
+title: 'Configuration File'
 ---
 
 This file is the cornerstone of Verdaccio where you can modify the default behaviour, enable plugins and extend features.
@@ -20,11 +20,11 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 packages:
-  "@*/*":
+  '@*/*':
     access: $all
     publish: $authenticated
     proxy: npmjs
-  "**":
+  '**':
     proxy: npmjs
 log: { type: stdout, format: pretty, level: http }
 ```
@@ -42,6 +42,28 @@ storage: ./storage
 ```
 
 > Released at v5.6.0: The environment variable `VERDACCIO_STORAGE_PATH` could be used to replace the location of the storage (only for the default storage, does not apply to plugins unless it is implemented independently).
+
+### The `.verdaccio-db` database {#.verdaccio-db}
+
+:::info
+Only available if user does not use a custom storage
+:::
+
+By default verdaccio uses a little database to store private packages the `storage` property is defined in the `config.yaml` file.
+
+The location might change based in your operative system, see [here](cli.md) more details about location of files.
+
+The structure of the database is based in JSON file, for instance:
+
+```json
+{
+  "list": ["package1", "@scope/pkg2"],
+  "secret": "secret_token"
+}
+```
+
+- `list`: Is an array with the list of the private packages published, any item on this list is considered being published by the user.
+- `secret`: The secret field is used for verify the token signature, either for _JWT_ or legacy token signature.
 
 ### Plugins {#plugins}
 
@@ -129,7 +151,7 @@ This section allows you to control how packages are accessed. For more informati
 
 ```yaml
 packages:
-  "@*/*":
+  '@*/*':
     access: $all
     publish: $authenticated
     proxy: npmjs
@@ -271,7 +293,7 @@ Enabling notifications to third-party tools is fairly easy via webhooks. For mor
 ```yaml
 notify:
   method: POST
-  headers: [{ "Content-Type": "application/json" }]
+  headers: [{ 'Content-Type': 'application/json' }]
   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 ```

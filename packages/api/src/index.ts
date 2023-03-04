@@ -1,8 +1,7 @@
 import bodyParser from 'body-parser';
 import express, { Router } from 'express';
-import semver from 'semver';
 
-import { IAuth } from '@verdaccio/auth';
+import { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
@@ -25,11 +24,7 @@ import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
 
-if (semver.lte(process.version, 'v15.0.0')) {
-  global.AbortController = require('abortcontroller-polyfill/dist/cjs-ponyfill').AbortController;
-}
-
-export default function (config: Config, auth: IAuth, storage: Storage): Router {
+export default function (config: Config, auth: Auth, storage: Storage): Router {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -47,7 +42,6 @@ export default function (config: Config, auth: IAuth, storage: Storage): Router 
   // TODO: For some reason? what reason?
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
-  app.param('anything', match(/.*/));
   app.use(auth.apiJWTmiddleware());
   app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
   // @ts-ignore
@@ -57,12 +51,12 @@ export default function (config: Config, auth: IAuth, storage: Storage): Router 
   // for "npm whoami"
   whoami(app);
   pkg(app, auth, storage);
-  profile(app, auth);
+  profile(app, auth, config);
   // @deprecated endpoint, 404 by default
   search(app);
   user(app, auth, config);
   distTags(app, auth, storage);
-  publish(app, auth, storage, config);
+  publish(app, auth, storage);
   ping(app);
   stars(app, storage);
   // @ts-ignore

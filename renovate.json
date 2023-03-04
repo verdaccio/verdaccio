@@ -1,15 +1,36 @@
 {
-  "extends": ["config:base", "schedule:earlyMondays"],
+  "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
-  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/test-helper"],
-  "baseBranches": ["master", "5.x"],
-  "major": true,
+  "ignoreDeps": [
+    "customprefix-auth",
+    "eslint-plugin-verdaccio",
+    "@verdaccio/test-helper",
+    "docker/setup-buildx-action",
+    "docker/login-action",
+    "docker/build-push-action",
+    "crazy-max/ghaction-docker-meta",
+    "pnpm"
+  ],
+  "baseBranches": ["master"],
+  "major": false,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
       "packageNames": ["aws-sdk"],
       "allowedVersions": "2.607.0"
+    },
+    {
+      "packageNames": ["got"],
+      "allowedVersions": "^11.8.5"
+    },
+    {
+      "packageNames": ["globby"],
+      "allowedVersions": "^12.2.0"
+    },
+    {
+      "packageNames": ["get-port"],
+      "allowedVersions": "^5.1.1"
     },
     {
       "packageNames": ["@google-cloud/datastore"],
@@ -40,10 +61,6 @@
       "allowedVersions": "< 3.0.0"
     },
     {
-      "packageNames": ["@changesets/cli"],
-      "allowedVersions": "2.15.0"
-    },
-    {
       "matchDatasources": ["docker"],
       "labels": ["bot: docker-update"]
     },
@@ -70,51 +87,6 @@
     {
       "matchDatasources": ["get-port"],
       "allowedVersions": "5.1.1"
-    },
-    {
-      "matchPackagePatterns": [
-        "@types/*",
-        "typescript",
-        "@babel/*",
-        "fast-safe-stringify",
-        "undici",
-        "verdaccio*",
-        "webpack",
-        "async",
-        "memfs",
-        "globby",
-        "pnpm",
-        "esbuild",
-        "@emotion/*",
-        "async",
-        "@mui/*",
-        "express*",
-        "http-status",
-        "babel-*",
-        "jest",
-        "jest-*",
-        "pino",
-        "react*",
-        "ts-node",
-        "mini-css*",
-        "autocannon",
-        "process-warning",
-        "fastify",
-        "core-js",
-        "debug",
-        "nock",
-        "rimraf",
-        "node-fetch",
-        "kleur",
-        "fs-extra",
-        "self-signed",
-        "supertest"
-      ],
-      "matchUpdateTypes": ["minor", "patch", "major"],
-      "groupName": "all core dependencies",
-      "groupSlug": "all-core-dependencies",
-      "extends": [":semanticCommitTypeAll(fix)"],
-      "baseBranchList": ["master"]
     },
     {
       "matchPackagePatterns": [

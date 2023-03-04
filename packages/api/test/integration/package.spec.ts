@@ -1,91 +1,105 @@
 import supertest from 'supertest';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
+import { Storage } from '@verdaccio/store';
 
-import { $RequestExtend, $ResponseExtend } from '../../types/custom';
-import { initializeServer, publishTaggedVersion, publishVersion } from './_helper';
-
-const mockApiJWTmiddleware = jest.fn(
-  () =>
-    (req: $RequestExtend, res: $ResponseExtend, _next): void => {
-      req.remote_user = { name: 'foo', groups: [], real_groups: [] };
-      _next();
-    }
-);
-
-jest.mock('@verdaccio/auth', () => ({
-  Auth: class {
-    apiJWTmiddleware() {
-      return mockApiJWTmiddleware();
-    }
-    allow_access(_d, _f, cb) {
-      // always allow access
-      cb(null, true);
-    }
-    allow_publish(_d, _f, cb) {
-      // always allow publish
-      cb(null, true);
-    }
-  },
-}));
+import { initializeServer, publishVersion } from './_helper';
 
 describe('package', () => {
-  let app;
-  beforeEach(async () => {
-    app = await initializeServer('package.yaml');
-  });
-
-  test('should return a package', async () => {
-    await publishVersion(app, 'package.yaml', 'foo', '1.0.0');
-    return new Promise((resolve) => {
-      supertest(app)
-        .get('/foo')
-        .set('Accept', HEADERS.JSON)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .then((response) => {
-          expect(response.body.name).toEqual('foo');
-          resolve(response);
-        });
+  describe('get tarball', () => {
+    let app;
+    beforeEach(async () => {
+      app = await initializeServer('package.yaml');
     });
-  });
 
-  test('should return a package by version', async () => {
-    await publishVersion(app, 'package.yaml', 'foo2', '1.0.0');
-    return new Promise((resolve) => {
-      supertest(app)
-        .get('/foo2/1.0.0')
-        .set('Accept', HEADERS.JSON)
-        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-        .expect(HTTP_STATUS.OK)
-        .then((response) => {
-          expect(response.body.name).toEqual('foo2');
-          resolve(response);
-        });
+    test.each([
+      ['foo', 'foo-1.0.0.tgz'],
+      ['@scope/foo', 'foo-1.0.0.tgz'],
+    ])('should return a file tarball', async (pkg, fileName) => {
+      await publishVersion(app, pkg, '1.0.0');
+      const response = await supertest(app)
+        .get(`/${pkg}/-/${fileName}`)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HTTP_STATUS.OK);
+      expect(Buffer.from(response.body).toString('utf8')).toBeDefined();
     });
+
+    test.each([
+      ['foo', 'foo-1.0.0.tgz'],
+      ['@scope/foo', 'foo-1.0.0.tgz'],
+    ])('should fails if tarball does not exist', async (pkg, fileName) => {
+      await publishVersion(app, pkg, '1.0.1');
+      return await supertest(app)
+        .get(`/${pkg}/-/${fileName}`)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
+        .expect(HTTP_STATUS.NOT_FOUND);
+    });
+    test.todo('check content length file header');
+    test.todo('fails on file was aborted');
   });
 
-  // FIXME: investigate the 404
-  test.skip('should return a package by dist-tag', async (done) => {
-    // await publishVersion(app, 'package.yaml', 'foo3', '1.0.0');
-    await publishVersion(app, 'package.yaml', 'foo-tagged', '1.0.0');
-    await publishTaggedVersion(app, 'package.yaml', 'foo-tagged', '1.0.1', 'test');
-    return supertest(app)
-      .get('/foo-tagged/1.0.1')
-      .set('Accept', HEADERS.JSON)
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HTTP_STATUS.CREATED)
-      .then((response) => {
-        expect(response.body.name).toEqual('foo3');
-        done();
-      });
-  });
+  describe('get package', () => {
+    let app;
+    beforeEach(async () => {
+      app = await initializeServer('package.yaml');
+    });
 
-  test('should return 404', async () => {
-    return supertest(app)
-      .get('/404-not-found')
-      .set('Accept', HEADERS.JSON)
-      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-      .expect(HTTP_STATUS.NOT_FOUND);
+    test.each([['foo'], ['@scope/foo']])('should return a foo private package', async (pkg) => {
+      await publishVersion(app, pkg, '1.0.0');
+      const response = await supertest(app)
+        .get(`/${pkg}`)
+        .set(HEADERS.ACCEPT, HEADERS.JSON)
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.OK);
+      expect(response.body.name).toEqual(pkg);
+    });
+
+    test.each([['foo'], ['@scope/foo']])(
+      'should return a foo private package by version',
+      async (pkg) => {
+        await publishVersion(app, pkg, '1.0.0');
+        const response = await supertest(app)
+          .get(`/${pkg}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK);
+        expect(response.body.name).toEqual(pkg);
+      }
+    );
+
+    test.each([['foo'], ['@scope/foo']])(
+      'should return a foo private package by version',
+      async (pkg) => {
+        await publishVersion(app, pkg, '1.0.0');
+        const response = await supertest(app)
+          .get(`/${pkg}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK);
+        expect(response.body.name).toEqual(pkg);
+      }
+    );
+
+    test.each([['foo-abbreviated'], ['@scope/foo-abbreviated']])(
+      'should return abbreviated local manifest',
+      async (pkg) => {
+        await publishVersion(app, pkg, '1.0.0');
+        const response = await supertest(app)
+          .get(`/${pkg}`)
+          .set(HEADERS.ACCEPT, HEADERS.JSON)
+          .set(HEADERS.ACCEPT, Storage.ABBREVIATED_HEADER)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_INSTALL_CHARSET)
+          .expect(HTTP_STATUS.OK);
+        expect(response.body.name).toEqual(pkg);
+        expect(response.body.time).toBeDefined();
+        expect(response.body.modified).toBeDefined();
+        expect(response.body[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        expect(response.body.readme).not.toBeDefined();
+        expect(response.body._rev).not.toBeDefined();
+        expect(response.body.users).not.toBeDefined();
+      }
+    );
   });
 });

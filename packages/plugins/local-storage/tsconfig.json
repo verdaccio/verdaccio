@@ -4,17 +4,19 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"],
+  "include": ["src/**/*.ts"],
   "references": [
     {
-      "path": "../file-locking"
+      "path": "../../core/file-locking"
     },
     {
-      "path": "../streams"
+      "path": "../../config"
     },
     {
-      "path": "../core"
+      "path": "../../logger/logger"
+    },
+    {
+      "path": "../../core/core"
     }
   ]
 }

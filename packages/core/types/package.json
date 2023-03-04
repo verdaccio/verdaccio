@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "11.0.0-6-next.12",
+  "version": "11.0.0-6-next.22",
   "description": "verdaccio types definitions",
   "keywords": [
     "private",
@@ -17,8 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=12"
   },
   "repository": {
     "type": "https",
@@ -31,15 +30,23 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.d.ts",
-  "types": "index.d.ts",
+  "main": "build/types.d.ts",
+  "types": "build/types.d.ts",
   "scripts": {
-    "test": "exit 0",
-    "build": "exit 0"
+    "clean": "rimraf ./build",
+    "test": "pnpm type-check",
+    "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
-    "tsd": "0.19.1"
+    "@types/node": "16.18.10",
+    "typedoc": "0.23.25"
+  },
+  "typedoc": {
+    "entryPoint": "./src/types.ts",
+    "readmeFile": "./README.md",
+    "displayName": "@verdaccio/types"
   },
   "funding": {
     "type": "opencollective",

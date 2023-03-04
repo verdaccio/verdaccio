@@ -15,7 +15,7 @@ docker pull verdaccio/verdaccio
 
 ## Tagged Versions {#tagged-versions}
 
-![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio "Docker Pulls Count")
+![alt Docker Pulls Count](https://dockeri.co/image/verdaccio/verdaccio 'Docker Pulls Count')
 
 Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/r/verdaccio/verdaccio/tags/), as follows:
 
@@ -24,6 +24,7 @@ For a major version:
 ```bash
 docker pull verdaccio/verdaccio:4
 ```
+
 For a minor version:
 
 ```bash
@@ -51,7 +52,6 @@ The above line will pull the latest prebuilt image from dockerhub, if you haven'
 
 If you have [build an image locally](#build-your-own-docker-image) use `verdaccio` as the last argument.
 
-
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem (example below).
 
 Note that if you do mount conf like this, that you will first need to supply a copy of config.yaml in that directory; the Docker container will not start properly if this file is missing. You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml. However, note the security warnings in that file; you will definitely want to lock it down in production.
@@ -64,24 +64,23 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
   -v $V_PATH/plugins:/verdaccio/plugins \
   verdaccio/verdaccio
 ```
+
 > if you are running in a server, you might want to add -d to run it in the background
 
->Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default, 
-you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise 
-you will get permission errors at runtime. 
-[Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
+> Note: Verdaccio runs as a non-root user (uid=10001) inside the container, if you use bind mount to override default,
+> you need to make sure the mount directory is assigned to the right user. In above example, you need to run `sudo chown -R 10001:65533 /path/for/verdaccio` otherwise
+> you will get permission errors at runtime.
+> [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
 Verdaccio 4 provides a new set of environment variables to modify either permissions, port or http protocol. Here the complete list:
 
-Property | default | Description
---- | --- | ---
-VERDACCIO_APPDIR | `/opt/verdaccio` | the docker working directory
-VERDACCIO_USER_NAME | `verdaccio` | the system user
-VERDACCIO_USER_UID | `10001` | the user id being used to apply folder permissions
-VERDACCIO_PORT | `4873` | the verdaccio port
-VERDACCIO_PROTOCOL | `http` | the default http protocol
-
-
+| Property            | default          | Description                                        |
+| ------------------- | ---------------- | -------------------------------------------------- |
+| VERDACCIO_APPDIR    | `/opt/verdaccio` | the docker working directory                       |
+| VERDACCIO_USER_NAME | `verdaccio`      | the system user                                    |
+| VERDACCIO_USER_UID  | `10001`          | the user id being used to apply folder permissions |
+| VERDACCIO_PORT      | `4873`           | the verdaccio port                                 |
+| VERDACCIO_PROTOCOL  | `http`           | the default http protocol                          |
 
 ### SELinux {#selinux}
 
@@ -108,21 +107,25 @@ If you want to make the directory accessible only to a specific container, use `
 An alternative solution is to use [z and Z flags](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label). To add the `z` flag to the mountpoint `./conf:/verdaccio/conf` simply change it to `./conf:/verdaccio/conf:z`. The `z` flag relabels the directory and makes it accessible by every container while the `Z` flags relables the directory and makes it accessible only to that specific container. However using these flags is dangerous. A small configuration mistake, like mounting `/home/user` or `/var` can mess up the labels on those directories and make the system unbootable.
 
 ### Plugins {#plugins}
+
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
 ```docker
-FROM verdaccio/verdaccio
-
-USER root
-
-ENV NODE_ENV=production
-
-RUN npm i && npm install verdaccio-s3-storage
-
-USER verdaccio
+FROM node:lts-alpine as builder
+RUN mkdir -p /verdaccio/plugins \
+  && cd /verdaccio/plugins \
+  && npm install --global-style --no-bin-links --omit=optional verdaccio-auth-memory@latest
+FROM verdaccio/verdaccio:5
+ADD docker.yaml /verdaccio/conf/config.yaml
+COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
+  /verdaccio/plugins/node_modules/verdaccio-auth-memory \
+  /verdaccio/plugins/verdaccio-auth-memory
 ```
 
+For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins).
+
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
+
 Any `host:port` configured in `conf/config.yaml` under `listen` **is currently ignored when using docker**.
 
 If you want to reach Verdaccio docker instance under different port, lets say `5000`
@@ -130,13 +133,14 @@ in your `docker run` command add the environment variable `VERDACCIO_PORT=5000` 
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
-  -e "VERDACCIO_PORT=8080" -p 8080:8080 \  
+  -e "VERDACCIO_PORT=8080" -p 8080:8080 \
   verdaccio/verdaccio
 ```
 
 Of course the numbers you give to the `-p` parameter need to match.
 
 ### Using HTTPS with Docker {#using-https-with-docker}
+
 You can configure the protocol verdaccio is going to listen on, similarly to the port configuration.
 You have to overwrite the default value("http") of the `PROTOCOL` environment variable to "https", after you specified the certificates in the config.yaml.
 
@@ -157,24 +161,23 @@ $ docker-compose up --build
 
 You can set the port to use (for both container and host) by prefixing the above command with `VERDACCIO_PORT=5000 `.
 
-
 ```yaml
 version: '3.1'
 
 services:
   verdaccio:
     image: verdaccio/verdaccio
-    container_name: "verdaccio"
+    container_name: 'verdaccio'
     networks:
       - node-network
     environment:
       - VERDACCIO_PORT=4873
     ports:
-      - "4873:4873"
+      - '4873:4873'
     volumes:
-      - "./storage:/verdaccio/storage"
-      - "./config:/verdaccio/conf"
-      - "./plugins:/verdaccio/plugins"  
+      - './storage:/verdaccio/storage'
+      - './config:/verdaccio/conf'
+      - './plugins:/verdaccio/plugins'
 networks:
   node-network:
     driver: bridge
@@ -217,20 +220,21 @@ Please note that for any of the above docker commands you need to have docker in
 
 There is a separate repository that hosts multiple configurations to compose Docker images with `verdaccio`, for instance, as reverse proxy:
 
-[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/docker-examples)
+[https://github.com/verdaccio/docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
 
 ## Docker Custom Builds {#docker-custom-builds}
 
 > If you have made an image based on Verdaccio, feel free to add it to this list.
 
-* [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
-* [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
-* [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
-* [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
-* [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
-* [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
-* [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
-* [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
-* [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
-* [verdaccio-server](https://github.com/andru255/verdaccio-server)
-* [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+- [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
+- [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
+- [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
+- [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
+- [verdaccio-ldap](https://github.com/nathantreid/verdaccio-ldap)
+- [verdaccio-compose-local-bridge](https://github.com/shingtoli/verdaccio-compose-local-bridge)
+- [docker-verdaccio](https://github.com/Global-Solutions/docker-verdaccio)
+- [verdaccio-docker](https://github.com/idahobean/verdaccio-docker)
+- [verdaccio-server](https://github.com/andru255/verdaccio-server)
+- [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
+- [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)
+- [verdaccio-auth-gitlab](https://github.com/johanneslosch/verdaccio-auth-gitlab)

@@ -1,5 +1,191 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.33
+
+### Patch Changes
+
+- Updated dependencies [dc571aab]
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/logger@6.0.0-6-next.31
+
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/logger@6.0.0-6-next.30
+
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.61
+- @verdaccio/logger@6.0.0-6-next.29
+
+## 6.0.0-6-next.30
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.60
+- @verdaccio/logger@6.0.0-6-next.28
+
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- Updated dependencies [65f88b82]
+  - @verdaccio/logger@6.0.0-6-next.27
+  - @verdaccio/core@6.0.0-6-next.59
+
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+- @verdaccio/logger@6.0.0-6-next.26
+
+## 6.0.0-6-next.27
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.57
+- @verdaccio/logger@6.0.0-6-next.25
+
+## 6.0.0-6-next.26
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.56
+- @verdaccio/logger@6.0.0-6-next.24
+
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/logger@6.0.0-6-next.23
+
+## 6.0.0-6-next.24
+
+### Minor Changes
+
+- ef88da3b: feat: improve support for fs promises older nodejs
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/logger@6.0.0-6-next.22
+
+## 6.0.0-6-next.23
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/logger@6.0.0-6-next.21
+
+## 6.0.0-6-next.22
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/logger@6.0.0-6-next.20
+
+## 6.0.0-6-next.21
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/logger@6.0.0-6-next.19
+
+## 6.0.0-6-next.20
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+- @verdaccio/logger@6.0.0-6-next.18
+
+## 6.0.0-6-next.19
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+- @verdaccio/logger@6.0.0-6-next.17
+
+## 6.0.0-6-next.18
+
+### Patch Changes
+
+- Updated dependencies [43f32687]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/logger@6.0.0-6-next.16
+
+## 6.0.0-6-next.17
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+- @verdaccio/logger@6.0.0-6-next.15
+
+## 6.0.0-6-next.16
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/logger@6.0.0-6-next.14
+
+## 6.0.0-6-next.15
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/logger@6.0.0-6-next.13
+
+## 6.0.0-6-next.14
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/logger@6.0.0-6-next.12
+
 ## 6.0.0-6-next.13
 
 ### Patch Changes

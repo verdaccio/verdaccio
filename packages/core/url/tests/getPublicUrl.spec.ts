@@ -295,6 +295,27 @@ describe('env variable', () => {
     delete process.env.VERDACCIO_PUBLIC_URL;
   });
 
+  test('with the VERDACCIO_FORWARDED_PROTO undefined', () => {
+    process.env.VERDACCIO_FORWARDED_PROTO = undefined;
+    const req = httpMocks.createRequest({
+      method: 'GET',
+      headers: {
+        host: 'some.com',
+        [HEADERS.FORWARDED_PROTO]: 'https',
+      },
+      url: '/',
+    });
+
+    expect(
+      getPublicUrl('/test/', {
+        host: req.hostname,
+        headers: req.headers as any,
+        protocol: req.protocol,
+      })
+    ).toEqual('http://some.com/test/');
+    delete process.env.VERDACCIO_FORWARDED_PROTO;
+  });
+
   test('with a invalid X-Forwarded-Proto https and host injection with invalid host', () => {
     process.env.VERDACCIO_PUBLIC_URL = 'http://injection.test.com"><svg onload="alert(1)">';
     const req = httpMocks.createRequest({

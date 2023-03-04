@@ -1,5 +1,228 @@
 # Change Log
 
+## 11.0.0-6-next.26
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+- Updated dependencies [dc571aab]
+  - @verdaccio/config@6.0.0-6-next.63
+  - @verdaccio/core@6.0.0-6-next.63
+
+## 11.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/config@6.0.0-6-next.62
+
+## 11.0.0-6-next.24
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/core@6.0.0-6-next.61
+
+## 11.0.0-6-next.23
+
+### Minor Changes
+
+- 45c03819: refactor: render html middleware
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/core@6.0.0-6-next.60
+
+## 11.0.0-6-next.22
+
+### Patch Changes
+
+- Updated dependencies [65f88b82]
+  - @verdaccio/logger@6.0.0-6-next.27
+  - @verdaccio/core@6.0.0-6-next.59
+  - @verdaccio/config@6.0.0-6-next.59
+
+## 11.0.0-6-next.21
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+- @verdaccio/config@6.0.0-6-next.58
+- @verdaccio/logger@6.0.0-6-next.26
+
+## 11.0.0-6-next.20
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.57
+- @verdaccio/config@6.0.0-6-next.57
+- @verdaccio/logger@6.0.0-6-next.25
+
+## 11.0.0-6-next.19
+
+### Patch Changes
+
+- @verdaccio/config@6.0.0-6-next.56
+- @verdaccio/core@6.0.0-6-next.56
+- @verdaccio/logger@6.0.0-6-next.24
+
+## 11.0.0-6-next.18
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/logger@6.0.0-6-next.23
+
+## 11.0.0-6-next.17
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/config@6.0.0-6-next.54
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/logger@6.0.0-6-next.22
+
+## 11.0.0-6-next.16
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/logger@6.0.0-6-next.21
+- @verdaccio/config@6.0.0-6-next.53
+
+## 11.0.0-6-next.15
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/config@6.0.0-6-next.52
+- @verdaccio/logger@6.0.0-6-next.20
+
+## 11.0.0-6-next.14
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/config@6.0.0-6-next.51
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/logger@6.0.0-6-next.19
+
+## 11.0.0-6-next.13
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+- @verdaccio/config@6.0.0-6-next.50
+- @verdaccio/logger@6.0.0-6-next.18
+
+## 11.0.0-6-next.12
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+- @verdaccio/config@6.0.0-6-next.49
+- @verdaccio/logger@6.0.0-6-next.17
+
+## 11.0.0-6-next.11
+
+### Major Changes
+
+- 9fc2e796: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+## 11.0.0-6-next.10
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+
+## 11.0.0-6-next.9
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- a3a209b5: feat: migrate to pino.js 8
+
 ## 11.0.0-6-next.8
 
 ### Minor Changes

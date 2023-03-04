@@ -20,12 +20,12 @@ jobs:
     if: github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio'
     steps:
       - name: checkout code repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
         with:
           fetch-depth: 0
 
       - name: setup node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
@@ -47,8 +47,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
       - name: crowdin download
-        env:
-          CROWDIN_VERDACCIO_PROJECT_ID: ${{ secrets.CROWDIN_VERDACCIO_PROJECT_ID }}
+        env:          
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:download       
@@ -56,14 +55,16 @@ jobs:
         run: pnpm build
 
       - name: create versions
-        uses: verdaccio/changeset-action@master
+        uses: changesets/action@master
         with:
           version: pnpm ci:version
           commit: 'chore: update versions'
           title: 'chore: update versions'
           publish: pnpm ci:publish
+          createGithubReleases: false
+          setupGitUser: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.CHANGESET_RELEASE_TOKEN }}
           NPM_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
           NPM_CONFIG_REGISTRY: https://registry.npmjs.org

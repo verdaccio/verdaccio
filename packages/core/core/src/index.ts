@@ -5,6 +5,7 @@ import * as pkgUtils from './pkg-utils';
 import * as pluginUtils from './plugin-utils';
 import * as searchUtils from './search-utils';
 import * as streamUtils from './stream-utils';
+import * as stringUtils from './string-utils';
 import * as validatioUtils from './validation-utils';
 import * as warningUtils from './warning-utils';
 
@@ -19,18 +20,21 @@ export {
   CHARACTER_ENCODING,
   HEADER_TYPE,
   LATEST,
-  DEFAULT_MIN_LIMIT_PASSWORD,
+  DEFAULT_PASSWORD_VALIDATION,
   DEFAULT_USER,
   USERS,
 } from './constants';
-
+const validationUtils = validatioUtils;
 export {
   fileUtils,
   pkgUtils,
   searchUtils,
   streamUtils,
   errorUtils,
+  // TODO: remove this typo
   validatioUtils,
+  validationUtils,
+  stringUtils,
   constants,
   pluginUtils,
   warningUtils,

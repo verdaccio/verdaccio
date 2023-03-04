@@ -1,0 +1,4 @@
+auth:
+  something:
+    enabled: true
+plugins: /roo/does-not-exist

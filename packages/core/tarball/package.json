@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "11.0.0-6-next.12",
+  "version": "11.0.0-6-next.32",
   "description": "tarball utilities resolver",
   "keywords": [
     "private",
@@ -19,8 +19,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=12"
   },
   "repository": {
     "type": "https",
@@ -34,19 +33,19 @@
     "access": "public"
   },
   "dependencies": {
-    "debug": "4.3.3",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/url": "workspace:11.0.0-6-next.9",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.11",
+    "debug": "4.3.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/url": "workspace:11.0.0-6-next.29",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.31",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "node-mocks-http": "1.11.0"
+    "@verdaccio/types": "workspace:11.0.0-6-next.22",
+    "node-mocks-http": "1.12.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

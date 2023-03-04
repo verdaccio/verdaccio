@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.reference.json",
+  "include": ["./cypress/**/*.ts", "./*.ts"],
+  "references": [
+    {
+      "path": "../../packages/core/core"
+    },
+    {
+      "path": "../../packages/verdaccio"
+    },
+    {
+      "path": "../../packages/config"
+    },
+    {
+      "path": "../../packages/tools/helpers"
+    }
+  ]
+}

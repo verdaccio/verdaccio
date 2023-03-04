@@ -1,8 +1,10 @@
+import buildDebug from 'debug';
 import fs from 'fs';
-import Path from 'path';
+import { dirname, join, resolve } from 'path';
 
+import { pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
-import { Callback, Config, IPluginAuth, Logger, PluginOptions } from '@verdaccio/types';
+import { Callback, Logger } from '@verdaccio/types';
 
 import {
   HtpasswdHashAlgorithm,
@@ -15,13 +17,15 @@ import {
   verifyPassword,
 } from './utils';
 
+const debug = buildDebug('verdaccio:plugin:htpasswd');
+
 export type HTPasswdConfig = {
   file: string;
   algorithm?: HtpasswdHashAlgorithm;
   rounds?: number;
   max_users?: number;
   slow_verify_ms?: number;
-} & Config;
+};
 
 export const DEFAULT_BCRYPT_ROUNDS = 10;
 export const DEFAULT_SLOW_VERIFY_MS = 200;
@@ -29,7 +33,10 @@ export const DEFAULT_SLOW_VERIFY_MS = 200;
 /**
  * HTPasswd - Verdaccio auth class
  */
-export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
+export default class HTPasswd
+  extends pluginUtils.Plugin<HTPasswdConfig>
+  implements pluginUtils.Auth<HTPasswdConfig>
+{
   /**
    *
    * @param {*} config htpasswd file
@@ -43,7 +50,8 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
   private logger: Logger;
   private lastTime: any;
   // constructor
-  public constructor(config: HTPasswdConfig, options: PluginOptions<HTPasswdConfig>) {
+  public constructor(config: HTPasswdConfig, options: pluginUtils.PluginOptions) {
+    super(config, options);
     this.users = {};
 
     // verdaccio logger
@@ -62,7 +70,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
     } else {
       throw new Error(`Invalid algorithm "${config.algorithm}"`);
     }
-
+    debug(`password hash algorithm: ${algorithm}`);
     if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
       rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
     } else if (config.rounds !== undefined) {
@@ -77,12 +85,17 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
     this.lastTime = null;
 
     const { file } = config;
-
+    debug('file: %s', file);
     if (!file) {
       throw new Error('should specify "file" in config');
     }
-
-    this.path = Path.resolve(Path.dirname(options.config.config_path), file);
+    debug('config path: %s', options?.config?.configPath);
+    this.path = join(resolve(dirname(options?.config?.configPath ?? '')), file);
+    this.logger.info({ file: this.path }, 'using htpasswd file: @{file}');
+    debug('htpasswd path:', this.path);
+    if (config.slow_verify_ms) {
+      this.logger.info({ ms: config.slow_verify_ms }, 'slow_verify_ms enabled for @{ms}');
+    }
     this.slowVerifyMs = config.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS;
   }
 
@@ -94,6 +107,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
    * @returns {void}
    */
   public authenticate(user: string, password: string, cb: Callback): void {
+    debug('authenticate %s', user);
     this.reload(async (err) => {
       if (err) {
         return cb(err.code === 'ENOENT' ? null : err);
@@ -144,6 +158,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
    */
   public async adduser(user: string, password: string, realCb: Callback): Promise<any> {
     const pathPass = this.path;
+    debug('adduser %s', user);
     let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
 
     // preliminary checks, just to ensure that file won't be reloaded if it's
@@ -199,6 +214,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
    * @param {function} callback
    */
   public reload(callback: Callback): void {
+    debug('reload users');
     fs.stat(this.path, (err, stats) => {
       if (err) {
         return callback(err);
@@ -213,7 +229,7 @@ export default class HTPasswd implements IPluginAuth<HTPasswdConfig> {
         if (err) {
           return callback(err);
         }
-
+        debug('reload users total: %s', Object.keys(this.users).length);
         Object.assign(this.users, parseHTPasswd(buffer));
         callback();
       });

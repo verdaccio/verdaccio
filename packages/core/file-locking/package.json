@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "11.0.0-6-next.4",
+  "version": "11.0.0-6-next.7",
   "description": "library that handle file locking",
   "keywords": [
     "private",
@@ -17,8 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=12"
   },
   "repository": {
     "type": "https",
@@ -40,11 +39,11 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "@verdaccio/types": "workspace:11.0.0-6-next.22"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",

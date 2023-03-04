@@ -1,0 +1,44 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*", "types/*.d.ts"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../api"
+    },
+    {
+      "path": "../../auth"
+    },
+    {
+      "path": "../../config"
+    },
+    {
+      "path": "../../loaders"
+    },
+    {
+      "path": "../../logger/logger"
+    },
+    {
+      "path": "../../middleware"
+    },
+    {
+      "path": "../../plugins/audit"
+    },
+    {
+      "path": "../../proxy"
+    },
+    {
+      "path": "../../store"
+    },
+    {
+      "path": "../../utils"
+    },
+    {
+      "path": "../../web"
+    }
+  ]
+}

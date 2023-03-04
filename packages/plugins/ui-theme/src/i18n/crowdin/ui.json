@@ -52,7 +52,7 @@
   },
   "versions": {
     "current-tags": "Current Tags",
-    "version-history": "Version history",
+    "version-history": "Version History",
     "not-available": "Not available"
   },
   "package": {
@@ -87,7 +87,7 @@
   "help": {
     "title": "No Package Published Yet.",
     "sub-title": "To publish your first package just:",
-    "first-step": "1. Login",
+    "first-step": "1. Create user",
     "first-step-command-line": "npm adduser --registry {{registryUrl}}",
     "second-step": "2. Publish",
     "second-step-command-line": "npm publish --registry {{registryUrl}}",
@@ -96,7 +96,8 @@
   "sidebar": {
     "detail": {
       "latest-version": "Latest v{{version}}",
-      "version": "v{{version}}"
+      "version": "v{{version}}",
+      "published": "Published"
     },
     "installation": {
       "title": "Installation",

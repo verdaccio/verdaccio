@@ -1,5 +1,5 @@
-import Translate from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
+import Translate from '@docusaurus/Translate';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import React from 'react';
 

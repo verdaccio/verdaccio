@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "6.0.0-6-next.31",
+  "version": "6.0.0-6-next.63",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -35,25 +35,25 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",
     "build": "pnpm run build:js && pnpm run build:types",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+    "test": "jest"
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/config": "workspace:6.0.0-6-next.14",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.11",
-    "@verdaccio/server": "workspace:6.0.0-6-next.30",
-    "core-js": "3.20.3",
-    "debug": "4.3.3",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63",
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.31",
+    "@verdaccio/server": "workspace:6.0.0-6-next.52",
+    "@verdaccio/server-fastify": "workspace:6.0.0-6-next.44",
+    "core-js": "3.28.0",
+    "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
-    "@verdaccio/mock": "workspace:6.0.0-6-next.15",
-    "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "jest-mock-process": "1.4.1",
+    "@types/node": "16.18.10",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22",
+    "jest-mock-process": "1.5.1",
     "selfsigned": "1.10.14",
-    "supertest": "6.2.2"
+    "supertest": "6.3.3"
   },
   "publishConfig": {
     "access": "public"

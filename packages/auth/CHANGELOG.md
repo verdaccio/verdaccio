@@ -1,5 +1,348 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.42
+
+### Minor Changes
+
+- ddb6a223: feat: signature package
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+- Updated dependencies [dc571aab]
+  - @verdaccio/config@6.0.0-6-next.63
+  - @verdaccio/signature@6.0.0-6-next.2
+  - @verdaccio/core@6.0.0-6-next.63
+  - @verdaccio/loaders@6.0.0-6-next.32
+  - verdaccio-htpasswd@11.0.0-6-next.33
+  - @verdaccio/utils@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.31
+
+## 6.0.0-6-next.41
+
+### Patch Changes
+
+- Updated dependencies [378e907d]
+  - @verdaccio/core@6.0.0-6-next.62
+  - @verdaccio/loaders@6.0.0-6-next.31
+  - @verdaccio/logger@6.0.0-6-next.30
+  - verdaccio-htpasswd@11.0.0-6-next.32
+  - @verdaccio/config@6.0.0-6-next.62
+  - @verdaccio/utils@6.0.0-6-next.30
+
+## 6.0.0-6-next.40
+
+### Patch Changes
+
+- Updated dependencies [d167f92e]
+  - @verdaccio/config@6.0.0-6-next.61
+  - @verdaccio/loaders@6.0.0-6-next.30
+  - verdaccio-htpasswd@11.0.0-6-next.31
+  - @verdaccio/core@6.0.0-6-next.61
+  - @verdaccio/utils@6.0.0-6-next.29
+  - @verdaccio/logger@6.0.0-6-next.29
+
+## 6.0.0-6-next.39
+
+### Patch Changes
+
+- Updated dependencies [45c03819]
+  - @verdaccio/config@6.0.0-6-next.60
+  - @verdaccio/loaders@6.0.0-6-next.29
+  - verdaccio-htpasswd@11.0.0-6-next.30
+  - @verdaccio/core@6.0.0-6-next.60
+  - @verdaccio/logger@6.0.0-6-next.28
+  - @verdaccio/utils@6.0.0-6-next.28
+
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- Updated dependencies [65f88b82]
+  - @verdaccio/logger@6.0.0-6-next.27
+  - @verdaccio/loaders@6.0.0-6-next.28
+  - verdaccio-htpasswd@11.0.0-6-next.29
+  - @verdaccio/core@6.0.0-6-next.59
+  - @verdaccio/config@6.0.0-6-next.59
+  - @verdaccio/utils@6.0.0-6-next.27
+
+## 6.0.0-6-next.37
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.58
+- @verdaccio/config@6.0.0-6-next.58
+- @verdaccio/loaders@6.0.0-6-next.27
+- verdaccio-htpasswd@11.0.0-6-next.28
+- @verdaccio/utils@6.0.0-6-next.26
+- @verdaccio/logger@6.0.0-6-next.26
+
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.57
+- @verdaccio/config@6.0.0-6-next.57
+- @verdaccio/loaders@6.0.0-6-next.26
+- @verdaccio/logger@6.0.0-6-next.25
+- verdaccio-htpasswd@11.0.0-6-next.27
+- @verdaccio/utils@6.0.0-6-next.25
+
+## 6.0.0-6-next.35
+
+### Patch Changes
+
+- Updated dependencies [a1986e09]
+  - @verdaccio/utils@6.0.0-6-next.24
+  - @verdaccio/config@6.0.0-6-next.56
+  - @verdaccio/loaders@6.0.0-6-next.25
+  - verdaccio-htpasswd@11.0.0-6-next.26
+  - @verdaccio/core@6.0.0-6-next.56
+  - @verdaccio/logger@6.0.0-6-next.24
+
+## 6.0.0-6-next.34
+
+### Patch Changes
+
+- Updated dependencies [9718e033]
+  - @verdaccio/config@6.0.0-6-next.55
+  - @verdaccio/core@6.0.0-6-next.55
+  - @verdaccio/utils@6.0.0-6-next.23
+  - @verdaccio/loaders@6.0.0-6-next.24
+  - verdaccio-htpasswd@11.0.0-6-next.25
+  - @verdaccio/logger@6.0.0-6-next.23
+
+## 6.0.0-6-next.33
+
+### Patch Changes
+
+- Updated dependencies [ef88da3b]
+  - @verdaccio/config@6.0.0-6-next.54
+  - @verdaccio/core@6.0.0-6-next.54
+  - @verdaccio/loaders@6.0.0-6-next.23
+  - @verdaccio/logger@6.0.0-6-next.22
+  - @verdaccio/utils@6.0.0-6-next.22
+  - verdaccio-htpasswd@11.0.0-6-next.24
+
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.53
+- @verdaccio/loaders@6.0.0-6-next.22
+- @verdaccio/logger@6.0.0-6-next.21
+- verdaccio-htpasswd@11.0.0-6-next.23
+- @verdaccio/config@6.0.0-6-next.53
+- @verdaccio/utils@6.0.0-6-next.21
+
+## 6.0.0-6-next.31
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.52
+- @verdaccio/config@6.0.0-6-next.52
+- @verdaccio/loaders@6.0.0-6-next.21
+- @verdaccio/logger@6.0.0-6-next.20
+- verdaccio-htpasswd@11.0.0-6-next.22
+- @verdaccio/utils@6.0.0-6-next.20
+
+## 6.0.0-6-next.30
+
+### Minor Changes
+
+- 4b29d715: chore: move improvements from v5 to v6
+
+  Migrate improvements form v5 to v6:
+
+  - https://github.com/verdaccio/verdaccio/pull/3158
+  - https://github.com/verdaccio/verdaccio/pull/3151
+  - https://github.com/verdaccio/verdaccio/pull/2271
+  - https://github.com/verdaccio/verdaccio/pull/2787
+  - https://github.com/verdaccio/verdaccio/pull/2791
+  - https://github.com/verdaccio/verdaccio/pull/2205
+
+### Patch Changes
+
+- Updated dependencies [4b29d715]
+  - @verdaccio/config@6.0.0-6-next.51
+  - @verdaccio/core@6.0.0-6-next.51
+  - @verdaccio/loaders@6.0.0-6-next.20
+  - verdaccio-htpasswd@11.0.0-6-next.21
+  - @verdaccio/logger@6.0.0-6-next.19
+  - @verdaccio/utils@6.0.0-6-next.19
+
+## 6.0.0-6-next.29
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.50
+- @verdaccio/config@6.0.0-6-next.50
+- @verdaccio/loaders@6.0.0-6-next.19
+- @verdaccio/logger@6.0.0-6-next.18
+- verdaccio-htpasswd@11.0.0-6-next.20
+- @verdaccio/utils@6.0.0-6-next.18
+
+## 6.0.0-6-next.28
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.49
+- @verdaccio/config@6.0.0-6-next.49
+- @verdaccio/loaders@6.0.0-6-next.18
+- @verdaccio/logger@6.0.0-6-next.17
+- verdaccio-htpasswd@11.0.0-6-next.19
+- @verdaccio/utils@6.0.0-6-next.17
+
+## 6.0.0-6-next.27
+
+### Major Changes
+
+- 9fc2e796: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+### Minor Changes
+
+- 62c24b63: feat: add passwordValidationRegex property
+
+### Patch Changes
+
+- Updated dependencies [43f32687]
+- Updated dependencies [9fc2e796]
+- Updated dependencies [62c24b63]
+  - @verdaccio/core@6.0.0-6-next.48
+  - @verdaccio/config@6.0.0-6-next.48
+  - @verdaccio/loaders@6.0.0-6-next.17
+  - verdaccio-htpasswd@11.0.0-6-next.18
+  - @verdaccio/utils@6.0.0-6-next.16
+  - @verdaccio/logger@6.0.0-6-next.16
+
+## 6.0.0-6-next.26
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.47
+- @verdaccio/config@6.0.0-6-next.47
+- @verdaccio/loaders@6.0.0-6-next.16
+- @verdaccio/logger@6.0.0-6-next.15
+- verdaccio-htpasswd@11.0.0-6-next.17
+- @verdaccio/utils@6.0.0-6-next.15
+
+## 6.0.0-6-next.25
+
+### Patch Changes
+
+- Updated dependencies [b849128d]
+  - @verdaccio/core@6.0.0-6-next.8
+  - @verdaccio/config@6.0.0-6-next.17
+  - @verdaccio/loaders@6.0.0-6-next.15
+  - @verdaccio/logger@6.0.0-6-next.14
+  - verdaccio-htpasswd@11.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.14
+
+## 6.0.0-6-next.24
+
+### Patch Changes
+
+- 351aeeaa: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa]
+  - @verdaccio/core@6.0.0-6-next.7
+  - @verdaccio/loaders@6.0.0-6-next.14
+  - @verdaccio/logger@6.0.0-6-next.13
+  - verdaccio-htpasswd@11.0.0-6-next.15
+  - @verdaccio/config@6.0.0-6-next.16
+  - @verdaccio/utils@6.0.0-6-next.13
+
+## 6.0.0-6-next.23
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+### Patch Changes
+
+- Updated dependencies [292c0a37]
+- Updated dependencies [a3a209b5]
+- Updated dependencies [00d1d2a1]
+  - @verdaccio/config@6.0.0-6-next.15
+  - @verdaccio/core@6.0.0-6-next.6
+  - @verdaccio/loaders@6.0.0-6-next.13
+  - @verdaccio/logger@6.0.0-6-next.12
+  - verdaccio-htpasswd@11.0.0-6-next.14
+  - @verdaccio/utils@6.0.0-6-next.12
+
 ## 6.0.0-6-next.22
 
 ### Patch Changes

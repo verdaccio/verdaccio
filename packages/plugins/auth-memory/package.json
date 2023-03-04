@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-auth-memory",
-  "version": "11.0.0-6-next.8",
+  "version": "11.0.0-6-next.28",
   "description": "Auth plugin for Verdaccio that keeps users in memory",
   "keywords": [
     "private",
@@ -31,11 +31,12 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "debug": "4.3.3",
-    "@verdaccio/core": "workspace:6.0.0-6-next.5"
+    "debug": "4.3.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.63"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.12"
+    "@verdaccio/config": "workspace:6.0.0-6-next.63",
+    "@verdaccio/types": "workspace:11.0.0-6-next.22"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -44,7 +45,7 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
     "watch": "pnpm build:js -- --watch",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest"
+    "test": "jest"
   },
   "funding": {
     "type": "opencollective",

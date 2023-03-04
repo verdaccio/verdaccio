@@ -1,6 +1,5 @@
 ---
 '@verdaccio/tarball': patch
-'@verdaccio/mock': patch
 '@verdaccio/ui-theme': patch
 '@verdaccio/server': patch
 '@verdaccio/utils': patch

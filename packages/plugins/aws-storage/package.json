@@ -32,12 +32,11 @@
   "types": "build/index.d.ts",
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "@verdaccio/streams": "workspace:11.0.0-6-next.5",
-    "aws-sdk": "2.981.0"
+    "aws-sdk": "2.1199.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
-    "recursive-readdir": "2.2.2"
+    "recursive-readdir": "2.2.3"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -45,7 +44,7 @@
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "build": "pnpm run build:js && pnpm run build:types",
-    "test": "cross-env NODE_ENV=test VERDACCIO_TEST_BUCKET=test BABEL_ENV=test jest"
+    "test": "jest"
   },
   "funding": {
     "type": "opencollective",

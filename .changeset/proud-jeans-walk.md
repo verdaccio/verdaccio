@@ -1,9 +1,8 @@
 ---
 'verdaccio-htpasswd': patch
 '@verdaccio/local-storage': patch
-'@verdaccio/fastify-migration': patch
+'@verdaccio/server-fastify': patch
 '@verdaccio/hooks': patch
-'@verdaccio/mock': patch
 '@verdaccio/node-api': patch
 ---
 

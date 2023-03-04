@@ -1,10 +1,6 @@
-store:
-  memory:
-    limit: 10
-
 auth:
-  auth-memory:
-    users:
+  htpasswd:
+    file: ./htpasswd-ping
 web:
   enable: true
   title: verdaccio

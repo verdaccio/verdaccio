@@ -2,28 +2,19 @@
   "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./build"
+    "outDir": "./build",
+    "noImplicitAny": false
   },
-  "include": ["src/**/*", "types/*.d.ts"],
-  "exclude": ["src/**/*.test.ts"],
+  "include": ["src/**/*.ts", "types/*.d.ts"],
   "references": [
     {
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
-      "path": "../core/local-storage"
-    },
-    {
-      "path": "../core/streams"
-    },
-    {
       "path": "../core/core"
     },
     {
-      "path": "../logger"
+      "path": "../logger/logger"
     },
     {
       "path": "../utils"

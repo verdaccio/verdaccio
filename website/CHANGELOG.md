@@ -1,5 +1,45 @@
 # @verdaccio/website
 
+## 5.20.2-6-next.2
+
+### Patch Changes
+
+- Updated dependencies [ddb6a223]
+  - @verdaccio/ui-components@2.0.0-6-next.5
+
+## 5.20.2-6-next.1
+
+### Patch Changes
+
+- Updated dependencies [781ac9ac]
+  - @verdaccio/ui-components@2.0.0-6-next.4
+
+## 5.20.2-6-next.0
+
+### Patch Changes
+
+- @verdaccio/ui-components@2.0.0-6-next.3
+
+## 5.19.2-6-next.0
+
+### Patch Changes
+
+- @verdaccio/ui-components@2.0.0-6-next.2
+
+## 5.18.1-6-next.0
+
+### Patch Changes
+
+- Updated dependencies [99978797]
+  - @verdaccio/ui-components@2.0.0-6-next.1
+
+## 5.14.1-6-next.0
+
+### Patch Changes
+
+- Updated dependencies [351aeeaa]
+  - docusaurus-plugin-contributors@1.0.1-6-next.0
+
 ## 6.0.0-6-next.0
 
 ### Major Changes

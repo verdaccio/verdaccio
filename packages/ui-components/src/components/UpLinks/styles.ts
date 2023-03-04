@@ -1,0 +1,24 @@
+import styled from '@emotion/styled';
+import { default as MuiListItemText } from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+
+import { Theme } from '../../Theme';
+
+export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
+  fontWeight: props.theme?.fontWeight.bold,
+}));
+
+export const Spacer = styled('div')<{ theme?: Theme }>(({ theme }) => ({
+  flex: '1 1 auto',
+  borderBottom: `1px dotted ${
+    theme?.palette.mode == 'light' ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)'
+  } `,
+  whiteSpace: 'nowrap',
+  height: '0.5em',
+}));
+
+export const ListItemText = styled(MuiListItemText)<{ theme?: Theme }>(({ theme }) => ({
+  flex: 'none',
+  color: theme?.palette.mode == 'light' ? theme?.palette.black : theme?.palette.white,
+  opacity: 0.6,
+}));
