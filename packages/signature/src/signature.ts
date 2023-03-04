@@ -18,7 +18,13 @@ const outputEncoding: BinaryToTextEncoding = 'hex';
 // https://stackoverflow.com/questions/50963160/invalid-key-length-in-crypto-createcipheriv#50963356
 const VERDACCIO_LEGACY_ENCRYPTION_KEY = process.env.VERDACCIO_LEGACY_ENCRYPTION_KEY;
 
-export function aesEncrypt(value: string, key: string): string | void {
+/**
+ * Encrypt value with aes algorithm
+ * @param value value to encrypt
+ * @param key secret key used
+ * @returns hashed string
+ */
+export function aesEncrypt(value: string, key: string): string {
   // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
   // https://www.grainger.xyz/posts/changing-from-cipher-to-cipheriv
   debug('encrypt %o', value);
@@ -29,8 +35,8 @@ export function aesEncrypt(value: string, key: string): string | void {
   const isKeyValid = secretKey?.length === TOKEN_VALID_LENGTH;
   debug('length secret key %o', secretKey?.length);
   debug('is valid secret %o', isKeyValid);
-  if (!value || !secretKey || !isKeyValid) {
-    return;
+  if (!secretKey || !isKeyValid) {
+    throw Error(`the secret does not met requirements of ${TOKEN_VALID_LENGTH} length`);
   }
 
   const cipher = createCipheriv(defaultAlgorithm, secretKey, iv);
