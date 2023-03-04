@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { api, store } from '../../../';
+import { api, store } from '../../store';
 import {
   act,
   cleanup,
