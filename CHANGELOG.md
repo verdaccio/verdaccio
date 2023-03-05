@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.22.0](https://github.com/verdaccio/verdaccio/compare/v5.21.2...v5.22.0) (2023-03-05)
+
+
+### Features
+
+* improved config and token signature ([#3658](https://github.com/verdaccio/verdaccio/issues/3658)) ([e50d4d9](https://github.com/verdaccio/verdaccio/commit/e50d4d92a242cb6290c62e0941cdedeb5f7c74d0))
+
 ### [5.21.2](https://github.com/verdaccio/verdaccio/compare/v5.21.1...v5.21.2) (2023-02-25)
 
 
