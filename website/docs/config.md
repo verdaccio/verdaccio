@@ -300,11 +300,28 @@ notify:
 
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/packages/config/src/conf).
 
+### Logger {#logger}
+Two logger types are supported, you may chose only one of them:
+
+#### console output (the default)
+```
+logs: { type: stdout, format: pretty, level: http }
+```
+
+#### file output
+```
+logs: { type: file, path: verdaccio.log, level: info }
+```
+
+For full information - see here: [Features/logger](https://verdaccio.org/docs/logger)
+
 ### Audit {#audit}
 
 <small>Since: `verdaccio@3.0.0`</small>
 
-`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
+`npm audit` is a new command released with 
+
+npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
 a built-in middleware plugin to handle this command.
 
 > If you have a new installation it comes by default, otherwise you need to add the following props to your config file
