@@ -319,9 +319,7 @@ For full information - see here: [Features/logger](https://verdaccio.org/docs/lo
 
 <small>Since: `verdaccio@3.0.0`</small>
 
-`npm audit` is a new command released with 
-
-npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
+`npm audit` is a new command released with [npm 6.x](https://github.com/npm/npm/releases/tag/v6.1.0). Verdaccio includes
 a built-in middleware plugin to handle this command.
 
 > If you have a new installation it comes by default, otherwise you need to add the following props to your config file
