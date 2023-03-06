@@ -29,7 +29,7 @@
     "@rematch/persist": "2.1.2",
     "@verdaccio/types": "workspace:11.0.0-6-next.22",
     "dayjs": "1.11.7",
-    "dompurify": "2.4.4",
+    "dompurify": "2.4.5",
     "github-markdown-css": "5.1.0",
     "highlight.js": "11.7.0",
     "i18next": "20.6.1",
