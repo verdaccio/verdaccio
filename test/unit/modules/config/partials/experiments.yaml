@@ -28,6 +28,6 @@ middlewares:
     enabled: true
 logs: { type: stdout, format: pretty, level: http }
 experiments:
- token: false
- bytesin_off: false
- tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}'
+  token: false
+  bytesin_off: false
+  tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}'
