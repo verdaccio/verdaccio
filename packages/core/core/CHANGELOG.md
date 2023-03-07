@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.65
+
+### Patch Changes
+
+- a1da1130: fix: minor typo on warning message
+
 ## 6.0.0-6-next.64
 
 ### Minor Changes

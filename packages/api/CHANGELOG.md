@@ -1,5 +1,18 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.48
+
+### Patch Changes
+
+- Updated dependencies [a1da1130]
+  - @verdaccio/core@6.0.0-6-next.65
+  - @verdaccio/auth@6.0.0-6-next.44
+  - @verdaccio/config@6.0.0-6-next.65
+  - @verdaccio/middleware@6.0.0-6-next.44
+  - @verdaccio/store@6.0.0-6-next.45
+  - @verdaccio/utils@6.0.0-6-next.33
+  - @verdaccio/logger@6.0.0-6-next.33
+
 ## 6.0.0-6-next.47
 
 ### Patch Changes
