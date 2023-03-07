@@ -17,7 +17,7 @@ export enum Codes {
 warningInstance.create(
   verdaccioWarning,
   Codes.VERWAR002,
-  `The property config "logs" property is longer supported, rename to "log" and use object instead`
+  `The configuration file property "logs" property is deprecated, rename to "log" for future compatibility`
 );
 
 warningInstance.create(

@@ -46,9 +46,7 @@ export class InitCommand extends Command {
   });
 
   private initLogger(logConfig: ConfigYaml) {
-    // @ts-expect-error
     if (logConfig.logs) {
-      // @ts-expect-error
       logConfig.log = logConfig.logs;
       warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
