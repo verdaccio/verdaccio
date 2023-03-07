@@ -1,7 +1,4 @@
-import assert from 'assert';
-import buildDebug from 'debug';
 import fs from 'fs';
-import YAML from 'js-yaml';
 import _ from 'lodash';
 import semver from 'semver';
 import { URL } from 'url';

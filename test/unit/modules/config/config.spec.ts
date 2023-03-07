@@ -8,11 +8,10 @@ import { parseConfigFile } from '../../../../src/lib/utils';
 
 setup([]);
 
-const resolveConf = (conf) => {
-  const { name, ext } = path.parse(conf);
-
-  return path.join(__dirname, `../../../../conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
+const resolveConf = (conf, location = `../../../../conf/${conf}.yaml`) => {
+  return path.join(__dirname, location);
 };
+
 const checkDefaultUplink = (config) => {
   expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
   expect(config.uplinks[DEFAULT_UPLINK].url).toMatch(DEFAULT_REGISTRY);
@@ -51,18 +50,16 @@ const checkDefaultConfPackages = (config) => {
   expect(config.middlewares).toBeDefined();
   expect(config.middlewares.audit).toBeDefined();
   expect(config.middlewares.audit.enabled).toBeTruthy();
-  // logs
-  expect(config.logs.type).toEqual('stdout');
-  expect(config.logs.format).toEqual('pretty');
-  expect(config.logs.level).toEqual('http');
+  // log
+  expect(config.log.type).toEqual('stdout');
+  expect(config.log.format).toEqual('pretty');
+  expect(config.log.level).toEqual('http');
   // must not be enabled by default
   expect(config.notify).toBeUndefined();
   expect(config.store).toBeUndefined();
   expect(config.publish).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
-
-  expect(config.experiments).toBeUndefined();
   expect(config.security).toEqual({
     api: { legacy: true },
     web: { sign: { expiresIn: '1h' }, verify: {} },
@@ -76,7 +73,7 @@ describe('Config file', () => {
     this.config = new Config(parseConfigFile(resolveConf('default')));
   });
 
-  describe('Config file', () => {
+  describe('default configurations', () => {
     test('parse docker.yaml', () => {
       const config = new Config(parseConfigFile(resolveConf('docker')));
       checkDefaultUplink(config);
@@ -84,6 +81,8 @@ describe('Config file', () => {
       // @ts-ignore
       expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');
       checkDefaultConfPackages(config);
+      // @ts-expect-error
+      expect(config.experiments).toBeUndefined();
     });
 
     test('parse default.yaml', () => {
@@ -93,8 +92,12 @@ describe('Config file', () => {
       // @ts-ignore
       expect(config.auth.htpasswd.file).toBe('./htpasswd');
       checkDefaultConfPackages(config);
+      // @ts-expect-error
+      expect(config.experiments).toBeUndefined();
     });
+  });
 
+  describe('env variables', () => {
     test('with process.env.VERDACCIO_STORAGE_PATH', () => {
       const testPath = '/builds/project/foo/bar/baz';
       // @ts-ignore
@@ -106,6 +109,27 @@ describe('Config file', () => {
         // @ts-ignore
         delete process.env.VERDACCIO_STORAGE_PATH;
       }
+    });
+  });
+
+  describe('with additional configurations', () => {
+    test('parse experiments.yaml', () => {
+      const config = new Config(
+        parseConfigFile(path.join(__dirname, './partials/experiments.yaml'))
+      );
+      checkDefaultUplink(config);
+      checkDefaultConfPackages(config);
+      // @ts-expect-error
+      expect(config.experiments).toEqual({
+        bytesin_off: false,
+        tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}',
+        token: false,
+      });
+    });
+    test('backward compability with logs', () => {
+      const config = new Config(parseConfigFile(path.join(__dirname, './partials/logs.yaml')));
+      // @ts-expect-error
+      expect(config.logs).toEqual({ format: 'pretty', level: 'http', type: 'stdout' });
     });
   });
 });
