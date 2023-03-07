@@ -1,5 +1,6 @@
 ---
 '@verdaccio/cli': minor
+'@verdaccio/ui-components': minor
 '@verdaccio/core': minor
 '@verdaccio/types': minor
 ---
