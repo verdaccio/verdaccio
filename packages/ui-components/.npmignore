@@ -2,3 +2,5 @@
 public/
 msw
 jest
+__snapshots__
+*.map
