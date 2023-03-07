@@ -245,6 +245,8 @@ export interface ConfigYaml {
   packages: PackageList;
   uplinks: UpLinksConfList;
   log?: LoggerConfItem;
+  // @deprecated deprecation path from 5.x
+  logs?: LoggerConfItem;
   web?: WebConf;
   auth?: AuthConf;
   security: Security;
