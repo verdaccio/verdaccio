@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.22.1](https://github.com/verdaccio/verdaccio/compare/v5.22.0...v5.22.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* [#3666](https://github.com/verdaccio/verdaccio/issues/3666) experiments config fail on startup ([#3668](https://github.com/verdaccio/verdaccio/issues/3668)) ([f6c22d3](https://github.com/verdaccio/verdaccio/commit/f6c22d3ea824d8dbafc62e0c4967f3f6d1f46bcf))
+
 ## [5.22.0](https://github.com/verdaccio/verdaccio/compare/v5.21.2...v5.22.0) (2023-03-05)
 
 
