@@ -1,5 +1,19 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.64
+
+### Minor Changes
+
+- 974cd8c1: fix: startup messages improved and logs support on types
+
+### Patch Changes
+
+- Updated dependencies [974cd8c1]
+  - @verdaccio/core@6.0.0-6-next.64
+  - @verdaccio/config@6.0.0-6-next.64
+  - @verdaccio/node-api@6.0.0-6-next.64
+  - @verdaccio/logger@6.0.0-6-next.32
+
 ## 6.0.0-6-next.63
 
 ### Patch Changes

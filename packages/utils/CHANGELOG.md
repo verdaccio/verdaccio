@@ -1,5 +1,12 @@
 # @verdaccio/utils
 
+## 6.0.0-6-next.32
+
+### Patch Changes
+
+- Updated dependencies [974cd8c1]
+  - @verdaccio/core@6.0.0-6-next.64
+
 ## 6.0.0-6-next.31
 
 ### Patch Changes

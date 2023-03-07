@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.64
+
+### Minor Changes
+
+- 974cd8c1: fix: startup messages improved and logs support on types
+
 ## 6.0.0-6-next.63
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.6
+
+### Minor Changes
+
+- 974cd8c1: fix: startup messages improved and logs support on types
+
+### Patch Changes
+
+- Updated dependencies [974cd8c1]
+  - @verdaccio/types@11.0.0-6-next.23
+
 ## 2.0.0-6-next.5
 
 ### Minor Changes
