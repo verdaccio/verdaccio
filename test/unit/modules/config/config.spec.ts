@@ -50,10 +50,10 @@ const checkDefaultConfPackages = (config) => {
   expect(config.middlewares).toBeDefined();
   expect(config.middlewares.audit).toBeDefined();
   expect(config.middlewares.audit.enabled).toBeTruthy();
-  // logs
-  expect(config.logs.type).toEqual('stdout');
-  expect(config.logs.format).toEqual('pretty');
-  expect(config.logs.level).toEqual('http');
+  // log
+  expect(config.log.type).toEqual('stdout');
+  expect(config.log.format).toEqual('pretty');
+  expect(config.log.level).toEqual('http');
   // must not be enabled by default
   expect(config.notify).toBeUndefined();
   expect(config.store).toBeUndefined();
@@ -125,6 +125,11 @@ describe('Config file', () => {
         tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}',
         token: false,
       });
+    });
+    test('backward compability with logs', () => {
+      const config = new Config(parseConfigFile(path.join(__dirname, './partials/logs.yaml')));
+      // @ts-expect-error
+      expect(config.logs).toEqual({ format: 'pretty', level: 'http', type: 'stdout' });
     });
   });
 });
