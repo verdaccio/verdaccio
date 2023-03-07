@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.23
+
+### Minor Changes
+
+- 974cd8c1: fix: startup messages improved and logs support on types
+
 ## 11.0.0-6-next.22
 
 ### Minor Changes

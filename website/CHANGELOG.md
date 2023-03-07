@@ -1,5 +1,12 @@
 # @verdaccio/website
 
+## 5.20.2-6-next.3
+
+### Patch Changes
+
+- Updated dependencies [974cd8c1]
+  - @verdaccio/ui-components@2.0.0-6-next.6
+
 ## 5.20.2-6-next.2
 
 ### Patch Changes
