@@ -183,7 +183,7 @@ middlewares:
 
 # https://verdaccio.org/docs/logger
 # log settings
-logs: { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: http }
 #experiments:
 #  # support for npm token command
 #  token: false

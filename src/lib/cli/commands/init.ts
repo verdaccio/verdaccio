@@ -1,6 +1,9 @@
 import { Command, Option } from 'clipanion';
 import path from 'path';
 
+import { warningUtils } from '@verdaccio/core';
+import { ConfigYaml } from '@verdaccio/types';
+
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
 import findConfigFile from '../../config-path';
 import { parseConfigFile } from '../../utils';
@@ -49,23 +52,35 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
+  private initLogger(logConfig: ConfigYaml) {
+    if (logConfig.logs) {
+      // @ts-expect-error
+      logConfig.log = logConfig.logs;
+      warningUtils.emit(warningUtils.Codes.VERWAR002);
+    }
+    // @ts-expect-error
+    logger.setup(logConfig.log);
+  }
+
   async execute() {
     let configPathLocation;
     try {
       configPathLocation = findConfigFile(this.config as string);
-      const verdaccioConfiguration: ReturnType<any> = parseConfigFile(configPathLocation);
-      if (!verdaccioConfiguration.self_path) {
-        verdaccioConfiguration.self_path = path.resolve(configPathLocation);
+      const configParsed: ReturnType<any> = parseConfigFile(configPathLocation);
+      if (!configParsed.self_path) {
+        configParsed.self_path = path.resolve(configPathLocation);
+        this.initLogger(configParsed);
+        // compatibility with 6.x plugins
+        configParsed.configPath = configParsed.self_path;
       }
-      if (!verdaccioConfiguration.https) {
-        verdaccioConfiguration.https = { enable: false };
+      if (!configParsed.https) {
+        configParsed.https = { enable: false };
       }
 
-      process.title =
-        (verdaccioConfiguration.web && verdaccioConfiguration.web.title) || 'verdaccio';
+      process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
       startVerdaccio(
-        verdaccioConfiguration,
+        configParsed,
         this.listen as string,
         configPathLocation,
         pkgVersion,
