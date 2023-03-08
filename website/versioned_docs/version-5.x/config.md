@@ -285,6 +285,30 @@ notify:
 
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/packages/config/src/conf).
 
+### Logger {#logger}
+
+:::warning
+
+Since v5.22.0 the logger property is renamed to `log` but `logs` still compatible but displaying a warning
+
+:::
+
+Two logger types are supported, you may chose only one of them:
+
+#### console output (the default)
+
+```
+log: { type: stdout, format: pretty, level: http }
+```
+
+#### file output
+
+```
+log: { type: file, path: verdaccio.log, level: info }
+```
+
+For full information - see here: [Features/logger](logger.md)
+
 ### Audit {#audit}
 
 <small>Since: `verdaccio@3.0.0`</small>
