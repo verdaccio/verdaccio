@@ -300,6 +300,21 @@ notify:
 
 > For more detailed configuration settings, please [check the source code](https://github.com/verdaccio/verdaccio/tree/master/packages/config/src/conf).
 
+### Logger {#logger}
+Two logger types are supported, you may chose only one of them:
+
+#### console output (the default)
+```
+logs: { type: stdout, format: pretty, level: http }
+```
+
+#### file output
+```
+logs: { type: file, path: verdaccio.log, level: info }
+```
+
+For full information - see here: [Features/logger](https://verdaccio.org/docs/logger)
+
 ### Audit {#audit}
 
 <small>Since: `verdaccio@3.0.0`</small>
