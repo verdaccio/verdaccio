@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5016,
+      "contributions": 5024,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2715
+          "contributions": 2722
         },
         {
           "name": "verdaccio-cookbook",
@@ -123,7 +123,7 @@
         },
         {
           "name": "charts",
-          "contributions": 36
+          "contributions": 37
         },
         {
           "name": "verdaccio-e2e-example",
@@ -1153,6 +1153,17 @@
       ]
     },
     {
+      "id": 803101,
+      "login": "osher",
+      "contributions": 3,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        }
+      ]
+    },
+    {
       "id": 19934346,
       "login": "frimuchkov",
       "contributions": 3,
@@ -1599,17 +1610,6 @@
     {
       "id": 7702311,
       "login": "amitgilad3",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 803101,
-      "login": "osher",
       "contributions": 2,
       "repositories": [
         {
@@ -4751,6 +4751,17 @@
       ]
     },
     {
+      "id": 7122237,
+      "login": "maslow",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 25608325,
       "login": "ymrsmns",
       "contributions": 1,
@@ -4769,7 +4780,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14476,
+      "stargazers_count": 14485,
       "archived": false
     },
     {
@@ -4895,7 +4906,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
-      "stargazers_count": 71,
+      "stargazers_count": 72,
       "archived": false
     },
     {
