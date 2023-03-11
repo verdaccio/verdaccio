@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { api, store } from '../../../';
+import { api, store } from '../../';
 import { fireEvent, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import Search from './Search';
 
