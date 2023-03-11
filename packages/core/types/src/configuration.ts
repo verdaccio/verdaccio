@@ -75,16 +75,6 @@ export type RateLimit = {
   max?: number;
 };
 
-// export interface WebConf {
-//   enable?: boolean;
-//   title?: string;
-//   logo?: string;
-//   favicon?: string;
-//   gravatar?: boolean;
-//   sort_packages?: string;
-//   rateLimit?: RateLimit;
-// }
-
 export type FlagsConfig = {
   searchRemote?: boolean;
   changePassword?: boolean;
@@ -105,6 +95,14 @@ export type CommonWebConf = {
   login?: boolean;
   scope?: string;
   pkgManagers?: PackageManagers[];
+  showInfo?: boolean;
+  showSettings?: boolean;
+  showSearch?: boolean;
+  showFooter?: boolean;
+  showThemeSwitch?: boolean;
+  showDownloadTarball?: boolean;
+  primaryColor: string;
+  showRaw?: boolean;
 };
 
 /**
@@ -112,21 +110,11 @@ export type CommonWebConf = {
  */
 export type TemplateUIOptions = {
   uri?: string;
-  darkMode?: boolean;
   protocol?: string;
   host?: string;
-  // deprecated
+  // @deprecated use base instead
   basename?: string;
-  scope?: string;
-  showInfo?: boolean;
-  showSettings?: boolean;
-  showSearch?: boolean;
-  showFooter?: boolean;
-  showThemeSwitch?: boolean;
-  showDownloadTarball?: boolean;
-  showRaw?: boolean;
   base: string;
-  primaryColor: string;
   version?: string;
   flags: FlagsConfig;
 } & CommonWebConf;
@@ -135,14 +123,18 @@ export type TemplateUIOptions = {
  * Options on config.yaml for web
  */
 export type WebConf = {
-  // FIXME: rename to primaryColor and move it to CommonWebConf
+  // @deprecated use primaryColor
   primary_color?: string;
+  primaryColor?: string;
   enable?: boolean;
   scriptsHead?: string[];
   scriptsBodyAfter?: string[];
+  scriptsbodyBefore?: string[];
   metaScripts?: string[];
   bodyBefore?: string[];
   bodyAfter?: string[];
+  rateLimit?: RateLimit;
+  html_cache?: boolean;
 } & CommonWebConf;
 
 export interface UpLinksConfList {
@@ -267,10 +259,13 @@ export interface ConfigYaml {
   url_prefix?: string;
   server?: ServerSettingsConf;
   flags?: FlagsConfig;
+  // @deprecated use flags instead
+  experiments?: FlagsConfig;
   userRateLimit?: RateLimit;
   // internal objects, added by internal yaml to JS config parser
   // save the configuration file path
   configPath?: string;
+  i18n?: { web: string };
 }
 
 /**
