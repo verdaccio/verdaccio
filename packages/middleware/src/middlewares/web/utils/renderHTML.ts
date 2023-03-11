@@ -58,7 +58,8 @@ export default function renderHTML(config: ConfigYaml, manifest, manifestFiles, 
     // legacy from 5.x
     ...config.experiments,
   };
-  const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
+  const primaryColor =
+    validatePrimaryColor(config?.web?.primary_color ?? config?.web?.primaryColor) ?? '#4b5e40';
   const {
     scriptsBodyAfter,
     metaScripts,
