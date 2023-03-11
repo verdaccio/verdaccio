@@ -475,7 +475,11 @@ exports[`<Footer /> component should load the initial state of Footer component 
     <div
       class="emotion-29 emotion-30"
     >
-      footer.powered-by
+      <span
+        data-testid="version-footer"
+      >
+        footer.powered-by
+      </span>
       <div
         class="emotion-31 emotion-32"
       />
