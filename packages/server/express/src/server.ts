@@ -22,6 +22,7 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/cust
 import hookDebug from './debug';
 
 const debug = buildDebug('verdaccio:server');
+const { version } = require('../package.json');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth: Auth = new Auth(config);
@@ -81,6 +82,10 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
+    app.use((_req, res, next) => {
+      res.locals.app_version = version ?? '';
+      next();
+    });
     app.use(await webMiddleware(config, auth, storage));
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {

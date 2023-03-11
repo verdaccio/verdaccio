@@ -12,6 +12,11 @@ describe('home spec', () => {
     cy.title().should('eq', 'verdaccio-server-e2e');
   });
 
+  it('version should be displayed', () => {
+    cy.visit(ctx.url);
+    cy.getByTestId('version-footer').contains('Powered by');
+  });
+
   it('should match title with no packages published', () => {
     cy.visit(ctx.url);
     cy.getByTestId('help-card').contains('No Package Published Yet.');

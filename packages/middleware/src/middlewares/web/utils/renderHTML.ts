@@ -5,7 +5,7 @@ import { URL } from 'url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
-import { TemplateUIOptions } from '@verdaccio/types';
+import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 import { getPublicUrl } from '@verdaccio/url';
 
@@ -22,7 +22,10 @@ const defaultManifestFiles = {
   ico: 'favicon.ico',
 };
 
-export function resolveLogo(config, req) {
+export function resolveLogo(config: ConfigYaml, req) {
+  if (typeof config?.web?.logo !== 'string') {
+    return '';
+  }
   const isLocalFile = config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo);
 
   if (isLocalFile) {
@@ -34,27 +37,29 @@ export function resolveLogo(config, req) {
   }
 }
 
-export default function renderHTML(config, manifest, manifestFiles, req, res) {
+export default function renderHTML(config: ConfigYaml, manifest, manifestFiles, req, res) {
   const { url_prefix } = config;
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  // @ts-ignore
   const needHtmlCache = [undefined, null].includes(config?.web?.html_cache)
     ? true
-    : config.web.html_cache;
+    : config?.web?.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
   const logo = resolveLogo(config, req);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
-  const version = config?.web?.version;
+  const version = res.locals.app_version ?? '';
   const flags = {
     ...config.flags,
     // legacy from 5.x
     ...config.experiments,
   };
-  const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
+  const primaryColor =
+    validatePrimaryColor(config?.web?.primary_color ?? config?.web?.primaryColor) ?? '#4b5e40';
   const {
     scriptsBodyAfter,
     metaScripts,
@@ -111,6 +116,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         },
         manifest
       );
+
       if (needHtmlCache) {
         cache.set('template', webPage);
         debug('set template cache');

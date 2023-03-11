@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render } from '../../test/test-react-testing-library';
+import { render, screen } from '../../test/test-react-testing-library';
 import Footer from './Footer';
 
 describe('<Footer /> component', () => {
   beforeAll(() => {
-    window.__VERDACCIO_BASENAME_UI_OPTIONS.version = 'v.1.0.0';
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.version = 'v1.0.0';
   });
 
   afterAll(() => {
@@ -13,7 +13,8 @@ describe('<Footer /> component', () => {
   });
 
   test('should load the initial state of Footer component', () => {
-    const { container } = render(<Footer />);
-    expect(container.firstChild).toMatchSnapshot();
+    render(<Footer />);
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.getByTestId('version-footer')).toBeInTheDocument();
   });
 });
