@@ -69,7 +69,7 @@ sh -c "npm --registry $local_registry publish"
 
 - [Hyperledger](https://github.com/hyperledger/fabric-chaincode-node)
 
-### Programtically Examples
+### Programmatic Examples
 
 - [Storybook](https://github.com/storybooks/storybook) _(+44k ⭐️)_
 - [Gatsby](https://github.com/gatsbyjs/gatsby) \*(+40k ⭐️)
