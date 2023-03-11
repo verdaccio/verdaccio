@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 describe('<Footer /> component', () => {
   beforeAll(() => {
-    window.__VERDACCIO_BASENAME_UI_OPTIONS.version = 'v.1.0.0';
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.version = 'v1.0.0';
   });
 
   afterAll(() => {
