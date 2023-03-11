@@ -5,7 +5,7 @@ title: 'Logger'
 
 :::info
 
-Since v5.22.0 the logger property is renamed from `log` to `logs`, but still compatible with v6 but not recommended to use, could be removed any time.
+Since v5.22.0 the logger property is renamed from `logs` to `log`, but still compatible with v6 but not recommended to use, could be removed any time.
 
 :::
 

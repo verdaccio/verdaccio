@@ -289,7 +289,7 @@ notify:
 
 :::warning
 
-Since v5.22.0 the logger property is renamed to `log` but `logs` still compatible but displaying a warning
+Since v5.22.0 the logger property is renamed to `logs` but `log` still compatible but displaying a warning
 
 :::
 
