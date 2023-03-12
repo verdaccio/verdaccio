@@ -1,5 +1,12 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.36
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.66
+- @verdaccio/logger@6.0.0-6-next.34
+
 ## 6.0.0-6-next.35
 
 ### Patch Changes

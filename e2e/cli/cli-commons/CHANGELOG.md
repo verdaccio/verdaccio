@@ -1,5 +1,11 @@
 # @verdaccio/test-cli-commons
 
+## 1.1.0-6-next.7
+
+### Patch Changes
+
+- c383eb68: fix: get-port missing dep
+
 ## 1.1.0-6-next.6
 
 ### Minor Changes

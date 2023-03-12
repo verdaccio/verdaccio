@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.24
+
+### Patch Changes
+
+- 7ef599cc: fix: missing version on footer
+
 ## 11.0.0-6-next.23
 
 ### Minor Changes
