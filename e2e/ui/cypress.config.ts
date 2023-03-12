@@ -1,4 +1,5 @@
 import { defineConfig } from 'cypress';
+import getPort from 'get-port';
 import { join } from 'path';
 import { Registry, ServerQuery } from 'verdaccio';
 
@@ -17,9 +18,11 @@ export default defineConfig({
           ...configProtected,
           storage: registry1storage,
         });
+        const port = await getPort();
         registry1 = new Registry(protectedRegistry.configPath, {
           createUser: true,
           credentials: { user: 'test', password: 'test' },
+          port,
         });
         await registry1.init();
       });
