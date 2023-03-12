@@ -1,3 +1,5 @@
+import getPort from 'get-port';
+
 import { ConfigBuilder } from '@verdaccio/config';
 import { HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
 
@@ -43,7 +45,8 @@ describe('multiple proxy registries configuration', () => {
       .addUplink('npmjs', { url: 'https://registry.npmjs.com' });
 
     const confRegistry = await Registry.fromConfigToPath(configuration.getConfig());
-    registry = new Registry(confRegistry.configPath);
+    const port = await getPort({ port: 3001 });
+    registry = new Registry(confRegistry.configPath, { port });
     await registry.init();
 
     // server 3 configuration
@@ -67,7 +70,8 @@ describe('multiple proxy registries configuration', () => {
       .addLogger({ level: 'debug', type: 'stdout', format: 'pretty' })
       .addUplink('npmjs', { url: 'https://registry.npmjs.com' });
     const confRegistry3 = await Registry.fromConfigToPath(configuration3.getConfig());
-    registry3 = new Registry(confRegistry3.configPath);
+    const port3 = await getPort({ port: 3002 });
+    registry3 = new Registry(confRegistry3.configPath, { port: port3 });
     await registry3.init();
 
     // server 2 configuration
@@ -107,7 +111,8 @@ describe('multiple proxy registries configuration', () => {
       .addUplink('no-retry', { url: `http://no-retry.local`, max_fails: 0 })
       .addUplink('timeout', { url: `http://timeout.local`, max_fails: 0, timeout: '1s' });
     const confRegistry2 = await Registry.fromConfigToPath(configuration2.getConfig());
-    registry2 = new Registry(confRegistry2.configPath);
+    const port2 = await getPort({ port: 3004 });
+    registry2 = new Registry(confRegistry2.configPath, { port: port2 });
     await registry2.init();
   });
 

@@ -1,5 +1,6 @@
 /* eslint-disable prefer-promise-reject-errors */
 import buildDebug from 'debug';
+import getPort from 'get-port';
 import { merge } from 'lodash';
 import { Registry } from 'verdaccio';
 
@@ -35,6 +36,7 @@ export async function initialSetup(customConfig?: ConfigYaml): Promise<Setup> {
   const { configPath, tempFolder } = await getConfigPath(config);
   debug(`configPath %o`, configPath);
   debug(`tempFolder %o`, tempFolder);
-  const registry = new Registry(configPath, { createUser: true });
+  const port = await getPort();
+  const registry = new Registry(configPath, { createUser: true, port });
   return { registry, tempFolder };
 }

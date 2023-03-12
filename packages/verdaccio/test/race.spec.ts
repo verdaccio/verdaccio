@@ -1,3 +1,5 @@
+import getPort from 'get-port';
+
 import { ConfigBuilder } from '@verdaccio/config';
 import { constants, fileUtils } from '@verdaccio/core';
 
@@ -25,7 +27,8 @@ describe('race publishing packages', () => {
       .addLogger({ level: 'debug', type: 'stdout', format: 'pretty' })
       .addUplink('upstream', { url: 'https://registry.verdaccio.org' });
     const { configPath } = await Registry.fromConfigToPath(configuration.getConfig());
-    registry = new Registry(configPath);
+    const port = await getPort();
+    registry = new Registry(configPath, { port });
     await registry.init();
   });
 

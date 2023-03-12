@@ -1,3 +1,4 @@
+import getPort from 'get-port';
 import nock from 'nock';
 import path from 'path';
 
@@ -9,7 +10,8 @@ const configFile = path.join(__dirname, './config.yaml');
 
 describe('server query', () => {
   test('server run', async () => {
-    const registry = new Registry(configFile);
+    const port = await getPort({ port: 4001 });
+    const registry = new Registry(configFile, { port });
     const vPath = path.join(__dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
@@ -20,7 +22,8 @@ describe('server query', () => {
   });
 
   test('server create user', async () => {
-    const registry = new Registry(configFile, { createUser: true });
+    const port = await getPort({ port: 4002 });
+    const registry = new Registry(configFile, { createUser: true, port });
     const vPath = path.join(__dirname, '../bin/verdaccio');
     const d = await registry.init(vPath);
     expect(d.pid).toBeDefined();
