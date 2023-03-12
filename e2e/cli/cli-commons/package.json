@@ -1,20 +1,20 @@
 {
   "private": true,
   "name": "@verdaccio/test-cli-commons",
-  "version": "1.1.0-6-next.6",
+  "version": "1.1.0-6-next.7",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.65",
-    "@verdaccio/core": "workspace:6.0.0-6-next.65",
-    "@verdaccio/types": "workspace:11.0.0-6-next.23",
+    "@verdaccio/config": "workspace:6.0.0-6-next.66",
+    "@verdaccio/core": "workspace:6.0.0-6-next.66",
+    "@verdaccio/types": "workspace:11.0.0-6-next.24",
     "debug": "4.3.4",
     "fs-extra": "10.1.0",
     "got": "11.8.6",
     "js-yaml": "4.1.0",
     "get-port": "5.1.1",
     "lodash": "4.17.21",
-    "verdaccio": "workspace:6.0.0-6-next.65"
+    "verdaccio": "workspace:6.0.0-6-next.66"
   },
   "scripts": {
     "test": "jest",

@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.7
+
+### Patch Changes
+
+- 7ef599cc: fix: missing version on footer
+- Updated dependencies [7ef599cc]
+  - @verdaccio/types@11.0.0-6-next.24
+
 ## 2.0.0-6-next.6
 
 ### Minor Changes

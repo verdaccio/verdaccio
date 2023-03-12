@@ -1,5 +1,12 @@
 # @verdaccio/e2e-cli-npm7
 
+## 1.0.1-6-next.7
+
+### Patch Changes
+
+- Updated dependencies [c383eb68]
+  - @verdaccio/test-cli-commons@1.1.0-6-next.7
+
 ## 1.0.1-6-next.6
 
 ### Patch Changes

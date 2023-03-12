@@ -1,5 +1,19 @@
 # verdaccio
 
+## 6.0.0-6-next.66
+
+### Patch Changes
+
+- c383eb68: fix: get-port missing dep
+  - @verdaccio/hooks@6.0.0-6-next.36
+  - @verdaccio/logger@6.0.0-6-next.34
+  - @verdaccio/node-api@6.0.0-6-next.66
+  - verdaccio-audit@11.0.0-6-next.29
+  - verdaccio-htpasswd@11.0.0-6-next.36
+  - @verdaccio/ui-theme@6.0.0-6-next.66
+  - @verdaccio/cli@6.0.0-6-next.66
+  - @verdaccio/utils@6.0.0-6-next.34
+
 ## 6.0.0-6-next.65
 
 ### Patch Changes

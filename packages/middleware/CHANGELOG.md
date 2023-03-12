@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.45
+
+### Patch Changes
+
+- 7ef599cc: fix: missing version on footer
+  - @verdaccio/core@6.0.0-6-next.66
+  - @verdaccio/url@11.0.0-6-next.32
+  - @verdaccio/config@6.0.0-6-next.66
+  - @verdaccio/utils@6.0.0-6-next.34
+
 ## 6.0.0-6-next.44
 
 ### Patch Changes

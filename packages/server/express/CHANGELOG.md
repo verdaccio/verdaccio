@@ -1,5 +1,23 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.55
+
+### Patch Changes
+
+- 7ef599cc: fix: missing version on footer
+- Updated dependencies [7ef599cc]
+  - @verdaccio/middleware@6.0.0-6-next.45
+  - @verdaccio/api@6.0.0-6-next.49
+  - @verdaccio/auth@6.0.0-6-next.45
+  - @verdaccio/core@6.0.0-6-next.66
+  - @verdaccio/loaders@6.0.0-6-next.35
+  - @verdaccio/logger@6.0.0-6-next.34
+  - verdaccio-audit@11.0.0-6-next.29
+  - @verdaccio/store@6.0.0-6-next.46
+  - @verdaccio/web@6.0.0-6-next.53
+  - @verdaccio/config@6.0.0-6-next.66
+  - @verdaccio/utils@6.0.0-6-next.34
+
 ## 6.0.0-6-next.54
 
 ### Patch Changes
