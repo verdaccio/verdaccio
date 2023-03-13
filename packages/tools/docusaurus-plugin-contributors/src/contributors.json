@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5024,
+      "contributions": 5030,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2722
+          "contributions": 2728
         },
         {
           "name": "verdaccio-cookbook",
@@ -2223,6 +2223,17 @@
     {
       "id": 6181,
       "login": "btucker",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 47446,
+      "login": "bwalding",
       "contributions": 1,
       "repositories": [
         {
@@ -4780,7 +4791,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14485,
+      "stargazers_count": 14502,
       "archived": false
     },
     {
@@ -4807,7 +4818,7 @@
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
       "description": " 🧩 yeoman verdaccio plugin generator",
-      "stargazers_count": 12,
+      "stargazers_count": 11,
       "archived": false
     },
     {
