@@ -23,6 +23,7 @@ import {
 } from './constants';
 import { logger } from './logger';
 import { ErrorCode, isObject, isObjectOrArray, parseInterval } from './utils';
+import fs from "fs";
 
 const debug = buildDebug('verdaccio:proxy');
 
@@ -328,6 +329,12 @@ class ProxyStorage implements IProxy {
       } else {
         this.logger.error(ERROR_CODE.token_required);
         this._throwErrorAuth(ERROR_CODE.token_required);
+      }
+    } else if (_.isNil(tokenConf.file) === false) {
+      try {
+        token = fs.readFileSync(tokenConf.file, { encoding: 'utf8' });
+      } catch (err) {
+        this._throwErrorAuth(ERROR_CODE.token_file_not_found);
       }
     } else {
       token = process.env.NPM_TOKEN;

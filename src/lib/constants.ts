@@ -29,6 +29,7 @@ export const csrPem = 'verdaccio-csr.pem';
 
 export const ERROR_CODE = {
   token_required: 'token is required',
+  token_file_not_found: 'token file not found',
 };
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
 export const DEFAULT_UPLINK = 'npmjs';
