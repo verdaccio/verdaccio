@@ -3,13 +3,12 @@ import { NextFunction } from 'express';
 import _ from 'lodash';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import { VerdaccioError, pluginUtils } from '@verdaccio/core';
 import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
 import {
   AllowAccess,
-  AuthPluginPackage,
   Callback,
   Config,
-  IPluginAuth,
   JWTSignOptions,
   Logger,
   PackageAccess,
@@ -19,7 +18,7 @@ import {
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import loadPlugin from '../lib/plugin-loader';
-import { $RequestExtend, $ResponseExtend, AESPayload, IAuth } from '../types';
+import { $RequestExtend, $ResponseExtend, AESPayload } from '../types';
 import {
   getDefaultPlugins,
   getMiddlewareCredentials,
@@ -36,11 +35,11 @@ import { ErrorCode, convertPayloadToBase64 } from './utils';
 
 const debug = buildDebug('verdaccio:auth');
 
-class Auth implements IAuth {
+class Auth {
   public config: Config;
   public logger: Logger;
-  public secret: string; // pragma: allowlist secret
-  public plugins: IPluginAuth<Config>[];
+  public secret: string;
+  public plugins: pluginUtils.Auth<Config>[];
 
   public constructor(config: Config) {
     this.config = config;
@@ -50,17 +49,17 @@ class Auth implements IAuth {
     this._applyDefaultPlugins();
   }
 
-  private _loadPlugin(config: Config): IPluginAuth<Config>[] {
+  private _loadPlugin(config: Config): pluginUtils.Auth<Config>[] {
     const pluginOptions = {
       config,
       logger: this.logger,
     };
 
-    return loadPlugin<IPluginAuth<Config>>(
+    return loadPlugin<pluginUtils.Auth<Config>>(
       config,
       config.auth,
       pluginOptions,
-      (plugin: IPluginAuth<Config>): boolean => {
+      (plugin: pluginUtils.Auth<Config>): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
         // @ts-ignore
         return authenticate || allow_access || allow_publish;
@@ -110,7 +109,7 @@ class Auth implements IAuth {
     const plugins = this.plugins.slice(0);
     const self = this;
     (function next(): void {
-      const plugin = plugins.shift() as IPluginAuth<Config>;
+      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
       if (_.isFunction(plugin.authenticate) === false) {
         return next();
       }
@@ -153,7 +152,7 @@ class Auth implements IAuth {
     const plugins = this.plugins.slice(0);
     debug('add user %o', user);
     (function next(): void {
-      const plugin = plugins.shift() as IPluginAuth<Config>;
+      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
       let method = 'adduser';
       if (_.isFunction(plugin[method]) === false) {
         method = 'add_user';
@@ -188,7 +187,7 @@ class Auth implements IAuth {
    * Allow user to access a package.
    */
   public allow_access(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {
@@ -203,13 +202,13 @@ class Auth implements IAuth {
     debug('allow access for %o', packageName);
 
     (function next(): void {
-      const plugin: IPluginAuth<Config> = plugins.shift() as IPluginAuth<Config>;
+      const plugin: pluginUtils.Auth<unknown> = plugins.shift() as pluginUtils.Auth<Config>;
 
       if (_.isNil(plugin) || _.isFunction(plugin.allow_access) === false) {
         return next();
       }
 
-      plugin.allow_access!(user, pkg, function (err, ok: boolean): void {
+      plugin.allow_access!(user, pkg, function (err: VerdaccioError | null, ok?: boolean): void {
         if (err) {
           self.logger.error(
             { packageName, err },
@@ -229,7 +228,7 @@ class Auth implements IAuth {
   }
 
   public allow_unpublish(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {
@@ -243,6 +242,7 @@ class Auth implements IAuth {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
+        // @ts-ignore
         plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
           if (err) {
             this.logger.error(
@@ -275,7 +275,7 @@ class Auth implements IAuth {
    * Allow user to publish a package.
    */
   public allow_publish(
-    { packageName, packageVersion }: AuthPluginPackage,
+    { packageName, packageVersion }: pluginUtils.AuthPluginPackage,
     user: RemoteUser,
     callback: Callback
   ): void {
@@ -317,7 +317,7 @@ class Auth implements IAuth {
     })();
   }
 
-  public apiJWTmiddleware(): Function {
+  public apiJWTmiddleware() {
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {

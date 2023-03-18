@@ -2,12 +2,12 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
 import { aesDecryptDeprecated as aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import {
   APITokenOptions,
   Callback,
   Config,
-  IPluginAuth,
   JWTOptions,
   Package,
   RemoteUser,
@@ -79,7 +79,7 @@ export function handleSpecialUnpublish(): any {
   };
 }
 
-export function getDefaultPlugins(logger: any): IPluginAuth<Config> {
+export function getDefaultPlugins(logger: any): pluginUtils.Auth<Config> {
   return {
     authenticate(_user: string, _password: string, cb: Callback): void {
       // pragma: allowlist secret

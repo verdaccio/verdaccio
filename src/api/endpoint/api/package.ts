@@ -5,16 +5,12 @@ import { allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
+import Auth from '../../../lib/auth';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
+import Storage from '../../../lib/storage';
 import { ErrorCode, getVersion } from '../../../lib/utils';
-import {
-  $NextFunctionVer,
-  $RequestExtend,
-  $ResponseExtend,
-  IAuth,
-  IStorageHandler,
-} from '../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 import { getByQualityPriorityValue } from '../../../utils/string';
 
 const downloadStream = (
@@ -66,12 +62,7 @@ const redirectOrDownloadStream = (
     });
 };
 
-export default function (
-  route: Router,
-  auth: IAuth,
-  storage: IStorageHandler,
-  config: Config
-): void {
+export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
   const can = allow(auth, {
     beforeAll: (params, message) => logger.trace(params, message),
     afterAll: (params, message) => logger.trace(params, message),

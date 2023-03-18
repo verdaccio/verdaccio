@@ -10,8 +10,8 @@ import {
 } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
-import { IStorage } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
+import LocalStorage from './local-storage';
 import Search from './search';
 import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
 
@@ -128,7 +128,7 @@ export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Packa
  * @param {*} name
  * @param {*} localStorage
  */
-export function checkPackageLocal(name: string, localStorage: IStorage): Promise<void> {
+export function checkPackageLocal(name: string, localStorage: LocalStorage): Promise<void> {
   return new Promise((resolve, reject): void => {
     localStorage.getPackageMetadata(name, (err, results): void => {
       if (!_.isNil(err) && err.status !== HTTP_STATUS.NOT_FOUND) {
@@ -142,7 +142,11 @@ export function checkPackageLocal(name: string, localStorage: IStorage): Promise
   });
 }
 
-export function publishPackage(name: string, metadata: any, localStorage: IStorage): Promise<void> {
+export function publishPackage(
+  name: string,
+  metadata: any,
+  localStorage: LocalStorage
+): Promise<void> {
   return new Promise((resolve, reject): void => {
     localStorage.addPackage(name, metadata, (err, latest): void => {
       if (!_.isNull(err)) {

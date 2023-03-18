@@ -1,4 +1,7 @@
 /// <reference types="@verdaccio/types" />
+import { ReadStream, WriteStream } from 'fs';
+
+import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import { Logger, RemoteUser } from '@verdaccio/types';
 
 declare global {
@@ -10,7 +13,4 @@ declare global {
   }
 }
 
-declare module '@verdaccio/types' {
-  export type PackageAccessYaml = any;
-  export type FlagsConfig = any;
-}
+export interface StoragePluginLegacy<T> extends pluginUtils.Storage<T> {}

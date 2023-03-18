@@ -100,7 +100,7 @@
     "@typescript-eslint/eslint-plugin": "5.49.0",
     "@typescript-eslint/parser": "5.49.0",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
-    "@verdaccio/types": "10.7.1",
+    "@verdaccio/types": "11.0.0-6-next.24",
     "babel-eslint": "10.1.0",
     "babel-jest": "29.4.1",
     "babel-plugin-dynamic-import-node": "2.3.3",
@@ -188,7 +188,7 @@
   },
   "packageManager": "yarn@3.3.1",
   "dependenciesMeta": {
-    "@verdaccio/logger-7@6.0.0-6-next.7": {
+    "@verdaccio/types@11.0.0-6-next.24": {
       "unplugged": true
     }
   }

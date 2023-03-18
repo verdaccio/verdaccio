@@ -9,8 +9,10 @@ import {
 import { Config, Package } from '@verdaccio/types';
 import { generateGravatarUrl } from '@verdaccio/utils';
 
+import Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
+import Storage from '../../../lib/storage';
 import {
   ErrorCode,
   addGravatarSupport,
@@ -21,14 +23,7 @@ import {
   parseReadme,
   sortByName,
 } from '../../../lib/utils';
-import {
-  $NextFunctionVer,
-  $RequestExtend,
-  $ResponseExtend,
-  $SidebarPackage,
-  IAuth,
-  IStorageHandler,
-} from '../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage } from '../../../types';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
@@ -36,7 +31,7 @@ const getOrder = (order = 'asc') => {
 
 export type PackcageExt = Package & { author: any; dist?: { tarball: string } };
 
-function addPackageWebApi(storage: IStorageHandler, auth: IAuth, config: Config): Router {
+function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
   const can = allow(auth, {
     beforeAll: (params, message) => {
       logger.debug(params, message);

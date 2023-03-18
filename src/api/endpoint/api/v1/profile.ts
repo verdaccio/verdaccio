@@ -2,11 +2,13 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { rateLimit } from '@verdaccio/middleware';
+import { ConfigYaml } from '@verdaccio/types';
 
+import Auth from '../../../../lib/auth';
 import { validatePassword } from '../../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, IAuth } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend } from '../../../../types';
 
 export interface Profile {
   tfa: boolean;
@@ -19,7 +21,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (auth: IAuth, config): Router {
+export default function (auth: Auth, config: ConfigYaml): Router {
   const profileRoute = Router(); /* eslint new-cap: 0 */
   function buildProfile(name: string): Profile {
     return {

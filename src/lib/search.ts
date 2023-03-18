@@ -3,7 +3,9 @@ import lunrMutable from 'lunr-mutable-indexes';
 
 import { Version } from '@verdaccio/types';
 
-import { IStorage, IStorageHandler, IWebSearch } from '../types';
+import { IWebSearch } from '../types';
+import LocalStorage from './local-storage';
+import Storage from './storage';
 
 /**
  * Handle the search Indexer.
@@ -11,7 +13,7 @@ import { IStorage, IStorageHandler, IWebSearch } from '../types';
 class Search implements IWebSearch {
   public index: lunrMutable.index;
   // @ts-ignore
-  public storage: IStorageHandler;
+  public storage: Storage;
 
   /**
    * Constructor.
@@ -43,7 +45,7 @@ class Search implements IWebSearch {
    * @return {Array} list of results.
    */
   public query(query: string): any[] {
-    const localStorage = this.storage.localStorage as IStorage;
+    const localStorage = this.storage.localStorage as LocalStorage;
 
     const hasScope = query.startsWith('@');
     // FIXME: lunr-mutable-indexes ignored '@' during indexing
@@ -106,7 +108,7 @@ class Search implements IWebSearch {
    * Set up the {Storage}
    * @param {*} storage An storage reference.
    */
-  public configureStorage(storage: IStorageHandler): void {
+  public configureStorage(storage: Storage): void {
     this.storage = storage;
     this.reindex();
   }

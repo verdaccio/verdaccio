@@ -5,11 +5,12 @@ import _ from 'lodash';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../types';
+import Storage from '../../../lib/storage';
+import { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 const debug = buildDebug('verdaccio:star');
 export default function (
-  storage: IStorageHandler
+  storage: Storage
 ): (req: $RequestExtend, res: Response, next: $NextFunctionVer) => void {
   const validateInputs = (newUsers, localUsers, username, isStar): boolean => {
     const isExistlocalUsers = _.isNil(localUsers[username]) === false;

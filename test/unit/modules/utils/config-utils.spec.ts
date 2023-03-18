@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import path from 'path';
 
-import { hasProxyTo, normalisePackageAccess } from '../../../../src/lib/config-utils';
+import { normalisePackageAccess } from '@verdaccio/config';
+
+import { hasProxyTo } from '../../../../src/lib/config-utils';
 import { parseConfigFile } from '../../../../src/lib/utils';
 
 describe('Config Utilities', () => {

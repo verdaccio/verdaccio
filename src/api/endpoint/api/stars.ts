@@ -5,9 +5,10 @@ import { errorUtils } from '@verdaccio/core';
 import { Manifest, Version } from '@verdaccio/types';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
-import { $NextFunctionVer, $RequestExtend, IStorageHandler } from '../../../types';
+import Storage from '../../../lib/storage';
+import { $NextFunctionVer, $RequestExtend } from '../../../types';
 
-export default function (route: Router, storage: IStorageHandler): void {
+export default function (route: Router, storage: Storage): void {
   route.get(
     '/-/_view/starredByUser',
     (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {

@@ -3105,10 +3105,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/types@npm:10.7.1":
-  version: 10.7.1
-  resolution: "@verdaccio/types@npm:10.7.1"
-  checksum: 086ef79ef1cff075b1a3444c048ca11694b53b3fc9b69000e496b9c5c3dceb32f4016c939125a7fbb5eaa72797acf9ec8edfe09f8d480e0cf6ee046c5dd7ce36
+"@verdaccio/types@npm:11.0.0-6-next.24":
+  version: 11.0.0-6-next.24
+  resolution: "@verdaccio/types@npm:11.0.0-6-next.24"
+  checksum: f0ceb38504fedfda2cb8f8b97e0aa259e7caa849eb2fcadbd53fab6346ccfbd7f64381acd36d0b7bbfcfb0596355af9c43e74a0f52c4e9a3af3ce63dcddf44f7
   languageName: node
   linkType: hard
 
@@ -10687,7 +10687,7 @@ __metadata:
     "@verdaccio/signature": 6.0.0-6-next.2
     "@verdaccio/streams": 10.2.0
     "@verdaccio/tarball": 11.0.0-6-next.35
-    "@verdaccio/types": 10.7.1
+    "@verdaccio/types": 11.0.0-6-next.24
     "@verdaccio/ui-theme": 6.0.0-6-next.66
     "@verdaccio/url": 11.0.0-6-next.32
     "@verdaccio/utils": 6.0.0-6-next.34
@@ -10754,6 +10754,8 @@ __metadata:
     verdaccio-memory: 10.3.0
   dependenciesMeta:
     "@verdaccio/logger-7@6.0.0-6-next.7":
+      unplugged: true
+    "@verdaccio/types@11.0.0-6-next.24":
       unplugged: true
   bin:
     verdaccio: ./bin/verdaccio

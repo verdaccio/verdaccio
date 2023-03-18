@@ -3,12 +3,13 @@ import _ from 'lodash';
 
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
+import Auth from '../../../lib/auth';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
-import { $NextFunctionVer, IAuth } from '../../../types';
+import { $NextFunctionVer } from '../../../types';
 
-function addUserAuthApi(auth: IAuth, config: Config): Router {
+function addUserAuthApi(auth: Auth, config: Config): Router {
   const route = Router(); /* eslint new-cap: 0 */
   route.post('/login', function (req: Request, res: Response, next: $NextFunctionVer): void {
     const { username, password } = req.body;
