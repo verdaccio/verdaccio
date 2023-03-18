@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.67
+
+### Minor Changes
+
+- 16e38df8: feat: trustProxy property
+
 ## 6.0.0-6-next.66
 
 ## 6.0.0-6-next.65

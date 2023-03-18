@@ -1,5 +1,25 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.47
+
+### Minor Changes
+
+- 16e38df8: feat: trustProxy property
+
+### Patch Changes
+
+- Updated dependencies [16e38df8]
+  - @verdaccio/config@6.0.0-6-next.67
+  - @verdaccio/core@6.0.0-6-next.67
+  - @verdaccio/hooks@6.0.0-6-next.37
+  - @verdaccio/loaders@6.0.0-6-next.36
+  - @verdaccio/local-storage@11.0.0-6-next.37
+  - @verdaccio/proxy@6.0.0-6-next.45
+  - @verdaccio/tarball@11.0.0-6-next.36
+  - @verdaccio/url@11.0.0-6-next.33
+  - @verdaccio/utils@6.0.0-6-next.35
+  - @verdaccio/logger@6.0.0-6-next.35
+
 ## 6.0.0-6-next.46
 
 ### Patch Changes

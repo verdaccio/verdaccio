@@ -1,5 +1,11 @@
 # Change Log
 
+## 11.0.0-6-next.25
+
+### Minor Changes
+
+- 16e38df8: feat: trustProxy property
+
 ## 11.0.0-6-next.24
 
 ### Patch Changes

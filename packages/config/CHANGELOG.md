@@ -1,5 +1,17 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.67
+
+### Minor Changes
+
+- 16e38df8: feat: trustProxy property
+
+### Patch Changes
+
+- Updated dependencies [16e38df8]
+  - @verdaccio/core@6.0.0-6-next.67
+  - @verdaccio/utils@6.0.0-6-next.35
+
 ## 6.0.0-6-next.66
 
 ### Patch Changes

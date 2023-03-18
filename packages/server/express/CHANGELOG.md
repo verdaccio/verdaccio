@@ -1,5 +1,26 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.56
+
+### Minor Changes
+
+- 16e38df8: feat: trustProxy property
+
+### Patch Changes
+
+- Updated dependencies [16e38df8]
+  - @verdaccio/config@6.0.0-6-next.67
+  - @verdaccio/core@6.0.0-6-next.67
+  - @verdaccio/store@6.0.0-6-next.47
+  - @verdaccio/api@6.0.0-6-next.50
+  - @verdaccio/auth@6.0.0-6-next.46
+  - @verdaccio/loaders@6.0.0-6-next.36
+  - @verdaccio/middleware@6.0.0-6-next.46
+  - verdaccio-audit@11.0.0-6-next.30
+  - @verdaccio/web@6.0.0-6-next.54
+  - @verdaccio/utils@6.0.0-6-next.35
+  - @verdaccio/logger@6.0.0-6-next.35
+
 ## 6.0.0-6-next.55
 
 ### Patch Changes
