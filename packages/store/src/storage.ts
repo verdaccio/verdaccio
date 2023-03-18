@@ -670,8 +670,8 @@ class Storage {
           config: this.config,
           logger: this.logger,
         },
-        (plugin) => {
-          return typeof plugin.filterMetadata !== 'undefined';
+        (plugin: pluginUtils.ManifestFilter<Config>) => {
+          return typeof plugin.filter_metadata !== 'undefined';
         },
         this.config?.serverSettings?.pluginPrefix
       );
@@ -1786,7 +1786,7 @@ class Storage {
       // and return it directly for
       // performance (i.e. need not be pure)
       try {
-        filteredManifest = await filter.filterMetadata(manifest);
+        filteredManifest = await filter.filter_metadata(manifest);
       } catch (err: any) {
         this.logger.error({ err: err.message }, 'filter has failed @{err}');
         filterPluginErrors.push(err);

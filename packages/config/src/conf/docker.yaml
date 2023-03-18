@@ -112,6 +112,9 @@ server:
   # A regex for the password validation /.{3}$/ (3 characters min)
   # An example to limit to 10 characters minimum
   # passwordValidationRegex: /.{10}$/
+  # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
+  # See: https://expressjs.com/en/guide/behind-proxies.html
+  # trustProxy: '127.0.0.1'
 
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:

@@ -30,14 +30,14 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "build/types.d.ts",
-  "types": "build/types.d.ts",
+  "main": "src/types.ts",
+  "types": "src/types.ts",
   "scripts": {
     "clean": "rimraf ./build",
     "test": "pnpm type-check",
     "build:docs": "typedoc --options ./typedoc.json --tsconfig tsconfig.build.json",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build": "tsc --emitDeclarationOnly -p tsconfig.build.json"
+    "build": "echo 0"
   },
   "devDependencies": {
     "@types/node": "16.18.10",

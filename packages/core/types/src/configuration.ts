@@ -226,6 +226,8 @@ export type ServerSettingsConf = {
    */
   pluginPrefix?: string;
   passwordValidationRegex?: RegExp;
+  // docs on `trustProxy` can be found at: https://expressjs.com/en/guide/behind-proxies.html
+  trustProxy?: string;
 };
 
 /**
