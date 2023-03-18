@@ -6,7 +6,7 @@ import https from 'https';
 import _, { assign } from 'lodash';
 import path from 'path';
 
-import { ConfigRuntime, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { Config, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses } from './cli/utils';
@@ -85,7 +85,7 @@ export async function runServer(config?: string): Promise<any> {
  * @param addr
  * @param app
  */
-export function createServerFactory(config: ConfigRuntime, addr, app) {
+export function createServerFactory(config: Config, addr, app) {
   let serverFactory;
   if (addr.proto === 'https') {
     debug('https enabled');

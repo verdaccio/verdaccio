@@ -3,10 +3,11 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
-import { getUserAgent } from '@verdaccio/config';
+import { Config, getUserAgent } from '@verdaccio/config';
+import { pluginUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
-import { Config as IConfig, IPluginMiddleware, IPluginStorageFilter } from '@verdaccio/types';
+import { Config as IConfig } from '@verdaccio/types';
 
 import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
@@ -15,13 +16,7 @@ import { logger, setup } from '../lib/logger';
 import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
-import {
-  $NextFunctionVer,
-  $RequestExtend,
-  $ResponseExtend,
-  IAuth,
-  IStorageHandler,
-} from '../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
@@ -45,8 +40,8 @@ export function loadTheme(config) {
   }
 }
 
-const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
-  const auth: IAuth = new Auth(config);
+const defineAPI = function (config: IConfig, storage: Storage): any {
+  const auth = new Auth(config);
   const app: Application = express();
 
   // run in production mode by default, just in case
@@ -65,7 +60,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
   app.use(log(logger));
   app.use(errorReportingMiddleware);
   if (config.user_agent) {
-    app.use(function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
+    app.use(function (_req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       res.setHeader('X-Powered-By', getUserAgent(config.user_agent));
       next();
     });
@@ -79,7 +74,7 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
 
   // Hook for tests only
   if (config._debug) {
-    hookDebug(app, config.self_path);
+    hookDebug(app, config.configPath);
   }
 
   // register middleware plugins
@@ -88,15 +83,16 @@ const defineAPI = function (config: IConfig, storage: IStorageHandler): any {
     logger: logger,
   };
 
-  const plugins: IPluginMiddleware<IConfig>[] = loadPlugin(
+  const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
     config,
     config.middlewares,
     plugin_params,
-    function (plugin: IPluginMiddleware<IConfig>) {
+    function (plugin: pluginUtils.ManifestFilter<IConfig>) {
+      // @ts-expect-error
       return plugin.register_middlewares;
     }
   );
-  plugins.forEach((plugin: IPluginMiddleware<IConfig>) => {
+  plugins.forEach((plugin: any) => {
     plugin.register_middlewares(app, auth, storage);
   });
 
@@ -138,9 +134,10 @@ export default (async function (configHash: any): Promise<any> {
     config,
     config.filters || {},
     plugin_params,
-    (plugin: IPluginStorageFilter<IConfig>) => plugin.filter_metadata
+    // @ts-ignore
+    (plugin: pluginUtils.ManifestFilter<IConfig>) => plugin.filter_metadata
   );
-  const storage: IStorageHandler = new Storage(config);
+  const storage = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config, filters);
   return defineAPI(config, storage);

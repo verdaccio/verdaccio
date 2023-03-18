@@ -1,18 +1,17 @@
 import { Config, Versions } from '@verdaccio/types';
 
-import { IProxy, ProxyList } from '../types';
 import ProxyStorage from './up-storage';
 
 /**
  * Set up the Up Storage for each link.
  */
-export function setupUpLinks(config: Config): ProxyList {
-  const uplinks: ProxyList = {};
+export function setupUpLinks(config: Config): Record<string, ProxyStorage> {
+  const uplinks = {};
 
   for (const uplinkName in config.uplinks) {
     if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
       // instance for each up-link definition
-      const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config);
+      const proxy = new ProxyStorage(config.uplinks[uplinkName], config);
       proxy.upname = uplinkName;
 
       uplinks[uplinkName] = proxy;
@@ -22,7 +21,7 @@ export function setupUpLinks(config: Config): ProxyList {
   return uplinks;
 }
 
-export function updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void {
+export function updateVersionsHiddenUpLink(versions: Versions, upLink): void {
   for (const i in versions) {
     if (Object.prototype.hasOwnProperty.call(versions, i)) {
       const version = versions[i];

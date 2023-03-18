@@ -6,11 +6,13 @@ import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { stringToMD5 } from '@verdaccio/utils';
 
+import Auth from '../../../../lib/auth';
 import { getApiToken } from '../../../../lib/auth-utils';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
+import Storage from '../../../../lib/storage';
 import { ErrorCode, mask } from '../../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, IAuth, IStorageHandler } from '../../../../types';
+import { $NextFunctionVer, $RequestExtend } from '../../../../types';
 
 const debug = buildDebug('verdaccio:token');
 export type NormalizeToken = Token & {
@@ -25,7 +27,7 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (auth: IAuth, storage: IStorageHandler, config: Config): Router {
+export default function (auth: Auth, storage: Storage, config: Config): Router {
   const tokenRoute = Router(); /* eslint new-cap: 0 */
   tokenRoute.get(
     '/tokens',

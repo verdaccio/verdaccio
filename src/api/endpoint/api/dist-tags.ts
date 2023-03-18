@@ -5,17 +5,13 @@ import mime from 'mime';
 import { allow, media } from '@verdaccio/middleware';
 import { Package } from '@verdaccio/types';
 
+import Auth from '../../../lib/auth';
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import {
-  $NextFunctionVer,
-  $RequestExtend,
-  $ResponseExtend,
-  IAuth,
-  IStorageHandler,
-} from '../../../types';
+import Storage from '../../../lib/storage';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
-export default function (route: Router, auth: IAuth, storage: IStorageHandler): void {
+export default function (route: Router, auth: Auth, storage: Storage): void {
   const can = allow(auth, {
     beforeAll: (params, message) => logger.trace(params, message),
     afterAll: (params, message) => logger.trace(params, message),

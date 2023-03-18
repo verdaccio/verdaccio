@@ -10,7 +10,6 @@ import { logger, setup } from '../../../../src/lib/logger';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
 import { readFile } from '../../../functional/lib/test.utils';
 import { generateNewVersion } from '../../../lib/utils-test';
-import { IStorage } from '../../../types';
 // @ts-ignore
 import configExample from '../../partials/config';
 
@@ -20,7 +19,7 @@ const readMetadata = (fileName = 'metadata') =>
 setup([]);
 
 describe('LocalStorage', () => {
-  let storage: IStorage;
+  let storage: LocalStorage;
   const pkgName = 'npm_test';
   const pkgNameScoped = `@scope/${pkgName}-scope`;
   const tarballName = `${pkgName}-add-tarball-1.0.4.tgz`;

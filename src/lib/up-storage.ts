@@ -7,10 +7,9 @@ import URL, { UrlWithStringQuery } from 'url';
 import zlib from 'zlib';
 
 import { ReadTarball } from '@verdaccio/streams';
-import { Callback, Config, Headers, Logger, Package } from '@verdaccio/types';
+import { Callback, Config, Headers, Logger, Package, UpLinkConf } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 
-import { IProxy, UpLinkConfLocal } from '../types';
 import {
   API_ERROR,
   CHARACTER_ENCODING,
@@ -44,8 +43,8 @@ const setConfig = (config, key, def): string => {
  * Implements Storage interface
  * (same for storage.js, local-storage.js, up-storage.js)
  */
-class ProxyStorage implements IProxy {
-  public config: UpLinkConfLocal;
+class ProxyStorage {
+  public config: UpLinkConf;
   public failed_requests: number;
   public userAgent: string;
   public ca: string | void;
@@ -72,7 +71,7 @@ class ProxyStorage implements IProxy {
    * @param {*} config
    * @param {*} mainConfig
    */
-  public constructor(config: UpLinkConfLocal, mainConfig: Config) {
+  public constructor(config: UpLinkConf, mainConfig: Config) {
     this.config = config;
     this.failed_requests = 0;
     // @ts-ignore
@@ -140,7 +139,7 @@ class ProxyStorage implements IProxy {
     const headers: Headers = this._setHeaders(options);
 
     this._addProxyHeaders(options.req, headers);
-    this._overrideWithUpLinkConfLocaligHeaders(headers);
+    this._overrideWithUpLinkConfigHeaders(headers);
 
     const method = options.method || 'GET';
     const uri = options.uri_full || this.config.url + options.uri;
@@ -391,7 +390,7 @@ class ProxyStorage implements IProxy {
    * @param {Object} headers
    * @private
    */
-  private _overrideWithUpLinkConfLocaligHeaders(headers: Headers): any {
+  private _overrideWithUpLinkConfigHeaders(headers: Headers): any {
     if (!this.config.headers) {
       return headers;
     }
@@ -468,7 +467,7 @@ class ProxyStorage implements IProxy {
    * @param {String} url
    * @return {Stream}
    */
-  fetchTarball(url: string) {
+  public fetchTarball(url: string) {
     const stream = new ReadTarball({});
     let current_length = 0;
     let expected_length;
@@ -522,7 +521,7 @@ class ProxyStorage implements IProxy {
    * @param {*} options request options
    * @return {Stream}
    */
-  public search(options: any): Stream.Readable {
+  public search(options: any) {
     const transformStream: any = new Stream.PassThrough({ objectMode: true });
     const requestStream: Stream.Readable = this.request({
       uri: options.req.url,
@@ -660,7 +659,7 @@ class ProxyStorage implements IProxy {
    */
   private _setupProxy(
     hostname: string,
-    config: UpLinkConfLocal,
+    config: UpLinkConf,
     mainconfig: Config,
     isHTTPS: boolean
   ): void {

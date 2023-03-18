@@ -3,18 +3,14 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
+import { pluginUtils } from '@verdaccio/core';
 import LocalDatabase from '@verdaccio/local-storage';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
   Callback,
-  CallbackAction,
   Config,
   DistFile,
-  IPackageStorage,
-  IPluginStorage,
-  IReadTarball,
-  IUploadTarball,
   Logger,
   MergeTags,
   Package,
@@ -32,8 +28,9 @@ import {
   validateName,
 } from '@verdaccio/utils';
 
+import { StoragePluginLegacy } from '../../types/custom';
 import loadPlugin from '../lib/plugin-loader';
-import { IStorage, StringValue } from '../types';
+import { StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import {
   cleanUpReadme,
@@ -46,12 +43,13 @@ import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
+type StoragePlugin = StoragePluginLegacy<Config> | any;
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
-class LocalStorage implements IStorage {
+class LocalStorage {
   public config: Config;
-  public storagePlugin: IPluginStorage<Config>;
+  public storagePlugin: StoragePlugin;
   public logger: Logger;
 
   public constructor(config: Config, logger: Logger) {
@@ -108,7 +106,6 @@ class LocalStorage implements IStorage {
       }
 
       data = normalizePackage(data);
-
       this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
@@ -235,7 +232,7 @@ class LocalStorage implements IStorage {
     version: string,
     metadata: Version,
     tag: StringValue,
-    callback: CallbackAction
+    callback: Callback
   ): void {
     this._updatePackage(
       name,
@@ -306,7 +303,7 @@ class LocalStorage implements IStorage {
    * @param {*} tags
    * @param {*} callback
    */
-  public mergeTags(pkgName: string, tags: MergeTags, callback: CallbackAction): void {
+  public mergeTags(pkgName: string, tags: MergeTags, callback: Callback): void {
     this._updatePackage(
       pkgName,
       (data, cb): void => {
@@ -370,7 +367,7 @@ class LocalStorage implements IStorage {
     debug('changePackage udapting package for %o', name);
     this._updatePackage(
       name,
-      (localData: Package, cb: CallbackAction): void => {
+      (localData: Package, cb: Callback): void => {
         for (const version in localData.versions) {
           const incomingVersion = incomingPkg.versions[version];
           if (_.isNil(incomingVersion)) {
@@ -425,12 +422,7 @@ class LocalStorage implements IStorage {
    * @param {*} revision
    * @param {*} callback
    */
-  public removeTarball(
-    name: string,
-    filename: string,
-    revision: string,
-    callback: CallbackAction
-  ): void {
+  public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
     assert(validateName(filename));
 
     this._updatePackage(
@@ -462,12 +454,12 @@ class LocalStorage implements IStorage {
    * @param {String} filename
    * @return {Stream}
    */
-  public addTarball(name: string, filename: string): IUploadTarball {
+  public addTarball(name: string, filename: string) {
     assert(validateName(filename));
 
     let length = 0;
     const shaOneHash = createTarballHash();
-    const uploadStream: IUploadTarball = new UploadTarball({});
+    const uploadStream = new UploadTarball({});
     const _transform = uploadStream._transform;
     const storage = this._getLocalStorage(name);
 
@@ -498,7 +490,7 @@ class LocalStorage implements IStorage {
       return uploadStream;
     }
 
-    const writeStream: IUploadTarball = storage.writeTarball(filename);
+    const writeStream = storage.writeTarball(filename);
 
     writeStream.on('error', (err) => {
       // @ts-ignore
@@ -568,10 +560,10 @@ class LocalStorage implements IStorage {
    * @param {*} filename
    * @return {ReadTarball}
    */
-  public getTarball(name: string, filename: string): IReadTarball {
+  public getTarball(name: string, filename: string) {
     assert(validateName(filename));
 
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
       return this._createFailureStreamResponse();
@@ -585,8 +577,8 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  private _createFailureStreamResponse(): IReadTarball {
-    const stream: IReadTarball = new ReadTarball({});
+  private _createFailureStreamResponse() {
+    const stream = new ReadTarball({});
 
     process.nextTick((): void => {
       stream.emit('error', this._getFileNotAvailable());
@@ -601,8 +593,8 @@ class LocalStorage implements IStorage {
    * @private
    * @return {ReadTarball}
    */
-  private _streamSuccessReadTarBall(storage: any, filename: string): IReadTarball {
-    const stream: IReadTarball = new ReadTarball({});
+  private _streamSuccessReadTarBall(storage: any, filename: string) {
+    const stream = new ReadTarball({});
     const readTarballStream = storage.readTarball(filename);
     const e404 = ErrorCode.getNotFound;
 
@@ -641,7 +633,7 @@ class LocalStorage implements IStorage {
    * @return {Function}
    */
   public getPackageMetadata(name: string, callback: Callback = (): void => {}): void {
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback(ErrorCode.getNotFound());
     }
@@ -655,11 +647,11 @@ class LocalStorage implements IStorage {
    * @param {*} options
    * @return {Function}
    */
-  public search(startKey: string, options: any): IReadTarball {
+  public search(startKey: string, options: any) {
     const stream = new ReadTarball({ objectMode: true });
 
     this._searchEachPackage(
-      (item: Package, cb: CallbackAction): void => {
+      (item: Package, cb: Callback): void => {
         // @ts-ignore
         if (item.time > parseInt(startKey, 10)) {
           this.getPackageMetadata(item.name, (err: any, data: Package): void => {
@@ -696,7 +688,7 @@ class LocalStorage implements IStorage {
    * @param {Object} pkgName package name.
    * @return {Object}
    */
-  private _getLocalStorage(pkgName: string): IPackageStorage {
+  private _getLocalStorage(pkgName: string) {
     return this.storagePlugin.getPackageStorage(pkgName);
   }
 
@@ -786,9 +778,9 @@ class LocalStorage implements IStorage {
   private _updatePackage(
     name: string,
     updateHandler: StorageUpdateCallback,
-    callback: CallbackAction
+    callback: Callback
   ): void {
-    const storage: IPackageStorage = this._getLocalStorage(name);
+    const storage = this._getLocalStorage(name);
 
     if (!storage) {
       return callback(ErrorCode.getNotFound());
@@ -874,34 +866,34 @@ class LocalStorage implements IStorage {
     }
   }
 
-  public async getSecret(config: Config): Promise<void> {
+  public async getSecret(config: Config): Promise<string> {
     const secretKey = await this.storagePlugin.getSecret();
 
     return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
   }
 
-  private _loadStorage(config: Config, logger: Logger): IPluginStorage<Config> {
+  private _loadStorage(config: Config, logger: Logger): StoragePlugin {
     const Storage = this._loadStorePlugin();
 
     if (_.isNil(Storage)) {
-      assert(this.config.storage, 'CONFIG: storage path not defined');
+      assert(this.config.storage, 'CONFIG: storage default path not defined');
       return new LocalDatabase(this.config, logger);
     }
-    return Storage as IPluginStorage<Config>;
+    return Storage as StoragePlugin;
   }
 
-  private _loadStorePlugin(): IPluginStorage<Config> | void {
+  private _loadStorePlugin(): StoragePlugin | void {
     const plugin_params = {
       config: this.config,
       logger: this.logger,
     };
 
     // eslint-disable-next-line max-len
-    const plugins: IPluginStorage<Config>[] = loadPlugin<IPluginStorage<Config>>(
+    const plugins: StoragePlugin[] = loadPlugin<StoragePlugin>(
       this.config,
       this.config.store,
       plugin_params,
-      (plugin): IPluginStorage<Config> => {
+      (plugin): StoragePlugin => {
         return plugin.getPackageStorage;
       }
     );

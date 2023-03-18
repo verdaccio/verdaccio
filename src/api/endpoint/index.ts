@@ -2,7 +2,8 @@ import express from 'express';
 
 import { Config } from '@verdaccio/types';
 
-import { IAuth, IStorageHandler } from '../../types';
+import Auth from '../../lib/auth';
+import Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';
 import ping from './api/ping';
@@ -22,7 +23,7 @@ const {
   antiLoop,
 } = require('@verdaccio/middleware');
 
-export default function (config: Config, auth: IAuth, storage: IStorageHandler) {
+export default function (config: Config, auth: Auth, storage: Storage) {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */

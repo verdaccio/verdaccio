@@ -9,9 +9,8 @@ import {
   Callback,
   Config,
   DistFile,
-  IReadTarball,
-  IUploadTarball,
   Logger,
+  Manifest,
   MergeTags,
   Package,
   Version,
@@ -20,16 +19,7 @@ import {
 import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 
 import { logger } from '../lib/logger';
-import {
-  IGetPackageOptions,
-  IPluginFilters,
-  IProxy,
-  IStorage,
-  IStorageHandler,
-  ISyncUplinks,
-  ProxyList,
-  StringValue,
-} from '../types';
+import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
 import { hasProxyTo } from './config-utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
 import LocalStorage from './local-storage';
@@ -48,11 +38,11 @@ import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
-class Storage implements IStorageHandler {
-  public localStorage: IStorage;
+class Storage {
+  public localStorage: LocalStorage;
   public config: Config;
   public logger: Logger;
-  public uplinks: ProxyList;
+  public uplinks: Record<string, ProxyStorage>;
   public filters: IPluginFilters;
 
   public constructor(config: Config) {
@@ -85,7 +75,7 @@ class Storage implements IStorageHandler {
         this._isAllowPublishOffline(),
         this._syncUplinksMetadata.bind(this)
       );
-      await publishPackage(name, metadata, this.localStorage as IStorage);
+      await publishPackage(name, metadata, this.localStorage);
       callback();
     } catch (err: any) {
       callback(err);
@@ -175,7 +165,7 @@ class Storage implements IStorageHandler {
    Function is synchronous and returns a WritableStream
    Used storages: local (write)
    */
-  public addTarball(name: string, filename: string): IUploadTarball {
+  public addTarball(name: string, filename: string) {
     return this.localStorage.addTarball(name, filename);
   }
 
@@ -211,7 +201,7 @@ class Storage implements IStorageHandler {
    information in order to figure out where we can get this tarball from
    Used storages: local || uplink (just one)
    */
-  public getTarball(name: string, filename: string): IReadTarball {
+  public getTarball(name: string, filename: string) {
     const readStream = new ReadTarball({});
     readStream.abort = function () {};
 
@@ -284,7 +274,7 @@ class Storage implements IStorageHandler {
         );
       }
 
-      let savestream: IUploadTarball | null = null;
+      let savestream: any = null;
       if (uplink.config.cache) {
         savestream = self.localStorage.addTarball(name, filename);
       }
@@ -353,7 +343,7 @@ class Storage implements IStorageHandler {
    * @property {boolean} options.keepUpLinkData keep up link info in package meta, last update, etc.
    * @property {function} options.callback Callback for receive data
    */
-  public getPackage(options: IGetPackageOptions): void {
+  public getPackage(options): void {
     this.localStorage.getPackageMetadata(options.name, (err, data): void => {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         // report internal errors right away
@@ -395,7 +385,7 @@ class Storage implements IStorageHandler {
    * @param {*} options
    * @return {Stream}
    */
-  public search(startkey: string, options: any): IReadTarball {
+  public search(startkey: string, options: any) {
     const self = this;
     const searchStream: any = new Stream.PassThrough({ objectMode: true });
     async.eachSeries(
@@ -407,7 +397,7 @@ class Storage implements IStorageHandler {
         }
         logger.info(`search for uplink ${up_name}`);
         // search by keyword for each uplink
-        const uplinkStream: IUploadTarball = self.uplinks[up_name].search(options);
+        const uplinkStream = self.uplinks[up_name].search(options);
         // join uplink stream with streams PassThrough
         uplinkStream.pipe(searchStream, { end: false });
         uplinkStream.on('error', function (err): void {
@@ -434,7 +424,7 @@ class Storage implements IStorageHandler {
       // executed after all series
       function (): void {
         // attach a local search results
-        const localSearchStream: IReadTarball = self.localStorage.search(startkey, options);
+        const localSearchStream = self.localStorage.search(startkey, options);
         searchStream.abort = function (): void {
           localSearchStream.abort();
         };
@@ -511,13 +501,13 @@ class Storage implements IStorageHandler {
    */
   public _syncUplinksMetadata(
     name: string,
-    packageInfo: Package,
+    packageInfo: Manifest,
     options: ISyncUplinks,
     callback: Callback
   ): void {
     let found = true;
     const self = this;
-    const upLinks: IProxy[] = [];
+    const upLinks: ProxyStorage[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
 
     if (!packageInfo) {
@@ -533,7 +523,7 @@ class Storage implements IStorageHandler {
 
     async.map(
       upLinks,
-      (upLink, cb): void => {
+      (upLink: ProxyStorage, cb): void => {
         const _options = Object.assign({}, options);
         const upLinkMeta = packageInfo._uplinks[upLink.upname];
 
@@ -662,7 +652,7 @@ class Storage implements IStorageHandler {
    * @param {String} upLink uplink name
    * @private
    */
-  public _updateVersionsHiddenUpLink(versions: Versions, upLink: IProxy): void {
+  public _updateVersionsHiddenUpLink(versions: Versions, upLink: ProxyStorage): void {
     for (const i in versions) {
       if (Object.prototype.hasOwnProperty.call(versions, i)) {
         const version = versions[i];

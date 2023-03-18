@@ -7,13 +7,14 @@ import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
+import Auth from '../../../lib/auth';
 import { getApiToken, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend, IAuth } from '../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
-export default function (route: Router, auth: IAuth, config: Config): void {
+export default function (route: Router, auth: Auth, config: Config): void {
   /* eslint new-cap:off */
   const userRouter = express.Router();
 

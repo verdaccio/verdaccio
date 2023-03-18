@@ -3,26 +3,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 /* eslint-disable no-unused-vars */
+import { pluginUtils } from '@verdaccio/core';
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
-import { Package } from '@verdaccio/types';
-import {
-  Config as AppConfig,
-  IBasicAuth,
-  IPluginMiddleware,
-  IStorageManager,
-  RemoteUser,
-} from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
+import { Config as AppConfig, RemoteUser } from '@verdaccio/types';
 
+import Auth from '../../../../src/lib/auth';
 import Config from '../../../../src/lib/config';
+import Storage from '../../../../src/lib/storage';
 import { generatePackageTemplate } from '../../../../src/lib/storage-utils';
 import { readFile } from '../../../functional/lib/test.utils';
 import { generateVersion } from '../../../unit/__helper/utils';
 
-const readMetadata = (fileName: string): Package =>
-  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Package;
+const readMetadata = (fileName: string): Manifest =>
+  JSON.parse(readFile(`../../unit/partials/${fileName}`).toString()) as Manifest;
 
-export default class ExampleMiddlewarePlugin implements IPluginMiddleware<{}> {
-  register_middlewares(app: any, auth: IBasicAuth<{}>, storage: IStorageManager<{}>): void {
+// @ts-ignore
+export default class ExampleMiddlewarePlugin implements pluginUtils.ManifestFilter<{}> {
+  register_middlewares(app: any, auth: Auth, storage: Storage): void {
     const remoteUser: RemoteUser = {
       groups: [],
       real_groups: [],

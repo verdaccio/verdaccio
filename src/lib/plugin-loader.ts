@@ -2,7 +2,8 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import Path from 'path';
 
-import { Config, IPlugin } from '@verdaccio/types';
+import { pluginUtils } from '@verdaccio/core';
+import { Config } from '@verdaccio/types';
 
 import { MODULE_NOT_FOUND } from './constants';
 import { logger } from './logger';
@@ -55,14 +56,14 @@ function isES6(plugin): boolean {
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @return {Array} list of plugins
  */
-export default function loadPlugin<T extends IPlugin<T>>(
+export default function loadPlugin<T extends pluginUtils.Plugin<T>>(
   config: Config,
   pluginConfigs: any = {},
   params: any,
   sanityCheck: any,
   prefix: string = 'verdaccio'
 ): any[] {
-  return Object.keys(pluginConfigs).map((pluginId: string): IPlugin<T> => {
+  return Object.keys(pluginConfigs).map((pluginId: string): pluginUtils.Plugin<T> => {
     let plugin;
     const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
     debug('isScoped %s', isScoped);
@@ -114,7 +115,8 @@ export default function loadPlugin<T extends IPlugin<T>>(
 
     // relative to config path
     if (plugin === null && pluginId.match(/^\.\.?($|\/)/)) {
-      plugin = tryLoad(Path.resolve(Path.dirname(config.self_path), pluginId));
+      // compatible with 6.x
+      plugin = tryLoad(Path.resolve(Path.dirname(config.self_path ?? config.configPath), pluginId));
     }
 
     if (plugin === null) {

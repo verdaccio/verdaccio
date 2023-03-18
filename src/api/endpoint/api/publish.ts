@@ -8,26 +8,22 @@ import { validatioUtils } from '@verdaccio/core';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
+import Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { notify } from '../../../lib/notify';
+import Storage from '../../../lib/storage';
 import { isPublishablePackage } from '../../../lib/storage-utils';
 import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation } from '../../../lib/utils';
-import {
-  $NextFunctionVer,
-  $RequestExtend,
-  $ResponseExtend,
-  IAuth,
-  IStorageHandler,
-} from '../../../types';
+import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 import star from './star';
 
 const debug = buildDebug('verdaccio:publish');
 
 export default function publish(
   router: Router,
-  auth: IAuth,
-  storage: IStorageHandler,
+  auth: Auth,
+  storage: Storage,
   config: Config
 ): void {
   const can = allow(auth, {
@@ -141,7 +137,7 @@ export default function publish(
 /**
  * Publish a package
  */
-export function publishPackage(storage: IStorageHandler, config: Config, auth: IAuth): any {
+export function publishPackage(storage: Storage, config: Config, auth: Auth): any {
   const starApi = star(storage);
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
@@ -302,7 +298,7 @@ export function publishPackage(storage: IStorageHandler, config: Config, auth: I
 /**
  * un-publish a package
  */
-export function unPublishPackage(storage: IStorageHandler) {
+export function unPublishPackage(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     debug('unpublishing %o', packageName);
@@ -319,7 +315,7 @@ export function unPublishPackage(storage: IStorageHandler) {
 /**
  * Delete tarball
  */
-export function removeTarball(storage: IStorageHandler) {
+export function removeTarball(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const { filename, revision } = req.params;
@@ -337,7 +333,7 @@ export function removeTarball(storage: IStorageHandler) {
 /**
  * Adds a new version
  */
-export function addVersion(storage: IStorageHandler) {
+export function addVersion(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const { version, tag } = req.params;
     const packageName = req.params.package;
@@ -358,7 +354,7 @@ export function addVersion(storage: IStorageHandler) {
 /**
  * uploadPackageTarball
  */
-export function uploadPackageTarball(storage: IStorageHandler) {
+export function uploadPackageTarball(storage: Storage) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     const packageName = req.params.package;
     const stream = storage.addTarball(packageName, req.params.filename);
