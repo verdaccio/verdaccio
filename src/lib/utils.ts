@@ -82,7 +82,7 @@ export function getVersion(pkg: Package, version: any): Version | void {
         return pkg.versions[versionItem];
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     return undefined;
   }
 }
@@ -248,7 +248,7 @@ export function folderExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isDirectory();
-  } catch (_) {
+  } catch (_: any) {
     return false;
   }
 }
@@ -262,7 +262,7 @@ export function fileExists(path: string): boolean {
   try {
     const stat = fs.statSync(path);
     return stat.isFile();
-  } catch (_) {
+  } catch (_: any) {
     return false;
   }
 }
@@ -328,7 +328,7 @@ export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvata
 
   // for maintainers
   if (_.isEmpty(maintainers) === false) {
-    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer): void => {
+    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer: any): void => {
       maintainer.avatar = generateGravatarUrl(maintainer.email, online);
       return maintainer;
     });
@@ -448,7 +448,7 @@ export function validateURL(publicUrl: string | void) {
       throw Error('invalid protocol');
     }
     return true;
-  } catch (err) {
+  } catch (err: any) {
     // TODO: add error logger here
     return false;
   }

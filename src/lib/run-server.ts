@@ -122,7 +122,7 @@ export function createServerFactory(config: ConfigRuntime, addr, app) {
       // TODO: enable http2 as feature
       // if (config.server.http2) <-- check if force http2
       serverFactory = https.createServer(httpsOptions, app);
-    } catch (err) {
+    } catch (err: any) {
       throw new Error(`cannot create https server: ${err.message}`);
     }
   } else {
