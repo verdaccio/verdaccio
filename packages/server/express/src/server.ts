@@ -31,6 +31,9 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
+  if (config.server?.trustProxy) {
+    app.set('trust proxy', config.server.trustProxy);
+  }
   app.use(cors());
   app.use(rateLimit(config.serverSettings.rateLimit));
 

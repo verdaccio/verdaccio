@@ -89,6 +89,12 @@ export interface Tags {
   [key: string]: Version;
 }
 
+export interface PeerDependenciesMeta {
+  [dependencyName: string]: {
+    optional?: boolean;
+  };
+}
+
 export interface Version {
   name: string;
   version: string;
@@ -116,6 +122,7 @@ export interface Version {
   peerDependencies?: Dependencies;
   devDependencies?: Dependencies;
   optionalDependencies?: Dependencies;
+  peerDependenciesMeta?: PeerDependenciesMeta;
   bundleDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;
@@ -127,6 +134,8 @@ export interface Version {
   funding?: { type: string; url: string };
   engines?: Engines;
   hasInstallScript?: boolean;
+  cpu?: string[];
+  os?: string[];
 }
 
 export interface Dependencies {

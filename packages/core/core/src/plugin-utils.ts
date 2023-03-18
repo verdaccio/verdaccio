@@ -170,5 +170,5 @@ export interface IBasicAuth {
 }
 
 export interface ManifestFilter<T> extends Plugin<T> {
-  filterMetadata(packageInfo: Manifest): Promise<Manifest>;
+  filter_metadata(packageInfo: Manifest): Promise<Manifest>;
 }
