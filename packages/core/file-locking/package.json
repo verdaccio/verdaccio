@@ -39,7 +39,7 @@
     "lockfile": "1.0.4"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.24"
+    "@verdaccio/types": "workspace:11.0.0-6-next.25"
   },
   "scripts": {
     "clean": "rimraf ./build",

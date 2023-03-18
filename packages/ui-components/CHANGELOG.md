@@ -1,5 +1,12 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.8
+
+### Patch Changes
+
+- Updated dependencies [16e38df8]
+  - @verdaccio/types@11.0.0-6-next.25
+
 ## 2.0.0-6-next.7
 
 ### Patch Changes
