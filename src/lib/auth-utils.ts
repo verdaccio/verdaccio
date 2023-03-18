@@ -201,7 +201,7 @@ export function verifyJWTPayload(token: string, secret: string): RemoteUser {
     const payload: RemoteUser = verifyPayload(token, secret);
 
     return payload;
-  } catch (error) {
+  } catch (error: any) {
     // #168 this check should be removed as soon AES encrypt is removed.
     if (expireReasons.includes(error.name)) {
       // it might be possible the jwt configuration is enabled and

@@ -87,7 +87,7 @@ class Storage implements IStorageHandler {
       );
       await publishPackage(name, metadata, this.localStorage as IStorage);
       callback();
-    } catch (err) {
+    } catch (err: any) {
       callback(err);
     }
   }
@@ -645,7 +645,7 @@ class Storage implements IStorageHandler {
                 // These filters can assume it's save to modify packageJsonLocal and return it directly for
                 // performance (i.e. need not be pure)
                 packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err) {
+              } catch (err: any) {
                 filterErrors.push(err);
               }
             }

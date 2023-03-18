@@ -88,7 +88,7 @@ export class InitCommand extends Command {
         listenDefaultCallback
       );
       logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
-    } catch (err) {
+    } catch (err: any) {
       if (typeof logger?.logger?.fatal === 'function') {
         logger.logger.fatal(
           { file: configPathLocation, err: err },

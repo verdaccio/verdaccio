@@ -18,7 +18,7 @@ function tryLoad(path: string): any {
   try {
     debug('loading plugin %s', path);
     return require(path);
-  } catch (err) {
+  } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
       debug('plugin %s not found', path);
       return null;
@@ -151,7 +151,7 @@ export default function loadPlugin<T extends IPlugin<T>>(
         debug('plugin is commonJS');
         plugin = plugin(pluginConfigs[pluginId], params);
       }
-    } catch (error) {
+    } catch (error: any) {
       plugin = null;
       logger.error({ error, pluginId }, 'error loading a plugin @{pluginId}: @{error}');
     }
