@@ -634,7 +634,6 @@ class Storage {
               try {
                 // These filters can assume it's save to modify packageJsonLocal and return it directly for
                 // performance (i.e. need not be pure)
-                // @ts-expect-error
                 packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
               } catch (err: any) {
                 filterErrors.push(err);
