@@ -1,7 +1,4 @@
-/// <reference types="@verdaccio/types" />
-import { ReadStream, WriteStream } from 'fs';
-
-import { ReadTarball, UploadTarball } from '@verdaccio/streams';
+import { pluginUtils } from '@verdaccio/core';
 import { Logger, RemoteUser } from '@verdaccio/types';
 
 declare global {
