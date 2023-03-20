@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5030,
+      "contributions": 5035,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2728
+          "contributions": 2730
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 197
+          "contributions": 200
         },
         {
           "name": "authentication-plugin-sample",
@@ -4791,7 +4791,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14522,
+      "stargazers_count": 14537,
       "archived": false
     },
     {
@@ -4908,7 +4908,7 @@
       "full_name": "verdaccio/verdaccio-audit",
       "html_url": "https://github.com/verdaccio/verdaccio-audit",
       "description": "🛡🔬verdaccio plugin for npm audit support",
-      "stargazers_count": 13,
+      "stargazers_count": 12,
       "archived": true
     },
     {
@@ -4916,7 +4916,7 @@
       "login": "verdaccio",
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
-      "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch",
+      "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
       "stargazers_count": 73,
       "archived": false
     },
