@@ -15,7 +15,7 @@ jobs:
         env:
           NODE_ENV: production
     steps:
-      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # tag=v3
+      - uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # tag=v3
       - name: Use Node
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
         with:
