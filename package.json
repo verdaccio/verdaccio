@@ -11,7 +11,7 @@
     "url": "git://github.com/verdaccio/verdaccio"
   },
   "homepage": "https://verdaccio.org",
-  "main": "buid/index.js",
+  "main": "build/index.js",
   "types": "build/index.d.ts",
   "bin": "./bin/verdaccio",
   "funding": {
