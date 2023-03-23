@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.23.1](https://github.com/verdaccio/verdaccio/compare/v5.23.0...v5.23.1) (2023-03-23)
+
+
+### Bug Fixes
+
+* package.json main field ([#3700](https://github.com/verdaccio/verdaccio/issues/3700)) ([5d83c52](https://github.com/verdaccio/verdaccio/commit/5d83c52da31166d69c5bf375e5ca24624d60f347))
+
 ## [5.23.0](https://github.com/verdaccio/verdaccio/compare/v5.22.1...v5.23.0) (2023-03-23)
 
 
