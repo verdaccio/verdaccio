@@ -47,7 +47,7 @@
     "jsonwebtoken": "9.0.0",
     "kleur": "4.1.5",
     "lodash": "4.17.21",
-    "lru-cache": "7.17.0",
+    "lru-cache": "7.18.3",
     "lunr-mutable-indexes": "2.3.2",
     "mime": "3.0.0",
     "mkdirp": "1.0.4",
@@ -57,7 +57,7 @@
     "semver": "7.3.8",
     "validator": "13.9.0",
     "verdaccio-audit": "11.0.0-6-next.30",
-    "verdaccio-htpasswd": "10.5.2"
+    "verdaccio-htpasswd": "10.5.3"
   },
   "devDependencies": {
     "@babel/cli": "7.21.0",
@@ -132,8 +132,8 @@
     "supertest": "6.3.3",
     "ts-node": "10.9.1",
     "typescript": "4.9.5",
-    "verdaccio-auth-memory": "10.2.0",
-    "verdaccio-memory": "10.3.0"
+    "verdaccio-auth-memory": "10.2.1",
+    "verdaccio-memory": "10.3.1"
   },
   "keywords": [
     "private",

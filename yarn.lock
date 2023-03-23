@@ -7776,10 +7776,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:7.17.0":
-  version: 7.17.0
-  resolution: "lru-cache@npm:7.17.0"
-  checksum: 28c2a98ad313b8d61beac1f08257b6f0ca990e39d24a9bc831030b6e209447cfb11c6d9d1a774282189bfc9609d1dfd17ebe485228dd68f7b96b6b9b7740894e
+"lru-cache@npm:7.18.3":
+  version: 7.18.3
+  resolution: "lru-cache@npm:7.18.3"
+  checksum: e550d772384709deea3f141af34b6d4fa392e2e418c1498c078de0ee63670f1f46f5eee746e8ef7e69e1c895af0d4224e62ee33e66a543a14763b0f2e74c1356
   languageName: node
   linkType: hard
 
@@ -10643,36 +10643,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-auth-memory@npm:10.2.0":
-  version: 10.2.0
-  resolution: "verdaccio-auth-memory@npm:10.2.0"
+"verdaccio-auth-memory@npm:10.2.1":
+  version: 10.2.1
+  resolution: "verdaccio-auth-memory@npm:10.2.1"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
-  checksum: 04cd53b67c7b9295d9bbf152c4aac524da398f974b8c8304eb65b2a480a54644e4d69b61fe3756f1508c57c14e4f97134e8a058e46d43f85b9a09bfb582c545d
+  checksum: feb5c4a77f6d99ba91430176d4ac5b49a8e5f768b6e29ff12fe82591f10e3dc4625bf33558a5d9017352fb468d34e77b1111bc8941c00e3afc24334ba6cf19ad
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.5.2":
-  version: 10.5.2
-  resolution: "verdaccio-htpasswd@npm:10.5.2"
+"verdaccio-htpasswd@npm:10.5.3":
+  version: 10.5.3
+  resolution: "verdaccio-htpasswd@npm:10.5.3"
   dependencies:
     "@verdaccio/file-locking": 10.3.0
     apache-md5: 1.1.8
     bcryptjs: 2.4.3
     http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: 46029abae2b6dbb5ba1527a222c844d38c77a057fab6974ca4767a81c5cb0532feaf1159b518de7f471d5eaeef72b418f2e46f8c1f915701b14a6be4ed3e8386
+  checksum: e07237ae900c3c4574ad3b5626b939bb3bc4f1764727f18643fac03f357800dfd6964a1bfdba1903fa786d4d172b25f53c098c40d51ed9e6d5d4acb82ff50fdf
   languageName: node
   linkType: hard
 
-"verdaccio-memory@npm:10.3.0":
-  version: 10.3.0
-  resolution: "verdaccio-memory@npm:10.3.0"
+"verdaccio-memory@npm:10.3.1":
+  version: 10.3.1
+  resolution: "verdaccio-memory@npm:10.3.1"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/streams": 10.2.0
     memory-fs: 0.5.0
-  checksum: e0d90cf50bbbc15c12d541ee3c42bdb5f2c948a77daaeb4db57946ab115700819e331722dedf7bd70489306023de2c93a318997ee6f8f01d7f6d8d6e0f4591e6
+  checksum: 3d0982fede5d76f48b8864700f5d5c34f8c2c34045a9154b314c1012b0bc3f779058cf35192ade5e43ad5c5f22df3374bb3975c03eed6c46478bde31c2022fe7
   languageName: node
   linkType: hard
 
@@ -10770,7 +10770,7 @@ __metadata:
     kleur: 4.1.5
     lockfile-lint: 4.6.2
     lodash: 4.17.21
-    lru-cache: 7.17.0
+    lru-cache: 7.18.3
     lunr-mutable-indexes: 2.3.2
     mime: 3.0.0
     mkdirp: 1.0.4
@@ -10790,9 +10790,9 @@ __metadata:
     typescript: 4.9.5
     validator: 13.9.0
     verdaccio-audit: 11.0.0-6-next.30
-    verdaccio-auth-memory: 10.2.0
-    verdaccio-htpasswd: 10.5.2
-    verdaccio-memory: 10.3.0
+    verdaccio-auth-memory: 10.2.1
+    verdaccio-htpasswd: 10.5.3
+    verdaccio-memory: 10.3.1
   dependenciesMeta:
     "@verdaccio/types@11.0.0-6-next.24":
       unplugged: true
