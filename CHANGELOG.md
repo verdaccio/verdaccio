@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.23.0](https://github.com/verdaccio/verdaccio/compare/v5.22.1...v5.23.0) (2023-03-23)
+
+
+### Features
+
+* update docker image base to v18.15.0 ([fd78ca9](https://github.com/verdaccio/verdaccio/commit/fd78ca9772adb059d62ab142c334f0ba69627cdc))
+
+
+### Bug Fixes
+
+* add missing version on footer [#3671](https://github.com/verdaccio/verdaccio/issues/3671) ([b85ba99](https://github.com/verdaccio/verdaccio/commit/b85ba995b5947ad60ab41c332328db47e7a519dc))
+* update core dependencies ([c95ab88](https://github.com/verdaccio/verdaccio/commit/c95ab88e46741f306ad4a730050c020770327561))
+* update core dependencies ([#3688](https://github.com/verdaccio/verdaccio/issues/3688)) ([2a6fc98](https://github.com/verdaccio/verdaccio/commit/2a6fc98f9208aa5a7faefc9c1d592610f88a17aa))
+
 ### [5.22.1](https://github.com/verdaccio/verdaccio/compare/v5.22.0...v5.22.1) (2023-03-07)
 
 
