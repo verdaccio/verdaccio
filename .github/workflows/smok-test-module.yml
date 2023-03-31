@@ -27,3 +27,6 @@ jobs:
         run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)          
       - name: publish verdaccio 
         run:  npm publish --registry http://localhost:4873
+      - name: install verdaccio 
+        run:  npm i -g verdaccio --registry http://localhost:4873
+
