@@ -29,4 +29,12 @@ jobs:
         run:  npm publish --registry http://localhost:4873
       - name: install verdaccio 
         run:  npm i -g verdaccio --loglevel verbose --registry http://localhost:4873
-
+      - name: jest 
+        run:  npm i -g jest --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --force
+          npm install verdaccio --registry http://localhost:4873
+          echo "it('should pass', () => { const {runServer} = require('verdaccio') });" | tee pass.test.js
+          yarn jest pass.test.js          
