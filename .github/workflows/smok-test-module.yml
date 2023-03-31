@@ -32,7 +32,7 @@ jobs:
       - name: publish verdaccio 
         run:  npm publish --registry http://localhost:4873
       - name: install verdaccio 
-        run:  npm i -g verdaccio --loglevel verbose --registry http://localhost:4873
+        run:  npm i -g verdaccio --loglevel info --registry http://localhost:4873
       - name: verdaccio version 
         run:  verdaccio --version
       - name: 'Running the integration test'
@@ -41,6 +41,6 @@ jobs:
           npm init --force
           npm install jest --registry http://localhost:4873
           npm install verdaccio --registry http://localhost:4873
-          echo "test('should pass', () => { const {runServer} = require('verdaccio') });" | tee pass.spec.js
+          echo "test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
           cat pass.spec.js
-          yarn jest pass.spec.js          
+          yarn jest    
