@@ -42,5 +42,5 @@ jobs:
           npm install jest --registry http://localhost:4873
           npm install verdaccio --registry http://localhost:4873
           echo "test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
-          cat pass.spec.js
+          cat module.spec.js
           yarn jest    
