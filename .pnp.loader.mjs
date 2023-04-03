@@ -1332,7 +1332,7 @@ const [major, minor] = process.versions.node.split(`.`).map((value) => parseInt(
 const HAS_CONSOLIDATED_HOOKS = major > 16 || major === 16 && minor >= 12;
 const HAS_UNFLAGGED_JSON_MODULES = major > 17 || major === 17 && minor >= 5 || major === 16 && minor >= 15;
 const HAS_JSON_IMPORT_ASSERTION_REQUIREMENT = major > 17 || major === 17 && minor >= 1 || major === 16 && minor > 14;
-const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2;
+const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
 
 const builtinModules = new Set(Module.builtinModules || Object.keys(process.binding(`natives`)));
 const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
@@ -1946,7 +1946,7 @@ async function resolvePrivateRequest(specifier, issuer, context, nextResolve) {
     conditions: new Set(context.conditions),
     readFileSyncFn: tryReadFile
   });
-  if (resolved instanceof URL) {
+  if (resolved instanceof URL$1) {
     return { url: resolved.href, shortCircuit: true };
   } else {
     if (resolved.startsWith(`#`))
@@ -1977,7 +1977,7 @@ async function resolve$1(originalSpecifier, context, nextResolve) {
   let allowLegacyResolve = false;
   if (dependencyNameMatch) {
     const [, dependencyName, subPath] = dependencyNameMatch;
-    if (subPath === ``) {
+    if (subPath === `` && dependencyName !== `pnpapi`) {
       const resolved = pnpapi.resolveToUnqualified(`${dependencyName}/package.json`, issuer);
       if (resolved) {
         const content = await tryReadFile$1(resolved);
