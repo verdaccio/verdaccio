@@ -18,7 +18,7 @@ jobs:
           node-version: 18
       - name: Docker test
         run: |
-            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5.x-next
+            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
       - name: verdaccio cli 
         run:  npm install -g verdaccio --registry http://localhost:4873                        
       - name: gastby cli 
