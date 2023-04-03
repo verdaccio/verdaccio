@@ -19,7 +19,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/config": "6.0.0-6-next.66",
+    "@verdaccio/config": "6.0.0-6-next.67",
     "@verdaccio/core": "6.0.0-6-next.67",
     "@verdaccio/local-storage": "10.3.1",
     "@verdaccio/logger-7": "6.0.0-6-next.12",
