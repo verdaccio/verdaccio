@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.23.2](https://github.com/verdaccio/verdaccio/compare/v5.23.1...v5.23.2) (2023-04-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @verdaccio/config to v6.0.0-6-next.67 ([#3716](https://github.com/verdaccio/verdaccio/issues/3716)) ([8e79e5f](https://github.com/verdaccio/verdaccio/commit/8e79e5f4ab1bbf04f2c6c046181e10d8358fed1d))
+* ui package search ([#3713](https://github.com/verdaccio/verdaccio/issues/3713)) ([1029d7a](https://github.com/verdaccio/verdaccio/commit/1029d7a3811461d836bcb3b40cc2c3071fbba864))
+
 ### [5.23.1](https://github.com/verdaccio/verdaccio/compare/v5.23.0...v5.23.1) (2023-03-23)
 
 
