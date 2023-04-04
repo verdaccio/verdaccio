@@ -75,6 +75,12 @@ export class InitCommand extends Command {
         configParsed.https = { enable: false };
       }
 
+      configParsed.flags = {
+        ...configParsed.flags,
+        // on this version there is no remote search
+        searchRemote: false,
+      };
+
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
       startVerdaccio(
