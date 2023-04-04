@@ -79,7 +79,7 @@ export class InitCommand extends Command {
         ...configParsed.flags,
         // on this version there is no remote search
         searchRemote: false,
-      }
+      };
 
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
