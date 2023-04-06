@@ -592,10 +592,10 @@ importers:
     specifiers:
       '@verdaccio/logger-commons': workspace:6.0.0-6-next.35
       '@verdaccio/types': workspace:11.0.0-6-next.25
-      pino: 8.10.0
+      pino: 8.11.0
     dependencies:
       '@verdaccio/logger-commons': link:../logger-commons
-      pino: 8.10.0
+      pino: 8.11.0
     devDependencies:
       '@verdaccio/types': link:../../core/types
 
@@ -617,7 +617,7 @@ importers:
       '@verdaccio/types': workspace:11.0.0-6-next.25
       colorette: 2.0.19
       debug: 4.3.4
-      pino: 8.10.0
+      pino: 8.11.0
     dependencies:
       '@verdaccio/core': link:../../core/core
       '@verdaccio/logger-prettify': link:../logger-prettify
@@ -625,14 +625,14 @@ importers:
       debug: 4.3.4
     devDependencies:
       '@verdaccio/types': link:../../core/types
-      pino: 8.10.0
+      pino: 8.11.0
 
   packages/logger/logger-prettify:
     specifiers:
       colorette: 2.0.19
       dayjs: 1.11.7
       lodash: 4.17.21
-      pino: 8.10.0
+      pino: 8.11.0
       pino-abstract-transport: 1.0.0
       sonic-boom: 3.2.1
     dependencies:
@@ -642,7 +642,7 @@ importers:
       pino-abstract-transport: 1.0.0
       sonic-boom: 3.2.1
     devDependencies:
-      pino: 8.10.0
+      pino: 8.11.0
 
   packages/middleware:
     specifiers:
@@ -21078,6 +21078,22 @@ packages:
 
   /pino/8.10.0:
     resolution: {integrity: sha512-ODfIe+giJtQGsvNAEj5/sHHpL3TFBg161JBH4W62Hc0l0PJjsDFD1R7meLI4PZ2aoHDJznxFNShkJcaG/qJToQ==}
+    hasBin: true
+    dependencies:
+      atomic-sleep: 1.0.0
+      fast-redact: 3.1.1
+      on-exit-leak-free: 2.1.0
+      pino-abstract-transport: 1.0.0
+      pino-std-serializers: 6.0.0
+      process-warning: 2.0.0
+      quick-format-unescaped: 4.0.3
+      real-require: 0.2.0
+      safe-stable-stringify: 2.3.1
+      sonic-boom: 3.2.1
+      thread-stream: 2.0.1
+
+  /pino/8.11.0:
+    resolution: {integrity: sha512-Z2eKSvlrl2rH8p5eveNUnTdd4AjJk8tAsLkHYZQKGHP4WTh2Gi1cOSOs3eWPqaj+niS3gj4UkoreoaWgF3ZWYg==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
