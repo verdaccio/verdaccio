@@ -68,7 +68,7 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm install --offline --frozen-lockfile --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:

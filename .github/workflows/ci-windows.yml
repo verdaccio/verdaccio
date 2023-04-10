@@ -121,7 +121,7 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
+        run: pnpm install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test UI
