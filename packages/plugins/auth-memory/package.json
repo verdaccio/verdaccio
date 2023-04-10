@@ -31,10 +31,11 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "debug": "4.3.4",
-    "@verdaccio/core": "workspace:6.0.0-6-next.67"
+    "@verdaccio/core": "workspace:6.0.0-6-next.67",
+    "debug": "4.3.4"
   },
   "devDependencies": {
+    "@types/debug": "^4.1.7",
     "@verdaccio/config": "workspace:6.0.0-6-next.67",
     "@verdaccio/types": "workspace:11.0.0-6-next.25"
   },

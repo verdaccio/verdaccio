@@ -10,3 +10,4 @@ declare module '@jest/schemas' {
 // declare module '@szmarczak/http-timer';
 // declare module 'cacheable-lookup';
 // // declare module 'p-cancelable';
+declare module 'serve-static';

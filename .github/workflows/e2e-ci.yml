@@ -21,7 +21,7 @@ jobs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@6.32.15 -g
+      run: npm i pnpm@latest-8 -g
     - name: set store
       run: |
         mkdir ~/.pnpm-store
@@ -45,7 +45,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
@@ -85,7 +85,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store

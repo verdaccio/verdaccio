@@ -11,7 +11,7 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-RUN npm -g i pnpm@6.32.15 && \
+RUN npm -g i pnpm@latest-8 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm recursive install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \

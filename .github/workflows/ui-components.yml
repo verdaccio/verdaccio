@@ -47,7 +47,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-            corepack prepare --activate pnpm@6.32.15
+            corepack prepare --activate pnpm@latest-8
       - name: Install
         run: pnpm recursive install --frozen-lockfile  
       - name: Build storybook
