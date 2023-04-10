@@ -49,7 +49,7 @@ jobs:
           corepack enable
             corepack prepare --activate pnpm@latest-8
       - name: Install
-        run: pnpm recursive install --frozen-lockfile  
+        run: pnpm install  
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content
