@@ -57,7 +57,7 @@ jobs:
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
       - name: 🔥 Deploy Production UI Netlify
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: verdaccio/action-netlify-deploy@v2.0.0
+        uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
           build-dir: './packages/ui-components/storybook-static'          
       - name: 🤖 Deploy Preview UI Components Netlify
         if: github.repository == 'verdaccio/verdaccio'
-        uses: verdaccio/action-netlify-deploy@v2.0.0
+        uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
         id: netlify_preview_ui
         with:
           draft: true
