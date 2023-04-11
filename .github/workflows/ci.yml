@@ -71,7 +71,7 @@ jobs:
         run: |
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm install --offline  --reporter=silence --ignore-scripts
+        run: pnpm install --offline   --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:
@@ -96,7 +96,7 @@ jobs:
         run: |
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm install --offline  --reporter=silence --ignore-scripts
+        run: pnpm install --offline   --ignore-scripts
       - name: Lint
         run: pnpm format:check
   test:
@@ -126,7 +126,7 @@ jobs:
         run: |
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm install --offline  --reporter=silence --ignore-scripts --registry http://localhost:4873
+        run: pnpm install --offline   --ignore-scripts --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test
