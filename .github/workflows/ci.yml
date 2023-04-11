@@ -69,7 +69,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline  --reporter=silence --ignore-scripts
@@ -95,7 +94,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline  --reporter=silence --ignore-scripts
@@ -126,7 +124,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline  --reporter=silence --ignore-scripts --registry http://localhost:4873
@@ -154,7 +151,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         ## we need scripts, pupetter downloads aditional content
