@@ -29,8 +29,12 @@ jobs:
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store            
     - name: Install
-      run: pnpm recursive install --registry http://localhost:4873
+      run: pnpm install --registry http://localhost:4873
     - name: Cache .pnpm-store
       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
       with:
@@ -54,6 +58,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts
       - name: Lint
@@ -74,6 +82,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store          
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts
       - name: Lint
@@ -99,6 +111,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store          
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
       - name: build
@@ -120,6 +136,10 @@ jobs:
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline --reporter=silence --registry http://localhost:4873
       - name: build
