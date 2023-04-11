@@ -35,7 +35,7 @@ jobs:
     - name: Install pnpm
       run: |
         corepack enable
-        corepack prepare --activate pnpm@6.32.15
+        corepack prepare --activate pnpm@latest-8
     - name: set store
       run: |
         mkdir ~/.pnpm-store
@@ -62,7 +62,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
@@ -87,7 +87,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
@@ -117,7 +117,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
@@ -144,7 +144,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
