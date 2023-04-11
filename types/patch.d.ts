@@ -7,7 +7,5 @@ declare module '@jest/schemas' {
   export type SnapshotFormat = any;
 }
 
-// declare module '@szmarczak/http-timer';
-// declare module 'cacheable-lookup';
-// // declare module 'p-cancelable';
 declare module 'serve-static';
+declare module 'ms';
