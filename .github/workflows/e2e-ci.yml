@@ -52,7 +52,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm recursive install --reporter=silence --registry http://localhost:4873
@@ -96,7 +95,6 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: set store
         run: |
-          mkdir ~/.pnpm-store
           pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
