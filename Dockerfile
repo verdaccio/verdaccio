@@ -16,7 +16,7 @@ RUN npm -g i pnpm@latest-8 && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
     pnpm run build && \
-    pnpm install -P
+    pnpm install -P  --ignore-scripts
 # FIXME: need to remove devDependencies from the build
 # RUN pnpm install --prod --ignore-scripts
 
