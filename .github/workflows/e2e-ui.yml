@@ -23,9 +23,9 @@ jobs:
       - name: Install pnpm
         run: |
          corepack enable
-         corepack prepare --activate pnpm@6.32.15
+         corepack prepare --activate pnpm@latest-8
       - name: Install
-        run: pnpm install --frozen-lockfile --reporter=silence --registry http://localhost:4873
+        run: pnpm install --reporter=silence --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test UI

@@ -33,7 +33,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 
       - name: install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
         env:
           NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
 

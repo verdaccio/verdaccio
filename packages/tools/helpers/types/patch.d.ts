@@ -5,3 +5,5 @@ declare module 'pretty-format' {
 declare module '@jest/schemas' {
   export type SnapshotFormat = any;
 }
+
+declare module 'ms';

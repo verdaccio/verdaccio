@@ -35,13 +35,13 @@ jobs:
     - name: Install pnpm
       run: |
         corepack enable
-        corepack prepare --activate pnpm@6.32.15
+        corepack prepare --activate pnpm@latest-8
     - name: set store
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
     - name: Install
-      run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+      run: pnpm install  --registry http://localhost:4873
     - name: Cache .pnpm-store
       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
       with:
@@ -62,13 +62,16 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm install --offline   --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:
@@ -84,13 +87,16 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm install --offline   --ignore-scripts
       - name: Lint
         run: pnpm format:check
   test:
@@ -111,13 +117,16 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+        run: pnpm install --offline   --ignore-scripts --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test
@@ -126,7 +135,7 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     name: synchronize translations
-    if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # tag=v3
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # tag=v3
@@ -135,14 +144,17 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@6.32.15
+          corepack prepare --activate pnpm@latest-8
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
         ## we need scripts, pupetter downloads aditional content
-        run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+        run: pnpm install  --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: generate website translations

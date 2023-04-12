@@ -24,13 +24,17 @@ jobs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@6.32.15 -g
+      run: npm i pnpm@latest-8 -g
     - name: set store
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store            
     - name: Install
-      run: pnpm recursive install --frozen-lockfile --registry http://localhost:4873
+      run: pnpm install --registry http://localhost:4873
     - name: Cache .pnpm-store
       uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
       with:
@@ -49,13 +53,17 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm install --offline --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm lint
   format:
@@ -69,13 +77,17 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store          
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts
+        run: pnpm install --offline --reporter=silence --ignore-scripts
       - name: Lint
         run: pnpm format:check
   build:
@@ -94,13 +106,17 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store          
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --ignore-scripts --registry http://localhost:4873
+        run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test
@@ -115,13 +131,17 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@6.32.15 -g
+        run: npm i pnpm@latest-8 -g
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store              
       - name: Install
-        run: pnpm recursive install --offline --frozen-lockfile --reporter=silence --registry http://localhost:4873
+        run: pnpm install --offline --reporter=silence --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test UI

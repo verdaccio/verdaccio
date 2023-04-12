@@ -44,7 +44,7 @@ This setting would cause the `pnpm install` command to install incorrect version
 To begin your development setup, please install the latest version of pnpm globally:
 
 ```
-npm i -g pnpm@latest-6
+npm i -g pnpm@latest-8
 ```
 
 With pnpm installed, the first step is installing all dependencies:
