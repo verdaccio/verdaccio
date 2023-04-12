@@ -49,7 +49,7 @@ jobs:
       - name: Build 
         run: pnpm build
       - name: Build Translations percentage
-        run: pnpm build --filter "@verdaccio/crowdin-translations"
+        run: pnpm --filter @verdaccio/crowdin-translations build
       - name: Cache Docusaurus Build
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:

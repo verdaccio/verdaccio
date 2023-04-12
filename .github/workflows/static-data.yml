@@ -31,7 +31,7 @@ jobs:
       - name: install dependencies
         run: pnpm install
       - name: Build Translations percentage
-        run: pnpm build --filter "@verdaccio/crowdin-translations"
+        run: pnpm --filter @verdaccio/crowdin-translations build
       - name: update contributors
         run: pnpm run contributors
         env:
