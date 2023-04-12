@@ -129,7 +129,7 @@
     "prepare": "husky install",
     "husky:pre-commit": "lint-staged",
     "clean": "pnpm --filter \"./packages/**\" clean",
-    "build": "pnpm --filter \"./packages/**\" build && pnpm --filter \"./e2e\" build",
+    "build": "pnpm --filter \"./packages/**\" build && pnpm --filter @verdaccio/test-cli-commons build",
     "docker": "docker build -t verdaccio/verdaccio:local . --no-cache",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
