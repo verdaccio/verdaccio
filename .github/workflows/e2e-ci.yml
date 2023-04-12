@@ -107,6 +107,6 @@ jobs:
       #     path: ./e2e/
       #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: build e2e
-        run: pnpm run build --filter=./e2e      
+        run:  pnpm --filter @verdaccio/test-cli-commons build
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
