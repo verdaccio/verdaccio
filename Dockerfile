@@ -13,7 +13,7 @@ WORKDIR /opt/verdaccio-build
 COPY . .
 RUN npm -g i pnpm@latest-8 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm recursive install --frozen-lockfile --ignore-scripts && \
+    pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
     pnpm run build && \
     pnpm install -P
