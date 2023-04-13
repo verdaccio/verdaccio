@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 18.x
       - name: install pnpm
-        run: sudo npm i pnpm@latest-6 -g
+        run: sudo npm i pnpm@latest-8 -g
       - name: install dependencies
         run: pnpm install
       - name: Build Translations percentage
