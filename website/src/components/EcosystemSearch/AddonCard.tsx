@@ -12,8 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { green, red } from '@mui/material/colors';
-import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/styles';
 import * as React from 'react';
 import { FC } from 'react';
 

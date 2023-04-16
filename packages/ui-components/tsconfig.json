@@ -13,7 +13,6 @@
     "allowJs": true
   },
   "types": ["node", "jest", "@testing-library/jest-dom"],
-  "include": ["src/**/*", "./src/types/index.d.ts"],
   "references": [
     {
       "path": "../core/types"

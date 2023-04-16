@@ -1,4 +1,5 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/styles';
 import React from 'react';
 import { useState } from 'react';
 

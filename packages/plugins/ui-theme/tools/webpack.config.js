@@ -48,11 +48,6 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: 'babel-loader',
-      },
-      {
         test: /\.m?js/,
         resolve: {
           fullySpecified: false,
@@ -70,7 +65,6 @@ module.exports = {
         test: /\.md$/,
         use: 'raw-loader',
       },
-      /* Typescript loader */
       {
         test: /\.tsx?$/,
         use: 'babel-loader',

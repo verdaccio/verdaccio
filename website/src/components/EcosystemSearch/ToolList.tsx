@@ -2,7 +2,7 @@ import Translate, { translate } from '@docusaurus/Translate';
 import { create, insertBatch, search } from '@lyrasearch/lyra';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/styles';
 import * as React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
