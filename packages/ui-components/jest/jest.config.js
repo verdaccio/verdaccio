@@ -10,11 +10,17 @@ module.exports = Object.assign({}, config, {
     url: 'http://localhost:9000/',
   },
   rootDir: '..',
+  collectCoverage: true,
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/jest/setup-env.ts'],
   setupFiles: ['<rootDir>/jest/setup.ts'],
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!react-syntax-highlighter)'],
   snapshotSerializers: ['@emotion/jest/serializer'],
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!**/node_modules/**'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!**/node_modules/**',
+    '!src/**/*.stories.{ts,tsx}',
+    '!src/types/**',
+  ],
   modulePathIgnorePatterns: ['<rootDir>/build/'],
   moduleNameMapper: {
     '\\.(s?css)$': '<rootDir>/jest/identity.js',
@@ -26,7 +32,7 @@ module.exports = Object.assign({}, config, {
     'react-markdown': '<rootDir>/src/__mocks__/react-markdown.tsx',
     'remark-*': '<rootDir>/src/__mocks__/remark-plugin.ts',
   },
-  coverageReporters: [['text', { skipFull: true }]],
+  coverageReporters: ['text', 'html'],
   coverageThreshold: {
     global: {
       branches: 68,

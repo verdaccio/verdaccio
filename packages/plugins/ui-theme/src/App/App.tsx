@@ -89,6 +89,7 @@ const App: React.FC = () => {
   useEffect(() => {
     loadDayJSLocale();
   }, []);
+
   return (
     <StrictMode>
       <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={loadDayJSLocale}>

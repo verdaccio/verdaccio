@@ -1,3 +1,4 @@
+import { i18n } from 'i18next';
 import React, { FunctionComponent, createContext, useCallback, useContext, useEffect } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
@@ -24,7 +25,7 @@ const I18nTranslatorContext = createContext<TranslatorProviderProps>({
  */
 const TranslatorProvider: FunctionComponent<{
   children: React.ReactElement<any>;
-  i18n: any;
+  i18n: i18n;
   listLanguages: any;
   onMount: () => {};
 }> = ({ children, onMount, i18n, listLanguages }) => {

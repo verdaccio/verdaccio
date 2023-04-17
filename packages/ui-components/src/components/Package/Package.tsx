@@ -122,7 +122,7 @@ const Package: React.FC<PackageInterface> = ({
     license && (
       <OverviewItem>
         <StyledLaw />
-        {license}
+        {license as string}
       </OverviewItem>
     );
 

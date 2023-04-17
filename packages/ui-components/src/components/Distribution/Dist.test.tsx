@@ -14,7 +14,7 @@ describe('<Dist /> component', () => {
   });
 
   test('should render the component in default state', () => {
-    const wrapper = render(
+    const { getByText } = render(
       withDistComponent({
         latest: {
           name: 'verdaccio1',
@@ -28,11 +28,16 @@ describe('<Dist /> component', () => {
         _uplinks: {},
       })
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('sidebar.distribution.title')).toBeInTheDocument();
+    expect(getByText('sidebar.distribution.file-count')).toBeInTheDocument();
+    expect(getByText('sidebar.distribution.size')).toBeInTheDocument();
+    expect(getByText('sidebar.distribution.size')).toBeInTheDocument();
+    expect(getByText('7', { exact: false })).toBeInTheDocument();
+    expect(getByText('10.00 Bytes', { exact: false })).toBeInTheDocument();
   });
 
   test('should render the component with license as string', () => {
-    const wrapper = render(
+    const { getByText } = render(
       withDistComponent({
         latest: {
           name: 'verdaccio2',
@@ -46,11 +51,11 @@ describe('<Dist /> component', () => {
         _uplinks: {},
       })
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('MIT', { exact: false })).toBeInTheDocument();
   });
 
   test('should render the component with license as object', () => {
-    const wrapper = render(
+    const { getByText } = render(
       withDistComponent({
         latest: {
           name: 'verdaccio3',
@@ -67,6 +72,28 @@ describe('<Dist /> component', () => {
         _uplinks: {},
       })
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(getByText('MIT', { exact: false })).toBeInTheDocument();
+  });
+
+  test('should not render if latest is missing', () => {
+    const { queryAllByText } = render(
+      withDistComponent({
+        // @ts-ignore
+        latest: undefined,
+        _uplinks: {},
+      })
+    );
+    expect(queryAllByText('sidebar.distribution.title')).toHaveLength(0);
+  });
+
+  test('should not render if latest content is missing', () => {
+    const { queryAllByText } = render(
+      withDistComponent({
+        // @ts-expect-error
+        latest: { dist: undefined, license: undefined },
+        _uplinks: {},
+      })
+    );
+    expect(queryAllByText('sidebar.distribution.title')).toHaveLength(0);
   });
 });
