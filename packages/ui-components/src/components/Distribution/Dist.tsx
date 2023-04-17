@@ -25,19 +25,25 @@ const DistChip: FC<{ name: string; children?: React.ReactElement | string }> = (
 const Dist: FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
   const { t } = useTranslation();
 
-  if (!packageMeta) {
+  if (!packageMeta?.latest) {
     return null;
   }
 
-  const { dist, license } = packageMeta && packageMeta.latest;
+  const { dist, license } = packageMeta.latest;
+
+  if (!dist && !license) {
+    return null;
+  }
 
   return (
     <List
       subheader={<StyledText variant="subtitle1">{t('sidebar.distribution.title')}</StyledText>}
     >
       <DistListItem>
-        <DistChip name={t('sidebar.distribution.file-count')}>{`${dist.fileCount}`}</DistChip>
-        {dist.unpackedSize ? (
+        {dist?.fileCount && (
+          <DistChip name={t('sidebar.distribution.file-count')}>{`${dist.fileCount}`}</DistChip>
+        )}
+        {dist?.unpackedSize ? (
           <DistChip name={t('sidebar.distribution.size')}>{fileSizeSI(dist.unpackedSize)}</DistChip>
         ) : null}
 

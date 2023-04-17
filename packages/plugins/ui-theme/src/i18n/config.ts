@@ -29,7 +29,6 @@ i18n
     whitelist: [...listLanguagesAsString],
     load: 'currentOnly',
     react: {
-      wait: true,
       useSuspense: false,
     },
     resources: languages,

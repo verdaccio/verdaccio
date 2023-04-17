@@ -1,10 +1,11 @@
+import { LicenseInterface } from '../../types/packageMeta';
+
 /**
  * Formats license field for webui.
  * @see https://docs.npmjs.com/files/package.json#license
  */
 // License should use type License defined above, but conflicts with the unit test that provide array or empty object
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function formatLicense(license: any): string | undefined {
+export function formatLicense(license: string | LicenseInterface): string | undefined {
   if (typeof license === 'string') {
     return license;
   }

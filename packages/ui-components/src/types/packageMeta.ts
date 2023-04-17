@@ -4,7 +4,7 @@ export type Latest = {
   author?: Author;
   deprecated?: string;
   name: string;
-  dist: {
+  dist?: {
     fileCount: number;
     unpackedSize: number;
     tarball?: string;
@@ -15,7 +15,7 @@ export type Latest = {
     pnpm?: string;
     yarn?: string;
   };
-  license?: Partial<LicenseInterface> | string;
+  license?: LicenseInterface | string;
   version: string;
   homepage?: string;
   bugs?: {
@@ -50,12 +50,12 @@ export interface Developer {
 
 interface Funding {
   type?: string;
-  url: string;
+  url?: string;
 }
 
-interface LicenseInterface {
-  type: string;
-  url: string;
+export interface LicenseInterface {
+  type?: string;
+  url?: string;
 }
 
 export interface DistTags {
