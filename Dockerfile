@@ -1,7 +1,7 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:18-alpine as builder
 
 ENV NODE_ENV=development \
-    VERDACCIO_BUILD_REGISTRY=https://registry.verdaccio.org
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
 
 RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
@@ -15,9 +15,9 @@ RUN npm -g i pnpm@latest-8 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
-    pnpm run build && \
-    pnpm install -P  --ignore-scripts
-# FIXME: need to remove devDependencies from the build
+    pnpm run build
+# FIXME: need to remove devDependencies from the build    
+# NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
 # RUN pnpm install --prod --ignore-scripts
 
 FROM node:18-alpine

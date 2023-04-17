@@ -1,4 +1,5 @@
 import Translate, { translate } from '@docusaurus/Translate';
+import { useTheme } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Card from '@mui/material/Card';
 import Checkbox from '@mui/material/Checkbox';
@@ -8,7 +9,6 @@ import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useTheme } from '@mui/material/styles';
 import React, { ReactElement, useState } from 'react';
 import { FC } from 'react';
 

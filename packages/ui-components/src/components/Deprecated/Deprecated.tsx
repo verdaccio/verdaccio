@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { styled } from '@mui/system';
 import React from 'react';
 
 import { Theme } from '../../Theme';

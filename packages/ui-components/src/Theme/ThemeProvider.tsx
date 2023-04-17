@@ -30,7 +30,6 @@ const ThemeProvider: React.FC<{ children: any }> = ({ children }) => {
   const themeMode: ThemeMode = isDarkMode ? 'dark' : 'light';
 
   const currentTheme = getTheme(themeMode, configOptions.primaryColor);
-
   return (
     <ThemeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
       <StyledEngineProvider injectFirst={true}>

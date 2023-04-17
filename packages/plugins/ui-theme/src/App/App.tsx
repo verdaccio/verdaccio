@@ -29,9 +29,11 @@ import { listLanguages } from '../i18n/enabledLanguages';
 import loadDayJSLocale from '../i18n/load-dayjs-locale';
 import AppRoute, { history } from './AppRoute';
 
-const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  backgroundColor: theme?.palette.background.default,
-}));
+const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
+  return {
+    backgroundColor: theme?.palette.background.default,
+  };
+});
 
 const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
   [`@media screen and (min-width: ${theme?.breakPoints.container}px)`]: {
