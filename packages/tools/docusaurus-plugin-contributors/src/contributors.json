@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5049,
+      "contributions": 5051,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2740
+          "contributions": 2742
         },
         {
           "name": "verdaccio-cookbook",
@@ -4791,7 +4791,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14630,
+      "stargazers_count": 14645,
       "archived": false
     },
     {
