@@ -2,7 +2,7 @@ version: '2'
 
 services:
   verdaccio:
-    image: verdaccio/verdaccio:5
+    image: verdaccio/verdaccio:nightly-master
     container_name: verdaccio_root_path
     ports:
       - '4873:4873'
