@@ -81,7 +81,7 @@ jobs:
       - name: Build Deployment Preview
         env:
           CONTEXT: deploy-preview
-        run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
+        run: pnpm --filter ...@verdaccio/website netlify:build:deployPreview
 
       - name: 🤖 Deploy Preview Netlify
         if: github.repository == 'verdaccio/verdaccio'
