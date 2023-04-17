@@ -78,6 +78,7 @@ describe('<Dist /> component', () => {
   test('should not render if latest is missing', () => {
     const { queryAllByText } = render(
       withDistComponent({
+        // @ts-ignore
         latest: undefined,
         _uplinks: {},
       })
@@ -88,6 +89,7 @@ describe('<Dist /> component', () => {
   test('should not render if latest content is missing', () => {
     const { queryAllByText } = render(
       withDistComponent({
+        // @ts-expect-error
         latest: { dist: undefined, license: undefined },
         _uplinks: {},
       })

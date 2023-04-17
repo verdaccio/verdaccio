@@ -16,7 +16,7 @@ function CustomComponent() {
   const { packageMeta, packageName, packageVersion } = useVersion();
   return (
     <div>
-      <div>{packageMeta?.latest?.license}</div>
+      <div>{packageMeta?.latest?.license as string}</div>
       <div>{packageName}</div>
       <div>{packageVersion}</div>
     </div>

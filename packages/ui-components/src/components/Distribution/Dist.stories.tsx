@@ -30,6 +30,7 @@ export const NoFileSize: any = () => (
         name: 'verdaccio1',
         version: '4.0.0',
         dist: {
+          // @ts-ignore
           fileCount: undefined,
           unpackedSize: 10,
         },

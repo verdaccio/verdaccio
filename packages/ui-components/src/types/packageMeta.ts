@@ -15,7 +15,7 @@ export type Latest = {
     pnpm?: string;
     yarn?: string;
   };
-  license?: LicenseInterface | string;
+  license?: undefined | LicenseInterface | string;
   version: string;
   homepage?: string;
   bugs?: {
