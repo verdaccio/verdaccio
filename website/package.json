@@ -36,7 +36,7 @@
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@lyrasearch/lyra": "^0.3.1",
-    "@mdx-js/react": "^2.3.0",
+    "@mdx-js/react": "^1.6.22",
     "@mui/icons-material": "5.11.16",
     "@mui/material": "5.12.0",
     "@mui/styles": "5.12.0",
@@ -60,6 +60,11 @@
     "typedoc-plugin-merge-modules": "4.0.1",
     "use-is-in-viewport": "^1.0.9",
     "usehooks-ts": "2.9.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "@mdx-js/react": "^1.6.22"
+    }
   },
   "browserslist": {
     "production": [
