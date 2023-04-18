@@ -340,3 +340,31 @@ experiments:
 ```
 
 > To disable the experiments warning in the console, you must comment out the whole `experiments` section.
+
+### Config Builder API {#builder}
+
+After version `v5.23.1` the new advanced configuration builder API is available. The API is a flexible way to generate programmatically configuration outputs either in JSON or YAML using the builder pattern, for example:
+
+```typescript
+import { ConfigBuilder } from 'verdaccio';
+
+const config = ConfigBuilder.build();
+config
+  .addUplink('upstream', { url: 'https://registry.upstream.local' })
+  .addUplink('upstream2', { url: 'https://registry.upstream2.local' })
+  .addPackageAccess('upstream/*', {
+    access: 'public',
+    publish: 'foo, bar',
+    unpublish: 'foo, bar',
+    proxy: 'some',
+  })
+  .addLogger({ level: 'info', type: 'stdout', format: 'json' })
+  .addStorage('/tmp/verdaccio')
+  .addSecurity({ api: { legacy: true } });
+
+// generate JSON object as output
+config.getConfig();
+
+// generate output as yaml
+config.getAsYaml();
+```
