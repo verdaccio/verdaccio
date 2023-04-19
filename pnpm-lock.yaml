@@ -2181,8 +2181,8 @@ importers:
         specifier: ^0.3.1
         version: 0.3.1
       '@mdx-js/react':
-        specifier: ^2.3.0
-        version: 2.3.0(react@17.0.2)
+        specifier: ^1.6.22
+        version: 1.6.22(react@17.0.2)
       '@mui/icons-material':
         specifier: 5.11.16
         version: 5.11.16(@mui/material@5.12.0)(@types/react@18.0.26)(react@17.0.2)
@@ -7362,16 +7362,6 @@ packages:
       react: 18.2.0
     dev: true
 
-  /@mdx-js/react@2.3.0(react@17.0.2):
-    resolution: {integrity: sha512-zQH//gdOmuu7nt2oJR29vFhDv88oGPmVw6BggmrHeMI+xgEkp1B2dX9/bMBSYtK0dyLX/aOmesKS09g222K1/g==}
-    peerDependencies:
-      react: '>=16'
-    dependencies:
-      '@types/mdx': 2.0.4
-      '@types/react': 18.0.35
-      react: 17.0.2
-    dev: false
-
   /@mdx-js/util@1.6.22:
     resolution: {integrity: sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==}
 
@@ -10257,10 +10247,6 @@ packages:
     resolution: {integrity: sha512-Y/uImid8aAwrEA24/1tcRZwpxX3pIFTSilcNDKSPn+Y2iDywSEachzRuvgAYYLR3wpGXAsMbv5lvKLDZLeYPAw==}
     dependencies:
       '@types/unist': 2.0.6
-
-  /@types/mdx@2.0.4:
-    resolution: {integrity: sha512-qCYrNdpKwN6YO6FVnx+ulfqifKlE3lQGsNhvDaW9Oxzyob/cRLBJWow8GHBBD4NxQ7BVvtsATgLsX0vZAWmtrg==}
-    dev: false
 
   /@types/mime@1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
@@ -18953,7 +18939,7 @@ packages:
       jest-pnp-resolver: 1.2.3(jest-resolve@28.1.3)
       jest-util: 28.1.3
       jest-validate: 28.1.3
-      resolve: 1.22.3
+      resolve: 1.22.2
       resolve.exports: 1.1.1
       slash: 3.0.0
     dev: true
