@@ -275,6 +275,7 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 ## Who is using Verdaccio?
 
 - [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+86.2k ⭐️)_
+- [Grafana)(https://github.com/grafana/grafana/search?q=verdaccio)  _(+54.9k ⭐️)_
 - [Gatsby](https://github.com/gatsbyjs/gatsby) _(+49.2k ⭐️)_
 - [Babel.js](https://github.com/babel/babel) _(+38.5k ⭐️)_
 - [Docusaurus](https://github.com/facebook/docusaurus) _(+34k ⭐️)_
