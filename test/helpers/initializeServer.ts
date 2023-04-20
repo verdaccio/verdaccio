@@ -25,6 +25,7 @@ export async function initializeServer(
   // to avoid conflics
   // FUTURE: self_path is configPath in v6
   config.self_path = config.storage;
+  config.configPath = config.storage;
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
   await storage.init(config, []);
