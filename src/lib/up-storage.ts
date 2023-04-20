@@ -363,7 +363,7 @@ class ProxyStorage {
   private _setHeaderAuthorization(headers: any, type: string, token: any): void {
     const _type: string = type.toLowerCase();
 
-    if (_type !== TOKEN_BEARER.toLowerCase() || _type !== TOKEN_BASIC.toLowerCase()) {
+    if ([TOKEN_BEARER.toLowerCase(), TOKEN_BASIC.toLowerCase()].includes(_type) === false) {
       this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
