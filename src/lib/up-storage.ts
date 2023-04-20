@@ -335,7 +335,7 @@ class ProxyStorage {
     if (_.isNil(token)) {
       this._throwErrorAuth(ERROR_CODE.token_required);
     }
-    console.log('-->', tokenConf);
+
     // define type Auth allow basic and bearer
     const type = tokenConf.type || TOKEN_BASIC;
     this._setHeaderAuthorization(headers, type, token);
