@@ -30,4 +30,4 @@ middlewares:
   audit:
     enabled: true
 
-logs: { type: stdout, format: json, level: warn }
+log: { type: stdout, format: json, level: warn }

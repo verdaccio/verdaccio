@@ -1,7 +1,7 @@
 /* eslint comma-dangle: 0 */
 
 module.exports = {
-  // reporters: ['default', 'html', ['jest-junit', { outputDirectory: 'reports' }]],
+  reporters: ['default', ['jest-junit', { outputDirectory: 'reports' }]],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testEnvironmentOptions: {
     url: 'http://localhost',
