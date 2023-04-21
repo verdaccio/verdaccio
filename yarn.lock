@@ -10601,16 +10601,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:10.5.4":
-  version: 10.5.4
-  resolution: "verdaccio-htpasswd@npm:10.5.4"
+"verdaccio-htpasswd@npm:10.5.5":
+  version: 10.5.5
+  resolution: "verdaccio-htpasswd@npm:10.5.5"
   dependencies:
     "@verdaccio/file-locking": 10.3.1
     apache-md5: 1.1.8
     bcryptjs: 2.4.3
+    debug: 4.3.4
     http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: 4a166e345743741c99f1438c706876a17380d134036c123969763ed6428d93bdaf34126debfc4b4b7458c6a929ed5bac8801fcdf2559ac37329934785dfbce41
+  checksum: 1a5706af7279b20db47f401b2e34e2586cbf114fc325cbdbdc9087a68fd8621e3376d2337f666c2ecc9f75f4f9c129613fc558e7e088bdffc67d8b5128ed4f0d
   languageName: node
   linkType: hard
 
@@ -10740,7 +10741,7 @@ __metadata:
     validator: 13.9.0
     verdaccio-audit: 11.0.0-6-next.30
     verdaccio-auth-memory: 10.2.2
-    verdaccio-htpasswd: 10.5.4
+    verdaccio-htpasswd: 10.5.5
     verdaccio-memory: 10.3.2
   dependenciesMeta:
     "@verdaccio/types@11.0.0-6-next.24":
