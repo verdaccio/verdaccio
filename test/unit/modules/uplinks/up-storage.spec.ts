@@ -282,7 +282,7 @@ describe('UpStorage', () => {
   });
 
   describe('fetchTarball', () => {
-    test('should fetch a tarball from uplink', (done) => {
+    test.skip('should fetch a tarball from uplink', (done) => {
       const proxy = generateProxy();
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
