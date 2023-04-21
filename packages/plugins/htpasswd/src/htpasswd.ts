@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import fs from 'fs';
-import { dirname, join, resolve } from 'path';
+import { dirname, resolve } from 'path';
 
 import { pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
@@ -90,7 +90,7 @@ export default class HTPasswd
       throw new Error('should specify "file" in config');
     }
     debug('config path: %s', options?.config?.configPath);
-    this.path = join(resolve(dirname(options?.config?.configPath ?? '')), file);
+    this.path = resolve(dirname(options?.config?.configPath), file);
     this.logger.info({ file: this.path }, 'using htpasswd file: @{file}');
     debug('htpasswd path:', this.path);
     if (config.slow_verify_ms) {
