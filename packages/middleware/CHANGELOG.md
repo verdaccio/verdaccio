@@ -1,5 +1,14 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.47
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.68
+- @verdaccio/config@6.0.0-6-next.68
+- @verdaccio/url@11.0.0-6-next.34
+- @verdaccio/utils@6.0.0-6-next.36
+
 ## 6.0.0-6-next.46
 
 ### Patch Changes

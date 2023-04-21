@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.9
+
+### Patch Changes
+
+- 0dafa982: fix: undefined field on missing count
+
 ## 2.0.0-6-next.8
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "11.0.0-6-next.33",
+  "version": "11.0.0-6-next.34",
   "description": "url utilities resolver",
   "keywords": [
     "private",
@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.67",
+    "@verdaccio/core": "workspace:6.0.0-6-next.68",
     "debug": "4.3.4",
     "lodash": "4.17.21",
     "validator": "13.9.0"
