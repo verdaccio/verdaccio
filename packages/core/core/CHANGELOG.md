@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.68
+
 ## 6.0.0-6-next.67
 
 ### Minor Changes

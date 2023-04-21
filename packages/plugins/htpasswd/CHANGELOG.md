@@ -1,5 +1,12 @@
 # Change Log
 
+## 11.0.0-6-next.38
+
+### Patch Changes
+
+- 09753cc1: fix wrong htpasswd file location
+  - @verdaccio/core@6.0.0-6-next.68
+
 ## 11.0.0-6-next.37
 
 ### Patch Changes

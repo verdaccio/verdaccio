@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.68
+
+### Patch Changes
+
+- 0dafa982: fix: undefined field on missing count
+
 ## 6.0.0-6-next.67
 
 ## 6.0.0-6-next.66

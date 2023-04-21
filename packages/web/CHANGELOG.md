@@ -1,5 +1,20 @@
 # @verdaccio/web
 
+## 6.0.0-6-next.55
+
+### Patch Changes
+
+- @verdaccio/auth@6.0.0-6-next.47
+- @verdaccio/core@6.0.0-6-next.68
+- @verdaccio/config@6.0.0-6-next.68
+- @verdaccio/tarball@11.0.0-6-next.37
+- @verdaccio/url@11.0.0-6-next.34
+- @verdaccio/loaders@6.0.0-6-next.37
+- @verdaccio/middleware@6.0.0-6-next.47
+- @verdaccio/store@6.0.0-6-next.48
+- @verdaccio/utils@6.0.0-6-next.36
+- @verdaccio/logger@6.0.0-6-next.36
+
 ## 6.0.0-6-next.54
 
 ### Patch Changes
