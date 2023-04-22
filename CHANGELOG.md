@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.24.0](https://github.com/verdaccio/verdaccio/compare/v5.23.2...v5.24.0) (2023-04-22)
+
+
+### Features
+
+* update docker base image v18.16.0 ([#3751](https://github.com/verdaccio/verdaccio/issues/3751)) ([d3bb520](https://github.com/verdaccio/verdaccio/commit/d3bb520374675d2d5c00829a3128d2a9baa42619))
+* upgrade plugin htpassw major  ([#3712](https://github.com/verdaccio/verdaccio/issues/3712)) ([e939ca2](https://github.com/verdaccio/verdaccio/commit/e939ca24af58c0d11ea515833f4a88463204b4ff))
+
+
+### Bug Fixes
+
+* **deps:** update dependency semver to v7.5.0 ([#3733](https://github.com/verdaccio/verdaccio/issues/3733)) ([dcd530b](https://github.com/verdaccio/verdaccio/commit/dcd530ba851916ed11abb431b7474092954d390e))
+* **deps:** update dependency verdaccio-htpasswd to v10.5.5 ([#3749](https://github.com/verdaccio/verdaccio/issues/3749)) ([b3ea816](https://github.com/verdaccio/verdaccio/commit/b3ea8162ac09ffa90272ad660413a929a6f7f809))
+
 ### [5.23.2](https://github.com/verdaccio/verdaccio/compare/v5.23.1...v5.23.2) (2023-04-04)
 
 
