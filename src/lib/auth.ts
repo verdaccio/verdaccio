@@ -55,9 +55,23 @@ class Auth {
       logger: this.logger,
     };
 
+    let authConf = { ...config.auth };
+    if (authConf?.htpasswd) {
+      // special case for htpasswd plugin, the v6 version uses bcrypt by default
+      // 5.x enforces crypt to avoid breaking changes, but is highly recommended using
+      // bcrypt instead.
+      if (!authConf.htpasswd.algorithm) {
+        authConf.htpasswd.algorithm = 'crypt';
+        this.logger.info(
+          // eslint-disable-next-line max-len
+          'the "crypt" algorithm is deprecated consider switch to "bcrypt" in the configuration file. Read the documentation for additional details'
+        );
+      }
+    }
+
     return loadPlugin<pluginUtils.Auth<Config>>(
       config,
-      config.auth,
+      authConf,
       pluginOptions,
       (plugin: pluginUtils.Auth<Config>): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
