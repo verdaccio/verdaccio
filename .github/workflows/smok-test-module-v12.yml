@@ -12,7 +12,7 @@ jobs:
       - name: Use Node (latest)
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version-file: 12
+          node-version: 12
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
