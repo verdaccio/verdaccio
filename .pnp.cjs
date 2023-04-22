@@ -139,7 +139,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.9.0"],\
             ["verdaccio-audit", "npm:11.0.0-6-next.31"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
-            ["verdaccio-htpasswd", "npm:11.0.0-6-next.38"],\
+            ["verdaccio-htpasswd", "npm:11.0.0-alpha.6"],\
             ["verdaccio-memory", "npm:10.3.2"]\
           ],\
           "linkType": "SOFT"\
@@ -5117,6 +5117,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["http-status-codes", "npm:2.2.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:11.0.0-alpha.3", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-commons-api-npm-11.0.0-alpha.3-98fa1122e1-9690336fdd.zip/node_modules/@verdaccio/commons-api/",\
+          "packageDependencies": [\
+            ["@verdaccio/commons-api", "npm:11.0.0-alpha.3"],\
+            ["http-errors", "npm:1.8.0"],\
+            ["http-status-codes", "npm:2.1.4"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@verdaccio/config", [\
@@ -5159,10 +5168,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:11.0.0-6-next.7", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-11.0.0-6-next.7-b6bd1d57fa-86cf13ab75.zip/node_modules/@verdaccio/file-locking/",\
+        ["npm:11.0.0-alpha.3", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-file-locking-npm-11.0.0-alpha.3-b70e2771ba-bd70b01c8c.zip/node_modules/@verdaccio/file-locking/",\
           "packageDependencies": [\
-            ["@verdaccio/file-locking", "npm:11.0.0-6-next.7"],\
+            ["@verdaccio/file-locking", "npm:11.0.0-alpha.3"],\
             ["lockfile", "npm:1.0.4"]\
           ],\
           "linkType": "HARD"\
@@ -5535,10 +5544,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["apache-md5", [\
-        ["npm:1.1.8", {\
-          "packageLocation": "./.yarn/cache/apache-md5-npm-1.1.8-07fc388dc3-5f93fe00a4.zip/node_modules/apache-md5/",\
+        ["npm:1.1.7", {\
+          "packageLocation": "./.yarn/cache/apache-md5-npm-1.1.7-249065fc1c-a248de461d.zip/node_modules/apache-md5/",\
           "packageDependencies": [\
-            ["apache-md5", "npm:1.1.8"]\
+            ["apache-md5", "npm:1.1.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9075,6 +9084,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["http-errors", [\
+        ["npm:1.8.0", {\
+          "packageLocation": "./.yarn/cache/http-errors-npm-1.8.0-4399ea3b8d-873d997bad.zip/node_modules/http-errors/",\
+          "packageDependencies": [\
+            ["http-errors", "npm:1.8.0"],\
+            ["depd", "npm:1.1.2"],\
+            ["inherits", "npm:2.0.4"],\
+            ["setprototypeof", "npm:1.2.0"],\
+            ["statuses", "npm:1.5.0"],\
+            ["toidentifier", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.8.1", {\
           "packageLocation": "./.yarn/cache/http-errors-npm-1.8.1-fb60d9f6ae-d3c7e7e776.zip/node_modules/http-errors/",\
           "packageDependencies": [\
@@ -9125,6 +9146,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["http-status-codes", [\
+        ["npm:2.1.4", {\
+          "packageLocation": "./.yarn/cache/http-status-codes-npm-2.1.4-e5672be5a5-44fedd7b2c.zip/node_modules/http-status-codes/",\
+          "packageDependencies": [\
+            ["http-status-codes", "npm:2.1.4"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:2.2.0", {\
           "packageLocation": "./.yarn/cache/http-status-codes-npm-2.2.0-8d45a60399-31e1d73085.zip/node_modules/http-status-codes/",\
           "packageDependencies": [\
@@ -13417,6 +13445,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["toidentifier", [\
+        ["npm:1.0.0", {\
+          "packageLocation": "./.yarn/cache/toidentifier-npm-1.0.0-5dad252f90-199e6bfca1.zip/node_modules/toidentifier/",\
+          "packageDependencies": [\
+            ["toidentifier", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/toidentifier-npm-1.0.1-f759712599-952c29e2a8.zip/node_modules/toidentifier/",\
           "packageDependencies": [\
@@ -14068,7 +14103,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["validator", "npm:13.9.0"],\
             ["verdaccio-audit", "npm:11.0.0-6-next.31"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
-            ["verdaccio-htpasswd", "npm:11.0.0-6-next.38"],\
+            ["verdaccio-htpasswd", "npm:11.0.0-alpha.6"],\
             ["verdaccio-memory", "npm:10.3.2"]\
           ],\
           "linkType": "SOFT"\
@@ -14099,17 +14134,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["verdaccio-htpasswd", [\
-        ["npm:11.0.0-6-next.38", {\
-          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-11.0.0-6-next.38-5ceb09d742-eb633f15ad.zip/node_modules/verdaccio-htpasswd/",\
+        ["npm:11.0.0-alpha.6", {\
+          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-11.0.0-alpha.6-db8864f404-12f98c120e.zip/node_modules/verdaccio-htpasswd/",\
           "packageDependencies": [\
-            ["verdaccio-htpasswd", "npm:11.0.0-6-next.38"],\
-            ["@verdaccio/core", "npm:6.0.0-6-next.68"],\
-            ["@verdaccio/file-locking", "npm:11.0.0-6-next.7"],\
-            ["apache-md5", "npm:1.1.8"],\
+            ["verdaccio-htpasswd", "npm:11.0.0-alpha.6"],\
+            ["@verdaccio/commons-api", "npm:11.0.0-alpha.3"],\
+            ["@verdaccio/file-locking", "npm:11.0.0-alpha.3"],\
+            ["apache-md5", "npm:1.1.7"],\
             ["bcryptjs", "npm:2.4.3"],\
-            ["core-js", "npm:3.28.0"],\
-            ["debug", "virtual:29474417206615456729b7a578bf418b358d5457cdcef4bbfee11068b4718e28ceca45b525022e3820e15bd79419301ec7f358c2f28eae1e78ba4bae24d15383#npm:4.3.4"],\
-            ["http-errors", "npm:1.8.1"],\
+            ["http-errors", "npm:1.8.0"],\
             ["unix-crypt-td-js", "npm:1.1.4"]\
           ],\
           "linkType": "HARD"\
