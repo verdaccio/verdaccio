@@ -23,6 +23,7 @@ export {
   DEFAULT_PASSWORD_VALIDATION,
   DEFAULT_USER,
   USERS,
+  HtpasswdHashAlgorithm,
 } from './constants';
 const validationUtils = validatioUtils;
 export {

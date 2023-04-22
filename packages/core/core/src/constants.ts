@@ -109,3 +109,10 @@ export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
   ALL: '**',
 };
+
+export enum HtpasswdHashAlgorithm {
+  md5 = 'md5',
+  sha1 = 'sha1',
+  crypt = 'crypt',
+  bcrypt = 'bcrypt',
+}

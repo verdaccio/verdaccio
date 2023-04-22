@@ -18,9 +18,6 @@ export type LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace'
 
 export type LoggerConfigItem = {
   type?: LoggerType;
-  /**
-   * The format
-   */
   format?: LoggerFormat;
   path?: string;
   level?: string;

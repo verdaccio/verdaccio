@@ -3,18 +3,15 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import createError, { HttpError } from 'http-errors';
 
-import { API_ERROR, HTTP_STATUS } from '@verdaccio/core';
+import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
 import { readFile } from '@verdaccio/file-locking';
 import { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
 
-export enum HtpasswdHashAlgorithm {
-  md5 = 'md5',
-  sha1 = 'sha1',
-  crypt = 'crypt',
-  bcrypt = 'bcrypt',
-}
+export const DEFAULT_BCRYPT_ROUNDS = 10;
+
+type HtpasswdHashAlgorithm = constants.HtpasswdHashAlgorithm;
 
 export interface HtpasswdHashConfig {
   algorithm: HtpasswdHashAlgorithm;
@@ -80,24 +77,24 @@ export async function verifyPassword(passwd: string, hash: string): Promise<bool
  * @param {HtpasswdHashConfig} hashConfig
  * @returns {string}
  */
-export function generateHtpasswdLine(
+export async function generateHtpasswdLine(
   user: string,
   passwd: string,
   hashConfig: HtpasswdHashConfig
-): string {
+): Promise<string> {
   let hash: string;
 
   switch (hashConfig.algorithm) {
-    case HtpasswdHashAlgorithm.bcrypt:
-      hash = bcrypt.hashSync(passwd, hashConfig.rounds);
+    case constants.HtpasswdHashAlgorithm.bcrypt:
+      hash = await bcrypt.hash(passwd, hashConfig.rounds || DEFAULT_BCRYPT_ROUNDS);
       break;
-    case HtpasswdHashAlgorithm.crypt:
+    case constants.HtpasswdHashAlgorithm.crypt:
       hash = crypt3(passwd);
       break;
-    case HtpasswdHashAlgorithm.md5:
+    case constants.HtpasswdHashAlgorithm.md5:
       hash = md5(passwd);
       break;
-    case HtpasswdHashAlgorithm.sha1:
+    case constants.HtpasswdHashAlgorithm.sha1:
       hash = '{SHA}' + crypto.createHash('sha1').update(passwd, 'utf8').digest('base64');
       break;
     default:
@@ -116,12 +113,12 @@ export function generateHtpasswdLine(
  * @param {HtpasswdHashConfig} hashConfig
  * @returns {string}
  */
-export function addUserToHTPasswd(
+export async function addUserToHTPasswd(
   body: string,
   user: string,
   passwd: string,
   hashConfig: HtpasswdHashConfig
-): string {
+): Promise<string> {
   if (user !== encodeURIComponent(user)) {
     const err = createError('username should not contain non-uri-safe characters');
 
@@ -129,7 +126,7 @@ export function addUserToHTPasswd(
     throw err;
   }
 
-  let newline = generateHtpasswdLine(user, passwd, hashConfig);
+  let newline = await generateHtpasswdLine(user, passwd, hashConfig);
 
   if (body.length && body[body.length - 1] !== '\n') {
     newline = '\n' + newline;
@@ -190,13 +187,14 @@ export async function sanityCheck(
 }
 
 /**
+ * /**
  * changePasswordToHTPasswd - change password for existing user
  * @param {string} body
  * @param {string} user
  * @param {string} passwd
  * @param {string} newPasswd
  * @param {HtpasswdHashConfig} hashConfig
- * @returns {string}
+ * @returns {Promise<string>}
  */
 export async function changePasswordToHTPasswd(
   body: string,
@@ -215,7 +213,7 @@ export async function changePasswordToHTPasswd(
   if (!passwordValid) {
     throw new Error(`Unable to change password for user '${user}': invalid old password`);
   }
-  const updatedUserLine = generateHtpasswdLine(username, newPasswd, hashConfig);
+  const updatedUserLine = await generateHtpasswdLine(username, newPasswd, hashConfig);
   lines.splice(userLineIndex, 1, updatedUserLine);
   return lines.join('\n');
 }
