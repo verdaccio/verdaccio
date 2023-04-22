@@ -37,10 +37,13 @@ describe('HTPasswd', () => {
 
   describe('constructor()', () => {
     const error = jest.fn();
+    const warn = jest.fn();
     const info = jest.fn();
     const emptyPluginOptions = {
-      config: {},
-      logger: { warn: jest.fn(), info, error },
+      config: {
+        configPath: '',
+      },
+      logger: { warn, info, error },
     } as any as pluginUtils.PluginOptions<HTPasswdConfig>;
 
     test('should ensure file path configuration exists', () => {
@@ -52,7 +55,10 @@ describe('HTPasswd', () => {
     test('should switch to bcrypt if incorrect algorithm is set', () => {
       let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
       new HTPasswd(invalidConfig, emptyPluginOptions);
-      expect(error).toHaveBeenCalledWith('Invalid auth algorithm %s', 'invalid');
+      expect(warn).toHaveBeenCalledWith(
+        'The algorithm selected %s is invalid, switching to to default one "bcrypt", password validation can be affected',
+        'invalid'
+      );
       expect(info).toHaveBeenCalled();
     });
   });
