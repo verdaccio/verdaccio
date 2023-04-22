@@ -12,12 +12,12 @@ const title = 'Support people affected by the war in Ukraine';
 
 const links = [
   {
-    href: 'https://twitter.com/denysdovhan/status/1501486563842211843',
-    text: 'Listen OSS developers about the war on Twitter',
+    href: 'https://www.youtube.com/watch?v=LeG09zu_p_g',
+    text: 'Ask Ukrainian open-source developers about war — Twitter Space',
   },
   {
     href: 'https://snyk.io/blog/celebrating-amazing-open-source-innovation-ukraine/',
-    text: 'Learn more about Open Source developers in Ukraine',
+    text: 'Snyk blog - Learn more about Open Source developers in Ukraine',
   },
   {
     href: 'https://www.savethechildren.org/us/where-we-work/ukraine/',
