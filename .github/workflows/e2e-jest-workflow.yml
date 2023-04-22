@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -30,7 +30,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           yarn init --yes
-          yarn add jest@26.0.0 --registry http://localhost:4873
+          yarn add jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -45,10 +45,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -64,7 +64,7 @@ jobs:
           yarn set version berry
           yarn config set npmRegistryServer "http://localhost:4873"
           yarn config set unsafeHttpWhitelist --json '["localhost"]'
-          yarn add jest@26.0.0
+          yarn add jest@29.5.0
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -79,10 +79,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: 'install latest npm'
         run: npm i -g npm@latest-6
       - name: Install Dependencies
@@ -97,7 +97,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest@26.0.0 --registry http://localhost:4873
+          npm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -112,10 +112,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: 'install latest npm'
         run: npm i -g npm@next-8
       - name: Install Dependencies
@@ -130,7 +130,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest@26.0.0 --registry http://localhost:4873
+          npm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -179,10 +179,10 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
-          node-version: 12.x
+          node-version: 16.x
       - name: 'install latest pnpm'
         run: npm i -g pnpm@latest-6
       - name: Install Dependencies
@@ -197,7 +197,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           pnpm init --force
-          pnpm install jest@26.0.0 --registry http://localhost:4873
+          pnpm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -212,7 +212,7 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
 
-      - name: 'Use Node.js 12.x'
+      - name: 'Use Node.js 16.x'
         uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # tag=v2.5.1
         with:
           node-version: 16.x
@@ -230,7 +230,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           pnpm init
-          pnpm install jest@26.0.0 --registry http://localhost:4873
+          pnpm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js

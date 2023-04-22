@@ -1,3 +1,4 @@
+import nock from 'nock';
 import supertest from 'supertest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
@@ -10,9 +11,14 @@ const FORBIDDEN_VUE = 'authorization required to access package vue';
 jest.setTimeout(20000);
 
 describe('token', () => {
+  beforeEach(() => {
+    nock.cleanAll();
+  });
+
   describe('basics', () => {
     const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
     test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
+      nock('https://registry.verdaccio.org/').get(`/vue`).once().reply(200, { name: 'vue' });
       const app = await initializeServer(conf);
       const credentials = { name: 'JotaJWT', password: 'secretPass' };
       const response = await createUser(app, credentials.name, credentials.password);

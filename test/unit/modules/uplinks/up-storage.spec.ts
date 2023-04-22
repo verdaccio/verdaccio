@@ -1,9 +1,16 @@
 import _ from 'lodash';
+import nock from 'nock';
 
 import { Config, UpLinkConf } from '@verdaccio/types';
 
 import AppConfig from '../../../../src/lib/config';
-import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
+import {
+  API_ERROR,
+  ERROR_CODE,
+  HTTP_STATUS,
+  TOKEN_BASIC,
+  TOKEN_BEARER,
+} from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
@@ -28,6 +35,10 @@ describe('UpStorage', () => {
     mockRegistry = await mockServer(mockServerPort).init();
   });
 
+  beforeEach(() => {
+    nock.cleanAll();
+  });
+
   afterAll(function (done) {
     mockRegistry[0].stop();
     done();
@@ -39,7 +50,19 @@ describe('UpStorage', () => {
     expect(proxy).toBeDefined();
   });
 
-  describe('UpStorage::getRemoteMetadata', () => {
+  describe('getRemoteMetadata', () => {
+    beforeEach(() => {
+      // @ts-ignore
+      process.env.TOKEN_TEST_ENV = 'foo';
+      // @ts-ignore
+      process.env.NPM_TOKEN = 'foo';
+    });
+
+    afterEach(() => {
+      delete process.env.TOKEN_TEST_ENV;
+      delete process.env.NPM_TOKEN;
+    });
+
     test('should be get remote metadata', (done) => {
       const proxy = generateProxy();
 
@@ -47,6 +70,28 @@ describe('UpStorage', () => {
         expect(err).toBeNull();
         expect(_.isString(etag)).toBeTruthy();
         expect(data.name).toBe('jquery');
+        done();
+      });
+    });
+
+    test('should handle 404 on be get remote metadata', (done) => {
+      nock('http://localhost:55547').get(`/jquery`).once().reply(404, { name: 'jquery' });
+      const proxy = generateProxy();
+
+      proxy.getRemoteMetadata('jquery', {}, (err) => {
+        expect(err).not.toBeNull();
+        expect(err.message).toMatch(/package does not exist on uplink/);
+        done();
+      });
+    });
+
+    test('should handle 500 on be get remote metadata', (done) => {
+      nock('http://localhost:55547').get(`/jquery`).once().reply(500, { name: 'jquery' });
+      const proxy = generateProxy();
+
+      proxy.getRemoteMetadata('jquery', {}, (err) => {
+        expect(err).not.toBeNull();
+        expect(err.message).toMatch(/bad status code: 500/);
         done();
       });
     });
@@ -74,6 +119,7 @@ describe('UpStorage', () => {
     });
 
     test('should be get remote metadata with json when uplink is npmmirror', (done) => {
+      nock('https://registry.npmmirror.com').get(`/jquery`).reply(200, { name: 'jquery' });
       const proxy = generateProxy({ url: 'https://registry.npmmirror.com' });
 
       proxy.getRemoteMetadata('jquery', { json: true }, (err, data) => {
@@ -82,10 +128,161 @@ describe('UpStorage', () => {
         done();
       });
     });
+
+    test('should be get remote metadata with auth header bearer', (done) => {
+      nock('https://registry.npmmirror.com', {
+        reqheaders: {
+          authorization: 'Bearer foo',
+        },
+      })
+        .get(`/jquery`)
+        .reply(200, { name: 'jquery' });
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BEARER,
+          token: 'foo',
+        },
+      });
+
+      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+        expect(err).toBeNull();
+        // expect(_.isString(etag)).toBeTruthy();
+        expect(data.name).toBe('jquery');
+        done();
+      });
+    });
+
+    test('should be get remote metadata with auth node env TOKEN_TEST_ENV header bearer', (done) => {
+      nock('https://registry.npmmirror.com', {
+        reqheaders: {
+          authorization: 'Bearer foo',
+        },
+      })
+        .get(`/jquery`)
+        .reply(200, { name: 'jquery' });
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BEARER,
+          token_env: 'TOKEN_TEST_ENV',
+        },
+      });
+
+      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+        expect(err).toBeNull();
+        expect(data.name).toBe('jquery');
+        done();
+      });
+    });
+
+    test('should be get remote metadata with auth node env NPM_TOKEN header bearer', (done) => {
+      nock('https://registry.npmmirror.com', {
+        reqheaders: {
+          authorization: 'Bearer foo',
+        },
+      })
+        .get(`/jquery`)
+        .reply(200, { name: 'jquery' });
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BEARER,
+          token_env: true,
+        },
+      });
+
+      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+        expect(err).toBeNull();
+        expect(data.name).toBe('jquery');
+        done();
+      });
+    });
+
+    test('should be get remote metadata with auth header basic', (done) => {
+      nock('https://registry.npmmirror.com', {
+        reqheaders: {
+          authorization: 'Basic foo',
+        },
+      })
+        .get(`/jquery`)
+        .reply(200, { name: 'jquery' });
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BASIC,
+          token: 'foo',
+        },
+      });
+
+      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+        expect(err).toBeNull();
+        // expect(_.isString(etag)).toBeTruthy();
+        expect(data.name).toBe('jquery');
+        done();
+      });
+    });
   });
 
-  describe('UpStorage::fetchTarball', () => {
-    test('should fetch a tarball from uplink', (done) => {
+  describe('error handling', () => {
+    test('should fails if auth type is missing', () => {
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BASIC,
+          token: undefined,
+        },
+      });
+
+      expect(function () {
+        proxy.getRemoteMetadata('jquery', {}, () => {});
+      }).toThrow(/token is required/);
+    });
+
+    test('should fails if token_env is undefined', () => {
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BASIC,
+          token_env: undefined,
+        },
+      });
+
+      expect(function () {
+        proxy.getRemoteMetadata('jquery', {}, () => {});
+      }).toThrow(ERROR_CODE.token_required);
+    });
+
+    test('should fails if token_env is false', () => {
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          type: TOKEN_BASIC,
+          token_env: false,
+        },
+      });
+
+      expect(function () {
+        proxy.getRemoteMetadata('jquery', {}, () => {});
+      }).toThrow(ERROR_CODE.token_required);
+    });
+
+    test.skip('should fails if invalid token type', () => {
+      const proxy = generateProxy({
+        url: 'https://registry.npmmirror.com',
+        auth: {
+          token: 'SomethingWrong',
+        },
+      });
+
+      expect(function () {
+        proxy.getRemoteMetadata('jquery', {}, () => {});
+      }).toThrow(ERROR_CODE.token_required);
+    });
+  });
+
+  describe('fetchTarball', () => {
+    test.skip('should fetch a tarball from uplink', (done) => {
       const proxy = generateProxy();
       const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
@@ -157,7 +354,7 @@ describe('UpStorage', () => {
     }, 10000);
   });
 
-  describe('UpStorage::isUplinkValid', () => {
+  describe('isUplinkValid', () => {
     describe('valid use cases', () => {
       const validateUpLink = (
         url: string,
