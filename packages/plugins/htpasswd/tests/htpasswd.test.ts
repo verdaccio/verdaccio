@@ -1,26 +1,18 @@
-/* eslint-disable jest/no-mocks-import */
-// @ts-ignore: Module has no default export
 import bcrypt from 'bcryptjs';
-// @ts-ignore: Module has no default export
 import crypto from 'crypto';
-// @ts-ignore: Module has no default export
 import fs from 'fs';
 import MockDate from 'mockdate';
 import path from 'path';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { logger, setup } from '@verdaccio/logger';
-import { PluginOptions } from '@verdaccio/types';
+import { constants, pluginUtils } from '@verdaccio/core';
 
 import HTPasswd, { DEFAULT_SLOW_VERIFY_MS, HTPasswdConfig } from '../src/htpasswd';
-import { HtpasswdHashAlgorithm } from '../src/utils';
-
-setup();
 
 const options = {
-  logger,
+  logger: { warn: jest.fn(), info: jest.fn() },
   config: new Config(parseConfigFile(path.join(__dirname, './__fixtures__/config.yaml'))),
-} as any as PluginOptions<HTPasswdConfig>;
+} as any as pluginUtils.PluginOptions<HTPasswdConfig>;
 
 const config = {
   file: './htpasswd',
@@ -34,7 +26,8 @@ describe('HTPasswd', () => {
     wrapper = new HTPasswd(config, options);
     jest.resetModules();
     jest.clearAllMocks();
-    // @ts-ignore: Module has no default export
+
+    // @ts-ignore
     crypto.randomBytes = jest.fn(() => {
       return {
         toString: (): string => '$6',
@@ -43,7 +36,12 @@ describe('HTPasswd', () => {
   });
 
   describe('constructor()', () => {
-    const emptyPluginOptions = { config: {} } as any as PluginOptions<HTPasswdConfig>;
+    const error = jest.fn();
+    const info = jest.fn();
+    const emptyPluginOptions = {
+      config: {},
+      logger: { warn: jest.fn(), info, error },
+    } as any as pluginUtils.PluginOptions<HTPasswdConfig>;
 
     test('should ensure file path configuration exists', () => {
       expect(function () {
@@ -51,11 +49,11 @@ describe('HTPasswd', () => {
       }).toThrow(/should specify "file" in config/);
     });
 
-    test('should throw error about incorrect algorithm', () => {
-      expect(function () {
-        let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
-        new HTPasswd(invalidConfig, emptyPluginOptions);
-      }).toThrow(/Invalid algorithm "invalid"/);
+    test('should switch to bcrypt if incorrect algorithm is set', () => {
+      let invalidConfig = { algorithm: 'invalid', ...config } as HTPasswdConfig;
+      new HTPasswd(invalidConfig, emptyPluginOptions);
+      expect(error).toHaveBeenCalledWith('Invalid auth algorithm %s', 'invalid');
+      expect(info).toHaveBeenCalled();
     });
   });
 
@@ -95,21 +93,20 @@ describe('HTPasswd', () => {
     test('it should warn on slow password verification', (done) => {
       // @ts-ignore
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      bcrypt.compare = jest.fn(async (_passwd, _hash) => {
-        await new Promise((resolve) => setTimeout(resolve, DEFAULT_SLOW_VERIFY_MS + 1));
-        return true;
+      bcrypt.compare = jest.fn((_passwd, _hash) => {
+        return new Promise((resolve) => setTimeout(resolve, DEFAULT_SLOW_VERIFY_MS + 1)).then(
+          () => true
+        );
       });
       const callback = (a, b): void => {
         expect(a).toBeNull();
         expect(b).toContain('bcrypt');
-        // TODO: figure out how to test the warning properly without mocking the logger
-        // maybe mocking pino? not sure.
-        // const mockWarn = options.logger.warn as jest.MockedFn<jest.MockableFunction>;
-        // expect(mockWarn.mock.calls.length).toBe(1);
-        // const [{ user, durationMs }, message] = mockWarn.mock.calls[0];
-        // expect(user).toEqual('bcrypt');
-        // expect(durationMs).toBeGreaterThan(DEFAULT_SLOW_VERIFY_MS);
-        // expect(message).toEqual('Password for user "@{user}" took @{durationMs}ms to verify');
+        const mockWarn = options.logger.warn as jest.MockedFn<jest.MockableFunction>;
+        expect(mockWarn.mock.calls.length).toBe(1);
+        const [{ user, durationMs }, message] = mockWarn.mock.calls[0];
+        expect(user).toEqual('bcrypt');
+        expect(durationMs).toBeGreaterThan(DEFAULT_SLOW_VERIFY_MS);
+        expect(message).toEqual('Password for user "@{user}" took @{durationMs}ms to verify');
         done();
       };
       wrapper.authenticate('bcrypt', 'password', callback);
@@ -128,7 +125,7 @@ describe('HTPasswd', () => {
     test('it should add the user', (done) => {
       let dataToWrite;
       // @ts-ignore
-      fs.writeFile = jest.fn((_name, data, callback) => {
+      fs.writeFile = jest.fn((name, data, callback) => {
         dataToWrite = data;
         callback();
       });
@@ -150,7 +147,7 @@ describe('HTPasswd', () => {
         jest.doMock('../src/utils.ts', () => {
           return {
             sanityCheck: (): Error => Error('some error'),
-            HtpasswdHashAlgorithm,
+            HtpasswdHashAlgorithm: constants.HtpasswdHashAlgorithm,
           };
         });
 
@@ -168,7 +165,7 @@ describe('HTPasswd', () => {
           return {
             sanityCheck: (): any => null,
             lockAndRead: (_a, b): any => b(new Error('lock error')),
-            HtpasswdHashAlgorithm,
+            HtpasswdHashAlgorithm: constants.HtpasswdHashAlgorithm,
           };
         });
 
@@ -188,7 +185,7 @@ describe('HTPasswd', () => {
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             unlockFile: (_a, b): any => b(),
-            HtpasswdHashAlgorithm,
+            HtpasswdHashAlgorithm: constants.HtpasswdHashAlgorithm,
           };
         });
 
@@ -202,11 +199,11 @@ describe('HTPasswd', () => {
       test('writeFile should return an Error', (done) => {
         jest.doMock('../src/utils.ts', () => {
           return {
-            sanityCheck: (): any => null,
+            sanityCheck: () => Promise.resolve(null),
             parseHTPasswd: (): void => {},
             lockAndRead: (_a, b): any => b(null, ''),
             addUserToHTPasswd: (): void => {},
-            HtpasswdHashAlgorithm,
+            HtpasswdHashAlgorithm: constants.HtpasswdHashAlgorithm,
           };
         });
         jest.doMock('fs', () => {
@@ -246,9 +243,6 @@ describe('HTPasswd', () => {
       test('reload should fails on check file', (done) => {
         jest.doMock('fs', () => {
           return {
-            readFile: (_name, callback): void => {
-              callback(new Error('stat error'), null);
-            },
             stat: (_name, callback): void => {
               callback(new Error('stat error'), null);
             },
@@ -268,9 +262,6 @@ describe('HTPasswd', () => {
       test('reload times match', (done) => {
         jest.doMock('fs', () => {
           return {
-            readFile: (_name, callback): void => {
-              callback(new Error('stat error'), null);
-            },
             stat: (_name, callback): void => {
               callback(null, {
                 mtime: null,

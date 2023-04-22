@@ -2,12 +2,12 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import { dirname, resolve } from 'path';
 
-import { pluginUtils } from '@verdaccio/core';
+import { constants, pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
 import { Callback, Logger } from '@verdaccio/types';
 
 import {
-  HtpasswdHashAlgorithm,
+  DEFAULT_BCRYPT_ROUNDS,
   HtpasswdHashConfig,
   addUserToHTPasswd,
   changePasswordToHTPasswd,
@@ -16,6 +16,8 @@ import {
   sanityCheck,
   verifyPassword,
 } from './utils';
+
+type HtpasswdHashAlgorithm = constants.HtpasswdHashAlgorithm;
 
 const debug = buildDebug('verdaccio:plugin:htpasswd');
 
@@ -27,7 +29,6 @@ export type HTPasswdConfig = {
   slow_verify_ms?: number;
 };
 
-export const DEFAULT_BCRYPT_ROUNDS = 10;
 export const DEFAULT_SLOW_VERIFY_MS = 200;
 
 /**
@@ -63,15 +64,19 @@ export default class HTPasswd
     let algorithm: HtpasswdHashAlgorithm;
     let rounds: number | undefined;
 
-    if (config.algorithm === undefined) {
-      algorithm = HtpasswdHashAlgorithm.bcrypt;
-    } else if (HtpasswdHashAlgorithm[config.algorithm] !== undefined) {
-      algorithm = HtpasswdHashAlgorithm[config.algorithm];
+    if (typeof config.algorithm === 'undefined') {
+      algorithm = constants.HtpasswdHashAlgorithm.bcrypt;
+    } else if (constants.HtpasswdHashAlgorithm[config.algorithm] !== undefined) {
+      algorithm = constants.HtpasswdHashAlgorithm[config.algorithm];
     } else {
-      throw new Error(`Invalid algorithm "${config.algorithm}"`);
+      this.logger.warn(
+        `The algorithm selected %s is invalid, switching to to default one "bcrypt", password validation can be affected`,
+        config.algorithm
+      );
+      algorithm = constants.HtpasswdHashAlgorithm.bcrypt;
     }
     debug(`password hash algorithm: ${algorithm}`);
-    if (algorithm === HtpasswdHashAlgorithm.bcrypt) {
+    if (algorithm === constants.HtpasswdHashAlgorithm.bcrypt) {
       rounds = config.rounds || DEFAULT_BCRYPT_ROUNDS;
     } else if (config.rounds !== undefined) {
       this.logger.warn({ algo: algorithm }, 'Option "rounds" is not valid for "@{algo}" algorithm');
@@ -202,7 +207,7 @@ export default class HTPasswd
       }
 
       try {
-        this._writeFile(addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+        this._writeFile(await addUserToHTPasswd(body, user, password, this.hashConfig), cb);
       } catch (err: any) {
         return cb(err);
       }

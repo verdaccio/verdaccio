@@ -8,7 +8,7 @@ import { Config } from '@verdaccio/types';
 import { Auth } from '../src';
 import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
-setup({});
+setup({ level: 'debug', type: 'stdout' });
 
 describe('AuthTest', () => {
   test('should init correctly', async () => {
@@ -22,6 +22,18 @@ describe('AuthTest', () => {
 
   test('should load default auth plugin', async () => {
     const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
+    config.checkSecretKey('12345');
+
+    const auth: Auth = new Auth(config);
+    await auth.init();
+    expect(auth).toBeDefined();
+  });
+
+  test('should load custom algorithm', async () => {
+    const config: Config = new AppConfig({
+      ...authProfileConf,
+      auth: { htpasswd: { algorithm: 'sha1', file: './foo' } },
+    });
     config.checkSecretKey('12345');
 
     const auth: Auth = new Auth(config);
