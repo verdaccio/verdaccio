@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5067,
+      "contributions": 5072,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2753
+          "contributions": 2758
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 202
+          "contributions": 204
         },
         {
           "name": "authentication-plugin-sample",
@@ -115,10 +115,6 @@
         },
         {
           "name": "awesome",
-          "contributions": 2
-        },
-        {
-          "name": "website_v2",
           "contributions": 2
         },
         {
@@ -4791,7 +4787,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14659,
+      "stargazers_count": 14672,
       "archived": false
     },
     {
@@ -4917,7 +4913,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 73,
+      "stargazers_count": 74,
       "archived": false
     },
     {
@@ -4980,7 +4976,7 @@
       "full_name": "verdaccio/ui",
       "html_url": "https://github.com/verdaccio/ui",
       "description": "🖼🎨 Verdaccio UI (deprecated, use verdaccio/verdaccio)",
-      "stargazers_count": 120,
+      "stargazers_count": 121,
       "archived": true
     },
     {
@@ -4989,7 +4985,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 14,
+      "stargazers_count": 15,
       "archived": false
     },
     {
@@ -5044,15 +5040,6 @@
       "html_url": "https://github.com/verdaccio/awesome",
       "description": "An open list of awesome Verdaccio modules and resources.",
       "stargazers_count": 2,
-      "archived": false
-    },
-    {
-      "name": "website_v2",
-      "login": "verdaccio",
-      "full_name": "verdaccio/website_v2",
-      "html_url": "https://github.com/verdaccio/website_v2",
-      "description": null,
-      "stargazers_count": 1,
       "archived": false
     },
     {
