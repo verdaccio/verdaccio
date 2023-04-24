@@ -45,7 +45,7 @@ export function allow_action(action: string): Function {
     debug('[auth/allow_action]: hasPermission? %o} for user: %o', hasPermission, user?.name);
 
     if (hasPermission) {
-      logger.info({ remote: user.name }, `auth/allow_action: access granted to: @{user}`);
+      logger.info({ user: user.name }, `auth/allow_action: access granted to: @{user}`);
       return callback(null, true);
     }
 
