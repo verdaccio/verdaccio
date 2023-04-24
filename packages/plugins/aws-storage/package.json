@@ -32,7 +32,7 @@
   "types": "build/index.d.ts",
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "aws-sdk": "2.1199.0"
+    "aws-sdk": "2.1354.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.12",
