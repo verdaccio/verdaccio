@@ -670,8 +670,8 @@ importers:
         specifier: 3.28.0
         version: 3.28.0
       http-errors:
-        specifier: 1.8.1
-        version: 1.8.1
+        specifier: 2.0.0
+        version: 2.0.0
       http-status-codes:
         specifier: 2.2.0
         version: 2.2.0
@@ -1056,8 +1056,8 @@ importers:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
       http-errors:
-        specifier: 1.8.1
-        version: 1.8.1
+        specifier: 2.0.0
+        version: 2.0.0
       unix-crypt-td-js:
         specifier: 1.1.4
         version: 1.1.4
@@ -1511,8 +1511,8 @@ importers:
         specifier: workspace:2.0.0-6-next.8
         version: link:../../tools/helpers
       http-errors:
-        specifier: 1.8.1
-        version: 1.8.1
+        specifier: 2.0.0
+        version: 2.0.0
 
   packages/server/fastify:
     dependencies:
@@ -17419,16 +17419,6 @@ packages:
       inherits: 2.0.3
       setprototypeof: 1.1.0
       statuses: 1.5.0
-
-  /http-errors@1.8.1:
-    resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==}
-    engines: {node: '>= 0.6'}
-    dependencies:
-      depd: 1.1.2
-      inherits: 2.0.4
-      setprototypeof: 1.2.0
-      statuses: 1.5.0
-      toidentifier: 1.0.1
 
   /http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
