@@ -43,7 +43,7 @@
     "@verdaccio/ui-components": "workspace:2.0.0-6-next.9",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
-    "copy-text-to-clipboard": "3.0.1",
+    "copy-text-to-clipboard": "3.1.0",
     "docusaurus-plugin-contributors": "workspace:1.0.1-6-next.0",
     "docusaurus-plugin-sentry": "1.0.0",
     "docusaurus-plugin-typedoc": "0.18.0",
