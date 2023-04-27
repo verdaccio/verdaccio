@@ -45,7 +45,7 @@
     "i18next": "20.6.1",
     "in-publish": "2.0.1",
     "js-base64": "3.7.3",
-    "js-yaml": "3.14.1",
+    "js-yaml": "4.1.0",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
     "marked": "4.2.12",
