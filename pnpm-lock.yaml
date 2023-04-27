@@ -2178,8 +2178,8 @@ importers:
         specifier: 11.10.6
         version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.26)(react@17.0.2)
       '@lyrasearch/lyra':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.4.0
+        version: 0.4.0
       '@mdx-js/react':
         specifier: ^1.6.22
         version: 1.6.22(react@17.0.2)
@@ -7233,8 +7233,9 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
 
-  /@lyrasearch/lyra@0.3.1:
-    resolution: {integrity: sha512-c0k8R026nfXu/FhA9xgh7jo/+HM4I7XCn5J+us32mQEmqNBmGpD0CEyJ8PiJxmsDapyeYwpMNQgT2lNmnIL86w==}
+  /@lyrasearch/lyra@0.4.0:
+    resolution: {integrity: sha512-qWlq2Cv8GeuUJz85CvpbwAo/VWBkozxFbb7GKR+ljftXggQeLs8VN4hyNZiusw4MPek01z7Aj6PLeTLijC/h6Q==}
+    engines: {node: '>= 16.0.0'}
     deprecated: Lyra is now called Orama! Install the latest stable version via the @orama/orama package
     dev: false
 
