@@ -923,8 +923,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       lru-cache:
-        specifier: 7.16.1
-        version: 7.16.1
+        specifier: 7.18.3
+        version: 7.18.3
       mime:
         specifier: 2.6.0
         version: 2.6.0
@@ -1108,8 +1108,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0
       lru-cache:
-        specifier: 7.16.1
-        version: 7.16.1
+        specifier: 7.18.3
+        version: 7.18.3
       sanitize-filename:
         specifier: 1.6.3
         version: 1.6.3
@@ -19963,8 +19963,8 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lru-cache@7.16.1:
-    resolution: {integrity: sha512-9kkuMZHnLH/8qXARvYSjNvq8S1GYFFzynQTAfKeaJ0sIrR3PUPuu37Z+EiIANiZBvpfTf2B5y8ecDLSMWlLv+w==}
+  /lru-cache@7.18.3:
+    resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
     dev: false
 
