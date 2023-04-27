@@ -149,11 +149,11 @@
     {
       "id": 14012309,
       "login": "sergiohgz",
-      "contributions": 364,
+      "contributions": 365,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 21
+          "contributions": 22
         },
         {
           "name": "docker-examples",
@@ -4787,7 +4787,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14672,
+      "stargazers_count": 14682,
       "archived": false
     },
     {
@@ -4895,7 +4895,7 @@
       "full_name": "verdaccio/verdaccio-google-cloud",
       "html_url": "https://github.com/verdaccio/verdaccio-google-cloud",
       "description": "☁️📦 Google Cloud storage plugin for verdaccio",
-      "stargazers_count": 17,
+      "stargazers_count": 18,
       "archived": true
     },
     {
