@@ -21,7 +21,7 @@ export const listLanguages: LanguageConfiguration[] = [
   { lng: 'ru-RU', icon: Flags.RU, menuKey: 'lng.russian' },
   { lng: 'tr-TR', icon: Flags.TR, menuKey: 'lng.turkish' },
   { lng: 'uk-UA', icon: Flags.UA, menuKey: 'lng.ukraine' },
-  { lng: 'km-KH', icon: Flags.KH, menuKey: 'lng.khme' },
+  { lng: 'km-KH', icon: Flags.KH, menuKey: 'lng.khmer' },
   { lng: 'zh-CN', icon: Flags.CN, menuKey: 'lng.chinese' },
   { lng: 'zh-TW', icon: Flags.TW, menuKey: 'lng.chineseTraditional' },
 ];
