@@ -39,7 +39,7 @@
     "apache-md5": "1.1.8",
     "bcryptjs": "2.4.3",
     "core-js": "3.28.0",
-    "http-errors": "1.8.1",
+    "http-errors": "2.0.0",
     "debug": "4.3.4",
     "unix-crypt-td-js": "1.1.4"
   },

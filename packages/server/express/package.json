@@ -51,7 +51,7 @@
     "@types/node": "16.18.10",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.46",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
-    "http-errors": "1.8.1"
+    "http-errors": "2.0.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
