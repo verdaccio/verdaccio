@@ -41,7 +41,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.68",
     "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.9",
     "debug": "4.3.4",
-    "colorette": "2.0.19"
+    "colorette": "2.0.20"
   },
   "devDependencies": {
     "pino": "8.11.0",

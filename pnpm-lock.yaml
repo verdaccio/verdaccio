@@ -861,8 +861,8 @@ importers:
         specifier: workspace:6.0.0-6-next.9
         version: link:../logger-prettify
       colorette:
-        specifier: 2.0.19
-        version: 2.0.19
+        specifier: 2.0.20
+        version: 2.0.20
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
@@ -877,8 +877,8 @@ importers:
   packages/logger/logger-prettify:
     dependencies:
       colorette:
-        specifier: 2.0.19
-        version: 2.0.19
+        specifier: 2.0.20
+        version: 2.0.20
       dayjs:
         specifier: 1.11.7
         version: 1.11.7
@@ -12994,8 +12994,8 @@ packages:
     resolution: {integrity: sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==}
     dev: true
 
-  /colorette@2.0.19:
-    resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
+  /colorette@2.0.20:
+    resolution: {integrity: sha512-IfEDxwoWIjkeXL1eXcDiow4UbKjhLdq6/EuSVR9GMN7KVH3r9gQ83e73hsz1Nd1T3ijd5xv1wcWRYO+D6kCI2w==}
 
   /combine-promises@1.1.0:
     resolution: {integrity: sha512-ZI9jvcLDxqwaXEixOhArm3r7ReIivsXkpbyEWyeOhzz1QS0iSgBPnWvEqvIQtYyamGCYA88gFhmUrs9hrrQ0pg==}
@@ -19712,7 +19712,7 @@ packages:
         optional: true
     dependencies:
       cli-truncate: 2.1.0
-      colorette: 2.0.19
+      colorette: 2.0.20
       enquirer: 2.3.6
       log-update: 4.0.0
       p-map: 4.0.0
@@ -27028,7 +27028,7 @@ packages:
       '@webpack-cli/configtest': 1.2.0(webpack-cli@4.10.0)(webpack@5.75.0)
       '@webpack-cli/info': 1.5.0(webpack-cli@4.10.0)
       '@webpack-cli/serve': 1.7.0(webpack-cli@4.10.0)(webpack-dev-server@3.11.3)
-      colorette: 2.0.19
+      colorette: 2.0.20
       commander: 7.2.0
       cross-spawn: 7.0.3
       fastest-levenshtein: 1.0.16
@@ -27088,7 +27088,7 @@ packages:
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
     dependencies:
-      colorette: 2.0.19
+      colorette: 2.0.20
       memfs: 3.4.12
       mime-types: 2.1.35
       range-parser: 1.2.1
@@ -27168,7 +27168,7 @@ packages:
       ansi-html-community: 0.0.8
       bonjour-service: 1.1.1
       chokidar: 3.5.3
-      colorette: 2.0.19
+      colorette: 2.0.20
       compression: 1.7.4(supports-color@6.1.0)
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
