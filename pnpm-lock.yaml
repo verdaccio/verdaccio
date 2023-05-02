@@ -1266,8 +1266,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 4.2.12
-        version: 4.2.12
+        specifier: 4.3.0
+        version: 4.3.0
       mini-css-extract-plugin:
         specifier: 2.7.2
         version: 2.7.2(webpack@5.75.0)
@@ -1866,8 +1866,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 4.2.12
-        version: 4.2.12
+        specifier: 4.3.0
+        version: 4.3.0
       normalize.css:
         specifier: 8.0.1
         version: 8.0.1
@@ -20029,11 +20029,6 @@ packages:
 
   /markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
-
-  /marked@4.2.12:
-    resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
-    engines: {node: '>= 12'}
-    hasBin: true
 
   /marked@4.3.0:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
