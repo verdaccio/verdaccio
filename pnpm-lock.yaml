@@ -282,8 +282,8 @@ importers:
         specifier: 12.3.0
         version: 12.3.0
       kleur:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 4.1.5
+        version: 4.1.5
       lint-staged:
         specifier: 11.2.6
         version: 11.2.6
@@ -620,8 +620,8 @@ importers:
         specifier: 7.8.1
         version: 7.8.1
       kleur:
-        specifier: 3.0.3
-        version: 3.0.3
+        specifier: 4.1.5
+        version: 4.1.5
       semver:
         specifier: 7.5.0
         version: 7.5.0
