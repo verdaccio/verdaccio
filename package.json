@@ -48,7 +48,7 @@
     "@emotion/styled": "11.10.6",
     "@testing-library/dom": "8.19.1",
     "@testing-library/jest-dom": "5.16.5",
-    "@testing-library/react": "12.1.4",
+    "@testing-library/react": "12.1.5",
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "@types/async": "3.2.16",
     "@types/body-parser": "1.19.2",

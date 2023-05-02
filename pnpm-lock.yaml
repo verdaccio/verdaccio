@@ -108,8 +108,8 @@ importers:
         specifier: 5.16.5
         version: 5.16.5
       '@testing-library/react':
-        specifier: 12.1.4
-        version: 12.1.4(react-dom@18.2.0)(react@18.2.0)
+        specifier: 12.1.5
+        version: 12.1.5(react-dom@18.2.0)(react@18.2.0)
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.0.0
         version: 4.1.1(prettier@2.8.4)
@@ -9837,16 +9837,16 @@ packages:
       redent: 3.0.0
     dev: true
 
-  /@testing-library/react@12.1.4(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jiPKOm7vyUw311Hn/HlNQ9P8/lHNtArAx0PisXyFixDDvfl8DbD6EUdbshK5eqauvBSvzZd19itqQ9j3nferJA==}
+  /@testing-library/react@12.1.5(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OfTXCJUFgjd/digLUuPxa0+/3ZxsQmE7ub9kcbW/wi96Bh3o/p5vrETcBGfP17NWPGqeYYl5LTRpwyGoMC4ysg==}
     engines: {node: '>=12'}
     peerDependencies:
-      react: '*'
-      react-dom: '*'
+      react: <18.0.0
+      react-dom: <18.0.0
     dependencies:
       '@babel/runtime': 7.20.7
       '@testing-library/dom': 8.19.1
-      '@types/react-dom': 18.0.9
+      '@types/react-dom': 17.0.20
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: true
@@ -10278,6 +10278,12 @@ packages:
 
   /@types/range-parser@1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
+
+  /@types/react-dom@17.0.20:
+    resolution: {integrity: sha512-4pzIjSxDueZZ90F52mU3aPoogkHIoSIDG+oQ+wQK7Cy2B9S+MvOqY0uEA/qawKz381qrEDkvpwyt8Bm31I8sbA==}
+    dependencies:
+      '@types/react': 17.0.58
+    dev: true
 
   /@types/react-dom@18.0.11:
     resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
@@ -11950,7 +11956,7 @@ packages:
     resolution: {integrity: sha512-Cg7TFGpIr01vOQNODXOOaGz2NpCU5gl8x1qJFbb6hbZxR7XrcE2vtbAsTAbJ7/xwJtUuJEw8K8Zr/AE0LHlesg==}
     engines: {node: '>=10', npm: '>=6'}
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.20.7
       cosmiconfig: 7.1.0
       resolve: 1.22.3
 
@@ -23590,7 +23596,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.20.7
       history: 4.10.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -23618,7 +23624,7 @@ packages:
     peerDependencies:
       react: '>=15'
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.20.7
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
@@ -23686,7 +23692,7 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.20.7
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -23700,7 +23706,7 @@ packages:
       react: '>=16.6.0'
       react-dom: '>=16.6.0'
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.20.7
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
