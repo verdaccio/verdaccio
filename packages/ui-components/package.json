@@ -39,7 +39,7 @@
     "i18next": "20.6.1",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
-    "marked": "4.2.12",
+    "marked": "4.3.0",
     "normalize.css": "8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
