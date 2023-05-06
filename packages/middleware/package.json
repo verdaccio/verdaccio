@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@verdaccio/logger": "workspace:6.0.0-6-next.36",
-    "body-parser": "1.20.1",
+    "body-parser": "1.20.2",
     "supertest": "6.3.3"
   }
 }

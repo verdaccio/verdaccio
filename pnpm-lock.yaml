@@ -519,8 +519,8 @@ importers:
         specifier: 1.7.5
         version: 1.7.5
       body-parser:
-        specifier: 1.20.1
-        version: 1.20.1(supports-color@6.1.0)
+        specifier: 1.20.2
+        version: 1.20.2
       cookies:
         specifier: 0.8.0
         version: 0.8.0
@@ -933,8 +933,8 @@ importers:
         specifier: workspace:6.0.0-6-next.36
         version: link:../logger/logger
       body-parser:
-        specifier: 1.20.1
-        version: 1.20.1(supports-color@6.1.0)
+        specifier: 1.20.2
+        version: 1.20.2
       supertest:
         specifier: 6.3.3
         version: 6.3.3
@@ -1755,8 +1755,8 @@ importers:
         specifier: workspace:6.0.0-6-next.36
         version: link:../../utils
       body-parser:
-        specifier: 1.20.1
-        version: 1.20.1(supports-color@6.1.0)
+        specifier: 1.20.2
+        version: 1.20.2
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
@@ -12223,6 +12223,25 @@ packages:
       on-finished: 2.4.1
       qs: 6.11.0
       raw-body: 2.5.1
+      type-is: 1.6.18
+      unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  /body-parser@1.20.2:
+    resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
+    engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
+    dependencies:
+      bytes: 3.1.2
+      content-type: 1.0.5
+      debug: 2.6.9(supports-color@6.1.0)
+      depd: 2.0.0
+      destroy: 1.2.0
+      http-errors: 2.0.0
+      iconv-lite: 0.4.24
+      on-finished: 2.4.1
+      qs: 6.11.0
+      raw-body: 2.5.2
       type-is: 1.6.18
       unpipe: 1.0.0
     transitivePeerDependencies:
@@ -23144,6 +23163,15 @@ packages:
 
   /raw-body@2.5.1:
     resolution: {integrity: sha512-qqJBtEyVgS0ZmPGdCFPWJ3FreoqvG4MVQln/kCgF7Olq95IbOp0/BWyMwbdtn4VTvkM8Y7khCQ2Xgk/tcrCXig==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      bytes: 3.1.2
+      http-errors: 2.0.0
+      iconv-lite: 0.4.24
+      unpipe: 1.0.0
+
+  /raw-body@2.5.2:
+    resolution: {integrity: sha512-8zGqypfENjCIqGhgXToC8aB2r7YrBX+AQAfIPs/Mlk+BtPTztOvTS01NRW/3Eh60J+a48lt8qsCzirQ6loCVfA==}
     engines: {node: '>= 0.8'}
     dependencies:
       bytes: 3.1.2
