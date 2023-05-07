@@ -55,7 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:19.0.7"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
-            ["@types/express", "npm:4.17.14"],\
+            ["@types/express", "npm:4.17.17"],\
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
             ["@types/jest", "npm:26.0.24"],\
@@ -4555,12 +4555,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/express", [\
-        ["npm:4.17.14", {\
-          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.14-076e1b4711-15c1af46d0.zip/node_modules/@types/express/",\
+        ["npm:4.17.17", {\
+          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.17-46fe8173db-0196dacc27.zip/node_modules/@types/express/",\
           "packageDependencies": [\
-            ["@types/express", "npm:4.17.14"],\
+            ["@types/express", "npm:4.17.17"],\
             ["@types/body-parser", "npm:1.19.2"],\
-            ["@types/express-serve-static-core", "npm:4.17.33"],\
+            ["@types/express-serve-static-core", "npm:4.17.34"],\
             ["@types/qs", "npm:6.9.7"],\
             ["@types/serve-static", "npm:1.13.10"]\
           ],\
@@ -4578,13 +4578,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:4.17.33", {\
-          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.33-0366bd5654-dce580d16b.zip/node_modules/@types/express-serve-static-core/",\
+        ["npm:4.17.34", {\
+          "packageLocation": "./.yarn/cache/@types-express-serve-static-core-npm-4.17.34-b1081fd10c-3b5242e7d6.zip/node_modules/@types/express-serve-static-core/",\
           "packageDependencies": [\
-            ["@types/express-serve-static-core", "npm:4.17.33"],\
+            ["@types/express-serve-static-core", "npm:4.17.34"],\
             ["@types/node", "npm:18.11.19"],\
             ["@types/qs", "npm:6.9.7"],\
-            ["@types/range-parser", "npm:1.2.4"]\
+            ["@types/range-parser", "npm:1.2.4"],\
+            ["@types/send", "npm:0.17.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4805,6 +4806,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.13-56212b60da-00c0724d54.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
             ["@types/semver", "npm:7.3.13"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/send", [\
+        ["npm:0.17.1", {\
+          "packageLocation": "./.yarn/cache/@types-send-npm-0.17.1-5f715ca966-10b620a596.zip/node_modules/@types/send/",\
+          "packageDependencies": [\
+            ["@types/send", "npm:0.17.1"],\
+            ["@types/mime", "npm:1.3.2"],\
+            ["@types/node", "npm:18.11.19"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14021,7 +14033,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@octokit/rest", "npm:19.0.7"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
-            ["@types/express", "npm:4.17.14"],\
+            ["@types/express", "npm:4.17.17"],\
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
             ["@types/jest", "npm:26.0.24"],\
