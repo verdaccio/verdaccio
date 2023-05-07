@@ -42,7 +42,7 @@
     "pino-abstract-transport": "1.0.0",
     "colorette": "2.0.20",
     "lodash": "4.17.21",
-    "sonic-boom": "3.2.1"
+    "sonic-boom": "3.3.0"
   },
   "devDependencies": {
     "pino": "8.12.1"
