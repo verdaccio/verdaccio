@@ -4,7 +4,7 @@
   "version": "1.0.1-6-next.7",
   "dependencies": {
     "@verdaccio/test-cli-commons": "workspace:1.1.0-6-next.7",
-    "npm": "9.6.3"
+    "npm": "9.6.6"
   },
   "scripts": {
     "test": "jest"
