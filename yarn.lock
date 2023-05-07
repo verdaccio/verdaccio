@@ -2518,10 +2518,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/async@npm:3.2.16":
-  version: 3.2.16
-  resolution: "@types/async@npm:3.2.16"
-  checksum: 42b26d59e65ebb06ca5debee128a9dc9684af5f376a6b74e5d6e9e969e999077593aa04504ca5ac1f30e18371c06dcc5edeaf64be6e727fa20dbd1a98c487c37
+"@types/async@npm:3.2.20":
+  version: 3.2.20
+  resolution: "@types/async@npm:3.2.20"
+  checksum: 880ac312f097d3ef98da175b23dc6d29dd0014af55789b3f534dacd0fcd0fb202fdefc732d9b10e4bc93e40823cfe279bb19033cb863f4e27c032e50cd7d9a8e
   languageName: node
   linkType: hard
 
@@ -10686,7 +10686,7 @@ __metadata:
     "@babel/runtime": 7.21.5
     "@octokit/rest": 19.0.7
     "@trivago/prettier-plugin-sort-imports": 4.1.1
-    "@types/async": 3.2.16
+    "@types/async": 3.2.20
     "@types/express": 4.17.14
     "@types/express-serve-static-core": 4.17.28
     "@types/http-errors": 2.0.1

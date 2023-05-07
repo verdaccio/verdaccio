@@ -53,7 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
-            ["@types/async", "npm:3.2.16"],\
+            ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.14"],\
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
@@ -4442,10 +4442,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/async", [\
-        ["npm:3.2.16", {\
-          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.16-176346da98-42b26d59e6.zip/node_modules/@types/async/",\
+        ["npm:3.2.20", {\
+          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.20-daa5f06b25-880ac312f0.zip/node_modules/@types/async/",\
           "packageDependencies": [\
-            ["@types/async", "npm:3.2.16"]\
+            ["@types/async", "npm:3.2.20"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14002,7 +14002,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
-            ["@types/async", "npm:3.2.16"],\
+            ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.14"],\
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
