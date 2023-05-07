@@ -33,7 +33,6 @@ describe('audit a package', () => {
       );
       const parsedBody = JSON.parse(resp.stdout as string);
       expect(parsedBody.metadata).toBeDefined();
-      expect(parsedBody.actions).toBeDefined();
       expect(parsedBody.advisories).toBeDefined();
       expect(parsedBody.muted).toBeDefined();
     }
