@@ -186,7 +186,7 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.5.0",
+  "packageManager": "yarn@3.5.1",
   "dependenciesMeta": {
     "@verdaccio/types@11.0.0-6-next.24": {
       "unplugged": true
