@@ -59,7 +59,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
             ["@types/jest", "npm:26.0.24"],\
-            ["@types/lodash", "npm:4.14.191"],\
+            ["@types/lodash", "npm:4.14.194"],\
             ["@types/mime", "npm:2.0.3"],\
             ["@types/minimatch", "npm:3.0.5"],\
             ["@types/node", "npm:18.11.18"],\
@@ -4671,6 +4671,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.191-67a04a969b-ba0d5434e1.zip/node_modules/@types/lodash/",\
           "packageDependencies": [\
             ["@types/lodash", "npm:4.14.191"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:4.14.194", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.194-f099c0742e-113f34831c.zip/node_modules/@types/lodash/",\
+          "packageDependencies": [\
+            ["@types/lodash", "npm:4.14.194"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14018,7 +14025,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express-serve-static-core", "npm:4.17.28"],\
             ["@types/http-errors", "npm:2.0.1"],\
             ["@types/jest", "npm:26.0.24"],\
-            ["@types/lodash", "npm:4.14.191"],\
+            ["@types/lodash", "npm:4.14.194"],\
             ["@types/mime", "npm:2.0.3"],\
             ["@types/minimatch", "npm:3.0.5"],\
             ["@types/node", "npm:18.11.18"],\
