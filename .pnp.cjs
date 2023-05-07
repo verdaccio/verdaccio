@@ -127,7 +127,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-mocks-http", "npm:1.12.2"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
-            ["prettier", "npm:2.8.7"],\
+            ["prettier", "npm:2.8.8"],\
             ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.1.1"],\
@@ -4394,7 +4394,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/compiler-sfc", null],\
             ["javascript-natural-sort", "npm:0.7.1"],\
             ["lodash", "npm:4.17.21"],\
-            ["prettier", "npm:2.8.7"]\
+            ["prettier", "npm:2.8.8"]\
           ],\
           "packagePeers": [\
             "@types/prettier",\
@@ -7933,7 +7933,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],\
             ["eslint", "npm:8.39.0"],\
             ["eslint-config-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:8.8.0"],\
-            ["prettier", "npm:2.8.7"],\
+            ["prettier", "npm:2.8.8"],\
             ["prettier-linter-helpers", "npm:1.0.0"]\
           ],\
           "packagePeers": [\
@@ -12022,10 +12022,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:2.8.7", {\
-          "packageLocation": "./.yarn/cache/prettier-npm-2.8.7-1962ac9483-fdc8f2616f.zip/node_modules/prettier/",\
+        ["npm:2.8.8", {\
+          "packageLocation": "./.yarn/cache/prettier-npm-2.8.8-430828a36c-b49e409431.zip/node_modules/prettier/",\
           "packageDependencies": [\
-            ["prettier", "npm:2.8.7"]\
+            ["prettier", "npm:2.8.8"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14076,7 +14076,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-mocks-http", "npm:1.12.2"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
-            ["prettier", "npm:2.8.7"],\
+            ["prettier", "npm:2.8.8"],\
             ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.1.1"],\
