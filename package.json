@@ -85,7 +85,7 @@
     "@babel/runtime": "7.21.5",
     "@octokit/rest": "19.0.7",
     "@trivago/prettier-plugin-sort-imports": "4.1.1",
-    "@types/async": "3.2.16",
+    "@types/async": "3.2.20",
     "@types/express": "4.17.14",
     "@types/express-serve-static-core": "4.17.28",
     "@types/http-errors": "2.0.1",
