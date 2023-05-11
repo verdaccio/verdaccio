@@ -34,7 +34,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.68",
     "memory-fs": "0.5.0",
     "debug": "4.3.4",
-    "memfs": "3.4.12"
+    "memfs": "3.5.1"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
