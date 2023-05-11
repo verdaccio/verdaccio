@@ -13,6 +13,7 @@
     "pnpm"
   ],
   "baseBranches": ["master", "5.x"],
+  "semanticCommitType": "fix",
   "major": false,
   "labels": ["bot: dependencies"],
   "packageRules": [
