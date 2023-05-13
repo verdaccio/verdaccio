@@ -65,7 +65,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.16.5"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.8"],\
-            ["@types/semver", "npm:7.3.13"],\
+            ["@types/semver", "npm:7.5.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.59.5"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.59.5"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
@@ -131,7 +131,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.1.1"],\
-            ["semver", "npm:7.5.0"],\
+            ["semver", "npm:7.5.1"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.1"],\
@@ -4816,6 +4816,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-semver-npm-7.3.13-56212b60da-00c0724d54.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
             ["@types/semver", "npm:7.3.13"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:7.5.0", {\
+          "packageLocation": "./.yarn/cache/@types-semver-npm-7.5.0-4823ff34be-0a64b9b9c7.zip/node_modules/@types/semver/",\
+          "packageDependencies": [\
+            ["@types/semver", "npm:7.5.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12752,10 +12759,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:7.5.0", {\
-          "packageLocation": "./.yarn/cache/semver-npm-7.5.0-160502ad5d-2d26693775.zip/node_modules/semver/",\
+        ["npm:7.5.1", {\
+          "packageLocation": "./.yarn/cache/semver-npm-7.5.1-0736382fb9-d16dbedad5.zip/node_modules/semver/",\
           "packageDependencies": [\
-            ["semver", "npm:7.5.0"],\
+            ["semver", "npm:7.5.1"],\
             ["lru-cache", "npm:6.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -14037,7 +14044,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:18.16.5"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.8"],\
-            ["@types/semver", "npm:7.3.13"],\
+            ["@types/semver", "npm:7.5.0"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.59.5"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.59.5"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
@@ -14103,7 +14110,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["request", "npm:2.88.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.1.1"],\
-            ["semver", "npm:7.5.0"],\
+            ["semver", "npm:7.5.1"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.1"],\
