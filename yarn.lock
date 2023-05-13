@@ -2461,6 +2461,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@orama/orama@npm:1.0.0-beta.16":
+  version: 1.0.0-beta.16
+  resolution: "@orama/orama@npm:1.0.0-beta.16"
+  checksum: a73586611ba38859ec2e22a6c10777d0f4211054c73e7b83526eed57a38f9f0fe3dbd270dd942474762afb7661b7335caab346283dd27cee7c6dd598c85e1978
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.25.16":
   version: 0.25.21
   resolution: "@sinclair/typebox@npm:0.25.21"
@@ -10704,6 +10711,7 @@ __metadata:
     "@babel/register": 7.21.0
     "@babel/runtime": 7.21.5
     "@octokit/rest": 19.0.7
+    "@orama/orama": 1.0.0-beta.16
     "@trivago/prettier-plugin-sort-imports": 4.1.1
     "@types/async": 3.2.20
     "@types/express": 4.17.17

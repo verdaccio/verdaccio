@@ -4,14 +4,15 @@ import _ from 'lodash';
 
 import { webMiddleware } from '@verdaccio/middleware';
 
+import MemoryIndexer from '../../lib/memory-local-search';
 import loadPlugin from '../../lib/plugin-loader';
-import Search from '../../lib/search';
 import webApi from './api';
 
 const debug = buildDebug('verdaccio:web');
 
 export function loadTheme(config) {
   if (_.isNil(config.theme) === false) {
+    debug('loading custom ui theme');
     return _.head(
       loadPlugin(
         config,
@@ -26,9 +27,10 @@ export function loadTheme(config) {
   }
 }
 
-export default (config, auth, storage) => {
+export default async (config, auth, storage) => {
   const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();
-  Search.configureStorage(storage);
+  MemoryIndexer.configureStorage(storage);
+  await MemoryIndexer.init();
   // eslint-disable-next-line new-cap
   const router = express.Router();
   // load application

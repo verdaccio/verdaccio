@@ -23,8 +23,8 @@ import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
 import { hasProxyTo } from './config-utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
 import LocalStorage from './local-storage';
+import MemorySeachIndexer from './memory-local-search';
 import { mergeVersions } from './metadata-utils';
-import Search from './search';
 import {
   checkPackageLocal,
   checkPackageRemote,
@@ -146,7 +146,9 @@ class Storage {
   public removePackage(name: string, callback: Callback): void {
     this.localStorage.removePackage(name, callback);
     // update the indexer
-    Search.remove(name);
+    MemorySeachIndexer.remove(name).catch((reason) => {
+      logger.error('indexer has failed on remove item');
+    });
   }
 
   /**

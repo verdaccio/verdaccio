@@ -53,6 +53,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.21.0"],\
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
+            ["@orama/orama", "npm:1.0.0-beta.16"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.17"],\
@@ -4370,6 +4371,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@octokit/types", "npm:9.0.0"],\
             ["@octokit/openapi-types", "npm:16.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@orama/orama", [\
+        ["npm:1.0.0-beta.16", {\
+          "packageLocation": "./.yarn/cache/@orama-orama-npm-1.0.0-beta.16-a69f5dedee-a73586611b.zip/node_modules/@orama/orama/",\
+          "packageDependencies": [\
+            ["@orama/orama", "npm:1.0.0-beta.16"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14025,6 +14035,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.21.0"],\
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
+            ["@orama/orama", "npm:1.0.0-beta.16"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.17"],\
