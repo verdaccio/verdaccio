@@ -53,7 +53,7 @@
     "@verdaccio/core": "workspace:6.0.0-6-next.68",
     "@verdaccio/store": "workspace:6.0.0-6-next.48",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
-    "fastify": "4.13.0",
+    "fastify": "4.17.0",
     "get-port": "5.1.1",
     "got": "11.8.6",
     "lodash": "4.17.21",
