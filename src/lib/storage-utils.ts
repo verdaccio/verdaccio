@@ -6,6 +6,7 @@ import { generateRandomHexString } from '@verdaccio/utils';
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
+import { logger } from './logger';
 import MemorySeachIndexer from './memory-local-search';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
