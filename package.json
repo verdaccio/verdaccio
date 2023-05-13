@@ -79,7 +79,7 @@
     "@types/supertest": "2.0.12",
     "@types/testing-library__jest-dom": "5.14.5",
     "@types/validator": "13.7.12",
-    "@types/webpack": "5.28.0",
+    "@types/webpack": "5.28.1",
     "@types/webpack-env": "1.18.0",
     "@typescript-eslint/eslint-plugin": "5.52.0",
     "@typescript-eslint/parser": "5.52.0",
