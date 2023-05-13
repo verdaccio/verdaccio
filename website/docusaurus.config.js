@@ -84,7 +84,6 @@ const i18nConfig = {
 
 const pkgJson = require('./package.json');
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'Verdaccio',
   tagline: 'A lightweight Node.js private proxy registry',
