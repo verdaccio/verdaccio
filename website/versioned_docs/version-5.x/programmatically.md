@@ -75,7 +75,7 @@ const verdaccio = require('verdaccio').default;
 const YAML = require('js-yaml');
 
 const getConfig = () => {
-  return YAML.safeLoad(fs.readFileSync(path.join(__dirname, 'config.yaml'), 'utf8'));
+  return YAML.load(fs.readFileSync(path.join(__dirname, 'config.yaml'), 'utf8'));
 };
 
 const cache = path.join(__dirname, 'cache');

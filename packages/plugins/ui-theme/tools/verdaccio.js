@@ -8,7 +8,7 @@ const storageLocation = path.join(__dirname, '../partials/storage');
 const pluginsLocation = path.join(__dirname, '../partials/plugins');
 const configJsonFormat = Object.assign(
   {},
-  yaml.safeLoad(fs.readFileSync('./tools/_verdaccio.config.yaml', 'utf8')),
+  yaml.load(fs.readFileSync('./tools/_verdaccio.config.yaml', 'utf8')),
   {
     storage: storageLocation,
     plugins: pluginsLocation,
