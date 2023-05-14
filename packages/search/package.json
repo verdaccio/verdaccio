@@ -1,8 +1,8 @@
 {
   "name": "@verdaccio/search",
   "version": "6.0.0-6-next.1",
-  "description": "verdaccio search tools",
-  "main": "./build/index.js",
+  "description": "verdaccio search utitlity tools",
+  "main": "./build/dist.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
