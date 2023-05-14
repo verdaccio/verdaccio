@@ -58,7 +58,8 @@
     "@verdaccio/logger-7": "6.0.0-6-next.1",
     "@verdaccio/logger-commons": "6.0.0-6-next.25",
     "@verdaccio/e2e-cli-pnpm8": "1.0.1-6-next.6",
-    "@verdaccio/signature": "6.0.0-6-next.1"
+    "@verdaccio/signature": "6.0.0-6-next.1",
+    "@verdaccio/search": "6.0.0-6-next.1"
   },
   "changesets": [
     "afraid-mice-obey",
@@ -146,6 +147,7 @@
     "shiny-chefs-heal",
     "shy-ducks-cover",
     "silly-moose-watch",
+    "six-boats-sparkle",
     "slow-carrots-relate",
     "slow-snails-sniff",
     "smart-apricots-kneel",
@@ -161,6 +163,8 @@
     "swift-pumpkins-knock",
     "ten-parents-breathe",
     "tender-bags-call",
+    "tender-pots-yawn",
+    "tender-tigers-hammer",
     "thick-countries-move",
     "thick-geese-wash",
     "thick-readers-hang",

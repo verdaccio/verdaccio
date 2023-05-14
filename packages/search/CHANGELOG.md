@@ -1,5 +1,11 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.2
+
+### Minor Changes
+
+- 15e58d98: feat: add search package utilities
+
 ## 6.0.0-6-next.46
 
 ### Patch Changes

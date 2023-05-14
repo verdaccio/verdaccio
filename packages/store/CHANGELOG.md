@@ -1,5 +1,21 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.49
+
+### Patch Changes
+
+- Updated dependencies [c9d1af0e]
+  - @verdaccio/core@6.0.0-6-next.69
+  - @verdaccio/hooks@6.0.0-6-next.39
+  - @verdaccio/config@6.0.0-6-next.69
+  - @verdaccio/tarball@11.0.0-6-next.38
+  - @verdaccio/url@11.0.0-6-next.35
+  - @verdaccio/loaders@6.0.0-6-next.38
+  - @verdaccio/local-storage@11.0.0-6-next.39
+  - @verdaccio/proxy@6.0.0-6-next.47
+  - @verdaccio/utils@6.0.0-6-next.37
+  - @verdaccio/logger@6.0.0-6-next.37
+
 ## 6.0.0-6-next.48
 
 ### Patch Changes

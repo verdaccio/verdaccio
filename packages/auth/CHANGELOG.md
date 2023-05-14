@@ -1,5 +1,22 @@
 # @verdaccio/auth
 
+## 6.0.0-6-next.48
+
+### Minor Changes
+
+- c9d1af0e: feat: async bcrypt hash
+
+### Patch Changes
+
+- Updated dependencies [c9d1af0e]
+  - @verdaccio/core@6.0.0-6-next.69
+  - verdaccio-htpasswd@11.0.0-6-next.39
+  - @verdaccio/config@6.0.0-6-next.69
+  - @verdaccio/loaders@6.0.0-6-next.38
+  - @verdaccio/utils@6.0.0-6-next.37
+  - @verdaccio/signature@6.0.0-6-next.2
+  - @verdaccio/logger@6.0.0-6-next.37
+
 ## 6.0.0-6-next.47
 
 ### Patch Changes
