@@ -1,4 +1,4 @@
-import { Orama, Results, create, insert, remove, search } from '@orama/orama';
+import type { Orama, Results } from '@orama/orama';
 import buildDebug from 'debug';
 
 import { Version } from '@verdaccio/types';
@@ -6,6 +6,7 @@ import { Version } from '@verdaccio/types';
 import Storage from './storage';
 
 const debug = buildDebug('verdaccio:search:indexer');
+const { create, insert, remove, search } = require('@orama/orama');
 
 class SearchMemoryIndexer {
   private database: Orama | undefined;
