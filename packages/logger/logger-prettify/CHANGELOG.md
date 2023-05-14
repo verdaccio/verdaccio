@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 6.0.0-6-next.10
+
+### Patch Changes
+
+- 4a33e269: fix: restore pino legacy version
+
 ## 6.0.0-6-next.9
 
 ### Patch Changes

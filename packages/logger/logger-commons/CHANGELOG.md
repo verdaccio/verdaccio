@@ -1,5 +1,14 @@
 # @verdaccio/logger-commons
 
+## 6.0.0-6-next.38
+
+### Patch Changes
+
+- 4a33e269: fix: restore pino legacy version
+- Updated dependencies [4a33e269]
+  - @verdaccio/logger-prettify@6.0.0-6-next.10
+  - @verdaccio/core@6.0.0-6-next.70
+
 ## 6.0.0-6-next.37
 
 ### Patch Changes

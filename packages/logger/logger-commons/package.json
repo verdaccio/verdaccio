@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-commons",
-  "version": "6.0.0-6-next.37",
+  "version": "6.0.0-6-next.38",
   "description": "logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -38,8 +38,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.69",
-    "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.9",
+    "@verdaccio/core": "workspace:6.0.0-6-next.70",
+    "@verdaccio/logger-prettify": "workspace:6.0.0-6-next.10",
     "debug": "4.3.4",
     "colorette": "2.0.20"
   },
