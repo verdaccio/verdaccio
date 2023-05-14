@@ -94,6 +94,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
+      "followTag": "6-next",
       "baseBranchList": ["5.x"]
     },
     {
