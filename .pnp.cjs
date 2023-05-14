@@ -5206,20 +5206,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/config", [\
-        ["npm:6.0.0-6-next.68", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-config-npm-6.0.0-6-next.68-7334112725-aa527a6f4a.zip/node_modules/@verdaccio/config/",\
-          "packageDependencies": [\
-            ["@verdaccio/config", "npm:6.0.0-6-next.68"],\
-            ["@verdaccio/core", "npm:6.0.0-6-next.68"],\
-            ["@verdaccio/utils", "npm:6.0.0-6-next.36"],\
-            ["debug", "virtual:1ca322a4d66c7a41fb1e112226317c5a21fb69ea7d45c9d09b748ed5b9f833c84750b4efbc0ff288a6bf112667942c8baf99cbcdf6d047bbf8cc131896c14fd5#npm:4.3.4"],\
-            ["js-yaml", "npm:4.1.0"],\
-            ["lodash", "npm:4.17.21"],\
-            ["minimatch", "npm:3.1.2"],\
-            ["yup", "npm:0.32.11"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:6.0.0-6-next.70", {\
           "packageLocation": "./.yarn/cache/@verdaccio-config-npm-6.0.0-6-next.70-f44b8eef07-781d6f6d06.zip/node_modules/@verdaccio/config/",\
           "packageDependencies": [\
@@ -5431,17 +5417,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/utils", [\
-        ["npm:6.0.0-6-next.36", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-utils-npm-6.0.0-6-next.36-931feacba5-d6dbd7b476.zip/node_modules/@verdaccio/utils/",\
-          "packageDependencies": [\
-            ["@verdaccio/utils", "npm:6.0.0-6-next.36"],\
-            ["@verdaccio/core", "npm:6.0.0-6-next.68"],\
-            ["lodash", "npm:4.17.21"],\
-            ["minimatch", "npm:3.1.2"],\
-            ["semver", "npm:7.3.8"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:6.0.0-6-next.38", {\
           "packageLocation": "./.yarn/cache/@verdaccio-utils-npm-6.0.0-6-next.38-040812abb9-e76e941b14.zip/node_modules/@verdaccio/utils/",\
           "packageDependencies": [\

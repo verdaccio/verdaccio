@@ -3103,21 +3103,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/config@npm:6.0.0-6-next.68":
-  version: 6.0.0-6-next.68
-  resolution: "@verdaccio/config@npm:6.0.0-6-next.68"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.68
-    "@verdaccio/utils": 6.0.0-6-next.36
-    debug: 4.3.4
-    js-yaml: 4.1.0
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    yup: 0.32.11
-  checksum: aa527a6f4a65ac9380cf2053cd9c5b418a12f793175d47c223121f80ebdf2c081675d88f737f3dfd48bd55f5777e964028453bd96e691340b6aa98d809ee0ca7
-  languageName: node
-  linkType: hard
-
 "@verdaccio/config@npm:6.0.0-6-next.70":
   version: 6.0.0-6-next.70
   resolution: "@verdaccio/config@npm:6.0.0-6-next.70"
@@ -3309,18 +3294,6 @@ __metadata:
     lodash: 4.17.21
     validator: 13.9.0
   checksum: 82b0df61831a354db21f0cddf03114e73043bcb7d2d6cdbbec2093addd74d0bd4e89f4ff4e3fc0fabab9833fe6854364f4db20d997252c7d8dc56c812e769751
-  languageName: node
-  linkType: hard
-
-"@verdaccio/utils@npm:6.0.0-6-next.36":
-  version: 6.0.0-6-next.36
-  resolution: "@verdaccio/utils@npm:6.0.0-6-next.36"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.68
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    semver: 7.3.8
-  checksum: d6dbd7b47669a1ada57dda955c2a5c51eba127a9a35ab2f1823c9e4d5098f32ed16eb1c9f52e665e13cb0cbdfab7816e683944e780613c7dd62a5451f4867293
   languageName: node
   linkType: hard
 
