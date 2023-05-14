@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
 import { pkgUtils } from '@verdaccio/core';
+import { SearchMemoryIndexer } from '@verdaccio/search';
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
 import { logger } from './logger';
-import MemorySeachIndexer from './memory-local-search';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
 export function generatePackageTemplate(name: string): Manifest {
@@ -147,7 +147,7 @@ export function publishPackage(
       if (!_.isNull(err)) {
         return reject(err);
       } else if (!_.isUndefined(latest)) {
-        MemorySeachIndexer.add(latest).catch((reason) => {
+        SearchMemoryIndexer.add(latest).catch((reason) => {
           logger.error('indexer has failed on add item');
         });
       }

@@ -2461,13 +2461,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@orama/orama@npm:1.0.0-beta.16":
-  version: 1.0.0-beta.16
-  resolution: "@orama/orama@npm:1.0.0-beta.16"
-  checksum: a73586611ba38859ec2e22a6c10777d0f4211054c73e7b83526eed57a38f9f0fe3dbd270dd942474762afb7661b7335caab346283dd27cee7c6dd598c85e1978
-  languageName: node
-  linkType: hard
-
 "@sinclair/typebox@npm:^0.25.16":
   version: 0.25.21
   resolution: "@sinclair/typebox@npm:0.25.21"
@@ -3216,6 +3209,13 @@ __metadata:
     lru-cache: 7.16.1
     mime: 2.6.0
   checksum: a14a997ef3097adb8ec1e2fa6490292c9b77db1425de55ed59963b1866ae22b02c684c440675a6d9da9727b35f17a106d014e8457b788481cebd174968ef9d00
+  languageName: node
+  linkType: hard
+
+"@verdaccio/search@npm:6.0.0-6-next.2":
+  version: 6.0.0-6-next.2
+  resolution: "@verdaccio/search@npm:6.0.0-6-next.2"
+  checksum: 33f85e5e15f77826b4d8cded78b899234fa63e660c7d5530ae5230a507561e1ab31ea96b304735e05c990fa15a653ba7b89cdc7e7e6e7e221a376a48a4670aa0
   languageName: node
   linkType: hard
 
@@ -10711,7 +10711,6 @@ __metadata:
     "@babel/register": 7.21.0
     "@babel/runtime": 7.21.5
     "@octokit/rest": 19.0.7
-    "@orama/orama": 1.0.0-beta.16
     "@trivago/prettier-plugin-sort-imports": 4.1.1
     "@types/async": 3.2.20
     "@types/express": 4.17.17
@@ -10733,6 +10732,7 @@ __metadata:
     "@verdaccio/local-storage": 10.3.3
     "@verdaccio/logger-7": 6.0.0-6-next.13
     "@verdaccio/middleware": 6.0.0-6-next.47
+    "@verdaccio/search": 6.0.0-6-next.2
     "@verdaccio/signature": 6.0.0-6-next.2
     "@verdaccio/streams": 10.2.1
     "@verdaccio/tarball": 11.0.0-6-next.37

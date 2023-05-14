@@ -53,7 +53,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.21.0"],\
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
-            ["@orama/orama", "npm:1.0.0-beta.16"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.17"],\
@@ -75,6 +74,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.3.3"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.13"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.47"],\
+            ["@verdaccio/search", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/signature", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.37"],\
@@ -4375,15 +4375,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@orama/orama", [\
-        ["npm:1.0.0-beta.16", {\
-          "packageLocation": "./.yarn/cache/@orama-orama-npm-1.0.0-beta.16-a69f5dedee-a73586611b.zip/node_modules/@orama/orama/",\
-          "packageDependencies": [\
-            ["@orama/orama", "npm:1.0.0-beta.16"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@sinclair/typebox", [\
         ["npm:0.25.21", {\
           "packageLocation": "./.yarn/cache/@sinclair-typebox-npm-0.25.21-83efa5a294-763af1163f.zip/node_modules/@sinclair/typebox/",\
@@ -5327,6 +5318,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lodash", "npm:4.17.21"],\
             ["lru-cache", "npm:7.16.1"],\
             ["mime", "npm:2.6.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@verdaccio/search", [\
+        ["npm:6.0.0-6-next.2", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-search-npm-6.0.0-6-next.2-3678897c37-33f85e5e15.zip/node_modules/@verdaccio/search/",\
+          "packageDependencies": [\
+            ["@verdaccio/search", "npm:6.0.0-6-next.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14035,7 +14035,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.21.0"],\
             ["@babel/runtime", "npm:7.21.5"],\
             ["@octokit/rest", "npm:19.0.7"],\
-            ["@orama/orama", "npm:1.0.0-beta.16"],\
             ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.1.1"],\
             ["@types/async", "npm:3.2.20"],\
             ["@types/express", "npm:4.17.17"],\
@@ -14057,6 +14056,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage", "npm:10.3.3"],\
             ["@verdaccio/logger-7", "npm:6.0.0-6-next.13"],\
             ["@verdaccio/middleware", "npm:6.0.0-6-next.47"],\
+            ["@verdaccio/search", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/signature", "npm:6.0.0-6-next.2"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
             ["@verdaccio/tarball", "npm:11.0.0-6-next.37"],\

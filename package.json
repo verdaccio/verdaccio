@@ -19,12 +19,12 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@orama/orama": "1.0.0-beta.16",
     "@verdaccio/config": "6.0.0-6-next.68",
     "@verdaccio/core": "6.0.0-6-next.68",
     "@verdaccio/local-storage": "10.3.3",
     "@verdaccio/logger-7": "6.0.0-6-next.13",
     "@verdaccio/middleware": "6.0.0-6-next.47",
+    "@verdaccio/search": "6.0.0-6-next.2",
     "@verdaccio/signature": "6.0.0-6-next.2",
     "@verdaccio/streams": "10.2.1",
     "@verdaccio/tarball": "11.0.0-6-next.37",

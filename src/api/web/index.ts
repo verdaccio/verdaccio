@@ -3,8 +3,8 @@ import express from 'express';
 import _ from 'lodash';
 
 import { webMiddleware } from '@verdaccio/middleware';
+import { SearchMemoryIndexer } from '@verdaccio/search';
 
-import MemoryIndexer from '../../lib/memory-local-search';
 import loadPlugin from '../../lib/plugin-loader';
 import webApi from './api';
 
@@ -29,8 +29,8 @@ export function loadTheme(config) {
 
 export default async (config, auth, storage) => {
   const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();
-  MemoryIndexer.configureStorage(storage);
-  await MemoryIndexer.init();
+  SearchMemoryIndexer.configureStorage(storage);
+  await SearchMemoryIndexer.init();
   // eslint-disable-next-line new-cap
   const router = express.Router();
   // load application

@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
+import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Manifest } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
 import { DIST_TAGS } from '../../../lib/constants';
-import MemorySeachIndexer, { Results } from '../../../lib/memory-local-search';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
@@ -19,7 +19,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
       next: $NextFunctionVer
     ): Promise<void> {
       const term = req.params.anything;
-      const indexer = (await MemorySeachIndexer.query(term)) as Results;
+      const indexer = (await SearchMemoryIndexer.query(term)) as any;
       const packages: any[] = [];
       const results = indexer.hits;
 
