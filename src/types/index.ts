@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import lunrMutable from 'lunr-mutable-indexes';
 
 import { pluginUtils } from '@verdaccio/core';
 import {
@@ -87,17 +86,6 @@ export interface IAuthWebUI {
 interface IAuthMiddleware {
   apiJWTmiddleware(): $NextFunctionVer;
   webUIJWTmiddleware(): $NextFunctionVer;
-}
-
-export interface IWebSearch {
-  index: lunrMutable.index;
-  storage: Storage;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query(query: string): any;
-  add(pkg: Version): void;
-  remove(name: string): void;
-  reindex(): void;
-  configureStorage(storage: Storage): void;
 }
 
 export interface ISyncUplinks {

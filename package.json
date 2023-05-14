@@ -49,7 +49,6 @@
     "kleur": "4.1.5",
     "lodash": "4.17.21",
     "lru-cache": "7.18.3",
-    "lunr-mutable-indexes": "2.3.2",
     "mime": "3.0.0",
     "mkdirp": "1.0.4",
     "mv": "2.1.1",

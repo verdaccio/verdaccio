@@ -120,7 +120,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lockfile-lint", "npm:4.10.1"],\
             ["lodash", "npm:4.17.21"],\
             ["lru-cache", "npm:7.18.3"],\
-            ["lunr-mutable-indexes", "npm:2.3.2"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
             ["mv", "npm:2.1.1"],\
@@ -10838,25 +10837,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["lunr", [\
-        ["npm:2.3.9", {\
-          "packageLocation": "./.yarn/cache/lunr-npm-2.3.9-fa3aa9c2d6-176719e24f.zip/node_modules/lunr/",\
-          "packageDependencies": [\
-            ["lunr", "npm:2.3.9"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["lunr-mutable-indexes", [\
-        ["npm:2.3.2", {\
-          "packageLocation": "./.yarn/cache/lunr-mutable-indexes-npm-2.3.2-11e17e9706-792ec9a7f0.zip/node_modules/lunr-mutable-indexes/",\
-          "packageDependencies": [\
-            ["lunr-mutable-indexes", "npm:2.3.2"],\
-            ["lunr", "npm:2.3.9"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["make-dir", [\
         ["npm:2.1.0", {\
           "packageLocation": "./.yarn/cache/make-dir-npm-2.1.0-1ddaf205e7-043548886b.zip/node_modules/make-dir/",\
@@ -14102,7 +14082,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lockfile-lint", "npm:4.10.1"],\
             ["lodash", "npm:4.17.21"],\
             ["lru-cache", "npm:7.18.3"],\
-            ["lunr-mutable-indexes", "npm:2.3.2"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
             ["mv", "npm:2.1.1"],\

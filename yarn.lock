@@ -7800,22 +7800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lunr-mutable-indexes@npm:2.3.2":
-  version: 2.3.2
-  resolution: "lunr-mutable-indexes@npm:2.3.2"
-  dependencies:
-    lunr: ">= 2.3.0 < 2.4.0"
-  checksum: 792ec9a7f02071e65a03d843555ce8ee65b4580e767bdf0f5a0c72fecbcaa928a3e71c0c001d9d80c3855fc070ae826470f5aaaf8f1863d3402db057e59c5176
-  languageName: node
-  linkType: hard
-
-"lunr@npm:>= 2.3.0 < 2.4.0":
-  version: 2.3.9
-  resolution: "lunr@npm:2.3.9"
-  checksum: 176719e24fcce7d3cf1baccce9dd5633cd8bdc1f41ebe6a180112e5ee99d80373fe2454f5d4624d437e5a8319698ca6837b9950566e15d2cae5f2a543a3db4b8
-  languageName: node
-  linkType: hard
-
 "make-dir@npm:^2.0.0, make-dir@npm:^2.1.0":
   version: 2.1.0
   resolution: "make-dir@npm:2.1.0"
@@ -10778,7 +10762,6 @@ __metadata:
     lockfile-lint: 4.10.1
     lodash: 4.17.21
     lru-cache: 7.18.3
-    lunr-mutable-indexes: 2.3.2
     mime: 3.0.0
     mkdirp: 1.0.4
     mv: 2.1.1
