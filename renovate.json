@@ -90,10 +90,10 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
+      "matchPackagePatterns": ["@verdaccio/*"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "allowedVersions": "<=6.0.0-6-next.1",
       "baseBranchList": ["5.x"]
     },
     {
