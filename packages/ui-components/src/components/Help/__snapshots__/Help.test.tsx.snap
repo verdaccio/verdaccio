@@ -116,8 +116,8 @@ exports[`<Help /> component should load the component in default state 1`] = `
   color: rgba(0, 0, 0, 0.54);
   -webkit-transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  padding: 12px;
-  font-size: 1.75rem;
+  padding: 5px;
+  font-size: 1.125rem;
 }
 
 .emotion-10::-moz-focus-inner {
@@ -315,7 +315,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
         help.first-step-command-line
       </span>
       <button
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-10"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall emotion-10"
         data-testid="segments"
         tabindex="0"
         type="button"
@@ -350,7 +350,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
         help.second-step-command-line
       </span>
       <button
-        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge emotion-10"
+        class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall emotion-10"
         data-testid="segments"
         tabindex="0"
         type="button"

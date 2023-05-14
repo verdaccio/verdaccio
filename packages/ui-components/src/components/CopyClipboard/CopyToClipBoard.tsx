@@ -34,12 +34,12 @@ function CopyToClipBoard({ text, children, dataTestId, title, ...props }: Props)
       <Content>{children ?? text}</Content>
       {title ? (
         <Tooltip disableFocusListener={true} title={title}>
-          <IconButton data-testid={dataTestId} onClick={copyToClipBoardUtility(text)} size="large">
+          <IconButton data-testid={dataTestId} onClick={copyToClipBoardUtility(text)} size="small">
             <FileCopy fontSize="small" />
           </IconButton>
         </Tooltip>
       ) : (
-        <IconButton data-testid={dataTestId} onClick={copyToClipBoardUtility(text)} size="large">
+        <IconButton data-testid={dataTestId} onClick={copyToClipBoardUtility(text)} size="small">
           <FileCopy fontSize="small" />
         </IconButton>
       )}

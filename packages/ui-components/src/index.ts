@@ -42,6 +42,8 @@ export { VersionLayout } from './layouts/Version';
 
 // providers
 export { default as AppConfigurationProvider } from './providers/AppConfigurationProvider';
+export { default as PersistenceSettingProvider } from './providers/PersistenceSettingProvider';
+
 export * from './providers/AppConfigurationProvider';
 export { TranslatorProvider, useLanguage, LanguageItem } from './providers/TranslatorProvider';
 export * from './providers/TranslatorProvider';

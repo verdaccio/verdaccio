@@ -95,6 +95,15 @@ type CustomizedTheme = typeof customizedTheme;
 export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
   const palette = applyPrimaryColor(themeMode, primaryColor);
   return createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 400,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
     typography: {
       fontFamily: [
         '-apple-system',
