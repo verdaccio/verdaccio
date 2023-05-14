@@ -1,0 +1,53 @@
+{
+  "name": "@verdaccio/search",
+  "version": "6.0.0-6-next.1",
+  "description": "verdaccio search tools",
+  "main": "./build/index.js",
+  "types": "build/index.d.ts",
+  "author": {
+    "name": "Juan Picado",
+    "email": "juanpicado19@gmail.com"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.org",
+  "keywords": [
+    "private",
+    "package",
+    "repository",
+    "registry",
+    "enterprise",
+    "modules",
+    "proxy",
+    "server",
+    "verdaccio"
+  ],
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "scripts": {
+    "clean": "rimraf ./build",
+    "test": "echo 1",
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
+  },
+  "dependencies": {
+    "@orama/orama": "1.0.0-beta.16",
+    "debug": "4.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "16.18.10",
+    "@verdaccio/types": "workspace:11.0.0-6-next.25",
+    "esbuild": "0.14.10"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
+}
