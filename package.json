@@ -166,7 +166,7 @@
     "postinstall": "husky install",
     "local:registry": "pnpm --filter ...@verdaccio/local-publish start",
     "local:snapshots": "changeset version --snapshot",
-    "local:publish": "cross-env npm_config_registry=http://localhost:4873 pnpm ci:publish -- --no-git-tag",
+    "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
   },
   "pnpm": {

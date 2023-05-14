@@ -693,7 +693,7 @@ importers:
         version: 0.23.25(typescript@4.9.4)
       typedoc-plugin-missing-exports:
         specifier: latest
-        version: 2.0.0(typedoc@0.23.25)
+        version: 1.0.0(typedoc@0.23.25)
 
   packages/core/file-locking:
     dependencies:
@@ -1449,6 +1449,24 @@ importers:
       semver:
         specifier: 7.5.0
         version: 7.5.0
+
+  packages/search:
+    devDependencies:
+      '@orama/orama':
+        specifier: 1.0.0-beta.16
+        version: 1.0.0-beta.16
+      '@types/node':
+        specifier: 16.18.10
+        version: 16.18.10
+      '@verdaccio/types':
+        specifier: workspace:11.0.0-6-next.25
+        version: link:../core/types
+      debug:
+        specifier: 4.3.4
+        version: 4.3.4(supports-color@6.1.0)
+      esbuild:
+        specifier: 0.14.10
+        version: 0.14.10
 
   packages/server/express:
     dependencies:
@@ -7983,6 +8001,11 @@ packages:
     resolution: {integrity: sha512-Aq58f5HiWdyDlFffbbSjAlv596h/cOnt2DO1w3DOC7OJ5EHs0hd/nycJfiu9RJbT6Yk6F1knnRRXNSpxoIVZ9Q==}
     dev: true
 
+  /@orama/orama@1.0.0-beta.16:
+    resolution: {integrity: sha512-mmjP9+w7EgnpyLLs/vIPHsNKwreTsHAkPK44JQ62kRYseatHT5VEL/5nr/duBAReEZVbqMFst1jVJCHsucXr3g==}
+    engines: {node: '>= 16.0.0'}
+    dev: true
+
   /@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@5.28.1)(react-refresh@0.11.0)(webpack@5.82.1):
     resolution: {integrity: sha512-j0Ya0hCFZPd4x40qLzbhGsh9TMtdb+CJQiso+WxLOPNasohq9cc5SNUcwsZaRH6++Xh91Xkm/xHCkuIiIu0LUA==}
     engines: {node: '>= 10.13'}
@@ -8650,7 +8673,7 @@ packages:
       '@storybook/semver': 7.3.2
       '@storybook/store': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
-      '@types/node': 16.18.23
+      '@types/node': 16.18.10
       babel-loader: 8.3.0(@babel/core@7.21.4)(webpack@5.82.1)
       babel-plugin-named-exports-order: 0.0.2
       browser-assert: 1.2.1
@@ -9177,7 +9200,7 @@ packages:
       '@storybook/node-logger': 6.5.16
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/ui': 6.5.16(react-dom@18.2.0)(react@18.2.0)
-      '@types/node': 16.18.23
+      '@types/node': 16.18.10
       babel-loader: 8.3.0(@babel/core@7.21.4)(webpack@5.82.1)
       case-sensitive-paths-webpack-plugin: 2.4.0
       chalk: 4.1.2
@@ -9359,7 +9382,7 @@ packages:
       '@storybook/semver': 7.3.2
       '@storybook/store': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@types/estree': 0.0.51
-      '@types/node': 16.18.23
+      '@types/node': 16.18.10
       '@types/webpack-env': 1.18.0
       acorn: 7.4.1
       acorn-jsx: 5.3.2(acorn@7.4.1)
@@ -10233,10 +10256,6 @@ packages:
 
   /@types/node@16.18.10:
     resolution: {integrity: sha512-XU1+v7h81p7145ddPfjv7jtWvkSilpcnON3mQ+bDi9Yuf7OI56efOglXRyXWgQ57xH3fEQgh7WOJMncRHVew5w==}
-
-  /@types/node@16.18.23:
-    resolution: {integrity: sha512-XAMpaw1s1+6zM+jn2tmw8MyaRDIJfXxqmIQIS0HfoGYPuf7dUWeiUKopwq13KFX9lEp1+THGtlaaYx39Nxr58g==}
-    dev: true
 
   /@types/node@17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
@@ -25802,14 +25821,6 @@ packages:
     resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
-    dependencies:
-      typedoc: 0.23.25(typescript@4.9.4)
-    dev: true
-
-  /typedoc-plugin-missing-exports@2.0.0(typedoc@0.23.25):
-    resolution: {integrity: sha512-t0QlKCm27/8DaheJkLo/gInSNjzBXgSciGhoLpL6sLyXZibm7SuwJtHvg4qXI2IjJfFBgW9mJvvszpoxMyB0TA==}
-    peerDependencies:
-      typedoc: 0.24.x
     dependencies:
       typedoc: 0.23.25(typescript@4.9.4)
     dev: true
