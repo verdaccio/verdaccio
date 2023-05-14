@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.69
+
+### Minor Changes
+
+- c9d1af0e: feat: async bcrypt hash
+
 ## 6.0.0-6-next.68
 
 ## 6.0.0-6-next.67

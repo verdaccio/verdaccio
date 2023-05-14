@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.69
+
+### Patch Changes
+
+- 910fc03f: fix menuKey for Khmer language
+
 ## 6.0.0-6-next.68
 
 ### Patch Changes
