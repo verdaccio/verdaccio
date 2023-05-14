@@ -91,7 +91,6 @@
     },
     {
       "matchPackagePatterns": ["@verdaccio/*", "verdaccio-*"],
-      "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
       "allowedVersions": "<=6.0.0-6-next.1",
