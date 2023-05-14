@@ -1,21 +1,16 @@
 import _ from 'lodash';
 
 import { pkgUtils } from '@verdaccio/core';
-import {
-  AbbreviatedManifest,
-  AbbreviatedVersions,
-  Manifest,
-  Package,
-  Version,
-} from '@verdaccio/types';
+import { SearchMemoryIndexer } from '@verdaccio/search';
+import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
-import Search from './search';
-import { ErrorCode, isObject, normalizeDistTags, semverSort } from './utils';
+import { logger } from './logger';
+import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
-export function generatePackageTemplate(name: string): Package {
+export function generatePackageTemplate(name: string): Manifest {
   return {
     // standard things
     name,
@@ -34,7 +29,7 @@ export function generatePackageTemplate(name: string): Package {
  * Normalize package properties, tags, revision id.
  * @param {Object} pkg package reference.
  */
-export function normalizePackage(pkg: Package): Package {
+export function normalizePackage(pkg: Manifest): Manifest {
   const pkgProperties = ['versions', 'dist-tags', '_distfiles', '_attachments', '_uplinks', 'time'];
 
   pkgProperties.forEach((key): void => {
@@ -65,7 +60,7 @@ export function generateRevision(rev: string): string {
   return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
 }
 
-export function getLatestReadme(pkg: Package): string {
+export function getLatestReadme(pkg: Manifest): string {
   const versions = pkg['versions'] || {};
   const distTags = pkg[DIST_TAGS] || {};
   // FIXME: here is a bit tricky add the types
@@ -107,7 +102,7 @@ export const WHITELIST = [
   'users',
 ];
 
-export function cleanUpLinksRef(keepUpLinkData: boolean, result: Package): Package {
+export function cleanUpLinksRef(keepUpLinkData: boolean, result: Manifest): Manifest {
   const propertyToKeep = [...WHITELIST];
   if (keepUpLinkData === true) {
     propertyToKeep.push('_uplinks');
@@ -152,7 +147,9 @@ export function publishPackage(
       if (!_.isNull(err)) {
         return reject(err);
       } else if (!_.isUndefined(latest)) {
-        Search.add(latest);
+        SearchMemoryIndexer.add(latest).catch((reason) => {
+          logger.error('indexer has failed on add item');
+        });
       }
       return resolve();
     });

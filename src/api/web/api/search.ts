@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
-import { Package } from '@verdaccio/types';
+import { SearchMemoryIndexer } from '@verdaccio/search';
+import { Manifest } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
 import { DIST_TAGS } from '../../../lib/constants';
-import Search from '../../../lib/search';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
@@ -13,16 +13,21 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
   // Search package
   route.get(
     '/search/:anything',
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const results: any = Search.query(req.params.anything);
-      // FUTURE: figure out here the correct type
+    async function (
+      req: $RequestExtend,
+      _res: $ResponseExtend,
+      next: $NextFunctionVer
+    ): Promise<void> {
+      const term = req.params.anything;
+      const indexer = (await SearchMemoryIndexer.query(term)) as any;
       const packages: any[] = [];
+      const results = indexer.hits;
 
       const getPackageInfo = function (i): void {
         storage.getPackage({
-          name: results[i].ref,
+          name: results[i].id,
           uplinksLook: false,
-          callback: (err, entry: Package): void => {
+          callback: (err, entry: Manifest): void => {
             if (!err && entry) {
               auth.allow_access(
                 { packageName: entry.name },

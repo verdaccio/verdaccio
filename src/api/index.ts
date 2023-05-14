@@ -40,7 +40,7 @@ export function loadTheme(config) {
   }
 }
 
-const defineAPI = function (config: IConfig, storage: Storage): any {
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
   const auth = new Auth(config);
   const app: Application = express();
 
@@ -105,7 +105,8 @@ const defineAPI = function (config: IConfig, storage: Storage): any {
       res.locals.app_version = version ?? '';
       next();
     });
-    app.use('/', webMiddleware(config, auth, storage));
+    const midl = await webMiddleware(config, auth, storage);
+    app.use('/', midl);
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
@@ -140,5 +141,5 @@ export default (async function (configHash: any): Promise<any> {
   const storage = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config, filters);
-  return defineAPI(config, storage);
+  return await defineAPI(config, storage);
 });
