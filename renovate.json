@@ -90,6 +90,13 @@
       "allowedVersions": "5.1.1"
     },
     {
+      "matchPackagePatterns": ["@verdaccio/*"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "core verdaccio dependencies",
+      "groupSlug": "all-verdaccio",
+      "baseBranchList": ["5.x"]
+    },
+    {
       "matchPackagePatterns": [
         "@trivago/*",
         "prettier",
