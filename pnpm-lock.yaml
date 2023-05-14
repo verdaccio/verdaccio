@@ -832,8 +832,8 @@ importers:
         specifier: workspace:6.0.0-6-next.36
         version: link:../logger-commons
       pino:
-        specifier: 8.12.1
-        version: 8.12.1
+        specifier: 8.14.1
+        version: 8.14.1
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
@@ -845,8 +845,8 @@ importers:
         specifier: workspace:6.0.0-6-next.36
         version: link:../logger-commons
       pino:
-        specifier: 8.12.1
-        version: 8.12.1
+        specifier: 8.14.1
+        version: 8.14.1
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
@@ -871,8 +871,8 @@ importers:
         specifier: workspace:11.0.0-6-next.25
         version: link:../../core/types
       pino:
-        specifier: 8.12.1
-        version: 8.12.1
+        specifier: 8.14.1
+        version: 8.14.1
 
   packages/logger/logger-prettify:
     dependencies:
@@ -893,8 +893,8 @@ importers:
         version: 3.3.0
     devDependencies:
       pino:
-        specifier: 8.12.1
-        version: 8.12.1
+        specifier: 8.14.1
+        version: 8.14.1
 
   packages/middleware:
     dependencies:
@@ -16045,7 +16045,7 @@ packages:
       fast-json-stringify: 5.7.0
       find-my-way: 7.6.0
       light-my-request: 5.9.1
-      pino: 8.12.1
+      pino: 8.14.1
       process-warning: 2.2.0
       proxy-addr: 2.0.7
       rfdc: 1.3.0
@@ -21783,8 +21783,8 @@ packages:
   /pino-std-serializers@6.2.0:
     resolution: {integrity: sha512-IWgSzUL8X1w4BIWTwErRgtV8PyOGOOi60uqv0oKuS/fOA8Nco/OeI6lBuc4dyP8MMfdFwyHqTMcBIA7nDiqEqA==}
 
-  /pino@8.12.1:
-    resolution: {integrity: sha512-n4F7nrEUDH0u5pjlUPkrvsN6oZOhScZWwpWPniwVkMnO6a2DhpnMNWDUlW0SawVICgrNhOf0yTNgw2lYQBsPYA==}
+  /pino@8.14.1:
+    resolution: {integrity: sha512-8LYNv7BKWXSfS+k6oEc6occy5La+q2sPwU3q2ljTX5AZk7v+5kND2o5W794FyRaqha6DJajmkNRsWtPpFyMUdw==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
@@ -21796,7 +21796,7 @@ packages:
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.4.3
-      sonic-boom: 3.2.1
+      sonic-boom: 3.3.0
       thread-stream: 2.3.0
 
   /pirates@4.0.5:
@@ -24473,16 +24473,10 @@ packages:
       uuid: 8.3.2
       websocket-driver: 0.7.4
 
-  /sonic-boom@3.2.1:
-    resolution: {integrity: sha512-iITeTHxy3B9FGu8aVdiDXUVAcHMF9Ss0cCsAOo2HfCrmVGT3/DT5oYaeu0M/YKZDlKTvChEyPq0zI9Hf33EX6A==}
-    dependencies:
-      atomic-sleep: 1.0.0
-
   /sonic-boom@3.3.0:
     resolution: {integrity: sha512-LYxp34KlZ1a2Jb8ZQgFCK3niIHzibdwtwNUWKg0qQRzsDoJ3Gfgkf8KdBTFU3SkejDEIlWwnSnpVdOZIhFMl/g==}
     dependencies:
       atomic-sleep: 1.0.0
-    dev: false
 
   /sort-css-media-queries@2.0.4:
     resolution: {integrity: sha512-PAIsEK/XupCQwitjv7XxoMvYhT7EAfyzI3hsy/MyDgTvc+Ft55ctdkctJLOy6cQejaIC+zjpUL4djFVm2ivOOw==}
