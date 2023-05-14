@@ -16,7 +16,7 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
   children,
 }) => {
   // get the initial state from the local storage
-  const [settings, setSettings] = useLocalStorage(`settings-ui-verdaccio`, { isGlobal: false });
+  const [settings, setSettings] = useLocalStorage(`settings-ui-verdaccio`, {});
   const [localSettings, setLocalSettings] = useState<PersistenceSettingsProps>(settings);
 
   const updateSettings = (newSettings: React.SetStateAction<PersistenceSettingsProps>) => {

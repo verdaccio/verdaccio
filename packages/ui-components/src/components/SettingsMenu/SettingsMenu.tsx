@@ -13,7 +13,7 @@ interface Props {
   packageName: string;
 }
 
-const InstallListItem: React.FC<Props> = () => {
+const InstallListItem: React.FC<Props> = ({ packageName }) => {
   const { t } = useTranslation();
   const { localSettings, updateSettings } = useSettings();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -22,8 +22,8 @@ const InstallListItem: React.FC<Props> = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleClick = () => {
-    const statusGlobal = !localSettings.global;
-    updateSettings({ global: statusGlobal });
+    const statusGlobal = !localSettings[packageName]?.global;
+    updateSettings({ [packageName]: { global: statusGlobal } });
     setAnchorEl(null);
   };
   const handleClose = () => {

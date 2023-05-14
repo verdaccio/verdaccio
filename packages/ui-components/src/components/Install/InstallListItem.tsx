@@ -40,7 +40,7 @@ interface Interface {
 const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }) => {
   const { t } = useTranslation();
   const { localSettings } = useSettings();
-  const isGlobal = localSettings?.global ?? false;
+  const isGlobal = localSettings[packageName]?.global ?? false;
   const pkgName = isGlobal ? `-g ${packageName}` : packageName;
 
   switch (dependencyManager) {
