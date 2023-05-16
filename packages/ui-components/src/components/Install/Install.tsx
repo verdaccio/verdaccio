@@ -42,8 +42,7 @@ const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) =
       <Grid
         container={true}
         justifyContent="flex-end"
-        sx={{ 'margin-right': theme.spacing(10), alingText: 'right' }}
-        xs={12}
+        sx={{ marginRight: theme.spacing(10), alingText: 'right' }}
       >
         <SettingsMenu packageName={packageName} />
       </Grid>
