@@ -1,4 +1,11 @@
-import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
+import React, {
+  FunctionComponent,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
@@ -19,10 +26,13 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
   const [settings, setSettings] = useLocalStorage(`settings-ui-verdaccio`, {});
   const [localSettings, setLocalSettings] = useState<PersistenceSettingsProps>(settings);
 
-  const updateSettings = (newSettings: React.SetStateAction<PersistenceSettingsProps>) => {
-    setLocalSettings(newSettings);
-    setSettings(newSettings);
-  };
+  const updateSettings = useCallback(
+    (newSettings: React.SetStateAction<PersistenceSettingsProps>) => {
+      setLocalSettings(newSettings);
+      setSettings(newSettings);
+    },
+    [setSettings]
+  );
 
   const value = useMemo(
     () => ({
