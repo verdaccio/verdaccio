@@ -16,6 +16,10 @@ describe('utils', () => {
     test('isEmail() - should return false if invalid', () => {
       expect(isEmail('')).toBeFalsy();
     });
+
+    test('git repo is valid', () => {
+      expect(isURL('git://github.com/verdaccio/ui.git')).toBeTruthy();
+    });
   });
 
   describe('extractFileName', () => {

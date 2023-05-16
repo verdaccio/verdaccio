@@ -47,12 +47,10 @@ const RepositoryAvatar = styled(Avatar)({
 
 const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-
-  if (!packageMeta?.latest?.repository?.url || !urlUtils.isURL(packageMeta.latest.repository.url)) {
+  const url = packageMeta?.latest?.repository?.url;
+  if (!url || !urlUtils.isURL(url)) {
     return null;
   }
-
-  const { url } = packageMeta.latest.repository;
 
   const getCorrectRepositoryURL = (): string => {
     if (!url.includes('git+')) {
