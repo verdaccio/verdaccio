@@ -144,8 +144,8 @@ importers:
         specifier: 8.5.9
         version: 8.5.9
       '@types/lodash':
-        specifier: 4.14.191
-        version: 4.14.191
+        specifier: 4.14.194
+        version: 4.14.194
       '@types/mime':
         specifier: 2.0.3
         version: 2.0.3
@@ -693,7 +693,7 @@ importers:
         version: 0.23.25(typescript@4.9.4)
       typedoc-plugin-missing-exports:
         specifier: latest
-        version: 1.0.0(typedoc@0.23.25)
+        version: 2.0.0(typedoc@0.23.25)
 
   packages/core/file-locking:
     dependencies:
@@ -6665,7 +6665,7 @@ packages:
     dependencies:
       '@formatjs/ts-transformer': 2.13.0
       '@types/json-stable-stringify': 1.0.34
-      '@types/lodash': 4.14.191
+      '@types/lodash': 4.14.194
       '@types/loud-rejection': 2.0.0
       '@types/node': 14.18.42
       '@vue/compiler-core': 3.2.47
@@ -9246,7 +9246,7 @@ packages:
       '@babel/preset-env': 7.20.2(@babel/core@7.20.7)
       '@babel/types': 7.21.4
       '@mdx-js/mdx': 1.6.22
-      '@types/lodash': 4.14.192
+      '@types/lodash': 4.14.194
       js-string-escape: 1.0.1
       loader-utils: 2.0.4
       lodash: 4.17.21
@@ -9265,7 +9265,7 @@ packages:
       '@babel/preset-env': 7.20.2(@babel/core@7.21.4)
       '@babel/types': 7.21.4
       '@mdx-js/mdx': 1.6.22
-      '@types/lodash': 4.14.192
+      '@types/lodash': 4.14.194
       js-string-escape: 1.0.1
       loader-utils: 2.0.4
       lodash: 4.17.21
@@ -10188,12 +10188,13 @@ packages:
     dependencies:
       '@types/node': 16.18.10
 
-  /@types/lodash@4.14.191:
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
-    dev: true
-
   /@types/lodash@4.14.192:
     resolution: {integrity: sha512-km+Vyn3BYm5ytMO13k9KTp27O75rbQ0NFw+U//g+PX7VZyjCioXaRFisqSIJRECljcTv73G3i6BpglNGHgUQ5A==}
+    dev: false
+
+  /@types/lodash@4.14.194:
+    resolution: {integrity: sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==}
+    dev: true
 
   /@types/loud-rejection@2.0.0:
     resolution: {integrity: sha512-oTHISsIybJGoh3b3Ay/10csbAd2k0su7G7DGrE1QWciC+IdydPm0WMw1+Gr9YMYjPiJ5poB3g5Ev73IlLoavLw==}
@@ -25892,6 +25893,14 @@ packages:
     resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
+    dependencies:
+      typedoc: 0.23.25(typescript@4.9.4)
+    dev: true
+
+  /typedoc-plugin-missing-exports@2.0.0(typedoc@0.23.25):
+    resolution: {integrity: sha512-t0QlKCm27/8DaheJkLo/gInSNjzBXgSciGhoLpL6sLyXZibm7SuwJtHvg4qXI2IjJfFBgW9mJvvszpoxMyB0TA==}
+    peerDependencies:
+      typedoc: 0.24.x
     dependencies:
       typedoc: 0.23.25(typescript@4.9.4)
     dev: true
