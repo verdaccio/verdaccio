@@ -44,7 +44,7 @@
     "colorette": "2.0.20"
   },
   "devDependencies": {
-    "pino": "7.11.0",
+    "pino": "8.14.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.25"
   },
   "funding": {
