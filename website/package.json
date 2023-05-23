@@ -22,14 +22,14 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@docusaurus/core": "2.4.0",
-    "@docusaurus/plugin-content-docs": "2.4.0",
-    "@docusaurus/plugin-google-analytics": "2.4.0",
-    "@docusaurus/preset-classic": "2.4.0",
-    "@docusaurus/remark-plugin-npm2yarn": "2.4.0",
-    "@docusaurus/theme-common": "2.4.0",
-    "@docusaurus/theme-mermaid": "2.4.0",
-    "@docusaurus/theme-search-algolia": "2.4.0",
+    "@docusaurus/core": "2.4.1",
+    "@docusaurus/plugin-content-docs": "2.4.1",
+    "@docusaurus/plugin-google-analytics": "2.4.1",
+    "@docusaurus/preset-classic": "2.4.1",
+    "@docusaurus/remark-plugin-npm2yarn": "2.4.1",
+    "@docusaurus/theme-common": "2.4.1",
+    "@docusaurus/theme-mermaid": "2.4.1",
+    "@docusaurus/theme-search-algolia": "2.4.1",
     "@emotion/cache": "11.10.7",
     "@emotion/css": "11.10.6",
     "@emotion/jest": "11.10.5",
@@ -79,7 +79,7 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.0",
+    "@docusaurus/module-type-aliases": "2.4.1",
     "@tsconfig/docusaurus": "^1.0.2",
     "@verdaccio/crowdin-translations": "workspace:*",
     "docusaurus-plugin-sass": "^0.2.1",
