@@ -286,8 +286,8 @@ You can find and chat with then over Discord, click [here](http://chat.verdaccio
 - [Aurelia Framework](https://github.com/aurelia/framework) _(+11.6k ⭐️)_
 - [pnpm](https://github.com/pnpm/pnpm) _(+10.1k ⭐️)_
 - [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+9.8k ⭐️)_
+- [Webiny CMS](https://github.com/webiny/webiny-js) _(+6.6k ⭐️)_
 - [NX](https://github.com/nrwl/nx) _(+6.1k ⭐️)_
-- [webiny-js](https://github.com/webiny/webiny-js) _(+4.3k ⭐️)_
 - [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3.7k ⭐️)_
 - [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1k ⭐️)_
 - [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
