@@ -3,7 +3,7 @@ import React from 'react';
 import { default as Engines } from '.';
 
 export default {
-  title: 'Engines',
+  title: 'Components/Sidebar/Engines',
 };
 
 export const EnginesNpmNode: any = () => (

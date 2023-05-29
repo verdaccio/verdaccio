@@ -4,7 +4,7 @@ import { MemoryRouter, Route } from 'react-router';
 import Home from './Home';
 
 export default {
-  title: 'Home',
+  title: 'Sections/Home',
 };
 
 export const HomeDefault: any = () => (

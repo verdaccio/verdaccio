@@ -12,14 +12,9 @@ import { CardWrap, StyledText, Tag, Tags } from './styles';
 interface DependencyBlockProps {
   title: string;
   dependencies: PackageDependencies;
-  enableLoading?: () => void;
 }
 
-const DependencyBlock: React.FC<DependencyBlockProps> = ({
-  title,
-  dependencies,
-  enableLoading,
-}) => {
+const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
   const history = useHistory();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -27,8 +22,6 @@ const DependencyBlock: React.FC<DependencyBlockProps> = ({
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
-    enableLoading?.();
-
     history.push(`/-/web/detail/${name}`);
   }
 

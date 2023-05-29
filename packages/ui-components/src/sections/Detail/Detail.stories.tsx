@@ -5,7 +5,7 @@ import { VersionProvider } from '../../providers';
 import Detail from './Detail';
 
 export default {
-  title: 'Detail',
+  title: 'Sections/Detail',
 };
 
 export const DetailStorybook: any = () => (

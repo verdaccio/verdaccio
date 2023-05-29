@@ -6,7 +6,7 @@ import { default as Install } from '.';
 import { useConfig } from '../../';
 
 const meta: Meta<typeof Install> = {
-  title: 'Install',
+  title: 'Components/Sidebar/Install',
   component: Install,
 };
 

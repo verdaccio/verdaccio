@@ -3,7 +3,7 @@ import React from 'react';
 import { default as Author } from '.';
 
 export default {
-  title: 'Author  ',
+  title: 'Components/Sidebar/Author',
 };
 
 export const AuthorAll: any = () => (

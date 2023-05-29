@@ -4,7 +4,7 @@ import React from 'react';
 import { default as Dependencies } from '.';
 
 const meta: Meta<typeof Dependencies> = {
-  title: 'Dependencies',
+  title: 'Components/Detail/Dependencies',
   component: Dependencies,
 };
 

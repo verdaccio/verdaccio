@@ -5,7 +5,7 @@ import React from 'react';
 import LoginDialog from './LoginDialog';
 
 export default {
-  title: 'LoginDialog',
+  title: 'Components/Dialog/LoginDialog',
 };
 
 export const OpenLoginDialog = {

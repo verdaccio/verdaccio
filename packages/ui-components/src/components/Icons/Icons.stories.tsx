@@ -16,7 +16,7 @@ import {
 } from '.';
 
 export default {
-  title: 'Icons',
+  title: 'Components/Icons/Overview',
 };
 
 export const Icons: any = () => (

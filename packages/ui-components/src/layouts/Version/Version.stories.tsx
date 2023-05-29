@@ -6,7 +6,7 @@ import { VersionProvider } from '../../providers';
 import VersionLayout from './Version';
 
 const meta: Meta<typeof VersionLayout> = {
-  title: 'VersionLayout',
+  title: 'Layout/Version',
   component: VersionLayout,
 };
 

@@ -5,7 +5,7 @@ import React from 'react';
 import { default as ActionBar } from '.';
 
 const meta: Meta<typeof ActionBar> = {
-  title: 'ActionBar',
+  title: 'Components/Sidebar/ActionBar',
   component: ActionBar,
 };
 

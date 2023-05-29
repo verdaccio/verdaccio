@@ -4,7 +4,7 @@ import React from 'react';
 import { default as SideBarTittle } from '.';
 
 const meta: Meta<typeof SideBarTittle> = {
-  title: 'SideBarTittle',
+  title: 'Components/Sidebar/Title',
   component: SideBarTittle,
 };
 

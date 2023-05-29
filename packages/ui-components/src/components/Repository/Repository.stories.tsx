@@ -4,7 +4,7 @@ import React from 'react';
 import { default as Repository } from '.';
 
 const meta: Meta<typeof Repository> = {
-  title: 'Repository',
+  title: 'Components/Sidebar/Repository',
   component: Repository,
 };
 export default meta;

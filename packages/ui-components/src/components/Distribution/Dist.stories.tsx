@@ -3,7 +3,7 @@ import React from 'react';
 import { default as Dist } from '.';
 
 export default {
-  title: 'Dist',
+  title: 'Components/Sidebar/Dist',
 };
 
 export const AllProperties: any = () => (

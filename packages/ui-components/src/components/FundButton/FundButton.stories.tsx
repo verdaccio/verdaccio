@@ -6,7 +6,7 @@ import React from 'react';
 import { default as FundButton } from '.';
 
 const meta: Meta<typeof FundButton> = {
-  title: 'FundButton',
+  title: 'Components/Sidebar/FundButton',
   component: FundButton,
 };
 
