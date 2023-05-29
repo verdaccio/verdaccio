@@ -3108,6 +3108,17 @@
       ]
     },
     {
+      "id": 7145848,
+      "login": "swapnilmmane",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 119927819,
       "login": "TLDMain",
       "contributions": 1,
@@ -4798,7 +4809,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14786,
+      "stargazers_count": 14805,
       "archived": false
     },
     {
@@ -4924,7 +4935,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 74,
+      "stargazers_count": 75,
       "archived": false
     },
     {
