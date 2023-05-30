@@ -16,14 +16,14 @@ RUN apk add --force-overwrite && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-## build the project and create a tarball of the project for later 
+## build the project and create a tarball of the project for later
 ## global installation
 RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableProgressBars true && \
     yarn config set enableScripts false && \
     yarn install --immutable && \
     yarn build
-## pack the project     
+## pack the project
 RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
     && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
@@ -53,13 +53,14 @@ COPY --from=builder /opt/tarball .
 USER root
 # install verdaccio as a global package so is fully handled by npm
 # ensure none dependency is being missing and is prod by default
-RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \ 
+RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
     ## clean up cache
     && npm cache clean --force \
     && rm -Rf .npm/ \
     && rm $VERDACCIO_APPDIR/verdaccio.tgz \
     # yarn is not need it after this step
-    && rm -Rf /opt/yarn-v1.22.19/
+    # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/02a64a08a98a472c6141cd583d2e9fc47bcd9bfd/18/alpine3.16/Dockerfile#L91-L92).
+    && rm -Rf /opt/yarn-v1.22.19/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 ADD docker-bin $VERDACCIO_APPDIR/docker-bin
