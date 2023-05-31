@@ -65,7 +65,7 @@ describe('test web server', () => {
       });
   });
 
-  test.skip('log in should be disabled', async () => {
+  test('log in should be disabled', async () => {
     return supertest(await initializeServer('login-disabled.yaml'))
       .post('/-/verdaccio/sec/login')
       .send(
@@ -75,7 +75,8 @@ describe('test web server', () => {
         })
       )
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
-      .expect(HTTP_STATUS.NOT_FOUND);
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.CANNOT_HANDLE, JSON.stringify({ error: 'cannot handle this' }));
   });
 
   test.todo('should change password');
