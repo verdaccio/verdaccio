@@ -84,6 +84,7 @@ class Config implements AppConfig {
     this.serverSettings = serverSettings;
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
+      changePassword: config.flags?.changePassword ?? false,
     };
     this.user_agent = config.user_agent;
 

@@ -13,6 +13,7 @@ export const HEADER_TYPE = {
   CONTENT_TYPE: 'content-type',
   CONTENT_LENGTH: 'content-length',
   ACCEPT_ENCODING: 'accept-encoding',
+  AUTHORIZATION: 'authorization',
 };
 
 export const CHARACTER_ENCODING = {
