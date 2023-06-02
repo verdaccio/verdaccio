@@ -79,6 +79,63 @@ describe('test web server', () => {
       .expect(HTTP_STATUS.CANNOT_HANDLE, JSON.stringify({ error: 'cannot handle this' }));
   });
 
+  test('should not change password if flag is disabled', async () => {
+    const oldPass = 'test';
+    const newPass = 'new-pass';
+
+    const api = supertest(await initializeServer('change-password-disabled.yaml'));
+
+    // Login with the old password.
+    const loginRes = await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+
+    // Try changing the password.
+    await api
+      .put('/-/verdaccio/sec/reset_password')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${loginRes.body.token}`)
+      .send(
+        JSON.stringify({
+          password: {
+            old: oldPass,
+            new: newPass,
+          },
+        })
+      )
+      .expect(HTTP_STATUS.CANNOT_HANDLE);
+
+    // Verify that you cannot login with the new (rejected) password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: newPass,
+        })
+      )
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    // Verify that you can still login with the old password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+  });
+
   test.todo('should change password');
-  test.todo('should not change password if flag is disabled');
 });
