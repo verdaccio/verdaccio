@@ -43,7 +43,6 @@ const packageMeta = {
 // const detailContextValue = {
 //   packageName: 'foo',
 //   readMe: 'test',
-//   enableLoading: () => {},
 //   isLoading: false,
 //   hasNotBeenFound: false,
 //   packageMeta: ,

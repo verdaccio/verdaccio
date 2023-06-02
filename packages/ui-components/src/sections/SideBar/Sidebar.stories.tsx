@@ -5,7 +5,7 @@ import { VersionProvider } from '../../providers';
 import DetailSidebar from './Sidebar';
 
 export default {
-  title: 'Sidebar',
+  title: 'Sections/Sidebar',
 };
 
 export const SidebarLatestPackage: any = () => (

@@ -3,7 +3,7 @@ import React from 'react';
 import CopyToClipBoard from './CopyToClipBoard';
 
 export default {
-  title: 'CopyToClipBoard',
+  title: 'Components/Sidebar/CopyToClipBoard',
   component: CopyToClipBoard,
   argTypes: {
     backgroundColor: { control: 'color' },

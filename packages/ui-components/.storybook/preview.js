@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import config from '../../plugins/ui-theme/src/i18n/config';
 import {
   AppConfigurationProvider,
+  PersistenceSettingProvider,
   StyleBaseline,
   ThemeProvider,
   TranslatorProvider,
@@ -34,12 +35,14 @@ export const parameters = {
 export const withMuiTheme = (Story) => (
   <Provider store={store}>
     <TranslatorProvider onMount={() => {}} i18n={config} listLanguages={listLanguages}>
-      <AppConfigurationProvider>
-        <ThemeProvider>
-          <StyleBaseline />
-          <Story />
-        </ThemeProvider>
-      </AppConfigurationProvider>
+      <PersistenceSettingProvider>
+        <AppConfigurationProvider>
+          <ThemeProvider>
+            <StyleBaseline />
+            <Story />
+          </ThemeProvider>
+        </AppConfigurationProvider>
+      </PersistenceSettingProvider>
     </TranslatorProvider>
   </Provider>
 );

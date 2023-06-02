@@ -6,7 +6,7 @@ import { VersionProvider } from '../../providers';
 import Header from './Header';
 
 export default {
-  title: 'Header',
+  title: 'Sections/Header',
 };
 
 function CustomInfoDialog({ onCloseDialog, title, isOpen }) {

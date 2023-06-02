@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router';
 import Search from './Search';
 
 export default {
-  title: 'Search',
+  title: 'Components/Header/Search',
 };
 
 export const SearchByQuery = {

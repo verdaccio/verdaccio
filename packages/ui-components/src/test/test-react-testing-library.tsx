@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import { ThemeProvider } from '../Theme';
 import AppConfigurationProvider from '../providers/AppConfigurationProvider';
+import PersistenceSettingProvider from '../providers/PersistenceSettingProvider';
 import { Store } from '../store/store';
 import i18nConfig from './i18n-config';
 
@@ -13,13 +14,15 @@ const renderWithStore = (ui: React.ReactElement<any>, store: Store) =>
   render(ui, {
     wrapper: ({ children }) => (
       <Provider store={store}>
-        <AppConfigurationProvider>
-          <StyledEngineProvider injectFirst={true}>
-            <ThemeProvider>
-              <I18nextProvider i18n={i18nConfig}>{children}</I18nextProvider>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        </AppConfigurationProvider>
+        <PersistenceSettingProvider>
+          <AppConfigurationProvider>
+            <StyledEngineProvider injectFirst={true}>
+              <ThemeProvider>
+                <I18nextProvider i18n={i18nConfig}>{children}</I18nextProvider>
+              </ThemeProvider>
+            </StyledEngineProvider>
+          </AppConfigurationProvider>
+        </PersistenceSettingProvider>
       </Provider>
     ),
   });
@@ -27,11 +30,13 @@ const renderWithStore = (ui: React.ReactElement<any>, store: Store) =>
 const customRender = (node: React.ReactElement, ...options: any) => {
   return render(
     <AppConfigurationProvider>
-      <StyledEngineProvider injectFirst={true}>
-        <ThemeProvider>
-          <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <PersistenceSettingProvider>
+        <StyledEngineProvider injectFirst={true}>
+          <ThemeProvider>
+            <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </PersistenceSettingProvider>
     </AppConfigurationProvider>,
     ...options
   );

@@ -3,7 +3,7 @@ import React from 'react';
 import { default as Uplinks } from '.';
 
 export default {
-  title: 'Uplinks',
+  title: 'Components/Detail/Uplinks',
 };
 
 export const UplinksAll: any = () => {

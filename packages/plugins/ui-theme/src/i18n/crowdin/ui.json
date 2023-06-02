@@ -106,7 +106,8 @@
       "install-using-npm": "Install using npm",
       "install-using-npm-command": "npm install {{packageName}}",
       "install-using-pnpm": "Install using pnpm",
-      "install-using-pnpm-command": "pnpm install {{packageName}}"
+      "install-using-pnpm-command": "pnpm install {{packageName}}",
+      "global": "View as global"
     },
     "repository": {
       "title": "Repository"

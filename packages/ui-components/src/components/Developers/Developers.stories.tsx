@@ -3,7 +3,7 @@ import React from 'react';
 import { DeveloperType, default as Developers } from '.';
 
 export default {
-  title: 'Developers',
+  title: 'Components/Sidebar/Developers',
 };
 
 export const DevelopersAll: any = () => (

@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
 import { Npm, Pnpm, Yarn } from '../Icons';
 
@@ -16,13 +17,13 @@ const InstallItem = styled(ListItem)({
 });
 
 const InstallListItemText = styled(ListItemText)({
-  padding: '0 10px',
+  padding: '0 0 0 10px',
   margin: 0,
 });
 
 const PackageMangerAvatar = styled(Avatar)({
   borderRadius: '0px',
-  padding: '0',
+  padding: 0,
 });
 
 export enum DependencyManager {
@@ -38,6 +39,9 @@ interface Interface {
 
 const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }) => {
   const { t } = useTranslation();
+  const { localSettings } = useSettings();
+  const isGlobal = localSettings[packageName]?.global ?? false;
+  const pkgName = isGlobal ? `-g ${packageName}` : packageName;
 
   switch (dependencyManager) {
     case DependencyManager.NPM:
@@ -50,8 +54,12 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
             primary={
               <CopyToClipBoard
                 dataTestId="installYarn"
-                text={t('sidebar.installation.install-using-npm-command', { packageName })}
-                title={t('sidebar.installation.install-using-npm-command', { packageName })}
+                text={t('sidebar.installation.install-using-npm-command', {
+                  packageName: pkgName,
+                })}
+                title={t('sidebar.installation.install-using-npm-command', {
+                  packageName: pkgName,
+                })}
               />
             }
             secondary={t('sidebar.installation.install-using-npm')}
@@ -68,8 +76,12 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
             primary={
               <CopyToClipBoard
                 dataTestId="installYarn"
-                text={t('sidebar.installation.install-using-yarn-command', { packageName })}
-                title={t('sidebar.installation.install-using-yarn-command', { packageName })}
+                text={t('sidebar.installation.install-using-yarn-command', {
+                  packageName: pkgName,
+                })}
+                title={t('sidebar.installation.install-using-yarn-command', {
+                  packageName: pkgName,
+                })}
               />
             }
             secondary={t('sidebar.installation.install-using-yarn')}
@@ -86,8 +98,12 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
             primary={
               <CopyToClipBoard
                 dataTestId="installPnpm"
-                text={t('sidebar.installation.install-using-pnpm-command', { packageName })}
-                title={t('sidebar.installation.install-using-pnpm-command', { packageName })}
+                text={t('sidebar.installation.install-using-pnpm-command', {
+                  packageName: pkgName,
+                })}
+                title={t('sidebar.installation.install-using-pnpm-command', {
+                  packageName: pkgName,
+                })}
               />
             }
             secondary={t('sidebar.installation.install-using-pnpm')}

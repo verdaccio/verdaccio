@@ -3,7 +3,7 @@ import isURLValidator from 'validator/lib/isURL';
 
 export function isURL(url: string): boolean {
   return isURLValidator(url || '', {
-    protocols: ['http', 'https', 'git+https'],
+    protocols: ['http', 'https', 'git+https', 'git'],
     require_protocol: true,
     require_tld: false,
   });

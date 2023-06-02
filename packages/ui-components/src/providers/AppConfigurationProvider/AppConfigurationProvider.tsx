@@ -54,7 +54,6 @@ const AppConfigurationContext = createContext<ConfigProviderProps>(defaultValues
 const AppConfigurationProvider: FunctionComponent<{ children: React.ReactElement<any> }> = ({
   children,
 }) => {
-  // Read only
   const [configOptions] = useState<TemplateUIOptions>(getConfiguration());
 
   const value = useMemo(

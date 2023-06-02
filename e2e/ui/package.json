@@ -8,7 +8,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.70",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
     "debug": "4.3.4",
-    "cypress": "11.2.0",
+    "cypress": "^11.2.0",
     "get-port": "5.1.1"
   },
   "scripts": {
