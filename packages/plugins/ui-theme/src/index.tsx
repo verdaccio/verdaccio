@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import {
   AppConfigurationProvider,
+  PersistenceSettingProvider,
   StyleBaseline,
   ThemeProvider,
   store,
@@ -20,7 +21,9 @@ const AppContainer = () => (
     <AppConfigurationProvider>
       <ThemeProvider>
         <StyleBaseline />
-        <App />
+        <PersistenceSettingProvider>
+          <App />
+        </PersistenceSettingProvider>
       </ThemeProvider>
     </AppConfigurationProvider>
   </Provider>

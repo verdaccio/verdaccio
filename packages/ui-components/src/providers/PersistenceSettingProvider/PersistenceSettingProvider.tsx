@@ -24,7 +24,10 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
 }) => {
   // get the initial state from the local storage
   const [settings, setSettings] = useLocalStorage(`settings-ui-verdaccio`, {});
-  const [localSettings, setLocalSettings] = useState<PersistenceSettingsProps>(settings);
+
+  const [localSettings, setLocalSettings] = useState<PersistenceSettingsProps>(
+    settings ? settings : {}
+  );
 
   const updateSettings = useCallback(
     (newSettings: React.SetStateAction<PersistenceSettingsProps>) => {
@@ -36,7 +39,7 @@ const PersistenceSettingProvider: FunctionComponent<{ children: React.ReactEleme
 
   const value = useMemo(
     () => ({
-      localSettings,
+      localSettings: localSettings ? localSettings : {},
       updateSettings,
     }),
     [localSettings, updateSettings]

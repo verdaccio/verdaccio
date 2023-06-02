@@ -21,6 +21,8 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/material-icons": "^4.5.4",
+    "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "5.11.16",
     "@mui/material": "5.12.0",
     "@mui/styles": "5.12.0",
@@ -28,8 +30,6 @@
     "@rematch/core": "2.2.0",
     "@rematch/loading": "2.1.2",
     "@rematch/persist": "2.1.2",
-    "@fontsource/material-icons": "^4.5.4",
-    "@fontsource/roboto": "^4.5.8",
     "country-flag-icons": "1.5.5",
     "dayjs": "1.11.7",
     "dompurify": "2.4.5",
@@ -56,7 +56,6 @@
     "validator": "13.9.0"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "@babel/core": "^7.20.7",
     "@emotion/babel-plugin": "11.10.6",
     "@emotion/jest": "11.10.5",
@@ -74,6 +73,7 @@
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",
     "@types/unist": "^2.0.0",
+    "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "babel-loader": "^8.3.0",
     "mockdate": "3.0.5",
     "msw": "0.49.2"
