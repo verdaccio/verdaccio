@@ -1,5 +1,12 @@
 # @verdaccio/logger-commons
 
+## 6.0.0-6-next.39
+
+### Patch Changes
+
+- 84b2dffdb: fix: restore wrong dependency version
+  - @verdaccio/core@6.0.0-6-next.71
+
 ## 6.0.0-6-next.38
 
 ### Patch Changes

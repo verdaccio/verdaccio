@@ -1,5 +1,17 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.71
+
+### Patch Changes
+
+- 679c19c1b: Respect the `changePassword` configuration flag to enable changing the password through the web API.
+
+  > **Note**
+  > This feature is still experimental and not fully supported in the default web application.
+
+  - @verdaccio/core@6.0.0-6-next.71
+  - @verdaccio/utils@6.0.0-6-next.39
+
 ## 6.0.0-6-next.70
 
 ### Patch Changes
