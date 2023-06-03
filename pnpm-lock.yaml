@@ -1237,8 +1237,8 @@ importers:
         specifier: 1.7.0
         version: 1.7.0(webpack@5.82.1)
       github-markdown-css:
-        specifier: 4.0.0
-        version: 4.0.0
+        specifier: 5.2.0
+        version: 5.2.0
       harmony-reflect:
         specifier: 1.6.2
         version: 1.6.2
@@ -1870,8 +1870,8 @@ importers:
         specifier: 2.4.5
         version: 2.4.5
       github-markdown-css:
-        specifier: 5.1.0
-        version: 5.1.0
+        specifier: 5.2.0
+        version: 5.2.0
       highlight.js:
         specifier: 11.7.0
         version: 11.7.0
@@ -17973,13 +17973,8 @@ packages:
       assert-plus: 1.0.0
     dev: true
 
-  /github-markdown-css@4.0.0:
-    resolution: {integrity: sha512-mH0bcIKv4XAN0mQVokfTdKo2OD5K8WJE9+lbMdM32/q0Ie5tXgVN/2o+zvToRMxSTUuiTRcLg5hzkFfOyBYreg==}
-    dev: true
-
-  /github-markdown-css@5.1.0:
-    resolution: {integrity: sha512-QLtORwHHtUHhPMHu7i4GKfP6Vx5CWZn+NKQXe+cBhslY1HEt0CTEkP4d/vSROKV0iIJSpl4UtlQ16AD8C6lMug==}
-    dev: false
+  /github-markdown-css@5.2.0:
+    resolution: {integrity: sha512-hq5RaCInSUZ48bImOZpkppW2/MT44StRgsbsZ8YA4vJFwLKB/Vo3k7R2t+pUGqO+ThG0QDMi96TewV/B3vyItg==}
 
   /github-slugger@1.5.0:
     resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
