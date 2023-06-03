@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.25.0](https://github.com/verdaccio/verdaccio/compare/v5.24.1...v5.25.0) (2023-06-03)
+
+
+### Features
+
+* replace internal web search indexer ([#3818](https://github.com/verdaccio/verdaccio/issues/3818)) ([770cd27](https://github.com/verdaccio/verdaccio/commit/770cd27759846fde1ff69c8b3e4c80768b18d343))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#3822](https://github.com/verdaccio/verdaccio/issues/3822)) ([2d6dbc7](https://github.com/verdaccio/verdaccio/commit/2d6dbc7daf5b942dc81b36ef2479ae2587b309af))
+* **deps:** update dependency @babel/eslint-parser to v7.21.8 ([#3807](https://github.com/verdaccio/verdaccio/issues/3807)) ([271f918](https://github.com/verdaccio/verdaccio/commit/271f918fc843ba79e39e46e5faf673677185f09f))
+* **deps:** update dependency semver to v7.5.1 ([#3816](https://github.com/verdaccio/verdaccio/issues/3816)) ([373c584](https://github.com/verdaccio/verdaccio/commit/373c584019403b593278b667b25c6197fcf2ac14))
+* **deps:** update dependency verdaccio-audit to v11.0.0-6-next.33 ([#3824](https://github.com/verdaccio/verdaccio/issues/3824)) ([a7a2d5f](https://github.com/verdaccio/verdaccio/commit/a7a2d5f3e12888af2e25eb4a856666e132e1e6d7))
+* **docker:** remove yarn symlinks ([#3840](https://github.com/verdaccio/verdaccio/issues/3840)) ([1a5d5b4](https://github.com/verdaccio/verdaccio/commit/1a5d5b41d5c6d2a7f61c2ded1624b40509677a51)), closes [/github.com/nodejs/docker-node/blob/02a64a08a98a472c6141cd583d2e9fc47bcd9bfd/18/alpine3.16/Dockerfile#L91-L92](https://github.com/verdaccio//github.com/nodejs/docker-node/blob/02a64a08a98a472c6141cd583d2e9fc47bcd9bfd/18/alpine3.16/Dockerfile/issues/L91-L92)
+* update verdaccio 6.x dependencies ([#3853](https://github.com/verdaccio/verdaccio/issues/3853)) ([99d06e5](https://github.com/verdaccio/verdaccio/commit/99d06e5f029e532e23fb9fc8006069da88bb6890))
+
 ### [5.24.1](https://github.com/verdaccio/verdaccio/compare/v5.24.0...v5.24.1) (2023-04-24)
 
 
