@@ -23,7 +23,7 @@ exports[`DetailContainer renders correctly 1`] = `
   margin-bottom: 16px;
 }
 
-@media (max-width:399.95px) {
+@media (max-width:599.95px) {
   .emotion-2 .MuiTabs-scrollButtons {
     display: none;
   }
