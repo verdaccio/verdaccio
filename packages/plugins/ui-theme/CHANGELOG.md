@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.71
+
+### Minor Changes
+
+- 7344a7fcf: feat: ui bugfixes and improvements
+
 ## 6.0.0-6-next.70
 
 ## 6.0.0-6-next.69

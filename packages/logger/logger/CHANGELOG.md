@@ -1,5 +1,12 @@
 # @verdaccio/logger
 
+## 6.0.0-6-next.39
+
+### Patch Changes
+
+- Updated dependencies [84b2dffdb]
+  - @verdaccio/logger-commons@6.0.0-6-next.39
+
 ## 6.0.0-6-next.38
 
 ### Patch Changes

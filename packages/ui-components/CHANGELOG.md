@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 2.0.0-6-next.10
+
+### Minor Changes
+
+- 7344a7fcf: feat: ui bugfixes and improvements
+
 ## 2.0.0-6-next.9
 
 ### Patch Changes
