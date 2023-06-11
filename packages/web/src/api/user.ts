@@ -71,23 +71,18 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
             config?.serverSettings?.passwordValidationRegex
           ) === false
         ) {
-          auth.changePassword(
-            name as string,
-            password.old,
-            password.new,
-            (err, isUpdated): void => {
-              if (_.isNil(err) && isUpdated) {
-                next({
-                  ok: true,
-                });
-              } else {
-                return next(errorUtils.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
-              }
-            }
-          );
-        } else {
           return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));
         }
+
+        auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
+          if (_.isNil(err) && isUpdated) {
+            next({
+              ok: true,
+            });
+          } else {
+            return next(errorUtils.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR));
+          }
+        });
       }
     );
   }

@@ -83,30 +83,31 @@ async function loginRoute(fastify: FastifyInstance) {
           fastify.configInstance?.server?.passwordValidationRegex
         ) === false
       ) {
-        fastify.auth.changePassword(
-          name as string,
-          password.old,
-          password.new,
-          (err, isUpdated): void => {
-            if (_.isNil(err) && isUpdated) {
-              reply.code(fastify.statusCode.OK);
-            } else {
-              reply.send(
-                fastify.errorUtils.getInternalError(
-                  fastify.errorUtils.API_ERROR.INTERNAL_SERVER_ERROR
-                )
-              );
-            }
-          }
-        );
-      } else {
         reply.send(
           fastify.errorUtils.getCode(
             fastify.statusCode.BAD_REQUEST,
             fastify.errorUtils.APP_ERROR.PASSWORD_VALIDATION
           )
         );
+        return;
       }
+
+      fastify.auth.changePassword(
+        name as string,
+        password.old,
+        password.new,
+        (err, isUpdated): void => {
+          if (_.isNil(err) && isUpdated) {
+            reply.code(fastify.statusCode.OK);
+          } else {
+            reply.send(
+              fastify.errorUtils.getInternalError(
+                fastify.errorUtils.API_ERROR.INTERNAL_SERVER_ERROR
+              )
+            );
+          }
+        }
+      );
     }
   );
   // });

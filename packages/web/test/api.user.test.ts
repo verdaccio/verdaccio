@@ -79,6 +79,122 @@ describe('test web server', () => {
       .expect(HTTP_STATUS.CANNOT_HANDLE, JSON.stringify({ error: 'cannot handle this' }));
   });
 
+  test('should change password', async () => {
+    const oldPass = 'test';
+    const newPass = 'new-pass';
+
+    const api = supertest(await initializeServer('default-test.yaml'));
+
+    // Login with the old password.
+    const loginRes = await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+
+    // Change the password.
+    await api
+      .put('/-/verdaccio/sec/reset_password')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${loginRes.body.token}`)
+      .send(
+        JSON.stringify({
+          password: {
+            old: oldPass,
+            new: newPass,
+          },
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+
+    // Verify that you cannot login with the old password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    // Verify that you can login with the new password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: newPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+  });
+
+  test('should not change to invalid password', async () => {
+    const oldPass = 'test';
+    const newPass = '12'; // Invalid password: Too short.
+
+    const api = supertest(await initializeServer('default-test.yaml'));
+
+    // Login with the old password.
+    const loginRes = await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+
+    // Try changing to an invalid password.
+    await api
+      .put('/-/verdaccio/sec/reset_password')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .set(HEADER_TYPE.AUTHORIZATION, `Bearer ${loginRes.body.token}`)
+      .send(
+        JSON.stringify({
+          password: {
+            old: oldPass,
+            new: newPass,
+          },
+        })
+      )
+      .expect(HTTP_STATUS.BAD_REQUEST);
+
+    // Verify that you cannot login with the new (invalid) password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: newPass,
+        })
+      )
+      .expect(HTTP_STATUS.UNAUTHORIZED);
+
+    // Verify that you can still login with the old password.
+    await api
+      .post('/-/verdaccio/sec/login')
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(
+        JSON.stringify({
+          username: 'test',
+          password: oldPass,
+        })
+      )
+      .expect(HTTP_STATUS.OK);
+  });
+
   test('should not change password if flag is disabled', async () => {
     const oldPass = 'test';
     const newPass = 'new-pass';
@@ -136,6 +252,4 @@ describe('test web server', () => {
       )
       .expect(HTTP_STATUS.OK);
   });
-
-  test.todo('should change password');
 });
