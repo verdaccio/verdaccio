@@ -1116,6 +1116,17 @@
       ]
     },
     {
+      "id": 8604205,
+      "login": "gkalpak",
+      "contributions": 3,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        }
+      ]
+    },
+    {
       "id": 175305,
       "login": "kfatehi",
       "contributions": 3,
@@ -1419,17 +1430,6 @@
     {
       "id": 12616025,
       "login": "denisbabineau",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 8604205,
-      "login": "gkalpak",
       "contributions": 2,
       "repositories": [
         {
@@ -4831,7 +4831,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14837,
+      "stargazers_count": 14852,
       "archived": false
     },
     {
@@ -4957,7 +4957,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 76,
+      "stargazers_count": 77,
       "archived": false
     },
     {
