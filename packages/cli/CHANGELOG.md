@@ -1,5 +1,14 @@
 # @verdaccio/cli
 
+## 6.0.0-6-next.72
+
+### Patch Changes
+
+- @verdaccio/node-api@6.0.0-6-next.72
+- @verdaccio/core@6.0.0-6-next.72
+- @verdaccio/config@6.0.0-6-next.72
+- @verdaccio/logger@6.0.0-6-next.40
+
 ## 6.0.0-6-next.71
 
 ### Patch Changes

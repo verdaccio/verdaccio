@@ -43,7 +43,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.71",
+    "@verdaccio/config": "workspace:6.0.0-6-next.72",
     "@verdaccio/types": "workspace:11.0.0-6-next.25"
   },
   "funding": {

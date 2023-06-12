@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.72
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.72
+- @verdaccio/utils@6.0.0-6-next.40
+
 ## 6.0.0-6-next.71
 
 ### Patch Changes
