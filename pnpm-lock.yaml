@@ -193,8 +193,8 @@ importers:
         specifier: 1.13.10
         version: 1.13.10
       '@types/superagent':
-        specifier: 4.1.10
-        version: 4.1.10
+        specifier: 4.1.18
+        version: 4.1.18
       '@types/supertest':
         specifier: 2.0.12
         version: 2.0.12
@@ -11612,8 +11612,8 @@ packages:
   /@types/stack-utils@2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
 
-  /@types/superagent@4.1.10:
-    resolution: {integrity: sha512-xAgkb2CMWUMCyVc/3+7iQfOEBE75NvuZeezvmixbUw3nmENf2tCnQkW5yQLTYqvXUQ+R6EXxdqKKbal2zM5V/g==}
+  /@types/superagent@4.1.18:
+    resolution: {integrity: sha512-LOWgpacIV8GHhrsQU+QMZuomfqXiqzz3ILLkCtKx3Us6AmomFViuzKT9D693QTKgyut2oCytMG8/efOop+DB+w==}
     dependencies:
       '@types/cookiejar': 2.1.2
       '@types/node': 16.18.35
@@ -11622,7 +11622,7 @@ packages:
   /@types/supertest@2.0.12:
     resolution: {integrity: sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==}
     dependencies:
-      '@types/superagent': 4.1.10
+      '@types/superagent': 4.1.18
     dev: true
 
   /@types/tapable@1.0.8:

@@ -75,7 +75,7 @@
     "@types/request": "2.48.8",
     "@types/semver": "7.3.13",
     "@types/serve-static": "1.13.10",
-    "@types/superagent": "4.1.10",
+    "@types/superagent": "4.1.18",
     "@types/supertest": "2.0.12",
     "@types/testing-library__jest-dom": "5.14.5",
     "@types/validator": "13.7.12",
