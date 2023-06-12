@@ -37,7 +37,7 @@
     "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "16.18.35",
     "@verdaccio/auth": "workspace:6.0.0-6-next.50",
     "@verdaccio/config": "workspace:6.0.0-6-next.71",
     "@verdaccio/types": "workspace:11.0.0-6-next.25"
