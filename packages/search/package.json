@@ -38,7 +38,7 @@
     "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "16.18.35",
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "@orama/orama": "1.0.6",
     "debug": "4.3.4",

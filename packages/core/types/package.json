@@ -40,7 +40,7 @@
     "build": "echo 0"
   },
   "devDependencies": {
-    "@types/node": "16.18.10",
+    "@types/node": "16.18.35",
     "typedoc": "0.23.25"
   },
   "typedoc": {
