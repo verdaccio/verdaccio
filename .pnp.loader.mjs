@@ -1951,7 +1951,7 @@ async function resolvePrivateRequest(specifier, issuer, context, nextResolve) {
   }
 }
 async function resolve$1(originalSpecifier, context, nextResolve) {
-  var _a;
+  var _a, _b;
   const { findPnpApi } = moduleExports;
   if (!findPnpApi || isBuiltinModule(originalSpecifier))
     return nextResolve(originalSpecifier, context, nextResolve);
@@ -1963,8 +1963,8 @@ async function resolve$1(originalSpecifier, context, nextResolve) {
     specifier = fileURLToPath(url);
   }
   const { parentURL, conditions = [] } = context;
-  const issuer = parentURL ? fileURLToPath(parentURL) : process.cwd();
-  const pnpapi = (_a = findPnpApi(issuer)) != null ? _a : url ? findPnpApi(specifier) : null;
+  const issuer = parentURL && ((_a = tryParseURL(parentURL)) == null ? void 0 : _a.protocol) === `file:` ? fileURLToPath(parentURL) : process.cwd();
+  const pnpapi = (_b = findPnpApi(issuer)) != null ? _b : url ? findPnpApi(specifier) : null;
   if (!pnpapi)
     return nextResolve(originalSpecifier, context, nextResolve);
   if (specifier.startsWith(`#`))

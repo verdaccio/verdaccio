@@ -4413,14 +4413,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.2.0":
-  version: 3.2.0
-  resolution: "clipanion@npm:3.2.0"
+"clipanion@npm:3.2.1":
+  version: 3.2.1
+  resolution: "clipanion@npm:3.2.1"
   dependencies:
     typanion: ^3.8.0
   peerDependencies:
     typanion: "*"
-  checksum: e28e6f0d48aecff86097823c604aa486082d76d2a5d3abc71069a0d9f3338af769fd7c6634b2f444c5b1aac0743b503325cc0b30552c094c01ebc602631b273d
+  checksum: 448efd122ead3c802e61ba7a2002e2080c8cce01ce8a0a789d9b9e4f8fe70fd887dcf163ef8c778f5364a9e6f4b498b9f1853f709d7ed4291713e78bcfb88ee8
   languageName: node
   linkType: hard
 
@@ -11056,7 +11056,7 @@ __metadata:
     babel-jest: 29.5.0
     babel-plugin-dynamic-import-node: 2.3.3
     body-parser: 1.20.2
-    clipanion: 3.2.0
+    clipanion: 3.2.1
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5
