@@ -379,8 +379,8 @@ importers:
         specifier: workspace:1.1.0-6-next.7
         version: link:../cli-commons
       npm:
-        specifier: 9.6.6
-        version: 9.6.6
+        specifier: 9.7.1
+        version: 9.7.1
 
   e2e/cli/e2e-npm7:
     dependencies:
@@ -388,8 +388,8 @@ importers:
         specifier: workspace:1.1.0-6-next.7
         version: link:../cli-commons
       npm:
-        specifier: 9.6.6
-        version: 9.6.6
+        specifier: 9.7.1
+        version: 9.7.1
 
   e2e/cli/e2e-npm8:
     dependencies:
@@ -397,8 +397,8 @@ importers:
         specifier: workspace:1.1.0-6-next.7
         version: link:../cli-commons
       npm:
-        specifier: 9.6.6
-        version: 9.6.6
+        specifier: 9.7.1
+        version: 9.7.1
 
   e2e/cli/e2e-npm9:
     dependencies:
@@ -406,8 +406,8 @@ importers:
         specifier: workspace:1.1.0-6-next.7
         version: link:../cli-commons
       npm:
-        specifier: 9.6.6
-        version: 9.6.6
+        specifier: 9.7.1
+        version: 9.7.1
 
   e2e/cli/e2e-pnpm6:
     dependencies:
@@ -22478,8 +22478,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@9.6.6:
-    resolution: {integrity: sha512-GIe+nCIw8EJIv52IXDVETSGnx7p9Ttg4VsaXNIeT4eaKZpIZ635rKC/uzQ6nnc4ibCUmESoK3PrXG0/puoqNcg==}
+  /npm@9.7.1:
+    resolution: {integrity: sha512-kxMviaiLX4Lfnjy2dt7EWB87v5QdLiGpy04S2ORdKLmPqFhgy8g4cgJjQfnWob4mJIaNHjBO+hk45CvLlsZZ8g==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
     dev: false
@@ -22539,9 +22539,8 @@ packages:
       - proc-log
       - qrcode-terminal
       - read
-      - read-package-json
-      - read-package-json-fast
       - semver
+      - sigstore
       - ssri
       - tar
       - text-table
