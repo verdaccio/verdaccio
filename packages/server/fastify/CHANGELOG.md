@@ -1,5 +1,18 @@
 # @verdaccio/server-fastify
 
+## 6.0.0-6-next.53
+
+### Patch Changes
+
+- 702d5c497: Fix the password validation logic for the `/reset_password` route to ensure that the password is only reset if it is valid.
+  - @verdaccio/core@6.0.0-6-next.72
+  - @verdaccio/config@6.0.0-6-next.72
+  - @verdaccio/auth@6.0.0-6-next.51
+  - @verdaccio/tarball@11.0.0-6-next.41
+  - @verdaccio/store@6.0.0-6-next.52
+  - @verdaccio/utils@6.0.0-6-next.40
+  - @verdaccio/logger@6.0.0-6-next.40
+
 ## 6.0.0-6-next.52
 
 ### Patch Changes
