@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5094,
+      "contributions": 5096,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2779
+          "contributions": 2780
         },
         {
           "name": "verdaccio-cookbook",
@@ -131,7 +131,7 @@
         },
         {
           "name": "e2e-5.x",
-          "contributions": 52
+          "contributions": 53
         }
       ]
     },
@@ -4831,7 +4831,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 14852,
+      "stargazers_count": 14858,
       "archived": false
     },
     {
@@ -4858,7 +4858,7 @@
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
       "description": " 🧩 yeoman verdaccio plugin generator",
-      "stargazers_count": 11,
+      "stargazers_count": 12,
       "archived": false
     },
     {
@@ -4957,7 +4957,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 77,
+      "stargazers_count": 78,
       "archived": false
     },
     {
@@ -5092,7 +5092,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 45,
+      "stargazers_count": 46,
       "archived": false
     },
     {
@@ -5119,7 +5119,7 @@
       "full_name": "verdaccio/e2e-5.x",
       "html_url": "https://github.com/verdaccio/e2e-5.x",
       "description": "e2e tests 5.x only ",
-      "stargazers_count": 1,
+      "stargazers_count": 2,
       "archived": false
     }
   ]
