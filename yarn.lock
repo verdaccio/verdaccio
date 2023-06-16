@@ -3323,21 +3323,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/config@npm:6.0.0-6-next.71":
-  version: 6.0.0-6-next.71
-  resolution: "@verdaccio/config@npm:6.0.0-6-next.71"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.71
-    "@verdaccio/utils": 6.0.0-6-next.39
-    debug: 4.3.4
-    js-yaml: 4.1.0
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    yup: 0.32.11
-  checksum: a62bc7f6f6799d8f9b7d056303f7c1867adebf250f25662a38bc2208efe939fb9d3edbca7a694276d51f7c9402d7adcdcc1f1f5bfeef6d60b8b41c7f5d7d0ceb
-  languageName: node
-  linkType: hard
-
 "@verdaccio/config@npm:6.0.0-6-next.72":
   version: 6.0.0-6-next.72
   resolution: "@verdaccio/config@npm:6.0.0-6-next.72"
@@ -3529,18 +3514,6 @@ __metadata:
     lodash: 4.17.21
     validator: 13.9.0
   checksum: aac9b04e4fda24e167b3c313e38361069b4b37b4fdf9b848dbc1e6d28341b25a2efbe43a287e3890ff64f10d2f1b9d9c71f1a3a990caa38e5d5b312e40618920
-  languageName: node
-  linkType: hard
-
-"@verdaccio/utils@npm:6.0.0-6-next.39":
-  version: 6.0.0-6-next.39
-  resolution: "@verdaccio/utils@npm:6.0.0-6-next.39"
-  dependencies:
-    "@verdaccio/core": 6.0.0-6-next.71
-    lodash: 4.17.21
-    minimatch: 3.1.2
-    semver: 7.5.0
-  checksum: afca006f9c8ba66c1d0a4b2eb9b92a63b10841cdd8f1a1a8942a2ec6d0708392e407cbb670f6415562aa5145ce85d5004a8e4fb8cdba703a9f5e82076790154c
   languageName: node
   linkType: hard
 
@@ -10933,16 +10906,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:11.0.0-6-next.34":
-  version: 11.0.0-6-next.34
-  resolution: "verdaccio-audit@npm:11.0.0-6-next.34"
+"verdaccio-audit@npm:11.0.0-6-next.35":
+  version: 11.0.0-6-next.35
+  resolution: "verdaccio-audit@npm:11.0.0-6-next.35"
   dependencies:
-    "@verdaccio/config": 6.0.0-6-next.71
-    "@verdaccio/core": 6.0.0-6-next.71
+    "@verdaccio/config": 6.0.0-6-next.72
+    "@verdaccio/core": 6.0.0-6-next.72
     express: 4.18.2
     https-proxy-agent: 5.0.1
     node-fetch: cjs
-  checksum: 1f1ba70999268941068a96f915d41a888828675f8bfbf27e67f322baa0f9299846c69898e71cdabac70b8c19d82be5c3349bea9e0b3478fbe990e99bac4bbab7
+  checksum: 4d94e1b72580fd6f41e63da581950dee79de3884edac431728dd219224baf9061aad8ec8e033d0a0476bdbb5089d23163f568f533be24c68427cfbf41c6ee45c
   languageName: node
   linkType: hard
 
@@ -11095,7 +11068,7 @@ __metadata:
     ts-node: 10.9.1
     typescript: 4.9.5
     validator: 13.9.0
-    verdaccio-audit: 11.0.0-6-next.34
+    verdaccio-audit: 11.0.0-6-next.35
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 11.0.0-6-next.41
     verdaccio-memory: 10.3.2
