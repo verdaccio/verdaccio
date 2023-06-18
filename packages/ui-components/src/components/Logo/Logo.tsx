@@ -26,10 +26,10 @@ interface Props {
 
 const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false }) => {
   const { configOptions } = useConfig();
-  if (!isDefault && configOptions?.logo) {
+  if (!isDefault && (configOptions?.logo || configOptions?.logoURI)) {
     return (
       <ImageLogo className={className} onClick={onClick}>
-        <img alt="logo" height="40px" src={configOptions.logo} />
+        <img alt="logo" height="40px" src={(configOptions?.logo || configOptions?.logoURI)} />
       </ImageLogo>
     );
   }
