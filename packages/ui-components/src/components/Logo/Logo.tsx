@@ -29,7 +29,7 @@ const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false }) 
   if (!isDefault && (configOptions?.logo || configOptions?.logoURI)) {
     return (
       <ImageLogo className={className} onClick={onClick}>
-        <img alt="logo" height="40px" src={(configOptions?.logo || configOptions?.logoURI)} />
+        <img alt="logo" height="40px" src={configOptions?.logo || configOptions?.logoURI} />
       </ImageLogo>
     );
   }
