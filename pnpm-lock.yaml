@@ -202,8 +202,8 @@ importers:
         specifier: 5.14.6
         version: 5.14.6
       '@types/validator':
-        specifier: 13.7.12
-        version: 13.7.12
+        specifier: 13.7.17
+        version: 13.7.17
       '@types/webpack':
         specifier: 5.28.1
         version: 5.28.1
@@ -11654,8 +11654,8 @@ packages:
   /@types/unist@2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
 
-  /@types/validator@13.7.12:
-    resolution: {integrity: sha512-YVtyAPqpefU+Mm/qqnOANW6IkqKpCSrarcyV269C8MA8Ux0dbkEuQwM/4CjL47kVEM2LgBef/ETfkH+c6+moFA==}
+  /@types/validator@13.7.17:
+    resolution: {integrity: sha512-aqayTNmeWrZcvnG2MG9eGYI6b7S5fl+yKgPs6bAjOTwPS316R5SxBGKvtSExfyoJU7pIeHJfsHI0Ji41RVMkvQ==}
     dev: true
 
   /@types/webpack-env@1.18.0:
