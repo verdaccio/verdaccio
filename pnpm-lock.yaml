@@ -1457,8 +1457,8 @@ importers:
   packages/search:
     devDependencies:
       '@orama/orama':
-        specifier: 1.0.6
-        version: 1.0.6
+        specifier: 1.0.7
+        version: 1.0.7
       '@types/node':
         specifier: 16.18.36
         version: 16.18.36
@@ -9162,8 +9162,8 @@ packages:
     resolution: {integrity: sha512-Aq58f5HiWdyDlFffbbSjAlv596h/cOnt2DO1w3DOC7OJ5EHs0hd/nycJfiu9RJbT6Yk6F1knnRRXNSpxoIVZ9Q==}
     dev: true
 
-  /@orama/orama@1.0.6:
-    resolution: {integrity: sha512-8eipaHJiLVfk7EHDv/F8S7Se2tdsordt8EVqxlXvYua8HEtx4Iazdmou22CQRt5eG1WCIuJDZQkHbDussKHPQQ==}
+  /@orama/orama@1.0.7:
+    resolution: {integrity: sha512-nhA3Em9hDCyctYqKoWhFb1Y6FQpNnpn5yrHa7TwE/7ZNBBovHEvJDuTYRLqkyZg43gmskog69PEkuwQya4s6vQ==}
     engines: {node: '>= 16.0.0'}
     dev: true
 
