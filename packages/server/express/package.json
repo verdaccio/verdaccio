@@ -48,7 +48,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.18.35",
+    "@types/node": "16.18.36",
     "@verdaccio/proxy": "workspace:6.0.0-6-next.50",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
     "http-errors": "2.0.0"

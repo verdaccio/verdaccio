@@ -52,7 +52,7 @@
     "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.18.35",
+    "@types/node": "16.18.36",
     "p-cancelable": "2.1.1",
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "get-stream": "^6.0.1",
