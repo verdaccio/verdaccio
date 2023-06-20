@@ -48,7 +48,7 @@
     "@verdaccio/config": "workspace:6.0.0-6-next.72",
     "@verdaccio/logger": "workspace:6.0.0-6-next.40",
     "@verdaccio/node-api": "workspace:6.0.0-6-next.72",
-    "clipanion": "3.2.0",
+    "clipanion": "3.2.1",
     "envinfo": "7.8.1",
     "kleur": "4.1.5",
     "semver": "7.5.0"
