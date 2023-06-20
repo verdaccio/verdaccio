@@ -618,8 +618,8 @@ importers:
         specifier: workspace:6.0.0-6-next.72
         version: link:../node-api
       clipanion:
-        specifier: 3.2.0
-        version: 3.2.0(typanion@3.12.1)
+        specifier: 3.2.1
+        version: 3.2.1(typanion@3.12.1)
       envinfo:
         specifier: 7.8.1
         version: 7.8.1
@@ -1816,8 +1816,8 @@ importers:
         specifier: 1.23.1
         version: 1.23.1(debug@4.3.4)
       clipanion:
-        specifier: 3.2.0
-        version: 3.2.0(typanion@3.12.1)
+        specifier: 3.2.1
+        version: 3.2.1(typanion@3.12.1)
     devDependencies:
       ts-node:
         specifier: 10.9.1
@@ -14132,8 +14132,8 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /clipanion@3.2.0(typanion@3.12.1):
-    resolution: {integrity: sha512-XaPQiJQZKbyaaDbv5yR/cAt/ORfZfENkr4wGQj+Go/Uf/65ofTQBCPirgWFeJctZW24V3mxrFiEnEmqBflrJYA==}
+  /clipanion@3.2.1(typanion@3.12.1):
+    resolution: {integrity: sha512-dYFdjLb7y1ajfxQopN05mylEpK9ZX0sO1/RfMXdfmwjlIsPkbh4p7A682x++zFPLDCo1x3p82dtljHf5cW2LKA==}
     peerDependencies:
       typanion: '*'
     dependencies:
