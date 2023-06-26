@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/node": "16.18.36",
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
-    "@orama/orama": "1.0.7",
+    "@orama/orama": "1.0.8",
     "debug": "4.3.4",
     "esbuild": "0.14.10"
   },
