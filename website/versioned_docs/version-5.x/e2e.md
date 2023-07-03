@@ -96,3 +96,4 @@ Via CLI:
 - [e2e-ci-example-gh-actions](https://github.com/juanpicado/e2e-ci-example-gh-actions)
 - [verdaccio-end-to-end-tests](https://github.com/juanpicado/verdaccio-end-to-end-tests)
 - [verdaccio-fork](https://github.com/juanpicado/verdaccio-fork)
+- [simplified e2e testing using verdaccio](https://github.com/rluvaton/e2e-verdaccio-example)
