@@ -1144,6 +1144,53 @@ describe('endpoint unit test', () => {
             });
         });
       });
+
+      describe('for a async function value of tarball_url_redirect', () => {
+        let app2;
+        beforeAll(async () => {
+          app2 = await endPointAPI({
+            ...baseTestConfig,
+            experiments: {
+              async tarball_url_redirect(context) {
+                await new Promise((resolve) => {
+                  setTimeout(resolve, 1000);
+                });
+                return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`;
+              },
+            },
+          });
+        });
+
+        test('should redirect for package tarball', (done) => {
+          request(app2)
+            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
+              done();
+            });
+        });
+
+        test('should redirect for scoped package tarball', (done) => {
+          request(app2)
+            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
+            .expect(HTTP_STATUS.REDIRECT)
+            .end(function (err, res) {
+              if (err) {
+                return done(err);
+              }
+              expect(res.headers.location).toEqual(
+                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
+              );
+              done();
+            });
+        });
+      });
     });
 
     describe('should test (un)deprecate api', () => {
