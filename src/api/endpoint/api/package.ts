@@ -45,12 +45,12 @@ const redirectOrDownloadStream = (
   const tarballUrlRedirect = _.get(config, 'experiments.tarball_url_redirect');
   storage
     .hasLocalTarball(packageName, filename)
-    .then((hasLocalTarball) => {
+    .then(async (hasLocalTarball) => {
       if (hasLocalTarball) {
         const context = { packageName, filename };
         const tarballUrl =
           typeof tarballUrlRedirect === 'function'
-            ? tarballUrlRedirect(context)
+            ? (tarballUrlRedirect.constructor.name === 'AsyncFunction' ? await tarballUrlRedirect(context) : tarballUrlRedirect(context))
             : _.template(tarballUrlRedirect)(context);
         res.redirect(tarballUrl);
       } else {
