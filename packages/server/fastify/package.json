@@ -48,7 +48,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@types/node": "16.18.36",
+    "@types/node": "16.18.38",
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "ts-node": "10.9.1"
   },
