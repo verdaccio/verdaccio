@@ -50,7 +50,9 @@ const redirectOrDownloadStream = (
         const context = { packageName, filename };
         const tarballUrl =
           typeof tarballUrlRedirect === 'function'
-            ? (tarballUrlRedirect.constructor.name === 'AsyncFunction' ? await tarballUrlRedirect(context) : tarballUrlRedirect(context))
+            ? tarballUrlRedirect.constructor.name === 'AsyncFunction'
+              ? await tarballUrlRedirect(context)
+              : tarballUrlRedirect(context)
             : _.template(tarballUrlRedirect)(context);
         res.redirect(tarballUrl);
       } else {
