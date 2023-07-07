@@ -65,7 +65,7 @@ jobs:
           build-dir: './packages/ui-components/storybook-static'          
       - name: 🤖 Deploy Preview UI Components Netlify
         if: github.repository == 'verdaccio/verdaccio'
-        uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
+        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
         id: netlify_preview_ui
         with:
           draft: true
