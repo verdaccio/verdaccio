@@ -53,7 +53,7 @@
     "debug": "4.3.4",
     "lodash": "4.17.21",
     "merge2": "1.4.1",
-    "semver": "7.5.0"
+    "semver": "7.5.4"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
