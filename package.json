@@ -73,7 +73,7 @@
     "@types/react-virtualized": "9.21.21",
     "@types/redux": "3.6.0",
     "@types/request": "2.48.8",
-    "@types/semver": "7.3.13",
+    "@types/semver": "7.5.0",
     "@types/serve-static": "1.13.10",
     "@types/superagent": "4.1.18",
     "@types/supertest": "2.0.12",
