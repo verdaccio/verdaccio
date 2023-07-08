@@ -10,6 +10,10 @@ import {
 
 describe('validatePackage', () => {
   test('should validate package names', () => {
+    expect(validatePackage('-')).toBeTruthy();
+    expect(validatePackage('--')).toBeTruthy();
+    expect(validatePackage('a')).toBeTruthy();
+    expect(validatePackage('a-')).toBeTruthy();
     expect(validatePackage('package-name')).toBeTruthy();
     expect(validatePackage('@scope/package-name')).toBeTruthy();
   });
@@ -21,6 +25,7 @@ describe('validatePackage', () => {
     expect(validatePackage('node_modules')).toBeFalsy();
     expect(validatePackage('__proto__')).toBeFalsy();
     expect(validatePackage('favicon.ico')).toBeFalsy();
+    expect(validatePackage('%')).toBeFalsy();
   });
 });
 
@@ -75,6 +80,7 @@ describe('validateName', () => {
   test('good ones', () => {
     expect(validateName('verdaccio')).toBeTruthy();
     expect(validateName('some.weird.package-zzz')).toBeTruthy();
+    expect(validateName('--0.0.1.tgz')).toBeTruthy();
     expect(validateName('old-package@0.1.2.tgz')).toBeTruthy();
     // fix https://github.com/verdaccio/verdaccio/issues/1400
     expect(validateName('-build-infra')).toBeTruthy();

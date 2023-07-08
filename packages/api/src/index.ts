@@ -50,7 +50,6 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   app.use(encodeScopePackage);
   // for "npm whoami"
   whoami(app);
-  pkg(app, auth, storage);
   profile(app, auth, config);
   // @deprecated endpoint, 404 by default
   search(app);
@@ -62,5 +61,6 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   // @ts-ignore
   v1Search(app, auth, storage);
   token(app, auth, storage, config);
+  pkg(app, auth, storage);
   return app;
 }
