@@ -1,27 +1,17 @@
-import { errorUtils } from '@verdaccio/core';
-import {
-  validateName as utilValidateName,
-  validatePackage as utilValidatePackage,
-} from '@verdaccio/utils';
+import { errorUtils, validationUtils } from '@verdaccio/core';
 
 export function validateName(_req, _res, next, value: string, name: string) {
-  if (value === '-') {
-    // special case in couchdb usually
-    next('route');
-  } else if (utilValidateName(value)) {
+  if (validationUtils.validateName(value)) {
     next();
   } else {
-    next(errorUtils.getForbidden('invalid ' + name));
+    next(errorUtils.getBadRequest('invalid ' + name));
   }
 }
 
 export function validatePackage(_req, _res, next, value: string, name: string) {
-  if (value === '-') {
-    // special case in couchdb usually
-    next('route');
-  } else if (utilValidatePackage(value)) {
+  if (validationUtils.validatePackage(value)) {
     next();
   } else {
-    next(errorUtils.getForbidden('invalid ' + name));
+    next(errorUtils.getBadRequest('invalid ' + name));
   }
 }
