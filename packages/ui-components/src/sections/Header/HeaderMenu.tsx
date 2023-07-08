@@ -10,7 +10,7 @@ import HeaderGreetings from './HeaderGreetings';
 interface Props {
   username: string;
   isMenuOpen: boolean;
-  anchorEl?: Element | ((element: Element) => Element) | null | undefined;
+  anchorEl?: Element | null | undefined;
   onLogout: () => void;
   onLoggedInMenu: (event: MouseEvent<HTMLButtonElement>) => void;
   onLoggedInMenuClose: () => void;
