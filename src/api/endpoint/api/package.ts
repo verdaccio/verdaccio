@@ -83,7 +83,7 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
           {
             protocol: req.protocol,
             headers: req.headers as any,
-            host: req.host,
+            host: req.hostname,
             remoteAddress: req.socket.remoteAddress,
           },
           config.url_prefix
