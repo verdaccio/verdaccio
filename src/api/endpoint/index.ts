@@ -48,7 +48,6 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   app.use(encodeScopePackage);
   // for "npm whoami"
   whoami(app);
-  pkg(app, auth, storage, config);
   search(app, auth, storage);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
@@ -57,5 +56,6 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   v1Search(app, auth, storage);
   user(app, auth, config);
   app.use(npmV1(auth, storage, config));
+  pkg(app, auth, storage, config);
   return app;
 }
