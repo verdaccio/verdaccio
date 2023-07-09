@@ -3483,16 +3483,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/commons-api@npm:11.0.0-alpha.3":
-  version: 11.0.0-alpha.3
-  resolution: "@verdaccio/commons-api@npm:11.0.0-alpha.3"
-  dependencies:
-    http-errors: 1.8.0
-    http-status-codes: 2.1.4
-  checksum: 2ec84474531e2e030847fe56ffc8c7b6879a125642a4f109d74fe4e74bad86077f0022698e175a05a55e29c6ece65313952a7b6b3964bd9fefc431e241edd19a
-  languageName: node
-  linkType: hard
-
 "@verdaccio/config@npm:6.0.0-6-next.73":
   version: 6.0.0-6-next.73
   resolution: "@verdaccio/config@npm:6.0.0-6-next.73"
@@ -3531,12 +3521,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/file-locking@npm:11.0.0-alpha.3":
-  version: 11.0.0-alpha.3
-  resolution: "@verdaccio/file-locking@npm:11.0.0-alpha.3"
+"@verdaccio/file-locking@npm:11.0.0-6-next.7":
+  version: 11.0.0-6-next.7
+  resolution: "@verdaccio/file-locking@npm:11.0.0-6-next.7"
   dependencies:
     lockfile: 1.0.4
-  checksum: 9bd50ad373c082e5dce08c149cf52dd90c1d0f9d1fe0f210ecdb71e40f2f6851140b8c3ca43ef3674d8c4aab980ae92a284652abb7d6c3e5f1149d3fa73f2982
+  checksum: 86cf13ab75c3e11958201433aa2b98bba70f90cb855e5d84063affd491ce31f12093a8874a09a45f1ed8ee320457d55e96161d8957e11dd8e8ec7dd4c1b06443
   languageName: node
   linkType: hard
 
@@ -3879,10 +3869,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"apache-md5@npm:1.1.7":
-  version: 1.1.7
-  resolution: "apache-md5@npm:1.1.7"
-  checksum: a248de461d0993fd3721255b270caf67a06bd98ff5b4653724eaed8fa8be53a1e8ab88274bf6c0cce190fe8e796a309505f8805ad212a9a6dec297a6c3ab99ad
+"apache-md5@npm:1.1.8":
+  version: 1.1.8
+  resolution: "apache-md5@npm:1.1.8"
+  checksum: 5f93fe00a4c75c947a8ba88054cfa9c141ea13d1581515a59637d580747581345f8cee41204af354f7280439ab19120f4bec4a1ee5cf1ac7033a7a89dbb05ada
   languageName: node
   linkType: hard
 
@@ -5220,7 +5210,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:^1.1.0, depd@npm:^1.1.2, depd@npm:~1.1.2":
+"depd@npm:^1.1.0, depd@npm:^1.1.2":
   version: 1.1.2
   resolution: "depd@npm:1.1.2"
   checksum: 6b406620d269619852885ce15965272b829df6f409724415e0002c8632ab6a8c0a08ec1f0bd2add05dc7bd7507606f7e2cc034fa24224ab829580040b835ecd9
@@ -6783,19 +6773,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-errors@npm:1.8.0":
-  version: 1.8.0
-  resolution: "http-errors@npm:1.8.0"
-  dependencies:
-    depd: ~1.1.2
-    inherits: 2.0.4
-    setprototypeof: 1.2.0
-    statuses: ">= 1.5.0 < 2"
-    toidentifier: 1.0.0
-  checksum: 873d997bada0340b31cc69cbe8376e47ee142f60375b81447fa3ad7be512dd4026afb3b46ed2257ee59472d43782a34151994b34264b204bcaad02e67ad836cb
-  languageName: node
-  linkType: hard
-
 "http-errors@npm:2.0.0":
   version: 2.0.0
   resolution: "http-errors@npm:2.0.0"
@@ -6828,13 +6805,6 @@ __metadata:
     jsprim: ^1.2.2
     sshpk: ^1.7.0
   checksum: 3324598712266a9683585bb84a75dec4fd550567d5e0dd4a0fff6ff3f74348793404d3eeac4918fa0902c810eeee1a86419e4a2e92a164132dfe6b26743fb47c
-  languageName: node
-  linkType: hard
-
-"http-status-codes@npm:2.1.4":
-  version: 2.1.4
-  resolution: "http-status-codes@npm:2.1.4"
-  checksum: 44fedd7b2cfe8672e647fd03a1baf6662a62e7bf1669a866404830e98853dc0239b5cd054938e562cdd7b8228a9a7bc0e27b0eacc6a07814b1639a9c518a7220
   languageName: node
   linkType: hard
 
@@ -10334,13 +10304,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"statuses@npm:>= 1.5.0 < 2":
-  version: 1.5.0
-  resolution: "statuses@npm:1.5.0"
-  checksum: c469b9519de16a4bb19600205cffb39ee471a5f17b82589757ca7bd40a8d92ebb6ed9f98b5a540c5d302ccbc78f15dc03cc0280dd6e00df1335568a5d5758a5c
-  languageName: node
-  linkType: hard
-
 "steno@npm:^0.4.1":
   version: 0.4.4
   resolution: "steno@npm:0.4.4"
@@ -10636,13 +10599,6 @@ __metadata:
   dependencies:
     is-number: ^7.0.0
   checksum: f76fa01b3d5be85db6a2a143e24df9f60dd047d151062d0ba3df62953f2f697b16fe5dad9b0ac6191c7efc7b1d9dcaa4b768174b7b29da89d4428e64bc0a20ed
-  languageName: node
-  linkType: hard
-
-"toidentifier@npm:1.0.0":
-  version: 1.0.0
-  resolution: "toidentifier@npm:1.0.0"
-  checksum: 199e6bfca1531d49b3506cff02353d53ec987c9ee10ee272ca6484ed97f1fc10fb77c6c009079ca16d5c5be4a10378178c3cacdb41ce9ec954c3297c74c6053e
   languageName: node
   linkType: hard
 
@@ -11128,17 +11084,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-htpasswd@npm:11.0.0-alpha.6":
-  version: 11.0.0-alpha.6
-  resolution: "verdaccio-htpasswd@npm:11.0.0-alpha.6"
+"verdaccio-htpasswd@npm:11.0.0-6-next.43":
+  version: 11.0.0-6-next.43
+  resolution: "verdaccio-htpasswd@npm:11.0.0-6-next.43"
   dependencies:
-    "@verdaccio/commons-api": 11.0.0-alpha.3
-    "@verdaccio/file-locking": 11.0.0-alpha.3
-    apache-md5: 1.1.7
+    "@verdaccio/core": 6.0.0-6-next.73
+    "@verdaccio/file-locking": 11.0.0-6-next.7
+    apache-md5: 1.1.8
     bcryptjs: 2.4.3
-    http-errors: 1.8.0
+    core-js: 3.30.2
+    debug: 4.3.4
+    http-errors: 2.0.0
     unix-crypt-td-js: 1.1.4
-  checksum: 5d0427271151bc7319afedb77f885b3fd7745dd06ed210f3071c0f7f45d9c004e076013ef4f741c175e031d9d32eb5b3cddad91f046f89313327e74cc8184c10
+  checksum: 4387c88e5d480bf204238b22025f31e6fd810989f3aac389048e4e805b6845f92ff565300c4d6d48f61afff862174f439a889cc5af74e3ea6a35206d9147cb7c
   languageName: node
   linkType: hard
 
@@ -11268,7 +11226,7 @@ __metadata:
     validator: 13.9.0
     verdaccio-audit: 11.0.0-6-next.36
     verdaccio-auth-memory: 10.2.2
-    verdaccio-htpasswd: 11.0.0-alpha.6
+    verdaccio-htpasswd: 11.0.0-6-next.43
     verdaccio-memory: 10.3.2
   dependenciesMeta:
     "@verdaccio/types@11.0.0-6-next.24":

@@ -57,7 +57,7 @@
     "semver": "7.5.4",
     "validator": "13.9.0",
     "verdaccio-audit": "11.0.0-6-next.36",
-    "verdaccio-htpasswd": "11.0.0-alpha.6"
+    "verdaccio-htpasswd": "11.0.0-6-next.43"
   },
   "devDependencies": {
     "@babel/cli": "7.22.6",
