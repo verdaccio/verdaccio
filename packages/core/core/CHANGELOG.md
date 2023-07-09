@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.73
+
+### Patch Changes
+
+- f859d2b1a: fix: official package "-" cannot be synced
+
 ## 6.0.0-6-next.72
 
 ## 6.0.0-6-next.71
