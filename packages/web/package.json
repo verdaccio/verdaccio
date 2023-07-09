@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "6.0.0-6-next.59",
+  "version": "6.0.0-6-next.60",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -25,16 +25,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.51",
-    "@verdaccio/core": "workspace:6.0.0-6-next.72",
-    "@verdaccio/config": "workspace:6.0.0-6-next.72",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.41",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.40",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.51",
-    "@verdaccio/store": "workspace:6.0.0-6-next.52",
-    "@verdaccio/tarball": "workspace:11.0.0-6-next.41",
-    "@verdaccio/url": "workspace:11.0.0-6-next.38",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.40",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.52",
+    "@verdaccio/core": "workspace:6.0.0-6-next.73",
+    "@verdaccio/config": "workspace:6.0.0-6-next.73",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.42",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.41",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.52",
+    "@verdaccio/store": "workspace:6.0.0-6-next.53",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.42",
+    "@verdaccio/url": "workspace:11.0.0-6-next.39",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.41",
     "debug": "4.3.4",
     "express": "4.18.2",
     "lodash": "4.17.21"
@@ -42,14 +42,14 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
-    "@verdaccio/api": "workspace:6.0.0-6-next.55",
+    "@verdaccio/api": "workspace:6.0.0-6-next.56",
     "node-html-parser": "4.1.5",
     "supertest": "6.3.3",
     "nock": "13.2.9",
     "jsdom": "20.0.3",
     "undici": "4.16.0",
-    "verdaccio-auth-memory": "workspace:11.0.0-6-next.37",
-    "verdaccio-memory": "workspace:11.0.0-6-next.39"
+    "verdaccio-auth-memory": "workspace:11.0.0-6-next.38",
+    "verdaccio-memory": "workspace:11.0.0-6-next.40"
   },
   "scripts": {
     "clean": "rimraf ./build",

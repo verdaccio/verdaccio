@@ -1,5 +1,19 @@
 # @verdaccio/api
 
+## 6.0.0-6-next.56
+
+### Patch Changes
+
+- f859d2b1a: fix: official package "-" cannot be synced
+- Updated dependencies [f859d2b1a]
+  - @verdaccio/core@6.0.0-6-next.73
+  - @verdaccio/middleware@6.0.0-6-next.52
+  - @verdaccio/auth@6.0.0-6-next.52
+  - @verdaccio/config@6.0.0-6-next.73
+  - @verdaccio/store@6.0.0-6-next.53
+  - @verdaccio/utils@6.0.0-6-next.41
+  - @verdaccio/logger@6.0.0-6-next.41
+
 ## 6.0.0-6-next.55
 
 ### Patch Changes
