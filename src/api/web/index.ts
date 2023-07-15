@@ -31,11 +31,10 @@ export default (config, auth, storage) => {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.use(setSecurityWebHeaders);
-  // load application
   // render web
   // @ts-ignore
   router.use('/', renderWebMiddleware(config, null, pluginOptions));
   // web endpoints, search, packages, etc
-  router.use('/-/verdaccio/', webEndpointsApi(auth, storage, config));
+  router.use(webEndpointsApi(auth, storage, config));
   return router;
 };
