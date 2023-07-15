@@ -1,5 +1,18 @@
 # @verdaccio/middleware
 
+## 6.0.0-6-next.53
+
+### Minor Changes
+
+- ae93e039d: fix: expose middleware methods
+
+### Patch Changes
+
+- @verdaccio/core@6.0.0-6-next.74
+- @verdaccio/config@6.0.0-6-next.74
+- @verdaccio/url@11.0.0-6-next.40
+- @verdaccio/utils@6.0.0-6-next.42
+
 ## 6.0.0-6-next.52
 
 ### Patch Changes

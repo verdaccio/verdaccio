@@ -1,5 +1,26 @@
 # @verdaccio/server
 
+## 6.0.0-6-next.63
+
+### Minor Changes
+
+- ae93e039d: fix: expose middleware methods
+
+### Patch Changes
+
+- Updated dependencies [ae93e039d]
+  - @verdaccio/api@6.0.0-6-next.57
+  - @verdaccio/middleware@6.0.0-6-next.53
+  - @verdaccio/web@6.0.0-6-next.61
+  - @verdaccio/core@6.0.0-6-next.74
+  - @verdaccio/config@6.0.0-6-next.74
+  - @verdaccio/auth@6.0.0-6-next.53
+  - @verdaccio/loaders@6.0.0-6-next.43
+  - verdaccio-audit@11.0.0-6-next.37
+  - @verdaccio/store@6.0.0-6-next.54
+  - @verdaccio/utils@6.0.0-6-next.42
+  - @verdaccio/logger@6.0.0-6-next.42
+
 ## 6.0.0-6-next.62
 
 ### Patch Changes

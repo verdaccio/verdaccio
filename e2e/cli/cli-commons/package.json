@@ -5,8 +5,8 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.73",
-    "@verdaccio/core": "workspace:6.0.0-6-next.73",
+    "@verdaccio/config": "workspace:6.0.0-6-next.74",
+    "@verdaccio/core": "workspace:6.0.0-6-next.74",
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "debug": "4.3.4",
     "fs-extra": "10.1.0",
@@ -14,7 +14,7 @@
     "js-yaml": "4.1.0",
     "get-port": "5.1.1",
     "lodash": "4.17.21",
-    "verdaccio": "workspace:6.0.0-6-next.73"
+    "verdaccio": "workspace:6.0.0-6-next.74"
   },
   "scripts": {
     "test": "jest",
