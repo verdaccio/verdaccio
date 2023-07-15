@@ -23,7 +23,7 @@ jobs:
     - name: Build
       run: yarn build
     - name: Bump up package
-      run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)      
+      run: npm version prerelease --no-git-tag-version --preid $(date +%s)      
     - name: Publish
       run: sh scripts/publish-prerelease.sh
       env:
