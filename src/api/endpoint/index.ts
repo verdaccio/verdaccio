@@ -11,8 +11,9 @@ import publish from './api/publish';
 import search from './api/search';
 import stars from './api/stars';
 import user from './api/user';
-import npmV1 from './api/v1';
+import profile from './api/v1/profile';
 import v1Search from './api/v1/search';
+import token from './api/v1/token';
 import whoami from './api/whoami';
 
 const {
@@ -46,16 +47,16 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
-  // for "npm whoami"
   whoami(app);
-  pkg(app, auth, storage, config);
-  search(app, auth, storage);
+  profile(app, auth, config);
+  search(app);
+  user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
   ping(app);
   stars(app, storage);
   v1Search(app, auth, storage);
-  user(app, auth, config);
-  app.use(npmV1(auth, storage, config));
+  token(app, auth, storage, config);
+  pkg(app, auth, storage, config);
   return app;
 }

@@ -6,7 +6,7 @@ import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
-import { Config, Package } from '@verdaccio/types';
+import { Config, Manifest } from '@verdaccio/types';
 import { generateGravatarUrl } from '@verdaccio/utils';
 
 import Auth from '../../../lib/auth';
@@ -29,16 +29,15 @@ const getOrder = (order = 'asc') => {
   return order === 'asc';
 };
 
-export type PackcageExt = Package & { author: any; dist?: { tarball: string } };
+export type PackcageExt = Manifest & { author: any; dist?: { tarball: string } };
 
-function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
+function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, config: Config): Router {
   const can = allow(auth, {
     beforeAll: (params, message) => {
       logger.debug(params, message);
     },
     afterAll: (params, message) => logger.debug(params, message),
   });
-  const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   const checkAllow = (name, remoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
@@ -56,7 +55,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
 
   // Get list of all visible package
   pkgRouter.get(
-    '/packages',
+    '/-/verdaccio/data/packages',
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       storage.getLocalDatabase(async function (err, packages): Promise<void> {
         if (err) {
@@ -114,7 +113,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
 
   // Get package readme
   pkgRouter.get(
-    '/package/readme/(@:scope/)?:package/:version?',
+    '/-/verdaccio/data/package/readme/(@:scope/)?:package/:version?',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const packageName = req.params.scope
@@ -138,7 +137,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   );
 
   pkgRouter.get(
-    '/sidebar/(@:scope/)?:package',
+    '/-/verdaccio/data/sidebar/(@:scope/)?:package',
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const packageName: string = req.params.scope

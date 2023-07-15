@@ -19,21 +19,20 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/config": "6.0.0-6-next.72",
-    "@verdaccio/core": "6.0.0-6-next.72",
+    "@verdaccio/config": "6.0.0-6-next.74",
+    "@verdaccio/core": "6.0.0-6-next.74",
     "@verdaccio/local-storage": "10.3.3",
-    "@verdaccio/logger-7": "6.0.0-6-next.17",
-    "@verdaccio/middleware": "6.0.0-6-next.51",
+    "@verdaccio/logger-7": "6.0.0-6-next.19",
+    "@verdaccio/middleware": "6.0.0-6-next.53",
     "@verdaccio/search": "6.0.0-6-next.2",
     "@verdaccio/signature": "6.0.0-6-next.2",
     "@verdaccio/streams": "10.2.1",
-    "@verdaccio/tarball": "11.0.0-6-next.41",
-    "@verdaccio/ui-theme": "6.0.0-6-next.72",
-    "@verdaccio/url": "11.0.0-6-next.38",
-    "@verdaccio/utils": "6.0.0-6-next.40",
+    "@verdaccio/tarball": "11.0.0-6-next.43",
+    "@verdaccio/ui-theme": "6.0.0-6-next.74",
+    "@verdaccio/url": "11.0.0-6-next.40",
+    "@verdaccio/utils": "6.0.0-6-next.42",
     "JSONStream": "1.3.5",
     "async": "3.2.4",
-    "body-parser": "1.20.2",
     "clipanion": "3.2.1",
     "compression": "1.7.4",
     "cookies": "0.8.0",
@@ -56,8 +55,8 @@
     "request": "2.88.2",
     "semver": "7.5.4",
     "validator": "13.9.0",
-    "verdaccio-audit": "11.0.0-6-next.35",
-    "verdaccio-htpasswd": "11.0.0-6-next.41"
+    "verdaccio-audit": "11.0.0-6-next.37",
+    "verdaccio-htpasswd": "11.0.0-6-next.44"
   },
   "devDependencies": {
     "@babel/cli": "7.22.6",
@@ -186,10 +185,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.6.0",
-  "dependenciesMeta": {
-    "@verdaccio/types@11.0.0-6-next.24": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.6.0"
 }

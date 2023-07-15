@@ -21,8 +21,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (auth: Auth, config: ConfigYaml): Router {
-  const profileRoute = Router(); /* eslint new-cap: 0 */
+export default function (router: Router, auth: Auth, config: ConfigYaml) {
   function buildProfile(name: string): Profile {
     return {
       tfa: false,
@@ -36,8 +35,8 @@ export default function (auth: Auth, config: ConfigYaml): Router {
     };
   }
 
-  profileRoute.get(
-    '/user',
+  router.get(
+    '/-/npm/v1/user',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name) === false) {
@@ -51,8 +50,8 @@ export default function (auth: Auth, config: ConfigYaml): Router {
     }
   );
 
-  profileRoute.post(
-    '/user',
+  router.post(
+    '/-/npm/v1/user',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
@@ -98,6 +97,4 @@ export default function (auth: Auth, config: ConfigYaml): Router {
       }
     }
   );
-
-  return profileRoute;
 }

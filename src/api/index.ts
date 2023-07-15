@@ -3,10 +3,11 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
-import { Config, getUserAgent } from '@verdaccio/config';
+import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
+import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Config as IConfig } from '@verdaccio/types';
 
 import Auth from '../lib/auth';
@@ -40,10 +41,11 @@ export function loadTheme(config) {
   }
 }
 
-const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config);
   const app: Application = express();
-
+  SearchMemoryIndexer.configureStorage(storage);
+  await SearchMemoryIndexer.init();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');
@@ -56,7 +58,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
 
   app.use(cors());
 
-  // Router setup
+  // // Router setup
   app.use(log(logger));
   app.use(errorReportingMiddleware);
   if (config.user_agent) {
@@ -88,15 +90,16 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     config.middlewares,
     plugin_params,
     function (plugin: pluginUtils.ManifestFilter<IConfig>) {
-      // @ts-expect-error
+      // @ts-ignore
       return plugin.register_middlewares;
     }
   );
+
   plugins.forEach((plugin: any) => {
     plugin.register_middlewares(app, auth, storage);
   });
 
-  // For  npm request
+  // // For  npm request
   app.use(apiEndpoint(config, auth, storage));
 
   // For WebUI & WebUI API
@@ -105,16 +108,14 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
       res.locals.app_version = version ?? '';
       next();
     });
-    const midl = await webMiddleware(config, auth, storage);
-    app.use('/', midl);
+    app.use(webMiddleware(config, auth, storage));
   } else {
-    app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+    app.get('/', function (_, __, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
-  // Catch 404
-  app.get('/*', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  app.get('/*', function (_, __, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
   app.use(handleError);
@@ -123,7 +124,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   return app;
 };
 
-export default (async function (configHash: any): Promise<any> {
+export default (async function (configHash: any) {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
   // register middleware plugins
