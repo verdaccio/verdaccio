@@ -1,10 +1,11 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 import request from 'supertest';
 
 import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
 
 import { final } from '../src';
+
+const bodyParser = express;
 
 test('handle error as object', async () => {
   const app = express();

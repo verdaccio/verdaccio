@@ -1,4 +1,4 @@
-import bodyParser from 'body-parser';
+import express from 'express';
 import request from 'supertest';
 
 import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
@@ -8,7 +8,7 @@ import { getApp } from './helper';
 
 test('body is json', async () => {
   const app = getApp([]);
-  app.use(bodyParser.json({ strict: false, limit: '10mb' }));
+  app.use(express.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.put('/json', expectJson, (req, res) => {
     res.status(HTTP_STATUS.OK).json({});
