@@ -27,10 +27,9 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (auth: Auth, storage: Storage, config: Config): Router {
-  const tokenRoute = Router(); /* eslint new-cap: 0 */
-  tokenRoute.get(
-    '/tokens',
+export default function (router: Router, auth: Auth, storage: Storage, config: Config): Router {
+  router.get(
+    '/-/npm/v1/tokens',
     rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
@@ -56,8 +55,8 @@ export default function (auth: Auth, storage: Storage, config: Config): Router {
     }
   );
 
-  tokenRoute.post(
-    '/tokens',
+  router.post(
+    '/-/npm/v1/tokens',
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password, readonly, cidr_whitelist } = req.body;
@@ -122,8 +121,8 @@ export default function (auth: Auth, storage: Storage, config: Config): Router {
     }
   );
 
-  tokenRoute.delete(
-    '/tokens/token/:tokenKey',
+  router.delete(
+    '/-/npm/v1/tokens/token/:tokenKey',
     rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
       const {
@@ -145,6 +144,4 @@ export default function (auth: Auth, storage: Storage, config: Config): Router {
       return next(ErrorCode.getUnauthorized());
     }
   );
-
-  return tokenRoute;
 }

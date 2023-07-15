@@ -8,11 +8,10 @@ import { DIST_TAGS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 
-function addSearchWebApi(storage: Storage, auth: Auth): Router {
-  const route = Router(); /* eslint new-cap: 0 */
+function addSearchWebApi(route: Router, storage: Storage, auth: Auth): Router {
   // Search package
   route.get(
-    '/search/:anything',
+    '/-/verdaccio/data/search/:anything',
     async function (
       req: $RequestExtend,
       _res: $ResponseExtend,

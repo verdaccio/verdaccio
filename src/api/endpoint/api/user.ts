@@ -107,21 +107,5 @@ export default function (route: Router, auth: Auth, config: Config): void {
     }
   );
 
-  // placeholder 'cause npm require to be authenticated to publish
-  // we do not do any real authentication yet
-  userRouter.post(
-    '/_session',
-    Cookies.express(),
-    function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      res.cookies.set('AuthSession', String(Math.random()), createSessionToken());
-
-      next({
-        ok: true,
-        name: 'somebody',
-        roles: [],
-      });
-    }
-  );
-
   route.use(userRouter);
 }

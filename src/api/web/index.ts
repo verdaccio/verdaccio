@@ -1,12 +1,11 @@
 import buildDebug from 'debug';
-import express from 'express';
+import { Router } from 'express';
 import _ from 'lodash';
 
-import { webMiddleware } from '@verdaccio/middleware';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { renderWebMiddleware, setSecurityWebHeaders } from '@verdaccio/middleware';
 
 import loadPlugin from '../../lib/plugin-loader';
-import webApi from './api';
+import webEndpointsApi from './api';
 
 const debug = buildDebug('verdaccio:web');
 
@@ -27,22 +26,16 @@ export function loadTheme(config) {
   }
 }
 
-export default async (config, auth, storage) => {
+export default (config, auth, storage) => {
   const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();
-  SearchMemoryIndexer.configureStorage(storage);
-  await SearchMemoryIndexer.init();
   // eslint-disable-next-line new-cap
-  const router = express.Router();
+  const router = Router();
+  router.use(setSecurityWebHeaders);
   // load application
-  router.use(
-    webMiddleware(
-      config,
-      {
-        tokenMiddleware: auth.webUIJWTmiddleware(),
-        webEndpointsApi: webApi(auth, storage, config),
-      },
-      pluginOptions
-    )
-  );
+  // render web
+  // @ts-ignore
+  router.use('/', renderWebMiddleware(config, null, pluginOptions));
+  // web endpoints, search, packages, etc
+  router.use('/-/verdaccio/', webEndpointsApi(auth, storage, config));
   return router;
 };

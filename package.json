@@ -33,7 +33,6 @@
     "@verdaccio/utils": "6.0.0-6-next.41",
     "JSONStream": "1.3.5",
     "async": "3.2.4",
-    "body-parser": "1.20.2",
     "clipanion": "3.2.1",
     "compression": "1.7.4",
     "cookies": "0.8.0",
@@ -186,10 +185,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.6.0",
-  "dependenciesMeta": {
-    "@verdaccio/types@11.0.0-6-next.24": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.6.0"
 }

@@ -3595,7 +3595,7 @@ __metadata:
     lodash: 4.17.21
     lru-cache: 7.18.3
     mime: 2.6.0
-  checksum: 0f467a61ab3bf2d0d9065a336b542d6ac39f6610d9ebcce5935742aff88dcf7150c99d648b029b639f469ab3c9c1ca28966750d6a5608174d48bbfd09a98f4c8
+  checksum: 14cdccacc85d1271041b4c981f95397b24e95c19151381a7c0114dee06d7c82848b62796fb3a2161179074ed1eac046826bded45040856c25683ee8486d4cd0f
   languageName: node
   linkType: hard
 
@@ -4244,26 +4244,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:1.20.2":
-  version: 1.20.2
-  resolution: "body-parser@npm:1.20.2"
-  dependencies:
-    bytes: 3.1.2
-    content-type: ~1.0.5
-    debug: 2.6.9
-    depd: 2.0.0
-    destroy: 1.2.0
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    on-finished: 2.4.1
-    qs: 6.11.0
-    raw-body: 2.5.2
-    type-is: ~1.6.18
-    unpipe: 1.0.0
-  checksum: 14d37ec638ab5c93f6099ecaed7f28f890d222c650c69306872e00b9efa081ff6c596cd9afb9930656aae4d6c4e1c17537bea12bb73c87a217cb3cfea8896737
-  languageName: node
-  linkType: hard
-
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -4736,7 +4716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:~1.0.4, content-type@npm:~1.0.5":
+"content-type@npm:~1.0.4":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 566271e0a251642254cde0f845f9dd4f9856e52d988f4eb0d0dcffbb7a1f8ec98de7a5215fc628f3bce30fe2fb6fd2bc064b562d721658c59b544e2d34ea2766
@@ -9507,18 +9487,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"raw-body@npm:2.5.2":
-  version: 2.5.2
-  resolution: "raw-body@npm:2.5.2"
-  dependencies:
-    bytes: 3.1.2
-    http-errors: 2.0.0
-    iconv-lite: 0.4.24
-    unpipe: 1.0.0
-  checksum: ba1583c8d8a48e8fbb7a873fdbb2df66ea4ff83775421bfe21ee120140949ab048200668c47d9ae3880012f6e217052690628cf679ddfbd82c9fc9358d574676
-  languageName: node
-  linkType: hard
-
 "react-is@npm:^17.0.1":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
@@ -11173,7 +11141,6 @@ __metadata:
     async: 3.2.4
     babel-jest: 29.6.1
     babel-plugin-dynamic-import-node: 2.3.3
-    body-parser: 1.20.2
     clipanion: 3.2.1
     compression: 1.7.4
     cookies: 0.8.0
@@ -11228,9 +11195,6 @@ __metadata:
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 11.0.0-6-next.43
     verdaccio-memory: 10.3.2
-  dependenciesMeta:
-    "@verdaccio/types@11.0.0-6-next.24":
-      unplugged: true
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
