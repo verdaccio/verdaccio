@@ -51,6 +51,7 @@
     "@testing-library/react": "12.1.5",
     "@trivago/prettier-plugin-sort-imports": "^4.0.0",
     "@types/async": "3.2.20",
+    "@types/body-parser": "1.19.2",
     "@types/connect": "3.4.35",
     "@types/cookiejar": "2.1.2",
     "@types/debug": "^4.1.7",

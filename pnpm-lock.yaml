@@ -120,6 +120,9 @@ importers:
       '@types/async':
         specifier: 3.2.20
         version: 3.2.20
+      '@types/body-parser':
+        specifier: 1.19.2
+        version: 1.19.2
       '@types/connect':
         specifier: 3.4.35
         version: 3.4.35
