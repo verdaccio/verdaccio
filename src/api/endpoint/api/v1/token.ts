@@ -27,7 +27,7 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (router: Router, auth: Auth, storage: Storage, config: Config): Router {
+export default function (router: Router, auth: Auth, storage: Storage, config: Config) {
   router.get(
     '/-/npm/v1/tokens',
     rateLimit(config?.userRateLimit),

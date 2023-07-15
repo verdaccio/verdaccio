@@ -21,7 +21,7 @@ export interface Profile {
   fullname: string;
 }
 
-export default function (router: Router, auth: Auth, config: ConfigYaml): Router {
+export default function (router: Router, auth: Auth, config: ConfigYaml) {
   function buildProfile(name: string): Profile {
     return {
       tfa: false,
