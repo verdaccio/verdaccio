@@ -9,7 +9,7 @@ export { final } from './middlewares/final';
 export { allow } from './middlewares/allow';
 export { rateLimit } from './middlewares/rate-limit';
 export { userAgent } from './middlewares/user-agent';
-export { webMiddleware } from './middlewares/web';
+export { webMiddleware, renderWebMiddleware } from './middlewares/web';
 export { errorReportingMiddleware, handleError } from './middlewares/error';
 export {
   log,

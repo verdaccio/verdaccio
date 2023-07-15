@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import express, { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
@@ -43,7 +42,7 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
   app.use(auth.apiJWTmiddleware());
-  app.use(bodyParser.json({ strict: false, limit: config.max_body_size || '10mb' }));
+  app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   // @ts-ignore
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
@@ -51,14 +50,12 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   // for "npm whoami"
   whoami(app);
   profile(app, auth, config);
-  // @deprecated endpoint, 404 by default
   search(app);
   user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage);
   ping(app);
   stars(app, storage);
-  // @ts-ignore
   v1Search(app, auth, storage);
   token(app, auth, storage, config);
   pkg(app, auth, storage);

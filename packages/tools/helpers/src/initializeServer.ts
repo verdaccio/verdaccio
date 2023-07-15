@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import buildDebug from 'debug';
 import express, { Application } from 'express';
 import os from 'os';
@@ -30,7 +29,7 @@ export async function initializeServer(
   const auth: Auth = new Auth(config);
   await auth.init();
   // TODO: this might not be need it, used in apiEndpoints
-  app.use(bodyParser.json({ strict: false, limit: '10mb' }));
+  app.use(express.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware(logger));
   for (let route of routesMiddleware) {
