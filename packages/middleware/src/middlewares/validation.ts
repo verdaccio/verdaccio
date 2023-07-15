@@ -1,6 +1,14 @@
+import { NextFunction, Request, Response } from 'express';
+
 import { errorUtils, validationUtils } from '@verdaccio/core';
 
-export function validateName(_req, _res, next, value: string, name: string) {
+export function validateName(
+  _req: Request,
+  _res: Response,
+  next: NextFunction,
+  value: string,
+  name: string
+) {
   if (validationUtils.validateName(value)) {
     next();
   } else {
@@ -8,7 +16,13 @@ export function validateName(_req, _res, next, value: string, name: string) {
   }
 }
 
-export function validatePackage(_req, _res, next, value: string, name: string) {
+export function validatePackage(
+  _req: Request,
+  _res,
+  next: NextFunction,
+  value: string,
+  name: string
+) {
   if (validationUtils.validatePackage(value)) {
     next();
   } else {

@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { renderWebMiddleware } from './render-web';
-import { webMiddleware } from './web-api';
+import { webAPIMiddleware } from './web-api';
 
 export default (config, middlewares, pluginOptions): any => {
   // eslint-disable-next-line new-cap
@@ -10,6 +10,6 @@ export default (config, middlewares, pluginOptions): any => {
   // render web
   router.use('/', renderWebMiddleware(config, tokenMiddleware, pluginOptions));
   // web endpoints, search, packages, etc
-  router.use('/-/verdaccio/', webMiddleware(tokenMiddleware, webEndpointsApi));
+  router.use('/-/verdaccio/', webAPIMiddleware(tokenMiddleware, webEndpointsApi));
   return router;
 };

@@ -89,7 +89,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
       res.locals.app_version = version ?? '';
       next();
     });
-    app.use(await webMiddleware(config, auth, storage));
+    const middleware = await webMiddleware(config, auth, storage);
+    app.use(middleware);
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       next(errorUtils.getNotFound(API_ERROR.WEB_DISABLED));

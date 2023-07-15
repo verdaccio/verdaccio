@@ -1,10 +1,13 @@
 import express from 'express';
-import { Router } from 'express';
+import { RequestHandler, Router } from 'express';
 
 import { validateName, validatePackage } from '../validation';
 import { setSecurityWebHeaders } from './security';
 
-export function webMiddleware(tokenMiddleware, webEndpointsApi) {
+export function webAPIMiddleware(
+  tokenMiddleware: RequestHandler,
+  webEndpointsApi: RequestHandler
+): Router {
   // eslint-disable-next-line new-cap
   const route = Router();
   // validate all of these params as a package name
@@ -13,15 +16,15 @@ export function webMiddleware(tokenMiddleware, webEndpointsApi) {
   route.param('filename', validateName);
   route.param('version', validateName);
   route.use(express.urlencoded({ extended: false }));
+  route.use(setSecurityWebHeaders);
 
   if (typeof tokenMiddleware === 'function') {
     route.use(tokenMiddleware);
   }
 
-  route.use(setSecurityWebHeaders);
-
-  if (webEndpointsApi) {
+  if (typeof webEndpointsApi === 'function') {
     route.use(webEndpointsApi);
   }
+
   return route;
 }
