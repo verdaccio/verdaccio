@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.26.0](https://github.com/verdaccio/verdaccio/compare/v5.25.0...v5.26.0) (2023-07-15)
+
+
+### Features
+
+* refactor middleware and bufixes  ([#3922](https://github.com/verdaccio/verdaccio/issues/3922)) ([43de79d](https://github.com/verdaccio/verdaccio/commit/43de79d46a9a41313489f30992dcd7cbecddc8ad))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#3873](https://github.com/verdaccio/verdaccio/issues/3873)) ([f0bb451](https://github.com/verdaccio/verdaccio/commit/f0bb451111f9bd5d24ff21f31db3b9a81d41d16e))
+* **deps:** update dependency clipanion to v3.2.1 ([#3874](https://github.com/verdaccio/verdaccio/issues/3874)) ([b39c01f](https://github.com/verdaccio/verdaccio/commit/b39c01f1581c9b00ffb38e3fbdce678e9697e4da))
+* **deps:** update dependency semver to v7.5.2 ([#3895](https://github.com/verdaccio/verdaccio/issues/3895)) ([a699787](https://github.com/verdaccio/verdaccio/commit/a69978755deacb5034fae8a8a35291ed7ad19473))
+* **deps:** update dependency verdaccio-audit to v11.0.0-6-next.35 ([#3877](https://github.com/verdaccio/verdaccio/issues/3877)) ([a84d178](https://github.com/verdaccio/verdaccio/commit/a84d1786f8134022524e3c5ba80e3bbe87a4eb55))
+* docker update v18.16.1 ([#3923](https://github.com/verdaccio/verdaccio/issues/3923)) ([c671faa](https://github.com/verdaccio/verdaccio/commit/c671faace5a09d3d9d0a75eaa654fa2429eeacdf))
+* remove req.host deprecation warning ([#3921](https://github.com/verdaccio/verdaccio/issues/3921)) ([4be19db](https://github.com/verdaccio/verdaccio/commit/4be19db0c13335502940538a011b239f589a4325))
+* update dependencies ([971d500](https://github.com/verdaccio/verdaccio/commit/971d500c6e3edb685ae880970b85eff62269cb97))
+
 ## [5.25.0](https://github.com/verdaccio/verdaccio/compare/v5.24.1...v5.25.0) (2023-06-03)
 
 
