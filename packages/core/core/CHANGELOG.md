@@ -1,5 +1,7 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.74
+
 ## 6.0.0-6-next.73
 
 ### Patch Changes
