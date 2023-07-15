@@ -3,7 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
-import { Config, getUserAgent } from '@verdaccio/config';
+import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
@@ -22,7 +22,6 @@ import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
 import webMiddleware from './web';
-import webEndpointsApi from './web/api';
 
 const { version } = require('../../package.json');
 
@@ -110,27 +109,13 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
       next();
     });
     app.use(webMiddleware(config, auth, storage));
-    // webEndpointsApi(app, auth, storage, config);
-    // app.use('/-/verdaccio/data/packages', (_, __, next) => {
-    //   next({ foo: 1 });
-    // });
   } else {
     app.get('/', function (_, __, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
     });
   }
 
-  // const router = express.Router();
-
-  // router.get('/-/verdaccio/data/packages', function (_, __, next: $NextFunctionVer) {
-  //   console.log('--GO !!!!!!!!!!!!');
-  //   next({ foo: 1 });
-  // });
-
-  // app.use(router);
-
   app.get('/*', function (_, __, next: $NextFunctionVer) {
-    console.log('--404 !!!!!!!!!!!!');
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
   app.use(handleError);
