@@ -76,7 +76,7 @@ const configForTest = configDefault(
         url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
       },
     },
-    logs: [{ type: 'stdout', format: 'pretty', level: 'trace' }],
+    log: { type: 'stdout', format: 'pretty', level: 'trace' },
   },
   'api.spec.yaml'
 );

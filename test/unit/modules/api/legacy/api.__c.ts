@@ -92,7 +92,7 @@ describe('endpoint unit test', () => {
               fail_timeout: '1s',
             },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          log: { type: 'stdout', format: 'pretty', level: 'warn' },
         },
         'api.spec.yaml'
       );
@@ -1042,7 +1042,7 @@ describe('endpoint unit test', () => {
               url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
             },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          log: { type: 'stdout', format: 'pretty', level: 'warn' },
         },
         'api.spec.yaml'
       );

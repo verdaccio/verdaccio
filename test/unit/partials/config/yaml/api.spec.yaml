@@ -95,4 +95,4 @@ packages:
     publish: $all
     unpublish: xxx
     proxy: npmjs
-logs: { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }

@@ -69,7 +69,8 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
             const pkgCopy = { ...pkg };
             pkgCopy.author = formatAuthor(pkg.author);
             try {
-              if (await checkAllow(pkg.name, req.remote_user)) {
+              const isAllowed = await checkAllow(pkg.name, req.remote_user);
+              if (isAllowed) {
                 if (config.web) {
                   pkgCopy.author.avatar = generateGravatarUrl(
                     pkgCopy.author.email,

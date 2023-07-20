@@ -16,8 +16,7 @@ packages:
   'only-you-can-publish':
     access: $authenticated
     publish: $authenticated
-logs:
-  - { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }
 experiments:
   ## enable token for testing
   token: true

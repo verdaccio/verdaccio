@@ -30,6 +30,7 @@ export default (config, auth, storage) => {
   const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();
   // eslint-disable-next-line new-cap
   const router = Router();
+  router.use(auth.webUIJWTmiddleware());
   router.use(setSecurityWebHeaders);
   // render web
   // @ts-ignore

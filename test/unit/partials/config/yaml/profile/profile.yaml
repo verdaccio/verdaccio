@@ -26,5 +26,4 @@ packages:
   '**':
     access: $authenticated
     publish: $authenticated
-logs:
-  - { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: http }

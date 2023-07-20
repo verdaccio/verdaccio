@@ -13,7 +13,7 @@ auth:
         name: test
         password: test
 
-logs: { type: stdout, format: pretty, level: warn }
+log: { type: stdout, format: pretty, level: warn }
 
 packages:
   '@*/*':

@@ -299,7 +299,7 @@ class Auth {
       { name: packageName, version: packageVersion },
       getMatchedPackagesSpec(packageName, this.config.packages)
     );
-    debug('allow publish for %o init | plugins: %o', packageName, plugins);
+    debug('allow publish for %o init | plugins: %o', packageName, plugins?.length);
     (function next(): void {
       const plugin = plugins.shift();
 
