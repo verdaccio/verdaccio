@@ -29,7 +29,7 @@ uplinks:
   baduplink:
     url: http://localhost:55666/
 
-logs: { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
   '@test/*':

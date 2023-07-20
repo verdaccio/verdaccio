@@ -49,7 +49,7 @@ describe('endpoint user auth JWT unit test', () => {
               file: './test-jwt-storage/.htpasswd_jwt_auth',
             },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          log: { type: 'stdout', format: 'pretty', level: 'warn' },
         },
         'api-jwt/jwt.yaml'
       );

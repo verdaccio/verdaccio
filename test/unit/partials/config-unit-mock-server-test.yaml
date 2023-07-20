@@ -11,8 +11,7 @@ auth:
         name: test
         password: test
 
-logs:
-  - { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
   '@*/*':

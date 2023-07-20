@@ -9,7 +9,7 @@ uplinks:
   ver:
     url: https://registry.verdaccio.org
 
-logs: { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
   '@*/*':

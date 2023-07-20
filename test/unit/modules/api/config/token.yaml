@@ -12,7 +12,7 @@ packages:
     access: $authenticated
     publish: $authenticated
 
-logs: { type: stdout, format: pretty, level: debug }
+log: { type: stdout, format: pretty, level: debug }
 
 ## enable token for testing
 flags:

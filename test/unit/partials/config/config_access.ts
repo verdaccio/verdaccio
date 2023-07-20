@@ -18,9 +18,8 @@ const config = {
       proxy: 'npmjs'
     }
   },
-  logs: [
-    {type: 'stdout', format: 'pretty', level: 'fatal'},
-  ],
+  log: {type: 'stdout', format: 'pretty', level: 'fatal'}
+  ,
 };
 
 export default config;

@@ -8,11 +8,15 @@ uplinks:
   npmjs:
     url: http://localhost:4873/
 packages:
+  '@protected/*':
+    access: jota_token
+    publish: $all
+    proxy: npmjs
   '@*/*':
     access: $all
     publish: $all
     proxy: npmjs
-    unpublish: npmjs
+    unpublish: somethingelse
   'forbidden-place':
     access: nobody
     publish: $all
@@ -21,5 +25,4 @@ packages:
     publish: $all
     unpublish: xxx
     proxy: npmjs
-logs:
-  - { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }

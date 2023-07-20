@@ -26,6 +26,7 @@ server:
 middlewares:
   audit:
     enabled: true
+# intended to verify backward compatibility    
 logs: { type: stdout, format: pretty, level: http }
 experiments:
   token: false

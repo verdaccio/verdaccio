@@ -10,7 +10,7 @@ publish:
 
 uplinks:
 
-logs: { type: stdout, format: pretty, level: trace }
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
   '@*/*':

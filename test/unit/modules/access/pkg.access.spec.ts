@@ -36,7 +36,7 @@ describe('api with no limited access configuration', () => {
               url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
             },
           },
-          logs: [{ type: 'stdout', format: 'pretty', level: 'warn' }],
+          log: { type: 'stdout', format: 'pretty', level: 'warn' },
         },
         'pkg.access.spec.yaml'
       );
