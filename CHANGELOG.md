@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.26.1](https://github.com/verdaccio/verdaccio/compare/v5.26.0...v5.26.1) (2023-07-21)
+
+
+### Bug Fixes
+
+* add missing token auth middleware ([#3944](https://github.com/verdaccio/verdaccio/issues/3944)) ([5e9637d](https://github.com/verdaccio/verdaccio/commit/5e9637da9041cc11978e8366e3d5f5a3667791f0))
+
 ## [5.26.0](https://github.com/verdaccio/verdaccio/compare/v5.25.0...v5.26.0) (2023-07-15)
 
 
