@@ -1,10 +1,15 @@
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
-import got, { RequiredRetryOptions, Headers as gotHeaders } from 'got';
-import type { Agents, Options } from 'got';
+import got, {
+  Agents,
+  Delays,
+  Options,
+  RequestError,
+  RetryOptions,
+  Headers as gotHeaders,
+} from 'got-cjs';
 import _ from 'lodash';
 import Stream, { PassThrough, Readable } from 'stream';
-import { Headers, fetch as undiciFetch } from 'undici';
 import { URL } from 'url';
 
 import {
@@ -23,8 +28,6 @@ import { buildToken } from '@verdaccio/utils';
 
 import CustomAgents, { AgentOptionsConf } from './agent';
 import { parseInterval } from './proxy-utils';
-
-const LoggerApi = require('@verdaccio/logger');
 
 const debug = buildDebug('verdaccio:proxy');
 
@@ -51,10 +54,11 @@ export interface ProxyList {
 }
 
 export type ProxySearchParams = {
-  headers?: Headers;
   url: string;
-  query?: searchUtils.SearchQuery;
   abort: AbortController;
+  query?: searchUtils.SearchQuery;
+  headers?: Headers;
+  retry?: Partial<RetryOptions>;
 };
 export interface IProxy {
   config: UpLinkConfLocal;
@@ -65,15 +69,18 @@ export interface IProxy {
   server_id: string;
   url: URL;
   maxage: number;
-  timeout: number;
+  timeout: Delays;
   max_fails: number;
   fail_timeout: number;
   upname: string;
   search(options: ProxySearchParams): Promise<Stream.Readable>;
-  getRemoteMetadata(name: string, options: ISyncUplinksOptions): Promise<[Manifest, string]>;
+  getRemoteMetadata(
+    name: string,
+    options: Partial<ISyncUplinksOptions>
+  ): Promise<[Manifest, string]>;
   fetchTarball(
     url: string,
-    options: Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'>
+    options: Partial<Pick<ISyncUplinksOptions, 'remoteAddress' | 'etag' | 'retry'>>
   ): PassThrough;
 }
 
@@ -99,7 +106,7 @@ class ProxyStorage implements IProxy {
   public server_id: string;
   public url: URL;
   public maxage: number;
-  public timeout: number;
+  public timeout: Delays;
   public max_fails: number;
   public fail_timeout: number;
   public agent_options: AgentOptionsConf;
@@ -111,14 +118,14 @@ class ProxyStorage implements IProxy {
   // @ts-ignore
   public last_request_time: number | null;
   public strict_ssl: boolean;
-  private retry: Partial<RequiredRetryOptions> | number;
+  private retry: Partial<RetryOptions>;
 
-  public constructor(config: UpLinkConfLocal, mainConfig: Config, agent?: Agents) {
+  public constructor(config: UpLinkConfLocal, mainConfig: Config, logger: Logger, agent?: Agents) {
     this.config = config;
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent ?? 'hidden';
     this.ca = config.ca;
-    this.logger = LoggerApi.logger.child({ sub: 'out' });
+    this.logger = logger;
     this.server_id = mainConfig.server_id;
     this.agent_options = setConfig(this.config, 'agent_options', {
       keepAlive: true,
@@ -145,7 +152,9 @@ class ProxyStorage implements IProxy {
     // a bunch of different configurable timers
     this.maxage = parseInterval(setConfig(this.config, 'maxage', '2m'));
     // https://github.com/sindresorhus/got/blob/main/documentation/6-timeout.md
-    this.timeout = parseInterval(setConfig(this.config, 'timeout', '30s'));
+    this.timeout = {
+      request: parseInterval(setConfig(this.config, 'timeout', '30s')),
+    };
     this.max_fails = Number(setConfig(this.config, 'max_fails', this.config.max_fails ?? 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
@@ -296,7 +305,7 @@ class ProxyStorage implements IProxy {
 
   public async getRemoteMetadata(
     name: string,
-    options: ISyncUplinksOptions
+    options: Partial<ISyncUplinksOptions>
   ): Promise<[Manifest, string]> {
     if (this._ifRequestFailure()) {
       throw errorUtils.getInternalError(API_ERROR.UPLINK_OFFLINE);
@@ -326,8 +335,7 @@ class ProxyStorage implements IProxy {
         method,
         agent: this.agent,
         retry,
-        // @ts-ignore
-        timeout: { request: options?.timeout ?? this.timeout },
+        timeout: this.timeout,
         hooks: {
           afterResponse: [
             (afterResponse) => {
@@ -349,8 +357,7 @@ class ProxyStorage implements IProxy {
             },
           ],
           beforeRetry: [
-            // FUTURE: got 12.0.0, the option arg should be removed
-            (_options, error: any, count) => {
+            (error: RequestError, count: number) => {
               this.failed_requests = count ?? 0;
               this.logger.info(
                 {
@@ -378,7 +385,7 @@ class ProxyStorage implements IProxy {
         .on('request', () => {
           this.last_request_time = Date.now();
         })
-        .on('response', (eventResponse) => {
+        .on<any>('response', (eventResponse) => {
           const message = "@{!status}, req: '@{request.method} @{request.url}' (streaming)";
           this.logger.http(
             {
@@ -482,37 +489,32 @@ class ProxyStorage implements IProxy {
    * @param {*} options request options
    * @return {Stream}
    */
-  public async search({ url, abort }: ProxySearchParams): Promise<Stream.Readable> {
+  public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
     debug('search url %o', url);
 
-    let response;
     try {
       const fullURL = new URL(`${this.url}${url}`);
       // FIXME: a better way to remove duplicate slashes?
       const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
-      response = await undiciFetch(uri, {
-        method: 'GET',
-        // FUTURE: whitelist domains what we are sending not need it headers, security check
-        // headers: new Headers({
-        //   ...headers,
-        //   connection: 'keep-alive',
-        // }),
-        signal: abort?.signal,
+      const response = got(uri, {
+        signal: abort.signal,
+        agent: this.agent,
+        timeout: this.timeout,
+        retry: retry ?? this.retry,
       });
-      debug('response.status  %o', response.status);
+      // debug('response.status  %o', response.status);
 
-      if (response.status >= HTTP_STATUS.BAD_REQUEST) {
-        throw errorUtils.getInternalError(`bad status code ${response.status} from uplink`);
-      }
-
-      const streamSearch = new PassThrough({ objectMode: true });
       const res = await response.text();
+      const streamSearch = new PassThrough({ objectMode: true });
       const streamResponse = Readable.from(res);
       // objects is one of the properties on the body, it ignores date and total
       streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
       return streamSearch;
     } catch (err: any) {
+      if (err.response.statusCode === 409) {
+        throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
+      }
       this.logger.error(
         { errorMessage: err?.message, name: this.upname },
         'proxy uplink @{name} search error: @{errorMessage}'

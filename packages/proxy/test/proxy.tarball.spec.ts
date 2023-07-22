@@ -2,7 +2,7 @@ import nock from 'nock';
 import path from 'path';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
-import { setup } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
@@ -44,7 +44,7 @@ describe('tarball proxy', () => {
       nock('https://registry.verdaccio.org')
         .get('/jquery/-/jquery-0.0.1.tgz')
         .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+      const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
       const stream = prox1.fetchTarball(
         'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
         {}

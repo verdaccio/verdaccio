@@ -1,11 +1,23 @@
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
 import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, constants } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { Logger } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 
 import { ProxyStorage } from '../src';
 
-setup();
+const mockDebug = jest.fn();
+const mockInfo = jest.fn();
+const mockHttp = jest.fn();
+const mockError = jest.fn();
+const mockWarn = jest.fn();
+
+const logger = {
+  debug: mockDebug,
+  info: mockInfo,
+  http: mockHttp,
+  error: mockError,
+  warn: mockWarn,
+} as unknown as Logger;
 
 function createUplink(config) {
   const defaultConfig = {
@@ -13,7 +25,7 @@ function createUplink(config) {
   };
   const mergeConfig = Object.assign({}, defaultConfig, config);
   // @ts-ignore
-  return new ProxyStorage(mergeConfig, {});
+  return new ProxyStorage(mergeConfig, {}, logger);
 }
 
 function setHeadersNext(config: unknown = {}, headers: any = {}) {

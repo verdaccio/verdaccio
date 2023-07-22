@@ -6,7 +6,7 @@ import { setup } from '@verdaccio/logger';
 
 import { Storage, removeDuplicates } from '../src';
 
-setup([]);
+setup({});
 
 describe('search', () => {
   describe('search manager utils', () => {

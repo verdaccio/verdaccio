@@ -237,11 +237,11 @@ class Storage {
     });
 
     try {
-      debug('search uplinks');
-      // we only process those streams end successfully, if all fails
-      // we just include local storage
+      debug('searching on %s uplinks...', searchUplinksStreams?.length);
+      // only process those streams end successfully, if all request fails
+      // just include local storage results (if local fails then return 500)
       await Promise.allSettled([...searchUplinksStreams]);
-      debug('search uplinks done');
+      debug('searching all uplinks done');
     } catch (err: any) {
       this.logger.error({ err: err?.message }, ' error on uplinks search @{err}');
       streamPassThrough.emit('error', err);
@@ -912,7 +912,8 @@ class Storage {
           url: distFile.url,
           cache: true,
         },
-        this.config
+        this.config,
+        logger
       );
     }
     return uplink;
@@ -1619,7 +1620,7 @@ class Storage {
   public async syncUplinksMetadataNext(
     name: string,
     localManifest: Manifest | null,
-    options: ISyncUplinksOptions = {}
+    options: Partial<ISyncUplinksOptions> = {}
   ): Promise<[Manifest | null, any]> {
     let found = localManifest !== null;
     let syncManifest: Manifest | null = null;
@@ -1712,7 +1713,7 @@ class Storage {
   private async mergeCacheRemoteMetadata(
     uplink: IProxy,
     cachedManifest: Manifest,
-    options: ISyncUplinksOptions
+    options: Partial<ISyncUplinksOptions>
   ): Promise<Manifest> {
     // we store which uplink is updating the manifest
     const upLinkMeta = cachedManifest._uplinks[uplink.upname];
