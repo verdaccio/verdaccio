@@ -30,7 +30,7 @@ function createUplink(config) {
 
 function setHeadersNext(config: unknown = {}, headers: any = {}) {
   const uplink = createUplink(config);
-  return uplink.getHeadersNext({ ...headers });
+  return uplink.getHeaders({ ...headers });
 }
 
 describe('setHeadersNext', () => {

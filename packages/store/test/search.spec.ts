@@ -1,4 +1,4 @@
-import { setGlobalDispatcher } from 'undici';
+import nock from 'nock';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { searchUtils } from '@verdaccio/core';
@@ -28,26 +28,17 @@ describe('search', () => {
     });
 
     test('search items', async () => {
-      const { MockAgent } = require('undici');
       // FIXME: fetch is already part of undici
       const domain = 'https://registry.npmjs.org';
       const url = '/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio';
       const response = require('./fixtures/search.json');
-      const options = {
-        path: url,
-        method: 'GET',
-      };
-      const mockAgent = new MockAgent({ connections: 1 });
-      mockAgent.disableNetConnect();
-      setGlobalDispatcher(mockAgent);
-      const mockClient = mockAgent.get(domain);
-      mockClient.intercept(options).reply(200, JSON.stringify(response));
+      nock(domain).get(url).reply(200, response);
       const config = new Config(getDefaultConfig());
       const storage = new Storage(config);
       await storage.init(config);
+      const abort = new AbortController();
 
-      // @ts-expect-error
-      const results = await storage.search({ url, query: { text: 'foo' } });
+      const results = await storage.search({ url, query: { text: 'verdaccio' }, abort });
       expect(results).toHaveLength(4);
     });
   });

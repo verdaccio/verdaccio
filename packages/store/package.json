@@ -58,7 +58,6 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
-    "undici": "4.16.0",
     "nock": "13.2.9",
     "node-mocks-http": "1.12.1",
     "mockdate": "3.0.5"

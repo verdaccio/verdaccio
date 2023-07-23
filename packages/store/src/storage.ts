@@ -226,11 +226,11 @@ class Storage {
     const transformResults = new TransFormResults({ objectMode: true });
     const streamPassThrough = new PassThrough({ objectMode: true });
     const upLinkList = this.getProxyList();
-
+    debug('uplinks found %s', upLinkList.length);
     const searchUplinksStreams = upLinkList.map((uplinkId: string) => {
       const uplink = this.uplinks[uplinkId];
       if (!uplink) {
-        // this should never tecnically happens
+        // this line should never happens
         this.logger.error({ uplinkId }, 'uplink @upLinkId not found');
       }
       return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
@@ -1642,7 +1642,7 @@ class Storage {
     }
 
     const uplinksErrors: any[] = [];
-    // we resolve uplinks async in serie, first come first serve
+    // we resolve uplinks async in series, first come first serve
     for (const uplink of upLinks) {
       try {
         const tempManifest = _.isNil(localManifest)

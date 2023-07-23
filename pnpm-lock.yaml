@@ -1658,9 +1658,6 @@ importers:
       node-mocks-http:
         specifier: 1.12.1
         version: 1.12.1
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
 
   packages/tools/docusaurus-plugin-contributors:
     dependencies:
@@ -2109,9 +2106,6 @@ importers:
       supertest:
         specifier: 6.3.3
         version: 6.3.3
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
       verdaccio-auth-memory:
         specifier: workspace:11.0.0-6-next.39
         version: link:../plugins/auth-memory
@@ -27254,6 +27248,7 @@ packages:
   /undici@4.16.0:
     resolution: {integrity: sha512-tkZSECUYi+/T1i4u+4+lwZmQgLXd4BLGlrc7KZPcLIW7Jpq99+Xpc30ONv7nS6F5UNOxp/HBZSSL9MafUrvJbw==}
     engines: {node: '>=12.18'}
+    dev: false
 
   /unfetch@4.2.0:
     resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}

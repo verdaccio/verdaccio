@@ -864,15 +864,21 @@ describe('storage', () => {
         const fooManifest = generatePackageMetadata('timeout', '8.0.0');
 
         nock('https://registry.domain.com')
-          .get('/timeout')
+          .get(`/${fooManifest.name}`)
           .times(10)
-          .delayConnection(2000)
+          .delayConnection(4000)
           .reply(201, manifestFooRemoteNpmjs);
 
         const config = new Config(
           configExample(
             {
               storage: generateRandomStorage(),
+              uplinks: {
+                npmjs: {
+                  url: 'https://registry.npmjs.org',
+                  timeout: '2s',
+                },
+              },
             },
             './fixtures/config/syncDoubleUplinksMetadata.yaml',
             __dirname
@@ -885,15 +891,10 @@ describe('storage', () => {
           storage.syncUplinksMetadataNext(fooManifest.name, null, {
             retry: { limit: 0 },
             timeout: {
-              lookup: 100,
-              connect: 50,
-              secureConnect: 50,
-              socket: 500,
-              // send: 10000,
-              response: 1000,
+              request: 1000,
             },
           })
-        ).rejects.toThrow('ETIMEDOUT');
+        ).rejects.toThrow(API_ERROR.NO_PACKAGE);
       }, 10000);
 
       test('should handle one proxy fails', async () => {
@@ -1468,7 +1469,7 @@ describe('storage', () => {
               host: req.get('host') as string,
             },
           })
-        ).rejects.toThrow(errorUtils.getServiceUnavailable('ETIMEDOUT'));
+        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.NO_PACKAGE));
       });
 
       test('should fetch abbreviated version of manifest ', async () => {

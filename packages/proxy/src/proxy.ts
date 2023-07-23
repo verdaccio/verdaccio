@@ -155,6 +155,7 @@ class ProxyStorage implements IProxy {
     this.timeout = {
       request: parseInterval(setConfig(this.config, 'timeout', '30s')),
     };
+    debug('set timeout %s', this.timeout);
     this.max_fails = Number(setConfig(this.config, 'max_fails', this.config.max_fails ?? 2));
     this.fail_timeout = parseInterval(setConfig(this.config, 'fail_timeout', '5m'));
     this.strict_ssl = Boolean(setConfig(this.config, 'strict_ssl', true));
@@ -171,7 +172,7 @@ class ProxyStorage implements IProxy {
     }
   }
 
-  public getHeadersNext(headers = {}): gotHeaders {
+  public getHeaders(headers = {}): gotHeaders {
     const accept = HEADERS.ACCEPT;
     const acceptEncoding = HEADERS.ACCEPT_ENCODING;
     const userAgent = HEADERS.USER_AGENT;
@@ -312,8 +313,8 @@ class ProxyStorage implements IProxy {
     }
 
     // FUTURE: allow mix headers that comes from the client
-    debug('get metadata for %s', name);
-    let headers = this.getHeadersNext(options?.headers);
+    debug('getting metadata for package %s', name);
+    let headers = this.getHeaders(options?.headers);
     headers = this.addProxyHeaders(headers, options.remoteAddress);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
@@ -323,12 +324,12 @@ class ProxyStorage implements IProxy {
     }
     const method = options.method || 'GET';
     const uri = this.config.url + `/${encode(name)}`;
-    debug('request uri for %s retry %s', uri);
+    debug('set retry limit is %s', this.retry.limit);
     let response;
     let responseLength = 0;
     try {
       const retry = options?.retry ?? this.retry;
-      debug('retry times %s for %s', retry, uri);
+      debug('retry initial count %s', retry);
       response = await got(uri, {
         headers,
         responseType: 'json',
@@ -340,7 +341,7 @@ class ProxyStorage implements IProxy {
           afterResponse: [
             (afterResponse) => {
               const code = afterResponse.statusCode;
-              debug('code response %s', code);
+              debug('after response code is %s', code);
               if (code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES) {
                 if (this.failed_requests >= this.max_fails) {
                   this.failed_requests = 0;
@@ -358,6 +359,7 @@ class ProxyStorage implements IProxy {
           ],
           beforeRetry: [
             (error: RequestError, count: number) => {
+              debug('retry %s count: %s', uri, count);
               this.failed_requests = count ?? 0;
               this.logger.info(
                 {
@@ -429,9 +431,10 @@ class ProxyStorage implements IProxy {
       );
       return [data, etag];
     } catch (err: any) {
-      debug('uri %s fail', uri);
+      debug('error %s on uri %s', err.code, uri);
       if (err.code === 'ERR_NON_2XX_3XX_RESPONSE') {
         const code = err.response.statusCode;
+        debug('error code %s', code);
         if (code === HTTP_STATUS.NOT_FOUND) {
           throw errorUtils.getNotFound(errorUtils.API_ERROR.NOT_PACKAGE_UPLINK);
         }
@@ -444,6 +447,15 @@ class ProxyStorage implements IProxy {
           error.remoteStatus = code;
           throw error;
         }
+      } else if (err.code === 'ETIMEDOUT') {
+        debug('error code timeout');
+        const code = err.code;
+        const error = errorUtils.getInternalError(
+          `${errorUtils.API_ERROR.SERVER_TIME_OUT}: ${code}`
+        );
+        // we need this code to identify outside which status code triggered the error
+        error.remoteStatus = code;
+        throw error;
       }
       throw err;
     }
@@ -456,7 +468,7 @@ class ProxyStorage implements IProxy {
   ): any {
     debug('fetching url for %s', url);
     const options = { ...this.config, ...overrideOptions };
-    let headers = this.getHeadersNext(options?.headers);
+    let headers = this.getHeaders(options?.headers);
     headers = this.addProxyHeaders(headers, options.remoteAddress);
     headers = this.applyUplinkHeaders(headers);
     // the following headers cannot be overwritten
@@ -490,20 +502,18 @@ class ProxyStorage implements IProxy {
    * @return {Stream}
    */
   public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
-    debug('search url %o', url);
-
     try {
       const fullURL = new URL(`${this.url}${url}`);
       // FIXME: a better way to remove duplicate slashes?
       const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
+      debug('searching on %s', uri);
       const response = got(uri, {
-        signal: abort.signal,
+        signal: abort ? abort.signal : {},
         agent: this.agent,
         timeout: this.timeout,
         retry: retry ?? this.retry,
       });
-      // debug('response.status  %o', response.status);
 
       const res = await response.text();
       const streamSearch = new PassThrough({ objectMode: true });
@@ -512,6 +522,7 @@ class ProxyStorage implements IProxy {
       streamResponse.pipe(JSONStream.parse('objects')).pipe(streamSearch, { end: true });
       return streamSearch;
     } catch (err: any) {
+      debug('search error %s', err);
       if (err.response.statusCode === 409) {
         throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
       }

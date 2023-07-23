@@ -29,6 +29,7 @@ export const API_ERROR = {
   REGISTRATION_DISABLED: 'user registration disabled',
   UNAUTHORIZED_ACCESS: 'unauthorized access',
   BAD_STATUS_CODE: 'bad status code',
+  SERVER_TIME_OUT: 'looks like the server is taking to long to respond',
   PACKAGE_EXIST: 'this package is already present',
   BAD_AUTH_HEADER: 'bad authorization header',
   WEB_DISABLED: 'Web interface is disabled in the config file',
