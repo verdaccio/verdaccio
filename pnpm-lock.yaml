@@ -773,12 +773,12 @@ importers:
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
+      got-cjs:
+        specifier: 12.5.4
+        version: 12.5.4
       handlebars:
         specifier: 4.7.7
         version: 4.7.7
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
     devDependencies:
       '@verdaccio/auth':
         specifier: workspace:6.0.0-6-next.53
@@ -789,6 +789,9 @@ importers:
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
         version: link:../core/types
+      nock:
+        specifier: 13.2.9
+        version: 13.2.9
 
   packages/loaders:
     dependencies:
@@ -27244,11 +27247,6 @@ packages:
   /undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
-
-  /undici@4.16.0:
-    resolution: {integrity: sha512-tkZSECUYi+/T1i4u+4+lwZmQgLXd4BLGlrc7KZPcLIW7Jpq99+Xpc30ONv7nS6F5UNOxp/HBZSSL9MafUrvJbw==}
-    engines: {node: '>=12.18'}
-    dev: false
 
   /unfetch@4.2.0:
     resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}

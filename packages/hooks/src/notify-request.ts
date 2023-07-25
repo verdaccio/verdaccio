@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { fetch } from 'undici';
+import got from 'got-cjs';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
@@ -16,7 +16,7 @@ export async function notifyRequest(url: string, options: FetchOptions): Promise
   let response;
   try {
     debug('uri %o', url);
-    response = await fetch(url, {
+    response = got.post(url, {
       body: JSON.stringify(options.body),
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

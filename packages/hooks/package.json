@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=12"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.74",
@@ -34,12 +34,13 @@
     "core-js": "3.30.2",
     "debug": "4.3.4",
     "handlebars": "4.7.7",
-    "undici": "4.16.0"
+    "got-cjs": "12.5.4"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:6.0.0-6-next.53",
     "@verdaccio/config": "workspace:6.0.0-6-next.74",
-    "@verdaccio/types": "workspace:11.0.0-6-next.25"
+    "@verdaccio/types": "workspace:11.0.0-6-next.25",
+    "nock": "13.2.9"
   },
   "scripts": {
     "clean": "rimraf ./build",
