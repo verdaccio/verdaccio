@@ -694,7 +694,7 @@ importers:
         version: 0.23.25(typescript@4.9.4)
       typedoc-plugin-missing-exports:
         specifier: latest
-        version: 2.0.0(typedoc@0.23.25)
+        version: 2.0.1(typedoc@0.23.25)
 
   packages/core/file-locking:
     dependencies:
@@ -1243,8 +1243,8 @@ importers:
         specifier: 2.0.1
         version: 2.0.1
       js-base64:
-        specifier: 3.7.3
-        version: 3.7.3
+        specifier: 3.7.5
+        version: 3.7.5
       js-yaml:
         specifier: 4.1.0
         version: 4.1.0
@@ -19864,8 +19864,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /js-base64@3.7.3:
-    resolution: {integrity: sha512-PAr6Xg2jvd7MCR6Ld9Jg3BmTcjYsHEBx1VlwEwULb/qowPf5VD9kEMagj23Gm7JRnSvE/Da/57nChZjnvL8v6A==}
+  /js-base64@3.7.5:
+    resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
     dev: true
 
   /js-levenshtein@1.1.6:
@@ -27197,8 +27197,8 @@ packages:
       typedoc: 0.23.25(typescript@4.9.4)
     dev: true
 
-  /typedoc-plugin-missing-exports@2.0.0(typedoc@0.23.25):
-    resolution: {integrity: sha512-t0QlKCm27/8DaheJkLo/gInSNjzBXgSciGhoLpL6sLyXZibm7SuwJtHvg4qXI2IjJfFBgW9mJvvszpoxMyB0TA==}
+  /typedoc-plugin-missing-exports@2.0.1(typedoc@0.23.25):
+    resolution: {integrity: sha512-+A78kT78uC0Dbv2EFB9RXHO3iywJ5x89jd4z0bLL7Z8DlOSQjJxhRHf8otXsHZbgRUWAuYqYMA9LzxfuSOc87A==}
     peerDependencies:
       typedoc: 0.24.x
     dependencies:
