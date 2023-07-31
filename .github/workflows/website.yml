@@ -40,7 +40,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
 
-      - uses: pnpm/action-setup@c3b53f6a16e57305370b4ae5a540c2077a1d50dd # tag=v2.2.4
+      - uses: pnpm/action-setup@d882d12c64e032187b2edb46d3a0d003b7a43598 # tag=v2.4.0
         with:
           version: latest-8
           run_install: |
