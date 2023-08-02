@@ -1439,8 +1439,8 @@ importers:
   packages/search:
     devDependencies:
       '@orama/orama':
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.1.1
+        version: 1.1.1
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
         version: link:../core/types
@@ -8921,8 +8921,8 @@ packages:
     resolution: {integrity: sha512-Aq58f5HiWdyDlFffbbSjAlv596h/cOnt2DO1w3DOC7OJ5EHs0hd/nycJfiu9RJbT6Yk6F1knnRRXNSpxoIVZ9Q==}
     dev: true
 
-  /@orama/orama@1.1.0:
-    resolution: {integrity: sha512-Mq6UHRPV6NrGmhlUXgUh1pL/qOasZaxo/qyGk61nl0xUTvbXjmBEcUPz1NYX1PoFmVabb4dxGL2TjikV6peuZA==}
+  /@orama/orama@1.1.1:
+    resolution: {integrity: sha512-s52+s1ThY7Q/lAqwmws21Yq6LmSqwB9IJW9+Vwh21eonlwFGBaUkiiiQnuozl7ILWQSr+yfmZ8CVujr7cZQJ6Q==}
     engines: {node: '>= 16.0.0'}
     dev: true
 
