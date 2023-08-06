@@ -1,3 +1,4 @@
+import { logger } from '@verdaccio/logger';
 import { IProxy, ProxyStorage } from '@verdaccio/proxy';
 import { Config, Manifest } from '@verdaccio/types';
 
@@ -14,7 +15,7 @@ export function setupUpLinks(config: Config): ProxyInstanceList {
   for (const uplinkName in config.uplinks) {
     if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
       // instance for each up-link definition
-      const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config);
+      const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config, logger);
       // TODO: review this can be inside ProxyStorage
       proxy.upname = uplinkName;
 

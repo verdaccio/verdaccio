@@ -1,11 +1,13 @@
+import { logger, setup } from '@verdaccio/logger';
+
 import { ProxyStorage } from '../src';
 
-require('@verdaccio/logger').setup([]);
+setup({});
 
 function getProxyInstance(host, uplinkConf, appConfig) {
   uplinkConf.url = host;
 
-  return new ProxyStorage(uplinkConf, appConfig);
+  return new ProxyStorage(uplinkConf, appConfig, logger);
 }
 
 describe('Use proxy', () => {

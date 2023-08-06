@@ -1,6 +1,7 @@
 uplinks:
   timeout:
     url: https://registry.domain.com/
+    timeout: 2s
   some:
     url: https://registry.domain.com/
   ver:

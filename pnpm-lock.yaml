@@ -773,12 +773,12 @@ importers:
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
+      got-cjs:
+        specifier: 12.5.4
+        version: 12.5.4
       handlebars:
         specifier: 4.7.7
         version: 4.7.7
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
     devDependencies:
       '@verdaccio/auth':
         specifier: workspace:6.0.0-6-next.53
@@ -789,6 +789,9 @@ importers:
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
         version: link:../core/types
+      nock:
+        specifier: 13.2.9
+        version: 13.2.9
 
   packages/loaders:
     dependencies:
@@ -1389,12 +1392,6 @@ importers:
       '@verdaccio/core':
         specifier: workspace:6.0.0-6-next.74
         version: link:../core/core
-      '@verdaccio/local-storage':
-        specifier: workspace:11.0.0-6-next.44
-        version: link:../plugins/local-storage
-      '@verdaccio/logger':
-        specifier: workspace:6.0.0-6-next.42
-        version: link:../logger/logger
       '@verdaccio/utils':
         specifier: workspace:6.0.0-6-next.42
         version: link:../utils
@@ -1404,19 +1401,19 @@ importers:
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
-      got:
-        specifier: 11.8.5
-        version: 11.8.5
+      got-cjs:
+        specifier: 12.5.4
+        version: 12.5.4
       hpagent:
         specifier: 1.2.0
         version: 1.2.0
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
     devDependencies:
+      '@verdaccio/logger':
+        specifier: workspace:6.0.0-6-next.42
+        version: link:../logger/logger
       '@verdaccio/types':
         specifier: workspace:11.0.0-6-next.25
         version: link:../core/types
@@ -1664,9 +1661,6 @@ importers:
       node-mocks-http:
         specifier: 1.12.1
         version: 1.12.1
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
 
   packages/tools/docusaurus-plugin-contributors:
     dependencies:
@@ -2115,9 +2109,6 @@ importers:
       supertest:
         specifier: 6.3.3
         version: 6.3.3
-      undici:
-        specifier: 4.16.0
-        version: 4.16.0
       verdaccio-auth-memory:
         specifier: workspace:11.0.0-6-next.39
         version: link:../plugins/auth-memory
@@ -13515,6 +13506,11 @@ packages:
     resolution: {integrity: sha512-2/kNscPhpcxrOigMZzbiWF7dz8ilhb/nIHU3EyZiXWXpeq/au8qJ8VhdftMkty3n7Gj6HIGalQG8oiBNB3AJgA==}
     engines: {node: '>=10.6.0'}
 
+  /cacheable-lookup@6.1.0:
+    resolution: {integrity: sha512-KJ/Dmo1lDDhmW2XDPMo+9oiy/CeqosPguPCrgcVzKyZrL6pM1gU2GmPY/xo6OQPTUaA/c0kwHuywB4E6nmT9ww==}
+    engines: {node: '>=10.6.0'}
+    dev: false
+
   /cacheable-request@7.0.2:
     resolution: {integrity: sha512-pouW8/FmiPQbuGpkXQ9BAPv/Mo5xDGANgSNXzTzJ8DrKGuXOssM4wIQRjfanNRh3Yu5cfYPvcorqbhg2KIJtew==}
     engines: {node: '>=8'}
@@ -17551,6 +17547,10 @@ packages:
       typescript: 4.9.4
       webpack: 5.82.1(webpack-cli@4.10.0)
 
+  /form-data-encoder@1.7.2:
+    resolution: {integrity: sha512-qfqtYan3rxrnCk1VYaA4H+Ms9xdpPqvLZa6xmMgFvhO32x7/3J/ExcTd6qpxM0vH2GdMI+poehyBZvqfMTto8A==}
+    dev: false
+
   /form-data@2.3.3:
     resolution: {integrity: sha512-1lLKB2Mu3aGP1Q/2eCOx0fNbRMe7XdwktwOruhfqqd0rIJWwN4Dh+E3hrPSlDCXnSR7UtZ1N38rVXm+6+MEhJQ==}
     engines: {node: '>= 0.12'}
@@ -17979,6 +17979,24 @@ packages:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
     dependencies:
       get-intrinsic: 1.2.0
+
+  /got-cjs@12.5.4:
+    resolution: {integrity: sha512-Uas6lAsP8bRCt5WXGMhjFf/qEHTrm4v4qxGR02rLG2kdG9qedctvlkdwXVcDJ7Cs84X+r4dPU7vdwGjCaspXug==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@sindresorhus/is': 4.6.0
+      '@szmarczak/http-timer': 4.0.6
+      '@types/responselike': 1.0.0
+      cacheable-lookup: 6.1.0
+      cacheable-request: 7.0.2
+      decompress-response: 6.0.0
+      form-data-encoder: 1.7.2
+      get-stream: 6.0.1
+      http2-wrapper: 2.2.0
+      lowercase-keys: 2.0.0
+      p-cancelable: 2.1.1
+      responselike: 2.0.1
+    dev: false
 
   /got@11.8.5:
     resolution: {integrity: sha512-o0Je4NvQObAuZPHLFoRSkdG2lTgtcynqymzg2Vupdx6PorhaT5MCbIyXG6d4D94kk8ZG57QeosgdiqfJWhEhlQ==}
@@ -18491,6 +18509,14 @@ packages:
     dependencies:
       quick-lru: 5.1.1
       resolve-alpn: 1.2.1
+
+  /http2-wrapper@2.2.0:
+    resolution: {integrity: sha512-kZB0wxMo0sh1PehyjJUWRFEd99KC5TLjZ2cULC4f9iqJBAmKQQXEICjxl5iPJRwP40dpeHFqqhm7tYCvODpqpQ==}
+    engines: {node: '>=10.19.0'}
+    dependencies:
+      quick-lru: 5.1.1
+      resolve-alpn: 1.2.1
+    dev: false
 
   /https-browserify@1.0.0:
     resolution: {integrity: sha512-J+FkSdyD+0mA0N+81tMotaRMfSL9SGi+xpD3T6YApKsc3bGSXJlfXri3VyFOeYkfLRQisDk1W+jIFFKBeUBbBg==}
@@ -27244,10 +27270,6 @@ packages:
   /undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
-
-  /undici@4.16.0:
-    resolution: {integrity: sha512-tkZSECUYi+/T1i4u+4+lwZmQgLXd4BLGlrc7KZPcLIW7Jpq99+Xpc30ONv7nS6F5UNOxp/HBZSSL9MafUrvJbw==}
-    engines: {node: '>=12.18'}
 
   /unfetch@4.2.0:
     resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}

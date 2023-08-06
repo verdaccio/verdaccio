@@ -1,4 +1,4 @@
-import { MockAgent, setGlobalDispatcher } from 'undici';
+import nock from 'nock';
 
 import { createRemoteUser, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';
@@ -21,26 +21,21 @@ const domain = 'http://slack-service';
 
 const options = {
   path: '/foo?auth_token=mySecretToken',
-  method: 'POST',
 };
 
 describe('Notifications:: notifyRequest', () => {
+  beforeEach(() => {
+    nock.cleanAll();
+  });
   test('when sending a empty notification', async () => {
-    const mockAgent = new MockAgent({ connections: 1 });
-    setGlobalDispatcher(mockAgent);
-    const mockClient = mockAgent.get(domain);
-    mockClient.intercept(options).reply(200, { body: 'test' });
+    nock(domain).post(options.path).reply(200, { body: 'test' });
 
     const notificationResponse = await notify({}, {}, createRemoteUser('foo', []), 'bar');
     expect(notificationResponse).toEqual([false]);
   });
 
   test('when sending a single notification', async () => {
-    const mockAgent = new MockAgent({ connections: 1 });
-    setGlobalDispatcher(mockAgent);
-    const mockClient = mockAgent.get(domain);
-    mockClient.intercept(options).reply(200, { body: 'test' });
-
+    nock(domain).post(options.path).reply(200, { body: 'test' });
     const notificationResponse = await notify(
       {},
       singleHeaderNotificationConfig,
@@ -48,14 +43,10 @@ describe('Notifications:: notifyRequest', () => {
       'bar'
     );
     expect(notificationResponse).toEqual([true]);
-    await mockClient.close();
   });
 
   test('when notification endpoint is missing', async () => {
-    const mockAgent = new MockAgent({ connections: 1 });
-    setGlobalDispatcher(mockAgent);
-    const mockClient = mockAgent.get(domain);
-    mockClient.intercept(options).reply(200, { body: 'test' });
+    nock(domain).post(options.path).reply(200, { body: 'test' });
     const name = 'package';
     const config: Partial<Config> = {
       // @ts-ignore
@@ -70,16 +61,22 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when multiple notifications', async () => {
-    const mockAgent = new MockAgent({ connections: 1 });
-    setGlobalDispatcher(mockAgent);
-    const mockClient = mockAgent.get(domain);
-    mockClient.intercept(options).reply(200, { body: 'test' });
-    mockClient.intercept(options).reply(400, {});
-    mockClient.intercept(options).reply(500, { message: 'Something bad happened' });
+    nock(domain)
+      .post(options.path)
+      .once()
+      .reply(200, { body: 'test' })
+      .post(options.path)
+      .once()
+      .reply(400, {})
+      .post(options.path)
+      .once()
+      .reply(500, { message: 'Something bad happened' });
+    // mockClient.intercept(options).reply(200, { body: 'test' });
+    // mockClient.intercept(options).reply(400, {});
+    // mockClient.intercept(options).reply(500, { message: 'Something bad happened' });
 
     const name = 'package';
     const responses = await notify({ name }, multiNotificationConfig, { name: 'foo' }, 'bar');
     expect(responses).toEqual([true, false, false]);
-    await mockClient.close();
   });
 });

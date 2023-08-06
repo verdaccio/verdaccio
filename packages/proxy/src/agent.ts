@@ -1,4 +1,4 @@
-import { Agents } from 'got';
+import { Agents } from 'got-cjs';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
 import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from 'http';
 import { Agent as HttpsAgent, AgentOptions as HttpsAgentOptions } from 'https';
