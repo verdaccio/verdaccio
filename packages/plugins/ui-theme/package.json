@@ -50,7 +50,7 @@
     "lodash": "4.17.21",
     "marked": "4.3.0",
     "mini-css-extract-plugin": "2.7.2",
-    "msw": "0.49.2",
+    "msw": "0.49.3",
     "mutationobserver-shim": "0.3.7",
     "node-mocks-http": "1.12.1",
     "normalize.css": "8.0.1",
