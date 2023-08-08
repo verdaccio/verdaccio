@@ -54,7 +54,7 @@
     "pkginfo": "0.4.1",
     "request": "2.88.2",
     "semver": "7.5.4",
-    "validator": "13.9.0",
+    "validator": "13.11.0",
     "verdaccio-audit": "11.0.0-6-next.37",
     "verdaccio-htpasswd": "11.0.0-6-next.44"
   },

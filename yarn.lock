@@ -11074,6 +11074,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"validator@npm:13.11.0":
+  version: 13.11.0
+  resolution: "validator@npm:13.11.0"
+  checksum: d1e0c27022681420756da25bc03eb08d5f0c66fb008f8ff02ebc95812b77c6be6e03d3bd05cf80ca702e23eeb73dadd66b4b3683173ea2a0bc7cc72820bee131
+  languageName: node
+  linkType: hard
+
 "validator@npm:13.9.0":
   version: 13.9.0
   resolution: "validator@npm:13.9.0"
@@ -11248,7 +11255,7 @@ __metadata:
     supertest: 6.3.3
     ts-node: 10.9.1
     typescript: 4.9.5
-    validator: 13.9.0
+    validator: 13.11.0
     verdaccio-audit: 11.0.0-6-next.37
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 11.0.0-6-next.44
