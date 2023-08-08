@@ -76,7 +76,7 @@
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "babel-loader": "^8.3.0",
     "mockdate": "3.0.5",
-    "msw": "0.49.2"
+    "msw": "0.49.3"
   },
   "msw": {
     "workerDirectory": "public"
