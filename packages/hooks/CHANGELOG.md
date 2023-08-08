@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 6.0.0-6-next.45
+
+### Patch Changes
+
+- 0a6412ca9: refactor: got instead undici
+- Updated dependencies [0a6412ca9]
+  - @verdaccio/core@6.0.0-6-next.75
+  - @verdaccio/logger@6.0.0-6-next.43
+
 ## 6.0.0-6-next.44
 
 ### Patch Changes

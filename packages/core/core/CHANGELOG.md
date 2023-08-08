@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 6.0.0-6-next.75
+
+### Patch Changes
+
+- 0a6412ca9: refactor: got instead undici
+
 ## 6.0.0-6-next.74
 
 ## 6.0.0-6-next.73
