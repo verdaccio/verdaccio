@@ -1,5 +1,27 @@
 # @verdaccio/store
 
+## 6.0.0-6-next.55
+
+### Minor Changes
+
+- 0a6412ca9: feat: refactor proxy with got v12
+
+### Patch Changes
+
+- 0a6412ca9: refactor: got instead undici
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [0a6412ca9]
+  - @verdaccio/core@6.0.0-6-next.75
+  - @verdaccio/hooks@6.0.0-6-next.45
+  - @verdaccio/proxy@6.0.0-6-next.53
+  - @verdaccio/config@6.0.0-6-next.75
+  - @verdaccio/tarball@11.0.0-6-next.44
+  - @verdaccio/url@11.0.0-6-next.41
+  - @verdaccio/loaders@6.0.0-6-next.44
+  - @verdaccio/local-storage@11.0.0-6-next.45
+  - @verdaccio/utils@6.0.0-6-next.43
+  - @verdaccio/logger@6.0.0-6-next.43
+
 ## 6.0.0-6-next.54
 
 ### Patch Changes

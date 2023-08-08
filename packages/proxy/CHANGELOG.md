@@ -1,5 +1,19 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.53
+
+### Minor Changes
+
+- 0a6412ca9: feat: refactor proxy with got v12
+
+### Patch Changes
+
+- 0a6412ca9: refactor: got instead undici
+- Updated dependencies [0a6412ca9]
+  - @verdaccio/core@6.0.0-6-next.75
+  - @verdaccio/config@6.0.0-6-next.75
+  - @verdaccio/utils@6.0.0-6-next.43
+
 ## 6.0.0-6-next.52
 
 ### Patch Changes

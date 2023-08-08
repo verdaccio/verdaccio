@@ -1,5 +1,13 @@
 # @verdaccio/config
 
+## 6.0.0-6-next.75
+
+### Patch Changes
+
+- Updated dependencies [0a6412ca9]
+  - @verdaccio/core@6.0.0-6-next.75
+  - @verdaccio/utils@6.0.0-6-next.43
+
 ## 6.0.0-6-next.74
 
 ### Patch Changes
