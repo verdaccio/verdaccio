@@ -60,7 +60,7 @@
     "@types/http-errors": "1.8.2",
     "@types/jest": "27.5.2",
     "@types/jsonwebtoken": "8.5.9",
-    "@types/lodash": "4.14.196",
+    "@types/lodash": "4.14.197",
     "@types/mime": "2.0.3",
     "@types/minimatch": "3.0.5",
     "@types/node": "16.18.39",
