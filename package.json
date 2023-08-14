@@ -63,7 +63,7 @@
     "@types/lodash": "4.14.196",
     "@types/mime": "2.0.3",
     "@types/minimatch": "3.0.5",
-    "@types/node": "16.18.39",
+    "@types/node": "16.18.40",
     "@types/node-fetch": "2.6.4",
     "@types/qs": "6.9.7",
     "@types/range-parser": "1.2.4",
