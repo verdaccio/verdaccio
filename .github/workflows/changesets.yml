@@ -25,7 +25,7 @@ jobs:
           fetch-depth: 0
 
       - name: setup node.js
-        uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # tag=v3
+        uses: actions/setup-node@bea5baf987ba7aa777a8a0b4ace377a21c45c381 # tag=v3
         with:
           node-version-file: '.nvmrc'
         env:
