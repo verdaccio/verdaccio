@@ -58,7 +58,7 @@
     "got": "11.8.6",
     "lodash": "4.17.21",
     "nock": "13.2.9",
-    "node-mocks-http": "1.12.1",
+    "node-mocks-http": "1.13.0",
     "typedoc-plugin-markdown": "3.14.0",
     "typedoc-plugin-missing-exports": "1.0.0",
     "yaml": "2.2.0"

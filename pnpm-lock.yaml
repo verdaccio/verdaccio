@@ -728,8 +728,8 @@ importers:
         specifier: workspace:11.0.0-6-next.25
         version: link:../types
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
 
   packages/core/types:
     devDependencies:
@@ -756,8 +756,8 @@ importers:
         specifier: workspace:11.0.0-6-next.25
         version: link:../types
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
 
   packages/hooks:
     dependencies:
@@ -1270,8 +1270,8 @@ importers:
         specifier: 0.3.7
         version: 0.3.7
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
       normalize.css:
         specifier: 8.0.1
         version: 8.0.1
@@ -1424,8 +1424,8 @@ importers:
         specifier: 13.2.9
         version: 13.2.9
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
       p-cancelable:
         specifier: 2.1.1
         version: 2.1.1
@@ -1659,8 +1659,8 @@ importers:
         specifier: 13.2.9
         version: 13.2.9
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
 
   packages/tools/docusaurus-plugin-contributors:
     dependencies:
@@ -2034,8 +2034,8 @@ importers:
         specifier: 13.2.9
         version: 13.2.9
       node-mocks-http:
-        specifier: 1.12.1
-        version: 1.12.1
+        specifier: 1.13.0
+        version: 1.13.0
       typedoc-plugin-markdown:
         specifier: 3.14.0
         version: 3.14.0(typedoc@0.23.25)
@@ -21668,9 +21668,9 @@ packages:
       vm-browserify: 1.1.2
     dev: true
 
-  /node-mocks-http@1.12.1:
-    resolution: {integrity: sha512-jrA7Sn3qI6GsHgWtUW3gMj0vO6Yz0nJjzg3jRZYjcfj4tzi8oWPauDK1qHVJoAxTbwuDHF1JiM9GISZ/ocI/ig==}
-    engines: {node: '>=0.6'}
+  /node-mocks-http@1.13.0:
+    resolution: {integrity: sha512-lArD6sJMPJ53WF50GX0nJ89B1nkV1TdMvNwq8WXXFrUXF80ujSyye1T30mgiHh4h2It0/svpF3C4kZ2OAONVlg==}
+    engines: {node: '>=14'}
     dependencies:
       accepts: 1.3.8
       content-disposition: 0.5.4
