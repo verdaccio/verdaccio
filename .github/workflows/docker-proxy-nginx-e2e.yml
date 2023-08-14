@@ -18,7 +18,7 @@ jobs:
       run: docker-compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" up -d --build
 
     - name: Install node
-      uses: actions/setup-node@e33196f7422957bea03ed53f6fbb155025ffc7b8 # v3
+      uses: actions/setup-node@bea5baf987ba7aa777a8a0b4ace377a21c45c381 # v3
       with:
         node-version: 18
     - name: npm setup
