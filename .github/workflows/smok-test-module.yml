@@ -1,4 +1,4 @@
-name: Module Smoke Test 5.x
+name: Module Smoke Test 6.x
 on:
   workflow_dispatch:
   pull_request:

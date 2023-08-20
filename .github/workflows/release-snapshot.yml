@@ -1,13 +1,13 @@
-name: Release Canary 5.x
+name: Release Canary 6.x
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - 5.x
+      - 6.x
       - 'jota/**'
       - 'canary/**'
-      - '5x-refactor-test'
+      - '6x-refactor-test'
 jobs:
   release:
     name: Release Snapshot

@@ -10,6 +10,7 @@ The following table describes the versions of this project that are currently su
 | 3.x     | :x:                                      |
 | 4.x     | :white_check_mark: (until 1st July 2021) |
 | 5.x     | :white_check_mark:                       |
+| 6.x     | :white_check_mark:                       |
 
 ## Responsible disclosure security policy
 

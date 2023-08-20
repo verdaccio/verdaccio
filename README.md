@@ -2,7 +2,7 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 5
+# Version 6
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
@@ -33,7 +33,7 @@ Install with npm:
 npm install --location=global verdaccio
 ```
 
-> Node.js v12 or higher is required for Verdaccio 5
+> Node.js v16 or higher is required for Verdaccio 5
 
 or pull [Docker official image](https://verdaccio.org/docs/docker)
 
@@ -54,8 +54,6 @@ helm repo add verdaccio https://charts.verdaccio.org
 helm repo update
 helm install verdaccio/verdaccio
 ```
-
-Are you still using **Verdaccio 4**?. Check the [migration guide from 4.x to 5.x](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
 ## Programmatic API
 
