@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/proxy",
-  "version": "6.0.0-6-next.53",
+  "version": "6.0.0-6-next.54",
   "description": "verdaccio proxy fetcher",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -38,9 +38,9 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:6.0.0-6-next.75",
-    "@verdaccio/core": "workspace:6.0.0-6-next.75",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.43",
+    "@verdaccio/config": "workspace:6.0.0-6-next.76",
+    "@verdaccio/core": "workspace:6.0.0-6-next.76",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.44",
     "JSONStream": "1.3.5",
     "debug": "4.3.4",
     "got-cjs": "12.5.4",
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.43",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.44",
     "get-stream": "^6.0.1",
     "nock": "13.2.9",
     "node-mocks-http": "1.13.0",

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "6.0.0-6-next.62",
+  "version": "6.0.0-6-next.63",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -25,16 +25,16 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.54",
-    "@verdaccio/core": "workspace:6.0.0-6-next.75",
-    "@verdaccio/config": "workspace:6.0.0-6-next.75",
-    "@verdaccio/loaders": "workspace:6.0.0-6-next.44",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.43",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.54",
-    "@verdaccio/store": "workspace:6.0.0-6-next.55",
-    "@verdaccio/tarball": "workspace:11.0.0-6-next.44",
-    "@verdaccio/url": "workspace:11.0.0-6-next.41",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.43",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.55",
+    "@verdaccio/core": "workspace:6.0.0-6-next.76",
+    "@verdaccio/config": "workspace:6.0.0-6-next.76",
+    "@verdaccio/loaders": "workspace:6.0.0-6-next.45",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.44",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.55",
+    "@verdaccio/store": "workspace:6.0.0-6-next.56",
+    "@verdaccio/tarball": "workspace:11.0.0-6-next.45",
+    "@verdaccio/url": "workspace:11.0.0-6-next.42",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.44",
     "debug": "4.3.4",
     "express": "4.18.2",
     "lodash": "4.17.21"
@@ -42,13 +42,13 @@
   "devDependencies": {
     "@verdaccio/types": "workspace:11.0.0-6-next.25",
     "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
-    "@verdaccio/api": "workspace:6.0.0-6-next.58",
+    "@verdaccio/api": "workspace:6.0.0-6-next.59",
     "node-html-parser": "4.1.5",
     "supertest": "6.3.3",
     "nock": "13.2.9",
     "jsdom": "20.0.3",
-    "verdaccio-auth-memory": "workspace:11.0.0-6-next.40",
-    "verdaccio-memory": "workspace:11.0.0-6-next.42"
+    "verdaccio-auth-memory": "workspace:11.0.0-6-next.41",
+    "verdaccio-memory": "workspace:11.0.0-6-next.43"
   },
   "scripts": {
     "clean": "rimraf ./build",
