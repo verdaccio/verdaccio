@@ -1,4 +1,4 @@
-name: Release Canary 5.x
+name: Release Canary 6.x
 
 on:
   workflow_dispatch:
