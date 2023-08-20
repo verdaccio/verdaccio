@@ -6,12 +6,12 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 6 (Development branch)
+# Version Next (Development branch)
 
 > Looking for Verdaccio 5 version? Check the branch `5.x`
 > The plugins for the `v5.x` that are hosted within this organization are located
-> at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository, while for the v6.x
-> are hosted on this project `./packages/plugins`, keep on mind `v6.x` plugins will eventually would be
+> at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository, while for the `next` version
+> are hosted on this project `./packages/plugins`, keep on mind `next` plugins will eventually would be
 > incompatible with `v5.x` versions.
 > Note that contributing guidelines might be different based on the branch.
 
