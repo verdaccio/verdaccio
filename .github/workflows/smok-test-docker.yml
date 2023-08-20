@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 5.x  
+      - 6.x  
   schedule:
     # run every sunday
     - cron: '0 0 * * 0'
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3
         with:
-          node-version: 18
+          node-version: 16
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5

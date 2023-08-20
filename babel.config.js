@@ -4,7 +4,7 @@ module.exports = {
       '@babel/env',
       {
         targets: {
-          node: '12',
+          node: '16',
         },
       },
     ],
@@ -13,9 +13,6 @@ module.exports = {
   plugins: [
     'babel-plugin-dynamic-import-node',
     '@babel/proposal-class-properties',
-    '@babel/proposal-object-rest-spread',
-    '@babel/plugin-proposal-optional-chaining',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
     '@babel/syntax-dynamic-import',
   ],
   ignore: ['**/*.d.ts'],
