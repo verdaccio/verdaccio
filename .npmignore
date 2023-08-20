@@ -1,0 +1,48 @@
+
+## npm
+npm-debug.log
+yarn-error.log
+node_modules
+verdaccio-*.tgz
+docker-compose.yaml
+Dockerfile
+crowdin.yaml
+scripts/
+src/
+/.*
+.vscode/
+.circleci/
+debug/
+docker-examples/
+reports/
+## assets and website
+assets/
+
+## docs
+docs/
+wiki/
+
+## flow
+flow-typed/
+types/
+
+# jest
+coverage/
+test-storage*
+test/
+__mocks__/
+jestEnvironment.js
+test/jest.e2e.config.js
+test/jest.config.functional.js
+jest.config.js
+
+# misc
+contrib/
+storage_default_storage/
+docker-bin/
+yarn-plugins/
+tsconfig.json
+CHANGELOG.md
+SECURITY.md
+CONTRIBUTING.md
+CONTRIBUTORS.md
