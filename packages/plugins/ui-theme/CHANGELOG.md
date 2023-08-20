@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 6.0.0-6-next.76
+
 ## 6.0.0-6-next.75
 
 ## 6.0.0-6-next.74

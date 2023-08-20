@@ -1,5 +1,14 @@
 # @verdaccio/proxy
 
+## 6.0.0-6-next.54
+
+### Patch Changes
+
+- e381e4845: fix: improve legacy nodejs support
+  - @verdaccio/core@6.0.0-6-next.76
+  - @verdaccio/config@6.0.0-6-next.76
+  - @verdaccio/utils@6.0.0-6-next.44
+
 ## 6.0.0-6-next.53
 
 ### Minor Changes
