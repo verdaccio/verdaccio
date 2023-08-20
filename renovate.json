@@ -12,7 +12,7 @@
     "crazy-max/ghaction-docker-meta",
     "pnpm"
   ],
-  "baseBranches": ["master", "5.x"],
+  "baseBranches": ["master", "5.x", "6.x"],
   "semanticCommitType": "fix",
   "major": false,
   "labels": ["bot: dependencies"],
