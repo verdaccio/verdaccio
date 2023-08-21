@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search",
-  "version": "6.0.0-6-next.2",
+  "version": "7.0.0-next.0",
   "description": "verdaccio search utitlity tools",
   "main": "./build/dist.js",
   "types": "build/index.d.ts",
@@ -38,7 +38,7 @@
     "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.25",
+    "@verdaccio/types": "workspace:12.0.0-next.0",
     "@orama/orama": "1.1.1",
     "debug": "4.3.4",
     "esbuild": "0.14.10"

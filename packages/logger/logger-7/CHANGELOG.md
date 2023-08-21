@@ -1,5 +1,33 @@
 # @verdaccio/logger-7
 
+## 7.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger-commons@7.0.0-next.0
+
+## 6.0.0
+
+### Minor Changes
+
+- 631abe1ac: feat: refactor logger
+
+### Patch Changes
+
+- dcb5b9291: bump up @verdaccio/logger-7
+- 65f88b826: bump logger packages
+- 4a33e269b: fix: restore pino legacy version
+- Updated dependencies [631abe1ac]
+- Updated dependencies [84b2dffdb]
+- Updated dependencies [65f88b826]
+- Updated dependencies [4a33e269b]
+  - @verdaccio/logger-commons@6.0.0
+
 ## 6.0.0-6-next.21
 
 ### Patch Changes

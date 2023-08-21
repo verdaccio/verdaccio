@@ -1,5 +1,50 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+## 2.0.0
+
+### Major Changes
+
+- 999787974: feat(web): components for custom user interfaces
+
+  Provides a package that includes all components from the user interface, instead being embedded at the `@verdaccio/ui-theme` package.
+
+  ```
+  npm i -D @verdaccio/ui-components
+  ```
+
+  The package contains
+
+  - Components
+  - Providers
+  - Redux Storage
+  - Layouts (precomposed layouts ready to use)
+  - Custom Material Theme
+
+  The `@verdaccio/ui-theme` will consume this package and will use only those are need it.
+
+  > Prerequisites are using Redux, Material-UI and Translations with `i18next`.
+
+  Users could have their own Material UI theme and build custom layouts, adding new features without the need to modify the default project.
+
+- 781ac9ac2: fix package configuration issues
+
+### Minor Changes
+
+- 974cd8c19: fix: startup messages improved and logs support on types
+- 7344a7fcf: feat: ui bugfixes and improvements
+- ddb6a2239: feat: signature package
+
+### Patch Changes
+
+- 7ef599cc4: fix: missing version on footer
+- 0dafa9826: fix: undefined field on missing count
+
 ## 2.0.0-6-next.10
 
 ### Minor Changes

@@ -1,5 +1,32 @@
 # @verdaccio/website
 
+## 6.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - docusaurus-plugin-contributors@2.0.0-next.0
+  - @verdaccio/ui-components@3.0.0-next.0
+
+## 5.20.2
+
+### Patch Changes
+
+- Updated dependencies [974cd8c19]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [7ef599cc4]
+- Updated dependencies [7344a7fcf]
+- Updated dependencies [ddb6a2239]
+- Updated dependencies [999787974]
+- Updated dependencies [781ac9ac2]
+- Updated dependencies [0dafa9826]
+  - @verdaccio/ui-components@2.0.0
+  - docusaurus-plugin-contributors@1.0.1
+
 ## 5.20.2-6-next.7
 
 ### Patch Changes

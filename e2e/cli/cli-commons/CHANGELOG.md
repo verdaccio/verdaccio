@@ -1,5 +1,16 @@
 # @verdaccio/test-cli-commons
 
+## 1.1.0
+
+### Minor Changes
+
+- d167f92e1: chore: rollback yaml dep support old nodejs versions
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- c383eb68c: fix: get-port missing dep
+
 ## 1.1.0-6-next.7
 
 ### Patch Changes

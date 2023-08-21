@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/api",
-  "version": "6.0.0-6-next.59",
+  "version": "7.0.0-next.0",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,13 +39,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:6.0.0-6-next.55",
-    "@verdaccio/config": "workspace:6.0.0-6-next.76",
-    "@verdaccio/core": "workspace:6.0.0-6-next.76",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.44",
-    "@verdaccio/middleware": "workspace:6.0.0-6-next.55",
-    "@verdaccio/store": "workspace:6.0.0-6-next.56",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.44",
+    "@verdaccio/auth": "workspace:7.0.0-next.0",
+    "@verdaccio/config": "workspace:7.0.0-next.0",
+    "@verdaccio/core": "workspace:7.0.0-next.0",
+    "@verdaccio/logger": "workspace:7.0.0-next.0",
+    "@verdaccio/middleware": "workspace:7.0.0-next.0",
+    "@verdaccio/store": "workspace:7.0.0-next.0",
+    "@verdaccio/utils": "workspace:7.0.0-next.0",
     "abortcontroller-polyfill": "1.7.5",
     "cookies": "0.8.0",
     "debug": "4.3.4",
@@ -56,9 +56,9 @@
     "semver": "7.5.4"
   },
   "devDependencies": {
-    "@verdaccio/server": "workspace:6.0.0-6-next.65",
-    "@verdaccio/types": "workspace:11.0.0-6-next.25",
-    "@verdaccio/test-helper": "workspace:2.0.0-6-next.8",
+    "@verdaccio/server": "workspace:7.0.0-next.0",
+    "@verdaccio/types": "workspace:12.0.0-next.0",
+    "@verdaccio/test-helper": "workspace:3.0.0-next.0",
     "supertest": "6.3.3",
     "nock": "13.2.9",
     "mockdate": "3.0.5"

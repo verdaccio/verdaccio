@@ -1,5 +1,17 @@
 # @verdaccio/proxy
 
+## 7.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+## 6.0.0
+
+### Minor Changes
+
+- 15e58d988: feat: add search package utilities
+
 ## 6.0.0-6-next.2
 
 ### Minor Changes

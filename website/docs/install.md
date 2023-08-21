@@ -32,7 +32,7 @@ Learn the basics before getting started, how to install, where is the location o
 Using `npm`
 
 ```bash
-npm install --location=global verdaccio@6-next
+npm install --location=global verdaccio@7-next
 ```
 
 or using `yarn@1.x` _classic_,

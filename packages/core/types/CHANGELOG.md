@@ -1,5 +1,400 @@
 # Change Log
 
+## 12.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+## 11.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- a3a209b5e: feat: migrate to pino.js 8
+- 459b6fa72: refactor: search v1 endpoint and local-database
+
+  - refactor search `api v1` endpoint, improve performance
+  - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
+  - refactor method storage class
+  - create new module `core` to reduce the ammount of modules with utilities
+  - use `undici` instead `node-fetch`
+  - use `fastify` instead `express` for functional test
+
+  ### Breaking changes
+
+  - plugin storage API changes
+  - remove old search endpoint (return 404)
+  - filter local private packages at plugin level
+
+  The storage api changes for methods `get`, `add`, `remove` as promise base. The `search` methods also changes and recieves a `query` object that contains all query params from the client.
+
+  ```ts
+  export interface IPluginStorage<T> extends IPlugin {
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
+    init(): Promise<void>;
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<any>;
+    getPackageStorage(packageInfo: string): IPackageStorage;
+    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
+    saveToken(token: Token): Promise<any>;
+    deleteToken(user: string, tokenKey: string): Promise<any>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+  }
+  ```
+
+- 9fc2e7961: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+- 794af76c5: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+- 10aeb4f13: feat!: experiments config renamed to flags
+
+  - The `experiments` configuration is renamed to `flags`. The functionality is exactly the same.
+
+  ```js
+  flags: token: false;
+  search: false;
+  ```
+
+  - The `self_path` property from the config file is being removed in favor of `config_file` full path.
+  - Refactor `config` module, better types and utilities
+
+- e367c3f1e: - Replace signature handler for legacy tokens by removing deprecated crypto.createDecipher by createCipheriv
+
+  - Introduce environment variables for legacy tokens
+
+  ### Code Improvements
+
+  - Add debug library for improve developer experience
+
+  ### Breaking change
+
+  - The new signature invalidates all previous tokens generated by Verdaccio 4 or previous versions.
+  - The secret key must have 32 characters long.
+
+  ### New environment variables
+
+  - `VERDACCIO_LEGACY_ALGORITHM`: Allows to define the specific algorithm for the token signature which by default is `aes-256-ctr`
+  - `VERDACCIO_LEGACY_ENCRYPTION_KEY`: By default, the token stores in the database, but using this variable allows to get it from memory
+
+- 999787974: feat(web): components for custom user interfaces
+
+  Provides a package that includes all components from the user interface, instead being embedded at the `@verdaccio/ui-theme` package.
+
+  ```
+  npm i -D @verdaccio/ui-components
+  ```
+
+  The package contains
+
+  - Components
+  - Providers
+  - Redux Storage
+  - Layouts (precomposed layouts ready to use)
+  - Custom Material Theme
+
+  The `@verdaccio/ui-theme` will consume this package and will use only those are need it.
+
+  > Prerequisites are using Redux, Material-UI and Translations with `i18next`.
+
+  Users could have their own Material UI theme and build custom layouts, adding new features without the need to modify the default project.
+
+- 82cb0f2bf: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+- 000d43746: feat: upgrade to material ui 5
+- 8f43bf17d: feat: node api new structure based on promise
+
+  ```js
+  import { runServer } from '@verdaccio/node-api';
+  // or
+  import { runServer } from 'verdaccio';
+
+  const app = await runServer(); // default configuration
+  const app = await runServer('./config/config.yaml');
+  const app = await runServer({ configuration });
+  app.listen(4000, (event) => {
+    // do something
+  });
+  ```
+
+  ### Breaking Change
+
+  If you are using the node-api, the new structure is Promise based and less arguments.
+
+### Minor Changes
+
+- 0da7031e7: allow disable login on ui and endpoints
+
+  To be able disable the login, set `login: false`, anything else would enable login. This flag will disable access via UI and web endpoints.
+
+  ```yml
+  web:
+    title: verdaccio
+    login: false
+  ```
+
+- 974cd8c19: fix: startup messages improved and logs support on types
+- ef88da3b4: feat: improve support for fs promises older nodejs
+- 631abe1ac: feat: refactor logger
+- b61f762d6: feat: add server rate limit protection to all request
+
+  To modify custom values, use the server settings property.
+
+  ```markdown
+  server:
+
+  ## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+  rateLimit:
+  windowMs: 1000
+  max: 10000
+  ```
+
+  The values are intended to be high, if you want to improve security of your server consider
+  using different values.
+
+- d43894e8f: feat: rework web header for mobile, add new settings and raw manifest button
+
+  ### New set of variables to hide features
+
+  Add set of new variables that allow hide different parts of the UI, buttons, footer or download tarballs. _All are
+  enabled by default_.
+
+  ```yaml
+  # login: true <-- already exist but worth the reminder
+  # showInfo: true
+  # showSettings: true
+  # In combination with darkMode you can force specific theme
+  # showThemeSwitch: true
+  # showFooter: true
+  # showSearch: true
+  # showDownloadTarball: true
+  ```
+
+  > If you disable `showThemeSwitch` and force `darkMode: true` the local storage settings would be
+  > ignored and force all themes to the one in the configuration file.
+
+  Future could be extended to
+
+  ### Raw button to display manifest package
+
+  A new experimental feature (enabled by default), button named RAW to be able navigate on the package manifest directly on the ui, kudos to [react-json-view](https://www.npmjs.com/package/react-json-view) that allows an easy integration, not configurable yet until get more feedback.
+
+  ```yaml
+  showRaw: true
+  ```
+
+  #### Rework header buttons
+
+  - The header has been rework, the mobile was not looking broken.
+  - Removed info button in the header and moved to a dialog
+  - Info dialog now contains more information about the project, license and the aid content for Ukrania now is inside of the info modal.
+  - Separate settings and info to avoid collapse too much info (for mobile still need some work)
+
+- 154b2ecd3: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+- aa763baec: feat: add typescript project references settings
+
+  Reading https://ebaytech.berlin/optimizing-multi-package-apps-with-typescript-project-references-d5c57a3b4440 I realized I can use project references to solve the issue to pre-compile modules on develop mode.
+
+  It allows to navigate (IDE) trough the packages without need compile the packages.
+
+  Add two `tsconfig`, one using the previous existing configuration that is able to produce declaration files (`tsconfig.build`) and a new one `tsconfig` which is enables [_projects references_](https://www.typescriptlang.org/docs/handbook/project-references.html).
+
+- 16e38df8a: feat: trustProxy property
+- dc571aabd: feat: add forceEnhancedLegacySignature
+- 62c24b632: feat: add passwordValidationRegex property
+- 5167bb528: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+- 5cf041a1a: feat: add dist.signatures to core/types
+
+  According to [`npm`](https://docs.npmjs.com/about-registry-signatures): _"Signatures are provided in the package's `packument` in each published version within the `dist` object"_
+
+  Here's an [example of a package version from the public npm registry with `dist.signatures`](https://registry.npmjs.org/light-cycle/1.4.3).
+
+- 37274e4c8: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+- 45c03819e: refactor: render html middleware
+- aecbd226d: web: allow ui hide package managers on sidebar
+
+  If there is a package manager of preference over others, you can define the package managers to be displayed on the detail page and sidebar, just define in the `config.yaml` and web section the list of package managers to be displayed.
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+      - pnpm
+      - yarn
+      # - npm
+  ```
+
+  To disable all package managers, just define empty:
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+  ```
+
+  and the section would be hidden.
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- 7ef599cc4: fix: missing version on footer
+- 19d272d10: fix: restore logger on init
+
+  Enable logger after parse configuration and log the very first step on startup phase.
+
+  ```bash
+   warn --- experiments are enabled, it is recommended do not use experiments in production comment out this section to disable it
+   info --- support for experiment [token]  is disabled
+   info --- support for experiment [search]  is disabled
+  (node:50831) Warning: config.logs is deprecated, rename configuration to "config.log"
+  (Use `node --trace-warnings ...` to show where the warning was created)
+   info --- http address http://localhost:4873/
+   info --- version: 6.0.0-6-next.11
+   info --- server started
+  ```
+
+- a610ef26b: chore: add release step to private regisry on merge changeset pr
+- 4fc21146a: fix: missing logo on header
+- 34f0f1101: Enable prerelease mode with **changesets**
+- 68ea21214: ESLint Warnings Fixed
+
+  Related to issue #1461
+
+  - max-len: most of the sensible max-len errors are fixed
+  - no-unused-vars: most of these types of errors are fixed by deleting not needed declarations
+  - @typescript-eslint/no-unused-vars: same as above
+
+- b849128de: fix: handle upload scoped tarball
+
 ## 11.0.0-6-next.25
 
 ### Minor Changes

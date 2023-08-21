@@ -1,5 +1,15 @@
 # @verdaccio/e2e-cli-npm7
 
+## 1.0.1
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [d167f92e1]
+- Updated dependencies [c383eb68c]
+  - @verdaccio/test-cli-commons@1.1.0
+
 ## 1.0.1-6-next.7
 
 ### Patch Changes

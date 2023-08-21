@@ -11,7 +11,7 @@ A collection of components ready to use for building complex user interfaces.
 - `hooks`: A collection of useful React hooks.
 
 ```bash
-npm i -D @verdaccio/ui-components@6-next
+npm i -D @verdaccio/ui-components@7-next
 ```
 
 ## Requirements

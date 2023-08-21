@@ -1,5 +1,108 @@
 # Change Log
 
+## 3.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+## 2.0.0
+
+### Major Changes
+
+- 9fc2e7961: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+### Minor Changes
+
+- dc571aabd: feat: add forceEnhancedLegacySignature
+- ce013d2fc: refactor: npm star command support reimplemented
+- 5167bb528: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+- 37274e4c8: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+### Patch Changes
+
+- 9943e2b18: fix: extract logger from middleware
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- a828a5f6c: fix: #3174 set correctly ui values to html render
+- b849128de: fix: handle upload scoped tarball
+
 ## 2.0.0-6-next.8
 
 ### Minor Changes

@@ -1,5 +1,245 @@
 # Change Log
 
+## 12.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/config@7.0.0-next.0
+  - @verdaccio/core@7.0.0-next.0
+
+## 11.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- a3a209b5e: feat: migrate to pino.js 8
+- 459b6fa72: refactor: search v1 endpoint and local-database
+
+  - refactor search `api v1` endpoint, improve performance
+  - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
+  - refactor method storage class
+  - create new module `core` to reduce the ammount of modules with utilities
+  - use `undici` instead `node-fetch`
+  - use `fastify` instead `express` for functional test
+
+  ### Breaking changes
+
+  - plugin storage API changes
+  - remove old search endpoint (return 404)
+  - filter local private packages at plugin level
+
+  The storage api changes for methods `get`, `add`, `remove` as promise base. The `search` methods also changes and recieves a `query` object that contains all query params from the client.
+
+  ```ts
+  export interface IPluginStorage<T> extends IPlugin {
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
+    init(): Promise<void>;
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<any>;
+    getPackageStorage(packageInfo: string): IPackageStorage;
+    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
+    saveToken(token: Token): Promise<any>;
+    deleteToken(user: string, tokenKey: string): Promise<any>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+  }
+  ```
+
+- 9fc2e7961: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+- 794af76c5: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+- 10aeb4f13: feat!: experiments config renamed to flags
+
+  - The `experiments` configuration is renamed to `flags`. The functionality is exactly the same.
+
+  ```js
+  flags: token: false;
+  search: false;
+  ```
+
+  - The `self_path` property from the config file is being removed in favor of `config_file` full path.
+  - Refactor `config` module, better types and utilities
+
+- 061bfcc8d: feat: standalone registry with no dependencies
+
+  ## Usage
+
+  To install a server with no dependencies
+
+  ```bash
+  npm install -g @verdaccio/standalone
+  ```
+
+  with no internet required
+
+  ```bash
+  npm install -g ./tarball.tar.gz
+  ```
+
+  Bundles htpasswd and audit plugins.
+
+  ### Breaking Change
+
+  It does not allow anymore the `auth` and `middleware` property at config file empty,
+  it will fallback to those plugins by default.
+
+### Minor Changes
+
+- 24b9be020: refactor: improve docker image build with strict dependencies and prod build
+- 631abe1ac: feat: refactor logger
+- b61f762d6: feat: add server rate limit protection to all request
+
+  To modify custom values, use the server settings property.
+
+  ```markdown
+  server:
+
+  ## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+  rateLimit:
+  windowMs: 1000
+  max: 10000
+  ```
+
+  The values are intended to be high, if you want to improve security of your server consider
+  using different values.
+
+- 45c03819e: refactor: render html middleware
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- a610ef26b: chore: add release step to private regisry on merge changeset pr
+- f96b147ea: fix: several issues which caused the audit to fail (#2335)
+- Updated dependencies [292c0a37f]
+- Updated dependencies [974cd8c19]
+- Updated dependencies [ef88da3b4]
+- Updated dependencies [43f32687c]
+- Updated dependencies [679c19c1b]
+- Updated dependencies [a3a209b5e]
+- Updated dependencies [459b6fa72]
+- Updated dependencies [9fc2e7961]
+- Updated dependencies [24b9be020]
+- Updated dependencies [794af76c5]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [10aeb4f13]
+- Updated dependencies [9718e0330]
+- Updated dependencies [1b217fd34]
+- Updated dependencies [e367c3f1e]
+- Updated dependencies [a1da11308]
+- Updated dependencies [d167f92e1]
+- Updated dependencies [00d1d2a17]
+- Updated dependencies [1810ed0d8]
+- Updated dependencies [a610ef26b]
+- Updated dependencies [ddb6a2239]
+- Updated dependencies [b61f762d6]
+- Updated dependencies [d43894e8f]
+- Updated dependencies [154b2ecd3]
+- Updated dependencies [aa763baec]
+- Updated dependencies [378e907d5]
+- Updated dependencies [16e38df8a]
+- Updated dependencies [34f0f1101]
+- Updated dependencies [82cb0f2bf]
+- Updated dependencies [dc571aabd]
+- Updated dependencies [f859d2b1a]
+- Updated dependencies [6c1eb021b]
+- Updated dependencies [62c24b632]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [d08fe29d9]
+- Updated dependencies [5167bb528]
+- Updated dependencies [c9d1af0e5]
+- Updated dependencies [4b29d715b]
+- Updated dependencies [68ea21214]
+- Updated dependencies [8f43bf17d]
+- Updated dependencies [45c03819e]
+- Updated dependencies [b849128de]
+  - @verdaccio/config@6.0.0
+  - @verdaccio/core@6.0.0
+
 ## 11.0.0-6-next.39
 
 ### Patch Changes

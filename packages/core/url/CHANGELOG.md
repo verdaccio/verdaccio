@@ -1,5 +1,108 @@
 # Change Log
 
+## 12.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@7.0.0-next.0
+
+## 11.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- dc05edfe6: # async storage plugin bootstrap
+
+  Gives a storage plugin the ability to perform asynchronous tasks on initialization
+
+  ## Breaking change
+
+  Plugin must have an init method in which asynchronous tasks can be executed
+
+  ```js
+  public async init(): Promise<void> {
+     this.data = await this._fetchLocalPackages();
+     this._sync();
+  }
+  ```
+
+- 794af76c5: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+### Minor Changes
+
+- ef88da3b4: feat: improve support for fs promises older nodejs
+- 154b2ecd3: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+- ce013d2fc: refactor: npm star command support reimplemented
+- 4b29d715b: chore: move improvements from v5 to v6
+
+  Migrate improvements form v5 to v6:
+
+  - https://github.com/verdaccio/verdaccio/pull/3158
+  - https://github.com/verdaccio/verdaccio/pull/3151
+  - https://github.com/verdaccio/verdaccio/pull/2271
+  - https://github.com/verdaccio/verdaccio/pull/2787
+  - https://github.com/verdaccio/verdaccio/pull/2791
+  - https://github.com/verdaccio/verdaccio/pull/2205
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- 9718e0330: fix: build targets for 5x modules
+- Updated dependencies [292c0a37f]
+- Updated dependencies [974cd8c19]
+- Updated dependencies [ef88da3b4]
+- Updated dependencies [43f32687c]
+- Updated dependencies [a3a209b5e]
+- Updated dependencies [459b6fa72]
+- Updated dependencies [24b9be020]
+- Updated dependencies [794af76c5]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [9718e0330]
+- Updated dependencies [a1da11308]
+- Updated dependencies [00d1d2a17]
+- Updated dependencies [154b2ecd3]
+- Updated dependencies [378e907d5]
+- Updated dependencies [16e38df8a]
+- Updated dependencies [82cb0f2bf]
+- Updated dependencies [dc571aabd]
+- Updated dependencies [f859d2b1a]
+- Updated dependencies [6c1eb021b]
+- Updated dependencies [62c24b632]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [5167bb528]
+- Updated dependencies [c9d1af0e5]
+- Updated dependencies [4b29d715b]
+- Updated dependencies [b849128de]
+  - @verdaccio/core@6.0.0
+
 ## 11.0.0-6-next.42
 
 ### Patch Changes

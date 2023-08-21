@@ -1,5 +1,339 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+## 6.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- 459b6fa72: refactor: search v1 endpoint and local-database
+
+  - refactor search `api v1` endpoint, improve performance
+  - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
+  - refactor method storage class
+  - create new module `core` to reduce the ammount of modules with utilities
+  - use `undici` instead `node-fetch`
+  - use `fastify` instead `express` for functional test
+
+  ### Breaking changes
+
+  - plugin storage API changes
+  - remove old search endpoint (return 404)
+  - filter local private packages at plugin level
+
+  The storage api changes for methods `get`, `add`, `remove` as promise base. The `search` methods also changes and recieves a `query` object that contains all query params from the client.
+
+  ```ts
+  export interface IPluginStorage<T> extends IPlugin {
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
+    init(): Promise<void>;
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<any>;
+    getPackageStorage(packageInfo: string): IPackageStorage;
+    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
+    saveToken(token: Token): Promise<any>;
+    deleteToken(user: string, tokenKey: string): Promise<any>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+  }
+  ```
+
+- 794af76c5: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+- 999787974: feat(web): components for custom user interfaces
+
+  Provides a package that includes all components from the user interface, instead being embedded at the `@verdaccio/ui-theme` package.
+
+  ```
+  npm i -D @verdaccio/ui-components
+  ```
+
+  The package contains
+
+  - Components
+  - Providers
+  - Redux Storage
+  - Layouts (precomposed layouts ready to use)
+  - Custom Material Theme
+
+  The `@verdaccio/ui-theme` will consume this package and will use only those are need it.
+
+  > Prerequisites are using Redux, Material-UI and Translations with `i18next`.
+
+  Users could have their own Material UI theme and build custom layouts, adding new features without the need to modify the default project.
+
+- 82cb0f2bf: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+- 000d43746: feat: upgrade to material ui 5
+- 558d78f32: feat: flexible user interface generator
+
+  **breaking change**
+
+  The UI does not provide a pre-generated `index.html`, instead the server generates
+  the body of the web application based in few parameters:
+
+  - Webpack manifest
+  - User configuration details
+
+  It allows inject html tags, javascript and new CSS to make the page even more flexible.
+
+  ### Web new properties for dynamic template
+
+  The new set of properties are made in order allow inject _html_ and _JavaScript_ scripts within the template. This
+  might be useful for scenarios like Google Analytics scripts or custom html in any part of the body.
+
+  - metaScripts: html injected before close the `head` element.
+  - scriptsBodyAfter: html injected before close the `body` element.
+  - bodyAfter: html injected after _verdaccio_ JS scripts.
+
+  ```yaml
+  web:
+    scriptsBodyAfter:
+      - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+    metaScripts:
+      - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
+      - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
+      - '<meta name="robots" content="noindex" />'
+    bodyBefore:
+      - '<div id="myId">html before webpack scripts</div>'
+    bodyAfter:
+      - '<div id="myId">html after webpack scripts</div>'
+  ```
+
+  ### UI plugin changes
+
+  - `index.html` is not longer used, template is generated based on `manifest.json` generated by webpack.
+  - Plugin must export:
+    - the manifest file.
+    - the manifest files: matcher (array of id that generates required scripts to run the ui)
+    - static path: The absolute path where the files are located in `node_modules`
+
+  ```
+  exports.staticPath = path.join(__dirname, 'static');
+  exports.manifest = require('./static/manifest.json');
+  exports.manifestFiles = {
+    js: ['runtime.js', 'vendors.js', 'main.js'],
+    css: [],
+    ico: 'favicon.ico',
+  };
+  ```
+
+  - Remove font files
+  - CSS is inline on JS (this will help with #2046)
+
+  ### Docker v5 Examples
+
+  - Move all current examples to v4 folder
+  - Remove any v3 example
+  - Create v5 folder with Nginx Example
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/issues/1523
+  https://github.com/verdaccio/verdaccio/issues/1297
+  https://github.com/verdaccio/verdaccio/issues/1593
+  https://github.com/verdaccio/verdaccio/discussions/1539
+  https://github.com/verdaccio/website/issues/264
+  https://github.com/verdaccio/verdaccio/issues/1565
+  https://github.com/verdaccio/verdaccio/issues/1251
+  https://github.com/verdaccio/verdaccio/issues/2029
+  https://github.com/verdaccio/docker-examples/issues/29
+
+- 781ac9ac2: fix package configuration issues
+
+### Minor Changes
+
+- 0da7031e7: allow disable login on ui and endpoints
+
+  To be able disable the login, set `login: false`, anything else would enable login. This flag will disable access via UI and web endpoints.
+
+  ```yml
+  web:
+    title: verdaccio
+    login: false
+  ```
+
+- 67406082e: upgrade to react@17 and other dependencies
+- 0481b9a32: feat: upgrade to react 18
+- ad3151c3f: fix: remove engines from ui-theme
+- 7344a7fcf: feat: ui bugfixes and improvements
+- a23628be9: feat: parse and sanitize on ui
+- 048ac95e8: feat: align with v5 ui endpoints and ui small bugfix
+- e9e455265: feat: ui theme plugin part of the application
+- b61f762d6: feat: add server rate limit protection to all request
+
+  To modify custom values, use the server settings property.
+
+  ```markdown
+  server:
+
+  ## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+  rateLimit:
+  windowMs: 1000
+  max: 10000
+  ```
+
+  The values are intended to be high, if you want to improve security of your server consider
+  using different values.
+
+- 5fed1955a: feat: integrate rematch for ui state storage
+- d43894e8f: feat: rework web header for mobile, add new settings and raw manifest button
+
+  ### New set of variables to hide features
+
+  Add set of new variables that allow hide different parts of the UI, buttons, footer or download tarballs. _All are
+  enabled by default_.
+
+  ```yaml
+  # login: true <-- already exist but worth the reminder
+  # showInfo: true
+  # showSettings: true
+  # In combination with darkMode you can force specific theme
+  # showThemeSwitch: true
+  # showFooter: true
+  # showSearch: true
+  # showDownloadTarball: true
+  ```
+
+  > If you disable `showThemeSwitch` and force `darkMode: true` the local storage settings would be
+  > ignored and force all themes to the one in the configuration file.
+
+  Future could be extended to
+
+  ### Raw button to display manifest package
+
+  A new experimental feature (enabled by default), button named RAW to be able navigate on the package manifest directly on the ui, kudos to [react-json-view](https://www.npmjs.com/package/react-json-view) that allows an easy integration, not configurable yet until get more feedback.
+
+  ```yaml
+  showRaw: true
+  ```
+
+  #### Rework header buttons
+
+  - The header has been rework, the mobile was not looking broken.
+  - Removed info button in the header and moved to a dialog
+  - Info dialog now contains more information about the project, license and the aid content for Ukrania now is inside of the info modal.
+  - Separate settings and info to avoid collapse too much info (for mobile still need some work)
+
+- 154b2ecd3: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+- 5167bb528: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+- 7ff4808be: feat: improve registry info dialog and language switch
+- 45c03819e: refactor: render html middleware
+- aecbd226d: web: allow ui hide package managers on sidebar
+
+  If there is a package manager of preference over others, you can define the package managers to be displayed on the detail page and sidebar, just define in the `config.yaml` and web section the list of package managers to be displayed.
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+      - pnpm
+      - yarn
+      # - npm
+  ```
+
+  To disable all package managers, just define empty:
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+  ```
+
+  and the section would be hidden.
+
+### Patch Changes
+
+- bf4ac5006: fix: markdown ul and img styles
+- a2b69a08e: add banner support ukraine
+- a179f1fd4: show verdaccio logo in the footer even when custom brand is set
+- 5d9b65a1e: chore: improve info regarding using private registries
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- a828a5f6c: fix: #3174 set correctly ui values to html render
+- a610ef26b: chore: add release step to private regisry on merge changeset pr
+- df53f61c6: feat: add types and package module icons on sidebar
+- 635ca3f92: chore: force publish
+- 648575aa4: Bug Fixes
+
+  - fix escaped slash in namespaced packages
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/pull/2193
+
+- 027718057: Hide search icon on medium or larger devices
+- aa0b2aa9d: fix: replace ts icon by td and fix commonjs icon
+- 4fc21146a: fix: missing logo on header
+- b4cc80017: fix: improve abort request search
+- 20d63dc30: ui: basic grammatical fixes in the Ukraine Message
+- d4019f634: Add links to "Current Tags" and sort them in descending order
+- c90896313: fix: specific version package detail page not showing
+- 910fc03f6: fix menuKey for Khmer language
+- 5b3903963: fix: fixes some style issues on mobile, particularly related to the Ukraine support message - [@s-h-a-d-o-w](https://github.com/s-h-a-d-o-w)
+- 0dafa9826: fix: undefined field on missing count
+- 6ad13de88: feat: Display publication time on sidebar
+
 ## 6.0.0-6-next.76
 
 ## 6.0.0-6-next.75

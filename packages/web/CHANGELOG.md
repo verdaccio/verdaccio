@@ -1,5 +1,489 @@
 # @verdaccio/web
 
+## 7.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/auth@7.0.0-next.0
+  - @verdaccio/config@7.0.0-next.0
+  - @verdaccio/core@7.0.0-next.0
+  - @verdaccio/tarball@12.0.0-next.0
+  - @verdaccio/url@12.0.0-next.0
+  - @verdaccio/loaders@7.0.0-next.0
+  - @verdaccio/logger@7.0.0-next.0
+  - @verdaccio/middleware@7.0.0-next.0
+  - @verdaccio/store@7.0.0-next.0
+  - @verdaccio/utils@7.0.0-next.0
+
+## 6.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- 459b6fa72: refactor: search v1 endpoint and local-database
+
+  - refactor search `api v1` endpoint, improve performance
+  - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
+  - refactor method storage class
+  - create new module `core` to reduce the ammount of modules with utilities
+  - use `undici` instead `node-fetch`
+  - use `fastify` instead `express` for functional test
+
+  ### Breaking changes
+
+  - plugin storage API changes
+  - remove old search endpoint (return 404)
+  - filter local private packages at plugin level
+
+  The storage api changes for methods `get`, `add`, `remove` as promise base. The `search` methods also changes and recieves a `query` object that contains all query params from the client.
+
+  ```ts
+  export interface IPluginStorage<T> extends IPlugin {
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
+    init(): Promise<void>;
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<any>;
+    getPackageStorage(packageInfo: string): IPackageStorage;
+    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
+    saveToken(token: Token): Promise<any>;
+    deleteToken(user: string, tokenKey: string): Promise<any>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+  }
+  ```
+
+- 9fc2e7961: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+- 794af76c5: Remove Node 12 support
+
+  - We need move to the new `undici` and does not support Node.js 12
+
+- 10aeb4f13: feat!: experiments config renamed to flags
+
+  - The `experiments` configuration is renamed to `flags`. The functionality is exactly the same.
+
+  ```js
+  flags: token: false;
+  search: false;
+  ```
+
+  - The `self_path` property from the config file is being removed in favor of `config_file` full path.
+  - Refactor `config` module, better types and utilities
+
+- e367c3f1e: - Replace signature handler for legacy tokens by removing deprecated crypto.createDecipher by createCipheriv
+
+  - Introduce environment variables for legacy tokens
+
+  ### Code Improvements
+
+  - Add debug library for improve developer experience
+
+  ### Breaking change
+
+  - The new signature invalidates all previous tokens generated by Verdaccio 4 or previous versions.
+  - The secret key must have 32 characters long.
+
+  ### New environment variables
+
+  - `VERDACCIO_LEGACY_ALGORITHM`: Allows to define the specific algorithm for the token signature which by default is `aes-256-ctr`
+  - `VERDACCIO_LEGACY_ENCRYPTION_KEY`: By default, the token stores in the database, but using this variable allows to get it from memory
+
+- 82cb0f2bf: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+- 000d43746: feat: upgrade to material ui 5
+- 558d78f32: feat: flexible user interface generator
+
+  **breaking change**
+
+  The UI does not provide a pre-generated `index.html`, instead the server generates
+  the body of the web application based in few parameters:
+
+  - Webpack manifest
+  - User configuration details
+
+  It allows inject html tags, javascript and new CSS to make the page even more flexible.
+
+  ### Web new properties for dynamic template
+
+  The new set of properties are made in order allow inject _html_ and _JavaScript_ scripts within the template. This
+  might be useful for scenarios like Google Analytics scripts or custom html in any part of the body.
+
+  - metaScripts: html injected before close the `head` element.
+  - scriptsBodyAfter: html injected before close the `body` element.
+  - bodyAfter: html injected after _verdaccio_ JS scripts.
+
+  ```yaml
+  web:
+    scriptsBodyAfter:
+      - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+    metaScripts:
+      - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
+      - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
+      - '<meta name="robots" content="noindex" />'
+    bodyBefore:
+      - '<div id="myId">html before webpack scripts</div>'
+    bodyAfter:
+      - '<div id="myId">html after webpack scripts</div>'
+  ```
+
+  ### UI plugin changes
+
+  - `index.html` is not longer used, template is generated based on `manifest.json` generated by webpack.
+  - Plugin must export:
+    - the manifest file.
+    - the manifest files: matcher (array of id that generates required scripts to run the ui)
+    - static path: The absolute path where the files are located in `node_modules`
+
+  ```
+  exports.staticPath = path.join(__dirname, 'static');
+  exports.manifest = require('./static/manifest.json');
+  exports.manifestFiles = {
+    js: ['runtime.js', 'vendors.js', 'main.js'],
+    css: [],
+    ico: 'favicon.ico',
+  };
+  ```
+
+  - Remove font files
+  - CSS is inline on JS (this will help with #2046)
+
+  ### Docker v5 Examples
+
+  - Move all current examples to v4 folder
+  - Remove any v3 example
+  - Create v5 folder with Nginx Example
+
+  #### Related tickets
+
+  https://github.com/verdaccio/verdaccio/issues/1523
+  https://github.com/verdaccio/verdaccio/issues/1297
+  https://github.com/verdaccio/verdaccio/issues/1593
+  https://github.com/verdaccio/verdaccio/discussions/1539
+  https://github.com/verdaccio/website/issues/264
+  https://github.com/verdaccio/verdaccio/issues/1565
+  https://github.com/verdaccio/verdaccio/issues/1251
+  https://github.com/verdaccio/verdaccio/issues/2029
+  https://github.com/verdaccio/docker-examples/issues/29
+
+- 781ac9ac2: fix package configuration issues
+
+### Minor Changes
+
+- 0da7031e7: allow disable login on ui and endpoints
+
+  To be able disable the login, set `login: false`, anything else would enable login. This flag will disable access via UI and web endpoints.
+
+  ```yml
+  web:
+    title: verdaccio
+    login: false
+  ```
+
+- a1986e098: feat: expose middleware utils
+- 24b9be020: refactor: improve docker image build with strict dependencies and prod build
+- 631abe1ac: feat: refactor logger
+- a23628be9: feat: parse and sanitize on ui
+- 048ac95e8: feat: align with v5 ui endpoints and ui small bugfix
+- b61f762d6: feat: add server rate limit protection to all request
+
+  To modify custom values, use the server settings property.
+
+  ```markdown
+  server:
+
+  ## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+  rateLimit:
+  windowMs: 1000
+  max: 10000
+  ```
+
+  The values are intended to be high, if you want to improve security of your server consider
+  using different values.
+
+- 154b2ecd3: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+- aa763baec: feat: add typescript project references settings
+
+  Reading https://ebaytech.berlin/optimizing-multi-package-apps-with-typescript-project-references-d5c57a3b4440 I realized I can use project references to solve the issue to pre-compile modules on develop mode.
+
+  It allows to navigate (IDE) trough the packages without need compile the packages.
+
+  Add two `tsconfig`, one using the previous existing configuration that is able to produce declaration files (`tsconfig.build`) and a new one `tsconfig` which is enables [_projects references_](https://www.typescriptlang.org/docs/handbook/project-references.html).
+
+- 62c24b632: feat: add passwordValidationRegex property
+- d08fe29d9: feat(web): add a config item to web，let the developer can select whet……her enable the html cache
+- 5167bb528: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+- f86c31ed0: feat: migrate web sidebar endpoint to fastify
+
+  reuse utils methods between packages
+
+- 20c9e43ed: dist tags Implementation on Fastify
+- 4b29d715b: chore: move improvements from v5 to v6
+
+  Migrate improvements form v5 to v6:
+
+  - https://github.com/verdaccio/verdaccio/pull/3158
+  - https://github.com/verdaccio/verdaccio/pull/3151
+  - https://github.com/verdaccio/verdaccio/pull/2271
+  - https://github.com/verdaccio/verdaccio/pull/2787
+  - https://github.com/verdaccio/verdaccio/pull/2791
+  - https://github.com/verdaccio/verdaccio/pull/2205
+
+- 37274e4c8: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+- 45c03819e: refactor: render html middleware
+- aecbd226d: web: allow ui hide package managers on sidebar
+
+  If there is a package manager of preference over others, you can define the package managers to be displayed on the detail page and sidebar, just define in the `config.yaml` and web section the list of package managers to be displayed.
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+      - pnpm
+      - yarn
+      # - npm
+  ```
+
+  To disable all package managers, just define empty:
+
+  ```
+  web:
+    title: Verdaccio
+    sort_packages: asc
+    primary_color: #cccccc
+    pkgManagers:
+  ```
+
+  and the section would be hidden.
+
+### Patch Changes
+
+- 702d5c497: Fix the password validation logic for the `/reset_password` route to ensure that the password is only reset if it is valid.
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- 1d1112805: Remove @ts-ignore and any in packages/web/src/endpoint/package.ts
+- a828a5f6c: fix: #3174 set correctly ui values to html render
+- a610ef26b: chore: add release step to private regisry on merge changeset pr
+- 4fc21146a: fix: missing logo on header
+- 34f0f1101: Enable prerelease mode with **changesets**
+- 5ddfa5264: Fix the search by exact name of the package
+
+  Full package name queries was not finding anithing. It was happening
+  becouse of stemmer of [lunr.js](https://lunrjs.com/).
+
+  To fix this, the stemmer of [lunr.js](https://lunrjs.com/) was removed from search pipeline.
+
+- 0a6412ca9: refactor: got instead undici
+- b4cc80017: fix: improve abort request search
+- Updated dependencies [292c0a37f]
+- Updated dependencies [dc05edfe6]
+- Updated dependencies [a1986e098]
+- Updated dependencies [974cd8c19]
+- Updated dependencies [a828271d6]
+- Updated dependencies [ef88da3b4]
+- Updated dependencies [43f32687c]
+- Updated dependencies [679c19c1b]
+- Updated dependencies [a3a209b5e]
+- Updated dependencies [459b6fa72]
+- Updated dependencies [9fc2e7961]
+- Updated dependencies [9943e2b18]
+- Updated dependencies [ae93e039d]
+- Updated dependencies [24b9be020]
+- Updated dependencies [794af76c5]
+- Updated dependencies [e75c0a3b9]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [10aeb4f13]
+- Updated dependencies [1d1112805]
+- Updated dependencies [631abe1ac]
+- Updated dependencies [9718e0330]
+- Updated dependencies [7ef599cc4]
+- Updated dependencies [b702ea363]
+- Updated dependencies [1b217fd34]
+- Updated dependencies [e367c3f1e]
+- Updated dependencies [a1da11308]
+- Updated dependencies [d167f92e1]
+- Updated dependencies [d2c65da9c]
+- Updated dependencies [00d1d2a17]
+- Updated dependencies [1810ed0d8]
+- Updated dependencies [a610ef26b]
+- Updated dependencies [ddb6a2239]
+- Updated dependencies [31d661c7b]
+- Updated dependencies [648575aa4]
+- Updated dependencies [b61f762d6]
+- Updated dependencies [4fc21146a]
+- Updated dependencies [d43894e8f]
+- Updated dependencies [154b2ecd3]
+- Updated dependencies [061bfcc8d]
+- Updated dependencies [aa763baec]
+- Updated dependencies [378e907d5]
+- Updated dependencies [16e38df8a]
+- Updated dependencies [34f0f1101]
+- Updated dependencies [82cb0f2bf]
+- Updated dependencies [dc571aabd]
+- Updated dependencies [5ddfa5264]
+- Updated dependencies [b78f35257]
+- Updated dependencies [ce013d2fc]
+- Updated dependencies [f859d2b1a]
+- Updated dependencies [2c594910d]
+- Updated dependencies [6c1eb021b]
+- Updated dependencies [62c24b632]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [d08fe29d9]
+- Updated dependencies [5167bb528]
+- Updated dependencies [f86c31ed0]
+- Updated dependencies [65f88b826]
+- Updated dependencies [aeff267d9]
+- Updated dependencies [20c9e43ed]
+- Updated dependencies [b3e8438f6]
+- Updated dependencies [c9d1af0e5]
+- Updated dependencies [730b5d8cc]
+- Updated dependencies [4b29d715b]
+- Updated dependencies [b13a3fefd]
+- Updated dependencies [68ea21214]
+- Updated dependencies [37274e4c8]
+- Updated dependencies [fa274ee44]
+- Updated dependencies [8f43bf17d]
+- Updated dependencies [45c03819e]
+- Updated dependencies [b849128de]
+  - @verdaccio/auth@6.0.0
+  - @verdaccio/config@6.0.0
+  - @verdaccio/core@6.0.0
+  - @verdaccio/tarball@11.0.0
+  - @verdaccio/url@11.0.0
+  - @verdaccio/loaders@6.0.0
+  - @verdaccio/logger@6.0.0
+  - @verdaccio/middleware@6.0.0
+  - @verdaccio/store@6.0.0
+  - @verdaccio/utils@6.0.0
+
 ## 6.0.0-6-next.63
 
 ### Patch Changes

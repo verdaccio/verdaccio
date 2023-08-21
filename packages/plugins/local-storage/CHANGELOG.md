@@ -1,5 +1,372 @@
 # Change Log
 
+## 12.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@7.0.0-next.0
+  - @verdaccio/file-locking@12.0.0-next.0
+  - @verdaccio/utils@7.0.0-next.0
+
+## 11.0.0
+
+### Major Changes
+
+- 292c0a37f: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- dc05edfe6: # async storage plugin bootstrap
+
+  Gives a storage plugin the ability to perform asynchronous tasks on initialization
+
+  ## Breaking change
+
+  Plugin must have an init method in which asynchronous tasks can be executed
+
+  ```js
+  public async init(): Promise<void> {
+     this.data = await this._fetchLocalPackages();
+     this._sync();
+  }
+  ```
+
+- a828271d6: refactor: download manifest endpoint and integrate fastify
+
+  Much simpler API for fetching a package
+
+  ```
+   const manifest = await storage.getPackageNext({
+        name,
+        uplinksLook: true,
+        req,
+        version: queryVersion,
+        requestOptions,
+   });
+  ```
+
+  > not perfect, the `req` still is being passed to the proxy (this has to be refactored at proxy package) and then removed from here, in proxy we pass the request instance to the `request` library.
+
+  ### Details
+
+  - `async/await` sugar for getPackage()
+  - Improve and reuse code between current implementation and new fastify endpoint (add scaffolding for request manifest)
+  - Improve performance
+  - Add new tests
+
+  ### Breaking changes
+
+  All storage plugins will stop to work since the storage uses `getPackageNext` method which is Promise based, I won't replace this now because will force me to update all plugins, I'll follow up in another PR. Currently will throw http 500
+
+- 459b6fa72: refactor: search v1 endpoint and local-database
+
+  - refactor search `api v1` endpoint, improve performance
+  - remove usage of `async` dependency https://github.com/verdaccio/verdaccio/issues/1225
+  - refactor method storage class
+  - create new module `core` to reduce the ammount of modules with utilities
+  - use `undici` instead `node-fetch`
+  - use `fastify` instead `express` for functional test
+
+  ### Breaking changes
+
+  - plugin storage API changes
+  - remove old search endpoint (return 404)
+  - filter local private packages at plugin level
+
+  The storage api changes for methods `get`, `add`, `remove` as promise base. The `search` methods also changes and recieves a `query` object that contains all query params from the client.
+
+  ```ts
+  export interface IPluginStorage<T> extends IPlugin {
+    add(name: string): Promise<void>;
+    remove(name: string): Promise<void>;
+    get(): Promise<any>;
+    init(): Promise<void>;
+    getSecret(): Promise<string>;
+    setSecret(secret: string): Promise<any>;
+    getPackageStorage(packageInfo: string): IPackageStorage;
+    search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
+    saveToken(token: Token): Promise<any>;
+    deleteToken(user: string, tokenKey: string): Promise<any>;
+    readTokens(filter: TokenFilter): Promise<Token[]>;
+  }
+  ```
+
+- 9fc2e7961: feat(plugins): improve plugin loader
+
+  ### Changes
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Avoid config collisions https://github.com/verdaccio/verdaccio/issues/928
+  - https://github.com/verdaccio/verdaccio/issues/1394
+  - `config.plugins` plugin path validations
+  - Updated algorithm for plugin loader.
+  - improved documentation (included dev)
+
+  ## Features
+
+  - Add scope plugin support to 6.x https://github.com/verdaccio/verdaccio/pull/3227
+  - Custom prefix:
+
+  ```
+  // config.yaml
+  server:
+    pluginPrefix: mycompany
+  middleware:
+    audit:
+        foo: 1
+  ```
+
+  This configuration will look up for `mycompany-audit` instead `Verdaccio-audit`.
+
+  ## Breaking Changes
+
+  ### sinopia plugins
+
+  - `sinopia` fallback support is removed, but can be restored using `pluginPrefix`
+
+  ### plugin filter
+
+  - method rename `filter_metadata`->`filterMetadata`
+
+  ### Plugin constructor does not merge configs anymore https://github.com/verdaccio/verdaccio/issues/928
+
+  The plugin receives as first argument `config`, which represents the config of the plugin. Example:
+
+  ```
+  // config.yaml
+  auth:
+    plugin:
+       foo: 1
+       bar: 2
+
+  export class Plugin<T> {
+    public constructor(config: T, options: PluginOptions) {
+      console.log(config);
+      // {foo:1, bar: 2}
+   }
+  }
+  ```
+
+- 10aeb4f13: feat!: experiments config renamed to flags
+
+  - The `experiments` configuration is renamed to `flags`. The functionality is exactly the same.
+
+  ```js
+  flags: token: false;
+  search: false;
+  ```
+
+  - The `self_path` property from the config file is being removed in favor of `config_file` full path.
+  - Refactor `config` module, better types and utilities
+
+- e367c3f1e: - Replace signature handler for legacy tokens by removing deprecated crypto.createDecipher by createCipheriv
+
+  - Introduce environment variables for legacy tokens
+
+  ### Code Improvements
+
+  - Add debug library for improve developer experience
+
+  ### Breaking change
+
+  - The new signature invalidates all previous tokens generated by Verdaccio 4 or previous versions.
+  - The secret key must have 32 characters long.
+
+  ### New environment variables
+
+  - `VERDACCIO_LEGACY_ALGORITHM`: Allows to define the specific algorithm for the token signature which by default is `aes-256-ctr`
+  - `VERDACCIO_LEGACY_ENCRYPTION_KEY`: By default, the token stores in the database, but using this variable allows to get it from memory
+
+- 82cb0f2bf: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+### Minor Changes
+
+- ef88da3b4: feat: improve support for fs promises older nodejs
+- 631abe1ac: feat: refactor logger
+- 1b217fd34: Some verdaccio modules depend on 'mkdirp' library which provides recursive directory creation functionality.
+  NodeJS can do this out of the box since v.10.12. The last commit in 'mkdirp' was made in early 2016, and it's mid 2021 now.
+  Time to stick with a built-in library solution!
+
+  - All 'mkdirp' calls are replaced with appropriate 'fs' calls.
+
+- e54ec4b5d: feat: remove level dependency by lowdb for npm token cli as storage
+
+  ### new npm token database
+
+  There will be a new database located in your storage named `.token-db.json` which
+  will store all references to created tokens, **it does not store tokens**, just
+  mask of them and related metadata required to reference them.
+
+  #### Breaking change
+
+  If you were relying on `npm token` experiment. This PR will replace the
+  used database (level) by a json plain based one (lowbd) which does not
+  require Node.js C++ compilation step and has less dependencies. Since was
+  a experiment there is no migration step.
+
+- b61f762d6: feat: add server rate limit protection to all request
+
+  To modify custom values, use the server settings property.
+
+  ```markdown
+  server:
+
+  ## https://www.npmjs.com/package/express-rate-limit#configuration-options
+
+  rateLimit:
+  windowMs: 1000
+  max: 10000
+  ```
+
+  The values are intended to be high, if you want to improve security of your server consider
+  using different values.
+
+- 154b2ecd3: refactor: remove @verdaccio/commons-api in favor @verdaccio/core and remove duplications
+- aa763baec: feat: add typescript project references settings
+
+  Reading https://ebaytech.berlin/optimizing-multi-package-apps-with-typescript-project-references-d5c57a3b4440 I realized I can use project references to solve the issue to pre-compile modules on develop mode.
+
+  It allows to navigate (IDE) trough the packages without need compile the packages.
+
+  Add two `tsconfig`, one using the previous existing configuration that is able to produce declaration files (`tsconfig.build`) and a new one `tsconfig` which is enables [_projects references_](https://www.typescriptlang.org/docs/handbook/project-references.html).
+
+- 5167bb528: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
+- 4b29d715b: chore: move improvements from v5 to v6
+
+  Migrate improvements form v5 to v6:
+
+  - https://github.com/verdaccio/verdaccio/pull/3158
+  - https://github.com/verdaccio/verdaccio/pull/3151
+  - https://github.com/verdaccio/verdaccio/pull/2271
+  - https://github.com/verdaccio/verdaccio/pull/2787
+  - https://github.com/verdaccio/verdaccio/pull/2791
+  - https://github.com/verdaccio/verdaccio/pull/2205
+
+- 37274e4c8: feat: implement abbreviated manifest
+
+  Enable abbreviated manifest data by adding the header:
+
+  ```
+  curl -H "Accept: application/vnd.npm.install-v1+json" https://registry.npmjs.org/verdaccio
+  ```
+
+  It returns a filtered manifest, additionally includes the [time](https://github.com/pnpm/rfcs/pull/2) field by request.
+
+  Current support for packages managers:
+
+  - npm: yes
+  - pnpm: yes
+  - yarn classic: yes
+  - yarn modern (+2.x): [no](https://github.com/yarnpkg/berry/pull/3981#issuecomment-1076566096)
+
+  https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-metadata-format
+
+### Patch Changes
+
+- 351aeeaa8: fix(deps): @verdaccio/utils should be a prod dep of local-storage
+- a610ef26b: chore: add release step to private regisry on merge changeset pr
+- 34f0f1101: Enable prerelease mode with **changesets**
+- df0da3d69: Added core-js missing from dependencies though referenced in .js sources
+- 68ea21214: ESLint Warnings Fixed
+
+  Related to issue #1461
+
+  - max-len: most of the sensible max-len errors are fixed
+  - no-unused-vars: most of these types of errors are fixed by deleting not needed declarations
+  - @typescript-eslint/no-unused-vars: same as above
+
+- Updated dependencies [292c0a37f]
+- Updated dependencies [a1986e098]
+- Updated dependencies [974cd8c19]
+- Updated dependencies [a828271d6]
+- Updated dependencies [ef88da3b4]
+- Updated dependencies [43f32687c]
+- Updated dependencies [a3a209b5e]
+- Updated dependencies [459b6fa72]
+- Updated dependencies [24b9be020]
+- Updated dependencies [794af76c5]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [10aeb4f13]
+- Updated dependencies [9718e0330]
+- Updated dependencies [e367c3f1e]
+- Updated dependencies [a1da11308]
+- Updated dependencies [d2c65da9c]
+- Updated dependencies [00d1d2a17]
+- Updated dependencies [a610ef26b]
+- Updated dependencies [648575aa4]
+- Updated dependencies [b61f762d6]
+- Updated dependencies [154b2ecd3]
+- Updated dependencies [aa763baec]
+- Updated dependencies [378e907d5]
+- Updated dependencies [16e38df8a]
+- Updated dependencies [34f0f1101]
+- Updated dependencies [82cb0f2bf]
+- Updated dependencies [dc571aabd]
+- Updated dependencies [f859d2b1a]
+- Updated dependencies [6c1eb021b]
+- Updated dependencies [62c24b632]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [5167bb528]
+- Updated dependencies [f86c31ed0]
+- Updated dependencies [c9d1af0e5]
+- Updated dependencies [4b29d715b]
+- Updated dependencies [b13a3fefd]
+- Updated dependencies [68ea21214]
+- Updated dependencies [b849128de]
+  - @verdaccio/core@6.0.0
+  - @verdaccio/file-locking@11.0.0
+  - @verdaccio/utils@6.0.0
+
 ## 11.0.0-6-next.46
 
 ### Patch Changes

@@ -1,5 +1,68 @@
 # @verdaccio/logger-commons
 
+## 7.0.0-next.0
+
+### Major Changes
+
+- feat!: bump to v7
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@7.0.0-next.0
+  - @verdaccio/logger-prettify@7.0.0-next.0
+
+## 6.0.0
+
+### Minor Changes
+
+- 631abe1ac: feat: refactor logger
+
+### Patch Changes
+
+- 84b2dffdb: fix: restore wrong dependency version
+- 65f88b826: bump logger packages
+- 4a33e269b: fix: restore pino legacy version
+- Updated dependencies [292c0a37f]
+- Updated dependencies [974cd8c19]
+- Updated dependencies [ef88da3b4]
+- Updated dependencies [43f32687c]
+- Updated dependencies [a3a209b5e]
+- Updated dependencies [459b6fa72]
+- Updated dependencies [24b9be020]
+- Updated dependencies [794af76c5]
+- Updated dependencies [e75c0a3b9]
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [10aeb4f13]
+- Updated dependencies [9718e0330]
+- Updated dependencies [b702ea363]
+- Updated dependencies [e367c3f1e]
+- Updated dependencies [a1da11308]
+- Updated dependencies [00d1d2a17]
+- Updated dependencies [a610ef26b]
+- Updated dependencies [b61f762d6]
+- Updated dependencies [154b2ecd3]
+- Updated dependencies [aa763baec]
+- Updated dependencies [378e907d5]
+- Updated dependencies [16e38df8a]
+- Updated dependencies [34f0f1101]
+- Updated dependencies [82cb0f2bf]
+- Updated dependencies [dc571aabd]
+- Updated dependencies [f859d2b1a]
+- Updated dependencies [6c1eb021b]
+- Updated dependencies [62c24b632]
+- Updated dependencies [0a6412ca9]
+- Updated dependencies [5167bb528]
+- Updated dependencies [65f88b826]
+- Updated dependencies [4a33e269b]
+- Updated dependencies [c9d1af0e5]
+- Updated dependencies [730b5d8cc]
+- Updated dependencies [4b29d715b]
+- Updated dependencies [68ea21214]
+- Updated dependencies [b849128de]
+  - @verdaccio/core@6.0.0
+  - @verdaccio/logger-prettify@6.0.0
+
 ## 6.0.0-6-next.44
 
 ### Patch Changes

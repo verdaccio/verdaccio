@@ -1,5 +1,14 @@
 # @verdaccio/e2e-cli-pnpm7
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [351aeeaa8]
+- Updated dependencies [d167f92e1]
+- Updated dependencies [c383eb68c]
+  - @verdaccio/test-cli-commons@1.1.0
+
 ## 1.0.1-6-next.7
 
 ### Patch Changes
