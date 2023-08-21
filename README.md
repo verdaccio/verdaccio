@@ -44,19 +44,19 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --location=global verdaccio@6-next
+npm install --location=global verdaccio@next
 ```
 
 With `yarn`
 
 ```bash
-yarn global add verdaccio@6-next
+yarn global add verdaccio@next
 ```
 
 With `pnpm`
 
 ```bash
-pnpm i -g verdaccio@6-next
+pnpm i -g verdaccio@next
 ```
 
 or
