@@ -163,7 +163,6 @@ const Package: React.FC<PackageInterface> = ({
     dist?.tarball &&
     url.isURL(dist.tarball) && (
       <Link
-        external={true}
         onClick={() => {
           handleDownload(dist.tarball);
         }}

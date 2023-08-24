@@ -15,15 +15,22 @@ export const CustomRouterLink = styled(RouterLink)`
 
 // TODO: improve any with custom types for a and RouterLink
 const Link = React.forwardRef<LinkRef, any>(function LinkFunction(
-  { external, to, children, variant, className },
+  { external, to, children, variant, className, onClick },
   ref
 ) {
   return external ? (
-    <a className={className} href={to} ref={ref} rel="noopener noreferrer" target="_blank">
+    <a
+      className={className}
+      href={to}
+      onClick={onClick}
+      ref={ref}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
       <Typography variant={variant ?? 'caption'}>{children}</Typography>
     </a>
   ) : (
-    <CustomRouterLink className={className} innerRef={ref} to={to}>
+    <CustomRouterLink className={className} innerRef={ref} onClick={onClick} to={to}>
       <Typography variant={variant}>{children}</Typography>
     </CustomRouterLink>
   );
