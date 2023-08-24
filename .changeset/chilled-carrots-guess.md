@@ -1,5 +1,5 @@
 ---
-'@verdaccio/ui-components': patch
+'@verdaccio/ui-theme': patch
 ---
 
 - added `onClick` prop to `Link` component in @verdaccio/ui-components. (@moglerdev in #3989)
