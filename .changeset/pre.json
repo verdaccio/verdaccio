@@ -57,5 +57,5 @@
     "@verdaccio/website": "5.20.2",
     "@verdaccio/local-publish": "0.0.1"
   },
-  "changesets": ["breezy-mayflies-pull"]
+  "changesets": ["breezy-mayflies-pull", "chilled-carrots-guess"]
 }
