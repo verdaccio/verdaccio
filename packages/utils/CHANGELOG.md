@@ -1,5 +1,11 @@
 # @verdaccio/utils
 
+## 7.0.0-next.1
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next.1
+
 ## 7.0.0-next.0
 
 ### Major Changes
