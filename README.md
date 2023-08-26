@@ -71,26 +71,6 @@ Verdaccio can be used as a module for launch a server programmatically, [you can
  });
 ```
 
-## Verdaccio 6 next
-
-[Verdaccio 6 is on the way](https://github.com/verdaccio/verdaccio/discussions/2970), meanwhile is ready you can start testing (not for production) the new release with:
-
-> Latest Node.js v16 required
-
-Install with npm:
-
-```bash
-npm install --location=global verdaccio@6-next
-```
-
-or
-
-```bash
-docker pull verdaccio/verdaccio:nightly-master
-```
-
-The migration notes can be find [here](https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md).
-
 ## Plugins
 
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
