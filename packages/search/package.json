@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search",
-  "version": "7.0.0-next.0",
+  "version": "7.0.0-next.1",
   "description": "verdaccio search utitlity tools",
   "main": "./build/dist.js",
   "types": "build/index.d.ts",
