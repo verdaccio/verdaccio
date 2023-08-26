@@ -188,16 +188,9 @@ describe('endpoint web unit test', () => {
           });
       });
 
-      test('should search with 404', (done) => {
-        request(app)
-          .get('/-/verdaccio/data/search/@')
-          .expect(HTTP_STATUS.OK)
-          .end(function (err, res) {
-            // in a normal world, the output would be 1
-            // https://github.com/verdaccio/verdaccio/issues/345
-            expect(res.body).toHaveLength(1);
-            done();
-          });
+      test('should search with 404', async () => {
+        const res = await request(app).get('/-/verdaccio/data/search/%40').expect(HTTP_STATUS.OK);
+        expect(res.body).toEqual([]);
       });
 
       test('should not find forbidden-place', (done) => {
