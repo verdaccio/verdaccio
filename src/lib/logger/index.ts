@@ -1,4 +1,4 @@
-import { setup as setupModule } from '@verdaccio/logger-7';
+import { setup as setupModule } from '@verdaccio/logger';
 
 let logger;
 
