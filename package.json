@@ -87,6 +87,7 @@
     "@verdaccio/eslint-config": "workspace:*",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-theme": "workspace:*",
+    "@vitest/coverage-v8": "^0.34.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "29.4.3",
     "babel-plugin-dynamic-import-node": "2.3.3",
@@ -123,7 +124,8 @@
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
-    "verdaccio-memory": "workspace:*"
+    "verdaccio-memory": "workspace:*",
+    "vitest": "^0.34.3"
   },
   "scripts": {
     "prepare": "husky install",
