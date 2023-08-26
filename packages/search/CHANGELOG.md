@@ -1,5 +1,11 @@
 # @verdaccio/proxy
 
+## 7.0.0-next.1
+
+### Patch Changes
+
+- 35cc57b79: fix: keyword undefined errors
+
 ## 7.0.0-next.0
 
 ### Major Changes
