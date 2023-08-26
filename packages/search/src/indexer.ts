@@ -10,7 +10,7 @@ type Results = any;
 class SearchMemoryIndexer {
   private database: any | undefined;
   private storage: any;
-  private logger: Logger;
+  private logger: Logger | undefined;
 
   /**
    * Set up the {Storage}
@@ -99,7 +99,7 @@ class SearchMemoryIndexer {
         try {
           await this.add(pkg);
         } catch (err: any) {
-          this.logger.error({ err: err.message }, 'error @{err} indexing package');
+          this.logger?.error({ err: err.message }, 'error @{err} indexing package');
         }
       }
       debug('reindexed search indexer');
