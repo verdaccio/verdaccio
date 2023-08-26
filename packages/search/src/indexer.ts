@@ -1,7 +1,7 @@
 import { create, insert, remove, search } from '@orama/orama';
 import buildDebug from 'debug';
 
-import { Version } from '@verdaccio/types';
+import { Logger, Version } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:search:indexer');
 
@@ -10,6 +10,7 @@ type Results = any;
 class SearchMemoryIndexer {
   private database: any | undefined;
   private storage: any;
+  private logger: Logger;
 
   /**
    * Set up the {Storage}
@@ -31,11 +32,19 @@ class SearchMemoryIndexer {
       debug('searching %s at indexer', term);
       const searchResult = await search(this.database, {
         term,
-        properties: '*',
       });
 
       return searchResult;
     }
+  }
+
+  private prepareKeywords(keywords?: string[] | string): string {
+    if (typeof keywords === 'undefined') {
+      return '';
+    } else if (typeof keywords === 'string') {
+      return keywords;
+    }
+    return keywords.join(',');
   }
 
   /**
@@ -46,14 +55,15 @@ class SearchMemoryIndexer {
     if (this.database) {
       const name = pkg.name;
       debug('adding item %s to the indexer', name);
-      insert(this.database, {
+      const item = {
         id: name,
         name: name,
         description: pkg.description,
-        version: `v${pkg.version}`,
-        keywords: pkg.keywords,
-        author: pkg._npmUser ? pkg._npmUser.name : '???',
-      });
+        version: pkg.version,
+        keywords: this.prepareKeywords(pkg.keywords),
+        author: pkg._npmUser ? pkg._npmUser.name : '',
+      };
+      await insert(this.database, item);
     }
   }
 
@@ -71,9 +81,9 @@ class SearchMemoryIndexer {
   /**
    * Force a re-index.
    */
-  public reindex(): void {
+  public async reindex(): Promise<void> {
     debug('reindexing search indexer');
-    this.storage?.getLocalDatabase((error, packages): void => {
+    this.storage?.getLocalDatabase(async (error, packages): Promise<void> => {
       if (error) {
         // that function shouldn't produce any
         throw error;
@@ -86,13 +96,18 @@ class SearchMemoryIndexer {
       while (i--) {
         const pkg = packages[i];
         debug('indexing package %s', pkg?.name);
-        this.add(pkg);
+        try {
+          await this.add(pkg);
+        } catch (err: any) {
+          this.logger.error({ err: err.message }, 'error @{err} indexing package');
+        }
       }
       debug('reindexed search indexer');
     });
   }
 
-  public async init() {
+  public async init(logger: Logger) {
+    this.logger = logger;
     this.database = await create({
       schema: {
         id: 'string',
