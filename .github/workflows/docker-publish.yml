@@ -1,4 +1,4 @@
-name: Docker publish to docker.io
+name: Docker publish to docker.io (6.x)
 
 on:
   push:
