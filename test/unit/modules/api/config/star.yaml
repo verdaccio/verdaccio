@@ -18,7 +18,7 @@ packages:
   '@scope/foo':
     access: $all
     publish: $authenticated
-    unpublish: $authenticated    
+    unpublish: $authenticated
   '@*/*':
     access: $all
     publish: $authenticated
@@ -27,7 +27,7 @@ packages:
   'foo':
     access: $all
     publish: $authenticated
-    unpublish: $authenticated    
+    unpublish: $authenticated
   '**':
     access: $all
     publish: $authenticated
