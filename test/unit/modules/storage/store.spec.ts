@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import { Writable } from 'stream';
 
 import { Config } from '@verdaccio/types';
@@ -9,8 +9,7 @@ import AppConfig from '../../../../src/lib/config';
 import { API_ERROR, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import Storage from '../../../../src/lib/storage';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { mockServer } from '../../__helper/mock';
+import { mockRegistry } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
 setup({});
@@ -18,15 +17,15 @@ setup({});
 jest.setTimeout(20000);
 
 const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
-const mockServerPort = 55548;
-const generateStorage = async function (port = mockServerPort) {
+
+const generateStorage = async function (url) {
   const storageConfig = configExample(
     {
       self_path: __dirname,
       storage: storagePath,
       uplinks: {
         npmjs: {
-          url: `http://${DOMAIN_SERVERS}:${port}`,
+          url,
         },
       },
     },
@@ -40,7 +39,7 @@ const generateStorage = async function (port = mockServerPort) {
   return store;
 };
 
-const generateSameUplinkStorage = async function (port = mockServerPort) {
+const generateSameUplinkStorage = async function (registryUrl: string) {
   const storageConfig = configExample(
     {
       self_path: __dirname,
@@ -59,11 +58,11 @@ const generateSameUplinkStorage = async function (port = mockServerPort) {
       },
       uplinks: {
         cached: {
-          url: `http://${DOMAIN_SERVERS}:${port}`,
+          url: registryUrl,
           cache: true,
         },
         notcached: {
-          url: `http://${DOMAIN_SERVERS}:${port}`,
+          url: registryUrl,
           cache: false,
         },
       },
@@ -86,29 +85,28 @@ const createNullStream = () =>
   });
 
 describe('StorageTest', () => {
-  let mockRegistry;
+  let registry;
 
-  beforeAll((done) => {
-    rimraf(storagePath, async () => {
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
-    });
+  beforeAll(async () => {
+    rimrafSync(storagePath);
+    registry = await mockRegistry();
+    await registry.init();
   });
 
   afterAll(function (done) {
-    mockRegistry[0].stop();
+    registry.stop();
     done();
   });
 
   test('should be defined', async () => {
-    const storage: any = await generateStorage();
+    const storage: any = await generateStorage(registry.getRegistryUrl());
 
     expect(storage).toBeDefined();
   });
 
   describe('test getTarball', () => {
     test('should select right uplink given package.proxy for upstream tarballs', async () => {
-      const storage: any = await generateSameUplinkStorage();
+      const storage: any = await generateSameUplinkStorage(registry.getRegistryUrl());
       const notcachedSpy = jest.spyOn(storage.uplinks.notcached, 'fetchTarball');
       const cachedSpy = jest.spyOn(storage.uplinks.cached, 'fetchTarball');
 
@@ -118,7 +116,7 @@ describe('StorageTest', () => {
           expect(notcachedSpy).toHaveBeenCalledTimes(0);
           expect(cachedSpy).toHaveBeenCalledTimes(1);
           expect(cachedSpy).toHaveBeenCalledWith(
-            'http://localhost:55548/jquery/-/jquery-1.5.1.tgz'
+            `${registry.getRegistryUrl()}/jquery/-/jquery-1.5.1.tgz`
           );
           res();
         });
@@ -138,7 +136,7 @@ describe('StorageTest', () => {
           expect(cachedSpy).toHaveBeenCalledTimes(0);
           expect(notcachedSpy).toHaveBeenCalledTimes(1);
           expect(notcachedSpy).toHaveBeenCalledWith(
-            'http://localhost:55548/@jquery/jquery/-/jquery-1.5.1.tgz'
+            `${registry.getRegistryUrl()}/@jquery/jquery/-/jquery-1.5.1.tgz`
           );
           res();
         });
@@ -152,7 +150,7 @@ describe('StorageTest', () => {
 
   describe('test _syncUplinksMetadata', () => {
     test('should fetch from uplink jquery metadata from registry', async () => {
-      const storage: any = await generateStorage();
+      const storage: any = await generateStorage(registry.getRegistryUrl());
 
       return new Promise((resolve) => {
         storage._syncUplinksMetadata('jquery', null, {}, (err, metadata) => {
@@ -165,7 +163,7 @@ describe('StorageTest', () => {
     });
 
     test('should fails on fetch from uplink non existing from registry', async () => {
-      const storage: any = await generateStorage();
+      const storage: any = await generateStorage(registry.getRegistryUrl());
 
       return new Promise((resolve) => {
         // @ts-ignore
@@ -180,7 +178,7 @@ describe('StorageTest', () => {
     });
 
     test('should fails on fetch from uplink corrupted pkg from registry', async () => {
-      const storage: any = await generateStorage();
+      const storage: any = await generateStorage(registry.getRegistryUrl());
 
       return new Promise((resolve) => {
         // @ts-ignore
@@ -195,7 +193,7 @@ describe('StorageTest', () => {
     });
 
     test('should not touch if the package exists and has no uplinks', async () => {
-      const storage: any = (await generateStorage()) as any;
+      const storage: any = (await generateStorage(registry.getRegistryUrl())) as any;
       const metadataSource = path.join(__dirname, '../../partials/metadata');
       const metadataPath = path.join(storagePath, 'npm_test/package.json');
 

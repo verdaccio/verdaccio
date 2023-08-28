@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
@@ -9,7 +9,7 @@ import { setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
-import { mockServer } from '../../__helper/mock';
+import { mockRegistry } from '../../__helper/mock';
 
 setup([]);
 
@@ -19,31 +19,30 @@ const parseConfigurationProfile = () => {
 
 describe('endpoint user profile', () => {
   let app;
-  let mockRegistry;
+  let registry;
   jest.setTimeout(20000);
 
-  beforeAll(function (done) {
+  beforeAll(async () => {
     const store = path.join(__dirname, '../../partials/store/test-profile-storage');
-    const mockServerPort = 55544;
-    rimraf(store, async () => {
-      const parsedConfig = parseConfigFile(parseConfigurationProfile());
-      const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
-        storage: store,
-        auth: {
-          htpasswd: {
-            file: './test-profile-storage/.htpasswd-auth-profile',
-          },
+    rimrafSync(store);
+
+    registry = await mockRegistry();
+    await registry.init();
+    const parsedConfig = parseConfigFile(parseConfigurationProfile());
+    const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
+      storage: store,
+      auth: {
+        htpasswd: {
+          file: './test-profile-storage/.htpasswd-auth-profile',
         },
-        self_path: store,
-      });
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
+      },
+      self_path: store,
     });
+    app = await endPointAPI(configForTest);
   });
 
   afterAll(function (done) {
-    mockRegistry[0].stop();
+    registry.stop();
     done();
   });
 

@@ -45,7 +45,7 @@ import { ErrorCode, isObject, tagVersion } from './utils';
 const debug = builDebug('verdaccio:local-storage');
 type StoragePlugin = StoragePluginLegacy<Config> | any;
 /**
- * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
+ * Implements Storage interface (same for storage.js, local-storage.js).
  */
 class LocalStorage {
   public config: Config;

@@ -37,7 +37,6 @@ module.exports = {
     '<rootDir>/src/api/debug',
     '<rootDir>/test',
   ],
-  collectCoverage: true,
   coverageReporters: ['text-summary', 'lcov', 'html'],
   coverageThreshold: {
     global: {

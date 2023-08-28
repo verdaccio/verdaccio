@@ -1,5 +1,5 @@
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import request from 'supertest';
 
 import { buildUserBuffer } from '@verdaccio/utils';
@@ -15,53 +15,51 @@ import {
 } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import { buildToken } from '../../../../src/lib/utils';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { addUser, getPackage, loginUserToken } from '../../__helper/api';
-import { mockServer } from '../../__helper/mock';
+import { mockRegistry } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 
 setup([]);
-const credentials = { name: 'JotaJWT', password: 'secretPass' };
 
+const credentials = { name: 'JotaJWT', password: 'secretPass' };
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
   jest.setTimeout(20000);
-  let app;
-  let mockRegistry;
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
+  let app;
 
-  beforeAll(function (done) {
+  let registry;
+
+  beforeAll(async () => {
     const store = path.join(__dirname, '../../partials/store/test-jwt-storage');
-    const mockServerPort = 55546;
-    rimraf(store, async () => {
-      const configForTest = configDefault(
-        {
-          storage: store,
-          uplinks: {
-            npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
-          },
-          self_path: store,
-          auth: {
-            htpasswd: {
-              file: './test-jwt-storage/.htpasswd_jwt_auth',
-            },
-          },
-          log: { type: 'stdout', format: 'pretty', level: 'warn' },
-        },
-        'api-jwt/jwt.yaml'
-      );
+    rimrafSync(store);
 
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
-    });
+    registry = await mockRegistry();
+    await registry.init();
+    const configForTest = configDefault(
+      {
+        storage: store,
+        uplinks: {
+          npmjs: {
+            url: registry.getRegistryUrl(),
+          },
+        },
+        self_path: store,
+        auth: {
+          htpasswd: {
+            file: './test-jwt-storage/.htpasswd_jwt_auth',
+          },
+        },
+        log: { type: 'stdout', format: 'pretty', level: 'warn' },
+      },
+      'api-jwt/jwt.yaml'
+    );
+    app = await endPointAPI(configForTest);
   });
 
   afterAll(function (done) {
-    mockRegistry[0].stop();
+    registry.stop();
     done();
   });
 

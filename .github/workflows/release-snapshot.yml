@@ -7,7 +7,7 @@ on:
       - 6.x
       - 'jota/**'
       - 'canary/**'
-      - '6x-refactor-test'
+      - 'new_proxy_5.x'
 jobs:
   release:
     name: Release Snapshot

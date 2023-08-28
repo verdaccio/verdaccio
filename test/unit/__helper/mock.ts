@@ -1,10 +1,10 @@
+import getPort from 'get-port';
 import path from 'path';
 
-import { DOMAIN_SERVERS } from '../../functional/config.functional';
-import Server from '../../lib/server';
-import VerdaccioProcess from '../../lib/server_process';
-import { VerdaccioConfig } from '../../lib/verdaccio-server';
-import { IServerBridge } from '../types';
+import { ConfigBuilder, parseConfigFile } from '@verdaccio/config';
+
+// import { DOMAIN_SERVERS } from '../../functional/config.functional';
+import { Registry } from '../../lib/registry';
 
 /**
  * Fork a Verdaccio process with a custom configuration.
@@ -49,19 +49,31 @@ import { IServerBridge } from '../types';
  * @param port
  * @returns {VerdaccioProcess}
  */
-export function mockServer(port: number) {
+// export function mockServer(port: number) {
+//   const pathStore = path.join(__dirname, '../partials');
+//   const storePath = path.join(pathStore, '/mock-store');
+//   const configPath = path.join(pathStore, '/config-unit-mock-server-test.yaml');
+
+//   const verdaccioConfig = new VerdaccioConfig(
+//     storePath,
+//     configPath,
+//     `http://${DOMAIN_SERVERS}:${port}/`,
+//     port
+//   );
+
+//   const server: IServerBridge = new Server(verdaccioConfig.domainPath);
+
+//   return new VerdaccioProcess(verdaccioConfig, server, false, false, false);
+// }
+
+export async function mockRegistry() {
+  const port = await getPort();
   const pathStore = path.join(__dirname, '../partials');
   const storePath = path.join(pathStore, '/mock-store');
   const configPath = path.join(pathStore, '/config-unit-mock-server-test.yaml');
-
-  const verdaccioConfig = new VerdaccioConfig(
-    storePath,
-    configPath,
-    `http://${DOMAIN_SERVERS}:${port}/`,
-    port
-  );
-
-  const server: IServerBridge = new Server(verdaccioConfig.domainPath);
-
-  return new VerdaccioProcess(verdaccioConfig, server, false, false, false);
+  const config = ConfigBuilder.build(parseConfigFile(configPath));
+  config.addStorage(storePath);
+  const confRegistry = await Registry.fromConfigToPath(config.getConfig());
+  const registry = new Registry(confRegistry.configPath, { port });
+  return registry;
 }

@@ -1,12 +1,11 @@
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import request from 'supertest';
 
 import endPointAPI from '../../../../src/api';
 import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
-import { mockServer } from '../../__helper/mock';
+import { mockRegistry } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 
 setup([]);
@@ -15,48 +14,40 @@ require('../../../../src/lib/logger').setup([]);
 
 describe('api with no limited access configuration', () => {
   let app;
-  let mockRegistry;
-  const store = path.join(__dirname, '../../partials/store/access-storage');
+
   jest.setTimeout(10000);
 
-  beforeAll(function (done) {
-    const mockServerPort = 55530;
+  let registry;
 
-    rimraf(store, async () => {
-      const configForTest = configDefault(
-        {
-          auth: {
-            htpasswd: {
-              file: './access-storage/htpasswd-pkg-access',
-            },
+  beforeAll(async () => {
+    const store = path.join(__dirname, '../../partials/store/access-storage');
+    rimrafSync(store);
+
+    registry = await mockRegistry();
+    await registry.init();
+    const configForTest = configDefault(
+      {
+        auth: {
+          htpasswd: {
+            file: './access-storage/htpasswd-pkg-access',
           },
-          self_path: store,
-          uplinks: {
-            remote: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
-          },
-          log: { type: 'stdout', format: 'pretty', level: 'warn' },
         },
-        'pkg.access.spec.yaml'
-      );
-
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
-    });
+        self_path: store,
+        uplinks: {
+          remote: {
+            url: registry.getRegistryUrl(),
+          },
+        },
+        log: { type: 'stdout', format: 'pretty', level: 'warn' },
+      },
+      'pkg.access.spec.yaml'
+    );
+    app = await endPointAPI(configForTest);
   });
 
   afterAll(function (done) {
-    rimraf(store, (err) => {
-      if (err) {
-        mockRegistry[0].stop();
-        return done(err);
-      }
-
-      mockRegistry[0].stop();
-      return done();
-    });
+    registry.stop();
+    done();
   });
 
   describe('test proxy packages partially restricted', () => {

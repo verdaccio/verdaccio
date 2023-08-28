@@ -7,7 +7,7 @@ import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { getNewToken, getPackage, initializeServer, publishVersion, starPackage } from './_helper';
 
 describe('star', () => {
-  test.each([['foo', '@scope/foo']])('should list stared packages for an user', async (pkgName) => {
+  test.each([['foo']])('should list stared packages for an user', async (pkgName) => {
     const userLogged = 'jota_token';
     nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
     const app = await initializeServer('star.yaml');

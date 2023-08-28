@@ -1,6 +1,7 @@
+import { ProxyStorage } from '@verdaccio/proxy';
 import { Config, Versions } from '@verdaccio/types';
 
-import ProxyStorage from './up-storage';
+import { logger } from './logger';
 
 /**
  * Set up the Up Storage for each link.
@@ -11,7 +12,7 @@ export function setupUpLinks(config: Config): Record<string, ProxyStorage> {
   for (const uplinkName in config.uplinks) {
     if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
       // instance for each up-link definition
-      const proxy = new ProxyStorage(config.uplinks[uplinkName], config);
+      const proxy = new ProxyStorage(config.uplinks[uplinkName], config, logger);
       proxy.upname = uplinkName;
 
       uplinks[uplinkName] = proxy;

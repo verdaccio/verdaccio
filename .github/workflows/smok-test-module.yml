@@ -18,12 +18,14 @@ jobs:
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
       - name: login    
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
+      - name: Install
+        run: yarn
       - name: Build
         run: yarn build
       - name: Types
-        run: yarn code:types           
+        run: yarn code:types
       - name: Bump up package
-        run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)          
+        run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)
       - name: publish verdaccio 
         run:  npm publish --registry http://localhost:4873
       - name: install verdaccio 
