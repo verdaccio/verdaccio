@@ -66,7 +66,7 @@ export function handleError(
 ) {
   debug('error handler init');
   if (_.isError(err)) {
-    debug('is native error');
+    debug('is native error', err);
     if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
       return next();
     }

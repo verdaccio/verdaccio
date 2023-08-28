@@ -9,14 +9,25 @@ uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
-log: { type: stdout, format: pretty, level: info }
+publish:
+  allow_offline: true
+
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
+  '@scope/foo':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated    
   '@*/*':
     access: $all
     publish: $authenticated
     unpublish: $authenticated
     proxy: npmjs
+  'foo':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated    
   '**':
     access: $all
     publish: $authenticated
