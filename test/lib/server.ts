@@ -6,7 +6,7 @@ import { buildToken } from '../../src/lib/utils';
 import { CREDENTIALS } from '../functional/config.functional';
 import getPackage from '../functional/fixtures/package';
 import { IServerBridge } from '../types';
-import smartRequest from './request';
+import smartRequest from './request.old';
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
