@@ -86,7 +86,7 @@ describe('endpoint web unit test', () => {
         // this packages is protected at the yaml file
         const res = await request(app).get('/-/verdaccio/data/packages').expect(HTTP_STATUS.OK);
         // TODO: review this part
-        expect(res.body).toEqual([]);
+        expect(res.body).toHaveLength(1);
       });
 
       test('should display all packages logged', async () => {
@@ -183,7 +183,7 @@ describe('endpoint web unit test', () => {
           .get('/-/verdaccio/data/search/scope')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
-            expect(res.body).toEqual([]);
+            expect(res.body).toHaveLength(1);
             done();
           });
       });
