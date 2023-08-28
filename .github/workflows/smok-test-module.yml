@@ -21,9 +21,9 @@ jobs:
       - name: Build
         run: yarn build
       - name: Types
-        run: yarn code:types           
+        run: yarn code:types
       - name: Bump up package
-        run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)          
+        run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)
       - name: publish verdaccio 
         run:  npm publish --registry http://localhost:4873
       - name: install verdaccio 
