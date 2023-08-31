@@ -3,7 +3,7 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5116,
+      "contributions": 5117,
       "repositories": [
         {
           "name": "verdaccio",
@@ -131,7 +131,7 @@
         },
         {
           "name": "e2e-5.x",
-          "contributions": 54
+          "contributions": 55
         }
       ]
     },
@@ -3845,6 +3845,17 @@
       ]
     },
     {
+      "id": 26276665,
+      "login": "hersentino",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "monorepo",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 1798109,
       "login": "viceice",
       "contributions": 1,
@@ -4853,7 +4864,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15211,
+      "stargazers_count": 15220,
       "archived": false
     },
     {
