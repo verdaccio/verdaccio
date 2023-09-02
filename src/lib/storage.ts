@@ -1,10 +1,11 @@
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
+import buildDebug from 'debug';
 import _ from 'lodash';
-import Stream, { Readable } from 'stream';
+import { PassThrough, pipeline as streamPipeline } from 'stream';
 
-import { validatioUtils } from '@verdaccio/core';
-import { ProxyStorage } from '@verdaccio/proxy';
+import { errorUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { IProxy, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -26,6 +27,7 @@ import { hasProxyTo } from './config-utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
 import LocalStorage from './local-storage';
 import { mergeVersions } from './metadata-utils';
+import { mapManifestToSearchPackageBody, removeDuplicates } from './search-utils';
 import {
   checkPackageLocal,
   checkPackageRemote,
@@ -35,8 +37,11 @@ import {
   mergeUplinkTimeIntoLocal,
   publishPackage,
 } from './storage-utils';
+import { TransFormResults } from './transform-search-results';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
+
+const debug = buildDebug('verdaccio:storage');
 
 class Storage {
   public localStorage: LocalStorage;
@@ -376,70 +381,136 @@ class Storage {
     });
   }
 
-  /**
-   Retrieve remote and local packages more recent than {startkey}
-   Function streams all packages from all uplinks first, and then
-   local packages.
-   Note that local packages could override registry ones just because
-   they appear in JSON last. That's a trade-off we make to avoid
-   memory issues.
-   Used storages: local && uplink (proxy_access)
-   * @param {*} startkey
-   * @param {*} options
-   * @return {Stream}
-   */
-  public search(startkey: string, options: any) {
-    const self = this;
-    const searchStream: any = new Stream.PassThrough({ objectMode: true });
-    async.eachSeries(
-      Object.keys(this.uplinks),
-      async function (up_name, cb): Promise<void> {
-        // shortcut: if `local=1` is supplied, don't call uplinks
-        if (options.req?.query?.local !== undefined) {
-          return cb();
-        }
-        logger.info(`search for uplink ${up_name}`);
-        // search by keyword for each uplink
-        const uplinkStream = (await self.uplinks[up_name].search(options)) as Readable;
-        // join uplink stream with streams PassThrough
-        uplinkStream.pipe(searchStream, { end: false });
-        uplinkStream.on('error', function (err): void {
-          self.logger.error({ err: err }, 'uplink error: @{err.message}');
-          cb();
-          // to avoid call callback more than once
-          cb = function (): void {};
-        });
-        uplinkStream.on('end', function (): void {
-          cb();
-          // to avoid call callback more than once
-          cb = function (): void {};
-        });
+  private getProxyList() {
+    const uplinksList = Object.keys(this.uplinks);
 
-        // searchStream.abort = function (): void {
-        //   if (uplinkStream.abort) {
-        //     uplinkStream.abort();
-        //   }
-        //   cb();
-        //   // to avoid call callback more than once
-        //   cb = function (): void {};
-        // };
-      },
-      // executed after all series
-      function (): void {
-        // attach a local search results
-        const localSearchStream = self.localStorage.search(startkey, options);
-        searchStream.abort = function (): void {
-          localSearchStream.abort();
-        };
-        localSearchStream.pipe(searchStream, { end: true });
-        localSearchStream.on('error', function (err: any): void {
-          self.logger.error({ err: err }, 'search error: @{err.message}');
-          searchStream.end();
-        });
-      }
+    return uplinksList;
+  }
+
+  /**
+   * Consume the upstream and pipe it to a transformable stream.
+   */
+  private consumeSearchStream(
+    uplinkId: string,
+    uplink: IProxy,
+    options: ProxySearchParams,
+    searchPassThrough: PassThrough
+  ): Promise<any> {
+    return uplink.search({ ...options }).then((bodyStream) => {
+      bodyStream.pipe(searchPassThrough, { end: false });
+      bodyStream.on('error', (err: any): void => {
+        logger.error(
+          { uplinkId, err: err },
+          'search error for uplink @{uplinkId}: @{err?.message}'
+        );
+        searchPassThrough.end();
+      });
+      return new Promise((resolve) => bodyStream.on('end', resolve));
+    });
+  }
+
+  private async searchCachedPackages(
+    searchStream: PassThrough,
+    query: searchUtils.SearchQuery
+  ): Promise<void> {
+    debug('search on each package');
+    this.logger.info(
+      { t: query.text, q: query.quality, p: query.popularity, m: query.maintenance, s: query.size },
+      'search by text @{t}| maintenance @{m}| quality @{q}| popularity @{p}'
     );
 
-    return searchStream;
+    if (typeof this.localStorage.search === 'undefined') {
+      this.logger.info('plugin search not implemented yet');
+      searchStream.end();
+    } else {
+      debug('search on each package by plugin');
+      const items = await this.localStorage.search(query);
+      try {
+        for (const searchItem of items) {
+          const manifest = await this.localStorage.getPackageMetadataAsync(searchItem.package.name);
+          if (_.isEmpty(manifest?.versions) === false) {
+            const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+            const searchPackageItem: searchUtils.SearchPackageItem = {
+              package: searchPackage,
+              score: searchItem.score,
+              verdaccioPkgCached: searchItem.verdaccioPkgCached,
+              verdaccioPrivate: searchItem.verdaccioPrivate,
+              flags: searchItem?.flags,
+              // FUTURE: find a better way to calculate the score
+              searchScore: 1,
+            };
+            searchStream.write(searchPackageItem);
+          }
+        }
+        debug('search local stream end');
+        searchStream.end();
+      } catch (err) {
+        this.logger.error({ err, query }, 'error on search by plugin @{err.message}');
+        searchStream.emit('error', err);
+      }
+    }
+  }
+
+  /**
+   * Handle search on packages and proxies.
+   * Iterate all proxies configured and search in all endpoints in v2 and pipe all responses
+   * to a stream, once the proxies request has finished search in local storage for all packages
+   * (privated and cached).
+   */
+  public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
+    const transformResults = new TransFormResults({ objectMode: true });
+    const streamPassThrough = new PassThrough({ objectMode: true });
+    const upLinkList = this.getProxyList();
+    debug('uplinks found %s', upLinkList.length);
+    const searchUplinksStreams = upLinkList.map((uplinkId: string) => {
+      const uplink = this.uplinks[uplinkId];
+      if (!uplink) {
+        // this line should never happens
+        this.logger.error({ uplinkId }, 'uplink @upLinkId not found');
+      }
+      return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
+    });
+
+    try {
+      debug('searching on %s uplinks...', searchUplinksStreams?.length);
+      // only process those streams end successfully, if all request fails
+      // just include local storage results (if local fails then return 500)
+      await Promise.allSettled([...searchUplinksStreams]);
+      debug('searching all uplinks done');
+    } catch (err: any) {
+      this.logger.error({ err: err?.message }, ' error on uplinks search @{err}');
+      streamPassThrough.emit('error', err);
+    }
+    debug('search local');
+    try {
+      await this.searchCachedPackages(streamPassThrough, options.query as searchUtils.SearchQuery);
+    } catch (err: any) {
+      this.logger.error({ err: err?.message }, ' error on local search @{err}');
+      streamPassThrough.emit('error', err);
+    }
+    const data: searchUtils.SearchPackageItem[] = [];
+    const outPutStream = new PassThrough({ objectMode: true });
+    streamPipeline(streamPassThrough, transformResults, outPutStream, (err: any) => {
+      if (err) {
+        this.logger.error({ err: err?.message }, ' error on search @{err}');
+        throw errorUtils.getInternalError(err ? err.message : 'unknown search error');
+      } else {
+        debug('pipeline succeeded');
+      }
+    });
+
+    outPutStream.on('data', (chunk) => {
+      data.push(chunk);
+    });
+
+    return new Promise((resolve) => {
+      outPutStream.on('finish', async () => {
+        const searchFinalResults: searchUtils.SearchPackageItem[] = removeDuplicates(data);
+        debug('search stream total results: %o', searchFinalResults.length);
+        return resolve(searchFinalResults);
+      });
+      debug('search done');
+    });
   }
 
   /**

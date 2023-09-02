@@ -3425,19 +3425,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.3.3":
-  version: 10.3.3
-  resolution: "@verdaccio/local-storage@npm:10.3.3"
+"@verdaccio/local-storage@npm:10.3.4":
+  version: 10.3.4
+  resolution: "@verdaccio/local-storage@npm:10.3.4"
   dependencies:
-    "@verdaccio/commons-api": 10.2.0
+    "@verdaccio/core": 7.0.0-next.1
     "@verdaccio/file-locking": 10.3.1
     "@verdaccio/streams": 10.2.1
-    async: 3.2.4
     debug: 4.3.4
+    globby: 11.1.0
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: 70f47ea94fd0d6f3a5ac82fa0a8b28a41fb69f076f993bbf9ff775cca11966a6e92b4b57741348bdbfc3f241d851c052336d1673ca7e7b29e1999b88afe4fde2
+  checksum: 3a0ea32fa1e90fbf80847118dd869cb6f5ed216f42e70e69ff06c97093fe19b9eaeb88797c544985ae0c467bdac2ef6b772243cb8c824144cf4198c5de83cdd6
   languageName: node
   linkType: hard
 
@@ -6436,7 +6436,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^11.1.0":
+"globby@npm:11.1.0, globby@npm:^11.1.0":
   version: 11.1.0
   resolution: "globby@npm:11.1.0"
   dependencies:
@@ -10967,7 +10967,7 @@ __metadata:
     "@verdaccio/config": 7.0.0-next.1
     "@verdaccio/core": 7.0.0-next.1
     "@verdaccio/hooks": 7.0.0-next.1
-    "@verdaccio/local-storage": 10.3.3
+    "@verdaccio/local-storage": 10.3.4
     "@verdaccio/logger": 7.0.0-next.1
     "@verdaccio/middleware": 7.0.0-next.1
     "@verdaccio/proxy": 7.0.0-next.1
@@ -11004,6 +11004,7 @@ __metadata:
     fast-safe-stringify: 2.1.1
     fs-extra: 10.1.0
     get-port: 5.1.1
+    globby: 11.1.0
     got-cjs: 12.5.4
     jest: 29.6.1
     jest-config: 29.6.1
@@ -11035,9 +11036,6 @@ __metadata:
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 12.0.0-next.1
     verdaccio-memory: 10.3.2
-  dependenciesMeta:
-    "@verdaccio/logger@7.0.0-next.1":
-      unplugged: true
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
