@@ -3,7 +3,7 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
-import { pluginUtils } from '@verdaccio/core';
+import { searchUtils, validatioUtils } from '@verdaccio/core';
 import LocalDatabase from '@verdaccio/local-storage';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
@@ -12,8 +12,8 @@ import {
   Config,
   DistFile,
   Logger,
+  Manifest,
   MergeTags,
-  Package,
   StorageUpdateCallback,
   Token,
   TokenFilter,
@@ -21,12 +21,7 @@ import {
   onEndSearchPackage,
   onSearchPackage,
 } from '@verdaccio/types';
-import {
-  createTarballHash,
-  getLatestVersion,
-  normalizeContributors,
-  validateName,
-} from '@verdaccio/utils';
+import { createTarballHash, getLatestVersion, normalizeContributors } from '@verdaccio/utils';
 
 import { StoragePluginLegacy } from '../../types/custom';
 import loadPlugin from '../lib/plugin-loader';
@@ -58,7 +53,7 @@ class LocalStorage {
     this.storagePlugin = this._loadStorage(config, logger);
   }
 
-  public addPackage(name: string, pkg: Package, callback: Callback): void {
+  public addPackage(name: string, pkg: Manifest, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
@@ -97,7 +92,7 @@ class LocalStorage {
       return callback(ErrorCode.getNotFound());
     }
 
-    storage.readPackage(name, (err, data: Package): void => {
+    storage.readPackage(name, (err, data: Manifest): void => {
       if (_.isNil(err) === false) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
@@ -109,10 +104,7 @@ class LocalStorage {
       this.storagePlugin.remove(name, (removeFailed: Error): void => {
         if (removeFailed) {
           // This will happen when database is locked
-          this.logger.error(
-            { name },
-            `[storage/removePackage] the database is locked, removed has failed for @{name}`
-          );
+          this.logger.error({ name }, `the database is locked, removed has failed for @{name}`);
           return callback(ErrorCode.getBadData(removeFailed.message));
         }
 
@@ -134,7 +126,7 @@ class LocalStorage {
    * @param {*} packageInfo
    * @param {*} callback
    */
-  public updateVersions(name: string, packageInfo: Package, callback: Callback): void {
+  public updateVersions(name: string, packageInfo: Manifest, callback: Callback): void {
     this._readCreatePackage(name, (err, packageLocalJson): void => {
       if (err) {
         return callback(err);
@@ -356,7 +348,7 @@ class LocalStorage {
    */
   public changePackage(
     name: string,
-    incomingPkg: Package,
+    incomingPkg: Manifest,
     revision: string | void,
     callback: Callback
   ): void {
@@ -367,7 +359,7 @@ class LocalStorage {
     debug('changePackage udapting package for %o', name);
     this._updatePackage(
       name,
-      (localData: Package, cb: Callback): void => {
+      (localData: Manifest, cb: Callback): void => {
         for (const version in localData.versions) {
           const incomingVersion = incomingPkg.versions[version];
           if (_.isNil(incomingVersion)) {
@@ -423,7 +415,7 @@ class LocalStorage {
    * @param {*} callback
    */
   public removeTarball(name: string, filename: string, revision: string, callback: Callback): void {
-    assert(validateName(filename));
+    assert(validatioUtils.validateName(filename));
 
     this._updatePackage(
       name,
@@ -455,7 +447,7 @@ class LocalStorage {
    * @return {Stream}
    */
   public addTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(validatioUtils.validateName(filename));
 
     let length = 0;
     const shaOneHash = createTarballHash();
@@ -500,7 +492,7 @@ class LocalStorage {
         // @ts-ignore
       } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         // check if package exists to throw an appropriate message
-        this.getPackageMetadata(name, function (_err: any, _res: Package): void {
+        this.getPackageMetadata(name, function (_err: any, _res: Manifest): void {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -561,7 +553,7 @@ class LocalStorage {
    * @return {ReadTarball}
    */
   public getTarball(name: string, filename: string) {
-    assert(validateName(filename));
+    assert(validatioUtils.validateName(filename));
 
     const storage = this._getLocalStorage(name);
 
@@ -641,46 +633,30 @@ class LocalStorage {
     this._readPackage(name, storage, callback);
   }
 
+  public async getPackageMetadataAsync(name: string): Promise<Manifest> {
+    return new Promise((resolve, reject) => {
+      const storage = this._getLocalStorage(name);
+      if (_.isNil(storage)) {
+        return reject(ErrorCode.getNotFound());
+      }
+
+      this._readPackage(name, storage, (err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data);
+      });
+    });
+  }
+
   /**
    * Search a local package.
    * @param {*} startKey
    * @param {*} options
    * @return {Function}
    */
-  public search(startKey: string, options: any) {
-    const stream = new ReadTarball({ objectMode: true });
-
-    this._searchEachPackage(
-      (item: Package, cb: Callback): void => {
-        // @ts-ignore
-        if (item.time > parseInt(startKey, 10)) {
-          this.getPackageMetadata(item.name, (err: any, data: Package): void => {
-            if (err) {
-              return cb(err);
-            }
-
-            // @ts-ignore
-            const time = new Date(item.time).toISOString();
-            const result = prepareSearchPackage(data, time);
-            if (_.isNil(result) === false) {
-              stream.push(result);
-            }
-            cb(null);
-          });
-        } else {
-          cb(null);
-        }
-      },
-      function onEnd(err): void {
-        if (err) {
-          stream.emit('error', err);
-          return;
-        }
-        stream.end();
-      }
-    );
-
-    return stream;
+  public search(query: searchUtils.SearchQuery) {
+    return this.storagePlugin.search(query);
   }
 
   /**
@@ -708,21 +684,6 @@ class LocalStorage {
 
       callback(err, normalizePackage(result));
     });
-  }
-
-  /**
-   * Walks through each package and calls `on_package` on them.
-   * @param {*} onPackage
-   * @param {*} onEnd
-   */
-  private _searchEachPackage(onPackage: onSearchPackage, onEnd: onEndSearchPackage): void {
-    // save wait whether plugin still do not support search functionality
-    if (_.isNil(this.storagePlugin.search)) {
-      this.logger.warn('plugin search not implemented yet');
-      onEnd();
-    } else {
-      this.storagePlugin.search(onPackage, onEnd, validateName);
-    }
   }
 
   /**
@@ -802,7 +763,7 @@ class LocalStorage {
    * @param {*} callback
    * @return {Function}
    */
-  private _writePackage(name: string, json: Package, callback: Callback): void {
+  private _writePackage(name: string, json: Manifest, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback();
@@ -810,7 +771,7 @@ class LocalStorage {
     storage.savePackage(name, this._setDefaultRevision(json), callback);
   }
 
-  private _setDefaultRevision(json: Package): Package {
+  private _setDefaultRevision(json: Manifest): Manifest {
     // calculate revision from couch db
     if (_.isString(json._rev) === false) {
       json._rev = STORAGE.DEFAULT_REVISION;
@@ -825,7 +786,7 @@ class LocalStorage {
   }
 
   private _deleteAttachments(storage: any, attachments: string[], callback: Callback): void {
-    debug('[storage/_deleteAttachments] delete attachments total: %o', attachments?.length);
+    debug('delete attachments total: %o', attachments?.length);
     const unlinkNext = function (cb): void {
       if (_.isEmpty(attachments)) {
         return cb();

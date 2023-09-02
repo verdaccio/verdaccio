@@ -493,26 +493,6 @@ describe('LocalStorage', () => {
           });
         });
       });
-
-      describe('LocalStorage::search', () => {
-        test('should find a tarball', (done) => {
-          // @ts-ignore
-          const stream = storage.search('99999');
-
-          stream.on('data', function each(pkg) {
-            expect(pkg.name).toEqual(pkgName);
-          });
-
-          stream.on('error', function (err) {
-            expect(err).not.toBeNull();
-            done();
-          });
-
-          stream.on('end', function () {
-            done();
-          });
-        });
-      });
     });
 
     describe('LocalStorage::removePackage', () => {

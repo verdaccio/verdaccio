@@ -22,7 +22,7 @@
     "@verdaccio/config": "7.0.0-next.1",
     "@verdaccio/core": "7.0.0-next.1",
     "@verdaccio/hooks": "7.0.0-next.1",
-    "@verdaccio/local-storage": "10.3.3",
+    "@verdaccio/local-storage": "10.3.4",
     "@verdaccio/logger": "7.0.0-next.1",
     "@verdaccio/middleware": "7.0.0-next.1",
     "@verdaccio/proxy": "7.0.0-next.1",
@@ -170,10 +170,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.6.1",
-  "dependenciesMeta": {
-    "@verdaccio/logger@7.0.0-next.1": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.6.1"
 }
