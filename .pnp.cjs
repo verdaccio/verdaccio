@@ -94,7 +94,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["get-port", "npm:5.1.1"],\
-            ["globby", "npm:11.1.0"],\
             ["got-cjs", "npm:12.5.4"],\
             ["jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.6.1"],\
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.6.1"],\
@@ -14270,7 +14269,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["get-port", "npm:5.1.1"],\
-            ["globby", "npm:11.1.0"],\
             ["got-cjs", "npm:12.5.4"],\
             ["jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.6.1"],\
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.6.1"],\
