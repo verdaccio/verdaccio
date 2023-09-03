@@ -1,7 +1,16 @@
 #!/usr/bin/env node
 
-/* eslint no-sync:0 */
-/* eslint no-empty:0 */
+const nodeVersion = process.version;
+const versionParts = nodeVersion.slice(1).split('.');
+
+const majorVersion = parseInt(versionParts[0]);
+const minorVersion = parseInt(versionParts[1]);
+
+if (majorVersion < 16 || (majorVersion === 16 && minorVersion < 0)) {
+  throw Error(
+    '"Error: Your Node.js version is not supported. Please upgrade to Node.js 16 or higher for this application to work correctly.'
+  );
+}
 
 if (process.getuid && process.getuid() === 0) {
   process.emitWarning(`Verdaccio doesn't need superuser privileges. don't run it under root`);
