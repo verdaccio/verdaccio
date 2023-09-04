@@ -8,3 +8,4 @@ export {
 } from './cli-utils';
 export { default as loadable } from './loadable';
 export { Route } from './routes';
+export * from './token';
