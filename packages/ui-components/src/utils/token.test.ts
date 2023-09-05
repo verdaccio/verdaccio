@@ -35,8 +35,13 @@ describe('isTokenExpire', (): void => {
   });
 
   test('isTokenExpire - token is not a valid json token', (): void => {
+    const NODE_MAJOR_VERSION = +process.versions.node.split('.')[0];
+    const errorToken = new SyntaxError(
+      NODE_MAJOR_VERSION >= 20
+        ? 'Unexpected token \'i\', "invalidtoken" is not valid JSON'
+        : 'Unexpected token i in JSON at position 0'
+    );
     const token = generateInvalidToken();
-    const errorToken = new SyntaxError('Unexpected token \'i\', "invalidtoken" is not valid JSON');
     const result = ['Invalid token:', errorToken, 'xxxxxx.aW52YWxpZHRva2Vu.xxxxxx'];
     expect(isTokenExpire(token)).toBeTruthy();
     expect(console.error).toHaveBeenCalledWith(...result);
