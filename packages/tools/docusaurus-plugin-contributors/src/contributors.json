@@ -801,7 +801,7 @@
     },
     {
       "id": 16447219,
-      "login": "KukuruzaAndrey",
+      "login": "KukuruzaAndrii",
       "contributions": 5,
       "repositories": [
         {
@@ -4853,7 +4853,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15253,
+      "stargazers_count": 15262,
       "archived": false
     },
     {
@@ -5051,7 +5051,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 16,
+      "stargazers_count": 17,
       "archived": false
     },
     {
@@ -5114,7 +5114,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 47,
+      "stargazers_count": 48,
       "archived": false
     },
     {
