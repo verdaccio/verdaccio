@@ -11,6 +11,7 @@
 /website/public/
 /website/src/dictionaries/
 CHANGELOG.md
+CHANGELOG.v5.md
 CONTRIBUTORS.md
 node_modules/
 **/coverage/**
@@ -31,3 +32,4 @@ docker-examples/
 .gitignore
 *.ico
 .pnp.js
+babel.config.js

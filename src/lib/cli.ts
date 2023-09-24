@@ -6,9 +6,9 @@ const versionParts = nodeVersion.slice(1).split('.');
 const majorVersion = parseInt(versionParts[0]);
 const minorVersion = parseInt(versionParts[1]);
 
-if (majorVersion < 16 || (majorVersion === 16 && minorVersion < 0)) {
+if (majorVersion < 18 || (majorVersion === 18 && minorVersion < 0)) {
   throw Error(
-    '"Error: Your Node.js version is not supported. Please upgrade to Node.js 16 or higher for this application to work correctly.'
+    '"Error: Your Node.js version is not supported. Please upgrade to Node.js 18 or higher for this application to work correctly.'
   );
 }
 

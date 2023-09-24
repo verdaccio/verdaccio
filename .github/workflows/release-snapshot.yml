@@ -5,9 +5,7 @@ on:
   push:
     branches:
       - 6.x
-      - 'jota/**'
       - 'canary/**'
-      - 'new_proxy_5.x'
 jobs:
   release:
     name: Release Snapshot
