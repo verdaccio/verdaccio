@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [12, 14, 16, 18, 19]
+        node_version: [14, 16, 18, 19]
 
     runs-on: ubuntu-latest
 
@@ -24,14 +24,10 @@ jobs:
     - name: Format
       run: yarn format:check
     - name: Lint
-      ## eslint does not support node 12
-      if: "!contains(matrix.node_version, '12')"
       run: yarn lint        
     - name: Build
       run: yarn build
     - name: Types
       run: yarn code:types            
     - name: Test
-      ## jest does not support node 12
-      if: "!contains(matrix.node_version, '12')"
       run: yarn test
