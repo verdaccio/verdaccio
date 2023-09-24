@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next.1
+
+### Patch Changes
+
+- 92f1c34ae: - fixed login state when token is expired (@ku3mi41 in #3980)
+
 ## 3.0.0-next.0
 
 ### Major Changes

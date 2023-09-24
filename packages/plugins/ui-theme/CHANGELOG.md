@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next.2
+
+### Patch Changes
+
+- 92f1c34ae: - fixed login state when token is expired (@ku3mi41 in #3980)
+
 ## 7.0.0-next.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @verdaccio/proxy
 
+## 7.0.0-next.2
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next.2
+- @verdaccio/config@7.0.0-next.2
+- @verdaccio/utils@7.0.0-next.2
+
 ## 7.0.0-next.1
 
 ### Patch Changes
