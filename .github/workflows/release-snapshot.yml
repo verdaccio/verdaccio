@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - 5.x
-      - 'jota/**'
-      - 'canary/**'
-      - '5x-refactor-test'
 jobs:
   release:
     name: Release Snapshot
