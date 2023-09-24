@@ -131,7 +131,7 @@
     "verdaccio"
   ],
   "scripts": {
-    "release": "standard-version -a -s",
+    "release": "standard-version -a -s --prerelease beta",
     "type-check": "tsc --noEmit",
     "cache:clean": "yarn cache clean --mirror && yarn cache clean --all",
     "type-check:watch": "yarn run type-check -- --watch",
