@@ -2,6 +2,7 @@ import { createModel } from '@rematch/core';
 import i18next from 'i18next';
 
 import type { RootModel } from '.';
+import { isTokenExpire } from '../../utils';
 import API from '../api';
 import storage from '../storage';
 
@@ -23,12 +24,17 @@ export type LoginBody = {
   error?: LoginError;
 } & LoginResponse;
 
-const token = storage.getItem('token');
-const username = storage.getItem('username');
-const defaultUserState: LoginBody = {
-  token,
-  username,
-};
+export function getDefaultUserState(): LoginBody {
+  const token = storage.getItem('token');
+  const username = storage.getItem('username');
+  const defaultUserState = isTokenExpire(token)
+    ? { token: null, username: null }
+    : { token, username };
+
+  return defaultUserState;
+}
+
+const defaultUserState: LoginBody = getDefaultUserState();
 
 /**
  *
