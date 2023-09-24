@@ -3,14 +3,11 @@
 ## What is included on these test?
 
 - Default configuration only
-- Test with all popular package managers:
-- `yarn classic` and `yarn modern (2, 3, 4 RC)`
-- `pnpm 6, 7`
-- `npm 6, 7, 8 and 9`
+- Test with all popular package managers
 
 ### Commands Tested
 
-| cmd       | npm6 | npm7 | npm8 | npm9 | pnpm6 | pnpm7 | pnpm8 | yarn1 | yarn2 | yarn3 | yarn4 |
+| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm6 | pnpm7 | yarn1 | yarn2 | yarn3 | yarn4 |
 | --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
 | info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    | ✅    |
