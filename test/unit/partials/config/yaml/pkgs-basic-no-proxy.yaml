@@ -1,7 +1,0 @@
-packages:
-  '@*/*':
-    access: $all
-    publish: $all
-  '**':
-    access: $all
-    publish: $all

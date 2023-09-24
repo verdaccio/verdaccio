@@ -1,7 +1,0 @@
-uplinks:
-  server1:
-    url: http://localhost:55551/
-    maxage: 0
-  server2:
-    url: http://localhost:55551/
-    maxage: 0
