@@ -33,7 +33,7 @@ Install with npm:
 npm install --location=global verdaccio
 ```
 
-> Node.js v16 or higher is required for Verdaccio 5
+> Node.js v18 or higher is required for Verdaccio 6
 
 or pull [Docker official image](https://verdaccio.org/docs/docker)
 
@@ -68,26 +68,6 @@ Verdaccio can be used as a module for launch a server programmatically, [you can
    // do something
  });
 ```
-
-## Verdaccio 6 next
-
-[Verdaccio 6 is on the way](https://github.com/verdaccio/verdaccio/discussions/2970), meanwhile is ready you can start testing (not for production) the new release with:
-
-> Latest Node.js v16 required
-
-Install with npm:
-
-```bash
-npm install --location=global verdaccio@6-next
-```
-
-or
-
-```bash
-docker pull verdaccio/verdaccio:nightly-master
-```
-
-The migration notes can be find [here](https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md).
 
 ## Plugins
 
@@ -138,7 +118,7 @@ Furthermore, here few examples how to start:
 
 ## Talks
 
-- [**NodeTLV 20222** - Deep dive into Verdaccio, a lightweight Node.js registry - **Juan Picado**](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
+- [**NodeTLV 2022** - Deep dive into Verdaccio, a lightweight Node.js registry - **Juan Picado**](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
 - [Five Ways of Taking Advantage of Verdaccio, Your Private and Proxy Node.js Registry **Node Congress 2022** - **Juan Picado**](https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry)
 - [Using Docker and Verdaccio to make Integration Testing Easy - **Docker All Hands #4 December - 2021** - **Juan Picado**](https://www.youtube.com/watch?v=zRI0skF1f8I)
 
