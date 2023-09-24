@@ -109,7 +109,7 @@
     "nock": "12.0.3",
     "node-mocks-http": "^1.12.2",
     "pinst": "2.1.6",
-    "prettier": "2.8.8",
+    "prettier": "3.0.3",
     "rimraf": "5.0.1",
     "selfsigned": "2.1.1",
     "standard-version": "9.5.0",
@@ -170,5 +170,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.3"
 }
