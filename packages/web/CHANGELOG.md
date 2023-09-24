@@ -1,5 +1,20 @@
 # @verdaccio/web
 
+## 7.0.0-next.2
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next.2
+- @verdaccio/config@7.0.0-next.2
+- @verdaccio/auth@7.0.0-next.2
+- @verdaccio/tarball@12.0.0-next.2
+- @verdaccio/url@12.0.0-next.2
+- @verdaccio/loaders@7.0.0-next.2
+- @verdaccio/middleware@7.0.0-next.2
+- @verdaccio/store@7.0.0-next.2
+- @verdaccio/utils@7.0.0-next.2
+- @verdaccio/logger@7.0.0-next.2
+
 ## 7.0.0-next.1
 
 ### Patch Changes
