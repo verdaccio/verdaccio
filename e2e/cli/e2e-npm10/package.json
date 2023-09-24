@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@verdaccio/e2e-cli-npm9",
+  "version": "1.0.1",
+  "dependencies": {
+    "@verdaccio/test-cli-commons": "workspace:1.1.0",
+    "npm": "10.1.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
