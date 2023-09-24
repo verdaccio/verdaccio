@@ -69,7 +69,6 @@ Verdaccio can be used as a module for launch a server programmatically, [you can
  });
 ```
 
-
 ## Plugins
 
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
