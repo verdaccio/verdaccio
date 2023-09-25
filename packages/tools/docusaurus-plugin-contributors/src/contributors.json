@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5126,
+      "contributions": 5134,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2799
+          "contributions": 2802
         },
         {
           "name": "verdaccio-cookbook",
@@ -130,8 +130,8 @@
           "contributions": 33
         },
         {
-          "name": "e2e-5.x",
-          "contributions": 59
+          "name": "e2e-tests",
+          "contributions": 64
         }
       ]
     },
@@ -2745,6 +2745,17 @@
       ]
     },
     {
+      "id": 1100530,
+      "login": "Ku3mi41",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 14018963,
       "login": "larsgw",
       "contributions": 1,
@@ -4853,7 +4864,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15262,
+      "stargazers_count": 15268,
       "archived": false
     },
     {
@@ -5136,10 +5147,10 @@
       "archived": false
     },
     {
-      "name": "e2e-5.x",
+      "name": "e2e-tests",
       "login": "verdaccio",
-      "full_name": "verdaccio/e2e-5.x",
-      "html_url": "https://github.com/verdaccio/e2e-5.x",
+      "full_name": "verdaccio/e2e-tests",
+      "html_url": "https://github.com/verdaccio/e2e-tests",
       "description": "e2e tests 5.x only ",
       "stargazers_count": 2,
       "archived": false
