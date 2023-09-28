@@ -4864,7 +4864,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15268,
+      "stargazers_count": 15280,
       "archived": false
     },
     {
@@ -5151,7 +5151,7 @@
       "login": "verdaccio",
       "full_name": "verdaccio/e2e-tests",
       "html_url": "https://github.com/verdaccio/e2e-tests",
-      "description": "e2e tests 5.x only ",
+      "description": "e2e tests",
       "stargazers_count": 2,
       "archived": false
     }
