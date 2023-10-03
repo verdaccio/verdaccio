@@ -128,8 +128,10 @@
       "title": "Contributors"
     },
     "engines": {
-      "npm-version": "NPM Version",
-      "node-js": "NODE JS"
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
     }
   },
   "footer": {
