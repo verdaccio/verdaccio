@@ -68,7 +68,7 @@ const Engine: React.FC<Props> = ({ packageMeta }) => {
       {engines.npm ? (
         <EngineItem
           element={<Npm />}
-          engineText={engines.node}
+          engineText={engines.npm}
           title={t('sidebar.engines.npm-version')}
         />
       ) : null}
@@ -77,7 +77,7 @@ const Engine: React.FC<Props> = ({ packageMeta }) => {
         <EngineItem
           element={<Yarn />}
           engineText={engines.yarn}
-          title={t('sidebar.engines.npm-version')}
+          title={t('sidebar.engines.yarn-version')}
         />
       ) : null}
 
@@ -85,7 +85,7 @@ const Engine: React.FC<Props> = ({ packageMeta }) => {
         <EngineItem
           element={<Pnpm />}
           engineText={engines.pnpm}
-          title={t('sidebar.engines.npm-version')}
+          title={t('sidebar.engines.pnpm-version')}
         />
       ) : null}
     </Grid>
