@@ -48,7 +48,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   app.get(
     '/favicon.ico',
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      req.url = '/-/static/favicon.png';
+      req.url = '/-/static/favicon.ico';
       next();
     }
   );
