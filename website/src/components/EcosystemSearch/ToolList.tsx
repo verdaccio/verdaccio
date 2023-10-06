@@ -1,8 +1,8 @@
 import Translate, { translate } from '@docusaurus/Translate';
-import { create, insertBatch, search } from '@lyrasearch/lyra';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useTheme } from '@mui/styles';
+import { Orama, ProvidedTypes, create, insertMultiple, search } from '@orama/orama';
 import * as React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -15,19 +15,6 @@ type Props = {
   addons: Addon[];
   filters: Filters;
 };
-
-const db = create({
-  schema: {
-    name: 'string',
-    url: 'string',
-    category: 'string',
-    bundled: 'boolean',
-    origin: 'string',
-    latest: 'string',
-    downloads: 'number',
-    description: 'string',
-  },
-});
 
 const normalizeResults = (hits) => {
   return hits.reduce((acc, item) => {
@@ -58,22 +45,44 @@ const filterByProperty = (addsOns: Addon[], filters: Filters) => {
 
 const ToolList: FC<Props> = ({ addons = [], filters }): React.ReactElement => {
   const theme = useTheme();
+  const [db, setDb] = useState<Orama<ProvidedTypes>>();
   const [filteredAddsOn, setFilteredAddsOn] = useState(addons);
   useEffect(() => {
-    insertBatch(db, addons);
+    const createDb = async () => {
+      const db = await create({
+        schema: {
+          name: 'string',
+          url: 'string',
+          category: 'string',
+          bundled: 'boolean',
+          origin: 'string',
+          latest: 'string',
+          downloads: 'number',
+          description: 'string',
+        },
+      });
+      console.log('===>', db);
+      setDb(db);
+      insertMultiple(db as Orama<ProvidedTypes>, addons);
+    };
+
+    createDb();
   }, []);
 
   useEffect(() => {
-    let results: Addon[] = addons;
-    if (filters.keyword !== '') {
-      const dbResults = search(db, {
-        term: filters.keyword,
-      });
-      results = [...normalizeResults(dbResults.hits)];
-    }
-    // TODO: apply advanced filters later
-    // setFilteredAddsOn(filterByProperty(results, filters));
-    setFilteredAddsOn(results);
+    const searchKeyword = async () => {
+      let results: Addon[] = addons;
+      if (filters.keyword !== '') {
+        const dbResults = await search(db as Orama<ProvidedTypes>, {
+          term: filters.keyword,
+        });
+        results = [...normalizeResults(dbResults.hits)];
+      }
+      // TODO: apply advanced filters later
+      // setFilteredAddsOn(filterByProperty(results, filters));
+      setFilteredAddsOn(results);
+    };
+    searchKeyword();
   }, [filters, addons]);
 
   return (

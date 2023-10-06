@@ -2175,9 +2175,6 @@ importers:
       '@emotion/styled':
         specifier: 11.10.6
         version: 11.10.6(@emotion/react@11.10.6)(@types/react@18.0.26)(react@17.0.2)
-      '@lyrasearch/lyra':
-        specifier: 0.3.0
-        version: 0.3.0
       '@mdx-js/react':
         specifier: ^1.6.22
         version: 1.6.22(react@17.0.2)
@@ -2190,6 +2187,9 @@ importers:
       '@mui/styles':
         specifier: 5.13.7
         version: 5.13.7(@types/react@18.0.26)(react@17.0.2)
+      '@orama/orama':
+        specifier: 1.2.1
+        version: 1.2.1
       '@verdaccio/ui-components':
         specifier: workspace:3.0.0-next.1
         version: link:../packages/ui-components
@@ -8495,11 +8495,6 @@ packages:
   /@leichtgewicht/ip-codec@2.0.4:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
 
-  /@lyrasearch/lyra@0.3.0:
-    resolution: {integrity: sha512-HKACmENyo4EKloPWQawqX7lKt+qh8w+7r/orNtwzWZ67fJcw59pDd5IwzYw52S9oFg9Dablsw8cuJXk2vNvHkQ==}
-    deprecated: Lyra is now called Orama! Install the latest stable version via the @orama/orama package
-    dev: false
-
   /@manypkg/find-root@1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
     dependencies:
@@ -9254,7 +9249,6 @@ packages:
   /@orama/orama@1.2.1:
     resolution: {integrity: sha512-vq3ar9REofq7Q87riamQB5y1aJc068Qwbnd7uAboeSfRTDj2+KdNiwjTEk01SVjr8eAvCx8iRZl4rkEYo0ETYw==}
     engines: {node: '>= 16.0.0'}
-    dev: true
 
   /@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@5.28.1)(react-refresh@0.11.0)(webpack@5.82.1):
     resolution: {integrity: sha512-j0Ya0hCFZPd4x40qLzbhGsh9TMtdb+CJQiso+WxLOPNasohq9cc5SNUcwsZaRH6++Xh91Xkm/xHCkuIiIu0LUA==}
