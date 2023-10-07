@@ -2,10 +2,9 @@ import supertest from 'supertest';
 
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
-import { initializeServer, initializeServerWithConfig, getConf, publishVersion } from './_helper';
+import { getConf, initializeServer, initializeServerWithConfig, publishVersion } from './_helper';
 
 describe('experiments', () => {
-
   describe('for a function value of tarball_url_redirect', () => {
     let app;
     beforeEach(async () => {
@@ -36,8 +35,6 @@ describe('experiments', () => {
           );
           done();
         });
-
-        
     });
 
     test('should redirect for scoped package tarball', (done) => {
@@ -54,7 +51,6 @@ describe('experiments', () => {
           done();
         });
     });
-   
   });
   describe('for a async function value of tarball_url_redirect', () => {
     let app;
@@ -88,7 +84,7 @@ describe('experiments', () => {
             'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
           );
           done();
-        });     
+        });
     });
 
     test('should redirect for scoped package tarball', (done) => {
@@ -105,7 +101,6 @@ describe('experiments', () => {
           done();
         });
     });
-   
   });
   describe('for a string value of tarball_url_redirect', () => {
     let app;
@@ -151,6 +146,5 @@ describe('experiments', () => {
           done();
         });
     });
-
-  })
+  });
 });

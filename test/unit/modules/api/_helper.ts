@@ -5,7 +5,7 @@ import supertest from 'supertest';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { GenericBody, PackageUsers, ConfigYaml } from '@verdaccio/types';
+import { ConfigYaml, GenericBody, PackageUsers } from '@verdaccio/types';
 import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../../../src/api/endpoint';
@@ -29,7 +29,7 @@ export async function initializeServer(configName: string): Promise<Application>
   return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
-export async function initializeServerWithConfig(config: ConfigYaml): Promise<Application> {  
+export async function initializeServerWithConfig(config: ConfigYaml): Promise<Application> {
   return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
