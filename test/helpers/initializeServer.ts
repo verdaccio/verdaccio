@@ -5,6 +5,7 @@ import path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
+import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
@@ -14,12 +15,12 @@ import Config from '../../src/lib/config';
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
 export async function initializeServer(
-  configName,
+  configuration: ConfigYaml,
   routesMiddleware: any[] = [],
   Storage
 ): Promise<Application> {
   const app = express();
-  const config = new Config(configName);
+  const config = new Config(configuration);
   config.storage = path.join(os.tmpdir(), '/storage', generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics

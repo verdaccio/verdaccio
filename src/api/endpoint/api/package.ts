@@ -34,32 +34,39 @@ const downloadStream = (
   stream.pipe(res);
 };
 
-const redirectOrDownloadStream = (
+const redirectOrDownloadStream = async (
   packageName: string,
   filename: string,
   storage: any,
   req: $RequestExtend,
   res: $ResponseExtend,
   config: Config
-): void => {
-  const tarballUrlRedirect = _.get(config, 'experiments.tarball_url_redirect');
-  storage
-    .hasLocalTarball(packageName, filename)
-    .then((hasLocalTarball) => {
-      if (hasLocalTarball) {
-        const context = { packageName, filename };
-        const tarballUrl =
-          typeof tarballUrlRedirect === 'function'
-            ? tarballUrlRedirect(context)
-            : _.template(tarballUrlRedirect)(context);
-        res.redirect(tarballUrl);
+): Promise<void> => {
+  try {
+    const hasLocalTarball = await storage.hasLocalTarball(packageName, filename);
+
+    if (!hasLocalTarball) {
+      return downloadStream(packageName, filename, storage, req, res);
+    }
+
+    const tarballUrlRedirect = _.get(config, 'experiments.tarball_url_redirect');
+    const context = { packageName, filename };
+    let tarballUrl;
+
+    if (typeof tarballUrlRedirect === 'function') {
+      if (tarballUrlRedirect.constructor.name === 'AsyncFunction') {
+        tarballUrl = await tarballUrlRedirect(context);
       } else {
-        downloadStream(packageName, filename, storage, req, res);
+        tarballUrl = tarballUrlRedirect(context);
       }
-    })
-    .catch((err) => {
-      res.locals.report_error(err);
-    });
+    } else {
+      tarballUrl = _.template(tarballUrlRedirect)(context);
+    }
+
+    res.redirect(tarballUrl);
+  } catch (err) {
+    res.locals.report_error(err);
+  }
 };
 
 export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
