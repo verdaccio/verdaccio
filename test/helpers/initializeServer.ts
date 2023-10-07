@@ -5,8 +5,8 @@ import path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
-import { generateRandomHexString } from '@verdaccio/utils';
 import { ConfigYaml } from '@verdaccio/types';
+import { generateRandomHexString } from '@verdaccio/utils';
 
 import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
 import Auth from '../../src/lib/auth';

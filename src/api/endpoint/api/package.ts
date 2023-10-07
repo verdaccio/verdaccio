@@ -64,7 +64,6 @@ const redirectOrDownloadStream = async (
     }
 
     res.redirect(tarballUrl);
-
   } catch (err) {
     res.locals.report_error(err);
   }
