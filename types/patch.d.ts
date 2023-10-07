@@ -9,4 +9,3 @@ declare module '@jest/schemas' {
 
 declare module 'serve-static';
 declare module 'ms';
-declare module '@orama+orama';

@@ -1454,8 +1454,8 @@ importers:
   packages/search:
     devDependencies:
       '@orama/orama':
-        specifier: 1.2.1
-        version: 1.2.1
+        specifier: 1.2.4
+        version: 1.2.4
       '@verdaccio/types':
         specifier: workspace:12.0.0-next.0
         version: link:../core/types
@@ -2188,8 +2188,8 @@ importers:
         specifier: 5.13.7
         version: 5.13.7(@types/react@18.0.26)(react@17.0.2)
       '@orama/orama':
-        specifier: 1.2.1
-        version: 1.2.1
+        specifier: 1.2.4
+        version: 1.2.4
       '@verdaccio/ui-components':
         specifier: workspace:3.0.0-next.1
         version: link:../packages/ui-components
@@ -9691,8 +9691,8 @@ packages:
     resolution: {integrity: sha512-Aq58f5HiWdyDlFffbbSjAlv596h/cOnt2DO1w3DOC7OJ5EHs0hd/nycJfiu9RJbT6Yk6F1knnRRXNSpxoIVZ9Q==}
     dev: true
 
-  /@orama/orama@1.2.1:
-    resolution: {integrity: sha512-vq3ar9REofq7Q87riamQB5y1aJc068Qwbnd7uAboeSfRTDj2+KdNiwjTEk01SVjr8eAvCx8iRZl4rkEYo0ETYw==}
+  /@orama/orama@1.2.4:
+    resolution: {integrity: sha512-uErUVnH5tRzixinitpl0Zkn7Vo2b9cH9UpKbYk6FmYaQghx2NH7GY6bcZ1oAZj/Cvty0cE7+b1x2PZbTa80f9g==}
     engines: {node: '>= 16.0.0'}
 
   /@pmmmwh/react-refresh-webpack-plugin@0.5.10(@types/webpack@5.28.1)(react-refresh@0.11.0)(webpack@5.82.1):
