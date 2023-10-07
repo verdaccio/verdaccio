@@ -7,3 +7,12 @@ declare module '@jest/schemas' {
 }
 
 declare module 'ms';
+
+declare module '@jest/expect-utils';
+declare module 'jest';
+declare module 'expect' {
+  export type MatcherState = any;
+  export type MatcherUtils = any;
+  export type Tester = any;
+  export type EqualsFunction = any;
+}

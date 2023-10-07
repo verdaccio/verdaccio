@@ -25,8 +25,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -47,9 +46,9 @@
     "@verdaccio/store": "workspace:7.0.0-next.2",
     "@verdaccio/utils": "workspace:7.0.0-next.2",
     "abortcontroller-polyfill": "1.7.5",
+    "body-parser": "1.20.2",
     "cookies": "0.8.0",
     "debug": "4.3.4",
-    "body-parser": "1.20.2",
     "express": "4.18.2",
     "lodash": "4.17.21",
     "mime": "2.6.0",
@@ -57,11 +56,11 @@
   },
   "devDependencies": {
     "@verdaccio/server": "workspace:7.0.0-next.2",
-    "@verdaccio/types": "workspace:12.0.0-next.0",
     "@verdaccio/test-helper": "workspace:3.0.0-next.0",
-    "supertest": "6.3.3",
-    "nock": "13.2.9",
-    "mockdate": "3.0.5"
+    "@verdaccio/types": "workspace:12.0.0-next.0",
+    "mockdate": "3.0.5",
+    "nock": "13.3.3",
+    "supertest": "6.3.3"
   },
   "funding": {
     "type": "opencollective",

@@ -132,8 +132,8 @@ export default class HTPasswd
             'Password for user "@{user}" took @{durationMs}ms to verify'
           );
         }
-      } catch ({ message }) {
-        this.logger.error({ message }, 'Unable to verify user password: @{message}');
+      } catch (error: any) {
+        this.logger.error({ message: err.message }, 'Unable to verify user password: @{message}');
       }
       if (!passwordValid) {
         return cb(null, false);

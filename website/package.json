@@ -19,7 +19,7 @@
     "eslint:write": "eslint src/**/*.tsx --fix"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "dependencies": {
     "@docusaurus/core": "2.4.1",

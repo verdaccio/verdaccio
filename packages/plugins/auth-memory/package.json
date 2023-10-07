@@ -27,15 +27,14 @@
   "main": "build/index.js",
   "types": "build/src/index.d.ts",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next.2",
     "debug": "4.3.4"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
+    "@types/debug": "^4.1.9",
     "@verdaccio/config": "workspace:7.0.0-next.2",
     "@verdaccio/types": "workspace:12.0.0-next.0"
   },
