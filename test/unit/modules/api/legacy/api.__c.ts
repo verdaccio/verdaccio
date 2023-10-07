@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import nock from 'nock';
 import path from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 import { Readable } from 'stream';
 import request from 'supertest';
 
@@ -63,44 +63,43 @@ describe('endpoint unit test', () => {
   const mockServerPort = 55549;
   let mockRegistry;
 
-  beforeAll(function (done) {
+  beforeAll(async function () {
     const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
-    rimraf(store, async () => {
-      const configForTest = configDefault(
-        {
-          auth: {
-            htpasswd: {
-              file: './test-storage-api-spec/.htpasswd',
-            },
-          },
-          filters: {
-            '../../modules/api/partials/plugin/filter': {
-              pkg: 'npm_test',
-              version: '2.0.0',
-            },
-          },
-          storage: store,
-          self_path: store,
-          uplinks: {
-            npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
-            socketTimeout: {
-              url: `http://some.registry.timeout.com`,
-              max_fails: 2,
-              timeout: '1s',
-              fail_timeout: '1s',
-            },
-          },
-          log: { type: 'stdout', format: 'pretty', level: 'warn' },
-        },
-        'api.spec.yaml'
-      );
+    rimrafSync(store);
 
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
-    });
+    const configForTest = configDefault(
+      {
+        auth: {
+          htpasswd: {
+            file: './test-storage-api-spec/.htpasswd',
+          },
+        },
+        filters: {
+          '../../modules/api/partials/plugin/filter': {
+            pkg: 'npm_test',
+            version: '2.0.0',
+          },
+        },
+        storage: store,
+        self_path: store,
+        uplinks: {
+          npmjs: {
+            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+          },
+          socketTimeout: {
+            url: `http://some.registry.timeout.com`,
+            max_fails: 2,
+            timeout: '1s',
+            fail_timeout: '1s',
+          },
+        },
+        log: { type: 'stdout', format: 'pretty', level: 'warn' },
+      },
+      'api.spec.yaml'
+    );
+
+    app = await endPointAPI(configForTest);
+    mockRegistry = await mockServer(mockServerPort).init();
   });
 
   afterAll(function (done) {
@@ -1013,183 +1012,6 @@ describe('endpoint unit test', () => {
                 done();
               });
           });
-      });
-    });
-
-    describe('should test tarball url redirect', () => {
-      const pkgName = 'testTarballPackage';
-      const scopedPkgName = '@tarball_tester/testTarballPackage';
-      const tarballUrlRedirectCredentials = { name: 'tarball_tester', password: 'secretPass' };
-      const store = path.join(__dirname, '../../partials/store/test-storage-api-spec');
-      const mockServerPort = 55549;
-      const baseTestConfig = configDefault(
-        {
-          auth: {
-            htpasswd: {
-              file: './test-storage-api-spec/.htpasswd',
-            },
-          },
-          filters: {
-            '../../modules/api/partials/plugin/filter': {
-              pkg: 'npm_test',
-              version: '2.0.0',
-            },
-          },
-          storage: store,
-          self_path: store,
-          uplinks: {
-            npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
-          },
-          log: { type: 'stdout', format: 'pretty', level: 'warn' },
-        },
-        'api.spec.yaml'
-      );
-      let token;
-      beforeAll(async () => {
-        token = await getNewToken(request(app), tarballUrlRedirectCredentials);
-        await putPackage(request(app), `/${pkgName}`, generatePackageMetadata(pkgName), token);
-        await putPackage(
-          request(app),
-          `/${scopedPkgName}`,
-          generatePackageMetadata(scopedPkgName),
-          token
-        );
-      });
-
-      describe('for a string value of tarball_url_redirect', () => {
-        let app2;
-        beforeAll(async () => {
-          app2 = await endPointAPI({
-            ...baseTestConfig,
-            experiments: {
-              tarball_url_redirect:
-                'https://myapp.sfo1.mycdn.com/verdaccio/${packageName}/${filename}',
-            },
-          });
-        });
-
-        test('should redirect for package tarball', (done) => {
-          request(app2)
-            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
-
-        test('should redirect for scoped package tarball', (done) => {
-          request(app2)
-            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
-      });
-
-      describe('for a function value of tarball_url_redirect', () => {
-        let app2;
-        beforeAll(async () => {
-          app2 = await endPointAPI({
-            ...baseTestConfig,
-            experiments: {
-              tarball_url_redirect(context) {
-                return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`;
-              },
-            },
-          });
-        });
-
-        test('should redirect for package tarball', (done) => {
-          request(app2)
-            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
-
-        test('should redirect for scoped package tarball', (done) => {
-          request(app2)
-            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
-      });
-
-      describe('for a async function value of tarball_url_redirect', () => {
-        let app2;
-        beforeAll(async () => {
-          app2 = await endPointAPI({
-            ...baseTestConfig,
-            experiments: {
-              async tarball_url_redirect(context) {
-                await new Promise((resolve) => {
-                  setTimeout(resolve, 1000);
-                });
-                return `https://myapp.sfo1.mycdn.com/verdaccio/${context.packageName}/${context.filename}`;
-              },
-            },
-          });
-        });
-
-        test('should redirect for package tarball', (done) => {
-          request(app2)
-            .get('/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
-
-        test('should redirect for scoped package tarball', (done) => {
-          request(app2)
-            .get('/@tarball_tester/testTarballPackage/-/testTarballPackage-1.0.0.tgz')
-            .expect(HTTP_STATUS.REDIRECT)
-            .end(function (err, res) {
-              if (err) {
-                return done(err);
-              }
-              expect(res.headers.location).toEqual(
-                'https://myapp.sfo1.mycdn.com/verdaccio/@tarball_tester/testTarballPackage/testTarballPackage-1.0.0.tgz'
-              );
-              done();
-            });
-        });
       });
     });
 

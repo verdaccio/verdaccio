@@ -1,0 +1,25 @@
+storage: ./storage_experiments
+
+auth:
+  htpasswd:
+    file: ./htpasswd-package
+
+web:
+  enable: true
+  title: verdaccio
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $anonymous
+    publish: $anonymous
+  '**':
+    access: $anonymous
+    publish: $anonymous
+_debug: true
