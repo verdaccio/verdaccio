@@ -26,8 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18"
   },
   "description": "verdaccio CLI",
   "license": "MIT",

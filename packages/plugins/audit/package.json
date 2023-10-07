@@ -27,20 +27,20 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next.2",
     "@verdaccio/config": "workspace:7.0.0-next.2",
+    "@verdaccio/core": "workspace:7.0.0-next.2",
     "express": "4.18.2",
     "https-proxy-agent": "5.0.1",
     "node-fetch": "cjs"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next.0",
     "@verdaccio/auth": "workspace:7.0.0-next.2",
     "@verdaccio/logger": "workspace:7.0.0-next.2",
-    "nock": "13.2.9",
+    "@verdaccio/types": "workspace:12.0.0-next.0",
+    "nock": "13.3.3",
     "supertest": "6.3.3"
   },
   "scripts": {

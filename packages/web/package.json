@@ -20,14 +20,13 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18"
   },
   "license": "MIT",
   "dependencies": {
     "@verdaccio/auth": "workspace:7.0.0-next.2",
-    "@verdaccio/core": "workspace:7.0.0-next.2",
     "@verdaccio/config": "workspace:7.0.0-next.2",
+    "@verdaccio/core": "workspace:7.0.0-next.2",
     "@verdaccio/loaders": "workspace:7.0.0-next.2",
     "@verdaccio/logger": "workspace:7.0.0-next.2",
     "@verdaccio/middleware": "workspace:7.0.0-next.2",
@@ -40,13 +39,13 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next.0",
-    "@verdaccio/test-helper": "workspace:3.0.0-next.0",
     "@verdaccio/api": "workspace:7.0.0-next.2",
+    "@verdaccio/test-helper": "workspace:3.0.0-next.0",
+    "@verdaccio/types": "workspace:12.0.0-next.0",
+    "jsdom": "20.0.3",
+    "nock": "13.3.3",
     "node-html-parser": "4.1.5",
     "supertest": "6.3.3",
-    "nock": "13.2.9",
-    "jsdom": "20.0.3",
     "verdaccio-auth-memory": "workspace:12.0.0-next.2",
     "verdaccio-memory": "workspace:12.0.0-next.2"
   },

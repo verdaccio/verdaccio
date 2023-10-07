@@ -27,8 +27,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": ">=18"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next.2",

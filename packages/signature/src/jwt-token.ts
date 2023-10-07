@@ -1,7 +1,9 @@
 import buildDebug from 'debug';
-import jwt from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 
-import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
+import { RemoteUser } from '@verdaccio/types';
+
+export type SignOptionsSignature = Pick<SignOptions, 'algorithm' | 'expiresIn' | 'notBefore'>;
 
 const debug = buildDebug('verdaccio:auth:token:jwt');
 /**
@@ -14,23 +16,25 @@ const debug = buildDebug('verdaccio:auth:token:jwt');
 export async function signPayload(
   payload: RemoteUser,
   secretOrPrivateKey: string,
-  options: JWTSignOptions = {}
+  options: SignOptionsSignature = {}
 ): Promise<string> {
-  return new Promise(function (resolve, reject): Promise<string> {
+  return new Promise(function (resolve, reject) {
     debug('sign jwt token');
-    return jwt.sign(
+    jwt.sign(
       payload,
-      secretOrPrivateKey,
-      // FIXME: upgrade to the latest library and types
-      // @ts-ignore
+      secretOrPrivateKey, // FIXME: upgrade to the latest library and types
       {
         // 1 === 1ms (one millisecond)
         notBefore: '1', // Make sure the time will not rollback :)
         ...options,
       },
-      (error, token: string) => {
-        debug('error on sign jwt token');
-        return error ? reject(error) : resolve(token);
+      (error, token) => {
+        if (error) {
+          debug('error on sign jwt token %s', error.message);
+          return reject(error);
+        }
+        debug('signed jwt token successfully');
+        return resolve(token as string);
       }
     );
   });

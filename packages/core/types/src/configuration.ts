@@ -150,18 +150,29 @@ export interface JWTOptions {
   verify: JWTVerifyOptions;
 }
 
+export type Algorithm =
+  | 'HS256'
+  | 'HS384'
+  | 'HS512'
+  | 'RS256'
+  | 'RS384'
+  | 'RS512'
+  | 'ES256'
+  | 'ES384'
+  | 'ES512'
+  | 'PS256'
+  | 'PS384'
+  | 'PS512'
+  | 'none';
+
 export interface JWTSignOptions {
-  algorithm?: string;
-  expiresIn?: string;
-  notBefore?: string;
-  ignoreExpiration?: boolean;
-  maxAge?: string | number;
-  clockTimestamp?: number;
+  algorithm?: Algorithm | undefined;
+  expiresIn?: string | number | undefined;
+  notBefore?: string | number | undefined;
 }
 
 export interface JWTVerifyOptions {
-  algorithm?: string;
-  expiresIn?: string;
+  algorithm?: Algorithm | undefined;
   notBefore?: string | number;
   ignoreExpiration?: boolean;
   maxAge?: string | number;

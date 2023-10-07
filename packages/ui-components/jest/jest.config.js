@@ -11,7 +11,7 @@ module.exports = Object.assign({}, config, {
   },
   rootDir: '..',
   collectCoverage: true,
-  setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/jest/setup-env.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest/setup-env.ts'],
   setupFiles: ['<rootDir>/jest/setup.ts'],
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!react-syntax-highlighter)'],
   snapshotSerializers: ['@emotion/jest/serializer'],

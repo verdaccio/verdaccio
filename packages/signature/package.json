@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -38,7 +38,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "jsonwebtoken": "9.0.0",
+    "jsonwebtoken": "9.0.2",
     "debug": "4.3.4",
     "lodash": "4.17.21"
   },
