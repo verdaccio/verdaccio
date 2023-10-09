@@ -301,8 +301,8 @@ importers:
         specifier: 13.3.3
         version: 13.3.3
       nodemon:
-        specifier: 2.0.20
-        version: 2.0.20
+        specifier: 2.0.22
+        version: 2.0.22
       npm-run-all:
         specifier: 4.1.5
         version: 4.1.5
@@ -2731,11 +2731,11 @@ packages:
     dependencies:
       '@babel/core': 7.22.20
       '@babel/helper-annotate-as-pure': 7.22.5
-      '@babel/helper-environment-visitor': 7.22.5
-      '@babel/helper-function-name': 7.22.5
-      '@babel/helper-member-expression-to-functions': 7.22.15
+      '@babel/helper-environment-visitor': 7.22.20
+      '@babel/helper-function-name': 7.23.0
+      '@babel/helper-member-expression-to-functions': 7.23.0
       '@babel/helper-optimise-call-expression': 7.22.5
-      '@babel/helper-replace-supers': 7.22.9(@babel/core@7.22.20)
+      '@babel/helper-replace-supers': 7.22.20(@babel/core@7.22.20)
       '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/helper-split-export-declaration': 7.22.6
       semver: 6.3.1
@@ -2904,12 +2904,6 @@ packages:
     dependencies:
       '@babel/types': 7.22.10
 
-  /@babel/helper-member-expression-to-functions@7.22.15:
-    resolution: {integrity: sha512-qLNsZbgrNh0fDQBCPocSL8guki1hcPvltGDv/NxvUoABwFq7GkKSu1nRXeJkVZc+wJvne2E0RKQz+2SQrz6eAA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/types': 7.22.19
-
   /@babel/helper-member-expression-to-functions@7.22.5:
     resolution: {integrity: sha512-aBiH1NKMG0H2cGZqspNvsaBe6wNGjbJjuLy29aU+eDZjSbbN53BaxlpB02xm9v34pLTZ1nIQPFYn2qMZoa5BQQ==}
     engines: {node: '>=6.9.0'}
@@ -2921,7 +2915,6 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/types': 7.23.0
-    dev: true
 
   /@babel/helper-module-imports@7.21.4:
     resolution: {integrity: sha512-orajc5T2PsRYUN3ZryCEFeMDYwyw09c/pZeaQEZPH0MpKzSvn3e0uXsDBu3k03VI+9DBiRo+l22BfKTpKwa/Wg==}
@@ -3087,6 +3080,17 @@ packages:
       '@babel/helper-environment-visitor': 7.22.5
       '@babel/helper-wrap-function': 7.22.10
     dev: true
+
+  /@babel/helper-replace-supers@7.22.20(@babel/core@7.22.20):
+    resolution: {integrity: sha512-qsW0In3dbwQUbK8kejJ4R7IHVGwHJlV6lpG6UA7a9hSa2YEiAib+N1T2kr6PEeUT+Fl7najmSOS6SmAwCHK6Tw==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+    dependencies:
+      '@babel/core': 7.22.20
+      '@babel/helper-environment-visitor': 7.22.20
+      '@babel/helper-member-expression-to-functions': 7.23.0
+      '@babel/helper-optimise-call-expression': 7.22.5
 
   /@babel/helper-replace-supers@7.22.20(@babel/core@7.23.0):
     resolution: {integrity: sha512-qsW0In3dbwQUbK8kejJ4R7IHVGwHJlV6lpG6UA7a9hSa2YEiAib+N1T2kr6PEeUT+Fl7najmSOS6SmAwCHK6Tw==}
@@ -3441,7 +3445,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.20.2
+      '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-export-namespace-from': 7.8.3(@babel/core@7.22.10)
 
   /@babel/plugin-proposal-export-namespace-from@7.18.9(@babel/core@7.23.0):
@@ -3476,7 +3480,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.20.2
+      '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-json-strings': 7.8.3(@babel/core@7.22.10)
 
   /@babel/plugin-proposal-json-strings@7.18.6(@babel/core@7.23.0):
@@ -3509,7 +3513,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.20.2
+      '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.22.10)
 
   /@babel/plugin-proposal-nullish-coalescing-operator@7.18.6(@babel/core@7.23.0):
@@ -3532,7 +3536,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.20.2
+      '@babel/helper-plugin-utils': 7.22.5
       '@babel/plugin-syntax-numeric-separator': 7.10.4(@babel/core@7.22.10)
 
   /@babel/plugin-proposal-numeric-separator@7.18.6(@babel/core@7.23.0):
@@ -3605,8 +3609,8 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.20.2
-      '@babel/helper-skip-transparent-expression-wrappers': 7.20.0
+      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-skip-transparent-expression-wrappers': 7.22.5
       '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.22.10)
 
   /@babel/plugin-proposal-optional-chaining@7.21.0(@babel/core@7.23.0):
@@ -6575,7 +6579,7 @@ packages:
       outdent: 0.5.0
       prettier: 2.8.8
       resolve-from: 5.0.0
-      semver: 5.7.1
+      semver: 5.7.2
     dev: true
 
   /@changesets/assemble-release-plan@5.2.3:
@@ -6586,7 +6590,7 @@ packages:
       '@changesets/get-dependents-graph': 1.3.6
       '@changesets/types': 5.2.1
       '@manypkg/get-packages': 1.1.3
-      semver: 5.7.1
+      semver: 5.7.2
     dev: true
 
   /@changesets/changelog-git@0.1.14:
@@ -22991,8 +22995,8 @@ packages:
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
 
-  /nodemon@2.0.20:
-    resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
+  /nodemon@2.0.22:
+    resolution: {integrity: sha512-B8YqaKMmyuCO7BowF1Z1/mkPqLk6cs/l63Ojtd6otKjMx47Dq1utxfRxcavH1I7VSaL8n5BUaoutadnsX3AAVQ==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     dependencies:
@@ -23001,7 +23005,7 @@ packages:
       ignore-by-default: 1.0.1
       minimatch: 3.1.2
       pstree.remy: 1.1.8
-      semver: 5.7.1
+      semver: 5.7.2
       simple-update-notifier: 1.1.0
       supports-color: 5.5.0
       touch: 3.1.0
