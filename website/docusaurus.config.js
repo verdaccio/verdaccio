@@ -411,6 +411,9 @@ module.exports = {
           lastVersion: '5.x',
           onlyIncludeVersions: ['5.x', '6.x'],
           versions: {
+            current: {
+              label: `5.x`,
+            },
             '6.x': {
               label: `6.x`,
               banner: 'unreleased',
