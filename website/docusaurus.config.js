@@ -15,7 +15,7 @@ const lgnMapping = {
 
 // @ts-ignore
 const progress = translations;
-const limitLngIncluded = 19;
+const limitLngIncluded = 40;
 console.log('limit translation is on %s%', limitLngIncluded);
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 const isProductionDeployment = process.env.CONTEXT === 'production';
@@ -81,8 +81,6 @@ const i18nConfig = {
     'vi-VN': { label: `Tiếng Việt (Việt Nam) (${progress['vi'].translationProgress}%)` },
   },
 };
-
-const pkgJson = require('./package.json');
 
 module.exports = {
   title: 'Verdaccio',
@@ -411,17 +409,18 @@ module.exports = {
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
           lastVersion: '5.x',
+          onlyIncludeVersions: ['5.x', '6.x'],
           versions: {
-            current: {
+            '6.x': {
               label: `6.x`,
+              banner: 'unreleased',
             },
             '5.x': {
-              label: `5.x (Latest)`,
+              label: `5.x`,
             },
           },
         },
         googleAnalytics: {
-          // trackingID: 'UA-2527438-21'
           trackingID: 'G-PCYM9FYJZT',
         },
         gtag: {
