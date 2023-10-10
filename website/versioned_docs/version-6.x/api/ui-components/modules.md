@@ -1251,7 +1251,8 @@ node_modules/@types/react/index.d.ts:521
 **`Example`**
 
 Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
-```jsx
+
+````jsx
 function CustomComponent() {
 const { packageMeta, packageName, packageVersion } = useVersion();
 return <div />;
@@ -1295,7 +1296,7 @@ With the combination of a bundler, enable to code split a package.
 
 ```jsx
    const VersionPage = loadable(() => import(/'../pages/Version'));
-```
+````
 
 #### Parameters
 

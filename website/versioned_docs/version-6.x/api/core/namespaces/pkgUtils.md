@@ -62,9 +62,7 @@ Get the latest publihsed version of a package.
 Function gets a local info and an info from uplinks and tries to merge it
 exported for unit tests only.
 
--
-
-**`Deprecated`**
+- **`Deprecated`**
 
 use @verdaccio/storage mergeVersions method
 
