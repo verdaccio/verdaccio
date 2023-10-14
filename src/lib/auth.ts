@@ -517,7 +517,8 @@ class Auth {
       groups: groupedGroups,
     };
 
-    const token: string = await signPayload(payload, this.secret, signOptions);
+    // TODO: fix on update signature package
+    const token: string = await signPayload(payload, this.secret, signOptions as any);
 
     return token;
   }
