@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import cx from 'classnames';
 import 'highlight.js/styles/default.css';
 import React from 'react';
 
@@ -11,7 +12,7 @@ import { parseReadme } from './utils';
 const Readme: React.FC<Props> = ({ description }) => {
   return (
     <Wrapper
-      className={styles['markdown-body']}
+      className={cx('markdown-body', styles['markdown-body'])}
       dangerouslySetInnerHTML={{ __html: parseReadme(description) as string }}
     />
   );

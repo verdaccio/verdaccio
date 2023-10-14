@@ -1842,6 +1842,9 @@ importers:
       '@rematch/persist':
         specifier: 2.1.2
         version: 2.1.2(@rematch/core@2.2.0)(react@18.2.0)(redux@4.2.1)
+      classnames:
+        specifier: 2.3.2
+        version: 2.3.2
       country-flag-icons:
         specifier: 1.5.5
         version: 1.5.5

@@ -36,6 +36,7 @@
     "dompurify": "2.4.5",
     "highlight.js": "11.7.0",
     "history": "4.10.1",
+    "classnames": "2.3.2",
     "i18next": "20.6.1",
     "js-base64": "3.7.5",
     "localstorage-memory": "1.0.3",
