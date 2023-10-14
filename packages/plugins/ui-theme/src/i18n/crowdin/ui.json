@@ -54,6 +54,7 @@
     "current-tags": "Current Tags",
     "version-history": "Version History",
     "not-available": "Not available",
+    "deprecated": "Deprecated",
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
   },
   "package": {

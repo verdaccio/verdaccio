@@ -48,7 +48,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               <Chip
                 color="warning"
                 data-testid="deprecated-badge"
-                label="deprecated"
+                label={t('versions.deprecated')}
                 size="small"
                 sx={{ marginLeft: theme.spacing(1) }}
                 variant="outlined"
