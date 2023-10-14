@@ -1,5 +1,28 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next.2
+
+### Major Changes
+
+- e7ebccb61: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- 580319a53: feat: ui improvements
+
+  Some UI improvements
+
+  - download progress indicator: https://github.com/verdaccio/verdaccio/discussions/4068
+  - fix dark mode and readme css support https://github.com/verdaccio/verdaccio/discussions/3942 https://github.com/verdaccio/verdaccio/discussions/3467
+  - fix global for yarn packages and add version to the packages on copy
+  - feat: hide deprecated versions option
+  - fix: improve deprecated package style
+  - feat: display deprecated versions
+
+### Patch Changes
+
+- 02ba426ce: fix: display labels for engine versions
+
 ## 3.0.0-next.1
 
 ### Patch Changes

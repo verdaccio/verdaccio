@@ -1,5 +1,22 @@
 # @verdaccio/logger-commons
 
+## 7.0.0-next.3
+
+### Major Changes
+
+- e7ebccb61: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d87: restore legacy support
+
+### Patch Changes
+
+- Updated dependencies [daceb6d87]
+- Updated dependencies [e7ebccb61]
+  - @verdaccio/core@7.0.0-next.3
+  - @verdaccio/logger-prettify@7.0.0-next.1
+
 ## 7.0.0-next.2
 
 ### Patch Changes

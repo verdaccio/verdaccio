@@ -1,5 +1,28 @@
 # @verdaccio/server
 
+## 7.0.0-next.3
+
+### Major Changes
+
+- e7ebccb61: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 3ca405618: fix: Avoid 404 error when getting favicon from root
+- Updated dependencies [daceb6d87]
+- Updated dependencies [e7ebccb61]
+  - @verdaccio/config@7.0.0-next.3
+  - @verdaccio/core@7.0.0-next.3
+  - @verdaccio/middleware@7.0.0-next.3
+  - verdaccio-audit@12.0.0-next.3
+  - @verdaccio/utils@7.0.0-next.3
+  - @verdaccio/api@7.0.0-next.3
+  - @verdaccio/auth@7.0.0-next.3
+  - @verdaccio/loaders@7.0.0-next.3
+  - @verdaccio/logger@7.0.0-next.3
+  - @verdaccio/store@7.0.0-next.3
+  - @verdaccio/web@7.0.0-next.3
+
 ## 7.0.0-next.2
 
 ### Patch Changes

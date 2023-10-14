@@ -1,5 +1,11 @@
 # Change Log
 
+## 12.0.0-next.1
+
+### Major Changes
+
+- e7ebccb61: update major dependencies, remove old nodejs support
+
 ## 12.0.0-next.0
 
 ### Major Changes

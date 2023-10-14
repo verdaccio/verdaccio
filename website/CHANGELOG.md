@@ -1,5 +1,14 @@
 # @verdaccio/website
 
+## 6.0.0-next.2
+
+### Patch Changes
+
+- Updated dependencies [02ba426ce]
+- Updated dependencies [580319a53]
+- Updated dependencies [e7ebccb61]
+  - @verdaccio/ui-components@3.0.0-next.2
+
 ## 6.0.0-next.1
 
 ### Patch Changes

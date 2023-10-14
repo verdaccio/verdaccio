@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "7.0.0-next.0",
+  "version": "7.0.0-next.1",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
