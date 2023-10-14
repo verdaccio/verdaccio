@@ -53,7 +53,8 @@
   "versions": {
     "current-tags": "Current Tags",
     "version-history": "Version History",
-    "not-available": "Not available"
+    "not-available": "Not available",
+    "hide-deprecated": "All deprecated versions are hidden by configuration settings"
   },
   "package": {
     "published-on": "Published on {{time}} •",

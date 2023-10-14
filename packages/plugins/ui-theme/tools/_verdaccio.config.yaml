@@ -4,6 +4,7 @@ web:
   primary_color: #CCC
   # showRaw: true
   # darkMode: true
+  hideDeprecatedVersions: true
   pkgManagers:
     - npm
     - yarn

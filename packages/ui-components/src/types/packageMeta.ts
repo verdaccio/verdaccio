@@ -78,6 +78,7 @@ export interface Version {
   license?: string;
   main?: string;
   keywords?: string[];
+  deprecated?: string;
 }
 
 export interface Author {
