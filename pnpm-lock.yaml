@@ -667,8 +667,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       minimatch:
-        specifier: 9.0.3
-        version: 9.0.3
+        specifier: 7.4.6
+        version: 7.4.6
       yup:
         specifier: 0.32.11
         version: 0.32.11
@@ -1994,8 +1994,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       minimatch:
-        specifier: 9.0.3
-        version: 9.0.3
+        specifier: 7.4.6
+        version: 7.4.6
       semver:
         specifier: 7.5.4
         version: 7.5.4
@@ -22504,11 +22504,19 @@ packages:
     dependencies:
       brace-expansion: 2.0.1
 
+  /minimatch@7.4.6:
+    resolution: {integrity: sha512-sBz8G/YjVniEz6lKPNpKxXwazJe4c19fEfV2GDMX6AjFz+MX9uDWIZW8XreVhkFW3fkIdTv/gxWr/Kks5FFAVw==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: false
+
   /minimatch@9.0.3:
     resolution: {integrity: sha512-RHiac9mvaRw0x3AYRgDC1CxAP7HTcNrrECeA8YYJeWnpo+2Q5CegtZjaotWTWxDG3UeGA1coE05iH1mPjT/2mg==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       brace-expansion: 2.0.1
+    dev: true
 
   /minimist-options@4.1.0:
     resolution: {integrity: sha512-Q4r8ghd80yhO/0j1O3B2BjweX3fiHg9cdOwjJd2J76Q135c+NDxGCqdYKQ1SKBuFfgWbAUzBfvYjPUEeNgqN1A==}
@@ -29640,7 +29648,7 @@ packages:
       portfinder: 1.0.32(supports-color@6.1.0)
       schema-utils: 1.0.0
       selfsigned: 1.10.14
-      semver: 6.3.1
+      semver: 6.3.0
       serve-index: 1.9.1(supports-color@6.1.0)
       sockjs: 0.3.24
       sockjs-client: 1.6.1(supports-color@6.1.0)
