@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.27.0](https://github.com/verdaccio/verdaccio/compare/v5.26.3...v5.27.0) (2023-10-14)
+
+
+### Features
+
+* update core dependencies ([#4073](https://github.com/verdaccio/verdaccio/issues/4073)) ([257d46a](https://github.com/verdaccio/verdaccio/commit/257d46a76f3899ca052c97e234e494a1e1791c3c))
+
 ### [5.26.3](https://github.com/verdaccio/verdaccio/compare/v5.26.2...v5.26.3) (2023-09-24)
 
 
