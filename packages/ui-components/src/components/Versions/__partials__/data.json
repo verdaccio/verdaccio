@@ -3,6 +3,7 @@
     "0.0.1": {
       "name": "@verdaccio/local-storage",
       "version": "0.0.1",
+      "deprecated": "this is deprecated",
       "description": "local storage implementation",
       "main": "lib/index.js",
       "scripts": {

@@ -1,5 +1,7 @@
+import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -29,6 +31,7 @@ export function filterDeprecated(versions: Versions) {
 const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
+  const theme = useTheme();
   const hideDeprecatedVersions = configOptions.hideDeprecatedVersions;
   const listVersions = hideDeprecatedVersions ? filterDeprecated(versions) : versions;
 
@@ -41,6 +44,16 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
             <Link to={`/-/web/detail/${packageName}/v/${version}`} variant="caption">
               <ListItemText disableTypography={false} primary={version}></ListItemText>
             </Link>
+            {typeof versions[version].deprecated === 'string' ? (
+              <Chip
+                color="warning"
+                data-testid="deprecated-badge"
+                label="deprecated"
+                size="small"
+                sx={{ marginLeft: theme.spacing(1) }}
+                variant="outlined"
+              />
+            ) : null}
             <Spacer />
             <ListItemText title={utils.formatDate(time[version])}>
               {time[version]

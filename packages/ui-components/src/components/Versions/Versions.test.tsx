@@ -27,6 +27,8 @@ describe('<Version /> component', () => {
     // pick some versions
     expect(getByText('2.3.0')).toBeTruthy();
     expect(getByText('canary')).toBeTruthy();
+    // there is one deprecated version deprecated
+    expect(screen.queryByTestId('deprecated-badge')).toBeInTheDocument();
   });
 
   test('should not render versions', () => {
