@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "6.0.0-next.1",
+  "version": "6.0.0-next.2",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --no-open",
@@ -40,7 +40,7 @@
     "@mui/icons-material": "5.14.13",
     "@mui/material": "5.14.13",
     "@mui/styles": "5.14.13",
-    "@verdaccio/ui-components": "workspace:3.0.0-next.1",
+    "@verdaccio/ui-components": "workspace:3.0.0-next.2",
     "classnames": "2.3.2",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.1.0",

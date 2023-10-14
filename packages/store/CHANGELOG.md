@@ -1,5 +1,26 @@
 # @verdaccio/store
 
+## 7.0.0-next.3
+
+### Major Changes
+
+- e7ebccb61: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- Updated dependencies [daceb6d87]
+- Updated dependencies [e7ebccb61]
+  - @verdaccio/config@7.0.0-next.3
+  - @verdaccio/core@7.0.0-next.3
+  - @verdaccio/tarball@12.0.0-next.3
+  - @verdaccio/url@12.0.0-next.3
+  - @verdaccio/utils@7.0.0-next.3
+  - @verdaccio/hooks@7.0.0-next.3
+  - @verdaccio/loaders@7.0.0-next.3
+  - @verdaccio/logger@7.0.0-next.3
+  - @verdaccio/local-storage@12.0.0-next.3
+  - @verdaccio/proxy@7.0.0-next.3
+
 ## 7.0.0-next.2
 
 ### Patch Changes
