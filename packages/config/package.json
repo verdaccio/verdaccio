@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=12"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -43,7 +43,7 @@
     "debug": "4.3.4",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "minimatch": "9.0.3",
+    "minimatch": "7.4.6",
     "yup": "0.32.11"
   },
   "devDependencies": {
