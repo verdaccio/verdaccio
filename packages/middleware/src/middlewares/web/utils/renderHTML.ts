@@ -42,6 +42,7 @@ export default function renderHTML(config: ConfigYaml, manifest, manifestFiles, 
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  const hideDeprecatedVersions = config?.web?.hideDeprecatedVersions ?? false;
   // @ts-ignore
   const needHtmlCache = [undefined, null].includes(config?.web?.html_cache)
     ? true
@@ -99,6 +100,7 @@ export default function renderHTML(config: ConfigYaml, manifest, manifestFiles, 
     title,
     scope,
     language,
+    hideDeprecatedVersions,
   };
 
   let webPage;

@@ -13,7 +13,6 @@ export const download = createModel<RootModel>()({
   reducers: {},
   effects: () => ({
     async getTarball({ link }) {
-      // const basePath = state.configuration.config.base;
       try {
         const fileStream: Blob = await API.request(link, 'GET', {
           headers: {

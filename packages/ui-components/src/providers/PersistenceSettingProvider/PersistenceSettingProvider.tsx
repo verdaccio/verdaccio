@@ -11,10 +11,12 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 
 type PersistenceSettingsProps = {
   isGlobal?: boolean;
+  yarnModern: boolean;
 };
 
 const defaultValues: PersistenceSettingsProps = {
   isGlobal: false,
+  yarnModern: false,
 };
 
 const PersistenceSettingContext = createContext<any>(defaultValues);

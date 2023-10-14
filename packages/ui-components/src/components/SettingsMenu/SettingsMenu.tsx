@@ -21,14 +21,24 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClick = () => {
+
+  const handleGlobalSelect = () => {
     const statusGlobal = !localSettings[packageName]?.global;
-    updateSettings({ [packageName]: { global: statusGlobal } });
+    updateSettings({ ...localSettings, [packageName]: { global: statusGlobal } });
     setAnchorEl(null);
   };
+
+  const handleGlobalYarnModern = () => {
+    const statusYarnModern = !localSettings?.yarnModern;
+    updateSettings({ ...localSettings, yarnModern: statusYarnModern });
+    setAnchorEl(null);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const statusGlobal = localSettings[packageName]?.global;
   return (
     <>
       <IconButton
@@ -50,14 +60,23 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
         onClose={handleClose}
         open={open}
       >
-        <MenuItem onClick={handleClick}>
+        <MenuItem onClick={handleGlobalSelect}>
           {' '}
-          {localSettings?.global ? (
+          {statusGlobal === true ? (
             <ListItemIcon>
               <Check />
             </ListItemIcon>
           ) : null}
           {t('sidebar.installation.global')}
+        </MenuItem>
+        <MenuItem onClick={handleGlobalYarnModern}>
+          {' '}
+          {localSettings?.yarnModern ? (
+            <ListItemIcon>
+              <Check />
+            </ListItemIcon>
+          ) : null}
+          {t('sidebar.installation.yarnModern')}
         </MenuItem>
       </Menu>
     </>

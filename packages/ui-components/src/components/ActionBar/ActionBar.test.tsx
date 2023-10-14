@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { store } from '../../store/store';
-import { cleanup, fireEvent, renderWithStore, screen } from '../../test/test-react-testing-library';
+import {
+  cleanup,
+  fireEvent,
+  renderWithStore,
+  screen,
+  waitFor,
+} from '../../test/test-react-testing-library';
 import ActionBar from './ActionBar';
 
 const defaultPackageMeta = {
@@ -27,8 +33,10 @@ describe('<ActionBar /> component', () => {
   });
 
   test('should render the component in default state', () => {
-    const { container } = renderWithStore(<ActionBar packageMeta={defaultPackageMeta} />, store);
-    expect(container.firstChild).toMatchSnapshot();
+    renderWithStore(<ActionBar packageMeta={defaultPackageMeta} />, store);
+    expect(screen.getByTestId('download-tarball-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('BugReportIcon')).toBeInTheDocument();
+    expect(screen.getByTestId('HomeIcon')).toBeInTheDocument();
   });
 
   test('when there is no action bar data', () => {
@@ -45,8 +53,10 @@ describe('<ActionBar /> component', () => {
       },
     };
 
-    const { container } = renderWithStore(<ActionBar packageMeta={packageMeta} />, store);
-    expect(container.firstChild).toMatchSnapshot();
+    renderWithStore(<ActionBar packageMeta={packageMeta} />, store);
+    expect(screen.queryByTestId('download-tarball-btn')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('BugReportIcon')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('HomeIcon')).not.toBeInTheDocument();
   });
 
   test('when there is a button to download a tarball', () => {
@@ -59,11 +69,10 @@ describe('<ActionBar /> component', () => {
     expect(screen.getByLabelText('action-bar-action.raw')).toBeTruthy();
   });
 
-  test('when click button to raw manifest open a dialog with viewver', () => {
+  test('when click button to raw manifest open a dialog with viewer', async () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={true} />, store);
     fireEvent.click(screen.getByLabelText('action-bar-action.raw'));
-    // TODO: fix this part
-    // expect(screen.getByTestId('raw-viewver-dialog')).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByTestId('rawViewer--dialog')).toBeInTheDocument());
   });
 
   test('should not display download tarball button', () => {
@@ -78,8 +87,6 @@ describe('<ActionBar /> component', () => {
 
   test('when there is a button to open an issue', () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} />, store);
-    // TODO: should be visible by text
-    // expect(screen.getByLabelText('action-bar-action.open-an-issue')).toBeTruthy();
     expect(screen.getByTestId('BugReportIcon')).toBeInTheDocument();
   });
 });

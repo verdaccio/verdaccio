@@ -95,6 +95,9 @@ exports[`<Author /> component should render the component in default state 1`] =
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .emotion-6 {
@@ -106,24 +109,12 @@ exports[`<Author /> component should render the component in default state 1`] =
   text-indent: 10000px;
 }
 
-.emotion-8 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 0;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 0 10px;
-  margin: 0;
-}
-
-.emotion-9 {
+.emotion-7 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.57;
 }
 
 <body>
@@ -153,15 +144,11 @@ exports[`<Author /> component should render the component in default state 1`] =
               />
             </div>
           </a>
-          <div
-            class="MuiListItemText-root emotion-7 emotion-8"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-9"
-            >
-              verdaccio user
-            </span>
-          </div>
+            verdaccio user
+          </h6>
         </li>
       </ul>
     </div>
@@ -258,6 +245,9 @@ exports[`<Author /> component should render the component in default state 1`] =
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .emotion-6 {
@@ -269,24 +259,12 @@ exports[`<Author /> component should render the component in default state 1`] =
   text-indent: 10000px;
 }
 
-.emotion-8 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 0;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 0 10px;
-  margin: 0;
-}
-
-.emotion-9 {
+.emotion-7 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.57;
 }
 
 <div>
@@ -315,15 +293,11 @@ exports[`<Author /> component should render the component in default state 1`] =
             />
           </div>
         </a>
-        <div
-          class="MuiListItemText-root emotion-7 emotion-8"
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
         >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-9"
-          >
-            verdaccio user
-          </span>
-        </div>
+          verdaccio user
+        </h6>
       </li>
     </ul>
   </div>,
@@ -476,6 +450,9 @@ exports[`<Author /> component should render the component when there is no autho
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .emotion-6 {
@@ -487,24 +464,12 @@ exports[`<Author /> component should render the component when there is no autho
   text-indent: 10000px;
 }
 
-.emotion-8 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 0;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 0 10px;
-  margin: 0;
-}
-
-.emotion-9 {
+.emotion-7 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.57;
 }
 
 <body>
@@ -529,15 +494,11 @@ exports[`<Author /> component should render the component when there is no autho
               src="https://www.gravatar.com/avatar/000000"
             />
           </div>
-          <div
-            class="MuiListItemText-root emotion-7 emotion-8"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-9"
-            >
-              verdaccio user
-            </span>
-          </div>
+            verdaccio user
+          </h6>
         </li>
       </ul>
     </div>
@@ -634,6 +595,9 @@ exports[`<Author /> component should render the component when there is no autho
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
 }
 
 .emotion-6 {
@@ -645,24 +609,12 @@ exports[`<Author /> component should render the component when there is no autho
   text-indent: 10000px;
 }
 
-.emotion-8 {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-width: 0;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  padding: 0 10px;
-  margin: 0;
-}
-
-.emotion-9 {
+.emotion-7 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.57;
 }
 
 <div>
@@ -686,15 +638,11 @@ exports[`<Author /> component should render the component when there is no autho
             src="https://www.gravatar.com/avatar/000000"
           />
         </div>
-        <div
-          class="MuiListItemText-root emotion-7 emotion-8"
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
         >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-9"
-          >
-            verdaccio user
-          </span>
-        </div>
+          verdaccio user
+        </h6>
       </li>
     </ul>
   </div>,

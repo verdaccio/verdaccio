@@ -4,6 +4,7 @@ import BugReport from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
 import { useTheme } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
@@ -71,6 +72,7 @@ const Package: React.FC<PackageInterface> = ({
   const dispatch = useDispatch<Dispatch>();
   const { t } = useTranslation();
   const theme = useTheme();
+  const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
 
   const handleDownload = useCallback(
     async (tarballDist: string) => {
@@ -173,7 +175,13 @@ const Package: React.FC<PackageInterface> = ({
           title={t('package.tarball')}
         >
           <IconButton aria-label={t('package.download')} size="large">
-            <DownloadIcon />
+            {isLoading ? (
+              <CircularProgress size={13}>
+                <DownloadIcon />
+              </CircularProgress>
+            ) : (
+              <DownloadIcon />
+            )}
           </IconButton>
         </Tooltip>
       </Link>
@@ -194,6 +202,7 @@ const Package: React.FC<PackageInterface> = ({
           container={true}
           item={true}
           justify="flex-end"
+          spacing={3}
           xs={true}
         >
           {renderHomePageLink()}

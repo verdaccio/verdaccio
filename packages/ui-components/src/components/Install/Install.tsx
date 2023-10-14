@@ -27,7 +27,6 @@ export type Props = {
 const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-
   if (!packageMeta || !packageName) {
     return null;
   }
@@ -51,13 +50,25 @@ const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) =
         subheader={<StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>}
       >
         {hasNpm && (
-          <InstallListItem dependencyManager={DependencyManager.NPM} packageName={packageName} />
+          <InstallListItem
+            dependencyManager={DependencyManager.NPM}
+            packageName={packageName}
+            packageVersion={packageMeta.latest.version}
+          />
         )}
         {hasYarn && (
-          <InstallListItem dependencyManager={DependencyManager.YARN} packageName={packageName} />
+          <InstallListItem
+            dependencyManager={DependencyManager.YARN}
+            packageName={packageName}
+            packageVersion={packageMeta.latest.version}
+          />
         )}
         {hasPnpm && (
-          <InstallListItem dependencyManager={DependencyManager.PNPM} packageName={packageName} />
+          <InstallListItem
+            dependencyManager={DependencyManager.PNPM}
+            packageName={packageName}
+            packageVersion={packageMeta.latest.version}
+          />
         )}
       </List>
     </>
