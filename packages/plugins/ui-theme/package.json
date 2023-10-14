@@ -33,7 +33,7 @@
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.5",
-    "css-loader": "6.7.3",
+    "css-loader": "6.8.1",
     "dayjs": "1.11.7",
     "dompurify": "2.4.5",
     "friendly-errors-webpack-plugin": "1.7.0",

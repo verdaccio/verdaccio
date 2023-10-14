@@ -28,7 +28,6 @@ module.exports = Object.assign({}, config, {
     '\\.(svg)$': '<rootDir>/jest/unit/empty.ts',
     '\\.(jpg)$': '<rootDir>/jest/unit/empty.ts',
     '\\.(md)$': '<rootDir>/jest/unit/empty-string.ts',
-    'github-markdown-css': '<rootDir>/jest/identity.js',
     'react-markdown': '<rootDir>/src/__mocks__/react-markdown.tsx',
     'remark-*': '<rootDir>/src/__mocks__/remark-plugin.ts',
   },
