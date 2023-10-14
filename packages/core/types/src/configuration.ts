@@ -98,7 +98,7 @@ export type CommonWebConf = {
   showFooter?: boolean;
   showThemeSwitch?: boolean;
   showDownloadTarball?: boolean;
-  hideDeprecatedVersions: boolean;
+  hideDeprecatedVersions?: boolean;
   primaryColor: string;
   showRaw?: boolean;
 };
