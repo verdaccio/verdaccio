@@ -47,12 +47,7 @@ type Props = {
 const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) => {
   const { t } = useTranslation();
   return (
-    <Dialog
-      data-testid={'rawViewer--dialog'}
-      fullScreen={true}
-      id="raw-viewer--dialog-container"
-      open={isOpen}
-    >
+    <Dialog data-testid={'rawViewer--dialog'} fullScreen={true} open={isOpen}>
       <ViewerTitle id="viewer-title" onClose={onClose}>
         {t('action-bar-action.raw')}
       </ViewerTitle>

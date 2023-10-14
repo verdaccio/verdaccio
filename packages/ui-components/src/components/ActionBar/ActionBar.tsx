@@ -1,4 +1,6 @@
+/* eslint-disable verdaccio/jsx-spread */
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import React, { useState } from 'react';
 
 import { url } from '../../utils';
@@ -40,18 +42,20 @@ const ActionBar: React.FC<Props> = ({ showRaw, showDownloadTarball = true, packa
 
   return (
     <Box alignItems="center" display="flex" marginBottom="14px">
-      {actions.map((action) => (
-        <ActionBarAction key={action.type} {...action} />
-      ))}
-      {isRawViewerOpen && (
-        <RawViewer
-          isOpen={isRawViewerOpen}
-          onClose={() => {
-            setIsRawViewerOpen(false);
-          }}
-          packageMeta={packageMeta}
-        />
-      )}
+      <Stack direction="row" spacing={1}>
+        {actions.map((action) => (
+          <ActionBarAction key={action.type} {...action} />
+        ))}
+        {isRawViewerOpen && (
+          <RawViewer
+            isOpen={isRawViewerOpen}
+            onClose={() => {
+              setIsRawViewerOpen(false);
+            }}
+            packageMeta={packageMeta}
+          />
+        )}
+      </Stack>
     </Box>
   );
 };

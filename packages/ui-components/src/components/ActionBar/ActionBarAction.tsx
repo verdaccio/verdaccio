@@ -3,25 +3,21 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
 import RawOnIcon from '@mui/icons-material/RawOn';
+import CircularProgress from '@mui/material/CircularProgress';
 import FabMUI from '@mui/material/Fab';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Theme } from '../../Theme';
-import { Dispatch } from '../../store/store';
+import { Dispatch, RootState } from '../../store/store';
 import { Link } from '../Link';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   color: theme?.palette.white,
-  marginRight: 10,
-  ':hover': {
-    color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
-    background: theme?.palette.white,
-  },
 }));
 
 type ActionType = 'VISIT_HOMEPAGE' | 'OPEN_AN_ISSUE' | 'DOWNLOAD_TARBALL' | 'RAW_DATA';
@@ -36,6 +32,7 @@ export interface ActionBarActionProps {
 const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch<Dispatch>();
+  const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
 
   const handleDownload = useCallback(async () => {
     dispatch.download.getTarball({ link });
@@ -65,9 +62,17 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
     case 'DOWNLOAD_TARBALL':
       return (
         <Tooltip title={t('action-bar-action.download-tarball') as string}>
-          <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
-            <DownloadIcon />
-          </Fab>
+          {isLoading ? (
+            <CircularProgress sx={{ marginX: 0 }}>
+              <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
+                <DownloadIcon />
+              </Fab>
+            </CircularProgress>
+          ) : (
+            <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
+              <DownloadIcon />
+            </Fab>
+          )}
         </Tooltip>
       );
     case 'RAW_DATA':

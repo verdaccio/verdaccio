@@ -20,7 +20,7 @@ const packageMeta = {
     dist: {
       fileCount: 0,
       unpackedSize: 0,
-      tarball: 'https://registry.verdaccio.org/storybook/-/storybook-0.2.0.tgz',
+      tarball: 'https://registry.npmjs.org/verdaccio/-/verdaccio-5.26.0.tgz',
     },
     homepage: 'https://verdaccio.org',
     bugs: {
