@@ -101,13 +101,8 @@
     },
     "installation": {
       "title": "Installation",
-      "install-using-yarn": "Install using yarn",
-      "install-using-yarn-command": "yarn add {{packageName}}",
-      "install-using-npm": "Install using npm",
-      "install-using-npm-command": "npm install {{packageName}}",
-      "install-using-pnpm": "Install using pnpm",
-      "install-using-pnpm-command": "pnpm install {{packageName}}",
-      "global": "View as global"
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
     },
     "repository": {
       "title": "Repository"

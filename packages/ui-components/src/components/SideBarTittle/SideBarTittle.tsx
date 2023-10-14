@@ -78,4 +78,5 @@ const StyledHeading = styled(Heading)({
 
 const StyledBoxVersion = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
   color: theme?.palette.text.secondary,
+  fontSize: theme?.fontSize.sm,
 }));

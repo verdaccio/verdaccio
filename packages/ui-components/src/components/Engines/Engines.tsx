@@ -1,7 +1,7 @@
+import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import ListItemText from '@mui/material/ListItemText';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -24,7 +24,7 @@ const EngineItem: FC<EngineItemProps> = ({ title, element, engineText }) => (
     <List subheader={<StyledText variant={'subtitle1'}>{title}</StyledText>}>
       <EngineListItem>
         <Avatar sx={{ bgcolor: '#FFF' }}>{element}</Avatar>
-        <ListItemText primary={engineText} />
+        <Typography variant="subtitle2">{engineText}</Typography>
       </EngineListItem>
     </List>
   </Grid>

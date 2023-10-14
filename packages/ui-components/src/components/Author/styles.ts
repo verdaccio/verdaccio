@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 
 import { Theme } from '../../Theme';
 
@@ -14,9 +13,4 @@ export const AuthorListItem = styled(ListItem)({
   ':hover': {
     backgroundColor: 'transparent',
   },
-});
-
-export const AuthorListItemText = styled(ListItemText)({
-  padding: '0 10px',
-  margin: 0,
 });

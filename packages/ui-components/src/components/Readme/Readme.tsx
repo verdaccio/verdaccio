@@ -9,6 +9,7 @@ import { Props } from './types';
 const Readme: React.FC<Props> = ({ description }) => {
   // @ts-ignore
   const { isDarkMode } = useCustomTheme();
+
   return isDarkMode ? (
     <ReadmeDark description={description} />
   ) : (

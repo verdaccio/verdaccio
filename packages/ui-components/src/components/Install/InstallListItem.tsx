@@ -3,7 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
@@ -35,13 +34,26 @@ export enum DependencyManager {
 interface Interface {
   packageName: string;
   dependencyManager: DependencyManager;
+  packageVersion?: string;
 }
 
-const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }) => {
-  const { t } = useTranslation();
+export function getGlobalInstall(isGlobal, packageVersion, packageName, isYarn = false) {
+  const name = isGlobal
+    ? `${isYarn ? '' : '-g'} ${packageVersion ? `${packageName}@${packageVersion}` : packageName}`
+    : packageVersion
+    ? `${packageName}@${packageVersion}`
+    : packageName;
+
+  return name.trim();
+}
+
+const InstallListItem: React.FC<Interface> = ({
+  packageName,
+  dependencyManager,
+  packageVersion,
+}) => {
   const { localSettings } = useSettings();
   const isGlobal = localSettings[packageName]?.global ?? false;
-  const pkgName = isGlobal ? `-g ${packageName}` : packageName;
 
   switch (dependencyManager) {
     case DependencyManager.NPM:
@@ -53,16 +65,11 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
           <InstallListItemText
             primary={
               <CopyToClipBoard
-                dataTestId="installYarn"
-                text={t('sidebar.installation.install-using-npm-command', {
-                  packageName: pkgName,
-                })}
-                title={t('sidebar.installation.install-using-npm-command', {
-                  packageName: pkgName,
-                })}
+                dataTestId="instalNpm"
+                text={`npm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
+                title={`npm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
               />
             }
-            secondary={t('sidebar.installation.install-using-npm')}
           />
         </InstallItem>
       );
@@ -76,15 +83,28 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
             primary={
               <CopyToClipBoard
                 dataTestId="installYarn"
-                text={t('sidebar.installation.install-using-yarn-command', {
-                  packageName: pkgName,
-                })}
-                title={t('sidebar.installation.install-using-yarn-command', {
-                  packageName: pkgName,
-                })}
+                text={
+                  isGlobal
+                    ? `yarn ${localSettings.yarnModern ? '' : 'global'} add ${getGlobalInstall(
+                        isGlobal,
+                        packageVersion,
+                        packageName,
+                        true
+                      )}`
+                    : `yarn add ${getGlobalInstall(isGlobal, packageVersion, packageName, true)}`
+                }
+                title={
+                  isGlobal
+                    ? `yarn global add ${getGlobalInstall(
+                        isGlobal,
+                        packageVersion,
+                        packageName,
+                        true
+                      )}`
+                    : `yarn add ${getGlobalInstall(isGlobal, packageVersion, packageName, true)}`
+                }
               />
             }
-            secondary={t('sidebar.installation.install-using-yarn')}
           />
         </InstallItem>
       );
@@ -98,15 +118,10 @@ const InstallListItem: React.FC<Interface> = ({ packageName, dependencyManager }
             primary={
               <CopyToClipBoard
                 dataTestId="installPnpm"
-                text={t('sidebar.installation.install-using-pnpm-command', {
-                  packageName: pkgName,
-                })}
-                title={t('sidebar.installation.install-using-pnpm-command', {
-                  packageName: pkgName,
-                })}
+                text={`pnpm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
+                title={`pnpm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
               />
             }
-            secondary={t('sidebar.installation.install-using-pnpm')}
           />
         </InstallItem>
       );
