@@ -34,7 +34,6 @@ describe('<ActionBar /> component', () => {
 
   test('should render the component in default state', () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} />, store);
-    screen.debug();
     expect(screen.getByTestId('download-tarball-btn')).toBeInTheDocument();
     expect(screen.getByTestId('BugReportIcon')).toBeInTheDocument();
     expect(screen.getByTestId('HomeIcon')).toBeInTheDocument();
