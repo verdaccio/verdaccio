@@ -44,7 +44,9 @@ This setting would cause the `pnpm install` command to install incorrect version
 To begin your development setup, please install the latest version of pnpm globally:
 
 ```
-npm i -g pnpm@latest-8
+nvm install
+corepack enable
+corepack prepare --activate pnpm@next-8
 ```
 
 With pnpm installed, the first step is installing all dependencies:
@@ -55,7 +57,7 @@ pnpm install
 
 ### Building the project
 
-To build the project run
+Each package is independent, dependencies must be build first, run:
 
 ```
 pnpm build
@@ -108,11 +110,22 @@ More details in the debug section
 We use [`debug`](https://www.npmjs.com/package/debug) to add helpful debugging
 output to the code. Each package has it owns namespace.
 
-#### Useful Scripts
+#### Developing with local server
 
 To run the application from the source code, ensure the project has been built with `pnpm build`, once this is done, there are few commands that helps to run server:
 
-- `pnpm start`: Runs server on port `8000` and UI on port `4873`. This is particularly useful if you want to contribute to the UI, since it runs with hot reload.
+The command `pnpm start` runs web server on port `8000` and user interface (webpack-server) on port `4873`. This is particularly useful if you want to contribute to the UI, since it runs with hot reload. The request to the server are proxy through webpack proxy support through the port `4873`.
+
+The user interface is split in two packages, the `/packages/plugins/ui-theme` and the `/packages/ui-components`. The `ui-components` package uses _storybook_ in order to develop component, but if you need to reload ui components with `ui-theme` do the following.
+
+Go to `/packages/ui-component` and run `pnpm watch` to enable _babel_ in watch mode, every change on the components will be hot reloaded in combination with the `pnpm start` command.
+
+Any change on the server packages, must be build independently (server do not has hot reload, `pnpm start` should be triggered again).
+
+Any interaction with the server should be done through the port `8000` eg: `npm login --registry http://localhost:8000` .
+
+#### Useful commands
+
 - `pnpm debug`: Run the server in debug mode `--inspect`. UI runs too but without hot reload. For automatic break use `pnpm debug:break`.
 - `pnpm debug:fastify`: To contribute on the [fastify migration](https://github.com/verdaccio/verdaccio/discussions/2155) this is a temporary command for such purpose.
 - `pnpm website`: Build the website, for more commands to run the _website_, run `cd website` and then `pnpm serve`, website will run on port `3000`.
@@ -220,7 +233,7 @@ Questions can be asked via [Discord](https://discord.gg/7qWJxBf)
 
 ## Development Guidelines {#development-guidelines}
 
-It's recommended use a UNIX system for local development, Windows should works fine for development, but is not daily tested could not be perfect. To ensure a fast code review and merge, please follow the next guidelines:
+It's recommended use a UNIX system for local development, Windows dev local support is not being tested and might not work. To ensure a fast code review and merge, please follow the next guidelines:
 
 Any contribution gives you the right to be part of this organization as _collaborator_ and your avatar will be automatically added to the [contributors page](https://verdaccio.org/contributors).
 
@@ -363,6 +376,8 @@ All translations are provided by the **[crowdin](http://crowdin.com)** platform,
 [https://translate.verdaccio.org/](https://translate.verdaccio.org/)
 
 If you want to contribute by adding translations, create an account (GitHub could be used as fast alternative), in the platform you can contribute to two areas, the website or improve User Interface translations.
+
+> Languages with less the 40% of translations available are excluded by the build system.
 
 If a language is not listed, ask for it in the [Discord](https://discord.gg/7qWJxBf) channel #contribute channel.
 
