@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
@@ -323,9 +323,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
           if (_.isNil(ok) === true) {
             debug('bypass unpublish for %o, publish will handle the access', packageName);
-            // @ts-ignore
-            // eslint-disable-next-line
-            return this.allow_publish(...arguments);
+            return this.allow_publish({ packageName, packageVersion }, user, callback);
           }
 
           if (ok) {
@@ -377,7 +375,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     })();
   }
 
-  public apiJWTmiddleware(): RequestHandler {
+  public apiJWTmiddleware() {
     debug('jwt middleware');
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
@@ -387,7 +385,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       }
     }
 
-    // @ts-ignore
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
 
@@ -518,8 +515,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   /**
    * JWT middleware for WebUI
    */
-  public webUIJWTmiddleware(): RequestHandler {
-    // @ts-ignore
+  public webUIJWTmiddleware(): $NextFunctionVer {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       if (this._isRemoteUserValid(req.remote_user)) {
         return _next();
