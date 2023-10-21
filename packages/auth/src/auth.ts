@@ -312,8 +312,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
-        // @ts-ignore
-        plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
+        plugin.allow_unpublish!(user, pkg, (err, ok): void => {
           if (err) {
             debug(
               'forbidden publish for %o, it will fallback on unpublish permissions',
