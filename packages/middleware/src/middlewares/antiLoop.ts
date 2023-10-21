@@ -8,7 +8,7 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
  * @param config
  * @returns
  */
-export function antiLoop(config: Config): Function {
+export function antiLoop(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
     if (req?.headers?.via != null) {
       const arr = req.get('via')?.split(',');
