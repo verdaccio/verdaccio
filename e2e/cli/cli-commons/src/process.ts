@@ -31,12 +31,13 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
   }
 
   const childProcess = spawn(cmd, args, spawnOptions);
-  // @ts-ignore
-  const rl = createInterface({ input: childProcess.stdout });
+  if (childProcess.stdout) {
+    const rl = createInterface({ input: childProcess.stdout });
 
-  rl.on('line', function (line) {
-    stdout += line;
-  });
+    rl.on('line', function (line) {
+      stdout += line;
+    });
+  }
 
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
@@ -45,14 +46,9 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
         resolve({ stdout, stderr });
       } else {
         err.message += `${error}...\n\nSTDOUT:\n${stdout}\n\nSTDERR:\n${stderr}\n`;
-        return reject({ stdout, stderr: err });
+        const errorObj = { stdout, stderr: err };
+        return reject(errorObj);
       }
     });
   });
-}
-
-export function silentNpm(...args): Promise<ExecOutput> {
-  debug('run silent npm %o', args);
-  // @ts-ignore
-  return exec({ silent: true }, 'npm', args);
 }
