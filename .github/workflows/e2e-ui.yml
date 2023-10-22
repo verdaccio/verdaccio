@@ -23,7 +23,7 @@ jobs:
       - name: Install pnpm
         run: |
          corepack enable
-         corepack prepare --activate pnpm@latest-8
+         corepack prepare --activate pnpm@8.9.0
       - name: Install
         run: pnpm install --reporter=silence --registry http://localhost:4873
       - name: build
