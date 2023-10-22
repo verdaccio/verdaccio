@@ -46,7 +46,7 @@ To begin your development setup, please install the latest version of pnpm globa
 ```
 nvm install
 corepack enable
-corepack prepare --activate pnpm@next-8
+corepack prepare --activate pnpm@8.9.0
 ```
 
 With pnpm installed, the first step is installing all dependencies:
