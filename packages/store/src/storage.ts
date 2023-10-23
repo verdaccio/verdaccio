@@ -983,7 +983,7 @@ class Storage {
     const localPackage = await this.getPackageManifest({
       name,
       requestOptions,
-      uplinksLook: options.uplinksLook,
+      uplinksLook: false,
     });
     // backward compatible in case users are not in the storage.
     const localStarUsers = localPackage.users || {};
