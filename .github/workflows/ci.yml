@@ -117,7 +117,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack install
+          corepack prepare --activate pnpm@8.9.0
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
