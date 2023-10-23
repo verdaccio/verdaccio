@@ -43,15 +43,23 @@ This setting would cause the `pnpm install` command to install incorrect version
 
 We use [corepack](https://github.com/nodejs/corepack) to install and use a specific (latest) version of pnpm. Please run the following commands which is use a specific version on Node.js and configure it to use a specific version of pnpm. The version of pnpm is specified in the `package.json` file in `packageManager` field.
 
-```
+```shell
 nvm install
 corepack enable
 corepack install
 ```
 
+`pnpm` version will be updated mainly by the maintainers but if you would like to set it to a specific version, you can do so by running the following command:
+
+```shell
+corepack use pnpm@8.9.1
+```
+
+It will update the `package.json` file with the new version of pnpm in the `packageManager` field.
+
 With pnpm installed, the first step is installing all dependencies:
 
-```
+```shell
 pnpm install
 ```
 
@@ -59,45 +67,45 @@ pnpm install
 
 Each package is independent, dependencies must be build first, run:
 
-```
+```shell
 pnpm build
 ```
 
 ### Running test
 
-```
+```shell
 pnpm test
 ```
 
 Verdaccio is a mono repository. To run the tests for for a specific package:
 
-```
+```shell
 cd packages/store
 pnpm test
 ```
 
 or an specific test in that package:
 
-```
+```shell
 pnpm test test/merge.dist.tags.spec.ts
 ```
 
 or a single test unit:
 
-```
+```shell
 pnpm test test/merge.dist.tags.spec.ts -- -t 'simple'
 ```
 
 Coverage reporting is enabled by default, but you can turn it off to speed up
 test runs:
 
-```
+```shell
 pnpm test test/merge.dist.tags.spec.ts -- -t 'simple' --coverage=false
 ```
 
 You can enable increased [`debug`](https://www.npmjs.com/package/debug) output:
 
-```
+```shell
 DEBUG=verdaccio:* pnpm test
 ```
 
@@ -137,14 +145,14 @@ Currently you can only run pre-compiled packages in debug mode. To enable debug
 while running add the `verdaccio` namespace using the `DEBUG` environment
 variable, like this:
 
-```
+```shell
 DEBUG=verdaccio:* node packages/verdaccio/debug/bootstrap.js
 ```
 
 You can filter this output to just the packages you're interested in using
 namespaces:
 
-```
+```shell
 DEBUG=verdaccio:plugin:* node packages/verdaccio/debug/bootstrap.js
 ```
 
@@ -160,14 +168,14 @@ Once you have perform your changes in the code base, the build and tests passes 
 - Ensure you have build all modules (or the one you have modified)
 - Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
 
-```
+```shell
 pnpm build
 pnpm local:publish:release
 ```
 
 The last step consist on install globally the package from the local registry which runs on the default port (4873).
 
-```
+```shell
 npm i -g verdaccio --registry=http://localhost:4873
 verdaccio
 ```
@@ -298,7 +306,7 @@ contribution to get merged (unless it does not affect functionality or
 user-facing content, eg: docs, readme, adding test or typo/lint fixes). To
 create a changeset please run:
 
-```
+```shell
 pnpm changeset
 ```
 
