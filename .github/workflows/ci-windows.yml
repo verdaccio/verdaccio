@@ -18,7 +18,7 @@ jobs:
         env:
           NODE_ENV: production          
     steps:
-    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v3
     - name: Node
       uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
       with:
@@ -47,7 +47,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v3
       - name: Node
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
         with:
@@ -71,7 +71,7 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v3
       - name: Use Node
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
         with:
@@ -100,7 +100,7 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v3
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
         with:
@@ -126,7 +126,7 @@ jobs:
     runs-on: windows-latest
     name: UI Test E2E
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v3
       - uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
         with:
           node-version-file: '.nvmrc'
