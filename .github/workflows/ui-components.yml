@@ -1,17 +1,17 @@
 name: UI Components
 
-on: 
+on:
   workflow_dispatch:
   pull_request:
     paths:
-    - .github/workflows/ui-components.yml
-    - 'packages/ui-components/**'
-    - 'package.json'
-    - 'pnpm-workspace.yaml'
-    - 'pnpm-lock.yaml'
+      - .github/workflows/ui-components.yml
+      - 'packages/ui-components/**'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+      - 'pnpm-lock.yaml'
 
 permissions:
-  contents: read  #  to fetch code (actions/checkout)
+  contents: read #  to fetch code (actions/checkout)
 
 env:
   DEBUG: verdaccio*
@@ -19,9 +19,9 @@ env:
 jobs:
   deploy:
     permissions:
-      contents: read  #  to fetch code (actions/checkout)
+      contents: read #  to fetch code (actions/checkout)
       deployments: write
-      pull-requests: write  #  to comment on pull-requests
+      pull-requests: write #  to comment on pull-requests
 
     runs-on: ubuntu-latest
     env:
@@ -47,22 +47,22 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-            corepack prepare --activate pnpm@8.9.0
+          corepack install
       - name: Install
-        run: pnpm install  
+        run: pnpm install
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content
         # the msw.js worker is need it at the storybook-static folder in production
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
       - name: 🔥 Deploy Production UI Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          build-dir: './packages/ui-components/storybook-static'          
+          build-dir: './packages/ui-components/storybook-static'
       - name: 🤖 Deploy Preview UI Components Netlify
         if: github.repository == 'verdaccio/verdaccio'
         uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566

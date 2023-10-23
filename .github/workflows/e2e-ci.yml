@@ -15,26 +15,28 @@ jobs:
         env:
           NODE_ENV: production
     steps:
-    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
-    - name: Use Node
-      uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
-      with:
-        node-version-file: '.nvmrc'
-    - name: Install pnpm
-      run: npm i pnpm@latest-8 -g
-    - name: set store
-      run: |
-        mkdir ~/.pnpm-store
-        pnpm config set store-dir ~/.pnpm-store
-    - name: Install
-      run: pnpm install --reporter=silence --ignore-scripts --registry http://localhost:4873
-    - name: Cache .pnpm-store
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
-      with:
-        path: ~/.pnpm-store
-        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-        restore-keys: |
-          pnpm-
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - name: Use Node
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@8.9.0
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store
+      - name: Install
+        run: pnpm install --reporter=silence --ignore-scripts --registry http://localhost:4873
+      - name: Cache .pnpm-store
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+          restore-keys: |
+            pnpm-
   build:
     needs: [prepare]
     runs-on: ubuntu-latest
@@ -45,14 +47,16 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
-        run: npm i pnpm@latest-8 -g
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@8.9.0
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm recursive install --reporter=silence --registry http://localhost:4873
       - name: build
@@ -78,7 +82,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pkg: [npm6, npm7, npm8, npm9, npm10, pnpm6, pnpm7, pnpm8, yarn1, yarn2, yarn3, yarn4]
+        pkg:
+          [
+            npm6,
+            npm7,
+            npm8,
+            npm9,
+            npm10,
+            pnpm6,
+            pnpm7,
+            pnpm8,
+            yarn1,
+            yarn2,
+            yarn3,
+            yarn4,
+          ]
         node: [16, 18, 19]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
@@ -88,14 +106,16 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Install pnpm
-        run: npm i pnpm@latest-8 -g
+        run: |
+          corepack enable
+          corepack prepare --activate pnpm@8.9.0
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
@@ -107,6 +127,6 @@ jobs:
       #     path: ./e2e/
       #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: build e2e
-        run:  pnpm --filter @verdaccio/test-cli-commons build
+        run: pnpm --filter @verdaccio/test-cli-commons build
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}

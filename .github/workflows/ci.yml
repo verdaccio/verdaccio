@@ -25,30 +25,30 @@ jobs:
         ports:
           - 4873:4873
         env:
-          NODE_ENV: production          
+          NODE_ENV: production
     steps:
-    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
-    - name: Node
-      uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
-      with:
-        node-version-file: '.nvmrc'
-    - name: Install pnpm
-      run: |
-        corepack enable
-        corepack prepare --activate pnpm@8.9.0
-    - name: set store
-      run: |
-        mkdir ~/.pnpm-store
-        pnpm config set store-dir ~/.pnpm-store
-    - name: Install
-      run: pnpm install  --registry http://localhost:4873
-    - name: Cache .pnpm-store
-      uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
-      with:
-        path: ~/.pnpm-store
-        key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-        restore-keys: |
-          pnpm-
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - name: Node
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # tag=v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack install
+      - name: set store
+        run: |
+          mkdir ~/.pnpm-store
+          pnpm config set store-dir ~/.pnpm-store
+      - name: Install
+        run: pnpm install  --registry http://localhost:4873
+      - name: Cache .pnpm-store
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-
   lint:
     runs-on: ubuntu-latest
     name: Lint
@@ -62,14 +62,14 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@8.9.0
+          corepack install
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -87,14 +87,14 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@8.9.0
+          corepack install
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --ignore-scripts
       - name: Lint
@@ -124,7 +124,7 @@ jobs:
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --ignore-scripts --registry http://localhost:4873
       - name: build
@@ -144,14 +144,14 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack prepare --activate pnpm@8.9.0
+          corepack install
       - uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: set store
         run: |
-          pnpm config set store-dir ~/.pnpm-store              
+          pnpm config set store-dir ~/.pnpm-store
       - name: Install
         ## we need scripts, pupetter downloads aditional content
         run: pnpm install --registry http://localhost:4873
