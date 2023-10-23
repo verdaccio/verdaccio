@@ -41,12 +41,12 @@ package-lock=false
 
 This setting would cause the `pnpm install` command to install incorrect versions of package dependencies and the subsequent `pnpm build` step would likely fail.
 
-To begin your development setup, please install the latest version of pnpm globally:
+We use [corepack](https://github.com/nodejs/corepack) to install and use a specific (latest) version of pnpm. Please run the following commands which is use a specific version on Node.js and configure it to use a specific version of pnpm. The version of pnpm is specified in the `package.json` file in `packageManager` field.
 
 ```
 nvm install
 corepack enable
-corepack prepare --activate pnpm@8.9.0
+corepack install
 ```
 
 With pnpm installed, the first step is installing all dependencies:

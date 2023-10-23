@@ -22,8 +22,8 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: |
-         corepack enable
-         corepack prepare --activate pnpm@8.9.0
+          corepack enable
+          corepack install
       - name: Install
         run: pnpm install --reporter=silence --registry http://localhost:4873
       - name: build
