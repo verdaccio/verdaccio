@@ -196,10 +196,10 @@ export function publishPackage(storage: Storage): any {
         requestOptions: {
           host: req.hostname,
           protocol: req.protocol,
-          // @ts-ignore
-          headers: req.headers,
+          headers: req.headers as { [key: string]: string },
           username,
         },
+        uplinksLook: false,
       });
 
       res.status(HTTP_STATUS.CREATED);

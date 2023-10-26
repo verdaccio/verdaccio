@@ -165,7 +165,7 @@ of the output is sent to the logger module.
 
 Once you have perform your changes in the code base, the build and tests passes you can publish a local version:
 
-- Ensure you have build all modules (or the one you have modified)
+- Ensure you have built all modules by running `pnpm build` (or the one you have modified)
 - Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
 
 ```shell

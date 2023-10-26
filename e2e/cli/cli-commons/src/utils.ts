@@ -5,7 +5,6 @@ import { join } from 'path';
 import { fileUtils } from '@verdaccio/core';
 
 export function createProject(projectName: string) {
-  // @ts-ignore
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
   const verdaccioInstall = join(tempRootFolder, projectName);
   fs.mkdirSync(verdaccioInstall);

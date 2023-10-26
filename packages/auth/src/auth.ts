@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { NextFunction, Request, RequestHandler, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
@@ -308,12 +308,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('allow unpublish for %o', packageName);
 
     for (const plugin of this.plugins) {
-      if (_.isNil(plugin) || isFunction(plugin.allow_unpublish) === false) {
+      if (typeof plugin?.allow_unpublish !== 'function') {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
-        // @ts-ignore
-        plugin.allow_unpublish!(user, pkg, (err, ok: boolean): void => {
+        plugin.allow_unpublish(user, pkg, (err, ok): void => {
           if (err) {
             debug(
               'forbidden publish for %o, it will fallback on unpublish permissions',
@@ -324,9 +323,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
           if (_.isNil(ok) === true) {
             debug('bypass unpublish for %o, publish will handle the access', packageName);
-            // @ts-ignore
-            // eslint-disable-next-line
-            return this.allow_publish(...arguments);
+            return this.allow_publish({ packageName, packageVersion }, user, callback);
           }
 
           if (ok) {
@@ -350,7 +347,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const pkg = Object.assign(
       { name: packageName, version: packageVersion },
       getMatchedPackagesSpec(packageName, this.config.packages)
-    ) as any;
+    );
     debug('allow publish for %o init | plugins: %o', packageName, plugins.length);
 
     (function next(): void {
@@ -378,7 +375,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     })();
   }
 
-  public apiJWTmiddleware(): RequestHandler {
+  public apiJWTmiddleware() {
     debug('jwt middleware');
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
@@ -388,7 +385,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       }
     }
 
-    // @ts-ignore
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
 
@@ -519,8 +515,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   /**
    * JWT middleware for WebUI
    */
-  public webUIJWTmiddleware(): RequestHandler {
-    // @ts-ignore
+  public webUIJWTmiddleware(): $NextFunctionVer {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       if (this._isRemoteUserValid(req.remote_user)) {
         return _next();

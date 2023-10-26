@@ -43,7 +43,6 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
   app.use(auth.apiJWTmiddleware());
   app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
-  // @ts-ignore
   app.use(antiLoop(config));
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);

@@ -3,7 +3,7 @@ export interface PackageAccess {
   publish?: string[];
   proxy?: string[];
   access?: string[];
-  unpublish: string[];
+  unpublish?: string[];
 }
 
 export interface PackageList {
