@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5149,
+      "contributions": 5150,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2817
+          "contributions": 2818
         },
         {
           "name": "verdaccio-cookbook",
@@ -904,6 +904,21 @@
       ]
     },
     {
+      "id": 6381587,
+      "login": "dnafication",
+      "contributions": 4,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        },
+        {
+          "name": "website",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 22656541,
       "login": "semoal",
       "contributions": 4,
@@ -1192,21 +1207,6 @@
         },
         {
           "name": "monorepo",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 6381587,
-      "login": "dnafication",
-      "contributions": 3,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        },
-        {
-          "name": "website",
           "contributions": 1
         }
       ]
@@ -4864,7 +4864,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15340,
+      "stargazers_count": 15347,
       "archived": false
     },
     {
