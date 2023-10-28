@@ -4,7 +4,11 @@ import _ from 'lodash';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { VerdaccioError, pluginUtils } from '@verdaccio/core';
-import { aesEncryptDeprecated as aesEncrypt, signPayload, SignOptionsSignature } from '@verdaccio/signature';
+import {
+  SignOptionsSignature,
+  aesEncryptDeprecated as aesEncrypt,
+  signPayload,
+} from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
