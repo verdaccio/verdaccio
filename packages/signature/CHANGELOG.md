@@ -1,5 +1,11 @@
 # @verdaccio/signature
 
+## 7.0.0-next.2
+
+### Patch Changes
+
+- 312bc100f: chore: export signature options type
+
 ## 7.0.0-next.1
 
 ### Major Changes
