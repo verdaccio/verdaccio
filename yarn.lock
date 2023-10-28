@@ -3127,6 +3127,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node-forge@npm:^1.3.0":
+  version: 1.3.8
+  resolution: "@types/node-forge@npm:1.3.8"
+  dependencies:
+    "@types/node": "*"
+  checksum: fa75d22ef65671732f31965ea28618c52a1b4ef0fa44fa35110ba0fa375e35563e056c21545cf1b23a4b0b6546333e8885db003957b0cd8a45fecef16000ff63
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 18.11.19
   resolution: "@types/node@npm:18.11.19"
@@ -10263,12 +10272,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selfsigned@npm:2.1.1":
-  version: 2.1.1
-  resolution: "selfsigned@npm:2.1.1"
+"selfsigned@npm:2.4.1":
+  version: 2.4.1
+  resolution: "selfsigned@npm:2.4.1"
   dependencies:
+    "@types/node-forge": ^1.3.0
     node-forge: ^1
-  checksum: aa9ce2150a54838978d5c0aee54d7ebe77649a32e4e690eb91775f71fdff773874a4fbafd0ac73d8ec3b702ff8a395c604df4f8e8868528f36fd6c15076fb43a
+  checksum: 38b91c56f1d7949c0b77f9bbe4545b19518475cae15e7d7f0043f87b1626710b011ce89879a88969651f650a19d213bb15b7d5b4c2877df9eeeff7ba8f8b9bfa
   languageName: node
   linkType: hard
 
@@ -11617,7 +11627,7 @@ __metadata:
     pkginfo: 0.4.1
     prettier: 3.0.3
     rimraf: 5.0.1
-    selfsigned: 2.1.1
+    selfsigned: 2.4.1
     semver: 7.5.4
     standard-version: 9.5.0
     supertest: 6.3.3
