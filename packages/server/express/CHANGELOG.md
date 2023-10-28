@@ -1,5 +1,21 @@
 # @verdaccio/server
 
+## 7.0.0-next.4
+
+### Patch Changes
+
+- @verdaccio/auth@7.0.0-next.4
+- @verdaccio/api@7.0.0-next.4
+- verdaccio-audit@12.0.0-next.4
+- @verdaccio/web@7.0.0-next.4
+- @verdaccio/core@7.0.0-next.4
+- @verdaccio/config@7.0.0-next.4
+- @verdaccio/loaders@7.0.0-next.4
+- @verdaccio/middleware@7.0.0-next.4
+- @verdaccio/store@7.0.0-next.4
+- @verdaccio/utils@7.0.0-next.4
+- @verdaccio/logger@7.0.0-next.4
+
 ## 7.0.0-next.3
 
 ### Major Changes
