@@ -205,8 +205,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
       '@types/validator':
-        specifier: 13.11.2
-        version: 13.11.2
+        specifier: 13.11.5
+        version: 13.11.5
       '@types/webpack':
         specifier: 5.28.3
         version: 5.28.3
@@ -767,8 +767,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       validator:
-        specifier: 13.9.0
-        version: 13.9.0
+        specifier: 13.11.0
+        version: 13.11.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:12.0.0-next.1
@@ -1378,8 +1378,8 @@ importers:
         specifier: 4.1.1
         version: 4.1.1(file-loader@6.2.0)(webpack@5.82.1)
       validator:
-        specifier: 13.9.0
-        version: 13.9.0
+        specifier: 13.11.0
+        version: 13.11.0
       webpack:
         specifier: 5.82.1
         version: 5.82.1(webpack-cli@4.10.0)
@@ -1915,8 +1915,8 @@ importers:
         specifier: 3.0.1
         version: 3.0.1
       validator:
-        specifier: 13.9.0
-        version: 13.9.0
+        specifier: 13.11.0
+        version: 13.11.0
     devDependencies:
       '@babel/core':
         specifier: ^7.23.0
@@ -12013,8 +12013,8 @@ packages:
   /@types/unist@2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
 
-  /@types/validator@13.11.2:
-    resolution: {integrity: sha512-nIKVVQKT6kGKysnNt+xLobr+pFJNssJRi2s034wgWeFBUx01fI8BeHTW2TcRp7VcFu9QCYG8IlChTuovcm0oKQ==}
+  /@types/validator@13.11.5:
+    resolution: {integrity: sha512-xW4qsT4UIYILu+7ZrBnfQdBYniZrMLYYK3wN9M/NdeIHgBN5pZI2/8Q7UfdWIcr5RLJv/OGENsx91JIpUUoC7Q==}
     dev: true
 
   /@types/webpack-env@1.18.0:
@@ -28880,8 +28880,8 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /validator@13.9.0:
-    resolution: {integrity: sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==}
+  /validator@13.11.0:
+    resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
     engines: {node: '>= 0.10'}
 
   /value-equal@1.0.1:
