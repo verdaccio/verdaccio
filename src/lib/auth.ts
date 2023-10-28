@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { VerdaccioError, pluginUtils } from '@verdaccio/core';
-import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
+import { aesEncryptDeprecated as aesEncrypt, signPayload, SignOptionsSignature } from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
@@ -505,7 +505,7 @@ class Auth {
     };
   }
 
-  public async jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string> {
+  public async jwtEncrypt(user: RemoteUser, signOptions: SignOptionsSignature): Promise<string> {
     const { real_groups, name, groups } = user;
     const realGroupsValidated = _.isNil(real_groups) ? [] : real_groups;
     const groupedGroups = _.isNil(groups)
