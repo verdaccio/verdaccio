@@ -1,8 +1,9 @@
-import { URL as URL$1, fileURLToPath, pathToFileURL } from 'url';
 import fs from 'fs';
+import { URL as URL$1, fileURLToPath, pathToFileURL } from 'url';
 import path from 'path';
-import moduleExports, { Module } from 'module';
+import { createHash } from 'crypto';
 import { EOL } from 'os';
+import moduleExports, { isBuiltin } from 'module';
 import assert from 'assert';
 
 const SAFE_TIME = 456789e3;
@@ -15,14 +16,16 @@ const PortablePath = {
 const npath = Object.create(path);
 const ppath = Object.create(path.posix);
 npath.cwd = () => process.cwd();
-ppath.cwd = () => toPortablePath(process.cwd());
-ppath.resolve = (...segments) => {
-  if (segments.length > 0 && ppath.isAbsolute(segments[0])) {
-    return path.posix.resolve(...segments);
-  } else {
-    return path.posix.resolve(ppath.cwd(), ...segments);
-  }
-};
+ppath.cwd = process.platform === `win32` ? () => toPortablePath(process.cwd()) : process.cwd;
+if (process.platform === `win32`) {
+  ppath.resolve = (...segments) => {
+    if (segments.length > 0 && ppath.isAbsolute(segments[0])) {
+      return path.posix.resolve(...segments);
+    } else {
+      return path.posix.resolve(ppath.cwd(), ...segments);
+    }
+  };
+}
 const contains = function(pathUtils, from, to) {
   from = pathUtils.normalize(from);
   to = pathUtils.normalize(to);
@@ -36,17 +39,13 @@ const contains = function(pathUtils, from, to) {
     return null;
   }
 };
-npath.fromPortablePath = fromPortablePath;
-npath.toPortablePath = toPortablePath;
 npath.contains = (from, to) => contains(npath, from, to);
 ppath.contains = (from, to) => contains(ppath, from, to);
 const WINDOWS_PATH_REGEXP = /^([a-zA-Z]:.*)$/;
 const UNC_WINDOWS_PATH_REGEXP = /^\/\/(\.\/)?(.*)$/;
 const PORTABLE_PATH_REGEXP = /^\/([a-zA-Z]:.*)$/;
 const UNC_PORTABLE_PATH_REGEXP = /^\/unc\/(\.dot\/)?(.*)$/;
-function fromPortablePath(p) {
-  if (process.platform !== `win32`)
-    return p;
+function fromPortablePathWin32(p) {
   let portablePathMatch, uncPortablePathMatch;
   if (portablePathMatch = p.match(PORTABLE_PATH_REGEXP))
     p = portablePathMatch[1];
@@ -56,9 +55,7 @@ function fromPortablePath(p) {
     return p;
   return p.replace(/\//g, `\\`);
 }
-function toPortablePath(p) {
-  if (process.platform !== `win32`)
-    return p;
+function toPortablePathWin32(p) {
   p = p.replace(/\\/g, `/`);
   let windowsPathMatch, uncWindowsPathMatch;
   if (windowsPathMatch = p.match(WINDOWS_PATH_REGEXP))
@@ -67,11 +64,16 @@ function toPortablePath(p) {
     p = `/unc/${uncWindowsPathMatch[1] ? `.dot/` : ``}${uncWindowsPathMatch[2]}`;
   return p;
 }
+const toPortablePath = process.platform === `win32` ? toPortablePathWin32 : (p) => p;
+const fromPortablePath = process.platform === `win32` ? fromPortablePathWin32 : (p) => p;
+npath.fromPortablePath = fromPortablePath;
+npath.toPortablePath = toPortablePath;
 function convertPath(targetPathUtils, sourcePath) {
   return targetPathUtils === npath ? fromPortablePath(sourcePath) : toPortablePath(sourcePath);
 }
 
 const defaultTime = new Date(SAFE_TIME * 1e3);
+const defaultTimeMs = defaultTime.getTime();
 async function copyPromise(destinationFs, destination, sourceFs, source, opts) {
   const normalizedDestination = destinationFs.pathUtils.normalize(destination);
   const normalizedSource = sourceFs.pathUtils.normalize(source);
@@ -79,16 +81,14 @@ async function copyPromise(destinationFs, destination, sourceFs, source, opts) {
   const postlayout = [];
   const { atime, mtime } = opts.stableTime ? { atime: defaultTime, mtime: defaultTime } : await sourceFs.lstatPromise(normalizedSource);
   await destinationFs.mkdirpPromise(destinationFs.pathUtils.dirname(destination), { utimes: [atime, mtime] });
-  const updateTime = typeof destinationFs.lutimesPromise === `function` ? destinationFs.lutimesPromise.bind(destinationFs) : destinationFs.utimesPromise.bind(destinationFs);
-  await copyImpl(prelayout, postlayout, updateTime, destinationFs, normalizedDestination, sourceFs, normalizedSource, { ...opts, didParentExist: true });
+  await copyImpl(prelayout, postlayout, destinationFs, normalizedDestination, sourceFs, normalizedSource, { ...opts, didParentExist: true });
   for (const operation of prelayout)
     await operation();
   await Promise.all(postlayout.map((operation) => {
     return operation();
   }));
 }
-async function copyImpl(prelayout, postlayout, updateTime, destinationFs, destination, sourceFs, source, opts) {
-  var _a, _b;
+async function copyImpl(prelayout, postlayout, destinationFs, destination, sourceFs, source, opts) {
   const destinationStat = opts.didParentExist ? await maybeLStat(destinationFs, destination) : null;
   const sourceStat = await sourceFs.lstatPromise(source);
   const { atime, mtime } = opts.stableTime ? { atime: defaultTime, mtime: defaultTime } : sourceStat;
@@ -96,17 +96,17 @@ async function copyImpl(prelayout, postlayout, updateTime, destinationFs, destin
   switch (true) {
     case sourceStat.isDirectory():
       {
-        updated = await copyFolder(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copyFolder(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
       }
       break;
     case sourceStat.isFile():
       {
-        updated = await copyFile(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copyFile(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
       }
       break;
     case sourceStat.isSymbolicLink():
       {
-        updated = await copySymlink(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+        updated = await copySymlink(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
       }
       break;
     default:
@@ -114,13 +114,15 @@ async function copyImpl(prelayout, postlayout, updateTime, destinationFs, destin
         throw new Error(`Unsupported file type (${sourceStat.mode})`);
       }
   }
-  if (updated || ((_a = destinationStat == null ? void 0 : destinationStat.mtime) == null ? void 0 : _a.getTime()) !== mtime.getTime() || ((_b = destinationStat == null ? void 0 : destinationStat.atime) == null ? void 0 : _b.getTime()) !== atime.getTime()) {
-    postlayout.push(() => updateTime(destination, atime, mtime));
-    updated = true;
-  }
-  if (destinationStat === null || (destinationStat.mode & 511) !== (sourceStat.mode & 511)) {
-    postlayout.push(() => destinationFs.chmodPromise(destination, sourceStat.mode & 511));
-    updated = true;
+  if (opts.linkStrategy?.type !== `HardlinkFromIndex` || !sourceStat.isFile()) {
+    if (updated || destinationStat?.mtime?.getTime() !== mtime.getTime() || destinationStat?.atime?.getTime() !== atime.getTime()) {
+      postlayout.push(() => destinationFs.lutimesPromise(destination, atime, mtime));
+      updated = true;
+    }
+    if (destinationStat === null || (destinationStat.mode & 511) !== (sourceStat.mode & 511)) {
+      postlayout.push(() => destinationFs.chmodPromise(destination, sourceStat.mode & 511));
+      updated = true;
+    }
   }
   return updated;
 }
@@ -131,7 +133,7 @@ async function maybeLStat(baseFs, p) {
     return null;
   }
 }
-async function copyFolder(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copyFolder(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
   if (destinationStat !== null && !destinationStat.isDirectory()) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -157,13 +159,13 @@ async function copyFolder(prelayout, postlayout, updateTime, destinationFs, dest
   const nextOpts = opts.didParentExist && !destinationStat ? { ...opts, didParentExist: false } : opts;
   if (opts.stableSort) {
     for (const entry of entries.sort()) {
-      if (await copyImpl(prelayout, postlayout, updateTime, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts)) {
+      if (await copyImpl(prelayout, postlayout, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts)) {
         updated = true;
       }
     }
   } else {
     const entriesUpdateStatus = await Promise.all(entries.map(async (entry) => {
-      await copyImpl(prelayout, postlayout, updateTime, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts);
+      await copyImpl(prelayout, postlayout, destinationFs, destinationFs.pathUtils.join(destination, entry), sourceFs, sourceFs.pathUtils.join(source, entry), nextOpts);
     }));
     if (entriesUpdateStatus.some((status) => status)) {
       updated = true;
@@ -171,42 +173,73 @@ async function copyFolder(prelayout, postlayout, updateTime, destinationFs, dest
   }
   return updated;
 }
-const isCloneSupportedCache = /* @__PURE__ */ new WeakMap();
-function makeLinkOperation(opFs, destination, source, sourceStat, linkStrategy) {
-  return async () => {
-    await opFs.linkPromise(source, destination);
-    if (linkStrategy === "readOnly" /* ReadOnly */) {
-      sourceStat.mode &= ~146;
-      await opFs.chmodPromise(destination, sourceStat.mode);
-    }
-  };
-}
-function makeCloneLinkOperation(opFs, destination, source, sourceStat, linkStrategy) {
-  const isCloneSupported = isCloneSupportedCache.get(opFs);
-  if (typeof isCloneSupported === `undefined`) {
-    return async () => {
-      try {
-        await opFs.copyFilePromise(source, destination, fs.constants.COPYFILE_FICLONE_FORCE);
-        isCloneSupportedCache.set(opFs, true);
-      } catch (err) {
-        if (err.code === `ENOSYS` || err.code === `ENOTSUP`) {
-          isCloneSupportedCache.set(opFs, false);
-          await makeLinkOperation(opFs, destination, source, sourceStat, linkStrategy)();
-        } else {
-          throw err;
-        }
+async function copyFileViaIndex(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts, linkStrategy) {
+  const sourceHash = await sourceFs.checksumFilePromise(source, { algorithm: `sha1` });
+  const indexPath = destinationFs.pathUtils.join(linkStrategy.indexPath, sourceHash.slice(0, 2), `${sourceHash}.dat`);
+  let AtomicBehavior;
+  ((AtomicBehavior2) => {
+    AtomicBehavior2[AtomicBehavior2["Lock"] = 0] = "Lock";
+    AtomicBehavior2[AtomicBehavior2["Rename"] = 1] = "Rename";
+  })(AtomicBehavior || (AtomicBehavior = {}));
+  let atomicBehavior = 1 /* Rename */;
+  let indexStat = await maybeLStat(destinationFs, indexPath);
+  if (destinationStat) {
+    const isDestinationHardlinkedFromIndex = indexStat && destinationStat.dev === indexStat.dev && destinationStat.ino === indexStat.ino;
+    const isIndexModified = indexStat?.mtimeMs !== defaultTimeMs;
+    if (isDestinationHardlinkedFromIndex) {
+      if (isIndexModified && linkStrategy.autoRepair) {
+        atomicBehavior = 0 /* Lock */;
+        indexStat = null;
       }
-    };
-  } else {
-    if (isCloneSupported) {
-      return async () => opFs.copyFilePromise(source, destination, fs.constants.COPYFILE_FICLONE_FORCE);
-    } else {
-      return makeLinkOperation(opFs, destination, source, sourceStat, linkStrategy);
+    }
+    if (!isDestinationHardlinkedFromIndex) {
+      if (opts.overwrite) {
+        prelayout.push(async () => destinationFs.removePromise(destination));
+        destinationStat = null;
+      } else {
+        return false;
+      }
     }
   }
+  const tempPath = !indexStat && atomicBehavior === 1 /* Rename */ ? `${indexPath}.${Math.floor(Math.random() * 4294967296).toString(16).padStart(8, `0`)}` : null;
+  let tempPathCleaned = false;
+  prelayout.push(async () => {
+    if (!indexStat) {
+      if (atomicBehavior === 0 /* Lock */) {
+        await destinationFs.lockPromise(indexPath, async () => {
+          const content = await sourceFs.readFilePromise(source);
+          await destinationFs.writeFilePromise(indexPath, content);
+        });
+      }
+      if (atomicBehavior === 1 /* Rename */ && tempPath) {
+        const content = await sourceFs.readFilePromise(source);
+        await destinationFs.writeFilePromise(tempPath, content);
+        try {
+          await destinationFs.linkPromise(tempPath, indexPath);
+        } catch (err) {
+          if (err.code === `EEXIST`) {
+            tempPathCleaned = true;
+            await destinationFs.unlinkPromise(tempPath);
+          } else {
+            throw err;
+          }
+        }
+      }
+    }
+    if (!destinationStat) {
+      await destinationFs.linkPromise(indexPath, destination);
+    }
+  });
+  postlayout.push(async () => {
+    if (!indexStat)
+      await destinationFs.lutimesPromise(indexPath, defaultTime, defaultTime);
+    if (tempPath && !tempPathCleaned) {
+      await destinationFs.unlinkPromise(tempPath);
+    }
+  });
+  return false;
 }
-async function copyFile(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
-  var _a;
+async function copyFileDirect(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
   if (destinationStat !== null) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -215,12 +248,20 @@ async function copyFile(prelayout, postlayout, updateTime, destinationFs, destin
       return false;
     }
   }
-  const linkStrategy = (_a = opts.linkStrategy) != null ? _a : null;
-  const op = destinationFs === sourceFs ? linkStrategy !== null ? makeCloneLinkOperation(destinationFs, destination, source, sourceStat, linkStrategy) : async () => destinationFs.copyFilePromise(source, destination, fs.constants.COPYFILE_FICLONE) : linkStrategy !== null ? makeLinkOperation(destinationFs, destination, source, sourceStat, linkStrategy) : async () => destinationFs.writeFilePromise(destination, await sourceFs.readFilePromise(source));
-  prelayout.push(async () => op());
+  prelayout.push(async () => {
+    const content = await sourceFs.readFilePromise(source);
+    await destinationFs.writeFilePromise(destination, content);
+  });
   return true;
 }
-async function copySymlink(prelayout, postlayout, updateTime, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+async function copyFile(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
+  if (opts.linkStrategy?.type === `HardlinkFromIndex`) {
+    return copyFileViaIndex(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts, opts.linkStrategy);
+  } else {
+    return copyFileDirect(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts);
+  }
+}
+async function copySymlink(prelayout, postlayout, destinationFs, destination, destinationStat, sourceFs, source, sourceStat, opts) {
   if (destinationStat !== null) {
     if (opts.overwrite) {
       prelayout.push(async () => destinationFs.removePromise(destination));
@@ -233,13 +274,6 @@ async function copySymlink(prelayout, postlayout, updateTime, destinationFs, des
     await destinationFs.symlinkPromise(convertPath(destinationFs.pathUtils, await sourceFs.readlinkPromise(source)), destination);
   });
   return true;
-}
-
-function makeError(code, message) {
-  return Object.assign(new Error(`${code}: ${message}`), { code });
-}
-function ENOSYS(message, reason) {
-  return makeError(`ENOSYS`, `${message}, ${reason}`);
 }
 
 class FakeFS {
@@ -263,6 +297,20 @@ class FakeFS {
       } else {
         yield p;
       }
+    }
+  }
+  async checksumFilePromise(path, { algorithm = `sha512` } = {}) {
+    const fd = await this.openPromise(path, `r`);
+    try {
+      const CHUNK_SIZE = 65536;
+      const chunk = Buffer.allocUnsafeSlow(CHUNK_SIZE);
+      const hash = createHash(algorithm);
+      let bytesRead = 0;
+      while ((bytesRead = await this.readPromise(fd, chunk, 0, CHUNK_SIZE)) !== 0)
+        hash.update(bytesRead === CHUNK_SIZE ? chunk : chunk.slice(0, bytesRead));
+      return hash.digest(`hex`);
+    } finally {
+      await this.closePromise(fd);
     }
   }
   async removePromise(p, { recursive = true, maxRetries = 5 } = {}) {
@@ -337,7 +385,7 @@ class FakeFS {
             throw error;
           }
         }
-        createdDirectory != null ? createdDirectory : createdDirectory = subPath;
+        createdDirectory ??= subPath;
         if (chmod != null)
           await this.chmodPromise(subPath, chmod);
         if (utimes != null) {
@@ -368,7 +416,7 @@ class FakeFS {
             throw error;
           }
         }
-        createdDirectory != null ? createdDirectory : createdDirectory = subPath;
+        createdDirectory ??= subPath;
         if (chmod != null)
           this.chmodSync(subPath, chmod);
         if (utimes != null) {
@@ -563,12 +611,14 @@ class FakeFS {
       throw error;
     }
   }
-  async writeJsonPromise(p, data) {
-    return await this.writeFilePromise(p, `${JSON.stringify(data, null, 2)}
+  async writeJsonPromise(p, data, { compact = false } = {}) {
+    const space = compact ? 0 : 2;
+    return await this.writeFilePromise(p, `${JSON.stringify(data, null, space)}
 `);
   }
-  writeJsonSync(p, data) {
-    return this.writeFileSync(p, `${JSON.stringify(data, null, 2)}
+  writeJsonSync(p, data, { compact = false } = {}) {
+    const space = compact ? 0 : 2;
+    return this.writeFileSync(p, `${JSON.stringify(data, null, space)}
 `);
   }
   async preserveTimePromise(p, cb) {
@@ -576,22 +626,14 @@ class FakeFS {
     const result = await cb();
     if (typeof result !== `undefined`)
       p = result;
-    if (this.lutimesPromise) {
-      await this.lutimesPromise(p, stat.atime, stat.mtime);
-    } else if (!stat.isSymbolicLink()) {
-      await this.utimesPromise(p, stat.atime, stat.mtime);
-    }
+    await this.lutimesPromise(p, stat.atime, stat.mtime);
   }
   async preserveTimeSync(p, cb) {
     const stat = this.lstatSync(p);
     const result = cb();
     if (typeof result !== `undefined`)
       p = result;
-    if (this.lutimesSync) {
-      this.lutimesSync(p, stat.atime, stat.mtime);
-    } else if (!stat.isSymbolicLink()) {
-      this.utimesSync(p, stat.atime, stat.mtime);
-    }
+    this.lutimesSync(p, stat.atime, stat.mtime);
   }
 }
 class BasePortableFakeFS extends FakeFS {
@@ -614,14 +656,256 @@ function normalizeLineEndings(originalContent, newContent) {
   return newContent.replace(/\r?\n/g, getEndOfLine(originalContent));
 }
 
+class ProxiedFS extends FakeFS {
+  getExtractHint(hints) {
+    return this.baseFs.getExtractHint(hints);
+  }
+  resolve(path) {
+    return this.mapFromBase(this.baseFs.resolve(this.mapToBase(path)));
+  }
+  getRealPath() {
+    return this.mapFromBase(this.baseFs.getRealPath());
+  }
+  async openPromise(p, flags, mode) {
+    return this.baseFs.openPromise(this.mapToBase(p), flags, mode);
+  }
+  openSync(p, flags, mode) {
+    return this.baseFs.openSync(this.mapToBase(p), flags, mode);
+  }
+  async opendirPromise(p, opts) {
+    return Object.assign(await this.baseFs.opendirPromise(this.mapToBase(p), opts), { path: p });
+  }
+  opendirSync(p, opts) {
+    return Object.assign(this.baseFs.opendirSync(this.mapToBase(p), opts), { path: p });
+  }
+  async readPromise(fd, buffer, offset, length, position) {
+    return await this.baseFs.readPromise(fd, buffer, offset, length, position);
+  }
+  readSync(fd, buffer, offset, length, position) {
+    return this.baseFs.readSync(fd, buffer, offset, length, position);
+  }
+  async writePromise(fd, buffer, offset, length, position) {
+    if (typeof buffer === `string`) {
+      return await this.baseFs.writePromise(fd, buffer, offset);
+    } else {
+      return await this.baseFs.writePromise(fd, buffer, offset, length, position);
+    }
+  }
+  writeSync(fd, buffer, offset, length, position) {
+    if (typeof buffer === `string`) {
+      return this.baseFs.writeSync(fd, buffer, offset);
+    } else {
+      return this.baseFs.writeSync(fd, buffer, offset, length, position);
+    }
+  }
+  async closePromise(fd) {
+    return this.baseFs.closePromise(fd);
+  }
+  closeSync(fd) {
+    this.baseFs.closeSync(fd);
+  }
+  createReadStream(p, opts) {
+    return this.baseFs.createReadStream(p !== null ? this.mapToBase(p) : p, opts);
+  }
+  createWriteStream(p, opts) {
+    return this.baseFs.createWriteStream(p !== null ? this.mapToBase(p) : p, opts);
+  }
+  async realpathPromise(p) {
+    return this.mapFromBase(await this.baseFs.realpathPromise(this.mapToBase(p)));
+  }
+  realpathSync(p) {
+    return this.mapFromBase(this.baseFs.realpathSync(this.mapToBase(p)));
+  }
+  async existsPromise(p) {
+    return this.baseFs.existsPromise(this.mapToBase(p));
+  }
+  existsSync(p) {
+    return this.baseFs.existsSync(this.mapToBase(p));
+  }
+  accessSync(p, mode) {
+    return this.baseFs.accessSync(this.mapToBase(p), mode);
+  }
+  async accessPromise(p, mode) {
+    return this.baseFs.accessPromise(this.mapToBase(p), mode);
+  }
+  async statPromise(p, opts) {
+    return this.baseFs.statPromise(this.mapToBase(p), opts);
+  }
+  statSync(p, opts) {
+    return this.baseFs.statSync(this.mapToBase(p), opts);
+  }
+  async fstatPromise(fd, opts) {
+    return this.baseFs.fstatPromise(fd, opts);
+  }
+  fstatSync(fd, opts) {
+    return this.baseFs.fstatSync(fd, opts);
+  }
+  lstatPromise(p, opts) {
+    return this.baseFs.lstatPromise(this.mapToBase(p), opts);
+  }
+  lstatSync(p, opts) {
+    return this.baseFs.lstatSync(this.mapToBase(p), opts);
+  }
+  async fchmodPromise(fd, mask) {
+    return this.baseFs.fchmodPromise(fd, mask);
+  }
+  fchmodSync(fd, mask) {
+    return this.baseFs.fchmodSync(fd, mask);
+  }
+  async chmodPromise(p, mask) {
+    return this.baseFs.chmodPromise(this.mapToBase(p), mask);
+  }
+  chmodSync(p, mask) {
+    return this.baseFs.chmodSync(this.mapToBase(p), mask);
+  }
+  async fchownPromise(fd, uid, gid) {
+    return this.baseFs.fchownPromise(fd, uid, gid);
+  }
+  fchownSync(fd, uid, gid) {
+    return this.baseFs.fchownSync(fd, uid, gid);
+  }
+  async chownPromise(p, uid, gid) {
+    return this.baseFs.chownPromise(this.mapToBase(p), uid, gid);
+  }
+  chownSync(p, uid, gid) {
+    return this.baseFs.chownSync(this.mapToBase(p), uid, gid);
+  }
+  async renamePromise(oldP, newP) {
+    return this.baseFs.renamePromise(this.mapToBase(oldP), this.mapToBase(newP));
+  }
+  renameSync(oldP, newP) {
+    return this.baseFs.renameSync(this.mapToBase(oldP), this.mapToBase(newP));
+  }
+  async copyFilePromise(sourceP, destP, flags = 0) {
+    return this.baseFs.copyFilePromise(this.mapToBase(sourceP), this.mapToBase(destP), flags);
+  }
+  copyFileSync(sourceP, destP, flags = 0) {
+    return this.baseFs.copyFileSync(this.mapToBase(sourceP), this.mapToBase(destP), flags);
+  }
+  async appendFilePromise(p, content, opts) {
+    return this.baseFs.appendFilePromise(this.fsMapToBase(p), content, opts);
+  }
+  appendFileSync(p, content, opts) {
+    return this.baseFs.appendFileSync(this.fsMapToBase(p), content, opts);
+  }
+  async writeFilePromise(p, content, opts) {
+    return this.baseFs.writeFilePromise(this.fsMapToBase(p), content, opts);
+  }
+  writeFileSync(p, content, opts) {
+    return this.baseFs.writeFileSync(this.fsMapToBase(p), content, opts);
+  }
+  async unlinkPromise(p) {
+    return this.baseFs.unlinkPromise(this.mapToBase(p));
+  }
+  unlinkSync(p) {
+    return this.baseFs.unlinkSync(this.mapToBase(p));
+  }
+  async utimesPromise(p, atime, mtime) {
+    return this.baseFs.utimesPromise(this.mapToBase(p), atime, mtime);
+  }
+  utimesSync(p, atime, mtime) {
+    return this.baseFs.utimesSync(this.mapToBase(p), atime, mtime);
+  }
+  async lutimesPromise(p, atime, mtime) {
+    return this.baseFs.lutimesPromise(this.mapToBase(p), atime, mtime);
+  }
+  lutimesSync(p, atime, mtime) {
+    return this.baseFs.lutimesSync(this.mapToBase(p), atime, mtime);
+  }
+  async mkdirPromise(p, opts) {
+    return this.baseFs.mkdirPromise(this.mapToBase(p), opts);
+  }
+  mkdirSync(p, opts) {
+    return this.baseFs.mkdirSync(this.mapToBase(p), opts);
+  }
+  async rmdirPromise(p, opts) {
+    return this.baseFs.rmdirPromise(this.mapToBase(p), opts);
+  }
+  rmdirSync(p, opts) {
+    return this.baseFs.rmdirSync(this.mapToBase(p), opts);
+  }
+  async linkPromise(existingP, newP) {
+    return this.baseFs.linkPromise(this.mapToBase(existingP), this.mapToBase(newP));
+  }
+  linkSync(existingP, newP) {
+    return this.baseFs.linkSync(this.mapToBase(existingP), this.mapToBase(newP));
+  }
+  async symlinkPromise(target, p, type) {
+    const mappedP = this.mapToBase(p);
+    if (this.pathUtils.isAbsolute(target))
+      return this.baseFs.symlinkPromise(this.mapToBase(target), mappedP, type);
+    const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
+    const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
+    return this.baseFs.symlinkPromise(mappedTarget, mappedP, type);
+  }
+  symlinkSync(target, p, type) {
+    const mappedP = this.mapToBase(p);
+    if (this.pathUtils.isAbsolute(target))
+      return this.baseFs.symlinkSync(this.mapToBase(target), mappedP, type);
+    const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
+    const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
+    return this.baseFs.symlinkSync(mappedTarget, mappedP, type);
+  }
+  async readFilePromise(p, encoding) {
+    return this.baseFs.readFilePromise(this.fsMapToBase(p), encoding);
+  }
+  readFileSync(p, encoding) {
+    return this.baseFs.readFileSync(this.fsMapToBase(p), encoding);
+  }
+  readdirPromise(p, opts) {
+    return this.baseFs.readdirPromise(this.mapToBase(p), opts);
+  }
+  readdirSync(p, opts) {
+    return this.baseFs.readdirSync(this.mapToBase(p), opts);
+  }
+  async readlinkPromise(p) {
+    return this.mapFromBase(await this.baseFs.readlinkPromise(this.mapToBase(p)));
+  }
+  readlinkSync(p) {
+    return this.mapFromBase(this.baseFs.readlinkSync(this.mapToBase(p)));
+  }
+  async truncatePromise(p, len) {
+    return this.baseFs.truncatePromise(this.mapToBase(p), len);
+  }
+  truncateSync(p, len) {
+    return this.baseFs.truncateSync(this.mapToBase(p), len);
+  }
+  async ftruncatePromise(fd, len) {
+    return this.baseFs.ftruncatePromise(fd, len);
+  }
+  ftruncateSync(fd, len) {
+    return this.baseFs.ftruncateSync(fd, len);
+  }
+  watch(p, a, b) {
+    return this.baseFs.watch(
+      this.mapToBase(p),
+      a,
+      b
+    );
+  }
+  watchFile(p, a, b) {
+    return this.baseFs.watchFile(
+      this.mapToBase(p),
+      a,
+      b
+    );
+  }
+  unwatchFile(p, cb) {
+    return this.baseFs.unwatchFile(this.mapToBase(p), cb);
+  }
+  fsMapToBase(p) {
+    if (typeof p === `number`) {
+      return p;
+    } else {
+      return this.mapToBase(p);
+    }
+  }
+}
+
 class NodeFS extends BasePortableFakeFS {
   constructor(realFs = fs) {
     super();
     this.realFs = realFs;
-    if (typeof this.realFs.lutimes !== `undefined`) {
-      this.lutimesPromise = this.lutimesPromiseImpl;
-      this.lutimesSync = this.lutimesSyncImpl;
-    }
   }
   getExtractHint() {
     return false;
@@ -648,12 +932,24 @@ class NodeFS extends BasePortableFakeFS {
         this.realFs.opendir(npath.fromPortablePath(p), this.makeCallback(resolve, reject));
       }
     }).then((dir) => {
-      return Object.defineProperty(dir, `path`, { value: p, configurable: true, writable: true });
+      const dirWithFixedPath = dir;
+      Object.defineProperty(dirWithFixedPath, `path`, {
+        value: p,
+        configurable: true,
+        writable: true
+      });
+      return dirWithFixedPath;
     });
   }
   opendirSync(p, opts) {
     const dir = typeof opts !== `undefined` ? this.realFs.opendirSync(npath.fromPortablePath(p), opts) : this.realFs.opendirSync(npath.fromPortablePath(p));
-    return Object.defineProperty(dir, `path`, { value: p, configurable: true, writable: true });
+    const dirWithFixedPath = dir;
+    Object.defineProperty(dirWithFixedPath, `path`, {
+      value: p,
+      configurable: true,
+      writable: true
+    });
+    return dirWithFixedPath;
   }
   async readPromise(fd, buffer, offset = 0, length = 0, position = -1) {
     return await new Promise((resolve, reject) => {
@@ -875,19 +1171,13 @@ class NodeFS extends BasePortableFakeFS {
   utimesSync(p, atime, mtime) {
     this.realFs.utimesSync(npath.fromPortablePath(p), atime, mtime);
   }
-  async lutimesPromiseImpl(p, atime, mtime) {
-    const lutimes = this.realFs.lutimes;
-    if (typeof lutimes === `undefined`)
-      throw ENOSYS(`unavailable Node binding`, `lutimes '${p}'`);
+  async lutimesPromise(p, atime, mtime) {
     return await new Promise((resolve, reject) => {
-      lutimes.call(this.realFs, npath.fromPortablePath(p), atime, mtime, this.makeCallback(resolve, reject));
+      this.realFs.lutimes(npath.fromPortablePath(p), atime, mtime, this.makeCallback(resolve, reject));
     });
   }
-  lutimesSyncImpl(p, atime, mtime) {
-    const lutimesSync = this.realFs.lutimesSync;
-    if (typeof lutimesSync === `undefined`)
-      throw ENOSYS(`unavailable Node binding`, `lutimes '${p}'`);
-    lutimesSync.call(this.realFs, npath.fromPortablePath(p), atime, mtime);
+  lutimesSync(p, atime, mtime) {
+    this.realFs.lutimesSync(npath.fromPortablePath(p), atime, mtime);
   }
   async mkdirPromise(p, opts) {
     return await new Promise((resolve, reject) => {
@@ -937,16 +1227,16 @@ class NodeFS extends BasePortableFakeFS {
   }
   async readdirPromise(p, opts) {
     return await new Promise((resolve, reject) => {
-      if (opts == null ? void 0 : opts.withFileTypes) {
-        this.realFs.readdir(npath.fromPortablePath(p), { withFileTypes: true }, this.makeCallback(resolve, reject));
+      if (opts) {
+        this.realFs.readdir(npath.fromPortablePath(p), opts, this.makeCallback(resolve, reject));
       } else {
         this.realFs.readdir(npath.fromPortablePath(p), this.makeCallback((value) => resolve(value), reject));
       }
     });
   }
   readdirSync(p, opts) {
-    if (opts == null ? void 0 : opts.withFileTypes) {
-      return this.realFs.readdirSync(npath.fromPortablePath(p), { withFileTypes: true });
+    if (opts) {
+      return this.realFs.readdirSync(npath.fromPortablePath(p), opts);
     } else {
       return this.realFs.readdirSync(npath.fromPortablePath(p));
     }
@@ -1002,254 +1292,6 @@ class NodeFS extends BasePortableFakeFS {
         resolve(result);
       }
     };
-  }
-}
-
-class ProxiedFS extends FakeFS {
-  getExtractHint(hints) {
-    return this.baseFs.getExtractHint(hints);
-  }
-  resolve(path) {
-    return this.mapFromBase(this.baseFs.resolve(this.mapToBase(path)));
-  }
-  getRealPath() {
-    return this.mapFromBase(this.baseFs.getRealPath());
-  }
-  async openPromise(p, flags, mode) {
-    return this.baseFs.openPromise(this.mapToBase(p), flags, mode);
-  }
-  openSync(p, flags, mode) {
-    return this.baseFs.openSync(this.mapToBase(p), flags, mode);
-  }
-  async opendirPromise(p, opts) {
-    return Object.assign(await this.baseFs.opendirPromise(this.mapToBase(p), opts), { path: p });
-  }
-  opendirSync(p, opts) {
-    return Object.assign(this.baseFs.opendirSync(this.mapToBase(p), opts), { path: p });
-  }
-  async readPromise(fd, buffer, offset, length, position) {
-    return await this.baseFs.readPromise(fd, buffer, offset, length, position);
-  }
-  readSync(fd, buffer, offset, length, position) {
-    return this.baseFs.readSync(fd, buffer, offset, length, position);
-  }
-  async writePromise(fd, buffer, offset, length, position) {
-    if (typeof buffer === `string`) {
-      return await this.baseFs.writePromise(fd, buffer, offset);
-    } else {
-      return await this.baseFs.writePromise(fd, buffer, offset, length, position);
-    }
-  }
-  writeSync(fd, buffer, offset, length, position) {
-    if (typeof buffer === `string`) {
-      return this.baseFs.writeSync(fd, buffer, offset);
-    } else {
-      return this.baseFs.writeSync(fd, buffer, offset, length, position);
-    }
-  }
-  async closePromise(fd) {
-    return this.baseFs.closePromise(fd);
-  }
-  closeSync(fd) {
-    this.baseFs.closeSync(fd);
-  }
-  createReadStream(p, opts) {
-    return this.baseFs.createReadStream(p !== null ? this.mapToBase(p) : p, opts);
-  }
-  createWriteStream(p, opts) {
-    return this.baseFs.createWriteStream(p !== null ? this.mapToBase(p) : p, opts);
-  }
-  async realpathPromise(p) {
-    return this.mapFromBase(await this.baseFs.realpathPromise(this.mapToBase(p)));
-  }
-  realpathSync(p) {
-    return this.mapFromBase(this.baseFs.realpathSync(this.mapToBase(p)));
-  }
-  async existsPromise(p) {
-    return this.baseFs.existsPromise(this.mapToBase(p));
-  }
-  existsSync(p) {
-    return this.baseFs.existsSync(this.mapToBase(p));
-  }
-  accessSync(p, mode) {
-    return this.baseFs.accessSync(this.mapToBase(p), mode);
-  }
-  async accessPromise(p, mode) {
-    return this.baseFs.accessPromise(this.mapToBase(p), mode);
-  }
-  async statPromise(p, opts) {
-    return this.baseFs.statPromise(this.mapToBase(p), opts);
-  }
-  statSync(p, opts) {
-    return this.baseFs.statSync(this.mapToBase(p), opts);
-  }
-  async fstatPromise(fd, opts) {
-    return this.baseFs.fstatPromise(fd, opts);
-  }
-  fstatSync(fd, opts) {
-    return this.baseFs.fstatSync(fd, opts);
-  }
-  lstatPromise(p, opts) {
-    return this.baseFs.lstatPromise(this.mapToBase(p), opts);
-  }
-  lstatSync(p, opts) {
-    return this.baseFs.lstatSync(this.mapToBase(p), opts);
-  }
-  async fchmodPromise(fd, mask) {
-    return this.baseFs.fchmodPromise(fd, mask);
-  }
-  fchmodSync(fd, mask) {
-    return this.baseFs.fchmodSync(fd, mask);
-  }
-  async chmodPromise(p, mask) {
-    return this.baseFs.chmodPromise(this.mapToBase(p), mask);
-  }
-  chmodSync(p, mask) {
-    return this.baseFs.chmodSync(this.mapToBase(p), mask);
-  }
-  async fchownPromise(fd, uid, gid) {
-    return this.baseFs.fchownPromise(fd, uid, gid);
-  }
-  fchownSync(fd, uid, gid) {
-    return this.baseFs.fchownSync(fd, uid, gid);
-  }
-  async chownPromise(p, uid, gid) {
-    return this.baseFs.chownPromise(this.mapToBase(p), uid, gid);
-  }
-  chownSync(p, uid, gid) {
-    return this.baseFs.chownSync(this.mapToBase(p), uid, gid);
-  }
-  async renamePromise(oldP, newP) {
-    return this.baseFs.renamePromise(this.mapToBase(oldP), this.mapToBase(newP));
-  }
-  renameSync(oldP, newP) {
-    return this.baseFs.renameSync(this.mapToBase(oldP), this.mapToBase(newP));
-  }
-  async copyFilePromise(sourceP, destP, flags = 0) {
-    return this.baseFs.copyFilePromise(this.mapToBase(sourceP), this.mapToBase(destP), flags);
-  }
-  copyFileSync(sourceP, destP, flags = 0) {
-    return this.baseFs.copyFileSync(this.mapToBase(sourceP), this.mapToBase(destP), flags);
-  }
-  async appendFilePromise(p, content, opts) {
-    return this.baseFs.appendFilePromise(this.fsMapToBase(p), content, opts);
-  }
-  appendFileSync(p, content, opts) {
-    return this.baseFs.appendFileSync(this.fsMapToBase(p), content, opts);
-  }
-  async writeFilePromise(p, content, opts) {
-    return this.baseFs.writeFilePromise(this.fsMapToBase(p), content, opts);
-  }
-  writeFileSync(p, content, opts) {
-    return this.baseFs.writeFileSync(this.fsMapToBase(p), content, opts);
-  }
-  async unlinkPromise(p) {
-    return this.baseFs.unlinkPromise(this.mapToBase(p));
-  }
-  unlinkSync(p) {
-    return this.baseFs.unlinkSync(this.mapToBase(p));
-  }
-  async utimesPromise(p, atime, mtime) {
-    return this.baseFs.utimesPromise(this.mapToBase(p), atime, mtime);
-  }
-  utimesSync(p, atime, mtime) {
-    return this.baseFs.utimesSync(this.mapToBase(p), atime, mtime);
-  }
-  async mkdirPromise(p, opts) {
-    return this.baseFs.mkdirPromise(this.mapToBase(p), opts);
-  }
-  mkdirSync(p, opts) {
-    return this.baseFs.mkdirSync(this.mapToBase(p), opts);
-  }
-  async rmdirPromise(p, opts) {
-    return this.baseFs.rmdirPromise(this.mapToBase(p), opts);
-  }
-  rmdirSync(p, opts) {
-    return this.baseFs.rmdirSync(this.mapToBase(p), opts);
-  }
-  async linkPromise(existingP, newP) {
-    return this.baseFs.linkPromise(this.mapToBase(existingP), this.mapToBase(newP));
-  }
-  linkSync(existingP, newP) {
-    return this.baseFs.linkSync(this.mapToBase(existingP), this.mapToBase(newP));
-  }
-  async symlinkPromise(target, p, type) {
-    const mappedP = this.mapToBase(p);
-    if (this.pathUtils.isAbsolute(target))
-      return this.baseFs.symlinkPromise(this.mapToBase(target), mappedP, type);
-    const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
-    const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
-    return this.baseFs.symlinkPromise(mappedTarget, mappedP, type);
-  }
-  symlinkSync(target, p, type) {
-    const mappedP = this.mapToBase(p);
-    if (this.pathUtils.isAbsolute(target))
-      return this.baseFs.symlinkSync(this.mapToBase(target), mappedP, type);
-    const mappedAbsoluteTarget = this.mapToBase(this.pathUtils.join(this.pathUtils.dirname(p), target));
-    const mappedTarget = this.baseFs.pathUtils.relative(this.baseFs.pathUtils.dirname(mappedP), mappedAbsoluteTarget);
-    return this.baseFs.symlinkSync(mappedTarget, mappedP, type);
-  }
-  async readFilePromise(p, encoding) {
-    if (encoding === `utf8`) {
-      return this.baseFs.readFilePromise(this.fsMapToBase(p), encoding);
-    } else {
-      return this.baseFs.readFilePromise(this.fsMapToBase(p), encoding);
-    }
-  }
-  readFileSync(p, encoding) {
-    if (encoding === `utf8`) {
-      return this.baseFs.readFileSync(this.fsMapToBase(p), encoding);
-    } else {
-      return this.baseFs.readFileSync(this.fsMapToBase(p), encoding);
-    }
-  }
-  async readdirPromise(p, opts) {
-    return this.baseFs.readdirPromise(this.mapToBase(p), opts);
-  }
-  readdirSync(p, opts) {
-    return this.baseFs.readdirSync(this.mapToBase(p), opts);
-  }
-  async readlinkPromise(p) {
-    return this.mapFromBase(await this.baseFs.readlinkPromise(this.mapToBase(p)));
-  }
-  readlinkSync(p) {
-    return this.mapFromBase(this.baseFs.readlinkSync(this.mapToBase(p)));
-  }
-  async truncatePromise(p, len) {
-    return this.baseFs.truncatePromise(this.mapToBase(p), len);
-  }
-  truncateSync(p, len) {
-    return this.baseFs.truncateSync(this.mapToBase(p), len);
-  }
-  async ftruncatePromise(fd, len) {
-    return this.baseFs.ftruncatePromise(fd, len);
-  }
-  ftruncateSync(fd, len) {
-    return this.baseFs.ftruncateSync(fd, len);
-  }
-  watch(p, a, b) {
-    return this.baseFs.watch(
-      this.mapToBase(p),
-      a,
-      b
-    );
-  }
-  watchFile(p, a, b) {
-    return this.baseFs.watchFile(
-      this.mapToBase(p),
-      a,
-      b
-    );
-  }
-  unwatchFile(p, cb) {
-    return this.baseFs.unwatchFile(this.mapToBase(p), cb);
-  }
-  fsMapToBase(p) {
-    if (typeof p === `number`) {
-      return p;
-    } else {
-      return this.mapToBase(p);
-    }
   }
 }
 
@@ -1329,14 +1371,9 @@ class VirtualFS extends ProxiedFS {
 }
 
 const [major, minor] = process.versions.node.split(`.`).map((value) => parseInt(value, 10));
-const HAS_CONSOLIDATED_HOOKS = major > 16 || major === 16 && minor >= 12;
-const HAS_UNFLAGGED_JSON_MODULES = major > 17 || major === 17 && minor >= 5 || major === 16 && minor >= 15;
-const HAS_JSON_IMPORT_ASSERTION_REQUIREMENT = major > 17 || major === 17 && minor >= 1 || major === 16 && minor > 14;
 const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
 const HAS_LAZY_LOADED_TRANSLATORS = major > 19 || major === 19 && minor >= 3;
 
-const builtinModules = new Set(Module.builtinModules || Object.keys(process.binding(`natives`)));
-const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
 function readPackageScope(checkPath) {
   const rootSeparatorIndex = checkPath.indexOf(npath.sep);
   let separatorIndex;
@@ -1383,7 +1420,6 @@ function setEntrypointPath(file) {
   entrypointPath = file;
 }
 function getFileFormat(filepath) {
-  var _a, _b;
   const ext = path.extname(filepath);
   switch (ext) {
     case `.mjs`: {
@@ -1398,17 +1434,13 @@ function getFileFormat(filepath) {
       );
     }
     case `.json`: {
-      if (HAS_UNFLAGGED_JSON_MODULES)
-        return `json`;
-      throw new Error(
-        `Unknown file extension ".json" for ${filepath}`
-      );
+      return `json`;
     }
     case `.js`: {
       const pkg = readPackageScope(filepath);
       if (!pkg)
         return `commonjs`;
-      return (_a = pkg.data.type) != null ? _a : `commonjs`;
+      return pkg.data.type ?? `commonjs`;
     }
     default: {
       if (entrypointPath !== filepath)
@@ -1418,43 +1450,20 @@ function getFileFormat(filepath) {
         return `commonjs`;
       if (pkg.data.type === `module`)
         return null;
-      return (_b = pkg.data.type) != null ? _b : `commonjs`;
+      return pkg.data.type ?? `commonjs`;
     }
   }
 }
 
-async function getFormat$1(resolved, context, defaultGetFormat) {
-  const url = tryParseURL(resolved);
-  if ((url == null ? void 0 : url.protocol) !== `file:`)
-    return defaultGetFormat(resolved, context, defaultGetFormat);
-  const format = getFileFormat(fileURLToPath(url));
-  if (format) {
-    return {
-      format
-    };
-  }
-  return defaultGetFormat(resolved, context, defaultGetFormat);
-}
-
-async function getSource$1(urlString, context, defaultGetSource) {
-  const url = tryParseURL(urlString);
-  if ((url == null ? void 0 : url.protocol) !== `file:`)
-    return defaultGetSource(urlString, context, defaultGetSource);
-  return {
-    source: await fs.promises.readFile(fileURLToPath(url), `utf8`)
-  };
-}
-
 async function load$1(urlString, context, nextLoad) {
-  var _a;
   const url = tryParseURL(urlString);
-  if ((url == null ? void 0 : url.protocol) !== `file:`)
+  if (url?.protocol !== `file:`)
     return nextLoad(urlString, context, nextLoad);
   const filePath = fileURLToPath(url);
   const format = getFileFormat(filePath);
   if (!format)
     return nextLoad(urlString, context, nextLoad);
-  if (HAS_JSON_IMPORT_ASSERTION_REQUIREMENT && format === `json` && ((_a = context.importAssertions) == null ? void 0 : _a.type) !== `json`) {
+  if (format === `json` && context.importAssertions?.type !== `json`) {
     const err = new TypeError(`[ERR_IMPORT_ASSERTION_TYPE_MISSING]: Module "${urlString}" needs an import assertion of type "json"`);
     err.code = `ERR_IMPORT_ASSERTION_TYPE_MISSING`;
     throw err;
@@ -1942,7 +1951,7 @@ async function resolvePrivateRequest(specifier, issuer, context, nextResolve) {
     conditions: new Set(context.conditions),
     readFileSyncFn: tryReadFile
   });
-  if (resolved instanceof URL$1) {
+  if (resolved instanceof URL) {
     return { url: resolved.href, shortCircuit: true };
   } else {
     if (resolved.startsWith(`#`))
@@ -1951,9 +1960,8 @@ async function resolvePrivateRequest(specifier, issuer, context, nextResolve) {
   }
 }
 async function resolve$1(originalSpecifier, context, nextResolve) {
-  var _a, _b;
   const { findPnpApi } = moduleExports;
-  if (!findPnpApi || isBuiltinModule(originalSpecifier))
+  if (!findPnpApi || isBuiltin(originalSpecifier))
     return nextResolve(originalSpecifier, context, nextResolve);
   let specifier = originalSpecifier;
   const url = tryParseURL(specifier, isRelativeRegexp.test(specifier) ? context.parentURL : void 0);
@@ -1963,8 +1971,8 @@ async function resolve$1(originalSpecifier, context, nextResolve) {
     specifier = fileURLToPath(url);
   }
   const { parentURL, conditions = [] } = context;
-  const issuer = parentURL && ((_a = tryParseURL(parentURL)) == null ? void 0 : _a.protocol) === `file:` ? fileURLToPath(parentURL) : process.cwd();
-  const pnpapi = (_b = findPnpApi(issuer)) != null ? _b : url ? findPnpApi(specifier) : null;
+  const issuer = parentURL && tryParseURL(parentURL)?.protocol === `file:` ? fileURLToPath(parentURL) : process.cwd();
+  const pnpapi = findPnpApi(issuer) ?? (url ? findPnpApi(specifier) : null);
   if (!pnpapi)
     return nextResolve(originalSpecifier, context, nextResolve);
   if (specifier.startsWith(`#`))
@@ -2040,8 +2048,6 @@ if (!HAS_LAZY_LOADED_TRANSLATORS) {
 }
 
 const resolve = resolve$1;
-const getFormat = HAS_CONSOLIDATED_HOOKS ? void 0 : getFormat$1;
-const getSource = HAS_CONSOLIDATED_HOOKS ? void 0 : getSource$1;
-const load = HAS_CONSOLIDATED_HOOKS ? load$1 : void 0;
+const load = load$1;
 
-export { getFormat, getSource, load, resolve };
+export { load, resolve };
