@@ -2,8 +2,10 @@ import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { rateLimit } from '@verdaccio/middleware';
-import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
-
+import { Config, RemoteUser } from '@verdaccio/types';
+import {
+  SignOptionsSignature
+} from '@verdaccio/signature';
 import Auth from '../../../lib/auth';
 import { getSecurity, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
@@ -23,7 +25,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
           next(ErrorCode.getCode(errorCode, err.message));
         } else {
           req.remote_user = user;
-          const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
+          const jWTSignOptions: SignOptionsSignature = getSecurity(config).web.sign as SignOptionsSignature;
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           next({
             token: await auth.jwtEncrypt(user, jWTSignOptions),
