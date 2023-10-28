@@ -70,7 +70,7 @@
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.0.13",
     "@testing-library/dom": "9.3.3",
-    "@testing-library/jest-dom": "6.1.3",
+    "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "14.0.0",
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",
