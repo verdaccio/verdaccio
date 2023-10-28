@@ -8966,15 +8966,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:13.3.3":
-  version: 13.3.3
-  resolution: "nock@npm:13.3.3"
+"nock@npm:13.3.6":
+  version: 13.3.6
+  resolution: "nock@npm:13.3.6"
   dependencies:
     debug: ^4.1.0
     json-stringify-safe: ^5.0.1
-    lodash: ^4.17.21
     propagate: ^2.0.0
-  checksum: e3e4f0fb777ac63d74f89bbb7aebe8e815b891b64ac71983d91686f725fdab856fe189cf2fe23d4add9f5dd5da53f3568106a61116a771ce0f4ed0f5ad7b035b
+  checksum: 795f334a17ed294b829968c177190571720492cc5113e2aa5b9d382c6508d81c8f79f6afae32009abce94213b0b7c1a474d582acf87e2c169d620314ac0ae60c
   languageName: node
   linkType: hard
 
@@ -11612,7 +11611,7 @@ __metadata:
     mime: 3.0.0
     mkdirp: 1.0.4
     mv: 2.1.1
-    nock: 13.3.3
+    nock: 13.3.6
     node-mocks-http: ^1.13.0
     pinst: 2.1.6
     pkginfo: 0.4.1
