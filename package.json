@@ -110,7 +110,7 @@
     "pinst": "2.1.6",
     "prettier": "3.0.3",
     "rimraf": "5.0.1",
-    "selfsigned": "2.1.1",
+    "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
     "supertest": "6.3.3",
     "ts-node": "10.9.1",

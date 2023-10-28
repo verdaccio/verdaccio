@@ -113,7 +113,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pkginfo", "npm:0.4.1"],\
             ["prettier", "npm:3.0.3"],\
             ["rimraf", "npm:5.0.1"],\
-            ["selfsigned", "npm:2.1.1"],\
+            ["selfsigned", "npm:2.4.1"],\
             ["semver", "npm:7.5.4"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
@@ -5085,6 +5085,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-20.6.4-25a39cd9b4-5fdf81c876.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:20.6.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/node-forge", [\
+        ["npm:1.3.8", {\
+          "packageLocation": "./.yarn/cache/@types-node-forge-npm-1.3.8-6f95fbb342-fa75d22ef6.zip/node_modules/@types/node-forge/",\
+          "packageDependencies": [\
+            ["@types/node-forge", "npm:1.3.8"],\
+            ["@types/node", "npm:18.11.19"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -13441,10 +13451,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["selfsigned", [\
-        ["npm:2.1.1", {\
-          "packageLocation": "./.yarn/cache/selfsigned-npm-2.1.1-311d9b0b6d-aa9ce2150a.zip/node_modules/selfsigned/",\
+        ["npm:2.4.1", {\
+          "packageLocation": "./.yarn/cache/selfsigned-npm-2.4.1-1ca1b883c5-38b91c56f1.zip/node_modules/selfsigned/",\
           "packageDependencies": [\
-            ["selfsigned", "npm:2.1.1"],\
+            ["selfsigned", "npm:2.4.1"],\
+            ["@types/node-forge", "npm:1.3.8"],\
             ["node-forge", "npm:1.3.1"]\
           ],\
           "linkType": "HARD"\
@@ -14907,7 +14918,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pkginfo", "npm:0.4.1"],\
             ["prettier", "npm:3.0.3"],\
             ["rimraf", "npm:5.0.1"],\
-            ["selfsigned", "npm:2.1.1"],\
+            ["selfsigned", "npm:2.4.1"],\
             ["semver", "npm:7.5.4"],\
             ["standard-version", "npm:9.5.0"],\
             ["supertest", "npm:6.3.3"],\
