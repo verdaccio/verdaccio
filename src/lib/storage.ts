@@ -61,10 +61,13 @@ class Storage {
   }
 
   public async init(config: Config): Promise<void> {
-    this.localStorage = new LocalStorage(this.config, logger);
-
-    this.localStorage.getSecret(config);
-
+    if (this.localStorage === null) {
+      this.localStorage = new LocalStorage(this.config, logger);
+      await this.localStorage.init();
+      debug('local init storage initialized');
+      this.localStorage.getSecret(config);
+      debug('local storage secret initialized');
+    }
     if (!this.filters) {
       this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
         this.config.filters,
