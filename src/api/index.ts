@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search';
@@ -21,7 +22,6 @@ import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
 import webMiddleware from './web';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 
 const { version } = require('../../package.json');
 
@@ -69,7 +69,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     config: config,
     logger: logger,
   };
-
 
   const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,

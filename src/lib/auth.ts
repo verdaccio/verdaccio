@@ -15,7 +15,6 @@ import {
   AllowAccess,
   Callback,
   Config,
-  JWTSignOptions,
   Logger,
   PackageAccess,
   RemoteUser,
