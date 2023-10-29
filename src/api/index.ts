@@ -14,7 +14,6 @@ import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
-import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
@@ -22,11 +21,13 @@ import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
 import webMiddleware from './web';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 
 const { version } = require('../../package.json');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config);
+  await auth.init();
   const app: Application = express();
   SearchMemoryIndexer.configureStorage(storage);
   await SearchMemoryIndexer.init(logger);
@@ -69,13 +70,15 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     logger: logger,
   };
 
-  const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
-    config,
+
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
-    plugin_params,
-    function (plugin: pluginUtils.ManifestFilter<IConfig>) {
-      // @ts-ignore
-      return plugin.register_middlewares;
+    {
+      config,
+      logger,
+    },
+    function (plugin) {
+      return typeof plugin.register_middlewares !== 'undefined';
     }
   );
 

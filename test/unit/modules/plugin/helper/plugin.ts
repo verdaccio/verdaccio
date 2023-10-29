@@ -4,18 +4,21 @@ import config from '../../../partials/config';
 
 export const authProfileConf = config({
   auth: {
-    [`${path.join(__dirname, '../../../partials/plugin/authenticate.success')}`]: {},
+    success: {},
   },
+  plugins: path.join(__dirname, '../../../partials/plugin'),
 });
 
 export const authPluginFailureConf = config({
   auth: {
-    [`${path.join(__dirname, '../../../partials/plugin/authenticate.fail')}`]: {},
+    failure: {},
   },
+  plugins: path.join(__dirname, '../../../partials/plugin'),
 });
 
 export const authPluginPassThrougConf = config({
   auth: {
-    [`${path.join(__dirname, '../../../partials/plugin/authenticate.passthroug')}`]: {},
+    passthroug: {},
   },
+  plugins: path.join(__dirname, '../../../partials/plugin'),
 });

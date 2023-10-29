@@ -1,4 +1,3 @@
-
 module.exports = function ( ) {
   return {
     authenticate( user, pass, callback ) {
