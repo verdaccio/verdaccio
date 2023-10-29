@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { renderWebMiddleware, setSecurityWebHeaders } from '@verdaccio/middleware';
 
+import { logger } from '../../lib/logger';
 import webEndpointsApi from './api';
 
 const debug = buildDebug('verdaccio:web');
@@ -17,7 +18,7 @@ export async function loadTheme(config: any) {
       // TODO: add types { staticPath: string; manifest: unknown; manifestFiles: unknown }
       function (plugin: any) {
         /**
-         * 
+         *
           - `staticPath`: is the same data returned in Verdaccio 5.
           - `manifest`: A webpack manifest object.
           - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
