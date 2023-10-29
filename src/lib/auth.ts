@@ -1,9 +1,11 @@
 import buildDebug from 'debug';
 import { NextFunction } from 'express';
 import _ from 'lodash';
+import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { VerdaccioError, pluginUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import {
   SignOptionsSignature,
   aesEncryptDeprecated as aesEncrypt,
@@ -13,7 +15,6 @@ import {
   AllowAccess,
   Callback,
   Config,
-  JWTSignOptions,
   Logger,
   PackageAccess,
   RemoteUser,
@@ -21,7 +22,6 @@ import {
 } from '@verdaccio/types';
 import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
-import loadPlugin from '../lib/plugin-loader';
 import { $RequestExtend, $ResponseExtend, AESPayload } from '../types';
 import {
   getDefaultPlugins,
@@ -49,20 +49,48 @@ class Auth {
     this.config = config;
     this.logger = logger;
     this.secret = config.secret;
-    this.plugins = this._loadPlugin(config);
+    this.plugins = [];
+  }
+
+  public async init() {
+    let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
+    debug('auth plugins found %s', plugins.length);
+    if (!plugins || plugins.length === 0) {
+      debug('not auth plugins found, enabling default httpasswd');
+      plugins = this.loadDefaultPlugin();
+      debug('default plugin enabled');
+    }
+    this.plugins = plugins;
+
     this._applyDefaultPlugins();
   }
 
-  private _loadPlugin(config: Config): pluginUtils.Auth<Config>[] {
-    const pluginOptions = {
-      config,
-      logger: this.logger,
+  private loadDefaultPlugin() {
+    debug('load default auth plugin');
+    const pluginOptions: pluginUtils.PluginOptions = {
+      config: this.config,
+      logger,
     };
+    let authPlugin;
+    try {
+      authPlugin = new HTPasswd(
+        { file: './htpasswd' },
+        pluginOptions as any as pluginUtils.PluginOptions
+      );
+    } catch (error: any) {
+      debug('error on loading auth htpasswd plugin stack: %o', error);
+      logger.info({}, 'no auth plugin has been found');
+      return [];
+    }
 
-    let authConf = { ...config.auth };
+    return [authPlugin];
+  }
+
+  private async loadPlugin() {
+    let authConf = { ...this.config.auth };
     if (authConf?.htpasswd) {
-      // special case for htpasswd plugin, the v6 version uses bcrypt by default
-      // 6.x enforces crypt to avoid breaking changes, but is highly recommended using
+      // special case for htpasswd plugin, the v7 version uses bcrypt by default
+      // 7.x enforces crypt to avoid breaking changes, but is highly recommended using
       // bcrypt instead.
       if (!authConf.htpasswd.algorithm) {
         authConf.htpasswd.algorithm = 'crypt';
@@ -73,15 +101,22 @@ class Auth {
       }
     }
 
-    return loadPlugin<pluginUtils.Auth<Config>>(
-      config,
-      authConf,
-      pluginOptions,
-      (plugin: pluginUtils.Auth<Config>): boolean => {
+    return asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+      this.config.auth,
+      {
+        config: this.config,
+        logger,
+      },
+      (plugin): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
-        // @ts-ignore
-        return authenticate || allow_access || allow_publish;
-      }
+
+        return (
+          typeof authenticate !== 'undefined' ||
+          typeof allow_access !== 'undefined' ||
+          typeof allow_publish !== 'undefined'
+        );
+      },
+      this.config?.serverSettings?.pluginPrefix
     );
   }
 
@@ -335,7 +370,7 @@ class Auth {
     })();
   }
 
-  public apiJWTmiddleware() {
+  public apiJWTmiddleware(): any {
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {

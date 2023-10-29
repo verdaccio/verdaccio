@@ -24,7 +24,8 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn install --immutable && \
     yarn build
 ## pack the project
-RUN yarn pack --out verdaccio.tgz \
+RUN yarn pack --dry-run \
+    && yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
     && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
 ## clean up and reduce bundle size

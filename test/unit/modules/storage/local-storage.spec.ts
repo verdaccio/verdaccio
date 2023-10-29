@@ -89,8 +89,9 @@ describe('LocalStorage', () => {
     });
   };
 
-  beforeAll(() => {
+  beforeAll(async () => {
     storage = getStorage();
+    await storage.init();
   });
 
   test('should be defined', () => {
@@ -300,6 +301,7 @@ describe('LocalStorage', () => {
           // @ts-ignore
           MockLocalStorage.prototype._writePackage = jest.fn(LocalStorage.prototype._writePackage);
           _storage = getStorage(MockLocalStorage);
+          await _storage.init();
           rimrafSync(path.join(configExample().storage));
           await addPackageToStore(pkgName, generatePackageTemplate(pkgName));
           await addNewVersion(pkgName, '1.0.1');

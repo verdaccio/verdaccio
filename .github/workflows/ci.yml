@@ -9,6 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # only suported versions defined at https://nodejs.org/en/about/previous-releases
         node_version: [18, 20, 21]
 
     runs-on: ubuntu-latest

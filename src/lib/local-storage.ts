@@ -3,7 +3,8 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
-import { searchUtils, validatioUtils } from '@verdaccio/core';
+import { pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
@@ -18,13 +19,10 @@ import {
   Token,
   TokenFilter,
   Version,
-  onEndSearchPackage,
-  onSearchPackage,
 } from '@verdaccio/types';
 import { createTarballHash, getLatestVersion, normalizeContributors } from '@verdaccio/utils';
 
 import { StoragePluginLegacy } from '../../types/custom';
-import loadPlugin from '../lib/plugin-loader';
 import { StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import {
@@ -34,11 +32,12 @@ import {
   getLatestReadme,
   normalizePackage,
 } from './storage-utils';
-import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
 type StoragePlugin = StoragePluginLegacy<Config> | any;
+export type PluginStorage = pluginUtils.Storage<Config>;
+
 /**
  * Implements Storage interface (same for storage.js, local-storage.js).
  */
@@ -50,7 +49,7 @@ class LocalStorage {
   public constructor(config: Config, logger: Logger) {
     this.logger = logger;
     this.config = config;
-    this.storagePlugin = this._loadStorage(config, logger);
+    this.storagePlugin = null;
   }
 
   public addPackage(name: string, pkg: Manifest, callback: Callback): void {
@@ -77,6 +76,21 @@ class LocalStorage {
 
       return callback();
     });
+  }
+
+  public async init() {
+    if (this.storagePlugin === null) {
+      const plugin = await this.loadStorage(this.config, this.logger);
+      this.storagePlugin = plugin;
+      debug('storage plugin init');
+      if (typeof this.storagePlugin?.init?.then === 'function') {
+        await this.storagePlugin.init();
+        debug('storage plugin initialized');
+      }
+    } else {
+      this.logger.warn('storage plugin has been already initialized');
+    }
+    return;
   }
 
   /**
@@ -833,31 +847,34 @@ class LocalStorage {
     return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
   }
 
-  private _loadStorage(config: Config, logger: Logger): StoragePlugin {
-    const Storage = this._loadStorePlugin();
-
+  private async loadStorage(config: Config, logger: Logger) {
+    const Storage = await this.loadStorePlugin();
     if (_.isNil(Storage)) {
-      assert(this.config.storage, 'CONFIG: storage default path not defined');
-      return new LocalDatabase(this.config, logger);
+      assert(this.config.storage, 'CONFIG: storage path not defined');
+      debug('no custom storage found, loading default storage @verdaccio/local-storage');
+      return new LocalDatabase(config, logger);
     }
-    return Storage as StoragePlugin;
+    return Storage as PluginStorage;
   }
 
-  private _loadStorePlugin(): StoragePlugin | void {
-    const plugin_params = {
-      config: this.config,
-      logger: this.logger,
-    };
-
-    // eslint-disable-next-line max-len
-    const plugins: StoragePlugin[] = loadPlugin<StoragePlugin>(
-      this.config,
+  private async loadStorePlugin(): Promise<PluginStorage | undefined> {
+    const plugins: PluginStorage[] = await asyncLoadPlugin<pluginUtils.Storage<unknown>>(
       this.config.store,
-      plugin_params,
-      (plugin): StoragePlugin => {
-        return plugin.getPackageStorage;
-      }
+      {
+        config: this.config,
+        logger: this.logger,
+      },
+      (plugin) => {
+        return typeof plugin.getPackageStorage !== 'undefined';
+      },
+      this.config?.serverSettings?.pluginPrefix
     );
+
+    if (plugins.length > 1) {
+      this.logger.warn(
+        'more than one storage plugins has been detected, multiple storage are not supported, one will be selected automatically'
+      );
+    }
 
     return _.head(plugins);
   }

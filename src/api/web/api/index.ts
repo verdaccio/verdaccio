@@ -7,7 +7,7 @@ import packageApi from './package';
 import search from './search';
 import user from './user';
 
-export default (auth, storage, config) => {
+export default (auth, storage, config): any => {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.use(

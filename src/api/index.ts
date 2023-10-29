@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search';
@@ -14,7 +15,6 @@ import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
-import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
@@ -25,24 +25,9 @@ import webMiddleware from './web';
 
 const { version } = require('../../package.json');
 
-export function loadTheme(config) {
-  if (_.isNil(config.theme) === false) {
-    return _.head(
-      loadPlugin(
-        config,
-        config.theme,
-        {},
-        function (plugin) {
-          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
-        },
-        'verdaccio-theme'
-      )
-    );
-  }
-}
-
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config);
+  await auth.init();
   const app: Application = express();
   SearchMemoryIndexer.configureStorage(storage);
   await SearchMemoryIndexer.init(logger);
@@ -85,13 +70,14 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     logger: logger,
   };
 
-  const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
-    config,
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
-    plugin_params,
-    function (plugin: pluginUtils.ManifestFilter<IConfig>) {
-      // @ts-ignore
-      return plugin.register_middlewares;
+    {
+      config,
+      logger,
+    },
+    function (plugin) {
+      return typeof plugin.register_middlewares !== 'undefined';
     }
   );
 
@@ -108,7 +94,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
       res.locals.app_version = version ?? '';
       next();
     });
-    app.use(webMiddleware(config, auth, storage));
+    const middleware = await webMiddleware(config, auth, storage);
+    app.use(middleware);
   } else {
     app.get('/', function (_, __, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
@@ -132,15 +119,8 @@ export default (async function (configHash: any) {
     config: config,
     logger: logger,
   };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    // @ts-ignore
-    (plugin: pluginUtils.ManifestFilter<IConfig>) => plugin.filter_metadata
-  );
   const storage = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config, filters);
+  await storage.init(config);
   return await defineAPI(config, storage);
 });

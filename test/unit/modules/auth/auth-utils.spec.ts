@@ -10,7 +10,6 @@ import AppConfig from '../../../../src/lib/config';
 import { CHARACTER_ENCODING, TOKEN_BEARER } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import { buildToken, convertPayloadToBase64, parseConfigFile } from '../../../../src/lib/utils';
-import { IAuth } from '../../../types';
 import { parseConfigurationFile } from '../../__helper';
 import configExample from '../../partials/config';
 
@@ -41,7 +40,8 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
-    const auth: IAuth = new Auth(config);
+    const auth = new Auth(config);
+    await auth.init();
     // @ts-ignore
     const spy = jest.spyOn(auth, methodToSpy);
     // @ts-ignore
@@ -277,7 +277,8 @@ describe('Auth utilities', () => {
       test.concurrent('should return empty credential corrupted payload', async () => {
         const secret = 'secret';
         const config: Config = getConfig('security-legacy', secret);
-        const auth: IAuth = new Auth(config);
+        const auth = new Auth(config);
+        await auth.init();
         const token = auth.aesEncrypt(Buffer.from(`corruptedBuffer`)).toString('base64');
         const security: Security = getSecurity(config);
         const credentials = getMiddlewareCredentials(

@@ -5,7 +5,6 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "dbaeumer.vscode-eslint",
-    "arcanis.vscode-zipfs",
     "esbenp.prettier-vscode"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.

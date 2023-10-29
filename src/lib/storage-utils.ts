@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-import { pkgUtils } from '@verdaccio/core';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
@@ -200,34 +199,6 @@ export function mergeUplinkTimeIntoLocal(cacheManifest: Manifest, remoteManifest
   }
 
   return cacheManifest;
-}
-
-export function prepareSearchPackage(data: Manifest, time: unknown): any {
-  const latest = pkgUtils.getLatest(data);
-
-  if (latest && data.versions[latest]) {
-    const version: Version = data.versions[latest];
-    const versions: any = { [latest]: 'latest' };
-    const pkg: any = {
-      name: version.name,
-      description: version.description,
-      [DIST_TAGS]: { latest },
-      maintainers: version.maintainers || [version.author].filter(Boolean),
-      author: version.author,
-      repository: version.repository,
-      readmeFilename: version.readmeFilename || '',
-      homepage: version.homepage,
-      keywords: version.keywords,
-      time: {
-        modified: time,
-      },
-      bugs: version.bugs,
-      license: version.license,
-      versions,
-    };
-
-    return pkg;
-  }
 }
 
 /**

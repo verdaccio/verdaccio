@@ -3532,6 +3532,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/loaders@npm:7.0.0-next.4":
+  version: 7.0.0-next.4
+  resolution: "@verdaccio/loaders@npm:7.0.0-next.4"
+  dependencies:
+    "@verdaccio/logger": "npm:7.0.0-next.4"
+    debug: "npm:4.3.4"
+    lodash: "npm:4.17.21"
+  checksum: d2337cb6b6ed4976ab9b4f8851a356f4e6f95be96b6e4e6d485cef3a2a3909f986b1f47284d1253708f5a8ab158655c0dad0c18cfc3a4eb30d526dadd4a0374e
+  languageName: node
+  linkType: hard
+
 "@verdaccio/local-storage@npm:10.3.4":
   version: 10.3.4
   resolution: "@verdaccio/local-storage@npm:10.3.4"
@@ -11643,6 +11654,7 @@ __metadata:
     "@verdaccio/config": "npm:7.0.0-next.4"
     "@verdaccio/core": "npm:7.0.0-next.4"
     "@verdaccio/hooks": "npm:7.0.0-next.4"
+    "@verdaccio/loaders": "npm:7.0.0-next.4"
     "@verdaccio/local-storage": "npm:10.3.4"
     "@verdaccio/logger": "npm:7.0.0-next.4"
     "@verdaccio/middleware": "npm:7.0.0-next.4"

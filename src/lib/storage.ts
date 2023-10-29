@@ -4,7 +4,8 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { PassThrough, pipeline as streamPipeline } from 'stream';
 
-import { errorUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { errorUtils, pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { IProxy, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { ReadTarball } from '@verdaccio/streams';
@@ -59,11 +60,29 @@ class Storage {
     this.localStorage = null;
   }
 
-  public init(config: Config, filters: IPluginFilters = []): Promise<string> {
-    this.filters = filters;
-    this.localStorage = new LocalStorage(this.config, logger);
-
-    return this.localStorage.getSecret(config);
+  public async init(config: Config): Promise<void> {
+    if (this.localStorage === null) {
+      this.localStorage = new LocalStorage(this.config, logger);
+      await this.localStorage.init();
+      debug('local init storage initialized');
+      this.localStorage.getSecret(config);
+      debug('local storage secret initialized');
+    }
+    if (!this.filters) {
+      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
+        this.config.filters,
+        {
+          config: this.config,
+          logger: this.logger,
+        },
+        (plugin: pluginUtils.ManifestFilter<Config>) => {
+          return typeof plugin.filter_metadata !== 'undefined';
+        },
+        this.config?.serverSettings?.pluginPrefix
+      );
+      debug('filters available %o', this.filters);
+    }
+    return;
   }
 
   /**
@@ -705,19 +724,47 @@ class Storage {
             const filterErrors: Error[] = [];
             // This MUST be done serially and not in parallel as they modify packageJsonLocal
             for (const filter of self.filters) {
-              try {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
-                // performance (i.e. need not be pure)
-                packageJsonLocal = await filter.filter_metadata(packageJsonLocal);
-              } catch (err: any) {
-                filterErrors.push(err);
-              }
+              // These filters can assume it's save to modify packageJsonLocal and return it directly for
+              // performance (i.e. need not be pure)
+              const [_filteredManifest, _filtersErrors] = await this.applyFilters(packageJsonLocal);
+              packageJsonLocal = _filteredManifest;
+              filterErrors.push(...filterErrors);
             }
-            callback(null, packageJsonLocal, _.concat(upLinksErrors, filterErrors));
+            callback(null, packageJsonLocal, [...upLinksErrors, ...filterErrors]);
           }
         );
       }
     );
+  }
+
+  /**
+   * Apply filters to manifest.
+   * @param manifest
+   * @returns
+   */
+  public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
+    if (this.filters === null || this.filters.length === 0) {
+      debug('no filters to be applied');
+      return [manifest, []];
+    }
+
+    let filterPluginErrors: any[] = [];
+    let filteredManifest = { ...manifest };
+    for (const filter of this.filters) {
+      // These filters can assume it's save to modify packageJsonLocal
+      // and return it directly for
+      // performance (i.e. need not be pure)
+      try {
+        debug('applying filter to %s', manifest.name);
+        filteredManifest = await filter.filter_metadata(manifest);
+        debug('filter applied to %s', manifest.name);
+      } catch (err: any) {
+        debug('filter apply has failed');
+        this.logger.error({ err: err.message }, 'filter has failed @{err}');
+        filterPluginErrors.push(err);
+      }
+    }
+    return [filteredManifest, filterPluginErrors];
   }
 
   /**
