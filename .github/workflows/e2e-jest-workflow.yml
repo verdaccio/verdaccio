@@ -193,7 +193,7 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          pnpm init --force
+          pnpm init
           pnpm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
