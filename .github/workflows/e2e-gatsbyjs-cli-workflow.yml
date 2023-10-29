@@ -30,13 +30,13 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873
-          loglevel="warn"
+          loglevel="info"
           fetch-retries=10
           fetch-retry-factor=2
           fetch-retry-mintimeout=10000
           fetch-retry-maxtimeout=80000" > ~/.npmrc
           npm config list
-          npm i -g gatsby@5.6.0
+          npm i -g gatsby@latest
           gatsby new my-gatsby
           cd my-gatsby
           npm run build          
@@ -65,13 +65,13 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873
-          loglevel="warn"
+          loglevel="info"
           fetch-retries=10
           fetch-retry-factor=2
           fetch-retry-mintimeout=10000
           fetch-retry-maxtimeout=80000" > ~/.npmrc
           npm config list
-          npm i -g gatsby@5.6.0
+          npm i -g gatsby@latest
           gatsby new my-gatsby
           cd my-gatsby
           npm run build          
