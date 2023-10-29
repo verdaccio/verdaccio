@@ -25,22 +25,6 @@ import webMiddleware from './web';
 
 const { version } = require('../../package.json');
 
-export function loadTheme(config) {
-  if (_.isNil(config.theme) === false) {
-    return _.head(
-      loadPlugin(
-        config,
-        config.theme,
-        {},
-        function (plugin) {
-          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
-        },
-        'verdaccio-theme'
-      )
-    );
-  }
-}
-
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config);
   const app: Application = express();
@@ -108,7 +92,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
       res.locals.app_version = version ?? '';
       next();
     });
-    app.use(webMiddleware(config, auth, storage));
+    const middleware = await webMiddleware(config, auth, storage);
+    app.use(middleware);
   } else {
     app.get('/', function (_, __, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
@@ -132,15 +117,8 @@ export default (async function (configHash: any) {
     config: config,
     logger: logger,
   };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    // @ts-ignore
-    (plugin: pluginUtils.ManifestFilter<IConfig>) => plugin.filter_metadata
-  );
   const storage = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config, filters);
+  await storage.init(config);
   return await defineAPI(config, storage);
 });

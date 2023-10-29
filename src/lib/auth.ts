@@ -335,7 +335,7 @@ class Auth {
     })();
   }
 
-  public apiJWTmiddleware() {
+  public apiJWTmiddleware(): any {
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
     for (const plugin of plugins) {

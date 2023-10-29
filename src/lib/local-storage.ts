@@ -18,8 +18,6 @@ import {
   Token,
   TokenFilter,
   Version,
-  onEndSearchPackage,
-  onSearchPackage,
 } from '@verdaccio/types';
 import { createTarballHash, getLatestVersion, normalizeContributors } from '@verdaccio/utils';
 
@@ -34,7 +32,6 @@ import {
   getLatestReadme,
   normalizePackage,
 } from './storage-utils';
-import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
@@ -838,7 +835,7 @@ class LocalStorage {
 
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage default path not defined');
-      return new LocalDatabase(this.config, logger);
+      return new LocalDatabase(config, logger);
     }
     return Storage as StoragePlugin;
   }
