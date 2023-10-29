@@ -12,6 +12,7 @@ const debug = buildDebug('verdaccio:web');
 
 export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
+    debug('loading theme');
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
@@ -23,7 +24,11 @@ export async function loadTheme(config: any) {
           - `manifest`: A webpack manifest object.
           - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
          */
-        return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
+        const isValid = plugin.staticPath && plugin.manifest && plugin.manifestFiles;
+        if (isValid) {
+          debug('theme plugin loaded');
+        }
+        return isValid;
       },
       config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'
     );
