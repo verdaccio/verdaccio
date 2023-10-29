@@ -94,7 +94,7 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          npm init --force
+          npm init --yes
           npm install jest@29.5.0 --registry http://localhost:4873
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
@@ -127,8 +127,8 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          npm init --force
-          npm install jest@29.4.2 --registry http://localhost:4873
+          npm init --yes
+          npm install jest@29.4.2 --registry http://localhost:4873  --loglevel info 
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js
@@ -137,7 +137,7 @@ jobs:
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js          
   npm10:
-    name: 'npm9:jest example'
+    name: 'npm10:jest example'
     runs-on: ubuntu-latest
 
     steps:
@@ -160,8 +160,8 @@ jobs:
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
-          npm init --force
-          npm install jest@29.4.2 --registry http://localhost:4873
+          npm init --yes
+          npm install jest@29.4.2 --registry http://localhost:4873  --loglevel info 
 
           echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
           yarn jest pass.test.js

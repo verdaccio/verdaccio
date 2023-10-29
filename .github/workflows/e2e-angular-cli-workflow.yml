@@ -116,7 +116,7 @@ jobs:
           npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
           npm run ng build --aot
   npm10:
-    name: 'npm9:angular example'
+    name: 'npm10:angular example'
     runs-on: ubuntu-latest
 
     steps:
@@ -140,7 +140,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           echo "registry=http://localhost:4873" > ~/.npmrc
-          npm config set loglevel="silent"
+          npm config set loglevel="info"
           npm config set fetch-retries="5"
           npm config set fetch-retry-factor="50"
           npm config set fetch-retry-mintimeout="20000"
