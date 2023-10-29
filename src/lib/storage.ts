@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { PassThrough, pipeline as streamPipeline } from 'stream';
 
 import { errorUtils, pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { IProxy, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { ReadTarball } from '@verdaccio/streams';
@@ -40,7 +41,6 @@ import {
 import { TransFormResults } from './transform-search-results';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -721,48 +721,48 @@ class Storage {
             const filterErrors: Error[] = [];
             // This MUST be done serially and not in parallel as they modify packageJsonLocal
             for (const filter of self.filters) {
-                // These filters can assume it's save to modify packageJsonLocal and return it directly for
-                // performance (i.e. need not be pure)
-                const [_filteredManifest, _filtersErrors ] = await this.applyFilters(packageJsonLocal);            
-                packageJsonLocal = _filteredManifest;
-                filterErrors.push(...filterErrors);
+              // These filters can assume it's save to modify packageJsonLocal and return it directly for
+              // performance (i.e. need not be pure)
+              const [_filteredManifest, _filtersErrors] = await this.applyFilters(packageJsonLocal);
+              packageJsonLocal = _filteredManifest;
+              filterErrors.push(...filterErrors);
             }
-            callback(null, packageJsonLocal, [...upLinksErrors, ... filterErrors]);
+            callback(null, packageJsonLocal, [...upLinksErrors, ...filterErrors]);
           }
         );
       }
     );
   }
 
-    /**
+  /**
    * Apply filters to manifest.
    * @param manifest
    * @returns
    */
-    public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
-      if (this.filters === null || this.filters.length === 0) {
-        debug('no filters to be applied')
-        return [manifest, []];
-      }
-  
-      let filterPluginErrors: any[] = [];
-      let filteredManifest = { ...manifest };
-      for (const filter of this.filters) {
-        // These filters can assume it's save to modify packageJsonLocal
-        // and return it directly for
-        // performance (i.e. need not be pure)
-        try {
-          debug('applying filter to %s', manifest.name)
-          filteredManifest = await filter.filter_metadata(manifest);
-          debug('filter applied to %s', manifest.name)
-        } catch (err: any) {
-          debug('filter apply has failed')
-          this.logger.error({ err: err.message }, 'filter has failed @{err}');
-          filterPluginErrors.push(err);
-        }
-      }
-      return [filteredManifest, filterPluginErrors];
+  public async applyFilters(manifest: Manifest): Promise<[Manifest, any]> {
+    if (this.filters === null || this.filters.length === 0) {
+      debug('no filters to be applied');
+      return [manifest, []];
     }
+
+    let filterPluginErrors: any[] = [];
+    let filteredManifest = { ...manifest };
+    for (const filter of this.filters) {
+      // These filters can assume it's save to modify packageJsonLocal
+      // and return it directly for
+      // performance (i.e. need not be pure)
+      try {
+        debug('applying filter to %s', manifest.name);
+        filteredManifest = await filter.filter_metadata(manifest);
+        debug('filter applied to %s', manifest.name);
+      } catch (err: any) {
+        debug('filter apply has failed');
+        this.logger.error({ err: err.message }, 'filter has failed @{err}');
+        filterPluginErrors.push(err);
+      }
+    }
+    return [filteredManifest, filterPluginErrors];
+  }
 
   /**
    * Set a hidden value for each version.

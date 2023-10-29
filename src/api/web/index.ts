@@ -2,10 +2,10 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { renderWebMiddleware, setSecurityWebHeaders } from '@verdaccio/middleware';
 
 import webEndpointsApi from './api';
-import { asyncLoadPlugin } from '@verdaccio/loaders';
 
 const debug = buildDebug('verdaccio:web');
 
@@ -33,7 +33,6 @@ export async function loadTheme(config: any) {
     return _.head(plugin);
   }
 }
-
 
 export default async (config: any, auth: any, storage: any): Promise<any> => {
   const pluginOptions = (await loadTheme(config)) || require('@verdaccio/ui-theme')(config.web);
