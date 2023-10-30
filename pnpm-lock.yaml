@@ -1076,8 +1076,8 @@ importers:
         version: 1.1.4
     devDependencies:
       '@types/bcryptjs':
-        specifier: 2.4.4
-        version: 2.4.4
+        specifier: 2.4.5
+        version: 2.4.5
       '@verdaccio/config':
         specifier: workspace:7.0.0-next.4
         version: link:../../config
@@ -11418,8 +11418,8 @@ packages:
     dependencies:
       '@babel/types': 7.23.0
 
-  /@types/bcryptjs@2.4.4:
-    resolution: {integrity: sha512-9wlJI7k5gRyJEC4yrV7DubzNQFTPiykYxUA6lBtsk5NlOfW9oWLJ1HdIA4YtE+6C3i3mTpDQQEosJ2rVZfBWnw==}
+  /@types/bcryptjs@2.4.5:
+    resolution: {integrity: sha512-tOF6TivOIvq+TWQm78335CMdyVJhpBG3NUdWQDAp95ax4E2rSKbws/ELHLk5EBoucwx/tHt3/hhLOHwWJgVrSw==}
     dev: true
 
   /@types/body-parser@1.19.2:
