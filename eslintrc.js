@@ -92,7 +92,6 @@ module.exports = {
     'prefer-promise-reject-errors': ['warn'],
     'jest/no-disabled-tests': ['warn'],
     'jest/no-commented-out-tests': ['warn'],
-    '@typescript-eslint/prefer-optional-chain': ['warn'],
     '@typescript-eslint/explicit-member-accessibility': ['warn'],
     '@typescript-eslint/no-unused-vars': ['warn'],
   },
