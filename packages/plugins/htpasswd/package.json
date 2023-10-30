@@ -43,7 +43,7 @@
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {
-    "@types/bcryptjs": "2.4.4",
+    "@types/bcryptjs": "2.4.5",
     "@verdaccio/types": "workspace:12.0.0-next.1",
     "@verdaccio/config": "workspace:7.0.0-next.4",
     "@verdaccio/logger": "workspace:7.0.0-next.4",
