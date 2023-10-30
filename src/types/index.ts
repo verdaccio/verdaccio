@@ -33,8 +33,6 @@ export type LegacyPackageAccess = PackageAccess & {
   unpublish?: string[];
 };
 
-export type MatchedPackage = PackageAccess | void;
-
 export type JWTPayload = RemoteUser & {
   password?: string;
 };
