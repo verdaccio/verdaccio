@@ -1240,8 +1240,8 @@ importers:
         specifier: 1.11.7
         version: 1.11.7
       dompurify:
-        specifier: 2.4.5
-        version: 2.4.5
+        specifier: 2.4.7
+        version: 2.4.7
       friendly-errors-webpack-plugin:
         specifier: 1.7.0
         version: 1.7.0(webpack@5.82.1)
@@ -1852,8 +1852,8 @@ importers:
         specifier: 1.11.7
         version: 1.11.7
       dompurify:
-        specifier: 2.4.5
-        version: 2.4.5
+        specifier: 2.4.7
+        version: 2.4.7
       highlight.js:
         specifier: 11.7.0
         version: 11.7.0
@@ -2218,8 +2218,8 @@ importers:
         specifier: 0.18.0
         version: 0.18.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25)
       dompurify:
-        specifier: 2.4.5
-        version: 2.4.5
+        specifier: 2.4.7
+        version: 2.4.7
       p-cancelable:
         specifier: 2.1.1
         version: 2.1.1
@@ -16593,8 +16593,8 @@ packages:
     resolution: {integrity: sha512-q6QaLcakcRjebxjg8/+NP+h0rPfatOgOzc46Fst9VAA3jF2ApfKBNKMzdP4DYTqtUMXSCd5pRS/8Po/OmoCHZQ==}
     dev: false
 
-  /dompurify@2.4.5:
-    resolution: {integrity: sha512-jggCCd+8Iqp4Tsz0nIvpcb22InKEBrGz5dw3EQJMs8HPJDsKbFIO3STYtAvCfDx26Muevn1MHVI0XxjgFfmiSA==}
+  /dompurify@2.4.7:
+    resolution: {integrity: sha512-kxxKlPEDa6Nc5WJi+qRgPbOAbgTpSULL+vI3NUXsZMlkJxTqYI9wg5ZTay2sFrdZRWHPWNi+EdAhcJf81WtoMQ==}
 
   /domutils@1.7.0:
     resolution: {integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==}
