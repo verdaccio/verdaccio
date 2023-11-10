@@ -33,7 +33,7 @@
     "@rematch/persist": "2.1.2",
     "country-flag-icons": "1.5.5",
     "dayjs": "1.11.7",
-    "dompurify": "2.4.5",
+    "dompurify": "2.4.7",
     "highlight.js": "11.7.0",
     "history": "4.10.1",
     "classnames": "2.3.2",
