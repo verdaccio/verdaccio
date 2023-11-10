@@ -14,10 +14,10 @@ jobs:
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: 'Use Node.js 16.x'
+      - name: 'Use Node.js 18.x'
         uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: 'install latest npm'
         run: npm i -g npm@latest-6
       - name: Install Dependencies
@@ -51,10 +51,10 @@ jobs:
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: 'Use Node.js 16.x'
+      - name: 'Use Node.js 18.x'
         uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: 'install latest npm'
         run: npm i -g npm@next-7
       - name: Install Dependencies
@@ -88,10 +88,10 @@ jobs:
     steps:
       - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
-      - name: 'Use Node.js 16.x'
+      - name: 'Use Node.js 18.x'
         uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: 'install latest npm'
         run: npm i -g npm@next-8
       - name: Install Dependencies
