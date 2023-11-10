@@ -23,7 +23,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack install
+          corepack prepare
       - name: Install
         run: pnpm install --reporter=silence --registry http://localhost:4873
       - name: build

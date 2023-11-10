@@ -1,5 +1,4 @@
 import buildDebug from 'debug';
-import { NextFunction, Request, Response } from 'express';
 import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
@@ -12,7 +11,9 @@ import {
   VerdaccioError,
   errorUtils,
   pluginUtils,
+  warningUtils,
 } from '@verdaccio/core';
+import '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
@@ -21,13 +22,20 @@ import {
   Callback,
   Config,
   JWTSignOptions,
-  Logger,
   PackageAccess,
   RemoteUser,
   Security,
 } from '@verdaccio/types';
 import { getMatchedPackagesSpec, isFunction, isNil } from '@verdaccio/utils';
 
+import {
+  $RequestExtend,
+  $ResponseExtend,
+  AESPayload,
+  IAuthMiddleware,
+  NextFunction,
+  TokenEncryption,
+} from './types';
 import {
   convertPayloadToBase64,
   getDefaultPlugins,
@@ -39,25 +47,6 @@ import {
 } from './utils';
 
 const debug = buildDebug('verdaccio:auth');
-
-export interface TokenEncryption {
-  jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
-  aesEncrypt(buf: string): string | void;
-}
-
-// remove
-export interface AESPayload {
-  user: string;
-  password: string;
-}
-export interface IAuthMiddleware {
-  apiJWTmiddleware(): $NextFunctionVer;
-  webUIJWTmiddleware(): $NextFunctionVer;
-}
-
-export type $RequestExtend = Request & { remote_user?: any; log: Logger };
-export type $ResponseExtend = Response & { cookies?: any };
-export type $NextFunctionVer = NextFunction & any;
 
 class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
@@ -226,29 +215,32 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('add user %o', user);
 
     (function next(): void {
+      let method = 'adduser';
       const plugin = plugins.shift() as pluginUtils.Auth<Config>;
-      if (typeof plugin.adduser !== 'function') {
+      // @ts-expect-error future major (7.x) should remove this section
+      if (typeof plugin.adduser === 'undefined' && typeof plugin.add_user === 'function') {
+        method = 'add_user';
+        warningUtils.emit(warningUtils.Codes.VERWAR006);
+      }
+      // @ts-ignore
+      if (typeof plugin[method] !== 'function') {
         next();
       } else {
-        // @ts-expect-error future major (7.x) should remove this section
-        if (typeof plugin.adduser === 'undefined' && typeof plugin.add_user === 'function') {
-          throw errorUtils.getInternalError(
-            'add_user method not longer supported, rename to adduser'
-          );
-        }
-
-        plugin.adduser(
+        // TODO: replace by adduser whenever add_user deprecation method has been removed
+        // @ts-ignore
+        plugin[method](
           user,
           password,
           function (err: VerdaccioError | null, ok?: boolean | string): void {
             if (err) {
-              debug('the user  %o could not being added. Error: %o', user, err?.message);
+              debug('the user %o could not being added. Error: %o', user, err?.message);
               return cb(err);
             }
             if (ok) {
               debug('the user %o has been added', user);
               return self.authenticate(user, password, cb);
             }
+            debug('user could not be added, skip to next auth plugin');
             next();
           }
         );
@@ -375,7 +367,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     })();
   }
 
-  public apiJWTmiddleware() {
+  public apiJWTmiddleware(): any {
     debug('jwt middleware');
     const plugins = this.plugins.slice(0);
     const helpers = { createAnonymousRemoteUser, createRemoteUser };
@@ -388,7 +380,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
 
-      const next = function (err?: VerdaccioError): any {
+      const next = function (err?: VerdaccioError): NextFunction {
         req.resume();
         // uncomment this to reject users with bad auth headers
         // return _next.apply(null, arguments)
@@ -398,7 +390,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           req.remote_user.error = err.message;
         }
 
-        return _next();
+        return _next() as unknown as NextFunction;
       };
 
       if (this._isRemoteUserValid(req.remote_user)) {
@@ -425,20 +417,20 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       if (isAESLegacy(security)) {
         debug('api middleware using legacy auth token');
-        this._handleAESMiddleware(req, security, secret, authorization, next);
+        this.handleAESMiddleware(req, security, secret, authorization, next);
       } else {
         debug('api middleware using JWT auth token');
-        this._handleJWTAPIMiddleware(req, security, secret, authorization, next);
+        this.handleJWTAPIMiddleware(req, security, secret, authorization, next);
       }
     };
   }
 
-  private _handleJWTAPIMiddleware(
+  private handleJWTAPIMiddleware(
     req: $RequestExtend,
     security: Security,
     secret: string,
     authorization: string,
-    next: Function
+    next: any
   ): void {
     debug('handle JWT api middleware');
     const { scheme, token } = parseAuthTokenHeader(authorization);
@@ -475,7 +467,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     }
   }
 
-  private _handleAESMiddleware(
+  private handleAESMiddleware(
     req: $RequestExtend,
     security: Security,
     secret: string,
@@ -515,7 +507,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   /**
    * JWT middleware for WebUI
    */
-  public webUIJWTmiddleware(): $NextFunctionVer {
+  public webUIJWTmiddleware() {
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction): void => {
       if (this._isRemoteUserValid(req.remote_user)) {
         return _next();
@@ -525,7 +517,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       const next = (err: VerdaccioError | void): void => {
         req.resume();
         if (err) {
-          // req.remote_user.error = err.message;
+          req.remote_user.error = err.message;
           res.status(err.statusCode).send(err.message);
         }
 

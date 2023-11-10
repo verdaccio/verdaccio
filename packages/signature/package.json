@@ -39,8 +39,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "9.0.2",
-    "debug": "4.3.4",
-    "lodash": "4.17.21"
+    "debug": "4.3.4"
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:7.0.0-next.4",

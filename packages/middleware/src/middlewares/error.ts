@@ -43,7 +43,7 @@ export const errorReportingMiddleware = (logger) =>
     res: $ResponseExtend,
     next: $NextFunctionVer
   ): void {
-    debug('error report middleware');
+    debug('error report middleware start');
     res.locals.report_error =
       res.locals.report_error ||
       function (err: VerdaccioError): void {
@@ -64,7 +64,7 @@ export const errorReportingMiddleware = (logger) =>
             debug('this is an error in express.js, please report this, destroy response %o', err);
             res.destroy();
           } else if (!res.headersSent) {
-            debug('report internal error %o', err);
+            debug('send internal error %o', err);
             res.status(HTTP_STATUS.INTERNAL_ERROR);
             next({ error: API_ERROR.INTERNAL_SERVER_ERROR });
           } else {
@@ -74,6 +74,6 @@ export const errorReportingMiddleware = (logger) =>
         }
       };
 
-    debug('error report middleware next()');
+    debug('error report middleware end (skip next layer) next()');
     next();
   };

@@ -1,0 +1,5 @@
+{
+  "name": "verdaccio-adduser",
+  "main": "adduser.js",
+  "version": "1.0.0"
+}

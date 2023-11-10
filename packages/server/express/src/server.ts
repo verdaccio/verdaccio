@@ -2,17 +2,23 @@ import compression from 'compression';
 import cors from 'cors';
 import buildDebug from 'debug';
 import express from 'express';
-import { HttpError } from 'http-errors';
 import _ from 'lodash';
 import AuditMiddleware from 'verdaccio-audit';
 
 import apiEndpoint from '@verdaccio/api';
 import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
-import { API_ERROR, HTTP_STATUS, errorUtils, pluginUtils } from '@verdaccio/core';
+import { API_ERROR, errorUtils, pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
-import { errorReportingMiddleware, final, log, rateLimit, userAgent } from '@verdaccio/middleware';
+import {
+  errorReportingMiddleware,
+  final,
+  handleError,
+  log,
+  rateLimit,
+  userAgent,
+} from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
 import { Config as IConfig } from '@verdaccio/types';
@@ -102,27 +108,30 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
     next(errorUtils.getNotFound('resource not found'));
   });
 
-  app.use(function (
-    err: HttpError,
-    req: $RequestExtend,
-    res: $ResponseExtend,
-    next: $NextFunctionVer
-  ) {
-    if (_.isError(err)) {
-      if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
-        return next();
-      }
-      if (_.isFunction(res.locals.report_error) === false) {
-        // in case of very early error this middleware may not be loaded before error is generated
-        // fixing that
-        errorReportingMiddlewareWrap(req, res, _.noop);
-      }
-      res.locals.report_error(err);
-    } else {
-      // Fall to Middleware.final
-      return next(err);
-    }
-  });
+  // @ts-ignore
+  app.use(handleError(logger));
+
+  // app.use(function (
+  //   err: HttpError,
+  //   req: $RequestExtend,
+  //   res: $ResponseExtend,
+  //   next: $NextFunctionVer
+  // ) {
+  //   if (_.isError(err)) {
+  //     if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
+  //       return next();
+  //     }
+  //     if (_.isFunction(res.locals.report_error) === false) {
+  //       // in case of very early error this middleware may not be loaded before error is generated
+  //       // fixing that
+  //       errorReportingMiddlewareWrap(req, res, _.noop);
+  //     }
+  //     res.locals.report_error(err);
+  //   } else {
+  //     // Fall to Middleware.final
+  //     return next(err);
+  //   }
+  // });
 
   app.use(final);
 

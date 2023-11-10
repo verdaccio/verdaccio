@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { URL } from 'url';
-import isURLValidator from 'validator/lib/isURL';
+import validator from 'validator';
 
 import { HEADERS } from '@verdaccio/core';
 
@@ -17,7 +17,7 @@ export function isURLhasValidProtocol(uri: string): boolean {
 }
 
 export function isHost(url: string = '', options = {}): boolean {
-  return isURLValidator(url, {
+  return validator.isURL(url, {
     require_host: true,
     allow_trailing_dot: false,
     require_valid_protocol: false,
@@ -130,3 +130,5 @@ export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOpt
     return '/';
   }
 }
+
+export const isURL = validator.isURL;
