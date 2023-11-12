@@ -19,20 +19,20 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/config": "7.0.0-next.3",
-    "@verdaccio/core": "7.0.0-next.3",
+    "@verdaccio/config": "7.0.0-next.4",
+    "@verdaccio/core": "7.0.0-next.4",
     "@verdaccio/local-storage": "10.3.3",
-    "@verdaccio/logger-7": "7.0.0-next.3",
-    "@verdaccio/middleware": "7.0.0-next.3",
+    "@verdaccio/logger-7": "7.0.0-next.4",
+    "@verdaccio/middleware": "7.0.0-next.4",
     "@verdaccio/search": "7.0.0-next.2",
-    "@verdaccio/signature": "7.0.0-next.1",
+    "@verdaccio/signature": "7.0.0-next.2",
     "@verdaccio/streams": "10.2.1",
-    "@verdaccio/tarball": "12.0.0-next.3",
-    "@verdaccio/ui-theme": "7.0.0-next.3",
-    "@verdaccio/url": "12.0.0-next.3",
-    "@verdaccio/utils": "7.0.0-next.3",
+    "@verdaccio/tarball": "12.0.0-next.4",
+    "@verdaccio/ui-theme": "7.0.0-next.4",
+    "@verdaccio/url": "12.0.0-next.4",
+    "@verdaccio/utils": "7.0.0-next.4",
     "JSONStream": "1.3.5",
-    "async": "3.2.4",
+    "async": "3.2.5",
     "clipanion": "3.2.1",
     "compression": "1.7.4",
     "cookies": "0.8.0",
@@ -55,8 +55,8 @@
     "request": "2.88.2",
     "semver": "7.5.4",
     "validator": "13.11.0",
-    "verdaccio-audit": "12.0.0-next.3",
-    "verdaccio-htpasswd": "12.0.0-next.3"
+    "verdaccio-audit": "12.0.0-next.4",
+    "verdaccio-htpasswd": "12.0.0-next.4"
   },
   "devDependencies": {
     "@babel/cli": "7.23.0",
@@ -126,7 +126,7 @@
     "pinst": "2.1.6",
     "prettier": "3.0.3",
     "rimraf": "3.0.2",
-    "selfsigned": "2.1.1",
+    "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
     "supertest": "6.3.3",
     "ts-node": "10.9.1",
@@ -160,7 +160,7 @@
     "test:all": "yarn run test && yarn run test:functional",
     "pre:ci": "yarn run lint",
     "lint:ts": "yarn run type-check",
-    "lint": "eslint \"**/*.{js,jsx,ts}\" --max-warnings 145 -c ./eslintrc.js",
+    "lint": "eslint \"**/*.{js,jsx,ts}\" --max-warnings 145 -c ./eslintrc.cjs",
     "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --validate-https --allowed-hosts verdaccio npm yarn",
     "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
     "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
@@ -178,7 +178,8 @@
   "preferGlobal": true,
   "license": "MIT",
   "resolutions": {
-    "@types/serve-static": "1.13.10"
+    "@types/serve-static": "1.13.10",
+    "@types/express-serve-static-core": "4.17.41"
   },
   "collective": {
     "type": "opencollective",

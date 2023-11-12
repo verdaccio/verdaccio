@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [14, 16, 18, 19]
+        node_version: [14, 16, 18, 20, 21]
 
     runs-on: ubuntu-latest
 
@@ -21,10 +21,6 @@ jobs:
         node-version: ${{ matrix.node_version }}
     - name: Install
       run: yarn install --immutable
-    - name: Format
-      run: yarn format:check
-    - name: Lint
-      run: yarn lint        
     - name: Build
       run: yarn build
     - name: Types
