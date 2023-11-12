@@ -4,12 +4,12 @@ import os from 'os';
 import path from 'path';
 
 import { errorUtils } from '@verdaccio/core';
-import { final } from '@verdaccio/middleware';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
-import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
 import Auth from '../../src/lib/auth';
 import Config from '../../src/lib/config';
+import { logger } from '../../src/lib/logger';
 
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
@@ -34,7 +34,7 @@ export async function initializeServer(
   // TODO: this might not be need it, used in apiEndpoints
   app.use(express.json({ strict: false, limit: '100mb' }));
   // @ts-ignore
-  app.use(errorReportingMiddleware);
+  app.use(errorReportingMiddleware(logger));
   for (let route of routesMiddleware) {
     if (route.async) {
       const middleware = await route.routes(config, auth, storage);
@@ -50,7 +50,7 @@ export async function initializeServer(
   });
 
   // @ts-ignore
-  app.use(handleError);
+  app.use(handleError(logger));
   // @ts-ignore
   app.use(final);
 

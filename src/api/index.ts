@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
-import { final } from '@verdaccio/middleware';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Config as IConfig } from '@verdaccio/types';
@@ -20,7 +20,7 @@ import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
-import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
+import { serveFavicon } from './middleware';
 import webMiddleware from './web';
 
 const { version } = require('../../package.json');
@@ -60,7 +60,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 
   // // Router setup
   app.use(log(logger));
-  app.use(errorReportingMiddleware);
+  app.use(errorReportingMiddleware(logger));
   if (config.user_agent) {
     app.use(function (_req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       res.setHeader('X-Powered-By', getUserAgent(config.user_agent));
@@ -118,7 +118,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   app.get('/*', function (_, __, next: $NextFunctionVer) {
     next(ErrorCode.getNotFound(API_ERROR.FILE_NOT_FOUND));
   });
-  app.use(handleError);
+  app.use(handleError(logger));
   app.use(final);
 
   return app;
