@@ -20,7 +20,7 @@ jobs:
     - name: Install node
       uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
       with:
-        node-version: 18
+        node-version: 20
     - name: npm setup
       run: |
         npm config set fetch-retries="5"
