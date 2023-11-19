@@ -107,8 +107,6 @@
     "jest-environment-node": "29.7.0",
     "jest-junit": "16.0.0",
     "nock": "13.3.6",
-    "node-mocks-http": "^1.13.0",
-    "pinst": "2.1.6",
     "prettier": "3.0.3",
     "rimraf": "5.0.5",
     "selfsigned": "2.4.1",
