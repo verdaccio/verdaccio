@@ -896,8 +896,8 @@ importers:
         specifier: 2.0.20
         version: 2.0.20
       dayjs:
-        specifier: 1.11.7
-        version: 1.11.7
+        specifier: 1.11.10
+        version: 1.11.10
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -1237,8 +1237,8 @@ importers:
         specifier: 6.8.1
         version: 6.8.1(webpack@5.82.1)
       dayjs:
-        specifier: 1.11.7
-        version: 1.11.7
+        specifier: 1.11.10
+        version: 1.11.10
       dompurify:
         specifier: 2.4.7
         version: 2.4.7
@@ -1849,8 +1849,8 @@ importers:
         specifier: 1.5.5
         version: 1.5.5
       dayjs:
-        specifier: 1.11.7
-        version: 1.11.7
+        specifier: 1.11.10
+        version: 1.11.10
       dompurify:
         specifier: 2.4.7
         version: 2.4.7
@@ -3787,7 +3787,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
   /@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.23.3):
@@ -7966,7 +7966,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.1
       '@emotion/babel-plugin': 11.10.6
       '@emotion/cache': 11.10.7
       '@emotion/serialize': 1.1.1
@@ -8023,7 +8023,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.1
       '@emotion/babel-plugin': 11.10.6
       '@emotion/is-prop-valid': 1.2.0
       '@emotion/react': 11.10.6(@types/react@18.2.25)(react@17.0.2)
@@ -16052,8 +16052,12 @@ packages:
     engines: {node: '>=0.11'}
     dev: true
 
+  /dayjs@1.11.10:
+    resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
+
   /dayjs@1.11.7:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+    dev: true
 
   /debug@2.6.9(supports-color@6.1.0):
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -22012,7 +22016,7 @@ packages:
       cytoscape-fcose: 2.2.0(cytoscape@3.23.0)
       d3: 7.8.4
       dagre-d3-es: 7.0.9
-      dayjs: 1.11.7
+      dayjs: 1.11.10
       dompurify: 2.4.3
       elkjs: 0.8.2
       khroma: 2.0.0
