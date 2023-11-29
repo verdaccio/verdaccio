@@ -795,8 +795,8 @@ importers:
         specifier: 12.5.4
         version: 12.5.4
       handlebars:
-        specifier: 4.7.7
-        version: 4.7.7
+        specifier: 4.7.8
+        version: 4.7.8
     devDependencies:
       '@verdaccio/auth':
         specifier: workspace:7.0.0-next.4
@@ -3660,7 +3660,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.22.10
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
 
   /@babel/plugin-syntax-dynamic-import@7.8.3(@babel/core@7.23.0):
     resolution: {integrity: sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==}
@@ -3668,7 +3668,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
   /@babel/plugin-syntax-dynamic-import@7.8.3(@babel/core@7.23.3):
@@ -3787,7 +3787,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
   /@babel/plugin-syntax-import-meta@7.10.4(@babel/core@7.23.3):
@@ -7966,7 +7966,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.1
       '@emotion/babel-plugin': 11.10.6
       '@emotion/cache': 11.10.7
       '@emotion/serialize': 1.1.1
@@ -8023,7 +8023,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.23.4
+      '@babel/runtime': 7.23.1
       '@emotion/babel-plugin': 11.10.6
       '@emotion/is-prop-valid': 1.2.0
       '@emotion/react': 11.10.6(@types/react@18.2.25)(react@17.0.2)
@@ -10422,7 +10422,7 @@ packages:
       fork-ts-checker-webpack-plugin: 6.5.3(eslint@8.53.0)(typescript@4.9.4)(webpack@4.46.0)
       fs-extra: 9.1.0
       glob: 7.2.3
-      handlebars: 4.7.7
+      handlebars: 4.7.8
       interpret: 2.2.0
       json5: 2.2.3
       lazy-universal-dotenv: 3.0.1
@@ -19035,8 +19035,8 @@ packages:
   /handle-thing@2.0.1:
     resolution: {integrity: sha512-9Qn4yBxelxoh2Ow62nP+Ka/kMnOXRi8BXnRaUwezLNhqelnN49xKz4F/dPP8OYLxLxq6JDtZb2i9XznUQbNPTg==}
 
-  /handlebars@4.7.7:
-    resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
+  /handlebars@4.7.8:
+    resolution: {integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ==}
     engines: {node: '>=0.4.7'}
     hasBin: true
     dependencies:
@@ -28376,7 +28376,7 @@ packages:
     peerDependencies:
       typedoc: '>=0.23.0'
     dependencies:
-      handlebars: 4.7.7
+      handlebars: 4.7.8
       typedoc: 0.23.25(typescript@4.9.4)
 
   /typedoc-plugin-merge-modules@4.0.1(typedoc@0.23.25):
