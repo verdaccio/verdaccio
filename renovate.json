@@ -1,6 +1,6 @@
 {
   "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
-  "prConcurrentLimit": 4,
+  "prConcurrentLimit": 8,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": [
     "customprefix-auth",
