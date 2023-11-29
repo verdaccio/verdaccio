@@ -29,21 +29,23 @@ jobs:
         uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
         with:
           node-version-file: '.nvmrc'
-
-      - name: Cache pnpm modules
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
-        env:
-          cache-name: cache-pnpm-modules
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
-
       - name: Install pnpm
         run: |
           corepack enable
           corepack install
+          - name: set store
+          run: |
+            mkdir ~/.pnpm-store
+            pnpm config set store-dir ~/.pnpm-store
+      - name: Install
+        run: pnpm install  --registry http://localhost:4873
+      - name: Cache .pnpm-store
+        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-          
       - name: Build 
         run: pnpm build
       - name: Build Translations percentage
