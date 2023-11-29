@@ -20,6 +20,14 @@ jobs:
       pull-requests: write  #  to comment on pull-requests
 
     runs-on: ubuntu-latest
+    name: setup verdaccio
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:5
+        ports:
+          - 4873:4873
+        env:
+          NODE_ENV: production    
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
