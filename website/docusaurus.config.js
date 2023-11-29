@@ -15,7 +15,7 @@ const lgnMapping = {
 
 // @ts-ignore
 const progress = translations;
-const limitLngIncluded = 40;
+const limitLngIncluded = 80;
 console.log('limit translation is on %s%', limitLngIncluded);
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 const isProductionDeployment = process.env.CONTEXT === 'production';
