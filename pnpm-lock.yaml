@@ -118,8 +118,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(prettier@2.8.8)
       '@types/async':
-        specifier: 3.2.23
-        version: 3.2.23
+        specifier: 3.2.24
+        version: 3.2.24
       '@types/body-parser':
         specifier: 1.19.5
         version: 1.19.5
@@ -11469,8 +11469,8 @@ packages:
     resolution: {integrity: sha512-PHKZuMN+K5qgKIWhBodXzQslTo5P+K/6LqeKXS6O/4liIDdZqaX5RXrCK++LAw+y/nptN48YmUMFiQHRSWYwtQ==}
     dev: true
 
-  /@types/async@3.2.23:
-    resolution: {integrity: sha512-/sDXs+HxCtt4/duO0AZFHs+ydQYHzd3qUybEFb+juRWQJNCFj3sYbqM2ABjWi8m7J93KXdJvIbDiARzqqIEESw==}
+  /@types/async@3.2.24:
+    resolution: {integrity: sha512-8iHVLHsCCOBKjCF2KwFe0p9Z3rfM9mL+sSP8btyR5vTjJRAqpBYD28/ZLgXPf0pjG1VxOvtCV/BgXkQbpSe8Hw==}
     dev: true
 
   /@types/babel__core@7.20.2:
