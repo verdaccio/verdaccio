@@ -388,8 +388,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 10.1.0
-        version: 10.1.0
+        specifier: 10.2.4
+        version: 10.2.4
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -22923,8 +22923,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.1.0:
-    resolution: {integrity: sha512-pZ2xybXzNGbJFZEKNbPoEXsE38Xou9VTnxxBk+B3pz0ndsGCs7iWHoUCPSsISU2hjmkWfDkJo3bYKE8RDOg4eg==}
+  /npm@10.2.4:
+    resolution: {integrity: sha512-umEuYneVEYO9KoEEI8n2sSGmNQeqco/3BSeacRlqIkCzw4E7XGtYSWMeJobxzr6hZ2n9cM+u5TsMTcC5bAgoWA==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -22973,6 +22973,7 @@ packages:
       - ms
       - node-gyp
       - nopt
+      - normalize-package-data
       - npm-audit-report
       - npm-install-checks
       - npm-package-arg
@@ -22988,7 +22989,9 @@ packages:
       - qrcode-terminal
       - read
       - semver
+      - spdx-expression-parse
       - ssri
+      - strip-ansi
       - supports-color
       - tar
       - text-table
