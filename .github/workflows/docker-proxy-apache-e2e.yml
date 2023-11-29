@@ -12,7 +12,8 @@ jobs:
   docker:
     timeout-minutes: 10
     runs-on: ubuntu-latest
-
+    env:
+      NODE_OPTIONS: --max_old_space_size=4096
     steps:
     - name: Checkout
       uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
@@ -23,7 +24,13 @@ jobs:
     - name: Install node
       uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
       with:
-        node-version: 18
+        node-version-file: '.nvmrc'
+    - name: npm setup
+      run: |
+        npm config set fetch-retries="10"
+        npm config set fetch-retry-factor="50"
+        npm config set fetch-retry-mintimeout="20000"
+        npm config set fetch-retry-maxtimeout="80000"          
     - name: verdaccio cli
       run: npm install -g verdaccio --registry http://localhost
     - name: gastby cli 
