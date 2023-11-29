@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
+  "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 8,
   "ignorePaths": ["docker-examples/**"],
   "ignoreDeps": [
