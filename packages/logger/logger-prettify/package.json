@@ -38,7 +38,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "dayjs": "1.11.7",
+    "dayjs": "1.11.10",
     "pino-abstract-transport": "1.0.0",
     "colorette": "2.0.20",
     "lodash": "4.17.21",
