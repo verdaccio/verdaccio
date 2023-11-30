@@ -72,7 +72,7 @@
     "@types/react-router-dom": "5.3.3",
     "@types/react-virtualized": "9.21.23",
     "@types/redux": "3.6.0",
-    "@types/request": "2.48.9",
+    "@types/request": "2.48.12",
     "@types/semver": "7.5.3",
     "@types/send": "0.17.2",
     "@types/serve-static": "1.15.3",

@@ -184,8 +184,8 @@ importers:
         specifier: 3.6.0
         version: 3.6.0
       '@types/request':
-        specifier: 2.48.9
-        version: 2.48.9
+        specifier: 2.48.12
+        version: 2.48.12
       '@types/semver':
         specifier: 7.5.3
         version: 7.5.3
@@ -11932,8 +11932,8 @@ packages:
       redux: 4.2.1
     dev: true
 
-  /@types/request@2.48.9:
-    resolution: {integrity: sha512-4mi2hYsvPAhe8RXjk5DKB09sAUzbK68T2XjORehHdWyxFoX2zUnfi1VQ5wU4Md28H/5+uB4DkxY9BS4B87N/0A==}
+  /@types/request@2.48.12:
+    resolution: {integrity: sha512-G3sY+NpsA9jnwm0ixhAFQSJ3Q9JkpLZpJbI3GMv0mIAT0y3mRabYeINzal5WOChIiaTEGQYlHOKgkaM9EisWHw==}
     dependencies:
       '@types/caseless': 0.12.3
       '@types/node': 20.8.3
