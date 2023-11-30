@@ -64,7 +64,7 @@
     "@types/mime": "3.0.2",
     "@types/minimatch": "5.1.2",
     "@types/node": "20.8.3",
-    "@types/node-fetch": "2.6.6",
+    "@types/node-fetch": "2.6.9",
     "@types/qs": "6.9.8",
     "@types/range-parser": "1.2.5",
     "@types/react": "18.2.25",
