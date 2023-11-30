@@ -187,8 +187,8 @@ importers:
         specifier: 2.48.9
         version: 2.48.9
       '@types/semver':
-        specifier: 7.5.3
-        version: 7.5.3
+        specifier: 7.5.6
+        version: 7.5.6
       '@types/send':
         specifier: 0.17.2
         version: 0.17.2
@@ -11965,8 +11965,8 @@ packages:
     resolution: {integrity: sha512-5o/e00/5/rWZlD4dClsj0xf21J0VFFjfZBUp75Imm1Y2V0gm72kmbDNHs1fyZLPlbF90LaPBrPGzbRBJdKhjyQ==}
     dev: true
 
-  /@types/semver@7.5.3:
-    resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
+  /@types/semver@7.5.6:
+    resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==}
 
   /@types/send@0.17.2:
     resolution: {integrity: sha512-aAG6yRf6r0wQ29bkS+x97BIs64ZLxeE/ARwyS6wrldMm3C1MdKwCcnnEwMC1slI8wuxJOpiUH9MioC0A0i+GJw==}
@@ -12287,7 +12287,7 @@ packages:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.53.0)
       '@types/json-schema': 7.0.13
-      '@types/semver': 7.5.3
+      '@types/semver': 7.5.6
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.2.2)
@@ -12307,7 +12307,7 @@ packages:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.53.0)
       '@types/json-schema': 7.0.13
-      '@types/semver': 7.5.3
+      '@types/semver': 7.5.6
       '@typescript-eslint/scope-manager': 6.9.1
       '@typescript-eslint/types': 6.9.1
       '@typescript-eslint/typescript-estree': 6.9.1(typescript@5.2.2)
