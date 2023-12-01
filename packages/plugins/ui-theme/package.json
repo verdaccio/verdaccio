@@ -32,7 +32,7 @@
     "@verdaccio/ui-components": "workspace:3.0.0-next.2",
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
-    "country-flag-icons": "1.5.5",
+    "country-flag-icons": "1.5.9",
     "css-loader": "6.8.1",
     "dayjs": "1.11.10",
     "dompurify": "2.4.7",
