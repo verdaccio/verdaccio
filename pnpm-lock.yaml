@@ -148,8 +148,8 @@ importers:
         specifier: 9.0.5
         version: 9.0.5
       '@types/lodash':
-        specifier: 4.14.199
-        version: 4.14.199
+        specifier: 4.14.202
+        version: 4.14.202
       '@types/mime':
         specifier: 3.0.4
         version: 3.0.4
@@ -8356,7 +8356,7 @@ packages:
     dependencies:
       '@formatjs/ts-transformer': 2.13.0
       '@types/json-stable-stringify': 1.0.34
-      '@types/lodash': 4.14.199
+      '@types/lodash': 4.14.202
       '@types/loud-rejection': 2.0.0
       '@types/node': 14.18.63
       '@vue/compiler-core': 3.3.4
@@ -10727,7 +10727,7 @@ packages:
       '@babel/preset-env': 7.23.5(@babel/core@7.23.0)
       '@babel/types': 7.23.3
       '@mdx-js/mdx': 1.6.22
-      '@types/lodash': 4.14.199
+      '@types/lodash': 4.14.202
       js-string-escape: 1.0.1
       loader-utils: 2.0.4
       lodash: 4.17.21
@@ -10746,7 +10746,7 @@ packages:
       '@babel/preset-env': 7.23.5(@babel/core@7.23.5)
       '@babel/types': 7.23.3
       '@mdx-js/mdx': 1.6.22
-      '@types/lodash': 4.14.199
+      '@types/lodash': 4.14.202
       js-string-escape: 1.0.1
       loader-utils: 2.0.4
       lodash: 4.17.21
@@ -11732,8 +11732,8 @@ packages:
     resolution: {integrity: sha512-km+Vyn3BYm5ytMO13k9KTp27O75rbQ0NFw+U//g+PX7VZyjCioXaRFisqSIJRECljcTv73G3i6BpglNGHgUQ5A==}
     dev: false
 
-  /@types/lodash@4.14.199:
-    resolution: {integrity: sha512-Vrjz5N5Ia4SEzWWgIVwnHNEnb1UE1XMkvY5DGXrAeOGE9imk0hgTHh5GyDjLDJi9OTCn9oo9dXH1uToK1VRfrg==}
+  /@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==}
     dev: true
 
   /@types/loud-rejection@2.0.0:
