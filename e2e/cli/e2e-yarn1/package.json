@@ -4,7 +4,7 @@
   "version": "1.0.1",
   "dependencies": {
     "@verdaccio/test-cli-commons": "workspace:1.1.0",
-    "yarn": "1.22.19"
+    "yarn": "1.22.21"
   },
   "scripts": {
     "test": "jest"
