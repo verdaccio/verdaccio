@@ -110,7 +110,7 @@ importers:
         version: 9.3.3
       '@testing-library/jest-dom':
         specifier: 6.1.5
-        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        version: 6.1.5(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -142,8 +142,8 @@ importers:
         specifier: 2.0.4
         version: 2.0.4
       '@types/jest':
-        specifier: 29.5.5
-        version: 29.5.5
+        specifier: 29.5.10
+        version: 29.5.10
       '@types/jsonwebtoken':
         specifier: 9.0.3
         version: 9.0.3
@@ -203,7 +203,7 @@ importers:
         version: 2.0.14
       '@types/testing-library__jest-dom':
         specifier: 6.0.0
-        version: 6.0.0(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        version: 6.0.0(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
       '@types/validator':
         specifier: 13.11.5
         version: 13.11.5
@@ -1181,7 +1181,7 @@ importers:
         version: 11.10.6
       '@emotion/jest':
         specifier: 11.10.5
-        version: 11.10.5(@types/jest@29.5.5)
+        version: 11.10.5(@types/jest@29.5.10)
       '@emotion/react':
         specifier: 11.10.6
         version: 11.10.6(@types/react@18.2.25)(react@18.2.0)
@@ -1211,7 +1211,7 @@ importers:
         version: 9.3.3
       '@testing-library/jest-dom':
         specifier: 6.1.5
-        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        version: 6.1.5(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1926,7 +1926,7 @@ importers:
         version: 11.10.6
       '@emotion/jest':
         specifier: 11.10.5
-        version: 11.10.5(@types/jest@29.5.5)
+        version: 11.10.5(@types/jest@29.5.10)
       '@storybook/addon-actions':
         specifier: ^6.5.15
         version: 6.5.16(react-dom@18.2.0)(react@18.2.0)
@@ -1956,7 +1956,7 @@ importers:
         version: 9.3.3
       '@testing-library/jest-dom':
         specifier: 6.1.5
-        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        version: 6.1.5(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -2174,7 +2174,7 @@ importers:
         version: 11.10.6
       '@emotion/jest':
         specifier: 11.10.5
-        version: 11.10.5(@types/jest@29.5.5)
+        version: 11.10.5(@types/jest@29.5.10)
       '@emotion/react':
         specifier: 11.10.6
         version: 11.10.6(@types/react@18.2.25)(react@17.0.2)
@@ -7907,7 +7907,7 @@ packages:
     dependencies:
       '@emotion/memoize': 0.8.1
 
-  /@emotion/jest@11.10.5(@types/jest@29.5.5):
+  /@emotion/jest@11.10.5(@types/jest@29.5.10):
     resolution: {integrity: sha512-LagosxybgisPlxfBGas9kGcNB5xTTX125WbjEVZiE3MEbb+dI4UYn0XIzrsilR8nUaQ5lH6yKUFrMmz7kB34vg==}
     peerDependencies:
       '@types/jest': ^26.0.14 || ^27.0.0 || ^28.0.0 || ^29.0.0
@@ -7920,7 +7920,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.21.0
       '@emotion/css-prettifier': 1.1.1
-      '@types/jest': 29.5.5
+      '@types/jest': 29.5.10
       chalk: 4.1.2
       specificity: 0.4.1
       stylis: 4.1.3
@@ -11339,7 +11339,7 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3):
+  /@testing-library/jest-dom@6.1.5(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3):
     resolution: {integrity: sha512-3y04JLW+EceVPy2Em3VwNr95dOKqA8DhR0RJHhHKDZNYXcVXnEK7WIrpj4eYU8SVt/qYZ2aRWt/WgQ+grNES8g==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
@@ -11359,7 +11359,7 @@ packages:
     dependencies:
       '@adobe/css-tools': 4.3.1
       '@babel/runtime': 7.23.5
-      '@types/jest': 29.5.5
+      '@types/jest': 29.5.10
       aria-query: 5.3.0
       chalk: 3.0.0
       css.escape: 1.5.1
@@ -11685,8 +11685,8 @@ packages:
     dependencies:
       '@types/istanbul-lib-report': 3.0.1
 
-  /@types/jest@29.5.5:
-    resolution: {integrity: sha512-ebylz2hnsWR9mYvmBFbXJXr+33UPc4+ZdxyDXh5w0FlPBTfCVN3wPL+kuOiQt3xvrK419v7XWeAs+AeOksafXg==}
+  /@types/jest@29.5.10:
+    resolution: {integrity: sha512-tE4yxKEphEyxj9s4inideLHktW/x6DwesIwWZ9NN1FKf9zbJYsnhBoA9vrHA/IuIOKwPa5PcFBNV4lpMIOEzyQ==}
     dependencies:
       expect: 29.7.0
       pretty-format: 29.7.0
@@ -12011,11 +12011,11 @@ packages:
     resolution: {integrity: sha512-ipixuVrh2OdNmauvtT51o3d8z12p6LtFW9in7U79der/kwejjdNchQC5UMn5u/KxNoM7VHHOs/l8KS8uHxhODQ==}
     dev: true
 
-  /@types/testing-library__jest-dom@6.0.0(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3):
+  /@types/testing-library__jest-dom@6.0.0(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3):
     resolution: {integrity: sha512-bnreXCgus6IIadyHNlN/oI5FfX4dWgvGhOPvpr7zzCYDGAPIfvyIoAozMBINmhmsVuqV0cncejF2y5KC7ScqOg==}
     deprecated: This is a stub types definition. @testing-library/jest-dom provides its own type definitions, so you do not need this installed.
     dependencies:
-      '@testing-library/jest-dom': 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+      '@testing-library/jest-dom': 6.1.5(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
     transitivePeerDependencies:
       - '@jest/globals'
       - '@types/jest'

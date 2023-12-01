@@ -58,7 +58,7 @@
     "@types/express": "4.17.21",
     "@types/express-serve-static-core": "4.17.37",
     "@types/http-errors": "2.0.4",
-    "@types/jest": "29.5.5",
+    "@types/jest": "29.5.10",
     "@types/jsonwebtoken": "9.0.3",
     "@types/lodash": "4.14.199",
     "@types/mime": "3.0.4",
