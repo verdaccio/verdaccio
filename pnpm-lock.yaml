@@ -109,8 +109,8 @@ importers:
         specifier: 9.3.3
         version: 9.3.3
       '@testing-library/jest-dom':
-        specifier: 6.1.4
-        version: 6.1.4(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        specifier: 6.1.5
+        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1210,8 +1210,8 @@ importers:
         specifier: 9.3.3
         version: 9.3.3
       '@testing-library/jest-dom':
-        specifier: 6.1.4
-        version: 6.1.4(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        specifier: 6.1.5
+        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -1955,8 +1955,8 @@ importers:
         specifier: 9.3.3
         version: 9.3.3
       '@testing-library/jest-dom':
-        specifier: 6.1.4
-        version: 6.1.4(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+        specifier: 6.1.5
+        version: 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
       '@testing-library/react':
         specifier: 14.0.0
         version: 14.0.0(react-dom@18.2.0)(react@18.2.0)
@@ -6183,6 +6183,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       regenerator-runtime: 0.14.0
+    dev: false
 
   /@babel/runtime@7.23.5:
     resolution: {integrity: sha512-NdUTHcPe4C99WxPub+K9l9tK5/lV4UXIoaHSYgzco9BCyjKAAwzdBI+wWtYqHt7LJdbo74ZjRPJgzVweq1sz0w==}
@@ -11338,8 +11339,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.1.4(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3):
-    resolution: {integrity: sha512-wpoYrCYwSZ5/AxcrjLxJmCU6I5QAJXslEeSiMQqaWmP2Kzpd1LvF/qxmAIW2qposULGWq2gw30GgVNFLSc2Jnw==}
+  /@testing-library/jest-dom@6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3):
+    resolution: {integrity: sha512-3y04JLW+EceVPy2Em3VwNr95dOKqA8DhR0RJHhHKDZNYXcVXnEK7WIrpj4eYU8SVt/qYZ2aRWt/WgQ+grNES8g==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -11357,7 +11358,7 @@ packages:
         optional: true
     dependencies:
       '@adobe/css-tools': 4.3.1
-      '@babel/runtime': 7.23.2
+      '@babel/runtime': 7.23.5
       '@types/jest': 29.5.5
       aria-query: 5.3.0
       chalk: 3.0.0
@@ -12041,7 +12042,7 @@ packages:
     resolution: {integrity: sha512-bnreXCgus6IIadyHNlN/oI5FfX4dWgvGhOPvpr7zzCYDGAPIfvyIoAozMBINmhmsVuqV0cncejF2y5KC7ScqOg==}
     deprecated: This is a stub types definition. @testing-library/jest-dom provides its own type definitions, so you do not need this installed.
     dependencies:
-      '@testing-library/jest-dom': 6.1.4(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
+      '@testing-library/jest-dom': 6.1.5(@types/jest@29.5.5)(jest@29.7.0)(vitest@0.34.3)
     transitivePeerDependencies:
       - '@jest/globals'
       - '@types/jest'
