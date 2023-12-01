@@ -1231,8 +1231,8 @@ importers:
         specifier: 2.3.3
         version: 2.3.3
       country-flag-icons:
-        specifier: 1.5.5
-        version: 1.5.5
+        specifier: 1.5.9
+        version: 1.5.9
       css-loader:
         specifier: 6.8.1
         version: 6.8.1(webpack@5.82.1)
@@ -1846,8 +1846,8 @@ importers:
         specifier: 2.3.2
         version: 2.3.2
       country-flag-icons:
-        specifier: 1.5.5
-        version: 1.5.5
+        specifier: 1.5.9
+        version: 1.5.9
       dayjs:
         specifier: 1.11.10
         version: 1.11.10
@@ -15078,8 +15078,8 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
 
-  /country-flag-icons@1.5.5:
-    resolution: {integrity: sha512-k4WXZ/WvWOSiYXRG1n8EYHNr1m/IX0GffKqAidaet5DrJsDOmJ8Q/8JvvONhZNnKYg24s4lvsm+9og1HcuIU/g==}
+  /country-flag-icons@1.5.9:
+    resolution: {integrity: sha512-9jrjv2w7kRbqNtdtMdK2j3gmDIZzd5l9L2pZiQjF9J0mUcB+NKIGDNADTDHBEp8EQtjOkCOcciJGGSOpERdXPQ==}
 
   /cp-file@7.0.0:
     resolution: {integrity: sha512-0Cbj7gyvFVApzpK/uhCtQ/9kE9UnYpxMzaq5nQQC/Dh4iaj5fxp7iEFIullrYwzj8nf0qnsI1Qsx34hAeAebvw==}
