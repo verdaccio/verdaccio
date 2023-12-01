@@ -89,7 +89,7 @@
     "webpack-dev-server": "3.11.3",
     "webpack-manifest-plugin": "4.1.1",
     "webpack-merge": "5.8.0",
-    "whatwg-fetch": "3.6.2"
+    "whatwg-fetch": "3.6.19"
   },
   "keywords": [
     "private",
