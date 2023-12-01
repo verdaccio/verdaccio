@@ -1155,8 +1155,8 @@ importers:
         specifier: 4.3.4
         version: 4.3.4(supports-color@6.1.0)
       memfs:
-        specifier: 3.5.1
-        version: 3.5.1
+        specifier: 3.5.3
+        version: 3.5.3
       memory-fs:
         specifier: 0.5.0
         version: 0.5.0
@@ -18411,7 +18411,7 @@ packages:
       eslint: 8.53.0
       fs-extra: 9.1.0
       glob: 7.2.3
-      memfs: 3.5.1
+      memfs: 3.5.3
       minimatch: 3.1.2
       schema-utils: 2.7.0
       semver: 7.5.4
@@ -18443,7 +18443,7 @@ packages:
       eslint: 8.53.0
       fs-extra: 9.1.0
       glob: 7.2.3
-      memfs: 3.5.1
+      memfs: 3.5.3
       minimatch: 3.1.2
       schema-utils: 2.7.0
       semver: 7.5.4
@@ -18573,8 +18573,8 @@ packages:
       minipass: 3.3.6
     dev: true
 
-  /fs-monkey@1.0.3:
-    resolution: {integrity: sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==}
+  /fs-monkey@1.0.5:
+    resolution: {integrity: sha512-8uMbBjrhzW76TYgEV27Y5E//W2f/lTFmx78P2w19FZSxarhI/798APGQyuGCwmkNxgwGRhrLfvWyLBvNtuOmew==}
 
   /fs-readdir-recursive@1.1.0:
     resolution: {integrity: sha512-GNanXlVr2pf02+sPN40XN8HG+ePaNcvM0q5mZBd668Obwb0yD5GiUbZOFgwn8kGMY6I3mdyDJzieUy3PTYyTRA==}
@@ -21839,11 +21839,11 @@ packages:
       mimic-fn: 3.1.0
     dev: true
 
-  /memfs@3.5.1:
-    resolution: {integrity: sha512-UWbFJKvj5k+nETdteFndTpYxdeTMox/ULeqX5k/dpaQJCCFmj5EeKv3dBcyO2xmkRAx2vppRu5dVG7SOtsGOzA==}
+  /memfs@3.5.3:
+    resolution: {integrity: sha512-UERzLsxzllchadvbPs5aolHh65ISpKpM+ccLbOJ8/vvpBKmAWf+la7dXFy7Mr0ySHbdHrFv5kGFCUHHe6GFEmw==}
     engines: {node: '>= 4.0.0'}
     dependencies:
-      fs-monkey: 1.0.3
+      fs-monkey: 1.0.5
 
   /memoize-one@5.2.1:
     resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
@@ -29306,7 +29306,7 @@ packages:
     dependencies:
       colorette: 1.4.0
       mem: 8.1.1
-      memfs: 3.5.1
+      memfs: 3.5.3
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 3.3.0
@@ -29320,7 +29320,7 @@ packages:
       webpack: ^4.0.0 || ^5.0.0
     dependencies:
       colorette: 2.0.20
-      memfs: 3.5.1
+      memfs: 3.5.3
       mime-types: 2.1.35
       range-parser: 1.2.1
       schema-utils: 4.0.0
