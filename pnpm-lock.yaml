@@ -1324,8 +1324,8 @@ importers:
         specifier: 1.21.3
         version: 1.21.3(@types/react@18.2.39)(react-dom@18.2.0)(react@18.2.0)
       react-markdown:
-        specifier: 8.0.5
-        version: 8.0.5(@types/react@18.2.39)(react@18.2.0)
+        specifier: 8.0.7
+        version: 8.0.7(@types/react@18.2.39)(react@18.2.0)
       react-redux:
         specifier: 7.2.9
         version: 7.2.9(react-dom@18.2.0)(react@18.2.0)
@@ -1894,8 +1894,8 @@ importers:
         specifier: 1.21.3
         version: 1.21.3(@types/react@18.2.39)(react-dom@18.2.0)(react@18.2.0)
       react-markdown:
-        specifier: 8.0.5
-        version: 8.0.5(@types/react@18.2.39)(react@18.2.0)
+        specifier: 8.0.7
+        version: 8.0.7(@types/react@18.2.39)(react@18.2.0)
       react-redux:
         specifier: 7.2.9
         version: 7.2.9(react-dom@18.2.0)(react@18.2.0)
@@ -11800,9 +11800,6 @@ packages:
     resolution: {integrity: sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==}
     dev: true
 
-  /@types/prop-types@15.7.5:
-    resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-
   /@types/prop-types@15.7.8:
     resolution: {integrity: sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==}
 
@@ -11875,14 +11872,14 @@ packages:
   /@types/react@18.0.26:
     resolution: {integrity: sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug==}
     dependencies:
-      '@types/prop-types': 15.7.5
+      '@types/prop-types': 15.7.8
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
   /@types/react@18.0.35:
     resolution: {integrity: sha512-6Laome31HpetaIUGFWl1VQ3mdSImwxtFZ39rh059a1MNnKGqBpC88J6NJ8n/Is3Qx7CefDGLgf/KhN/sYCf7ag==}
     dependencies:
-      '@types/prop-types': 15.7.5
+      '@types/prop-types': 15.7.8
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
 
@@ -25314,14 +25311,14 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-markdown@8.0.5(@types/react@18.2.39)(react@18.2.0):
-    resolution: {integrity: sha512-jGJolWWmOWAvzf+xMdB9zwStViODyyFQhNB/bwCerbBKmrTmgmA599CGiOlP58OId1IMoIRsA8UdI1Lod4zb5A==}
+  /react-markdown@8.0.7(@types/react@18.2.39)(react@18.2.0):
+    resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
     peerDependencies:
       '@types/react': '>=16'
       react: '>=16'
     dependencies:
       '@types/hast': 2.3.4
-      '@types/prop-types': 15.7.5
+      '@types/prop-types': 15.7.8
       '@types/react': 18.2.39
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.3
