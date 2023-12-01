@@ -1402,8 +1402,8 @@ importers:
         specifier: 5.8.0
         version: 5.8.0
       whatwg-fetch:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.6.19
+        version: 3.6.19
 
   packages/proxy:
     dependencies:
@@ -29774,8 +29774,8 @@ packages:
       iconv-lite: 0.6.3
     dev: true
 
-  /whatwg-fetch@3.6.2:
-    resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
+  /whatwg-fetch@3.6.19:
+    resolution: {integrity: sha512-d67JP4dHSbm2TrpFj8AbO8DnL1JXL5J9u0Kq2xW6d0TFDbCA3Muhdt8orXC22utleTVj7Prqt82baN6RBvnEgw==}
     dev: true
 
   /whatwg-mimetype@3.0.0:
