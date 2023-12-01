@@ -35,7 +35,7 @@
     "@emotion/jest": "11.10.5",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
-    "@orama/orama": "1.2.4",
+    "@orama/orama": "1.2.11",
     "@mdx-js/react": "^1.6.22",
     "@mui/icons-material": "5.14.13",
     "@mui/material": "5.14.13",
