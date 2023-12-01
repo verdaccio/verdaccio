@@ -79,7 +79,7 @@
     "stylelint-processor-styled-components": "1.10.0",
     "stylelint-webpack-plugin": "4.1.1",
     "supertest": "6.3.3",
-    "terser-webpack-plugin": "5.3.6",
+    "terser-webpack-plugin": "5.3.9",
     "url-loader": "4.1.1",
     "validator": "13.11.0",
     "webpack": "5.82.1",
