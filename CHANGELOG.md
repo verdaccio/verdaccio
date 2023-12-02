@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.27.1](https://github.com/verdaccio/verdaccio/compare/v5.27.0...v5.27.1) (2023-12-02)
+
+
+### Bug Fixes
+
+* reuse middleware reporting layer ([#4114](https://github.com/verdaccio/verdaccio/issues/4114)) ([6a317f8](https://github.com/verdaccio/verdaccio/commit/6a317f88194731120dbac2d77ac349654563607b))
+
 ## [5.27.0](https://github.com/verdaccio/verdaccio/compare/v5.26.3...v5.27.0) (2023-10-14)
 
 
