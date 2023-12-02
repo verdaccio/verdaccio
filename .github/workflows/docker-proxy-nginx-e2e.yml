@@ -32,8 +32,8 @@ jobs:
       run: npm install -g verdaccio --registry http://localhost
     - name: gastby cli 
       run:  npm install -g gatsby-cli --registry http://localhost
-    - name: netlify cli 
-      run:  npm install -g netlify-cli --registry http://localhost
+    #- name: netlify cli 
+    #  run:  npm install -g netlify-cli --registry http://localhost
     - name: angular cli 
       run:  npm install -g @angular/cli --registry http://localhost
 
