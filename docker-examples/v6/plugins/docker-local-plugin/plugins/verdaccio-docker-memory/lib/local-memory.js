@@ -91,8 +91,8 @@ class LocalMemory {
       (_this$data = this.data) === null || _this$data === void 0
         ? void 0
         : (_this$data$list = _this$data.list) === null || _this$data$list === void 0
-        ? void 0
-        : _this$data$list.length
+          ? void 0
+          : _this$data$list.length
     );
     return Promise.resolve(
       (_this$data2 = this.data) === null || _this$data2 === void 0 ? void 0 : _this$data2.list

@@ -41,13 +41,16 @@ const LanguageContent = ({ translation, icon }) => (
 
 const LanguageSwitch = () => {
   const { language, setLanguage, listLanguages } = useLanguage();
-  const listConverted = listLanguages.reduce((prev, item) => {
-    prev[item.lng] = {
-      translation: item.menuKey,
-      icon: item.icon,
-    };
-    return prev;
-  }, {} as Record<string, { translation: string; icon: any }>);
+  const listConverted = listLanguages.reduce(
+    (prev, item) => {
+      prev[item.lng] = {
+        translation: item.menuKey,
+        icon: item.icon,
+      };
+      return prev;
+    },
+    {} as Record<string, { translation: string; icon: any }>
+  );
 
   const [languages] = useState<string[]>(Object.keys(i18next.options?.resources || {}));
   const { t } = useTranslation();
