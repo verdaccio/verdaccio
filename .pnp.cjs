@@ -5243,7 +5243,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-parser", "npm:1.19.2"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
             ["@types/qs", "npm:6.9.7"],\
-            ["@types/serve-static", "npm:1.13.10"]\
+            ["@types/serve-static", "npm:1.15.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5502,11 +5502,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/serve-static", [\
-        ["npm:1.13.10", {\
-          "packageLocation": "./.yarn/cache/@types-serve-static-npm-1.13.10-5434e2c519-eaca858739.zip/node_modules/@types/serve-static/",\
+        ["npm:1.15.5", {\
+          "packageLocation": "./.yarn/cache/@types-serve-static-npm-1.15.5-b911ffc092-0ff4b3703c.zip/node_modules/@types/serve-static/",\
           "packageDependencies": [\
-            ["@types/serve-static", "npm:1.13.10"],\
-            ["@types/mime", "npm:1.3.2"],\
+            ["@types/serve-static", "npm:1.15.5"],\
+            ["@types/http-errors", "npm:2.0.4"],\
+            ["@types/mime", "npm:3.0.4"],\
             ["@types/node", "npm:18.11.19"]\
           ],\
           "linkType": "HARD"\
