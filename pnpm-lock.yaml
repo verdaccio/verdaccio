@@ -2262,7 +2262,7 @@ importers:
         version: link:../packages/tools/translations
       docusaurus-plugin-sass:
         specifier: ^0.2.1
-        version: 0.2.3(@docusaurus/core@2.4.3)(sass@1.57.1)(webpack@5.82.1)
+        version: 0.2.3(@docusaurus/core@2.4.3)(sass@1.69.5)(webpack@5.82.1)
       esbuild:
         specifier: 0.14.10
         version: 0.14.10
@@ -2273,11 +2273,11 @@ importers:
         specifier: ^1.2.1
         version: 1.3.5(react@17.0.2)
       sass:
-        specifier: 1.57.1
-        version: 1.57.1
+        specifier: 1.69.5
+        version: 1.69.5
       sass-loader:
         specifier: ^12.1.0
-        version: 12.6.0(sass@1.57.1)(webpack@5.82.1)
+        version: 12.6.0(sass@1.69.5)(webpack@5.82.1)
       url-loader:
         specifier: 4.1.1
         version: 4.1.1(file-loader@6.2.0)(webpack@5.82.1)
@@ -15337,15 +15337,15 @@ packages:
     dependencies:
       esutils: 2.0.3
 
-  /docusaurus-plugin-sass@0.2.3(@docusaurus/core@2.4.3)(sass@1.57.1)(webpack@5.82.1):
+  /docusaurus-plugin-sass@0.2.3(@docusaurus/core@2.4.3)(sass@1.69.5)(webpack@5.82.1):
     resolution: {integrity: sha512-FbaE06K8NF8SPUYTwiG+83/jkXrwHJ/Afjqz3SUIGon6QvFwSSoKOcoxGQmUBnjTOk+deUONDx8jNWsegFJcBQ==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0-beta
       sass: ^1.30.0
     dependencies:
       '@docusaurus/core': 2.4.3(@docusaurus/types@2.4.3)(@types/node@20.10.2)(debug@4.3.4)(esbuild@0.14.10)(eslint@8.55.0)(react-dom@17.0.2)(react@17.0.2)(ts-node@10.9.1)(typescript@4.9.5)
-      sass: 1.57.1
-      sass-loader: 10.4.1(sass@1.57.1)(webpack@5.82.1)
+      sass: 1.69.5
+      sass-loader: 10.4.1(sass@1.69.5)(webpack@5.82.1)
     transitivePeerDependencies:
       - fibers
       - node-sass
@@ -25169,7 +25169,7 @@ packages:
       truncate-utf8-bytes: 1.0.2
     dev: false
 
-  /sass-loader@10.4.1(sass@1.57.1)(webpack@5.82.1):
+  /sass-loader@10.4.1(sass@1.69.5)(webpack@5.82.1):
     resolution: {integrity: sha512-aX/iJZTTpNUNx/OSYzo2KsjIUQHqvWsAhhUijFjAPdZTEhstjZI9zTNvkTTwsx+uNUJqUwOw5gacxQMx4hJxGQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -25188,13 +25188,13 @@ packages:
       klona: 2.0.6
       loader-utils: 2.0.4
       neo-async: 2.6.2
-      sass: 1.57.1
+      sass: 1.69.5
       schema-utils: 3.3.0
       semver: 7.5.4
       webpack: 5.82.1(esbuild@0.14.10)
     dev: true
 
-  /sass-loader@12.6.0(sass@1.57.1)(webpack@5.82.1):
+  /sass-loader@12.6.0(sass@1.69.5)(webpack@5.82.1):
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -25215,13 +25215,13 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
-      sass: 1.57.1
+      sass: 1.69.5
       webpack: 5.82.1(esbuild@0.14.10)
     dev: true
 
-  /sass@1.57.1:
-    resolution: {integrity: sha512-O2+LwLS79op7GI0xZ8fqzF7X2m/m8WFfI02dHOdsK5R2ECeS5F62zrwg/relM1rjSLy7Vd/DiMNIvPrQGsA0jw==}
-    engines: {node: '>=12.0.0'}
+  /sass@1.69.5:
+    resolution: {integrity: sha512-qg2+UCJibLr2LCVOt3OlPhr/dqVHWOa9XtZf2OjbLs/T4VPSJ00udtgJxH3neXZm+QqX8B+3cU7RaLqp1iVfcQ==}
+    engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
