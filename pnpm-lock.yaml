@@ -292,8 +292,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       nodemon:
         specifier: 2.0.22
         version: 2.0.22
@@ -572,8 +572,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       supertest:
         specifier: 6.3.3
         version: 6.3.3
@@ -805,8 +805,8 @@ importers:
         specifier: workspace:12.0.0-next.1
         version: link:../core/types
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
 
   packages/loaders:
     dependencies:
@@ -1020,8 +1020,8 @@ importers:
         specifier: workspace:12.0.0-next.1
         version: link:../../core/types
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       supertest:
         specifier: 6.3.3
         version: 6.3.3
@@ -1436,8 +1436,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       node-mocks-http:
         specifier: 1.13.0
         version: 1.13.0
@@ -1671,8 +1671,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       node-mocks-http:
         specifier: 1.13.0
         version: 1.13.0
@@ -2049,8 +2049,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       node-mocks-http:
         specifier: 1.13.0
         version: 1.13.0
@@ -2119,8 +2119,8 @@ importers:
         specifier: 20.0.3
         version: 20.0.3
       nock:
-        specifier: 13.3.3
-        version: 13.3.3
+        specifier: 13.4.0
+        version: 13.4.0
       node-html-parser:
         specifier: 4.1.5
         version: 4.1.5
@@ -21524,13 +21524,12 @@ packages:
       lower-case: 2.0.2
       tslib: 2.6.2
 
-  /nock@13.3.3:
-    resolution: {integrity: sha512-z+KUlILy9SK/RjpeXDiDUEAq4T94ADPHE3qaRkf66mpEhzc/ytOMm3Bwdrbq6k1tMWkbdujiKim3G2tfQARuJw==}
+  /nock@13.4.0:
+    resolution: {integrity: sha512-W8NVHjO/LCTNA64yxAPHV/K47LpGYcVzgKd3Q0n6owhwvD0Dgoterc25R4rnZbckJEb6Loxz1f5QMuJpJnbSyQ==}
     engines: {node: '>= 10.13'}
     dependencies:
       debug: 4.3.4(supports-color@6.1.0)
       json-stringify-safe: 5.0.1
-      lodash: 4.17.21
       propagate: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -28299,7 +28298,7 @@ packages:
       portfinder: 1.0.32(supports-color@6.1.0)
       schema-utils: 1.0.0
       selfsigned: 1.10.14
-      semver: 6.3.1
+      semver: 6.3.0
       serve-index: 1.9.1(supports-color@6.1.0)
       sockjs: 0.3.24
       sockjs-client: 1.6.1(supports-color@6.1.0)

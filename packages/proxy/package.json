@@ -51,7 +51,7 @@
     "@verdaccio/logger": "workspace:7.0.0-next.4",
     "@verdaccio/types": "workspace:12.0.0-next.1",
     "get-stream": "^6.0.1",
-    "nock": "13.3.3",
+    "nock": "13.4.0",
     "node-mocks-http": "1.13.0",
     "p-cancelable": "2.1.1",
     "semver": "7.5.4"
