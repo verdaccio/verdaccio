@@ -117,9 +117,6 @@ importers:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(prettier@2.8.8)
-      '@types/async':
-        specifier: 3.2.24
-        version: 3.2.24
       '@types/body-parser':
         specifier: 1.19.5
         version: 1.19.5
@@ -10402,10 +10399,6 @@ packages:
 
   /@types/aria-query@5.0.2:
     resolution: {integrity: sha512-PHKZuMN+K5qgKIWhBodXzQslTo5P+K/6LqeKXS6O/4liIDdZqaX5RXrCK++LAw+y/nptN48YmUMFiQHRSWYwtQ==}
-    dev: true
-
-  /@types/async@3.2.24:
-    resolution: {integrity: sha512-8iHVLHsCCOBKjCF2KwFe0p9Z3rfM9mL+sSP8btyR5vTjJRAqpBYD28/ZLgXPf0pjG1VxOvtCV/BgXkQbpSe8Hw==}
     dev: true
 
   /@types/babel__core@7.20.2:
