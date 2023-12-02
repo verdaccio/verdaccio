@@ -56,7 +56,7 @@
     "react-twitter-widgets": "^1.10.0",
     "typedoc": "0.23.25",
     "typedoc-github-wiki-theme": "^1.0.1",
-    "typedoc-plugin-markdown": "3.14.0",
+    "typedoc-plugin-markdown": "3.17.1",
     "typedoc-plugin-merge-modules": "4.0.1",
     "use-is-in-viewport": "^1.0.9",
     "usehooks-ts": "2.9.1"

@@ -2058,11 +2058,11 @@ importers:
         specifier: 1.13.0
         version: 1.13.0
       typedoc-plugin-markdown:
-        specifier: 3.14.0
-        version: 3.14.0(typedoc@0.23.25)
+        specifier: 3.17.1
+        version: 3.17.1(typedoc@0.23.25)
       typedoc-plugin-missing-exports:
         specifier: 1.0.0
-        version: 1.0.0(typedoc@0.23.25)
+        version: 1.0.0
       yaml:
         specifier: 2.3.4
         version: 2.3.4
@@ -2213,7 +2213,7 @@ importers:
         version: 1.0.0(debug@4.3.4)(esbuild@0.14.10)(eslint@8.55.0)(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5)
       docusaurus-plugin-typedoc:
         specifier: 0.18.0
-        version: 0.18.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25)
+        version: 0.18.0(typedoc-plugin-markdown@3.17.1)(typedoc@0.23.25)
       dompurify:
         specifier: 3.0.6
         version: 3.0.6
@@ -2240,10 +2240,10 @@ importers:
         version: 0.23.25(typescript@4.9.5)
       typedoc-github-wiki-theme:
         specifier: ^1.0.1
-        version: 1.1.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25)
+        version: 1.1.0(typedoc-plugin-markdown@3.17.1)(typedoc@0.23.25)
       typedoc-plugin-markdown:
-        specifier: 3.14.0
-        version: 3.14.0(typedoc@0.23.25)
+        specifier: 3.17.1
+        version: 3.17.1(typedoc@0.23.25)
       typedoc-plugin-merge-modules:
         specifier: 4.0.1
         version: 4.0.1(typedoc@0.23.25)
@@ -15555,14 +15555,14 @@ packages:
       - webpack-cli
     dev: false
 
-  /docusaurus-plugin-typedoc@0.18.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25):
+  /docusaurus-plugin-typedoc@0.18.0(typedoc-plugin-markdown@3.17.1)(typedoc@0.23.25):
     resolution: {integrity: sha512-kurIUu8LhVIOPT88HoeBcu0/D2GMDdg0pUYaFlqeuXT9an6Wlgvuy0C22ZMYcJUcp/gA/Mw2XdUHubsLK2M4uA==}
     peerDependencies:
       typedoc: '>=0.23.0'
       typedoc-plugin-markdown: '>=3.13.0'
     dependencies:
       typedoc: 0.23.25(typescript@4.9.5)
-      typedoc-plugin-markdown: 3.14.0(typedoc@0.23.25)
+      typedoc-plugin-markdown: 3.17.1(typedoc@0.23.25)
     dev: false
 
   /dom-accessibility-api@0.5.16:
@@ -27863,20 +27863,20 @@ packages:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
     dev: true
 
-  /typedoc-github-wiki-theme@1.1.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25):
+  /typedoc-github-wiki-theme@1.1.0(typedoc-plugin-markdown@3.17.1)(typedoc@0.23.25):
     resolution: {integrity: sha512-VyFmz8ZV2j/qEsCjD5EtR6FgZsCoy64Zr6SS9kCTcq7zx69Cx4UJBx8Ga/naxqs08TDggE6myIfODY6awwAGcA==}
     peerDependencies:
       typedoc: '>=0.24.0'
       typedoc-plugin-markdown: '>=3.15.0'
     dependencies:
       typedoc: 0.23.25(typescript@4.9.5)
-      typedoc-plugin-markdown: 3.14.0(typedoc@0.23.25)
+      typedoc-plugin-markdown: 3.17.1(typedoc@0.23.25)
     dev: false
 
-  /typedoc-plugin-markdown@3.14.0(typedoc@0.23.25):
-    resolution: {integrity: sha512-UyQLkLRkfTFhLdhSf3RRpA3nNInGn+k6sll2vRXjflaMNwQAAiB61SYbisNZTg16t4K1dt1bPQMMGLrxS0GZ0Q==}
+  /typedoc-plugin-markdown@3.17.1(typedoc@0.23.25):
+    resolution: {integrity: sha512-QzdU3fj0Kzw2XSdoL15ExLASt2WPqD7FbLeaqwT70+XjKyTshBnUlQA5nNREO1C2P8Uen0CDjsBLMsCQ+zd0lw==}
     peerDependencies:
-      typedoc: '>=0.23.0'
+      typedoc: '>=0.24.0'
     dependencies:
       handlebars: 4.7.8
       typedoc: 0.23.25(typescript@4.9.5)
@@ -27889,12 +27889,10 @@ packages:
       typedoc: 0.23.25(typescript@4.9.5)
     dev: false
 
-  /typedoc-plugin-missing-exports@1.0.0(typedoc@0.23.25):
+  /typedoc-plugin-missing-exports@1.0.0:
     resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
-    dependencies:
-      typedoc: 0.23.25(typescript@4.9.5)
     dev: true
 
   /typedoc-plugin-missing-exports@2.1.0(typedoc@0.23.25):
