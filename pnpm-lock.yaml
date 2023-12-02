@@ -1248,9 +1248,6 @@ importers:
       friendly-errors-webpack-plugin:
         specifier: 1.7.0
         version: 1.7.0(webpack@5.82.1)
-      github-markdown-css:
-        specifier: 5.2.0
-        version: 5.2.0
       harmony-reflect:
         specifier: 1.6.2
         version: 1.6.2
@@ -6425,7 +6422,7 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      '@types/react': 18.2.39
+      '@types/react': 18.2.40
       prop-types: 15.8.1
       react: 17.0.2
 
@@ -10610,7 +10607,7 @@ packages:
   /@types/hoist-non-react-statics@3.3.1:
     resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
     dependencies:
-      '@types/react': 18.2.39
+      '@types/react': 18.2.40
       hoist-non-react-statics: 3.3.2
 
   /@types/html-minifier-terser@5.1.2:
@@ -17661,10 +17658,6 @@ packages:
     resolution: {integrity: sha512-0fzj9JxOLfJ+XGLhR8ze3unN0KZCgZwiSSDz168VERjK8Wl8kVSdcu2kspd4s4wtAa1y/qrVRiAA0WclVsu0ng==}
     dependencies:
       assert-plus: 1.0.0
-    dev: true
-
-  /github-markdown-css@5.2.0:
-    resolution: {integrity: sha512-hq5RaCInSUZ48bImOZpkppW2/MT44StRgsbsZ8YA4vJFwLKB/Vo3k7R2t+pUGqO+ThG0QDMi96TewV/B3vyItg==}
     dev: true
 
   /github-slugger@1.5.0:

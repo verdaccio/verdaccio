@@ -37,7 +37,6 @@
     "dayjs": "1.11.10",
     "dompurify": "2.4.7",
     "friendly-errors-webpack-plugin": "1.7.0",
-    "github-markdown-css": "5.2.0",
     "harmony-reflect": "1.6.2",
     "highlight.js": "11.7.0",
     "history": "4.10.1",

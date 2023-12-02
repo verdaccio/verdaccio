@@ -140,7 +140,6 @@ export const packageMeta = {
       'flow-runtime': '0.13.0',
       'friendly-errors-webpack-plugin': '1.6.1',
       'fs-extra': '4.0.1',
-      'github-markdown-css': '2.8.0',
       'html-webpack-plugin': '2.29.0',
       'in-publish': '2.0.0',
       'localstorage-memory': '1.0.2',
