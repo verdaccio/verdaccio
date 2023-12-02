@@ -40,7 +40,7 @@
     "build": "echo 0"
   },
   "devDependencies": {
-    "typedoc": "0.23.25"
+    "typedoc": "0.25.4"
   },
   "typedoc": {
     "entryPoint": "./src/types.ts",
