@@ -1949,8 +1949,8 @@ importers:
         specifier: ^6.5.15
         version: 6.5.16(@babel/core@7.23.0)(@storybook/builder-webpack5@6.5.16)(@storybook/manager-webpack5@6.5.16)(@types/webpack@5.28.3)(eslint@8.55.0)(react-dom@18.2.0)(react@18.2.0)(require-from-string@2.0.2)(typescript@4.9.5)
       '@storybook/testing-library':
-        specifier: ^0.0.13
-        version: 0.0.13(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.2.0
+        version: 0.2.2
       '@testing-library/dom':
         specifier: 9.3.3
         version: 9.3.3
@@ -9984,17 +9984,12 @@ packages:
       - webpack-command
     dev: true
 
-  /@storybook/testing-library@0.0.13(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-vRMeIGer4EjJkTgI8sQyK9W431ekPWYCWL//OmSDJ64IT3h7FnW7Xg6p+eqM3oII98/O5pcya5049GxnjaPtxw==}
+  /@storybook/testing-library@0.2.2:
+    resolution: {integrity: sha512-L8sXFJUHmrlyU2BsWWZGuAjv39Jl1uAqUHdxmN42JY15M4+XCMjGlArdCCjDe1wpTSW6USYISA9axjZojgtvnw==}
     dependencies:
-      '@storybook/client-logger': 6.5.16
-      '@storybook/instrumenter': 6.5.16(react-dom@18.2.0)(react@18.2.0)
-      '@testing-library/dom': 8.19.1
-      '@testing-library/user-event': 13.5.0(@testing-library/dom@8.19.1)
+      '@testing-library/dom': 9.3.3
+      '@testing-library/user-event': 14.5.1(@testing-library/dom@9.3.3)
       ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - react
-      - react-dom
     dev: true
 
   /@storybook/theming@6.5.16(react-dom@18.2.0)(react@18.2.0):
@@ -10289,20 +10284,6 @@ packages:
     dependencies:
       defer-to-connect: 2.0.1
 
-  /@testing-library/dom@8.19.1:
-    resolution: {integrity: sha512-P6iIPyYQ+qH8CvGauAqanhVnjrnRe0IZFSYCeGkSRW9q3u8bdVn2NPI+lasFyVsEQn1J/IFmp5Aax41+dAP9wg==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@babel/code-frame': 7.22.13
-      '@babel/runtime': 7.23.5
-      '@types/aria-query': 5.0.2
-      aria-query: 5.3.0
-      chalk: 4.1.2
-      dom-accessibility-api: 0.5.16
-      lz-string: 1.5.0
-      pretty-format: 27.5.1
-    dev: true
-
   /@testing-library/dom@9.3.3:
     resolution: {integrity: sha512-fB0R+fa3AUqbLHWyxXa2kGVtf1Fe1ZZFr0Zp6AIbIAzXb2mKbEXl+PCQNUOaq5lbTab5tfctfXRNsWXxa2f7Aw==}
     engines: {node: '>=14'}
@@ -10362,14 +10343,13 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  /@testing-library/user-event@13.5.0(@testing-library/dom@8.19.1):
-    resolution: {integrity: sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==}
-    engines: {node: '>=10', npm: '>=6'}
+  /@testing-library/user-event@14.5.1(@testing-library/dom@9.3.3):
+    resolution: {integrity: sha512-UCcUKrUYGj7ClomOo2SpNVvx4/fkd/2BbIHDCle8A0ax+P3bU7yJwDBDrS6ZwdTMARWTGODX1hEsCcO+7beJjg==}
+    engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
     dependencies:
-      '@babel/runtime': 7.23.5
-      '@testing-library/dom': 8.19.1
+      '@testing-library/dom': 9.3.3
     dev: true
 
   /@tootallnate/once@2.0.0:
