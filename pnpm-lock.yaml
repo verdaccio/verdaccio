@@ -2245,8 +2245,8 @@ importers:
         specifier: 3.14.0
         version: 3.14.0(typedoc@0.23.25)
       typedoc-plugin-merge-modules:
-        specifier: 4.0.1
-        version: 4.0.1(typedoc@0.23.25)
+        specifier: 4.1.0
+        version: 4.1.0(typedoc@0.23.25)
       use-is-in-viewport:
         specifier: ^1.0.9
         version: 1.0.9(react@17.0.2)
@@ -27881,10 +27881,10 @@ packages:
       handlebars: 4.7.8
       typedoc: 0.23.25(typescript@4.9.5)
 
-  /typedoc-plugin-merge-modules@4.0.1(typedoc@0.23.25):
-    resolution: {integrity: sha512-peuoWT/xcpEO71kNuaTBAS2IVwc8qm5tiIXnJc0vW/Cy9HHoVGkYecarkwtLBl5VmrhZjZN6LQNriqYfgHA1+A==}
+  /typedoc-plugin-merge-modules@4.1.0(typedoc@0.23.25):
+    resolution: {integrity: sha512-0Qax5eSaiP86zX9LlQQWANjtgkMfSHt6/LRDsWXfK45Ifc3lrgjZG4ieE87BMi3p12r/F0qW9sHQRB18tIs0fg==}
     peerDependencies:
-      typedoc: 0.23.x
+      typedoc: 0.23.x || 0.24.x
     dependencies:
       typedoc: 0.23.25(typescript@4.9.5)
     dev: false
