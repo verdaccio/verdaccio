@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:6.0.0-6-next.5",
-    "activedirectory2": "2.1.0"
+    "activedirectory2": "2.2.0"
   },
   "devDependencies": {
     "@types/activedirectory2": "1.2.6",
