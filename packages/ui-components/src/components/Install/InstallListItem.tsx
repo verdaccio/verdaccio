@@ -42,8 +42,8 @@ export function getGlobalInstall(isGlobal, packageVersion, packageName, isYarn =
   const name = isGlobal
     ? `${isYarn ? '' : '-g'} ${packageVersion ? `${packageName}@${packageVersion}` : packageName}`
     : packageVersion
-    ? `${packageName}@${packageVersion}`
-    : packageName;
+      ? `${packageName}@${packageVersion}`
+      : packageName;
 
   return name.trim();
 }

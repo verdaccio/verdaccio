@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/minimatch": "5.1.2",
-    "@types/yup": "0.29.14"
+    "@types/yup": "0.32.0"
   },
   "funding": {
     "type": "opencollective",

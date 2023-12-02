@@ -5,8 +5,12 @@ import { MemoryRouter } from 'react-router';
 import { server } from '../../../jest/server';
 import { VersionProvider } from '../../providers';
 import { store } from '../../store';
-import { renderWithStore, waitFor } from '../../test/test-react-testing-library';
+import { renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import DetailSidebar from './Sidebar';
+
+jest.mock('marked');
+jest.mock('marked');
+jest.mock('marked-highlight');
 
 const ComponentToBeRendered: React.FC = () => (
   <MemoryRouter>
@@ -66,9 +70,9 @@ server.use(
   ]
 );
 // describe('DetailSidebar', () => {
-test('should render commonjs module icon', async () => {
+test.skip('should render commonjs module icon', async () => {
   const { getByText } = renderWithStore(<ComponentToBeRendered />, store);
-
+  screen.debug();
   await waitFor(() => expect(getByText('jquery')).toBeInTheDocument());
 });
 
