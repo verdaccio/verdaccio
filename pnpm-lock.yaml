@@ -394,8 +394,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.7.1
-        version: 9.7.1
+        specifier: 9.9.2
+        version: 9.9.2
 
   e2e/cli/e2e-npm7:
     dependencies:
@@ -403,8 +403,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.7.1
-        version: 9.7.1
+        specifier: 9.9.2
+        version: 9.9.2
 
   e2e/cli/e2e-npm8:
     dependencies:
@@ -412,8 +412,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.7.1
-        version: 9.7.1
+        specifier: 9.9.2
+        version: 9.9.2
 
   e2e/cli/e2e-npm9:
     dependencies:
@@ -421,8 +421,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.7.1
-        version: 9.7.1
+        specifier: 9.9.2
+        version: 9.9.2
 
   e2e/cli/e2e-pnpm6:
     dependencies:
@@ -22399,8 +22399,8 @@ packages:
       - which
       - write-file-atomic
 
-  /npm@9.7.1:
-    resolution: {integrity: sha512-kxMviaiLX4Lfnjy2dt7EWB87v5QdLiGpy04S2ORdKLmPqFhgy8g4cgJjQfnWob4mJIaNHjBO+hk45CvLlsZZ8g==}
+  /npm@9.9.2:
+    resolution: {integrity: sha512-D3tV+W0PzJOlwo8YmO6fNzaB1CrMVYd1V+2TURF6lbCbmZKqMsYgeQfPVvqiM3zbNSJPhFEnmlEXIogH2Vq7PQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
     dev: false
@@ -22408,8 +22408,10 @@ packages:
       - '@isaacs/string-locale-compare'
       - '@npmcli/arborist'
       - '@npmcli/config'
+      - '@npmcli/fs'
       - '@npmcli/map-workspaces'
       - '@npmcli/package-json'
+      - '@npmcli/promise-spawn'
       - '@npmcli/run-script'
       - abbrev
       - archy
@@ -22446,6 +22448,7 @@ packages:
       - ms
       - node-gyp
       - nopt
+      - normalize-package-data
       - npm-audit-report
       - npm-install-checks
       - npm-package-arg
@@ -22462,7 +22465,9 @@ packages:
       - read
       - semver
       - sigstore
+      - spdx-expression-parse
       - ssri
+      - supports-color
       - tar
       - text-table
       - tiny-relative-date
