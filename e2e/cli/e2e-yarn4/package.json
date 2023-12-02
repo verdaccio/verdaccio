@@ -3,7 +3,7 @@
   "name": "@verdaccio/e2e-cli-yarn4",
   "version": "1.0.1",
   "dependencies": {
-    "@yarnpkg/cli-dist": "4.0.0-rc.39",
+    "@yarnpkg/cli-dist": "4.0.2",
     "@verdaccio/test-cli-commons": "workspace:1.1.0"
   },
   "scripts": {
