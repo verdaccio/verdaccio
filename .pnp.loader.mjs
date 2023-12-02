@@ -1333,7 +1333,7 @@ const HAS_CONSOLIDATED_HOOKS = major > 16 || major === 16 && minor >= 12;
 const HAS_UNFLAGGED_JSON_MODULES = major > 17 || major === 17 && minor >= 5 || major === 16 && minor >= 15;
 const HAS_JSON_IMPORT_ASSERTION_REQUIREMENT = major > 17 || major === 17 && minor >= 1 || major === 16 && minor > 14;
 const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
-const HAS_LAZY_LOADED_TRANSLATORS = major > 19 || major === 19 && minor >= 3;
+const HAS_LAZY_LOADED_TRANSLATORS = major === 20 && minor < 6 || major === 19 && minor >= 3;
 
 const builtinModules = new Set(Module.builtinModules || Object.keys(process.binding(`natives`)));
 const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
@@ -1471,7 +1471,7 @@ async function load$1(urlString, context, nextLoad) {
   }
   return {
     format,
-    source: await fs.promises.readFile(filePath, `utf8`),
+    source: format === `commonjs` ? void 0 : await fs.promises.readFile(filePath, `utf8`),
     shortCircuit: true
   };
 }
@@ -2012,31 +2012,46 @@ async function resolve$1(originalSpecifier, context, nextResolve) {
 
 if (!HAS_LAZY_LOADED_TRANSLATORS) {
   const binding = process.binding(`fs`);
-  const originalfstat = binding.fstat;
-  const ZIP_MASK = 4278190080;
-  const ZIP_MAGIC = 704643072;
-  binding.fstat = function(...args) {
-    const [fd, useBigint, req] = args;
-    if ((fd & ZIP_MASK) === ZIP_MAGIC && useBigint === false && req === void 0) {
+  const originalReadFile = binding.readFileUtf8 || binding.readFileSync;
+  if (originalReadFile) {
+    binding[originalReadFile.name] = function(...args) {
       try {
-        const stats = fs.fstatSync(fd);
-        return new Float64Array([
-          stats.dev,
-          stats.mode,
-          stats.nlink,
-          stats.uid,
-          stats.gid,
-          stats.rdev,
-          stats.blksize,
-          stats.ino,
-          stats.size,
-          stats.blocks
-        ]);
+        return fs.readFileSync(args[0], {
+          encoding: `utf8`,
+          flag: args[1]
+        });
       } catch {
       }
-    }
-    return originalfstat.apply(this, args);
-  };
+      return originalReadFile.apply(this, args);
+    };
+  } else {
+    const binding2 = process.binding(`fs`);
+    const originalfstat = binding2.fstat;
+    const ZIP_MASK = 4278190080;
+    const ZIP_MAGIC = 704643072;
+    binding2.fstat = function(...args) {
+      const [fd, useBigint, req] = args;
+      if ((fd & ZIP_MASK) === ZIP_MAGIC && useBigint === false && req === void 0) {
+        try {
+          const stats = fs.fstatSync(fd);
+          return new Float64Array([
+            stats.dev,
+            stats.mode,
+            stats.nlink,
+            stats.uid,
+            stats.gid,
+            stats.rdev,
+            stats.blksize,
+            stats.ino,
+            stats.size,
+            stats.blocks
+          ]);
+        } catch {
+        }
+      }
+      return originalfstat.apply(this, args);
+    };
+  }
 }
 
 const resolve = resolve$1;

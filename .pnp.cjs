@@ -53,19 +53,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.22.15"],\
             ["@babel/runtime", "npm:7.23.5"],\
             ["@octokit/rest", "npm:19.0.13"],\
-            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.2.0"],\
-            ["@types/async", "npm:3.2.21"],\
-            ["@types/express", "npm:4.17.17"],\
+            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.0"],\
+            ["@types/async", "npm:3.2.24"],\
+            ["@types/express", "npm:4.17.21"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
-            ["@types/http-errors", "npm:2.0.2"],\
-            ["@types/jest", "npm:29.5.5"],\
-            ["@types/lodash", "npm:4.14.195"],\
-            ["@types/mime", "npm:2.0.3"],\
-            ["@types/minimatch", "npm:3.0.5"],\
-            ["@types/node", "npm:18.17.19"],\
+            ["@types/http-errors", "npm:2.0.4"],\
+            ["@types/jest", "npm:29.5.10"],\
+            ["@types/lodash", "npm:4.14.202"],\
+            ["@types/mime", "npm:3.0.4"],\
+            ["@types/minimatch", "npm:5.1.2"],\
+            ["@types/node", "npm:18.19.1"],\
             ["@types/pino", "npm:7.0.5"],\
-            ["@types/request", "npm:2.48.8"],\
-            ["@types/semver", "npm:7.5.2"],\
+            ["@types/request", "npm:2.48.12"],\
+            ["@types/semver", "npm:7.5.6"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
@@ -4133,10 +4133,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@babel/traverse", [\
-        ["npm:7.17.3", {\
-          "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.17.3-c2bff3e671-780d7ecf71.zip/node_modules/@babel/traverse/",\
+        ["npm:7.20.13", {\
+          "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.20.13-1eb3a4b7ac-30ca6e0bd1.zip/node_modules/@babel/traverse/",\
           "packageDependencies": [\
-            ["@babel/traverse", "npm:7.17.3"],\
+            ["@babel/traverse", "npm:7.20.13"],\
             ["@babel/code-frame", "npm:7.18.6"],\
             ["@babel/generator", "npm:7.20.14"],\
             ["@babel/helper-environment-visitor", "npm:7.18.9"],\
@@ -4150,18 +4150,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:7.20.13", {\
-          "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.20.13-1eb3a4b7ac-30ca6e0bd1.zip/node_modules/@babel/traverse/",\
+        ["npm:7.23.2", {\
+          "packageLocation": "./.yarn/cache/@babel-traverse-npm-7.23.2-4758feee42-26a1eea0dd.zip/node_modules/@babel/traverse/",\
           "packageDependencies": [\
-            ["@babel/traverse", "npm:7.20.13"],\
-            ["@babel/code-frame", "npm:7.18.6"],\
-            ["@babel/generator", "npm:7.20.14"],\
-            ["@babel/helper-environment-visitor", "npm:7.18.9"],\
-            ["@babel/helper-function-name", "npm:7.19.0"],\
-            ["@babel/helper-hoist-variables", "npm:7.18.6"],\
-            ["@babel/helper-split-export-declaration", "npm:7.18.6"],\
-            ["@babel/parser", "npm:7.20.15"],\
-            ["@babel/types", "npm:7.20.7"],\
+            ["@babel/traverse", "npm:7.23.2"],\
+            ["@babel/code-frame", "npm:7.22.13"],\
+            ["@babel/generator", "npm:7.23.5"],\
+            ["@babel/helper-environment-visitor", "npm:7.22.20"],\
+            ["@babel/helper-function-name", "npm:7.23.0"],\
+            ["@babel/helper-hoist-variables", "npm:7.22.5"],\
+            ["@babel/helper-split-export-declaration", "npm:7.22.6"],\
+            ["@babel/parser", "npm:7.23.5"],\
+            ["@babel/types", "npm:7.23.0"],\
             ["debug", "virtual:a4d284491e3edd5bd310dbcd3effd4bfe430bd776a40d8832be0de78dd10557702ecd8471eaf3ff78b607a08047f9a467a0d0977069d0b1c388c69f17cf7399d#npm:4.3.4"],\
             ["globals", "npm:11.12.0"]\
           ],\
@@ -5084,20 +5084,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@trivago/prettier-plugin-sort-imports", [\
-        ["npm:4.2.0", {\
-          "packageLocation": "./.yarn/cache/@trivago-prettier-plugin-sort-imports-npm-4.2.0-236d9b439f-2081ba9f1a.zip/node_modules/@trivago/prettier-plugin-sort-imports/",\
+        ["npm:4.3.0", {\
+          "packageLocation": "./.yarn/cache/@trivago-prettier-plugin-sort-imports-npm-4.3.0-622c28680b-22bb311ca2.zip/node_modules/@trivago/prettier-plugin-sort-imports/",\
           "packageDependencies": [\
-            ["@trivago/prettier-plugin-sort-imports", "npm:4.2.0"]\
+            ["@trivago/prettier-plugin-sort-imports", "npm:4.3.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.2.0", {\
-          "packageLocation": "./.yarn/__virtual__/@trivago-prettier-plugin-sort-imports-virtual-5efb034217/0/cache/@trivago-prettier-plugin-sort-imports-npm-4.2.0-236d9b439f-2081ba9f1a.zip/node_modules/@trivago/prettier-plugin-sort-imports/",\
+        ["virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.0", {\
+          "packageLocation": "./.yarn/__virtual__/@trivago-prettier-plugin-sort-imports-virtual-a6b21efc7c/0/cache/@trivago-prettier-plugin-sort-imports-npm-4.3.0-622c28680b-22bb311ca2.zip/node_modules/@trivago/prettier-plugin-sort-imports/",\
           "packageDependencies": [\
-            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.2.0"],\
+            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.0"],\
             ["@babel/generator", "npm:7.17.7"],\
             ["@babel/parser", "npm:7.21.2"],\
-            ["@babel/traverse", "npm:7.17.3"],\
+            ["@babel/traverse", "npm:7.23.2"],\
             ["@babel/types", "npm:7.17.0"],\
             ["@types/prettier", null],\
             ["@types/vue__compiler-sfc", null],\
@@ -5152,10 +5152,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/async", [\
-        ["npm:3.2.21", {\
-          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.21-e524d829e7-8c547e0f9c.zip/node_modules/@types/async/",\
+        ["npm:3.2.24", {\
+          "packageLocation": "./.yarn/cache/@types-async-npm-3.2.24-4617916c79-e52ee5e9b6.zip/node_modules/@types/async/",\
           "packageDependencies": [\
-            ["@types/async", "npm:3.2.21"]\
+            ["@types/async", "npm:3.2.24"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5236,10 +5236,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/express", [\
-        ["npm:4.17.17", {\
-          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.17-46fe8173db-0196dacc27.zip/node_modules/@types/express/",\
+        ["npm:4.17.21", {\
+          "packageLocation": "./.yarn/cache/@types-express-npm-4.17.21-be92a0245e-fb23829863.zip/node_modules/@types/express/",\
           "packageDependencies": [\
-            ["@types/express", "npm:4.17.17"],\
+            ["@types/express", "npm:4.17.21"],\
             ["@types/body-parser", "npm:1.19.2"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
             ["@types/qs", "npm:6.9.7"],\
@@ -5272,10 +5272,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/http-errors", [\
-        ["npm:2.0.2", {\
-          "packageLocation": "./.yarn/cache/@types-http-errors-npm-2.0.2-925b748dbd-d7f1404524.zip/node_modules/@types/http-errors/",\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/@types-http-errors-npm-2.0.4-8b39ca5d7c-1f3d7c3b32.zip/node_modules/@types/http-errors/",\
           "packageDependencies": [\
-            ["@types/http-errors", "npm:2.0.2"]\
+            ["@types/http-errors", "npm:2.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5310,10 +5310,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/jest", [\
-        ["npm:29.5.5", {\
-          "packageLocation": "./.yarn/cache/@types-jest-npm-29.5.5-cc0df7a171-56e55cde99.zip/node_modules/@types/jest/",\
+        ["npm:29.5.10", {\
+          "packageLocation": "./.yarn/cache/@types-jest-npm-29.5.10-cc73227aae-ef38590578.zip/node_modules/@types/jest/",\
           "packageDependencies": [\
-            ["@types/jest", "npm:29.5.5"],\
+            ["@types/jest", "npm:29.5.10"],\
             ["expect", "npm:29.7.0"],\
             ["pretty-format", "npm:29.7.0"]\
           ],\
@@ -5346,10 +5346,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:4.14.195", {\
-          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.195-a2a8254638-39b75ca635.zip/node_modules/@types/lodash/",\
+        ["npm:4.14.202", {\
+          "packageLocation": "./.yarn/cache/@types-lodash-npm-4.14.202-76de3e302b-a91acf3564.zip/node_modules/@types/lodash/",\
           "packageDependencies": [\
-            ["@types/lodash", "npm:4.14.195"]\
+            ["@types/lodash", "npm:4.14.202"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5362,19 +5362,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:2.0.3", {\
-          "packageLocation": "./.yarn/cache/@types-mime-npm-2.0.3-809d6f0e0f-1f4f144423.zip/node_modules/@types/mime/",\
+        ["npm:3.0.4", {\
+          "packageLocation": "./.yarn/cache/@types-mime-npm-3.0.4-5cb286d662-a6139c8e1f.zip/node_modules/@types/mime/",\
           "packageDependencies": [\
-            ["@types/mime", "npm:2.0.3"]\
+            ["@types/mime", "npm:3.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@types/minimatch", [\
-        ["npm:3.0.5", {\
-          "packageLocation": "./.yarn/cache/@types-minimatch-npm-3.0.5-802bb0797f-c41d136f67.zip/node_modules/@types/minimatch/",\
+        ["npm:5.1.2", {\
+          "packageLocation": "./.yarn/cache/@types-minimatch-npm-5.1.2-aab9c394d3-0391a28286.zip/node_modules/@types/minimatch/",\
           "packageDependencies": [\
-            ["@types/minimatch", "npm:3.0.5"]\
+            ["@types/minimatch", "npm:5.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5396,10 +5396,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:18.17.19", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.17.19-58917ffc12-6ab47127cd.zip/node_modules/@types/node/",\
+        ["npm:18.19.1", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.19.1-7f0d4d61d5-f687338a6f.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:18.17.19"]\
+            ["@types/node", "npm:18.19.1"],\
+            ["undici-types", "npm:5.26.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5461,10 +5462,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/request", [\
-        ["npm:2.48.8", {\
-          "packageLocation": "./.yarn/cache/@types-request-npm-2.48.8-fcce514e82-0b7754941e.zip/node_modules/@types/request/",\
+        ["npm:2.48.12", {\
+          "packageLocation": "./.yarn/cache/@types-request-npm-2.48.12-d921ef35cb-20dfad0a46.zip/node_modules/@types/request/",\
           "packageDependencies": [\
-            ["@types/request", "npm:2.48.8"],\
+            ["@types/request", "npm:2.48.12"],\
             ["@types/caseless", "npm:0.12.2"],\
             ["@types/node", "npm:18.11.19"],\
             ["@types/tough-cookie", "npm:4.0.2"],\
@@ -5481,10 +5482,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:7.5.2", {\
-          "packageLocation": "./.yarn/cache/@types-semver-npm-7.5.2-7f1fca5852-743aa8a2b5.zip/node_modules/@types/semver/",\
+        ["npm:7.5.6", {\
+          "packageLocation": "./.yarn/cache/@types-semver-npm-7.5.6-9d2637fc95-563a0120ec.zip/node_modules/@types/semver/",\
           "packageDependencies": [\
-            ["@types/semver", "npm:7.5.2"]\
+            ["@types/semver", "npm:7.5.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -8836,7 +8837,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["eslint-plugin-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:27.4.0"],\
             ["@types/eslint", null],\
-            ["@types/jest", "npm:29.5.5"],\
+            ["@types/jest", "npm:29.5.10"],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/utils", "virtual:de77075a8c503a495de98d2e75015e185537e6faac48b2e024d3c701960e4f00251024d7cc7bb45567dc83eed6bea5eff70806e22b49b7b6f4d93be71d4dc0a0#npm:5.50.0"],\
@@ -10996,7 +10997,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.20.12"],\
             ["@jest/test-sequencer", "npm:29.7.0"],\
             ["@jest/types", "npm:29.6.3"],\
-            ["@types/node", "npm:18.17.19"],\
+            ["@types/node", "npm:18.19.1"],\
             ["@types/ts-node", null],\
             ["babel-jest", "virtual:26da5b5f810aec19ce0ffcfe09937780de31f203da3d4a3f3b68f35908e72c0286b39340a6126fb5859125bbf103ee88dd2169f435aa9eacf384463087a37ed6#npm:29.7.0"],\
             ["chalk", "npm:4.1.2"],\
@@ -14813,7 +14814,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.11"],\
             ["@tsconfig/node14", "npm:1.0.3"],\
             ["@tsconfig/node16", "npm:1.0.3"],\
-            ["@types/node", "npm:18.17.19"],\
+            ["@types/node", "npm:18.19.1"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -15103,6 +15104,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["has-bigints", "npm:1.0.2"],\
             ["has-symbols", "npm:1.0.3"],\
             ["which-boxed-primitive", "npm:1.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["undici-types", [\
+        ["npm:5.26.5", {\
+          "packageLocation": "./.yarn/cache/undici-types-npm-5.26.5-de4f7c7bb9-3192ef6f3f.zip/node_modules/undici-types/",\
+          "packageDependencies": [\
+            ["undici-types", "npm:5.26.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15419,19 +15429,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/register", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:7.22.15"],\
             ["@babel/runtime", "npm:7.23.5"],\
             ["@octokit/rest", "npm:19.0.13"],\
-            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.2.0"],\
-            ["@types/async", "npm:3.2.21"],\
-            ["@types/express", "npm:4.17.17"],\
+            ["@trivago/prettier-plugin-sort-imports", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.3.0"],\
+            ["@types/async", "npm:3.2.24"],\
+            ["@types/express", "npm:4.17.21"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
-            ["@types/http-errors", "npm:2.0.2"],\
-            ["@types/jest", "npm:29.5.5"],\
-            ["@types/lodash", "npm:4.14.195"],\
-            ["@types/mime", "npm:2.0.3"],\
-            ["@types/minimatch", "npm:3.0.5"],\
-            ["@types/node", "npm:18.17.19"],\
+            ["@types/http-errors", "npm:2.0.4"],\
+            ["@types/jest", "npm:29.5.10"],\
+            ["@types/lodash", "npm:4.14.202"],\
+            ["@types/mime", "npm:3.0.4"],\
+            ["@types/minimatch", "npm:5.1.2"],\
+            ["@types/node", "npm:18.19.1"],\
             ["@types/pino", "npm:7.0.5"],\
-            ["@types/request", "npm:2.48.8"],\
-            ["@types/semver", "npm:7.5.2"],\
+            ["@types/request", "npm:2.48.12"],\
+            ["@types/semver", "npm:7.5.6"],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
@@ -26360,7 +26370,7 @@ function makeManager(pnpapi, opts) {
     apiEntry.lastRefreshCheck = timeNow;
     const stats = opts.fakeFs.statSync(pnpApiPath);
     if (stats.mtime > apiEntry.stats.mtime) {
-      process.emitWarning(`[Warning] The runtime detected new informations in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
+      process.emitWarning(`[Warning] The runtime detected new information in a PnP file; reloading the API instance (${npath.fromPortablePath(pnpApiPath)})`);
       apiEntry.stats = stats;
       apiEntry.instance = loadApiInstance(pnpApiPath);
     }
