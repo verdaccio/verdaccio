@@ -3282,13 +3282,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/parse-json@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@types/parse-json@npm:4.0.0"
-  checksum: fd6bce2b674b6efc3db4c7c3d336bd70c90838e8439de639b909ce22f3720d21344f52427f1d9e57b265fcb7f6c018699b99e5e0c208a1a4823014269a6bf35b
-  languageName: node
-  linkType: hard
-
 "@types/pino@npm:7.0.5":
   version: 7.0.5
   resolution: "@types/pino@npm:7.0.5"
@@ -5247,16 +5240,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:^7.0.1":
-  version: 7.1.0
-  resolution: "cosmiconfig@npm:7.1.0"
+"cosmiconfig@npm:^8.2.0":
+  version: 8.3.6
+  resolution: "cosmiconfig@npm:8.3.6"
   dependencies:
-    "@types/parse-json": ^4.0.0
-    import-fresh: ^3.2.1
-    parse-json: ^5.0.0
+    import-fresh: ^3.3.0
+    js-yaml: ^4.1.0
+    parse-json: ^5.2.0
     path-type: ^4.0.0
-    yaml: ^1.10.0
-  checksum: c53bf7befc1591b2651a22414a5e786cd5f2eeaa87f3678a3d49d6069835a9d8d1aef223728e98aa8fec9a95bf831120d245096db12abe019fecb51f5696c96f
+  peerDependencies:
+    typescript: ">=4.9.5"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: dc339ebea427898c9e03bf01b56ba7afbac07fc7d2a2d5a15d6e9c14de98275a9565da949375aee1809591c152c0a3877bb86dbeaf74d5bd5aaa79955ad9e7a0
   languageName: node
   linkType: hard
 
@@ -6414,6 +6411,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fast-glob@npm:^3.3.1":
+  version: 3.3.2
+  resolution: "fast-glob@npm:3.3.2"
+  dependencies:
+    "@nodelib/fs.stat": ^2.0.2
+    "@nodelib/fs.walk": ^1.2.3
+    glob-parent: ^5.1.2
+    merge2: ^1.3.0
+    micromatch: ^4.0.4
+  checksum: 900e4979f4dbc3313840078419245621259f349950411ca2fa445a2f9a1a6d98c3b5e7e0660c5ccd563aa61abe133a21765c6c0dec8e57da1ba71d8000b05ec1
+  languageName: node
+  linkType: hard
+
 "fast-json-stable-stringify@npm:^2.0.0, fast-json-stable-stringify@npm:^2.1.0":
   version: 2.1.0
   resolution: "fast-json-stable-stringify@npm:2.1.0"
@@ -7312,7 +7322,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.2.1":
+"import-fresh@npm:^3.2.1, import-fresh@npm:^3.3.0":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
   dependencies:
@@ -8622,27 +8632,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lockfile-lint-api@npm:^5.5.5":
-  version: 5.5.5
-  resolution: "lockfile-lint-api@npm:5.5.5"
+"lockfile-lint-api@npm:^5.8.0":
+  version: 5.8.0
+  resolution: "lockfile-lint-api@npm:5.8.0"
   dependencies:
     "@yarnpkg/parsers": ^3.0.0-rc.32
+    debug: ^4.3.4
     object-hash: ^3.0.0
-  checksum: 334ffbd29370f106980f17b58f794054f498abef39c2e1cf4a1276c097f78c72f3d087115643c913049b72a84ff7e28a563654271938e09250ae7f6b91a90830
+  checksum: 31e875614c189477d6446f2bb6f60c3cc26fe5f8b589144bfb65514b1173a7e8f856e750cecba6055f35473c28420338897e368c1156c2037b627e8e64163193
   languageName: node
   linkType: hard
 
-"lockfile-lint@npm:4.10.6":
-  version: 4.10.6
-  resolution: "lockfile-lint@npm:4.10.6"
+"lockfile-lint@npm:4.12.1":
+  version: 4.12.1
+  resolution: "lockfile-lint@npm:4.12.1"
   dependencies:
-    cosmiconfig: ^7.0.1
-    debug: ^4.1.1
-    lockfile-lint-api: ^5.5.5
-    yargs: ^16.0.0
+    cosmiconfig: ^8.2.0
+    debug: ^4.3.4
+    fast-glob: ^3.3.1
+    lockfile-lint-api: ^5.8.0
+    yargs: ^17.7.2
   bin:
     lockfile-lint: bin/lockfile-lint.js
-  checksum: e031e8578e334ca2e8563bb6fd40dc1708fe77d7a4419de8d6bec6e7e9d26c2c685edec57407568e2b1662d48118003a826c9c4bee9b938836dfc97207d4fe42
+  checksum: 2983f09b8dcae759caead8f3766bb4cddf3c5d3402e51f1a518aa69642dcc3ad00e91dca1922f8e3e72e0f102b3946e1c604185efc5bee3b826fbb8c45d60fec
   languageName: node
   linkType: hard
 
@@ -12051,7 +12063,7 @@ __metadata:
     js-yaml: 4.1.0
     jsonwebtoken: 9.0.2
     kleur: 4.1.5
-    lockfile-lint: 4.10.6
+    lockfile-lint: 4.12.1
     lodash: 4.17.21
     lru-cache: 7.18.3
     mime: 3.0.0
@@ -12258,13 +12270,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^1.10.0":
-  version: 1.10.2
-  resolution: "yaml@npm:1.10.2"
-  checksum: ce4ada136e8a78a0b08dc10b4b900936912d15de59905b2bf415b4d33c63df1d555d23acb2a41b23cf9fb5da41c256441afca3d6509de7247daa062fd2c5ea5f
-  languageName: node
-  linkType: hard
-
 "yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
   version: 20.2.9
   resolution: "yargs-parser@npm:20.2.9"
@@ -12306,6 +12311,21 @@ __metadata:
     y18n: ^5.0.5
     yargs-parser: ^21.1.1
   checksum: 47da1b0d854fa16d45a3ded57b716b013b2179022352a5f7467409da5a04a1eef5b3b3d97a2dfc13e8bbe5f2ffc0afe3bc6a4a72f8254e60f5a4bd7947138643
+  languageName: node
+  linkType: hard
+
+"yargs@npm:^17.7.2":
+  version: 17.7.2
+  resolution: "yargs@npm:17.7.2"
+  dependencies:
+    cliui: ^8.0.1
+    escalade: ^3.1.1
+    get-caller-file: ^2.0.5
+    require-directory: ^2.1.1
+    string-width: ^4.2.3
+    y18n: ^5.0.5
+    yargs-parser: ^21.1.1
+  checksum: 73b572e863aa4a8cbef323dd911d79d193b772defd5a51aab0aca2d446655216f5002c42c5306033968193bdbf892a7a4c110b0d77954a7fdf563e653967b56a
   languageName: node
   linkType: hard
 
