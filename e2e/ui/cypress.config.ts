@@ -9,6 +9,10 @@ import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 let registry1;
 export default defineConfig({
+  retries: {
+    runMode: 5,
+    openMode: 0,
+  },
   e2e: {
     setupNodeEvents(on) {
       on('before:run', async () => {
