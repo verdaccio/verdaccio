@@ -633,8 +633,8 @@ importers:
         specifier: 3.2.1
         version: 3.2.1(typanion@3.12.1)
       envinfo:
-        specifier: 7.8.1
-        version: 7.8.1
+        specifier: 7.11.0
+        version: 7.11.0
       kleur:
         specifier: 4.1.5
         version: 4.1.5
@@ -11724,7 +11724,7 @@ packages:
     peerDependencies:
       webpack-cli: 4.x.x
     dependencies:
-      envinfo: 7.8.1
+      envinfo: 7.11.0
       webpack-cli: 4.10.0(webpack-bundle-analyzer@4.7.0)(webpack-dev-server@3.11.3)(webpack@5.89.0)
 
   /@webpack-cli/serve@1.7.0(webpack-cli@4.10.0):
@@ -15810,8 +15810,8 @@ packages:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
     engines: {node: '>=0.12'}
 
-  /envinfo@7.8.1:
-    resolution: {integrity: sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==}
+  /envinfo@7.11.0:
+    resolution: {integrity: sha512-G9/6xF1FPbIw0TtalAMaVPpiq2aDEuKLXM314jPVAO9r2fo2a4BLqMNkmRS7O/xPPZ+COAhGIz3ETvHEV3eUcg==}
     engines: {node: '>=4'}
     hasBin: true
 
