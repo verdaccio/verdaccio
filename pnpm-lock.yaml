@@ -193,8 +193,8 @@ importers:
         specifier: 4.1.24
         version: 4.1.24
       '@types/supertest':
-        specifier: 2.0.14
-        version: 2.0.14
+        specifier: 2.0.16
+        version: 2.0.16
       '@types/testing-library__jest-dom':
         specifier: 6.0.0
         version: 6.0.0(@types/jest@29.5.10)(jest@29.7.0)(vitest@0.34.3)
@@ -10946,8 +10946,8 @@ packages:
       '@types/node': 20.10.2
     dev: true
 
-  /@types/supertest@2.0.14:
-    resolution: {integrity: sha512-Q900DeeHNFF3ZYYepf/EyJfZDA2JrnWLaSQ0YNV7+2GTo8IlJzauEnDGhya+hauncpBYTYGpVHwGdssJeAQ7eA==}
+  /@types/supertest@2.0.16:
+    resolution: {integrity: sha512-6c2ogktZ06tr2ENoZivgm7YnprnhYE4ZoXGMY+oA7IuAf17M8FWvujXZGmxLv8y0PTyts4x5A+erSwVUFA8XSg==}
     dependencies:
       '@types/superagent': 4.1.24
     dev: true
