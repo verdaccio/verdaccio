@@ -2230,8 +2230,8 @@ importers:
         specifier: 1.8.5
         version: 1.8.5(react@17.0.2)
       react-player:
-        specifier: 2.11.0
-        version: 2.11.0(react@17.0.2)
+        specifier: 2.13.0
+        version: 2.13.0(react@17.0.2)
       react-twitter-widgets:
         specifier: ^1.10.0
         version: 1.11.0(react@17.0.2)
@@ -24886,8 +24886,8 @@ packages:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
     dev: true
 
-  /react-player@2.11.0(react@17.0.2):
-    resolution: {integrity: sha512-fIrwpuXOBXdEg1FiyV9isKevZOaaIsAAtZy5fcjkQK9Nhmk1I2NXzY/hkPos8V0zb/ZX416LFy8gv7l/1k3a5w==}
+  /react-player@2.13.0(react@17.0.2):
+    resolution: {integrity: sha512-gkY7ZdbVFztlKFFhCPcnDrFQm+L399b8fhWsKatZ+b2wpKJwfUHBXQFMRxqYQGT0ic1/wQ7D7EZEWy7ZBqk2pw==}
     peerDependencies:
       react: '>=16.6.0'
     dependencies:
