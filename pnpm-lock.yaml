@@ -2203,8 +2203,8 @@ importers:
         specifier: 1.2.1
         version: 1.2.1
       copy-text-to-clipboard:
-        specifier: 3.1.0
-        version: 3.1.0
+        specifier: 3.2.0
+        version: 3.2.0
       docusaurus-plugin-contributors:
         specifier: workspace:2.0.0-next.0
         version: link:../packages/tools/docusaurus-plugin-contributors
@@ -6439,7 +6439,7 @@ packages:
       '@docusaurus/utils-validation': 2.4.3(@docusaurus/types@2.4.3)(esbuild@0.14.10)
       '@mdx-js/react': 1.6.22(react@17.0.2)
       clsx: 1.2.1
-      copy-text-to-clipboard: 3.1.0
+      copy-text-to-clipboard: 3.2.0
       infima: 0.2.0-alpha.43
       lodash: 4.17.21
       nprogress: 0.2.0
@@ -13984,8 +13984,8 @@ packages:
     resolution: {integrity: sha512-XgZ0pFcakEUlbwQEVNg3+QAis1FyTL3Qel9FYy8pSkQqoG3PNoT0bOCQtOXcOkur21r2Eq2kI+IE+gsmAEVlYw==}
     engines: {node: '>=0.10.0'}
 
-  /copy-text-to-clipboard@3.1.0:
-    resolution: {integrity: sha512-PFM6BnjLnOON/lB3ta/Jg7Ywsv+l9kQGD4TWDCSlRBGmqnnTM5MrDkhAFgw+8HZt0wW6Q2BBE4cmy9sq+s9Qng==}
+  /copy-text-to-clipboard@3.2.0:
+    resolution: {integrity: sha512-RnJFp1XR/LOBDckxTib5Qjr/PMfkatD0MUCQgdpqS8MdKiNUzBjAQBEN6oUy+jW7LI93BBG3DtMB2KOOKpGs2Q==}
     engines: {node: '>=12'}
     dev: false
 
