@@ -93,7 +93,7 @@
     "@types/lodash": "4.14.202",
     "@types/mime": "3.0.4",
     "@types/minimatch": "5.1.2",
-    "@types/node": "18.19.1",
+    "@types/node": "18.19.2",
     "@types/pino": "7.0.5",
     "@types/request": "2.48.12",
     "@types/semver": "7.5.6",
