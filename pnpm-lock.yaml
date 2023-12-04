@@ -1870,8 +1870,8 @@ importers:
         specifier: 11.0.0
         version: 11.0.0
       marked-highlight:
-        specifier: 2.0.8
-        version: 2.0.8(marked@11.0.0)
+        specifier: 2.0.9
+        version: 2.0.9(marked@11.0.0)
       normalize.css:
         specifier: 8.0.1
         version: 8.0.1
@@ -20855,8 +20855,8 @@ packages:
   /markdown-table@3.0.3:
     resolution: {integrity: sha512-Z1NL3Tb1M9wH4XESsCDEksWoKTdlUafKc4pt0GRwjUyXaCFZ+dc3g2erqB6zm3szA2IUSi7VnPI+o/9jnxh9hw==}
 
-  /marked-highlight@2.0.8(marked@11.0.0):
-    resolution: {integrity: sha512-AcZbUPXMODcR504hOaGwGuiYJcPcWyxJIKjIY/a7xLC9e2q9MBG/yDJvon/6W7xTzvk9RDf3nE2w1FNLQG4diA==}
+  /marked-highlight@2.0.9(marked@11.0.0):
+    resolution: {integrity: sha512-HAK1WJSK6CGVDzplOf6layWFz1lHm8Fsjd+SEUYmLhAZmM8TlYmErC/hTphoiOxogYqGQGt3Ghug3Yhs+s+3jw==}
     peerDependencies:
       marked: '>=4 <12'
     dependencies:
