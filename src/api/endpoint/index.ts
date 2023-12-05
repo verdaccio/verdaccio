@@ -49,7 +49,7 @@ export default function (config: Config, auth: Auth, storage: Storage) {
   app.use(encodeScopePackage);
   whoami(app);
   profile(app, auth, config);
-  search(app);
+  search(app, auth, storage);
   user(app, auth, config);
   distTags(app, auth, storage);
   publish(app, auth, storage, config);
