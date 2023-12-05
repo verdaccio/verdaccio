@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.28.0](https://github.com/verdaccio/verdaccio/compare/v5.27.1...v5.28.0) (2023-12-05)
+
+
+### Features
+
+* update docker base image to node20 ([#4231](https://github.com/verdaccio/verdaccio/issues/4231)) ([adf6927](https://github.com/verdaccio/verdaccio/commit/adf6927374d4d3c060435341b816f1922eddc3b2))
+
+
+### Bug Fixes
+
+* restore search all endpoint ([#4233](https://github.com/verdaccio/verdaccio/issues/4233)) ([591ad20](https://github.com/verdaccio/verdaccio/commit/591ad20ee840b50aa9e0932587cb3f6d8d8a932e))
+
 ### [5.27.1](https://github.com/verdaccio/verdaccio/compare/v5.27.0...v5.27.1) (2023-12-02)
 
 
