@@ -31,7 +31,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next.4",
     "@verdaccio/logger": "workspace:7.0.0-next.4",
-    "core-js": "3.33.3",
+    "core-js": "3.34.0",
     "debug": "4.3.4",
     "got-cjs": "12.5.4",
     "handlebars": "4.7.8"
