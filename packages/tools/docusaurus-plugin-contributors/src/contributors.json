@@ -3504,6 +3504,17 @@
       ]
     },
     {
+      "id": 109787230,
+      "login": "legobeat",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 3045354,
       "login": "maxlaverse",
       "contributions": 1,
@@ -4875,7 +4886,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15454,
+      "stargazers_count": 15459,
       "archived": false
     },
     {
@@ -5073,7 +5084,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 19,
+      "stargazers_count": 20,
       "archived": false
     },
     {
