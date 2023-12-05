@@ -1,5 +1,5 @@
+import request from '@cypress/request';
 import express from 'express';
-import request from 'request';
 import rimraf from 'rimraf';
 
 import endPointAPI from '../../../src/api/index';

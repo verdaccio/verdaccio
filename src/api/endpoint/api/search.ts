@@ -21,7 +21,7 @@ export default function (route, auth, storage): void {
      * behaviour in the future.
      *
      * BTW: NPM will not return result if user-agent does not contain string 'npm',
-     * See: method 'request' in up-storage.js
+     * See: method '@cypress/request' in up-storage.js
      *
      * If there is no cache in local, NPM will request /-/all, then get response with
      * _updated: 99999, 'Date' in response header was Mon, 10 Oct 1983 00:12:48 GMT,

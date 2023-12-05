@@ -1,7 +1,7 @@
+import request from '@cypress/request';
 import JSONStream from 'JSONStream';
 import buildDebug from 'debug';
 import _ from 'lodash';
-import request from 'request';
 import Stream from 'stream';
 import URL, { UrlWithStringQuery } from 'url';
 import zlib from 'zlib';
