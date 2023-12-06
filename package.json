@@ -19,6 +19,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
+    "@cypress/request": "3.0.1",
     "@verdaccio/config": "7.0.0-next.4",
     "@verdaccio/core": "7.0.0-next.4",
     "@verdaccio/local-storage": "10.3.3",
@@ -52,7 +53,6 @@
     "mkdirp": "1.0.4",
     "mv": "2.1.1",
     "pkginfo": "0.4.1",
-    "request": "2.88.2",
     "semver": "7.5.4",
     "validator": "13.11.0",
     "verdaccio-audit": "12.0.0-next.4",

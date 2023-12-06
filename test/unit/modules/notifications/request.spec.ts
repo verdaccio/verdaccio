@@ -28,7 +28,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification service throws error', async () => {
-    jest.doMock('request', () => (options, resolver) => {
+    jest.doMock('@cypress/request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.BAD_REQUEST,
       };
@@ -49,7 +49,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification service throws error with null error value', async () => {
-    jest.doMock('request', () => (options, resolver) => {
+    jest.doMock('@cypress/request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.BAD_REQUEST,
         body: API_ERROR.BAD_DATA,
@@ -69,7 +69,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification is successfully delivered', async () => {
-    jest.doMock('request', () => (options, resolver) => {
+    jest.doMock('@cypress/request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.OK,
         body: 'Successfully delivered',
@@ -90,7 +90,7 @@ describe('Notifications:: notifyRequest', () => {
   });
 
   test('when notification is successfully delivered but body is undefined/null', async () => {
-    jest.doMock('request', () => (options, resolver) => {
+    jest.doMock('@cypress/request', () => (options, resolver) => {
       const response = {
         statusCode: HTTP_STATUS.OK,
       };

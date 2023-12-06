@@ -1,6 +1,6 @@
+import request, { RequiredUriUrl } from '@cypress/request';
 import buildDebug from 'debug';
 import isNil from 'lodash/isNil';
-import request, { RequiredUriUrl } from 'request';
 
 import { HTTP_STATUS } from '../constants';
 import { logger } from '../logger';

@@ -1,6 +1,6 @@
+import { OptionsWithUrl } from '@cypress/request';
 import Handlebars from 'handlebars';
 import _ from 'lodash';
-import { OptionsWithUrl } from 'request';
 
 import { Config, Package, RemoteUser } from '@verdaccio/types';
 
