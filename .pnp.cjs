@@ -58,7 +58,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.21"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
             ["@types/http-errors", "npm:2.0.4"],\
-            ["@types/jest", "npm:29.5.10"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/lodash", "npm:4.14.202"],\
             ["@types/mime", "npm:3.0.4"],\
             ["@types/minimatch", "npm:5.1.2"],\
@@ -5310,10 +5310,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/jest", [\
-        ["npm:29.5.10", {\
-          "packageLocation": "./.yarn/cache/@types-jest-npm-29.5.10-cc73227aae-ef38590578.zip/node_modules/@types/jest/",\
+        ["npm:29.5.11", {\
+          "packageLocation": "./.yarn/cache/@types-jest-npm-29.5.11-1ede28257d-f892a06ec9.zip/node_modules/@types/jest/",\
           "packageDependencies": [\
-            ["@types/jest", "npm:29.5.10"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["expect", "npm:29.7.0"],\
             ["pretty-format", "npm:29.7.0"]\
           ],\
@@ -8863,7 +8863,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["eslint-plugin-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:27.6.0"],\
             ["@types/eslint", null],\
-            ["@types/jest", "npm:29.5.10"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/utils", "virtual:7a7a3218275933ed2c66e1ee416452b7b288b16c217f02394c4540ac6e49d272a6d15244c95a90d3ffc4b52bca8fc074b14370dd0cf4ac465b37d60ccf0f43d1#npm:5.50.0"],\
@@ -15508,7 +15508,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/express", "npm:4.17.21"],\
             ["@types/express-serve-static-core", "npm:4.17.41"],\
             ["@types/http-errors", "npm:2.0.4"],\
-            ["@types/jest", "npm:29.5.10"],\
+            ["@types/jest", "npm:29.5.11"],\
             ["@types/lodash", "npm:4.14.202"],\
             ["@types/mime", "npm:3.0.4"],\
             ["@types/minimatch", "npm:5.1.2"],\
