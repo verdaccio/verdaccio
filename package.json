@@ -62,7 +62,7 @@
     "@types/lodash": "4.14.202",
     "@types/mime": "3.0.4",
     "@types/minimatch": "5.1.2",
-    "@types/node": "20.10.3",
+    "@types/node": "20.10.4",
     "@types/node-fetch": "2.6.9",
     "@types/qs": "6.9.10",
     "@types/range-parser": "1.2.7",
