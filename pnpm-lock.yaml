@@ -175,8 +175,8 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
       '@types/react-virtualized':
-        specifier: 9.21.28
-        version: 9.21.28
+        specifier: 9.21.29
+        version: 9.21.29
       '@types/redux':
         specifier: 3.6.0
         version: 3.6.0
@@ -10888,10 +10888,6 @@ packages:
   /@types/prop-types@15.7.11:
     resolution: {integrity: sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==}
 
-  /@types/prop-types@15.7.8:
-    resolution: {integrity: sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==}
-    dev: true
-
   /@types/q@1.5.5:
     resolution: {integrity: sha512-L28j2FcJfSZOnL1WBjDYp2vUHCeIFlyYI/53EwD/rKUBQ7MtUUfbQWiyKJGpcnv4/WgrhWsFKrcPstcAt/J0tQ==}
     dev: false
@@ -10936,10 +10932,10 @@ packages:
     dependencies:
       '@types/react': 18.2.41
 
-  /@types/react-virtualized@9.21.28:
-    resolution: {integrity: sha512-GE9tPk6vinqh2cqVs5xyqF5g6HdHJMVY1msJRSY12MN8+GrI0f9KUmXbryek6Pyry5fM2wTX1VvZxQj3ZKgTRg==}
+  /@types/react-virtualized@9.21.29:
+    resolution: {integrity: sha512-+ODVQ+AyKngenj4OPpg43Hz4B9Rdjuz1Naxu9ypNc3Cjo0WVZTYhqXfF/Nm38i8PV/YXECRIl4mTAZK5hq2B+g==}
     dependencies:
-      '@types/prop-types': 15.7.8
+      '@types/prop-types': 15.7.11
       '@types/react': 18.2.41
     dev: true
 
