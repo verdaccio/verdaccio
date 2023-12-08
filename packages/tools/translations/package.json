@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "clipanion": "3.2.1",
-    "@crowdin/crowdin-api-client": "1.28.1"
+    "@crowdin/crowdin-api-client": "1.28.2"
   },
   "devDependencies": {
     "ts-node": "10.9.1"
