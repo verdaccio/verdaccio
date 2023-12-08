@@ -129,7 +129,7 @@
     "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
     "supertest": "6.3.3",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "typescript": "4.9.5",
     "verdaccio-auth-memory": "10.2.2",
     "verdaccio-memory": "10.3.2"
