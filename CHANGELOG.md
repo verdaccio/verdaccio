@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.29.0](https://github.com/verdaccio/verdaccio/compare/v5.28.0...v5.29.0) (2023-12-08)
+
+
+### Features
+
+* replace request with @cypress/request ([#4234](https://github.com/verdaccio/verdaccio/issues/4234)) ([e11d95d](https://github.com/verdaccio/verdaccio/commit/e11d95d41f7bdf6c82b0784faf67cd596bd6a29a))
+
 ## [5.28.0](https://github.com/verdaccio/verdaccio/compare/v5.27.1...v5.28.0) (2023-12-05)
 
 
