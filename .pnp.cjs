@@ -63,7 +63,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.202"],\
             ["@types/mime", "npm:3.0.4"],\
             ["@types/minimatch", "npm:5.1.2"],\
-            ["@types/node", "npm:18.19.2"],\
+            ["@types/node", "npm:18.19.3"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.12"],\
             ["@types/semver", "npm:7.5.6"],\
@@ -4365,6 +4365,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-18.19.2-6e1404b6ff-6ae1e456f4.zip/node_modules/@types/node/",\
           "packageDependencies": [\
             ["@types/node", "npm:18.19.2"],\
+            ["undici-types", "npm:5.26.5"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:18.19.3", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.19.3-9a233afc47-58c4fa45a7.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.19.3"],\
             ["undici-types", "npm:5.26.5"]\
           ],\
           "linkType": "HARD"\
@@ -9575,7 +9583,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/core", "npm:7.23.5"],\
             ["@jest/test-sequencer", "npm:29.7.0"],\
             ["@jest/types", "npm:29.6.3"],\
-            ["@types/node", "npm:18.19.2"],\
+            ["@types/node", "npm:18.19.3"],\
             ["@types/ts-node", null],\
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["chalk", "npm:4.1.2"],\
@@ -13280,7 +13288,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.11"],\
             ["@tsconfig/node14", "npm:1.0.3"],\
             ["@tsconfig/node16", "npm:1.0.3"],\
-            ["@types/node", "npm:18.19.2"],\
+            ["@types/node", "npm:18.19.3"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -13865,7 +13873,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/lodash", "npm:4.14.202"],\
             ["@types/mime", "npm:3.0.4"],\
             ["@types/minimatch", "npm:5.1.2"],\
-            ["@types/node", "npm:18.19.2"],\
+            ["@types/node", "npm:18.19.3"],\
             ["@types/pino", "npm:7.0.5"],\
             ["@types/request", "npm:2.48.12"],\
             ["@types/semver", "npm:7.5.6"],\
