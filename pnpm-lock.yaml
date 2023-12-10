@@ -1306,8 +1306,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-hook-form:
-        specifier: 7.48.2
-        version: 7.48.2(react@18.2.0)
+        specifier: 7.49.0
+        version: 7.49.0(react@18.2.0)
       react-hot-loader:
         specifier: 4.13.1
         version: 4.13.1(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
@@ -1882,8 +1882,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-hook-form:
-        specifier: 7.48.2
-        version: 7.48.2(react@18.2.0)
+        specifier: 7.49.0
+        version: 7.49.0(react@18.2.0)
       react-i18next:
         specifier: 13.5.0
         version: 13.5.0(i18next@20.6.1)(react-dom@18.2.0)(react@18.2.0)
@@ -24702,9 +24702,9 @@ packages:
       react-side-effect: 2.1.2(react@17.0.2)
     dev: false
 
-  /react-hook-form@7.48.2(react@18.2.0):
-    resolution: {integrity: sha512-H0T2InFQb1hX7qKtDIZmvpU1Xfn/bdahWBN1fH19gSe4bBEqTfmlr7H3XWTaVtiK4/tpPaI1F3355GPMZYge+A==}
-    engines: {node: '>=12.22.0'}
+  /react-hook-form@7.49.0(react@18.2.0):
+    resolution: {integrity: sha512-gf4qyY4WiqK2hP/E45UUT6wt3Khl49pleEVcIzxhLBrD6m+GMWtLRk0vMrRv45D1ZH8PnpXFwRPv0Pewske2jw==}
+    engines: {node: '>=18', pnpm: '8'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
     dependencies:
