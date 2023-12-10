@@ -113,7 +113,7 @@
     "standard-version": "9.5.0",
     "supertest": "6.3.3",
     "ts-node": "10.9.2",
-    "typescript": "5.2.2",
+    "typescript": "5.3.3",
     "verdaccio-auth-memory": "10.2.2",
     "verdaccio-memory": "10.3.2"
   },
