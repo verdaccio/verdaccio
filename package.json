@@ -124,7 +124,7 @@
     "nock": "13.4.0",
     "node-mocks-http": "^1.13.0",
     "pinst": "2.1.6",
-    "prettier": "3.1.0",
+    "prettier": "3.1.1",
     "rimraf": "3.0.2",
     "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
