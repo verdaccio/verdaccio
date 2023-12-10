@@ -7,12 +7,11 @@ import https from 'https';
 import { assign, isFunction, isObject } from 'lodash';
 import URL from 'url';
 
-import { Callback, ConfigWithHttps, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-import { Config } from '@verdaccio/config';
 
 const logger = require('./logger');
 
