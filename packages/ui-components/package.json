@@ -41,7 +41,7 @@
     "js-base64": "3.7.5",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
-    "marked": "11.0.1",
+    "marked": "11.1.0",
     "marked-highlight": "2.0.9",
     "normalize.css": "8.0.1",
     "react": "18.2.0",
