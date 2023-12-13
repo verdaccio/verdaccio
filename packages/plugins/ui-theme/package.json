@@ -58,7 +58,7 @@
     "raw-loader": "4.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "7.49.1",
+    "react-hook-form": "7.49.2",
     "react-hot-loader": "4.13.1",
     "react-i18next": "13.5.0",
     "react-json-view": "1.21.3",
