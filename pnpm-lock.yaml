@@ -845,8 +845,8 @@ importers:
         specifier: workspace:7.0.0-next.4
         version: link:../logger-commons
       pino:
-        specifier: 8.16.2
-        version: 8.16.2
+        specifier: 8.17.0
+        version: 8.17.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:12.0.0-next.1
@@ -906,8 +906,8 @@ importers:
         version: 3.7.0
     devDependencies:
       pino:
-        specifier: 8.16.2
-        version: 8.16.2
+        specifier: 8.17.0
+        version: 8.17.0
 
   packages/middleware:
     dependencies:
@@ -24363,22 +24363,6 @@ packages:
       safe-stable-stringify: 2.4.3
       sonic-boom: 2.8.0
       thread-stream: 0.15.2
-
-  /pino@8.16.2:
-    resolution: {integrity: sha512-2advCDGVEvkKu9TTVSa/kWW7Z3htI/sBKEZpqiHk6ive0i/7f5b1rsU8jn0aimxqfnSz5bj/nOYkwhBUn5xxvg==}
-    hasBin: true
-    dependencies:
-      atomic-sleep: 1.0.0
-      fast-redact: 3.1.2
-      on-exit-leak-free: 2.1.0
-      pino-abstract-transport: 1.1.0
-      pino-std-serializers: 6.2.0
-      process-warning: 2.2.0
-      quick-format-unescaped: 4.0.4
-      real-require: 0.2.0
-      safe-stable-stringify: 2.4.3
-      sonic-boom: 3.7.0
-      thread-stream: 2.3.0
 
   /pino@8.17.0:
     resolution: {integrity: sha512-ey+Mku+PVPhvxglLXMg1l1zQMwSHuNrKC3MD40EDZbkckJmmuY7DYZLIOwwjZ8ix/Nvhe9dZt5H99cgkot9bAw==}
