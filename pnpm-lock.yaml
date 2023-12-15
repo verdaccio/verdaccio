@@ -1554,8 +1554,8 @@ importers:
         specifier: 4.3.4
         version: 4.3.4(supports-color@5.5.0)
       fastify:
-        specifier: 4.25.0
-        version: 4.25.0
+        specifier: 4.25.1
+        version: 4.25.1
       fastify-plugin:
         specifier: 4.5.1
         version: 4.5.1
@@ -2040,8 +2040,8 @@ importers:
         specifier: workspace:3.0.0-next.0
         version: link:../tools/helpers
       fastify:
-        specifier: 4.25.0
-        version: 4.25.0
+        specifier: 4.25.1
+        version: 4.25.1
       get-port:
         specifier: 5.1.1
         version: 5.1.1
@@ -18219,8 +18219,8 @@ packages:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
 
-  /fastify@4.25.0:
-    resolution: {integrity: sha512-2XANZZDadl/PccnVbmrIC8BmUtb16MO5Hyfnqv1cZIslvf7GYTVwlPuVxLKL23NNxWRc5BikY8HyhWj+NJvokA==}
+  /fastify@4.25.1:
+    resolution: {integrity: sha512-D8d0rv61TwqoAS7lom2tvIlgVMlx88lLsiwXyWNjA7CU/LC/mx/Gp2WAlC0S/ABq19U+y/aRvYFG5xLUu2aMrg==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.4.1
