@@ -67,7 +67,7 @@
     "@types/qs": "6.9.10",
     "@types/range-parser": "1.2.7",
     "@types/react": "18.2.45",
-    "@types/react-dom": "18.2.17",
+    "@types/react-dom": "18.2.18",
     "@types/react-router-dom": "5.3.3",
     "@types/react-virtualized": "9.21.29",
     "@types/redux": "3.6.0",
