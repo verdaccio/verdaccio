@@ -95,7 +95,7 @@
     "cross-env": "7.0.3",
     "debug": "4.3.4",
     "detect-secrets": "1.0.6",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "fs-extra": "11.2.0",
     "got": "11.8.6",
     "husky": "8.0.3",
