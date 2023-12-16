@@ -90,7 +90,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "cross-env": "7.0.3",
     "detect-secrets": "1.0.6",
-    "eslint": "8.55.0",
+    "eslint": "8.56.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-babel": "5.3.1",
