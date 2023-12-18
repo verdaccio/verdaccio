@@ -6,16 +6,13 @@ import React from 'react';
 
 import Command from './Command';
 import styles from './Header.module.scss';
+import Logo from './Logo';
 
 const Header = (): React.ReactElement => {
   return (
     <div className={styles.header}>
       <div className={styles['header--wrap']}>
-        <img
-          className={styles['header--imageLogo']}
-          src={useBaseUrl('/img/logo/uk/verdaccio-tiny-uk-no-bg.svg')}
-          alt="Verdaccio Logo"
-        />
+        <Logo />
         <div className={styles['header--mt-2']}>
           <h1 className={styles['header--title']}>Verdaccio</h1>
           <p className={styles['header--subtitle']}>

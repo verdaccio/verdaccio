@@ -70,7 +70,7 @@ module.exports = {
             'plugin-filter',
             {
               type: 'link',
-              label: 'Search Plugins',
+              label: 'Search for Plugins & Tools',
               href: '/dev/plugins-search',
             },
           ],

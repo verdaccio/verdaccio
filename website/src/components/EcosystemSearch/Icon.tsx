@@ -10,17 +10,17 @@ import { FC } from 'react';
 
 const Icon: FC<{ category: string }> = ({ category }): React.ReactElement => {
   if (category === 'middleware') {
-    return <AltRouteIcon />;
+    return <AltRouteIcon titleAccess={'Middleware Plugin'} />;
   } else if (category === 'storage') {
-    return <StorageIcon />;
+    return <StorageIcon titleAccess={'Storage Plugin'} />;
   } else if (category === 'tool') {
-    return <HandymanIcon />;
+    return <HandymanIcon titleAccess={'Tool'} />;
   } else if (category === 'filter') {
-    return <FilterAltIcon />;
+    return <FilterAltIcon titleAccess={'Filter Plugin'} />;
   } else if (category === 'authentication') {
-    return <SecurityIcon />;
+    return <SecurityIcon titleAccess={'Authentication Plugin'} />;
   } else if (category === 'ui') {
-    return <ColorLensIcon />;
+    return <ColorLensIcon titleAccess={'UI Theme'} />;
   }
 
   return <HubIcon />;

@@ -12,6 +12,10 @@ import path from 'path';
       ).json();
       // @ts-ignore
       item.description = d.description;
+      // remove html tags from description (e.g. <h1...>)
+      item.description = item.description.replace(/<[^>]*>?/gm, '');
+      // remove markdown links from description (e.g. [link](url))
+      item.description = item.description.replace(/\[(.*?)\]\(.*?\)/gm, '$1');
       item.url = `https://www.npmjs.org/${item.name}`;
       item.registry = `https://registry.npmjs.org/${item.name}`;
       item.bundled = typeof item.bundled === 'boolean' ? item.bundled : false;

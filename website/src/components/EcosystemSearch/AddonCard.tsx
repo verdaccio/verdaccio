@@ -17,6 +17,7 @@ import { useTheme } from '@mui/styles';
 import * as React from 'react';
 import { FC } from 'react';
 
+import CardLogo from './CardLogo';
 import Icon from './Icon';
 import { Addon } from './types';
 
@@ -54,6 +55,15 @@ const AddonCard: FC<Addon> = ({
               <Icon category={category} />
             </Avatar>
           }
+          action={
+            <Avatar
+              alt="Verdaccio"
+              title="Verdaccio Core"
+              sx={{ width: 40, height: 40, bgcolor: 'transparent' }}
+            >
+              <CardLogo origin={origin} />
+            </Avatar>
+          }
         />
         <CardContent>
           <Grid container>
@@ -75,6 +85,7 @@ const AddonCard: FC<Addon> = ({
           >
             <Grid>
               <Chip
+                title="Monthly downloads"
                 label={new Intl.NumberFormat().format(downloads)}
                 avatar={
                   <Avatar sizes="small">
@@ -85,10 +96,11 @@ const AddonCard: FC<Addon> = ({
               />
             </Grid>
             <Grid>
-              <Chip label={`v${latest}`} variant="outlined" />
+              <Chip title="Latest version" label={`v${latest}`} variant="outlined" />
             </Grid>
             <Grid>
               <Button
+                title="Show package on npmjs.com"
                 variant="text"
                 onClick={() => {
                   window.open(url, '_blank');
