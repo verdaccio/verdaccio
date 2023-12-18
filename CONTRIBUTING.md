@@ -29,6 +29,8 @@ The Verdaccio project is split into several areas, the first three hosted in the
 
 ## Prepare local setup {#local-setup}
 
+**Note**: The size of the Verdaccio project is quite significant. Unzipped it is about 33 MB. However, a full build with all node_modules installed takes about **2.8 GB** of disk space (~190k files)!
+
 Verdaccio uses [pnpm](https://pnpm.io) as the package manager for development in this repository.
 
 If you are using pnpm for the first time the [pnpm configuration documentation](https://pnpm.io/configuring) may be useful to avoid any potential problems with the following steps.
