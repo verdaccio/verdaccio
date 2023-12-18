@@ -3126,12 +3126,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.10.4":
-  version: 20.10.4
-  resolution: "@types/node@npm:20.10.4"
+"@types/node@npm:20.10.5":
+  version: 20.10.5
+  resolution: "@types/node@npm:20.10.5"
   dependencies:
     undici-types: "npm:~5.26.4"
-  checksum: c10c1dd13f5c2341ad866777dc32946538a99e1ebd203ae127730814b8e5fa4aedfbcb01cb3e24a5466f1af64bcdfa16e7de6e745ff098fff0942aa779b7fe03
+  checksum: 4a378428d2c9f692b19801a5a3d20dc4c0ad5d4a3d103350f8b401af439941a9aa5efeadc8eb9db13c66c620318bc7f336abfc8934f82fd32c4a689d85068c6f
   languageName: node
   linkType: hard
 
@@ -11703,7 +11703,7 @@ __metadata:
     "@types/lodash": "npm:4.14.202"
     "@types/mime": "npm:3.0.4"
     "@types/minimatch": "npm:5.1.2"
-    "@types/node": "npm:20.10.4"
+    "@types/node": "npm:20.10.5"
     "@types/semver": "npm:7.5.6"
     "@typescript-eslint/eslint-plugin": "npm:6.14.0"
     "@typescript-eslint/parser": "npm:6.14.0"
