@@ -1155,16 +1155,6 @@
       "registry": "https://registry.npmjs.org/tgz-checker",
       "latest": "0.1.9",
       "downloads": 13
-    },
-    {
-      "name": "npm-offline-packer",
-      "bundled": false,
-      "origin": "community",
-      "category": "tool",
-      "url": "https://www.npmjs.org/npm-offline-packer",
-      "registry": "https://registry.npmjs.org/npm-offline-packer",
-      "latest": "1.0.1",
-      "downloads": 10
     }
   ]
 }
