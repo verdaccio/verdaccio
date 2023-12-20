@@ -60,7 +60,7 @@ const FilterControl: FC<Props> = ({ categories, origins, onChange }): ReactEleme
         fontWeight="lg"
         sx={{ marginBottom: theme.spacing(1) }}
       >
-        <Translate>Search Plugins / Tools</Translate>
+        <Translate>Search for Plugins and Tools</Translate>
       </Typography>
       <Alert severity="info" sx={{ marginBottom: theme.spacing(1) }}>
         <Translate>Items qualified as core are maintained actively by the verdaccio team</Translate>

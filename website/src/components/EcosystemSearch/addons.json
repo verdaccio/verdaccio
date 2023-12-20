@@ -806,17 +806,6 @@
       "downloads": 4
     },
     {
-      "name": "verdaccio-sqlite",
-      "bundled": false,
-      "origin": "community",
-      "category": "authentication",
-      "description": "Verdaccio SQLite authentication plugin",
-      "url": "https://www.npmjs.org/verdaccio-sqlite",
-      "registry": "https://registry.npmjs.org/verdaccio-sqlite",
-      "latest": "1.0.2",
-      "downloads": 4
-    },
-    {
       "name": "verdaccio-simplegroup",
       "bundled": false,
       "origin": "community",
@@ -1166,26 +1155,6 @@
       "registry": "https://registry.npmjs.org/tgz-checker",
       "latest": "0.1.9",
       "downloads": 13
-    },
-    {
-      "name": "npm-offline-packer",
-      "bundled": false,
-      "origin": "community",
-      "category": "tool",
-      "url": "https://www.npmjs.org/npm-offline-packer",
-      "registry": "https://registry.npmjs.org/npm-offline-packer",
-      "latest": "1.0.1",
-      "downloads": 10
-    },
-    {
-      "name": "npm-offline-packer",
-      "bundled": false,
-      "origin": "community",
-      "category": "tool",
-      "url": "https://www.npmjs.org/npm-offline-packer",
-      "registry": "https://registry.npmjs.org/npm-offline-packer",
-      "latest": "1.0.1",
-      "downloads": 10
     }
   ]
 }
