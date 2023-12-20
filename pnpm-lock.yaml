@@ -1252,8 +1252,8 @@ importers:
         specifier: 4.10.1
         version: 4.10.1
       html-webpack-plugin:
-        specifier: 5.5.4
-        version: 5.5.4(webpack@5.89.0)
+        specifier: 5.6.0
+        version: 5.6.0(webpack@5.89.0)
       i18next:
         specifier: 20.6.1
         version: 20.6.1
@@ -6887,7 +6887,7 @@ packages:
       globby: 11.1.0
       html-minifier-terser: 5.1.1
       html-tags: 3.3.1
-      html-webpack-plugin: 5.5.4(webpack@5.89.0)
+      html-webpack-plugin: 5.6.0(webpack@5.89.0)
       import-fresh: 3.3.0
       is-root: 2.1.0
       leven: 3.1.0
@@ -6927,6 +6927,7 @@ packages:
       webpackbar: 5.0.2(webpack@5.89.0)
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - bufferutil
       - csso
@@ -6991,7 +6992,7 @@ packages:
       fs-extra: 10.1.0
       html-minifier-terser: 6.1.0
       html-tags: 3.3.1
-      html-webpack-plugin: 5.5.4(webpack@5.89.0)
+      html-webpack-plugin: 5.6.0(webpack@5.89.0)
       import-fresh: 3.3.0
       leven: 3.1.0
       lodash: 4.17.21
@@ -7025,6 +7026,7 @@ packages:
     transitivePeerDependencies:
       - '@docusaurus/types'
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7149,6 +7151,7 @@ packages:
       webpack: 5.89.0(esbuild@0.14.10)
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7194,6 +7197,7 @@ packages:
       webpack: 5.89.0(esbuild@0.14.10)
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7231,6 +7235,7 @@ packages:
       webpack: 5.89.0(esbuild@0.14.10)
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7266,6 +7271,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7301,6 +7307,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7334,6 +7341,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7367,6 +7375,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7405,6 +7414,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7448,6 +7458,7 @@ packages:
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7531,6 +7542,7 @@ packages:
       utility-types: 3.10.0
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7577,6 +7589,7 @@ packages:
     transitivePeerDependencies:
       - '@docusaurus/types'
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7614,6 +7627,7 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -7661,6 +7675,7 @@ packages:
       - '@algolia/client-search'
       - '@docusaurus/types'
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - '@swc/css'
       - '@types/node'
@@ -10315,7 +10330,7 @@ packages:
       fork-ts-checker-webpack-plugin: 6.5.3(eslint@8.56.0)(typescript@4.9.5)(webpack@5.89.0)
       glob: 7.2.3
       glob-promise: 3.4.0(glob@7.2.3)
-      html-webpack-plugin: 5.5.4(webpack@5.89.0)
+      html-webpack-plugin: 5.6.0(webpack@5.89.0)
       path-browserify: 1.0.1
       process: 0.11.10
       react: 18.2.0
@@ -10331,6 +10346,7 @@ packages:
       webpack-hot-middleware: 2.25.3
       webpack-virtual-modules: 0.4.6
     transitivePeerDependencies:
+      - '@rspack/core'
       - '@swc/core'
       - esbuild
       - eslint
@@ -10841,7 +10857,7 @@ packages:
       express: 4.18.2(supports-color@6.1.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
-      html-webpack-plugin: 5.5.4(webpack@5.89.0)
+      html-webpack-plugin: 5.6.0(webpack@5.89.0)
       node-fetch: 2.6.7
       process: 0.11.10
       react: 18.2.0
@@ -10859,6 +10875,7 @@ packages:
       webpack-dev-middleware: 4.3.0(webpack@5.89.0)
       webpack-virtual-modules: 0.4.6
     transitivePeerDependencies:
+      - '@rspack/core'
       - '@swc/core'
       - encoding
       - esbuild
@@ -16661,6 +16678,7 @@ packages:
       react-dom: 17.0.2(react@17.0.2)
     transitivePeerDependencies:
       - '@parcel/css'
+      - '@rspack/core'
       - '@swc/core'
       - bufferutil
       - csso
@@ -19554,11 +19572,17 @@ packages:
       webpack: 4.47.0
     dev: true
 
-  /html-webpack-plugin@5.5.4(webpack@5.89.0):
-    resolution: {integrity: sha512-3wNSaVVxdxcu0jd4FpQFoICdqgxs4zIQQvj+2yQKFfBOnLETQ6X5CDWdeasuGlSsooFlMkEioWDTqBv1wvw5Iw==}
+  /html-webpack-plugin@5.6.0(webpack@5.89.0):
+    resolution: {integrity: sha512-iwaY4wzbe48AfKLZ/Cc8k0L+FKG6oSNRaZ8x5A/T/IVDGyXcbHncM9TdDa93wn0FsSm82FhTKW7f3vS61thXAw==}
     engines: {node: '>=10.13.0'}
     peerDependencies:
+      '@rspack/core': 0.x || 1.x
       webpack: ^5.20.0
+    peerDependenciesMeta:
+      '@rspack/core':
+        optional: true
+      webpack:
+        optional: true
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
