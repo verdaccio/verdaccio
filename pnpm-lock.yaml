@@ -2212,8 +2212,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(debug@4.3.4)(esbuild@0.14.10)(eslint@8.56.0)(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5)
       docusaurus-plugin-typedoc:
-        specifier: 0.18.0
-        version: 0.18.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25)
+        specifier: 0.22.0
+        version: 0.22.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25)
       dompurify:
         specifier: 3.0.6
         version: 3.0.6
@@ -16693,11 +16693,11 @@ packages:
       - webpack-cli
     dev: false
 
-  /docusaurus-plugin-typedoc@0.18.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25):
-    resolution: {integrity: sha512-kurIUu8LhVIOPT88HoeBcu0/D2GMDdg0pUYaFlqeuXT9an6Wlgvuy0C22ZMYcJUcp/gA/Mw2XdUHubsLK2M4uA==}
+  /docusaurus-plugin-typedoc@0.22.0(typedoc-plugin-markdown@3.14.0)(typedoc@0.23.25):
+    resolution: {integrity: sha512-5q+oT+iq3g9DvsMin11pSSmqHRw0i62csHBzkWVtgmsqN/BwGDHnxDiTbHhhkBNQpmRIRgltyNdMnO5x+JUK8Q==}
     peerDependencies:
-      typedoc: '>=0.23.0'
-      typedoc-plugin-markdown: '>=3.13.0'
+      typedoc: '>=0.24.0'
+      typedoc-plugin-markdown: '>=3.15.0'
     dependencies:
       typedoc: 0.23.25(typescript@4.9.5)
       typedoc-plugin-markdown: 3.14.0(typedoc@0.23.25)
