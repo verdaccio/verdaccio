@@ -17,3 +17,8 @@
 
 [[plugins]]
 package = "../.netlify/netlify-plugin-pnpm"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
