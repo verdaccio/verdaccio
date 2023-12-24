@@ -13,9 +13,14 @@ import path from 'path';
       // @ts-ignore
       item.description = d.description;
       // remove html tags from description (e.g. <h1...>)
-      item.description = item.description.replace(/<[^>]*>?/gm, '');
+      // CodeQL js/incomplete-multi-character-sanitization
+      let previous;
+      do {
+        previous = item.description;
+        item.description = item.description.replace(/<[^>]*>?/gm, '');
+      } while (item.description !== previous);
       // remove markdown links from description (e.g. [link](url))
-      item.description = item.description.replace(/\[(.*?)\]\(.*?\)/gm, '$1');
+      item.description = item.description.trim().replace(/\[(.*?)\]\(.*?\)/gm, '$1');
       item.url = `https://www.npmjs.org/${item.name}`;
       item.registry = `https://registry.npmjs.org/${item.name}`;
       item.bundled = typeof item.bundled === 'boolean' ? item.bundled : false;
