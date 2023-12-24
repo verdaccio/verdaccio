@@ -2460,7 +2460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pkgr/utils@npm:^2.3.1":
+"@pkgr/utils@npm:^2.4.2":
   version: 2.4.2
   resolution: "@pkgr/utils@npm:2.4.2"
   dependencies:
@@ -5331,12 +5331,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:5.1.1":
-  version: 5.1.1
-  resolution: "eslint-plugin-prettier@npm:5.1.1"
+"eslint-plugin-prettier@npm:5.1.2":
+  version: 5.1.2
+  resolution: "eslint-plugin-prettier@npm:5.1.2"
   dependencies:
     prettier-linter-helpers: ^1.0.0
-    synckit: ^0.8.5
+    synckit: ^0.8.6
   peerDependencies:
     "@types/eslint": ">=8.0.0"
     eslint: ">=8.0.0"
@@ -5347,7 +5347,7 @@ __metadata:
       optional: true
     eslint-config-prettier:
       optional: true
-  checksum: 5e2a736f3d7ef38fd76f68df443093ba084a81d646a351d47aaf17e96a06a210d8a53e654b83c4a561747ccffa3326f3e33050556f9a8c29eab52dea3e8ae313
+  checksum: ee972ca16c1d05773abe370dcd43c71ffe729ad4eca86752e21be3d4afbc18f04184b4143e9d17869395d534eb8ad685b7589fcdc2706cb734fe17c3c3f4e6cd
   languageName: node
   linkType: hard
 
@@ -10264,13 +10264,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.8.5":
-  version: 0.8.5
-  resolution: "synckit@npm:0.8.5"
+"synckit@npm:^0.8.6":
+  version: 0.8.6
+  resolution: "synckit@npm:0.8.6"
   dependencies:
-    "@pkgr/utils": ^2.3.1
-    tslib: ^2.5.0
-  checksum: 8a9560e5d8f3d94dc3cf5f7b9c83490ffa30d320093560a37b88f59483040771fd1750e76b9939abfbb1b5a23fd6dfbae77f6b338abffe7cae7329cd9b9bb86b
+    "@pkgr/utils": ^2.4.2
+    tslib: ^2.6.2
+  checksum: 7c1f4991d0afd63c090c0537f1cf8619dd5777a40cf83bf46beadbf4eb0f9e400d92044e90a177a305df4bcb56efbaf1b689877f301f2672d865b6eecf1be75a
   languageName: node
   linkType: hard
 
@@ -10484,7 +10484,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.6.0":
+"tslib@npm:^2.4.0, tslib@npm:^2.6.0, tslib@npm:^2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
@@ -11026,7 +11026,7 @@ __metadata:
     eslint-plugin-babel: 5.3.1
     eslint-plugin-import: 2.29.1
     eslint-plugin-jest: 27.6.0
-    eslint-plugin-prettier: 5.1.1
+    eslint-plugin-prettier: 5.1.2
     eslint-plugin-simple-import-sort: 10.0.0
     eslint-plugin-verdaccio: 10.0.0
     express: 4.18.2
