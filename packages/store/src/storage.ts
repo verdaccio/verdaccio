@@ -1345,7 +1345,8 @@ class Storage {
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
       if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
-        const tarball = metadata.dist.tarball.replace(/.*\//, '');
+        // anchor regex to avoid polynominal runtime
+        const tarball = metadata.dist.tarball.replace(/^.*\//, '');
         if (validatioUtils.isObject(data._attachments[tarball])) {
           if (
             _.isNil(data._attachments[tarball].shasum) === false &&
