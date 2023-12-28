@@ -31,7 +31,7 @@
     "@rematch/core": "2.2.0",
     "@rematch/loading": "2.1.2",
     "@rematch/persist": "2.1.2",
-    "classnames": "2.3.2",
+    "classnames": "2.5.0",
     "country-flag-icons": "1.5.9",
     "dayjs": "1.11.10",
     "dompurify": "3.0.6",
