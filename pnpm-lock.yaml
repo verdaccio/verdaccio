@@ -157,8 +157,8 @@ importers:
         specifier: 20.10.5
         version: 20.10.5
       '@types/node-fetch':
-        specifier: 2.6.9
-        version: 2.6.9
+        specifier: 2.6.10
+        version: 2.6.10
       '@types/qs':
         specifier: 6.9.11
         version: 6.9.11
@@ -10624,7 +10624,7 @@ packages:
       '@storybook/store': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       '@storybook/telemetry': 6.5.16(eslint@8.56.0)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
       '@types/node': 16.18.58
-      '@types/node-fetch': 2.6.9
+      '@types/node-fetch': 2.6.10
       '@types/pretty-hrtime': 1.0.1
       '@types/webpack': 4.41.38
       better-opn: 2.1.1
@@ -11918,8 +11918,8 @@ packages:
   /@types/ms@0.7.34:
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
 
-  /@types/node-fetch@2.6.9:
-    resolution: {integrity: sha512-bQVlnMLFJ2d35DkPNjEPmd9ueO/rh5EiaZt2bhqiSarPjZIuIV6bPQVqcrEyvNo+AfTrRGVazle1tl597w3gfA==}
+  /@types/node-fetch@2.6.10:
+    resolution: {integrity: sha512-PPpPK6F9ALFTn59Ka3BaL+qGuipRfxNE8qVgkp0bVixeiR2c2/L+IVOiBdu9JhhT22sWnQEp6YyHGI2b2+CMcA==}
     dependencies:
       '@types/node': 20.10.5
       form-data: 4.0.0
