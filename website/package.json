@@ -41,7 +41,7 @@
     "@mui/styles": "5.15.0",
     "@orama/orama": "1.2.4",
     "@verdaccio/ui-components": "workspace:3.0.0-next.2",
-    "classnames": "2.3.2",
+    "classnames": "2.5.0",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.2.0",
     "docusaurus-plugin-contributors": "workspace:2.0.0-next.0",
