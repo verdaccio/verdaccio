@@ -4565,13 +4565,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookies@npm:0.8.0":
-  version: 0.8.0
-  resolution: "cookies@npm:0.8.0"
+"cookies@npm:0.9.0":
+  version: 0.9.0
+  resolution: "cookies@npm:0.9.0"
   dependencies:
     depd: ~2.0.0
     keygrip: ~1.1.0
-  checksum: 806055a44f128705265b1bc6a853058da18bf80dea3654ad99be20985b1fa1b14f86c1eef73644aab8071241f8a78acd57202b54c4c5c70769fc694fbb9c4edc
+  checksum: e4db8b65edc85bb9640ddca88abae319cbde21af56d83b9b0a4346d41450166bc072f19d0eca00cc805be1c61979a6e80f7f38f5af517ffe2549a44ff5812953
   languageName: node
   linkType: hard
 
@@ -11014,7 +11014,7 @@ __metadata:
     babel-plugin-dynamic-import-node: 2.3.3
     clipanion: 3.2.1
     compression: 1.7.4
-    cookies: 0.8.0
+    cookies: 0.9.0
     cors: 2.8.5
     cross-env: 7.0.3
     debug: ^4.3.4
