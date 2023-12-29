@@ -541,8 +541,8 @@ importers:
         specifier: 1.20.2
         version: 1.20.2
       cookies:
-        specifier: 0.8.0
-        version: 0.8.0
+        specifier: 0.9.0
+        version: 0.9.0
       debug:
         specifier: 4.3.4
         version: 4.3.4(supports-color@5.5.0)
@@ -15114,8 +15114,8 @@ packages:
     resolution: {integrity: sha512-LDx6oHrK+PhzLKJU9j5S7/Y3jM/mUHvD/DeI1WQmJn652iPC5Y4TBzC9l+5OMOXlyTTA+SmVUPm0HQUwpD5Jqw==}
     dev: true
 
-  /cookies@0.8.0:
-    resolution: {integrity: sha512-8aPsApQfebXnuI+537McwYsDtjVxGm8gTIzQI3FDW6t5t/DAhERxtnbEPN/8RX+uZthoz4eCOgloXaE5cYyNow==}
+  /cookies@0.9.0:
+    resolution: {integrity: sha512-mtyMqy14RsH7+IRJglGcKtRLOq0SRt0DdXVrLgc+v1e/o0TNJUpdElhgr3AAi638LO0xZwEPcRRkJ3afxvGhUw==}
     engines: {node: '>= 0.8'}
     dependencies:
       depd: 2.0.0
