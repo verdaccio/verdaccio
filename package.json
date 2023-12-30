@@ -118,7 +118,7 @@
     "selfsigned": "2.4.1",
     "supertest": "6.3.3",
     "ts-node": "10.9.2",
-    "typescript": "5.2.2",
+    "typescript": "5.3.3",
     "undici-types": "5.28.2",
     "update-ts-references": "3.2.1",
     "verdaccio-audit": "workspace:*",
