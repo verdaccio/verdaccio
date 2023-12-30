@@ -9,7 +9,7 @@ jobs:
     name: setup e2e verdaccio
     services:
       verdaccio:
-        image: verdaccio/verdaccio:5
+        image: verdaccio/verdaccio:nightly-master
         ports:
           - 4873:4873
         env:
