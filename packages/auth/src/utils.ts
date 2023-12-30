@@ -10,7 +10,12 @@ import {
   errorUtils,
   pluginUtils,
 } from '@verdaccio/core';
-import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
+import {
+  aesDecrypt,
+  aesDecryptDeprecated,
+  parseBasicPayload,
+  verifyPayload,
+} from '@verdaccio/signature';
 import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
 import {
@@ -35,7 +40,11 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
   return { scheme, token };
 }
 
-export function parseAESCredentials(authorizationHeader: string, secret: string) {
+export function parseAESCredentials(
+  authorizationHeader: string,
+  secret: string,
+  enhanced: boolean
+) {
   debug('parseAESCredentials');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
@@ -48,7 +57,11 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
-    const credentials = aesDecrypt(token, secret);
+    debug('legacy header enhanced?', enhanced);
+    const credentials = enhanced
+      ? aesDecrypt(token.toString(), secret)
+      : // FUTURE: once deprecated legacy is removed this logic won't be longer need it
+        aesDecryptDeprecated(convertPayloadToBase64(token), secret).toString('utf-8');
 
     return credentials;
   }
@@ -57,13 +70,14 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
 export function getMiddlewareCredentials(
   security: Security,
   secretKey: string,
-  authorizationHeader: string
+  authorizationHeader: string,
+  enhanced: boolean = true
 ): AuthMiddlewarePayload {
   debug('getMiddlewareCredentials');
   // comment out for debugging purposes
   if (isAESLegacy(security)) {
     debug('is legacy');
-    const credentials = parseAESCredentials(authorizationHeader, secretKey);
+    const credentials = parseAESCredentials(authorizationHeader, secretKey, enhanced);
     if (!credentials) {
       debug('parse legacy credentials failed');
       return;

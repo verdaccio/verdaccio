@@ -16,7 +16,12 @@ import {
 import '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
-import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
+import {
+  aesEncrypt,
+  aesEncryptDeprecated,
+  parseBasicPayload,
+  signPayload,
+} from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
@@ -379,7 +384,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
     return (req: $RequestExtend, res: $ResponseExtend, _next: NextFunction) => {
       req.pause();
-
       const next = function (err?: VerdaccioError): NextFunction {
         req.resume();
         // uncomment this to reject users with bad auth headers
@@ -477,7 +481,12 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('handle legacy api middleware');
     debug('api middleware secret %o', typeof secret === 'string');
     debug('api middleware authorization %o', typeof authorization === 'string');
-    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
+    const credentials: any = getMiddlewareCredentials(
+      security,
+      secret,
+      authorization,
+      this.config?.getEnhancedLegacySignature()
+    );
     debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
       const { user, password } = credentials;
@@ -578,7 +587,17 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    return aesEncrypt(value, this.secret);
+    // enhancedLegacySignature enables modern aes192 algorithm signature
+    if (this.config?.getEnhancedLegacySignature()) {
+      debug('signing with enhaced aes legacy');
+      const token = aesEncrypt(value, this.secret);
+      return token;
+    } else {
+      debug('signing with enhaced aes deprecated legacy');
+      // deprecated aes (legacy) signature, only must be used for legacy version
+      const token = aesEncryptDeprecated(Buffer.from(value), this.secret).toString('base64');
+      return token;
+    }
   }
 }
 

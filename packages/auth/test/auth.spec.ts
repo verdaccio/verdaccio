@@ -1,16 +1,30 @@
-import express, { NextFunction } from 'express';
+import express from 'express';
 import path from 'path';
 import supertest from 'supertest';
 
 import { Config as AppConfig, ROLES, getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, HEADERS, HTTP_STATUS, errorUtils } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { API_ERROR, HEADERS, HTTP_STATUS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
+import { buildToken } from '@verdaccio/utils';
 
-import { $RequestExtend, $ResponseExtend, Auth } from '../src';
+import { $RequestExtend, Auth } from '../src';
 import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
 
 setup({});
+
+// to avoid flaky test generate same ramdom key
+jest.mock('@verdaccio/utils', () => {
+  return {
+    ...jest.requireActual('@verdaccio/utils'),
+    // used by enhanced legacy aes signature (minimum 32 characters)
+    generateRandomSecretKey: () => 'GCYW/3IJzQI6GvPmy9sbMkFoiL7QLVw',
+    // used by legacy aes signature
+    generateRandomHexString: () =>
+      'ff065fcf7a8330ae37d3ea116328852f387ad7aa6defbe47fb68b1ea25f97446',
+  };
+});
 
 describe('AuthTest', () => {
   describe('default', () => {
@@ -496,28 +510,92 @@ describe('AuthTest', () => {
       });
     });
   });
-  describe('middleware', () => {
-    test('should init correctly', async () => {
-      const app = express();
-      const config: Config = new AppConfig({ ...authProfileConf });
-      config.checkSecretKey('12345');
-      const auth: Auth = new Auth(config);
-      await auth.init();
+  describe('middlewares', () => {
+    describe('apiJWTmiddleware', () => {
+      const secret = '12345';
+      const getServer = async function (auth) {
+        const app = express();
+        app.use(express.json({ strict: false, limit: '10mb' }));
+        // @ts-expect-error
+        app.use(errorReportingMiddleware(logger));
+        app.use(auth.apiJWTmiddleware());
+        app.get('/*', (req, res, next) => {
+          if ((req as $RequestExtend).remote_user.error) {
+            next(new Error((req as $RequestExtend).remote_user.error));
+          } else {
+            // @ts-expect-error
+            next({ user: req?.remote_user });
+          }
+        });
+        // @ts-expect-error
+        app.use(handleError(logger));
+        // @ts-expect-error
+        app.use(final);
+        return app;
+      };
 
-      app.use(express.json());
-      app.use(auth.apiJWTmiddleware());
-      app.get('/*', (req: $RequestExtend, res: $ResponseExtend, next: NextFunction) => {
-        if (req.remote_user.error) {
-          next(new Error(req.remote_user.error));
-        } else {
-          next({ ok: true });
-        }
+      describe('error cases', () => {
+        test('should handle invalid auth token', async () => {
+          const config: Config = new AppConfig({ ...authProfileConf });
+          config.checkSecretKey(secret);
+          const auth = new Auth(config);
+          await auth.init();
+          const app = await getServer(auth);
+          return supertest(app)
+            .get(`/`)
+            .set(HEADERS.AUTHORIZATION, 'Bearer foo')
+            .expect(HTTP_STATUS.INTERNAL_ERROR);
+        });
+
+        test('should handle missing auth header', async () => {
+          const config: Config = new AppConfig({ ...authProfileConf });
+          config.checkSecretKey(secret);
+          const auth = new Auth(config);
+          await auth.init();
+          const app = await getServer(auth);
+          return supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+        });
       });
 
-      return supertest(app)
-        .get(`/`)
-        .set(HEADERS.AUTHORIZATION, 'Bearer foo')
-        .expect(HTTP_STATUS.INTERNAL_ERROR);
+      describe('deprecated legacy handling forceEnhancedLegacySignature=false', () => {
+        test('should handle valid auth token', async () => {
+          const payload = 'juan:password';
+          // const token = await signPayload(remoteUser, '12345');
+          const config: Config = new AppConfig(
+            { ...authProfileConf },
+            { forceEnhancedLegacySignature: false }
+          );
+          // intended to force key generator (associated with mocks above)
+          config.checkSecretKey(undefined);
+          const auth = new Auth(config);
+          await auth.init();
+          const token = auth.aesEncrypt(payload) as string;
+          const app = await getServer(auth);
+          const res = await supertest(app)
+            .get(`/`)
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .expect(HTTP_STATUS.OK);
+          expect(res.body.user.name).toEqual('juan');
+        });
+
+        test('should handle invalid auth token', async () => {
+          const payload = 'juan:password';
+          const config: Config = new AppConfig(
+            { ...authPluginFailureConf },
+            { forceEnhancedLegacySignature: false }
+          );
+          // intended to force key generator (associated with mocks above)
+          config.checkSecretKey(undefined);
+          const auth = new Auth(config);
+          await auth.init();
+          const token = auth.aesEncrypt(payload) as string;
+          const app = await getServer(auth);
+          return await supertest(app)
+            .get(`/`)
+            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+            .expect(HTTP_STATUS.INTERNAL_ERROR);
+        });
+      });
     });
   });
 });
