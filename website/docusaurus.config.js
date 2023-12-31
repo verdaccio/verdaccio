@@ -217,7 +217,7 @@ module.exports = {
       options: {
         loader: 'tsx',
         format: isServer ? 'cjs' : undefined,
-        target: isServer ? 'node18' : 'es2017',
+        target: isServer ? 'node12' : 'es2017',
       },
     }),
   },
