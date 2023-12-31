@@ -2,7 +2,14 @@ name: UI Components
 
 on: 
   workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'
   pull_request:
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'    
     paths:
     - .github/workflows/ui-components.yml
     - 'packages/ui-components/**'

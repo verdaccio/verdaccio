@@ -2,7 +2,14 @@ name: Verdaccio Website CI
 
 on:
   workflow_dispatch:
+  push:
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'
   pull_request:
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'    
     paths:
         - 'website/**'
         - './.github/workflows/website.yml'
