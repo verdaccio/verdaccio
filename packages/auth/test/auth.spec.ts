@@ -2,15 +2,27 @@ import express from 'express';
 import path from 'path';
 import supertest from 'supertest';
 
-import { Config as AppConfig, ROLES, getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, HEADERS, HTTP_STATUS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
+import {
+  API_ERROR,
+  HEADERS,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  TOKEN_BEARER,
+  errorUtils,
+} from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 
 import { $RequestExtend, Auth } from '../src';
-import { authPluginFailureConf, authPluginPassThrougConf, authProfileConf } from './helper/plugin';
+import {
+  authChangePasswordConf,
+  authPluginFailureConf,
+  authPluginPassThrougConf,
+  authProfileConf,
+} from './helper/plugin';
 
 setup({});
 
@@ -209,6 +221,36 @@ describe('AuthTest', () => {
           });
         });
       });
+    });
+  });
+
+  describe('changePassword', () => {
+    test('should fail if the plugin does not provide implementation', async () => {
+      const config: Config = new AppConfig({ ...authProfileConf });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config);
+      await auth.init();
+      expect(auth).toBeDefined();
+      const callback = jest.fn();
+
+      auth.changePassword('foo', 'bar', 'newFoo', callback);
+
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback).toHaveBeenCalledWith(
+        errorUtils.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE)
+      );
+    });
+    test('should handle plugin does provide implementation', async () => {
+      const config: Config = new AppConfig({ ...authChangePasswordConf });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config);
+      await auth.init();
+      expect(auth).toBeDefined();
+      const callback = jest.fn();
+      auth.add_user('foo', 'bar', jest.fn());
+      auth.changePassword('foo', 'bar', 'newFoo', callback);
+      expect(callback).toHaveBeenCalledTimes(1);
+      expect(callback).toHaveBeenCalledWith(null, true);
     });
   });
 
@@ -533,67 +575,139 @@ describe('AuthTest', () => {
         app.use(final);
         return app;
       };
+      describe('legacy signature', () => {
+        describe('error cases', () => {
+          test('should handle invalid auth token', async () => {
+            const config: Config = new AppConfig({ ...authProfileConf });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config);
+            await auth.init();
+            const app = await getServer(auth);
+            return supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, 'Bearer foo')
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+          });
 
-      describe('error cases', () => {
-        test('should handle invalid auth token', async () => {
-          const config: Config = new AppConfig({ ...authProfileConf });
-          config.checkSecretKey(secret);
-          const auth = new Auth(config);
-          await auth.init();
-          const app = await getServer(auth);
-          return supertest(app)
-            .get(`/`)
-            .set(HEADERS.AUTHORIZATION, 'Bearer foo')
-            .expect(HTTP_STATUS.INTERNAL_ERROR);
+          test('should handle missing auth header', async () => {
+            const config: Config = new AppConfig({ ...authProfileConf });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config);
+            await auth.init();
+            const app = await getServer(auth);
+            return supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+          });
         });
 
-        test('should handle missing auth header', async () => {
-          const config: Config = new AppConfig({ ...authProfileConf });
-          config.checkSecretKey(secret);
-          const auth = new Auth(config);
-          await auth.init();
-          const app = await getServer(auth);
-          return supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+        describe('deprecated legacy handling forceEnhancedLegacySignature=false', () => {
+          test('should handle valid auth token', async () => {
+            const payload = 'juan:password';
+            // const token = await signPayload(remoteUser, '12345');
+            const config: Config = new AppConfig(
+              { ...authProfileConf },
+              { forceEnhancedLegacySignature: false }
+            );
+            // intended to force key generator (associated with mocks above)
+            config.checkSecretKey(undefined);
+            const auth = new Auth(config);
+            await auth.init();
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.name).toEqual('juan');
+          });
+
+          test('should handle invalid auth token', async () => {
+            const payload = 'juan:password';
+            const config: Config = new AppConfig(
+              { ...authPluginFailureConf },
+              { forceEnhancedLegacySignature: false }
+            );
+            // intended to force key generator (associated with mocks above)
+            config.checkSecretKey(undefined);
+            const auth = new Auth(config);
+            await auth.init();
+            const token = auth.aesEncrypt(payload) as string;
+            const app = await getServer(auth);
+            return await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+          });
         });
       });
+      describe('jwt signature', () => {
+        describe('error cases', () => {
+          test('should handle invalid auth token and return anonymous', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config);
+            await auth.init();
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, 'Bearer foo')
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.groups).toEqual([
+              ROLES.$ALL,
+              ROLES.$ANONYMOUS,
+              ROLES.DEPRECATED_ALL,
+              ROLES.DEPRECATED_ANONYMOUS,
+            ]);
+          });
 
-      describe('deprecated legacy handling forceEnhancedLegacySignature=false', () => {
-        test('should handle valid auth token', async () => {
-          const payload = 'juan:password';
-          // const token = await signPayload(remoteUser, '12345');
-          const config: Config = new AppConfig(
-            { ...authProfileConf },
-            { forceEnhancedLegacySignature: false }
-          );
-          // intended to force key generator (associated with mocks above)
-          config.checkSecretKey(undefined);
-          const auth = new Auth(config);
-          await auth.init();
-          const token = auth.aesEncrypt(payload) as string;
-          const app = await getServer(auth);
-          const res = await supertest(app)
-            .get(`/`)
-            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-            .expect(HTTP_STATUS.OK);
-          expect(res.body.user.name).toEqual('juan');
+          test('should handle missing auth header', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config);
+            await auth.init();
+            const app = await getServer(auth);
+            const res = await supertest(app).get(`/`).expect(HTTP_STATUS.OK);
+            expect(res.body.user.groups).toEqual([
+              ROLES.$ALL,
+              ROLES.$ANONYMOUS,
+              ROLES.DEPRECATED_ALL,
+              ROLES.DEPRECATED_ANONYMOUS,
+            ]);
+          });
         });
-
-        test('should handle invalid auth token', async () => {
-          const payload = 'juan:password';
-          const config: Config = new AppConfig(
-            { ...authPluginFailureConf },
-            { forceEnhancedLegacySignature: false }
-          );
-          // intended to force key generator (associated with mocks above)
-          config.checkSecretKey(undefined);
-          const auth = new Auth(config);
-          await auth.init();
-          const token = auth.aesEncrypt(payload) as string;
-          const app = await getServer(auth);
-          return await supertest(app)
-            .get(`/`)
-            .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
-            .expect(HTTP_STATUS.INTERNAL_ERROR);
+        describe('valid signature handlers', () => {
+          test('should handle valid auth token', async () => {
+            const config: Config = new AppConfig(
+              // @ts-expect-error
+              {
+                ...authProfileConf,
+                ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+              },
+              { forceEnhancedLegacySignature: false }
+            );
+            // intended to force key generator (associated with mocks above)
+            config.checkSecretKey(undefined);
+            const auth = new Auth(config);
+            await auth.init();
+            const token = (await auth.jwtEncrypt(
+              createRemoteUser('jwt_user', [ROLES.ALL]),
+              // @ts-expect-error
+              config.security.api.jwt.sign
+            )) as string;
+            const app = await getServer(auth);
+            const res = await supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+              .expect(HTTP_STATUS.OK);
+            expect(res.body.user.name).toEqual('jwt_user');
+          });
         });
       });
     });

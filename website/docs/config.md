@@ -86,7 +86,7 @@ auth:
 
 ### Token signature {#token}
 
-The default token signature is based on the Advanced Encryption Standard (AES) with the algorithm `aes192``, known as _legacy_. It's important to note that legacy tokens are not designed to expire. If expiration functionality is needed, it is recommended to use _JSON Web Tokens (JWT)_ instead.
+The default token signature is based on the Advanced Encryption Standard (AES) with the algorithm `aes192`, known as _legacy_. It's important to note that legacy tokens are not designed to expire. If expiration functionality is needed, it is recommended to use _JSON Web Tokens (JWT)_ instead.
 
 #### Security {#security}
 

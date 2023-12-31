@@ -69,6 +69,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
   public async init() {
     let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
+
     debug('auth plugins found %s', plugins.length);
     if (!plugins || plugins.length === 0) {
       plugins = this.loadDefaultPlugin();
@@ -397,10 +398,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         return _next() as unknown as NextFunction;
       };
 
-      if (this._isRemoteUserValid(req.remote_user)) {
-        debug('jwt has a valid authentication header');
-        return next();
-      }
+      // FUTURE: disabled, not removed yet but seems unreacable code
+      // if (this._isRemoteUserValid(req.remote_user)) {
+      //   debug('jwt has a valid authentication header');
+      //   return next();
+      // }
 
       // in case auth header does not exist we return anonymous function
       const remoteUser = createAnonymousRemoteUser();
@@ -577,7 +579,6 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       name,
       groups: groupedGroups,
     };
-
     const token: string = await signPayload(payload, this.secret, signOptions);
 
     return token;

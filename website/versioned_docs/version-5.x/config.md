@@ -86,8 +86,6 @@ auth:
 
 ### Security {#security}
 
-<small>Since: `verdaccio@4.0.0` [#168](https://github.com/verdaccio/verdaccio/pull/168)</small>
-
 The security block allows you to customise the token signature. To enable a new [JWT (JSON Web Tokens)](https://jwt.io/) signature you need to add the block `jwt` to the `api` section; `web` uses `jwt` by default.
 
 The configuration is separated in two sections, `api` and `web`. To use JWT on `api` it has to be defined, otherwise the legacy token signature (`aes192`) will be used. For JWT you might want to customize the [signature](https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback) and the token [verification](https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback) with your own properties.
@@ -108,7 +106,11 @@ security:
      	someProp: [value]
 ```
 
-> We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
+:::info
+
+In 5.x versions, you will see the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. **To address thi please upgrade to v6.x and ahead (when is [available](https://github.com/verdaccio/verdaccio/discussions/4018)).**
+
+:::info
 
 ### Server {#server}
 
