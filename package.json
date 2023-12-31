@@ -171,12 +171,6 @@
     "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
   },
-  "pnpm": {
-    "overrides": {
-      "got": "11.8.5",
-      "p-cancelable": "2.1.1"
-    }
-  },
   "engines": {
     "node": ">=18"
   },

@@ -48,16 +48,15 @@ We use [corepack](https://github.com/nodejs/corepack) to install and use a speci
 ```shell
 nvm install
 corepack enable
-corepack install
 ```
 
 `pnpm` version will be updated mainly by the maintainers but if you would like to set it to a specific version, you can do so by running the following command:
 
-```shell
-corepack use pnpm@8.9.1
-```
+> `packageManager` at the `package.json` defines the default version to be used.
 
-It will update the `package.json` file with the new version of pnpm in the `packageManager` field.
+```shell
+corepack prepare
+```
 
 With pnpm installed, the first step is installing all dependencies:
 

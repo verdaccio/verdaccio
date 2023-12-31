@@ -10,6 +10,14 @@ export const authProfileConf = {
   },
 };
 
+export const authChangePasswordConf = {
+  ...getDefaultConfig(),
+  plugins: path.join(__dirname, '../partials/plugin'),
+  auth: {
+    'change-password': {},
+  },
+};
+
 export const authPluginFailureConf = {
   ...getDefaultConfig(),
   plugins: path.join(__dirname, '../partials/plugin'),

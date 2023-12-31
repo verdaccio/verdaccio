@@ -7,35 +7,27 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
-  VerdaccioError,
   errorUtils,
   pluginUtils,
 } from '@verdaccio/core';
-import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
+import {
+  aesDecrypt,
+  aesDecryptDeprecated,
+  parseBasicPayload,
+  verifyPayload,
+} from '@verdaccio/signature';
 import { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
-import { AESPayload, TokenEncryption } from './auth';
+import {
+  ActionsAllowed,
+  AllowAction,
+  AllowActionCallback,
+  AuthMiddlewarePayload,
+  AuthTokenHeader,
+  TokenEncryption,
+} from './types';
 
 const debug = buildDebug('verdaccio:auth:utils');
-
-export type BasicPayload = AESPayload | void;
-export type AuthMiddlewarePayload = RemoteUser | BasicPayload;
-
-export interface AuthTokenHeader {
-  scheme: string;
-  token: string;
-}
-export type AllowActionCallbackResponse = boolean | undefined;
-export type AllowActionCallback = (
-  error: VerdaccioError | null,
-  allowed?: AllowActionCallbackResponse
-) => void;
-
-export type AllowAction = (
-  user: RemoteUser,
-  pkg: AuthPackageAllow,
-  callback: AllowActionCallback
-) => void;
 
 /**
  * Split authentication header eg: Bearer [secret_token]
@@ -48,7 +40,11 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
   return { scheme, token };
 }
 
-export function parseAESCredentials(authorizationHeader: string, secret: string) {
+export function parseAESCredentials(
+  authorizationHeader: string,
+  secret: string,
+  enhanced: boolean
+) {
   debug('parseAESCredentials');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
@@ -61,7 +57,11 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
-    const credentials = aesDecrypt(token, secret);
+    debug('legacy header enhanced?', enhanced);
+    const credentials = enhanced
+      ? aesDecrypt(token.toString(), secret)
+      : // FUTURE: once deprecated legacy is removed this logic won't be longer need it
+        aesDecryptDeprecated(convertPayloadToBase64(token), secret).toString('utf-8');
 
     return credentials;
   }
@@ -70,13 +70,14 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
 export function getMiddlewareCredentials(
   security: Security,
   secretKey: string,
-  authorizationHeader: string
+  authorizationHeader: string,
+  enhanced: boolean = true
 ): AuthMiddlewarePayload {
   debug('getMiddlewareCredentials');
   // comment out for debugging purposes
   if (isAESLegacy(security)) {
     debug('is legacy');
-    const credentials = parseAESCredentials(authorizationHeader, secretKey);
+    const credentials = parseAESCredentials(authorizationHeader, secretKey, enhanced);
     if (!credentials) {
       debug('parse legacy credentials failed');
       return;
@@ -161,14 +162,15 @@ export function isAuthHeaderValid(authorization: string): boolean {
 export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
   return {
     authenticate(_user: string, _password: string, cb: pluginUtils.AuthCallback): void {
+      debug('triggered default authenticate method');
       cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
     adduser(_user: string, _password: string, cb: pluginUtils.AuthUserCallback): void {
+      debug('triggered default adduser method');
       return cb(errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    // FIXME: allow_action and allow_publish should be in the @verdaccio/types
     // @ts-ignore
     allow_access: allow_action('access', logger),
     // @ts-ignore
@@ -176,8 +178,6 @@ export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
     allow_unpublish: handleSpecialUnpublish(logger),
   };
 }
-
-export type ActionsAllowed = 'publish' | 'unpublish' | 'access';
 
 export function allow_action(action: ActionsAllowed, logger: Logger): AllowAction {
   return function allowActionCallback(
@@ -187,8 +187,13 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
   ): void {
     logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{remote}`);
     const { name, groups } = user;
+    debug('allow_action "%s": groups %s', action, groups);
     const groupAccess = pkg[action] as string[];
-    const hasPermission = groupAccess.some((group) => name === group || groups.includes(group));
+    debug('allow_action "%s": groupAccess %s', action, groupAccess);
+    const hasPermission = groupAccess.some((group) => {
+      return name === group || groups.includes(group);
+    });
+    debug('package "%s" has permission "%s"', name, hasPermission);
     logger.trace(
       { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
       `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{remote}, package: @{pkgName}`
@@ -218,7 +223,8 @@ export function handleSpecialUnpublish(logger: Logger): any {
   return function (user: RemoteUser, pkg: AuthPackageAllow, callback: AllowActionCallback): void {
     const action = 'unpublish';
     // verify whether the unpublish prop has been defined
-    const isUnpublishMissing: boolean = _.isNil(pkg[action]);
+    const isUnpublishMissing: boolean = !pkg[action];
+    debug('is unpublish method missing ? %s', isUnpublishMissing);
     const hasGroups: boolean = isUnpublishMissing ? false : (pkg[action] as string[]).length > 0;
     logger.trace(
       { user: user.name, name: pkg.name, hasGroups },

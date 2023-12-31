@@ -12,6 +12,7 @@ export enum Codes {
   VERWAR005 = 'VERWAR005',
   // deprecation warnings
   VERDEP003 = 'VERDEP003',
+  VERWAR006 = 'VERWAR006',
 }
 
 warningInstance.create(
@@ -50,6 +51,12 @@ warningInstance.create(
   verdaccioDeprecation,
   Codes.VERDEP003,
   'multiple addresses will be deprecated in the next major, only use one'
+);
+
+warningInstance.create(
+  verdaccioDeprecation,
+  Codes.VERWAR006,
+  'the auth plugin method "add_user" in the auth plugin is deprecated and will be removed in next major release, rename to "adduser"'
 );
 
 export function emit(code: string, a?: string, b?: string, c?: string) {

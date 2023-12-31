@@ -45,11 +45,13 @@
     "@verdaccio/signature": "workspace:7.0.0-next.2",
     "@verdaccio/utils": "workspace:7.0.0-next.4",
     "debug": "4.3.4",
-    "express": "4.18.2",
     "lodash": "4.17.21",
     "verdaccio-htpasswd": "workspace:12.0.0-next.4"
   },
   "devDependencies": {
+    "express": "4.18.2",
+    "supertest": "6.3.3",
+    "@verdaccio/middleware": "workspace:7.0.0-next.4",
     "@verdaccio/types": "workspace:12.0.0-next.1"
   },
   "funding": {
