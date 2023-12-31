@@ -95,7 +95,7 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["@verdaccio/*"],
+      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-audit"],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
