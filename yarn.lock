@@ -10975,16 +10975,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-audit@npm:12.0.0-next.4":
-  version: 12.0.0-next.4
-  resolution: "verdaccio-audit@npm:12.0.0-next.4"
+"verdaccio-audit@npm:12.0.0-next.5":
+  version: 12.0.0-next.5
+  resolution: "verdaccio-audit@npm:12.0.0-next.5"
   dependencies:
-    "@verdaccio/config": 7.0.0-next.4
-    "@verdaccio/core": 7.0.0-next.4
+    "@verdaccio/config": 7.0.0-next.5
+    "@verdaccio/core": 7.0.0-next.5
     express: 4.18.2
     https-proxy-agent: 5.0.1
     node-fetch: cjs
-  checksum: d67bb8d7ade5d25d6705b1451c5dd569400bad4f5ab3fd634a62219cc89e18f30925a972851be9f8d51e943ece52599d201d9baff8f5e05acb334a09dfd13cde
+  checksum: 7f0f572d25b18d53f074ff9e6b3fc57d964b9c5343a56417b87628ab414a06d2a5d2c5f3cd1a69522fd73625fa58d1f50a1b44ebe46f2bb66b827dd7b98f0b96
   languageName: node
   linkType: hard
 
@@ -11136,7 +11136,7 @@ __metadata:
     ts-node: 10.9.2
     typescript: 4.9.5
     validator: 13.11.0
-    verdaccio-audit: 12.0.0-next.4
+    verdaccio-audit: 12.0.0-next.5
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 12.0.0-next.4
     verdaccio-memory: 10.3.2

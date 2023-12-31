@@ -136,7 +136,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
             ["validator", "npm:13.11.0"],\
-            ["verdaccio-audit", "npm:12.0.0-next.4"],\
+            ["verdaccio-audit", "npm:12.0.0-next.5"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
             ["verdaccio-htpasswd", "npm:12.0.0-next.4"],\
             ["verdaccio-memory", "npm:10.3.2"]\
@@ -11712,10 +11712,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:2b6a730b01282d413802da811ae0422e912b8a2fcd3a8f419689b5f114df9bcac859a252149de698e2d4048b9bc9eb0cd2c9738b8434e12edd9ec67f0c8975ba#npm:2.6.7", {\
-          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-d3dfc59d31/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+        ["virtual:80fa0cb731586b307465aa3f18bd9e5c05c1f52afe15c20c7bbdc3d95a5c030fef45ed5fabc3db3625549bbb055cff2baf34ca10b3e798c9d37fe4924c2998eb#npm:2.6.7", {\
+          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-b9038928d2/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
           "packageDependencies": [\
-            ["node-fetch", "virtual:2b6a730b01282d413802da811ae0422e912b8a2fcd3a8f419689b5f114df9bcac859a252149de698e2d4048b9bc9eb0cd2c9738b8434e12edd9ec67f0c8975ba#npm:2.6.7"],\
+            ["node-fetch", "virtual:80fa0cb731586b307465aa3f18bd9e5c05c1f52afe15c20c7bbdc3d95a5c030fef45ed5fabc3db3625549bbb055cff2baf34ca10b3e798c9d37fe4924c2998eb#npm:2.6.7"],\
             ["@types/encoding", null],\
             ["encoding", null],\
             ["whatwg-url", "npm:5.0.0"]\
@@ -14629,7 +14629,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
             ["validator", "npm:13.11.0"],\
-            ["verdaccio-audit", "npm:12.0.0-next.4"],\
+            ["verdaccio-audit", "npm:12.0.0-next.5"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
             ["verdaccio-htpasswd", "npm:12.0.0-next.4"],\
             ["verdaccio-memory", "npm:10.3.2"]\
@@ -14638,15 +14638,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["verdaccio-audit", [\
-        ["npm:12.0.0-next.4", {\
-          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-12.0.0-next.4-2b6a730b01-d67bb8d7ad.zip/node_modules/verdaccio-audit/",\
+        ["npm:12.0.0-next.5", {\
+          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-12.0.0-next.5-80fa0cb731-7f0f572d25.zip/node_modules/verdaccio-audit/",\
           "packageDependencies": [\
-            ["verdaccio-audit", "npm:12.0.0-next.4"],\
-            ["@verdaccio/config", "npm:7.0.0-next.4"],\
-            ["@verdaccio/core", "npm:7.0.0-next.4"],\
+            ["verdaccio-audit", "npm:12.0.0-next.5"],\
+            ["@verdaccio/config", "npm:7.0.0-next.5"],\
+            ["@verdaccio/core", "npm:7.0.0-next.5"],\
             ["express", "npm:4.18.2"],\
             ["https-proxy-agent", "npm:5.0.1"],\
-            ["node-fetch", "virtual:2b6a730b01282d413802da811ae0422e912b8a2fcd3a8f419689b5f114df9bcac859a252149de698e2d4048b9bc9eb0cd2c9738b8434e12edd9ec67f0c8975ba#npm:2.6.7"]\
+            ["node-fetch", "virtual:80fa0cb731586b307465aa3f18bd9e5c05c1f52afe15c20c7bbdc3d95a5c030fef45ed5fabc3db3625549bbb055cff2baf34ca10b3e798c9d37fe4924c2998eb#npm:2.6.7"]\
           ],\
           "linkType": "HARD"\
         }]\
