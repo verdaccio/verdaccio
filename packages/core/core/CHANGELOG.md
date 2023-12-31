@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 7.0.0-next.5
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+
 ## 7.0.0-next.4
 
 ## 7.0.0-next.3

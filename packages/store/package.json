@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/store",
-  "version": "7.0.0-next.4",
+  "version": "7.0.0-next.5",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -38,16 +38,16 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next.4",
-    "@verdaccio/core": "workspace:7.0.0-next.4",
-    "@verdaccio/hooks": "workspace:7.0.0-next.4",
-    "@verdaccio/loaders": "workspace:7.0.0-next.4",
-    "@verdaccio/local-storage": "workspace:12.0.0-next.4",
-    "@verdaccio/logger": "workspace:7.0.0-next.4",
-    "@verdaccio/proxy": "workspace:7.0.0-next.4",
-    "@verdaccio/tarball": "workspace:12.0.0-next.4",
-    "@verdaccio/url": "workspace:12.0.0-next.4",
-    "@verdaccio/utils": "workspace:7.0.0-next.4",
+    "@verdaccio/config": "workspace:7.0.0-next.5",
+    "@verdaccio/core": "workspace:7.0.0-next.5",
+    "@verdaccio/hooks": "workspace:7.0.0-next.5",
+    "@verdaccio/loaders": "workspace:7.0.0-next.5",
+    "@verdaccio/local-storage": "workspace:12.0.0-next.5",
+    "@verdaccio/logger": "workspace:7.0.0-next.5",
+    "@verdaccio/proxy": "workspace:7.0.0-next.5",
+    "@verdaccio/tarball": "workspace:12.0.0-next.5",
+    "@verdaccio/url": "workspace:12.0.0-next.5",
+    "@verdaccio/utils": "workspace:7.0.0-next.5",
     "JSONStream": "1.3.5",
     "debug": "4.3.4",
     "lodash": "4.17.21",
@@ -55,8 +55,8 @@
     "semver": "7.5.4"
   },
   "devDependencies": {
-    "@verdaccio/test-helper": "workspace:3.0.0-next.0",
-    "@verdaccio/types": "workspace:12.0.0-next.1",
+    "@verdaccio/test-helper": "workspace:3.0.0-next.1",
+    "@verdaccio/types": "workspace:12.0.0-next.2",
     "mockdate": "3.0.5",
     "nock": "13.4.0",
     "node-mocks-http": "1.14.0"
