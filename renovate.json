@@ -22,6 +22,11 @@
       "allowedVersions": "2.607.0"
     },
     {
+      "packageNames": ["@verdaccio/local-storage"],
+      "allowedVersions": "10.3.3",
+      "matchBaseBranches": ["5.x"]
+    },
+    {
       "packageNames": ["got"],
       "allowedVersions": "^11.8.5"
     },
