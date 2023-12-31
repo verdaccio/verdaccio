@@ -27,8 +27,13 @@
       "matchBaseBranches": ["5.x"]
     },
     {
+      "packageNames": ["@verdaccio/local-storage"],
+      "allowedVersions": "^10.3.4",
+      "matchBaseBranches": ["6.x"]
+    },
+    {
       "packageNames": ["@emotion/*"],
-      "matchFileNames": ["package.json", "packages/**/package.json"],
+      "matchFileNames": ["./package.json", "./packages/**/package.json"],
       "matchBaseBranches": ["master"]
     },
     {
@@ -104,7 +109,7 @@
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["5.x"]
+      "baseBranchList": ["5.x", "6.x"]
     },
     {
       "matchPackagePatterns": [
