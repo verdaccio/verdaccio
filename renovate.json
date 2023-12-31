@@ -105,7 +105,13 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["@verdaccio/*", "verdaccio-audit"],
+      "matchPackagePatterns": [
+        "@verdaccio/*",
+        "verdaccio-audit",
+        "verdaccio-htpasswd",
+        "verdaccio-auth-memory",
+        "verdaccio-memory"
+      ],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
