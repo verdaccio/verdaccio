@@ -27,6 +27,11 @@
       "matchBaseBranches": ["5.x"]
     },
     {
+      "packageNames": ["@emotion/*"],
+      "matchFileNames": ["package.json", "packages/**/package.json"],
+      "matchBaseBranches": ["master"]
+    },
+    {
       "packageNames": ["got"],
       "allowedVersions": "^11.8.5"
     },
