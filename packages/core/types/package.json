@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/types",
-  "version": "12.0.0-next.1",
+  "version": "12.0.0-next.2",
   "description": "verdaccio types definitions",
   "keywords": [
     "private",

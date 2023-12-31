@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 7.0.0-next.5
+
+### Patch Changes
+
+- @verdaccio/logger@7.0.0-next.5
+
 ## 7.0.0-next.4
 
 ### Patch Changes

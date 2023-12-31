@@ -1,5 +1,18 @@
 # verdaccio
 
+## 7.0.0-next.5
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next.5
+- @verdaccio/hooks@7.0.0-next.5
+- @verdaccio/logger@7.0.0-next.5
+- verdaccio-audit@12.0.0-next.5
+- verdaccio-htpasswd@12.0.0-next.5
+- @verdaccio/ui-theme@7.0.0-next.5
+- @verdaccio/cli@7.0.0-next.5
+- @verdaccio/utils@7.0.0-next.5
+
 ## 7.0.0-next.4
 
 ### Patch Changes
@@ -255,12 +268,12 @@
 - 8f43bf17d: feat: node api new structure based on promise
 
   ```js
-  import { runServer } from '@verdaccio/node-api';
+  import { runServer } from "@verdaccio/node-api";
   // or
-  import { runServer } from 'verdaccio';
+  import { runServer } from "verdaccio";
 
   const app = await runServer(); // default configuration
-  const app = await runServer('./config/config.yaml');
+  const app = await runServer("./config/config.yaml");
   const app = await runServer({ configuration });
   app.listen(4000, (event) => {
     // do something
@@ -1455,14 +1468,14 @@
 - 5c5057fc: feat: node api new structure based on promise
 
   ```js
-  import { runServer } from '@verdaccio/node-api';
+  import { runServer } from "@verdaccio/node-api";
   // or
-  import { runServer } from 'verdaccio';
+  import { runServer } from "verdaccio";
 
   const app = await runServer(); // default configuration
-  const app = await runServer('./config/config.yaml');
+  const app = await runServer("./config/config.yaml");
   const app = await runServer({ configuration });
-  app.listen(4000, event => {
+  app.listen(4000, (event) => {
     // do something
   });
   ```
