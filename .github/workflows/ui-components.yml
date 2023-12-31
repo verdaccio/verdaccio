@@ -12,6 +12,8 @@ on:
     - 'package.json'
     - 'pnpm-workspace.yaml'
     - 'pnpm-lock.yaml'
+  schedule:
+      - cron: '0 0 * * 1'     
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
