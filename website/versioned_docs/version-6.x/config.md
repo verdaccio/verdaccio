@@ -113,7 +113,7 @@ security:
 
 #### `enhancedLegacySignature` {#enhancedLegacySignature}
 
-In certain instances, particularly in older installations, you might encounter the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. To address this, you can enable the enhancedLegacySignature property, which switches the legacy token signature to one based on AES-192 with an initialization vector.
+In certain instances, particularly in older installations, you might encounter the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. To address this, you can enable the `enhancedLegacySignature` property, which switches the legacy token signature to one based on AES-192 with an initialization vector.
 
 :::caution
 

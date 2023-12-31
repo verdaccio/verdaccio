@@ -108,7 +108,7 @@ security:
 
 :::info
 
-In 5.x versions, you will see the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. **To address thi please upgrade to v6.x and ahead (when is [available](https://github.com/verdaccio/verdaccio/discussions/4018)).**
+In 5.x versions, you will see the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. **To address thi please upgrade to the newest 6.x version (to check the release status read here [available](https://github.com/verdaccio/verdaccio/discussions/4018)).**
 
 :::info
 
