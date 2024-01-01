@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "lodash": "4.17.21",
-    "typedoc": "0.23.25",
+    "typedoc": "0.25.6",
     "typedoc-plugin-missing-exports": "latest",
     "@verdaccio/types": "workspace:12.0.0-next.2"
   },
