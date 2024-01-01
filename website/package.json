@@ -54,7 +54,7 @@
     "react-iframe": "1.8.5",
     "react-player": "2.14.1",
     "react-twitter-widgets": "^1.10.0",
-    "typedoc": "0.23.25",
+    "typedoc": "0.25.5",
     "typedoc-github-wiki-theme": "^1.0.1",
     "typedoc-plugin-markdown": "3.14.0",
     "typedoc-plugin-merge-modules": "4.0.1",
