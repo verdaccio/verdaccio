@@ -81,7 +81,7 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         }
 
         try {
-          const token = await getApiToken(auth, config, user, password) as string;
+          const token = (await getApiToken(auth, config, user, password)) as string;
           const key = stringToMD5(token);
           // TODO: use a utility here
           const maskedToken = mask(token, 5);

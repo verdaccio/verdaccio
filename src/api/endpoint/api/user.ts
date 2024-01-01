@@ -82,7 +82,9 @@ export default function (route: Router, auth: Auth, config: Config): void {
           }
 
           const token =
-            name && password ? await getApiToken(auth, config, user as RemoteUser, password) : undefined;
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
 
           req.remote_user = user;
           res.status(HTTP_STATUS.CREATED);
