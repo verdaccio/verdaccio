@@ -1,8 +1,8 @@
 import express from 'express';
 
+import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/types';
 
-import {Auth} from '@verdaccio/auth';
 import Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';

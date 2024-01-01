@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -11,7 +12,6 @@ import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Config as IConfig } from '@verdaccio/types';
 
-import {Auth} from '@verdaccio/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';

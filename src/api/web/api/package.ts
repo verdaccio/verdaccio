@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
 import { allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
@@ -9,7 +10,6 @@ import {
 import { Config, Manifest } from '@verdaccio/types';
 import { generateGravatarUrl } from '@verdaccio/utils';
 
-import {Auth} from '@verdaccio/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';

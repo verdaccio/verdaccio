@@ -145,8 +145,9 @@ describe('startServer via API', () => {
       // save process to catch exist
 
       startServer(conf, address, store, version, serverName, () => {
-        //expect(logger.fatal).toHaveBeenCalled();
-        //expect(logger.fatal).toHaveBeenCalledTimes(2);
+        // TODO: mock logger
+        // expect(logger.fatal).toHaveBeenCalled();
+        // expect(logger.fatal).toHaveBeenCalledTimes(2);
       });
     });
 

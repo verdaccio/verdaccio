@@ -2,11 +2,11 @@ import buildDebug from 'debug';
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { Auth, getApiToken } from '@verdaccio/auth';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { stringToMD5 } from '@verdaccio/utils';
 
-import {Auth, getApiToken} from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
 import Storage from '../../../../lib/storage';
@@ -65,6 +65,7 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         return next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       }
 
+      // @ts-ignore
       auth.authenticate(name, password, async (err, user: RemoteUser) => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
@@ -80,7 +81,7 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         }
 
         try {
-          const token = await getApiToken(auth, config, user, password);
+          const token = await getApiToken(auth, config, user, password) as string;
           const key = stringToMD5(token);
           // TODO: use a utility here
           const maskedToken = mask(token, 5);

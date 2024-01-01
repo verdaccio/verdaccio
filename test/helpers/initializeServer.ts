@@ -3,13 +3,13 @@ import express, { Application } from 'express';
 import os from 'os';
 import path from 'path';
 
+import { Auth } from '@verdaccio/auth';
 import { errorUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
 import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
-import {Auth} from '@verdaccio/auth';
 import Config from '../../src/lib/config';
 
 const debug = buildDebug('verdaccio:tools:helpers:server');

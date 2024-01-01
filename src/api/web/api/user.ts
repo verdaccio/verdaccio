@@ -1,14 +1,14 @@
 import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
+import { validatioUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import {Auth} from '@verdaccio/auth';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer } from '../../../types';
-import { validatioUtils } from '@verdaccio/core';
 
 function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
   route.post(
@@ -16,7 +16,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       const { username, password } = req.body;
-
+      // @ts-ignore
       auth.authenticate(username, password, async (err, user: RemoteUser): Promise<void> => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
