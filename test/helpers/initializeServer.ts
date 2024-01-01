@@ -3,13 +3,13 @@ import express, { Application } from 'express';
 import os from 'os';
 import path from 'path';
 
+import { Auth } from '@verdaccio/auth';
 import { errorUtils } from '@verdaccio/core';
 import { final } from '@verdaccio/middleware';
 import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { errorReportingMiddleware, handleError } from '../../src/api/middleware';
-import Auth from '../../src/lib/auth';
 import Config from '../../src/lib/config';
 
 const debug = buildDebug('verdaccio:tools:helpers:server');
@@ -32,9 +32,8 @@ export async function initializeServer(
   await storage.init(config, []);
   const auth: Auth = new Auth(config);
   await auth.init();
-  // FUTURE: in v6 auth.init() is being called
   // TODO: this might not be need it, used in apiEndpoints
-  app.use(express.json({ strict: false, limit: '100mb' }));
+  app.use(express.json({ strict: false, limit: '10mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware);
   for (let route of routesMiddleware) {

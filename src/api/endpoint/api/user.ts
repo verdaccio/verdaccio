@@ -1,14 +1,13 @@
-import Cookies from 'cookies';
 import express, { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { Auth, getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
+import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
-import Auth from '../../../lib/auth';
-import { getApiToken, validatePassword } from '../../../lib/auth-utils';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
@@ -51,7 +50,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
               );
             }
 
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user.groups || []);
+            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
             const token = await getApiToken(auth, config, restoredRemoteUser, password);
 
             res.status(HTTP_STATUS.CREATED);
@@ -63,7 +62,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
           }
         );
       } else {
-        if (validatePassword(password) === false) {
+        if (validationUtils.validatePassword(password) === false) {
           // eslint-disable-next-line new-cap
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
@@ -82,7 +81,9 @@ export default function (route: Router, auth: Auth, config: Config): void {
           }
 
           const token =
-            name && password ? await getApiToken(auth, config, user, password) : undefined;
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
 
           req.remote_user = user;
           res.status(HTTP_STATUS.CREATED);

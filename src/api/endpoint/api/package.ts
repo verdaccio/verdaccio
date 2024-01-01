@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
 import { allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';

@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -11,7 +12,6 @@ import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Config as IConfig } from '@verdaccio/types';
 
-import Auth from '../lib/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
@@ -114,11 +114,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 export default (async function (configHash: any) {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
-  // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger: logger,
-  };
   const storage = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config);
