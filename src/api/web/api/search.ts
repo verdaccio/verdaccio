@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { SearchMemoryIndexer } from '@verdaccio/search';
 import { Manifest } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import { DIST_TAGS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';

@@ -2,14 +2,13 @@ import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { rateLimit } from '@verdaccio/middleware';
-import { SignOptionsSignature } from '@verdaccio/signature';
-import { Config, RemoteUser } from '@verdaccio/types';
+import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
-import { getSecurity, validatePassword } from '../../../lib/auth-utils';
+import {Auth} from '@verdaccio/auth';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer } from '../../../types';
+import { validatioUtils } from '@verdaccio/core';
 
 function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
   route.post(
@@ -24,8 +23,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
           next(ErrorCode.getCode(errorCode, err.message));
         } else {
           req.remote_user = user;
-          const jWTSignOptions: SignOptionsSignature = getSecurity(config).web
-            .sign as SignOptionsSignature;
+          const jWTSignOptions: JWTSignOptions = config.security.web.sign;
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           next({
             token: await auth.jwtEncrypt(user, jWTSignOptions),
@@ -50,7 +48,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
       const { password } = req.body;
       const { name } = req.remote_user;
 
-      if (validatePassword(password.new) === false) {
+      if (validatioUtils.validatePassword(password.new) === false) {
         auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
           if (_.isNil(err) && isUpdated) {
             next({

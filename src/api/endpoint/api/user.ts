@@ -7,12 +7,12 @@ import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { createSessionToken, getAuthenticatedMessage } from '@verdaccio/utils';
 
-import Auth from '../../../lib/auth';
-import { getApiToken, validatePassword } from '../../../lib/auth-utils';
+import {Auth, getApiToken } from '@verdaccio/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
+import { validationUtils } from '@verdaccio/core';
 
 export default function (route: Router, auth: Auth, config: Config): void {
   /* eslint new-cap:off */
@@ -63,7 +63,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
           }
         );
       } else {
-        if (validatePassword(password) === false) {
+        if (validationUtils.validatePassword(password) === false) {
           // eslint-disable-next-line new-cap
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }

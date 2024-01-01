@@ -6,8 +6,7 @@ import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { stringToMD5 } from '@verdaccio/utils';
 
-import Auth from '../../../../lib/auth';
-import { getApiToken } from '../../../../lib/auth-utils';
+import {Auth, getApiToken} from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
 import Storage from '../../../../lib/storage';

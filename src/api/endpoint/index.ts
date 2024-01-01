@@ -2,7 +2,7 @@ import express from 'express';
 
 import { Config } from '@verdaccio/types';
 
-import Auth from '../../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import Storage from '../../lib/storage';
 import distTags from './api/dist-tags';
 import pkg from './api/package';

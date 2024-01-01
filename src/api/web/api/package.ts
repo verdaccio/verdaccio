@@ -9,7 +9,7 @@ import {
 import { Config, Manifest } from '@verdaccio/types';
 import { generateGravatarUrl } from '@verdaccio/utils';
 
-import Auth from '../../../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';
@@ -39,7 +39,7 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
     afterAll: (params, message) => logger.debug(params, message),
   });
 
-  const checkAllow = (name, remoteUser): Promise<boolean> =>
+  const checkAllow = (name, remoteUser): Promise<boolean | void> =>
     new Promise((resolve, reject): void => {
       try {
         auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {

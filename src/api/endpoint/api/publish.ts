@@ -8,7 +8,7 @@ import { validatioUtils } from '@verdaccio/core';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { notify } from '../../../lib/notify';

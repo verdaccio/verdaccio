@@ -19,6 +19,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
+    "@verdaccio/auth": "7.0.0-next.5",
     "@verdaccio/config": "7.0.0-next.5",
     "@verdaccio/core": "7.0.0-next.5",
     "@verdaccio/hooks": "7.0.0-next.5",

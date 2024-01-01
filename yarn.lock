@@ -3440,6 +3440,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@verdaccio/auth@npm:7.0.0-next.5":
+  version: 7.0.0-next.5
+  resolution: "@verdaccio/auth@npm:7.0.0-next.5"
+  dependencies:
+    "@verdaccio/config": "npm:7.0.0-next.5"
+    "@verdaccio/core": "npm:7.0.0-next.5"
+    "@verdaccio/loaders": "npm:7.0.0-next.5"
+    "@verdaccio/logger": "npm:7.0.0-next.5"
+    "@verdaccio/signature": "npm:7.0.0-next.3"
+    "@verdaccio/utils": "npm:7.0.0-next.5"
+    debug: "npm:4.3.4"
+    lodash: "npm:4.17.21"
+    verdaccio-htpasswd: "npm:12.0.0-next.5"
+  checksum: 3113992a3cddbdb7b6acdf694cfef3077d5010489cc08a394b4d2b3dc27f84268d7e575fc3894a900a1db449ac4ac4984966eb02494f774979c6770341a84462
+  languageName: node
+  linkType: hard
+
 "@verdaccio/commons-api@npm:10.2.0":
   version: 10.2.0
   resolution: "@verdaccio/commons-api@npm:10.2.0"
@@ -11549,6 +11566,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:6.16.0"
     "@typescript-eslint/parser": "npm:6.16.0"
     "@verdaccio-scope/verdaccio-auth-foo": "npm:0.0.2"
+    "@verdaccio/auth": "npm:7.0.0-next.5"
     "@verdaccio/config": "npm:7.0.0-next.5"
     "@verdaccio/core": "npm:7.0.0-next.5"
     "@verdaccio/hooks": "npm:7.0.0-next.5"

@@ -5,7 +5,7 @@ import mime from 'mime';
 import { allow, media } from '@verdaccio/middleware';
 import { Package } from '@verdaccio/types';
 
-import Auth from '../../../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import { API_MESSAGE, DIST_TAGS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';
