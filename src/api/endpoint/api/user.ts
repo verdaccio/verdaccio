@@ -1,4 +1,3 @@
-import Cookies from 'cookies';
 import express, { Response, Router } from 'express';
 import _ from 'lodash';
 
