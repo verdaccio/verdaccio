@@ -36,7 +36,7 @@
     "async": "3.2.5",
     "clipanion": "3.2.1",
     "compression": "1.7.4",
-    "cookies": "0.9.0",
+    "cookies": "0.9.1",
     "cors": "2.8.5",
     "debug": "^4.3.4",
     "envinfo": "7.11.0",

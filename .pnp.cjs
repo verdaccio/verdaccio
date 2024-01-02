@@ -89,7 +89,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.2.1"],\
             ["compression", "npm:1.7.4"],\
-            ["cookies", "npm:0.9.0"],\
+            ["cookies", "npm:0.9.1"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:6251d782ea0db30c21f0f319066656716c470667e40e117968e3ee896b0149dbd84beab1c1d4067d27f9cefc387fad785c8016e1253c05537454f9884ad265e8#npm:4.3.4"],\
@@ -7146,10 +7146,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["cookies", [\
-        ["npm:0.9.0", {\
-          "packageLocation": "./.yarn/cache/cookies-npm-0.9.0-fd72711097-e4db8b65ed.zip/node_modules/cookies/",\
+        ["npm:0.9.1", {\
+          "packageLocation": "./.yarn/cache/cookies-npm-0.9.1-80a82ae099-213e4d1484.zip/node_modules/cookies/",\
           "packageDependencies": [\
-            ["cookies", "npm:0.9.0"],\
+            ["cookies", "npm:0.9.1"],\
             ["depd", "npm:2.0.0"],\
             ["keygrip", "npm:1.1.0"]\
           ],\
@@ -14544,7 +14544,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.2.1"],\
             ["compression", "npm:1.7.4"],\
-            ["cookies", "npm:0.9.0"],\
+            ["cookies", "npm:0.9.1"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:6251d782ea0db30c21f0f319066656716c470667e40e117968e3ee896b0149dbd84beab1c1d4067d27f9cefc387fad785c8016e1253c05537454f9884ad265e8#npm:4.3.4"],\
