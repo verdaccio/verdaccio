@@ -25,7 +25,7 @@
     "@rematch/loading": "2.1.2",
     "@rematch/persist": "2.1.2",
     "@testing-library/dom": "9.3.3",
-    "@testing-library/jest-dom": "6.1.6",
+    "@testing-library/jest-dom": "6.2.0",
     "@testing-library/react": "14.1.2",
     "@verdaccio/node-api": "workspace:7.0.0-next.5",
     "@verdaccio/types": "workspace:*",
