@@ -51,7 +51,7 @@
     "mini-css-extract-plugin": "2.7.6",
     "msw": "0.49.3",
     "mutationobserver-shim": "0.3.7",
-    "node-mocks-http": "1.14.0",
+    "node-mocks-http": "1.14.1",
     "normalize.css": "8.0.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "ora": "5.4.1",
