@@ -90,8 +90,8 @@ importers:
         specifier: 1.3.6
         version: 1.3.6
       '@crowdin/cli':
-        specifier: 3.15.0
-        version: 3.15.0
+        specifier: 3.16.0
+        version: 3.16.0
       '@dianmora/contributors':
         specifier: 5.0.0
         version: 5.0.0
@@ -5623,8 +5623,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@crowdin/cli@3.15.0:
-    resolution: {integrity: sha512-oQMfC5S5OkVee+ryB56E1g0cr2iL9HFaYMWSwNRODp1KICWo0B/oRQo3MvStiZ3VW9ZkeydEoOgRnXXxw2amOA==}
+  /@crowdin/cli@3.16.0:
+    resolution: {integrity: sha512-YhYcaq7QzLiaCH2lkIM7upaOPOwLffxVly+Etd/Kj032n1QeH0Wdp3oC7UyiN0M834bNlONryfF0B3kDZUdx/A==}
     hasBin: true
     dependencies:
       command-exists-promise: 2.0.2
