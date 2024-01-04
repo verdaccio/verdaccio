@@ -35,7 +35,7 @@
     "country-flag-icons": "1.5.9",
     "css-loader": "6.8.1",
     "dayjs": "1.11.10",
-    "dompurify": "3.0.6",
+    "dompurify": "3.0.7",
     "friendly-errors-webpack-plugin": "1.7.0",
     "harmony-reflect": "1.6.2",
     "highlight.js": "11.9.0",
