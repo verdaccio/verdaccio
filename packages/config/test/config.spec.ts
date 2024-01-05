@@ -118,7 +118,7 @@ describe('checkSecretKey', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
     config.security.enhancedLegacySignature = false;
     expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
-    expect(config.secret.length).toBe(32);
+    expect(config.secret.length).toBe(64);
   });
 });
 
