@@ -296,7 +296,7 @@ export interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'conf
   // security object defaults is added by the config file but optional in the yaml file
   security: Security;
   // @deprecated (pending adding the replacement)
-  checkSecretKey(token: string): string;
+  checkSecretKey(token: string | void): string;
   getMatchedPackagesSpec(storage: string): PackageAccess | void;
   // TODO: verify how to handle this in the future
   [key: string]: any;

@@ -409,11 +409,11 @@ module.exports = {
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
           lastVersion: '5.x',
-          onlyIncludeVersions: ['5.x', '6.x'],
+          // onlyIncludeVersions: ['next', '5.x', '6.x'],
           versions: {
-            current: {
-              label: `5.x`,
-            },
+            // current: {
+            //   label: `next`,
+            // },
             '6.x': {
               label: `6.x`,
               banner: 'unreleased',

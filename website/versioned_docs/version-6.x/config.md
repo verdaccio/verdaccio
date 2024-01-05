@@ -84,9 +84,11 @@ auth:
     max_users: 1000
 ```
 
-### Security {#security}
+### Token signature {#token}
 
-<small>Since: `verdaccio@4.0.0` [#168](https://github.com/verdaccio/verdaccio/pull/168)</small>
+The default token signature is based on the Advanced Encryption Standard (AES) with the algorithm `aes192`, known as _legacy_. It's important to note that legacy tokens are not designed to expire. If expiration functionality is needed, it is recommended to use _JSON Web Tokens (JWT)_ instead.
+
+#### Security {#security}
 
 The security block allows you to customise the token signature. To enable a new [JWT (JSON Web Tokens)](https://jwt.io/) signature you need to add the block `jwt` to the `api` section; `web` uses `jwt` by default.
 
@@ -94,6 +96,7 @@ The configuration is separated in two sections, `api` and `web`. To use JWT on `
 
 ```
 security:
+  enhancedLegacySignature: false
   api:
     legacy: true
     jwt:
@@ -108,7 +111,34 @@ security:
      	someProp: [value]
 ```
 
-> We highly recommend move to JWT since legacy signature (`aes192`) is deprecated and will disappear in future versions.
+#### `enhancedLegacySignature` {#enhancedLegacySignature}
+
+In certain instances, particularly in older installations, you might encounter the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. in your terminal. This warning indicates that Node.js has deprecated a function utilized by the legacy signature. To address this, you can enable the `enhancedLegacySignature` property, which switches the legacy token signature to one based on AES-192 with an initialization vector.
+
+:::caution
+
+It is crucial to emphasize that enabling this option will lead to the invalidation of previous tokens.
+
+For all 6.x versions, the property `enhancedLegacySignature` is set to `false` by default upon initialization, to change that behaviour follow as illustrated in the following example.
+
+:::caution
+
+```
+security:
+  enhancedLegacySignature: true
+  api:
+    legacy: true
+    jwt:
+      sign:
+        expiresIn: 29d
+      verify:
+        someProp: [value]
+   web:
+     sign:
+       expiresIn: 1h # 1 hour by default
+     verify:
+     	someProp: [value]
+```
 
 ### Server {#server}
 

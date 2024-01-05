@@ -3,12 +3,17 @@ name: UI Components
 on: 
   workflow_dispatch:
   pull_request:
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'    
     paths:
     - .github/workflows/ui-components.yml
     - 'packages/ui-components/**'
     - 'package.json'
     - 'pnpm-workspace.yaml'
     - 'pnpm-lock.yaml'
+  schedule:
+      - cron: '0 0 * * 1'     
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)

@@ -24,7 +24,7 @@ export function aesEncrypt(value: string, key: string): string | void {
   debug('encrypt %o', value);
   debug('algorithm %o', defaultAlgorithm);
   // IV must be a buffer of length 16
-  const iv = Buffer.from(randomBytes(16));
+  const iv = randomBytes(16);
   const secretKey = VERDACCIO_LEGACY_ENCRYPTION_KEY || key;
   const isKeyValid = secretKey?.length === TOKEN_VALID_LENGTH;
   debug('length secret key %o', secretKey?.length);

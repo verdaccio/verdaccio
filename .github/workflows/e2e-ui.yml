@@ -23,14 +23,14 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-          corepack install
+          corepack prepare
       - name: Install
         run: pnpm install --reporter=silence --registry http://localhost:4873
       - name: build
         run: pnpm build
       - name: Test UI
         run: pnpm test:e2e:ui
-      - uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v3
+      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
         with:
           name: videos
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos

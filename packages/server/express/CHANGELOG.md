@@ -1,5 +1,26 @@
 # @verdaccio/server
 
+## 7.0.0-next.5
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+
+### Patch Changes
+
+- Updated dependencies [f047cc8]
+  - @verdaccio/middleware@7.0.0-next.5
+  - @verdaccio/core@7.0.0-next.5
+  - @verdaccio/config@7.0.0-next.5
+  - @verdaccio/auth@7.0.0-next.5
+  - @verdaccio/api@7.0.0-next.5
+  - @verdaccio/store@7.0.0-next.5
+  - @verdaccio/web@7.0.0-next.5
+  - @verdaccio/loaders@7.0.0-next.5
+  - @verdaccio/logger@7.0.0-next.5
+  - verdaccio-audit@12.0.0-next.5
+  - @verdaccio/utils@7.0.0-next.5
+
 ## 7.0.0-next.4
 
 ### Patch Changes

@@ -41,6 +41,6 @@ export async function signPayload(
 }
 
 export function verifyPayload(token: string, secretOrPrivateKey: string): RemoteUser {
-  debug('verify jwt token');
+  debug('verifying jwt token');
   return jwt.verify(token, secretOrPrivateKey) as RemoteUser;
 }

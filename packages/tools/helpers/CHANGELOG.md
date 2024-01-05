@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-next.1
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+
 ## 3.0.0-next.0
 
 ### Major Changes

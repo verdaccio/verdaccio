@@ -63,6 +63,10 @@ class Config implements AppConfig {
   private configOptions: { forceEnhancedLegacySignature: boolean };
   public constructor(
     config: ConfigYaml & { config_path: string },
+    // forceEnhancedLegacySignature is a property that
+    // allows switch a new legacy aes signature token signature
+    // for older versions do not want to have this new signature model
+    // this property must be false
     configOptions = { forceEnhancedLegacySignature: true }
   ) {
     const self = this;
@@ -131,6 +135,16 @@ class Config implements AppConfig {
     }
   }
 
+  public getEnhancedLegacySignature() {
+    if (typeof this?.security.enhancedLegacySignature !== 'undefined') {
+      if (this.security.enhancedLegacySignature === true) {
+        return true;
+      }
+      return false;
+    }
+    return this.configOptions.forceEnhancedLegacySignature;
+  }
+
   public getConfigPath() {
     return this.configPath;
   }
@@ -156,24 +170,23 @@ class Config implements AppConfig {
     }
     // generate a new a secret key
     // FUTURE: this might be an external secret key, perhaps within config file?
-    debug('generate a new key');
-    //
-    if (this.configOptions.forceEnhancedLegacySignature) {
+    debug('generating a new secret key');
+
+    if (this.getEnhancedLegacySignature()) {
+      debug('key generated with "enhanced" legacy signature user config');
       this.secret = generateRandomSecretKey();
     } else {
-      this.secret =
-        this.security.enhancedLegacySignature === true
-          ? generateRandomSecretKey()
-          : generateRandomHexString(32);
-      // set this to false allow use old token signature and is not recommended
-      // only use for migration reasons, major release will remove this property and
-      // set it by default
-      if (this.security.enhancedLegacySignature === false) {
-        warningUtils.emit(Codes.VERWAR005);
-      }
+      debug('key generated with legacy signature user config');
+      this.secret = generateRandomHexString(32);
+    }
+    // set this to false allow use old token signature and is not recommended
+    // only use for migration reasons, major release will remove this property and
+    // set it by default
+    if (this.security?.enhancedLegacySignature === false) {
+      warningUtils.emit(Codes.VERWAR005);
     }
 
-    debug('generated a new secret key %s', this.secret?.length);
+    debug('generated a new secret key length %s', this.secret?.length);
     return this.secret;
   }
 }

@@ -22,6 +22,21 @@
       "allowedVersions": "2.607.0"
     },
     {
+      "packageNames": ["@verdaccio/local-storage"],
+      "allowedVersions": "10.3.3",
+      "matchBaseBranches": ["5.x"]
+    },
+    {
+      "packageNames": ["@verdaccio/local-storage"],
+      "allowedVersions": "^10.3.4",
+      "matchBaseBranches": ["6.x"]
+    },
+    {
+      "packageNames": ["@emotion/*"],
+      "matchFileNames": ["./package.json", "./packages/**/package.json"],
+      "matchBaseBranches": ["master"]
+    },
+    {
       "packageNames": ["got"],
       "allowedVersions": "^11.8.5"
     },
@@ -90,11 +105,17 @@
       "allowedVersions": "5.1.1"
     },
     {
-      "matchPackagePatterns": ["@verdaccio/*"],
+      "matchPackagePatterns": [
+        "@verdaccio/*",
+        "verdaccio-audit",
+        "verdaccio-htpasswd",
+        "verdaccio-auth-memory",
+        "verdaccio-memory"
+      ],
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["5.x"]
+      "baseBranchList": ["5.x", "6.x"]
     },
     {
       "matchPackagePatterns": [

@@ -7,7 +7,7 @@ export type Manifest = {
   js: string[];
 };
 
-const debug = buildDebug('verdaccio:web:render:manifest');
+const debug = buildDebug('verdaccio:middleware:web:render:manifest');
 
 export function getManifestValue(
   manifestItems: string[],

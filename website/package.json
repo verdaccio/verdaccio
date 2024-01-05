@@ -41,13 +41,13 @@
     "@mui/styles": "5.15.0",
     "@orama/orama": "1.2.4",
     "@verdaccio/ui-components": "workspace:3.0.0-next.2",
-    "classnames": "2.3.2",
+    "classnames": "2.5.1",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.2.0",
     "docusaurus-plugin-contributors": "workspace:2.0.0-next.0",
     "docusaurus-plugin-sentry": "1.0.0",
     "docusaurus-plugin-typedoc": "0.18.0",
-    "dompurify": "3.0.6",
+    "dompurify": "3.0.7",
     "p-cancelable": "2.1.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -60,11 +60,6 @@
     "typedoc-plugin-merge-modules": "4.0.1",
     "use-is-in-viewport": "^1.0.9",
     "usehooks-ts": "2.9.1"
-  },
-  "pnpm": {
-    "overrides": {
-      "@mdx-js/react": "^1.6.22"
-    }
   },
   "browserslist": {
     "production": [
@@ -86,7 +81,7 @@
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
-    "sass": "1.69.5",
+    "sass": "1.69.7",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }

@@ -1,5 +1,15 @@
 # @verdaccio/cli
 
+## 7.0.0-next.5
+
+### Patch Changes
+
+- Updated dependencies [f047cc8]
+  - @verdaccio/core@7.0.0-next.5
+  - @verdaccio/config@7.0.0-next.5
+  - @verdaccio/node-api@7.0.0-next.5
+  - @verdaccio/logger@7.0.0-next.5
+
 ## 7.0.0-next.4
 
 ### Patch Changes
@@ -178,12 +188,12 @@
 - 8f43bf17d: feat: node api new structure based on promise
 
   ```js
-  import { runServer } from '@verdaccio/node-api';
+  import { runServer } from "@verdaccio/node-api";
   // or
-  import { runServer } from 'verdaccio';
+  import { runServer } from "verdaccio";
 
   const app = await runServer(); // default configuration
-  const app = await runServer('./config/config.yaml');
+  const app = await runServer("./config/config.yaml");
   const app = await runServer({ configuration });
   app.listen(4000, (event) => {
     // do something
@@ -1029,14 +1039,14 @@
 - 5c5057fc: feat: node api new structure based on promise
 
   ```js
-  import { runServer } from '@verdaccio/node-api';
+  import { runServer } from "@verdaccio/node-api";
   // or
-  import { runServer } from 'verdaccio';
+  import { runServer } from "verdaccio";
 
   const app = await runServer(); // default configuration
-  const app = await runServer('./config/config.yaml');
+  const app = await runServer("./config/config.yaml");
   const app = await runServer({ configuration });
-  app.listen(4000, event => {
+  app.listen(4000, (event) => {
     // do something
   });
   ```

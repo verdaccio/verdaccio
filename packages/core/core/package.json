@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "7.0.0-next.4",
+  "version": "7.0.0-next.5",
   "description": "core utilities",
   "keywords": [
     "private",
@@ -38,13 +38,13 @@
     "semver": "7.5.4",
     "ajv": "8.12.0",
     "process-warning": "1.0.0",
-    "core-js": "3.34.0"
+    "core-js": "3.35.0"
   },
   "devDependencies": {
     "lodash": "4.17.21",
     "typedoc": "0.23.25",
     "typedoc-plugin-missing-exports": "latest",
-    "@verdaccio/types": "workspace:12.0.0-next.1"
+    "@verdaccio/types": "workspace:12.0.0-next.2"
   },
   "scripts": {
     "clean": "rimraf ./build",
