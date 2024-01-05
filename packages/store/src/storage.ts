@@ -27,6 +27,7 @@ import { IProxy, ISyncUplinksOptions, ProxySearchParams, ProxyStorage } from '@v
 import {
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
+  extractTarballFromUrl,
 } from '@verdaccio/tarball';
 import {
   AbbreviatedManifest,
@@ -1345,21 +1346,20 @@ class Storage {
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
       if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
-        // anchor regex to avoid polynominal runtime
-        const tarball = metadata.dist.tarball.replace(/^.*\//, '');
-        if (validatioUtils.isObject(data._attachments[tarball])) {
+        const tarballName = extractTarballFromUrl(metadata.dist.tarball);
+        if (validatioUtils.isObject(data._attachments[tarballName])) {
           if (
-            _.isNil(data._attachments[tarball].shasum) === false &&
+            _.isNil(data._attachments[tarballName].shasum) === false &&
             _.isNil(metadata.dist.shasum) === false
           ) {
-            if (data._attachments[tarball].shasum != metadata.dist.shasum) {
+            if (data._attachments[tarballName].shasum != metadata.dist.shasum) {
               const errorMessage =
                 `shasum error, ` +
-                `${data._attachments[tarball].shasum} != ${metadata.dist.shasum}`;
+                `${data._attachments[tarballName].shasum} != ${metadata.dist.shasum}`;
               throw errorUtils.getBadRequest(errorMessage);
             }
           }
-          data._attachments[tarball].version = version;
+          data._attachments[tarballName].version = version;
         }
 
         // if the time field doesn't exist, we create it, some old storage
