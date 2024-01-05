@@ -106,6 +106,20 @@ describe('checkSecretKey', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
     expect(typeof config.checkSecretKey('') === 'string').toBeTruthy();
   });
+
+  test('with enhanced legacy signature', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    config.security.enhancedLegacySignature = true;
+    expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
+    expect(config.secret.length).toBe(32);
+  });
+
+  test('without enhanced legacy signature', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    config.security.enhancedLegacySignature = false;
+    expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
+    expect(config.secret.length).toBe(32);
+  });
 });
 
 describe('getMatchedPackagesSpec', () => {
@@ -157,5 +171,20 @@ describe('VERDACCIO_STORAGE_PATH', () => {
     const config = new Config(defaultConfig);
     expect(config.storage).toBe(storageLocation);
     delete process.env.VERDACCIO_STORAGE_PATH;
+  });
+});
+
+describe('configPath', () => {
+  test('should set configPath in config', () => {
+    const defaultConfig = parseConfigFile(resolveConf('default'));
+    const config = new Config(defaultConfig);
+    expect(config.getConfigPath()).toBe(path.join(__dirname, '../src/conf/default.yaml'));
+  });
+
+  test('should throw an error if configPath is not provided', () => {
+    const defaultConfig = parseConfigFile(resolveConf('default'));
+    defaultConfig.configPath = '';
+    defaultConfig.config_path = '';
+    expect(() => new Config(defaultConfig)).toThrow('configPath property is required');
   });
 });

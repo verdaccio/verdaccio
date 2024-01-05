@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { parseConfigFile } from '../src';
-import { PACKAGE_ACCESS, normalisePackageAccess } from '../src/package-access';
+import { PACKAGE_ACCESS, normalisePackageAccess, normalizeUserList } from '../src/package-access';
 import { parseConfigurationFile } from './utils';
 
 describe('Package access utilities', () => {
@@ -121,6 +121,32 @@ describe('Package access utilities', () => {
       expect(_.isArray(all.access)).toBeTruthy();
       expect(all.publish).toBeDefined();
       expect(_.isArray(all.publish)).toBeTruthy();
+    });
+  });
+  describe('normaliseUserList', () => {
+    test('should normalize user list', () => {
+      const groupsList = 'admin superadmin';
+      const result = normalizeUserList(groupsList);
+      expect(result).toEqual(['admin', 'superadmin']);
+    });
+
+    test('should normalize empty user list', () => {
+      const groupsList = '';
+      const result = normalizeUserList(groupsList);
+      expect(result).toEqual([]);
+    });
+
+    test('should normalize user list array', () => {
+      const groupsList = ['admin', 'superadmin'];
+      const result = normalizeUserList(groupsList);
+      expect(result).toEqual(['admin', 'superadmin']);
+    });
+
+    test('should throw error for invalid user list', () => {
+      const groupsList = { group: 'admin' };
+      expect(() => {
+        normalizeUserList(groupsList);
+      }).toThrow('CONFIG: bad package acl (array or string expected): {"group":"admin"}');
     });
   });
 });
