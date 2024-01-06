@@ -27,7 +27,7 @@ export const PACKAGE_ACCESS = {
 
 export function normalizeUserList(groupsList: any): any {
   const result: any[] = [];
-  if (_.isNil(groupsList)) {
+  if (_.isNil(groupsList) || _.isEmpty(groupsList)) {
     return result;
   }
 

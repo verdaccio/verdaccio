@@ -13,12 +13,18 @@ describe('Config builder', () => {
         proxy: 'some',
       })
       .addLogger({ level: 'info', type: 'stdout', format: 'json' })
+      .addAuth({ htpasswd: { file: '.htpasswd' } })
       .addStorage('/tmp/verdaccio')
       .addSecurity({ api: { legacy: true } });
     expect(config.getConfig()).toEqual({
       security: {
         api: {
           legacy: true,
+        },
+      },
+      auth: {
+        htpasswd: {
+          file: '.htpasswd',
         },
       },
       storage: '/tmp/verdaccio',
