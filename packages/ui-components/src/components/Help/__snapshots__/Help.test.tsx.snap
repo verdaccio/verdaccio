@@ -200,7 +200,7 @@ exports[`<Help /> component should load the component in default state 1`] = `
   padding: 8px;
 }
 
-.emotion-22>:not(:first-of-type) {
+.emotion-22>:not(style)~:not(style) {
   margin-left: 8px;
 }
 
