@@ -29,8 +29,10 @@ Google Cloud Storage** or create your own plugin.
 
 Install with npm:
 
+> Consider `latest-6` tag as not a definitive release. 
+
 ```bash
-npm install --location=global verdaccio
+npm install --location=global verdaccio@latest-6
 ```
 
 > Node.js v18 or higher is required for Verdaccio 6
