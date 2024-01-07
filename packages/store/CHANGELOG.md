@@ -1,5 +1,24 @@
 # @verdaccio/store
 
+## 7.0.0-next.6
+
+### Patch Changes
+
+- e14b064: - Fixes polynomial regular expression when determining the file name of tarball
+  - Add tests for extracting tarball name
+- Updated dependencies [e14b064]
+- Updated dependencies [4d96324]
+  - @verdaccio/tarball@12.0.0-next.6
+  - @verdaccio/config@7.0.0-next.6
+  - @verdaccio/hooks@7.0.0-next.6
+  - @verdaccio/loaders@7.0.0-next.6
+  - @verdaccio/local-storage@12.0.0-next.6
+  - @verdaccio/proxy@7.0.0-next.6
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/url@12.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+  - @verdaccio/logger@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Patch Changes

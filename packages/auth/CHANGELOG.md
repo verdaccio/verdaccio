@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 7.0.0-next.6
+
+### Patch Changes
+
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0-next.6
+  - @verdaccio/loaders@7.0.0-next.6
+  - verdaccio-htpasswd@12.0.0-next.6
+  - @verdaccio/signature@7.0.0-next.3
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+  - @verdaccio/logger@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Minor Changes
