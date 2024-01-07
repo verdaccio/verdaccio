@@ -1,5 +1,15 @@
 # Change Log
 
+## 12.0.0-next.6
+
+### Patch Changes
+
+- e14b064: - Fixes polynomial regular expression when determining the file name of tarball
+  - Add tests for extracting tarball name
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/url@12.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+
 ## 12.0.0-next.5
 
 ### Patch Changes

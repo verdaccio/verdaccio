@@ -1,5 +1,14 @@
 # @verdaccio/proxy
 
+## 7.0.0-next.6
+
+### Patch Changes
+
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0-next.6
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Patch Changes
