@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0-beta.1](https://github.com/verdaccio/verdaccio/compare/v6.0.0-beta.0...v6.0.0-beta.1) (2024-01-07)
+
+
+### Bug Fixes
+
+* release script ([7e7b578](https://github.com/verdaccio/verdaccio/commit/7e7b57869e7006d32fa650a0125f080ec1b9387d))
+
 ## [6.0.0-beta.0](https://github.com/verdaccio/verdaccio/compare/v5.26.1...v6.0.0-beta.0) (2024-01-07)
 
 
