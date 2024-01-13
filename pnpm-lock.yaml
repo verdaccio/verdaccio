@@ -195,8 +195,8 @@ importers:
         specifier: 6.0.0
         version: 6.0.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@types/validator':
-        specifier: 13.11.7
-        version: 13.11.7
+        specifier: 13.11.8
+        version: 13.11.8
       '@types/webpack':
         specifier: 5.28.5
         version: 5.28.5
@@ -11071,8 +11071,8 @@ packages:
   /@types/use-sync-external-store@0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
 
-  /@types/validator@13.11.7:
-    resolution: {integrity: sha512-q0JomTsJ2I5Mv7dhHhQLGjMvX0JJm5dyZ1DXQySIUzU1UlwzB8bt+R6+LODUbz0UDIOvEzGc28tk27gBJw2N8Q==}
+  /@types/validator@13.11.8:
+    resolution: {integrity: sha512-c/hzNDBh7eRF+KbCf+OoZxKbnkpaK/cKp9iLQWqB7muXtM+MtL9SUUH8vCFcLn6dH1Qm05jiexK0ofWY7TfOhQ==}
     dev: true
 
   /@types/webpack-env@1.18.0:
