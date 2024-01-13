@@ -1344,8 +1344,8 @@ importers:
         specifier: 5.0.5
         version: 5.0.5
       style-loader:
-        specifier: 3.3.3
-        version: 3.3.3(webpack@5.89.0)
+        specifier: 3.3.4
+        version: 3.3.4(webpack@5.89.0)
       stylelint:
         specifier: 15.11.0
         version: 15.11.0
@@ -26788,8 +26788,8 @@ packages:
       webpack: 5.89.0(webpack-cli@4.10.0)
     dev: true
 
-  /style-loader@3.3.3(webpack@5.89.0):
-    resolution: {integrity: sha512-53BiGLXAcll9maCYtZi2RCQZKa8NQQai5C4horqKyRmHj9H7QmcUyucrH+4KW/gBQbXM2AsB0axoEcFZPlfPcw==}
+  /style-loader@3.3.4(webpack@5.89.0):
+    resolution: {integrity: sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
       webpack: ^5.0.0
