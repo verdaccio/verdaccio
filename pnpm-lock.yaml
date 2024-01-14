@@ -381,8 +381,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 10.2.5
-        version: 10.2.5
+        specifier: 10.3.0
+        version: 10.3.0
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -22299,8 +22299,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.2.5:
-    resolution: {integrity: sha512-lXdZ7titEN8CH5YJk9C/aYRU9JeDxQ4d8rwIIDsvH3SMjLjHTukB2CFstMiB30zXs4vCrPN2WH6cDq1yHBeJAw==}
+  /npm@10.3.0:
+    resolution: {integrity: sha512-9u5GFc1UqI2DLlGI7QdjkpIaBs3UhTtY8KoCqYJK24gV/j/tByaI4BA4R7RkOc+ASqZMzFPKt4Pj2Z8JcGo//A==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
