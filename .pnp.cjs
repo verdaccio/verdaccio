@@ -123,7 +123,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
             ["mv", "npm:2.1.1"],\
-            ["nock", "npm:13.4.0"],\
+            ["nock", "npm:13.5.0"],\
             ["node-mocks-http", "npm:1.13.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
@@ -11622,10 +11622,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["nock", [\
-        ["npm:13.4.0", {\
-          "packageLocation": "./.yarn/cache/nock-npm-13.4.0-200f928100-30c3751854.zip/node_modules/nock/",\
+        ["npm:13.5.0", {\
+          "packageLocation": "./.yarn/cache/nock-npm-13.5.0-da869fc68c-b50d680da3.zip/node_modules/nock/",\
           "packageDependencies": [\
-            ["nock", "npm:13.4.0"],\
+            ["nock", "npm:13.5.0"],\
             ["debug", "virtual:6251d782ea0db30c21f0f319066656716c470667e40e117968e3ee896b0149dbd84beab1c1d4067d27f9cefc387fad785c8016e1253c05537454f9884ad265e8#npm:4.3.4"],\
             ["json-stringify-safe", "npm:5.0.1"],\
             ["propagate", "npm:2.0.1"]\
@@ -14577,7 +14577,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
             ["mv", "npm:2.1.1"],\
-            ["nock", "npm:13.4.0"],\
+            ["nock", "npm:13.5.0"],\
             ["node-mocks-http", "npm:1.13.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
