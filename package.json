@@ -156,7 +156,7 @@
     "ci:version": "run-s ci:version:changeset ci:version:install",
     "ci:version:install": "pnpm install --frozen-lockfile=false",
     "ci:version:changeset": "changeset version",
-    "ci:publish": "changeset publish --tag next-7",
+    "ci:publish": "changeset publish",
     "ts:ref": "update-ts-references --discardComments",
     "website": "pnpm --filter ...@verdaccio/website build",
     "ui:storybook:build": "pnpm --filter ...@verdaccio/ui-components build-storybook",

@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "next",
+  "tag": "next-7",
   "initialVersions": {
     "@verdaccio/test-cli-commons": "1.1.0",
     "@verdaccio/e2e-cli-npm6": "1.0.1",
