@@ -2247,8 +2247,8 @@ importers:
         specifier: ^1.0.9
         version: 1.0.9(react@17.0.2)
       usehooks-ts:
-        specifier: 2.9.3
-        version: 2.9.3(react-dom@17.0.2)(react@17.0.2)
+        specifier: 2.9.4
+        version: 2.9.4(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
       '@docusaurus/module-type-aliases':
         specifier: 2.4.3
@@ -28260,8 +28260,8 @@ packages:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
 
-  /usehooks-ts@2.9.3(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-MeNkZv8QaBJ7KOU7ovDTsHN8VaHko3BGWczY9uKibF1JLVDFTmrABX7DclGEsbVEQvcGuF4J+gA5F3w6cWNMWA==}
+  /usehooks-ts@2.9.4(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-VOSEbA+BGGORLttsICowNb5CG0D2/IEoVvMEl9OuuOoQi99W6XuNipo3SPFhWo3Bhdwi0Swj1D+IMQDQB9KrwQ==}
     engines: {node: '>=16.15.0'}
     peerDependencies:
       react: ^16.8.0  || ^17.0.0 || ^18.0.0
