@@ -288,8 +288,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       nodemon:
         specifier: 3.0.2
         version: 3.0.2
@@ -565,8 +565,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       supertest:
         specifier: 6.3.4
         version: 6.3.4
@@ -804,8 +804,8 @@ importers:
         specifier: workspace:12.0.0-next.2
         version: link:../core/types
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
 
   packages/loaders:
     dependencies:
@@ -1019,8 +1019,8 @@ importers:
         specifier: workspace:12.0.0-next.2
         version: link:../../core/types
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       supertest:
         specifier: 6.3.4
         version: 6.3.4
@@ -1435,8 +1435,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1667,8 +1667,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -2048,8 +2048,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -2118,8 +2118,8 @@ importers:
         specifier: 20.0.3
         version: 20.0.3
       nock:
-        specifier: 13.4.0
-        version: 13.4.0
+        specifier: 13.5.0
+        version: 13.5.0
       node-html-parser:
         specifier: 4.1.5
         version: 4.1.5
@@ -6787,7 +6787,7 @@ packages:
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.47
+      '@types/react': 18.2.46
       commander: 5.1.0
       joi: 17.9.1
       react: 17.0.2
@@ -22079,8 +22079,8 @@ packages:
       lower-case: 2.0.2
       tslib: 2.6.2
 
-  /nock@13.4.0:
-    resolution: {integrity: sha512-W8NVHjO/LCTNA64yxAPHV/K47LpGYcVzgKd3Q0n6owhwvD0Dgoterc25R4rnZbckJEb6Loxz1f5QMuJpJnbSyQ==}
+  /nock@13.5.0:
+    resolution: {integrity: sha512-9hc1eCS2HtOz+sE9W7JQw/tXJktg0zoPSu48s/pYe73e25JW9ywiowbqnUSd7iZPeVawLcVpPZeZS312fwSY+g==}
     engines: {node: '>= 10.13'}
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
