@@ -8,7 +8,7 @@ import { Registry, ServerQuery } from '../src/server';
 describe('race publishing packages', () => {
   let registry;
 
-  // CI is slow, so we need to increase the timeout for the test
+  // CI is slow, so we need to increase the timeout for the test.
   jest.setTimeout(40000);
 
   beforeAll(async function () {
