@@ -1,5 +1,12 @@
 # Change Log
 
+## 12.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.7
+- @verdaccio/utils@7.0.0-next-7.7
+
 ## 12.0.0-next.6
 
 ### Patch Changes

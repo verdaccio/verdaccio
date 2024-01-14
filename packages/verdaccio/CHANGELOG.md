@@ -1,5 +1,19 @@
 # verdaccio
 
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- 4f70a46: chore: test release
+  - @verdaccio/cli@7.0.0-next-7.7
+  - @verdaccio/node-api@7.0.0-next-7.7
+  - @verdaccio/ui-theme@7.0.0-next-7.7
+  - @verdaccio/hooks@7.0.0-next-7.7
+  - verdaccio-audit@12.0.0-next-7.7
+  - verdaccio-htpasswd@12.0.0-next-7.7
+  - @verdaccio/utils@7.0.0-next-7.7
+  - @verdaccio/logger@7.0.0-next-7.7
+
 ## 7.0.0-next.6
 
 ### Patch Changes
