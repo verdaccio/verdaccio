@@ -71,7 +71,7 @@
     "redux-persist": "6.0.0",
     "remark-gfm": "3.0.1",
     "rimraf": "5.0.5",
-    "style-loader": "3.3.3",
+    "style-loader": "3.3.4",
     "stylelint": "15.11.0",
     "stylelint-config-recommended": "10.0.1",
     "stylelint-config-styled-components": "0.1.1",
