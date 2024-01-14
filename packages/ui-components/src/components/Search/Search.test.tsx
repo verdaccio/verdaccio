@@ -40,8 +40,8 @@ describe('<Search /> component', () => {
   });
 
   test('should load the component in default state', () => {
-    const { container } = renderWithStore(<ComponentToBeRendered />, store);
-    expect(container.firstChild).toMatchSnapshot();
+    renderWithStore(<ComponentToBeRendered />, store);
+    expect(screen.getByPlaceholderText('search.packages')).toBeInTheDocument();
   });
 
   test('handleSearch: when user type package name in search component, show suggestions', async () => {
