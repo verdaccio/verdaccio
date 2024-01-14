@@ -9,9 +9,6 @@ on:
     paths:
     - .github/workflows/ui-components.yml
     - 'packages/ui-components/**'
-    - 'package.json'
-    - 'pnpm-workspace.yaml'
-    - 'pnpm-lock.yaml'
   schedule:
       - cron: '0 0 * * 1'     
 
