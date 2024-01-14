@@ -127,7 +127,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-mocks-http", "npm:1.13.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
-            ["prettier", "npm:3.1.1"],\
+            ["prettier", "npm:3.2.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.4.1"],\
             ["semver", "npm:7.5.4"],\
@@ -4601,7 +4601,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@vue/compiler-sfc", null],\
             ["javascript-natural-sort", "npm:0.7.1"],\
             ["lodash", "npm:4.17.21"],\
-            ["prettier", "npm:3.1.1"]\
+            ["prettier", "npm:3.2.2"]\
           ],\
           "packagePeers": [\
             "@types/prettier",\
@@ -8215,7 +8215,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],\
             ["eslint", "npm:8.56.0"],\
             ["eslint-config-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:9.1.0"],\
-            ["prettier", "npm:3.1.1"],\
+            ["prettier", "npm:3.2.2"],\
             ["prettier-linter-helpers", "npm:1.0.0"],\
             ["synckit", "npm:0.8.6"]\
           ],\
@@ -12423,10 +12423,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["prettier", [\
-        ["npm:3.1.1", {\
-          "packageLocation": "./.yarn/unplugged/prettier-npm-3.1.1-072c31ec21/node_modules/prettier/",\
+        ["npm:3.2.2", {\
+          "packageLocation": "./.yarn/unplugged/prettier-npm-3.2.2-bd270a1ac0/node_modules/prettier/",\
           "packageDependencies": [\
-            ["prettier", "npm:3.1.1"]\
+            ["prettier", "npm:3.2.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14581,7 +14581,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["node-mocks-http", "npm:1.13.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
-            ["prettier", "npm:3.1.1"],\
+            ["prettier", "npm:3.2.2"],\
             ["rimraf", "npm:3.0.2"],\
             ["selfsigned", "npm:2.4.1"],\
             ["semver", "npm:7.5.4"],\
