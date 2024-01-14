@@ -20,7 +20,7 @@
     "debug": "4.3.4",
     "express": "4.18.2",
     "fs-extra": "11.2.0",
-    "supertest": "6.3.3"
+    "supertest": "6.3.4"
   },
   "scripts": {
     "test": "jest .",

@@ -116,7 +116,7 @@
     "react-dom": "18.2.0",
     "rimraf": "5.0.5",
     "selfsigned": "2.4.1",
-    "supertest": "6.3.3",
+    "supertest": "6.3.4",
     "ts-node": "10.9.2",
     "typescript": "5.2.2",
     "undici-types": "5.28.2",
