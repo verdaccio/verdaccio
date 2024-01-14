@@ -1,5 +1,20 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.7
+- @verdaccio/config@7.0.0-next-7.7
+- @verdaccio/tarball@12.0.0-next-7.7
+- @verdaccio/url@12.0.0-next-7.7
+- @verdaccio/hooks@7.0.0-next-7.7
+- @verdaccio/loaders@7.0.0-next-7.7
+- @verdaccio/local-storage@12.0.0-next-7.7
+- @verdaccio/proxy@7.0.0-next-7.7
+- @verdaccio/utils@7.0.0-next-7.7
+- @verdaccio/logger@7.0.0-next-7.7
+
 ## 7.0.0-next.6
 
 ### Patch Changes
