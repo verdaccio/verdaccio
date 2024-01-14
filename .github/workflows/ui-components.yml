@@ -1,17 +1,11 @@
 name: UI Components
 
 on: 
-  workflow_dispatch:
-  pull_request:
-    branches-ignore:
-      - 'renovate/*'
-      - 'dependabot/*'    
-    paths:
-    - .github/workflows/ui-components.yml
-    - 'packages/ui-components/**'
-  schedule:
-      - cron: '0 0 * * 1'     
-
+  workflow_dispatch: 
+  push:
+    branches:
+      - master
+    
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
