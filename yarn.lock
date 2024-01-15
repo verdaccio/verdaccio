@@ -2781,12 +2781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.19.6":
-  version: 18.19.6
-  resolution: "@types/node@npm:18.19.6"
+"@types/node@npm:18.19.7":
+  version: 18.19.7
+  resolution: "@types/node@npm:18.19.7"
   dependencies:
     undici-types: ~5.26.4
-  checksum: f0f3739f2d0e5be7b0b41a1fb149f554b1d6cb6c61c68e316c01ec2605559314f5434c170fb8e1a32f6c96a08ac752baa00ffe4451c154e37c77f76b70cf3d5b
+  checksum: f1241173a66ec7761a0c1e30deb3ba74c507ba06539e2ebd64d37bc62f4b8af420eef8e0db9487d900afeb9a4bdef72764729fed9742e184f2c743b2bc70bfab
   languageName: node
   linkType: hard
 
@@ -11021,7 +11021,7 @@ __metadata:
     "@types/lodash": 4.14.202
     "@types/mime": 3.0.4
     "@types/minimatch": 5.1.2
-    "@types/node": 18.19.6
+    "@types/node": 18.19.7
     "@types/pino": 7.0.5
     "@types/request": 2.48.12
     "@types/semver": 7.5.6
