@@ -133,6 +133,19 @@
     },
     {
       "matchPackagePatterns": [
+        "@testing-library/*",
+        "jest",
+        "jest-*",
+        "supertest",
+        "nock"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all test dependencies",
+      "groupSlug": "all-test",
+      "baseBranchList": ["master", "5.x", "6.x"]
+    },
+    {
+      "matchPackagePatterns": [
         "@type/*",
         "typescript"
       ],
