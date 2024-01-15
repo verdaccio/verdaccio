@@ -111,7 +111,7 @@
     "rimraf": "5.0.5",
     "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
-    "supertest": "6.3.3",
+    "supertest": "6.3.4",
     "ts-node": "10.9.2",
     "typescript": "5.3.3",
     "verdaccio-auth-memory": "10.2.2",
