@@ -5845,9 +5845,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:27.6.1":
-  version: 27.6.1
-  resolution: "eslint-plugin-jest@npm:27.6.1"
+"eslint-plugin-jest@npm:27.6.3":
+  version: 27.6.3
+  resolution: "eslint-plugin-jest@npm:27.6.3"
   dependencies:
     "@typescript-eslint/utils": "npm:^5.10.0"
   peerDependencies:
@@ -5859,7 +5859,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 8cc20a25b6173f4c6ba6151d830fd27458c4946ea9e0d7cd9ed59f6e24c41f526b1f10e03d491bfd8e9d102e6777c5594a43838a9e584eb07594847e2f9416c4
+  checksum: a29319d5a090633e30658da7521f9fa0468f861403509538e0927175ab2a46a7f60bd7fd344b54f7fb5f8e8b6385d8db67c305502a4de1291f32191163e74725
   languageName: node
   linkType: hard
 
@@ -8969,14 +8969,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:13.4.0":
-  version: 13.4.0
-  resolution: "nock@npm:13.4.0"
+"nock@npm:13.5.0":
+  version: 13.5.0
+  resolution: "nock@npm:13.5.0"
   dependencies:
     debug: "npm:^4.1.0"
     json-stringify-safe: "npm:^5.0.1"
     propagate: "npm:^2.0.0"
-  checksum: 269c4d4e2ae250e0af361548ab0ba11a18831cfb3edfd8c6f6b1e4b02c7ffc3b1c8ac04ac33edfd3e114110f4836ab8bb8df398da893cd18fef47d9c256acf7f
+  checksum: 347e6804d3eadb2ec81e3a0808b4cf8d826e5a6b52aa91b31db9c78c9afb58f0af0d1c941dff13d78ff99968b025dea9593f341cc515463270cb69d8e293c9cf
   languageName: node
   linkType: hard
 
@@ -10807,9 +10807,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^8.0.5":
-  version: 8.0.9
-  resolution: "superagent@npm:8.0.9"
+"superagent@npm:^8.1.2":
+  version: 8.1.2
+  resolution: "superagent@npm:8.1.2"
   dependencies:
     component-emitter: "npm:^1.3.0"
     cookiejar: "npm:^2.1.4"
@@ -10821,17 +10821,17 @@ __metadata:
     mime: "npm:2.6.0"
     qs: "npm:^6.11.0"
     semver: "npm:^7.3.8"
-  checksum: e5127a1de13e34a3c3450a43a14f124ab7e595e95df9bc141329dbc9febc3a8c50cb4cd311fe8263523c55f4d62783b19324fab608df5b9ceb5c0991a86697b8
+  checksum: 33d0072e051baf91c7d68131c70682a0650dd1bd0b8dfb6f88e5bdfcb02e18cc2b42a66e44b32fd405ac6bcf5fd57c6e267bf80e2a8ce57a18166a9d3a78f57d
   languageName: node
   linkType: hard
 
-"supertest@npm:6.3.3":
-  version: 6.3.3
-  resolution: "supertest@npm:6.3.3"
+"supertest@npm:6.3.4":
+  version: 6.3.4
+  resolution: "supertest@npm:6.3.4"
   dependencies:
     methods: "npm:^1.1.2"
-    superagent: "npm:^8.0.5"
-  checksum: 7a7da05bf0f43bc891fd377f6ee192c6fa115f01034f522d4f53c6305ab8866c760a5b0e7aedb3e422224e35be00a75b283613c446651cc1d9e35f80d9b461b3
+    superagent: "npm:^8.1.2"
+  checksum: 93015318f5a90398915a032747973d9eacf9aebec3f07b413eba9d8b3db83ff48fbf6f5a92f9526578cae50153b0f76a37de197141030d856db4371a711b86ee
   languageName: node
   linkType: hard
 
@@ -11571,7 +11571,7 @@ __metadata:
     eslint-config-prettier: "npm:9.1.0"
     eslint-plugin-babel: "npm:5.3.1"
     eslint-plugin-import: "npm:2.29.1"
-    eslint-plugin-jest: "npm:27.6.1"
+    eslint-plugin-jest: "npm:27.6.3"
     eslint-plugin-prettier: "npm:5.1.2"
     eslint-plugin-simple-import-sort: "npm:10.0.0"
     eslint-plugin-verdaccio: "npm:10.0.0"
@@ -11593,14 +11593,14 @@ __metadata:
     mime: "npm:3.0.0"
     mkdirp: "npm:1.0.4"
     mv: "npm:2.1.1"
-    nock: "npm:13.4.0"
+    nock: "npm:13.5.0"
     pkginfo: "npm:0.4.1"
     prettier: "npm:3.1.1"
     rimraf: "npm:5.0.5"
     selfsigned: "npm:2.4.1"
     semver: "npm:7.5.4"
     standard-version: "npm:9.5.0"
-    supertest: "npm:6.3.3"
+    supertest: "npm:6.3.4"
     ts-node: "npm:10.9.2"
     typescript: "npm:5.3.3"
     validator: "npm:13.11.0"
