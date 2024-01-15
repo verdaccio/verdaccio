@@ -20,7 +20,7 @@
     "approvalProgress": 1
   },
   "it": {
-    "translationProgress": 100,
+    "translationProgress": 99,
     "approvalProgress": 85
   },
   "ja": {
@@ -68,8 +68,8 @@
     "approvalProgress": 14
   },
   "zh-CN": {
-    "translationProgress": 52,
-    "approvalProgress": 51
+    "translationProgress": 53,
+    "approvalProgress": 53
   },
   "zh-TW": {
     "translationProgress": 15,
