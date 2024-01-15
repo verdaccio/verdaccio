@@ -129,7 +129,17 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
-      "baseBranchList": ["master"]
+      "baseBranchList": ["master", "5.x", "6.x"]
+    },
+    {
+      "matchPackagePatterns": [
+        "@type/*",
+        "typescript"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "typescript dependencies",
+      "groupSlug": "all-types",
+      "baseBranchList": ["master", "5.x", "6.x"]
     }
   ],
   "pinVersions": false
