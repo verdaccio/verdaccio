@@ -132,23 +132,14 @@
       "baseBranchList": ["master", "5.x", "6.x"]
     },
     {
-      "matchPackagePatterns": [
-        "@testing-library/*",
-        "jest",
-        "jest-*",
-        "supertest",
-        "nock"
-      ],
+      "matchPackagePatterns": ["@testing-library/*", "jest", "jest-*", "supertest", "nock"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
       "baseBranchList": ["master", "5.x", "6.x"]
     },
     {
-      "matchPackagePatterns": [
-        "@type/*",
-        "typescript"
-      ],
+      "matchPackagePatterns": ["@type/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
