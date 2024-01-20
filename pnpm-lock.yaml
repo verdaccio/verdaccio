@@ -2247,8 +2247,8 @@ importers:
         specifier: ^1.0.9
         version: 1.0.9(react@17.0.2)
       usehooks-ts:
-        specifier: 2.9.4
-        version: 2.9.4(react-dom@17.0.2)(react@17.0.2)
+        specifier: 2.9.5
+        version: 2.9.5(react-dom@17.0.2)(react@17.0.2)
     devDependencies:
       '@docusaurus/module-type-aliases':
         specifier: 2.4.3
@@ -6787,7 +6787,7 @@ packages:
       react-dom: ^16.8.4 || ^17.0.0
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 18.2.48
+      '@types/react': 18.2.46
       commander: 5.1.0
       joi: 17.9.1
       react: 17.0.2
@@ -28328,8 +28328,8 @@ packages:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
 
-  /usehooks-ts@2.9.4(react-dom@17.0.2)(react@17.0.2):
-    resolution: {integrity: sha512-VOSEbA+BGGORLttsICowNb5CG0D2/IEoVvMEl9OuuOoQi99W6XuNipo3SPFhWo3Bhdwi0Swj1D+IMQDQB9KrwQ==}
+  /usehooks-ts@2.9.5(react-dom@17.0.2)(react@17.0.2):
+    resolution: {integrity: sha512-M5LrjX9Wo4XRsof0zCCsq81x5+so/b89aUO53XPTjUehKAbOFhRq/DDRyv7qsRK4AEaJe1rhReFZqesPGnREhQ==}
     engines: {node: '>=16.15.0'}
     peerDependencies:
       react: ^16.8.0  || ^17.0.0 || ^18.0.0
