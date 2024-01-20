@@ -15,7 +15,7 @@ on:
       - '.yarnrc.yaml'
       - '.pnp.js'
     branches:
-      - '**'
+      - '6.x'
     tags:
      - 'v*'
 
