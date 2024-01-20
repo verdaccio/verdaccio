@@ -78,6 +78,7 @@ export async function createRequest(options: Options): Promise<any> {
   debug('options %s', JSON.stringify(options));
   let body = undefined;
   if (isNil(options.body) === false) {
+    // @ts-ignore
     body = isObject(options.body) === false ? JSON.stringify(options.body) : options.body;
   }
 
