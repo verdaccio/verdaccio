@@ -2,6 +2,7 @@
   "extends": ["config:base", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 8,
   "ignorePaths": ["docker-examples/**"],
+  "schedule": ["every weekend"],
   "ignoreDeps": [
     "customprefix-auth",
     "eslint-plugin-verdaccio",
