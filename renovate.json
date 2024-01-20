@@ -132,6 +132,24 @@
       "baseBranchList": ["master", "5.x", "6.x"]
     },
     {
+      "matchPackagePatterns": [
+        "webpack",
+        "css-loader",
+        "eslint-loader",
+        "file-loader",
+        "sass-loader",
+        "url-loader",
+        "styles-loader",
+        "source-map-loader",
+        "babel-loader",
+        "webpack-*"
+      ],
+      "matchUpdateTypes": ["minor", "patch", "major"],
+      "groupName": "all build dependencies",
+      "groupSlug": "all-build",
+      "baseBranchList": ["master"]
+    },
+    {
       "matchPackagePatterns": ["@testing-library/*", "jest", "jest-*", "supertest", "nock"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
