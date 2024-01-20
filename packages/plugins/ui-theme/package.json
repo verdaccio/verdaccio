@@ -43,7 +43,7 @@
     "html-webpack-plugin": "5.6.0",
     "i18next": "20.6.1",
     "in-publish": "2.0.1",
-    "js-base64": "3.7.5",
+    "js-base64": "3.7.6",
     "js-yaml": "4.1.0",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
