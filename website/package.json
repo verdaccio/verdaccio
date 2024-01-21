@@ -81,7 +81,7 @@
     "esbuild": "0.14.10",
     "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^1.2.1",
-    "sass": "1.69.7",
+    "sass": "1.70.0",
     "sass-loader": "^12.1.0",
     "url-loader": "4.1.1"
   }
