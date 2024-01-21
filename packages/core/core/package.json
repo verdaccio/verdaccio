@@ -38,7 +38,7 @@
     "semver": "7.5.4",
     "ajv": "8.12.0",
     "process-warning": "1.0.0",
-    "core-js": "3.35.0"
+    "core-js": "3.35.1"
   },
   "devDependencies": {
     "lodash": "4.17.21",
