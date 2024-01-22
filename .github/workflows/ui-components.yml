@@ -1,11 +1,8 @@
 name: UI Components
 
 on: 
-  workflow_dispatch: 
-  push:
-    branches:
-      - master
-    
+  workflow_dispatch:
+
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
