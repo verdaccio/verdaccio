@@ -32,7 +32,7 @@
     "@docusaurus/theme-search-algolia": "2.4.3",
     "@emotion/cache": "11.10.7",
     "@emotion/css": "11.10.6",
-    "@emotion/jest": "11.10.5",
+    "@emotion/jest": "11.11.0",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@mdx-js/react": "^1.6.22",
