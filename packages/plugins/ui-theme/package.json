@@ -15,7 +15,7 @@
   "devDependencies": {
     "@emotion/babel-plugin": "11.10.6",
     "@emotion/css": "11.10.6",
-    "@emotion/jest": "11.10.5",
+    "@emotion/jest": "11.11.0",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@mui/icons-material": "5.15.5",
@@ -25,7 +25,7 @@
     "@rematch/loading": "2.1.2",
     "@rematch/persist": "2.1.2",
     "@testing-library/dom": "9.3.4",
-    "@testing-library/jest-dom": "6.2.0",
+    "@testing-library/jest-dom": "6.2.1",
     "@testing-library/react": "14.1.2",
     "@verdaccio/node-api": "workspace:7.0.0-next-7.7",
     "@verdaccio/types": "workspace:*",

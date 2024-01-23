@@ -61,7 +61,7 @@
   "devDependencies": {
     "@babel/core": "^7.23.0",
     "@emotion/babel-plugin": "11.10.6",
-    "@emotion/jest": "11.10.5",
+    "@emotion/jest": "11.11.0",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",
     "@storybook/addon-interactions": "^6.5.15",
@@ -71,7 +71,7 @@
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.2.0",
     "@testing-library/dom": "9.3.4",
-    "@testing-library/jest-dom": "6.2.0",
+    "@testing-library/jest-dom": "6.2.1",
     "@testing-library/react": "14.1.2",
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",
