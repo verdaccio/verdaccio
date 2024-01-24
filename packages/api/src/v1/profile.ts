@@ -81,15 +81,17 @@ export default function (route: Router, auth: Auth, config: Config): void {
           /* eslint new-cap:off */
         }
 
+        if (_.isEmpty(password.old)) {
+          return next(errorUtils.getBadRequest('old password is required'));
+        }
+
         auth.changePassword(
           name,
           password.old,
           password.new,
           (err, isUpdated): $NextFunctionVer => {
             if (_.isNull(err) === false) {
-              return next(
-                errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
-              );
+              return next(errorUtils.getForbidden(err.message));
             }
 
             if (isUpdated) {
