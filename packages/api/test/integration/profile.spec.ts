@@ -36,16 +36,28 @@ describe('profile ', () => {
         .expect(HTTP_STATUS.UNAUTHORIZED);
     });
 
-    test('should return handle to short password', async () => {
+    test('should return handle to short new password', async () => {
       const app = await initializeServer('profile.yaml');
       const credentials = { name: 'test', password: 'test' };
       const response = await createUser(app, credentials.name, credentials.password);
       return supertest(app)
         .post('/-/npm/v1/user')
-        .send({ password: '_' })
+        .send({ password: { new: '_' } })
         .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
         .expect(HTTP_STATUS.UNAUTHORIZED);
+    });
+
+    test('should return handle to missing old password', async () => {
+      const app = await initializeServer('profile.yaml');
+      const credentials = { name: 'test', password: 'test' };
+      const response = await createUser(app, credentials.name, credentials.password);
+      return supertest(app)
+        .post('/-/npm/v1/user')
+        .send({ password: { new: 'fooooo', old: undefined } })
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+        .expect(HTTP_STATUS.BAD_REQUEST);
     });
 
     test('should return handle to missing password', async () => {
