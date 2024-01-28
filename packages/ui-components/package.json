@@ -71,7 +71,7 @@
     "@storybook/react": "^6.5.15",
     "@storybook/testing-library": "^0.2.0",
     "@testing-library/dom": "9.3.4",
-    "@testing-library/jest-dom": "6.2.1",
+    "@testing-library/jest-dom": "6.3.0",
     "@testing-library/react": "14.1.2",
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",

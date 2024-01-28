@@ -105,8 +105,8 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.2.1
-        version: 6.2.1(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.3.0
+        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
         specifier: 14.1.2
         version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -288,8 +288,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       nodemon:
         specifier: 3.0.3
         version: 3.0.3
@@ -565,8 +565,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       supertest:
         specifier: 6.3.4
         version: 6.3.4
@@ -804,8 +804,8 @@ importers:
         specifier: workspace:12.0.0-next.2
         version: link:../core/types
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
 
   packages/loaders:
     dependencies:
@@ -1019,8 +1019,8 @@ importers:
         specifier: workspace:12.0.0-next.2
         version: link:../../core/types
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       supertest:
         specifier: 6.3.4
         version: 6.3.4
@@ -1206,8 +1206,8 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.2.1
-        version: 6.2.1(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.3.0
+        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
         specifier: 14.1.2
         version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -1435,8 +1435,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1667,8 +1667,8 @@ importers:
         specifier: 3.0.5
         version: 3.0.5
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1948,8 +1948,8 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.2.1
-        version: 6.2.1(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.3.0
+        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
         specifier: 14.1.2
         version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
@@ -2048,8 +2048,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -2118,8 +2118,8 @@ importers:
         specifier: 20.0.3
         version: 20.0.3
       nock:
-        specifier: 13.5.0
-        version: 13.5.0
+        specifier: 13.5.1
+        version: 13.5.1
       node-html-parser:
         specifier: 4.1.5
         version: 4.1.5
@@ -10463,8 +10463,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.2.1(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6):
-    resolution: {integrity: sha512-Nuy/uFFDe9h/2jwoUuMKgoxvgkUv4S9jI9bARj6dGUKJ3euRhg8JFi5sciYbrayoxkadEOZednRT9+vo6LvvxQ==}
+  /@testing-library/jest-dom@6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6):
+    resolution: {integrity: sha512-hJVIrkFizEQxoWsGBlycTcQhrpoCH4DhXfrnHFFXgkx3Xdm15zycsq5Ep+vpw4W8S0NJa8cxDHcuJib+1tEbhg==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -11122,7 +11122,7 @@ packages:
     resolution: {integrity: sha512-bnreXCgus6IIadyHNlN/oI5FfX4dWgvGhOPvpr7zzCYDGAPIfvyIoAozMBINmhmsVuqV0cncejF2y5KC7ScqOg==}
     deprecated: This is a stub types definition. @testing-library/jest-dom provides its own type definitions, so you do not need this installed.
     dependencies:
-      '@testing-library/jest-dom': 6.2.1(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/jest-dom': 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
     transitivePeerDependencies:
       - '@jest/globals'
       - '@types/bun'
@@ -22087,8 +22087,8 @@ packages:
       lower-case: 2.0.2
       tslib: 2.6.2
 
-  /nock@13.5.0:
-    resolution: {integrity: sha512-9hc1eCS2HtOz+sE9W7JQw/tXJktg0zoPSu48s/pYe73e25JW9ywiowbqnUSd7iZPeVawLcVpPZeZS312fwSY+g==}
+  /nock@13.5.1:
+    resolution: {integrity: sha512-+s7b73fzj5KnxbKH4Oaqz07tQ8degcMilU4rrmnKvI//b0JMBU4wEXFQ8zqr+3+L4eWSfU3H/UoIVGUV0tue1Q==}
     engines: {node: '>= 10.13'}
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
