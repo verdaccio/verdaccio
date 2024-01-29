@@ -19,6 +19,10 @@
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
+      "packageNames": ["actions/*", "github/codeql-action"],
+      "schedule": ["every 4 month"]
+    },
+    {
       "packageNames": ["aws-sdk"],
       "allowedVersions": "2.607.0"
     },
