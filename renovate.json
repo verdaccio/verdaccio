@@ -164,6 +164,13 @@
       "baseBranchList": ["master", "5.x", "6.x"]
     },
     {
+      "matchPackagePatterns": ["npm", "pnpm", "yarn", "@yarnpkg/*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "all package managers",
+      "groupSlug": "all-pkg-managers",
+      "baseBranchList": ["master"]
+    },
+    {
       "matchPackagePatterns": ["@type/*", "typescript"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
