@@ -2,7 +2,7 @@ import assert from 'assert';
 import buildDebug from 'debug';
 import _, { isEmpty, isNil } from 'lodash';
 import { basename } from 'path';
-import { PassThrough, Readable, Transform, pipeline as streamPipeline } from 'stream';
+import { PassThrough, Readable, Transform } from 'stream';
 import { pipeline } from 'stream/promises';
 import { default as URL } from 'url';
 
@@ -23,7 +23,16 @@ import {
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
-import { IProxy, ISyncUplinksOptions, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
+import {
+  IProxy,
+  ISyncUplinksOptions,
+  ProxyInstanceList,
+  ProxySearchParams,
+  ProxyStorage,
+  setupUpLinks,
+  updateVersionsHiddenUpLinkNext,
+} from '@verdaccio/proxy';
+import Search, { mapManifestToSearchPackageBody } from '@verdaccio/search';
 import {
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
@@ -52,12 +61,9 @@ import {
   UpdateManifestOptions,
   cleanUpReadme,
   isDeprecatedManifest,
-  mapManifestToSearchPackageBody,
   tagVersion,
   tagVersionNext,
 } from '.';
-import { TransFormResults } from './lib/TransFormResults';
-import { removeDuplicates } from './lib/search-utils';
 import { isPublishablePackage } from './lib/star-utils';
 import { isExecutingStarCommand } from './lib/star-utils';
 import {
@@ -72,7 +78,6 @@ import {
   normalizePackage,
   updateUpLinkMetadata,
 } from './lib/storage-utils';
-import { ProxyInstanceList, setupUpLinks, updateVersionsHiddenUpLinkNext } from './lib/uplink-util';
 import { getVersion } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
 import { IGetPackageOptionsNext, StarManifestBody } from './type';
@@ -90,10 +95,12 @@ class Storage {
   public readonly config: Config;
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
+  private searchService: Search;
   public constructor(config: Config) {
     this.config = config;
-    this.uplinks = setupUpLinks(config);
     this.logger = logger.child({ module: 'storage' });
+    this.uplinks = setupUpLinks(config, this.logger);
+    this.searchService = new Search(config, this.logger);
     this.filters = null;
     // @ts-ignore
     this.localStorage = null;
@@ -224,59 +231,7 @@ class Storage {
    * (privated and cached).
    */
   public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
-    const transformResults = new TransFormResults({ objectMode: true });
-    const streamPassThrough = new PassThrough({ objectMode: true });
-    const upLinkList = this.getProxyList();
-    debug('uplinks found %s', upLinkList.length);
-    const searchUplinksStreams = upLinkList.map((uplinkId: string) => {
-      const uplink = this.uplinks[uplinkId];
-      if (!uplink) {
-        // this line should never happens
-        this.logger.error({ uplinkId }, 'uplink @upLinkId not found');
-      }
-      return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
-    });
-
-    try {
-      debug('searching on %s uplinks...', searchUplinksStreams?.length);
-      // only process those streams end successfully, if all request fails
-      // just include local storage results (if local fails then return 500)
-      await Promise.allSettled([...searchUplinksStreams]);
-      debug('searching all uplinks done');
-    } catch (err: any) {
-      this.logger.error({ err: err?.message }, ' error on uplinks search @{err}');
-      streamPassThrough.emit('error', err);
-    }
-    debug('search local');
-    try {
-      await this.searchCachedPackages(streamPassThrough, options.query as searchUtils.SearchQuery);
-    } catch (err: any) {
-      this.logger.error({ err: err?.message }, ' error on local search @{err}');
-      streamPassThrough.emit('error', err);
-    }
-    const data: searchUtils.SearchPackageItem[] = [];
-    const outPutStream = new PassThrough({ objectMode: true });
-    streamPipeline(streamPassThrough, transformResults, outPutStream, (err: any) => {
-      if (err) {
-        this.logger.error({ err: err?.message }, ' error on search @{err}');
-        throw errorUtils.getInternalError(err ? err.message : 'unknown search error');
-      } else {
-        debug('pipeline succeeded');
-      }
-    });
-
-    outPutStream.on('data', (chunk) => {
-      data.push(chunk);
-    });
-
-    return new Promise((resolve) => {
-      outPutStream.on('finish', async () => {
-        const searchFinalResults: searchUtils.SearchPackageItem[] = removeDuplicates(data);
-        debug('search stream total results: %o', searchFinalResults.length);
-        return resolve(searchFinalResults);
-      });
-      debug('search done');
-    });
+    return this.searchService.search(options, this.searchCachedPackages.bind(this));
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
@@ -682,28 +637,6 @@ class Storage {
   }
 
   /**
-   * Consume the upstream and pipe it to a transformable stream.
-   */
-  private consumeSearchStream(
-    uplinkId: string,
-    uplink: IProxy,
-    options: ProxySearchParams,
-    searchPassThrough: PassThrough
-  ): Promise<any> {
-    return uplink.search({ ...options }).then((bodyStream) => {
-      bodyStream.pipe(searchPassThrough, { end: false });
-      bodyStream.on('error', (err: any): void => {
-        logger.error(
-          { uplinkId, err: err },
-          'search error for uplink @{uplinkId}: @{err?.message}'
-        );
-        searchPassThrough.end();
-      });
-      return new Promise((resolve) => bodyStream.on('end', resolve));
-    });
-  }
-
-  /**
    * Retrieve a wrapper that provide access to the package location.
    * @param {Object} pkgName package name.
    * @return {Object}
@@ -739,13 +672,13 @@ class Storage {
     query: searchUtils.SearchQuery
   ): Promise<void> {
     debug('search on each package');
-    this.logger.info(
+    logger.info(
       { t: query.text, q: query.quality, p: query.popularity, m: query.maintenance, s: query.size },
       'search by text @{t}| maintenance @{m}| quality @{q}| popularity @{p}'
     );
 
     if (typeof this.localStorage.getStoragePlugin().search === 'undefined') {
-      this.logger.info('plugin search not implemented yet');
+      logger.info('plugin search not implemented yet');
       searchStream.end();
     } else {
       debug('search on each package by plugin');

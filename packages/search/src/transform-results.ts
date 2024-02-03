@@ -4,7 +4,7 @@ import { Transform } from 'stream';
 
 import { searchUtils } from '@verdaccio/core';
 
-const debug = buildDebug('verdaccio:storage:search:transform');
+const debug = buildDebug('verdaccio:search:transform');
 
 export class TransFormResults extends Transform {
   public constructor(options) {

@@ -1,15 +1,15 @@
-import { logger } from '@verdaccio/logger';
-import { IProxy, ProxyStorage } from '@verdaccio/proxy';
-import { Config, Manifest } from '@verdaccio/types';
+import { Config, Logger, Manifest } from '@verdaccio/types';
+
+import { IProxy, ProxyStorage } from './index';
 
 export interface ProxyInstanceList {
   [key: string]: IProxy;
 }
 
 /**
- * Set up the Up Storage for each link.
+ * Set up uplinks for each proxy configuration.
  */
-export function setupUpLinks(config: Config): ProxyInstanceList {
+export function setupUpLinks(config: Config, logger: Logger): ProxyInstanceList {
   const uplinks: ProxyInstanceList = {};
 
   for (const uplinkName in config.uplinks) {
@@ -38,5 +38,5 @@ export function updateVersionsHiddenUpLinkNext(manifest: Manifest, upLink: IProx
     versions[version][Symbol.for('__verdaccio_uplink')] = upLink.upname;
   }
 
-  return { ...manifest, versions: versions };
+  return { ...manifest, versions };
 }

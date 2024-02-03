@@ -39,7 +39,7 @@
     "verdaccio-memory": "11.0.0",
     "@verdaccio/ui-theme": "6.0.0",
     "@verdaccio/proxy": "6.0.0",
-    "@verdaccio/search": "6.0.0",
+    "@verdaccio/search-indexer": "6.0.0",
     "@verdaccio/server": "6.0.0",
     "@verdaccio/server-fastify": "6.0.0",
     "@verdaccio/signature": "6.0.0",

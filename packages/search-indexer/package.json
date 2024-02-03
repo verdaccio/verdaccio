@@ -1,8 +1,8 @@
 {
-  "name": "@verdaccio/search",
+  "name": "@verdaccio/search-indexer",
   "version": "7.0.0-next.0",
-  "description": "verdaccio search proxy",
-  "main": "./build/index.js",
+  "description": "verdaccio search indexer",
+  "main": "./build/dist.js",
   "types": "build/index.d.ts",
   "author": {
     "name": "Juan Picado",
@@ -26,27 +26,21 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=12"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types"
-  },
-  "dependencies": {
-    "debug": "4.3.4",
-    "lodash": "4.17.21",
-    "@verdaccio/config": "workspace:7.0.0-next-7.7",
-    "@verdaccio/core": "workspace:7.0.0-next-7.7",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.7",
-    "@verdaccio/proxy": "workspace:7.0.0-next-7.7"
+    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next.2"
+    "@verdaccio/types": "workspace:12.0.0-next.2",
+    "@orama/orama": "1.2.4",
+    "debug": "4.3.4",
+    "esbuild": "0.14.10"
   },
   "funding": {
     "type": "opencollective",

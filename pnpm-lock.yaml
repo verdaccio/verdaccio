@@ -1451,6 +1451,31 @@ importers:
         version: 7.6.0
 
   packages/search:
+    dependencies:
+      '@verdaccio/config':
+        specifier: workspace:7.0.0-next-7.7
+        version: link:../config
+      '@verdaccio/core':
+        specifier: workspace:7.0.0-next-7.7
+        version: link:../core/core
+      '@verdaccio/logger':
+        specifier: workspace:7.0.0-next-7.7
+        version: link:../logger/logger
+      '@verdaccio/proxy':
+        specifier: workspace:7.0.0-next-7.7
+        version: link:../proxy
+      debug:
+        specifier: 4.3.4
+        version: 4.3.4(supports-color@5.5.0)
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@verdaccio/types':
+        specifier: workspace:12.0.0-next.2
+        version: link:../core/types
+
+  packages/search-indexer:
     devDependencies:
       '@orama/orama':
         specifier: 1.2.4
@@ -1635,6 +1660,9 @@ importers:
       '@verdaccio/proxy':
         specifier: workspace:7.0.0-next-7.11
         version: link:../proxy
+      '@verdaccio/search':
+        specifier: workspace:7.0.0-next.0
+        version: link:../search
       '@verdaccio/tarball':
         specifier: workspace:12.0.0-next-7.11
         version: link:../core/tarball
