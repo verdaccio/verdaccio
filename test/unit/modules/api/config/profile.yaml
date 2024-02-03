@@ -1,0 +1,27 @@
+auth:
+  htpasswd:
+    file: ./htpasswd-profile
+web:
+  enable: true
+  title: verdaccio
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+  'verdaccio':
+    access: $all
+    publish: $all
+  '**':
+    access: $all
+    publish: $all
+    unpublish: $all
+    proxy: npmjs
+
+_debug: true

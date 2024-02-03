@@ -2,7 +2,7 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { Auth } from '@verdaccio/auth';
-import { validatioUtils } from '@verdaccio/core';
+import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { ConfigYaml } from '@verdaccio/types';
 
@@ -71,15 +71,17 @@ export default function (router: Router, auth: Auth, config: ConfigYaml) {
           /* eslint new-cap:off */
         }
 
+        if (_.isEmpty(password.old)) {
+          return next(errorUtils.getBadRequest('old password is required'));
+        }
+
         auth.changePassword(
           name,
           password.old,
           password.new,
           (err, isUpdated): $NextFunctionVer => {
             if (_.isNull(err) === false) {
-              return next(
-                ErrorCode.getCode(err.status, err.message) || ErrorCode.getConflict(err.message)
-              );
+              return next(errorUtils.getForbidden(err.message));
             }
 
             if (isUpdated) {
