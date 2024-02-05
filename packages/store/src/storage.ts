@@ -1098,17 +1098,17 @@ class Storage {
 
     try {
       // we check if package exist already locally
-      const manifest = await this.getPackagelocalByNameNext(name);
+      const localManifest = await this.getPackagelocalByNameNext(name);
       // if continue, the version to be published does not exist
-      if (manifest?.versions[versionToPublish] != null) {
-        debug('%s version %s already exists', name, versionToPublish);
+      if (localManifest?.versions[versionToPublish] != null) {
+        debug('%s version %s already exists (locally)', name, versionToPublish);
         throw errorUtils.getConflict();
       }
       const uplinksLook = this.config?.publish?.allow_offline === false;
       // if execution get here, package does not exist locally, we search upstream
       const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
-        debug('%s version %s already exists', name, versionToPublish);
+        debug('%s version %s already exists (upstream)', name, versionToPublish);
         throw errorUtils.getConflict();
       }
 
@@ -1127,9 +1127,12 @@ class Storage {
 
     // 1. after tarball has been successfully uploaded, we update the version
     try {
-      // TODO: review why do this
-      versions[versionToPublish].readme =
-        _.isNil(manifest.readme) === false ? String(manifest.readme) : '';
+      // Older package managers like npm6 do not send readme content as part of version but include it on root level
+      if (_.isEmpty(versions[versionToPublish].readme)) {
+        versions[versionToPublish].readme =
+          _.isNil(manifest.readme) === false ? String(manifest.readme) : '';
+      }
+      // addVersion will move the readme from the the published version to the root level
       await this.addVersion(name, versionToPublish, versions[versionToPublish], null);
     } catch (err: any) {
       logger.error({ err: err.message }, 'updated version has failed: @{err}');
@@ -1145,7 +1148,7 @@ class Storage {
       // 1. add version
       // 2. merge versions
       // 3. upload tarball
-      // 3.update once to the storage (easy peasy)
+      // 4. update once to the storage (easy peasy)
       mergedManifest = await this.mergeTagsNext(name, manifest[DIST_TAGS]);
     } catch (err: any) {
       logger.error({ err: err.message }, 'merge version has failed: @{err}');
