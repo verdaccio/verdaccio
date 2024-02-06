@@ -25,7 +25,7 @@ const colors = {
   nobel02: '#9f9f9f',
   primary: PRIMARY_COLOR,
   secondary: '#20232a',
-  background: '#fff',
+  background: '#f4f4f4',
   dodgerBlue: '#1ba1f2',
   cyanBlue: '#253341',
 };
@@ -112,6 +112,13 @@ export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
       error: { main: palette.red },
       background: {
         default: palette.background,
+      },
+    },
+    // Looks better in darkmode without background opacity
+    // https://mui.com/material-ui/migration/v5-component-changes/#change-dark-mode-background-opacity
+    components: {
+      MuiPaper: {
+        styleOverrides: { root: { backgroundImage: 'unset' } },
       },
     },
     ...customizedTheme,
