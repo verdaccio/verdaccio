@@ -24,9 +24,19 @@ const UsedBy = (): React.ReactElement => (
           url: 'https://www.gatsbyjs.com/',
         },
         {
+          name: 'pintura',
+          image: useBaseUrl('/img/sponsors/pqina.svg'),
+          url: 'https://pqina.nl/pintura/',
+        },
+        {
           name: 'pnpm',
           image: useBaseUrl('/img/sponsors/pnpm.svg'),
           url: 'https://pnpm.io',
+        },
+        {
+          name: 'vendure',
+          image: useBaseUrl('/img/sponsors/vendure.png'),
+          url: 'https://www.vendure.io/',
         },
         {
           name: 'create-react-app',
@@ -37,11 +47,6 @@ const UsedBy = (): React.ReactElement => (
           name: 'Angular CLI',
           image: useBaseUrl('/img/sponsors/angular.svg'),
           url: 'https://angular.io/cli',
-        },
-        {
-          name: 'vendure',
-          image: useBaseUrl('/img/sponsors/vendure.png'),
-          url: 'https://www.vendure.io/',
         },
         {
           name: 'aurelia',

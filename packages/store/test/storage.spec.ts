@@ -908,23 +908,15 @@ describe('storage', () => {
     describe('error handling', () => {
       test('should handle double failure on uplinks with timeout', async () => {
         const fooManifest = generatePackageMetadata('timeout', '8.0.0');
-
-        nock('https://registry.domain.com')
+        nock('https://registry.timeout.com')
           .get(`/${fooManifest.name}`)
-          .times(10)
-          .delayConnection(4000)
+          .delayConnection(8000)
           .reply(201, manifestFooRemoteNpmjs);
 
         const config = new Config(
           configExample(
             {
               storage: generateRandomStorage(),
-              uplinks: {
-                npmjs: {
-                  url: 'https://registry.npmjs.org',
-                  timeout: '2s',
-                },
-              },
             },
             './fixtures/config/syncDoubleUplinksMetadata.yaml',
             __dirname
@@ -935,13 +927,13 @@ describe('storage', () => {
         await storage.init(config);
         await expect(
           storage.syncUplinksMetadataNext(fooManifest.name, null, {
-            retry: { limit: 0 },
+            retry: { limit: 3 },
             timeout: {
               request: 1000,
             },
           })
         ).rejects.toThrow(API_ERROR.NO_PACKAGE);
-      }, 10000);
+      }, 18000);
 
       test('should handle one proxy fails', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
