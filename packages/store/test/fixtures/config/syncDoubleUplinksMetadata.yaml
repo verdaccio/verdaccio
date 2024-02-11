@@ -1,26 +1,10 @@
 uplinks:
   timeout:
-    url: https://registry.domain.com/
+    url: https://registry.domain1.com/
     timeout: 2s
-  some:
-    url: https://registry.domain.com/
-  ver:
-    url: https://registry.verdaccio.org/
 packages:
-  '@*/*':
-    access: $all
-    publish: $all
-    proxy: some
   'timeout':
     access: $all
     publish: $authenticated
     proxy: timeout
-  'foo':
-    access: $all
-    publish: $authenticated
-    proxy: some ver
-  '*':
-    access: $all
-    publish: $all
-    proxy: some
-log: { type: stdout, format: pretty, level: warn }
+log: { type: stdout, format: pretty, level: info }
