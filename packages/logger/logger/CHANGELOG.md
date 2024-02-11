@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.8
+
 ## 7.0.0-next-7.7
 
 ### Patch Changes

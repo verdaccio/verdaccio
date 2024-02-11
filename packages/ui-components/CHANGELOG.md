@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.3
+
+### Patch Changes
+
+- 3323599: fix: render READMEs with correct font and highlighting
+
 ## 3.0.0-next.2
 
 ### Major Changes
