@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "12.0.0-next-7.7",
+  "version": "12.0.0-next-7.8",
   "description": "tarball utilities resolver",
   "keywords": [
     "private",
@@ -34,9 +34,9 @@
   },
   "dependencies": {
     "debug": "4.3.4",
-    "@verdaccio/core": "workspace:7.0.0-next-7.7",
-    "@verdaccio/url": "workspace:12.0.0-next-7.7",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.7",
+    "@verdaccio/core": "workspace:7.0.0-next-7.8",
+    "@verdaccio/url": "workspace:12.0.0-next-7.8",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.8",
     "lodash": "4.17.21"
   },
   "devDependencies": {

@@ -1,5 +1,17 @@
 # @verdaccio/server-fastify
 
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.8
+- @verdaccio/config@7.0.0-next-7.8
+- @verdaccio/auth@7.0.0-next-7.8
+- @verdaccio/tarball@12.0.0-next-7.8
+- @verdaccio/store@7.0.0-next-7.8
+- @verdaccio/utils@7.0.0-next-7.8
+- @verdaccio/logger@7.0.0-next-7.8
+
 ## 7.0.0-next-7.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- 3323599: fix: render READMEs with correct font and highlighting
+
 ## 7.0.0-next-7.7
 
 ## 7.0.0-next.6
