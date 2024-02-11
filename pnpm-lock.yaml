@@ -105,11 +105,11 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.3.0
-        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.4.2
+        version: 6.4.2(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
-        specifier: 14.1.2
-        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: 14.2.1
+        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
       '@trivago/prettier-plugin-sort-imports':
         specifier: 4.3.0
         version: 4.3.0(prettier@3.2.2)
@@ -1206,11 +1206,11 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.3.0
-        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.4.2
+        version: 6.4.2(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
-        specifier: 14.1.2
-        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: 14.2.1
+        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
       '@verdaccio/node-api':
         specifier: workspace:7.0.0-next-7.7
         version: link:../../node-api
@@ -1948,11 +1948,11 @@ importers:
         specifier: 9.3.4
         version: 9.3.4
       '@testing-library/jest-dom':
-        specifier: 6.3.0
-        version: 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+        specifier: 6.4.2
+        version: 6.4.2(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
       '@testing-library/react':
-        specifier: 14.1.2
-        version: 14.1.2(react-dom@18.2.0)(react@18.2.0)
+        specifier: 14.2.1
+        version: 14.2.1(react-dom@18.2.0)(react@18.2.0)
       '@types/hast':
         specifier: ^2.0.0
         version: 2.3.4
@@ -3563,7 +3563,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.0
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
     dev: true
 
   /@babel/plugin-syntax-dynamic-import@7.8.3(@babel/core@7.23.7):
@@ -3572,7 +3572,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.23.7
-      '@babel/helper-plugin-utils': 7.22.5
+      '@babel/helper-plugin-utils': 7.20.2
 
   /@babel/plugin-syntax-dynamic-import@7.8.3(@babel/core@7.23.9):
     resolution: {integrity: sha512-5gdGbFon+PszYzqs83S3E5mpi7/y/8M9eC90MRTZfduQOYW76ig6SOSPNe41IG5LoP3FGBn2N0RjVDSQiS94kQ==}
@@ -6148,7 +6148,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-validator-option': 7.23.5
+      '@babel/helper-validator-option': 7.22.15
       '@babel/plugin-transform-react-display-name': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.23.7)
       '@babel/plugin-transform-react-jsx-development': 7.22.5(@babel/core@7.23.7)
@@ -11441,8 +11441,8 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/jest-dom@6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6):
-    resolution: {integrity: sha512-hJVIrkFizEQxoWsGBlycTcQhrpoCH4DhXfrnHFFXgkx3Xdm15zycsq5Ep+vpw4W8S0NJa8cxDHcuJib+1tEbhg==}
+  /@testing-library/jest-dom@6.4.2(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6):
+    resolution: {integrity: sha512-CzqH0AFymEMG48CpzXFriYYkOjk6ZGPCLMhW9e9jg3KMCn5OfJecF8GtGW7yGfR/IgCe3SX8BSwjdzI6BBbZLw==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -11463,7 +11463,7 @@ packages:
         optional: true
     dependencies:
       '@adobe/css-tools': 4.3.2
-      '@babel/runtime': 7.23.8
+      '@babel/runtime': 7.23.9
       '@types/jest': 29.5.11
       aria-query: 5.3.0
       chalk: 3.0.0
@@ -11475,14 +11475,14 @@ packages:
       vitest: 0.34.6
     dev: true
 
-  /@testing-library/react@14.1.2(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-z4p7DVBTPjKM5qDZ0t5ZjzkpSNb+fZy1u6bzO7kk8oeGagpPCAtgh4cx1syrfp7a+QWkM021jGqjJaxJJnXAZg==}
+  /@testing-library/react@14.2.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-sGdjws32ai5TLerhvzThYFbpnF9XtL65Cjf+gB0Dhr29BGqK+mAeN7SURSdu+eqgET4ANcWoC7FQpkaiGvBr+A==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
     dependencies:
-      '@babel/runtime': 7.23.7
+      '@babel/runtime': 7.23.9
       '@testing-library/dom': 9.3.4
       '@types/react-dom': 18.2.18
       react: 18.2.0
@@ -12100,7 +12100,7 @@ packages:
     resolution: {integrity: sha512-bnreXCgus6IIadyHNlN/oI5FfX4dWgvGhOPvpr7zzCYDGAPIfvyIoAozMBINmhmsVuqV0cncejF2y5KC7ScqOg==}
     deprecated: This is a stub types definition. @testing-library/jest-dom provides its own type definitions, so you do not need this installed.
     dependencies:
-      '@testing-library/jest-dom': 6.3.0(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
+      '@testing-library/jest-dom': 6.4.2(@types/jest@29.5.11)(jest@29.7.0)(vitest@0.34.6)
     transitivePeerDependencies:
       - '@jest/globals'
       - '@types/bun'
