@@ -100,7 +100,7 @@ describe('Local FS test', () => {
         path.join(__dirname, '__fixtures__/readme-test-next'),
         logger
       );
-      localFs.readTarball('test-readme-0.0.0.tgz', { signal: abort.signal }).then((stream) => {
+      localFs.readTarball('test-readme-0.0.1.tgz', { signal: abort.signal }).then((stream) => {
         stream.on('data', (data) => {
           expect(data.length).toEqual(352);
         });
@@ -116,7 +116,7 @@ describe('Local FS test', () => {
         path.join(__dirname, '__fixtures__/readme-test-next'),
         logger
       );
-      localFs.readTarball('test-readme-0.0.0.tgz', { signal: abort.signal }).then((stream) => {
+      localFs.readTarball('test-readme-0.0.3.tgz', { signal: abort.signal }).then((stream) => {
         stream.on('error', (error: any) => {
           // FIXME: might be different results sometimes, need research
           // expect(error.code).toEqual('ABORT_ERR');
@@ -148,11 +148,11 @@ describe('Local FS test', () => {
         logger
       );
       const abort = new AbortController();
-
       localFs.readTarball('test-readme-0.0.0.tgz', { signal: abort.signal }).then((stream) => {
         stream.on('data', (data) => {
           expect(data.length).toEqual(352);
         });
+
         stream.on('content-length', (content) => {
           expect(content).toEqual(352);
           done();
