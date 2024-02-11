@@ -1590,7 +1590,7 @@ class Storage {
       _attachments: {},
     });
 
-    debug('no. sync uplinks errors %o for %s', upLinksErrors?.length, name);
+    debug('no sync uplinks errors %o for %s', upLinksErrors?.length, name);
     return [normalizedPkg, upLinksErrors];
   }
 
