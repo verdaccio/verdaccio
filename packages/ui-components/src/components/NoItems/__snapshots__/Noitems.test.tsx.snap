@@ -8,6 +8,7 @@ exports[`<NoItem /> component should load the component in default state 1`] = `
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border-radius: 4px;
   box-shadow: none;
+  background-image: unset;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
   font-size: 0.875rem;
