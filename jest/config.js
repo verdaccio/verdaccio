@@ -4,7 +4,7 @@ module.exports = {
     '^.+\\.(js|ts)$': 'babel-jest',
   },
   verbose: false,
-  collectCoverage: true,
+  collectCoverage: false,
   coverageReporters: ['text', 'html'],
   collectCoverageFrom: ['src/**/*.ts', '!**/node_modules/**', '!**/partials/**', '!**/fixture/**'],
   coveragePathIgnorePatterns: ['node_modules', 'fixtures'],
