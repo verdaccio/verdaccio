@@ -875,7 +875,7 @@ describe('storage', () => {
               storage: generateRandomStorage(),
               uplinks: {
                 npmjs: {
-                  url: 'https://registry.npmjs.org',
+                  url: 'https://registry.domain.com',
                   timeout: '2s',
                 },
               },
