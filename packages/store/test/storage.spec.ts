@@ -141,6 +141,8 @@ describe('storage', () => {
           modified: mockDate,
         });
         expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        // verdaccio keeps latest version of readme on manifest level but not by version
+        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
         expect(manifest.readme).toEqual('# test');
         expect(manifest._attachments).toEqual({});
         expect(typeof manifest._rev).toBeTruthy();
@@ -308,6 +310,50 @@ describe('storage', () => {
             ...settings,
           })
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
+      });
+
+      test('create private package with readme only in manifest', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const pkgName = 'upstream';
+        const requestOptions = {
+          host: 'localhost',
+          protocol: 'http',
+          headers: {},
+        };
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+
+        // Remove readme from version to simulate behaviour of older package managers like npm6
+        bodyNewManifest.versions['1.0.0'].readme = '';
+
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions,
+        })) as Manifest;
+
+        // verdaccio keeps latest version of readme on manifest level but not by version
+        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
+        expect(manifest.readme).toEqual('# test');
       });
     });
     describe('deprecate', () => {
