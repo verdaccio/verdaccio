@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-next-7.2
+
+### Patch Changes
+
+- c807f0c: fix: store readme when publishing locally
+
 ## 3.0.0-next.1
 
 ### Minor Changes
