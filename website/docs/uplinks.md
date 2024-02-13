@@ -22,6 +22,9 @@ uplinks:
     url: http://localhost:55666/
 ```
 
+Here's an example of seamlessly integrating npmjs and GitHub registries using Verdaccio:
+[How to use Verdaccio with GitHub registry](https://dev.to/verdaccio/how-to-use-verdaccio-with-github-registry-2ejj)
+
 ### Configuration {#configuration}
 
 You can define mutiple uplinks and each of them must have an unique name (key). They can have the following properties:
