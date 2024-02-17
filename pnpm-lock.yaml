@@ -294,8 +294,8 @@ importers:
         specifier: 3.0.3
         version: 3.0.3
       npm-run-all2:
-        specifier: 5.0.0
-        version: 5.0.0
+        specifier: 5.0.2
+        version: 5.0.2
       prettier:
         specifier: 3.2.2
         version: 3.2.2
@@ -381,8 +381,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 10.3.0
-        version: 10.3.0
+        specifier: 10.4.0
+        version: 10.4.0
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -471,8 +471,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 3.4.1
-        version: 3.4.1
+        specifier: 3.8.0
+        version: 3.8.0
 
   e2e/cli/e2e-yarn4:
     dependencies:
@@ -480,8 +480,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 4.0.0-rc.39
-        version: 4.0.0-rc.39
+        specifier: 4.1.0
+        version: 4.1.0
 
   e2e/ui:
     devDependencies:
@@ -6145,7 +6145,7 @@ packages:
     dependencies:
       '@babel/core': 7.23.7
       '@babel/helper-plugin-utils': 7.22.5
-      '@babel/helper-validator-option': 7.23.5
+      '@babel/helper-validator-option': 7.22.15
       '@babel/plugin-transform-react-display-name': 7.23.3(@babel/core@7.23.7)
       '@babel/plugin-transform-react-jsx': 7.22.15(@babel/core@7.23.7)
       '@babel/plugin-transform-react-jsx-development': 7.22.5(@babel/core@7.23.7)
@@ -12804,15 +12804,15 @@ packages:
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@3.4.1:
-    resolution: {integrity: sha512-165Y6mm0chgIcjdY2MsJJbm9eYFqnpU2HN+xy6yEltngxld11EBdGCNCHXzL2pvxqlHzL2V3OnIDa7diov1wng==}
+  /@yarnpkg/cli-dist@3.8.0:
+    resolution: {integrity: sha512-4F7xnr7HfyXaKSe2fuAaQcb9qPlGUWFo421uPJf8PDt5seOBDXsQ5nub1KS4lKHjL922D/T5Ff2dGBkD0kAYIA==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@4.0.0-rc.39:
-    resolution: {integrity: sha512-+0+bPZ8/2CSaRrG+2XE6p3noeOzaQpjBZI37ieBkG0BOc+jKGtjhJDxrO4LO1BRRdTQcPqX3nI5U1BxOMGMRfQ==}
-    engines: {node: '>=14.15.0'}
+  /@yarnpkg/cli-dist@4.1.0:
+    resolution: {integrity: sha512-wp1+8TqjlwB4uV73KlDX6iSNWzcUSCsR1nwG5nPUOYbqIoWomJ4A57jP0wU+mdtGRy+hlKrK6XR6WD/vvKy2YQ==}
+    engines: {node: '>=18.12.0'}
     hasBin: true
     dev: false
 
@@ -23288,12 +23288,12 @@ packages:
   /normalize.css@8.0.1:
     resolution: {integrity: sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==}
 
-  /npm-run-all2@5.0.0:
-    resolution: {integrity: sha512-twczQhEpj55UROtg0Xz0nzn83TanS5Re12g5g1hcdnyAhlWOt9VNHdSHf2Z6MO3/wOVqy9tEdi0ruJt5NnMgmw==}
+  /npm-run-all2@5.0.2:
+    resolution: {integrity: sha512-S2G6FWZ3pNWAAKm2PFSOtEAG/N+XO/kz3+9l6V91IY+Y3XFSt7Lp7DV92KCgEboEW0hRTu0vFaMe4zXDZYaOyA==}
     engines: {node: '>= 10'}
     hasBin: true
     dependencies:
-      ansi-styles: 4.3.0
+      ansi-styles: 5.2.0
       cross-spawn: 7.0.3
       memorystream: 0.3.1
       minimatch: 3.1.2
@@ -23319,8 +23319,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.3.0:
-    resolution: {integrity: sha512-9u5GFc1UqI2DLlGI7QdjkpIaBs3UhTtY8KoCqYJK24gV/j/tByaI4BA4R7RkOc+ASqZMzFPKt4Pj2Z8JcGo//A==}
+  /npm@10.4.0:
+    resolution: {integrity: sha512-RS7Mx0OVfXlOcQLRePuDIYdFCVBPCNapWHplDK+mh7GDdP/Tvor4ocuybRRPSvfcRb2vjRJt1fHCqw3cr8qACQ==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -23387,7 +23387,6 @@ packages:
       - semver
       - spdx-expression-parse
       - ssri
-      - strip-ansi
       - supports-color
       - tar
       - text-table
