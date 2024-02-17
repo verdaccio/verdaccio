@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.29.1](https://github.com/verdaccio/verdaccio/compare/v5.29.0...v5.29.1) (2024-02-17)
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4389](https://github.com/verdaccio/verdaccio/issues/4389)) ([f64b395](https://github.com/verdaccio/verdaccio/commit/f64b3958e04bfa74a6013f8a4373608cfc56df4f))
+* **deps:** update core verdaccio dependencies ([#4428](https://github.com/verdaccio/verdaccio/issues/4428)) ([30af49f](https://github.com/verdaccio/verdaccio/commit/30af49f0a1202d145439cc8f26c73296fb7ba7ae))
+* **deps:** update core verdaccio dependencies ([#4499](https://github.com/verdaccio/verdaccio/issues/4499)) ([e10b381](https://github.com/verdaccio/verdaccio/commit/e10b381a2810009309c2ddef324826f78e007589))
+* **deps:** update core verdaccio dependencies ([#4508](https://github.com/verdaccio/verdaccio/issues/4508)) ([23afe22](https://github.com/verdaccio/verdaccio/commit/23afe222d8d01fc148e31503695754880bfb6b05))
+* **deps:** update core verdaccio dependencies (5.x) ([#4352](https://github.com/verdaccio/verdaccio/issues/4352)) ([b41f6c9](https://github.com/verdaccio/verdaccio/commit/b41f6c9e2bf15e177ddbdaceb0372c38107b67f3))
+* **deps:** update dependency cookies to v0.9.0 ([#4341](https://github.com/verdaccio/verdaccio/issues/4341)) ([0bdc10e](https://github.com/verdaccio/verdaccio/commit/0bdc10efd71a0701d750eb9e7a7567341b42e993))
+* **deps:** update dependency cookies to v0.9.1 ([#4371](https://github.com/verdaccio/verdaccio/issues/4371)) ([c96468a](https://github.com/verdaccio/verdaccio/commit/c96468a9e9d9902d02e3dfd06ba287481af82d37))
+* **deps:** update dependency verdaccio-audit to v12.0.0-next.5 ([#4353](https://github.com/verdaccio/verdaccio/issues/4353)) ([11421c0](https://github.com/verdaccio/verdaccio/commit/11421c0138f951ef062259b47c1c7fa4518d5d92))
+* **deps:** update dependency verdaccio-htpasswd to v12.0.0-next.5 ([#4355](https://github.com/verdaccio/verdaccio/issues/4355)) ([03d8bb4](https://github.com/verdaccio/verdaccio/commit/03d8bb48812e2a9e6f8e2f666d79361c1a554b25))
+
 ## [5.29.0](https://github.com/verdaccio/verdaccio/compare/v5.28.0...v5.29.0) (2023-12-08)
 
 
