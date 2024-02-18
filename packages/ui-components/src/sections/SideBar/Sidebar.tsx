@@ -6,25 +6,15 @@ import { Theme } from '../../Theme';
 import ActionBar from '../../components/ActionBar';
 import Author from '../../components/Author';
 import Developers, { DeveloperType } from '../../components/Developers';
+import Dist from '../../components/Distribution';
+import Engines from '../../components/Engines';
 import FundButton from '../../components/FundButton';
-import SideBarTittle from '../../components/SideBarTittle';
+import Install from '../../components/Install';
+import Repository from '../../components/Repository';
+import SideBarTitle from '../../components/SideBarTitle';
 import { useConfig } from '../../providers';
 import { useVersion } from '../../providers';
 import { PackageMetaInterface } from '../../types/packageMeta';
-import loadable from '../../utils/loadable';
-
-const Engines = loadable(
-  () => import(/* webpackChunkName: "Engines" */ '../../components/Engines')
-);
-const Dist = loadable(
-  () => import(/* webpackChunkName: "Distribution" */ '../../components/Distribution')
-);
-const Install = loadable(
-  () => import(/* webpackChunkName: "Install" */ '../../components/Install')
-);
-const Repository = loadable(
-  () => import(/* webpackChunkName: "Repository" */ '../../components/Repository')
-);
 
 const getModuleType = (manifest: PackageMetaInterface) => {
   if (manifest.latest.main) {
@@ -40,14 +30,13 @@ const DetailSidebar: React.FC = () => {
   const { configOptions } = useConfig();
   const version = packageVersion || packageMeta?.latest.version || '';
   const time = packageMeta?.time ? packageMeta.time[version] : '';
-
   if (!packageMeta || !packageName) {
     return null;
   }
 
   return (
     <StyledPaper sx={{ position: 'sticky', top: 0 }}>
-      <SideBarTittle
+      <SideBarTitle
         description={packageMeta.latest?.description}
         hasTypes={typeof packageMeta.latest?.types === 'string'}
         isLatest={typeof packageVersion === 'undefined'}

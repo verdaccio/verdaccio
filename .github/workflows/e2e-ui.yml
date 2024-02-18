@@ -4,7 +4,7 @@ on: [pull_request]
 permissions:
   contents: read
 concurrency:
-  group: e2e
+  group: e2e-ui-${{ github.ref }}
   cancel-in-progress: true  
 jobs:
   test:

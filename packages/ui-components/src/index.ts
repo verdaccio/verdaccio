@@ -14,7 +14,7 @@ export * as Icons from './components/Icons';
 export { default as Install } from './components/Install';
 export { default as RawViewer } from './components/RawViewer';
 export { default as Readme } from './components/Readme';
-export { default as SideBarTitle } from './components/SideBarTittle';
+export { default as SideBarTitle } from './components/SideBarTitle';
 export { default as UpLinks } from './components/UpLinks';
 export { default as Versions } from './components/Versions';
 export { default as TextField } from './components/TextField';
