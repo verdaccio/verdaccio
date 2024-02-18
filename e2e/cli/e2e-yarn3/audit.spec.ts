@@ -18,7 +18,7 @@ describe('audit a package yarn 3', () => {
       {
         packageName: '@scope/name',
         version: '1.0.0',
-        dependencies: { verdaccio: 'latest' },
+        dependencies: { aaa: 'latest' },
         devDependencies: {},
       }
     );
