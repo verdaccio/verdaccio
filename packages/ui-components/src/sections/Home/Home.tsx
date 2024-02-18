@@ -11,7 +11,6 @@ const Home: React.FC = () => {
     // @ts-ignore
     dispatch.packages.getPackages();
   }, [dispatch]);
-
   return (
     <div className="container content" data-testid="home-page-container">
       {isLoading ? <Loading /> : <PackageList packages={packages} />}
