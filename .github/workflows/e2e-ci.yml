@@ -3,6 +3,9 @@ name: E2E CLI
 on: [pull_request]
 permissions:
   contents: read
+concurrency:
+  group: e2e
+  cancel-in-progress: true
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -80,7 +83,7 @@ jobs:
   e2e-cli-npm:
     needs: [prepare, build]
     strategy:
-      fail-fast: false
+      fail-fast: false      
       matrix:
         pkg:
           [

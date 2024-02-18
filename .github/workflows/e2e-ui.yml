@@ -3,6 +3,9 @@ name: E2E UI
 on: [pull_request]
 permissions:
   contents: read
+concurrency:
+  group: e2e
+  cancel-in-progress: true  
 jobs:
   test:
     runs-on: ubuntu-latest
