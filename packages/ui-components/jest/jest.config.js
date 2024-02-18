@@ -34,10 +34,10 @@ module.exports = Object.assign({}, config, {
   coverageReporters: ['text', 'html'],
   coverageThreshold: {
     global: {
-      branches: 66,
-      functions: 65,
-      lines: 73,
-      statements: 73,
+      branches: 70,
+      functions: 76,
+      lines: 80,
+      statements: 82,
     },
   },
 });
