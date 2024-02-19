@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5216,
+      "contributions": 5225,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2880
+          "contributions": 2882
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 209
+          "contributions": 212
         },
         {
           "name": "authentication-plugin-sample",
@@ -127,11 +127,15 @@
         },
         {
           "name": "cdn-assets",
-          "contributions": 33
+          "contributions": 34
         },
         {
           "name": "e2e-tests",
           "contributions": 67
+        },
+        {
+          "name": ".github",
+          "contributions": 3
         }
       ]
     },
@@ -1929,6 +1933,17 @@
       "repositories": [
         {
           "name": "verdaccio-audit",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 6248009,
+      "login": "barrywoolgar",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "monorepo",
           "contributions": 2
         }
       ]
@@ -4941,7 +4956,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15687,
+      "stargazers_count": 15698,
       "archived": false
     },
     {
@@ -4967,7 +4982,7 @@
       "login": "verdaccio",
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
-      "description": " 🧩 yeoman verdaccio plugin generator",
+      "description": " 🧩 yeoman verdaccio plugin generator (low maintenance)",
       "stargazers_count": 12,
       "archived": false
     },
@@ -5230,6 +5245,15 @@
       "html_url": "https://github.com/verdaccio/e2e-tests",
       "description": "e2e tests",
       "stargazers_count": 1,
+      "archived": false
+    },
+    {
+      "name": ".github",
+      "login": "verdaccio",
+      "full_name": "verdaccio/.github",
+      "html_url": "https://github.com/verdaccio/.github",
+      "description": null,
+      "stargazers_count": 0,
       "archived": false
     }
   ]
