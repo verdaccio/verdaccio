@@ -7,7 +7,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { useSelector } from 'react-redux';
-import remarkGfm from 'remark-gfm';
 
 import { RootState, Theme } from '../../';
 import LanguageSwitch from './LanguageSwitch';
@@ -71,7 +70,7 @@ const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {
         <TabPanel index={1} value={value}>
           <TextContent>{t('language.description')}</TextContent>
           <LanguageSwitch />
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>{t('language.contribute')}</ReactMarkdown>
+          <ReactMarkdown>{t('language.contribute')}</ReactMarkdown>
         </TabPanel>
       </Box>
     </RegistryInfoDialog>
