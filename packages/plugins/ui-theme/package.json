@@ -69,7 +69,6 @@
     "react-virtualized": "9.22.5",
     "redux": "4.2.1",
     "redux-persist": "6.0.0",
-    "remark-gfm": "3.0.1",
     "rimraf": "5.0.5",
     "style-loader": "3.3.4",
     "stylelint": "15.11.0",
