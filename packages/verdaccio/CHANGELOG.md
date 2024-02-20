@@ -1,5 +1,19 @@
 # verdaccio
 
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- Updated dependencies [5210408]
+  - @verdaccio/ui-theme@7.0.0-next-7.10
+  - @verdaccio/cli@7.0.0-next-7.10
+  - @verdaccio/node-api@7.0.0-next-7.10
+  - @verdaccio/hooks@7.0.0-next-7.10
+  - verdaccio-audit@12.0.0-next-7.10
+  - verdaccio-htpasswd@12.0.0-next-7.10
+  - @verdaccio/utils@7.0.0-next-7.10
+  - @verdaccio/logger@7.0.0-next-7.10
+
 ## 7.0.0-next-7.9
 
 ### Patch Changes

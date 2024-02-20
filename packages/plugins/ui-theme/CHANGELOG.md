@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- 5210408: fix: ui dialog break pages on open due remark error
+
 ## 7.0.0-next-7.9
 
 ## 7.0.0-next-7.8
