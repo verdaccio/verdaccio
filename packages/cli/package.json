@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "7.0.0-next-7.9",
+  "version": "7.0.0-next-7.10",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -43,10 +43,10 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.9",
-    "@verdaccio/config": "workspace:7.0.0-next-7.9",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.9",
-    "@verdaccio/node-api": "workspace:7.0.0-next-7.9",
+    "@verdaccio/core": "workspace:7.0.0-next-7.10",
+    "@verdaccio/config": "workspace:7.0.0-next-7.10",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.10",
+    "@verdaccio/node-api": "workspace:7.0.0-next-7.10",
     "clipanion": "3.2.1",
     "envinfo": "7.11.0",
     "kleur": "4.1.5",
