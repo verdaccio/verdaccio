@@ -231,7 +231,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        '<a target="_blank" rel="noopener noreferrer" href="https://www.wfp.org/support-us/stories/ukraine-appeal">Help provide humanitarian support to Ukraine refugees</a>!',
+        '<a target="_blank" rel="noopener noreferrer" href="https://u24.gov.ua">OFFICIAL FUNDRAISING PLATFORM OF UKRAINE</a>!',
       isCloseable: false,
       backgroundColor: '#1595de',
       textColor: '#ffffff',

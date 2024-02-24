@@ -1,4 +1,4 @@
-[![BannerUK](https://cdn.verdaccio.dev/readme/banner-uk.svg)](https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1)
+[![BannerHelp](https://cdn.verdaccio.dev/readme/banner-uk.svg)](https://u24.gov.ua)
 
 > Verdaccio stands for **peace**, stop the war, we will be yellow / blue 🇺🇦 until that happens.
 
