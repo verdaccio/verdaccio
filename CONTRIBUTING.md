@@ -78,14 +78,14 @@ pnpm build
 pnpm test
 ```
 
-Verdaccio is a mono repository. To run the tests for for a specific package:
+Verdaccio is a mono repository. To run the tests for a specific package:
 
 ```shell
 cd packages/store
 pnpm test
 ```
 
-or an specific test in that package:
+or a specific test in that package:
 
 ```shell
 pnpm test test/merge.dist.tags.spec.ts
@@ -129,7 +129,7 @@ The user interface is split in two packages, the `/packages/plugins/ui-theme` an
 
 Go to `/packages/ui-component` and run `pnpm watch` to enable _babel_ in watch mode, every change on the components will be hot reloaded in combination with the `pnpm start` command.
 
-Any change on the server packages, must be build independently (server do not has hot reload, `pnpm start` should be triggered again).
+Any change on the server packages, must be build independently (server does not have hot reload, `pnpm start` should be triggered again).
 
 Any interaction with the server should be done through the port `8000` eg: `npm login --registry http://localhost:8000` .
 
@@ -142,7 +142,7 @@ Any interaction with the server should be done through the port `8000` eg: `npm 
 
 #### Debugging compiled code {#debugging-compiled-code}
 
-Currently you can only run pre-compiled packages in debug mode. To enable debug
+Currently, you can only run pre-compiled packages in debug mode. To enable debug
 while running add the `verdaccio` namespace using the `DEBUG` environment
 variable, like this:
 
@@ -164,7 +164,7 @@ of the output is sent to the logger module.
 
 #### Testing your changes in a local registry {#testing-local-registry}
 
-Once you have perform your changes in the code base, the build and tests passes you can publish a local version:
+Once you have performed your changes in the code base, the build and tests passes you can publish a local version:
 
 - Ensure you have built all modules by running `pnpm build` (or the one you have modified)
 - Run `pnpm local:publish:release` to launch a local registry and publish all packages into it. This command will be alive until server is killed (Control Key + C)
@@ -181,7 +181,7 @@ npm i -g verdaccio --registry=http://localhost:4873
 verdaccio
 ```
 
-If you perform more changes in the source code, repeat this process, there is not _hot reloading_ support.
+If you perform more changes in the source code, repeat this process, there is no _hot reloading_ support.
 
 ## Feature Request {#feature-request}
 
@@ -208,7 +208,7 @@ a report in our [issue tracker](https://github.com/verdaccio/verdaccio/issues), 
 > **NOTE: Verdaccio still does not support all npm commands. Some were not
 > considered important and others have not been requested yet.**
 
-### What's is not considered a bug?
+### What is not considered a bug?
 
 - _Third party integrations_: proxies integrations, external plugins
 - _Package managers_: If a package manager does not support a specific command
@@ -272,7 +272,7 @@ information on [rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing)
 
 #### Caveats
 
-Feel free to commit as much times you want in your branch, but keep on mind on
+Feel free to commit as many times you want in your branch, but keep on mind on
 this repository we `git squash` on merge by default, as we like to maintain a
 clean git history.
 
@@ -359,7 +359,7 @@ The last step is to confirm your changeset or abort the operation:
 🦋  info /Users/user/verdaccio.clone/.changeset/light-scissors-smell.md
 ```
 
-Once the changeset is added (all will have an unique name) you can freely edit
+Once the changeset is added (all will have a unique name) you can freely edit
 using markdown, adding additional information, code snippets or whatever else
 you consider to be relevant.
 
@@ -395,7 +395,7 @@ For adding a new **language** on the UI follow these steps:
 1. Ensure the **language** has been enabled, must be visible in the `crowdin` platform.
 2. Find in the explorer the file `en.US.json` in the path `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` and complete the translations, **not need to find approval on this**.
 3. Into the project, add a new field into `packages/plugins/ui-theme/src/i18n/crowdin/ui.json` file, in the section `lng`, the new language, eg: `{ lng: {korean:"Korean"}}`. (This file is English based, once the PR has been merged, this string will be available in crowdin for translate to the targeted language).
-4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key fort he new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
+4. Add the language, [flag icon](https://www.npmjs.com/package/country-flag-icons), and the menu key for the new language eg: `menuKey: 'lng.korean'` to the file `packages/plugins/ui-theme/src/i18n/enabledLanguages.ts`.
 5. For local testing, read `packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md`.
 6. Add a `changeset` file, see more info below.
 
