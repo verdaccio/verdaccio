@@ -1,5 +1,21 @@
 # @verdaccio/web
 
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/config@7.0.0-next-7.11
+  - @verdaccio/auth@7.0.0-next-7.11
+  - @verdaccio/loaders@7.0.0-next-7.11
+  - @verdaccio/middleware@7.0.0-next-7.11
+  - @verdaccio/store@7.0.0-next-7.11
+  - @verdaccio/core@7.0.0-next-7.11
+  - @verdaccio/tarball@12.0.0-next-7.11
+  - @verdaccio/url@12.0.0-next-7.11
+  - @verdaccio/utils@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes

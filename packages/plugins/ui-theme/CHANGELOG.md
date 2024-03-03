@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.11
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes

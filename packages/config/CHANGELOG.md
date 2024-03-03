@@ -1,5 +1,16 @@
 # @verdaccio/config
 
+## 7.0.0-next-7.11
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.11
+- @verdaccio/utils@7.0.0-next-7.11
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes
