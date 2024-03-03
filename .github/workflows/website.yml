@@ -83,13 +83,18 @@ jobs:
           CONTEXT: deploy-preview
         run: pnpm --filter ...@verdaccio/website netlify:build:deployPreview      
 
-      - name: Publish
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=./website/build
+      - name: Deploy to Netlify
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm --filter ...@verdaccio/website netlify:build:test  
+      # - name: Publish
+      #   uses: netlify/actions/cli@master
+      #   with:
+      #     args: deploy --dir=./website/build --debug
+      #   env:
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       # - name: 🔥 Deploy Production Netlify
       #   if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
       #   uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
