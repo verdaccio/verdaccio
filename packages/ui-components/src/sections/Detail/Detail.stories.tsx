@@ -27,3 +27,13 @@ export const DetailJquery: any = () => (
     </Route>
   </MemoryRouter>
 );
+
+export const DetailForbidden: any = () => (
+  <MemoryRouter initialEntries={[`/-/web/detail/JSONStream`]}>
+    <Route exact={true} path="/-/web/detail/:package">
+      <VersionProvider>
+        <Detail />
+      </VersionProvider>
+    </Route>
+  </MemoryRouter>
+);

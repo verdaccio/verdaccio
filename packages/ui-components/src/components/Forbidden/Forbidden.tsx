@@ -1,17 +1,20 @@
+/* eslint-disable react/forbid-component-props */
+
 /* eslint-disable verdaccio/jsx-no-style */
 import styled from '@emotion/styled';
-import FolderOffIcon from '@mui/icons-material/FolderOff';
+import LockIcon from '@mui/icons-material/Lock';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-import { Theme } from '../../';
+import { Theme } from '../..';
 import Heading from '../Heading';
 
-const NotFound: React.FC = () => {
+const Foebidden: React.FC = () => {
   const history = useHistory();
+
   const { t } = useTranslation();
 
   const handleGoHome = useCallback(() => {
@@ -29,10 +32,10 @@ const NotFound: React.FC = () => {
       p={2}
     >
       <Container>
-        <FolderOffIcon color="primary" style={{ fontSize: 236 }} />
+        <LockIcon color="primary" style={{ fontSize: 236 }} />
       </Container>
       <StyledHeading className="not-found-text" variant="h4">
-        {t('error.404.sorry-we-could-not-find-it')}
+        {t('error.401.sorry-no-access')}
       </StyledHeading>
       <Button data-testid="not-found-go-to-home-button" onClick={handleGoHome} variant="contained">
         {t('button.go-to-the-home-page')}
@@ -41,7 +44,7 @@ const NotFound: React.FC = () => {
   );
 };
 
-export default NotFound;
+export default Foebidden;
 
 const Container = styled('div')({
   margin: '0 auto',

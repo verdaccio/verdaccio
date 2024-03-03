@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
-import NotFound from './NotFound';
+import Forbidden from './Forbidden';
 
 const mockHistory = jest.fn();
 
@@ -12,23 +12,22 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
-describe('<NotFound /> component', () => {
+describe('<Forbidden /> component', () => {
   test('should load the component in default state', () => {
     render(
       <MemoryRouter>
-        <NotFound />
+        <Forbidden />
       </MemoryRouter>
     );
-
-    expect(screen.getByTestId('FolderOffIcon')).toBeInTheDocument();
+    expect(screen.getByTestId('LockIcon')).toBeInTheDocument();
+    expect(screen.getByText('error.401.sorry-no-access')).toBeInTheDocument();
     expect(screen.getByText('button.go-to-the-home-page')).toBeInTheDocument();
-    expect(screen.getByText('error.404.sorry-we-could-not-find-it')).toBeInTheDocument();
   });
 
   test('go to Home Page button click', async () => {
     const { getByTestId } = render(
       <MemoryRouter>
-        <NotFound />
+        <Forbidden />
       </MemoryRouter>
     );
 

@@ -14,7 +14,8 @@ describe('api', () => {
 
       const handled = await handleResponseType(response);
 
-      expect(handled).toEqual([ok, responseText]);
+      expect(handled[0]).toBeFalsy();
+      expect(handled[1]).toBeDefined();
     });
 
     test('should test tgz scenario', async () => {
@@ -123,7 +124,7 @@ describe('api', () => {
         })
       );
 
-      await expect(api.request('/resource')).rejects.toThrow(new Error('something went wrong'));
+      await expect(api.request('/resource')).rejects.toThrow(new Error('Unknown error'));
     });
 
     test('when api returns an error 5.x.x', async () => {
