@@ -13,7 +13,7 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "netlify:build:test": "netlify-cli deploy --dir=./build --debug",
+    "netlify:build:test": "npx netlify-cli deploy --dir=./build --debug",
     "netlify:build:production": "docusaurus write-translations && pnpm -w crowdin:sync && NODE_OPTIONS=--max-old-space-size=8192 docusaurus build",
     "netlify:build:deployPreview": "docusaurus write-translations --locale en && docusaurus build --locale en",
     "eslint:check": "eslint src/**/*.tsx",
