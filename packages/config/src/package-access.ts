@@ -1,8 +1,11 @@
 import assert from 'assert';
+import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { errorUtils } from '@verdaccio/core';
 import { PackageAccess } from '@verdaccio/types';
+
+const debug = buildDebug('verdaccio:config:utils');
 
 export interface LegacyPackageList {
   [key: string]: PackageAccess;
@@ -61,6 +64,7 @@ export function normalisePackageAccess(packages: LegacyPackageList): LegacyPacka
   for (const pkg in packages) {
     if (Object.prototype.hasOwnProperty.call(packages, pkg)) {
       const packageAccess = packages[pkg];
+      debug('package access %s for %s ', packageAccess, pkg);
       const isInvalid = _.isObject(packageAccess) && _.isArray(packageAccess) === false;
       assert(isInvalid, `CONFIG: bad "'${pkg}'" package description (object expected)`);
 

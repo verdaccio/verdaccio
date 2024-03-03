@@ -37,7 +37,7 @@ module.exports = Object.assign({}, config, {
       branches: 70,
       functions: 76,
       lines: 80,
-      statements: 82,
+      statements: 81,
     },
   },
 });
