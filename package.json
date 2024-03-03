@@ -39,7 +39,7 @@
     "cookies": "0.9.1",
     "cors": "2.8.5",
     "debug": "^4.3.4",
-    "envinfo": "7.11.0",
+    "envinfo": "7.11.1",
     "express": "4.18.2",
     "express-rate-limit": "5.5.1",
     "fast-safe-stringify": "2.1.1",

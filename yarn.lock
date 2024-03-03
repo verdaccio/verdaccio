@@ -5102,12 +5102,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"envinfo@npm:7.11.0":
-  version: 7.11.0
-  resolution: "envinfo@npm:7.11.0"
+"envinfo@npm:7.11.1":
+  version: 7.11.1
+  resolution: "envinfo@npm:7.11.1"
   bin:
     envinfo: dist/cli.js
-  checksum: c45a7d20409d5f4cda72483b150d3816b15b434f2944d72c1495d8838bd7c4e7b2f32c12128ffb9b92b5f66f436237b8a525eb3a9a5da2d20013bc4effa28aef
+  checksum: f3d38ab6bc62388466e86e2f5665f90f238ca349c81bb36b311d908cb5ca96650569b43b308c9dcb6725a222693f6c43a704794e74a68fb445ec5575a90ca05e
   languageName: node
   linkType: hard
 
@@ -11052,7 +11052,7 @@ __metadata:
     cross-env: 7.0.3
     debug: ^4.3.4
     detect-secrets: 1.0.6
-    envinfo: 7.11.0
+    envinfo: 7.11.1
     eslint: 8.56.0
     eslint-config-google: 0.14.0
     eslint-config-prettier: 9.1.0
