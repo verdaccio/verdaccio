@@ -3,14 +3,14 @@ name: Verdaccio Website CI
 on:
   workflow_dispatch:
   pull_request:
-    branches-ignore:
-      - 'renovate/*'
-      - 'dependabot/*'    
-    paths:
-        - 'website/**'
-        - './.github/workflows/website.yml'
-  schedule:
-    - cron: '0 0 * * *' 
+  #   branches-ignore:
+  #     - 'renovate/*'
+  #     - 'dependabot/*'    
+  #   paths:
+  #       - 'website/**'
+  #       - './.github/workflows/website.yml'
+  # schedule:
+  #   - cron: '0 0 * * *' 
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
