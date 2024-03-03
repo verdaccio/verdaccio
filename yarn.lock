@@ -9747,6 +9747,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"semver@npm:7.6.0":
+  version: 7.6.0
+  resolution: "semver@npm:7.6.0"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: 7427f05b70786c696640edc29fdd4bc33b2acf3bbe1740b955029044f80575fc664e1a512e4113c3af21e767154a94b4aa214bf6cd6e42a1f6dba5914e0b208c
+  languageName: node
+  linkType: hard
+
 "semver@npm:^6.0.0, semver@npm:^6.3.0, semver@npm:^6.3.1":
   version: 6.3.1
   resolution: "semver@npm:6.3.1"
@@ -11088,7 +11099,7 @@ __metadata:
     prettier: 3.2.2
     rimraf: 3.0.2
     selfsigned: 2.4.1
-    semver: 7.5.4
+    semver: 7.6.0
     standard-version: 9.5.0
     supertest: 6.3.4
     ts-node: 10.9.2
