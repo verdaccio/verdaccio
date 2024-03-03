@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.5
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
 ## 3.0.0-next-7.4
 
 ### Patch Changes
