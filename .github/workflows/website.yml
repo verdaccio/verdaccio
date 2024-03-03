@@ -3,14 +3,14 @@ name: Verdaccio Website CI
 on:
   workflow_dispatch:
   pull_request:
-  #   branches-ignore:
-  #     - 'renovate/*'
-  #     - 'dependabot/*'    
-  #   paths:
-  #       - 'website/**'
-  #       - './.github/workflows/website.yml'
-  # schedule:
-  #   - cron: '0 0 * * *' 
+    branches-ignore:
+      - 'renovate/*'
+      - 'dependabot/*'    
+    paths:
+        - 'website/**'
+        - './.github/workflows/website.yml'
+  schedule:
+    - cron: '0 0 * * *' 
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -67,60 +67,16 @@ jobs:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: cache/webpack-${{github.ref}}
-
-      # Will deploy to production on:
-        # 1st: When a push occurs on master branch
-        # 2nd: When we force the worflow dispatch through the UI
-      # - name: Build Production
-      #   # if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-      #   env:
-      #     CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
-      #     SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
-      #     CONTEXT: production
-      #   run: pnpm --filter @verdaccio/website netlify:build:production
-      - name: Build Deployment Preview
+      - name: Build Production
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         env:
-          CONTEXT: deploy-preview
-        run: pnpm --filter ...@verdaccio/website netlify:build:deployPreview      
-
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
+          CONTEXT: production
+        run: pnpm --filter @verdaccio/website netlify:build
       - name: Deploy to Netlify
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/website netlify:build:test  
-      # - name: Publish
-      #   uses: netlify/actions/cli@master
-      #   with:
-      #     args: deploy --dir=./website/build --debug
-      #   env:
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      # - name: 🔥 Deploy Production Netlify
-      #   if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-      #   uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-      #     build-dir: './website/build'
+        run: pnpm --filter ...@verdaccio/website netlify:deploy 
 
-      # Will deploy to Preview URL, only when a pull request is open with changes on the website
-      # - name: Build Deployment Preview
-      #   env:
-      #     CONTEXT: deploy-preview
-      #   run: pnpm --filter ...@verdaccio/website netlify:build:deployPreview
-
-      # - name: 🤖 Deploy Preview Netlify
-      #   if: github.repository == 'verdaccio/verdaccio'
-      #   uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-      #   id: netlify_preview
-      #   with:
-      #     draft: true
-      #     comment-on-pull-request: true
-      #     github-deployment-is-production: false
-      #     github-deployment-is-transient: true
-      #     configPath: './netlify.toml' 
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-      #     build-dir: './website/build'
