@@ -252,7 +252,7 @@ user_agent: 'custom user agent'
 
 <small>Since: [verdaccio@5.4.0](https://github.com/verdaccio/verdaccio/releases/tag/v5.4.0)</small>
 
-Add default rate limit to user endpoints, `npm token`, `npm profile`, `npm loding/adduser` and login website to 100 request peer 15 min, customizable via:
+Add default rate limit to user endpoints, `npm token`, `npm profile`, `npm login/adduser` and login website to 100 request peer 15 min, customizable via:
 
 ```
 userRateLimit:
