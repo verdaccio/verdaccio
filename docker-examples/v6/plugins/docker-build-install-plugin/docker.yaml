@@ -88,7 +88,7 @@ packages:
     # and three keywords: "$all", "$anonymous", "$authenticated"
     access: $all
 
-    # allow all known users to publish/publish packages
+    # allow all known users to publish/unpublish packages
     # (anyone can register by default, remember?)
     publish: $authenticated
     unpublish: $authenticated
