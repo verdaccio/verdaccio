@@ -1453,16 +1453,16 @@ importers:
   packages/search:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:7.0.0-next-7.7
+        specifier: workspace:7.0.0-next-7.11
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:7.0.0-next-7.7
+        specifier: workspace:7.0.0-next-7.11
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:7.0.0-next-7.7
+        specifier: workspace:7.0.0-next-7.11
         version: link:../logger/logger
       '@verdaccio/proxy':
-        specifier: workspace:7.0.0-next-7.7
+        specifier: workspace:7.0.0-next-7.11
         version: link:../proxy
       debug:
         specifier: 4.3.4

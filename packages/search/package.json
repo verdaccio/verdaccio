@@ -40,10 +40,10 @@
   "dependencies": {
     "debug": "4.3.4",
     "lodash": "4.17.21",
-    "@verdaccio/config": "workspace:7.0.0-next-7.7",
-    "@verdaccio/core": "workspace:7.0.0-next-7.7",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.7",
-    "@verdaccio/proxy": "workspace:7.0.0-next-7.7"
+    "@verdaccio/config": "workspace:7.0.0-next-7.11",
+    "@verdaccio/core": "workspace:7.0.0-next-7.11",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.11",
+    "@verdaccio/proxy": "workspace:7.0.0-next-7.11"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next.2"
