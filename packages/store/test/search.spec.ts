@@ -49,7 +49,7 @@ describe('search', () => {
         headers: {},
       };
       // create private packages
-      const bodyNewManifest = generatePackageMetadata(pkgName, '19.0.0');
+      const bodyNewManifest = generatePackageMetadata(pkgName, '5.1.2');
       await storage.updateManifest(bodyNewManifest, {
         signal: new AbortController().signal,
         name: pkgName,
@@ -58,8 +58,8 @@ describe('search', () => {
         requestOptions,
       });
 
+      // @ts-expect-error
       const results = await storage.search({ url, query: { text: 'verdaccio' }, abort });
-      // console.log('results', JSON.stringify(results, null, 2));
       expect(results).toHaveLength(4);
     });
   });

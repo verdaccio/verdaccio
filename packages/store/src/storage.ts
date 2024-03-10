@@ -694,13 +694,14 @@ class Storage {
     if (typeof this.localStorage.getStoragePlugin().search === 'undefined') {
       logger.info('plugin search not implemented yet');
     } else {
-      debug('search on each package by plugin');
+      debug('search on each package by plugin query');
       const items = await this.localStorage.getStoragePlugin().search(query);
       try {
         for (const searchItem of items) {
           const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
           if (_.isEmpty(manifest?.versions) === false) {
             const searchPackage = mapManifestToSearchPackageBody(manifest, searchItem);
+            debug('search local stream found %o', searchPackage.name);
             const searchPackageItem: searchUtils.SearchPackageItem = {
               package: searchPackage,
               score: searchItem.score,
@@ -711,6 +712,8 @@ class Storage {
               searchScore: 1,
             };
             results.push(searchPackageItem);
+          } else {
+            debug('local item without versions detected %s', searchItem.package.name);
           }
         }
         debug('search local stream end');

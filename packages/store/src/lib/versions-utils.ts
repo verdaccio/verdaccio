@@ -1,8 +1,11 @@
+import buildDebug from 'debug';
 import _ from 'lodash';
 import semver, { SemVer } from 'semver';
 
 import { DIST_TAGS, searchUtils } from '@verdaccio/core';
 import { Manifest, StringValue, Version, Versions } from '@verdaccio/types';
+
+const debug = buildDebug('verdaccio:storage:utils');
 
 /**
  * Gets version from a package object taking into account semver weirdness.
@@ -93,7 +96,9 @@ export function tagVersionNext(manifest: Manifest, version: string, tag: StringV
  * @returns
  */
 export function isNewerVersion(newVersion, oldVersion) {
-  return semver.compare(newVersion, oldVersion) === 1;
+  const comparisonResult = semver.compare(newVersion, oldVersion);
+
+  return comparisonResult === 1 || comparisonResult === 0;
 }
 
 /**
@@ -102,16 +107,30 @@ export function isNewerVersion(newVersion, oldVersion) {
  * @return {Array} filtered array
  */
 export function removeLowerVersions(objects: searchUtils.SearchPackageItem[]) {
-  const versionMap = {};
+  const versionMap = new Map();
 
-  objects.forEach((obj) => {
-    const { name, version } = obj.package;
-    if (!(name in versionMap) || isNewerVersion(version, versionMap[name])) {
-      versionMap[name] = version;
+  // Iterate through the array and keep the highest version for each name
+  objects.forEach((item) => {
+    const { name, version } = item.package;
+    const key = name;
+
+    if (versionMap.has(name) === false || isNewerVersion(version, versionMap.get(name))) {
+      debug('keeping %o@%o', name, version);
+      versionMap.set(key, version);
     }
   });
 
-  return objects.filter((obj) => {
-    return versionMap[obj.package.name] === obj.package.version;
-  });
+  // Filter objects based on the version map
+  return objects.reduce((acc, item) => {
+    const { name, version } = item.package;
+    if (
+      versionMap.has(name) &&
+      versionMap.get(name) === version &&
+      acc.find((i) => i.package.name === name) === undefined
+    ) {
+      debug('adding %o@%o', name, version);
+      acc.push(item);
+    }
+    return acc;
+  }, [] as searchUtils.SearchPackageItem[]);
 }
