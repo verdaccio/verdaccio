@@ -1,0 +1,273 @@
+{
+  "objects": [
+    {
+      "package": {
+        "name": "verdaccio",
+        "scope": "unscoped",
+        "version": "5.29.2",
+        "description": "A lightweight private npm proxy registry",
+        "keywords": [
+          "private",
+          "package",
+          "repository",
+          "registry",
+          "enterprise",
+          "modules",
+          "proxy",
+          "server",
+          "verdaccio"
+        ],
+        "date": "2024-02-21T19:56:45.379Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/verdaccio",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/verdaccio/verdaccio",
+          "bugs": "https://github.com/verdaccio/verdaccio/issues"
+        },
+        "author": {
+          "name": "Verdaccio Maintainers",
+          "email": "test@test.com",
+          "username": "verdaccio.npm"
+        },
+        "publisher": { "username": "verdaccio.npm", "email": "test@test.com" },
+        "maintainers": [
+          { "username": "jotadeveloper", "email": "test@test.com" },
+          { "username": "ayusharma", "email": "test@test.com" },
+          { "username": "trentearl", "email": "test@test.com" },
+          { "username": "jmwilkinson", "email": "test@test.com" },
+          { "username": "sergiohgz", "email": "test@test.com" },
+          { "username": "verdaccio.npm", "email": "test@test.com" }
+        ]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.28923397536716566,
+        "detail": {
+          "quality": 0.39403701233442867,
+          "popularity": 0.1553034428576298,
+          "maintenance": 0.3333333333333333
+        }
+      },
+      "searchScore": 100000.26
+    },
+    {
+      "package": {
+        "name": "@verdaccio/file-locking",
+        "scope": "verdaccio",
+        "version": "10.3.1",
+        "description": "library that handle file locking",
+        "keywords": ["verdaccio", "lock", "fs"],
+        "date": "2023-03-29T18:48:01.509Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/%40verdaccio%2Ffile-locking",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/verdaccio/monorepo",
+          "bugs": "https://github.com/verdaccio/monorepo/issues"
+        },
+        "author": {
+          "name": "Juan Picado",
+          "email": "test@test.com",
+          "username": "jotadeveloper"
+        },
+        "publisher": { "username": "verdaccio.npm", "email": "test@test.com" },
+        "maintainers": [
+          { "username": "sergiohgz", "email": "test@test.com" },
+          { "username": "verdaccio.npm", "email": "test@test.com" },
+          { "username": "jotadeveloper", "email": "test@test.com" },
+          { "username": "ayusharma", "email": "test@test.com" }
+        ]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.4347300973147867,
+        "detail": {
+          "quality": 0.8773185907360584,
+          "popularity": 0.15732960498192844,
+          "maintenance": 0.33276902385798346
+        }
+      },
+      "searchScore": 0.0010177421
+    },
+    {
+      "package": {
+        "name": "verdaccio-service-construct",
+        "scope": "unscoped",
+        "version": "0.0.602",
+        "keywords": ["cdk"],
+        "date": "2024-03-09T01:14:46.812Z",
+        "links": { "npm": "https://www.npmjs.com/package/verdaccio-service-construct" },
+        "author": {
+          "name": "Ayush Goyal",
+          "email": "ayush987goyal@gmail.com",
+          "username": "ayush987goyal"
+        },
+        "publisher": { "username": "ayush987goyal", "email": "ayush987goyal@gmail.com" },
+        "maintainers": [{ "username": "ayush987goyal", "email": "ayush987goyal@gmail.com" }]
+      },
+      "flags": { "insecure": 0, "unstable": true },
+      "score": {
+        "final": 0.22683523291517088,
+        "detail": {
+          "quality": 0.32276139168703444,
+          "popularity": 0.038114710692553955,
+          "maintenance": 0.3333333333333333
+        }
+      },
+      "searchScore": 3.968321e-8
+    },
+    {
+      "package": {
+        "name": "verdaccio-theme-hilio",
+        "scope": "unscoped",
+        "version": "1.14.5",
+        "description": "Verdaccio User Interface",
+        "keywords": ["verdaccio", "verdaccio-plugin", "verdaccio-theme"],
+        "date": "2021-01-12T05:48:12.643Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/verdaccio-theme-hilio",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/verdaccio/ui",
+          "bugs": "https://github.com/verdaccio/ui/issues"
+        },
+        "author": { "name": "Verdaccio Core Team", "email": "test@test.com" },
+        "publisher": { "username": "joebnb", "email": "joebnb@qq.com" },
+        "maintainers": [{ "username": "joebnb", "email": "joebnb@qq.com" }]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.20823236027862208,
+        "detail": {
+          "quality": 0.6388395536236707,
+          "popularity": 0.022545843955562445,
+          "maintenance": 0.02482699659164002
+        }
+      },
+      "searchScore": 3.8766167e-8
+    },
+    {
+      "package": {
+        "name": "@hamstudy/verdaccio-aws-s3-storage-sse",
+        "scope": "hamstudy",
+        "version": "10.3.2",
+        "description": "AWS S3 storage implementation for Verdaccio - fork that adds support for SSE-C, SSE-S3, and AWS:KMS",
+        "keywords": ["verdaccio", "plugin", "storage", "aws"],
+        "date": "2022-10-04T21:39:04.907Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/%40hamstudy%2Fverdaccio-aws-s3-storage-sse",
+          "homepage": "https://verdaccio.org",
+          "repository": "https://github.com/taxilian/verdaccio-monorepo",
+          "bugs": "https://github.com/verdaccio/monorepo/issues"
+        },
+        "author": {
+          "name": "Richard Bateman",
+          "email": "taxilian@gmail.com",
+          "username": "taxilian"
+        },
+        "publisher": { "username": "taxilian", "email": "taxilian@gmail.com" },
+        "maintainers": [
+          { "username": "rumbcam", "email": "kd7rmx@batemansr.us" },
+          { "username": "taxilian", "email": "taxilian@gmail.com" },
+          { "username": "bloveridge", "email": "bloveridge@gmail.com" }
+        ]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.220856041974831,
+        "detail": {
+          "quality": 0.6217078604565084,
+          "popularity": 0.0008629747032998004,
+          "maintenance": 0.09726183626206726
+        }
+      },
+      "searchScore": 3.8267025e-8
+    },
+    {
+      "package": {
+        "name": "testing-verdaccio",
+        "scope": "unscoped",
+        "version": "1.1.2",
+        "description": "this is just for Assignment puropse",
+        "date": "2023-03-20T07:58:49.325Z",
+        "links": { "npm": "https://www.npmjs.com/package/testing-verdaccio" },
+        "publisher": { "username": "samyak3009", "email": "samyak3009@gmail.com" },
+        "maintainers": [{ "username": "samyak3009", "email": "samyak3009@gmail.com" }]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.23106132265338952,
+        "detail": {
+          "quality": 0.39172042177373956,
+          "popularity": 0.0012551184665870981,
+          "maintenance": 0.3231597275941777
+        }
+      },
+      "searchScore": 3.383671e-8
+    },
+    {
+      "package": {
+        "name": "verdaccio-staryauthgroup",
+        "scope": "unscoped",
+        "version": "0.0.1",
+        "description": "A verdaccio plugin to control auth group",
+        "keywords": ["verdaccio,auth,plugin,verdaccio-]"],
+        "date": "2023-07-12T01:59:29.928Z",
+        "links": { "npm": "https://www.npmjs.com/package/verdaccio-staryauthgroup" },
+        "author": { "name": "weihuago4", "email": "weihuago4@gmail.com" },
+        "publisher": { "username": "liuweihua", "email": "weihualau@126.com" },
+        "maintainers": [{ "username": "liuweihua", "email": "weihualau@126.com" }]
+      },
+      "flags": { "insecure": 0, "unstable": true },
+      "score": {
+        "final": 0.2222439493540912,
+        "detail": {
+          "quality": 0.4337548917356935,
+          "popularity": 0.0006994438979026641,
+          "maintenance": 0.262493361340335
+        }
+      },
+      "searchScore": 3.2598397e-8
+    },
+    {
+      "package": {
+        "name": "verdaccio-auth-gitlab",
+        "scope": "unscoped",
+        "version": "2.0.0-beta.11",
+        "description": "Verdaccio authentication plugin by gitlab personal access token or oauth token or ci job token.",
+        "keywords": [
+          "verdaccio",
+          "authentication",
+          "auth",
+          "plugin",
+          "gitlab",
+          "personal",
+          "access",
+          "oauth",
+          "ci",
+          "job",
+          "token"
+        ],
+        "date": "2022-12-07T11:00:06.767Z",
+        "links": {
+          "npm": "https://www.npmjs.com/package/verdaccio-auth-gitlab",
+          "homepage": "https://github.com/pfdgithub/verdaccio-auth-gitlab",
+          "repository": "https://github.com/pfdgithub/verdaccio-auth-gitlab",
+          "bugs": "https://github.com/pfdgithub/verdaccio-auth-gitlab/issues"
+        },
+        "publisher": { "username": "pfdnpm", "email": "pfdfree@gmail.com" },
+        "maintainers": [{ "username": "pfdnpm", "email": "pfdfree@gmail.com" }]
+      },
+      "flags": { "insecure": 0 },
+      "score": {
+        "final": 0.2194863817767726,
+        "detail": {
+          "quality": 0.4542787957560298,
+          "popularity": 0.0025512045517420002,
+          "maintenance": 0.2351709184481542
+        }
+      },
+      "searchScore": 2.5283079e-8
+    }
+  ],
+  "total": 351,
+  "time": "Sat Mar 09 2024 15:20:36 GMT+0000 (Coordinated Universal Time)"
+}

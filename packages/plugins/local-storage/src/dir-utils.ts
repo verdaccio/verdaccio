@@ -64,12 +64,6 @@ export async function searchOnStorage(
 ): Promise<searchUtils.SearchItemPkg[]> {
   const matchedStorages = Array.from(storages);
   const storageFolders = Array.from(storages.keys());
-  // const getScopedFolders = async (pkgName) => {
-  //   const scopedPackages = await getFolders(join(storagePath, pkgName), '*');
-  //   const listScoped = scopedPackages.map((scoped) => ({
-  //     name: `${pkgName}/${scoped}`,
-  //   }));
-  // };
   debug('search on %o', storagePath);
   debug('storage folders %o', matchedStorages.length);
   let results: searchUtils.SearchItemPkg[] = [];

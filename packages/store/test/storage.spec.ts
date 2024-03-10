@@ -290,7 +290,7 @@ describe('storage', () => {
             {
               storage: generateRandomStorage(),
             },
-            './fixtures/config/getTarballNext-getupstream.yaml',
+            './fixtures/config/getTarball-getupstream.yaml',
             __dirname
           )
         );
@@ -657,7 +657,7 @@ describe('storage', () => {
     });
   });
 
-  describe('getTarballNext', () => {
+  describe('getTarball', () => {
     test('should not found a package anywhere', (done) => {
       const config = new Config(
         configExample({
@@ -669,7 +669,7 @@ describe('storage', () => {
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
-          .getTarballNext('some-tarball', 'some-tarball-1.0.0.tgz', {
+          .getTarball('some-tarball', 'some-tarball-1.0.0.tgz', {
             signal: abort.signal,
           })
           .then((stream) => {
@@ -701,7 +701,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -709,7 +709,7 @@ describe('storage', () => {
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
-          .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+          .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
             signal: abort.signal,
           })
           .then((stream) => {
@@ -745,7 +745,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -768,7 +768,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.1.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.1.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -809,7 +809,7 @@ describe('storage', () => {
           {
             storage: storagePath,
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -837,7 +837,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -862,7 +862,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -885,7 +885,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -904,7 +904,7 @@ describe('storage', () => {
     });
   });
 
-  describe('syncUplinksMetadataNext()', () => {
+  describe('syncUplinksMetadata()', () => {
     describe('error handling', () => {
       test('should handle double failure on uplinks with timeout', async () => {
         const fooManifest = generatePackageMetadata('timeout', '8.0.0');
@@ -926,7 +926,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.syncUplinksMetadataNext(fooManifest.name, null, {
+          storage.syncUplinksMetadata(fooManifest.name, null, {
             retry: { limit: 3 },
             timeout: {
               request: 1000,
@@ -950,7 +950,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.syncUplinksMetadataNext(fooManifest.name, null, {
+          storage.syncUplinksMetadata(fooManifest.name, null, {
             retry: { limit: 0 },
           })
         ).rejects.toThrow(API_ERROR.NO_PACKAGE);
@@ -970,7 +970,7 @@ describe('storage', () => {
         );
         const storage = new Storage(config);
         await storage.init(config);
-        const [manifest] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+        const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: 0,
         });
         expect(manifest).toBe(fooManifest);
@@ -993,7 +993,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
         expect(Object.keys((response as Manifest).versions)).toEqual([
@@ -1034,7 +1034,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, null);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, null);
         // the latest from the remote manifest
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
@@ -1056,7 +1056,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
@@ -1080,7 +1080,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           uplinksLook: false,
         });
 
@@ -1109,7 +1109,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext('foo', null, {
+        const [response] = await storage.syncUplinksMetadata('foo', null, {
           uplinksLook: true,
         });
 
@@ -1120,7 +1120,7 @@ describe('storage', () => {
   });
 
   describe('getLocalDatabase', () => {
-    test('should return 0 local packages', async () => {
+    test('should return no results', async () => {
       const config = new Config(
         configExample({
           ...getDefaultConfig(),
@@ -1132,7 +1132,7 @@ describe('storage', () => {
       await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
     });
 
-    test('should return 1 local packages', async () => {
+    test('should return single result', async () => {
       const config = new Config(
         configExample({
           ...getDefaultConfig(),

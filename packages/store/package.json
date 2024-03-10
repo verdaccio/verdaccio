@@ -44,6 +44,7 @@
     "@verdaccio/loaders": "workspace:7.0.0-next-7.11",
     "@verdaccio/local-storage": "workspace:12.0.0-next-7.11",
     "@verdaccio/logger": "workspace:7.0.0-next-7.11",
+    "@verdaccio/search": "workspace:7.0.0-next.0",
     "@verdaccio/proxy": "workspace:7.0.0-next-7.11",
     "@verdaccio/tarball": "workspace:12.0.0-next-7.11",
     "@verdaccio/url": "workspace:12.0.0-next-7.11",

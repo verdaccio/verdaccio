@@ -16,7 +16,7 @@ async function tarballRoute(fastify: FastifyInstance) {
     const { package: pkg, filename } = request.params;
     debug('stream tarball for %s@%s', pkg, filename);
     const abort = new AbortController();
-    const stream = (await fastify.storage.getTarballNext(pkg, filename, {
+    const stream = (await fastify.storage.getTarball(pkg, filename, {
       signal: abort.signal,
       // enableRemote: true,
     })) as any;
@@ -46,7 +46,7 @@ async function tarballRoute(fastify: FastifyInstance) {
       const { scope, name, filename } = request.params;
       const scopedPackage = `${scope}/${name}`;
       debug('stream scope tarball for %s@%s', scopedPackage, filename);
-      const stream = (await fastify.storage.getTarballNext(scopedPackage, filename, {
+      const stream = (await fastify.storage.getTarball(scopedPackage, filename, {
         signal: abort.signal,
         // enableRemote: true,
       })) as any;
