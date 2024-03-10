@@ -558,9 +558,10 @@ describe('AuthTest', () => {
       const getServer = async function (auth) {
         const app = express();
         app.use(express.json({ strict: false, limit: '10mb' }));
+
+        app.use(auth.apiJWTmiddleware());
         // @ts-expect-error
         app.use(errorReportingMiddleware(logger));
-        app.use(auth.apiJWTmiddleware());
         app.get('/*', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
@@ -575,7 +576,8 @@ describe('AuthTest', () => {
         app.use(final);
         return app;
       };
-      describe.skip('legacy signature', () => {
+
+      describe('legacy signature', () => {
         describe('error cases', () => {
           test('should handle invalid auth token', async () => {
             const config: Config = new AppConfig({ ...authProfileConf });

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import semver, { SemVer } from 'semver';
 
-import { DIST_TAGS } from '@verdaccio/core';
+import { DIST_TAGS, searchUtils } from '@verdaccio/core';
 import { Manifest, StringValue, Version, Versions } from '@verdaccio/types';
 
 /**
@@ -84,4 +84,34 @@ export function tagVersionNext(manifest: Manifest, version: string, tag: StringV
     data[DIST_TAGS][tag] = version;
   }
   return data;
+}
+
+/**
+ *  Check if the version is newer than the older version.
+ * @param newVersion
+ * @param oldVersion
+ * @returns
+ */
+export function isNewerVersion(newVersion, oldVersion) {
+  return semver.compare(newVersion, oldVersion) === 1;
+}
+
+/**
+ * Remove duplicates from search results.
+ * @param {Array} objects
+ * @return {Array} filtered array
+ */
+export function removeLowerVersions(objects: searchUtils.SearchPackageItem[]) {
+  const versionMap = {};
+
+  objects.forEach((obj) => {
+    const { name, version } = obj.package;
+    if (!(name in versionMap) || isNewerVersion(version, versionMap[name])) {
+      versionMap[name] = version;
+    }
+  });
+
+  return objects.filter((obj) => {
+    return versionMap[obj.package.name] === obj.package.version;
+  });
 }

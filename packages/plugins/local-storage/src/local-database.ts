@@ -142,6 +142,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
    * @returns
    */
   public async search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
+    debug('search query to %o', query.text);
     const results: searchUtils.SearchItem[] = [];
     const storagePath = this.getStoragePath();
     const localResults = await searchOnStorage(storagePath, this.storages);

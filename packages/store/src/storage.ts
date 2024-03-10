@@ -79,7 +79,7 @@ import {
   normalizePackage,
   updateUpLinkMetadata,
 } from './lib/storage-utils';
-import { getVersion } from './lib/versions-utils';
+import { getVersion, removeLowerVersions } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
 import { IGetPackageOptionsNext, StarManifestBody } from './type';
 
@@ -236,9 +236,11 @@ class Storage {
     const cachePackages = await this.getCachedPackages(options.query);
     debug('search found on cache packages %o', cachePackages.length);
     const remotePackages = await this.searchService.search(options);
-    debug('search found on remove packages %o', remotePackages.length);
+    debug('search found on remote packages %o', remotePackages.length);
     const totalResults = [...cachePackages, ...remotePackages];
-    return totalResults;
+    const uniqueResults = removeLowerVersions(totalResults);
+    debug('unique results %o', uniqueResults.length);
+    return uniqueResults;
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
@@ -638,7 +640,7 @@ class Storage {
         },
         this.config?.serverSettings?.pluginPrefix
       );
-      debug('filters available %o', this.filters);
+      debug('filters available %o', this.filters.length);
     }
     return;
   }
@@ -677,9 +679,10 @@ class Storage {
   public async getCachedPackages(
     query?: searchUtils.SearchQuery
   ): Promise<searchUtils.SearchPackageItem[]> {
-    debug('search on each package');
+    debug('search on each package', query);
     const results: searchUtils.SearchPackageItem[] = [];
-    if (typeof query === 'undefined' || query?.text) {
+    if (typeof query === 'undefined' || typeof query?.text === 'undefined') {
+      debug('search query for cached not found');
       return results;
     }
 
