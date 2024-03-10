@@ -55,13 +55,15 @@
     "verdaccio": "6.0.0",
     "@verdaccio/web": "6.0.0",
     "@verdaccio/website": "5.20.2",
-    "@verdaccio/local-publish": "0.0.1"
+    "@verdaccio/local-publish": "0.0.1",
+    "@verdaccio/search": "7.0.0-next.0"
   },
   "changesets": [
     "angry-trees-tie",
     "breezy-mayflies-pull",
     "chilled-carrots-guess",
     "eight-squids-judge",
+    "good-cups-train",
     "long-jars-collect",
     "old-turkeys-heal",
     "olive-bananas-wink",

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "7.0.0-next-7.11",
+  "version": "7.0.0-next-7.12",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -13,13 +13,13 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/logger": "workspace:7.0.0-next-7.11",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.12",
     "debug": "4.3.4",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.11",
-    "@verdaccio/config": "workspace:7.0.0-next-7.11",
+    "@verdaccio/core": "workspace:7.0.0-next-7.12",
+    "@verdaccio/config": "workspace:7.0.0-next-7.12",
     "@verdaccio/types": "workspace:12.0.0-next.2",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "verdaccio-auth-memory": "workspace:*",
