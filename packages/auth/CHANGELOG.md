@@ -1,5 +1,17 @@
 # @verdaccio/auth
 
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.12
+- @verdaccio/config@7.0.0-next-7.12
+- @verdaccio/loaders@7.0.0-next-7.12
+- verdaccio-htpasswd@12.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+- @verdaccio/signature@7.0.0-next.3
+- @verdaccio/logger@7.0.0-next-7.12
+
 ## 7.0.0-next-7.11
 
 ### Patch Changes
