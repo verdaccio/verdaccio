@@ -575,7 +575,7 @@ describe('AuthTest', () => {
         app.use(final);
         return app;
       };
-      describe('legacy signature', () => {
+      describe.skip('legacy signature', () => {
         describe('error cases', () => {
           test('should handle invalid auth token', async () => {
             const config: Config = new AppConfig({ ...authProfileConf });

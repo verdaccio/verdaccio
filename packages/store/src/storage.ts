@@ -32,7 +32,7 @@ import {
   setupUpLinks,
   updateVersionsHiddenUpLinkNext,
 } from '@verdaccio/proxy';
-import Search, { mapManifestToSearchPackageBody } from '@verdaccio/search';
+import Search from '@verdaccio/search';
 import {
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
@@ -72,6 +72,7 @@ import {
   generatePackageTemplate,
   generateRevision,
   getLatestReadme,
+  mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
   normalizeDistTags,
@@ -227,11 +228,17 @@ class Storage {
   /**
    * Handle search on packages and proxies.
    * Iterate all proxies configured and search in all endpoints in v2 and pipe all responses
-   * to a stream, once the proxies request has finished search in local storage for all packages
+   *  once the proxies request has finished search in local storage for all packages
    * (privated and cached).
    */
   public async search(options: ProxySearchParams): Promise<searchUtils.SearchPackageItem[]> {
-    return this.searchService.search(options, this.searchCachedPackages.bind(this));
+    debug('search on cache packages');
+    const cachePackages = await this.getCachedPackages(options.query);
+    debug('search found on cache packages %o', cachePackages.length);
+    const remotePackages = await this.searchService.search(options);
+    debug('search found on remove packages %o', remotePackages.length);
+    const totalResults = [...cachePackages, ...remotePackages];
+    return totalResults;
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
@@ -337,7 +344,7 @@ class Storage {
       // should not be the case
       const passThroughRemoteStream = new PassThrough();
       // ensure get the latest data
-      const [updatedManifest] = await this.syncUplinksMetadataNext(name, cachedManifest, {
+      const [updatedManifest] = await this.syncUplinksMetadata(name, cachedManifest, {
         uplinksLook: true,
       });
       const distFile = (updatedManifest as Manifest)._distfiles[filename];
@@ -380,7 +387,7 @@ class Storage {
    * @param param2
    * @returns
    */
-  public async getTarballNext(name: string, filename: string, { signal }): Promise<PassThrough> {
+  public async getTarball(name: string, filename: string, { signal }): Promise<PassThrough> {
     debug('get tarball for package %o filename %o', name, filename);
     // TODO: check if isOpen is need it after all.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -667,11 +674,15 @@ class Storage {
     return await storage.readTarball(filename, { signal });
   }
 
-  private async searchCachedPackages(
-    searchStream: PassThrough,
-    query: searchUtils.SearchQuery
-  ): Promise<void> {
+  public async getCachedPackages(
+    query?: searchUtils.SearchQuery
+  ): Promise<searchUtils.SearchPackageItem[]> {
     debug('search on each package');
+    const results: searchUtils.SearchPackageItem[] = [];
+    if (typeof query === 'undefined' || query?.text) {
+      return results;
+    }
+
     logger.info(
       { t: query.text, q: query.quality, p: query.popularity, m: query.maintenance, s: query.size },
       'search by text @{t}| maintenance @{m}| quality @{q}| popularity @{p}'
@@ -679,7 +690,6 @@ class Storage {
 
     if (typeof this.localStorage.getStoragePlugin().search === 'undefined') {
       logger.info('plugin search not implemented yet');
-      searchStream.end();
     } else {
       debug('search on each package by plugin');
       const items = await this.localStorage.getStoragePlugin().search(query);
@@ -697,16 +707,16 @@ class Storage {
               // FUTURE: find a better way to calculate the score
               searchScore: 1,
             };
-            searchStream.write(searchPackageItem);
+            results.push(searchPackageItem);
           }
         }
         debug('search local stream end');
-        searchStream.end();
       } catch (err) {
         this.logger.error({ err, query }, 'error on search by plugin @{err.message}');
-        searchStream.emit('error', err);
+        throw err;
       }
     }
+    return results;
   }
 
   private async removePackageByRevision(pkgName: string, revision: string): Promise<void> {
@@ -1390,7 +1400,7 @@ class Storage {
   private async checkPackageRemote(name: string, uplinksLook: boolean): Promise<Manifest | null> {
     try {
       // we provide a null manifest, thus the manifest returned will be the remote one
-      const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadataNext(name, null, {
+      const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadata(name, null, {
         uplinksLook,
       });
 
@@ -1503,7 +1513,7 @@ class Storage {
     // if we can't get the local metadata, we try to get the remote metadata
     // if we do to have local metadata, we try to update it with the upstream registry
     debug('sync uplinks for %o', name);
-    const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadataNext(name, data, {
+    const [remoteManifest, upLinksErrors] = await this.syncUplinksMetadata(name, data, {
       uplinksLook: options.uplinksLook,
       retry: options.retry,
       remoteAddress: options.requestOptions.remoteAddress,
@@ -1554,7 +1564,7 @@ class Storage {
     in that case the request returns empty body and we want ask next on the list if has fresh
     updates.
    */
-  public async syncUplinksMetadataNext(
+  public async syncUplinksMetadata(
     name: string,
     localManifest: Manifest | null,
     options: Partial<ISyncUplinksOptions> = {}
