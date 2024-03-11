@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5235,
+      "contributions": 5238,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2889
+          "contributions": 2892
         },
         {
           "name": "verdaccio-cookbook",
@@ -420,17 +420,6 @@
         {
           "name": "ui",
           "contributions": 16
-        }
-      ]
-    },
-    {
-      "id": 154585070,
-      "login": "indiescripter",
-      "contributions": 14,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 14
         }
       ]
     },
@@ -1663,17 +1652,6 @@
       ]
     },
     {
-      "id": 1845314,
-      "login": "MasterOdin",
-      "contributions": 2,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 2
-        }
-      ]
-    },
-    {
       "id": 273367,
       "login": "kba",
       "contributions": 2,
@@ -1687,6 +1665,17 @@
     {
       "id": 161571,
       "login": "aledbf",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 1845314,
+      "login": "MasterOdin",
       "contributions": 2,
       "repositories": [
         {
@@ -2067,6 +2056,17 @@
       ]
     },
     {
+      "id": 374671,
+      "login": "fhp",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 34041551,
       "login": "simon-lorenz",
       "contributions": 1,
@@ -2124,28 +2124,6 @@
     {
       "id": 2362668,
       "login": "rouanw",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 25525736,
-      "login": "rostislav-simonik",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 374671,
-      "login": "fhp",
       "contributions": 1,
       "repositories": [
         {
@@ -2223,6 +2201,17 @@
     {
       "id": 372783,
       "login": "thomir",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 3285115,
+      "login": "datWeazel",
       "contributions": 1,
       "repositories": [
         {
@@ -2410,6 +2399,17 @@
     {
       "id": 4810463,
       "login": "RodrigoBalest",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 25525736,
+      "login": "rostislav-simonik",
       "contributions": 1,
       "repositories": [
         {
@@ -4967,7 +4967,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15745,
+      "stargazers_count": 15753,
       "archived": false
     },
     {
