@@ -49,7 +49,7 @@
     "verdaccio-htpasswd": "workspace:12.0.0-next-7.12"
   },
   "devDependencies": {
-    "express": "4.18.2",
+    "express": "4.18.3",
     "supertest": "6.3.4",
     "@verdaccio/middleware": "workspace:7.0.0-next-7.12",
     "@verdaccio/types": "workspace:12.0.0-next.2"
