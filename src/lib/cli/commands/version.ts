@@ -7,7 +7,7 @@ export class VersionCommand extends Command {
   static paths = [[`--version`], [`-v`]];
 
   async execute() {
-    this.context.stdout.write(`v${pkgVersion}`);
+    this.context.stdout.write(`v${pkgVersion}\n`);
     process.exit(0);
   }
 }
