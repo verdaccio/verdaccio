@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Manifest } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';

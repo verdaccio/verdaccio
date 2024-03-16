@@ -7,7 +7,7 @@ import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Config as IConfig } from '@verdaccio/types';
 
 import Auth from '../lib/auth';
