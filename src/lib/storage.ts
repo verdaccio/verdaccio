@@ -8,7 +8,7 @@ import { hasProxyTo } from '@verdaccio/config';
 import { errorUtils, pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { IProxy, ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
   Callback,
