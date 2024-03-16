@@ -54,4 +54,4 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/ui-components netlify:deploy
+        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy
