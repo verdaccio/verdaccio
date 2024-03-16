@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 import { pkgUtils } from '@verdaccio/core';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 

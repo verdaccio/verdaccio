@@ -4,7 +4,7 @@ import _ from 'lodash';
 import Stream from 'stream';
 
 import { validatioUtils } from '@verdaccio/core';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
   Callback,
