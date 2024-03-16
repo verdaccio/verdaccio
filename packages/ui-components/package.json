@@ -16,6 +16,7 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
+    "netlify:deploy": "npx netlify-cli deploy --dir=./storybook-static --prod",
     "start": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook"
   },

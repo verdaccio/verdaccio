@@ -1,7 +1,9 @@
 name: UI Components
 
-on: 
+on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' 
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -48,24 +50,8 @@ jobs:
       - name: Copy public content
         # the msw.js worker is need it at the storybook-static folder in production
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
-      - name: 🔥 Deploy Production UI Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          build-dir: './packages/ui-components/storybook-static'          
-      - name: 🤖 Deploy Preview UI Components Netlify
-        if: github.repository == 'verdaccio/verdaccio'
-        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-        id: netlify_preview_ui
-        with:
-          draft: true
-          comment-on-pull-request: true
-          github-deployment-is-production: false
-          github-deployment-is-transient: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          build-dir: './packages/ui-components/storybook-static'
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm --filter ...@verdaccio/ui-components netlify:deploy
