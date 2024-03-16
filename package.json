@@ -180,7 +180,6 @@
   "license": "MIT",
   "resolutions": {
     "@types/serve-static": "1.15.5",
-    "@verdaccio/local-storage": "10.3.3",
     "@types/express-serve-static-core": "4.17.41"
   },
   "collective": {
