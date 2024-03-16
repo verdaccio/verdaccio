@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS } from '../../../lib/constants';

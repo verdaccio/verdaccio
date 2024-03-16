@@ -9,7 +9,7 @@ import { pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
-import { SearchMemoryIndexer } from '@verdaccio/search';
+import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
