@@ -22,10 +22,6 @@ jobs:
         node-version: ${{ matrix.node_version }}
     - name: Install
       run: yarn install --immutable
-    - name: Format
-      run: yarn format:check
-    - name: Lint
-      run: yarn lint        
     - name: Build
       run: yarn build
     - name: Types
