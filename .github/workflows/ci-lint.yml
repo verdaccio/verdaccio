@@ -20,3 +20,5 @@ jobs:
       run: yarn format:check
     - name: Lint
       run: yarn lint
+    - name: Lint Lockfile
+      run: yarn lint:lockfile
