@@ -22,7 +22,7 @@
     "@cypress/request": "3.0.1",
     "@verdaccio/config": "7.0.0-next-7.12",
     "@verdaccio/core": "7.0.0-next-7.12",
-    "@verdaccio/local-storage-legacy": "11.0.1",
+    "@verdaccio/local-storage-legacy": "11.0.2",
     "@verdaccio/logger-7": "7.0.0-next-7.12",
     "@verdaccio/middleware": "7.0.0-next-7.12",
     "@verdaccio/search": "7.0.0-next-7.1",
