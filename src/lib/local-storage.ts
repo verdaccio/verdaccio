@@ -4,7 +4,7 @@ import _ from 'lodash';
 import UrlNode from 'url';
 
 import { pluginUtils } from '@verdaccio/core';
-import LocalDatabase from '@verdaccio/local-storage';
+import LocalDatabase from '@verdaccio/local-storage-legacy';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
