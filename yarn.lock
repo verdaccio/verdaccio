@@ -3637,13 +3637,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/search-indexer@npm:7.0.0-next.0":
-  version: 7.0.0-next.0
-  resolution: "@verdaccio/search-indexer@npm:7.0.0-next.0"
-  checksum: 10/60365fa5d672e4526425294fe0caa9396e2432047e9e9588833651e64dfa16cb42aba58313d4110d2d96fd8de187bc0e68f30cf4339f9447efbcc8b87d463178
-  languageName: node
-  linkType: hard
-
 "@verdaccio/search@npm:7.0.0-next-7.1":
   version: 7.0.0-next-7.1
   resolution: "@verdaccio/search@npm:7.0.0-next-7.1"
@@ -8973,6 +8966,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mockdate@npm:3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 10/ff74f43f56a12e1339e838aee623e37b6e4c378173905697f2a006a5c581eea9c71da54fcea76c27e7e744422e49395c668932bf09e67f024841240ffef91fd2
+  languageName: node
+  linkType: hard
+
 "modify-values@npm:^1.0.0":
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
@@ -11647,7 +11647,6 @@ __metadata:
     "@verdaccio/middleware": "npm:7.0.0-next-7.12"
     "@verdaccio/proxy": "npm:7.0.0-next-7.12"
     "@verdaccio/search": "npm:7.0.0-next-7.1"
-    "@verdaccio/search-indexer": "npm:7.0.0-next.0"
     "@verdaccio/signature": "npm:7.0.0-next.3"
     "@verdaccio/streams": "npm:10.2.1"
     "@verdaccio/tarball": "npm:12.0.0-next-7.12"
@@ -11692,6 +11691,7 @@ __metadata:
     lru-cache: "npm:7.18.3"
     mime: "npm:3.0.0"
     mkdirp: "npm:1.0.4"
+    mockdate: "npm:3.0.5"
     mv: "npm:2.1.1"
     nock: "npm:13.5.0"
     pkginfo: "npm:0.4.1"

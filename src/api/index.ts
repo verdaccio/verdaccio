@@ -9,7 +9,6 @@ import { pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { final } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
-import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
@@ -29,8 +28,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   const auth = new Auth(config);
   await auth.init();
   const app: Application = express();
-  SearchMemoryIndexer.configureStorage(storage);
-  await SearchMemoryIndexer.init(logger);
+
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
   app.set('env', process.env.NODE_ENV || 'production');

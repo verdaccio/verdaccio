@@ -1,3 +1,4 @@
+import MockDate from 'mockdate';
 import path from 'path';
 import { rimrafSync } from 'rimraf';
 import request from 'supertest';
@@ -25,12 +26,14 @@ require('../../../../src/lib/logger').setup([]);
 
 const credentials = { name: 'user-web', password: 'secretPass' };
 describe('endpoint web unit test', () => {
-  jest.setTimeout(20000);
+  jest.setTimeout(10000);
   let app;
 
   let registry;
 
   beforeAll(async () => {
+    const mockDate = '2018-01-14T11:17:40.712Z';
+    MockDate.set(mockDate);
     const storagePath = path.join(__dirname, '../../partials/store/web-api-storage');
     rimrafSync(storagePath);
 
@@ -188,14 +191,42 @@ describe('endpoint web unit test', () => {
           });
       });
 
-      test('should search with 404', (done) => {
+      test('should search with scope search text', (done) => {
         request(app)
           .get('/-/verdaccio/data/search/@')
           .expect(HTTP_STATUS.OK)
           .end(function (err, res) {
-            // in a normal world, the output would be 1
-            // https://github.com/verdaccio/verdaccio/issues/345
-            expect(res.body).toEqual([]);
+            expect(res.body).toEqual([
+              {
+                package: {
+                  name: '@scope/pk1-test',
+                  scope: '@scope',
+                  description: '',
+                  version: '1.0.6',
+                  keywords: [],
+                  date: '2018-01-14T11:17:40.712Z',
+                  author: {
+                    name: 'User NPM',
+                    email: 'user@domain.com',
+                  },
+                  publisher: {},
+                  links: {
+                    npm: '',
+                  },
+                },
+                score: {
+                  final: 1,
+                  detail: {
+                    maintenance: 0,
+                    popularity: 1,
+                    quality: 1,
+                  },
+                },
+                verdaccioPkgCached: false,
+                verdaccioPrivate: true,
+                searchScore: 1,
+              },
+            ]);
             done();
           });
       });

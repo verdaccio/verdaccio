@@ -18,7 +18,7 @@ export default (auth, storage, config): any => {
     })
   );
   packageApi(router, storage, auth, config);
-  search(router, storage, auth);
+  router.use(search(storage, auth));
   if (hasLogin(config)) {
     user(router, auth, config);
   }
