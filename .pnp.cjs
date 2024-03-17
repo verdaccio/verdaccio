@@ -72,7 +72,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
             ["@verdaccio/config", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/core", "npm:7.0.0-next-7.12"],\
-            ["@verdaccio/local-storage", "npm:10.3.3"],\
+            ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger-7", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/middleware", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/search", "npm:7.0.0-next-7.1"],\
@@ -5371,11 +5371,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@verdaccio/local-storage", [\
-        ["npm:10.3.3", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-npm-10.3.3-e7afb8358f-70f47ea94f.zip/node_modules/@verdaccio/local-storage/",\
+      ["@verdaccio/local-storage-legacy", [\
+        ["npm:11.0.2", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-local-storage-legacy-npm-11.0.2-4583594381-e5c09028a9.zip/node_modules/@verdaccio/local-storage-legacy/",\
           "packageDependencies": [\
-            ["@verdaccio/local-storage", "npm:10.3.3"],\
+            ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/commons-api", "npm:10.2.0"],\
             ["@verdaccio/file-locking", "npm:10.3.1"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
@@ -14995,7 +14995,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
             ["@verdaccio/config", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/core", "npm:7.0.0-next-7.12"],\
-            ["@verdaccio/local-storage", "npm:10.3.3"],\
+            ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger-7", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/middleware", "npm:7.0.0-next-7.12"],\
             ["@verdaccio/search", "npm:7.0.0-next-7.1"],\

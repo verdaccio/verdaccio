@@ -22,7 +22,7 @@
     "@cypress/request": "3.0.1",
     "@verdaccio/config": "7.0.0-next-7.12",
     "@verdaccio/core": "7.0.0-next-7.12",
-    "@verdaccio/local-storage": "10.3.3",
+    "@verdaccio/local-storage-legacy": "11.0.2",
     "@verdaccio/logger-7": "7.0.0-next-7.12",
     "@verdaccio/middleware": "7.0.0-next-7.12",
     "@verdaccio/search": "7.0.0-next-7.1",
@@ -180,7 +180,6 @@
   "license": "MIT",
   "resolutions": {
     "@types/serve-static": "1.15.5",
-    "@verdaccio/local-storage": "10.3.3",
     "@types/express-serve-static-core": "4.17.41"
   },
   "collective": {

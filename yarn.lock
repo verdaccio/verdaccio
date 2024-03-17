@@ -3138,9 +3138,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage@npm:10.3.3":
-  version: 10.3.3
-  resolution: "@verdaccio/local-storage@npm:10.3.3"
+"@verdaccio/local-storage-legacy@npm:11.0.2":
+  version: 11.0.2
+  resolution: "@verdaccio/local-storage-legacy@npm:11.0.2"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/file-locking": 10.3.1
@@ -3150,7 +3150,7 @@ __metadata:
     lodash: 4.17.21
     lowdb: 1.0.0
     mkdirp: 1.0.4
-  checksum: 70f47ea94fd0d6f3a5ac82fa0a8b28a41fb69f076f993bbf9ff775cca11966a6e92b4b57741348bdbfc3f241d851c052336d1673ca7e7b29e1999b88afe4fde2
+  checksum: e5c09028a9d67459297e6760acb1d5301a87bb3fe67a9ae7d8fb3e2deb6d907ebd113d7e883e89174eefb08afdaa9043257a5e04b8cb6702d3718ad0d8b5f731
   languageName: node
   linkType: hard
 
@@ -11465,7 +11465,7 @@ __metadata:
     "@verdaccio-scope/verdaccio-auth-foo": 0.0.2
     "@verdaccio/config": 7.0.0-next-7.12
     "@verdaccio/core": 7.0.0-next-7.12
-    "@verdaccio/local-storage": 10.3.3
+    "@verdaccio/local-storage-legacy": 11.0.2
     "@verdaccio/logger-7": 7.0.0-next-7.12
     "@verdaccio/middleware": 7.0.0-next-7.12
     "@verdaccio/search": 7.0.0-next-7.1
