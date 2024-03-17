@@ -12,7 +12,7 @@
 # path to a directory with all packages
 storage: ./storage
 # path to a directory with plugins to include
-plugins: ./plugins
+# plugins: ./plugins
 
 # https://verdaccio.org/docs/webui
 web:
