@@ -8,7 +8,7 @@ import { pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
 import Search from '@verdaccio/search';
-import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
+
 import { ReadTarball } from '@verdaccio/streams';
 import {
   Callback,
@@ -172,11 +172,7 @@ class Storage {
    Used storages: local (write)
    */
   public removePackage(name: string, callback: Callback): void {
-    this.localStorage.removePackage(name, callback);
-    // update the indexer
-    SearchMemoryIndexer.remove(name).catch((reason) => {
-      logger.error('indexer has failed on remove item');
-    });
+    this.localStorage.removePackage(name, callback);    
   }
 
   /**
