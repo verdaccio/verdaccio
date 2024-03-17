@@ -27,6 +27,7 @@ _If you are using Verdaccio in your business and want to share your experience, 
 - [The AWS Cloud Development Kit](https://github.com/awslabs/aws-cdk)
 - [Hyperledger Caliper](https://github.com/hyperledger/caliper)
 - [secco](https://secco.lekoarts.de)
+- [Nx](https://nx.dev/)
 
 #### Readme Recommendations {#readme-recommendations}
 
