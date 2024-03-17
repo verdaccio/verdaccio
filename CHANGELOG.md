@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0-beta.2](https://github.com/verdaccio/verdaccio/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-03-17)
+
+
+### Features
+
+* enable stream search from user interface ([#4544](https://github.com/verdaccio/verdaccio/issues/4544)) ([ed3ce4d](https://github.com/verdaccio/verdaccio/commit/ed3ce4dc93bf96fc262c0bf1e2d38537d66a6540))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4436](https://github.com/verdaccio/verdaccio/issues/4436)) ([5a03778](https://github.com/verdaccio/verdaccio/commit/5a037785a1dbcd5f96be027a1f478bd8d2aadd90))
+* **deps:** update core verdaccio dependencies ([#4500](https://github.com/verdaccio/verdaccio/issues/4500)) ([eda0f51](https://github.com/verdaccio/verdaccio/commit/eda0f513d07c808c6873b60a0f57caee757d5f13))
+* **deps:** update core verdaccio dependencies ([#4531](https://github.com/verdaccio/verdaccio/issues/4531)) ([f46f9e1](https://github.com/verdaccio/verdaccio/commit/f46f9e1b70157b5ff0be7ff118614bd5a9c29e62))
+* **deps:** update core verdaccio dependencies (6.x) ([#4540](https://github.com/verdaccio/verdaccio/issues/4540)) ([c12e1a0](https://github.com/verdaccio/verdaccio/commit/c12e1a0b6aa9c9e19b50b19fee143f939f43ed2a))
+* newline after version command ([913ce37](https://github.com/verdaccio/verdaccio/commit/913ce37b57814961f8225a5cbd310166a130d4d4)), closes [#4543](https://github.com/verdaccio/verdaccio/issues/4543)
+* profile v1 endpoint and tests ([a183446](https://github.com/verdaccio/verdaccio/commit/a183446000f683591fa96d0ea6b79b286de410f2))
+
 ## [6.0.0-beta.1](https://github.com/verdaccio/verdaccio/compare/v6.0.0-beta.0...v6.0.0-beta.1) (2024-01-07)
 
 
