@@ -1,10 +1,10 @@
-import { Router } from 'express';
 import buildDebug from 'debug';
+import { Router } from 'express';
 import _ from 'lodash';
-import { Auth } from '@verdaccio/auth';
 
+import { Auth } from '@verdaccio/auth';
+import { errorUtils, searchUtils } from '@verdaccio/core';
 import { Manifest } from '@verdaccio/types';
-import { searchUtils, errorUtils } from '@verdaccio/core';
 
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
@@ -85,6 +85,5 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
   );
   return router;
 }
-
 
 export default addSearchWebApi;

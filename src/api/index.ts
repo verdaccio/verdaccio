@@ -29,7 +29,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   const auth = new Auth(config);
   await auth.init();
   const app: Application = express();
-  
+
   await SearchMemoryIndexer.init(logger);
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway

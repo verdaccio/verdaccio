@@ -1,5 +1,5 @@
-import path from 'path';
 import MockDate from 'mockdate';
+import path from 'path';
 import { rimrafSync } from 'rimraf';
 import request from 'supertest';
 
@@ -198,36 +198,35 @@ describe('endpoint web unit test', () => {
           .end(function (err, res) {
             expect(res.body).toEqual([
               {
-                "package": {
-                  "name": "@scope/pk1-test",
-                  "scope": "@scope",
-                  "description": "",
-                  "version": "1.0.6",
-                  "keywords": [],
-                  "date": "2018-01-14T11:17:40.712Z",
-                  "author": {
-                    "name": "User NPM",
-                    "email": "user@domain.com"
+                package: {
+                  name: '@scope/pk1-test',
+                  scope: '@scope',
+                  description: '',
+                  version: '1.0.6',
+                  keywords: [],
+                  date: '2018-01-14T11:17:40.712Z',
+                  author: {
+                    name: 'User NPM',
+                    email: 'user@domain.com',
                   },
-                  "publisher": {},
-                  "links": {
-                    "npm": ""
-                  }
+                  publisher: {},
+                  links: {
+                    npm: '',
+                  },
                 },
-                "score": {
-                  "final": 1,
-                  "detail": {
-                    "maintenance": 0,
-                    "popularity": 1,
-                    "quality": 1
-                  }
+                score: {
+                  final: 1,
+                  detail: {
+                    maintenance: 0,
+                    popularity: 1,
+                    quality: 1,
+                  },
                 },
-                "verdaccioPkgCached": false,
-                "verdaccioPrivate": true,
-                "searchScore": 1
-              }
-            ]
-        );
+                verdaccioPkgCached: false,
+                verdaccioPrivate: true,
+                searchScore: 1,
+              },
+            ]);
             done();
           });
       });
