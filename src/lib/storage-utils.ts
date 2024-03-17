@@ -1,6 +1,5 @@
 import _ from 'lodash';
 
-
 import { AbbreviatedManifest, AbbreviatedVersions, Manifest, Version } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
@@ -146,7 +145,7 @@ export function publishPackage(
         return reject(err);
       } else if (!_.isUndefined(latest)) {
         return resolve();
-      }    
+      }
     });
   });
 }
