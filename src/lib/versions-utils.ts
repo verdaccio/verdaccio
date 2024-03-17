@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import semver from 'semver';
 
-import {  searchUtils } from '@verdaccio/core';
+import { searchUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:storage:utils');
 
@@ -17,8 +17,6 @@ export function isNewerVersion(newVersion, oldVersion) {
 
   return comparisonResult === 1 || comparisonResult === 0;
 }
-
-
 
 /**
  * Remove duplicates from search results.

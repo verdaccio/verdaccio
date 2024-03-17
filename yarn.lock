@@ -8973,6 +8973,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mockdate@npm:3.0.5":
+  version: 3.0.5
+  resolution: "mockdate@npm:3.0.5"
+  checksum: 10/ff74f43f56a12e1339e838aee623e37b6e4c378173905697f2a006a5c581eea9c71da54fcea76c27e7e744422e49395c668932bf09e67f024841240ffef91fd2
+  languageName: node
+  linkType: hard
+
 "modify-values@npm:^1.0.0":
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
@@ -11692,6 +11699,7 @@ __metadata:
     lru-cache: "npm:7.18.3"
     mime: "npm:3.0.0"
     mkdirp: "npm:1.0.4"
+    mockdate: "npm:3.0.5"
     mv: "npm:2.1.1"
     nock: "npm:13.5.0"
     pkginfo: "npm:0.4.1"

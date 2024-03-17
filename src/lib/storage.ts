@@ -3,11 +3,11 @@ import async, { AsyncResultArrayCallback } from 'async';
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-
 import { hasProxyTo } from '@verdaccio/config';
-import {  pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { pluginUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { ProxySearchParams, ProxyStorage } from '@verdaccio/proxy';
+import Search from '@verdaccio/search';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -38,7 +38,6 @@ import {
   mergeUplinkTimeIntoLocal,
   publishPackage,
 } from './storage-utils';
-import Search from '@verdaccio/search';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 import { removeLowerVersions } from './versions-utils';
@@ -56,7 +55,7 @@ class Storage {
   public constructor(config: Config) {
     this.config = config;
     this.uplinks = setupUpLinks(config);
-    
+
     this.logger = logger.child({ module: 'storage' });
     this.searchService = new Search(config, this.logger);
     this.filters = [];
@@ -452,7 +451,7 @@ class Storage {
       }
     }
     return results;
-  }  
+  }
 
   /**
    * Handle search on packages and proxies.
@@ -470,7 +469,7 @@ class Storage {
     const uniqueResults = removeLowerVersions(totalResults);
     debug('unique results %o', uniqueResults.length);
     return uniqueResults;
-  }  
+  }
 
   /**
    * Retrieve only private local packages

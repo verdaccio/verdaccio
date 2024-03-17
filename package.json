@@ -108,6 +108,7 @@
     "jest-environment-node": "29.7.0",
     "jest-junit": "16.0.0",
     "lockfile-lint": "4.13.2",
+    "mockdate": "3.0.5",
     "nock": "13.5.0",
     "prettier": "3.2.4",
     "rimraf": "5.0.5",
