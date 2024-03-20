@@ -110,8 +110,10 @@ export default function (opts) {
     });
 
     pipeline(source, stream, destination, (err) => {
-      // eslint-disable-next-line no-console
-      console.error('prettify pipeline error ', err);
+      if (err) {
+        // eslint-disable-next-line no-console
+        console.error('prettify pipeline error ', err);
+      }
     });
     return stream;
   });
