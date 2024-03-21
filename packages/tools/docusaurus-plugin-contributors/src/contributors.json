@@ -4751,6 +4751,17 @@
       ]
     },
     {
+      "id": 43278953,
+      "login": "alexis974",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 9389109,
       "login": "arthur2308",
       "contributions": 1,
@@ -4978,7 +4989,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15766,
+      "stargazers_count": 15770,
       "archived": false
     },
     {
@@ -5023,7 +5034,7 @@
       "full_name": "verdaccio/docker-examples",
       "html_url": "https://github.com/verdaccio/docker-examples",
       "description": "🐳 ⛴A collection of Docker and Kubernetes examples for verdaccio",
-      "stargazers_count": 182,
+      "stargazers_count": 181,
       "archived": true
     },
     {
