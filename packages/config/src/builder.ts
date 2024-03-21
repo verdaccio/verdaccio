@@ -19,8 +19,7 @@ export default class ConfigBuilder {
   private config: ConfigYaml;
 
   public constructor(config?: Partial<ConfigYaml>) {
-    // @ts-ignore
-    this.config = config ?? { uplinks: {}, packages: {}, security: {} };
+    this.config = merge(config, { uplinks: {}, packages: {}, security: {} });
   }
 
   public static build(config?: Partial<ConfigYaml>): ConfigBuilder {
