@@ -3,4 +3,4 @@
 '@verdaccio/ui-components': patch
 ---
 
-feat: ui improvements
+feat: versions filter by semver range

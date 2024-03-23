@@ -2,7 +2,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import { cleanup, render, screen } from '../../test/test-react-testing-library';
+import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import Versions, { Props } from './Versions';
 import data from './__partials__/data.json';
 import dataDeprecated from './__partials__/deprecated-versions.json';
@@ -13,9 +13,16 @@ const VersionsComponent: React.FC<Props> = (props) => (
   </MemoryRouter>
 );
 
+jest.mock('lodash/debounce', () =>
+  jest.fn((fn) => {
+    fn.cancel = jest.fn();
+    return fn;
+  })
+);
+
 describe('<Version /> component', () => {
   afterEach(() => {
-    cleanup();
+    jest.clearAllMocks();
   });
 
   test('should render versions', () => {
@@ -29,6 +36,15 @@ describe('<Version /> component', () => {
     expect(getByText('canary')).toBeTruthy();
     // there is one deprecated version deprecated
     expect(screen.queryByTestId('deprecated-badge')).toBeInTheDocument();
+  });
+
+  test('should filter by version', () => {
+    render(<VersionsComponent packageMeta={data} packageName={'foo'} />);
+    expect(screen.getByText('versions.version-history')).toBeTruthy();
+    expect(screen.getByText('versions.current-tags')).toBeTruthy();
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '2.3.0' } });
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(1);
   });
 
   test('should not render versions', () => {

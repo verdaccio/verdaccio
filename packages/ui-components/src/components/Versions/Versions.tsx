@@ -59,7 +59,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
           helperText={t('versions.search.placeholder')}
           onChange={debounce((e) => {
             filterVersions(e.target.value);
-          }, 100)}
+          }, 200)}
           size="small"
           variant="standard"
         />

@@ -55,7 +55,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               />
             ) : null}
             <Spacer />
-            <ListItemText title={utils.formatDate(time[version])}>
+            <ListItemText data-testid={`version-list-text`} title={utils.formatDate(time[version])}>
               {time[version]
                 ? utils.formatDateDistance(time[version])
                 : t('versions.not-available')}
