@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 7.0.0-next-7.2
+
+### Patch Changes
+
+- 9db1554: Avoid displaying "prettify pipeline error" if there is no error
+
 ## 7.0.0-next.1
 
 ### Major Changes

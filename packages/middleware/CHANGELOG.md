@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [a99a4bb]
+  - @verdaccio/config@7.0.0-next-7.13
+  - @verdaccio/core@7.0.0-next-7.13
+  - @verdaccio/url@12.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
 ## 7.0.0-next-7.12
 
 ### Patch Changes

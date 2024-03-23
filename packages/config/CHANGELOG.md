@@ -1,5 +1,13 @@
 # @verdaccio/config
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- a99a4bb: fix config builder erroring when passed partial config
+  - @verdaccio/core@7.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
 ## 7.0.0-next-7.12
 
 ### Patch Changes
