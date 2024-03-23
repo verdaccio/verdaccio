@@ -5546,7 +5546,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dayjs", "npm:1.11.10"],\
             ["lodash", "npm:4.17.21"],\
             ["pino-abstract-transport", "npm:1.1.0"],\
-            ["sonic-boom", "npm:3.8.0"]\
+            ["sonic-boom", "npm:3.7.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12713,7 +12713,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["quick-format-unescaped", "npm:4.0.4"],\
             ["real-require", "npm:0.1.0"],\
             ["safe-stable-stringify", "npm:2.4.2"],\
-            ["sonic-boom", "npm:2.8.0"],\
+            ["sonic-boom", "npm:3.7.0"],\
             ["thread-stream", "npm:0.15.2"]\
           ],\
           "linkType": "HARD"\
@@ -12731,7 +12731,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["quick-format-unescaped", "npm:4.0.4"],\
             ["real-require", "npm:0.2.0"],\
             ["safe-stable-stringify", "npm:2.4.2"],\
-            ["sonic-boom", "npm:3.3.0"],\
+            ["sonic-boom", "npm:3.7.0"],\
             ["thread-stream", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
@@ -12749,7 +12749,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["quick-format-unescaped", "npm:4.0.4"],\
             ["real-require", "npm:0.2.0"],\
             ["safe-stable-stringify", "npm:2.4.2"],\
-            ["sonic-boom", "npm:3.8.0"],\
+            ["sonic-boom", "npm:3.7.0"],\
             ["thread-stream", "npm:2.3.0"]\
           ],\
           "linkType": "HARD"\
@@ -13779,26 +13779,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["sonic-boom", [\
-        ["npm:2.8.0", {\
-          "packageLocation": "./.yarn/cache/sonic-boom-npm-2.8.0-87a358d51e-c7f9c89f93.zip/node_modules/sonic-boom/",\
+        ["npm:3.7.0", {\
+          "packageLocation": "./.yarn/cache/sonic-boom-npm-3.7.0-c220d2f290-528f0f7f7e.zip/node_modules/sonic-boom/",\
           "packageDependencies": [\
-            ["sonic-boom", "npm:2.8.0"],\
-            ["atomic-sleep", "npm:1.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:3.3.0", {\
-          "packageLocation": "./.yarn/cache/sonic-boom-npm-3.3.0-6a662502aa-4a290dd0f3.zip/node_modules/sonic-boom/",\
-          "packageDependencies": [\
-            ["sonic-boom", "npm:3.3.0"],\
-            ["atomic-sleep", "npm:1.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:3.8.0", {\
-          "packageLocation": "./.yarn/cache/sonic-boom-npm-3.8.0-df4849cf66-c21ece61a0.zip/node_modules/sonic-boom/",\
-          "packageDependencies": [\
-            ["sonic-boom", "npm:3.8.0"],\
+            ["sonic-boom", "npm:3.7.0"],\
             ["atomic-sleep", "npm:1.0.0"]\
           ],\
           "linkType": "HARD"\
