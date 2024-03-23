@@ -16,7 +16,7 @@ npm install @verdaccio/config
 
 To start using `@verdaccio/config`, import the `ConfigBuilder` class and begin constructing your configuration object:
 
-#### The `ConfigBuilder` constructor
+## `ConfigBuilder` constructor
 
 The `ConfigBuilder` class is a helper configuration builder constructor used to programmatically create configuration objects for testing or other purposes.
 
@@ -43,7 +43,7 @@ const config = configBuilder.getConfig();
 const config = configBuilder.getAsYaml();
 ```
 
-## Methods
+### Methods
 
 - `addPackageAccess(pattern: string, pkgAccess: PackageAccessYaml)`: Adds package access configuration.
 - `addUplink(id: string, uplink: UpLinkConf)`: Adds an uplink configuration.
@@ -53,6 +53,21 @@ const config = configBuilder.getAsYaml();
 - `addStorage(storage: string | object)`: Adds storage configuration.
 - `getConfig(): ConfigYaml`: Retrieves the configuration object.
 - `getAsYaml(): string`: Retrieves the configuration object as YAML format.
+
+## `getDefaultConfig`
+
+This method is available in the package's index and retrieves the default configuration object.
+
+```typescript
+import { getDefaultConfig } from '@verdaccio/config';
+
+const defaultConfig = getDefaultConfig();
+```
+
+## Other Methods
+
+- `fromJStoYAML(config: ConfigYaml): string`: Converts a JavaScript configuration object to YAML format.
+- `parseConfigFile(filePath: string): ConfigYaml`: Parses a configuration file from the specified path and returns the configuration object.
 
 ### License
 
