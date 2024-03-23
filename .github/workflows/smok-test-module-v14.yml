@@ -1,4 +1,4 @@
-name: Module Smoke Test Node.js 12
+name: Module Smoke Test Node.js 14
 on:
   workflow_dispatch:
   pull_request:
