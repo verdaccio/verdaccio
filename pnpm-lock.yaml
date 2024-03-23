@@ -387,8 +387,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 10.4.0
-        version: 10.4.0
+        specifier: 10.5.0
+        version: 10.5.0
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -396,8 +396,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.9.2
-        version: 9.9.2
+        specifier: 9.9.3
+        version: 9.9.3
 
   e2e/cli/e2e-npm7:
     dependencies:
@@ -405,8 +405,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.9.2
-        version: 9.9.2
+        specifier: 9.9.3
+        version: 9.9.3
 
   e2e/cli/e2e-npm8:
     dependencies:
@@ -414,8 +414,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.9.2
-        version: 9.9.2
+        specifier: 9.9.3
+        version: 9.9.3
 
   e2e/cli/e2e-npm9:
     dependencies:
@@ -423,8 +423,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 9.9.2
-        version: 9.9.2
+        specifier: 9.9.3
+        version: 9.9.3
 
   e2e/cli/e2e-pnpm8:
     dependencies:
@@ -450,8 +450,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       yarn:
-        specifier: 1.22.21
-        version: 1.22.21
+        specifier: 1.22.22
+        version: 1.22.22
 
   e2e/cli/e2e-yarn2:
     dependencies:
@@ -468,8 +468,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 3.8.0
-        version: 3.8.0
+        specifier: 3.8.1
+        version: 3.8.1
 
   e2e/cli/e2e-yarn4:
     dependencies:
@@ -477,8 +477,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 4.1.0
-        version: 4.1.0
+        specifier: 4.1.1
+        version: 4.1.1
 
   e2e/ui:
     devDependencies:
@@ -12877,14 +12877,14 @@ packages:
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@3.8.0:
-    resolution: {integrity: sha512-4F7xnr7HfyXaKSe2fuAaQcb9qPlGUWFo421uPJf8PDt5seOBDXsQ5nub1KS4lKHjL922D/T5Ff2dGBkD0kAYIA==}
+  /@yarnpkg/cli-dist@3.8.1:
+    resolution: {integrity: sha512-+0VUqfgpgkobLgADqMXqQ5IvRTJntgcj9UamFgXuiYNSFZANOdLgZ21AgzH4QNIK1Idj4OGFxyWOPpt0E5VfBQ==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@4.1.0:
-    resolution: {integrity: sha512-wp1+8TqjlwB4uV73KlDX6iSNWzcUSCsR1nwG5nPUOYbqIoWomJ4A57jP0wU+mdtGRy+hlKrK6XR6WD/vvKy2YQ==}
+  /@yarnpkg/cli-dist@4.1.1:
+    resolution: {integrity: sha512-5qXVUB1jKY+AHZLjti6gaxxL3Fnog0axt5B6EqTCE5JW/+XL/rz/RqL1fI9T7FVBbaqC7wpvdgqy5t11igZG2Q==}
     engines: {node: '>=18.12.0'}
     hasBin: true
     dev: false
@@ -23038,8 +23038,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.4.0:
-    resolution: {integrity: sha512-RS7Mx0OVfXlOcQLRePuDIYdFCVBPCNapWHplDK+mh7GDdP/Tvor4ocuybRRPSvfcRb2vjRJt1fHCqw3cr8qACQ==}
+  /npm@10.5.0:
+    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -23115,8 +23115,8 @@ packages:
       - which
       - write-file-atomic
 
-  /npm@9.9.2:
-    resolution: {integrity: sha512-D3tV+W0PzJOlwo8YmO6fNzaB1CrMVYd1V+2TURF6lbCbmZKqMsYgeQfPVvqiM3zbNSJPhFEnmlEXIogH2Vq7PQ==}
+  /npm@9.9.3:
+    resolution: {integrity: sha512-Z1l+rcQ5kYb17F3hHtO601arEpvdRYnCLtg8xo3AGtyj3IthwaraEOexI9903uANkifFbqHC8hT53KIrozWg8A==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     hasBin: true
     dev: false
@@ -30334,8 +30334,8 @@ packages:
       y18n: 5.0.8
       yargs-parser: 21.1.1
 
-  /yarn@1.22.21:
-    resolution: {integrity: sha512-ynXaJsADJ9JiZ84zU25XkPGOvVMmZ5b7tmTSpKURYwgELdjucAOydqIOrOfTxVYcNXe91xvLZwcRh68SR3liCg==}
+  /yarn@1.22.22:
+    resolution: {integrity: sha512-prL3kGtyG7o9Z9Sv8IPfBNrWTDmXB4Qbes8A9rEzt6wkJV8mUvoirjU0Mp3GGAU06Y0XQyA3/2/RQFVuK7MTfg==}
     engines: {node: '>=4.0.0'}
     hasBin: true
     requiresBuild: true
