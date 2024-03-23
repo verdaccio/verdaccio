@@ -450,8 +450,17 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       pnpm:
-        specifier: ^8.0.0-alpha.0
-        version: 8.2.0
+        specifier: 8.15.5
+        version: 8.15.5
+
+  e2e/cli/e2e-pnpm9:
+    dependencies:
+      '@verdaccio/test-cli-commons':
+        specifier: workspace:1.1.0
+        version: link:../cli-commons
+      pnpm:
+        specifier: 9.0.0-alpha.10
+        version: 9.0.0-alpha.10
 
   e2e/cli/e2e-yarn1:
     dependencies:
@@ -24006,9 +24015,15 @@ packages:
     hasBin: true
     dev: false
 
-  /pnpm@8.2.0:
-    resolution: {integrity: sha512-f2/abl6GycxLgVZQtWA2zBJKMXcv2L86HGRwJ4qnS02gVzLgtFegC25qWKFtUunCY74GUwxq2A7yGAJEyOuCYg==}
+  /pnpm@8.15.5:
+    resolution: {integrity: sha512-sFGjLH5pWDO4SSbTspuMylclS1ifBknYmcbp0O22cLkex+KkNFm65zdZu1zmGcMmbxFr+THOItHvF1mn5Fqpbw==}
     engines: {node: '>=16.14'}
+    hasBin: true
+    dev: false
+
+  /pnpm@9.0.0-alpha.10:
+    resolution: {integrity: sha512-p5tDi5ur9ZKSQjh+6DsWpYFPX4HuWfcMw6L8SAPWm7DE0B9QyBSuN9VnjSOionb7WlQBRS8Z7M4Jfd4S9KIBxw==}
+    engines: {node: '>=18.12'}
     hasBin: true
     dev: false
 
