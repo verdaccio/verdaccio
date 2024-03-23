@@ -426,24 +426,6 @@ importers:
         specifier: 9.9.2
         version: 9.9.2
 
-  e2e/cli/e2e-pnpm6:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:1.1.0
-        version: link:../cli-commons
-      pnpm:
-        specifier: ^6.35.1
-        version: 6.35.1
-
-  e2e/cli/e2e-pnpm7:
-    dependencies:
-      '@verdaccio/test-cli-commons':
-        specifier: workspace:1.1.0
-        version: link:../cli-commons
-      pnpm:
-        specifier: ^7.27.1
-        version: 7.32.0
-
   e2e/cli/e2e-pnpm8:
     dependencies:
       '@verdaccio/test-cli-commons':
@@ -1950,6 +1932,9 @@ importers:
       redux:
         specifier: 4.2.1
         version: 4.2.1
+      semver:
+        specifier: 7.6.0
+        version: 7.6.0
       validator:
         specifier: 13.11.0
         version: 13.11.0
@@ -24002,18 +23987,6 @@ packages:
     transitivePeerDependencies:
       - typescript
     dev: true
-
-  /pnpm@6.35.1:
-    resolution: {integrity: sha512-Pt5JEjV2JSORAqw/XtjfF4k34PBQFpqV3kUMFYSlyrWJsio5Hr3lqy2oJkpprMrVbOyBJsxXfZDQOlvmytIrgA==}
-    engines: {node: '>=12.17'}
-    hasBin: true
-    dev: false
-
-  /pnpm@7.32.0:
-    resolution: {integrity: sha512-XkLEMinrF4046cWGvvam7dsCKeRdJ9i2SeDiKNodoZEPmJp1KrzQe1qYC5Vs/v9qBXJqyI0vLzjoMHjXgphP6g==}
-    engines: {node: '>=14.6'}
-    hasBin: true
-    dev: false
 
   /pnpm@8.15.5:
     resolution: {integrity: sha512-sFGjLH5pWDO4SSbTspuMylclS1ifBknYmcbp0O22cLkex+KkNFm65zdZu1zmGcMmbxFr+THOItHvF1mn5Fqpbw==}
