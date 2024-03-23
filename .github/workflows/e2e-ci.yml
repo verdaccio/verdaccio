@@ -133,9 +133,7 @@ jobs:
       fail-fast: true
       matrix:
         pkg:
-          [          
-            pnpm6,
-            pnpm7,
+          [
             pnpm8,
             pnpm9,
           ]
