@@ -55,6 +55,7 @@
     "version-history": "Version History",
     "not-available": "Not available",
     "deprecated": "Deprecated",
+    "search.placeholder": "Search for version by semver range, e.g. ^1.0.0",
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
   },
   "package": {
