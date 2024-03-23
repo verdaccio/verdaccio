@@ -1,5 +1,13 @@
 # @verdaccio/logger-commons
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [9db1554]
+  - @verdaccio/logger-prettify@7.0.0-next-7.2
+  - @verdaccio/core@7.0.0-next-7.13
+
 ## 7.0.0-next-7.12
 
 ### Patch Changes
