@@ -87,9 +87,10 @@ Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins
 
 ## Integration Tests
 
-In our compatibility testing project, we're dedicated to ensuring that your favorite commands work seamlessly across different versions of npm, pnpm, and Yarn. From publishing packages to managing dependencies, we've got you covered. Our goal is to give you the confidence to use your preferred package manager without any hiccups. So dive in, check out our matrix, and see how your commands fare across the board!
+In our compatibility testing project, we're dedicated to ensuring that your favorite commands work seamlessly across different versions of npm, pnpm, and Yarn. From publishing packages to managing dependencies.
+Our goal is to give you the confidence to use your preferred package manager without any issues. So dive in, check out our matrix, and see how your commands fare across the board!
 
-[Learn more here](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli)
+[Learn or contribute here](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli)
 
 ### Commands
 
