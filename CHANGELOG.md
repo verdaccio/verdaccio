@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.30.1](https://github.com/verdaccio/verdaccio/compare/v5.30.0...v5.30.1) (2024-03-24)
+
+
+### Bug Fixes
+
+* remove search dependency ([#4560](https://github.com/verdaccio/verdaccio/issues/4560)) ([a9cfae5](https://github.com/verdaccio/verdaccio/commit/a9cfae580035796a74afe6d446dbf8a83e55c994))
+
 ## [5.30.0](https://github.com/verdaccio/verdaccio/compare/v5.29.2...v5.30.0) (2024-03-24)
 
 
