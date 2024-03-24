@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.30.0](https://github.com/verdaccio/verdaccio/compare/v5.29.2...v5.30.0) (2024-03-24)
+
+
+### Features
+
+* **deps:** update core verdaccio dependencies (5.x) ([#4558](https://github.com/verdaccio/verdaccio/issues/4558)) ([72c3ab7](https://github.com/verdaccio/verdaccio/commit/72c3ab72a0391451c4cf39223f470ba9a6e78f49))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4530](https://github.com/verdaccio/verdaccio/issues/4530)) ([7206f84](https://github.com/verdaccio/verdaccio/commit/7206f84df6895534ea564349ceb0d6026ca9001b))
+* **deps:** update core verdaccio dependencies (5.x) ([#4539](https://github.com/verdaccio/verdaccio/issues/4539)) ([da50302](https://github.com/verdaccio/verdaccio/commit/da5030221e63e45b9732adf54ceaaafcb149465c))
+* **deps:** update dependency envinfo to v7.11.1 ([#4527](https://github.com/verdaccio/verdaccio/issues/4527)) ([c2604e7](https://github.com/verdaccio/verdaccio/commit/c2604e788e00adcee5dd1ddb1b39b7e6f3838b90))
+* **deps:** update dependency express to v4.18.3 ([#4528](https://github.com/verdaccio/verdaccio/issues/4528)) ([e07c352](https://github.com/verdaccio/verdaccio/commit/e07c35201acb753eccfdc36b3fd8ed5e2a61165e))
+* **deps:** update dependency semver to v7.6.0 ([#4529](https://github.com/verdaccio/verdaccio/issues/4529)) ([43d3c5e](https://github.com/verdaccio/verdaccio/commit/43d3c5e3e15909dd3a7154d0ecf2f517ac4ebd7a))
+* newline after version command ([#4543](https://github.com/verdaccio/verdaccio/issues/4543)) ([c478324](https://github.com/verdaccio/verdaccio/commit/c4783246433ee570c42d49248dec94ad20517bba))
+
 ### [5.29.2](https://github.com/verdaccio/verdaccio/compare/v5.29.1...v5.29.2) (2024-02-21)
 
 
