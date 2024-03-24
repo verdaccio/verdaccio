@@ -25,7 +25,6 @@
     "@verdaccio/local-storage-legacy": "11.0.2",
     "@verdaccio/logger-7": "7.0.0-next-7.13",
     "@verdaccio/middleware": "7.0.0-next-7.13",
-    "@verdaccio/search": "7.0.0-next-7.2",
     "@verdaccio/search-indexer": "7.0.0-next.0",
     "@verdaccio/signature": "7.0.0-next.3",
     "@verdaccio/streams": "10.2.1",
