@@ -75,7 +75,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger-7", "npm:7.0.0-next-7.13"],\
             ["@verdaccio/middleware", "npm:7.0.0-next-7.13"],\
-            ["@verdaccio/search-indexer", "npm:7.0.0-next.0"],\
+            ["@verdaccio/search-indexer", "npm:7.0.0-next-7.2"],\
             ["@verdaccio/signature", "npm:7.0.0-next.3"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
             ["@verdaccio/tarball", "npm:12.0.0-next-7.13"],\
@@ -5530,10 +5530,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/search-indexer", [\
-        ["npm:7.0.0-next.0", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-search-indexer-npm-7.0.0-next.0-84fe6c2b5e-668d0ba1a7.zip/node_modules/@verdaccio/search-indexer/",\
+        ["npm:7.0.0-next-7.2", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-search-indexer-npm-7.0.0-next-7.2-a3a0b245c0-b9f88992c9.zip/node_modules/@verdaccio/search-indexer/",\
           "packageDependencies": [\
-            ["@verdaccio/search-indexer", "npm:7.0.0-next.0"]\
+            ["@verdaccio/search-indexer", "npm:7.0.0-next-7.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14727,7 +14727,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger-7", "npm:7.0.0-next-7.13"],\
             ["@verdaccio/middleware", "npm:7.0.0-next-7.13"],\
-            ["@verdaccio/search-indexer", "npm:7.0.0-next.0"],\
+            ["@verdaccio/search-indexer", "npm:7.0.0-next-7.2"],\
             ["@verdaccio/signature", "npm:7.0.0-next.3"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
             ["@verdaccio/tarball", "npm:12.0.0-next-7.13"],\

@@ -3281,10 +3281,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/search-indexer@npm:7.0.0-next.0":
-  version: 7.0.0-next.0
-  resolution: "@verdaccio/search-indexer@npm:7.0.0-next.0"
-  checksum: 668d0ba1a733966150aea63513a05a792fb2fb9ee9b5c7257de5cf66bacce96372e75e768e7e2c7ec80f99c7aa144e4949796d2e24a2b93dd537f317a14899be
+"@verdaccio/search-indexer@npm:7.0.0-next-7.2":
+  version: 7.0.0-next-7.2
+  resolution: "@verdaccio/search-indexer@npm:7.0.0-next-7.2"
+  checksum: b9f88992c927df5b6385cb0e2f2a1a51e2044d8d31d444d00041ce25c38a1ba7edb9f4d4b9ac3310539fd5760e0e56fbaef91764e3134035292741ff2d160875
   languageName: node
   linkType: hard
 
@@ -11210,7 +11210,7 @@ __metadata:
     "@verdaccio/local-storage-legacy": 11.0.2
     "@verdaccio/logger-7": 7.0.0-next-7.13
     "@verdaccio/middleware": 7.0.0-next-7.13
-    "@verdaccio/search-indexer": 7.0.0-next.0
+    "@verdaccio/search-indexer": 7.0.0-next-7.2
     "@verdaccio/signature": 7.0.0-next.3
     "@verdaccio/streams": 10.2.1
     "@verdaccio/tarball": 12.0.0-next-7.13
