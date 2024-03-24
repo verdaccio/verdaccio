@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.30.2](https://github.com/verdaccio/verdaccio/compare/v5.30.1...v5.30.2) (2024-03-24)
+
+
+### Bug Fixes
+
+* update @verdaccio/search-indexer engine restrictions ([1ceb9f9](https://github.com/verdaccio/verdaccio/commit/1ceb9f98dbe55512337c2da39908e363396d1239))
+
 ### [5.30.1](https://github.com/verdaccio/verdaccio/compare/v5.30.0...v5.30.1) (2024-03-24)
 
 
