@@ -30,7 +30,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Cache pnpm modules
-        uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319 # v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         env:
           cache-name: cache-pnpm-modules
         with:
