@@ -7,3 +7,4 @@ export {
 export { extractTarballFromUrl, getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
 
 export { RequestOptions };
+export { getVersionFromTarball } from './utils';
