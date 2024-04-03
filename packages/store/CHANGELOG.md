@@ -1,5 +1,135 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [a99a4bb]
+  - @verdaccio/config@7.0.0-next-7.13
+  - @verdaccio/hooks@7.0.0-next-7.13
+  - @verdaccio/loaders@7.0.0-next-7.13
+  - @verdaccio/local-storage@12.0.0-next-7.13
+  - @verdaccio/proxy@7.0.0-next-7.13
+  - @verdaccio/search@7.0.0-next-7.2
+  - @verdaccio/logger@7.0.0-next-7.13
+  - @verdaccio/core@7.0.0-next-7.13
+  - @verdaccio/tarball@12.0.0-next-7.13
+  - @verdaccio/url@12.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- Updated dependencies [cce258e]
+  - @verdaccio/search@7.0.0-next-7.1
+  - @verdaccio/core@7.0.0-next-7.12
+  - @verdaccio/config@7.0.0-next-7.12
+  - @verdaccio/tarball@12.0.0-next-7.12
+  - @verdaccio/url@12.0.0-next-7.12
+  - @verdaccio/hooks@7.0.0-next-7.12
+  - @verdaccio/loaders@7.0.0-next-7.12
+  - @verdaccio/local-storage@12.0.0-next-7.12
+  - @verdaccio/proxy@7.0.0-next-7.12
+  - @verdaccio/utils@7.0.0-next-7.12
+  - @verdaccio/logger@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/config@7.0.0-next-7.11
+  - @verdaccio/hooks@7.0.0-next-7.11
+  - @verdaccio/loaders@7.0.0-next-7.11
+  - @verdaccio/local-storage@12.0.0-next-7.11
+  - @verdaccio/proxy@7.0.0-next-7.11
+  - @verdaccio/core@7.0.0-next-7.11
+  - @verdaccio/tarball@12.0.0-next-7.11
+  - @verdaccio/url@12.0.0-next-7.11
+  - @verdaccio/utils@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.10
+- @verdaccio/config@7.0.0-next-7.10
+- @verdaccio/tarball@12.0.0-next-7.10
+- @verdaccio/url@12.0.0-next-7.10
+- @verdaccio/hooks@7.0.0-next-7.10
+- @verdaccio/loaders@7.0.0-next-7.10
+- @verdaccio/local-storage@12.0.0-next-7.10
+- @verdaccio/proxy@7.0.0-next-7.10
+- @verdaccio/utils@7.0.0-next-7.10
+- @verdaccio/logger@7.0.0-next-7.10
+
+## 7.0.0-next-7.9
+
+### Patch Changes
+
+- c807f0c: fix: store readme when publishing locally
+  - @verdaccio/local-storage@12.0.0-next-7.9
+  - @verdaccio/core@7.0.0-next-7.9
+  - @verdaccio/config@7.0.0-next-7.9
+  - @verdaccio/tarball@12.0.0-next-7.9
+  - @verdaccio/url@12.0.0-next-7.9
+  - @verdaccio/hooks@7.0.0-next-7.9
+  - @verdaccio/loaders@7.0.0-next-7.9
+  - @verdaccio/proxy@7.0.0-next-7.9
+  - @verdaccio/utils@7.0.0-next-7.9
+  - @verdaccio/logger@7.0.0-next-7.9
+
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.8
+- @verdaccio/config@7.0.0-next-7.8
+- @verdaccio/tarball@12.0.0-next-7.8
+- @verdaccio/url@12.0.0-next-7.8
+- @verdaccio/hooks@7.0.0-next-7.8
+- @verdaccio/loaders@7.0.0-next-7.8
+- @verdaccio/local-storage@12.0.0-next-7.8
+- @verdaccio/proxy@7.0.0-next-7.8
+- @verdaccio/utils@7.0.0-next-7.8
+- @verdaccio/logger@7.0.0-next-7.8
+
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.7
+- @verdaccio/config@7.0.0-next-7.7
+- @verdaccio/tarball@12.0.0-next-7.7
+- @verdaccio/url@12.0.0-next-7.7
+- @verdaccio/hooks@7.0.0-next-7.7
+- @verdaccio/loaders@7.0.0-next-7.7
+- @verdaccio/local-storage@12.0.0-next-7.7
+- @verdaccio/proxy@7.0.0-next-7.7
+- @verdaccio/utils@7.0.0-next-7.7
+- @verdaccio/logger@7.0.0-next-7.7
+
+## 7.0.0-next.6
+
+### Patch Changes
+
+- e14b064: - Fixes polynomial regular expression when determining the file name of tarball
+  - Add tests for extracting tarball name
+- Updated dependencies [e14b064]
+- Updated dependencies [4d96324]
+  - @verdaccio/tarball@12.0.0-next.6
+  - @verdaccio/config@7.0.0-next.6
+  - @verdaccio/hooks@7.0.0-next.6
+  - @verdaccio/loaders@7.0.0-next.6
+  - @verdaccio/local-storage@12.0.0-next.6
+  - @verdaccio/proxy@7.0.0-next.6
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/url@12.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+  - @verdaccio/logger@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Patch Changes

@@ -1,5 +1,107 @@
 # @verdaccio/api
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [a99a4bb]
+  - @verdaccio/config@7.0.0-next-7.13
+  - @verdaccio/auth@7.0.0-next-7.13
+  - @verdaccio/middleware@7.0.0-next-7.13
+  - @verdaccio/store@7.0.0-next-7.13
+  - @verdaccio/logger@7.0.0-next-7.13
+  - @verdaccio/core@7.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/store@7.0.0-next-7.12
+- @verdaccio/core@7.0.0-next-7.12
+- @verdaccio/config@7.0.0-next-7.12
+- @verdaccio/auth@7.0.0-next-7.12
+- @verdaccio/middleware@7.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+- @verdaccio/logger@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/config@7.0.0-next-7.11
+  - @verdaccio/auth@7.0.0-next-7.11
+  - @verdaccio/middleware@7.0.0-next-7.11
+  - @verdaccio/store@7.0.0-next-7.11
+  - @verdaccio/core@7.0.0-next-7.11
+  - @verdaccio/utils@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.10
+- @verdaccio/config@7.0.0-next-7.10
+- @verdaccio/auth@7.0.0-next-7.10
+- @verdaccio/middleware@7.0.0-next-7.10
+- @verdaccio/store@7.0.0-next-7.10
+- @verdaccio/utils@7.0.0-next-7.10
+- @verdaccio/logger@7.0.0-next-7.10
+
+## 7.0.0-next-7.9
+
+### Patch Changes
+
+- Updated dependencies [c807f0c]
+  - @verdaccio/store@7.0.0-next-7.9
+  - @verdaccio/core@7.0.0-next-7.9
+  - @verdaccio/config@7.0.0-next-7.9
+  - @verdaccio/auth@7.0.0-next-7.9
+  - @verdaccio/middleware@7.0.0-next-7.9
+  - @verdaccio/utils@7.0.0-next-7.9
+  - @verdaccio/logger@7.0.0-next-7.9
+
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- 74cd588: fix: bug on change password npm profile
+  - @verdaccio/core@7.0.0-next-7.8
+  - @verdaccio/config@7.0.0-next-7.8
+  - @verdaccio/auth@7.0.0-next-7.8
+  - @verdaccio/middleware@7.0.0-next-7.8
+  - @verdaccio/store@7.0.0-next-7.8
+  - @verdaccio/utils@7.0.0-next-7.8
+  - @verdaccio/logger@7.0.0-next-7.8
+
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.7
+- @verdaccio/config@7.0.0-next-7.7
+- @verdaccio/auth@7.0.0-next-7.7
+- @verdaccio/middleware@7.0.0-next-7.7
+- @verdaccio/store@7.0.0-next-7.7
+- @verdaccio/utils@7.0.0-next-7.7
+- @verdaccio/logger@7.0.0-next-7.7
+
+## 7.0.0-next.6
+
+### Patch Changes
+
+- Updated dependencies [e14b064]
+- Updated dependencies [4d96324]
+  - @verdaccio/store@7.0.0-next.6
+  - @verdaccio/config@7.0.0-next.6
+  - @verdaccio/auth@7.0.0-next.6
+  - @verdaccio/middleware@7.0.0-next.6
+  - @verdaccio/core@7.0.0-next.6
+  - @verdaccio/utils@7.0.0-next.6
+  - @verdaccio/logger@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Minor Changes

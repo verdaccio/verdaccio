@@ -32,10 +32,10 @@
   "homepage": "https://verdaccio.org",
   "license": "MIT",
   "devDependencies": {
-    "@verdaccio/cli": "workspace:7.0.0-next.5",
-    "@verdaccio/ui-theme": "workspace:7.0.0-next.5",
+    "@verdaccio/cli": "workspace:7.0.0-next-7.13",
+    "@verdaccio/ui-theme": "workspace:7.0.0-next-7.13",
     "fs-extra": "11.2.0",
-    "webpack": "5.89.0",
+    "webpack": "5.90.0",
     "webpack-bundle-analyzer": "4.10.1",
     "webpack-bundle-size-analyzer": "3.1.0",
     "webpack-cli": "4.10.0"

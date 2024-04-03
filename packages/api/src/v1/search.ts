@@ -50,12 +50,13 @@ export default function (route, auth: Auth, storage: Storage): void {
     from = parseInt(from, 10) || 0;
 
     try {
+      debug('storage search initiated');
       data = await storage.search({
         query,
         url,
         abort,
       });
-      debug('stream finish');
+      debug('storage items tota: %o', data.length);
       const checkAccessPromises: searchUtils.SearchItemPkg[] = await Promise.all(
         data.map((pkgItem) => {
           return checkAccess(pkgItem, auth, req.remote_user);

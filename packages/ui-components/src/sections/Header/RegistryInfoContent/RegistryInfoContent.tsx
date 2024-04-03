@@ -10,7 +10,6 @@ import makeStyles from '@mui/styles/makeStyles';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
 import {
   CopyClipboard,
@@ -150,17 +149,13 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
           </AccordionSummary>
           <AccordionDetails>
             <Description>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {t('packageManagers.yarnclassicDetails')}
-              </ReactMarkdown>
+              <ReactMarkdown>{t('packageManagers.yarnclassicDetails')}</ReactMarkdown>
             </Description>
             <CommandContainer data-testid={'tab-content'}>
               {renderYarnTab(scope, registryUrl)}
             </CommandContainer>
             <Description>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {t('packageManagers.yarnBerryDetails')}
-              </ReactMarkdown>
+              <ReactMarkdown>{t('packageManagers.yarnBerryDetails')}</ReactMarkdown>
             </Description>
             <CommandContainer data-testid={'tab-content'}>
               {renderYarnBerryTab(scope, registryUrl)}

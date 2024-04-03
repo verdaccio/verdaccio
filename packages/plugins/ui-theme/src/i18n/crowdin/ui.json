@@ -55,6 +55,7 @@
     "version-history": "Version History",
     "not-available": "Not available",
     "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
   },
   "package": {
@@ -147,8 +148,10 @@
   "error": {
     "unspecific": "Something went wrong.",
     "404": {
-      "page-not-found": "404 - Page not found",
       "sorry-we-could-not-find-it": "Sorry, we couldn't find it..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
     },
     "app-context-not-correct-used": "The app context was not used correctly",
     "theme-context-not-correct-used": "The theme context was not used correctly",

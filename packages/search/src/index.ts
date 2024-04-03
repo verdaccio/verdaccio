@@ -1,1 +1,2 @@
-export { default as SearchMemoryIndexer } from './indexer';
+export { Search as default } from './search';
+export * from './search-utils';

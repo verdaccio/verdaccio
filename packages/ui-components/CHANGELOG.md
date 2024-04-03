@@ -1,5 +1,29 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.6
+
+### Patch Changes
+
+- ba53d1e: feat: versions filter by semver range
+
+## 3.0.0-next-7.5
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
+## 3.0.0-next-7.4
+
+### Patch Changes
+
+- 5210408: fix: ui dialog break pages on open due remark error
+
+## 3.0.0-next-7.3
+
+### Patch Changes
+
+- 3323599: fix: render READMEs with correct font and highlighting
+
 ## 3.0.0-next.2
 
 ### Major Changes

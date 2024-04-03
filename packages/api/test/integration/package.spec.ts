@@ -26,8 +26,8 @@ describe('package', () => {
     });
 
     test.each([
-      ['foo', 'foo-1.0.0.tgz'],
-      ['@scope/foo', 'foo-1.0.0.tgz'],
+      ['foo2', 'foo2-1.0.0.tgz'],
+      ['@scope/foo2', 'foo2-1.0.0.tgz'],
     ])('should fails if tarball does not exist', async (pkg, fileName) => {
       await publishVersion(app, pkg, '1.0.1');
       return await supertest(app)

@@ -1,5 +1,53 @@
 # @verdaccio/logger
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.11
+
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.10
+
+## 7.0.0-next-7.9
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.9
+
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.8
+
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-7.7
+
+## 7.0.0-next.6
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Patch Changes

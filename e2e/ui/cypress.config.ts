@@ -13,6 +13,10 @@ export default defineConfig({
     runMode: 5,
     openMode: 0,
   },
+  // Enable this to see debug screenshots on test failure
+  // screenshotOnRunFailure: true,
+  // Enable this to see debug video on test failure
+  // video: true,
   e2e: {
     setupNodeEvents(on) {
       on('before:run', async () => {

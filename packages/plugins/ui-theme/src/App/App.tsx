@@ -8,7 +8,6 @@ import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Router } from 'react-router-dom';
-import remarkGfm from 'remark-gfm';
 
 import {
   Footer,
@@ -59,12 +58,12 @@ function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
         {
           element: (
             <>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{about}</ReactMarkdown>
+              <ReactMarkdown>{about}</ReactMarkdown>
               <Contributors />
             </>
           ),
         },
-        { element: <ReactMarkdown remarkPlugins={[remarkGfm]}>{license}</ReactMarkdown> },
+        { element: <ReactMarkdown>{license}</ReactMarkdown> },
         { element: <Support /> },
       ]}
       tabs={[

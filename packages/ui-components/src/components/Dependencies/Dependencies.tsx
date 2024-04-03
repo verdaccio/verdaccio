@@ -1,62 +1,20 @@
-import Box from '@mui/material/Box';
+import styled from '@emotion/styled';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 
-import { PackageDependencies } from '../../types/packageMeta';
+import { Theme } from '../../Theme';
 import NoItems from '../NoItems';
-import { CardWrap, StyledText, Tag, Tags } from './styles';
+import { DependencyBlock } from './DependencyBlock';
+import { hasKeys } from './utits';
 
-interface DependencyBlockProps {
-  title: string;
-  dependencies: PackageDependencies;
-}
-
-const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
-  const history = useHistory();
-  const { t } = useTranslation();
-  const theme = useTheme();
-
-  const deps = Object.entries(dependencies);
-
-  function handleClick(name: string): void {
-    history.push(`/-/web/detail/${name}`);
-  }
-
-  return (
-    <Box data-testid={title} sx={{ margin: theme.spacing(2) }}>
-      <StyledText sx={{ marginBottom: theme.spacing(1) }} variant="subtitle1">
-        {`${title} (${deps.length})`}
-      </StyledText>
-      <Tags>
-        {deps.map(([name, version]) => (
-          <Tag
-            className={'dep-tag'}
-            clickable={true}
-            data-testid={name}
-            key={name}
-            label={t('dependencies.dependency-block', { package: name, version })}
-            // eslint-disable-next-line
-            onClick={() => handleClick(name)}
-          />
-        ))}
-      </Tags>
-    </Box>
-  );
-};
-
-function hasKeys(object?: { [key: string]: any }): boolean {
-  return !!object && Object.keys(object).length > 0;
-}
+export const CardWrap = styled(Card)<{ theme?: Theme }>((props) => ({
+  marginBottom: props.theme.spacing(2),
+}));
 
 const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-
-  if (!packageMeta) {
-    throw new Error(t('error.package-meta-is-required-at-detail-context'));
-  }
 
   const { latest } = packageMeta;
   // FIXME: add dependencies to package meta type

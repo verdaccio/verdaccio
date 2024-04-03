@@ -1,4 +1,4 @@
-[![BannerUK](https://cdn.verdaccio.dev/readme/banner-uk.svg)](https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1)
+[![BannerHelp](https://cdn.verdaccio.dev/readme/banner-uk.svg)](https://u24.gov.ua)
 
 > Verdaccio stands for **peace**, stop the war, we will be yellow / blue 🇺🇦 until that happens.
 
@@ -85,9 +85,31 @@ npm install --location=global generator-verdaccio-plugin
 
 Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins. Share your plugins with the community.
 
+## Integration Tests
+
+In our compatibility testing project, we're dedicated to ensuring that your favorite commands work seamlessly across different versions of npm, pnpm, and Yarn. From publishing packages to managing dependencies.
+Our goal is to give you the confidence to use your preferred package manager without any issues. So dive in, check out our matrix, and see how your commands fare across the board!
+
+[Learn or contribute here](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli)
+
+### Commands
+
+| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm8 | pnpm9 (beta) | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ------------ | ----- | ----- | ----- | ----- |
+| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ❌    | ❌    | ❌    |
+
 ## Donations
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider do a long support donation - **and your logo will be on this section of the readme.**
+Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider doing a long support donation - **and your logo will be on this section of the readme.**
 
 **[Donate](https://github.com/sponsors/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
 
@@ -113,7 +135,7 @@ If you want to use a modified version of some 3rd-party package (for example, yo
 ### E2E Testing
 
 Verdaccio has proved to be a lightweight registry that can be
-booted in a couple of seconds, fast enough for any CI. Many open source projects use verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js**, **angular-cli** or **docusaurus**. You can read more in [here](https://verdaccio.org/docs/e2e).
+booted in a couple of seconds, fast enough for any CI. Many open source projects use Verdaccio for end to end testing, to mention some examples, **create-react-app**, **mozilla neutrino**, **pnpm**, **storybook**, **babel.js**, **angular-cli** or **docusaurus**. You can read more in [here](https://verdaccio.org/docs/e2e).
 
 Furthermore, here few examples how to start:
 
@@ -123,7 +145,7 @@ Furthermore, here few examples how to start:
 
 ## Watch our Videos
 
-**Node Congress 2022, February 2022, Online Free**
+**Node 2022, February 2022, Online Free**
 
 <div>
    <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">
@@ -200,7 +222,7 @@ docker pull verdaccio/verdaccio:nightly-master
 
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
-### Running verdaccio using Docker
+### Running Verdaccio using Docker
 
 To run the docker container:
 
@@ -212,35 +234,35 @@ Docker examples are available [in this repository](https://github.com/verdaccio/
 
 ## Compatibility
 
-Verdaccio aims to support all features of a standard npm client that make sense to support in private repository. Unfortunately, it isn't always possible.
+Verdaccio aims to support all features of a standard npm client that make sense to support in a private repository. Unfortunately, it isn't always possible.
 
 ### Basic features
 
-- Installing packages (npm install, npm upgrade, etc.) - **supported**
-- Publishing packages (npm publish) - **supported**
+- Installing packages (`npm install`, `npm update`, etc.) - **supported**
+- Publishing packages (`npm publish`) - **supported**
 
 ### Advanced package control
 
-- Unpublishing packages (npm unpublish) - **supported**
-- Tagging (npm tag) - **supported**
-- Deprecation (npm deprecate) - **supported**
+- Unpublishing packages (`npm unpublish`) - **supported**
+- Tagging (`npm dist-tag`) - **supported**
+- Deprecation (`npm deprecate`) - **supported**
 
 ### User management
 
-- Registering new users (npm adduser {newuser}) - **supported**
-- Change password (npm profile set password) - **supported**
-- Transferring ownership (npm owner add {user} {pkg}) - not supported, _PR-welcome_
-- Token (npm token) - **supported**
+- Registering new users (`npm adduser {newuser}`) - **supported**
+- Change password (`npm profile set password`) - **supported**
+- Transferring ownership (`npm owner add {user} {pkg}`) - not supported, _PR-welcome_
+- Token (`npm token`) - **supported**
 
-### Miscellany
+### Miscellaneous
 
-- Searching (npm search) - **supported** (cli / browser)
-- Ping (npm ping) - **supported**
-- Starring (npm star, npm unstar, npm stars) - **supported**
+- Searching (`npm search`) - **supported** (cli / browser)
+- Ping (`npm ping`) - **supported**
+- Starring (`npm star`, `npm unstar`, `npm stars`) - **supported**
 
 ### Security
 
-- npm/yarn audit - **supported**
+- Audit (`npm/yarn audit`) - **supported**
 
 ## Report a vulnerability
 
@@ -269,7 +291,7 @@ Thanks to the following companies to help us to achieve our goals providing free
 | ![priscilawebdev](https://avatars2.githubusercontent.com/u/29228205?s=120&v=4) | ![DanielRuf](https://avatars3.githubusercontent.com/u/827205?s=120&v=4)  |
 | [@priscilawebdev](https://twitter.com/priscilawebdev)                          | [@DanielRufde](https://twitter.com/DanielRufde)                          |
 
-You can find and chat with then over Discord, click [here](http://chat.verdaccio.org) or follow them at _Twitter_.
+You can find and chat with them over Discord, click [here](http://chat.verdaccio.org) or follow them at _Twitter_.
 
 ## Who is using Verdaccio?
 
@@ -323,7 +345,7 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 
 ### FAQ / Contact / Troubleshoot
 
-If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
+If you have any issue you can try the following options. Do no hesitate to ask or check our issues database. Perhaps someone has asked already what you are looking for.
 
 - [Blog](https://verdaccio.org/blog/)
 - [Donations](https://github.com/sponsors/verdaccio)

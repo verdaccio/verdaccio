@@ -1,5 +1,61 @@
 # Change Log
 
+## 12.0.0-next-7.13
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.13
+- @verdaccio/utils@7.0.0-next-7.13
+
+## 12.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+
+## 12.0.0-next-7.11
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.11
+- @verdaccio/utils@7.0.0-next-7.11
+
+## 12.0.0-next-7.10
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.10
+- @verdaccio/utils@7.0.0-next-7.10
+
+## 12.0.0-next-7.9
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.9
+- @verdaccio/utils@7.0.0-next-7.9
+
+## 12.0.0-next-7.8
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.8
+- @verdaccio/utils@7.0.0-next-7.8
+
+## 12.0.0-next-7.7
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.7
+- @verdaccio/utils@7.0.0-next-7.7
+
+## 12.0.0-next.6
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next.6
+- @verdaccio/utils@7.0.0-next.6
+
 ## 12.0.0-next.5
 
 ### Patch Changes

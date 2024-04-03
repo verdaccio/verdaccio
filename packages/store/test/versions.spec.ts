@@ -1,6 +1,11 @@
 import assert from 'assert';
 
-import { getVersion, sortVersionsAndFilterInvalid, tagVersion } from '../src/index';
+import {
+  getVersion,
+  removeLowerVersions,
+  sortVersionsAndFilterInvalid,
+  tagVersion,
+} from '../src/index';
 
 describe('versions-utils', () => {
   const dist = (version) => ({
@@ -104,6 +109,53 @@ describe('versions-utils', () => {
         versions: {},
         'dist-tags': { foo: '1.1.1' },
       });
+    });
+  });
+
+  describe('removeLowerVersions', () => {
+    it('should remove lower semantic versions', () => {
+      const inputArray = [
+        { package: { name: 'object1', version: '1.0.0' } },
+        { package: { name: 'object1', version: '2.0.0' } }, // Duplicate name 'object1'
+        { package: { name: 'object2', version: '2.0.0' } }, // Duplicate name 'object2'
+        { package: { name: 'object2', version: '2.0.0' } },
+        { package: { name: 'object3', version: '3.0.0' } },
+        { package: { name: 'object4', version: '1.0.0' } },
+      ];
+
+      const expectedOutput = [
+        { package: { name: 'object1', version: '2.0.0' } },
+        { package: { name: 'object2', version: '2.0.0' } },
+        { package: { name: 'object3', version: '3.0.0' } },
+        { package: { name: 'object4', version: '1.0.0' } },
+      ];
+
+      // @ts-expect-error
+      const result = removeLowerVersions(inputArray);
+      expect(result).toEqual(expectedOutput);
+    });
+
+    it('should remove lower semantic versions 2', () => {
+      const inputArray = [
+        { package: { name: 'object1', version: '1.0.0' } },
+        { package: { name: 'object1', version: '2.0.0' } }, // Duplicate name 'object1'
+        { package: { name: 'object2', version: '2.0.3' } }, // Duplicate name 'object2'
+        { package: { name: 'object2', version: '2.0.0' } },
+        { package: { name: 'object3', version: '3.0.0' } },
+        { package: { name: 'object4', version: '1.0.0' } },
+      ];
+
+      const expectedOutput = [
+        { package: { name: 'object1', version: '2.0.0' } },
+        { package: { name: 'object2', version: '2.0.3' } },
+        { package: { name: 'object3', version: '3.0.0' } },
+        { package: { name: 'object4', version: '1.0.0' } },
+      ];
+
+      // @ts-expect-error
+      const result = removeLowerVersions(inputArray);
+
+      expect(result).toEqual(expectedOutput);
     });
   });
 });

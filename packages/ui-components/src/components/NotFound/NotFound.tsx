@@ -1,4 +1,6 @@
+/* eslint-disable verdaccio/jsx-no-style */
 import styled from '@emotion/styled';
+import FolderOffIcon from '@mui/icons-material/FolderOff';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import React, { useCallback } from 'react';
@@ -7,8 +9,6 @@ import { useHistory } from 'react-router-dom';
 
 import { Theme } from '../../';
 import Heading from '../Heading';
-// @ts-ignore
-import PackageImg from './img/package.svg';
 
 const NotFound: React.FC = () => {
   const history = useHistory();
@@ -28,7 +28,9 @@ const NotFound: React.FC = () => {
       justifyContent="center"
       p={2}
     >
-      <EmptyPackage alt={t('error.404.page-not-found')} src={PackageImg} />
+      <Container>
+        <FolderOffIcon color="primary" style={{ fontSize: 236 }} />
+      </Container>
       <StyledHeading className="not-found-text" variant="h4">
         {t('error.404.sorry-we-could-not-find-it')}
       </StyledHeading>
@@ -41,8 +43,7 @@ const NotFound: React.FC = () => {
 
 export default NotFound;
 
-const EmptyPackage = styled('img')({
-  width: '150px',
+const Container = styled('div')({
   margin: '0 auto',
 });
 

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "7.0.0-next.1",
+  "version": "7.0.0-next-7.2",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,7 +42,7 @@
     "pino-abstract-transport": "1.1.0",
     "colorette": "2.0.20",
     "lodash": "4.17.21",
-    "sonic-boom": "3.7.0"
+    "sonic-boom": "3.8.0"
   },
   "devDependencies": {
     "pino": "8.17.2"

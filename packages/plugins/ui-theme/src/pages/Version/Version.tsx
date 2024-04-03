@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { Loading, NotFound, RootState, VersionLayout } from '@verdaccio/ui-components';
+import { Forbidden, Loading, NotFound, RootState, VersionLayout } from '@verdaccio/ui-components';
 
 const Version: React.FC = () => {
   const manifestStore = useSelector((state: RootState) => state.manifest);
@@ -11,10 +11,13 @@ const Version: React.FC = () => {
     return <Loading />;
   }
 
+  if (manifestStore.forbidden) {
+    return <Forbidden />;
+  }
+
   if (manifestStore.hasNotBeenFound) {
     return <NotFound />;
   }
-
   return <VersionLayout />;
 };
 

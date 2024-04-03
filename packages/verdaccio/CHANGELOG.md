@@ -1,5 +1,114 @@
 # verdaccio
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [ba53d1e]
+  - @verdaccio/ui-theme@7.0.0-next-7.13
+  - @verdaccio/cli@7.0.0-next-7.13
+  - @verdaccio/hooks@7.0.0-next-7.13
+  - @verdaccio/node-api@7.0.0-next-7.13
+  - verdaccio-audit@12.0.0-next-7.13
+  - verdaccio-htpasswd@12.0.0-next-7.13
+  - @verdaccio/logger@7.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.12
+- @verdaccio/cli@7.0.0-next-7.12
+- @verdaccio/ui-theme@7.0.0-next-7.12
+- @verdaccio/hooks@7.0.0-next-7.12
+- verdaccio-audit@12.0.0-next-7.12
+- verdaccio-htpasswd@12.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+- @verdaccio/logger@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/ui-theme@7.0.0-next-7.11
+  - @verdaccio/cli@7.0.0-next-7.11
+  - @verdaccio/hooks@7.0.0-next-7.11
+  - @verdaccio/node-api@7.0.0-next-7.11
+  - verdaccio-audit@12.0.0-next-7.11
+  - verdaccio-htpasswd@12.0.0-next-7.11
+  - @verdaccio/utils@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- Updated dependencies [5210408]
+  - @verdaccio/ui-theme@7.0.0-next-7.10
+  - @verdaccio/cli@7.0.0-next-7.10
+  - @verdaccio/node-api@7.0.0-next-7.10
+  - @verdaccio/hooks@7.0.0-next-7.10
+  - verdaccio-audit@12.0.0-next-7.10
+  - verdaccio-htpasswd@12.0.0-next-7.10
+  - @verdaccio/utils@7.0.0-next-7.10
+  - @verdaccio/logger@7.0.0-next-7.10
+
+## 7.0.0-next-7.9
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.9
+- @verdaccio/cli@7.0.0-next-7.9
+- @verdaccio/ui-theme@7.0.0-next-7.9
+- @verdaccio/hooks@7.0.0-next-7.9
+- verdaccio-audit@12.0.0-next-7.9
+- verdaccio-htpasswd@12.0.0-next-7.9
+- @verdaccio/utils@7.0.0-next-7.9
+- @verdaccio/logger@7.0.0-next-7.9
+
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- Updated dependencies [3323599]
+  - @verdaccio/ui-theme@7.0.0-next-7.8
+  - @verdaccio/node-api@7.0.0-next-7.8
+  - @verdaccio/cli@7.0.0-next-7.8
+  - @verdaccio/hooks@7.0.0-next-7.8
+  - verdaccio-audit@12.0.0-next-7.8
+  - verdaccio-htpasswd@12.0.0-next-7.8
+  - @verdaccio/utils@7.0.0-next-7.8
+  - @verdaccio/logger@7.0.0-next-7.8
+
+## 7.0.0-next-7.7
+
+### Patch Changes
+
+- 4f70a46: chore: test release
+  - @verdaccio/cli@7.0.0-next-7.7
+  - @verdaccio/node-api@7.0.0-next-7.7
+  - @verdaccio/ui-theme@7.0.0-next-7.7
+  - @verdaccio/hooks@7.0.0-next-7.7
+  - verdaccio-audit@12.0.0-next-7.7
+  - verdaccio-htpasswd@12.0.0-next-7.7
+  - @verdaccio/utils@7.0.0-next-7.7
+  - @verdaccio/logger@7.0.0-next-7.7
+
+## 7.0.0-next.6
+
+### Patch Changes
+
+- @verdaccio/cli@7.0.0-next.6
+- @verdaccio/hooks@7.0.0-next.6
+- @verdaccio/node-api@7.0.0-next.6
+- verdaccio-audit@12.0.0-next.6
+- verdaccio-htpasswd@12.0.0-next.6
+- @verdaccio/ui-theme@7.0.0-next.6
+- @verdaccio/utils@7.0.0-next.6
+- @verdaccio/logger@7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ### Patch Changes

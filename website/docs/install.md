@@ -32,19 +32,19 @@ Learn the basics before getting started, how to install, where is the location o
 Using `npm`
 
 ```bash
-npm install --location=global verdaccio@7-next
+npm install --location=global verdaccio@next-7
 ```
 
 or using `yarn@1.x` _classic_,
 
 ```bash
-yarn global add verdaccio
+yarn global add verdaccio@next-7
 ```
 
 or using `pnpm`
 
 ```bash
-pnpm install -g verdaccio
+pnpm install -g verdaccio@next-7
 ```
 
 ![install verdaccio](/img/install_verdaccio.gif)

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/test-helper",
-  "version": "3.0.0-next.1",
+  "version": "3.0.0-next-7.2",
   "private": true,
   "description": "test helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -9,18 +9,18 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/auth": "workspace:7.0.0-next.5",
-    "@verdaccio/config": "workspace:7.0.0-next.5",
-    "@verdaccio/core": "workspace:7.0.0-next.5",
-    "@verdaccio/logger": "workspace:7.0.0-next.5",
-    "@verdaccio/middleware": "workspace:7.0.0-next.5",
+    "@verdaccio/auth": "workspace:7.0.0-next-7.13",
+    "@verdaccio/config": "workspace:7.0.0-next-7.13",
+    "@verdaccio/core": "workspace:7.0.0-next-7.13",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.13",
+    "@verdaccio/middleware": "workspace:7.0.0-next-7.13",
     "@verdaccio/types": "workspace:12.0.0-next.2",
-    "@verdaccio/utils": "workspace:7.0.0-next.5",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.13",
     "body-parser": "1.20.2",
     "debug": "4.3.4",
-    "express": "4.18.2",
+    "express": "4.18.3",
     "fs-extra": "11.2.0",
-    "supertest": "6.3.3"
+    "supertest": "6.3.4"
   },
   "scripts": {
     "test": "jest .",

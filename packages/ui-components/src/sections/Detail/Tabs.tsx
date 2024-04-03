@@ -14,13 +14,7 @@ interface Props {
 const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange }) => {
   const { t } = useTranslation();
   return (
-    <Tabs
-      color={'primary'}
-      indicatorColor={'primary'}
-      onChange={onChange}
-      value={tabPosition}
-      variant={'fullWidth'}
-    >
+    <Tabs onChange={onChange} value={tabPosition} variant={'fullWidth'}>
       <Tab data-testid={'readme-tab'} id={'readme-tab'} label={t('tab.readme')} />
       <Tab data-testid={'dependencies-tab'} id={'dependencies-tab'} label={t('tab.dependencies')} />
       <Tab data-testid={'versions-tab'} id={'versions-tab'} label={t('tab.versions')} />

@@ -2,13 +2,6 @@ name: Verdaccio Website CI
 
 on:
   workflow_dispatch:
-  pull_request:
-    branches-ignore:
-      - 'renovate/*'
-      - 'dependabot/*'    
-    paths:
-        - 'website/**'
-        - './.github/workflows/website.yml'
   schedule:
     - cron: '0 0 * * *' 
 
@@ -37,7 +30,7 @@ jobs:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
       - name: Node
-        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v3
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -51,7 +44,7 @@ jobs:
       - name: Install
         run: pnpm install  --registry http://localhost:4873
       - name: Cache .pnpm-store
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -62,94 +55,21 @@ jobs:
       - name: Build Translations percentage
         run: pnpm --filter @verdaccio/crowdin-translations build
       - name: Cache Docusaurus Build
-        uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: cache/webpack-${{github.ref}}
-
-      # Will deploy to production on:
-        # 1st: When a push occurs on master branch
-        # 2nd: When we force the worflow dispatch through the UI
       - name: Build Production
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
           CONTEXT: production
-        run: pnpm --filter @verdaccio/website netlify:build:production
-
-      - name: 🔥 Deploy Production Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-          build-dir: './website/build'
-
-      # Will deploy to Preview URL, only when a pull request is open with changes on the website
-      - name: Build Deployment Preview
+        run: pnpm --filter @verdaccio/website netlify:build
+      - name: Deploy to Netlify
         env:
-          CONTEXT: deploy-preview
-        run: pnpm --filter ...@verdaccio/website netlify:build:deployPreview
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm --filter ...@verdaccio/website netlify:deploy 
 
-      - name: 🤖 Deploy Preview Netlify
-        if: github.repository == 'verdaccio/verdaccio'
-        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-        id: netlify_preview
-        with:
-          draft: true
-          comment-on-pull-request: true
-          github-deployment-is-production: false
-          github-deployment-is-transient: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
-          build-dir: './website/build'
-
-      - name: Audit preview URL with Lighthouse
-        if: github.repository == 'verdaccio/verdaccio'
-        id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@03becbfc543944dd6e7534f7ff768abb8a296826 # tag=10.1.0
-        with:
-          urls: |
-            ${{ steps.netlify_preview.outputs.preview-url }}
-          uploadArtifacts: true
-          temporaryPublicStorage: true
-
-      - name: Format lighthouse score
-        id: format_lighthouse_score
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const result = ${{ steps.lighthouse_audit.outputs.manifest }}[0].summary
-            const links = ${{ steps.lighthouse_audit.outputs.links }}
-            const formatResult = (res) => Math.round((res * 100))
-            Object.keys(result).forEach(key => result[key] = formatResult(result[key]))
-            const score = res => res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴'
-            const comment = [
-                `⚡️ [Lighthouse report](${Object.values(links)[0]}) for the changes in this PR:`,
-                '| Category | Score |',
-                '| --- | --- |',
-                `| ${score(result.performance)} Performance | ${result.performance} |`,
-                `| ${score(result.accessibility)} Accessibility | ${result.accessibility} |`,
-                `| ${score(result['best-practices'])} Best practices | ${result['best-practices']} |`,
-                `| ${score(result.seo)} SEO | ${result.seo} |`,
-                ' ',
-                `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`
-            ].join('\n')
-             core.setOutput("comment", comment);
-
-      - name: Add comment to PR
-        if: github.repository == 'verdaccio/verdaccio'
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@efaaab3fd41a9c3de579aba759d2552635e590fd # v2
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ github.event.issue.number }}
-          delete: true
-          header: lighthouse
-          message: |
-            ${{ steps.format_lighthouse_score.outputs.comment }}

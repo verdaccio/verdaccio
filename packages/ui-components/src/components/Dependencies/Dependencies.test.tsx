@@ -6,7 +6,6 @@ import Dependencies from './Dependencies';
 
 describe('<Dependencies /> component', () => {
   test('Renders a message when there are no dependencies', () => {
-    // Given
     const packageMeta = {
       latest: {
         name: 'verdaccio',
@@ -25,15 +24,12 @@ describe('<Dependencies /> component', () => {
       _uplinks: {},
     };
 
-    // When
     const { getByText } = render(<Dependencies packageMeta={packageMeta} />);
 
-    // Then
     expect(getByText('dependencies.has-no-dependencies')).toBeDefined();
   });
 
-  test('Renders a link to each dependency', () => {
-    // Given
+  test('renders a link to each dependency', () => {
     const packageMeta = {
       latest: {
         name: 'verdaccio',
@@ -59,17 +55,11 @@ describe('<Dependencies /> component', () => {
       _uplinks: {},
     };
 
-    // When
     const { getByText } = render(
       <HashRouter>
         <Dependencies packageMeta={packageMeta} />
       </HashRouter>
     );
-
-    // Then
-    // FIXME: currently MaterialUI chips do not support the children
-    // prop, therefore it is impossible to use proper links for
-    // dependencies. Those are for now clickable spans
 
     expect(getByText('dependencies (2)')).toBeDefined();
     expect(getByText('devDependencies (1)')).toBeDefined();

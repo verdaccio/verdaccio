@@ -44,7 +44,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
             <Link to={`/-/web/detail/${packageName}/v/${version}`} variant="caption">
               <ListItemText disableTypography={false} primary={version}></ListItemText>
             </Link>
-            {typeof versions[version].deprecated === 'string' ? (
+            {typeof versions[version]?.deprecated === 'string' ? (
               <Chip
                 color="warning"
                 data-testid="deprecated-badge"
@@ -55,7 +55,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
               />
             ) : null}
             <Spacer />
-            <ListItemText title={utils.formatDate(time[version])}>
+            <ListItemText data-testid={`version-list-text`} title={utils.formatDate(time[version])}>
               {time[version]
                 ? utils.formatDateDistance(time[version])
                 : t('versions.not-available')}

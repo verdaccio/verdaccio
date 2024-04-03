@@ -40,9 +40,7 @@ const RepositoryListItemText = styled(ListItemText)({
 const RepositoryAvatar = styled(Avatar)({
   borderRadius: '0px',
   padding: '0',
-  img: {
-    backgroundColor: 'transparent',
-  },
+  backgroundColor: 'transparent',
 });
 
 const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {

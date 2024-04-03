@@ -141,6 +141,8 @@ describe('storage', () => {
           modified: mockDate,
         });
         expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
+        // verdaccio keeps latest version of readme on manifest level but not by version
+        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
         expect(manifest.readme).toEqual('# test');
         expect(manifest._attachments).toEqual({});
         expect(typeof manifest._rev).toBeTruthy();
@@ -288,7 +290,7 @@ describe('storage', () => {
             {
               storage: generateRandomStorage(),
             },
-            './fixtures/config/getTarballNext-getupstream.yaml',
+            './fixtures/config/getTarball-getupstream.yaml',
             __dirname
           )
         );
@@ -308,6 +310,50 @@ describe('storage', () => {
             ...settings,
           })
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
+      });
+
+      test('create private package with readme only in manifest', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const pkgName = 'upstream';
+        const requestOptions = {
+          host: 'localhost',
+          protocol: 'http',
+          headers: {},
+        };
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/updateManifest-1.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+
+        // Remove readme from version to simulate behaviour of older package managers like npm6
+        bodyNewManifest.versions['1.0.0'].readme = '';
+
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions,
+        })) as Manifest;
+
+        // verdaccio keeps latest version of readme on manifest level but not by version
+        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
+        expect(manifest.readme).toEqual('# test');
       });
     });
     describe('deprecate', () => {
@@ -611,7 +657,7 @@ describe('storage', () => {
     });
   });
 
-  describe('getTarballNext', () => {
+  describe('getTarball', () => {
     test('should not found a package anywhere', (done) => {
       const config = new Config(
         configExample({
@@ -623,7 +669,7 @@ describe('storage', () => {
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
-          .getTarballNext('some-tarball', 'some-tarball-1.0.0.tgz', {
+          .getTarball('some-tarball', 'some-tarball-1.0.0.tgz', {
             signal: abort.signal,
           })
           .then((stream) => {
@@ -655,7 +701,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -663,7 +709,7 @@ describe('storage', () => {
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
-          .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+          .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
             signal: abort.signal,
           })
           .then((stream) => {
@@ -699,7 +745,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -722,7 +768,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.1.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.1.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -763,7 +809,7 @@ describe('storage', () => {
           {
             storage: storagePath,
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -791,7 +837,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -816,7 +862,7 @@ describe('storage', () => {
           {
             storage: generateRandomStorage(),
           },
-          './fixtures/config/getTarballNext-getupstream.yaml',
+          './fixtures/config/getTarball-getupstream.yaml',
           __dirname
         )
       );
@@ -839,7 +885,7 @@ describe('storage', () => {
           .then(() => {
             const abort = new AbortController();
             storage
-              .getTarballNext(pkgName, `${pkgName}-1.0.0.tgz`, {
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
                 signal: abort.signal,
               })
               .then((stream) => {
@@ -858,27 +904,19 @@ describe('storage', () => {
     });
   });
 
-  describe('syncUplinksMetadataNext()', () => {
+  describe('syncUplinksMetadata()', () => {
     describe('error handling', () => {
       test('should handle double failure on uplinks with timeout', async () => {
         const fooManifest = generatePackageMetadata('timeout', '8.0.0');
-
-        nock('https://registry.domain.com')
+        nock('https://registry.timeout.com')
           .get(`/${fooManifest.name}`)
-          .times(10)
-          .delayConnection(4000)
+          .delayConnection(8000)
           .reply(201, manifestFooRemoteNpmjs);
 
         const config = new Config(
           configExample(
             {
               storage: generateRandomStorage(),
-              uplinks: {
-                npmjs: {
-                  url: 'https://registry.npmjs.org',
-                  timeout: '2s',
-                },
-              },
             },
             './fixtures/config/syncDoubleUplinksMetadata.yaml',
             __dirname
@@ -888,14 +926,14 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.syncUplinksMetadataNext(fooManifest.name, null, {
-            retry: { limit: 0 },
+          storage.syncUplinksMetadata(fooManifest.name, null, {
+            retry: { limit: 3 },
             timeout: {
               request: 1000,
             },
           })
         ).rejects.toThrow(API_ERROR.NO_PACKAGE);
-      }, 10000);
+      }, 18000);
 
       test('should handle one proxy fails', async () => {
         const fooManifest = generatePackageMetadata('foo', '8.0.0');
@@ -912,7 +950,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         await expect(
-          storage.syncUplinksMetadataNext(fooManifest.name, null, {
+          storage.syncUplinksMetadata(fooManifest.name, null, {
             retry: { limit: 0 },
           })
         ).rejects.toThrow(API_ERROR.NO_PACKAGE);
@@ -932,7 +970,7 @@ describe('storage', () => {
         );
         const storage = new Storage(config);
         await storage.init(config);
-        const [manifest] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+        const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: 0,
         });
         expect(manifest).toBe(fooManifest);
@@ -955,7 +993,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
         expect(Object.keys((response as Manifest).versions)).toEqual([
@@ -996,7 +1034,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, null);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, null);
         // the latest from the remote manifest
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
@@ -1018,7 +1056,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest);
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
         expect(response).not.toBeNull();
         expect((response as Manifest).name).toEqual(fooManifest.name);
         expect((response as Manifest)[DIST_TAGS].latest).toEqual('8.0.0');
@@ -1042,7 +1080,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext(fooManifest.name, fooManifest, {
+        const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           uplinksLook: false,
         });
 
@@ -1071,7 +1109,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
 
-        const [response] = await storage.syncUplinksMetadataNext('foo', null, {
+        const [response] = await storage.syncUplinksMetadata('foo', null, {
           uplinksLook: true,
         });
 
@@ -1082,7 +1120,7 @@ describe('storage', () => {
   });
 
   describe('getLocalDatabase', () => {
-    test('should return 0 local packages', async () => {
+    test('should return no results', async () => {
       const config = new Config(
         configExample({
           ...getDefaultConfig(),
@@ -1094,7 +1132,7 @@ describe('storage', () => {
       await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
     });
 
-    test('should return 1 local packages', async () => {
+    test('should return single result', async () => {
       const config = new Config(
         configExample({
           ...getDefaultConfig(),

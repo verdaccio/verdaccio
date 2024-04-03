@@ -57,7 +57,7 @@ exports[`test Developers should render the component for contributors with items
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #fff;
+  color: #f4f4f4;
   background-color: #bdbdbd;
 }
 
@@ -181,7 +181,7 @@ exports[`test Developers should render the component for contributors with items
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #fff;
+  color: #f4f4f4;
   background-color: #bdbdbd;
 }
 
@@ -360,7 +360,7 @@ exports[`test Developers should render the component for maintainers with items 
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #fff;
+  color: #f4f4f4;
   background-color: #bdbdbd;
 }
 
@@ -484,7 +484,7 @@ exports[`test Developers should render the component for maintainers with items 
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  color: #fff;
+  color: #f4f4f4;
   background-color: #bdbdbd;
 }
 

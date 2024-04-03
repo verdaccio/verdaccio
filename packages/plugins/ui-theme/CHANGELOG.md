@@ -1,5 +1,37 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- ba53d1e: feat: versions filter by semver range
+
+## 7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
+## 7.0.0-next-7.10
+
+### Patch Changes
+
+- 5210408: fix: ui dialog break pages on open due remark error
+
+## 7.0.0-next-7.9
+
+## 7.0.0-next-7.8
+
+### Patch Changes
+
+- 3323599: fix: render READMEs with correct font and highlighting
+
+## 7.0.0-next-7.7
+
+## 7.0.0-next.6
+
 ## 7.0.0-next.5
 
 ## 7.0.0-next.4

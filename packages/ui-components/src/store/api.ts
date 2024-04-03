@@ -1,5 +1,10 @@
 import storage from './storage';
 
+class CustomError extends Error {
+  // @ts-ignore
+  code: number;
+}
+
 /**
  * Handles response according to content type
  * @param {object} response
@@ -25,7 +30,8 @@ export function handleResponseType(response: Response): Promise<[boolean, any]> 
     }
   }
 
-  return Promise.all([response.ok, response.text()]);
+  // error handling
+  return Promise.all([response.ok, response]);
 }
 
 const AuthHeader = 'Authorization';
@@ -55,12 +61,13 @@ class API {
       })
         .then(handleResponseType)
         .then((response) => {
-          if (response[0]) {
-            resolve(response[1]);
+          const [ok, data] = response;
+          if (ok === true) {
+            resolve(data);
           } else {
-            // eslint-disable-next-line no-console
-            console.error(response);
-            reject(new Error('something went wrong'));
+            const error = new CustomError(data?.statusText ?? 'Unknown error');
+            error.code = data?.status ?? 500;
+            reject(error);
           }
         })
         .catch((error) => {

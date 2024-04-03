@@ -1,7 +1,7 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 
-import { fireEvent, render } from '../../test/test-react-testing-library';
+import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import NotFound from './NotFound';
 
 const mockHistory = jest.fn();
@@ -14,12 +14,15 @@ jest.mock('react-router-dom', () => ({
 
 describe('<NotFound /> component', () => {
   test('should load the component in default state', () => {
-    const { container } = render(
+    render(
       <MemoryRouter>
         <NotFound />
       </MemoryRouter>
     );
-    expect(container.firstChild).toMatchSnapshot();
+
+    expect(screen.getByTestId('FolderOffIcon')).toBeInTheDocument();
+    expect(screen.getByText('button.go-to-the-home-page')).toBeInTheDocument();
+    expect(screen.getByText('error.404.sorry-we-could-not-find-it')).toBeInTheDocument();
   });
 
   test('go to Home Page button click', async () => {

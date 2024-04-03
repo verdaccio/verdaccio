@@ -33,6 +33,18 @@ export const manifest = createModel<RootModel>()({
       return {
         ...state,
         hasNotBeenFound: true,
+        forbidden: false,
+        manifest: undefined,
+        packageName: undefined,
+        packageVersion: undefined,
+        readme: undefined,
+      };
+    },
+    forbidden(state) {
+      return {
+        ...state,
+        forbidden: true,
+        hasNotBeenFound: false,
         manifest: undefined,
         packageName: undefined,
         packageVersion: undefined,
@@ -50,6 +62,7 @@ export const manifest = createModel<RootModel>()({
         ...state,
         isError: true,
         hasNotBeenFound: false,
+        forbidden: false,
         manifest: undefined,
         packageName: undefined,
         packageVersion: undefined,
@@ -64,6 +77,7 @@ export const manifest = createModel<RootModel>()({
         packageVersion,
         readme,
         hasNotBeenFound: false,
+        forbidden: false,
       };
     },
   },
@@ -91,7 +105,11 @@ export const manifest = createModel<RootModel>()({
         );
         dispatch.manifest.saveManifest({ packageName, packageVersion, manifest, readme });
       } catch (error: any) {
-        dispatch.manifest.notFound();
+        if (error.code === 404) {
+          dispatch.manifest.notFound();
+        } else {
+          dispatch.manifest.forbidden();
+        }
       }
     },
   }),
