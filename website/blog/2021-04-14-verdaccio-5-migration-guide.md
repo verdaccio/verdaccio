@@ -21,7 +21,7 @@ We recommend, always try to use the latest LTS version to avoid next major force
 
 Verdaccio replaces Bunyan by [Pino.js](https://github.com/pinojs/pino) as logger, with the objective to improve the performance and delegate some features to the external tools. The new logger configuration does not support multiple streams, thus the configuration must contain one single object.
 
-### Pretty loggin {#pretty-loggin}
+### Pretty logging {#pretty-loggin}
 
 Verdaccio logging pretty print is a distinguished feature the very first time `verdaccio` commands runs.
 
