@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0    
-      - name: Use Node (latest)
+      - name: Use Node
         uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
         with:
-          node-version-file: '.nvmrc'
+          node-version: 21
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
@@ -34,7 +34,7 @@ jobs:
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest --registry http://localhost:4873
+          npm install jest@27.5.1 --registry http://localhost:4873
           npm install verdaccio --registry http://localhost:4873
           echo "test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
           cat module.spec.js
