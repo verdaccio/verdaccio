@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.30.3](https://github.com/verdaccio/verdaccio/compare/v5.30.2...v5.30.3) (2024-04-06)
+
+
+### Bug Fixes
+
+* upgrade docker file base image to v20.12.1 ([#4576](https://github.com/verdaccio/verdaccio/issues/4576)) ([513b10d](https://github.com/verdaccio/verdaccio/commit/513b10d8b023c52755f9320b9c31f3bf2f68574d))
+
 ### [5.30.2](https://github.com/verdaccio/verdaccio/compare/v5.30.1...v5.30.2) (2024-03-24)
 
 
