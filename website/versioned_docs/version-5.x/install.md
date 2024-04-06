@@ -7,7 +7,7 @@ Verdaccio is a Node.js private and proxy registry. To install it, you need a few
 
 ## Prerequisites {#prerequisites}
 
-1. **Node.js** `v12` or higher.
+1. **Node.js** `v14` or higher.
 
 2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and berry).
 
