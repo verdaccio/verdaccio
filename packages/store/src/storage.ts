@@ -1063,7 +1063,7 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        await this.createNewLocalCachePackage(name, versionToPublish);
+        await this.createNewLocalCachePackage(name);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
         successResponseMessage = API_MESSAGE.PKG_CHANGED;
@@ -1363,7 +1363,7 @@ class Storage {
    * @param name name of the package
    * @returns
    */
-  private async createNewLocalCachePackage(name: string, latestVersion: string): Promise<void> {
+  private async createNewLocalCachePackage(name: string): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
@@ -1377,7 +1377,6 @@ class Storage {
       time: {
         created: currentTime,
         modified: currentTime,
-        [latestVersion]: currentTime,
       },
     };
 
