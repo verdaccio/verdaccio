@@ -178,6 +178,7 @@ export interface FullRemoteManifest {
   'dist-tags': GenericBody;
   time: GenericBody;
   versions: Versions;
+  /** store owners of this package */
   maintainers?: Author[];
   /** store the latest readme **/
   readme?: string;

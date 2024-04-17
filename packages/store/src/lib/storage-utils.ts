@@ -109,6 +109,7 @@ export const WHITELIST = [
   'time',
   '_id',
   'users',
+  'maintainers',
 ];
 
 export function cleanUpLinksRef(result: Manifest, keepUpLinkData?: boolean): Manifest {

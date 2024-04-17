@@ -39,6 +39,7 @@ export const API_ERROR = {
   BAD_PACKAGE_DATA: 'bad incoming package data',
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
   USERNAME_ALREADY_REGISTERED: 'username is already registered',
+  USERNAME_MISMATCH: 'username does not match logged in user',
 };
 
 export const SUPPORT_ERRORS = {

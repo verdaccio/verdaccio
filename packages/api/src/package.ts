@@ -30,6 +30,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
       const write = req.query.write === 'true';
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
+      debug(abbreviated ? 'abbreviated manifest' : 'full manifest');
       const requestOptions = {
         protocol: req.protocol,
         headers: req.headers as any,

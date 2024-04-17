@@ -114,3 +114,11 @@ export function validatePassword(
     ? password.match(validation) !== null
     : false;
 }
+
+export function validateUserName(userName: any, expectedName: string): boolean {
+  return (
+    typeof userName === 'string' &&
+    userName.split(':')[0] === 'org.couchdb.user' &&
+    userName.split(':')[1] === expectedName
+  );
+}

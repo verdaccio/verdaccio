@@ -81,7 +81,7 @@ import {
 } from './lib/storage-utils';
 import { getVersion, removeLowerVersions } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import { IGetPackageOptionsNext, StarManifestBody } from './type';
+import { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -870,7 +870,7 @@ class Storage {
   }
 
   public async updateManifest(
-    manifest: Manifest | StarManifestBody,
+    manifest: Manifest | StarManifestBody | OwnerManifestBody,
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
     if (isDeprecatedManifest(manifest as Manifest)) {
@@ -880,10 +880,20 @@ class Storage {
       });
     } else if (
       isPublishablePackage(manifest as Manifest) === false &&
-      validatioUtils.isObject(manifest.users)
+      validatioUtils.isObject((manifest as StarManifestBody).users)
     ) {
       // if user request to apply a star to the manifest
       await this.star(manifest as StarManifestBody, {
+        ...options,
+      });
+      return API_MESSAGE.PKG_CHANGED;
+    } else if (
+      isPublishablePackage(manifest as Manifest) === false &&
+      Array.isArray((manifest as OwnerManifestBody).maintainers)
+    ) {
+      debug('change owners');
+      // if user request to change owners of package
+      await this.changeOwners(manifest as OwnerManifestBody, {
         ...options,
       });
       return API_MESSAGE.PKG_CHANGED;
@@ -962,6 +972,33 @@ class Storage {
     await this.changePackage(
       name,
       { ...localPackage, users: newUsers },
+      options.revision as string
+    );
+
+    return API_MESSAGE.PKG_CHANGED;
+  }
+
+  private async changeOwners(
+    manifest: OwnerManifestBody,
+    options: UpdateManifestOptions
+  ): Promise<string> {
+    const { maintainers } = manifest;
+    const { requestOptions, name } = options;
+    debug('change owners of %s', name);
+    const { username } = requestOptions;
+    if (!username) {
+      throw errorUtils.getBadRequest('update owners only allowed for logged users');
+    }
+
+    const localPackage = await this.getPackageManifest({
+      name,
+      requestOptions,
+      uplinksLook: false,
+    });
+
+    await this.changePackage(
+      name,
+      { ...localPackage, maintainers: maintainers as Author[] },
       options.revision as string
     );
 
