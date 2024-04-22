@@ -24,7 +24,14 @@ import {
   generateRemotePackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import { AbbreviatedManifest, ConfigYaml, Manifest, PackageUsers, Version } from '@verdaccio/types';
+import {
+  AbbreviatedManifest,
+  Author,
+  ConfigYaml,
+  Manifest,
+  PackageUsers,
+  Version,
+} from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
@@ -81,6 +88,37 @@ const executeStarPackage = async (
     users,
   };
   return storage.updateManifest(starManifest, {
+    signal: new AbortController().signal,
+    name,
+    uplinksLook: true,
+    revision: '1',
+    requestOptions: { ...defaultRequestOptions, username },
+  });
+};
+
+const remoteUser = {
+  name: 'fooUser',
+  groups: [],
+  real_groups: [],
+};
+
+const executeChangeOwners = async (
+  storage,
+  options: {
+    maintainers: Author[];
+    username: string;
+    name: string;
+    _rev: string;
+    _id?: string;
+  }
+) => {
+  const { name, _rev, _id, maintainers, username } = options;
+  const ownerManifest = {
+    _rev,
+    _id,
+    maintainers,
+  };
+  return storage.updateManifest(ownerManifest, {
     signal: new AbortController().signal,
     name,
     uplinksLook: true,
@@ -655,6 +693,129 @@ describe('storage', () => {
         ).rejects.toThrow();
       });
     });
+  });
+
+  describe('owner', () => {
+    test.each([['foo']])('new package %s (anonymous)', async (pkgName) => {
+      const config = getConfig('deprecate.yaml');
+      const storage = new Storage(config);
+      await storage.init(config);
+      const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: true,
+        revision: '1',
+        requestOptions: defaultRequestOptions,
+      });
+      const manifest = (await storage.getPackageByOptions({
+        name: pkgName,
+        uplinksLook: true,
+        requestOptions: defaultRequestOptions,
+      })) as Manifest;
+      expect(manifest?.maintainers).toEqual([{ name: '', email: '' }]);
+    });
+
+    test.each([['foo']])('new package %s (logged in)', async (pkgName) => {
+      const config = getConfig('deprecate.yaml');
+      const storage = new Storage(config);
+      await storage.init(config);
+      const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: true,
+        revision: '1',
+        requestOptions: defaultRequestOptions,
+        remoteUser: remoteUser,
+      });
+      const manifest = (await storage.getPackageByOptions({
+        name: pkgName,
+        uplinksLook: true,
+        requestOptions: defaultRequestOptions,
+      })) as Manifest;
+      expect(manifest?.maintainers).toEqual([{ name: 'fooUser', email: '' }]);
+    });
+
+    test.each([['foo']])('add/remove owner %s', async (pkgName) => {
+      const config = getConfig('deprecate.yaml');
+      const storage = new Storage(config);
+      await storage.init(config);
+      const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: false,
+        revision: '1',
+        requestOptions: defaultRequestOptions,
+        remoteUser: remoteUser,
+      });
+
+      // add owner
+      const maintainers = [
+        { name: 'fooUser', email: '' },
+        { name: 'barUser', email: '' },
+      ];
+      const message = await executeChangeOwners(storage, {
+        _rev: bodyNewManifest._rev,
+        _id: bodyNewManifest._id,
+        name: pkgName,
+        username: 'fooUser',
+        maintainers: maintainers,
+      });
+      expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+      const manifest = (await storage.getPackageByOptions({
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      })) as Manifest;
+      expect(manifest?.maintainers).toEqual(maintainers);
+
+      // remove owner
+      const maintainers2 = [{ name: 'barUser', email: '' }];
+      const message2 = await executeChangeOwners(storage, {
+        _rev: bodyNewManifest._rev,
+        _id: bodyNewManifest._id,
+        name: pkgName,
+        username: 'fooUser',
+        maintainers: maintainers2,
+      });
+      expect(message2).toEqual(API_MESSAGE.PKG_CHANGED);
+
+      const manifest2 = (await storage.getPackageByOptions({
+        name: pkgName,
+        uplinksLook: false,
+        requestOptions: defaultRequestOptions,
+      })) as Manifest;
+      expect(manifest2?.maintainers).toEqual(maintainers2);
+    });
+  });
+
+  test.each([['foo']])('should fail removing last owner %s', async (pkgName) => {
+    const config = getConfig('deprecate.yaml');
+    const storage = new Storage(config);
+    await storage.init(config);
+    const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+    await storage.updateManifest(bodyNewManifest, {
+      signal: new AbortController().signal,
+      name: pkgName,
+      uplinksLook: false,
+      revision: '1',
+      requestOptions: defaultRequestOptions,
+      remoteUser: remoteUser,
+    });
+
+    // no owners
+    await expect(
+      executeChangeOwners(storage, {
+        _rev: bodyNewManifest._rev,
+        _id: bodyNewManifest._id,
+        name: pkgName,
+        username: 'fooUser',
+        maintainers: [],
+      })
+    ).rejects.toThrow();
   });
 
   describe('getTarball', () => {

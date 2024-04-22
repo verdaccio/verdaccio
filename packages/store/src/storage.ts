@@ -1105,7 +1105,7 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        const owner = getOwner(remoteUser);
+        const owner = getOwner(remoteUser?.name);
         await this.createNewLocalCachePackage(name, owner);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
