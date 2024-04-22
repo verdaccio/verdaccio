@@ -876,6 +876,7 @@ class Storage {
     manifest: Manifest | StarManifestBody | OwnerManifestBody,
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
+    debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
     if (isDeprecatedManifest(manifest as Manifest)) {
       // if the manifest is deprecated, we need to update the package.json
       await this.deprecate(manifest as Manifest, {
@@ -1066,8 +1067,9 @@ class Storage {
     body: Manifest,
     options: PublishOptions
   ): Promise<[Manifest, string, string]> {
-    const { name, remoteUser } = options;
-    debug('publishing a new package for %o as %o', name, remoteUser);
+    const { name } = options;
+    const owner = getOwner(options.requestOptions.username);
+    debug('publishing a new package for %o as %o', name, owner.name);
     let successResponseMessage;
     const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
@@ -1105,7 +1107,6 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        const owner = getOwner(remoteUser?.name);
         await this.createNewLocalCachePackage(name, owner);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {

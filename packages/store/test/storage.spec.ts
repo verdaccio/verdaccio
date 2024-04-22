@@ -96,12 +96,6 @@ const executeStarPackage = async (
   });
 };
 
-const remoteUser = {
-  name: 'fooUser',
-  groups: [],
-  real_groups: [],
-};
-
 const executeChangeOwners = async (
   storage,
   options: {
@@ -721,13 +715,13 @@ describe('storage', () => {
       const storage = new Storage(config);
       await storage.init(config);
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      const options = { ...defaultRequestOptions, username: 'fooUser' };
       await storage.updateManifest(bodyNewManifest, {
         signal: new AbortController().signal,
         name: pkgName,
         uplinksLook: true,
         revision: '1',
-        requestOptions: defaultRequestOptions,
-        remoteUser: remoteUser,
+        requestOptions: options,
       });
       const manifest = (await storage.getPackageByOptions({
         name: pkgName,
@@ -742,13 +736,13 @@ describe('storage', () => {
       const storage = new Storage(config);
       await storage.init(config);
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      const options = { ...defaultRequestOptions, username: 'fooUser' };
       await storage.updateManifest(bodyNewManifest, {
         signal: new AbortController().signal,
         name: pkgName,
         uplinksLook: false,
         revision: '1',
-        requestOptions: defaultRequestOptions,
-        remoteUser: remoteUser,
+        requestOptions: options,
       });
 
       // add owner
@@ -768,7 +762,7 @@ describe('storage', () => {
       const manifest = (await storage.getPackageByOptions({
         name: pkgName,
         uplinksLook: false,
-        requestOptions: defaultRequestOptions,
+        requestOptions: options,
       })) as Manifest;
       expect(manifest?.maintainers).toEqual(maintainers);
 
@@ -786,7 +780,7 @@ describe('storage', () => {
       const manifest2 = (await storage.getPackageByOptions({
         name: pkgName,
         uplinksLook: false,
-        requestOptions: defaultRequestOptions,
+        requestOptions: options,
       })) as Manifest;
       expect(manifest2?.maintainers).toEqual(maintainers2);
     });
@@ -797,13 +791,13 @@ describe('storage', () => {
     const storage = new Storage(config);
     await storage.init(config);
     const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+    const options = { ...defaultRequestOptions, username: 'fooUser' };
     await storage.updateManifest(bodyNewManifest, {
       signal: new AbortController().signal,
       name: pkgName,
       uplinksLook: false,
       revision: '1',
-      requestOptions: defaultRequestOptions,
-      remoteUser: remoteUser,
+      requestOptions: options,
     });
 
     // no owners

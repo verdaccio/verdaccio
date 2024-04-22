@@ -205,7 +205,6 @@ export function publishPackage(storage: Storage): any {
           headers: req.headers as { [key: string]: string },
           username,
         },
-        remoteUser: username,
         uplinksLook: false,
       });
 

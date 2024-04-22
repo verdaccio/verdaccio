@@ -30,10 +30,11 @@ describe('owner', () => {
     expect(maintainers).toEqual([{ name: credentials.name, email: '' }]);
   });
 
-  test.each([['foo', '@scope%2Ffoo']])('should add owner to package', async (pkgName) => {
+  test.each([['foo', '@scope%2Ffoo']])('should add/remove owner to package', async (pkgName) => {
     nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
+    const firstOwner = { name: 'test', email: '' };
     const response = await createUser(app, credentials.name, credentials.password);
     expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
     await publishVersionWithToken(app, pkgName, '1.0.0', response.body.token).expect(
@@ -42,12 +43,13 @@ describe('owner', () => {
 
     // publish sets owner to logged in user
     const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
-    expect(manifest.body.maintainers).toHaveLength(1);
+    const maintainers = manifest.body.maintainers;
+    expect(maintainers).toHaveLength(1);
+    expect(maintainers).toEqual([firstOwner]);
 
     // add another owner
-    const owner = { name: 'tester', email: 'test@verdaccio.org' };
-    const newOwners = manifest.body.maintainers;
-    newOwners.push(owner);
+    const secondOwner = { name: 'tester', email: 'test@verdaccio.org' };
+    const newOwners = [...maintainers, secondOwner];
     await changeOwners(
       app,
       {
@@ -62,42 +64,7 @@ describe('owner', () => {
     const manifest2 = await getPackage(app, '', decodeURIComponent(pkgName));
     const maintainers2 = manifest2.body.maintainers;
     expect(maintainers2).toHaveLength(2);
-    expect(maintainers2).toEqual([{ name: credentials.name, email: '' }, owner]);
-  });
-
-  test.each([['foo', '@scope%2Ffoo']])('should remove owner from package', async (pkgName) => {
-    nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
-    const app = await initializeServer('owner.yaml');
-    const credentials = { name: 'test', password: 'test' };
-    const response = await createUser(app, credentials.name, credentials.password);
-    expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
-    await publishVersionWithToken(app, pkgName, '1.0.0', response.body.token).expect(
-      HTTP_STATUS.CREATED
-    );
-
-    // publish sets owner to logged in user
-    const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
-    expect(manifest.body.maintainers).toHaveLength(1);
-
-    // add another owner
-    const owner = { name: 'tester', email: 'test@verdaccio.org' };
-    let newOwners = manifest.body.maintainers;
-    newOwners.push(owner);
-    await changeOwners(
-      app,
-      {
-        _rev: manifest.body._rev,
-        _id: manifest.body._id,
-        name: pkgName,
-        maintainers: newOwners,
-      },
-      response.body.token
-    ).expect(HTTP_STATUS.CREATED);
-
-    const manifest2 = await getPackage(app, '', decodeURIComponent(pkgName));
-    const maintainers2 = manifest2.body.maintainers;
-    expect(maintainers2).toHaveLength(2);
-    expect(maintainers2).toEqual([{ name: credentials.name, email: '' }, owner]);
+    expect(maintainers2).toEqual([firstOwner, secondOwner]);
 
     // remove original owner
     await changeOwners(
@@ -106,7 +73,7 @@ describe('owner', () => {
         _rev: manifest2.body._rev,
         _id: manifest2.body._id,
         name: pkgName,
-        maintainers: [owner],
+        maintainers: [secondOwner],
       },
       response.body.token
     ).expect(HTTP_STATUS.CREATED);
@@ -114,13 +81,14 @@ describe('owner', () => {
     const manifest3 = await getPackage(app, '', decodeURIComponent(pkgName));
     const maintainers3 = manifest3.body.maintainers;
     expect(maintainers3).toHaveLength(1);
-    expect(maintainers3).toEqual([owner]);
+    expect(maintainers3).toEqual([secondOwner]);
   });
 
   test.each([['foo', '@scope%2Ffoo']])('should fail if user is not logged in', async (pkgName) => {
     nock('https://registry.npmjs.org').get(`/${pkgName}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
+    const firstOwner = { name: 'test', email: '' };
     const response = await createUser(app, credentials.name, credentials.password);
     expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
     await publishVersionWithToken(app, pkgName, '1.0.0', response.body.token).expect(
@@ -129,12 +97,13 @@ describe('owner', () => {
 
     // publish sets owner to logged in user
     const manifest = await getPackage(app, '', decodeURIComponent(pkgName));
-    expect(manifest.body.maintainers).toHaveLength(1);
+    const maintainers = manifest.body.maintainers;
+    expect(maintainers).toHaveLength(1);
+    expect(maintainers).toEqual([firstOwner]);
 
-    // add another owner
-    const owner = { name: 'tester', email: 'test@verdaccio.org' };
-    let newOwners = manifest.body.maintainers;
-    newOwners.push(owner);
+    // try adding another owner
+    const secondOwner = { name: 'tester', email: 'test@verdaccio.org' };
+    const newOwners = [...maintainers, secondOwner];
     await changeOwners(
       app,
       {
