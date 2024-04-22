@@ -152,6 +152,24 @@ describe('token', () => {
       }
     );
 
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should return name of requested user',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const username = 'yeti';
+        const credentials = { name: 'jota', password: 'secretPass' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+        const response3 = await supertest(app)
+          .get(`/-/user/org.couchdb.user:${username}`)
+          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+          .expect(HTTP_STATUS.OK);
+        expect(response3.body.ok).toBe(`you are authenticated as '${credentials.name}'`);
+        expect(response3.body.name).toBe(username);
+      }
+    );
+
     test.each([['user.yaml'], ['user.jwt.yaml']])('should logout user', async (conf) => {
       const app = await initializeServer(conf);
       const credentials = { name: 'jota', password: 'secretPass' };
@@ -177,22 +195,6 @@ describe('token', () => {
           .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
           .expect(HTTP_STATUS.OK);
         expect(response.body.ok).toBe(false);
-      }
-    );
-
-    test.each([['user.yaml'], ['user.jwt.yaml']])(
-      'should fail if URL does not match logged in user',
-      async (conf) => {
-        const app = await initializeServer(conf);
-        const credentials = { name: 'jota', password: 'secretPass' };
-        const response = await createUser(app, credentials.name, credentials.password);
-        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
-        const response2 = await supertest(app)
-          .get('/-/user/org.couchdb.user:yeti') // different user
-          .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, response.body.token))
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
-          .expect(HTTP_STATUS.BAD_REQUEST);
-        expect(response2.body.error).toBe(API_ERROR.USERNAME_MISMATCH);
       }
     );
 

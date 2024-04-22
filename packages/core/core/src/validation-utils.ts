@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import { Manifest } from '@verdaccio/types';
 
-import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from './constants';
+import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS, MAINTAINERS } from './constants';
 
 export { validatePublishSingleVersion } from './schemes/publish-manifest';
 
@@ -67,7 +67,6 @@ export function validatePackage(name: string): boolean {
  * @param {*} manifest
  * @param {*} name
  * @return {Object} the object with additional properties as dist-tags ad versions
- * FUTURE: rename to normalizeMetadata
  */
 export function normalizeMetadata(manifest: Manifest, name: string): Manifest {
   assert.strictEqual(manifest.name, name);
@@ -77,7 +76,11 @@ export function normalizeMetadata(manifest: Manifest, name: string): Manifest {
     _manifest[DIST_TAGS] = {};
   }
 
-  // This may not be nee dit
+  if (!Array.isArray(manifest[MAINTAINERS])) {
+    _manifest[MAINTAINERS] = [];
+  }
+
+  // This may not be needed
   if (!isObject(manifest['versions'])) {
     _manifest['versions'] = {};
   }

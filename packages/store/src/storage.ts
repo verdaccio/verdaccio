@@ -13,6 +13,7 @@ import {
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
+  MAINTAINERS,
   SUPPORT_ERRORS,
   USERS,
   errorUtils,
@@ -72,6 +73,7 @@ import {
   generatePackageTemplate,
   generateRevision,
   getLatestReadme,
+  getOwner,
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
@@ -117,7 +119,7 @@ class Storage {
    */
   public async changePackage(name: string, metadata: Manifest, revision: string): Promise<void> {
     debug('change existing package for package %o revision %o', name, revision);
-    debug(`change manifest tags for %o revision %s`, name, revision);
+    debug(`change manifest tags for %o revision %o`, name, revision);
     if (
       !validatioUtils.isObject(metadata.versions) ||
       !validatioUtils.isObject(metadata[DIST_TAGS])
@@ -126,7 +128,7 @@ class Storage {
       throw errorUtils.getBadData();
     }
 
-    debug(`change manifest udapting manifest for %o`, name);
+    debug(`change manifest updapting manifest for %o`, name);
     await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
@@ -163,6 +165,7 @@ class Storage {
 
       localData[USERS] = metadata[USERS];
       localData[DIST_TAGS] = metadata[DIST_TAGS];
+      localData[MAINTAINERS] = metadata[MAINTAINERS];
       return localData;
     });
   }
@@ -891,7 +894,6 @@ class Storage {
       isPublishablePackage(manifest as Manifest) === false &&
       Array.isArray((manifest as OwnerManifestBody).maintainers)
     ) {
-      debug('change owners');
       // if user request to change owners of package
       await this.changeOwners(manifest as OwnerManifestBody, {
         ...options,
@@ -917,7 +919,7 @@ class Storage {
       return message;
     } else {
       debug('invalid body format');
-      logger.info(
+      logger.warn(
         { packageName: options.name },
         `wrong package format on publish a package @{packageName}`
       );
@@ -984,10 +986,13 @@ class Storage {
   ): Promise<string> {
     const { maintainers } = manifest;
     const { requestOptions, name } = options;
-    debug('change owners of %s', name);
+    debug('change owners of %o', name);
     const { username } = requestOptions;
     if (!username) {
-      throw errorUtils.getBadRequest('update owners only allowed for logged users');
+      throw errorUtils.getBadRequest('update owners only allowed for logged in users');
+    }
+    if (!maintainers || maintainers.length === 0) {
+      throw errorUtils.getBadRequest('maintainers field is required and must not be empty');
     }
 
     const localPackage = await this.getPackageManifest({
@@ -1061,8 +1066,8 @@ class Storage {
     body: Manifest,
     options: PublishOptions
   ): Promise<[Manifest, string, string]> {
-    const { name } = options;
-    debug('publishing a new package for %o', name);
+    const { name, remoteUser } = options;
+    debug('publishing a new package for %o as %o', name, remoteUser);
     let successResponseMessage;
     const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
@@ -1100,7 +1105,8 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        await this.createNewLocalCachePackage(name);
+        const owner = getOwner(remoteUser);
+        await this.createNewLocalCachePackage(name, owner);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
         successResponseMessage = API_MESSAGE.PKG_CHANGED;
@@ -1326,11 +1332,11 @@ class Storage {
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       // keep only one readme per package
       data.readme = metadata.readme;
-      debug('%s` readme mutated', name);
+      debug('%s readme mutated', name);
       // TODO: lodash remove
       metadata = cleanUpReadme(metadata);
       metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
-      debug('%s` contributors normalized', name);
+      debug('%s contributors normalized', name);
 
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
@@ -1385,7 +1391,7 @@ class Storage {
       tagVersion(data, version, tag);
 
       try {
-        debug('%s` add on database', name);
+        debug('%s add on database', name);
         await this.localStorage.getStoragePlugin().add(name);
         this.logger.debug({ name, version }, 'version @{version} added to database for @{name}');
       } catch (err: any) {
@@ -1400,7 +1406,7 @@ class Storage {
    * @param name name of the package
    * @returns
    */
-  private async createNewLocalCachePackage(name: string): Promise<void> {
+  private async createNewLocalCachePackage(name: string, owner: Author): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
@@ -1416,6 +1422,9 @@ class Storage {
         modified: currentTime,
       },
     };
+
+    // Set initial package owner
+    packageData.maintainers = [owner];
 
     try {
       await storage.createPackage(name, packageData);

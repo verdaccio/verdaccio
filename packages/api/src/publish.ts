@@ -188,6 +188,12 @@ export function publishPackage(storage: Storage): any {
     const metadata = req.body;
     const username = req?.remote_user?.name;
 
+    debug('publishing package %o for user %o', packageName, username);
+    logger.debug(
+      { packageName, username },
+      'publishing package @{packageName} for user @{username}'
+    );
+
     try {
       const message = await storage.updateManifest(metadata, {
         name: packageName,
@@ -199,6 +205,7 @@ export function publishPackage(storage: Storage): any {
           headers: req.headers as { [key: string]: string },
           username,
         },
+        remoteUser: username,
         uplinksLook: false,
       });
 

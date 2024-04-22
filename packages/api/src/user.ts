@@ -34,17 +34,14 @@ export default function (route: Router, auth: Auth, config: Config): void {
         return next({ ok: false });
       }
 
-      if (!validatioUtils.validateUserName(req.params.org_couchdb_user, req.remote_user.name)) {
-        return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
-      }
-
+      const username = req.params.org_couchdb_user.split(':')[1];
       const message = getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);
       next({
         // 'npm owner' requires user info
-        // TODO: we don't have email
-        name: req.remote_user.name,
+        // TODO: we don't have the email
+        name: username,
         email: '',
         ok: message,
       });

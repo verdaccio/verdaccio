@@ -11,7 +11,7 @@ import {
   generatePackageMetadata,
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
-import { GenericBody, PackageUsers } from '@verdaccio/types';
+import { Author, GenericBody, PackageUsers } from '@verdaccio/types';
 import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../src';
@@ -132,6 +132,37 @@ export function starPackage(
     .put(`/${encodeURIComponent(options.name)}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
     .send(JSON.stringify(starManifest))
+    .set('accept', HEADERS.GZIP)
+    .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
+
+  if (typeof token === 'string') {
+    test.set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token));
+  }
+
+  return test;
+}
+
+export function changeOwners(
+  app,
+  options: {
+    maintainers: Author[];
+    name: string;
+    _rev: string;
+    _id?: string;
+  },
+  token?: string
+): supertest.Test {
+  const { _rev, _id, maintainers } = options;
+  const ownerManifest = {
+    _rev,
+    _id,
+    maintainers,
+  };
+
+  const test = supertest(app)
+    .put(`/${encodeURIComponent(options.name)}`)
+    .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+    .send(JSON.stringify(ownerManifest))
     .set('accept', HEADERS.GZIP)
     .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON);
 
