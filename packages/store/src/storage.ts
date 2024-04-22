@@ -1339,6 +1339,9 @@ class Storage {
       metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
       debug('%s contributors normalized', name);
 
+      // Copy current owners to version
+      metadata.maintainers = data.maintainers;
+
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
       if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {

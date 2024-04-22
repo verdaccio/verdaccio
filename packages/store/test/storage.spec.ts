@@ -714,8 +714,9 @@ describe('storage', () => {
       const config = getConfig('deprecate.yaml');
       const storage = new Storage(config);
       await storage.init(config);
+      const owner = { name: 'fooUser', email: '' };
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
-      const options = { ...defaultRequestOptions, username: 'fooUser' };
+      const options = { ...defaultRequestOptions, username: owner.name };
       await storage.updateManifest(bodyNewManifest, {
         signal: new AbortController().signal,
         name: pkgName,
@@ -728,15 +729,17 @@ describe('storage', () => {
         uplinksLook: true,
         requestOptions: defaultRequestOptions,
       })) as Manifest;
-      expect(manifest?.maintainers).toEqual([{ name: 'fooUser', email: '' }]);
+      expect(manifest?.maintainers).toEqual([owner]);
+      expect(manifest?.versions['1.0.0'].maintainers).toEqual([owner]);
     });
 
     test.each([['foo']])('add/remove owner %s', async (pkgName) => {
       const config = getConfig('deprecate.yaml');
       const storage = new Storage(config);
       await storage.init(config);
+      const firstOwner = { name: 'fooUser', email: '' };
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
-      const options = { ...defaultRequestOptions, username: 'fooUser' };
+      const options = { ...defaultRequestOptions, username: firstOwner.name };
       await storage.updateManifest(bodyNewManifest, {
         signal: new AbortController().signal,
         name: pkgName,
@@ -746,10 +749,9 @@ describe('storage', () => {
       });
 
       // add owner
-      const maintainers = [
-        { name: 'fooUser', email: '' },
-        { name: 'barUser', email: '' },
-      ];
+      const secondOwner = { name: 'barUser', email: '' };
+      const maintainers = [firstOwner, secondOwner];
+
       const message = await executeChangeOwners(storage, {
         _rev: bodyNewManifest._rev,
         _id: bodyNewManifest._id,
@@ -765,9 +767,11 @@ describe('storage', () => {
         requestOptions: options,
       })) as Manifest;
       expect(manifest?.maintainers).toEqual(maintainers);
+      // published version should not be affected
+      expect(manifest?.versions['1.0.0'].maintainers).toEqual([firstOwner]);
 
       // remove owner
-      const maintainers2 = [{ name: 'barUser', email: '' }];
+      const maintainers2 = [secondOwner];
       const message2 = await executeChangeOwners(storage, {
         _rev: bodyNewManifest._rev,
         _id: bodyNewManifest._id,
@@ -783,6 +787,8 @@ describe('storage', () => {
         requestOptions: options,
       })) as Manifest;
       expect(manifest2?.maintainers).toEqual(maintainers2);
+      // published version should not be affected
+      expect(manifest2?.versions['1.0.0'].maintainers).toEqual([firstOwner]);
     });
   });
 
