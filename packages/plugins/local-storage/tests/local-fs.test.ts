@@ -93,6 +93,21 @@ describe('Local FS test', () => {
     });
   });
 
+  describe('writeTarballNextNoFolder', () => {
+    test('should write a tarball even if folder does not exist', (done) => {
+      const abort = new AbortController();
+      const tmp = path.join(localTempStorage, 'local-fs-write-tarball-new-folder');
+      const localFs = new LocalDriver(tmp, logger);
+      const readableStream = Readable.from('foooo');
+      localFs.writeTarball('juan-1.0.0.tgz', { signal: abort.signal }).then((stream) => {
+        stream.on('finish', () => {
+          done();
+        });
+        readableStream.pipe(stream);
+      });
+    });
+  });
+
   describe('readTarballNext', () => {
     test('should read a tarball', (done) => {
       const abort = new AbortController();
