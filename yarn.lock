@@ -11734,7 +11734,7 @@ __metadata:
     prettier: "npm:3.2.4"
     rimraf: "npm:5.0.5"
     selfsigned: "npm:2.4.1"
-    semver: "npm:7.5.4"
+    semver: "npm:7.6.0"
     standard-version: "npm:9.5.0"
     supertest: "npm:6.3.4"
     ts-node: "npm:10.9.2"
