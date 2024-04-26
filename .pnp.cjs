@@ -104,7 +104,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.1.3"],\
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
-            ["express", "npm:4.18.3"],\
+            ["express", "npm:4.19.2"],\
             ["express-rate-limit", "npm:5.5.1"],\
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
@@ -7283,6 +7283,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookie", "npm:0.5.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.6.0", {\
+          "packageLocation": "./.yarn/cache/cookie-npm-0.6.0-362d6a2e45-f56a7d32a0.zip/node_modules/cookie/",\
+          "packageDependencies": [\
+            ["cookie", "npm:0.6.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["cookie-signature", [\
@@ -8634,6 +8641,44 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["content-disposition", "npm:0.5.4"],\
             ["content-type", "npm:1.0.5"],\
             ["cookie", "npm:0.5.0"],\
+            ["cookie-signature", "npm:1.0.6"],\
+            ["debug", "virtual:44738662cf800ff2863ba9baeabb817b24a959a14f86e20a31680e5dc79a4a738f7ceb7dca32753d579fae475aa061dffad8228a3391f3a9546b122f077e29a5#npm:2.6.9"],\
+            ["depd", "npm:2.0.0"],\
+            ["encodeurl", "npm:1.0.2"],\
+            ["escape-html", "npm:1.0.3"],\
+            ["etag", "npm:1.8.1"],\
+            ["finalhandler", "npm:1.2.0"],\
+            ["fresh", "npm:0.5.2"],\
+            ["http-errors", "npm:2.0.0"],\
+            ["merge-descriptors", "npm:1.0.1"],\
+            ["methods", "npm:1.1.2"],\
+            ["on-finished", "npm:2.4.1"],\
+            ["parseurl", "npm:1.3.3"],\
+            ["path-to-regexp", "npm:0.1.7"],\
+            ["proxy-addr", "npm:2.0.7"],\
+            ["qs", "npm:6.11.0"],\
+            ["range-parser", "npm:1.2.1"],\
+            ["safe-buffer", "npm:5.2.1"],\
+            ["send", "npm:0.18.0"],\
+            ["serve-static", "npm:1.15.0"],\
+            ["setprototypeof", "npm:1.2.0"],\
+            ["statuses", "npm:2.0.1"],\
+            ["type-is", "npm:1.6.18"],\
+            ["utils-merge", "npm:1.0.1"],\
+            ["vary", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:4.19.2", {\
+          "packageLocation": "./.yarn/cache/express-npm-4.19.2-f81334a22a-212dbd6c2c.zip/node_modules/express/",\
+          "packageDependencies": [\
+            ["express", "npm:4.19.2"],\
+            ["accepts", "npm:1.3.8"],\
+            ["array-flatten", "npm:1.1.1"],\
+            ["body-parser", "npm:1.20.2"],\
+            ["content-disposition", "npm:0.5.4"],\
+            ["content-type", "npm:1.0.5"],\
+            ["cookie", "npm:0.6.0"],\
             ["cookie-signature", "npm:1.0.6"],\
             ["debug", "virtual:44738662cf800ff2863ba9baeabb817b24a959a14f86e20a31680e5dc79a4a738f7ceb7dca32753d579fae475aa061dffad8228a3391f3a9546b122f077e29a5#npm:2.6.9"],\
             ["depd", "npm:2.0.0"],\
@@ -14756,7 +14801,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.1.3"],\
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.0.0"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
-            ["express", "npm:4.18.3"],\
+            ["express", "npm:4.19.2"],\
             ["express-rate-limit", "npm:5.5.1"],\
             ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
