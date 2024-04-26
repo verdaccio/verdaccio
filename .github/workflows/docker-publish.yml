@@ -22,6 +22,7 @@ permissions:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
     steps:
       - uses: actions/checkout@1d96c772d19495a3b5c517cd2bc0cb401ea0529f # v3
       - uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # tag=v1

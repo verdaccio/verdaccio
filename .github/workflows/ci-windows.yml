@@ -29,10 +29,6 @@ jobs:
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
-    - name: set store
-      run: |
-        mkdir ~/.pnpm-store
-        pnpm config set store-dir ~/.pnpm-store            
     - name: Install
       run: pnpm install --registry http://localhost:4873
     - name: Cache .pnpm-store

@@ -19,6 +19,7 @@ jobs:
       pull-requests: write  #  to comment on pull-requests
 
     runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:

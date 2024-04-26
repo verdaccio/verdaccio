@@ -16,6 +16,7 @@ jobs:
       pull-requests: write  #  to comment on pull-requests
 
     runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
     name: setup verdaccio
     services:
       verdaccio:
