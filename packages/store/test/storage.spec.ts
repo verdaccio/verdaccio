@@ -262,10 +262,12 @@ describe('storage', () => {
         expect(manifestVersion._id).toEqual(`${pkgName}@1.0.1`);
         expect(manifestVersion.description).toEqual('package generated');
         expect(manifestVersion.dist).toEqual({
+          fileCount: 4,
           integrity:
             'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
           shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
           tarball: 'http://localhost:5555/upstream/-/upstream-1.0.1.tgz',
+          unpackedSize: 543,
         });
 
         expect(manifestVersion.contributors).toEqual([]);

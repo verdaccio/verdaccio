@@ -1,5 +1,6 @@
+import gunzipMaybe from 'gunzip-maybe';
 import { Readable } from 'stream';
-import * as tar from 'tar';
+import * as tarStream from 'tar-stream';
 
 export type TarballDetails = {
   fileCount: number;
@@ -7,19 +8,22 @@ export type TarballDetails = {
 };
 
 export async function getTarballDetails(readable: Readable): Promise<TarballDetails> {
-  const extractor = tar.extract({ gzip: true });
-
   let fileCount = 0;
   let unpackedSize = 0;
 
+  const unpack = tarStream.extract();
+
   return new Promise((resolve, reject) => {
     readable
-      .pipe(extractor)
-      .on('entry', (entry) => {
+      .pipe(gunzipMaybe())
+      .pipe(unpack)
+      .on('entry', (header, stream, next) => {
         fileCount++;
-        unpackedSize += entry.size;
+        unpackedSize += Number(header.size);
+        stream.resume(); // important to ensure that "entry" events keep firing
+        next();
       })
-      .on('end', () => {
+      .on('finish', () => {
         resolve({
           fileCount,
           unpackedSize,

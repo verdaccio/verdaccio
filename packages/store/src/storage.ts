@@ -37,6 +37,7 @@ import {
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
   extractTarballFromUrl,
+  getTarballDetails,
 } from '@verdaccio/tarball';
 import {
   AbbreviatedManifest,
@@ -1044,6 +1045,22 @@ class Storage {
     // at this point document is either created or existed before
     const [firstAttachmentKey] = Object.keys(_attachments);
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
+    const readable = Readable.from(buffer);
+
+    // if version does not include tarball stats, then add them
+    if (
+      !versions[versionToPublish].dist.fileCount ||
+      !versions[versionToPublish].dist.unpackedSize
+    ) {
+      try {
+        const tarballDetails = await getTarballDetails(readable);
+        versions[versionToPublish].dist.fileCount = tarballDetails.fileCount;
+        versions[versionToPublish].dist.unpackedSize = tarballDetails.unpackedSize;
+      } catch (err: any) {
+        logger.error({ err: err.message }, 'getting tarball details has failed: @{err}');
+        throw err;
+      }
+    }
 
     try {
       // we check if package exist already locally
@@ -1110,7 +1127,6 @@ class Storage {
 
     // 3. upload the tarball to the storage
     try {
-      const readable = Readable.from(buffer);
       await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
         signal: options.signal,
       });
