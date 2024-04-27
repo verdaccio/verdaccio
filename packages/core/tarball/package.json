@@ -24,7 +24,7 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/core/url-resolver"
+    "directory": "packages/core/tarball"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
