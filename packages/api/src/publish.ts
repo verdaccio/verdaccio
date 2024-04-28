@@ -76,11 +76,11 @@ const debug = buildDebug('verdaccio:api:publish');
    * 
    * 3. Star a package
    *
-   * Permissions: start a package depends of the publish and unpublish permissions, there is no
-   * specific flag for star or un start.
+   * Permissions: staring a package depends of the publish and unpublish permissions, there is no
+   * specific flag for star or unstar.
    * The URL for star is similar to the unpublish (change package format)
    *
-   * npm has no endpoint for star a package, rather mutate the metadata and acts as, the difference
+   * npm has no endpoint for staring a package, rather mutate the metadata and acts as, the difference
    * is the users property which is part of the payload and the body only includes
    *
    * {
@@ -89,7 +89,24 @@ const debug = buildDebug('verdaccio:api:publish');
 		  "users": {
 		    [username]: boolean value (true, false)
 		  }
-	}
+	   }
+   *
+   * 4. Change owners of a package
+   *
+   * Similar to staring a package, changing owners (maintainers) of a package uses the publish
+   * endpoint. 
+   *
+   * The body includes a list of the new owners with the following format
+   *
+   * {
+		  "_id": pkgName,
+	  	"_rev": "4-b0cdaefc9bdb77c8",
+		  "maintainers": [
+        { "name": "first owner", "email": "me@verdaccio.org" },
+        { "name": "second owner", "email": "you@verdaccio.org" },
+        ...
+		  ]
+	   }
    *
    */
 export default function publish(router: Router, auth: Auth, storage: Storage): void {
