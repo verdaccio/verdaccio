@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import type { Request, Response } from 'express';
+import type { Response } from 'express';
 import LRU from 'lru-cache';
 import path from 'path';
 import { URL } from 'url';
@@ -7,8 +7,8 @@ import { URL } from 'url';
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
 import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
-import { isURLhasValidProtocol } from '@verdaccio/url';
-import { getPublicUrl } from '@verdaccio/url';
+import type { RequestOptions } from '@verdaccio/url';
+import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
 
 import type { Manifest } from './manifest';
 import renderTemplate, { type WebpackManifest } from './template';
@@ -25,14 +25,14 @@ const defaultManifestFiles: Manifest = {
   css: [],
 };
 
-export function resolveLogo(config: ConfigYaml, req: Request) {
+export function resolveLogo(config: ConfigYaml, requestOptions: RequestOptions) {
   if (typeof config?.web?.logo !== 'string') {
     return '';
   }
   const isLocalFile = config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo);
 
   if (isLocalFile) {
-    return `${getPublicUrl(config?.url_prefix, req)}-/static/${path.basename(config?.web?.logo)}`;
+    return `${getPublicUrl(config?.url_prefix, requestOptions)}-/static/${path.basename(config?.web?.logo)}`;
   } else if (isURLhasValidProtocol(config?.web?.logo)) {
     return config?.web?.logo;
   } else {
@@ -44,11 +44,11 @@ export default function renderHTML(
   config: ConfigYaml,
   manifest: WebpackManifest,
   manifestFiles: Manifest | null | undefined,
-  req: Request,
+  requestOptions: RequestOptions,
   res: Response
 ) {
   const { url_prefix } = config;
-  const base = getPublicUrl(config?.url_prefix, req);
+  const base = getPublicUrl(config?.url_prefix, requestOptions);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
   const hideDeprecatedVersions = config?.web?.hideDeprecatedVersions ?? false;
@@ -60,7 +60,7 @@ export default function renderHTML(
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
-  const logo = resolveLogo(config, req);
+  const logo = resolveLogo(config, requestOptions);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = res.locals.app_version ?? '';
   const flags = {
