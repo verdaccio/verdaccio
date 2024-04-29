@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import type { Request, Response } from 'express';
 import LRU from 'lru-cache';
 import path from 'path';
 import { URL } from 'url';
@@ -9,7 +10,8 @@ import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import { isURLhasValidProtocol } from '@verdaccio/url';
 import { getPublicUrl } from '@verdaccio/url';
 
-import renderTemplate from './template';
+import type { Manifest } from './manifest';
+import renderTemplate, { type WebpackManifest } from './template';
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'es-US';
@@ -17,12 +19,13 @@ const cache = new LRU({ max: 500, ttl: 1000 * 60 * 60 });
 
 const debug = buildDebug('verdaccio:web:render');
 
-const defaultManifestFiles = {
+const defaultManifestFiles: Manifest = {
   js: ['runtime.js', 'vendors.js', 'main.js'],
   ico: 'favicon.ico',
+  css: [],
 };
 
-export function resolveLogo(config: ConfigYaml, req) {
+export function resolveLogo(config: ConfigYaml, req: Request) {
   if (typeof config?.web?.logo !== 'string') {
     return '';
   }
@@ -37,7 +40,13 @@ export function resolveLogo(config: ConfigYaml, req) {
   }
 }
 
-export default function renderHTML(config: ConfigYaml, manifest, manifestFiles, req, res) {
+export default function renderHTML(
+  config: ConfigYaml,
+  manifest: WebpackManifest,
+  manifestFiles: Manifest | null | undefined,
+  req: Request,
+  res: Response
+) {
   const { url_prefix } = config;
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
