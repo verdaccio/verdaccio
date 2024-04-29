@@ -11,7 +11,8 @@ import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
 
 import type { Manifest } from './manifest';
-import renderTemplate, { type WebpackManifest } from './template';
+import renderTemplate from './template';
+import type { WebpackManifest } from './template';
 import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'es-US';
