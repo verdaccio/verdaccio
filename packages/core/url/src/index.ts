@@ -126,8 +126,10 @@ export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOpt
       HEADERS.FORWARDED_PROTO.toLowerCase();
     const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader];
 
-    if (typeof forwardedProtocolHeaderValue !== 'string') {
-      throw new Error('invalid protocol header');
+    if (Array.isArray(forwardedProtocolHeaderValue)) {
+      // This really should never happen - only cookies are allowed to have
+      // multiple values.
+      throw new Error('invalid protocol header value');
     }
 
     const protocol = getWebProtocol(forwardedProtocolHeaderValue, requestOptions.protocol);
