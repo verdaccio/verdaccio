@@ -80,7 +80,7 @@ export type $SidebarPackage = Package & { latest: any };
 
 export interface IAuthWebUI {
   jwtEncrypt(user: RemoteUser, signOptions: JWTSignOptions): Promise<string>;
-  aesEncrypt(buf: Buffer): Buffer;
+  aesEncrypt(value: string): string | void;
 }
 
 interface IAuthMiddleware {

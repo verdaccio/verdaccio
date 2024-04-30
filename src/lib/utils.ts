@@ -472,4 +472,8 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
+export function buildUser(name: string, password: string): string {
+  return String(`${name}:${password}`);
+}
+
 export { buildTokenUtil as buildToken, parseConfigFile };

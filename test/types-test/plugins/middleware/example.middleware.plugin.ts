@@ -29,7 +29,7 @@ export default class ExampleMiddlewarePlugin implements pluginUtils.ManifestFilt
     auth.authenticate('user', 'password', () => {});
     auth.allow_access({ packageName: 'packageName' }, remoteUser, () => {});
     auth.add_user('user', 'password', () => {});
-    auth.aesEncrypt(Buffer.from('pass'));
+    auth.aesEncrypt('pass');
     // storage
     storage.addPackage('name', generatePackageTemplate('test'), () => {});
     storage.addVersion('name', 'version', generateVersion('name', '1.0.0'), 'tag', () => {});

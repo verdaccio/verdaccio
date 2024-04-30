@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
-import { aesDecryptDeprecated as aesDecrypt, verifyPayload } from '@verdaccio/signature';
+import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import {
   APITokenOptions,
   Callback,
@@ -25,7 +25,7 @@ import {
   TOKEN_BEARER,
 } from './constants';
 import { logger } from './logger';
-import { ErrorCode, convertPayloadToBase64 } from './utils';
+import { ErrorCode, buildUser, convertPayloadToBase64 } from './utils';
 
 const debug = buildDebug('verdaccio');
 
@@ -141,9 +141,7 @@ export async function getApiToken(
   if (isAESLegacy(security)) {
     // fallback all goes to AES encryption
     return await new Promise((resolve): void => {
-      resolve(
-        auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-      );
+      resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)) as string);
     });
   }
   // i am wiling to use here _.isNil but flow does not like it yet.
@@ -153,9 +151,7 @@ export async function getApiToken(
     return await auth.jwtEncrypt(remoteUser, jwt.sign);
   }
   return await new Promise((resolve): void => {
-    resolve(
-      auth.aesEncrypt(buildUserBuffer(remoteUser.name as string, aesPassword)).toString('base64')
-    );
+    resolve(auth.aesEncrypt(buildUser(remoteUser.name as string, aesPassword)) as string);
   });
 }
 
@@ -187,8 +183,7 @@ export function parseAESCredentials(authorizationHeader: string, secret: string)
 
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    const tokenAsBuffer = convertPayloadToBase64(token);
-    const credentials = aesDecrypt(tokenAsBuffer, secret).toString('utf8');
+    const credentials = aesDecrypt(token.toString(), secret);
 
     return credentials;
   }

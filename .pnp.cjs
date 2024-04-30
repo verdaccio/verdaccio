@@ -5540,7 +5540,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ]],\
       ["@verdaccio/signature", [\
         ["npm:7.0.0-next.3", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-signature-npm-7.0.0-next.3-12964f36d2-16736e9455.zip/node_modules/@verdaccio/signature/",\
+          "packageLocation": "./.yarn/unplugged/@verdaccio-signature-npm-7.0.0-next.3-12964f36d2/node_modules/@verdaccio/signature/",\
           "packageDependencies": [\
             ["@verdaccio/signature", "npm:7.0.0-next.3"],\
             ["debug", "virtual:8b235322a8a24e48c015315ac31d9a45375a931d446b3d9b05b3960f64165451979d09fb0441934c12e21122cff6f3cbc821971e2170239ee8406b043c8fdde4#npm:4.3.4"],\

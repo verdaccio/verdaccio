@@ -57,7 +57,6 @@ class Storage {
   public init(config: Config, filters: IPluginFilters = []): Promise<string> {
     this.filters = filters;
     this.localStorage = new LocalStorage(this.config, logger);
-
     return this.localStorage.getSecret(config);
   }
 

@@ -868,7 +868,11 @@ class LocalStorage {
   public async getSecret(config: Config): Promise<string> {
     const secretKey = await this.storagePlugin.getSecret();
 
-    return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
+    if (secretKey.length > 32) {
+      this.logger.warn('the secret key is longer than 32 characters, truncating to 32 characters');
+    }
+
+    return this.storagePlugin.setSecret(config.checkSecretKey(secretKey.slice(0, 32)));
   }
 
   private _loadStorage(config: Config, logger: Logger): StoragePlugin {

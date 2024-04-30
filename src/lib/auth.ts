@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { VerdaccioError, pluginUtils } from '@verdaccio/core';
-import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
+import { aesEncrypt, signPayload } from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
@@ -526,8 +526,9 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  public aesEncrypt(buf: Buffer): Buffer {
-    return aesEncrypt(buf, this.secret);
+  public aesEncrypt(value: string): string | void {
+    const token = aesEncrypt(value, this.secret);
+    return token;
   }
 }
 
