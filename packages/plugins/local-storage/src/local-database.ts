@@ -287,7 +287,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     } catch (err: any) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
-      this.logger.warn(
+      this.logger.info(
         { path: this.path },
         'no private database found, recreating new one on @{path}'
       );

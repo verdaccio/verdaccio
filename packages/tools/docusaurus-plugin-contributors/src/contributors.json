@@ -3,7 +3,7 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5258,
+      "contributions": 5260,
       "repositories": [
         {
           "name": "verdaccio",
@@ -131,7 +131,7 @@
         },
         {
           "name": "e2e-tests",
-          "contributions": 73
+          "contributions": 75
         },
         {
           "name": ".github",
@@ -368,6 +368,17 @@
       ]
     },
     {
+      "id": 59966492,
+      "login": "mbtools",
+      "contributions": 24,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 24
+        }
+      ]
+    },
+    {
       "id": 26347874,
       "login": "anikethsaha",
       "contributions": 21,
@@ -387,17 +398,6 @@
         {
           "name": "ui",
           "contributions": 3
-        }
-      ]
-    },
-    {
-      "id": 59966492,
-      "login": "mbtools",
-      "contributions": 20,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 20
         }
       ]
     },
@@ -2243,19 +2243,8 @@
       ]
     },
     {
-      "id": 988013,
-      "login": "tomcoonen",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 9381634,
-      "login": "morrain",
+      "id": 30793,
+      "login": "Tobbe",
       "contributions": 1,
       "repositories": [
         {
@@ -2432,6 +2421,17 @@
     {
       "id": 4810463,
       "login": "RodrigoBalest",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 988013,
+      "login": "tomcoonen",
       "contributions": 1,
       "repositories": [
         {
@@ -2903,17 +2903,6 @@
       ]
     },
     {
-      "id": 22884999,
-      "login": "hedocode",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 1644549,
       "login": "iambrandonn",
       "contributions": 1,
@@ -3114,6 +3103,28 @@
     {
       "id": 20465797,
       "login": "ericmutta",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 94231,
+      "login": "Joon",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 22884999,
+      "login": "hedocode",
       "contributions": 1,
       "repositories": [
         {
@@ -3354,28 +3365,6 @@
       ]
     },
     {
-      "id": 619048,
-      "login": "einfallstoll",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 94231,
-      "login": "Joon",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 1331872,
       "login": "Mearman",
       "contributions": 1,
@@ -3554,6 +3543,28 @@
     {
       "id": 1667873,
       "login": "morlay",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 9381634,
+      "login": "morrain",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 619048,
+      "login": "einfallstoll",
       "contributions": 1,
       "repositories": [
         {
@@ -5022,7 +5033,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 15812,
+      "stargazers_count": 15868,
       "archived": false
     },
     {
@@ -5220,7 +5231,7 @@
       "full_name": "verdaccio/github-actions",
       "html_url": "https://github.com/verdaccio/github-actions",
       "description": "🤖Verdaccio GitHub Actions",
-      "stargazers_count": 20,
+      "stargazers_count": 22,
       "archived": false
     },
     {

@@ -18,8 +18,9 @@ jobs:
   prepare:
     name: Run script
     runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
         with:
           persist-credentials: false
           fetch-depth: 0
@@ -45,7 +46,7 @@ jobs:
       - name: format
         run: pnpm format
       - name: Commit & Push changes
-        uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # tag=v1.4
+        uses: actions-js/push@5a7cbd780d82c0c937b5977586e641b2fd94acc5 # tag=v1.5
         with:
           github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
           message: "chore: updated static data"

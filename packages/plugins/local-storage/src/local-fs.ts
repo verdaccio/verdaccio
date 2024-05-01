@@ -237,6 +237,7 @@ export default class LocalFS implements ILocalFSPackageManager {
   public async writeTarball(fileName: string, { signal }): Promise<Writable> {
     debug('write a tarball %o', fileName);
     const pathName: string = this._getStorage(fileName);
+    await this.checkCreateFolder(pathName);
     // create a temporary file to avoid conflicts or prev corruption files
     const temporalName = path.join(
       this.path,
@@ -352,8 +353,8 @@ export default class LocalFS implements ILocalFSPackageManager {
   private async writeTempFileAndRename(dest: string, fileContent: string): Promise<any> {
     const tempFilePath = tempFile(dest);
     try {
-      // write file on temp locatio
-      // TODO: we need to handle when directory does not exist
+      // write file on temp location
+      await this.checkCreateFolder(tempFilePath);
       await writeFilePromise(tempFilePath, fileContent);
       debug('creating a new file:: %o', dest);
       // rename tmp file to original
@@ -370,16 +371,30 @@ export default class LocalFS implements ILocalFSPackageManager {
       debug('write file success %s', destiny);
     } catch (err: any) {
       if (err && err.code === noSuchFile) {
-        const dir = path.dirname(destiny);
-        // if fails, we create the folder for the package
-        debug('write file has failed, creating folder %s', dir);
-        await mkdirPromise(dir, { recursive: true });
+        await this.checkCreateFolder(destiny);
         // we try again create the temp file
         debug('writing a temp file %s', destiny);
         await this.writeTempFileAndRename(destiny, fileContent);
         debug('write file success %s', destiny);
       } else {
         this.logger.error({ err: err.message }, 'error on write file @{err}');
+        throw err;
+      }
+    }
+  }
+
+  private async checkCreateFolder(pathName: string): Promise<void> {
+    // Check if folder exists and create it if not
+    const dir = path.dirname(pathName);
+    try {
+      await accessPromise(dir);
+    } catch (err: any) {
+      if (err.code === noSuchFile) {
+        debug('folder does not exist %o', dir);
+        await mkdirPromise(dir, { recursive: true });
+        debug('folder %o created', dir);
+      } else {
+        debug('error on check folder %o', dir);
         throw err;
       }
     }

@@ -35,9 +35,11 @@ import {
 } from '@verdaccio/proxy';
 import Search from '@verdaccio/search';
 import {
+  TarballDetails,
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
   extractTarballFromUrl,
+  getTarballDetails,
 } from '@verdaccio/tarball';
 import {
   AbbreviatedManifest,
@@ -1088,6 +1090,8 @@ class Storage {
     // at this point document is either created or existed before
     const [firstAttachmentKey] = Object.keys(_attachments);
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
+    const readable = Readable.from(buffer);
+    const tarballStats = await this.getTarballStats(versions[versionToPublish], readable);
 
     try {
       // we check if package exist already locally
@@ -1126,7 +1130,7 @@ class Storage {
           _.isNil(manifest.readme) === false ? String(manifest.readme) : '';
       }
       // addVersion will move the readme from the the published version to the root level
-      await this.addVersion(name, versionToPublish, versions[versionToPublish], null);
+      await this.addVersion(name, versionToPublish, versions[versionToPublish], null, tarballStats);
     } catch (err: any) {
       logger.error({ err: err.message }, 'updated version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
@@ -1154,7 +1158,6 @@ class Storage {
 
     // 3. upload the tarball to the storage
     try {
-      const readable = Readable.from(buffer);
       await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
         signal: options.signal,
       });
@@ -1327,7 +1330,8 @@ class Storage {
     name: string,
     version: string,
     metadata: Version,
-    tag: StringValue
+    tag: StringValue,
+    tarballStats: TarballDetails
   ): Promise<void> {
     debug(`add version %s package for %s`, version, name);
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
@@ -1341,6 +1345,12 @@ class Storage {
 
       // Copy current owners to version
       metadata.maintainers = data.maintainers;
+
+      // Update tarball stats
+      if (metadata.dist) {
+        metadata.dist.fileCount = tarballStats.fileCount;
+        metadata.dist.unpackedSize = tarballStats.unpackedSize;
+      }
 
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
@@ -1953,6 +1963,25 @@ class Storage {
       return cacheManifest;
     } else {
       return cacheManifest;
+    }
+  }
+
+  private async getTarballStats(version: Version, readable: Readable): Promise<TarballDetails> {
+    if (
+      version.dist == undefined ||
+      version.dist?.fileCount == undefined ||
+      version.dist?.unpackedSize == undefined
+    ) {
+      debug('tarball stats not found, calculating');
+      try {
+        return await getTarballDetails(readable);
+      } catch (err: any) {
+        logger.error({ err: err.message }, 'getting tarball details has failed: @{err}');
+        throw err;
+      }
+    } else {
+      debug('tarball stats found');
+      return { fileCount: version.dist.fileCount, unpackedSize: version.dist.unpackedSize };
     }
   }
 }
