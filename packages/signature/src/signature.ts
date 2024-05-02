@@ -26,7 +26,11 @@ export function aesEncrypt(value: string, key: string): string | void {
   // IV must be a buffer of length 16
   const iv = randomBytes(16);
   const secretKey = VERDACCIO_LEGACY_ENCRYPTION_KEY || key;
+
   const isKeyValid = secretKey?.length === TOKEN_VALID_LENGTH;
+  if (isKeyValid === false) {
+    throw new Error('Invalid secret key length');
+  }
   debug('length secret key %o', secretKey?.length);
   debug('is valid secret %o', isKeyValid);
   if (!value || !secretKey || !isKeyValid) {
