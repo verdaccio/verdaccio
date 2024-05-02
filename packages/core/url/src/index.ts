@@ -124,13 +124,7 @@ export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOpt
     const protoHeader: string =
       process.env.VERDACCIO_FORWARDED_PROTO?.toLocaleLowerCase() ??
       HEADERS.FORWARDED_PROTO.toLowerCase();
-    const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader];
-
-    if (Array.isArray(forwardedProtocolHeaderValue)) {
-      // This really should never happen - only cookies are allowed to have
-      // multiple values.
-      throw new Error('invalid protocol header value');
-    }
+    const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader] as string | undefined;
 
     const protocol = getWebProtocol(forwardedProtocolHeaderValue, requestOptions.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
