@@ -34,7 +34,7 @@ Learn the basics before getting started, how to install, where is the location o
 Using `npm`
 
 ```bash
-npm install --location=global verdaccio
+npm install -g verdaccio
 ```
 
 or using `yarn`
@@ -56,7 +56,7 @@ pnpm install -g verdaccio
 Next [major release is under development](https://github.com/verdaccio/verdaccio/discussions/2970), byt can try it out already, either for testing purposes or helping to catch any possible bug, if you find something report it under the label [6.x bugs](https://github.com/verdaccio/verdaccio/labels/6.x%20bugs).
 
 ```bash
-npm install --location=global verdaccio@7-next
+npm install -g verdaccio@7-next
 ```
 
 or with the docker image
