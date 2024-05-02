@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import semver from 'semver';
 
-import { errorUtils, pkgUtils, validatioUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, USERS } from '@verdaccio/core';
 import { AttachMents, Manifest, Version, Versions } from '@verdaccio/types';
 import { generateRandomHexString, isNil, isObject } from '@verdaccio/utils';
@@ -359,4 +359,38 @@ export function hasDeprecatedVersions(pkgInfo: Manifest): boolean {
 
 export function isDeprecatedManifest(manifest: Manifest): boolean {
   return hasDeprecatedVersions(manifest) && Object.keys(manifest._attachments).length === 0;
+}
+
+export function mapManifestToSearchPackageBody(
+  pkg: Manifest,
+  searchItem: searchUtils.SearchItem
+): searchUtils.SearchPackageBody {
+  const latest = pkgUtils.getLatest(pkg);
+  const version: Version = pkg.versions[latest];
+  const result: searchUtils.SearchPackageBody = {
+    name: version.name,
+    scope: '',
+    description: version.description,
+    version: latest,
+    keywords: version.keywords,
+    date: pkg.time[latest],
+    // FIXME: type
+    author: version.author as any,
+    // FIXME: not possible fill this out from a private package
+    publisher: {},
+    // FIXME: type
+    maintainers: version.maintainers as any,
+    links: {
+      npm: '',
+      homepage: version.homepage,
+      repository: version.repository,
+      bugs: version.bugs,
+    },
+  };
+
+  if (typeof searchItem.package.scoped === 'string') {
+    result.scope = searchItem.package.scoped;
+  }
+
+  return result;
 }

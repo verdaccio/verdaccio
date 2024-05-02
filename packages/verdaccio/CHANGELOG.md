@@ -1,5 +1,46 @@
 # verdaccio
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [ba53d1e]
+  - @verdaccio/ui-theme@7.0.0-next-7.13
+  - @verdaccio/cli@7.0.0-next-7.13
+  - @verdaccio/hooks@7.0.0-next-7.13
+  - @verdaccio/node-api@7.0.0-next-7.13
+  - verdaccio-audit@12.0.0-next-7.13
+  - verdaccio-htpasswd@12.0.0-next-7.13
+  - @verdaccio/logger@7.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.12
+- @verdaccio/cli@7.0.0-next-7.12
+- @verdaccio/ui-theme@7.0.0-next-7.12
+- @verdaccio/hooks@7.0.0-next-7.12
+- verdaccio-audit@12.0.0-next-7.12
+- verdaccio-htpasswd@12.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+- @verdaccio/logger@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/ui-theme@7.0.0-next-7.11
+  - @verdaccio/cli@7.0.0-next-7.11
+  - @verdaccio/hooks@7.0.0-next-7.11
+  - @verdaccio/node-api@7.0.0-next-7.11
+  - verdaccio-audit@12.0.0-next-7.11
+  - verdaccio-htpasswd@12.0.0-next-7.11
+  - @verdaccio/utils@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes

@@ -25,7 +25,7 @@ module.exports = {
         'third-party',
         {
           type: 'category',
-          label: 'Uses Cases',
+          label: 'Use Cases',
           items: ['caching', 'linking-remote-registry'],
         },
         'articles',

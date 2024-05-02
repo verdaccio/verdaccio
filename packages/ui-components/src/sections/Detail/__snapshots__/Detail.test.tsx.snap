@@ -160,7 +160,6 @@ exports[`DetailContainer renders correctly 1`] = `
 >
   <div
     class="MuiTabs-root emotion-1 emotion-2"
-    color="primary"
   >
     <div
       class="MuiTabs-scroller MuiTabs-fixed emotion-3"

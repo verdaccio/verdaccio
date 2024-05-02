@@ -43,7 +43,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --location=global verdaccio@next
+npm install -g verdaccio@next
 ```
 
 With `yarn`
@@ -79,11 +79,33 @@ Furthermore, you can read the [**Debugging Guidelines**](https://github.com/verd
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
 
 ```
-npm install --location=global yo
-npm install --location=global generator-verdaccio-plugin
+npm install -g yo
+npm install -g generator-verdaccio-plugin
 ```
 
 Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins. Share your plugins with the community.
+
+## Integration Tests
+
+In our compatibility testing project, we're dedicated to ensuring that your favorite commands work seamlessly across different versions of npm, pnpm, and Yarn. From publishing packages to managing dependencies.
+Our goal is to give you the confidence to use your preferred package manager without any issues. So dive in, check out our matrix, and see how your commands fare across the board!
+
+[Learn or contribute here](https://github.com/verdaccio/verdaccio/tree/master/e2e/cli)
+
+### Commands
+
+| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm8 | pnpm9 (beta) | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ------------ | ----- | ----- | ----- | ----- |
+| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ❌    | ❌    | ❌    |
 
 ## Donations
 
@@ -123,7 +145,7 @@ Furthermore, here few examples how to start:
 
 ## Watch our Videos
 
-**Node Congress 2022, February 2022, Online Free**
+**Node 2022, February 2022, Online Free**
 
 <div>
    <a href="https://portal.gitnation.org/contents/five-ways-of-taking-advantage-of-verdaccio-your-private-and-proxy-nodejs-registry">

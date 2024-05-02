@@ -18,7 +18,7 @@ jobs:
         env:
           NODE_ENV: production          
     steps:
-    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+    - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
     - name: Node
       uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
       with:
@@ -29,14 +29,10 @@ jobs:
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
-    - name: set store
-      run: |
-        mkdir ~/.pnpm-store
-        pnpm config set store-dir ~/.pnpm-store            
     - name: Install
       run: pnpm install --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -47,14 +43,14 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
       - name: Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -71,14 +67,14 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
       - name: Use Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -100,14 +96,14 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
       - name: Use Node ${{ matrix.node_version }}
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -126,13 +122,13 @@ jobs:
     runs-on: windows-latest
     name: UI Test E2E
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}

@@ -34,7 +34,7 @@ Note that time-frame and processes are subject to each program’s own policy.
 
 - Report the security issue to the project maintainers directly at verdaccio@pm.me. If the report contains highly sensitive information, please be advised to encrypt your findings using our [PGP key](https://cdn.verdaccio.dev/gpg/publickey.verdaccio@pm.me.asc) which is also available in this document.
 
-Your efforts to responsibly disclose your findings are sincerely appreciated and will be taken into account to acknowledge your contributions.
+Your efforts to responsibly disclose your findings are sincerely appreciated. There isn't a security bounty program available, but any security contributions will be duly acknowledged to recognize your valuable input.
 
 ## PGP key
 

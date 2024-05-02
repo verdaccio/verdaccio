@@ -45,7 +45,6 @@ describe('searchOnFolders', () => {
       {
         name: 'pkg1',
       },
-
       {
         name: 'pkg2',
       },

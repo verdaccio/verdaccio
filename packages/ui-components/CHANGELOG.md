@@ -1,5 +1,17 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.6
+
+### Patch Changes
+
+- ba53d1e: feat: versions filter by semver range
+
+## 3.0.0-next-7.5
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
 ## 3.0.0-next-7.4
 
 ### Patch Changes

@@ -1,5 +1,34 @@
 # @verdaccio/cli
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- Updated dependencies [a99a4bb]
+  - @verdaccio/config@7.0.0-next-7.13
+  - @verdaccio/node-api@7.0.0-next-7.13
+  - @verdaccio/logger@7.0.0-next-7.13
+  - @verdaccio/core@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.12
+- @verdaccio/core@7.0.0-next-7.12
+- @verdaccio/config@7.0.0-next-7.12
+- @verdaccio/logger@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Patch Changes
+
+- Updated dependencies [c9962fe]
+  - @verdaccio/config@7.0.0-next-7.11
+  - @verdaccio/node-api@7.0.0-next-7.11
+  - @verdaccio/core@7.0.0-next-7.11
+  - @verdaccio/logger@7.0.0-next-7.11
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes

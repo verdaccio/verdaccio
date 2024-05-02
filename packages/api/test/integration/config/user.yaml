@@ -7,7 +7,7 @@ web:
 
 uplinks:
   ver:
-    url: https://registry.verdaccio.org
+    url: https://registry.npmjs.org
 
 log: { type: stdout, format: pretty, level: trace }
 

@@ -1,5 +1,31 @@
 # @verdaccio/config
 
+## 7.0.0-next-7.13
+
+### Patch Changes
+
+- a99a4bb: fix config builder erroring when passed partial config
+  - @verdaccio/core@7.0.0-next-7.13
+  - @verdaccio/utils@7.0.0-next-7.13
+
+## 7.0.0-next-7.12
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.12
+- @verdaccio/utils@7.0.0-next-7.12
+
+## 7.0.0-next-7.11
+
+### Minor Changes
+
+- c9962fe: feat: forbidden user interface
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.11
+- @verdaccio/utils@7.0.0-next-7.11
+
 ## 7.0.0-next-7.10
 
 ### Patch Changes

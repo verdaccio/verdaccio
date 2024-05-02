@@ -239,7 +239,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           password,
           function (err: VerdaccioError | null, ok?: boolean | string): void {
             if (err) {
-              debug('the user %o could not being added. Error: %o', user, err?.message);
+              debug('the user %o could not be added. Error: %o', user, err?.message);
               return cb(err);
             }
             if (ok) {

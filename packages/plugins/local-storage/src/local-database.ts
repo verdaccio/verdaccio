@@ -136,13 +136,17 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     });
   }
 
+  /**
+   *
+   * @param query
+   * @returns
+   */
   public async search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]> {
+    debug('search query to %o', query.text);
     const results: searchUtils.SearchItem[] = [];
     const storagePath = this.getStoragePath();
-    const packagesOnStorage = await this.filterByQuery(
-      await searchOnStorage(storagePath, this.storages),
-      query
-    );
+    const localResults = await searchOnStorage(storagePath, this.storages);
+    const packagesOnStorage = await this.filterByQuery(localResults, query);
     debug('packages found %o', packagesOnStorage.length);
     for (let storage of packagesOnStorage) {
       // check if package is listed on the cache private database
@@ -283,7 +287,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     } catch (err: any) {
       // readFileSync is platform specific, macOS, Linux and Windows thrown an error
       // Only recreate if file not found to prevent data loss
-      this.logger.warn(
+      this.logger.info(
         { path: this.path },
         'no private database found, recreating new one on @{path}'
       );

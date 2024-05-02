@@ -1,7 +1,9 @@
 name: UI Components
 
-on: 
+on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' 
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -17,10 +19,11 @@ jobs:
       pull-requests: write  #  to comment on pull-requests
 
     runs-on: ubuntu-latest
+    if: github.repository == 'verdaccio/verdaccio'
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
 
       - name: Use Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
@@ -28,7 +31,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Cache pnpm modules
-        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -48,24 +51,8 @@ jobs:
       - name: Copy public content
         # the msw.js worker is need it at the storybook-static folder in production
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
-      - name: 🔥 Deploy Production UI Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: verdaccio/action-netlify-deploy@1c086d59169edeec9254672c7de17d2ceac3928f # v2.0.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          build-dir: './packages/ui-components/storybook-static'          
-      - name: 🤖 Deploy Preview UI Components Netlify
-        if: github.repository == 'verdaccio/verdaccio'
-        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
-        id: netlify_preview_ui
-        with:
-          draft: true
-          comment-on-pull-request: true
-          github-deployment-is-production: false
-          github-deployment-is-transient: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          netlify-site-id: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          build-dir: './packages/ui-components/storybook-static'
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy

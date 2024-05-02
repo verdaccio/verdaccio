@@ -23,7 +23,7 @@ const PackageManagers = (): React.ReactElement => (
             loading="lazy"
             alt="Yarn logo"
             className={styles['packageManagers--logo']}
-            src={useBaseUrl('/img/sponsors/yarn.png')}
+            src={useBaseUrl('/img/sponsors/yarn.svg')}
           />
         </a>
         <a href="https://pnpm.io/">

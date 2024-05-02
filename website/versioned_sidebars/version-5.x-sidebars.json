@@ -24,7 +24,7 @@
         "logo",
         {
           "type": "category",
-          "label": "Uses Cases",
+          "label": "Use Cases",
           "items": ["caching", "github-actions", "linking-remote-registry"]
         },
         "articles"

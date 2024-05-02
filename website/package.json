@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "6.0.0-next-7.4",
+  "version": "6.0.0-next-7.6",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --no-open",
@@ -13,8 +13,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "netlify:build:production": "docusaurus write-translations && pnpm -w crowdin:sync && NODE_OPTIONS=--max-old-space-size=8192 docusaurus build",
-    "netlify:build:deployPreview": "docusaurus write-translations --locale en && docusaurus build --locale en",
+    "netlify:deploy": "npx netlify-cli deploy --dir=./website/build --prod",
+    "netlify:build": "docusaurus write-translations && pnpm -w crowdin:sync && NODE_OPTIONS=--max-old-space-size=8192 docusaurus build",
     "eslint:check": "eslint src/**/*.tsx",
     "eslint:write": "eslint src/**/*.tsx --fix"
   },
@@ -40,7 +40,7 @@
     "@mui/material": "5.15.6",
     "@mui/styles": "5.15.6",
     "@orama/orama": "1.2.4",
-    "@verdaccio/ui-components": "workspace:3.0.0-next-7.4",
+    "@verdaccio/ui-components": "workspace:3.0.0-next-7.6",
     "classnames": "2.5.1",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.2.0",

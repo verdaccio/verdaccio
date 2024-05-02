@@ -23,6 +23,7 @@ const InstallListItemText = styled(ListItemText)({
 
 const PackageMangerAvatar = styled(Avatar)({
   borderRadius: '0px',
+  backgroundColor: 'transparent',
   padding: 0,
 });
 

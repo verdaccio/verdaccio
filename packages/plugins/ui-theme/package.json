@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-theme",
-  "version": "7.0.0-next-7.10",
+  "version": "7.0.0-next-7.13",
   "description": "Verdaccio User Interface",
   "author": {
     "name": "Verdaccio Contributors",
@@ -27,9 +27,9 @@
     "@testing-library/dom": "9.3.4",
     "@testing-library/jest-dom": "6.3.0",
     "@testing-library/react": "14.1.2",
-    "@verdaccio/node-api": "workspace:7.0.0-next-7.10",
+    "@verdaccio/node-api": "workspace:7.0.0-next-7.13",
     "@verdaccio/types": "workspace:*",
-    "@verdaccio/ui-components": "workspace:3.0.0-next-7.4",
+    "@verdaccio/ui-components": "workspace:3.0.0-next-7.6",
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.9",
@@ -47,7 +47,7 @@
     "js-yaml": "4.1.0",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
-    "marked": "11.1.1",
+    "marked": "11.2.0",
     "mini-css-extract-plugin": "2.7.7",
     "msw": "0.49.3",
     "mutationobserver-shim": "0.3.7",

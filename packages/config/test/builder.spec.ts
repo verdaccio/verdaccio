@@ -67,5 +67,58 @@ describe('Config builder', () => {
       .addStorage('/tmp/verdaccio')
       .addSecurity({ api: { legacy: true } });
     expect(config.getAsYaml()).toMatchSnapshot();
+
+    expect(config.getConfig()).toEqual({
+      uplinks: {
+        upstream: {
+          url: 'https://registry.verdaccio.org',
+        },
+        upstream2: {
+          url: 'https://registry.verdaccio.org',
+        },
+      },
+      packages: {
+        'upstream/*': {
+          access: 'public',
+          publish: 'foo, bar',
+          unpublish: 'foo, bar',
+          proxy: 'some',
+        },
+      },
+      security: {
+        api: {
+          legacy: true,
+        },
+      },
+      log: {
+        level: 'info',
+        type: 'stdout',
+        format: 'json',
+      },
+      storage: '/tmp/verdaccio',
+    });
+  });
+
+  test('should merge configurations', () => {
+    // @ts-expect-error
+    const config = ConfigBuilder.build({ security: { api: { legacy: false } } });
+    config.addSecurity({ web: { verify: {}, sign: { algorithm: 'ES256' } } });
+    config.addStorage('/tmp/verdaccio');
+    expect(config.getConfig()).toEqual({
+      security: {
+        api: {
+          legacy: false,
+        },
+        web: {
+          verify: {},
+          sign: {
+            algorithm: 'ES256',
+          },
+        },
+      },
+      uplinks: {},
+      packages: {},
+      storage: '/tmp/verdaccio',
+    });
   });
 });
