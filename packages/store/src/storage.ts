@@ -1114,11 +1114,12 @@ class Storage {
         await this.createNewLocalCachePackage(name, owner);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
+        await this.checkAllowedToChangePackage(localManifest as Manifest, owner);
         successResponseMessage = API_MESSAGE.PKG_CHANGED;
       }
     } catch (err: any) {
       debug('error on change or update a package with %o', err.message);
-      logger.error({ err: err.message }, 'error on create package: @{err}');
+      logger.error({ err: err.message }, 'error on publish new version: @{err}');
       throw err;
     }
 
@@ -1134,7 +1135,6 @@ class Storage {
     } catch (err: any) {
       logger.error({ err: err.message }, 'updated version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
-      // TODO: remove tarball if add version fails
       throw err;
     }
 
@@ -1151,8 +1151,7 @@ class Storage {
       logger.error({ err: err.message }, 'merge version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
       // TODO: undo if this fails
-      // 1. remove tarball
-      // 2. remove updated version
+      // 1. remove updated version
       throw err;
     }
 
@@ -1163,6 +1162,9 @@ class Storage {
       });
     } catch (err: any) {
       logger.error({ err: err.message }, 'upload tarball has failed: @{err}');
+      // TODO: undo if this fails
+      // 1. remove updated version
+      // 2. remove new dist tags
       throw err;
     }
 
@@ -1982,6 +1984,20 @@ class Storage {
     } else {
       debug('tarball stats found');
       return { fileCount: version.dist.fileCount, unpackedSize: version.dist.unpackedSize };
+    }
+  }
+
+  private async checkAllowedToChangePackage(manifest: Manifest, user: Author) {
+    debug('check if user %o is an owner and allowed to change package', user.username);
+    // if name of owner is not included in list of maintainers, then throw an error
+    if (
+      this.config?.publish?.check_owners === true &&
+      manifest.maintainers &&
+      manifest.maintainers.length > 0 &&
+      !manifest.maintainers.some((maintainer) => maintainer.name === user.username)
+    ) {
+      logger.error({ name: user.username }, '@{name} is not a maintainer (package owner)');
+      throw Error('only owners are allowed to change package');
     }
   }
 }

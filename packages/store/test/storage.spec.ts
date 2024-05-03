@@ -692,8 +692,11 @@ describe('storage', () => {
   });
 
   describe('owner', () => {
-    test.each([['foo']])('new package %s (anonymous)', async (pkgName) => {
-      const config = getConfig('deprecate.yaml');
+    test.each([
+      ['foo', 'publishWithOwnerDefault.yaml'],
+      ['foo', 'publishWithOwnerAndCheck.yaml'],
+    ])('new package %s, %s (anonymous)', async (pkgName, configFile) => {
+      const config = getConfig(configFile);
       const storage = new Storage(config);
       await storage.init(config);
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -712,8 +715,11 @@ describe('storage', () => {
       expect(manifest?.maintainers).toEqual([{ name: '', email: '' }]);
     });
 
-    test.each([['foo']])('new package %s (logged in)', async (pkgName) => {
-      const config = getConfig('deprecate.yaml');
+    test.each([
+      ['foo', 'publishWithOwnerDefault.yaml'],
+      ['foo', 'publishWithOwnerAndCheck.yaml'],
+    ])('new package %s, %s (logged in)', async (pkgName, configFile) => {
+      const config = getConfig(configFile);
       const storage = new Storage(config);
       await storage.init(config);
       const owner = { name: 'fooUser', email: '' };
@@ -735,8 +741,11 @@ describe('storage', () => {
       expect(manifest?.versions['1.0.0'].maintainers).toEqual([owner]);
     });
 
-    test.each([['foo']])('add/remove owner %s', async (pkgName) => {
-      const config = getConfig('deprecate.yaml');
+    test.each([
+      ['foo', 'publishWithOwnerDefault.yaml'],
+      ['foo', 'publishWithOwnerAndCheck.yaml'],
+    ])('add/remove owner %s, %s', async (pkgName, configFile) => {
+      const config = getConfig(configFile);
       const storage = new Storage(config);
       await storage.init(config);
       const firstOwner = { name: 'fooUser', email: '' };
@@ -792,32 +801,96 @@ describe('storage', () => {
       // published version should not be affected
       expect(manifest2?.versions['1.0.0'].maintainers).toEqual([firstOwner]);
     });
-  });
 
-  test.each([['foo']])('should fail removing last owner %s', async (pkgName) => {
-    const config = getConfig('deprecate.yaml');
-    const storage = new Storage(config);
-    await storage.init(config);
-    const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
-    const options = { ...defaultRequestOptions, username: 'fooUser' };
-    await storage.updateManifest(bodyNewManifest, {
-      signal: new AbortController().signal,
-      name: pkgName,
-      uplinksLook: false,
-      revision: '1',
-      requestOptions: options,
+    test.each([
+      ['foo', 'publishWithOwnerDefault.yaml'],
+      ['foo', 'publishWithOwnerAndCheck.yaml'],
+    ])('should fail removing last owner %s, %s', async (pkgName, configFile) => {
+      const config = getConfig(configFile);
+      const storage = new Storage(config);
+      await storage.init(config);
+      const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+      const options = { ...defaultRequestOptions, username: 'fooUser' };
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: pkgName,
+        uplinksLook: false,
+        revision: '1',
+        requestOptions: options,
+      });
+
+      // no owners
+      await expect(
+        executeChangeOwners(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: 'fooUser',
+          maintainers: [],
+        })
+      ).rejects.toThrow();
     });
 
-    // no owners
-    await expect(
-      executeChangeOwners(storage, {
-        _rev: bodyNewManifest._rev,
-        _id: bodyNewManifest._id,
-        name: pkgName,
-        username: 'fooUser',
-        maintainers: [],
-      })
-    ).rejects.toThrow();
+    test.each([['foo', 'publishWithOwnerDefault.yaml']])(
+      'ok to publish as non-owner without check %s, %s',
+      async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        const options = { ...defaultRequestOptions, username: 'fooUser' };
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: false,
+          revision: '1',
+          requestOptions: options,
+        });
+
+        // try to publish as user who's not an owner
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.1');
+        const options2 = { ...defaultRequestOptions, username: 'barUser' };
+        const message2 = await storage.updateManifest(bodyNewManifest2, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: false,
+          revision: '1',
+          requestOptions: options2,
+        });
+        expect(message2).toEqual(API_MESSAGE.PKG_CHANGED);
+      }
+    );
+
+    test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+      'should fail publishing as non-owner with check %s, %s',
+      async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        const options = { ...defaultRequestOptions, username: 'fooUser' };
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: false,
+          revision: '1',
+          requestOptions: options,
+        });
+
+        // try to publish as user who's not an owner
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.1');
+        const options2 = { ...defaultRequestOptions, username: 'barUser' };
+        await expect(
+          storage.updateManifest(bodyNewManifest2, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            revision: '1',
+            requestOptions: options2,
+          })
+        ).rejects.toThrow();
+      }
+    );
   });
 
   describe('getTarball', () => {
