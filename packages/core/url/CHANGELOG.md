@@ -1,5 +1,12 @@
 # Change Log
 
+## 12.0.0-next-7.14
+
+### Patch Changes
+
+- b0946b2: Improved TS types for renderHTML() and related functions (by @tobbe in #4605)
+  - @verdaccio/core@7.0.0-next-7.14
+
 ## 12.0.0-next-7.13
 
 ### Patch Changes

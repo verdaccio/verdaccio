@@ -1,5 +1,27 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.14
+
+### Patch Changes
+
+- f967a69: fix: avoid warning "time for version x already exists"
+- 253cc13: feat: add tarball details for published packages
+- Updated dependencies [b0946b2]
+- Updated dependencies [4ac3aea]
+- Updated dependencies [1bae121]
+- Updated dependencies [253cc13]
+  - @verdaccio/url@12.0.0-next-7.14
+  - @verdaccio/local-storage@12.0.0-next-7.14
+  - @verdaccio/tarball@12.0.0-next-7.14
+  - @verdaccio/hooks@7.0.0-next-7.14
+  - @verdaccio/core@7.0.0-next-7.14
+  - @verdaccio/config@7.0.0-next-7.14
+  - @verdaccio/loaders@7.0.0-next-7.14
+  - @verdaccio/proxy@7.0.0-next-7.14
+  - @verdaccio/search@7.0.0-next-7.3
+  - @verdaccio/utils@7.0.0-next-7.14
+  - @verdaccio/logger@7.0.0-next-7.14
+
 ## 7.0.0-next-7.13
 
 ### Patch Changes

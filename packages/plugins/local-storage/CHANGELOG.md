@@ -1,5 +1,14 @@
 # Change Log
 
+## 12.0.0-next-7.14
+
+### Patch Changes
+
+- 4ac3aea: chore: reduce log to info if database is not found
+- 1bae121: fix: error when writing tarball (missing folder)
+  - @verdaccio/core@7.0.0-next-7.14
+  - @verdaccio/utils@7.0.0-next-7.14
+
 ## 12.0.0-next-7.13
 
 ### Patch Changes
