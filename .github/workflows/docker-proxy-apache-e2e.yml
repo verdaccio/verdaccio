@@ -16,7 +16,7 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
     - name: Checkout
-      uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       
     - name: Start containers
       run: docker-compose -f "./e2e/docker/apache-verdaccio/docker-compose.yaml" up -d --build
