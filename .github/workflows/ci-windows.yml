@@ -32,7 +32,7 @@ jobs:
     - name: Install
       run: pnpm install --registry http://localhost:4873
     - name: Cache .pnpm-store
-      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
       with:
         path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -50,7 +50,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -74,7 +74,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -103,7 +103,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -128,7 +128,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: npm i pnpm@latest-8 -g
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
