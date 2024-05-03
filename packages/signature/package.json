@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "jsonwebtoken": "9.0.2",
+    "evp_bytestokey": "1.0.3",
     "debug": "4.3.4"
   },
   "devDependencies": {
