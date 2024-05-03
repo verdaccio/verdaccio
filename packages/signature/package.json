@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "7.0.0-next.3",
+  "version": "7.0.0-next-7.4",
   "description": "verdaccio signature utils",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -39,10 +39,11 @@
   },
   "dependencies": {
     "jsonwebtoken": "9.0.2",
+    "evp_bytestokey": "1.0.3",
     "debug": "4.3.4"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.13",
+    "@verdaccio/config": "workspace:7.0.0-next-7.14",
     "@verdaccio/types": "workspace:12.0.0-next.2"
   },
   "funding": {

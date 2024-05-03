@@ -1,5 +1,11 @@
 # @verdaccio/signature
 
+## 7.0.0-next-7.4
+
+### Minor Changes
+
+- b6d5652: support for createCipher backward compatible
+
 ## 7.0.0-next.3
 
 ### Minor Changes

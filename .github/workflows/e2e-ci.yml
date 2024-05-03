@@ -18,7 +18,7 @@ jobs:
         env:
           NODE_ENV: production
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
@@ -34,7 +34,7 @@ jobs:
       - name: Install
         run: pnpm install --reporter=silence --ignore-scripts --registry http://localhost:4873
       - name: Cache .pnpm-store
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -44,7 +44,7 @@ jobs:
     needs: [prepare]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node 16
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
@@ -53,7 +53,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare 
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -65,7 +65,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: Cache packages
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         id: cache-packages
         with:
           path: ./packages/
@@ -97,7 +97,7 @@ jobs:
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version: ${{ matrix.node }}
@@ -105,7 +105,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare 
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -114,7 +114,7 @@ jobs:
           pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -141,7 +141,7 @@ jobs:
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version: ${{ matrix.node }}
@@ -149,7 +149,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -158,7 +158,7 @@ jobs:
           pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --loglevel debug --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -186,7 +186,7 @@ jobs:
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
         with:
           node-version: ${{ matrix.node }}
@@ -194,7 +194,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare 
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
@@ -203,7 +203,7 @@ jobs:
           pnpm config set store-dir ~/.pnpm-store
       - name: Install
         run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ./packages/
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
