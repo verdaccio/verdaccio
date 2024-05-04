@@ -44,7 +44,7 @@ The following projects have examples using Verdaccio in Open Source
 - [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) _(+6k ⭐️)_
 - [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3k ⭐️)_
 
-This is the most simple example using Verdaccio in a bash script (extracted from _create-react-app_).
+This is the simplest example using Verdaccio in a bash script (extracted from _create-react-app_).
 
 ```bash
 #!/bin/sh
