@@ -172,9 +172,9 @@ class Storage {
     });
   }
 
-  public async removePackage(name: string, revision): Promise<void> {
+  public async removePackage(name: string, revision: string, username: string): Promise<void> {
     debug('remove package %o', name);
-    await this.removePackageByRevision(name, revision);
+    await this.removePackageByRevision(name, revision, username);
   }
 
   /**
@@ -184,8 +184,13 @@ class Storage {
    versions, i.e. package version should be unpublished first.
    Used storage: local (write)
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async removeTarball(name: string, filename: string, _revision: string): Promise<Manifest> {
+  public async removeTarball(
+    name: string,
+    filename: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _revision: string,
+    username: string
+  ): Promise<Manifest> {
     debug('remove tarball %s for %s', filename, name);
     assert(validatioUtils.validateName(filename));
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
@@ -200,6 +205,10 @@ class Storage {
       if (!cacheManifest._attachments[filename]) {
         throw errorUtils.getNotFound('no such file available');
       }
+
+      // check if logged in user is allowed to remove tarball
+      const owner = getOwner(username);
+      await this.checkAllowedToChangePackage(cacheManifest, owner);
     } catch (err: any) {
       if (err.code === noSuchFile) {
         throw errorUtils.getNotFound();
@@ -730,7 +739,11 @@ class Storage {
     return results;
   }
 
-  private async removePackageByRevision(pkgName: string, revision: string): Promise<void> {
+  private async removePackageByRevision(
+    pkgName: string,
+    revision: string,
+    username: string
+  ): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     debug('get package metadata for %o', pkgName);
     if (typeof storage === 'undefined') {
@@ -754,6 +767,10 @@ class Storage {
 
     // TODO:  move this to another method
     try {
+      // check if logged in user is allowed to remove package
+      const owner = getOwner(username);
+      await this.checkAllowedToChangePackage(manifest, owner);
+
       await this.localStorage.getStoragePlugin().remove(pkgName);
       // remove each attachment
       const attachments = Object.keys(manifest._attachments);

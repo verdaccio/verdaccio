@@ -144,10 +144,11 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       const packageName = req.params.package;
       const rev = req.params.revision;
+      const username = req?.remote_user?.name;
 
       logger.debug({ packageName }, `unpublishing @{packageName}`);
       try {
-        await storage.removePackage(packageName, rev);
+        await storage.removePackage(packageName, rev, username);
         debug('package %s unpublished', packageName);
         res.status(HTTP_STATUS.CREATED);
         return next({ ok: API_MESSAGE.PKG_REMOVED });
@@ -172,13 +173,14 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     ): Promise<void> {
       const packageName = req.params.package;
       const { filename, revision } = req.params;
+      const username = req?.remote_user?.name;
 
       logger.debug(
         { packageName, filename, revision },
         `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
       );
       try {
-        await storage.removeTarball(packageName, filename, revision);
+        await storage.removeTarball(packageName, filename, revision, username);
         res.status(HTTP_STATUS.CREATED);
 
         logger.debug(
