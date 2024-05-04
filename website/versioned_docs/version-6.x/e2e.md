@@ -38,6 +38,7 @@ The following projects have examples using Verdaccio in Open Source
 - [Babel.js](https://github.com/babel/babel) _(+35k ⭐️)_
 - [Docusaurus](https://github.com/facebook/docusaurus) _(+31k ⭐️)_
 - [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) _(+73.5k ⭐️)_
+- [pnpm](https://github.com/pnpm/pnpm) _(+27.8k ⭐️)_
 - [Uppy](https://github.com/transloadit/uppy) _(+21k ⭐️)_
 - [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+8k ⭐️)_
 - [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) _(+6k ⭐️)_
