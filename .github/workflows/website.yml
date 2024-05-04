@@ -28,7 +28,7 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
 
       - name: Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
@@ -45,7 +45,7 @@ jobs:
       - name: Install
         run: pnpm install  --registry http://localhost:4873
       - name: Cache .pnpm-store
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -56,7 +56,7 @@ jobs:
       - name: Build Translations percentage
         run: pnpm --filter @verdaccio/crowdin-translations build
       - name: Cache Docusaurus Build
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}

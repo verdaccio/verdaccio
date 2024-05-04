@@ -1,4 +1,5 @@
 import buildDebug from 'debug';
+import type { IncomingHttpHeaders } from 'node:http';
 import { URL } from 'url';
 import validator from 'validator';
 
@@ -31,7 +32,7 @@ export function isHost(url: string = '', options = {}): boolean {
 /**
  * Detect running protocol (http or https)
  */
-export function getWebProtocol(headerProtocol: string | void, protocol: string): string {
+export function getWebProtocol(headerProtocol: string | undefined, protocol: string): string {
   let returnProtocol;
   const [, defaultProtocol] = validProtocols;
   // HAProxy variant might return http,http with X-Forwarded-Proto
@@ -101,7 +102,7 @@ export type RequestOptions = {
   /**
    * Request headers.
    */
-  headers: { [key: string]: string };
+  headers: IncomingHttpHeaders;
   remoteAddress?: string;
   /**
    * Logged username the request, usually after token verification.
@@ -119,10 +120,13 @@ export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOpt
     if (!isHost(host)) {
       throw new Error('invalid host');
     }
-    const protoHeader =
+
+    const protoHeader: string =
       process.env.VERDACCIO_FORWARDED_PROTO?.toLocaleLowerCase() ??
       HEADERS.FORWARDED_PROTO.toLowerCase();
-    const protocol = getWebProtocol(requestOptions.headers[protoHeader], requestOptions.protocol);
+    const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader] as string | undefined;
+
+    const protocol = getWebProtocol(forwardedProtocolHeaderValue, requestOptions.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);
     debug('public url by request %o', combinedUrl);
     return combinedUrl;
