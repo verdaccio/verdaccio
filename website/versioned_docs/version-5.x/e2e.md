@@ -35,13 +35,13 @@ The following projects have examples using Verdaccio in Open Source
 
 ### Bash Examples
 
-- [Babel.js](https://github.com/babel/babel) _(+35k ⭐️)_
-- [Docusaurus](https://github.com/facebook/docusaurus) _(+31k ⭐️)_
-- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) _(+73.5k ⭐️)_
+- [Babel.js](https://github.com/babel/babel) _(+42.9k ⭐️)_
+- [Docusaurus](https://github.com/facebook/docusaurus) _(+53k ⭐️)_
+- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) _(+102k ⭐️)_
 - [pnpm](https://github.com/pnpm/pnpm) _(+27.8k ⭐️)_
-- [Uppy](https://github.com/transloadit/uppy) _(+21k ⭐️)_
-- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+8k ⭐️)_
-- [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) _(+6k ⭐️)_
+- [Uppy](https://github.com/transloadit/uppy) _(+28.1k ⭐️)_
+- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+18.8k ⭐️)_
+- [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) _(+11.7k ⭐️)_
 - [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3k ⭐️)_
 
 This is the simplest example using Verdaccio in a bash script (extracted from _create-react-app_).
@@ -72,8 +72,8 @@ sh -c "npm --registry $local_registry publish"
 
 ### Programmatic Examples
 
-- [Storybook](https://github.com/storybooks/storybook) _(+44k ⭐️)_
-- [Gatsby](https://github.com/gatsbyjs/gatsby) \*(+40k ⭐️)
+- [Storybook](https://github.com/storybooks/storybook) _(+82.9k ⭐️)_
+- [Gatsby](https://github.com/gatsbyjs/gatsby) \*(+55k ⭐️)
 
 #### Verdaccio module
 
@@ -86,10 +86,10 @@ Via CLI:
 
 #### Node.js `child_process` examples
 
-- [Angular CLI](https://github.com/angular/angular-cli) _(+25k ⭐️)_
-- [bit](https://github.com/teambit/bit) _(+6k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+6k ⭐️)_
-- [aws-sdk cli v3](https://github.com/aws/aws-sdk-js-v3) _(+1k ⭐️)_
+- [Angular CLI](https://github.com/angular/angular-cli) _(+26.6k ⭐️)_
+- [bit](https://github.com/teambit/bit) _(+17.6k ⭐️)_
+- [pnpm](https://github.com/pnpm/pnpm) _(+27.8k ⭐️)_
+- [aws-sdk cli v3](https://github.com/aws/aws-sdk-js-v3) _(+2.9k ⭐️)_
 - [angular-eslint](https://github.com/angular-eslint/angular-eslint) _(+1k ⭐️)_
 
 ## Example repositories
