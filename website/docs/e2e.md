@@ -35,14 +35,14 @@ The following projects have examples using Verdaccio in Open Source
 
 ### Bash Examples
 
-- [Babel.js](https://github.com/babel/babel) _(+42.9k ⭐️)_
-- [Docusaurus](https://github.com/facebook/docusaurus) _(+53k ⭐️)_
-- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests) _(+102k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+27.8k ⭐️)_
-- [Uppy](https://github.com/transloadit/uppy) _(+28.1k ⭐️)_
-- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+18.8k ⭐️)_
-- [adobe react-spectrum](https://github.com/adobe/react-spectrum/pull/2432) _(+11.7k ⭐️)_
-- [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3k ⭐️)_
+- [Babel.js ![Stars](https://img.shields.io/github/stars/babel/babel?label=⭐️)](https://github.com/babel/babel)
+- [Docusaurus ![Stars](https://img.shields.io/github/stars/facebook/docusaurus?label=⭐️)](https://github.com/facebook/docusaurus)
+- [create-react-app ![Stars](https://img.shields.io/github/stars/facebook/create-react-app?label=⭐️)](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests)
+- [pnpm ![Stars](https://img.shields.io/github/stars/pnpm/pnpm?label=⭐️)](https://github.com/pnpm/pnpm)
+- [Uppy ![Stars](https://img.shields.io/github/stars/transloadit/uppy?label=⭐️)](https://github.com/transloadit/uppy)
+- [ethereum/web3.js ![Stars](https://img.shields.io/github/stars/ethereum/web3.js?label=⭐️)](https://github.com/ethereum/web3.js)
+- [adobe react-spectrum ![Stars](https://img.shields.io/github/stars/adobe/react-spectrum?label=⭐️)](https://github.com/adobe/react-spectrum/pull/2432)
+- [Mozilla Neutrino ![Stars](https://img.shields.io/github/stars/neutrinojs/neutrino?label=⭐️)](https://github.com/neutrinojs/neutrino)
 
 This is the simplest example using Verdaccio in a bash script (extracted from _create-react-app_).
 
@@ -72,25 +72,25 @@ sh -c "npm --registry $local_registry publish"
 
 ### Programmatically Examples
 
-- [Storybook](https://github.com/storybooks/storybook) _(+82.9k ⭐️)_
-- [Gatsby](https://github.com/gatsbyjs/gatsby) \*(+55k ⭐️)
+- [Storybook ![Stars](https://img.shields.io/github/stars/storybooks/storybook?label=⭐️)](https://github.com/storybooks/storybook)
+- [Gatsby ![Stars](https://img.shields.io/github/stars/gatsbyjs/gatsby?label=⭐️)](https://github.com/gatsbyjs/gatsby)
 
 #### Verdaccio module
 
 Via CLI:
 
-- [Aurelia Framework](https://github.com/aurelia) _(+12k ⭐️)_
-- [Netlify CLI](https://github.com/netlify/cli) _(+1k ⭐️)_
-- [Embark](https://embark.status.im/) _(+3k ⭐️)_
-- [Microsoft Beachball](https://github.com/microsoft/beachball)
+- [Aurelia Framework ![Stars](https://img.shields.io/github/stars/aurelia/framework?label=⭐️)](https://github.com/aurelia)
+- [Netlify CLI ![Stars](https://img.shields.io/github/stars/netlify/cli?label=⭐️)](https://github.com/netlify/cli)
+- [Embark ![Stars](https://img.shields.io/github/stars/embarklabs/embark?label=⭐️)](https://embark.status.im/)
+- [Microsoft Beachball ![Stars](https://img.shields.io/github/stars/microsoft/beachball?label=⭐️)](https://github.com/microsoft/beachball)
 
 #### Node.js `child_process` examples
 
-- [Angular CLI](https://github.com/angular/angular-cli) _(+26.6k ⭐️)_
-- [bit](https://github.com/teambit/bit) _(+17.6k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+27.8k ⭐️)_
-- [aws-sdk cli v3](https://github.com/aws/aws-sdk-js-v3) _(+2.9k ⭐️)_
-- [angular-eslint](https://github.com/angular-eslint/angular-eslint) _(+1k ⭐️)_
+- [Angular CLI ![Stars](https://img.shields.io/github/stars/angular/angular-cli?label=⭐️)](https://github.com/angular/angular-cli)
+- [bit ![Stars](https://img.shields.io/github/stars/teambit/bit?label=⭐️)](https://github.com/teambit/bit)
+- [pnpm ![Stars](https://img.shields.io/github/stars/pnpm/pnpm?label=⭐️)](https://github.com/pnpm/pnpm)
+- [aws-sdk cli v3 ![Stars](https://img.shields.io/github/stars/aws/aws-sdk-js-v3?label=⭐️)](https://github.com/aws/aws-sdk-js-v3)
+- [angular-eslint ![Stars](https://img.shields.io/github/stars/angular-eslint/angular-eslint?label=⭐️)](https://github.com/angular-eslint/angular-eslint)
 
 ## Example repositories
 
