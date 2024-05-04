@@ -130,7 +130,7 @@ class Storage {
       throw errorUtils.getBadData();
     }
 
-    debug(`change manifest updapting manifest for %o`, name);
+    debug(`change manifest updating manifest for %o`, name);
     await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
