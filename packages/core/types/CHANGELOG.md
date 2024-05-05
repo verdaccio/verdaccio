@@ -1,5 +1,11 @@
 # Change Log
 
+## 12.0.0-next-7.3
+
+### Minor Changes
+
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
 ## 12.0.0-next.2
 
 ### Minor Changes
