@@ -90,7 +90,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.2.1"],\
             ["compression", "npm:1.7.4"],\
-            ["cookies", "npm:0.9.1"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:d9a5f00bfc11d56fd0d391c83d70ceade45ea6b20139b488c916c2225b2c904e8c8722786b03dfb6d06fef38f31a649a4fbdf210a93be455090758ff610f2afb#npm:4.3.4"],\
@@ -7508,17 +7507,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["cookies", [\
-        ["npm:0.9.1", {\
-          "packageLocation": "./.yarn/cache/cookies-npm-0.9.1-80a82ae099-213e4d1484.zip/node_modules/cookies/",\
-          "packageDependencies": [\
-            ["cookies", "npm:0.9.1"],\
-            ["depd", "npm:2.0.0"],\
-            ["keygrip", "npm:1.1.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["core-js", [\
         ["npm:2.6.12", {\
           "packageLocation": "./.yarn/unplugged/core-js-npm-2.6.12-0b93d77d31/node_modules/core-js/",\
@@ -11258,16 +11246,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["keygrip", [\
-        ["npm:1.1.0", {\
-          "packageLocation": "./.yarn/cache/keygrip-npm-1.1.0-8da030c3ff-078cd16a46.zip/node_modules/keygrip/",\
-          "packageDependencies": [\
-            ["keygrip", "npm:1.1.0"],\
-            ["tsscmp", "npm:1.0.6"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["kind-of", [\
         ["npm:6.0.3", {\
           "packageLocation": "./.yarn/cache/kind-of-npm-6.0.3-ab15f36220-3ab01e7b1d.zip/node_modules/kind-of/",\
@@ -14440,15 +14418,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["tsscmp", [\
-        ["npm:1.0.6", {\
-          "packageLocation": "./.yarn/cache/tsscmp-npm-1.0.6-3223087558-1512384def.zip/node_modules/tsscmp/",\
-          "packageDependencies": [\
-            ["tsscmp", "npm:1.0.6"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["tsutils", [\
         ["npm:3.21.0", {\
           "packageLocation": "./.yarn/cache/tsutils-npm-3.21.0-347e6636c5-1843f4c1b2.zip/node_modules/tsutils/",\
@@ -15020,7 +14989,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:3.2.1"],\
             ["compression", "npm:1.7.4"],\
-            ["cookies", "npm:0.9.1"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:d9a5f00bfc11d56fd0d391c83d70ceade45ea6b20139b488c916c2225b2c904e8c8722786b03dfb6d06fef38f31a649a4fbdf210a93be455090758ff610f2afb#npm:4.3.4"],\
