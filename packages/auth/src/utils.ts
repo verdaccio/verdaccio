@@ -40,12 +40,8 @@ export function parseAuthTokenHeader(authorizationHeader: string): AuthTokenHead
   return { scheme, token };
 }
 
-export function parseAESCredentials(
-  authorizationHeader: string,
-  secret: string,
-  enhanced: boolean
-) {
-  debug('parseAESCredentials');
+export function parseAESCredentials(authorizationHeader: string, secret: string) {
+  debug('parseAESCredentials init');
   const { scheme, token } = parseAuthTokenHeader(authorizationHeader);
 
   // basic is deprecated and should not be enforced
@@ -57,27 +53,29 @@ export function parseAESCredentials(
     return credentials;
   } else if (scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
     debug('legacy header bearer');
-    debug('legacy header enhanced?', enhanced);
-    const credentials = enhanced
-      ? aesDecrypt(token.toString(), secret)
-      : // FUTURE: once deprecated legacy is removed this logic won't be longer need it
-        aesDecryptDeprecated(convertPayloadToBase64(token), secret).toString('utf-8');
-
-    return credentials;
+    debug('secret length %o', secret.length);
+    const isLegacyUnsecure = secret.length > 32;
+    debug('is legacy unsecure %o', isLegacyUnsecure);
+    if (isLegacyUnsecure) {
+      debug('legacy unsecure enabled');
+      return aesDecryptDeprecated(convertPayloadToBase64(token), secret).toString('utf-8');
+    } else {
+      debug('legacy secure enabled');
+      return aesDecrypt(token.toString(), secret);
+    }
   }
 }
 
 export function getMiddlewareCredentials(
   security: Security,
   secretKey: string,
-  authorizationHeader: string,
-  enhanced: boolean = true
+  authorizationHeader: string
 ): AuthMiddlewarePayload {
-  debug('getMiddlewareCredentials');
+  debug('getMiddlewareCredentials init');
   // comment out for debugging purposes
   if (isAESLegacy(security)) {
     debug('is legacy');
-    const credentials = parseAESCredentials(authorizationHeader, secretKey, enhanced);
+    const credentials = parseAESCredentials(authorizationHeader, secretKey);
     if (!credentials) {
       debug('parse legacy credentials failed');
       return;

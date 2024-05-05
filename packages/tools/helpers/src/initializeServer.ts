@@ -18,9 +18,7 @@ export async function initializeServer(
   Storage
 ): Promise<Application> {
   const app = express();
-  // verdaccio next always uses forceEnhancedLegacySignature while legacy (5.x, 6.x)
-  // have this property false by default
-  const config = new Config(configName, { forceEnhancedLegacySignature: true });
+  const config = new Config(configName);
   config.storage = path.join(os.tmpdir(), '/storage', generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics

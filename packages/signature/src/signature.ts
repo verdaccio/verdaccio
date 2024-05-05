@@ -19,9 +19,9 @@ const outputEncoding: BinaryToTextEncoding = 'hex';
 const VERDACCIO_LEGACY_ENCRYPTION_KEY = process.env.VERDACCIO_LEGACY_ENCRYPTION_KEY;
 
 export function aesEncrypt(value: string, key: string): string | void {
+  debug('aesEncrypt init');
   // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
   // https://www.grainger.xyz/posts/changing-from-cipher-to-cipheriv
-  debug('encrypt %o', value);
   debug('algorithm %o', defaultAlgorithm);
   // IV must be a buffer of length 16
   const iv = randomBytes(16);
@@ -42,12 +42,13 @@ export function aesEncrypt(value: string, key: string): string | void {
   // @ts-ignore
   encrypted += cipher.final(outputEncoding);
   const token = `${iv.toString('hex')}:${encrypted.toString()}`;
-  debug('token generated successfully');
+  debug('legacy token generated successfully');
   return Buffer.from(token).toString('base64');
 }
 
 export function aesDecrypt(value: string, key: string): string | void {
   try {
+    debug('aesDecrypt init');
     const buff = Buffer.from(value, 'base64');
     const textParts = buff.toString().split(':');
 
@@ -62,7 +63,7 @@ export function aesDecrypt(value: string, key: string): string | void {
     // FIXME: fix type here should allow Buffer
     let decrypted = decipher.update(encryptedText as any, outputEncoding, inputEncoding);
     decrypted += decipher.final(inputEncoding);
-    debug('token decrypted successfully');
+    debug('legacy token payload decrypted successfully');
     return decrypted.toString();
   } catch (_: any) {
     return;

@@ -36,6 +36,13 @@ export const defaultUserRateLimiting = {
   max: 1000,
 };
 
+export function isNodeVersionGreaterThan21() {
+  const [major, minor] = process.versions.node.split('.').map(Number);
+  return major > 21 || (major === 21 && minor >= 0);
+}
+
+const TOKEN_VALID_LENGTH = 32;
+
 /**
  * Coordinates the application configuration
  */
@@ -56,21 +63,20 @@ class Config implements AppConfig {
   public plugins: string | void | null;
   public security: Security;
   public serverSettings: ServerSettingsConf;
+  private configOverrideOptions: { forceMigrateToSecureLegacySignature: boolean };
   // @ts-ignore
   public secret: string;
   public flags: FlagsConfig;
   public userRateLimit: RateLimit;
-  private configOptions: { forceEnhancedLegacySignature: boolean };
   public constructor(
     config: ConfigYaml & { config_path: string },
     // forceEnhancedLegacySignature is a property that
     // allows switch a new legacy aes signature token signature
     // for older versions do not want to have this new signature model
     // this property must be false
-    configOptions = { forceEnhancedLegacySignature: true }
+    configOverrideOptions = { forceMigrateToSecureLegacySignature: true }
   ) {
     const self = this;
-    this.configOptions = configOptions;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
     if (!config.configPath) {
       // backport self_path for previous to version 6
@@ -80,6 +86,7 @@ class Config implements AppConfig {
         throw new Error('configPath property is required');
       }
     }
+    this.configOverrideOptions = configOverrideOptions;
     this.configPath = config.configPath;
     this.self_path = this.configPath;
     debug('config path: %s', this.configPath);
@@ -135,14 +142,14 @@ class Config implements AppConfig {
     }
   }
 
-  public getEnhancedLegacySignature() {
-    if (typeof this?.security.enhancedLegacySignature !== 'undefined') {
-      if (this.security.enhancedLegacySignature === true) {
+  public getMigrateToSecureLegacySignature() {
+    if (typeof this?.security.api.migrateToSecureLegacySignature !== 'undefined') {
+      if (this.security.api.migrateToSecureLegacySignature === true) {
         return true;
       }
       return false;
     }
-    return this.configOptions.forceEnhancedLegacySignature;
+    return this.configOverrideOptions.forceMigrateToSecureLegacySignature;
   }
 
   public getConfigPath() {
@@ -158,36 +165,68 @@ class Config implements AppConfig {
   }
 
   /**
-   * Store or create whether receive a secret key
+   * Verify if the secret complies with the required structure
+   *  - If the secret is not provided, it will generate a new one
+   *    - For any Node.js version the new secret will be 32 characters long (to allow compatibility with modern Node.js versions)
+   *  - If the secret is provided:
+   *    - If Node.js 22 or higher, the secret must be 32 characters long thus the application will fail on startup
+   *    - If Node.js 21 or lower, the secret will be used as is but will display a deprecation warning
+   *    - If the property `security.api.migrateToSecureLegacySignature` is provided and set to true, the secret will be
+   *      generated with the new signature model
    * @secret external secret key
    */
   public checkSecretKey(secret?: string): string {
-    debug('check secret key');
+    debug('checking secret key init');
     if (typeof secret === 'string' && _.isEmpty(secret) === false) {
+      debug('checking secret key length %s', secret.length);
+      if (secret.length > TOKEN_VALID_LENGTH) {
+        if (isNodeVersionGreaterThan21()) {
+          if (this.getMigrateToSecureLegacySignature() === true) {
+            this.secret = generateRandomSecretKey();
+            debug('rewriting secret key with length %s', this.secret.length);
+            return this.secret;
+          }
+          // oops, user needs to generate a new secret key
+          debug(
+            'secret does not comply with the required length, current length  %d, application will fail on startup',
+            secret.length
+          );
+          throw new Error(
+            `Invalid storage secret key length, must be 32 characters long but is ${secret.length}. 
+            The secret length in Node.js 22 or higher must be 32 characters long. Please consider generate a new one. 
+            Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`
+          );
+        } else {
+          if (this.getMigrateToSecureLegacySignature() === true) {
+            this.secret = generateRandomSecretKey();
+            debug('rewriting secret key with length %s', this.secret.length);
+            return this.secret;
+          }
+          debug('triggering deprecation warning for secret key length %s', secret.length);
+          // still using Node.js versions previous to 22, but we need to emit a deprecation warning
+          // deprecation warning, secret key is too long and must be 32
+          // this will be removed in the next major release and will produce an error
+          warningUtils.emit(Codes.VERWAR007);
+          this.secret = secret;
+          return this.secret;
+        }
+      } else if (secret.length === TOKEN_VALID_LENGTH) {
+        debug('detected valid secret key length %s', secret.length);
+        this.secret = secret;
+        return this.secret;
+      }
+      debug('reusing previous key with length %s', secret.length);
       this.secret = secret;
-      debug('reusing previous key');
-      return secret;
-    }
-    // generate a new a secret key
-    // FUTURE: this might be an external secret key, perhaps within config file?
-    debug('generating a new secret key');
-
-    if (this.getEnhancedLegacySignature()) {
-      debug('key generated with "enhanced" legacy signature user config');
-      this.secret = generateRandomSecretKey();
+      return this.secret;
     } else {
-      debug('key generated with legacy signature user config');
-      this.secret = generateRandomHexString(32);
-    }
-    // set this to false allow use old token signature and is not recommended
-    // only use for migration reasons, major release will remove this property and
-    // set it by default
-    if (this.security?.enhancedLegacySignature === false) {
-      warningUtils.emit(Codes.VERWAR005);
-    }
+      // generate a new a secret key
+      // FUTURE: this might be an external secret key, perhaps within config file?
+      debug('generating a new secret key');
+      this.secret = generateRandomSecretKey();
+      debug('generated a new secret key length %s', this.secret?.length);
 
-    debug('generated a new secret key length %s', this.secret?.length);
-    return this.secret;
+      return this.secret;
+    }
   }
 }
 

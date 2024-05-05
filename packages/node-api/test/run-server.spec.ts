@@ -15,7 +15,6 @@ describe('startServer via API', () => {
   });
 
   test('should fail on start with null as entry', async () => {
-    // @ts-expect-error
     await expect(runServer(null)).rejects.toThrow();
   });
 });
