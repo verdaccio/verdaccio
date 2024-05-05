@@ -5,6 +5,5 @@ export {
   convertDistVersionToLocalTarballsUrl,
 } from './convertDistRemoteToLocalTarballUrls';
 export { extractTarballFromUrl, getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
-export { TarballDetails, getTarballDetails } from './getTarballDetails';
 
 export { RequestOptions };
