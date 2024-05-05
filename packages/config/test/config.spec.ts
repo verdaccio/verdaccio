@@ -99,17 +99,21 @@ describe('check basic content parsed file', () => {
 describe('checkSecretKey', () => {
   test('with default.yaml and pre selected secret', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
-    expect(config.checkSecretKey('12345')).toEqual('12345');
+    expect(config.checkSecretKey(generateRandomSecretKey())).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
   test('with default.yaml and void secret', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
-    expect(typeof config.checkSecretKey() === 'string').toBeTruthy();
+    const secret = config.checkSecretKey();
+    expect(typeof secret === 'string').toBeTruthy();
+    expect(secret).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
   test('with default.yaml and empty string secret', () => {
     const config = new Config(parseConfigFile(resolveConf('default')));
-    expect(typeof config.checkSecretKey('') === 'string').toBeTruthy();
+    const secret = config.checkSecretKey('');
+    expect(typeof secret === 'string').toBeTruthy();
+    expect(secret).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
   test('with default.yaml and valid string secret length', () => {
@@ -118,26 +122,31 @@ describe('checkSecretKey', () => {
   });
 
   test('with default.yaml migrate a valid string secret length', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
-    config.security.api.migrateToSecureLegacySignature = true;
+    const config = new Config(parseConfigFile(resolveConf('default')), {
+      forceMigrateToSecureLegacySignature: true,
+    });
     expect(
+      // 64 characters secret long
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
     ).toHaveLength(TOKEN_VALID_LENGTH);
   });
 
   // only runs on Node.js 22 or higher
   itif(isNodeVersionGreaterThan21())('with enhanced legacy signature Node 22 or higher', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
-    config.security.api.migrateToSecureLegacySignature = false;
+    const config = new Config(parseConfigFile(resolveConf('default')), {
+      forceMigrateToSecureLegacySignature: false,
+    });
     // eslint-disable-next-line jest/no-standalone-expect
     expect(() =>
       // 64 characters secret long
       config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
-    ).toThrow('');
+    ).toThrow();
   });
 
   itif(isNodeVersionGreaterThan21())('with enhanced legacy signature Node 22 or higher', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+    const config = new Config(parseConfigFile(resolveConf('default')), {
+      forceMigrateToSecureLegacySignature: false,
+    });
     config.security.api.migrateToSecureLegacySignature = true;
     // eslint-disable-next-line jest/no-standalone-expect
     expect(
@@ -146,7 +155,7 @@ describe('checkSecretKey', () => {
   });
 
   itif(isNodeVersionGreaterThan21() === false)(
-    'with enhanced legacy signature Node 21 or lower',
+    'with old unsecure legacy signature Node 21 or lower',
     () => {
       const config = new Config(parseConfigFile(resolveConf('default')));
       config.security.api.migrateToSecureLegacySignature = false;
@@ -157,6 +166,16 @@ describe('checkSecretKey', () => {
       ).toHaveLength(64);
     }
   );
+
+  test('with migration to new legacy signature Node 21 or lower', () => {
+    const config = new Config(parseConfigFile(resolveConf('default')));
+    config.security.api.migrateToSecureLegacySignature = true;
+    // 64 characters secret long
+    // eslint-disable-next-line jest/no-standalone-expect
+    expect(
+      config.checkSecretKey('b4982dbb0108531fafb552374d7e83724b6458a2b3ffa97ad0edb899bdaefc4a')
+    ).toHaveLength(TOKEN_VALID_LENGTH);
+  });
 
   test.todo('test emit warning with secret key');
 });
