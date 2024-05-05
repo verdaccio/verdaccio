@@ -3,7 +3,7 @@ import semver from 'semver';
 
 import { errorUtils, pkgUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, MAINTAINERS, USERS } from '@verdaccio/core';
-import { AttachMents, Author, Manifest, Version, Versions } from '@verdaccio/types';
+import { AttachMents, Manifest, Version, Versions } from '@verdaccio/types';
 import { generateRandomHexString, isNil, isObject } from '@verdaccio/utils';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
@@ -397,12 +397,4 @@ export function mapManifestToSearchPackageBody(
   }
 
   return result;
-}
-
-export function getOwner(username: any): Author {
-  // TODO: Add email of user
-  return {
-    name: username || '',
-    email: '',
-  };
 }

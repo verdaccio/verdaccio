@@ -75,7 +75,6 @@ import {
   generatePackageTemplate,
   generateRevision,
   getLatestReadme,
-  getOwner,
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
@@ -207,8 +206,7 @@ class Storage {
       }
 
       // check if logged in user is allowed to remove tarball
-      const owner = getOwner(username);
-      await this.checkAllowedToChangePackage(cacheManifest, owner);
+      await this.checkAllowedToChangePackage(cacheManifest, username);
     } catch (err: any) {
       if (err.code === noSuchFile) {
         throw errorUtils.getNotFound();
@@ -496,6 +494,17 @@ class Storage {
   public async getPackageManifest(options: IGetPackageOptionsNext): Promise<Manifest> {
     // convert dist remotes to local bars
     const [manifest] = await this.getPackageNext(options);
+
+    // If change access is requested (?write=true), then check if logged in user is allowed to change package
+    if (options.byPassCache === true) {
+      try {
+        await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
+      } catch (error: any) {
+        logger.error({ error: error.message }, 'getting package has failed: @{error}');
+        throw errorUtils.getBadRequest(error.message);
+      }
+    }
+
     const convertedManifest = convertDistRemoteToLocalTarballUrls(
       manifest,
       options.requestOptions,
@@ -768,8 +777,7 @@ class Storage {
     // TODO:  move this to another method
     try {
       // check if logged in user is allowed to remove package
-      const owner = getOwner(username);
-      await this.checkAllowedToChangePackage(manifest, owner);
+      await this.checkAllowedToChangePackage(manifest, username);
 
       await this.localStorage.getStoragePlugin().remove(pkgName);
       // remove each attachment
@@ -1087,8 +1095,8 @@ class Storage {
     options: PublishOptions
   ): Promise<[Manifest, string, string]> {
     const { name } = options;
-    const owner = getOwner(options.requestOptions.username);
-    debug('publishing a new package for %o as %o', name, owner.name);
+    const username = options.requestOptions.username;
+    debug('publishing a new package for %o as %o', name, username);
     let successResponseMessage;
     const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
@@ -1128,10 +1136,10 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        await this.createNewLocalCachePackage(name, owner);
+        await this.createNewLocalCachePackage(name, username);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
-        await this.checkAllowedToChangePackage(localManifest as Manifest, owner);
+        await this.checkAllowedToChangePackage(localManifest as Manifest, username);
         successResponseMessage = API_MESSAGE.PKG_CHANGED;
       }
     } catch (err: any) {
@@ -1439,7 +1447,10 @@ class Storage {
    * @param name name of the package
    * @returns
    */
-  private async createNewLocalCachePackage(name: string, owner: Author): Promise<void> {
+  private async createNewLocalCachePackage(
+    name: string,
+    username: string | undefined
+  ): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
@@ -1457,7 +1468,8 @@ class Storage {
     };
 
     // Set initial package owner
-    packageData.maintainers = [owner];
+    // TODO: Add email of user
+    packageData.maintainers = [{ name: username || '', email: '' }];
 
     try {
       await storage.createPackage(name, packageData);
@@ -2004,16 +2016,17 @@ class Storage {
     }
   }
 
-  private async checkAllowedToChangePackage(manifest: Manifest, user: Author) {
-    debug('check if user %o is an owner and allowed to change package', user.username);
+  private async checkAllowedToChangePackage(manifest: Manifest, username: string | undefined) {
+    // Checks to perform if config "publish:check_owners" is true
+    debug('check if user %o is an owner and allowed to change package', username);
     // if name of owner is not included in list of maintainers, then throw an error
     if (
       this.config?.publish?.check_owners === true &&
       manifest.maintainers &&
       manifest.maintainers.length > 0 &&
-      !manifest.maintainers.some((maintainer) => maintainer.name === user.username)
+      !manifest.maintainers.some((maintainer) => maintainer.name === username)
     ) {
-      logger.error({ name: user.username }, '@{name} is not a maintainer (package owner)');
+      logger.error({ username }, '@{username} is not a maintainer (package owner)');
       throw Error('only owners are allowed to change package');
     }
   }
