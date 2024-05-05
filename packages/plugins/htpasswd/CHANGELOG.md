@@ -1,5 +1,13 @@
 # Change Log
 
+## 12.0.0-next-7.15
+
+### Patch Changes
+
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0-next-7.15
+  - @verdaccio/file-locking@12.0.0-next.1
+
 ## 12.0.0-next-7.14
 
 ### Patch Changes

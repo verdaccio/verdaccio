@@ -1,5 +1,15 @@
 # Change Log
 
+## 12.0.0-next-7.15
+
+### Patch Changes
+
+- 7400830: revert #4600
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0-next-7.15
+  - @verdaccio/url@12.0.0-next-7.15
+  - @verdaccio/utils@7.0.0-next-7.15
+
 ## 12.0.0-next-7.14
 
 ### Patch Changes

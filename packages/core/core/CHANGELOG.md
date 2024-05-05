@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 7.0.0-next-7.15
+
+### Minor Changes
+
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
 ## 7.0.0-next-7.14
 
 ## 7.0.0-next-7.13

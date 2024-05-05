@@ -1,5 +1,24 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.15
+
+### Patch Changes
+
+- 7400830: revert #4600
+- Updated dependencies [7400830]
+- Updated dependencies [bd8703e]
+  - @verdaccio/tarball@12.0.0-next-7.15
+  - @verdaccio/core@7.0.0-next-7.15
+  - @verdaccio/config@7.0.0-next-7.15
+  - @verdaccio/url@12.0.0-next-7.15
+  - @verdaccio/hooks@7.0.0-next-7.15
+  - @verdaccio/loaders@7.0.0-next-7.15
+  - @verdaccio/logger@7.0.0-next-7.15
+  - @verdaccio/local-storage@12.0.0-next-7.15
+  - @verdaccio/proxy@7.0.0-next-7.15
+  - @verdaccio/search@7.0.0-next-7.4
+  - @verdaccio/utils@7.0.0-next-7.15
+
 ## 7.0.0-next-7.14
 
 ### Patch Changes

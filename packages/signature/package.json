@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "7.0.0-next-7.4",
+  "version": "7.0.0-next-7.5",
   "description": "verdaccio signature utils",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,8 +42,8 @@
     "debug": "4.3.4"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.14",
-    "@verdaccio/types": "workspace:12.0.0-next.2"
+    "@verdaccio/config": "workspace:7.0.0-next-7.15",
+    "@verdaccio/types": "workspace:12.0.0-next-7.3"
   },
   "funding": {
     "type": "opencollective",
