@@ -472,4 +472,9 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
+export function isNodeVersionHigherThanV22() {
+  const [major, minor] = process.versions.node.split('.').map(Number);
+  return major > 22 || (major === 22 && minor > 0);
+}
+
 export { buildTokenUtil as buildToken, parseConfigFile };

@@ -1,11 +1,11 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { ConfigYaml } from '@verdaccio/types';
 
 import Auth from '../../../../lib/auth';
-import { validatePassword } from '../../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { ErrorCode } from '../../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend } from '../../../../types';
@@ -65,7 +65,7 @@ export default function (router: Router, auth: Auth, config: ConfigYaml) {
       const { name } = req.remote_user;
 
       if (_.isNil(password) === false) {
-        if (validatePassword(password.new) === false) {
+        if (validationUtils.validatePassword(password.new) === false) {
           /* eslint new-cap:off */
           return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
           /* eslint new-cap:off */

@@ -61,7 +61,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.url_prefix).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
   expect(config.security).toEqual({
-    api: { legacy: true },
+    api: { legacy: true, migrateToSecureLegacySignature: false },
     web: { sign: { expiresIn: '1h' }, verify: {} },
   });
 };

@@ -2,9 +2,22 @@ import buildDebug from 'debug';
 import { NextFunction } from 'express';
 import _ from 'lodash';
 
+import {
+  getMiddlewareCredentials,
+  isAESLegacy,
+  isAuthHeaderValid,
+  parseAuthTokenHeader,
+  verifyJWTPayload,
+} from '@verdaccio/auth';
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import { VerdaccioError, pluginUtils } from '@verdaccio/core';
-import { aesEncryptDeprecated as aesEncrypt, signPayload } from '@verdaccio/signature';
+import {
+  aesEncrypt,
+  aesEncryptDeprecated,
+  parseBasicPayload,
+  signPayload,
+  utils as signatureUtils,
+} from '@verdaccio/signature';
 import {
   AllowAccess,
   Callback,
@@ -19,16 +32,7 @@ import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import loadPlugin from '../lib/plugin-loader';
 import { $RequestExtend, $ResponseExtend, AESPayload } from '../types';
-import {
-  getDefaultPlugins,
-  getMiddlewareCredentials,
-  getSecurity,
-  isAESLegacy,
-  isAuthHeaderValid,
-  parseAuthTokenHeader,
-  parseBasicPayload,
-  verifyJWTPayload,
-} from './auth-utils';
+import { getDefaultPlugins, getSecurity } from './auth-utils';
 import { API_ERROR, SUPPORT_ERRORS, TOKEN_BASIC, TOKEN_BEARER } from './constants';
 import { logger } from './logger';
 import { ErrorCode, convertPayloadToBase64 } from './utils';
@@ -526,8 +530,17 @@ class Auth {
   /**
    * Encrypt a string.
    */
-  public aesEncrypt(buf: Buffer): Buffer {
-    return aesEncrypt(buf, this.secret);
+  public aesEncrypt(value: string): string | void {
+    if (this.secret.length === signatureUtils.TOKEN_VALID_LENGTH) {
+      debug('signing with enhanced aes legacy');
+      const token = aesEncrypt(value, this.secret);
+      return token;
+    } else {
+      debug('signing with enhanced aes deprecated legacy');
+      // deprecated aes (legacy) signature, only must be used for legacy version
+      const token = aesEncryptDeprecated(Buffer.from(value), this.secret).toString('base64');
+      return token;
+    }
   }
 }
 
