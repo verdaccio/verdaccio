@@ -91,7 +91,16 @@ class Config implements AppConfig {
     this.self_path = this.configPath;
     debug('config path: %s', this.configPath);
     this.plugins = config.plugins;
-    this.security = _.merge(defaultSecurity, config.security);
+    this.security = _.merge(
+      // override the default security configuration via constructor
+      _.merge(defaultSecurity, {
+        api: {
+          migrateToSecureLegacySignature:
+            this.configOverrideOptions.forceMigrateToSecureLegacySignature,
+        },
+      }),
+      config.security
+    );
     this.serverSettings = serverSettings;
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
@@ -143,13 +152,7 @@ class Config implements AppConfig {
   }
 
   public getMigrateToSecureLegacySignature() {
-    if (typeof this?.security.api.migrateToSecureLegacySignature !== 'undefined') {
-      if (this.security.api.migrateToSecureLegacySignature === true) {
-        return true;
-      }
-      return false;
-    }
-    return this.configOverrideOptions.forceMigrateToSecureLegacySignature;
+    return this.security.api.migrateToSecureLegacySignature;
   }
 
   public getConfigPath() {
@@ -181,6 +184,7 @@ class Config implements AppConfig {
       debug('checking secret key length %s', secret.length);
       if (secret.length > TOKEN_VALID_LENGTH) {
         if (isNodeVersionGreaterThan21()) {
+          debug('is node version greater than 21');
           if (this.getMigrateToSecureLegacySignature() === true) {
             this.secret = generateRandomSecretKey();
             debug('rewriting secret key with length %s', this.secret.length);
@@ -197,6 +201,7 @@ class Config implements AppConfig {
             Learn more at https://verdaccio.org/docs/configuration/#.verdaccio-db`
           );
         } else {
+          debug('is node version lower than 22');
           if (this.getMigrateToSecureLegacySignature() === true) {
             this.secret = generateRandomSecretKey();
             debug('rewriting secret key with length %s', this.secret.length);
