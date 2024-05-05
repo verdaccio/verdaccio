@@ -131,6 +131,8 @@ server:
 # security:
 #   api:
 #     legacy: true
+#     # recomended set to true for older installations
+#     migrateToSecureLegacySignature: true
 #     jwt:
 #       sign:
 #         expiresIn: 29d

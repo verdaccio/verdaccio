@@ -1,11 +1,12 @@
 import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
+import { validationUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
-import { getSecurity, validatePassword } from '../../../lib/auth-utils';
+import { getSecurity } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer } from '../../../types';
@@ -48,7 +49,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
       const { password } = req.body;
       const { name } = req.remote_user;
 
-      if (validatePassword(password.new) === false) {
+      if (validationUtils.validatePassword(password.new) === false) {
         auth.changePassword(name as string, password.old, password.new, (err, isUpdated): void => {
           if (_.isNil(err) && isUpdated) {
             next({

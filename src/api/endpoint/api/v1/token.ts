@@ -2,12 +2,12 @@ import buildDebug from 'debug';
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
+import { getApiToken } from '@verdaccio/auth';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { stringToMD5 } from '@verdaccio/utils';
 
 import Auth from '../../../../lib/auth';
-import { getApiToken } from '../../../../lib/auth-utils';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
 import Storage from '../../../../lib/storage';

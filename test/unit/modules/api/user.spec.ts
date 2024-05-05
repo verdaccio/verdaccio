@@ -17,20 +17,23 @@ describe('token', () => {
 
   describe('basics', () => {
     const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
-    test.each([['user.yaml'], ['user.jwt.yaml']])('should test add a new user', async (conf) => {
-      nock('https://registry.verdaccio.org/').get(`/vue`).once().reply(200, { name: 'vue' });
-      const app = await initializeServer(conf);
-      const credentials = { name: 'JotaJWT', password: 'secretPass' };
-      const response = await createUser(app, credentials.name, credentials.password);
-      expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
+    test.each([['user.yaml'], ['user.jwt.yaml']])(
+      'should test add a new user for %s',
+      async (conf) => {
+        nock('https://registry.verdaccio.org/').get(`/vue`).once().reply(200, { name: 'vue' });
+        const app = await initializeServer(conf);
+        const credentials = { name: 'JotaJWT', password: 'secretPass' };
+        const response = await createUser(app, credentials.name, credentials.password);
+        expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
 
-      const vueResponse = await getPackage(app, response.body.token, 'vue');
-      expect(vueResponse.body).toBeDefined();
-      expect(vueResponse.body.name).toMatch('vue');
+        const vueResponse = await getPackage(app, response.body.token, 'vue');
+        expect(vueResponse.body).toBeDefined();
+        expect(vueResponse.body.name).toMatch('vue');
 
-      const vueFailResp = await getPackage(app, FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
-      expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
-    });
+        const vueFailResp = await getPackage(app, FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
+        expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
+      }
+    );
 
     test.each([['user.yaml'], ['user.jwt.yaml']])('should login an user', async (conf) => {
       const app = await initializeServer(conf);

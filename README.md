@@ -33,7 +33,9 @@ Install with npm:
 npm install --location=global verdaccio
 ```
 
-> Node.js v14 or higher is required for Verdaccio 5
+**Node.js v14 or higher is required for Verdaccio 5**
+
+> It's recommended using Node.js 20 (or latest LTS)
 
 or pull [Docker official image](https://verdaccio.org/docs/docker)
 
@@ -54,8 +56,6 @@ helm repo add verdaccio https://charts.verdaccio.org
 helm repo update
 helm install verdaccio/verdaccio
 ```
-
-Are you still using **Verdaccio 4**?. Check the [migration guide from 4.x to 5.x](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
 ## Programmatic API
 

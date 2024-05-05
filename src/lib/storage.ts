@@ -1,5 +1,6 @@
 import assert from 'assert';
 import async, { AsyncResultArrayCallback } from 'async';
+import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
 
@@ -38,6 +39,8 @@ import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
 
+const debug = buildDebug('verdaccio:storage');
+
 class Storage {
   public localStorage: LocalStorage;
   public config: Config;
@@ -54,11 +57,15 @@ class Storage {
     this.localStorage = null;
   }
 
-  public init(config: Config, filters: IPluginFilters = []): Promise<string> {
-    this.filters = filters;
-    this.localStorage = new LocalStorage(this.config, logger);
-
-    return this.localStorage.getSecret(config);
+  public async init(config: Config, filters: IPluginFilters = []): Promise<void> {
+    if (this.localStorage === null) {
+      this.filters = filters;
+      this.localStorage = new LocalStorage(this.config, logger);
+      await this.localStorage.getSecret(config);
+      debug('initialization completed');
+    } else {
+      debug('storage has been already initialized');
+    }
   }
 
   /**
