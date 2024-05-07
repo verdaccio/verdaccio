@@ -68,11 +68,11 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors: boolean) {
       `${subSystemType} ${finalMessage}`
     )}`;
 
-    return padLeft(logString);
+    return logString;
   }
   const logString = `${padRight(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
 
-  return padRight(logString);
+  return logString;
 }
 
 export function printMessage(
