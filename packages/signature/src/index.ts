@@ -2,8 +2,6 @@ export {
   aesDecryptDeprecated,
   aesEncryptDeprecated,
   generateRandomSecretKeyDeprecated,
-  aesDecryptDeprecatedBackwardCompatible,
-  aesEncryptDeprecatedBackwardCompatible,
 } from './legacy-signature';
 
 export { aesDecrypt, aesEncrypt } from './signature';

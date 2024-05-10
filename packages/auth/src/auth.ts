@@ -13,7 +13,6 @@ import {
   pluginUtils,
   warningUtils,
 } from '@verdaccio/core';
-import '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
@@ -21,6 +20,7 @@ import {
   aesEncryptDeprecated,
   parseBasicPayload,
   signPayload,
+  utils as signatureUtils,
 } from '@verdaccio/signature';
 import {
   AllowAccess,
@@ -481,14 +481,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     next: Function
   ): void {
     debug('handle legacy api middleware');
-    debug('api middleware secret %o', typeof secret === 'string');
+    debug('api middleware has a secret? %o', typeof secret === 'string');
     debug('api middleware authorization %o', typeof authorization === 'string');
-    const credentials: any = getMiddlewareCredentials(
-      security,
-      secret,
-      authorization,
-      this.config?.getEnhancedLegacySignature()
-    );
+    const credentials: any = getMiddlewareCredentials(security, secret, authorization);
     debug('api middleware credentials %o', credentials?.name);
     if (credentials) {
       const { user, password } = credentials;
@@ -588,13 +583,12 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    // enhancedLegacySignature enables modern aes192 algorithm signature
-    if (this.config?.getEnhancedLegacySignature()) {
-      debug('signing with enhaced aes legacy');
+    if (this.secret.length === signatureUtils.TOKEN_VALID_LENGTH) {
+      debug('signing with enhanced aes legacy');
       const token = aesEncrypt(value, this.secret);
       return token;
     } else {
-      debug('signing with enhaced aes deprecated legacy');
+      debug('signing with enhanced aes deprecated legacy');
       // deprecated aes (legacy) signature, only must be used for legacy version
       const token = aesEncryptDeprecated(Buffer.from(value), this.secret).toString('base64');
       return token;

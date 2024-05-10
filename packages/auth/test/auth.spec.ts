@@ -601,16 +601,14 @@ describe('AuthTest', () => {
           });
         });
 
-        describe('deprecated legacy handling forceEnhancedLegacySignature=false', () => {
+        describe('deprecated legacy handling', () => {
           test('should handle valid auth token', async () => {
             const payload = 'juan:password';
             // const token = await signPayload(remoteUser, '12345');
-            const config: Config = new AppConfig(
-              { ...authProfileConf },
-              { forceEnhancedLegacySignature: false }
-            );
+            const config: Config = new AppConfig({ ...authProfileConf });
             // intended to force key generator (associated with mocks above)
-            config.checkSecretKey(undefined);
+            // 64 characters secret long
+            config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
             const auth = new Auth(config);
             await auth.init();
             const token = auth.aesEncrypt(payload) as string;
@@ -624,10 +622,7 @@ describe('AuthTest', () => {
 
           test('should handle invalid auth token', async () => {
             const payload = 'juan:password';
-            const config: Config = new AppConfig(
-              { ...authPluginFailureConf },
-              { forceEnhancedLegacySignature: false }
-            );
+            const config: Config = new AppConfig({ ...authPluginFailureConf });
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
             const auth = new Auth(config);
@@ -691,8 +686,7 @@ describe('AuthTest', () => {
               {
                 ...authProfileConf,
                 ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
-              },
-              { forceEnhancedLegacySignature: false }
+              }
             );
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
@@ -700,7 +694,6 @@ describe('AuthTest', () => {
             await auth.init();
             const token = (await auth.jwtEncrypt(
               createRemoteUser('jwt_user', [ROLES.ALL]),
-              // @ts-expect-error
               config.security.api.jwt.sign
             )) as string;
             const app = await getServer(auth);

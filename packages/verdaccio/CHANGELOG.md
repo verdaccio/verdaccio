@@ -1,5 +1,19 @@
 # verdaccio
 
+## 7.0.0-next-7.15
+
+### Patch Changes
+
+- Updated dependencies [bd8703e]
+  - @verdaccio/node-api@7.0.0-next-7.15
+  - @verdaccio/hooks@7.0.0-next-7.15
+  - @verdaccio/logger@7.0.0-next-7.15
+  - verdaccio-audit@12.0.0-next-7.15
+  - verdaccio-htpasswd@12.0.0-next-7.15
+  - @verdaccio/ui-theme@7.0.0-next-7.15
+  - @verdaccio/cli@7.0.0-next-7.15
+  - @verdaccio/utils@7.0.0-next-7.15
+
 ## 7.0.0-next-7.14
 
 ### Patch Changes

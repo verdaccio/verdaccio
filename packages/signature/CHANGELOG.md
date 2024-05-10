@@ -1,5 +1,11 @@
 # @verdaccio/signature
 
+## 7.0.0-next-7.5
+
+### Minor Changes
+
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
 ## 7.0.0-next-7.4
 
 ### Minor Changes
