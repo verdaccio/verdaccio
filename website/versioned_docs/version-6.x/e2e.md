@@ -35,6 +35,7 @@ The following projects have examples using Verdaccio in Open Source
 
 ### Bash Examples
 
+- [Bun ![Stars](https://img.shields.io/github/stars/oven-sh/bun?label=⭐️)](https://github.com/oven-sh/bun/commits/main/test/cli/install/registry/verdaccio.yaml)
 - [Babel.js ![Stars](https://img.shields.io/github/stars/babel/babel?label=⭐️)](https://github.com/babel/babel)
 - [Docusaurus ![Stars](https://img.shields.io/github/stars/facebook/docusaurus?label=⭐️)](https://github.com/facebook/docusaurus)
 - [create-react-app ![Stars](https://img.shields.io/github/stars/facebook/create-react-app?label=⭐️)](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests)
