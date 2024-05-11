@@ -62,7 +62,8 @@ const i18nConfig = {
         'vi-VN',
         'yo-NG',
         'zh-TW',
-        'zh-CN',
+        // FIXME: Excluded translations need to be fixed at crowdin, otherwise breaks the build
+        // 'zh-CN',
       ]),
   localeConfigs: {
     en: { label: 'English' },
