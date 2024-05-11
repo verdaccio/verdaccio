@@ -11,14 +11,14 @@ import { Theme } from '../../Theme';
 import { url as urlUtils } from '../../utils';
 import CopyClipboard from '../CopyClipboard';
 import { Git } from '../Icons';
-import { Link } from '../Link';
+import { LinkExternal } from '../LinkExternal';
 
 const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
   fontWeight: props.theme?.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 
-const GithubLink = styled(Link)<{ theme?: Theme }>(({ theme }) => ({
+const GithubLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
   color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.white,
   ':hover': {
     color: theme?.palette.dodgerBlue,
@@ -72,7 +72,7 @@ const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
         <RepositoryListItemText
           primary={
             <CopyClipboard dataTestId="repositoryID" text={repositoryURL} title={repositoryURL}>
-              <GithubLink external={true} to={repositoryURL} variant="outline">
+              <GithubLink to={repositoryURL} variant="outline">
                 {repositoryURL}
               </GithubLink>
             </CopyClipboard>

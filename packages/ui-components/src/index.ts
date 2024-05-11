@@ -1,6 +1,7 @@
 export { default as CopyClipboard, copyToClipBoardUtility } from './components/CopyClipboard';
 export * from './components/CopyClipboard';
 export { Link } from './components/Link';
+export { LinkExternal } from './components/LinkExternal';
 export { default as ActionBar } from './components/ActionBar';
 export { default as Author } from './components/Author';
 export { default as Dependencies } from './components/Dependencies';

@@ -22,18 +22,20 @@ interface Props {
   onClick?: () => void;
   className?: string;
   isDefault?: boolean;
+  title?: string;
 }
 
-const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false }) => {
+const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, title = '' }) => {
   const { configOptions } = useConfig();
   if (!isDefault && configOptions?.logo) {
     return (
       <ImageLogo className={className} onClick={onClick}>
-        <img alt="logo" height="40px" src={configOptions.logo} />
+        <img alt={title} height="40px" src={configOptions.logo} />
       </ImageLogo>
     );
+  } else {
+    return <StyledLogo className={className} onClick={onClick} size={size} title={title} />;
   }
-  return <StyledLogo className={className} onClick={onClick} size={size} />;
 };
 
 export default Logo;

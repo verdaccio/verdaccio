@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 
 import { store } from '../../store';
-import { renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
+import { act, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import Home from './Home';
 
 // force the windows to expand to display items
@@ -18,12 +18,16 @@ const ComponentSideBar: React.FC = () => (
 
 describe('Home', () => {
   test('should render titles', async () => {
-    renderWithStore(<ComponentSideBar />, store);
+    act(() => {
+      renderWithStore(<ComponentSideBar />, store);
+    });
     await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(5));
   });
 
   test('should render loading', async () => {
-    renderWithStore(<ComponentSideBar />, store);
+    act(() => {
+      renderWithStore(<ComponentSideBar />, store);
+    });
     await waitFor(() => expect(screen.getByTestId('loading')).toBeInTheDocument());
   });
 });

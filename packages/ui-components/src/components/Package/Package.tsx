@@ -12,7 +12,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Link, RootState, Theme } from '../../';
+import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
 import { url, utils } from '../../utils';
@@ -140,25 +140,25 @@ const Package: React.FC<PackageInterface> = ({
   const renderHomePageLink = (): React.ReactNode =>
     homepage &&
     url.isURL(homepage) && (
-      <Link external={true} to={homepage}>
+      <LinkExternal to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
           <IconButton aria-label={t('package.homepage')} size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
-      </Link>
+      </LinkExternal>
     );
 
   const renderBugsLink = (): React.ReactNode =>
     bugs?.url &&
     url.isURL(bugs.url) && (
-      <Link external={true} to={bugs.url}>
+      <LinkExternal to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
           <IconButton aria-label={t('package.bugs')} size="large">
             <BugReport />
           </IconButton>
         </Tooltip>
-      </Link>
+      </LinkExternal>
     );
 
   const renderDownloadLink = (): React.ReactNode =>

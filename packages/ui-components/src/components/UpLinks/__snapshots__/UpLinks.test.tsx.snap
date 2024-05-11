@@ -260,7 +260,26 @@ exports[`<UpLinks /> component should render the component when there is no upli
 exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 {
   "asFragment": [Function],
-  "baseElement": .emotion-1 {
+  "baseElement": .emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  background-image: unset;
+  overflow: hidden;
+}
+
+.emotion-1 {
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-3 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -269,7 +288,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   font-weight: 700;
 }
 
-.emotion-2 {
+.emotion-4 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -278,7 +297,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-bottom: 8px;
 }
 
-.emotion-3 {
+.emotion-5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -303,23 +322,23 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-right: 16px;
 }
 
-.emotion-3.Mui-focusVisible {
+.emotion-5.Mui-focusVisible {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-3.Mui-selected {
+.emotion-5.Mui-selected {
   background-color: rgba(75, 94, 64, 0.08);
 }
 
-.emotion-3.Mui-selected.Mui-focusVisible {
+.emotion-5.Mui-selected.Mui-focusVisible {
   background-color: rgba(75, 94, 64, 0.2);
 }
 
-.emotion-3.Mui-disabled {
+.emotion-5.Mui-disabled {
   opacity: 0.38;
 }
 
-.emotion-5 {
+.emotion-7 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -333,7 +352,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   opacity: 0.6;
 }
 
-.emotion-6 {
+.emotion-8 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -342,7 +361,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   display: block;
 }
 
-.emotion-7 {
+.emotion-9 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -353,43 +372,70 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 
 <body>
     <div>
-      <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
       >
-        uplinks.title
-      </h6>
-      <ul
-        class="MuiList-root MuiList-padding emotion-2"
-      >
-        <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
+        <div
+          class="MuiCardContent-root emotion-1"
         >
-          <div
-            class="MuiListItemText-root emotion-4 emotion-5"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1 emotion-2 emotion-3"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
-            >
-              npmjs
-            </span>
-          </div>
-          <div
-            class="emotion-7 emotion-8"
-          />
-          <div
-            class="MuiListItemText-root emotion-4 emotion-5"
+            uplinks.title
+          </h6>
+          <ul
+            class="MuiList-root MuiList-padding emotion-4"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-5"
             >
-              6 years ago
-            </span>
-          </div>
-        </li>
-      </ul>
+              <div
+                class="MuiListItemText-root emotion-6 emotion-7"
+              >
+                <span
+                  class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-8"
+                >
+                  npmjs
+                </span>
+              </div>
+              <div
+                class="emotion-9 emotion-10"
+              />
+              <div
+                class="MuiListItemText-root emotion-6 emotion-7"
+              >
+                <span
+                  class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-8"
+                >
+                  6 years ago
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </body>,
-  "container": .emotion-1 {
+  "container": .emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  background-image: unset;
+  overflow: hidden;
+}
+
+.emotion-1 {
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-3 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -398,7 +444,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   font-weight: 700;
 }
 
-.emotion-2 {
+.emotion-4 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -407,7 +453,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-bottom: 8px;
 }
 
-.emotion-3 {
+.emotion-5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -432,23 +478,23 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-right: 16px;
 }
 
-.emotion-3.Mui-focusVisible {
+.emotion-5.Mui-focusVisible {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-3.Mui-selected {
+.emotion-5.Mui-selected {
   background-color: rgba(75, 94, 64, 0.08);
 }
 
-.emotion-3.Mui-selected.Mui-focusVisible {
+.emotion-5.Mui-selected.Mui-focusVisible {
   background-color: rgba(75, 94, 64, 0.2);
 }
 
-.emotion-3.Mui-disabled {
+.emotion-5.Mui-disabled {
   opacity: 0.38;
 }
 
-.emotion-5 {
+.emotion-7 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -462,7 +508,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   opacity: 0.6;
 }
 
-.emotion-6 {
+.emotion-8 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -471,7 +517,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   display: block;
 }
 
-.emotion-7 {
+.emotion-9 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -481,40 +527,48 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 }
 
 <div>
-    <h6
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
     >
-      uplinks.title
-    </h6>
-    <ul
-      class="MuiList-root MuiList-padding emotion-2"
-    >
-      <li
-        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
+      <div
+        class="MuiCardContent-root emotion-1"
       >
-        <div
-          class="MuiListItemText-root emotion-4 emotion-5"
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle1 emotion-2 emotion-3"
         >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
-          >
-            npmjs
-          </span>
-        </div>
-        <div
-          class="emotion-7 emotion-8"
-        />
-        <div
-          class="MuiListItemText-root emotion-4 emotion-5"
+          uplinks.title
+        </h6>
+        <ul
+          class="MuiList-root MuiList-padding emotion-4"
         >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+          <li
+            class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-5"
           >
-            6 years ago
-          </span>
-        </div>
-      </li>
-    </ul>
+            <div
+              class="MuiListItemText-root emotion-6 emotion-7"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-8"
+              >
+                npmjs
+              </span>
+            </div>
+            <div
+              class="emotion-9 emotion-10"
+            />
+            <div
+              class="MuiListItemText-root emotion-6 emotion-7"
+            >
+              <span
+                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-8"
+              >
+                6 years ago
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

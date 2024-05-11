@@ -1,3 +1,5 @@
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import React from 'react';
@@ -21,20 +23,22 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   }
 
   return (
-    <>
-      <StyledText variant="subtitle1">{t('uplinks.title')}</StyledText>
-      <List>
-        {Object.keys(uplinks)
-          .reverse()
-          .map((name) => (
-            <ListItem key={name}>
-              <ListItemText>{name}</ListItemText>
-              <Spacer />
-              <ListItemText>{utils.formatDateDistance(uplinks[name].fetched)}</ListItemText>
-            </ListItem>
-          ))}
-      </List>
-    </>
+    <Card>
+      <CardContent>
+        <StyledText variant="subtitle1">{t('uplinks.title')}</StyledText>
+        <List>
+          {Object.keys(uplinks)
+            .reverse()
+            .map((name) => (
+              <ListItem key={name}>
+                <ListItemText>{name}</ListItemText>
+                <Spacer />
+                <ListItemText>{utils.formatDateDistance(uplinks[name].fetched)}</ListItemText>
+              </ListItem>
+            ))}
+        </List>
+      </CardContent>
+    </Card>
   );
 };
 

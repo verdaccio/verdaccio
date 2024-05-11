@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from '../../Theme';
@@ -49,13 +49,13 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
               return null;
             }
             return (
-              <>
+              <Fragment key={dependencyType}>
                 <DependencyBlock
                   dependencies={dependencies}
                   key={dependencyType}
                   title={dependencyType}
                 />
-              </>
+              </Fragment>
             );
           })}
         </CardContent>

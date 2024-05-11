@@ -50,15 +50,17 @@ const Footer = () => {
               <Icon>
                 <FlagsIcon.TW />
               </Icon>
+              <Icon>
+                <FlagsIcon.CA />
+              </Icon>
             </Flags>
           </ToolTip>
         </Left>
         <Right>
           {configOptions?.version && (
             <>
-              <span data-testid="version-footer">{t('footer.powered-by')}</span>
-              <Logo isDefault={true} onClick={goToVerdaccioWebsite} size="x-small" />
-              {`/ ${configOptions.version}`}
+              <PoweredBy data-testid="version-footer">{t('footer.powered-by')}</PoweredBy>
+              <Logo onClick={goToVerdaccioWebsite} size="x-small" title={configOptions.version} />
             </>
           )}
         </Right>
@@ -69,13 +71,17 @@ const Footer = () => {
 
 export default Footer;
 
+const PoweredBy = styled('span')(() => ({
+  paddingRight: '5px',
+}));
+
 const StyledEarth = styled(Earth)<{ theme?: Theme }>(({ theme }) => ({
   margin: theme.spacing(0, 1),
 }));
 
 const Flags = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   display: 'inline-grid',
-  gridTemplateColumns: 'repeat(8, max-content)',
+  gridTemplateColumns: 'repeat(10, max-content)',
   gridGap: theme.spacing(0, 1),
   position: 'absolute',
   background: theme?.palette.greyAthens,

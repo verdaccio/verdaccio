@@ -68,7 +68,7 @@ const HeaderInfoDialog: React.FC<Props> = ({
         {tabPanels
           ? tabPanels.map((item, index) => {
               return (
-                <TabPanel index={index} key={item.key} value={value}>
+                <TabPanel index={index} key={index} value={value}>
                   {item.element}
                 </TabPanel>
               );
