@@ -71,7 +71,7 @@ If the secret length is **64 characters** long:
 
 Go to the [storage location](cli.md) and edit manually the secret to be 32 characters long.
 
-##### Option 2: Automatically (since v5.30.3)
+##### Option 2: Automatically (since v5.31.0)
 
 The `migrateToSecureLegacySignature` property is used to generate a new secret token if the length is 64 characters.
 
@@ -141,7 +141,7 @@ This warning indicates that Node.js has deprecated a function utilized by the le
 
 If verdaccio runs on **Node.js 22** or higher, you will not see this warning since a new modern legacy signature has been implemented.
 
-The **migrateToSecureLegacySignature** property is only available for versions higher than 5.30.3 and is **false** by default.
+The **migrateToSecureLegacySignature** property is only available for versions higher than 5.31.0 and is **false** by default.
 
 :::info
 
