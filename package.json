@@ -173,7 +173,7 @@
     "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
   },
   "engines": {
-    "node": ">=12.18"
+    "node": ">=14"
   },
   "preferGlobal": true,
   "license": "MIT",
