@@ -45,3 +45,6 @@ CHANGELOG.md
 SECURITY.md
 CONTRIBUTING.md
 CONTRIBUTORS.md
+prettier.config.js
+eslintrc.cjs
+babel.config.js
