@@ -21,7 +21,7 @@ npm i -g generator-verdaccio-plugin
 
 :::caution
 
-generator-verdaccio-plugin does not compality yeoman version 5 now, you must use version 4 correctly.
+`generator-verdaccio-plugin` is not compatible with yeoman version 5 yet. You must use version 4 for it to function correctly.
 
 :::
 
