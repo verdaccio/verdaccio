@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.31.0](https://github.com/verdaccio/verdaccio/compare/v5.30.3...v5.31.0) (2024-05-11)
+
+
+### Features
+
+* add property forceMigrateToSecureLegacySignature ([#4625](https://github.com/verdaccio/verdaccio/issues/4625)) ([2941522](https://github.com/verdaccio/verdaccio/commit/2941522099fabb4d58280672191a2d95193f825c))
+
+
+### Bug Fixes
+
+* **deps:** update dependency express to v4.19.2 ([#4596](https://github.com/verdaccio/verdaccio/issues/4596)) ([4123dbc](https://github.com/verdaccio/verdaccio/commit/4123dbc8bd9a77bccc81d1947042e141793c79d1))
+
 ### [5.30.3](https://github.com/verdaccio/verdaccio/compare/v5.30.2...v5.30.3) (2024-04-06)
 
 
