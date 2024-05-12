@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 import startVerdaccioDeault, { startVerdaccio } from '../../../../src';
-import { parseConfigFile } from '../../../../src/lib/utils';
+import { parseConfigFile } from '@verdaccio/config';
 
 describe('bootstrap legacy', () => {
   describe('startVerdaccio', () => {
