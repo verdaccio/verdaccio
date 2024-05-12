@@ -47,9 +47,7 @@ const Dist: FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
           <DistChip name={t('sidebar.distribution.size')}>{fileSizeSI(dist.unpackedSize)}</DistChip>
         ) : null}
 
-        <DistChip name={t('sidebar.distribution.license')}>
-          {formatLicense(license as string)}
-        </DistChip>
+        <DistChip name={t('sidebar.distribution.license')}>{formatLicense(license)}</DistChip>
       </DistListItem>
     </List>
   );

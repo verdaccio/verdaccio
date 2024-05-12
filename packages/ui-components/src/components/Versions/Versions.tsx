@@ -58,15 +58,21 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   return (
     <Card>
       <CardContent>
-        <Box data-testid="versions" sx={{ m: 1 }}>
+        <Box data-testid="versions" sx={{ m: 2 }}>
           {hasDistTags ? (
             <>
-              <StyledText variant="subtitle1">{t('versions.current-tags')}</StyledText>
+              <StyledText variant="subtitle1">
+                {t('versions.current-tags')}
+                {` (${Object.keys(distTags).length})`}
+              </StyledText>
               <VersionsTagList packageName={packageName} tags={distTags} time={time} />
             </>
           ) : null}
           <>
-            <StyledText variant="subtitle1">{t('versions.version-history')}</StyledText>
+            <StyledText variant="subtitle1">
+              {t('versions.version-history')}
+              {` (${Object.keys(packageVersions).length})`}
+            </StyledText>
             <TextField
               helperText={t('versions.search.placeholder')}
               onChange={debounce((e) => {

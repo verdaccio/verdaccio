@@ -63,7 +63,13 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     );
   }
 
-  return <NoItems text={t('dependencies.has-no-dependencies', { package: name })} />;
+  return (
+    <CardWrap>
+      <CardContent>
+        <NoItems text={t('dependencies.has-no-dependencies', { package: name })} />
+      </CardContent>
+    </CardWrap>
+  );
 };
 
 export default Dependencies;

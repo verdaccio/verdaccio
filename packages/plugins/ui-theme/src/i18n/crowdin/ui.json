@@ -6,7 +6,8 @@
     "visit-home-page": "Visit homepage",
     "open-an-issue": "Open an issue",
     "download-tarball": "Download tarball",
-    "raw": "Display manifest"
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}} {{version}}"
   },
   "dialog": {
     "registry-info": {
@@ -105,6 +106,7 @@
     },
     "installation": {
       "title": "Installation",
+      "latest": "latest version",
       "global": "global package",
       "yarnModern": "yarn modern syntax"
     },
@@ -115,7 +117,7 @@
       "title": "Author"
     },
     "distribution": {
-      "title": "Latest Distribution",
+      "title": "Distribution",
       "license": "License",
       "size": "Size",
       "file-count": "File Count"

@@ -60,17 +60,24 @@ describe('<Install />', () => {
 });
 
 describe('getGlobalInstall', () => {
+  test('no latest', () => {
+    expect(getGlobalInstall(false, false, '1.0.0', 'foo')).toEqual('foo@1.0.0');
+  });
+  test('latest', () => {
+    expect(getGlobalInstall(true, false, '1.0.0', 'foo')).toEqual('foo');
+  });
+
   test('no global', () => {
-    expect(getGlobalInstall(false, 'foo', '1.0.0')).toEqual('1.0.0@foo');
+    expect(getGlobalInstall(false, false, '1.0.0', 'foo')).toEqual('foo@1.0.0');
   });
   test('global', () => {
-    expect(getGlobalInstall(true, 'foo', '1.0.0')).toEqual('-g 1.0.0@foo');
+    expect(getGlobalInstall(false, true, '1.0.0', 'foo')).toEqual('-g foo@1.0.0');
   });
 
   test('yarn no global', () => {
-    expect(getGlobalInstall(false, 'foo', '1.0.0', true)).toEqual('1.0.0@foo');
+    expect(getGlobalInstall(false, false, '1.0.0', 'foo', true)).toEqual('foo@1.0.0');
   });
   test('yarn global', () => {
-    expect(getGlobalInstall(true, 'foo', '1.0.0', true)).toEqual('1.0.0@foo');
+    expect(getGlobalInstall(false, true, '1.0.0', 'foo', true)).toEqual('foo@1.0.0');
   });
 });

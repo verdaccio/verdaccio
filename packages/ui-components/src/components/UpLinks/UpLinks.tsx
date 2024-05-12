@@ -7,8 +7,23 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { utils } from '../../utils';
+import { LinkExternal } from '../LinkExternal';
 import NoItems from '../NoItems';
 import { ListItemText, Spacer, StyledText } from './styles';
+
+const UpLinkLink: React.FC<{ packageName: string; uplinkName: string }> = ({
+  packageName,
+  uplinkName,
+}) => {
+  const link = utils.getUplink(uplinkName, packageName);
+  return link ? (
+    <LinkExternal href={link} variant="outline">
+      {uplinkName}
+    </LinkExternal>
+  ) : (
+    <>{uplinkName}</>
+  );
+};
 
 const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
@@ -20,22 +35,37 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { _uplinks: uplinks, latest } = packageMeta;
 
   if (Object.keys(uplinks).length === 0) {
-    return <NoItems data-testid="no-uplinks" text={t('uplinks.no-items', { name: latest.name })} />;
+    return (
+      <Card>
+        <CardContent>
+          <NoItems data-testid="no-uplinks" text={t('uplinks.no-items', { name: latest.name })} />
+        </CardContent>
+      </Card>
+    );
   }
 
   return (
     <Card>
       <CardContent>
-        <Box data-testid="uplinks" sx={{ m: 1 }}>
+        <Box data-testid="uplinks" sx={{ m: 2 }}>
           <StyledText variant="subtitle1">{t('uplinks.title')}</StyledText>
-          <List>
+          <List dense={true}>
             {Object.keys(uplinks)
               .reverse()
               .map((name) => (
-                <ListItem key={name}>
-                  <ListItemText>{name}</ListItemText>
+                <ListItem
+                  className="version-item"
+                  data-testid={`uplink-${name}`}
+                  key={name}
+                  sx={{ pr: 0 }}
+                >
+                  <ListItemText>
+                    <UpLinkLink packageName={latest.name} uplinkName={name} />
+                  </ListItemText>
                   <Spacer />
-                  <ListItemText>{utils.formatDateDistance(uplinks[name].fetched)}</ListItemText>
+                  <ListItemText title={utils.formatDate(uplinks[name].fetched)}>
+                    {utils.formatDateDistance(uplinks[name].fetched)}
+                  </ListItemText>
                 </ListItem>
               ))}
           </List>

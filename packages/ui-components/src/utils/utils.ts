@@ -6,7 +6,7 @@ import isString from 'lodash/isString';
 
 import { UpLinks } from '@verdaccio/types';
 
-import { LicenseInterface, Time } from '../types/packageMeta';
+import { Time } from '../types/packageMeta';
 
 export const TIMEFORMAT = 'L LTS';
 
@@ -19,7 +19,7 @@ dayjs.extend(localizedFormat);
  */
 // License should use type License defined above, but conflicts with the unit test that provide array or empty object
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function formatLicense(license: string | LicenseInterface): string | undefined {
+export function formatLicense(license: any): string | undefined {
   if (isString(license)) {
     return license;
   }
@@ -103,6 +103,15 @@ export function getAuthorName(authorName?: string): string {
   }
 
   return authorName;
+}
+
+export function getUplink(upLinkName: string, packageName: string): string | null {
+  // TODO: make this a config like "uplinks: npmjs: web: https://www.npmjs.com/package/"
+  switch (upLinkName) {
+    case 'npmjs':
+      return `https://www.npmjs.com/package/${packageName}`;
+  }
+  return null;
 }
 
 export function fileSizeSI(

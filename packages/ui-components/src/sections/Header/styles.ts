@@ -16,19 +16,6 @@ export const Greetings = styled('span')({
   margin: '0 5px 0 0',
 });
 
-export const RightSide = styled(Toolbar)({
-  display: 'flex',
-  padding: 0,
-  marginRight: 0,
-});
-
-export const LeftSide = styled(Toolbar)({
-  display: 'flex',
-  padding: 0,
-  marginLeft: 0,
-  flex: 1,
-});
-
 export const MobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   alignItems: 'center',
   display: 'flex',
@@ -54,7 +41,7 @@ export const SettingsButtom = styled(IconButton)({});
 export const SearchWrapper = styled('div')({
   display: 'none',
   width: '100%',
-  marginLeft: 24,
+  marginLeft: 20,
 });
 
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({

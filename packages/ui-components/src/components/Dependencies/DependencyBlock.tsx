@@ -45,7 +45,6 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
   }
 
   function labelText(title: string, name: string, version: string): string {
-    // Bundle dependencies don't have a version
     if (title === 'bundleDependencies') {
       return t('dependencies.dependency-block-bundle', { package: name });
     } else {
@@ -59,19 +58,24 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
         {`${title} (${deps.length})`}
       </StyledText>
       <Tags>
-        {deps.map(([name, version]: [string, string]) => (
-          <Tag
-            className={'dep-tag'}
-            clickable={true}
-            data-testid={name}
-            key={name}
-            label={labelText(title, name, version)}
-            // eslint-disable-next-line
-            onClick={() => {
-              handleClick(name);
-            }}
-          />
-        ))}
+        {deps.map(([name, version]: [string, string]) => {
+          // Bundle dependencies are stored as array, for example [ 0: "semver" ]
+          // so the package name arrives here in the version field
+          const packageName = title == 'bundleDependencies' ? version : name;
+          return (
+            <Tag
+              className={'dep-tag'}
+              clickable={true}
+              data-testid={packageName}
+              key={packageName}
+              label={labelText(title, packageName, version)}
+              // eslint-disable-next-line
+              onClick={() => {
+                handleClick(packageName);
+              }}
+            />
+          );
+        })}
       </Tags>
     </Box>
   );

@@ -39,7 +39,7 @@ describe('<Header /> component with logged in state', () => {
     cleanup();
   });
 
-  test('should load the component n logged out state', () => {
+  test('should load the component in logged out state', () => {
     renderWithStore(
       <Router>
         <Header />
@@ -59,7 +59,9 @@ describe('<Header /> component with logged in state', () => {
       </Router>,
       store
     );
-    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
+    act(() => {
+      store.dispatch.login.logInUser({ username: 'store', token: '12345' });
+    });
 
     await waitFor(() => {
       expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();

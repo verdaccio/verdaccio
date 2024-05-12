@@ -9,6 +9,7 @@ import {
   formatRepository,
   getLastUpdatedPackageTime,
   getRecentReleases,
+  getUplink,
 } from './utils';
 
 // jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
@@ -110,6 +111,16 @@ describe('getRecentReleases', (): void => {
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);
+  });
+});
+
+describe('getUplink', (): void => {
+  test('getUplink for npmjs', () => {
+    expect(getUplink('npmjs', 'semver')).toEqual('https://www.npmjs.com/package/semver');
+  });
+
+  test('getUplink for server1', () => {
+    expect(getUplink('server1', 'semver')).toEqual(null);
   });
 });
 

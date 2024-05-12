@@ -1,7 +1,7 @@
 export type ModuleType = 'commonjs' | 'module';
 
 export type Latest = {
-  author?: Author;
+  author?: string | Author;
   deprecated?: string;
   name: string;
   dist?: {
@@ -15,7 +15,7 @@ export type Latest = {
     pnpm?: string;
     yarn?: string;
   };
-  license?: undefined | LicenseInterface | string;
+  license?: string | LicenseInterface;
   version: string;
   homepage?: string;
   bugs?: {
@@ -76,7 +76,7 @@ export interface Version {
   version: string;
   author?: string | Author;
   description?: string;
-  license?: string;
+  license?: string | LicenseInterface;
   main?: string;
   keywords?: string[];
   deprecated?: string;

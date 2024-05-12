@@ -22,6 +22,12 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleLatestSelect = () => {
+    const statusLatest = !localSettings[packageName]?.latest;
+    updateSettings({ ...localSettings, [packageName]: { latest: statusLatest } });
+    setAnchorEl(null);
+  };
+
   const handleGlobalSelect = () => {
     const statusGlobal = !localSettings[packageName]?.global;
     updateSettings({ ...localSettings, [packageName]: { global: statusGlobal } });
@@ -38,6 +44,7 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
     setAnchorEl(null);
   };
 
+  const statusLatest = localSettings[packageName]?.latest;
   const statusGlobal = localSettings[packageName]?.global;
   return (
     <>
@@ -56,10 +63,27 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
           'aria-labelledby': 'basic-button',
         }}
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
         id="basic-menu"
         onClose={handleClose}
         open={open}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
+        <MenuItem onClick={handleLatestSelect}>
+          {' '}
+          {statusLatest === true ? (
+            <ListItemIcon>
+              <Check />
+            </ListItemIcon>
+          ) : null}
+          {t('sidebar.installation.latest')}
+        </MenuItem>
         <MenuItem onClick={handleGlobalSelect}>
           {' '}
           {statusGlobal === true ? (
