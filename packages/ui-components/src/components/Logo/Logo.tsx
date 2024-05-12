@@ -33,9 +33,9 @@ const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, ti
         <img alt={title} height="40px" src={configOptions.logo} />
       </ImageLogo>
     );
-  } else {
-    return <StyledLogo className={className} onClick={onClick} size={size} title={title} />;
   }
+
+  return <StyledLogo className={className} onClick={onClick} size={size} title={title} />;
 };
 
 export default Logo;

@@ -59,9 +59,7 @@ describe('<Header /> component with logged in state', () => {
       </Router>,
       store
     );
-    act(() => {
-      store.dispatch.login.logInUser({ username: 'store', token: '12345' });
-    });
+    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
 
     await waitFor(() => {
       expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();

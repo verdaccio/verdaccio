@@ -33,7 +33,7 @@ describe('<Dist /> component', () => {
     expect(getByText('sidebar.distribution.size')).toBeInTheDocument();
     expect(getByText('sidebar.distribution.size')).toBeInTheDocument();
     expect(getByText('7', { exact: false })).toBeInTheDocument();
-    expect(getByText('10.00 Bytes', { exact: false })).toBeInTheDocument();
+    expect(getByText('10 Bytes', { exact: false })).toBeInTheDocument();
   });
 
   test('should render the component with license as string', () => {

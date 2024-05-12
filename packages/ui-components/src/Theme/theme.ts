@@ -103,10 +103,6 @@ export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
         'Arial',
         'sans-serif',
       ].join(','),
-      fontWeightLight: fontWeight.light,
-      fontWeightRegular: fontWeight.regular,
-      fontWeightMedium: fontWeight.semiBold,
-      fontWeightBold: fontWeight.bold,
     },
     palette: {
       mode: themeMode,

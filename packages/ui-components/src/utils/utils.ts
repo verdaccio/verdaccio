@@ -19,7 +19,7 @@ dayjs.extend(localizedFormat);
  */
 // License should use type License defined above, but conflicts with the unit test that provide array or empty object
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export function formatLicense(license: any | LicenseInterface): string | undefined {
+export function formatLicense(license: string | LicenseInterface): string | undefined {
   if (isString(license)) {
     return license;
   }

@@ -54,7 +54,7 @@ export const SettingsButtom = styled(IconButton)({});
 export const SearchWrapper = styled('div')({
   display: 'none',
   width: '100%',
-  marginRight: 24,
+  marginLeft: 24,
 });
 
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({

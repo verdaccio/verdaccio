@@ -31,10 +31,10 @@ describe('Sidebar', () => {
     jest.clearAllMocks();
   });
   test('should render titles', async () => {
+    mockPkgName.mockReturnValue('jquery');
     renderWithStore(<ComponentSideBar />, store);
-    await waitFor(() => expect(screen.getByText('jquery')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
 
-    expect(screen.getByText(`jquery`)).toBeInTheDocument();
     expect(screen.getByText(`sidebar.detail.latest-version`, { exact: false })).toBeInTheDocument();
     expect(
       screen.getByText(`sidebar.detail.published a year ago`, { exact: false })
@@ -43,9 +43,10 @@ describe('Sidebar', () => {
   });
 
   test('should render commonJS', async () => {
+    mockPkgName.mockReturnValue('jquery');
     renderWithStore(<ComponentSideBar />, store);
 
-    await waitFor(() => expect(screen.getByText('jquery')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
     expect(screen.getByAltText('commonjs')).toBeInTheDocument();
   });
 
@@ -61,7 +62,7 @@ describe('Sidebar', () => {
     mockPkgName.mockReturnValue('got');
     renderWithStore(<ComponentSideBar />, store);
 
-    await waitFor(() => expect(screen.getByText('got')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getAllByText('got')).toHaveLength(2));
     expect(screen.getByAltText('es6 modules')).toBeInTheDocument();
   });
 });

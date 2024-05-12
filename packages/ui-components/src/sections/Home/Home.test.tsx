@@ -17,6 +17,9 @@ const ComponentSideBar: React.FC = () => (
 );
 
 describe('Home', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
   test('should render titles', async () => {
     renderWithStore(<ComponentSideBar />, store);
     await waitFor(() => expect(screen.getAllByTestId('package-item-list')).toHaveLength(5));

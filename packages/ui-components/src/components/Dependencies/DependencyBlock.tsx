@@ -35,8 +35,8 @@ export const Tag = styled(Chip)<{ theme?: Theme }>((props) => ({
 }));
 
 export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
-  const { t } = useTranslation();
   const history = useHistory();
+  const { t } = useTranslation();
   const theme = useTheme();
   const deps = Object.entries(dependencies);
 

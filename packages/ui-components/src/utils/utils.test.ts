@@ -127,7 +127,7 @@ describe('fileSizeSI', (): void => {
   });
 
   test('fileSizeSI as number 123', () => {
-    expect(fileSizeSI(0)).toEqual('123 Bytes');
+    expect(fileSizeSI(123)).toEqual('123 Bytes');
   });
 
   test('fileSizeSI as number 0', () => {

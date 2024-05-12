@@ -1,5 +1,5 @@
+import Link from '@mui/material/Link';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Logo, Search } from '../../';
 import { LeftSide, SearchWrapper } from './styles';
@@ -10,7 +10,9 @@ interface Props {
 
 const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
   <LeftSide>
-    <Logo onClick={useHistory().push('/')} size="small" />
+    <Link to={'/'}>
+      <Logo size="small" />
+    </Link>
     {showSearch && (
       <SearchWrapper data-testid="search-container">
         <Search />

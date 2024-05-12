@@ -44,6 +44,8 @@ exports[`<Author /> component should render the component in default state 1`] =
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -97,6 +99,7 @@ exports[`<Author /> component should render the component in default state 1`] =
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 8px;
   margin-right: 8px;
 }
 
@@ -194,6 +197,8 @@ exports[`<Author /> component should render the component in default state 1`] =
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -247,6 +252,7 @@ exports[`<Author /> component should render the component in default state 1`] =
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 8px;
   margin-right: 8px;
 }
 
@@ -399,6 +405,8 @@ exports[`<Author /> component should render the component when there is no autho
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -452,6 +460,7 @@ exports[`<Author /> component should render the component when there is no autho
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 8px;
   margin-right: 8px;
 }
 
@@ -544,6 +553,8 @@ exports[`<Author /> component should render the component when there is no autho
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -597,6 +608,7 @@ exports[`<Author /> component should render the component when there is no autho
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 8px;
   margin-right: 8px;
 }
 
