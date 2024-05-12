@@ -22,9 +22,9 @@ const InstallListItemText = styled(ListItemText)({
 });
 
 const PackageMangerAvatar = styled(Avatar)({
-  borderRadius: '0px',
   backgroundColor: 'transparent',
   padding: 0,
+  marginLeft: 0,
 });
 
 export enum DependencyManager {

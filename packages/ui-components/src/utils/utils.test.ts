@@ -2,6 +2,7 @@ import MockDate from 'mockdate';
 
 import { packageMeta } from './__partials__/packageMeta';
 import {
+  fileSizeSI,
   formatDate,
   formatDateDistance,
   formatLicense,
@@ -109,5 +110,27 @@ describe('getRecentReleases', (): void => {
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);
+  });
+});
+
+describe('fileSizeSI', (): void => {
+  test('fileSizeSI as number 1234567', () => {
+    expect(fileSizeSI(1234567)).toEqual('1.2 MB');
+  });
+
+  test('fileSizeSI as number 9876', () => {
+    expect(fileSizeSI(9876)).toEqual('9.9 kB');
+  });
+
+  test('fileSizeSI as number 1000', () => {
+    expect(fileSizeSI(1000)).toEqual('1.0 kB');
+  });
+
+  test('fileSizeSI as number 123', () => {
+    expect(fileSizeSI(0)).toEqual('123 Bytes');
+  });
+
+  test('fileSizeSI as number 0', () => {
+    expect(fileSizeSI(0)).toEqual('0 Bytes');
   });
 });

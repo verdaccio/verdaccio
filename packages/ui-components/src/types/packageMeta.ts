@@ -32,6 +32,7 @@ export type Latest = {
   funding?: Funding;
   maintainers?: Developer[];
   contributors?: Developer[];
+  keywords?: string | string[];
 };
 
 export interface PackageMetaInterface {

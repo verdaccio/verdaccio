@@ -9,7 +9,7 @@ import { Link, Theme } from '../../';
 export const InnerNavBar = styled(Toolbar)({
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '0 15px',
+  padding: 0,
 });
 
 export const Greetings = styled('span')({
@@ -19,9 +19,13 @@ export const Greetings = styled('span')({
 export const RightSide = styled(Toolbar)({
   display: 'flex',
   padding: 0,
+  marginRight: 0,
 });
 
-export const LeftSide = styled(RightSide)({
+export const LeftSide = styled(Toolbar)({
+  display: 'flex',
+  padding: 0,
+  marginLeft: 0,
   flex: 1,
 });
 
@@ -50,6 +54,7 @@ export const SettingsButtom = styled(IconButton)({});
 export const SearchWrapper = styled('div')({
   display: 'none',
   width: '100%',
+  marginRight: 24,
 });
 
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
@@ -83,7 +88,7 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   `,
   [`@media (min-width: ${theme?.breakPoints.large}px)`]: css`
     ${InnerNavBar} {
-      padding: 0 20px;
+      padding: 0 16px;
     }
   `,
   [`@media (min-width: ${theme?.breakPoints.xlarge}px)`]: css`

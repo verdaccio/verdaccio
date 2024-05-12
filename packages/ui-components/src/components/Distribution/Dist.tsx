@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PackageMetaInterface } from '../../types/packageMeta';
+import { fileSizeSI, formatLicense } from '../../utils/utils';
 import { DistChips, DistListItem, StyledText } from './styles';
-import { fileSizeSI, formatLicense } from './utils';
 
 const DistChip: FC<{ name: string; children?: React.ReactElement | string }> = ({
   name,

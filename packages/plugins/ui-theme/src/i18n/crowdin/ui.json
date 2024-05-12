@@ -6,7 +6,7 @@
     "visit-home-page": "Visit homepage",
     "open-an-issue": "Open an issue",
     "download-tarball": "Download tarball",
-    "raw": "Raw Manifest"
+    "raw": "Display manifest"
   },
   "dialog": {
     "registry-info": {
@@ -71,7 +71,8 @@
   },
   "dependencies": {
     "has-no-dependencies": "{{package}} has no dependencies.",
-    "dependency-block": "{{package}}@{{version}}"
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
   },
   "form": {
     "username": "Username",
@@ -83,7 +84,7 @@
   },
   "form-validation": {
     "required-field": "This field is required",
-    "required-min-length": "This field required the min length of {{length}}",
+    "required-min-length": "This field required with a minimum length of {{length}}",
     "unable-to-sign-in": "Unable to sign in",
     "username-or-password-cant-be-empty": "Username or password can't be empty!"
   },
@@ -117,7 +118,10 @@
       "title": "Latest Distribution",
       "license": "License",
       "size": "Size",
-      "file-count": "file count"
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
     },
     "maintainers": {
       "title": "Maintainers"

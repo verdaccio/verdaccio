@@ -14,6 +14,8 @@ export const Inner = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
+  paddingLeft: 16,
+  paddingRight: 16,
   width: '100%',
   [`@media (min-width: ${theme?.breakPoints.medium}px)`]: {
     minWidth: 400,

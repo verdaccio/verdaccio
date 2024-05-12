@@ -24,7 +24,7 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent sx={{ p: 2 }}>
         <StyledText variant="subtitle1">{t('uplinks.title')}</StyledText>
         <List>
           {Object.keys(uplinks)

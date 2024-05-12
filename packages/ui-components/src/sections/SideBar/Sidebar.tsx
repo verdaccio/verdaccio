@@ -1,8 +1,6 @@
-import styled from '@emotion/styled';
 import Paper from '@mui/material/Paper';
 import React from 'react';
 
-import { Theme } from '../../Theme';
 import ActionBar from '../../components/ActionBar';
 import Author from '../../components/Author';
 import Developers, { DeveloperType } from '../../components/Developers';
@@ -10,6 +8,7 @@ import Dist from '../../components/Distribution';
 import Engines from '../../components/Engines';
 import FundButton from '../../components/FundButton';
 import Install from '../../components/Install';
+import Keywords from '../../components/Keywords';
 import Repository from '../../components/Repository';
 import SideBarTitle from '../../components/SideBarTitle';
 import { useConfig } from '../../providers';
@@ -35,7 +34,7 @@ const DetailSidebar: React.FC = () => {
   }
 
   return (
-    <StyledPaper sx={{ position: 'sticky', top: 0 }}>
+    <Paper sx={{ position: 'sticky', top: 0, p: 2, ml: 2 }}>
       <SideBarTitle
         description={packageMeta.latest?.description}
         hasTypes={typeof packageMeta.latest?.types === 'string'}
@@ -50,20 +49,17 @@ const DetailSidebar: React.FC = () => {
         showDownloadTarball={configOptions.showDownloadTarball}
         showRaw={configOptions.showRaw}
       />
-      <Install configOptions={configOptions} packageMeta={packageMeta} packageName={packageName} />
       <FundButton packageMeta={packageMeta} />
+      <Install configOptions={configOptions} packageMeta={packageMeta} packageName={packageName} />
       <Repository packageMeta={packageMeta} />
       <Engines packageMeta={packageMeta} />
       <Dist packageMeta={packageMeta} />
       <Author packageMeta={packageMeta} />
       <Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />
       <Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />
-    </StyledPaper>
+      <Keywords packageMeta={packageMeta} />
+    </Paper>
   );
 };
 
 export default DetailSidebar;
-
-const StyledPaper = styled(Paper)<{ theme?: Theme }>(({ theme }) => ({
-  padding: theme?.spacing(3, 2),
-}));

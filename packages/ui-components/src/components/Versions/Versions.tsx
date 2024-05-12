@@ -56,7 +56,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
 
   return (
     <Card>
-      <CardContent>
+      <CardContent sx={{ p: 2 }}>
         {hasDistTags ? (
           <>
             <StyledText variant="subtitle1">{t('versions.current-tags')}</StyledText>

@@ -33,13 +33,13 @@ const RepositoryListItem = styled(ListItem)({
 });
 
 const RepositoryListItemText = styled(ListItemText)({
-  padding: '0 10px',
+  padding: '0 0 0 10px',
   margin: 0,
 });
 
 const RepositoryAvatar = styled(Avatar)({
-  borderRadius: '0px',
-  padding: '0',
+  padding: 0,
+  marginLeft: 0,
   backgroundColor: 'transparent',
 });
 

@@ -35,13 +35,22 @@ export const Tag = styled(Chip)<{ theme?: Theme }>((props) => ({
 }));
 
 export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
-  const history = useHistory();
   const { t } = useTranslation();
+  const history = useHistory();
   const theme = useTheme();
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
     history.push(`/-/web/detail/${name}`);
+  }
+
+  function labelText(title: string, name: string, version: string): string {
+    // Bundle dependencies don't have a version
+    if (title === 'bundleDependencies') {
+      return t('dependencies.dependency-block-bundle', { package: name });
+    } else {
+      return t('dependencies.dependency-block', { package: name, version });
+    }
   }
 
   return (
@@ -50,13 +59,13 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
         {`${title} (${deps.length})`}
       </StyledText>
       <Tags>
-        {deps.map(([name, version]) => (
+        {deps.map(([name, version]: [string, string]) => (
           <Tag
             className={'dep-tag'}
             clickable={true}
             data-testid={name}
             key={name}
-            label={t('dependencies.dependency-block', { package: name, version })}
+            label={labelText(title, name, version)}
             // eslint-disable-next-line
             onClick={() => {
               handleClick(name);

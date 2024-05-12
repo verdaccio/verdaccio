@@ -31,8 +31,8 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     dependencies,
     devDependencies,
     peerDependencies,
-    bundleDependencies,
     optionalDependencies,
+    bundleDependencies,
   };
   const hasDependencies =
     hasKeys(dependencies) ||
