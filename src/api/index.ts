@@ -7,7 +7,7 @@ import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { final } from '@verdaccio/middleware';
+
 import { log } from '@verdaccio/middleware';
 import { Config as IConfig } from '@verdaccio/types';
 
@@ -19,7 +19,8 @@ import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import hookDebug from './debug';
 import apiEndpoint from './endpoint';
-import { errorReportingMiddleware, handleError, serveFavicon } from './middleware';
+import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
+import { serveFavicon } from './middleware';
 import webMiddleware from './web';
 
 const { version } = require('../../package.json');
