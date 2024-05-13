@@ -19,6 +19,7 @@ const ViewerTitle = (props: ViewerTitleProps) => {
 
   return (
     <DialogTitle sx={{ m: 0, p: 2 }}>
+      {children}
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -33,7 +34,6 @@ const ViewerTitle = (props: ViewerTitleProps) => {
           <CloseIcon />
         </IconButton>
       ) : null}
-      {children}
     </DialogTitle>
   );
 };
@@ -51,10 +51,7 @@ const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) =>
   return (
     <Dialog data-testid={'rawViewer--dialog'} fullScreen={true} open={isOpen}>
       <ViewerTitle id="viewer-title" onClose={onClose}>
-        {t('action-bar-action.raw-title', {
-          package: packageMeta.name,
-          version: packageMeta.version,
-        })}
+        {t('action-bar-action.raw-title', { package: packageMeta.latest.name })}
       </ViewerTitle>
       <DialogContent>
         <ReactJson

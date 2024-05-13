@@ -7,7 +7,7 @@
     "open-an-issue": "Open an issue",
     "download-tarball": "Download tarball",
     "raw": "View manifest",
-    "raw-title": "Manifest of {{package}} {{version}}"
+    "raw-title": "Manifest of {{package}}"
   },
   "dialog": {
     "registry-info": {
@@ -60,7 +60,7 @@
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
   },
   "package": {
-    "published-on": "Published on {{time}} •",
+    "published-on": "Published {{time}}",
     "version": "v{{version}}",
     "visit-home-page": "Visit homepage",
     "homepage": "Homepage",

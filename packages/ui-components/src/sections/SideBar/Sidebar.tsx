@@ -54,10 +54,10 @@ const DetailSidebar: React.FC = () => {
       <Repository packageMeta={packageMeta} />
       <Engines packageMeta={packageMeta} />
       <Dist packageMeta={packageMeta} />
+      <Keywords packageMeta={packageMeta} />
       <Author packageMeta={packageMeta} />
       <Developers packageMeta={packageMeta} type={DeveloperType.MAINTAINERS} />
       <Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />
-      <Keywords packageMeta={packageMeta} />
     </Paper>
   );
 };

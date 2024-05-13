@@ -6,6 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useTheme } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback } from 'react';
@@ -16,7 +17,7 @@ import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
 import { url, utils } from '../../utils';
-import Tag from './Tag';
+import KeywordList from '../Keywords/KeywordList';
 import {
   Author,
   Avatar,
@@ -28,7 +29,6 @@ import {
   PackageListItemText,
   PackageTitle,
   Published,
-  TagContainer,
   Wrapper,
   WrapperLink,
 } from './styles';
@@ -47,7 +47,7 @@ export interface PackageInterface {
   time?: number | string;
   author: PackageAuthor;
   description?: string;
-  keywords?: string[];
+  keywords?: PackageMetaInterface['latest']['keywords'];
   license?: PackageMetaInterface['latest']['license'];
   homepage?: string;
   bugs?: Bugs;
@@ -61,7 +61,7 @@ const Package: React.FC<PackageInterface> = ({
   description,
   dist,
   homepage,
-  keywords = [],
+  keywords,
   license,
   name: packageName,
   time,
@@ -132,8 +132,9 @@ const Package: React.FC<PackageInterface> = ({
     time && (
       <OverviewItem>
         <StyledTime />
-        <Published>{t('package.published-on', { time: utils.formatDate(time) })}</Published>
-        {utils.formatDateDistance(time)}
+        <Published title={utils.formatDate(time)}>
+          {t('package.published-on', { time: utils.formatDateDistance(time) })}
+        </Published>
       </OverviewItem>
     );
 
@@ -213,15 +214,14 @@ const Package: React.FC<PackageInterface> = ({
     );
   };
 
-  const renderSecondaryComponent = (): React.ReactNode => {
-    const tags = keywords.sort().map((keyword, index) => <Tag key={index}>{keyword}</Tag>);
-    return (
-      <>
-        <Description>{description}</Description>
-        {tags.length > 0 && <TagContainer>{tags}</TagContainer>}
-      </>
-    );
-  };
+  const renderSecondaryComponent = (): React.ReactNode => (
+    <div>
+      <Description>{description}</Description>
+      <List sx={{ p: 0 }}>
+        <KeywordList keywords={keywords} />
+      </List>
+    </div>
+  );
 
   const renderPackageListItemText = (): React.ReactNode => (
     <PackageListItemText

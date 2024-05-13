@@ -36,7 +36,7 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
 
   if (Object.keys(uplinks).length === 0) {
     return (
-      <Card>
+      <Card sx={{ mb: 2 }}>
         <CardContent>
           <NoItems data-testid="no-uplinks" text={t('uplinks.no-items', { name: latest.name })} />
         </CardContent>
@@ -45,7 +45,7 @@ const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   }
 
   return (
-    <Card>
+    <Card sx={{ mb: 2 }}>
       <CardContent>
         <Box data-testid="uplinks" sx={{ m: 2 }}>
           <StyledText variant="subtitle1">{t('uplinks.title')}</StyledText>

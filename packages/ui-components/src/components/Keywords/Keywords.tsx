@@ -1,23 +1,19 @@
-import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/styles';
-import React, { FC } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PackageMetaInterface } from '../../types/packageMeta';
+import KeywordList from './KeywordList';
 
-const Keywords: FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
+const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
   if (!packageMeta?.latest?.keywords) {
     return null;
   }
-
-  const { keywords } = packageMeta.latest;
-  const keywordList = typeof keywords === 'string' ? [keywords] : keywords;
 
   return (
     <List
@@ -30,11 +26,7 @@ const Keywords: FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) =>
         </Typography>
       }
     >
-      <ListItem sx={{ px: 0, flexWrap: 'wrap' }}>
-        {keywordList.sort().map((keyword, index) => (
-          <Chip key={index} label={keyword} sx={{ mt: 1, mr: 1 }} />
-        ))}
-      </ListItem>
+      <KeywordList keywords={packageMeta?.latest?.keywords} />
     </List>
   );
 };

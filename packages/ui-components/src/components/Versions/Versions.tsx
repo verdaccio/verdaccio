@@ -56,14 +56,14 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   };
 
   return (
-    <Card>
+    <Card sx={{ mb: 2 }}>
       <CardContent>
         <Box data-testid="versions" sx={{ m: 2 }}>
           {hasDistTags ? (
             <>
               <StyledText variant="subtitle1">
                 {t('versions.current-tags')}
-                {` (${Object.keys(distTags).length})`}
+                <span>{` (${Object.keys(distTags).length})`}</span>
               </StyledText>
               <VersionsTagList packageName={packageName} tags={distTags} time={time} />
             </>
@@ -71,7 +71,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
           <>
             <StyledText variant="subtitle1">
               {t('versions.version-history')}
-              {` (${Object.keys(packageVersions).length})`}
+              <span>{` (${Object.keys(packageVersions).length})`}</span>
             </StyledText>
             <TextField
               helperText={t('versions.search.placeholder')}

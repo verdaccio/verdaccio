@@ -45,8 +45,9 @@ export interface PackageMetaInterface {
 
 export interface Developer {
   name: string;
-  email: string;
-  avatar: string;
+  email?: string;
+  url?: string;
+  avatar?: string;
 }
 
 interface Funding {

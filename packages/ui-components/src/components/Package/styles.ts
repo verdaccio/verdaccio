@@ -83,16 +83,6 @@ export const IconButton = styled(MuiIconButton)({
   },
 });
 
-export const TagContainer = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  marginTop: 8,
-  marginBottom: 12,
-  display: 'flex',
-  flexWrap: 'wrap',
-  [`@media (max-width: ${theme?.breakPoints.medium}px)`]: {
-    display: 'none',
-  },
-}));
-
 export const PackageListItemText = styled(ListItemText)({
   paddingRight: 0,
 });

@@ -26,7 +26,7 @@ describe('<Package /> component', () => {
       author: {
         name: 'Sam',
       },
-      keywords: ['verdaccio'],
+      keywords: ['verdaccio-core'],
     };
 
     const wrapper = renderWithStore(
@@ -34,6 +34,7 @@ describe('<Package /> component', () => {
         <Package
           author={props.author}
           description={props.description}
+          keywords={props.keywords}
           license={props.license}
           name={props.name}
           time={props.time}

@@ -9,8 +9,8 @@ import { url } from '../../utils';
 import { LinkExternal } from '../LinkExternal';
 
 const StyledLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
-  marginTop: theme?.spacing(1),
-  marginBottom: theme?.spacing(1),
+  marginTop: theme?.spacing(2),
+  marginBottom: theme?.spacing(2),
   textDecoration: 'none',
   display: 'block',
 }));

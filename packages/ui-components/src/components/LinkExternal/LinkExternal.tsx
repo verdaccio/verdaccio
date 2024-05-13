@@ -10,6 +10,7 @@ const LinkExternal = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
       ref={ref}
       rel="noopener noreferrer"
       target="_blank"
+      underline="hover"
       variant={variant ?? 'caption'}
       {...rest}
     />

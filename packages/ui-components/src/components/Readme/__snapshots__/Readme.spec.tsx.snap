@@ -12,6 +12,7 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   background-image: unset;
   overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .emotion-1 {
@@ -23,7 +24,7 @@ exports[`<Readme /> component should load the component in default state 1`] = `
 }
 
 .emotion-2 {
-  margin: 8px;
+  margin: 16px;
 }
 
 .emotion-3 ul {
@@ -69,6 +70,7 @@ exports[`<Readme /> component should load the component in default state 1`] = `
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   background-image: unset;
   overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .emotion-1 {
@@ -80,7 +82,7 @@ exports[`<Readme /> component should load the component in default state 1`] = `
 }
 
 .emotion-2 {
-  margin: 8px;
+  margin: 16px;
 }
 
 .emotion-3 ul {
