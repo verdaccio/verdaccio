@@ -4,7 +4,6 @@ import semver from 'semver';
 import { URL } from 'url';
 import validator from 'validator';
 
-import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
 import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
@@ -472,4 +471,4 @@ export function hasLogin(config: Config) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 
-export { buildTokenUtil as buildToken, parseConfigFile };
+export { buildTokenUtil as buildToken };

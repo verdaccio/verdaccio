@@ -202,8 +202,8 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
-  pnpm7:
-    name: 'pnpm:7:jest example'
+  pnpm9:
+    name: 'pnpm:9:jest example'
     runs-on: ubuntu-latest
 
     steps:
@@ -214,7 +214,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 'install latest pnpm'
-        run: npm i -g pnpm@latest-7
+        run: npm i -g pnpm@latest-9
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'

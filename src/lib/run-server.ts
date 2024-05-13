@@ -6,13 +6,12 @@ import https from 'https';
 import _, { assign } from 'lodash';
 import path from 'path';
 
+import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { Config, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses } from './cli/utils';
-import findConfigFile from './config-path';
 import { API_ERROR } from './constants';
-import { parseConfigFile } from './utils';
 
 const debug = buildDebug('verdaccio');
 

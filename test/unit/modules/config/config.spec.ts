@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import path from 'path';
 
+import { parseConfigFile } from '@verdaccio/config';
+
 import Config from '../../../../src/lib/config';
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { parseConfigFile } from '../../../../src/lib/utils';
 
 setup([]);
 
@@ -61,7 +62,7 @@ const checkDefaultConfPackages = (config) => {
   expect(config.url_prefix).toBeUndefined();
   expect(config.url_prefix).toBeUndefined();
   expect(config.security).toEqual({
-    api: { legacy: true },
+    api: { legacy: true, migrateToSecureLegacySignature: true },
     web: { sign: { expiresIn: '1h' }, verify: {} },
   });
 };

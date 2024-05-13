@@ -2,6 +2,12 @@ name: CI
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true  
+
 jobs:
   ci:
     name: Node ${{ matrix.node_version }}
@@ -10,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         # only suported versions defined at https://nodejs.org/en/about/previous-releases
-        node_version: [18, 20, 21]
+        node_version: [18, 20, 21, 22]
 
     runs-on: ubuntu-latest
 
