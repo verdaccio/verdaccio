@@ -1,17 +1,15 @@
 import buildDebug from 'debug';
 import fs from 'fs';
-import { HttpError } from 'http-errors';
 import _ from 'lodash';
 import path from 'path';
 import validator from 'validator';
 
-import { Config, Package } from '@verdaccio/types';
+import { Config, Manifest } from '@verdaccio/types';
 
-import { API_ERROR, HTTP_STATUS } from '../lib/constants';
-import { logger } from '../lib/logger';
+import { HTTP_STATUS } from '../lib/constants';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
-const debug = buildDebug('verdaccio');
+const debug = buildDebug('verdaccio:middleware:favicon');
 
 export function serveFavicon(config: Config) {
   return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
@@ -58,66 +56,8 @@ export function serveFavicon(config: Config) {
   };
 }
 
-export function handleError(
-  err: HttpError,
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-) {
-  debug('error handler init');
-  if (_.isError(err)) {
-    debug('is native error', err);
-    if (err.code === 'ECONNABORT' && res.statusCode === HTTP_STATUS.NOT_MODIFIED) {
-      return next();
-    }
-    if (_.isFunction(res.locals.report_error) === false) {
-      debug('is locals error report ref');
-      // in case of very early error this middleware may not be loaded before error is generated
-      // fixing that
-      errorReportingMiddleware(req, res, _.noop);
-    }
-    debug('set locals error report ref');
-    res.locals.report_error(err);
-  } else {
-    // Fall to Middleware.final
-    debug('no error to report, jump next layer');
-    return next(err);
-  }
-}
-
 export interface MiddlewareError {
   error: string;
 }
 
-export type FinalBody = Package | MiddlewareError | string;
-
-// Middleware
-export function errorReportingMiddleware(
-  req: $RequestExtend,
-  res: $ResponseExtend,
-  next: $NextFunctionVer
-): void {
-  res.locals.report_error =
-    res.locals.report_error ||
-    function (err: any): void {
-      if (err.status && err.status >= HTTP_STATUS.BAD_REQUEST && err.status < 600) {
-        if (!res.headersSent) {
-          res.status(err.status);
-          next({ error: err.message || API_ERROR.UNKNOWN_ERROR });
-        }
-      } else {
-        logger.error({ err: err }, 'unexpected error: @{!err.message}\n@{err.stack}');
-        if (!res.status || !res.send) {
-          logger.error('this is an error in express.js, please report this');
-          res.destroy();
-        } else if (!res.headersSent) {
-          res.status(HTTP_STATUS.INTERNAL_ERROR);
-          next({ error: API_ERROR.INTERNAL_SERVER_ERROR });
-        } else {
-          // socket should be already closed
-        }
-      }
-    };
-
-  next();
-}
+export type FinalBody = Manifest | MiddlewareError | string;
