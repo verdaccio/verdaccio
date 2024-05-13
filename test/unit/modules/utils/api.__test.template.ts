@@ -11,9 +11,10 @@ import path from 'path';
 import rimraf from 'rimraf';
 import request from 'supertest';
 
+import { parseConfigFile } from '@verdaccio/config';
+
 import endPointAPI from '../../../../src/api/index';
 import { setup } from '../../../../src/lib/logger';
-import { parseConfigFile } from '@verdaccio/config';
 import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';

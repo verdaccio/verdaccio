@@ -1,7 +1,8 @@
 import { join } from 'path';
 
-import { runServer } from '../../../../src';
 import { parseConfigFile } from '@verdaccio/config';
+
+import { runServer } from '../../../../src';
 
 describe('bootstrap modern', () => {
   describe('runServer', () => {

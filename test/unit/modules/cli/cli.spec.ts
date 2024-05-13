@@ -4,11 +4,12 @@ import os from 'os';
 import path from 'path';
 import selfsigned from 'selfsigned';
 
+import { parseConfigFile } from '@verdaccio/config';
+
 import startServer from '../../../../src';
 import { getListListenAddresses } from '../../../../src/lib/cli/utils';
 import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { parseConfigFile } from '@verdaccio/config';
 import config from '../../partials/config';
 
 setup([]);
