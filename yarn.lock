@@ -11539,9 +11539,6 @@ __metadata:
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 12.0.0-next-7.15
     verdaccio-memory: 10.3.2
-  dependenciesMeta:
-    "@verdaccio/signature@7.0.0-next-7.5":
-      unplugged: true
   bin:
     verdaccio: ./bin/verdaccio
   languageName: unknown
