@@ -10,6 +10,7 @@ import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import Config from '../../src/lib/config';
+import { logger } from '../../src/lib/logger';
 
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
