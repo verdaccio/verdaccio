@@ -19,7 +19,7 @@
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
-      "packageNames": ["actions/*", "github/codeql-action"],
+      "packageNames": ["actions/*", "github/codeql-action/*"],
       "groupName": "all actions",
       "groupSlug": "github-actions",
       "schedule": ["every 4 month"]
