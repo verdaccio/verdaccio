@@ -30,12 +30,20 @@ const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, ti
   if (!isDefault && configOptions?.logo) {
     return (
       <ImageLogo className={className} onClick={onClick}>
-        <img alt={title} height="40px" src={configOptions.logo} />
+        <img alt={title} data-testid={'custom-logo'} height="40px" src={configOptions.logo} />
       </ImageLogo>
     );
   }
 
-  return <StyledLogo className={className} onClick={onClick} size={size} title={title} />;
+  return (
+    <StyledLogo
+      className={className}
+      data-testid={'default-logo'}
+      onClick={onClick}
+      size={size}
+      title={title}
+    />
+  );
 };
 
 export default Logo;

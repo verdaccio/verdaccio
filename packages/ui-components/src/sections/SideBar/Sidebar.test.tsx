@@ -28,12 +28,13 @@ jest.mock('react-router-dom', () => ({
 
 describe('Sidebar', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.resetAllMocks();
   });
+
   test('should render titles', async () => {
     mockPkgName.mockReturnValue('jquery');
     renderWithStore(<ComponentSideBar />, store);
-    await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
+    await waitFor(() => expect(screen.findAllByText('jquery')).toHaveLength(2));
 
     expect(screen.getByText(`sidebar.detail.latest-version`, { exact: false })).toBeInTheDocument();
     expect(
@@ -45,7 +46,7 @@ describe('Sidebar', () => {
   test('should render commonJS', async () => {
     mockPkgName.mockReturnValue('jquery');
     renderWithStore(<ComponentSideBar />, store);
-
+    // package name + keyword
     await waitFor(() => expect(screen.getAllByText('jquery')).toHaveLength(2));
     expect(screen.getByAltText('commonjs')).toBeInTheDocument();
   });
@@ -53,15 +54,15 @@ describe('Sidebar', () => {
   test('should render typescript', async () => {
     mockPkgName.mockReturnValue('glob');
     renderWithStore(<ComponentSideBar />, store);
-
-    await waitFor(() => expect(screen.getByText('glob')).toBeInTheDocument());
+    // just package name
+    await waitFor(() => expect(screen.getAllByText('glob')).toHaveLength(1));
     expect(screen.getByAltText('typescript')).toBeInTheDocument();
   });
 
   test('should render es modules', async () => {
     mockPkgName.mockReturnValue('got');
     renderWithStore(<ComponentSideBar />, store);
-
+    // package name + keyword
     await waitFor(() => expect(screen.getAllByText('got')).toHaveLength(2));
     expect(screen.getByAltText('es6 modules')).toBeInTheDocument();
   });

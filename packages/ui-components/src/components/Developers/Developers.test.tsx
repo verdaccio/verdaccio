@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { cleanup, fireEvent, render } from '../../test/test-react-testing-library';
+import { cleanup, fireEvent, render, screen } from '../../test/test-react-testing-library';
+import { DeveloperType } from './DeveloperType';
 import Developers from './Developers';
-import { DeveloperType } from './Title';
 
 describe('test Developers', () => {
   afterEach(() => {
@@ -63,7 +63,7 @@ describe('test Developers', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  test('should test onClick the component avatar', () => {
+  test('should show only up to max items', () => {
     const packageMeta = {
       latest: {
         packageName: 'foo',
@@ -72,6 +72,7 @@ describe('test Developers', () => {
           {
             name: 'dmethvin',
             email: 'test@gmail.com',
+            url: 'https://example.com/',
           },
           {
             name: 'dmethvin2',
@@ -89,14 +90,40 @@ describe('test Developers', () => {
       <Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} visibleMax={1} />
     );
 
-    // const item2 = wrapper.find(Fab);
-    // // TODO: I am not sure here how to verify the method inside the component was called.
-    // item2.simulate('click');
-
     expect(wrapper.getByText('sidebar.contributors.title')).toBeInTheDocument();
-    fireEvent.click(wrapper.getByRole('button'));
+    expect(wrapper.getByTestId(packageMeta.latest.contributors[0].name)).toBeInTheDocument();
+    expect(wrapper.queryByTestId(packageMeta.latest.contributors[1].name)).not.toBeInTheDocument();
+    expect(wrapper.queryByTestId(packageMeta.latest.contributors[2].name)).not.toBeInTheDocument();
+  });
 
-    expect(wrapper.getByLabelText(packageMeta.latest.contributors[0].name)).toBeInTheDocument();
-    expect(wrapper.getByLabelText(packageMeta.latest.contributors[1].name)).toBeInTheDocument();
+  test('renders only the first six contributors when there are more than six', () => {
+    const packageMeta = {
+      latest: {
+        contributors: [
+          { name: 'contributor1', email: 'c1@test.com' },
+          { name: 'contributor2', email: 'c2@test.com' },
+          { name: 'contributor3', email: 'c3@test.com' },
+          { name: 'contributor4', email: 'c4@test.com' },
+          { name: 'contributor5', email: 'c5@test.com' },
+          { name: 'contributor6', email: 'c6@test.com' },
+          { name: 'contributor7', email: 'c7@test.com' },
+        ],
+      },
+    };
+
+    render(<Developers packageMeta={packageMeta} type={DeveloperType.CONTRIBUTORS} />);
+
+    expect(screen.getByTestId('contributor1')).toBeInTheDocument();
+    expect(screen.getByTestId('contributor2')).toBeInTheDocument();
+    expect(screen.getByTestId('contributor3')).toBeInTheDocument();
+    expect(screen.getByTestId('contributor4')).toBeInTheDocument();
+    expect(screen.getByTestId('contributor5')).toBeInTheDocument();
+    expect(screen.getByTestId('contributor6')).toBeInTheDocument();
+    expect(screen.queryByTestId('contributor7')).not.toBeInTheDocument();
+    expect(screen.getByTestId('fab-add')).toBeInTheDocument();
+
+    // click on "more"
+    fireEvent.click(screen.getByTestId('fab-add'));
+    expect(screen.getByTestId('contributor7')).toBeInTheDocument();
   });
 });

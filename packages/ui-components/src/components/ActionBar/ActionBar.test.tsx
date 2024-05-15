@@ -1,13 +1,7 @@
 import React from 'react';
 
 import { store } from '../../store/store';
-import {
-  cleanup,
-  fireEvent,
-  renderWithStore,
-  screen,
-  waitFor,
-} from '../../test/test-react-testing-library';
+import { cleanup, fireEvent, renderWithStore, screen } from '../../test/test-react-testing-library';
 import ActionBar from './ActionBar';
 
 const defaultPackageMeta = {
@@ -37,6 +31,12 @@ describe('<ActionBar /> component', () => {
     expect(screen.getByTestId('download-tarball-btn')).toBeInTheDocument();
     expect(screen.getByTestId('BugReportIcon')).toBeInTheDocument();
     expect(screen.getByTestId('HomeIcon')).toBeInTheDocument();
+  });
+
+  test('should not render if data is missing', () => {
+    // @ts-ignore - testing with missing data
+    renderWithStore(<ActionBar packageMeta={undefined} />, store);
+    expect(screen.queryByTestId('HomeIcon')).toBeNull();
   });
 
   test('when there is no action bar data', () => {
@@ -71,13 +71,27 @@ describe('<ActionBar /> component', () => {
 
   test('when click button to raw manifest open a dialog with viewer', async () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={true} />, store);
+    expect(screen.queryByTestId('rawViewer--dialog')).toBeFalsy();
+
     fireEvent.click(screen.getByLabelText('action-bar-action.raw'));
-    await waitFor(() => expect(screen.getByTestId('rawViewer--dialog')).toBeInTheDocument());
+    await screen.findByTestId('rawViewer--dialog');
+
+    fireEvent.click(screen.getByTestId('close-raw-viewer'));
+    await screen.getByLabelText('action-bar-action.raw');
+
+    expect(screen.queryByTestId('rawViewer--dialog')).toBeFalsy();
   });
 
   test('should not display download tarball button', () => {
-    renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={true} />, store);
+    renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={false} />, store);
     expect(screen.queryByLabelText('Download tarball')).toBeFalsy();
+  });
+
+  test.todo('Fix Warning: captured a request without a matching request handler');
+  test.skip('when click button to download ', async () => {
+    renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={false} />, store);
+    fireEvent.click(screen.getByTestId('download-tarball-btn'));
+    await store.getState().loading.models.download;
   });
 
   test('should not display show raw button', () => {

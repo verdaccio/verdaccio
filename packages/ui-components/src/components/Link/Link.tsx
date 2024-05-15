@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
-export const CustomRouterLink = styled(RouterLink)`
+const CustomRouterLink = styled(RouterLink)`
   text-decoration: none;
   &:hover,
   &:focus {

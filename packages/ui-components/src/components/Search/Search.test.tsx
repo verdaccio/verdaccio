@@ -45,7 +45,7 @@ describe('<Search /> component', () => {
   });
 
   test('handleSearch: when user type package name in search component, show suggestions', async () => {
-    const { getByPlaceholderText, getAllByText } = renderWithStore(
+    const { getByPlaceholderText, findAllByText } = renderWithStore(
       <ComponentToBeRendered />,
       store
     );
@@ -57,14 +57,14 @@ describe('<Search /> component', () => {
 
     expect(autoCompleteInput).toHaveAttribute('value', 'verdaccio');
 
-    const suggestionsElements = await waitFor(() => getAllByText('verdaccio', { exact: true }));
+    const suggestionsElements = await waitFor(() => findAllByText('verdaccio', { exact: true }));
 
     expect(suggestionsElements).toHaveLength(1);
     expect(api.request).toHaveBeenCalledTimes(1);
   });
 
   test('onBlur: should cancel all search requests', async () => {
-    const { getByPlaceholderText, getAllByText } = renderWithStore(
+    const { getByPlaceholderText, findAllByText } = renderWithStore(
       <ComponentToBeRendered />,
       store
     );
@@ -75,7 +75,7 @@ describe('<Search /> component', () => {
     fireEvent.change(autoCompleteInput, { target: { value: 'verdaccio' } });
     expect(autoCompleteInput).toHaveAttribute('value', 'verdaccio');
 
-    const suggestionsElements = await waitFor(() => getAllByText('verdaccio', { exact: true }));
+    const suggestionsElements = await waitFor(() => findAllByText('verdaccio', { exact: true }));
     expect(suggestionsElements).toHaveLength(1);
     expect(api.request).toHaveBeenCalledTimes(1);
 
@@ -110,7 +110,7 @@ describe('<Search /> component', () => {
   });
 
   test('handlePackagesClearRequested: should clear suggestions', async () => {
-    const { getByPlaceholderText, getAllByText } = renderWithStore(
+    const { getByPlaceholderText, findAllByText } = renderWithStore(
       <ComponentToBeRendered />,
       store
     );
@@ -120,7 +120,7 @@ describe('<Search /> component', () => {
     fireEvent.change(autoCompleteInput, { target: { value: 'verdaccio' } });
     expect(autoCompleteInput).toHaveAttribute('value', 'verdaccio');
 
-    const suggestionsElements = await waitFor(() => getAllByText('verdaccio', { exact: true }));
+    const suggestionsElements = await waitFor(() => findAllByText('verdaccio', { exact: true }));
     expect(suggestionsElements).toHaveLength(1);
 
     fireEvent.change(autoCompleteInput, { target: { value: ' ' } });
@@ -131,7 +131,7 @@ describe('<Search /> component', () => {
   });
 
   test('handleClickSearch: should change the window location on click or return key', async () => {
-    const { getByPlaceholderText, getAllByText } = renderWithStore(
+    const { getByPlaceholderText, findAllByText } = renderWithStore(
       <ComponentToBeRendered />,
       store
     );
@@ -141,7 +141,7 @@ describe('<Search /> component', () => {
     fireEvent.change(autoCompleteInput, { target: { value: 'verdaccio' } });
     expect(autoCompleteInput).toHaveAttribute('value', 'verdaccio');
 
-    const suggestionsElements = await waitFor(() => getAllByText('verdaccio', { exact: true }));
+    const suggestionsElements = await waitFor(() => findAllByText('verdaccio', { exact: true }));
     // console.log('suggestionsElements', suggestionsElements);
     expect(suggestionsElements).toHaveLength(1);
     // click on the second suggestion

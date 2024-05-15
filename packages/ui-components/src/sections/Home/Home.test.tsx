@@ -20,6 +20,7 @@ describe('Home', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   test('should render titles', async () => {
     act(() => {
       renderWithStore(<ComponentHome />, store);

@@ -17,7 +17,7 @@ import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
 import { url, utils } from '../../utils';
-import KeywordList from '../Keywords/KeywordList';
+import KeywordListItems from '../Keywords/KeywordListItems';
 import {
   Author,
   Avatar,
@@ -175,7 +175,11 @@ const Package: React.FC<PackageInterface> = ({
           aria-label={t('package.download', { what: t('package.the-tar-file') })}
           title={t('package.tarball')}
         >
-          <IconButton aria-label={t('package.download')} size="large">
+          <IconButton
+            aria-label={t('package.download')}
+            data-testid="download-tarball"
+            size="large"
+          >
             {isLoading ? (
               <CircularProgress size={13}>
                 <DownloadIcon />
@@ -214,14 +218,7 @@ const Package: React.FC<PackageInterface> = ({
     );
   };
 
-  const renderSecondaryComponent = (): React.ReactNode => (
-    <div>
-      <Description>{description}</Description>
-      <List sx={{ p: 0 }}>
-        <KeywordList keywords={keywords} />
-      </List>
-    </div>
-  );
+  const renderSecondaryComponent = (): React.ReactNode => <Description>{description}</Description>;
 
   const renderPackageListItemText = (): React.ReactNode => (
     <PackageListItemText
@@ -231,10 +228,19 @@ const Package: React.FC<PackageInterface> = ({
     />
   );
 
+  const renderKeywords = (): React.ReactNode => (
+    <List sx={{ p: 0, my: 0 }}>
+      <KeywordListItems keywords={keywords} />
+    </List>
+  );
+
   return (
     <Wrapper className={'package'} data-testid="package-item-list">
       <ListItem alignItems={'flex-start'}>{renderPackageListItemText()}</ListItem>
-      <ListItem alignItems={'flex-start'}>
+      <ListItem alignItems={'flex-start'} margintop={0}>
+        {renderKeywords()}
+      </ListItem>
+      <ListItem alignItems={'flex-start'} margintop={0}>
         {renderAuthorInfo()}
         {renderVersionInfo()}
         {renderPublishedInfo()}

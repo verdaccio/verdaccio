@@ -23,6 +23,7 @@ const ViewerTitle = (props: ViewerTitleProps) => {
       {onClose ? (
         <IconButton
           aria-label="close"
+          data-testid="close-raw-viewer"
           onClick={onClose}
           sx={{
             position: 'absolute',

@@ -42,7 +42,7 @@ describe('<Header /> component with logged in state', () => {
         store
       );
     });
-    await waitFor(() => screen.getByText('storybook'));
+    await waitFor(() => screen.findByText('storybook'));
     expect(screen.getByText('storybook')).toBeInTheDocument();
     expect(screen.getByText('MIT')).toBeInTheDocument();
   });

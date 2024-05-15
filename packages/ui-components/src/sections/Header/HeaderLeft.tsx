@@ -1,6 +1,6 @@
 import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Logo, Search } from '../../';
 import { SearchWrapper } from './styles';
@@ -19,12 +19,13 @@ const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
       '@media (min-width: 600px)': {
         padding: 0,
         marginLeft: 0,
+        marginRight: '20px',
       },
     }}
   >
-    <Link to={'/'}>
+    <RouterLink to={'/'}>
       <Logo />
-    </Link>
+    </RouterLink>
     {showSearch && (
       <SearchWrapper data-testid="search-container">
         <Search />

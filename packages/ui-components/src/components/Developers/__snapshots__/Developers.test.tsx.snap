@@ -30,6 +30,22 @@ exports[`test Developers should render the component for contributors with items
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-5 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -59,9 +75,13 @@ exports[`test Developers should render the component for contributors with items
   user-select: none;
   color: #f4f4f4;
   background-color: #bdbdbd;
+  width: 40px;
+  height: 40px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
-.emotion-5 {
+.emotion-6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -90,40 +110,54 @@ exports[`test Developers should render the component for contributors with items
       <div
         class="emotion-2 MuiBox-root emotion-3"
       >
-        <div
-          aria-label="dmethvin"
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        <a
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
           data-mui-internal-clone-element="true"
+          data-testid="dmethvin"
+          href="mailto:test@gmail.com?subject=undefined v1.0.0"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-            data-testid="PersonIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <div
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
           >
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-            />
-          </svg>
-        </div>
-        <div
-          aria-label="mgol"
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              data-testid="PersonIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
           data-mui-internal-clone-element="true"
+          data-testid="mgol"
+          href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-            data-testid="PersonIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <div
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
           >
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-            />
-          </svg>
-        </div>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              data-testid="PersonIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+        </a>
       </div>
     </div>
   </body>,
@@ -154,6 +188,22 @@ exports[`test Developers should render the component for contributors with items
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-5 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -183,9 +233,13 @@ exports[`test Developers should render the component for contributors with items
   user-select: none;
   color: #f4f4f4;
   background-color: #bdbdbd;
+  width: 40px;
+  height: 40px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
-.emotion-5 {
+.emotion-6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -213,40 +267,54 @@ exports[`test Developers should render the component for contributors with items
     <div
       class="emotion-2 MuiBox-root emotion-3"
     >
-      <div
-        aria-label="dmethvin"
-        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+      <a
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
         data-mui-internal-clone-element="true"
+        data-testid="dmethvin"
+        href="mailto:test@gmail.com?subject=undefined v1.0.0"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-          data-testid="PersonIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
         >
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-          />
-        </svg>
-      </div>
-      <div
-        aria-label="mgol"
-        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            data-testid="PersonIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </a>
+      <a
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
         data-mui-internal-clone-element="true"
+        data-testid="mgol"
+        href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-          data-testid="PersonIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
         >
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-          />
-        </svg>
-      </div>
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            data-testid="PersonIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </a>
     </div>
   </div>,
   "debug": [Function],
@@ -333,6 +401,22 @@ exports[`test Developers should render the component for maintainers with items 
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-5 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -362,9 +446,13 @@ exports[`test Developers should render the component for maintainers with items 
   user-select: none;
   color: #f4f4f4;
   background-color: #bdbdbd;
+  width: 40px;
+  height: 40px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
-.emotion-5 {
+.emotion-6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -393,40 +481,54 @@ exports[`test Developers should render the component for maintainers with items 
       <div
         class="emotion-2 MuiBox-root emotion-3"
       >
-        <div
-          aria-label="dmethvin"
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+        <a
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
           data-mui-internal-clone-element="true"
+          data-testid="dmethvin"
+          href="mailto:test@gmail.com?subject=undefined v1.0.0"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-            data-testid="PersonIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <div
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
           >
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-            />
-          </svg>
-        </div>
-        <div
-          aria-label="mgol"
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              data-testid="PersonIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+        </a>
+        <a
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
           data-mui-internal-clone-element="true"
+          data-testid="mgol"
+          href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
+          rel="noopener noreferrer"
+          target="_blank"
         >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-            data-testid="PersonIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
+          <div
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
           >
-            <path
-              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-            />
-          </svg>
-        </div>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              data-testid="PersonIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+          </div>
+        </a>
       </div>
     </div>
   </body>,
@@ -457,6 +559,22 @@ exports[`test Developers should render the component for maintainers with items 
 }
 
 .emotion-4 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-5 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -486,9 +604,13 @@ exports[`test Developers should render the component for maintainers with items 
   user-select: none;
   color: #f4f4f4;
   background-color: #bdbdbd;
+  width: 40px;
+  height: 40px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
-.emotion-5 {
+.emotion-6 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -516,40 +638,54 @@ exports[`test Developers should render the component for maintainers with items 
     <div
       class="emotion-2 MuiBox-root emotion-3"
     >
-      <div
-        aria-label="dmethvin"
-        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+      <a
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
         data-mui-internal-clone-element="true"
+        data-testid="dmethvin"
+        href="mailto:test@gmail.com?subject=undefined v1.0.0"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-          data-testid="PersonIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
         >
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-          />
-        </svg>
-      </div>
-      <div
-        aria-label="mgol"
-        class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-4"
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            data-testid="PersonIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </a>
+      <a
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
         data-mui-internal-clone-element="true"
+        data-testid="mgol"
+        href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-5"
-          data-testid="PersonIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
         >
-          <path
-            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-          />
-        </svg>
-      </div>
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            data-testid="PersonIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+            />
+          </svg>
+        </div>
+      </a>
     </div>
   </div>,
   "debug": [Function],

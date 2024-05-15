@@ -68,7 +68,7 @@ const InstallListItem: React.FC<Interface> = ({
           <InstallListItemText
             primary={
               <CopyToClipBoard
-                dataTestId="instalNpm"
+                dataTestId="installNpm"
                 text={`npm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
                 title={`npm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
               />

@@ -59,6 +59,7 @@ export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   marginBottom: 12,
   color: theme?.palette.mode == 'dark' ? theme?.palette.dodgerBlue : theme?.palette.eclipse,
   cursor: 'pointer',
+  textDecoration: 'none',
   [`@media (max-width: ${theme?.breakPoints.small}px)`]: {
     fontSize: 14,
     marginBottom: 8,

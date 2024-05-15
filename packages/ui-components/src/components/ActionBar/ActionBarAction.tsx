@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Theme } from '../../Theme';
 import { Dispatch, RootState } from '../../store/store';
-import { LinkExternal } from '../LinkExternal';
+import LinkExternal from '../LinkExternal';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:

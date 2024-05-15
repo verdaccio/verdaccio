@@ -6,7 +6,7 @@ import { Trans } from 'react-i18next';
 
 import { Theme } from '../../Theme';
 import { url } from '../../utils';
-import { LinkExternal } from '../LinkExternal';
+import LinkExternal from '../LinkExternal';
 
 const StyledLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
   marginTop: theme?.spacing(2),

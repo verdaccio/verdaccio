@@ -5,7 +5,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { PackageMetaInterface } from '../../types/packageMeta';
-import KeywordList from './KeywordList';
+import KeywordListItems from './KeywordListItems';
 
 const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
   const { t } = useTranslation();
@@ -17,6 +17,7 @@ const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta
 
   return (
     <List
+      data-testid="keyword-list"
       subheader={
         <Typography
           sx={{ fontWeight: theme.fontWeight.bold, textTransform: 'capitalize' }}
@@ -26,7 +27,7 @@ const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta
         </Typography>
       }
     >
-      <KeywordList keywords={packageMeta?.latest?.keywords} />
+      <KeywordListItems keywords={packageMeta?.latest?.keywords} />
     </List>
   );
 };

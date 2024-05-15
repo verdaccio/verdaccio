@@ -54,7 +54,7 @@ const HeaderInfoDialog: React.FC<Props> = ({
     <RegistryInfoDialog onClose={onCloseDialog} open={isOpen} title={dialogTitle}>
       <Box sx={{ width: '100%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs aria-label="infoTabs" onChange={handleChange} value={value}>
+          <Tabs aria-label="infoTabs" data-testid={'tabs'} onChange={handleChange} value={value}>
             {tabs
               ? tabs.map((item, index) => {
                   return (

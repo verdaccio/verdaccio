@@ -32,12 +32,12 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
+    const { findByTestId } = renderWithStore(
       <LoginDialog onClose={props.onClose} open={props.open} />,
       store
     );
 
-    const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
+    const loginDialogHeading = await waitFor(() => findByTestId('login-dialog-form-login-button'));
     expect(loginDialogHeading).toBeTruthy();
   });
 
@@ -47,12 +47,12 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { getByTestId } = renderWithStore(
+    const { findByTestId } = renderWithStore(
       <LoginDialog onClose={props.onClose} open={props.open} />,
       store
     );
 
-    const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
+    const loginDialogButton = await waitFor(() => findByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
 
     await act(() => {

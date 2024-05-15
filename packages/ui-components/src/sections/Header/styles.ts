@@ -4,7 +4,7 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 
-import { Link, Theme } from '../../';
+import { Theme } from '../../Theme';
 
 export const InnerNavBar = styled(Toolbar)({
   justifyContent: 'space-between',
@@ -85,8 +85,4 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
       margin: 0 auto;
     }
   `,
-}));
-
-export const StyledLink = styled(Link)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.white,
 }));

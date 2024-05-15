@@ -426,13 +426,13 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 .emotion-10 {
   margin: 0;
   color: #4b5e40;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  text-decoration-color: rgba(75, 94, 64, 0.4);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-10:hover {
-  text-decoration-color: inherit;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .emotion-11 {
@@ -476,7 +476,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
                     class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
                   >
                     <a
-                      class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineAlways emotion-10"
+                      class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineHover emotion-10"
                       href="https://www.npmjs.com/package/verdaccio"
                       rel="noopener noreferrer"
                       target="_blank"
@@ -615,13 +615,13 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 .emotion-10 {
   margin: 0;
   color: #4b5e40;
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-  text-decoration-color: rgba(75, 94, 64, 0.4);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-10:hover {
-  text-decoration-color: inherit;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .emotion-11 {
@@ -664,7 +664,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
                   class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
                 >
                   <a
-                    class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineAlways emotion-10"
+                    class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineHover emotion-10"
                     href="https://www.npmjs.com/package/verdaccio"
                     rel="noopener noreferrer"
                     target="_blank"

@@ -7,23 +7,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { utils } from '../../utils';
-import { LinkExternal } from '../LinkExternal';
 import NoItems from '../NoItems';
+import UpLinkLink from './UplinkLink';
 import { ListItemText, Spacer, StyledText } from './styles';
-
-const UpLinkLink: React.FC<{ packageName: string; uplinkName: string }> = ({
-  packageName,
-  uplinkName,
-}) => {
-  const link = utils.getUplink(uplinkName, packageName);
-  return link ? (
-    <LinkExternal href={link} variant="outline">
-      {uplinkName}
-    </LinkExternal>
-  ) : (
-    <>{uplinkName}</>
-  );
-};
 
 const UpLinks: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();

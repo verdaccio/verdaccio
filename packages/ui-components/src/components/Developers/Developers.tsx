@@ -6,13 +6,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Theme } from '../../Theme';
 import Person from '../Person';
+import { DeveloperType } from './DeveloperType';
 import Title from './Title';
 import getUniqueDeveloperValues from './get-unique-developer-values';
-
-export enum DeveloperType {
-  CONTRIBUTORS = 'contributors',
-  MAINTAINERS = 'maintainers',
-}
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme?.palette.primary.main,
@@ -74,7 +70,7 @@ const Developers: React.FC<Props> = ({ type, visibleMax = VISIBLE_MAX, packageMe
           );
         })}
         {visibleDevelopersMax < developers.length && (
-          <Fab onClick={handleSetVisibleDevelopersMax} size="small">
+          <Fab data-testid={'fab-add'} onClick={handleSetVisibleDevelopersMax} size="small">
             <Add />
           </Fab>
         )}

@@ -2,7 +2,7 @@ import Link from '@mui/material/Link';
 import React from 'react';
 
 const LinkExternal = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
-  const { to, variant, ...rest } = props;
+  const { to, children, variant, ...rest } = props;
   return (
     // eslint-disable-next-line verdaccio/jsx-spread
     <Link
@@ -13,7 +13,9 @@ const LinkExternal = React.forwardRef<HTMLAnchorElement, any>((props, ref) => {
       underline="hover"
       variant={variant ?? 'caption'}
       {...rest}
-    />
+    >
+      {children}
+    </Link>
   );
 });
 
