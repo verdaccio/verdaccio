@@ -1,4 +1,5 @@
 ---
+'@verdaccio/logger-commons': patch
 '@verdaccio/logger-prettify': patch
 ---
 
