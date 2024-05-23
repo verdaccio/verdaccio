@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { rest } from 'msw';
 
 const packagesPayload = require('./api/home-packages.json');
@@ -21,11 +22,7 @@ export const handlers = [
   }),
 
   rest.get('http://localhost:9000/-/verdaccio/data/package/readme/storybook', (req, res, ctx) => {
-    return res(
-      ctx.text(`<h1 id="storybook-cli">Storybook CLI MSW.js</h1>
-    <p>This is a wrapper for <a href="https://www.npmjs.com/package/@storybook/cli">https://www.npmjs.com/package/@storybook/cli</a></p>
-    `)
-    );
+    return res(ctx.text(require('./api/storybook-readme.txt')));
   }),
 
   rest.get('http://localhost:9000/-/verdaccio/data/sidebar/jquery', (req, res, ctx) => {
@@ -54,6 +51,14 @@ export const handlers = [
   }),
   rest.get('http://localhost:9000/-/verdaccio/data/package/readme/jquery', (req, res, ctx) => {
     return res(ctx.text(require('./api/jquery-readme')()));
+  }),
+  rest.get('http://localhost:9000/verdaccio/-/verdaccio-1.0.0.tgz', (req, res, ctx) => {
+    const fileContent = fs.readFileSync('./api/verdaccio-1.0.0.tgz');
+    return res(
+      ctx.status(200),
+      ctx.set('Content-Type', 'application/octet-stream'),
+      ctx.body(fileContent)
+    );
   }),
 
   rest.post<{ username: string; password: string }, { token: string; username: string }>(

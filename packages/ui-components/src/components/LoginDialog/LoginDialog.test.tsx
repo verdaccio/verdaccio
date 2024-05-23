@@ -32,12 +32,12 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { findByTestId } = renderWithStore(
+    const { getByTestId } = renderWithStore(
       <LoginDialog onClose={props.onClose} open={props.open} />,
       store
     );
 
-    const loginDialogHeading = await waitFor(() => findByTestId('login-dialog-form-login-button'));
+    const loginDialogHeading = await waitFor(() => getByTestId('login-dialog-form-login-button'));
     expect(loginDialogHeading).toBeTruthy();
   });
 
@@ -47,12 +47,12 @@ describe('<LoginDialog /> component', () => {
       onClose: jest.fn(),
     };
 
-    const { findByTestId } = renderWithStore(
+    const { getByTestId } = renderWithStore(
       <LoginDialog onClose={props.onClose} open={props.open} />,
       store
     );
 
-    const loginDialogButton = await waitFor(() => findByTestId('close-login-dialog-button'));
+    const loginDialogButton = await waitFor(() => getByTestId('close-login-dialog-button'));
     expect(loginDialogButton).toBeTruthy();
 
     await act(() => {
@@ -87,7 +87,7 @@ describe('<LoginDialog /> component', () => {
     fireEvent.change(userNameInput, { target: { value: 'xyz' } });
 
     const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
-    expect(userNameInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
     fireEvent.focus(passwordInput);
 
     await act(async () => {

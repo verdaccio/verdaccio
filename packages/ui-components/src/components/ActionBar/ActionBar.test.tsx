@@ -7,16 +7,16 @@ import ActionBar from './ActionBar';
 const defaultPackageMeta = {
   _uplinks: {},
   latest: {
-    name: 'verdaccio-ui/local-storage',
-    version: '8.0.1-next.1',
+    name: 'verdaccio',
+    version: '1.0.0',
     dist: {
-      fileCount: 0,
-      unpackedSize: 0,
-      tarball: 'http://localhost:8080/bootstrap/-/bootstrap-4.3.1.tgz',
+      fileCount: 1,
+      unpackedSize: 171,
+      tarball: 'http://localhost:9000/verdaccio/-/verdaccio-1.0.0.tgz',
     },
     homepage: 'https://verdaccio.org',
     bugs: {
-      url: 'https://github.com/verdaccio/monorepo/issues',
+      url: 'https://github.com/verdaccio/verdaccio/issues',
     },
   },
 };
@@ -64,6 +64,14 @@ describe('<ActionBar /> component', () => {
     expect(screen.getByLabelText('action-bar-action.download-tarball')).toBeTruthy();
   });
 
+  test('when button to download is disabled', () => {
+    renderWithStore(
+      <ActionBar packageMeta={defaultPackageMeta} showDownloadTarball={false} />,
+      store
+    );
+    expect(screen.queryByTestId('download-tarball-btn')).not.toBeInTheDocument();
+  });
+
   test('when there is a button to raw manifest', () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={true} />, store);
     expect(screen.getByLabelText('action-bar-action.raw')).toBeTruthy();
@@ -87,8 +95,7 @@ describe('<ActionBar /> component', () => {
     expect(screen.queryByLabelText('Download tarball')).toBeFalsy();
   });
 
-  test.todo('Fix Warning: captured a request without a matching request handler');
-  test.skip('when click button to download ', async () => {
+  test('when click button to download ', async () => {
     renderWithStore(<ActionBar packageMeta={defaultPackageMeta} showRaw={false} />, store);
     fireEvent.click(screen.getByTestId('download-tarball-btn'));
     await store.getState().loading.models.download;

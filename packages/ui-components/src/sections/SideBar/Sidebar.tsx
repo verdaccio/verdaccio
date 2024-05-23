@@ -34,7 +34,7 @@ const DetailSidebar: React.FC = () => {
   }
 
   return (
-    <Paper sx={{ position: 'sticky', top: 0, p: 2, ml: 2 }}>
+    <Paper data-testid="sidebar" sx={{ position: 'sticky', top: 0, p: 2, ml: 2 }}>
       <SideBarTitle
         description={packageMeta.latest?.description}
         hasTypes={typeof packageMeta.latest?.types === 'string'}

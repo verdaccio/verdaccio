@@ -45,6 +45,8 @@ describe('<Version /> component', () => {
     expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: '2.3.0' } });
     expect(screen.queryAllByTestId('version-list-text')).toHaveLength(1);
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: '' } });
+    expect(screen.queryAllByTestId('version-list-text')).toHaveLength(65);
   });
 
   test('should not render versions', () => {

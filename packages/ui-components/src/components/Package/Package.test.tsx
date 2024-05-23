@@ -27,9 +27,9 @@ const props = {
     name: 'Sam',
   },
   dist: {
-    fileCount: 2,
-    unpackedSize: 20090516,
-    tarball: 'http://localhost:4873/verdaccio/-/verdaccio-1.0.0.tgz',
+    fileCount: 1,
+    unpackedSize: 171,
+    tarball: 'http://localhost:9000/verdaccio/-/verdaccio-1.0.0.tgz',
   },
   keywords: ['verdaccio-core'],
 };

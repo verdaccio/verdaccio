@@ -6,33 +6,13 @@ import Logo from './Logo';
 describe('<Logo /> component', () => {
   test('should render the component in default state', () => {
     const { container } = render(<Logo />);
-    expect(container.querySelectorAll('div')).toHaveLength(1);
-    expect(screen.getByTestId('default-logo')).toBeInTheDocument();
+    expect(container.firstChild).toMatchSnapshot();
+    expect(screen.getByTestId('default-logo')).toBeTruthy();
   });
 
-  test.skip('should show custom logo', () => {
-    jest.mock('../../providers', () => ({
-      useConfig: jest.fn().mockReturnValue({
-        configOptions: {
-          logo: 'custom.png',
-        },
-      }),
-    }));
-    const { container } = render(<Logo isDefault={false} title="test" />);
-    expect(container.querySelectorAll('img')).toHaveLength(1);
-    expect(screen.getByTestId('custom-logo')).toBeInTheDocument();
-  });
-
-  test.skip('should show default logo although custom logo is in config', () => {
-    jest.mock('../../providers', () => ({
-      useConfig: jest.fn().mockReturnValue({
-        configOptions: {
-          logo: 'custom.png',
-        },
-      }),
-    }));
-    const { container } = render(<Logo isDefault={true} title="test" />);
-    expect(container.querySelectorAll('div')).toHaveLength(1);
-    expect(screen.getByTestId('default-logo')).toBeInTheDocument();
+  test('should render custom logo', () => {
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.logo = 'custom.png';
+    render(<Logo />);
+    expect(screen.getByTestId('custom-logo')).toBeTruthy();
   });
 });
