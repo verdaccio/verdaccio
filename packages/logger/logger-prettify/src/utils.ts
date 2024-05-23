@@ -8,10 +8,6 @@ export function isObject(obj: unknown): boolean {
   return _.isObject(obj) && _.isNull(obj) === false && _.isArray(obj) === false;
 }
 
-export function padLeft(message: string) {
-  return message.padStart(message.length + CUSTOM_PAD_LENGTH, ' ');
-}
-
 export function padRight(message: string, max = message.length + CUSTOM_PAD_LENGTH) {
   return message.padEnd(max, ' ');
 }
