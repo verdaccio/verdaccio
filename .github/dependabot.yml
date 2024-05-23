@@ -8,18 +8,9 @@ updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: 'github-actions'
     directory: '/'
-    schedule:
-      interval: 'weekly'
-
-  # Maintain dependencies for npm
-  - package-ecosystem: 'npm'
-    directory: '/'
-    schedule:
-      interval: 'daily'
-    allow:
-      - dependency-name: '@verdaccio/*'
-      - dependency-name: 'verdaccio-*'
     assignees:
-      - 'verdacciobot'
+      - 'verdacciobot'    
+    schedule:
+      interval: 'monthly'
     labels:
       - 'bot: dependencies'

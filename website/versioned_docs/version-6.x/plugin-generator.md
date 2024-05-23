@@ -10,7 +10,7 @@ Verdaccio is a pluggable application, with the objective to help developers to g
 To install the generator, as first step you must install the _yeoman_ command `yo`.
 
 ```bash
-npm install -g yo
+npm install -g yo@4
 ```
 
 then, install the custom generator running the following in your terminal.
@@ -18,6 +18,12 @@ then, install the custom generator running the following in your terminal.
 ```
 npm i -g generator-verdaccio-plugin
 ```
+
+:::caution
+
+`generator-verdaccio-plugin` is not compatible with yeoman version 5 yet. You must use version 4 for it to function correctly.
+
+:::
 
 ## Using the generator {#using-the-generator}
 
