@@ -262,10 +262,12 @@ describe('storage', () => {
         expect(manifestVersion._id).toEqual(`${pkgName}@1.0.1`);
         expect(manifestVersion.description).toEqual('package generated');
         expect(manifestVersion.dist).toEqual({
+          fileCount: 4,
           integrity:
             'sha512-6gHiERpiDgtb3hjqpQH5/i7zRmvYi9pmCjQf2ZMy3QEa9wVk9RgdZaPWUt7ZOnWUPFjcr9cmE6dUBf+XoPoH4g==',
           shasum: '2c03764f651a9f016ca0b7620421457b619151b9',
           tarball: 'http://localhost:5555/upstream/-/upstream-1.0.1.tgz',
+          unpackedSize: 543,
         });
 
         expect(manifestVersion.contributors).toEqual([]);
@@ -658,6 +660,47 @@ describe('storage', () => {
   });
 
   describe('getTarball', () => {
+    test('should get a package from local storage', (done) => {
+      const pkgName = 'foo';
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const ac = new AbortController();
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        storage
+          .updateManifest(bodyNewManifest, {
+            signal: ac.signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: defaultRequestOptions,
+          })
+          .then(() => {
+            const abort = new AbortController();
+            storage
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                signal: abort.signal,
+              })
+              .then((stream) => {
+                stream.on('data', (dat) => {
+                  expect(dat).toBeDefined();
+                  expect(dat.length).toEqual(512);
+                });
+                stream.on('end', () => {
+                  done();
+                });
+                stream.on('error', () => {
+                  done('this should not happen');
+                });
+              });
+          });
+      });
+    });
+
     test('should not found a package anywhere', (done) => {
       const config = new Config(
         configExample({
