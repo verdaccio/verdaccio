@@ -26,7 +26,7 @@ exports[`test Developers should render the component for contributors with items
 }
 
 .emotion-3>* {
-  margin: 5px;
+  margin-right: 5px;
 }
 
 .emotion-4 {
@@ -184,7 +184,7 @@ exports[`test Developers should render the component for contributors with items
 }
 
 .emotion-3>* {
-  margin: 5px;
+  margin-right: 5px;
 }
 
 .emotion-4 {
@@ -397,7 +397,7 @@ exports[`test Developers should render the component for maintainers with items 
 }
 
 .emotion-3>* {
-  margin: 5px;
+  margin-right: 5px;
 }
 
 .emotion-4 {
@@ -555,7 +555,7 @@ exports[`test Developers should render the component for maintainers with items 
 }
 
 .emotion-3>* {
-  margin: 5px;
+  margin-right: 5px;
 }
 
 .emotion-4 {

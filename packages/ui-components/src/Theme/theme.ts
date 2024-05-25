@@ -10,7 +10,7 @@ const colors = {
   greySuperLight: '#f5f5f5',
   greyLight: '#d3d3d3',
   greyLight2: '#908ba1',
-  greyLight3: '#f3f4f240',
+  greyLight3: '#f3f4f2',
   greyDark: '#a9a9a9',
   greyDark2: '#586069',
   greyChateau: '#95989a',

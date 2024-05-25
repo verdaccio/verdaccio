@@ -11,8 +11,8 @@ import { Theme } from '../../';
 export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  margin: '0 0 0 16px',
-  color: theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
+  margin: '0 20px 0 0',
+  color: theme?.palette.mode === 'light' ? theme?.palette.greyDark2 : theme?.palette.white,
   fontSize: 12,
   [`@media (max-width: ${theme?.breakPoints.medium}px)`]: {
     ':nth-of-type(3)': {
@@ -26,10 +26,9 @@ export const OverviewItem = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   },
 }));
 
-export const Published = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
+export const Published = styled('span')({
   margin: '0 5px 0 0',
-}));
+});
 
 export const Details = styled('span')({
   marginLeft: '5px',
@@ -71,9 +70,9 @@ export const GridRightAligned = styled(Grid)({
 });
 
 export const Wrapper = styled(List)<{ theme?: Theme }>(({ theme }) => ({
-  ':hover': {
+  '&:hover': {
     backgroundColor:
-      theme?.palette?.type == 'dark' ? theme?.palette?.secondary.main : theme?.palette?.greyLight3,
+      theme?.palette?.type == 'dark' ? theme?.palette?.secondary.main : theme?.palette?.greyLight2,
   },
 }));
 

@@ -9,9 +9,9 @@ import ReactMarkdown from 'react-markdown';
 import { useSelector } from 'react-redux';
 
 import { RootState, Theme } from '../../';
+import RegistryInfoDialog from '../../components/RegistryInfoDialog';
 import LanguageSwitch from './LanguageSwitch';
 import RegistryInfoContent from './RegistryInfoContent';
-import RegistryInfoDialog from './RegistryInfoDialog';
 
 interface Props {
   isOpen: boolean;

@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import BugReport from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
-import { useTheme } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
@@ -71,7 +70,6 @@ const Package: React.FC<PackageInterface> = ({
   const config = useSelector((state: RootState) => state.configuration.config);
   const dispatch = useDispatch<Dispatch>();
   const { t } = useTranslation();
-  const theme = useTheme();
   const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
 
   const handleDownload = useCallback(
@@ -94,21 +92,12 @@ const Package: React.FC<PackageInterface> = ({
   const renderAuthorInfo = (): React.ReactNode => {
     const name = utils.getAuthorName(authorName);
     return (
-      <Author>
-        <Avatar alt={name} src={authorAvatar} />
-        <Details>
-          <div
-            style={{
-              fontSize: '12px',
-              fontWeight: theme?.fontWeight.semiBold,
-              color:
-                theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
-            }}
-          >
-            {name}
-          </div>
-        </Details>
-      </Author>
+      <OverviewItem>
+        <Author>
+          <Avatar alt={name} src={authorAvatar} />
+          <Details>{name}</Details>
+        </Author>
+      </OverviewItem>
     );
   };
 
@@ -229,18 +218,20 @@ const Package: React.FC<PackageInterface> = ({
   );
 
   const renderKeywords = (): React.ReactNode => (
-    <List sx={{ p: 0, my: 0 }}>
-      <KeywordListItems keywords={keywords} />
-    </List>
+    <ListItem alignItems={'flex-start'} sx={{ py: 0, my: 0 }}>
+      <List sx={{ p: 0, my: 0 }}>
+        <KeywordListItems keywords={keywords} />
+      </List>
+    </ListItem>
   );
 
   return (
     <Wrapper className={'package'} data-testid="package-item-list">
-      <ListItem alignItems={'flex-start'}>{renderPackageListItemText()}</ListItem>
-      <ListItem alignItems={'flex-start'} margintop={0}>
-        {renderKeywords()}
+      <ListItem alignItems={'flex-start'} sx={{ mb: 0 }}>
+        {renderPackageListItemText()}
       </ListItem>
-      <ListItem alignItems={'flex-start'} margintop={0}>
+      {keywords && keywords?.length > 0 ? renderKeywords() : null}
+      <ListItem alignItems={'flex-start'} sx={{ mt: 0 }}>
         {renderAuthorInfo()}
         {renderVersionInfo()}
         {renderPublishedInfo()}
@@ -254,8 +245,8 @@ const Package: React.FC<PackageInterface> = ({
 export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
-  margin: 2px 10px 0 0;
-  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white};
+  margin: 0 10px 0 0;
+  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyDark : theme?.palette.white};
 `;
 
 const StyledVersion = styled(Version)`
