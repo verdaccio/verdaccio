@@ -10,7 +10,7 @@ export const resolveConfigPath = function (storageLocation: string, file: string
   return path.resolve(path.dirname(storageLocation), file);
 };
 
-export const MIN_NODE_VERSION = '12';
+export const MIN_NODE_VERSION = '18';
 
 export function isVersionValid(version) {
   return semver.satisfies(version, `>=${MIN_NODE_VERSION}`);
