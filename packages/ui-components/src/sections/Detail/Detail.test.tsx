@@ -10,7 +10,7 @@ describe('DetailContainer', () => {
   });
 
   test('renders without uplinks', () => {
-    render(<DetailContainer showUplinks={false} />);
+    render(<DetailContainer showUpLinks={false} />);
     expect(screen.queryByTestId('uplinks-tab')).toBeFalsy();
   });
 

@@ -14,11 +14,11 @@ export enum TabPosition {
 }
 
 export type Props = {
-  showUplinks?: boolean;
+  showUpLinks?: boolean;
 };
 
-const DetailContainer: React.FC<Props> = ({ showUplinks = true }) => {
-  const tabs = showUplinks
+const DetailContainer: React.FC<Props> = ({ showUpLinks = true }) => {
+  const tabs = showUpLinks
     ? Object.values(TabPosition)
     : Object.values(TabPosition).filter((tab) => tab !== TabPosition.UPLINKS);
   const [tabPosition, setTabPosition] = useState(0);
@@ -30,7 +30,7 @@ const DetailContainer: React.FC<Props> = ({ showUplinks = true }) => {
 
   return (
     <Box component="div" display="flex" flexDirection="column" padding={0}>
-      <Tabs onChange={handleChange} showUplinks={showUplinks} tabPosition={tabPosition} />
+      <Tabs onChange={handleChange} showUpLinks={showUpLinks} tabPosition={tabPosition} />
       {packageMeta?.latest?.deprecated && <Deprecated message={packageMeta?.latest?.deprecated} />}
       <ContainerContent readDescription={readMe} tabPosition={tabs[tabPosition]} />
     </Box>

@@ -28,6 +28,7 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   const { suggestions } = useSelector((state: RootState) => state.search);
   const isLoading = useSelector((state: RootState) => state?.loading?.models.search);
   const dispatch = useDispatch<Dispatch>();
+
   /**
    * Cancel all the requests which are in pending state.
    */

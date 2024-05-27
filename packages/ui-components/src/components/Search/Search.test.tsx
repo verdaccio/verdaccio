@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { api, store } from '../../';
 import { fireEvent, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import Search from './Search';
+import { cleanDescription } from './utils';
 
 jest.mock('lodash/debounce', () =>
   jest.fn((fn) => {
@@ -149,5 +150,25 @@ describe('<Search /> component', () => {
     const listBoxElement = screen.queryAllByRole('listbox');
     // // when the page redirects, the list box should be empty again
     expect(listBoxElement).toHaveLength(0);
+  });
+});
+
+describe('cleanDescription', () => {
+  test('should return plain text', () => {
+    const description = 'Hello, Mars!';
+    const output = cleanDescription(description);
+    expect(output).toBe(description);
+  });
+
+  test('should remove html tags from description', () => {
+    const description = '<h1>verdaccio</h1>';
+    const output = cleanDescription(description);
+    expect(output).toBe('verdaccio');
+  });
+
+  test('should remove markdown links from description', () => {
+    const description = '[verdaccio](https://verdaccio.org)';
+    const output = cleanDescription(description);
+    expect(output).toBe('verdaccio');
   });
 });
