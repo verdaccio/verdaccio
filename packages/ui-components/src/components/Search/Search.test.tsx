@@ -126,7 +126,7 @@ describe('<Search /> component', () => {
 
     fireEvent.change(autoCompleteInput, { target: { value: ' ' } });
     const listBoxElement = screen.queryAllByRole('listbox');
-    // // when the page redirects, the list box should be empty again
+    // when the page redirects, the list box should be empty again
     expect(listBoxElement).toHaveLength(0);
     expect(api.request).toHaveBeenCalledTimes(1);
   });
@@ -170,5 +170,11 @@ describe('cleanDescription', () => {
     const description = '[verdaccio](https://verdaccio.org)';
     const output = cleanDescription(description);
     expect(output).toBe('verdaccio');
+  });
+
+  test('should remove markdown links', () => {
+    const description = '[![NPM version](https://img.shields.io/npm/latest.svg)]';
+    const output = cleanDescription(description);
+    expect(output).toBe('NPM version');
   });
 });

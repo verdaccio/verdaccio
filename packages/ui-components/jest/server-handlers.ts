@@ -21,7 +21,7 @@ export const handlers = [
     return res(ctx.json(require('./api/search-verdaccio.json')));
   }),
 
-  rest.get('http://localhost:9000/-/verdaccio/data/readme/storybook', (req, res, ctx) => {
+  rest.get('http://localhost:9000/-/verdaccio/data/package/readme/storybook', (req, res, ctx) => {
     return res(ctx.text(require('./api/storybook-readme')()));
   }),
 
@@ -40,16 +40,16 @@ export const handlers = [
   rest.get('http://localhost:9000/-/verdaccio/data/sidebar/glob', (req, res, ctx) => {
     return res(ctx.json(require('./api/glob-sidebar.json')));
   }),
-  rest.get('http://localhost:9000/-/verdaccio/data/readme/glob', (req, res, ctx) => {
+  rest.get('http://localhost:9000/-/verdaccio/data/package/readme/glob', (req, res, ctx) => {
     return res(ctx.text('foo glob'));
   }),
   rest.get('http://localhost:9000/-/verdaccio/data/sidebar/got', (req, res, ctx) => {
     return res(ctx.json(require('./api/got-sidebar.json')));
   }),
-  rest.get('http://localhost:9000/-/verdaccio/data/readme/got', (req, res, ctx) => {
+  rest.get('http://localhost:9000/-/verdaccio/data/package/readme/got', (req, res, ctx) => {
     return res(ctx.text('foo got'));
   }),
-  rest.get('http://localhost:9000/-/verdaccio/data/readme/jquery', (req, res, ctx) => {
+  rest.get('http://localhost:9000/-/verdaccio/data/package/readme/jquery', (req, res, ctx) => {
     return res(ctx.text(require('./api/jquery-readme')()));
   }),
   rest.get('http://localhost:9000/verdaccio/-/verdaccio-1.0.0.tgz', (req, res, ctx) => {
