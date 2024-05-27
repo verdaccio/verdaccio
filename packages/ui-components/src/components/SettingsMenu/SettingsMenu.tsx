@@ -13,7 +13,7 @@ interface Props {
   packageName: string;
 }
 
-const InstallListItem: React.FC<Props> = ({ packageName }) => {
+const SettingsMenu: React.FC<Props> = ({ packageName }) => {
   const { t } = useTranslation();
   const { localSettings, updateSettings } = useSettings();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -107,4 +107,4 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
   );
 };
 
-export default InstallListItem;
+export default SettingsMenu;

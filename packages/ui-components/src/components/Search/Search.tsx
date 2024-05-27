@@ -9,6 +9,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { SearchResultWeb } from '@verdaccio/types';
 
 import { Dispatch, RootState, useConfig } from '../../';
+import { Route } from '../../utils';
 import AutoComplete from './AutoComplete';
 import SearchItem from './SearchItem';
 import { StyledInputAdornment, StyledTextField } from './styles';
@@ -60,9 +61,9 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
           if (searchRemote) {
             // TODO: check this part
             // @ts-ignore
-            history.push(`/-/web/detail/${value.package.name}`);
+            history.push(`${Route.DETAIL}${value.package.name}`);
           } else {
-            history.push(`/-/web/detail/${value.name}`);
+            history.push(`${Route.DETAIL}${value.name}`);
           }
           break;
       }

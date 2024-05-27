@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '../../test/test-react-testing-library';
+import { render, screen } from '../../test/test-react-testing-library';
 import DetailContainer from './Detail';
 
 describe('DetailContainer', () => {
@@ -8,5 +8,11 @@ describe('DetailContainer', () => {
     const { container } = render(<DetailContainer />);
     expect(container.firstChild).toMatchSnapshot();
   });
+
+  test('renders without uplinks', () => {
+    render(<DetailContainer showUplinks={false} />);
+    expect(screen.queryByTestId('uplinks-tab')).toBeFalsy();
+  });
+
   test.todo('should test click on tabs');
 });

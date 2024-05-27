@@ -14,11 +14,11 @@ const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
     sx={{
       display: 'flex',
       padding: 0,
-      marginLeft: 0,
+      marginLeft: 1,
       flex: 1,
       '@media (min-width: 600px)': {
         padding: 0,
-        marginLeft: 0,
+        marginLeft: 1,
         marginRight: '20px',
       },
     }}

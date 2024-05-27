@@ -23,7 +23,7 @@ interface Props {
 
 const StyledBox = styled(Box)({
   '> *': {
-    'margin-right': 5,
+    marginRight: 5,
   },
 });
 

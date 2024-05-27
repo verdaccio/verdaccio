@@ -34,10 +34,12 @@ export const Left = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   [`@media (min-width: ${theme?.breakPoints.medium}px)`]: {
     display: 'flex',
   },
+  marginLeft: 1,
 }));
 
 export const Right = styled(Left)({
   display: 'flex',
+  marginRight: 1,
 });
 
 export const Love = styled('span')<{ theme?: Theme }>(({ theme }) => ({

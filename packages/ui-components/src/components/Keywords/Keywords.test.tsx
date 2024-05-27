@@ -25,5 +25,33 @@ describe('<Keywords /> component', () => {
     // @ts-ignore
     render(<Keywords packageMeta={{}} />);
     expect(screen.queryByTestId('keyword-list')).toBeNull();
+
+    const packageMeta = {
+      latest: {
+        name: 'verdaccio1',
+        version: '4.0.0',
+        keywords: '',
+      },
+    };
+
+    render(<Keywords packageMeta={packageMeta} />);
+    expect(screen.queryByTestId('keyword-list')).toBeNull();
+  });
+
+  test('should render keywords set in string', () => {
+    const packageMeta = {
+      latest: {
+        name: 'verdaccio1',
+        version: '4.0.0',
+        keywords: 'hello, world, verdaccio',
+      },
+    };
+
+    const container = render(<Keywords packageMeta={packageMeta} />);
+
+    expect(container.getByText('sidebar.keywords.title')).toBeInTheDocument();
+    expect(container.getByText('verdaccio')).toBeInTheDocument();
+    expect(container.getByText('hello')).toBeInTheDocument();
+    expect(container.getByText('world')).toBeInTheDocument();
   });
 });

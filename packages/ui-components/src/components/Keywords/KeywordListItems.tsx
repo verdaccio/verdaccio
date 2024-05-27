@@ -3,10 +3,12 @@ import ListItem from '@mui/material/ListItem';
 import React from 'react';
 
 const KeywordListItems: React.FC<{ keywords: undefined | string | string[] }> = ({ keywords }) => {
-  if (!keywords) return null;
-
   const keywordList =
-    typeof keywords === 'string' ? keywords.replace(',', ' ').split(' ') : keywords;
+    typeof keywords === 'string' ? keywords.replace(/,/g, ' ').split(' ') : keywords;
+
+  if (!keywordList) {
+    return null;
+  }
 
   return (
     <ListItem sx={{ px: 0, mt: 0, flexWrap: 'wrap' }}>

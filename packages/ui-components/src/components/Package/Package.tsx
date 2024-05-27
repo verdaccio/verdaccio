@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
-import { url, utils } from '../../utils';
+import { Route, url, utils } from '../../utils';
 import KeywordListItems from '../Keywords/KeywordListItems';
 import {
   Author,
@@ -185,7 +185,7 @@ const Package: React.FC<PackageInterface> = ({
     return (
       <Grid container={true} item={true} xs={12}>
         <Grid item={true} xs={11}>
-          <WrapperLink to={`/-/web/detail/${packageName}`}>
+          <WrapperLink to={`${Route.DETAIL}${packageName}`}>
             <PackageTitle className="package-title" data-testid="package-title">
               {packageName}
             </PackageTitle>

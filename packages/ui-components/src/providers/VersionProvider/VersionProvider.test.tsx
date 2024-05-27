@@ -30,7 +30,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should load data from the provider', async () => {
-    await act(async () => {
+    act(() =>
       renderWithStore(
         <MemoryRouter initialEntries={[`/-/web/detail/storybook`]}>
           <Route path={Routes.PACKAGE}>
@@ -40,9 +40,9 @@ describe('<Header /> component with logged in state', () => {
           </Route>
         </MemoryRouter>,
         store
-      );
-    });
-    await waitFor(() => screen.findByText('storybook'));
+      )
+    );
+    await waitFor(() => screen.getByText('storybook'));
     expect(screen.getByText('storybook')).toBeInTheDocument();
     expect(screen.getByText('MIT')).toBeInTheDocument();
   });

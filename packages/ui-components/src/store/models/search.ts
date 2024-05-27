@@ -5,6 +5,8 @@ import { SearchResultWeb } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import API from '../api';
+import { APIRoute } from './routes';
+import { stripTrailingSlash } from './utils';
 
 const CONSTANTS = {
   API_DELAY: 300,
@@ -55,7 +57,7 @@ export const search = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     async getSuggestions({ value }, state) {
-      const basePath = state.configuration.config.base;
+      const basePath = stripTrailingSlash(state.configuration.config.base);
       try {
         const controller = new window.AbortController();
         dispatch.search.addControllerToQueue({ controller });
@@ -63,7 +65,7 @@ export const search = createModel<RootModel>()({
         // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API#Browser_compatibility
         // FUTURE: signal is not well supported for IE and Samsung Browser
         const suggestions: SearchResultWeb[] = await API.request(
-          `${basePath}-/verdaccio/data/search/${encodeURIComponent(value)}`,
+          `${basePath}${APIRoute.SEARCH}${encodeURIComponent(value)}`,
           'GET',
           {
             signal,

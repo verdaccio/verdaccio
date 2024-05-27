@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom';
 
 import { Theme } from '../../Theme';
 import { PackageDependencies } from '../../types/packageMeta';
+import { Route } from '../../utils';
 
 interface DependencyBlockProps {
   title: string;
@@ -41,7 +42,7 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
-    history.push(`/-/web/detail/${name}`);
+    history.push(`${Route.DETAIL}/${name}`);
   }
 
   function labelText(title: string, name: string, version: string): string {

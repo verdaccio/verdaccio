@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useConfig } from '../../providers';
 import { Time, Versions } from '../../types/packageMeta';
-import { utils } from '../../utils';
+import { Route, utils } from '../../utils';
 import Link from '../Link';
 import { ListItemText, Spacer } from './styles';
 
@@ -46,7 +46,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
             key={version}
             sx={{ pr: 0 }}
           >
-            <Link to={`/-/web/detail/${packageName}/v/${version}`} variant="outline">
+            <Link to={`${Route.DETAIL}${packageName}/v/${version}`} variant="outline">
               <ListItemText disableTypography={false} primary={version}></ListItemText>
             </Link>
             {typeof versions[version]?.deprecated === 'string' ? (

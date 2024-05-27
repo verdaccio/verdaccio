@@ -13,8 +13,14 @@ export enum TabPosition {
   UPLINKS = 'uplinks',
 }
 
-const DetailContainer: React.FC = () => {
-  const tabs = Object.values(TabPosition);
+export type Props = {
+  showUplinks?: boolean;
+};
+
+const DetailContainer: React.FC<Props> = ({ showUplinks = true }) => {
+  const tabs = showUplinks
+    ? Object.values(TabPosition)
+    : Object.values(TabPosition).filter((tab) => tab !== TabPosition.UPLINKS);
   const [tabPosition, setTabPosition] = useState(0);
   const { readMe, packageMeta } = useVersion();
 
@@ -24,7 +30,7 @@ const DetailContainer: React.FC = () => {
 
   return (
     <Box component="div" display="flex" flexDirection="column" padding={0}>
-      <Tabs onChange={handleChange} tabPosition={tabPosition} />
+      <Tabs onChange={handleChange} showUplinks={showUplinks} tabPosition={tabPosition} />
       {packageMeta?.latest?.deprecated && <Deprecated message={packageMeta?.latest?.deprecated} />}
       <ContainerContent readDescription={readMe} tabPosition={tabs[tabPosition]} />
     </Box>

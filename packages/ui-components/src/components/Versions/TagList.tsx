@@ -3,6 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import React from 'react';
 
 import { DistTags, Time } from '../../types/packageMeta';
+import { Route } from '../../utils';
 import Link from '../Link';
 import { ListItemText, Spacer } from './styles';
 
@@ -20,7 +21,7 @@ const VersionsTagList: React.FC<Props> = ({ tags, packageName, time }) => (
       })
       .map((tag) => (
         <ListItem className="version-item" data-testid={`tag-${tag}`} key={tag} sx={{ pr: 0 }}>
-          <Link to={`/-/web/detail/${packageName}/v/${tags[tag]}`} variant="outline">
+          <Link to={`${Route.DETAIL}${packageName}/v/${tags[tag]}`} variant="outline">
             <ListItemText>{tag}</ListItemText>
           </Link>
           <Spacer />

@@ -6,7 +6,7 @@ const colors = {
   black: '#000',
   white: '#fff',
   red: '#d32f2f',
-  orange: '#CD4000',
+  orange: '#cd4000',
   greySuperLight: '#f5f5f5',
   greyLight: '#d3d3d3',
   greyLight2: '#908ba1',
@@ -38,7 +38,7 @@ const themeModes = {
     ...colors,
     primary: '#ffffff',
     secondary: '#424242',
-    background: '#1A202C',
+    background: '#1a202c',
   },
 };
 
