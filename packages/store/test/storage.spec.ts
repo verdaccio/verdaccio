@@ -729,7 +729,7 @@ describe('storage', () => {
     test('should serve fetch tarball from upstream without dist info local', (done) => {
       const pkgName = 'upstream';
       const upstreamManifest = addNewVersion(
-        generateRemotePackageMetadata(pkgName, '1.0.0'),
+        generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest,
         '1.0.1'
       );
       nock('https://registry.verdaccio.org').get(`/${pkgName}`).reply(201, upstreamManifest);
@@ -789,7 +789,7 @@ describe('storage', () => {
     test('should serve fetch tarball from upstream without with info local', (done) => {
       const pkgName = 'upstream';
       const upstreamManifest = addNewVersion(
-        addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0'), '1.0.1'),
+        addNewVersion(generateRemotePackageMetadata(pkgName, '1.0.0') as Manifest, '1.0.1'),
         '1.0.2'
       );
       nock('https://registry.verdaccio.org')
@@ -971,7 +971,7 @@ describe('storage', () => {
         const storage = new Storage(config);
         await storage.init(config);
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
-          retry: 0,
+          retry: { limit: 0 },
         });
         expect(manifest).toBe(fooManifest);
       });
