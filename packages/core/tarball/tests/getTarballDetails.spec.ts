@@ -1,6 +1,5 @@
 import fs from 'fs';
 import path from 'path';
-import { Readable } from 'stream';
 
 import { getTarballDetails } from '../src/getTarballDetails.ts';
 
@@ -15,23 +14,20 @@ const getFileBuffer = async (filename: string): Promise<Buffer> => {
 describe('getTarballDetails', () => {
   test('should return stats of tarball (gzipped)', async () => {
     const buffer = await getFileBuffer('tarball.tgz');
-    const readable = Readable.from(buffer);
-    const details = await getTarballDetails(readable);
+    const details = await getTarballDetails(buffer);
     expect(details.fileCount).toBe(2);
     expect(details.unpackedSize).toBe(1280);
   });
 
   test('should return stats of tarball (uncompressed)', async () => {
     const buffer = await getFileBuffer('tarball.tar');
-    const readable = Readable.from(buffer);
-    const details = await getTarballDetails(readable);
+    const details = await getTarballDetails(buffer);
     expect(details.fileCount).toBe(2);
     expect(details.unpackedSize).toBe(1280);
   });
 
   test('should throw an error if the buffer is corrupt', async () => {
     const corruptBuffer = Buffer.from('this is not a tarball');
-    const readable = Readable.from(corruptBuffer);
-    await expect(getTarballDetails(readable)).rejects.toThrow();
+    await expect(getTarballDetails(corruptBuffer)).rejects.toThrow();
   });
 });

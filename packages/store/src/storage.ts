@@ -1115,8 +1115,6 @@ class Storage {
     // at this point document is either created or existed before
     const [firstAttachmentKey] = Object.keys(_attachments);
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
-    const readable = Readable.from(buffer);
-    const tarballStats = await this.getTarballStats(versions[versionToPublish], readable);
 
     try {
       // we check if package exist already locally
@@ -1150,6 +1148,7 @@ class Storage {
 
     // 1. after tarball has been successfully uploaded, we update the version
     try {
+      const tarballStats = await this.getTarballStats(versions[versionToPublish], buffer);
       // Older package managers like npm6 do not send readme content as part of version but include it on root level
       if (_.isEmpty(versions[versionToPublish].readme)) {
         versions[versionToPublish].readme =
@@ -1182,6 +1181,7 @@ class Storage {
 
     // 3. upload the tarball to the storage
     try {
+      const readable = Readable.from(buffer);
       await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
         signal: options.signal,
       });
@@ -1997,19 +1997,14 @@ class Storage {
     }
   }
 
-  private async getTarballStats(version: Version, readable: Readable): Promise<TarballDetails> {
+  private async getTarballStats(version: Version, buffer: Buffer): Promise<TarballDetails> {
     if (
       version.dist == undefined ||
       version.dist?.fileCount == undefined ||
       version.dist?.unpackedSize == undefined
     ) {
       debug('tarball stats not found, calculating');
-      try {
-        return await getTarballDetails(readable);
-      } catch (err: any) {
-        logger.error({ err: err.message }, 'getting tarball details has failed: @{err}');
-        throw err;
-      }
+      return await getTarballDetails(buffer);
     } else {
       debug('tarball stats found');
       return { fileCount: version.dist.fileCount, unpackedSize: version.dist.unpackedSize };

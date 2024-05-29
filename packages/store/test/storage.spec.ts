@@ -890,6 +890,47 @@ describe('storage', () => {
   });
 
   describe('getTarball', () => {
+    test('should get a package from local storage', (done) => {
+      const pkgName = 'foo';
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config);
+      storage.init(config).then(() => {
+        const ac = new AbortController();
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        storage
+          .updateManifest(bodyNewManifest, {
+            signal: ac.signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: defaultRequestOptions,
+          })
+          .then(() => {
+            const abort = new AbortController();
+            storage
+              .getTarball(pkgName, `${pkgName}-1.0.0.tgz`, {
+                signal: abort.signal,
+              })
+              .then((stream) => {
+                stream.on('data', (dat) => {
+                  expect(dat).toBeDefined();
+                  expect(dat.length).toEqual(512);
+                });
+                stream.on('end', () => {
+                  done();
+                });
+                stream.on('error', () => {
+                  done('this should not happen');
+                });
+              });
+          });
+      });
+    });
+
     test('should not found a package anywhere', (done) => {
       const config = new Config(
         configExample({

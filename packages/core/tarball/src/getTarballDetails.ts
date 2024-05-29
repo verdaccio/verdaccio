@@ -7,10 +7,10 @@ export type TarballDetails = {
   unpackedSize: number; // in bytes
 };
 
-export async function getTarballDetails(readable: Readable): Promise<TarballDetails> {
+export async function getTarballDetails(buffer: Buffer): Promise<TarballDetails> {
   let fileCount = 0;
   let unpackedSize = 0;
-
+  const readable = Readable.from(buffer);
   const unpack = tarStream.extract();
 
   return new Promise((resolve, reject) => {

@@ -13,6 +13,7 @@ const defaultWebTokenOptions: JWTOptions = {
 
 const defaultApiTokenConf: APITokenOptions = {
   legacy: true,
+  migrateToSecureLegacySignature: true,
 };
 
 export const defaultSecurity: Security = {
