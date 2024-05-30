@@ -225,6 +225,7 @@ describe('Storage Utils', () => {
         _uplinks: {},
         name: '',
         versions: {},
+        time: {},
         [DIST_TAGS]: {},
       };
       const mergedPkg = mergeUplinkTimeIntoLocal(pkg1, pkg2);
