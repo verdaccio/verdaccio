@@ -26,7 +26,7 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v3
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v3
 
       - name: Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
