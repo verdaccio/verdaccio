@@ -8,6 +8,8 @@ updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: 'github-actions'
     directory: '/'
+    open-pull-requests-limit: 1
+    prefix: "[github-actions] "
     assignees:
       - 'verdacciobot'    
     schedule:
