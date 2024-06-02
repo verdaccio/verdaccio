@@ -1,5 +1,25 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.16
+
+### Patch Changes
+
+- e5624e1: chore: fix types for some store tests
+- 5bfab62: feat: add tarball details for published packages
+- Updated dependencies [5bfab62]
+- Updated dependencies [38b1e82]
+  - @verdaccio/tarball@12.0.0-next-7.16
+  - @verdaccio/url@12.0.0-next-7.16
+  - @verdaccio/logger@7.0.0-next-7.16
+  - @verdaccio/hooks@7.0.0-next-7.16
+  - @verdaccio/loaders@7.0.0-next-7.16
+  - @verdaccio/local-storage@12.0.0-next-7.16
+  - @verdaccio/proxy@7.0.0-next-7.16
+  - @verdaccio/search@7.0.0-next-7.5
+  - @verdaccio/core@7.0.0-next-7.16
+  - @verdaccio/config@7.0.0-next-7.16
+  - @verdaccio/utils@7.0.0-next-7.16
+
 ## 7.0.0-next-7.15
 
 ### Patch Changes
