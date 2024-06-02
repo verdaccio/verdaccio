@@ -25,7 +25,7 @@ To enable authenticated access to the registry, you can set the token in the `bu
 [install.scopes]
 
 # as an object with token
-"@myorg3" = { token = "$npm_token", url = "https://localhost:4873/" }
+"@scope" = { token = "$npm_token", url = "https://localhost:4873/" }
 ```
 
 Bun provides other ways to configure the registry, you can find more information in the official documentation.
