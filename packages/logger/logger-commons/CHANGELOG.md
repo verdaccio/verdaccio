@@ -1,5 +1,14 @@
 # @verdaccio/logger-commons
 
+## 7.0.0-next-7.16
+
+### Patch Changes
+
+- cf1b46c: fix: log spacing depending on the FORMAT and COLORS options
+- Updated dependencies [cf1b46c]
+  - @verdaccio/logger-prettify@7.0.0-next-7.3
+  - @verdaccio/core@7.0.0-next-7.16
+
 ## 7.0.0-next-7.15
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @verdaccio/node-api
 
+## 7.0.0-next-7.16
+
+### Patch Changes
+
+- @verdaccio/server@7.0.0-next-7.16
+- @verdaccio/server-fastify@7.0.0-next-7.16
+- @verdaccio/logger@7.0.0-next-7.16
+- @verdaccio/core@7.0.0-next-7.16
+- @verdaccio/config@7.0.0-next-7.16
+
 ## 7.0.0-next-7.15
 
 ### Minor Changes
