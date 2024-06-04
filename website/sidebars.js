@@ -12,7 +12,14 @@ module.exports = {
         {
           type: 'category',
           label: 'Setting up Verdaccio',
-          items: ['cli-registry', 'setup-npm', 'setup-yarn', 'setup-pnpm'],
+          items: [
+            'cli-registry',
+            'setup-npm',
+            'setup-yarn',
+            'setup-pnpm',
+            'setup-deno',
+            'setup-bun',
+          ],
         },
         'who-is-using',
         'best',
