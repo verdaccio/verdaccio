@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.31.1](https://github.com/verdaccio/verdaccio/compare/v5.31.0...v5.31.1) (2024-06-06)
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4668](https://github.com/verdaccio/verdaccio/issues/4668)) ([9e3a79d](https://github.com/verdaccio/verdaccio/commit/9e3a79d50345602bf8584b08005518f27f7e2afb))
+* **deps:** update node.js to v20.14.0 ([#4663](https://github.com/verdaccio/verdaccio/issues/4663)) ([6591927](https://github.com/verdaccio/verdaccio/commit/65919277274c9d5360ad39177f88ceb653164653))
+* set engine to 14.21.3 ([6cf6064](https://github.com/verdaccio/verdaccio/commit/6cf6064d06a9375016294bd017834d19c474e738))
+* set engine to Node.js 14 ([9a6d5b3](https://github.com/verdaccio/verdaccio/commit/9a6d5b3d442fd8819baf2f31487d0999c4289a0a))
+
 ## [5.31.0](https://github.com/verdaccio/verdaccio/compare/v5.30.3...v5.31.0) (2024-05-11)
 
 
