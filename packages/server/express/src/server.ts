@@ -42,6 +42,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   }
   app.use(cors());
   app.use(rateLimit(config.serverSettings.rateLimit));
+  app.use(express.json({ limit: 60 * 1024 * 1024 }));
 
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
