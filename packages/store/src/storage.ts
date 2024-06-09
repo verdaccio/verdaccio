@@ -68,6 +68,7 @@ import {
   tagVersion,
   tagVersionNext,
 } from '.';
+import { checkFunctionIsPromise, promisifiedCallbackFunction } from './lib/legacy-utils';
 import { isPublishablePackage } from './lib/star-utils';
 import { isExecutingStarCommand } from './lib/star-utils';
 import {
@@ -201,7 +202,9 @@ class Storage {
     }
 
     try {
-      const cacheManifest = await storage.readPackage(name);
+      const cacheManifest: Manifest = await (checkFunctionIsPromise(storage, 'readPackage')
+        ? storage.readPackage(name)
+        : promisifiedCallbackFunction(storage, 'readPackage', name));
       if (!cacheManifest._attachments[filename]) {
         throw errorUtils.getNotFound('no such file available');
       }
@@ -447,7 +450,7 @@ class Storage {
     }
 
     // we have version, so we need to return specific version
-    const [convertedManifest] = await this.getPackageNext(options);
+    const [convertedManifest] = await this.getPackage(options);
 
     const version: Version | undefined = getVersion(convertedManifest.versions, queryVersion);
 
@@ -494,7 +497,7 @@ class Storage {
 
   public async getPackageManifest(options: IGetPackageOptionsNext): Promise<Manifest> {
     // convert dist remotes to local bars
-    const [manifest] = await this.getPackageNext(options);
+    const [manifest] = await this.getPackage(options);
 
     // If change access is requested (?write=true), then check if logged in user is allowed to change package
     if (options.byPassCache === true) {
@@ -584,10 +587,16 @@ class Storage {
   public async getLocalDatabase(): Promise<Version[]> {
     debug('get local database');
     const storage = this.localStorage.getStoragePlugin();
-    const database = await storage.get();
+
+    // backward compatibility with legacy storage plugins
+    const database = await (checkFunctionIsPromise(storage, 'get')
+      ? storage.get()
+      : promisifiedCallbackFunction(storage, 'get'));
+
     const packages: Version[] = [];
     for (const pkg of database) {
       debug('get local database %o', pkg);
+
       const manifest = await this.getPackageLocalMetadata(pkg);
       const latest = manifest[DIST_TAGS].latest;
       if (latest && manifest.versions[latest]) {
@@ -823,7 +832,10 @@ class Storage {
     }
 
     try {
-      const result: Manifest = await storage.readPackage(name);
+      const result: Manifest = checkFunctionIsPromise(storage, 'readPackage')
+        ? await storage.readPackage(name)
+        : await promisifiedCallbackFunction(storage, 'readPackage', name);
+
       return normalizePackage(result);
     } catch (err: any) {
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
@@ -1049,7 +1061,7 @@ class Storage {
    * @param name
    * @returns
    */
-  private async getPackagelocalByNameNext(name: string): Promise<Manifest | null> {
+  private async getPackagelocalByName(name: string): Promise<Manifest | null> {
     try {
       return await this.getPackageLocalMetadata(name);
     } catch (err: any) {
@@ -1082,6 +1094,7 @@ class Storage {
     if (typeof storage === 'undefined') {
       throw errorUtils.getNotFound();
     }
+    // TODO: juan
     const hasPackage = await storage.hasPackage();
     debug('has package %o for %o', pkgName, hasPackage);
     return hasPackage;
@@ -1123,7 +1136,7 @@ class Storage {
 
     try {
       // we check if package exist already locally
-      const localManifest = await this.getPackagelocalByNameNext(name);
+      const localManifest = await this.getPackagelocalByName(name);
       // if continue, the version to be published does not exist
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
@@ -1600,7 +1613,7 @@ class Storage {
    * @return {*}  {Promise<[Manifest, any[]]>}
    * @memberof AbstractStorage
    */
-  private async getPackageNext(options: IGetPackageOptionsNext): Promise<[Manifest, any[]]> {
+  private async getPackage(options: IGetPackageOptionsNext): Promise<[Manifest, any[]]> {
     const { name } = options;
     debug('get package for %o', name);
     let data: Manifest | null = null;
@@ -1719,7 +1732,7 @@ class Storage {
 
     if (found && syncManifest !== null) {
       // updates the local cache manifest with fresh data
-      let updatedCacheManifest = await this.updateVersionsNext(name, syncManifest);
+      let updatedCacheManifest = await this.updateVersions(name, syncManifest);
       // plugin filter applied to the manifest
       const [filteredManifest, filtersErrors] = await this.applyFilters(updatedCacheManifest);
       return [
@@ -1883,13 +1896,16 @@ class Storage {
    * @return {Function}
    */
   private async readCreatePackage(pkgName: string): Promise<Manifest> {
-    const storage: any = this.getPrivatePackageStorage(pkgName);
+    const storage = this.getPrivatePackageStorage(pkgName);
     if (_.isNil(storage)) {
       throw errorUtils.getInternalError('storage could not be found');
     }
 
     try {
-      const result: Manifest = await storage.readPackage(pkgName);
+      // backward compatibility for legacy plugins
+      const result: Manifest = await (checkFunctionIsPromise(storage, 'readPackage')
+        ? storage.readPackage(pkgName)
+        : promisifiedCallbackFunction(storage, 'readPackage', pkgName));
       return normalizePackage(result);
     } catch (err: any) {
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
@@ -1910,13 +1926,13 @@ class Storage {
 
     The steps are the following.
     1. Get the latest version of the package from the cache.
-    2. If does not exist will return a 
+    2. If does not exist will return a
 
     @param name
     @param remoteManifest
     @returns return a merged manifest.
   */
-  public async updateVersionsNext(name: string, remoteManifest: Manifest): Promise<Manifest> {
+  public async updateVersions(name: string, remoteManifest: Manifest): Promise<Manifest> {
     debug(`updating versions for package %o`, name);
     let cacheManifest: Manifest = await this.readCreatePackage(name);
     let change = false;
