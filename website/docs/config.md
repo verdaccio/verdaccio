@@ -185,11 +185,20 @@ packages:
 
 ### Offline Publish {#offline-publish}
 
-By default `verdaccio` does not allow you to publish packages when the client is offline. This can be can be overridden by setting this value to _true_.
+By default `verdaccio` does not allow you to publish packages when the client is offline. This can be overridden by setting this value to _true_.
 
 ```yaml
 publish:
   allow_offline: false
+```
+
+### Checking Package Ownership
+
+By default, [package access](packages.md) defines who is allowed to publish and unpublish packages. By setting `check_owner` to _true_, only package owners are allowed to make changes to a package. The first owner of a package is the user who published the first version. Further owners can be added or removed using [`npm owner`](https://docs.npmjs.com/cli/v10/commands/npm-owner). You can find the list of current owners in the package manifest under `maintainers`.
+
+```yaml
+publish:
+  check_owner: false
 ```
 
 <small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
@@ -198,7 +207,7 @@ publish:
 
 The prefix is intended to be used when the server runs behinds the proxy and won't work properly if is used without a reverse proxy, check the **reverse proxy setup** page for more details.
 
-The internal logic builds correctly the public url, validates the `host` header and and bad shaped `url_prefix`.
+The internal logic builds correctly the public url, validates the `host` header and bad shaped `url_prefix`.
 
 eg: `url_prefix: /verdaccio`, `url_prefix: verdaccio/`, `url_prefix: verdaccio` would be `/verdaccio/`
 
