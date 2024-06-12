@@ -1,5 +1,6 @@
 ---
 '@verdaccio/types': patch
+'@verdaccio/config': patch
 '@verdaccio/core': patch
 '@verdaccio/store': patch
 '@verdaccio/api': patch

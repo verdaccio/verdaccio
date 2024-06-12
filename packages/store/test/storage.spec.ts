@@ -709,7 +709,7 @@ describe('storage', () => {
           uplinksLook: true,
           requestOptions: defaultRequestOptions,
         })) as Manifest;
-        expect(manifest?.maintainers).toEqual([{ name: '', email: '' }]);
+        expect(manifest?.maintainers).toEqual([{ name: 'Anonymous', email: '' }]);
       });
 
       test.each([

@@ -10,6 +10,7 @@ import { hasProxyTo } from '@verdaccio/config';
 import {
   API_ERROR,
   API_MESSAGE,
+  DEFAULT_USER,
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
@@ -1469,7 +1470,10 @@ class Storage {
 
     // Set initial package owner
     // TODO: Add email of user
-    packageData.maintainers = [{ name: username || '', email: '' }];
+    packageData.maintainers =
+      username && username.length > 0
+        ? [{ name: username, email: '' }]
+        : [{ name: DEFAULT_USER, email: '' }];
 
     try {
       await storage.createPackage(name, packageData);
