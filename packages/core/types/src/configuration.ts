@@ -83,6 +83,7 @@ export type PackageManagers = 'pnpm' | 'yarn' | 'npm';
 export type CommonWebConf = {
   title?: string;
   logo?: string;
+  logoDark?: string;
   favicon?: string;
   gravatar?: boolean;
   sort_packages?: string;
