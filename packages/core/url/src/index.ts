@@ -121,10 +121,17 @@ export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOpt
       throw new Error('invalid host');
     }
 
+    // 'X-Forwarded-Proto' is the default header
     const protoHeader: string =
       process.env.VERDACCIO_FORWARDED_PROTO?.toLocaleLowerCase() ??
       HEADERS.FORWARDED_PROTO.toLowerCase();
-    const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader] as string | undefined;
+    const forwardedProtocolHeaderValue = requestOptions.headers[protoHeader];
+
+    if (Array.isArray(forwardedProtocolHeaderValue)) {
+      // This really should never happen - only set-cookie is allowed to have
+      // multiple values.
+      throw new Error('invalid forwarded protocol header value. Reading header ' + protoHeader);
+    }
 
     const protocol = getWebProtocol(forwardedProtocolHeaderValue, requestOptions.protocol);
     const combinedUrl = combineBaseUrl(protocol, host, url_prefix);

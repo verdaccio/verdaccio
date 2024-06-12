@@ -1,5 +1,12 @@
 # @verdaccio/logger-7
 
+## 7.0.0-next-7.16
+
+### Patch Changes
+
+- Updated dependencies [cf1b46c]
+  - @verdaccio/logger-commons@7.0.0-next-7.16
+
 ## 7.0.0-next-7.15
 
 ### Patch Changes

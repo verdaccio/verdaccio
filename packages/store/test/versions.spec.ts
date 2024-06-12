@@ -41,12 +41,16 @@ describe('versions-utils', () => {
     });
 
     test('should return nothing on get invalid versions', () => {
+      // @ts-ignore
       expect(getVersion({ ...metadata } as any, undefined)).toBeUndefined();
+      // @ts-ignore
       expect(getVersion({ ...metadata } as any, null)).toBeUndefined();
+      // @ts-ignore
       expect(getVersion({ ...metadata } as any, 8)).toBeUndefined();
     });
 
     test('should handle no versions', () => {
+      // @ts-ignore
       expect(getVersion(undefined, undefined)).toBeUndefined();
     });
   });
@@ -60,6 +64,7 @@ describe('versions-utils', () => {
       ]);
     });
     test('should sort versions and filter out invalid', () => {
+      // @ts-ignore
       expect(sortVersionsAndFilterInvalid(['1.0.0', '5.0.0', '2.0.0', '', null])).toEqual([
         '1.0.0',
         '2.0.0',
