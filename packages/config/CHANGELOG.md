@@ -1,5 +1,12 @@
 # @verdaccio/config
 
+## 7.0.0-next-7.16
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.16
+- @verdaccio/utils@7.0.0-next-7.16
+
 ## 7.0.0-next-7.15
 
 ### Minor Changes

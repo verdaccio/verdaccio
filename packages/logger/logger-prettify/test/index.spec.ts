@@ -17,7 +17,7 @@ describe('prettyFactory', () => {
         objectMode: true,
         write(chunk, enc, cb) {
           const formatted = pretty(JSON.parse(chunk));
-          expect(formatted).toBe('info --- test message ');
+          expect(formatted).toBe('info --- test message');
           cb();
           done();
         },

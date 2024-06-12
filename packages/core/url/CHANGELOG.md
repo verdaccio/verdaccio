@@ -1,5 +1,12 @@
 # Change Log
 
+## 12.0.0-next-7.16
+
+### Patch Changes
+
+- 38b1e82: patch(core/url): Throw if VERDACCIO_FORWARDED_PROTO resolves to an array (#4613 by @Tobbe)
+  - @verdaccio/core@7.0.0-next-7.16
+
 ## 12.0.0-next-7.15
 
 ### Patch Changes

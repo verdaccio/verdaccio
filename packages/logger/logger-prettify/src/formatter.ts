@@ -3,7 +3,7 @@ import { inspect } from 'util';
 
 import { LevelCode, calculateLevel, levelsColors, subSystemLevels } from './levels';
 import { PrettyOptionsExtended } from './types';
-import { formatLoggingDate, isObject, padLeft, padRight } from './utils';
+import { formatLoggingDate, isObject, padRight } from './utils';
 
 let LEVEL_VALUE_MAX = 0;
 for (const l in levelsColors) {
@@ -68,11 +68,11 @@ function getMessage(debugLevel, msg, sub, templateObjects, hasColors: boolean) {
       `${subSystemType} ${finalMessage}`
     )}`;
 
-    return padLeft(logString);
+    return logString;
   }
   const logString = `${padRight(debugLevel, LEVEL_VALUE_MAX)}${subSystemType} ${finalMessage}`;
 
-  return padRight(logString);
+  return logString;
 }
 
 export function printMessage(

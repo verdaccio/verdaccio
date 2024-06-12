@@ -36,7 +36,7 @@ describe('logger test', () => {
       logger.trace(`this should not be logged`);
       logger.error(`this should logged`);
       const content = await readLogFile(file);
-      expect(content).toBe('info --- testing test \nerror--- this should logged \n');
+      expect(content).toBe('info --- testing test\nerror--- this should logged\n');
     });
 
     test('should include all logging level', async () => {
@@ -51,7 +51,7 @@ describe('logger test', () => {
       logger.error(`this should logged`);
       const content = await readLogFile(file);
       expect(content).toBe(
-        'info --- testing test \ndebug--- this should not be logged \ntrace--- this should not be logged \nerror--- this should logged \n'
+        'info --- testing test\ndebug--- this should not be logged\ntrace--- this should not be logged\nerror--- this should logged\n'
       );
     });
   });
@@ -101,7 +101,7 @@ describe('logger test', () => {
         `publishing or updating a new version for @{packageName}`
       );
       const content = await readLogFile(file);
-      expect(content).toEqual('info --- publishing or updating a new version for test \n');
+      expect(content).toEqual('info --- publishing or updating a new version for test\n');
     });
 
     test('should log into a file with pretty-timestamped', async () => {
@@ -122,7 +122,7 @@ describe('logger test', () => {
       );
       const content = await readLogFile(file);
       // TODO: we might want mock time for testing
-      expect(content).toMatch('info --- publishing or updating a new version for test \n');
+      expect(content).toMatch('info --- publishing or updating a new version for test\n');
     });
   });
 });
