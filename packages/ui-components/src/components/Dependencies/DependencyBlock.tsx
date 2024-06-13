@@ -42,7 +42,7 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
-    history.push(`${Route.DETAIL}/${name}`);
+    history.push(`${Route.DETAIL}${name}`);
   }
 
   function labelText(title: string, name: string, version: string): string {
