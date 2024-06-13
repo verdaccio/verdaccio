@@ -124,6 +124,7 @@ export interface Version {
   optionalDependencies?: Dependencies;
   peerDependenciesMeta?: PeerDependenciesMeta;
   bundleDependencies?: Dependencies;
+  acceptDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;
   _id: string;
@@ -180,6 +181,7 @@ export interface FullRemoteManifest {
   versions: Versions;
   /** store owners of this package */
   maintainers?: Author[];
+  contributors?: Author[];
   /** store the latest readme **/
   readme?: string;
   /** store star assigned to this packages by users */
@@ -224,7 +226,6 @@ export type AbbreviatedVersion = Pick<
   Version,
   | 'name'
   | 'version'
-  | 'description'
   | 'dependencies'
   | 'devDependencies'
   | 'bin'
@@ -232,6 +233,15 @@ export type AbbreviatedVersion = Pick<
   | 'engines'
   | 'funding'
   | 'peerDependencies'
+  | 'cpu'
+  | 'deprecated'
+  | 'directories'
+  | 'hasInstallScript'
+  | 'optionalDependencies'
+  | 'os'
+  | 'peerDependenciesMeta'
+  | 'acceptDependencies'
+  | '_hasShrinkwrap'
 >;
 
 export interface AbbreviatedVersions {

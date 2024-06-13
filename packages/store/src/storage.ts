@@ -524,7 +524,6 @@ class Storage {
         const _version_abbreviated = {
           name: _version.name,
           version: _version.version,
-          description: _version.description,
           deprecated: _version.deprecated,
           bin: _version.bin,
           dist: _version.dist,
@@ -536,6 +535,10 @@ class Storage {
           peerDependencies: _version.peerDependencies,
           optionalDependencies: _version.optionalDependencies,
           bundleDependencies: _version.bundleDependencies,
+          cpu: _version.cpu,
+          os: _version.os,
+          peerDependenciesMeta: _version.peerDependenciesMeta,
+          acceptDependencies: _version.acceptDependencies,
           // npm cli specifics
           _hasShrinkwrap: _version._hasShrinkwrap,
           hasInstallScript: _version.hasInstallScript,

@@ -1894,7 +1894,6 @@ describe('storage', () => {
         expect(Object.keys(version)).toEqual([
           'name',
           'version',
-          'description',
           'deprecated',
           'bin',
           'dist',
@@ -1906,6 +1905,10 @@ describe('storage', () => {
           'peerDependencies',
           'optionalDependencies',
           'bundleDependencies',
+          'cpu',
+          'os',
+          'peerDependenciesMeta',
+          'acceptDependencies',
           '_hasShrinkwrap',
           'hasInstallScript',
         ]);
