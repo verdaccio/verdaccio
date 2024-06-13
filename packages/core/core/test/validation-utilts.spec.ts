@@ -6,6 +6,7 @@ import {
   validateName,
   validatePackage,
   validatePassword,
+  validateUserName,
 } from '../src/validation-utils';
 
 describe('validatePackage', () => {
@@ -222,5 +223,19 @@ describe('validatePassword', () => {
 
   test('should validate password according the length and default config', () => {
     expect(validatePassword('1235678910')).toBeTruthy();
+  });
+});
+
+describe('validateUserName', () => {
+  test('should validate username according to expected name', () => {
+    expect(validateUserName('org.couchdb.user:test', 'test')).toBeTruthy();
+  });
+
+  test('should fail to validate username if different from expected name', () => {
+    expect(validateUserName('org.couchdb.user:foouser', 'test')).toBeFalsy();
+  });
+
+  test('should fail to validate username if not given', () => {
+    expect(validateUserName(undefined, 'test')).toBeFalsy();
   });
 });

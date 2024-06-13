@@ -27,10 +27,22 @@ export default function (route: Router, auth: Auth, config: Config): void {
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
+
+      if (typeof req.remote_user.name !== 'string' || req.remote_user.name === '') {
+        debug('user not logged in');
+        res.status(HTTP_STATUS.OK);
+        return next({ ok: false });
+      }
+
+      const username = req.params.org_couchdb_user.split(':')[1];
       const message = getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);
       next({
+        // 'npm owner' requires user info
+        // TODO: we don't have the email
+        name: username,
+        email: '',
         ok: message,
       });
     }
@@ -60,6 +72,10 @@ export default function (route: Router, auth: Auth, config: Config): void {
       const { name, password } = req.body;
       debug('login or adduser');
       const remoteName = req?.remote_user?.name;
+
+      if (!validatioUtils.validateUserName(req.params.org_couchdb_user, name)) {
+        return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
+      }
 
       if (typeof remoteName !== 'undefined' && typeof name === 'string' && remoteName === name) {
         debug('login: no remote user detected');
@@ -97,6 +113,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
           }
         );
       } else {
+        debug('adduser: %o', name);
         if (
           validatioUtils.validatePassword(
             password,

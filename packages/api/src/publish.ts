@@ -76,11 +76,11 @@ const debug = buildDebug('verdaccio:api:publish');
    * 
    * 3. Star a package
    *
-   * Permissions: start a package depends of the publish and unpublish permissions, there is no
-   * specific flag for star or un start.
+   * Permissions: staring a package depends of the publish and unpublish permissions, there is no
+   * specific flag for star or unstar.
    * The URL for star is similar to the unpublish (change package format)
    *
-   * npm has no endpoint for star a package, rather mutate the metadata and acts as, the difference
+   * npm has no endpoint for staring a package, rather mutate the metadata and acts as, the difference
    * is the users property which is part of the payload and the body only includes
    *
    * {
@@ -89,7 +89,24 @@ const debug = buildDebug('verdaccio:api:publish');
 		  "users": {
 		    [username]: boolean value (true, false)
 		  }
-	}
+	   }
+   *
+   * 4. Change owners of a package
+   *
+   * Similar to staring a package, changing owners (maintainers) of a package uses the publish
+   * endpoint. 
+   *
+   * The body includes a list of the new owners with the following format
+   *
+   * {
+		  "_id": pkgName,
+	  	"_rev": "4-b0cdaefc9bdb77c8",
+		  "maintainers": [
+        { "name": "first owner", "email": "me@verdaccio.org" },
+        { "name": "second owner", "email": "you@verdaccio.org" },
+        ...
+		  ]
+	   }
    *
    */
 export default function publish(router: Router, auth: Auth, storage: Storage): void {
@@ -127,10 +144,11 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       const packageName = req.params.package;
       const rev = req.params.revision;
+      const username = req?.remote_user?.name;
 
       logger.debug({ packageName }, `unpublishing @{packageName}`);
       try {
-        await storage.removePackage(packageName, rev);
+        await storage.removePackage(packageName, rev, username);
         debug('package %s unpublished', packageName);
         res.status(HTTP_STATUS.CREATED);
         return next({ ok: API_MESSAGE.PKG_REMOVED });
@@ -155,13 +173,14 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     ): Promise<void> {
       const packageName = req.params.package;
       const { filename, revision } = req.params;
+      const username = req?.remote_user?.name;
 
       logger.debug(
         { packageName, filename, revision },
         `removing a tarball for @{packageName}-@{tarballName}-@{revision}`
       );
       try {
-        await storage.removeTarball(packageName, filename, revision);
+        await storage.removeTarball(packageName, filename, revision, username);
         res.status(HTTP_STATUS.CREATED);
 
         logger.debug(
@@ -187,6 +206,12 @@ export function publishPackage(storage: Storage): any {
     const { revision } = req.params;
     const metadata = req.body;
     const username = req?.remote_user?.name;
+
+    debug('publishing package %o for user %o', packageName, username);
+    logger.debug(
+      { packageName, username },
+      'publishing package @{packageName} for user @{username}'
+    );
 
     try {
       const message = await storage.updateManifest(metadata, {

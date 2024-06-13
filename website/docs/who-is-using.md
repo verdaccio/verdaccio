@@ -28,6 +28,7 @@ _If you are using Verdaccio in your business and want to share your experience, 
 - [Hyperledger Caliper](https://github.com/hyperledger/caliper)
 - [secco](https://secco.lekoarts.de)
 - [Nx](https://nx.dev/)
+- [OpenUPM](https://openupm.com/docs/)
 
 #### Readme Recommendations {#readme-recommendations}
 

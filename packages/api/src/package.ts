@@ -28,6 +28,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
       const name = req.params.package;
       let version = req.params.version;
       const write = req.query.write === 'true';
+      const username = req?.remote_user?.name;
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
       const requestOptions = {
@@ -37,6 +38,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
         host: req.host,
         remoteAddress: req.socket.remoteAddress,
         byPassCache: write,
+        username,
       };
 
       try {
