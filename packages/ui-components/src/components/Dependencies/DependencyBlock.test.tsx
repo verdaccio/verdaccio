@@ -1,9 +1,16 @@
-import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
-import { render, screen } from '../../test/test-react-testing-library';
+import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import { DependencyBlock } from './DependencyBlock';
+
+const mockHistory = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  useHistory: () => ({
+    push: mockHistory,
+  }),
+}));
 
 describe('<DependencyBlock /> component', () => {
   test('renders dependency block', () => {
@@ -11,12 +18,16 @@ describe('<DependencyBlock /> component', () => {
 
     expect(screen.getByText('foo (1)')).toBeInTheDocument();
     expect(screen.getByText('dependencies.dependency-block')).toBeInTheDocument();
-
-    userEvent.click(screen.getByText('dependencies.dependency-block'));
   });
 
-  test.todo('test the click event');
-  test.skip('handle change route handler', () => {
+  test('renders bundleDependencies block', () => {
+    render(<DependencyBlock dependencies={{ semver: '7.6.0' }} title="bundleDependencies" />);
+
+    expect(screen.getByText('bundleDependencies (1)')).toBeInTheDocument();
+    expect(screen.getByText('dependencies.dependency-block-bundle')).toBeInTheDocument();
+  });
+
+  test('handle change of route', async () => {
     render(
       <MemoryRouter
         initialEntries={[`/-/web/detail/some-dep`, `/-/web/detail/jquery`]}
@@ -28,6 +39,8 @@ describe('<DependencyBlock /> component', () => {
       </MemoryRouter>
     );
 
-    userEvent.click(screen.getByTestId('jquery'));
+    fireEvent.click(screen.getByTestId('jquery'));
+
+    await expect(mockHistory).toHaveBeenCalled();
   });
 });
