@@ -10,7 +10,8 @@ describe('DetailContainer', () => {
   });
 
   test('renders without uplinks', () => {
-    render(<DetailContainer showUpLinks={false} />);
+    window.__VERDACCIO_BASENAME_UI_OPTIONS.showUplinks = false;
+    render(<DetailContainer />);
     expect(screen.queryByTestId('uplinks-tab')).toBeFalsy();
   });
 

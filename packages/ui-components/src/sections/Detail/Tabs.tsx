@@ -9,17 +9,17 @@ import { Theme } from '../../Theme';
 interface Props {
   onChange: (event: React.ChangeEvent<{}>, newValue: number) => void;
   tabPosition: number;
-  showUpLinks?: boolean;
+  showUplinks?: boolean;
 }
 
-const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUpLinks }) => {
+const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUplinks }) => {
   const { t } = useTranslation();
   return (
     <Tabs onChange={onChange} value={tabPosition} variant={'fullWidth'}>
       <Tab data-testid={'readme-tab'} id={'readme-tab'} label={t('tab.readme')} />
       <Tab data-testid={'dependencies-tab'} id={'dependencies-tab'} label={t('tab.dependencies')} />
       <Tab data-testid={'versions-tab'} id={'versions-tab'} label={t('tab.versions')} />
-      {showUpLinks && (
+      {showUplinks && (
         <Tab data-testid={'uplinks-tab'} id={'uplinks-tab'} label={t('tab.uplinks')} />
       )}
     </Tabs>

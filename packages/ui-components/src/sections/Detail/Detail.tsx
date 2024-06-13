@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import React, { useState } from 'react';
 
 import Deprecated from '../../components/Deprecated';
-import { useVersion } from '../../providers';
+import { useConfig, useVersion } from '../../providers';
 import ContainerContent from './ContainerContent';
 import Tabs from './Tabs';
 
@@ -13,12 +13,9 @@ export enum TabPosition {
   UPLINKS = 'uplinks',
 }
 
-export type Props = {
-  showUpLinks?: boolean;
-};
-
-const DetailContainer: React.FC<Props> = ({ showUpLinks = true }) => {
-  const tabs = showUpLinks
+const DetailContainer: React.FC = () => {
+  const { configOptions } = useConfig();
+  const tabs = configOptions.showUplinks
     ? Object.values(TabPosition)
     : Object.values(TabPosition).filter((tab) => tab !== TabPosition.UPLINKS);
   const [tabPosition, setTabPosition] = useState(0);
@@ -30,7 +27,11 @@ const DetailContainer: React.FC<Props> = ({ showUpLinks = true }) => {
 
   return (
     <Box component="div" display="flex" flexDirection="column" padding={0}>
-      <Tabs onChange={handleChange} showUpLinks={showUpLinks} tabPosition={tabPosition} />
+      <Tabs
+        onChange={handleChange}
+        showUplinks={configOptions.showUplinks}
+        tabPosition={tabPosition}
+      />
       {packageMeta?.latest?.deprecated && <Deprecated message={packageMeta?.latest?.deprecated} />}
       <ContainerContent readDescription={readMe} tabPosition={tabs[tabPosition]} />
     </Box>
