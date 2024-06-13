@@ -58,6 +58,8 @@ export class InitCommand extends Command {
       const configPathLocation = findConfigFile(this.config as string);
       const configParsed = parseConfigFile(configPathLocation);
       this.initLogger(configParsed);
+      logger.info({ file: configPathLocation }, 'using config file: @{file}');
+      logger.info('log level: %s', configParsed.log?.level || 'default');
       const { web } = configParsed;
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
