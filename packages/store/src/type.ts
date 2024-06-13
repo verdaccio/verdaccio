@@ -62,3 +62,9 @@ export type UpdateManifestOptions = {
  * values in the body.
  */
 export type StarManifestBody = Pick<Manifest, '_id' | 'users' | '_rev'>;
+
+/**
+ * When the command `npm owner add/rm` is executed, the body only contains the following
+ * values in the body.
+ */
+export type OwnerManifestBody = Pick<Manifest, '_id' | 'maintainers' | '_rev'>;

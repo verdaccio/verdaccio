@@ -1,0 +1,24 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-owner
+
+web:
+  enable: true
+  title: verdaccio
+
+log: { type: stdout, format: pretty, level: info }
+
+# TODO: Add test case for $owner access
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+
+_debug: true

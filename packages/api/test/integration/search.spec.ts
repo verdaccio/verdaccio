@@ -43,6 +43,12 @@ describe('search', () => {
               links: {
                 npm: '',
               },
+              maintainers: [
+                {
+                  email: '',
+                  name: 'test',
+                },
+              ],
               name: pkg,
               publisher: {},
               scope: '',
@@ -97,6 +103,12 @@ describe('search', () => {
               links: {
                 npm: '',
               },
+              maintainers: [
+                {
+                  email: '',
+                  name: 'test',
+                },
+              ],
               name: pkg,
               publisher: {},
               scope: '@scope',

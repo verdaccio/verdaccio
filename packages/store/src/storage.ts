@@ -10,9 +10,11 @@ import { hasProxyTo } from '@verdaccio/config';
 import {
   API_ERROR,
   API_MESSAGE,
+  DEFAULT_USER,
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
+  MAINTAINERS,
   SUPPORT_ERRORS,
   USERS,
   errorUtils,
@@ -83,7 +85,7 @@ import {
 } from './lib/storage-utils';
 import { getVersion, removeLowerVersions } from './lib/versions-utils';
 import { LocalStorage } from './local-storage';
-import { IGetPackageOptionsNext, StarManifestBody } from './type';
+import { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './type';
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -119,7 +121,7 @@ class Storage {
    */
   public async changePackage(name: string, metadata: Manifest, revision: string): Promise<void> {
     debug('change existing package for package %o revision %o', name, revision);
-    debug(`change manifest tags for %o revision %s`, name, revision);
+    debug(`change manifest tags for %o revision %o`, name, revision);
     if (
       !validatioUtils.isObject(metadata.versions) ||
       !validatioUtils.isObject(metadata[DIST_TAGS])
@@ -128,7 +130,7 @@ class Storage {
       throw errorUtils.getBadData();
     }
 
-    debug(`change manifest udapting manifest for %o`, name);
+    debug(`change manifest updating manifest for %o`, name);
     await this.updatePackage(name, async (localData: Manifest): Promise<Manifest> => {
       // eslint-disable-next-line guard-for-in
       for (const version in localData.versions) {
@@ -165,13 +167,14 @@ class Storage {
 
       localData[USERS] = metadata[USERS];
       localData[DIST_TAGS] = metadata[DIST_TAGS];
+      localData[MAINTAINERS] = metadata[MAINTAINERS];
       return localData;
     });
   }
 
-  public async removePackage(name: string, revision): Promise<void> {
+  public async removePackage(name: string, revision: string, username: string): Promise<void> {
     debug('remove package %o', name);
-    await this.removePackageByRevision(name, revision);
+    await this.removePackageByRevision(name, revision, username);
   }
 
   /**
@@ -181,8 +184,13 @@ class Storage {
    versions, i.e. package version should be unpublished first.
    Used storage: local (write)
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async removeTarball(name: string, filename: string, _revision: string): Promise<Manifest> {
+  public async removeTarball(
+    name: string,
+    filename: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _revision: string,
+    username: string
+  ): Promise<Manifest> {
     debug('remove tarball %s for %s', filename, name);
     assert(validatioUtils.validateName(filename));
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
@@ -197,6 +205,9 @@ class Storage {
       if (!cacheManifest._attachments[filename]) {
         throw errorUtils.getNotFound('no such file available');
       }
+
+      // check if logged in user is allowed to remove tarball
+      await this.checkAllowedToChangePackage(cacheManifest, username);
     } catch (err: any) {
       if (err.code === noSuchFile) {
         throw errorUtils.getNotFound();
@@ -484,6 +495,17 @@ class Storage {
   public async getPackageManifest(options: IGetPackageOptionsNext): Promise<Manifest> {
     // convert dist remotes to local bars
     const [manifest] = await this.getPackageNext(options);
+
+    // If change access is requested (?write=true), then check if logged in user is allowed to change package
+    if (options.byPassCache === true) {
+      try {
+        await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
+      } catch (error: any) {
+        logger.error({ error: error.message }, 'getting package has failed: @{error}');
+        throw errorUtils.getBadRequest(error.message);
+      }
+    }
+
     const convertedManifest = convertDistRemoteToLocalTarballUrls(
       manifest,
       options.requestOptions,
@@ -727,7 +749,11 @@ class Storage {
     return results;
   }
 
-  private async removePackageByRevision(pkgName: string, revision: string): Promise<void> {
+  private async removePackageByRevision(
+    pkgName: string,
+    revision: string,
+    username: string
+  ): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     debug('get package metadata for %o', pkgName);
     if (typeof storage === 'undefined') {
@@ -751,6 +777,9 @@ class Storage {
 
     // TODO:  move this to another method
     try {
+      // check if logged in user is allowed to remove package
+      await this.checkAllowedToChangePackage(manifest, username);
+
       await this.localStorage.getStoragePlugin().remove(pkgName);
       // remove each attachment
       const attachments = Object.keys(manifest._attachments);
@@ -872,9 +901,10 @@ class Storage {
   }
 
   public async updateManifest(
-    manifest: Manifest | StarManifestBody,
+    manifest: Manifest | StarManifestBody | OwnerManifestBody,
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
+    debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
     if (isDeprecatedManifest(manifest as Manifest)) {
       // if the manifest is deprecated, we need to update the package.json
       await this.deprecate(manifest as Manifest, {
@@ -882,10 +912,19 @@ class Storage {
       });
     } else if (
       isPublishablePackage(manifest as Manifest) === false &&
-      validatioUtils.isObject(manifest.users)
+      validatioUtils.isObject((manifest as StarManifestBody).users)
     ) {
       // if user request to apply a star to the manifest
       await this.star(manifest as StarManifestBody, {
+        ...options,
+      });
+      return API_MESSAGE.PKG_CHANGED;
+    } else if (
+      isPublishablePackage(manifest as Manifest) === false &&
+      Array.isArray((manifest as OwnerManifestBody).maintainers)
+    ) {
+      // if user request to change owners of package
+      await this.changeOwners(manifest as OwnerManifestBody, {
         ...options,
       });
       return API_MESSAGE.PKG_CHANGED;
@@ -909,7 +948,7 @@ class Storage {
       return message;
     } else {
       debug('invalid body format');
-      logger.info(
+      logger.warn(
         { packageName: options.name },
         `wrong package format on publish a package @{packageName}`
       );
@@ -964,6 +1003,36 @@ class Storage {
     await this.changePackage(
       name,
       { ...localPackage, users: newUsers },
+      options.revision as string
+    );
+
+    return API_MESSAGE.PKG_CHANGED;
+  }
+
+  private async changeOwners(
+    manifest: OwnerManifestBody,
+    options: UpdateManifestOptions
+  ): Promise<string> {
+    const { maintainers } = manifest;
+    const { requestOptions, name } = options;
+    debug('change owners of %o', name);
+    const { username } = requestOptions;
+    if (!username) {
+      throw errorUtils.getBadRequest('update owners only allowed for logged in users');
+    }
+    if (!maintainers || maintainers.length === 0) {
+      throw errorUtils.getBadRequest('maintainers field is required and must not be empty');
+    }
+
+    const localPackage = await this.getPackageManifest({
+      name,
+      requestOptions,
+      uplinksLook: false,
+    });
+
+    await this.changePackage(
+      name,
+      { ...localPackage, maintainers: maintainers as Author[] },
       options.revision as string
     );
 
@@ -1027,7 +1096,8 @@ class Storage {
     options: PublishOptions
   ): Promise<[Manifest, string, string]> {
     const { name } = options;
-    debug('publishing a new package for %o', name);
+    const username = options.requestOptions.username;
+    debug('publishing a new package for %o as %o', name, username);
     let successResponseMessage;
     const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
@@ -1065,14 +1135,15 @@ class Storage {
 
       const hasPackageInStorage = await this.hasPackage(name);
       if (!hasPackageInStorage) {
-        await this.createNewLocalCachePackage(name);
+        await this.createNewLocalCachePackage(name, username);
         successResponseMessage = API_MESSAGE.PKG_CREATED;
       } else {
+        await this.checkAllowedToChangePackage(localManifest as Manifest, username);
         successResponseMessage = API_MESSAGE.PKG_CHANGED;
       }
     } catch (err: any) {
       debug('error on change or update a package with %o', err.message);
-      logger.error({ err: err.message }, 'error on create package: @{err}');
+      logger.error({ err: err.message }, 'error on publish new version: @{err}');
       throw err;
     }
 
@@ -1089,7 +1160,6 @@ class Storage {
     } catch (err: any) {
       logger.error({ err: err.message }, 'updated version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
-      // TODO: remove tarball if add version fails
       throw err;
     }
 
@@ -1106,8 +1176,7 @@ class Storage {
       logger.error({ err: err.message }, 'merge version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
       // TODO: undo if this fails
-      // 1. remove tarball
-      // 2. remove updated version
+      // 1. remove updated version
       throw err;
     }
 
@@ -1119,6 +1188,9 @@ class Storage {
       });
     } catch (err: any) {
       logger.error({ err: err.message }, 'upload tarball has failed: @{err}');
+      // TODO: undo if this fails
+      // 1. remove updated version
+      // 2. remove new dist tags
       throw err;
     }
 
@@ -1293,11 +1365,14 @@ class Storage {
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
       // keep only one readme per package
       data.readme = metadata.readme;
-      debug('%s` readme mutated', name);
+      debug('%s readme mutated', name);
       // TODO: lodash remove
       metadata = cleanUpReadme(metadata);
       metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
-      debug('%s` contributors normalized', name);
+      debug('%s contributors normalized', name);
+
+      // Copy current owners to version
+      metadata.maintainers = data.maintainers;
 
       // Update tarball stats
       if (metadata.dist) {
@@ -1358,7 +1433,7 @@ class Storage {
       tagVersion(data, version, tag);
 
       try {
-        debug('%s` add on database', name);
+        debug('%s add on database', name);
         await this.localStorage.getStoragePlugin().add(name);
         this.logger.debug({ name, version }, 'version @{version} added to database for @{name}');
       } catch (err: any) {
@@ -1373,7 +1448,10 @@ class Storage {
    * @param name name of the package
    * @returns
    */
-  private async createNewLocalCachePackage(name: string): Promise<void> {
+  private async createNewLocalCachePackage(
+    name: string,
+    username: string | undefined
+  ): Promise<void> {
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
@@ -1389,6 +1467,13 @@ class Storage {
         modified: currentTime,
       },
     };
+
+    // Set initial package owner
+    // TODO: Add email of user
+    packageData.maintainers =
+      username && username.length > 0
+        ? [{ name: username, email: '' }]
+        : [{ name: DEFAULT_USER, email: '' }];
 
     try {
       await storage.createPackage(name, packageData);
@@ -1927,6 +2012,21 @@ class Storage {
     } else {
       debug('tarball stats found');
       return { fileCount: version.dist.fileCount, unpackedSize: version.dist.unpackedSize };
+    }
+  }
+
+  private async checkAllowedToChangePackage(manifest: Manifest, username: string | undefined) {
+    // Checks to perform if config "publish:check_owners" is true
+    debug('check if user %o is an owner and allowed to change package', username);
+    // if name of owner is not included in list of maintainers, then throw an error
+    if (
+      this.config?.publish?.check_owners === true &&
+      manifest.maintainers &&
+      manifest.maintainers.length > 0 &&
+      !manifest.maintainers.some((maintainer) => maintainer.name === username)
+    ) {
+      logger.error({ username }, '@{username} is not a maintainer (package owner)');
+      throw Error('only owners are allowed to change package');
     }
   }
 }

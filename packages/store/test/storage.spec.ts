@@ -24,7 +24,14 @@ import {
   generateRemotePackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
-import { AbbreviatedManifest, ConfigYaml, Manifest, PackageUsers, Version } from '@verdaccio/types';
+import {
+  AbbreviatedManifest,
+  Author,
+  ConfigYaml,
+  Manifest,
+  PackageUsers,
+  Version,
+} from '@verdaccio/types';
 
 import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
@@ -81,6 +88,31 @@ const executeStarPackage = async (
     users,
   };
   return storage.updateManifest(starManifest, {
+    signal: new AbortController().signal,
+    name,
+    uplinksLook: true,
+    revision: '1',
+    requestOptions: { ...defaultRequestOptions, username },
+  });
+};
+
+const executeChangeOwners = async (
+  storage,
+  options: {
+    maintainers: Author[];
+    username: string;
+    name: string;
+    _rev: string;
+    _id?: string;
+  }
+) => {
+  const { name, _rev, _id, maintainers, username } = options;
+  const ownerManifest = {
+    _rev,
+    _id,
+    maintainers,
+  };
+  return storage.updateManifest(ownerManifest, {
     signal: new AbortController().signal,
     name,
     uplinksLook: true,
@@ -656,6 +688,204 @@ describe('storage', () => {
           })
         ).rejects.toThrow();
       });
+    });
+    describe('owner', () => {
+      test.each([
+        ['foo', 'publishWithOwnerDefault.yaml'],
+        ['foo', 'publishWithOwnerAndCheck.yaml'],
+      ])('new package %s, %s (anonymous)', async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest?.maintainers).toEqual([{ name: 'Anonymous', email: '' }]);
+      });
+
+      test.each([
+        ['foo', 'publishWithOwnerDefault.yaml'],
+        ['foo', 'publishWithOwnerAndCheck.yaml'],
+      ])('new package %s, %s (logged in)', async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const owner = { name: 'fooUser', email: '' };
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        const options = { ...defaultRequestOptions, username: owner.name };
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: options,
+        });
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: defaultRequestOptions,
+        })) as Manifest;
+        expect(manifest?.maintainers).toEqual([owner]);
+        expect(manifest?.versions['1.0.0'].maintainers).toEqual([owner]);
+      });
+
+      test.each([
+        ['foo', 'publishWithOwnerDefault.yaml'],
+        ['foo', 'publishWithOwnerAndCheck.yaml'],
+      ])('add/remove owner %s, %s', async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const firstOwner = { name: 'fooUser', email: '' };
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        const options = { ...defaultRequestOptions, username: firstOwner.name };
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: false,
+          requestOptions: options,
+        });
+
+        // add owner
+        const secondOwner = { name: 'barUser', email: '' };
+        const maintainers = [firstOwner, secondOwner];
+
+        const message = await executeChangeOwners(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: firstOwner.name,
+          maintainers: maintainers,
+        });
+        expect(message).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: false,
+          requestOptions: options,
+        })) as Manifest;
+        expect(manifest?.maintainers).toEqual(maintainers);
+        // published version should not be affected
+        expect(manifest?.versions['1.0.0'].maintainers).toEqual([firstOwner]);
+
+        // remove owner
+        const maintainers2 = [secondOwner];
+        const message2 = await executeChangeOwners(storage, {
+          _rev: bodyNewManifest._rev,
+          _id: bodyNewManifest._id,
+          name: pkgName,
+          username: firstOwner.name,
+          maintainers: maintainers2,
+        });
+        expect(message2).toEqual(API_MESSAGE.PKG_CHANGED);
+
+        const manifest2 = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: false,
+          requestOptions: options,
+        })) as Manifest;
+        expect(manifest2?.maintainers).toEqual(maintainers2);
+        // published version should not be affected
+        expect(manifest2?.versions['1.0.0'].maintainers).toEqual([firstOwner]);
+      });
+
+      test.each([
+        ['foo', 'publishWithOwnerDefault.yaml'],
+        ['foo', 'publishWithOwnerAndCheck.yaml'],
+      ])('should fail removing last owner %s, %s', async (pkgName, configFile) => {
+        const config = getConfig(configFile);
+        const storage = new Storage(config);
+        await storage.init(config);
+        const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+        const owner = 'fooUser';
+        const options = { ...defaultRequestOptions, username: owner };
+        await storage.updateManifest(bodyNewManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: false,
+          requestOptions: options,
+        });
+
+        // no owners
+        await expect(
+          executeChangeOwners(storage, {
+            _rev: bodyNewManifest._rev,
+            _id: bodyNewManifest._id,
+            name: pkgName,
+            username: owner,
+            maintainers: [],
+          })
+        ).rejects.toThrow();
+      });
+
+      test.each([['foo', 'publishWithOwnerDefault.yaml']])(
+        'ok to publish as non-owner without check %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config);
+          await storage.init(config);
+          const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(bodyNewManifest, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          // try to publish as user who's not an owner
+          const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.1');
+          const nonOwner = 'barUser';
+          const options2 = { ...defaultRequestOptions, username: nonOwner };
+          const message2 = await storage.updateManifest(bodyNewManifest2, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options2,
+          });
+          expect(message2).toEqual(API_MESSAGE.PKG_CHANGED);
+        }
+      );
+
+      test.each([['foo', 'publishWithOwnerAndCheck.yaml']])(
+        'should fail publishing as non-owner with check %s, %s',
+        async (pkgName, configFile) => {
+          const config = getConfig(configFile);
+          const storage = new Storage(config);
+          await storage.init(config);
+          const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
+          const owner = 'fooUser';
+          const options = { ...defaultRequestOptions, username: owner };
+          await storage.updateManifest(bodyNewManifest, {
+            signal: new AbortController().signal,
+            name: pkgName,
+            uplinksLook: false,
+            requestOptions: options,
+          });
+
+          // try to publish as user who's not an owner
+          const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.1');
+          const nonOwner = 'barUser';
+          const options2 = { ...defaultRequestOptions, username: nonOwner };
+          await expect(
+            storage.updateManifest(bodyNewManifest2, {
+              signal: new AbortController().signal,
+              name: pkgName,
+              uplinksLook: false,
+              requestOptions: options2,
+            })
+          ).rejects.toThrow();
+        }
+      );
     });
   });
 
@@ -1261,6 +1491,7 @@ describe('storage', () => {
 
   describe('removeTarball', () => {
     test('should fail on remove tarball of package does not exist', async () => {
+      const username = 'foouser';
       const config = new Config(
         configExample({
           ...getDefaultConfig(),
@@ -1269,7 +1500,7 @@ describe('storage', () => {
       );
       const storage = new Storage(config);
       await storage.init(config);
-      await expect(storage.removeTarball('foo', 'foo-1.0.0.tgz', 'rev')).rejects.toThrow(
+      await expect(storage.removeTarball('foo', 'foo-1.0.0.tgz', 'rev', username)).rejects.toThrow(
         API_ERROR.NO_PACKAGE
       );
     });
@@ -1277,6 +1508,7 @@ describe('storage', () => {
 
   describe('removePackage', () => {
     test('should remove entirely a package', async () => {
+      const username = 'foouser';
       const config = new Config(
         configExample({
           ...getDefaultConfig(),
@@ -1321,10 +1553,10 @@ describe('storage', () => {
       const _rev = manifest1._rev;
       // 3. remove the tarball
       await expect(
-        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev)
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, username)
       ).resolves.toBeDefined();
       // 4. remove the package
-      await storage.removePackage(manifest1.name, _rev);
+      await storage.removePackage(manifest1.name, _rev, username);
       // 5. fails if package does not exist anymore in storage
       await expect(
         storage.getPackageByOptions({
@@ -1337,6 +1569,76 @@ describe('storage', () => {
           },
         })
       ).rejects.toThrow('package does not exist on uplink: foo');
+    });
+
+    test('ok to remove package as non-owner without check', async () => {
+      const config = getConfig('publishWithOwnerDefault.yaml');
+      const storage = new Storage(config);
+      await storage.init(config);
+      const owner = 'fooUser';
+      const options = { ...defaultRequestOptions, username: owner };
+
+      // 1. publish a package
+      const bodyNewManifest = generatePackageMetadata('foo', '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: 'foo',
+        uplinksLook: true,
+        requestOptions: options,
+      });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: options,
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. remove the tarball as other user
+      const nonOwner = 'barUser';
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, nonOwner)
+      ).resolves.toBeDefined();
+      // 4. remove the package as other user
+      await storage.removePackage(manifest1.name, _rev, nonOwner);
+      // 5. fails if package does not exist anymore in storage
+      await expect(
+        storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: false,
+          requestOptions: options,
+        })
+      ).rejects.toThrow('package does not exist on uplink: foo');
+    });
+
+    test('should fail as non-owner with check', async () => {
+      const config = getConfig('publishWithOwnerAndCheck.yaml');
+      const storage = new Storage(config);
+      await storage.init(config);
+      const owner = 'fooUser';
+      const options = { ...defaultRequestOptions, username: owner };
+
+      // 1. publish a package
+      const bodyNewManifest = generatePackageMetadata('foo', '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: 'foo',
+        uplinksLook: true,
+        requestOptions: options,
+      });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: options,
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. try removing the tarball
+      const nonOwner = 'barUser';
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, nonOwner)
+      ).rejects.toThrow();
+      // 4. try removing the package
+      await expect(storage.removePackage(manifest1.name, _rev, nonOwner)).rejects.toThrow();
     });
   });
 

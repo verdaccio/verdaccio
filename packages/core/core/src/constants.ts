@@ -6,6 +6,7 @@ export const TIME_EXPIRATION_1H = '1h';
 export const DIST_TAGS = 'dist-tags';
 export const LATEST = 'latest';
 export const USERS = 'users';
+export const MAINTAINERS = 'maintainers';
 export const DEFAULT_USER = 'Anonymous';
 
 export const HEADER_TYPE = {
