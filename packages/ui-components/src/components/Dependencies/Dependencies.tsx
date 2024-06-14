@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from '../../Theme';
@@ -31,8 +32,8 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     dependencies,
     devDependencies,
     peerDependencies,
-    bundleDependencies,
     optionalDependencies,
+    bundleDependencies,
   };
   const hasDependencies =
     hasKeys(dependencies) ||
@@ -44,20 +45,22 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     return (
       <CardWrap>
         <CardContent>
-          {Object.entries(dependencyMap).map(([dependencyType, dependencies]) => {
-            if (!dependencies || Object.keys(dependencies).length === 0) {
-              return null;
-            }
-            return (
-              <>
-                <DependencyBlock
-                  dependencies={dependencies}
-                  key={dependencyType}
-                  title={dependencyType}
-                />
-              </>
-            );
-          })}
+          <Box data-testid="dependencies-box" sx={{ m: 2 }}>
+            {Object.entries(dependencyMap).map(([dependencyType, dependencies]) => {
+              if (!dependencies || Object.keys(dependencies).length === 0) {
+                return null;
+              }
+              return (
+                <Fragment key={dependencyType}>
+                  <DependencyBlock
+                    dependencies={dependencies}
+                    key={dependencyType}
+                    title={dependencyType}
+                  />
+                </Fragment>
+              );
+            })}
+          </Box>
         </CardContent>
       </CardWrap>
     );

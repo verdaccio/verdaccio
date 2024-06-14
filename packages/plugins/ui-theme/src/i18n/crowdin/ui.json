@@ -71,7 +71,8 @@
   },
   "dependencies": {
     "has-no-dependencies": "{{package}} has no dependencies.",
-    "dependency-block": "{{package}}@{{version}}"
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
   },
   "form": {
     "username": "Username",

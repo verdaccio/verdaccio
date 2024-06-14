@@ -123,7 +123,7 @@ export interface Version {
   devDependencies?: Dependencies;
   optionalDependencies?: Dependencies;
   peerDependenciesMeta?: PeerDependenciesMeta;
-  bundleDependencies?: Dependencies;
+  bundleDependencies?: string[];
   acceptDependencies?: Dependencies;
   keywords?: string | string[];
   nodeVersion?: string;

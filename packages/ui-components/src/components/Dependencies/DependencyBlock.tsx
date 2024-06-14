@@ -44,25 +44,38 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
     history.push(`/-/web/detail/${name}`);
   }
 
+  function labelText(title: string, name: string, version: string): string {
+    if (title === 'bundleDependencies') {
+      return t('dependencies.dependency-block-bundle', { package: name });
+    } else {
+      return t('dependencies.dependency-block', { package: name, version });
+    }
+  }
+
   return (
     <Box data-testid={title} sx={{ margin: theme.spacing(2) }}>
       <StyledText sx={{ marginBottom: theme.spacing(1) }} variant="subtitle1">
         {`${title} (${deps.length})`}
       </StyledText>
       <Tags>
-        {deps.map(([name, version]) => (
-          <Tag
-            className={'dep-tag'}
-            clickable={true}
-            data-testid={name}
-            key={name}
-            label={t('dependencies.dependency-block', { package: name, version })}
-            // eslint-disable-next-line
-            onClick={() => {
-              handleClick(name);
-            }}
-          />
-        ))}
+        {deps.map(([name, version]: [string, string]) => {
+          // Bundle dependencies are stored as array, for example [ 0: "semver" ]
+          // so the package name arrives here in the version field
+          const packageName = title == 'bundleDependencies' ? version : name;
+          return (
+            <Tag
+              className={'dep-tag'}
+              clickable={true}
+              data-testid={packageName}
+              key={packageName}
+              label={labelText(title, packageName, version)}
+              // eslint-disable-next-line
+              onClick={() => {
+                handleClick(packageName);
+              }}
+            />
+          );
+        })}
       </Tags>
     </Box>
   );
