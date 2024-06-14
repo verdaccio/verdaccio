@@ -45,7 +45,7 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     return (
       <CardWrap>
         <CardContent>
-          <Box data-testid="dependencies" sx={{ m: 2 }}>
+          <Box data-testid="dependencies-box" sx={{ m: 2 }}>
             {Object.entries(dependencyMap).map(([dependencyType, dependencies]) => {
               if (!dependencies || Object.keys(dependencies).length === 0) {
                 return null;
