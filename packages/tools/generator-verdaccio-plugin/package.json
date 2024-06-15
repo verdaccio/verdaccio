@@ -1,0 +1,49 @@
+{
+  "name": "generator-verdaccio-plugin",
+  "version": "4.1.0",
+  "description": "plugin generator for verdaccio",
+  "homepage": "https://github.com/verdaccio",
+  "author": {
+    "name": "Juan Picado <@jotadeveloper>",
+    "email": "juanpicado19@gmail.com",
+    "url": "https://github.com/verdaccio/generator-verdaccio-plugin"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "verdaccio-plugin",
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "chalk": "4.1.2",
+    "lodash": "4.17.21",
+    "yeoman-environment": "3.19.3",
+    "yeoman-generator": "5.9.0",
+    "yosay": "2.0.2",
+    "@verdaccio/core": "workspace:7.0.0-next-7.16",
+    "@verdaccio/config": "workspace:7.0.0-next-7.16"
+  },
+  "devDependencies": {
+    "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
+    "@verdaccio/types": "workspace:12.0.0-next-7.3",
+    "ts-jest": "29.1.0",
+    "yeoman-assert": "3.1.1",
+    "yeoman-test": "6.3.0"
+  },
+  "engines": {
+    "node": ">18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/verdaccio/generator-verdaccio-plugin"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build": "babel src/ --out-dir generators/ --copy-files --extensions \".ts,.tsx\" --source-maps --ignore src/app/templates",
+    "test": "vitest run --pool=forks",
+    "lint": "eslint  --max-warnings 0 \"**/*.{js,ts}\""
+  },
+  "license": "MIT"
+}
