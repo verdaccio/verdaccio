@@ -1,4 +1,4 @@
-name: Lint and Test Charts
+name: Lint and Test Heml Charts
 
 on:
   pull_request:
