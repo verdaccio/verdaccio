@@ -37,3 +37,4 @@ test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
 yarn.js
 website/docs/api/*
 packages/ui-components/storybook-static/*
+charts/

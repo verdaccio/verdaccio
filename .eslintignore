@@ -18,3 +18,4 @@ yarn.js
 packages/ui-components/storybook-static
 dist.js
 bundle.js
+charts/
