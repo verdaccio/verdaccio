@@ -27,7 +27,7 @@ jobs:
       - name: build
         run: pnpm build
       - name: Start containers
-        run: docker-compose -f "./e2e/docker/docker-build-install-plugin/docker-compose.yaml" up -d --build
+        run: docker-compose -f "./e2e/docker/local-registry/docker-compose.yaml" up -d --build
       - name: login
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
       - name: publish
@@ -38,4 +38,4 @@ jobs:
         run: npm install -g generator-verdaccio-plugin --registry http://localhost:4873
       - name: Stop containers
         if: always()
-        run: docker-compose -f "./e2e/docker/docker-build-install-plugin/docker-compose.yaml" down
+        run: docker-compose -f "./e2e/docker/local-registry/docker-compose.yaml" down
