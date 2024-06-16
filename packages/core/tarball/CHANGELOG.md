@@ -1,5 +1,14 @@
 # Change Log
 
+## 12.0.0-next-7.17
+
+### Patch Changes
+
+- Updated dependencies [6e764e3]
+  - @verdaccio/core@7.0.0-next-7.17
+  - @verdaccio/url@12.0.0-next-7.17
+  - @verdaccio/utils@7.0.0-next-7.17
+
 ## 12.0.0-next-7.16
 
 ### Patch Changes

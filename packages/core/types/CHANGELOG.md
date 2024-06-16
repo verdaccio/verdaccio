@@ -1,5 +1,13 @@
 # Change Log
 
+## 12.0.0-next-7.4
+
+### Patch Changes
+
+- 6e764e3: feat: add support for npm owner
+- de6ff5c: fix: update fields for abbreviated manifest
+- 117eb1c: fix: change bundleDependencies to array
+
 ## 12.0.0-next-7.3
 
 ### Minor Changes
