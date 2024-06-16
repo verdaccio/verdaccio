@@ -1,7 +1,11 @@
 name: E2E Generator Verdaccio Plugin
 
-on: [pull_request]
-
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
 jobs:
   e2e-plugin-generator:
     runs-on: ubuntu-latest
