@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [22]
+        node-version: [16, 18, 22]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -29,7 +29,7 @@ jobs:
       - name: install verdaccio
         run: npm install -g verdaccio@5
       - name: Start server
-        run: verdaccio -c e2e/docker/local-registry/docker.yaml &
+        run: verdaccio -c e2e/docker/generator-e2e/generator.yaml &
       - name: ping server
         run: curl http://localhost:4873/-/ping
       - name: login
