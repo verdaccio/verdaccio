@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "verdaccio.fullname" . }}
+  labels:
+    {{- include "verdaccio.labels" . | nindent 4 }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.replicaCountEnabled }}
+  replicas: {{ default 1 .Values.replicaCount }}
+  {{- end}}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  selector:
+    matchLabels:
+      {{- include "verdaccio.selectorLabels" . | nindent 6 }}
+  strategy:
+    {{- if .Values.persistence.enabled }}
+    type: Recreate
+    rollingUpdate: null
+    {{- else }}
+    type: RollingUpdate
+    {{- end }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/htpasswd-secret: {{ toJson .Values.secrets.htpasswd | sha256sum }}
+        {{- if .Values.secretEnvVars }}
+        checksum/env-secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- end }}
+        {{- include "verdaccio.podAnnotations" . | nindent 8 }}
+      labels:
+        {{- include "verdaccio.podLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "verdaccio.serviceAccountName" . }}
+      {{- include "verdaccio.imagePullSecrets" . | nindent 6 }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.extraInitContainers }}
+      initContainers:
+        {{- include "tplvalues.render" (dict "value" . "context" $) | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ template "verdaccio.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if or .Values.secretEnvVars .Values.existingSecret }}
+          envFrom:
+            {{- if .Values.secretEnvVars }}
+            - secretRef:
+                name: {{ template "verdaccio.fullname" . }}-env
+            {{- end }}
+            {{- if .Values.existingSecret }}
+            - secretRef:
+                name: {{ .Values.existingSecret }}
+            {{- end }}
+          {{- end }}
+          ports:
+            - containerPort: 4873
+              name: http
+          livenessProbe:
+            httpGet:
+              path: /-/ping
+              port: http
+            {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 5 }}
+            periodSeconds: {{ .periodSeconds | default 10 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 1 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 3 }}
+            {{- end }}
+          readinessProbe:
+            httpGet:
+              path: /-/ping
+              port: http
+            {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds | default 5 }}
+            periodSeconds: {{ .periodSeconds | default 10 }}
+            timeoutSeconds: {{ .timeoutSeconds | default 1 }}
+            successThreshold: {{ .successThreshold | default 1 }}
+            failureThreshold: {{ .failureThreshold | default 3 }}
+            {{- end }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            {{- with .Values.persistence.mounts }}
+            {{- include "tplvalues.render" (dict "value" . "context" $) | nindent 12 }}
+            {{- end }}
+            - mountPath: /verdaccio/storage
+              name: storage
+              readOnly: false
+            {{- if .Values.secrets.htpasswd }}
+            - mountPath: /verdaccio/storage/htpasswd
+              name: htpasswd
+              subPath: htpasswd
+              readOnly: true
+            {{- end }}
+            - mountPath: /verdaccio/conf
+              name: config
+              readOnly: true
+          {{- with .Values.extraEnvVars }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ .Values.existingConfigMap | default (include "verdaccio.fullname" .) }}
+      {{- if .Values.secrets.htpasswd }}
+      - name: htpasswd
+        secret:
+          secretName: {{ include "verdaccio.fullname" . }}-htpasswd
+      {{- end }}
+      {{- with .Values.persistence.volumes }}
+      {{- include "tplvalues.render" (dict "value" . "context" $) | nindent 6 }}
+      {{- end }}
+      - name: storage
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.existingClaim | default (include "verdaccio.fullname" .) }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
+    {{- if .Values.affinity }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+    {{- end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml .Values.nodeSelector | nindent 8 }}
+    {{- end }}
+    {{- if .Values.tolerations }}
+      tolerations:
+      {{- toYaml .Values.tolerations | nindent 8 }}
+    {{- end }}
+    {{- if .Values.priorityClass.enabled }}
+      priorityClassName: {{ .Values.priorityClass.name }}
+    {{- end }}
+    {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
+    {{- end }}
