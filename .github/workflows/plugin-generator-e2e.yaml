@@ -1,0 +1,43 @@
+name: Plugin E2E
+
+on: [pull_request]
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    services:
+      verdaccio:
+        image: verdaccio/verdaccio:5
+        ports:
+          - 4873:4873
+    strategy:
+      matrix:
+        node-version: [18, 22]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack install
+      - uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: install
+        run: pnpm install
+      - name: build
+        run: pnpm build
+      - name: login
+        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
+      - name: pre-release
+        run: npm version patch --no-git-tag-version
+      - name: publish
+        run: pnpm local:publish
+      - name: install yeoman
+        run: npm install -g yo@4
+      - name: install generator
+        run: npm install -g generator-verdaccio-plugin --registry http://localhost:4873
