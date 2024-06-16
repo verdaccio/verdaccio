@@ -1,4 +1,4 @@
-name: Lint and Test Helm Charts
+name: Lint and Test Helm Chart
 
 on:
   pull_request:
