@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 22]
+        node-version: [22]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -26,12 +26,12 @@ jobs:
         run: pnpm install
       - name: build
         run: pnpm build
-      - name: publish
-        run: pnpm local:publish:release
+      - name: run local registry
+        run: nohup pnpm local:registry &
       - name: login
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
-      - name: pre-release
-        run: npm version patch --no-git-tag-version
+      - name: publish
+        run: pnpm local:publish
       - name: install yeoman
         run: npm install -g yo@4 --registry http://localhost:4873
       - name: install generator
