@@ -42,8 +42,7 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build": "babel src/ --out-dir generators/ --copy-files --extensions \".ts,.tsx\" --source-maps --ignore src/app/templates",
-    "test": "echo \"on development\" && exit 0",
-    "test:new": "vitest run --pool=forks",
+    "test": "vitest run --pool=forks",
     "lint": "eslint  --max-warnings 0 \"**/*.{js,ts}\""
   },
   "license": "MIT"

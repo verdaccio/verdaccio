@@ -38,6 +38,3 @@ jest.config.js
 contrib/
 storage_default_storage/
 docker-bin/
-
-# charts
-charts/

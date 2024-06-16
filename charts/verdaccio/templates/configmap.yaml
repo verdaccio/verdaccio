@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "verdaccio.fullname" . }}
-  labels:
-    {{- include "verdaccio.labels" . | nindent 4 }}
-data:
-  config.yaml: |-
-    {{- include "tplvalues.render" (dict "value" .Values.configMap "context" $) | nindent 4 }}
