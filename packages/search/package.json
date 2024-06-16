@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search",
-  "version": "7.0.0-next-7.5",
+  "version": "7.0.0-next-7.6",
   "description": "verdaccio search proxy",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -40,13 +40,13 @@
   "dependencies": {
     "debug": "4.3.4",
     "lodash": "4.17.21",
-    "@verdaccio/config": "workspace:7.0.0-next-7.16",
-    "@verdaccio/core": "workspace:7.0.0-next-7.16",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.16",
-    "@verdaccio/proxy": "workspace:7.0.0-next-7.16"
+    "@verdaccio/config": "workspace:7.0.0-next-7.17",
+    "@verdaccio/core": "workspace:7.0.0-next-7.17",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.17",
+    "@verdaccio/proxy": "workspace:7.0.0-next-7.17"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next-7.3",
+    "@verdaccio/types": "workspace:12.0.0-next-7.4",
     "mockdate": "3.0.5",
     "nock": "13.5.1",
     "node-mocks-http": "1.14.1"

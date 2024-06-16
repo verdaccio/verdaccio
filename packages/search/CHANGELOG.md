@@ -1,5 +1,15 @@
 # @verdaccio/search
 
+## 7.0.0-next-7.6
+
+### Patch Changes
+
+- Updated dependencies [6e764e3]
+  - @verdaccio/config@7.0.0-next-7.17
+  - @verdaccio/core@7.0.0-next-7.17
+  - @verdaccio/logger@7.0.0-next-7.17
+  - @verdaccio/proxy@7.0.0-next-7.17
+
 ## 7.0.0-next-7.5
 
 ### Patch Changes

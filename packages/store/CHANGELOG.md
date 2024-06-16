@@ -1,5 +1,24 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.17
+
+### Patch Changes
+
+- 6e764e3: feat: add support for npm owner
+- de6ff5c: fix: update fields for abbreviated manifest
+- Updated dependencies [6e764e3]
+  - @verdaccio/config@7.0.0-next-7.17
+  - @verdaccio/core@7.0.0-next-7.17
+  - @verdaccio/tarball@12.0.0-next-7.17
+  - @verdaccio/url@12.0.0-next-7.17
+  - @verdaccio/hooks@7.0.0-next-7.17
+  - @verdaccio/loaders@7.0.0-next-7.17
+  - @verdaccio/logger@7.0.0-next-7.17
+  - @verdaccio/local-storage@12.0.0-next-7.17
+  - @verdaccio/proxy@7.0.0-next-7.17
+  - @verdaccio/search@7.0.0-next-7.6
+  - @verdaccio/utils@7.0.0-next-7.17
+
 ## 7.0.0-next-7.16
 
 ### Patch Changes

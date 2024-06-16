@@ -42,8 +42,8 @@
     "debug": "4.3.4"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.16",
-    "@verdaccio/types": "workspace:12.0.0-next-7.3"
+    "@verdaccio/config": "workspace:7.0.0-next-7.17",
+    "@verdaccio/types": "workspace:12.0.0-next-7.4"
   },
   "funding": {
     "type": "opencollective",
