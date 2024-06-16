@@ -26,10 +26,10 @@ jobs:
         run: pnpm install
       - name: build
         run: pnpm build
-      - name: Start containers
-        run: docker-compose -f "./e2e/docker/local-registry/docker-compose.yaml" up -d --build
-      - name: sleep 5 seconds
-        run: sleep 5
+      - name: install verdaccio
+        run: npm install -g verdaccio@5
+      - name: Start server
+        run: verdaccio -c e2e/docker/local-registry/docker.yaml &
       - name: ping server
         run: curl http://localhost:4873/-/ping
       - name: login
@@ -40,6 +40,3 @@ jobs:
         run: npm install -g yo@4
       - name: install generator
         run: npm install -g generator-verdaccio-plugin --registry http://localhost:4873
-      - name: Stop containers
-        if: always()
-        run: docker-compose -f "./e2e/docker/local-registry/docker-compose.yaml" down
