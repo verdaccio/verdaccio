@@ -9,10 +9,10 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next-7.3",
-    "@verdaccio/core": "workspace:7.0.0-next-7.16",
-    "@verdaccio/config": "workspace:7.0.0-next-7.16",
-    "verdaccio": "7.0.0-next-7.16"
+    "@verdaccio/types": "workspace:12.0.0-next-7.4",
+    "@verdaccio/core": "workspace:7.0.0-next-7.17",
+    "@verdaccio/config": "workspace:7.0.0-next-7.17",
+    "verdaccio": "7.0.0-next-7.17"
   },
   "scripts": {
     "start": "ts-node src/index.ts",

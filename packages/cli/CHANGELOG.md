@@ -1,5 +1,16 @@
 # @verdaccio/cli
 
+## 7.0.0-next-7.17
+
+### Patch Changes
+
+- 199aea3: chore: add config location and loglevel to startup log
+- Updated dependencies [6e764e3]
+  - @verdaccio/config@7.0.0-next-7.17
+  - @verdaccio/core@7.0.0-next-7.17
+  - @verdaccio/logger@7.0.0-next-7.17
+  - @verdaccio/node-api@7.0.0-next-7.17
+
 ## 7.0.0-next-7.16
 
 ### Patch Changes

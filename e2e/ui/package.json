@@ -3,9 +3,9 @@
   "name": "@verdaccio/e2e-ui",
   "version": "2.0.0",
   "devDependencies": {
-    "verdaccio": "workspace:7.0.0-next-7.16",
-    "@verdaccio/core": "workspace:7.0.0-next-7.16",
-    "@verdaccio/config": "workspace:7.0.0-next-7.16",
+    "verdaccio": "workspace:7.0.0-next-7.17",
+    "@verdaccio/core": "workspace:7.0.0-next-7.17",
+    "@verdaccio/config": "workspace:7.0.0-next-7.17",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "debug": "4.3.4",
     "cypress": "^13.6.0",

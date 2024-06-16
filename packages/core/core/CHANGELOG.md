@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 7.0.0-next-7.17
+
+### Patch Changes
+
+- 6e764e3: feat: add support for npm owner
+
 ## 7.0.0-next-7.16
 
 ## 7.0.0-next-7.15

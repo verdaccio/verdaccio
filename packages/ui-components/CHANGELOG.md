@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.7
+
+### Patch Changes
+
+- 117eb1c: fix: change bundleDependencies to array
+
 ## 3.0.0-next-7.6
 
 ### Patch Changes
