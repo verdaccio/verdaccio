@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  verdaccio:
+    build: .
+    ports:
+      - '4873:4873'
+    volumes:
+      - verdaccio:/verdaccio
+volumes:
+  verdaccio:
+    driver: local
