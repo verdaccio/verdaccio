@@ -36,7 +36,7 @@ jobs:
       - name: pre-release
         run: npm version patch --no-git-tag-version
       - name: snapshot
-        run: pnpm local:snapshot
+        run: pnpm local:snapshots
       - name: publish
         run: pnpm local:publish
       - name: install yeoman
