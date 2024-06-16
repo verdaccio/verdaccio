@@ -28,8 +28,8 @@ jobs:
         run: pnpm build
       - name: Start containers
         run: docker-compose -f "./e2e/docker/local-registry/docker-compose.yaml" up -d --build
-      - name: sleep 10 seconds
-        run: sleep 10
+      - name: sleep 5 seconds
+        run: sleep 5
       - name: ping server
         run: curl http://localhost:4873/-/ping
       - name: login
