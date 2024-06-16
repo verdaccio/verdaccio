@@ -28,11 +28,9 @@ jobs:
         run: pnpm build
       - name: run local registry
         run: nohup pnpm local:registry &
-      - name: login
-        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
       - name: publish
         run: pnpm local:publish
       - name: install yeoman
-        run: npm install -g yo@4 --registry http://localhost:4873
+        run: npm install -g yo@4
       - name: install generator
         run: npm install -g generator-verdaccio-plugin --registry http://localhost:4873
