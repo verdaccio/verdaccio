@@ -1,9 +1,9 @@
-name: Plugin E2E
+name: E2E Generator Verdaccio Plugin
 
 on: [pull_request]
 
 jobs:
-  e2e:
+  e2e-plugin-generator:
     runs-on: ubuntu-latest
     services:
       verdaccio:
@@ -35,6 +35,8 @@ jobs:
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
       - name: pre-release
         run: npm version patch --no-git-tag-version
+      - name: snapshot
+        run: pnpm local:snapshot
       - name: publish
         run: pnpm local:publish
       - name: install yeoman
