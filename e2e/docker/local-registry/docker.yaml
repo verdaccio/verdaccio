@@ -1,12 +1,10 @@
 storage: ./storage
 
-plugins: /verdaccio/plugins
-
 web:
   title: Verdaccio E2E Local
 auth:
   htpasswd:
-    file: /verdaccio/storage/htpasswd
+    file: ./htpasswd
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
