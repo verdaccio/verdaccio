@@ -5,11 +5,8 @@ plugins: /verdaccio/plugins
 web:
   title: Verdaccio E2E Local
 auth:
-  auth-memory:
-    users:
-      test:
-        name: test
-        password: 1234
+  htpasswd:
+    file: /verdaccio/storage/htpasswd
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/

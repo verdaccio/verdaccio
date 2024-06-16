@@ -33,7 +33,7 @@ jobs:
       - name: ping server
         run: curl http://localhost:4873/-/ping
       - name: login
-        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
+        run: npx npm-cli-login -u test -p test -e test@domain.test -r http://localhost:4873
       - name: publish
         run: pnpm local:publish
       - name: install yeoman
