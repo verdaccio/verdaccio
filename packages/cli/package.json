@@ -50,7 +50,7 @@
     "clipanion": "3.2.1",
     "envinfo": "7.11.0",
     "kleur": "4.1.5",
-    "semver": "7.6.0"
+    "semver": "7.6.2"
   },
   "devDependencies": {
     "ts-node": "10.9.2"

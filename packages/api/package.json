@@ -52,7 +52,7 @@
     "express": "4.19.2",
     "lodash": "4.17.21",
     "mime": "2.6.0",
-    "semver": "7.6.0"
+    "semver": "7.6.2"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
