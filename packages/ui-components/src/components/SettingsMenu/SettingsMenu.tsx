@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useConfig } from '../../providers';
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 const SettingsMenu: React.FC<Props> = ({ packageName }) => {
   const { t } = useTranslation();
   const { localSettings, updateSettings } = useSettings();
+  const { configOptions } = useConfig();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -93,15 +95,17 @@ const SettingsMenu: React.FC<Props> = ({ packageName }) => {
           ) : null}
           {t('sidebar.installation.global')}
         </MenuItem>
-        <MenuItem onClick={handleGlobalYarnModern}>
-          {' '}
-          {localSettings?.yarnModern ? (
-            <ListItemIcon>
-              <Check />
-            </ListItemIcon>
-          ) : null}
-          {t('sidebar.installation.yarnModern')}
-        </MenuItem>
+        {configOptions?.pkgManagers?.includes('yarn') && (
+          <MenuItem onClick={handleGlobalYarnModern}>
+            {' '}
+            {localSettings?.yarnModern ? (
+              <ListItemIcon>
+                <Check />
+              </ListItemIcon>
+            ) : null}
+            {t('sidebar.installation.yarnModern')}
+          </MenuItem>
+        )}
       </Menu>
     </>
   );
