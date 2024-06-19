@@ -18,6 +18,8 @@ storage: ./storage
 # https://verdaccio.org/docs/webui
 web:
   title: Verdaccio
+  # custom colors for header background and font
+  # primaryColor: "#4b5e40"
   # custom logos and favicon
   # logo: ./path/to/logo.png
   # logoDark: ./path/to/logoDark.png
