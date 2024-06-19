@@ -42,7 +42,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     res.sendFile(file, sendFileCallback(next));
   });
 
-  function renderLogo(logo: string | undefined) {
+  function renderLogo(logo: string | undefined): string | undefined {
     // check the origin of the logo
     if (logo && !isURLhasValidProtocol(logo)) {
       // URI related to a local file
@@ -75,8 +75,14 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     return logo;
   }
 
-  config.web.logo = renderLogo(config?.web?.logo);
-  config.web.logoDark = renderLogo(config?.web?.logoDark);
+  const logo = renderLogo(config?.web?.logo);
+  if (config?.web?.logo) {
+    config.web.logo = logo;
+  }
+  const logoDark = renderLogo(config?.web?.logoDark);
+  if (config?.web?.logoDark) {
+    config.web.logoDark = logoDark;
+  }
 
   router.get('/-/web/:section/*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
