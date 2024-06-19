@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
+import { act, renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 
 import { store } from '@verdaccio/ui-components';
 
@@ -13,17 +13,21 @@ jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 /* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
   describe('footer', () => {
-    test('should display the Header component', () => {
-      renderWithStore(<App />, store);
+    test('should display the Header component', async () => {
+      await act(() => {
+        renderWithStore(<App />, store);
+      });
       expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
 
-    test('should not display the Header component', () => {
+    test('should not display the Header component', async () => {
       // @ts-ignore
       window.__VERDACCIO_BASENAME_UI_OPTIONS = {
         showFooter: false,
       };
-      renderWithStore(<App />, store);
+      await act(() => {
+        renderWithStore(<App />, store);
+      });
       expect(screen.queryByTestId('footer')).toBeFalsy();
     });
   });

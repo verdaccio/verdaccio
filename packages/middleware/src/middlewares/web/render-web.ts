@@ -72,10 +72,11 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
         debug(`web logo is wrong, path ${absoluteLocalFile} does not exist or is not readable`);
       }
     }
+    return logo;
   }
 
-  renderLogo(config?.web?.logo);
-  renderLogo(config?.web?.logoDark);
+  config.web.logo = renderLogo(config?.web?.logo);
+  config.web.logoDark = renderLogo(config?.web?.logoDark);
 
   router.get('/-/web/:section/*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);

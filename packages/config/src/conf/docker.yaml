@@ -21,6 +21,10 @@ plugins: /verdaccio/plugins
 # https://verdaccio.org/docs/webui
 web:
   title: Verdaccio
+  # custom logos and favicon
+  # logo: ./path/to/logo.png
+  # logoDark: ./path/to/logoDark.png
+  # favicon: ./path/to/favicon.ico
   # Comment out to disable gravatar support
   # gravatar: false
   # By default packages are ordered ascendant (asc|desc)
@@ -38,6 +42,7 @@ web:
   # showSearch: true
   # showRaw: true
   # showDownloadTarball: true
+  # showUplinks: true
   #  HTML tags injected after manifest <scripts/>
   # scriptsBodyAfter:
   #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
