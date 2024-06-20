@@ -25,14 +25,24 @@ const SettingsMenu: React.FC<Props> = ({ packageName }) => {
   };
 
   const handleLatestSelect = () => {
-    const statusLatest = !localSettings[packageName]?.latest;
-    updateSettings({ ...localSettings, [packageName]: { latest: statusLatest } });
+    updateSettings({
+      ...localSettings,
+      [packageName]: {
+        global: localSettings[packageName]?.global,
+        latest: !localSettings[packageName]?.latest,
+      },
+    });
     setAnchorEl(null);
   };
 
   const handleGlobalSelect = () => {
-    const statusGlobal = !localSettings[packageName]?.global;
-    updateSettings({ ...localSettings, [packageName]: { global: statusGlobal } });
+    updateSettings({
+      ...localSettings,
+      [packageName]: {
+        global: !localSettings[packageName]?.global,
+        latest: localSettings[packageName]?.latest,
+      },
+    });
     setAnchorEl(null);
   };
 

@@ -13,12 +13,12 @@ const Readme: React.FC<Props> = ({ description }) => {
   // @ts-ignore
   const { isDarkMode } = useCustomTheme();
 
-  // Stackoverflow theme fits well to Verdaccio colors
+  // Stackoverflow theme fits well to Verdaccio dark colors
   // https://highlightjs.org/examples
   if (isDarkMode) {
-    require('highlight.js/styles/stackoverflow-dark.css');
+    require('highlight.js/styles/github-dark.css');
   } else {
-    require('highlight.js/styles/stackoverflow-light.css');
+    require('highlight.js/styles/github.css');
   }
 
   return (
