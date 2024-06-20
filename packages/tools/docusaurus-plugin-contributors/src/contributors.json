@@ -5066,7 +5066,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16017,
+      "stargazers_count": 16032,
       "archived": false
     },
     {
@@ -5327,7 +5327,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 58,
+      "stargazers_count": 59,
       "archived": false
     },
     {
