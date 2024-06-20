@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.17
+
+### Patch Changes
+
+- 117eb1c: fix: change bundleDependencies to array
+
 ## 7.0.0-next-7.16
 
 ## 7.0.0-next-7.15

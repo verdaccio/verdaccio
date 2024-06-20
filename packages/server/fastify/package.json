@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/server-fastify",
-  "version": "7.0.0-next-7.16",
+  "version": "7.0.0-next-7.17",
   "description": "fastify server api implementation",
   "keywords": [
     "private",
@@ -33,13 +33,13 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.16",
-    "@verdaccio/config": "workspace:7.0.0-next-7.16",
-    "@verdaccio/auth": "workspace:7.0.0-next-7.16",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.16",
-    "@verdaccio/store": "workspace:7.0.0-next-7.16",
-    "@verdaccio/tarball": "workspace:12.0.0-next-7.16",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.16",
+    "@verdaccio/core": "workspace:7.0.0-next-7.17",
+    "@verdaccio/config": "workspace:7.0.0-next-7.17",
+    "@verdaccio/auth": "workspace:7.0.0-next-7.17",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.17",
+    "@verdaccio/store": "workspace:7.0.0-next-7.17",
+    "@verdaccio/tarball": "workspace:12.0.0-next-7.17",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.17",
     "core-js": "3.35.0",
     "debug": "4.3.4",
     "fastify": "4.25.2",
@@ -47,7 +47,7 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next-7.3",
+    "@verdaccio/types": "workspace:12.0.0-next-7.4",
     "ts-node": "10.9.2"
   },
   "scripts": {

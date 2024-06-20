@@ -53,6 +53,14 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
     }
   }
 
+  function labelText(title: string, name: string, version: string): string {
+    if (title === 'bundleDependencies') {
+      return t('dependencies.dependency-block-bundle', { package: name });
+    } else {
+      return t('dependencies.dependency-block', { package: name, version });
+    }
+  }
+
   return (
     <Box data-testid={title} sx={{ margin: theme.spacing(2) }}>
       <StyledText sx={{ marginBottom: theme.spacing(1) }} variant="subtitle1">

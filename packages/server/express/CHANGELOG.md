@@ -1,5 +1,23 @@
 # @verdaccio/server
 
+## 7.0.0-next-7.17
+
+### Patch Changes
+
+- Updated dependencies [6e764e3]
+- Updated dependencies [de6ff5c]
+  - @verdaccio/config@7.0.0-next-7.17
+  - @verdaccio/core@7.0.0-next-7.17
+  - @verdaccio/store@7.0.0-next-7.17
+  - @verdaccio/api@7.0.0-next-7.17
+  - @verdaccio/auth@7.0.0-next-7.17
+  - @verdaccio/loaders@7.0.0-next-7.17
+  - @verdaccio/logger@7.0.0-next-7.17
+  - verdaccio-audit@12.0.0-next-7.17
+  - @verdaccio/web@7.0.0-next-7.17
+  - @verdaccio/middleware@7.0.0-next-7.17
+  - @verdaccio/utils@7.0.0-next-7.17
+
 ## 7.0.0-next-7.16
 
 ### Patch Changes
