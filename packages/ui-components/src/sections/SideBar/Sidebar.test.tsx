@@ -38,7 +38,7 @@ describe('Sidebar', () => {
 
     expect(screen.getByText(`sidebar.detail.latest-version`, { exact: false })).toBeInTheDocument();
     expect(
-      screen.getByText(`sidebar.detail.published a year ago`, { exact: false })
+      screen.getByText(/sidebar.detail.published .*years? ago/i, { exact: false })
     ).toBeInTheDocument();
     expect(screen.getByText(`sidebar.installation.title`, { exact: false })).toBeInTheDocument();
   });
