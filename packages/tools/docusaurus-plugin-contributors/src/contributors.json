@@ -2958,17 +2958,6 @@
       ]
     },
     {
-      "id": 1247639,
-      "login": "ChadKillingsworth",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 6511656,
       "login": "ngash",
       "contributions": 1,
@@ -5066,7 +5055,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16032,
+      "stargazers_count": 16035,
       "archived": false
     },
     {
