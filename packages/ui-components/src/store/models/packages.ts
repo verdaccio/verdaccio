@@ -4,6 +4,8 @@ import { Manifest } from '@verdaccio/types';
 
 import type { RootModel } from '.';
 import API from '../api';
+import { APIRoute } from './routes';
+import { stripTrailingSlash } from './utils';
 
 /**
  *
@@ -23,12 +25,9 @@ export const packages = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     async getPackages(_payload, state) {
-      const basePath = state.configuration.config.base;
+      const basePath = stripTrailingSlash(state.configuration.config.base);
       try {
-        const payload: Manifest[] = await API.request(
-          `${basePath}-/verdaccio/data/packages`,
-          'GET'
-        );
+        const payload: Manifest[] = await API.request(`${basePath}${APIRoute.PACKAGES}`);
         dispatch.packages.savePackages(payload);
       } catch (error: any) {
         // eslint-disable-next-line no-console

@@ -4,10 +4,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import { Theme } from '../../';
 
-export const Title = styled(DialogTitle)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme?.palette.primary.main,
-  color: props.theme?.palette.white,
-  fontSize: props.theme?.fontSize.lg,
+export const Title = styled(DialogTitle)<{ theme?: Theme }>(({ theme }) => ({
+  backgroundColor:
+    theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+  color: theme?.palette.white,
+  fontSize: theme?.fontSize.lg,
 }));
 
 export const Content = styled(DialogContent)<{ theme?: Theme }>(({ theme }) => ({

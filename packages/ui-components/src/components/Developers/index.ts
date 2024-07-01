@@ -1,1 +1,2 @@
-export { default, DeveloperType } from './Developers';
+export { default } from './Developers';
+export { DeveloperType } from './DeveloperType';

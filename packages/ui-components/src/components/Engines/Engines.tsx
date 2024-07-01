@@ -23,8 +23,12 @@ const EngineItem: FC<EngineItemProps> = ({ title, element, engineText }) => (
   <Grid item={true} xs={6}>
     <List subheader={<StyledText variant={'subtitle1'}>{title}</StyledText>}>
       <EngineListItem>
-        <Avatar sx={{ bgcolor: 'transparent' }}>{element}</Avatar>
-        <Typography variant="subtitle2">{engineText}</Typography>
+        <Avatar sx={{ backgroundColor: 'transparent', marginLeft: 0, padding: 0 }}>
+          {element}
+        </Avatar>
+        <Typography sx={{ margin: 0, padding: '0 0 0 10px' }} variant="subtitle2">
+          {engineText}
+        </Typography>
       </EngineListItem>
     </List>
   </Grid>

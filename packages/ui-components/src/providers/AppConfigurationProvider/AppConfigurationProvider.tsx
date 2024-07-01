@@ -28,6 +28,7 @@ const defaultValues: ConfigProviderProps = {
     showSearch: true,
     showRaw: true,
     showDownloadTarball: true,
+    showUplinks: true,
     hideDeprecatedVersions: false,
     title: 'Verdaccio',
   },

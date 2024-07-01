@@ -3,20 +3,20 @@ import styled from '@emotion/styled';
 import BugReport from '@mui/icons-material/BugReport';
 import DownloadIcon from '@mui/icons-material/CloudDownload';
 import HomeIcon from '@mui/icons-material/Home';
-import { useTheme } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Dispatch, Link, RootState, Theme } from '../../';
+import { Dispatch, Link, LinkExternal, RootState, Theme } from '../../';
 import { FileBinary, Law, Time, Version } from '../../components/Icons';
 import { Author as PackageAuthor, PackageMetaInterface } from '../../types/packageMeta';
-import { url, utils } from '../../utils';
-import Tag from './Tag';
+import { Route, url, utils } from '../../utils';
+import KeywordListItems from '../Keywords/KeywordListItems';
 import {
   Author,
   Avatar,
@@ -28,7 +28,6 @@ import {
   PackageListItemText,
   PackageTitle,
   Published,
-  TagContainer,
   Wrapper,
   WrapperLink,
 } from './styles';
@@ -47,7 +46,7 @@ export interface PackageInterface {
   time?: number | string;
   author: PackageAuthor;
   description?: string;
-  keywords?: string[];
+  keywords?: PackageMetaInterface['latest']['keywords'];
   license?: PackageMetaInterface['latest']['license'];
   homepage?: string;
   bugs?: Bugs;
@@ -61,7 +60,7 @@ const Package: React.FC<PackageInterface> = ({
   description,
   dist,
   homepage,
-  keywords = [],
+  keywords,
   license,
   name: packageName,
   time,
@@ -71,7 +70,6 @@ const Package: React.FC<PackageInterface> = ({
   const config = useSelector((state: RootState) => state.configuration.config);
   const dispatch = useDispatch<Dispatch>();
   const { t } = useTranslation();
-  const theme = useTheme();
   const isLoading = useSelector((state: RootState) => state?.loading?.models.download);
 
   const handleDownload = useCallback(
@@ -94,21 +92,12 @@ const Package: React.FC<PackageInterface> = ({
   const renderAuthorInfo = (): React.ReactNode => {
     const name = utils.getAuthorName(authorName);
     return (
-      <Author>
-        <Avatar alt={name} src={authorAvatar} />
-        <Details>
-          <div
-            style={{
-              fontSize: '12px',
-              fontWeight: theme?.fontWeight.semiBold,
-              color:
-                theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white,
-            }}
-          >
-            {name}
-          </div>
-        </Details>
-      </Author>
+      <OverviewItem>
+        <Author>
+          <Avatar alt={name} src={authorAvatar} />
+          <Details>{name}</Details>
+        </Author>
+      </OverviewItem>
     );
   };
 
@@ -132,33 +121,34 @@ const Package: React.FC<PackageInterface> = ({
     time && (
       <OverviewItem>
         <StyledTime />
-        <Published>{t('package.published-on', { time: utils.formatDate(time) })}</Published>
-        {utils.formatDateDistance(time)}
+        <Published title={utils.formatDate(time)}>
+          {t('package.published-on', { time: utils.formatDateDistance(time) })}
+        </Published>
       </OverviewItem>
     );
 
   const renderHomePageLink = (): React.ReactNode =>
     homepage &&
     url.isURL(homepage) && (
-      <Link external={true} to={homepage}>
+      <LinkExternal to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
           <IconButton aria-label={t('package.homepage')} size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
-      </Link>
+      </LinkExternal>
     );
 
   const renderBugsLink = (): React.ReactNode =>
     bugs?.url &&
     url.isURL(bugs.url) && (
-      <Link external={true} to={bugs.url}>
+      <LinkExternal to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
           <IconButton aria-label={t('package.bugs')} size="large">
             <BugReport />
           </IconButton>
         </Tooltip>
-      </Link>
+      </LinkExternal>
     );
 
   const renderDownloadLink = (): React.ReactNode =>
@@ -174,7 +164,11 @@ const Package: React.FC<PackageInterface> = ({
           aria-label={t('package.download', { what: t('package.the-tar-file') })}
           title={t('package.tarball')}
         >
-          <IconButton aria-label={t('package.download')} size="large">
+          <IconButton
+            aria-label={t('package.download')}
+            data-testid="download-tarball"
+            size="large"
+          >
             {isLoading ? (
               <CircularProgress size={13}>
                 <DownloadIcon />
@@ -191,7 +185,7 @@ const Package: React.FC<PackageInterface> = ({
     return (
       <Grid container={true} item={true} xs={12}>
         <Grid item={true} xs={11}>
-          <WrapperLink to={`/-/web/detail/${packageName}`}>
+          <WrapperLink to={`${Route.DETAIL}${packageName}`}>
             <PackageTitle className="package-title" data-testid="package-title">
               {packageName}
             </PackageTitle>
@@ -213,15 +207,7 @@ const Package: React.FC<PackageInterface> = ({
     );
   };
 
-  const renderSecondaryComponent = (): React.ReactNode => {
-    const tags = keywords.sort().map((keyword, index) => <Tag key={index}>{keyword}</Tag>);
-    return (
-      <>
-        <Description>{description}</Description>
-        {tags.length > 0 && <TagContainer>{tags}</TagContainer>}
-      </>
-    );
-  };
+  const renderSecondaryComponent = (): React.ReactNode => <Description>{description}</Description>;
 
   const renderPackageListItemText = (): React.ReactNode => (
     <PackageListItemText
@@ -231,10 +217,21 @@ const Package: React.FC<PackageInterface> = ({
     />
   );
 
+  const renderKeywords = (): React.ReactNode => (
+    <ListItem alignItems={'flex-start'} sx={{ py: 0, my: 0 }}>
+      <List sx={{ p: 0, my: 0 }}>
+        <KeywordListItems keywords={keywords} />
+      </List>
+    </ListItem>
+  );
+
   return (
     <Wrapper className={'package'} data-testid="package-item-list">
-      <ListItem alignItems={'flex-start'}>{renderPackageListItemText()}</ListItem>
-      <ListItem alignItems={'flex-start'}>
+      <ListItem alignItems={'flex-start'} sx={{ mb: 0 }}>
+        {renderPackageListItemText()}
+      </ListItem>
+      {keywords && keywords?.length > 0 ? renderKeywords() : null}
+      <ListItem alignItems={'flex-start'} sx={{ mt: 0 }}>
         {renderAuthorInfo()}
         {renderVersionInfo()}
         {renderPublishedInfo()}
@@ -248,8 +245,8 @@ const Package: React.FC<PackageInterface> = ({
 export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
-  margin: 2px 10px 0 0;
-  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyLight2 : theme?.palette.white};
+  margin: 0 10px 0 0;
+  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyDark : theme?.palette.white};
 `;
 
 const StyledVersion = styled(Version)`

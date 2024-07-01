@@ -1,11 +1,11 @@
 import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
 import React, { MouseEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useCustomTheme } from '../../';
 import HeaderMenu from './HeaderMenu';
 import HeaderToolTip from './HeaderToolTip';
-import { RightSide } from './styles';
 
 interface Props {
   showSearch?: boolean;
@@ -75,7 +75,18 @@ const HeaderRight: React.FC<Props> = ({
   };
 
   return (
-    <RightSide data-testid="header-right">
+    <Toolbar
+      data-testid="header-right"
+      sx={{
+        display: 'flex',
+        padding: 0,
+        marginRight: 0,
+        '@media (min-width: 600px)': {
+          padding: 0,
+          marginRight: 0,
+        },
+      }}
+    >
       {showSearch === true && (
         <HeaderToolTip
           onClick={onToggleMobileNav}
@@ -124,7 +135,7 @@ const HeaderRight: React.FC<Props> = ({
           )}
         </>
       )}
-    </RightSide>
+    </Toolbar>
   );
 };
 

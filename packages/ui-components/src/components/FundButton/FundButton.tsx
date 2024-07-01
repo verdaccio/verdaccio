@@ -6,11 +6,11 @@ import { Trans } from 'react-i18next';
 
 import { Theme } from '../../Theme';
 import { url } from '../../utils';
-import { Link } from '../Link';
+import LinkExternal from '../LinkExternal';
 
-const StyledLink = styled(Link)<{ theme?: Theme }>(({ theme }) => ({
-  marginTop: theme?.spacing(1),
-  marginBottom: theme?.spacing(1),
+const StyledLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
+  marginTop: theme?.spacing(2),
+  marginBottom: theme?.spacing(2),
   textDecoration: 'none',
   display: 'block',
 }));
@@ -32,7 +32,7 @@ const FundButton: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   }
 
   return (
-    <StyledLink external={true} to={fundingUrl} variant="button">
+    <StyledLink to={fundingUrl} variant="button">
       <Button
         color="primary"
         fullWidth={true}

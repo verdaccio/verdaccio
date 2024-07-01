@@ -7,6 +7,7 @@ import { Manifest, TemplateUIOptions } from '@verdaccio/types';
 import type { RootModel } from '.';
 import { colors } from '../../Theme';
 import API from '../api';
+import { APIRoute } from './routes';
 
 const defaultValues: TemplateUIOptions = {
   primaryColor: colors.PRIMARY_COLOR,
@@ -39,7 +40,7 @@ export const configuration = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     async getPackages() {
-      const payload: Manifest[] = await API.request(`/-/verdaccio/packages`, 'GET');
+      const payload: Manifest[] = await API.request(APIRoute.CONFIG, 'GET');
       dispatch.packages.savePackages(payload);
     },
   }),

@@ -30,7 +30,7 @@ const LoginDialogFormError = memo(({ error }: Props) => {
   return (
     <StyledSnackbarContent
       message={
-        <Box alignItems="center" display="flex">
+        <Box alignItems="center" data-testid="error" display="flex">
           <StyledErrorIcon />
           {error.description}
         </Box>

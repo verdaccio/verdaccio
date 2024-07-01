@@ -9,7 +9,7 @@ exports[`DetailContainer renders correctly 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  padding: 16px;
+  padding: 0px;
 }
 
 .emotion-2 {

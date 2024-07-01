@@ -22,9 +22,9 @@ const InstallListItemText = styled(ListItemText)({
 });
 
 const PackageMangerAvatar = styled(Avatar)({
-  borderRadius: '0px',
   backgroundColor: 'transparent',
   padding: 0,
+  marginLeft: 0,
 });
 
 export enum DependencyManager {
@@ -39,10 +39,10 @@ interface Interface {
   packageVersion?: string;
 }
 
-export function getGlobalInstall(isGlobal, packageVersion, packageName, isYarn = false) {
+export function getGlobalInstall(isLatest, isGlobal, packageVersion, packageName, isYarn = false) {
   const name = isGlobal
-    ? `${isYarn ? '' : '-g'} ${packageVersion ? `${packageName}@${packageVersion}` : packageName}`
-    : packageVersion
+    ? `${isYarn ? '' : '-g'} ${packageVersion && !isLatest ? `${packageName}@${packageVersion}` : packageName}`
+    : packageVersion && !isLatest
       ? `${packageName}@${packageVersion}`
       : packageName;
 
@@ -56,6 +56,7 @@ const InstallListItem: React.FC<Interface> = ({
 }) => {
   const { localSettings } = useSettings();
   const theme = useTheme();
+  const isLatest = localSettings[packageName]?.latest ?? false;
   const isGlobal = localSettings[packageName]?.global ?? false;
   switch (dependencyManager) {
     case DependencyManager.NPM:
@@ -67,9 +68,9 @@ const InstallListItem: React.FC<Interface> = ({
           <InstallListItemText
             primary={
               <CopyToClipBoard
-                dataTestId="instalNpm"
-                text={`npm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
-                title={`npm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
+                dataTestId="installNpm"
+                text={`npm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
+                title={`npm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
               />
             }
           />
@@ -93,7 +94,7 @@ const InstallListItem: React.FC<Interface> = ({
                         packageName,
                         true
                       )}`
-                    : `yarn add ${getGlobalInstall(isGlobal, packageVersion, packageName, true)}`
+                    : `yarn add ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName, true)}`
                 }
                 title={
                   isGlobal
@@ -103,7 +104,7 @@ const InstallListItem: React.FC<Interface> = ({
                         packageName,
                         true
                       )}`
-                    : `yarn add ${getGlobalInstall(isGlobal, packageVersion, packageName, true)}`
+                    : `yarn add ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName, true)}`
                 }
               />
             }
@@ -120,8 +121,8 @@ const InstallListItem: React.FC<Interface> = ({
             primary={
               <CopyToClipBoard
                 dataTestId="installPnpm"
-                text={`pnpm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
-                title={`pnpm install ${getGlobalInstall(isGlobal, packageVersion, packageName)}`}
+                text={`pnpm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
+                title={`pnpm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
               />
             }
           />

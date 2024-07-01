@@ -21,9 +21,6 @@ marked.setOptions({
 });
 
 export function parseReadme(readme: string): string | void {
-  if (typeof readme === 'string') {
-    const html = marked.parse(readme);
-    return DOMPurify.sanitize(html);
-  }
-  return '';
+  const html = marked.parse(readme);
+  return DOMPurify.sanitize(html);
 }

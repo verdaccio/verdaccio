@@ -40,6 +40,7 @@ describe('<PackageList /> component', () => {
           name: 'xyz',
           version: '1.1.0',
           description: 'xyz description',
+          keywords: ['hello', 'mars'],
           author: { name: 'Martin', avatar: 'test avatar' },
         },
       ],

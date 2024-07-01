@@ -44,4 +44,11 @@ describe('<UpLinks /> component', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  test('should not render if input is missing', () => {
+    const wrapper = render(<UpLinks packageMeta={undefined} />);
+    // expect nothing to be rendered
+    expect(wrapper.queryByTestId('no-uplinks-npm')).toBeNull();
+    expect(wrapper.queryByTestId('uplinks')).toBeNull();
+  });
 });

@@ -12,6 +12,7 @@ const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({
   right: theme.spacing() / 2,
   top: theme.spacing() / 2,
   color: theme.palette.grey[500],
+  zIndex: 99,
 }));
 
 interface Props {

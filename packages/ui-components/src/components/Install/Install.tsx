@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +16,12 @@ const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
   textTransform: 'capitalize',
 }));
 
+const Wrapper = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+
 export type Props = {
   packageMeta: PackageMetaInterface;
   packageName: string;
@@ -26,7 +30,6 @@ export type Props = {
 
 const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
   if (!packageMeta || !packageName) {
     return null;
   }
@@ -38,16 +41,14 @@ const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) =
 
   return hasPkgManagers ? (
     <>
-      <Grid
-        container={true}
-        justifyContent="flex-end"
-        sx={{ marginRight: theme.spacing(10), alingText: 'right' }}
-      >
-        <SettingsMenu packageName={packageName} />
-      </Grid>
       <List
         data-testid={'installList'}
-        subheader={<StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>}
+        subheader={
+          <Wrapper>
+            <StyledText variant={'subtitle1'}>{t('sidebar.installation.title')}</StyledText>
+            <SettingsMenu packageName={packageName} />
+          </Wrapper>
+        }
       >
         {hasNpm && (
           <InstallListItem

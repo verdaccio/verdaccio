@@ -1,13 +1,7 @@
-import styled from '@emotion/styled';
-import { Theme } from '@mui/material';
 import React from 'react';
 
 const icon = require('./git.svg');
 
-const ImgIcon = styled.img<{ theme?: Theme }>(({ theme }) => ({
-  marginLeft: theme?.spacing(1),
-}));
-
 export function Git() {
-  return <ImgIcon alt="git" height="20" src={icon} width="20" />;
+  return <img alt="git" height="20" src={icon} width="20" />;
 }

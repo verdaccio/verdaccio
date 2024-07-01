@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
+import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
@@ -22,6 +23,7 @@ const ViewerTitle = (props: ViewerTitleProps) => {
       {onClose ? (
         <IconButton
           aria-label="close"
+          data-testid="close-raw-viewer"
           onClick={onClose}
           sx={{
             position: 'absolute',
@@ -46,18 +48,20 @@ type Props = {
 /* eslint-disable verdaccio/jsx-spread */
 const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) => {
   const { t } = useTranslation();
+  const theme = useTheme();
   return (
     <Dialog data-testid={'rawViewer--dialog'} fullScreen={true} open={isOpen}>
       <ViewerTitle id="viewer-title" onClose={onClose}>
-        {t('action-bar-action.raw')}
+        {t('action-bar-action.raw-title', { package: packageMeta.latest.name })}
       </ViewerTitle>
       <DialogContent>
         <ReactJson
-          collapseStringsAfterLength={40}
-          collapsed={true}
-          enableClipboard={false}
+          collapseStringsAfterLength={200}
+          collapsed={2}
+          enableClipboard={true}
           groupArraysAfterLength={10}
           src={packageMeta as any}
+          theme={theme?.palette.mode == 'light' ? 'bright:inverted' : 'bright'}
         />
       </DialogContent>
     </Dialog>

@@ -5,6 +5,8 @@ import { Manifest } from '@verdaccio/types';
 import type { RootModel } from '.';
 import { PackageMetaInterface } from '../../types/packageMeta';
 import API from '../api';
+import { APIRoute } from './routes';
+import { stripTrailingSlash } from './utils';
 
 function isPackageVersionValid(
   packageMeta: Partial<PackageMetaInterface>,
@@ -83,10 +85,10 @@ export const manifest = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     async getManifest({ packageName, packageVersion }, state) {
-      const basePath = state.configuration.config.base;
+      const basePath = stripTrailingSlash(state.configuration.config.base);
       try {
         const manifest: Manifest = await API.request(
-          `${basePath}-/verdaccio/data/sidebar/${packageName}${
+          `${basePath}${APIRoute.SIDEBAR}${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
           }`
         );
@@ -98,10 +100,9 @@ export const manifest = createModel<RootModel>()({
         }
 
         const readme: string = await API.request<string>(
-          `${basePath}-/verdaccio/data/package/readme/${packageName}${
+          `${basePath}${APIRoute.README}${packageName}${
             packageVersion ? `?v=${packageVersion}` : ''
-          }`,
-          'GET'
+          }`
         );
         dispatch.manifest.saveManifest({ packageName, packageVersion, manifest, readme });
       } catch (error: any) {

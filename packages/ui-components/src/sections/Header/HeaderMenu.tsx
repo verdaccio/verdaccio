@@ -39,7 +39,7 @@ const HeaderMenu: React.FC<Props> = ({
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
+          vertical: 'bottom',
           horizontal: 'right',
         }}
         onClose={onLoggedInMenuClose}

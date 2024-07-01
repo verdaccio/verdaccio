@@ -10,5 +10,5 @@ export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
 }));
 
 export const EngineListItem = styled(ListItem)({
-  paddingLeft: 0,
+  padding: 0,
 });

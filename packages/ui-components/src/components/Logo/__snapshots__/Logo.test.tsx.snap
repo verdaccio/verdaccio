@@ -17,5 +17,7 @@ exports[`<Logo /> component should render the component in default state 1`] = `
 
 <div
   class="emotion-0 emotion-1"
+  data-testid="default-logo"
+  title=""
 />
 `;

@@ -26,16 +26,20 @@ const defaultManifestFiles: Manifest = {
   css: [],
 };
 
-export function resolveLogo(config: ConfigYaml, requestOptions: RequestOptions) {
-  if (typeof config?.web?.logo !== 'string') {
+export function resolveLogo(
+  logo: string | undefined,
+  url_prefix: string | undefined,
+  requestOptions: RequestOptions
+) {
+  if (typeof logo !== 'string') {
     return '';
   }
-  const isLocalFile = config?.web?.logo && !isURLhasValidProtocol(config?.web?.logo);
+  const isLocalFile = logo && !isURLhasValidProtocol(logo);
 
   if (isLocalFile) {
-    return `${getPublicUrl(config?.url_prefix, requestOptions)}-/static/${path.basename(config?.web?.logo)}`;
-  } else if (isURLhasValidProtocol(config?.web?.logo)) {
-    return config?.web?.logo;
+    return `${getPublicUrl(url_prefix, requestOptions)}-/static/${path.basename(logo)}`;
+  } else if (isURLhasValidProtocol(logo)) {
+    return logo;
   } else {
     return '';
   }
@@ -61,7 +65,8 @@ export default function renderHTML(
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
-  const logo = resolveLogo(config, requestOptions);
+  const logo = resolveLogo(config?.web?.logo, config?.url_prefix, requestOptions);
+  const logoDark = resolveLogo(config?.web?.logoDark, config?.url_prefix, requestOptions);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = res.locals.app_version ?? '';
   const flags = {
@@ -81,6 +86,8 @@ export default function renderHTML(
     showFooter,
     showSearch,
     showDownloadTarball,
+    showRaw,
+    showUplinks,
   } = Object.assign(
     {},
     {
@@ -97,6 +104,8 @@ export default function renderHTML(
     showFooter,
     showSearch,
     showDownloadTarball,
+    showRaw,
+    showUplinks,
     darkMode,
     url_prefix,
     basename,
@@ -104,6 +113,7 @@ export default function renderHTML(
     primaryColor,
     version,
     logo,
+    logoDark,
     flags,
     login,
     pkgManagers,

@@ -21,10 +21,19 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
   const makeLogin = useCallback(
     async (username?: string, password?: string): Promise<LoginBody | void> => {
       // checks isEmpty
-      if (isEmpty(username) || isEmpty(password)) {
+      if (!username || !password || isEmpty(username) || isEmpty(password)) {
         dispatch.login.addError({
           type: 'error',
           description: i18next.t('form-validation.username-or-password-cant-be-empty'),
+        });
+        return;
+      }
+
+      // checks min username and password length
+      if (username.length < 2 || password.length < 2) {
+        dispatch.login.addError({
+          type: 'error',
+          description: i18next.t('form-validation.required-min-length', { length: 2 }),
         });
         return;
       }

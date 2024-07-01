@@ -105,6 +105,15 @@ export function getAuthorName(authorName?: string): string {
   return authorName;
 }
 
+export function getUplink(upLinkName: string, packageName: string): string | null {
+  // TODO: make this a config like "uplinks: npmjs: web: https://www.npmjs.com/package/"
+  switch (upLinkName) {
+    case 'npmjs':
+      return `https://www.npmjs.com/package/${packageName}`;
+  }
+  return null;
+}
+
 export function fileSizeSI(
   a: number,
   b?: typeof Math,
@@ -112,9 +121,15 @@ export function fileSizeSI(
   d?: number,
   e?: number
 ): string {
-  return (
-    ((b = Math), (c = b.log), (d = 1e3), (e = (c(a) / c(d)) | 0), a / b.pow(d, e)).toFixed(2) +
-    ' ' +
-    (e ? 'kMGTPEZY'[--e] + 'B' : 'Bytes')
-  );
+  b = Math;
+  c = b.log;
+  d = 1e3;
+  e = (c(a) / c(d)) | 0;
+  let size = a / b.pow(d, e);
+  // no decimals for Bytes
+  if (e === 0) {
+    return Math.floor(size) + ' Bytes';
+  } else {
+    return size.toFixed(1) + ' ' + 'kMGTPEZY'[--e] + 'B';
+  }
 }

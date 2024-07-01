@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Chip from '@mui/material/Chip';
-import FabMUI from '@mui/material/Fab';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
 
@@ -22,8 +21,3 @@ export const DistChips = styled(Chip)({
   textTransform: 'capitalize',
   marginTop: 5,
 });
-
-export const DownloadButton = styled(FabMUI)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme?.palette.primary.main,
-  color: props.theme?.palette.white,
-}));

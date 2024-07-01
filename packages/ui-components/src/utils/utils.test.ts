@@ -2,12 +2,14 @@ import MockDate from 'mockdate';
 
 import { packageMeta } from './__partials__/packageMeta';
 import {
+  fileSizeSI,
   formatDate,
   formatDateDistance,
   formatLicense,
   formatRepository,
   getLastUpdatedPackageTime,
   getRecentReleases,
+  getUplink,
 } from './utils';
 
 // jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
@@ -109,5 +111,37 @@ describe('getRecentReleases', (): void => {
     ];
     expect(getRecentReleases(time)).toEqual(result);
     expect(getRecentReleases()).toEqual([]);
+  });
+});
+
+describe('getUplink', (): void => {
+  test('getUplink for npmjs', () => {
+    expect(getUplink('npmjs', 'semver')).toEqual('https://www.npmjs.com/package/semver');
+  });
+
+  test('getUplink for server1', () => {
+    expect(getUplink('server1', 'semver')).toEqual(null);
+  });
+});
+
+describe('fileSizeSI', (): void => {
+  test('fileSizeSI as number 1234567', () => {
+    expect(fileSizeSI(1234567)).toEqual('1.2 MB');
+  });
+
+  test('fileSizeSI as number 9876', () => {
+    expect(fileSizeSI(9876)).toEqual('9.9 kB');
+  });
+
+  test('fileSizeSI as number 1000', () => {
+    expect(fileSizeSI(1000)).toEqual('1.0 kB');
+  });
+
+  test('fileSizeSI as number 123', () => {
+    expect(fileSizeSI(123)).toEqual('123 Bytes');
+  });
+
+  test('fileSizeSI as number 0', () => {
+    expect(fileSizeSI(0)).toEqual('0 Bytes');
   });
 });

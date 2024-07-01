@@ -20,11 +20,23 @@ interface Props {
   time: string;
 }
 
+const Icon = styled.div<{ theme?: Theme }>(({ theme }) => ({
+  marginLeft: theme?.spacing(1),
+}));
+
 const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
   if (module === 'commonjs') {
-    return <CommonJS />;
+    return (
+      <Icon>
+        <CommonJS />
+      </Icon>
+    );
   } else if (module === 'module') {
-    return <ES6Modules />;
+    return (
+      <Icon>
+        <ES6Modules />
+      </Icon>
+    );
   } else {
     return null;
   }
@@ -46,7 +58,11 @@ const DetailSidebarTitle: React.FC<Props> = ({
         <TitleWrapper>
           <>
             {packageName}
-            {hasTypes && <TypeScript />}
+            {hasTypes && (
+              <Icon>
+                <TypeScript />
+              </Icon>
+            )}
             <ModuleJS module={moduleType} />
           </>
         </TitleWrapper>

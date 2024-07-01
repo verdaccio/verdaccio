@@ -7,24 +7,42 @@ import MenuItem from '@mui/material/MenuItem';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useConfig } from '../../providers';
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 
 interface Props {
   packageName: string;
 }
 
-const InstallListItem: React.FC<Props> = ({ packageName }) => {
+const SettingsMenu: React.FC<Props> = ({ packageName }) => {
   const { t } = useTranslation();
   const { localSettings, updateSettings } = useSettings();
+  const { configOptions } = useConfig();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleLatestSelect = () => {
+    updateSettings({
+      ...localSettings,
+      [packageName]: {
+        global: localSettings[packageName]?.global,
+        latest: !localSettings[packageName]?.latest,
+      },
+    });
+    setAnchorEl(null);
+  };
+
   const handleGlobalSelect = () => {
-    const statusGlobal = !localSettings[packageName]?.global;
-    updateSettings({ ...localSettings, [packageName]: { global: statusGlobal } });
+    updateSettings({
+      ...localSettings,
+      [packageName]: {
+        global: !localSettings[packageName]?.global,
+        latest: localSettings[packageName]?.latest,
+      },
+    });
     setAnchorEl(null);
   };
 
@@ -38,6 +56,7 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
     setAnchorEl(null);
   };
 
+  const statusLatest = localSettings[packageName]?.latest;
   const statusGlobal = localSettings[packageName]?.global;
   return (
     <>
@@ -56,10 +75,27 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
           'aria-labelledby': 'basic-button',
         }}
         anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
         id="basic-menu"
         onClose={handleClose}
         open={open}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
       >
+        <MenuItem onClick={handleLatestSelect}>
+          {' '}
+          {statusLatest === true ? (
+            <ListItemIcon>
+              <Check />
+            </ListItemIcon>
+          ) : null}
+          {t('sidebar.installation.latest')}
+        </MenuItem>
         <MenuItem onClick={handleGlobalSelect}>
           {' '}
           {statusGlobal === true ? (
@@ -69,18 +105,20 @@ const InstallListItem: React.FC<Props> = ({ packageName }) => {
           ) : null}
           {t('sidebar.installation.global')}
         </MenuItem>
-        <MenuItem onClick={handleGlobalYarnModern}>
-          {' '}
-          {localSettings?.yarnModern ? (
-            <ListItemIcon>
-              <Check />
-            </ListItemIcon>
-          ) : null}
-          {t('sidebar.installation.yarnModern')}
-        </MenuItem>
+        {configOptions?.pkgManagers?.includes('yarn') && (
+          <MenuItem onClick={handleGlobalYarnModern}>
+            {' '}
+            {localSettings?.yarnModern ? (
+              <ListItemIcon>
+                <Check />
+              </ListItemIcon>
+            ) : null}
+            {t('sidebar.installation.yarnModern')}
+          </MenuItem>
+        )}
       </Menu>
     </>
   );
 };
 
-export default InstallListItem;
+export default SettingsMenu;

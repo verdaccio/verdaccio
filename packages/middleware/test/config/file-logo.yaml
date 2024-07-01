@@ -14,6 +14,7 @@ web:
   showRaw: true
   primary_color: '#ffffff'
   logo: './test/config/dark-logo.png'
+  logoDark: './test/config/dark-logo.png'
   html_cache: false
 
 url_prefix: /prefix

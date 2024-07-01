@@ -11,6 +11,7 @@ export const Wrapper = styled('div')({
 
 export const Badge = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   margin: '0 0 30px 0',
+  padding: 5,
   borderRadius: 25,
   boxShadow: '0 10px 20px 0 rgba(69, 58, 100, 0.2)',
   background: theme?.palette.mode === 'dark' ? theme?.palette.black : '#f7f8f6',

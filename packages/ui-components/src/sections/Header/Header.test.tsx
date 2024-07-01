@@ -39,7 +39,7 @@ describe('<Header /> component with logged in state', () => {
     cleanup();
   });
 
-  test('should load the component n logged out state', () => {
+  test('should load the component in logged out state', () => {
     renderWithStore(
       <Router>
         <Header />
@@ -59,7 +59,9 @@ describe('<Header /> component with logged in state', () => {
       </Router>,
       store
     );
-    store.dispatch.login.logInUser({ username: 'store', token: '12345' });
+    act(() => {
+      store.dispatch.login.logInUser({ username: 'store', token: '12345' });
+    });
 
     await waitFor(() => {
       expect(screen.getByTestId('logInDialogIcon')).toBeTruthy();
@@ -78,13 +80,13 @@ describe('<Header /> component with logged in state', () => {
     const loginBtn = screen.getByTestId('header--button-login');
     fireEvent.click(loginBtn);
 
-    const loginDialog = await waitFor(() => screen.getByTestId('login--dialog'));
+    const loginDialog = await waitFor(() => screen.findByTestId('login--dialog'));
 
     expect(loginDialog).toBeTruthy();
   });
 
   test('should login and logout the user', async () => {
-    const { getByText, getByTestId } = renderWithStore(
+    const { getByText, getByTestId, findByText, findByTestId } = renderWithStore(
       <Router>
         <Header />
       </Router>,
@@ -104,14 +106,14 @@ describe('<Header /> component with logged in state', () => {
     await act(async () => {
       fireEvent.click(signInButton);
     });
-    await waitFor(() => getByTestId('logInDialogIcon'));
+    await waitFor(() => findByTestId('logInDialogIcon'));
     const headerMenuAccountCircle = getByTestId('logInDialogIcon');
     fireEvent.click(headerMenuAccountCircle);
 
     // // wait for button Logout's appearance and return the element
-    const logoutBtn = await waitFor(() => getByText('button.logout'));
+    const logoutBtn = await waitFor(() => findByText('button.logout'));
     fireEvent.click(logoutBtn);
-    await waitFor(() => getByText('button.login'));
+    await waitFor(() => findByText('button.login'));
     expect(getByText('button.login')).toBeTruthy();
   });
 
@@ -169,12 +171,12 @@ describe('<Header /> component with logged in state', () => {
     expect(infoBtn).toBeInTheDocument();
     fireEvent.click(infoBtn);
     // wait for registrationInfo modal appearance and return the element
-    const registrationInfoModal = await waitFor(() => screen.getByTestId('registryInfo--dialog'));
+    const registrationInfoModal = await waitFor(() => screen.findByTestId('registryInfo--dialog'));
     expect(registrationInfoModal).toBeTruthy();
   });
 
   test('should close the registrationInfo modal when clicking on the button close', async () => {
-    const { getByTestId, getByText, queryByTestId } = renderWithStore(
+    const { getByTestId, findByText, queryByTestId } = renderWithStore(
       <Router>
         <Header HeaderInfoDialog={CustomInfoDialog} />
       </Router>,
@@ -185,7 +187,7 @@ describe('<Header /> component with logged in state', () => {
     fireEvent.click(infoBtn);
 
     // wait for Close's button of registrationInfo modal appearance and return the element
-    const closeBtn = await waitFor(() => getByText('button.close'));
+    const closeBtn = await waitFor(() => findByText('button.close'));
     fireEvent.click(closeBtn);
 
     const hasRegistrationInfoModalBeenRemoved = await waitForElementToBeRemoved(() =>

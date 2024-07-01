@@ -1,18 +1,12 @@
-import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
 import NoItems from '../NoItems';
 import { DependencyBlock } from './DependencyBlock';
 import { hasKeys } from './utits';
-
-export const CardWrap = styled(Card)<{ theme?: Theme }>((props) => ({
-  marginBottom: props.theme.spacing(2),
-}));
 
 const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
@@ -43,7 +37,7 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
     hasKeys(peerDependencies);
   if (hasDependencies) {
     return (
-      <CardWrap>
+      <Card sx={{ mb: 2 }}>
         <CardContent>
           <Box data-testid="dependencies-box" sx={{ m: 2 }}>
             {Object.entries(dependencyMap).map(([dependencyType, dependencies]) => {
@@ -62,11 +56,17 @@ const Dependencies: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
             })}
           </Box>
         </CardContent>
-      </CardWrap>
+      </Card>
     );
   }
 
-  return <NoItems text={t('dependencies.has-no-dependencies', { package: name })} />;
+  return (
+    <Card sx={{ mb: 2 }}>
+      <CardContent>
+        <NoItems text={t('dependencies.has-no-dependencies', { package: name })} />
+      </CardContent>
+    </Card>
+  );
 };
 
 export default Dependencies;

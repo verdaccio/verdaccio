@@ -9,6 +9,8 @@ import Stack from '@mui/material/Stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { cleanDescription } from './utils';
+
 type SearchItemProps = {
   name: string;
   version?: string;
@@ -28,15 +30,23 @@ export const Description = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   display: 'none',
   color: theme?.palette?.greyLight2,
   lineHeight: '1.5rem',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  alignItems: 'center',
+  overflow: 'hidden',
+  paddingLeft: theme.spacing(),
+  fontSize: theme?.fontSize.ssm,
+  [`@media (min-width: ${theme?.breakPoints.medium}px)`]: {
+    display: 'block',
+    width: '300px',
+  },
   [`@media (min-width: ${theme?.breakPoints.large}px)`]: {
     display: 'block',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    width: '200px',
-    alignItems: 'center',
-    overflow: 'hidden',
-    paddingLeft: theme.spacing(),
-    fontSize: theme?.fontSize.ssm,
+    width: '500px',
+  },
+  [`@media (min-width: 1440px)`]: {
+    display: 'block',
+    width: '600px',
   },
 }));
 
@@ -68,11 +78,12 @@ const SearchItem: React.FC<SearchItemProps> = ({
     // no action assigned by default
   };
   return (
+    // eslint-disable-next-line verdaccio/jsx-no-style
     <li {...props} style={{ flexDirection: 'column' }}>
       <Wrapper>
         <NameGroup>
           <Name>{name}</Name>
-          {description && <Description>{description}</Description>}
+          {description && <Description>{cleanDescription(description)}</Description>}
         </NameGroup>
         {version && <Version>{version}</Version>}
       </Wrapper>

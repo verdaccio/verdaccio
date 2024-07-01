@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.reference.json",
+  "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "node",
