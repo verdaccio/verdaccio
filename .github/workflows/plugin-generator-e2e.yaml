@@ -22,7 +22,7 @@ jobs:
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
