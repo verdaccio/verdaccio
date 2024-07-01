@@ -33,8 +33,12 @@ class LocalStorage {
     if (this.storagePlugin === null) {
       this.storagePlugin = await this.loadStorage(this.config, this.logger);
       debug('storage plugin init');
-      await this.storagePlugin.init();
-      debug('storage plugin initialized');
+      if (typeof this.storagePlugin.init !== 'undefined') {
+        await this.storagePlugin.init();
+        debug('storage plugin initialized');
+      } else {
+        debug('storage plugin does not require initialization');
+      }
     } else {
       this.logger.warn('storage plugin has been already initialized');
     }
