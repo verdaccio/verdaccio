@@ -1,4 +1,11 @@
+
+FROM --platform=x86_64 amazonlinux:latest as base
+
+RUN yum install -y httpd
+
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:21-alpine as builder
+
+COPY --from=base /usr/lib64 /usr/lib64
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -7,7 +14,10 @@ RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
-    apk add --force-overwrite glibc-2.35-r0.apk
+    apk add --force-overwrite glibc-2.35-r0.apk  
+
+# RUN sed -i 's/MinProtocol = TLSv1/MinProtocol = TLSv1.2/' /etc/ssl/openssl.cnf \ 
+#     && sed -i 's/CipherString = DEFAULT@SECLEVEL=1/CipherString = DEFAULT@SECLEVEL=2/' /etc/ssl/openssl.cnf
 
 WORKDIR /opt/verdaccio-build
 COPY . .
@@ -27,7 +37,7 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
+    VERDACCIO_PROTOCOL=http 
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
 
@@ -45,6 +55,7 @@ ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
+    chown -R $VERDACCIO_USER_UID:65533 /verdaccio/storage && \
     chmod -R g=u /verdaccio/storage /etc/passwd
 
 USER $VERDACCIO_USER_UID
