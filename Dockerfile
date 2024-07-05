@@ -56,6 +56,7 @@ RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USE
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
     chown -R $VERDACCIO_USER_UID:65533 /verdaccio/storage && \
+    chown -R $VERDACCIO_USER_UID:65533 /verdaccio/conf && \
     chmod -R g=u /verdaccio/storage /etc/passwd
 
 USER $VERDACCIO_USER_UID
