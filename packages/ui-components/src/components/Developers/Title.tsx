@@ -4,11 +4,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from '../../Theme';
-
-export enum DeveloperType {
-  CONTRIBUTORS = 'contributors',
-  MAINTAINERS = 'maintainers',
-}
+import { DeveloperType } from './';
 
 interface Props {
   type: DeveloperType;

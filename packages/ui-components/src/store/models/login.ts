@@ -5,6 +5,8 @@ import type { RootModel } from '.';
 import { isTokenExpire } from '../../utils';
 import API from '../api';
 import storage from '../storage';
+import { APIRoute } from './routes';
+import { stripTrailingSlash } from './utils';
 
 export const HEADERS = {
   JSON: 'application/json',
@@ -80,19 +82,15 @@ export const login = createModel<RootModel>()({
   },
   effects: (dispatch) => ({
     async getUser({ username, password }, state) {
-      const basePath = state.configuration.config.base;
+      const basePath = stripTrailingSlash(state.configuration.config.base);
       try {
-        const payload: LoginResponse = await API.request(
-          `${basePath}-/verdaccio/sec/login`,
-          'POST',
-          {
-            body: JSON.stringify({ username, password }),
-            headers: {
-              Accept: HEADERS.JSON,
-              'Content-Type': HEADERS.JSON,
-            },
-          }
-        );
+        const payload: LoginResponse = await API.request(`${basePath}${APIRoute.LOGIN}`, 'POST', {
+          body: JSON.stringify({ username, password }),
+          headers: {
+            Accept: HEADERS.JSON,
+            'Content-Type': HEADERS.JSON,
+          },
+        });
         dispatch.login.logInUser(payload);
         dispatch.packages.getPackages(undefined);
       } catch (error: any) {

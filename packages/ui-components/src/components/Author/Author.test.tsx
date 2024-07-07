@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, render } from '../../test/test-react-testing-library';
+import { cleanup, render, screen } from '../../test/test-react-testing-library';
 import { PackageMetaInterface } from '../../types/packageMeta';
 import Authors from './Author';
 
@@ -65,5 +65,11 @@ describe('<Author /> component', () => {
 
     const wrapper = render(withAuthorComponent(packageMeta));
     expect(wrapper).toMatchSnapshot();
+  });
+
+  test('should not render if data is missing', () => {
+    // @ts-ignore - testing with missing data
+    render(withAuthorComponent(undefined));
+    expect(screen.queryByText('sidebar.author.title')).toBeNull();
   });
 });

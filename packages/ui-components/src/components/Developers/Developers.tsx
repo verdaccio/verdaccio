@@ -1,19 +1,14 @@
 import styled from '@emotion/styled';
 import Add from '@mui/icons-material/Add';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import FabMUI from '@mui/material/Fab';
-import Tooltip from '@mui/material/Tooltip';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Theme } from '../../Theme';
+import Person from '../Person';
+import { DeveloperType } from './DeveloperType';
 import Title from './Title';
 import getUniqueDeveloperValues from './get-unique-developer-values';
-
-export enum DeveloperType {
-  CONTRIBUTORS = 'contributors',
-  MAINTAINERS = 'maintainers',
-}
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
   backgroundColor: props.theme?.palette.primary.main,
@@ -28,7 +23,7 @@ interface Props {
 
 const StyledBox = styled(Box)({
   '> *': {
-    margin: 5,
+    marginRight: 5,
   },
 });
 
@@ -58,19 +53,24 @@ const Developers: React.FC<Props> = ({ type, visibleMax = VISIBLE_MAX, packageMe
     return null;
   }
 
+  const { name: packageName, version } = packageMeta.latest;
+
   return (
     <>
       <Title type={type} />
       <StyledBox display="flex" flexWrap="wrap" margin="10px 0 10px 0">
-        {visibleDevelopers.map((visibleDeveloper) => {
+        {visibleDevelopers.map((visibleDeveloper, index) => {
           return (
-            <Tooltip key={visibleDeveloper.email} title={visibleDeveloper.name}>
-              <Avatar alt={visibleDeveloper.name} src={visibleDeveloper.avatar} />
-            </Tooltip>
+            <Person
+              key={index}
+              packageName={packageName}
+              person={visibleDeveloper}
+              version={version}
+            />
           );
         })}
         {visibleDevelopersMax < developers.length && (
-          <Fab onClick={handleSetVisibleDevelopersMax} size="small">
+          <Fab data-testid={'fab-add'} onClick={handleSetVisibleDevelopersMax} size="small">
             <Add />
           </Fab>
         )}

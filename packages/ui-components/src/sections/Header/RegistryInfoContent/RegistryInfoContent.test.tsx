@@ -13,7 +13,7 @@ describe('<RegistryInfoContent /> component', () => {
     expect(screen.getByText('packageManagers.description')).toBeInTheDocument();
   });
 
-  test('should load the appropiate tab content when the tab is clicked', () => {
+  test('should load the appropiate tab content when the tab is clicked', () => {
     const props = { registryUrl: 'http://localhost:4872', scope: '@' };
     render(<RegistryInfoContent registryUrl={props.registryUrl} scope={props.scope} />);
 

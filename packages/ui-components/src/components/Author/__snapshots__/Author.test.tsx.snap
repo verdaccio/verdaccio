@@ -44,6 +44,8 @@ exports[`<Author /> component should render the component in default state 1`] =
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -68,6 +70,22 @@ exports[`<Author /> component should render the component in default state 1`] =
 }
 
 .emotion-5 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-5:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-6 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -97,10 +115,11 @@ exports[`<Author /> component should render the component in default state 1`] =
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 0px;
   margin-right: 8px;
 }
 
-.emotion-6 {
+.emotion-7 {
   width: 100%;
   height: 100%;
   text-align: center;
@@ -109,12 +128,13 @@ exports[`<Author /> component should render the component in default state 1`] =
   text-indent: 10000px;
 }
 
-.emotion-7 {
+.emotion-8 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.57;
+  margin-left: 8px;
 }
 
 <body>
@@ -131,21 +151,25 @@ exports[`<Author /> component should render the component in default state 1`] =
           class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
         >
           <a
-            href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio@4.0.0"
-            target="_top"
+            class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-5"
+            data-mui-internal-clone-element="true"
+            data-testid="verdaccio user"
+            href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio v4.0.0"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circular emotion-5"
+              class="MuiAvatar-root MuiAvatar-circular emotion-6"
             >
               <img
                 alt="verdaccio user"
-                class="MuiAvatar-img emotion-6"
+                class="MuiAvatar-img emotion-7"
                 src="https://www.gravatar.com/avatar/000000"
               />
             </div>
           </a>
           <h6
-            class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
+            class="MuiTypography-root MuiTypography-subtitle2 emotion-8"
           >
             verdaccio user
           </h6>
@@ -194,6 +218,8 @@ exports[`<Author /> component should render the component in default state 1`] =
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -218,6 +244,22 @@ exports[`<Author /> component should render the component in default state 1`] =
 }
 
 .emotion-5 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.66;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-5:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-6 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -247,10 +289,11 @@ exports[`<Author /> component should render the component in default state 1`] =
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 0px;
   margin-right: 8px;
 }
 
-.emotion-6 {
+.emotion-7 {
   width: 100%;
   height: 100%;
   text-align: center;
@@ -259,12 +302,13 @@ exports[`<Author /> component should render the component in default state 1`] =
   text-indent: 10000px;
 }
 
-.emotion-7 {
+.emotion-8 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.57;
+  margin-left: 8px;
 }
 
 <div>
@@ -280,21 +324,25 @@ exports[`<Author /> component should render the component in default state 1`] =
         class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
       >
         <a
-          href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio@4.0.0"
-          target="_top"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-5"
+          data-mui-internal-clone-element="true"
+          data-testid="verdaccio user"
+          href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio v4.0.0"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular emotion-6"
           >
             <img
               alt="verdaccio user"
-              class="MuiAvatar-img emotion-6"
+              class="MuiAvatar-img emotion-7"
               src="https://www.gravatar.com/avatar/000000"
             />
           </div>
         </a>
         <h6
-          class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
+          class="MuiTypography-root MuiTypography-subtitle2 emotion-8"
         >
           verdaccio user
         </h6>
@@ -399,6 +447,8 @@ exports[`<Author /> component should render the component when there is no autho
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -452,6 +502,7 @@ exports[`<Author /> component should render the component when there is no autho
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 0px;
   margin-right: 8px;
 }
 
@@ -470,6 +521,7 @@ exports[`<Author /> component should render the component when there is no autho
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.57;
+  margin-left: 8px;
 }
 
 <body>
@@ -487,6 +539,8 @@ exports[`<Author /> component should render the component when there is no autho
         >
           <div
             class="MuiAvatar-root MuiAvatar-circular emotion-5"
+            data-mui-internal-clone-element="true"
+            data-testid="verdaccio user"
           >
             <img
               alt="verdaccio user"
@@ -544,6 +598,8 @@ exports[`<Author /> component should render the component when there is no autho
   padding-bottom: 8px;
   padding-left: 16px;
   padding-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   padding: 0;
 }
 
@@ -597,6 +653,7 @@ exports[`<Author /> component should render the component when there is no autho
   user-select: none;
   width: 40px;
   height: 40px;
+  margin-left: 0px;
   margin-right: 8px;
 }
 
@@ -615,6 +672,7 @@ exports[`<Author /> component should render the component when there is no autho
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.57;
+  margin-left: 8px;
 }
 
 <div>
@@ -631,6 +689,8 @@ exports[`<Author /> component should render the component when there is no autho
       >
         <div
           class="MuiAvatar-root MuiAvatar-circular emotion-5"
+          data-mui-internal-clone-element="true"
+          data-testid="verdaccio user"
         >
           <img
             alt="verdaccio user"

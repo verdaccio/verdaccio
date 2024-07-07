@@ -4,25 +4,16 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 
-import { Link, Theme } from '../../';
+import { Theme } from '../../Theme';
 
 export const InnerNavBar = styled(Toolbar)({
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '0 15px',
+  padding: 0,
 });
 
 export const Greetings = styled('span')({
   margin: '0 5px 0 0',
-});
-
-export const RightSide = styled(Toolbar)({
-  display: 'flex',
-  padding: 0,
-});
-
-export const LeftSide = styled(RightSide)({
-  flex: 1,
 });
 
 export const MobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
@@ -50,6 +41,7 @@ export const SettingsButtom = styled(IconButton)({});
 export const SearchWrapper = styled('div')({
   display: 'none',
   width: '100%',
+  marginLeft: 20,
 });
 
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
@@ -83,7 +75,7 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   `,
   [`@media (min-width: ${theme?.breakPoints.large}px)`]: css`
     ${InnerNavBar} {
-      padding: 0 20px;
+      padding: 0 16px;
     }
   `,
   [`@media (min-width: ${theme?.breakPoints.xlarge}px)`]: css`
@@ -93,8 +85,4 @@ export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
       margin: 0 auto;
     }
   `,
-}));
-
-export const StyledLink = styled(Link)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.white,
 }));

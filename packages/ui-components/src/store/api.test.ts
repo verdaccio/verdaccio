@@ -31,6 +31,22 @@ describe('api', () => {
 
       expect(handled).toEqual([true, blob]);
     });
+
+    test('should test pdf scenario', async () => {
+      const blob = new Blob(['foo']);
+      const blobPromise = Promise.resolve<Blob>(blob);
+      const response: Response = {
+        url: 'http://localhost:8080/test.pdf',
+        blob: () => blobPromise,
+        ok: true,
+        headers: new Headers({
+          'Content-Type': 'application/pdf',
+        }),
+      } as Response;
+      const handled = await handleResponseType(response);
+
+      expect(handled).toEqual([true, blob]);
+    });
   });
 
   describe('api client', () => {

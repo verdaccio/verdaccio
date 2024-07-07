@@ -6,13 +6,17 @@ import {
   CommonJS,
   ES6Modules,
   Earth,
+  FileBinary,
   Git,
   Law,
   License,
   NodeJS,
+  Npm,
+  Pnpm,
   Time,
   TypeScript,
   Version,
+  Yarn,
 } from '.';
 
 export default {
@@ -21,16 +25,28 @@ export default {
 
 export const Icons: any = () => (
   <Box sx={{ width: '100%' }}>
-    <Stack spacing={2}>
+    <Stack direction="row" spacing={2}>
+      <Npm />
+      <Pnpm />
+      <Yarn />
+    </Stack>
+    <Stack direction="row" spacing={2}>
       <NodeJS />
       <Git />
-      <Version />
+    </Stack>
+    <Stack direction="row" spacing={2}>
       <TypeScript />
-      <Time />
-      <License />
-      <Law />
       <ES6Modules />
       <CommonJS />
+    </Stack>
+    <Stack direction="row" spacing={2}>
+      <Version />
+      <Time />
+      <FileBinary />
+      <Law />
+    </Stack>
+    <Stack direction="row" spacing={2}>
+      <License />
       <Earth />
     </Stack>
   </Box>

@@ -10,11 +10,13 @@ import React, {
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 type PersistenceSettingsProps = {
+  isLatest?: boolean;
   isGlobal?: boolean;
   yarnModern: boolean;
 };
 
 const defaultValues: PersistenceSettingsProps = {
+  isLatest: false,
   isGlobal: false,
   yarnModern: false,
 };

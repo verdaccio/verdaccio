@@ -48,7 +48,6 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
         id="login--dialog-username"
         {...register('username', {
           required: { value: true, message: t('form-validation.required-field') },
-          minLength: { value: 2, message: t('form-validation.required-min-length', { length: 2 }) },
         })}
         label={t('form.username')}
         margin="normal"
@@ -65,7 +64,6 @@ const LoginDialogForm = memo(({ onSubmit, error }: Props) => {
         id="login--dialog-password"
         {...register('password', {
           required: { value: true, message: t('form-validation.required-field') },
-          minLength: { value: 2, message: t('form-validation.required-min-length', { length: 2 }) },
         })}
         data-testid="password"
         label={t('form.password')}

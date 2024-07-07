@@ -9,102 +9,21 @@ exports[`<UpLinks /> component should render the component when there is no upli
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border-radius: 4px;
-  box-shadow: none;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
   background-image: unset;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  background-color: rgb(229, 246, 253);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 6px 16px;
-  color: rgb(1, 67, 97);
-}
-
-.emotion-0 .MuiAlert-icon {
-  color: #0288d1;
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .emotion-1 {
-  margin-right: 12px;
-  padding: 7px 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 22px;
-  opacity: 0.9;
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
 }
 
 .emotion-2 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: inherit;
-}
-
-.emotion-3 {
-  padding: 8px 0;
-  min-width: 0;
-  overflow: auto;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-<body>
-    <div>
-      <div
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-0"
-        role="alert"
-      >
-        <div
-          class="MuiAlert-icon emotion-1"
-        >
-          <svg
-            aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit emotion-2"
-            data-testid="InfoOutlinedIcon"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
-            />
-          </svg>
-        </div>
-        <div
-          class="MuiAlert-message emotion-3"
-        >
-          <p
-            class="MuiTypography-root MuiTypography-body1 emotion-4"
-            data-testid="no-uplinks"
-          >
-            uplinks.no-items
-          </p>
-        </div>
-      </div>
-    </div>
-  </body>,
-  "container": .emotion-0 {
   background-color: #fff;
   color: rgba(0, 0, 0, 0.87);
   -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -125,11 +44,11 @@ exports[`<UpLinks /> component should render the component when there is no upli
   color: rgb(1, 67, 97);
 }
 
-.emotion-0 .MuiAlert-icon {
+.emotion-2 .MuiAlert-icon {
   color: #0288d1;
 }
 
-.emotion-1 {
+.emotion-3 {
   margin-right: 12px;
   padding: 7px 0;
   display: -webkit-box;
@@ -140,7 +59,7 @@ exports[`<UpLinks /> component should render the component when there is no upli
   opacity: 0.9;
 }
 
-.emotion-2 {
+.emotion-4 {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -157,13 +76,142 @@ exports[`<UpLinks /> component should render the component when there is no upli
   font-size: inherit;
 }
 
-.emotion-3 {
+.emotion-5 {
   padding: 8px 0;
   min-width: 0;
   overflow: auto;
 }
 
+.emotion-6 {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+<body>
+    <div>
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+      >
+        <div
+          class="MuiCardContent-root emotion-1"
+        >
+          <div
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-2"
+            role="alert"
+          >
+            <div
+              class="MuiAlert-icon emotion-3"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit emotion-4"
+                data-testid="InfoOutlinedIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiAlert-message emotion-5"
+            >
+              <p
+                class="MuiTypography-root MuiTypography-body1 emotion-6"
+                data-testid="no-uplinks"
+              >
+                uplinks.no-items
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": .emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  background-image: unset;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.emotion-1 {
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-2 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: none;
+  background-image: unset;
+  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  background-color: rgb(229, 246, 253);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 6px 16px;
+  color: rgb(1, 67, 97);
+}
+
+.emotion-2 .MuiAlert-icon {
+  color: #0288d1;
+}
+
+.emotion-3 {
+  margin-right: 12px;
+  padding: 7px 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 22px;
+  opacity: 0.9;
+}
+
 .emotion-4 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  fill: currentColor;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  font-size: inherit;
+}
+
+.emotion-5 {
+  padding: 8px 0;
+  min-width: 0;
+  overflow: auto;
+}
+
+.emotion-6 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -173,33 +221,41 @@ exports[`<UpLinks /> component should render the component when there is no upli
 
 <div>
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-0"
-      role="alert"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
     >
       <div
-        class="MuiAlert-icon emotion-1"
+        class="MuiCardContent-root emotion-1"
       >
-        <svg
-          aria-hidden="true"
-          class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit emotion-2"
-          data-testid="InfoOutlinedIcon"
-          focusable="false"
-          viewBox="0 0 24 24"
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-2"
+          role="alert"
         >
-          <path
-            d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
-          />
-        </svg>
-      </div>
-      <div
-        class="MuiAlert-message emotion-3"
-      >
-        <p
-          class="MuiTypography-root MuiTypography-body1 emotion-4"
-          data-testid="no-uplinks"
-        >
-          uplinks.no-items
-        </p>
+          <div
+            class="MuiAlert-icon emotion-3"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit emotion-4"
+              data-testid="InfoOutlinedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20, 12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10, 10 0 0,0 12,2M11,17H13V11H11V17Z"
+              />
+            </svg>
+          </div>
+          <div
+            class="MuiAlert-message emotion-5"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1 emotion-6"
+              data-testid="no-uplinks"
+            >
+              uplinks.no-items
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>,
@@ -260,7 +316,31 @@ exports[`<UpLinks /> component should render the component when there is no upli
 exports[`<UpLinks /> component should render the component with uplinks 1`] = `
 {
   "asFragment": [Function],
-  "baseElement": .emotion-1 {
+  "baseElement": .emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  background-image: unset;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.emotion-1 {
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-2 {
+  margin: 16px;
+}
+
+.emotion-4 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -269,7 +349,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   font-weight: 700;
 }
 
-.emotion-2 {
+.emotion-5 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -278,7 +358,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-bottom: 8px;
 }
 
-.emotion-3 {
+.emotion-6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -297,29 +377,30 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   width: 100%;
   box-sizing: border-box;
   text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 16px;
   padding-right: 16px;
+  padding-right: 0px;
 }
 
-.emotion-3.Mui-focusVisible {
+.emotion-6.Mui-focusVisible {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-3.Mui-selected {
+.emotion-6.Mui-selected {
   background-color: rgba(75, 94, 64, 0.08);
 }
 
-.emotion-3.Mui-selected.Mui-focusVisible {
+.emotion-6.Mui-selected.Mui-focusVisible {
   background-color: rgba(75, 94, 64, 0.2);
 }
 
-.emotion-3.Mui-disabled {
+.emotion-6.Mui-disabled {
   opacity: 0.38;
 }
 
-.emotion-5 {
+.emotion-8 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -333,63 +414,122 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   opacity: 0.6;
 }
 
-.emotion-6 {
+.emotion-9 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  line-height: 1.43;
   display: block;
 }
 
-.emotion-7 {
+.emotion-10 {
+  margin: 0;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-10:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-11 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   height: 0.5em;
+  margin: 0 16px;
 }
 
 <body>
     <div>
-      <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+      <div
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
       >
-        uplinks.title
-      </h6>
-      <ul
-        class="MuiList-root MuiList-padding emotion-2"
-      >
-        <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
+        <div
+          class="MuiCardContent-root emotion-1"
         >
           <div
-            class="MuiListItemText-root emotion-4 emotion-5"
+            class="MuiBox-root emotion-2"
+            data-testid="uplinks"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+            <h6
+              class="MuiTypography-root MuiTypography-subtitle1 emotion-3 emotion-4"
             >
-              npmjs
-            </span>
-          </div>
-          <div
-            class="emotion-7 emotion-8"
-          />
-          <div
-            class="MuiListItemText-root emotion-4 emotion-5"
-          >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+              uplinks.title
+            </h6>
+            <ul
+              class="MuiList-root MuiList-padding MuiList-dense emotion-5"
             >
-              6 years ago
-            </span>
+              <li
+                class="MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-padding version-item emotion-6"
+                data-testid="uplink-npmjs"
+              >
+                <div
+                  class="MuiListItemText-root MuiListItemText-dense emotion-7 emotion-8"
+                >
+                  <span
+                    class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
+                  >
+                    <a
+                      class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineHover emotion-10"
+                      href="https://www.npmjs.com/package/verdaccio"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      npmjs
+                    </a>
+                  </span>
+                </div>
+                <div
+                  class="emotion-11 emotion-12"
+                />
+                <div
+                  class="MuiListItemText-root MuiListItemText-dense emotion-7 emotion-8"
+                  title="06/23/2018 6:52:14 PM"
+                >
+                  <span
+                    class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
+                  >
+                    6 years ago
+                  </span>
+                </div>
+              </li>
+            </ul>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </body>,
-  "container": .emotion-1 {
+  "container": .emotion-0 {
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
+  background-image: unset;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.emotion-1 {
+  padding: 16px;
+}
+
+.emotion-1:last-child {
+  padding-bottom: 24px;
+}
+
+.emotion-2 {
+  margin: 16px;
+}
+
+.emotion-4 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
@@ -398,7 +538,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   font-weight: 700;
 }
 
-.emotion-2 {
+.emotion-5 {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -407,7 +547,7 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   padding-bottom: 8px;
 }
 
-.emotion-3 {
+.emotion-6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -426,29 +566,30 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   width: 100%;
   box-sizing: border-box;
   text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   padding-left: 16px;
   padding-right: 16px;
+  padding-right: 0px;
 }
 
-.emotion-3.Mui-focusVisible {
+.emotion-6.Mui-focusVisible {
   background-color: rgba(0, 0, 0, 0.12);
 }
 
-.emotion-3.Mui-selected {
+.emotion-6.Mui-selected {
   background-color: rgba(75, 94, 64, 0.08);
 }
 
-.emotion-3.Mui-selected.Mui-focusVisible {
+.emotion-6.Mui-selected.Mui-focusVisible {
   background-color: rgba(75, 94, 64, 0.2);
 }
 
-.emotion-3.Mui-disabled {
+.emotion-6.Mui-disabled {
   opacity: 0.38;
 }
 
-.emotion-5 {
+.emotion-8 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -462,59 +603,94 @@ exports[`<UpLinks /> component should render the component with uplinks 1`] = `
   opacity: 0.6;
 }
 
-.emotion-6 {
+.emotion-9 {
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 0.875rem;
+  line-height: 1.43;
   display: block;
 }
 
-.emotion-7 {
+.emotion-10 {
+  margin: 0;
+  color: #4b5e40;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-10:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-11 {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   height: 0.5em;
+  margin: 0 16px;
 }
 
 <div>
-    <h6
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
     >
-      uplinks.title
-    </h6>
-    <ul
-      class="MuiList-root MuiList-padding emotion-2"
-    >
-      <li
-        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3"
+      <div
+        class="MuiCardContent-root emotion-1"
       >
         <div
-          class="MuiListItemText-root emotion-4 emotion-5"
+          class="MuiBox-root emotion-2"
+          data-testid="uplinks"
         >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1 emotion-3 emotion-4"
           >
-            npmjs
-          </span>
-        </div>
-        <div
-          class="emotion-7 emotion-8"
-        />
-        <div
-          class="MuiListItemText-root emotion-4 emotion-5"
-        >
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary emotion-6"
+            uplinks.title
+          </h6>
+          <ul
+            class="MuiList-root MuiList-padding MuiList-dense emotion-5"
           >
-            6 years ago
-          </span>
+            <li
+              class="MuiListItem-root MuiListItem-dense MuiListItem-gutters MuiListItem-padding version-item emotion-6"
+              data-testid="uplink-npmjs"
+            >
+              <div
+                class="MuiListItemText-root MuiListItemText-dense emotion-7 emotion-8"
+              >
+                <span
+                  class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
+                >
+                  <a
+                    class="MuiTypography-root MuiTypography-outline MuiLink-root MuiLink-underlineHover emotion-10"
+                    href="https://www.npmjs.com/package/verdaccio"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    npmjs
+                  </a>
+                </span>
+              </div>
+              <div
+                class="emotion-11 emotion-12"
+              />
+              <div
+                class="MuiListItemText-root MuiListItemText-dense emotion-7 emotion-8"
+                title="06/23/2018 6:52:14 PM"
+              >
+                <span
+                  class="MuiTypography-root MuiTypography-body2 MuiListItemText-primary emotion-9"
+                >
+                  6 years ago
+                </span>
+              </div>
+            </li>
+          </ul>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

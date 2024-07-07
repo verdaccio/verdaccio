@@ -2,8 +2,6 @@ import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useTheme } from '@mui/styles';
-import 'highlight.js/styles/default.css';
 import React from 'react';
 
 import { useCustomTheme } from '../../';
@@ -14,12 +12,19 @@ import { parseReadme } from './utils';
 const Readme: React.FC<Props> = ({ description }) => {
   // @ts-ignore
   const { isDarkMode } = useCustomTheme();
-  const theme = useTheme();
+
+  // Stackoverflow theme fits well to Verdaccio dark colors
+  // https://highlightjs.org/examples
+  if (isDarkMode) {
+    require('highlight.js/styles/github-dark.css');
+  } else {
+    require('highlight.js/styles/github.css');
+  }
 
   return (
-    <Card>
+    <Card sx={{ mb: 2 }}>
       <CardContent>
-        <Box data-testid="readme" sx={{ margin: theme.spacing(1) }}>
+        <Box data-testid="readme" sx={{ m: 2 }}>
           <Wrapper
             className={`markdown-body ${isDarkMode ? 'markdown-dark' : 'markdown-light'}`}
             dangerouslySetInnerHTML={{ __html: parseReadme(description) as string }}

@@ -6,7 +6,8 @@
     "visit-home-page": "Visit homepage",
     "open-an-issue": "Open an issue",
     "download-tarball": "Download tarball",
-    "raw": "Raw Manifest"
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
   },
   "dialog": {
     "registry-info": {
@@ -59,7 +60,7 @@
     "hide-deprecated": "All deprecated versions are hidden by global configuration"
   },
   "package": {
-    "published-on": "Published on {{time}} •",
+    "published-on": "Published {{time}}",
     "version": "v{{version}}",
     "visit-home-page": "Visit homepage",
     "homepage": "Homepage",
@@ -84,7 +85,7 @@
   },
   "form-validation": {
     "required-field": "This field is required",
-    "required-min-length": "This field required the min length of {{length}}",
+    "required-min-length": "This field required with a minimum length of {{length}}",
     "unable-to-sign-in": "Unable to sign in",
     "username-or-password-cant-be-empty": "Username or password can't be empty!"
   },
@@ -105,6 +106,7 @@
     },
     "installation": {
       "title": "Installation",
+      "latest": "latest version",
       "global": "global package",
       "yarnModern": "yarn modern syntax"
     },
@@ -115,10 +117,13 @@
       "title": "Author"
     },
     "distribution": {
-      "title": "Latest Distribution",
+      "title": "Distribution",
       "license": "License",
       "size": "Size",
-      "file-count": "file count"
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
     },
     "maintainers": {
       "title": "Maintainers"

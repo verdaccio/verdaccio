@@ -12,11 +12,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Theme } from '../../Theme';
 import { Dispatch, RootState } from '../../store/store';
-import { Link } from '../Link';
+import LinkExternal from '../LinkExternal';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+  '&:hover': {
+    color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
+  },
   color: theme?.palette.white,
 }));
 
@@ -42,21 +45,21 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
     case 'VISIT_HOMEPAGE':
       return (
         <Tooltip title={t('action-bar-action.visit-home-page') as string}>
-          <Link external={true} to={link} variant="button">
+          <LinkExternal to={link} variant="button">
             <Fab size="small">
               <HomeIcon />
             </Fab>
-          </Link>
+          </LinkExternal>
         </Tooltip>
       );
     case 'OPEN_AN_ISSUE':
       return (
         <Tooltip title={t('action-bar-action.open-an-issue') as string}>
-          <Link external={true} to={link} variant="button">
+          <LinkExternal to={link} variant="button">
             <Fab size="small">
               <BugReportIcon />
             </Fab>
-          </Link>
+          </LinkExternal>
         </Tooltip>
       );
     case 'DOWNLOAD_TARBALL':

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useTheme } from '@mui/styles';
 import React from 'react';
 
 import { Theme, useConfig } from '../../';
@@ -22,18 +23,33 @@ interface Props {
   onClick?: () => void;
   className?: string;
   isDefault?: boolean;
+  title?: string;
 }
 
-const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false }) => {
+const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, title = '' }) => {
   const { configOptions } = useConfig();
+  const theme = useTheme();
   if (!isDefault && configOptions?.logo) {
+    const logoSrc =
+      theme?.palette.mode === 'dark' && configOptions.logoDark
+        ? configOptions.logoDark
+        : configOptions.logo;
     return (
       <ImageLogo className={className} onClick={onClick}>
-        <img alt="logo" height="40px" src={configOptions.logo} />
+        <img alt={title} data-testid={'custom-logo'} height="40px" src={logoSrc} />
       </ImageLogo>
     );
   }
-  return <StyledLogo className={className} onClick={onClick} size={size} />;
+
+  return (
+    <StyledLogo
+      className={className}
+      data-testid={'default-logo'}
+      onClick={onClick}
+      size={size}
+      title={title}
+    />
+  );
 };
 
 export default Logo;

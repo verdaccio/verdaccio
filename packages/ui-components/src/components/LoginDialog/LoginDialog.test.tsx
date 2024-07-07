@@ -87,7 +87,7 @@ describe('<LoginDialog /> component', () => {
     fireEvent.change(userNameInput, { target: { value: 'xyz' } });
 
     const passwordInput = screen.getByPlaceholderText('form-placeholder.password');
-    expect(userNameInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
     fireEvent.focus(passwordInput);
 
     await act(async () => {

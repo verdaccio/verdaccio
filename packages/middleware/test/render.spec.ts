@@ -79,6 +79,13 @@ describe('test web server', () => {
         return loadLogo('file-logo.yaml', '/-/static/dark-logo.png');
       });
 
+      test('should render dark logo as file', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('file-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logoDark).toMatch('/prefix/-/static/dark-logo.png');
+      });
+
       test('should not render logo as absolute file is wrong', async () => {
         const {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },

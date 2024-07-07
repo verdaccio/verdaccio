@@ -1,29 +1,37 @@
-import styled from '@emotion/styled';
+import Toolbar from '@mui/material/Toolbar';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import { Logo, Search } from '../../';
-import { LeftSide, SearchWrapper } from './styles';
+import { SearchWrapper } from './styles';
 
 interface Props {
   showSearch?: boolean;
 }
 
-const StyledLink = styled(Link)({
-  marginRight: '1em',
-});
-
 const HeaderLeft: React.FC<Props> = ({ showSearch }) => (
-  <LeftSide>
-    <StyledLink to={'/'}>
+  <Toolbar
+    sx={{
+      display: 'flex',
+      padding: 0,
+      marginLeft: 1,
+      flex: 1,
+      '@media (min-width: 600px)': {
+        padding: 0,
+        marginLeft: 1,
+        marginRight: '20px',
+      },
+    }}
+  >
+    <RouterLink to={'/'}>
       <Logo />
-    </StyledLink>
+    </RouterLink>
     {showSearch && (
       <SearchWrapper data-testid="search-container">
         <Search />
       </SearchWrapper>
     )}
-  </LeftSide>
+  </Toolbar>
 );
 
 export default HeaderLeft;
