@@ -24,13 +24,15 @@ jobs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: npm i pnpm@latest-8 -g
+      run: |
+        corepack enable
+        corepack install
     - name: set store
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
     - name: Install
-      run: pnpm install --registry http://localhost:4873
+      run: pnpm install  --registry http://localhost:4873
     - name: Cache .pnpm-store
       uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v3
       with:
