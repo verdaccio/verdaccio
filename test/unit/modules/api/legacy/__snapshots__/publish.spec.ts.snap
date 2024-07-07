@@ -9,6 +9,7 @@ exports[`Publish endpoints - publish package should publish a new a new package 
       "verdaccio",
       {
         "dist-tags": {},
+        "maintainers": [],
         "name": "verdaccio",
         "time": {},
         "versions": {},
