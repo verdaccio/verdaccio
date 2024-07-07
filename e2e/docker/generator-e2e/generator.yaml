@@ -22,6 +22,10 @@ packages:
     access: $all
     publish: $all
     unpublish: $all
+  'generator-verdaccio-plugin':
+    access: $all
+    publish: $all
+    unpublish: $all
   'verdaccio':
     access: $all
     publish: $all
