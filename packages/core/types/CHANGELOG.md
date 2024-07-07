@@ -1,5 +1,11 @@
 # Change Log
 
+## 12.0.0-next-7.5
+
+### Patch Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+
 ## 12.0.0-next-7.4
 
 ### Patch Changes
