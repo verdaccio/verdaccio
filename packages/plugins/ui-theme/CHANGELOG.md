@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.18
+
+### Patch Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+
 ## 7.0.0-next-7.17
 
 ### Patch Changes

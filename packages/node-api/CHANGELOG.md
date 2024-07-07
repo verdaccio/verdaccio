@@ -1,5 +1,16 @@
 # @verdaccio/node-api
 
+## 7.0.0-next-7.18
+
+### Patch Changes
+
+- Updated dependencies [10dd81f]
+  - @verdaccio/config@7.0.0-next-7.18
+  - @verdaccio/core@7.0.0-next-7.18
+  - @verdaccio/logger@7.0.0-next-7.18
+  - @verdaccio/server-fastify@7.0.0-next-7.18
+  - @verdaccio/server@7.0.0-next-7.18
+
 ## 7.0.0-next-7.17
 
 ### Patch Changes

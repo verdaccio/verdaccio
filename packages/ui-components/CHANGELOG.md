@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.8
+
+### Minor Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+
 ## 3.0.0-next-7.7
 
 ### Patch Changes

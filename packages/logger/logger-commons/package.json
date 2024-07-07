@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-commons",
-  "version": "7.0.0-next-7.17",
+  "version": "7.0.0-next-7.18",
   "description": "logger",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -38,14 +38,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.17",
+    "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/logger-prettify": "workspace:7.0.0-next-7.3",
     "debug": "4.3.4",
     "colorette": "2.0.20"
   },
   "devDependencies": {
     "pino": "7.11.0",
-    "@verdaccio/types": "workspace:12.0.0-next-7.4"
+    "@verdaccio/types": "workspace:12.0.0-next-7.5"
   },
   "funding": {
     "type": "opencollective",
