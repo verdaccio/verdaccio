@@ -43,5 +43,5 @@ jobs:
       - name: install yeoman
         run: npm install -g yo@4
       - name: install generator
-        run: npm install -g generator-verdaccio-plugin --registry http://localhost:4873
+        run: npm install -g generator-verdaccio-plugin --logginlevel=info --registry http://localhost:4873
 # Future: add a test to verify the plugin is working with prompt 
