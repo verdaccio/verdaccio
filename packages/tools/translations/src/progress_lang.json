@@ -56,8 +56,8 @@
     "approvalProgress": 3
   },
   "uk": {
-    "translationProgress": 1,
-    "approvalProgress": 1
+    "translationProgress": 0,
+    "approvalProgress": 0
   },
   "vi": {
     "translationProgress": 6,
@@ -68,8 +68,8 @@
     "approvalProgress": 14
   },
   "zh-CN": {
-    "translationProgress": 98,
-    "approvalProgress": 98
+    "translationProgress": 97,
+    "approvalProgress": 97
   },
   "zh-TW": {
     "translationProgress": 14,
