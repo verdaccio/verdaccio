@@ -38,8 +38,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "jsonwebtoken": "9.0.2",
-    "debug": "4.3.4"
+    "jsonwebtoken": "catalog:",
+    "debug": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/config": "workspace:7.0.0-next-7.18",

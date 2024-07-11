@@ -40,16 +40,16 @@
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
     "@verdaccio/web": "workspace:7.0.0-next-7.18",
     "verdaccio-audit": "workspace:12.0.0-next-7.18",
-    "compression": "1.7.4",
-    "cors": "2.8.5",
-    "debug": "4.3.4",
-    "express": "4.19.2",
-    "lodash": "4.17.21"
+    "compression": "catalog:",
+    "cors": "catalog:",
+    "debug": "catalog:",
+    "express": "catalog:",
+    "lodash": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/proxy": "workspace:7.0.0-next-7.18",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
-    "http-errors": "2.0.0"
+    "http-errors": "catalog:"
   },
   "scripts": {
     "clean": "rimraf ./build",

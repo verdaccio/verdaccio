@@ -44,13 +44,13 @@
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
     "@verdaccio/signature": "workspace:7.0.0-next-7.5",
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
-    "debug": "4.3.4",
-    "lodash": "4.17.21",
+    "debug": "catalog:",
+    "lodash": "catalog:",
     "verdaccio-htpasswd": "workspace:12.0.0-next-7.18"
   },
   "devDependencies": {
-    "express": "4.19.2",
-    "supertest": "6.3.4",
+    "express": "catalog:",
+    "supertest": "catalog:",
     "@verdaccio/middleware": "workspace:7.0.0-next-7.18",
     "@verdaccio/types": "workspace:12.0.0-next-7.5"
   },

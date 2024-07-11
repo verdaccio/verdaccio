@@ -12,18 +12,18 @@
     "email": "juanpicado19@gmail.com"
   },
   "dependencies": {
-    "eslint-config-google": "0.14.0",
-    "eslint-config-prettier": "8.10.0",
-    "eslint-plugin-babel": "5.3.1",
-    "eslint-plugin-cypress": "2.15.1",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-jest": "27.6.3",
-    "eslint-plugin-jsx-a11y": "6.8.0",
-    "eslint-plugin-prettier": "5.1.3",
-    "eslint-plugin-react": "7.33.2",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "10.0.0",
-    "eslint-plugin-verdaccio": "10.0.0"
+    "eslint-config-google": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-babel": "catalog:",
+    "eslint-plugin-cypress": "catalog:",
+    "eslint-plugin-import": "catalog:",
+    "eslint-plugin-jest": "catalog:",
+    "eslint-plugin-jsx-a11y": "catalog:",
+    "eslint-plugin-prettier": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-simple-import-sort": "catalog:",
+    "eslint-plugin-verdaccio": "catalog:"
   },
   "repository": {
     "type": "https",

@@ -43,15 +43,15 @@
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
     "@verdaccio/server": "workspace:7.0.0-next-7.18",
     "@verdaccio/server-fastify": "workspace:7.0.0-next-7.18",
-    "core-js": "3.35.0",
-    "debug": "4.3.4",
-    "lodash": "4.17.21"
+    "core-js": "catalog:",
+    "debug": "catalog:",
+    "lodash": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "jest": "29.7.0",
-    "selfsigned": "2.4.1",
-    "supertest": "6.3.4"
+    "jest": "catalog:",
+    "selfsigned": "catalog:",
+    "supertest": "catalog:"
   },
   "publishConfig": {
     "access": "public"

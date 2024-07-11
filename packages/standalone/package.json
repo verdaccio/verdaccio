@@ -34,10 +34,10 @@
   "devDependencies": {
     "@verdaccio/cli": "workspace:7.0.0-next-7.18",
     "@verdaccio/ui-theme": "workspace:7.0.0-next-7.18",
-    "fs-extra": "11.2.0",
-    "webpack": "5.90.0",
-    "webpack-bundle-analyzer": "4.10.1",
-    "webpack-bundle-size-analyzer": "3.1.0",
+    "fs-extra": "catalog:",
+    "webpack": "catalog:",
+    "webpack-bundle-analyzer": "catalog:",
+    "webpack-bundle-size-analyzer": "catalog:",
     "webpack-cli": "4.10.0"
   },
   "keywords": [

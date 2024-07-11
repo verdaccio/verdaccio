@@ -5,8 +5,8 @@
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "dependencies": {
-    "@docusaurus/types": "2.4.3",
-    "@docusaurus/utils": "2.4.3"
+    "@docusaurus/types": "catalog:",
+    "@docusaurus/utils": "catalog:"
   },
   "devDependencies": {
     "react": "17.0.2",

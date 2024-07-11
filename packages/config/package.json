@@ -40,15 +40,15 @@
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
-    "debug": "4.3.4",
-    "js-yaml": "4.1.0",
-    "lodash": "4.17.21",
+    "debug": "catalog:",
+    "js-yaml": "catalog:",
+    "lodash": "catalog:",
     "minimatch": "7.4.6",
-    "yup": "0.32.11"
+    "yup": "catalog:"
   },
   "devDependencies": {
-    "@types/minimatch": "5.1.2",
-    "@types/yup": "0.32.0"
+    "@types/minimatch": "catalog:",
+    "@types/yup": "catalog:"
   },
   "funding": {
     "type": "opencollective",

@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
-    "memory-fs": "0.5.0",
-    "debug": "4.3.4",
-    "memfs": "3.5.3"
+    "memory-fs": "catalog:",
+    "debug": "catalog:",
+    "memfs": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next-7.5",

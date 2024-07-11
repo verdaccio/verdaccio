@@ -40,15 +40,15 @@
     "@verdaccio/store": "workspace:7.0.0-next-7.18",
     "@verdaccio/tarball": "workspace:12.0.0-next-7.18",
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
-    "core-js": "3.35.0",
-    "debug": "4.3.4",
-    "fastify": "4.25.2",
-    "fastify-plugin": "4.5.1",
-    "lodash": "4.17.21"
+    "core-js": "catalog:",
+    "debug": "catalog:",
+    "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
+    "lodash": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "ts-node": "10.9.2"
+    "ts-node": "catalog:"
   },
   "scripts": {
     "clean": "rimraf ./build",
