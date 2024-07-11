@@ -1,4 +1,5 @@
 ---
+'@verdaccio/ui-components': patch
 '@verdaccio/ui-theme': patch
 ---
 
