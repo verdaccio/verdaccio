@@ -1,12 +1,11 @@
 import Flags from 'country-flag-icons/react/3x2';
-import React from 'react';
 
 export const DEFAULT_LANGUAGE = 'en-US';
 
 export type LanguageConfiguration = {
   lng: string;
   menuKey: string;
-  icon: React.ReactElement;
+  icon: Flags.FlagComponent;
 };
 
 export const listLanguages: LanguageConfiguration[] = [
