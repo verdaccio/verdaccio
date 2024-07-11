@@ -51,6 +51,9 @@ const Footer = () => {
                 <FlagsIcon.TW title={t('flag.taiwan')} />
               </Icon>
               <Icon>
+                <FlagsIcon.AT title={t('flag.austria')} />
+              </Icon>
+              <Icon>
                 <FlagsIcon.CA title={t('flag.canada')} />
               </Icon>
             </Flags>
