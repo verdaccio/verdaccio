@@ -180,15 +180,15 @@
     "chineseTraditional": "Chinese Traditional"
   },
   "flag": {
-    "austria": "Austria",
+    "australia": "Australia",
     "brazil": "Brazil",
+    "canada": "Canada",
     "spain": "Spain",
     "nicaragua": "Nicaragua",
     "india": "India",
     "china": "China",
     "germany": "Germany",
-    "taiwan": "Taiwan",
-    "canada": "Canada"
+    "taiwan": "Taiwan"
   },
   "packageManagers": {
     "title": "Package Managers",
