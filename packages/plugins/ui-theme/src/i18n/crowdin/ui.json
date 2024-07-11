@@ -187,7 +187,8 @@
     "india": "India",
     "china": "China",
     "germany": "Germany",
-    "taiwan": "Taiwan"
+    "taiwan": "Taiwan",
+    "canada": "Canada"
   },
   "packageManagers": {
     "title": "Package Managers",
