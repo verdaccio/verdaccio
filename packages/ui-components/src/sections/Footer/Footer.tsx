@@ -27,31 +27,31 @@ const Footer = () => {
             <StyledEarth />
             <Flags>
               <Icon>
-                <FlagsIcon.ES title={t('spain')} />
+                <FlagsIcon.ES title={t('flag.spain')} />
               </Icon>
               <Icon>
-                <FlagsIcon.NI title={t('nicaragua')} />
+                <FlagsIcon.NI title={t('flag.nicaragua')} />
               </Icon>
               <Icon>
-                <FlagsIcon.IN title={t('india')} />
+                <FlagsIcon.IN title={t('flag.india')} />
               </Icon>
               <Icon>
-                <FlagsIcon.BR title={t('brazil')} />
+                <FlagsIcon.BR title={t('flag.brazil')} />
               </Icon>
               <Icon>
-                <FlagsIcon.CN title={t('china')} />
+                <FlagsIcon.CN title={t('flag.china')} />
               </Icon>
               <Icon>
-                <FlagsIcon.AU title={t('australia')} />
+                <FlagsIcon.AU title={t('flag.australia')} />
               </Icon>
               <Icon>
-                <FlagsIcon.DE title={t('germany')} />
+                <FlagsIcon.DE title={t('flag.germany')} />
               </Icon>
               <Icon>
-                <FlagsIcon.TW title={t('taiwan')} />
+                <FlagsIcon.TW title={t('flag.taiwan')} />
               </Icon>
               <Icon>
-                <FlagsIcon.CA title={t('canada')} />
+                <FlagsIcon.CA title={t('flag.canada')} />
               </Icon>
             </Flags>
           </ToolTip>
