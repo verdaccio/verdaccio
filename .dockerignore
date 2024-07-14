@@ -24,6 +24,10 @@ contrib
 docker-examples
 website
 systemd
+e2e
+assets
+types
+scripts
 
 # output from test runs and similar things
 *.log

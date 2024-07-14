@@ -9,6 +9,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "test": "cross-env TZ=UTC jest --config jest/jest.config.js",
+    "test:snap": "cross-env TZ=UTC jest --config jest/jest.config.js --updateSnapshot",
     "test:html": "cross-env TZ=UTC jest --config jest/jest.config.js --coverage-reporters=html",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
@@ -36,6 +37,7 @@
     "dayjs": "1.11.10",
     "dompurify": "3.0.8",
     "highlight.js": "11.9.0",
+    "highlightjs-sap-abap": "0.3.0",
     "history": "4.10.1",
     "i18next": "20.6.1",
     "js-base64": "3.7.6",

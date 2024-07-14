@@ -11,7 +11,7 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-RUN npm -g i pnpm@8.9.0 && \
+RUN npm -g i pnpm@8.14.0 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
@@ -40,7 +40,8 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 COPY --from=builder /opt/verdaccio-build .
 
 RUN ls packages/config/src/conf
-ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
+ADD config.yaml /verdaccio/conf/config.yaml
+ADD abappm /verdaccio/abappm
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
