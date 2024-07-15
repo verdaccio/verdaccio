@@ -23,9 +23,10 @@ plugins: /verdaccio/plugins
 web:
   enable: true
   title: apm - A Package Manager for ABAP
-  logo: /verdaccio/abappm/apm_banner_gray.png
+  logo: /verdaccio/abappm/apm_banner.png
+  logoDark: /verdaccio/abappm/apm_banner_gray.png
   favicon: /verdaccio/abappm/apm.ico
-  primary_color: '#a0a0a0'
+  primaryColor: '#c0c0c0'
   darkMode: true
   gravatar: true
   # by default packages are ordercer ascendant (asc|desc)
@@ -38,7 +39,8 @@ web:
   pkgManagers:
     - apm
   showInfo: false
-  # showSettings: true
+  showUplinks: false
+  showSettings: false
   # In combination with darkMode you can force specific theme
   # showThemeSwitch: true
   # showFooter: true
@@ -51,13 +53,14 @@ web:
   #  HTML tags injected before ends </head>
   metaScripts:
     - '<meta name="robots" content="noindex" />'
+    - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP" />'
   #    - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
   #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
   #  HTML tags injected first child at <body/>
   scriptsbodyBefore:
-    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***BETA***</strong>  All published packages will be deleted before go-live!  <strong>***BETA***</strong></div>'
+    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Packages will be deleted every Sunday night!  <strong>***PLAYGROUND***</strong></div>'
   #  Public path for template manifest scripts (only manifest)
-  publicPath: https://registry.abappm.com/
+  publicPath: https://playground.abappm.com/
 
 auth:
   htpasswd:

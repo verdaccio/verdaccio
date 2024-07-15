@@ -13,8 +13,9 @@ web:
   showDownloadTarball: true
   showRaw: true
   primary_color: '#ffffff'
-  logo:
-  favicon:
+  logo: https://raw.githubusercontent.com/verdaccio/verdaccio/master/assets/svg/logo-small.svg
+  logoDark: https://raw.githubusercontent.com/verdaccio/verdaccio/master/assets/svg/logo-blackwhite.svg
+  favicon: https://raw.githubusercontent.com/verdaccio/verdaccio/master/website/static/img/favicon/favicon.ico
   html_cache: false
 
 url_prefix: /prefix
