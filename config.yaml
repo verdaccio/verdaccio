@@ -58,9 +58,9 @@ web:
   #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
   #  HTML tags injected first child at <body/>
   scriptsbodyBefore:
-    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Packages will be deleted every Sunday night!  <strong>***PLAYGROUND***</strong></div>'
+  #  - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Packages will be deleted every Sunday night!  <strong>***PLAYGROUND***</strong></div>'
   #  Public path for template manifest scripts (only manifest)
-  publicPath: https://playground.abappm.com/
+  # publicPath: https://playground.abappm.com/
 
 auth:
   htpasswd:
@@ -80,29 +80,15 @@ uplinks:
 packages:
   '@*/*':
     # scoped packages
-    access: none
-    publish: none
-    unpublish: none
-    #access: $all
-    #publish: $authenticated
-    #unpublish: $authenticated
-    #proxy: npmjs
-
-  '**':
-    # allow all users (including non-authenticated users) to read and
-    # publish all packages
-    #
-    # you can specify usernames/groupnames (depending on your auth plugin)
-    # and three keywords: "$all", "$anonymous", "$authenticated"
     access: $all
-
-    # allow all known users to publish/publish packages
-    # (anyone can register by default, remember?)
     publish: $authenticated
     unpublish: $authenticated
 
-    # if package is not available locally, proxy requests to 'npmjs' registry
-    # proxy: npmjs
+  '**':
+    # global packages
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
 
 # To improve your security configuration and  avoid dependency confusion
 # consider removing the proxy property for private packages
