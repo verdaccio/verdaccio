@@ -65,6 +65,7 @@ export default function renderHTML(
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
+  const favicon = resolveLogo(config?.web?.favicon, config?.url_prefix, requestOptions);
   const logo = resolveLogo(config?.web?.logo, config?.url_prefix, requestOptions);
   const logoDark = resolveLogo(config?.web?.logoDark, config?.url_prefix, requestOptions);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
@@ -114,6 +115,7 @@ export default function renderHTML(
     version,
     logo,
     logoDark,
+    favicon,
     flags,
     login,
     pkgManagers,

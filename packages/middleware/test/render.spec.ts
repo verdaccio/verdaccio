@@ -86,6 +86,21 @@ describe('test web server', () => {
         expect(__VERDACCIO_BASENAME_UI_OPTIONS.logoDark).toMatch('/prefix/-/static/dark-logo.png');
       });
 
+      test('should render favicon as file', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('file-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.favicon).toMatch('/prefix/-/static/favicon.ico');
+      });
+
+      test('should render logo and favicon as URL', async () => {
+        const {
+          window: { __VERDACCIO_BASENAME_UI_OPTIONS },
+        } = await render('http-logo.yaml');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch(/https:.*logo-small.svg/i);
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.favicon).toMatch(/https:.*favicon.ico/i);
+      });
+
       test('should not render logo as absolute file is wrong', async () => {
         const {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
@@ -98,6 +113,7 @@ describe('test web server', () => {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
         } = await render('no-logo.yaml');
         expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toEqual('');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.favicon).toEqual('');
       });
 
       test.todo('should default title');

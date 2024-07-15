@@ -37,7 +37,15 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   // any match within the static is routed to the file system
   router.get('/-/static/*', function (req, res, next) {
     const filename = req.params[0];
-    const file = `${staticPath}/${filename}`;
+    let file = `${staticPath}/${filename}`;
+    if (filename === 'favicon.ico' && config?.web?.favicon) {
+      file = config?.web?.favicon;
+      if (isURLhasValidProtocol(file)) {
+        debug('redirect to favicon %s', file);
+        req.url = file;
+        return next();
+      }
+    }
     debug('render static file %o', file);
     res.sendFile(file, sendFileCallback(next));
   });
