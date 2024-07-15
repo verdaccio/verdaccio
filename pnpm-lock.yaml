@@ -1259,6 +1259,9 @@ importers:
       highlight.js:
         specifier: 11.9.0
         version: 11.9.0
+      highlightjs-sap-abap:
+        specifier: 0.3.0
+        version: 0.3.0
       history:
         specifier: 4.10.1
         version: 4.10.1
@@ -1930,6 +1933,9 @@ importers:
       highlight.js:
         specifier: 11.9.0
         version: 11.9.0
+      highlightjs-sap-abap:
+        specifier: 0.3.0
+        version: 0.3.0
       history:
         specifier: 4.10.1
         version: 4.10.1
@@ -20341,6 +20347,9 @@ packages:
   /highlight.js@11.9.0:
     resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
     engines: {node: '>=12.0.0'}
+
+  /highlightjs-sap-abap@0.3.0:
+    resolution: {integrity: sha512-nSiUvEOCycjtFA3pHaTowrbAAk5+lciBHyoVkDsd6FTRBtW9sT2dt42o2jAKbXjZVUidtacdk+j0Y2xnd233Mw==, tarball: https://registry.npmjs.org/highlightjs-sap-abap/-/highlightjs-sap-abap-0.3.0.tgz}
 
   /history@4.10.1:
     resolution: {integrity: sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==}
