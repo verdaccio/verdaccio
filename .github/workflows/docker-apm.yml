@@ -1,0 +1,50 @@
+name: Docker publish apm to docker.io
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/docker-apm.yml'
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'package.json'
+      - 'pnpm-*.yaml'
+      - 'Dockerfile'
+      - '.dockerignore'
+    branches:
+      - 'apm'
+
+permissions:
+  contents: read  #  to fetch code (actions/checkout)
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mbtools/verdaccio'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+      - uses: docker/login-action@v3
+        name: Login Docker Hub
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Prepare docker image tags
+        id: docker_meta
+        uses: docker/metadata-action@v5
+        with:
+          images: abappm/registry
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'apm') }}          
+      - name: Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
