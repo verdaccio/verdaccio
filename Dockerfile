@@ -57,3 +57,5 @@ VOLUME /verdaccio/storage
 ENTRYPOINT ["uid_entrypoint"]
 
 CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+
+HEALTHCHECK --interval=5s --timeout=1s CMD /verdaccio/abappm/healthcheck.sh
