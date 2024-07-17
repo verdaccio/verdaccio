@@ -194,11 +194,11 @@ publish:
 
 ### Checking Package Ownership {#chec-owner}
 
-By default, [package access](packages.md) defines who is allowed to publish and unpublish packages. By setting `check_owner` to _true_, only package owners are allowed to make changes to a package. The first owner of a package is the user who published the first version. Further owners can be added or removed using [`npm owner`](https://docs.npmjs.com/cli/v10/commands/npm-owner). You can find the list of current owners in the package manifest under `maintainers`.
+By default, [package access](packages.md) defines who is allowed to publish and unpublish packages. By setting `check_owners` to _true_, only package owners are allowed to make changes to a package. The first owner of a package is the user who published the first version. Further owners can be added or removed using [`npm owner`](https://docs.npmjs.com/cli/v10/commands/npm-owner). You can find the list of current owners using `npm owner list` or by checking the package manifest under `maintainers`.
 
 ```yaml
 publish:
-  check_owner: false
+  check_owners: false
 ```
 
 <small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
