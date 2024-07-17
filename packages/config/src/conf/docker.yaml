@@ -193,6 +193,7 @@ server:
 middlewares:
   audit:
     enabled: true
+    # timeout: 10000
 
 # https://verdaccio.org/docs/logger
 # log settings

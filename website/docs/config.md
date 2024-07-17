@@ -364,6 +364,7 @@ a built-in middleware plugin to handle this command.
 middlewares:
   audit:
     enabled: true
+    # timeout: 10000
 ```
 
 ### Experiments {#experiments}
