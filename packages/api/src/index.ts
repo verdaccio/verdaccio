@@ -37,10 +37,11 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   app.param('revision', validateName);
   app.param('token', validateName);
 
-  // these can't be safely put into express url for some reason
-  // TODO: For some reason? what reason?
+  // Express route parameter names must be valid JavaScript identifiers, which means
+  // they cannot start with a hyphen (-) or contain special characters like dots (.)
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
+
   app.use(auth.apiJWTmiddleware());
   app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   app.use(antiLoop(config));
