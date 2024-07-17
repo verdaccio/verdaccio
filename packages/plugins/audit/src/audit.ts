@@ -19,11 +19,13 @@ export default class ProxyAudit
   public enabled: boolean;
   public logger: Logger;
   public strict_ssl: boolean;
+  public timeout: number;
 
   public constructor(config: ConfigAudit, options: pluginUtils.PluginOptions) {
     super(config, options);
     this.enabled = config.enabled || false;
     this.strict_ssl = config.strict_ssl !== undefined ? config.strict_ssl : true;
+    this.timeout = config.timeout ?? 1000 * 60 * 1;
     this.logger = options.logger;
   }
 
@@ -57,7 +59,17 @@ export default class ProxyAudit
         const auditEndpoint = `${REGISTRY_DOMAIN}${req.baseUrl}${req.route.path}`;
         this.logger.debug('fetching audit from ' + auditEndpoint);
 
-        const response = await fetch(auditEndpoint, requestOptions);
+        const controller = new AbortController();
+
+        setTimeout(
+          () => controller.abort(`Fetch ${auditEndpoint} timeout ${this.timeout}ms`),
+          this.timeout
+        );
+
+        const response = await fetch(auditEndpoint, {
+          ...requestOptions,
+          signal: controller.signal,
+        });
 
         if (response.ok) {
           res.status(response.status).send(await response.json());
