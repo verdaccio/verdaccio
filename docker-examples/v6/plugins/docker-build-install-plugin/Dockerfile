@@ -2,7 +2,7 @@
 
 # Docker multi-stage build - https://docs.docker.com/develop/develop-images/multistage-build/
 # Use an alpine node image to install the plugin
-FROM node:lts-alpine as builder
+FROM node:lts-alpine AS builder
 
 # Install the metrics middleware plugin
 # npm docs
