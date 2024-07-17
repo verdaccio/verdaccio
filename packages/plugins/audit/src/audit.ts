@@ -61,7 +61,10 @@ export default class ProxyAudit
 
         const controller = new AbortController();
 
-        setTimeout(() => controller.abort(`Fetch ${auditEndpoint} timeout ${this.timeout}ms`), this.timeout);
+        setTimeout(
+          () => controller.abort(`Fetch ${auditEndpoint} timeout ${this.timeout}ms`),
+          this.timeout
+        );
 
         const response = await fetch(auditEndpoint, {
           ...requestOptions,
