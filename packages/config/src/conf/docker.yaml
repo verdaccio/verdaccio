@@ -126,7 +126,7 @@ server:
 # https://verdaccio.org/docs/configuration#offline-publish
 # publish:
 #   allow_offline: false
-#   check_owner: false
+#   check_owners: false
 
 # https://verdaccio.org/docs/configuration#url-prefix
 # url_prefix: /verdaccio/
