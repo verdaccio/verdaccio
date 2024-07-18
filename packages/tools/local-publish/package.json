@@ -12,7 +12,7 @@
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
-    "verdaccio": "7.0.0-next-7.18"
+    "verdaccio": "catalog:"
   },
   "scripts": {
     "start": "ts-node src/index.ts",

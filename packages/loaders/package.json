@@ -14,16 +14,16 @@
   },
   "dependencies": {
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
-    "debug": "4.3.4",
-    "lodash": "4.17.21"
+    "debug": "catalog:",
+    "lodash": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
+    "@verdaccio-scope/verdaccio-auth-foo": "catalog:",
     "verdaccio-auth-memory": "workspace:*",
-    "customprefix-auth": "2.0.0-next.0"
+    "customprefix-auth": "catalog:"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [

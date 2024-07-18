@@ -32,16 +32,16 @@
   "dependencies": {
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
-    "express": "4.19.2",
-    "https-proxy-agent": "5.0.1",
+    "express": "catalog:",
+    "https-proxy-agent": "catalog:",
     "node-fetch": "cjs"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:7.0.0-next-7.18",
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "nock": "13.5.1",
-    "supertest": "6.3.4"
+    "nock": "catalog:",
+    "supertest": "catalog:"
   },
   "scripts": {
     "clean": "rimraf ./build",

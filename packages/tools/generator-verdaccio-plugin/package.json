@@ -16,20 +16,20 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "chalk": "4.1.2",
-    "lodash": "4.17.21",
-    "yeoman-environment": "3.19.3",
-    "yeoman-generator": "5.9.0",
-    "yosay": "2.0.2",
+    "chalk": "catalog:",
+    "lodash": "catalog:",
+    "yeoman-environment": "catalog:",
+    "yeoman-generator": "catalog:",
+    "yosay": "catalog:",
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/config": "workspace:7.0.0-next-7.18"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "ts-jest": "29.1.0",
-    "yeoman-assert": "3.1.1",
-    "yeoman-test": "6.3.0"
+    "ts-jest": "catalog:",
+    "yeoman-assert": "catalog:",
+    "yeoman-test": "catalog:"
   },
   "engines": {
     "node": ">18.0.0"

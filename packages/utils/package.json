@@ -31,8 +31,8 @@
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "minimatch": "7.4.6",
-    "semver": "7.6.2",
-    "lodash": "4.17.21"
+    "semver": "catalog:",
+    "lodash": "catalog:"
   },
   "scripts": {
     "clean": "rimraf ./build",

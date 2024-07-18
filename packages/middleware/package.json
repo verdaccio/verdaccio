@@ -42,12 +42,12 @@
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/url": "workspace:12.0.0-next-7.18",
-    "debug": "4.3.4",
-    "lru-cache": "7.18.3",
-    "express": "4.19.2",
-    "lodash": "4.17.21",
-    "mime": "2.6.0",
-    "express-rate-limit": "5.5.1"
+    "debug": "catalog:",
+    "lru-cache": "catalog:",
+    "express": "catalog:",
+    "lodash": "catalog:",
+    "mime": "catalog:",
+    "express-rate-limit": "catalog:"
   },
   "funding": {
     "type": "opencollective",
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
-    "body-parser": "1.20.2",
-    "supertest": "6.3.4"
+    "body-parser": "catalog:",
+    "supertest": "catalog:"
   }
 }

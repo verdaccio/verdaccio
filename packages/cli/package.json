@@ -47,13 +47,13 @@
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
     "@verdaccio/node-api": "workspace:7.0.0-next-7.18",
-    "clipanion": "3.2.1",
-    "envinfo": "7.11.0",
-    "kleur": "4.1.5",
-    "semver": "7.6.2"
+    "clipanion": "catalog:",
+    "envinfo": "catalog:",
+    "kleur": "catalog:",
+    "semver": "catalog:"
   },
   "devDependencies": {
-    "ts-node": "10.9.2"
+    "ts-node": "catalog:"
   },
   "funding": {
     "type": "opencollective",

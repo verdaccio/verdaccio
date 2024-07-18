@@ -36,14 +36,14 @@
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/url": "workspace:12.0.0-next-7.18",
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
-    "debug": "4.3.4",
-    "gunzip-maybe": "^1.4.2",
-    "lodash": "4.17.21",
-    "tar-stream": "^3.1.7"
+    "debug": "catalog:",
+    "gunzip-maybe": "catalog:",
+    "lodash": "catalog:",
+    "tar-stream": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "node-mocks-http": "1.14.1"
+    "node-mocks-http": "catalog:"
   },
   "scripts": {
     "clean": "rimraf ./build",

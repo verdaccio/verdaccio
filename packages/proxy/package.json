@@ -41,20 +41,20 @@
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/utils": "workspace:7.0.0-next-7.18",
-    "JSONStream": "1.3.5",
-    "debug": "4.3.4",
-    "got-cjs": "12.5.4",
-    "hpagent": "1.2.0",
-    "lodash": "4.17.21"
+    "JSONStream": "catalog:",
+    "debug": "catalog:",
+    "got-cjs": "catalog:",
+    "hpagent": "catalog:",
+    "lodash": "catalog:"
   },
   "devDependencies": {
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "get-stream": "^6.0.1",
-    "nock": "13.5.1",
-    "node-mocks-http": "1.14.1",
-    "p-cancelable": "2.1.1",
-    "semver": "7.6.2"
+    "get-stream": "catalog:",
+    "nock": "catalog:",
+    "node-mocks-http": "catalog:",
+    "p-cancelable": "catalog:",
+    "semver": "catalog:"
   },
   "funding": {
     "type": "opencollective",

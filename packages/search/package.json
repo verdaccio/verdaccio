@@ -38,8 +38,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "debug": "4.3.4",
-    "lodash": "4.17.21",
+    "debug": "catalog:",
+    "lodash": "catalog:",
     "@verdaccio/config": "workspace:7.0.0-next-7.18",
     "@verdaccio/core": "workspace:7.0.0-next-7.18",
     "@verdaccio/logger": "workspace:7.0.0-next-7.18",
@@ -47,9 +47,9 @@
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "mockdate": "3.0.5",
-    "nock": "13.5.1",
-    "node-mocks-http": "1.14.1"
+    "mockdate": "catalog:",
+    "nock": "catalog:",
+    "node-mocks-http": "catalog:"
   },
   "funding": {
     "type": "opencollective",
