@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - .github/workflows/docker-publish.yml
+      - .github/workflows/docker-apm.yml
       - 'src/**'
       - 'conf/**'
       - 'types/**'
@@ -15,6 +15,9 @@ on:
       - '.yarn/**'
       - '.yarnrc.yaml'
       - '.pnp.js'
+      - '.dockerignore'
+      - 'docker-compose.yml'
+      - 'Dockerfile'
     branches:
       - 'apm'
 
