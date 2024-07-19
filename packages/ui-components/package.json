@@ -61,8 +61,8 @@
     "validator": "13.11.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@emotion/babel-plugin": "11.10.6",
+    "@babel/core": "7.24.9",
+    "@emotion/babel-plugin": "11.11.0",
     "@emotion/jest": "11.11.0",
     "@storybook/addon-actions": "^6.5.15",
     "@storybook/addon-essentials": "^6.5.15",

@@ -26,6 +26,7 @@ middlewares:
   audit:
     enabled: true
     strict_ssl: true # optional, defaults to true
+    timeout: 1000
 ```
 
 ### Strict SSL

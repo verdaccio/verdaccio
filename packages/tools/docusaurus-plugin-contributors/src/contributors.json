@@ -355,11 +355,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 37,
+      "contributions": 41,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 37
+          "contributions": 41
         }
       ]
     },
@@ -2265,6 +2265,17 @@
       ]
     },
     {
+      "id": 1667873,
+      "login": "morlay",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 9381634,
       "login": "morrain",
       "contributions": 1,
@@ -3486,6 +3497,17 @@
       ]
     },
     {
+      "id": 26263658,
+      "login": "caoxiemeihao",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 43941,
       "login": "mavimo",
       "contributions": 1,
@@ -3554,17 +3576,6 @@
     {
       "id": 6905832,
       "login": "somethingSTRANGE",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 1667873,
-      "login": "morlay",
       "contributions": 1,
       "repositories": [
         {
@@ -5055,7 +5066,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16093,
+      "stargazers_count": 16103,
       "archived": false
     },
     {
@@ -5172,7 +5183,7 @@
       "full_name": "verdaccio/verdaccio-audit",
       "html_url": "https://github.com/verdaccio/verdaccio-audit",
       "description": "🛡🔬verdaccio plugin for npm audit support",
-      "stargazers_count": 12,
+      "stargazers_count": 13,
       "archived": true
     },
     {
