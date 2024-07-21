@@ -27,7 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node_version }}
     - name: Install
-      run: yarn install --immutable
+      run: yarn install
     - name: Build
       run: yarn build
     - name: Types
