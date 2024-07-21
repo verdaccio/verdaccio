@@ -1,5 +1,13 @@
 # @verdaccio/ui-components
 
+## 3.0.0-next-7.9
+
+### Patch Changes
+
+- 5a77414: chore: fix type for country flags
+- 3b3cf86: chore: sync dependency defs between ui-components and ui-theme
+- 96b2857: chore(ui): update babel dependencies
+
 ## 3.0.0-next-7.8
 
 ### Minor Changes

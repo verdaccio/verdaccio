@@ -1,5 +1,13 @@
 # @verdaccio/config
 
+## 7.0.0-next-7.19
+
+### Patch Changes
+
+- c31aec8: fix: typo in config docs regarding check_owners
+  - @verdaccio/core@7.0.0-next-7.19
+  - @verdaccio/utils@7.0.0-next-7.19
+
 ## 7.0.0-next-7.18
 
 ### Patch Changes

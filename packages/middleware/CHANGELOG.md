@@ -1,5 +1,17 @@
 # @verdaccio/middleware
 
+## 7.0.0-next-7.19
+
+### Patch Changes
+
+- 2a6ee33: fix(middleware): custom favicon
+- 6c5f7a4: fix(middleware): link to favicon in template
+- Updated dependencies [c31aec8]
+  - @verdaccio/config@7.0.0-next-7.19
+  - @verdaccio/core@7.0.0-next-7.19
+  - @verdaccio/url@12.0.0-next-7.19
+  - @verdaccio/utils@7.0.0-next-7.19
+
 ## 7.0.0-next-7.18
 
 ### Patch Changes
