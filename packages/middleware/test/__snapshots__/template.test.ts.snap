@@ -8,7 +8,7 @@ exports[`template custom body after 1`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title></title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
@@ -33,7 +33,7 @@ exports[`template custom body before 1`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title></title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
@@ -58,7 +58,7 @@ exports[`template custom render 1`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title></title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}
@@ -83,7 +83,7 @@ exports[`template custom title 1`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title>foo title</title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com","title":"foo title"}
@@ -108,7 +108,7 @@ exports[`template custom title 2`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title>foo title</title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com","title":"foo title"}
@@ -133,7 +133,7 @@ exports[`template meta scripts 1`] = `
         <meta charset="utf-8">
         <base href="http://domain.com">
         <title></title>        
-        <link rel="icon" href="http://domain.com-/static/favicon.ico"/>
+        <link rel="icon" href="http://domain.com/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS={"base":"http://domain.com"}

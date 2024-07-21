@@ -30,7 +30,7 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
         <meta charset="utf-8">
         <base href="${template?.options.base}">
         <title>${template?.options?.title ?? ''}</title>        
-        <link rel="icon" href="${template?.options.base}-/static/favicon.ico"/>
+        <link rel="icon" href="${template?.options.base}/-/static/favicon.ico"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
