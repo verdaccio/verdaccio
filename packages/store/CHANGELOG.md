@@ -1,5 +1,22 @@
 # @verdaccio/store
 
+## 7.0.0-next-7.19
+
+### Patch Changes
+
+- Updated dependencies [c31aec8]
+  - @verdaccio/config@7.0.0-next-7.19
+  - @verdaccio/hooks@7.0.0-next-7.19
+  - @verdaccio/loaders@7.0.0-next-7.19
+  - @verdaccio/local-storage@12.0.0-next-7.19
+  - @verdaccio/proxy@7.0.0-next-7.19
+  - @verdaccio/search@7.0.0-next-7.8
+  - @verdaccio/core@7.0.0-next-7.19
+  - @verdaccio/tarball@12.0.0-next-7.19
+  - @verdaccio/url@12.0.0-next-7.19
+  - @verdaccio/utils@7.0.0-next-7.19
+  - @verdaccio/logger@7.0.0-next-7.19
+
 ## 7.0.0-next-7.18
 
 ### Patch Changes

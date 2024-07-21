@@ -1,5 +1,15 @@
 # @verdaccio/website
 
+## 6.0.0-next-7.9
+
+### Patch Changes
+
+- c31aec8: fix: typo in config docs regarding check_owners
+- Updated dependencies [5a77414]
+- Updated dependencies [3b3cf86]
+- Updated dependencies [96b2857]
+  - @verdaccio/ui-components@3.0.0-next-7.9
+
 ## 6.0.0-next-7.8
 
 ### Patch Changes

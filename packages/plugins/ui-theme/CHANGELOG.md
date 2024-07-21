@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.19
+
+### Patch Changes
+
+- 5a77414: chore: fix type for country flags
+
 ## 7.0.0-next-7.18
 
 ### Patch Changes
