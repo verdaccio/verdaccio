@@ -15,6 +15,10 @@
     "translationProgress": 25,
     "approvalProgress": 25
   },
+  "ga-IE": {
+    "translationProgress": 20,
+    "approvalProgress": 0
+  },
   "gl": {
     "translationProgress": 1,
     "approvalProgress": 1
