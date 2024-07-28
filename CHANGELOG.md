@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.32.0](https://github.com/verdaccio/verdaccio/compare/v5.31.1...v5.32.0) (2024-07-28)
+
+
+### Features
+
+* update core deps ([#4726](https://github.com/verdaccio/verdaccio/issues/4726)) ([6dc8e91](https://github.com/verdaccio/verdaccio/commit/6dc8e91bf4bf0dec43f20d7ab2bc291eb3b201df))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4737](https://github.com/verdaccio/verdaccio/issues/4737)) ([e062a02](https://github.com/verdaccio/verdaccio/commit/e062a02c0393f43c553e527a821848bafa1011ec))
+* **deps:** update core verdaccio dependencies (5.x) ([#4708](https://github.com/verdaccio/verdaccio/issues/4708)) ([301deca](https://github.com/verdaccio/verdaccio/commit/301deca8e38105726fbbafefe5782ef3425d09a2))
+
 ### [5.31.1](https://github.com/verdaccio/verdaccio/compare/v5.31.0...v5.31.1) (2024-06-06)
 
 
