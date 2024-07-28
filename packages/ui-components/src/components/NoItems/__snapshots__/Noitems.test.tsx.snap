@@ -13,13 +13,14 @@ exports[`<NoItem /> component should load the component in default state 1`] = `
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.43;
-  background-color: rgb(229, 246, 253);
+  background-color: transparent;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 6px 16px;
   color: rgb(1, 67, 97);
+  background-color: rgb(229, 246, 253);
 }
 
 .emotion-0 .MuiAlert-icon {
@@ -69,7 +70,7 @@ exports[`<NoItem /> component should load the component in default state 1`] = `
 }
 
 <div
-  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-0"
+  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard emotion-0"
   role="alert"
 >
   <div

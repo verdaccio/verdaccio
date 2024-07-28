@@ -45,7 +45,7 @@
     "jsdom": "20.0.3",
     "nock": "13.5.1",
     "node-html-parser": "4.1.5",
-    "supertest": "6.3.4",
+    "supertest": "7.0.0",
     "verdaccio-auth-memory": "workspace:12.0.0-next-7.19",
     "verdaccio-memory": "workspace:12.0.0-next-7.19"
   },
