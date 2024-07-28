@@ -35,13 +35,14 @@ exports[`<UpLinks /> component should render the component when there is no upli
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.43;
-  background-color: rgb(229, 246, 253);
+  background-color: transparent;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 6px 16px;
   color: rgb(1, 67, 97);
+  background-color: rgb(229, 246, 253);
 }
 
 .emotion-2 .MuiAlert-icon {
@@ -99,7 +100,7 @@ exports[`<UpLinks /> component should render the component when there is no upli
           class="MuiCardContent-root emotion-1"
         >
           <div
-            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-2"
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard emotion-2"
             role="alert"
           >
             <div
@@ -164,13 +165,14 @@ exports[`<UpLinks /> component should render the component when there is no upli
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.43;
-  background-color: rgb(229, 246, 253);
+  background-color: transparent;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 6px 16px;
   color: rgb(1, 67, 97);
+  background-color: rgb(229, 246, 253);
 }
 
 .emotion-2 .MuiAlert-icon {
@@ -227,7 +229,7 @@ exports[`<UpLinks /> component should render the component when there is no upli
         class="MuiCardContent-root emotion-1"
       >
         <div
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-standardInfo MuiAlert-standard emotion-2"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard emotion-2"
           role="alert"
         >
           <div

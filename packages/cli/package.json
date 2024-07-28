@@ -43,14 +43,14 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "@verdaccio/logger": "workspace:7.0.0-next-7.19",
     "@verdaccio/node-api": "workspace:7.0.0-next-7.19",
-    "clipanion": "3.2.1",
-    "envinfo": "7.11.0",
+    "clipanion": "4.0.0-rc.3",
+    "envinfo": "7.13.0",
     "kleur": "4.1.5",
-    "semver": "7.6.2"
+    "semver": "7.6.3"
   },
   "devDependencies": {
     "ts-node": "10.9.2"

@@ -38,16 +38,16 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.19",
     "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "@verdaccio/url": "workspace:12.0.0-next-7.19",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.19",
     "debug": "4.3.4",
-    "lru-cache": "7.18.3",
     "express": "4.19.2",
+    "express-rate-limit": "5.5.1",
     "lodash": "4.17.21",
-    "mime": "2.6.0",
-    "express-rate-limit": "5.5.1"
+    "lru-cache": "7.18.3",
+    "mime": "2.6.0"
   },
   "funding": {
     "type": "opencollective",
@@ -56,6 +56,6 @@
   "devDependencies": {
     "@verdaccio/logger": "workspace:7.0.0-next-7.19",
     "body-parser": "1.20.2",
-    "supertest": "6.3.4"
+    "supertest": "7.0.0"
   }
 }

@@ -44,8 +44,8 @@
     "@verdaccio/loaders": "workspace:7.0.0-next-7.19",
     "@verdaccio/local-storage": "workspace:12.0.0-next-7.19",
     "@verdaccio/logger": "workspace:7.0.0-next-7.19",
-    "@verdaccio/search": "workspace:7.0.0-next-7.8",
     "@verdaccio/proxy": "workspace:7.0.0-next-7.19",
+    "@verdaccio/search": "workspace:7.0.0-next-7.8",
     "@verdaccio/tarball": "workspace:12.0.0-next-7.19",
     "@verdaccio/url": "workspace:12.0.0-next-7.19",
     "@verdaccio/utils": "workspace:7.0.0-next-7.19",
@@ -53,7 +53,7 @@
     "debug": "4.3.4",
     "lodash": "4.17.21",
     "merge2": "1.4.1",
-    "semver": "7.6.2"
+    "semver": "7.6.3"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",

@@ -43,12 +43,10 @@
     "debug": "4.3.4",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "minimatch": "7.4.6",
-    "yup": "0.32.11"
+    "minimatch": "7.4.6"
   },
   "devDependencies": {
-    "@types/minimatch": "5.1.2",
-    "@types/yup": "0.32.0"
+    "@types/minimatch": "5.1.2"
   },
   "funding": {
     "type": "opencollective",

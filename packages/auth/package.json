@@ -38,8 +38,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "@verdaccio/loaders": "workspace:7.0.0-next-7.19",
     "@verdaccio/logger": "workspace:7.0.0-next-7.19",
     "@verdaccio/signature": "workspace:7.0.0-next-7.5",
@@ -49,10 +49,10 @@
     "verdaccio-htpasswd": "workspace:12.0.0-next-7.19"
   },
   "devDependencies": {
-    "express": "4.19.2",
-    "supertest": "6.3.4",
     "@verdaccio/middleware": "workspace:7.0.0-next-7.19",
-    "@verdaccio/types": "workspace:12.0.0-next-7.5"
+    "@verdaccio/types": "workspace:12.0.0-next-7.5",
+    "express": "4.19.2",
+    "supertest": "7.0.0"
   },
   "funding": {
     "type": "opencollective",

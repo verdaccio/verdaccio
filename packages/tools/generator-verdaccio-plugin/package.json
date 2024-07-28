@@ -16,18 +16,18 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.19",
     "chalk": "4.1.2",
     "lodash": "4.17.21",
     "yeoman-environment": "3.19.3",
     "yeoman-generator": "5.9.0",
-    "yosay": "2.0.2",
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "@verdaccio/config": "workspace:7.0.0-next-7.19"
+    "yosay": "2.0.2"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "ts-jest": "29.1.0",
+    "ts-jest": "29.2.3",
     "yeoman-assert": "3.1.1",
     "yeoman-test": "6.3.0"
   },
