@@ -54,7 +54,7 @@
     "nock": "13.5.1",
     "node-mocks-http": "1.14.1",
     "p-cancelable": "2.1.1",
-    "semver": "7.6.2"
+    "semver": "7.6.3"
   },
   "funding": {
     "type": "opencollective",

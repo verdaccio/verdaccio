@@ -34,7 +34,7 @@
     "@rematch/persist": "2.1.2",
     "country-flag-icons": "1.5.9",
     "dayjs": "1.11.10",
-    "dompurify": "3.0.8",
+    "dompurify": "3.1.6",
     "highlight.js": "11.10.0",
     "history": "4.10.1",
     "i18next": "20.6.1",
@@ -55,7 +55,7 @@
     "react-router-dom": "5.3.4",
     "react-virtualized": "9.22.5",
     "redux": "4.2.1",
-    "semver": "7.6.2",
+    "semver": "7.6.3",
     "validator": "13.11.0"
   },
   "devDependencies": {
