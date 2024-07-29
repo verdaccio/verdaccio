@@ -102,7 +102,7 @@ describe('host', () => {
     });
 
     expect(
-      getPublicUrl(null, {
+      getPublicUrl(undefined, {
         host: req.hostname,
         headers: req.headers as any,
         protocol: req.protocol,

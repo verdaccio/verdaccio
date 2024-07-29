@@ -25,24 +25,24 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
 
   return `
     <!DOCTYPE html>
-      <html lang="en-us"> 
+      <html lang="en-us">
       <head>
         <meta charset="utf-8">
         <base href="${template?.options.base}">
-        <title>${template?.options?.title ?? ''}</title>        
-        <link rel="icon" href="${template?.options.base}/-/static/favicon.ico"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
+        <title>${template?.options?.title ?? ''}</title>
+        <link rel="icon" href="${template?.options.base}-/static/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
         </script>
         ${template?.metaScripts ? template.metaScripts.join('') : ''}
-      </head>    
+      </head>
       <body class="body">
-      ${template?.scriptsbodyBefore ? template.scriptsbodyBefore.join('') : ''}
+        ${template?.scriptsbodyBefore ? template.scriptsbodyBefore.join('') : ''}
         <div id="root"></div>
         ${getManifestValue(template.manifest.js, manifest, template?.options.base)
           .map((item) => `<script defer="defer" src="${item}"></script>`)
-          .join('')}
+          .join(`\n        `)}
         ${template?.scriptsBodyAfter ? template.scriptsBodyAfter.join('') : ''}
       </body>
     </html>
