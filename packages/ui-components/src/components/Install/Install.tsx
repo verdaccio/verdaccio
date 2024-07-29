@@ -36,8 +36,9 @@ const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) =
 
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
   const hasYarn = configOptions?.pkgManagers?.includes('yarn');
-  const hasPnpm = configOptions?.pkgManagers?.includes('pnpm') ?? true;
-  const hasPkgManagers = hasNpm || hasPnpm || hasYarn;
+  const hasPnpm = configOptions?.pkgManagers?.includes('pnpm');
+  const hasApm = configOptions?.pkgManagers?.includes('apm'); // apm
+  const hasPkgManagers = hasNpm || hasPnpm || hasYarn || hasApm; // apm
 
   return hasPkgManagers ? (
     <>
@@ -50,6 +51,13 @@ const Install: React.FC<Props> = ({ packageMeta, packageName, configOptions }) =
           </Wrapper>
         }
       >
+        {hasApm && (
+          <InstallListItem
+            dependencyManager={DependencyManager.APM}
+            packageName={packageName}
+            packageVersion={packageMeta.latest.version}
+          />
+        )}
         {hasNpm && (
           <InstallListItem
             dependencyManager={DependencyManager.NPM}

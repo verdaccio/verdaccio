@@ -8,22 +8,22 @@
 .*
 # you can add exceptions like in .gitignore to maintain a whitelist:
 # e.g.
-!.babelrc
-!.eslintrc
-!.prettierrc.json
-!.prettierignore
+!babel.config.js
+!eslintrc.js
+!.prettierrc
 !.eslintignore
 !.stylelintrc
+!.jest.config.js
+!.jestEnvironment.js
+!.yarnrc.yml
+!.yarn/releases/yarn-*.cjs
+!.yarn/plugins/*
+!.pnp.js
 
-# do not copy over node_modules we will run `pnpm install` anyway
+# just in case, yarn 2 pnp is enabled
 node_modules
-website
-jest
-docs
-contrib
-docker-examples
-website
-systemd
+.husky/
+.git/
 
 # output from test runs and similar things
 *.log
@@ -33,7 +33,21 @@ coverage/
 # IDE config files
 jsconfig.json
 *.iml
-
 # let's not get too recursive ;)
 Dockerfile*
 docker-compose*.yaml
+.github/
+.husky/
+*.log
+coverage/
+.vscode/
+*.md
+contrib/
+docs/
+docker-examples/
+systemd/
+assets/
+jest*.js
+test/
+wiki/
+debug/

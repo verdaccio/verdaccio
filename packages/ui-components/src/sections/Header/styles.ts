@@ -47,7 +47,7 @@ export const SearchWrapper = styled('div')({
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
-  color: theme?.palette.white,
+  color: theme?.palette.mode === 'light' ? theme?.palette.black : theme?.palette.white,
   minHeight: 60,
   display: 'flex',
   justifyContent: 'center',
