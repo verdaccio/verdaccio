@@ -7,7 +7,7 @@ import React from 'react';
 
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
-import { Npm, Pnpm, Yarn } from '../Icons';
+import { Apm, Npm, Pnpm, Yarn } from '../Icons';
 
 const InstallItem = styled(ListItem)({
   padding: 0,
@@ -28,6 +28,7 @@ const PackageMangerAvatar = styled(Avatar)({
 });
 
 export enum DependencyManager {
+  APM = 'apm',
   NPM = 'npm',
   YARN = 'yarn',
   PNPM = 'pnpm',
@@ -59,6 +60,23 @@ const InstallListItem: React.FC<Interface> = ({
   const isLatest = localSettings[packageName]?.latest ?? false;
   const isGlobal = localSettings[packageName]?.global ?? false;
   switch (dependencyManager) {
+    case DependencyManager.APM:
+      return (
+        <InstallItem data-testid={'installListItem-apm'}>
+          <PackageMangerAvatar alt="apm" sx={{ bgcolor: theme.palette.white }}>
+            <Apm />
+          </PackageMangerAvatar>
+          <InstallListItemText
+            primary={
+              <CopyToClipBoard
+                dataTestId="installApm"
+                text={`apm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
+                title={`apm install ${getGlobalInstall(isLatest, isGlobal, packageVersion, packageName)}`}
+              />
+            }
+          />
+        </InstallItem>
+      );
     case DependencyManager.NPM:
       return (
         <InstallItem data-testid={'installListItem-npm'}>

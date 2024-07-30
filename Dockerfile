@@ -3,7 +3,8 @@ FROM --platform=${BUILDPLATFORM:-linux/amd64} node:21-alpine AS builder
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
 
-RUN apk --no-cache add openssl ca-certificates wget && \
+RUN apk add --force-overwrite && \
+    apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
@@ -11,7 +12,8 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-RUN npm -g i pnpm@8.9.0 && \
+
+RUN npm -g i pnpm@8.14.0 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
@@ -21,7 +23,7 @@ RUN npm -g i pnpm@8.9.0 && \
 # RUN pnpm install --prod --ignore-scripts
 
 FROM node:21-alpine
-LABEL maintainer="https://github.com/verdaccio/verdaccio"
+LABEL maintainer="https://github.com/abapPM/abapPM"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
@@ -33,6 +35,7 @@ ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
 
 WORKDIR $VERDACCIO_APPDIR
 
+# https://github.com/Yelp/dumb-init
 RUN apk --no-cache add openssl dumb-init
 
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
@@ -40,7 +43,10 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 COPY --from=builder /opt/verdaccio-build .
 
 RUN ls packages/config/src/conf
-ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
+
+# apm assets and config
+ADD abappm /verdaccio/abappm
+ADD config.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \

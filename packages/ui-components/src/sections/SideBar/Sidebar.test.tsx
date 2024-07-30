@@ -69,6 +69,6 @@ describe('Sidebar', () => {
     });
     // package name + keyword
     await waitFor(() => expect(screen.getAllByText('got')).toHaveLength(2));
-    expect(screen.getByAltText('es6 modules')).toBeInTheDocument();
+    expect(screen.getByAltText('ABAP module')).toBeInTheDocument();
   });
 });

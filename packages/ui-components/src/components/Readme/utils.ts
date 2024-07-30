@@ -7,6 +7,10 @@ const marked = new Marked(
     async: false,
     highlight(code, lang) {
       const hljs = require('highlight.js');
+      // >>> apm
+      const hlabap = require('highlightjs-sap-abap');
+      hljs.registerLanguage('abap', hlabap);
+      // <<< apm
       const language = hljs.getLanguage(lang) ? lang : 'plaintext';
       return hljs.highlight(code, { language }).value;
     },
