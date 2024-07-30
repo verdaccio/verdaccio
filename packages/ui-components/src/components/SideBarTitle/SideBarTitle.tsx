@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Theme } from '../../Theme';
 import Heading from '../Heading';
-import { ABAPModule, CommonJS, TypeScript } from '../Icons';
+import { CommonJS, ES6Modules, TypeScript } from '../Icons';
 import { formatDate, formatDateDistance } from './utils';
 
 export type ModuleType = 'commonjs' | 'module';
@@ -34,7 +34,7 @@ const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
   } else if (module === 'module') {
     return (
       <Icon>
-        <ABAPModule />
+        <ES6Modules />
       </Icon>
     );
   } else {

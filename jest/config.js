@@ -1,7 +1,5 @@
 module.exports = {
   moduleFileExtensions: ['ts', 'js'],
-  maxWorkers: 3,
-  testTimeout: 20000,
   transform: {
     '^.+\\.(js|ts)$': 'babel-jest',
   },

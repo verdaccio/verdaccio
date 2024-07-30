@@ -20,7 +20,7 @@ export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   '&:hover': {
     color: theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
   },
-  color: theme?.palette.mode === 'light' ? theme?.palette.black : theme?.palette.white,
+  color: theme?.palette.white,
 }));
 
 type ActionType = 'VISIT_HOMEPAGE' | 'OPEN_AN_ISSUE' | 'DOWNLOAD_TARBALL' | 'RAW_DATA';

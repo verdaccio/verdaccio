@@ -1,3 +1,0 @@
-# abapPM
-
-Assets for Verdaccio
