@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 232 255" width="232" height="255">
-  <g>
-    <path id="1b" d="M 0 62 L 116 120 L 116 254 L 0 196 L 0 62 Z" stroke="#808080" stroke-width="2.5" fill="#000000" stroke-miterlimit="1"/>
-    <path id="1w" d="M 116 120 L 116 254 L 232 196 L 232 62 L 116 120 Z" stroke="#808080" stroke-width="2.5" fill="#FFFFFF" stroke-miterlimit="1"/>
-    <path id="1g" d="M 0 62 L 116 2 L 232 62 L 116 120 L 0 62 Z" stroke="#808080" stroke-width="2.5" fill="#808080" stroke-miterlimit="1"/>
-  </g>
-</svg>

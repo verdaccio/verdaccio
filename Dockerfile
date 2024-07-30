@@ -1,13 +1,9 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:20.15.1-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:21-alpine AS builder
 
-ENV NODE_ENV=production \
-    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org  \
-    HUSKY_SKIP_INSTALL=1 \
-    CI=true \
-    HUSKY_DEBUG=1
+ENV NODE_ENV=development \
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
 
-RUN apk add --force-overwrite && \
-    apk --no-cache add openssl ca-certificates wget && \
+RUN apk --no-cache add openssl ca-certificates wget && \
     apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python3 && \
     wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
     wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
@@ -15,24 +11,17 @@ RUN apk add --force-overwrite && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
+RUN npm -g i pnpm@8.9.0 && \
+    pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm install --frozen-lockfile --ignore-scripts && \
+    rm -Rf test && \
+    pnpm run build
+# FIXME: need to remove devDependencies from the build    
+# NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
+# RUN pnpm install --prod --ignore-scripts
 
-## build the project and create a tarball of the project for later
-## global installation
-RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
-    yarn config set enableProgressBars true && \
-    yarn config set enableScripts false && \
-    yarn install --immutable && \
-    yarn build
-## pack the project
-RUN yarn pack --dry-run \
-    && yarn pack --out verdaccio.tgz \
-    && mkdir -p /opt/tarball \
-    && mv /opt/verdaccio-build/verdaccio.tgz /opt/tarball
-## clean up and reduce bundle size
-RUN rm -Rf /opt/verdaccio-build
-
-FROM node:20.15.1-alpine
-LABEL maintainer="https://github.com/abapPM/abapPM"
+FROM node:21-alpine
+LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
@@ -44,33 +33,17 @@ ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
 
 WORKDIR $VERDACCIO_APPDIR
 
-# https://github.com/Yelp/dumb-init
 RUN apk --no-cache add openssl dumb-init
 
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-COPY --from=builder /opt/tarball .
+COPY --from=builder /opt/verdaccio-build .
 
-USER root
-# install verdaccio as a global package so is fully handled by npm
-# ensure none dependency is being missing and is prod by default
-RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
-    ## clean up cache
-    && npm cache clean --force \
-    && rm -Rf .npm/ \
-    && rm $VERDACCIO_APPDIR/verdaccio.tgz \
-    # yarn is not need it after this step
-    # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/02a64a08a98a472c6141cd583d2e9fc47bcd9bfd/18/alpine3.16/Dockerfile#L91-L92).
-    && rm -Rf /opt/yarn-v1.22.19/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
-
-# apm assets and config
-ADD abappm /verdaccio/abappm
-ADD config.yaml /verdaccio/conf/config.yaml
-
-ADD docker-bin $VERDACCIO_APPDIR/docker-bin
+RUN ls packages/config/src/conf
+ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
-    chmod -R +x /usr/local/lib/node_modules/verdaccio/bin/verdaccio $VERDACCIO_APPDIR/docker-bin && \
+    chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
     chmod -R g=u /verdaccio/storage /etc/passwd
 
@@ -82,4 +55,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT

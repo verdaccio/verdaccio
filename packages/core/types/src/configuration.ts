@@ -77,7 +77,7 @@ export type FlagsConfig = {
   changePassword?: boolean;
 };
 
-export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | 'apm';
+export type PackageManagers = 'pnpm' | 'yarn' | 'npm';
 
 // FUTURE: WebConf and TemplateUIOptions should be merged .
 export type CommonWebConf = {

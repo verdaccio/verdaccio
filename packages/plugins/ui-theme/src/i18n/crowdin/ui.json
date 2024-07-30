@@ -132,11 +132,9 @@
       "title": "Contributors"
     },
     "engines": {
-      "apm-version": "apm Version",
       "npm-version": "Npm Version",
       "pnpm-version": "Pnpm Version",
       "yarn-version": "Yarn Version",
-      "abap": "ABAP Release",
       "node-js": "Node.js"
     }
   },
