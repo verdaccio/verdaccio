@@ -16,8 +16,16 @@ export function getManifestValue(
 ): string[] {
   return manifestItems?.map((item) => {
     debug('resolve item %o', item);
-    const resolvedItem = `${basePath}${manifest[item]}`;
+    const resolvedItem = `${stripTrailingSlash(basePath)}/${stripLeadingSlash(manifest[item])}`;
     debug('resolved item %o', resolvedItem);
     return resolvedItem;
   });
+}
+
+function stripTrailingSlash(path: string): string {
+  return path.replace(/\/$/, '');
+}
+
+function stripLeadingSlash(path: string): string {
+  return path.replace(/^\//, '');
 }
