@@ -25,7 +25,7 @@ jobs:
     if: github.repository == 'verdaccio/verdaccio'
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3
-      - uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # tag=v1
+      - uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # tag=v1
       - uses: docker/setup-buildx-action@v1
         with:
           driver-opts: network=host
