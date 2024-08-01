@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "7.0.0-next-7.19",
+  "version": "7.0.0-next-7.20",
   "description": "express middleware utils",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -39,10 +39,10 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.19",
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "@verdaccio/url": "workspace:12.0.0-next-7.19",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.19",
+    "@verdaccio/config": "workspace:7.0.0-next-7.20",
+    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "@verdaccio/url": "workspace:12.0.0-next-7.20",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.20",
     "debug": "4.3.4",
     "express": "4.19.2",
     "express-rate-limit": "5.5.1",
@@ -55,7 +55,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:7.0.0-next-7.19",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
     "body-parser": "1.20.2",
     "supertest": "7.0.0"
   }

@@ -1,5 +1,14 @@
 # @verdaccio/search
 
+## 7.0.0-next-7.9
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.20
+- @verdaccio/config@7.0.0-next-7.20
+- @verdaccio/proxy@7.0.0-next-7.20
+- @verdaccio/logger@7.0.0-next-7.20
+
 ## 7.0.0-next-7.8
 
 ### Patch Changes
