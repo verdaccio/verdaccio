@@ -300,6 +300,17 @@
       ]
     },
     {
+      "id": 59966492,
+      "login": "mbtools",
+      "contributions": 59,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 59
+        }
+      ]
+    },
+    {
       "id": 20119184,
       "login": "griffithtp",
       "contributions": 55,
@@ -349,17 +360,6 @@
         {
           "name": "ansible-verdaccio",
           "contributions": 44
-        }
-      ]
-    },
-    {
-      "id": 59966492,
-      "login": "mbtools",
-      "contributions": 43,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 43
         }
       ]
     },
@@ -5066,7 +5066,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16135,
+      "stargazers_count": 16149,
       "archived": false
     },
     {
