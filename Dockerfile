@@ -29,24 +29,23 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
-ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
+    VERDACCIO_PROTOCOL=http \
+    PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
 
 WORKDIR $VERDACCIO_APPDIR
 
 # https://github.com/Yelp/dumb-init
-RUN apk --no-cache add openssl dumb-init
-
-RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
+RUN apk --no-cache add openssl dumb-init \
+    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
 
 RUN ls packages/config/src/conf
 
 # apm assets and config
-ADD abappm /verdaccio/abappm
-ADD config.yaml /verdaccio/conf/config.yaml
+COPY abappm /verdaccio/abappm \
+     config.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
@@ -61,4 +60,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD ["/bin/sh" "-c" "$VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT"]
