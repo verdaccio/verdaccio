@@ -1,5 +1,12 @@
 # @verdaccio/hooks
 
+## 7.0.0-next-7.20
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.20
+- @verdaccio/logger@7.0.0-next-7.20
+
 ## 7.0.0-next-7.19
 
 ### Patch Changes

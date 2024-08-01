@@ -1,5 +1,18 @@
 # verdaccio
 
+## 7.0.0-next-7.20
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.20
+- @verdaccio/cli@7.0.0-next-7.20
+- @verdaccio/ui-theme@7.0.0-next-7.20
+- @verdaccio/hooks@7.0.0-next-7.20
+- verdaccio-audit@12.0.0-next-7.20
+- verdaccio-htpasswd@12.0.0-next-7.20
+- @verdaccio/utils@7.0.0-next-7.20
+- @verdaccio/logger@7.0.0-next-7.20
+
 ## 7.0.0-next-7.19
 
 ### Patch Changes
