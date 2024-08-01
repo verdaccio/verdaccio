@@ -44,8 +44,8 @@ COPY --from=builder /opt/verdaccio-build .
 RUN ls packages/config/src/conf
 
 # apm assets and config
-ADD abappm /verdaccio/abappm \
-    config.yaml /verdaccio/conf/config.yaml
+ADD abappm /verdaccio/abappm
+ADD config.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
@@ -60,4 +60,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD ["/bin/sh" "-c" "$VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT"]
+CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
