@@ -36,8 +36,9 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
 WORKDIR $VERDACCIO_APPDIR
 
 # https://github.com/Yelp/dumb-init
-RUN apk --no-cache add openssl dumb-init \
-    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
+RUN apk --no-cache add openssl dumb-init
+
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 COPY --from=builder /opt/verdaccio-build .
 
