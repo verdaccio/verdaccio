@@ -17,7 +17,7 @@
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
     "@verdaccio/utils": "workspace:7.0.0-next-7.20",
     "body-parser": "1.20.2",
-    "debug": "4.3.4",
+    "debug": "4.3.6",
     "express": "4.19.2",
     "fs-extra": "11.2.0",
     "supertest": "7.0.0"
