@@ -54,7 +54,7 @@
     "@verdaccio/logger": "workspace:7.0.0-next-7.20",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "minimatch": "9.0.4"
+    "minimatch": "9.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",
