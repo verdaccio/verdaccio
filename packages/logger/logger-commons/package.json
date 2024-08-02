@@ -40,7 +40,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-7.20",
     "@verdaccio/logger-prettify": "workspace:7.0.0-next-7.3",
-    "debug": "4.3.4",
+    "debug": "4.3.6",
     "colorette": "2.0.20"
   },
   "devDependencies": {

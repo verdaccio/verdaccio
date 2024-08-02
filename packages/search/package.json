@@ -38,7 +38,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "debug": "4.3.4",
+    "debug": "4.3.6",
     "lodash": "4.17.21",
     "@verdaccio/config": "workspace:7.0.0-next-7.20",
     "@verdaccio/core": "workspace:7.0.0-next-7.20",
