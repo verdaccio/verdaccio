@@ -1326,6 +1326,8 @@ const HAS_UNFLAGGED_JSON_MODULES = major > 17 || major === 17 && minor >= 5 || m
 const HAS_JSON_IMPORT_ASSERTION_REQUIREMENT = major > 17 || major === 17 && minor >= 1 || major === 16 && minor > 14;
 const WATCH_MODE_MESSAGE_USES_ARRAYS = major > 19 || major === 19 && minor >= 2 || major === 18 && minor >= 13;
 const HAS_LAZY_LOADED_TRANSLATORS = major === 20 && minor < 6 || major === 19 && minor >= 3;
+const SUPPORTS_IMPORT_ATTRIBUTES = major >= 21 || major === 20 && minor >= 10 || major === 18 && minor >= 20;
+const SUPPORTS_IMPORT_ATTRIBUTES_ONLY = major >= 22;
 
 const builtinModules = new Set(Module.builtinModules || Object.keys(process.binding(`natives`)));
 const isBuiltinModule = (request) => request.startsWith(`node:`) || builtinModules.has(request);
@@ -1438,7 +1440,7 @@ async function getSource$1(urlString, context, defaultGetSource) {
 }
 
 async function load$1(urlString, context, nextLoad) {
-  var _a;
+  var _a, _b, _c;
   const url = tryParseURL(urlString);
   if ((url == null ? void 0 : url.protocol) !== `file:`)
     return nextLoad(urlString, context, nextLoad);
@@ -1446,10 +1448,21 @@ async function load$1(urlString, context, nextLoad) {
   const format = getFileFormat(filePath);
   if (!format)
     return nextLoad(urlString, context, nextLoad);
-  if (HAS_JSON_IMPORT_ASSERTION_REQUIREMENT && format === `json` && ((_a = context.importAssertions) == null ? void 0 : _a.type) !== `json`) {
-    const err = new TypeError(`[ERR_IMPORT_ASSERTION_TYPE_MISSING]: Module "${urlString}" needs an import assertion of type "json"`);
-    err.code = `ERR_IMPORT_ASSERTION_TYPE_MISSING`;
-    throw err;
+  if (HAS_JSON_IMPORT_ASSERTION_REQUIREMENT && format === `json`) {
+    if (SUPPORTS_IMPORT_ATTRIBUTES_ONLY) {
+      if (((_a = context.importAttributes) == null ? void 0 : _a.type) !== `json`) {
+        const err = new TypeError(`[ERR_IMPORT_ATTRIBUTE_MISSING]: Module "${urlString}" needs an import attribute of "type: json"`);
+        err.code = `ERR_IMPORT_ATTRIBUTE_MISSING`;
+        throw err;
+      }
+    } else {
+      const type = `importAttributes` in context ? (_b = context.importAttributes) == null ? void 0 : _b.type : (_c = context.importAssertions) == null ? void 0 : _c.type;
+      if (type !== `json`) {
+        const err = new TypeError(`[ERR_IMPORT_ASSERTION_TYPE_MISSING]: Module "${urlString}" needs an import ${SUPPORTS_IMPORT_ATTRIBUTES ? `attribute` : `assertion`} of type "json"`);
+        err.code = `ERR_IMPORT_ASSERTION_TYPE_MISSING`;
+        throw err;
+      }
+    }
   }
   if (process.env.WATCH_REPORT_DEPENDENCIES && process.send) {
     const pathToSend = pathToFileURL(
