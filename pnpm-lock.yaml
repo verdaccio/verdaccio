@@ -1305,8 +1305,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
       react-hook-form:
-        specifier: 7.50.1
-        version: 7.50.1(react@18.2.0)
+        specifier: 7.52.1
+        version: 7.52.1(react@18.2.0)
       react-hot-loader:
         specifier: 4.13.1
         version: 4.13.1(@types/react@18.3.3)(react-dom@18.2.0)(react@18.2.0)
@@ -26278,15 +26278,6 @@ packages:
       react-side-effect: 2.1.2(react@17.0.2)
     dev: false
 
-  /react-hook-form@7.50.1(react@18.2.0):
-    resolution: {integrity: sha512-3PCY82oE0WgeOgUtIr3nYNNtNvqtJ7BZjsbxh6TnYNbXButaD5WpjOmTjdxZfheuHKR68qfeFnEDVYoSSFPMTQ==}
-    engines: {node: '>=12.22.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17 || ^18
-    dependencies:
-      react: 18.2.0
-    dev: true
-
   /react-hook-form@7.52.1(react@18.2.0):
     resolution: {integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==}
     engines: {node: '>=12.22.0'}
@@ -26294,7 +26285,6 @@ packages:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
       react: 18.2.0
-    dev: false
 
   /react-hot-loader@4.13.1(@types/react@18.3.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-ZlqCfVRqDJmMXTulUGic4lN7Ic1SXgHAFw7y/Jb7t25GBgTR0fYAJ8uY4mrpxjRyWGWmqw77qJQGnYbzCvBU7g==}
