@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0-beta.3](https://github.com/verdaccio/verdaccio/compare/v6.0.0-beta.2...v6.0.0-beta.3) (2024-08-02)
+
+
+### Features
+
+* migrateToSecureLegacySignature 6.x ([#4643](https://github.com/verdaccio/verdaccio/issues/4643)) ([7b14147](https://github.com/verdaccio/verdaccio/commit/7b1414733bb314a41ef6393761b5b67a2d2f97fa))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4559](https://github.com/verdaccio/verdaccio/issues/4559)) ([dde4703](https://github.com/verdaccio/verdaccio/commit/dde4703745f0e6b7d32ee6598c987dcc81707f1d))
+* **deps:** update core verdaccio dependencies ([#4753](https://github.com/verdaccio/verdaccio/issues/4753)) ([cb0cc9e](https://github.com/verdaccio/verdaccio/commit/cb0cc9edd8af50e9ef6b3c8b13dfb97d706edb67))
+* **deps:** update core verdaccio dependencies (6.x) ([#4728](https://github.com/verdaccio/verdaccio/issues/4728)) ([a11c3cf](https://github.com/verdaccio/verdaccio/commit/a11c3cf924649c141776d8189b4bb695219dc069))
+* **deps:** update dependency express to v4.19.2 ([#4592](https://github.com/verdaccio/verdaccio/issues/4592)) ([946a1b4](https://github.com/verdaccio/verdaccio/commit/946a1b46be84d67365b59be6896b956bc8d44b65))
+* **deps:** update dependency semver to v7.6.0 ([#4597](https://github.com/verdaccio/verdaccio/issues/4597)) ([306da4a](https://github.com/verdaccio/verdaccio/commit/306da4af3f55285ca0b003969a2f62269dc4e9f8))
+* **deps:** update dependency semver to v7.6.3 ([#4730](https://github.com/verdaccio/verdaccio/issues/4730)) ([640984d](https://github.com/verdaccio/verdaccio/commit/640984d6fdd874571b61a72d98dc3fc59ce7569a))
+* minium version node.js v18 ([33272ee](https://github.com/verdaccio/verdaccio/commit/33272ee8b9750d077a6e43a46e765334932f4bd6))
+* plugins config disable by default ([9cb5806](https://github.com/verdaccio/verdaccio/commit/9cb580638f3562ec05eaeb34e93502d6191b97eb))
+
 ## [6.0.0-beta.2](https://github.com/verdaccio/verdaccio/compare/v6.0.0-beta.1...v6.0.0-beta.2) (2024-03-17)
 
 
