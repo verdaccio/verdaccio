@@ -4,15 +4,23 @@ on:
   pull_request:
 permissions:
   contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true    
 jobs:
-  test:
+  test:    
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [14, 16, 18, 19, 20, 21, 22]    
+    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0    
       - name: Use Node
         uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
         with:
-          node-version: 21
+          node-version: ${{ matrix.node_version }}
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
