@@ -1,8 +1,7 @@
 name: Module Smoke Test 5.x
-on:
-  workflow_dispatch:
-  pull_request:
-  push:   
+
+on: [push, pull_request]  
+
 permissions:
   contents: read
 concurrency:
