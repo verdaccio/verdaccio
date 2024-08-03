@@ -1,4 +1,5 @@
 import { Stream } from 'stream';
+import { describe, expect, test } from 'vitest';
 
 import { readableToString } from '../src/stream-utils';
 
