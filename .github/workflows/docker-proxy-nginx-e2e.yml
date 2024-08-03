@@ -21,7 +21,7 @@ jobs:
       uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       
     - name: Start containers
-      run: docker-compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" up -d --build
+      run: docker compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" up -d --build
 
     - name: Install node
       uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v3
@@ -44,4 +44,4 @@ jobs:
 
     - name: Stop containers
       if: always()
-      run: docker-compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" down
+      run: docker compose -f "./e2e/docker/proxy-nginx/docker-compose.yaml" down
