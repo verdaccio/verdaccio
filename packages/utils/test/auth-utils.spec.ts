@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { createSessionToken, getAuthenticatedMessage } from '../src';
 
 describe('Auth Utilities', () => {

@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { DEFAULT_USER } from '@verdaccio/core';
 
 import {

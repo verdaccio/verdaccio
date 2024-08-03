@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { getVersionFromTarball } from '../src/middleware-utils';
 
 describe('Utilities', () => {
