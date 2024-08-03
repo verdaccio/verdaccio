@@ -11,6 +11,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: code-${{ github.ref }}
+  cancel-in-progress: true    
+
 jobs:
   CodeQL-Build:
     permissions:

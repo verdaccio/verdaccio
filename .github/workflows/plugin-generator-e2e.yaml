@@ -6,6 +6,11 @@ on:
   push:
     branches:
       - 'master'
+
+concurrency:
+  group: generator-plugin-${{ github.ref }}
+  cancel-in-progress: true  
+
 jobs:
   e2e-plugin-generator:
     runs-on: ubuntu-latest
