@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { createRemoteUser, parseConfigFile } from '@verdaccio/config';
 import { setup } from '@verdaccio/logger';

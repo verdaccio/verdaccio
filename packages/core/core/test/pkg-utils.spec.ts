@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { DIST_TAGS, pkgUtils } from '../src';
 
 describe('pkg-utils', () => {

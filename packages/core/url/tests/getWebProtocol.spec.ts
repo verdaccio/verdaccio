@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { getWebProtocol } from '../src';
 
 describe('getWebProtocol', () => {

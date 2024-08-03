@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from '../src/constants';
 import { validatePublishSingleVersion } from '../src/schemes/publish-manifest';
 import {
@@ -62,10 +64,9 @@ describe('normalizeMetadata', () => {
 
   test('should fails the assertions is name does not match', () => {
     expect(function () {
-      // @ts-ignore
+      // @ts-expect-error
       normalizeMetadata({}, 'no-name');
-      // @ts-ignore
-    }).toThrow(expect.hasAssertions());
+    }).toThrowError();
   });
 });
 
