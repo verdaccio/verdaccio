@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { createRemoteUser } from '@verdaccio/config';
 
 import { signPayload, verifyPayload } from '../src';

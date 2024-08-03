@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { isNodeVersionGreaterThan21 } from '@verdaccio/config';
 
 import {
