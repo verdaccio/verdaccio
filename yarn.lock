@@ -6023,13 +6023,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:27.6.3":
-  version: 27.6.3
-  resolution: "eslint-plugin-jest@npm:27.6.3"
+"eslint-plugin-jest@npm:27.9.0":
+  version: 27.9.0
+  resolution: "eslint-plugin-jest@npm:27.9.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^5.10.0"
   peerDependencies:
-    "@typescript-eslint/eslint-plugin": ^5.0.0 || ^6.0.0
+    "@typescript-eslint/eslint-plugin": ^5.0.0 || ^6.0.0 || ^7.0.0
     eslint: ^7.0.0 || ^8.0.0
     jest: "*"
   peerDependenciesMeta:
@@ -6037,7 +6037,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 10/a29319d5a090633e30658da7521f9fa0468f861403509538e0927175ab2a46a7f60bd7fd344b54f7fb5f8e8b6385d8db67c305502a4de1291f32191163e74725
+  checksum: 10/bca54347280c06c56516faea76042134dd74355c2de6c23361ba0e8736ecc01c62b144eea7eda7570ea4f4ee511c583bb8dab00d7153a1bd1740eb77b0038fd4
   languageName: node
   linkType: hard
 
@@ -9208,14 +9208,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:13.5.0":
-  version: 13.5.0
-  resolution: "nock@npm:13.5.0"
+"nock@npm:13.5.4":
+  version: 13.5.4
+  resolution: "nock@npm:13.5.4"
   dependencies:
     debug: "npm:^4.1.0"
     json-stringify-safe: "npm:^5.0.1"
     propagate: "npm:^2.0.0"
-  checksum: 10/347e6804d3eadb2ec81e3a0808b4cf8d826e5a6b52aa91b31db9c78c9afb58f0af0d1c941dff13d78ff99968b025dea9593f341cc515463270cb69d8e293c9cf
+  checksum: 10/75bad391bae4efb81b742734af5f2d87309cd93d3ca6b78372fd37946d78ccb254d79104676619866915e6734abfc1b00fee2aa42073a4843ca3c746aad35a4d
   languageName: node
   linkType: hard
 
@@ -11918,7 +11918,7 @@ __metadata:
     eslint-config-prettier: "npm:9.1.0"
     eslint-plugin-babel: "npm:5.3.1"
     eslint-plugin-import: "npm:2.29.1"
-    eslint-plugin-jest: "npm:27.6.3"
+    eslint-plugin-jest: "npm:27.9.0"
     eslint-plugin-prettier: "npm:5.2.1"
     eslint-plugin-simple-import-sort: "npm:10.0.0"
     eslint-plugin-verdaccio: "npm:10.0.0"
@@ -11942,7 +11942,7 @@ __metadata:
     mkdirp: "npm:1.0.4"
     mockdate: "npm:3.0.5"
     mv: "npm:2.1.1"
-    nock: "npm:13.5.0"
+    nock: "npm:13.5.4"
     pkginfo: "npm:0.4.1"
     prettier: "npm:3.3.3"
     rimraf: "npm:5.0.7"
