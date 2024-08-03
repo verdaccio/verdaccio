@@ -1,5 +1,9 @@
 name: E2E Docker Proxy Apache Test
 
+concurrency:
+  group: docker-apache-${{ github.ref }}
+  cancel-in-progress: true  
+
 on:
   workflow_dispatch:
   push:
