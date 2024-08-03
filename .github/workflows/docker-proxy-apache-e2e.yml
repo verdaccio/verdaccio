@@ -15,7 +15,7 @@ on:
 jobs:
   docker:
     timeout-minutes: 10
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
