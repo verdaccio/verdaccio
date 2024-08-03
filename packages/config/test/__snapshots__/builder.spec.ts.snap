@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Config builder should create a configuration file as yaml 1`] = `
+exports[`Config builder > should create a configuration file as yaml 1`] = `
 "uplinks:
   upstream:
     url: https://registry.verdaccio.org

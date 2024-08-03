@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { normalisePackageAccess, parseConfigFile } from '../src';
 import { hasProxyTo, sanityCheckUplinksProps, uplinkSanityCheck } from '../src/uplinks';
 import { parseConfigurationFile } from './utils';

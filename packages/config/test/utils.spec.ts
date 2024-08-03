@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { ROLES, createAnonymousRemoteUser, createRemoteUser } from '../src';
 
 describe('createRemoteUser and createAnonymousRemoteUser', () => {
