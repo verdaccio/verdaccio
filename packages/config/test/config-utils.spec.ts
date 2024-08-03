@@ -1,4 +1,5 @@
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 import { fileExists, folderExists } from '../src/config-utils';
 

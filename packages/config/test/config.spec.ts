@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 import {
   Config,
@@ -22,7 +23,7 @@ const resolveConf = (conf) => {
   return path.join(__dirname, `../src/conf/${name}${ext.startsWith('.') ? ext : '.yaml'}`);
 };
 
-const itif = (condition) => (condition ? it : it.skip);
+const itif = (condition) => (condition ? test : test.skip);
 
 const checkDefaultUplink = (config) => {
   expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
