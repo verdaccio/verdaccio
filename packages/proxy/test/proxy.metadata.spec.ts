@@ -1,6 +1,7 @@
 import nock from 'nock';
 import path from 'path';
 import { setTimeout } from 'timers/promises';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR, errorUtils } from '@verdaccio/core';
@@ -10,11 +11,11 @@ import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
-const mockDebug = jest.fn();
-const mockInfo = jest.fn();
-const mockHttp = jest.fn();
-const mockError = jest.fn();
-const mockWarn = jest.fn();
+const mockDebug = vi.fn();
+const mockInfo = vi.fn();
+const mockHttp = vi.fn();
+const mockError = vi.fn();
+const mockWarn = vi.fn();
 
 const logger = {
   debug: mockDebug,
@@ -24,39 +25,25 @@ const logger = {
   warn: mockWarn,
 } as unknown as Logger;
 
-// mock to get the headers fixed value
-jest.mock('crypto', () => {
-  return {
-    randomBytes: (): { toString: () => string } => {
-      return {
-        toString: (): string => 'foo-random-bytes',
-      };
-    },
-    pseudoRandomBytes: (): { toString: () => string } => {
-      return {
-        toString: (): string => 'foo-phseudo-bytes',
-      };
-    },
-  };
-});
-
 const domain = 'https://registry.npmjs.org';
 
 describe('proxy', () => {
   beforeEach(() => {
     nock.cleanAll();
   });
+
   const defaultRequestOptions = {
-    url: 'https://registry.npmjs.org',
+    url: domain,
   };
   const proxyPath = getConf('proxy1.yaml');
   const conf = new Config(parseConfigFile(proxyPath));
+  conf.server_id = 'foo-phseudo-bytes';
 
   describe('getRemoteMetadata', () => {
     beforeEach(() => {
       nock.cleanAll();
       nock.abortPendingRequests();
-      jest.clearAllMocks();
+      vi.clearAllMocks();
     });
     describe('basic requests', () => {
       test('success call to remote', async () => {

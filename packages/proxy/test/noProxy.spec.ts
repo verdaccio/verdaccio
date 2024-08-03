@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';

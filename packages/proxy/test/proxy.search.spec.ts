@@ -4,6 +4,7 @@
 import getStream from 'get-stream';
 import nock from 'nock';
 import path from 'path';
+import { describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
@@ -13,11 +14,11 @@ import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
-const mockDebug = jest.fn();
-const mockInfo = jest.fn();
-const mockHttp = jest.fn();
-const mockError = jest.fn();
-const mockWarn = jest.fn();
+const mockDebug = vi.fn();
+const mockInfo = vi.fn();
+const mockHttp = vi.fn();
+const mockError = vi.fn();
+const mockWarn = vi.fn();
 
 const logger = {
   debug: mockDebug,
