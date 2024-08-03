@@ -390,8 +390,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       npm:
-        specifier: 10.5.0
-        version: 10.5.0
+        specifier: 10.8.2
+        version: 10.8.2
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -471,8 +471,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 3.8.1
-        version: 3.8.1
+        specifier: 3.8.3
+        version: 3.8.3
 
   e2e/cli/e2e-yarn4:
     dependencies:
@@ -480,8 +480,8 @@ importers:
         specifier: workspace:1.1.0
         version: link:../cli-commons
       '@yarnpkg/cli-dist':
-        specifier: 4.1.1
-        version: 4.1.1
+        specifier: 4.4.0
+        version: 4.4.0
 
   e2e/ui:
     devDependencies:
@@ -12073,14 +12073,14 @@ packages:
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@3.8.1:
-    resolution: {integrity: sha512-+0VUqfgpgkobLgADqMXqQ5IvRTJntgcj9UamFgXuiYNSFZANOdLgZ21AgzH4QNIK1Idj4OGFxyWOPpt0E5VfBQ==}
+  /@yarnpkg/cli-dist@3.8.3:
+    resolution: {integrity: sha512-w88oPqVTjfQcUskPehmPGiEJy/QTOb+bUdGBWMFr1HIqW98L2MRUxxi9kJujGKKie+izsoIh6EJktuaD77s9hA==}
     engines: {node: '>=12 <14 || 14.2 - 14.9 || >14.10.0'}
     hasBin: true
     dev: false
 
-  /@yarnpkg/cli-dist@4.1.1:
-    resolution: {integrity: sha512-5qXVUB1jKY+AHZLjti6gaxxL3Fnog0axt5B6EqTCE5JW/+XL/rz/RqL1fI9T7FVBbaqC7wpvdgqy5t11igZG2Q==}
+  /@yarnpkg/cli-dist@4.4.0:
+    resolution: {integrity: sha512-1YMvFokdlHHG+xzB4d7NyzRAnfIZjfnkbY35SK3kU417WRoR9C2IKmW/ePI/WeQ2S9mxOBkETjbluD+A2K0eYg==}
     engines: {node: '>=18.12.0'}
     hasBin: true
     dev: false
@@ -23420,8 +23420,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.5.0:
-    resolution: {integrity: sha512-Ejxwvfh9YnWVU2yA5FzoYLTW52vxHCz+MHrOFg9Cc8IFgF/6f5AGPAvb5WTay5DIUP1NIfN3VBZ0cLlGO0Ys+A==}
+  /npm@10.8.2:
+    resolution: {integrity: sha512-x/AIjFIKRllrhcb48dqUNAAZl0ig9+qMuN91RpZo3Cb2+zuibfh+KISl6+kVVyktDz230JKc208UkQwwMqyB+w==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
@@ -23433,6 +23433,7 @@ packages:
       - '@npmcli/map-workspaces'
       - '@npmcli/package-json'
       - '@npmcli/promise-spawn'
+      - '@npmcli/redact'
       - '@npmcli/run-script'
       - '@sigstore/tuf'
       - abbrev
@@ -23441,8 +23442,6 @@ packages:
       - chalk
       - ci-info
       - cli-columns
-      - cli-table3
-      - columnify
       - fastest-levenshtein
       - fs-minipass
       - glob
@@ -23478,7 +23477,6 @@ packages:
       - npm-profile
       - npm-registry-fetch
       - npm-user-validate
-      - npmlog
       - p-map
       - pacote
       - parse-conflict-json
