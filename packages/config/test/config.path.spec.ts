@@ -1,4 +1,5 @@
 import fs from 'fs';
+import os from 'os';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { findConfigFile } from '../src/config-path';
@@ -7,6 +8,7 @@ describe('config-path', () => {
   let statSyncMock;
   let mkdirSyncMock;
   let writeFileSyncMock;
+  let platformMock;
   let accessSyncMock;
   let fakeStats = {
     isDirectory: vi.fn().mockReturnValue(true),
@@ -18,6 +20,8 @@ describe('config-path', () => {
     mkdirSyncMock = vi.spyOn(fs, 'mkdirSync');
     writeFileSyncMock = vi.spyOn(fs, 'writeFileSync');
     accessSyncMock = vi.spyOn(fs, 'accessSync');
+    platformMock = vi.spyOn(os, 'platform');
+    platformMock.mockReturnValue('linux');
   });
 
   afterEach(() => {
@@ -109,11 +113,12 @@ describe('config-path', () => {
         mkdirSyncMock.mockReturnValue(true);
         writeFileSyncMock.mockReturnValue(undefined);
         accessSyncMock.mockImplementation(() => {});
+        platformMock.mockReturnValue('win32');
         // delete process.env.XDG_CONFIG_HOME;
         vi.stubEnv('XDG_CONFIG_HOME', '');
         vi.stubEnv('HOME', '');
         vi.stubEnv('APPDATA', '/app/data/');
-        expect(findConfigFile()).toMatch('packages/config/verdaccio/config.yaml');
+        expect(findConfigFile()).toMatch('/app/data/verdaccio/config.yaml');
         expect(writeFileSyncMock).toHaveBeenCalled();
         expect(mkdirSyncMock).toHaveBeenCalled();
       });

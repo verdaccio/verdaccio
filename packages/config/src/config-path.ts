@@ -1,14 +1,13 @@
 import buildDebug from 'debug';
 import fs from 'fs';
 import _ from 'lodash';
+import os from 'os';
 import path from 'path';
 
 import { fileExists, folderExists } from './config-utils';
 
 const CONFIG_FILE = 'config.yaml';
 const XDG = 'xdg';
-const WIN = 'win';
-const WIN32 = 'win32';
 // eslint-disable-next-line
 const pkgJSON = {
   name: 'verdaccio',
@@ -172,11 +171,11 @@ const getXDGDirectory = (): SetupDirectory | void => {
  * @returns
  */
 const getWindowsDirectory = (): SetupDirectory | void => {
-  if (process.platform === WIN32 && process.env.APPDATA && folderExists(process.env.APPDATA)) {
+  if (os.platform() === 'win32' && process.env.APPDATA && folderExists(process.env.APPDATA)) {
     debug('windows appdata folder path %s', process.env.APPDATA);
     return {
       path: path.resolve(path.join(process.env.APPDATA, pkgJSON.name, CONFIG_FILE)),
-      type: WIN,
+      type: 'win',
     };
   }
 };
