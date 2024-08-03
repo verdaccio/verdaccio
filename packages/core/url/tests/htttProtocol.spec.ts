@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest';
+
 import { isURLhasValidProtocol } from '../src';
 
 test('should be HTTP/HTTPS protocol', () => {

@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { combineBaseUrl } from '../src';
 
 describe('combineBaseUrl', () => {

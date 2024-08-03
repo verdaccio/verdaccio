@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest';
+
 import { isHost } from '../src';
 
 test('valid host', () => {
