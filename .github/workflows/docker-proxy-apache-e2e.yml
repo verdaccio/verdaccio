@@ -16,13 +16,13 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
     - name: Checkout
-      uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3
+      uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       
     - name: Start containers
       run: docker-compose -f "./e2e/docker/apache-verdaccio/docker-compose.yaml" up -d --build
 
     - name: Install node
-      uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v3
+      uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
       with:
         node-version-file: '.nvmrc'
     - name: npm setup
