@@ -8,7 +8,7 @@ import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import { Storage } from '../src';
 
-setup({});
+const logger = setup({});
 
 describe('search', () => {
   describe('search manager utils', () => {
@@ -39,7 +39,7 @@ describe('search', () => {
         ...getDefaultConfig(),
         storage: await fileUtils.createTempStorageFolder('fix-1'),
       });
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       const abort = new AbortController();
       const pkgName = 'verdaccio';
