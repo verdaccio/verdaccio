@@ -2,6 +2,7 @@
 // ensure that all arguments are validated
 import fs from 'fs';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 /**
  * Validate.

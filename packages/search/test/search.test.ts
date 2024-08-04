@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { describe, expect, test } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
