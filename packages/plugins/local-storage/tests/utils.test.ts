@@ -1,4 +1,5 @@
 import path from 'path';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Logger } from '@verdaccio/types';
 
@@ -8,20 +9,20 @@ import { loadPrivatePackages } from '../src/pkg-utils';
 import { _dbGenPath, findPackages } from '../src/utils';
 
 const logger: Logger = {
-  error: jest.fn(),
-  info: jest.fn(),
-  debug: jest.fn(),
-  child: jest.fn(),
-  warn: jest.fn(),
-  http: jest.fn(),
-  trace: jest.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn(),
+  child: vi.fn(),
+  warn: vi.fn(),
+  http: vi.fn(),
+  trace: vi.fn(),
 };
 
 describe('Utitlies', () => {
   const loadDb = (name): string => path.join(__dirname, '__fixtures__/databases', `${name}.json`);
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
   test('should load private packages', async () => {
@@ -45,7 +46,7 @@ describe('Utitlies', () => {
   });
 
   test('should handle null read values and return empty database', async () => {
-    const spy = jest.spyOn(readFile, 'readFilePromise');
+    const spy = vi.spyOn(readFile, 'readFilePromise');
     spy.mockResolvedValue(null);
     const database = loadDb('ok');
     const db = await loadPrivatePackages(database, logger);
@@ -60,7 +61,7 @@ describe('Utitlies', () => {
       try {
         await findPackages(
           './no_such_folder_fake',
-          jest.fn(() => true)
+          vi.fn(() => true)
         );
       } catch (e: any) {
         expect(e.code).toEqual(noSuchFile);
@@ -69,7 +70,7 @@ describe('Utitlies', () => {
 
     test('should fetch all packages from valid storage', async () => {
       const storage = path.join(__dirname, '__fixtures__/findPackages');
-      const validator = jest.fn((file) => file.indexOf('.') === -1);
+      const validator = vi.fn((file) => file.indexOf('.') === -1);
       const pkgs = await findPackages(storage, validator);
       // the result is 7 due number of packages on "findPackages" directory
       expect(pkgs).toHaveLength(5);
@@ -82,7 +83,7 @@ describe('Utitlies', () => {
       expect(
         _dbGenPath('local.db', {
           storage: './storage',
-          config_path: '/etc/foo/config.yaml',
+          configPath: '/etc/foo/config.yaml',
         })
       ).toMatch('local.db');
     });
@@ -91,7 +92,7 @@ describe('Utitlies', () => {
       expect(
         _dbGenPath('local.db', {
           storage: '',
-          config_path: '/etc/foo/config.yaml',
+          configPath: '/etc/foo/config.yaml',
         })
       ).toMatch('local.db');
     });
@@ -100,7 +101,7 @@ describe('Utitlies', () => {
       expect(
         _dbGenPath('local.db', {
           storage: '',
-          config_path: '/etc/foo/config.yaml',
+          configPath: '/etc/foo/config.yaml',
         })
       ).toMatch('local.db');
     });
@@ -109,7 +110,8 @@ describe('Utitlies', () => {
       expect(
         _dbGenPath('local.db', {
           storage: './storage',
-          config_path: undefined,
+          // @ts-expect-error
+          configPath: undefined,
         })
       ).toMatch('local.db');
     });

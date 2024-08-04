@@ -1,22 +1,23 @@
 /* eslint-disable jest/no-mocks-import */
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils, pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
 
-const mockWrite = jest.fn(() => Promise.resolve());
-const mockmkdir = jest.fn(() => Promise.resolve());
-const mockRead = jest.fn(() => Promise.resolve());
+const mockWrite = vi.fn(() => Promise.resolve());
+const mockmkdir = vi.fn(() => Promise.resolve());
+const mockRead = vi.fn(() => Promise.resolve());
 
-jest.mock('../src/fs', () => ({
+vi.mock('../src/fs', () => ({
   mkdirPromise: () => mockRead(),
   readFilePromise: () => mockmkdir(),
   writeFilePromise: () => mockWrite(),
 }));
 
-setup();
+setup({});
 
 const optionsPlugin: pluginUtils.PluginOptions = {
   logger,
@@ -31,7 +32,6 @@ describe('Local Database', () => {
   beforeEach(async () => {
     tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
-    // @ts-expect-error
     locaDatabase = new LocalDatabase(
       // @ts-expect-error
       {
@@ -46,8 +46,8 @@ describe('Local Database', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
-    jest.clearAllMocks();
+    vi.resetAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should create an instance', () => {
