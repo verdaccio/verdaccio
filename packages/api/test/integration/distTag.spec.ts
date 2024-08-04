@@ -48,7 +48,7 @@ describe('package', () => {
       .expect(HTTP_STATUS.BAD_REQUEST);
   });
 
-  test.only('should delete a previous added tag (npm dist-tag rm)', async () => {
+  test('should delete a previous added tag (npm dist-tag rm)', async () => {
     await publishVersion(app, encodeURIComponent('foo'), '1.0.0');
     await publishVersion(app, encodeURIComponent('foo'), '1.0.1');
 
