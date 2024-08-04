@@ -24,7 +24,6 @@ import {
   validatioUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { logger } from '@verdaccio/logger';
 import {
   IProxy,
   ISyncUplinksOptions,
@@ -101,7 +100,7 @@ class Storage {
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
-  public constructor(config: Config) {
+  public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
     this.uplinks = setupUpLinks(config, this.logger);
@@ -501,7 +500,7 @@ class Storage {
       try {
         await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
       } catch (error: any) {
-        logger.error({ error: error.message }, 'getting package has failed: @{error}');
+        this.logger.error({ error: error.message }, 'getting package has failed: @{error}');
         throw errorUtils.getBadRequest(error.message);
       }
     }
@@ -647,7 +646,7 @@ class Storage {
    */
   public async init(config: Config): Promise<void> {
     if (this.localStorage === null) {
-      this.localStorage = new LocalStorage(this.config, logger);
+      this.localStorage = new LocalStorage(this.config, this.logger);
       await this.localStorage.init();
       debug('local init storage initialized');
       await this.localStorage.getSecret(config);
@@ -713,13 +712,13 @@ class Storage {
       return results;
     }
 
-    logger.info(
+    this.logger.info(
       { t: query.text, q: query.quality, p: query.popularity, m: query.maintenance, s: query.size },
       'search by text @{t}| maintenance @{m}| quality @{q}| popularity @{p}'
     );
 
     if (typeof this.localStorage.getStoragePlugin().search === 'undefined') {
-      logger.info('plugin search not implemented yet');
+      this.logger.info('plugin search not implemented yet');
     } else {
       debug('search on each package by plugin query');
       const items = await this.localStorage.getStoragePlugin().search(query);
@@ -768,10 +767,10 @@ class Storage {
       manifest = normalizePackage(manifest);
     } catch (err: any) {
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
-        logger.info({ pkgName, revision }, 'package not found');
+        this.logger.info({ pkgName, revision }, 'package not found');
         throw errorUtils.getNotFound();
       }
-      logger.error(
+      this.logger.error(
         { pkgName, revision, err: err.message },
         'error @{err} while reading package @{pkgName}-{revision}'
       );
@@ -790,7 +789,7 @@ class Storage {
       for (let attachment of attachments) {
         debug('remove attachment %s', attachment);
         await storage.deletePackage(attachment);
-        logger.info({ attachment }, 'attachment @{attachment} removed');
+        this.logger.info({ attachment }, 'attachment @{attachment} removed');
       }
       // remove package.json
       debug('remove package.json');
@@ -798,7 +797,7 @@ class Storage {
       // remove folder
       debug('remove package folder');
       await storage.removePackage();
-      logger.info({ pkgName }, 'package @{pkgName} removed');
+      this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed @{err.message}');
       throw errorUtils.getBadData(err.message);
@@ -897,7 +896,7 @@ class Storage {
           cache: true,
         },
         this.config,
-        logger
+        this.logger
       );
     }
     return uplink;
@@ -944,14 +943,14 @@ class Storage {
       try {
         const { name } = mergedManifest;
         await this.notify(mergedManifest, `${name}@${version}`);
-        logger.info({ name, version }, 'notify for @{name}@@{version} has been sent');
+        this.logger.info({ name, version }, 'notify for @{name}@@{version} has been sent');
       } catch (error: any) {
-        logger.error({ error: error.message }, 'notify batch service has failed: @{error}');
+        this.logger.error({ error: error.message }, 'notify batch service has failed: @{error}');
       }
       return message;
     } else {
       debug('invalid body format');
-      logger.warn(
+      this.logger.warn(
         { packageName: options.name },
         `wrong package format on publish a package @{packageName}`
       );
@@ -1146,7 +1145,7 @@ class Storage {
       }
     } catch (err: any) {
       debug('error on change or update a package with %o', err.message);
-      logger.error({ err: err.message }, 'error on publish new version: @{err}');
+      this.logger.error({ err: err.message }, 'error on publish new version: @{err}');
       throw err;
     }
 
@@ -1161,7 +1160,7 @@ class Storage {
       // addVersion will move the readme from the the published version to the root level
       await this.addVersion(name, versionToPublish, versions[versionToPublish], null, tarballStats);
     } catch (err: any) {
-      logger.error({ err: err.message }, 'updated version has failed: @{err}');
+      this.logger.error({ err: err.message }, 'updated version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
       throw err;
     }
@@ -1176,7 +1175,7 @@ class Storage {
       // 4. update once to the storage (easy peasy)
       mergedManifest = await this.mergeTagsNext(name, manifest[DIST_TAGS]);
     } catch (err: any) {
-      logger.error({ err: err.message }, 'merge version has failed: @{err}');
+      this.logger.error({ err: err.message }, 'merge version has failed: @{err}');
       debug('error on create a version for %o with error %o', name, err.message);
       // TODO: undo if this fails
       // 1. remove updated version
@@ -1190,14 +1189,14 @@ class Storage {
         signal: options.signal,
       });
     } catch (err: any) {
-      logger.error({ err: err.message }, 'upload tarball has failed: @{err}');
+      this.logger.error({ err: err.message }, 'upload tarball has failed: @{err}');
       // TODO: undo if this fails
       // 1. remove updated version
       // 2. remove new dist tags
       throw err;
     }
 
-    logger.info(
+    this.logger.info(
       { name, version: versionToPublish },
       'package @{name}@@{version} has been published'
     );
@@ -2028,7 +2027,7 @@ class Storage {
       manifest.maintainers.length > 0 &&
       !manifest.maintainers.some((maintainer) => maintainer.name === username)
     ) {
-      logger.error({ username }, '@{username} is not a maintainer (package owner)');
+      this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
       throw Error('only owners are allowed to change package');
     }
   }

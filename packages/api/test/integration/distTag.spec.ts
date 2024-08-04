@@ -1,4 +1,5 @@
 import supertest from 'supertest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { API_MESSAGE, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
@@ -47,7 +48,7 @@ describe('package', () => {
       .expect(HTTP_STATUS.BAD_REQUEST);
   });
 
-  test('should delete a previous added tag (npm dist-tag rm)', async () => {
+  test.only('should delete a previous added tag (npm dist-tag rm)', async () => {
     await publishVersion(app, encodeURIComponent('foo'), '1.0.0');
     await publishVersion(app, encodeURIComponent('foo'), '1.0.1');
 
