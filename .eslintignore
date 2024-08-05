@@ -14,6 +14,10 @@ test/functional/store/*
 docker-examples/**/lib/**/*.js
 test/cli/e2e-yarn4/bin/yarn-4.0.0-rc.14.cjs
 yarn.js
+
+#  used for unit tests
+packages/store/test/fixtures/plugins/**/*
+
 # storybook
 packages/ui-components/storybook-static
 dist.js

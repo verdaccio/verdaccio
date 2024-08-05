@@ -14,7 +14,7 @@ class Search {
   public readonly uplinks: ProxyInstanceList;
   public readonly logger: Logger;
   constructor(config: Config, logger: Logger) {
-    this.logger = logger.child({ module: 'proxy' });
+    this.logger = logger;
     this.uplinks = setupUpLinks(config, this.logger);
   }
 

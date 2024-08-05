@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { describe, expect, test } from 'vitest';
 
 import {
   getVersion,
@@ -118,7 +119,7 @@ describe('versions-utils', () => {
   });
 
   describe('removeLowerVersions', () => {
-    it('should remove lower semantic versions', () => {
+    test('should remove lower semantic versions', () => {
       const inputArray = [
         { package: { name: 'object1', version: '1.0.0' } },
         { package: { name: 'object1', version: '2.0.0' } }, // Duplicate name 'object1'
@@ -140,7 +141,7 @@ describe('versions-utils', () => {
       expect(result).toEqual(expectedOutput);
     });
 
-    it('should remove lower semantic versions 2', () => {
+    test('should remove lower semantic versions 2', () => {
       const inputArray = [
         { package: { name: 'object1', version: '1.0.0' } },
         { package: { name: 'object1', version: '2.0.0' } }, // Duplicate name 'object1'
