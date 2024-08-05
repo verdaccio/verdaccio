@@ -6,6 +6,7 @@ const lgnMapping = {
   'de-DE': 'de',
   'pl-PL': 'pl',
   'cs-CZ': 'cs',
+  'ga-IE': 'ga',
   'fr-FR': 'fr',
   'it-IT': 'it',
   'ru-RU': 'ru',
