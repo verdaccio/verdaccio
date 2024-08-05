@@ -1,4 +1,5 @@
 import nock from 'nock';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { API_ERROR, DIST_TAGS } from '@verdaccio/core';
@@ -22,7 +23,7 @@ describe('storage', () => {
   beforeEach(() => {
     nock.cleanAll();
     nock.abortPendingRequests();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('syncUplinksMetadata()', () => {

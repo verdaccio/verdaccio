@@ -1,6 +1,7 @@
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
 import path from 'path';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { API_ERROR, HEADERS, HEADER_TYPE, errorUtils } from '@verdaccio/core';
@@ -23,7 +24,7 @@ describe('storage', () => {
   beforeEach(() => {
     nock.cleanAll();
     nock.abortPendingRequests();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('getTarball', () => {

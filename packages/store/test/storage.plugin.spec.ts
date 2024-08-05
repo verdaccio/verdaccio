@@ -1,6 +1,7 @@
 import MockDate from 'mockdate';
 import nock from 'nock';
 import path from 'path';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { DIST_TAGS } from '@verdaccio/core';
@@ -19,7 +20,7 @@ describe('storage plugin', () => {
   beforeEach(() => {
     nock.cleanAll();
     nock.abortPendingRequests();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('Plugin Legacy Support', () => {

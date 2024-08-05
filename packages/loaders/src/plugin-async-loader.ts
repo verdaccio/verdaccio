@@ -3,7 +3,6 @@ import fs from 'fs';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
 import { pluginUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { Config, Logger } from '@verdaccio/types';
 
 import { PluginType, isES6, isValid, tryLoad } from './utils';
@@ -54,7 +53,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
   const pluginsIds = Object.keys(pluginConfigs);
-  const { config } = params;
+  const { config, logger } = params;
   let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
     debug('plugin %s', pluginId);

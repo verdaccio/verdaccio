@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, test } from 'vitest';
+
 import { checkFunctionIsPromise, promisifiedCallbackFunction } from '../src/lib/legacy-utils';
 
 describe('utils', () => {

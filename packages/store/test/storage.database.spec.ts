@@ -1,6 +1,7 @@
 import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, fileUtils } from '@verdaccio/core';
@@ -50,7 +51,7 @@ describe('storage', () => {
   beforeEach(() => {
     nock.cleanAll();
     nock.abortPendingRequests();
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('updateManifest', () => {
