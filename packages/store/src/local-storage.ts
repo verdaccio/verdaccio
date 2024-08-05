@@ -23,7 +23,7 @@ class LocalStorage {
 
   public constructor(config: Config, logger: Logger) {
     debug('local storage created');
-    this.logger = logger.child({ sub: 'fs' });
+    this.logger = logger;
     this.config = config;
     // @ts-expect-error
     this.storagePlugin = null;

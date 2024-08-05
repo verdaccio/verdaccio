@@ -17,7 +17,7 @@ import {
   getConfig,
 } from './helpers';
 
-setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const fakeHost = 'localhost:4873';
 
@@ -74,7 +74,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -119,7 +119,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const ac = new AbortController();
         setTimeout(() => {
@@ -164,7 +164,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         // create a package
         const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
@@ -253,7 +253,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
         const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.0');
@@ -290,7 +290,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
 
@@ -320,7 +320,7 @@ describe('storage', () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -367,7 +367,7 @@ describe('storage', () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         // publish new package
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -441,7 +441,7 @@ describe('storage', () => {
     describe('star', () => {
       test.each([['foo']])('star package %s', async (pkgName) => {
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -474,7 +474,7 @@ describe('storage', () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -516,7 +516,7 @@ describe('storage', () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -555,7 +555,7 @@ describe('storage', () => {
 
       test.each([['foo']])('should unstar a package %s', async (pkgName) => {
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -592,7 +592,7 @@ describe('storage', () => {
 
       test.each([['foo']])('should handle missing username %s', async (pkgName) => {
         const config = getConfig('deprecate.yaml');
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -621,7 +621,7 @@ describe('storage', () => {
         ['foo', 'publishWithOwnerAndCheck.yaml'],
       ])('new package %s, %s (anonymous)', async (pkgName, configFile) => {
         const config = getConfig(configFile);
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         await storage.updateManifest(bodyNewManifest, {
@@ -643,7 +643,7 @@ describe('storage', () => {
         ['foo', 'publishWithOwnerAndCheck.yaml'],
       ])('new package %s, %s (logged in)', async (pkgName, configFile) => {
         const config = getConfig(configFile);
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const owner = { name: 'fooUser', email: '' };
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -668,7 +668,7 @@ describe('storage', () => {
         ['foo', 'publishWithOwnerAndCheck.yaml'],
       ])('add/remove owner %s, %s', async (pkgName, configFile) => {
         const config = getConfig(configFile);
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const firstOwner = { name: 'fooUser', email: '' };
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -728,7 +728,7 @@ describe('storage', () => {
         ['foo', 'publishWithOwnerAndCheck.yaml'],
       ])('should fail removing last owner %s, %s', async (pkgName, configFile) => {
         const config = getConfig(configFile);
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         const owner = 'fooUser';
@@ -756,7 +756,7 @@ describe('storage', () => {
         'ok to publish as non-owner without check %s, %s',
         async (pkgName, configFile) => {
           const config = getConfig(configFile);
-          const storage = new Storage(config);
+          const storage = new Storage(config, logger);
           await storage.init(config);
           const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
           const owner = 'fooUser';
@@ -786,7 +786,7 @@ describe('storage', () => {
         'should fail publishing as non-owner with check %s, %s',
         async (pkgName, configFile) => {
           const config = getConfig(configFile);
-          const storage = new Storage(config);
+          const storage = new Storage(config, logger);
           await storage.init(config);
           const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
           const owner = 'fooUser';
@@ -823,7 +823,7 @@ describe('storage', () => {
           storage: generateRandomStorage(),
         })
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
     });
@@ -843,7 +843,7 @@ describe('storage', () => {
         },
         url: '/',
       });
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       const manifest = generatePackageMetadata('foo');
       const ac = new AbortController();
@@ -881,7 +881,7 @@ describe('storage', () => {
         },
         url: '/',
       });
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
 
       const manifest = generatePackageMetadata('foo');
@@ -930,7 +930,7 @@ describe('storage', () => {
 
     test('ok to remove package as non-owner without check', async () => {
       const config = getConfig('publishWithOwnerDefault.yaml');
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       const owner = 'fooUser';
       const options = { ...defaultRequestOptions, username: owner };
@@ -969,7 +969,7 @@ describe('storage', () => {
 
     test('should fail as non-owner with check', async () => {
       const config = getConfig('publishWithOwnerAndCheck.yaml');
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       const owner = 'fooUser';
       const options = { ...defaultRequestOptions, username: owner };

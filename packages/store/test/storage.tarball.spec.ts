@@ -15,7 +15,7 @@ import { Manifest } from '@verdaccio/types';
 import { Storage } from '../src';
 import { configExample, defaultRequestOptions, generateRandomStorage } from './helpers';
 
-setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const fakeHost = 'localhost:4873';
 
@@ -35,7 +35,7 @@ describe('storage', () => {
           storage: generateRandomStorage(),
         })
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const ac = new AbortController();
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -75,7 +75,7 @@ describe('storage', () => {
           storage: generateRandomStorage(),
         })
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
@@ -115,7 +115,7 @@ describe('storage', () => {
           __dirname
         )
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const abort = new AbortController();
         storage
@@ -158,7 +158,7 @@ describe('storage', () => {
           __dirname
         )
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const ac = new AbortController();
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -221,7 +221,7 @@ describe('storage', () => {
           __dirname
         )
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const req = httpMocks.createRequest({
           method: 'GET',
@@ -274,7 +274,7 @@ describe('storage', () => {
           __dirname
         )
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       storage.init(config).then(() => {
         const ac = new AbortController();
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
@@ -321,7 +321,7 @@ describe('storage', () => {
           storage: generateRandomStorage(),
         })
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       await expect(storage.removeTarball('foo', 'foo-1.0.0.tgz', 'rev', username)).rejects.toThrow(
         API_ERROR.NO_PACKAGE

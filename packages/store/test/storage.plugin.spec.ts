@@ -11,7 +11,7 @@ import { Manifest } from '@verdaccio/types';
 import { Storage } from '../src';
 import { configExample, generateRandomStorage, getConfig } from './helpers';
 
-setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const pluginsPartialsFolder = path.join(__dirname, './fixtures/plugins');
 
@@ -33,7 +33,7 @@ describe('storage plugin', () => {
         })
       );
 
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       await expect(storage.getLocalDatabase()).resolves.toHaveLength(1);
     });
@@ -55,7 +55,7 @@ describe('storage plugin', () => {
           storage: generateRandomStorage(),
         })
       );
-      const storage = new Storage(config);
+      const storage = new Storage(config, logger);
       await storage.init(config);
       const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
       await storage.updateManifest(bodyNewManifest, {

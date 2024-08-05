@@ -104,7 +104,7 @@ class Storage {
   private searchService: Search;
   public constructor(config: Config, logger: Logger) {
     this.config = config;
-    this.logger = logger.child({ module: 'storage' });
+    this.logger = logger;
     this.uplinks = setupUpLinks(config, this.logger);
     this.searchService = new Search(config, this.logger);
     this.filters = null;

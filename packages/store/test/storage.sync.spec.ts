@@ -14,7 +14,7 @@ import { Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample, generateRandomStorage } from './helpers';
 
-setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const fooManifest = generatePackageMetadata('foo', '1.0.0');
 
@@ -44,7 +44,7 @@ describe('storage', () => {
           )
         );
 
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         await expect(
           storage.syncUplinksMetadata(fooManifest.name, null, {
@@ -68,7 +68,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         await expect(
           storage.syncUplinksMetadata(fooManifest.name, null, {
@@ -89,7 +89,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: { limit: 0 },
@@ -111,7 +111,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
 
         const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
@@ -152,7 +152,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
 
         const [response] = await storage.syncUplinksMetadata(fooManifest.name, null);
@@ -174,7 +174,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
 
         const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest);
@@ -198,7 +198,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
 
         const [response] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
@@ -227,7 +227,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        const storage = new Storage(config);
+        const storage = new Storage(config, logger);
         await storage.init(config);
 
         const [response] = await storage.syncUplinksMetadata('foo', null, {
