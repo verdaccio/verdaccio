@@ -13,6 +13,7 @@ export const listLanguages: LanguageConfiguration[] = [
   { lng: 'cs-CZ', icon: Flags.CZ, menuKey: 'lng.czech' },
   { lng: 'pt-BR', icon: Flags.BR, menuKey: 'lng.portuguese' },
   { lng: 'es-ES', icon: Flags.ES, menuKey: 'lng.spanish' },
+  { lng: 'ga-IE', icon: Flags.IE, menuKey: 'lng.irish' },
   { lng: 'de-DE', icon: Flags.DE, menuKey: 'lng.german' },
   { lng: 'it-IT', icon: Flags.IT, menuKey: 'lng.italian' },
   { lng: 'fr-FR', icon: Flags.FR, menuKey: 'lng.french' },
