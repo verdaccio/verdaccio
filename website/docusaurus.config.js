@@ -71,7 +71,7 @@ const i18nConfig = {
     'it-IT': { label: `Italiano (${progress['it'].translationProgress}%)` },
     'es-ES': { label: `Español (${progress['es-ES'].translationProgress}%)` },
     'de-DE': { label: `Deutsch (${progress['de'].translationProgress}%)` },
-    'ga-IE': { label: `Gaeilge (Éire) (${progress['ga'].translationProgress}%)` },
+    'ga-IE': { label: `Gaeilge (Éire) (${progress['ga-IE'].translationProgress}%)` },
     'cs-CZ': { label: `Čeština (Česko) (${progress['cs'].translationProgress}%)` },
     'fr-FR': { label: `Français (${progress['fr'].translationProgress}%)` },
     'pl-PL': { label: `Polski (Polska) (${progress['pl'].translationProgress}%)` },
