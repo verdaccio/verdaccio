@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { stringUtils } from '../src';
 
 describe('string-utils', () => {

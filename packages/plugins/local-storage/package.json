@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "12.0.0-next-7.19",
+  "version": "12.0.0-next-7.20",
   "description": "Local storage implementation",
   "keywords": [
     "private",
@@ -36,11 +36,11 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.20",
     "@verdaccio/file-locking": "workspace:12.0.0-next.1",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.19",
-    "core-js": "3.35.0",
-    "debug": "4.3.4",
+    "@verdaccio/utils": "workspace:7.0.0-next-7.20",
+    "core-js": "3.37.1",
+    "debug": "4.3.6",
     "globby": "11.1.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.21",
@@ -50,15 +50,15 @@
   },
   "devDependencies": {
     "@types/minimatch": "5.1.2",
-    "@verdaccio/config": "workspace:7.0.0-next-7.19",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.19",
+    "@verdaccio/config": "workspace:7.0.0-next-7.20",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "minimatch": "9.0.4"
+    "minimatch": "9.0.5"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest --runInBand",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { mergeVersions, semverSort } from '../src/pkg-utils';
 
 describe('Storage._merge_versions versions', () => {

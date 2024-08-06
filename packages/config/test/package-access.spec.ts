@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { describe, expect, test } from 'vitest';
 
 import { parseConfigFile } from '../src';
 import { PACKAGE_ACCESS, normalisePackageAccess, normalizeUserList } from '../src/package-access';

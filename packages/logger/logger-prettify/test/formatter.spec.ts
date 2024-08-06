@@ -1,7 +1,9 @@
+import { describe, expect, test, vi } from 'vitest';
+
 import { printMessage } from '../src/formatter';
 import { LevelCode } from '../src/levels';
 
-jest.mock('dayjs', () => ({
+vi.mock('dayjs', () => ({
   __esModule: true,
   default: () => ({
     format: () => 'formatted-date',

@@ -1,6 +1,7 @@
 /* eslint-disable jest/no-mocks-import */
 import fs from 'fs';
 import path from 'path';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 import { Logger, Token } from '@verdaccio/types';
@@ -8,13 +9,13 @@ import { Logger, Token } from '@verdaccio/types';
 import LocalDatabase from '../src/local-database';
 
 const logger: Logger = {
-  error: jest.fn(),
-  info: jest.fn(),
-  debug: jest.fn(),
-  child: jest.fn(),
-  warn: jest.fn(),
-  http: jest.fn(),
-  trace: jest.fn(),
+  error: vi.fn(),
+  info: vi.fn(),
+  debug: vi.fn(),
+  child: vi.fn(),
+  warn: vi.fn(),
+  http: vi.fn(),
+  trace: vi.fn(),
 };
 
 describe('Local Database', () => {
@@ -23,7 +24,7 @@ describe('Local Database', () => {
   beforeEach(async () => {
     tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
-    const writeMock = jest.spyOn(fs, 'writeFileSync').mockImplementation();
+    const writeMock = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
     locaDatabase = new LocalDatabase( // @ts-expect-error
       {
         storage: 'storage',
@@ -38,7 +39,7 @@ describe('Local Database', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('token', () => {

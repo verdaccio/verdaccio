@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-7.20
+
 ## 7.0.0-next-7.19
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import * as httpMocks from 'node-mocks-http';
+import { describe, expect, test } from 'vitest';
 
 import { HEADERS } from '@verdaccio/core';
 

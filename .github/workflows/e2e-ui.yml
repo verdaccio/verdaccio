@@ -18,9 +18,9 @@ jobs:
         env:
           NODE_ENV: production
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
       - name: Use Node
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v3
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -33,7 +33,7 @@ jobs:
         run: pnpm build
       - name: Test UI
         run: pnpm test:e2e:ui
-      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3
+      - uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v3
         with:
           name: videos
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos

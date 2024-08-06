@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "12.0.0-next-7.19",
+  "version": "12.0.0-next-7.20",
   "description": "url utilities resolver",
   "keywords": [
     "private",
@@ -33,8 +33,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "debug": "4.3.4",
+    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "debug": "4.3.6",
     "lodash": "4.17.21",
     "validator": "13.12.0"
   },
@@ -44,7 +44,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

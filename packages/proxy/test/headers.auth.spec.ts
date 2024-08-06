@@ -1,3 +1,5 @@
+import { describe, expect, test, vi } from 'vitest';
+
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
 import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, constants } from '@verdaccio/core';
 import { Logger } from '@verdaccio/types';
@@ -5,11 +7,11 @@ import { buildToken } from '@verdaccio/utils';
 
 import { ProxyStorage } from '../src';
 
-const mockDebug = jest.fn();
-const mockInfo = jest.fn();
-const mockHttp = jest.fn();
-const mockError = jest.fn();
-const mockWarn = jest.fn();
+const mockDebug = vi.fn();
+const mockInfo = vi.fn();
+const mockHttp = vi.fn();
+const mockError = vi.fn();
+const mockWarn = vi.fn();
 
 const logger = {
   debug: mockDebug,

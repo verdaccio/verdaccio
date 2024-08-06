@@ -6,7 +6,7 @@ import path from 'path';
 import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
 import { errorUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
+import { setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
@@ -18,13 +18,15 @@ export async function initializeServer(
   Storage
 ): Promise<Application> {
   const app = express();
+  const logger = setup({});
   const config = new Config(configName);
   config.storage = path.join(os.tmpdir(), '/storage', generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics
   config.configPath = config.storage;
   debug('storage: %s', config.storage);
-  const storage = new Storage(config);
+
+  const storage = new Storage(config, logger);
   await storage.init(config, []);
   const auth: Auth = new Auth(config);
   await auth.init();

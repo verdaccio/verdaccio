@@ -30,7 +30,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -39,10 +39,10 @@
   },
   "dependencies": {
     "jsonwebtoken": "9.0.2",
-    "debug": "4.3.4"
+    "debug": "4.3.6"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/config": "workspace:7.0.0-next-7.20",
     "@verdaccio/types": "workspace:12.0.0-next-7.5"
   },
   "funding": {

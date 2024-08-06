@@ -1,5 +1,14 @@
 # @verdaccio/cli
 
+## 7.0.0-next-7.20
+
+### Patch Changes
+
+- @verdaccio/node-api@7.0.0-next-7.20
+- @verdaccio/core@7.0.0-next-7.20
+- @verdaccio/config@7.0.0-next-7.20
+- @verdaccio/logger@7.0.0-next-7.20
+
 ## 7.0.0-next-7.19
 
 ### Patch Changes

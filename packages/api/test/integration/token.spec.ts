@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import supertest from 'supertest';
+import { describe, expect, test } from 'vitest';
 
 import {
   API_ERROR,

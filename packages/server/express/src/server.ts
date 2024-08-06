@@ -144,7 +144,7 @@ export default (async function startServer(configHash: ConfigYaml): Promise<any>
   // register middleware plugins
   debug('loaded filter plugin');
   // @ts-ignore
-  const storage: Storage = new Storage(config);
+  const storage: Storage = new Storage(config, logger);
   try {
     // waits until init calls have been initialized
     debug('storage init start');

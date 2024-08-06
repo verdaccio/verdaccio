@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "7.0.0-next-7.19",
+  "version": "7.0.0-next-7.20",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -13,13 +13,13 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/logger": "workspace:7.0.0-next-7.19",
-    "debug": "4.3.4",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
+    "debug": "4.3.6",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "@verdaccio/config": "workspace:7.0.0-next-7.20",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "verdaccio-auth-memory": "workspace:*",
@@ -43,7 +43,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

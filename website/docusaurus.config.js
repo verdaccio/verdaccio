@@ -6,6 +6,7 @@ const lgnMapping = {
   'de-DE': 'de',
   'pl-PL': 'pl',
   'cs-CZ': 'cs',
+  'ga-IE': 'ga-IE',
   'fr-FR': 'fr',
   'it-IT': 'it',
   'ru-RU': 'ru',
@@ -17,7 +18,7 @@ const lgnMapping = {
 const progress = translations;
 const limitLngIncluded = 80;
 console.log('limit translation is on %s%', limitLngIncluded);
-const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+
 const isProductionDeployment = process.env.CONTEXT === 'production';
 const filterByProgress = (items) => {
   const originLng = Object.keys(translations);
@@ -31,7 +32,9 @@ const filterByProgress = (items) => {
       return false;
     }
 
-    if (translations[_lgn].approvalProgress <= limitLngIncluded) {
+    // console.log('_lgn', _lgn);
+    // console.log('translations---->', translations[_lgn]);
+    if (translations[_lgn].translationProgress <= limitLngIncluded) {
       console.log(
         'language %s is being excluded due does not met limit of translation, current: %s%',
         _lgn,
@@ -44,31 +47,35 @@ const filterByProgress = (items) => {
   });
 };
 
+const locales = filterByProgress([
+  'en',
+  'cs-CZ',
+  'de-DE',
+  'es-ES',
+  'fr-FR',
+  'it-IT',
+  'ga-IE',
+  'pl-PL',
+  'pt-BR',
+  'ru-RU',
+  'sr-CS',
+  'vi-VN',
+  'yo-NG',
+  'zh-TW',
+  'zh-CN',
+]);
+
+console.log('locales', locales);
+
 const i18nConfig = {
   defaultLocale: 'en',
-  locales: isDeployPreview
-    ? ['en']
-    : filterByProgress([
-        'en',
-        'cs-CZ',
-        'de-DE',
-        'es-ES',
-        'fr-FR',
-        'it-IT',
-        'pl-PL',
-        'pt-BR',
-        'ru-RU',
-        'sr-CS',
-        'vi-VN',
-        'yo-NG',
-        'zh-TW',
-        'zh-CN',
-      ]),
+  locales,
   localeConfigs: {
     en: { label: 'English' },
     'it-IT': { label: `Italiano (${progress['it'].translationProgress}%)` },
     'es-ES': { label: `Español (${progress['es-ES'].translationProgress}%)` },
     'de-DE': { label: `Deutsch (${progress['de'].translationProgress}%)` },
+    'ga-IE': { label: `Gaeilge (Éire) (${progress['ga-IE'].translationProgress}%)` },
     'cs-CZ': { label: `Čeština (Česko) (${progress['cs'].translationProgress}%)` },
     'fr-FR': { label: `Français (${progress['fr'].translationProgress}%)` },
     'pl-PL': { label: `Polski (Polska) (${progress['pl'].translationProgress}%)` },

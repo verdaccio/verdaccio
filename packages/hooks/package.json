@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "7.0.0-next-7.19",
+  "version": "7.0.0-next-7.20",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -29,22 +29,22 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.19",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.19",
-    "core-js": "3.35.0",
-    "debug": "4.3.4",
+    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
+    "core-js": "3.37.1",
+    "debug": "4.3.6",
     "got-cjs": "12.5.4",
     "handlebars": "4.7.8"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:7.0.0-next-7.19",
-    "@verdaccio/config": "workspace:7.0.0-next-7.19",
+    "@verdaccio/auth": "workspace:7.0.0-next-7.20",
+    "@verdaccio/config": "workspace:7.0.0-next-7.20",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
     "nock": "13.5.1"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "jest",
+    "test": "vitest run",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
