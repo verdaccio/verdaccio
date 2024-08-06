@@ -6,6 +6,10 @@ on:
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     permissions:
@@ -22,7 +26,7 @@ jobs:
         ports:
           - 4873:4873
         env:
-          NODE_ENV: production    
+          NODE_ENV: production
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
@@ -48,8 +52,8 @@ jobs:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            pnpm-          
-      - name: Build 
+            pnpm-
+      - name: Build
         run: pnpm build
       - name: Build Translations percentage
         run: pnpm --filter @verdaccio/crowdin-translations build
@@ -71,5 +75,5 @@ jobs:
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/website netlify:deploy 
+        run: pnpm --filter ...@verdaccio/website netlify:deploy
 
