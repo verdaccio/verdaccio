@@ -1,5 +1,13 @@
 # Change Log
 
+## 12.0.0-next-7.21
+
+### Patch Changes
+
+- Updated dependencies [8c10a3e]
+  - @verdaccio/config@7.0.0-next-7.21
+  - @verdaccio/core@7.0.0-next-7.21
+
 ## 12.0.0-next-7.20
 
 ### Patch Changes
