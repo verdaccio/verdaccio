@@ -1,5 +1,18 @@
 # @verdaccio/server-fastify
 
+## 7.0.0-next-7.21
+
+### Patch Changes
+
+- Updated dependencies [8c10a3e]
+  - @verdaccio/config@7.0.0-next-7.21
+  - @verdaccio/auth@7.0.0-next-7.21
+  - @verdaccio/store@7.0.0-next-7.21
+  - @verdaccio/core@7.0.0-next-7.21
+  - @verdaccio/tarball@12.0.0-next-7.21
+  - @verdaccio/utils@7.0.0-next-7.21
+  - @verdaccio/logger@7.0.0-next-7.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes
