@@ -38,7 +38,7 @@ describe('config-path', () => {
         statSyncMock.mockReturnValue(fakeStats);
         mkdirSyncMock.mockReturnValue(true);
         writeFileSyncMock.mockReturnValue(undefined);
-        // Note: on Windowsm, path contains drive letter
+        // Note: on Windows, path contains drive letter
         expect(findConfigFile('/home/user/custom/location/config.yaml')).toContain(
           platformPath('/home/user/custom/location/config.yaml')
         );
