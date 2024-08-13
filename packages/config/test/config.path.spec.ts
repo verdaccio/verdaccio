@@ -8,6 +8,7 @@ describe('config-path', () => {
   let statSyncMock;
   let mkdirSyncMock;
   let writeFileSyncMock;
+  let platformMock;
   let accessSyncMock;
   let fakeStats = {
     isDirectory: vi.fn().mockReturnValue(true),
@@ -19,6 +20,7 @@ describe('config-path', () => {
     mkdirSyncMock = vi.spyOn(fs, 'mkdirSync');
     writeFileSyncMock = vi.spyOn(fs, 'writeFileSync');
     accessSyncMock = vi.spyOn(fs, 'accessSync');
+    platformMock = vi.spyOn(os, 'platform');
   });
 
   afterEach(() => {
@@ -95,6 +97,7 @@ describe('config-path', () => {
           expect(findConfigFile()).toMatch(platformPath('packages/config/verdaccio/config.yaml'));
         });
 
+        // Does not work on Windows
         if (os.platform() !== 'win32') {
           test('no permissions on read default config file', () => {
             vi.stubEnv('XDG_CONFIG_HOME', '/home/user');
@@ -110,13 +113,14 @@ describe('config-path', () => {
       });
     });
 
-    describe('with no env variables', () => {
+    describe('with Windows env variables', () => {
       test('with relative location', () => {
         // mock
         statSyncMock.mockReturnValue(fakeStats);
         mkdirSyncMock.mockReturnValue(true);
         writeFileSyncMock.mockReturnValue(undefined);
         accessSyncMock.mockImplementation(() => {});
+        platformMock.mockReturnValue('win32');
         // delete process.env.XDG_CONFIG_HOME;
         vi.stubEnv('XDG_CONFIG_HOME', '');
         vi.stubEnv('HOME', '');
