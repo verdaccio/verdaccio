@@ -125,7 +125,7 @@ describe('config-path', () => {
         vi.stubEnv('XDG_CONFIG_HOME', '');
         vi.stubEnv('HOME', '');
         vi.stubEnv('APPDATA', '/app/data/');
-        expect(findConfigFile()).toMatch(platformPath('/app/data/verdaccio/config.yaml'));
+        expect(findConfigFile()).toMatch('\\app\\data\\verdaccio\\config.yaml');
         expect(writeFileSyncMock).toHaveBeenCalled();
         expect(mkdirSyncMock).toHaveBeenCalled();
       });
