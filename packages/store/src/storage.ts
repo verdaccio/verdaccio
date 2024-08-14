@@ -15,6 +15,7 @@ import {
   HEADER_TYPE,
   HTTP_STATUS,
   MAINTAINERS,
+  PLUGIN_CATEGORY,
   SUPPORT_ERRORS,
   USERS,
   errorUtils,
@@ -664,7 +665,8 @@ class Storage {
         (plugin: pluginUtils.ManifestFilter<Config>) => {
           return typeof plugin.filter_metadata !== 'undefined';
         },
-        this.config?.serverSettings?.pluginPrefix
+        this.config?.serverSettings?.pluginPrefix,
+        PLUGIN_CATEGORY.FILTER
       );
       debug('filters available %o', this.filters.length);
     }
