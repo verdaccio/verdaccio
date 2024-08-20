@@ -78,6 +78,20 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
     serverFactory = http.createServer(app);
   }
 
+  // List of all routes registered in the app
+  function printRoutes(layer) {
+    if (layer.route) {
+      debug('%s (%s)', layer.route.path, Object.keys(layer.route.methods).join(', '));
+    } else if (layer.name === 'router') {
+      layer.handle.stack.forEach((nestedLayer) => {
+        printRoutes(nestedLayer);
+      });
+    }
+  }
+
+  debug('registered routes:');
+  app._router.stack.forEach(printRoutes);
+
   if (
     config.server &&
     typeof config.server.keepAliveTimeout !== 'undefined' &&
@@ -146,8 +160,8 @@ export async function initServer(
                   pathname: '/',
                 })
           }`;
-          logger.info(`http address ${addressServer}`);
-          logger.info(`version: ${version}`);
+          logger.info({ addressServer }, 'http address: @{addressServer}');
+          logger.info({ version }, 'version: @{version}');
           resolve();
         })
         .on('error', function (err): void {

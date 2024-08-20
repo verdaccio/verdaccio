@@ -50,7 +50,8 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginConfigs: any = {},
   params: Params,
   sanityCheck: (plugin: PluginType<T>) => boolean,
-  prefix: string = 'verdaccio'
+  prefix: string = 'verdaccio',
+  pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
   const pluginsIds = Object.keys(pluginConfigs);
   const { config } = params;
@@ -75,7 +76,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       }
 
       logger.debug({ path: pluginsPath }, 'plugins folder defined, loading plugins from @{path} ');
-      // throws if is nto a directory
+      // throws if is not a directory
       try {
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
@@ -93,6 +94,10 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
             continue;
           }
           plugins.push(plugin);
+          logger.info(
+            { prefix, pluginId, pluginCategory },
+            'plugin @{prefix}-@{pluginId} successfully loaded (@{pluginCategory})'
+          );
           continue;
         }
       } catch (err: any) {
@@ -118,6 +123,10 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
           continue;
         }
         plugins.push(plugin);
+        logger.info(
+          { prefix, pluginId, pluginCategory },
+          'plugin @{prefix}-@{pluginId} successfully loaded (@{pluginCategory})'
+        );
         continue;
       } else {
         logger.error(

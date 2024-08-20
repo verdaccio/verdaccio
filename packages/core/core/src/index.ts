@@ -24,6 +24,7 @@ export {
   DEFAULT_USER,
   USERS,
   MAINTAINERS,
+  PLUGIN_CATEGORY,
   HtpasswdHashAlgorithm,
 } from './constants';
 const validationUtils = validatioUtils;

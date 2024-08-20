@@ -5,6 +5,7 @@ import { HTPasswd } from 'verdaccio-htpasswd';
 import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
+  PLUGIN_CATEGORY,
   SUPPORT_ERRORS,
   TOKEN_BASIC,
   TOKEN_BEARER,
@@ -116,7 +117,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           typeof allow_publish !== 'undefined'
         );
       },
-      this.config?.serverSettings?.pluginPrefix
+      this.config?.serverSettings?.pluginPrefix,
+      PLUGIN_CATEGORY.AUTHENTICATION
     );
   }
 
