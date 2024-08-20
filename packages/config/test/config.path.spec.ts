@@ -123,8 +123,8 @@ describe('config-path', () => {
           // delete process.env.XDG_CONFIG_HOME;
           vi.stubEnv('XDG_CONFIG_HOME', '');
           vi.stubEnv('HOME', '');
-          vi.stubEnv('APPDATA', '/app/data/');
-          expect(findConfigFile()).toMatch('\\app\\data\\verdaccio\\config.yaml');
+          vi.stubEnv('APPDATA', 'C:\\Users\\Tester\\AppData\\');
+          expect(findConfigFile()).toEqual('C:\\Users\\Tester\\AppData\\verdaccio\\config.yaml');
           expect(writeFileSyncMock).toHaveBeenCalled();
           expect(mkdirSyncMock).toHaveBeenCalled();
         });
