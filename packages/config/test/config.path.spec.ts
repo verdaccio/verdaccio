@@ -8,7 +8,6 @@ describe('config-path', () => {
   let statSyncMock;
   let mkdirSyncMock;
   let writeFileSyncMock;
-  let platformMock;
   let accessSyncMock;
   let fakeStats = {
     isDirectory: vi.fn().mockReturnValue(true),
@@ -20,7 +19,6 @@ describe('config-path', () => {
     mkdirSyncMock = vi.spyOn(fs, 'mkdirSync');
     writeFileSyncMock = vi.spyOn(fs, 'writeFileSync');
     accessSyncMock = vi.spyOn(fs, 'accessSync');
-    platformMock = vi.spyOn(os, 'platform');
   });
 
   afterEach(() => {
@@ -41,7 +39,7 @@ describe('config-path', () => {
         mkdirSyncMock.mockReturnValue(true);
         writeFileSyncMock.mockReturnValue(undefined);
         // Note: on Windows, path contains drive letter
-        expect(findConfigFile('/home/user/custom/location/config.yaml')).toContain(
+        expect(findConfigFile('/home/user/custom/location/config.yaml')).toMatch(
           platformPath('/home/user/custom/location/config.yaml')
         );
         expect(writeFileSyncMock).not.toHaveBeenCalled();
@@ -113,22 +111,24 @@ describe('config-path', () => {
       });
     });
 
-    describe('with Windows env variables', () => {
-      test('with relative location', () => {
-        // mock
-        statSyncMock.mockReturnValue(fakeStats);
-        mkdirSyncMock.mockReturnValue(true);
-        writeFileSyncMock.mockReturnValue(undefined);
-        accessSyncMock.mockImplementation(() => {});
-        platformMock.mockReturnValue('win32');
-        // delete process.env.XDG_CONFIG_HOME;
-        vi.stubEnv('XDG_CONFIG_HOME', '');
-        vi.stubEnv('HOME', '');
-        vi.stubEnv('APPDATA', '/app/data/');
-        expect(findConfigFile()).toMatch(platformPath('/app/data/verdaccio/config.yaml'));
-        expect(writeFileSyncMock).toHaveBeenCalled();
-        expect(mkdirSyncMock).toHaveBeenCalled();
+    // Note: Trying to mock Windows platform leads to different results (incorrect slashes)
+    if (os.platform() === 'win32') {
+      describe('with Windows env variables', () => {
+        test('with relative location', () => {
+          // mock
+          statSyncMock.mockReturnValue(fakeStats);
+          mkdirSyncMock.mockReturnValue(true);
+          writeFileSyncMock.mockReturnValue(undefined);
+          accessSyncMock.mockImplementation(() => {});
+          // delete process.env.XDG_CONFIG_HOME;
+          vi.stubEnv('XDG_CONFIG_HOME', '');
+          vi.stubEnv('HOME', '');
+          vi.stubEnv('APPDATA', '/app/data/');
+          expect(findConfigFile()).toMatch('\\app\\data\\verdaccio\\config.yaml');
+          expect(writeFileSyncMock).toHaveBeenCalled();
+          expect(mkdirSyncMock).toHaveBeenCalled();
+        });
       });
-    });
+    }
   });
 });
