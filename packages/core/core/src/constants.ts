@@ -119,3 +119,11 @@ export enum HtpasswdHashAlgorithm {
   crypt = 'crypt',
   bcrypt = 'bcrypt',
 }
+
+export const PLUGIN_CATEGORY = {
+  AUTHENTICATION: 'authentication',
+  MIDDLEWARE: 'middleware',
+  STORAGE: 'storage',
+  FILTER: 'filter',
+  THEME: 'theme',
+};

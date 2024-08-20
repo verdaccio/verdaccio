@@ -1,6 +1,7 @@
 import express from 'express';
 import _ from 'lodash';
 
+import { PLUGIN_CATEGORY } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { webMiddleware } from '@verdaccio/middleware';
@@ -22,7 +23,8 @@ export async function loadTheme(config: any) {
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
-      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme'
+      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme',
+      PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
       logger.warn('multiple ui themes are not supported , only the first plugin is used used');

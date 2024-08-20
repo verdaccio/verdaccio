@@ -59,7 +59,6 @@ export class InitCommand extends Command {
       const configParsed = parseConfigFile(configPathLocation);
       this.initLogger(configParsed);
       logger.info({ file: configPathLocation }, 'using config file: @{file}');
-      logger.info('log level: %s', configParsed.log?.level || 'default');
       const { web } = configParsed;
 
       process.title = web?.title || DEFAULT_PROCESS_NAME;
@@ -67,6 +66,9 @@ export class InitCommand extends Command {
       const { version, name } = require('../../package.json');
 
       await initServer(configParsed, this.port as string, version, name);
+
+      const logLevel = configParsed.log?.level || 'default';
+      logger.info({ logLevel }, 'log level: @{logLevel}');
       logger.info('server started');
     } catch (err: any) {
       console.error(err);
