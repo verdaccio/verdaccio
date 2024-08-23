@@ -1,0 +1,21 @@
+on:
+  workflow_call:
+    
+jobs:
+    prepare:
+      runs-on: ubuntu-latest
+      name: setup verdaccio
+      services:
+        verdaccio:
+          image: verdaccio/verdaccio:5
+          ports:
+            - 4873:4873
+          env:
+            NODE_ENV: production
+      steps:
+        - id: install 
+          uses: verdaccio/verdaccio/.github/composites/install@ci-refactor   
+        - id: lint 
+          uses: verdaccio/verdaccio/.github/composites/lint@ci-refactor
+        - id: format
+          uses: verdaccio/verdaccio/.github/composites/format@ci-refactor                   

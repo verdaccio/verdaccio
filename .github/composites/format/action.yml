@@ -1,0 +1,9 @@
+name: 'format'
+description: 'format'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: format
+      shell: bash
+      run: pnpm format
