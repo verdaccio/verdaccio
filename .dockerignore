@@ -22,7 +22,6 @@ jest
 docs
 contrib
 docker-examples
-website
 systemd
 
 # output from test runs and similar things
