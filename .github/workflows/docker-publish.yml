@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'verdaccio/verdaccio'
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v3
       - uses: docker/setup-qemu-action@49b3bc8e6bdd4a60e6116a5414239cba5943d3cf # tag=v1
       - uses: docker/setup-buildx-action@v1
         with:
