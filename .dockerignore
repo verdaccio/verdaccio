@@ -22,7 +22,6 @@ jest
 docs
 contrib
 docker-examples
-website
 systemd
 e2e
 assets
