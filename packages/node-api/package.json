@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/node-api",
-  "version": "7.0.0-next-7.20",
+  "version": "7.0.0-next-8.21",
   "description": "node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -38,11 +38,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.20",
-    "@verdaccio/core": "workspace:7.0.0-next-7.20",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
-    "@verdaccio/server": "workspace:7.0.0-next-7.20",
-    "@verdaccio/server-fastify": "workspace:7.0.0-next-7.20",
+    "@verdaccio/config": "workspace:7.0.0-next-8.21",
+    "@verdaccio/core": "workspace:7.0.0-next-8.21",
+    "@verdaccio/logger": "workspace:7.0.0-next-8.21",
+    "@verdaccio/server": "workspace:7.0.0-next-8.21",
+    "@verdaccio/server-fastify": "workspace:7.0.0-next-8.21",
     "core-js": "3.37.1",
     "debug": "4.3.6",
     "lodash": "4.17.21"

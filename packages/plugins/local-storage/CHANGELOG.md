@@ -1,5 +1,14 @@
 # Change Log
 
+## 12.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+
 ## 12.0.0-next-7.20
 
 ### Patch Changes

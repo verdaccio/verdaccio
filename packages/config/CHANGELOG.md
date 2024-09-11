@@ -1,5 +1,15 @@
 # @verdaccio/config
 
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 8c10a3e: chore: improve debug code and refactor code
+- a05a7d8: fix(config): test runs on Windows
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

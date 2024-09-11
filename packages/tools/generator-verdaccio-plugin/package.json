@@ -1,6 +1,6 @@
 {
   "name": "generator-verdaccio-plugin",
-  "version": "5.0.0-next-7.3",
+  "version": "5.0.0-next-8.4",
   "description": "plugin generator for verdaccio",
   "homepage": "https://github.com/verdaccio",
   "author": {
@@ -16,8 +16,8 @@
     "yeoman-generator"
   ],
   "dependencies": {
-    "@verdaccio/config": "workspace:7.0.0-next-7.20",
-    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "@verdaccio/config": "workspace:7.0.0-next-8.21",
+    "@verdaccio/core": "workspace:7.0.0-next-8.21",
     "chalk": "4.1.2",
     "lodash": "4.17.21",
     "yeoman-environment": "3.19.3",
