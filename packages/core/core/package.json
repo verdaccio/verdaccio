@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "7.0.0-next-7.20",
+  "version": "7.0.0-next-8.21",
   "description": "core utilities",
   "keywords": [
     "private",

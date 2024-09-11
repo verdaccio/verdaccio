@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 303c659: fix: enable irish language on ui
+
 ## 7.0.0-next-7.20
 
 ## 7.0.0-next-7.19

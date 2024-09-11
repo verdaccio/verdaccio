@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "12.0.0-next-7.20",
+  "version": "12.0.0-next-8.21",
   "description": "Local storage implementation",
   "keywords": [
     "private",
@@ -36,9 +36,9 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:7.0.0-next-7.20",
+    "@verdaccio/core": "workspace:7.0.0-next-8.21",
     "@verdaccio/file-locking": "workspace:12.0.0-next.1",
-    "@verdaccio/utils": "workspace:7.0.0-next-7.20",
+    "@verdaccio/utils": "workspace:7.0.0-next-8.21",
     "core-js": "3.37.1",
     "debug": "4.3.6",
     "globby": "11.1.0",
@@ -50,8 +50,8 @@
   },
   "devDependencies": {
     "@types/minimatch": "5.1.2",
-    "@verdaccio/config": "workspace:7.0.0-next-7.20",
-    "@verdaccio/logger": "workspace:7.0.0-next-7.20",
+    "@verdaccio/config": "workspace:7.0.0-next-8.21",
+    "@verdaccio/logger": "workspace:7.0.0-next-8.21",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
     "@verdaccio/types": "workspace:12.0.0-next-7.5",
     "minimatch": "9.0.5"
