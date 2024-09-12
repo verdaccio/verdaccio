@@ -1,9 +1,9 @@
-name: Docker Smoke Test 5.x
+name: Docker Smoke Test 6.x
 on:
   workflow_dispatch:
   push:
     branches:
-      - 5.x
+      - 6.x
 permissions:
   contents: read
 jobs:
@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
         with:
-          node-version: 18
+          node-version: 20
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5

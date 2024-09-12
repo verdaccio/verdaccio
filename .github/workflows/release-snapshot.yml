@@ -1,10 +1,10 @@
-name: Release Canary 5.x
+name: Release Canary 6.x
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - 5.x
+      - 6.x
 jobs:
   release:
     name: Release Snapshot

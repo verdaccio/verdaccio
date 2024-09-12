@@ -62,7 +62,7 @@ class Auth {
     let authConf = { ...config.auth };
     if (authConf?.htpasswd) {
       // special case for htpasswd plugin, the v6 version uses bcrypt by default
-      // 5.x enforces crypt to avoid breaking changes, but is highly recommended using
+      // 6.x enforces crypt to avoid breaking changes, but is highly recommended using
       // bcrypt instead.
       if (!authConf.htpasswd.algorithm) {
         authConf.htpasswd.algorithm = 'crypt';
