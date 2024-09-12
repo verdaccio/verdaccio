@@ -35,7 +35,7 @@
     "@verdaccio/url": "workspace:12.0.0-next-8.21",
     "@verdaccio/utils": "workspace:7.0.0-next-8.21",
     "debug": "4.3.6",
-    "express": "4.19.2",
+    "express": "4.21.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {

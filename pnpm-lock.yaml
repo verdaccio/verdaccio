@@ -535,7 +535,7 @@ importers:
         version: 1.7.5
       body-parser:
         specifier: 1.20.2
-        version: 1.20.2(supports-color@6.1.0)
+        version: 1.20.2
       cookies:
         specifier: 0.9.0
         version: 0.9.0
@@ -543,8 +543,8 @@ importers:
         specifier: 4.3.6
         version: 4.3.6(supports-color@5.5.0)
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -608,8 +608,8 @@ importers:
         specifier: workspace:12.0.0-next-7.5
         version: link:../core/types
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -926,8 +926,8 @@ importers:
         specifier: 4.3.6
         version: 4.3.6(supports-color@5.5.0)
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       express-rate-limit:
         specifier: 5.5.1
         version: 5.5.1
@@ -946,7 +946,7 @@ importers:
         version: link:../logger/logger
       body-parser:
         specifier: 1.20.2
-        version: 1.20.2(supports-color@6.1.0)
+        version: 1.20.2
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -1000,8 +1000,8 @@ importers:
         specifier: workspace:7.0.0-next-8.21
         version: link:../../core/core
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       https-proxy-agent:
         specifier: 5.0.1
         version: 5.0.1
@@ -1535,8 +1535,8 @@ importers:
         specifier: 4.3.6
         version: 4.3.6(supports-color@5.5.0)
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -1827,13 +1827,13 @@ importers:
         version: link:../../utils
       body-parser:
         specifier: 1.20.2
-        version: 1.20.2(supports-color@6.1.0)
+        version: 1.20.2
       debug:
         specifier: 4.3.6
         version: 4.3.6(supports-color@5.5.0)
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
@@ -2170,8 +2170,8 @@ importers:
         specifier: 4.3.6
         version: 4.3.6(supports-color@5.5.0)
       express:
-        specifier: 4.19.2
-        version: 4.19.2(supports-color@6.1.0)
+        specifier: 4.21.0
+        version: 4.21.0(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -5433,7 +5433,7 @@ packages:
       detect-port: 1.5.1
       escape-html: 1.0.3
       eta: 1.14.2
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@5.90.0)
       fs-extra: 10.1.0
       github-slugger: 1.5.0
@@ -9422,7 +9422,7 @@ packages:
       '@storybook/core-events': 6.5.16
       core-js: 3.37.1
       global: 4.4.0
-      qs: 6.11.1
+      qs: 6.12.3
       telejson: 6.0.8
     dev: true
 
@@ -9464,7 +9464,7 @@ packages:
       global: 4.4.0
       lodash: 4.17.21
       memoizerific: 1.11.3
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -9492,7 +9492,7 @@ packages:
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       core-js: 3.37.1
       memoizerific: 1.11.3
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -9525,7 +9525,7 @@ packages:
       core-js: 3.37.1
       global: 4.4.0
       lodash: 4.17.21
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -9562,7 +9562,7 @@ packages:
       core-js: 3.37.1
       global: 4.4.0
       lodash: 4.17.21
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -9614,7 +9614,7 @@ packages:
       babel-plugin-polyfill-corejs3: 0.1.7(@babel/core@7.24.9)
       chalk: 4.1.2
       core-js: 3.37.1
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       file-system-cache: 1.1.0
       find-up: 5.0.0
       fork-ts-checker-webpack-plugin: 6.5.3(eslint@8.57.0)(typescript@4.9.5)(webpack@4.47.0)
@@ -9693,7 +9693,7 @@ packages:
       core-js: 3.37.1
       cpy: 8.1.2
       detect-port: 1.5.1
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       fs-extra: 9.1.0
       global: 4.4.0
       globby: 11.1.0
@@ -9854,7 +9854,7 @@ packages:
       chalk: 4.1.2
       core-js: 3.37.1
       css-loader: 3.6.0(webpack@4.47.0)
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@4.47.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
@@ -9911,7 +9911,7 @@ packages:
       chalk: 4.1.2
       core-js: 3.37.1
       css-loader: 5.2.7(webpack@5.93.0)
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
       html-webpack-plugin: 5.6.0(webpack@5.93.0)
@@ -9995,7 +9995,7 @@ packages:
       core-js: 3.37.1
       global: 4.4.0
       lodash: 4.17.21
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -10251,7 +10251,7 @@ packages:
       '@storybook/theming': 6.5.16(react-dom@18.2.0)(react@18.2.0)
       core-js: 3.37.1
       memoizerific: 1.11.3
-      qs: 6.11.1
+      qs: 6.12.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       regenerator-runtime: 0.13.11
@@ -13270,7 +13270,7 @@ packages:
     resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
     dev: true
 
-  /body-parser@1.20.2(supports-color@6.1.0):
+  /body-parser@1.20.2:
     resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
     dependencies:
@@ -13283,6 +13283,25 @@ packages:
       iconv-lite: 0.4.24
       on-finished: 2.4.1
       qs: 6.11.0
+      raw-body: 2.5.2
+      type-is: 1.6.18
+      unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  /body-parser@1.20.3(supports-color@6.1.0):
+    resolution: {integrity: sha512-7rAxByjUMqQ3/bHJy7D6OGXvx/MMc4IqBn/X0fcM1QUcAItpZrBEYhWGem+tzXH90c+G01ypMcYJBO9Y30203g==}
+    engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
+    dependencies:
+      bytes: 3.1.2
+      content-type: 1.0.5
+      debug: 2.6.9(supports-color@6.1.0)
+      depd: 2.0.0
+      destroy: 1.2.0
+      http-errors: 2.0.0
+      iconv-lite: 0.4.24
+      on-finished: 2.4.1
+      qs: 6.13.0
       raw-body: 2.5.2
       type-is: 1.6.18
       unpipe: 1.0.0
@@ -15859,14 +15878,6 @@ packages:
     resolution: {integrity: sha512-4tvttepXG1VaYGrRibk5EwJd1t4udunSOVMdLSAL6mId1ix438oPwPZMALY41FCijukO1L0twNcGsdzS7dHgDg==}
     engines: {node: '>=10'}
 
-  /define-data-property@1.1.0:
-    resolution: {integrity: sha512-UzGwzcjyv3OtAvolTj1GoyNYzfFR+iqbGjcnBEENZVCpM4/Ng1yhGNvS3lR/xDS74Tb2wGG9WzNSNIOS9UVb2g==}
-    engines: {node: '>= 0.4'}
-    dependencies:
-      get-intrinsic: 1.2.1
-      gopd: 1.0.1
-      has-property-descriptors: 1.0.0
-
   /define-data-property@1.1.4:
     resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
     engines: {node: '>= 0.4'}
@@ -15890,8 +15901,8 @@ packages:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
     dependencies:
-      define-data-property: 1.1.0
-      has-property-descriptors: 1.0.0
+      define-data-property: 1.1.4
+      has-property-descriptors: 1.0.2
       object-keys: 1.1.1
 
   /define-property@0.2.5:
@@ -16378,6 +16389,10 @@ packages:
 
   /encodeurl@1.0.2:
     resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
+    engines: {node: '>= 0.8'}
+
+  /encodeurl@2.0.0:
+    resolution: {integrity: sha512-Q0n9HRi4m6JuGIV1eFlmvJB7ZEVxu93IrMyiMsGC0lrMJMWzRgx6WGquyfQgZVb31vhGgXnfmPNNXmxnOkRBrg==}
     engines: {node: '>= 0.8'}
 
   /encoding@0.1.13:
@@ -17607,36 +17622,36 @@ packages:
     resolution: {integrity: sha512-MTjE2eIbHv5DyfuFz4zLYWxpqVhEhkTiwFGuB74Q9CSou2WHO52nlE5y3Zlg6SIsiYUIPj6ifFxnkPz6O3sIUg==}
     dev: false
 
-  /express@4.19.2(supports-color@6.1.0):
-    resolution: {integrity: sha512-5T6nhjsT+EOMzuck8JjBHARTHfMht0POzlA60WV2pMD3gyXw2LZnZ+ueGdNxG+0calOJcWKbpFcuzLZ91YWq9Q==}
+  /express@4.21.0(supports-color@6.1.0):
+    resolution: {integrity: sha512-VqcNGcj/Id5ZT1LZ/cfihi3ttTn+NJmkli2eZADigjq29qTlWi/hAQ43t/VLPq8+UX06FCEx3ByOYet6ZFblng==}
     engines: {node: '>= 0.10.0'}
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.20.2(supports-color@6.1.0)
+      body-parser: 1.20.3(supports-color@6.1.0)
       content-disposition: 0.5.4
       content-type: 1.0.5
       cookie: 0.6.0
       cookie-signature: 1.0.6
       debug: 2.6.9(supports-color@6.1.0)
       depd: 2.0.0
-      encodeurl: 1.0.2
+      encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
-      finalhandler: 1.2.0(supports-color@6.1.0)
+      finalhandler: 1.3.1(supports-color@6.1.0)
       fresh: 0.5.2
       http-errors: 2.0.0
-      merge-descriptors: 1.0.1
+      merge-descriptors: 1.0.3
       methods: 1.1.2
       on-finished: 2.4.1
       parseurl: 1.3.3
-      path-to-regexp: 0.1.7
+      path-to-regexp: 0.1.10
       proxy-addr: 2.0.7
-      qs: 6.11.0
+      qs: 6.13.0
       range-parser: 1.2.1
       safe-buffer: 5.2.1
-      send: 0.18.0(supports-color@6.1.0)
-      serve-static: 1.15.0(supports-color@6.1.0)
+      send: 0.19.0(supports-color@6.1.0)
+      serve-static: 1.16.2(supports-color@6.1.0)
       setprototypeof: 1.2.0
       statuses: 2.0.1
       type-is: 1.6.18
@@ -17997,12 +18012,12 @@ packages:
     dependencies:
       to-regex-range: 5.0.1
 
-  /finalhandler@1.2.0(supports-color@6.1.0):
-    resolution: {integrity: sha512-5uXcUVftlQMFnWC9qu/svkWv3GTd2PfUhK/3PLkYNAe7FbqJMt3515HaxE6eRL74GdsriiwujiawdaB1BpEISg==}
+  /finalhandler@1.3.1(supports-color@6.1.0):
+    resolution: {integrity: sha512-6BN9trH7bp3qvnrRyzsBz+g3lZxTNZTbVO2EV1CS0WIcDbawYVdYvGflME/9QP0h0pYlCDBCTjYa9nZzMDpyxQ==}
     engines: {node: '>= 0.8'}
     dependencies:
       debug: 2.6.9(supports-color@6.1.0)
-      encodeurl: 1.0.2
+      encodeurl: 2.0.0
       escape-html: 1.0.3
       on-finished: 2.4.1
       parseurl: 1.3.3
@@ -22263,6 +22278,10 @@ packages:
 
   /merge-descriptors@1.0.1:
     resolution: {integrity: sha512-cCi6g3/Zr1iqQi6ySbseM1Xvooa98N0w31jzUYrXPX2xqObmFGHJ0tQ5u74H3mVh7wLouTseZyYIq39g8cNp1w==}
+    dev: true
+
+  /merge-descriptors@1.0.3:
+    resolution: {integrity: sha512-gaNvAS7TZ897/rVaZ0nMtAyxNyi/pdbjbAwUpFQpN70GqnVfOiXpeUUMKRBmzXaSQ8DdTX4/0ms62r2K+hE6mQ==}
 
   /merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -24274,8 +24293,8 @@ packages:
       lru-cache: 10.4.3
       minipass: 7.1.2
 
-  /path-to-regexp@0.1.7:
-    resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
+  /path-to-regexp@0.1.10:
+    resolution: {integrity: sha512-7lf7qcQidTku0Gu3YDPc8DJ1q7OOucfa/BSsIwjuh56VU7katFvuM8hULfkwB3Fns/rsVF7PwPKVw1sl5KQS9w==}
 
   /path-to-regexp@1.8.0:
     resolution: {integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==}
@@ -25901,6 +25920,12 @@ packages:
     dependencies:
       side-channel: 1.0.6
     dev: true
+
+  /qs@6.13.0:
+    resolution: {integrity: sha512-+38qI9SOr8tfZ4QmJNplMUxqjbe7LKvvZgWdExBOmd+egZTtjLB67Gu0HRX3u/XOq7UU2Nx6nsjvS16Z9uwfpg==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.6
 
   /querystring-es3@0.2.1:
     resolution: {integrity: sha512-773xhDQnZBMFobEiztv8LIl70ch5MSF/jUQVlhwFyBILqq96anmoctVIYz+ZRp0qbCKATTn6ev02M3r7Ga5vqA==}
@@ -27586,8 +27611,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  /send@0.18.0(supports-color@6.1.0):
-    resolution: {integrity: sha512-qqWzuOjSFOuqPjFe4NOsMLafToQQwBSOEpS+FwEt3A2V3vKubTquT3vmLTQpFgMXp8AlFWFuP1qKaJZOtPpVXg==}
+  /send@0.19.0(supports-color@6.1.0):
+    resolution: {integrity: sha512-dW41u5VfLXu8SJh5bwRmyYUbAoSB3c9uQh6L8h/KtsFREPWpbX1lrljJo186Jc4nmci/sGUZ9a0a0J2zgfq2hw==}
     engines: {node: '>= 0.8.0'}
     dependencies:
       debug: 2.6.9(supports-color@6.1.0)
@@ -27665,14 +27690,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /serve-static@1.15.0(supports-color@6.1.0):
-    resolution: {integrity: sha512-XGuRDNjXUijsUL0vl6nSD7cwURuzEgglbOaFuZM9g3kwDXOWVTck0jLzjPzGD+TazWbboZYu52/9/XPdUgne9g==}
+  /serve-static@1.16.2(supports-color@6.1.0):
+    resolution: {integrity: sha512-VqpjJZKadQB/PEbEwvFdO43Ax5dFBZ2UECszz8bQ7pi7wt//PWe1P6MN7eCnjsatYtBT6EuiClbjSWP2WrIoTw==}
     engines: {node: '>= 0.8.0'}
     dependencies:
-      encodeurl: 1.0.2
+      encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 0.18.0(supports-color@6.1.0)
+      send: 0.19.0(supports-color@6.1.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -30931,7 +30956,7 @@ packages:
       connect-history-api-fallback: 1.6.0
       debug: 4.3.6(supports-color@6.1.0)
       del: 4.1.1
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       html-entities: 1.4.0
       http-proxy-middleware: 0.19.1(debug@4.3.6)(supports-color@6.1.0)
       import-local: 2.0.0
@@ -30982,7 +31007,7 @@ packages:
       connect-history-api-fallback: 1.6.0
       debug: 4.3.6(supports-color@6.1.0)
       del: 4.1.1
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       html-entities: 1.4.0
       http-proxy-middleware: 0.19.1(debug@4.3.6)(supports-color@6.1.0)
       import-local: 2.0.0
@@ -31041,7 +31066,7 @@ packages:
       compression: 1.7.4(supports-color@6.1.0)
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
-      express: 4.19.2(supports-color@6.1.0)
+      express: 4.21.0(supports-color@6.1.0)
       graceful-fs: 4.2.11
       html-entities: 2.3.3
       http-proxy-middleware: 2.0.6(@types/express@4.17.21)(debug@4.3.6)
