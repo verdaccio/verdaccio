@@ -7,7 +7,7 @@
     "@verdaccio/core": "workspace:7.0.0-next-8.21",
     "@verdaccio/config": "workspace:7.0.0-next-8.21",
     "@verdaccio/test-helper": "workspace:3.0.0-next-7.2",
-    "debug": "4.3.6",
+    "debug": "4.3.7",
     "cypress": "^13.6.0",
     "get-port": "5.1.1"
   },
