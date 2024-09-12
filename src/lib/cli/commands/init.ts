@@ -67,7 +67,7 @@ export class InitCommand extends Command {
       if (!configParsed.self_path) {
         configParsed.self_path = path.resolve(configPathLocation);
         this.initLogger(configParsed);
-        // compatibility with 6.x plugins
+        // compatibility with 7.x plugins
         configParsed.configPath = configParsed.self_path;
       }
       if (!configParsed.https) {

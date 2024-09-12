@@ -1,4 +1,4 @@
-name: Docker publish to docker.io (6.x)
+name: Docker publish to docker.io (7.x)
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
       - '.yarnrc.yaml'
       - '.pnp.js'
     branches:
-      - '6.x'
+      - '7.x'
     tags:
      - 'v*'
 
@@ -38,8 +38,8 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ github.repository }}
-          tag-custom: 6.x-next
-          tag-custom-only: ${{ github.ref == 'refs/heads/6.x' }}
+          tag-custom: 7.x-next
+          tag-custom-only: ${{ github.ref == 'refs/heads/7.x' }}
           tag-latest: false
           tag-semver: |
             {{version}}

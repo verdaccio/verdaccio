@@ -1,9 +1,9 @@
-name: Docker Smoke Test 6.x
+name: Docker Smoke Test 7.x
 on:
   workflow_dispatch:
   push:
     branches:
-      - 6.x  
+      - 7.x  
   schedule:
     # run every sunday
     - cron: '0 0 * * 0'

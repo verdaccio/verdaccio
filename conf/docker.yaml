@@ -8,7 +8,7 @@
 # see https://verdaccio.org/docs/en/docker#docker-and-custom-port-configuration
 #
 # Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/tree/6.x/conf
+# https://github.com/verdaccio/verdaccio/tree/7.x/conf
 #
 # Read about the best practices
 # https://verdaccio.org/docs/best

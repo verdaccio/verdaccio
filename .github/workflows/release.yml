@@ -1,4 +1,4 @@
-name: Release 6.x
+name: Release 7.x
 
 on:
   push:
