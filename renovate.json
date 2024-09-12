@@ -119,7 +119,7 @@
         "verdaccio-auth-memory",
         "verdaccio-memory"
       ],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
       "baseBranchList": ["5.x", "6.x"]
