@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:7.0.0-next-8.21",
-    "debug": "4.3.6",
+    "debug": "4.3.7",
     "lodash": "4.17.21",
     "validator": "13.12.0"
   },
