@@ -43,7 +43,7 @@
     "compression": "1.7.4",
     "cors": "2.8.5",
     "debug": "4.3.6",
-    "express": "4.19.2",
+    "express": "4.21.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
