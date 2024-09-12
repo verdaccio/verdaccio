@@ -1,5 +1,11 @@
 # customprefix-auth
 
+## 2.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+
 ## 2.0.0-next.0
 
 ### Major Changes

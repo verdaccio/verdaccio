@@ -1,5 +1,38 @@
 # @verdaccio/website
 
+## 6.0.1-next-8.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/ui-components@4.0.0-next-8.0
+
+## 6.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+
+### Patch Changes
+
+- c31aec8: fix: typo in config docs regarding check_owners
+- Updated dependencies [92f1c34]
+- Updated dependencies [47f61c6]
+- Updated dependencies [10dd81f]
+- Updated dependencies [5a77414]
+- Updated dependencies [02ba426]
+- Updated dependencies [ba53d1e]
+- Updated dependencies [3b3cf86]
+- Updated dependencies [580319a]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [3323599]
+- Updated dependencies [96b2857]
+- Updated dependencies [5210408]
+- Updated dependencies [117eb1c]
+  - @verdaccio/ui-components@3.0.0
+  - docusaurus-plugin-contributors@2.0.0
+
 ## 6.0.0-next-7.9
 
 ### Patch Changes

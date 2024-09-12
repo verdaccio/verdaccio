@@ -1,5 +1,41 @@
 # Change Log
 
+## 13.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/file-locking@13.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 12.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 4ac3aea: chore: reduce log to info if database is not found
+- 7c9f3cf: chore: improve startup logging
+- 1bae121: fix: error when writing tarball (missing folder)
+- Updated dependencies [47f61c6]
+- Updated dependencies [6e764e3]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [f047cc8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0
+  - @verdaccio/file-locking@12.0.0
+  - @verdaccio/utils@7.0.0
+
 ## 12.0.0-next-8.21
 
 ### Patch Changes

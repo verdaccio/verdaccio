@@ -1,5 +1,25 @@
 # Change Log
 
+## 4.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 3.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+
+### Patch Changes
+
+- c807f0c: fix: store readme when publishing locally
+
 ## 3.0.0-next-7.2
 
 ### Patch Changes

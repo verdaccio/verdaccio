@@ -1,5 +1,34 @@
 # @verdaccio/utils
 
+## 7.0.1-next-8.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@8.0.0-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d: restore legacy support
+
+### Patch Changes
+
+- Updated dependencies [47f61c6]
+- Updated dependencies [6e764e3]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [f047cc8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0
+
 ## 7.0.0-next-8.21
 
 ### Patch Changes

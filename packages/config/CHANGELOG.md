@@ -1,5 +1,50 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d: restore legacy support
+- c9962fe: feat: forbidden user interface
+- f047cc8: refactor: auth with legacy sign support
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
+### Patch Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+- 6e764e3: feat: add support for npm owner
+- 8c10a3e: chore: improve debug code and refactor code
+- a99a4bb: fix config builder erroring when passed partial config
+- a05a7d8: fix(config): test runs on Windows
+- c31aec8: fix: typo in config docs regarding check_owners
+- 4d96324: chore(config): increase test coverage
+- Updated dependencies [47f61c6]
+- Updated dependencies [6e764e3]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [f047cc8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0
+  - @verdaccio/utils@7.0.0
+
 ## 7.0.0-next-8.21
 
 ### Patch Changes

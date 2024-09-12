@@ -1,5 +1,70 @@
 # @verdaccio/web
 
+## 7.0.1-next-8.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger@8.0.0-next-8.0
+  - @verdaccio/tarball@13.0.0-next-8.0
+  - @verdaccio/middleware@8.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/url@13.0.0-next-8.0
+  - @verdaccio/loaders@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+  - @verdaccio/store@8.0.0-next-8.0
+  - @verdaccio/auth@7.0.1-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [e5624e1]
+- Updated dependencies [47f61c6]
+- Updated dependencies [2a6ee33]
+- Updated dependencies [10dd81f]
+- Updated dependencies [5bfab62]
+- Updated dependencies [6c5f7a4]
+- Updated dependencies [6e764e3]
+- Updated dependencies [b0946b2]
+- Updated dependencies [ccc7bd1]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e14b064]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [7400830]
+- Updated dependencies [f967a69]
+- Updated dependencies [de6ff5c]
+- Updated dependencies [f047cc8]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [c807f0c]
+- Updated dependencies [38b1e82]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [bd8703e]
+- Updated dependencies [4dc62a8]
+- Updated dependencies [253cc13]
+- Updated dependencies [4d96324]
+  - @verdaccio/store@7.0.0
+  - @verdaccio/auth@7.0.0
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+  - @verdaccio/tarball@12.0.0
+  - @verdaccio/url@12.0.0
+  - @verdaccio/loaders@7.0.0
+  - @verdaccio/logger@7.0.0
+  - @verdaccio/middleware@7.0.0
+  - @verdaccio/utils@7.0.0
+
 ## 7.0.0-next-8.21
 
 ### Patch Changes
