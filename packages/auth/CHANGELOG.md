@@ -1,5 +1,21 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.1
+
+### Major Changes
+
+- e5cc01e: chore: move v7 next to v8 next
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/config@8.0.0-next-8.1
+- @verdaccio/loaders@8.0.0-next-8.1
+- verdaccio-htpasswd@13.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+- @verdaccio/signature@8.0.0-next-8.0
+- @verdaccio/logger@8.0.0-next-8.1
+
 ## 7.0.1-next-8.0
 
 ### Patch Changes

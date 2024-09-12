@@ -1,5 +1,18 @@
 # verdaccio
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/hooks@8.0.0-next-8.1
+- verdaccio-audit@13.0.0-next-8.1
+- @verdaccio/node-api@8.0.0-next-8.1
+- @verdaccio/cli@8.0.0-next-8.1
+- @verdaccio/ui-theme@8.0.0-next-8.1
+- verdaccio-htpasswd@13.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+- @verdaccio/logger@8.0.0-next-8.1
+
 ## 8.0.0-next-8.0
 
 ### Major Changes

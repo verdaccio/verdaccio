@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/logger@8.0.0-next-8.1
+
 ## 8.0.0-next-8.0
 
 ### Major Changes
