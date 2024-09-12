@@ -34,7 +34,7 @@
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.13",
     "css-loader": "6.9.1",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.13",
     "dompurify": "3.1.6",
     "friendly-errors-webpack-plugin": "1.7.0",
     "harmony-reflect": "1.6.2",
