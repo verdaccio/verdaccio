@@ -4,13 +4,13 @@
 
 The following table describes the versions of this project that are currently supported with security updates:
 
-| Version | Supported                                |
-| ------- | ---------------------------------------- |
-| 2.x     | :x:                                      |
-| 3.x     | :x:                                      |
-| 4.x     | :x:                                      |
-| 5.x     | :white_check_mark: (until end of 2024)   |
-| 6.x     | :white_check_mark:                       |
+| Version | Supported                              |
+| ------- | -------------------------------------- |
+| 2.x     | :x:                                    |
+| 3.x     | :x:                                    |
+| 4.x     | :x:                                    |
+| 5.x     | :white_check_mark: (until end of 2024) |
+| 6.x     | :white_check_mark:                     |
 
 ## Responsible disclosure security policy
 
