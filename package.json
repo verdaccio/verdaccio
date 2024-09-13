@@ -120,7 +120,7 @@
     "jest-environment-node": "29.7.0",
     "jest-junit": "15.0.0",
     "lockfile-lint": "4.14.0",
-    "nock": "13.5.4",
+    "nock": "13.5.5",
     "node-mocks-http": "^1.15.0",
     "pinst": "2.1.6",
     "prettier": "3.3.3",
