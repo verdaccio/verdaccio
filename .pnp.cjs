@@ -85,7 +85,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/url", "npm:13.0.0-next-8.1"],\
             ["@verdaccio/utils", "npm:7.0.1-next-8.1"],\
             ["JSONStream", "npm:1.3.5"],\
-            ["async", "npm:3.2.5"],\
+            ["async", "npm:3.2.6"],\
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.3"],\
@@ -6516,10 +6516,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:3.2.5", {\
-          "packageLocation": "./.yarn/cache/async-npm-3.2.5-f5dbdabdfc-5ec77f1312.zip/node_modules/async/",\
+        ["npm:3.2.6", {\
+          "packageLocation": "./.yarn/cache/async-npm-3.2.6-aa4f5aa081-ee6eb8cd8a.zip/node_modules/async/",\
           "packageDependencies": [\
-            ["async", "npm:3.2.5"]\
+            ["async", "npm:3.2.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15306,7 +15306,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/url", "npm:13.0.0-next-8.1"],\
             ["@verdaccio/utils", "npm:7.0.1-next-8.1"],\
             ["JSONStream", "npm:1.3.5"],\
-            ["async", "npm:3.2.5"],\
+            ["async", "npm:3.2.6"],\
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.3"],\

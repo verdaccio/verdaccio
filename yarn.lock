@@ -4147,10 +4147,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:3.2.5":
-  version: 3.2.5
-  resolution: "async@npm:3.2.5"
-  checksum: 5ec77f1312301dee02d62140a6b1f7ee0edd2a0f983b6fd2b0849b969f245225b990b47b8243e7b9ad16451a53e7f68e753700385b706198ced888beedba3af4
+"async@npm:3.2.6":
+  version: 3.2.6
+  resolution: "async@npm:3.2.6"
+  checksum: ee6eb8cd8a0ab1b58bd2a3ed6c415e93e773573a91d31df9d5ef559baafa9dab37d3b096fa7993e84585cac3697b2af6ddb9086f45d3ac8cae821bb2aab65682
   languageName: node
   linkType: hard
 
@@ -11735,7 +11735,7 @@ __metadata:
     "@verdaccio/url": 13.0.0-next-8.1
     "@verdaccio/utils": 7.0.1-next-8.1
     JSONStream: 1.3.5
-    async: 3.2.5
+    async: 3.2.6
     babel-jest: 29.7.0
     babel-plugin-dynamic-import-node: 2.3.3
     clipanion: 4.0.0-rc.3
