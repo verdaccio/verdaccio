@@ -19,8 +19,12 @@ jobs:
       run: yarn install
     - name: Build
       run: yarn build
+    - name: Declare some variables
+      shell: bash
+      run: |
+        echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
     - name: Bump up package
-      run: npm version prerelease --no-git-tag-version --preid $(date +%s)      
+      run: npm version prerelease --no-git-tag-version --preid ${{ env.sha_short }}      
     - name: Publish
       run: sh scripts/publish-prerelease.sh
       env:
