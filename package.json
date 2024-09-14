@@ -24,7 +24,7 @@
     "@verdaccio/config": "8.0.0-next-8.1",
     "@verdaccio/core": "8.0.0-next-8.1",
     "@verdaccio/local-storage-legacy": "11.0.2",
-    "@verdaccio/logger-7": "8.0.0-next-8.1",
+    "@verdaccio/logger": "8.0.0-next-8.1",
     "@verdaccio/middleware": "8.0.0-next-8.1",
     "@verdaccio/search-indexer": "8.0.0-next-8.0",
     "@verdaccio/signature": "8.0.0-next-8.0",
@@ -38,7 +38,7 @@
     "clipanion": "4.0.0-rc.3",
     "compression": "1.7.4",
     "cors": "2.8.5",
-    "debug": "^4.3.5",
+    "debug": "4.3.5",
     "envinfo": "7.13.0",
     "express": "4.21.0",
     "express-rate-limit": "5.5.1",
@@ -51,7 +51,6 @@
     "lru-cache": "7.18.3",
     "mime": "3.0.0",
     "mkdirp": "1.0.4",
-    "mv": "2.1.1",
     "pkginfo": "0.4.1",
     "semver": "7.6.3",
     "validator": "13.12.0",
@@ -172,7 +171,7 @@
     "docker:run": "docker run -it --rm -p 4873:4873 verdaccio/verdaccio:local"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "preferGlobal": true,
   "license": "MIT",

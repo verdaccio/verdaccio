@@ -1,4 +1,4 @@
-name: Release Canary 6.x
+name: Release Canary
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     - name: Build
       run: yarn build
     - name: Bump up package
-      run: npm version prerelease --no-git-tag-version --preid $(date +%s)      
+      run: npm version prerelease --no-git-tag-version --preid ${{ github.head_ref }}.${{ github.sha }}
     - name: Publish
       run: sh scripts/publish-prerelease.sh
       env:
