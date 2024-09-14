@@ -5,14 +5,14 @@ on: [push, pull_request]
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.ref }}-6x
   cancel-in-progress: true    
 jobs:
   test:    
     strategy:
       fail-fast: false
       matrix:
-        node_version: [18, 19, 20, 21, 22]    
+        node_version: [18, 20, 21, 22]    
     
     runs-on: ubuntu-latest
     steps:
