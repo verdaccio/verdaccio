@@ -1,4 +1,4 @@
-name: Module Smoke Test 6.x
+name: Module Smoke Test
 
 on: [push, pull_request]  
 
