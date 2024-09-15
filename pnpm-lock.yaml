@@ -888,8 +888,8 @@ importers:
         specifier: 1.1.0
         version: 1.1.0
       sonic-boom:
-        specifier: 3.8.0
-        version: 3.8.0
+        specifier: 3.8.1
+        version: 3.8.1
     devDependencies:
       pino:
         specifier: 8.17.2
@@ -24449,7 +24449,7 @@ packages:
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.4.3
-      sonic-boom: 3.7.0
+      sonic-boom: 3.8.1
       thread-stream: 2.3.0
 
   /pino@9.4.0:
@@ -27996,16 +27996,10 @@ packages:
       atomic-sleep: 1.0.0
     dev: true
 
-  /sonic-boom@3.7.0:
-    resolution: {integrity: sha512-IudtNvSqA/ObjN97tfgNmOKyDOs4dNcg4cUUsHDebqsgb8wGBBwb31LIgShNO8fye0dFI52X1+tFoKKI6Rq1Gg==}
+  /sonic-boom@3.8.1:
+    resolution: {integrity: sha512-y4Z8LCDBuum+PBP3lSV7RHrXscqksve/bi0as7mhwVnBW+/wUqKT/2Kb7um8yqcFy0duYbbPxzt89Zy2nOCaxg==}
     dependencies:
       atomic-sleep: 1.0.0
-
-  /sonic-boom@3.8.0:
-    resolution: {integrity: sha512-ybz6OYOUjoQQCQ/i4LU8kaToD8ACtYP+Cj5qd2AO36bwbdewxWJ3ArmJ2cr6AvxlL2o0PqnCcPGUgkILbfkaCA==}
-    dependencies:
-      atomic-sleep: 1.0.0
-    dev: false
 
   /sonic-boom@4.1.0:
     resolution: {integrity: sha512-NGipjjRicyJJ03rPiZCJYjwlsuP2d1/5QUviozRXC7S3WdVWNK5e3Ojieb9CCyfhq2UC+3+SRd9nG3I2lPRvUw==}
