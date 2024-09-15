@@ -13,7 +13,7 @@
     "crazy-max/ghaction-docker-meta",
     "pnpm"
   ],
-  "baseBranches": ["master", "5.x", "6.x", "7.x"],
+  "baseBranches": ["master", "6.x", "7.x"],
   "semanticCommitType": "fix",
   "major": false,
   "labels": ["bot: dependencies"],
@@ -117,7 +117,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "core verdaccio dependencies",
       "groupSlug": "all-verdaccio",
-      "baseBranchList": ["5.x", "6.x", "7.x"]
+      "baseBranchList": ["6.x", "7.x"]
     },
     {
       "matchPackagePatterns": [
@@ -131,7 +131,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all linting dependencies",
       "groupSlug": "all-linting",
-      "baseBranchList": ["master", "5.x", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     },
     {
       "matchPackagePatterns": [
@@ -156,7 +156,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
-      "baseBranchList": ["master", "5.x", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     },
     {
       "matchPackagePatterns": ["npm", "pnpm", "yarn", "@yarnpkg/*"],
@@ -170,7 +170,7 @@
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "typescript dependencies",
       "groupSlug": "all-types",
-      "baseBranchList": ["master", "5.x", "6.x", "7.x"]
+      "baseBranchList": ["master", "6.x", "7.x"]
     }
   ],
   "pinVersions": false
