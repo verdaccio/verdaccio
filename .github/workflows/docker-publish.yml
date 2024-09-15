@@ -41,6 +41,7 @@ jobs:
           images: ${{ github.repository }}
           tag-custom: nightly-master
           tag-custom-only: ${{ github.ref == 'refs/heads/master' }}
+          tag-latest: false
           tag-semver: |
             {{version}}
             {{major}}
