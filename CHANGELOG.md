@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0-rc.1](https://github.com/verdaccio/verdaccio/compare/v5.32.2...v6.0.0-rc.1) (2024-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Node.js 16 (#4835)
+
+### Features
+
+* drop Node.js 16 ([#4835](https://github.com/verdaccio/verdaccio/issues/4835)) ([78b759c](https://github.com/verdaccio/verdaccio/commit/78b759ccfb6ed0d80b49b6b3ff845f9da67d88b2))
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cypress/request to v3.0.5 ([#4828](https://github.com/verdaccio/verdaccio/issues/4828)) ([d68f1db](https://github.com/verdaccio/verdaccio/commit/d68f1db408835741595418a42f07bab8b2d621df))
+* **deps:** update dependency async to v3.2.6 ([#4829](https://github.com/verdaccio/verdaccio/issues/4829)) ([2bdca6a](https://github.com/verdaccio/verdaccio/commit/2bdca6ac98ca00fa3addbddff7f96a538f613453))
+
 ### [5.32.2](https://github.com/verdaccio/verdaccio/compare/v5.32.1...v5.32.2) (2024-09-12)
 
 
