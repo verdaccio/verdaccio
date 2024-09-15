@@ -17,7 +17,7 @@
   "license": "MIT",
   "homepage": "https://verdaccio.org",
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "repository": {
     "type": "https",

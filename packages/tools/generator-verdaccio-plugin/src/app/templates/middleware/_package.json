@@ -5,7 +5,7 @@
   "main": "lib/src/index.js",
   "types": "lib/src/index.d.ts",
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
     "@verdaccio/commons-api": "10.2.0",
