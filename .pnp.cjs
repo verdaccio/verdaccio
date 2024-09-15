@@ -94,7 +94,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:919573d00b74f5e6f83e114973b960324ac57319b26f21c413a31a8077349b50006fd8a60c7ec754166f27b406a0be9d61623030d2ab772fb3c114a14ba874f4#npm:4.3.7"],\
             ["detect-secrets", "npm:1.0.6"],\
-            ["envinfo", "npm:7.13.0"],\
+            ["envinfo", "npm:7.14.0"],\
             ["eslint", "npm:8.57.0"],\
             ["eslint-config-google", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:0.14.0"],\
             ["eslint-config-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:9.1.0"],\
@@ -8414,10 +8414,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["envinfo", [\
-        ["npm:7.13.0", {\
-          "packageLocation": "./.yarn/cache/envinfo-npm-7.13.0-a98aeb2561-822fc30f53.zip/node_modules/envinfo/",\
+        ["npm:7.14.0", {\
+          "packageLocation": "./.yarn/cache/envinfo-npm-7.14.0-624fecc5a5-137c1dd9a4.zip/node_modules/envinfo/",\
           "packageDependencies": [\
-            ["envinfo", "npm:7.13.0"]\
+            ["envinfo", "npm:7.14.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15158,7 +15158,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:919573d00b74f5e6f83e114973b960324ac57319b26f21c413a31a8077349b50006fd8a60c7ec754166f27b406a0be9d61623030d2ab772fb3c114a14ba874f4#npm:4.3.7"],\
             ["detect-secrets", "npm:1.0.6"],\
-            ["envinfo", "npm:7.13.0"],\
+            ["envinfo", "npm:7.14.0"],\
             ["eslint", "npm:8.57.0"],\
             ["eslint-config-google", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:0.14.0"],\
             ["eslint-config-prettier", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:9.1.0"],\
