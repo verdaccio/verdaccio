@@ -25,6 +25,7 @@
 'verdaccio': major
 '@verdaccio/url': major
 '@verdaccio/node-api': major
+'@verdaccio/web': major
 '@verdaccio/loaders': major
 '@verdaccio/config': major
 '@verdaccio/search': major
