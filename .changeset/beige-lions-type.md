@@ -7,7 +7,6 @@
 '@verdaccio/file-locking': major
 'verdaccio-htpasswd': major
 '@verdaccio/ui-theme': major
-'@verdaccio/logger-7': major
 'verdaccio-memory': major
 '@verdaccio/search-indexer': major
 '@verdaccio/server': major
@@ -26,6 +25,7 @@
 'verdaccio': major
 '@verdaccio/url': major
 '@verdaccio/node-api': major
+'@verdaccio/web': major
 '@verdaccio/loaders': major
 '@verdaccio/config': major
 '@verdaccio/search': major

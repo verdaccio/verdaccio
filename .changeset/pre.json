@@ -26,7 +26,6 @@
     "@verdaccio/hooks": "7.0.0",
     "@verdaccio/loaders": "7.0.0",
     "@verdaccio/logger": "7.0.0",
-    "@verdaccio/logger-7": "7.0.0",
     "@verdaccio/logger-commons": "7.0.0",
     "@verdaccio/logger-prettify": "7.0.0",
     "@verdaccio/middleware": "7.0.0",

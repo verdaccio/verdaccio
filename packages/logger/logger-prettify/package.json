@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "scripts": {
     "clean": "rimraf ./build",
