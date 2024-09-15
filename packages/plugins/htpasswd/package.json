@@ -30,7 +30,7 @@
     "build"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "dependencies": {
     "@verdaccio/core": "workspace:8.0.0-next-8.1",
