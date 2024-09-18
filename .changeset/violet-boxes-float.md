@@ -1,5 +1,6 @@
 ---
 '@verdaccio/api': patch
+'@verdaccio/store': patch
 '@verdaccio/tarball': patch
 ---
 
