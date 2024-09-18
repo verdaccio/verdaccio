@@ -1,5 +1,27 @@
 # @verdaccio/logger-prettify
 
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d: restore legacy support
+
+### Patch Changes
+
+- cf1b46c: fix: log spacing depending on the FORMAT and COLORS options
+- 9db1554: Avoid displaying "prettify pipeline error" if there is no error
+
 ## 7.0.0-next-7.3
 
 ### Patch Changes

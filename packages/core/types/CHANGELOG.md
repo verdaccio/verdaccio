@@ -1,5 +1,30 @@
 # Change Log
 
+## 13.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 12.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
+### Patch Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+- 6e764e3: feat: add support for npm owner
+- de6ff5c: fix: update fields for abbreviated manifest
+- 117eb1c: fix: change bundleDependencies to array
+
 ## 12.0.0-next-7.5
 
 ### Patch Changes

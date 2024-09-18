@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5308,
+      "contributions": 5326,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2948
+          "contributions": 2961
         },
         {
           "name": "verdaccio-cookbook",
@@ -131,7 +131,7 @@
         },
         {
           "name": "e2e-tests",
-          "contributions": 76
+          "contributions": 81
         },
         {
           "name": ".github",
@@ -5066,7 +5066,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16220,
+      "stargazers_count": 16262,
       "archived": false
     },
     {
@@ -5075,7 +5075,7 @@
       "full_name": "verdaccio/ansible-verdaccio",
       "html_url": "https://github.com/verdaccio/ansible-verdaccio",
       "description": "Ansible role that is capable of installing and configuring Verdaccio on various Linux distributions.",
-      "stargazers_count": 25,
+      "stargazers_count": 26,
       "archived": false
     },
     {
@@ -5255,7 +5255,7 @@
       "full_name": "verdaccio/ui",
       "html_url": "https://github.com/verdaccio/ui",
       "description": "🖼🎨 Verdaccio UI (deprecated, use verdaccio/verdaccio)",
-      "stargazers_count": 121,
+      "stargazers_count": 122,
       "archived": true
     },
     {

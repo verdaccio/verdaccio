@@ -1,5 +1,46 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 3.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- 10dd81f: feat: complete overhaul of web user interface
+- 580319a: feat: ui improvements
+
+  Some UI improvements
+
+  - download progress indicator: https://github.com/verdaccio/verdaccio/discussions/4068
+  - fix dark mode and readme css support https://github.com/verdaccio/verdaccio/discussions/3942 https://github.com/verdaccio/verdaccio/discussions/3467
+  - fix global for yarn packages and add version to the packages on copy
+  - feat: hide deprecated versions option
+  - fix: improve deprecated package style
+  - feat: display deprecated versions
+
+- c9962fe: feat: forbidden user interface
+
+### Patch Changes
+
+- 92f1c34: - fixed login state when token is expired (@ku3mi41 in #3980)
+- 5a77414: chore: fix type for country flags
+- 02ba426: fix: display labels for engine versions
+- ba53d1e: feat: versions filter by semver range
+- 3b3cf86: chore: sync dependency defs between ui-components and ui-theme
+- 3323599: fix: render READMEs with correct font and highlighting
+- 96b2857: chore(ui): update babel dependencies
+- 5210408: fix: ui dialog break pages on open due remark error
+- 117eb1c: fix: change bundleDependencies to array
+
 ## 3.0.0-next-7.9
 
 ### Patch Changes

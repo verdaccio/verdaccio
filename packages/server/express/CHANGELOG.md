@@ -1,5 +1,120 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- Updated dependencies [e5cc01e]
+  - @verdaccio/auth@8.0.0-next-8.1
+  - @verdaccio/api@7.0.1-next-8.1
+  - verdaccio-audit@13.0.0-next-8.1
+  - @verdaccio/web@7.0.1-next-8.1
+  - @verdaccio/core@8.0.0-next-8.1
+  - @verdaccio/config@8.0.0-next-8.1
+  - @verdaccio/loaders@8.0.0-next-8.1
+  - @verdaccio/middleware@8.0.0-next-8.1
+  - @verdaccio/store@8.0.0-next-8.1
+  - @verdaccio/utils@7.0.1-next-8.1
+  - @verdaccio/logger@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger@8.0.0-next-8.0
+  - verdaccio-audit@13.0.0-next-8.0
+  - @verdaccio/middleware@8.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/loaders@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+  - @verdaccio/store@8.0.0-next-8.0
+  - @verdaccio/web@7.0.1-next-8.0
+  - @verdaccio/auth@7.0.1-next-8.0
+  - @verdaccio/api@7.0.1-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- 3ca4056: fix: Avoid 404 error when getting favicon from root
+- Updated dependencies [e5624e1]
+- Updated dependencies [47f61c6]
+- Updated dependencies [2a6ee33]
+- Updated dependencies [10dd81f]
+- Updated dependencies [5bfab62]
+- Updated dependencies [6c5f7a4]
+- Updated dependencies [6e764e3]
+- Updated dependencies [b0946b2]
+- Updated dependencies [136e992]
+- Updated dependencies [ccc7bd1]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e14b064]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [7400830]
+- Updated dependencies [f967a69]
+- Updated dependencies [de6ff5c]
+- Updated dependencies [f047cc8]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [c807f0c]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [bd8703e]
+- Updated dependencies [4dc62a8]
+- Updated dependencies [253cc13]
+- Updated dependencies [74cd588]
+- Updated dependencies [19df355]
+- Updated dependencies [4d96324]
+  - @verdaccio/store@7.0.0
+  - @verdaccio/api@7.0.0
+  - @verdaccio/auth@7.0.0
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+  - @verdaccio/loaders@7.0.0
+  - @verdaccio/logger@7.0.0
+  - @verdaccio/middleware@7.0.0
+  - verdaccio-audit@12.0.0
+  - @verdaccio/utils@7.0.0
+  - @verdaccio/web@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [8c10a3e]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/config@7.0.0-next-8.21
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/loaders@7.0.0-next-8.21
+  - @verdaccio/store@7.0.0-next-8.21
+  - @verdaccio/auth@7.0.0-next-8.21
+  - @verdaccio/web@7.0.0-next-8.21
+  - @verdaccio/api@7.0.0-next-8.21
+  - @verdaccio/middleware@7.0.0-next-8.21
+  - verdaccio-audit@12.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

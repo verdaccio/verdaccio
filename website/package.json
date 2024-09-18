@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@verdaccio/website",
-  "version": "6.0.0-next-7.9",
+  "version": "6.0.1-next-8.0",
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start --no-open",
@@ -40,11 +40,11 @@
     "@mui/material": "5.16.5",
     "@mui/styles": "5.16.5",
     "@orama/orama": "1.2.4",
-    "@verdaccio/ui-components": "workspace:3.0.0-next-7.9",
+    "@verdaccio/ui-components": "workspace:4.0.0-next-8.0",
     "classnames": "2.5.1",
     "clsx": "1.2.1",
     "copy-text-to-clipboard": "3.2.0",
-    "docusaurus-plugin-contributors": "workspace:2.0.0-next.0",
+    "docusaurus-plugin-contributors": "workspace:2.0.0",
     "docusaurus-plugin-sentry": "1.0.0",
     "docusaurus-plugin-typedoc": "0.18.0",
     "dompurify": "3.1.6",

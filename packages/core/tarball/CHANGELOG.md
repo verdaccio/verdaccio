@@ -1,5 +1,67 @@
 # Change Log
 
+## 13.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/url@13.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+
+## 13.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/url@13.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 12.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d: restore legacy support
+
+### Patch Changes
+
+- 5bfab62: feat: add tarball details for published packages
+- e14b064: - Fixes polynomial regular expression when determining the file name of tarball
+  - Add tests for extracting tarball name
+- 7400830: revert #4600
+- 253cc13: feat: add tarball details for published packages
+- Updated dependencies [47f61c6]
+- Updated dependencies [6e764e3]
+- Updated dependencies [b0946b2]
+- Updated dependencies [ccc7bd1]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [f047cc8]
+- Updated dependencies [38b1e82]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0
+  - @verdaccio/url@12.0.0
+  - @verdaccio/utils@7.0.0
+
+## 12.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/url@12.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+
 ## 12.0.0-next-7.20
 
 ### Patch Changes

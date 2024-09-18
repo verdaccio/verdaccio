@@ -1,5 +1,43 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/logger@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger@8.0.0-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [47f61c6]
+- Updated dependencies [e7ebccb]
+  - @verdaccio/logger@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

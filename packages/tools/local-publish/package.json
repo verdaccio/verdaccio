@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-publish",
-  "version": "0.0.2-next.0",
+  "version": "0.0.2",
   "private": true,
   "description": "trigger server for local development",
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -9,10 +9,10 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "devDependencies": {
-    "@verdaccio/types": "workspace:12.0.0-next-7.5",
-    "@verdaccio/core": "workspace:7.0.0-next-7.20",
-    "@verdaccio/config": "workspace:7.0.0-next-7.20",
-    "verdaccio": "7.0.0-next-7.20"
+    "@verdaccio/types": "workspace:13.0.0-next-8.0",
+    "@verdaccio/core": "workspace:8.0.0-next-8.1",
+    "@verdaccio/config": "workspace:8.0.0-next-8.1",
+    "verdaccio": "8.0.0-next-8.1"
   },
   "scripts": {
     "start": "ts-node src/index.ts",

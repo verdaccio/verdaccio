@@ -1,5 +1,56 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger-prettify@8.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- daceb6d: restore legacy support
+
+### Patch Changes
+
+- cf1b46c: fix: log spacing depending on the FORMAT and COLORS options
+- Updated dependencies [47f61c6]
+- Updated dependencies [cf1b46c]
+- Updated dependencies [6e764e3]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [f047cc8]
+- Updated dependencies [9db1554]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0
+  - @verdaccio/logger-prettify@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/core@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

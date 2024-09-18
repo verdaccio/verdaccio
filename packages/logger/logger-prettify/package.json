@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "7.0.0-next-7.3",
+  "version": "8.0.0-next-8.0",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -26,7 +26,7 @@
     "verdaccio"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   },
   "scripts": {
     "clean": "rimraf ./build",
@@ -38,14 +38,14 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "dayjs": "1.11.10",
-    "pino-abstract-transport": "1.1.0",
+    "dayjs": "1.11.13",
+    "pino-abstract-transport": "1.2.0",
     "colorette": "2.0.20",
     "lodash": "4.17.21",
-    "sonic-boom": "3.8.0"
+    "sonic-boom": "3.8.1"
   },
   "devDependencies": {
-    "pino": "8.17.2"
+    "pino": "9.4.0"
   },
   "funding": {
     "type": "opencollective",

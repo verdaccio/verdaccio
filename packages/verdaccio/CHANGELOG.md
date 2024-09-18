@@ -1,5 +1,89 @@
 # verdaccio
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/hooks@8.0.0-next-8.1
+- verdaccio-audit@13.0.0-next-8.1
+- @verdaccio/node-api@8.0.0-next-8.1
+- @verdaccio/cli@8.0.0-next-8.1
+- @verdaccio/ui-theme@8.0.0-next-8.1
+- verdaccio-htpasswd@13.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+- @verdaccio/logger@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - verdaccio-htpasswd@13.0.0-next-8.0
+  - @verdaccio/ui-theme@8.0.0-next-8.0
+  - @verdaccio/logger@8.0.0-next-8.0
+  - verdaccio-audit@13.0.0-next-8.0
+  - @verdaccio/node-api@8.0.0-next-8.0
+  - @verdaccio/hooks@8.0.0-next-8.0
+  - @verdaccio/cli@8.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 4f70a46: chore: test release
+- Updated dependencies [92f1c34]
+- Updated dependencies [47f61c6]
+- Updated dependencies [e056c8d]
+- Updated dependencies [199aea3]
+- Updated dependencies [10dd81f]
+- Updated dependencies [5a77414]
+- Updated dependencies [303c659]
+- Updated dependencies [02ba426]
+- Updated dependencies [ba53d1e]
+- Updated dependencies [580319a]
+- Updated dependencies [136e992]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [3323599]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [5210408]
+- Updated dependencies [117eb1c]
+- Updated dependencies [bd8703e]
+  - @verdaccio/ui-theme@7.0.0
+  - @verdaccio/cli@7.0.0
+  - @verdaccio/hooks@7.0.0
+  - @verdaccio/logger@7.0.0
+  - @verdaccio/node-api@7.0.0
+  - verdaccio-audit@12.0.0
+  - verdaccio-htpasswd@12.0.0
+  - @verdaccio/utils@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [303c659]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/ui-theme@7.0.0-next-8.21
+  - @verdaccio/node-api@7.0.0-next-8.21
+  - @verdaccio/cli@7.0.0-next-8.21
+  - @verdaccio/hooks@7.0.0-next-8.21
+  - verdaccio-audit@12.0.0-next-8.21
+  - verdaccio-htpasswd@12.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

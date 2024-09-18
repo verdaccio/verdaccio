@@ -1,5 +1,17 @@
 # @verdaccio/cli-standalone
 
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+
 ## 7.0.0-next.0
 
 ### Major Changes

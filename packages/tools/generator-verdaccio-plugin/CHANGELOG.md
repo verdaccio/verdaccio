@@ -1,5 +1,59 @@
 # generator-verdaccio-plugin
 
+## 6.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/config@8.0.0-next-8.1
+
+## 6.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+
+## 5.0.0
+
+### Major Changes
+
+- a528af4: feat: migration to monorepo
+
+### Patch Changes
+
+- Updated dependencies [47f61c6]
+- Updated dependencies [10dd81f]
+- Updated dependencies [6e764e3]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [f047cc8]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [bd8703e]
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+
+## 5.0.0-next-8.4
+
+### Patch Changes
+
+- Updated dependencies [8c10a3e]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/config@7.0.0-next-8.21
+  - @verdaccio/core@7.0.0-next-8.21
+
 ## 5.0.0-next-7.3
 
 ### Patch Changes

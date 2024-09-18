@@ -1,5 +1,17 @@
 # @verdaccio/local-publish
 
+## 1.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+## 0.0.2
+
+### Patch Changes
+
+- 47f61c6: feat!: bump to v7
+
 ## 0.0.2-next.0
 
 ### Patch Changes

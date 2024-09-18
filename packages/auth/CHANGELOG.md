@@ -1,5 +1,90 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.1
+
+### Major Changes
+
+- e5cc01e: chore: move v7 next to v8 next
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/config@8.0.0-next-8.1
+- @verdaccio/loaders@8.0.0-next-8.1
+- verdaccio-htpasswd@13.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+- @verdaccio/signature@8.0.0-next-8.0
+- @verdaccio/logger@8.0.0-next-8.1
+
+## 7.0.1-next-8.0
+
+### Patch Changes
+
+- Updated dependencies
+  - verdaccio-htpasswd@13.0.0-next-8.0
+  - @verdaccio/logger@8.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/signature@8.0.0-next-8.0
+  - @verdaccio/loaders@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Minor Changes
+
+- f047cc8: refactor: auth with legacy sign support
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- 4dc62a8: fix: adduser error message grammar (@tobbe in #4586)
+- Updated dependencies [47f61c6]
+- Updated dependencies [10dd81f]
+- Updated dependencies [6e764e3]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [b6d5652]
+- Updated dependencies [f047cc8]
+- Updated dependencies [312bc10]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [bd8703e]
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+  - @verdaccio/loaders@7.0.0
+  - @verdaccio/logger@7.0.0
+  - verdaccio-htpasswd@12.0.0
+  - @verdaccio/signature@7.0.0
+  - @verdaccio/utils@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [8c10a3e]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/config@7.0.0-next-8.21
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/loaders@7.0.0-next-8.21
+  - verdaccio-htpasswd@12.0.0-next-8.21
+  - @verdaccio/signature@7.0.0-next-7.5
+  - @verdaccio/utils@7.0.0-next-8.21
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

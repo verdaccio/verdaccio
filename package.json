@@ -96,7 +96,7 @@
     "babel-plugin-emotion": "11.0.0",
     "concurrently": "8.2.2",
     "cross-env": "7.0.3",
-    "debug": "4.3.6",
+    "debug": "4.3.7",
     "detect-secrets": "1.0.6",
     "eslint": "8.57.0",
     "fs-extra": "11.2.0",

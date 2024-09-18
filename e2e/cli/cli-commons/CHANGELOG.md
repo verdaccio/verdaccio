@@ -1,5 +1,11 @@
 # @verdaccio/test-cli-commons
 
+## 2.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
 ## 1.1.0
 
 ### Minor Changes

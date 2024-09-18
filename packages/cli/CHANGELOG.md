@@ -1,5 +1,68 @@
 # @verdaccio/cli
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.1
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/config@8.0.0-next-8.1
+- @verdaccio/logger@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger@8.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/node-api@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- 199aea3: chore: add config location and loglevel to startup log
+- 10dd81f: feat: complete overhaul of web user interface
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [47f61c6]
+- Updated dependencies [10dd81f]
+- Updated dependencies [6e764e3]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [f047cc8]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [bd8703e]
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+  - @verdaccio/logger@7.0.0
+  - @verdaccio/node-api@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [8c10a3e]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/config@7.0.0-next-8.21
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/node-api@7.0.0-next-8.21
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

@@ -1,5 +1,43 @@
 # @verdaccio/logger
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/logger-commons@8.0.0-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- Updated dependencies [47f61c6]
+- Updated dependencies [cf1b46c]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e7ebccb]
+  - @verdaccio/logger-commons@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- @verdaccio/logger-commons@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes

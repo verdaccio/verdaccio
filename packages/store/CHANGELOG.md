@@ -1,5 +1,119 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- @verdaccio/hooks@8.0.0-next-8.1
+- @verdaccio/core@8.0.0-next-8.1
+- @verdaccio/config@8.0.0-next-8.1
+- @verdaccio/tarball@13.0.0-next-8.1
+- @verdaccio/url@13.0.0-next-8.1
+- @verdaccio/loaders@8.0.0-next-8.1
+- @verdaccio/local-storage@13.0.0-next-8.1
+- @verdaccio/proxy@8.0.0-next-8.1
+- @verdaccio/search@8.0.0-next-8.1
+- @verdaccio/utils@7.0.1-next-8.1
+- @verdaccio/logger@8.0.0-next-8.1
+
+## 8.0.0-next-8.0
+
+### Major Changes
+
+- chore: move v7 next to v8 next
+
+### Patch Changes
+
+- Updated dependencies
+  - @verdaccio/local-storage@13.0.0-next-8.0
+  - @verdaccio/logger@8.0.0-next-8.0
+  - @verdaccio/tarball@13.0.0-next-8.0
+  - @verdaccio/core@8.0.0-next-8.0
+  - @verdaccio/url@13.0.0-next-8.0
+  - @verdaccio/loaders@8.0.0-next-8.0
+  - @verdaccio/config@8.0.0-next-8.0
+  - @verdaccio/search@8.0.0-next-8.0
+  - @verdaccio/hooks@8.0.0-next-8.0
+  - @verdaccio/proxy@8.0.0-next-8.0
+  - @verdaccio/utils@7.0.1-next-8.0
+
+## 7.0.0
+
+### Major Changes
+
+- 47f61c6: feat!: bump to v7
+- e7ebccb: update major dependencies, remove old nodejs support
+
+### Patch Changes
+
+- e5624e1: chore: fix types for some store tests
+- 5bfab62: feat: add tarball details for published packages
+- 6e764e3: feat: add support for npm owner
+- e14b064: - Fixes polynomial regular expression when determining the file name of tarball
+  - Add tests for extracting tarball name
+- 7400830: revert #4600
+- f967a69: fix: avoid warning "time for version x already exists"
+- de6ff5c: fix: update fields for abbreviated manifest
+- c807f0c: fix: store readme when publishing locally
+- 7c9f3cf: chore: improve startup logging
+- 253cc13: feat: add tarball details for published packages
+- Updated dependencies [47f61c6]
+- Updated dependencies [10dd81f]
+- Updated dependencies [5bfab62]
+- Updated dependencies [cce258e]
+- Updated dependencies [6e764e3]
+- Updated dependencies [b0946b2]
+- Updated dependencies [ccc7bd1]
+- Updated dependencies [8c10a3e]
+- Updated dependencies [daceb6d]
+- Updated dependencies [e14b064]
+- Updated dependencies [e7ebccb]
+- Updated dependencies [c9962fe]
+- Updated dependencies [4ac3aea]
+- Updated dependencies [7400830]
+- Updated dependencies [35cc57b]
+- Updated dependencies [f047cc8]
+- Updated dependencies [a99a4bb]
+- Updated dependencies [38b1e82]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+- Updated dependencies [c31aec8]
+- Updated dependencies [1bae121]
+- Updated dependencies [bd8703e]
+- Updated dependencies [253cc13]
+- Updated dependencies [4d96324]
+  - @verdaccio/config@7.0.0
+  - @verdaccio/core@7.0.0
+  - @verdaccio/tarball@12.0.0
+  - @verdaccio/url@12.0.0
+  - @verdaccio/hooks@7.0.0
+  - @verdaccio/loaders@7.0.0
+  - @verdaccio/logger@7.0.0
+  - @verdaccio/local-storage@12.0.0
+  - @verdaccio/proxy@7.0.0
+  - @verdaccio/search@7.0.0
+  - @verdaccio/utils@7.0.0
+
+## 7.0.0-next-8.21
+
+### Patch Changes
+
+- 7c9f3cf: chore: improve startup logging
+- Updated dependencies [8c10a3e]
+- Updated dependencies [a05a7d8]
+- Updated dependencies [7c9f3cf]
+  - @verdaccio/config@7.0.0-next-8.21
+  - @verdaccio/local-storage@12.0.0-next-8.21
+  - @verdaccio/core@7.0.0-next-8.21
+  - @verdaccio/loaders@7.0.0-next-8.21
+  - @verdaccio/hooks@7.0.0-next-8.21
+  - @verdaccio/proxy@7.0.0-next-8.21
+  - @verdaccio/search@7.0.0-next-8.10
+  - @verdaccio/tarball@12.0.0-next-8.21
+  - @verdaccio/url@12.0.0-next-8.21
+  - @verdaccio/utils@7.0.0-next-8.21
+  - @verdaccio/logger@7.0.0-next-8.21
+
 ## 7.0.0-next-7.20
 
 ### Patch Changes
