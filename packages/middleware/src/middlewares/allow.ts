@@ -28,21 +28,21 @@ export function allow<T>(
         : req.params.version
           ? req.params.version
           : undefined;
-      const remote = req.remote_user;
+      const remote_user = req.remote_user;
       debug(
         'check if user %o can %o package %o version %o',
-        remote?.name,
+        remote_user?.name,
         action,
         packageName,
         packageVersion
       );
       beforeAll?.(
-        { action, user: remote?.name },
+        { action, user: remote_user?.name },
         `[middleware/allow][@{action}] allow for @{user}`
       );
       auth['allow_' + action](
         { packageName, packageVersion },
-        remote,
+        remote_user,
         function (error, allowed): void {
           req.resume();
           if (error) {
@@ -51,7 +51,7 @@ export function allow<T>(
           } else if (allowed) {
             debug('user is allowed to %o', action);
             afterAll?.(
-              { action, user: remote?.name },
+              { action, user: remote_user?.name },
               `[middleware/allow][@{action}] allowed for @{user}`
             );
             next();
