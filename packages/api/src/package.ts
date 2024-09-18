@@ -79,7 +79,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
           res.header(HEADER_TYPE.CONTENT_LENGTH, size);
         });
 
-        stream.once('error', (err) => {
+        stream.on('error', (err) => {
           res.locals.report_error(err);
           next(err);
         });
