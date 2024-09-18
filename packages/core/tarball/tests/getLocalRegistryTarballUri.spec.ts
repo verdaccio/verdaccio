@@ -21,6 +21,11 @@ describe('extractTarballFromUrl', () => {
           tarball: 'https://localhost/npm_test-1.0.2.tgz',
         },
       },
+      '1.0.3': {
+        dist: {
+          tarball: 'http://registry.org/@org/npm_test/-/npm_test-1.0.3.tgz',
+        },
+      },
     },
   };
 
@@ -33,6 +38,9 @@ describe('extractTarballFromUrl', () => {
     );
     expect(extractTarballFromUrl(metadata.versions['1.0.2'].dist.tarball)).toEqual(
       'npm_test-1.0.2.tgz'
+    );
+    expect(extractTarballFromUrl(metadata.versions['1.0.3'].dist.tarball)).toEqual(
+      'npm_test-1.0.3.tgz'
     );
   });
 });
