@@ -33,7 +33,7 @@ Install with npm:
 npm install --location=global verdaccio
 ```
 
-**Node.js v14 or higher is required for Verdaccio 5**
+**Node.js v18 or higher is required for Verdaccio**
 
 > It's recommended using Node.js 20 (or latest LTS)
 
@@ -86,7 +86,7 @@ Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins
 
 Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development and maintenance.
 
-You can donate **[GitHub Sponsors](https://github.com/sponsors/verdaccio)** or **[Open Collective](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
+You can donate at **[Open Collective](https://opencollective.com/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
 
 ## What does Verdaccio do for me?
 
@@ -184,7 +184,7 @@ docker pull verdaccio/verdaccio
 Available as [tags](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
 
 ```
-docker pull verdaccio/verdaccio:5.x-next
+docker pull verdaccio/verdaccio:6.x-next
 ```
 
 ### Running verdaccio using Docker
@@ -289,13 +289,16 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## Special Thanks
 
-Thanks to the following companies to help us to achieve our goals providing free open source licenses.
+Thanks to the following companies to help us to achieve our goals providing free open source licenses. Every company provides enough resources to move this project forward.
 
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)
-
-Verdaccio also is part of to the [Docker Open Source Program](https://www.docker.com/blog/expanded-support-for-open-source-software-projects/).
+| Company      | Logo                                                                                                                            | License                                                                           |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| JetBrains    | [![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)                                                     | JetBrains provides licenses for products for active maintainers, renewable yearly |
+| Crowdin      | [![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)                                                              | Crowdin provides platform for translations                                        |
+| BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                        | BrowserStack provides plan to run End to End testing for the UI                   |
+| Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                      | Netlify provides pro plan for website deployment                                  |
+| Algolia      | [![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)                                     | Algolia provides search services for the website                                  |
+| Docker       | [![docker](https://cdn.verdaccio.dev/sponsor/logo/docker/docker.png)](https://www.docker.com/community/open-source/application) | Docker offers unlimited pulls and unlimited egress to any and all users           |
 
 ## Contributors
 
