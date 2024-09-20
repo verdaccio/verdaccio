@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/verdaccio/verdaccio/compare/v6.0.0-rc.1...v6.0.0) (2024-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency debug to v4.3.7 ([#4838](https://github.com/verdaccio/verdaccio/issues/4838)) ([cdf7810](https://github.com/verdaccio/verdaccio/commit/cdf7810f1de21c48840f988fdd253cda26d86cd6))
+* **deps:** update dependency envinfo to v7.14.0 ([#4843](https://github.com/verdaccio/verdaccio/issues/4843)) ([c36d87f](https://github.com/verdaccio/verdaccio/commit/c36d87f3b6926943dfc194ad6560e8a3332e3fcd))
+
 ## [6.0.0-rc.1](https://github.com/verdaccio/verdaccio/compare/v5.32.2...v6.0.0-rc.1) (2024-09-15)
 
 
