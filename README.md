@@ -38,7 +38,7 @@ Google Cloud Storage** or create your own plugin.
 
 ## Install
 
-> Latest Node.js v16 required
+> Node.js v18 as minimum version required
 
 Install with npm:
 
