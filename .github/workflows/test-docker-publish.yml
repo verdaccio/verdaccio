@@ -1,0 +1,7 @@
+name: Test Docker Build
+
+on: [push, pull_request]
+
+jobs:
+  testDocker:
+   uses: verdaccio/verdaccio/.github/workflows/test-docker-build.yml@master  
