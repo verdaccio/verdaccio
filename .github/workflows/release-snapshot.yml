@@ -3,8 +3,8 @@ name: Release Canary
 on:
   workflow_dispatch:
   push:
-    branches:
-      - 7.x
+    # branches:
+    #   - 7.x
 jobs:
   release:
     uses: verdaccio/verdaccio/.github/workflows/x-release-snapshot.yml@ci-refactor
