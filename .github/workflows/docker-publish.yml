@@ -20,37 +20,10 @@ on:
      - 'v*'
 
 jobs:
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
-      - uses: docker/setup-qemu-action@27d0a4f181a40b142cce983c5393082c365d1480 # tag=v1
-      - uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: network=host
-      - uses: docker/login-action@v1
-        name: Login Docker Hub
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Prepare docker image tags
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          images: ${{ github.repository }}
-          tag-custom: 6.x-next
-          tag-custom-only: ${{ github.ref == 'refs/heads/6.x' }}
-          tag-latest: true
-          tag-semver: |
-            {{version}}
-            {{major}}
-            {{major}}.{{minor}}
-      - name: Build & Push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}
+  docker-publish:
+      secrets: inherit
+      uses: verdaccio/verdaccio/.github/workflows/shared-docker-publish.yml@master    
+      with:
+        tag-latest: true
+        tag-custom: 6.x-next
+        tag-custom-only: ${{ github.ref == 'refs/heads/6.x' }}
