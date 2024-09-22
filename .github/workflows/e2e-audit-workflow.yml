@@ -1,5 +1,6 @@
 on:
   pull_request:
+  push:
 
 name: 'Plugin Audit E2E'
 jobs:
