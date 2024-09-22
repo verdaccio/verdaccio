@@ -7,4 +7,5 @@ on:
     #   - 7.x
 jobs:
   release:
+    secrets: inherit
     uses: verdaccio/verdaccio/.github/workflows/x-release-snapshot.yml@ci-refactor
