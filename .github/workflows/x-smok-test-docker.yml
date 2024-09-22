@@ -6,6 +6,11 @@ on:
         type: string
         description: 'Docker tag to use for the verdaccio image'
         default: '5'
+      module_tag:
+        required: true
+        type: string
+        description: 'Npmjs module tag to use for the verdaccio image'
+        default: '@latest'   
   
 jobs:
   test:
@@ -13,12 +18,12 @@ jobs:
     steps:
       - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
         with:
-          node-version: 20
+          node-version-file: '.nvmrc'
       - name: Docker test
         run: |
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:${{ inputs.docker_tag }}
       - name: verdaccio cli 
-        run:  npm install -g verdaccio --registry http://localhost:4873                        
+        run:  npm install -g verdaccio${{inputs.module_tag }} --registry http://localhost:4873                        
       - name: gastby cli 
         run:  npm install -g gatsby-cli --registry http://localhost:4873
       - name: netlify cli 
