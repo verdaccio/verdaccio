@@ -6,6 +6,6 @@ permissions:
   contents: read
 
 jobs:
-  build:  
+  lint:  
     uses: verdaccio/verdaccio/.github/workflows/yarn-ci-lint.yml@ci-refactor    
 
