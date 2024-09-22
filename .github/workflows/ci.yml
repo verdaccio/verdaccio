@@ -5,7 +5,7 @@ on: [push, pull_request]
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-${{ github.ref }}-7.x
   cancel-in-progress: true  
 
 jobs:
