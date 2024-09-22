@@ -2,6 +2,10 @@ on:
   pull_request:
   push:
         
+concurrency:
+  group: e2e-gastbyjs-${{ github.ref }}-7.x
+  cancel-in-progress: true  
+
 name: 'E2E Gatsby.js CLI with verdaccio'
 jobs:
   e2e:  

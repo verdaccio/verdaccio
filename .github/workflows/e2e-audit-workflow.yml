@@ -2,6 +2,10 @@ on:
   pull_request:
   push:
 
+concurrency:
+  group: e2e-audit-${{ github.ref }}-7.x
+  cancel-in-progress: true  
+
 name: 'Plugin Audit E2E'
 jobs:
   e2e:  
