@@ -1,15 +1,13 @@
 on:
   workflow_call:
-
+    inputs:
+      node_version:
+        required: true
+        type: string
 jobs:
   ci:
     name: Node ${{ matrix.node_version }}
-    strategy:
-      fail-fast: false
-      matrix:
-        node_version: [18, 20, 21, 22]
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
     - name: Use Node ${{ matrix.node_version }}
