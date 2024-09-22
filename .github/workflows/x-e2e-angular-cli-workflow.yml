@@ -1,0 +1,114 @@
+on:
+  workflow_call:
+
+jobs:
+  npm8:
+    name: 'npm8:angular example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install latest npm'
+        run: npm i -g npm@next-8
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873" > ~/.npmrc
+          npm config set loglevel="silent"
+          npm config set fetch-retries="5"
+          npm config set fetch-retry-factor="50"
+          npm config set fetch-retry-mintimeout="20000"
+          npm config set fetch-retry-maxtimeout="80000"
+          npm install -g @angular/cli
+          ng new verdaccio-angular --interactive=false
+
+          cd verdaccio-angular
+          npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
+
+          npm run ng build --aot
+  npm9:
+    name: 'npm9:angular example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install latest npm 9'
+        run: npm i -g npm@next-9          
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873" > ~/.npmrc
+          npm config set loglevel="silent"
+          npm config set fetch-retries="5"
+          npm config set fetch-retry-factor="50"
+          npm config set fetch-retry-mintimeout="20000"
+          npm config set fetch-retry-maxtimeout="80000"
+          npm install -g @angular/cli
+          ng new verdaccio-angular --interactive=false
+
+          cd verdaccio-angular
+          npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
+          npm run ng build --aot
+  npm10:
+    name: 'npm10:angular example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install latest npm 10'
+        run: npm i -g npm@next-10         
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873" > ~/.npmrc
+          npm config set loglevel="info"
+          npm config set fetch-retries="5"
+          npm config set fetch-retry-factor="50"
+          npm config set fetch-retry-mintimeout="20000"
+          npm config set fetch-retry-maxtimeout="80000"
+          npm install -g @angular/cli
+          ng new verdaccio-angular --interactive=false
+
+          cd verdaccio-angular
+          npm install @angular-devkit/core@next @babel/preset-env @babel/core -D
+
+          npm run ng build --aot
