@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   init: 
-    uses: verdaccio/verdaccio/.github/workflows/yarn/ci.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@ci-refactor
   # ci:
   #   name: Node ${{ matrix.node_version }}
 
