@@ -9,4 +9,4 @@ concurrency:
 name: 'E2E Jest with verdaccio'
 jobs:
   e2e:  
-    uses: verdaccio/verdaccio/.github/workflows/x-e2e-jest-workflow.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-e2e-jest-workflow.yml@master

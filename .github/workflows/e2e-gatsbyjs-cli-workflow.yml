@@ -9,4 +9,4 @@ concurrency:
 name: 'E2E Gatsby.js CLI with verdaccio'
 jobs:
   e2e:  
-    uses: verdaccio/verdaccio/.github/workflows/x-e2e-gatsbyjs-cli-workflow.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-e2e-gatsbyjs-cli-workflow.yml@master

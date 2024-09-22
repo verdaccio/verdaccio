@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   testDocker:
-   uses: verdaccio/verdaccio/.github/workflows/test-docker-build.yml@ci-refactor  
+   uses: verdaccio/verdaccio/.github/workflows/test-docker-build.yml@master  
 
   testVerdaccio:
-    uses: verdaccio/verdaccio/.github/workflows/test-publish-package.yml@ci-refactor    
+    uses: verdaccio/verdaccio/.github/workflows/test-publish-package.yml@master    

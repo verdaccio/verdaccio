@@ -9,4 +9,4 @@ concurrency:
 name: 'E2E Angular CLI with verdaccio'
 jobs:
   e2e:  
-    uses: verdaccio/verdaccio/.github/workflows/x-e2e-angular-cli-workflow.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-e2e-angular-cli-workflow.yml@master

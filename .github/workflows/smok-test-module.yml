@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   smoke:  
-    uses: verdaccio/verdaccio/.github/workflows/x-smok-test-module.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-smok-test-module.yml@master
     with:
       docker_tag: '7.x-next'
 

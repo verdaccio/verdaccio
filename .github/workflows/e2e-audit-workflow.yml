@@ -9,4 +9,4 @@ concurrency:
 name: 'Plugin Audit E2E'
 jobs:
   e2e:  
-    uses: verdaccio/verdaccio/.github/workflows/x-e2e-audit-workflow.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-e2e-audit-workflow.yml@master

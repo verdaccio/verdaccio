@@ -7,5 +7,5 @@ on:
 jobs:
   snapshot:
     secrets: inherit
-    uses: verdaccio/verdaccio/.github/workflows/x-release.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-release.yml@master
 
