@@ -10,7 +10,13 @@ concurrency:
 
 jobs:
   init: 
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [20, 22]    
     uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@ci-refactor
+    with:
+      node_version: ${{ matrix.node_version }}
   # ci:
   #   name: Node ${{ matrix.node_version }}
 
