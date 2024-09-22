@@ -1,0 +1,17 @@
+name: Module Smoke Test
+on:
+  workflow_dispatch:
+  push:
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-test-pkgs-${{ github.ref }}-7.x
+  cancel-in-progress: true  
+
+jobs:
+  smoke:  
+    uses: verdaccio/verdaccio/.github/workflows/x-smok-test-module.yml@master
+    with:
+      docker_tag: '7.x-next'
+
