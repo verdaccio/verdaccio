@@ -1,29 +1,17 @@
-name: Docker Smoke Test 7.x
+name: Docker Smoke Test
 on:
   workflow_dispatch:
   push:
-    branches:
-      - 7.x  
-  schedule:
-    # run every sunday
-    - cron: '0 0 * * 0'
 permissions:
   contents: read
+
+concurrency:
+  group: e2e-docker-pkgs-${{ github.ref }}-7.x
+  cancel-in-progress: true  
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
-        with:
-          node-version: 20
-      - name: Docker test
-        run: |
-            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
-      - name: verdaccio cli 
-        run:  npm install -g verdaccio --registry http://localhost:4873                        
-      - name: gastby cli 
-        run:  npm install -g gatsby-cli --registry http://localhost:4873
-      - name: netlify cli 
-        run:  npm install -g netlify-cli --registry http://localhost:4873
-      - name: angular cli 
-        run:  npm install -g @angular/cli --registry http://localhost:4873
+  smoke:  
+    uses: verdaccio/verdaccio/.github/workflows/x-smok-test-docker.yml@ci-refactor
+    with:
+      docker_tag: '7.x-next'
+
