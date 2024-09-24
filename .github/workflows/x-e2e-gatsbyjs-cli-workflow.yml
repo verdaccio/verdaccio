@@ -1,0 +1,74 @@
+on:
+  workflow_call:
+  
+jobs:
+  npm9:
+    name: 'npm9:gatsby example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install npm 9'
+        run: npm i -g npm@next-9
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873
+          loglevel="info"
+          fetch-retries=10
+          fetch-retry-factor=2
+          fetch-retry-mintimeout=10000
+          fetch-retry-maxtimeout=80000" > ~/.npmrc
+          npm config list
+          npm i -g gatsby@latest
+          gatsby new my-gatsby
+          cd my-gatsby
+          npm run build          
+  npm10:
+    name: 'npm10:gatsby example'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+
+      - name: 'Use Node.js'
+        uses: actions/setup-node@7c12f8017d5436eb855f1ed4399f037a36fbd9e8 # v2.5.2
+        with:
+          node-version-file: '.nvmrc'
+      - name: 'install npm 10'
+        run: npm i -g npm@next-10
+      - name: Install Dependencies
+        run: yarn install
+      - name: 'Run verdaccio in the background'
+        run: |
+          nohup yarn node ./scripts/run-verdaccio.js --config ./scripts/e2e-config.yaml &
+      - name: 'Ping to verdaccio'
+        run: |
+          npm ping --registry http://localhost:4873
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "registry=http://localhost:4873
+          loglevel="info"
+          fetch-retries=10
+          fetch-retry-factor=2
+          fetch-retry-mintimeout=10000
+          fetch-retry-maxtimeout=80000" > ~/.npmrc
+          npm config list
+          npm i -g gatsby@latest
+          gatsby new my-gatsby
+          cd my-gatsby
+          npm run build          

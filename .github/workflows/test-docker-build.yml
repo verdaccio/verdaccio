@@ -1,0 +1,13 @@
+on:
+  workflow_call:
+
+jobs:
+  testDocker:
+    name: Test Docker Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+    - name: Build
+      run: docker build .
+      env:
+        VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
