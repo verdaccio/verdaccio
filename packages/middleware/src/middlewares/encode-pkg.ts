@@ -15,5 +15,10 @@ export function encodeScopePackage(
     // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
     req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
   }
+  // We don't want to encode @ in the URL so mapping to a scoped package name works correctly
+  // e.g.: /%40org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
+  if (req.url.indexOf('%40') !== -1) {
+    req.url = req.url.replace(/^\/%40/, '/@');
+  }
   next();
 }
