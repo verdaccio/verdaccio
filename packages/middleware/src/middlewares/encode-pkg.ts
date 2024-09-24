@@ -11,14 +11,14 @@ export function encodeScopePackage(
   res: $ResponseExtend,
   next: $NextFunctionVer
 ): void {
+  // If the @ sign is encoded, we need to decode it first
+  // e.g.: /%40org/pkg/1.2.3 -> /@org/pkg/1.2.3
+  if (req.url.indexOf('%40') !== -1) {
+    req.url = req.url.replace(/^\/%40/, '/@');
+  }
   if (req.url.indexOf('@') !== -1) {
     // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
     req.url = req.url.replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
-  }
-  // We don't want to encode @ in the URL so mapping to a scoped package name works correctly
-  // e.g.: /%40org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
-  if (req.url.indexOf('%40') !== -1) {
-    req.url = req.url.replace(/^\/%40/, '/@');
   }
   next();
 }
