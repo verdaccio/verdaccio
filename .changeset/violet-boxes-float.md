@@ -1,7 +1,6 @@
 ---
-'@verdaccio/api': patch
 '@verdaccio/store': patch
 '@verdaccio/tarball': patch
 ---
 
-fix(api): error handling when requesting tarball
+fix(api): add logging when requesting tarball
