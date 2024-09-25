@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.1
+
+### Minor Changes
+
+- 6a8154c: feat: update logger pino to latest
+
 ## 4.0.0-next-8.0
 
 ### Major Changes

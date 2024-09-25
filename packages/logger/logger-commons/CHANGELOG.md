@@ -1,5 +1,17 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.2
+
+### Minor Changes
+
+- 6a8154c: feat: update logger pino to latest
+
+### Patch Changes
+
+- Updated dependencies [6a8154c]
+  - @verdaccio/core@8.0.0-next-8.2
+  - @verdaccio/logger-prettify@8.0.0-next-8.1
+
 ## 8.0.0-next-8.1
 
 ### Patch Changes

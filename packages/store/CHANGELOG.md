@@ -1,5 +1,26 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.2
+
+### Minor Changes
+
+- 6a8154c: feat: update logger pino to latest
+
+### Patch Changes
+
+- Updated dependencies [6a8154c]
+  - @verdaccio/config@8.0.0-next-8.2
+  - @verdaccio/core@8.0.0-next-8.2
+  - @verdaccio/tarball@13.0.0-next-8.2
+  - @verdaccio/url@13.0.0-next-8.2
+  - @verdaccio/hooks@8.0.0-next-8.2
+  - @verdaccio/loaders@8.0.0-next-8.2
+  - @verdaccio/logger@8.0.0-next-8.2
+  - @verdaccio/local-storage@13.0.0-next-8.2
+  - @verdaccio/proxy@8.0.0-next-8.2
+  - @verdaccio/search@8.0.0-next-8.2
+  - @verdaccio/utils@7.1.0-next-8.2
+
 ## 8.0.0-next-8.1
 
 ### Patch Changes

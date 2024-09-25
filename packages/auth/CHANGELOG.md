@@ -1,5 +1,22 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.2
+
+### Minor Changes
+
+- 6a8154c: feat: update logger pino to latest
+
+### Patch Changes
+
+- Updated dependencies [6a8154c]
+  - @verdaccio/config@8.0.0-next-8.2
+  - @verdaccio/core@8.0.0-next-8.2
+  - @verdaccio/loaders@8.0.0-next-8.2
+  - @verdaccio/logger@8.0.0-next-8.2
+  - verdaccio-htpasswd@13.0.0-next-8.2
+  - @verdaccio/signature@8.0.0-next-8.1
+  - @verdaccio/utils@7.1.0-next-8.2
+
 ## 8.0.0-next-8.1
 
 ### Major Changes
