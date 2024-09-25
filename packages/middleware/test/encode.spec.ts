@@ -20,7 +20,7 @@ test('encode is json', async () => {
   expect(res.status).toEqual(HTTP_STATUS.OK);
 });
 
-test('encode packages with version/scope', async () => {
+test('packages with version/scope', async () => {
   const app = getApp([]);
   // @ts-ignore
   app.use(encodeScopePackage);
@@ -63,7 +63,7 @@ test('encode packages with version/scope', async () => {
   expect(res8.status).toEqual(HTTP_STATUS.OK);
 });
 
-test('encode tarballs with version/scope', async () => {
+test('tarballs with version/scope', async () => {
   const app = getApp([]);
   // @ts-ignore
   app.use(encodeScopePackage);
