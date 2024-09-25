@@ -57,5 +57,5 @@
     "@verdaccio/web": "7.0.0",
     "@verdaccio/website": "6.0.0"
   },
-  "changesets": ["beige-lions-type", "chatty-apricots-report"]
+  "changesets": ["angry-doors-tan", "beige-lions-type", "chatty-apricots-report", "long-eyes-drum"]
 }
