@@ -61,9 +61,17 @@ test('packages with version/scope', async () => {
   const res8 = await request(app).get('/%40scope%2ffoo/1.0.0');
   expect(res8.body).toEqual({ package: '@scope/foo', version: '1.0.0' });
   expect(res8.status).toEqual(HTTP_STATUS.OK);
+
+  const res9 = await request(app).get('/%40scope/foo');
+  expect(res9.body).toEqual({ package: '@scope/foo' });
+  expect(res9.status).toEqual(HTTP_STATUS.OK);
+
+  const res10 = await request(app).get('/%40scope/foo/1.0.0');
+  expect(res10.body).toEqual({ package: '@scope/foo', version: '1.0.0' });
+  expect(res10.status).toEqual(HTTP_STATUS.OK);
 });
 
-test('tarballs with version/scope', async () => {
+test('tarballs with and without scope', async () => {
   const app = getApp([]);
   // @ts-ignore
   app.use(encodeScopePackage);
@@ -88,4 +96,8 @@ test('tarballs with version/scope', async () => {
   const res4 = await request(app).get('/%40scope%2ffoo/-/foo-1.2.3.tgz');
   expect(res4.body).toEqual({ package: '@scope/foo', filename: 'foo-1.2.3.tgz' });
   expect(res4.status).toEqual(HTTP_STATUS.OK);
+
+  const res5 = await request(app).get('/%40scope/foo/-/foo-1.2.3.tgz');
+  expect(res5.body).toEqual({ package: '@scope/foo', filename: 'foo-1.2.3.tgz' });
+  expect(res5.status).toEqual(HTTP_STATUS.OK);
 });
