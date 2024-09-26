@@ -15,5 +15,5 @@ files:
     ignore: [/website/docs/api/**/*]
   - source: /website/versioned_docs/**/*
     translation: /website/i18n/%locale%/docusaurus-plugin-content-docs/**/%original_file_name%
-    ignore: [/website/versioned_docs/version-5.x/api/**/*, /website/versioned_docs/version-6.x/api/**/*]
+    ignore: [/website/versioned_docs/version-5.x/api/**/*, /website/versioned_docs/version-7.x/api/**/*]
    
