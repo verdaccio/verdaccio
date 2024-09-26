@@ -134,13 +134,28 @@ theme:
     option2: bar
 ```
 
+### Filter Configuration (Experimental) {#filter-configuration}
+
+A real example from [npm i -g verdaccio-plugin-secfilter](https://github.com/Ansile/verdaccio-plugin-secfilter) filter plugin.
+
+```yaml
+filters:
+  plugin-secfilter:
+    block:
+      - scope: @evil # block all packages in scope
+      - package: semvver # block a malicious package
+      - package: @coolauthor/stolen
+        versions: '>2.0.1' # block some malicious versions of previously ok package
+                           # uses https://www.npmjs.com/package/semver syntax
+```
+
 ## Legacy plugins {#legacy-plugins}
 
 ### Sinopia Plugins {#sinopia-plugins}
 
 :::caution
 
-Plugins from sinopia era are deprecated but still available in verdaccio@5.x versions but already removed from next 6.x versions, consider migrate them or stop using them for future updates.
+After version 6 sinopia plugins are not longer supported due the naming convention.
 
 :::caution
 
@@ -163,3 +178,6 @@ Plugins from sinopia era are deprecated but still available in verdaccio@5.x ver
 - [sinopia-gitlab](https://www.npmjs.com/package/sinopia-gitlab): Gitlab authentication plugin for sinopia
 - [sinopia-ldap](https://www.npmjs.com/package/sinopia-ldap): LDAP auth plugin for sinopia.
 - [sinopia-github-oauth-env](https://www.npmjs.com/package/sinopia-github-oauth-env) Sinopia authentication plugin with github oauth web flow.
+
+> All sinopia plugins should be compatible with all future verdaccio versions. Anyhow, we encourage contributors to migrate them to the
+> modern verdaccio API and using the prefix as _verdaccio-xx-name_.

@@ -31,14 +31,16 @@ Config files should be YAML, JSON or a NodeJS module. YAML format is detected by
 We use the **$XDG_DATA_HOME** environment by variable default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share.
 If you are using a custom storage, this location is irrelevant.
 
+You can use `VERDACCIO_STORAGE_PATH` to define an alternative storage path, read more about `VERDACCIO_STORAGE_PATH` [at the environment variables page](env.md#storage-path).
+
 ## Default database file location {#default-database-file-location}
 
 The default database file location is in the storage location.
 Starting with version 4.0.0, the database file name will be **.verdaccio-db.json** for a new installation of Verdaccio.
 When upgrading an existing Verdaccio server, the file name will remain **.sinopia-db.json**.
 
+> The database name `sinopia-db.json` is deprecated and support will be removed after v6.x
+
 ## Environment variables {#environment-variables}
 
-[Full list of environment variables](https://github.com/verdaccio/verdaccio/blob/master/docs/env.variables.md).
-
-- `VERDACCIO_HANDLE_KILL_SIGNALS` to enable gracefully shutdown (since v4.12.0)
+[Full list of environment variables](env.md).

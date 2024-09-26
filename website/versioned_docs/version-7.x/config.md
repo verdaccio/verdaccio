@@ -53,39 +53,6 @@ The location of the database is based on the `config.yaml` folder location, for 
 
 If the `config.yaml` is located in `/some_local_path/config.yaml`, the database will be created in `/some_local_path/storage/.verdaccio-db`.
 
-:::info
-
-For users who have been using Verdaccio for an extended period and the `.verdaccio-db` file already exist the secret
-may be **64 characters** long. However, for newer installations, the length will be generated as **32 characters** long.
-
-If the secret length is **64 characters** long:
-
-- For users running Verdaccio 5.x on **Node.js 22** or higher, **the application will fail to start** if the secret length **is not** 32 characters long.
-- For users running Verdaccio 5.x on **Node.js 21** or lower, the application will start, but it will display a deprecation warning at the console.
-
-#### How to upgrade the token secret at the storage?
-
-:warning: **If the secret is updated will invalidate all previous generated tokens.**
-
-##### Option 1: Manually
-
-Go to the [storage location](cli.md) and edit manually the secret to be 32 characters long.
-
-##### Option 2: Automatically (since v5.31.0)
-
-The `migrateToSecureLegacySignature` property is used to generate a new secret token if the length is 64 characters.
-
-```
-security:
-  api:
-    migrateToSecureLegacySignature: true
-```
-
-The token will be automatically updated to 32 characters long and the application will start without any issues.
-The property won't have any other effect on the application and could be removed after the secret is updated.
-
-:::
-
 _The `.verdaccio-db` file database is only available if user does not use a custom storage_, by default verdaccio uses a tiny database to store private packages the `storage` property is defined in the `config.yaml` file.
 The location might change based on your operating system. [Read the CLI section](cli.md) for more details about the location of files.
 
@@ -120,7 +87,13 @@ auth:
     max_users: 1000
 ```
 
-### Security {#security}
+### Token signature {#token}
+
+The default token signature is based on the Advanced Encryption Standard (AES) with the algorithm `aes-256-ctr`, known as _legacy_.
+It's important to note that legacy tokens are not designed to expire.
+If expiration functionality is needed, it is recommended to use _JSON Web Tokens (JWT)_ instead.
+
+#### Security {#security}
 
 The security block permits customization of the token signature with two options. The configuration is divided into
 two sections, `api` and `web`. When using JWT on `api`, it must be defined; otherwise, the legacy token signature (`aes192`) will be utilized.
@@ -136,16 +109,13 @@ The `legacy` property is used to enable the legacy token signature. **By default
 
 :::info
 
-In 5.x versions using Node.js 21 or lower, there will see the warning `[DEP0106] DeprecationWarning: crypto.createDecipher is deprecated`. printed in your terminal.
-This warning indicates that Node.js has deprecated a function utilized by the legacy signature.
-
-If verdaccio runs on **Node.js 22** or higher, you will not see this warning since a new modern legacy signature has been implemented.
-
-The **migrateToSecureLegacySignature** property is only available for versions higher than 5.31.0 and is **false** by default.
+The **migrateToSecureLegacySignature** property is **true** by default on 6.x versions or higher and could be disabled but is not recommended otherwise will cause issues using Node.js 22 or higher.
 
 :::info
 
 ```yaml
+# This configuration is the default one only displayed for reference,
+# no need to define it in your config file.
 security:
   api:
     legacy: true # by default is true even if this section is not defined
@@ -179,7 +149,7 @@ security:
 
 A set of properties to modify the behavior of the server application, specifically the API (Express.js).
 
-> You can specify HTTP/1.1 server keep alive timeout in seconds for incoming connections.
+> You can specify HTTP/1.1 server keep alive timeout in seconds for incomming connections.
 > A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, which did not have a keep-alive timeout.
 > WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 
@@ -252,9 +222,24 @@ The new `VERDACCIO_PUBLIC_URL` is intended to be used behind proxies, this varia
 - Used as base path to serve UI resources as (js, favicon, etc)
 - Used on return metadata `dist` base path
 - Ignores `host` and `X-Forwarded-Proto` headers
-- If `url_prefix` is defined would be appended to the env variable.
+- If `url_prefix` is defined would be appened to the env variable.
 
-Read more about `VERDACCIO_PUBLIC_URL` [at the environment variables page](env.md#public-url).
+```
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/my_prefix'
+
+// url -> https://somedomain.org/my_prefix/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org';
+url_prefix: '/'
+
+// url -> https://somedomain.org/
+
+VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
+url_prefix: '/second_prefix'
+
+// url -> https://somedomain.org/second_prefix/'
+```
 
 ### User Agent {#user-agent}
 
@@ -352,12 +337,6 @@ notify:
 
 ### Logger {#logger}
 
-:::warning
-
-Since v5.22.0 the logger property is renamed to `logs` but `log` still compatible but displaying a warning
-
-:::
-
 Two logger types are supported, you may chose only one of them:
 
 #### console output (the default)
@@ -387,7 +366,6 @@ a built-in middleware plugin to handle this command.
 middlewares:
   audit:
     enabled: true
-    # timeout: 10000
 ```
 
 ### Experiments {#experiments}

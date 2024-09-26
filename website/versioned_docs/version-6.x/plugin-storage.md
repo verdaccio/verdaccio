@@ -3,7 +3,7 @@ id: plugin-storage
 title: 'Storage Plugin'
 ---
 
-## What's a Storage Plugin? {#whats-a-storage-plugin}
+## What's a storage plugin? {#whats-an-storage-plugin}
 
 Verdaccio by default uses a file system storage plugin [local-storage](https://github.com/verdaccio/verdaccio/tree/master/packages/plugins/local-storage). The default storage can be easily replaced, either using a community plugin or creating one by your own.
 
@@ -110,7 +110,7 @@ The following list of plugins are implementing the Storage API and might be used
 
 - [verdaccio-memory](https://github.com/verdaccio/verdaccio-memory) Storage plugin to host packages in Memory
 - [verdaccio-s3-storage](https://github.com/remitly/verdaccio-s3-storage) Storage plugin to host packages **Amazon S3**
-- [verdaccio-aws-s3-storage](https://github.com/verdaccio/monorepo/tree/verdaccio-aws-s3-storage%4010.3.0/plugins/aws-s3-storage) Storage plugin to host packages **Amazon S3** (maintained by Verdaccio core team)
+- [verdaccio-aws-s3-storage](https://github.com/verdaccio/monorepo/tree/master/plugins/aws-s3-storage) Storage plugin to host packages **Amazon S3** (maintained by Verdaccio core team)
 - [verdaccio-google-cloud](https://github.com/verdaccio/verdaccio-google-cloud) Storage plugin to host packages **Google Cloud Storage**
 - [verdaccio-minio](https://github.com/barolab/verdaccio-minio) A verdaccio plugin for storing data in Minio
 - [verdaccio-offline-storage](https://github.com/g3ngar/verdaccio-offline-storage) local-storage plugin BUT with locally available packages as first class citizens.

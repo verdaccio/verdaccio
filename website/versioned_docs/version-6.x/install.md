@@ -7,15 +7,17 @@ Verdaccio is a Node.js private and proxy registry. To install it, you need a few
 
 ## Prerequisites {#prerequisites}
 
-1. **Node.js** `v16` or higher.
+1. **Node.js** `v14` or higher.
 
-2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and modern).
+2. Your favorite Node Package Manager `npm`, `pnpm` or `yarn` (classic and berry).
 
 > We highly recommend to use the latest versions of Node Package Manager clients `> npm@6.x | yarn@1.x | | yarn@2.x | pnpm@6.x`. Don't support `npm@5.x` or older.
 
 3. A modern web browser to run the web interface. We actually support `Chrome, Firefox, Edge`.
 
 > Verdaccio will support latest Node.js version according the [Node.js Release Working Group](https://github.com/nodejs/Release) recomendations.
+
+Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide).
 
 ### Quick Introduction {#quick-introduction}
 
@@ -32,22 +34,38 @@ Learn the basics before getting started, how to install, where is the location o
 Using `npm`
 
 ```bash
-npm install -g verdaccio@latest-6
+npm install -g verdaccio
 ```
 
-or using `yarn@1.x` _classic_,
+or using `yarn`
 
 ```bash
-yarn global add verdaccio@latest-6
+yarn global add verdaccio
 ```
 
 or using `pnpm`
 
 ```bash
-pnpm install -g verdaccio@latest-6
+pnpm install -g verdaccio
 ```
 
 ![install verdaccio](/img/install_verdaccio.gif)
+
+### Next major release (verdaccio 6 alpha) {#next-major-release}
+
+Next [major release is under development](https://github.com/verdaccio/verdaccio/discussions/2970), byt can try it out already, either for testing purposes or helping to catch any possible bug, if you find something report it under the label [6.x bugs](https://github.com/verdaccio/verdaccio/labels/6.x%20bugs).
+
+```bash
+npm install -g verdaccio@7-next
+```
+
+or with the docker image
+
+```bash
+docker pull verdaccio/verdaccio:nightly-master
+```
+
+> The docker image `verdaccio/verdaccio:nightly-master` is alinged with the latest commits in master branch, while the npmjs version has a longer release cycle. **It is highly recommended don't use alpha versions for production**.
 
 ## Basic Usage {#basic-usage}
 
@@ -55,11 +73,8 @@ Once it has been installed, you only need to execute the CLI command:
 
 ```bash
 $> verdaccio
- info -=- local storage path /Users/user/.local/share/verdaccio/storage/.verdaccio-db.json
- info --- using htpasswd file: /Users/user/.config/verdaccio/htpasswd
- info --- http address http://localhost:4873/
- info --- version: 6.0.0-6-next.48
- info --- server started
+warn --- config file  - /home/.config/verdaccio/config.yaml
+warn --- http address - http://localhost:4873/ - verdaccio/5.0.0
 ```
 
 For more information about the CLI, please [read the cli section](cli.md).
@@ -103,7 +118,7 @@ If you'd like a broader explanation, don't miss the tutorial created by [thedevl
 ## Docker Image {#docker-image}
 
 ```bash
-docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:nightly-master
+docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
 `Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md), furthermore you can learn more about combining Docker images in our [docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples) repository.
@@ -113,5 +128,17 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:nightly-ma
 ```bash
 $ helm repo add verdaccio https://charts.verdaccio.org
 $ helm repo update
-$ helm install registry --set image.tag=nightly-master verdaccio/verdaccio
+$ helm install verdaccio/verdaccio
 ```
+
+## Cloudron {#cloudron}
+
+`Verdaccio` is also available as a 1-click install on [Cloudron](https://cloudron.io)
+
+[![Install](https://cloudron.io/img/button.svg)](https://cloudron.io/button.html?app=org.eggertsson.verdaccio)
+
+## Heroku with Docker
+
+For easy deployment you could use [Heroku](https://www.heroku.com/home), the _free_ dyno tier allows you to test their platform using a Docker container, check this example.
+
+[https://github.com/juanpicado/verdaccio-heroku-example](https://github.com/juanpicado/verdaccio-heroku-example)

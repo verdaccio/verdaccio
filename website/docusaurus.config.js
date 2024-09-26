@@ -415,18 +415,18 @@ module.exports = {
             }
             return `https://github.com/verdaccio/verdaccio/edit/master/website/docs/${docPath}`;
           },
-          lastVersion: '5.x',
+          lastVersion: '6.x',
           // onlyIncludeVersions: ['next', '5.x', '6.x'],
           versions: {
             // current: {
             //   label: `next`,
             // },
-            '6.x': {
-              label: `6.x`,
+            '7.x': {
+              label: `7.x`,
               banner: 'unreleased',
             },
-            '5.x': {
-              label: `5.x`,
+            '6.x': {
+              label: `6.x`,
             },
           },
         },
