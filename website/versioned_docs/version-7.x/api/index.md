@@ -1,3 +1,0 @@
-# Verdaccio API
-
-TBA
