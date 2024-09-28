@@ -1,7 +1,11 @@
+import buildDebug from 'debug';
+
 import { API_ERROR, errorUtils } from '@verdaccio/core';
 import { getVersionFromTarball } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+
+const debug = buildDebug('verdaccio:middleware:allow');
 
 export function allow<T>(
   auth: T,
@@ -21,22 +25,33 @@ export function allow<T>(
         : req.params.package;
       const packageVersion = req.params.filename
         ? getVersionFromTarball(req.params.filename)
-        : undefined;
-      const remote = req.remote_user;
+        : req.params.version
+          ? req.params.version
+          : undefined;
+      const remote_user = req.remote_user;
+      debug(
+        'check if user %o can %o package %o version %o',
+        remote_user?.name,
+        action,
+        packageName,
+        packageVersion
+      );
       beforeAll?.(
-        { action, user: remote?.name },
+        { action, user: remote_user?.name },
         `[middleware/allow][@{action}] allow for @{user}`
       );
       auth['allow_' + action](
         { packageName, packageVersion },
-        remote,
+        remote_user,
         function (error, allowed): void {
           req.resume();
           if (error) {
+            debug('user is NOT allowed to %o', action);
             next(error);
           } else if (allowed) {
+            debug('user is allowed to %o', action);
             afterAll?.(
-              { action, user: remote?.name },
+              { action, user: remote_user?.name },
               `[middleware/allow][@{action}] allowed for @{user}`
             );
             next();

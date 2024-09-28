@@ -3,7 +3,7 @@ id: plugin-middleware
 title: 'Middleware Plugin'
 ---
 
-## What's a Middleware Plugin? {#whats-a-middleware-plugin}
+## What's a middleware plugin? {#whats-a-middleware-plugin}
 
 Middleware plugins have the capability to modify the API (web and cli) layer, either adding new endpoints or intercepting requests.
 

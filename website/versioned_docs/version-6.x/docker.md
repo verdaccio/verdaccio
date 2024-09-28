@@ -22,19 +22,19 @@ Since version `v2.x` you can pull docker images by [tag](https://hub.docker.com/
 For a major version:
 
 ```bash
-docker pull verdaccio/verdaccio:6
+docker pull verdaccio/verdaccio:4
 ```
 
 For a minor version:
 
 ```bash
-docker pull verdaccio/verdaccio:6.0
+docker pull verdaccio/verdaccio:4.0
 ```
 
 For a specific (patch) version:
 
 ```bash
-docker pull verdaccio/verdaccio:6.0.0
+docker pull verdaccio/verdaccio:4.0.0
 ```
 
 > If you are interested on a list of tags, [please visit the Docker Hub website](https://hub.docker.com/r/verdaccio/verdaccio/tags/).
@@ -54,7 +54,11 @@ If you have [build an image locally](#build-your-own-docker-image) use `verdacci
 
 You can use `-v` to bind mount `conf`, `storage` and `plugins` to the hosts filesystem (example below).
 
-Note that if you do mount conf like this, that you will first need to supply a copy of config.yaml in that directory; the Docker container will not start properly if this file is missing. You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml. However, note the security warnings in that file; you will definitely want to lock it down in production.
+Note that if you do mount conf like this, that [you first need to supply a copy of config.yaml in that directory](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins/docker-build-install-plugin). The Docker container will not start properly if this file is missing.
+
+You can copy this file initially from https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml.
+
+However, note the security warnings in that file; you will definitely want to lock it down in production.
 
 ```bash
 V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
@@ -72,15 +76,9 @@ V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
 > you will get permission errors at runtime.
 > [Use docker volume](https://docs.docker.com/storage/volumes/) is recommended over using bind mount.
 
-Verdaccio 4 provides a new set of environment variables to modify either permissions, port or http protocol. Here the complete list:
+### Environment variables
 
-| Property            | default          | Description                                        |
-| ------------------- | ---------------- | -------------------------------------------------- |
-| VERDACCIO_APPDIR    | `/opt/verdaccio` | the docker working directory                       |
-| VERDACCIO_USER_NAME | `verdaccio`      | the system user                                    |
-| VERDACCIO_USER_UID  | `10001`          | the user id being used to apply folder permissions |
-| VERDACCIO_PORT      | `4873`           | the verdaccio port                                 |
-| VERDACCIO_PROTOCOL  | `http`           | the default http protocol                          |
+Verdaccio provides a new set of environment variables to modify either permissions, port or http protocol, see them at [the environment variables page](env.md#docker).
 
 ### SELinux {#selinux}
 
@@ -106,23 +104,62 @@ If you want to make the directory accessible only to a specific container, use `
 
 An alternative solution is to use [z and Z flags](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label). To add the `z` flag to the mountpoint `./conf:/verdaccio/conf` simply change it to `./conf:/verdaccio/conf:z`. The `z` flag relabels the directory and makes it accessible by every container while the `Z` flags relables the directory and makes it accessible only to that specific container. However using these flags is dangerous. A small configuration mistake, like mounting `/home/user` or `/var` can mess up the labels on those directories and make the system unbootable.
 
-### Plugins {#plugins}
+## Plugins {#plugins}
 
 Plugins can be installed in a separate directory and mounted using Docker or Kubernetes, however make sure you build plugins with native dependencies using the same base image as the Verdaccio Dockerfile.
 
+### Creating your own `Dockerfile` using `verdaccio/verdaccio:tag` as base
+
+If the plugin already exist in some registry, it could be installed globally with `npm` command.
+
 ```docker
+FROM verdaccio/verdaccio:5
+ADD docker.yaml /verdaccio/conf/config.yaml
+USER root
+RUN npm install --global verdaccio-static-token \
+  && npm install --global verdaccio-auth-memory
+USER $VERDACCIO_USER_UID
+```
+
+For more detailed plugin example, check the with `docker-examples` [folder](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins/docker-build-install-plugin).
+
+### Adding plugins with local plugins a `Dockerfile`
+
+If you don't have the packages available some registry and you want to try out a local plugin, you can use the folder `/verdaccio/plugins` for it, _verdaccio_ will look at this folder for plugins on startup.
+
+1. Create a base image with multi stage support.
+2. `ADD` the local plugin into the image
+3. Install dependencies, required if your plugin has dependencies, you might need to build in case you need a transpilation step (tsc, babel).
+4. Copying the final folder into the final image and applying permissions so verdaccio can find the folders (verdaccio uses custom user `$VERDACCIO_USER_UID`, read more [here](env.md#docker)).
+
+```
 FROM node:lts-alpine as builder
-RUN mkdir -p /verdaccio/plugins \
-  && cd /verdaccio/plugins \
-  && npm install --global-style --no-bin-links --omit=optional verdaccio-auth-memory@latest
+RUN mkdir -p /verdaccio/plugins
+ADD plugins/verdaccio-docker-memory /verdaccio/plugins/verdaccio-docker-memory
+RUN cd /verdaccio/plugins/verdaccio-docker-memory \
+  && npm install --production
 FROM verdaccio/verdaccio:5
 ADD docker.yaml /verdaccio/conf/config.yaml
 COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
-  /verdaccio/plugins/node_modules/verdaccio-auth-memory \
-  /verdaccio/plugins/verdaccio-auth-memory
+  /verdaccio/plugins/verdaccio-docker-memory \
+  /verdaccio/plugins/verdaccio-docker-memory
 ```
 
-For more information check real plugin examples with Docker in our [source code](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins).
+For more detailed plugin example, check the with `docker-examples` [folder](https://github.com/verdaccio/verdaccio/tree/master/docker-examples/v5/plugins/docker-local-plugin).
+
+### Adding plugins without creating a new image
+
+1. Using `docker-compose.yaml` [example below](docker.md#using-docker-compose).
+2. Mapping volumes in docker, verdaccio will look up for plugins at `/verdaccio/plugins` by default.
+
+```
+V_PATH=/path/for/verdaccio; docker run -it --rm --name verdaccio \
+  -p 4873:4873 \
+  -v $V_PATH/conf:/verdaccio/conf \
+  -v $V_PATH/storage:/verdaccio/storage \
+  -v $V_PATH/plugins:/verdaccio/plugins \
+  verdaccio/verdaccio
+```
 
 ### Docker and custom port configuration {#docker-and-custom-port-configuration}
 
@@ -201,17 +238,19 @@ $ docker volume inspect verdaccio_verdaccio
 
 ## Build your own Docker image {#build-your-own-docker-image}
 
+Go to the [`5.x` branch](https://github.com/verdaccio/verdaccio/tree/5.x) and run:
+
 ```bash
 docker build -t verdaccio .
 ```
 
-There is also an npm script for building the docker image, so you can also do:
+There is also an yarn script for building the docker image, so you can also do:
 
 ```bash
 yarn run build:docker
 ```
 
-Note: The first build takes some minutes to build because it needs to run `npm install`,
+Note: The first build takes some minutes to build because it needs to run `yarn install`,
 and it will take that long again whenever you change any file that is not listed in `.dockerignore`.
 
 Please note that for any of the above docker commands you need to have docker installed on your machine and the docker executable should be available on your `$PATH`.
@@ -227,6 +266,7 @@ There is a separate repository that hosts multiple configurations to compose Doc
 > If you have made an image based on Verdaccio, feel free to add it to this list.
 
 - [docker-verdaccio-multiarch](https://github.com/hertzg/docker-verdaccio-multiarch) Multiarch image mirrors
+- [docker-verdaccio-gitlab](https://github.com/snics/docker-verdaccio-gitlab)
 - [docker-verdaccio](https://github.com/deployable/docker-verdaccio)
 - [docker-verdaccio-s3](https://github.com/asynchrony/docker-verdaccio-s3) Private NPM container that can backup to s3
 - [docker-verdaccio-ldap](https://github.com/snadn/docker-verdaccio-ldap)
@@ -237,4 +277,3 @@ There is a separate repository that hosts multiple configurations to compose Doc
 - [verdaccio-server](https://github.com/andru255/verdaccio-server)
 - [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
 - [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)
-- [verdaccio-auth-gitlab](https://github.com/johanneslosch/verdaccio-auth-gitlab)
