@@ -257,6 +257,10 @@ class Storage {
   }
 
   private async getTarballFromUpstream(name: string, filename: string, { signal }) {
+    this.logger.info(
+      { name, filename },
+      'get tarball for package @{name} filename @{filename} from uplink'
+    );
     let cachedManifest: Manifest | null = null;
     try {
       cachedManifest = await this.getPackageLocalMetadata(name);
@@ -403,6 +407,7 @@ class Storage {
    * @returns
    */
   public async getTarball(name: string, filename: string, { signal }): Promise<PassThrough> {
+    this.logger.info({ name, filename }, 'get tarball for package @{name} filename @{filename}');
     debug('get tarball for package %o filename %o', name, filename);
     // TODO: check if isOpen is need it after all.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

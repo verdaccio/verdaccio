@@ -1,5 +1,17 @@
 # Change Log
 
+## 13.0.0-next-8.2
+
+### Minor Changes
+
+- 6a8154c: feat: update logger pino to latest
+
+### Patch Changes
+
+- Updated dependencies [6a8154c]
+  - @verdaccio/core@8.0.0-next-8.2
+  - @verdaccio/file-locking@13.0.0-next-8.1
+
 ## 13.0.0-next-8.1
 
 ### Patch Changes

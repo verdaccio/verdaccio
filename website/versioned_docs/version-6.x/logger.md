@@ -3,9 +3,9 @@ id: logger
 title: 'Logger'
 ---
 
-:::info
+:::warning
 
-Since v5.22.0 the logger property is renamed from `logs` to `log`, but still compatible with v6 but not recommended to use, could be removed any time.
+Since v5.22.0 the logger property is renamed from `logs` to `log`, it is still backward compatible but displaying a warning
 
 :::
 
