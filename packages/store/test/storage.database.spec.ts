@@ -4,20 +4,15 @@ import * as httpMocks from 'node-mocks-http';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, errorUtils, fileUtils } from '@verdaccio/core';
+import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import {
-  generateLocalPackageMetadata,
-  generatePackageMetadata,
-  getDeprecatedPackageMetadata,
-} from '@verdaccio/test-helper';
-import { AbbreviatedManifest, Author, Manifest, Version } from '@verdaccio/types';
+import { generatePackageMetadata, getDeprecatedPackageMetadata } from '@verdaccio/test-helper';
+import { Author, Manifest, Version } from '@verdaccio/types';
 
 import { Storage } from '../src';
 import {
   configExample,
   defaultRequestOptions,
-  domain,
   executeStarPackage,
   generateRandomStorage,
   getConfig,
@@ -26,7 +21,6 @@ import {
 const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const fakeHost = 'localhost:4873';
-const fooManifest = generatePackageMetadata('foo', '1.0.0');
 
 const executeChangeOwners = async (
   storage,
@@ -60,7 +54,7 @@ describe('storage', () => {
     vi.clearAllMocks();
   });
 
-  describe('publishing commands', () => {
+  describe('updateManifest', () => {
     describe('publishing', () => {
       test('create private package', async () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
@@ -113,7 +107,6 @@ describe('storage', () => {
       });
 
       // TODO: Review triggerUncaughtException exception on abort
-      // is not working as expected, throws but crash the test
       test.skip('abort creating a private package', async () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);
@@ -615,12 +608,14 @@ describe('storage', () => {
             _rev: bodyNewManifest._rev,
             _id: bodyNewManifest._id,
             name: pkgName,
+            // @ts-expect-error
             username: undefined,
             users: { fooUser: true },
           })
         ).rejects.toThrow();
       });
     });
+
     describe('owner', () => {
       test.each([
         ['foo', 'publishWithOwnerDefault.yaml'],
@@ -819,337 +814,189 @@ describe('storage', () => {
         }
       );
     });
-    describe('tokens', () => {
-      describe('saveToken', () => {
-        test('should retrieve tokens created', async () => {
-          const config = new Config(
-            configExample({
-              ...getDefaultConfig(),
-              storage: generateRandomStorage(),
-            })
-          );
-          const storage = new Storage(config, logger);
-          await storage.init(config);
-          await storage.saveToken({
-            user: 'foo',
-            token: 'secret',
-            key: 'key',
-            created: 'created',
-            readonly: true,
-          });
-          const tokens = await storage.readTokens({ user: 'foo' });
-          expect(tokens).toEqual([
-            { user: 'foo', token: 'secret', key: 'key', readonly: true, created: 'created' },
-          ]);
-        });
+  });
 
-        test('should delete a token created', async () => {
-          const config = new Config(
-            configExample({
-              ...getDefaultConfig(),
-              storage: generateRandomStorage(),
-            })
-          );
-          const storage = new Storage(config, logger);
-          await storage.init(config);
-          await storage.saveToken({
-            user: 'foo',
-            token: 'secret',
-            key: 'key',
-            created: 'created',
-            readonly: true,
-          });
-          const tokens = await storage.readTokens({ user: 'foo' });
-          expect(tokens).toHaveLength(1);
-          await storage.deleteToken('foo', 'key');
-          const tokens2 = await storage.readTokens({ user: 'foo' });
-          expect(tokens2).toHaveLength(0);
-        });
+  describe('getLocalDatabase', () => {
+    test('should return no results', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      await expect(storage.getLocalDatabase()).resolves.toHaveLength(0);
+    });
+
+    test('should return single result', async () => {
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: 'host',
+        },
+        url: '/',
       });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      });
+      const response = await storage.getLocalDatabase();
+      expect(response).toHaveLength(1);
+      expect(response[0]).toEqual(expect.objectContaining({ name: 'foo', version: '1.0.0' }));
     });
   });
 
-  describe('getPackageByOptions()', () => {
-    describe('with uplinks', () => {
-      test('should get 201 and merge from uplink', async () => {
-        nock(domain).get('/foo').reply(201, fooManifest);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo',
-            uplinksLook: true,
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
+  describe('removePackage', () => {
+    test('should remove entirely a package', async () => {
+      const username = 'foouser';
+      const config = new Config(
+        configExample({
+          ...getDefaultConfig(),
+          storage: generateRandomStorage(),
+        })
+      );
+      const req = httpMocks.createRequest({
+        method: 'GET',
+        connection: { remoteAddress: fakeHost },
+        headers: {
+          host: fakeHost,
+          [HEADERS.FORWARDED_PROTO]: 'http',
+        },
+        url: '/',
       });
+      const storage = new Storage(config, logger);
+      await storage.init(config);
 
-      test('should get 201 and merge from uplink with version', async () => {
-        nock(domain).get('/foo').reply(201, fooManifest);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo',
-            version: '1.0.0',
-            uplinksLook: true,
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
+      const manifest = generatePackageMetadata('foo');
+      const ac = new AbortController();
+      // 1. publish a package
+      await storage.updateManifest(manifest, {
+        signal: ac.signal,
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
       });
-
-      test('should get 201 and merge from uplink with dist-tag', async () => {
-        nock(domain).get('/foo').reply(201, fooManifest);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo',
-            version: 'latest',
-            uplinksLook: true,
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
-      });
-
-      test('should get 404 for version does not exist', async () => {
-        nock(domain).get('/foo').reply(201, fooManifest);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo',
-            version: '1.0.0-does-not-exist',
-            uplinksLook: true,
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).rejects.toThrow(
-          errorUtils.getNotFound("this version doesn't exist: 1.0.0-does-not-exist")
-        );
-      });
-
-      test('should get 404', async () => {
-        nock(domain).get('/foo2').reply(404);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            uplinks: {
-              npmjs: {
-                url: domain,
-              },
-            },
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo2',
-            uplinksLook: true,
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).rejects.toThrow(errorUtils.getNotFound());
-      });
-
-      test('should get ETIMEDOUT with uplink', async () => {
-        nock(domain).get('/foo2').replyWithError({
-          code: 'ETIMEDOUT',
-          errno: 'ETIMEDOUT',
-        });
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            uplinks: {
-              npmjs: {
-                url: domain,
-              },
-            },
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-        await expect(
-          storage.getPackageByOptions({
-            name: 'foo2',
-            uplinksLook: true,
-            retry: { limit: 0 },
-            requestOptions: {
-              headers: req.headers as any,
-              protocol: req.protocol,
-              host: req.get('host') as string,
-            },
-          })
-        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.NO_PACKAGE));
-      });
-
-      test('should fetch abbreviated version of manifest ', async () => {
-        const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
-        nock(domain).get('/foo').reply(201, fooManifest);
-        const config = new Config(
-          configExample({
-            ...getDefaultConfig(),
-            storage: generateRandomStorage(),
-          })
-        );
-        const req = httpMocks.createRequest({
-          method: 'GET',
-          connection: { remoteAddress: fakeHost },
-          headers: {
-            host: fakeHost,
-            [HEADERS.FORWARDED_PROTO]: 'http',
-          },
-          url: '/',
-        });
-        const storage = new Storage(config, logger);
-        await storage.init(config);
-
-        const manifest = (await storage.getPackageByOptions({
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: {
+          headers: req.headers as any,
+          protocol: req.protocol,
+          host: req.get('host') as string,
+        },
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. remove the tarball
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, username)
+      ).resolves.toBeDefined();
+      // 4. remove the package
+      await storage.removePackage(manifest1.name, _rev, username);
+      // 5. fails if package does not exist anymore in storage
+      await expect(
+        storage.getPackageByOptions({
           name: 'foo',
-          uplinksLook: true,
+          uplinksLook: false,
           requestOptions: {
             headers: req.headers as any,
             protocol: req.protocol,
             host: req.get('host') as string,
           },
-          abbreviated: true,
-        })) as AbbreviatedManifest;
-        const { versions, name } = manifest;
-        expect(name).toEqual('foo');
-        expect(Object.keys(versions)).toEqual(['1.0.0']);
-        expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
-        const version = versions['1.0.0'];
-        expect(Object.keys(version)).toEqual([
-          'name',
-          'version',
-          'deprecated',
-          'bin',
-          'dist',
-          'engines',
-          'funding',
-          'directories',
-          'dependencies',
-          'devDependencies',
-          'peerDependencies',
-          'optionalDependencies',
-          'bundleDependencies',
-          'cpu',
-          'os',
-          'peerDependenciesMeta',
-          'acceptDependencies',
-          '_hasShrinkwrap',
-          'hasInstallScript',
-        ]);
-        expect(manifest.modified).toBeDefined();
-        // special case for pnpm/rfcs/pull/2
-        expect(manifest.time).toBeDefined();
-        // fields must not have
-        // @ts-expect-error
-        expect(manifest.readme).not.toBeDefined();
-        // @ts-expect-error
-        expect(manifest._attachments).not.toBeDefined();
-        // @ts-expect-error
-        expect(manifest._rev).not.toBeDefined();
+        })
+      ).rejects.toThrow('package does not exist on uplink: foo');
+    });
+
+    test('ok to remove package as non-owner without check', async () => {
+      const config = getConfig('publishWithOwnerDefault.yaml');
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      const owner = 'fooUser';
+      const options = { ...defaultRequestOptions, username: owner };
+
+      // 1. publish a package
+      const bodyNewManifest = generatePackageMetadata('foo', '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: 'foo',
+        uplinksLook: true,
+        requestOptions: options,
       });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: options,
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. remove the tarball as other user
+      const nonOwner = 'barUser';
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, nonOwner)
+      ).resolves.toBeDefined();
+      // 4. remove the package as other user
+      await storage.removePackage(manifest1.name, _rev, nonOwner);
+      // 5. fails if package does not exist anymore in storage
+      await expect(
+        storage.getPackageByOptions({
+          name: 'foo',
+          uplinksLook: false,
+          requestOptions: options,
+        })
+      ).rejects.toThrow('package does not exist on uplink: foo');
+    });
+
+    test('should fail as non-owner with check', async () => {
+      const config = getConfig('publishWithOwnerAndCheck.yaml');
+      const storage = new Storage(config, logger);
+      await storage.init(config);
+      const owner = 'fooUser';
+      const options = { ...defaultRequestOptions, username: owner };
+
+      // 1. publish a package
+      const bodyNewManifest = generatePackageMetadata('foo', '1.0.0');
+      await storage.updateManifest(bodyNewManifest, {
+        signal: new AbortController().signal,
+        name: 'foo',
+        uplinksLook: true,
+        requestOptions: options,
+      });
+      // 2. request package (should be available in the local cache)
+      const manifest1 = (await storage.getPackageByOptions({
+        name: 'foo',
+        uplinksLook: false,
+        requestOptions: options,
+      })) as Manifest;
+      const _rev = manifest1._rev;
+      // 3. try removing the tarball
+      const nonOwner = 'barUser';
+      await expect(
+        storage.removeTarball(manifest1.name, 'foo-1.0.0.tgz', _rev, nonOwner)
+      ).rejects.toThrow();
+      // 4. try removing the package
+      await expect(storage.removePackage(manifest1.name, _rev, nonOwner)).rejects.toThrow();
     });
   });
 });

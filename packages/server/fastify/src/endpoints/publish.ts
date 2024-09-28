@@ -13,7 +13,7 @@
 //     const { packageName } = request.params;
 //     const storage = fastify.storage;
 //     debug('pkg name %s ', packageName);
-//     // const data = await storage?.getPackageNext({
+//     // const data = await storage?.getPackage({
 //     //   name: packageName,
 //     //   req: request.raw,
 //     //   uplinksLook: true,
