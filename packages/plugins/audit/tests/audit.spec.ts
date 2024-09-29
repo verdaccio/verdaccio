@@ -2,6 +2,7 @@ import express from 'express';
 import nock from 'nock';
 import { join } from 'path';
 import supertest from 'supertest';
+import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
