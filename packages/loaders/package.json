@@ -13,11 +13,11 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "@verdaccio/logger": "workspace:8.0.0-next-8.2",
     "debug": "4.3.7",
     "lodash": "4.17.21"
   },
   "devDependencies": {
+    "@verdaccio/logger": "workspace:8.0.0-next-8.2",
     "@verdaccio/core": "workspace:8.0.0-next-8.2",
     "@verdaccio/config": "workspace:8.0.0-next-8.2",
     "@verdaccio/types": "workspace:13.0.0-next-8.1",

@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import supertest from 'supertest';
+import { describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
 import {
@@ -27,9 +28,9 @@ import {
 setup({});
 
 // to avoid flaky test generate same ramdom key
-jest.mock('@verdaccio/utils', () => {
+vi.mock('@verdaccio/utils', async (importOriginal) => {
   return {
-    ...jest.requireActual('@verdaccio/utils'),
+    ...(await importOriginal<typeof import('@verdaccio/utils')>()),
     // used by enhanced legacy aes signature (minimum 32 characters)
     generateRandomSecretKey: () => 'GCYW/3IJzQI6GvPmy9sbMkFoiL7QLVw',
     // used by legacy aes signature
@@ -82,7 +83,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const groups = ['test'];
 
         auth.authenticate('foo', 'bar', callback);
@@ -109,7 +110,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
 
         auth.authenticate('foo', 'bar', callback);
         expect(callback).toHaveBeenCalledTimes(1);
@@ -128,7 +129,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         let index = 0;
 
         // as defined by https://developer.mozilla.org/en-US/docs/Glossary/Falsy
@@ -148,7 +149,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
 
         for (const value of [true, 1, 'test', {}]) {
           expect(function () {
@@ -166,7 +167,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const value = [];
 
         // @ts-ignore
@@ -183,7 +184,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         let index = 0;
 
         for (const value of [[''], ['1'], ['0'], ['000']]) {
@@ -231,7 +232,7 @@ describe('AuthTest', () => {
       const auth: Auth = new Auth(config);
       await auth.init();
       expect(auth).toBeDefined();
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       auth.changePassword('foo', 'bar', 'newFoo', callback);
 
@@ -246,8 +247,8 @@ describe('AuthTest', () => {
       const auth: Auth = new Auth(config);
       await auth.init();
       expect(auth).toBeDefined();
-      const callback = jest.fn();
-      auth.add_user('foo', 'bar', jest.fn());
+      const callback = vi.fn();
+      auth.add_user('foo', 'bar', vi.fn());
       auth.changePassword('foo', 'bar', 'newFoo', callback);
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback).toHaveBeenCalledWith(null, true);
@@ -265,7 +266,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const groups = ['test'];
 
         auth.allow_access(
@@ -287,7 +288,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         // $all comes from configuration file
         const groups = [ROLES.$ALL];
 
@@ -314,7 +315,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const groups = ['test'];
 
         auth.allow_publish(
@@ -336,7 +337,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         // $all comes from configuration file
         const groups = [ROLES.$AUTH];
 
@@ -361,7 +362,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const groups = ['test'];
 
         auth.allow_unpublish(
@@ -395,7 +396,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         const groups = ['test'];
 
         auth.allow_unpublish(
@@ -418,7 +419,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
         // $all comes from configuration file
         const groups = [ROLES.$AUTH];
 
@@ -445,7 +446,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
 
         auth.add_user('juan', 'password', callback);
 
@@ -468,7 +469,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
 
         // note: fail uas username make plugin fails
         auth.add_user('fail', 'password', callback);
@@ -492,7 +493,7 @@ describe('AuthTest', () => {
         await auth.init();
         expect(auth).toBeDefined();
 
-        const callback = jest.fn();
+        const callback = vi.fn();
 
         // note: fail uas username make plugin fails
         auth.add_user('skip', 'password', callback);
@@ -516,7 +517,7 @@ describe('AuthTest', () => {
       await auth.init();
       expect(auth).toBeDefined();
 
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       auth.add_user('something', 'password', callback);
 
@@ -540,7 +541,7 @@ describe('AuthTest', () => {
       await auth.init();
       expect(auth).toBeDefined();
 
-      const callback = jest.fn();
+      const callback = vi.fn();
 
       auth.add_user('something', 'password', callback);
 
