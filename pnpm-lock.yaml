@@ -809,9 +809,6 @@ importers:
 
   packages/loaders:
     dependencies:
-      '@verdaccio/logger':
-        specifier: workspace:8.0.0-next-8.2
-        version: link:../logger/logger
       debug:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
@@ -828,6 +825,9 @@ importers:
       '@verdaccio/core':
         specifier: workspace:8.0.0-next-8.2
         version: link:../core/core
+      '@verdaccio/logger':
+        specifier: workspace:8.0.0-next-8.2
+        version: link:../logger/logger
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.1
         version: link:../core/types

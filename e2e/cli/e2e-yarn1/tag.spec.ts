@@ -1,3 +1,5 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+
 import { addRegistry, initialSetup, prepareGenericEmptyProject } from '@verdaccio/test-cli-commons';
 
 import { yarn } from './utils';
@@ -7,7 +9,6 @@ export async function bumbUp(tempFolder, registry) {
 }
 
 describe('install a package', () => {
-  jest.setTimeout(20000);
   let registry;
 
   beforeAll(async () => {

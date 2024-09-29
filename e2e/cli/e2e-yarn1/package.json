@@ -7,6 +7,6 @@
     "yarn": "1.22.22"
   },
   "scripts": {
-    "test": "jest"
+    "test": "vitest run --testTimeout 50000"
   }
 }

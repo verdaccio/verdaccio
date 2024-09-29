@@ -7,6 +7,6 @@
     "pnpm": "9.0.0-alpha.10"
   },
   "scripts": {
-    "test": "jest"
+    "test": "vitest run --testTimeout 50000"
   }
 }
