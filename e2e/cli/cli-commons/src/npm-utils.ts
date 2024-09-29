@@ -1,3 +1,5 @@
+import { deepEqual } from 'assert';
+
 import { addRegistry } from './utils';
 
 export async function bumbUp(cmd, tempFolder, registry) {
@@ -13,7 +15,7 @@ export async function publish(cmd, tempFolder, pkgName, registry, arg: string[] 
     ...addRegistry(registry.getRegistryUrl())
   );
   const parsedBody = JSON.parse(resp.stdout as string);
-  expect(parsedBody.name).toEqual(pkgName);
+  deepEqual(parsedBody.name, pkgName);
 }
 
 export async function getInfoVersions(cmd, pkgName, registry) {
