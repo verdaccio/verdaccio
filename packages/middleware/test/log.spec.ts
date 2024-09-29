@@ -1,5 +1,6 @@
 import path from 'path';
 import request from 'supertest';
+import { test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';

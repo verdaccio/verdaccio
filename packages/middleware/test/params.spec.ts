@@ -1,4 +1,5 @@
 import request from 'supertest';
+import { describe, test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 

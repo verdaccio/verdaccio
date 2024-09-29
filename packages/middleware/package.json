@@ -34,7 +34,7 @@
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",
-    "test": "jest",
+    "test": "vitest run",
     "test:snap": "jest --updateSnapshot",
     "build": "pnpm run build:js && pnpm run build:types"
   },
@@ -57,6 +57,7 @@
   "devDependencies": {
     "@verdaccio/logger": "workspace:8.0.0-next-8.2",
     "body-parser": "1.20.3",
-    "supertest": "7.0.0"
+    "supertest": "7.0.0",
+    "jsdom": "25.0.1"
   }
 }
