@@ -16,7 +16,7 @@
     "approvalProgress": 25
   },
   "ga-IE": {
-    "translationProgress": 100,
+    "translationProgress": 99,
     "approvalProgress": 99
   },
   "gl": {
@@ -48,8 +48,8 @@
     "approvalProgress": 28
   },
   "ru": {
-    "translationProgress": 57,
-    "approvalProgress": 36
+    "translationProgress": 56,
+    "approvalProgress": 37
   },
   "sr-CS": {
     "translationProgress": 10,
@@ -72,11 +72,11 @@
     "approvalProgress": 14
   },
   "zh-CN": {
-    "translationProgress": 100,
-    "approvalProgress": 100
+    "translationProgress": 99,
+    "approvalProgress": 99
   },
   "zh-TW": {
-    "translationProgress": 14,
-    "approvalProgress": 14
+    "translationProgress": 15,
+    "approvalProgress": 15
   }
 }
