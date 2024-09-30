@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { Manifest } from '@verdaccio/types';
 
 import { generatePackageMetadata } from '../../api/node_modules/@verdaccio/test-helper/build';

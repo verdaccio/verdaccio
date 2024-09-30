@@ -1,9 +1,10 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+
 import { initialSetup, yarnModernUtils } from '@verdaccio/test-cli-commons';
 
 import { getYarnCommand, yarn } from './utils';
 
 describe('install a packages', () => {
-  jest.setTimeout(20000);
   let registry;
   let projectFolder;
 

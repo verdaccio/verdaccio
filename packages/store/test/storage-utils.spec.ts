@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { DIST_TAGS } from '@verdaccio/core';
 import { Manifest } from '@verdaccio/types';
 

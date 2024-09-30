@@ -3,7 +3,6 @@ import fs from 'fs';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
 import { pluginUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { Config, Logger } from '@verdaccio/types';
 
 import { PluginType, isES6, isValid, tryLoad } from './utils';
@@ -53,6 +52,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   prefix: string = 'verdaccio',
   pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
+  const logger = params?.logger;
   const pluginsIds = Object.keys(pluginConfigs);
   const { config } = params;
   let plugins: PluginType<T>[] = [];
@@ -74,7 +74,6 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         }
         pluginsPath = resolve(join(dirname(config.configPath), pluginsPath));
       }
-
       logger.debug({ path: pluginsPath }, 'plugins folder defined, loading plugins from @{path} ');
       // throws if is not a directory
       try {
