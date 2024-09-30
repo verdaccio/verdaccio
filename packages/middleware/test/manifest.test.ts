@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { getManifestValue } from '../src/middlewares/web/utils/manifest';
 
 const manifest = require('./partials/manifest/manifest.json');

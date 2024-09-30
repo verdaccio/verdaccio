@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { validatePrimaryColor } from '../src/middlewares/web/utils/web-utils';
 
 describe('Utilities', () => {

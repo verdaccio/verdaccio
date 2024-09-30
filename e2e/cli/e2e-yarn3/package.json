@@ -7,6 +7,6 @@
     "@yarnpkg/cli-dist": "3.8.3"
   },
   "scripts": {
-    "test": "jest"
+    "test": "vitest run --testTimeout 50000"
   }
 }

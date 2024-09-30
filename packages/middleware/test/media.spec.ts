@@ -1,5 +1,6 @@
 import mime from 'mime';
 import request from 'supertest';
+import { test } from 'vitest';
 
 import { HEADERS, HTTP_STATUS } from '@verdaccio/core';
 

@@ -1,3 +1,5 @@
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+
 import {
   addRegistry,
   initialSetup,
@@ -8,7 +10,6 @@ import {
 import { pnpm } from './utils';
 
 describe('publish a package', () => {
-  jest.setTimeout(20000);
   let registry;
 
   beforeAll(async () => {

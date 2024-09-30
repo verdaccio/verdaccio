@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import template from '../src/middlewares/web/utils/template';
 
 const manifest = require('./partials/manifest/manifest.json');

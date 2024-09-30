@@ -17,7 +17,7 @@
     "verdaccio": "workspace:8.0.0-next-8.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "echo no test",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

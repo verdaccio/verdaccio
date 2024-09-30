@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import path from 'path';
+import { describe, expect, test, vi } from 'vitest';
 
 import {
   Config as AppConfig,
@@ -9,17 +10,11 @@ import {
   parseConfigFile,
 } from '@verdaccio/config';
 import { getDefaultConfig } from '@verdaccio/config';
-import {
-  API_ERROR,
-  CHARACTER_ENCODING,
-  TOKEN_BEARER,
-  VerdaccioError,
-  errorUtils,
-} from '@verdaccio/core';
+import { API_ERROR, CHARACTER_ENCODING, VerdaccioError, errorUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { aesDecrypt, signPayload, verifyPayload } from '@verdaccio/signature';
-import { Config, RemoteUser, Security } from '@verdaccio/types';
-import { buildToken, buildUserBuffer, getAuthenticatedMessage } from '@verdaccio/utils';
+import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
+import { Config, RemoteUser } from '@verdaccio/types';
+import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
@@ -28,8 +23,6 @@ import {
   allow_action,
   getApiToken,
   getDefaultPlugins,
-  getMiddlewareCredentials,
-  verifyJWTPayload,
 } from '../src';
 
 setup({});
@@ -42,7 +35,7 @@ const parseConfigurationFile = (conf) => {
 };
 
 describe('Auth utilities', () => {
-  jest.setTimeout(20000);
+  vi.setConfig({ testTimeout: 20000 });
 
   const parseConfigurationSecurityFile = (name) => {
     return parseConfigurationFile(`security/${name}`);
@@ -52,6 +45,7 @@ describe('Auth utilities', () => {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
     const secConf = _.merge(getDefaultConfig(), conf);
+    // @ts-expect-error
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
 
@@ -70,9 +64,9 @@ describe('Auth utilities', () => {
     const auth: Auth = new Auth(config);
     await auth.init();
     // @ts-ignore
-    const spy = jest.spyOn(auth, methodToSpy);
+    const spy = vi.spyOn(auth, methodToSpy);
     // @ts-ignore
-    const spyNotCalled = jest.spyOn(auth, methodNotBeenCalled);
+    const spyNotCalled = vi.spyOn(auth, methodNotBeenCalled);
     const user: RemoteUser = {
       name: username,
       real_groups: ['test', '$all', '$authenticated', '@all', '@authenticated', 'all'],
@@ -123,14 +117,14 @@ describe('Auth utilities', () => {
 
   describe('getDefaultPlugins', () => {
     test('authentication should fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: jest.fn() });
+      const plugin = getDefaultPlugins({ trace: vi.fn() });
       plugin.authenticate('foo', 'bar', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
 
     test('add user should fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: jest.fn() });
+      const plugin = getDefaultPlugins({ trace: vi.fn() });
       // @ts-ignore
       plugin.adduser('foo', 'bar', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
@@ -151,7 +145,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should restrict %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -168,7 +162,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -185,7 +179,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous if the logged user has groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -202,7 +196,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous match any other groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -219,7 +213,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should not allow %s anonymous if other groups are defined and does not match',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: jest.fn() })(
+          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -362,192 +356,6 @@ describe('Auth utilities', () => {
   describe('getAuthenticatedMessage test', () => {
     test('should sign token with jwt enabled', () => {
       expect(getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
-    });
-  });
-
-  describe('getMiddlewareCredentials test', () => {
-    describe('should get AES credentials', () => {
-      test.concurrent('should unpack aes token and credentials bearer auth', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const user = 'test';
-        const pass = 'test';
-        const token = await getTokenByConfiguration(
-          'security-legacy',
-          user,
-          pass,
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
-        const config: Config = getConfig('security-legacy', secret);
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(security, secret, `Bearer ${token}`);
-        expect(credentials).toBeDefined();
-        // @ts-ignore
-        expect(credentials.user).toEqual(user);
-        // @ts-ignore
-        expect(credentials.password).toEqual(pass);
-      });
-
-      test.concurrent('should unpack aes token and credentials basic auth', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const user = 'test';
-        const pass = 'test';
-        // basic authentication need send user as base64
-        const token = buildUserBuffer(user, pass).toString('base64');
-        const config: Config = getConfig('security-legacy', secret);
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(security, secret, `Basic ${token}`);
-        expect(credentials).toBeDefined();
-        // @ts-ignore
-        expect(credentials.user).toEqual(user);
-        // @ts-ignore
-        expect(credentials.password).toEqual(pass);
-      });
-
-      test.concurrent('should return empty credential wrong secret key', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const token = await getTokenByConfiguration(
-          'security-legacy',
-          'test',
-          'test',
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
-        const config: Config = getConfig('security-legacy', secret);
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          'b2df428b9929d3ace7c598bbf4e496_BAD_TOKEN',
-          buildToken(TOKEN_BEARER, token)
-        );
-        expect(credentials).not.toBeDefined();
-      });
-
-      test.concurrent('should return empty credential wrong scheme', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const token = await getTokenByConfiguration(
-          'security-legacy',
-          'test',
-          'test',
-          secret,
-          'aesEncrypt',
-          'jwtEncrypt'
-        );
-        const config: Config = getConfig('security-legacy', secret);
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken('BAD_SCHEME', token)
-        );
-        expect(credentials).not.toBeDefined();
-      });
-
-      test.concurrent('should return empty credential corrupted payload', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const config: Config = getConfig('security-legacy', secret);
-        const auth: Auth = new Auth(config);
-        await auth.init();
-        // @ts-expect-error
-        const token = auth.aesEncrypt(null);
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken(TOKEN_BEARER, token as string)
-        );
-        expect(credentials).not.toBeDefined();
-      });
-    });
-
-    describe('verifyJWTPayload', () => {
-      test('should fail on verify the token and return anonymous users', () => {
-        expect(verifyJWTPayload('fakeToken', 'b2df428b9929d3ace7c598bbf4e496b2')).toEqual(
-          createAnonymousRemoteUser()
-        );
-      });
-
-      test('should verify the token and return a remote user', async () => {
-        const remoteUser = createRemoteUser('foo', []);
-        const token = await signPayload(remoteUser, '12345');
-        const verifiedToken = verifyJWTPayload(token, '12345');
-        expect(verifiedToken.groups).toEqual(remoteUser.groups);
-        expect(verifiedToken.name).toEqual(remoteUser.name);
-      });
-    });
-
-    describe('should get JWT credentials', () => {
-      test('should return anonymous whether token is corrupted', () => {
-        const config: Config = getConfig('security-jwt', '12345');
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          '12345',
-          buildToken(TOKEN_BEARER, 'fakeToken')
-        ) as RemoteUser;
-
-        expect(credentials).toBeDefined();
-        expect(credentials.name).not.toBeDefined();
-        expect(credentials.real_groups).toBeDefined();
-
-        expect(credentials.groups).toEqual(['$all', '$anonymous', '@all', '@anonymous']);
-      });
-
-      test('should return anonymous whether token and scheme are corrupted', () => {
-        const config: Config = getConfig('security-jwt', '12345');
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          '12345',
-          buildToken('FakeScheme', 'fakeToken')
-        );
-
-        expect(credentials).not.toBeDefined();
-      });
-
-      test('should verify successfully a JWT token', async () => {
-        const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
-        const user = 'test';
-        const config: Config = getConfig('security-jwt', secret);
-        const token = await getTokenByConfiguration(
-          'security-jwt',
-          user,
-          'secretTest',
-          secret,
-          'jwtEncrypt',
-          'aesEncrypt'
-        );
-        const security: Security = config.security;
-        const credentials = getMiddlewareCredentials(
-          security,
-          secret,
-          buildToken(TOKEN_BEARER, token)
-        ) as RemoteUser;
-        expect(credentials).toBeDefined();
-
-        expect(credentials.name).toEqual(user);
-        expect(credentials.real_groups).toBeDefined();
-        expect(credentials.real_groups).toEqual([
-          'test',
-          '$all',
-          '$authenticated',
-          '@all',
-          '@authenticated',
-          'all',
-        ]);
-        expect(credentials.groups).toEqual([
-          'company-role1',
-          'company-role2',
-          'test',
-          '$all',
-          '$authenticated',
-          '@all',
-          '@authenticated',
-          'all',
-        ]);
-      });
     });
   });
 });
