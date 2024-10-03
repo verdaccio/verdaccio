@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/cli": "7.24.8",
     "@babel/core": "7.24.9",
-    "@babel/eslint-parser": "7.25.1",
+    "@babel/eslint-parser": "7.25.7",
     "@babel/node": "7.25.0",
     "@babel/plugin-proposal-decorators": "7.24.7",
     "@babel/plugin-proposal-function-sent": "7.24.7",
@@ -98,7 +98,7 @@
     "cross-env": "7.0.3",
     "debug": "4.3.7",
     "detect-secrets": "1.0.6",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "fs-extra": "11.2.0",
     "got": "11.8.6",
     "husky": "8.0.3",
