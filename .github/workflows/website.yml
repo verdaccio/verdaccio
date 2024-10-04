@@ -30,10 +30,10 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
 
       - name: Node
-        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
