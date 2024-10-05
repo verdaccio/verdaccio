@@ -30,9 +30,9 @@ jobs:
         env:
           NODE_ENV: production
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Node
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -46,7 +46,7 @@ jobs:
       - name: Install
         run: pnpm install  --registry http://localhost:4873
       - name: Cache .pnpm-store
-        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -57,16 +57,16 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Node
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -82,16 +82,16 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Use Node
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -112,16 +112,16 @@ jobs:
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
       - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version: ${{ matrix.node_version }}
       - name: Install pnpm
         run: |
           corepack enable
           corepack prepare
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -140,15 +140,15 @@ jobs:
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v3
-      - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v3
+      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      - uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v3
+      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
