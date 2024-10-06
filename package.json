@@ -112,7 +112,7 @@
     "mockdate": "3.0.5",
     "nock": "13.5.4",
     "prettier": "3.3.3",
-    "rimraf": "5.0.7",
+    "rimraf": "5.0.10",
     "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
     "supertest": "7.0.0",
