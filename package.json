@@ -110,7 +110,7 @@
     "jest-junit": "16.0.0",
     "lockfile-lint": "4.13.2",
     "mockdate": "3.0.5",
-    "nock": "13.5.4",
+    "nock": "13.5.5",
     "prettier": "3.3.3",
     "rimraf": "5.0.10",
     "selfsigned": "2.4.1",
