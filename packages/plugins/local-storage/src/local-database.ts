@@ -118,7 +118,9 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   public async filterByQuery(results: searchUtils.SearchItemPkg[], query: searchUtils.SearchQuery) {
     // FUTURE: apply new filters, keyword, version, ...
     return results.filter((item: searchUtils.SearchItemPkg) => {
-      return item?.name?.match(query.text) !== null;
+      // Sanitize user input
+      const safeText = _.escapeRegExp(query.text);
+      return item?.name?.match(safeText) !== null;
     }) as searchUtils.SearchItemPkg[];
   }
 
