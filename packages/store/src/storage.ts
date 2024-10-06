@@ -1405,6 +1405,9 @@ class Storage {
               throw errorUtils.getBadRequest(errorMessage);
             }
           }
+          if (tarball === '__proto__' || tarball === 'constructor' || tarball === 'prototype') {
+            throw errorUtils.getBadRequest('tarball name is not allowed');
+          }
           data._attachments[tarball].version = version;
         }
 
