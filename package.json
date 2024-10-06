@@ -128,7 +128,7 @@
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
     "verdaccio-memory": "workspace:*",
-    "vitest": "2.0.4"
+    "vitest": "2.1.2"
   },
   "scripts": {
     "prepare": "husky install",

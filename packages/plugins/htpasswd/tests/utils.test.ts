@@ -2,6 +2,7 @@
 import crypto from 'crypto';
 import { HttpError } from 'http-errors';
 import MockDate from 'mockdate';
+import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { constants } from '@verdaccio/core';
 
@@ -16,8 +17,8 @@ import {
   verifyPassword,
 } from '../src/utils';
 
-const mockReadFile = jest.fn();
-const mockUnlockFile = jest.fn();
+const mockReadFile = vi.fn();
+const mockUnlockFile = vi.fn();
 
 const defaultHashConfig = {
   algorithm: constants.HtpasswdHashAlgorithm.bcrypt,
@@ -27,34 +28,34 @@ const defaultHashConfig = {
 const mockTimeAndRandomBytes = () => {
   MockDate.set('2018-01-14T11:17:40.712Z');
   // @ts-ignore: Module has no default export
-  crypto.randomBytes = jest.fn(() => {
+  crypto.randomBytes = vi.fn(() => {
     return {
       toString: (): string => '$6',
     };
   });
-  Math.random = jest.fn(() => 0.38849);
+  Math.random = vi.fn(() => 0.38849);
 };
 
-jest.mock('@verdaccio/file-locking', () => ({
+vi.mock('@verdaccio/file-locking', () => ({
   readFile: () => mockReadFile(),
   unlockFile: () => mockUnlockFile(),
 }));
 
 describe('parseHTPasswd', () => {
-  it('should parse the password for a single line', () => {
+  test('should parse the password for a single line', () => {
     const input = 'test:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z';
     const output = { test: '$6b9MlB3WUELU' };
     expect(parseHTPasswd(input)).toEqual(output);
   });
 
-  it('should parse the password for two lines', () => {
+  test('should parse the password for two lines', () => {
     const input = `user1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
 user2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z`;
     const output = { user1: '$6b9MlB3WUELU', user2: '$6FrCaT/v0dwE' };
     expect(parseHTPasswd(input)).toEqual(output);
   });
 
-  it('should parse the password for multiple lines', () => {
+  test('should parse the password for multiple lines', () => {
     const input = `user1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
 user2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z
 user3:$6FrCdfd\v0dwE:autocreated 2017-12-14T13:30:20.838Z
@@ -70,35 +71,35 @@ user4:$6FrCasdvppdwE:autocreated 2017-12-14T13:30:20.838Z`;
 });
 
 describe('verifyPassword', () => {
-  it('should verify the MD5/Crypt3 password with true', async () => {
+  test('should verify the MD5/Crypt3 password with true', async () => {
     const input = ['test', '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'];
     expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the MD5/Crypt3 password with false', async () => {
+  test('should verify the MD5/Crypt3 password with false', async () => {
     const input = ['testpasswordchanged', '$apr1$sKXK9.lG$rZ4Iy63Vtn8jF9/USc4BV0'];
     expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the plain password with true', async () => {
+  test('should verify the plain password with true', async () => {
     const input = ['testpasswordchanged', '{PLAIN}testpasswordchanged'];
     expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the plain password with false', async () => {
+  test('should verify the plain password with false', async () => {
     const input = ['testpassword', '{PLAIN}testpasswordchanged'];
     expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the crypto SHA password with true', async () => {
+  test('should verify the crypto SHA password with true', async () => {
     const input = ['testpassword', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
     expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the crypto SHA password with false', async () => {
+  test('should verify the crypto SHA password with false', async () => {
     const input = ['testpasswordchanged', '{SHA}i7YRj4/Wk1rQh2o740pxfTJwj/0='];
     expect(await verifyPassword(input[0], input[1])).toBeFalsy();
   });
-  it('should verify the bcrypt password with true', async () => {
+  test('should verify the bcrypt password with true', async () => {
     const input = ['testpassword', '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO'];
     expect(await verifyPassword(input[0], input[1])).toBeTruthy();
   });
-  it('should verify the bcrypt password with false', async () => {
+  test('should verify the bcrypt password with false', async () => {
     const input = [
       'testpasswordchanged',
       '$2y$04$Wqed4yN0OktGbiUdxSTwtOva1xfESfkNIZfcS9/vmHLsn3.lkFxJO',
@@ -112,22 +113,22 @@ describe('generateHtpasswdLine', () => {
 
   const [user, passwd] = ['username', 'password'];
 
-  it('should correctly generate line for md5', async () => {
+  test('should correctly generate line for md5', async () => {
     const md5Conf = { algorithm: constants.HtpasswdHashAlgorithm.md5 };
     expect(await generateHtpasswdLine(user, passwd, md5Conf)).toMatchSnapshot();
   });
 
-  it('should correctly generate line for sha1', async () => {
+  test('should correctly generate line for sha1', async () => {
     const sha1Conf = { algorithm: constants.HtpasswdHashAlgorithm.sha1 };
     expect(await generateHtpasswdLine(user, passwd, sha1Conf)).toMatchSnapshot();
   });
 
-  it('should correctly generate line for crypt', async () => {
+  test('should correctly generate line for crypt', async () => {
     const cryptConf = { algorithm: constants.HtpasswdHashAlgorithm.crypt };
     expect(await generateHtpasswdLine(user, passwd, cryptConf)).toMatchSnapshot();
   });
 
-  it('should correctly generate line for bcrypt', async () => {
+  test('should correctly generate line for bcrypt', async () => {
     const bcryptAlgoConfig = {
       algorithm: constants.HtpasswdHashAlgorithm.bcrypt,
       rounds: 2,
@@ -139,14 +140,14 @@ describe('generateHtpasswdLine', () => {
 describe('addUserToHTPasswd - bcrypt', () => {
   beforeAll(mockTimeAndRandomBytes);
 
-  it('should add new htpasswd to the end', async () => {
+  test('should add new htpasswd to the end', async () => {
     const input = ['', 'username', 'password'];
     expect(
       await addUserToHTPasswd(input[0], input[1], input[2], defaultHashConfig)
     ).toMatchSnapshot();
   });
 
-  it('should add new htpasswd to the end in multiline input', async () => {
+  test('should add new htpasswd to the end in multiline input', async () => {
     const body = `test1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
     test2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z`;
     const input = [body, 'username', 'password'];
@@ -155,7 +156,7 @@ describe('addUserToHTPasswd - bcrypt', () => {
     ).toMatchSnapshot();
   });
 
-  it('should throw an error for incorrect username with space', async () => {
+  test('should throw an error for incorrect username with space', async () => {
     const [a, b, c] = ['', 'firstname lastname', 'password'];
     await expect(
       addUserToHTPasswd(a, b, c, defaultHashConfig)
@@ -163,7 +164,7 @@ describe('addUserToHTPasswd - bcrypt', () => {
   });
 });
 describe('lockAndRead', () => {
-  it('should call the readFile method', () => {
+  test('should call the readFile method', () => {
     const cb = (): void => {};
     lockAndRead('.htpasswd', cb);
     expect(mockReadFile).toHaveBeenCalled();
@@ -178,7 +179,7 @@ describe('sanityCheck', () => {
   });
 
   test('should throw error for user already exists', async () => {
-    const verifyFn = jest.fn();
+    const verifyFn = vi.fn();
     const input = await sanityCheck('test', users.test, verifyFn, users, Infinity);
     expect((input as HttpError<number>).status).toEqual(401);
     expect((input as HttpError<number>).message).toEqual('unauthorized access');
@@ -230,7 +231,7 @@ describe('sanityCheck', () => {
   });
 
   test('should throw error for existing username and password', async () => {
-    const verifyFn = jest.fn(() => true);
+    const verifyFn = vi.fn(() => true);
     const input = await sanityCheck('test', users.test, verifyFn, users, 2);
     expect((input as HttpError<number>).status).toEqual(409);
     expect((input as HttpError<number>).message).toEqual('username is already registered');
@@ -240,7 +241,7 @@ describe('sanityCheck', () => {
   test(
     'should throw error for existing username and password with max number ' + 'of users reached',
     async () => {
-      const verifyFn = jest.fn(() => true);
+      const verifyFn = vi.fn(() => true);
       const input = await sanityCheck('test', users.test, verifyFn, users, 1);
       expect((input as HttpError<number>).status).toEqual(409);
       expect((input as HttpError<number>).message).toEqual('username is already registered');
