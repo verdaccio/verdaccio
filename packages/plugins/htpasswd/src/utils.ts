@@ -1,6 +1,7 @@
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
+import buildDebug from 'debug';
 import createError, { HttpError } from 'http-errors';
 
 import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
@@ -9,6 +10,7 @@ import { Callback } from '@verdaccio/types';
 
 import crypt3 from './crypt3';
 
+const debug = buildDebug('verdaccio:plugin:htpasswd:utils');
 export const DEFAULT_BCRYPT_ROUNDS = 10;
 
 type HtpasswdHashAlgorithm = constants.HtpasswdHashAlgorithm;
@@ -84,6 +86,7 @@ export async function generateHtpasswdLine(
 ): Promise<string> {
   let hash: string;
 
+  debug('algorithm %o', hashConfig.algorithm);
   switch (hashConfig.algorithm) {
     case constants.HtpasswdHashAlgorithm.bcrypt:
       hash = await bcrypt.hash(passwd, hashConfig.rounds || DEFAULT_BCRYPT_ROUNDS);
@@ -154,6 +157,7 @@ export async function sanityCheck(
 
   // check for user or password
   if (!user || !password) {
+    debug('username or password is missing');
     err = Error(API_ERROR.USERNAME_PASSWORD_REQUIRED);
     err.status = HTTP_STATUS.BAD_REQUEST;
     return err;
@@ -162,6 +166,7 @@ export async function sanityCheck(
   const hash = users[user];
 
   if (maxUsers < 0) {
+    debug('registration is disabled');
     err = Error(API_ERROR.REGISTRATION_DISABLED);
     err.status = HTTP_STATUS.CONFLICT;
     return err;
@@ -170,19 +175,23 @@ export async function sanityCheck(
   if (hash) {
     const auth = await verifyFn(password, users[user]);
     if (auth) {
+      debug(`user ${user} already exists`);
       err = Error(API_ERROR.USERNAME_ALREADY_REGISTERED);
       err.status = HTTP_STATUS.CONFLICT;
       return err;
     }
+    debug(`user ${user} exists but password is wrong`);
     err = Error(API_ERROR.UNAUTHORIZED_ACCESS);
     err.status = HTTP_STATUS.UNAUTHORIZED;
     return err;
   } else if (Object.keys(users).length >= maxUsers) {
+    debug('maximum amount of users reached');
     err = Error(API_ERROR.MAX_USERS_REACHED);
     err.status = HTTP_STATUS.FORBIDDEN;
     return err;
   }
 
+  debug('sanity check passed');
   return null;
 }
 
@@ -203,17 +212,25 @@ export async function changePasswordToHTPasswd(
   newPasswd: string,
   hashConfig: HtpasswdHashConfig
 ): Promise<string> {
+  debug('change password for user %o', user);
   let lines = body.split('\n');
   const userLineIndex = lines.findIndex((line) => line.split(':', 1).shift() === user);
   if (userLineIndex === -1) {
+    debug('user %o does not exist', user);
     throw new Error(`Unable to change password for user '${user}': user does not currently exist`);
   }
   const [username, hash] = lines[userLineIndex].split(':', 2);
   const passwordValid = await verifyPassword(passwd, hash);
   if (!passwordValid) {
+    debug(`invalid old password`);
     throw new Error(`Unable to change password for user '${user}': invalid old password`);
   }
   const updatedUserLine = await generateHtpasswdLine(username, newPasswd, hashConfig);
   lines.splice(userLineIndex, 1, updatedUserLine);
+  debug('password changed');
   return lines.join('\n');
+}
+
+export function stringToUtf8(authentication: string): string {
+  return (authentication || '').toString();
 }

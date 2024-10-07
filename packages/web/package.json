@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "7.1.0-next-8.2",
+  "version": "8.1.0-next-8.2",
   "description": "web ui middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -33,13 +33,13 @@
     "@verdaccio/store": "workspace:8.0.0-next-8.2",
     "@verdaccio/tarball": "workspace:13.0.0-next-8.2",
     "@verdaccio/url": "workspace:13.0.0-next-8.2",
-    "@verdaccio/utils": "workspace:7.1.0-next-8.2",
+    "@verdaccio/utils": "workspace:8.1.0-next-8.2",
     "debug": "4.3.7",
     "express": "4.21.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/api": "workspace:7.1.0-next-8.2",
+    "@verdaccio/api": "workspace:8.1.0-next-8.2",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.0",
     "@verdaccio/types": "workspace:13.0.0-next-8.1",
     "jsdom": "20.0.3",

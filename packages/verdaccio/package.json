@@ -43,7 +43,7 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.2",
     "@verdaccio/node-api": "workspace:8.0.0-next-8.2",
     "@verdaccio/ui-theme": "workspace:8.0.0-next-8.2",
-    "@verdaccio/utils": "workspace:7.1.0-next-8.2",
+    "@verdaccio/utils": "workspace:8.1.0-next-8.2",
     "verdaccio-audit": "workspace:13.0.0-next-8.2",
     "verdaccio-htpasswd": "workspace:13.0.0-next-8.2"
   },

@@ -1,12 +1,6 @@
-/** Node.js Crypt(3) Library
-  Inspired by (and intended to be compatible with) sendanor/crypt3
-  see https://github.com/sendanor/node-crypt3
-  The key difference is the removal of the dependency on the unix crypt(3) function
-  which is not platform independent, and requires compilation. Instead, a pure
-  javascript version is used.
-*/
-import crypto from 'crypto';
 import crypt from 'unix-crypt-td-js';
+
+import { randomBytes } from './crypto-utils';
 
 export enum EncryptionMethod {
   md5 = 'md5',
@@ -27,19 +21,19 @@ export function createSalt(type: EncryptionMethod = EncryptionMethod.crypt): str
   switch (type) {
     case EncryptionMethod.crypt:
       // Legacy crypt salt with no prefix (only the first 2 bytes will be used).
-      return crypto.randomBytes(2).toString('base64');
+      return randomBytes(2).toString('base64');
 
     case EncryptionMethod.md5:
-      return '$1$' + crypto.randomBytes(10).toString('base64');
+      return '$1$' + randomBytes(10).toString('base64');
 
     case EncryptionMethod.blowfish:
-      return '$2a$' + crypto.randomBytes(10).toString('base64');
+      return '$2a$' + randomBytes(10).toString('base64');
 
     case EncryptionMethod.sha256:
-      return '$5$' + crypto.randomBytes(10).toString('base64');
+      return '$5$' + randomBytes(10).toString('base64');
 
     case EncryptionMethod.sha512:
-      return '$6$' + crypto.randomBytes(10).toString('base64');
+      return '$6$' + randomBytes(10).toString('base64');
 
     default:
       throw new TypeError(`Unknown salt type at crypt3.createSalt: ${type}`);

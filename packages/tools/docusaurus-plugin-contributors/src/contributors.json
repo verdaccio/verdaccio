@@ -302,11 +302,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 64,
+      "contributions": 66,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 64
+          "contributions": 66
         }
       ]
     },
@@ -2085,17 +2085,6 @@
         {
           "name": "charts",
           "contributions": 2
-        }
-      ]
-    },
-    {
-      "id": 34041551,
-      "login": "simon-lorenz",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
         }
       ]
     },
@@ -4960,6 +4949,17 @@
       ]
     },
     {
+      "id": 32613113,
+      "login": "Hechamon",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 33081,
       "login": "duboisph",
       "contributions": 1,
@@ -4984,17 +4984,6 @@
     {
       "id": 11806131,
       "login": "ksrt12",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 13837922,
-      "login": "ArcticSnowman",
       "contributions": 1,
       "repositories": [
         {
@@ -5059,6 +5048,17 @@
       ]
     },
     {
+      "id": 14364672,
+      "login": "shcherbak",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 25608325,
       "login": "ymrsmns",
       "contributions": 1,
@@ -5077,7 +5077,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16312,
+      "stargazers_count": 16324,
       "archived": false
     },
     {
@@ -5338,7 +5338,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 59,
+      "stargazers_count": 60,
       "archived": false
     },
     {
