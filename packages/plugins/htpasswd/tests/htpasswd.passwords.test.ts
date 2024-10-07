@@ -69,7 +69,7 @@ describe('HTPasswd', () => {
     });
   });
 
-  test.only('changePassword - it should change password', async () => {
+  test('changePassword - it should change password', async () => {
     let dataToWrite: any;
     vi.doMock('fs', async (importOriginal) => {
       return {
