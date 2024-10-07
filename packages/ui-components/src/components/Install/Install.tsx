@@ -12,7 +12,7 @@ import { SettingsMenu } from '../SettingsMenu';
 import InstallListItem, { DependencyManager } from './InstallListItem';
 
 const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme?.fontWeight.bold,
+  fontWeight: props.theme.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 

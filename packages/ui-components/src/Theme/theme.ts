@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { Theme as MuiTheme, createTheme } from '@mui/material/styles';
 
 import { PRIMARY_COLOR } from './colors';
 
@@ -92,7 +92,15 @@ const customizedTheme = {
 
 type CustomizedTheme = typeof customizedTheme;
 
-export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
+export interface CustomTheme {
+  fontSize: typeof fontSize;
+  fontWeight: typeof fontWeight;
+  breakPoints: typeof breakPoints;
+}
+
+export type Theme = MuiTheme & CustomTheme;
+
+export const getTheme = (themeMode: ThemeMode, primaryColor: string): Theme => {
   const palette = applyPrimaryColor(themeMode, primaryColor);
   return createTheme({
     typography: {
@@ -122,10 +130,13 @@ export const getTheme = (themeMode: ThemeMode, primaryColor: string) => {
       },
     },
     ...customizedTheme,
-  });
+  }) as Theme;
 };
 
-export type Theme = ReturnType<typeof getTheme>;
+declare module '@mui/material/styles' {
+  interface Theme extends CustomTheme {}
+  interface ThemeOptions extends CustomTheme {}
+}
 
 declare module '@mui/material/styles/createTheme' {
   /* eslint-disable-next-line @typescript-eslint/no-empty-interface */

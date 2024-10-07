@@ -9,14 +9,14 @@ import { url } from '../../utils';
 import LinkExternal from '../LinkExternal';
 
 const StyledLink = styled(LinkExternal)<{ theme?: Theme }>(({ theme }) => ({
-  marginTop: theme?.spacing(2),
-  marginBottom: theme?.spacing(2),
+  marginTop: theme.spacing(2),
+  marginBottom: theme.spacing(2),
   textDecoration: 'none',
   display: 'block',
 }));
 
 const StyledFavoriteIcon = styled(Favorite)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.orange,
+  color: theme.palette.orange,
 }));
 
 const StyledFundStrong = styled('strong')({

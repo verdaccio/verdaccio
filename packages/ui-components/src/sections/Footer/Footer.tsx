@@ -92,7 +92,7 @@ const Flags = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   gridTemplateColumns: 'repeat(10, max-content)',
   gridGap: theme.spacing(0, 1),
   position: 'absolute',
-  background: theme?.palette.greyAthens,
+  background: theme.palette.greyAthens,
   padding: '1px 4px',
   borderRadius: 3,
   height: 20,
@@ -106,7 +106,7 @@ const Flags = styled('span')<{ theme?: Theme }>(({ theme }) => ({
     left: -4,
     marginLeft: -5,
     border: '5px solid',
-    borderColor: `${theme?.palette.greyAthens} transparent transparent transparent`,
+    borderColor: `${theme.palette.greyAthens} transparent transparent transparent`,
     transform: 'rotate(90deg)',
   },
 }));

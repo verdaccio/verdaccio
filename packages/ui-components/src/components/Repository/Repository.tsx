@@ -15,7 +15,7 @@ import { Git } from '../Icons';
 import LinkExternal from '../LinkExternal';
 
 const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme?.fontWeight.bold,
+  fontWeight: props.theme.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 

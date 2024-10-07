@@ -21,7 +21,7 @@ interface Props {
 }
 
 const Icon = styled.div<{ theme?: Theme }>(({ theme }) => ({
-  marginLeft: theme?.spacing(1),
+  marginLeft: theme.spacing(1),
 }));
 
 const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
@@ -93,6 +93,6 @@ const StyledHeading = styled(Heading)({
 });
 
 const StyledBoxVersion = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.text.secondary,
-  fontSize: theme?.fontSize.sm,
+  color: theme.palette.text.secondary,
+  fontSize: theme.fontSize.sm,
 }));

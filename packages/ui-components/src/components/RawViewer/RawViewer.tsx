@@ -61,7 +61,7 @@ const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) =>
           enableClipboard={true}
           groupArraysAfterLength={10}
           src={packageMeta as any}
-          theme={theme?.palette.mode == 'light' ? 'bright:inverted' : 'bright'}
+          theme={theme.palette.mode == 'light' ? 'bright:inverted' : 'bright'}
         />
       </DialogContent>
     </Dialog>

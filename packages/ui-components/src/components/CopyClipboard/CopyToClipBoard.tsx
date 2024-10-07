@@ -26,7 +26,7 @@ const Content = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   textOverflow: 'ellipsis',
   height: 'auto',
   whiteSpace: 'break-spaces',
-  fontSize: theme?.fontSize.sm,
+  fontSize: theme.fontSize.sm,
 }));
 
 function CopyToClipBoard({ text, children, dataTestId, title, ...props }: Props) {
