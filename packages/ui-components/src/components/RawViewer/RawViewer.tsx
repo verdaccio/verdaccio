@@ -8,6 +8,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactJson from 'react-json-view';
 
+import { Theme } from '../../Theme';
+
 export interface ViewerTitleProps {
   id: string;
   children?: React.ReactNode;
@@ -48,7 +50,7 @@ type Props = {
 /* eslint-disable verdaccio/jsx-spread */
 const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   return (
     <Dialog data-testid={'rawViewer--dialog'} fullScreen={true} open={isOpen}>
       <ViewerTitle id="viewer-title" onClose={onClose}>

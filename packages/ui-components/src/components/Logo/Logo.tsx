@@ -28,7 +28,7 @@ interface Props {
 
 const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, title = '' }) => {
   const { configOptions } = useConfig();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   if (!isDefault && configOptions?.logo) {
     const logoSrc =
       theme.palette.mode === 'dark' && configOptions.logoDark

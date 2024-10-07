@@ -5,6 +5,7 @@ import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Theme } from '../../Theme';
 import { useConfig } from '../../providers';
 import { Time, Versions } from '../../types/packageMeta';
 import { Route, utils } from '../../utils';
@@ -31,7 +32,7 @@ export function filterDeprecated(versions: Versions) {
 const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   const hideDeprecatedVersions = configOptions.hideDeprecatedVersions;
   const listVersions = hideDeprecatedVersions ? filterDeprecated(versions) : versions;
 
