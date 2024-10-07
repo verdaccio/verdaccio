@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import fs from 'fs';
+import { readFile, stat, writeFile } from 'fs';
 import { dirname, resolve } from 'path';
 
 import { constants, pluginUtils } from '@verdaccio/core';
@@ -14,6 +14,7 @@ import {
   lockAndRead,
   parseHTPasswd,
   sanityCheck,
+  stringToUtf8,
   verifyPassword,
 } from './utils';
 
@@ -114,10 +115,13 @@ export default class HTPasswd
   public authenticate(user: string, password: string, cb: Callback): void {
     debug('authenticate %s', user);
     this.reload(async (err) => {
+      debug('reloaded');
       if (err) {
+        debug('error %o', err);
         return cb(err.code === 'ENOENT' ? null : err);
       }
       if (!this.users[user]) {
+        debug('user %s not found', user);
         return cb(null, false);
       }
 
@@ -127,6 +131,7 @@ export default class HTPasswd
         passwordValid = await verifyPassword(password, this.users[user]);
         const durationMs = new Date().getTime() - start.getTime();
         if (durationMs > this.slowVerifyMs) {
+          debug('password for user "%s" took %sms to verify', user, durationMs);
           this.logger.warn(
             { user, durationMs },
             'Password for user "@{user}" took @{durationMs}ms to verify'
@@ -136,6 +141,7 @@ export default class HTPasswd
         this.logger.error({ message: err.message }, 'Unable to verify user password: @{message}');
       }
       if (!passwordValid) {
+        debug('password invalid for %s', user);
         return cb(null, false);
       }
 
@@ -165,15 +171,17 @@ export default class HTPasswd
     const pathPass = this.path;
     debug('adduser %s', user);
     let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
-
+    debug('sanity check: %s', sanity);
     // preliminary checks, just to ensure that file won't be reloaded if it's
     // not needed
     if (sanity) {
+      debug('sanity check failed');
       return realCb(sanity, false);
     }
 
     lockAndRead(pathPass, async (err, res): Promise<void> => {
       let locked = false;
+      debug('locked and read');
 
       // callback that cleans up lock first
       const cb = (err): void => {
@@ -188,6 +196,7 @@ export default class HTPasswd
       };
 
       if (!err) {
+        debug('locked');
         locked = true;
       }
 
@@ -195,20 +204,25 @@ export default class HTPasswd
       if (err && err.code !== 'ENOENT') {
         return cb(err);
       }
+      debug('read file');
       const body = (res || '').toString('utf8');
       this.users = parseHTPasswd(body);
-
+      debug('parsed users');
       // real checks, to prevent race conditions
       // parsing users after reading file.
       sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
-
+      debug('sanity check: %s', sanity);
       if (sanity) {
+        debug('sanity check failed');
         return cb(sanity);
       }
 
       try {
+        debug('add user to htpasswd file');
         this._writeFile(await addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+        debug('user added');
       } catch (err: any) {
+        debug('error %o', err);
         return cb(err);
       }
     });
@@ -220,7 +234,8 @@ export default class HTPasswd
    */
   public reload(callback: Callback): void {
     debug('reload users');
-    fs.stat(this.path, (err, stats) => {
+    debug('path: %s', this.path);
+    stat(this.path, (err, stats) => {
       if (err) {
         return callback(err);
       }
@@ -230,7 +245,7 @@ export default class HTPasswd
 
       this.lastTime = stats.mtime;
 
-      fs.readFile(this.path, 'utf8', (err, buffer) => {
+      readFile(this.path, 'utf8', (err, buffer) => {
         if (err) {
           return callback(err);
         }
@@ -241,12 +256,8 @@ export default class HTPasswd
     });
   }
 
-  private _stringToUt8(authentication: string): string {
-    return (authentication || '').toString();
-  }
-
   private _writeFile(body: string, cb: Callback): void {
-    fs.writeFile(this.path, body, (err) => {
+    writeFile(this.path, body, (err) => {
       if (err) {
         cb(err);
       } else {
@@ -271,7 +282,9 @@ export default class HTPasswd
     newPassword: string,
     realCb: Callback
   ): void {
+    debug('change password %s', user);
     lockAndRead(this.path, async (err, res) => {
+      debug('locked and read');
       let locked = false;
       const pathPassFile = this.path;
 
@@ -295,15 +308,17 @@ export default class HTPasswd
         return cb(err);
       }
 
-      const body = this._stringToUt8(res);
+      const body = stringToUtf8(res);
       this.users = parseHTPasswd(body);
 
       try {
+        debug('change password for user %s', user);
         this._writeFile(
           await changePasswordToHTPasswd(body, user, password, newPassword, this.hashConfig),
           cb
         );
       } catch (err: any) {
+        debug('error changing password %o', err);
         return cb(err);
       }
     });

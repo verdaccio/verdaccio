@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/utils",
-  "version": "7.1.0-next-8.2",
+  "version": "8.1.0-next-8.2",
   "description": "verdaccio utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
