@@ -1,5 +1,26 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.3
+
+### Patch Changes
+
+- 5731e88: fix: code scan issues
+- 5cfbc14: fix(api): add logging when requesting tarball
+- Updated dependencies [5731e88]
+- Updated dependencies [4afca90]
+- Updated dependencies [5cfbc14]
+  - @verdaccio/local-storage@13.0.0-next-8.3
+  - @verdaccio/loaders@8.0.0-next-8.3
+  - @verdaccio/tarball@13.0.0-next-8.3
+  - @verdaccio/hooks@8.0.0-next-8.3
+  - @verdaccio/core@8.0.0-next-8.3
+  - @verdaccio/config@8.0.0-next-8.3
+  - @verdaccio/url@13.0.0-next-8.3
+  - @verdaccio/proxy@8.0.0-next-8.3
+  - @verdaccio/search@8.0.0-next-8.3
+  - @verdaccio/utils@8.1.0-next-8.3
+  - @verdaccio/logger@8.0.0-next-8.3
+
 ## 8.0.0-next-8.2
 
 ### Minor Changes

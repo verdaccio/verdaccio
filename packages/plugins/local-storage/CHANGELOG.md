@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.3
+
+### Patch Changes
+
+- 5731e88: fix: code scan issues
+  - @verdaccio/core@8.0.0-next-8.3
+  - @verdaccio/utils@8.1.0-next-8.3
+
 ## 13.0.0-next-8.2
 
 ### Minor Changes

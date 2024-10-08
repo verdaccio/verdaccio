@@ -1,5 +1,12 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.2
+
+### Patch Changes
+
+- c4e8875: chore(ui): replace react-json-view
+- 409494a: chore(ui): typing for Theme
+
 ## 4.0.0-next-8.1
 
 ### Minor Changes

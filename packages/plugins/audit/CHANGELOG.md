@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.3
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.3
+- @verdaccio/config@8.0.0-next-8.3
+
 ## 13.0.0-next-8.2
 
 ### Minor Changes
