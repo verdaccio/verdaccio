@@ -1,3 +1,4 @@
+import ReactJson from '@microlink/react-json-view';
 import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,7 +7,6 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactJson from 'react-json-view';
 
 import { Theme } from '../../Theme';
 
