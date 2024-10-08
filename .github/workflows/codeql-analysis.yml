@@ -5,16 +5,10 @@ on:
     paths:
       - .github/workflows/codeql-analysis.yml
       - 'packages/**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.txt'
   pull_request:
     paths:
       - .github/workflows/codeql-analysis.yml
       - 'packages/**'
-    paths-ignore:
-      - '**/*.md'
-      - '**/*.txt'
   schedule:
     - cron: '0 2 * * 4'
 
