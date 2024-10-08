@@ -57,5 +57,17 @@
     "@verdaccio/web": "7.0.0",
     "@verdaccio/website": "6.0.0"
   },
-  "changesets": ["angry-doors-tan", "beige-lions-type", "chatty-apricots-report", "long-eyes-drum"]
+  "changesets": [
+    "angry-doors-tan",
+    "beige-lions-type",
+    "chatty-apricots-report",
+    "gentle-stingrays-repeat",
+    "hip-eggs-serve",
+    "long-eyes-drum",
+    "nine-countries-remember",
+    "quick-seas-deny",
+    "serious-apes-rule",
+    "sweet-crabs-deliver",
+    "violet-boxes-float"
+  ]
 }

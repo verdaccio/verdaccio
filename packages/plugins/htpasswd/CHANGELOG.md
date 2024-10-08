@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.3
+
+### Patch Changes
+
+- 124e5f2: chore: add debug code to htpasswd package
+  - @verdaccio/core@8.0.0-next-8.3
+
 ## 13.0.0-next-8.2
 
 ### Minor Changes

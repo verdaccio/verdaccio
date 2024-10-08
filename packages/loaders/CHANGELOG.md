@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.3
+
+### Minor Changes
+
+- 4afca90: chore: remove logger as dependency
+
 ## 8.0.0-next-8.2
 
 ### Minor Changes
