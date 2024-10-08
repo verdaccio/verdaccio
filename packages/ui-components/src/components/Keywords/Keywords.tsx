@@ -4,12 +4,13 @@ import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Theme } from '../../Theme';
 import { PackageMetaInterface } from '../../types/packageMeta';
 import KeywordListItems from './KeywordListItems';
 
 const Keywords: React.FC<{ packageMeta: PackageMetaInterface }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
 
   if (!packageMeta?.latest?.keywords) {
     return null;

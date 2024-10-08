@@ -28,10 +28,10 @@ interface Props {
 
 const Logo: React.FC<Props> = ({ size, onClick, className, isDefault = false, title = '' }) => {
   const { configOptions } = useConfig();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   if (!isDefault && configOptions?.logo) {
     const logoSrc =
-      theme?.palette.mode === 'dark' && configOptions.logoDark
+      theme.palette.mode === 'dark' && configOptions.logoDark
         ? configOptions.logoDark
         : configOptions.logo;
     return (
@@ -64,7 +64,7 @@ const StyledLogo = styled('div')<Props & { theme?: Theme }>(({ size = 'small', t
   boxSizing: 'border-box',
   backgroundPosition: 'center',
   backgroundSize: 'contain',
-  backgroundImage: `url(${logos[theme?.palette.mode]})`,
+  backgroundImage: `url(${logos[theme.palette.mode]})`,
   backgroundRepeat: ' no-repeat',
   width: sizes[size],
   height: sizes[size],

@@ -34,15 +34,15 @@ const LoginDialogHeader: React.FC<Props> = ({ onClose }) => {
 export default LoginDialogHeader;
 
 const StyledAvatar = styled(Avatar)<{ theme?: Theme }>(({ theme }) => ({
-  margin: theme?.spacing(1),
+  margin: theme.spacing(1),
   backgroundColor:
-    theme?.palette.mode === 'light' ? theme?.palette.primary.main : theme?.palette.cyanBlue,
-  color: theme?.palette.white,
+    theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
+  color: theme.palette.white,
 }));
 
 const StyledIconButton = styled(IconButton)<{ theme?: Theme }>(({ theme }) => ({
   position: 'absolute',
-  right: theme?.spacing() / 2,
-  top: theme?.spacing() / 2,
-  color: theme?.palette.grey[500],
+  right: theme.spacing() / 2,
+  top: theme.spacing() / 2,
+  color: theme.palette.grey[500],
 }));

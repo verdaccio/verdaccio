@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { useTheme } from '@mui/styles';
 import React from 'react';
 
+import { Theme } from '../../Theme';
 import { useSettings } from '../../providers/PersistenceSettingProvider';
 import CopyToClipBoard from '../CopyClipboard';
 import { Npm, Pnpm, Yarn } from '../Icons';
@@ -55,7 +56,7 @@ const InstallListItem: React.FC<Interface> = ({
   packageVersion,
 }) => {
   const { localSettings } = useSettings();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   const isLatest = localSettings[packageName]?.latest ?? false;
   const isGlobal = localSettings[packageName]?.global ?? false;
   switch (dependencyManager) {

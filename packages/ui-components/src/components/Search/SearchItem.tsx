@@ -28,19 +28,19 @@ const Wrapper = styled.div({
 
 export const Description = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   display: 'none',
-  color: theme?.palette?.greyLight2,
+  color: theme.palette.greyLight2,
   lineHeight: '1.5rem',
   whiteSpace: 'nowrap',
   textOverflow: 'ellipsis',
   alignItems: 'center',
   overflow: 'hidden',
   paddingLeft: theme.spacing(),
-  fontSize: theme?.fontSize.ssm,
-  [`@media (min-width: ${theme?.breakPoints.medium}px)`]: {
+  fontSize: theme.fontSize.ssm,
+  [`@media (min-width: ${theme.breakPoints.medium}px)`]: {
     display: 'block',
     width: '300px',
   },
-  [`@media (min-width: ${theme?.breakPoints.large}px)`]: {
+  [`@media (min-width: ${theme.breakPoints.large}px)`]: {
     display: 'block',
     width: '500px',
   },
@@ -57,11 +57,11 @@ const NameGroup = styled.span({
 
 const Name = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   fontWeight: '700',
-  fontSize: theme?.fontSize.sm,
+  fontSize: theme.fontSize.sm,
 }));
 
 const Version = styled('span')<{ theme?: Theme }>(({ theme }) => ({
-  fontSize: theme?.fontSize.ssm,
+  fontSize: theme.fontSize.ssm,
 }));
 
 const SearchItem: React.FC<SearchItemProps> = ({

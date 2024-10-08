@@ -246,7 +246,7 @@ export default Package;
 
 const iconStyle = ({ theme }: { theme: Theme }) => css`
   margin: 0 10px 0 0;
-  fill: ${theme?.palette.mode === 'light' ? theme?.palette.greyDark : theme?.palette.white};
+  fill: ${theme.palette.mode === 'light' ? theme.palette.greyDark : theme.palette.white};
 `;
 
 const StyledVersion = styled(Version)`

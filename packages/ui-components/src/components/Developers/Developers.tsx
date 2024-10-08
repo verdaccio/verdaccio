@@ -11,8 +11,8 @@ import Title from './Title';
 import getUniqueDeveloperValues from './get-unique-developer-values';
 
 export const Fab = styled(FabMUI)<{ theme?: Theme }>((props) => ({
-  backgroundColor: props.theme?.palette.primary.main,
-  color: props.theme?.palette.white,
+  backgroundColor: props.theme.palette.primary.main,
+  color: props.theme.palette.white,
 }));
 
 interface Props {

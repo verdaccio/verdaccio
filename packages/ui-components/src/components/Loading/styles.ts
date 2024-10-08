@@ -14,5 +14,5 @@ export const Badge = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   padding: 5,
   borderRadius: 25,
   boxShadow: '0 10px 20px 0 rgba(69, 58, 100, 0.2)',
-  background: theme?.palette.mode === 'dark' ? theme?.palette.black : '#f7f8f6',
+  background: theme.palette.mode === 'dark' ? theme.palette.black : '#f7f8f6',
 }));

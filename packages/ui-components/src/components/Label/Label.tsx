@@ -16,7 +16,7 @@ interface WrapperProps {
 }
 
 const Wrapper = styled('div')<WrapperProps & { theme?: Theme }>((props) => ({
-  fontWeight: props.theme?.fontWeight[props.weight],
+  fontWeight: props.theme.fontWeight[props.weight],
   textTransform: props.capitalize ? 'capitalize' : 'none',
 }));
 

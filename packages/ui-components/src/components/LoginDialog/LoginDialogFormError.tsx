@@ -7,14 +7,14 @@ import React, { memo } from 'react';
 import { LoginError, Theme } from '../../';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
-  backgroundColor: theme?.palette.error.dark,
-  color: theme?.palette.white,
+  backgroundColor: theme.palette.error.dark,
+  color: theme.palette.white,
 }));
 
 const StyledErrorIcon = styled(Error)<{ theme?: Theme }>(({ theme }) => ({
   fontSize: 20,
   opacity: 0.9,
-  marginRight: theme?.spacing(1),
+  marginRight: theme.spacing(1),
 }));
 
 export interface FormValues {

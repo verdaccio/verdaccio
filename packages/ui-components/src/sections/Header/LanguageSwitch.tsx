@@ -12,9 +12,9 @@ import { Theme, useLanguage } from '../../';
 
 export const CardSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
   return {
-    backgroundColor: theme?.palette?.grey['600'],
+    backgroundColor: theme.palette.grey['600'],
     opacity: '0.9',
-    color: theme?.palette?.error.contrastText,
+    color: theme.palette.error.contrastText,
     fontWeight: 'bold',
   };
 });
@@ -23,7 +23,7 @@ export const CardUnSelected = styled(Card)<{ theme?: Theme }>(({ theme }) => {
   return {
     cursor: 'pointer',
     ':hover': {
-      backgroundColor: theme?.palette.greyGainsboro,
+      backgroundColor: theme.palette.greyGainsboro,
     },
   };
 });

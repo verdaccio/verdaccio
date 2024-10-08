@@ -17,7 +17,7 @@ interface DependencyBlockProps {
 }
 
 export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme && props.theme.fontWeight.bold,
+  fontWeight: props.theme.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 
@@ -38,7 +38,7 @@ export const Tag = styled(Chip)<{ theme?: Theme }>((props) => ({
 export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
   const history = useHistory();
   const { t } = useTranslation();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {

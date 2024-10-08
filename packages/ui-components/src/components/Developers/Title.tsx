@@ -23,6 +23,6 @@ const Title: React.FC<Props> = ({ type }) => {
 export default Title;
 
 const StyledText = styled(Typography)<{ theme?: Theme }>(({ theme }) => ({
-  fontWeight: theme?.fontWeight.bold,
+  fontWeight: theme.fontWeight.bold,
   marginBottom: '10px',
 }));

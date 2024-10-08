@@ -14,7 +14,7 @@ export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => (
       border: 'none',
     },
     ':after': {
-      borderColor: props.theme?.palette.white,
+      borderColor: props.theme.palette.white,
     },
     ':hover:before': {
       content: 'none',
@@ -23,19 +23,19 @@ export const StyledTextField = styled(TextField)<{ theme?: Theme }>((props) => (
       content: 'none',
       transform: 'scaleX(1)',
     },
-    [`@media screen and (min-width: ${props.theme?.breakPoints.medium}px)`]: {
+    [`@media screen and (min-width: ${props.theme.breakPoints.medium}px)`]: {
       ':hover:after': {
         content: "''",
       },
     },
   },
   '& .MuiInputBase-input': {
-    [`@media screen and (min-width: ${props.theme?.breakPoints.medium}px)`]: {
-      color: props.theme?.palette.white,
+    [`@media screen and (min-width: ${props.theme.breakPoints.medium}px)`]: {
+      color: props.theme.palette.white,
     },
   },
 }));
 
 export const StyledInputAdornment = styled(InputAdornment)<{ theme?: Theme }>((props) => ({
-  color: props.theme?.palette.white,
+  color: props.theme.palette.white,
 }));

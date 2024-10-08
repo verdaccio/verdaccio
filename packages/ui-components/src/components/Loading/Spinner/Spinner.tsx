@@ -30,5 +30,5 @@ const Wrapper = styled('div')<Pick<Props, 'centered'>>(({ centered }) => ({
 }));
 
 const Circular = styled(CircularProgress)<{ theme?: Theme }>(({ theme }) => ({
-  color: theme?.palette.mode === 'dark' ? theme?.palette.white : theme?.palette.primary.main,
+  color: theme.palette.mode === 'dark' ? theme.palette.white : theme.palette.primary.main,
 }));

@@ -43,7 +43,7 @@ function TabPanel(props) {
 
 const TextContent = styled('div')<{ theme?: Theme }>(({ theme }) => ({
   padding: '10px 0',
-  backgroundColor: theme?.palette.background.default,
+  backgroundColor: theme.palette.background.default,
 }));
 
 const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {

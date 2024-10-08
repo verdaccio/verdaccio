@@ -15,7 +15,7 @@ import { Git } from '../Icons';
 import LinkExternal from '../LinkExternal';
 
 const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme?.fontWeight.bold,
+  fontWeight: props.theme.fontWeight.bold,
   textTransform: 'capitalize',
 }));
 
@@ -39,7 +39,7 @@ const RepositoryAvatar = styled(Avatar)({
 
 const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const theme: Theme = useTheme();
   const url = packageMeta?.latest?.repository?.url;
   if (!url || !urlUtils.isURL(url)) {
     return null;
