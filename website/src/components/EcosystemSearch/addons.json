@@ -38,7 +38,7 @@
     {
       "name": "verdaccio-memory",
       "url": "https://www.npmjs.org/verdaccio-memory",
-      "category": "authentication",
+      "category": "storage",
       "origin": "core",
       "bundled": false,
       "description": "Storage implementation in memory",
@@ -49,7 +49,7 @@
     {
       "name": "verdaccio-aws-s3-storage",
       "url": "https://www.npmjs.org/verdaccio-aws-s3-storage",
-      "category": "authentication",
+      "category": "storage",
       "origin": "core",
       "bundled": false,
       "description": "AWS S3 storage implementation for Verdaccio",
@@ -104,7 +104,7 @@
     {
       "name": "verdaccio-ldap-port",
       "url": "https://www.npmjs.org/verdaccio-ldap-port",
-      "category": "filter",
+      "category": "authentication",
       "origin": "community",
       "bundled": false,
       "description": "a port of the verdaccio-ldap to version 5",
@@ -118,7 +118,7 @@
       "url": "https://www.npmjs.org/@playerdata/verdaccio-storage-expiry",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "storage",
       "latest": "1.2.13",
       "downloads": 16,
       "registry": "https://registry.npmjs.org/@playerdata/verdaccio-storage-expiry"
@@ -151,7 +151,7 @@
       "url": "https://www.npmjs.org/verdaccio-redis-search-patch",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "middleware",
       "latest": "1.0.3",
       "downloads": 4,
       "registry": "https://registry.npmjs.org/verdaccio-redis-search-patch"
@@ -206,7 +206,7 @@
       "url": "https://www.npmjs.org/verdaccio-badger",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "middleware",
       "latest": "1.0.0",
       "downloads": 3,
       "registry": "https://registry.npmjs.org/verdaccio-badger"
@@ -217,7 +217,7 @@
       "url": "https://www.npmjs.org/@hamstudy/verdaccio-aws-s3-storage-sse",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "storage",
       "latest": "10.3.2",
       "downloads": 2,
       "registry": "https://registry.npmjs.org/@hamstudy/verdaccio-aws-s3-storage-sse"
@@ -228,7 +228,7 @@
       "url": "https://www.npmjs.org/@xlts.dev/verdaccio-prometheus-middleware",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "middleware",
       "latest": "2.0.2",
       "downloads": 11,
       "registry": "https://registry.npmjs.org/@xlts.dev/verdaccio-prometheus-middleware"
@@ -272,7 +272,7 @@
       "url": "https://www.npmjs.org/verdaccio-package-count",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "middleware",
       "latest": "1.0.7",
       "downloads": 16,
       "registry": "https://registry.npmjs.org/verdaccio-package-count"
@@ -294,7 +294,7 @@
       "url": "https://www.npmjs.org/verdaccio-profile-api",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "middleware",
       "latest": "0.2.7",
       "downloads": 15,
       "registry": "https://registry.npmjs.org/verdaccio-profile-api"
@@ -316,7 +316,7 @@
       "url": "https://www.npmjs.org/verdaccio-minio",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "storage",
       "latest": "0.2.5",
       "downloads": 66,
       "registry": "https://registry.npmjs.org/verdaccio-minio"
@@ -327,7 +327,7 @@
       "url": "https://www.npmjs.org/verdaccio-redis-storage",
       "bundled": false,
       "origin": "community",
-      "category": "authentication",
+      "category": "storage",
       "latest": "1.2.4",
       "downloads": 54,
       "registry": "https://registry.npmjs.org/verdaccio-redis-storage"
@@ -390,7 +390,7 @@
     {
       "name": "verdaccio-kuzzle",
       "bundled": false,
-      "origin": "authentication",
+      "origin": "community",
       "category": "storage",
       "description": "Authenticate on verdaccio using kuzzle credentials",
       "url": "https://www.npmjs.org/verdaccio-kuzzle",
@@ -1153,6 +1153,17 @@
       "registry": "https://registry.npmjs.org/tgz-checker",
       "latest": "0.1.9",
       "downloads": 16
+    },
+    {
+      "name": "verdaccio-downloads-count",
+      "bundled": false,
+      "origin": "community",
+      "category": "middleware",
+      "description": "Tracks daily downloads count for packages. Data is stored in a Postgres database.",
+      "url": "https://www.npmjs.org/verdaccio-downloads-count",
+      "registry": "https://registry.npmjs.org/verdaccio-downloads-count",
+      "latest": "1.0.1",
+      "downloads": 1
     }
   ]
 }
