@@ -629,8 +629,8 @@ importers:
         specifier: workspace:8.0.0-next-8.3
         version: link:../node-api
       clipanion:
-        specifier: 4.0.0-rc.3
-        version: 4.0.0-rc.3(typanion@3.14.0)
+        specifier: 4.0.0-rc.4
+        version: 4.0.0-rc.4(typanion@3.14.0)
       envinfo:
         specifier: 7.13.0
         version: 7.13.0
@@ -1849,8 +1849,8 @@ importers:
         specifier: 1.35.0
         version: 1.35.0(debug@4.3.7)
       clipanion:
-        specifier: 4.0.0-rc.3
-        version: 4.0.0-rc.3(typanion@3.14.0)
+        specifier: 4.0.0-rc.4
+        version: 4.0.0-rc.4(typanion@3.14.0)
     devDependencies:
       ts-node:
         specifier: 10.9.2
@@ -14105,8 +14105,8 @@ packages:
     resolution: {integrity: sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==}
     engines: {node: '>= 10'}
 
-  /clipanion@4.0.0-rc.3(typanion@3.14.0):
-    resolution: {integrity: sha512-+rJOJMt2N6Oikgtfqmo/Duvme7uz3SIedL2b6ycgCztQMiTfr3aQh2DDyLHl+QUPClKMNpSg3gDJFvNQYIcq1g==}
+  /clipanion@4.0.0-rc.4(typanion@3.14.0):
+    resolution: {integrity: sha512-CXkMQxU6s9GklO/1f714dkKBMu1lopS1WFF0B8o4AxPykR1hpozxSiUZ5ZUeBjfPgCWqbcNOtZVFhB8Lkfp1+Q==}
     peerDependencies:
       typanion: '*'
     dependencies:
