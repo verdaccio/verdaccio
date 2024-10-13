@@ -543,8 +543,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -608,8 +608,8 @@ importers:
         specifier: workspace:13.0.0-next-8.1
         version: link:../core/types
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -913,8 +913,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       express-rate-limit:
         specifier: 5.5.1
         version: 5.5.1
@@ -987,8 +987,8 @@ importers:
         specifier: workspace:8.0.0-next-8.3
         version: link:../../core/core
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       https-proxy-agent:
         specifier: 5.0.1
         version: 5.0.1
@@ -1522,8 +1522,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -1819,8 +1819,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
@@ -2157,8 +2157,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.0
-        version: 4.21.0(supports-color@6.1.0)
+        specifier: 4.21.1
+        version: 4.21.1(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -5420,7 +5420,7 @@ packages:
       detect-port: 1.5.1
       escape-html: 1.0.3
       eta: 1.14.2
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@5.90.0)
       fs-extra: 10.1.0
       github-slugger: 1.5.0
@@ -9626,7 +9626,7 @@ packages:
       babel-plugin-polyfill-corejs3: 0.1.7(@babel/core@7.24.9)
       chalk: 4.1.2
       core-js: 3.37.1
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       file-system-cache: 1.1.0
       find-up: 5.0.0
       fork-ts-checker-webpack-plugin: 6.5.3(eslint@8.57.1)(typescript@4.9.5)(webpack@4.47.0)
@@ -9705,7 +9705,7 @@ packages:
       core-js: 3.37.1
       cpy: 8.1.2
       detect-port: 1.5.1
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       fs-extra: 9.1.0
       global: 4.4.0
       globby: 11.1.0
@@ -9866,7 +9866,7 @@ packages:
       chalk: 4.1.2
       core-js: 3.37.1
       css-loader: 3.6.0(webpack@4.47.0)
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@4.47.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
@@ -9923,7 +9923,7 @@ packages:
       chalk: 4.1.2
       core-js: 3.37.1
       css-loader: 5.2.7(webpack@5.93.0)
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
       html-webpack-plugin: 5.6.0(webpack@5.93.0)
@@ -14472,8 +14472,8 @@ packages:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
 
-  /cookie@0.6.0:
-    resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
+  /cookie@0.7.1:
+    resolution: {integrity: sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==}
     engines: {node: '>= 0.6'}
 
   /cookiejar@2.1.4:
@@ -17606,8 +17606,8 @@ packages:
     resolution: {integrity: sha512-MTjE2eIbHv5DyfuFz4zLYWxpqVhEhkTiwFGuB74Q9CSou2WHO52nlE5y3Zlg6SIsiYUIPj6ifFxnkPz6O3sIUg==}
     dev: false
 
-  /express@4.21.0(supports-color@6.1.0):
-    resolution: {integrity: sha512-VqcNGcj/Id5ZT1LZ/cfihi3ttTn+NJmkli2eZADigjq29qTlWi/hAQ43t/VLPq8+UX06FCEx3ByOYet6ZFblng==}
+  /express@4.21.1(supports-color@6.1.0):
+    resolution: {integrity: sha512-YSFlK1Ee0/GC8QaO91tHcDxJiE/X4FbpAyQWkxAvG6AXCuR65YzK8ua6D9hvi/TzUfZMpc+BwuM1IPw8fmQBiQ==}
     engines: {node: '>= 0.10.0'}
     dependencies:
       accepts: 1.3.8
@@ -17615,7 +17615,7 @@ packages:
       body-parser: 1.20.3(supports-color@6.1.0)
       content-disposition: 0.5.4
       content-type: 1.0.5
-      cookie: 0.6.0
+      cookie: 0.7.1
       cookie-signature: 1.0.6
       debug: 2.6.9(supports-color@6.1.0)
       depd: 2.0.0
@@ -30843,7 +30843,7 @@ packages:
       connect-history-api-fallback: 1.6.0
       debug: 4.3.7(supports-color@6.1.0)
       del: 4.1.1
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       html-entities: 1.4.0
       http-proxy-middleware: 0.19.1(debug@4.3.7)(supports-color@6.1.0)
       import-local: 2.0.0
@@ -30894,7 +30894,7 @@ packages:
       connect-history-api-fallback: 1.6.0
       debug: 4.3.7(supports-color@6.1.0)
       del: 4.1.1
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       html-entities: 1.4.0
       http-proxy-middleware: 0.19.1(debug@4.3.7)(supports-color@6.1.0)
       import-local: 2.0.0
@@ -30953,7 +30953,7 @@ packages:
       compression: 1.7.4(supports-color@6.1.0)
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
-      express: 4.21.0(supports-color@6.1.0)
+      express: 4.21.1(supports-color@6.1.0)
       graceful-fs: 4.2.11
       html-entities: 2.3.3
       http-proxy-middleware: 2.0.6(@types/express@4.17.21)(debug@4.3.7)
