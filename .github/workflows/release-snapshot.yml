@@ -8,4 +8,4 @@ on:
 jobs:
   snapshot:
     secrets: inherit
-    uses: verdaccio/verdaccio/.github/workflows/x-release-snapshot.yml@ci-refactor
+    uses: verdaccio/verdaccio/.github/workflows/x-release-snapshot.yml@master
