@@ -51,7 +51,7 @@
   "devDependencies": {
     "@verdaccio/middleware": "workspace:8.0.0-next-8.3",
     "@verdaccio/types": "workspace:13.0.0-next-8.1",
-    "express": "4.21.0",
+    "express": "4.21.1",
     "supertest": "7.0.0"
   },
   "funding": {
