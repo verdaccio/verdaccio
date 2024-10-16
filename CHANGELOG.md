@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.1](https://github.com/verdaccio/verdaccio/compare/v6.0.0...v6.0.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#4862](https://github.com/verdaccio/verdaccio/issues/4862)) ([2781bf0](https://github.com/verdaccio/verdaccio/commit/2781bf021c92eb305c50440af5dbd684670fcd90))
+* **deps:** update core verdaccio dependencies ([#4907](https://github.com/verdaccio/verdaccio/issues/4907)) ([7ebc4ff](https://github.com/verdaccio/verdaccio/commit/7ebc4ff598ac3f7f9491bdc42868987d6380eb05))
+* **deps:** update dependency clipanion to v4.0.0-rc.4 ([#4863](https://github.com/verdaccio/verdaccio/issues/4863)) ([39538fb](https://github.com/verdaccio/verdaccio/commit/39538fb75971cb98fe2966d0bcf9298d472e2351))
+* **deps:** update dependency express to v4.21.1 ([#4899](https://github.com/verdaccio/verdaccio/issues/4899)) ([3172c30](https://github.com/verdaccio/verdaccio/commit/3172c302554738b28cb58de78c25febeff272f8e))
+
 ## [6.0.0](https://github.com/verdaccio/verdaccio/compare/v6.0.0-rc.1...v6.0.0) (2024-09-20)
 
 
