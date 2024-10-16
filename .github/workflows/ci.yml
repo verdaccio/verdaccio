@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [18, 20, 21, 22]    
+        node_version: [18, 20, 21, 22, 23]    
     uses: verdaccio/verdaccio/.github/workflows/yarn-ci.yml@ci-refactor
     with:
       node_version: ${{ matrix.node_version }}
