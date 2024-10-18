@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 1076a89: chore(middleware): fix syntax of test files
+  - @verdaccio/core@8.0.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.4
+  - @verdaccio/url@13.0.0-next-8.4
+  - @verdaccio/utils@8.1.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes
