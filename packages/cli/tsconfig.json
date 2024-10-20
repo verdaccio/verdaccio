@@ -14,9 +14,6 @@
       "path": "../core/core"
     },
     {
-      "path": "../core/server"
-    },
-    {
       "path": "../node-api"
     },
     {
