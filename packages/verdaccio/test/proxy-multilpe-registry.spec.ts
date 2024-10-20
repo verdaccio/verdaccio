@@ -1,4 +1,5 @@
 import getPort from 'get-port';
+import { afterAll, beforeAll, describe, test } from 'vitest';
 
 import { ConfigBuilder } from '@verdaccio/config';
 import { HTTP_STATUS, constants, fileUtils } from '@verdaccio/core';
@@ -9,10 +10,6 @@ describe('multiple proxy registries configuration', () => {
   let registry;
   let registry2;
   let registry3;
-
-  // CI is slow, so we need to increase the timeout for the test
-  // some test uses retry with long timeouts
-  jest.setTimeout(40000);
 
   beforeAll(async function () {
     // server 1 configuration

@@ -1,5 +1,6 @@
 import getPort from 'get-port';
 import got from 'got';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { ConfigBuilder } from '@verdaccio/config';
 import { constants, fileUtils } from '@verdaccio/core';

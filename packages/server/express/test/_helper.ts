@@ -8,8 +8,6 @@ import { generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../src';
 
-setup({});
-
 export const getConf = async (conf) => {
   const configPath = path.join(__dirname, 'config', conf);
   const config = parseConfigFile(configPath);
@@ -25,5 +23,7 @@ export const getConf = async (conf) => {
 };
 
 export async function initializeServer(configName): Promise<Application> {
-  return apiMiddleware(await getConf(configName));
+  const config = await getConf(configName);
+  setup(config.log ?? {});
+  return apiMiddleware(config);
 }

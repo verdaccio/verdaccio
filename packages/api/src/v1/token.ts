@@ -4,10 +4,10 @@ import _ from 'lodash';
 import { getApiToken } from '@verdaccio/auth';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { rateLimit } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
+import { Logger } from '@verdaccio/types';
 import { mask, stringToMD5 } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
@@ -24,7 +24,13 @@ function normalizeToken(token: Token): NormalizeToken {
 }
 
 // https://github.com/npm/npm-profile/blob/latest/lib/index.js
-export default function (route: Router, auth: Auth, storage: Storage, config: Config): void {
+export default function (
+  route: Router,
+  auth: Auth,
+  storage: Storage,
+  config: Config,
+  logger: Logger
+): void {
   route.get(
     '/-/npm/v1/tokens',
     rateLimit(config?.userRateLimit),

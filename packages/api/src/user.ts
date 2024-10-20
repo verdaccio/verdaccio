@@ -12,8 +12,8 @@ import {
   errorUtils,
   validatioUtils,
 } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { rateLimit } from '@verdaccio/middleware';
+import { Logger } from '@verdaccio/types';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
 
@@ -21,7 +21,7 @@ import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
 const debug = buildDebug('verdaccio:api:user');
 
-export default function (route: Router, auth: Auth, config: Config): void {
+export default function (route: Router, auth: Auth, config: Config, logger: Logger): void {
   route.get(
     '/-/user/:org_couchdb_user',
     rateLimit(config?.userRateLimit),

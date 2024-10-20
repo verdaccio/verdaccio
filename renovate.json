@@ -152,7 +152,7 @@
       "baseBranchList": ["master"]
     },
     {
-      "matchPackagePatterns": ["@testing-library/*", "jest", "jest-*", "supertest", "nock"],
+      "matchPackagePatterns": ["@testing-library/*", "vitest", "supertest", "nock"],
       "matchUpdateTypes": ["minor", "patch", "major"],
       "groupName": "all test dependencies",
       "groupSlug": "all-test",

@@ -9,7 +9,7 @@ import {
   validatePackage,
 } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Config } from '@verdaccio/types';
+import { Config, Logger } from '@verdaccio/types';
 
 import distTags from './dist-tags';
 import pkg from './package';
@@ -23,7 +23,7 @@ import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
 
-export default function (config: Config, auth: Auth, storage: Storage): Router {
+export default function (config: Config, auth: Auth, storage: Storage, logger: Logger): Router {
   /* eslint new-cap:off */
   const app = express.Router();
   /* eslint new-cap:off */
@@ -50,14 +50,14 @@ export default function (config: Config, auth: Auth, storage: Storage): Router {
   // for "npm whoami"
   whoami(app);
   profile(app, auth, config);
-  search(app);
-  user(app, auth, config);
-  distTags(app, auth, storage);
-  publish(app, auth, storage);
+  search(app, logger);
+  user(app, auth, config, logger);
+  distTags(app, auth, storage, logger);
+  publish(app, auth, storage, logger);
   ping(app);
   stars(app, storage);
-  v1Search(app, auth, storage);
-  token(app, auth, storage, config);
-  pkg(app, auth, storage);
+  v1Search(app, auth, storage, logger);
+  token(app, auth, storage, config, logger);
+  pkg(app, auth, storage, logger);
   return app;
 }

@@ -23,7 +23,7 @@
     "supertest": "7.0.0"
   },
   "scripts": {
-    "test": "jest .",
+    "test": "vitest run",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",

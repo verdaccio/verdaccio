@@ -4,13 +4,13 @@ import mime from 'mime';
 
 import { Auth } from '@verdaccio/auth';
 import { constants, errorUtils } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { allow, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
+import { Logger } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
-export default function (route: Router, auth: Auth, storage: Storage): void {
+export default function (route: Router, auth: Auth, storage: Storage, logger: Logger): void {
   const can = allow(auth, {
     beforeAll: (a, b) => logger.trace(a, b),
     afterAll: (a, b) => logger.trace(a, b),

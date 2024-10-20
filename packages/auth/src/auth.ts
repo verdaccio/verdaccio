@@ -15,7 +15,6 @@ import {
   warningUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
-import { logger } from '@verdaccio/logger';
 import {
   aesEncrypt,
   aesEncryptDeprecated,
@@ -28,6 +27,7 @@ import {
   Callback,
   Config,
   JWTSignOptions,
+  Logger,
   PackageAccess,
   RemoteUser,
   Security,
@@ -57,11 +57,13 @@ const debug = buildDebug('verdaccio:auth');
 class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
   public secret: string;
+  public logger: Logger;
   public plugins: pluginUtils.Auth<Config>[];
 
-  public constructor(config: Config) {
+  public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.secret = config.secret;
+    this.logger = logger;
     this.plugins = [];
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
@@ -84,7 +86,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('load default auth plugin');
     const pluginOptions: pluginUtils.PluginOptions = {
       config: this.config,
-      logger,
+      logger: this.logger,
     };
     let authPlugin;
     try {
@@ -94,7 +96,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       );
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
-      logger.info({}, 'no auth plugin has been found');
+      this.logger.info({}, 'no auth plugin has been found');
       return [];
     }
 
@@ -106,7 +108,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       this.config.auth,
       {
         config: this.config,
-        logger,
+        logger: this.logger,
       },
       (plugin): boolean => {
         const { authenticate, allow_access, allow_publish } = plugin;
@@ -124,7 +126,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
   private _applyDefaultPlugins(): void {
     // TODO: rename to applyFallbackPluginMethods
-    this.plugins.push(getDefaultPlugins(logger));
+    this.plugins.push(getDefaultPlugins(this.logger));
   }
 
   public changePassword(
@@ -147,7 +149,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('updating password for %o', username);
         plugin.changePassword!(username, password, newPassword, (err, profile): void => {
           if (err) {
-            logger.error(
+            this.logger.error(
               { username, err },
               `An error has been produced
             updating the password for @{username}. Error: @{err.message}`
