@@ -1,4 +1,4 @@
-name: E2E CLI
+name: E2E CLI (MBT)
 
 on: 
   workflow_dispatch
