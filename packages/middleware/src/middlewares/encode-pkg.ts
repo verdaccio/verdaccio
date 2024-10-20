@@ -36,7 +36,8 @@ export function encodeScopePackage(
   // e.g.: /@org/pkg/1.2.3 -> /@org%2Fpkg/1.2.3, /@org%2Fpkg/1.2.3 -> /@org%2Fpkg/1.2.3
   url.pathname = url.pathname.replace(/^\/%40/, '/@').replace(/^(\/@[^\/%]+)\/(?!$)/, '$1%2F');
 
-  req.url = url.toString();
+  // Rebuild the URL without hostname
+  req.url = url.pathname + url.search + url.hash;
 
   if (original !== req.url) {
     debug('encodeScopePackage: %o -> %o', original, req.url);
