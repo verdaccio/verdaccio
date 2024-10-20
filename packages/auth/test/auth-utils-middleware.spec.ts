@@ -10,7 +10,7 @@ import {
 } from '@verdaccio/config';
 import { getDefaultConfig } from '@verdaccio/config';
 import { TOKEN_BEARER } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 import { signPayload } from '@verdaccio/signature';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
 import { buildToken, buildUserBuffer } from '@verdaccio/utils';
@@ -52,7 +52,7 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
-    const auth: Auth = new Auth(config);
+    const auth: Auth = new Auth(config, logger);
     await auth.init();
     // @ts-ignore
     const spy = vi.spyOn(auth, methodToSpy);
@@ -155,7 +155,7 @@ describe('Auth utilities', () => {
       test.concurrent('should return empty credential corrupted payload', async () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         // @ts-expect-error
         const token = auth.aesEncrypt(null);

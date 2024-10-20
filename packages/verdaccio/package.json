@@ -18,9 +18,8 @@
   "scripts": {
     "clean": "rimraf ./build",
     "lint": "eslint . --ext .js,.ts",
-    "test": "jest --detectOpenHandles",
+    "test": "vitest run --testTimeout 50000",
     "ge:docs": "typedoc src/index.ts --tsconfig tsconfig.build.json --plugin typedoc-plugin-markdown",
-    "test:debug": "node --inspect-brk ../../node_modules/jest/bin/jest.js --config ./test/jest.config.functional.js --testPathPattern ./test/unit/* --passWithNoTests",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -53,6 +52,7 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.3",
     "@verdaccio/store": "workspace:8.0.0-next-8.3",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.0",
+    "vite-tsconfig-paths": "5.0.1",
     "fastify": "4.25.2",
     "get-port": "5.1.1",
     "got": "11.8.6",

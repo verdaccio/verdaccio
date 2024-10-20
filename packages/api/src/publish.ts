@@ -4,9 +4,9 @@ import mime from 'mime';
 
 import { Auth } from '@verdaccio/auth';
 import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
-import { logger } from '@verdaccio/logger';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
+import { Logger } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 
@@ -109,7 +109,12 @@ const debug = buildDebug('verdaccio:api:publish');
 	   }
    *
    */
-export default function publish(router: Router, auth: Auth, storage: Storage): void {
+export default function publish(
+  router: Router,
+  auth: Auth,
+  storage: Storage,
+  logger: Logger
+): void {
   const can = allow(auth, {
     beforeAll: (a, b) => logger.trace(a, b),
     afterAll: (a, b) => logger.trace(a, b),
@@ -119,7 +124,7 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     can('publish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackage(storage)
+    publishPackage(storage, logger)
   );
 
   router.put(
@@ -127,7 +132,7 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
     can('unpublish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackage(storage)
+    publishPackage(storage, logger)
   );
 
   /**
@@ -195,7 +200,7 @@ export default function publish(router: Router, auth: Auth, storage: Storage): v
   );
 }
 
-export function publishPackage(storage: Storage): any {
+export function publishPackage(storage: Storage, logger: Logger): any {
   return async function (
     req: $RequestExtend,
     res: $ResponseExtend,

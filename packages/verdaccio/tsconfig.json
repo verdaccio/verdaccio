@@ -14,13 +14,7 @@
       "path": "../cli"
     },
     {
-      "path": "../config"
-    },
-    {
       "path": "../plugins/htpasswd"
-    },
-    {
-      "path": "../tools/helper"
     },
     {
       "path": "../hooks"

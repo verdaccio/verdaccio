@@ -12,7 +12,7 @@ jobs:
     name: UI Test E2E
     services:
       verdaccio:
-        image: verdaccio/verdaccio:5
+        image: verdaccio/verdaccio:6
         ports:
           - 4873:4873
         env:

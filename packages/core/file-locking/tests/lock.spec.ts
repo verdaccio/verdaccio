@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
 
 import { lockFileNext, readFileNext, unlockFileNext } from '../src/index';
 import { statDir, statFile } from '../src/utils';

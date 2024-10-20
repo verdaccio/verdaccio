@@ -24,7 +24,7 @@ jobs:
     name: setup verdaccio
     services:
       verdaccio:
-        image: verdaccio/verdaccio:5
+        image: verdaccio/verdaccio:6
         ports:
           - 4873:4873
         env:
@@ -108,7 +108,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20, 21, 22]
+        node_version: [18, 20, 21, 22, 23]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:

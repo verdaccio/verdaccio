@@ -45,7 +45,7 @@ describe('AuthTest', () => {
       const config: Config = new AppConfig({ ...authProfileConf });
       config.checkSecretKey('12345');
 
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
     });
@@ -54,7 +54,7 @@ describe('AuthTest', () => {
       const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
       config.checkSecretKey('12345');
 
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
     });
@@ -68,7 +68,7 @@ describe('AuthTest', () => {
       });
       config.checkSecretKey('12345');
 
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
     });
@@ -79,7 +79,7 @@ describe('AuthTest', () => {
       test('should be a success login', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -106,7 +106,7 @@ describe('AuthTest', () => {
       test('should be a fail on login', async () => {
         const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -125,7 +125,7 @@ describe('AuthTest', () => {
       test('should skip falsy values', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -145,7 +145,7 @@ describe('AuthTest', () => {
       test('should error truthy non-array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -163,7 +163,7 @@ describe('AuthTest', () => {
       test('should skip empty array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -180,7 +180,7 @@ describe('AuthTest', () => {
       test('should accept valid array', async () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -208,7 +208,7 @@ describe('AuthTest', () => {
           },
         });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
 
         return new Promise((resolve) => {
@@ -229,7 +229,7 @@ describe('AuthTest', () => {
     test('should fail if the plugin does not provide implementation', async () => {
       const config: Config = new AppConfig({ ...authProfileConf });
       config.checkSecretKey('12345');
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
       const callback = vi.fn();
@@ -244,7 +244,7 @@ describe('AuthTest', () => {
     test('should handle plugin does provide implementation', async () => {
       const config: Config = new AppConfig({ ...authChangePasswordConf });
       config.checkSecretKey('12345');
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
       const callback = vi.fn();
@@ -262,7 +262,7 @@ describe('AuthTest', () => {
       test('should fails if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -284,7 +284,7 @@ describe('AuthTest', () => {
       test('should success if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -311,7 +311,7 @@ describe('AuthTest', () => {
       test('should fails if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -333,7 +333,7 @@ describe('AuthTest', () => {
       test('should success if groups do match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -358,7 +358,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
 
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -392,7 +392,7 @@ describe('AuthTest', () => {
           },
         });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -415,7 +415,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
 
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -442,7 +442,7 @@ describe('AuthTest', () => {
       test('should fails with bad password if adduser is not implemented', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -465,7 +465,7 @@ describe('AuthTest', () => {
           },
         });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -489,7 +489,7 @@ describe('AuthTest', () => {
           },
         });
         config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config);
+        const auth: Auth = new Auth(config, logger);
         await auth.init();
         expect(auth).toBeDefined();
 
@@ -513,7 +513,7 @@ describe('AuthTest', () => {
         },
       });
       config.checkSecretKey('12345');
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
 
@@ -537,7 +537,7 @@ describe('AuthTest', () => {
         },
       });
       config.checkSecretKey('12345');
-      const auth: Auth = new Auth(config);
+      const auth: Auth = new Auth(config, logger);
       await auth.init();
       expect(auth).toBeDefined();
 
@@ -583,7 +583,7 @@ describe('AuthTest', () => {
           test('should handle invalid auth token', async () => {
             const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(secret);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
             return supertest(app)
@@ -595,7 +595,7 @@ describe('AuthTest', () => {
           test('should handle missing auth header', async () => {
             const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(secret);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
             return supertest(app).get(`/`).expect(HTTP_STATUS.OK);
@@ -610,7 +610,7 @@ describe('AuthTest', () => {
             // intended to force key generator (associated with mocks above)
             // 64 characters secret long
             config.checkSecretKey('35fabdd29b820d39125e76e6d85cc294');
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const token = auth.aesEncrypt(payload) as string;
             const app = await getServer(auth);
@@ -626,7 +626,7 @@ describe('AuthTest', () => {
             const config: Config = new AppConfig({ ...authPluginFailureConf });
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const token = auth.aesEncrypt(payload) as string;
             const app = await getServer(auth);
@@ -646,7 +646,7 @@ describe('AuthTest', () => {
               ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
             });
             config.checkSecretKey(secret);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
             const res = await supertest(app)
@@ -668,7 +668,7 @@ describe('AuthTest', () => {
               ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
             });
             config.checkSecretKey(secret);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const app = await getServer(auth);
             const res = await supertest(app).get(`/`).expect(HTTP_STATUS.OK);
@@ -691,7 +691,7 @@ describe('AuthTest', () => {
             );
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
-            const auth = new Auth(config);
+            const auth = new Auth(config, logger);
             await auth.init();
             const token = (await auth.jwtEncrypt(
               createRemoteUser('jwt_user', [ROLES.ALL]),

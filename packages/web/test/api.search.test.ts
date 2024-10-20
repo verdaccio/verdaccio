@@ -1,5 +1,6 @@
 import path from 'path';
 import supertest from 'supertest';
+import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -7,10 +8,10 @@ import { publishVersion } from '@verdaccio/test-helper';
 
 import { initializeServer } from './helper';
 
-setup([]);
+setup({});
 
-const mockManifest = jest.fn();
-jest.mock('@verdaccio/ui-theme', () => mockManifest());
+const mockManifest = vi.fn();
+vi.mock('@verdaccio/ui-theme', () => mockManifest());
 
 describe('test web server', () => {
   beforeAll(() => {
@@ -24,8 +25,8 @@ describe('test web server', () => {
   });
 
   afterEach(() => {
-    Date.now = jest.fn(() => new Date(Date.UTC(2017, 1, 14)).valueOf());
-    jest.clearAllMocks();
+    Date.now = vi.fn(() => new Date(Date.UTC(2017, 1, 14)).valueOf());
+    vi.clearAllMocks();
     mockManifest.mockClear();
   });
 

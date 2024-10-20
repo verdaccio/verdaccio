@@ -13,13 +13,13 @@ import { generateRandomHexString } from '@verdaccio/utils';
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
 export async function initializeServer(
-  configName,
+  configObject,
   routesMiddleware: any[] = [],
   Storage
 ): Promise<Application> {
   const app = express();
-  const logger = setup({});
-  const config = new Config(configName);
+  const logger = setup(configObject.log ?? {});
+  const config = new Config(configObject);
   config.storage = path.join(os.tmpdir(), '/storage', generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics
@@ -28,7 +28,7 @@ export async function initializeServer(
 
   const storage = new Storage(config, logger);
   await storage.init(config, []);
-  const auth: Auth = new Auth(config);
+  const auth: Auth = new Auth(config, logger);
   await auth.init();
   // TODO: this might not be need it, used in apiEndpoints
   app.use(express.json({ strict: false, limit: '10mb' }));
@@ -36,10 +36,10 @@ export async function initializeServer(
   app.use(errorReportingMiddleware(logger));
   for (let route of routesMiddleware) {
     if (route.async) {
-      const middleware = await route.routes(config, auth, storage);
+      const middleware = await route.routes(config, auth, storage, logger);
       app.use(middleware);
     } else {
-      app.use(route(config, auth, storage));
+      app.use(route(config, auth, storage, logger));
     }
   }
 

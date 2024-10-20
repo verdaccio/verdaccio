@@ -1,4 +1,5 @@
 import getPort from 'get-port';
+import { afterAll, beforeAll, describe, expect, test } from 'vitest';
 
 import { ConfigBuilder } from '@verdaccio/config';
 import { constants, fileUtils } from '@verdaccio/core';
@@ -7,9 +8,6 @@ import { Registry, ServerQuery } from '../src/server';
 
 describe('race publishing packages', () => {
   let registry;
-
-  // CI is slow, so we need to increase the timeout for the test.
-  jest.setTimeout(40000);
 
   beforeAll(async function () {
     const storage = await fileUtils.createTempStorageFolder('race-test');

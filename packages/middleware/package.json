@@ -35,7 +35,6 @@
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",
     "test": "vitest run",
-    "test:snap": "jest --updateSnapshot",
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {

@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 import buildDebug from 'debug';
-import express from 'express';
+import express, { Express } from 'express';
 import _ from 'lodash';
 import AuditMiddleware from 'verdaccio-audit';
 
@@ -30,8 +30,8 @@ import hookDebug from './debug';
 const debug = buildDebug('verdaccio:server');
 const { version } = require('../package.json');
 
-const defineAPI = async function (config: IConfig, storage: Storage): Promise<any> {
-  const auth: Auth = new Auth(config);
+const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
+  const auth: Auth = new Auth(config, logger);
   await auth.init();
   const app = express();
   // run in production mode by default, just in case
@@ -89,7 +89,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
 
   // For  npm request
   // @ts-ignore
-  app.use(apiEndpoint(config, auth, storage));
+  app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API
   if (_.get(config, 'web.enable', true)) {
@@ -140,7 +140,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<an
   return app;
 };
 
-export default (async function startServer(configHash: ConfigYaml): Promise<any> {
+const startServer = async function startServer(configHash: ConfigYaml): Promise<Express> {
   debug('start server');
   const config: IConfig = new AppConfig({ ...configHash } as any);
   // register middleware plugins
@@ -157,4 +157,7 @@ export default (async function startServer(configHash: ConfigYaml): Promise<any>
     throw new Error(err);
   }
   return await defineAPI(config, storage);
-});
+};
+
+export { startServer };
+export default startServer;

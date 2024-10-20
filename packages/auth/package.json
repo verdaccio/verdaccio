@@ -41,7 +41,6 @@
     "@verdaccio/config": "workspace:8.0.0-next-8.3",
     "@verdaccio/core": "workspace:8.0.0-next-8.3",
     "@verdaccio/loaders": "workspace:8.0.0-next-8.3",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.3",
     "@verdaccio/signature": "workspace:8.0.0-next-8.1",
     "@verdaccio/utils": "workspace:8.1.0-next-8.3",
     "debug": "4.3.7",
@@ -51,6 +50,7 @@
   "devDependencies": {
     "@verdaccio/middleware": "workspace:8.0.0-next-8.3",
     "@verdaccio/types": "workspace:13.0.0-next-8.1",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.3",
     "express": "4.21.1",
     "supertest": "7.0.0"
   },

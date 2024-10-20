@@ -11,7 +11,7 @@ import {
 } from '@verdaccio/config';
 import { getDefaultConfig } from '@verdaccio/config';
 import { API_ERROR, CHARACTER_ENCODING, VerdaccioError, errorUtils } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage } from '@verdaccio/utils';
@@ -61,7 +61,7 @@ describe('Auth utilities', () => {
     methodNotBeenCalled: string
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
-    const auth: Auth = new Auth(config);
+    const auth: Auth = new Auth(config, logger);
     await auth.init();
     // @ts-ignore
     const spy = vi.spyOn(auth, methodToSpy);
