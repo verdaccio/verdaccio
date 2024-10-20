@@ -115,7 +115,7 @@ FROM node:lts-alpine as builder
 RUN mkdir -p /verdaccio/plugins \
   && cd /verdaccio/plugins \
   && npm install --global-style --no-bin-links --omit=optional verdaccio-auth-memory@latest
-FROM verdaccio/verdaccio:5
+FROM verdaccio/verdaccio:6
 ADD docker.yaml /verdaccio/conf/config.yaml
 COPY --chown=$VERDACCIO_USER_UID:root --from=builder \
   /verdaccio/plugins/node_modules/verdaccio-auth-memory \
