@@ -1,5 +1,6 @@
 import path from 'path';
 import supertest from 'supertest';
+import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
@@ -10,8 +11,8 @@ import { initializeServer } from './helper';
 
 setup({});
 
-const mockManifest = jest.fn();
-jest.mock('@verdaccio/ui-theme', () => mockManifest());
+const mockManifest = vi.fn();
+vi.mock('@verdaccio/ui-theme', () => mockManifest());
 
 describe('readme api', () => {
   beforeAll(() => {
@@ -25,7 +26,7 @@ describe('readme api', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     mockManifest.mockClear();
   });
 

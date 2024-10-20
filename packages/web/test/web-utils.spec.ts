@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { sortByName } from '../src/web-utils';
 
 describe('Utilities', () => {
