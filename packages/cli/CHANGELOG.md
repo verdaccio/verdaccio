@@ -1,5 +1,16 @@
 # @verdaccio/cli
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- e93d6a3: chore: auth package requires logger as parameter
+- Updated dependencies [e93d6a3]
+  - @verdaccio/node-api@8.0.0-next-8.4
+  - @verdaccio/logger@8.0.0-next-8.4
+  - @verdaccio/core@8.0.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes
