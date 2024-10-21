@@ -2,6 +2,7 @@ export { match } from './middlewares/match';
 export { setSecurityWebHeaders } from './middlewares/security-headers';
 export { validateName, validatePackage } from './middlewares/validation';
 export { media } from './middlewares/media';
+export { makeURLrelative } from './middlewares/make-url-relative';
 export { encodeScopePackage } from './middlewares/encode-pkg';
 export { expectJson } from './middlewares/json';
 export { antiLoop } from './middlewares/antiLoop';

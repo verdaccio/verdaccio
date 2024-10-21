@@ -54,6 +54,7 @@ export const HEADERS = {
   TEXT_CHARSET: 'text/plain; charset=utf-8',
   WWW_AUTH: 'WWW-Authenticate',
   GZIP: 'gzip',
+  HOST: 'host',
 };
 
 export const HTTP_STATUS = {

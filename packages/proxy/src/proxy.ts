@@ -503,11 +503,10 @@ class ProxyStorage implements IProxy {
    */
   public async search({ url, abort, retry }: ProxySearchParams): Promise<Stream.Readable> {
     try {
-      const fullURL = new URL(`${this.url}${url}`);
-      // FIXME: a better way to remove duplicate slashes?
-      const uri = fullURL.href.replace(/([^:]\/)\/+/g, '$1');
+      // Incoming URL is relative ie /-/v1/search...
+      const uri = new URL(url, this.url).href;
       this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
-      debug('searching on %s', uri);
+      debug('searching on %o', uri);
       const response = got(uri, {
         signal: abort ? abort.signal : {},
         agent: this.agent,
@@ -516,6 +515,8 @@ class ProxyStorage implements IProxy {
       });
 
       const res = await response.text();
+      const total = JSON.parse(res).total;
+      debug('number of packages found: %o', total);
       const streamSearch = new PassThrough({ objectMode: true });
       const streamResponse = Readable.from(res);
       // objects is one of the properties on the body, it ignores date and total
