@@ -1,4 +1,5 @@
 ---
+'@verdaccio/api': patch
 '@verdaccio/core': patch
 '@verdaccio/middleware': patch
 '@verdaccio/proxy': patch
