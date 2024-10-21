@@ -1,5 +1,12 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- e93d6a3: chore: auth package requires logger as parameter
+  - @verdaccio/core@8.0.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.0-next-8.2
+
+### Patch Changes
+
+- e93d6a3: chore: auth package requires logger as parameter
+
 ## 8.0.0-next-8.1
 
 ### Minor Changes
