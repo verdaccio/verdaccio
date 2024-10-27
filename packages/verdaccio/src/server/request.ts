@@ -216,7 +216,7 @@ export class ServerQuery {
    */
   public removePackage(name: string, rev) {
     return this.request({
-      uri: `/${encodeURIComponent(name)}/-rev/${rev}`,
+      uri: `/${encodeURIComponent(name)}/-rev/${encodeURIComponent(rev)}`,
       method: 'DELETE',
       headers: {
         [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
@@ -226,7 +226,7 @@ export class ServerQuery {
 
   public removeSingleTarball(name: string, filename: string) {
     return this.request({
-      uri: `/${encodeURIComponent(name)}/-/${filename}/-rev/whatever`,
+      uri: `/${encodeURIComponent(name)}/-/${encodeURIComponent(filename)}/-rev/whatever`,
       method: 'DELETE',
       headers: {
         [HEADERS.CONTENT_TYPE]: HEADERS.JSON_CHARSET,
