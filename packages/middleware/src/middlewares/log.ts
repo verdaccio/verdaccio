@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+import { HEADERS } from '@verdaccio/core';
+
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 // FIXME: deprecated, moved to @verdaccio/dev-commons
@@ -52,7 +54,7 @@ export const log = (logger) => {
     };
 
     const log = function (): void {
-      const forwardedFor = req.get('x-forwarded-for');
+      const forwardedFor = req.get(HEADERS.FORWARDED_FOR);
       const remoteAddress = req.connection.remoteAddress;
       const remoteIP = forwardedFor ? `${forwardedFor} via ${remoteAddress}` : remoteAddress;
       let message;

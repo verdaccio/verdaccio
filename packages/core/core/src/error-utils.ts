@@ -3,7 +3,7 @@ import createError, { HttpError } from 'http-errors';
 import { HTTP_STATUS } from './constants';
 
 export const API_ERROR = {
-  PASSWORD_SHORT: `The provided password does not pass the validation`,
+  PASSWORD_SHORT: 'The provided password does not pass the validation',
   MUST_BE_LOGGED: 'You must be logged in to publish packages.',
   PLUGIN_ERROR: 'bug in the auth plugin system',
   CONFIG_BAD_FORMAT: 'config file must be an object',
