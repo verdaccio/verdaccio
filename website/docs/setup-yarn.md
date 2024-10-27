@@ -18,14 +18,6 @@ To set up a registry, create a file and define a registry.
 registry "http://localhost:4873"
 ```
 
-By using this version you should enable `always-auth` in your configuration running:
-
-```
-npm config set always-auth true
-```
-
-`yarn@1.x` does not send the authorization header on `yarn install` if your packages requires authentication, by enabling `always-auth` will force yarn do it on each request.
-
 #### Yarn Berry (>=2.x) {#yarn-berry-2x}
 
 > Yarn berry does not recognize `--registry` or `.npmrc` file anymore.
