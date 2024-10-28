@@ -442,6 +442,4 @@ This is due to wrong permissions or ownership in `storage` directory, dont forge
 
 - When should I use `--always-auth` when running `--add-user`?
 
-If you keep having `403` issues when retrieving packages from the registry, and permissions and ownership have been fixed, we have found that adding `--always-auth` will solve the issue.
-
-In my case, I have found that `--always-auth` was required in my production environment.
+Since npm 7.10, the config option `always-auth` has no effect. You can safely remove it from your configuration.

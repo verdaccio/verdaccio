@@ -94,8 +94,6 @@ To make Verdaccio launch on startup, run the commands below:
 
 **Step 10:** Registering a user in verdaccio registry
 
-` npm set always-auth true`
-
 ` npm adduser`
 
 It will ask for username, password and valid email id to be entered. Make a note of this details that will use later to login in verdaccio registry to publish our library.
