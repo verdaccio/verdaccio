@@ -4,6 +4,7 @@ import { Auth } from '@verdaccio/auth';
 import {
   antiLoop,
   encodeScopePackage,
+  makeURLrelative,
   match,
   validateName,
   validatePackage,
@@ -45,6 +46,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.use(auth.apiJWTmiddleware());
   app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   app.use(antiLoop(config));
+  app.use(makeURLrelative);
   // encode / in a scoped package name to be matched as a single parameter in routes
   app.use(encodeScopePackage);
   // for "npm whoami"
