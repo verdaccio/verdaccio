@@ -40,8 +40,8 @@ describe('server api', () => {
     await supertest(app)
       .get('/')
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
-      .expect('x-ratelimit-limit', '10000')
-      .expect('x-ratelimit-remaining', '9999')
+      .expect(HEADERS.RATELIMIT_LIMIT, '10000')
+      .expect(HEADERS.RATELIMIT_REMAINING, '9999')
       .expect(HTTP_STATUS.OK);
   });
 
@@ -66,7 +66,7 @@ describe('server api', () => {
       .get('/')
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
       .expect(HTTP_STATUS.OK);
-    const powered = response.get('x-powered-by');
+    const powered = response.get(HEADERS.POWERED_BY);
     expect(powered).toMatch('hidden');
   }, 40000);
 
@@ -76,7 +76,7 @@ describe('server api', () => {
       .get('/')
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
       .expect(HTTP_STATUS.OK);
-    const powered = response.get('x-powered-by');
+    const powered = response.get(HEADERS.POWERED_BY);
     expect(powered).toEqual('hidden');
   });
 
@@ -86,7 +86,7 @@ describe('server api', () => {
       .get('/')
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
       .expect(HTTP_STATUS.OK);
-    const powered = response.get('x-powered-by');
+    const powered = response.get(HEADERS.POWERED_BY);
     expect(powered).toEqual('custom user agent');
   });
 
