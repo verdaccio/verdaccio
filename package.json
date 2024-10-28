@@ -175,12 +175,12 @@
     "local:publish:release": "concurrently \"pnpm local:registry\" \"pnpm local:publish\""
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "license": "MIT",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
   },
-  "packageManager": "pnpm@9.12.2+sha256.2ef6e547b0b07d841d605240dce4d635677831148cd30f6d564b8f4f928f73d2"
+  "packageManager": "pnpm@8.14.0+sha256.9cebf61abd83f68177b29484da72da9751390eaad46dfc3072d266bfbb1ba7bf"
 }
