@@ -46,7 +46,7 @@ jobs:
       - name: Install
         run: pnpm install  --registry http://localhost:4873
       - name: Cache .pnpm-store
-        uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
+        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -66,7 +66,7 @@ jobs:
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -91,7 +91,7 @@ jobs:
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -121,7 +121,7 @@ jobs:
         run: |
           corepack enable
           corepack prepare
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -148,7 +148,7 @@ jobs:
         run: |
           corepack enable
           corepack install
-      - uses: actions/cache@e12d46a63a90f2fae62d114769bbf2a179198b5c # v4.0.2
+      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
