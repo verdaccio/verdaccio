@@ -33,7 +33,7 @@ jobs:
         run: pnpm build
       - name: Test UI
         run: pnpm test:e2e:ui
-      - uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
+      - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
         with:
           name: videos
           path: /home/runner/work/verdaccio/verdaccio/e2e/ui/cypress/videos
