@@ -89,7 +89,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.4"],\
-            ["compression", "npm:1.7.4"],\
+            ["compression", "npm:1.7.5"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:6c74e6567c965428b5d6edaa37ed9ff5d2825dc9ccde4d8262d2f7843d2ade022119756ece1645c6110b7e2cd05e6fd199412d8ce83762de67ca3b3cbd97f0b7#npm:4.3.7"],\
@@ -6721,13 +6721,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["bytes", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/bytes-npm-3.0.0-19be09472d-a2b386dd81.zip/node_modules/bytes/",\
-          "packageDependencies": [\
-            ["bytes", "npm:3.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.1.2", {\
           "packageLocation": "./.yarn/cache/bytes-npm-3.1.2-28b8643004-e4bcd3948d.zip/node_modules/bytes/",\
           "packageDependencies": [\
@@ -7115,16 +7108,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["compression", [\
-        ["npm:1.7.4", {\
-          "packageLocation": "./.yarn/cache/compression-npm-1.7.4-e0cd6afa69-35c0f2eb1f.zip/node_modules/compression/",\
+        ["npm:1.7.5", {\
+          "packageLocation": "./.yarn/cache/compression-npm-1.7.5-346039c027-d624b55624.zip/node_modules/compression/",\
           "packageDependencies": [\
-            ["compression", "npm:1.7.4"],\
-            ["accepts", "npm:1.3.8"],\
-            ["bytes", "npm:3.0.0"],\
+            ["compression", "npm:1.7.5"],\
+            ["bytes", "npm:3.1.2"],\
             ["compressible", "npm:2.0.18"],\
             ["debug", "virtual:c7b184cd14c02e3ce555ab1875e60cf5033c617e17d82c4c02ea822101d3c817f48bf25a766b4d4335742dc5c9c14c2e88a57ed955a56c4ad0613899f82f5618#npm:2.6.9"],\
+            ["negotiator", "npm:0.6.4"],\
             ["on-headers", "npm:1.0.2"],\
-            ["safe-buffer", "npm:5.1.2"],\
+            ["safe-buffer", "npm:5.2.1"],\
             ["vary", "npm:1.1.2"]\
           ],\
           "linkType": "HARD"\
@@ -12097,6 +12090,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["negotiator", "npm:0.6.3"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.6.4", {\
+          "packageLocation": "./.yarn/cache/negotiator-npm-0.6.4-4a96086720-7ded10aa02.zip/node_modules/negotiator/",\
+          "packageDependencies": [\
+            ["negotiator", "npm:0.6.4"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["neo-async", [\
@@ -15269,7 +15269,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.4"],\
-            ["compression", "npm:1.7.4"],\
+            ["compression", "npm:1.7.5"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:6c74e6567c965428b5d6edaa37ed9ff5d2825dc9ccde4d8262d2f7843d2ade022119756ece1645c6110b7e2cd05e6fd199412d8ce83762de67ca3b3cbd97f0b7#npm:4.3.7"],\
