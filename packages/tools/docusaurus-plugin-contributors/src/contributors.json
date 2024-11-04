@@ -302,11 +302,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 74,
+      "contributions": 75,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 74
+          "contributions": 75
         }
       ]
     },
@@ -5077,7 +5077,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16395,
+      "stargazers_count": 16401,
       "archived": false
     },
     {
@@ -5338,7 +5338,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 61,
+      "stargazers_count": 62,
       "archived": false
     },
     {
