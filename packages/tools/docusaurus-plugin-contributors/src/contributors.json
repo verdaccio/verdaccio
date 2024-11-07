@@ -5077,7 +5077,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16401,
+      "stargazers_count": 16418,
       "archived": false
     },
     {
@@ -5266,7 +5266,7 @@
       "full_name": "verdaccio/ui",
       "html_url": "https://github.com/verdaccio/ui",
       "description": "🖼🎨 Verdaccio UI (deprecated, use verdaccio/verdaccio)",
-      "stargazers_count": 121,
+      "stargazers_count": 120,
       "archived": true
     },
     {
@@ -5338,7 +5338,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 62,
+      "stargazers_count": 63,
       "archived": false
     },
     {
@@ -5365,7 +5365,7 @@
       "full_name": "verdaccio/e2e-tests",
       "html_url": "https://github.com/verdaccio/e2e-tests",
       "description": "run e2e tests for 5.x and 6.x branches",
-      "stargazers_count": 1,
+      "stargazers_count": 2,
       "archived": false
     },
     {
