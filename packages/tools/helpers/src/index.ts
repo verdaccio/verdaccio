@@ -6,3 +6,5 @@ export { addNewVersion } from './addNewVersion';
 export { generatePublishNewVersionManifest } from './generatePublishNewVersionManifest';
 export { initializeServer } from './initializeServer';
 export { publishVersion } from './actions';
+export { createTempFolder } from './utils';
+export { generateUnPublishPackageMetadata } from './generateUnPublishPackageMetadata';

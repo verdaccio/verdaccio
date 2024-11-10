@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
 import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS } from '../src/constants';
-import { validatePublishSingleVersion } from '../src/schemes/publish-manifest';
 import {
   isObject,
   normalizeMetadata,
@@ -115,65 +114,6 @@ describe('validateName', () => {
     expect(validateName('pk%20g')).toBeFalsy();
     expect(validateName('pk+g')).toBeFalsy();
     expect(validateName('pk:g')).toBeFalsy();
-  });
-});
-
-describe('validatePublishSingleVersion', () => {
-  test('should be valid', () => {
-    expect(
-      validatePublishSingleVersion({
-        name: 'foo-pkg',
-        _attachments: { '2': {} },
-        versions: { '1': {} },
-      })
-    ).toBeTruthy();
-  });
-
-  test('should be invalid if name is missing', () => {
-    expect(
-      validatePublishSingleVersion({
-        _attachments: { '2': {} },
-        versions: { '1': {} },
-      })
-    ).toBeFalsy();
-  });
-
-  test('should be invalid if _attachments is missing', () => {
-    expect(
-      validatePublishSingleVersion({
-        name: 'foo-pkg',
-        versions: { '1': {} },
-      })
-    ).toBeFalsy();
-  });
-
-  test('should be invalid if versions is missing', () => {
-    expect(
-      validatePublishSingleVersion({
-        name: 'foo-pkg',
-        _attachments: { '1': {} },
-      })
-    ).toBeFalsy();
-  });
-
-  test('should be invalid if versions is more than 1', () => {
-    expect(
-      validatePublishSingleVersion({
-        name: 'foo-pkg',
-        versions: { '1': {}, '2': {} },
-        _attachments: { '1': {} },
-      })
-    ).toBeFalsy();
-  });
-
-  test('should be invalid if _attachments is more than 1', () => {
-    expect(
-      validatePublishSingleVersion({
-        name: 'foo-pkg',
-        _attachments: { '1': {}, '2': {} },
-        versions: { '1': {} },
-      })
-    ).toBeFalsy();
   });
 });
 

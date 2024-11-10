@@ -5,6 +5,7 @@ import { Manifest } from '@verdaccio/types';
 import { DEFAULT_PASSWORD_VALIDATION, DIST_TAGS, MAINTAINERS } from './constants';
 
 export { validatePublishSingleVersion } from './schemes/publish-manifest';
+export { validateUnPublishSingleVersion } from './schemes/unpublish-manifest';
 
 export function isPackageNameScoped(name: string): boolean {
   return name.startsWith('@');

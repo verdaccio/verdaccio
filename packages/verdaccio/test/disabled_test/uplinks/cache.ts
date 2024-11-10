@@ -19,8 +19,6 @@ const PKG_GH1312 = 'pkg-gh1312';
 
 function isCached(pkgName, tarballName) {
   const pathCached = path.join(__dirname, STORAGE, pkgName, tarballName);
-  console.log('isCached =>', pathCached);
-
   return fs.existsSync(pathCached);
 }
 

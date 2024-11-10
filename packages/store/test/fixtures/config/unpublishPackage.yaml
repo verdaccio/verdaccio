@@ -1,0 +1,13 @@
+uplinks:
+  ver:
+    url: https://registry.verdaccio.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: ver
+  '*':
+    access: $all
+    publish: $all
+    proxy: ver
+log: { type: stdout, format: pretty, level: info }

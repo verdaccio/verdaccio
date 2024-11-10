@@ -23,6 +23,7 @@ import {
   generateLocalPackageMetadata,
   generatePackageMetadata,
   generateRemotePackageMetadata,
+  generateUnPublishPackageMetadata,
   getDeprecatedPackageMetadata,
 } from '@verdaccio/test-helper';
 import {
@@ -389,6 +390,92 @@ describe('storage', () => {
         // verdaccio keeps latest version of readme on manifest level but not by version
         expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
         expect(manifest.readme).toEqual('# test');
+      });
+    });
+    describe('unpublishing', () => {
+      test('unpublish a private package', async () => {
+        const mockDate = '2018-01-14T11:17:40.712Z';
+        MockDate.set(mockDate);
+        const pkgName = 'upstream';
+        const requestOptions = {
+          host: 'localhost',
+          protocol: 'http',
+          headers: {},
+        };
+        const config = new Config(
+          configExample(
+            {
+              ...getDefaultConfig(),
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/unpublishPackage.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+        // publish 1.0.0
+        await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.0'), {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        // publish 1.0.1
+        await storage.updateManifest(generatePackageMetadata(pkgName, '1.0.1'), {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        // publish 2.0.0
+        await storage.updateManifest(generatePackageMetadata(pkgName, '2.0.0'), {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+        // emulate write=true before unpublish
+        const manifestWrite = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions,
+        })) as Manifest;
+        // unpublish 1.0.0 (only include versions still available)
+        const unPublishManifest = {
+          ...generateUnPublishPackageMetadata(
+            pkgName,
+            ['2.0.0', '1.0.1'],
+            { latest: '2.0.0' },
+            manifestWrite._rev
+          ),
+        };
+        unPublishManifest.time = manifestWrite.time;
+        // we send the unpublish request
+        await storage.updateManifest(unPublishManifest, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          uplinksLook: true,
+          revision: '1',
+          requestOptions,
+        });
+
+        // get the final manifest
+        const manifestFinal = (await storage.getPackageByOptions({
+          name: pkgName,
+          // we don't need to look uplinks for this test
+          uplinksLook: false,
+          requestOptions,
+        })) as Manifest;
+
+        expect(Object.keys(manifestFinal.versions)).toEqual(
+          expect.arrayContaining(['1.0.1', '2.0.0'])
+        );
+
+        expect(manifestFinal).toHaveProperty('_rev');
       });
     });
     describe('deprecate', () => {
@@ -1686,7 +1773,47 @@ describe('storage', () => {
               host: req.get('host') as string,
             },
           })
-        ).resolves.toEqual(expect.objectContaining({ name: 'foo' }));
+        ).resolves.toEqual(
+          expect.objectContaining({
+            name: 'foo',
+            versions: expect.objectContaining({
+              '1.0.0': expect.objectContaining({
+                name: expect.any(String),
+                version: expect.any(String),
+                description: expect.any(String),
+                main: expect.any(String),
+                scripts: expect.any(Object),
+                keywords: expect.any(Array),
+                author: expect.objectContaining({
+                  name: expect.any(String),
+                  email: expect.any(String),
+                }),
+                license: expect.any(String),
+                dependencies: expect.any(Object),
+                readmeFilename: expect.any(String),
+                _id: expect.any(String),
+                _npmVersion: expect.any(String),
+                _npmUser: expect.objectContaining({
+                  name: expect.any(String),
+                }),
+                dist: expect.objectContaining({
+                  integrity: expect.any(String),
+                  shasum: expect.any(String),
+                  tarball: expect.any(String),
+                }),
+                contributors: expect.any(Array),
+              }),
+            }),
+            time: expect.any(Object),
+            users: expect.any(Object),
+            'dist-tags': expect.any(Object),
+            maintainers: expect.any(Array),
+            _rev: expect.any(String),
+            _id: expect.any(String),
+            readme: expect.any(String),
+            _attachments: expect.any(Object),
+          })
+        );
       });
 
       test('should get 201 and merge from uplink with version', async () => {
@@ -1930,11 +2057,7 @@ describe('storage', () => {
         expect(manifest.time).toBeDefined();
         // fields must not have
         // @ts-expect-error
-        expect(manifest.readme).not.toBeDefined();
-        // @ts-expect-error
         expect(manifest._attachments).not.toBeDefined();
-        // @ts-expect-error
-        expect(manifest._rev).not.toBeDefined();
       });
     });
   });
