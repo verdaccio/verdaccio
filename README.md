@@ -46,19 +46,19 @@ You can find more details about the different versions of Verdaccio, minimum req
 Install with npm:
 
 ```bash
-npm install -g verdaccio@next
+npm install -g verdaccio@next-8
 ```
 
 With `yarn`
 
 ```bash
-yarn global add verdaccio@next
+yarn global add verdaccio@next-8
 ```
 
 With `pnpm`
 
 ```bash
-pnpm i -g verdaccio@next
+pnpm i -g verdaccio@next-8
 ```
 
 or
