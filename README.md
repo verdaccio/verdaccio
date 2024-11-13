@@ -10,7 +10,7 @@
 
 > Looking for Verdaccio version 5 or 6? Version 6 is the latest version and successor to version 5. Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
 
-> The plugins for versions 5 and 6 are located at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository. Plugins for the `next` version are hosted in this project under the `./packages/plugins` folder.
+> The plugins for versions 5 and 6 are located at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository. Plugins for the `next-8` version are hosted in this project under the `./packages/plugins` folder.
 
 > Note that contributing guidelines might be different based on the branch.
 
