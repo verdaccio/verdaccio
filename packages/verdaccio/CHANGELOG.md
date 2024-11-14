@@ -1,5 +1,21 @@
 # verdaccio
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- e3c55f0: chore: encode parts of URL
+- e93d6a3: chore: auth package requires logger as parameter
+- Updated dependencies [e93d6a3]
+  - @verdaccio/ui-theme@8.0.0-next-8.4
+  - @verdaccio/node-api@8.0.0-next-8.4
+  - @verdaccio/cli@8.0.0-next-8.4
+  - @verdaccio/hooks@8.0.0-next-8.4
+  - verdaccio-audit@13.0.0-next-8.4
+  - verdaccio-htpasswd@13.0.0-next-8.4
+  - @verdaccio/utils@8.1.0-next-8.4
+  - @verdaccio/logger@8.0.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

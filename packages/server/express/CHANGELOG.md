@@ -1,5 +1,27 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 48aa89f: chore: request header constants
+- e93d6a3: chore: auth package requires logger as parameter
+- Updated dependencies [48aa89f]
+- Updated dependencies [58e0d95]
+- Updated dependencies [1076a89]
+- Updated dependencies [e93d6a3]
+  - @verdaccio/middleware@8.0.0-next-8.4
+  - @verdaccio/core@8.0.0-next-8.4
+  - @verdaccio/api@8.1.0-next-8.4
+  - @verdaccio/auth@8.0.0-next-8.4
+  - @verdaccio/web@8.1.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.4
+  - @verdaccio/loaders@8.0.0-next-8.3
+  - verdaccio-audit@13.0.0-next-8.4
+  - @verdaccio/store@8.0.0-next-8.4
+  - @verdaccio/utils@8.1.0-next-8.4
+  - @verdaccio/logger@8.0.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

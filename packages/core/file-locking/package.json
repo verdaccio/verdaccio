@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/file-locking",
-  "version": "13.0.0-next-8.1",
+  "version": "13.0.0-next-8.2",
   "description": "library that handle file locking",
   "keywords": [
     "private",

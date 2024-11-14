@@ -1,5 +1,16 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 58e0d95: fix(middleware): error 404 when getting scoped tarballs
+- Updated dependencies [48aa89f]
+- Updated dependencies [58e0d95]
+  - @verdaccio/core@8.0.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.4
+  - @verdaccio/utils@8.1.0-next-8.4
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

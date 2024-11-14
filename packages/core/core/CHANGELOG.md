@@ -1,5 +1,12 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 48aa89f: chore: request header constants
+- 58e0d95: fix(middleware): error 404 when getting scoped tarballs
+
 ## 8.0.0-next-8.3
 
 ## 8.0.0-next-8.2
