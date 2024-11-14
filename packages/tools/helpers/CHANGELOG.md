@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-next-8.1
+
+### Patch Changes
+
+- e93d6a3: chore: auth package requires logger as parameter
+
 ## 4.0.0-next-8.0
 
 ### Major Changes
