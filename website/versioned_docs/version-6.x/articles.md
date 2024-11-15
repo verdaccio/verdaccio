@@ -56,6 +56,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [Verdaccio: Your Personal Package Manager](https://medium.com/@danaprata/verdaccio-your-personal-package-manager-0b9e2ecbe50c)
 - [How to Publish Custom NPM Packages to a Private Local Registry Using Verdaccio on Docker](https://medium.com/havelsan/how-to-publish-custom-npm-packages-to-a-private-local-registry-using-verdaccio-on-docker-0494fb5938ab)
 - [Local Library Development with Nx Release and Verdaccio](https://itnext.io/local-library-development-with-nx-release-and-verdaccio-019af5c5bec0)
+- [Using Verdaccio with SAP Commerce Cloud and the Composable Storefront](https://hybrismart.com/2024/02/24/spartacus-release-feb24-updates-the-sap-composable-storefront/)
 
 ### Japanese {#japanese}
 
@@ -71,6 +72,8 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [搭建私有 npm 镜像](http://www.blackcater.win/2018/03/01/%E6%90%AD%E5%BB%BA%E7%A7%81%E6%9C%89npm%E9%95%9C%E5%83%8F/)
 - [搭建离线 npm 私库——verdaccio](https://www.jishux.com/plus/view-765581-1.html)
 - [[筆記] 建立自己的 npm, 以 npm Orgs 跟 Verdaccio 為例](https://medium.com/@ceall8650/%E7%AD%86%E8%A8%98-%E5%BB%BA%E7%AB%8B%E8%87%AA%E5%B7%B1%E7%9A%84-npm-%E4%BB%A5npm-orgs%E8%B7%9Fverdaccio%E7%82%BA%E4%BE%8B-cfb83b2307e6)
+- [Docker + Verdaccio 搭建Npm仓库配置nginx域名访问原创](https://blog.csdn.net/ma_qi_chao/article/details/135559257)
+- [Resolving Verdaccio Permissions and Proxy Issues in Docker](https://ltan.me/post/2024/06/resolving-verdaccio-permissions-and-proxy-issues-in-docker/)
 
 ### French {#french}
 
