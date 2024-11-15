@@ -13,7 +13,7 @@ async function readLogFile(path: string) {
 }
 
 async function createLogFile() {
-  const folder = await fileUtils.createTempFolder('logger-1');
+  const folder = await fileUtils.createTempFolder('logger');
   const file = join(folder, 'logger.log');
   return file;
 }

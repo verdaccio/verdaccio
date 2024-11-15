@@ -30,7 +30,7 @@ let locaDatabase: pluginUtils.Storage<{}>;
 describe('Local Database', () => {
   let tmpFolder;
   beforeEach(async () => {
-    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
+    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin');
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     locaDatabase = new LocalDatabase(
       // @ts-expect-error
@@ -58,7 +58,7 @@ describe('Local Database', () => {
     mockmkdir.mockImplementation(() => {
       throw Error();
     });
-    const tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
+    const tmpFolder = await fileUtils.createTempFolder('local-storage-plugin');
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     const instance = new LocalDatabase(
       // @ts-expect-error

@@ -61,7 +61,7 @@ export class Registry {
     config: Partial<ConfigYaml>
   ): Promise<{ tempFolder: string; configPath: string; yamlContent: string }> {
     debug(`fromConfigToPath`);
-    const tempFolder = await fileUtils.createTempFolder('registry-');
+    const tempFolder = await fileUtils.createTempFolder('registry');
     debug(`tempFolder %o`, tempFolder);
     const yamlContent = fromJStoYAML(config) as string;
     const configPath = path.join(tempFolder, 'registry.yaml');

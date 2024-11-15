@@ -14,7 +14,7 @@ const { mkdir, mkdtemp } = fs.promises ? fs.promises : require('fs/promises');
  * @returns string
  */
 export async function createTempFolder(prefix: string): Promise<string> {
-  return await mkdtemp(path.join(os.tmpdir(), prefix));
+  return await mkdtemp(path.join(os.tmpdir(), 'verdaccio-' + prefix + '-'));
 }
 
 /**
