@@ -37,6 +37,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [Ways to have your private npm registry — and a final DIY solution](https://medium.com/engenharia-noalvo/ways-to-have-your-private-npm-registry-and-a-final-diy-solution-eed001a88e74)
 - [How to set up a free private npm registry… for Windows](https://medium.com/@Anderson7301/how-to-set-up-a-free-private-npm-registry-for-windows-f532c6a381ce)
 - [Setup a Private NPM Server on Azure in 45 Seconds](https://edi.wang/post/2020/7/7/setup-a-private-npm-server-on-azure-in-45-seconds)
+- [Verdaccio: A Comprehensive Guide to Hosting Your Private NPM Registry](https://futuristicgeeks.com/verdaccio-a-comprehensive-guide-to-hosting-your-private-npm-registry/)
 
 ### English {#english}
 
@@ -51,6 +52,10 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 - [Kubernetes private NPM registry](https://medium.com/@tompape/kubernetes-private-npm-registry-fb5f450fa611)
 - [Verdaccio examples for Google Cloud and K8s setups. https://github.com/papezt/verdaccio-examples](https://github.com/papezt/verdaccio-examples)
 - [Setting up a private NPM Registry Is Easier Than You Think](https://medium.com/@902Labs/setting-up-a-private-npm-registry-is-easier-than-you-think-455e1bd438f2)
+- [Easily Create Your Own Private NPM Registry Using Verdaccio](https://dev.to/danywalls/easily-create-your-own-private-npm-registry-using-verdaccio-41ef)
+- [Verdaccio: Your Personal Package Manager](https://medium.com/@danaprata/verdaccio-your-personal-package-manager-0b9e2ecbe50c)
+- [How to Publish Custom NPM Packages to a Private Local Registry Using Verdaccio on Docker](https://medium.com/havelsan/how-to-publish-custom-npm-packages-to-a-private-local-registry-using-verdaccio-on-docker-0494fb5938ab)
+- [Local Library Development with Nx Release and Verdaccio](https://itnext.io/local-library-development-with-nx-release-and-verdaccio-019af5c5bec0)
 
 ### Japanese {#japanese}
 
@@ -76,6 +81,7 @@ Below is a list of articles about Verdaccio. If you have written a blog post or 
 
 - [NPM privado: instalar y configurar Verdaccio](https://www.todojs.com/npm-privado-con-verdaccio/)
 - [NPM privado: 5 razones y 7 recomendaciones para utilizarlo](https://www.todojs.com/npm-privado-5-razones-y-7-recomendaciones/)
+- [Verdaccio: ¿qué es y cómo configurarlo?](https://www.paradigmadigital.com/dev/verdaccio-que-es-como-configurarlo/)
 
 ### Portuguese-BR {#portuguese-BR}
 
