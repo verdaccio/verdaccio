@@ -23,11 +23,11 @@ export interface ITokenActions {
 /**
  * This method expect return a Package object
  * eg:
- * {
+ * \{
  *   name: string;
  *   time: number;
  *   ... and other props
- * }
+ * \}
  *
  * The `cb` callback object will be executed if:
  *  - it might return object (truly)
