@@ -384,6 +384,12 @@ importers:
         specifier: workspace:8.0.0-next-8.4
         version: link:../../../packages/verdaccio
 
+  e2e/cli/e2e-npm-commons:
+    dependencies:
+      '@verdaccio/test-cli-commons':
+        specifier: workspace:2.0.0-next-8.0
+        version: link:../cli-commons
+
   e2e/cli/e2e-npm10:
     dependencies:
       '@verdaccio/test-cli-commons':
@@ -422,12 +428,24 @@ importers:
 
   e2e/cli/e2e-npm9:
     dependencies:
+      '@verdaccio/e2e-cli-npm-common':
+        specifier: workspace:*
+        version: link:../e2e-npm-commons
       '@verdaccio/test-cli-commons':
         specifier: workspace:2.0.0-next-8.0
         version: link:../cli-commons
       npm:
         specifier: 9.9.3
         version: 9.9.3
+
+  e2e/cli/e2e-pnpm-commons:
+    dependencies:
+      '@verdaccio/test-cli-commons':
+        specifier: workspace:2.0.0-next-8.0
+        version: link:../cli-commons
+      pnpm:
+        specifier: 9.0.0-alpha.10
+        version: 9.0.0-alpha.10
 
   e2e/cli/e2e-pnpm8:
     dependencies:

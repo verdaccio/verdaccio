@@ -2,8 +2,7 @@
   "private": true,
   "name": "@verdaccio/test-cli-commons",
   "version": "2.0.0-next-8.0",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "main": "src/index.ts",
   "devDependencies": {
     "@verdaccio/config": "workspace:8.0.0-next-8.4",
     "@verdaccio/core": "workspace:8.0.0-next-8.4",
@@ -18,9 +17,6 @@
   },
   "scripts": {
     "test": "echo no test",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "pnpm run build:js && pnpm run build:types"
+    "build": "echo no build"
   }
 }
