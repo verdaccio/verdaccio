@@ -17,13 +17,13 @@ export interface Logger {
 
 export type LoggerType = 'stdout' | 'file';
 export type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'json';
-export type LoggerLevel = 'http' | 'fatal' | 'warn' | 'info' | 'debug' | 'trace';
+export type LoggerLevel = 'fatal' | 'error' | 'warn' | 'info' | 'http' | 'debug' | 'trace';
 
 export type LoggerConfigItem = {
   type?: LoggerType;
   format?: LoggerFormat;
   path?: string;
-  level?: string;
+  level?: LoggerLevel;
   colors?: boolean;
   async?: boolean;
 };
