@@ -25,7 +25,7 @@ export const defaultNonLoggedUserRoles = [
 
 /**
  * Create a RemoteUser object
- * @return {Object} { name: xx, pluginGroups: [], real_groups: [] }
+ * @return {Object} \{ name: xx, pluginGroups: [], real_groups: [] \}
  */
 export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUser {
   const isGroupValid: boolean = Array.isArray(pluginGroups);
@@ -42,7 +42,7 @@ export function createRemoteUser(name: string, pluginGroups: string[]): RemoteUs
 
 /**
  * Builds an anonymous remote user in case none is logged in.
- * @return {Object} { name: xx, groups: [], real_groups: [] }
+ * @return {Object} \{ name: xx, groups: [], real_groups: [] \}
  */
 export function createAnonymousRemoteUser(): RemoteUser {
   return {
