@@ -11,7 +11,10 @@
     "docker/login-action",
     "docker/build-push-action",
     "crazy-max/ghaction-docker-meta",
-    "pnpm"
+    "pnpm",
+    "yarn",
+    "npm",
+    "@yarnpkg/cli-dist"
   ],
   "baseBranches": ["master", "6.x", "7.x"],
   "semanticCommitType": "fix",
@@ -157,13 +160,6 @@
       "groupName": "all test dependencies",
       "groupSlug": "all-test",
       "baseBranchList": ["master", "6.x", "7.x"]
-    },
-    {
-      "matchPackagePatterns": ["npm", "pnpm", "yarn", "@yarnpkg/*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all package managers",
-      "groupSlug": "all-pkg-managers",
-      "baseBranchList": ["master"]
     },
     {
       "matchPackagePatterns": ["@type/*", "typescript"],

@@ -1,25 +1,9 @@
-import { afterAll, beforeAll, describe, expect, test } from 'vitest';
+import { describe } from 'vitest';
 
-import { addRegistry, initialSetup } from '@verdaccio/test-cli-commons';
+import { runPing } from '@verdaccio/e2e-cli-npm-common';
 
 import { npm } from './utils';
 
 describe('ping registry', () => {
-  let registry;
-
-  beforeAll(async () => {
-    const setup = await initialSetup();
-    registry = setup.registry;
-    await registry.init();
-  });
-
-  test('should ping registry', async () => {
-    const resp = await npm({}, 'ping', '--json', ...addRegistry(registry.getRegistryUrl()));
-    const parsedBody = JSON.parse(resp.stdout as string);
-    expect(parsedBody.registry).toEqual(registry.getRegistryUrl() + '/');
-  });
-
-  afterAll(async () => {
-    registry.stop();
-  });
+  runPing(npm);
 });
