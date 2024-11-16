@@ -1,21 +1,17 @@
 import { Agents } from 'got-cjs';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import { Agent as HttpAgent, AgentOptions as HttpAgentOptions } from 'http';
-import { Agent as HttpsAgent, AgentOptions as HttpsAgentOptions } from 'https';
+import { Agent as HttpAgent } from 'http';
+import { Agent as HttpsAgent } from 'https';
 import { URL } from 'url';
 
-export type AgentOptionsConf = HttpAgentOptions | HttpsAgentOptions;
+import { AgentOptionsConf } from '@verdaccio/types';
 
 class CustomAgents {
   private url: string;
   private proxy: string | undefined;
-  private agentOptions: HttpAgentOptions | HttpsAgentOptions;
+  private agentOptions: AgentOptionsConf;
   private agent: Agents;
-  public constructor(
-    url: string,
-    proxy: string | undefined,
-    agentOptions: HttpAgentOptions | HttpsAgentOptions
-  ) {
+  public constructor(url: string, proxy: string | undefined, agentOptions: AgentOptionsConf) {
     this.proxy = proxy;
     this.url = url;
     this.agentOptions = agentOptions;

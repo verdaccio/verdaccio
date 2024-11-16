@@ -22,11 +22,10 @@ import {
   errorUtils,
   searchUtils,
 } from '@verdaccio/core';
-import { Manifest } from '@verdaccio/types';
-import { Config, Logger, UpLinkConf } from '@verdaccio/types';
+import { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
 import { buildToken } from '@verdaccio/utils';
 
-import CustomAgents, { AgentOptionsConf } from './agent';
+import CustomAgents from './agent';
 import { parseInterval } from './proxy-utils';
 
 const debug = buildDebug('verdaccio:proxy');
