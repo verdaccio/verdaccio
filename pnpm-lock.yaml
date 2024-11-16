@@ -392,12 +392,15 @@ importers:
 
   e2e/cli/e2e-npm10:
     dependencies:
+      '@verdaccio/e2e-cli-npm-common':
+        specifier: workspace:*
+        version: link:../e2e-npm-commons
       '@verdaccio/test-cli-commons':
         specifier: workspace:2.0.0-next-8.0
         version: link:../cli-commons
       npm:
-        specifier: 10.8.2
-        version: 10.8.2
+        specifier: 10.9.0
+        version: 10.9.0
 
   e2e/cli/e2e-npm6:
     dependencies:
@@ -23434,8 +23437,8 @@ packages:
     engines: {node: '>=6.0.0'}
     dev: false
 
-  /npm@10.8.2:
-    resolution: {integrity: sha512-x/AIjFIKRllrhcb48dqUNAAZl0ig9+qMuN91RpZo3Cb2+zuibfh+KISl6+kVVyktDz230JKc208UkQwwMqyB+w==}
+  /npm@10.9.0:
+    resolution: {integrity: sha512-ZanDioFylI9helNhl2LNd+ErmVD+H5I53ry41ixlLyCBgkuYb+58CvbAp99hW+zr5L9W4X7CchSoeqKdngOLSw==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     dev: false
