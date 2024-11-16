@@ -1039,13 +1039,6 @@ class Storage {
   private async unPublishAPackage(manifest: UnPublishManifest, options: UpdateManifestOptions) {
     const { requestOptions, name } = options;
     debug('unpublish a package of %o', name);
-    // const { username } = requestOptions;
-    // if (!username) {
-    //   throw errorUtils.getBadRequest('update owners only allowed for logged in users');
-    // }
-    // if (!maintainers || maintainers.length === 0) {
-    //   throw errorUtils.getBadRequest('maintainers field is required and must not be empty');
-    // }
 
     const localPackage = await this.getPackageManifest({
       name,

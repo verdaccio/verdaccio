@@ -21,13 +21,7 @@ export async function bumpUpPackage(cmd, tempFolder, pkgName, registry, arg: str
 
 export async function publish(cmd, tempFolder, pkgName, registry, arg: string[] = []) {
   debug('publishing %o', pkgName);
-  await cmd(
-    { cwd: tempFolder },
-    'publish',
-    ...arg,
-    // '--json',
-    ...addRegistry(registry.getRegistryUrl())
-  );
+  await cmd({ cwd: tempFolder }, 'publish', ...arg, ...addRegistry(registry.getRegistryUrl()));
 }
 
 export async function getInfoVersions(cmd, pkgName, registry) {
@@ -40,5 +34,6 @@ export async function getInfoVersions(cmd, pkgName, registry) {
     ...addRegistry(registry.getRegistryUrl())
   );
   const infoBody = JSON.parse(infoResp.stdout as string);
+  debug('info %o', infoBody);
   return infoBody;
 }
