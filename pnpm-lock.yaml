@@ -459,23 +459,41 @@ importers:
         specifier: 9.0.0-alpha.10
         version: 9.0.0-alpha.10
 
-  e2e/cli/e2e-pnpm8:
+  e2e/cli/e2e-pnpm10:
     dependencies:
+      '@verdaccio/e2e-cli-pnpm-common':
+        specifier: workspace:*
+        version: link:../e2e-pnpm-commons
       '@verdaccio/test-cli-commons':
         specifier: workspace:2.0.0-next-8.0
         version: link:../cli-commons
       pnpm:
-        specifier: 8.15.5
-        version: 8.15.5
+        specifier: 10.0.0-alpha.2
+        version: 10.0.0-alpha.2
+
+  e2e/cli/e2e-pnpm8:
+    dependencies:
+      '@verdaccio/e2e-cli-pnpm-common':
+        specifier: workspace:*
+        version: link:../e2e-pnpm-commons
+      '@verdaccio/test-cli-commons':
+        specifier: workspace:2.0.0-next-8.0
+        version: link:../cli-commons
+      pnpm:
+        specifier: 8.15.9
+        version: 8.15.9
 
   e2e/cli/e2e-pnpm9:
     dependencies:
+      '@verdaccio/e2e-cli-pnpm-common':
+        specifier: workspace:*
+        version: link:../e2e-pnpm-commons
       '@verdaccio/test-cli-commons':
         specifier: workspace:2.0.0-next-8.0
         version: link:../cli-commons
       pnpm:
-        specifier: 9.0.0-alpha.10
-        version: 9.0.0-alpha.10
+        specifier: 9.13.2
+        version: 9.13.2
 
   e2e/cli/e2e-yarn1:
     dependencies:
@@ -24785,14 +24803,26 @@ packages:
       - typescript
     dev: true
 
-  /pnpm@8.15.5:
-    resolution: {integrity: sha512-sFGjLH5pWDO4SSbTspuMylclS1ifBknYmcbp0O22cLkex+KkNFm65zdZu1zmGcMmbxFr+THOItHvF1mn5Fqpbw==}
+  /pnpm@10.0.0-alpha.2:
+    resolution: {integrity: sha512-8YpZyjYRACMhr3aB5tSSNMs+zoSWsFgYvlsQgRaOwhuMPSjLtDUeL97GbKleZRb6rwi5W3VQE8iM9RdNUCmGXA==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+    dev: false
+
+  /pnpm@8.15.9:
+    resolution: {integrity: sha512-SZQ0ydj90aJ5Tr9FUrOyXApjOrzuW7Fee13pDzL0e1E6ypjNXP0AHDHw20VLw4BO3M1XhQHkyik6aBYWa72fgQ==}
     engines: {node: '>=16.14'}
     hasBin: true
     dev: false
 
   /pnpm@9.0.0-alpha.10:
     resolution: {integrity: sha512-p5tDi5ur9ZKSQjh+6DsWpYFPX4HuWfcMw6L8SAPWm7DE0B9QyBSuN9VnjSOionb7WlQBRS8Z7M4Jfd4S9KIBxw==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+    dev: false
+
+  /pnpm@9.13.2:
+    resolution: {integrity: sha512-iMnDhkRQNQ5lozWHq4Aaz5RtfIFO0RNNpKkk9t9aISD9NrRqq2j3zR1BMUkRLVPH2zpBNmJM/QD/GEagxs70ig==}
     engines: {node: '>=18.12'}
     hasBin: true
     dev: false
