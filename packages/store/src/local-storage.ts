@@ -60,7 +60,12 @@ class LocalStorage {
     if (_.isNil(Storage)) {
       assert(this.config.storage, 'CONFIG: storage path not defined');
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
-      return new LocalDatabase(config, logger);
+      const localStorage = new LocalDatabase(config, logger);
+      logger.info(
+        { pluginCategory: PLUGIN_CATEGORY.STORAGE },
+        'plugin @verdaccio/local-storage successfully loaded (@{pluginCategory})'
+      );
+      return localStorage;
     }
     return Storage as PluginStorage;
   }
