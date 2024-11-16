@@ -22,7 +22,7 @@ describe('Local Database', () => {
   let tmpFolder;
   let locaDatabase;
   beforeEach(async () => {
-    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin-');
+    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin');
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     const writeMock = vi.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
     locaDatabase = new LocalDatabase( // @ts-expect-error

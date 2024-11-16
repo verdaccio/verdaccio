@@ -4,7 +4,6 @@ import { Readable } from 'stream';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
-import { createTempFolder } from '@verdaccio/test-helper';
 import { Logger, Manifest } from '@verdaccio/types';
 
 import LocalDriver from '../src/local-fs';
@@ -78,15 +77,16 @@ describe('Local FS test', () => {
     test('should write a tarball', () =>
       new Promise((done) => {
         const abort = new AbortController();
-        const tmp = createTempFolder('local-fs-write-tarball');
-        const localFs = new LocalDriver(tmp, logger);
-        const readableStream = Readable.from('foooo');
-        // TODO: verify file exist
-        localFs.writeTarball('juan-1.0.0.tgz', { signal: abort.signal }).then((stream) => {
-          stream.on('finish', () => {
-            done(true);
+        fileUtils.createTempFolder('local-fs-write-tarball').then((tmp) => {
+          const localFs = new LocalDriver(tmp, logger);
+          const readableStream = Readable.from('foooo');
+          // TODO: verify file exist
+          localFs.writeTarball('juan-1.0.0.tgz', { signal: abort.signal }).then((stream) => {
+            stream.on('finish', () => {
+              done(true);
+            });
+            readableStream.pipe(stream);
           });
-          readableStream.pipe(stream);
         });
       }));
   });
