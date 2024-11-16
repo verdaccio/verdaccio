@@ -255,6 +255,11 @@ export type AbbreviatedManifest = Pick<Manifest, 'name' | 'dist-tags' | 'time'> 
   versions: AbbreviatedVersions;
 };
 
+/**
+ *
+ */
+export type UnPublishManifest = Omit<Manifest, '_attachments' | '_distfiles' | '_uplinks'>;
+
 export interface PublishManifest {
   /**
    * The `_attachments` object has different usages:

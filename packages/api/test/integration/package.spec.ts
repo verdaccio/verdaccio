@@ -97,8 +97,8 @@ describe('package', () => {
         expect(response.body.time).toBeDefined();
         expect(response.body.modified).toBeDefined();
         expect(response.body[DIST_TAGS]).toEqual({ latest: '1.0.0' });
-        expect(response.body.readme).not.toBeDefined();
-        expect(response.body._rev).not.toBeDefined();
+        expect(response.body.readme).toBeDefined();
+        expect(response.body._rev).toBeDefined();
         expect(response.body.users).not.toBeDefined();
       }
     );

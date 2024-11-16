@@ -1,8 +1,11 @@
+import buildDebug from 'debug';
 import fs from 'fs-extra';
 import { cp, readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { fileUtils } from '@verdaccio/core';
+
+const debug = buildDebug('verdaccio:e2e:utils');
 
 export function createProject(projectName: string) {
   const tempRootFolder = global.__namespace.getItem('dir-suite-root');
@@ -13,12 +16,14 @@ export function createProject(projectName: string) {
 }
 export function copyConfigFile(rootFolder, configTemplate): string {
   const configPath = join(rootFolder, 'config.yaml');
+  debug('copying config file %o', configPath);
   copyTo(join(__dirname, configTemplate), configPath);
 
   return configPath;
 }
 
 export async function createTempFolder(prefix: string) {
+  debug('creating temp folder %o', prefix);
   return fileUtils.createTempFolder(prefix);
 }
 
@@ -31,10 +36,12 @@ export function cleanUpTemp(tmpFolder) {
 }
 
 export function addRegistry(registryUrl) {
+  debug('adding registry %o', registryUrl);
   return ['--registry', registryUrl];
 }
 
 export function addNpmPrefix(installFolder) {
+  debug('adding prefix %o', installFolder);
   return ['--prefix', installFolder];
 }
 
@@ -50,6 +57,7 @@ export async function prepareYarnModernProject(
   registryDomain: string,
   yarnPath: string
 ) {
+  debug('preparing yarn project %o', projectName);
   const tempFolder = await createTempFolder(projectName);
   // FUTURE: native copy folder instead fs-extra
   fs.copySync(templatePath, tempFolder);
@@ -67,6 +75,7 @@ export const getPackageJSON = (
   dependencies = {},
   devDependencies = {}
 ) => {
+  debug('creating package.json %o', packageName);
   const json = {
     name: packageName,
     version,
@@ -103,6 +112,7 @@ export async function prepareGenericEmptyProject(
   dependencies: any = {},
   devDependencies: any = {}
 ) {
+  debug('preparing generic project %o', packageName);
   const getNPMrc = (port, token, registry) => `//localhost:${port}/:_authToken=${token}
   registry=${registry}`;
   const tempFolder = await createTempFolder('temp-folder');

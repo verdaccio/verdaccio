@@ -73,7 +73,7 @@ const debug = buildDebug('verdaccio:api:publish');
    * npm http fetch GET 200 http://localhost:4873/custom-name?write=true 1601ms
    * Remove the tarball
    * npm http fetch DELETE 201 http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992 19ms
-   * 
+   *
    * 3. Star a package
    *
    * Permissions: staring a package depends of the publish and unpublish permissions, there is no
@@ -94,7 +94,7 @@ const debug = buildDebug('verdaccio:api:publish');
    * 4. Change owners of a package
    *
    * Similar to staring a package, changing owners (maintainers) of a package uses the publish
-   * endpoint. 
+   * endpoint.
    *
    * The body includes a list of the new owners with the following format
    *
@@ -124,7 +124,7 @@ export default function publish(
     can('publish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackage(storage, logger)
+    publishPackage(storage, logger, 'publish one version')
   );
 
   router.put(
@@ -132,15 +132,24 @@ export default function publish(
     can('unpublish'),
     media(mime.getType('json')),
     expectJson,
-    publishPackage(storage, logger)
+    publishPackage(storage, logger, 'publish with revision')
   );
 
   /**
    * Un-publishing an entire package.
    *
-   * This scenario happens when the first call detect there is only one version remaining
-   * in the metadata, then the client decides to DELETE the resource
+   * This scenario happens when any of these scenarios happens:
+   *  -  the first call detect there is only one version remaining
+   *  -  no version is specified in the unpublish call
+   *  -  all versions are removed npm unpublish package@*
+   *  -  there is no versions on the metadata
+   
+   * then the client decides to DELETE the resource
+   * Example:
+   * Get fresh manifest (write=true is a flag to get the latest revision)
    * npm http fetch GET 304 http://localhost:4873/package-name?write=true 1076ms (from cache)
+   * Send request to delete the package, this includes the revision number that must match
+   * and the package name, it will delete the entire package and all tarballs (or tarball depends the scenario)
    * npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
    */
   router.delete(
@@ -200,15 +209,21 @@ export default function publish(
   );
 }
 
-export function publishPackage(storage: Storage, logger: Logger): any {
+export function publishPackage(storage: Storage, logger: Logger, origin: string): any {
   return async function (
     req: $RequestExtend,
     res: $ResponseExtend,
     next: $NextFunctionVer
   ): Promise<void> {
+    debug(origin);
     const ac = new AbortController();
     const packageName = req.params.package;
     const { revision } = req.params;
+    debug('publishing package %s', packageName);
+    debug('revision %s', revision);
+    if (debug.enabled) {
+      debug('body %o', req.body);
+    }
     const metadata = req.body;
     const username = req?.remote_user?.name;
 
@@ -231,6 +246,7 @@ export function publishPackage(storage: Storage, logger: Logger): any {
         },
         uplinksLook: false,
       });
+      debug('package %s published', packageName);
 
       res.status(HTTP_STATUS.CREATED);
 

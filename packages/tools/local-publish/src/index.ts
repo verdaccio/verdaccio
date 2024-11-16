@@ -46,7 +46,7 @@ fileUtils
   })
   .then((app: any) => {
     app.listen(4873, () => {
-      console.log('running verdaccio@5 server');
+      console.log('running verdaccio server');
     });
   })
   .catch(console.error);

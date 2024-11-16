@@ -4,7 +4,8 @@
   "version": "1.0.2-next-8.0",
   "dependencies": {
     "@verdaccio/test-cli-commons": "workspace:2.0.0-next-8.0",
-    "pnpm": "9.0.0-alpha.10"
+    "@verdaccio/e2e-cli-pnpm-common": "workspace:*",
+    "pnpm": "9.13.2"
   },
   "scripts": {
     "test": "vitest run --testTimeout 50000"

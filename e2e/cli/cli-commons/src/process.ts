@@ -4,6 +4,7 @@ import buildDebug from 'debug';
 import { createInterface } from 'readline';
 
 const debug = buildDebug('verdaccio:e2e:process');
+const debugRead = buildDebug('verdaccio:e2e:line');
 
 export type ExecOutput = {
   stdout: string;
@@ -11,7 +12,7 @@ export type ExecOutput = {
 };
 
 export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput> {
-  debug('start _exec %o %o %o', options, cmd, args);
+  debug('start _exec %o %o %o', options, cmd, args ? args.join(' ') : '');
   let stdout = '';
   let stderr;
   const env = options.env;
@@ -32,9 +33,17 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
 
   const childProcess = spawn(cmd, args, spawnOptions);
   if (childProcess.stdout) {
-    const rl = createInterface({ input: childProcess.stdout });
+    childProcess.stdout.on('data', (data) => {
+      debugRead('data %o', data.toString());
+    });
+    const rl = createInterface({
+      input: childProcess.stdout,
+      output: process.stdout,
+      terminal: false,
+    });
 
     rl.on('line', function (line) {
+      debugRead('line %o', line);
       stdout += line;
     });
   }
@@ -42,6 +51,7 @@ export async function exec(options: SpawnOptions, cmd, args): Promise<ExecOutput
   const err = new Error(`Running "${cmd} ${args.join(' ')}" returned error code `);
   return new Promise((resolve, reject) => {
     childProcess.on('exit', (error) => {
+      debugRead('exit %o', error);
       if (!error) {
         resolve({ stdout, stderr });
       } else {

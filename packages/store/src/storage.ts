@@ -56,6 +56,7 @@ import {
   StringValue,
   Token,
   TokenFilter,
+  UnPublishManifest,
   Version,
 } from '@verdaccio/types';
 import { createTarballHash, isObject, normalizeContributors } from '@verdaccio/utils';
@@ -452,7 +453,7 @@ class Storage {
     }
 
     // we have version, so we need to return specific version
-    const [convertedManifest] = await this.getPackageNext(options);
+    const [convertedManifest] = await this.getPackage(options);
 
     const version: Version | undefined = getVersion(convertedManifest.versions, queryVersion);
 
@@ -499,7 +500,7 @@ class Storage {
 
   public async getPackageManifest(options: IGetPackageOptionsNext): Promise<Manifest> {
     // convert dist remotes to local bars
-    const [manifest] = await this.getPackageNext(options);
+    const [manifest] = await this.getPackage(options);
 
     // If change access is requested (?write=true), then check if logged in user is allowed to change package
     if (options.byPassCache === true) {
@@ -560,6 +561,11 @@ class Storage {
       modified: manifest.time.modified,
       // NOTE: special case for pnpm https://github.com/pnpm/rfcs/pull/2
       time: manifest.time,
+      _id: manifest._id,
+      readme: manifest.readme,
+      // TODO: not sure if this is used in some way
+      readmeFilename: '',
+      _rev: manifest._rev,
     };
 
     return convertedManifest;
@@ -575,11 +581,13 @@ class Storage {
   ): Promise<Manifest | AbbreviatedManifest | Version> {
     // if no version we return the whole manifest
     if (_.isNil(options.version) === false) {
+      debug('get package by version %o', options.version);
       return this.getPackageByVersion(options);
     } else {
+      debug('get full package manifest');
       const manifest = await this.getPackageManifest(options);
       if (options.abbreviated === true) {
-        debug('abbreviated manifest');
+        debug('get abbreviated manifest');
         return this.convertAbbreviatedManifest(manifest);
       }
       return manifest;
@@ -910,11 +918,12 @@ class Storage {
   }
 
   public async updateManifest(
-    manifest: Manifest | StarManifestBody | OwnerManifestBody,
+    manifest: Manifest | StarManifestBody | OwnerManifestBody | UnPublishManifest,
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
     debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
     if (isDeprecatedManifest(manifest as Manifest)) {
+      debug('update manifest deprecate');
       // if the manifest is deprecated, we need to update the package.json
       await this.deprecate(manifest as Manifest, {
         ...options,
@@ -923,6 +932,7 @@ class Storage {
       isPublishablePackage(manifest as Manifest) === false &&
       validatioUtils.isObject((manifest as StarManifestBody).users)
     ) {
+      debug('update manifest star');
       // if user request to apply a star to the manifest
       await this.star(manifest as StarManifestBody, {
         ...options,
@@ -932,6 +942,7 @@ class Storage {
       isPublishablePackage(manifest as Manifest) === false &&
       Array.isArray((manifest as OwnerManifestBody).maintainers)
     ) {
+      debug('update manifest owners');
       // if user request to change owners of package
       await this.changeOwners(manifest as OwnerManifestBody, {
         ...options,
@@ -940,6 +951,7 @@ class Storage {
     } else if (validatioUtils.validatePublishSingleVersion(manifest)) {
       // if continue, the version to be published does not exist
       // we create a new package
+      debug('publish a new version');
       const [mergedManifest, version, message] = await this.publishANewVersion(
         manifest as Manifest,
         {
@@ -955,6 +967,12 @@ class Storage {
         this.logger.error({ error: error.message }, 'notify batch service has failed: @{error}');
       }
       return message;
+    } else if (validatioUtils.validateUnPublishSingleVersion(manifest)) {
+      debug('unpublish a version');
+
+      await this.unPublishAPackage(manifest as UnPublishManifest, {
+        ...options,
+      });
     } else {
       debug('invalid body format');
       this.logger.warn(
@@ -1018,6 +1036,22 @@ class Storage {
     return API_MESSAGE.PKG_CHANGED;
   }
 
+  private async unPublishAPackage(manifest: UnPublishManifest, options: UpdateManifestOptions) {
+    const { requestOptions, name } = options;
+    debug('unpublish a package of %o', name);
+
+    const localPackage = await this.getPackageManifest({
+      name,
+      requestOptions,
+      uplinksLook: false,
+    });
+    if (localPackage._rev === manifest._rev) {
+      await this.changePackage(name, manifest as Manifest, options.revision as string);
+    }
+
+    return API_MESSAGE.PKG_CHANGED;
+  }
+
   private async changeOwners(
     manifest: OwnerManifestBody,
     options: UpdateManifestOptions
@@ -1054,7 +1088,7 @@ class Storage {
    * @param name
    * @returns
    */
-  private async getPackagelocalByNameNext(name: string): Promise<Manifest | null> {
+  private async getPackagelocalByName(name: string): Promise<Manifest | null> {
     try {
       return await this.getPackageLocalMetadata(name);
     } catch (err: any) {
@@ -1116,6 +1150,7 @@ class Storage {
     // versions is need it for holding the version in the local storage as file
     // _attachments and validation are required otherwise cannot continue.
     if (isEmpty(_attachments)) {
+      debug('attachments are empty, cannot continue');
       throw errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL);
     }
 
@@ -1128,7 +1163,7 @@ class Storage {
 
     try {
       // we check if package exist already locally
-      const localManifest = await this.getPackagelocalByNameNext(name);
+      const localManifest = await this.getPackagelocalByName(name);
       // if continue, the version to be published does not exist
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
@@ -1215,12 +1250,6 @@ class Storage {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private async notify(_manifest: Manifest, _message: string): Promise<void> {
     return;
-  }
-
-  private getProxyList() {
-    const uplinksList = Object.keys(this.uplinks);
-
-    return uplinksList;
   }
 
   /**
@@ -1472,8 +1501,10 @@ class Storage {
     }
 
     const currentTime = new Date().toISOString();
+    const defaultManifest = generatePackageTemplate(name);
     const packageData: Manifest = {
-      ...generatePackageTemplate(name),
+      ...defaultManifest,
+      _rev: generateRevision(defaultManifest._rev),
       time: {
         created: currentTime,
         modified: currentTime,
@@ -1608,7 +1639,7 @@ class Storage {
    * @return {*}  {Promise<[Manifest, any[]]>}
    * @memberof AbstractStorage
    */
-  private async getPackageNext(options: IGetPackageOptionsNext): Promise<[Manifest, any[]]> {
+  private async getPackage(options: IGetPackageOptionsNext): Promise<[Manifest, any[]]> {
     const { name } = options;
     debug('get package for %o', name);
     let data: Manifest | null = null;
@@ -1855,7 +1886,7 @@ class Storage {
     return [filteredManifest, filterPluginErrors];
   }
 
-  private _createNewPackageNext(name: string): Manifest {
+  private _createNewPackage(name: string): Manifest {
     return normalizePackage(generatePackageTemplate(name));
   }
 
@@ -1901,7 +1932,7 @@ class Storage {
       return normalizePackage(result);
     } catch (err: any) {
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
-        return this._createNewPackageNext(pkgName);
+        return this._createNewPackage(pkgName);
       } else {
         this.logger.error(
           { err: err, file: STORAGE.PACKAGE_FILE_NAME },
@@ -1918,7 +1949,7 @@ class Storage {
 
     The steps are the following.
     1. Get the latest version of the package from the cache.
-    2. If does not exist will return a 
+    2. If does not exist will return a
 
     @param name
     @param remoteManifest
