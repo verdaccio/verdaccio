@@ -10,7 +10,6 @@ import webEndpointsApi from './api';
 
 export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
-    const prefix = config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme';
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
@@ -24,20 +23,14 @@ export async function loadTheme(config: any) {
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
-      prefix,
+      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme',
       PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
       logger.warn('multiple ui themes are not supported; only the first plugin is used');
     }
 
-    const themePlugin = _.head(plugin);
-    const name = prefix + config.theme;
-    logger.info(
-      { name, pluginCategory: PLUGIN_CATEGORY.THEME },
-      'plugin @{name} successfully loaded (@{pluginCategory})'
-    );
-    return themePlugin;
+    return _.head(plugin);
   }
 }
 
