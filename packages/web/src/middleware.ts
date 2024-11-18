@@ -35,7 +35,7 @@ export async function loadTheme(config: any) {
     const name = prefix + config.theme;
     logger.info(
       { name, pluginCategory: PLUGIN_CATEGORY.THEME },
-      'plugin @name successfully loaded (@{pluginCategory})'
+      'plugin @{name} successfully loaded (@{pluginCategory})'
     );
     return themePlugin;
   }
