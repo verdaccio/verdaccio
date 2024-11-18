@@ -94,18 +94,28 @@ Our goal is to give you the confidence to use your preferred package manager wit
 
 ### Commands
 
-| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm8 | pnpm9 (beta) | yarn1 | yarn2 | yarn3 | yarn4 |
-| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ------------ | ----- | ----- | ----- | ----- |
-| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
-| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
-| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ❌    |
-| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ✅    | ✅    | ✅    |
-| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
-| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
-| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
-| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
-| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
-| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅    | ❌    | ❌    | ❌    |
+| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm8 | pnpm9 | pnpm10 | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ------------ | ------------ | ----- | ----- | ----- | ----- |
+| publish   | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ✅    | ✅    | ✅    | ✅    |
+| unpublish | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           |  ❌          | ❌    | ❌    | ❌    | ❌    |
+| info      | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| star      | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| stars     | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ⛔    | ⛔    | ⛔    | ⛔    |
+| dist-tag  | ✅     | ✅   | ✅   | ✅   | ✅    | ✅    | ✅           | ✅           | ✅    | ❌    | ❌    | ❌    |
+
+> notes:
+>
+> - yarn search cmd exist in _modern_ but, it do not uses the search registry endpoint.
+> - yarn _modern_ has two info commands, the one used here is `yarn npm info`
+
+❌ = no tested
+✅ = tested
+⛔ = no supported
 
 ## Donations
 
