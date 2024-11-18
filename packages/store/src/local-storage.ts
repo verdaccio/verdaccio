@@ -62,8 +62,8 @@ class LocalStorage {
       debug('no custom storage found, loading default storage @verdaccio/local-storage');
       const localStorage = new LocalDatabase(config, logger);
       logger.info(
-        { pluginCategory: PLUGIN_CATEGORY.STORAGE },
-        'plugin @verdaccio/local-storage successfully loaded (@{pluginCategory})'
+        { name: '@verdaccio/local-storage', pluginCategory: PLUGIN_CATEGORY.STORAGE },
+        'plugin @{name} successfully loaded (@{pluginCategory})'
       );
       return localStorage;
     }

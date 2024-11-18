@@ -10,6 +10,7 @@ import webEndpointsApi from './api';
 
 export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
+    const prefix = config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme';
     const plugin = await asyncLoadPlugin(
       config.theme,
       { config, logger },
@@ -23,19 +24,32 @@ export async function loadTheme(config: any) {
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
-      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme',
+      prefix,
       PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
-      logger.warn('multiple ui themes are not supported , only the first plugin is used used');
+      logger.warn('multiple ui themes are not supported; only the first plugin is used');
     }
 
-    return _.head(plugin);
+    const themePlugin = _.head(plugin);
+    const name = prefix + config.theme;
+    logger.info(
+      { name, pluginCategory: PLUGIN_CATEGORY.THEME },
+      'plugin @name successfully loaded (@{pluginCategory})'
+    );
+    return themePlugin;
   }
 }
 
 export default async (config, auth, storage) => {
-  const pluginOptions = (await loadTheme(config)) || require('@verdaccio/ui-theme')(config.web);
+  let pluginOptions = await loadTheme(config);
+  if (!pluginOptions) {
+    pluginOptions = require('@verdaccio/ui-theme')(config.web);
+    logger.info(
+      { name: '@verdaccio/ui-theme', pluginCategory: PLUGIN_CATEGORY.THEME },
+      'plugin @{name} successfully loaded (@{pluginCategory})'
+    );
+  }
 
   // eslint-disable-next-line new-cap
   const router = express.Router();

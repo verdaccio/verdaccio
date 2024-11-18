@@ -94,6 +94,10 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         { file: './htpasswd' },
         pluginOptions as any as pluginUtils.PluginOptions
       );
+      this.logger.info(
+        { name: 'verdaccio-htpasswd', pluginCategory: PLUGIN_CATEGORY.AUTHENTICATION },
+        'plugin @{name} successfully loaded (@{pluginCategory})'
+      );
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       this.logger.info({}, 'no auth plugin has been found');
@@ -221,6 +225,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     cb: (error: VerdaccioError | null, user?: RemoteUser) => void
   ): void {
     const self = this;
+    debug('plugins %o', this.plugins);
     const plugins = this.plugins.slice(0);
     debug('add user %o', user);
 
