@@ -4,7 +4,7 @@ import URL from 'url';
 import { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl } from '@verdaccio/url';
 
-const debug = buildDebug('verdaccio:core:url');
+const debug = buildDebug('verdaccio:core:tarball');
 
 /**
  * Extract the tarball name from a registry dist url
