@@ -203,7 +203,6 @@ class Storage {
 
     try {
       const cacheManifest = await storage.readPackage(name);
-      debug('cache manifest attachments %o', cacheManifest._attachments);
       if (!cacheManifest._attachments[filename]) {
         throw errorUtils.getNotFound('no such file available');
       }
