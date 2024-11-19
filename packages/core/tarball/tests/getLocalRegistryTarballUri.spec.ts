@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
+import { composeTarballFromPackage } from '../src';
 import { getLocalRegistryTarballUri } from '../src/getLocalRegistryTarballUri';
 
 describe('getLocalRegistryTarballUri', () => {
@@ -48,5 +49,10 @@ describe('getLocalRegistryTarballUri', () => {
     expect(getLocalRegistryTarballUri(uri, pkgName, requestOptions, undefined)).toEqual(
       'http://localhost:4873/npm_test/-/npm_test-1.0.0.tgz'
     );
+  });
+
+  test('should return filename of tarball', () => {
+    expect(composeTarballFromPackage('npm_test', '1.0.0')).toEqual('npm_test-1.0.0.tgz');
+    expect(composeTarballFromPackage('@mbtools/npm_test', '1.0.1')).toEqual('npm_test-1.0.1.tgz');
   });
 });

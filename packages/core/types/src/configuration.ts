@@ -208,6 +208,7 @@ export interface PublishOptions {
   allow_offline: boolean;
   keep_readmes: ReadmeOptions;
   check_owners: boolean;
+  allow_overwrite: boolean;
 }
 
 export interface ListenAddress {

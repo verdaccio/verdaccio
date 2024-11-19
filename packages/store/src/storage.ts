@@ -37,6 +37,7 @@ import {
 import Search from '@verdaccio/search';
 import {
   TarballDetails,
+  composeTarballFromPackage,
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
   getTarballDetails,
@@ -202,6 +203,7 @@ class Storage {
 
     try {
       const cacheManifest = await storage.readPackage(name);
+      debug('cache manifest attachments %o', cacheManifest._attachments);
       if (!cacheManifest._attachments[filename]) {
         throw errorUtils.getNotFound('no such file available');
       }
@@ -1169,14 +1171,23 @@ class Storage {
       // if continue, the version to be published does not exist
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
-        throw errorUtils.getConflict();
+        if (this.config?.publish?.allow_overwrite === true) {
+          const filename = composeTarballFromPackage(name, versionToPublish);
+          await this.removeTarball(name, filename, localManifest._rev, username!);
+          delete localManifest.versions[versionToPublish];
+          delete localManifest.time[versionToPublish];
+        } else {
+          throw errorUtils.getConflict();
+        }
       }
       const uplinksLook = this.config?.publish?.allow_offline === false;
       // if execution get here, package does not exist locally, we search upstream
       const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (upstream)', name, versionToPublish);
-        throw errorUtils.getConflict();
+        if (this.config?.publish?.allow_overwrite !== true) {
+          throw errorUtils.getConflict();
+        }
       }
 
       const hasPackageInStorage = await this.hasPackage(name);
