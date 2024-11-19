@@ -1,46 +1,52 @@
 import { describe, expect, test } from 'vitest';
 
-import { extractTarballFromUrl } from '../src';
+import { getLocalRegistryTarballUri } from '../src/getLocalRegistryTarballUri';
 
-describe('extractTarballFromUrl', () => {
-  const metadata: any = {
-    name: 'npm_test',
-    versions: {
-      '1.0.0': {
-        dist: {
-          tarball: 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz',
-        },
+describe('getLocalRegistryTarballUri', () => {
+  test('should return the right tarball uri', () => {
+    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const pkgName = 'npm_test';
+    const requestOptions = {
+      host: 'localhost:4873',
+      protocol: 'http',
+      headers: {
+        host: 'localhost:4873',
       },
-      '1.0.1': {
-        dist: {
-          tarball: 'npm_test-1.0.1.tgz',
-        },
-      },
-      '1.0.2': {
-        dist: {
-          tarball: 'https://localhost/npm_test-1.0.2.tgz',
-        },
-      },
-      '1.0.3': {
-        dist: {
-          tarball: 'http://registry.org/@org/npm_test/-/npm_test-1.0.3.tgz',
-        },
-      },
-    },
-  };
+    };
+    const urlPrefix = '/';
+    expect(getLocalRegistryTarballUri(uri, pkgName, requestOptions, urlPrefix)).toEqual(
+      'http://localhost:4873/npm_test/-/npm_test-1.0.0.tgz'
+    );
+  });
 
-  test('should return only name of tarball', () => {
-    expect(extractTarballFromUrl(metadata.versions['1.0.0'].dist.tarball)).toEqual(
-      'npm_test-1.0.0.tgz'
+  test('should return the right tarball uri with prefix', () => {
+    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const pkgName = 'npm_test';
+    const requestOptions = {
+      host: 'localhost:4873',
+      protocol: 'http',
+      headers: {
+        host: 'localhost:4873',
+      },
+    };
+    const urlPrefix = '/local/';
+    expect(getLocalRegistryTarballUri(uri, pkgName, requestOptions, urlPrefix)).toEqual(
+      'http://localhost:4873/local/npm_test/-/npm_test-1.0.0.tgz'
     );
-    expect(extractTarballFromUrl(metadata.versions['1.0.1'].dist.tarball)).toEqual(
-      'npm_test-1.0.1.tgz'
-    );
-    expect(extractTarballFromUrl(metadata.versions['1.0.2'].dist.tarball)).toEqual(
-      'npm_test-1.0.2.tgz'
-    );
-    expect(extractTarballFromUrl(metadata.versions['1.0.3'].dist.tarball)).toEqual(
-      'npm_test-1.0.3.tgz'
+  });
+
+  test('should return the right tarball uri without prefix', () => {
+    const uri = 'http://registry.org/npm_test/-/npm_test-1.0.0.tgz';
+    const pkgName = 'npm_test';
+    const requestOptions = {
+      host: 'localhost:4873',
+      protocol: 'http',
+      headers: {
+        host: 'localhost:4873',
+      },
+    };
+    expect(getLocalRegistryTarballUri(uri, pkgName, requestOptions, undefined)).toEqual(
+      'http://localhost:4873/npm_test/-/npm_test-1.0.0.tgz'
     );
   });
 });
