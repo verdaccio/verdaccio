@@ -348,6 +348,55 @@ describe('storage', () => {
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
       });
 
+      test('allow_overwrite if version already exist', async () => {
+        const settings = {
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        };
+        const pkgName = 'yoda';
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/publishWithOverwrite.yaml',
+            __dirname
+          )
+        );
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+        const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.0');
+        // change the second manifest so we can verify it was updated
+        bodyNewManifest2.versions['1.0.0'].description = 'updated description';
+        await storage.updateManifest(bodyNewManifest1, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        await storage.updateManifest(bodyNewManifest2, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        // retrieve package metadata
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        })) as Manifest;
+        expect(manifest.versions['1.0.0'].description).toEqual('updated description');
+      });
+
       test('create private package with readme only in manifest', async () => {
         const mockDate = '2018-01-14T11:17:40.712Z';
         MockDate.set(mockDate);

@@ -205,6 +205,7 @@ export interface Security {
 export interface PublishOptions {
   allow_offline: boolean;
   check_owners: boolean;
+  allow_overwrite: boolean;
 }
 
 export interface ListenAddress {
