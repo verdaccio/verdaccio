@@ -103,7 +103,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
       res.locals.app_version = version ?? '';
       next();
     });
-    const middleware = await webMiddleware(config, auth, storage);
+    const middleware = await webMiddleware(config, auth, storage, logger);
     app.use(middleware);
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {

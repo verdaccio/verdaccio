@@ -34,7 +34,7 @@ export async function loadTheme(config: any) {
   }
 }
 
-export default async (config, auth, storage) => {
+export default async (config, auth, storage, logger) => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
     pluginOptions = require('@verdaccio/ui-theme')(config.web);
