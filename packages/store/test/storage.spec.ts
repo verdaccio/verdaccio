@@ -176,7 +176,7 @@ describe('storage', () => {
         });
         expect(manifest[DIST_TAGS]).toEqual({ latest: '1.0.0' });
         // verdaccio keeps latest version of readme on manifest level but not by version
-        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
+        expect(manifest.versions['1.0.0'].readme).toEqual('');
         expect(manifest.readme).toEqual('# test');
         expect(manifest._attachments).toEqual({});
         expect(typeof manifest._rev).toBeTruthy();
@@ -388,7 +388,7 @@ describe('storage', () => {
         })) as Manifest;
 
         // verdaccio keeps latest version of readme on manifest level but not by version
-        expect(manifest.versions['1.0.0'].readme).not.toBeDefined();
+        expect(manifest.versions['1.0.0'].readme).toEqual('');
         expect(manifest.readme).toEqual('# test');
       });
     });

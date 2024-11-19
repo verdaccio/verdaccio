@@ -1401,11 +1401,11 @@ class Storage {
   ): Promise<void> {
     debug(`add version %s package for %s`, version, name);
     await this.updatePackage(name, async (data: Manifest): Promise<Manifest> => {
-      // keep only one readme per package
+      // keep latest readme in manifest (on root level)
       data.readme = metadata.readme;
       debug('%s readme mutated', name);
-      // TODO: lodash remove
-      metadata = cleanUpReadme(metadata);
+      // removing other readmes depends on config
+      metadata = cleanUpReadme(metadata, metadata[DIST_TAGS], this.config?.publish?.keep_readmes);
       metadata.contributors = normalizeContributors(metadata.contributors as Author[]);
       debug('%s contributors normalized', name);
 
@@ -1973,10 +1973,12 @@ class Storage {
         debug('new version from upstream %o', versionId);
         let version = remoteManifest.versions[versionId];
 
-        // we don't keep readme for package versions,
-        // only one readme per package
-        // TODO: readme clean up could be  saved in configured eventually
-        version = cleanUpReadme(version);
+        // removing readmes depends on config
+        version = cleanUpReadme(
+          version,
+          remoteManifest[DIST_TAGS],
+          this.config?.publish?.keep_readmes
+        );
         debug('clean up readme for %o', versionId);
         version.contributors = normalizeContributors(version.contributors as Author[]);
 
