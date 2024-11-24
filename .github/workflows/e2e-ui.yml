@@ -25,18 +25,10 @@ jobs:
           NODE_ENV: production
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Build application with Node ${{ matrix.node_version }}
+        uses: ./.github/actions/build-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - name: Install
-        run: pnpm install --reporter=silence --registry http://localhost:4873
-      - name: build
-        run: pnpm build
+          node-version: ${{ matrix.node_version }}
       - name: Test UI
         run: pnpm test:e2e:ui
       - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
