@@ -3,4 +3,4 @@
 '@verdaccio/store': patch
 ---
 
-chore: error logging
+chore: tweak error logging messages
