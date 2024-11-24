@@ -10,6 +10,10 @@ inputs:
     description: 'Reporter for pnpm'
     required: false
     default: 'silent'
+  loglevel:
+    description: 'Log level for pnpm'
+    required: false
+    default: 'error'
   node-version:
     description: 'Node.js version to use'
     required: true
@@ -38,7 +42,7 @@ runs:
     - name: Restore cache pnpm store
       uses: ./.github/actions/cache-store
     - name: Install
-      run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }}
+      run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }} --loglevel=${{ inputs.loglevel }}
       shell: bash
     - name: Save cache pnpm store
       if: steps.cache-npm.outputs.cache-hit == 'false'

@@ -60,6 +60,8 @@ jobs:
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
       - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ./packages/
@@ -93,6 +95,8 @@ jobs:
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
       - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ./packages/
@@ -126,6 +130,8 @@ jobs:
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
       - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
         with:
           path: ./packages/
