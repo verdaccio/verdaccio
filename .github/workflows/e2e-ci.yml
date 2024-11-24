@@ -31,13 +31,15 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
       - name: Cache packages
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        id: cache-packages
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-          restore-keys: |
-            packages-
+        uses: ./.github/actions/cache-packages
+  #      - name: Cache packages
+#        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+#        id: cache-packages
+#        with:
+#          path: ./packages/
+#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+#          restore-keys: |
+#            packages-
   e2e-cli-npm:
     needs: [prepare, build]
     strategy:
@@ -62,16 +64,16 @@ jobs:
           node-version: ${{ inputs.node_version }}
           reporter: 'default'
           loglevel: 'debug'
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
+#      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+#        with:
+#          path: ./packages/
+#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
       #   with:
       #     path: ./e2e/
       #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 
@@ -97,16 +99,17 @@ jobs:
           node-version: ${{ inputs.node_version }}
           reporter: 'default'
           loglevel: 'debug'
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
+
+      #      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+#        with:
+#          path: ./packages/
+#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
       #   with:
       #     path: ./e2e/
       #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
   e2e-cli-yarn:
@@ -132,16 +135,16 @@ jobs:
           node-version: ${{ inputs.node_version }}
           reporter: 'default'
           loglevel: 'debug'
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
+      #      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+#        with:
+#          path: ./packages/
+#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
       #   with:
       #     path: ./e2e/
       #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 
