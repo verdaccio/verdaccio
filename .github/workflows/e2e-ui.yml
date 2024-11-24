@@ -1,11 +1,17 @@
 name: E2E UI
 
-on: [pull_request]
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
 permissions:
   contents: read
 concurrency:
   group: e2e-ui-${{ github.ref }}
-  cancel-in-progress: true  
+  cancel-in-progress: true
 jobs:
   test:
     runs-on: ubuntu-latest

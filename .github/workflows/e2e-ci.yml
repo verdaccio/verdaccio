@@ -72,14 +72,6 @@ jobs:
           key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
           restore-keys: |
             packages-
-      # - name: Cache test
-      #   uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   id: cache-test
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      #     restore-keys: |
-      #       test-
   e2e-cli-npm:
     needs: [prepare, build]
     strategy:
