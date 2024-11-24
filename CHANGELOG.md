@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.33.0](https://github.com/verdaccio/verdaccio/compare/v5.32.2...v5.33.0) (2024-11-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cypress/request to v3.0.5 ([#4830](https://github.com/verdaccio/verdaccio/issues/4830)) ([5e16f89](https://github.com/verdaccio/verdaccio/commit/5e16f89d1796a412b71d83fc1088117dd4e69d2b))
+* **deps:** update dependency async to v3.2.6 ([#4831](https://github.com/verdaccio/verdaccio/issues/4831)) ([3ce57aa](https://github.com/verdaccio/verdaccio/commit/3ce57aa4a82f84f45848f34641e92bf2741647ef))
+* update dependencies 5.x ([#4964](https://github.com/verdaccio/verdaccio/issues/4964)) ([fd7fd2f](https://github.com/verdaccio/verdaccio/commit/fd7fd2fa7b458551262d34efa72fb0b35b0ab3fd))
+
 ### [5.32.2](https://github.com/verdaccio/verdaccio/compare/v5.32.1...v5.32.2) (2024-09-12)
 
 
