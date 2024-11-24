@@ -32,14 +32,6 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Cache packages
         uses: ./.github/actions/cache-packages
-  #      - name: Cache packages
-#        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-#        id: cache-packages
-#        with:
-#          path: ./packages/
-#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-#          restore-keys: |
-#            packages-
   e2e-cli-npm:
     needs: [prepare, build]
     strategy:
@@ -53,7 +45,7 @@ jobs:
             npm9,
             npm10
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -66,14 +58,6 @@ jobs:
           loglevel: 'debug'
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
-#      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-#        with:
-#          path: ./packages/
-#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 
@@ -88,7 +72,7 @@ jobs:
             pnpm9,
             pnpm10,
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -101,15 +85,6 @@ jobs:
           loglevel: 'debug'
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
-
-      #      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-#        with:
-#          path: ./packages/
-#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
   e2e-cli-yarn:
@@ -124,7 +99,7 @@ jobs:
             yarn3,
             yarn4
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -137,14 +112,6 @@ jobs:
           loglevel: 'debug'
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
-      #      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-#        with:
-#          path: ./packages/
-#          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 
