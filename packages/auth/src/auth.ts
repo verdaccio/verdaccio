@@ -94,6 +94,10 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         { file: './htpasswd' },
         pluginOptions as any as pluginUtils.PluginOptions
       );
+      this.logger.info(
+        { name: 'verdaccio-htpasswd', pluginCategory: PLUGIN_CATEGORY.AUTHENTICATION },
+        'plugin @{name} successfully loaded (@{pluginCategory})'
+      );
     } catch (error: any) {
       debug('error on loading auth htpasswd plugin stack: %o', error);
       this.logger.info({}, 'no auth plugin has been found');
