@@ -1,11 +1,6 @@
 name: E2E UI
 
-
-on:
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
+on: [pull_request]
 
 permissions:
   contents: read
