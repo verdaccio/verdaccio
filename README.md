@@ -2,7 +2,9 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version 5
+# Version 5 (Deprecated)
+
+> **There will be no more updates on the versions 5.x** please upgrade to 6.x, [no breaking changes aside of Node.js 18 as minimum requirement](https://github.com/verdaccio/verdaccio/releases/tag/v6.0.0).
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
 No need for an entire database just to get started! Verdaccio comes out of the box with
