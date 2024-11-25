@@ -2,7 +2,7 @@ name: Verdaccio Website CI
 
 on:
   workflow_dispatch:
-
+  pull_request:
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
@@ -31,49 +31,29 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Build application with Node 20
+        uses: ./.github/actions/build-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack install
-      - name: set store
-        run: |
-          mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install  --registry http://localhost:4873
-      - name: Cache .pnpm-store
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-
-      - name: Build
-        run: pnpm build
+          node-version: 20
       - name: Build Translations percentage
         run: pnpm --filter @verdaccio/crowdin-translations build
-      - name: Cache Docusaurus Build
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: website/node_modules/.cache/webpack
-          key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: cache/webpack-${{github.ref}}
-      - name: Build Production
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        env:
-          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
-          SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
-          CONTEXT: production
-        run: pnpm --filter @verdaccio/website netlify:build
-      - name: Deploy to Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/website netlify:deploy
+#      - name: Cache Docusaurus Build
+#        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+#        with:
+#          path: website/node_modules/.cache/webpack
+#          key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
+#          restore-keys: cache/webpack-${{github.ref}}
+#      - name: Build Production
+#        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+#        env:
+#          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+#          SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
+#          CONTEXT: production
+#        run: pnpm --filter @verdaccio/website netlify:build
+#      - name: Deploy to Netlify
+#        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+#        env:
+#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#        run: pnpm --filter ...@verdaccio/website netlify:deploy
 
