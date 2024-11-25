@@ -8,9 +8,7 @@ runs:
       id: cache-npm
       uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
       with:
-        path: |
-          ~/.pnpm-store
-          /home/runner/.cache
+        path: ~/.pnpm-store
         key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.event.pull_request.number }}-${{ runner.os }}
         restore-keys: |
           pnpm-
