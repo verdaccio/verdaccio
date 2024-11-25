@@ -3,7 +3,7 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5353,
+      "contributions": 5354,
       "repositories": [
         {
           "name": "verdaccio",
@@ -119,7 +119,7 @@
         },
         {
           "name": "charts",
-          "contributions": 39
+          "contributions": 40
         },
         {
           "name": "verdaccio-e2e-example",
@@ -302,11 +302,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 86,
+      "contributions": 87,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 86
+          "contributions": 87
         }
       ]
     },
@@ -5059,6 +5059,17 @@
       ]
     },
     {
+      "id": 11977877,
+      "login": "cfiehe",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 7122237,
       "login": "maslow",
       "contributions": 1,
@@ -5098,8 +5109,8 @@
       "login": "verdaccio",
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
-      "description": "📦🔐 A lightweight Node.js private proxy registry",
-      "stargazers_count": 16458,
+      "description": "A lightweight Node.js private proxy registry",
+      "stargazers_count": 16477,
       "archived": false
     },
     {
