@@ -233,7 +233,7 @@ class Storage {
       await storage.deletePackage(filename);
       debug('package %s removed', filename);
     } catch (err: any) {
-      this.logger.error({ err }, 'error removing %s from storage');
+      this.logger.error({ err }, 'error removing from storage: @{err.message}');
       throw err;
     }
     return manifest;
@@ -438,7 +438,7 @@ class Storage {
             localTarballStream.emit('error', err);
           });
       } else {
-        this.logger.error({ err: err.message }, 'some error on fatal @{err}');
+        this.logger.error({ err }, 'some error on fatal: @{err.message}');
         localTarballStream.emit('error', err);
       }
     });
@@ -506,9 +506,9 @@ class Storage {
     if (options.byPassCache === true) {
       try {
         await this.checkAllowedToChangePackage(manifest, options.requestOptions.username);
-      } catch (error: any) {
-        this.logger.error({ error: error.message }, 'getting package has failed: @{error}');
-        throw errorUtils.getBadRequest(error.message);
+      } catch (err: any) {
+        this.logger.error({ err }, 'getting package has failed: @{err.message}');
+        throw errorUtils.getBadRequest(err.message);
       }
     }
 
@@ -759,7 +759,10 @@ class Storage {
         }
         debug('search local stream end');
       } catch (err) {
-        this.logger.error({ err, query }, 'error on search by plugin @{err.message}');
+        this.logger.error(
+          { err, query },
+          'error on search by plugin for @{query.text}: @{err.message}'
+        );
         throw err;
       }
     }
@@ -786,8 +789,8 @@ class Storage {
         throw errorUtils.getNotFound();
       }
       this.logger.error(
-        { pkgName, revision, err: err.message },
-        'error @{err} while reading package @{pkgName}-{revision}'
+        { pkgName, revision, err },
+        'error while reading package @{pkgName}-{revision}: @{err.message}'
       );
       throw err;
     }
@@ -814,7 +817,7 @@ class Storage {
       await storage.removePackage();
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
-      this.logger.error({ err }, 'removed package has failed @{err.message}');
+      this.logger.error({ err }, 'removed package has failed: @{err.message}');
       throw errorUtils.getBadData(err.message);
     }
   }
@@ -844,8 +847,8 @@ class Storage {
         throw errorUtils.getNotFound();
       }
       this.logger.error(
-        { err: err, file: STORAGE.PACKAGE_FILE_NAME },
-        `error reading  @{file}: @{!err.message}`
+        { err, file: STORAGE.PACKAGE_FILE_NAME },
+        'error reading  @{file}: @{err.message}'
       );
 
       throw errorUtils.getInternalError();
@@ -963,8 +966,8 @@ class Storage {
         const { name } = mergedManifest;
         await this.notify(mergedManifest, `${name}@${version}`);
         this.logger.info({ name, version }, 'notify for @{name}@@{version} has been sent');
-      } catch (error: any) {
-        this.logger.error({ error: error.message }, 'notify batch service has failed: @{error}');
+      } catch (err: any) {
+        this.logger.error({ err }, 'notify batch service has failed: @{err.message}');
       }
       return message;
     } else if (validatioUtils.validateUnPublishSingleVersion(manifest)) {
@@ -1187,7 +1190,7 @@ class Storage {
       }
     } catch (err: any) {
       debug('error on change or update a package with %o', err.message);
-      this.logger.error({ err: err.message }, 'error on publish new version: @{err}');
+      this.logger.error({ err }, 'error on publish new version: @{err.message}');
       throw err;
     }
 
@@ -1202,7 +1205,7 @@ class Storage {
       // addVersion will move the readme from the the published version to the root level
       await this.addVersion(name, versionToPublish, versions[versionToPublish], null, tarballStats);
     } catch (err: any) {
-      this.logger.error({ err: err.message }, 'updated version has failed: @{err}');
+      this.logger.error({ err }, 'updated version has failed: @{err.message}');
       debug('error on create a version for %o with error %o', name, err.message);
       throw err;
     }
@@ -1217,7 +1220,7 @@ class Storage {
       // 4. update once to the storage (easy peasy)
       mergedManifest = await this.mergeTagsNext(name, manifest[DIST_TAGS]);
     } catch (err: any) {
-      this.logger.error({ err: err.message }, 'merge version has failed: @{err}');
+      this.logger.error({ err }, 'merge version has failed: @{err.message}');
       debug('error on create a version for %o with error %o', name, err.message);
       // TODO: undo if this fails
       // 1. remove updated version
@@ -1231,7 +1234,7 @@ class Storage {
         signal: options.signal,
       });
     } catch (err: any) {
-      this.logger.error({ err: err.message }, 'upload tarball has failed: @{err}');
+      this.logger.error({ err }, 'upload tarball has failed: @{err.message}');
       // TODO: undo if this fails
       // 1. remove updated version
       // 2. remove new dist tags
@@ -1831,12 +1834,7 @@ class Storage {
     try {
       _cacheManifest = validatioUtils.normalizeMetadata(_cacheManifest, _cacheManifest.name);
     } catch (err: any) {
-      this.logger.error(
-        {
-          err: err,
-        },
-        'package.json validating error @{!err?.message}\n@{err.stack}'
-      );
+      this.logger.error({ err }, 'package.json validating error @{!err?.message}\n@{err.stack}');
       throw err;
     }
     // updates the _uplink metadata fields, cache, etc
@@ -1850,12 +1848,7 @@ class Storage {
       _cacheManifest = mergeVersions(_cacheManifest, remoteManifest);
       return _cacheManifest;
     } catch (err: any) {
-      this.logger.error(
-        {
-          err: err,
-        },
-        'package.json merge has failed @{!err?.message}\n@{err.stack}'
-      );
+      this.logger.error({ err }, 'package.json merge has failed @{!err?.message}\n@{err.stack}');
       throw err;
     }
   }
@@ -1879,7 +1872,7 @@ class Storage {
       try {
         filteredManifest = await filter.filter_metadata(manifest);
       } catch (err: any) {
-        this.logger.error({ err: err.message }, 'filter has failed @{err}');
+        this.logger.error({ err }, 'filter has failed: @{err.message}');
         filterPluginErrors.push(err);
       }
     }
@@ -1935,8 +1928,8 @@ class Storage {
         return this._createNewPackage(pkgName);
       } else {
         this.logger.error(
-          { err: err, file: STORAGE.PACKAGE_FILE_NAME },
-          `'error reading'  @{file}: @{!err.message}`
+          { err, file: STORAGE.PACKAGE_FILE_NAME },
+          'error reading @{file}: @{err.message}'
         );
 
         throw errorUtils.getInternalError();
