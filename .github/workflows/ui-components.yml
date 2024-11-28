@@ -1,10 +1,10 @@
 name: UI Components
 
 on:
-  pull_request:
+#  pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'
+#  schedule:
+#    - cron: '0 0 * * *'
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -16,7 +16,7 @@ jobs:
   deploy:
     permissions:
       contents: read  #  to fetch code (actions/checkout)
-#      deployments: write
+      deployments: write
       pull-requests: write  #  to comment on pull-requests
 
     runs-on: ubuntu-latest
@@ -40,8 +40,8 @@ jobs:
       - name: Copy public content
         # the msw.js worker is need it at the storybook-static folder in production
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
-#      - name: Deploy to Netlify
-#        env:
-#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
-#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy
