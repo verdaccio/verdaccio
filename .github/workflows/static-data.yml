@@ -3,6 +3,7 @@ name: static data
 
 on:
   workflow_dispatch:
+#  pull_request:
   schedule:
     # twice peer week
     - cron: '0 0 * * 1,4'
@@ -24,13 +25,10 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
         with:
-          node-version: 18.x
-      - name: install pnpm
-        run: sudo npm i pnpm@latest-8 -g
-      - name: install dependencies
-        run: pnpm install
+          reporter: 'default'
       - name: Build Translations percentage
         run: pnpm --filter @verdaccio/crowdin-translations build
       - name: update contributors
@@ -42,7 +40,7 @@ jobs:
       - name: update translations
         run: pnpm run translations
         env:
-          TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}          
+          TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
       - name: format
         run: pnpm format
       - name: Commit & Push changes
