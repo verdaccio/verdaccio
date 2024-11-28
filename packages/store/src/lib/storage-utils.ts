@@ -3,7 +3,14 @@ import semver from 'semver';
 
 import { errorUtils, pkgUtils, searchUtils, validatioUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, MAINTAINERS, USERS } from '@verdaccio/core';
-import { AttachMents, Manifest, Version, Versions } from '@verdaccio/types';
+import {
+  AttachMents,
+  GenericBody,
+  Manifest,
+  ReadmeOptions,
+  Version,
+  Versions,
+} from '@verdaccio/types';
 import { generateRandomHexString, isNil, isObject } from '@verdaccio/utils';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
@@ -92,10 +99,28 @@ export function getLatestReadme(pkg: Manifest): string {
   return readme;
 }
 
-// FIXME: type any due this
-export function cleanUpReadme(version: any): Version {
+/**
+ * Cleanup readme from package version
+ *
+ * By default, we don't keep readmes for package versions, only one readme per package.
+ * Using publish.keep_readmes you can override this behavior and keep all readmes
+ * or only readmes for tagged versions.
+ */
+export function cleanUpReadme(
+  version: Version,
+  distTags?: GenericBody,
+  keepReadmes?: ReadmeOptions
+): Version {
+  if (keepReadmes === 'all') {
+    return version;
+  } else if (keepReadmes === 'tagged') {
+    if (distTags && Object.values(distTags).includes(version.version)) {
+      return version;
+    }
+  }
+
   if (isNil(version) === false) {
-    delete version.readme;
+    version.readme = '';
   }
 
   return version;
