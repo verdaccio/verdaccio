@@ -107,7 +107,7 @@ describe('server api', () => {
       .expect(HTTP_STATUS.NOT_FOUND);
   });
 
-  test('should  display debug hook if directly enabled', async () => {
+  test('should display debug hook if directly enabled', async () => {
     const app = await initializeServer('conf.yaml');
     const res = await supertest(app)
       .get('/-/_debug')
@@ -115,5 +115,6 @@ describe('server api', () => {
       .expect(HTTP_STATUS.OK);
     expect(res.body.pid).toEqual(process.pid);
     expect(res.body.mem).toBeDefined();
+    expect(res.body.config).toBeDefined();
   });
 });

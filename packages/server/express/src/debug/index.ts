@@ -1,8 +1,10 @@
 import { Application } from 'express';
 
+import { Config as IConfig } from '@verdaccio/types';
+
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../types/custom';
 
-export default (app: Application, configPath?: string): void => {
+export default (app: Application, config: IConfig): void => {
   // Hook for tests only
   app.get(
     '/-/_debug',
@@ -15,7 +17,7 @@ export default (app: Application, configPath?: string): void => {
         pid: process.pid,
         // @ts-ignore
         main: process.main,
-        conf: configPath,
+        config,
         mem: process.memoryUsage(),
         gc: global.gc,
       });
