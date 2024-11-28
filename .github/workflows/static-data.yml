@@ -3,7 +3,7 @@ name: static data
 
 on:
   workflow_dispatch:
-  pull_request:
+#  pull_request:
   schedule:
     # twice peer week
     - cron: '0 0 * * 1,4'
@@ -43,11 +43,11 @@ jobs:
           TOKEN: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
       - name: format
         run: pnpm format
-#      - name: Commit & Push changes
-#        uses: actions-js/push@5a7cbd780d82c0c937b5977586e641b2fd94acc5 # tag=v1.5
-#        with:
-#          github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
-#          message: "chore: updated static data"
-#          branch: master
-#          author_email: verdaccio.npm@gmail.com
-#          author_name: verdacciobot
+      - name: Commit & Push changes
+        uses: actions-js/push@5a7cbd780d82c0c937b5977586e641b2fd94acc5 # tag=v1.5
+        with:
+          github_token: ${{ secrets.TOKEN_VERDACCIOBOT_GITHUB }}
+          message: "chore: updated static data"
+          branch: master
+          author_email: verdaccio.npm@gmail.com
+          author_name: verdacciobot
