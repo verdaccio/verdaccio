@@ -3,7 +3,6 @@ import fs from 'fs';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
 import { pluginUtils } from '@verdaccio/core';
-import { Config, Logger } from '@verdaccio/types';
 
 import { PluginType, isES6, isValid, tryLoad } from './utils';
 
@@ -13,10 +12,9 @@ const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);
+  debug('isDirectory: %s', stat.isDirectory());
   return stat.isDirectory();
 }
-
-export type Params = { config: Config; logger: Logger };
 
 // type Plugins<T> =
 //   | pluginUtils.Auth<T>
@@ -40,24 +38,25 @@ export type Params = { config: Config; logger: Logger };
  * The `params` is an object that contains the global configuration and the logger.
  *
  * @param {*} pluginConfigs the custom plugin section
- * @param {*} params a set of params to initialize the plugin
+ * @param {*} pluginOptions a set of options to initialize the plugin
  * @param {*} sanityCheck callback that check the shape that should fulfill the plugin
  * @param {*} prefix by default is verdaccio but can be override with config.server.pluginPrefix
+ * @param {*} pluginCategory the category of the plugin, eg: auth, storage, middleware
  * @return {Array} list of plugins
  */
 export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginConfigs: any = {},
-  params: Params,
+  pluginOptions: pluginUtils.PluginOptions,
   sanityCheck: (plugin: PluginType<T>) => boolean,
   prefix: string = 'verdaccio',
   pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
-  const logger = params?.logger;
+  const logger = pluginOptions?.logger;
   const pluginsIds = Object.keys(pluginConfigs);
-  const { config } = params;
+  const { config } = pluginOptions;
   let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
-    debug('plugin %s', pluginId);
+    debug('looking for plugin %o', pluginId);
     if (typeof config.plugins === 'string') {
       let pluginsPath = config.plugins;
       debug('plugin path %s', pluginsPath);
@@ -84,7 +83,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
           logger.error(a, b);
         });
         if (plugin && isValid(plugin)) {
-          plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
+          plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions);
           if (!sanityCheck(plugin)) {
             logger.error(
               { content: externalFilePlugin },
@@ -109,14 +108,14 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
 
     if (typeof pluginId === 'string') {
       const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
-      debug('is scoped plugin %s', isScoped);
+      debug('is scoped plugin: %s', isScoped);
       const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
-      debug('plugin pkg name %s', pluginName);
+      debug('plugin package name %s', pluginName);
       let plugin = tryLoad<T>(pluginName, (a: any, b: any) => {
         logger.error(a, b);
       });
       if (plugin && isValid(plugin)) {
-        plugin = executePlugin(plugin, pluginConfigs[pluginId], params);
+        plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions);
         if (!sanityCheck(plugin)) {
           logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
           continue;
@@ -136,23 +135,23 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       }
     }
   }
-  debug('plugin found %s', plugins.length);
+  debug('%s plugins found: %s', pluginCategory, plugins.length);
   return plugins;
 }
 
 export function executePlugin<T>(
   plugin: PluginType<T>,
   pluginConfig: unknown,
-  params: Params
+  pluginOptions: pluginUtils.PluginOptions
 ): PluginType<T> {
   if (isES6(plugin)) {
     debug('plugin is ES6');
     // @ts-expect-error no relevant for the code
     // eslint-disable-next-line new-cap
-    return new plugin.default(pluginConfig, params) as Plugin;
+    return new plugin.default(pluginConfig, pluginOptions) as Plugin;
   } else {
     debug('plugin is commonJS');
     // @ts-expect-error improve this type
-    return plugin(pluginConfig, params) as PluginType<T>;
+    return plugin(pluginConfig, pluginOptions) as PluginType<T>;
   }
 }
