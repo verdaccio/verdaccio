@@ -27,15 +27,22 @@ export async function loadTheme(config: any) {
       PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
-      logger.warn('multiple ui themes are not supported , only the first plugin is used used');
+      logger.warn('multiple ui themes are not supported; only the first plugin is used');
     }
 
     return _.head(plugin);
   }
 }
 
-export default async (config, auth, storage) => {
-  const pluginOptions = (await loadTheme(config)) || require('@verdaccio/ui-theme')(config.web);
+export default async (config, auth, storage, logger) => {
+  let pluginOptions = await loadTheme(config);
+  if (!pluginOptions) {
+    pluginOptions = require('@verdaccio/ui-theme')(config.web);
+    logger.info(
+      { name: '@verdaccio/ui-theme', pluginCategory: PLUGIN_CATEGORY.THEME },
+      'plugin @{name} successfully loaded (@{pluginCategory})'
+    );
+  }
 
   // eslint-disable-next-line new-cap
   const router = express.Router();
