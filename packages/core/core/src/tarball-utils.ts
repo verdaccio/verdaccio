@@ -8,7 +8,7 @@ import { URL } from 'url';
  * @returns {String}
  */
 export function getVersionFromTarball(fileName: string): string | void {
-  const groups = fileName.match(/.+-(\d+\.\d+\.\d+.+)\.tgz$/);
+  const groups = fileName.match(/^.+-(\d+\.\d+\.\d+.+)\.tgz$/);
 
   return groups !== null ? groups[1] : undefined;
 }
