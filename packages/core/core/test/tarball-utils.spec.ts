@@ -17,8 +17,9 @@ describe('Utilities', () => {
       expect(getVersionFromTarball(otherComplexName)).toEqual('3.5.0-6');
     });
 
-    test("should don'n fall at incorrect tarball name", () => {
+    test('should fail at incorrect tarball name', () => {
       expect(getVersionFromTarball('incorrectName')).toBeUndefined();
+      expect(getVersionFromTarball('test-1.2.tgz')).toBeUndefined();
     });
   });
 });
@@ -65,11 +66,11 @@ describe('extractTarballFromUrl', () => {
     );
   });
 
-  test('extractTarballName with no tarball should not fails', () => {
+  test('without tarball should not fails', () => {
     expect(extractTarballFromUrl('https://registry.npmjs.org/')).toBe('');
   });
 
-  test('extractTarballName fails', () => {
+  test('fails with incomplete URL', () => {
     expect(() => extractTarballFromUrl('xxxxregistry.npmjs.org/test/-/test-0.0.2.tgz')).toThrow();
   });
 });

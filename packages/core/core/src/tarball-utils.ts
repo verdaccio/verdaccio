@@ -2,11 +2,13 @@ import { URL } from 'url';
 
 /**
  * Return package version from tarball name
- * @param {String} name
+ *
+ * test-1.2.4.tgz -> 1.2.4
+ * @param {String} fileName
  * @returns {String}
  */
-export function getVersionFromTarball(name: string): string | void {
-  const groups = name.match(/.+-(\d.+)\.tgz/);
+export function getVersionFromTarball(fileName: string): string | void {
+  const groups = fileName.match(/.+-(\d+\.\d+\.\d+.+)\.tgz$/);
 
   return groups !== null ? groups[1] : undefined;
 }
@@ -25,6 +27,9 @@ export function extractTarballFromUrl(url: string): string {
 
 /**
  * Build the tarball filename from paackage name and version
+ *
+ * test, 1.2.4 -> test-1.2.4.tgz
+ * @scope/name, 1.2.4 -> name-1.2.4.tgz
  * @param name package name
  * @param version package version
  * @returns tarball filename
