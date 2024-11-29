@@ -19,67 +19,19 @@ jobs:
           NODE_ENV: production
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - name: set store
-        run: |
-          mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - name: Cache .pnpm-store
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-          restore-keys: |
-            pnpm-
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
   build:
     needs: [prepare]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Build application with Node ${{ matrix.node_version }}
+        uses: ./.github/actions/build-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm recursive install --reporter=silence --registry http://localhost:4873
-      - name: build
-        run: pnpm build
+          node-version: ${{ matrix.node_version }}
       - name: Cache packages
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        id: cache-packages
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-          restore-keys: |
-            packages-
-      # - name: Cache test
-      #   uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   id: cache-test
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      #     restore-keys: |
-      #       test-
+        uses: ./.github/actions/cache-packages
   e2e-cli-npm:
     needs: [prepare, build]
     strategy:
@@ -93,37 +45,19 @@ jobs:
             npm9,
             npm10
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
+        uses: ./.github/actions/install-app-node
         with:
-          node-version: ${{ matrix.node }}
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
+          node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 
@@ -138,37 +72,19 @@ jobs:
             pnpm9,
             pnpm10,
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
+        uses: ./.github/actions/install-app-node
         with:
-          node-version: ${{ matrix.node }}
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --loglevel debug --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
+          node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
   e2e-cli-yarn:
@@ -183,37 +99,19 @@ jobs:
             yarn3,
             yarn4
           ]
-        node: [20, 22]
+        node: [18, 23]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
+        uses: ./.github/actions/install-app-node
         with:
-          node-version: ${{ matrix.node }}
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --offline --reporter=silence --ignore-scripts --registry http://localhost:4873
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ./packages/
-          key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      # - uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # tag=v3
-      #   with:
-      #     path: ./e2e/
-      #     key: test-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}
-      - name: build e2e
-        run: pnpm --filter @verdaccio/test-cli-commons build
+          node-version: ${{ inputs.node_version }}
+          reporter: 'default'
+          loglevel: 'debug'
+      - name: Restore cache pnpm store
+        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
 

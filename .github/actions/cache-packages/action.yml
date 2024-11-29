@@ -1,0 +1,12 @@
+name: 'Cache packages'
+description: 'get or set cache packages'
+
+runs:
+  using: composite
+  steps:
+    - name: Cache Packages
+      id: cache-packages
+      uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
+      with:
+        path: ./packages/
+        key: pkg-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.run_id }}-${{ github.sha }}

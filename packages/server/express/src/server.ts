@@ -78,9 +78,15 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   );
 
   if (plugins.length === 0) {
-    logger.info('none middleware plugins has been defined, adding audit middleware by default');
-    // @ts-ignore
-    plugins.push(new AuditMiddleware({ enabled: true, strict_ssl: true }, { config, logger }));
+    const auditPlugin = new AuditMiddleware(
+      { enabled: true, strict_ssl: true },
+      { config, logger }
+    );
+    logger.info(
+      { name: 'verdaccio-audit', pluginCategory: PLUGIN_CATEGORY.MIDDLEWARE },
+      'plugin @{name} successfully loaded (@{pluginCategory})'
+    );
+    plugins.push(auditPlugin);
   }
 
   plugins.forEach((plugin: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>) => {
@@ -97,7 +103,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
       res.locals.app_version = version ?? '';
       next();
     });
-    const middleware = await webMiddleware(config, auth, storage);
+    const middleware = await webMiddleware(config, auth, storage, logger);
     app.use(middleware);
   } else {
     app.get('/', function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {

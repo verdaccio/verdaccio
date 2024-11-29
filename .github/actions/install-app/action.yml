@@ -1,0 +1,39 @@
+name: 'Install app'
+description: 'install application'
+
+inputs:
+  registry-url:
+    description: 'Registry URL for pnpm'
+    required: false
+    default: 'http://localhost:4873'
+  reporter:
+    description: 'Reporter for pnpm'
+    required: false
+    default: 'silent'
+
+runs:
+  using: composite
+  steps:
+    - name: Use Node
+      uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      with:
+        node-version-file: '.nvmrc'
+    - name: Install pnpm
+      run: |
+        corepack enable
+        corepack prepare
+      shell: bash
+    - name: set store
+      run: |
+        mkdir ~/.pnpm-store
+        pnpm config set store-dir ~/.pnpm-store
+      shell: bash
+    - name: Restore cache pnpm store
+      uses: ./.github/actions/cache-store
+    - name: Install
+      run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }}
+      shell: bash
+    - name: Save cache pnpm store
+      if: steps.cache-npm.outputs.cache-hit == 'false'
+      uses: ./.github/actions/cache-store
+

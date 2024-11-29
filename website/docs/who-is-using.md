@@ -16,7 +16,7 @@ _If you are using Verdaccio in your business and want to share your experience, 
 
 - [pnpm](https://pnpm.js.org/)
 - [Storybook](https://storybook.js.org/)
-- [Mozilla Neutrino](https://neutrinojs.org/)
+- [Mozilla Neutrino](https://github.com/neutrinojs/neutrino)
 - [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#contributing-to-e2e-end-to-end-tests)
 - [Gatsby](https://github.com/gatsbyjs/gatsby)
 - [Apollo GraphQL](https://github.com/apollographql)

@@ -1,9 +1,10 @@
 name: UI Components
 
 on:
+#  pull_request:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *' 
+#  schedule:
+#    - cron: '0 0 * * *'
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -25,27 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Use Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
-        with:
-          node-version-file: '.nvmrc'
-
-      - name: Cache pnpm modules
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        env:
-          cache-name: cache-pnpm-modules
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
 
       - name: Install pnpm
         run: |
           corepack enable
-            corepack prepare --activate pnpm@8.9.0
+            corepack prepare
       - name: Install
-        run: pnpm install  
+        run: pnpm install
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content

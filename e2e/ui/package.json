@@ -13,6 +13,7 @@
   },
   "scripts": {
     "cypress:open": "cypress open",
-    "test": "cypress run"
+    "cypress:install": "cypress install",
+    "test": "cypress install && cypress run"
   }
 }

@@ -16,7 +16,7 @@ permissions:
   contents: read
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 jobs:
   prepare:
@@ -29,52 +29,25 @@ jobs:
           - 4873:4873
         env:
           NODE_ENV: production
+          options: >-
+            --health-cmd="curl -f http://0.0.0.0:4873/-/ping || exit 1"
+            --health-interval=10s   
+            --health-timeout=20s    
+            --health-retries=6
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
-        with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack install
-      - name: set store
-        run: |
-          mkdir ~/.pnpm-store
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install  --registry http://localhost:4873
-      - name: Cache .pnpm-store
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
   lint:
     runs-on: ubuntu-latest
     name: Lint
     needs: prepare
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack install
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --ignore-scripts
+            reporter: 'default'
       - name: Lint
         run: pnpm lint
   format:
@@ -83,23 +56,10 @@ jobs:
     needs: prepare
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Install dependencies with a custom registry
+        uses: ./.github/actions/install-app
         with:
-          node-version-file: '.nvmrc'
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack install
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --ignore-scripts
+          reporter: 'default'
       - name: Lint
         run: pnpm format:check
   test:
@@ -113,25 +73,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node ${{ matrix.node_version }}
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Build application with Node ${{ matrix.node_version }}
+        uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: set store
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-      - name: Install
-        run: pnpm install --ignore-scripts --registry http://localhost:4873
-      - name: build
-        run: pnpm build
       - name: Test
         run: pnpm test
   sync-translations:

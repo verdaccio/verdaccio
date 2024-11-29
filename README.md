@@ -6,12 +6,11 @@
 
 ![verdaccio gif](https://cdn.verdaccio.dev/readme/readme-website.png)
 
-# Version Next (Development branch)
+# Version Next (Development Branch)
 
-> Looking for Verdaccio 6 version? Check the branch `6.x`
-> The plugins for the `v6.x` that are hosted within this organization are located
-> at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository, while for the `next` version
-> are hosted on this project `./packages/plugins`.
+> Looking for Verdaccio version 5 or 6? Version 6 is the latest version and successor to version 5. Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
+
+> The plugins for versions 5 and 6 are located at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository. Plugins for the `next-8` version are hosted in this project under the `./packages/plugins` folder.
 
 > Note that contributing guidelines might be different based on the branch.
 
@@ -36,6 +35,10 @@ Google Cloud Storage** or create your own plugin.
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
+## Versions
+
+You can find more details about the different versions of Verdaccio, minimum requirements, as well as links to associated npm packages and docker images in the [version history](VERSIONS.md).
+
 ## Install
 
 > Node.js v18 as minimum version required
@@ -43,19 +46,19 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install -g verdaccio@next
+npm install -g verdaccio@next-8
 ```
 
 With `yarn`
 
 ```bash
-yarn global add verdaccio@next
+yarn global add verdaccio@next-8
 ```
 
 With `pnpm`
 
 ```bash
-pnpm i -g verdaccio@next
+pnpm i -g verdaccio@next-8
 ```
 
 or
