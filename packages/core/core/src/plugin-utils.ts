@@ -15,21 +15,16 @@ import {
 
 import { VerdaccioError, searchUtils } from '.';
 
-export interface AuthPluginPackage {
-  packageName: string;
-  packageVersion?: string;
-  tag?: string;
-}
 export interface PluginOptions {
   config: Config;
   logger: Logger;
 }
 
 /**
- * The base plugin class, set of utilities for developing
- * plugins.
- * @alpha
- * */
+ * Base Plugin Class
+ *
+ * Set of utilities for developing plugins.
+ */
 export class Plugin<PluginConfig> {
   static version = 1;
   public readonly version: number;
@@ -45,6 +40,14 @@ export class Plugin<PluginConfig> {
     return this.version;
   }
 }
+
+// --- STORAGE PLUGIN ---
+
+/**
+ * Storage Handler
+ *
+ * Used in storage plugin for managing packages and tarballs.
+ */
 export interface StorageHandler {
   logger: Logger;
   deletePackage(fileName: string): Promise<void>;
@@ -54,33 +57,44 @@ export interface StorageHandler {
     packageName: string,
     handleUpdate: (manifest: Manifest) => Promise<Manifest>
   ): Promise<Manifest>;
-  readPackage(name: string): Promise<Manifest>;
-  savePackage(pkgName: string, value: Manifest): Promise<void>;
-  readTarball(pkgName: string, { signal }: { signal: AbortSignal }): Promise<Readable>;
-  createPackage(name: string, manifest: Manifest): Promise<void>;
-  writeTarball(tarballName: string, { signal }: { signal: AbortSignal }): Promise<Writable>;
+  readPackage(packageName: string): Promise<Manifest>;
+  savePackage(packageName: string, manifest: Manifest): Promise<void>;
+  readTarball(fileName: string, { signal }: { signal: AbortSignal }): Promise<Readable>;
+  createPackage(packageName: string, manifest: Manifest): Promise<void>;
+  writeTarball(fileName: string, { signal }: { signal: AbortSignal }): Promise<Writable>;
   // verify if tarball exist in the storage
   hasTarball(fileName: string): Promise<boolean>;
   // verify if package exist in the storage
   hasPackage(): Promise<boolean>;
 }
 
+/**
+ * Storage Plugin interface
+ *
+ * https://verdaccio.org/docs/next/plugin-storage
+ */
 export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
-  add(name: string): Promise<void>;
-  remove(name: string): Promise<void>;
-  get(): Promise<any>;
+  add(packageName: string): Promise<void>;
+  remove(packageName: string): Promise<void>;
+  get(): Promise<string[]>;
   init(): Promise<void>;
   getSecret(): Promise<string>;
   setSecret(secret: string): Promise<any>;
-  getPackageStorage(packageInfo: string): StorageHandler;
+  getPackageStorage(packageName: string): StorageHandler;
   search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
   saveToken(token: Token): Promise<any>;
   deleteToken(user: string, tokenKey: string): Promise<any>;
   readTokens(filter: TokenFilter): Promise<Token[]>;
 }
 
+// --- MIDDLEWARE PLUGIN ---
+
 /**
- * This function allow add additional middleware to the application.
+ * Middleware Plugin Interface
+ *
+ * https://verdaccio.org/docs/next/plugin-middleware
+ *
+ * This function allow add middleware to the application.
  *
  *  ```ts
  *  import express, { Request, Response } from 'express';
@@ -94,8 +108,7 @@ export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
       });
  *    }
  *  }
- * 
- *  
+ *
  *  const [plugin] = await asyncLoadPlugin(...);
  *  plugin.register_middlewares(app, auth, storage);
  *  ```
@@ -104,15 +117,26 @@ export interface ExpressMiddleware<PluginConfig, Storage, Auth> extends Plugin<P
   register_middlewares(app: Express, auth: Auth, storage: Storage): void;
 }
 
-/**
- * dasdsa
- */
+// --- AUTH PLUGIN ---
+
 export type AuthCallback = (error: VerdaccioError | null, groups?: string[] | false) => void;
 
 export type AuthAccessCallback = (error: VerdaccioError | null, access?: boolean) => void;
 export type AuthUserCallback = (error: VerdaccioError | null, access?: boolean | string) => void;
 export type AuthChangePasswordCallback = (error: VerdaccioError | null, access?: boolean) => void;
 export type AccessCallback = (error: VerdaccioError | null, ok?: boolean) => void;
+
+export interface AuthPluginPackage {
+  packageName: string;
+  packageVersion?: string;
+  tag?: string;
+}
+
+/**
+ * Authentication Plugin Interface
+ *
+ * https://verdaccio.org/docs/next/plugin-auth
+ */
 export interface Auth<T> extends Plugin<T> {
   /**
    * Handles the authenticated method.
@@ -169,6 +193,13 @@ export interface IBasicAuth {
   add_user(user: string, password: string, cb: Callback): any;
 }
 
+// --- FILTER PLUGIN ---
+
+/**
+ * Filter Plugin Interface
+ *
+ * https://verdaccio.org/docs/next/plugin-filter
+ */
 export interface ManifestFilter<T> extends Plugin<T> {
-  filter_metadata(packageInfo: Manifest): Promise<Manifest>;
+  filter_metadata(manifest: Manifest): Promise<Manifest>;
 }
