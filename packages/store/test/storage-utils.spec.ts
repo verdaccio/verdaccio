@@ -1,11 +1,12 @@
 import { describe, expect, test } from 'vitest';
 
 import { DIST_TAGS } from '@verdaccio/core';
+import { generatePackageMetadata } from '@verdaccio/test-helper';
 import { Manifest } from '@verdaccio/types';
 
-import { generatePackageMetadata } from '../../api/node_modules/@verdaccio/test-helper/build';
 import {
   STORAGE,
+  cleanUpReadme,
   hasInvalidPublishBody,
   isDeprecatedManifest,
   isDifferentThanOne,
@@ -354,6 +355,56 @@ describe('Storage Utils', () => {
           },
         })
       ).toBeTruthy();
+    });
+  });
+
+  describe('cleanUpReadme', () => {
+    describe('should keep only latest readme', () => {
+      test('should clean up readme (no dist-tags)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version);
+        expect(cleanup.readme).toEqual('');
+      });
+
+      test('should clean up readme (latest in dist-tag)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version, manifest[DIST_TAGS]);
+        expect(cleanup.readme).toEqual('');
+      });
+    });
+
+    describe('should keep only tagged readme', () => {
+      test('should clean up readme (no dist-tags)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version, undefined, 'tagged');
+        expect(cleanup.readme).toEqual('');
+      });
+
+      test('should keep readme (version in dist-tag)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version, manifest[DIST_TAGS], 'tagged');
+        expect(cleanup.readme).toEqual('# test');
+      });
+    });
+
+    describe('should keep all readmes', () => {
+      test('should keep readme (no dist-tags)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version, undefined, 'all');
+        expect(cleanup.readme).toEqual('# test');
+      });
+
+      test('should keep readme (version in dist-tag)', () => {
+        const manifest = generatePackageMetadata('foo');
+        const version = manifest.versions['1.0.0'];
+        const cleanup = cleanUpReadme(version, manifest[DIST_TAGS], 'all');
+        expect(cleanup.readme).toEqual('# test');
+      });
     });
   });
 });

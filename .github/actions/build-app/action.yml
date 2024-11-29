@@ -1,0 +1,22 @@
+name: 'Build app'
+description: 'build verdaccio application'
+
+inputs:
+  registry-url:
+    description: 'Registry URL for pnpm'
+    required: false
+    default: 'http://localhost:4873'
+  node-version:
+    description: 'Node.js version to use'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies with a custom registry version ${{ inputs.node-version }}
+      uses: ./.github/actions/install-app-node
+      with:
+        node-version: ${{ inputs.node_version }}
+    - name: build
+      run: pnpm build
+      shell: bash

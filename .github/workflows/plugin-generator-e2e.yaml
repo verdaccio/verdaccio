@@ -9,32 +9,20 @@ on:
 
 concurrency:
   group: generator-plugin-${{ github.ref }}
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 jobs:
   e2e-plugin-generator:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18,20, 21]
+        node-version: [20, 22, 23]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Build application with Node ${{ matrix.node_version }}
+        uses: ./.github/actions/build-app
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack install
-      - uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.0.2
-        with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - name: install
-        run: pnpm install
-      - name: build
-        run: pnpm build
+          node-version: ${{ matrix.node_version }}
       - name: install verdaccio
         run: npm install -g verdaccio@5
       - name: Start server
@@ -49,4 +37,4 @@ jobs:
         run: npm install -g yo@4 --loglevel=info
       - name: install generator
         run: npm install -g generator-verdaccio-plugin --loglevel=info --registry http://localhost:4873
-# Future: add a test to verify the plugin is working with prompt 
+# Future: add a test to verify the plugin is working with prompt
