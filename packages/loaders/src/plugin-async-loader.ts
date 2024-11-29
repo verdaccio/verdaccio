@@ -12,7 +12,6 @@ const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);
-  debug('isDirectory: %s', stat.isDirectory());
   return stat.isDirectory();
 }
 
