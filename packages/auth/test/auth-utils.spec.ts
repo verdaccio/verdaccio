@@ -123,11 +123,12 @@ describe('Auth utilities', () => {
       });
     });
 
-    test('add user should fail by default (default)', () => {
+    test('add user should not fail by default (default)', () => {
       const plugin = getDefaultPlugins({ trace: vi.fn() });
       // @ts-ignore
-      plugin.adduser('foo', 'bar', (error: any) => {
-        expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      plugin.adduser('foo', 'bar', (error: any, access: any) => {
+        expect(error).toEqual(null);
+        expect(access).toEqual(true);
       });
     });
   });

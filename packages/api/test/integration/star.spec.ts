@@ -65,7 +65,7 @@ describe('star', () => {
     const app = await initializeServer('star.yaml');
     const token = await getNewToken(app, { name: userLogged, password: 'secretPass' });
     await publishVersion(app, pkgName, '1.0.0', undefined, token).expect(HTTP_STATUS.CREATED);
-    return supertest(app)
+    await supertest(app)
       .get(`/-/_view/starredByUser?key_xxxxx=other`)
       .set('Accept', HEADERS.JSON)
       .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)

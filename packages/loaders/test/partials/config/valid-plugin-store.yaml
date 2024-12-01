@@ -1,0 +1,3 @@
+store:
+  plugin-store:
+    enabled: true

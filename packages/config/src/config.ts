@@ -52,6 +52,7 @@ class Config implements AppConfig {
   public packages: PackageList;
   public users: any;
   public auth: AuthConf;
+  public store: any;
   public server_id: string;
   public configPath: string;
   /**

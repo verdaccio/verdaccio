@@ -31,12 +31,13 @@ describe('package', () => {
       ['@scope/foo2', 'foo2-1.0.0.tgz'],
     ])('should fails if tarball does not exist', async (pkg, fileName) => {
       await publishVersion(app, pkg, '1.0.1');
-      return await supertest(app)
+      await supertest(app)
         .get(`/${pkg}/-/${fileName}`)
         .set(HEADERS.ACCEPT, HEADERS.JSON)
         .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.OCTET_STREAM)
         .expect(HTTP_STATUS.NOT_FOUND);
     });
+
     test.todo('check content length file header');
     test.todo('fails on file was aborted');
   });

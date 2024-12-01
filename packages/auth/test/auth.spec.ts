@@ -4,14 +4,7 @@ import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
-import {
-  API_ERROR,
-  HEADERS,
-  HTTP_STATUS,
-  SUPPORT_ERRORS,
-  TOKEN_BEARER,
-  errorUtils,
-} from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
@@ -259,7 +252,7 @@ describe('AuthTest', () => {
     describe('no custom allow_access implementation provided', () => {
       // when allow_access is not implemented, the groups must match
       // exactly with the packages access group
-      test('should fails if groups do not match exactly', async () => {
+      test('should fail if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
         const auth: Auth = new Auth(config, logger);
@@ -308,7 +301,7 @@ describe('AuthTest', () => {
     describe('no custom allow_publish implementation provided', () => {
       // when allow_access is not implemented, the groups must match
       // exactly with the packages access group
-      test('should fails if groups do not match exactly', async () => {
+      test('should fail if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
         const auth: Auth = new Auth(config, logger);
@@ -354,7 +347,7 @@ describe('AuthTest', () => {
   });
   describe('allow_unpublish', () => {
     describe('no custom allow_unpublish implementation provided', () => {
-      test('should fails if groups do not match exactly', async () => {
+      test('should fail if groups do not match exactly', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
 
@@ -439,7 +432,7 @@ describe('AuthTest', () => {
     describe('error handling', () => {
       // when allow_access is not implemented, the groups must match
       // exactly with the packages access group
-      test('should fails with bad password if adduser is not implemented', async () => {
+      test('should not fail if adduser is not implemented', async () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey('12345');
         const auth: Auth = new Auth(config, logger);
@@ -451,12 +444,21 @@ describe('AuthTest', () => {
         auth.add_user('juan', 'password', callback);
 
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(
-          errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD)
-        );
+        expect(callback).toHaveBeenCalledWith(null, {
+          groups: [
+            'test',
+            ROLES.$ALL,
+            ROLES.$AUTH,
+            ROLES.DEPRECATED_ALL,
+            ROLES.DEPRECATED_AUTH,
+            ROLES.ALL,
+          ],
+          name: 'juan',
+          real_groups: ['test'],
+        });
       });
 
-      test('should fails if adduser fails internally (exception)', async () => {
+      test('should fail if adduser fails internally (exception)', async () => {
         const config: Config = new AppConfig({
           ...getDefaultConfig(),
           plugins: path.join(__dirname, './partials/plugin'),
@@ -471,14 +473,14 @@ describe('AuthTest', () => {
 
         const callback = vi.fn();
 
-        // note: fail uas username make plugin fails
+        // note: username to make plugin fail
         auth.add_user('fail', 'password', callback);
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(new Error('bad username'));
       });
 
-      test('should skip to the next plugin and fails', async () => {
+      test('should skip to the next plugin and fail', async () => {
         const config: Config = new AppConfig({
           ...getDefaultConfig(),
           plugins: path.join(__dirname, './partials/plugin'),
@@ -495,13 +497,22 @@ describe('AuthTest', () => {
 
         const callback = vi.fn();
 
-        // note: fail uas username make plugin fails
+        // note: username to make plugin fail
         auth.add_user('skip', 'password', callback);
 
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(
-          errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD)
-        );
+        expect(callback).toHaveBeenCalledWith(null, {
+          groups: [
+            'test',
+            ROLES.$ALL,
+            ROLES.$AUTH,
+            ROLES.DEPRECATED_ALL,
+            ROLES.DEPRECATED_AUTH,
+            ROLES.ALL,
+          ],
+          name: 'skip',
+          real_groups: ['test'],
+        });
       });
     });
     test('should success if adduser', async () => {

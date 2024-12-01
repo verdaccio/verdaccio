@@ -28,7 +28,11 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
 
-      if (typeof req.remote_user.name !== 'string' || req.remote_user.name === '') {
+      if (
+        !req.remote_user ||
+        typeof req.remote_user.name !== 'string' ||
+        req.remote_user.name === ''
+      ) {
         debug('user not logged in');
         res.status(HTTP_STATUS.OK);
         return next({ ok: false });

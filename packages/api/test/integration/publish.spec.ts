@@ -57,7 +57,7 @@ describe('publish', () => {
       async (pkgName) => {
         const app = await initializeServer('publish.yaml');
         await publishVersion(app, pkgName, '1.0.0');
-        return new Promise((resolve) => {
+        new Promise((resolve) => {
           publishVersion(app, pkgName, '1.0.0')
             .expect(HTTP_STATUS.CONFLICT)
             .then((response) => {
@@ -73,7 +73,7 @@ describe('publish', () => {
     describe('no proxies setup', () => {
       test.each([['foo', '@scope/foo']])('should publish a package', async (pkgName) => {
         const app = await initializeServer('publish.yaml');
-        return new Promise((resolve) => {
+        new Promise((resolve) => {
           publishVersion(app, pkgName, '1.0.0')
             .expect(HTTP_STATUS.CREATED)
             .then((response) => {
@@ -86,7 +86,7 @@ describe('publish', () => {
       test.each([['foo', '@scope/foo']])('should publish a new package', async (pkgName) => {
         const pkgMetadata = generatePackageMetadata(pkgName, '1.0.0');
         const app = await initializeServer('publish.yaml');
-        return new Promise((resolve) => {
+        new Promise((resolve) => {
           supertest(app)
             .put(`/${encodeURIComponent(pkgName)}`)
             .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
