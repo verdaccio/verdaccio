@@ -60,7 +60,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   );
 
   // Hook for tests only
-  if (config._debug) {
+  if (config._debug && app.get('env') !== 'production') {
+    logger.warn('debug hook is active and might reveal sensitive configuration data');
     hookDebug(app, config);
   }
 

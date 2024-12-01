@@ -117,4 +117,15 @@ describe('server api', () => {
     expect(res.body.mem).toBeDefined();
     expect(res.body.config).toBeDefined();
   });
+
+  test('should not display debug hook in production', async () => {
+    const node_env = process.env.NODE_ENV;
+    process.env.NODE_ENV = 'production';
+    const app = await initializeServer('conf.yaml');
+    await supertest(app)
+      .get('/-/_debug')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET)
+      .expect(HTTP_STATUS.NOT_FOUND);
+    process.env.NODE_ENV = node_env;
+  });
 });
