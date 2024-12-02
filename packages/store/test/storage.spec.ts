@@ -348,7 +348,7 @@ describe('storage', () => {
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
       });
 
-      test('allow_overwrite if version already exist', async () => {
+      test('allow overwriting if version already exist', async () => {
         const settings = {
           uplinksLook: true,
           revision: '1',
@@ -364,10 +364,11 @@ describe('storage', () => {
             {
               storage: generateRandomStorage(),
             },
-            './fixtures/config/publishWithOverwrite.yaml',
+            './fixtures/config/publishWithOwnerDefault.yaml',
             __dirname
           )
         );
+        process.env.VERDACCIO_DEV_MODE = 'allow_overwrite';
         const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
@@ -395,6 +396,7 @@ describe('storage', () => {
           },
         })) as Manifest;
         expect(manifest.versions['1.0.0'].description).toEqual('updated description');
+        delete process.env.VERDACCIO_DEV_MODE;
       });
 
       test('create private package with readme only in manifest', async () => {

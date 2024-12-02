@@ -90,6 +90,8 @@ import { IGetPackageOptionsNext, OwnerManifestBody, StarManifestBody } from './t
 
 const debug = buildDebug('verdaccio:storage');
 
+const OVERWRITE_MODE = 'allow_overwrite';
+
 export type Filters = pluginUtils.ManifestFilter<Config>[];
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
@@ -665,6 +667,7 @@ class Storage {
       debug('local init storage initialized');
       await this.localStorage.getSecret(config);
       debug('local storage secret initialized');
+      await this.checkDevMode();
     } else {
       debug('storage has been already initialized');
     }
@@ -684,6 +687,20 @@ class Storage {
       debug('filters available %o', this.filters.length);
     }
     return;
+  }
+
+  /**
+   * Check if developer mode is enabled via environment variable.
+   */
+  private async checkDevMode() {
+    if (process.env.VERDACCIO_DEV_MODE === OVERWRITE_MODE) {
+      const packages = await this.localStorage.getStoragePlugin().get();
+      if (packages.length === 0) {
+        this.logger.warn('Developer mode is enabled; you can overwrite packages');
+      } else {
+        this.logger.warn('Storage must be empty to enable developer mode');
+      }
+    }
   }
 
   /**
@@ -1170,7 +1187,7 @@ class Storage {
       // if continue, the version to be published does not exist
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
-        if (this.config?.publish?.allow_overwrite === true) {
+        if (process.env.VERDACCIO_DEV_MODE === OVERWRITE_MODE) {
           const filename = composeTarballFromPackage(name, versionToPublish);
           await this.removeTarball(name, filename, localManifest._rev, username!);
           delete localManifest.versions[versionToPublish];
@@ -1184,7 +1201,7 @@ class Storage {
       const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (upstream)', name, versionToPublish);
-        if (this.config?.publish?.allow_overwrite !== true) {
+        if (process.env.VERDACCIO_DEV_MODE !== OVERWRITE_MODE) {
           throw errorUtils.getConflict();
         }
       }
