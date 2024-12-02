@@ -202,13 +202,12 @@ export interface Security {
   api: APITokenOptions;
 }
 
-export type ReadmeOptions = 'latest' | 'tagged' | 'all' | undefined;
+export type ReadmeOptions = 'latest' | 'tagged' | 'all';
 
 export interface PublishOptions {
   allow_offline: boolean;
-  keep_readmes: ReadmeOptions;
+  keep_readmes?: ReadmeOptions;
   check_owners: boolean;
-  allow_overwrite: boolean;
 }
 
 export interface ListenAddress {
