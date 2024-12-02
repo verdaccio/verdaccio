@@ -35,7 +35,7 @@ import {
   Version,
 } from '@verdaccio/types';
 
-import { Storage } from '../src';
+import { OVERWRITE_MODE, Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample } from './helpers';
 
@@ -368,7 +368,7 @@ describe('storage', () => {
             __dirname
           )
         );
-        process.env.VERDACCIO_DEV_MODE = 'allow_overwrite';
+        process.env.VERDACCIO_DEV_MODE = OVERWRITE_MODE;
         const storage = new Storage(config, logger);
         await storage.init(config);
         const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
