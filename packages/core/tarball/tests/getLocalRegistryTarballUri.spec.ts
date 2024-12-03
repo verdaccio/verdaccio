@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { extractTarballFromUrl } from '../src';
+import { composeTarballFromPackage, extractTarballFromUrl } from '../src';
 
 describe('extractTarballFromUrl', () => {
   const metadata: any = {
@@ -42,5 +42,10 @@ describe('extractTarballFromUrl', () => {
     expect(extractTarballFromUrl(metadata.versions['1.0.3'].dist.tarball)).toEqual(
       'npm_test-1.0.3.tgz'
     );
+  });
+
+  test('should return filename of tarball', () => {
+    expect(composeTarballFromPackage('npm_test', '1.0.0')).toEqual('npm_test-1.0.0.tgz');
+    expect(composeTarballFromPackage('@mbtools/npm_test', '1.0.1')).toEqual('npm_test-1.0.1.tgz');
   });
 });
