@@ -120,17 +120,15 @@ By using the JWT signature is also possible to customize the [signature](https:/
 ```yaml
 security:
   api:
-    legacy: true
-    migrateToSecureLegacySignature: true # will generate a new secret token if the length is 64 characters
     jwt:
       sign:
         expiresIn: 29d
       verify:
         someProp: [value]
-   web:
-     sign:
-       expiresIn: 1h # 1 hour by default
-     verify:
+  web:
+    sign:
+      expiresIn: 1h # 1 hour by default
+    verify:
      	someProp: [value]
 ```
 
