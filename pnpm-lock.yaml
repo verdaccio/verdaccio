@@ -87,8 +87,8 @@ importers:
         specifier: 2.27.10
         version: 2.27.10
       '@changesets/get-dependents-graph':
-        specifier: 2.1.1
-        version: 2.1.1
+        specifier: 2.1.2
+        version: 2.1.2
       '@crowdin/cli':
         specifier: 4.1.1
         version: 4.1.1
@@ -2635,7 +2635,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/highlight': 7.25.7
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   /@babel/compat-data@7.23.5:
     resolution: {integrity: sha512-uU27kfDRlhfKl+w1U6vp16IuvSLtjAxdArVXPa9BvLkrr7CYIsxH5adpHObeAGY/41+syctUWOZ140a2Rvkgjw==}
@@ -3225,7 +3225,7 @@ packages:
       '@babel/helper-validator-identifier': 7.25.7
       chalk: 2.4.2
       js-tokens: 4.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   /@babel/node@7.25.0(@babel/core@7.24.9):
     resolution: {integrity: sha512-fgdlIcf1vLeZ6gUHcl799Wbk6no5tnkGi6t1gpAb1a97ZB+KCRp8Sgb7acGTjnFhOzqzcsbJ4+wzewqb6JM0tA==}
@@ -5174,16 +5174,6 @@ packages:
       extendable-error: 0.1.7
     dev: true
 
-  /@changesets/get-dependents-graph@2.1.1:
-    resolution: {integrity: sha512-LRFjjvigBSzfnPU2n/AhFsuWR5DK++1x47aq6qZ8dzYsPtS/I5mNhIGAS68IAxh1xjO9BTtz55FwefhANZ+FCA==}
-    dependencies:
-      '@changesets/types': 6.0.0
-      '@manypkg/get-packages': 1.1.3
-      chalk: 2.4.2
-      fs-extra: 7.0.1
-      semver: 7.6.3
-    dev: true
-
   /@changesets/get-dependents-graph@2.1.2:
     resolution: {integrity: sha512-sgcHRkiBY9i4zWYBwlVyAjEM9sAzs4wYVwJUdnbDLnVG3QwAaia1Mk5P8M7kraTOZN+vBET7n8KyB0YXCbFRLQ==}
     dependencies:
@@ -6562,7 +6552,7 @@ packages:
       gray-matter: 4.0.3
       js-yaml: 4.1.0
       lodash: 4.17.21
-      micromatch: 4.0.7
+      micromatch: 4.0.5
       resolve-pathname: 3.0.0
       shelljs: 0.8.5
       tslib: 2.6.2
@@ -12937,7 +12927,7 @@ packages:
       caniuse-lite: 1.0.30001641
       fraction.js: 4.2.0
       normalize-range: 0.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       postcss: 8.4.31
       postcss-value-parser: 4.2.0
 
@@ -12952,7 +12942,7 @@ packages:
       caniuse-lite: 1.0.30001641
       fraction.js: 4.2.0
       normalize-range: 0.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       postcss: 8.4.40
       postcss-value-parser: 4.2.0
 
@@ -21511,7 +21501,7 @@ packages:
   /launch-editor@2.6.0:
     resolution: {integrity: sha512-JpDCcQnyAAzZZaZ7vEiSqL690w7dAEyLao+KC96zBplnYbJS7TYNjvM3M7y3dGz+v7aIsJk3hllWuc0kWAjyRQ==}
     dependencies:
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       shell-quote: 1.8.1
 
   /layout-base@1.0.2:
@@ -24659,7 +24649,6 @@ packages:
 
   /picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
-    dev: true
 
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -25875,7 +25864,7 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       source-map-js: 1.0.2
 
   /postcss@8.4.40:
@@ -27578,7 +27567,7 @@ packages:
     hasBin: true
     dependencies:
       find-up: 5.0.0
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       postcss: 8.4.31
       strip-json-comments: 3.1.1
     dev: false
@@ -29181,7 +29170,7 @@ packages:
       css-select: 4.3.0
       css-tree: 1.1.3
       csso: 4.2.0
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       stable: 0.1.8
 
   /symbol-tree@3.2.4:
@@ -30344,7 +30333,7 @@ packages:
     dependencies:
       browserslist: 4.22.2
       escalade: 3.1.1
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   /update-browserslist-db@1.1.0(browserslist@4.23.2):
     resolution: {integrity: sha512-EdRAaAyk2cUE1wOf2DkEhzxqOQvFOoRJFNS6NeyJ01Gp2beMRpBAINjM2iDXE3KCuKhwnvHIQCJm6ThL2Z+HzQ==}
@@ -30354,7 +30343,7 @@ packages:
     dependencies:
       browserslist: 4.23.2
       escalade: 3.1.2
-      picocolors: 1.0.1
+      picocolors: 1.1.1
 
   /update-notifier@5.1.0:
     resolution: {integrity: sha512-ItnICHbeMh9GqUy31hFPrD1kcuZ3rpxDZbf4KUDavXwS0bW5m7SLbDQpGX3UYr072cbrF5hFUs3r5tUsPwjfHw==}
@@ -31027,7 +31016,7 @@ packages:
       html-escaper: 2.0.2
       is-plain-object: 5.0.0
       opener: 1.5.2
-      picocolors: 1.0.1
+      picocolors: 1.1.1
       sirv: 2.0.4
       ws: 7.5.10
     transitivePeerDependencies:
