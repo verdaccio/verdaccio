@@ -2,6 +2,7 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import pino from 'pino';
 import { setTimeout } from 'timers/promises';
+import { describe, expect, test } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 
