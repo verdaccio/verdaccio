@@ -8,9 +8,6 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./vitest/setup.ts', './vitest/setup-env.ts'],
     exclude: ['node_modules', './build/'],
-    transformMode: {
-      web: [/\.js$/, /\.ts$/, /\.tsx$/],
-    },
     snapshotFormat: {
       escapeString: true,
       printBasicPrototype: true,

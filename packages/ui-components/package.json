@@ -8,7 +8,7 @@
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "test": "cross-env TZ=UTC vitest run -u",
+    "test": "cross-env TZ=UTC vitest run",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
