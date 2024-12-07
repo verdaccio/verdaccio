@@ -29,10 +29,6 @@ coverage/
 test-storage*
 test/
 __mocks__/
-jestEnvironment.js
-test/jest.e2e.config.js
-test/jest.config.functional.js
-jest.config.js
 
 # misc
 contrib/
