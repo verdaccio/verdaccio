@@ -1,12 +1,7 @@
 import '@testing-library/jest-dom';
 import 'mutationobserver-shim';
-import { afterAll, afterEach, beforeAll, vi } from 'vitest';
+import { vi } from 'vitest';
 import 'whatwg-fetch';
-
-import { server } from './jest/server';
-
-// Mock react-markdown globally
-vi.mock('react-markdown', () => import('../__mocks__/react-markdown'));
 
 // @ts-ignore : Property '__VERDACCIO_BASENAME_UI_OPTIONS' does not exist on type 'Global'.
 global.__VERDACCIO_BASENAME_UI_OPTIONS = {
@@ -33,13 +28,3 @@ if (global.document) {
   }));
   document.execCommand = vi.fn();
 }
-
-beforeAll(() => {
-  server.listen({
-    onUnhandledRequest: 'warn',
-  });
-});
-afterEach(() => server.resetHandlers());
-afterAll(() => {
-  server.close();
-});

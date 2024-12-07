@@ -11,13 +11,6 @@ import App from './App';
 vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
 vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
-// vi.mock('@verdaccio/ui-components', async (importOriginal) => ({
-//   ...(await importOriginal<typeof import('@verdaccio/ui-components')>()),
-//   HeaderInfoDialog: () => <div data-testid="header-info-dialog"/>,
-// }));
-
-vi.mock('react-markdown');
-
 /* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
   describe('footer', () => {

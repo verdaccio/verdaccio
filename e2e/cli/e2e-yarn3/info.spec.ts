@@ -30,7 +30,7 @@ describe('install a package', () => {
     const resp = await yarn(projectFolder, 'npm', 'info', 'react', '--json');
     const parsedBody = JSON.parse(resp.stdout as string);
     expect(parsedBody.name).toEqual('react');
-    expect(parsedBody.dependencies).toBeDefined();
+    expect(parsedBody.versions).toBeDefined();
   });
 
   afterAll(async () => {
