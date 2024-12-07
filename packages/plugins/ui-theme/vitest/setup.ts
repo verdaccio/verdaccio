@@ -2,7 +2,16 @@
  * Setup configuration for Jest
  * This file includes global settings for the JEST environment.
  */
+import '@testing-library/jest-dom';
 import 'mutationobserver-shim';
+import { vi } from 'vitest';
+import { Headers, Request, Response, fetch } from 'whatwg-fetch';
+
+// Override the global fetch and related APIs
+global.fetch = fetch;
+global.Headers = Headers;
+global.Request = Request;
+global.Response = Response;
 
 // @ts-ignore : Property '__VERDACCIO_BASENAME_UI_OPTIONS' does not exist on type 'Global'.
 global.__VERDACCIO_BASENAME_UI_OPTIONS = {
@@ -24,8 +33,8 @@ global.__VERDACCIO_BASENAME_UI_OPTIONS = {
 // @ts-ignore : Property 'document' does not exist on type 'Global'.
 if (global.document) {
   // @ts-ignore : Type 'Mock<{ selectNodeContents: () => void; }, []>' is not assignable to type '() => Range'.
-  document.createRange = jest.fn((): void => ({
+  document.createRange = vi.fn((): void => ({
     selectNodeContents: (): void => {},
   }));
-  document.execCommand = jest.fn();
+  document.execCommand = vi.fn();
 }

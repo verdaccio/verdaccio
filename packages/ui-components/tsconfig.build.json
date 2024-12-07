@@ -13,7 +13,7 @@
     "jsx": "react"
   },
   "include": ["src/**/*", "./src/types/index.d.ts"],
-  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "types": ["node", "@testing-library/jest-dom"],
   "typedocOptions": {
     "categoryOrder": ["Model", "Component", "Provider", "*"],
     "defaultCategory": "Component",
