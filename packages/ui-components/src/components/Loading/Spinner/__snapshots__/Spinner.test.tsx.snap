@@ -1,92 +1,24 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Spinner /> component should render the component in default state 1`] = `
-{
+exports[`<Spinner /> component > should render the component in default state 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": @keyframes animation-0 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes animation-1 {
-  0% {
-    stroke-dasharray: 1px,200px;
-    stroke-dashoffset: 0;
-  }
-
-  50% {
-    stroke-dasharray: 100px,200px;
-    stroke-dashoffset: -15px;
-  }
-
-  100% {
-    stroke-dasharray: 100px,200px;
-    stroke-dashoffset: -125px;
-  }
-}
-
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-
-.emotion-3 {
-  display: inline-block;
-  color: #4b5e40;
-  -webkit-animation: animation-0 1.4s linear infinite;
-  animation: animation-0 1.4s linear infinite;
-  color: #4b5e40;
-}
-
-.emotion-4 {
-  display: block;
-}
-
-.emotion-5 {
-  stroke: currentColor;
-  stroke-dasharray: 80px,200px;
-  stroke-dashoffset: 0;
-  -webkit-animation: animation-1 1.4s ease-in-out infinite;
-  animation: animation-1 1.4s ease-in-out infinite;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <div
-        class="emotion-0 emotion-1"
+        class="makeStyles-Wrapper eapffsy1"
       >
         <span
-          class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary emotion-2 emotion-3"
+          class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary eapffsy0 makeStyles-MuiCircularProgress-root-Circular"
           role="progressbar"
           style="width: 50px; height: 50px;"
         >
           <svg
-            class="MuiCircularProgress-svg emotion-4"
+            class="MuiCircularProgress-svg makeStyles-MuiCircularProgress-svg"
             viewBox="22 22 44 44"
           >
             <circle
-              class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate emotion-5"
+              class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate makeStyles-MuiCircularProgress-circle"
               cx="44"
               cy="44"
               fill="none"
@@ -98,89 +30,21 @@ exports[`<Spinner /> component should render the component in default state 1`] 
       </div>
     </div>
   </body>,
-  "container": @keyframes animation-0 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes animation-1 {
-  0% {
-    stroke-dasharray: 1px,200px;
-    stroke-dashoffset: 0;
-  }
-
-  50% {
-    stroke-dasharray: 100px,200px;
-    stroke-dashoffset: -15px;
-  }
-
-  100% {
-    stroke-dasharray: 100px,200px;
-    stroke-dashoffset: -125px;
-  }
-}
-
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-
-.emotion-3 {
-  display: inline-block;
-  color: #4b5e40;
-  -webkit-animation: animation-0 1.4s linear infinite;
-  animation: animation-0 1.4s linear infinite;
-  color: #4b5e40;
-}
-
-.emotion-4 {
-  display: block;
-}
-
-.emotion-5 {
-  stroke: currentColor;
-  stroke-dasharray: 80px,200px;
-  stroke-dashoffset: 0;
-  -webkit-animation: animation-1 1.4s ease-in-out infinite;
-  animation: animation-1 1.4s ease-in-out infinite;
-}
-
-<div>
+  "container": <div>
     <div
-      class="emotion-0 emotion-1"
+      class="makeStyles-Wrapper eapffsy1"
     >
       <span
-        class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary emotion-2 emotion-3"
+        class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary eapffsy0 makeStyles-MuiCircularProgress-root-Circular"
         role="progressbar"
         style="width: 50px; height: 50px;"
       >
         <svg
-          class="MuiCircularProgress-svg emotion-4"
+          class="MuiCircularProgress-svg makeStyles-MuiCircularProgress-svg"
           viewBox="22 22 44 44"
         >
           <circle
-            class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate emotion-5"
+            class="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate makeStyles-MuiCircularProgress-circle"
             cx="44"
             cy="44"
             fill="none"

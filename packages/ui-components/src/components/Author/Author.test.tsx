@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { cleanup, render, screen } from '../../test/test-react-testing-library';
 import { PackageMetaInterface } from '../../types/packageMeta';
@@ -10,7 +11,7 @@ const withAuthorComponent = (packageMeta: PackageMetaInterface): JSX.Element => 
 
 describe('<Author /> component', () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    vi.resetAllMocks();
     cleanup();
   });
 

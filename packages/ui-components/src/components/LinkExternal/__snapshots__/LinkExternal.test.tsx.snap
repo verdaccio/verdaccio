@@ -1,49 +1,17 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<LinkExternal /> component should render the component in default state 1`] = `
-.emotion-0 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
+exports[`<LinkExternal /> component > should render the component in default state 1`] = `
 <a
-  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-0"
+  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
   href="/"
   rel="noopener noreferrer"
   target="_blank"
 />
 `;
 
-exports[`<LinkExternal /> component should render the component with external link 1`] = `
-.emotion-0 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-0:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
+exports[`<LinkExternal /> component > should render the component with external link 1`] = `
 <a
-  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-0"
+  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
   href="https://example.com"
   rel="noopener noreferrer"
   target="_blank"

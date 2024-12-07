@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { vi } from 'vitest';
 
 import { store } from '../../store';
 import { cleanup, renderWithStore } from '../../test/test-react-testing-library';
@@ -18,7 +19,7 @@ describe('<PackageList /> component', () => {
 
   test('should load the component with packages', () => {
     // Mock <Autosizer /> width
-    jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
+    vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
     const props = {
       packages: [

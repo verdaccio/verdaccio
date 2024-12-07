@@ -31,11 +31,9 @@ const customRender = (node: React.ReactElement, ...options: any) => {
   return render(
     <AppConfigurationProvider>
       <PersistenceSettingProvider>
-        <StyledEngineProvider injectFirst={true}>
-          <ThemeProvider>
-            <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
-          </ThemeProvider>
-        </StyledEngineProvider>
+        <ThemeProvider>
+          <I18nextProvider i18n={i18nConfig}>{node}</I18nextProvider>
+        </ThemeProvider>
       </PersistenceSettingProvider>
     </AppConfigurationProvider>,
     ...options

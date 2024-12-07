@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { render, screen } from '../../test/test-react-testing-library';
 import ErrorBoundary from './ErrorBoundary';
@@ -20,7 +21,7 @@ describe('ErrorBoundary component', () => {
     };
 
     // Suppress error messages for this test
-    const spy = jest.spyOn(console, 'error');
+    const spy = vi.spyOn(console, 'error');
     spy.mockImplementation(() => {});
 
     render(

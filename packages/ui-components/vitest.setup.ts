@@ -1,8 +1,13 @@
-/**
- * Setup configuration for Jest
- * This file includes global settings for the JEST environment.
- */
+import '@testing-library/jest-dom';
 import 'mutationobserver-shim';
+import { afterAll, afterEach, beforeAll, vi } from 'vitest';
+import 'whatwg-fetch';
+
+import { server } from './jest/server';
+
+//
+// Mock react-markdown globally
+vi.mock('react-markdown', () => import('../__mocks__/react-markdown'));
 
 // @ts-ignore : Property '__VERDACCIO_BASENAME_UI_OPTIONS' does not exist on type 'Global'.
 global.__VERDACCIO_BASENAME_UI_OPTIONS = {
@@ -24,8 +29,18 @@ global.__VERDACCIO_BASENAME_UI_OPTIONS = {
 // @ts-ignore : Property 'document' does not exist on type 'Global'.
 if (global.document) {
   // @ts-ignore : Type 'Mock<{ selectNodeContents: () => void; }, []>' is not assignable to type '() => Range'.
-  document.createRange = jest.fn((): void => ({
+  document.createRange = vi.fn((): void => ({
     selectNodeContents: (): void => {},
   }));
-  document.execCommand = jest.fn();
+  document.execCommand = vi.fn();
 }
+
+beforeAll(() => {
+  server.listen({
+    onUnhandledRequest: 'warn',
+  });
+});
+afterEach(() => server.resetHandlers());
+afterAll(() => {
+  server.close();
+});

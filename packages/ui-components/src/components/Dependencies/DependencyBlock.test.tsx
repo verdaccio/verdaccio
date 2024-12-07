@@ -1,12 +1,13 @@
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
+import { vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import { DependencyBlock } from './DependencyBlock';
 
-const mockHistory = jest.fn();
+const mockHistory = vi.fn();
 
-jest.mock('react-router-dom', () => ({
+vi.mock('react-router-dom', () => ({
   useHistory: () => ({
     push: mockHistory,
   }),

@@ -1,5 +1,6 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
+import { vi } from 'vitest';
 
 import { store } from '../';
 import { act, renderWithStore, screen, waitFor } from '../test/test-react-testing-library';
@@ -7,8 +8,8 @@ import AppRoute from './AppRoute';
 
 // force the windows to expand to display items
 // https://github.com/bvaughn/react-virtualized/issues/493#issuecomment-640084107
-jest.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
-jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
+vi.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(600);
+vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 
 function appTest(path: string) {
   renderWithStore(
@@ -19,10 +20,10 @@ function appTest(path: string) {
   );
 }
 
-// See jest/server-handlers.ts for test routes
+// See vi/server-handlers.ts for test routes
 describe('AppRoute', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('renders Front component for ROOT path', async () => {

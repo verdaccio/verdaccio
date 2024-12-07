@@ -39,7 +39,7 @@ interface Params {
 }
 
 /**
-* 
+*
 *  @example
     Once a component has been wrapped with `VersionProvider`, use the hook `useVersion()` to get an object with:
     ```jsx
@@ -58,7 +58,10 @@ interface Params {
    @category Provider
  */
 const VersionProvider: React.FC<{ children: any }> = ({ children }) => {
-  const { version: packageVersion, package: pkgName, scope } = useParams<Params>();
+  const router = useParams<Params>();
+
+  const { version: packageVersion, package: pkgName, scope } = router;
+
   // @ts-ignore
   const { manifest, readme, packageName, hasNotBeenFound } = useSelector(
     (state: RootState) => state.manifest

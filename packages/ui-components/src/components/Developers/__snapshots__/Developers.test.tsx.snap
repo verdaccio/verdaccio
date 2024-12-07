@@ -1,117 +1,20 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`test Developers should render the component for contributors with items 1`] = `
-{
+exports[`test Developers > should render the component for contributors with items 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": .emotion-1 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.emotion-3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-}
-
-.emotion-3>* {
-  margin-right: 5px;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-4:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #f4f4f4;
-  background-color: #bdbdbd;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: 1.5rem;
-  width: 75%;
-  height: 75%;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+        class="MuiTypography-root MuiTypography-subtitle1 e1ssrjap0 makeStyles-MuiTypography-root-StyledText"
       >
         sidebar.contributors.title
       </h6>
       <div
-        class="emotion-2 MuiBox-root emotion-3"
+        class="eoc81fk0 MuiBox-root makeStyles-StyledBox"
       >
         <a
-          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
           data-mui-internal-clone-element="true"
           data-testid="dmethvin"
           href="mailto:test@gmail.com?subject=undefined v1.0.0"
@@ -119,11 +22,11 @@ exports[`test Developers should render the component for contributors with items
           target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
               data-testid="PersonIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -135,7 +38,7 @@ exports[`test Developers should render the component for contributors with items
           </div>
         </a>
         <a
-          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
           data-mui-internal-clone-element="true"
           data-testid="mgol"
           href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
@@ -143,11 +46,11 @@ exports[`test Developers should render the component for contributors with items
           target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
               data-testid="PersonIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -161,114 +64,17 @@ exports[`test Developers should render the component for contributors with items
       </div>
     </div>
   </body>,
-  "container": .emotion-1 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.emotion-3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-}
-
-.emotion-3>* {
-  margin-right: 5px;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-4:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #f4f4f4;
-  background-color: #bdbdbd;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: 1.5rem;
-  width: 75%;
-  height: 75%;
-}
-
-<div>
+  "container": <div>
     <h6
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+      class="MuiTypography-root MuiTypography-subtitle1 e1ssrjap0 makeStyles-MuiTypography-root-StyledText"
     >
       sidebar.contributors.title
     </h6>
     <div
-      class="emotion-2 MuiBox-root emotion-3"
+      class="eoc81fk0 MuiBox-root makeStyles-StyledBox"
     >
       <a
-        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
         data-mui-internal-clone-element="true"
         data-testid="dmethvin"
         href="mailto:test@gmail.com?subject=undefined v1.0.0"
@@ -276,11 +82,11 @@ exports[`test Developers should render the component for contributors with items
         target="_blank"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
             data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
@@ -292,7 +98,7 @@ exports[`test Developers should render the component for contributors with items
         </div>
       </a>
       <a
-        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
         data-mui-internal-clone-element="true"
         data-testid="mgol"
         href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
@@ -300,11 +106,11 @@ exports[`test Developers should render the component for contributors with items
         target="_blank"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
             data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
@@ -371,118 +177,21 @@ exports[`test Developers should render the component for contributors with items
 }
 `;
 
-exports[`test Developers should render the component for maintainers with items 1`] = `
-{
+exports[`test Developers > should render the component for maintainers with items 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": .emotion-1 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.emotion-3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-}
-
-.emotion-3>* {
-  margin-right: 5px;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-4:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #f4f4f4;
-  background-color: #bdbdbd;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: 1.5rem;
-  width: 75%;
-  height: 75%;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+        class="MuiTypography-root MuiTypography-subtitle1 e1ssrjap0 makeStyles-MuiTypography-root-StyledText"
       >
         sidebar.maintainers.title
       </h6>
       <div
-        class="emotion-2 MuiBox-root emotion-3"
+        class="eoc81fk0 MuiBox-root makeStyles-StyledBox"
       >
         <a
-          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
           data-mui-internal-clone-element="true"
           data-testid="dmethvin"
           href="mailto:test@gmail.com?subject=undefined v1.0.0"
@@ -490,11 +199,11 @@ exports[`test Developers should render the component for maintainers with items 
           target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
               data-testid="PersonIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -506,7 +215,7 @@ exports[`test Developers should render the component for maintainers with items 
           </div>
         </a>
         <a
-          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
           data-mui-internal-clone-element="true"
           data-testid="mgol"
           href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
@@ -514,11 +223,11 @@ exports[`test Developers should render the component for maintainers with items 
           target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
               data-testid="PersonIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -532,114 +241,17 @@ exports[`test Developers should render the component for maintainers with items 
       </div>
     </div>
   </body>,
-  "container": .emotion-1 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.emotion-3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex-wrap: wrap;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-}
-
-.emotion-3>* {
-  margin-right: 5px;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-4:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  color: #f4f4f4;
-  background-color: #bdbdbd;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: 1.5rem;
-  width: 75%;
-  height: 75%;
-}
-
-<div>
+  "container": <div>
     <h6
-      class="MuiTypography-root MuiTypography-subtitle1 emotion-0 emotion-1"
+      class="MuiTypography-root MuiTypography-subtitle1 e1ssrjap0 makeStyles-MuiTypography-root-StyledText"
     >
       sidebar.maintainers.title
     </h6>
     <div
-      class="emotion-2 MuiBox-root emotion-3"
+      class="eoc81fk0 MuiBox-root makeStyles-StyledBox"
     >
       <a
-        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
         data-mui-internal-clone-element="true"
         data-testid="dmethvin"
         href="mailto:test@gmail.com?subject=undefined v1.0.0"
@@ -647,11 +259,11 @@ exports[`test Developers should render the component for maintainers with items 
         target="_blank"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
             data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
@@ -663,7 +275,7 @@ exports[`test Developers should render the component for maintainers with items 
         </div>
       </a>
       <a
-        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-4"
+        class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
         data-mui-internal-clone-element="true"
         data-testid="mgol"
         href="mailto:m.goleb@gmail.com?subject=undefined v1.0.0"
@@ -671,11 +283,11 @@ exports[`test Developers should render the component for maintainers with items 
         target="_blank"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault emotion-5"
+          class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault makeStyles-MuiAvatar-root"
         >
           <svg
             aria-hidden="true"
-            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback emotion-6"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback makeStyles-MuiSvgIcon-root-MuiAvatar-fallback"
             data-testid="PersonIcon"
             focusable="false"
             viewBox="0 0 24 24"
@@ -742,8 +354,8 @@ exports[`test Developers should render the component for maintainers with items 
 }
 `;
 
-exports[`test Developers should render the component with no items 1`] = `
-{
+exports[`test Developers > should render the component with no items 1`] = `
+Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div />

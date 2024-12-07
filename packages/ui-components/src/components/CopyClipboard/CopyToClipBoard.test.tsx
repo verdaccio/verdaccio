@@ -1,10 +1,11 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import CopyToClipBoard from './CopyToClipBoard';
 
 Object.assign(navigator, {
-  clipboard: { writeText: jest.fn().mockImplementation(() => Promise.resolve()) },
+  clipboard: { writeText: vi.fn().mockImplementation(() => Promise.resolve()) },
 });
 
 describe('CopyToClipBoard component', () => {

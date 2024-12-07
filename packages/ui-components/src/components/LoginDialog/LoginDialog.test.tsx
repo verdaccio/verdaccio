@@ -1,4 +1,5 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { api, store } from '../../';
 import {
@@ -13,14 +14,14 @@ import LoginDialog from './LoginDialog';
 
 describe('<LoginDialog /> component', () => {
   beforeEach(() => {
-    jest.resetModules();
-    jest.resetAllMocks();
+    vi.resetModules();
+    vi.resetAllMocks();
     cleanup();
   });
 
   test('should render the component in default state', () => {
     const props = {
-      onClose: jest.fn(),
+      onClose: vi.fn(),
     };
     const { container } = renderWithStore(<LoginDialog onClose={props.onClose} />, store);
     expect(container.firstChild).toMatchSnapshot();
@@ -29,7 +30,7 @@ describe('<LoginDialog /> component', () => {
   test('should load the component with the open prop', async () => {
     const props = {
       open: true,
-      onClose: jest.fn(),
+      onClose: vi.fn(),
     };
 
     const { getByTestId } = renderWithStore(
@@ -44,7 +45,7 @@ describe('<LoginDialog /> component', () => {
   test('onClose: should close the login modal', async () => {
     const props = {
       open: true,
-      onClose: jest.fn(),
+      onClose: vi.fn(),
     };
 
     const { getByTestId } = renderWithStore(
@@ -65,10 +66,10 @@ describe('<LoginDialog /> component', () => {
   test('setCredentials - should set username and password in state', async () => {
     const props = {
       open: true,
-      onClose: jest.fn(),
+      onClose: vi.fn(),
     };
 
-    jest.spyOn(api, 'request').mockImplementation(() =>
+    vi.spyOn(api, 'request').mockImplementation(() =>
       Promise.resolve({
         username: 'xyz',
         token: 'djsadaskljd',

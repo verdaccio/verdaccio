@@ -26,6 +26,7 @@ const getModuleType = (manifest: PackageMetaInterface) => {
 
 const DetailSidebar: React.FC = () => {
   const { packageMeta, packageName, packageVersion } = useVersion();
+
   const { configOptions } = useConfig();
   const version = packageVersion || packageMeta?.latest.version || '';
   const time = packageMeta?.time ? packageMeta.time[version] : '';
