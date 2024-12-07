@@ -1,8 +1,15 @@
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
+import { vi } from 'vitest';
 
 import { render, screen } from '../../test/test-react-testing-library';
 import Dependencies from './Dependencies';
+
+const replaceMock = vi.fn(() => []);
+Object.defineProperty(window, 'location', {
+  writable: true,
+  value: { ...window.location, replace: replaceMock, href: '' },
+});
 
 describe('<Dependencies /> component', () => {
   test('Renders a message when there are no dependencies', () => {

@@ -1,84 +1,16 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<NoItem /> component should load the component in default state 1`] = `
-.emotion-0 {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: none;
-  background-image: unset;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  background-color: transparent;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 6px 16px;
-  color: rgb(1, 67, 97);
-  background-color: rgb(229, 246, 253);
-}
-
-.emotion-0 .MuiAlert-icon {
-  color: #0288d1;
-}
-
-.emotion-1 {
-  margin-right: 12px;
-  padding: 7px 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  font-size: 22px;
-  opacity: 0.9;
-}
-
-.emotion-2 {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 1em;
-  height: 1em;
-  display: inline-block;
-  fill: currentColor;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  -webkit-transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  font-size: inherit;
-}
-
-.emotion-3 {
-  padding: 8px 0;
-  min-width: 0;
-  overflow: auto;
-}
-
-.emotion-4 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
+exports[`<NoItem /> component > should load the component in default state 1`] = `
 <div
-  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard emotion-0"
+  class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiAlert-root MuiAlert-colorInfo MuiAlert-standardInfo MuiAlert-standard makeStyles-MuiPaper-root-MuiAlert-root"
   role="alert"
 >
   <div
-    class="MuiAlert-icon emotion-1"
+    class="MuiAlert-icon makeStyles-MuiAlert-icon"
   >
     <svg
       aria-hidden="true"
-      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit emotion-2"
+      class="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit makeStyles-MuiSvgIcon-root"
       data-testid="InfoOutlinedIcon"
       focusable="false"
       viewBox="0 0 24 24"
@@ -89,10 +21,10 @@ exports[`<NoItem /> component should load the component in default state 1`] = `
     </svg>
   </div>
   <div
-    class="MuiAlert-message emotion-3"
+    class="MuiAlert-message makeStyles-MuiAlert-message"
   >
     <p
-      class="MuiTypography-root MuiTypography-body1 emotion-4"
+      class="MuiTypography-root MuiTypography-body1 makeStyles-MuiTypography-root"
     >
       test
     </p>

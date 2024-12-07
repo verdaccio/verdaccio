@@ -1,4 +1,5 @@
 import { SyntheticEvent } from 'react';
+import { vi } from 'vitest';
 
 import { copyToClipBoardUtility, getCLISetConfigRegistry } from './cli-utils';
 
@@ -6,30 +7,30 @@ describe('copyToClipBoardUtility', () => {
   let originalGetSelection: typeof window.getSelection;
 
   const mockGetSelectionResult = {
-    removeAllRanges: jest.fn(),
-    addRange: jest.fn(),
+    removeAllRanges: vi.fn(),
+    addRange: vi.fn(),
   };
   beforeEach(() => {
     originalGetSelection = window.getSelection;
 
-    window.getSelection = jest.fn().mockReturnValue(mockGetSelectionResult);
+    window.getSelection = vi.fn().mockReturnValue(mockGetSelectionResult);
   });
   afterEach(() => {
     window.getSelection = originalGetSelection;
-    jest.restoreAllMocks();
+    vi.restoreAllMocks();
   });
 
   test('should call the DOM APIs', () => {
     // Given
     const testEvent: { preventDefault: Function } = {
-      preventDefault: jest.fn(),
+      preventDefault: vi.fn(),
     };
     const testCopy = 'copy text';
     const spys = {
-      createElement: jest.spyOn(document, 'createElement'),
-      execCommand: jest.spyOn(document, 'execCommand'),
-      appendChild: jest.spyOn(document.body, 'appendChild'),
-      removeChild: jest.spyOn(document.body, 'removeChild'),
+      createElement: vi.spyOn(document, 'createElement'),
+      execCommand: vi.spyOn(document, 'execCommand'),
+      appendChild: vi.spyOn(document.body, 'appendChild'),
+      removeChild: vi.spyOn(document.body, 'removeChild'),
     };
     const expectedDiv = document.createElement('div');
     expectedDiv.innerText = testCopy;

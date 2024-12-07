@@ -1,61 +1,23 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Link /> component should render the component in default state 1`] = `
-.emotion-0 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-0:hover,
-.emotion-0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
+exports[`<Link /> component > should render the component in default state 1`] = `
 <a
-  class="emotion-0 emotion-1"
+  class="makeStyles-CustomRouterLink e2ct7p50"
   href="/"
 >
   <p
-    class="MuiTypography-root MuiTypography-body1 emotion-2"
+    class="MuiTypography-root MuiTypography-body1 makeStyles-MuiTypography-root"
   />
 </a>
 `;
 
-exports[`<Link /> component should render the component with link 1`] = `
-.emotion-0 {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-0:hover,
-.emotion-0:focus {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
+exports[`<Link /> component > should render the component with link 1`] = `
 <a
-  class="emotion-0 emotion-1"
+  class="makeStyles-CustomRouterLink e2ct7p50"
   href="/"
 >
   <p
-    class="MuiTypography-root MuiTypography-body1 emotion-2"
+    class="MuiTypography-root MuiTypography-body1 makeStyles-MuiTypography-root"
   >
     Home
   </p>

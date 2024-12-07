@@ -1,10 +1,11 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import HeaderInfoDialog from './HeaderInfoDialog';
 
 describe('HeaderInfoDialog', () => {
-  const onCloseDialog = jest.fn();
+  const onCloseDialog = vi.fn();
 
   const tabs = [{ label: 'Tab 1' }, { label: 'Tab 2' }];
 

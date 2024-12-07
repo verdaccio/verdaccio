@@ -1,11 +1,12 @@
 import React from 'react';
+import { vi } from 'vitest';
 
 import { cleanup, render } from '../../test/test-react-testing-library';
 import { PackageMetaInterface } from '../../types/packageMeta';
 import Engine from './Engines';
 
-jest.mock('./img/node.png', () => '');
-jest.mock('../Install/img/npm.svg', () => '');
+vi.mock('./img/node.png', () => '');
+vi.mock('../Install/img/npm.svg', () => '');
 
 const mockPackageMeta = (
   engines?: PackageMetaInterface['latest']['engines']

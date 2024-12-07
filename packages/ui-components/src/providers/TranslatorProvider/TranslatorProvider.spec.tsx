@@ -3,6 +3,7 @@ import i18n from 'i18next';
 import React from 'react';
 import { initReactI18next } from 'react-i18next';
 import { useTranslation } from 'react-i18next';
+import { vi } from 'vitest';
 
 import TranslatorProvider, { useLanguage } from './TranslatorProvider';
 
@@ -41,7 +42,7 @@ const RandomComponent = () => {
 };
 
 test('should provide translation', () => {
-  const mount = jest.fn();
+  const mount = vi.fn();
   const { getByText } = render(
     <TranslatorProvider i18n={i18n} listLanguages={[]} onMount={mount}>
       <RandomComponent />

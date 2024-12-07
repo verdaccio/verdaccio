@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import { useSelector } from 'react-redux';
 
 import { RootState, Theme } from '../../';
@@ -70,7 +70,7 @@ const HeaderSettingsDialog: React.FC<Props> = ({ onCloseDialog, isOpen }) => {
         <TabPanel index={1} value={value}>
           <TextContent>{t('language.description')}</TextContent>
           <LanguageSwitch />
-          <ReactMarkdown>{t('language.contribute')}</ReactMarkdown>
+          {/* <ReactMarkdown>{t('language.contribute')}</ReactMarkdown> */}
         </TabPanel>
       </Box>
     </RegistryInfoDialog>

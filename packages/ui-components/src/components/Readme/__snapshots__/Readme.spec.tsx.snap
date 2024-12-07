@@ -1,54 +1,22 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Readme /> component should load the component in default state 1`] = `
-{
+exports[`<Readme /> component > should load the component in default state 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-  background-image: unset;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.emotion-1 {
-  padding: 16px;
-}
-
-.emotion-1:last-child {
-  padding-bottom: 24px;
-}
-
-.emotion-2 {
-  margin: 16px;
-}
-
-.emotion-3 ul {
-  list-style: disc;
-}
-
-.emotion-3 img {
-  max-width: 100%;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <div
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root makeStyles-MuiPaper-root-MuiCard-root"
       >
         <div
-          class="MuiCardContent-root emotion-1"
+          class="MuiCardContent-root makeStyles-MuiCardContent-root"
         >
           <div
-            class="MuiBox-root emotion-2"
+            class="MuiBox-root"
             data-testid="readme"
           >
             <div
-              class="markdown-body markdown-light emotion-3 emotion-4"
+              class="markdown-body markdown-light makeStyles-Wrapper e1gao54u0"
             >
               <p>
                 test
@@ -61,51 +29,19 @@ exports[`<Readme /> component should load the component in default state 1`] = `
       </div>
     </div>
   </body>,
-  "container": .emotion-0 {
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.87);
-  -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 4px;
-  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
-  background-image: unset;
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.emotion-1 {
-  padding: 16px;
-}
-
-.emotion-1:last-child {
-  padding-bottom: 24px;
-}
-
-.emotion-2 {
-  margin: 16px;
-}
-
-.emotion-3 ul {
-  list-style: disc;
-}
-
-.emotion-3 img {
-  max-width: 100%;
-}
-
-<div>
+  "container": <div>
     <div
-      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root emotion-0"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root makeStyles-MuiPaper-root-MuiCard-root"
     >
       <div
-        class="MuiCardContent-root emotion-1"
+        class="MuiCardContent-root makeStyles-MuiCardContent-root"
       >
         <div
-          class="MuiBox-root emotion-2"
+          class="MuiBox-root"
           data-testid="readme"
         >
           <div
-            class="markdown-body markdown-light emotion-3 emotion-4"
+            class="markdown-body markdown-light makeStyles-Wrapper e1gao54u0"
           >
             <p>
               test

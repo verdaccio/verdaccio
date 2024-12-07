@@ -1,157 +1,23 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<Author /> component should render the component in default state 1`] = `
-{
+exports[`<Author /> component > should render the component in default state 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  padding-top: 0;
-  padding-bottom: 8px;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-}
-
-.emotion-4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0;
-}
-
-.emotion-4.Mui-focusVisible {
-  background-color: rgba(0, 0, 0, 0.12);
-}
-
-.emotion-4.Mui-selected {
-  background-color: rgba(75, 94, 64, 0.08);
-}
-
-.emotion-4.Mui-selected.Mui-focusVisible {
-  background-color: rgba(75, 94, 64, 0.2);
-}
-
-.emotion-4.Mui-disabled {
-  opacity: 0.38;
-}
-
-.emotion-4:hover {
-  background-color: transparent;
-}
-
-.emotion-5 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-5:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-6 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-7 {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  object-fit: cover;
-  color: transparent;
-  text-indent: 10000px;
-}
-
-.emotion-8 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.57;
-  margin-left: 8px;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <ul
-        class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
+        class="MuiList-root MuiList-padding MuiList-subheader makeStyles-MuiList-root"
       >
         <h6
-          class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
+          class="MuiTypography-root MuiTypography-subtitle1 e4ifo371 makeStyles-MuiTypography-root-StyledText"
         >
           sidebar.author.title
         </h6>
         <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
+          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding e4ifo370 makeStyles-MuiListItem-root-AuthorListItem"
         >
           <a
-            class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-5"
+            class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
             data-mui-internal-clone-element="true"
             data-testid="verdaccio user"
             href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio v4.0.0"
@@ -159,17 +25,17 @@ exports[`<Author /> component should render the component in default state 1`] =
             target="_blank"
           >
             <div
-              class="MuiAvatar-root MuiAvatar-circular emotion-6"
+              class="MuiAvatar-root MuiAvatar-circular makeStyles-MuiAvatar-root"
             >
               <img
                 alt="verdaccio user"
-                class="MuiAvatar-img emotion-7"
+                class="MuiAvatar-img makeStyles-MuiAvatar-img"
                 src="https://www.gravatar.com/avatar/000000"
               />
             </div>
           </a>
           <h6
-            class="MuiTypography-root MuiTypography-subtitle2 emotion-8"
+            class="MuiTypography-root MuiTypography-subtitle2 makeStyles-MuiTypography-root"
           >
             verdaccio user
           </h6>
@@ -177,154 +43,20 @@ exports[`<Author /> component should render the component in default state 1`] =
       </ul>
     </div>
   </body>,
-  "container": .emotion-0 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  padding-top: 0;
-  padding-bottom: 8px;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-}
-
-.emotion-4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0;
-}
-
-.emotion-4.Mui-focusVisible {
-  background-color: rgba(0, 0, 0, 0.12);
-}
-
-.emotion-4.Mui-selected {
-  background-color: rgba(75, 94, 64, 0.08);
-}
-
-.emotion-4.Mui-selected.Mui-focusVisible {
-  background-color: rgba(75, 94, 64, 0.2);
-}
-
-.emotion-4.Mui-disabled {
-  opacity: 0.38;
-}
-
-.emotion-4:hover {
-  background-color: transparent;
-}
-
-.emotion-5 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 0.75rem;
-  line-height: 1.66;
-  color: #4b5e40;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-5:hover {
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
-}
-
-.emotion-6 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-7 {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  object-fit: cover;
-  color: transparent;
-  text-indent: 10000px;
-}
-
-.emotion-8 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.57;
-  margin-left: 8px;
-}
-
-<div>
+  "container": <div>
     <ul
-      class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
+      class="MuiList-root MuiList-padding MuiList-subheader makeStyles-MuiList-root"
     >
       <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
+        class="MuiTypography-root MuiTypography-subtitle1 e4ifo371 makeStyles-MuiTypography-root-StyledText"
       >
         sidebar.author.title
       </h6>
       <li
-        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
+        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding e4ifo370 makeStyles-MuiListItem-root-AuthorListItem"
       >
         <a
-          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover emotion-5"
+          class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover makeStyles-MuiTypography-root-MuiLink-root"
           data-mui-internal-clone-element="true"
           data-testid="verdaccio user"
           href="mailto:verdaccio.user@verdaccio.org?subject=verdaccio v4.0.0"
@@ -332,17 +64,17 @@ exports[`<Author /> component should render the component in default state 1`] =
           target="_blank"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular emotion-6"
+            class="MuiAvatar-root MuiAvatar-circular makeStyles-MuiAvatar-root"
           >
             <img
               alt="verdaccio user"
-              class="MuiAvatar-img emotion-7"
+              class="MuiAvatar-img makeStyles-MuiAvatar-img"
               src="https://www.gravatar.com/avatar/000000"
             />
           </div>
         </a>
         <h6
-          class="MuiTypography-root MuiTypography-subtitle2 emotion-8"
+          class="MuiTypography-root MuiTypography-subtitle2 makeStyles-MuiTypography-root"
         >
           verdaccio user
         </h6>
@@ -403,153 +135,35 @@ exports[`<Author /> component should render the component in default state 1`] =
 }
 `;
 
-exports[`<Author /> component should render the component when there is no author email 1`] = `
-{
+exports[`<Author /> component > should render the component when there is no author email 1`] = `
+Object {
   "asFragment": [Function],
-  "baseElement": .emotion-0 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  padding-top: 0;
-  padding-bottom: 8px;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-}
-
-.emotion-4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0;
-}
-
-.emotion-4.Mui-focusVisible {
-  background-color: rgba(0, 0, 0, 0.12);
-}
-
-.emotion-4.Mui-selected {
-  background-color: rgba(75, 94, 64, 0.08);
-}
-
-.emotion-4.Mui-selected.Mui-focusVisible {
-  background-color: rgba(75, 94, 64, 0.2);
-}
-
-.emotion-4.Mui-disabled {
-  opacity: 0.38;
-}
-
-.emotion-4:hover {
-  background-color: transparent;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  object-fit: cover;
-  color: transparent;
-  text-indent: 10000px;
-}
-
-.emotion-7 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.57;
-  margin-left: 8px;
-}
-
-<body>
+  "baseElement": <body>
     <div>
       <ul
-        class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
+        class="MuiList-root MuiList-padding MuiList-subheader makeStyles-MuiList-root"
       >
         <h6
-          class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
+          class="MuiTypography-root MuiTypography-subtitle1 e4ifo371 makeStyles-MuiTypography-root-StyledText"
         >
           sidebar.author.title
         </h6>
         <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
+          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding e4ifo370 makeStyles-MuiListItem-root-AuthorListItem"
         >
           <div
-            class="MuiAvatar-root MuiAvatar-circular emotion-5"
+            class="MuiAvatar-root MuiAvatar-circular makeStyles-MuiAvatar-root"
             data-mui-internal-clone-element="true"
             data-testid="verdaccio user"
           >
             <img
               alt="verdaccio user"
-              class="MuiAvatar-img emotion-6"
+              class="MuiAvatar-img makeStyles-MuiAvatar-img"
               src="https://www.gravatar.com/avatar/000000"
             />
           </div>
           <h6
-            class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
+            class="MuiTypography-root MuiTypography-subtitle2 makeStyles-MuiTypography-root"
           >
             verdaccio user
           </h6>
@@ -557,149 +171,31 @@ exports[`<Author /> component should render the component when there is no autho
       </ul>
     </div>
   </body>,
-  "container": .emotion-0 {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  padding-top: 0;
-  padding-bottom: 8px;
-}
-
-.emotion-2 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.75;
-  font-weight: 700;
-}
-
-.emotion-4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: left;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  padding: 0;
-}
-
-.emotion-4.Mui-focusVisible {
-  background-color: rgba(0, 0, 0, 0.12);
-}
-
-.emotion-4.Mui-selected {
-  background-color: rgba(75, 94, 64, 0.08);
-}
-
-.emotion-4.Mui-selected.Mui-focusVisible {
-  background-color: rgba(75, 94, 64, 0.2);
-}
-
-.emotion-4.Mui-disabled {
-  opacity: 0.38;
-}
-
-.emotion-4:hover {
-  background-color: transparent;
-}
-
-.emotion-5 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-size: 1.25rem;
-  line-height: 1;
-  border-radius: 50%;
-  overflow: hidden;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  width: 40px;
-  height: 40px;
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.emotion-6 {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  object-fit: cover;
-  color: transparent;
-  text-indent: 10000px;
-}
-
-.emotion-7 {
-  margin: 0;
-  font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.57;
-  margin-left: 8px;
-}
-
-<div>
+  "container": <div>
     <ul
-      class="MuiList-root MuiList-padding MuiList-subheader emotion-0"
+      class="MuiList-root MuiList-padding MuiList-subheader makeStyles-MuiList-root"
     >
       <h6
-        class="MuiTypography-root MuiTypography-subtitle1 emotion-1 emotion-2"
+        class="MuiTypography-root MuiTypography-subtitle1 e4ifo371 makeStyles-MuiTypography-root-StyledText"
       >
         sidebar.author.title
       </h6>
       <li
-        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding emotion-3 emotion-4"
+        class="MuiListItem-root MuiListItem-gutters MuiListItem-padding e4ifo370 makeStyles-MuiListItem-root-AuthorListItem"
       >
         <div
-          class="MuiAvatar-root MuiAvatar-circular emotion-5"
+          class="MuiAvatar-root MuiAvatar-circular makeStyles-MuiAvatar-root"
           data-mui-internal-clone-element="true"
           data-testid="verdaccio user"
         >
           <img
             alt="verdaccio user"
-            class="MuiAvatar-img emotion-6"
+            class="MuiAvatar-img makeStyles-MuiAvatar-img"
             src="https://www.gravatar.com/avatar/000000"
           />
         </div>
         <h6
-          class="MuiTypography-root MuiTypography-subtitle2 emotion-7"
+          class="MuiTypography-root MuiTypography-subtitle2 makeStyles-MuiTypography-root"
         >
           verdaccio user
         </h6>
