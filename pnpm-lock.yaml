@@ -1543,8 +1543,8 @@ importers:
         specifier: workspace:8.1.0-next-8.4
         version: link:../../web
       compression:
-        specifier: 1.7.4
-        version: 1.7.4(supports-color@6.1.0)
+        specifier: 1.7.5
+        version: 1.7.5(supports-color@6.1.0)
       cors:
         specifier: 2.8.5
         version: 2.8.5
@@ -2026,9 +2026,6 @@ importers:
       '@storybook/react':
         specifier: ^6.5.15
         version: 6.5.16(@babel/core@7.24.9)(@storybook/builder-webpack5@6.5.16)(@storybook/manager-webpack5@6.5.16)(@types/webpack@5.28.5)(eslint@8.57.1)(react-dom@18.2.0)(react@18.2.0)(require-from-string@2.0.2)(typescript@4.9.5)
-      '@storybook/testing-library':
-        specifier: ^0.2.0
-        version: 0.2.2
       '@testing-library/dom':
         specifier: 10.4.0
         version: 10.4.0
@@ -9949,7 +9946,7 @@ packages:
       chalk: 4.1.2
       cli-table3: 0.6.3
       commander: 6.2.1
-      compression: 1.7.4(supports-color@6.1.0)
+      compression: 1.7.5(supports-color@6.1.0)
       core-js: 3.37.1
       cpy: 8.1.2
       detect-port: 1.5.1
@@ -10472,14 +10469,6 @@ packages:
       - webpack-command
     dev: true
 
-  /@storybook/testing-library@0.2.2:
-    resolution: {integrity: sha512-L8sXFJUHmrlyU2BsWWZGuAjv39Jl1uAqUHdxmN42JY15M4+XCMjGlArdCCjDe1wpTSW6USYISA9axjZojgtvnw==}
-    dependencies:
-      '@testing-library/dom': 9.3.4
-      '@testing-library/user-event': 14.5.2(@testing-library/dom@9.3.4)
-      ts-dedent: 2.2.0
-    dev: true
-
   /@storybook/theming@6.5.16(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-hNLctkjaYLRdk1+xYTkC1mg4dYz2wSv6SqbLpcKMbkPHTE0ElhddGPHQqB362md/w9emYXNkt1LSMD8Xk9JzVQ==}
     peerDependencies:
@@ -10792,20 +10781,6 @@ packages:
       pretty-format: 27.5.1
     dev: true
 
-  /@testing-library/dom@9.3.4:
-    resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
-    engines: {node: '>=14'}
-    dependencies:
-      '@babel/code-frame': 7.24.7
-      '@babel/runtime': 7.25.0
-      '@types/aria-query': 5.0.4
-      aria-query: 5.1.3
-      chalk: 4.1.2
-      dom-accessibility-api: 0.5.16
-      lz-string: 1.5.0
-      pretty-format: 27.5.1
-    dev: true
-
   /@testing-library/jest-dom@6.4.8:
     resolution: {integrity: sha512-JD0G+Zc38f5MBHA4NgxQMR5XtO5Jx9g86jqturNTt2WUfRmLDIY7iKkWHDCCTiDuFMre6nxAD5wHw9W5kI4rGw==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
@@ -10850,15 +10825,6 @@ packages:
       '@testing-library/dom': '>=7.21.4'
     dependencies:
       '@testing-library/dom': 10.4.0
-    dev: true
-
-  /@testing-library/user-event@14.5.2(@testing-library/dom@9.3.4):
-    resolution: {integrity: sha512-YAh82Wh4TIrxYLmfGcixwD18oIjyC1pFQC2Y01F2lzV2HTMiYrI0nze0FD0ocB//CKS/7jIUgae+adPqxK5yCQ==}
-    engines: {node: '>=12', npm: '>=6'}
-    peerDependencies:
-      '@testing-library/dom': '>=7.21.4'
-    dependencies:
-      '@testing-library/dom': 9.3.4
     dev: true
 
   /@tootallnate/once@1.1.2:
@@ -14638,6 +14604,21 @@ packages:
       debug: 2.6.9(supports-color@6.1.0)
       on-headers: 1.0.2
       safe-buffer: 5.1.2
+      vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /compression@1.7.5(supports-color@6.1.0):
+    resolution: {integrity: sha512-bQJ0YRck5ak3LgtnpKkiabX5pNF7tMUh1BSy2ZBOTh0Dim0BUu6aPPwByIns6/A5Prh8PufSPerMDUklpzes2Q==}
+    engines: {node: '>= 0.8.0'}
+    dependencies:
+      bytes: 3.1.2
+      compressible: 2.0.18
+      debug: 2.6.9(supports-color@6.1.0)
+      negotiator: 0.6.4
+      on-headers: 1.0.2
+      safe-buffer: 5.2.1
       vary: 1.1.2
     transitivePeerDependencies:
       - supports-color
@@ -18484,7 +18465,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@babel/code-frame': 7.26.2
+      '@babel/code-frame': 7.24.7
       '@types/json-schema': 7.0.15
       chalk: 4.1.2
       chokidar: 3.6.0
@@ -18516,7 +18497,7 @@ packages:
       vue-template-compiler:
         optional: true
     dependencies:
-      '@babel/code-frame': 7.26.2
+      '@babel/code-frame': 7.24.7
       '@types/json-schema': 7.0.15
       chalk: 4.1.2
       chokidar: 3.6.0
@@ -23229,6 +23210,10 @@ packages:
 
   /negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
+    engines: {node: '>= 0.6'}
+
+  /negotiator@0.6.4:
+    resolution: {integrity: sha512-myRT3DiWPHqho5PrJaIRyaMv2kgYf0mUVgBNOYMuCH5Ki1yEiQaf/ZJuQ62nvpc44wL5WDbTX7yGJi1Neevw8w==}
     engines: {node: '>= 0.6'}
 
   /neo-async@2.6.2:
@@ -31520,7 +31505,7 @@ packages:
       ansi-html-community: 0.0.8
       bonjour: 3.5.0
       chokidar: 2.1.8(supports-color@6.1.0)
-      compression: 1.7.4(supports-color@6.1.0)
+      compression: 1.7.5(supports-color@6.1.0)
       connect-history-api-fallback: 1.6.0
       debug: 4.3.7(supports-color@6.1.0)
       del: 4.1.1
@@ -31580,7 +31565,7 @@ packages:
       bonjour-service: 1.1.1
       chokidar: 3.6.0
       colorette: 2.0.20
-      compression: 1.7.4(supports-color@6.1.0)
+      compression: 1.7.5(supports-color@6.1.0)
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
       express: 4.21.1(supports-color@6.1.0)
