@@ -1,5 +1,7 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes
