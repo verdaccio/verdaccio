@@ -1,21 +1,8 @@
 import semver from 'semver';
-import { URL } from 'url';
 
 import { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS } from './constants';
-
-/**
- * Extract the tarball name from a registry dist url
- * 'https://registry.npmjs.org/test/-/test-0.0.2.tgz'
- * @param tarball tarball url
- * @returns tarball filename
- */
-export function extractTarballName(tarball: string) {
-  const urlObject: any = new URL(tarball);
-  const filename = urlObject.pathname.replace(/^.*\//, '');
-  return filename;
-}
 
 /**
  * Function filters out bad semver versions and sorts the array.

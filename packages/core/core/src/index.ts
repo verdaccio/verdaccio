@@ -6,6 +6,7 @@ import * as pluginUtils from './plugin-utils';
 import * as searchUtils from './search-utils';
 import * as streamUtils from './stream-utils';
 import * as stringUtils from './string-utils';
+import * as tarballUtils from './tarball-utils';
 import * as validatioUtils from './validation-utils';
 import * as warningUtils from './warning-utils';
 
@@ -41,4 +42,5 @@ export {
   constants,
   pluginUtils,
   warningUtils,
+  tarballUtils,
 };
