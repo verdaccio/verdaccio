@@ -36,7 +36,7 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
   const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   pkgRouter.get(
-    '/package/readme/(@:scope/)?:package/:version?',
+    '/package/readme/:scope(@[^/]+)?/:package/:version?',
     can('access'),
     async function (
       req: $RequestExtend,
@@ -44,9 +44,9 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
       next: $NextFunctionVer
     ): Promise<void> {
       debug('readme hit');
-      const name = req.params.scope
-        ? addScope(req.params.scope, req.params.package)
-        : req.params.package;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
+      const name = scope ? addScope(scope, req.params.package) : req.params.package;
       debug('readme name %o', name);
       const requestOptions = {
         protocol: req.protocol,

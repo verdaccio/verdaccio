@@ -2199,8 +2199,8 @@ importers:
         specifier: 4.3.7
         version: 4.3.7(supports-color@5.5.0)
       express:
-        specifier: 4.21.1
-        version: 4.21.1(supports-color@6.1.0)
+        specifier: 4.21.2
+        version: 4.21.2(supports-color@6.1.0)
       lodash:
         specifier: 4.17.21
         version: 4.17.21
@@ -5619,7 +5619,7 @@ packages:
       detect-port: 1.5.1
       escape-html: 1.0.3
       eta: 1.14.2
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@5.90.0)
       fs-extra: 10.1.0
       github-slugger: 1.5.0
@@ -9871,7 +9871,7 @@ packages:
       babel-plugin-polyfill-corejs3: 0.1.7(@babel/core@7.24.9)
       chalk: 4.1.2
       core-js: 3.37.1
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       file-system-cache: 1.1.0
       find-up: 5.0.0
       fork-ts-checker-webpack-plugin: 6.5.3(eslint@8.57.1)(typescript@4.9.5)(webpack@4.47.0)
@@ -9950,7 +9950,7 @@ packages:
       core-js: 3.37.1
       cpy: 8.1.2
       detect-port: 1.5.1
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       fs-extra: 9.1.0
       global: 4.4.0
       globby: 11.1.0
@@ -10111,7 +10111,7 @@ packages:
       chalk: 4.1.2
       core-js: 3.37.1
       css-loader: 3.6.0(webpack@4.47.0)
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       file-loader: 6.2.0(webpack@4.47.0)
       find-up: 5.0.0
       fs-extra: 9.1.0
@@ -17857,6 +17857,44 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /express@4.21.2(supports-color@6.1.0):
+    resolution: {integrity: sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==}
+    engines: {node: '>= 0.10.0'}
+    dependencies:
+      accepts: 1.3.8
+      array-flatten: 1.1.1
+      body-parser: 1.20.3(supports-color@6.1.0)
+      content-disposition: 0.5.4
+      content-type: 1.0.5
+      cookie: 0.7.1
+      cookie-signature: 1.0.6
+      debug: 2.6.9(supports-color@6.1.0)
+      depd: 2.0.0
+      encodeurl: 2.0.0
+      escape-html: 1.0.3
+      etag: 1.8.1
+      finalhandler: 1.3.1(supports-color@6.1.0)
+      fresh: 0.5.2
+      http-errors: 2.0.0
+      merge-descriptors: 1.0.3
+      methods: 1.1.2
+      on-finished: 2.4.1
+      parseurl: 1.3.3
+      path-to-regexp: 0.1.12
+      proxy-addr: 2.0.7
+      qs: 6.13.0
+      range-parser: 1.2.1
+      safe-buffer: 5.2.1
+      send: 0.19.0(supports-color@6.1.0)
+      serve-static: 1.16.2(supports-color@6.1.0)
+      setprototypeof: 1.2.0
+      statuses: 2.0.1
+      type-is: 1.6.18
+      utils-merge: 1.0.1
+      vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
+
   /extend-shallow@2.0.1:
     resolution: {integrity: sha512-zCnTtlxNoAiDc3gqY2aYAWFx7XWWiasuF2K8Me5WbN8otHKTUKBwjPtNpRs/rbUZm7KxWAaNj7P1a/p52GbVug==}
     engines: {node: '>=0.10.0'}
@@ -22120,7 +22158,7 @@ packages:
       minipass-fetch: 2.1.2
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
-      negotiator: 0.6.3
+      negotiator: 0.6.4
       promise-retry: 2.0.1
       socks-proxy-agent: 7.0.0
       ssri: 9.0.1
@@ -22143,7 +22181,7 @@ packages:
       minipass-fetch: 3.0.5
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
-      negotiator: 0.6.3
+      negotiator: 0.6.4
       promise-retry: 2.0.1
       socks-proxy-agent: 7.0.0
       ssri: 10.0.6
@@ -22166,7 +22204,7 @@ packages:
       minipass-fetch: 1.4.1
       minipass-flush: 1.0.5
       minipass-pipeline: 1.2.4
-      negotiator: 0.6.3
+      negotiator: 0.6.4
       promise-retry: 2.0.1
       socks-proxy-agent: 6.2.1
       ssri: 8.0.1
@@ -24772,6 +24810,9 @@ packages:
 
   /path-to-regexp@0.1.10:
     resolution: {integrity: sha512-7lf7qcQidTku0Gu3YDPc8DJ1q7OOucfa/BSsIwjuh56VU7katFvuM8hULfkwB3Fns/rsVF7PwPKVw1sl5KQS9w==}
+
+  /path-to-regexp@0.1.12:
+    resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
 
   /path-to-regexp@1.8.0:
     resolution: {integrity: sha512-n43JRhlUKUAlibEJhPeir1ncUID16QnEjNpwzNdO3Lm4ywrBpBZ5oLD0I6br9evr1Y9JTqwRtAh7JLoOzAQdVA==}
@@ -31509,7 +31550,7 @@ packages:
       connect-history-api-fallback: 1.6.0
       debug: 4.3.7(supports-color@6.1.0)
       del: 4.1.1
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       html-entities: 1.4.0
       http-proxy-middleware: 0.19.1(debug@4.3.7)(supports-color@6.1.0)
       import-local: 2.0.0
@@ -31568,7 +31609,7 @@ packages:
       compression: 1.7.5(supports-color@6.1.0)
       connect-history-api-fallback: 2.0.0
       default-gateway: 6.0.3
-      express: 4.21.1(supports-color@6.1.0)
+      express: 4.21.2(supports-color@6.1.0)
       graceful-fs: 4.2.11
       html-entities: 2.3.3
       http-proxy-middleware: 2.0.6(@types/express@4.17.21)(debug@4.3.7)
