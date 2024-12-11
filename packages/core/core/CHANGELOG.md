@@ -1,5 +1,13 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 64a7fc0: chore(core): typing, naming, and docs of parameters
+- 5cbee6f: fix: unpublish a package on storage package
+- a049bba: chore(tests): temp folder naming
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

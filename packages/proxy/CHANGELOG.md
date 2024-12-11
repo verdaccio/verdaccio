@@ -1,5 +1,19 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- e308fbb: chore: move agent_options to config
+- Updated dependencies [ba71932]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [4adaa83]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/config@8.0.0-next-8.5
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

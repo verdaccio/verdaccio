@@ -1,5 +1,23 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 9041b0f: chore: add info to log when audit, htpasswd, theme are used
+- eca6259: fix: E409 username is already registered (adduser)
+- Updated dependencies [ba71932]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [4adaa83]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.5
+  - @verdaccio/core@8.0.0-next-8.5
+  - verdaccio-htpasswd@13.0.0-next-8.5
+  - @verdaccio/signature@8.0.0-next-8.1
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes
