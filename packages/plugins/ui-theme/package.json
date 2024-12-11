@@ -30,6 +30,7 @@
     "@verdaccio/node-api": "workspace:8.0.0-next-8.4",
     "@verdaccio/types": "workspace:*",
     "@verdaccio/ui-components": "workspace:4.0.0-next-8.2",
+    "@vitejs/plugin-react": "4.3.4",
     "babel-loader": "8.3.0",
     "babel-plugin-dynamic-import-node": "2.3.3",
     "country-flag-icons": "1.5.13",
