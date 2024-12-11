@@ -26,18 +26,18 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
     beforeAll: (a, b) => logger.trace(a, b),
     afterAll: (a, b) => logger.trace(a, b),
   });
-  // Get package readme
+  // Get package sidebar
   router.get(
-    '/sidebar/(@:scope/)?:package',
+    '/sidebar/:scope(@[^/]+)?/:package',
     can('access'),
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const name: string = req.params.scope
-        ? addScope(req.params.scope, req.params.package)
-        : req.params.package;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
+      const name: string = scope ? addScope(scope, req.params.package) : req.params.package;
       const requestOptions = {
         protocol: req.protocol,
         headers: req.headers as any,
