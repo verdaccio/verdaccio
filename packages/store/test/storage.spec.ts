@@ -35,7 +35,7 @@ import {
   Version,
 } from '@verdaccio/types';
 
-import { Storage } from '../src';
+import { OVERWRITE_MODE, Storage } from '../src';
 import manifestFooRemoteNpmjs from './fixtures/manifests/foo-npmjs.json';
 import { configExample } from './helpers';
 
@@ -346,6 +346,57 @@ describe('storage', () => {
             ...settings,
           })
         ).rejects.toThrow(API_ERROR.PACKAGE_EXIST);
+      });
+
+      test('allow overwriting if version already exist', async () => {
+        const settings = {
+          uplinksLook: true,
+          revision: '1',
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        };
+        const pkgName = 'yoda';
+        const config = new Config(
+          configExample(
+            {
+              storage: generateRandomStorage(),
+            },
+            './fixtures/config/publishWithOwnerDefault.yaml',
+            __dirname
+          )
+        );
+        process.env.VERDACCIO_DEV_MODE = OVERWRITE_MODE;
+        const storage = new Storage(config, logger);
+        await storage.init(config);
+        const bodyNewManifest1 = generatePackageMetadata(pkgName, '1.0.0');
+        const bodyNewManifest2 = generatePackageMetadata(pkgName, '1.0.0');
+        // change the second manifest so we can verify it was updated
+        bodyNewManifest2.versions['1.0.0'].description = 'updated description';
+        await storage.updateManifest(bodyNewManifest1, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        await storage.updateManifest(bodyNewManifest2, {
+          signal: new AbortController().signal,
+          name: pkgName,
+          ...settings,
+        });
+        // retrieve package metadata
+        const manifest = (await storage.getPackageByOptions({
+          name: pkgName,
+          uplinksLook: true,
+          requestOptions: {
+            host: 'localhost',
+            protocol: 'http',
+            headers: {},
+          },
+        })) as Manifest;
+        expect(manifest.versions['1.0.0'].description).toEqual('updated description');
+        delete process.env.VERDACCIO_DEV_MODE;
       });
 
       test('create private package with readme only in manifest', async () => {
