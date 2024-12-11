@@ -1,5 +1,16 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 15dddbe: chore(logger): avoid message if level remains the same
+- a049bba: chore(tests): temp folder naming
+- Updated dependencies [64a7fc0]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/core@8.0.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

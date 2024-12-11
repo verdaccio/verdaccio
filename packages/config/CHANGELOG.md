@@ -1,5 +1,17 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- ba71932: chore(loader): fix types for plugin options
+- 4adaa83: chore: fix typedocs warnings
+- Updated dependencies [64a7fc0]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

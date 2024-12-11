@@ -1,5 +1,34 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 9041b0f: chore: add info to log when audit, htpasswd, theme are used
+- 80e4cb8: chore: add info to log when local storage is used
+- 5cbee6f: fix: unpublish a package on storage package
+- 538bb8f: feat: keep_readmes option when publishing packages
+- 3967a52: chore: tweak error logging messages
+- Updated dependencies [e308fbb]
+- Updated dependencies [ba71932]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [4adaa83]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+- Updated dependencies [ff78ea6]
+- Updated dependencies [3967a52]
+  - @verdaccio/proxy@8.0.0-next-8.5
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - @verdaccio/config@8.0.0-next-8.5
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/local-storage@13.0.0-next-8.5
+  - @verdaccio/logger@8.0.0-next-8.5
+  - @verdaccio/tarball@13.0.0-next-8.5
+  - @verdaccio/url@13.0.0-next-8.5
+  - @verdaccio/hooks@8.0.0-next-8.5
+  - @verdaccio/search@8.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

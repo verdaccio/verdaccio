@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- ba71932: chore(loader): fix types for plugin options
+
 ## 8.0.0-next-8.3
 
 ### Minor Changes

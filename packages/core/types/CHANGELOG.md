@@ -1,5 +1,15 @@
 # Change Log
 
+## 13.0.0-next-8.2
+
+### Patch Changes
+
+- e308fbb: chore: move agent_options to config
+- b6ea32c: chore: add `error` to log level enum
+- 4adaa83: chore: fix typedocs warnings
+- 5cbee6f: fix: unpublish a package on storage package
+- 538bb8f: feat: keep_readmes option when publishing packages
+
 ## 13.0.0-next-8.1
 
 ### Minor Changes
