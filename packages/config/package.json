@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/config",
-  "version": "8.0.0-next-8.4",
+  "version": "8.0.0-next-8.5",
   "description": "logger",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -38,8 +38,8 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.4",
-    "@verdaccio/utils": "workspace:8.1.0-next-8.4",
+    "@verdaccio/core": "workspace:8.0.0-next-8.5",
+    "@verdaccio/utils": "workspace:8.1.0-next-8.5",
     "debug": "4.3.7",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
