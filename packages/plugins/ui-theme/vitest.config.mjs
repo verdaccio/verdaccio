@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
-import markdown from 'vite-plugin-markdown';
+import { plugin as markdown } from 'vite-plugin-markdown';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
