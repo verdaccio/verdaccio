@@ -119,9 +119,7 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const rawScope = req.params.scope; // May include '@'
       const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const packageName = scope
-        ? addScope(scope, req.params.package)
-        : req.params.package;
+      const packageName = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
         name: packageName,
@@ -145,10 +143,8 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const rawScope = req.params.scope; // May include '@'
       const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
-      const packageName: string = scope
-        ? addScope(scope, req.params.package)
-        : req.params.package;
-      
+      const packageName: string = scope ? addScope(scope, req.params.package) : req.params.package;
+
       storage.getPackage({
         name: packageName,
         uplinksLook: true,
