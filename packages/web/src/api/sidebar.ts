@@ -26,7 +26,7 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
     beforeAll: (a, b) => logger.trace(a, b),
     afterAll: (a, b) => logger.trace(a, b),
   });
-  // Get package readme
+  // Get package sidebar
   router.get(
     '/sidebar/:scope(@[^/]+)?/:package',
     can('access'),
