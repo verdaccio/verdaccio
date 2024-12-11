@@ -45,3 +45,12 @@ test('media is not json', async () => {
     .expect('Content-Type', /html/)
     .expect(HTTP_STATUS.UNSUPPORTED_MEDIA);
 });
+
+test('missing content-type', async () => {
+  const app = getApp([]);
+  app.get('/json', media(mime.getType('json')), (req, res) => {
+    res.status(HTTP_STATUS.OK).json({});
+  });
+
+  return request(app).get('/json').expect(HTTP_STATUS.UNSUPPORTED_MEDIA);
+});
