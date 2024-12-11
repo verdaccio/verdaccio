@@ -93,7 +93,10 @@ export function createLogger(
   /* eslint-disable */
   /* istanbul ignore next */
   if (process.env.DEBUG) {
-    logger.on('level-change', (lvl, val, prevLvl, prevVal) => {
+    logger.on('level-change', (lvl, val, prevLvl, prevVal, instance) => {
+      if (logger !== instance) {
+        return;
+      }
       debug('%s (%d) was changed to %s (%d)', lvl, val, prevLvl, prevVal);
     });
   }
