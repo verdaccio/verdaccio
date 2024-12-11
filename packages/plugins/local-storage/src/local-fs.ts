@@ -170,7 +170,7 @@ export default class LocalFS implements ILocalFSPackageManager {
    * @param manifest package manifest
    */
   public async createPackage(name: string, manifest: Manifest): Promise<void> {
-    debug('create a a new package %o', name);
+    debug('create a new package %o', name);
     const pathPackage = this._getStorage(packageJSONFileName);
     try {
       // https://nodejs.org/dist/latest-v17.x/docs/api/fs.html#file-system-flags
@@ -325,7 +325,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       }
     });
     readStream.on('error', (error) => {
-      debug('not tarball found %o for %s message %s', pathName, tarballName, error.message);
+      debug('no tarball found %o for %s message %s', pathName, tarballName, error.message);
     });
     return readStream;
   }
@@ -333,7 +333,6 @@ export default class LocalFS implements ILocalFSPackageManager {
   private async _readStorageFile(name: string): Promise<any> {
     debug('reading the file: %o', name);
     try {
-      debug('reading the file: %o', name);
       return await readFilePromise(name);
     } catch (err: any) {
       debug('error reading the file: %o with error %o', name, err.message);
