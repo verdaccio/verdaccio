@@ -121,7 +121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:7.18.3"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
-            ["nock", "npm:13.5.5"],\
+            ["nock", "npm:13.5.6"],\
             ["node-mocks-http", "npm:1.15.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
@@ -12316,10 +12316,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["nock", [\
-        ["npm:13.5.5", {\
-          "packageLocation": "./.yarn/cache/nock-npm-13.5.5-ccb57f0a2f-91947b6839.zip/node_modules/nock/",\
+        ["npm:13.5.6", {\
+          "packageLocation": "./.yarn/cache/nock-npm-13.5.6-6fbafbb636-82d31ef7a4.zip/node_modules/nock/",\
           "packageDependencies": [\
-            ["nock", "npm:13.5.5"],\
+            ["nock", "npm:13.5.6"],\
             ["debug", "virtual:2a96cd6adb8d01ce6acadfdcee0e950328af9eb8d2f3484d458093d790927273d4d7e161cb1324ea2a1c52e3df1963e2785709a9f9d4a4cadac95d0519a47a9c#npm:4.3.4"],\
             ["json-stringify-safe", "npm:5.0.1"],\
             ["propagate", "npm:2.0.1"]\
@@ -15494,7 +15494,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:7.18.3"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
-            ["nock", "npm:13.5.5"],\
+            ["nock", "npm:13.5.6"],\
             ["node-mocks-http", "npm:1.15.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
