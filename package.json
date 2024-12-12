@@ -38,7 +38,7 @@
     "clipanion": "4.0.0-rc.4",
     "compression": "1.7.5",
     "cors": "2.8.5",
-    "debug": "4.3.7",
+    "debug": "4.4.0",
     "envinfo": "7.14.0",
     "express": "4.21.2",
     "express-rate-limit": "5.5.1",

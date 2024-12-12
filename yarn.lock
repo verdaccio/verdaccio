@@ -5155,6 +5155,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:4.4.0":
+  version: 4.4.0
+  resolution: "debug@npm:4.4.0"
+  dependencies:
+    ms: ^2.1.3
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: fb42df878dd0e22816fc56e1fdca9da73caa85212fbe40c868b1295a6878f9101ae684f4eeef516c13acfc700f5ea07f1136954f43d4cd2d477a811144136479
+  languageName: node
+  linkType: hard
+
 "debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
@@ -11861,7 +11873,7 @@ __metadata:
     compression: 1.7.5
     cors: 2.8.5
     cross-env: 7.0.3
-    debug: 4.3.7
+    debug: 4.4.0
     detect-secrets: 1.0.6
     envinfo: 7.14.0
     eslint: 8.57.1
