@@ -141,10 +141,7 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
   );
 
   pkgRouter.get(
-    [
-      '/-/verdaccio/data/sidebar/:scope/:package',
-      '/-/verdaccio/data/sidebar/:package'
-    ],
+    ['/-/verdaccio/data/sidebar/:scope/:package', '/-/verdaccio/data/sidebar/:package'],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const rawScope = req.params.scope; // May include '@'
