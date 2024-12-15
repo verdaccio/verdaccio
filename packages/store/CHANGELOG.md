@@ -1,5 +1,21 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.6
+- @verdaccio/config@8.0.0-next-8.6
+- @verdaccio/tarball@13.0.0-next-8.6
+- @verdaccio/url@13.0.0-next-8.6
+- @verdaccio/hooks@8.0.0-next-8.6
+- @verdaccio/loaders@8.0.0-next-8.4
+- @verdaccio/local-storage@13.0.0-next-8.6
+- @verdaccio/proxy@8.0.0-next-8.6
+- @verdaccio/search@8.0.0-next-8.6
+- @verdaccio/utils@8.1.0-next-8.6
+- @verdaccio/logger@8.0.0-next-8.6
+
 ## 8.0.0-next-8.5
 
 ### Patch Changes

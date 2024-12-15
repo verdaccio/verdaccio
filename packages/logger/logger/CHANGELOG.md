@@ -1,5 +1,11 @@
 # @verdaccio/logger
 
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.6
+
 ## 8.0.0-next-8.5
 
 ### Patch Changes
