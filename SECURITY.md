@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-You can find details about the supported versions of Verdaccio in the [version history](VERSIONS.md).
+You can find details about the supported versions of Verdaccio in the [version history](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
 
 ## Responsible disclosure security policy
 
