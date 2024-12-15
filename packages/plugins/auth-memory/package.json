@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@verdaccio/core": "workspace:8.0.0-next-8.6",
-    "debug": "4.3.7"
+    "debug": "4.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
