@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.3](https://github.com/verdaccio/verdaccio/compare/v6.0.2...v6.0.3) (2024-12-15)
+
+
+### Bug Fixes
+
+* [#4984](https://github.com/verdaccio/verdaccio/issues/4984) improved paths for web endpoint ([#5000](https://github.com/verdaccio/verdaccio/issues/5000)) ([fb8b2c4](https://github.com/verdaccio/verdaccio/commit/fb8b2c40aa2dd72bdaeb078425fb1822b330c538))
+* **deps:** update core verdaccio dependencies ([#5001](https://github.com/verdaccio/verdaccio/issues/5001)) ([30a8b4d](https://github.com/verdaccio/verdaccio/commit/30a8b4d00ae8b25c85829d33d396e9d9486adda2))
+* **deps:** update dependency @cypress/request to v3.0.7 ([#4995](https://github.com/verdaccio/verdaccio/issues/4995)) ([df4e435](https://github.com/verdaccio/verdaccio/commit/df4e435e8c584276c99bc2ee0bdf36d827f33763))
+* **deps:** update dependency debug to v4.4.0 ([#4996](https://github.com/verdaccio/verdaccio/issues/4996)) ([7c935e9](https://github.com/verdaccio/verdaccio/commit/7c935e955da6a0b2d8b7c33717a9b77787ad6aa9))
+* **deps:** update dependency express to v4.21.2 (6.x) ([#4988](https://github.com/verdaccio/verdaccio/issues/4988)) ([153a33f](https://github.com/verdaccio/verdaccio/commit/153a33fd7ec76c9e4713351031b4469d0d6297cb))
+* **deps:** update node.js to v20.18.1 ([#4994](https://github.com/verdaccio/verdaccio/issues/4994)) ([e345b3b](https://github.com/verdaccio/verdaccio/commit/e345b3b537d5f0c8d0dae3aaaab7d35951744a0c))
+
 ### [6.0.2](https://github.com/verdaccio/verdaccio/compare/v6.0.1...v6.0.2) (2024-11-17)
 
 
