@@ -13,7 +13,7 @@
     "url": "https://github.com/verdaccio/verdaccio"
   },
   "dependencies": {
-    "debug": "4.3.7",
+    "debug": "4.4.0",
     "lodash": "4.17.21"
   },
   "devDependencies": {
