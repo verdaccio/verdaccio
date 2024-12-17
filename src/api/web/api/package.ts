@@ -120,8 +120,7 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
     ],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
+      const scope = req.params.scope;
       const packageName = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
@@ -141,11 +140,10 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
   );
 
   pkgRouter.get(
-    ['/-/verdaccio/data/sidebar/:scope/:package', '/-/verdaccio/data/sidebar/:package'],
+    ['/-/verdaccio/data/sidebar/@:scope/:package', '/-/verdaccio/data/sidebar/:package'],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const rawScope = req.params.scope; // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
+      const scope = req.params.scope;
       const packageName: string = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
