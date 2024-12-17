@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.0.4](https://github.com/verdaccio/verdaccio/compare/v6.0.3...v6.0.4) (2024-12-17)
+
+
+### Bug Fixes
+
+* **api:** fix scope handling in package routes ([#5006](https://github.com/verdaccio/verdaccio/issues/5006)) ([cc63799](https://github.com/verdaccio/verdaccio/commit/cc63799d5aa4f53ebdb8d265d2ff351937e70c46)), closes [#5000](https://github.com/verdaccio/verdaccio/issues/5000)
+
 ### [6.0.3](https://github.com/verdaccio/verdaccio/compare/v6.0.2...v6.0.3) (2024-12-15)
 
 
