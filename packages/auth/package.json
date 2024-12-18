@@ -51,7 +51,7 @@
     "@verdaccio/middleware": "workspace:8.0.0-next-8.6",
     "@verdaccio/types": "workspace:13.0.0-next-8.2",
     "@verdaccio/logger": "workspace:8.0.0-next-8.6",
-    "express": "4.21.1",
+    "express": "4.21.2",
     "supertest": "7.0.0"
   },
   "funding": {
