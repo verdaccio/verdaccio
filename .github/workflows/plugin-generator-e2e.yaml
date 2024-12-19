@@ -3,9 +3,9 @@ name: E2E Generator Verdaccio Plugin
 on:
   pull_request:
   workflow_dispatch:
-  push:
-    branches:
-      - 'master'
+#  push:
+#    branches:
+#      - 'master'
 
 concurrency:
   group: generator-plugin-${{ github.ref }}
