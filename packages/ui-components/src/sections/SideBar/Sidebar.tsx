@@ -13,15 +13,18 @@ import Repository from '../../components/Repository';
 import SideBarTitle from '../../components/SideBarTitle';
 import { useConfig } from '../../providers';
 import { useVersion } from '../../providers';
-import { PackageMetaInterface } from '../../types/packageMeta';
+import { ModuleType, PackageMetaInterface } from '../../types/packageMeta';
 
-const getModuleType = (manifest: PackageMetaInterface) => {
+const getModuleTypes = (manifest: PackageMetaInterface) => {
+  if (!manifest.latest) return [];
+
+  const moduleTypes: ModuleType[] = [manifest.latest.type || 'commonjs'];
+
   if (manifest.latest.main) {
-    return 'commonjs';
-  } else if (manifest.latest.type) {
-    return manifest.latest.type;
+    moduleTypes.push('commonjs');
   }
-  return;
+
+  return Array.from(new Set(moduleTypes));
 };
 
 const DetailSidebar: React.FC = () => {
@@ -40,7 +43,7 @@ const DetailSidebar: React.FC = () => {
         description={packageMeta.latest?.description}
         hasTypes={typeof packageMeta.latest?.types === 'string'}
         isLatest={typeof packageVersion === 'undefined'}
-        moduleType={getModuleType(packageMeta)}
+        moduleTypes={getModuleTypes(packageMeta)}
         packageName={packageName}
         time={time}
         version={version}
