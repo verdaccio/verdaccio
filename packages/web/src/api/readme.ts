@@ -5,6 +5,8 @@ import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
+// Was required by other packages
+import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
 
@@ -36,7 +38,7 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
   const pkgRouter = Router(); /* eslint new-cap: 0 */
 
   pkgRouter.get(
-    '/package/readme/:scope(@[^/]+)?/:package/:version?',
+    [WebUrls.readme_package_scoped_version, WebUrls.readme_package_version],
     can('access'),
     async function (
       req: $RequestExtend,
