@@ -10,7 +10,9 @@ import { ConfigYaml } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import Config from '../../src/lib/config';
-import { logger } from '../../src/lib/logger';
+import { logger, setup } from '../../src/lib/logger';
+
+setup([])
 
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
@@ -30,7 +32,8 @@ export async function initializeServer(
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
   await storage.init(config, []);
-  const auth: Auth = new Auth(config);
+  console.log('---->', logger)
+  const auth: Auth = new Auth(config, logger);
   await auth.init();
   // TODO: this might not be need it, used in apiEndpoints
   app.use(express.json({ strict: false, limit: '10mb' }));
