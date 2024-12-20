@@ -1,5 +1,20 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.7
+
+### Patch Changes
+
+- 139861e: fix: crashes with path-to-regexp v0.1.12 express
+- Updated dependencies [589ea7f]
+- Updated dependencies [139861e]
+  - @verdaccio/core@8.0.0-next-8.7
+  - @verdaccio/utils@8.1.0-next-8.7
+  - @verdaccio/middleware@8.0.0-next-8.7
+  - @verdaccio/store@8.0.0-next-8.7
+  - @verdaccio/auth@8.0.0-next-8.7
+  - @verdaccio/config@8.0.0-next-8.7
+  - @verdaccio/logger@8.0.0-next-8.7
+
 ## 8.1.0-next-8.6
 
 ### Patch Changes

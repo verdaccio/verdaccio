@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- 589ea7f: chore: move tarball utils to core
+
 ## 8.0.0-next-8.6
 
 ## 8.0.0-next-8.5

@@ -1,5 +1,20 @@
 # verdaccio
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- Updated dependencies [589ea7f]
+- Updated dependencies [139861e]
+  - @verdaccio/utils@8.1.0-next-8.7
+  - verdaccio-audit@13.0.0-next-8.7
+  - @verdaccio/cli@8.0.0-next-8.7
+  - @verdaccio/hooks@8.0.0-next-8.7
+  - @verdaccio/node-api@8.0.0-next-8.7
+  - verdaccio-htpasswd@13.0.0-next-8.7
+  - @verdaccio/ui-theme@8.0.0-next-8.7
+  - @verdaccio/logger@8.0.0-next-8.7
+
 ## 8.0.0-next-8.6
 
 ### Patch Changes

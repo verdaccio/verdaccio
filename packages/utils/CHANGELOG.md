@@ -1,5 +1,13 @@
 # @verdaccio/utils
 
+## 8.1.0-next-8.7
+
+### Patch Changes
+
+- 589ea7f: chore: move tarball utils to core
+- Updated dependencies [589ea7f]
+  - @verdaccio/core@8.0.0-next-8.7
+
 ## 8.1.0-next-8.6
 
 ### Patch Changes
