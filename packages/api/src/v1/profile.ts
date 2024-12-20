@@ -10,6 +10,7 @@ import {
   errorUtils,
   validatioUtils,
 } from '@verdaccio/core';
+import { PROFILE_API_ENDPOINTS } from '@verdaccio/middleware';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 
@@ -41,7 +42,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
   }
 
   route.get(
-    '/-/npm/v1/user',
+    PROFILE_API_ENDPOINTS.get_profile,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name) === false) {
@@ -56,7 +57,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
   );
 
   route.post(
-    '/-/npm/v1/user',
+    PROFILE_API_ENDPOINTS.get_profile,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {

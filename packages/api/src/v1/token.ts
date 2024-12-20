@@ -5,6 +5,7 @@ import { getApiToken } from '@verdaccio/auth';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
+import { TOKEN_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
 import { Logger } from '@verdaccio/types';
@@ -32,7 +33,7 @@ export default function (
   logger: Logger
 ): void {
   route.get(
-    '/-/npm/v1/tokens',
+    TOKEN_API_ENDPOINTS.get_tokens,
     rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { name } = req.remote_user;
@@ -60,7 +61,7 @@ export default function (
   );
 
   route.post(
-    '/-/npm/v1/tokens',
+    TOKEN_API_ENDPOINTS.get_tokens,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
       const { password, readonly, cidr_whitelist } = req.body;
@@ -131,7 +132,7 @@ export default function (
   );
 
   route.delete(
-    '/-/npm/v1/tokens/token/:tokenKey',
+    TOKEN_API_ENDPOINTS.delete_token,
     rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
       const {
