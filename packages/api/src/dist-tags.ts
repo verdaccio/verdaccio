@@ -5,6 +5,7 @@ import mime from 'mime';
 import { Auth } from '@verdaccio/auth';
 import { constants, errorUtils } from '@verdaccio/core';
 import { allow, media } from '@verdaccio/middleware';
+import { DIST_TAGS_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Logger } from '@verdaccio/types';
 
@@ -39,21 +40,21 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
   // tagging a package.
   route.put(
-    '/:package/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging,
     can('publish'),
     media(mime.getType('json')),
     addTagPackageVersionMiddleware
   );
 
   route.put(
-    '/-/package/:package/dist-tags/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
     media(mime.getType('json')),
     addTagPackageVersionMiddleware
   );
 
   route.delete(
-    '/-/package/:package/dist-tags/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
     async function (
       req: $RequestExtend,
@@ -75,7 +76,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   );
 
   route.get(
-    '/-/package/:package/dist-tags',
+    DIST_TAGS_API_ENDPOINTS.get_dist_tags,
     can('access'),
     async function (
       req: $RequestExtend,

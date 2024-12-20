@@ -5,6 +5,8 @@ import { Auth } from '@verdaccio/auth';
 import { DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
+// Was required by other packages
+import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Manifest, Version } from '@verdaccio/types';
@@ -28,7 +30,7 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
   });
   // Get package sidebar
   router.get(
-    '/sidebar/:scope(@[^/]+)?/:package',
+    [WebUrls.sidebar_scopped_package, WebUrls.sidebar_package],
     can('access'),
     async function (
       req: $RequestExtend,

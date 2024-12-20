@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import { Auth } from '@verdaccio/auth';
 import { HTTP_STATUS, searchUtils } from '@verdaccio/core';
+import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
 import { Logger } from '@verdaccio/types';
@@ -35,7 +36,7 @@ export default function (route, auth: Auth, storage: Storage, logger: Logger): v
     });
   }
 
-  route.get('/-/v1/search', async (req, res, next) => {
+  route.get(SEARCH_API_ENDPOINTS.search, async (req, res, next) => {
     const { query, url } = req;
     let [size, from] = ['size', 'from'].map((k) => query[k]);
     let data;

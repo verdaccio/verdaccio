@@ -5,12 +5,12 @@ import mime from 'mime';
 import { Auth } from '@verdaccio/auth';
 import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
 import { allow, expectJson, media } from '@verdaccio/middleware';
+// import star from './star';
+import { PUBLISH_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Logger } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
-
-// import star from './star';
 
 const debug = buildDebug('verdaccio:api:publish');
 
@@ -120,7 +120,7 @@ export default function publish(
     afterAll: (a, b) => logger.trace(a, b),
   });
   router.put(
-    '/:package',
+    PUBLISH_API_ENDPOINTS.add_package,
     can('publish'),
     media(mime.getType('json')),
     expectJson,
@@ -128,7 +128,7 @@ export default function publish(
   );
 
   router.put(
-    '/:package/-rev/:revision',
+    PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
     media(mime.getType('json')),
     expectJson,
@@ -143,7 +143,7 @@ export default function publish(
    *  -  no version is specified in the unpublish call
    *  -  all versions are removed npm unpublish package@*
    *  -  there is no versions on the metadata
-   
+
    * then the client decides to DELETE the resource
    * Example:
    * Get fresh manifest (write=true is a flag to get the latest revision)
@@ -153,7 +153,7 @@ export default function publish(
    * npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
    */
   router.delete(
-    '/:package/-rev/:revision',
+    PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
       const packageName = req.params.package;
@@ -177,7 +177,7 @@ export default function publish(
    npm http fetch DELETE 201 http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c 22ms
   */
   router.delete(
-    '/:package/-/:filename/-rev/:revision',
+    PUBLISH_API_ENDPOINTS.remove_tarball,
     can('unpublish'),
     can('publish'),
     async function (

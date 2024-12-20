@@ -19,3 +19,5 @@ export {
   LOG_VERDACCIO_ERROR,
 } from './middlewares/log';
 export * from './types';
+export * from './middlewares/api_urls';
+export * from './middlewares/web/web-urls';

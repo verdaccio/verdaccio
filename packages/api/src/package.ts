@@ -4,6 +4,7 @@ import { Router } from 'express';
 import { Auth } from '@verdaccio/auth';
 import { HEADERS, HEADER_TYPE, stringUtils } from '@verdaccio/core';
 import { allow } from '@verdaccio/middleware';
+import { PACKAGE_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Logger } from '@verdaccio/types';
 
@@ -17,7 +18,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     afterAll: (a, b) => logger.trace(a, b),
   });
   route.get(
-    '/:package/:version?',
+    PACKAGE_API_ENDPOINTS.get_package_by_version,
     can('access'),
     async function (
       req: $RequestExtend,
@@ -76,7 +77,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   );
 
   route.get(
-    '/:package/-/:filename',
+    PACKAGE_API_ENDPOINTS.get_package_tarball,
     can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
       const { package: pkgName, filename } = req.params;

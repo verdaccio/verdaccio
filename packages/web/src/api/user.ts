@@ -13,6 +13,7 @@ import {
   validatioUtils,
 } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
+import { WebUrls } from '@verdaccio/middleware';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 import { $NextFunctionVer } from './package';
@@ -22,7 +23,7 @@ const debug = buildDebug('verdaccio:web:api:user');
 function addUserAuthApi(auth: Auth, config: Config): Router {
   const route = Router(); /* eslint new-cap: 0 */
   route.post(
-    '/login',
+    WebUrls.user_login,
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       const { username, password } = req.body;
@@ -51,7 +52,7 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
 
   if (config?.flags?.changePassword === true) {
     route.put(
-      '/reset_password',
+      WebUrls.reset_password,
       rateLimit(config?.userRateLimit),
       function (req: Request, res: Response, next: $NextFunctionVer): void {
         if (_.isNil(req.remote_user.name)) {

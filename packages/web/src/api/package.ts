@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Auth } from '@verdaccio/auth';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
+import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { Config, RemoteUser, Version } from '@verdaccio/types';
@@ -88,7 +89,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
 
   // Get list of all visible package
   pkgRouter.get(
-    '/packages',
+    WebUrls.packages_all,
     async function (
       req: $RequestExtend,
       res: $ResponseExtend,
