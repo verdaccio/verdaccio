@@ -32,7 +32,6 @@ export async function initializeServer(
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
   await storage.init(config, []);
-  console.log('---->', logger);
   const auth: Auth = new Auth(config, logger);
   await auth.init();
   // TODO: this might not be need it, used in apiEndpoints
