@@ -1,3 +1,3 @@
-import { setup, logger } from '@verdaccio/logger';
+import { logger, setup } from '@verdaccio/logger';
 
 export { logger, setup };
