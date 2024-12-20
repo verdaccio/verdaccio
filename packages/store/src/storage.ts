@@ -19,9 +19,9 @@ import {
   SUPPORT_ERRORS,
   USERS,
   errorUtils,
-  pkgUtils,
   pluginUtils,
   searchUtils,
+  tarballUtils,
   validatioUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
@@ -39,7 +39,6 @@ import {
   TarballDetails,
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
-  extractTarballFromUrl,
   getTarballDetails,
 } from '@verdaccio/tarball';
 import {
@@ -1424,7 +1423,7 @@ class Storage {
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
       if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
-        const tarball = extractTarballFromUrl(metadata.dist.tarball);
+        const tarball = tarballUtils.extractTarballFromUrl(metadata.dist.tarball);
         if (validatioUtils.isObject(data._attachments[tarball])) {
           if (
             _.isNil(data._attachments[tarball].shasum) === false &&
@@ -1979,7 +1978,7 @@ class Storage {
         cacheManifest.versions[versionId] = version;
 
         if (version?.dist?.tarball) {
-          const filename = pkgUtils.extractTarballName(version.dist.tarball);
+          const filename = tarballUtils.extractTarballFromUrl(version.dist.tarball);
           // store a fast access to the dist file by tarball name
           // it does NOT overwrite any existing records
           if (_.isNil(cacheManifest?._distfiles[filename])) {

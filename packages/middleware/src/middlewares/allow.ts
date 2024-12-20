@@ -1,7 +1,6 @@
 import buildDebug from 'debug';
 
-import { API_ERROR, errorUtils } from '@verdaccio/core';
-import { getVersionFromTarball } from '@verdaccio/utils';
+import { API_ERROR, errorUtils, tarballUtils } from '@verdaccio/core';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
@@ -24,7 +23,7 @@ export function allow<T>(
         ? `@${req.params.scope}/${req.params.package}`
         : req.params.package;
       const packageVersion = req.params.filename
-        ? getVersionFromTarball(req.params.filename)
+        ? tarballUtils.getVersionFromTarball(req.params.filename)
         : req.params.version
           ? req.params.version
           : undefined;
