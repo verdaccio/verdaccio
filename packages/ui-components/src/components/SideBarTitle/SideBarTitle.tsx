@@ -16,7 +16,7 @@ interface Props {
   version: string;
   isLatest: boolean;
   hasTypes?: boolean;
-  moduleType: ModuleType | void;
+  moduleTypes: ModuleType[];
   time: string;
 }
 
@@ -48,7 +48,7 @@ const DetailSidebarTitle: React.FC<Props> = ({
   version,
   isLatest,
   hasTypes,
-  moduleType,
+  moduleTypes,
   time,
 }) => {
   const { t } = useTranslation();
@@ -63,7 +63,9 @@ const DetailSidebarTitle: React.FC<Props> = ({
                 <TypeScript />
               </Icon>
             )}
-            <ModuleJS module={moduleType} />
+            {moduleTypes.map((module, index) => (
+              <ModuleJS key={index} module={module} />
+            ))}
           </>
         </TitleWrapper>
       </StyledHeading>
