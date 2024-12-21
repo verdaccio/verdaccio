@@ -2,13 +2,14 @@ import buildDebug from 'debug';
 import { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
-import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import { DIST_TAGS, HEADERS, HEADER_TYPE } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verdaccio/middleware';
 // Was required by other packages
 import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Manifest } from '@verdaccio/types';
+import { isVersionValid } from '@verdaccio/utils';
 
 import { AuthorAvatar, addScope } from '../web-utils';
 
@@ -18,6 +19,7 @@ export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by
 export type PackageExt = Manifest & { author: AuthorAvatar; dist?: { tarball: string } };
 export const NOT_README_FOUND = 'ERROR: No README data found!';
 const debug = buildDebug('verdaccio:web:api:readme');
+
 const getReadme = (readme) => {
   if (typeof readme === 'string' && readme.length === 0) {
     return NOT_README_FOUND;
@@ -27,6 +29,25 @@ const getReadme = (readme) => {
   } else {
     return readme;
   }
+};
+
+const getReadmeFromManifest = (manifest: Manifest, v?: any): string | undefined => {
+  let id;
+  let readme;
+  if (typeof v === 'string' && isVersionValid(manifest, v)) {
+    id = 'version';
+    readme = manifest.versions[v].readme;
+  }
+  if (!readme && isVersionValid(manifest, manifest[DIST_TAGS]?.latest)) {
+    id = 'latest';
+    readme = manifest.versions[manifest[DIST_TAGS].latest].readme;
+  }
+  if (!readme && manifest.readme) {
+    id = 'root';
+    readme = manifest.readme;
+  }
+  debug('readme: %o %o', v, id);
+  return readme;
 };
 
 function addReadmeWebApi(storage: Storage, auth: Auth): Router {
@@ -66,7 +87,9 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
         })) as Manifest;
         debug('readme pkg %o', manifest?.name);
         res.set(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_PLAIN_UTF8);
-        next(getReadme(manifest.readme));
+        const { v } = req.query;
+        const readme = getReadmeFromManifest(manifest, v);
+        next(getReadme(readme));
       } catch (err) {
         next(err);
       }
