@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5363,
+      "contributions": 5366,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 2993
+          "contributions": 2995
         },
         {
           "name": "verdaccio-cookbook",
@@ -119,7 +119,7 @@
         },
         {
           "name": "charts",
-          "contributions": 42
+          "contributions": 43
         },
         {
           "name": "verdaccio-e2e-example",
@@ -302,11 +302,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 99,
+      "contributions": 101,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 99
+          "contributions": 101
         }
       ]
     },
@@ -890,6 +890,17 @@
       ]
     },
     {
+      "id": 8685618,
+      "login": "kuoruan",
+      "contributions": 4,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 4
+        }
+      ]
+    },
+    {
       "id": 282668,
       "login": "Utwo",
       "contributions": 4,
@@ -1113,41 +1124,8 @@
       ]
     },
     {
-      "id": 38713281,
-      "login": "rmkanda",
-      "contributions": 3,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 3
-        }
-      ]
-    },
-    {
-      "id": 16746759,
-      "login": "rluvaton",
-      "contributions": 3,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 3
-        }
-      ]
-    },
-    {
-      "id": 30793,
-      "login": "Tobbe",
-      "contributions": 3,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 3
-        }
-      ]
-    },
-    {
-      "id": 8685618,
-      "login": "kuoruan",
+      "id": 803101,
+      "login": "osher",
       "contributions": 3,
       "repositories": [
         {
@@ -1168,8 +1146,8 @@
       ]
     },
     {
-      "id": 803101,
-      "login": "osher",
+      "id": 30793,
+      "login": "Tobbe",
       "contributions": 3,
       "repositories": [
         {
@@ -1179,8 +1157,8 @@
       ]
     },
     {
-      "id": 19731692,
-      "login": "brenordr",
+      "id": 16746759,
+      "login": "rluvaton",
       "contributions": 3,
       "repositories": [
         {
@@ -1190,8 +1168,19 @@
       ]
     },
     {
-      "id": 135657,
-      "login": "karfau",
+      "id": 38713281,
+      "login": "rmkanda",
+      "contributions": 3,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        }
+      ]
+    },
+    {
+      "id": 175305,
+      "login": "kfatehi",
       "contributions": 3,
       "repositories": [
         {
@@ -1212,8 +1201,19 @@
       ]
     },
     {
-      "id": 175305,
-      "login": "kfatehi",
+      "id": 135657,
+      "login": "karfau",
+      "contributions": 3,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 3
+        }
+      ]
+    },
+    {
+      "id": 19731692,
+      "login": "brenordr",
       "contributions": 3,
       "repositories": [
         {
@@ -2067,8 +2067,8 @@
       ]
     },
     {
-      "id": 1174257,
-      "login": "pshanoop",
+      "id": 11387548,
+      "login": "h3rmanj",
       "contributions": 2,
       "repositories": [
         {
@@ -2080,6 +2080,17 @@
     {
       "id": 1166358,
       "login": "todpunk",
+      "contributions": 2,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 2
+        }
+      ]
+    },
+    {
+      "id": 1174257,
+      "login": "pshanoop",
       "contributions": 2,
       "repositories": [
         {
@@ -4839,160 +4850,6 @@
       ]
     },
     {
-      "id": 43278953,
-      "login": "alexis974",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 9389109,
-      "login": "arthur2308",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 8891115,
-      "login": "bycEEE",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 337812,
-      "login": "casserlyprogramming",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 11387548,
-      "login": "h3rmanj",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 4612720,
-      "login": "jfoechsler",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 40362916,
-      "login": "jfrancisco0",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 21959383,
-      "login": "machadovilaca",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 6512096,
-      "login": "jchanam",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 1173317,
-      "login": "LoicGombeaud",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 16442967,
-      "login": "marekaf",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 47821325,
-      "login": "pohldk",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 5784623,
-      "login": "v0112358",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 32613113,
-      "login": "Hechamon",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "charts",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 33081,
       "login": "duboisph",
       "contributions": 1,
@@ -5123,6 +4980,149 @@
           "contributions": 1
         }
       ]
+    },
+    {
+      "id": 32613113,
+      "login": "Hechamon",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 5784623,
+      "login": "v0112358",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 47821325,
+      "login": "pohldk",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 16442967,
+      "login": "marekaf",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 1173317,
+      "login": "LoicGombeaud",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 6512096,
+      "login": "jchanam",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 21959383,
+      "login": "machadovilaca",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 40362916,
+      "login": "jfrancisco0",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 4612720,
+      "login": "jfoechsler",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 337812,
+      "login": "casserlyprogramming",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 8891115,
+      "login": "bycEEE",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 9389109,
+      "login": "arthur2308",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 43278953,
+      "login": "alexis974",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "charts",
+          "contributions": 1
+        }
+      ]
     }
   ],
   "repositories": [
@@ -5132,7 +5132,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16549,
+      "stargazers_count": 16563,
       "archived": false
     },
     {
@@ -5393,7 +5393,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 63,
+      "stargazers_count": 64,
       "archived": false
     },
     {
