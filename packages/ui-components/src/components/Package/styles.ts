@@ -71,8 +71,7 @@ export const GridRightAligned = styled(Grid)({
 
 export const Wrapper = styled(List)<{ theme?: Theme }>(({ theme }) => ({
   '&:hover': {
-    backgroundColor:
-      theme.palette.mode == 'dark' ? theme.palette.secondary.main : theme.palette.greyLight2,
+    backgroundColor: theme.palette.action.hover,
   },
 }));
 
