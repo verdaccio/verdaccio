@@ -585,8 +585,8 @@
       ]
     },
     {
-      "id": 1486340,
-      "login": "UnitedMarsupials-zz",
+      "id": 9048902,
+      "login": "ryan-codingintrigue",
       "contributions": 7,
       "repositories": [
         {
@@ -607,8 +607,8 @@
       ]
     },
     {
-      "id": 9048902,
-      "login": "ryan-codingintrigue",
+      "id": 1486340,
+      "login": "UnitedMarsupials-zz",
       "contributions": 7,
       "repositories": [
         {
@@ -767,6 +767,17 @@
       ]
     },
     {
+      "id": 8685618,
+      "login": "kuoruan",
+      "contributions": 5,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 5
+        }
+      ]
+    },
+    {
       "id": 378909,
       "login": "bufferoverflow",
       "contributions": 5,
@@ -881,17 +892,6 @@
     {
       "id": 7042043,
       "login": "jharris4",
-      "contributions": 4,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 4
-        }
-      ]
-    },
-    {
-      "id": 8685618,
-      "login": "kuoruan",
       "contributions": 4,
       "repositories": [
         {
@@ -5132,7 +5132,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16563,
+      "stargazers_count": 16569,
       "archived": false
     },
     {
@@ -5393,7 +5393,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 64,
+      "stargazers_count": 65,
       "archived": false
     },
     {
