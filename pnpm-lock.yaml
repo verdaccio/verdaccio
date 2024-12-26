@@ -871,8 +871,8 @@ importers:
         specifier: workspace:8.0.0-next-8.7
         version: link:../logger-commons
       pino:
-        specifier: 9.5.0
-        version: 9.5.0
+        specifier: 9.6.0
+        version: 9.6.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.2
@@ -897,8 +897,8 @@ importers:
         specifier: workspace:13.0.0-next-8.2
         version: link:../../core/types
       pino:
-        specifier: 9.5.0
-        version: 9.5.0
+        specifier: 9.6.0
+        version: 9.6.0
 
   packages/logger/logger-prettify:
     dependencies:
@@ -919,8 +919,8 @@ importers:
         version: 3.8.1
     devDependencies:
       pino:
-        specifier: 9.5.0
-        version: 9.5.0
+        specifier: 9.6.0
+        version: 9.6.0
 
   packages/middleware:
     dependencies:
@@ -24658,8 +24658,8 @@ packages:
       sonic-boom: 3.8.1
       thread-stream: 2.3.0
 
-  /pino@9.5.0:
-    resolution: {integrity: sha512-xSEmD4pLnV54t0NOUN16yCl7RIB1c5UUOse5HSyEXtBp+FgFQyPeDutc+Q2ZO7/22vImV7VfEjH/1zV2QuqvYw==}
+  /pino@9.6.0:
+    resolution: {integrity: sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
