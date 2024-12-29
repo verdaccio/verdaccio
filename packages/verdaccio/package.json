@@ -61,7 +61,7 @@
     "node-mocks-http": "1.14.1",
     "typedoc-plugin-markdown": "3.14.0",
     "typedoc-plugin-missing-exports": "1.0.0",
-    "yaml": "2.5.1"
+    "yaml": "2.6.1"
   },
   "keywords": [
     "private",
