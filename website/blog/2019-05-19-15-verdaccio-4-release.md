@@ -70,10 +70,10 @@ Excited?? Yes !!! Let's go !!
 - [Tech Updates](#tech-updates)
   - [Verdaccio ESLint Config](#verdaccio-eslint-config)
   - [Verdaccio Babel Preset](#verdaccio-babel-preset)
-  - [Verdaccio UI Plugin](#vedaccio-ui-plugin)
-  - [Meetup & Conferences](#meetup-&-conferences)
+  - Verdaccio UI Plugin
+  - Meetup & Conferences
 - [Trusted by Many](#trusted-by-many)
-- [New to Verdaccio / FAQ / Contact / Troubleshoot](#new-to-verdaccio-/-faq-/-contact-/-troubleshoot)
+- New to Verdaccio / FAQ / Contact / Troubleshoot
 
 ## New User Interface {#new-user-interface}
 
@@ -224,7 +224,7 @@ Since Verdaccio@3.x release, Verdaccio contributors are actively participating i
 - [Mozilla Neutrino](https://github.com/neutrinojs/neutrino)
 - [Hyperledger Composer](https://github.com/hyperledger/composer)
 
-### New to Verdaccio / FAQ / Contact / Troubleshoot {#new-to-verdaccio--faq--contact--troubleshoot}
+### New to Verdaccio / FAQ / Contact / Troubleshoot
 
 We welcome you in Verdaccio community and we look forward for your feedback and contribution to the project.
 

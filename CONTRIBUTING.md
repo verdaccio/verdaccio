@@ -25,7 +25,7 @@ The Verdaccio project is split into several areas, the first three hosted in the
 - **User Interface**: The [user Interface](https://github.com/verdaccio/ui) is based in **react** and **material-ui** and looking for front-end contributors.
 - **Kubernetes and Helm**: Ts the official repository for the [**Helm chart**](https://github.com/verdaccio/charts).
 
-> There are other areas to contribute, like [documentation](https://github.com/verdaccio/verdaccio/tree/master/website/docs) or [translations](#translations}).
+> There are other areas to contribute, like [documentation](https://github.com/verdaccio/verdaccio/tree/master/website/docs) or translations.
 
 ## Prepare local setup {#local-setup}
 
@@ -379,7 +379,7 @@ If you need help with how testing works, please [refer to the following guide
 **If you are introducing new features, you MUST include new tests. PRs for
 features without tests will not be merged.**
 
-## Translations {#translations}
+## Translations
 
 All translations are provided by the **[crowdin](http://crowdin.com)** platform,
 [https://translate.verdaccio.org/](https://translate.verdaccio.org/)

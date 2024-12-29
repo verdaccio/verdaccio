@@ -82,7 +82,7 @@ Both commands relies on web login by default, but adding `--auth-type=legacy` yo
 
 > [Web login is not supported for verdaccio.](https://github.com/verdaccio/verdaccio/issues/3413)
 
-## Troubleshooting {#troubleshooting}
+## Troubleshooting
 
 ### `npm login` with npm@9 or higher
 
