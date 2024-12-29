@@ -61,7 +61,7 @@ We use [Handlebars](https://handlebarsjs.com/) as main template engine.
 
 ### Properties {#properties}
 
-List of properties accesible via template
+List of properties accesible via template:
 
 - Metadata
 - Publisher (who is publishing)

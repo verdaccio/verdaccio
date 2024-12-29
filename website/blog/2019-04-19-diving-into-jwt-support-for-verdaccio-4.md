@@ -1,6 +1,5 @@
 ---
 author: Juan Picado
-authorURL: https://twitter.com/jotadeveloper
 authorFBID: 1122901551
 title: Diving into JWT support for Verdaccio 4
 ---

@@ -2,6 +2,8 @@ name: Verdaccio Website CI
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 0'  # every Sunday at 2am UTC  (10pm EST)
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 

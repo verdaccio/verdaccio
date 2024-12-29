@@ -1,6 +1,5 @@
 ---
 author: Juan Picado
-authorURL: https://twitter.com/jotadeveloper
 authorFBID: 1122901551
 title: Release 4.1.0
 ---
@@ -13,7 +12,7 @@ Furthermore, the info about the release is also available [at GitHub releases pa
 We have some highlights to share:
 
 - At this stage, Docker downloads [have grown to 4.8 million pulls](https://dockeri.co/image/verdaccio/verdaccio).
-- **Angular CLI** just started to uses [Verdaccio 4 for E2E testing](https://twitter.com/jotadeveloper/status/1146415913396318208). For
+- **Angular CLI** just started to uses Verdaccio 4 for E2E testing. For
   further read about this topic, [check our docs](https://verdaccio.org/docs/en/e2e).
 - This release **has been fully developed by contributors**, kudos to them.
 - We just reached 7k stars, **would you help us to reach 10k?** Give us your star ⭐️!

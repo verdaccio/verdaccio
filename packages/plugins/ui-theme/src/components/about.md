@@ -15,7 +15,6 @@ you can [learn more about the project in our blog](https://verdaccio.org/blog/20
 - [Discussions](https://github.com/verdaccio/verdaccio/discussions)
 - [YouTube channel](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w)
 - [Discord chat](https://discord.gg/hv42jfs)
-- [Twitter community](https://twitter.com/i/communities/1502550839499579393)
 
 https://www.verdaccio.org
 

@@ -19,6 +19,10 @@ const progress = translations;
 const limitLngIncluded = 80;
 console.log('limit translation is on %s%', limitLngIncluded);
 
+const { themes } = require('prism-react-renderer');
+const lightTheme = themes.github;
+const darkTheme = themes.dracula;
+
 const isProductionDeployment = process.env.CONTEXT === 'production';
 const filterByProgress = (items) => {
   const originLng = Object.keys(translations);
@@ -98,36 +102,13 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'warn',
   favicon: 'img/logo/uk/verdaccio-tiny-uk-no-bg.svg',
   i18n: i18nConfig,
   scripts: ['https://buttons.github.io/buttons.js'],
   plugins: [
     'docusaurus-plugin-sass',
     'docusaurus-plugin-contributors',
-    isProductionDeployment &&
-      typeof process.env.SENTRY_KEY === 'string' && [
-        'docusaurus-plugin-sentry',
-        { DSN: process.env.SENTRY_KEY },
-      ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['../packages/node-api/src/index.ts'],
-        tsconfig: '../packages/node-api/tsconfig.build.json',
-        id: 'api/node-api',
-        out: 'api/node-api',
-        // theme: 'default',
-        excludePrivate: false,
-        excludeProtected: true,
-        categorizeByGroup: false,
-        excludeInternal: true,
-        sidebar: {
-          categoryLabel: '@verdaccio/node-api',
-          // position: 1,
-          fullNames: true,
-        },
-      },
-    ],
     [
       'content-docs',
       {
@@ -158,76 +139,11 @@ module.exports = {
         showLastUpdateTime: true,
       },
     ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['../packages/config/src/index.ts'],
-        tsconfig: '../packages/config/tsconfig.build.json',
-        id: 'api/config',
-        out: 'api/config',
-        sidebar: {
-          categoryLabel: '@verdaccio/config',
-          fullNames: true,
-        },
-      },
-    ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['../packages/ui-components/src/index.ts'],
-        tsconfig: '../packages/ui-components/tsconfig.build.json',
-        id: 'api/ui-components',
-        out: 'api/ui-components',
-        sidebar: {
-          categoryLabel: '@verdaccio/ui-components',
-          fullNames: true,
-          watch: process.env.TYPEDOC_WATCH,
-        },
-      },
-    ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['../packages/core/core/src/index.ts'],
-        tsconfig: '../packages/core/core/tsconfig.build.json',
-        id: 'api/core',
-        out: 'api/core',
-        sidebar: {
-          categoryLabel: '@verdaccio/core',
-          fullNames: true,
-        },
-      },
-    ],
-    [
-      'docusaurus-plugin-typedoc',
-      {
-        entryPoints: ['../packages/core/types/src/types.ts'],
-        tsconfig: '../packages/core/types/tsconfig.build.json',
-        id: 'api/types',
-        out: 'api/types',
-        categorizeByGroup: false,
-        includeVersion: true,
-        sidebar: {
-          categoryLabel: '@verdaccio/types',
-          fullNames: true,
-        },
-      },
-    ],
   ],
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('esbuild-loader'),
-      options: {
-        loader: 'tsx',
-        format: isServer ? 'cjs' : undefined,
-        target: isServer ? 'node12' : 'es2017',
-      },
-    }),
-  },
   customFields: {
     description: 'A lightweight Node.js private proxy registry',
   },
@@ -395,8 +311,8 @@ module.exports = {
       respectPrefersColorScheme: true,
     },
     prism: {
-      theme: require('prism-react-renderer/themes/github'),
-      darkTheme: require('prism-react-renderer/themes/nightOwl'),
+      theme: lightTheme,
+      darkTheme: darkTheme,
     },
   },
   presets: [

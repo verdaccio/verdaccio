@@ -6,7 +6,6 @@
 [![Backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
 [![Stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
 [![Discord](https://img.shields.io/discord/388674437219745793?logo=discord)](http://chat.verdaccio.org/)
-[![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 
 Verdaccio plugin generator based in [Yeoman](http://yeoman.io) aims to help to scaffold plugins development
 

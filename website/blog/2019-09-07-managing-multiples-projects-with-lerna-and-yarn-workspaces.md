@@ -18,7 +18,7 @@ Now, we are proud to announce our [monorepo](https://github.com/verdaccio/monore
 
 ## Background and tools {#background-and-tools}
 
-A year ago, [Juan](https://twitter.com/jotadeveloper) and I met in Madrid, Spain, and were talking about the roadmap for Verdaccio 4, the scope of the projects and more. We had some concerns about the Verdaccio ecosystem we want to build, such amount of repositories requires hard work for maintenance by each one with their own dependencies, scripts, configurations, etc.
+A year ago, Juan and I met in Madrid, Spain, and were talking about the roadmap for Verdaccio 4, the scope of the projects and more. We had some concerns about the Verdaccio ecosystem we want to build, such amount of repositories requires hard work for maintenance by each one with their own dependencies, scripts, configurations, etc.
 
 We decided to unify all configurations, because handle several repositories would not be realistic and would have all things replicated in all repositories. In order to achieve our goal, and we found [Lerna](https://lerna.js.org/) and [Yarn Workspaces](https://yarnpkg.com/lang/en/docs/workspaces/).
 
@@ -63,7 +63,7 @@ packages/
 
 Let's see the main configuration for `lerna.json` and root `package.json`.
 
-### lerna.json {#lernajson}
+### lerna.json
 
 After initial setup, this file will looks like:
 
@@ -153,7 +153,7 @@ Both commands shares options like `--scope=<packages>` and `--ignore=<packages>`
 
 ## Versioning the monorepo {#versioning-the-monorepo}
 
-As we mentioned in [lerna.json](#lerna.json) section there are two versioning ways for packages in monorepos: _fixed mode_ and _independent mode_.
+As we mentioned in `lerna.json` section there are two versioning ways for packages in monorepos: _fixed mode_ and _independent mode_.
 
 We will focus in _fixed mode_ because:
 

@@ -45,7 +45,7 @@
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
-    "pino": "9.5.0"
+    "pino": "9.6.0"
   },
   "funding": {
     "type": "opencollective",

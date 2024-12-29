@@ -89,11 +89,6 @@
           "items": ["ansible", "puppet", "chef"]
         }
       ]
-    },
-    {
-      "type": "category",
-      "label": "Guides",
-      "items": ["aws"]
     }
   ]
 }

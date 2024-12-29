@@ -412,7 +412,7 @@ npm set registry http://$IP
 
 Docker, LDAP are a great way to authenticate users from your organization. In this article, you have learned how to setup verdaccion with LDAP and Docker.
 
-I have to thank the teams and community behind verdaccio projects, specially [Juan Picado](https://twitter.com/jotadeveloper), [Daniel Refde](https://twitter.com/DanielRufde) and [Sergio Hg](https://github.com/sergiohgz) for their help on the GitHub issues and the discord [chat](http://chat.verdaccio.org/).
+I have to thank the teams and community behind verdaccio projects, specially Juan Picado, [Daniel Refde](https://twitter.com/DanielRufde) and [Sergio Hg](https://github.com/sergiohgz) for their help on the GitHub issues and the discord [chat](http://chat.verdaccio.org/).
 
 Also, but not less important, I want to thank all the people that makes Verdaccio possible, contributing, donating, documenting, and more.
 
