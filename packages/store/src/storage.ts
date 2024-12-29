@@ -1192,7 +1192,7 @@ class Storage {
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
         if (this.allowPackageOverwrite) {
-          const filename = composeTarballFromPackage(name, versionToPublish);
+          const filename = tarballUtils.composeTarballFromPackage(name, versionToPublish);
           await this.removeTarball(name, filename, localManifest._rev, username!);
           delete localManifest.versions[versionToPublish];
           delete localManifest.time[versionToPublish];
