@@ -144,16 +144,6 @@ module.exports = {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('esbuild-loader'),
-      options: {
-        loader: 'tsx',
-        format: isServer ? 'cjs' : undefined,
-        target: isServer ? 'node12' : 'es2017',
-      },
-    }),
-  },
   customFields: {
     description: 'A lightweight Node.js private proxy registry',
   },

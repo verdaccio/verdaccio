@@ -67,8 +67,6 @@
     "@tsconfig/docusaurus": "^2.0.3",
     "@verdaccio/crowdin-translations": "workspace:*",
     "docusaurus-plugin-sass": "^0.2.6",
-    "esbuild": "0.14.10",
-    "esbuild-loader": "2.16.0",
     "prism-react-renderer": "^2.4.1",
     "sass": "1.83.0",
     "sass-loader": "16.0.4",
