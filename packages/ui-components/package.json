@@ -68,8 +68,8 @@
     "@storybook/manager-webpack5": "^6.5.15",
     "@storybook/react": "^6.5.15",
     "@testing-library/dom": "10.4.0",
-    "@testing-library/jest-dom": "6.4.8",
-    "@testing-library/react": "16.0.0",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.1.0",
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",
     "@types/unist": "^2.0.0",
@@ -81,7 +81,7 @@
     "mutationobserver-shim": "0.3.7",
     "msw": "0.49.3",
     "typescript": "4.9.5",
-    "vitest": "2.1.2",
+    "vitest": "2.1.8",
     "whatwg-fetch": "3.6.20"
   },
   "msw": {
