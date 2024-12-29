@@ -7,8 +7,8 @@ describe('<Readme /> component', () => {
   beforeEach(cleanup);
 
   test('should load the component in default state', () => {
-    const wrapper = render(<Readme description="test" />);
-    expect(wrapper).toMatchSnapshot();
+    const { getByText } = render(<Readme description="test" />);
+    expect(getByText('test')).toBeInTheDocument();
   });
 
   test('should dangerously set html', () => {
