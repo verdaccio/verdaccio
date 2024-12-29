@@ -2,6 +2,7 @@ name: Verdaccio Website CI
 
 on:
   workflow_dispatch:
+  push:
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
@@ -49,10 +50,10 @@ jobs:
           SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
           CONTEXT: production
         run: pnpm --filter @verdaccio/website netlify:build
-      - name: Deploy to Netlify
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/website netlify:deploy
+#      - name: Deploy to Netlify
+#        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+#        env:
+#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#        run: pnpm --filter ...@verdaccio/website netlify:deploy
 
