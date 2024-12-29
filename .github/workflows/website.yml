@@ -44,7 +44,7 @@ jobs:
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: cache/webpack-${{github.ref}}
       - name: Build Production
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
+#        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           SENTRY_KEY: ${{ secrets.SENTRY_KEY }}
