@@ -2304,9 +2304,6 @@ importers:
       docusaurus-plugin-contributors:
         specifier: workspace:2.0.0
         version: link:../packages/tools/docusaurus-plugin-contributors
-      docusaurus-plugin-sentry:
-        specifier: ^2.0.0
-        version: 2.0.0(@docusaurus/core@3.6.3)(react-dom@18.3.1)(react@18.3.1)
       dompurify:
         specifier: 3.2.3
         version: 3.2.3
@@ -18119,19 +18116,6 @@ packages:
       - sass-embedded
       - webpack
     dev: true
-
-  /docusaurus-plugin-sentry@2.0.0(@docusaurus/core@3.6.3)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-LiiQ90pbaJ4ztgmFegK3+p8ywX4m0XHNtKGIRY1UD6xVRFubIejFFGaDXWOVU5FuATcMmE0d+WPNRPHLyYlFFw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@docusaurus/core': '>=3'
-      react: '>=18'
-      react-dom: '>=18'
-    dependencies:
-      '@docusaurus/core': 3.6.3(@mdx-js/react@3.1.0)(acorn@8.14.0)(debug@4.4.0)(esbuild@0.14.10)(eslint@8.57.1)(react-dom@18.3.1)(react@18.3.1)(typescript@5.3.3)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-    dev: false
 
   /dom-accessibility-api@0.5.16:
     resolution: {integrity: sha512-X7BJ2yElsnOJ30pZF4uIIDfBEVgF4XEBxL9Bxhy6dnrm5hkzqmsWHGTiHqRiITNhMyFLyAiWndIJP7Z1NTteDg==}
