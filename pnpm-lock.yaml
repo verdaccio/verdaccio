@@ -312,8 +312,8 @@ importers:
         specifier: 5.28.2
         version: 5.28.2
       update-ts-references:
-        specifier: 3.3.0
-        version: 3.3.0
+        specifier: 3.4.0
+        version: 3.4.0
       verdaccio-audit:
         specifier: workspace:*
         version: link:packages/plugins/audit
@@ -13459,7 +13459,7 @@ packages:
     dependencies:
       '@vitest/spy': 2.1.2
       estree-walker: 3.0.3
-      magic-string: 0.30.11
+      magic-string: 0.30.14
       msw: 0.49.3(typescript@4.9.5)
       vite: 5.3.1(@types/node@20.14.12)
     dev: true
@@ -32506,8 +32506,8 @@ packages:
       semver-diff: 4.0.0
       xdg-basedir: 5.1.0
 
-  /update-ts-references@3.3.0:
-    resolution: {integrity: sha512-ES/jiKMAkwU0AznIfuiYKmUcbUuSN3jJKp2/d30xLJBhsEBt9IRuvzCyjQ4xEWhbM7Er2Zdq+79q+zDawrTU7g==}
+  /update-ts-references@3.4.0:
+    resolution: {integrity: sha512-uFsGvs2oK/BWIdRMuLkPT5S2G+esfXjLCuBybN00VxMFmOnFvjQqJOKzVxkkjjFiLWkxcbBrlUXGtzJuMjgd3g==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
