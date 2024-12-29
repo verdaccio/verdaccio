@@ -37,7 +37,6 @@ import {
 import Search from '@verdaccio/search';
 import {
   TarballDetails,
-  composeTarballFromPackage,
   convertDistRemoteToLocalTarballUrls,
   convertDistVersionToLocalTarballsUrl,
   getTarballDetails,

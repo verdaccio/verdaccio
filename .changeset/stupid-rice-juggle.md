@@ -1,5 +1,4 @@
 ---
-'@verdaccio/tarball': patch
 '@verdaccio/types': patch
 '@verdaccio/store': patch
 ---
