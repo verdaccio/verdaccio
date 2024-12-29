@@ -66,14 +66,6 @@
       "allowedVersions": "1.0.7"
     },
     {
-      "packageNames": ["esbuild"],
-      "allowedVersions": "0.14.10"
-    },
-    {
-      "packageNames": ["esbuild-loader"],
-      "allowedVersions": "2.16.0"
-    },
-    {
       "packageNames": ["lowdb"],
       "allowedVersions": "1.0.0"
     },
