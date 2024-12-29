@@ -1,6 +1,5 @@
 ---
 author: Juan Picado
-authorURL: https://twitter.com/jotadeveloper
 authorFBID: 1122901551
 title: Release 4.2.0
 ---

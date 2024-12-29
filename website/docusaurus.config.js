@@ -102,6 +102,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  onBrokenAnchors: 'warn',
   favicon: 'img/logo/uk/verdaccio-tiny-uk-no-bg.svg',
   i18n: i18nConfig,
   scripts: ['https://buttons.github.io/buttons.js'],

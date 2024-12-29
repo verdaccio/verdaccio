@@ -205,7 +205,7 @@ Since Verdaccio@3.x release, Verdaccio contributors are actively participating i
 
 - [Dot Conference 2018, Paris](https://twitter.com/ayusharma_/status/1060224341768572928)
 - [React day 2018, Berlin](https://twitter.com/verdaccio_npm/status/1067420167867695105)
-- JS Heroes 2019, Cluj Napoca ∙ [Small talk](https://twitter.com/jotadeveloper/status/1116314948962004992) ∙ [Presence](https://twitter.com/verdaccio_npm/status/1116608322700857344)
+- JS Heroes 2019, Cluj Napoca ∙ [Presence](https://twitter.com/verdaccio_npm/status/1116608322700857344)
 - [ViennaJS Meetup](https://www.youtube.com/watch?v=hDIFKzmoCaA)
 - [Madrid NodeJS Meetup](https://www.todojs.com/introduccion-a-verdaccio/)
 - [Hacktober Fest 2018](https://github.com/verdaccio/verdaccio/issues/973)

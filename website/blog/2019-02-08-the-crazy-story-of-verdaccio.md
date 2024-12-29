@@ -1,6 +1,5 @@
 ---
 author: Juan Picado
-authorURL: https://twitter.com/jotadeveloper
 authorFBID: 1122901551
 title: The crazy story of Verdaccio
 ---

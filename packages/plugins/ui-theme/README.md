@@ -14,7 +14,6 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
 [![codecov](https://codecov.io/gh/verdaccio/ui/branch/master/graph/badge.svg)](https://codecov.io/gh/verdaccio/ui)
 
-[![Twitter followers](https://img.shields.io/twitter/follow/verdaccio_npm.svg?style=social&label=Follow)](https://twitter.com/verdaccio_npm)
 [![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
 
 ## Special Thanks

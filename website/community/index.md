@@ -39,7 +39,4 @@ A private registry is mostly used with a package manager, some issues or questio
 
 ## News {#news}
 
-- [Twitter](http://twitter.com/verdaccio)
-- [Twitter Community](https://twitter.com/i/communities/1502550839499579393)
-- [Telegram](https://t.me/verdaccio)
 - [Blog](https://verdaccio.org/blog)
