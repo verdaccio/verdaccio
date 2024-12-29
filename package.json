@@ -116,7 +116,7 @@
     "ts-node": "10.9.2",
     "typescript": "5.3.3",
     "undici-types": "5.28.2",
-    "update-ts-references": "3.3.0",
+    "update-ts-references": "3.4.0",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
