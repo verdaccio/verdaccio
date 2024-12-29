@@ -18,7 +18,7 @@
   ],
   "baseBranches": ["master", "6.x", "7.x"],
   "semanticCommitType": "fix",
-  "major": false,
+  "major": true,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
