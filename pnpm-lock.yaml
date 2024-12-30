@@ -1289,8 +1289,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 15.0.4
+        version: 15.0.4
       mini-css-extract-plugin:
         specifier: 2.7.7
         version: 2.7.7(webpack@5.97.1)
@@ -1957,11 +1957,11 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 11.2.0
-        version: 11.2.0
+        specifier: 15.0.4
+        version: 15.0.4
       marked-highlight:
         specifier: 2.1.0
-        version: 2.1.0(marked@11.2.0)
+        version: 2.1.0(marked@15.0.4)
       normalize.css:
         specifier: 8.0.1
         version: 8.0.1
@@ -22132,24 +22132,24 @@ packages:
   /markdown-table@3.0.4:
     resolution: {integrity: sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==}
 
-  /marked-highlight@2.1.0(marked@11.2.0):
+  /marked-highlight@2.1.0(marked@15.0.4):
     resolution: {integrity: sha512-peBvgGZZqUw074Vy/N8Y7/6JQhSnR54/T0Ozq2/fAIBzcYfVfExFdQJptIhQxreR1elpwvJRrqhp6S/Prk8prA==}
     peerDependencies:
       marked: '>=4 <12'
     dependencies:
-      marked: 11.2.0
+      marked: 15.0.4
     dev: false
-
-  /marked@11.2.0:
-    resolution: {integrity: sha512-HR0m3bvu0jAPYiIvLUUQtdg1g6D247//lvcekpHO1WMvbwDlwSkZAX9Lw4F4YHE1T0HaaNve0tuAWuV1UJ6vtw==}
-    engines: {node: '>= 18'}
-    hasBin: true
 
   /marked@13.0.3:
     resolution: {integrity: sha512-rqRix3/TWzE9rIoFGIn8JmsVfhiuC8VIQ8IdX5TfzmeBucdY05/0UlzKaw0eVtpcN/OdVFpBk7CjKGo9iHJ/zA==}
     engines: {node: '>= 18'}
     hasBin: true
     dev: false
+
+  /marked@15.0.4:
+    resolution: {integrity: sha512-TCHvDqmb3ZJ4PWG7VEGVgtefA5/euFmsIhxtD0XsBxI39gUSKL81mIRFdt0AiNQozUahd4ke98ZdirExd/vSEw==}
+    engines: {node: '>= 18'}
+    hasBin: true
 
   /marked@4.3.0:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
