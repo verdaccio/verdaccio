@@ -576,8 +576,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       mime:
-        specifier: 2.6.0
-        version: 2.6.0
+        specifier: 4.0.6
+        version: 4.0.6
       semver:
         specifier: 7.6.3
         version: 7.6.3
@@ -952,8 +952,8 @@ importers:
         specifier: 7.18.3
         version: 7.18.3
       mime:
-        specifier: 2.6.0
-        version: 2.6.0
+        specifier: 4.0.6
+        version: 4.0.6
     devDependencies:
       '@verdaccio/logger':
         specifier: workspace:8.0.0-next-8.7
@@ -22943,6 +22943,12 @@ packages:
     resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
     engines: {node: '>=4.0.0'}
     hasBin: true
+
+  /mime@4.0.6:
+    resolution: {integrity: sha512-4rGt7rvQHBbaSOF9POGkk1ocRP16Md1x36Xma8sz8h8/vfCUI2OtEIeCqe4Ofes853x4xDoPiFLIT47J5fI/7A==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: false
 
   /mimic-fn@2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}

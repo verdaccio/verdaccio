@@ -47,7 +47,7 @@
     "express-rate-limit": "5.5.1",
     "lodash": "4.17.21",
     "lru-cache": "7.18.3",
-    "mime": "2.6.0"
+    "mime": "4.0.6"
   },
   "funding": {
     "type": "opencollective",
