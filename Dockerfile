@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:21-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22-alpine AS builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -20,7 +20,7 @@ RUN npm -g i pnpm@8.9.0 && \
 # NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
 # RUN pnpm install --prod --ignore-scripts
 
-FROM node:21-alpine
+FROM node:22-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
