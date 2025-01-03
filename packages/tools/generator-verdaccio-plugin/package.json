@@ -27,7 +27,7 @@
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.3",
     "@verdaccio/types": "workspace:13.0.0-next-8.2",
-    "ts-jest": "29.2.3",
+    "ts-jest": "29.2.5",
     "yeoman-assert": "3.1.1",
     "yeoman-test": "6.3.0"
   },
