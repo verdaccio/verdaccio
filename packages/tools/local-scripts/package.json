@@ -1,5 +1,5 @@
 {
-  "name": "@verdaccio/crowdin-translations",
+  "name": "@verdaccio/local-scripts",
   "version": "1.0.0",
   "bin": {
     "local-crowdin-api": "./index.js"
@@ -9,16 +9,18 @@
   "main": "./build/index.js",
   "scripts": {
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "start": "ts-node src/index.ts"
+    "start": "node build/index.js",
+    "translations": "node build/run.js translations",
+    "downloads:npmjs": "node build/run.js npmjs-api-download",
+    "pull:docker": "node build/run.js docker-pull-api-download"
   },
   "keywords": [],
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "@crowdin/crowdin-api-client": "^1.41.0",
-    "clipanion": "4.0.0-rc.4"
-  },
   "devDependencies": {
+    "@crowdin/crowdin-api-client": "^1.41.0",
+    "clipanion": "4.0.0-rc.4",
+    "got": "11.8.6",
     "ts-node": "10.9.2"
   }
 }

@@ -1,6 +1,8 @@
 import { Cli } from 'clipanion';
 
-import { ApiCommand } from './api';
+import { DockerPullCommand } from './api/dockerPullCommand';
+import { NpmjsApiDownloadCommand } from './api/npmjsApiDownloadCommand';
+import { TranslationsApiCommand } from './api/translationsCommand';
 
 const [node, app, ...args] = process.argv;
 
@@ -10,7 +12,9 @@ const cli = new Cli({
   binaryVersion: require('../package.json').version,
 });
 
-cli.register(ApiCommand);
+cli.register(TranslationsApiCommand);
+cli.register(NpmjsApiDownloadCommand);
+cli.register(DockerPullCommand);
 cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {
@@ -21,7 +25,3 @@ process.on('uncaughtException', function (err) {
   );
   process.exit(1);
 });
-
-const data = require('./progress_lang.json');
-
-export { data };

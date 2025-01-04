@@ -49,7 +49,7 @@
     "generator-verdaccio-plugin": "5.0.0",
     "@verdaccio/test-helper": "3.0.0",
     "@verdaccio/local-publish": "0.0.2",
-    "@verdaccio/crowdin-translations": "1.0.0",
+    "@verdaccio/local-scripts": "1.0.0",
     "customprefix-auth": "2.0.0",
     "@verdaccio/ui-components": "3.0.0",
     "@verdaccio/utils": "7.0.0",
