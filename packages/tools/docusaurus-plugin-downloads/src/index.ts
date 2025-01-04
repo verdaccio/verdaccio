@@ -25,12 +25,7 @@ export default function downloadsPlugin(
   return {
     name: 'docusaurus-plugin-downloads',
     async loadContent() {
-      try {
-        return {};
-      } catch (error) {
-        console.log('error', error);
-        return { error: true };
-      }
+      return {};
     },
     async contentLoaded({ content, actions }) {
       const { addRoute } = actions;
