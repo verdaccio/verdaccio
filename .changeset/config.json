@@ -13,7 +13,10 @@
     ]
   ],
   "ignoredPackages": [
+    "docusaurus-plugin-downloads",
+    "docusaurus-plugin-contributors",
     "@verdaccio/test-cli-commons",
+    "@verdaccio/local-scripts",
     "@verdaccio/e2e-cli-npm6",
     "@verdaccio/e2e-cli-npm7",
     "@verdaccio/e2e-cli-npm8",

@@ -6,7 +6,7 @@ on:
 #  pull_request:
   schedule:
     # twice peer week
-    - cron: '0 0 * * 1,4'
+    - cron: '0 0 * * 1,3,5,7'
   # for now, scheduled, we can enable on push master but not make much sense now
   # push:
   #   branches:
@@ -29,8 +29,12 @@ jobs:
         uses: ./.github/actions/install-app
         with:
           reporter: 'default'
-      - name: Build Translations percentage
-        run: pnpm --filter @verdaccio/crowdin-translations build
+      - name: Get Translations percentage
+        run: pnpm --filter @verdaccio/local-scripts run translations
+      - name: Get npmjs downloads
+        run: pnpm --filter @verdaccio/local-scripts run downloads:npmjs
+      - name: Get docker downloads
+        run: pnpm --filter @verdaccio/local-scripts run pull:docker
       - name: update contributors
         run: pnpm run contributors
         env:

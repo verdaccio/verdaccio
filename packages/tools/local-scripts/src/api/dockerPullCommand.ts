@@ -1,13 +1,13 @@
 import { Command } from 'clipanion';
 
-import runApi from './run';
+import { dockerPullWeekly } from './utils';
 
-export class ApiCommand extends Command {
-  public static paths = [['translations']];
+export class DockerPullCommand extends Command {
+  public static paths = [['docker-pull-api-download']];
 
   public async execute() {
     try {
-      await runApi();
+      await dockerPullWeekly();
     } catch (err: any) {
       // eslint-disable-next-line no-console
       console.error(err);

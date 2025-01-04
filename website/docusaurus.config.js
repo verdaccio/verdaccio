@@ -1,6 +1,7 @@
 // @ts-check
 
-const translations = require('@verdaccio/crowdin-translations/build/progress_lang.json');
+const { translationsData } = require('@verdaccio/local-scripts');
+const translations = translationsData;
 
 const lgnMapping = {
   'de-DE': 'de',
@@ -109,6 +110,7 @@ module.exports = {
   plugins: [
     'docusaurus-plugin-sass',
     'docusaurus-plugin-contributors',
+    'docusaurus-plugin-downloads',
     [
       'content-docs',
       {
@@ -227,10 +229,10 @@ module.exports = {
           'aria-label': 'GitHub repository',
         },
         {
-          href: 'https://fosstodon.org/@verdaccio',
+          href: 'https://bsky.app/profile/verdaccio.org',
           position: 'right',
-          className: 'header-mastodon-link',
-          'aria-label': 'Follow us at Fosstodon',
+          className: 'header-bluesky-link',
+          'aria-label': 'Follow us at Bluesky',
         },
       ],
     },
@@ -271,8 +273,8 @@ module.exports = {
             },
             {
               html: `
-              <a href="https://fosstodon.org/@verdaccio" rel="me">
-                Mastodon
+              <a href="https://bsky.app/profile/verdaccio.org" rel="me">
+                Blyesky
               </a>
               `,
             },
@@ -290,8 +292,8 @@ module.exports = {
               href: 'https://github.com/verdaccio/verdaccio',
             },
             {
-              label: 'Mastodon',
-              href: 'https://fosstodon.org/@verdaccio',
+              label: 'Bluesky',
+              href: 'https://bsky.app/profile/verdaccio.org',
             },
             {
               html: `
