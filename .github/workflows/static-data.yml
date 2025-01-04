@@ -29,6 +29,8 @@ jobs:
         uses: ./.github/actions/install-app
         with:
           reporter: 'default'
+      - name: Build package
+        run: pnpm --filter @verdaccio/local-scripts run build
       - name: Get Translations percentage
         run: pnpm --filter @verdaccio/local-scripts run translations
       - name: Get npmjs downloads
