@@ -31,8 +31,6 @@ jobs:
           reporter: 'default'
       - name: Build package
         run: pnpm --filter @verdaccio/local-scripts run build
-      - name: Get Translations percentage
-        run: pnpm --filter @verdaccio/local-scripts run translations
       - name: Get npmjs downloads
         run: pnpm --filter @verdaccio/local-scripts run downloads:npmjs
       - name: Get docker downloads
