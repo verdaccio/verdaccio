@@ -22,6 +22,7 @@
   --p-color: #5c5c5c;
   --font-size: 0.875rem;
   --font-size-big: calc(var(--font-size) * 1.2);
+  --selection-color: var(--ifm-color-white);
 }
 
 html[data-theme='dark']:root {
@@ -41,7 +42,8 @@ html[data-theme='dark']:root {
   --grey-lighter: #041329;
   --p-color: #b7b7b7;
   --verdaccio-color: #fff;
-  --grey: #f3f3f338;
+  --grey: #f3f3f3;
+  --selection-color: var(--dark-blue);
 }
 
 div[role='banner'] {
@@ -79,12 +81,12 @@ div[role='banner'] {
 
 
 ::-moz-selection {
-  color: var(--ifm-color-white);
+  color: var(--selection-color);
   background: var(--verdaccio-color);
 }
 
 ::selection {
-  color: var(--ifm-color-white);
+  color: var(--selection-color);
   background: var(--verdaccio-color);
 }
 
