@@ -30,7 +30,7 @@ export async function fetchNpmjsApiDownloadsWeekly() {
 
     npmjsDownloads[currentDate] = response.body.downloads;
 
-    await fs.writeFile(npmjsFile, npmjsDownloads);
+    await fs.writeFile(npmjsFile, JSON.stringify(npmjsDownloads, null, 4));
     debug('npmjs downloads written at %s ends', npmjsFile);
   } catch (err: any) {
     // eslint-disable-next-line no-console
