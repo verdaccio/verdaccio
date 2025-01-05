@@ -1832,8 +1832,8 @@ importers:
         specifier: workspace:13.0.0-next-8.2
         version: link:../../core/types
       ts-jest:
-        specifier: 29.2.3
-        version: 29.2.3(@babel/core@7.26.0)(jest@29.7.0)(typescript@5.3.3)
+        specifier: 29.2.5
+        version: 29.2.5(@babel/core@7.26.0)(jest@29.7.0)(typescript@5.3.3)
       yeoman-assert:
         specifier: 3.1.1
         version: 3.1.1
@@ -29980,8 +29980,8 @@ packages:
     resolution: {integrity: sha512-q5W7tVM71e2xjHZTlgfTDoPF/SmqKG5hddq9SzR49CH2hayqRKJtQ4mtRlSxKaJlR/+9rEM+mnBHf7I2/BQcpQ==}
     engines: {node: '>=6.10'}
 
-  /ts-jest@29.2.3(@babel/core@7.26.0)(jest@29.7.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-yCcfVdiBFngVz9/keHin9EnsrQtQtEu3nRykNy9RVp+FiPFFbPJ3Sg6Qg4+TkmH0vMP5qsTKgXSsk80HRwvdgQ==}
+  /ts-jest@29.2.5(@babel/core@7.26.0)(jest@29.7.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-KD8zB2aAZrcKIdGk4OwpJggeLcH1FgrICqDSROWqlnJXGCXK4Mn6FcdK2B6670Xr73lHMG1kHw8R87A0ecZ+vA==}
     engines: {node: ^14.15.0 || ^16.10.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
