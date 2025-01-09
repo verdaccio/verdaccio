@@ -5132,7 +5132,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16591,
+      "stargazers_count": 16602,
       "archived": false
     },
     {
@@ -5258,7 +5258,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 82,
+      "stargazers_count": 83,
       "archived": false
     },
     {
@@ -5393,7 +5393,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 65,
+      "stargazers_count": 66,
       "archived": false
     },
     {
