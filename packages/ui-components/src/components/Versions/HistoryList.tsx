@@ -52,7 +52,11 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
             sx={{ pr: 0 }}
           >
             <Link to={`${Route.DETAIL}${packageName}/v/${version}`} variant="outline">
-              <ListItemText disableTypography={false} primary={version}></ListItemText>
+              <ListItemText
+                data-testid={`version-list-link`}
+                disableTypography={false}
+                primary={version}
+              />
             </Link>
             {typeof versions[version]?.deprecated === 'string' ? (
               <Chip
