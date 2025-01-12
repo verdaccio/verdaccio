@@ -144,11 +144,11 @@ server:
 #         expiresIn: 29d
 #       verify:
 #         someProp: [value]
-#    web:
-#      sign:
-#        expiresIn: 1h # 1 hour by default
-#      verify:
-#         someProp: [value]
+#   web:
+#     sign:
+#       expiresIn: 1h # 1 hour by default
+#     verify:
+#       someProp: [value]
 
 # https://verdaccio.org/docs/configuration#user-rate-limit
 # userRateLimit:

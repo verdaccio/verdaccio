@@ -129,7 +129,7 @@ security:
     sign:
       expiresIn: 1h # 1 hour by default
     verify:
-     	someProp: [value]
+      someProp: [value]
 ```
 
 ### Server {#server}
