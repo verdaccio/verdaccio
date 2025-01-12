@@ -121,6 +121,7 @@ server:
 # publish:
 #   allow_offline: false
 #   check_owners: false
+#   keep_readmes: 'latest' | 'tagged' | 'all'
 
 # https://verdaccio.org/docs/configuration#url-prefix
 # url_prefix: /verdaccio/
