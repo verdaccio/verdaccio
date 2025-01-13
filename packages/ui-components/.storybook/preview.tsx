@@ -1,4 +1,7 @@
-import Flags from 'country-flag-icons/react/3x2';
+import { Preview, StoryFn } from '@storybook/react';
+import * as Flags from 'country-flag-icons/react/3x2';
+import { initialize, mswLoader } from 'msw-storybook-addon';
+import React from 'react';
 import { Provider } from 'react-redux';
 
 import config from '../../plugins/ui-theme/src/i18n/config';
@@ -9,7 +12,7 @@ import {
   ThemeProvider,
   TranslatorProvider,
   store,
-} from '../src/';
+} from '../src';
 
 const DEFAULT_LANGUAGE = 'en-US';
 const listLanguages = [
@@ -32,9 +35,9 @@ export const parameters = {
 
 // preview-head file contains the __VERDACCIO_BASENAME_UI_OPTIONS
 // required by AppConfigurationProvider
-export const withMuiTheme = (Story) => (
+export const withMuiTheme = (Story: StoryFn) => (
   <Provider store={store}>
-    <TranslatorProvider onMount={() => {}} i18n={config} listLanguages={listLanguages}>
+    <TranslatorProvider onMount={() => ({})} i18n={config} listLanguages={listLanguages}>
       <PersistenceSettingProvider>
         <AppConfigurationProvider>
           <ThemeProvider>
@@ -52,4 +55,19 @@ if (typeof global.process === 'undefined') {
   worker.start();
 }
 
-export const decorators = [withMuiTheme];
+/*
+ * Initializes MSW
+ */
+initialize();
+
+/*
+ * Setup the preview
+ */
+const preview: Preview = {
+  decorators: [withMuiTheme],
+  tags: ['autodocs'],
+  // Add the MSW loader to all stories
+  loaders: [mswLoader],
+};
+
+export default preview;
