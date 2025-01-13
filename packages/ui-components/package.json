@@ -16,8 +16,8 @@
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
     "netlify:ui:deploy": "npx netlify-cli deploy --dir=./packages/ui-components/storybook-static --prod",
-    "start": "start-storybook -p 6006 -s ./public",
-    "build-storybook": "build-storybook"
+    "start": "storybook dev -p 6006 -s ./public",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "11.11.4",
@@ -60,13 +60,13 @@
   "devDependencies": {
     "@babel/core": "7.26.0",
     "@emotion/babel-plugin": "11.12.0",
-    "@storybook/addon-actions": "^6.5.15",
-    "@storybook/addon-essentials": "^6.5.15",
-    "@storybook/addon-interactions": "^6.5.15",
-    "@storybook/addon-links": "^6.5.15",
-    "@storybook/builder-webpack5": "^6.5.15",
-    "@storybook/manager-webpack5": "^6.5.15",
-    "@storybook/react": "^6.5.15",
+    "@storybook/addon-actions": "^8.4.7",
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-interactions": "^8.4.7",
+    "@storybook/addon-links": "^8.4.7",
+    "@storybook/addon-webpack5-compiler-babel": "3.0.5",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-webpack5": "8.4.7",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
@@ -75,16 +75,15 @@
     "@types/unist": "^2.0.0",
     "@verdaccio/types": "workspace:13.0.0-next-8.2",
     "@vitejs/plugin-react": "^4.3.4",
-    "jsdom": "^25.0.0",
     "babel-loader": "9.2.1",
+    "jsdom": "^25.0.0",
     "mockdate": "3.0.5",
+    "msw": "2.7.0",
+    "msw-storybook-addon": "^2.0.4",
     "mutationobserver-shim": "0.3.7",
-    "msw": "0.49.3",
+    "storybook": "8.4.7",
     "typescript": "4.9.5",
     "vitest": "3.0.4",
     "whatwg-fetch": "3.6.20"
-  },
-  "msw": {
-    "workerDirectory": "public"
   }
 }
