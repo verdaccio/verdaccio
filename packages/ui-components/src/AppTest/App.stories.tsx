@@ -13,7 +13,7 @@ export const ApplicationStoryBook: any = () => (
   </MemoryRouter>
 );
 
-export const ApplicationjQuery: any = () => (
+export const ApplicationJquery: any = () => (
   <MemoryRouter initialEntries={[`/-/web/detail/jquery`]}>
     <AppRoute />
   </MemoryRouter>
