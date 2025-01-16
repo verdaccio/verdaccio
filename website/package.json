@@ -49,6 +49,7 @@
     "chart.js": "^4.4.7",
     "react-chartjs-2": "^5.2.0",
     "react-player": "2.14.1",
+    "semver": "7.6.3",
     "react-twitter-widgets": "^1.10.0",
     "use-is-in-viewport": "1.0.9",
     "usehooks-ts": "3.1.0"
