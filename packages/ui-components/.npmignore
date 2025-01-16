@@ -1,6 +1,6 @@
 .storybook
 public/
 msw
-jest
+vitest
 __snapshots__
 *.map

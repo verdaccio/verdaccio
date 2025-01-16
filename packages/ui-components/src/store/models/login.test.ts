@@ -1,20 +1,24 @@
 import { vi } from 'vitest';
 
-// import { generateTokenWithTimeRange } from '../../../jest/unit/components/__mocks__/token';
+import { generateTokenWithTimeRange } from '../../utils/token-generate';
 
 describe('getDefaultUserState', (): void => {
   const username = 'xyz';
 
   beforeEach(() => {
     vi.resetModules();
+    vi.resetAllMocks();
   });
 
   test('should return state with empty user', async () => {
     const token = 'token-xx-xx-xx';
-    vi.doMock('../storage', async (importOriginal) => ({
-      ...(await importOriginal<typeof import('../storage')>()),
-      getItem: (key: string) => (key === 'token' ? token : username),
+
+    vi.doMock('../storage', () => ({
+      default: {
+        getItem: (key: string) => (key === 'token' ? token : username),
+      },
     }));
+
     const Login = await import('./login');
     const { getDefaultUserState } = Login;
     const result = {
@@ -24,19 +28,21 @@ describe('getDefaultUserState', (): void => {
     expect(getDefaultUserState()).toEqual(result);
   });
 
-  // test('should return state with user from storage', async () => {
-  //   const token = generateTokenWithTimeRange(24);
-  //
-  //   vi.doMock('../storage', async (importOriginal) => ({
-  //     ...(await importOriginal<typeof import('../storage')>()),
-  //     getItem: (key: string) => (key === 'token' ? token : username),
-  //   }));
-  //   const Login = await import('./login');
-  //   const { getDefaultUserState } = Login;
-  //   const result = {
-  //     token,
-  //     username,
-  //   };
-  //   expect(getDefaultUserState()).toEqual(result);
-  // });
+  test('should return state with user from storage', async () => {
+    const token = generateTokenWithTimeRange(24);
+
+    vi.doMock('../storage', () => ({
+      default: {
+        getItem: (key: string) => (key === 'token' ? token : username),
+      },
+    }));
+
+    const Login = await import('./login');
+    const { getDefaultUserState } = Login;
+    const result = {
+      token,
+      username,
+    };
+    expect(getDefaultUserState()).toEqual(result);
+  });
 });

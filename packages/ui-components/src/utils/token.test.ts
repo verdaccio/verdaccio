@@ -1,13 +1,12 @@
 import { vi } from 'vitest';
 
-/* eslint-disable jest/no-mocks-import */
+import { isTokenExpire } from './token';
 import {
   generateInvalidToken,
   generateTokenWithExpirationAsString,
   generateTokenWithOutExpiration,
   generateTokenWithTimeRange,
-} from '../../vitest/unit/components/__mocks__/token';
-import { isTokenExpire } from './token';
+} from './token-generate';
 
 /* eslint-disable no-console */
 console.error = vi.fn();

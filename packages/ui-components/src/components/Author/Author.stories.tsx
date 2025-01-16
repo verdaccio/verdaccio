@@ -35,7 +35,7 @@ export const AuthorAll: any = () => (
   />
 );
 
-export const NoDAuthor: any = () => (
+export const NoAuthor: any = () => (
   <Author
     packageMeta={{
       latest: {

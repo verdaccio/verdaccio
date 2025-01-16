@@ -22,6 +22,7 @@ export default defineConfig({
       '\\.(jpg)$': './vitest/unit/empty.ts',
       '\\.(md)$': './vitest/unit/empty-string.ts',
     },
+    testTimeout: 15000,
   },
   plugins: [
     react({
