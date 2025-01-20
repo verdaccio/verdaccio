@@ -29,13 +29,20 @@ function reduceDownloads(downloads) {
 const VersionDownloadsChart = () => {
   const processedData = reduceDownloads(data);
 
-  const labels = Object.keys(processedData).map((version) => `v${version}`);
-  const dataPoints = Object.values(processedData);
+  // Filter out versions with less than 400 downloads (mostly very old deprecated versions)
+  // @ts-ignore
+  const filteredData = Object.entries(processedData).filter(([_, count]) => count > 400);
+
+  const labels = filteredData.map(([version]) => `v${version}`);
+  const dataPoints = filteredData.map(([_, count]) => count);
+
+  console.log('dataPoints', dataPoints);
+
   const chartData = {
     labels,
     datasets: [
       {
-        label: 'v6',
+        label: 'Downloads',
         data: dataPoints,
         backgroundColor: [
           'rgba(75, 192, 192, 0.6)',
@@ -64,7 +71,13 @@ const VersionDownloadsChart = () => {
         text: `Downloads by Major Version ${lastDate}`,
       },
       tooltip: {
-        enabled: true,
+        callbacks: {
+          label: function (context) {
+            const label = context.dataset.label || ''; // General label
+            const value = context.raw; // Tooltip value
+            return `${context.label}: ${value}`; // Format each tooltip item as "vX: Y"
+          },
+        },
       },
     },
     scales: {

@@ -2355,6 +2355,9 @@ importers:
       react-twitter-widgets:
         specifier: ^1.10.0
         version: 1.11.0(react@18.3.1)
+      semver:
+        specifier: 7.6.3
+        version: 7.6.3
       use-is-in-viewport:
         specifier: 1.0.9
         version: 1.0.9(react@18.3.1)
