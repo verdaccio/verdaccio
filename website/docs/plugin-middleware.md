@@ -42,7 +42,7 @@ The `auth` and `storage` are instances and can be extended, but we don't recomme
 
 > A good example of a middleware plugin is the [verdaccio-audit](https://github.com/verdaccio/monorepo/tree/master/plugins/audit).
 
-## Generate an middleware plugin {#generate-an-middleware-plugin}
+## Generate a middleware plugin {#generate-a-middleware-plugin}
 
 For detailed info check our [plugin generator page](plugin-generator). Run the `yo` command in your terminal and follow the steps.
 
