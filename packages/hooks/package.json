@@ -39,8 +39,7 @@
   "devDependencies": {
     "@verdaccio/auth": "workspace:8.0.0-next-8.7",
     "@verdaccio/config": "workspace:8.0.0-next-8.7",
-    "@verdaccio/types": "workspace:13.0.0-next-8.2",
-    "nock": "14.0.0"
+    "@verdaccio/types": "workspace:13.0.0-next-8.2"
   },
   "scripts": {
     "clean": "rimraf ./build",

@@ -594,9 +594,6 @@ importers:
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -833,9 +830,6 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.2
         version: link:../core/types
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
 
   packages/loaders:
     dependencies:
@@ -1035,9 +1029,6 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.2
         version: link:../../core/types
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -1454,9 +1445,6 @@ importers:
       get-stream:
         specifier: ^6.0.1
         version: 6.0.1
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1494,9 +1482,6 @@ importers:
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -1723,9 +1708,6 @@ importers:
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -2168,9 +2150,6 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       node-mocks-http:
         specifier: 1.14.1
         version: 1.14.1
@@ -2241,9 +2220,6 @@ importers:
       jsdom:
         specifier: 25.0.1
         version: 25.0.1
-      nock:
-        specifier: 14.0.0
-        version: 14.0.0
       node-html-parser:
         specifier: 4.1.5
         version: 4.1.5
@@ -7967,18 +7943,6 @@ packages:
       - supports-color
     dev: true
 
-  /@mswjs/interceptors@0.37.5:
-    resolution: {integrity: sha512-AAwRb5vXFcY4L+FvZ7LZusDuZ0vEe0Zm8ohn1FM6/X7A3bj4mqmkAcGRWuvC2JwSygNwHAAmMnAI73vPHeqsHA==}
-    engines: {node: '>=18'}
-    dependencies:
-      '@open-draft/deferred-promise': 2.2.0
-      '@open-draft/logger': 0.3.0
-      '@open-draft/until': 2.1.0
-      is-node-process: 1.2.0
-      outvariant: 1.4.3
-      strict-event-emitter: 0.5.1
-    dev: true
-
   /@mui/core-downloads-tracker@5.16.5:
     resolution: {integrity: sha512-ziFn1oPm6VjvHQcdGcAO+fXvOQEgieIj0BuSqcltFU+JXIxjPdVYNTdn2HU7/Ak5Gabk6k2u7+9PV7oZ6JT5sA==}
 
@@ -8879,23 +8843,8 @@ packages:
       '@octokit/openapi-types': 16.0.0
     dev: true
 
-  /@open-draft/deferred-promise@2.2.0:
-    resolution: {integrity: sha512-CecwLWx3rhxVQF6V4bAgPS5t+So2sTbPgAzafKkVizyi7tlwpcFpdFqq+wqF2OwNBmqFuu6tOyouTuxgpMfzmA==}
-    dev: true
-
-  /@open-draft/logger@0.3.0:
-    resolution: {integrity: sha512-X2g45fzhxH238HKO4xbSr7+wBS8Fvw6ixhTDuvLd5mqh6bJJCFAPwU9mPDxbcrRtfxv4u5IHCEH77BmxvXmmxQ==}
-    dependencies:
-      is-node-process: 1.2.0
-      outvariant: 1.4.3
-    dev: true
-
   /@open-draft/until@1.0.3:
     resolution: {integrity: sha512-Aq58f5HiWdyDlFffbbSjAlv596h/cOnt2DO1w3DOC7OJ5EHs0hd/nycJfiu9RJbT6Yk6F1knnRRXNSpxoIVZ9Q==}
-    dev: true
-
-  /@open-draft/until@2.1.0:
-    resolution: {integrity: sha512-U69T3ItWHvLwGg5eJ0n3I62nWuE6ilHlmz7zM0npLBRvPRd7e6NYmg54vvRtP5mZG7kZqZCFVdsTWo7BPtBujg==}
     dev: true
 
   /@orama/orama@1.2.4:
@@ -23461,15 +23410,6 @@ packages:
       - supports-color
     dev: true
 
-  /nock@14.0.0:
-    resolution: {integrity: sha512-3Z2ZoZoYTR/y2I+NI16+6IzfZFKBX7MrADtoBAm7v/QKqxQUhKw+Dh+847PPS1j/FDutjfIXfrh3CJF74yITWg==}
-    engines: {node: '>= 18'}
-    dependencies:
-      '@mswjs/interceptors': 0.37.5
-      json-stringify-safe: 5.0.1
-      propagate: 2.0.1
-    dev: true
-
   /node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
     requiresBuild: true
@@ -24590,10 +24530,6 @@ packages:
 
   /outvariant@1.4.0:
     resolution: {integrity: sha512-AlWY719RF02ujitly7Kk/0QlV+pXGFDHrHf9O2OKqyqgBieaPOIeuSkL8sRK6j2WK+/ZAURq2kZsY0d8JapUiw==}
-    dev: true
-
-  /outvariant@1.4.3:
-    resolution: {integrity: sha512-+Sl2UErvtsoajRDKCE5/dBz4DIvHXQQnAxtQTF04OJxY0+DyZXSo5P5Bb7XYWOh81syohlYL24hbDwxedPUJCA==}
     dev: true
 
   /p-all@2.1.0:
@@ -29030,10 +28966,6 @@ packages:
 
   /strict-event-emitter@0.4.6:
     resolution: {integrity: sha512-12KWeb+wixJohmnwNFerbyiBrAlq5qJLwIt38etRtKtmmHyDSoGlIqFE9wx+4IwG0aDjI7GV8tc8ZccjWZZtTg==}
-    dev: true
-
-  /strict-event-emitter@0.5.1:
-    resolution: {integrity: sha512-vMgjE/GGEPEFnhFub6pa4FmJBRBVOLpIII2hvCZ8Kzb7K0hlHo7mQv6xYrBvCL2LtAIBwFUK8wvuJgTVSQ5MFQ==}
     dev: true
 
   /string-argv@0.3.1:
