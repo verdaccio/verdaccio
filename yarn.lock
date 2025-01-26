@@ -2666,6 +2666,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mswjs/interceptors@npm:^0.37.3":
+  version: 0.37.5
+  resolution: "@mswjs/interceptors@npm:0.37.5"
+  dependencies:
+    "@open-draft/deferred-promise": ^2.2.0
+    "@open-draft/logger": ^0.3.0
+    "@open-draft/until": ^2.0.0
+    is-node-process: ^1.2.0
+    outvariant: ^1.4.3
+    strict-event-emitter: ^0.5.1
+  checksum: 5401b0c1ad65a10bcfc18c688a22d3424f55b06c7754f9956629bf095f870d5306ba816ad09a85accc7bbc34c908ad2bbaa692ce82c8992815119580cfb78cd8
+  languageName: node
+  linkType: hard
+
 "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3":
   version: 2.1.8-no-fsevents.3
   resolution: "@nicolo-ribaudo/chokidar-2@npm:2.1.8-no-fsevents.3"
@@ -2850,6 +2864,30 @@ __metadata:
   dependencies:
     "@octokit/openapi-types": ^23.0.1
   checksum: ba373c2cfd44391f632df7b99f2610ba0d33b4e875861857c1e4ba6e6c1ae4029858a16aceefc3c5b2bd591190203ee361bb3d5df21d8b309932f659c40c1397
+  languageName: node
+  linkType: hard
+
+"@open-draft/deferred-promise@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@open-draft/deferred-promise@npm:2.2.0"
+  checksum: 7f29d39725bb8ab5b62f89d88a4202ce2439ac740860979f9e3d0015dfe4bc3daddcfa5727fa4eed482fdbee770aa591b1136b98b0a0f0569a65294f35bdf56a
+  languageName: node
+  linkType: hard
+
+"@open-draft/logger@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@open-draft/logger@npm:0.3.0"
+  dependencies:
+    is-node-process: ^1.2.0
+    outvariant: ^1.4.0
+  checksum: 7adfe3d0ed8ca32333ce2a77f9a93d561ebc89c989eaa9722f1dc8a2d2854f5de1bef6fa6894cdf58e16fa4dd9cfa99444ea1f5cac6eb1518e9247911ed042d5
+  languageName: node
+  linkType: hard
+
+"@open-draft/until@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "@open-draft/until@npm:2.1.0"
+  checksum: 140ea3b16f4a3a6a729c1256050e20a93d408d7aa1e125648ce2665b3c526ed452510c6e4a6f4b15d95fb5e41203fb51510eb8fbc8812d5e5a91880293d66471
   languageName: node
   linkType: hard
 
@@ -7492,6 +7530,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-node-process@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "is-node-process@npm:1.2.0"
+  checksum: 930765cdc6d81ab8f1bbecbea4a8d35c7c6d88a3ff61f3630e0fc7f22d624d7661c1df05c58547d0eb6a639dfa9304682c8e342c4113a6ed51472b704cee2928
+  languageName: node
+  linkType: hard
+
 "is-number-object@npm:^1.0.4":
   version: 1.0.7
   resolution: "is-number-object@npm:1.0.7"
@@ -9063,14 +9108,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nock@npm:13.5.6":
-  version: 13.5.6
-  resolution: "nock@npm:13.5.6"
+"nock@npm:14.0.0":
+  version: 14.0.0
+  resolution: "nock@npm:14.0.0"
   dependencies:
-    debug: ^4.1.0
+    "@mswjs/interceptors": ^0.37.3
     json-stringify-safe: ^5.0.1
     propagate: ^2.0.0
-  checksum: 82d31ef7a428e8a6bc430b2772745ecb1f9c8835170789bbcc29c9036614adf3b7112daeb6d59edd93f4340a9a96acee401021572d469a7a0e09a669679f2794
+  checksum: 73be448598fc72e935e4a328c6f11ed3da185b4bdf7e3880c4fb0c59197127fea0ea1d893aa042c778f3d71a7a77f9c23c3392ffd2de2ee38c1a49015a3c1059
   languageName: node
   linkType: hard
 
@@ -9386,6 +9431,13 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ^0.4.0
   checksum: 09281999441f2fe9c33a5eeab76700795365a061563d66b098923eb719251a42bdbe432790d35064d0816ead9296dbeb1ad51a733edf4167c96bd5d0882e428a
+  languageName: node
+  linkType: hard
+
+"outvariant@npm:^1.4.0, outvariant@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "outvariant@npm:1.4.3"
+  checksum: 4a3551fb2b45309e585eebf88bad094dbe56ac6d3a28d59dd2e4050b431aa2beb6097a0763fce3cd82ca0f077026f380a9b60fffc306aaf430141421e7a7b6ed
   languageName: node
   linkType: hard
 
@@ -10925,6 +10977,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"strict-event-emitter@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "strict-event-emitter@npm:0.5.1"
+  checksum: 350480431bc1c28fdb601ef4976c2f8155fc364b4740f9692dd03e5bdd48aafc99a5e021fe655fbd986d0b803e9f3fc5c4b018b35cb838c4690d60f2a26f1cf3
+  languageName: node
+  linkType: hard
+
 "string-length@npm:^4.0.1":
   version: 4.0.2
   resolution: "string-length@npm:4.0.2"
@@ -11983,7 +12042,7 @@ __metadata:
     lru-cache: 7.18.3
     mime: 3.0.0
     mkdirp: 1.0.4
-    nock: 13.5.6
+    nock: 14.0.0
     node-mocks-http: ^1.15.0
     pinst: 2.1.6
     pkginfo: 0.4.1

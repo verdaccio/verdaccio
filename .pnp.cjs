@@ -121,7 +121,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:7.18.3"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
-            ["nock", "npm:13.5.6"],\
+            ["nock", "npm:14.0.0"],\
             ["node-mocks-http", "npm:1.15.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
@@ -4620,6 +4620,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@mswjs/interceptors", [\
+        ["npm:0.37.5", {\
+          "packageLocation": "./.yarn/cache/@mswjs-interceptors-npm-0.37.5-065eecd6e6-5401b0c1ad.zip/node_modules/@mswjs/interceptors/",\
+          "packageDependencies": [\
+            ["@mswjs/interceptors", "npm:0.37.5"],\
+            ["@open-draft/deferred-promise", "npm:2.2.0"],\
+            ["@open-draft/logger", "npm:0.3.0"],\
+            ["@open-draft/until", "npm:2.1.0"],\
+            ["is-node-process", "npm:1.2.0"],\
+            ["outvariant", "npm:1.4.3"],\
+            ["strict-event-emitter", "npm:0.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@nicolo-ribaudo/chokidar-2", [\
         ["npm:2.1.8-no-fsevents.3", {\
           "packageLocation": "./.yarn/cache/@nicolo-ribaudo-chokidar-2-npm-2.1.8-no-fsevents.3-79ca8bfcef-ee55cc9241.zip/node_modules/@nicolo-ribaudo/chokidar-2/",\
@@ -4860,6 +4875,35 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@octokit/types", "npm:13.7.0"],\
             ["@octokit/openapi-types", "npm:23.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@open-draft/deferred-promise", [\
+        ["npm:2.2.0", {\
+          "packageLocation": "./.yarn/cache/@open-draft-deferred-promise-npm-2.2.0-adf396dc9f-7f29d39725.zip/node_modules/@open-draft/deferred-promise/",\
+          "packageDependencies": [\
+            ["@open-draft/deferred-promise", "npm:2.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@open-draft/logger", [\
+        ["npm:0.3.0", {\
+          "packageLocation": "./.yarn/cache/@open-draft-logger-npm-0.3.0-12b03e55aa-7adfe3d0ed.zip/node_modules/@open-draft/logger/",\
+          "packageDependencies": [\
+            ["@open-draft/logger", "npm:0.3.0"],\
+            ["is-node-process", "npm:1.2.0"],\
+            ["outvariant", "npm:1.4.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@open-draft/until", [\
+        ["npm:2.1.0", {\
+          "packageLocation": "./.yarn/cache/@open-draft-until-npm-2.1.0-e27da33c52-140ea3b16f.zip/node_modules/@open-draft/until/",\
+          "packageDependencies": [\
+            ["@open-draft/until", "npm:2.1.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10430,6 +10474,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["is-node-process", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/is-node-process-npm-1.2.0-34f2abe8e1-930765cdc6.zip/node_modules/is-node-process/",\
+          "packageDependencies": [\
+            ["is-node-process", "npm:1.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["is-number", [\
         ["npm:7.0.0", {\
           "packageLocation": "./.yarn/cache/is-number-npm-7.0.0-060086935c-456ac6f8e0.zip/node_modules/is-number/",\
@@ -12248,11 +12301,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["nock", [\
-        ["npm:13.5.6", {\
-          "packageLocation": "./.yarn/cache/nock-npm-13.5.6-6fbafbb636-82d31ef7a4.zip/node_modules/nock/",\
+        ["npm:14.0.0", {\
+          "packageLocation": "./.yarn/cache/nock-npm-14.0.0-d6dfa91ed4-73be448598.zip/node_modules/nock/",\
           "packageDependencies": [\
-            ["nock", "npm:13.5.6"],\
-            ["debug", "virtual:2a96cd6adb8d01ce6acadfdcee0e950328af9eb8d2f3484d458093d790927273d4d7e161cb1324ea2a1c52e3df1963e2785709a9f9d4a4cadac95d0519a47a9c#npm:4.3.4"],\
+            ["nock", "npm:14.0.0"],\
+            ["@mswjs/interceptors", "npm:0.37.5"],\
             ["json-stringify-safe", "npm:5.0.1"],\
             ["propagate", "npm:2.0.1"]\
           ],\
@@ -12609,6 +12662,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["levn", "npm:0.4.1"],\
             ["prelude-ls", "npm:1.2.1"],\
             ["type-check", "npm:0.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["outvariant", [\
+        ["npm:1.4.3", {\
+          "packageLocation": "./.yarn/cache/outvariant-npm-1.4.3-192f951f81-4a3551fb2b.zip/node_modules/outvariant/",\
+          "packageDependencies": [\
+            ["outvariant", "npm:1.4.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14267,6 +14329,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["strict-event-emitter", [\
+        ["npm:0.5.1", {\
+          "packageLocation": "./.yarn/cache/strict-event-emitter-npm-0.5.1-8414bf36b3-350480431b.zip/node_modules/strict-event-emitter/",\
+          "packageDependencies": [\
+            ["strict-event-emitter", "npm:0.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["string-length", [\
         ["npm:4.0.2", {\
           "packageLocation": "./.yarn/cache/string-length-npm-4.0.2-675173c7a2-ce85533ef5.zip/node_modules/string-length/",\
@@ -15406,7 +15477,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:7.18.3"],\
             ["mime", "npm:3.0.0"],\
             ["mkdirp", "npm:1.0.4"],\
-            ["nock", "npm:13.5.6"],\
+            ["nock", "npm:14.0.0"],\
             ["node-mocks-http", "npm:1.15.0"],\
             ["pinst", "npm:2.1.6"],\
             ["pkginfo", "npm:0.4.1"],\
