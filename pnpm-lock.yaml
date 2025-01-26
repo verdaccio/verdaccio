@@ -2376,16 +2376,16 @@ importers:
         version: link:../packages/tools/local-scripts
       docusaurus-plugin-sass:
         specifier: ^0.2.6
-        version: 0.2.6(@docusaurus/core@3.6.3)(sass@1.83.0)(webpack@5.97.1)
+        version: 0.2.6(@docusaurus/core@3.6.3)(sass@1.83.4)(webpack@5.97.1)
       prism-react-renderer:
         specifier: ^2.4.1
         version: 2.4.1(react@18.3.1)
       sass:
-        specifier: 1.83.0
-        version: 1.83.0
+        specifier: 1.83.4
+        version: 1.83.4
       sass-loader:
         specifier: 16.0.4
-        version: 16.0.4(sass@1.83.0)(webpack@5.97.1)
+        version: 16.0.4(sass@1.83.4)(webpack@5.97.1)
       url-loader:
         specifier: 4.1.1
         version: 4.1.1(file-loader@6.2.0)(webpack@5.97.1)
@@ -16645,15 +16645,15 @@ packages:
     dependencies:
       esutils: 2.0.3
 
-  /docusaurus-plugin-sass@0.2.6(@docusaurus/core@3.6.3)(sass@1.83.0)(webpack@5.97.1):
+  /docusaurus-plugin-sass@0.2.6(@docusaurus/core@3.6.3)(sass@1.83.4)(webpack@5.97.1):
     resolution: {integrity: sha512-2hKQQDkrufMong9upKoG/kSHJhuwd+FA3iAe/qzS/BmWpbIpe7XKmq5wlz4J5CJaOPu4x+iDJbgAxZqcoQf0kg==}
     peerDependencies:
       '@docusaurus/core': ^2.0.0-beta || ^3.0.0-alpha
       sass: ^1.30.0
     dependencies:
       '@docusaurus/core': 3.6.3(@mdx-js/react@3.1.0)(acorn@8.14.0)(debug@4.4.0)(eslint@8.57.1)(react-dom@18.3.1)(react@18.3.1)(typescript@5.3.3)
-      sass: 1.83.0
-      sass-loader: 16.0.4(sass@1.83.0)(webpack@5.97.1)
+      sass: 1.83.4
+      sass-loader: 16.0.4(sass@1.83.4)(webpack@5.97.1)
     transitivePeerDependencies:
       - '@rspack/core'
       - node-sass
@@ -28081,7 +28081,7 @@ packages:
       truncate-utf8-bytes: 1.0.2
     dev: false
 
-  /sass-loader@16.0.4(sass@1.83.0)(webpack@5.97.1):
+  /sass-loader@16.0.4(sass@1.83.4)(webpack@5.97.1):
     resolution: {integrity: sha512-LavLbgbBGUt3wCiYzhuLLu65+fWXaXLmq7YxivLhEqmiupCFZ5sKUAipK3do6V80YSU0jvSxNhEdT13IXNr3rg==}
     engines: {node: '>= 18.12.0'}
     peerDependencies:
@@ -28103,12 +28103,12 @@ packages:
         optional: true
     dependencies:
       neo-async: 2.6.2
-      sass: 1.83.0
+      sass: 1.83.4
       webpack: 5.97.1(webpack-cli@4.10.0)
     dev: true
 
-  /sass@1.83.0:
-    resolution: {integrity: sha512-qsSxlayzoOjdvXMVLkzF84DJFc2HZEL/rFyGIKbbilYtAvlCxyuzUeff9LawTn4btVnLKg75Z8MMr1lxU1lfGw==}
+  /sass@1.83.4:
+    resolution: {integrity: sha512-B1bozCeNQiOgDcLd33e2Cs2U60wZwjUUXzh900ZyQF5qUasvMdDZYbQ566LJu7cqR+sAHlAfO6RMkaID5s6qpA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
