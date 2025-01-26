@@ -82,7 +82,7 @@
     "@babel/preset-typescript": "7.25.7",
     "@babel/register": "7.25.9",
     "@babel/runtime": "7.26.0",
-    "@octokit/rest": "19.0.13",
+    "@octokit/rest": "21.1.0",
     "@trivago/prettier-plugin-sort-imports": "4.3.0",
     "@types/async": "3.2.24",
     "@types/express": "4.17.21",
