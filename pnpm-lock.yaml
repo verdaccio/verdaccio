@@ -276,8 +276,8 @@ importers:
         specifier: 11.2.6
         version: 11.2.6
       nock:
-        specifier: 14.0.0
-        version: 14.0.0
+        specifier: 13.5.6
+        version: 13.5.6
       nodemon:
         specifier: 3.0.3
         version: 3.0.3
@@ -23449,6 +23449,17 @@ packages:
     dependencies:
       lower-case: 2.0.2
       tslib: 2.6.3
+
+  /nock@13.5.6:
+    resolution: {integrity: sha512-o2zOYiCpzRqSzPj0Zt/dQ/DqZeYoaQ7TUonc/xUPjCGl9WeHpNbxgVvOquXYAaJzI0M9BXV3HTzG0p8IUAbBTQ==}
+    engines: {node: '>= 10.13'}
+    dependencies:
+      debug: 4.4.0(supports-color@5.5.0)
+      json-stringify-safe: 5.0.1
+      propagate: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /nock@14.0.0:
     resolution: {integrity: sha512-3Z2ZoZoYTR/y2I+NI16+6IzfZFKBX7MrADtoBAm7v/QKqxQUhKw+Dh+847PPS1j/FDutjfIXfrh3CJF74yITWg==}
