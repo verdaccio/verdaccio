@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import api, { handleResponseType } from './api';
+import api, { CustomError, handleResponseType } from './api';
 
 describe('api', () => {
   describe('handleResponseType', () => {
@@ -142,7 +142,9 @@ describe('api', () => {
         })
       );
 
-      await expect(api.request('/resource')).rejects.toThrow(new Error('Unknown error'));
+      const error = new CustomError('Unknown error');
+      error.code = 500;
+      await expect(api.request('/resource')).rejects.toThrow(error);
     });
 
     test('when api returns an error 5.x.x', async () => {
