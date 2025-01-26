@@ -42,7 +42,7 @@
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
     "marked": "15.0.4",
-    "marked-highlight": "2.1.0",
+    "marked-highlight": "2.2.1",
     "normalize.css": "8.0.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
