@@ -40,7 +40,7 @@ const Help: React.FC = () => {
           t('help.second-step'),
           t('help.second-step-command-line', { registryUrl })
         )}
-        <Typography variant="body2">{t('help.third-step')}</Typography>
+        <Typography variant="body1">{t('help.third-step')}</Typography>
       </CardContent>
       <CardActions>
         <Button color="primary" href="https://verdaccio.org/docs/cli-registry" size="small">
