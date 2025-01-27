@@ -1340,8 +1340,8 @@ importers:
         specifier: 5.3.4
         version: 5.3.4(react@18.3.1)
       react-virtualized:
-        specifier: 9.22.5
-        version: 9.22.5(react-dom@18.3.1)(react@18.3.1)
+        specifier: 9.22.6
+        version: 9.22.6(react-dom@18.3.1)(react@18.3.1)
       redux:
         specifier: 4.2.1
         version: 4.2.1
@@ -1993,8 +1993,8 @@ importers:
         specifier: 5.3.4
         version: 5.3.4(react@18.3.1)
       react-virtualized:
-        specifier: 9.22.5
-        version: 9.22.5(react-dom@18.3.1)(react@18.3.1)
+        specifier: 9.22.6
+        version: 9.22.6(react-dom@18.3.1)(react@18.3.1)
       redux:
         specifier: 4.2.1
         version: 4.2.1
@@ -23799,13 +23799,13 @@ packages:
       react: 18.3.1
     dev: false
 
-  /react-virtualized@9.22.5(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-YqQMRzlVANBv1L/7r63OHa2b0ZsAaDp1UhVNEdUaXI8A5u6hTpA5NYtUueLH2rFuY/27mTGIBl7ZhqFKzw18YQ==}
+  /react-virtualized@9.22.6(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-U5j7KuUQt3AaMatlMJ0UJddqSiX+Km0YJxSqbAzIiGw5EmNz0khMyqP2hzgu4+QUtm+QPIrxzUX4raJxmVJnHg==}
     peerDependencies:
-      react: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
-      react-dom: ^15.3.0 || ^16.0.0-alpha || ^17.0.0 || ^18.0.0
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+      react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
-      '@babel/runtime': 7.23.7
+      '@babel/runtime': 7.26.0
       clsx: 1.2.1
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
