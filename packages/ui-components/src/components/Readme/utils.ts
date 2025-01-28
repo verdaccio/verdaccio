@@ -1,4 +1,4 @@
-import * as DOMPurify from 'dompurify';
+import DOMPurify from 'dompurify';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
