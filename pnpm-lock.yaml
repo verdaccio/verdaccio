@@ -561,8 +561,8 @@ importers:
         specifier: workspace:8.1.0-next-8.7
         version: link:../utils
       abortcontroller-polyfill:
-        specifier: 1.7.6
-        version: 1.7.6
+        specifier: 1.7.8
+        version: 1.7.8
       body-parser:
         specifier: 1.20.3
         version: 1.20.3(supports-color@6.1.0)
@@ -11129,8 +11129,8 @@ packages:
     dependencies:
       event-target-shim: 5.0.1
 
-  /abortcontroller-polyfill@1.7.6:
-    resolution: {integrity: sha512-Zypm+LjYdWAzvuypZvDN0smUJrhOurcuBWhhMRBExqVLRvdjp3Z9mASxKyq19K+meZMshwjjy5S0lkm388zE4Q==}
+  /abortcontroller-polyfill@1.7.8:
+    resolution: {integrity: sha512-9f1iZ2uWh92VcrU9Y8x+LdM4DLj75VE0MJB8zuF1iUnroEptStw+DQ8EQPMUdfe5k+PkB1uUfDQfWbhstH8LrQ==}
     dev: false
 
   /abstract-logging@2.0.1:
