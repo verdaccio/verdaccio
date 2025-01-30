@@ -117,7 +117,7 @@
     "typescript": "5.3.3",
     "undici-types": "5.28.2",
     "semver": "^7.6.3",
-    "update-ts-references": "3.4.0",
+    "update-ts-references": "3.6.0",
     "verdaccio-audit": "workspace:*",
     "verdaccio-auth-memory": "workspace:*",
     "verdaccio-htpasswd": "workspace:*",
