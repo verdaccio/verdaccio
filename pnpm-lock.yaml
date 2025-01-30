@@ -315,8 +315,8 @@ importers:
         specifier: 5.28.2
         version: 5.28.2
       update-ts-references:
-        specifier: 3.4.0
-        version: 3.4.0
+        specifier: 3.6.0
+        version: 3.6.0
       verdaccio-audit:
         specifier: workspace:*
         version: link:packages/plugins/audit
@@ -2786,7 +2786,7 @@ packages:
     resolution: {integrity: sha512-zevQbhbau95nkoxSq3f/DC/SC+EEOUZd3DYqfSkMhY2/wfSeaHV1Ew4vk8e+x8lja31IbyuUa2uQ3JONqKbysw==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/parser': 7.26.2
+      '@babel/parser': 7.26.7
       '@babel/types': 7.26.0
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
@@ -4320,7 +4320,7 @@ packages:
     dependencies:
       '@babel/code-frame': 7.26.2
       '@babel/generator': 7.26.2
-      '@babel/parser': 7.26.2
+      '@babel/parser': 7.26.7
       '@babel/template': 7.25.9
       '@babel/types': 7.26.0
       debug: 4.4.0(supports-color@5.5.0)
@@ -10863,7 +10863,7 @@ packages:
   /@vue/compiler-core@3.4.34:
     resolution: {integrity: sha512-Z0izUf32+wAnQewjHu+pQf1yw00EGOmevl1kE+ljjjMe7oEfpQ+BI3/JNK7yMB4IrUsqLDmPecUrpj3mCP+yJQ==}
     dependencies:
-      '@babel/parser': 7.26.2
+      '@babel/parser': 7.26.7
       '@vue/shared': 3.4.34
       entities: 4.5.0
       estree-walker: 2.0.2
@@ -10880,13 +10880,13 @@ packages:
   /@vue/compiler-sfc@3.4.34:
     resolution: {integrity: sha512-x6lm0UrM03jjDXTPZgD9Ad8bIVD1ifWNit2EaWQIZB5CULr46+FbLQ5RpK7AXtDHGjx9rmvC7QRCTjsiGkAwRw==}
     dependencies:
-      '@babel/parser': 7.26.2
+      '@babel/parser': 7.26.7
       '@vue/compiler-core': 3.4.34
       '@vue/compiler-dom': 3.4.34
       '@vue/compiler-ssr': 3.4.34
       '@vue/shared': 3.4.34
       estree-walker: 2.0.2
-      magic-string: 0.30.14
+      magic-string: 0.30.17
       postcss: 8.4.40
       source-map-js: 1.2.0
     dev: true
@@ -15526,7 +15526,7 @@ packages:
       '@nodelib/fs.walk': 1.2.8
       glob-parent: 5.1.2
       merge2: 1.4.1
-      micromatch: 4.0.8
+      micromatch: 4.0.7
 
   /fast-json-parse@1.0.3:
     resolution: {integrity: sha512-FRWsaZRWEJ1ESVNbDWmsAlqDk96gPQezzLghafp5J4GUKjbCz3OkAHuZs5TuPEtkbVQERysLp9xv6c24fBm8Aw==}
@@ -26698,8 +26698,8 @@ packages:
       semver-diff: 4.0.0
       xdg-basedir: 5.1.0
 
-  /update-ts-references@3.4.0:
-    resolution: {integrity: sha512-uFsGvs2oK/BWIdRMuLkPT5S2G+esfXjLCuBybN00VxMFmOnFvjQqJOKzVxkkjjFiLWkxcbBrlUXGtzJuMjgd3g==}
+  /update-ts-references@3.6.0:
+    resolution: {integrity: sha512-5Cpe+n+gxSvbZeIDH8PVJSbhV76qaZTbTQdM2NCxF/Pz6i9NipMXSgDNw/HuDYsXIz5RiHYEEurJXn9g1mrGYQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
