@@ -32,7 +32,7 @@ jobs:
       - name: Install pnpm
         run: |
           corepack enable
-            corepack prepare
+          corepack install
       - name: Install
         run: pnpm install
       - name: Build storybook

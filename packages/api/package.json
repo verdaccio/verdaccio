@@ -45,7 +45,7 @@
     "@verdaccio/middleware": "workspace:8.0.0-next-8.7",
     "@verdaccio/store": "workspace:8.0.0-next-8.7",
     "@verdaccio/utils": "workspace:8.1.0-next-8.7",
-    "abortcontroller-polyfill": "1.7.6",
+    "abortcontroller-polyfill": "1.7.8",
     "body-parser": "1.20.3",
     "cookies": "0.9.1",
     "debug": "4.4.0",
@@ -58,7 +58,6 @@
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.3",
     "@verdaccio/types": "workspace:13.0.0-next-8.2",
     "mockdate": "3.0.5",
-    "nock": "13.5.6",
     "supertest": "7.0.0"
   },
   "funding": {

@@ -167,14 +167,14 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrow(new Error('something awful happened'));
+        ).rejects.toThrow(/something awful happened/);
       });
 
       test('reply with 409 error', async () => {
         nock(domain).get('/jquery').reply(409);
         const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
         await expect(prox1.getRemoteMetadata('jquery', { retry: { limit: 0 } })).rejects.toThrow(
-          new Error('bad status code: 409')
+          /bad status code: 409/
         );
       });
 
@@ -195,9 +195,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
           })
-        ).rejects.toThrow(
-          errorUtils.getInternalError(`${errorUtils.API_ERROR.BAD_STATUS_CODE}: 409`)
-        );
+        ).rejects.toThrow(/bad status code: 409/);
       });
 
       test('proxy  not found', async () => {

@@ -1,4 +1,4 @@
-import * as DOMPurify from 'dompurify';
+import DOMPurify from 'dompurify';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 
@@ -22,5 +22,5 @@ marked.setOptions({
 
 export function parseReadme(readme: string): string | void {
   const html = marked.parse(readme);
-  return DOMPurify.sanitize(html);
+  return DOMPurify.sanitize(html as string);
 }

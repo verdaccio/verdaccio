@@ -10,12 +10,13 @@ import {
 } from 'chart.js';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import semver from 'semver';
 
 import { npmjsDownloads } from '@verdaccio/local-scripts';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const processData = (data) => {
+const processData = (data, { prerelease }) => {
   const labels = [];
   const datasets = {};
 
@@ -68,9 +69,14 @@ const processData = (data) => {
   Object.values(groupedByMajor).forEach((versions) => {
     versions
       .sort((a, b) => b.total - a.total)
-      .slice(0, 2)
+      .filter(({ version }) =>
+        prerelease ? semver.prerelease(version) : !semver.prerelease(version)
+      )
+      .filter(({ version }) => (prerelease ? true : semver.satisfies(version, '>2.0.0')))
+      .splice(0, prerelease ? 2 : 8)
       .forEach(({ version }) => topVersions.push(version));
   });
+  console.log('topVersions', topVersions);
 
   const filteredDatasets = topVersions.map((version) => datasets[version]);
   filteredDatasets.sort((a, b) => semverCompare(a.label, b.label));
@@ -95,8 +101,8 @@ const getRandomColor = () => {
   return color;
 };
 
-const NpmjsVersionsChart = () => {
-  const { labels, datasetArray } = processData(npmjsDownloads);
+const NpmjsVersionsChart = ({ prerelease }) => {
+  const { labels, datasetArray } = processData(npmjsDownloads, { prerelease });
   const chartData = {
     labels: labels,
     datasets: datasetArray,
