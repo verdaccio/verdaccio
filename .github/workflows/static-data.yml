@@ -35,6 +35,10 @@ jobs:
         run: pnpm --filter @verdaccio/local-scripts run downloads:npmjs
       - name: Get docker downloads
         run: pnpm --filter @verdaccio/local-scripts run pull:docker
+      - name: Get npmjs monhtly downloads
+        run: pnpm --filter @verdaccio/local-scripts run downloads:mounthly
+      - name: Get npmjs year downloads
+        run: pnpm --filter @verdaccio/local-scripts run downloads:yearly
       - name: update contributors
         run: pnpm run contributors
         env:
