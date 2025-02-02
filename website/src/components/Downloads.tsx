@@ -8,8 +8,10 @@ import React from 'react';
 
 import DockerPullChart from './Chart/DockerPullChart';
 import DockerTotalPull from './Chart/DockerTotalPull';
+import NpmjsMonthlyDownloadsChart from './Chart/MonhtlyNpmjsDownloadsChart';
 import NpmjsVersionsChart from './Chart/NpmjsVersionsChart';
 import VersionDownloadsChart from './Chart/VersionDownloadsChart';
+import NpmjsYearlyDownloadsChart from './Chart/YearlyNpmjsDownloadsChart';
 
 const theme = createTheme({
   palette: {
@@ -56,6 +58,12 @@ const Downloads: React.FC<{}> = (): React.ReactElement => {
             </div>
             <div style={{ width: '100%', margin: '0 auto' }}>
               <NpmjsVersionsChart prerelease />
+            </div>
+            <div style={{ width: '100%', margin: '0 auto' }}>
+              <NpmjsYearlyDownloadsChart />
+            </div>
+            <div style={{ width: '100%', margin: '0 auto' }}>
+              <NpmjsMonthlyDownloadsChart />
             </div>
           </Box>
         </ThemeProvider>
