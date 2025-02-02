@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.3
+
+### Patch Changes
+
+- 0588605: chore: `keep_readmes` docs
+- ca91b9a: fix: config builder `addLogger`
+
 ## 13.0.0-next-8.2
 
 ### Patch Changes

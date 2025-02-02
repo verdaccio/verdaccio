@@ -1,5 +1,16 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.0
+
+### Patch Changes
+
+- 0588605: chore: `keep_readmes` docs
+- Updated dependencies [69f2e66]
+- Updated dependencies [970e0c9]
+- Updated dependencies [eb4a24b]
+- Updated dependencies [8289cc6]
+  - @verdaccio/ui-components@4.0.0-next-8.5
+
 ## 6.0.1-next-8.4
 
 ### Patch Changes
