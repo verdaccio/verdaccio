@@ -18,7 +18,7 @@ const data = {
   labels: Object.keys(yearlyDownloads),
   datasets: [
     {
-      label: 'Yearly Downloads',
+      label: 'Npmjs Yearly Downloads',
       data: Object.values(yearlyDownloads),
       backgroundColor: 'rgba(75, 192, 192, 0.5)',
       borderColor: 'rgba(75, 192, 192, 1)',

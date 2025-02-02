@@ -19,7 +19,7 @@ const data = {
   labels: monthlyDownloads.map((entry) => entry.start),
   datasets: [
     {
-      label: 'Monthly Downloads',
+      label: 'Npmjs Monthly Downloads',
       data: monthlyDownloads.map((entry) => entry.downloads),
       borderColor: 'rgba(75, 192, 192, 1)',
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
