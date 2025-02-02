@@ -12,6 +12,8 @@
     "start": "node build/index.js",
     "translations": "node build/run.js translations",
     "downloads:npmjs": "node build/run.js npmjs-api-download",
+    "downloads:monthly": "node build/run.js fetch-monthly-data",
+    "downloads:yearly": "node build/run.js fetch-yearly-data",
     "pull:docker": "node build/run.js docker-pull-api-download"
   },
   "keywords": [],

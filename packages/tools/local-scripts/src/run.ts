@@ -2,6 +2,7 @@ import { Cli } from 'clipanion';
 
 import { DockerPullCommand } from './api/dockerPullCommand';
 import { NpmjsApiDownloadCommand } from './api/npmjsApiDownloadCommand';
+import { FetchMonthlyDataCommand, FetchYearlyDataCommand } from './api/npmjsApiDownloadPoints';
 import { TranslationsApiCommand } from './api/translationsCommand';
 
 const [node, app, ...args] = process.argv;
@@ -15,6 +16,8 @@ const cli = new Cli({
 cli.register(TranslationsApiCommand);
 cli.register(NpmjsApiDownloadCommand);
 cli.register(DockerPullCommand);
+cli.register(FetchMonthlyDataCommand);
+cli.register(FetchYearlyDataCommand);
 cli.runExit(args, Cli.defaultContext);
 
 process.on('uncaughtException', function (err) {

@@ -6,11 +6,62 @@ import path from 'path';
 const debug = require('debug')('verdaccio:local-scripts');
 
 const token = process.env.TOKEN || '';
+const START_YEAR = 2016;
+const END_YEAR = new Date().getFullYear();
+const END_MONTH = new Date().getMonth() + 1;
+const API_URL = 'https://api.npmjs.org/downloads/point';
+const PACKAGE_NAME = 'verdaccio';
 
-const getISODateOnly = () => {
+export const getISODateOnly = () => {
   const now = new Date();
   return now.toISOString().split('T')[0];
 };
+
+async function fetchDownloadData(
+  year: number,
+  month: number
+): Promise<{ downloads: number; start: string; end: string; package: string } | null> {
+  const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
+  const endDate = `${year}-${String(month).padStart(2, '0')}-${new Date(year, month, 0).getDate()}`;
+  const url = `${API_URL}/${startDate}:${endDate}/${PACKAGE_NAME}`;
+
+  try {
+    const response = await got.get(url).json();
+    return response;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Failed to fetch data for ${startDate} to ${endDate}:`, error);
+    return null;
+  }
+}
+
+export async function fetchMonthlyData() {
+  const results = [];
+  for (let year = START_YEAR; year <= END_YEAR; year++) {
+    for (let month = 1; month <= 12; month++) {
+      if (year === END_YEAR && month > END_MONTH) break;
+      const data = await fetchDownloadData(year, month);
+      if (data) results.push(data);
+    }
+  }
+  await fs.writeFile('monthly_downloads.json', JSON.stringify(results, null, 2));
+  debug('Monthly data saved to monthly_downloads.json');
+}
+
+export async function fetchYearlyData() {
+  const results: { [key: string]: number } = {};
+  for (let year = START_YEAR; year <= END_YEAR; year++) {
+    let yearlyTotal = 0;
+    for (let month = 1; month <= 12; month++) {
+      if (year === END_YEAR && month > END_MONTH) break;
+      const data = await fetchDownloadData(year, month);
+      if (data) yearlyTotal += data.downloads;
+    }
+    results[year.toString()] = yearlyTotal;
+  }
+  await fs.writeFile('yearly_downloads.json', JSON.stringify(results, null, 2));
+  debug('Yearly data saved to yearly_downloads.json');
+}
 
 export async function fetchNpmjsApiDownloadsWeekly() {
   try {
@@ -90,7 +141,7 @@ export async function fetchTranslationsAPI() {
     const location = path.join(__dirname, '../../src/progress_lang.json');
     await fs.writeFile(location, JSON.stringify(final, null, 4));
     // eslint-disable-next-line no-console
-    console.log('translations written at %s ends', location);
+    debug('translations written at %s ends', location);
   } catch (err: any) {
     // eslint-disable-next-line no-console
     console.error(`error on process crowdin translations run`, err);
