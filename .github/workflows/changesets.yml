@@ -33,6 +33,7 @@ jobs:
 
       - name: Install pnpm
         run: |
+          npm install --global corepack@latest
           corepack enable
           corepack install
 

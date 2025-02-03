@@ -27,6 +27,7 @@ runs:
         node-version: ${{ inputs.node-version }}
     - name: Install pnpm
       run: |
+        npm install --global corepack@latest
         corepack enable
         corepack prepare
       shell: bash
