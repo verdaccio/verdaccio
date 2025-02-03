@@ -25,6 +25,7 @@ jobs:
         node-version-file: '.nvmrc'
     - name: Install pnpm
       run: |
+        npm install --global corepack@latest
         corepack enable
         corepack install
     - name: set store
