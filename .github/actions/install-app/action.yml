@@ -20,6 +20,7 @@ runs:
         node-version-file: '.nvmrc'
     - name: Install pnpm
       run: |
+        npm install --global corepack@latest
         corepack enable
         corepack prepare
       shell: bash
