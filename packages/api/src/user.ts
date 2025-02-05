@@ -12,7 +12,7 @@ import {
   errorUtils,
   validatioUtils,
 } from '@verdaccio/core';
-import { rateLimit } from '@verdaccio/middleware';
+import { USER_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import { Logger } from '@verdaccio/types';
 import { Config, RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
@@ -23,7 +23,7 @@ const debug = buildDebug('verdaccio:api:user');
 
 export default function (route: Router, auth: Auth, config: Config, logger: Logger): void {
   route.get(
-    '/-/user/:org_couchdb_user',
+    USER_API_ENDPOINTS.get_user,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
@@ -70,7 +70,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
  * @param {Config} config
  */
   route.put(
-    '/-/user/:org_couchdb_user/:_rev?/:revision?',
+    USER_API_ENDPOINTS.add_user,
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
@@ -168,7 +168,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
   );
 
   route.delete(
-    '/-/user/token/*',
+    USER_API_ENDPOINTS.user_token,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       res.status(HTTP_STATUS.OK);
       next({
