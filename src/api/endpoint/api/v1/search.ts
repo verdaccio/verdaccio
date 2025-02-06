@@ -1,10 +1,11 @@
 import _ from 'lodash';
 import semver from 'semver';
 
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
 import { HTTP_STATUS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
+import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
 
 type PublisherMaintainer = {
   username: string;
@@ -105,7 +106,7 @@ function removeDuplicates(results) {
   });
 }
 
-function checkAccess(pkg: any, auth: any, remoteUser): Promise<Package | null> {
+function checkAccess(pkg: any, auth: any, remoteUser): Promise<Manifest | null> {
   return new Promise((resolve, reject) => {
     auth.allow_access({ packageName: pkg?.package?.name }, remoteUser, function (err, allowed) {
       if (err) {
@@ -182,7 +183,7 @@ async function sendResponse(
  * req: 'GET /-/v1/search?text=react&size=20&from=0&quality=0.65&popularity=0.98&maintenance=0.5'
  */
 export default function (route, auth, storage): void {
-  route.get('/-/v1/search', async (req, res, next) => {
+  route.get(SEARCH_API_ENDPOINTS.search, async (req, res, next) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
     let [text, size, from /* , quality, popularity, maintenance */] = [
       'text',

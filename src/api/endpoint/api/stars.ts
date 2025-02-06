@@ -7,10 +7,11 @@ import { Manifest, Version } from '@verdaccio/types';
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend } from '../../../types';
+import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';
 
 export default function (route: Router, storage: Storage): void {
   route.get(
-    '/-/_view/starredByUser',
+    STARS_API_ENDPOINTS.get_user_starred_packages,
     (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
       // @ts-ignore
       const query: { key: string } = req.query;

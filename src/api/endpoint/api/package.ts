@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { allow } from '@verdaccio/middleware';
+import { allow, PACKAGE_API_ENDPOINTS } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
@@ -69,7 +69,7 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
   });
   // TODO: anonymous user?
   route.get(
-    '/:package/:version?',
+    PACKAGE_API_ENDPOINTS.get_package_by_version,
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const abbreviated =
@@ -129,21 +129,9 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
     }
   );
 
-  route.get(
-    '/:scopedPackage/-/:scope/:filename',
-    can('access'),
-    function (req: $RequestExtend, res: $ResponseExtend): void {
-      const { scopedPackage, filename } = req.params;
-      if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
-        downloadStream(scopedPackage, filename, storage, req, res);
-      } else {
-        redirectOrDownloadStream(scopedPackage, filename, storage, req, res, config);
-      }
-    }
-  );
 
   route.get(
-    '/:package/-/:filename',
+    PACKAGE_API_ENDPOINTS.get_package_tarball,
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend): void {
       if (_.get(config, 'experiments.tarball_url_redirect') === undefined) {
