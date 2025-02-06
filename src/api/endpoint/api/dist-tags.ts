@@ -2,7 +2,7 @@ import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
 
-import { allow, DIST_TAGS_API_ENDPOINTS, media } from '@verdaccio/middleware';
+import { DIST_TAGS_API_ENDPOINTS, allow, media } from '@verdaccio/middleware';
 import { Package } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
@@ -37,7 +37,12 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   };
 
   // tagging a package
-  route.put(DIST_TAGS_API_ENDPOINTS.tagging, can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put(
+    DIST_TAGS_API_ENDPOINTS.tagging,
+    can('publish'),
+    media(mime.getType('json')),
+    tag_package_version
+  );
 
   route.post(
     DIST_TAGS_API_ENDPOINTS.tagging_package,

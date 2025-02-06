@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { allow, PACKAGE_API_ENDPOINTS } from '@verdaccio/middleware';
+import { PACKAGE_API_ENDPOINTS, allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
 import { Config, Package } from '@verdaccio/types';
 
@@ -128,7 +128,6 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
       });
     }
   );
-
 
   route.get(
     PACKAGE_API_ENDPOINTS.get_package_tarball,

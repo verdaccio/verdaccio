@@ -1,5 +1,6 @@
-import { PING_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Router } from 'express';
+
+import { PING_API_ENDPOINTS } from '@verdaccio/middleware';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
 

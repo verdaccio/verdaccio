@@ -1,4 +1,5 @@
 import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
+
 import { HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 
