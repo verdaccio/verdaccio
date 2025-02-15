@@ -1238,8 +1238,8 @@ importers:
         specifier: 2.3.3
         version: 2.3.3
       country-flag-icons:
-        specifier: 1.5.14
-        version: 1.5.14
+        specifier: 1.5.16
+        version: 1.5.16
       css-loader:
         specifier: 6.11.0
         version: 6.11.0(webpack@5.97.1)
@@ -1933,8 +1933,8 @@ importers:
         specifier: 2.1.2
         version: 2.1.2(@rematch/core@2.2.0)(react@18.3.1)(redux@4.2.1)
       country-flag-icons:
-        specifier: 1.5.14
-        version: 1.5.14
+        specifier: 1.5.16
+        version: 1.5.16
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -13116,8 +13116,8 @@ packages:
       path-type: 4.0.0
       typescript: 5.3.3
 
-  /country-flag-icons@1.5.14:
-    resolution: {integrity: sha512-GAFsVzHDu3bdAhbQ1LwBRqk/Ad8+ZzS5zU49P+lRla0KGy/V1V8ywNa1SxBOAmI/lyEOT9dfH3Q++q1lqJlvBA==}
+  /country-flag-icons@1.5.16:
+    resolution: {integrity: sha512-F9lNvhSrJ9D7Y2a6Tvbx2MFglZ9esNK76uTy4NqvdVzvgvy6/cKMGDYcnR1QOCgtmdc+akz2gqibZn3e3b6rQA==}
 
   /create-jest@29.7.0(@types/node@20.14.12)(ts-node@10.9.2):
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
