@@ -89,7 +89,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.4"],\
-            ["compression", "npm:1.7.5"],\
+            ["compression", "npm:1.8.0"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:e67980cc08b6e7204786787e242b50d182c03bed27d187bde3b0e6013658cf2d0e51cd7b7fef2d5a56f3663e281491992985b09b252f76b0e9d67e0212febf0b#npm:4.4.0"],\
@@ -7278,10 +7278,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["compression", [\
-        ["npm:1.7.5", {\
-          "packageLocation": "./.yarn/cache/compression-npm-1.7.5-346039c027-d624b55624.zip/node_modules/compression/",\
+        ["npm:1.8.0", {\
+          "packageLocation": "./.yarn/cache/compression-npm-1.8.0-5088616544-12ca3e326b.zip/node_modules/compression/",\
           "packageDependencies": [\
-            ["compression", "npm:1.7.5"],\
+            ["compression", "npm:1.8.0"],\
             ["bytes", "npm:3.1.2"],\
             ["compressible", "npm:2.0.18"],\
             ["debug", "virtual:c7b184cd14c02e3ce555ab1875e60cf5033c617e17d82c4c02ea822101d3c817f48bf25a766b4d4335742dc5c9c14c2e88a57ed955a56c4ad0613899f82f5618#npm:2.6.9"],\
@@ -15374,7 +15374,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["babel-plugin-dynamic-import-node", "npm:2.3.3"],\
             ["clipanion", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:4.0.0-rc.4"],\
-            ["compression", "npm:1.7.5"],\
+            ["compression", "npm:1.8.0"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
             ["debug", "virtual:e67980cc08b6e7204786787e242b50d182c03bed27d187bde3b0e6013658cf2d0e51cd7b7fef2d5a56f3663e281491992985b09b252f76b0e9d67e0212febf0b#npm:4.4.0"],\
