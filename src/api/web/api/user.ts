@@ -13,6 +13,7 @@ import { $NextFunctionVer } from '../../../types';
 import { wrapPath } from './utils';
 
 function addUserAuthApi(auth: Auth, config: Config): Router {
+  /* eslint new-cap:off */
   const route = Router();
   route.post(
     wrapPath(WebUrls.user_login),

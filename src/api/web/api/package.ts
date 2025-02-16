@@ -33,6 +33,7 @@ const getOrder = (order = 'asc') => {
 export type PackcageExt = Manifest & { author: any; dist?: { tarball: string } };
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
+  /* eslint new-cap:off */
   const pkgRouter = Router();
   const can = allow(auth, {
     beforeAll: (params, message) => {
