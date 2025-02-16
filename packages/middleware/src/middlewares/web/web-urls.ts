@@ -1,3 +1,6 @@
+/**
+ * Enum for web urls, used on the web middleware
+ */
 export enum WebUrls {
   sidebar_scopped_package = '/sidebar/:scope/:package',
   sidebar_package = '/sidebar/:package',
@@ -7,4 +10,13 @@ export enum WebUrls {
   user_login = '/login',
   search = '/search/:anything',
   reset_password = '/reset_password',
+}
+
+/**
+ * Enum for web urls namespace, used on the web middleware
+ */
+export enum WebUrlsNamespace {
+  root = '/-/verdaccio/',
+  data = '/data/',
+  sec = '/sec/',
 }
