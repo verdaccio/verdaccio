@@ -1,5 +1,22 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.9
+
+### Patch Changes
+
+- 96e0011: chore: export and constant on middleware
+- Updated dependencies [96e0011]
+  - @verdaccio/middleware@8.0.0-next-8.9
+  - @verdaccio/auth@8.0.0-next-8.9
+  - @verdaccio/core@8.0.0-next-8.9
+  - @verdaccio/config@8.0.0-next-8.9
+  - @verdaccio/tarball@13.0.0-next-8.9
+  - @verdaccio/url@13.0.0-next-8.9
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - @verdaccio/store@8.0.0-next-8.9
+  - @verdaccio/utils@8.1.0-next-8.9
+  - @verdaccio/logger@8.0.0-next-8.9
+
 ## 8.1.0-next-8.8
 
 ### Patch Changes

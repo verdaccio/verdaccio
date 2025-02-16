@@ -1,5 +1,22 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.9
+
+### Patch Changes
+
+- Updated dependencies [96e0011]
+  - @verdaccio/middleware@8.0.0-next-8.9
+  - @verdaccio/web@8.1.0-next-8.9
+  - @verdaccio/api@8.1.0-next-8.9
+  - @verdaccio/auth@8.0.0-next-8.9
+  - @verdaccio/core@8.0.0-next-8.9
+  - @verdaccio/config@8.0.0-next-8.9
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - verdaccio-audit@13.0.0-next-8.9
+  - @verdaccio/store@8.0.0-next-8.9
+  - @verdaccio/utils@8.1.0-next-8.9
+  - @verdaccio/logger@8.0.0-next-8.9
+
 ## 8.0.0-next-8.8
 
 ### Patch Changes
