@@ -124,6 +124,7 @@ export default function publish(
     uploadPackageTarball(storage)
   );
 
+  // only used for development
   if (config._debug) {
     // adding a version
     router.put(

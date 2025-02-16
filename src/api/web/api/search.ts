@@ -7,11 +7,14 @@ import Auth from '../../../lib/auth';
 import { DIST_TAGS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
+import { WebUrls } from '@verdaccio/middleware';
+import { wrapPath } from './utils';
 
-function addSearchWebApi(route: Router, storage: Storage, auth: Auth): Router {
+function addSearchWebApi(storage: Storage, auth: Auth): Router {
+  const route = Router();
   // Search package
   route.get(
-    '/-/verdaccio/data/search/:anything',
+    wrapPath(WebUrls.search),
     async function (
       req: $RequestExtend,
       _res: $ResponseExtend,
