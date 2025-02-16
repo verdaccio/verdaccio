@@ -10,13 +10,13 @@ import { getSecurity } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer } from '../../../types';
-import { wrapPath } from './utils';
+import { wrapSecPath } from './utils';
 
 function addUserAuthApi(auth: Auth, config: Config): Router {
   /* eslint new-cap:off */
   const route = Router();
   route.post(
-    wrapPath(WebUrls.user_login),
+    wrapSecPath(WebUrls.user_login),
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       const { username, password } = req.body;
@@ -39,7 +39,7 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
   );
 
   route.put(
-    wrapPath(WebUrls.reset_password),
+    wrapSecPath(WebUrls.reset_password),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);

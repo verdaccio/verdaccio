@@ -120,7 +120,8 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
     [wrapPath(WebUrls.readme_package_scoped_version), wrapPath(WebUrls.readme_package_version)],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const scope = req.params.scope;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const packageName = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
@@ -143,7 +144,8 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
     [wrapPath(WebUrls.sidebar_scopped_package), wrapPath(WebUrls.sidebar_package)],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const scope = req.params.scope;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const packageName: string = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
