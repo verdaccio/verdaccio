@@ -8,6 +8,9 @@ import { webMiddleware } from '@verdaccio/middleware';
 
 import webEndpointsApi from './api';
 
+export const PLUGIN_UI_PREFIX = 'verdaccio-theme';
+export const DEFAULT_PLUGIN_UI_THEME = '@verdaccio/ui-theme';
+
 export async function loadTheme(config: any) {
   if (_.isNil(config.theme) === false) {
     const plugin = await asyncLoadPlugin(
@@ -16,14 +19,14 @@ export async function loadTheme(config: any) {
       // TODO: add types { staticPath: string; manifest: unknown; manifestFiles: unknown }
       function (plugin: any) {
         /**
-         * 
+         *
           - `staticPath`: is the same data returned in Verdaccio 5.
           - `manifest`: A webpack manifest object.
           - `manifestFiles`: A object with one property `js` and the array (order matters) of the manifest id to be loaded in the template dynamically.
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
-      config?.serverSettings?.pluginPrefix ?? 'verdaccio-theme',
+      config?.serverSettings?.pluginPrefix ?? PLUGIN_UI_PREFIX,
       PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
@@ -37,9 +40,9 @@ export async function loadTheme(config: any) {
 export default async (config, auth, storage, logger) => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
-    pluginOptions = require('@verdaccio/ui-theme')(config.web);
+    pluginOptions = require(DEFAULT_PLUGIN_UI_THEME)(config.web);
     logger.info(
-      { name: '@verdaccio/ui-theme', pluginCategory: PLUGIN_CATEGORY.THEME },
+      { name: DEFAULT_PLUGIN_UI_THEME, pluginCategory: PLUGIN_CATEGORY.THEME },
       'plugin @{name} successfully loaded (@{pluginCategory})'
     );
   }
