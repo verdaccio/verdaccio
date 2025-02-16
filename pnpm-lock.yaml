@@ -703,8 +703,8 @@ importers:
         specifier: 8.17.1
         version: 8.17.1
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       http-errors:
         specifier: 2.0.0
         version: 2.0.0
@@ -809,8 +809,8 @@ importers:
         specifier: workspace:8.0.0-next-8.8
         version: link:../logger/logger
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -983,8 +983,8 @@ importers:
         specifier: workspace:8.0.0-next-8.8
         version: link:../server/fastify
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -1067,8 +1067,8 @@ importers:
         specifier: 2.4.3
         version: 2.4.3
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -1107,8 +1107,8 @@ importers:
         specifier: workspace:8.1.0-next-8.8
         version: link:../../utils
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -1586,8 +1586,8 @@ importers:
         specifier: workspace:8.1.0-next-8.8
         version: link:../../utils
       core-js:
-        specifier: 3.37.1
-        version: 3.37.1
+        specifier: 3.40.0
+        version: 3.40.0
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -3079,7 +3079,7 @@ packages:
       '@babel/core': 7.26.7
       '@babel/register': 7.25.9(@babel/core@7.26.7)
       commander: 6.2.1
-      core-js: 3.37.1
+      core-js: 3.40.0
       node-environment-flags: 1.0.6
       regenerator-runtime: 0.14.1
       v8flags: 3.2.0
@@ -5304,7 +5304,7 @@ packages:
       cli-table3: 0.6.3
       combine-promises: 1.1.0
       commander: 5.1.0
-      core-js: 3.37.1
+      core-js: 3.40.0
       del: 6.1.1
       detect-port: 1.5.1
       escape-html: 1.0.3
@@ -13040,8 +13040,8 @@ packages:
     resolution: {integrity: sha512-7fEcWwKI4rJinnK+wLTezeg2smbFFdSBP6E2kQZNbnzM2s1rpKQ6aaRteZSSg7FLU3P0HGGVo/gbpfanU36urg==}
     requiresBuild: true
 
-  /core-js@3.37.1:
-    resolution: {integrity: sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==}
+  /core-js@3.40.0:
+    resolution: {integrity: sha512-7vsMc/Lty6AGnn7uFpYT56QesI5D2Y/UkgKounk87OP9Z2H9Z8kj6jzcSGAxFmUtDOS0ntK6lbQz+Nsa0Jj6mQ==}
     requiresBuild: true
 
   /core-util-is@1.0.2:
