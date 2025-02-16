@@ -11,7 +11,6 @@ export default (auth, storage, config) => {
   // eslint-disable-next-line new-cap
   const router = Router();
   router.use(
-    '/data/',
     rateLimit({
       windowMs: 2 * 60 * 1000, // 2  minutes
       max: 5000, // limit each IP to 1000 requests per windowMs
