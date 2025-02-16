@@ -467,10 +467,10 @@ export function isHost(url: string = '', options = {}): boolean {
 }
 
 /**
- * 
- * @param config 
+ *
+ * @param config
  * @deprecated use @verdaccio/middleware
- * @returns 
+ * @returns
  */
 export function hasLogin(config: Config) {
   // FIXME: types are not yet on the library verdaccio/monorepo

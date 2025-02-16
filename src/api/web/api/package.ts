@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { allow, WebUrls } from '@verdaccio/middleware';
+import { WebUrls, allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
@@ -57,8 +57,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
 
   // Get list of all visible package
   pkgRouter.get(
-    wrapPath(
-    WebUrls.packages_all),
+    wrapPath(WebUrls.packages_all),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       storage.getLocalDatabase(async function (err, packages): Promise<void> {
         if (err) {

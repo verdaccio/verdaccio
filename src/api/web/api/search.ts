@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import { WebUrls } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Manifest } from '@verdaccio/types';
 
@@ -7,7 +8,6 @@ import Auth from '../../../lib/auth';
 import { DIST_TAGS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
-import { WebUrls } from '@verdaccio/middleware';
 import { wrapPath } from './utils';
 
 function addSearchWebApi(storage: Storage, auth: Auth): Router {

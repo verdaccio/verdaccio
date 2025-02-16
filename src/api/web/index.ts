@@ -2,7 +2,12 @@ import buildDebug from 'debug';
 import express, { RequestHandler, Router } from 'express';
 import _ from 'lodash';
 
-import { renderWebMiddleware, setSecurityWebHeaders, validateName, validatePackage } from '@verdaccio/middleware';
+import {
+  renderWebMiddleware,
+  setSecurityWebHeaders,
+  validateName,
+  validatePackage,
+} from '@verdaccio/middleware';
 
 import loadPlugin from '../../lib/plugin-loader';
 import webEndpointsApi from './api';
@@ -26,8 +31,7 @@ export function loadTheme(config) {
   }
 }
 
-export function localWebEndpointsApi(auth, storage, config
-): Router {
+export function localWebEndpointsApi(auth, storage, config): Router {
   // eslint-disable-next-line new-cap
   const route = Router();
   // validate all of these params as a package name
@@ -39,10 +43,9 @@ export function localWebEndpointsApi(auth, storage, config
   route.use(setSecurityWebHeaders);
   route.use(auth.apiJWTmiddleware());
   route.use(webEndpointsApi(auth, storage, config));
-  
+
   return route;
 }
-
 
 export default (config, auth, storage) => {
   const pluginOptions = loadTheme(config) || require('@verdaccio/ui-theme')();

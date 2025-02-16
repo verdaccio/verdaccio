@@ -1,3 +1,3 @@
 export function wrapPath(urlPath: string) {
-    return `/-/verdaccio/data${urlPath}`
+  return `/-/verdaccio/data${urlPath}`;
 }

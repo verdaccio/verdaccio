@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { validationUtils } from '@verdaccio/core';
-import { rateLimit, WebUrls } from '@verdaccio/middleware';
+import { WebUrls, rateLimit } from '@verdaccio/middleware';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
