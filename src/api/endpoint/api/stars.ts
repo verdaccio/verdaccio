@@ -2,6 +2,7 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { errorUtils } from '@verdaccio/core';
+import { STARS_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Manifest, Version } from '@verdaccio/types';
 
 import { HTTP_STATUS, USERS } from '../../../lib/constants';
@@ -10,7 +11,7 @@ import { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 export default function (route: Router, storage: Storage): void {
   route.get(
-    '/-/_view/starredByUser',
+    STARS_API_ENDPOINTS.get_user_starred_packages,
     (req: $RequestExtend, res: Response, next: $NextFunctionVer): void => {
       // @ts-ignore
       const query: { key: string } = req.query;

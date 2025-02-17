@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import { WebUrls } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Manifest } from '@verdaccio/types';
 
@@ -7,11 +8,14 @@ import Auth from '../../../lib/auth';
 import { DIST_TAGS } from '../../../lib/constants';
 import Storage from '../../../lib/storage';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
+import { wrapPath } from './utils';
 
-function addSearchWebApi(route: Router, storage: Storage, auth: Auth): Router {
+function addSearchWebApi(storage: Storage, auth: Auth): Router {
+  /* eslint new-cap:off */
+  const route = Router();
   // Search package
   route.get(
-    '/-/verdaccio/data/search/:anything',
+    wrapPath(WebUrls.search),
     async function (
       req: $RequestExtend,
       _res: $ResponseExtend,

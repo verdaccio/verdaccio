@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
-import { allow } from '@verdaccio/middleware';
+import { WebUrls, allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
@@ -24,6 +24,7 @@ import {
   sortByName,
 } from '../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, $SidebarPackage } from '../../../types';
+import { wrapPath } from './utils';
 
 const getOrder = (order = 'asc') => {
   return order === 'asc';
@@ -31,7 +32,9 @@ const getOrder = (order = 'asc') => {
 
 export type PackcageExt = Manifest & { author: any; dist?: { tarball: string } };
 
-function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, config: Config): Router {
+function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
+  /* eslint new-cap:off */
+  const pkgRouter = Router();
   const can = allow(auth, {
     beforeAll: (params, message) => {
       logger.debug(params, message);
@@ -55,7 +58,7 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
 
   // Get list of all visible package
   pkgRouter.get(
-    '/-/verdaccio/data/packages',
+    wrapPath(WebUrls.packages_all),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       storage.getLocalDatabase(async function (err, packages): Promise<void> {
         if (err) {
@@ -114,13 +117,11 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
 
   // Get package readme
   pkgRouter.get(
-    [
-      '/-/verdaccio/data/package/readme/@:scope/:package/:version?',
-      '/-/verdaccio/data/package/readme/:package/:version?',
-    ],
+    [wrapPath(WebUrls.readme_package_scoped_version), wrapPath(WebUrls.readme_package_version)],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const scope = req.params.scope;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const packageName = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({
@@ -140,10 +141,11 @@ function addPackageWebApi(pkgRouter: Router, storage: Storage, auth: Auth, confi
   );
 
   pkgRouter.get(
-    ['/-/verdaccio/data/sidebar/@:scope/:package', '/-/verdaccio/data/sidebar/:package'],
+    [wrapPath(WebUrls.sidebar_scopped_package), wrapPath(WebUrls.sidebar_package)],
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
-      const scope = req.params.scope;
+      const rawScope = req.params.scope; // May include '@'
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const packageName: string = scope ? addScope(scope, req.params.package) : req.params.package;
 
       storage.getPackage({

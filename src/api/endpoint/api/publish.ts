@@ -5,7 +5,7 @@ import mime from 'mime';
 import Path from 'path';
 
 import { validatioUtils } from '@verdaccio/core';
-import { allow, expectJson, media } from '@verdaccio/middleware';
+import { PUBLISH_API_ENDPOINTS, allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
@@ -91,7 +91,7 @@ export default function publish(
    *
    */
   router.put(
-    '/:package/:_rev?/:revision?',
+    PUBLISH_API_ENDPOINTS.add_package,
     can('publish'),
     media(mime.getType('json')),
     expectJson,
@@ -106,11 +106,11 @@ export default function publish(
    * npm http fetch GET 304 http://localhost:4873/@scope%2ftest1?write=true 1076ms (from cache)
      npm http fetch DELETE 201 http://localhost:4873/@scope%2ftest1/-rev/18-d8ebe3020bd4ac9c 22ms
    */
-  router.delete('/:package/-rev/*', can('unpublish'), unPublishPackage(storage));
+  router.delete(PUBLISH_API_ENDPOINTS.publish_package, can('unpublish'), unPublishPackage(storage));
 
   // removing a tarball
   router.delete(
-    '/:package/-/:filename/-rev/:revision',
+    PUBLISH_API_ENDPOINTS.remove_tarball,
     can('unpublish'),
     can('publish'),
     removeTarball(storage)
@@ -118,20 +118,23 @@ export default function publish(
 
   // uploading package tarball
   router.put(
-    '/:package/-/:filename/*',
+    PUBLISH_API_ENDPOINTS.remove_tarball,
     can('publish'),
     media(HEADERS.OCTET_STREAM),
     uploadPackageTarball(storage)
   );
 
-  // adding a version
-  router.put(
-    '/:package/:version/-tag/:tag',
-    can('publish'),
-    media(mime.getType('json')),
-    expectJson,
-    addVersion(storage)
-  );
+  // only used for development
+  if (config._debug) {
+    // adding a version
+    router.put(
+      '/:package/:version/-tag/:tag',
+      can('publish'),
+      media(mime.getType('json')),
+      expectJson,
+      addVersion(storage)
+    );
+  }
 }
 
 /**

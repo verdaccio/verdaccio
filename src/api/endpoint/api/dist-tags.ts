@@ -2,7 +2,7 @@ import { Router } from 'express';
 import _ from 'lodash';
 import mime from 'mime';
 
-import { allow, media } from '@verdaccio/middleware';
+import { DIST_TAGS_API_ENDPOINTS, allow, media } from '@verdaccio/middleware';
 import { Package } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
@@ -37,24 +37,29 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   };
 
   // tagging a package
-  route.put('/:package/:tag', can('publish'), media(mime.getType('json')), tag_package_version);
+  route.put(
+    DIST_TAGS_API_ENDPOINTS.tagging,
+    can('publish'),
+    media(mime.getType('json')),
+    tag_package_version
+  );
 
   route.post(
-    '/-/package/:package/dist-tags/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
     media(mime.getType('json')),
     tag_package_version
   );
 
   route.put(
-    '/-/package/:package/dist-tags/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
     media(mime.getType('json')),
     tag_package_version
   );
 
   route.delete(
-    '/-/package/:package/dist-tags/:tag',
+    DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const tags = {};
@@ -72,7 +77,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   );
 
   route.get(
-    '/-/package/:package/dist-tags',
+    DIST_TAGS_API_ENDPOINTS.get_dist_tags,
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       storage.getPackage({
@@ -91,7 +96,7 @@ export default function (route: Router, auth: Auth, storage: Storage): void {
   );
 
   route.post(
-    '/-/package/:package/dist-tags',
+    DIST_TAGS_API_ENDPOINTS.get_dist_tags,
     can('publish'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       storage.mergeTags(req.params.package, req.body, function (err: any): $NextFunctionVer {
