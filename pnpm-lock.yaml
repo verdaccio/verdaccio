@@ -2166,8 +2166,8 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(typedoc@0.23.25)
       vite-tsconfig-paths:
-        specifier: 5.0.1
-        version: 5.0.1(typescript@4.9.5)
+        specifier: 5.1.4
+        version: 5.1.4(typescript@4.9.5)
       yaml:
         specifier: 2.7.0
         version: 2.7.0
@@ -26990,8 +26990,8 @@ packages:
       vite: 5.3.1(@types/node@20.14.12)
     dev: true
 
-  /vite-tsconfig-paths@5.0.1(typescript@4.9.5):
-    resolution: {integrity: sha512-yqwv+LstU7NwPeNqajZzLEBVpUFU6Dugtb2P84FXuvaoYA+/70l9MHE+GYfYAycVyPSDYZ7mjOFuYBRqlEpTig==}
+  /vite-tsconfig-paths@5.1.4(typescript@4.9.5):
+    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
     peerDependencies:
       vite: '*'
     peerDependenciesMeta:
