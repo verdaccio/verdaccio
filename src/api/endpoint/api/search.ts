@@ -1,9 +1,11 @@
-import { API_ERROR, HEADERS } from '../../../lib/constants';
+import { SEARCH_API_ENDPOINTS } from '@verdaccio/middleware';
+
+import { HEADERS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 
 export default function (route, auth, storage): void {
   // searching packages
-  route.get('/-/all(/since)?', function (req, res, next) {
+  route.get(SEARCH_API_ENDPOINTS.deprecated_search, function (req, res, next) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;

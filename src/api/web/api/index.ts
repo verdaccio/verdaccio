@@ -17,10 +17,10 @@ export default (auth, storage, config) => {
       ...config?.web?.rateLimit,
     })
   );
-  packageApi(router, storage, auth, config);
-  search(router, storage, auth);
+  router.use(packageApi(storage, auth, config));
+  router.use(search(storage, auth));
   if (hasLogin(config)) {
-    user(router, auth, storage);
+    router.use(user(auth, storage));
   }
   return router;
 };

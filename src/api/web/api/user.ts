@@ -2,7 +2,7 @@ import { Request, Response, Router } from 'express';
 import _ from 'lodash';
 
 import { validationUtils } from '@verdaccio/core';
-import { rateLimit } from '@verdaccio/middleware';
+import { WebUrls, rateLimit } from '@verdaccio/middleware';
 import { Config, JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
@@ -10,10 +10,13 @@ import { getSecurity } from '../../../lib/auth-utils';
 import { API_ERROR, APP_ERROR, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { ErrorCode } from '../../../lib/utils';
 import { $NextFunctionVer } from '../../../types';
+import { wrapSecPath } from './utils';
 
-function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
+function addUserAuthApi(auth: Auth, config: Config): Router {
+  /* eslint new-cap:off */
+  const route = Router();
   route.post(
-    '/-/verdaccio/sec/login',
+    wrapSecPath(WebUrls.user_login),
     rateLimit(config?.userRateLimit),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       const { username, password } = req.body;
@@ -36,7 +39,7 @@ function addUserAuthApi(route: Router, auth: Auth, config: Config): Router {
   );
 
   route.put(
-    '/-/verdaccio/sec/reset_password',
+    wrapSecPath(WebUrls.reset_password),
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       if (_.isNil(req.remote_user.name)) {
         res.status(HTTP_STATUS.UNAUTHORIZED);
