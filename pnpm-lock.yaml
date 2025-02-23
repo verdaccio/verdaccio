@@ -1316,8 +1316,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: 7.52.1
-        version: 7.52.1(react@18.3.1)
+        specifier: 7.54.2
+        version: 7.54.2(react@18.3.1)
       react-hot-loader:
         specifier: 4.13.1
         version: 4.13.1(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
@@ -1975,8 +1975,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: 7.52.1
-        version: 7.52.1(react@18.3.1)
+        specifier: 7.54.2
+        version: 7.54.2(react@18.3.1)
       react-i18next:
         specifier: 15.0.0
         version: 15.0.0(i18next@20.6.1)(react-dom@18.3.1)(react@18.3.1)
@@ -23454,9 +23454,9 @@ packages:
       react-fast-compare: 3.2.1
       shallowequal: 1.1.0
 
-  /react-hook-form@7.52.1(react@18.3.1):
-    resolution: {integrity: sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==}
-    engines: {node: '>=12.22.0'}
+  /react-hook-form@7.54.2(react@18.3.1):
+    resolution: {integrity: sha512-eHpAUgUjWbZocoQYUHposymRb4ZP6d0uwUnooL2uOybA9/3tPUvoAKqEWK1WaSiTxxOfTpffNZP7QwlnM3/gEg==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
