@@ -70,20 +70,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
-            ["@verdaccio/auth", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/auth", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
-            ["@verdaccio/logger", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/middleware", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/logger", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/middleware", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/search-indexer", "npm:8.0.0-next-8.2"],\
-            ["@verdaccio/signature", "npm:8.0.0-next-8.1"],\
+            ["@verdaccio/signature", "npm:8.0.0-next-8.2"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
-            ["@verdaccio/tarball", "npm:13.0.0-next-8.9"],\
+            ["@verdaccio/tarball", "npm:13.0.0-next-8.10"],\
             ["@verdaccio/types", "npm:12.0.0-next-7.5"],\
-            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/url", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
+            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/url", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
             ["JSONStream", "npm:1.3.5"],\
             ["async", "npm:3.2.6"],\
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
@@ -92,7 +92,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["compression", "npm:1.7.5"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["detect-secrets", "npm:1.0.6"],\
             ["envinfo", "npm:7.14.0"],\
             ["eslint", "npm:8.57.1"],\
@@ -134,9 +134,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
             ["validator", "npm:13.12.0"],\
-            ["verdaccio-audit", "npm:13.0.0-next-8.9"],\
+            ["verdaccio-audit", "npm:13.0.0-next-8.10"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
-            ["verdaccio-htpasswd", "npm:13.0.0-next-8.9"],\
+            ["verdaccio-htpasswd", "npm:13.0.0-next-8.10"],\
             ["verdaccio-memory", "npm:10.3.2"]\
           ],\
           "linkType": "SOFT"\
@@ -5492,18 +5492,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/auth", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-auth-npm-8.0.0-next-8.9-81c2659dbf-bd5f0e13b9.zip/node_modules/@verdaccio/auth/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-auth-npm-8.0.0-next-8.10-9b77a11860-32505a23aa.zip/node_modules/@verdaccio/auth/",\
           "packageDependencies": [\
-            ["@verdaccio/auth", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/auth", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/loaders", "npm:8.0.0-next-8.4"],\
-            ["@verdaccio/signature", "npm:8.0.0-next-8.1"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["@verdaccio/signature", "npm:8.0.0-next-8.2"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["lodash", "npm:4.17.21"],\
-            ["verdaccio-htpasswd", "npm:13.0.0-next-8.9"]\
+            ["verdaccio-htpasswd", "npm:13.0.0-next-8.10"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5520,13 +5520,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/config", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-config-npm-8.0.0-next-8.9-13785eebda-7547244310.zip/node_modules/@verdaccio/config/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-config-npm-8.0.0-next-8.10-1bcb2a9b31-2117ec91ab.zip/node_modules/@verdaccio/config/",\
           "packageDependencies": [\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["js-yaml", "npm:4.1.0"],\
             ["lodash", "npm:4.17.21"],\
             ["minimatch", "npm:7.4.6"]\
@@ -5535,10 +5535,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/core", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-core-npm-8.0.0-next-8.9-1ac2a3673a-ce25d4b19b.zip/node_modules/@verdaccio/core/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-core-npm-8.0.0-next-8.10-1c79e207ad-89e91715e0.zip/node_modules/@verdaccio/core/",\
           "packageDependencies": [\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["ajv", "npm:8.17.1"],\
             ["core-js", "npm:3.40.0"],\
             ["http-errors", "npm:2.0.0"],\
@@ -5596,25 +5596,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/logger", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-logger-npm-8.0.0-next-8.9-e4664cfebc-30e67e978d.zip/node_modules/@verdaccio/logger/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-logger-npm-8.0.0-next-8.10-68dc35433a-d44403d254.zip/node_modules/@verdaccio/logger/",\
           "packageDependencies": [\
-            ["@verdaccio/logger", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/logger-commons", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/logger", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/logger-commons", "npm:8.0.0-next-8.10"],\
             ["pino", "npm:9.6.0"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@verdaccio/logger-commons", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-logger-commons-npm-8.0.0-next-8.9-b3ff7f9470-bb4136f62c.zip/node_modules/@verdaccio/logger-commons/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-logger-commons-npm-8.0.0-next-8.10-26c0347213-0806200c2d.zip/node_modules/@verdaccio/logger-commons/",\
           "packageDependencies": [\
-            ["@verdaccio/logger-commons", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/logger-commons", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/logger-prettify", "npm:8.0.0-next-8.1"],\
             ["colorette", "npm:2.0.20"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"]\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5634,15 +5634,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/middleware", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-middleware-npm-8.0.0-next-8.9-6282af59a1-f6f419c08d.zip/node_modules/@verdaccio/middleware/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-middleware-npm-8.0.0-next-8.10-650b60ac42-f44c68f63a.zip/node_modules/@verdaccio/middleware/",\
           "packageDependencies": [\
-            ["@verdaccio/middleware", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/url", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["@verdaccio/middleware", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/url", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["express", "npm:4.21.2"],\
             ["express-rate-limit", "npm:5.5.1"],\
             ["lodash", "npm:4.17.21"],\
@@ -5662,11 +5662,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/signature", [\
-        ["npm:8.0.0-next-8.1", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-signature-npm-8.0.0-next-8.1-3c372495f5-a3bdea23a7.zip/node_modules/@verdaccio/signature/",\
+        ["npm:8.0.0-next-8.2", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-signature-npm-8.0.0-next-8.2-3ad57e7651-c2753037e8.zip/node_modules/@verdaccio/signature/",\
           "packageDependencies": [\
-            ["@verdaccio/signature", "npm:8.0.0-next-8.1"],\
-            ["debug", "virtual:418134d90047eae026dace2e020b00036cd0d8e3f7b46932366fa50bf6387b594b115c017ac104edd70a048fe8014b8a6b244801b754cb73fd3f32a37f2471d0#npm:4.3.7"],\
+            ["@verdaccio/signature", "npm:8.0.0-next-8.2"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["jsonwebtoken", "npm:9.0.2"]\
           ],\
           "linkType": "HARD"\
@@ -5682,14 +5683,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/tarball", [\
-        ["npm:13.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-tarball-npm-13.0.0-next-8.9-3a6e9cc4f1-61edb6e722.zip/node_modules/@verdaccio/tarball/",\
+        ["npm:13.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-tarball-npm-13.0.0-next-8.10-2549968c14-cc7530263d.zip/node_modules/@verdaccio/tarball/",\
           "packageDependencies": [\
-            ["@verdaccio/tarball", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/url", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["@verdaccio/tarball", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/url", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["gunzip-maybe", "npm:1.4.2"],\
             ["lodash", "npm:4.17.21"],\
             ["tar-stream", "npm:3.1.7"]\
@@ -5707,21 +5708,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/ui-theme", [\
-        ["npm:8.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-8.0.0-next-8.9-d34c5fe971-0bd912ffce.zip/node_modules/@verdaccio/ui-theme/",\
+        ["npm:8.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-ui-theme-npm-8.0.0-next-8.10-fe8af07b9f-6b4327cad5.zip/node_modules/@verdaccio/ui-theme/",\
           "packageDependencies": [\
-            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.9"]\
+            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.10"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@verdaccio/url", [\
-        ["npm:13.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-url-npm-13.0.0-next-8.9-16dd06dede-f9433e6f2d.zip/node_modules/@verdaccio/url/",\
+        ["npm:13.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-url-npm-13.0.0-next-8.10-d412d18764-ea2f63421a.zip/node_modules/@verdaccio/url/",\
           "packageDependencies": [\
-            ["@verdaccio/url", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["@verdaccio/url", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["lodash", "npm:4.17.21"],\
             ["validator", "npm:13.12.0"]\
           ],\
@@ -5729,11 +5730,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@verdaccio/utils", [\
-        ["npm:8.1.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/@verdaccio-utils-npm-8.1.0-next-8.9-39acc94867-01b29971ec.zip/node_modules/@verdaccio/utils/",\
+        ["npm:8.1.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/@verdaccio-utils-npm-8.1.0-next-8.10-d71baef14f-92cf654228.zip/node_modules/@verdaccio/utils/",\
           "packageDependencies": [\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["lodash", "npm:4.17.21"],\
             ["minimatch", "npm:7.4.6"],\
             ["semver", "npm:7.7.1"]\
@@ -7750,10 +7751,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0", {\
-          "packageLocation": "./.yarn/__virtual__/debug-virtual-5dba0df852/0/cache/debug-npm-4.4.0-f6efe76023-fb42df878d.zip/node_modules/debug/",\
+        ["virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0", {\
+          "packageLocation": "./.yarn/__virtual__/debug-virtual-b6a0460030/0/cache/debug-npm-4.4.0-f6efe76023-fb42df878d.zip/node_modules/debug/",\
           "packageDependencies": [\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["@types/supports-color", null],\
             ["ms", "npm:2.1.3"],\
             ["supports-color", null]\
@@ -12198,10 +12199,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:65e6d766f40480a12c1ca7b049a200b1f90515287d59e22964f32d56556d311dac4c2acc314ec977f49e806aa9cdbae8b21a2265cbc688a955cecf84321bfba2#npm:2.6.7", {\
-          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-a0352a30aa/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
+        ["virtual:0ae14b8ae423ccef695b5bf28c93d85c2d3eb0560a1667ce3a52b1f953ccc8ba4f4a504523a48c375a5d967c4b48b5124c7a0d4cd6a66c20d7b0afd9bb611575#npm:2.6.7", {\
+          "packageLocation": "./.yarn/__virtual__/node-fetch-virtual-6549420a04/0/cache/node-fetch-npm-2.6.7-777aa2a6df-8d816ffd1e.zip/node_modules/node-fetch/",\
           "packageDependencies": [\
-            ["node-fetch", "virtual:65e6d766f40480a12c1ca7b049a200b1f90515287d59e22964f32d56556d311dac4c2acc314ec977f49e806aa9cdbae8b21a2265cbc688a955cecf84321bfba2#npm:2.6.7"],\
+            ["node-fetch", "virtual:0ae14b8ae423ccef695b5bf28c93d85c2d3eb0560a1667ce3a52b1f953ccc8ba4f4a504523a48c375a5d967c4b48b5124c7a0d4cd6a66c20d7b0afd9bb611575#npm:2.6.7"],\
             ["@types/encoding", null],\
             ["encoding", null],\
             ["whatwg-url", "npm:5.0.0"]\
@@ -15329,20 +15330,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@typescript-eslint/parser", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:5.62.0"],\
             ["@verdaccio-scope/verdaccio-auth-foo", "npm:0.0.2"],\
-            ["@verdaccio/auth", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/auth", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
-            ["@verdaccio/logger", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/middleware", "npm:8.0.0-next-8.9"],\
+            ["@verdaccio/logger", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/middleware", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/search-indexer", "npm:8.0.0-next-8.2"],\
-            ["@verdaccio/signature", "npm:8.0.0-next-8.1"],\
+            ["@verdaccio/signature", "npm:8.0.0-next-8.2"],\
             ["@verdaccio/streams", "npm:10.2.1"],\
-            ["@verdaccio/tarball", "npm:13.0.0-next-8.9"],\
+            ["@verdaccio/tarball", "npm:13.0.0-next-8.10"],\
             ["@verdaccio/types", "npm:12.0.0-next-7.5"],\
-            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/url", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/utils", "npm:8.1.0-next-8.9"],\
+            ["@verdaccio/ui-theme", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/url", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/utils", "npm:8.1.0-next-8.10"],\
             ["JSONStream", "npm:1.3.5"],\
             ["async", "npm:3.2.6"],\
             ["babel-jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
@@ -15351,7 +15352,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["compression", "npm:1.7.5"],\
             ["cors", "npm:2.8.5"],\
             ["cross-env", "npm:7.0.3"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["detect-secrets", "npm:1.0.6"],\
             ["envinfo", "npm:7.14.0"],\
             ["eslint", "npm:8.57.1"],\
@@ -15393,24 +15394,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
             ["validator", "npm:13.12.0"],\
-            ["verdaccio-audit", "npm:13.0.0-next-8.9"],\
+            ["verdaccio-audit", "npm:13.0.0-next-8.10"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
-            ["verdaccio-htpasswd", "npm:13.0.0-next-8.9"],\
+            ["verdaccio-htpasswd", "npm:13.0.0-next-8.10"],\
             ["verdaccio-memory", "npm:10.3.2"]\
           ],\
           "linkType": "SOFT"\
         }]\
       ]],\
       ["verdaccio-audit", [\
-        ["npm:13.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-13.0.0-next-8.9-65e6d766f4-65e1679f9b.zip/node_modules/verdaccio-audit/",\
+        ["npm:13.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/verdaccio-audit-npm-13.0.0-next-8.10-0ae14b8ae4-566282cd12.zip/node_modules/verdaccio-audit/",\
           "packageDependencies": [\
-            ["verdaccio-audit", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/config", "npm:8.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["verdaccio-audit", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["express", "npm:4.21.2"],\
             ["https-proxy-agent", "npm:5.0.1"],\
-            ["node-fetch", "virtual:65e6d766f40480a12c1ca7b049a200b1f90515287d59e22964f32d56556d311dac4c2acc314ec977f49e806aa9cdbae8b21a2265cbc688a955cecf84321bfba2#npm:2.6.7"]\
+            ["node-fetch", "virtual:0ae14b8ae423ccef695b5bf28c93d85c2d3eb0560a1667ce3a52b1f953ccc8ba4f4a504523a48c375a5d967c4b48b5124c7a0d4cd6a66c20d7b0afd9bb611575#npm:2.6.7"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15426,16 +15427,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["verdaccio-htpasswd", [\
-        ["npm:13.0.0-next-8.9", {\
-          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-13.0.0-next-8.9-f56ae8dad3-a7dd3cc232.zip/node_modules/verdaccio-htpasswd/",\
+        ["npm:13.0.0-next-8.10", {\
+          "packageLocation": "./.yarn/cache/verdaccio-htpasswd-npm-13.0.0-next-8.10-fa45dfaf35-852644d576.zip/node_modules/verdaccio-htpasswd/",\
           "packageDependencies": [\
-            ["verdaccio-htpasswd", "npm:13.0.0-next-8.9"],\
-            ["@verdaccio/core", "npm:8.0.0-next-8.9"],\
+            ["verdaccio-htpasswd", "npm:13.0.0-next-8.10"],\
+            ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/file-locking", "npm:13.0.0-next-8.2"],\
             ["apache-md5", "npm:1.1.8"],\
             ["bcryptjs", "npm:2.4.3"],\
             ["core-js", "npm:3.40.0"],\
-            ["debug", "virtual:13785eebdaa6f0e309b42a2c96231dfde6e8860034ff8e30dab77b682bfebb6ab5eb7983aad015eb8bab065a81f09945ce8b9e02df43eca9e1c8e2f71b698177#npm:4.4.0"],\
+            ["debug", "virtual:1bcb2a9b31d70a9cbc735a0968ea718dba4c3490cb4100251504449a3f21d94b272cf0f70e184eb98611bbfec5380a0d34472d2a139abebdda27e8cc8f3c8339#npm:4.4.0"],\
             ["http-errors", "npm:2.0.0"],\
             ["unix-crypt-td-js", "npm:1.1.4"]\
           ],\
