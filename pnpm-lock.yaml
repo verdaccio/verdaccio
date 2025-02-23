@@ -1610,6 +1610,9 @@ importers:
 
   packages/signature:
     dependencies:
+      '@verdaccio/config':
+        specifier: workspace:8.0.0-next-8.9
+        version: link:../config
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
@@ -1617,9 +1620,6 @@ importers:
         specifier: 9.0.2
         version: 9.0.2
     devDependencies:
-      '@verdaccio/config':
-        specifier: workspace:8.0.0-next-8.9
-        version: link:../config
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.3
         version: link:../core/types

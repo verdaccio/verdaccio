@@ -38,11 +38,11 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
+    "@verdaccio/config": "workspace:8.0.0-next-8.9",
     "jsonwebtoken": "9.0.2",
     "debug": "4.4.0"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.9",
     "@verdaccio/types": "workspace:13.0.0-next-8.3"
   },
   "funding": {
