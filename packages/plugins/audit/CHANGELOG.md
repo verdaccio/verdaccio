@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.10
+
+### Patch Changes
+
+- Updated dependencies [bf0e09a]
+  - @verdaccio/config@8.0.0-next-8.10
+  - @verdaccio/core@8.0.0-next-8.10
+
 ## 13.0.0-next-8.9
 
 ### Patch Changes

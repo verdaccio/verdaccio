@@ -1,5 +1,16 @@
 # @verdaccio/node-api
 
+## 8.0.0-next-8.10
+
+### Patch Changes
+
+- Updated dependencies [bf0e09a]
+  - @verdaccio/config@8.0.0-next-8.10
+  - @verdaccio/server@8.0.0-next-8.10
+  - @verdaccio/server-fastify@8.0.0-next-8.10
+  - @verdaccio/core@8.0.0-next-8.10
+  - @verdaccio/logger@8.0.0-next-8.10
+
 ## 8.0.0-next-8.9
 
 ### Patch Changes
