@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5391,
+      "contributions": 5392,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 3015
+          "contributions": 3016
         },
         {
           "name": "verdaccio-cookbook",
@@ -2100,17 +2100,6 @@
       ]
     },
     {
-      "id": 14912729,
-      "login": "Skn0tt",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 4953349,
       "login": "starizard",
       "contributions": 1,
@@ -2157,6 +2146,28 @@
     {
       "id": 25525736,
       "login": "rostislav-simonik",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 22884999,
+      "login": "hedocode",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 14912729,
+      "login": "Skn0tt",
       "contributions": 1,
       "repositories": [
         {
@@ -2256,17 +2267,6 @@
     {
       "id": 3285115,
       "login": "datWeazel",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 1152706,
-      "login": "divdavem",
       "contributions": 1,
       "repositories": [
         {
@@ -2397,6 +2397,17 @@
       ]
     },
     {
+      "id": 4987015,
+      "login": "devversion",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 5646288,
       "login": "paulorenanmelo",
       "contributions": 1,
@@ -2465,6 +2476,17 @@
     {
       "id": 4810463,
       "login": "RodrigoBalest",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
+      "id": 1152706,
+      "login": "divdavem",
       "contributions": 1,
       "repositories": [
         {
@@ -2947,17 +2969,6 @@
       ]
     },
     {
-      "id": 47446,
-      "login": "bwalding",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 8207081,
       "login": "bchenSyd",
       "contributions": 1,
@@ -3167,8 +3178,8 @@
       ]
     },
     {
-      "id": 22884999,
-      "login": "hedocode",
+      "id": 20465797,
+      "login": "ericmutta",
       "contributions": 1,
       "repositories": [
         {
@@ -3409,6 +3420,17 @@
       ]
     },
     {
+      "id": 47446,
+      "login": "bwalding",
+      "contributions": 1,
+      "repositories": [
+        {
+          "name": "verdaccio",
+          "contributions": 1
+        }
+      ]
+    },
+    {
       "id": 3290587,
       "login": "jondlm",
       "contributions": 1,
@@ -3609,17 +3631,6 @@
     {
       "id": 8955528,
       "login": "0815fox",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 20465797,
-      "login": "ericmutta",
       "contributions": 1,
       "repositories": [
         {
@@ -4258,17 +4269,6 @@
     {
       "id": 355590,
       "login": "mrwacky42",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "website",
-          "contributions": 1
-        }
-      ]
-    },
-    {
-      "id": 22332636,
-      "login": "ShawnToubeau",
       "contributions": 1,
       "repositories": [
         {
@@ -5154,7 +5154,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16688,
+      "stargazers_count": 16698,
       "archived": false
     },
     {
