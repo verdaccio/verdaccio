@@ -1,3 +1,4 @@
+// / <reference path="./testing-library.d.ts" />
 import '@testing-library/jest-dom';
 import 'whatwg-fetch';
 
