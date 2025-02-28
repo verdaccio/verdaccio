@@ -10,9 +10,10 @@
     "outDir": "./build",
     "preserveSymlinks": true,
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "include": ["src/**/*", "vitest/**/*"],
   "references": [
     {
       "path": "../core/types"
