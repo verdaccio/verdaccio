@@ -13,7 +13,7 @@
 ##   Handle line endings automatically for files detected as
 ##   text and leave all files detected as binary untouched.
 ##   This will handle all files NOT defined below.
-*                 text=lf
+*                 text eol=lf
 
 # Source code
 *.bash            text eol=lf
@@ -197,3 +197,6 @@ Procfile          text eol=lf
 
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text eol=lf
+
+# Test Snapshots
+*.snap            text eol=lf
