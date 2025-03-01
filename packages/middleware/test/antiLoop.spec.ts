@@ -86,8 +86,5 @@ test('should handle via header with unexpected format', async () => {
     res.status(HTTP_STATUS.OK).json({});
   });
 
-  return request(app)
-    .get('/sec')
-    .set('via', 'unexpected format that does not match regex')
-    .expect(HTTP_STATUS.OK);
+  return request(app).get('/sec').set('via', 'unexpected format').expect(HTTP_STATUS.OK);
 });

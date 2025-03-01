@@ -23,12 +23,15 @@ export function antiLoop(config: Config) {
           //           received-protocol = [ protocol-name "/" ] protocol-version
           //           received-by = ( uri-host [ ":" port ] ) / pseudonym
 
-          // This regex matches the standard Via header format with optional protocol name
-          // Group 1: protocol version (e.g., "1.1")
-          // Group 2: received-by value (e.g., "server_id")
-          const m = arr[i].trim().match(/(?:[\w.]+\/)?([^\s]+)\s+([^\s(]+)(?:\s+\([^)]*\))?/);
-          if (m && m[2] === config.server_id) {
-            return next(errorUtils.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
+          // Split the trimmed header value into parts
+          const parts = arr[i].trim().split(/\s+/);
+          // Check if we have at least protocol/version and received-by parts
+          if (parts.length >= 2) {
+            // Get the received-by value (server id), removing any comment
+            const serverId = parts[1].split('(')[0].trim();
+            if (serverId === config.server_id) {
+              return next(errorUtils.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
+            }
           }
         }
       }
