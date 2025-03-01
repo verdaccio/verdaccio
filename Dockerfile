@@ -11,12 +11,13 @@ RUN apk --no-cache add openssl ca-certificates wget && \
 
 WORKDIR /opt/verdaccio-build
 COPY . .
-RUN npm -g i pnpm@8.9.0 && \
+RUN npm -g i corepack && \
+    corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
     pnpm run build
-# FIXME: need to remove devDependencies from the build    
+# FIXME: need to remove devDependencies from the build
 # NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
 # RUN pnpm install --prod --ignore-scripts
 
