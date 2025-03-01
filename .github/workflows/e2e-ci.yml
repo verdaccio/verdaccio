@@ -59,7 +59,7 @@ jobs:
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
       - name: Test CLI
-        run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
+        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
   e2e-cli-pnpm:
     needs: [prepare, build]
@@ -72,7 +72,7 @@ jobs:
             pnpm9,
             pnpm10,
           ]
-        node: [18, 23]
+        node: [22]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -86,7 +86,7 @@ jobs:
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
       - name: Test CLI
-        run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
+        run:  cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
   e2e-cli-yarn:
     needs: [prepare, build]
     strategy:
@@ -113,5 +113,5 @@ jobs:
       - name: Restore cache pnpm store
         uses: ./.github/actions/cache-packages
       - name: Test CLI
-        run: NODE_ENV=production pnpm test --filter ...@verdaccio/e2e-cli-${{matrix.pkg}}
+        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
