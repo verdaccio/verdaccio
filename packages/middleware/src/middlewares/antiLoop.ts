@@ -14,11 +14,19 @@ export function antiLoop(config: Config) {
       const arr = req.get('via')?.split(',');
       if (Array.isArray(arr)) {
         for (let i = 0; i < arr.length; i++) {
-          // the "via" header must contains an specific headers, this has to be on sync
+          // the "via" header must contain a specific value, this has to be in sync
           // with the proxy request
           // match eg: Server 1 or Server 2
-          // TODO: improve this RegEX
-          const m = arr[i].trim().match(/\s*(\S+)\s+(\S+)/);
+
+          // RFC 7230: Via = 1*( "," OWS Via-value )
+          //           Via-value = received-protocol RWS received-by [ RWS comment ]
+          //           received-protocol = [ protocol-name "/" ] protocol-version
+          //           received-by = ( uri-host [ ":" port ] ) / pseudonym
+
+          // This regex matches the standard Via header format with optional protocol name
+          // Group 1: protocol version (e.g., "1.1")
+          // Group 2: received-by value (e.g., "server_id")
+          const m = arr[i].trim().match(/(?:[\w.]+\/)?([^\s]+)\s+([^\s(]+)(?:\s+\([^)]*\))?/);
           if (m && m[2] === config.server_id) {
             return next(errorUtils.getCode(HTTP_STATUS.LOOP_DETECTED, 'loop detected'));
           }
