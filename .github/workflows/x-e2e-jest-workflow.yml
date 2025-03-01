@@ -1,6 +1,6 @@
 on:
   workflow_call:
-  
+
 jobs:
   yarn:
     name: 'yarn:jest example'
@@ -132,7 +132,7 @@ jobs:
 
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
-          yarn jest module.test.js          
+          yarn jest module.test.js
   npm10:
     name: 'npm10:jest example'
     runs-on: ubuntu-latest
@@ -145,7 +145,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 'install latest npm 10'
-        run: npm i -g npm@next-10  
+        run: npm i -g npm@next-10
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -165,7 +165,7 @@ jobs:
 
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
-          yarn jest module.test.js          
+          yarn jest module.test.js
   pnpm8:
     name: 'pnpm8:jest example'
     runs-on: ubuntu-latest
@@ -178,7 +178,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 'install latest pnpm'
-        run: npm i -g pnpm@latest-8
+        run: npm i -g pnpm@latest-9
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
