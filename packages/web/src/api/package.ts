@@ -22,7 +22,7 @@ const getOrder = (order = 'asc') => {
 const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
-  const isLoginEnabled = config?.web?.login === true ?? true;
+  const isLoginEnabled = config?.web?.login === true;
   const pkgRouter = Router(); /* eslint new-cap: 0 */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const anonymousRemoteUser: RemoteUser = {
