@@ -10,10 +10,10 @@
     "rootDir": ".",
     "outDir": "./build",
     "skipLibCheck": true,
-    "jsx": "react"
+    "jsx": "react",
+    "types": ["node", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*", "./src/types/index.d.ts"],
-  "types": ["node", "@testing-library/jest-dom"],
   "typedocOptions": {
     "categoryOrder": ["Model", "Component", "Provider", "*"],
     "defaultCategory": "Component",

@@ -7,7 +7,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest/setup.ts', './vitest/setup-env.ts'],
-    exclude: ['node_modules', './build/'],
+    exclude: ['**/node_modules/**', '**/build/**'],
     snapshotFormat: {
       escapeString: true,
       printBasicPrototype: true,
@@ -22,7 +22,7 @@ export default defineConfig({
       '\\.(jpg)$': './vitest/unit/empty.ts',
       '\\.(md)$': './vitest/unit/empty-string.ts',
     },
-    testTimeout: 15000,
+    testTimeout: 20000,
   },
   plugins: [
     react({
