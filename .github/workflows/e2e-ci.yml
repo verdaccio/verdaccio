@@ -45,7 +45,7 @@ jobs:
             npm9,
             npm10
           ]
-        node: [18, 23]
+        node: [22]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
