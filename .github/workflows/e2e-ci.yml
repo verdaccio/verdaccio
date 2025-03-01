@@ -99,7 +99,7 @@ jobs:
             yarn3,
             yarn4
           ]
-        node: [18, 23]
+        node: [22]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
