@@ -178,7 +178,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 'install latest pnpm'
-        run: npm i -g pnpm@latest-9
+        run: npm i -g pnpm@10.5.2
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
@@ -211,7 +211,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: 'install latest pnpm'
-        run: npm i -g pnpm@latest-9
+        run: npm i -g pnpm@10.5.2
       - name: Install Dependencies
         run: yarn install
       - name: 'Run verdaccio in the background'
