@@ -109,7 +109,7 @@ middlewares:
 
 If the `store` property is defined in the `config.yaml` file, the `storage` property is being ignored.
 
-:::caution
+:::
 
 Example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
@@ -157,7 +157,7 @@ filters:
 
 After version 6 sinopia plugins are not longer supported due the naming convention.
 
-:::caution
+:::
 
 > If you are relying on any sinopia plugin, remember are deprecated and might no work in the future.
 
