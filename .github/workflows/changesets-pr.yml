@@ -18,5 +18,10 @@ jobs:
         run: pnpm crowdin:download
       - name: build
         run: pnpm build
+      - name: Docker test
+        run: |
+          docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6
+      - name: login
+        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
       - name: Changeset version
-        run: pnpm local:publish:release
+        run: pnpm local:publish
