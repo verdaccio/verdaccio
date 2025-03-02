@@ -1,10 +1,11 @@
 name: UI Components
 
 on:
-#  pull_request:
+# Disabled temporary
+#  push:
+#    branches:
+#      - master
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 0 * * *'
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -25,24 +26,16 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
-
-      - name: Install pnpm
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack install
-      - name: Install
-        run: pnpm install
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content
         # the msw.js worker is need it at the storybook-static folder in production
         run: cp -R packages/ui-components/public/* packages/ui-components/storybook-static
-      - name: Deploy to Netlify
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy
+# Disabled temporary
+#      - name: Deploy to Netlify
+#        env:
+#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_UI_SITE_ID }}
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#        run: pnpm --filter ...@verdaccio/ui-components netlify:ui:deploy
