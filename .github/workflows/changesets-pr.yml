@@ -19,4 +19,4 @@ jobs:
       - name: build
         run: pnpm build
       - name: Changeset version
-        run: local:publish:release
+        run: pnpm local:publish:release
