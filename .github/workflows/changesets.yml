@@ -47,12 +47,14 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.REGISTRY_AUTH_TOKEN }}
       - name: crowdin download
-        env:          
+        env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
-        run: pnpm crowdin:download       
+        run: pnpm crowdin:download
       - name: build
         run: pnpm build
+      - name: remove unused files
+        run: rm -Rf assets
 
       - name: create versions
         uses: changesets/action@master
