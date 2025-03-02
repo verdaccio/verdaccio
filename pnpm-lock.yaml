@@ -741,6 +741,8 @@ importers:
         specifier: workspace:13.0.0-next-8.3
         version: link:../types
 
+  packages/core/i18n: {}
+
   packages/core/tarball:
     dependencies:
       '@verdaccio/core':
@@ -1228,6 +1230,9 @@ importers:
       '@verdaccio/ui-components':
         specifier: workspace:4.0.0-next-8.5
         version: link:../../ui-components
+      '@verdaccio/ui-i18n':
+        specifier: workspace:8.0.0-next-8.10
+        version: link:../../core/i18n
       '@vitejs/plugin-react':
         specifier: 4.3.4
         version: 4.3.4(vite@5.3.1(@types/node@22.10.5)(sass@1.83.4)(terser@5.31.3))
@@ -1932,6 +1937,9 @@ importers:
       '@rematch/persist':
         specifier: 2.1.2
         version: 2.1.2(@rematch/core@2.2.0(redux@4.2.1))(react@18.3.1)(redux@4.2.1)
+      '@verdaccio/ui-i18n':
+        specifier: workspace:8.0.0-next-8.10
+        version: link:../core/i18n
       country-flag-icons:
         specifier: 1.5.16
         version: 1.5.16
@@ -26419,7 +26427,7 @@ snapshots:
 
   i18next@20.6.1:
     dependencies:
-      '@babel/runtime': 7.21.0
+      '@babel/runtime': 7.26.7
 
   iconv-lite@0.4.24:
     dependencies:
