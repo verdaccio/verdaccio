@@ -14,6 +14,7 @@
     "@verdaccio/e2e-cli-yarn3": "1.0.1",
     "@verdaccio/e2e-cli-yarn4": "1.0.1",
     "@verdaccio/e2e-ui": "2.0.0",
+    "@verdaccio/ui-i18n": "8.0.0",
     "@verdaccio/api": "7.0.0",
     "@verdaccio/auth": "7.0.0",
     "@verdaccio/cli": "7.0.0",
