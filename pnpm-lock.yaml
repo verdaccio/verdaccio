@@ -1938,7 +1938,7 @@ importers:
         specifier: 2.1.2
         version: 2.1.2(@rematch/core@2.2.0(redux@4.2.1))(react@18.3.1)(redux@4.2.1)
       '@verdaccio/ui-i18n':
-        specifier: workspace:8.0.0-next-8.10
+        specifier: workspace:*
         version: link:../core/i18n
       country-flag-icons:
         specifier: 1.5.16
