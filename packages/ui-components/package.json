@@ -16,7 +16,7 @@
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
     "netlify:ui:deploy": "npx netlify-cli deploy --dir=./packages/ui-components/storybook-static --prod",
-    "start": "storybook dev -p 6006",
+    "start": "BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -61,13 +61,14 @@
   "devDependencies": {
     "@babel/core": "7.26.7",
     "@emotion/babel-plugin": "11.12.0",
-    "@storybook/addon-actions": "^8.4.7",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/addon-links": "^8.4.7",
+    "@storybook/addon-actions": "^8.6.3",
+    "@storybook/addon-essentials": "^8.6.3",
+    "@storybook/addon-mdx-gfm": "^8.6.3",
+    "@storybook/addon-interactions": "^8.6.3",
+    "@storybook/addon-links": "^8.6.3",
     "@storybook/addon-webpack5-compiler-babel": "3.0.5",
-    "@storybook/react": "^8.4.7",
-    "@storybook/react-webpack5": "8.4.7",
+    "@storybook/react": "^8.6.3",
+    "@storybook/react-webpack5": "8.6.3",
     "@testing-library/dom": "10.4.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
@@ -82,7 +83,7 @@
     "msw": "2.7.0",
     "msw-storybook-addon": "^2.0.4",
     "mutationobserver-shim": "0.3.7",
-    "storybook": "8.5.3",
+    "storybook": "8.6.3",
     "typescript": "4.9.5",
     "vitest": "3.0.4",
     "whatwg-fetch": "3.6.20"
