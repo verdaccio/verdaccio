@@ -9,7 +9,6 @@ concurrency:
 
 jobs:
   version:
-    timeout-minutes: 14
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -27,5 +26,10 @@ jobs:
           docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6
       - name: login
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873
+      - name: Prepare
+        # to allow local snapshot
+        run: rm .changeset/pre.json
+      - name: Create snapshot
+        run: pnpm local:snapshots
       - name: Changeset version
         run: pnpm local:publish
