@@ -7,16 +7,15 @@ on:
 #      - master
   workflow_dispatch:
 
+concurrency:
+  group: ui-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: read  #  to fetch code (actions/checkout)
+  contents: read
 
 jobs:
   deploy:
-    permissions:
-      contents: read  #  to fetch code (actions/checkout)
-      deployments: write
-      pull-requests: write  #  to comment on pull-requests
-
     runs-on: ubuntu-latest
     if: github.repository == 'verdaccio/verdaccio'
     env:
