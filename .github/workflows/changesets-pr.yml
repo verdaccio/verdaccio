@@ -3,6 +3,10 @@ name: Changesets Publish Test
 on:
   pull_request:
 
+concurrency:
+  group: changeset-pr-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   version:
     timeout-minutes: 14
