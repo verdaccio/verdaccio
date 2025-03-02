@@ -109,7 +109,7 @@ middlewares:
 
 If the `store` property is defined in the `config.yaml` file, the `storage` property is being ignored.
 
-:::caution
+:::
 
 Example how to set up a storage plugin. All storage plugins must be defined in the **store** namespace.
 
@@ -142,7 +142,7 @@ theme:
 
 Plugins from sinopia era are deprecated but still available in verdaccio@5.x versions but already removed from next 6.x versions, consider migrate them or stop using them for future updates.
 
-:::caution
+:::
 
 > If you are relying on any sinopia plugin, remember are deprecated and might no work in the future.
 
