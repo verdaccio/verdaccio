@@ -29,6 +29,8 @@ jobs:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
           CONTEXT: production
         run: pnpm crowdin:download
+      - name: Build modules
+        run: pnpm build
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content
