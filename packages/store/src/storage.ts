@@ -366,7 +366,7 @@ class Storage {
       const [updatedManifest] = await this.syncUplinksMetadata(name, cachedManifest, {
         uplinksLook: true,
       });
-      const distFile = (updatedManifest as Manifest)._distfiles[filename];
+      const distFile = (updatedManifest as Manifest)?._distfiles?.[filename];
 
       if (updatedManifest === null || !distFile) {
         debug('remote tarball not found');

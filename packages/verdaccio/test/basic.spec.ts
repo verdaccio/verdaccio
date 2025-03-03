@@ -50,10 +50,9 @@ describe('basic test endpoints', () => {
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.OK);
       (await server.removePackage('unpublish-new-package', '_rev')).status(HTTP_STATUS.CREATED);
       (await server.getPackage('unpublish-new-package')).status(HTTP_STATUS.NOT_FOUND);
-      // FIXME: throws 500 instead 404
-      // (await server.getTarball('unpublish-new-package', 'unpublish-new-package-1.0.0.tgz')).status(
-      //   HTTP_STATUS.NOT_FOUND
-      // );
+      (await server.getTarball('unpublish-new-package', 'unpublish-new-package-1.0.0.tgz')).status(
+        HTTP_STATUS.NOT_FOUND
+      );
     });
   });
 });
