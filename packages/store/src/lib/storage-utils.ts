@@ -387,7 +387,11 @@ export function hasDeprecatedVersions(pkgInfo: Manifest): boolean {
 }
 
 export function isDeprecatedManifest(manifest: Manifest): boolean {
-  return hasDeprecatedVersions(manifest) && Object.keys(manifest._attachments).length === 0;
+  return (
+    hasDeprecatedVersions(manifest) &&
+    (typeof manifest._attachments === 'undefined' ||
+      Object.keys(manifest._attachments).length === 0)
+  );
 }
 
 export function mapManifestToSearchPackageBody(
