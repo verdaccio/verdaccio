@@ -41,19 +41,15 @@ export function getVersion(versions: Versions, version: string): Version | undef
  * @return {Array} sorted Array
  */
 export function sortVersionsAndFilterInvalid(listVersions: string[] /* logger */): string[] {
-  return (
-    listVersions
-      .filter(function (version): boolean {
-        if (!semver.parse(version, true)) {
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
+  return listVersions
+    .filter(function (version): boolean {
+      if (!semver.parse(version, true)) {
+        return false;
+      }
+      return true;
+    })
+    .sort(semver.compareLoose)
+    .map(String);
 }
 
 /**
