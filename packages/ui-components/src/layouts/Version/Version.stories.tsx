@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { HttpResponse, http } from 'msw';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router';
 
@@ -11,6 +12,7 @@ const meta: Meta<typeof VersionLayout> = {
 };
 
 export default meta;
+
 type Story = StoryObj<typeof VersionLayout>;
 
 export const Primary: Story = {
@@ -26,6 +28,18 @@ export const Primary: Story = {
       </MemoryRouter>
     );
   },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://my-registry.org/-/verdaccio/data/sidebar/storybook', () => {
+          return HttpResponse.json(require('../../../vitest/api/storybook-sidebar.json'));
+        }),
+        http.get('https://my-registry.org/-/verdaccio/data/package/readme/storybook', () => {
+          return HttpResponse.json(require('../../../vitest/api/storybook-readme')());
+        }),
+      ],
+    },
+  },
 };
 
 export const jQuery: Story = {
@@ -40,5 +54,17 @@ export const jQuery: Story = {
         </Route>
       </MemoryRouter>
     );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://my-registry.org/-/verdaccio/data/sidebar/jquery', () => {
+          return HttpResponse.json(require('../../../vitest/api/jquery-sidebar.json'));
+        }),
+        http.get('https://my-registry.org/-/verdaccio/data/package/readme/jquery', () => {
+          return HttpResponse.json(require('../../../vitest/api/jquery-readme')());
+        }),
+      ],
+    },
   },
 };
