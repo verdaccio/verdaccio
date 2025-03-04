@@ -1,0 +1,26 @@
+uplinks:
+  github:
+    url: 'https://npm.pkg.github.com/'
+    auth:
+      type: Bearer
+      token: 'xxx123xxx'
+  gitlab:
+    url: 'https://gitlab.com/api/v4/projects/1/packages/npm/'
+    auth:
+      type: Basic
+      token: 'xxx456xxx'
+  npmjs:
+    url: https://registry.npmjs.org/
+
+# Multiple proxies
+# https://verdaccio.org/docs/packages/#use-multiple-uplinks
+packages:
+  '@*/*':
+    access: $all
+    proxy: github npmjs
+  'test-package':
+    access: $all
+    proxy: npmjs gitlab github
+  '**':
+    access: $all
+    proxy: npmjs gitlab

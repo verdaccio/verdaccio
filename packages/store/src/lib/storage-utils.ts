@@ -213,10 +213,10 @@ export function mergeUplinkTimeIntoLocalNext(
   return cacheManifest;
 }
 
-export function updateUpLinkMetadata(uplinkId, manifest: Manifest, etag: string) {
+export function updateUpLinkMetadata(uplinkName: string, manifest: Manifest, etag: string) {
   const _uplinks = {
     ...manifest._uplinks,
-    [uplinkId]: {
+    [uplinkName]: {
       etag,
       fetched: Date.now(),
     },

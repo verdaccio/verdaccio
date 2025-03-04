@@ -36,13 +36,13 @@ class Search {
     // const transformResults = new TransFormResults({ objectMode: true });
     const streamPassThrough = new PassThrough({ objectMode: true });
     debug('uplinks found %s', upLinkList.length);
-    const searchUplinksStreams = upLinkList.map((uplinkId: string) => {
-      const uplink = this.uplinks[uplinkId];
+    const searchUplinksStreams = upLinkList.map((uplinkName: string) => {
+      const uplink = this.uplinks[uplinkName];
       if (!uplink) {
         // this line should never happens
-        this.logger.error({ uplinkId }, 'uplink @upLinkId not found');
+        this.logger.error({ uplinkName }, 'uplink @uplinkName not found');
       }
-      return this.consumeSearchStream(uplinkId, uplink, options, streamPassThrough);
+      return this.consumeSearchStream(uplinkName, uplink, options, streamPassThrough);
     });
 
     try {
@@ -82,7 +82,7 @@ class Search {
    * Consume the upstream and pipe it to a transformable stream.
    */
   private consumeSearchStream(
-    uplinkId: string,
+    uplinkName: string,
     uplink: IProxy,
     options: ProxySearchParams,
     searchPassThrough: PassThrough
@@ -91,8 +91,8 @@ class Search {
       bodyStream.pipe(searchPassThrough, { end: false });
       bodyStream.on('error', (err: any): void => {
         this.logger.error(
-          { uplinkId, err: err },
-          'search error for uplink @{uplinkId}: @{err?.message}'
+          { uplinkName, err: err },
+          'search error for uplink @{uplinkName}: @{err?.message}'
         );
         searchPassThrough.end();
       });

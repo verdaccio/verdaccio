@@ -6,7 +6,7 @@ import { PassThrough, Readable, Transform } from 'stream';
 import { pipeline } from 'stream/promises';
 import { default as URL } from 'url';
 
-import { hasProxyTo } from '@verdaccio/config';
+import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
 import {
   API_ERROR,
   API_MESSAGE,
@@ -316,10 +316,19 @@ class Storage {
             return;
           }
 
+          if (res.statusCode === HTTP_STATUS.UNAUTHORIZED) {
+            debug('remote stream response 401');
+            passThroughRemoteStream.emit(
+              'error',
+              errorUtils.getUnauthorized(errorUtils.API_ERROR.UNAUTHORIZED_ACCESS)
+            );
+            return;
+          }
+
           if (
             !(res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)
           ) {
-            debug('remote stream response ok');
+            debug('remote stream response %o', res.statusCode);
             passThroughRemoteStream.emit(
               'error',
               errorUtils.getInternalError(`bad uplink status code: ${res.statusCode}`)
@@ -898,16 +907,17 @@ class Storage {
   private getUpLinkForDistFile(pkgName: string, distFile: DistFile): IProxy {
     let uplink: IProxy | null = null;
 
-    for (const uplinkId in this.uplinks) {
+    for (const uplinkName in this.uplinks) {
       // refer to https://github.com/verdaccio/verdaccio/issues/1642
-      if (hasProxyTo(pkgName, uplinkId, this.config.packages)) {
-        uplink = this.uplinks[uplinkId];
+      if (hasProxyTo(pkgName, uplinkName, this.config.packages)) {
+        uplink = this.uplinks[uplinkName];
       }
     }
 
     if (uplink == null) {
-      debug('upstream not found creating one for %o', pkgName);
+      debug('upstream not found, creating one for %o', pkgName);
       uplink = new ProxyStorage(
+        `verdaccio-${pkgName}`,
         {
           url: distFile.url,
           cache: true,
@@ -1700,13 +1710,13 @@ class Storage {
       # one uplink setup
       proxy: npmjs
 
-    A package requires uplinks syncronization if enables the proxy section, uplinks
-    can be more than one, the more are the most slow request will take, the request
-    are made in serial and if 1st call fails, the second will be triggered, otherwise
+    A package requires uplinks syncronization if the proxy section is defined. There can be
+    more than one uplink. The more uplinks are defined, the longer the request will take. 
+    The requests are made in serial and if 1st call fails, the second will be triggered, otherwise
     the 1st will reply and others will be discarded. The order is important.
 
-    Errors on upkinks are considered are, time outs, connection fails and http status 304,
-    in that case the request returns empty body and we want ask next on the list if has fresh
+    Errors on uplinks that are considered are time outs, connection fails, and http status 304.
+    In these cases the request returns empty body and we want ask next on the list if has fresh
     updates.
    */
   public async syncUplinksMetadata(
@@ -1716,20 +1726,18 @@ class Storage {
   ): Promise<[Manifest | null, any]> {
     let found = localManifest !== null;
     let syncManifest: Manifest | null = null;
-    const upLinks: string[] = [];
+    let upLinks: string[] = [];
     const hasToLookIntoUplinks = _.isNil(options.uplinksLook) || options.uplinksLook;
     debug('is sync uplink enabled %o', hasToLookIntoUplinks);
 
-    for (const uplink in this.uplinks) {
-      if (hasProxyTo(name, uplink, this.config.packages) && hasToLookIntoUplinks) {
-        debug('sync uplink %o', uplink);
-        upLinks.push(uplink);
-      }
+    if (hasToLookIntoUplinks) {
+      upLinks = getProxiesForPackage(name, this.config.packages);
+      debug('uplinks found for %o: %o', name, upLinks);
     }
 
-    //  if none uplink match we return the local manifest
+    //  if no uplinks match we return the local manifest
     if (upLinks.length === 0) {
-      debug('no uplinks found for %o upstream update aborted', name);
+      debug('no uplinks found for %o, upstream update aborted', name);
       return [localManifest, []];
     }
 
@@ -1808,7 +1816,7 @@ class Storage {
     options: Partial<ISyncUplinksOptions>
   ): Promise<Manifest> {
     // we store which uplink is updating the manifest
-    const upLinkMeta = cachedManifest._uplinks[uplink.upname];
+    const upLinkMeta = cachedManifest._uplinks[uplink.uplinkName];
     let _cacheManifest = { ...cachedManifest };
 
     if (validatioUtils.isObject(upLinkMeta)) {
@@ -1837,7 +1845,7 @@ class Storage {
       throw err;
     }
     // updates the _uplink metadata fields, cache, etc
-    _cacheManifest = updateUpLinkMetadata(uplink.upname, _cacheManifest, etag);
+    _cacheManifest = updateUpLinkMetadata(uplink.uplinkName, _cacheManifest, etag);
     // merge time field cache and remote
     _cacheManifest = mergeUplinkTimeIntoLocalNext(_cacheManifest, remoteManifest);
     // update the _uplinks field in the cache

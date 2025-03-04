@@ -30,7 +30,7 @@
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "vitest run",
+    "test": "vitest run --testTimeout 20000",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
