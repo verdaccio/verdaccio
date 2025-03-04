@@ -3,6 +3,7 @@ import { Router } from 'express';
 import _ from 'lodash';
 
 import { Auth } from '@verdaccio/auth';
+import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { logger } from '@verdaccio/logger';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '@verdaccio/middleware';
 import { WebUrls } from '@verdaccio/middleware';
@@ -22,23 +23,17 @@ const getOrder = (order = 'asc') => {
 const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
-  const isLoginEnabled = config?.web?.login === true ?? true;
+  const isLoginEnabled = config?.web?.login === true;
   const pkgRouter = Router(); /* eslint new-cap: 0 */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const anonymousRemoteUser: RemoteUser = {
-    name: undefined,
-    real_groups: [],
-    groups: [],
-  };
+  const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
 
   debug('initialized package web api');
   const checkAllow = (name: string, remoteUser: RemoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
-      debug('is login disabled %o', isLoginEnabled);
-      // FIXME: this logic does not work, review
-      // const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
+      debug('is login enabled: %o', isLoginEnabled);
+      const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
       try {
-        auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
+        auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
           if (err) {
             resolve(false);
           }

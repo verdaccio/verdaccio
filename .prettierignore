@@ -1,4 +1,5 @@
 .cache/
+assets/**/*
 **/corrupted-package/package.json
 **/corrupted.json
 **/invalid.js

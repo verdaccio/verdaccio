@@ -34,13 +34,17 @@ describe('AppRoute', () => {
 
   test('renders VersionPage component for PACKAGE path', async () => {
     act(() => appTest('/-/web/detail/jquery'));
-    await waitFor(() => screen.getByTestId('readme-tab'));
+    await waitFor(() => expect(screen.getByTestId('readme-tab')).toBeInTheDocument(), {
+      timeout: 3000,
+    });
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();
   });
 
   test('renders VersionPage component for PACKAGE VERSION path', async () => {
     act(() => appTest('/-/web/detail/jquery/v/3.6.3'));
-    await waitFor(() => screen.getByTestId('readme-tab'));
+    await waitFor(() => expect(screen.getByTestId('readme-tab')).toBeInTheDocument(), {
+      timeout: 3000,
+    });
     expect(screen.getByTestId('sidebar')).toBeInTheDocument();
   });
 

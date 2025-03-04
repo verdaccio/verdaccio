@@ -2,6 +2,8 @@ import * as Flags from 'country-flag-icons/react/3x2';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import loadTranslation from '@verdaccio/ui-i18n';
+
 const DEFAULT_LANGUAGE = 'en-US';
 
 export const listLanguages = [
@@ -19,7 +21,7 @@ const whitelist = listLanguages.reduce((acc, item) => {
 
 const resources = listLanguages.reduce((acc, item) => {
   // Use English for all languages
-  acc[item.lng] = { translation: require(`./ui.json`) };
+  acc[item.lng] = { translation: loadTranslation(item.lng) };
   return acc;
 }, {});
 
