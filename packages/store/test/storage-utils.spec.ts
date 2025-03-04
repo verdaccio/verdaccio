@@ -11,6 +11,7 @@ import {
   isDeprecatedManifest,
   isDifferentThanOne,
   mergeUplinkTimeIntoLocal,
+  mergeVersions,
   normalizeDistTags,
   normalizePackage,
 } from '../src/lib/storage-utils';
@@ -405,6 +406,26 @@ describe('Storage Utils', () => {
         const cleanup = cleanUpReadme(version, manifest[DIST_TAGS], 'all');
         expect(cleanup.readme).toEqual('# test');
       });
+    });
+  });
+
+  describe('mergeVersions', () => {
+    test('should merge two versions', () => {
+      const pkg1 = generatePackageMetadata('foo');
+      const pkg2 = generatePackageMetadata('foo', '1.0.1');
+      const merged = mergeVersions(pkg1, pkg2);
+      expect(Object.keys(merged.versions)).toEqual(['1.0.0', '1.0.1']);
+    });
+
+    test('should merge versions and deprecate status', () => {
+      const pkg1 = generatePackageMetadata('foo');
+      const pkg2 = generatePackageMetadata('foo', '1.0.1');
+      const local = mergeVersions(pkg1, pkg2);
+      expect(local.versions['1.0.1'].deprecated).toBeUndefined();
+      const remoteDeprecated = structuredClone(local);
+      remoteDeprecated.versions['1.0.1'].deprecated = 'some reason';
+      const newMerged = mergeVersions(local, remoteDeprecated);
+      expect(newMerged.versions['1.0.1'].deprecated).toEqual('some reason');
     });
   });
 });
