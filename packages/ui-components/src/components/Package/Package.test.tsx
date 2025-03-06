@@ -2,6 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 
 import { store } from '../../';
+import { cleanupDownloadMocks, setupDownloadMocks } from '../../../vitest/vitestHelpers';
 import {
   cleanup,
   fireEvent,
@@ -33,6 +34,14 @@ const props = {
   },
   keywords: ['verdaccio-core'],
 };
+
+beforeAll(() => {
+  setupDownloadMocks();
+});
+
+afterAll(() => {
+  cleanupDownloadMocks();
+});
 
 describe('<Package /> component', () => {
   afterEach(() => {

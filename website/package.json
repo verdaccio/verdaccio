@@ -73,7 +73,7 @@
     "docusaurus-plugin-sass": "^0.2.6",
     "prism-react-renderer": "^2.4.1",
     "sass": "1.83.4",
-    "sass-loader": "16.0.4",
+    "sass-loader": "16.0.5",
     "url-loader": "4.1.1"
   }
 }

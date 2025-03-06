@@ -6,6 +6,8 @@ api_token_env: CROWDIN_VERDACCIO_API_KEY
 preserve_hierarchy: true
 
 files:
+  - source: /packages/core/i18n/src/crowdin/*.json
+    translation: '/packages/core/i18n/src/download_translations/%locale%/%original_file_name%'
   - source: /packages/plugins/ui-theme/src/i18n/crowdin/*.json
     translation: '/packages/plugins/ui-theme/src/i18n/download_translations/%locale%/%original_file_name%'
   - source: /website/i18n/en/**/*
@@ -16,4 +18,3 @@ files:
   - source: /website/versioned_docs/**/*
     translation: /website/i18n/%locale%/docusaurus-plugin-content-docs/**/%original_file_name%
     ignore: [/website/versioned_docs/version-6.x/api/**/*]
-   
