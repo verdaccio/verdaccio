@@ -118,6 +118,8 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   };
 
   const renderOption = (props, option) => {
+    const { key, ...otherProps } = props;
+
     if (searchRemote) {
       const item: SearchResultWeb = option.package;
       const isPrivate = option?.verdaccioPrivate;
@@ -125,7 +127,8 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
       const isRemote = !isCached && !isPrivate;
       return (
         <SearchItem
-          {...props}
+          key={key}
+          {...otherProps}
           description={item?.description}
           isCached={isCached}
           isPrivate={isPrivate}
@@ -137,7 +140,8 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
     } else {
       return (
         <SearchItem
-          {...props}
+          key={key}
+          {...otherProps}
           description={option?.description}
           name={option?.name}
           version={option?.version}
@@ -161,4 +165,4 @@ const Search: React.FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default withRouter(Search);
+export default withRouter(Search as any);

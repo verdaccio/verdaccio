@@ -41,7 +41,7 @@ stateDiagram-v2
 
 By default the application loads on `http://localhost:4873`, but in cases where a resverse proxy with custom domain are involved the assets are loaded based on the property `__VERDACCIO_BASENAME_UI_OPTIONS.base` and `__VERDACCIO_BASENAME_UI_OPTIONS.basename`, thus only one domain configuration can be used.
 
-:::caution
+:::
 
 The theme loads only in the client side, the application renders HTML with `<script>` tags to render the application, the bundler takes care of load any other assets as `svg`, `images` or _chunks_ associated with it.
 
@@ -82,7 +82,7 @@ $> npm install --global verdaccio-theme-dark
 
 :::caution
 The plugin name prefix must start with `verdaccio-theme-xxx`, otherwise the plugin will be ignored.
-:::caution
+:::
 
 You can load only **one theme at a time (if more are provided the first one is being selected)** and pass through options if you need it.
 
@@ -166,7 +166,7 @@ Alternatives:
 
 The components UI is an experimental feature can be used since verdccio@5.x, it's open to changes and **feedback is welcome**.
 
-:::note
+:::
 
 Create a new user interface from scratch is big effort, to facilitate the task exist the [@verdaccio/ui-components](https://www.npmjs.com/package/@verdaccio/ui-components) package. The components are based on the **React** library and **Material UI**.
 
