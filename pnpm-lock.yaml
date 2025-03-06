@@ -1228,10 +1228,10 @@ importers:
         specifier: workspace:*
         version: link:../../core/types
       '@verdaccio/ui-components':
-        specifier: workspace:4.0.0-next-8.5
+        specifier: workspace:4.0.0-next-8.6
         version: link:../../ui-components
       '@verdaccio/ui-i18n':
-        specifier: workspace:8.0.0-next-8.10
+        specifier: workspace:8.0.0-next-8.11
         version: link:../../core/i18n
       '@vitejs/plugin-react':
         specifier: 4.3.4
@@ -2304,7 +2304,7 @@ importers:
         specifier: 1.2.4
         version: 1.2.4
       '@verdaccio/ui-components':
-        specifier: workspace:4.0.0-next-8.5
+        specifier: workspace:4.0.0-next-8.6
         version: link:../packages/ui-components
       chart.js:
         specifier: ^4.4.7
