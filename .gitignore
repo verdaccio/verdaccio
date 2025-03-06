@@ -17,6 +17,10 @@ test-storage*
 # docker examples
 docker-examples/v5/reverse_proxy/nginx/relative_path/storage/*
 docker-examples/v5/**/storage/*
+docker-examples/v4/**/storage/*
+docker-examples/v6/**/storage/*
+docker-examples/v7/**/storage/*
+docker-examples/v8/**/storage/*
 
 # jest
 reports/
@@ -36,6 +40,7 @@ packages/standalone/dist/
 packages/plugins/ui-theme/static
 /packages/plugins/ui-theme/src/i18n/download_translations/
 !/packages/plugins/ui-theme/src/i18n/crowdin/ui.json
+/packages/core/**/download_translations/
 
 ## ui tests
 !/packages/ui-components/vitest/api/*.tgz

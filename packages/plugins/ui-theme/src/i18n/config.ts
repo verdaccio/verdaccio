@@ -1,18 +1,21 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import loadTranslationFile from '@verdaccio/ui-i18n';
+
 import {
   DEFAULT_LANGUAGE,
   LanguageConfiguration,
   listLanguages,
   listLanguagesAsString,
 } from './enabledLanguages';
-import { loadTranslationFile } from './loadTranslationFile';
 
 const languages = listLanguages.reduce((acc, item: LanguageConfiguration) => {
   acc[item.lng] = {
     translation:
-      item.lng === DEFAULT_LANGUAGE ? require(`./crowdin/ui.json`) : loadTranslationFile(item.lng),
+      item.lng === DEFAULT_LANGUAGE
+        ? loadTranslationFile(DEFAULT_LANGUAGE)
+        : loadTranslationFile(item.lng),
   };
   return acc;
 }, {});

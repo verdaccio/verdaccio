@@ -9,7 +9,7 @@ title: 'Filter Plugin'
 
 Filter plugins are **experimental** and requires more users feedback
 
-:::caution
+:::
 
 ### When to use a filter plugin? {#when-to-use}
 
