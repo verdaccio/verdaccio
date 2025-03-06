@@ -1,41 +1,36 @@
 name: UI Components
 
 on:
-#  pull_request:
+# Disabled temporary
+#  push:
+#    branches:
+#      - master
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 0 * * *'
+
+concurrency:
+  group: ui-deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
-  contents: read  #  to fetch code (actions/checkout)
-
-env:
-  DEBUG: verdaccio*
+  contents: read
 
 jobs:
   deploy:
-    permissions:
-      contents: read  #  to fetch code (actions/checkout)
-      deployments: write
-      pull-requests: write  #  to comment on pull-requests
-
     runs-on: ubuntu-latest
     if: github.repository == 'verdaccio/verdaccio'
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
-
-      - name: Install pnpm
-        run: |
-          npm install --global corepack@latest
-          corepack enable
-          corepack install
-      - name: Install
-        run: pnpm install
+      - name: crowdin download
+        env:
+          CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}
+          CONTEXT: production
+        run: pnpm crowdin:download
+      - name: Build modules
+        run: pnpm build
       - name: Build storybook
         run: pnpm ui:storybook:build
       - name: Copy public content
