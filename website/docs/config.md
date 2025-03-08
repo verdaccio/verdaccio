@@ -190,6 +190,8 @@ publish:
   allow_offline: false
 ```
 
+<small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
+
 ### Checking Package Ownership {#check-owner}
 
 By default, [package access](packages.md) defines who is allowed to publish and unpublish packages. By setting `check_owners` to _true_, only package owners are allowed to make changes to a package. The first owner of a package is the user who published the first version. Further owners can be added or removed using [`npm owner`](https://docs.npmjs.com/cli/v10/commands/npm-owner). You can find the list of current owners using `npm owner list` or by checking the package manifest under `maintainers`.
@@ -207,8 +209,6 @@ By default, Verdaccio stores only the readme markdown of the latest version for 
 publish:
   keep_readmes: 'tagged'
 ```
-
-<small>Since: `verdaccio@2.3.6` due [#223](https://github.com/verdaccio/verdaccio/pull/223)</small>
 
 ### URL Prefix {#url-prefix}
 
@@ -307,7 +307,7 @@ https:
 
 ### Proxy {#proxy}
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients. You can define a HTTP or HTTPS proxy in the main configuration or separately for each uplink. The definition for uplinks have higher priority. The proxy protocol (http or https) has to match the protocol of the registry or uplink URLs.
 
 #### http_proxy and https_proxy {#http_proxy-and-https_proxy}
 

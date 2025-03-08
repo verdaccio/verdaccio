@@ -315,7 +315,7 @@ https:
 
 ### Proxy {#proxy}
 
-Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients.
+Proxies are special-purpose HTTP servers designed to transfer data from remote servers to local clients. You can define a HTTP or HTTPS proxy in the main configuration or separately for each uplink. The definition for uplinks have higher priority. The proxy protocol (http or https) has to match the protocol of the registry URL.
 
 #### http_proxy and https_proxy {#http_proxy-and-https_proxy}
 
