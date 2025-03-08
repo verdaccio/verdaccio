@@ -1,5 +1,24 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.11
+
+### Patch Changes
+
+- Updated dependencies [83dbde5]
+- Updated dependencies [7e48ac6]
+- Updated dependencies [66bc284]
+  - @verdaccio/store@8.0.0-next-8.11
+  - @verdaccio/middleware@8.0.0-next-8.11
+  - @verdaccio/web@8.1.0-next-8.11
+  - @verdaccio/api@8.1.0-next-8.11
+  - @verdaccio/auth@8.0.0-next-8.11
+  - @verdaccio/core@8.0.0-next-8.11
+  - @verdaccio/config@8.0.0-next-8.11
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - verdaccio-audit@13.0.0-next-8.11
+  - @verdaccio/utils@8.1.0-next-8.11
+  - @verdaccio/logger@8.0.0-next-8.11
+
 ## 8.0.0-next-8.10
 
 ### Patch Changes
