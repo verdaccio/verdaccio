@@ -1824,7 +1824,7 @@ class Storage {
 
       // we check the uplink cache is fresh
       if (fetched && Date.now() - fetched < uplink.maxage) {
-        debug('returning cached manifest for %o', uplink.upname);
+        debug('returning cached manifest for %o', uplink.uplinkName);
         return cachedManifest;
       }
     }
