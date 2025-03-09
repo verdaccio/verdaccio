@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "8.0.0-next-8.2",
+  "version": "8.0.0-next-8.3",
   "description": "verdaccio signature utils",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -38,7 +38,7 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.10",
+    "@verdaccio/config": "workspace:8.0.0-next-8.11",
     "jsonwebtoken": "9.0.2",
     "debug": "4.4.0"
   },
