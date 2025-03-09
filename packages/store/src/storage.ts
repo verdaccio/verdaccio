@@ -813,7 +813,7 @@ class Storage {
       await storage.deletePackage(STORAGE.PACKAGE_FILE_NAME);
       // remove folder
       debug('remove package folder');
-      await storage.removePackage();
+      await storage.removePackage(pkgName);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed: @{err.message}');
@@ -1123,7 +1123,7 @@ class Storage {
     if (typeof storage === 'undefined') {
       throw errorUtils.getNotFound();
     }
-    const hasPackage = await storage.hasPackage();
+    const hasPackage = await storage.hasPackage(pkgName);
     debug('has package %o for %o', pkgName, hasPackage);
     return hasPackage;
   }
