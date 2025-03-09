@@ -1,5 +1,12 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.6
+
+### Patch Changes
+
+- Updated dependencies [b6e9f46]
+  - @verdaccio/ui-i18n@8.0.0-next-8.11
+
 ## 4.0.0-next-8.5
 
 ### Minor Changes

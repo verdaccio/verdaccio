@@ -235,8 +235,6 @@ export function normalizeContributors(contributors: Author[]): Author[] {
   if (_.isNil(contributors)) {
     return [];
   } else if (contributors && _.isArray(contributors) === false) {
-    // FIXME: this branch is clearly no an array, still tsc complains
-    // @ts-ignore
     return [contributors];
   } else if (_.isString(contributors)) {
     return [

@@ -8,6 +8,7 @@ import { isURLhasValidProtocol } from '@verdaccio/url';
 
 import { setSecurityWebHeaders } from './security';
 import renderHTML from './utils/renderHTML';
+import { WebUrlsNamespace } from './web-urls';
 
 const debug = buildDebug('verdaccio:web:render');
 
@@ -35,7 +36,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
   router.use(setSecurityWebHeaders);
 
   // any match within the static is routed to the file system
-  router.get('/-/static/*', function (req, res, next) {
+  router.get(WebUrlsNamespace.static + '*', function (req, res, next) {
     const filename = req.params[0];
     let file = `${staticPath}/${filename}`;
     if (filename === 'favicon.ico' && config?.web?.favicon) {
@@ -64,7 +65,7 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
         ) {
           // Note: `path.join` will break on Windows, because it transforms `/` to `\`
           // Use POSIX version `path.posix.join` instead.
-          logo = path.posix.join('/-/static/', path.basename(logo));
+          logo = path.posix.join(WebUrlsNamespace.static, path.basename(logo));
           router.get(logo, function (_req, res, next) {
             // @ts-ignore
             debug('serve custom logo  web:%s - local:%s', logo, absoluteLocalFile);
@@ -92,12 +93,12 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     config.web.logoDark = logoDark;
   }
 
-  router.get('/-/web/:section/*', function (req, res) {
+  router.get(WebUrlsNamespace.web + ':section/*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });
 
-  router.get('/', function (req, res) {
+  router.get(WebUrlsNamespace.root, function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render root');
   });
