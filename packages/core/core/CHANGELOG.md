@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.12
+
+### Patch Changes
+
+- 95ac124: chore: add package parameter to storage plugin interface
+
 ## 8.0.0-next-8.11
 
 ## 8.0.0-next-8.10
