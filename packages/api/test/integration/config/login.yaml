@@ -1,0 +1,21 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@token/*':
+    access: $authenticated
+    publish: $authenticated
+  'only-you-can-publish':
+    access: $authenticated
+    publish: $authenticated
+
+log: { type: stdout, format: pretty, level: debug }
+
+## enable web login for testing
+flags:
+  webLogin: true
+
+url: https://registry.verdaccio.org

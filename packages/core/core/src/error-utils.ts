@@ -40,6 +40,9 @@ export const API_ERROR = {
   USERNAME_PASSWORD_REQUIRED: 'username and password is required',
   USERNAME_ALREADY_REGISTERED: 'username is already registered',
   USERNAME_MISMATCH: 'username does not match logged in user',
+  SESSION_ID_REQUIRED: 'session id is required',
+  SESSION_ID_INVALID: 'session id is invalid',
+  SESSION_TOKEN_EXPIRED: 'session token expired',
 };
 
 export const SUPPORT_ERRORS = {
