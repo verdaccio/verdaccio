@@ -366,7 +366,7 @@ class Storage {
       const [updatedManifest] = await this.syncUplinksMetadata(name, cachedManifest, {
         uplinksLook: true,
       });
-      const distFile = (updatedManifest as Manifest)._distfiles[filename];
+      const distFile = (updatedManifest as Manifest)?._distfiles?.[filename];
 
       if (updatedManifest === null || !distFile) {
         debug('remote tarball not found');
@@ -813,7 +813,7 @@ class Storage {
       await storage.deletePackage(STORAGE.PACKAGE_FILE_NAME);
       // remove folder
       debug('remove package folder');
-      await storage.removePackage();
+      await storage.removePackage(pkgName);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed: @{err.message}');
@@ -1123,7 +1123,7 @@ class Storage {
     if (typeof storage === 'undefined') {
       throw errorUtils.getNotFound();
     }
-    const hasPackage = await storage.hasPackage();
+    const hasPackage = await storage.hasPackage(pkgName);
     debug('has package %o for %o', pkgName, hasPackage);
     return hasPackage;
   }
@@ -1816,6 +1816,7 @@ class Storage {
 
       // we check the uplink cache is fresh
       if (fetched && Date.now() - fetched < uplink.maxage) {
+        debug('returning cached manifest for %o', uplink.upname);
         return cachedManifest;
       }
     }

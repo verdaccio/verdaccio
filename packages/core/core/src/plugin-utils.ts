@@ -51,7 +51,7 @@ export class Plugin<PluginConfig> {
 export interface StorageHandler {
   logger: Logger;
   deletePackage(fileName: string): Promise<void>;
-  removePackage(): Promise<void>;
+  removePackage(packageName: string): Promise<void>;
   //  next packages migration (this list is meant to replace the callback parent functions)
   updatePackage(
     packageName: string,
@@ -65,7 +65,7 @@ export interface StorageHandler {
   // verify if tarball exist in the storage
   hasTarball(fileName: string): Promise<boolean>;
   // verify if package exist in the storage
-  hasPackage(): Promise<boolean>;
+  hasPackage(packageName: string): Promise<boolean>;
 }
 
 /**

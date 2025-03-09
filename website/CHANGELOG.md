@@ -1,5 +1,12 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.1
+
+### Patch Changes
+
+- 13e0fde: fix(proxy): validate protocol of proxy settings
+  - @verdaccio/ui-components@4.0.0-next-8.6
+
 ## 1.0.1-next-8.0
 
 ### Patch Changes

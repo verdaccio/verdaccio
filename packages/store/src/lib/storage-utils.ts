@@ -286,14 +286,17 @@ export function mergeVersions(cacheManifest: Manifest, remoteManifest: Manifest)
   const { versions, time } = remoteManifest;
   // copy new versions to a cache
   // NOTE: if a certain version was updated, we can't refresh it reliably
+  // however, we can refresh the deprecated status
   for (const i in versions) {
-    if (typeof cacheManifest.versions[i] === 'undefined') {
+    if (typeof _cacheManifest.versions[i] === 'undefined') {
       _cacheManifest.versions[i] = versions[i];
+    } else if (versions[i].deprecated) {
+      _cacheManifest.versions[i].deprecated = versions[i].deprecated;
     }
   }
 
   for (const i in time) {
-    if (typeof cacheManifest.time[i] === 'undefined') {
+    if (typeof _cacheManifest.time[i] === 'undefined') {
       _cacheManifest.time[i] = time[i];
     }
   }
@@ -312,14 +315,11 @@ export function mergeVersions(cacheManifest: Manifest, remoteManifest: Manifest)
       ) {
         // NOTE: this override the latest publish readme from local cache with
         // the remote one
-        cacheManifest = { ..._cacheManifest, readme: remoteManifest.readme };
+        _cacheManifest = { ..._cacheManifest, readme: remoteManifest.readme };
       }
     }
   }
-
-  // TODO: Should we merge owners? _cacheManifest[MAINTAINERS]
-
-  return cacheManifest;
+  return _cacheManifest;
 }
 
 /**
@@ -387,7 +387,11 @@ export function hasDeprecatedVersions(pkgInfo: Manifest): boolean {
 }
 
 export function isDeprecatedManifest(manifest: Manifest): boolean {
-  return hasDeprecatedVersions(manifest) && Object.keys(manifest._attachments).length === 0;
+  return (
+    hasDeprecatedVersions(manifest) &&
+    (typeof manifest._attachments === 'undefined' ||
+      Object.keys(manifest._attachments).length === 0)
+  );
 }
 
 export function mapManifestToSearchPackageBody(

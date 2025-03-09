@@ -1,5 +1,44 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.12
+
+### Patch Changes
+
+- 95ac124: chore: add package parameter to storage plugin interface
+- Updated dependencies [95ac124]
+  - @verdaccio/core@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.12
+  - @verdaccio/tarball@13.0.0-next-8.12
+  - @verdaccio/url@13.0.0-next-8.12
+  - @verdaccio/hooks@8.0.0-next-8.12
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - @verdaccio/local-storage@13.0.0-next-8.12
+  - @verdaccio/proxy@8.0.0-next-8.12
+  - @verdaccio/search@8.0.0-next-8.12
+  - @verdaccio/utils@8.1.0-next-8.12
+  - @verdaccio/logger@8.0.0-next-8.12
+
+## 8.0.0-next-8.11
+
+### Patch Changes
+
+- 83dbde5: fix(store): internal error when checking manifest
+- 85e0e13: fix: internal error for unpublished tarball
+- 7e48ac6: fix(store): update deprecate state
+- Updated dependencies [85e0e13]
+- Updated dependencies [13e0fde]
+  - @verdaccio/utils@8.1.0-next-8.11
+  - @verdaccio/proxy@8.0.0-next-8.11
+  - @verdaccio/config@8.0.0-next-8.11
+  - @verdaccio/tarball@13.0.0-next-8.11
+  - @verdaccio/local-storage@13.0.0-next-8.11
+  - @verdaccio/search@8.0.0-next-8.11
+  - @verdaccio/hooks@8.0.0-next-8.11
+  - @verdaccio/loaders@8.0.0-next-8.4
+  - @verdaccio/core@8.0.0-next-8.11
+  - @verdaccio/url@13.0.0-next-8.11
+  - @verdaccio/logger@8.0.0-next-8.11
+
 ## 8.0.0-next-8.10
 
 ### Patch Changes
