@@ -4,17 +4,16 @@ import express, { Application } from 'express';
 import _ from 'lodash';
 
 import { getUserAgent } from '@verdaccio/config';
-import { pluginUtils } from '@verdaccio/core';
+import {PLUGIN_CATEGORY, pluginUtils} from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Config as IConfig } from '@verdaccio/types';
 
-import Auth from '../lib/auth';
+import {Auth} from '@verdaccio/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
-import loadPlugin from '../lib/plugin-loader';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
@@ -22,27 +21,13 @@ import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { serveFavicon } from './middleware';
 import webMiddleware from './web';
+import {asyncLoadPlugin} from "@verdaccio/loaders";
 
 const { version } = require('../../package.json');
 
-export function loadTheme(config) {
-  if (_.isNil(config.theme) === false) {
-    return _.head(
-      loadPlugin(
-        config,
-        config.theme,
-        {},
-        function (plugin) {
-          return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
-        },
-        'verdaccio-theme'
-      )
-    );
-  }
-}
-
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
-  const auth = new Auth(config);
+  const auth = new Auth(config, logger);
+  await auth.init();
   const app: Application = express();
   SearchMemoryIndexer.configureStorage(storage);
   await SearchMemoryIndexer.init(logger);
@@ -85,15 +70,28 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     logger: logger,
   };
 
-  const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
-    config,
-    config.middlewares,
-    plugin_params,
-    function (plugin: pluginUtils.ManifestFilter<IConfig>) {
-      // @ts-ignore
-      return plugin.register_middlewares;
-    }
-  );
+  // const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
+  //   config,
+  //   config.middlewares,
+  //   plugin_params,
+  //   function (plugin: pluginUtils.ManifestFilter<IConfig>) {
+  //     // @ts-ignore
+  //     return plugin.register_middlewares;
+  //   }
+  // );
+
+    const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
+        config.middlewares,
+        {
+            config,
+            logger,
+        },
+        function (plugin) {
+            return typeof plugin.register_middlewares !== 'undefined';
+        },
+        config?.serverSettings?.pluginPrefix ?? 'verdaccio',
+        PLUGIN_CATEGORY.MIDDLEWARE
+    );
 
   plugins.forEach((plugin: any) => {
     plugin.register_middlewares(app, auth, storage);
@@ -108,7 +106,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
       res.locals.app_version = version ?? '';
       next();
     });
-    app.use(webMiddleware(config, auth, storage));
+    const middleware = await webMiddleware(config, auth, storage, logger);
+    app.use(middleware);
   } else {
     app.get('/', function (_, __, next: $NextFunctionVer) {
       next(ErrorCode.getNotFound(API_ERROR.WEB_DISABLED));
@@ -127,20 +126,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 export default (async function (configHash: any) {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
-  // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger: logger,
-  };
-  const filters = loadPlugin(
-    config,
-    config.filters || {},
-    plugin_params,
-    // @ts-ignore
-    (plugin: pluginUtils.ManifestFilter<IConfig>) => plugin.filter_metadata
-  );
   const storage = new Storage(config);
   // waits until init calls have been initialized
-  await storage.init(config, filters);
+  await storage.init(config, []);
   return await defineAPI(config, storage);
 });

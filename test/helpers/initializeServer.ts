@@ -30,6 +30,7 @@ export async function initializeServer(
   const storage = new Storage(config);
   await storage.init(config, []);
   const auth: Auth = new Auth(config);
+  await auth.init(config);
   // FUTURE: in v6 auth.init() is being called
   // TODO: this might not be need it, used in apiEndpoints
   app.use(express.json({ strict: false, limit: '100mb' }));
