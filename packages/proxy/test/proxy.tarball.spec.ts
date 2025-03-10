@@ -46,7 +46,7 @@ describe('tarball proxy', () => {
         nock('https://registry.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
           // @ts-expect-error
@@ -69,7 +69,7 @@ describe('tarball proxy', () => {
           .get('/jquery/-/jquery-0.0.1.tgz')
           .once()
           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
           { retry: { limit: 2 } }
@@ -89,7 +89,7 @@ describe('tarball proxy', () => {
 //         .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
 //           [HEADER_TYPE.CONTENT_LENGTH]: 277,
 //         });
-//       const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+//       const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //       const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
 //       stream.on(HEADER_TYPE.CONTENT_LENGTH, (data) => {
 //         expect(data).toEqual('277');
@@ -101,7 +101,7 @@ describe('tarball proxy', () => {
 //       test('should be offline uplink', (done) => {
 //         const tarball = 'https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz';
 //         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').times(100).replyWithError('some error');
-//         const proxy = new ProxyStorage(defaultRequestOptions, conf);
+//         const proxy = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //         const stream = proxy.fetchTarball(tarball);
 //         // to test a uplink is offline we have to be try 3 times
 //         // the default failed request are set to 2
@@ -135,7 +135,7 @@ describe('tarball proxy', () => {
 
 //       test('not found tarball', (done) => {
 //         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
-//         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
 //         stream.on('error', (response) => {
 //           expect(response).toEqual(errorUtils.getNotFound(API_ERROR.NOT_FILE_UPLINK));
@@ -145,7 +145,7 @@ describe('tarball proxy', () => {
 
 //       test('fail tarball request', (done) => {
 //         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').replyWithError('boom file');
-//         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
 //         stream.on('error', (response) => {
 //           expect(response).toEqual(Error('boom file'));
@@ -155,7 +155,7 @@ describe('tarball proxy', () => {
 
 //       test('bad uplink request', (done) => {
 //         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(409);
-//         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
 //         stream.on('error', (response) => {
 //           expect(response).toEqual(errorUtils.getInternalError(`bad uplink status code: 409`));
@@ -171,7 +171,7 @@ describe('tarball proxy', () => {
 //           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
 //             [HEADER_TYPE.CONTENT_LENGTH]: 0,
 //           });
-//         const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
 //         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
 //         stream.on('error', (response) => {
 //           expect(response).toEqual(errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH));
