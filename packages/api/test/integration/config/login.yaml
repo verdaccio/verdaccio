@@ -5,17 +5,17 @@ auth:
     file: ./htpasswd
 
 packages:
-  '@token/*':
-    access: $authenticated
+  '@*/*':
+    access: $all
     publish: $authenticated
-  'only-you-can-publish':
-    access: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
     publish: $authenticated
+    unpublish: $authenticated
 
 log: { type: stdout, format: pretty, level: debug }
 
 ## enable web login for testing
 flags:
   webLogin: true
-
-url: https://registry.verdaccio.org

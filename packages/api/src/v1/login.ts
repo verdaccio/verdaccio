@@ -32,6 +32,9 @@ export default function (
       const sessionId = randomUUID();
       debug('creating login session %o', sessionId);
 
+      // FIXME: if we migrate to req.hostname, the port is not longer included.
+      const host = req.host;
+
       await storage.saveToken({
         user: sessionId,
         token: '',
@@ -43,14 +46,14 @@ export default function (
       res.status(HTTP_STATUS.OK);
 
       res.json({
-        loginUrl: `${config.url}/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`,
-        doneUrl: `${config.url}${LOGIN_API_ENDPOINTS.done}/${sessionId}`,
+        loginUrl: `${host}/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`,
+        doneUrl: `${host}${LOGIN_API_ENDPOINTS.login_done}/${sessionId}`,
       });
     }
   );
 
   route.get(
-    LOGIN_API_ENDPOINTS.done_session,
+    LOGIN_API_ENDPOINTS.login_done_session,
     rateLimit(config?.userRateLimit),
     async function (req: $RequestExtend, res: Response, next: $NextFunctionVer): Promise<void> {
       debug('polling login session %o', req.params.sessionId);

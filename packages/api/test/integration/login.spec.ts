@@ -4,6 +4,7 @@ import { describe, expect, test } from 'vitest';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
 import { initializeServer } from './_helper';
+import { createUser } from './_helper';
 
 describe('login', () => {
   test('should return login and done urls, set session id', async () => {
@@ -28,8 +29,9 @@ describe('login', () => {
 
   test('should authenticate user using session id', async () => {
     const username = 'test';
-    const password = 'testPass';
+    const password = 'password';
     const app = await initializeServer('login.yaml');
+    await createUser(app, username, password);
 
     const response = await supertest(app)
       .post('/-/v1/login')
@@ -61,8 +63,9 @@ describe('login', () => {
 
   test('should return session token when polled', async () => {
     const username = 'test';
-    const password = 'testPass';
+    const password = 'password';
     const app = await initializeServer('login.yaml');
+    await createUser(app, username, password);
 
     const response = await supertest(app)
       .post('/-/v1/login')
