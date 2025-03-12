@@ -578,12 +578,15 @@ class ProxyStorage implements IProxy {
   ): void {
     let noProxyList;
     const proxy_key: string = isHTTPS ? 'https_proxy' : 'http_proxy';
+    debug('looking for %o', proxy_key);
 
     // get http_proxy and no_proxy configs
     if (proxy_key in config) {
       this.proxy = config[proxy_key];
+      debug('found %o in uplink config', this.proxy);
     } else if (proxy_key in mainconfig) {
       this.proxy = mainconfig[proxy_key];
+      debug('found %o in main config', this.proxy);
     }
     if ('no_proxy' in config) {
       noProxyList = config.no_proxy;
@@ -608,6 +611,7 @@ class ProxyStorage implements IProxy {
         }
         if (hostname.endsWith(noProxyItem)) {
           if (this.proxy) {
+            debug('not using proxy, excluded by @{rule}', noProxyItem);
             this.logger.debug(
               { url: this.url.href, rule: noProxyItem },
               'not using proxy for @{url}, excluded by @{rule} rule'
@@ -619,7 +623,22 @@ class ProxyStorage implements IProxy {
       }
     }
 
+    // validate proxy protocol matches the proxy_key type
+    if (this.proxy) {
+      const proxyUrl = new URL(this.proxy);
+      const expectedProtocol = isHTTPS ? 'https:' : 'http:';
+      if (proxyUrl.protocol !== expectedProtocol) {
+        this.logger.error(
+          { proxy: this.proxy, expectedProtocol },
+          `invalid protocol for ${proxy_key} - must be ${expectedProtocol}`
+        );
+        this.proxy = undefined;
+        return;
+      }
+    }
+
     if (typeof this.proxy === 'string') {
+      debug('using proxy @{proxy} for @{url}', this.proxy, this.url.href);
       this.logger.debug(
         { url: this.url.href, proxy: this.proxy },
         'using proxy @{proxy} for @{url}'

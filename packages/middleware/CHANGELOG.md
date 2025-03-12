@@ -1,5 +1,27 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.12
+
+### Patch Changes
+
+- Updated dependencies [95ac124]
+  - @verdaccio/core@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.12
+  - @verdaccio/url@13.0.0-next-8.12
+  - @verdaccio/utils@8.1.0-next-8.12
+
+## 8.0.0-next-8.11
+
+### Patch Changes
+
+- 4110873: chore(middleware): improve loop detection
+- 66bc284: chore: middleware package update
+- Updated dependencies [85e0e13]
+  - @verdaccio/utils@8.1.0-next-8.11
+  - @verdaccio/config@8.0.0-next-8.11
+  - @verdaccio/core@8.0.0-next-8.11
+  - @verdaccio/url@13.0.0-next-8.11
+
 ## 8.0.0-next-8.10
 
 ### Patch Changes

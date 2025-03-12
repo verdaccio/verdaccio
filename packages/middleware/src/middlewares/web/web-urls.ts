@@ -17,7 +17,10 @@ export enum WebUrls {
  * Enum for web urls namespace, used on the web middleware
  */
 export enum WebUrlsNamespace {
-  root = '/-/verdaccio/',
+  root = '/',
+  static = '/-/static/',
+  endpoints = '/-/verdaccio/',
+  web = '/-/web/',
   data = '/data/',
   sec = '/sec/',
 }
