@@ -12,15 +12,10 @@ export interface ProxyInstanceList {
 export function setupUpLinks(config: Config, logger: Logger): ProxyInstanceList {
   const uplinks: ProxyInstanceList = {};
 
-  for (const uplinkName in config.uplinks) {
-    if (Object.prototype.hasOwnProperty.call(config.uplinks, uplinkName)) {
-      // instance for each up-link definition
-      const proxy: IProxy = new ProxyStorage(config.uplinks[uplinkName], config, logger);
-      // TODO: review this can be inside ProxyStorage
-      proxy.upname = uplinkName;
-
-      uplinks[uplinkName] = proxy;
-    }
+  for (const uplinkName of Object.keys(config.uplinks)) {
+    // instance for each up-link definition
+    const proxy: IProxy = new ProxyStorage(uplinkName, config.uplinks[uplinkName], config, logger);
+    uplinks[uplinkName] = proxy;
   }
 
   return uplinks;
@@ -35,7 +30,7 @@ export function updateVersionsHiddenUpLinkNext(manifest: Manifest, upLink: IProx
 
   for (const version of versionsList) {
     // holds a "hidden" value to be used by the package storage.
-    versions[version][Symbol.for('__verdaccio_uplink')] = upLink.upname;
+    versions[version][Symbol.for('__verdaccio_uplink')] = upLink.uplinkName;
   }
 
   return { ...manifest, versions };

@@ -8,8 +8,8 @@ setup({});
 
 function getProxyInstance(host, uplinkConf, appConfig) {
   uplinkConf.url = host;
-
-  return new ProxyStorage(uplinkConf, appConfig, logger);
+  const uplinkName = host.replace(/^https?:\/\//, '');
+  return new ProxyStorage(uplinkName, uplinkConf, appConfig, logger);
 }
 
 describe('Use proxy', () => {

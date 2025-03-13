@@ -57,7 +57,7 @@ describe('proxy', () => {
         })
           .get('/jquery')
           .reply(200, { body: 'test' });
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const [manifest] = await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
@@ -83,7 +83,7 @@ describe('proxy', () => {
               etag: () => `_ref_4444`,
             }
           );
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const [manifest, etag] = await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
@@ -110,7 +110,7 @@ describe('proxy', () => {
               etag: () => `_ref_4444`,
             }
           );
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const [manifest, etag] = await prox1.getRemoteMetadata('jquery', {
           etag: 'foo',
           remoteAddress: '127.0.0.1',
@@ -125,7 +125,7 @@ describe('proxy', () => {
         nock(domain)
           .get('/jquery')
           .reply(200, { body: { name: 'foo', version: '1.0.0' } }, {});
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await prox1.getRemoteMetadata('jquery', {
           remoteAddress: '127.0.0.1',
         });
@@ -154,7 +154,7 @@ describe('proxy', () => {
     describe('error handling', () => {
       test('proxy call with 304', async () => {
         nock(domain).get('/jquery').reply(304);
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(prox1.getRemoteMetadata('jquery', { etag: 'rev_3333' })).rejects.toThrow(
           'no data'
         );
@@ -162,7 +162,7 @@ describe('proxy', () => {
 
       test('reply with error', async () => {
         nock(domain).get('/jquery').replyWithError('something awful happened');
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
@@ -172,7 +172,7 @@ describe('proxy', () => {
 
       test('reply with 409 error', async () => {
         nock(domain).get('/jquery').reply(409);
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(prox1.getRemoteMetadata('jquery', { retry: { limit: 0 } })).rejects.toThrow(
           /bad status code: 409/
         );
@@ -180,7 +180,7 @@ describe('proxy', () => {
 
       test('reply with bad body json format', async () => {
         nock(domain).get('/jquery').reply(200, 'some-text');
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
@@ -190,7 +190,7 @@ describe('proxy', () => {
 
       test('400 error proxy call', async () => {
         nock(domain).get('/jquery').reply(409);
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
@@ -200,7 +200,7 @@ describe('proxy', () => {
 
       test('proxy  not found', async () => {
         nock(domain).get('/jquery').reply(404);
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
@@ -227,7 +227,7 @@ describe('proxy', () => {
           .once()
           .reply(200, { body: { name: 'foo', version: '1.0.0' } });
 
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const [manifest] = await prox1.getRemoteMetadata('jquery', {
           retry: { limit: 2 },
         });
@@ -246,7 +246,7 @@ describe('proxy', () => {
       test('retry count is exceded and uplink goes offline with logging activity', async () => {
         nock(domain).get('/jquery').times(10).reply(500);
 
-        const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             remoteAddress: '127.0.0.1',
@@ -280,6 +280,7 @@ describe('proxy', () => {
           .reply(200, { body: { name: 'foo', version: '1.0.0' } });
 
         const prox1 = new ProxyStorage(
+          'uplink',
           { ...defaultRequestOptions, fail_timeout: '1s', max_fails: 1 },
           conf,
           logger
@@ -337,7 +338,7 @@ describe('proxy', () => {
         const confTimeout = { ...defaultRequestOptions };
         // @ts-expect-error
         confTimeout.timeout = '2s';
-        const prox1 = new ProxyStorage(confTimeout, conf, logger);
+        const prox1 = new ProxyStorage('uplink', confTimeout, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             retry: { limit: 0 },
@@ -357,7 +358,7 @@ describe('proxy', () => {
         const confTimeout = { ...defaultRequestOptions };
         // @ts-expect-error
         confTimeout.timeout = '2s';
-        const prox1 = new ProxyStorage(confTimeout, conf, logger);
+        const prox1 = new ProxyStorage('uplink', confTimeout, conf, logger);
         await expect(
           prox1.getRemoteMetadata('jquery', {
             retry: { limit: 1 },
@@ -368,7 +369,7 @@ describe('proxy', () => {
       // test('retry count is exceded and uplink goes offline with logging activity', async () => {
       //   nock(domain).get('/jquery').times(10).reply(500);
 
-      //   const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+      //   const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf, logger);
       //   await expect(
       //     prox1.getRemoteMetadata('jquery', {
       //       remoteAddress: '127.0.0.1',

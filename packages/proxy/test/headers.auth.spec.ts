@@ -27,7 +27,7 @@ function createUplink(config) {
   };
   const mergeConfig = Object.assign({}, defaultConfig, config);
   // @ts-ignore
-  return new ProxyStorage(mergeConfig, {}, logger);
+  return new ProxyStorage('npmjs', mergeConfig, {}, logger);
 }
 
 function setHeadersNext(config: unknown = {}, headers: any = {}) {
@@ -95,6 +95,18 @@ describe('setHeadersNext', () => {
 
     expect(Object.keys(headers)).toHaveLength(4);
     expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'Zm9vX2Jhcg=='));
+  });
+
+  test('set type lower case', () => {
+    const headers = setHeadersNext({
+      auth: {
+        type: 'basic', // lower case type
+        token: 'test',
+      },
+    });
+
+    expect(Object.keys(headers)).toHaveLength(4);
+    expect(headers[HEADERS.AUTHORIZATION]).toEqual(buildToken(TOKEN_BASIC, 'test')); // capital case type
   });
 
   test('set type auth bearer', () => {

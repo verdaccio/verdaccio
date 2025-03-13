@@ -21,7 +21,7 @@ const logger = {
 function getProxyInstance(host, uplinkConf, appConfig) {
   uplinkConf.url = host;
 
-  return new ProxyStorage(uplinkConf, appConfig, logger);
+  return new ProxyStorage('uplink', uplinkConf, appConfig, logger);
 }
 
 describe('Check protocol of proxy', () => {
