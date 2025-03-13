@@ -1,6 +1,5 @@
 ---
-author: Juan Picado
-authorFBID: 1122901551
+author: juan_picado
 title: Verdaccio and deterministic lock files
 ---
 
@@ -30,7 +29,7 @@ The snippet above is just a small part of this huge file which nobody dares to d
 
 #### Simple example with Verdaccio as localhost {#simple-example-with-verdaccio-as-localhost}
 
-Let’s imagine you are using **Verdaccio** and **yarn** for local purposes and your registry configuration points to.
+Let's imagine you are using **Verdaccio** and **yarn** for local purposes and your registry configuration points to.
 
 ```
 yarn config set registry http://localhost:4873/
@@ -48,13 +47,13 @@ math-random@^1.0.1:
  resolved "[http://localhost:4873/math-random/-/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac](http://localhost:4873/math-random/-/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac)"
 ```
 
-Let’s imagine you that might want to change your domain where your registry is hosted and the resolved field still points to the previous location and your package manager won’t be able to resolve the project dependencies anymore.
+Let's imagine you that might want to change your domain where your registry is hosted and the resolved field still points to the previous location and your package manager won't be able to resolve the project dependencies anymore.
 
 **A usual solution is to delete the whole lock file and generate a new one** , but, this is not practical for large teams since will drive you to conflicts between branch hard to solve.
 
-So, _How can I use a private registry avoiding the_ _resolved field issue?_. All clients handle this issue in a different way, let’s see how they do it.
+So, _How can I use a private registry avoiding the_ _resolved field issue?_. All clients handle this issue in a different way, let's see how they do it.
 
-### How does the resolved field is being used by …? {#how-does-the-resolved-field-is-being-used-by-}
+### How does the resolved field is being used by ...? {#how-does-the-resolved-field-is-being-used-by-}
 
 ![](https://cdn-images-1.medium.com/max/1024/1*kafHawK1RCt-LDsdGz6iUA.png)
 
@@ -67,7 +66,7 @@ import { Tweet } from "react-twitter-widgets"
   align: 'center'
 }} />
 
-Nowadays you can use the npm cli with lock file safely with Verdaccio independently the URL where tarball was served. But, I’d recommend to share a local .npmrc file with the registry set by default locally or notify your team about it.
+Nowadays you can use the npm cli with lock file safely with Verdaccio independently the URL where tarball was served. But, I'd recommend to share a local .npmrc file with the registry set by default locally or notify your team about it.
 
 ![](https://cdn-images-1.medium.com/max/1024/1*0pWUcgRyhax5KVJKsnbgkA.png)
 
@@ -113,9 +112,9 @@ specifiers:
 
 The example above is just a small snippet of how this long file looks like and you might observe that there is a field called [registry](https://github.com/pnpm/spec/blob/master/shrinkwrap/3.8.md#registry) added at the bottom of the lock file which [was introduced to reduce the file size of the lock file](https://github.com/pnpm/pnpm/issues/1072), in some scenarios pnpm decides to set [the domain is part of the tarball field](https://github.com/josephschmitt/pnpm-406-npmE).
 
-**pnpm** will try to fetch dependencies using the registry defined within the lockfile as yarn **does**. However, as a workaround, if the domain changes you must update the registry field manually, it’s not hard to do but, is better than nothing.
+**pnpm** will try to fetch dependencies using the registry defined within the lockfile as yarn **does**. However, as a workaround, if the domain changes you must update the registry field manually, it's not hard to do but, is better than nothing.
 
-pnpm has already opened a ticket to drive this issue, I’ll let below the link to it.
+pnpm has already opened a ticket to drive this issue, I'll let below the link to it.
 
 [Remove the "registry" field from "shrinkwrap.yaml" · Issue #1353 · pnpm/pnpm](https://github.com/pnpm/pnpm/issues/1353)
 
@@ -130,7 +129,7 @@ registry=[https://registry.npmjs.org](https://registry.npmjs.org/)
 
 > It does exist any support for at the time of this writing.
 
-In my opinion, this is just a workaround, which depends on the number or scopes you handle to decide whether or not worth it. Furthermore, the package manager will bypass those packages that do not match with the scope and won’t be resolved by your private registry.
+In my opinion, this is just a workaround, which depends on the number or scopes you handle to decide whether or not worth it. Furthermore, the package manager will bypass those packages that do not match with the scope and won't be resolved by your private registry.
 
 ### Conclusion {#conclusion}
 

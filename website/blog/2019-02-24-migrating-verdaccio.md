@@ -1,6 +1,5 @@
 ---
-author: Juan Picado
-authorFBID: 1122901551
+author: juan_picado
 title: Verdaccio Migration Guides
 ---
 
@@ -77,40 +76,6 @@ If you are using the Docker image as base with the purpose of installing plugins
 
 In _Verdaccio 3_ was really easy to install plugins, for instance:
 
-```docker
-FROM verdaccio/verdaccio:3
-
-RUN npm i && npm install verdaccio-ldap
 ```
 
-Rather in Verdaccio 4, the image has changed considerably and now you need to deal with the right folder permissions.
-
-You can find more info about this in [this ticket](https://github.com/verdaccio/verdaccio/issues/1324).
-
-To install plugins, you need to use the right users for it, which is `root`.
-
-> ⚠️ This approach works, but perhaps is no the best one, feel free to suggest modifications.
-
-```docker
-FROM verdaccio/verdaccio:4
-
-## switch to root user
-USER root
-
-ENV NODE_ENV=production
-
-## perhaps all of this is not fully required
-RUN apk --no-cache add openssl ca-certificates wget && \
-    apk --no-cache add g++ gcc libgcc libstdc++ linux-headers make python && \
-    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    wget -q https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.25-r0/glibc-2.25-r0.apk && \
-    apk add glibc-2.25-r0.apk
-
-
-RUN npm i && npm install verdaccio-[YOUR-PLUGIN-HERE]
-
-# switch back to the verdaccio user
-USER verdaccio
 ```
-
-Once you have installed the plugin, it needs to restore the user, either the default one `verdaccio` or the one defined under the environment variable `VERDACCIO_USER_NAME`.
