@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

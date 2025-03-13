@@ -1,5 +1,11 @@
 # @verdaccio/local-publish
 
+## 0.0.3-next-8.0
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+
 ## 1.0.0-next-8.0
 
 ### Major Changes

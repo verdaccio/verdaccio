@@ -1,5 +1,11 @@
 # @verdaccio/cli-standalone
 
+## 8.0.0-next-8.1
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+
 ## 8.0.0-next-8.0
 
 ### Major Changes
