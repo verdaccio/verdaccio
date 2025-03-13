@@ -1,7 +1,5 @@
 ---
-author: Ayush Sharma
-authorURL: https://twitter.com/ayusharma_
-authorFBID: 100001655957183
+author: ayush_sharma
 title: Verdaccio 4 released !!!
 ---
 
@@ -35,7 +33,7 @@ You can find detailed installation instructions [here](https://verdaccio.org/doc
 
 ## Why 'Freedom' ? {#why-freedom-}
 
-Verdaccio originated from [Sinopia](https://github.com/rlidwka/sinopia) almost three years ago and since then the [Verdaccio Team](https://verdaccio.org/en/team) maintaining and releasing major release every year. Since the fork, the project has evolved in many ways, making the project’s code base modern, easier to debug and more straightforward to contribute.
+Verdaccio originated from [Sinopia](https://github.com/rlidwka/sinopia) almost three years ago and since then the [Verdaccio Team](https://verdaccio.org/en/team) maintaining and releasing major release every year. Since the fork, the project has evolved in many ways, making the project's code base modern, easier to debug and more straightforward to contribute.
 
 The name Freedom holds true meaning for Verdaccio@4.x release. Verdaccio is a strong community of many contributors and developers from across the world, providing an ideal platform for everyone to give control of their code. Also, Verdaccio@4.x is free from tech debt of legacy code and stands on design patterns of the modern era which consist [React](https://reactjs.org/), [Typescript](https://www.typescriptlang.org/), [JWT](https://jwt.io/), [Docker](https://www.docker.com/) & [Kubernetes](https://kubernetes.io/). We can call it Freedom in true sense.
 

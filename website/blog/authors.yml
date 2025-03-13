@@ -1,0 +1,42 @@
+juan_picado:
+  name: Juan Picado
+  title: Core Maintainer
+  url: https://github.com/juanpicado
+  image_url: https://github.com/juanpicado.png
+  socials:
+    bluesky: jotadeveloper.bsky.social
+    github: juanpicado
+
+ayush_sharma:
+  name: Ayush Sharma
+  title: Core Maintainer
+  url: https://github.com/ayusharma
+  image_url: https://github.com/ayusharma.png
+  socials:
+    x: ayusharma_
+    github: ayusharma
+
+sergio_herrera:
+  name: Sergio Herrera Guzmán
+  title: Contributor
+  url: https://github.com/sergiohgz
+  image_url: https://github.com/sergiohgz.png
+  socials:
+    github: sergiohgz
+
+priscila_oliveira:
+  name: Priscila Oliveira
+  title: Contributor
+  url: https://github.com/priscilawebdev
+  image_url: https://github.com/priscilawebdev.png
+  socials:
+    github: priscilawebdev
+
+dimitri_kopriwa:
+  name: Dimitri Kopriwa
+  title: Contributor
+  url: https://twitter.com/DimitriKopriwa
+  image_url: https://github.com/DimitriKopriwa.png
+  socials:
+    x: DimitriKopriwa
+    github: DimitriKopriwa
