@@ -16,32 +16,32 @@ compiler.hooks.done.tap('Verdaccio Dev Server', () => {
   }
 });
 
-new WebpackDevServer(compiler, {
-  contentBase: env.DIST_PATH,
-  publicPath: config.output.publicPath,
-  hot: true,
-  historyApiFallback: {
-    disableDotRule: true,
-  },
-  quiet: true,
-  noInfo: false,
-  stats: {
-    assets: false,
-    colors: true,
-    version: true,
-    hash: true,
-    timings: true,
-    chunks: true,
-    chunkModules: false,
-  },
-  proxy: [
-    {
-      context: ['/-/verdaccio/**', '**/*.tgz'],
-      target: 'http://localhost:8000',
+// Create dev server instance with v5 configuration
+const devServer = new WebpackDevServer(
+  {
+    host: '0.0.0.0',
+    port,
+    static: {
+      directory: env.DIST_PATH,
+      publicPath: config.output.publicPath,
     },
-  ],
-}).listen(port, '0.0.0.0', function (err) {
+    historyApiFallback: {
+      disableDotRule: true,
+    },
+    proxy: [
+      {
+        context: ['/-/verdaccio/**', '**/*.tgz'],
+        target: 'http://localhost:8000',
+      },
+    ],
+  },
+  compiler
+);
+
+// Use the async start method
+devServer.startCallback((err) => {
   if (err) {
-    return console.log(err);
+    console.log(err);
+    return;
   }
 });
