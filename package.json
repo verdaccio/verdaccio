@@ -157,7 +157,7 @@
     "ts:ref": "update-ts-references --discardComments",
     "website": "pnpm --filter ...@verdaccio/website build",
     "ui:storybook:build": "pnpm --filter ...@verdaccio/ui-components build-storybook",
-    "ui:storybook": "pnpm --filter ...@verdaccio/ui-components storybook",
+    "ui:storybook": "pnpm --filter ...@verdaccio/ui-components start",
     "translations": "local-crowdin-api translations",
     "crowdin:upload": "crowdin upload sources --auto-update --config ./crowdin.yaml",
     "crowdin:download": "crowdin download --verbose --config ./crowdin.yaml",
