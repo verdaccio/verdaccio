@@ -1,5 +1,11 @@
 # @verdaccio/eslint-config
 
+## 4.0.0-next-8.1
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+
 ## 4.0.0-next-8.0
 
 ### Major Changes

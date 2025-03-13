@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 8.0.0-next-8.2
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+
 ## 8.0.0-next-8.1
 
 ### Minor Changes

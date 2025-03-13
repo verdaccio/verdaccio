@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.13
+
+### Patch Changes
+
+- Updated dependencies [e4a1539]
+  - @verdaccio/core@8.0.0-next-8.13
+
 ## 13.0.0-next-8.12
 
 ### Patch Changes

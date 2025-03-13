@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- Updated dependencies [e4a1539]
+  - @verdaccio/logger@8.0.0-next-8.13
+  - @verdaccio/core@8.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

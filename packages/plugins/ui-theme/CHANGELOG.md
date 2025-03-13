@@ -1,5 +1,12 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- ef6864c: chore(deps): update webpack-dev-server to v5
+- e4a1539: chore: package.json maintenance
+
 ## 8.0.0-next-8.12
 
 ## 8.0.0-next-8.11

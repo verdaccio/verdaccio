@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/search-indexer",
-  "version": "8.0.0-next-8.2",
+  "version": "8.0.0-next-8.3",
   "description": "Verdaccio Search Indexer",
   "main": "./build/dist.js",
   "types": "build/index.d.ts",
@@ -41,7 +41,7 @@
     "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.3",
+    "@verdaccio/types": "workspace:13.0.0-next-8.4",
     "@orama/orama": "1.2.4",
     "debug": "4.4.0",
     "esbuild": "0.24.2"

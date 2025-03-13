@@ -1,5 +1,14 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.7
+
+### Patch Changes
+
+- ef6864c: chore(deps): update webpack-dev-server to v5
+- e4a1539: chore: package.json maintenance
+- Updated dependencies [e4a1539]
+  - @verdaccio/ui-i18n@8.0.0-next-8.12
+
 ## 4.0.0-next-8.6
 
 ### Patch Changes
