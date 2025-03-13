@@ -49,8 +49,8 @@ export { default as AppConfigurationProvider } from './providers/AppConfiguratio
 export { default as PersistenceSettingProvider } from './providers/PersistenceSettingProvider';
 
 export * from './providers/AppConfigurationProvider';
-export { TranslatorProvider, useLanguage, LanguageItem } from './providers/TranslatorProvider';
-export * from './providers/TranslatorProvider';
+export { TranslatorProvider, useLanguage } from './providers/TranslatorProvider';
+export type { LanguageItem } from './providers/TranslatorProvider';
 export { VersionProvider } from './providers/VersionProvider';
 export * from './providers/VersionProvider';
 
@@ -61,4 +61,6 @@ export { loadable, Route } from './utils';
 export * from './hooks';
 // others
 export * from './Theme';
-export { store, api, RootState, Dispatch, LoginError, LoginBody, LoginResponse } from './store';
+export { store, api } from './store';
+export type { RootState, Dispatch } from './store';
+export type { LoginError, LoginBody, LoginResponse } from './store/models/login';

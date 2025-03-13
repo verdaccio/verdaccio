@@ -30,6 +30,15 @@ export default {
 
   devtool: 'inline-cheap-module-source-map',
 
+  resolve: {
+    ...baseConfig.resolve,
+    fallback: {
+      ...baseConfig.resolve.fallback,
+      './download_translations': false,
+      './crowdin': false,
+    },
+  },
+
   plugins: [
     new webpack.DefinePlugin({
       __DEBUG__: true,
@@ -47,7 +56,6 @@ export default {
       debug: true,
       inject: true,
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin(),
     new StyleLintPlugin({
