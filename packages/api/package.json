@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/api",
   "version": "8.1.0-next-8.12",
-  "description": "loaders logic",
+  "description": "Verdaccio Registry API",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "author": {
@@ -10,7 +10,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/api"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [

@@ -1,12 +1,16 @@
 {
   "name": "@verdaccio/web",
   "version": "8.1.0-next-8.12",
-  "description": "web ui middleware",
+  "description": "Verdaccio Web Middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/web"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "keywords": [
     "private",

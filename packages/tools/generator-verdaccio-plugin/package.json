@@ -1,8 +1,8 @@
 {
   "name": "generator-verdaccio-plugin",
   "version": "6.0.0-next-8.12",
-  "description": "plugin generator for verdaccio",
-  "homepage": "https://github.com/verdaccio",
+  "description": "Plugin Generator for Verdaccio",
+  "homepage": "https://verdaccio.org",
   "author": {
     "name": "Juan Picado <@jotadeveloper>",
     "email": "juanpicado19@gmail.com",
@@ -32,11 +32,15 @@
     "yeoman-test": "6.3.0"
   },
   "engines": {
-    "node": ">18.0.0"
+    "node": ">=18"
   },
   "repository": {
-    "type": "git",
-    "url": "git://github.com/verdaccio/generator-verdaccio-plugin"
+    "type": "https",
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/tools/generator-verdaccio-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "scripts": {
     "type-check": "tsc --noEmit -p tsconfig.build.json",
@@ -46,5 +50,9 @@
     "test:new": "vitest run --pool=forks",
     "lint": "eslint  --max-warnings 0 \"**/*.{js,ts}\""
   },
-  "license": "MIT"
+  "license": "MIT",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
+  }
 }

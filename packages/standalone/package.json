@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/cli-standalone",
   "version": "8.0.0-next-8.0",
-  "description": "standalone verdaccio registry with no dependencies",
+  "description": "Standalone Verdaccio Registry without Dependencies",
   "main": "dist/bundle.js",
   "bin": {
     "verdaccio": "./dist/bundle.js"
@@ -27,7 +27,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/standalone"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "homepage": "https://verdaccio.org",
   "license": "MIT",
