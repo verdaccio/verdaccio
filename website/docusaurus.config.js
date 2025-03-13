@@ -199,7 +199,7 @@ module.exports = {
         },
         {
           href: 'https://opencollective.com/verdaccio',
-          label: 'Sponsor us',
+          label: 'Sponsor Us',
           position: 'right',
         },
         {
@@ -226,13 +226,13 @@ module.exports = {
           href: 'https://github.com/verdaccio/verdaccio',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          'aria-label': 'GitHub Repository',
         },
         {
           href: 'https://bsky.app/profile/verdaccio.org',
           position: 'right',
           className: 'header-bluesky-link',
-          'aria-label': 'Follow us at Bluesky',
+          'aria-label': 'Follow Us on Bluesky',
         },
       ],
     },
@@ -272,11 +272,8 @@ module.exports = {
               href: 'https://discord.gg/7qWJxBf',
             },
             {
-              html: `
-              <a href="https://bsky.app/profile/verdaccio.org" rel="me">
-                Blyesky
-              </a>
-              `,
+              label: 'Bluesky',
+              href: 'https://bsky.app/profile/verdaccio.org',
             },
           ],
         },
@@ -292,10 +289,6 @@ module.exports = {
               href: 'https://github.com/verdaccio/verdaccio',
             },
             {
-              label: 'Bluesky',
-              href: 'https://bsky.app/profile/verdaccio.org',
-            },
-            {
               html: `
                 <a href="https://www.netlify.com" target="_blank" rel="noreferrer noopener" aria-label="Deploys by Netlify">
                   <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg" alt="Deploys by Netlify" />
@@ -305,7 +298,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Verdaccio Community. Built with Docusaurus.`,
     },
     colorMode: {
       defaultMode: 'light',
