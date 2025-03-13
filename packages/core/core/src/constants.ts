@@ -38,6 +38,7 @@ export const HEADERS = {
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
   CACHE_CONTROL: 'Cache-Control',
+  RETRY_AFTER: 'Retry-After',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
   FORWARDED_PROTO: 'X-Forwarded-Proto',
@@ -62,20 +63,21 @@ export const HEADERS = {
 };
 
 export const HTTP_STATUS = {
-  OK: httpCodes.OK,
-  CREATED: httpCodes.CREATED,
-  MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES,
-  NOT_MODIFIED: httpCodes.NOT_MODIFIED,
-  BAD_REQUEST: httpCodes.BAD_REQUEST,
-  UNAUTHORIZED: httpCodes.UNAUTHORIZED,
-  FORBIDDEN: httpCodes.FORBIDDEN,
-  NOT_FOUND: httpCodes.NOT_FOUND,
-  CONFLICT: httpCodes.CONFLICT,
-  NOT_IMPLEMENTED: httpCodes.NOT_IMPLEMENTED,
-  UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE,
-  BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY,
-  INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR,
-  SERVICE_UNAVAILABLE: httpCodes.SERVICE_UNAVAILABLE,
+  OK: httpCodes.OK, // 200
+  CREATED: httpCodes.CREATED, // 201
+  ACCEPTED: httpCodes.ACCEPTED, // 202
+  MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES, // 300
+  NOT_MODIFIED: httpCodes.NOT_MODIFIED, // 304
+  BAD_REQUEST: httpCodes.BAD_REQUEST, // 400
+  UNAUTHORIZED: httpCodes.UNAUTHORIZED, // 401
+  FORBIDDEN: httpCodes.FORBIDDEN, // 403
+  NOT_FOUND: httpCodes.NOT_FOUND, // 404
+  CONFLICT: httpCodes.CONFLICT, // 409
+  UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE, // 415
+  BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY, // 422
+  INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR, // 500
+  NOT_IMPLEMENTED: httpCodes.NOT_IMPLEMENTED, // 501
+  SERVICE_UNAVAILABLE: httpCodes.SERVICE_UNAVAILABLE, // 503
   LOOP_DETECTED: 508,
   CANNOT_HANDLE: 590,
 };
