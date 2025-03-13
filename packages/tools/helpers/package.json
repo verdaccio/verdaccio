@@ -2,7 +2,7 @@
   "name": "@verdaccio/test-helper",
   "version": "4.0.0-next-8.3",
   "private": true,
-  "description": "test helpers",
+  "description": "Verdaccio Test Helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",

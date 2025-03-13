@@ -1,7 +1,7 @@
 {
   "name": "verdaccio-htpasswd",
   "version": "13.0.0-next-8.12",
-  "description": "htpasswd auth plugin for Verdaccio",
+  "description": "Htpasswd Authentication Plugin for Verdaccio",
   "keywords": [
     "private",
     "package",
@@ -19,7 +19,7 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/core/htpasswd"
+    "directory": "packages/plugins/htpasswd"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"

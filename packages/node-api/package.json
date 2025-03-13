@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/node-api",
   "version": "8.0.0-next-8.12",
-  "description": "node API",
+  "description": "Verdaccio Node API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "author": {
@@ -10,7 +10,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/node-api"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [

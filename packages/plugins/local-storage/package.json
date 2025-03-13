@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/local-storage",
   "version": "13.0.0-next-8.12",
-  "description": "Local storage implementation",
+  "description": "Verdaccio Local Storage Plugin",
   "keywords": [
     "private",
     "package",
@@ -19,7 +19,7 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/core/local-storage"
+    "directory": "packages/plugins/local-storage"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"

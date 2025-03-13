@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/logger-commons",
   "version": "8.0.0-next-8.12",
-  "description": "logger",
+  "description": "Verdaccio Logger Commons",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "author": {
@@ -10,7 +10,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/logger/logger-commons"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "license": "MIT",
   "homepage": "https://verdaccio.org",
