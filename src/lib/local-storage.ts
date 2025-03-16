@@ -3,7 +3,6 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
-
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
@@ -27,9 +26,7 @@ import {
   validateName,
 } from '@verdaccio/utils';
 
-
 import { StoragePluginLegacy } from '../../types/custom';
-
 import { StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import {
@@ -57,7 +54,6 @@ class LocalStorage {
     this.config = config;
     this.storagePlugin = localStorage;
   }
-
 
   public addPackage(name: string, pkg: Package, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);

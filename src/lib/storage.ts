@@ -4,7 +4,9 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
 
-import {PLUGIN_CATEGORY, pluginUtils, validatioUtils} from '@verdaccio/core';
+import { PLUGIN_CATEGORY, pluginUtils, validatioUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
+import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { ReadTarball } from '@verdaccio/streams';
 import {
@@ -20,11 +22,12 @@ import {
 } from '@verdaccio/types';
 import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 
+import { StoragePluginLegacy } from '../../types/custom';
 import { logger } from '../lib/logger';
 import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
 import { hasProxyTo } from './config-utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
-import LocalStorage, {StoragePlugin} from './local-storage';
+import LocalStorage, { StoragePlugin } from './local-storage';
 import { mergeVersions } from './metadata-utils';
 import {
   checkPackageLocal,
@@ -38,10 +41,6 @@ import {
 import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
-import {asyncLoadPlugin} from "@verdaccio/loaders";
-import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
-import {StoragePluginLegacy} from "../../types/custom";
-
 
 const debug = buildDebug('verdaccio:storage');
 
@@ -73,43 +72,45 @@ class Storage {
     }
   }
 
-    private async loadStorage(config: Config, logger: Logger): Promise<StoragePlugin> {
-        const Storage = await this.loadStorePlugin();
-        if (_.isNil(Storage)) {
-            assert(this.config.storage, 'CONFIG: storage path not defined');
-            debug('no custom storage found, loading default storage @verdaccio/local-storage');
-            const localStorage = new LocalDatabasePlugin(config, logger);
-            logger.info(
-                { name: '@verdaccio/local-storage', pluginCategory: PLUGIN_CATEGORY.STORAGE },
-                'plugin @{name} successfully loaded (@{pluginCategory})'
-            );
-            return localStorage;
-        }
-        return Storage as StoragePlugin;
+  private async loadStorage(config: Config, logger: Logger): Promise<StoragePlugin> {
+    const Storage = await this.loadStorePlugin();
+    if (_.isNil(Storage)) {
+      assert(this.config.storage, 'CONFIG: storage path not defined');
+      debug('no custom storage found, loading default storage @verdaccio/local-storage');
+      const localStorage = new LocalDatabasePlugin(config, logger);
+      logger.info(
+        { name: '@verdaccio/local-storage', pluginCategory: PLUGIN_CATEGORY.STORAGE },
+        'plugin @{name} successfully loaded (@{pluginCategory})'
+      );
+      return localStorage;
+    }
+    return Storage as StoragePlugin;
+  }
+
+  private async loadStorePlugin(): Promise<StoragePluginLegacy<Config> | undefined> {
+    const plugins: StoragePluginLegacy<Config>[] = await asyncLoadPlugin<
+      pluginUtils.Storage<unknown>
+    >(
+      this.config.store,
+      {
+        config: this.config,
+        logger: this.logger,
+      },
+      (plugin) => {
+        return typeof plugin.getPackageStorage !== 'undefined';
+      },
+      this.config?.serverSettings?.pluginPrefix,
+      PLUGIN_CATEGORY.STORAGE
+    );
+
+    if (plugins.length > 1) {
+      this.logger.warn(
+        'more than one storage plugins has been detected, multiple storage are not supported, one will be selected automatically'
+      );
     }
 
-    private async loadStorePlugin(): Promise<StoragePluginLegacy<Config> | undefined> {
-        const plugins: StoragePluginLegacy<Config>[] = await asyncLoadPlugin<pluginUtils.Storage<unknown>>(
-            this.config.store,
-            {
-                config: this.config,
-                logger: this.logger,
-            },
-            (plugin) => {
-                return typeof plugin.getPackageStorage !== 'undefined';
-            },
-            this.config?.serverSettings?.pluginPrefix,
-            PLUGIN_CATEGORY.STORAGE
-        );
-
-        if (plugins.length > 1) {
-            this.logger.warn(
-                'more than one storage plugins has been detected, multiple storage are not supported, one will be selected automatically'
-            );
-        }
-
-        return _.head(plugins);
-    }
+    return _.head(plugins);
+  }
 
   /**
    *  Add a {name} package to a system

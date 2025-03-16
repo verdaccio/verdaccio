@@ -3,11 +3,11 @@ import express, { Application } from 'express';
 import os from 'os';
 import path from 'path';
 
+import { Auth } from '@verdaccio/auth';
 import { errorUtils } from '@verdaccio/core';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { generateRandomHexString } from '@verdaccio/utils';
 
-import {Auth} from '@verdaccio/auth';
 import Config from '../../src/lib/config';
 import { logger } from '../../src/lib/logger';
 

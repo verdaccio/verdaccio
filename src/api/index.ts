@@ -3,14 +3,15 @@ import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
 
+import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
-import {PLUGIN_CATEGORY, pluginUtils} from '@verdaccio/core';
+import { PLUGIN_CATEGORY, pluginUtils } from '@verdaccio/core';
+import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
 import { Config as IConfig } from '@verdaccio/types';
 
-import {Auth} from '@verdaccio/auth';
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
 import { logger, setup } from '../lib/logger';
@@ -21,7 +22,6 @@ import hookDebug from './debug';
 import apiEndpoint from './endpoint';
 import { serveFavicon } from './middleware';
 import webMiddleware from './web';
-import {asyncLoadPlugin} from "@verdaccio/loaders";
 
 const { version } = require('../../package.json');
 
@@ -80,18 +80,18 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   //   }
   // );
 
-    const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
-        config.middlewares,
-        {
-            config,
-            logger,
-        },
-        function (plugin) {
-            return typeof plugin.register_middlewares !== 'undefined';
-        },
-        config?.serverSettings?.pluginPrefix ?? 'verdaccio',
-        PLUGIN_CATEGORY.MIDDLEWARE
-    );
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
+    config.middlewares,
+    {
+      config,
+      logger,
+    },
+    function (plugin) {
+      return typeof plugin.register_middlewares !== 'undefined';
+    },
+    config?.serverSettings?.pluginPrefix ?? 'verdaccio',
+    PLUGIN_CATEGORY.MIDDLEWARE
+  );
 
   plugins.forEach((plugin: any) => {
     plugin.register_middlewares(app, auth, storage);
