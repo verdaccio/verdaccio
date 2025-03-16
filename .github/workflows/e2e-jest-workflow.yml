@@ -4,7 +4,7 @@ on:
 
 concurrency:
   group: e2e-jest-${{ github.ref }}-6.x
-  cancel-in-progress: true  
+  cancel-in-progress: true
 
 name: 'E2E Jest with verdaccio'
 jobs:
