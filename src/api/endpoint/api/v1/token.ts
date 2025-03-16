@@ -66,7 +66,7 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         return next(ErrorCode.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
       }
 
-      auth.authenticate(name, password, async (err, user: RemoteUser) => {
+      auth.authenticate(name, password, async (err, user?: RemoteUser) => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
           return next(ErrorCode.getCode(errorCode, err.message));
@@ -81,7 +81,7 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
         }
 
         try {
-          const token = (await getApiToken(auth, config, user, password)) as string;
+          const token = (await getApiToken(auth, config, user as RemoteUser, password)) as string;
           const key = stringToMD5(token as string);
           // TODO: use a utility here
           const maskedToken = mask(token as string, 5);

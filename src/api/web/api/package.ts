@@ -49,7 +49,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
           if (err) {
             resolve(false);
           }
-          resolve(allowed);
+          resolve(allowed as boolean);
         });
       } catch (err) {
         reject(err);
