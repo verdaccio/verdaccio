@@ -166,40 +166,7 @@ jobs:
           yarn add left-pad --registry http://localhost:4873 --verbose
           echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
           yarn jest module.test.js
-  pnpm8:
-    name: 'pnpm8:jest example'
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
-      - name: 'Use Node.js'
-        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
-        with:
-          node-version-file: '.nvmrc'
-      - name: 'install latest pnpm'
-        run: npm i -g pnpm@10.5.2
-      - name: Install Dependencies
-        run: yarn install
-      - name: 'Run verdaccio in the background'
-        run: |
-          nohup yarn node ./scripts/run-verdaccio.js &
-      - name: 'Ping to verdaccio'
-        run: |
-          pnpm ping --registry http://localhost:4873
-      - name: 'Running the integration test'
-        run: |
-          source scripts/e2e-setup-ci.sh
-          pnpm init
-          pnpm install jest@29.5.0 --registry http://localhost:4873  --loglevel info 
-
-          echo "it('should pass', () => { expect(true).toBeTruthy(); });" | tee pass.test.js
-          yarn jest pass.test.js
-
-          yarn add left-pad --registry http://localhost:4873 --verbose
-          echo "const leftPad = require('left-pad'); it('should resolve a module', () => { expect(typeof leftPad).toBe('function');});" | tee module.test.js
-          yarn jest module.test.js
-  pnpm9:
+  pnpm:
     name: 'pnpm:9:jest example'
     runs-on: ubuntu-latest
 
@@ -210,6 +177,10 @@ jobs:
         uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version-file: '.nvmrc'
+      - name: Install corepack
+        run: |
+          npm install --global corepack@latest
+          corepack enable          
       - name: 'install latest pnpm'
         run: npm i -g pnpm@10.5.2
       - name: Install Dependencies
