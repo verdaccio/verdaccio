@@ -16,7 +16,7 @@
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
     "netlify:ui:deploy": "npx netlify-cli deploy --dir=./packages/ui-components/storybook-static --prod",
-    "start": "BROWSER=none storybook dev -p 6006",
+    "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
