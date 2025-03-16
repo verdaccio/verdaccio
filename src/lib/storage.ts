@@ -70,6 +70,22 @@ class Storage {
     } else {
       debug('storage has been already initialized');
     }
+
+    if (!this.filters) {
+      this.filters = await asyncLoadPlugin<pluginUtils.ManifestFilter<unknown>>(
+        this.config.filters,
+        {
+          config: this.config,
+          logger: this.logger,
+        },
+        (plugin: pluginUtils.ManifestFilter<Config>) => {
+          return typeof plugin.filter_metadata !== 'undefined';
+        },
+        this.config?.serverSettings?.pluginPrefix,
+        PLUGIN_CATEGORY.FILTER
+      );
+      debug('filters available %o', this.filters.length);
+    }
   }
 
   private async loadStorage(config: Config, logger: Logger): Promise<StoragePlugin> {

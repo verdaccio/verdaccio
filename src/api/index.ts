@@ -70,16 +70,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     logger: logger,
   };
 
-  // const plugins: pluginUtils.Auth<IConfig>[] = loadPlugin(
-  //   config,
-  //   config.middlewares,
-  //   plugin_params,
-  //   function (plugin: pluginUtils.ManifestFilter<IConfig>) {
-  //     // @ts-ignore
-  //     return plugin.register_middlewares;
-  //   }
-  // );
-
   const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
