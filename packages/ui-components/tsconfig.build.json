@@ -7,7 +7,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "preserveSymlinks": true,
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./build",
     "skipLibCheck": true,
     "jsx": "react",
