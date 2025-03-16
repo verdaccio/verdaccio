@@ -32,14 +32,14 @@ export default class Memory
 
     if (!userCredentials) {
       debug('user %o does not exist', user);
-      return cb(null, false);
+      return cb(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD), undefined);
     }
 
     if (password !== userCredentials.password) {
       const err = errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD);
       debug('password invalid for: %o', user);
 
-      return cb(err);
+      return cb(err, undefined);
     }
 
     // authentication succeeded!

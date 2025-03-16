@@ -4,7 +4,14 @@ import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  HEADERS,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  TOKEN_BEARER,
+  errorUtils,
+} from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
@@ -96,7 +103,7 @@ describe('AuthTest', () => {
         });
       });
 
-      test('should be a fail on login', async () => {
+      test('should be a fail on login due plugin failure', async () => {
         const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey('12345');
         const auth: Auth = new Auth(config, logger);
@@ -107,7 +114,7 @@ describe('AuthTest', () => {
 
         auth.authenticate('foo', 'bar', callback);
         expect(callback).toHaveBeenCalledTimes(1);
-        expect(callback).toHaveBeenCalledWith(errorUtils.getInternalError());
+        expect(callback).toHaveBeenCalledWith(errorUtils.getInternalError(), undefined);
       });
     });
 
@@ -131,6 +138,7 @@ describe('AuthTest', () => {
           auth.authenticate(null, value, callback);
           const call = callback.mock.calls[index++];
           expect(call[0]).toBeDefined();
+          expect(call[0]).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
           expect(call[1]).toBeUndefined();
         }
       });

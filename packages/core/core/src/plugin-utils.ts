@@ -98,7 +98,7 @@ export interface Storage<PluginConfig> extends Plugin<PluginConfig> {
  *
  *  ```ts
  *  import express, { Request, Response } from 'express';
- * 
+ *
  *  class Middleware extends Plugin {
  *    // instances of auth and storage are injected
  *    register_middlewares(app, auth, storage) {
@@ -119,7 +119,10 @@ export interface ExpressMiddleware<PluginConfig, Storage, Auth> extends Plugin<P
 
 // --- AUTH PLUGIN ---
 
-export type AuthCallback = (error: VerdaccioError | null, groups?: string[] | false) => void;
+export type AuthCallback = (
+  error: VerdaccioError | null,
+  user: string[] | false | undefined
+) => void;
 
 export type AuthAccessCallback = (error: VerdaccioError | null, access?: boolean) => void;
 export type AuthUserCallback = (error: VerdaccioError | null, access?: boolean | string) => void;
@@ -147,7 +150,7 @@ export interface Auth<T> extends Plugin<T> {
           return done(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
         }
         // always return an array of users
-        return done(null, [user]);      
+        return done(null, [user]);
    *  }
    * ```
    */
@@ -161,7 +164,7 @@ export interface Auth<T> extends Plugin<T> {
           return done(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
         }
         // return boolean
-        return done(null, true);      
+        return done(null, true);
    *  }
    * ```
    */

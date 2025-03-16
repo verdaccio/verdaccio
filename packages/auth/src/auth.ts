@@ -191,7 +191,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       plugin.authenticate(username, password, function (err: VerdaccioError | null, groups): void {
         if (err) {
           debug('authenticating for user %o failed. Error: %o', username, err?.message);
-          return cb(err);
+          return cb(err, undefined);
         }
 
         // Expect: SKIP if groups is falsey and not an array
@@ -201,7 +201,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         // Caveat: STRING (if valid) will pass successfully
         //         bug give unexpected results
         // Info: Cannot use `== false to check falsey values`
-        if (!!groups && groups.length !== 0) {
+        if (!!groups && groups?.length !== 0) {
           // TODO: create a better understanding of expectations
           if (_.isString(groups)) {
             throw new TypeError('plugin group error: invalid type for function');
@@ -212,7 +212,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           }
 
           debug('authentication for user %o was successfully. Groups: %o', username, groups);
-          return cb(err, createRemoteUser(username, groups));
+          return cb(err, createRemoteUser(username, groups as string[]));
         }
         next();
       });

@@ -28,6 +28,7 @@ export {
   PLUGIN_CATEGORY,
   HtpasswdHashAlgorithm,
 } from './constants';
+export * from './plugin-utils';
 const validationUtils = validatioUtils;
 export {
   fileUtils,

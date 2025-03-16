@@ -161,7 +161,7 @@ export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
   return {
     authenticate(_user: string, _password: string, cb: pluginUtils.AuthCallback): void {
       debug('triggered default authenticate method');
-      cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
+      cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD), undefined);
     },
 
     adduser(_user: string, _password: string, cb: pluginUtils.AuthUserCallback): void {
