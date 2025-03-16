@@ -8,13 +8,5 @@ concurrency:
 
 name: 'E2E Jest with verdaccio'
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Enable Corepack
-        run: corepack enable
   e2e:  
     uses: verdaccio/verdaccio/.github/workflows/x-e2e-jest-workflow.yml@master
