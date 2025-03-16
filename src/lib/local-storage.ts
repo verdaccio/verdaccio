@@ -3,7 +3,6 @@ import builDebug from 'debug';
 import _ from 'lodash';
 import UrlNode from 'url';
 
-import LocalDatabase from '@verdaccio/local-storage-legacy';
 import { ReadTarball, UploadTarball } from '@verdaccio/streams';
 import {
   Author,
@@ -28,7 +27,6 @@ import {
 } from '@verdaccio/utils';
 
 import { StoragePluginLegacy } from '../../types/custom';
-import loadPlugin from '../lib/plugin-loader';
 import { StringValue } from '../types';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, SUPPORT_ERRORS, USERS } from './constants';
 import {
@@ -42,7 +40,7 @@ import { prepareSearchPackage } from './storage-utils';
 import { ErrorCode, isObject, tagVersion } from './utils';
 
 const debug = builDebug('verdaccio:local-storage');
-type StoragePlugin = StoragePluginLegacy<Config> | any;
+export type StoragePlugin = StoragePluginLegacy<Config> | any;
 /**
  * Implements Storage interface (same for storage.js, local-storage.js, up-storage.js).
  */
@@ -51,10 +49,10 @@ class LocalStorage {
   public storagePlugin: StoragePlugin;
   public logger: Logger;
 
-  public constructor(config: Config, logger: Logger) {
+  public constructor(config: Config, logger: Logger, localStorage: StoragePlugin) {
     this.logger = logger;
     this.config = config;
-    this.storagePlugin = this._loadStorage(config, logger);
+    this.storagePlugin = localStorage;
   }
 
   public addPackage(name: string, pkg: Package, callback: Callback): void {
@@ -869,35 +867,6 @@ class LocalStorage {
     const secretKey = await this.storagePlugin.getSecret();
 
     return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
-  }
-
-  private _loadStorage(config: Config, logger: Logger): StoragePlugin {
-    const Storage = this._loadStorePlugin();
-
-    if (_.isNil(Storage)) {
-      assert(this.config.storage, 'CONFIG: storage default path not defined');
-      return new LocalDatabase(this.config, logger);
-    }
-    return Storage as StoragePlugin;
-  }
-
-  private _loadStorePlugin(): StoragePlugin | void {
-    const plugin_params = {
-      config: this.config,
-      logger: this.logger,
-    };
-
-    // eslint-disable-next-line max-len
-    const plugins: StoragePlugin[] = loadPlugin<StoragePlugin>(
-      this.config,
-      this.config.store,
-      plugin_params,
-      (plugin): StoragePlugin => {
-        return plugin.getPackageStorage;
-      }
-    );
-
-    return _.head(plugins);
   }
 
   public saveToken(token: Token): Promise<any> {

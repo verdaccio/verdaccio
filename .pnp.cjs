@@ -73,6 +73,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/auth", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/loaders", "npm:8.0.0-next-8.4"],\
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/middleware", "npm:8.0.0-next-8.10"],\
@@ -15333,6 +15334,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@verdaccio/auth", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/config", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/core", "npm:8.0.0-next-8.10"],\
+            ["@verdaccio/loaders", "npm:8.0.0-next-8.4"],\
             ["@verdaccio/local-storage-legacy", "npm:11.0.2"],\
             ["@verdaccio/logger", "npm:8.0.0-next-8.10"],\
             ["@verdaccio/middleware", "npm:8.0.0-next-8.10"],\

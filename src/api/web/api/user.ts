@@ -21,16 +21,16 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
     function (req: Request, res: Response, next: $NextFunctionVer): void {
       const { username, password } = req.body;
 
-      auth.authenticate(username, password, async (err, user: RemoteUser): Promise<void> => {
+      auth.authenticate(username, password, async (err, user?: RemoteUser): Promise<void> => {
         if (err) {
           const errorCode = err.message ? HTTP_STATUS.UNAUTHORIZED : HTTP_STATUS.INTERNAL_ERROR;
           next(ErrorCode.getCode(errorCode, err.message));
         } else {
-          req.remote_user = user;
+          req.remote_user = user as RemoteUser;
           const jWTSignOptions: JWTSignOptions = getSecurity(config).web.sign;
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
           next({
-            token: await auth.jwtEncrypt(user, jWTSignOptions),
+            token: await auth.jwtEncrypt(user as RemoteUser, jWTSignOptions),
             username: req.remote_user.name,
           });
         }
