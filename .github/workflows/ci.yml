@@ -68,7 +68,9 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20, 21, 22, 23]
+        ## updated according official maintained releases
+        ## https://nodejs.org/en/about/previous-releases
+        node_version: [18, 20, 22, 23]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
