@@ -1,19 +1,19 @@
 {
   "extends": "../../tsconfig.reference.json",
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "sourceMap": true,
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./build",
     "preserveSymlinks": true,
     "jsx": "react",
     "allowJs": true,
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*", "vitest/**/*", "src/test/**/*"],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../core/types"
