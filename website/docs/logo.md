@@ -7,7 +7,7 @@ The logotype was designed by **[Breno Rodrigues](https://github.com/rodriguesbre
 won the [contest](https://github.com/verdaccio/verdaccio/issues/237)
 ([last stage](https://github.com/verdaccio/verdaccio/issues/328)) and donated his work to this project.
 
-> All logos are licensed under [Creative Commons](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+> All logos are licensed under [Creative Commons](https://creativecommons.org/licenses/by/4.0/).
 
 Special thanks to _[@Lisapressmar](https://github.com/Lisapressmar)_ for her contribution
 with multiple image formats and sizes.

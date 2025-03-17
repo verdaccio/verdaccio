@@ -5,7 +5,7 @@
     "local-crowdin-api": "./index.js"
   },
   "private": "true",
-  "description": "Update Translations Percentage for Website Data",
+  "description": "Update Website Data",
   "main": "./build/index.js",
   "scripts": {
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

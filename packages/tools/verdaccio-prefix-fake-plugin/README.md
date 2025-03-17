@@ -1,9 +1,8 @@
-# @verdaccio/hooks - Verdaccio Hooks
+# customprefix-auth - fake plugin for test
 
 [![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
 [![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
-[![This Package Latest](https://img.shields.io/npm/v/@verdaccio/hooks?label=@verdaccio/hooks&color=405236)](https://npmjs.com/package/@verdaccio/hooks)
 
 [![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
 [![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
