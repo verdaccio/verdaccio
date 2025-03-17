@@ -11,7 +11,7 @@ const Contributors: React.FC = () => {
   return (
     <>
       <Link href={`https://verdaccio.org/contributors`} rel="noreferrer" target="_blank">
-        <AvatarGroup max={18} spacing={15} total={400}>
+        <AvatarGroup max={11} spacing={15} total={400}>
           {contributors?.map(({ username, id }) => {
             return (
               <div key={username}>
