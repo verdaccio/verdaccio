@@ -15,6 +15,7 @@ export interface MemoryLocalStorage {
 const debug = buildDebug('verdaccio:plugin:storage:local-memory');
 
 const DEFAULT_LIMIT = 1000;
+
 class LocalMemory
   extends pluginUtils.Plugin<ConfigMemory>
   implements pluginUtils.Storage<ConfigMemory>
@@ -65,7 +66,7 @@ class LocalMemory
           { limit: this.limit },
           'Storage memory has reached limit of @{limit} packages'
         );
-        reject(new Error('Storage memory has reached limit of limit packages'));
+        reject(new Error(`Storage memory has reached limit of ${this.limit} packages`));
       }
     });
   }
