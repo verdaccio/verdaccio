@@ -1,9 +1,8 @@
-# @verdaccio/config - Verdaccio Configuration
+# customprefix-auth - fake plugin for test
 
 [![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
 [![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 [![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
-[![This Package Latest](https://img.shields.io/npm/v/@verdaccio/config?label=@verdaccio/config&color=405236)](https://npmjs.com/package/@verdaccio/config)
 
 [![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
 [![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
@@ -14,75 +13,6 @@
 [![Verdaccio Downloads](https://img.shields.io/npm/dm/verdaccio?style=flat&logo=npm&label=Npm%20Downloads&color=lightgrey)](https://www.npmjs.com/package/verdaccio)
 [![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
 [![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio)
-
-## Overview
-
-The `@verdaccio/config` package provides a powerful configuration builder constructor for programmatically creating configuration objects for Verdaccio, a lightweight private npm proxy registry. With this package, users can easily manage various configuration aspects such as package access, uplinks, security settings, authentication, logging, and storage options.
-
-## Installation
-
-You can install via npm:
-
-```bash
-npm install @verdaccio/config
-```
-
-## Usage
-
-To start using `@verdaccio/config`, import the `ConfigBuilder` class and begin constructing your configuration object:
-
-## `ConfigBuilder` constructor
-
-The `ConfigBuilder` class is a helper configuration builder constructor used to programmatically create configuration objects for testing or other purposes.
-
-```typescript
-
-import { ConfigBuilder } from '@verdaccio/config';
-
-// Create a new configuration builder instance
-const config = ConfigBuilder.build({ security: { api: { legacy: false } } });
-
-// Add package access configuration
-configBuilder.addPackageAccess('@scope/*', { access: 'read', publish: 'write' });
-
-// Add an uplink configuration
-configBuilder.addUplink('npmjs', { url: 'https://registry.npmjs.org/' });
-
-// Add security configuration
-configBuilder.addSecurity({ allow_offline: true });
-
-// Get the configuration object
-const config = configBuilder.getConfig();
-
-// Get the configuration yaml text
-const config = configBuilder.getAsYaml();
-```
-
-### Methods
-
-- `addPackageAccess(pattern: string, pkgAccess: PackageAccessYaml)`: Adds package access configuration.
-- `addUplink(id: string, uplink: UpLinkConf)`: Adds an uplink configuration.
-- `addSecurity(security: Partial<Security>)`: Adds security configuration.
-- `addAuth(auth: Partial<AuthConf>)`: Adds authentication configuration.
-- `addLogger(log: LoggerConfItem)`: Adds logger configuration.
-- `addStorage(storage: string | object)`: Adds storage configuration.
-- `getConfig(): ConfigYaml`: Retrieves the configuration object.
-- `getAsYaml(): string`: Retrieves the configuration object as YAML format.
-
-## `getDefaultConfig`
-
-This method is available in the package's index and retrieves the default configuration object.
-
-```typescript
-import { getDefaultConfig } from '@verdaccio/config';
-
-const defaultConfig = getDefaultConfig();
-```
-
-## Other Methods
-
-- `fromJStoYAML(config: ConfigYaml): string`: Converts a JavaScript configuration object to YAML format.
-- `parseConfigFile(filePath: string): ConfigYaml`: Parses a configuration file from the specified path and returns the configuration object.
 
 ## Donations
 

@@ -1,12 +1,19 @@
-# @verdaccio/logger-prettify
+# @verdaccio/logger-prettify - Verdaccio Logger Prettify
 
-[![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
-[![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
-[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/verdaccio/localized.svg)](https://crowdin.com/project/verdaccio)
-[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/verdaccio/verdaccio)](https://www.tickgit.com/browse?repo=github.com/verdaccio/verdaccio)
+[![Verdaccio Home](https://img.shields.io/badge/Homepage-Verdaccio-405236?style=flat)](https://verdaccio.org)
+[![MIT License](https://img.shields.io/github/license/verdaccio/verdaccio?label=License&color=405236)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
+[![Verdaccio Latest](https://img.shields.io/npm/v/verdaccio?label=Latest%20Version&color=405236)](https://github.com/verdaccio/verdaccio)
+[![This Package Latest](https://img.shields.io/npm/v/@verdaccio/logger-prettify?label=@verdaccio/logger-prettify&color=405236)](https://npmjs.com/package/@verdaccio/logger-prettify)
 
-[![Github](https://img.shields.io/github/stars/verdaccio/verdaccio.svg?style=social&label=Stars)](https://github.com/verdaccio/verdaccio/stargazers)
+[![Documentation](https://img.shields.io/badge/Help-Verdaccio?style=flat&logo=Verdaccio&label=Verdaccio&color=cd4000)](https://verdaccio.org/docs)
+[![Discord](https://img.shields.io/badge/Chat-Discord?style=flat&logo=Discord&label=Discord&color=cd4000)](https://discord.com/channels/388674437219745793)
+[![Bluesky](https://img.shields.io/badge/Follow-Bluesky?style=flat&logo=Bluesky&label=Bluesky&color=cd4000)](https://bsky.app/profile/verdaccio.org)
+[![Backers](https://img.shields.io/opencollective/backers/verdaccio?style=flat&logo=opencollective&label=Join%20Backers&color=cd4000)](https://opencollective.com/verdaccio/contribute)
+[![Sponsors](https://img.shields.io/opencollective/sponsors/verdaccio?style=flat&logo=opencollective&label=Sponsor%20Us&color=cd4000)](https://opencollective.com/verdaccio/contribute)
+
+[![Verdaccio Downloads](https://img.shields.io/npm/dm/verdaccio?style=flat&logo=npm&label=Npm%20Downloads&color=lightgrey)](https://www.npmjs.com/package/verdaccio)
+[![Docker Pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio?style=flat&logo=docker&label=Docker%20Pulls&color=lightgrey)](https://hub.docker.com/r/verdaccio/verdaccio)
+[![GitHub Stars](https://img.shields.io/github/stars/verdaccio?style=flat&logo=github&label=GitHub%20Stars%20%E2%AD%90&color=lightgrey)](https://github.com/verdaccio/verdaccio)
 
 ## Donations
 
@@ -20,7 +27,7 @@ If you want to report a security vulnerability, please follow the steps which we
 
 ## Open Collective Sponsors
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
 
 [![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
 [![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
@@ -35,40 +42,40 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 ## Open Collective Backers
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio/contribute)]
 
-[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio#backers)
+[![backers](https://opencollective.com/verdaccio/backers.svg?width=890)](https://opencollective.com/verdaccio/contributes)
 
 ## Special Thanks
 
 Thanks to the following companies to help us to achieve our goals providing free open source licenses.
 
-[![jetbrain](assets/thanks/jetbrains/logo.png)](https://www.jetbrains.com/)
-[![crowdin](assets/thanks/crowdin/logo.png)](https://crowdin.com/)
-[![balsamiq](assets/thanks/balsamiq/logo.jpg)](https://balsamiq.com/)
+[![jetbrain](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/balsamiq/logo.jpg?raw=true)](https://www.jetbrains.com/)
+[![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)
+[![balsamiq](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.png?raw=true)](https://balsamiq.com/)
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who contribute. [[Contribute](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md)].
 
-[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](../../graphs/contributors)
+[![contributors](https://opencollective.com/verdaccio/contributors.svg?width=890&button=true)](https://github.com/verdaccio/verdaccio/graphs/contributors)
 
-### FAQ / Contact / Troubleshoot
+## FAQ / Contact / Troubleshoot
 
-If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
+If you have any issue you can try the following options. Do not hesitate to ask or check our issues database. Perhaps someone has asked already what you are looking for.
 
 - [Blog](https://verdaccio.org/blog/)
 - [Donations](https://opencollective.com/verdaccio)
 - [Reporting an issue](https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#reporting-a-bug)
-- [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
-- [Chat](http://chat.verdaccio.org/)
-- [Logos](https://verdaccio.org/docs/en/logo)
-- [Docker Examples](https://github.com/verdaccio/docker-examples)
+- [Running discussions](https://github.com/orgs/verdaccio/discussions)
+- [Chat](https://discord.com/channels/388674437219745793)
+- [Logos](https://verdaccio.org/docs/logo)
+- [Docker Examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples)
 - [FAQ](https://github.com/verdaccio/verdaccio/issues?utf8=%E2%9C%93&q=is%3Aissue%20label%3Aquestion%20)
 
-### License
+## License
 
 Verdaccio is [MIT licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
 
-The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch) files within the /assets folder) is
-[Creative Commons licensed](https://github.com/verdaccio/verdaccio/blob/master/LICENSE-docs).
+The Verdaccio documentation and logos (excluding /thanks, e.g., .md, .png, .sketch files within the /assets folder) are
+[Creative Commons licensed](https://creativecommons.org/licenses/by/4.0/).
