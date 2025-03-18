@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/loaders",
   "version": "8.0.0-next-8.4",
-  "description": "loaders logic",
+  "description": "Verdaccio Loader Logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "author": {
@@ -10,7 +10,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/loaders"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "dependencies": {
     "debug": "4.4.0",

@@ -7,7 +7,6 @@ import { logger, setup } from '@verdaccio/logger';
 
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
-import { DataHandler } from '../src/memory-handler';
 
 setup({});
 
@@ -33,7 +32,7 @@ describe('memory unit test .', () => {
           { ...defaultConfig, config }
         );
         localMemory.add('test').then(() => {
-          localMemory.get().then((data: DataHandler) => {
+          localMemory.get().then((data) => {
             expect(data).toHaveLength(1);
             done(true);
           });
@@ -52,7 +51,7 @@ describe('memory unit test .', () => {
           localMemory.add('test2').then(() => {
             localMemory.add('test3').catch((err) => {
               expect(err).not.toBeNull();
-              expect(err.message).toMatch(/Storage memory has reached limit of limit packages/);
+              expect(err.message).toMatch(/Storage memory has reached limit of 2 packages/);
               done(true);
             });
           });

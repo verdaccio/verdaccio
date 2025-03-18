@@ -23,7 +23,7 @@ const banner = `
     `;
 
 const prodConf = {
-  mode: 'development',
+  mode: 'production',
   devtool: 'inline-cheap-module-source-map',
 
   entry: {

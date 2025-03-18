@@ -1,14 +1,18 @@
 {
   "name": "@verdaccio/ui-theme",
   "version": "8.0.0-next-8.12",
-  "description": "Verdaccio User Interface",
+  "description": "Verdaccio User Interface (Theme)",
   "author": {
     "name": "Verdaccio Contributors",
     "email": "verdaccio.npm@gmail.com"
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/ui-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "homepage": "https://verdaccio.org",
   "main": "index.js",
@@ -63,7 +67,6 @@
     "react-hook-form": "7.54.2",
     "react-hot-loader": "4.13.1",
     "react-i18next": "13.5.0",
-    "react-json-view": "1.21.3",
     "react-markdown": "9.0.3",
     "react-redux": "8.1.3",
     "react-router": "5.3.4",
@@ -82,12 +85,12 @@
     "terser-webpack-plugin": "5.3.12",
     "url-loader": "4.1.1",
     "validator": "13.12.0",
-    "webpack": "5.98.0",
     "vite-plugin-markdown": "2.2.0",
+    "webpack": "5.98.0",
     "webpack-bundle-analyzer": "4.10.2",
     "webpack-bundle-size-analyzer": "3.1.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "3.11.3",
+    "webpack-dev-server": "5.2.0",
     "webpack-manifest-plugin": "4.1.1",
     "webpack-merge": "5.10.0",
     "whatwg-fetch": "3.6.20"
