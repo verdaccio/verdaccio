@@ -1,6 +1,5 @@
 ---
-author: Juan Picado
-authorFBID: 1122901551
+author: juan_picado
 title: The new Docker image for Verdaccio 4
 ---
 
@@ -8,7 +7,7 @@ Docker has been a key part of success for Verdaccio. At the time of this writing
 
 This article will describe what has changed, all the improvements and benefits you will enjoy from migrating to the latest version.
 
-## What’s new? {#whats-new}
+## What's new? {#whats-new}
 
 ### Keep it small {#keep-it-small}
 
@@ -32,7 +31,7 @@ To avoid mistakes we have renamed all environment variables to be prefixed with 
 
 The previous image runs the container with the verdaccio user and group by default, being the UID created randomly within the image. Some users were experiencing issues since some environments require the usage of custom user IDs for security reasons. To support this, we have introduced the environment variable `VERDACCIO_USER_ID`.
 
-Furthermore, other optimizations can be possible, as for instance, define a different username using `VERDACCIO_USER_NAME` and such user won’t have permissions to log in by default.
+Furthermore, other optimizations can be possible, as for instance, define a different username using `VERDACCIO_USER_NAME` and such user won't have permissions to log in by default.
 
 ### Security {#security}
 

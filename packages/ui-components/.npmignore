@@ -1,6 +1,6 @@
 .storybook
 public/
-msw
 vitest
+__partials__
 __snapshots__
 *.map

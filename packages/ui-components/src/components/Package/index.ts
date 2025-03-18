@@ -1,1 +1,2 @@
-export { default, PackageInterface } from './Package';
+export { default } from './Package';
+export type { PackageInterface } from './Package';

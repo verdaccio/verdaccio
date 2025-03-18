@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/server-fastify",
   "version": "8.0.0-next-8.12",
-  "description": "fastify server api implementation",
+  "description": "Verdaccio Fastify Server",
   "keywords": [
     "private",
     "package",
@@ -24,7 +24,7 @@
   "repository": {
     "type": "https",
     "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/core/streams"
+    "directory": "packages/server/fastify"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"

@@ -169,7 +169,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             expandIcon={<ExpandMoreIcon />}
             id="panel3a-header"
           >
-            {'pnpm'}
+            <Typography className={classes.heading}>{'pnpm'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <CommandContainer data-testid={'tab-content'}>

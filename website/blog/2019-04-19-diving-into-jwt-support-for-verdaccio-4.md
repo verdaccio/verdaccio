@@ -1,5 +1,5 @@
 ---
-author: Juan Picado
+author: juan_picado
 authorFBID: 1122901551
 title: Diving into JWT support for Verdaccio 4
 ---
@@ -14,7 +14,7 @@ npm install -g verdaccio@next
 
 This article will explain what are the advantages of using JWT instead of the traditional or _legacy_ token signature used by Verdaccio. But before that, we need to be int he same page about ** JWT.**
 
-I’d recommend reading the following article before continue the reading.
+I'd recommend reading the following article before continue the reading.
 
 [5 Easy Steps to Understanding JSON Web Tokens (JWT)](https://medium.com/vandium-software/5-easy-steps-to-understanding-json-web-tokens-jwt-1164c0adfcec)
 

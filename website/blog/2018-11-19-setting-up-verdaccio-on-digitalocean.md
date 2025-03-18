@@ -1,12 +1,11 @@
 ---
-author: Juan Picado
-authorFBID: 1122901551
+author: juan_picado
 title: Setting up Verdaccio on DigitalOcean
 ---
 
 This one of the multiple articles I will write about running Verdaccio on multiple platforms.
 
-This time for simplicity I’ve chosen [DigitalOcean](https://www.digitalocean.com/) that provides affordable base prices and if you want to run your own registry, it’s a good option.
+This time for simplicity I've chosen [DigitalOcean](https://www.digitalocean.com/) that provides affordable base prices and if you want to run your own registry, it's a good option.
 
 <!--truncate-->
 
@@ -18,7 +17,7 @@ Create a droplet is fairly easy, it just matters to choose an image and click on
 
 ![](https://cdn-images-1.medium.com/max/1024/1*V1GIMttiMPYuX8FLKuumRg.png)<figcaption>A view of the droplet panel</figcaption>
 
-While the droplet is created, which takes a matter of seconds the next step is to find a way to log in via SSH, you can find credentials in your email. _Keep on mind the droplet provides root access and the next steps I won’t use sudo_.
+While the droplet is created, which takes a matter of seconds the next step is to find a way to log in via SSH, you can find credentials in your email. _Keep on mind the droplet provides root access and the next steps I won't use sudo_.
 
 ### Installing Requirements {#installing-requirements}
 
@@ -28,7 +27,7 @@ As first step we have to install [Verdaccio](https://verdaccio.org/) with the fo
 npm install --global verdaccio
 ```
 
-> We will use npm for simplicity, but I’d recommend using other tools as [pnpm](https://pnpm.js.org/) or [yarn](https://yarnpkg.com/en/).
+> We will use npm for simplicity, but I'd recommend using other tools as [pnpm](https://pnpm.js.org/) or [yarn](https://yarnpkg.com/en/).
 
 We will handle the **verdaccio** process using the _pm2_ tool that provides handy tools for restarting and monitoring.
 
@@ -38,7 +37,7 @@ npm install -g pm2
 
 #### Nginx Configuration {#nginx-configuration}
 
-To handle the request we will set up _ngnix_ which is really easy to install. I won’t include in this article all steps to setup the web but you can [follow this article](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04).
+To handle the request we will set up _ngnix_ which is really easy to install. I won't include in this article all steps to setup the web but you can [follow this article](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-16-04).
 
 Once _nginx_ is running in the port 80, we have to modify lightly the configuration file as follow
 

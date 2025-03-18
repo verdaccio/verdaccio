@@ -1,6 +1,6 @@
 ---
 title: Upgrade from v3.x to verdaccio 4.x with LDAP and Docker
-author: Dimitri Kopriwa
+author: dimitri_kopriwa
 authorURL: https://twitter.com/DimitriKopriwa
 authorImageURL: https://avatars1.githubusercontent.com/u/1866564?s=460&v=4
 authorTwitter: DimitriKopriwa

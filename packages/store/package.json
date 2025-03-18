@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/store",
   "version": "8.0.0-next-8.12",
-  "description": "loaders logic",
+  "description": "Verdaccio Storage",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
   "author": {
@@ -10,7 +10,11 @@
   },
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/store"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "license": "MIT",
   "homepage": "https://verdaccio.org",

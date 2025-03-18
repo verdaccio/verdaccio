@@ -1,6 +1,5 @@
 ---
-author: Juan Picado
-authorFBID: 1122901551
+author: juan_picado
 title: Release 4.1.0
 ---
 

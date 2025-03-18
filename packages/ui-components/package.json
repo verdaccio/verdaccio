@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/ui-components",
   "version": "4.0.0-next-8.6",
-  "description": "theme ui component",
+  "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
   "homepage": "https://verdaccio.org",
@@ -16,7 +16,7 @@
     "watch": "babel src/ --out-dir build/ --watch --copy-files --no-copy-ignored --extensions \".ts,.tsx\" --source-maps --ignore \"src/**/*.stories.tsx\" --ignore \"src/**/*.test.tsx\" --ignore \"src/**/*.test.ts\"",
     "build": "pnpm run build:js && pnpm run build:types",
     "netlify:ui:deploy": "npx netlify-cli deploy --dir=./packages/ui-components/storybook-static --prod",
-    "start": "BROWSER=none storybook dev -p 6006",
+    "start": "cross-env BROWSER=none storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
@@ -24,7 +24,7 @@
     "@emotion/styled": "11.11.5",
     "@fontsource/material-icons": "^4.5.4",
     "@fontsource/roboto": "^4.5.8",
-    "@microlink/react-json-view": "^1.23.3",
+    "@microlink/react-json-view": "^1.26.1",
     "@mui/icons-material": "5.16.5",
     "@mui/material": "5.16.5",
     "@mui/styles": "5.16.5",

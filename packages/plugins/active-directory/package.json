@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/active-directory",
   "version": "11.0.0-6-next.8",
-  "description": "Active Directory authentication plugin for Verdaccio",
+  "description": "Active Directory Authentication Plugin for Verdaccio",
   "keywords": [
     "private",
     "package",
