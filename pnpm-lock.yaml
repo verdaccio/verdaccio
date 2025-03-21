@@ -1329,9 +1329,6 @@ importers:
       react-i18next:
         specifier: 13.5.0
         version: 13.5.0(i18next@20.6.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react-json-view:
-        specifier: 1.21.3
-        version: 1.21.3(@types/react@18.3.3)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-markdown:
         specifier: 9.0.3
         version: 9.0.3(@types/react@18.3.3)(react@18.3.1)
@@ -1914,8 +1911,8 @@ importers:
         specifier: ^4.5.8
         version: 4.5.8
       '@microlink/react-json-view':
-        specifier: ^1.23.3
-        version: 1.23.3(@types/react@18.3.3)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^1.26.1
+        version: 1.26.1(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/icons-material':
         specifier: 5.16.5
         version: 5.16.5(@mui/material@5.16.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.3)(react@18.3.1)
@@ -4680,8 +4677,9 @@ packages:
   '@mermaid-js/parser@0.3.0':
     resolution: {integrity: sha512-HsvL6zgE5sUPGgkIDlmAWR1HTNHz2Iy11BAWPTa4Jjabkpguy4Ze2gzfLrg6pdRuBvFwgUYyxiaNqZwrEEXepA==, tarball: https://registry.npmjs.org/@mermaid-js/parser/-/parser-0.3.0.tgz}
 
-  '@microlink/react-json-view@1.23.3':
-    resolution: {integrity: sha512-5az8z8ebKEU/8XN60TF7aAB7d68z8EtHbIL43tO8MJdBhm4jLQCjAKuuoGX01WgdgnazYnqtBe6LLcUmCv/MyA==, tarball: https://registry.npmjs.org/@microlink/react-json-view/-/react-json-view-1.23.3.tgz}
+  '@microlink/react-json-view@1.26.1':
+    resolution: {integrity: sha512-2H5QCYdZlJi+oN4YBiUYPPFTNh/KLCN9i9yz8NwmSkRqXSRXYtEVIRffc9L34jdopKGK/tK21SeuzXVJHQLkfQ==, tarball: https://registry.npmjs.org/@microlink/react-json-view/-/react-json-view-1.26.1.tgz}
+    engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
       react-dom: '>= 15'
@@ -7660,9 +7658,6 @@ packages:
     engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
     hasBin: true
 
-  cross-fetch@3.1.5:
-    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==, tarball: https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.5.tgz}
-
   cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==, tarball: https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz}
     engines: {node: '>= 8'}
@@ -8887,15 +8882,6 @@ packages:
   fb-watchman@2.0.2:
     resolution: {integrity: sha512-p5161BqbuCaSnB8jIbzQHOlpgsPmK5rJVDfDKO91Axs5NC1uu3HRQm6wt9cd9/+GtQQIO53JdGXXoyDpTAsgYA==, tarball: https://registry.npmjs.org/fb-watchman/-/fb-watchman-2.0.2.tgz}
 
-  fbemitter@3.0.0:
-    resolution: {integrity: sha512-KWKaceCwKQU0+HPoop6gn4eOHk50bBv/VxjJtGMfwmJt3D29JpN4H4eisCtIPA+a8GVBam+ldMMpMjJUvpDyHw==, tarball: https://registry.npmjs.org/fbemitter/-/fbemitter-3.0.0.tgz}
-
-  fbjs-css-vars@1.0.2:
-    resolution: {integrity: sha512-b2XGFAFdWZWg0phtAWLHCk836A1Xann+I+Dgd3Gk64MHKZO44FfoD1KxyvbSh0qZsIoXQGGlVztIY+oitJPpRQ==, tarball: https://registry.npmjs.org/fbjs-css-vars/-/fbjs-css-vars-1.0.2.tgz}
-
-  fbjs@3.0.4:
-    resolution: {integrity: sha512-ucV0tDODnGV3JCnnkmoszb5lf4bNpzjv80K41wd4k798Etq+UYD0y0TIfalLjZoKgjive6/adkRnszwapiDgBQ==, tarball: https://registry.npmjs.org/fbjs/-/fbjs-3.0.4.tgz}
-
   fd-slicer@1.1.0:
     resolution: {integrity: sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==, tarball: https://registry.npmjs.org/fd-slicer/-/fd-slicer-1.1.0.tgz}
 
@@ -8992,11 +8978,6 @@ packages:
 
   flatted@3.2.9:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==, tarball: https://registry.npmjs.org/flatted/-/flatted-3.2.9.tgz}
-
-  flux@4.0.4:
-    resolution: {integrity: sha512-NCj3XlayA2UsapRpM7va6wU1+9rE5FIL7qoMcmxWHRzbp0yujihMBm9BBHZ1MDIk5h5o2Bl6eGiCe8rYELAmYw==, tarball: https://registry.npmjs.org/flux/-/flux-4.0.4.tgz}
-    peerDependencies:
-      react: ^15.0.2 || ^16.0.0 || ^17.0.0
 
   follow-redirects@1.15.2:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==, tarball: https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.2.tgz}
@@ -10575,9 +10556,6 @@ packages:
 
   lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==, tarball: https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz}
-
-  lodash.flow@3.5.0:
-    resolution: {integrity: sha512-ff3BX/tSioo+XojX4MOsOMhJw0nZoUEF011LX8g8d3gvjVbxd89cCio4BCXronjxcTUIJUoqKEUA+n4CqvvRPw==, tarball: https://registry.npmjs.org/lodash.flow/-/lodash.flow-3.5.0.tgz}
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==, tarball: https://registry.npmjs.org/lodash.get/-/lodash.get-4.4.2.tgz}
@@ -13022,9 +13000,6 @@ packages:
     resolution: {integrity: sha512-y+WKFlBR8BGXnsNlIHFGPZmyDf3DFMoLhaflAnyZgV6rG6xu+JwesTo2Q9R6XwYmtmwAFCkAk3e35jEdoeh/3g==, tarball: https://registry.npmjs.org/promise-retry/-/promise-retry-2.0.1.tgz}
     engines: {node: '>=10'}
 
-  promise@7.3.1:
-    resolution: {integrity: sha512-nolQXZ/4L+bP/UGlkfaIujX9BKxGwmQ9OT4mOt5yvy8iK1h3wqTEJCijzGANTCCl9nWjY41juyAn2K3Q1hLLTg==, tarball: https://registry.npmjs.org/promise/-/promise-7.3.1.tgz}
-
   prompts@2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==, tarball: https://registry.npmjs.org/prompts/-/prompts-2.4.2.tgz}
     engines: {node: '>= 6'}
@@ -13080,9 +13055,6 @@ packages:
   pupa@3.1.0:
     resolution: {integrity: sha512-FLpr4flz5xZTSJxSeaheeMKN/EDzMdK7b8PTOC6a5PYFKTucWbdqjgqaEyH0shFiSJrVB1+Qqi4Tk19ccU6Aug==, tarball: https://registry.npmjs.org/pupa/-/pupa-3.1.0.tgz}
     engines: {node: '>=12.20'}
-
-  pure-color@1.3.0:
-    resolution: {integrity: sha512-QFADYnsVoBMw1srW7OVKEYjG+MbIa49s54w1MA1EDY6r2r/sTcKKYqRX1f4GYvnXP7eN/Pe9HFcX+hwzmrXRHA==, tarball: https://registry.npmjs.org/pure-color/-/pure-color-1.3.0.tgz}
 
   pure-rand@6.0.4:
     resolution: {integrity: sha512-LA0Y9kxMYv47GIPJy6MI84fqTd2HmYZI83W/kM/SkKfDlajnZYfmXFTxkbY+xSBPkLJxltMa9hIkmdc29eguMA==, tarball: https://registry.npmjs.org/pure-rand/-/pure-rand-6.0.4.tgz}
@@ -13143,9 +13115,6 @@ packages:
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==, tarball: https://registry.npmjs.org/rc/-/rc-1.2.8.tgz}
     hasBin: true
-
-  react-base16-styling@0.6.0:
-    resolution: {integrity: sha512-yvh/7CArceR/jNATXOKDlvTnPKPmGZz7zsenQ3jUwLzHkNUR0CvY3yGYJbWJ/nnxsL8Sgmt5cO3/SILVuPO6TQ==, tarball: https://registry.npmjs.org/react-base16-styling/-/react-base16-styling-0.6.0.tgz}
 
   react-base16-styling@0.9.1:
     resolution: {integrity: sha512-1s0CY1zRBOQ5M3T61wetEpvQmsYSNtWEcdYzyZNxKa8t7oDvaOn9d21xrGezGAHFWLM7SHcktPuPTrvoqxSfKw==, tarball: https://registry.npmjs.org/react-base16-styling/-/react-base16-styling-0.9.1.tgz}
@@ -13258,12 +13227,6 @@ packages:
     peerDependencies:
       react: ^16.13.1 || ^17.0.0 || ^18.0.0
 
-  react-json-view@1.21.3:
-    resolution: {integrity: sha512-13p8IREj9/x/Ye4WI/JpjhoIwuzEgUAtgJZNBJckfzJt1qyh24BdTm6UQNGnyTq9dapQdrqvquZTo3dz1X6Cjw==, tarball: https://registry.npmjs.org/react-json-view/-/react-json-view-1.21.3.tgz}
-    peerDependencies:
-      react: ^17.0.0 || ^16.3.0 || ^15.5.4
-      react-dom: ^17.0.0 || ^16.3.0 || ^15.5.4
-
   react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==, tarball: https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz}
 
@@ -13326,17 +13289,11 @@ packages:
     peerDependencies:
       react: '>=15'
 
-  react-textarea-autosize@8.3.4:
-    resolution: {integrity: sha512-CdtmP8Dc19xL8/R6sWvtknD/eCXkQr30dtvC4VmGInhRsfF8X/ihXCq6+9l9qbxmKRiq407/7z5fxE7cVWQNgQ==, tarball: https://registry.npmjs.org/react-textarea-autosize/-/react-textarea-autosize-8.3.4.tgz}
+  react-textarea-autosize@8.5.8:
+    resolution: {integrity: sha512-iUiIj70JefrTuSJ4LbVFiSqWiHHss5L63L717bqaWHMgkm9sz6eEvro4vZ3uQfGJbevzwT6rHOszHKA8RkhRMg==, tarball: https://registry.npmjs.org/react-textarea-autosize/-/react-textarea-autosize-8.5.8.tgz}
     engines: {node: '>=10'}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-
-  react-textarea-autosize@8.4.1:
-    resolution: {integrity: sha512-aD2C+qK6QypknC+lCMzteOdIjoMbNlgSFmJjCV+DrfTPwp59i/it9mMNf2HDzvRjQgKAyBDPyLJhcrzElf2U4Q==, tarball: https://registry.npmjs.org/react-textarea-autosize/-/react-textarea-autosize-8.4.1.tgz}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-transition-group@4.4.5:
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==, tarball: https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.5.tgz}
@@ -13882,9 +13839,6 @@ packages:
   set-function-name@2.0.2:
     resolution: {integrity: sha512-7PGFlmtwsEADb0WYyvCMa1t+yke6daIG4Wirafur5kcf+MhUnPms1UeR0CKQdTZD81yESwMHbtn+TR+dMviakQ==, tarball: https://registry.npmjs.org/set-function-name/-/set-function-name-2.0.2.tgz}
     engines: {node: '>= 0.4'}
-
-  setimmediate@1.0.5:
-    resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==, tarball: https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz}
 
   setprototypeof@1.1.0:
     resolution: {integrity: sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==, tarball: https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.1.0.tgz}
@@ -14779,9 +14733,6 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==, tarball: https://registry.npmjs.org/typescript/-/typescript-5.3.3.tgz}
     engines: {node: '>=14.17'}
     hasBin: true
-
-  ua-parser-js@0.7.35:
-    resolution: {integrity: sha512-veRf7dawaj9xaWEu9HoTVn5Pggtc/qj+kqTOFvNiN1l0YdxwC1kvel57UCjThjGa3BHBihE8/UJAHI+uQHmd/g==, tarball: https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.35.tgz}
 
   uc.micro@1.0.6:
     resolution: {integrity: sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==, tarball: https://registry.npmjs.org/uc.micro/-/uc.micro-1.0.6.tgz}
@@ -19163,17 +19114,15 @@ snapshots:
     dependencies:
       langium: 3.0.0
 
-  '@microlink/react-json-view@1.23.3(@types/react@18.3.3)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@microlink/react-json-view@1.26.1(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      flux: 4.0.4(encoding@0.1.13)(react@18.3.1)
       react: 18.3.1
       react-base16-styling: 0.9.1
       react-dom: 18.3.1(react@18.3.1)
       react-lifecycles-compat: 3.0.4
-      react-textarea-autosize: 8.3.4(@types/react@18.3.3)(react@18.3.1)
+      react-textarea-autosize: 8.5.8(@types/react@18.3.3)(react@18.3.1)
     transitivePeerDependencies:
       - '@types/react'
-      - encoding
 
   '@mswjs/interceptors@0.37.5':
     dependencies:
@@ -22857,12 +22806,6 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.3
 
-  cross-fetch@3.1.5(encoding@0.1.13):
-    dependencies:
-      node-fetch: 2.6.7(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
-
   cross-spawn@7.0.3:
     dependencies:
       path-key: 3.1.1
@@ -24444,26 +24387,6 @@ snapshots:
     dependencies:
       bser: 2.1.1
 
-  fbemitter@3.0.0(encoding@0.1.13):
-    dependencies:
-      fbjs: 3.0.4(encoding@0.1.13)
-    transitivePeerDependencies:
-      - encoding
-
-  fbjs-css-vars@1.0.2: {}
-
-  fbjs@3.0.4(encoding@0.1.13):
-    dependencies:
-      cross-fetch: 3.1.5(encoding@0.1.13)
-      fbjs-css-vars: 1.0.2
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      promise: 7.3.1
-      setimmediate: 1.0.5
-      ua-parser-js: 0.7.35
-    transitivePeerDependencies:
-      - encoding
-
   fd-slicer@1.1.0:
     dependencies:
       pend: 1.2.0
@@ -24576,14 +24499,6 @@ snapshots:
   flat@5.0.2: {}
 
   flatted@3.2.9: {}
-
-  flux@4.0.4(encoding@0.1.13)(react@18.3.1):
-    dependencies:
-      fbemitter: 3.0.0(encoding@0.1.13)
-      fbjs: 3.0.4(encoding@0.1.13)
-      react: 18.3.1
-    transitivePeerDependencies:
-      - encoding
 
   follow-redirects@1.15.2(debug@4.4.0):
     optionalDependencies:
@@ -26621,8 +26536,6 @@ snapshots:
   lodash.curry@4.1.1: {}
 
   lodash.debounce@4.0.8: {}
-
-  lodash.flow@3.5.0: {}
 
   lodash.get@4.4.2: {}
 
@@ -29190,10 +29103,6 @@ snapshots:
       err-code: 2.0.3
       retry: 0.12.0
 
-  promise@7.3.1:
-    dependencies:
-      asap: 2.0.6
-
   prompts@2.4.2:
     dependencies:
       kleur: 3.0.3
@@ -29250,8 +29159,6 @@ snapshots:
     dependencies:
       escape-goat: 4.0.0
 
-  pure-color@1.3.0: {}
-
   pure-rand@6.0.4: {}
 
   qs@6.10.4:
@@ -29305,13 +29212,6 @@ snapshots:
       ini: 1.3.8
       minimist: 1.2.8
       strip-json-comments: 2.0.1
-
-  react-base16-styling@0.6.0:
-    dependencies:
-      base16: 1.0.0
-      lodash.curry: 4.1.1
-      lodash.flow: 3.5.0
-      pure-color: 1.3.0
 
   react-base16-styling@0.9.1:
     dependencies:
@@ -29455,18 +29355,6 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  react-json-view@1.21.3(@types/react@18.3.3)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      flux: 4.0.4(encoding@0.1.13)(react@18.3.1)
-      react: 18.3.1
-      react-base16-styling: 0.6.0
-      react-dom: 18.3.1(react@18.3.1)
-      react-lifecycles-compat: 3.0.4
-      react-textarea-autosize: 8.4.1(@types/react@18.3.3)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - encoding
-
   react-lifecycles-compat@3.0.4: {}
 
   react-loadable-ssr-addon-v5-slorber@1.0.1(@docusaurus/react-loadable@6.0.0(react@18.3.1))(webpack@5.98.0):
@@ -29548,16 +29436,7 @@ snapshots:
       tiny-invariant: 1.3.1
       tiny-warning: 1.0.3
 
-  react-textarea-autosize@8.3.4(@types/react@18.3.3)(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.26.9
-      react: 18.3.1
-      use-composed-ref: 1.3.0(react@18.3.1)
-      use-latest: 1.2.1(@types/react@18.3.3)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-
-  react-textarea-autosize@8.4.1(@types/react@18.3.3)(react@18.3.1):
+  react-textarea-autosize@8.5.8(@types/react@18.3.3)(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.9
       react: 18.3.1
@@ -30261,8 +30140,6 @@ snapshots:
       es-errors: 1.3.0
       functions-have-names: 1.2.3
       has-property-descriptors: 1.0.2
-
-  setimmediate@1.0.5: {}
 
   setprototypeof@1.1.0: {}
 
@@ -31262,8 +31139,6 @@ snapshots:
   typescript@4.9.5: {}
 
   typescript@5.3.3: {}
-
-  ua-parser-js@0.7.35: {}
 
   uc.micro@1.0.6: {}
 

@@ -12,9 +12,6 @@ import {
   getUplink,
 } from './utils';
 
-// jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
-// Date.now = jest.fn(() => 1487076708000);
-
 describe('formatLicense', (): void => {
   beforeEach(() => {
     MockDate.set(new Date());
@@ -70,21 +67,23 @@ describe('formatDate', (): void => {
 
 describe('formatDateDistance', (): void => {
   test('should calculate the distance', (): void => {
-    // const dateAboutTwoMonthsAgo = () => {
-    //   const date = new Date();
-    //   date.setMonth(date.getMonth() - 1);
-    //   date.setDate(date.getDay() - 20);
-    //   return date;
-    // };
-    const dateTwoMonthsAgo = (): Date => {
+    // https://day.js.org/docs/en/display/from-now#list-of-breakdown-range
+    const dateYearAgo = () => {
       const date = new Date();
-      date.setMonth(date.getMonth() - 2);
+      date.setDate(date.getDate() - 365);
       return date;
     };
-    // const date1 = dateAboutTwoMonthsAgo();
+
+    const dateTwoMonthsAgo = (): Date => {
+      const date = new Date();
+      date.setDate(date.getDate() - 60);
+      return date;
+    };
+
+    const date1 = dateYearAgo();
     const date2 = dateTwoMonthsAgo();
-    // FIXME: we need to review this expect, fails every x time.
-    // expect(formatDateDistance(date1)).toEqual('about 2 months');
+
+    expect(formatDateDistance(date1)).toEqual('a year ago');
     expect(formatDateDistance(date2)).toEqual('2 months ago');
   });
 });

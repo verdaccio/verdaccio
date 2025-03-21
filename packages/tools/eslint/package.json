@@ -1,7 +1,7 @@
 {
   "name": "@verdaccio/eslint-config",
   "version": "4.0.0-next-8.0",
-  "private": "true",
+  "private": true,
   "description": "Verdaccio ESLint Configuration",
   "main": "src/index.js",
   "scripts": {
