@@ -28,7 +28,15 @@ export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
     return require(path) as PluginType<T>;
   } catch (err: any) {
     if (err.code === MODULE_NOT_FOUND) {
-      debug('plugin %s not found', path);
+      debug('"require" failed for plugin %s', path);
+      // If loading fails, because a dependency is missing,
+      // we want to log the error message and require stack
+      // to see where the missing dependency is.
+      const message = err.message.replace(/\\\\/g, '\\').split('\n');
+      if (!message[0].includes(path)) {
+        debug('%o', message[0]); // error message
+        debug('%o', message.slice(1)); // stack trace
+      }
       return null;
     }
     onError({ err: err.msg }, 'error loading plugin @{err}');
