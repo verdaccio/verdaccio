@@ -1775,9 +1775,9 @@ class Storage {
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
       for (const err of uplinksErrors) {
         const { code } = err;
-        if (code === 'ETIMEDOUT' || code === 'ESOCKETTIMEDOUT' || code === 'ECONNRESET') {
+        if (code === HTTP_STATUS.SERVICE_UNAVAILABLE) {
           debug('uplinks sync failed with timeout error');
-          throw errorUtils.getServiceUnavailable(err.messaptge);
+          throw err;
         }
         // we bubble up the 304 special error case
         if (code === HTTP_STATUS.NOT_MODIFIED) {
