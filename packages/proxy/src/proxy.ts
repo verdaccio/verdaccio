@@ -435,26 +435,18 @@ class ProxyStorage implements IProxy {
         const code = err.response.statusCode;
         debug('error code %s', code);
         if (code === HTTP_STATUS.NOT_FOUND) {
-          throw errorUtils.getNotFound(errorUtils.API_ERROR.NOT_PACKAGE_UPLINK);
+          throw errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK);
         }
 
         if (!(code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES)) {
-          const error = errorUtils.getInternalError(
-            `${errorUtils.API_ERROR.BAD_STATUS_CODE}: ${code}`
-          );
+          const error = errorUtils.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${code}`);
           // we need this code to identify outside which status code triggered the error
           error.remoteStatus = code;
           throw error;
         }
-      } else if (err.code === 'ETIMEDOUT') {
+      } else if (this._isRequestTimeout(err)) {
         debug('error code timeout');
-        const code = err.code;
-        const error = errorUtils.getInternalError(
-          `${errorUtils.API_ERROR.SERVER_TIME_OUT}: ${code}`
-        );
-        // we need this code to identify outside which status code triggered the error
-        error.remoteStatus = code;
-        throw error;
+        throw errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT);
       }
       throw err;
     }
@@ -560,6 +552,24 @@ class ProxyStorage implements IProxy {
     return (
       this.failed_requests >= this.max_fails &&
       Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout
+    );
+  }
+
+  /**
+   * Check if the request timed out (network or http errors).
+   * @param {RequestError} err
+   * @return {boolean}
+   */
+  private _isRequestTimeout(err: RequestError): boolean {
+    const code = err?.response?.statusCode;
+    return (
+      err.code === 'ETIMEDOUT' ||
+      err.code === 'ESOCKETTIMEDOUT' ||
+      err.code === 'ECONNRESET' ||
+      code === HTTP_STATUS.REQUEST_TIMEOUT ||
+      code === HTTP_STATUS.BAD_GATEWAY ||
+      code === HTTP_STATUS.SERVICE_UNAVAILABLE ||
+      code === HTTP_STATUS.GATEWAY_TIMEOUT
     );
   }
 
