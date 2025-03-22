@@ -19,6 +19,7 @@ import publish from './publish';
 import search from './search';
 import stars from './stars';
 import user from './user';
+import login from './v1/login';
 import profile from './v1/profile';
 import v1Search from './v1/search';
 import token from './v1/token';
@@ -61,5 +62,8 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   v1Search(app, auth, storage, logger);
   token(app, auth, storage, config, logger);
   pkg(app, auth, storage, logger);
+  if (config.flags?.webLogin) {
+    login(app, auth, storage, config, logger);
+  }
   return app;
 }
