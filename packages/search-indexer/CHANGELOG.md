@@ -1,5 +1,12 @@
 # @verdaccio/search-indexer
 
+## 8.0.0-next-8.3
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+
 ## 8.0.0-next-8.2
 
 ### Patch Changes

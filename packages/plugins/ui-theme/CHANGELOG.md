@@ -1,5 +1,15 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- ef6864c: chore(deps): update webpack-dev-server to v5
+- c81bd75: chore(ui): update react-json-view
+- 99f6e11: chore(ui): flags import and minor updates
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+
 ## 8.0.0-next-8.12
 
 ## 8.0.0-next-8.11
