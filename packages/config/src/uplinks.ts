@@ -48,9 +48,13 @@ export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinks
   return uplinks;
 }
 
-export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): boolean {
+export function getProxiesForPackage(pkg: string, packages: PackageList): string[] {
   const matchedPkg = getMatchedPackagesSpec(pkg, packages);
-  const proxyList = typeof matchedPkg !== 'undefined' ? matchedPkg.proxy : [];
+  return matchedPkg?.proxy || [];
+}
+
+export function hasProxyTo(pkg: string, upLink: string, packages: PackageList): boolean {
+  const proxyList = getProxiesForPackage(pkg, packages);
   if (proxyList) {
     return proxyList.some((curr) => upLink === curr);
   }

@@ -1039,7 +1039,7 @@ describe('storage', () => {
             .then((stream) => {
               stream.on('error', (err) => {
                 expect(err).toEqual(errorUtils.getNotFound(API_ERROR.NO_PACKAGE));
-                done();
+                done(true);
               });
             });
         });

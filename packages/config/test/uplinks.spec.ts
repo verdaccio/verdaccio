@@ -1,7 +1,12 @@
 import { describe, expect, test } from 'vitest';
 
 import { normalisePackageAccess, parseConfigFile } from '../src';
-import { hasProxyTo, sanityCheckUplinksProps, uplinkSanityCheck } from '../src/uplinks';
+import {
+  getProxiesForPackage,
+  hasProxyTo,
+  sanityCheckUplinksProps,
+  uplinkSanityCheck,
+} from '../src/uplinks';
 import { parseConfigurationFile } from './utils';
 
 describe('Uplinks Utilities', () => {
@@ -24,7 +29,7 @@ describe('Uplinks Utilities', () => {
   });
 
   describe('sanityCheckUplinksProps', () => {
-    test('should fails if url prop is missing', () => {
+    test('should fail if url prop is missing', () => {
       const { uplinks } = parseConfigFile(parseConfigurationFile('uplink-wrong'));
       expect(() => {
         sanityCheckUplinksProps(uplinks);
@@ -34,6 +39,31 @@ describe('Uplinks Utilities', () => {
     test('should bypass an empty uplink list', () => {
       // @ts-ignore
       expect(sanityCheckUplinksProps([])).toHaveLength(0);
+    });
+  });
+
+  describe('multiple uplinks with auth', () => {
+    test('should fail if url or auth are missing', () => {
+      const { uplinks } = parseConfigFile(parseConfigurationFile('pkgs-multi-proxy'));
+      expect(sanityCheckUplinksProps(uplinks)).toEqual(uplinks);
+      expect(Object.keys(uplinks)).toHaveLength(3);
+      // No trailing slash in urls
+      expect(uplinks.github.url).toEqual('https://npm.pkg.github.com');
+      expect(uplinks.github?.auth?.type).toEqual('Bearer');
+      expect(uplinks.github?.auth?.token).toEqual('xxx123xxx');
+      expect(uplinks.gitlab.url).toEqual('https://gitlab.com/api/v4/projects/1/packages/npm');
+      expect(uplinks.gitlab?.auth?.type).toEqual('Basic');
+      expect(uplinks.gitlab?.auth?.token).toEqual('xxx456xxx');
+      expect(uplinks.npmjs.url).toEqual('https://registry.npmjs.org');
+    });
+
+    test('check proxy list for package access', () => {
+      const packages = normalisePackageAccess(
+        parseConfigFile(parseConfigurationFile('pkgs-multi-proxy')).packages
+      );
+      expect(getProxiesForPackage('@scope/test', packages)).toEqual(['github', 'npmjs']);
+      expect(getProxiesForPackage('test', packages)).toEqual(['npmjs', 'gitlab']);
+      expect(getProxiesForPackage('test-package', packages)).toEqual(['npmjs', 'gitlab', 'github']);
     });
   });
 
