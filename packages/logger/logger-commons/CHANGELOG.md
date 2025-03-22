@@ -1,5 +1,16 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [e4a1539]
+- Updated dependencies [0607e80]
+  - @verdaccio/logger-prettify@8.0.0-next-8.2
+  - @verdaccio/core@8.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes
