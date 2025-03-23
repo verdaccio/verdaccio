@@ -1134,7 +1134,7 @@ class Storage {
       throw errorUtils.getNotFound();
     }
     const hasPackage = await storage.hasPackage(pkgName);
-    debug('has package %o for %o', pkgName, hasPackage);
+    debug('has package %o is %o', pkgName, hasPackage);
     return hasPackage;
   }
 
@@ -1505,6 +1505,7 @@ class Storage {
     name: string,
     username: string | undefined
   ): Promise<void> {
+    debug('creating new package %o for user %o', name, username);
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
@@ -1675,7 +1676,7 @@ class Storage {
       // etag??
     });
 
-    // if either local data and upstream data are empty, we throw an error
+    // if both local data and upstream data are empty, we throw an error
     if (!remoteManifest && _.isNull(data)) {
       throw errorUtils.getNotFound(`${API_ERROR.NOT_PACKAGE_UPLINK}: ${name}`);
       // if the remote manifest is empty, we return local data
@@ -1782,9 +1783,9 @@ class Storage {
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
       for (const err of uplinksErrors) {
         const { code } = err;
-        if (code === 'ETIMEDOUT' || code === 'ESOCKETTIMEDOUT' || code === 'ECONNRESET') {
+        if (code === HTTP_STATUS.SERVICE_UNAVAILABLE) {
           debug('uplinks sync failed with timeout error');
-          throw errorUtils.getServiceUnavailable(err.code);
+          throw err;
         }
         // we bubble up the 304 special error case
         if (code === HTTP_STATUS.NOT_MODIFIED) {

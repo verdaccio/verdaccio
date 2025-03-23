@@ -343,7 +343,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             retry: { limit: 0 },
           })
-        ).rejects.toThrow('ETIMEDOUT');
+        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       }, 10000);
 
       test('fail for one failure and timeout (2 seconds)', async () => {
@@ -363,7 +363,7 @@ describe('proxy', () => {
           prox1.getRemoteMetadata('jquery', {
             retry: { limit: 1 },
           })
-        ).rejects.toThrow('ETIMEDOUT');
+        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       }, 10000);
 
       // test('retry count is exceded and uplink goes offline with logging activity', async () => {
