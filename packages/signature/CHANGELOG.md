@@ -1,5 +1,15 @@
 # @verdaccio/signature
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- Updated dependencies [b3fa5df]
+- Updated dependencies [e4a1539]
+- Updated dependencies [0607e80]
+  - @verdaccio/config@8.0.0-next-8.13
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes
