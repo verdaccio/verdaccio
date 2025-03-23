@@ -80,6 +80,25 @@ describe('Package access utilities', () => {
       expect(all.publish).toContain('admin');
     });
 
+    test('should test multi proxy definition', () => {
+      const { packages } = parseConfigFile(parseConfigurationFile('pkgs-multi-proxy'));
+      const access = normalisePackageAccess(packages);
+
+      expect(access).toBeDefined();
+      const scoped = access[`${PACKAGE_ACCESS.SCOPE}`];
+      const all = access[`${PACKAGE_ACCESS.ALL}`];
+      const testPackage = access['test-package'];
+
+      expect(scoped).toBeDefined();
+      expect(scoped.proxy).toEqual(['github', 'npmjs']);
+
+      expect(all).toBeDefined();
+      expect(all.proxy).toEqual(['npmjs', 'gitlab']);
+
+      expect(testPackage).toBeDefined();
+      expect(testPackage.proxy).toEqual(['npmjs', 'gitlab', 'github']);
+    });
+
     test(
       'should normalize deprecated packages into the new ones ' + '(backward props compatible)',
       () => {
@@ -92,7 +111,7 @@ describe('Package access utilities', () => {
         expect(react).toBeDefined();
         expect(react.access).toBeDefined();
         expect(react.access).toEqual([]);
-        expect(react.publish[0]).toBe('admin');
+        expect(react.publish?.[0]).toBe('admin');
         expect(react.proxy).toBeDefined();
         expect(react.proxy).toEqual([]);
         expect(react.storage).toBeDefined();
