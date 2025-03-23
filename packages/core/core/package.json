@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/core",
-  "version": "8.0.0-next-8.12",
+  "version": "8.0.0-next-8.13",
   "description": "Verdaccio Core Components",
   "keywords": [
     "private",
@@ -41,7 +41,7 @@
     "semver": "7.7.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.3",
+    "@verdaccio/types": "workspace:13.0.0-next-8.4",
     "lodash": "4.17.21",
     "typedoc": "0.23.25",
     "typedoc-plugin-missing-exports": "latest"

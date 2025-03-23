@@ -1,5 +1,23 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [b3fa5df]
+- Updated dependencies [2eb8cc2]
+- Updated dependencies [e4a1539]
+- Updated dependencies [0607e80]
+  - @verdaccio/config@8.0.0-next-8.13
+  - @verdaccio/store@8.0.0-next-8.13
+  - @verdaccio/utils@8.1.0-next-8.13
+  - @verdaccio/core@8.0.0-next-8.13
+  - @verdaccio/logger@8.0.0-next-8.13
+  - @verdaccio/tarball@13.0.0-next-8.13
+  - @verdaccio/auth@8.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes
