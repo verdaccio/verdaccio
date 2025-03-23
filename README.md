@@ -290,7 +290,7 @@ Thanks to the following companies to help us to achieve our goals providing free
 
 | Company      | Logo                                                                                                                                    | License                                                                           |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| JetBrains    | [![jetbrain](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.jpg?raw=true)](https://www.jetbrains.com/) | JetBrains provides licenses for products for active maintainers, renewable yearly |
+| JetBrains    | [![jetbrain](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.png?raw=true)](https://www.jetbrains.com/) | JetBrains provides licenses for products for active maintainers, renewable yearly |
 | Crowdin      | [![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)          | Crowdin provides platform for translations                                        |
 | BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                                | BrowserStack provides plan to run End to End testing for the UI                   |
 | Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                              | Netlify provides pro plan for website deployment                                  |
