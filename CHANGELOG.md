@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/verdaccio/verdaccio/compare/v6.0.5...v6.1.0) (2025-03-24)
+
+
+### Features
+
+* refactor add api names and update core dependencies ([#5090](https://github.com/verdaccio/verdaccio/issues/5090)) ([f2cc71c](https://github.com/verdaccio/verdaccio/commit/f2cc71cd2cc09db81c0c3e3b730ea2098cee877c))
+* upgrade load plugin and auth ([#5130](https://github.com/verdaccio/verdaccio/issues/5130)) ([4c5c509](https://github.com/verdaccio/verdaccio/commit/4c5c509566b6cf29e9ce6301d94d033e0e74884c))
+
+
+### Bug Fixes
+
+* **deps:** update core verdaccio dependencies ([#5154](https://github.com/verdaccio/verdaccio/issues/5154)) ([890f4fd](https://github.com/verdaccio/verdaccio/commit/890f4fddc9f360c0184b02e41c478bebcb7086b2))
+* **deps:** update dependency @cypress/request to v3.0.8 ([#5155](https://github.com/verdaccio/verdaccio/issues/5155)) ([c9ee50c](https://github.com/verdaccio/verdaccio/commit/c9ee50c2c0247bf340730a94fd0d050ffbc2f650))
+* **deps:** update dependency compression to v1.8.0 ([#5091](https://github.com/verdaccio/verdaccio/issues/5091)) ([5bacb93](https://github.com/verdaccio/verdaccio/commit/5bacb9375a22cf9649f6fba5e637ab6704f3149d))
+
 ### [6.0.5](https://github.com/verdaccio/verdaccio/compare/v6.0.4...v6.0.5) (2024-12-21)
 
 
