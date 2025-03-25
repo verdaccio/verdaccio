@@ -1,5 +1,31 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- b3fa5df: fix: uplink processing order
+- 2eb8cc2: fix: handling for uplink timeouts
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [b3fa5df]
+- Updated dependencies [2eb8cc2]
+- Updated dependencies [e4a1539]
+- Updated dependencies [50f20aa]
+- Updated dependencies [0607e80]
+- Updated dependencies [30fec6f]
+  - @verdaccio/config@8.0.0-next-8.13
+  - @verdaccio/search@8.0.0-next-8.13
+  - @verdaccio/proxy@8.0.0-next-8.13
+  - @verdaccio/utils@8.1.0-next-8.13
+  - @verdaccio/core@8.0.0-next-8.13
+  - @verdaccio/local-storage@13.0.0-next-8.13
+  - @verdaccio/logger@8.0.0-next-8.13
+  - @verdaccio/tarball@13.0.0-next-8.13
+  - @verdaccio/url@13.0.0-next-8.13
+  - @verdaccio/loaders@8.0.0-next-8.5
+  - @verdaccio/hooks@8.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

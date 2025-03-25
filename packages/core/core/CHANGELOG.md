@@ -1,5 +1,13 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- 2eb8cc2: fix: handling for uplink timeouts
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

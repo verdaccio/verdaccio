@@ -55,7 +55,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   const { config } = pluginOptions;
   let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
-    debug('looking for plugin %o', pluginId);
+    debug('>>> looking for plugin %o', pluginId);
     if (typeof config.plugins === 'string') {
       let pluginsPath = config.plugins;
       debug('plugin path %s', pluginsPath);
@@ -90,6 +90,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
             );
             continue;
           }
+          debug('>>> plugin is running and passed sanity check');
           plugins.push(plugin);
           logger.info(
             { prefix, pluginId, pluginCategory },
@@ -119,6 +120,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
           logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
           continue;
         }
+        debug('>>> plugin is running and passed sanity check');
         plugins.push(plugin);
         logger.info(
           { prefix, pluginId, pluginCategory },
@@ -134,7 +136,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       }
     }
   }
-  debug('%s plugins found: %s', pluginCategory, plugins.length);
+  debug('%o plugins found: %o', pluginCategory, plugins.length);
   return plugins;
 }
 

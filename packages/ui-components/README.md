@@ -152,9 +152,8 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 Thanks to the following companies to help us to achieve our goals providing free open source licenses.
 
-[![jetbrain](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/balsamiq/logo.jpg?raw=true)](https://www.jetbrains.com/)
+[![jetbrains](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.jpg?raw=true)](https://www.jetbrains.com/)
 [![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)
-[![balsamiq](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.png?raw=true)](https://balsamiq.com/)
 
 ## Contributors
 

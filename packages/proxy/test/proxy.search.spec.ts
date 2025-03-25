@@ -44,7 +44,7 @@ describe('proxy', () => {
       nock(domain)
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
         .reply(200, response);
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
       const abort = new AbortController();
       const stream = await prox1.search({
         abort,
@@ -60,7 +60,7 @@ describe('proxy', () => {
       nock(domain + '/')
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
         .reply(200, response);
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
       const abort = new AbortController();
       const stream = await prox1.search({
         abort,
@@ -76,7 +76,7 @@ describe('proxy', () => {
         .get('/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio')
         .reply(409);
       const abort = new AbortController();
-      const prox1 = new ProxyStorage(defaultRequestOptions, conf, logger);
+      const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
       await expect(
         prox1.search({
           abort,
@@ -98,7 +98,7 @@ describe('proxy', () => {
     //   const mockClient = mockAgent.get(domain);
     //   mockClient.intercept(options).reply(500, {});
     //   const abort = new AbortController();
-    //   const prox1 = new ProxyStorage(defaultRequestOptions, conf);
+    //   const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
     //   await expect(
     //     prox1.search({
     //       abort,
