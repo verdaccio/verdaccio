@@ -10,7 +10,7 @@ import {
   HEADERS,
   HTTP_STATUS,
   errorUtils,
-  validatioUtils,
+  validationUtils,
 } from '@verdaccio/core';
 import { USER_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import { Logger } from '@verdaccio/types';
@@ -77,7 +77,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       debug('login or adduser');
       const remoteName = req?.remote_user?.name;
 
-      if (!validatioUtils.validateUserName(req.params.org_couchdb_user, name)) {
+      if (!validationUtils.validateUserName(req.params.org_couchdb_user, name)) {
         return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
       }
 
@@ -119,7 +119,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       } else {
         debug('adduser: %o', name);
         if (
-          validatioUtils.validatePassword(
+          validationUtils.validatePassword(
             password,
             config?.serverSettings?.passwordValidationRegex
           ) === false

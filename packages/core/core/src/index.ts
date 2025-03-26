@@ -7,7 +7,7 @@ import * as searchUtils from './search-utils';
 import * as streamUtils from './stream-utils';
 import * as stringUtils from './string-utils';
 import * as tarballUtils from './tarball-utils';
-import * as validatioUtils from './validation-utils';
+import * as validationUtils from './validation-utils';
 import * as warningUtils from './warning-utils';
 
 export { VerdaccioError, API_ERROR, SUPPORT_ERRORS, APP_ERROR } from './error-utils';
@@ -28,15 +28,12 @@ export {
   PLUGIN_CATEGORY,
   HtpasswdHashAlgorithm,
 } from './constants';
-const validationUtils = validatioUtils;
 export {
   fileUtils,
   pkgUtils,
   searchUtils,
   streamUtils,
   errorUtils,
-  // TODO: remove this typo
-  validatioUtils,
   validationUtils,
   stringUtils,
   constants,

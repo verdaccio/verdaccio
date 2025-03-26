@@ -41,7 +41,7 @@ import { configExample } from './helpers';
 
 function generateRandomStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-storage-'));
 
   return path.join(tempRoot, tempStorage);
 }
