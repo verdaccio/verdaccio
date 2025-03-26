@@ -12,14 +12,17 @@ const TEMP_FOLDER = 'local-storage-plugin';
 const STORAGE_FOLDER = 'storage';
 const PRIVATE_FOLDER = 'private';
 
-const mockWrite = vi.fn(() => Promise.resolve());
-const mockmkdir = vi.fn(() => Promise.resolve());
-const mockRead = vi.fn(() => Promise.resolve());
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mockWrite = vi.fn((path, data) => Promise.resolve());
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mockmkdir = vi.fn((path, options) => Promise.resolve());
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mockRead = vi.fn((path) => Promise.resolve());
 
 vi.mock('../src/fs', () => ({
-  mkdirPromise: () => mockRead(),
-  readFilePromise: () => mockmkdir(),
-  writeFilePromise: () => mockWrite(),
+  mkdirPromise: (path: string, options?: any) => mockmkdir(path, options),
+  readFilePromise: (path: string) => mockRead(path),
+  writeFilePromise: (path: string, data: string) => mockWrite(path, data),
 }));
 
 setup({});
@@ -66,12 +69,25 @@ describe('Local Database', () => {
     vi.clearAllMocks();
   });
 
-  test('should create an instance', () => {
+  test('should create an instance', async () => {
     expect(locaDatabase).toBeDefined();
+    const data = await locaDatabase.get();
+    expect(data).toEqual([]);
+  });
+
+  test('should create database file', async () => {
+    const storage = locaDatabase.getPackageStorage('');
+    expect(storage).toBeDefined();
+    const databaseFile = path.join(
+      (storage as ILocalFSPackageManager).path,
+      fileUtils.Files.DatabaseName
+    );
+    expect(databaseFile).toBeDefined();
+    expect(mockWrite).toHaveBeenCalledWith(databaseFile, expect.any(String));
   });
 
   test('should display log error if fails on load database', async () => {
-    mockmkdir.mockImplementation(() => {
+    mockRead.mockImplementation(() => {
       throw Error();
     });
     const tmpFolder = await fileUtils.createTempFolder(TEMP_FOLDER);
@@ -112,15 +128,13 @@ describe('Local Database', () => {
       const storage = locaDatabase.getPackageStorage(pkgName);
       expect(storage).toBeDefined();
 
-      if (storage) {
-        const storagePath = path
-          .normalize((storage as ILocalFSPackageManager).path)
-          .toLowerCase()
-          .replace(/\\/g, '/');
-        expect(storagePath).toMatch(
-          new RegExp(`\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/${pkgName}`)
-        );
-      }
+      const storagePath = path
+        .normalize((storage as ILocalFSPackageManager).path)
+        .toLowerCase()
+        .replace(/\\/g, '/');
+      expect(storagePath).toMatch(
+        new RegExp(`\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/${pkgName}`)
+      );
     });
 
     test('should use custom storage', () => {
@@ -171,71 +185,5 @@ describe('Local Database', () => {
     });
   });
 
-  // describe('search', () => {
-  //   const onPackageMock = jest.fn((item, cb) => cb());
-  //   const validatorMock = jest.fn(() => true);
-  //   const callSearch = (db, numberTimesCalled, cb): void => {
-  //     db.search(
-  //       onPackageMock,
-  //       function onEnd() {
-  //         expect(onPackageMock).toHaveBeenCalledTimes(numberTimesCalled);
-  //         cb();
-  //       },
-  //       validatorMock
-  //     );
-  //   };
-
-  //   test('should find scoped packages', (done) => {
-  //     const scopedPackages = ['@pkg1/test'];
-  //     const stats = { mtime: new Date() };
-  //     jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-  //     jest
-  //       .spyOn(fs, 'readdir')
-  //       .mockImplementation((storePath, cb) =>
-  //         cb(null, storePath.match('test-storage') ? scopedPackages : [])
-  //       );
-
-  //     callSearch(locaDatabase, 1, done);
-  //   });
-
-  //   test('should find non scoped packages', (done) => {
-  //     const nonScopedPackages = ['pkg1', 'pkg2'];
-  //     const stats = { mtime: new Date() };
-  //     jest.spyOn(fs, 'stat').mockImplementation((_, cb) => cb(null, stats as fs.Stats));
-  //     jest
-  //       .spyOn(fs, 'readdir')
-  //       .mockImplementation((storePath, cb) =>
-  //         cb(null, storePath.match('test-storage') ? nonScopedPackages : [])
-  //       );
-
-  //     const db = new LocalDatabase(
-  //       assign({}, optionsPlugin.config, {
-  //         // clean up this, it creates noise
-  //         packages: {},
-  //       }),
-  //       optionsPlugin.logger
-  //     );
-
-  //     callSearch(db, 2, done);
-  //   });
-
-  //   test('should fails on read the storage', (done) => {
-  //     const spyInstance = jest
-  //       .spyOn(fs, 'readdir')
-  //       .mockImplementation((_, cb) => cb(Error('fails'), null));
-
-  //     const db = new LocalDatabase(
-  //       assign({}, optionsPlugin.config, {
-  //         // clean up this, it creates noise
-  //         packages: {},
-  //       }),
-  //       optionsPlugin.logger
-  //     );
-
-  //     callSearch(db, 0, done);
-  //     spyInstance.mockRestore();
-  //   });
-  // });
+  test.todo('search');
 });
-
-// NOTE: Crear test para verificar que se crea el storage file
