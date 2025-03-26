@@ -6,6 +6,11 @@ import { fileUtils, pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
 import LocalDatabase, { ERROR_DB_LOCKED } from '../src/local-database';
+import { ILocalFSPackageManager } from '../src/local-fs';
+
+const TEMP_FOLDER = 'local-storage-plugin';
+const STORAGE_FOLDER = 'storage';
+const PRIVATE_FOLDER = 'private';
 
 const mockWrite = vi.fn(() => Promise.resolve());
 const mockmkdir = vi.fn(() => Promise.resolve());
@@ -30,14 +35,25 @@ let locaDatabase: pluginUtils.Storage<{}>;
 describe('Local Database', () => {
   let tmpFolder;
   beforeEach(async () => {
-    tmpFolder = await fileUtils.createTempFolder('local-storage-plugin');
+    tmpFolder = await fileUtils.createTempFolder(TEMP_FOLDER);
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     locaDatabase = new LocalDatabase(
       // @ts-expect-error
       {
-        storage: 'storage',
+        storage: STORAGE_FOLDER,
         configPath: tempFolder,
         checkSecretKey: () => 'fooX',
+        packages: {
+          'local-private-package': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+            storage: PRIVATE_FOLDER,
+          },
+          '**': {
+            access: ['$all'],
+            publish: ['$authenticated'],
+          },
+        },
       },
       optionsPlugin.logger
     );
@@ -58,12 +74,12 @@ describe('Local Database', () => {
     mockmkdir.mockImplementation(() => {
       throw Error();
     });
-    const tmpFolder = await fileUtils.createTempFolder('local-storage-plugin');
+    const tmpFolder = await fileUtils.createTempFolder(TEMP_FOLDER);
     const tempFolder = path.join(tmpFolder, 'verdaccio-test.yaml');
     const instance = new LocalDatabase(
       // @ts-expect-error
       {
-        storage: 'storage',
+        storage: STORAGE_FOLDER,
         config_path: tempFolder,
       },
       optionsPlugin.logger
@@ -90,86 +106,70 @@ describe('Local Database', () => {
   test.todo('write tarball');
   test.todo('read tarball');
 
-  // describe('getPackageStorage', () => {
-  // test('should get default storage', () => {
-  //   const pkgName = 'someRandomePackage';
-  //   const storage = locaDatabase.getPackageStorage(pkgName);
-  //   expect(storage).toBeDefined();
+  describe('getPackageStorage', () => {
+    test('should get default storage', () => {
+      const pkgName = 'some-random-package';
+      const storage = locaDatabase.getPackageStorage(pkgName);
+      expect(storage).toBeDefined();
 
-  //   if (storage) {
-  //     const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
-  //     expect(storagePath).toBe(
-  //       path
-  //         .normalize(
-  //           path.join(__dirname, '__fixtures__', optionsPlugin.config.storage || '', pkgName)
-  //         )
-  //         .toLowerCase()
-  //     );
-  //   }
-  // });
+      if (storage) {
+        const storagePath = path
+          .normalize((storage as ILocalFSPackageManager).path)
+          .toLowerCase()
+          .replace(/\\/g, '/');
+        expect(storagePath).toMatch(
+          new RegExp(`\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/${pkgName}`)
+        );
+      }
+    });
 
-  //   test('should use custom storage', () => {
-  //     const pkgName = 'local-private-custom-storage';
-  //     const storage = locaDatabase.getPackageStorage(pkgName);
+    test('should use custom storage', () => {
+      const pkgName = 'local-private-package';
+      const storage = locaDatabase.getPackageStorage(pkgName);
 
-  //     expect(storage).toBeDefined();
+      expect(storage).toBeDefined();
 
-  //     if (storage) {
-  //       const storagePath = path.normalize((storage as ILocalFSPackageManager).path).toLowerCase();
-  //       expect(storagePath).toBe(
-  //         path
-  //           .normalize(
-  //             path.join(
-  //               __dirname,
-  //               '__fixtures__',
-  //               optionsPlugin.config.storage || '',
-  //               'private_folder',
-  //               pkgName
-  //             )
-  //           )
-  //           .toLowerCase()
-  //       );
-  //     }
-  //   });
-  // });
+      if (storage) {
+        const storagePath = path
+          .normalize((storage as ILocalFSPackageManager).path)
+          .toLowerCase()
+          .replace(/\\/g, '/');
+        expect(storagePath).toMatch(
+          new RegExp(
+            `\/verdaccio-${TEMP_FOLDER}-.*\/${STORAGE_FOLDER}\/${PRIVATE_FOLDER}\/${pkgName}`
+          )
+        );
+      }
+    });
+  });
 
-  // describe('Database CRUD', () => {
-  //   test('should add an item to database', (done) => {
-  //     const pgkName = 'jquery';
-  //     locaDatabase.get((err, data) => {
-  //       expect(err).toBeNull();
-  //       expect(data).toHaveLength(0);
+  describe('Database CRUD', () => {
+    test('should add an item to database', async () => {
+      const pgkName = 'jquery';
+      const before = await locaDatabase.get();
+      expect(before).toHaveLength(0);
 
-  //       locaDatabase.add(pgkName, (err) => {
-  //         expect(err).toBeNull();
-  //         locaDatabase.get((err, data) => {
-  //           expect(err).toBeNull();
-  //           expect(data).toHaveLength(1);
-  //           done();
-  //         });
-  //       });
-  //     });
-  //   });
+      await locaDatabase.add(pgkName);
+      const after = await locaDatabase.get();
+      expect(after).toHaveLength(1);
+    });
 
-  //   test('should remove an item to database', (done) => {
-  //     const pgkName = 'jquery';
-  //     locaDatabase.get((err, data) => {
-  //       expect(err).toBeNull();
-  //       expect(data).toHaveLength(0);
-  //       locaDatabase.add(pgkName, (err) => {
-  //         expect(err).toBeNull();
-  //         locaDatabase.remove(pgkName, (err) => {
-  //           expect(err).toBeNull();
-  //           locaDatabase.get((err, data) => {
-  //             expect(err).toBeNull();
-  //             expect(data).toHaveLength(0);
-  //             done();
-  //           });
-  //         });
-  //       });
-  //     });
-  //   });
-  // });
+    test('should remove an item to database', async () => {
+      const pgkName = 'jquery';
+      await locaDatabase.add(pgkName);
+      await locaDatabase.remove(pgkName);
+      const after = await locaDatabase.get();
+      expect(after).toHaveLength(0);
+    });
+
+    test('should do nothing if an item does not exist', async () => {
+      const pgkName = 'jquery';
+      await locaDatabase.add(pgkName);
+      await expect(locaDatabase.remove('other-package')).resolves.not.toThrow();
+      const after = await locaDatabase.get();
+      expect(after).toHaveLength(1);
+    });
+  });
 
   // describe('search', () => {
   //   const onPackageMock = jest.fn((item, cb) => cb());
