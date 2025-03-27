@@ -99,6 +99,15 @@ describe('server api', () => {
     expect(response.body.error).toEqual(API_ERROR.WEB_DISABLED);
   });
 
+  test('should return homepage if web is enabled', async () => {
+    const app = await initializeServer('web-enabled.yaml');
+    const response = await supertest(app)
+      .get('/')
+      .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+      .expect(HTTP_STATUS.OK);
+    expect(response.text).toContain('<title>verdaccio</title>');
+  });
+
   test('should not display debug hook disabled by default', async () => {
     const app = await initializeServer('no_debug.yaml');
     await supertest(app)
