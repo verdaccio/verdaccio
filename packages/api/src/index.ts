@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import express, { Router } from 'express';
 
 import { Auth } from '@verdaccio/auth';
@@ -24,6 +25,8 @@ import v1Search from './v1/search';
 import token from './v1/token';
 import whoami from './whoami';
 
+const debug = buildDebug('verdaccio:api');
+
 export default function (config: Config, auth: Auth, storage: Storage, logger: Logger): Router {
   /* eslint new-cap:off */
   const app = express.Router();
@@ -44,7 +47,14 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
 
   app.use(auth.apiJWTmiddleware());
-  app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
+
+  // middleware might have registered a json parser already
+  if (hasBodyParser(app)) {
+    debug('json parser already registered');
+  } else {
+    app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
+  }
+
   app.use(antiLoop(config));
   app.use(makeURLrelative);
   // encode / in a scoped package name to be matched as a single parameter in routes
@@ -62,4 +72,11 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   token(app, auth, storage, config, logger);
   pkg(app, auth, storage, logger);
   return app;
+}
+
+function hasBodyParser(app: Router): boolean {
+  const stack = app.stack || [];
+  return stack.some((middleware) => {
+    return middleware.handle?.name === 'jsonParser' || middleware.name === 'jsonParser';
+  });
 }
