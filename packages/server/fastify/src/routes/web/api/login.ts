@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import { FastifyInstance } from 'fastify';
 import _ from 'lodash';
 
-import { validatioUtils } from '@verdaccio/core';
+import { validationUtils } from '@verdaccio/core';
 import { JWTSignOptions, RemoteUser } from '@verdaccio/types';
 
 const debug = buildDebug('verdaccio:fastify:web:login');
@@ -78,7 +78,7 @@ async function loginRoute(fastify: FastifyInstance) {
       const { name } = request.userRemote;
 
       if (
-        validatioUtils.validatePassword(
+        validationUtils.validatePassword(
           password.new,
           fastify.configInstance?.server?.passwordValidationRegex
         ) === false

@@ -8,7 +8,7 @@ import {
   HTTP_STATUS,
   SUPPORT_ERRORS,
   errorUtils,
-  validatioUtils,
+  validationUtils,
 } from '@verdaccio/core';
 import { PROFILE_API_ENDPOINTS } from '@verdaccio/middleware';
 import { rateLimit } from '@verdaccio/middleware';
@@ -72,7 +72,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
 
       if (_.isNil(password) === false) {
         if (
-          validatioUtils.validatePassword(
+          validationUtils.validatePassword(
             password.new,
             config?.serverSettings?.passwordValidationRegex
           ) === false

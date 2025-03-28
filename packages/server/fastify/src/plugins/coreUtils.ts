@@ -9,7 +9,6 @@ import {
   pluginUtils,
   searchUtils,
   streamUtils,
-  validatioUtils,
   validationUtils,
   warningUtils,
 } from '@verdaccio/core';
@@ -25,8 +24,6 @@ export default fp(
     fastify.decorate('apiError', API_ERROR);
     fastify.decorate('constants', constants);
     fastify.decorate('apiMessage', API_MESSAGE);
-    // TODO: remove typo
-    fastify.decorate('validatioUtils', validatioUtils);
     fastify.decorate('statusCode', HTTP_STATUS);
   },
   {

@@ -1,4 +1,4 @@
-import { validatioUtils } from '@verdaccio/core';
+import { validationUtils } from '@verdaccio/core';
 import { Manifest, PackageUsers } from '@verdaccio/types';
 
 /**
@@ -40,5 +40,5 @@ export function isExecutingStarCommand(
 }
 
 export function isStarManifest(manifest: Manifest): boolean {
-  return isPublishablePackage(manifest) === false && validatioUtils.isObject(manifest.users);
+  return isPublishablePackage(manifest) === false && validationUtils.isObject(manifest.users);
 }

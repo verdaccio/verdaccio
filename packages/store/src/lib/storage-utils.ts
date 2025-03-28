@@ -1,17 +1,10 @@
 import _ from 'lodash';
 import semver from 'semver';
 
-import { errorUtils, pkgUtils, searchUtils, validatioUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils, searchUtils, validationUtils } from '@verdaccio/core';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS, MAINTAINERS, USERS } from '@verdaccio/core';
-import {
-  AttachMents,
-  GenericBody,
-  Manifest,
-  ReadmeOptions,
-  Version,
-  Versions,
-} from '@verdaccio/types';
-import { generateRandomHexString, isNil, isObject } from '@verdaccio/utils';
+import { GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
+import { generateRandomHexString, isNil } from '@verdaccio/utils';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
@@ -53,7 +46,7 @@ export function normalizePackage(pkg: Manifest): Manifest {
   pkgProperties.forEach((key): void => {
     const pkgProp = pkg[key];
 
-    if (isNil(pkgProp) || validatioUtils.isObject(pkgProp) === false) {
+    if (isNil(pkgProp) || validationUtils.isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -255,31 +248,11 @@ export function prepareSearchPackage(data: Manifest): any {
   }
 }
 
-export function isDifferentThanOne(versions: Versions | AttachMents): boolean {
-  return Object.keys(versions).length !== 1;
-}
-
-// @deprecated use validationUtils.validatePublishNewPackage
-export function hasInvalidPublishBody(manifest: Pick<Manifest, '_attachments' | 'versions'>) {
-  if (!manifest) {
-    return false;
-  }
-
-  const { _attachments, versions } = manifest;
-  const res =
-    isObject(_attachments) === false ||
-    isDifferentThanOne(_attachments) ||
-    isObject(versions) === false ||
-    isDifferentThanOne(versions);
-  return res;
-}
-
 /**
  * Function gets a local info and an info from uplinks and tries to merge it
  exported for unit tests only.
-  * @param {*} local
+  * @param {*} cacheManifest
   * @param {*} remoteManifest
-  * @param {*} config configuration file
   */
 export function mergeVersions(cacheManifest: Manifest, remoteManifest: Manifest): Manifest {
   let _cacheManifest = { ...cacheManifest };
