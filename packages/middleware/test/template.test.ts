@@ -61,7 +61,7 @@ describe('template', () => {
       template(
         {
           options: { base: 'http://domain.com/' },
-          scriptsbodyBefore: [`<script src="fooBefore"/>`, `<script src="barBefore"/>`],
+          scriptsBodyBefore: [`<script src="fooBefore"/>`, `<script src="barBefore"/>`],
           manifest: exampleManifest,
         },
         manifest

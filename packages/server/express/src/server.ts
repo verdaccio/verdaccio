@@ -98,7 +98,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API
-  if (_.get(config, 'web.enable', true)) {
+  if (_.get(config, 'web.enabled', _.get(config, 'web.enable', true))) {
     app.use((_req, res, next) => {
       res.locals.app_version = version ?? '';
       next();

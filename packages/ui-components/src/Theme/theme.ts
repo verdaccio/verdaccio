@@ -42,9 +42,9 @@ const themeModes = {
   },
 };
 
-function applyPrimaryColor(mode: ThemeMode, primaryColor: string): any {
+function applyPrimaryColor(mode: ThemeMode, primaryColor?: string): any {
   if (mode === 'light') {
-    themeModes['light'].primary = primaryColor;
+    themeModes['light'].primary = primaryColor || PRIMARY_COLOR;
   }
 
   return themeModes[mode];
@@ -100,7 +100,7 @@ export interface CustomTheme {
 
 export type Theme = MuiTheme & CustomTheme;
 
-export const getTheme = (themeMode: ThemeMode, primaryColor: string): Theme => {
+export const getTheme = (themeMode: ThemeMode, primaryColor?: string): Theme => {
   const palette = applyPrimaryColor(themeMode, primaryColor);
   return createTheme({
     typography: {

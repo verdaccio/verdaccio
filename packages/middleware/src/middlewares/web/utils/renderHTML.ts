@@ -80,7 +80,7 @@ export default function renderHTML(
   const {
     scriptsBodyAfter,
     metaScripts,
-    scriptsbodyBefore,
+    scriptsbodyBefore, // deprecated
     showInfo,
     showSettings,
     showThemeSwitch,
@@ -98,6 +98,11 @@ export default function renderHTML(
     },
     config?.web
   );
+  // Fallback
+  let scriptsBodyBefore = config?.web?.scriptsBodyBefore;
+  if (scriptsbodyBefore && !scriptsBodyBefore) {
+    scriptsBodyBefore = scriptsbodyBefore;
+  }
   const options: TemplateUIOptions = {
     showInfo,
     showSettings,
@@ -136,7 +141,7 @@ export default function renderHTML(
           options,
           scriptsBodyAfter,
           metaScripts,
-          scriptsbodyBefore,
+          scriptsBodyBefore,
         },
         manifest
       );

@@ -11,7 +11,7 @@ export type Template = {
   options: TemplateUIOptions;
   metaScripts?: string[];
   scriptsBodyAfter?: string[];
-  scriptsbodyBefore?: string[];
+  scriptsBodyBefore?: string[];
 };
 
 // the outcome of the Webpack Manifest Plugin
@@ -30,15 +30,15 @@ export default function renderTemplate(template: Template, manifest: WebpackMani
         <meta charset="utf-8">
         <base href="${template?.options.base}">
         <title>${template?.options?.title ?? ''}</title>
-        <link rel="icon" href="${template?.options.base}-/static/favicon.ico"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="${template?.options.base}-/static/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script>
             window.__VERDACCIO_BASENAME_UI_OPTIONS=${JSON.stringify(template.options)}
         </script>
         ${template?.metaScripts ? template.metaScripts.join('') : ''}
       </head>
       <body class="body">
-        ${template?.scriptsbodyBefore ? template.scriptsbodyBefore.join('') : ''}
+        ${template?.scriptsBodyBefore ? template.scriptsBodyBefore.join('') : ''}
         <div id="root"></div>
         ${getManifestValue(template.manifest.js, manifest, template?.options.base)
           .map((item) => `<script defer="defer" src="${item}"></script>`)
