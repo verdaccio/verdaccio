@@ -6,17 +6,15 @@ import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
 import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
-import { Config, Package, Version } from '@verdaccio/types';
+import { Config, Manifest, Version } from '@verdaccio/types';
 import {
   buildToken as buildTokenUtil  
 } from '@verdaccio/utils';
 
-import { AuthorAvatar } from '../types';
 import {
   DEFAULT_DOMAIN,
   DEFAULT_PORT,
   DEFAULT_PROTOCOL,
-  DEFAULT_USER,
   DIST_TAGS,
 } from './constants';
 import { logger } from './logger';
@@ -32,10 +30,6 @@ const {
   getServiceUnavailable,
   getUnauthorized,
 } = errorUtils;
-const validProtocols = ['https', 'http'];
-export function convertPayloadToBase64(payload: string): Buffer {
-  return Buffer.from(payload, 'base64');
-}
 
 /**
  * Check whether an element is an Object
@@ -51,7 +45,7 @@ export function isObjectOrArray(obj: any): boolean {
   return _.isObject(obj) && _.isNull(obj) === false;
 }
 
-export function tagVersion(data: Package, version: string, tag: StringValue): boolean {
+export function tagVersion(data: Manifest, version: string, tag: StringValue): boolean {
   if (tag && data[DIST_TAGS][tag] !== version && semver.parse(version, true)) {
     // valid version - store
     data[DIST_TAGS][tag] = version;
@@ -64,7 +58,7 @@ export function tagVersion(data: Package, version: string, tag: StringValue): bo
  * Gets version from a package object taking into account semver weirdness.
  * @return {String} return the semantic version of a package
  */
-export function getVersion(pkg: Package, version: any): Version | void {
+export function getVersion(pkg: Manifest, version: any): Version | void {
   // this condition must allow cast
   if (_.isNil(pkg.versions[version]) === false) {
     return pkg.versions[version];
