@@ -106,16 +106,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:12.1.1"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
             ["express", "npm:4.21.2"],\
-            ["express-rate-limit", "npm:5.5.1"],\
-            ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["handlebars", "npm:4.7.8"],\
             ["jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["jest-environment-node", "npm:29.7.0"],\
             ["jest-junit", "npm:15.0.0"],\
-            ["js-yaml", "npm:4.1.0"],\
-            ["jsonwebtoken", "npm:9.0.2"],\
             ["kleur", "npm:4.1.5"],\
             ["lockfile-lint", "npm:4.14.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -134,7 +130,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["supertest", "npm:7.0.0"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
-            ["validator", "npm:13.12.0"],\
             ["verdaccio-audit", "npm:13.0.0-next-8.13"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
             ["verdaccio-htpasswd", "npm:13.0.0-next-8.13"],\
@@ -15503,16 +15498,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-simple-import-sort", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:12.1.1"],\
             ["eslint-plugin-verdaccio", "npm:10.0.0"],\
             ["express", "npm:4.21.2"],\
-            ["express-rate-limit", "npm:5.5.1"],\
-            ["fast-safe-stringify", "npm:2.1.1"],\
             ["fs-extra", "npm:10.1.0"],\
             ["handlebars", "npm:4.7.8"],\
             ["jest", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["jest-config", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:29.7.0"],\
             ["jest-environment-node", "npm:29.7.0"],\
             ["jest-junit", "npm:15.0.0"],\
-            ["js-yaml", "npm:4.1.0"],\
-            ["jsonwebtoken", "npm:9.0.2"],\
             ["kleur", "npm:4.1.5"],\
             ["lockfile-lint", "npm:4.14.0"],\
             ["lodash", "npm:4.17.21"],\
@@ -15531,7 +15522,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["supertest", "npm:7.0.0"],\
             ["ts-node", "virtual:7f7b3df50ee4b7b1719ad19fad11505dc2788f3227a7e5cc9ca19f71d8cb309c9d33b532ea2b2b60ab65abf6cc12153df4643c5e6e17d01ea0ae0492723bb4b4#npm:10.9.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"],\
-            ["validator", "npm:13.12.0"],\
             ["verdaccio-audit", "npm:13.0.0-next-8.13"],\
             ["verdaccio-auth-memory", "npm:10.2.2"],\
             ["verdaccio-htpasswd", "npm:13.0.0-next-8.13"],\

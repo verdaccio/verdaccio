@@ -2,12 +2,12 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import _ from 'lodash';
 import path from 'path';
-import validator from 'validator';
 
 import { Config } from '@verdaccio/types';
 
 import { HTTP_STATUS } from '../lib/constants';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import { isURL } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:middleware:favicon');
 
@@ -22,7 +22,7 @@ export function serveFavicon(config: Config) {
       } else if (!_.isEmpty(logoConf)) {
         debug('custom favicon');
         if (
-          validator.isURL(logoConf, {
+          isURL(logoConf, {
             require_host: true,
             require_valid_protocol: true,
           })
