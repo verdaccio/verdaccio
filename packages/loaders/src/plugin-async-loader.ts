@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import fs from 'fs';
+import _ from 'lodash';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
 import { pluginUtils } from '@verdaccio/core';
@@ -13,6 +14,10 @@ const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);
   return stat.isDirectory();
+}
+
+function mergeConfig(appConfig: unknown, pluginConfig: unknown) {
+  return _.merge(appConfig, pluginConfig);
 }
 
 // type Plugins<T> =
@@ -47,6 +52,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginConfigs: any = {},
   pluginOptions: pluginUtils.PluginOptions,
   sanityCheck: (plugin: PluginType<T>) => boolean,
+  legacyMergeConfigs: boolean = false,
   prefix: string = 'verdaccio',
   pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
@@ -82,7 +88,12 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
           logger.error(a, b);
         });
         if (plugin && isValid(plugin)) {
-          plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions);
+          plugin = executePlugin(
+            plugin,
+            pluginConfigs[pluginId],
+            pluginOptions,
+            legacyMergeConfigs
+          );
           if (!sanityCheck(plugin)) {
             logger.error(
               { content: externalFilePlugin },
@@ -115,7 +126,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
         logger.error(a, b);
       });
       if (plugin && isValid(plugin)) {
-        plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions);
+        plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions, legacyMergeConfigs);
         if (!sanityCheck(plugin)) {
           logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
           continue;
@@ -143,8 +154,14 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
 export function executePlugin<T>(
   plugin: PluginType<T>,
   pluginConfig: unknown,
-  pluginOptions: pluginUtils.PluginOptions
+  pluginOptions: pluginUtils.PluginOptions,
+  legacyMergeConfigs: boolean = false
 ): PluginType<T> {
+  // this is a legacy support for plugins that are not using the new API
+  if (legacyMergeConfigs) {
+    let originalConfig = pluginOptions.config;
+    pluginConfig = mergeConfig(originalConfig, pluginConfig);
+  }
   if (isES6(plugin)) {
     debug('plugin is ES6');
     // @ts-expect-error no relevant for the code

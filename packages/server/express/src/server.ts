@@ -73,6 +73,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     function (plugin) {
       return typeof plugin.register_middlewares !== 'undefined';
     },
+    false,
     config?.serverSettings?.pluginPrefix ?? 'verdaccio',
     PLUGIN_CATEGORY.MIDDLEWARE
   );

@@ -38,7 +38,7 @@
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node12  && pnpm run build:types"
+    "build": "esbuild src/index.ts --bundle --outfile=build/dist.js --platform=node --target=node18  && pnpm run build:types"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.4",
