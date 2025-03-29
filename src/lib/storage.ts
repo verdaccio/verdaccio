@@ -81,6 +81,7 @@ class Storage {
         (plugin: pluginUtils.ManifestFilter<Config>) => {
           return typeof plugin.filter_metadata !== 'undefined';
         },
+        true,
         this.config?.serverSettings?.pluginPrefix,
         PLUGIN_CATEGORY.FILTER
       );
