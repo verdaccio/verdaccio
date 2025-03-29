@@ -5,7 +5,7 @@ import _ from 'lodash';
 import Stream from 'stream';
 
 import { hasProxyTo } from '@verdaccio/config';
-import { PLUGIN_CATEGORY, pluginUtils, validatioUtils } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, pluginUtils, validationUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
@@ -115,6 +115,7 @@ class Storage {
       (plugin) => {
         return typeof plugin.getPackageStorage !== 'undefined';
       },
+      true,
       this.config?.serverSettings?.pluginPrefix,
       PLUGIN_CATEGORY.STORAGE
     );
@@ -616,7 +617,7 @@ class Storage {
           }
 
           try {
-            upLinkResponse = validatioUtils.normalizeMetadata(upLinkResponse, name);
+            upLinkResponse = validationUtils.normalizeMetadata(upLinkResponse, name);
           } catch (err) {
             self.logger.error(
               {

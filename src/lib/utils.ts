@@ -4,7 +4,7 @@ import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
-import { errorUtils, validatioUtils } from '@verdaccio/core';
+import { errorUtils, validationUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { buildToken as buildTokenUtil } from '@verdaccio/utils';
@@ -29,7 +29,7 @@ const {
  * @param {*} obj the element
  * @return {Boolean}
  */
-export const isObject = validatioUtils.isObject;
+export const isObject = validationUtils.isObject;
 
 /**
  * @deprecated not used un v6
