@@ -5,7 +5,7 @@ import { Config, parseConfigFile } from '@verdaccio/config';
 import { pluginUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 
-import { asyncLoadPlugin } from '../src/plugin-async-loader';
+import { asyncLoadPlugin } from '../src/index';
 
 function getConfig(file: string) {
   const conPath = path.join(__dirname, './partials/config', file);
@@ -71,6 +71,7 @@ describe('plugin loader', () => {
         expect(plugins).toHaveLength(0);
       });
     });
+
     describe('relative path', () => {
       test('should resolve plugin based on relative path', async () => {
         const config = getConfig('relative-plugins.yaml');
@@ -93,6 +94,7 @@ describe('plugin loader', () => {
       });
 
       // config.config_path is not considered for loading plugins due legacy support
+      // @ts-ignore
       test('should fails if config path is missing (only config_path)', async () => {
         const config = getConfig('relative-plugins.yaml');
         // @ts-expect-error
@@ -142,6 +144,7 @@ describe('plugin loader', () => {
         config.auth,
         { config, logger },
         authSanitize,
+        false,
         'customprefix'
       );
 
@@ -170,6 +173,29 @@ describe('plugin loader', () => {
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
 
       expect(plugins).toHaveLength(1);
+    });
+  });
+
+  describe('legacy merge configs', () => {
+    // whenever 6.x and 7.x version are out of support, we can remove this test
+    test('should merge configuration with plugin configuration', async () => {
+      const config = getConfig('relative-plugins.yaml');
+      // force file instead a folder.
+      const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize, true);
+
+      expect(plugins).toHaveLength(1);
+      const plugin = plugins[0];
+      // just check if the plugin has the main config
+      expect(plugin.config).toHaveProperty('self_path');
+      expect(plugin.config).toHaveProperty('storage');
+      // assume all config props are merged
+      // check if the plugin has the auth config
+      expect(plugin.config).toHaveProperty('auth');
+      expect(plugin.config.auth).toEqual({
+        plugin: {
+          enabled: true,
+        },
+      });
     });
   });
 });
