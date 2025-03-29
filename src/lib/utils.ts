@@ -1,19 +1,14 @@
 import fs from 'fs';
 import _ from 'lodash';
 import semver from 'semver';
-import { URL } from 'url';
-import validator from 'validator';
 
 import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
 import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
-import { Author, Config, Package, Version } from '@verdaccio/types';
+import { Config, Package, Version } from '@verdaccio/types';
 import {
-  GENERIC_AVATAR,
-  buildToken as buildTokenUtil,
-  generateGravatarUrl,
-  normalizeContributors,
+  buildToken as buildTokenUtil  
 } from '@verdaccio/utils';
 
 import { AuthorAvatar } from '../types';
@@ -287,55 +282,7 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
   return objectItem;
 }
 
-export function addGravatarSupport(pkgInfo: Package, online = true): AuthorAvatar {
-  const pkgInfoCopy = { ...pkgInfo } as any;
-  const author: any = _.get(pkgInfo, 'latest.author', null) as any;
-  const contributors: AuthorAvatar[] = normalizeContributors(
-    _.get(pkgInfo, 'latest.contributors', [])
-  );
-  const maintainers = _.get(pkgInfo, 'latest.maintainers', []);
 
-  // for author.
-  if (author && _.isObject(author)) {
-    const { email } = author as Author;
-    pkgInfoCopy.latest.author.avatar = generateGravatarUrl(email, online);
-  }
-
-  if (author && _.isString(author)) {
-    pkgInfoCopy.latest.author = {
-      avatar: GENERIC_AVATAR,
-      email: '',
-      author,
-    };
-  }
-
-  // for contributors
-  if (_.isEmpty(contributors) === false) {
-    pkgInfoCopy.latest.contributors = contributors.map((contributor): AuthorAvatar => {
-      if (isObject(contributor)) {
-        contributor.avatar = generateGravatarUrl(contributor.email, online);
-      } else if (_.isString(contributor)) {
-        contributor = {
-          avatar: GENERIC_AVATAR,
-          email: contributor,
-          name: contributor,
-        };
-      }
-
-      return contributor;
-    });
-  }
-
-  // for maintainers
-  if (_.isEmpty(maintainers) === false) {
-    pkgInfoCopy.latest.maintainers = maintainers.map((maintainer: any): void => {
-      maintainer.avatar = generateGravatarUrl(maintainer.email, online);
-      return maintainer;
-    });
-  }
-
-  return pkgInfoCopy;
-}
 
 /**
  * parse package readme - markdown/ascii
@@ -356,52 +303,7 @@ export function parseReadme(packageName: string, readme: string): string | void 
   return 'ERROR: No README data found!';
 }
 
-export type AuthorFormat = Author | string | null | object | void;
 
-/**
- * Formats author field for webui.
- * @see https://docs.npmjs.com/files/package.json#author
- * @param {string|object|undefined} author
- */
-export function formatAuthor(author: AuthorFormat): any {
-  let authorDetails = {
-    name: DEFAULT_USER,
-    email: '',
-    url: '',
-  };
-
-  if (_.isNil(author)) {
-    return authorDetails;
-  }
-
-  if (_.isString(author)) {
-    authorDetails = {
-      ...authorDetails,
-      name: author as string,
-    };
-  }
-
-  if (_.isObject(author)) {
-    authorDetails = {
-      ...authorDetails,
-      ...(author as Author),
-    };
-  }
-
-  return authorDetails;
-}
-
-/**
- * Apply whitespaces based on the length
- * @param {*} str the log message
- * @return {String}
- */
-export function pad(str, max): string {
-  if (str.length < max) {
-    return str + ' '.repeat(max - str.length);
-  }
-  return str;
-}
 
 /**
  * return a masquerade string with its first and last {charNum} and three dots in between.
@@ -441,30 +343,8 @@ export function isRelatedToDeprecation(pkgInfo: Package): boolean {
   return false;
 }
 
-export function validateURL(publicUrl: string | void) {
-  try {
-    const parsed = new URL(publicUrl as string);
-    if (!validProtocols.includes(parsed.protocol.replace(':', ''))) {
-      throw Error('invalid protocol');
-    }
-    return true;
-  } catch (err: any) {
-    // TODO: add error logger here
-    return false;
-  }
-}
 
-export function isHost(url: string = '', options = {}): boolean {
-  return validator.isURL(url, {
-    require_host: true,
-    allow_trailing_dot: false,
-    require_valid_protocol: false,
-    // @ts-ignore
-    require_port: false,
-    require_tld: false,
-    ...options,
-  });
-}
+
 
 /**
  *
@@ -476,11 +356,6 @@ export function hasLogin(config: Config) {
   // FIXME: types are not yet on the library verdaccio/monorepo
   // @ts-ignore
   return _.isNil(config?.web?.login) || config?.web?.login === true;
-}
-
-export function isNodeVersionHigherThanV22() {
-  const [major, minor] = process.versions.node.split('.').map(Number);
-  return major > 22 || (major === 22 && minor > 0);
 }
 
 export { buildTokenUtil as buildToken, parseConfigFile };

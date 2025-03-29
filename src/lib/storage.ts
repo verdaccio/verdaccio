@@ -25,7 +25,7 @@ import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 import { StoragePluginLegacy } from '../../types/custom';
 import { logger } from '../lib/logger';
 import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
-import { hasProxyTo } from './config-utils';
+
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
 import LocalStorage, { StoragePlugin } from './local-storage';
 import { mergeVersions } from './metadata-utils';
@@ -41,6 +41,7 @@ import {
 import ProxyStorage from './up-storage';
 import { setupUpLinks, updateVersionsHiddenUpLink } from './uplink-util';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
+import { hasProxyTo } from '@verdaccio/config';
 
 const debug = buildDebug('verdaccio:storage');
 
