@@ -4,10 +4,10 @@ import _ from 'lodash';
 import path from 'path';
 
 import { Config } from '@verdaccio/types';
+import { isURL } from '@verdaccio/url';
 
 import { HTTP_STATUS } from '../lib/constants';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
-import { isURL } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:middleware:favicon');
 

@@ -2,12 +2,7 @@ import { GENERIC_AVATAR, generateGravatarUrl } from '@verdaccio/utils';
 
 import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
-import {
-  getVersion,
-  normalizeDistTags,
-  parseReadme,
-  sortByName,
-} from '../../../../src/lib/utils';
+import { getVersion, normalizeDistTags, parseReadme, sortByName } from '../../../../src/lib/utils';
 import { getByQualityPriorityValue } from '../../../../src/utils/string';
 
 setup([]);
