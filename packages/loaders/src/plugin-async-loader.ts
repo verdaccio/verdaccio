@@ -17,7 +17,7 @@ async function isDirectory(pathFolder: string) {
 }
 
 function mergeConfig(appConfig: unknown, pluginConfig: unknown) {
-  return _.merge(appConfig, pluginConfig);
+  return _.merge({}, appConfig, pluginConfig);
 }
 
 // type Plugins<T> =
