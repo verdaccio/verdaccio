@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "13.0.0-next-8.13",
+  "version": "13.0.0-next-8.14",
   "description": "Verdaccio Local Storage Plugin",
   "keywords": [
     "private",
@@ -36,9 +36,9 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.13",
+    "@verdaccio/core": "workspace:8.0.0-next-8.14",
     "@verdaccio/file-locking": "workspace:13.0.0-next-8.3",
-    "@verdaccio/utils": "workspace:8.1.0-next-8.13",
+    "@verdaccio/utils": "workspace:8.1.0-next-8.14",
     "core-js": "3.40.0",
     "debug": "4.4.0",
     "globby": "11.1.0",
@@ -50,10 +50,10 @@
   },
   "devDependencies": {
     "@types/minimatch": "5.1.2",
-    "@verdaccio/config": "workspace:8.0.0-next-8.13",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.13",
+    "@verdaccio/config": "workspace:8.0.0-next-8.14",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.14",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.4",
-    "@verdaccio/types": "workspace:13.0.0-next-8.4",
+    "@verdaccio/types": "workspace:13.0.0-next-8.5",
     "minimatch": "9.0.5"
   },
   "scripts": {

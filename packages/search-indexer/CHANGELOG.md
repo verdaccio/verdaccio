@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

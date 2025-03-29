@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.5
+
+### Patch Changes
+
+- 2bcd3ca: chore(config): harmonize configuration options
+
 ## 13.0.0-next-8.4
 
 ### Patch Changes
