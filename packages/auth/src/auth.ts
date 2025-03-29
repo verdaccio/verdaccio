@@ -123,6 +123,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           typeof allow_publish !== 'undefined'
         );
       },
+      false,
       this.config?.serverSettings?.pluginPrefix,
       PLUGIN_CATEGORY.AUTHENTICATION
     );

@@ -686,6 +686,7 @@ class Storage {
         (plugin: pluginUtils.ManifestFilter<Config>) => {
           return typeof plugin.filter_metadata !== 'undefined';
         },
+        false,
         this.config?.serverSettings?.pluginPrefix,
         PLUGIN_CATEGORY.FILTER
       );
@@ -1712,7 +1713,7 @@ class Storage {
       proxy: npmjs
 
     A package requires uplinks syncronization if the proxy section is defined. There can be
-    more than one uplink. The more uplinks are defined, the longer the request will take. 
+    more than one uplink. The more uplinks are defined, the longer the request will take.
     The requests are made in serial and if 1st call fails, the second will be triggered, otherwise
     the 1st will reply and others will be discarded. The order is important.
 
