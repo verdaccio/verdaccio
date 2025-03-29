@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/loaders",
-  "version": "8.0.0-next-8.5",
+  "version": "8.0.0-next-8.6",
   "description": "Verdaccio Loader Logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -21,10 +21,10 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.0.0-next-8.13",
-    "@verdaccio/core": "workspace:8.0.0-next-8.13",
-    "@verdaccio/config": "workspace:8.0.0-next-8.13",
-    "@verdaccio/types": "workspace:13.0.0-next-8.4",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.14",
+    "@verdaccio/core": "workspace:8.0.0-next-8.14",
+    "@verdaccio/config": "workspace:8.0.0-next-8.14",
+    "@verdaccio/types": "workspace:13.0.0-next-8.5",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "verdaccio-auth-memory": "workspace:*",
     "customprefix-auth": "workspace:2.0.0"

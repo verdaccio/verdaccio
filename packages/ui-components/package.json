@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-components",
-  "version": "4.0.0-next-8.7",
+  "version": "4.0.0-next-8.8",
   "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -75,7 +75,7 @@
     "@types/hast": "^2.0.0",
     "@types/react-router": "^5.1.20",
     "@types/unist": "^2.0.0",
-    "@verdaccio/types": "workspace:13.0.0-next-8.4",
+    "@verdaccio/types": "workspace:13.0.0-next-8.5",
     "@vitejs/plugin-react": "^4.3.4",
     "babel-loader": "9.2.1",
     "jsdom": "^25.0.0",

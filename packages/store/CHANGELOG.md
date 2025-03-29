@@ -1,5 +1,26 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- b9fea38: chore: cleanup utils
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+- Updated dependencies [8f28186]
+  - @verdaccio/local-storage@13.0.0-next-8.14
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+  - @verdaccio/utils@8.1.0-next-8.14
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - @verdaccio/tarball@13.0.0-next-8.14
+  - @verdaccio/url@13.0.0-next-8.14
+  - @verdaccio/hooks@8.0.0-next-8.14
+  - @verdaccio/proxy@8.0.0-next-8.14
+  - @verdaccio/search@8.0.0-next-8.14
+  - @verdaccio/logger@8.0.0-next-8.14
+
 ## 8.0.0-next-8.13
 
 ### Patch Changes
