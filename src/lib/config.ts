@@ -5,7 +5,7 @@ class Config extends ConfigCore {
   public constructor(config: any) {
     config.configPath = config.self_path;
     super(config, { forceMigrateToSecureLegacySignature: false });
-    // Temporary solution for plugins that depepends of legacy configuration files
+    // Temporary solution for plugins that depends on legacy configuration files
     // @ts-ignore
     this.getMatchedPackagesSpec = getMatchedPackagesSpec;
   }
