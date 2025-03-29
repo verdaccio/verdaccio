@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { pluginUtils } from '@verdaccio/core';
 import {
-  Callback,  
+  Callback,
   Config,
   Logger,
   Manifest,
