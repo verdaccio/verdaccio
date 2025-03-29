@@ -64,12 +64,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     hookDebug(app, config.configPath);
   }
 
-  // register middleware plugins
-  const plugin_params = {
-    config: config,
-    logger: logger,
-  };
-
   const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
@@ -79,6 +73,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     function (plugin) {
       return typeof plugin.register_middlewares !== 'undefined';
     },
+    true,
     config?.serverSettings?.pluginPrefix ?? 'verdaccio',
     PLUGIN_CATEGORY.MIDDLEWARE
   );
@@ -116,6 +111,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 export default (async function (configHash: any) {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
+
   const storage = new Storage(config);
   // waits until init calls have been initialized
   await storage.init(config, []);
