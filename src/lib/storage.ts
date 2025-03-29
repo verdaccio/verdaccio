@@ -4,6 +4,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import Stream from 'stream';
 
+import { hasProxyTo } from '@verdaccio/config';
 import { PLUGIN_CATEGORY, pluginUtils, validatioUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabasePlugin from '@verdaccio/local-storage-legacy';
@@ -25,7 +26,6 @@ import { GenericBody, Token, TokenFilter } from '@verdaccio/types';
 import { StoragePluginLegacy } from '../../types/custom';
 import { logger } from '../lib/logger';
 import { IPluginFilters, ISyncUplinks, StringValue } from '../types';
-import { hasProxyTo } from './config-utils';
 import { API_ERROR, DIST_TAGS, HTTP_STATUS } from './constants';
 import LocalStorage, { StoragePlugin } from './local-storage';
 import { mergeVersions } from './metadata-utils';

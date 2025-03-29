@@ -7,7 +7,7 @@ import {
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
 import { Config, Manifest } from '@verdaccio/types';
-import { generateGravatarUrl } from '@verdaccio/utils';
+import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
 import Auth from '../../../lib/auth';
 import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/constants';
@@ -15,10 +15,8 @@ import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';
 import {
   ErrorCode,
-  addGravatarSupport,
   addScope,
   deleteProperties,
-  formatAuthor,
   isVersionValid,
   parseReadme,
   sortByName,

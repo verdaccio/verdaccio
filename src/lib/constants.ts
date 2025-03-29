@@ -21,7 +21,6 @@ export const DIST_TAGS = 'dist-tags';
 export const LATEST = 'latest';
 export const USERS = 'users';
 export const DEFAULT_MIN_LIMIT_PASSWORD = 3;
-export const DEFAULT_USER = 'Anonymous';
 
 export const keyPem = 'verdaccio-key.pem';
 export const certPem = 'verdaccio-cert.pem';

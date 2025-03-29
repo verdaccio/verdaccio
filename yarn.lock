@@ -6337,7 +6337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-safe-stringify@npm:2.1.1, fast-safe-stringify@npm:^2.1.1":
+"fast-safe-stringify@npm:^2.1.1":
   version: 2.1.1
   resolution: "fast-safe-stringify@npm:2.1.1"
   checksum: a851cbddc451745662f8f00ddb622d6766f9bd97642dabfd9a405fb0d646d69fc0b9a1243cbf67f5f18a39f40f6fa821737651ff1bceeba06c9992ca2dc5bd3d
@@ -12088,16 +12088,12 @@ __metadata:
     eslint-plugin-simple-import-sort: 12.1.1
     eslint-plugin-verdaccio: 10.0.0
     express: 4.21.2
-    express-rate-limit: 5.5.1
-    fast-safe-stringify: 2.1.1
     fs-extra: 10.1.0
     handlebars: 4.7.8
     jest: 29.7.0
     jest-config: 29.7.0
     jest-environment-node: 29.7.0
     jest-junit: 15.0.0
-    js-yaml: 4.1.0
-    jsonwebtoken: 9.0.2
     kleur: 4.1.5
     lockfile-lint: 4.14.0
     lodash: 4.17.21
@@ -12116,7 +12112,6 @@ __metadata:
     supertest: 7.0.0
     ts-node: 10.9.2
     typescript: 4.9.5
-    validator: 13.12.0
     verdaccio-audit: 13.0.0-next-8.13
     verdaccio-auth-memory: 10.2.2
     verdaccio-htpasswd: 13.0.0-next-8.13
