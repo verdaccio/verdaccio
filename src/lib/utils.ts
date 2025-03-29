@@ -135,7 +135,7 @@ export function semverSort(listVersions: string[]): string[] {
  * Flatten arrays of tags.
  * @param {*} data
  */
-export function normalizeDistTags(pkg: Package): void {
+export function normalizeDistTags(pkg: Manifest): void {
   let sorted;
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
@@ -316,7 +316,7 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
   return hasMatchVersion;
 }
 
-export function isRelatedToDeprecation(pkgInfo: Package): boolean {
+export function isRelatedToDeprecation(pkgInfo: Manifest): boolean {
   const { versions } = pkgInfo;
   for (const version in versions) {
     if (Object.prototype.hasOwnProperty.call(versions[version], 'deprecated')) {

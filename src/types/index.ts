@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import { pluginUtils } from '@verdaccio/core';
 import {
-  Callback,
+  Callback,  
   Config,
   Logger,
   Manifest,
@@ -45,7 +45,7 @@ export interface Utils {
   isObject: (value: any) => boolean;
   validate_name: (value: any) => boolean;
   tag_version: (value: any, version: string, tag: string) => void;
-  normalizeDistTags: (pkg: Package) => void;
+  normalizeDistTags: (pkg: Manifest) => void;
   semverSort: (keys: string[]) => string[];
 }
 
