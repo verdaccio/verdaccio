@@ -159,6 +159,7 @@ export function executePlugin<T>(
 ): PluginType<T> {
   // this is a legacy support for plugins that are not using the new API
   if (legacyMergeConfigs) {
+    debug('>>> plugin merge config enabled');
     let originalConfig = pluginOptions.config;
     pluginConfig = mergeConfig(originalConfig, pluginConfig);
   }
