@@ -7,16 +7,9 @@ import { parseConfigFile } from '@verdaccio/config';
 import { errorUtils, validatioUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
-import {
-  buildToken as buildTokenUtil  
-} from '@verdaccio/utils';
+import { buildToken as buildTokenUtil } from '@verdaccio/utils';
 
-import {
-  DEFAULT_DOMAIN,
-  DEFAULT_PORT,
-  DEFAULT_PROTOCOL,
-  DIST_TAGS,
-} from './constants';
+import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL, DIST_TAGS } from './constants';
 import { logger } from './logger';
 
 const {
@@ -276,8 +269,6 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
   return objectItem;
 }
 
-
-
 /**
  * parse package readme - markdown/ascii
  * @param {String} packageName name of package
@@ -296,8 +287,6 @@ export function parseReadme(packageName: string, readme: string): string | void 
 
   return 'ERROR: No README data found!';
 }
-
-
 
 /**
  * return a masquerade string with its first and last {charNum} and three dots in between.
@@ -336,9 +325,6 @@ export function isRelatedToDeprecation(pkgInfo: Package): boolean {
   }
   return false;
 }
-
-
-
 
 /**
  *

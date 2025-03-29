@@ -14,7 +14,7 @@ import { DIST_TAGS, HEADERS, HEADER_TYPE, HTTP_STATUS } from '../../../lib/const
 import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';
 import {
-  ErrorCode,  
+  ErrorCode,
   addScope,
   deleteProperties,
   isVersionValid,

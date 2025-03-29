@@ -2,15 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 
 import { pluginUtils } from '@verdaccio/core';
 import {
-  Manifest,
   Callback,
   Config,
   Logger,
+  Manifest,
   PackageAccess,
-  RemoteUser,  
+  RemoteUser,
   StringValue as verdaccio$StringValue,
 } from '@verdaccio/types';
-
 
 export type StringValue = verdaccio$StringValue;
 
@@ -66,7 +65,6 @@ export type $ResponseExtend = Response & { cookies?: any };
 export type $NextFunctionVer = NextFunction & any;
 export type $SidebarPackage = Manifest & { latest: any };
 
-
 export interface ISyncUplinks {
   uplinksLook?: boolean;
   etag?: string;
@@ -74,5 +72,3 @@ export interface ISyncUplinks {
 }
 
 export type IPluginFilters = pluginUtils.ManifestFilter<Config>[];
-
-
