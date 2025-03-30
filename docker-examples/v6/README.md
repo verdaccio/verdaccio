@@ -11,7 +11,7 @@
 - [Docker + Nginx + Verdaccio](proxy/reverse_proxy/nginx/README.md)
 - [Docker + Apache + Verdaccio](proxy/apache-verdaccio/README.md)
 - [Docker + HTTPS Portal + Verdaccio](proxy/https-portal-example/README.md)
-- [Docker + Localstack S3 + Verdaccio](proxy/amazon-s3-docker-example/README.md)
+- [Docker + Localstack S3 + Verdaccio](amazon-s3-docker-example/README.md)
 
 > Looking forward more examples with proxies.
 
