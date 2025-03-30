@@ -6,7 +6,7 @@ developing cloud applications. In this case, we are simulating AWS S3 functional
 ## Usage
 
 > You might need to create bucket manually here
-> aws --endpoint-url=http://localhost:4572 s3 mb s3://localstack.s3.plugin.test
+> aws --endpoint-url=http://localhost:4566 s3 mb s3://localstack.s3.plugin.test
 
 ```
 docker-compose up --force-recreate --build --always-recreate-deps
