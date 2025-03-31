@@ -1,5 +1,17 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- 1f25d5f: feat: add legacyMergeConfigs as option
+  - @verdaccio/core@8.0.0-next-8.15
+  - @verdaccio/config@8.0.0-next-8.15
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - verdaccio-htpasswd@13.0.0-next-8.15
+  - @verdaccio/utils@8.1.0-next-8.15
+  - @verdaccio/signature@8.0.0-next-8.7
+
 ## 8.0.0-next-8.14
 
 ### Patch Changes
