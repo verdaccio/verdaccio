@@ -1,5 +1,11 @@
 # @verdaccio/utils
 
+## 8.1.0-next-8.15
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.15
+
 ## 8.1.0-next-8.14
 
 ### Patch Changes
