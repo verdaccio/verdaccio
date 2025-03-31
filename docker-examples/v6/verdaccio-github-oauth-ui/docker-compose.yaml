@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  verdaccio:
+    container_name: verdaccio-oauth-plugin
+    build: plugin/
+    environment:
+      - DEBUG=verdaccio:*
+    ports:
+      - '4874:4873'
+    networks:
+      - default
+networks:
+  default:
+    name: verdaccio-network
