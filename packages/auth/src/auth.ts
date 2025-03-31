@@ -59,12 +59,14 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public secret: string;
   public logger: Logger;
   public plugins: pluginUtils.Auth<Config>[];
+  public options: { legacyMergeConfigs: boolean };
 
-  public constructor(config: Config, logger: Logger) {
+  public constructor(config: Config, logger: Logger, options = { legacyMergeConfigs: false }) {
     this.config = config;
     this.secret = config.secret;
     this.logger = logger;
     this.plugins = [];
+    this.options = options;
     if (!this.secret) {
       throw new TypeError('secret it is required value on initialize the auth class');
     }
@@ -123,7 +125,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           typeof allow_publish !== 'undefined'
         );
       },
-      false,
+      this.options.legacyMergeConfigs,
       this.config?.serverSettings?.pluginPrefix,
       PLUGIN_CATEGORY.AUTHENTICATION
     );
