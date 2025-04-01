@@ -7,7 +7,9 @@ class Config extends ConfigCore {
     super(config, { forceMigrateToSecureLegacySignature: false });
     // Temporary solution for plugins that depends on legacy configuration files
     // @ts-ignore
-    this.getMatchedPackagesSpec = getMatchedPackagesSpec;
+    this.getMatchedPackagesSpec = (pkgName) => {
+      return getMatchedPackagesSpec(pkgName, this.packages);
+    };
   }
 }
 
