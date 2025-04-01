@@ -1,7 +1,6 @@
 # GitHub OAuth Login with verdaccio-github-oauth-ui plugin and Verdaccio 6.x
 
-This setup runs Verdaccio alongside Localstack, providing a simple test/mocking environment for
-developing cloud applications. In this case, we are simulating AWS S3 functionality.
+This setup runs Verdaccio alongside verdaccio-github-oauth-ui plugin.
 
 https://github.com/n4bb12/verdaccio-github-oauth-ui
 
