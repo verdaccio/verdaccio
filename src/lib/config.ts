@@ -8,8 +8,8 @@ class Config extends ConfigCore {
     // Temporary solution for plugins that depends on legacy configuration files
     // @ts-ignore
     this.getMatchedPackagesSpec = (pkgName) => {
-        return getMatchedPackagesSpec(pkgName, this.packages);
-    }
+      return getMatchedPackagesSpec(pkgName, this.packages);
+    };
   }
 }
 
