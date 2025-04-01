@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.2](https://github.com/verdaccio/verdaccio/compare/v6.1.1...v6.1.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* add missing packages argument on getMatchedPackagesSpec ([#5185](https://github.com/verdaccio/verdaccio/issues/5185)) ([2e572ac](https://github.com/verdaccio/verdaccio/commit/2e572ac97b05bb4e87f7adea8c7c52908ada1de0)), closes [#5175](https://github.com/verdaccio/verdaccio/issues/5175) [#5160](https://github.com/verdaccio/verdaccio/issues/5160)
+* **deps:** update core verdaccio dependencies (6.x) ([#5179](https://github.com/verdaccio/verdaccio/issues/5179)) ([adb1373](https://github.com/verdaccio/verdaccio/commit/adb13735897e6996577544b95d8332a1a875d0ab))
+
 ### [6.1.1](https://github.com/verdaccio/verdaccio/compare/v6.1.0...v6.1.1) (2025-03-30)
 
 
