@@ -26,7 +26,7 @@ import webMiddleware from './web';
 const { version } = require('../../package.json');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
-  const auth = new Auth(config, logger);
+  const auth = new Auth(config, logger, {legacyMergeConfigs: true});
   await auth.init();
   const app: Application = express();
   SearchMemoryIndexer.configureStorage(storage);

@@ -29,7 +29,7 @@ export async function initializeServer(
   debug('storage: %s', config.storage);
   const storage = new Storage(config);
   await storage.init(config, []);
-  const auth: Auth = new Auth(config, logger);
+  const auth: Auth = new Auth(config, logger, {legacyMergeConfigs: true});
   await auth.init();
   // FUTURE: in v6 auth.init() is being called
   // TODO: this might not be need it, used in apiEndpoints
