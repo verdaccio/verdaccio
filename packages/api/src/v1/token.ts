@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
@@ -13,13 +14,17 @@ import { mask, stringToMD5 } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
+const debug = buildDebug('verdaccio:api:token');
+
 export type NormalizeToken = Token & {
+  cidr_whitelist: string[];
   created: string;
 };
 
 function normalizeToken(token: Token): NormalizeToken {
   return {
     ...token,
+    cidr_whitelist: token.cidr || [],
     created: new Date(token.created).toISOString(),
   };
 }
@@ -41,6 +46,7 @@ export default function (
       if (_.isNil(name) === false) {
         try {
           const tokens = await storage.readTokens({ user: name });
+          debug('tokens: %o', tokens);
           const totalTokens = tokens.length;
           logger.debug({ totalTokens }, 'token list retrieved: @{totalTokens}');
 
