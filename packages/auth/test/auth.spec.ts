@@ -18,7 +18,7 @@ import {
   authProfileConf,
 } from './helper/plugin';
 
-setup({});
+await setup({});
 
 // to avoid flaky test generate same ramdom key
 vi.mock('@verdaccio/utils', async (importOriginal) => {

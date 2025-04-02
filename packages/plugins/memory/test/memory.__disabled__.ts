@@ -9,7 +9,7 @@ import { ConfigMemory } from '../src/local-memory';
 import MemoryHandler from '../src/memory-handler';
 import pkgExample from './partials/pkg';
 
-setup({});
+await setup({});
 
 const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
 

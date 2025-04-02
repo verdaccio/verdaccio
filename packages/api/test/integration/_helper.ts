@@ -17,7 +17,7 @@ import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../src';
 
-setup({});
+await setup({});
 
 export const getConf = (conf) => {
   const configPath = path.join(__dirname, 'config', conf);

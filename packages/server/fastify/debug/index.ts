@@ -17,7 +17,7 @@ const debug = buildDebug('verdaccio:fastify:debug');
     const configFile = path.join(__dirname, './fastify-conf.yaml');
     debug('configFile %s', configFile);
     const configParsed = parseConfigFile(configFile);
-    setup(configParsed.log);
+    await setup(configParsed.log);
     logger.info(`config location ${configFile}`);
     debug('configParsed %s', configParsed);
     process.title = 'fastify-verdaccio';
