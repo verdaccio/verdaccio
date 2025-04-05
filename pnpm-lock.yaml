@@ -81,8 +81,8 @@ importers:
         specifier: 7.26.9
         version: 7.26.9
       '@changesets/changelog-github':
-        specifier: 0.5.0
-        version: 0.5.0(encoding@0.1.13)
+        specifier: 0.5.1
+        version: 0.5.1(encoding@0.1.13)
       '@changesets/cli':
         specifier: 2.27.12
         version: 2.27.12
@@ -729,7 +729,7 @@ importers:
         version: 0.23.25(typescript@5.3.3)
       typedoc-plugin-missing-exports:
         specifier: latest
-        version: 3.1.0(typedoc@0.23.25(typescript@5.3.3))
+        version: 4.0.0(typedoc@0.23.25(typescript@5.3.3))
 
   packages/core/file-locking:
     dependencies:
@@ -3434,8 +3434,8 @@ packages:
   '@changesets/changelog-git@0.2.0':
     resolution: {integrity: sha512-bHOx97iFI4OClIT35Lok3sJAwM31VbUM++gnMBV16fdbtBhgYu4dxsphBF/0AZZsyAHMrnM0yFcj5gZM1py6uQ==}
 
-  '@changesets/changelog-github@0.5.0':
-    resolution: {integrity: sha512-zoeq2LJJVcPJcIotHRJEEA2qCqX0AQIeFE+L21L8sRLPVqDhSXY8ZWAt2sohtBpFZkBwu+LUwMSKRr2lMy3LJA==}
+  '@changesets/changelog-github@0.5.1':
+    resolution: {integrity: sha512-BVuHtF+hrhUScSoHnJwTELB4/INQxVFc+P/Qdt20BLiBFIHFJDDUaGsZw+8fQeJTRP5hJZrzpt3oZWh0G19rAQ==}
 
   '@changesets/cli@2.27.12':
     resolution: {integrity: sha512-9o3fOfHYOvBnyEn0mcahB7wzaA3P4bGJf8PNqGit5PKaMEFdsRixik+txkrJWd2VX+O6wRFXpxQL8j/1ANKE9g==}
@@ -3482,6 +3482,9 @@ packages:
 
   '@changesets/types@6.0.0':
     resolution: {integrity: sha512-b1UkfNulgKoWfqyHtzKS5fOZYSJO+77adgL7DLRDr+/7jhChN+QcHnbjiQVOz/U+Ts3PGNySq7diAItzDgugfQ==}
+
+  '@changesets/types@6.1.0':
+    resolution: {integrity: sha512-rKQcJ+o1nKNgeoYRHKOS07tAMNd3YSN0uHaJOZYjBAgxfV7TUE7JE+z4BzZdQwb5hKaYbayKN5KrYV7ODb2rAA==}
 
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
@@ -4768,6 +4771,7 @@ packages:
   '@mui/styles@5.16.5':
     resolution: {integrity: sha512-E6h6Qd1FNsKozeBQCVpfSngxgigkP5+N8IKiD97ItKaEvaCmYg4/akLVj57Y9tj9OloZxqL8IQS80hw5zF19PA==}
     engines: {node: '>=12.0.0'}
+    deprecated: Deprecated, check the migration instruction in https://mui.com/material-ui/migration/migrating-from-jss/
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
       react: ^17.0.0
@@ -14712,10 +14716,10 @@ packages:
     peerDependencies:
       typedoc: 0.22.x || 0.23.x
 
-  typedoc-plugin-missing-exports@3.1.0:
-    resolution: {integrity: sha512-Sogbaj+qDa21NjB3SlIw4JXSwmcl/WOjwiPNaVEcPhpNG/MiRTtpwV81cT7h1cbu9StpONFPbddYWR0KV/fTWA==}
+  typedoc-plugin-missing-exports@4.0.0:
+    resolution: {integrity: sha512-Z4ei+853xppDEhcqzyeyRs4+R0kUuKQWnMK1EtSTEd5LFkgkdW5Bdn8vfo/rsCGbYVJxOWU99fxgM1mROw5Fug==}
     peerDependencies:
-      typedoc: 0.26.x || 0.27.x
+      typedoc: ^0.28.1
 
   typedoc@0.23.25:
     resolution: {integrity: sha512-O1he153qVyoCgJYSvIyY3bPP1wAJTegZfa6tL3APinSZhJOf8CSd8F/21M6ex8pUY/fuY6n0jAsT4fIuMGA6sA==}
@@ -16958,10 +16962,10 @@ snapshots:
     dependencies:
       '@changesets/types': 6.0.0
 
-  '@changesets/changelog-github@0.5.0(encoding@0.1.13)':
+  '@changesets/changelog-github@0.5.1(encoding@0.1.13)':
     dependencies:
       '@changesets/get-github-info': 0.6.0(encoding@0.1.13)
-      '@changesets/types': 6.0.0
+      '@changesets/types': 6.1.0
       dotenv: 8.6.0
     transitivePeerDependencies:
       - encoding
@@ -17078,6 +17082,8 @@ snapshots:
   '@changesets/types@4.1.0': {}
 
   '@changesets/types@6.0.0': {}
+
+  '@changesets/types@6.1.0': {}
 
   '@changesets/write@0.3.2':
     dependencies:
@@ -31124,7 +31130,7 @@ snapshots:
     dependencies:
       typedoc: 0.23.25(typescript@5.3.3)
 
-  typedoc-plugin-missing-exports@3.1.0(typedoc@0.23.25(typescript@5.3.3)):
+  typedoc-plugin-missing-exports@4.0.0(typedoc@0.23.25(typescript@5.3.3)):
     dependencies:
       typedoc: 0.23.25(typescript@5.3.3)
 
