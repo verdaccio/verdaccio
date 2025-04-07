@@ -60,6 +60,7 @@ export type ProxySearchParams = {
   retry?: Partial<RetryOptions>;
 };
 export interface IProxy {
+  uplinkName: string;
   config: UpLinkConfLocal;
   failed_requests: number;
   userAgent: string;
@@ -71,7 +72,6 @@ export interface IProxy {
   timeout: Delays;
   max_fails: number;
   fail_timeout: number;
-  upname: string;
   search(options: ProxySearchParams): Promise<Stream.Readable>;
   getRemoteMetadata(
     name: string,
@@ -97,6 +97,7 @@ export interface ISyncUplinksOptions extends Options {
  * (same for storage.js, local-storage.js, up-storage.js)
  */
 class ProxyStorage implements IProxy {
+  public uplinkName: string;
   public config: UpLinkConfLocal;
   public failed_requests: number;
   public userAgent: string;
@@ -109,9 +110,6 @@ class ProxyStorage implements IProxy {
   public max_fails: number;
   public fail_timeout: number;
   public agent_options: AgentOptionsConf;
-  // FIXME: upname is assigned to each instance
-  // @ts-ignore
-  public upname: string;
   public proxy: string | undefined;
   private agent: Agents;
   // @ts-ignore
@@ -119,7 +117,14 @@ class ProxyStorage implements IProxy {
   public strict_ssl: boolean;
   private retry: Partial<RetryOptions>;
 
-  public constructor(config: UpLinkConfLocal, mainConfig: Config, logger: Logger, agent?: Agents) {
+  public constructor(
+    uplinkName: string,
+    config: UpLinkConfLocal,
+    mainConfig: Config,
+    logger: Logger,
+    agent?: Agents
+  ) {
+    this.uplinkName = uplinkName;
     this.config = config;
     this.failed_requests = 0;
     this.userAgent = mainConfig.user_agent ?? 'hidden';
@@ -205,17 +210,21 @@ class ProxyStorage implements IProxy {
     let token: any;
     const tokenConf: any = auth;
     if (_.isNil(tokenConf.token) === false && _.isString(tokenConf.token)) {
+      debug('use token from config');
       token = tokenConf.token;
     } else if (_.isNil(tokenConf.token_env) === false) {
       if (typeof tokenConf.token_env === 'string') {
+        debug('use token from env %o', tokenConf.token_env);
         token = process.env[tokenConf.token_env];
       } else if (typeof tokenConf.token_env === 'boolean' && tokenConf.token_env) {
+        debug('use token from env NPM_TOKEN');
         token = process.env.NPM_TOKEN;
       } else {
         this.logger.error(constants.ERROR_CODE.token_required);
         this._throwErrorAuth(constants.ERROR_CODE.token_required);
       }
     } else {
+      debug('use token from env NPM_TOKEN');
       token = process.env.NPM_TOKEN;
     }
 
@@ -225,6 +234,7 @@ class ProxyStorage implements IProxy {
 
     // define type Auth allow basic and bearer
     const type = tokenConf.type || TOKEN_BASIC;
+    debug('token type %o', type);
     this._setHeaderAuthorization(headers, type, token);
 
     return headers;
@@ -254,7 +264,6 @@ class ProxyStorage implements IProxy {
       this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
-    type = _.upperFirst(type);
     headers[HEADERS.AUTHORIZATION] = buildToken(type, token);
   }
 
@@ -276,20 +285,7 @@ class ProxyStorage implements IProxy {
 
    * @param {Object} headers
    * @private
-   * @deprecated use applyUplinkHeaders
    */
-  private _overrideWithUpLinkConfLocaligHeaders(headers: Headers): any {
-    if (!this.config.headers) {
-      return headers;
-    }
-
-    // add/override headers specified in the config
-    /* eslint guard-for-in: 0 */
-    for (const key in this.config.headers) {
-      headers[key] = this.config.headers[key];
-    }
-  }
-
   private applyUplinkHeaders(headers: gotHeaders): gotHeaders {
     if (!this.config.headers) {
       return headers;
@@ -435,26 +431,18 @@ class ProxyStorage implements IProxy {
         const code = err.response.statusCode;
         debug('error code %s', code);
         if (code === HTTP_STATUS.NOT_FOUND) {
-          throw errorUtils.getNotFound(errorUtils.API_ERROR.NOT_PACKAGE_UPLINK);
+          throw errorUtils.getNotFound(API_ERROR.NOT_PACKAGE_UPLINK);
         }
 
         if (!(code >= HTTP_STATUS.OK && code < HTTP_STATUS.MULTIPLE_CHOICES)) {
-          const error = errorUtils.getInternalError(
-            `${errorUtils.API_ERROR.BAD_STATUS_CODE}: ${code}`
-          );
+          const error = errorUtils.getInternalError(`${API_ERROR.BAD_STATUS_CODE}: ${code}`);
           // we need this code to identify outside which status code triggered the error
           error.remoteStatus = code;
           throw error;
         }
-      } else if (err.code === 'ETIMEDOUT') {
+      } else if (this._isRequestTimeout(err)) {
         debug('error code timeout');
-        const code = err.code;
-        const error = errorUtils.getInternalError(
-          `${errorUtils.API_ERROR.SERVER_TIME_OUT}: ${code}`
-        );
-        // we need this code to identify outside which status code triggered the error
-        error.remoteStatus = code;
-        throw error;
+        throw errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT);
       }
       throw err;
     }
@@ -504,7 +492,10 @@ class ProxyStorage implements IProxy {
     try {
       // Incoming URL is relative ie /-/v1/search...
       const uri = new URL(url, this.url).href;
-      this.logger.http({ uri, uplink: this.upname }, 'search request to uplink @{uplink} - @{uri}');
+      this.logger.http(
+        { uri, uplink: this.uplinkName },
+        'search request to uplink @{uplink} - @{uri}'
+      );
       debug('searching on %o', uri);
       const response = got(uri, {
         signal: abort ? abort.signal : {},
@@ -527,7 +518,7 @@ class ProxyStorage implements IProxy {
         throw errorUtils.getInternalError(`bad status code ${err.response.statusCode} from uplink`);
       }
       this.logger.error(
-        { errorMessage: err?.message, name: this.upname },
+        { errorMessage: err?.message, name: this.uplinkName },
         'proxy uplink @{name} search error: @{errorMessage}'
       );
       throw err;
@@ -560,6 +551,24 @@ class ProxyStorage implements IProxy {
     return (
       this.failed_requests >= this.max_fails &&
       Math.abs(Date.now() - (this.last_request_time as number)) < this.fail_timeout
+    );
+  }
+
+  /**
+   * Check if the request timed out (network or http errors).
+   * @param {RequestError} err
+   * @return {boolean}
+   */
+  private _isRequestTimeout(err: RequestError): boolean {
+    const code = err?.response?.statusCode;
+    return (
+      err.code === 'ETIMEDOUT' ||
+      err.code === 'ESOCKETTIMEDOUT' ||
+      err.code === 'ECONNRESET' ||
+      code === HTTP_STATUS.REQUEST_TIMEOUT ||
+      code === HTTP_STATUS.BAD_GATEWAY ||
+      code === HTTP_STATUS.SERVICE_UNAVAILABLE ||
+      code === HTTP_STATUS.GATEWAY_TIMEOUT
     );
   }
 

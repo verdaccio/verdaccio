@@ -26,6 +26,7 @@ export async function loadTheme(config: any) {
          */
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
+      false,
       config?.serverSettings?.pluginPrefix ?? PLUGIN_UI_PREFIX,
       PLUGIN_CATEGORY.THEME
     );

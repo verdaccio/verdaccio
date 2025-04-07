@@ -1,1 +1,1 @@
-export { loadTranslationFile as default } from './loadTranslationFile';
+export { loadTranslationFile as default, DEFAULT_LANGUAGE } from './loadTranslationFile';

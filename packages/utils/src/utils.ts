@@ -173,7 +173,7 @@ export function addGravatarSupport(pkgInfo: Manifest, online = true): AuthorAvat
   // for contributors
   if (_.isEmpty(contributors) === false) {
     pkgInfoCopy.latest.contributors = contributors.map((contributor): AuthorAvatar => {
-      if (isObject(contributor)) {
+      if (_.isObject(contributor)) {
         contributor.avatar = generateGravatarUrl(contributor.email, online);
       } else if (_.isString(contributor)) {
         contributor = {

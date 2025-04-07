@@ -1,0 +1,28 @@
+# storage: this is generated on _helper file
+
+auth:
+  htpasswd:
+    file: ./htpasswd-package
+
+# Use enabled instead of enable which is deprecated
+web:
+  enabled: true
+
+publish:
+  allow_offline: false
+
+uplinks:
+
+log: { type: stdout, format: pretty, level: trace }
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    unpublish: none
+  '**':
+    access: $all
+    publish: $all
+    unpublish: none
+
+_debug: true

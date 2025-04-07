@@ -1,6 +1,6 @@
 {
   "name": "verdaccio-htpasswd",
-  "version": "13.0.0-next-8.12",
+  "version": "13.0.0-next-8.15",
   "description": "Htpasswd Authentication Plugin for Verdaccio",
   "keywords": [
     "private",
@@ -33,8 +33,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.12",
-    "@verdaccio/file-locking": "workspace:13.0.0-next-8.2",
+    "@verdaccio/core": "workspace:8.0.0-next-8.15",
+    "@verdaccio/file-locking": "workspace:13.0.0-next-8.3",
     "apache-md5": "1.1.8",
     "bcryptjs": "2.4.3",
     "core-js": "3.40.0",
@@ -44,9 +44,9 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
-    "@verdaccio/types": "workspace:13.0.0-next-8.3",
-    "@verdaccio/config": "workspace:8.0.0-next-8.12",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.12",
+    "@verdaccio/types": "workspace:13.0.0-next-8.5",
+    "@verdaccio/config": "workspace:8.0.0-next-8.15",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.15",
     "mockdate": "3.0.5"
   },
   "scripts": {

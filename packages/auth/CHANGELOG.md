@@ -1,5 +1,50 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- 1f25d5f: feat: add legacyMergeConfigs as option
+  - @verdaccio/core@8.0.0-next-8.15
+  - @verdaccio/config@8.0.0-next-8.15
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - verdaccio-htpasswd@13.0.0-next-8.15
+  - @verdaccio/utils@8.1.0-next-8.15
+  - @verdaccio/signature@8.0.0-next-8.7
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+- Updated dependencies [8f28186]
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+  - @verdaccio/utils@8.1.0-next-8.14
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - verdaccio-htpasswd@13.0.0-next-8.14
+  - @verdaccio/signature@8.0.0-next-8.6
+
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [b3fa5df]
+- Updated dependencies [2eb8cc2]
+- Updated dependencies [e4a1539]
+- Updated dependencies [50f20aa]
+- Updated dependencies [0607e80]
+  - @verdaccio/config@8.0.0-next-8.13
+  - @verdaccio/utils@8.1.0-next-8.13
+  - @verdaccio/core@8.0.0-next-8.13
+  - verdaccio-htpasswd@13.0.0-next-8.13
+  - @verdaccio/signature@8.0.0-next-8.5
+  - @verdaccio/loaders@8.0.0-next-8.5
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

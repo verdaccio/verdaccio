@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import globby from 'globby';
 import { join } from 'path';
 
-import { searchUtils, validatioUtils } from '@verdaccio/core';
+import { searchUtils, validationUtils } from '@verdaccio/core';
 
 const debug = buildDebug('verdaccio:plugin:local-storage:utils');
 
@@ -12,14 +12,13 @@ const debug = buildDebug('verdaccio:plugin:local-storage:utils');
  * @return a promise that resolves to an array of absolute paths
  */
 export async function getFolders(storagePath: string, pattern = '*'): Promise<string[]> {
-  // @ts-ignore - check why this fails, types are correct
   const files = await globby(pattern, {
     // @ts-ignore
     cwd: storagePath,
     expandDirectories: true,
     onlyDirectories: true,
     onlyFiles: false,
-    // should not go deeper than the storage path (10 is reseaon for the storage))
+    // should not go deeper than the storage path (10 is reasonable for the storage)
     deep: 10,
     dot: false,
     followSymbolicLinks: true,
@@ -73,7 +72,7 @@ export async function searchOnStorage(
   );
 
   for (let store of basePathFolders) {
-    if (validatioUtils.isPackageNameScoped(store)) {
+    if (validationUtils.isPackageNameScoped(store)) {
       const scopedPackages = await getFolders(join(storagePath, store), '*');
       const listScoped = scopedPackages.map((scoped) => ({
         name: `${store}/${scoped}`,
@@ -91,7 +90,7 @@ export async function searchOnStorage(
   for (const store of storageFolders) {
     const foldersOnStorage = await getFolders(join(storagePath, store), '*');
     for (let pkgName of foldersOnStorage) {
-      if (validatioUtils.isPackageNameScoped(pkgName)) {
+      if (validationUtils.isPackageNameScoped(pkgName)) {
         const scopedPackages = await getFolders(join(storagePath, store, pkgName), '*');
         const listScoped = scopedPackages.map((scoped) => ({
           name: `${pkgName}/${scoped}`,
