@@ -1,5 +1,12 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.8
+
+### Patch Changes
+
+- 2bcd3ca: chore(config): harmonize configuration options
+- 209a650: chore: fix ui-component npmignore and readme
+
 ## 4.0.0-next-8.7
 
 ### Patch Changes

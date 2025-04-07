@@ -60,7 +60,8 @@
     "@verdaccio/e2e-cli-pnpm-common": "1.0.2-next-8.0",
     "@verdaccio/e2e-cli-pnpm10": "1.0.0",
     "docusaurus-plugin-downloads": "2.0.0",
-    "@verdaccio/local-publish": "0.0.2"
+    "@verdaccio/local-publish": "0.0.2",
+    "@verdaccio/e2e-cli-npm10": "1.0.1"
   },
   "changesets": [
     "angry-doors-tan",
@@ -79,11 +80,14 @@
     "curvy-rockets-camp",
     "cyan-snakes-kiss",
     "early-eyes-float",
+    "early-trainers-grin",
     "eight-countries-think",
     "eighty-apes-think",
     "eleven-rocks-dream",
+    "few-ears-deny",
     "fifty-falcons-design",
     "forty-hounds-matter",
+    "fresh-owls-hunt",
     "funny-fireants-tan",
     "gentle-stingrays-repeat",
     "gold-files-speak",
@@ -92,15 +96,19 @@
     "healthy-ducks-drive",
     "healthy-zoos-lie",
     "hip-eggs-serve",
+    "hip-suns-jam",
     "hot-crews-live",
     "itchy-glasses-end",
+    "large-turkeys-change",
     "long-eyes-drum",
     "long-singers-drive",
     "lucky-crabs-enjoy",
+    "nasty-experts-bow",
     "nice-garlics-tie",
     "nine-countries-remember",
     "ninety-geese-do",
     "ninety-hotels-dance",
+    "odd-fishes-cry",
     "old-clocks-destroy",
     "pink-jeans-lick",
     "popular-trees-grin",
@@ -127,6 +135,7 @@
     "stupid-camels-build",
     "sweet-crabs-deliver",
     "ten-jeans-approve",
+    "tender-buckets-smoke",
     "thirty-comics-trade",
     "tricky-impalas-shake",
     "tricky-knives-end",
@@ -135,6 +144,7 @@
     "violet-bobcats-allow",
     "violet-boxes-float",
     "weak-cherries-serve",
-    "wet-cats-behave"
+    "wet-cats-behave",
+    "yellow-flies-sniff"
   ]
 }

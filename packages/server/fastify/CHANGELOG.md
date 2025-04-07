@@ -1,5 +1,34 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- Updated dependencies [1f25d5f]
+  - @verdaccio/auth@8.0.0-next-8.15
+  - @verdaccio/core@8.0.0-next-8.15
+  - @verdaccio/config@8.0.0-next-8.15
+  - @verdaccio/tarball@13.0.0-next-8.15
+  - @verdaccio/store@8.0.0-next-8.15
+  - @verdaccio/utils@8.1.0-next-8.15
+  - @verdaccio/logger@8.0.0-next-8.15
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- b9fea38: chore: cleanup utils
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+- Updated dependencies [8f28186]
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+  - @verdaccio/store@8.0.0-next-8.14
+  - @verdaccio/utils@8.1.0-next-8.14
+  - @verdaccio/auth@8.0.0-next-8.14
+  - @verdaccio/tarball@13.0.0-next-8.14
+  - @verdaccio/logger@8.0.0-next-8.14
+
 ## 8.0.0-next-8.13
 
 ### Patch Changes

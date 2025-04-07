@@ -1,5 +1,22 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.15
+- @verdaccio/utils@8.1.0-next-8.15
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- b9fea38: chore: cleanup utils
+- bb478f2: chore: expose config utils
+- Updated dependencies [b9fea38]
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/utils@8.1.0-next-8.14
+
 ## 8.0.0-next-8.13
 
 ### Patch Changes

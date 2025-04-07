@@ -1,5 +1,25 @@
 # @verdaccio/cli
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.15
+- @verdaccio/core@8.0.0-next-8.15
+- @verdaccio/config@8.0.0-next-8.15
+- @verdaccio/logger@8.0.0-next-8.15
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+  - @verdaccio/node-api@8.0.0-next-8.14
+  - @verdaccio/logger@8.0.0-next-8.14
+
 ## 8.0.0-next-8.13
 
 ### Patch Changes

@@ -78,7 +78,7 @@ export type FlagsConfig = {
   webLogin?: boolean;
 };
 
-export type PackageManagers = 'pnpm' | 'yarn' | 'npm';
+export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;
 
 // FUTURE: WebConf and TemplateUIOptions should be merged .
 export type CommonWebConf = {
@@ -102,7 +102,7 @@ export type CommonWebConf = {
   showDownloadTarball?: boolean;
   showUplinks?: boolean;
   hideDeprecatedVersions?: boolean;
-  primaryColor: string;
+  primaryColor?: string;
   showRaw?: boolean;
 };
 
@@ -117,7 +117,7 @@ export type TemplateUIOptions = {
   basename?: string;
   base: string;
   version?: string;
-  flags: FlagsConfig;
+  flags?: FlagsConfig;
 } & CommonWebConf;
 
 /**
@@ -127,10 +127,14 @@ export type WebConf = {
   // @deprecated use primaryColor
   primary_color?: string;
   primaryColor?: string;
+  // @deprecated use enabled
   enable?: boolean;
+  enabled?: boolean;
   scriptsHead?: string[];
   scriptsBodyAfter?: string[];
+  // @deprecated use scriptsBodyBefore
   scriptsbodyBefore?: string[];
+  scriptsBodyBefore?: string[];
   metaScripts?: string[];
   bodyBefore?: string[];
   bodyAfter?: string[];

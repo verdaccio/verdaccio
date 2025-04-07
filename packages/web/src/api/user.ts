@@ -10,7 +10,7 @@ import {
   HTTP_STATUS,
   VerdaccioError,
   errorUtils,
-  validatioUtils,
+  validationUtils,
 } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { WebUrls } from '@verdaccio/middleware';
@@ -67,7 +67,7 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
         const { name } = req.remote_user;
 
         if (
-          validatioUtils.validatePassword(
+          validationUtils.validatePassword(
             password.new,
             config?.serverSettings?.passwordValidationRegex
           ) === false

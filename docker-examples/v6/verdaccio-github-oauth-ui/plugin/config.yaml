@@ -1,0 +1,34 @@
+storage: /verdaccio/storage
+
+middlewares:
+  github-oauth-ui:
+    enabled: true
+
+auth:
+  # READ HERE https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/main/docs/configuration.md
+  github-oauth-ui:
+    client-id: take_this_from_github
+    client-secret: take_this_from_github
+    token: my_github_token
+
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $all
+    proxy: npmjs
+  jquery:
+    # Limit access to users:
+    access: github/user/GITHUB_USER
+  '**':
+    access: $all
+    publish: $all
+    proxy: npmjs
+
+log: { type: stdout, format: pretty, level: trace }
+
+listen:
+  - 0.0.0.0:4873

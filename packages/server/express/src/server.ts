@@ -22,7 +22,7 @@ import {
 import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
 import { Config as IConfig } from '@verdaccio/types';
-import webMiddleware from '@verdaccio/web';
+import webMiddleware, { PLUGIN_UI_PREFIX } from '@verdaccio/web';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types/custom';
 import hookDebug from './debug';
@@ -73,7 +73,8 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     function (plugin) {
       return typeof plugin.register_middlewares !== 'undefined';
     },
-    config?.serverSettings?.pluginPrefix ?? 'verdaccio',
+    false,
+    config?.serverSettings?.pluginPrefix ?? PLUGIN_UI_PREFIX,
     PLUGIN_CATEGORY.MIDDLEWARE
   );
 
@@ -98,7 +99,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API
-  if (_.get(config, 'web.enable', true)) {
+  if (_.get(config, 'web.enabled', _.get(config, 'web.enable', true))) {
     app.use((_req, res, next) => {
       res.locals.app_version = version ?? '';
       next();

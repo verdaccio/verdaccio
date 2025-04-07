@@ -2,7 +2,7 @@ import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { APP_ERROR, warningUtils } from '@verdaccio/core';
+import { APP_ERROR, validationUtils, warningUtils } from '@verdaccio/core';
 import { Codes } from '@verdaccio/core/build/warning-utils';
 import {
   Config as AppConfig,
@@ -15,7 +15,7 @@ import {
   Security,
   ServerSettingsConf,
 } from '@verdaccio/types';
-import { generateRandomHexString, getMatchedPackagesSpec, isObject } from '@verdaccio/utils';
+import { generateRandomHexString, getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { getUserAgent } from './agent';
 import { normalisePackageAccess } from './package-access';
@@ -125,7 +125,7 @@ class Config implements AppConfig {
     this.userRateLimit = { ...defaultUserRateLimiting, ...config?.userRateLimit };
 
     // some weird shell scripts are valid yaml files parsed as string
-    assert(_.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
+    assert(validationUtils.isObject(config), APP_ERROR.CONFIG_NOT_VALID);
 
     // sanity check for strategic config properties
     strategicConfigProps.forEach(function (x): void {
@@ -133,7 +133,7 @@ class Config implements AppConfig {
         self[x] = {};
       }
 
-      assert(isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
+      assert(validationUtils.isObject(self[x]), `CONFIG: bad "${x}" value (object expected)`);
     });
 
     this.uplinks = sanityCheckUplinksProps(uplinkSanityCheck(this.uplinks));

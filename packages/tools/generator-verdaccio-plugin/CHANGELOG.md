@@ -1,5 +1,21 @@
 # generator-verdaccio-plugin
 
+## 6.0.0-next-8.15
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.15
+- @verdaccio/config@8.0.0-next-8.15
+
+## 6.0.0-next-8.14
+
+### Patch Changes
+
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+
 ## 6.0.0-next-8.13
 
 ### Patch Changes

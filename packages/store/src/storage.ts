@@ -22,7 +22,7 @@ import {
   pluginUtils,
   searchUtils,
   tarballUtils,
-  validatioUtils,
+  validationUtils,
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import {
@@ -58,7 +58,7 @@ import {
   UnPublishManifest,
   Version,
 } from '@verdaccio/types';
-import { createTarballHash, isObject, normalizeContributors } from '@verdaccio/utils';
+import { createTarballHash, normalizeContributors } from '@verdaccio/utils';
 
 import {
   PublishOptions,
@@ -123,8 +123,8 @@ class Storage {
     debug('change existing package for package %o revision %o', name, revision);
     debug(`change manifest tags for %o revision %o`, name, revision);
     if (
-      !validatioUtils.isObject(metadata.versions) ||
-      !validatioUtils.isObject(metadata[DIST_TAGS])
+      !validationUtils.isObject(metadata.versions) ||
+      !validationUtils.isObject(metadata[DIST_TAGS])
     ) {
       debug(`change manifest bad data for %o`, name);
       throw errorUtils.getBadData();
@@ -192,7 +192,7 @@ class Storage {
     username: string
   ): Promise<Manifest> {
     debug('remove tarball %s for %s', filename, name);
-    assert(validatioUtils.validateName(filename));
+    assert(validationUtils.validateName(filename));
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
     if (!storage) {
       debug(`method not implemented for storage`);
@@ -686,6 +686,7 @@ class Storage {
         (plugin: pluginUtils.ManifestFilter<Config>) => {
           return typeof plugin.filter_metadata !== 'undefined';
         },
+        false,
         this.config?.serverSettings?.pluginPrefix,
         PLUGIN_CATEGORY.FILTER
       );
@@ -716,7 +717,7 @@ class Storage {
     filename: string,
     { signal }: { signal: AbortSignal }
   ): Promise<Readable> {
-    assert(validatioUtils.validateName(filename));
+    assert(validationUtils.validateName(filename));
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(pkgName);
     if (typeof storage === 'undefined') {
       return this.createFailureStreamResponseNext();
@@ -942,7 +943,7 @@ class Storage {
       });
     } else if (
       isPublishablePackage(manifest as Manifest) === false &&
-      validatioUtils.isObject((manifest as StarManifestBody).users)
+      validationUtils.isObject((manifest as StarManifestBody).users)
     ) {
       debug('update manifest star');
       // if user request to apply a star to the manifest
@@ -960,7 +961,7 @@ class Storage {
         ...options,
       });
       return API_MESSAGE.PKG_CHANGED;
-    } else if (validatioUtils.validatePublishSingleVersion(manifest)) {
+    } else if (validationUtils.validatePublishSingleVersion(manifest)) {
       // if continue, the version to be published does not exist
       // we create a new package
       debug('publish a new version');
@@ -979,7 +980,7 @@ class Storage {
         this.logger.error({ err }, 'notify batch service has failed: @{err.message}');
       }
       return message;
-    } else if (validatioUtils.validateUnPublishSingleVersion(manifest)) {
+    } else if (validationUtils.validateUnPublishSingleVersion(manifest)) {
       debug('unpublish a version');
 
       await this.unPublishAPackage(manifest as UnPublishManifest, {
@@ -1154,7 +1155,7 @@ class Storage {
     const username = options.requestOptions.username;
     debug('publishing a new package for %o as %o', name, username);
     let successResponseMessage;
-    const manifest: Manifest = { ...validatioUtils.normalizeMetadata(body, name) };
+    const manifest: Manifest = { ...validationUtils.normalizeMetadata(body, name) };
     const { _attachments, versions } = manifest;
 
     // validation step, if _attachments is not an object throw error
@@ -1317,7 +1318,7 @@ class Storage {
     { signal }
   ): Promise<PassThrough> {
     debug(`add a tarball for %o`, pkgName);
-    assert(validatioUtils.validateName(filename));
+    assert(validationUtils.validateName(filename));
 
     const shaOneHash = createTarballHash();
     const transformHash = new Transform({
@@ -1432,9 +1433,9 @@ class Storage {
 
       // if uploaded tarball has a different shasum, it's very likely that we
       // have some kind of error
-      if (validatioUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
+      if (validationUtils.isObject(metadata.dist) && _.isString(metadata.dist.tarball)) {
         const tarball = tarballUtils.extractTarballFromUrl(metadata.dist.tarball);
-        if (validatioUtils.isObject(data._attachments[tarball])) {
+        if (validationUtils.isObject(data._attachments[tarball])) {
           if (
             _.isNil(data._attachments[tarball].shasum) === false &&
             _.isNil(metadata.dist.shasum) === false
@@ -1712,7 +1713,7 @@ class Storage {
       proxy: npmjs
 
     A package requires uplinks syncronization if the proxy section is defined. There can be
-    more than one uplink. The more uplinks are defined, the longer the request will take. 
+    more than one uplink. The more uplinks are defined, the longer the request will take.
     The requests are made in serial and if 1st call fails, the second will be triggered, otherwise
     the 1st will reply and others will be discarded. The order is important.
 
@@ -1820,7 +1821,7 @@ class Storage {
     const upLinkMeta = cachedManifest._uplinks[uplink.uplinkName];
     let _cacheManifest = { ...cachedManifest };
 
-    if (validatioUtils.isObject(upLinkMeta)) {
+    if (validationUtils.isObject(upLinkMeta)) {
       const fetched = upLinkMeta.fetched;
 
       // we check the uplink cache is fresh
@@ -1841,7 +1842,7 @@ class Storage {
     );
 
     try {
-      _cacheManifest = validatioUtils.normalizeMetadata(_cacheManifest, _cacheManifest.name);
+      _cacheManifest = validationUtils.normalizeMetadata(_cacheManifest, _cacheManifest.name);
     } catch (err: any) {
       this.logger.error({ err }, 'package.json validating error @{!err?.message}\n@{err.stack}');
       throw err;
@@ -2022,7 +2023,7 @@ class Storage {
     for (const up in remoteManifest._uplinks) {
       if (Object.prototype.hasOwnProperty.call(remoteManifest._uplinks, up)) {
         const need_change =
-          !isObject(cacheManifest._uplinks[up]) ||
+          !validationUtils.isObject(cacheManifest._uplinks[up]) ||
           remoteManifest._uplinks[up].etag !== cacheManifest._uplinks[up].etag ||
           remoteManifest._uplinks[up].fetched !== cacheManifest._uplinks[up].fetched;
 

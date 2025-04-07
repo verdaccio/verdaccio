@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+
 ## 8.0.0-next-8.5
 
 ### Patch Changes
