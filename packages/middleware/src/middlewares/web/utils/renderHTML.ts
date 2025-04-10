@@ -9,6 +9,7 @@ import { HEADERS } from '@verdaccio/core';
 import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
+import { stringToMD5 } from '@verdaccio/utils';
 
 import type { Manifest } from './manifest';
 import renderTemplate from './template';
@@ -132,8 +133,10 @@ export default function renderHTML(
 
   let webPage;
 
+  let cacheKey = `template:${stringToMD5(JSON.stringify(options))}`;
+
   try {
-    webPage = cache.get('template');
+    webPage = cache.get(cacheKey);
     if (!webPage) {
       webPage = renderTemplate(
         {
@@ -147,7 +150,7 @@ export default function renderHTML(
       );
 
       if (needHtmlCache) {
-        cache.set('template', webPage);
+        cache.set(cacheKey, webPage);
         debug('set template cache');
       }
     } else {
