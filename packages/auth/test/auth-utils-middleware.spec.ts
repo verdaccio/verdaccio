@@ -17,7 +17,7 @@ import { buildToken, buildUserBuffer } from '@verdaccio/utils';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
 
-setup({});
+await setup({});
 
 const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);
