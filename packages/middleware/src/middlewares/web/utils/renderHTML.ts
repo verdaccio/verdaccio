@@ -133,17 +133,7 @@ export default function renderHTML(
 
   let webPage;
 
-  let cacheKey =
-    'template:' +
-    stringToMD5(
-      JSON.stringify({
-        // render options derived from requestOptions
-        base,
-        favicon,
-        logo,
-        logoDark,
-      })
-    );
+  let cacheKey = `template:${stringToMD5(JSON.stringify(options))}`;
 
   try {
     webPage = cache.get(cacheKey);
