@@ -9,7 +9,6 @@ import { HEADERS } from '@verdaccio/core';
 import { ConfigYaml, TemplateUIOptions } from '@verdaccio/types';
 import type { RequestOptions } from '@verdaccio/url';
 import { getPublicUrl, isURLhasValidProtocol } from '@verdaccio/url';
-import { stringToMD5 } from '@verdaccio/utils';
 
 import type { Manifest } from './manifest';
 import renderTemplate from './template';
@@ -133,7 +132,7 @@ export default function renderHTML(
 
   let webPage;
 
-  let cacheKey = `template:${stringToMD5(JSON.stringify(options))}`;
+  let cacheKey = `template:${JSON.stringify(options)}`;
 
   try {
     webPage = cache.get(cacheKey);
