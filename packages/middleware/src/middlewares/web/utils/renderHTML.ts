@@ -132,8 +132,10 @@ export default function renderHTML(
 
   let webPage;
 
+  let cacheKey = `template:${JSON.stringify(options)}`;
+
   try {
-    webPage = cache.get('template');
+    webPage = cache.get(cacheKey);
     if (!webPage) {
       webPage = renderTemplate(
         {
@@ -147,7 +149,7 @@ export default function renderHTML(
       );
 
       if (needHtmlCache) {
-        cache.set('template', webPage);
+        cache.set(cacheKey, webPage);
         debug('set template cache');
       }
     } else {
