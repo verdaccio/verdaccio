@@ -32,9 +32,6 @@ export default function (
       const sessionId = randomUUID();
       debug('creating login session %o', sessionId);
 
-      // FIXME: if we migrate to req.hostname, the port is not longer included.
-      const host = req.host;
-
       await storage.saveToken({
         user: sessionId,
         token: '',
@@ -45,9 +42,19 @@ export default function (
 
       res.status(HTTP_STATUS.OK);
 
+      // Assuming Web UI is running on the same address as API
+      const protocol = req.protocol;
+      const host = req.hostname;
+      const port = req.socket.localPort;
+
+      const loginUrl = `${protocol}://${host}:${port}/-/web/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`;
+      const doneUrl = `${protocol}://${host}:${port}${LOGIN_API_ENDPOINTS.login_done}/${sessionId}`;
+      debug('loginUrl: %o', loginUrl);
+      debug('doneUrl: %o', doneUrl);
+
       res.json({
-        loginUrl: `${host}/-/web/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`,
-        doneUrl: `${host}${LOGIN_API_ENDPOINTS.login_done}/${sessionId}`,
+        loginUrl,
+        doneUrl,
       });
     }
   );
