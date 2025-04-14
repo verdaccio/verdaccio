@@ -19,7 +19,7 @@ describe('login', () => {
     expect(response.status).toBe(HTTP_STATUS.OK);
     expect(response.headers['content-type']).toBe(HEADERS.JSON_CHARSET);
     expect(response.body).toEqual({
-      loginUrl: expect.stringContaining('/-/web/login?next=/-/v1/login/cli/'),
+      loginUrl: expect.stringContaining('/-/web/login?next=/-/v1/login_cli/'),
       doneUrl: expect.stringContaining('/-/v1/done/'),
     });
 
@@ -44,7 +44,7 @@ describe('login', () => {
     const sessionId = response.body.doneUrl.split('/-/v1/done/')[1];
 
     const response2 = await supertest(app)
-      .post(`/-/v1/login/cli/${sessionId}`)
+      .post(`/-/v1/login_cli/${sessionId}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
       .send(
@@ -78,7 +78,7 @@ describe('login', () => {
     const sessionId = response.body.doneUrl.split('/-/v1/done/')[1];
 
     const response2 = await supertest(app)
-      .post(`/-/v1/login/cli/${sessionId}`)
+      .post(`/-/v1/login_cli/${sessionId}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
       .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
       .send(
