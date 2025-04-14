@@ -19,7 +19,7 @@ describe('login', () => {
     expect(response.status).toBe(HTTP_STATUS.OK);
     expect(response.headers['content-type']).toBe(HEADERS.JSON_CHARSET);
     expect(response.body).toEqual({
-      loginUrl: expect.stringContaining('/login?next=/-/v1/login/cli/'),
+      loginUrl: expect.stringContaining('/-web/login?next=/-/v1/login/cli/'),
       doneUrl: expect.stringContaining('/-/v1/done/'),
     });
 
