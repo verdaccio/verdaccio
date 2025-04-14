@@ -46,7 +46,7 @@ export default function (
       res.status(HTTP_STATUS.OK);
 
       res.json({
-        loginUrl: `${host}/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`,
+        loginUrl: `${host}/-/web/login?next=${LOGIN_API_ENDPOINTS.login_cli}/${sessionId}`,
         doneUrl: `${host}${LOGIN_API_ENDPOINTS.login_done}/${sessionId}`,
       });
     }
