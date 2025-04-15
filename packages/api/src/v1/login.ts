@@ -37,7 +37,7 @@ export default function (
         token: '',
         key: WEB_LOGIN_SESSION_ID,
         readonly: false,
-        created: new Date().toISOString(),
+        created: new Date().getTime(),
       });
 
       res.status(HTTP_STATUS.OK);
@@ -89,10 +89,10 @@ export default function (
             await storage.deleteToken(sessionId, tokens[0].key);
 
             // Check if token has expired
-            // TODO: make this configurable (default 5 min)
+            // TODO: make this configurable (default 2 minutes)
             const tokenCreatedDate = new Date(tokens[0].created);
-            const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-            if (tokenCreatedDate < fiveMinutesAgo) {
+            const minutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+            if (tokenCreatedDate < minutesAgo) {
               debug('session token expired');
               return next(errorUtils.getUnauthorized(API_ERROR.SESSION_TOKEN_EXPIRED));
             }
@@ -153,14 +153,14 @@ export default function (
             token,
             key: WEB_LOGIN_SESSION_ID,
             readonly: false,
-            created: new Date().toISOString(),
+            created: new Date().getTime(),
           });
 
           const message = getAuthenticatedMessage(remoteUser.name ?? '');
 
           res.status(HTTP_STATUS.CREATED);
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
-          res.json({ ok: message });
+          res.json({ ok: message, token });
         }
       );
     }

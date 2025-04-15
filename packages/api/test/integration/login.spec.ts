@@ -57,7 +57,8 @@ describe('login', () => {
     expect(response2.status).toBe(HTTP_STATUS.CREATED);
     expect(response2.headers['content-type']).toBe(HEADERS.JSON_CHARSET);
     expect(response2.body).toEqual({
-      ok: expect.any(String),
+      ok: `you are authenticated as '${username}'`,
+      token: expect.any(String),
     });
   });
 
