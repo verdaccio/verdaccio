@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  localstack-s3:
+    container_name: '${LOCALSTACK_DOCKER_NAME-localstack-main}'
+    image: localstack/localstack:s3-latest
+    ports:
+      - '127.0.0.1:4566:4566'
+    volumes:
+      - './init-s3.py:/etc/localstack/init/ready.d/init-s3.py'
+  verdaccio:
+    container_name: verdaccio-s3-plugin
+    build: s3Plugin/
+    environment:
+      - DEBUG=verdaccio:*
+      - AWS_ACCESS_KEY_ID=foobar
+      - AWS_SECRET_ACCESS_KEY=foobar
+      - AWS_DEFAULT_REGION=eu-west-2
+      - AWS_S3_ENDPOINT=http://localstack-s3:4566
+      - AWS_S3_PATH_STYLE=true
+    ports:
+      - '4874:4873'
+    depends_on:
+      - localstack-s3
+    networks:
+      - default
+networks:
+  default:
+    name: verdaccio-network

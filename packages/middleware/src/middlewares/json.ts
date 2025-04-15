@@ -1,5 +1,4 @@
-import { errorUtils } from '@verdaccio/core';
-import { isObject } from '@verdaccio/utils';
+import { errorUtils, validationUtils } from '@verdaccio/core';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
@@ -8,7 +7,7 @@ export function expectJson(
   res: $ResponseExtend,
   next: $NextFunctionVer
 ): void {
-  if (!isObject(req.body)) {
+  if (!validationUtils.isObject(req.body)) {
     return next(errorUtils.getBadRequest("can't parse incoming json"));
   }
   next();

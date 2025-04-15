@@ -20,7 +20,7 @@ export function allow<T>(
     return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       req.pause();
       const packageName = req.params.scope
-        ? `@${req.params.scope}/${req.params.package}`
+        ? `${req.params.scope}/${req.params.package}`
         : req.params.package;
       const packageVersion = req.params.filename
         ? tarballUtils.getVersionFromTarball(req.params.filename)

@@ -1,5 +1,28 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.8
+
+### Patch Changes
+
+- 2bcd3ca: chore(config): harmonize configuration options
+- 209a650: chore: fix ui-component npmignore and readme
+
+## 4.0.0-next-8.7
+
+### Patch Changes
+
+- ef6864c: chore(deps): update webpack-dev-server to v5
+- 3763df1: fix(ui): start storybook on windows
+- c81bd75: chore(ui): update react-json-view
+- 99f6e11: chore(ui): flags import and minor updates
+- e4a1539: chore: package.json maintenance
+- 4933663: fix(ui): format date distance test
+- 0607e80: chore: update readme badges and license files
+- c1faf6d: chore(ui): reduce build size
+- Updated dependencies [e4a1539]
+- Updated dependencies [dbe6a76]
+  - @verdaccio/ui-i18n@8.0.0-next-8.12
+
 ## 4.0.0-next-8.6
 
 ### Patch Changes

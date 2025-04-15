@@ -27,9 +27,9 @@ describe('Utilities', () => {
     });
     test('should check author field for other value', () => {
       expect(formatAuthor(null).name).toEqual(DEFAULT_USER);
-      // @ts-expected-error
+      // @ts-expect-error
       expect(formatAuthor({}).name).toEqual(DEFAULT_USER);
-      // @ts-expected-error
+      // @ts-expect-error
       expect(formatAuthor([]).name).toEqual(DEFAULT_USER);
     });
   });

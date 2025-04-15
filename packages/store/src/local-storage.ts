@@ -80,6 +80,7 @@ class LocalStorage {
       (plugin) => {
         return typeof plugin.getPackageStorage !== 'undefined';
       },
+      false,
       this.config?.serverSettings?.pluginPrefix,
       PLUGIN_CATEGORY.STORAGE
     );

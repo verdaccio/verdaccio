@@ -1,5 +1,19 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 50f20aa: chore: debug messages in loader
+- 0607e80: chore: update readme badges and license files
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
-.storybook
-public/
-vitest
-__partials__
-__snapshots__
-*.map
+/*
+!/bin/**/*
+!/build/**/*
+!index.js
+!LICENSE
+!README.md

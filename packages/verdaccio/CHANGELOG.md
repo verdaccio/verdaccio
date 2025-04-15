@@ -1,5 +1,53 @@
 # verdaccio
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- @verdaccio/hooks@8.0.0-next-8.15
+- verdaccio-audit@13.0.0-next-8.15
+- @verdaccio/node-api@8.0.0-next-8.15
+- @verdaccio/cli@8.0.0-next-8.15
+- @verdaccio/ui-theme@8.0.0-next-8.15
+- verdaccio-htpasswd@13.0.0-next-8.15
+- @verdaccio/utils@8.1.0-next-8.15
+- @verdaccio/logger@8.0.0-next-8.15
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- Updated dependencies [b9fea38]
+  - @verdaccio/utils@8.1.0-next-8.14
+  - @verdaccio/node-api@8.0.0-next-8.14
+  - @verdaccio/cli@8.0.0-next-8.14
+  - @verdaccio/hooks@8.0.0-next-8.14
+  - verdaccio-audit@13.0.0-next-8.14
+  - verdaccio-htpasswd@13.0.0-next-8.14
+  - @verdaccio/logger@8.0.0-next-8.14
+  - @verdaccio/ui-theme@8.0.0-next-8.14
+
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [ef6864c]
+- Updated dependencies [c81bd75]
+- Updated dependencies [b3fa5df]
+- Updated dependencies [99f6e11]
+- Updated dependencies [e4a1539]
+- Updated dependencies [0607e80]
+  - @verdaccio/ui-theme@8.0.0-next-8.13
+  - @verdaccio/utils@8.1.0-next-8.13
+  - verdaccio-htpasswd@13.0.0-next-8.13
+  - @verdaccio/logger@8.0.0-next-8.13
+  - @verdaccio/node-api@8.0.0-next-8.13
+  - @verdaccio/hooks@8.0.0-next-8.13
+  - @verdaccio/cli@8.0.0-next-8.13
+  - verdaccio-audit@13.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

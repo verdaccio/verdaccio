@@ -1,5 +1,69 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.15
+
+### Patch Changes
+
+- Updated dependencies [1f25d5f]
+  - @verdaccio/auth@8.0.0-next-8.15
+  - @verdaccio/api@8.1.0-next-8.15
+  - verdaccio-audit@13.0.0-next-8.15
+  - @verdaccio/web@8.1.0-next-8.15
+  - @verdaccio/core@8.0.0-next-8.15
+  - @verdaccio/config@8.0.0-next-8.15
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - @verdaccio/middleware@8.0.0-next-8.15
+  - @verdaccio/store@8.0.0-next-8.15
+  - @verdaccio/utils@8.1.0-next-8.15
+  - @verdaccio/logger@8.0.0-next-8.15
+
+## 8.0.0-next-8.14
+
+### Patch Changes
+
+- 2bcd3ca: chore(config): harmonize configuration options
+- 8f28186: fix: add legacyMergeConfigs legacy plugins
+- Updated dependencies [1e2f503]
+- Updated dependencies [b9fea38]
+- Updated dependencies [bb478f2]
+- Updated dependencies [2bcd3ca]
+- Updated dependencies [da1650c]
+- Updated dependencies [8f28186]
+  - @verdaccio/api@8.1.0-next-8.14
+  - @verdaccio/middleware@8.0.0-next-8.14
+  - @verdaccio/core@8.0.0-next-8.14
+  - @verdaccio/config@8.0.0-next-8.14
+  - @verdaccio/store@8.0.0-next-8.14
+  - @verdaccio/utils@8.1.0-next-8.14
+  - @verdaccio/web@8.1.0-next-8.14
+  - @verdaccio/loaders@8.0.0-next-8.6
+  - @verdaccio/auth@8.0.0-next-8.14
+  - verdaccio-audit@13.0.0-next-8.14
+  - @verdaccio/logger@8.0.0-next-8.14
+
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- e4a1539: chore: package.json maintenance
+- 0607e80: chore: update readme badges and license files
+- Updated dependencies [b3fa5df]
+- Updated dependencies [2eb8cc2]
+- Updated dependencies [e4a1539]
+- Updated dependencies [50f20aa]
+- Updated dependencies [0607e80]
+  - @verdaccio/config@8.0.0-next-8.13
+  - @verdaccio/store@8.0.0-next-8.13
+  - @verdaccio/utils@8.1.0-next-8.13
+  - @verdaccio/core@8.0.0-next-8.13
+  - @verdaccio/logger@8.0.0-next-8.13
+  - @verdaccio/middleware@8.0.0-next-8.13
+  - @verdaccio/loaders@8.0.0-next-8.5
+  - @verdaccio/auth@8.0.0-next-8.13
+  - @verdaccio/api@8.1.0-next-8.13
+  - @verdaccio/web@8.1.0-next-8.13
+  - verdaccio-audit@13.0.0-next-8.13
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes

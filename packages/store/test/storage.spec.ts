@@ -41,7 +41,7 @@ import { configExample } from './helpers';
 
 function generateRandomStorage() {
   const tempStorage = pseudoRandomBytes(5).toString('hex');
-  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-test'));
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), '/verdaccio-storage-'));
 
   return path.join(tempRoot, tempStorage);
 }
@@ -1039,7 +1039,7 @@ describe('storage', () => {
             .then((stream) => {
               stream.on('error', (err) => {
                 expect(err).toEqual(errorUtils.getNotFound(API_ERROR.NO_PACKAGE));
-                done();
+                done(true);
               });
             });
         });
@@ -1954,9 +1954,8 @@ describe('storage', () => {
         ).rejects.toThrow(errorUtils.getNotFound());
       });
 
-      // TODO: fix this test, stopped to work from vitest 3.x migration
-      test.skip('should get ETIMEDOUT with uplink', { retry: 3 }, async () => {
-        nock(domain).get('/foo2').replyWithError({
+      test('should get ETIMEDOUT with uplink', { retry: 3 }, async () => {
+        nock(domain).get('/foo3').replyWithError({
           code: 'ETIMEDOUT',
           error: 'ETIMEDOUT',
         });
@@ -1984,7 +1983,7 @@ describe('storage', () => {
         await storage.init(config);
         await expect(
           storage.getPackageByOptions({
-            name: 'foo2',
+            name: 'foo3',
             uplinksLook: true,
             retry: { limit: 0 },
             requestOptions: {
@@ -1993,7 +1992,7 @@ describe('storage', () => {
               host: req.get('host') as string,
             },
           })
-        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.NO_PACKAGE));
+        ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       });
 
       test('should fetch abbreviated version of manifest ', async () => {

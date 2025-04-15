@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { validatioUtils } from '@verdaccio/core';
+import { validationUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { RemoteUser } from '@verdaccio/types';
 import { getAuthenticatedMessage } from '@verdaccio/utils';
@@ -98,7 +98,7 @@ async function userRoute(fastify: FastifyInstance) {
       );
     } else {
       if (
-        validatioUtils.validatePassword(
+        validationUtils.validatePassword(
           password as string,
           fastify.configInstance?.server?.passwordValidationRegex
         ) === false

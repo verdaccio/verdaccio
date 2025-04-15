@@ -159,26 +159,26 @@ describe('Local Database', () => {
 
   describe('Database CRUD', () => {
     test('should add an item to database', async () => {
-      const pgkName = 'jquery';
+      const pkgName = 'jquery';
       const before = await locaDatabase.get();
       expect(before).toHaveLength(0);
 
-      await locaDatabase.add(pgkName);
+      await locaDatabase.add(pkgName);
       const after = await locaDatabase.get();
       expect(after).toHaveLength(1);
     });
 
     test('should remove an item to database', async () => {
-      const pgkName = 'jquery';
-      await locaDatabase.add(pgkName);
-      await locaDatabase.remove(pgkName);
+      const pkgName = 'jquery';
+      await locaDatabase.add(pkgName);
+      await locaDatabase.remove(pkgName);
       const after = await locaDatabase.get();
       expect(after).toHaveLength(0);
     });
 
     test('should do nothing if an item does not exist', async () => {
-      const pgkName = 'jquery';
-      await locaDatabase.add(pgkName);
+      const pkgName = 'jquery';
+      await locaDatabase.add(pkgName);
       await expect(locaDatabase.remove('other-package')).resolves.not.toThrow();
       const after = await locaDatabase.get();
       expect(after).toHaveLength(1);

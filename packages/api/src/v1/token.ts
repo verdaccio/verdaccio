@@ -14,12 +14,15 @@ import { mask, stringToMD5 } from '@verdaccio/utils';
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
 export type NormalizeToken = Token & {
+  cidr_whitelist: string[];
   created: string;
 };
 
+// npm expects "cidr_whitelist" for token list
 function normalizeToken(token: Token): NormalizeToken {
   return {
     ...token,
+    cidr_whitelist: token.cidr || [],
     created: new Date(token.created).toISOString(),
   };
 }
