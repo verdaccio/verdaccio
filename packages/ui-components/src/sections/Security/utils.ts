@@ -12,16 +12,14 @@ export function getSecurityUrlParams(location: any): SecurityUrlParams {
 
   // Get next parameter to match v1 URLs
   let next = queryParams.get('next') || '';
-  if (next.length > 0) {
-    const nextRegex = new RegExp(`^${Route.LOGIN_API.replace(/\//g, '\\/')}/[-0-9a-f]{36}$`);
-    if (!nextRegex.test(next)) next = '';
+  if (next.length > 0 && (!next.startsWith(Route.LOGIN_API) || !next.match(/\/[-0-9a-f]{36}$/))) {
+    next = '';
   }
 
   // Ignore user parameter if it does not match expected format (prevent XSS attacks)
   let user = queryParams.get('user') || '';
-  if (user.length > 0) {
-    const userRegex = /^[a-zA-Z0-9-_]*$/;
-    if (!userRegex.test(user)) user = '';
+  if (user.length > 0 && !user.match(/^[a-zA-Z0-9-_]{1,255}$/)) {
+    user = '';
   }
 
   return { next, user };
