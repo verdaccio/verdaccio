@@ -93,7 +93,8 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     config.web.logoDark = logoDark;
   }
 
-  router.get(WebUrlsNamespace.web + ':section/*', function (req, res) {
+  // Handle all web routes including security routes
+  router.get(WebUrlsNamespace.web + '*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });

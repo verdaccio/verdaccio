@@ -12,10 +12,11 @@ import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 type Props = {
   // TODO: set correct type here
   HeaderInfoDialog?: any;
+  isPlainHeader?: boolean;
 };
 
 /* eslint-disable react/jsx-no-bind*/
-const Header: React.FC<Props> = ({ HeaderInfoDialog }) => {
+const Header: React.FC<Props> = ({ HeaderInfoDialog, isPlainHeader }) => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
@@ -28,6 +29,29 @@ const Header: React.FC<Props> = ({ HeaderInfoDialog }) => {
     dispatch.login.logOutUser();
     setShowLoginModal(false);
   };
+  if (isPlainHeader) {
+    // Header with logo and nothing else
+    return (
+      <NavBar data-testid="header" position="static">
+        <InnerNavBar>
+          <HeaderLeft showSearch={false} />
+          <HeaderRight
+            hasLogin={false}
+            onLogout={() => {}}
+            onOpenRegistryInfoDialog={() => {}}
+            onOpenSettingsDialog={() => {}}
+            onToggleLogin={() => {}}
+            onToggleMobileNav={() => {}}
+            showInfo={false}
+            showSearch={false}
+            showSettings={false}
+            showThemeSwitch={false}
+            username={''}
+          />
+        </InnerNavBar>
+      </NavBar>
+    );
+  }
   return (
     <>
       <NavBar data-testid="header" position="static">
