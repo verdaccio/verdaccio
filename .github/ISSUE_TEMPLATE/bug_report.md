@@ -28,6 +28,7 @@ assignees: ''
 * **package manager**: [npm@10.x.x, pnpm@10.x.x, yarn@2.x.x]
 * **os**: [mac, windows@11, linux]
 * **platform**: [node, docker, helm, other]
+* **reverse proxy**: [yes, no]
 
 **Describe the bug**
 
