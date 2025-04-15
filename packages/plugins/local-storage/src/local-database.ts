@@ -207,7 +207,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
-    const storagePath = path.isAbsolute(packagePath) ? packagePath : this.getStoragePath();
+    const storagePath = this.getStoragePath();
     const packageStoragePath: string = path.join(
       path.resolve(storagePath, packagePath),
       packageName
