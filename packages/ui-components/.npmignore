@@ -4,3 +4,5 @@
 !index.js
 !LICENSE
 !README.md
+/build/**/__snapshots__/*
+/build/**/__partials__/*
