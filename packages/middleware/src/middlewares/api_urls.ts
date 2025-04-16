@@ -43,3 +43,11 @@ export enum TOKEN_API_ENDPOINTS {
   get_tokens = '/-/npm/v1/tokens',
   delete_token = '/-/npm/v1/tokens/token/:tokenKey',
 }
+
+export enum LOGIN_API_ENDPOINTS {
+  login = '/-/v1/login',
+  login_cli = '/-/v1/login_cli',
+  login_cli_session = '/-/v1/login_cli/:sessionId',
+  login_done = '/-/v1/done',
+  login_done_session = '/-/v1/done/:sessionId',
+}

@@ -8,6 +8,7 @@ export enum WebUrls {
   readme_package_version = '/package/readme/:package/:version?',
   packages_all = '/packages',
   user_login = '/login',
+  user_signup = '/signup',
   search = '/search/:anything',
   reset_password = '/reset_password',
 }
