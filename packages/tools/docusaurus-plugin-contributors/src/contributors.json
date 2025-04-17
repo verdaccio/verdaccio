@@ -275,11 +275,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 148,
+      "contributions": 149,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 148
+          "contributions": 149
         }
       ]
     },
@@ -5165,7 +5165,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16833,
+      "stargazers_count": 16837,
       "archived": false
     },
     {
@@ -5192,7 +5192,7 @@
       "full_name": "verdaccio/generator-verdaccio-plugin",
       "html_url": "https://github.com/verdaccio/generator-verdaccio-plugin",
       "description": " 🧩 yeoman verdaccio plugin generator (low maintenance)",
-      "stargazers_count": 12,
+      "stargazers_count": 11,
       "archived": true
     },
     {
