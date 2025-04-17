@@ -25,7 +25,7 @@ import {
   getDefaultPlugins,
 } from '../src';
 
-setup({});
+await setup({});
 
 const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);

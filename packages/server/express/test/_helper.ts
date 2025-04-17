@@ -24,6 +24,6 @@ export const getConf = async (conf) => {
 
 export async function initializeServer(configName): Promise<Application> {
   const config = await getConf(configName);
-  setup(config.log ?? {});
+  await setup(config.log ?? {});
   return apiMiddleware(config);
 }
