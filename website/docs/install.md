@@ -96,7 +96,7 @@ For alternative configurations, please read the [Using a private registry](cli-r
 
 ## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}
 
-If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio.
+If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://linktr.ee/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Co0RwdpEsag?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
