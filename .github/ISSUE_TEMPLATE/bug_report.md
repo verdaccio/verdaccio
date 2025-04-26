@@ -17,24 +17,27 @@ assignees: ''
  - If you are willing to fix it, there is a checkbox at the bottom.
 -->
 
-**Your Environment**
-  <!-- bug below the version 5.x will be closed, see SECURITY.md for more details -->
- * **verdaccio version**: 5.x.x
- * **node version** [12.x.x, 14.x.x]:
- * **package manager**: [npm@7, pnpm@6, yarn@2]
- * **os**: [mac, windows@10, linux]
- * **platform**: [npm, docker, helm, other]
+**Your environment**
+
+<!-- bugs below the version 6.x will be closed, see SECURITY.md and VERSIONS.md for more details -->
+<!-- Please paste the results of running `verdaccio --version` --> 
+* **verdaccio version**: 6.x.x
+
+<!-- Please paste the results of running `verdaccio --info` --> 
+* **node version** [20.x.x, 22.x.x]:
+* **package manager**: [npm@10.x.x, pnpm@10.x.x, yarn@2.x.x]
+* **os**: [mac, windows@11, linux]
+* **platform**: [node, docker, helm, other]
+* **reverse proxy**: [yes, no]
 
 **Describe the bug**
 
 <!-- A clear and concise description of what the bug is. -->
 
-**To Reproduce**
+**Steps to reproduce**
 
 <!-- IMPORTANT:
- - How to reproduce the issue
- - Steps to reproduce the issue
-
+Add step-by-step instructions on how to reproduce the bug.
 Be aware, the lack of reproducible steps the issue might cause your ticket to be closed.
 -->
 
@@ -42,17 +45,14 @@ Be aware, the lack of reproducible steps the issue might cause your ticket to be
 
 <!-- A clear and concise description of what you expected to happen. -->
 
-**Screenshots, server logs, package manager log**
+**Screenshots, Verdaccio server log, package manager log**
 
-<!-- If applicable, add screenshots to help explain your problem.  -->
+<!-- If applicable, add screenshots to help explain your problem. -->
 
-**Configuration File (cat ~/.config/verdaccio/config.yaml)**
+**Configuration file**
 
-<!-- Please be careful do not leak any sensitive information, remove tokens -->
-
-**Environment information**
-
-<!-- Please paste the results of running `verdaccio --info` -->
+<!-- cat ~/.config/verdaccio/config.yaml -->
+<!-- Please be careful do not leak any sensitive information, remove usernames and tokens -->
 
 **Debugging output**
 
@@ -66,6 +66,5 @@ Be aware, the lack of reproducible steps the issue might cause your ticket to be
 - [ ] I'm willing to fix this bug 🥇 
 
 <!--
-
 IMPORTANT: please do not attach external files, all content should be visible from any device.
 -->

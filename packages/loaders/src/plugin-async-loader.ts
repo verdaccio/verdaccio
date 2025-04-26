@@ -11,6 +11,8 @@ const debug = buildDebug('verdaccio:plugin:loader:async');
 
 const { lstat } = fs.promises ? fs.promises : require('fs/promises');
 
+const PLUGIN_PREFIX = 'verdaccio';
+
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);
   return stat.isDirectory();
@@ -53,7 +55,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   pluginOptions: pluginUtils.PluginOptions,
   sanityCheck: (plugin: PluginType<T>) => boolean,
   legacyMergeConfigs: boolean = false,
-  prefix: string = 'verdaccio',
+  prefix: string = PLUGIN_PREFIX,
   pluginCategory: string = ''
 ): Promise<PluginType<T>[]> {
   const logger = pluginOptions?.logger;
