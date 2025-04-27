@@ -7,7 +7,6 @@ interface Props {
 }
 
 const NoItems: React.FC<Props> = ({ text, ...props }) => (
-  // @ts-ignore - Alert does accept children despite the type error
   <Alert severity="info">
     <Typography {...props}>{text}</Typography>
   </Alert>
