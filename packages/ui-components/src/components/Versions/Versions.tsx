@@ -86,6 +86,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
           {hasVersionHistory ? (
             <>
               {hideDeprecatedVersions === true && (
+                // @ts-ignore - Alert does accept children despite the type error
                 <Alert
                   severity="info"
                   sx={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
