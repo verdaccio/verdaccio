@@ -2,4 +2,4 @@
 '@verdaccio/ui-components': patch
 ---
 
-fix(ui): search chips in offline mode
+fix(ui): search chips when `showUplinks: false` 
