@@ -20,7 +20,7 @@ export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
   '&:hover': {
     color: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
   },
-  color: theme.palette.white,
+  color: theme.palette.mode === 'light' ? theme.palette.black : theme.palette.white,
 }));
 
 type ActionType = 'VISIT_HOMEPAGE' | 'OPEN_AN_ISSUE' | 'DOWNLOAD_TARBALL' | 'RAW_DATA';
@@ -66,11 +66,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
       return (
         <Tooltip title={t('action-bar-action.download-tarball') as string}>
           {isLoading ? (
-            <CircularProgress sx={{ marginX: 0 }}>
-              <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
-                <DownloadIcon />
-              </Fab>
-            </CircularProgress>
+            <CircularProgress sx={{ marginX: 0 }} />
           ) : (
             <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
               <DownloadIcon />
