@@ -2,4 +2,4 @@
 '@verdaccio/ui-theme': patch
 ---
 
-chore: theme parameters
+chore(ui): minor app improvements
