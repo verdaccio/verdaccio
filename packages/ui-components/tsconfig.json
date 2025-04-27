@@ -14,6 +14,15 @@
     "types": ["node", "jest", "@testing-library/jest-dom"]
   },
   "include": ["src/**/*"],
+  "exclude": [
+    "**/build",
+    "node_modules",
+    "**/node_modules",
+    "**/coverage",
+    "**/*.spec.ts",
+    "**/__tests__",
+    "**/*.test.ts"
+  ],
   "references": [
     {
       "path": "../core/types"
