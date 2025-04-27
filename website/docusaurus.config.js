@@ -7,7 +7,7 @@ const lgnMapping = {
   'de-DE': 'de',
   'pl-PL': 'pl',
   'cs-CZ': 'cs',
-  // 'ga-IE': 'ga-IE',
+  'ga-IE': 'ga-IE',
   'fr-FR': 'fr',
   'it-IT': 'it',
   'ru-RU': 'ru',
@@ -24,7 +24,6 @@ const { themes } = require('prism-react-renderer');
 const lightTheme = themes.github;
 const darkTheme = themes.dracula;
 
-const isProductionDeployment = process.env.CONTEXT === 'production';
 const filterByProgress = (items) => {
   const originLng = Object.keys(translations);
   return items.filter((lgn) => {
@@ -37,8 +36,6 @@ const filterByProgress = (items) => {
       return false;
     }
 
-    // console.log('_lgn', _lgn);
-    // console.log('translations---->', translations[_lgn]);
     if (translations[_lgn].translationProgress <= limitLngIncluded) {
       console.log(
         'language %s is being excluded due does not met limit of translation, current: %s%',
@@ -59,7 +56,7 @@ const locales = filterByProgress([
   'es-ES',
   'fr-FR',
   'it-IT',
-  // 'ga-IE',
+  'ga-IE',
   'pl-PL',
   'pt-BR',
   'ru-RU',
