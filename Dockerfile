@@ -40,8 +40,9 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_PROTOCOL=http
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
-    # yarn version included in [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L81)
-    YARN_VERSION=1.22.22
+
+# yarn version included in [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L81)
+ENV YARN_VERSION=1.22.22
 
 WORKDIR $VERDACCIO_APPDIR
 
