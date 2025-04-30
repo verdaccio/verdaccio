@@ -183,6 +183,12 @@ module.exports = {
           position: 'left',
           label: 'Docs',
         },
+        {
+          type: 'doc',
+          docId: 'node-api',
+          position: 'left',
+          label: 'API',
+        },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
           type: 'docsVersionDropdown',
