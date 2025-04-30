@@ -40,6 +40,8 @@ ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_PROTOCOL=http
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
+    # yarn version included in [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L81)
+    YARN_VERSION=1.22.22
 
 WORKDIR $VERDACCIO_APPDIR
 
@@ -59,8 +61,8 @@ RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
     && rm -Rf .npm/ \
     && rm $VERDACCIO_APPDIR/verdaccio.tgz \
     # yarn is not need it after this step
-    # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/02a64a08a98a472c6141cd583d2e9fc47bcd9bfd/18/alpine3.16/Dockerfile#L91-L92).
-    && rm -Rf /opt/yarn-v1.22.19/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
+    # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L99-L100).
+    && rm -Rf /opt/yarn-v$YARN_VERSION/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
 
 ADD conf/docker.yaml /verdaccio/conf/config.yaml
 ADD docker-bin $VERDACCIO_APPDIR/docker-bin
