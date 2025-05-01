@@ -275,11 +275,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 150,
+      "contributions": 152,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 150
+          "contributions": 152
         }
       ]
     },
@@ -5176,7 +5176,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16850,
+      "stargazers_count": 16856,
       "archived": false
     },
     {
