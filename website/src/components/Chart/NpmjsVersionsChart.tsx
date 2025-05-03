@@ -76,7 +76,6 @@ const processData = (data, { prerelease }) => {
       .splice(0, prerelease ? 2 : 8)
       .forEach(({ version }) => topVersions.push(version));
   });
-  console.log('topVersions', topVersions);
 
   const filteredDatasets = topVersions.map((version) => datasets[version]);
   filteredDatasets.sort((a, b) => semverCompare(a.label, b.label));

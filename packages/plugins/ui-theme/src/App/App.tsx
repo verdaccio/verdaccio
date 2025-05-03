@@ -30,13 +30,13 @@ import AppRoute, { history } from './AppRoute';
 
 const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
   return {
-    backgroundColor: theme?.palette.background.default,
+    backgroundColor: theme.palette.background.default,
   };
 });
 
 const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  [`@media screen and (min-width: ${theme?.breakPoints.container}px)`]: {
-    maxWidth: theme?.breakPoints.container,
+  [`@media screen and (min-width: ${theme.breakPoints.container}px)`]: {
+    maxWidth: theme.breakPoints.container,
     width: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -91,7 +91,7 @@ const App: React.FC = () => {
 
   return (
     <StrictMode>
-      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={loadDayJSLocale}>
+      <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => loadDayJSLocale}>
         <Suspense fallback={<Loading />}>
           <StyledBox display="flex" flexDirection="column" height="100%">
             <Router history={history}>
