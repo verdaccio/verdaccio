@@ -185,7 +185,7 @@ module.exports = {
         },
         {
           type: 'doc',
-          docId: 'api/node-api/index',
+          docId: 'node-api',
           position: 'left',
           label: 'API',
         },
