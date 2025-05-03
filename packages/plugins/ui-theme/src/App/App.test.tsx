@@ -14,14 +14,14 @@ vi.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(600);
 /* eslint-disable react/jsx-no-bind*/
 describe('<App />', () => {
   describe('footer', () => {
-    test('should display the Header component', async () => {
+    test('should display the Footer component', async () => {
       await act(() => {
         renderWithStore(<App />, store);
       });
       expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
 
-    test('should not display the Header component', async () => {
+    test('should not display the Footer component', async () => {
       // @ts-ignore
       window.__VERDACCIO_BASENAME_UI_OPTIONS = {
         showFooter: false,

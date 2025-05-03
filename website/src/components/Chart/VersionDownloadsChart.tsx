@@ -36,8 +36,6 @@ const VersionDownloadsChart = () => {
   const labels = filteredData.map(([version]) => `v${version}`);
   const dataPoints = filteredData.map(([_, count]) => count);
 
-  console.log('dataPoints', dataPoints);
-
   const chartData = {
     labels,
     datasets: [
