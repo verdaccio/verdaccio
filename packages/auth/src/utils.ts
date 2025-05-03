@@ -93,7 +93,7 @@ export function getMiddlewareCredentials(
 
   debug('is jwt');
   if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    return verifyJWTPayload(token, secretKey);
+    return verifyJWTPayload(token, secretKey, security);
   }
 }
 
@@ -131,9 +131,9 @@ export async function getApiToken(
 
 export const expireReasons: string[] = ['JsonWebTokenError', 'TokenExpiredError'];
 
-export function verifyJWTPayload(token: string, secret: string): RemoteUser {
+export function verifyJWTPayload(token: string, secret: string, security: Security): RemoteUser {
   try {
-    const payload: RemoteUser = verifyPayload(token, secret);
+    const payload: RemoteUser = verifyPayload(token, secret, security?.api?.jwt?.verify);
 
     return payload;
   } catch (error: any) {

@@ -557,7 +557,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       let credentials: RemoteUser | undefined;
       try {
-        credentials = verifyJWTPayload(token, this.config.secret);
+        credentials = verifyJWTPayload(token, this.config.secret, this.config.security);
       } catch (err: any) {
         // FIXME: intended behaviour, do we want it?
       }
