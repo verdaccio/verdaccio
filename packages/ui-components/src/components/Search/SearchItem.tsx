@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useConfig } from '../../';
 import { cleanDescription } from './utils';
 
 type SearchItemProps = {
@@ -74,6 +75,7 @@ const SearchItem: React.FC<SearchItemProps> = ({
   ...props
 }) => {
   const { t } = useTranslation();
+  const { configOptions } = useConfig();
   const handleDelete = () => {
     // no action assigned by default
   };
@@ -87,37 +89,39 @@ const SearchItem: React.FC<SearchItemProps> = ({
         </NameGroup>
         {version && <Version>{version}</Version>}
       </Wrapper>
-      <Wrapper>
-        <Stack direction="row" spacing={1}>
-          {isPrivate && (
-            <Chip
-              color="primary"
-              deleteIcon={<HttpsIcon />}
-              label={t('search.isPrivate')}
-              onDelete={handleDelete}
-              size="small"
-            />
-          )}
-          {isRemote && !isPrivate && (
-            <Chip
-              deleteIcon={<SyncAlt />}
-              label={t('search.isRemote')}
-              onDelete={handleDelete}
-              size="small"
-              variant="outlined"
-            />
-          )}
-          {isCached && (
-            <Chip
-              deleteIcon={<Cached />}
-              label={t('search.isCached')}
-              onDelete={handleDelete}
-              size="small"
-              variant="outlined"
-            />
-          )}
-        </Stack>
-      </Wrapper>
+      {configOptions?.showUplinks && (
+        <Wrapper>
+          <Stack direction="row" spacing={1}>
+            {isPrivate && (
+              <Chip
+                color="primary"
+                deleteIcon={<HttpsIcon />}
+                label={t('search.isPrivate')}
+                onDelete={handleDelete}
+                size="small"
+              />
+            )}
+            {isRemote && !isPrivate && (
+              <Chip
+                deleteIcon={<SyncAlt />}
+                label={t('search.isRemote')}
+                onDelete={handleDelete}
+                size="small"
+                variant="outlined"
+              />
+            )}
+            {isCached && (
+              <Chip
+                deleteIcon={<Cached />}
+                label={t('search.isCached')}
+                onDelete={handleDelete}
+                size="small"
+                variant="outlined"
+              />
+            )}
+          </Stack>
+        </Wrapper>
+      )}
     </li>
   );
 };

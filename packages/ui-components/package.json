@@ -80,7 +80,7 @@
     "babel-loader": "9.2.1",
     "jsdom": "^25.0.0",
     "mockdate": "3.0.5",
-    "msw": "2.7.0",
+    "msw": "2.7.5",
     "msw-storybook-addon": "^2.0.4",
     "mutationobserver-shim": "0.3.7",
     "storybook": "8.6.3",
