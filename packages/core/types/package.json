@@ -40,8 +40,8 @@
     "build": "echo 0"
   },
   "devDependencies": {
-    "@types/jsonwebtoken": "9.0.9",
-    "@types/ms": "^2.1.0",
+    "@types/jsonwebtoken": "9.0.6",
+    "@types/ms": "2.1.0",
     "typedoc": "0.23.25"
   },
   "typedoc": {
