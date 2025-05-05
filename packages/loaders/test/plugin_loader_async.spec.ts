@@ -21,7 +21,7 @@ const storeSanitize = function (plugin) {
 
 const pluginsPartialsFolder = path.join(__dirname, './partials/test-plugin-storage');
 
-setup({});
+await setup({});
 
 describe('plugin loader', () => {
   describe('file plugins', () => {
