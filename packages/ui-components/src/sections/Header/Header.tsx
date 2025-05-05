@@ -1,21 +1,22 @@
 import Button from '@mui/material/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Dispatch, LoginDialog, RootState, Search, useConfig } from '../../';
+import { isTokenExpire } from '../../utils/token';
 import HeaderLeft from './HeaderLeft';
 import HeaderRight from './HeaderRight';
 import HeaderSettingsDialog from './HeaderSettingsDialog';
 import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 
 type Props = {
-  // TODO: set correct type here
-  HeaderInfoDialog?: any;
+  HeaderInfoDialog?: React.FC<any>;
+  tokenCheckIntervalMs?: number;
 };
 
-/* eslint-disable react/jsx-no-bind*/
-const Header: React.FC<Props> = ({ HeaderInfoDialog }) => {
+// Session timeout default is 1 hour
+const Header: React.FC<Props> = ({ HeaderInfoDialog, tokenCheckIntervalMs = 60 * 60 * 1000 }) => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
@@ -24,6 +25,25 @@ const Header: React.FC<Props> = ({ HeaderInfoDialog }) => {
   const loginStore = useSelector((state: RootState) => state.login);
   const { configOptions } = useConfig();
   const dispatch = useDispatch<Dispatch>();
+
+  // Use a ref to always have the latest token in the interval callback
+  const tokenRef = useRef(loginStore.token);
+  useEffect(() => {
+    tokenRef.current = loginStore.token;
+  }, [loginStore.token]);
+
+  useEffect(() => {
+    function checkToken() {
+      const token = tokenRef.current;
+      if (token && isTokenExpire(token)) {
+        dispatch.login.logOutUser();
+      }
+    }
+    checkToken();
+    const interval = setInterval(checkToken, tokenCheckIntervalMs);
+    return () => clearInterval(interval);
+  }, [dispatch, tokenCheckIntervalMs]);
+
   const handleLogout = () => {
     dispatch.login.logOutUser();
     setShowLoginModal(false);
