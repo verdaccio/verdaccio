@@ -61,6 +61,6 @@ export function getMiddlewareCredentials(
 
   debug('is jwt');
   if (_.isString(token) && scheme.toUpperCase() === TOKEN_BEARER.toUpperCase()) {
-    return verifyJWTPayload(token, secretKey);
+    return verifyJWTPayload(token, secretKey, security);
   }
 }
