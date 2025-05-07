@@ -92,3 +92,20 @@ uplinks:
 - Multiple uplinks might slow down the lookup of your packages. For each request an npm client makes, verdaccio makes 1 call to each configured uplink.
 - The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
 - When using the [Helm Chart](https://github.com/verdaccio/charts), you can use `secretEnvVars` to inject sensitive environment variables, which can be used to configure private uplink auth.
+- While trying to configure AWS CodeArtifact to be used as an uplink, it is necessary to define the `accept: */*` in headers.
+- An example of uplink configuration for AWS CodeArtifact is given below
+
+  ```yaml
+  uplinks:
+    aws-codeArtifact:
+      url: https://private-registry.domain.com/registry
+      cache: false # Adjust this as per your needs
+      auth:
+        type: bearer
+        token_env: CODEARTIFACT_AUTH_TOKEN # this is a shell variable and it should exists in terminal session where verdaccio is running
+        strict_ssl: false # in some cases, it may need to disabled. Adjust as per your needs
+        headers:
+          'Accept': '*/*' # this line is very important. without this it may not work
+          'Accept-Encoding': 'gzip, deflate, br'
+          'Cache-Control': 'no-cache' # Adjust as per your needs
+  ```
