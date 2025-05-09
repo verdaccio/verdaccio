@@ -1,5 +1,11 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- 76308ff: fix(express): error loading middleware plugins
+
 ## 8.0.0-next-8.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.6
+
+### Patch Changes
+
+- 3ef4a49: fix: support JWT sign and verify options
+
 ## 13.0.0-next-8.5
 
 ### Patch Changes

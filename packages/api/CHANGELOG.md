@@ -1,5 +1,20 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.16
+
+### Patch Changes
+
+- 5f036c0: fix(api): cidr whitelist for tokens
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/utils@8.1.0-next-8.16
+
 ## 8.1.0-next-8.15
 
 ### Patch Changes

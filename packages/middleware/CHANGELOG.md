@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- fdf44a6: fix(middleware): properly derive the html cache key
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/utils@8.1.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes
