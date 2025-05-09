@@ -1,5 +1,27 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 4115860: fix(server): web-enabled test
+- 76308ff: fix(express): error loading middleware plugins
+- Updated dependencies [76308ff]
+- Updated dependencies [5f036c0]
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/api@8.1.0-next-8.16
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/web@8.1.0-next-8.16
+  - verdaccio-audit@13.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/utils@8.1.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

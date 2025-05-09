@@ -1,5 +1,12 @@
 # @verdaccio/signature
 
+## 8.0.0-next-8.8
+
+### Patch Changes
+
+- 3ef4a49: fix: support JWT sign and verify options
+  - @verdaccio/config@8.0.0-next-8.16
+
 ## 8.0.0-next-8.7
 
 ### Patch Changes

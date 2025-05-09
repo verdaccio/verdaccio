@@ -1,5 +1,11 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 04c4e5b: chore(ui): minor app improvements
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14

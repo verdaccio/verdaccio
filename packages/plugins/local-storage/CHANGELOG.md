@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.16
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.16
+- @verdaccio/file-locking@13.0.0-next-8.3
+- @verdaccio/utils@8.1.0-next-8.16
+
 ## 13.0.0-next-8.15
 
 ### Patch Changes
