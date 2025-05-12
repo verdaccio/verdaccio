@@ -1,0 +1,21 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd
+
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  '**':
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+
+log: { type: stdout, format: pretty, level: debug }
+
+## enable web login for testing
+flags:
+  webLogin: true
