@@ -76,6 +76,7 @@ export type RateLimit = {
 export type FlagsConfig = {
   searchRemote?: boolean;
   changePassword?: boolean;
+  webLogin?: boolean;
 };
 
 export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;

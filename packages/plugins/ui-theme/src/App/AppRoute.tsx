@@ -6,6 +6,16 @@ import { NotFound, Route, VersionProvider, loadable } from '@verdaccio/ui-compon
 
 const VersionPage = loadable(() => import(/* webpackChunkName: "Version" */ '../pages/Version'));
 const Front = loadable(() => import(/* webpackChunkName: "Home" */ '../pages/Front'));
+const Login = loadable(() => import(/* webpackChunkName: "Login" */ '../pages/Security/Login'));
+const AddUser = loadable(
+  () => import(/* webpackChunkName: "AddUser" */ '../pages/Security/AddUser')
+);
+const ChangePassword = loadable(
+  () => import(/* webpackChunkName: "ChangePassword" */ '../pages/Security/ChangePassword')
+);
+const Success = loadable(
+  () => import(/* webpackChunkName: "Success" */ '../pages/Security/Success')
+);
 
 export const history = createBrowserHistory({
   // @ts-ignore
@@ -38,6 +48,18 @@ const AppRoute: React.FC = () => {
           <VersionProvider>
             <VersionPage />
           </VersionProvider>
+        </ReactRouterDomRoute>
+        <ReactRouterDomRoute exact={true} path={Route.LOGIN}>
+          <Login />
+        </ReactRouterDomRoute>
+        <ReactRouterDomRoute exact={true} path={Route.SUCCESS}>
+          <Success />
+        </ReactRouterDomRoute>
+        <ReactRouterDomRoute exact={true} path={Route.ADD_USER}>
+          <AddUser />
+        </ReactRouterDomRoute>
+        <ReactRouterDomRoute exact={true} path={Route.CHANGE_PASSWORD}>
+          <ChangePassword />
         </ReactRouterDomRoute>
         <ReactRouterDomRoute>
           <NotFound />

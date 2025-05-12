@@ -202,5 +202,54 @@
     "title": "Translations",
     "contribute": "If your language is not listed here or is not fully translated, please contribute to the translation. You can find the source code on [our main repository](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
     "description": "This is the configuration details for the language. Select a language to select a client side translation."
+  },
+  "security": {
+    "login": {
+      "title": "Login",
+      "username": "Username",
+      "password": "Password",
+      "submit": "Login",
+      "createUser": "Create User",
+      "noUserQuestion": "Don't have an account?"
+    },
+    "success": {
+      "title": "Success",
+      "messageSuccess": "Thank you for using Verdaccio",
+      "messageLogin": "You have logged in successfully and may close this window",
+      "messageChangePassword": "You have changed your password successfully and may close this window",
+      "messageAddUser": "You have created a new user successfully and may close this window",
+      "submit": "Go to Home Page"
+    },
+    "addUser": {
+      "title": "Add New User",
+      "username": "Username",
+      "password": "Password",
+      "email": "Email",
+      "emailDescription": "Your email address might be added to the metadata of packages that you publish and could be seen publicly.",
+      "submit": "Create User",
+      "alreadyUserQuestion": "Already have an account?",
+      "login": "Login Here"
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "username": "Username",
+      "oldPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "submit": "Change Password"
+    },
+    "error": {
+      "username-or-password-cant-be-empty": "Username or password can't be empty!",
+      "username-min-length": "Username must be at least {{length}} characters long",
+      "username-must-be-url-safe": "Username must contain only url-safe characters [a-z, 0-9, _, -, ., !, ~, *, ', (, ), and @]",
+      "username-already-exists": "Username already exists",
+      "username-not-found": "Username not found",
+      "unable-to-add-user": "Unable to add user",
+      "unable-to-change-password": "Unable to change password",
+      "unable-to-login": "Unable to login",
+      "password-mismatch": "Passwords do not match",
+      "invalid-credentials": "Invalid credentials",
+      "invalid-next-param": "Missing or invalid next parameter in login request"
+    }
   }
 }
