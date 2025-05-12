@@ -1,9 +1,10 @@
 import buildDebug from 'debug';
-import jwt, { SignOptions } from 'jsonwebtoken';
+import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
 
 import { RemoteUser } from '@verdaccio/types';
 
-export type SignOptionsSignature = Pick<SignOptions, 'algorithm' | 'expiresIn' | 'notBefore'>;
+export type SignOptionsSignature = SignOptions;
+export type VerifyOptionsSignature = VerifyOptions;
 
 const debug = buildDebug('verdaccio:auth:token:jwt');
 /**
@@ -25,7 +26,7 @@ export async function signPayload(
       secretOrPrivateKey, // FIXME: upgrade to the latest library and types
       {
         // 1 === 1ms (one millisecond)
-        notBefore: '1', // Make sure the time will not rollback :)
+        notBefore: '1ms', // Make sure the time will not rollback :)
         ...options,
       },
       (error, token) => {
@@ -40,7 +41,11 @@ export async function signPayload(
   });
 }
 
-export function verifyPayload(token: string, secretOrPrivateKey: string): RemoteUser {
+export function verifyPayload(
+  token: string,
+  secretOrPrivateKey: string,
+  options: VerifyOptionsSignature = {}
+): RemoteUser {
   debug('verifying jwt token');
-  return jwt.verify(token, secretOrPrivateKey) as RemoteUser;
+  return jwt.verify(token, secretOrPrivateKey, options) as RemoteUser;
 }

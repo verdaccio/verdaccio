@@ -171,15 +171,17 @@ describe('Auth utilities', () => {
 
     describe('verifyJWTPayload', () => {
       test('should fail on verify the token and return anonymous users', () => {
-        expect(verifyJWTPayload('fakeToken', 'b2df428b9929d3ace7c598bbf4e496b2')).toEqual(
-          createAnonymousRemoteUser()
-        );
+        const config: Config = getConfig('security-jwt', '12345');
+        expect(
+          verifyJWTPayload('fakeToken', 'b2df428b9929d3ace7c598bbf4e496b2', config.security)
+        ).toEqual(createAnonymousRemoteUser());
       });
 
       test('should verify the token and return a remote user', async () => {
         const remoteUser = createRemoteUser('foo', []);
         const token = await signPayload(remoteUser, '12345');
-        const verifiedToken = verifyJWTPayload(token, '12345');
+        const config: Config = getConfig('security-jwt', '12345');
+        const verifiedToken = verifyJWTPayload(token, '12345', config.security);
         expect(verifiedToken.groups).toEqual(remoteUser.groups);
         expect(verifiedToken.name).toEqual(remoteUser.name);
       });

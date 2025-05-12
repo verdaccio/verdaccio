@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { vi } from 'vitest';
 
 import { HeaderInfoDialog, store } from '../../';
 import {
@@ -11,6 +12,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '../../test/test-react-testing-library';
+import * as tokenUtils from '../../utils/token';
 import Header from './Header';
 
 function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
@@ -37,6 +39,7 @@ describe('<Header /> component with logged in state', () => {
 
   afterEach(() => {
     cleanup();
+    vi.clearAllMocks();
   });
 
   test('should load the component in logged out state', () => {
@@ -53,6 +56,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should load the component in logged in state', async () => {
+    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
     renderWithStore(
       <Router>
         <Header />
@@ -86,6 +90,7 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should login and logout the user', async () => {
+    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(false); // avoid immediate logout due to invalid token
     const { getByText, getByTestId, findByText, findByTestId } = renderWithStore(
       <Router>
         <Header />
@@ -197,7 +202,6 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide login if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       login: false,
@@ -213,7 +217,6 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide search if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       showSearch: false,
@@ -229,7 +232,6 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide settings if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       showSettings: false,
@@ -245,7 +247,6 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide info if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       showSettings: false,
@@ -261,7 +262,6 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test('should hide theme switch if is disabled', () => {
-    // @ts-expect-error
     window.__VERDACCIO_BASENAME_UI_OPTIONS = {
       base: 'foo',
       showThemeSwitch: false,
@@ -277,4 +277,45 @@ describe('<Header /> component with logged in state', () => {
   });
 
   test.todo('autocompletion should display suggestions according to the type value');
+
+  test('should log out user on mount if token is expired', async () => {
+    vi.spyOn(tokenUtils, 'isTokenExpire').mockReturnValue(true); // avoid immediate logout due to invalid token
+    act(() => {
+      store.dispatch.login.logInUser({ username: 'expired', token: 'expired-token' });
+    });
+    renderWithStore(
+      <Router>
+        <Header />
+      </Router>,
+      store
+    );
+    await waitFor(() => {
+      expect(store.getState().login.username).toBeNull();
+      expect(store.getState().login.token).toBeNull();
+    });
+  });
+
+  test('should log out user after 3 seconds if token expires (mocked interval)', async () => {
+    // Use real timers for this test
+    const isTokenExpireMock = vi.spyOn(tokenUtils, 'isTokenExpire');
+    isTokenExpireMock.mockReturnValue(false);
+
+    act(() => {
+      store.dispatch.login.logInUser({ username: 'user', token: 'valid-token' });
+    });
+
+    renderWithStore(
+      <Router>
+        <Header tokenCheckIntervalMs={1000} />
+      </Router>,
+      store
+    );
+
+    // Set token to expire before the interval fires and wait for the token to expire
+    isTokenExpireMock.mockReturnValue(true);
+    await new Promise((res) => setTimeout(res, 1500));
+
+    expect(store.getState().login.username).toBeNull();
+    expect(store.getState().login.token).toBeNull();
+  });
 });

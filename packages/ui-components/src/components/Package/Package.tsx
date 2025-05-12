@@ -169,13 +169,7 @@ const Package: React.FC<PackageInterface> = ({
             data-testid="download-tarball"
             size="large"
           >
-            {isLoading ? (
-              <CircularProgress size={13}>
-                <DownloadIcon />
-              </CircularProgress>
-            ) : (
-              <DownloadIcon />
-            )}
+            {isLoading ? <CircularProgress size={13} /> : <DownloadIcon />}
           </IconButton>
         </Tooltip>
       </Link>

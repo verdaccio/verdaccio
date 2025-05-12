@@ -238,3 +238,4 @@ There is a separate repository that hosts multiple configurations to compose Doc
 - [coldrye-debian-verdaccio](https://github.com/coldrye-docker/coldrye-debian-verdaccio) docker image providing verdaccio from coldrye-debian-nodejs.
 - [verdaccio-github-oauth-ui](https://github.com/n4bb12/verdaccio-github-oauth-ui/blob/master/Dockerfile)
 - [verdaccio-auth-gitlab](https://github.com/johanneslosch/verdaccio-auth-gitlab)
+- [docker-verdaccio-quickly-deploy](https://github.com/DAmarkday/docker-verdaccio-quickly-deploy)

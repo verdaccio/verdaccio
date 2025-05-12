@@ -66,11 +66,7 @@ const ActionBarAction: React.FC<ActionBarActionProps> = ({ type, link, action })
       return (
         <Tooltip title={t('action-bar-action.download-tarball') as string}>
           {isLoading ? (
-            <CircularProgress sx={{ marginX: 0 }}>
-              <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
-                <DownloadIcon />
-              </Fab>
-            </CircularProgress>
+            <CircularProgress sx={{ marginX: 0 }} />
           ) : (
             <Fab data-testid="download-tarball-btn" onClick={handleDownload} size="small">
               <DownloadIcon />
