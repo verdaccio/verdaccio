@@ -1,3 +1,4 @@
+import { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwebtoken';
 import { AgentOptions as HttpAgentOptions } from 'node:http';
 import { AgentOptions as HttpsAgentOptions } from 'node:https';
 
@@ -158,34 +159,10 @@ export interface JWTOptions {
   verify: JWTVerifyOptions;
 }
 
-export type Algorithm =
-  | 'HS256'
-  | 'HS384'
-  | 'HS512'
-  | 'RS256'
-  | 'RS384'
-  | 'RS512'
-  | 'ES256'
-  | 'ES384'
-  | 'ES512'
-  | 'PS256'
-  | 'PS384'
-  | 'PS512'
-  | 'none';
+export type Algorithm = Algorithms;
 
-export interface JWTSignOptions {
-  algorithm?: Algorithm | undefined;
-  expiresIn?: string | number | undefined;
-  notBefore?: string | number | undefined;
-}
-
-export interface JWTVerifyOptions {
-  algorithm?: Algorithm | undefined;
-  notBefore?: string | number;
-  ignoreExpiration?: boolean;
-  maxAge?: string | number;
-  clockTimestamp?: number;
-}
+export interface JWTSignOptions extends SignOptions {}
+export interface JWTVerifyOptions extends VerifyOptions {}
 
 export interface APITokenOptions {
   legacy: boolean;
