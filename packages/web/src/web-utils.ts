@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { Author, ConfigYaml } from '@verdaccio/types';
+import { ConfigYaml, Manifest } from '@verdaccio/types';
 
 export function hasLogin(config: ConfigYaml) {
   return _.isNil(config?.web?.login) || config?.web?.login === true;
@@ -13,8 +13,6 @@ export function sortByName(packages: any[], orderAscending: boolean | void = tru
   });
 }
 
-export type AuthorAvatar = Author & { avatar?: string };
-
 export function addScope(scope: string, packageName: string): string {
   return `@${scope}/${packageName}`;
 }
@@ -25,4 +23,14 @@ export function deleteProperties(propertiesToDelete: string[], objectItem: any):
   });
 
   return objectItem;
+}
+
+export function isVersionValid(packageMeta: Manifest, packageVersion: string): boolean {
+  const hasVersion = typeof packageVersion !== 'undefined';
+  if (!hasVersion) {
+    return false;
+  }
+
+  const hasMatchVersion = Object.keys(packageMeta.versions).includes(packageVersion);
+  return hasMatchVersion;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import { sortByName } from '../src/web-utils';
+import { isVersionValid, sortByName } from '../src/web-utils';
 
 describe('Utilities', () => {
   describe('Sort packages', () => {
@@ -41,6 +41,30 @@ describe('Utilities', () => {
           name: 'abc',
         },
       ]);
+    });
+  });
+
+  describe('isVersionValid', () => {
+    const manifest = {
+      versions: {
+        '1.0.0': {},
+        '2.0.0': {},
+      },
+    };
+
+    test('should return true for a valid version', () => {
+      // @ts-ignore: partial manifest for test
+      expect(isVersionValid(manifest, '1.0.0')).toBe(true);
+    });
+
+    test('should return false for an invalid version', () => {
+      // @ts-ignore: partial manifest for test
+      expect(isVersionValid(manifest, '3.0.0')).toBe(false);
+    });
+
+    test('should return false if version is undefined', () => {
+      // @ts-ignore: partial manifest for test
+      expect(isVersionValid(manifest, undefined)).toBe(false);
     });
   });
 });

@@ -9,16 +9,13 @@ import { $NextFunctionVer, $RequestExtend, $ResponseExtend, allow } from '@verda
 import { WebUrls } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Manifest, Version } from '@verdaccio/types';
-import { addGravatarSupport, formatAuthor, isVersionValid } from '@verdaccio/utils';
+import { Config, Manifest, WebManifest } from '@verdaccio/types';
 
-import { AuthorAvatar, addScope, deleteProperties } from '../web-utils';
+import { addGravatarSupport, formatAuthor } from '../author-utils';
+import { addScope, deleteProperties, isVersionValid } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
-export type PackageExt = Manifest & { author: AuthorAvatar; dist?: { tarball: string } };
-
-export type $SidebarPackage = Manifest & { latest: Version };
 const debug = buildDebug('verdaccio:web:api:sidebar');
 
 function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router {
@@ -54,23 +51,19 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
           keepUpLinkData: true,
           requestOptions,
         })) as Manifest;
+        // TODO: sanitize query
         const { v } = req.query;
-        let sideBarInfo = { ...info };
+        let sideBarInfo = { ...info } as WebManifest;
         sideBarInfo.versions = convertDistRemoteToLocalTarballUrls(
           info,
           { protocol: req.protocol, headers: req.headers as any, host: req.hostname },
           config.url_prefix
         ).versions;
-        // TODO: review this implementation
         if (typeof v === 'string' && isVersionValid(info, v)) {
-          // @ts-ignore
           sideBarInfo.latest = sideBarInfo.versions[v];
-          // @ts-ignore
           sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
         } else {
-          // @ts-ignore
           sideBarInfo.latest = sideBarInfo.versions[info[DIST_TAGS].latest];
-          // @ts-ignore
           sideBarInfo.latest.author = formatAuthor(sideBarInfo.latest.author);
         }
         sideBarInfo = deleteProperties(['readme', '_attachments', '_rev', 'name'], sideBarInfo);
