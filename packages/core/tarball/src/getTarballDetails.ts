@@ -24,11 +24,15 @@ export async function getTarballDetails(buffer: Buffer): Promise<TarballDetails>
         next();
       })
       .on('finish', () => {
+        readable.destroy();
         resolve({
           fileCount,
           unpackedSize,
         });
       })
-      .on('error', reject);
+      .on('error', (err) => {
+        readable.destroy();
+        reject(err);
+      });
   });
 }
