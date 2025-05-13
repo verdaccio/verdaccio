@@ -79,7 +79,10 @@ export interface Author {
   name: string;
   email?: string;
   url?: string;
+  _avatar?: string; // for web ui
 }
+
+export type Person = Author | string;
 
 export interface PackageUsers {
   [key: string]: boolean;
@@ -100,7 +103,7 @@ export interface Version {
   version: string;
   directories?: any;
   dist: Dist;
-  author: string | Author;
+  author: Person;
   main: string;
   homemage?: string;
   license?: string;
@@ -112,8 +115,8 @@ export interface Version {
   bugs?: any;
   files?: string[];
   gitHead?: string;
-  maintainers?: Author[];
-  contributors?: Author[];
+  maintainers?: Person[];
+  contributors?: Person[];
   repository?: string | any;
   scripts?: any;
   homepage?: string;
@@ -180,8 +183,8 @@ export interface FullRemoteManifest {
   time: GenericBody;
   versions: Versions;
   /** store owners of this package */
-  maintainers?: Author[];
-  contributors?: Author[];
+  maintainers?: Person[];
+  contributors?: Person[];
   /** store the latest readme **/
   readme?: string;
   /** store star assigned to this packages by users */
@@ -193,7 +196,7 @@ export interface FullRemoteManifest {
   homepage?: string;
   repository?: string | { type?: string; url: string; directory?: string };
   keywords?: string[];
-  author?: string | Author;
+  author?: Person;
 }
 
 export interface Manifest extends FullRemoteManifest, PublishManifest {
@@ -280,4 +283,12 @@ export interface PublishManifest {
    * Note: This field is removed when the package is accesed through the web user interface.
    * */
   _attachments: AttachMents;
+}
+
+/**
+ * Web user interface hoists the selected version to "latest" and adds "dist.tarball" field.
+ */
+export interface WebManifest extends Manifest {
+  latest?: Version;
+  dist?: { tarball: string };
 }
