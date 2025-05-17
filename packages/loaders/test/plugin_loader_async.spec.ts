@@ -7,7 +7,7 @@ import { logger, setup } from '@verdaccio/logger';
 
 import { asyncLoadPlugin } from '../src/index';
 
-function getConfig(file: string) {
+function getConfig(file: string): Config {
   const conPath = path.join(__dirname, './partials/config', file);
   return new Config(parseConfigFile(conPath));
 }
@@ -38,6 +38,14 @@ describe('plugin loader', () => {
         const config = getConfig('valid-plugin-store.yaml');
         config.plugins = pluginsPartialsFolder;
         const plugins = await asyncLoadPlugin(config.store, { config, logger }, storeSanitize);
+
+        expect(plugins).toHaveLength(1);
+      });
+
+      test('testing auth scoped plugin loader', async () => {
+        const config = getConfig('absolute-scoped-plugins.yaml');
+        config.plugins = pluginsPartialsFolder;
+        const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
 
         expect(plugins).toHaveLength(1);
       });
@@ -81,6 +89,14 @@ describe('plugin loader', () => {
         expect(plugins).toHaveLength(1);
       });
 
+      test('should resolve scoped plugin based on relative path', async () => {
+        const config = getConfig('relative-scoped-plugins.yaml');
+        // force file instead a folder.
+        const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+        expect(plugins).toHaveLength(1);
+      });
+
       test('should fails if config path is missing', async () => {
         const config = getConfig('relative-plugins.yaml');
         // @ts-expect-error
@@ -117,9 +133,10 @@ describe('plugin loader', () => {
 
     test('should handle not found installed package', async () => {
       const config = getConfig('npm-plugin-not-found.yaml');
-      const plugins = await asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+      const plugins = await asyncLoadPlugin(
         config.auth,
         { config, logger },
+        // @ts-expect-error
         (p) => typeof p.authenticate !== 'undefined'
       );
 
@@ -128,7 +145,7 @@ describe('plugin loader', () => {
 
     test('testing load auth npm package invalid method check', async () => {
       const config = getConfig('npm-plugin-auth.yaml');
-      const plugins = await asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+      const plugins = await asyncLoadPlugin(
         config.auth,
         { config, logger },
         // @ts-expect-error
@@ -145,14 +162,14 @@ describe('plugin loader', () => {
         { config, logger },
         authSanitize,
         false,
-        'customprefix'
+        'customprefix' // FIXME: should be config.server.pluginPrefix from yaml
       );
 
       expect(plugins).toHaveLength(1);
     });
 
     test('testing load auth scope npm package', async () => {
-      const config = getConfig('scope-auth.yaml');
+      const config = getConfig('npm-plugin-scope-auth.yaml');
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
       expect(plugins).toHaveLength(1);
     });

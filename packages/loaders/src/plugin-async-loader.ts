@@ -37,7 +37,7 @@ function mergeConfig(appConfig: unknown, pluginConfig: unknown) {
  *     hosted at /root/plugins
  * - The next step is find at the node_modules or global based on the `require` native algorithm.
  * - If the package is scoped eg: @scope/foo, try to load the package `@scope/foo`
- * - If the package is not scoped, will use the default prefix: verdaccio-foo.
+ * - If the package is not scoped, will use the default prefix: verdaccio-foo ("verdaccio-theme-" prefix for theme ui plugins).
  * - If a custom prefix is provided, the verdaccio- is replaced by the config.server.pluginPrefix.
  *
  * The `sanityCheck` is the validation for the required methods to load the plugin, if the validation fails the plugin won't be loaded.
@@ -56,7 +56,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   sanityCheck: (plugin: PluginType<T>) => boolean,
   legacyMergeConfigs: boolean = false,
   prefix: string = PLUGIN_PREFIX,
-  pluginCategory: string = ''
+  pluginCategory: string = 'unknown'
 ): Promise<PluginType<T>[]> {
   const logger = pluginOptions?.logger;
   const pluginsIds = Object.keys(pluginConfigs);
@@ -64,6 +64,13 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
   let plugins: PluginType<T>[] = [];
   for (let pluginId of pluginsIds) {
     debug('>>> looking for plugin %o', pluginId);
+
+    const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
+    debug('is scoped plugin: %s', isScoped);
+    const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
+    debug('plugin package name %s', pluginName);
+
+    // Try to load the plugin from the config.plugins path
     if (typeof config.plugins === 'string') {
       let pluginsPath = config.plugins;
       debug('plugin path %s', pluginsPath);
@@ -85,10 +92,11 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       try {
         await isDirectory(pluginsPath);
         const pluginDir = pluginsPath;
-        const externalFilePlugin = resolve(pluginDir, `${prefix}-${pluginId}`);
+        const externalFilePlugin = resolve(pluginDir, pluginName);
         let plugin = tryLoad<T>(externalFilePlugin, (a: any, b: any) => {
           logger.error(a, b);
         });
+        debug('external plugin %o', plugin);
         if (plugin && isValid(plugin)) {
           plugin = executePlugin(
             plugin,
@@ -106,38 +114,35 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
           debug('>>> plugin is running and passed sanity check');
           plugins.push(plugin);
           logger.info(
-            { prefix, pluginId, pluginCategory },
-            'plugin @{prefix}-@{pluginId} successfully loaded (@{pluginCategory})'
+            { pluginName, pluginCategory },
+            'plugin @{pluginName} successfully loaded (@{pluginCategory})'
           );
           continue;
         }
       } catch (err: any) {
         logger.warn(
-          { err: err.message, pluginsPath, pluginId },
-          '@{err} on loading plugins at @{pluginsPath} for @{pluginId}'
+          { err: err.message, pluginsPath, pluginName },
+          '@{err} on loading plugins at @{pluginsPath} for @{pluginName}'
         );
       }
     }
 
+    // Try to load the plugin from the node_modules or global based on the `require` native algorithm
     if (typeof pluginId === 'string') {
-      const isScoped: boolean = pluginId.startsWith('@') && pluginId.includes('/');
-      debug('is scoped plugin: %s', isScoped);
-      const pluginName = isScoped ? pluginId : `${prefix}-${pluginId}`;
-      debug('plugin package name %s', pluginName);
       let plugin = tryLoad<T>(pluginName, (a: any, b: any) => {
         logger.error(a, b);
       });
       if (plugin && isValid(plugin)) {
         plugin = executePlugin(plugin, pluginConfigs[pluginId], pluginOptions, legacyMergeConfigs);
         if (!sanityCheck(plugin)) {
-          logger.error({ content: pluginName }, "@{content} doesn't look like a valid plugin");
+          logger.error({ pluginName }, "@{pluginName} doesn't look like a valid plugin");
           continue;
         }
         debug('>>> plugin is running and passed sanity check');
         plugins.push(plugin);
         logger.info(
-          { prefix, pluginId, pluginCategory },
-          'plugin @{prefix}-@{pluginId} successfully loaded (@{pluginCategory})'
+          { pluginName, pluginCategory },
+          'plugin @{pluginName} successfully loaded (@{pluginCategory})'
         );
         continue;
       } else {
