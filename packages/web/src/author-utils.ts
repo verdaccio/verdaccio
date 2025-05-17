@@ -151,11 +151,32 @@ function normalizeAuthors(authors: Person[]): Person[] {
  * @returns {Object} { name: string, email: string, url: string }
  */
 function splitAuthorString(author: string): { name: string; email?: string; url: string } {
-  const regex = /^([^<]+)?(?:<([^>]+)>)?(?:\s*\((.*?)\))?$/;
-  const match = author.match(regex);
+  // Limit author string length to prevent ReDoS
+  const maxLength = 256;
+  const truncatedAuthor = author.slice(0, maxLength);
+
+  // Split on fixed delimiters rather than using regex
+  const emailStart = truncatedAuthor.indexOf('<');
+  const emailEnd = truncatedAuthor.indexOf('>');
+  const urlStart = truncatedAuthor.indexOf('(');
+  const urlEnd = truncatedAuthor.indexOf(')');
+
+  let name = truncatedAuthor;
+  let email = '';
+  let url = '';
+
+  if (emailStart >= 0 && emailEnd > emailStart) {
+    name = truncatedAuthor.slice(0, emailStart).trim();
+    email = truncatedAuthor.slice(emailStart + 1, emailEnd).trim();
+  }
+
+  if (urlStart >= 0 && urlEnd > urlStart) {
+    url = truncatedAuthor.slice(urlStart + 1, urlEnd).trim();
+  }
+
   return {
-    name: match?.[1]?.trim() || author,
-    email: match?.[2]?.trim() || '',
-    url: match?.[3]?.trim() || '',
+    name: name || author,
+    email,
+    url,
   };
 }
