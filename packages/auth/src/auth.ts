@@ -6,6 +6,7 @@ import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
   PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   TOKEN_BASIC,
   TOKEN_BEARER,
@@ -126,7 +127,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         );
       },
       this.options.legacyMergeConfigs,
-      this.config?.serverSettings?.pluginPrefix,
+      this.config?.server?.pluginPrefix ?? PLUGIN_PREFIX,
       PLUGIN_CATEGORY.AUTHENTICATION
     );
   }

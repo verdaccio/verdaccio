@@ -3,15 +3,13 @@ import fs from 'fs';
 import _ from 'lodash';
 import { dirname, isAbsolute, join, resolve } from 'path';
 
-import { pluginUtils } from '@verdaccio/core';
+import { PLUGIN_PREFIX, pluginUtils } from '@verdaccio/core';
 
 import { PluginType, isES6, isValid, tryLoad } from './utils';
 
 const debug = buildDebug('verdaccio:plugin:loader:async');
 
 const { lstat } = fs.promises ? fs.promises : require('fs/promises');
-
-const PLUGIN_PREFIX = 'verdaccio';
 
 async function isDirectory(pathFolder: string) {
   const stat = await lstat(pathFolder);

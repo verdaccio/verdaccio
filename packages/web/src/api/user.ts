@@ -69,7 +69,7 @@ function addUserAuthApi(auth: Auth, config: Config): Router {
         if (
           validationUtils.validatePassword(
             password.new,
-            config?.serverSettings?.passwordValidationRegex
+            config?.server?.passwordValidationRegex
           ) === false
         ) {
           return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, APP_ERROR.PASSWORD_VALIDATION));

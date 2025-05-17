@@ -26,6 +26,8 @@ export {
   USERS,
   MAINTAINERS,
   PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  PLUGIN_UI_PREFIX,
   HtpasswdHashAlgorithm,
 } from './constants';
 export {
