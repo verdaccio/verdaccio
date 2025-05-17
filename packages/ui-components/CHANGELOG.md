@@ -1,5 +1,15 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.9
+
+### Patch Changes
+
+- 387d9f0: fix(ui): check token expiry on refresh/timer
+- 4236e54: chore(ui): avoid ts error for Alerts
+- 89b72d0: fix(ui): search chips when showUplinks is false
+- ca0844a: chore(ui): avoid ts errors for CircularProgress
+- 6561485: chore(ui): fix ts error due to excluded test folder
+
 ## 4.0.0-next-8.8
 
 ### Patch Changes

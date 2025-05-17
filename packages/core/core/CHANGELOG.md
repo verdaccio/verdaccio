@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- b19ddca: fix(config): server settings
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14
