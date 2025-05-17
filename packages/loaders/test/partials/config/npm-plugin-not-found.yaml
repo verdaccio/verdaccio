@@ -1,3 +1,4 @@
+# require('verdaccio-not-found') as dependency (but it's not installed)
 auth:
   not-found:
     enabled: true

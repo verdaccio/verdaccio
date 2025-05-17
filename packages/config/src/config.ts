@@ -20,7 +20,7 @@ import { generateRandomHexString, getMatchedPackagesSpec } from '@verdaccio/util
 import { getUserAgent } from './agent';
 import { normalisePackageAccess } from './package-access';
 import { defaultSecurity } from './security';
-import serverSettings from './serverSettings';
+import defaultServerSettings from './serverSettings';
 import { generateRandomSecretKey } from './token';
 import { sanityCheckUplinksProps, uplinkSanityCheck } from './uplinks';
 
@@ -63,7 +63,7 @@ class Config implements AppConfig {
 
   public plugins: string | void | null;
   public security: Security;
-  public serverSettings: ServerSettingsConf;
+  public server: ServerSettingsConf;
   private configOverrideOptions: { forceMigrateToSecureLegacySignature: boolean };
   // @ts-ignore
   public secret: string;
@@ -102,7 +102,7 @@ class Config implements AppConfig {
       }),
       config.security
     );
-    this.serverSettings = serverSettings;
+    this.server = { ...defaultServerSettings, ...config.server };
     this.flags = {
       searchRemote: config.flags?.searchRemote ?? true,
       changePassword: config.flags?.changePassword ?? false,

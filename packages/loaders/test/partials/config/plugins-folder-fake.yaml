@@ -1,4 +1,6 @@
+# require('something') in /root/does-not-exist folder (but the folder does not exist)
+plugins: /root/does-not-exist
+
 auth:
   something:
     enabled: true
-plugins: /roo/does-not-exist

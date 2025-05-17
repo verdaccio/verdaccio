@@ -74,7 +74,7 @@ export default function (route: Router, auth: Auth, config: Config): void {
         if (
           validationUtils.validatePassword(
             password.new,
-            config?.serverSettings?.passwordValidationRegex
+            config?.server?.passwordValidationRegex
           ) === false
         ) {
           /* eslint new-cap:off */

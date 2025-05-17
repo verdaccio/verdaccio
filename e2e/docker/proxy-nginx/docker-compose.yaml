@@ -1,6 +1,17 @@
-version: '2'
+version: '3.9'
 
 services:
+  nginx:
+    build: ./nginx
+    container_name: reverse_proxy
+    ports:
+      - '80:80'
+    depends_on:
+      - verdaccio
+    volumes:
+      - logs:/var/log/nginx
+    restart: unless-stopped
+
   verdaccio:
     image: verdaccio/verdaccio:nightly-master
     container_name: verdaccio_root_path
@@ -8,19 +19,8 @@ services:
       - '4873:4873'
     volumes:
       - verdaccio:/verdaccio
-
-  nginx:
-    restart: always
-    build: conf/nginx
-    ports:
-      - '80:80'
-    volumes:
-      - /www/public
-    volumes_from:
-      - verdaccio
-    links:
-      - verdaccio:verdaccio
+    restart: unless-stopped
 
 volumes:
   verdaccio:
-    driver: local
+  logs:
