@@ -37,7 +37,7 @@
     "core-js": "3.40.0",
     "http-errors": "2.0.0",
     "http-status-codes": "2.3.0",
-    "minimatch": "^10.0.1",
+    "minimatch": "10.0.1",
     "process-warning": "1.0.0",
     "semver": "7.7.1"
   },
