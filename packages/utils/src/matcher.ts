@@ -2,6 +2,7 @@ import { MMRegExp, minimatch } from 'minimatch';
 
 import { PackageAccess, PackageList } from '@verdaccio/types';
 
+// @deprecated use @verdaccio/core:pkgUtils
 export function getMatchedPackagesSpec(
   pkgName: string,
   packages: PackageList

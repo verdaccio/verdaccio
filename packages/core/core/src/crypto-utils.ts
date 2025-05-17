@@ -1,8 +1,7 @@
-import { Hash, createHash, pseudoRandomBytes } from 'crypto';
+import { Hash, createHash, pseudoRandomBytes } from 'node:crypto';
 
 export const defaultTarballHashAlgorithm = 'sha1';
 
-// @deprecated use @verdaccio/core
 export function createTarballHash(): Hash {
   return createHash(defaultTarballHashAlgorithm);
 }
@@ -13,13 +12,22 @@ export function createTarballHash(): Hash {
  * could improve performance using crc32 after benchmarks.
  * @param {Object} data
  * @return {String}
- * @deprecated use @verdaccio/core
  */
 export function stringToMD5(data: Buffer | string): string {
+  // @ts-ignore update method accepts Buffer or string
   return createHash('md5').update(data).digest('hex');
 }
 
-// @deprecated use @verdaccio/core
 export function generateRandomHexString(length = 8): string {
   return pseudoRandomBytes(length).toString('hex');
+}
+
+/**
+ * return a masquerade string with its first and last {charNum} and three dots in between.
+ * @param {String} str
+ * @param {Number} charNum
+ * @returns {String}
+ */
+export function mask(str: string, charNum = 3): string {
+  return `${str.slice(0, charNum)}...${str.slice(-charNum)}`;
 }

@@ -72,16 +72,19 @@ export function getLatestVersion(pkgInfo: Package): string {
   return pkgInfo[DIST_TAGS].latest;
 }
 
+// @deprecated use @verdaccio/core
 export function buildToken(type: string, token: string): string {
   return `${_.capitalize(type)} ${token}`;
 }
 
+// @deprecated use @verdaccio/web
 export type AuthorFormat = Author | string | null | void;
 
 /**
  * Formats author field for webui.
  * @see https://docs.npmjs.com/files/package.json#author
  * @param {string|object|undefined} author
+ * @deprecated use @verdaccio/web
  */
 export function formatAuthor(author: AuthorFormat): any {
   let authorDetails = {
@@ -138,6 +141,7 @@ export function hasDiffOneKey(versions): boolean {
   return Object.keys(versions).length !== 1;
 }
 
+// @deprecated use @verdaccio/web
 export function isVersionValid(packageMeta, packageVersion): boolean {
   const hasVersion = typeof packageVersion !== 'undefined';
   if (!hasVersion) {
@@ -148,6 +152,7 @@ export function isVersionValid(packageMeta, packageVersion): boolean {
   return hasMatchVersion;
 }
 
+// @deprecated use @verdaccio/web
 export function addGravatarSupport(pkgInfo: Manifest, online = true): AuthorAvatar {
   const pkgInfoCopy = { ...pkgInfo } as any;
   const author: any = _.get(pkgInfo, 'latest.author', null) as any;
@@ -200,6 +205,7 @@ export function addGravatarSupport(pkgInfo: Manifest, online = true): AuthorAvat
 }
 
 const AVATAR_PROVIDER = 'https://www.gravatar.com/avatar/';
+// @deprecated use @verdaccio/web
 export const GENERIC_AVATAR =
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
@@ -221,6 +227,7 @@ export const GENERIC_AVATAR =
 
 /**
  * Generate gravatar url from email address
+ * @deprecated use @verdaccio/web
  */
 export function generateGravatarUrl(email: string | void = '', online: boolean = true): string {
   if (online && _.isString(email) && _.size(email) > 0) {
