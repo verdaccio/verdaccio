@@ -1,0 +1,4 @@
+# require('@verdaccio-scope/verdaccio-plugin') in test-plugin-storage/@verdaccio-scope/verdaccio-plugin folder
+auth:
+  '@verdaccio-scope/verdaccio-plugin':
+    enabled: true

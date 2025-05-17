@@ -1,0 +1,8 @@
+# require('@verdaccio-scope/verdaccio-auth-foo') as dependency
+#
+# "devDependencies": {
+#   "@verdaccio-scope/verdaccio-auth-foo": "0.0.2"
+# }
+auth:
+  '@verdaccio-scope/verdaccio-auth-foo':
+    enabled: true
