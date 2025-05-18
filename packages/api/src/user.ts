@@ -119,10 +119,8 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       } else {
         debug('adduser: %o', name);
         if (
-          validationUtils.validatePassword(
-            password,
-            config?.serverSettings?.passwordValidationRegex
-          ) === false
+          validationUtils.validatePassword(password, config?.server?.passwordValidationRegex) ===
+          false
         ) {
           debug('adduser: invalid password');
           // eslint-disable-next-line new-cap

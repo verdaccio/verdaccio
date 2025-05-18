@@ -1,3 +1,11 @@
+# require('customprefix-auth') as dependency
+#
+# "devDependencies": {
+#   "customprefix-auth": "workspace:2.0.0"
+# }
 auth:
-  '@verdaccio-scope/verdaccio-auth-foo':
+  auth:
     enabled: true
+
+server:
+  pluginPrefix: customprefix

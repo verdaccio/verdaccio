@@ -1,3 +1,4 @@
+# require('verdaccio-plugin-store') in test-plugin-storage folder
 store:
   plugin-store:
     enabled: true

@@ -45,7 +45,7 @@ jobs:
             npm9,
             npm10
           ]
-        node: [22]
+        node: [22, 24]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -72,7 +72,7 @@ jobs:
             pnpm9,
             pnpm10,
           ]
-        node: [22]
+        node: [2, 24]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
@@ -99,7 +99,7 @@ jobs:
             yarn3,
             yarn4
           ]
-        node: [22]
+        node: [22, 24]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:

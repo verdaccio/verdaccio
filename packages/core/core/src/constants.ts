@@ -130,6 +130,9 @@ export enum HtpasswdHashAlgorithm {
   bcrypt = 'bcrypt',
 }
 
+export const PLUGIN_PREFIX = 'verdaccio';
+export const PLUGIN_UI_PREFIX = 'verdaccio-theme';
+
 export const PLUGIN_CATEGORY = {
   AUTHENTICATION: 'authentication',
   MIDDLEWARE: 'middleware',

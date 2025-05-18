@@ -1,14 +1,13 @@
 import express from 'express';
 import _ from 'lodash';
 
-import { PLUGIN_CATEGORY } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, PLUGIN_UI_PREFIX } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { webMiddleware } from '@verdaccio/middleware';
 
 import webEndpointsApi from './api';
 
-export const PLUGIN_UI_PREFIX = 'verdaccio-theme';
 export const DEFAULT_PLUGIN_UI_THEME = '@verdaccio/ui-theme';
 
 export async function loadTheme(config: any) {
@@ -27,7 +26,7 @@ export async function loadTheme(config: any) {
         return plugin.staticPath && plugin.manifest && plugin.manifestFiles;
       },
       false,
-      config?.serverSettings?.pluginPrefix ?? PLUGIN_UI_PREFIX,
+      config.server?.pluginPrefix ?? PLUGIN_UI_PREFIX,
       PLUGIN_CATEGORY.THEME
     );
     if (plugin.length > 1) {
