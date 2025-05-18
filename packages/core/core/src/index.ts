@@ -1,4 +1,6 @@
+import * as authUtils from './auth-utils';
 import * as constants from './constants';
+import * as cryptoUtils from './crypto-utils';
 import * as errorUtils from './error-utils';
 import * as fileUtils from './file-utils';
 import * as pkgUtils from './pkg-utils';
@@ -31,6 +33,8 @@ export {
   HtpasswdHashAlgorithm,
 } from './constants';
 export {
+  authUtils,
+  cryptoUtils,
   fileUtils,
   pkgUtils,
   searchUtils,
