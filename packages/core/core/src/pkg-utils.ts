@@ -21,6 +21,17 @@ export function semverSort(listVersions: string[]): string[] {
 }
 
 /**
+ * Sanitize a version string to a valid semver version.
+ * @param version - The version string to sanitize.
+ * @returns The sanitized version string.
+ */
+export function semverSanitize(version: string): string {
+  return (
+    semver.valid(version) || semver.coerce(version, { includePrerelease: true })?.version || ''
+  );
+}
+
+/**
  * Get the latest publihsed version of a package.
  * @param package metadata
  **/

@@ -25,4 +25,12 @@ describe('pkg-utils', () => {
       })
     ).toBe('1.0.0');
   });
+
+  test('semverSanitize', () => {
+    expect(pkgUtils.semverSanitize('1.0.0')).toBe('1.0.0');
+    expect(pkgUtils.semverSanitize('1.0.0-beta.1')).toBe('1.0.0-beta.1');
+    expect(pkgUtils.semverSanitize('1.2')).toBe('1.2.0');
+    expect(pkgUtils.semverSanitize('v2')).toBe('2.0.0');
+    expect(pkgUtils.semverSanitize('v2-alpha.1')).toBe('2.0.0-alpha.1');
+  });
 });

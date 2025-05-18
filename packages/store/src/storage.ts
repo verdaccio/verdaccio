@@ -16,6 +16,7 @@ import {
   HTTP_STATUS,
   MAINTAINERS,
   PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
   errorUtils,
@@ -687,7 +688,7 @@ class Storage {
           return typeof plugin.filter_metadata !== 'undefined';
         },
         false,
-        this.config?.serverSettings?.pluginPrefix,
+        this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
         PLUGIN_CATEGORY.FILTER
       );
       debug('filters available %o', this.filters.length);
@@ -2071,7 +2072,13 @@ class Storage {
       this.config?.publish?.check_owners === true &&
       manifest.maintainers &&
       manifest.maintainers.length > 0 &&
-      !manifest.maintainers.some((maintainer) => maintainer.name === username)
+      !manifest.maintainers.some((maintainer) => {
+        if (typeof maintainer === 'string') {
+          return maintainer === username;
+        } else {
+          return maintainer.name === username;
+        }
+      })
     ) {
       this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
       throw Error('only owners are allowed to change package');

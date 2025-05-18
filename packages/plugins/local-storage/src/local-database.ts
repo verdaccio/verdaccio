@@ -175,7 +175,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       const pkgName = data.indexOf(name);
       if (pkgName !== -1) {
         this.data.list.splice(pkgName, 1);
-        debug('remove package %o has been removed', name);
+        debug('package %o has been removed', name);
       }
       await this._sync();
     } catch (err) {
@@ -201,19 +201,28 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const packagePath: string = this._getLocalStoragePath(
       packageAccess ? packageAccess.storage : undefined
     );
-    debug('storage path selected: ', packagePath);
+    debug('storage path selected %o', packagePath);
     if (_.isString(packagePath) === false) {
       debug('the package %o has no storage defined ', packageName);
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
+    const storagePath = this.getStoragePath();
     const packageStoragePath: string = path.join(
-      // FIXME: use getBaseStoragePath instead
-      path.resolve(path.dirname(this.config.config_path || ''), packagePath),
+      path.resolve(storagePath, packagePath),
       packageName
     );
 
-    debug('storage absolute path: ', packageStoragePath);
+    // Verify that the file path is under the storage root directory
+    // to avoid "uncontrolled data used in path expression" issues
+    if (!packageStoragePath.startsWith(storagePath)) {
+      debug('packagePath %o, storagePath %o', packageStoragePath, storagePath);
+      throw errorUtils.getInternalError(
+        'package-specific path is not under the configured storage directory'
+      );
+    }
+
+    debug('storage absolute path %o', packageStoragePath);
 
     return new LocalDriver(packageStoragePath, this.logger);
   }
