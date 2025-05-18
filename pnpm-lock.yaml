@@ -2224,9 +2224,6 @@ importers:
       '@verdaccio/url':
         specifier: workspace:13.0.0-next-8.15
         version: link:../core/url
-      '@verdaccio/utils':
-        specifier: workspace:8.1.0-next-8.15
-        version: link:../utils
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)
