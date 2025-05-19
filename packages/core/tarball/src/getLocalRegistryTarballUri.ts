@@ -1,8 +1,7 @@
 import buildDebug from 'debug';
 
 import { tarballUtils } from '@verdaccio/core';
-import { RequestOptions } from '@verdaccio/url';
-import { getPublicUrl } from '@verdaccio/url';
+import { RequestOptions, getPublicUrl } from '@verdaccio/url';
 
 const debug = buildDebug('verdaccio:core:tarball');
 
