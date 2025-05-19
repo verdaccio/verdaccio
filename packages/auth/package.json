@@ -46,7 +46,6 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.15",
     "@verdaccio/loaders": "workspace:8.0.0-next-8.6",
     "@verdaccio/signature": "workspace:8.0.0-next-8.7",
-    "@verdaccio/utils": "workspace:8.1.0-next-8.15",
     "debug": "4.4.0",
     "lodash": "4.17.21",
     "verdaccio-htpasswd": "workspace:13.0.0-next-8.15"

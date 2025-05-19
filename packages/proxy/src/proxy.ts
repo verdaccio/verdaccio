@@ -18,12 +18,12 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
+  authUtils,
   constants,
   errorUtils,
   searchUtils,
 } from '@verdaccio/core';
 import { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
 
 import CustomAgents from './agent';
 import { parseInterval } from './proxy-utils';
@@ -264,7 +264,7 @@ class ProxyStorage implements IProxy {
       this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
-    headers[HEADERS.AUTHORIZATION] = buildToken(type, token);
+    headers[HEADERS.AUTHORIZATION] = authUtils.buildToken(type, token);
   }
 
   /**

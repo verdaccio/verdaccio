@@ -1,9 +1,7 @@
-import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
 
-import { HTTP_STATUS } from '@verdaccio/core';
-import { createTarballHash } from '@verdaccio/utils';
+import { HTTP_STATUS, cryptoUtils } from '@verdaccio/core';
 
 import { TARBALL } from '../config.functional';
 import requirePackage from '../fixtures/package';
@@ -38,7 +36,7 @@ export default function (server, server2, server3) {
 
     beforeAll(function () {
       const pkg = requirePackage(PKG_GH131);
-      pkg.dist.shasum = crypto.createHash('sha1').update(getBinary()).digest('hex');
+      pkg.dist.shasum = cryptoUtils.createTarballHash().update(getBinary()).digest('hex');
 
       return server
         .putVersion(PKG_GH131, '0.0.1', pkg)
@@ -71,7 +69,7 @@ export default function (server, server2, server3) {
 
     beforeAll(function () {
       const pkg = requirePackage(PKG_GH1312);
-      pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
+      pkg.dist.shasum = cryptoUtils.createTarballHash().update(getBinary()).digest('hex');
 
       return server2
         .putVersion(PKG_GH1312, '0.0.1', pkg)

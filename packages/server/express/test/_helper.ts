@@ -2,9 +2,8 @@ import { Application } from 'express';
 import path from 'path';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { fileUtils } from '@verdaccio/core';
+import { cryptoUtils, fileUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../src';
 
@@ -17,7 +16,7 @@ export const getConf = async (conf) => {
   // custom config to avoid conflict with other tests
   config.auth.htpasswd.file = path.join(
     storage,
-    `${config.auth.htpasswd.file}-${generateRandomHexString()}`
+    `${config.auth.htpasswd.file}-${cryptoUtils.generateRandomHexString()}`
   );
   return config;
 };
