@@ -17,7 +17,7 @@ export function runPublish(npm) {
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
           pkgName,
-          '1.0.0-patch',
+          '1.0.0',
           registry.port,
           registry.getToken(),
           registry.getRegistryUrl()
@@ -30,7 +30,6 @@ export function runPublish(npm) {
         );
         const parsedBody = JSON.parse(resp.stdout as string);
         expect(parsedBody.name).toEqual(pkgName);
-        expect(parsedBody.files).toBeDefined();
         expect(parsedBody.files).toBeDefined();
       }
     );
