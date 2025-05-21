@@ -41,7 +41,6 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.15",
     "@verdaccio/middleware": "workspace:8.0.0-next-8.15",
     "@verdaccio/store": "workspace:8.0.0-next-8.15",
-    "@verdaccio/utils": "workspace:8.1.0-next-8.15",
     "@verdaccio/web": "workspace:8.1.0-next-8.15",
     "verdaccio-audit": "workspace:13.0.0-next-8.15",
     "compression": "1.8.0",

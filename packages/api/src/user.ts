@@ -9,13 +9,14 @@ import {
   API_MESSAGE,
   HEADERS,
   HTTP_STATUS,
+  authUtils,
+  cryptoUtils,
   errorUtils,
   validationUtils,
 } from '@verdaccio/core';
 import { USER_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import { Logger } from '@verdaccio/types';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage, mask } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../types/custom';
 
@@ -39,7 +40,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       }
 
       const username = req.params.org_couchdb_user.split(':')[1];
-      const message = getAuthenticatedMessage(req.remote_user.name);
+      const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);
       next({
@@ -107,7 +108,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
             res.status(HTTP_STATUS.CREATED);
             res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
 
-            const message = getAuthenticatedMessage(req.remote_user.name);
+            const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
             debug('login: created user message %o', message);
 
             return next({
@@ -146,7 +147,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
               ? await getApiToken(auth, config, user as RemoteUser, password)
               : undefined;
           if (token) {
-            debug('adduser: new token %o', mask(token as string, 4));
+            debug('adduser: new token %o', cryptoUtils.mask(token as string, 4));
           }
           if (!token) {
             return next(errorUtils.getUnauthorized());

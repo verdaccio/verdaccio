@@ -4,17 +4,12 @@ import fs from 'fs';
 import path from 'path';
 
 import { fromJStoYAML } from '@verdaccio/config';
-import { HTTP_STATUS, TOKEN_BEARER, fileUtils } from '@verdaccio/core';
+import { HTTP_STATUS, TOKEN_BEARER, authUtils, fileUtils } from '@verdaccio/core';
 import { ConfigYaml } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
 
 import { ServerQuery } from './request';
 
 const { writeFile } = fs.promises ? fs.promises : require('fs/promises');
-
-const buildAuthHeader = (token: string): string => {
-  return buildToken(TOKEN_BEARER, token);
-};
 
 const debug = buildDebug('verdaccio:registry');
 
@@ -150,7 +145,7 @@ export class Registry {
               user.status(HTTP_STATUS.CREATED).body_ok(new RegExp(this.credentials.user));
               // @ts-ignore
               this.token = user?.response?.body.token;
-              this.authstr = buildAuthHeader(this.token as string);
+              this.authstr = authUtils.buildToken(TOKEN_BEARER, this.token as string);
             }
 
             return resolve(this.childFork);

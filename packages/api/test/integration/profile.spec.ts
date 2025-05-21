@@ -2,9 +2,8 @@ import supertest from 'supertest';
 import { describe, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
 
-import { createUser, initializeServer } from './_helper';
+import { buildToken, createUser, initializeServer } from './_helper';
 
 describe('profile ', () => {
   describe('get profile ', () => {

@@ -1,8 +1,8 @@
 import assert from 'assert';
 import _ from 'lodash';
 
+import { authUtils } from '@verdaccio/core';
 import { PackageList, UpLinksConfList } from '@verdaccio/types';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 export const DEFAULT_REGISTRY = 'https://registry.npmjs.org';
 export const DEFAULT_UPLINK = 'npmjs';
@@ -49,7 +49,7 @@ export function sanityCheckUplinksProps(configUpLinks: UpLinksConfList): UpLinks
 }
 
 export function getProxiesForPackage(pkg: string, packages: PackageList): string[] {
-  const matchedPkg = getMatchedPackagesSpec(pkg, packages);
+  const matchedPkg = authUtils.getMatchedPackagesSpec(pkg, packages);
   return matchedPkg?.proxy || [];
 }
 

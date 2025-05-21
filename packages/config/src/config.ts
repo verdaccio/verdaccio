@@ -2,7 +2,7 @@ import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { APP_ERROR, validationUtils, warningUtils } from '@verdaccio/core';
+import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
 import { Codes } from '@verdaccio/core/build/warning-utils';
 import {
   Config as AppConfig,
@@ -15,7 +15,6 @@ import {
   Security,
   ServerSettingsConf,
 } from '@verdaccio/types';
-import { generateRandomHexString, getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { getUserAgent } from './agent';
 import { normalisePackageAccess } from './package-access';
@@ -148,7 +147,7 @@ class Config implements AppConfig {
     // unique identifier of self server (or a cluster), used to avoid loops
     // @ts-ignore
     if (!this.server_id) {
-      this.server_id = generateRandomHexString(6);
+      this.server_id = cryptoUtils.generateRandomHexString(6);
     }
   }
 
@@ -162,10 +161,13 @@ class Config implements AppConfig {
 
   /**
    * Check for package spec
+   * @param pkgName - package name
+   * @returns package access
+   * @deprecated use core.authUtils instead
    */
   public getMatchedPackagesSpec(pkgName: string): PackageAccess | void {
     // TODO: remove this method and replace by library utils
-    return getMatchedPackagesSpec(pkgName, this.packages);
+    return authUtils.getMatchedPackagesSpec(pkgName, this.packages);
   }
 
   /**

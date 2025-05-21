@@ -7,14 +7,19 @@ import {
   ROLES,
   createAnonymousRemoteUser,
   createRemoteUser,
+  getDefaultConfig,
   parseConfigFile,
 } from '@verdaccio/config';
-import { getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, CHARACTER_ENCODING, VerdaccioError, errorUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  CHARACTER_ENCODING,
+  VerdaccioError,
+  authUtils,
+  errorUtils,
+} from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
@@ -356,7 +361,7 @@ describe('Auth utilities', () => {
 
   describe('getAuthenticatedMessage test', () => {
     test('should sign token with jwt enabled', () => {
-      expect(getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
+      expect(authUtils.getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
     });
   });
 });

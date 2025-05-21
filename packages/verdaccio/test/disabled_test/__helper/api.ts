@@ -1,12 +1,19 @@
 import _ from 'lodash';
 import request from 'supertest';
 
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import {
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+  cryptoUtils,
+} from '@verdaccio/core';
 import { Package } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
-import { generateRandomHexString } from '@verdaccio/utils';
 
 import { getTaggedVersionFromPackage } from './expects';
+
+const buildToken = authUtils.buildToken;
 
 // API Helpers
 
@@ -46,7 +53,7 @@ export function putPackage(
 export function deletePackage(request: any, pkgName: string, token?: string): Promise<any[]> {
   return new Promise((resolve) => {
     let del = request
-      .put(`/${pkgName}/-rev/${generateRandomHexString(8)}`)
+      .put(`/${pkgName}/-rev/${cryptoUtils.generateRandomHexString(8)}`)
       .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON);
 
     if (_.isNil(token) === false) {
@@ -208,5 +215,5 @@ export async function verifyPackageVersionDoesExist(app, packageName, version, t
 }
 
 export function generateUnPublishURI(pkgName) {
-  return `/${pkgName}/-rev/${generateRandomHexString(8)}`;
+  return `/${pkgName}/-rev/${cryptoUtils.generateRandomHexString(8)}`;
 }

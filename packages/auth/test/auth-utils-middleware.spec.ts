@@ -9,15 +9,16 @@ import {
   parseConfigFile,
 } from '@verdaccio/config';
 import { getDefaultConfig } from '@verdaccio/config';
-import { TOKEN_BEARER } from '@verdaccio/core';
+import { TOKEN_BEARER, authUtils } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { signPayload } from '@verdaccio/signature';
 import { Config, RemoteUser, Security } from '@verdaccio/types';
-import { buildToken, buildUserBuffer } from '@verdaccio/utils';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
 
 setup({});
+
+const buildToken = authUtils.buildToken;
 
 const parseConfigurationFile = (conf) => {
   const { name, ext } = path.parse(conf);
@@ -37,6 +38,7 @@ describe('Auth utilities', () => {
     const conf = parseConfigFile(parseConfigurationSecurityFile(configFileName));
     // @ts-ignore
     const secConf = _.merge(getDefaultConfig(), conf);
+    // @ts-expect-error
     secConf.secret = secret;
     const config: Config = new AppConfig(secConf);
 
@@ -101,7 +103,7 @@ describe('Auth utilities', () => {
         const user = 'test';
         const pass = 'test';
         // basic authentication need send user as base64
-        const token = buildUserBuffer(user, pass).toString('base64');
+        const token = authUtils.buildUserBuffer(user, pass).toString('base64');
         const config: Config = getConfig('security-legacy', secret);
         const security: Security = config.security;
         const credentials = getMiddlewareCredentials(security, secret, `Basic ${token}`);

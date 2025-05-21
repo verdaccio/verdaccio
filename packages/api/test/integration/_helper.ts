@@ -5,7 +5,14 @@ import supertest from 'supertest';
 import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import {
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+  cryptoUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
 import {
@@ -13,17 +20,18 @@ import {
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
 import { Author, GenericBody, PackageUsers } from '@verdaccio/types';
-import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../src';
 
 setup({});
 
+export const buildToken = authUtils.buildToken;
+
 export const getConf = (conf) => {
   const configPath = path.join(__dirname, 'config', conf);
   const config = parseConfigFile(configPath);
   // custom config to avoid conflict with other tests
-  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${generateRandomHexString()}`;
+  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${cryptoUtils.generateRandomHexString()}`;
   return config;
 };
 

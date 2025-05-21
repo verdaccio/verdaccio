@@ -1,9 +1,8 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 
-import { HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/core';
+import { HEADERS, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, cryptoUtils } from '@verdaccio/core';
 import { Manifest } from '@verdaccio/types';
-import { stringToMD5 } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend, MiddlewareError } from '../types';
 
@@ -44,7 +43,7 @@ export function final(
         !res.statusCode ||
         (res.statusCode >= HTTP_STATUS.OK && res.statusCode < HTTP_STATUS.MULTIPLE_CHOICES)
       ) {
-        const etag = stringToMD5(body as string);
+        const etag = cryptoUtils.stringToMD5(body as string);
         debug('set etag header %s', etag);
         res.header(HEADERS.ETAG, '"' + etag + '"');
       }

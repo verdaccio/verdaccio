@@ -1,15 +1,11 @@
 import { Response, Router } from 'express';
 import _ from 'lodash';
 
-import { getApiToken } from '@verdaccio/auth';
-import { Auth } from '@verdaccio/auth';
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, errorUtils } from '@verdaccio/core';
-import { rateLimit } from '@verdaccio/middleware';
-import { TOKEN_API_ENDPOINTS } from '@verdaccio/middleware';
+import { Auth, getApiToken } from '@verdaccio/auth';
+import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, cryptoUtils, errorUtils } from '@verdaccio/core';
+import { TOKEN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
-import { Config, RemoteUser, Token } from '@verdaccio/types';
-import { Logger } from '@verdaccio/types';
-import { mask, stringToMD5 } from '@verdaccio/utils';
+import { Config, Logger, RemoteUser, Token } from '@verdaccio/types';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
@@ -94,9 +90,9 @@ export default function (
             throw errorUtils.getInternalError();
           }
 
-          const key = stringToMD5(token);
+          const key = cryptoUtils.stringToMD5(token);
           // TODO: use a utility here
-          const maskedToken = mask(token, 5);
+          const maskedToken = cryptoUtils.mask(token, 5);
           const created = new Date().getTime();
 
           /**

@@ -1,10 +1,19 @@
 import _ from 'lodash';
 import semver from 'semver';
 
-import { errorUtils, pkgUtils, searchUtils, validationUtils } from '@verdaccio/core';
-import { API_ERROR, DIST_TAGS, HTTP_STATUS, MAINTAINERS, USERS } from '@verdaccio/core';
-import { GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
-import { generateRandomHexString, isNil } from '@verdaccio/utils';
+import {
+  API_ERROR,
+  DIST_TAGS,
+  HTTP_STATUS,
+  MAINTAINERS,
+  USERS,
+  cryptoUtils,
+  errorUtils,
+  pkgUtils,
+  searchUtils,
+  validationUtils,
+} from '@verdaccio/core';
+import { Author, GenericBody, Manifest, ReadmeOptions, Version } from '@verdaccio/types';
 
 import { sortVersionsAndFilterInvalid } from './versions-utils';
 
@@ -46,7 +55,7 @@ export function normalizePackage(pkg: Manifest): Manifest {
   pkgProperties.forEach((key): void => {
     const pkgProp = pkg[key];
 
-    if (isNil(pkgProp) || validationUtils.isObject(pkgProp) === false) {
+    if (_.isNil(pkgProp) || validationUtils.isObject(pkgProp) === false) {
       pkg[key] = {};
     }
   });
@@ -66,7 +75,7 @@ export function normalizePackage(pkg: Manifest): Manifest {
 export function generateRevision(rev: string): string {
   const _rev = rev.split('-');
 
-  return (+_rev[0] || 0) + 1 + '-' + generateRandomHexString();
+  return (+_rev[0] || 0) + 1 + '-' + cryptoUtils.generateRandomHexString();
 }
 
 export function getLatestReadme(pkg: Manifest): string {
@@ -112,7 +121,7 @@ export function cleanUpReadme(
     }
   }
 
-  if (isNil(version) === false) {
+  if (_.isNil(version) === false) {
     version.readme = '';
   }
 
@@ -162,14 +171,14 @@ export function checkPackageRemote(
       }
 
       // checking package exist already
-      if (isNil(packageJsonLocal) === false) {
+      if (_.isNil(packageJsonLocal) === false) {
         return reject(errorUtils.getConflict(API_ERROR.PACKAGE_EXIST));
       }
 
       for (let errorItem = 0; errorItem < upLinksErrors.length; errorItem++) {
         // checking error
         // if uplink fails with a status other than 404, we report failure
-        if (isNil(upLinksErrors[errorItem][0]) === false) {
+        if (_.isNil(upLinksErrors[errorItem][0]) === false) {
           if (upLinksErrors[errorItem][0].status !== HTTP_STATUS.NOT_FOUND) {
             if (isAllowPublishOffline) {
               return resolve();
@@ -399,4 +408,20 @@ export function mapManifestToSearchPackageBody(
   }
 
   return result;
+}
+
+export function normalizeContributors(contributors: Author[]): Author[] {
+  if (_.isNil(contributors)) {
+    return [];
+  } else if (contributors && _.isArray(contributors) === false) {
+    return [contributors];
+  } else if (_.isString(contributors)) {
+    return [
+      {
+        name: contributors,
+      },
+    ];
+  }
+
+  return contributors;
 }

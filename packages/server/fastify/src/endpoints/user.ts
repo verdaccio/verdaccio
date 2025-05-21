@@ -7,10 +7,9 @@ import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { validationUtils } from '@verdaccio/core';
+import { authUtils, validationUtils } from '@verdaccio/core';
 import { logger } from '@verdaccio/logger';
 import { RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:fastify:user');
 
@@ -22,7 +21,7 @@ async function userRoute(fastify: FastifyInstance) {
   fastify.get<{ Params: UserParamsInterface }>('/:org_couchdb_user', async (request, reply) => {
     // @ts-ignore
     // TODO: compare org_couchdb_user with remote user name
-    const message = getAuthenticatedMessage(request.userRemote.name);
+    const message = authUtils.getAuthenticatedMessage(request.userRemote.name);
     logger.info('user authenticated message %o', message);
     reply.code(fastify.statusCode.OK);
     return { ok: message };
@@ -87,7 +86,7 @@ async function userRoute(fastify: FastifyInstance) {
             return reply.send(fastify.errorUtils.getUnauthorized());
           } else {
             reply.code(fastify.statusCode.CREATED);
-            const message = getAuthenticatedMessage(remoteName);
+            const message = authUtils.getAuthenticatedMessage(remoteName);
             debug('login: created user message %o', message);
             reply.send({
               ok: message,
