@@ -387,6 +387,18 @@ importers:
         specifier: 10.9.0
         version: 10.9.0
 
+  e2e/cli/e2e-npm11:
+    dependencies:
+      '@verdaccio/e2e-cli-npm-common':
+        specifier: workspace:*
+        version: link:../e2e-npm-commons
+      '@verdaccio/test-cli-commons':
+        specifier: workspace:2.0.0-next-8.0
+        version: link:../cli-commons
+      npm:
+        specifier: 11.4.0
+        version: 11.4.0
+
   e2e/cli/e2e-npm6:
     dependencies:
       '@verdaccio/e2e-cli-npm-common':
@@ -11529,6 +11541,78 @@ packages:
       - validate-npm-package-name
       - which
       - write-file-atomic
+
+  npm@11.4.0:
+    resolution: {integrity: sha512-dZCRoh7oBdnIQrz+KHjWYmxIoWpcpzweEzj6g3mVGr/C0nPsStEu3mS9KUI3xnGbO8xRgRjRr/6KOJhf5dKXcw==, tarball: https://registry.npmjs.org/npm/-/npm-11.4.0.tgz}
+    engines: {node: ^20.17.0 || >=22.9.0}
+    hasBin: true
+    bundledDependencies:
+      - '@isaacs/string-locale-compare'
+      - '@npmcli/arborist'
+      - '@npmcli/config'
+      - '@npmcli/fs'
+      - '@npmcli/map-workspaces'
+      - '@npmcli/package-json'
+      - '@npmcli/promise-spawn'
+      - '@npmcli/redact'
+      - '@npmcli/run-script'
+      - '@sigstore/tuf'
+      - abbrev
+      - archy
+      - cacache
+      - chalk
+      - ci-info
+      - cli-columns
+      - fastest-levenshtein
+      - fs-minipass
+      - glob
+      - graceful-fs
+      - hosted-git-info
+      - ini
+      - init-package-json
+      - is-cidr
+      - json-parse-even-better-errors
+      - libnpmaccess
+      - libnpmdiff
+      - libnpmexec
+      - libnpmfund
+      - libnpmorg
+      - libnpmpack
+      - libnpmpublish
+      - libnpmsearch
+      - libnpmteam
+      - libnpmversion
+      - make-fetch-happen
+      - minimatch
+      - minipass
+      - minipass-pipeline
+      - ms
+      - node-gyp
+      - nopt
+      - normalize-package-data
+      - npm-audit-report
+      - npm-install-checks
+      - npm-package-arg
+      - npm-pick-manifest
+      - npm-profile
+      - npm-registry-fetch
+      - npm-user-validate
+      - p-map
+      - pacote
+      - parse-conflict-json
+      - proc-log
+      - qrcode-terminal
+      - read
+      - semver
+      - spdx-expression-parse
+      - ssri
+      - supports-color
+      - tar
+      - text-table
+      - tiny-relative-date
+      - treeverse
+      - validate-npm-package-name
+      - which
 
   npm@6.14.18:
     resolution: {integrity: sha512-p3SjqSchSuNQUqbJBgwdv0L3O6bKkaSfQrQzJsskNpNKLg0g37c5xTXFV0SqTlX9GWvoGxBELVJMRWq0J8oaLA==, tarball: https://registry.npmjs.org/npm/-/npm-6.14.18.tgz}
@@ -27920,6 +28004,8 @@ snapshots:
   npm-to-yarn@3.0.1: {}
 
   npm@10.9.0: {}
+
+  npm@11.4.0: {}
 
   npm@6.14.18: {}
 
