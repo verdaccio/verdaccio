@@ -17,7 +17,7 @@ export function runDistTag(npm) {
       await registry.init();
     });
 
-    test.each([['@foo/foo', 'foo']])('should list dist-tags for %s', async (pkgName) => {
+    test.each([['@foo/foo'], ['foo']])('should list dist-tags for %s', async (pkgName) => {
       const { tempFolder } = await prepareGenericEmptyProject(
         pkgName,
         '1.0.0',

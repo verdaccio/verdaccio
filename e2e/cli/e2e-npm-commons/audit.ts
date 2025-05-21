@@ -12,7 +12,7 @@ export function runAudit(npm) {
       await registry.init();
     });
 
-    test.each([['verdaccio-memory', '@verdaccio/cli']])(
+    test.each([['verdaccio-memory'], ['@verdaccio/cli']])(
       'should audit a package %s',
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
