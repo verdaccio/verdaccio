@@ -44,7 +44,7 @@ export function runUnpublish(npm) {
           '--json',
           ...addRegistry(registry.getRegistryUrl())
         );
-        expect(resp2.stdout).toEqual('- @verdaccio/test1');
+        expect(resp2.stdout).toEqual(`- ${pkgName}`);
       }
     );
 
@@ -75,7 +75,7 @@ export function runUnpublish(npm) {
           '--json',
           ...addRegistry(registry.getRegistryUrl())
         );
-        expect(resp2.stdout).toEqual('- @verdaccio/test1@1.0.0-beta');
+        expect(resp2.stdout).toEqual(`- ${pkgName}@1.0.0-beta`);
       }
     );
 
