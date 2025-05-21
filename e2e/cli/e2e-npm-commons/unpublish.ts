@@ -22,7 +22,7 @@ export function runUnpublish(npm) {
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
           pkgName,
-          '1.0.0-beta',
+          '1.0.0',
           registry.port,
           registry.getToken(),
           registry.getRegistryUrl()
@@ -53,7 +53,7 @@ export function runUnpublish(npm) {
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
           pkgName,
-          '1.0.0-beta',
+          '1.0.0',
           registry.port,
           registry.getToken(),
           registry.getRegistryUrl()
@@ -69,7 +69,7 @@ export function runUnpublish(npm) {
         const resp2 = await npm(
           { cwd: tempFolder },
           'unpublish',
-          `${pkgName}@1.0.0-beta`,
+          `${pkgName}@1.0.0`,
           '--force',
           '--loglevel=info',
           '--json',

@@ -43,7 +43,8 @@ jobs:
             npm7,
             npm8,
             npm9,
-            npm10
+            npm10,
+            npm11,
           ]
         node: [22, 24]
     name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
