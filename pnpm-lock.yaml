@@ -1636,6 +1636,9 @@ importers:
       '@verdaccio/config':
         specifier: workspace:8.0.0-next-8.15
         version: link:../config
+      '@verdaccio/core':
+        specifier: workspace:8.0.0-next-8.15
+        version: link:../core/core
       debug:
         specifier: 4.4.0
         version: 4.4.0(supports-color@5.5.0)

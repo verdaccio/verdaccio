@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
-import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
   PLUGIN_CATEGORY,
@@ -21,7 +21,6 @@ import {
   aesEncryptDeprecated,
   parseBasicPayload,
   signPayload,
-  utils as signatureUtils,
 } from '@verdaccio/signature';
 import {
   AllowAccess,
@@ -595,7 +594,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    if (this.secret.length === signatureUtils.TOKEN_VALID_LENGTH) {
+    if (this.secret.length === TOKEN_VALID_LENGTH) {
       debug('signing with enhanced aes legacy');
       const token = aesEncrypt(value, this.secret);
       return token;
