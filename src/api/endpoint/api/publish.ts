@@ -91,7 +91,14 @@ export default function publish(
    *
    */
   router.put(
-    PUBLISH_API_ENDPOINTS.add_package,
+    PUBLISH_API_ENDPOINTS.add_package, // without revision
+    can('publish'),
+    media(mime.getType('json')),
+    expectJson,
+    publishPackage(storage, config, auth)
+  );
+  router.put(
+    PUBLISH_API_ENDPOINTS.publish_package, // with revision (unpublish)
     can('publish'),
     media(mime.getType('json')),
     expectJson,
