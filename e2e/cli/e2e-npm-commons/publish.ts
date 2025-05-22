@@ -12,7 +12,7 @@ export function runPublish(npm) {
       await registry.init();
     });
 
-    test.each([['verdaccio-memory', 'verdaccio', '@verdaccio/foo', '@verdaccio/some-foo']])(
+    test.each([['verdaccio-memory'], ['verdaccio'], ['@verdaccio/foo'], ['@verdaccio/some-foo']])(
       'should publish a package %s',
       async (pkgName) => {
         // As of npm v11, npm will fetch the packument from the npm registry before publishing (from the uplink),
