@@ -1,5 +1,16 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.7
+
+### Minor Changes
+
+- 6add153: feat(loader): support scoped plugins in plugin folder
+
+### Patch Changes
+
+- 76308ff: fix(express): error loading middleware plugins
+- b19ddca: fix(config): server settings
+
 ## 8.0.0-next-8.6
 
 ### Patch Changes

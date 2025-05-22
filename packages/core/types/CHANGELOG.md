@@ -1,5 +1,12 @@
 # Change Log
 
+## 13.0.0-next-8.6
+
+### Patch Changes
+
+- d33266b: chore(types): use "Person" instead of "Author"
+- 3ef4a49: fix: support JWT sign and verify options
+
 ## 13.0.0-next-8.5
 
 ### Patch Changes
