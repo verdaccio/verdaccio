@@ -14,4 +14,4 @@ jobs:
     uses: verdaccio/verdaccio/.github/workflows/x-smok-test-docker.yml@master
     with:
       docker_tag: '6.x-next'
-
+      module_tag: '@latest'
