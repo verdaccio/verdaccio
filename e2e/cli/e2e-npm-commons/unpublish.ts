@@ -17,7 +17,7 @@ export function runUnpublish(npm) {
       await registry.init();
     });
 
-    test.each([['@verdaccio/test1', 'super-package-do-not-exist-spam']])(
+    test.each([['@verdaccio/test1'], ['super-package-do-not-exist-spam']])(
       'should unpublish a full package %s',
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
@@ -44,11 +44,11 @@ export function runUnpublish(npm) {
           '--json',
           ...addRegistry(registry.getRegistryUrl())
         );
-        expect(resp2.stdout).toEqual('- @verdaccio/test1');
+        expect(resp2.stdout).toEqual(`- ${pkgName}`);
       }
     );
 
-    test.each([['@verdaccio/test1', 'super-package-do-not-exist-spam']])(
+    test.each([['@verdaccio/test1'], ['super-package-do-not-exist-spam']])(
       'should unpublish a package %s version',
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
@@ -75,7 +75,7 @@ export function runUnpublish(npm) {
           '--json',
           ...addRegistry(registry.getRegistryUrl())
         );
-        expect(resp2.stdout).toEqual('- @verdaccio/test1@1.0.0');
+        expect(resp2.stdout).toEqual(`- ${pkgName}@1.0.0`);
       }
     );
 
