@@ -62,27 +62,48 @@ export const HEADERS = {
   HOST: 'host',
 };
 
+/**
+ * HTTP status codes used throughout Verdaccio.
+ */
 export const HTTP_STATUS = {
-  OK: httpCodes.OK, // 200
-  CREATED: httpCodes.CREATED, // 201
-  ACCEPTED: httpCodes.ACCEPTED, // 202
-  MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES, // 300
-  NOT_MODIFIED: httpCodes.NOT_MODIFIED, // 304
-  BAD_REQUEST: httpCodes.BAD_REQUEST, // 400
-  UNAUTHORIZED: httpCodes.UNAUTHORIZED, // 401
-  FORBIDDEN: httpCodes.FORBIDDEN, // 403
-  NOT_FOUND: httpCodes.NOT_FOUND, // 404
-  CONFLICT: httpCodes.CONFLICT, // 409
-  UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE, // 415
-  BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY, // 422
-  INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR, // 500
-  NOT_IMPLEMENTED: httpCodes.NOT_IMPLEMENTED, // 501
-  SERVICE_UNAVAILABLE: httpCodes.SERVICE_UNAVAILABLE, // 503
+  /** 200: Standard response for successful HTTP requests. */
+  OK: httpCodes.OK,
+  /** 201: The request has been fulfilled and resulted in a new resource being created. */
+  CREATED: httpCodes.CREATED,
+  /** 300: Indicates multiple options for the resource from which the client may choose. */
+  MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES,
+  /** 304: Indicates that the resource has not been modified since the last request. */
+  NOT_MODIFIED: httpCodes.NOT_MODIFIED,
+  /** 400: The server could not understand the request due to invalid syntax. */
+  BAD_REQUEST: httpCodes.BAD_REQUEST,
+  /** 401: The client must authenticate itself to get the requested response. */
+  UNAUTHORIZED: httpCodes.UNAUTHORIZED,
+  /** 403: The client does not have access rights to the content. */
+  FORBIDDEN: httpCodes.FORBIDDEN,
+  /** 404: The server can not find the requested resource. */
+  NOT_FOUND: httpCodes.NOT_FOUND,
+  /** 408: The server timed out waiting for the request. */
+  REQUEST_TIMEOUT: httpCodes.REQUEST_TIMEOUT,
+  /** 409: The request could not be completed due to a conflict with the current state of the resource. */
+  CONFLICT: httpCodes.CONFLICT,
+  /** 415: The media format of the requested data is not supported by the server. */
+  UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE,
+  /** 422: The request was well-formed but was unable to be followed due to semantic errors. */
+  BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY,
+  /** 500: The server has encountered a situation it doesn't know how to handle. */
+  INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR,
+  /** 501: The request method is not supported by the server and cannot be handled. */
+  NOT_IMPLEMENTED: httpCodes.NOT_IMPLEMENTED,
+  /** 502: The server, while acting as a gateway or proxy, received an invalid response from the upstream server. */
+  BAD_GATEWAY: httpCodes.BAD_GATEWAY,
+  /** 503: The server is not ready to handle the request. */
+  SERVICE_UNAVAILABLE: httpCodes.SERVICE_UNAVAILABLE,
+  /** 504: The server, while acting as a gateway or proxy, did not get a response in time from the upstream server. */
+  GATEWAY_TIMEOUT: httpCodes.GATEWAY_TIMEOUT,
+  /** 508: The server detected an infinite loop while processing the request. */
   LOOP_DETECTED: 508,
+  /** 590: Custom Verdaccio code indicating the server cannot handle the request. */
   CANNOT_HANDLE: 590,
-  REQUEST_TIMEOUT: httpCodes.REQUEST_TIMEOUT, // 408
-  BAD_GATEWAY: httpCodes.BAD_GATEWAY, // 502
-  GATEWAY_TIMEOUT: httpCodes.GATEWAY_TIMEOUT, // 504
 };
 
 export const ERROR_CODE = {

@@ -1,10 +1,9 @@
 import { createCipher, createDecipher } from 'crypto';
 import buildDebug from 'debug';
 
-import { generateRandomHexString } from '../utils';
+import { cryptoUtils } from '@verdaccio/core';
 
 export const defaultAlgorithm = 'aes192';
-export const defaultTarballHashAlgorithm = 'sha1';
 
 const debug = buildDebug('verdaccio:auth:token:legacy:deprecated');
 
@@ -54,5 +53,5 @@ export const TOKEN_VALID_LENGTH_DEPRECATED = 64;
  * Generate a secret key of 64 characters.
  */
 export function generateRandomSecretKeyDeprecated(): string {
-  return generateRandomHexString(6);
+  return cryptoUtils.generateRandomHexString(6);
 }

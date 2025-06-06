@@ -17,26 +17,30 @@ export function runDistTag(npm) {
       await registry.init();
     });
 
-    test.each([['@foo/foo', 'foo']])('should list dist-tags for %s', async (pkgName) => {
-      const { tempFolder } = await prepareGenericEmptyProject(
-        pkgName,
-        '1.0.0',
-        registry.port,
-        registry.getToken(),
-        registry.getRegistryUrl()
-      );
-      await npmUtils.publish(npm, tempFolder, pkgName, registry);
-      await npmUtils.bumbUp(npm, tempFolder, registry);
-      await npmUtils.publish(npm, tempFolder, pkgName, registry, ['--tag', 'beta']);
-      const resp2 = await npm(
-        { cwd: tempFolder },
-        'dist-tag',
-        'ls',
-        '--json',
-        ...addRegistry(registry.getRegistryUrl())
-      );
-      expect(resp2.stdout).toEqual('beta: 1.1.0latest: 1.0.0');
-    });
+    test.each([['@foo/verdaccio-foo'], ['verdaccio-foo']])(
+      'should list dist-tags for %s',
+      async (pkgName) => {
+        // Packages must not exist in npm registry to avoid conflicts with data from uplink
+        const { tempFolder } = await prepareGenericEmptyProject(
+          pkgName,
+          '1.0.0',
+          registry.port,
+          registry.getToken(),
+          registry.getRegistryUrl()
+        );
+        await npmUtils.publish(npm, tempFolder, pkgName, registry);
+        await npmUtils.bumbUp(npm, tempFolder, registry);
+        await npmUtils.publish(npm, tempFolder, pkgName, registry, ['--tag', 'beta']);
+        const resp2 = await npm(
+          { cwd: tempFolder },
+          'dist-tag',
+          'ls',
+          '--json',
+          ...addRegistry(registry.getRegistryUrl())
+        );
+        expect(resp2.stdout).toEqual('beta: 1.1.0latest: 1.0.0');
+      }
+    );
 
     test.each([['@verdaccio/bar']])('should remove tag with dist-tags for %s', async (pkgName) => {
       const { tempFolder } = await prepareGenericEmptyProject(

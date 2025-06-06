@@ -1,6 +1,4 @@
-import _ from 'lodash';
-
-import { Package, Version } from '@verdaccio/types';
+import { Manifest, Version } from '@verdaccio/types';
 import { RequestOptions } from '@verdaccio/url';
 
 import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
@@ -8,15 +6,15 @@ import { getLocalRegistryTarballUri } from './getLocalRegistryTarballUri';
 /**
  * Iterate a packages's versions and filter each original tarball url.
  * @param {*} pkg
- * @param {*} req
- * @param {*} config
+ * @param {*} request
+ * @param {*} urlPrefix
  * @return {String} a filtered package
  */
 export function convertDistRemoteToLocalTarballUrls(
-  pkg: Package,
+  pkg: Manifest,
   request: RequestOptions,
   urlPrefix: string | void
-): Package {
+): Manifest {
   const { name, versions } = pkg;
   const convertedPkg = { ...pkg };
   const convertedVersions = versions;
@@ -46,10 +44,15 @@ export function convertDistRemoteToLocalTarballUrls(
  * @param urlPrefix
  * @returns
  */
-export function convertDistVersionToLocalTarballsUrl(name, version: Version, request, urlPrefix) {
+export function convertDistVersionToLocalTarballsUrl(
+  name: string,
+  version: Version,
+  request: RequestOptions,
+  urlPrefix: string | void
+) {
   const distName = version.dist;
 
-  if (_.isNull(distName) === false && _.isNull(distName.tarball) === false) {
+  if (distName && distName.tarball) {
     return {
       ...version,
       dist: {
