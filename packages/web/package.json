@@ -45,7 +45,7 @@
     "@verdaccio/api": "workspace:8.1.0-next-8.15",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.4",
     "@verdaccio/types": "workspace:13.0.0-next-8.5",
-    "jsdom": "25.0.1",
+    "jsdom": "26.1.0",
     "node-html-parser": "4.1.5",
     "supertest": "7.0.0",
     "verdaccio-auth-memory": "workspace:13.0.0-next-8.15",
