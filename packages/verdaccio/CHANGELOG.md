@@ -1,5 +1,20 @@
 # verdaccio
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- Updated dependencies [626ae6a]
+- Updated dependencies [04c4e5b]
+  - @verdaccio/ui-theme@8.0.0-next-8.16
+  - @verdaccio/node-api@8.0.0-next-8.16
+  - @verdaccio/hooks@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - verdaccio-audit@13.0.0-next-8.16
+  - verdaccio-htpasswd@13.0.0-next-8.16
+  - @verdaccio/cli@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

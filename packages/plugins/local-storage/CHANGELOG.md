@@ -1,5 +1,18 @@
 # Change Log
 
+## 13.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- 7751a55: fix(local-storage): uncontrolled data used in path expression
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/file-locking@13.0.0-next-8.3
+
 ## 13.0.0-next-8.15
 
 ### Patch Changes

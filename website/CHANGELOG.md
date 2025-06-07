@@ -1,5 +1,20 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.4
+
+### Patch Changes
+
+- 3d113dd: - Updated the docs to show how we can make AWS CodeArtifact work with Verdaccio
+  - Added the example uplinks configuration
+- Updated dependencies [387d9f0]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [626ae6a]
+- Updated dependencies [4236e54]
+- Updated dependencies [89b72d0]
+- Updated dependencies [ca0844a]
+- Updated dependencies [6561485]
+  - @verdaccio/ui-components@4.0.0-next-8.9
+
 ## 1.0.1-next-8.3
 
 ### Patch Changes

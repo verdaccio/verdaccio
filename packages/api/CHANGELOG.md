@@ -1,5 +1,30 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- 626ae6a: feat: web v1 login backend (experimental)
+- b19ddca: fix(config): server settings
+- 5f036c0: fix(api): cidr whitelist for tokens
+- Updated dependencies [72c3cbb]
+- Updated dependencies [626ae6a]
+- Updated dependencies [d33266b]
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+
 ## 8.1.0-next-8.15
 
 ### Patch Changes
