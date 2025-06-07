@@ -1,5 +1,34 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.16
+
+### Patch Changes
+
+- 0be45da: chore(web): move utils to web package
+- b19ddca: fix(config): server settings
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [626ae6a]
+- Updated dependencies [d33266b]
+- Updated dependencies [9509b63]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+- Updated dependencies [7513899]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/tarball@13.0.0-next-8.16
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+
 ## 8.1.0-next-8.15
 
 ### Patch Changes

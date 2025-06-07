@@ -1,5 +1,23 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- 626ae6a: feat: web v1 login frontend (experimental)
+- 626ae6a: feat: web v1 login backend (experimental)
+- fdf44a6: fix(middleware): properly derive the html cache key
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

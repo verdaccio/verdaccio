@@ -1,5 +1,11 @@
 # @verdaccio/ui-i18n
 
+## 8.0.0-next-8.13
+
+### Patch Changes
+
+- 626ae6a: feat: web v1 login frontend (experimental)
+
 ## 8.0.0-next-8.12
 
 ### Patch Changes
