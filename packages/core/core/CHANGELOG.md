@@ -1,5 +1,14 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 9509b63: chore(core): http status codes
+- 626ae6a: feat: web v1 login backend (experimental)
+- acb8a99: chore(core): move more utils to core
+- b19ddca: fix(config): server settings
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14

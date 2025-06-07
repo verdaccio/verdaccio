@@ -1,5 +1,14 @@
 # Change Log
 
+## 13.0.0-next-8.6
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- d33266b: chore(types): use "Person" instead of "Author"
+- 626ae6a: feat: web v1 login backend (experimental)
+- 3ef4a49: fix: support JWT sign and verify options
+
 ## 13.0.0-next-8.5
 
 ### Patch Changes

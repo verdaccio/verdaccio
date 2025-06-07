@@ -1,5 +1,38 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- 4115860: fix(server): web-enabled test
+- 76308ff: fix(express): error loading middleware plugins
+- b19ddca: fix(config): server settings
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [626ae6a]
+- Updated dependencies [d33266b]
+- Updated dependencies [0be45da]
+- Updated dependencies [9509b63]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [5f036c0]
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/api@8.1.0-next-8.16
+  - @verdaccio/web@8.1.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - verdaccio-audit@13.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

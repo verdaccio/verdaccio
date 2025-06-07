@@ -1,5 +1,19 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- 626ae6a: feat: web v1 login backend (experimental)
+- 2fef671: chore(signature): remove duplicate code
+- b19ddca: fix(config): server settings
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/core@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

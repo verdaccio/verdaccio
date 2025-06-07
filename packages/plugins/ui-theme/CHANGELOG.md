@@ -1,5 +1,15 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.16
+
+### Minor Changes
+
+- 626ae6a: feat: web v1 login frontend (experimental)
+
+### Patch Changes
+
+- 04c4e5b: chore(ui): minor app improvements
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14

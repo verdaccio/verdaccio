@@ -1,5 +1,33 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- d33266b: chore(types): use "Person" instead of "Author"
+- b19ddca: fix(config): server settings
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [7751a55]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [7513899]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/local-storage@13.0.0-next-8.16
+  - @verdaccio/tarball@13.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/proxy@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+  - @verdaccio/hooks@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - @verdaccio/search@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes
