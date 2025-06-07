@@ -66,6 +66,8 @@ export const HEADERS = {
  * HTTP status codes used throughout Verdaccio.
  */
 export const HTTP_STATUS = {
+  /** 202: The request has been accepted for processing, but the processing is not yet complete. */
+  ACCEPTED: httpCodes.ACCEPTED,
   /** 200: Standard response for successful HTTP requests. */
   OK: httpCodes.OK,
   /** 201: The request has been fulfilled and resulted in a new resource being created. */
