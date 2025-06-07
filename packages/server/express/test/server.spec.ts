@@ -6,7 +6,7 @@ import { setup } from '@verdaccio/logger';
 
 import { initializeServer } from './_helper';
 
-setup({});
+await setup({});
 
 describe('server api', () => {
   test('should request any package', async () => {
