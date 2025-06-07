@@ -4,11 +4,10 @@ import { randomUUID } from 'node:crypto';
 
 import { Auth, getApiToken } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
-import { API_ERROR, HEADERS, HTTP_STATUS, errorUtils } from '@verdaccio/core';
+import { API_ERROR, HEADERS, HTTP_STATUS, authUtils, errorUtils } from '@verdaccio/core';
 import { LOGIN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Config, Logger } from '@verdaccio/types';
-import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 import { $NextFunctionVer, $RequestExtend } from '../../types/custom';
 
@@ -156,7 +155,7 @@ export default function (
             created: new Date().getTime(),
           });
 
-          const message = getAuthenticatedMessage(remoteUser.name ?? '');
+          const message = authUtils.getAuthenticatedMessage(remoteUser.name ?? '');
 
           res.status(HTTP_STATUS.CREATED);
           res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
