@@ -888,8 +888,8 @@ importers:
         specifier: workspace:8.0.0-next-8.15
         version: link:../logger-commons
       pino:
-        specifier: 9.6.0
-        version: 9.6.0
+        specifier: 9.7.0
+        version: 9.7.0
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.5
@@ -914,8 +914,8 @@ importers:
         specifier: workspace:13.0.0-next-8.5
         version: link:../../core/types
       pino:
-        specifier: 9.6.0
-        version: 9.6.0
+        specifier: 9.7.0
+        version: 9.7.0
 
   packages/logger/logger-prettify:
     dependencies:
@@ -936,8 +936,8 @@ importers:
         version: 3.8.1
     devDependencies:
       pino:
-        specifier: 9.6.0
-        version: 9.6.0
+        specifier: 9.7.0
+        version: 9.7.0
 
   packages/middleware:
     dependencies:
@@ -12402,8 +12402,8 @@ packages:
     resolution: {integrity: sha512-LA6qKgeDMLr2ux2y/YiUt47EfgQ+S9LznBWOJdN3q1dx2sv0ziDLUBeVpyVv17TEcGCBuWf0zNtg3M5m1NhhWQ==}
     hasBin: true
 
-  pino@9.6.0:
-    resolution: {integrity: sha512-i85pKRCt4qMjZ1+L7sy2Ag4t1atFcdbEt76+7iRJn1g2BvsnRMGu9p8pivl9fs63M2kF/A0OacFZhTub+m/qMg==}
+  pino@9.7.0:
+    resolution: {integrity: sha512-vnMCM6xZTb1WDmLvtG2lE/2p+t9hDEIvTWJsu6FejkE62vB7gDhvzrpFR4Cw2to+9JNQxVnkAKVPA1KPB98vWg==}
     hasBin: true
 
   pirates@4.0.6:
@@ -13112,8 +13112,8 @@ packages:
   process-warning@3.0.0:
     resolution: {integrity: sha512-mqn0kFRl0EoqhnL0GQ0veqFHyIN1yig9RHh/InzORTUiZHFRAur+aMtRkELNwGs9aNwKS6tg/An4NYBPGwvtzQ==}
 
-  process-warning@4.0.0:
-    resolution: {integrity: sha512-/MyYDxttz7DfGMMHiysAsFE4qF+pQYAA8ziO/3NcRVrQ5fSk+Mns4QZA/oRPFzvcqNoVJXQNWNAsdwBXLUkQKw==}
+  process-warning@5.0.0:
+    resolution: {integrity: sha512-a39t9ApHNx2L4+HBnQKqxxHNs1r7KF+Intd8Q/g1bUh6q0WIp9voPXJ/x0j+ZL45KF1pJd9+q2jLIRMfvEshkA==}
 
   process@0.11.10:
     resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
@@ -28528,14 +28528,14 @@ snapshots:
       sonic-boom: 3.8.1
       thread-stream: 2.3.0
 
-  pino@9.6.0:
+  pino@9.7.0:
     dependencies:
       atomic-sleep: 1.0.0
       fast-redact: 3.1.2
       on-exit-leak-free: 2.1.0
       pino-abstract-transport: 2.0.0
       pino-std-serializers: 7.0.0
-      process-warning: 4.0.0
+      process-warning: 5.0.0
       quick-format-unescaped: 4.0.4
       real-require: 0.2.0
       safe-stable-stringify: 2.4.3
@@ -29258,7 +29258,7 @@ snapshots:
 
   process-warning@3.0.0: {}
 
-  process-warning@4.0.0: {}
+  process-warning@5.0.0: {}
 
   process@0.11.10: {}
 
