@@ -40,6 +40,10 @@ export { default as Detail } from './sections/Detail';
 export { default as Header } from './sections/Header';
 export { default as Home } from './sections/Home';
 export { default as Footer } from './sections/Footer';
+export { default as Login } from './sections/Security/Login';
+export { default as Success } from './sections/Security/Success';
+export { default as AddUser } from './sections/Security/AddUser';
+export { default as ChangePassword } from './sections/Security/ChangePassword';
 
 // layout
 export { VersionLayout } from './layouts/Version';
@@ -64,3 +68,6 @@ export * from './Theme';
 export { store, api } from './store';
 export type { RootState, Dispatch } from './store';
 export type { LoginError, LoginBody, LoginResponse } from './store/models/login';
+export type { LoginV1Error } from './store/models/login-v1';
+export type { AddUserError } from './store/models/add-user';
+export type { ChangePasswordError } from './store/models/change-password';

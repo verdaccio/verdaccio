@@ -38,6 +38,7 @@ export const HEADERS = {
   TEXT_HTML: 'text/html',
   AUTHORIZATION: 'authorization',
   CACHE_CONTROL: 'Cache-Control',
+  RETRY_AFTER: 'Retry-After',
   // only set with proxy that setup HTTPS
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto
   FORWARDED_PROTO: 'X-Forwarded-Proto',
@@ -65,6 +66,8 @@ export const HEADERS = {
  * HTTP status codes used throughout Verdaccio.
  */
 export const HTTP_STATUS = {
+  /** 202: The request has been accepted for processing, but the processing is not yet complete. */
+  ACCEPTED: httpCodes.ACCEPTED,
   /** 200: Standard response for successful HTTP requests. */
   OK: httpCodes.OK,
   /** 201: The request has been fulfilled and resulted in a new resource being created. */

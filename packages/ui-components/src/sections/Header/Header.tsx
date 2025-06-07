@@ -12,11 +12,16 @@ import { InnerMobileNavBar, InnerNavBar, MobileNavBar, NavBar } from './styles';
 
 type Props = {
   HeaderInfoDialog?: React.FC<any>;
+  isPlainHeader?: boolean;
   tokenCheckIntervalMs?: number;
 };
 
 // Session timeout default is 1 hour
-const Header: React.FC<Props> = ({ HeaderInfoDialog, tokenCheckIntervalMs = 60 * 60 * 1000 }) => {
+const Header: React.FC<Props> = ({
+  HeaderInfoDialog,
+  isPlainHeader,
+  tokenCheckIntervalMs = 60 * 60 * 1000,
+}) => {
   const { t } = useTranslation();
   const [isInfoDialogOpen, setOpenInfoDialog] = useState<boolean>(false);
   const [isSettingsDialogOpen, setSettingsDialogOpen] = useState<boolean>(false);
@@ -48,6 +53,29 @@ const Header: React.FC<Props> = ({ HeaderInfoDialog, tokenCheckIntervalMs = 60 *
     dispatch.login.logOutUser();
     setShowLoginModal(false);
   };
+  if (isPlainHeader) {
+    // Header with logo and nothing else
+    return (
+      <NavBar data-testid="header" position="static">
+        <InnerNavBar>
+          <HeaderLeft showSearch={false} />
+          <HeaderRight
+            hasLogin={false}
+            onLogout={() => {}}
+            onOpenRegistryInfoDialog={() => {}}
+            onOpenSettingsDialog={() => {}}
+            onToggleLogin={() => {}}
+            onToggleMobileNav={() => {}}
+            showInfo={false}
+            showSearch={false}
+            showSettings={false}
+            showThemeSwitch={false}
+            username={''}
+          />
+        </InnerNavBar>
+      </NavBar>
+    );
+  }
   return (
     <>
       <NavBar data-testid="header" position="static">

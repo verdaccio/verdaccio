@@ -7,13 +7,14 @@ import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { Router } from 'react-router-dom';
+import { Router, useLocation } from 'react-router-dom';
 
 import {
   Footer,
   Header,
   HeaderInfoDialog,
   Loading,
+  Route,
   Theme,
   TranslatorProvider,
   useConfig,
@@ -82,26 +83,39 @@ function CustomInfoDialog({ onCloseDialog, title, isOpen }) {
   );
 }
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const { configOptions } = useConfig();
+  const location = useLocation();
+  const isPlainHeader = [
+    Route.LOGIN,
+    Route.SUCCESS,
+    Route.ADD_USER,
+    Route.CHANGE_PASSWORD,
+  ].includes(location.pathname as Route);
 
   useEffect(() => {
     loadDayJSLocale();
   }, []);
 
   return (
+    <StyledBox display="flex" flexDirection="column" height="100%">
+      <Header HeaderInfoDialog={CustomInfoDialog} isPlainHeader={isPlainHeader} />
+      <StyledBoxContent flexGrow={1}>
+        <AppRoute />
+      </StyledBoxContent>
+      {configOptions.showFooter && <Footer />}
+    </StyledBox>
+  );
+};
+
+const App: React.FC = () => {
+  return (
     <StrictMode>
       <TranslatorProvider i18n={i18n} listLanguages={listLanguages} onMount={() => loadDayJSLocale}>
         <Suspense fallback={<Loading />}>
-          <StyledBox display="flex" flexDirection="column" height="100%">
-            <Router history={history}>
-              <Header HeaderInfoDialog={CustomInfoDialog} />
-              <StyledBoxContent flexGrow={1}>
-                <AppRoute />
-              </StyledBoxContent>
-            </Router>
-            {configOptions.showFooter && <Footer />}
-          </StyledBox>
+          <Router history={history}>
+            <AppContent />
+          </Router>
         </Suspense>
       </TranslatorProvider>
     </StrictMode>
