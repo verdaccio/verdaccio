@@ -19,6 +19,7 @@ import {
   PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
+  cryptoUtils,
   errorUtils,
   pluginUtils,
   searchUtils,
@@ -59,7 +60,6 @@ import {
   UnPublishManifest,
   Version,
 } from '@verdaccio/types';
-import { createTarballHash, normalizeContributors } from '@verdaccio/utils';
 
 import {
   PublishOptions,
@@ -69,8 +69,7 @@ import {
   tagVersion,
   tagVersionNext,
 } from '.';
-import { isPublishablePackage } from './lib/star-utils';
-import { isExecutingStarCommand } from './lib/star-utils';
+import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
   cleanUpLinksRef,
@@ -80,6 +79,7 @@ import {
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
+  normalizeContributors,
   normalizeDistTags,
   normalizePackage,
   updateUpLinkMetadata,
@@ -1321,7 +1321,7 @@ class Storage {
     debug(`add a tarball for %o`, pkgName);
     assert(validationUtils.validateName(filename));
 
-    const shaOneHash = createTarballHash();
+    const shaOneHash = cryptoUtils.createTarballHash();
     const transformHash = new Transform({
       transform(chunk: any, _encoding: string, callback: any): void {
         // measure the length for validation reasons

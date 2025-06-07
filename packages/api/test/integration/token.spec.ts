@@ -10,9 +10,14 @@ import {
   SUPPORT_ERRORS,
   TOKEN_BEARER,
 } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
 
-import { deleteTokenCLI, generateTokenCLI, getNewToken, initializeServer } from './_helper';
+import {
+  buildToken,
+  deleteTokenCLI,
+  generateTokenCLI,
+  getNewToken,
+  initializeServer,
+} from './_helper';
 
 describe('token', () => {
   describe('basics', () => {

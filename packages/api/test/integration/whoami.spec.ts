@@ -2,9 +2,8 @@ import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 
 import { HEADERS, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
 
-import { createUser, initializeServer } from './_helper';
+import { buildToken, createUser, initializeServer } from './_helper';
 
 describe('whoami', () => {
   test('should return the logged username', async () => {

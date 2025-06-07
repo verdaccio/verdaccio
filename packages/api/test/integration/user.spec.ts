@@ -2,9 +2,8 @@ import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
 import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
-import { buildToken } from '@verdaccio/utils';
 
-import { createUser, getPackage, initializeServer } from './_helper';
+import { buildToken, createUser, getPackage, initializeServer } from './_helper';
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 

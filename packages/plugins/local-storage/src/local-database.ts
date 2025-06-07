@@ -6,9 +6,8 @@ import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
 import path from 'path';
 
-import { errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
+import { authUtils, errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
 import { Config, Logger, Token, TokenFilter } from '@verdaccio/types';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { searchOnStorage } from './dir-utils';
 import { mkdirPromise, writeFilePromise } from './fs';
@@ -196,7 +195,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   }
 
   public getPackageStorage(packageName: string): pluginUtils.StorageHandler {
-    const packageAccess = getMatchedPackagesSpec(packageName, this.config.packages);
+    const packageAccess = authUtils.getMatchedPackagesSpec(packageName, this.config.packages);
 
     const packagePath: string = this._getLocalStoragePath(
       packageAccess ? packageAccess.storage : undefined

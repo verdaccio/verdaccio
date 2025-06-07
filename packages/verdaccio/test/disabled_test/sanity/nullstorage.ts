@@ -1,5 +1,4 @@
-import { API_ERROR, DIST_TAGS, HTTP_STATUS } from '@verdaccio/core';
-import { createTarballHash } from '@verdaccio/utils';
+import { API_ERROR, DIST_TAGS, HTTP_STATUS, cryptoUtils } from '@verdaccio/core';
 
 import { DOMAIN_SERVERS, PORT_SERVER_1, TARBALL } from '../config.functional';
 import generatePkg from '../fixtures/package';
@@ -50,7 +49,7 @@ export default function (server, server2) {
 
         beforeAll(function () {
           let pkg = generatePkg(PKG_NAME);
-          pkg.dist.shasum = createTarballHash().update(getBinary()).digest('hex');
+          pkg.dist.shasum = cryptoUtils.createTarballHash().update(getBinary()).digest('hex');
           return server2
             .putVersion(PKG_NAME, PKG_VERSION, pkg)
             .status(HTTP_STATUS.CREATED)
