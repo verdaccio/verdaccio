@@ -180,5 +180,5 @@
     "url": "https://opencollective.com/verdaccio",
     "logo": "https://opencollective.com/verdaccio/logo.txt"
   },
-  "packageManager": "yarn@3.8.6"
+  "packageManager": "yarn@4.9.2"
 }
