@@ -54,7 +54,7 @@
     "js-yaml": "4.1.0",
     "localstorage-memory": "1.0.3",
     "lodash": "4.17.21",
-    "marked": "15.0.6",
+    "marked": "15.0.12",
     "mini-css-extract-plugin": "2.7.7",
     "msw": "2.7.5",
     "mutationobserver-shim": "0.3.7",
