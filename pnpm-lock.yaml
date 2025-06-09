@@ -1294,8 +1294,8 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 15.0.6
-        version: 15.0.6
+        specifier: 15.0.12
+        version: 15.0.12
       mini-css-extract-plugin:
         specifier: 2.7.7
         version: 2.7.7(webpack@5.99.9)
@@ -1959,11 +1959,11 @@ importers:
         specifier: 4.17.21
         version: 4.17.21
       marked:
-        specifier: 15.0.6
-        version: 15.0.6
+        specifier: 15.0.12
+        version: 15.0.12
       marked-highlight:
         specifier: 2.2.1
-        version: 2.2.1(marked@15.0.6)
+        version: 2.2.1(marked@15.0.12)
       normalize.css:
         specifier: 8.0.1
         version: 8.0.1
@@ -10757,8 +10757,8 @@ packages:
     engines: {node: '>= 18'}
     hasBin: true
 
-  marked@15.0.6:
-    resolution: {integrity: sha512-Y07CUOE+HQXbVDCGl3LXggqJDbXDP2pArc2C1N1RRMN0ONiShoSsIInMd5Gsxupe7fKLpgimTV+HOJ9r7bA+pg==}
+  marked@15.0.12:
+    resolution: {integrity: sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -26866,13 +26866,13 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  marked-highlight@2.2.1(marked@15.0.6):
+  marked-highlight@2.2.1(marked@15.0.12):
     dependencies:
-      marked: 15.0.6
+      marked: 15.0.12
 
   marked@13.0.3: {}
 
-  marked@15.0.6: {}
+  marked@15.0.12: {}
 
   marked@4.3.0: {}
 
