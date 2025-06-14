@@ -39,7 +39,7 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.16",
     "@verdaccio/file-locking": "workspace:13.0.0-next-8.3",
     "core-js": "3.40.0",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "globby": "11.1.0",
     "lockfile": "1.0.4",
     "lodash": "4.17.21",

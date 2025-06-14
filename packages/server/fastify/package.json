@@ -40,7 +40,7 @@
     "@verdaccio/store": "workspace:8.0.0-next-8.16",
     "@verdaccio/tarball": "workspace:13.0.0-next-8.16",
     "core-js": "3.40.0",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "fastify": "4.25.2",
     "fastify-plugin": "4.5.1",
     "lodash": "4.17.21"
