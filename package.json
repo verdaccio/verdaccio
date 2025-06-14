@@ -42,7 +42,7 @@
     "@changesets/changelog-github": "0.5.1",
     "@changesets/cli": "2.27.12",
     "@changesets/get-dependents-graph": "2.1.3",
-    "@crowdin/cli": "4.4.1",
+    "@crowdin/cli": "4.7.1",
     "@dianmora/contributors": "5.0.0",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
