@@ -39,7 +39,7 @@
     "bcryptjs": "2.4.3",
     "core-js": "3.40.0",
     "http-errors": "2.0.0",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "unix-crypt-td-js": "1.1.4"
   },
   "devDependencies": {

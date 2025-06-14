@@ -51,7 +51,7 @@
     "abortcontroller-polyfill": "1.7.8",
     "body-parser": "1.20.3",
     "cookies": "0.9.1",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "express": "4.21.2",
     "lodash": "4.17.21",
     "mime": "2.6.0",

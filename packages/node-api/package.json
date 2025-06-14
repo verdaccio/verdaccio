@@ -48,7 +48,7 @@
     "@verdaccio/server": "workspace:8.0.0-next-8.16",
     "@verdaccio/server-fastify": "workspace:8.0.0-next-8.16",
     "core-js": "3.40.0",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
