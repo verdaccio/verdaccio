@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.3](https://github.com/verdaccio/verdaccio/compare/v6.1.2...v6.1.3) (2025-06-15)
+
+
+### Bug Fixes
+
+* anonymous access web ui (6.x) ([#5250](https://github.com/verdaccio/verdaccio/issues/5250)) ([31a8d76](https://github.com/verdaccio/verdaccio/commit/31a8d7636cfcff23509eaa503889d610f1a39717))
+* **deps:** update core verdaccio dependencies ([#5263](https://github.com/verdaccio/verdaccio/issues/5263)) ([213bade](https://github.com/verdaccio/verdaccio/commit/213bade6a5310e0a2881fcdc0dabf86c994c3569))
+* **deps:** update dependency debug to v4.4.1 ([#5264](https://github.com/verdaccio/verdaccio/issues/5264)) ([6c23c61](https://github.com/verdaccio/verdaccio/commit/6c23c61b32ff3782f7059cb29e8d58c89671c9cb))
+* docker smoke test (6.x) ([#5251](https://github.com/verdaccio/verdaccio/issues/5251)) ([f66bff5](https://github.com/verdaccio/verdaccio/commit/f66bff549fdc9a797fe93e652e3e882cba17b0f2))
+* unpublish broken [#5214](https://github.com/verdaccio/verdaccio/issues/5214) ([#5275](https://github.com/verdaccio/verdaccio/issues/5275)) ([16cbf18](https://github.com/verdaccio/verdaccio/commit/16cbf18812b923d1c3d9fc5b118fb134ca0aba09))
+* update yarn 4.9.2 and remove pnp ([#5266](https://github.com/verdaccio/verdaccio/issues/5266)) ([9eb6618](https://github.com/verdaccio/verdaccio/commit/9eb6618d8df34c527cd4dd3558a7ba0675420f50))
+
 ### [6.1.2](https://github.com/verdaccio/verdaccio/compare/v6.1.1...v6.1.2) (2025-04-01)
 
 
