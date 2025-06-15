@@ -5,7 +5,7 @@ import mime from 'mime';
 import Path from 'path';
 
 import { validationUtils } from '@verdaccio/core';
-import { PUBLISH_API_ENDPOINTS, allow, expectJson, media } from '@verdaccio/middleware';
+import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
@@ -91,7 +91,7 @@ export default function publish(
    *
    */
   router.put(
-   '/:package/:_rev?/:revision?',
+    '/:package/:_rev?/:revision?',
     can('publish'),
     media(mime.getType('json')),
     expectJson,
@@ -110,7 +110,7 @@ export default function publish(
 
   // removing a tarball
   router.delete(
-     '/:package/-/:filename/-rev/:revision',
+    '/:package/-/:filename/-rev/:revision',
     can('unpublish'),
     can('publish'),
     removeTarball(storage)
@@ -118,7 +118,7 @@ export default function publish(
 
   // uploading package tarball
   router.put(
-     '/:package/-/:filename/*',
+    '/:package/-/:filename/*',
     can('publish'),
     media(HEADERS.OCTET_STREAM),
     uploadPackageTarball(storage)
