@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { createAnonymousRemoteUser } from '@verdaccio/config';
 import { WebUrls, allow } from '@verdaccio/middleware';
 import {
   convertDistRemoteToLocalTarballUrls,
   getLocalRegistryTarballUri,
 } from '@verdaccio/tarball';
-import { Config, Manifest } from '@verdaccio/types';
+import { Config, Manifest, RemoteUser } from '@verdaccio/types';
 import { addGravatarSupport, formatAuthor, generateGravatarUrl } from '@verdaccio/utils';
 
 import Auth from '../../../lib/auth';
@@ -43,7 +44,10 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   const checkAllow = (name, remoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       try {
-        auth.allow_access({ packageName: name }, remoteUser, (err, allowed): void => {
+        const isLoginEnabled = config?.web?.login === true;
+        const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
+        const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
+        auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
           if (err) {
             resolve(false);
           }

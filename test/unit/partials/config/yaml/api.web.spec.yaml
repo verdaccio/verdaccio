@@ -1,6 +1,7 @@
 storage: ./storage_default_storage
 web:
   title: Verdaccio
+  login: true
   rateLimit:
     windowMs: 5000000
     max: 100000
