@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { MMRegExp, minimatch } from 'minimatch';
 
 import { PackageAccess, PackageList } from '@verdaccio/types';
@@ -25,7 +24,7 @@ export function buildUserBuffer(name: string, password: string): Buffer {
 }
 
 export function buildToken(type: string, token: string): string {
-  return `${_.capitalize(type)} ${token}`;
+  return `${capitalize(type)} ${token}`;
 }
 
 export function getMatchedPackagesSpec(
@@ -38,4 +37,8 @@ export function getMatchedPackagesSpec(
     }
   }
   return;
+}
+
+function capitalize(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }

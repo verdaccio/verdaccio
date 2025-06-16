@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '../src/constants';
@@ -17,14 +16,14 @@ import {
 
 describe('testing errors', () => {
   test('should qualify as an native error', () => {
-    expect(_.isError(getNotFound())).toBeTruthy();
-    expect(_.isError(getConflict())).toBeTruthy();
-    expect(_.isError(getBadData())).toBeTruthy();
-    expect(_.isError(getInternalError())).toBeTruthy();
-    expect(_.isError(getUnauthorized())).toBeTruthy();
-    expect(_.isError(getForbidden())).toBeTruthy();
-    expect(_.isError(getServiceUnavailable())).toBeTruthy();
-    expect(_.isError(getCode(400, 'fooError'))).toBeTruthy();
+    expect(isError(getNotFound())).toBeTruthy();
+    expect(isError(getConflict())).toBeTruthy();
+    expect(isError(getBadData())).toBeTruthy();
+    expect(isError(getInternalError())).toBeTruthy();
+    expect(isError(getUnauthorized())).toBeTruthy();
+    expect(isError(getForbidden())).toBeTruthy();
+    expect(isError(getServiceUnavailable())).toBeTruthy();
+    expect(isError(getCode(400, 'fooError'))).toBeTruthy();
   });
 
   test('should test not found', () => {
@@ -107,3 +106,14 @@ describe('testing errors', () => {
     expect(err.code).toEqual(HTTP_STATUS.OK);
   });
 });
+
+function isError(value: any): boolean {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    (value instanceof Error ||
+      (typeof value.name === 'string' &&
+        typeof value.message === 'string' &&
+        typeof value.stack === 'string'))
+  );
+}
