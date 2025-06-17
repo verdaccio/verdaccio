@@ -39,11 +39,10 @@
     "http-status-codes": "2.3.0",
     "minimatch": "10.0.1",
     "process-warning": "1.0.0",
-    "semver": "7.7.1"
+    "semver": "7.7.2"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
-    "lodash": "4.17.21",
     "typedoc": "0.23.25",
     "typedoc-plugin-missing-exports": "latest"
   },

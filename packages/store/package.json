@@ -53,10 +53,10 @@
     "@verdaccio/tarball": "workspace:13.0.0-next-8.16",
     "@verdaccio/url": "workspace:13.0.0-next-8.16",
     "JSONStream": "1.3.5",
-    "debug": "4.4.0",
+    "debug": "4.4.1",
     "lodash": "4.17.21",
     "merge2": "1.4.1",
-    "semver": "7.7.1"
+    "semver": "7.7.2"
   },
   "devDependencies": {
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",

@@ -3,7 +3,7 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5441,
+      "contributions": 5442,
       "repositories": [
         {
           "name": "verdaccio",
@@ -136,6 +136,10 @@
         {
           "name": ".github",
           "contributions": 3
+        },
+        {
+          "name": "verdaccio-vscode",
+          "contributions": 1
         }
       ]
     },
@@ -5220,7 +5224,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16933,
+      "stargazers_count": 16948,
       "archived": false
     },
     {
@@ -5481,7 +5485,7 @@
       "full_name": "verdaccio/charts",
       "html_url": "https://github.com/verdaccio/charts",
       "description": "☸️🐳 Verdaccio Helm chart repository",
-      "stargazers_count": 67,
+      "stargazers_count": 68,
       "archived": false
     },
     {
@@ -5517,6 +5521,15 @@
       "full_name": "verdaccio/.github",
       "html_url": "https://github.com/verdaccio/.github",
       "description": null,
+      "stargazers_count": 0,
+      "archived": false
+    },
+    {
+      "name": "verdaccio-vscode",
+      "login": "verdaccio",
+      "full_name": "verdaccio/verdaccio-vscode",
+      "html_url": "https://github.com/verdaccio/verdaccio-vscode",
+      "description": "visual code extension (experiment)",
       "stargazers_count": 0,
       "archived": false
     }
