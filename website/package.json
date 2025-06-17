@@ -52,7 +52,7 @@
     "semver": "7.7.2",
     "react-twitter-widgets": "^1.10.0",
     "use-is-in-viewport": "1.0.9",
-    "usehooks-ts": "3.1.0"
+    "usehooks-ts": "3.1.1"
   },
   "browserslist": {
     "production": [
