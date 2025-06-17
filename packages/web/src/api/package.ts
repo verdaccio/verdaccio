@@ -12,7 +12,7 @@ import { getLocalRegistryTarballUri } from '@verdaccio/tarball';
 import { Config, RemoteUser, Version } from '@verdaccio/types';
 
 import { formatAuthor, generateGravatarUrl } from '../author-utils';
-import { sortByName } from '../web-utils';
+import { hasLogin, sortByName } from '../web-utils';
 
 export { $RequestExtend, $ResponseExtend, $NextFunctionVer }; // Was required by other packages
 
@@ -23,7 +23,7 @@ const getOrder = (order = 'asc') => {
 const debug = buildDebug('verdaccio:web:api:package');
 
 function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router {
-  const isLoginEnabled = config?.web?.login === true;
+  const isLoginEnabled = hasLogin(config);
   const pkgRouter = Router(); /* eslint new-cap: 0 */
   const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
 

@@ -7,7 +7,6 @@ auth:
 
 web:
   title: verdaccio web
-  login: true
   scope: '@scope'
   pkgManagers:
     - pnpm
