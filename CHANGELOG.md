@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.4](https://github.com/verdaccio/verdaccio/compare/v6.1.3...v6.1.4) (2025-06-17)
+
+
+### Bug Fixes
+
+* config web login default (6.x) ([#5279](https://github.com/verdaccio/verdaccio/issues/5279)) ([ba00fee](https://github.com/verdaccio/verdaccio/commit/ba00feeb97af0be8f1da2c8a96242e36fe709689))
+* **deps:** update core verdaccio dependencies ([#5283](https://github.com/verdaccio/verdaccio/issues/5283)) ([88c0766](https://github.com/verdaccio/verdaccio/commit/88c076698f4f287bf98b057cb0f01321c210ff48))
+* **deps:** update dependency semver to v7.7.2 ([#5284](https://github.com/verdaccio/verdaccio/issues/5284)) ([4c5c45d](https://github.com/verdaccio/verdaccio/commit/4c5c45d34595ddff9498a0377bd6e33db7b15678))
+
 ### [6.1.3](https://github.com/verdaccio/verdaccio/compare/v6.1.2...v6.1.3) (2025-06-15)
 
 
