@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- 96d2f0f: fix(core): remove `lodash` from a dependency
+
 ## 8.0.0-next-8.16
 
 ### Patch Changes
