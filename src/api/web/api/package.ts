@@ -44,7 +44,7 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
   const checkAllow = (name, remoteUser): Promise<boolean> =>
     new Promise((resolve, reject): void => {
       try {
-        const isLoginEnabled = config?.web?.login === true;
+        const isLoginEnabled = _.isNil(config?.web?.login) || config?.web?.login === true;
         const anonymousRemoteUser: RemoteUser = createAnonymousRemoteUser();
         const remoteUserAccess = !isLoginEnabled ? anonymousRemoteUser : remoteUser;
         auth.allow_access({ packageName: name }, remoteUserAccess, (err, allowed): void => {
