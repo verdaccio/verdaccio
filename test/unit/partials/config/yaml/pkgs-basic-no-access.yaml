@@ -1,7 +1,0 @@
-packages:
-  '@*/*':
-    publish: $all
-    proxy: npmjs
-  '**':
-    publish: $all
-    proxy: npmjs

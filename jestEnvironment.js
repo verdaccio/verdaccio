@@ -1,1 +1,0 @@
-jest.requireActual('babel/polyfill');

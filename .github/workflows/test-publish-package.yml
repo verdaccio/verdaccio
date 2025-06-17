@@ -1,7 +1,0 @@
-name: Test Publish Package
-
-on: [push, pull_request]
-
-jobs:
-  testVerdaccio:
-    uses: verdaccio/verdaccio/.github/workflows/test-publish-package.yml@master    
