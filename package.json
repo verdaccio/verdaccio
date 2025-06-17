@@ -48,7 +48,7 @@
     "mime": "3.0.0",
     "mkdirp": "1.0.4",
     "pkginfo": "0.4.1",
-    "semver": "7.6.3",
+    "semver": "7.7.2",
     "verdaccio-audit": "13.0.0-next-8.16",
     "verdaccio-htpasswd": "13.0.0-next-8.16"
   },
