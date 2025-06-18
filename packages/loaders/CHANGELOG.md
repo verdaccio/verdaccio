@@ -1,5 +1,12 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.8
+
+### Patch Changes
+
+- 23296a2: add `@verdaccio/core` as a dependency
+  - @verdaccio/core@8.0.0-next-8.18
+
 ## 8.0.0-next-8.7
 
 ### Minor Changes

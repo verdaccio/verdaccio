@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/web",
-  "version": "8.1.0-next-8.17",
+  "version": "8.1.0-next-8.18",
   "description": "Verdaccio Web Middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -28,28 +28,28 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.17",
-    "@verdaccio/config": "workspace:8.0.0-next-8.17",
-    "@verdaccio/core": "workspace:8.0.0-next-8.17",
-    "@verdaccio/loaders": "workspace:8.0.0-next-8.7",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.17",
-    "@verdaccio/middleware": "workspace:8.0.0-next-8.17",
-    "@verdaccio/store": "workspace:8.0.0-next-8.17",
-    "@verdaccio/tarball": "workspace:13.0.0-next-8.17",
-    "@verdaccio/url": "workspace:13.0.0-next-8.17",
+    "@verdaccio/auth": "workspace:8.0.0-next-8.18",
+    "@verdaccio/config": "workspace:8.0.0-next-8.18",
+    "@verdaccio/core": "workspace:8.0.0-next-8.18",
+    "@verdaccio/loaders": "workspace:8.0.0-next-8.8",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.18",
+    "@verdaccio/middleware": "workspace:8.0.0-next-8.18",
+    "@verdaccio/store": "workspace:8.0.0-next-8.18",
+    "@verdaccio/tarball": "workspace:13.0.0-next-8.18",
+    "@verdaccio/url": "workspace:13.0.0-next-8.18",
     "debug": "4.4.1",
     "express": "4.21.2",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/api": "workspace:8.1.0-next-8.17",
+    "@verdaccio/api": "workspace:8.1.0-next-8.18",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
     "jsdom": "26.1.0",
     "node-html-parser": "4.1.5",
     "supertest": "7.0.0",
-    "verdaccio-auth-memory": "workspace:13.0.0-next-8.17",
-    "verdaccio-memory": "workspace:13.0.0-next-8.17"
+    "verdaccio-auth-memory": "workspace:13.0.0-next-8.18",
+    "verdaccio-memory": "workspace:13.0.0-next-8.18"
   },
   "scripts": {
     "clean": "rimraf ./build",
