@@ -1,6 +1,6 @@
 import express from 'express';
 import nock from 'nock';
-import { join } from 'path';
+import { join } from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 

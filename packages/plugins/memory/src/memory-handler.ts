@@ -2,9 +2,9 @@
 import buildDebug from 'debug';
 import { fs } from 'memfs';
 import { Stats } from 'memfs/lib/Stats';
-import path from 'path';
-import { PassThrough, Writable, addAbortSignal } from 'stream';
-import { pipeline } from 'stream/promises';
+import path from 'node:path';
+import { PassThrough, Writable, addAbortSignal } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 
 import { errorUtils, pluginUtils } from '@verdaccio/core';
 import { Logger, Manifest } from '@verdaccio/types';

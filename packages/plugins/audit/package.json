@@ -34,13 +34,15 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "express": "4.21.2",
     "https-proxy-agent": "5.0.1",
-    "node-fetch": "cjs"
+    "undici": "7.1.1"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:8.0.0-next-8.18",
     "@verdaccio/logger": "workspace:8.0.0-next-8.18",
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
-    "supertest": "7.0.0"
+    "nock": "13.5.6",
+    "supertest": "7.0.0",
+    "vitest": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
