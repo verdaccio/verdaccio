@@ -1,7 +1,7 @@
 import express, { type Express, type Request, type Response } from 'express';
 import createHttpsProxyAgent from 'https-proxy-agent';
+import fetch from 'node-fetch';
 import https from 'node:https';
-import { fetch } from 'undici';
 
 import type { Auth } from '@verdaccio/auth';
 import { pluginUtils } from '@verdaccio/core';
