@@ -42,17 +42,17 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "debug": "4.4.1",
-    "lodash": "4.17.21",
     "@verdaccio/config": "workspace:8.0.0-next-8.18",
     "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "@verdaccio/logger": "workspace:8.0.0-next-8.18",
-    "@verdaccio/proxy": "workspace:8.0.0-next-8.18"
+    "@verdaccio/proxy": "workspace:8.0.0-next-8.18",
+    "debug": "4.4.1",
+    "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
-    "mockdate": "3.0.5",
-    "node-mocks-http": "1.14.1"
+    "nock": "13.5.6",
+    "vitest": "3.0.4"
   },
   "funding": {
     "type": "opencollective",
