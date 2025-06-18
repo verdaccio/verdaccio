@@ -34,7 +34,7 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "express": "4.21.2",
     "https-proxy-agent": "5.0.1",
-    "undici": "7.1.1"
+    "node-fetch": "3.3.2"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:8.0.0-next-8.18",
