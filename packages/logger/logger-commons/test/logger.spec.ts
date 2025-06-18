@@ -1,7 +1,7 @@
-import { readFile } from 'fs/promises';
-import { join } from 'path';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { setTimeout } from 'node:timers/promises';
 import pino from 'pino';
-import { setTimeout } from 'timers/promises';
 import { describe, expect, test } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
