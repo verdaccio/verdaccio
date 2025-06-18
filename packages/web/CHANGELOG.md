@@ -1,5 +1,20 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/auth@8.0.0-next-8.18
+  - @verdaccio/store@8.0.0-next-8.18
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - @verdaccio/tarball@13.0.0-next-8.18
+  - @verdaccio/url@13.0.0-next-8.18
+  - @verdaccio/middleware@8.0.0-next-8.18
+  - @verdaccio/logger@8.0.0-next-8.18
+
 ## 8.1.0-next-8.17
 
 ### Patch Changes
