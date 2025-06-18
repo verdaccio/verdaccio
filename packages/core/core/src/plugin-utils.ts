@@ -1,4 +1,4 @@
-import { Express, RequestHandler } from 'express';
+import type { Express, RequestHandler } from 'express';
 import { Readable, Writable } from 'node:stream';
 
 import {
