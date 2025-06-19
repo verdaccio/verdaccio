@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
 import _ from 'lodash';
-import { URLSearchParams } from 'url';
+import { URLSearchParams } from 'node:url';
 
 import { Auth } from '@verdaccio/auth';
 import { errorUtils, searchUtils } from '@verdaccio/core';
