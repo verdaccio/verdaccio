@@ -22,7 +22,7 @@ export function runUnpublish(pnpm) {
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
           pkgName,
-          '1.0.0-beta',
+          '1.0.0',
           registry.port,
           registry.getToken(),
           registry.getRegistryUrl()
@@ -53,7 +53,7 @@ export function runUnpublish(pnpm) {
       async (pkgName) => {
         const { tempFolder } = await prepareGenericEmptyProject(
           pkgName,
-          '1.0.0-beta',
+          '1.0.0',
           registry.port,
           registry.getToken(),
           registry.getRegistryUrl()
@@ -69,13 +69,13 @@ export function runUnpublish(pnpm) {
         const resp2 = await pnpm(
           { cwd: tempFolder },
           'unpublish',
-          `${pkgName}@1.0.0-beta`,
+          `${pkgName}@1.0.0`,
           '--force',
           '--loglevel=info',
           '--json',
           ...addRegistry(registry.getRegistryUrl())
         );
-        expect(resp2.stdout).toEqual('- @verdaccio/test1@1.0.0-beta');
+        expect(resp2.stdout).toEqual('- @verdaccio/test1@1.0.0');
       }
     );
 
