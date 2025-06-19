@@ -7,7 +7,7 @@ import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
-setup({});
+await setup({});
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
