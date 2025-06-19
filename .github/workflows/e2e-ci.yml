@@ -55,11 +55,7 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run: |
-          cd e2e/cli/e2e-${{matrix.pkg}}
-          node -v
-          npm -v
-          NODE_ENV=production pnpm test
+        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
   e2e-cli-pnpm:
     needs: [prepare]
@@ -88,11 +84,7 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run: |
-          cd e2e/cli/e2e-${{matrix.pkg}}
-          node -v
-          pnpm -v
-          NODE_ENV=production pnpm test
+        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
   e2e-cli-yarn:
     needs: [prepare]
@@ -122,9 +114,4 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run: |
-          cd e2e/cli/e2e-${{matrix.pkg}}
-          node -v
-          yarn -v
-          NODE_ENV=production pnpm test
-
+        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
