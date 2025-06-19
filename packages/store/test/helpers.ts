@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import path from 'path';
+import path from 'node:path';
 
 import { parseConfigFile } from '@verdaccio/config';
 
