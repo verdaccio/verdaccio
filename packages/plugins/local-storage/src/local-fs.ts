@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import buildDebug from 'debug';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+import { Readable, Writable, addAbortSignal } from 'node:stream';
 import sanitzers from 'sanitize-filename';
-import { Readable, Writable, addAbortSignal } from 'stream';
 
 import { VerdaccioError, errorUtils, pluginUtils } from '@verdaccio/core';
 import { readFileNext, unlockFileNext } from '@verdaccio/file-locking';

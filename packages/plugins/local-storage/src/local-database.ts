@@ -4,7 +4,7 @@ import _ from 'lodash';
 import low from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
-import path from 'path';
+import path from 'node:path';
 
 import { authUtils, errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
 import { Config, Logger, Token, TokenFilter } from '@verdaccio/types';

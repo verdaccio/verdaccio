@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import globby from 'globby';
-import { join } from 'path';
+import { join } from 'node:path';
 
 import { searchUtils, validationUtils } from '@verdaccio/core';
 

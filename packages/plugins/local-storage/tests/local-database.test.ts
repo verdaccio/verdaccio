@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-mocks-import */
-import path from 'path';
+import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils, pluginUtils } from '@verdaccio/core';
