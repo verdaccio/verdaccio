@@ -40,7 +40,7 @@ jobs:
             npm11,
           ]
         node: [22, 24]
-    name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
+    name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -55,7 +55,11 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
+        run: |
+          cd e2e/cli/e2e-${{matrix.pkg}}
+          node -v
+          npm -v
+          NODE_ENV=production pnpm test
 
   e2e-cli-pnpm:
     needs: [prepare]
@@ -69,7 +73,7 @@ jobs:
             pnpm10,
           ]
         node: [22, 24]
-    name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
+    name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -84,7 +88,11 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run:  cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
+        run: |
+          cd e2e/cli/e2e-${{matrix.pkg}}
+          node -v
+          pnpm -v
+          NODE_ENV=production pnpm test
 
   e2e-cli-yarn:
     needs: [prepare]
@@ -99,7 +107,7 @@ jobs:
             yarn4
           ]
         node: [22, 24]
-    name: ${{ matrix.pkg }}/ ubuntu-latest / ${{ matrix.node }}
+    name: ${{ matrix.pkg }} / ubuntu-latest / ${{ matrix.node }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -114,5 +122,9 @@ jobs:
           reporter: 'default'
           loglevel: 'debug'
       - name: Test CLI
-        run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
+        run: |
+          cd e2e/cli/e2e-${{matrix.pkg}}
+          node -v
+          yarn -v
+          NODE_ENV=production pnpm test
 
