@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import path from 'path';
+import path from 'node:path';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { cryptoUtils, fileUtils } from '@verdaccio/core';
