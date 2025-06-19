@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import fs from 'fs-extra';
-import { cp, readFile, writeFile } from 'fs/promises';
-import { join } from 'path';
+import { cp, readFile, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 import { fileUtils } from '@verdaccio/core';
 
