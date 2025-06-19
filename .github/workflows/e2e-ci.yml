@@ -48,16 +48,12 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node }}
-      - name: Cache packages
-        uses: ./.github/actions/cache-packages
       - name: Install dependencies with a custom registry version ${{ matrix.node }}
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ matrix.node }}
           reporter: 'default'
           loglevel: 'debug'
-      - name: Restore cache pnpm store
-        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
@@ -81,16 +77,12 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node }}
-      - name: Cache packages
-        uses: ./.github/actions/cache-packages
       - name: Install dependencies with a custom registry version ${{ matrix.node }}
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ matrix.node }}
           reporter: 'default'
           loglevel: 'debug'
-      - name: Restore cache pnpm store
-        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run:  cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
@@ -115,16 +107,12 @@ jobs:
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node }}
-      - name: Cache packages
-        uses: ./.github/actions/cache-packages
       - name: Install dependencies with a custom registry version ${{ matrix.node }}
         uses: ./.github/actions/install-app-node
         with:
           node-version: ${{ matrix.node }}
           reporter: 'default'
           loglevel: 'debug'
-      - name: Restore cache pnpm store
-        uses: ./.github/actions/cache-packages
       - name: Test CLI
         run: cd e2e/cli/e2e-${{matrix.pkg}} && NODE_ENV=production pnpm test
 
