@@ -1,11 +1,11 @@
+import buildDebug from 'debug';
 import {
   BinaryToTextEncoding,
   CharacterEncoding,
   createCipheriv,
   createDecipheriv,
   randomBytes,
-} from 'crypto';
-import buildDebug from 'debug';
+} from 'node:crypto';
 
 import { TOKEN_VALID_LENGTH } from '@verdaccio/config';
 

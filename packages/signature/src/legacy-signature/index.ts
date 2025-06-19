@@ -1,5 +1,5 @@
-import { createCipher, createDecipher } from 'crypto';
 import buildDebug from 'debug';
+import { createCipher, createDecipher } from 'node:crypto';
 
 import { cryptoUtils } from '@verdaccio/core';
 
