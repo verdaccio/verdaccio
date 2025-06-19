@@ -50,9 +50,9 @@
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/proxy": "workspace:8.0.0-next-8.18",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",
-    "http-errors": "2.0.0"
+    "@verdaccio/types": "workspace:13.0.0-next-8.6",
+    "supertest": "7.0.0",
+    "vitest": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",
