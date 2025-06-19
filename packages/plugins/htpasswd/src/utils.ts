@@ -1,8 +1,8 @@
 import md5 from 'apache-md5';
 import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
 import buildDebug from 'debug';
-import createError, { HttpError } from 'http-errors';
+import createError, { type HttpError } from 'http-errors';
+import crypto from 'node:crypto';
 
 import { API_ERROR, HTTP_STATUS, constants } from '@verdaccio/core';
 import { readFile } from '@verdaccio/file-locking';
