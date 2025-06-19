@@ -1,7 +1,7 @@
-import { cp, writeFile } from 'fs/promises';
 import YAML from 'js-yaml';
-import { join } from 'path';
-import { URL } from 'url';
+import { cp, writeFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import { URL } from 'node:url';
 
 import { Dependencies } from '@verdaccio/types';
 
