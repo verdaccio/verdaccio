@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
