@@ -1,6 +1,6 @@
 import nock from 'nock';
-import path from 'path';
-import { setTimeout } from 'timers/promises';
+import path from 'node:path';
+import { setTimeout } from 'node:timers/promises';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';

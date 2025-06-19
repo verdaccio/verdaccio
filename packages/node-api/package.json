@@ -47,14 +47,14 @@
     "@verdaccio/logger": "workspace:8.0.0-next-8.18",
     "@verdaccio/server": "workspace:8.0.0-next-8.18",
     "@verdaccio/server-fastify": "workspace:8.0.0-next-8.18",
-    "core-js": "3.40.0",
     "debug": "4.4.1",
     "lodash": "4.17.21"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
     "selfsigned": "2.4.1",
-    "supertest": "7.0.0"
+    "supertest": "7.0.0",
+    "vitest": "3.0.4"
   },
   "publishConfig": {
     "access": "public"

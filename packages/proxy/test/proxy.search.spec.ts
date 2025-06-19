@@ -3,7 +3,7 @@
 /* global AbortController */
 import getStream from 'get-stream';
 import nock from 'nock';
-import path from 'path';
+import path from 'node:path';
 import { describe, expect, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';

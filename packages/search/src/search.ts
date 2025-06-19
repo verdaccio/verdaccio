@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
-import { PassThrough } from 'stream';
+import { PassThrough } from 'node:stream';
 
 import { searchUtils } from '@verdaccio/core';
 import { IProxy, ProxyInstanceList, ProxySearchParams, setupUpLinks } from '@verdaccio/proxy';

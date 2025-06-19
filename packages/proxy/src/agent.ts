@@ -1,8 +1,8 @@
 import { Agents } from 'got-cjs';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import { Agent as HttpAgent } from 'http';
-import { Agent as HttpsAgent } from 'https';
-import { URL } from 'url';
+import { Agent as HttpAgent } from 'node:http';
+import { Agent as HttpsAgent } from 'node:https';
+import { URL } from 'node:url';
 
 import { AgentOptionsConf } from '@verdaccio/types';
 

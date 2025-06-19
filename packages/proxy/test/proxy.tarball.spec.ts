@@ -1,5 +1,5 @@
 import nock from 'nock';
-import path from 'path';
+import path from 'node:path';
 import { beforeEach, describe, test, vi } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
