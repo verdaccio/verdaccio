@@ -35,15 +35,15 @@
   "dependencies": {
     "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "@verdaccio/logger": "workspace:8.0.0-next-8.18",
-    "core-js": "3.40.0",
     "debug": "4.4.1",
     "got-cjs": "12.5.4",
     "handlebars": "4.7.8"
   },
   "devDependencies": {
-    "@verdaccio/auth": "workspace:8.0.0-next-8.18",
     "@verdaccio/config": "workspace:8.0.0-next-8.18",
-    "@verdaccio/types": "workspace:13.0.0-next-8.6"
+    "@verdaccio/types": "workspace:13.0.0-next-8.6",
+    "nock": "13.5.6",
+    "vitest": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",

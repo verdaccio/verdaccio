@@ -1,5 +1,5 @@
+import { Writable } from 'node:stream';
 import pino from 'pino';
-import { Writable } from 'stream';
 import { describe, expect, test } from 'vitest';
 
 import { buildPretty } from '../src';
