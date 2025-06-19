@@ -1,10 +1,10 @@
-import { pseudoRandomBytes } from 'crypto';
-import fs from 'fs';
 import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
-import os from 'os';
-import path from 'path';
+import { pseudoRandomBytes } from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
