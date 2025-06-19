@@ -1,4 +1,4 @@
-import { join } from 'path';
+import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
 
 import { getFolders, searchOnStorage } from '../src/dir-utils';

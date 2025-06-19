@@ -1,6 +1,6 @@
-import fs from 'fs';
 import _ from 'lodash';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { Config } from '@verdaccio/types';
 

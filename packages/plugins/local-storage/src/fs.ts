@@ -1,5 +1,5 @@
-import fsCallback from 'fs';
-import fs from 'fs';
+import fsCallback from 'node:fs';
+import fs from 'node:fs';
 
 const fsP = fs.promises ? fs.promises : require('fs/promises');
 
