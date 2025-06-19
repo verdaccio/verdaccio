@@ -47,7 +47,8 @@
     "@verdaccio/node-api": "workspace:8.0.0-next-8.18",
     "@verdaccio/ui-theme": "workspace:8.0.0-next-8.18",
     "verdaccio-audit": "workspace:13.0.0-next-8.18",
-    "verdaccio-htpasswd": "workspace:13.0.0-next-8.18"
+    "verdaccio-htpasswd": "workspace:13.0.0-next-8.18",
+    "debug": "4.4.1"
   },
   "devDependencies": {
     "@verdaccio/auth": "workspace:8.0.0-next-8.18",
@@ -55,15 +56,14 @@
     "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "@verdaccio/store": "workspace:8.0.0-next-8.18",
     "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",
-    "vite-tsconfig-paths": "5.1.4",
+    "@verdaccio/types": "workspace:13.0.0-next-8.6",
     "fastify": "4.25.2",
     "get-port": "5.1.1",
     "got": "11.8.6",
     "lodash": "4.17.21",
-    "node-mocks-http": "1.14.1",
-    "typedoc-plugin-markdown": "3.14.0",
-    "typedoc-plugin-missing-exports": "1.0.0",
-    "yaml": "2.7.0"
+    "nock": "13.5.6",
+    "supertest": "7.0.0",
+    "vitest": "3.0.4"
   },
   "keywords": [
     "private",

@@ -1,4 +1,4 @@
-import zlib from 'zlib';
+import zlib from 'node:zlib';
 
 import { CHARACTER_ENCODING, HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 

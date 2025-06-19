@@ -1,7 +1,7 @@
 import { ChildProcess, fork } from 'child_process';
 import buildDebug from 'debug';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { fromJStoYAML } from '@verdaccio/config';
 import { HTTP_STATUS, TOKEN_BEARER, authUtils, fileUtils } from '@verdaccio/core';
