@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -38,7 +37,6 @@ export const Tag = styled(Chip)<{ theme?: Theme }>((props) => ({
 export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, dependencies }) => {
   const history = useHistory();
   const { t } = useTranslation();
-  const theme: Theme = useTheme();
   const deps = Object.entries(dependencies);
 
   function handleClick(name: string): void {
@@ -54,8 +52,8 @@ export const DependencyBlock: React.FC<DependencyBlockProps> = ({ title, depende
   }
 
   return (
-    <Box data-testid={title} sx={{ margin: theme.spacing(2) }}>
-      <StyledText sx={{ marginBottom: theme.spacing(1) }} variant="subtitle1">
+    <Box data-testid={title} sx={{ margin: 2 }}>
+      <StyledText sx={{ marginBottom: 1 }} variant="subtitle1">
         {`${title} (${deps.length})`}
       </StyledText>
       <Tags>

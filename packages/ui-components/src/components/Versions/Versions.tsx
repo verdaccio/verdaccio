@@ -5,7 +5,6 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/styles';
 import debounce from 'lodash/debounce';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +25,6 @@ export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
 const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const theme: Theme = useTheme();
   const { versions = {}, time = {}, ['dist-tags']: distTags = {} } = packageMeta;
 
   const [packageVersions, setPackageVersions] = useState(versions);
@@ -87,10 +85,7 @@ const Versions: React.FC<Props> = ({ packageMeta, packageName }) => {
             <>
               {hideDeprecatedVersions === true && (
                 // @ts-ignore - Alert does accept children despite the type error
-                <Alert
-                  severity="info"
-                  sx={{ marginTop: theme.spacing(1), marginBottom: theme.spacing(1) }}
-                >
+                <Alert severity="info" sx={{ marginTop: 1, marginBottom: 1 }}>
                   {t('versions.hide-deprecated')}
                 </Alert>
               )}

@@ -6,7 +6,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
-import makeStyles from '@mui/styles/makeStyles';
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
@@ -81,16 +80,6 @@ const renderYarnBerryTab = (scope: string | undefined, registryUrl: string): JSX
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightBold,
-  },
-}));
-
 export const AccordionContainer = styled('div')({
   padding: 0,
   paddingLeft: 0,
@@ -113,7 +102,6 @@ export type Props = {
 
 const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
   const { configOptions } = useConfig();
 
   const hasNpm = configOptions?.pkgManagers?.includes('npm');
@@ -131,7 +119,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             expandIcon={<ExpandMoreIcon />}
             id="panel1a-header"
           >
-            <Typography className={classes.heading}>{'npm'}</Typography>
+            <Typography sx={{ fontSize: '1rem', fontWeight: 'bold' }}>{'npm'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <CommandContainer data-testid={'tab-content'}>
@@ -145,7 +133,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             expandIcon={<ExpandMoreIcon />}
             id="panel2a-header"
           >
-            <Typography className={classes.heading}>{'yarn'}</Typography>
+            <Typography sx={{ fontSize: '1rem', fontWeight: 'bold' }}>{'yarn'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Description>
@@ -169,7 +157,7 @@ const RegistryInfoContent: FC<Props> = ({ scope, registryUrl }) => {
             expandIcon={<ExpandMoreIcon />}
             id="panel3a-header"
           >
-            <Typography className={classes.heading}>{'pnpm'}</Typography>
+            <Typography sx={{ fontSize: '1rem', fontWeight: 'bold' }}>{'pnpm'}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <CommandContainer data-testid={'tab-content'}>
