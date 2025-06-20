@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import Avatar from '@mui/material/Avatar';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 import { Theme } from '../../Theme';

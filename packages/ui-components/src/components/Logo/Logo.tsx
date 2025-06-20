@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useTheme } from '@mui/styles';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
 import { Theme, useConfig } from '../../';
