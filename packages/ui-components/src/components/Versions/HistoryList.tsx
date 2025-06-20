@@ -1,11 +1,9 @@
 import Chip from '@mui/material/Chip';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import { useTheme } from '@mui/styles';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
 import { useConfig } from '../../providers';
 import { Time, Versions } from '../../types/packageMeta';
 import { Route, utils } from '../../utils';
@@ -32,7 +30,6 @@ export function filterDeprecated(versions: Versions) {
 const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) => {
   const { t } = useTranslation();
   const { configOptions } = useConfig();
-  const theme: Theme = useTheme();
   const hideDeprecatedVersions = configOptions.hideDeprecatedVersions;
   const listVersions = hideDeprecatedVersions ? filterDeprecated(versions) : versions;
 
@@ -64,7 +61,7 @@ const VersionsHistoryList: React.FC<Props> = ({ versions, packageName, time }) =
                 data-testid="deprecated-badge"
                 label={t('versions.deprecated')}
                 size="small"
-                sx={{ marginLeft: theme.spacing(1) }}
+                sx={{ marginLeft: 1 }}
                 variant="outlined"
               />
             ) : null}
