@@ -5,7 +5,7 @@
   "dependencies": {
     "@verdaccio/test-cli-commons": "workspace:2.0.0-next-8.0",
     "@verdaccio/e2e-cli-npm-common": "workspace:*",
-    "npm": "9.9.3"
+    "npm": "9.9.4"
   },
   "scripts": {
     "test": "vitest run --testTimeout 50000"
