@@ -630,9 +630,6 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      verdaccio-htpasswd:
-        specifier: workspace:13.0.0-next-8.18
-        version: link:../plugins/htpasswd
     devDependencies:
       '@verdaccio/logger':
         specifier: workspace:8.0.0-next-8.18

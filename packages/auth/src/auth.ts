@@ -1,6 +1,5 @@
 import buildDebug from 'debug';
 import _, { isFunction } from 'lodash';
-import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
@@ -44,7 +43,7 @@ import {
 } from './types';
 import {
   convertPayloadToBase64,
-  getDefaultPlugins,
+  getDefaultPluginMethods,
   getMiddlewareCredentials,
   isAESLegacy,
   isAuthHeaderValid,
@@ -76,37 +75,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
 
     debug('auth plugins found %s', plugins.length);
-    if (!plugins || plugins.length === 0) {
-      plugins = this.loadDefaultPlugin();
-    }
     this.plugins = plugins;
 
-    this._applyDefaultPlugins();
-  }
-
-  private loadDefaultPlugin() {
-    debug('load default auth plugin');
-    const pluginOptions: pluginUtils.PluginOptions = {
-      config: this.config,
-      logger: this.logger,
-    };
-    let authPlugin;
-    try {
-      authPlugin = new HTPasswd(
-        { file: './htpasswd' },
-        pluginOptions as any as pluginUtils.PluginOptions
-      );
-      this.logger.info(
-        { name: 'verdaccio-htpasswd', pluginCategory: PLUGIN_CATEGORY.AUTHENTICATION },
-        'plugin @{name} successfully loaded (@{pluginCategory})'
-      );
-    } catch (error: any) {
-      debug('error on loading auth htpasswd plugin stack: %o', error);
-      this.logger.info({}, 'no auth plugin has been found');
-      return [];
-    }
-
-    return [authPlugin];
+    this.applyFallbackPluginMethods();
   }
 
   private async loadPlugin() {
@@ -131,9 +102,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     );
   }
 
-  private _applyDefaultPlugins(): void {
-    // TODO: rename to applyFallbackPluginMethods
-    this.plugins.push(getDefaultPlugins(this.logger));
+  private applyFallbackPluginMethods(): void {
+    this.plugins.push(getDefaultPluginMethods(this.logger));
   }
 
   public changePassword(
