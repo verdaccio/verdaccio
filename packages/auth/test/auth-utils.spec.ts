@@ -144,7 +144,7 @@ describe('Auth utilities', () => {
         name: 'foo',
         version: undefined,
         access: ['foo'],
-        unpublish: [],
+        unpublish: false,
       };
 
       // const type = 'access';
