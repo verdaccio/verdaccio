@@ -70,8 +70,8 @@ ADD docker-bin $VERDACCIO_APPDIR/docker-bin
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x /usr/local/lib/node_modules/verdaccio/bin/verdaccio $VERDACCIO_APPDIR/docker-bin && \
-    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
-    chmod -R g=u /verdaccio/storage /etc/passwd
+    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
+    chmod -R g=u /verdaccio/storage /verdaccio/conf /etc/passwd
 
 USER $VERDACCIO_USER_UID
 
