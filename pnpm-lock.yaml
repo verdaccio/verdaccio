@@ -1108,49 +1108,34 @@ importers:
       '@verdaccio/file-locking':
         specifier: workspace:13.0.0-next-8.3
         version: link:../../core/file-locking
-      core-js:
-        specifier: 3.40.0
-        version: 3.40.0
+      '@verdaccio/utils':
+        specifier: workspace:8.1.0-next-8.18
+        version: link:../../utils
       debug:
         specifier: 4.4.1
         version: 4.4.1(supports-color@5.5.0)
       globby:
         specifier: 11.1.0
         version: 11.1.0
-      lockfile:
-        specifier: 1.0.4
-        version: 1.0.4
       lodash:
         specifier: 4.17.21
         version: 4.17.21
       lowdb:
         specifier: 1.0.0
         version: 1.0.0
-      lru-cache:
-        specifier: 7.18.3
-        version: 7.18.3
       sanitize-filename:
         specifier: 1.6.3
         version: 1.6.3
     devDependencies:
-      '@types/minimatch':
-        specifier: 5.1.2
-        version: 5.1.2
-      '@verdaccio/config':
-        specifier: workspace:8.0.0-next-8.18
-        version: link:../../config
       '@verdaccio/logger':
         specifier: workspace:8.0.0-next-8.18
         version: link:../../logger/logger
-      '@verdaccio/test-helper':
-        specifier: workspace:4.0.0-next-8.5
-        version: link:../../tools/helpers
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.6
         version: link:../../core/types
-      minimatch:
-        specifier: 9.0.5
-        version: 9.0.5
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@22.10.5)(jsdom@26.1.0)(msw@2.7.5(@types/node@22.10.5)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/memory:
     dependencies:
@@ -6093,7 +6078,7 @@ packages:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==, tarball: https://registry.npmjs.org/@types/estree/-/estree-1.0.5.tgz}
 
   '@types/estree@1.0.6':
-    resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
+    resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==, tarball: https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz}
 
   '@types/expect@1.20.4':
     resolution: {integrity: sha512-Q5Vn3yjTDyCMV50TB6VRIbQNxSE4OmZR86VSbGaNpfUolm0iePBB4KdEEHmxoY5sT2+2DIvXW0rvMDP2nHZ4Mg==}
@@ -8577,7 +8562,7 @@ packages:
     engines: {node: '>= 0.4'}
 
   es-module-lexer@1.6.0:
-    resolution: {integrity: sha512-qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==}
+    resolution: {integrity: sha512-qqnD1yMU6tk/jnaMosogGySTZP8YtUgAffA9nMN+E/rjxcfRQ6IEk7IiozUjgxKoFHBGjTLnrHB/YC45r/59EQ==, tarball: https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.6.0.tgz}
 
   es-object-atoms@1.0.0:
     resolution: {integrity: sha512-MZ4iQ6JwHOBQjahnjwaC1ZtIBH+2ohjamzAO3oaHcXYup7qxjF2fixyH+Q71voWHeOkI2q/TnJao/KfXYIZWbw==}
