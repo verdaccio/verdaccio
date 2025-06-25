@@ -1,5 +1,5 @@
 import gunzipMaybe from 'gunzip-maybe';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 import * as tarStream from 'tar-stream';
 
 export type TarballDetails = {
