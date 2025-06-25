@@ -1488,15 +1488,15 @@ importers:
         specifier: workspace:13.0.0-next-8.18
         version: link:../../plugins/audit
     devDependencies:
-      '@verdaccio/proxy':
-        specifier: workspace:8.0.0-next-8.18
-        version: link:../../proxy
-      '@verdaccio/test-helper':
-        specifier: workspace:4.0.0-next-8.5
-        version: link:../../tools/helpers
-      http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.6
+        version: link:../../core/types
+      supertest:
+        specifier: 7.0.0
+        version: 7.0.0
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/server/fastify:
     dependencies:
