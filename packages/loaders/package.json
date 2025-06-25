@@ -24,10 +24,11 @@
   "devDependencies": {
     "@verdaccio/logger": "workspace:8.0.0-next-8.18",
     "@verdaccio/config": "workspace:8.0.0-next-8.18",
-    "@verdaccio/types": "workspace:13.0.0-next-8.6",
+    "@verdaccio/core": "workspace:8.0.0-next-8.18",
     "@verdaccio-scope/verdaccio-auth-foo": "0.0.2",
     "customprefix-auth": "workspace:2.0.0",
-    "verdaccio-auth-memory": "workspace:*"
+    "verdaccio-auth-memory": "workspace:*",
+    "vitest": "3.0.4"
   },
   "homepage": "https://verdaccio.org",
   "keywords": [
