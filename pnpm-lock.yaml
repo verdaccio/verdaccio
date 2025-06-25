@@ -2117,9 +2117,6 @@ importers:
       '@verdaccio/tarball':
         specifier: workspace:13.0.0-next-8.18
         version: link:../core/tarball
-      '@verdaccio/url':
-        specifier: workspace:13.0.0-next-8.18
-        version: link:../core/url
       debug:
         specifier: 4.4.1
         version: 4.4.1(supports-color@5.5.0)
@@ -2142,9 +2139,6 @@ importers:
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
-      node-html-parser:
-        specifier: 4.1.5
-        version: 4.1.5
       supertest:
         specifier: 7.0.0
         version: 7.0.0
@@ -2154,6 +2148,9 @@ importers:
       verdaccio-memory:
         specifier: workspace:13.0.0-next-8.18
         version: link:../plugins/memory
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   website:
     dependencies:
@@ -11196,9 +11193,6 @@ packages:
     resolution: {integrity: sha512-OQkWKbjQKbGkMf/xqI1jjy3oCTgMKJac58G2+bjZb3fza6gW2YrCSdMQYaoTb70crvE//Gngr4f0AgVHmqHvBQ==}
     engines: {node: ^12.13 || ^14.13 || >=16}
     hasBin: true
-
-  node-html-parser@4.1.5:
-    resolution: {integrity: sha512-NLgqUXtftqnBqIjlRjYSaApaqE7TTxfTiH4VqKCjdUJKFOtUzRwney83EHz2qYc0XoxXAkYdmLjENCuZHvsIFg==}
 
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
@@ -27462,11 +27456,6 @@ snapshots:
     transitivePeerDependencies:
       - bluebird
       - supports-color
-
-  node-html-parser@4.1.5:
-    dependencies:
-      css-select: 4.3.0
-      he: 1.2.0
 
   node-int64@0.4.0: {}
 
