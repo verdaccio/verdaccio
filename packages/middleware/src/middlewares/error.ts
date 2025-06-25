@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { HttpError } from 'http-errors';
+import type { HttpError } from 'http-errors';
 import _ from 'lodash';
 
 import { API_ERROR, HTTP_STATUS, VerdaccioError } from '@verdaccio/core';

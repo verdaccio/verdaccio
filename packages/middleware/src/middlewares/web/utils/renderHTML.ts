@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
 import type { Response } from 'express';
 import LRU from 'lru-cache';
-import path from 'path';
-import { URL } from 'url';
+import path from 'node:path';
+import { URL } from 'node:url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
