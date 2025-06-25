@@ -9,8 +9,8 @@ import got, {
   Headers as gotHeaders,
 } from 'got-cjs';
 import _ from 'lodash';
-import Stream, { PassThrough, Readable } from 'stream';
-import { URL } from 'url';
+import Stream, { PassThrough, Readable } from 'node:stream';
+import { URL } from 'node:url';
 
 import {
   API_ERROR,

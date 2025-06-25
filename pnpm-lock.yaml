@@ -1011,9 +1011,6 @@ importers:
       '@verdaccio/server-fastify':
         specifier: workspace:8.0.0-next-8.18
         version: link:../server/fastify
-      core-js:
-        specifier: 3.40.0
-        version: 3.40.0
       debug:
         specifier: 4.4.1
         version: 4.4.1(supports-color@5.5.0)
@@ -1030,6 +1027,9 @@ importers:
       supertest:
         specifier: 7.0.0
         version: 7.0.0
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@22.10.5)(jsdom@26.1.0)(msw@2.7.5(@types/node@22.10.5)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/audit:
     dependencies:
@@ -1456,15 +1456,12 @@ importers:
       get-stream:
         specifier: ^6.0.1
         version: 6.0.1
-      node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
-      p-cancelable:
-        specifier: 2.1.1
-        version: 2.1.1
-      semver:
-        specifier: 7.7.2
-        version: 7.7.2
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@22.10.5)(jsdom@26.1.0)(msw@2.7.5(@types/node@22.10.5)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/search:
     dependencies:
@@ -1490,12 +1487,12 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.6
         version: link:../core/types
-      mockdate:
-        specifier: 3.0.5
-        version: 3.0.5
-      node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@22.10.5)(jsdom@26.1.0)(msw@2.7.5(@types/node@22.10.5)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/search-indexer:
     devDependencies:
@@ -1511,6 +1508,9 @@ importers:
       esbuild:
         specifier: 0.24.2
         version: 0.24.2
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@22.10.5)(jsdom@26.1.0)(msw@2.7.5(@types/node@22.10.5)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/server/express:
     dependencies:
