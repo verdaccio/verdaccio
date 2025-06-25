@@ -1,6 +1,6 @@
 import getPort from 'get-port';
 import nock from 'nock';
-import path from 'path';
+import path from 'node:path';
 
 import { generateRemotePackageMetadata } from '@verdaccio/test-helper';
 

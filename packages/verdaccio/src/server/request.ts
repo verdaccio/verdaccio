@@ -1,7 +1,7 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import got, { HTTPAlias, Response, Headers as gotHeaders } from 'got';
 import { isNil, isObject, isRegExp } from 'lodash';
+import assert from 'node:assert';
 
 import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
 import { generatePackageMetadata } from '@verdaccio/test-helper';

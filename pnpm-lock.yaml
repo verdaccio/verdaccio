@@ -2041,6 +2041,9 @@ importers:
       '@verdaccio/ui-theme':
         specifier: workspace:8.0.0-next-8.18
         version: link:../plugins/ui-theme
+      debug:
+        specifier: 4.4.1
+        version: 4.4.1(supports-color@5.5.0)
       verdaccio-audit:
         specifier: workspace:13.0.0-next-8.18
         version: link:../plugins/audit
@@ -2063,6 +2066,9 @@ importers:
       '@verdaccio/test-helper':
         specifier: workspace:4.0.0-next-8.5
         version: link:../tools/helpers
+      '@verdaccio/types':
+        specifier: workspace:13.0.0-next-8.6
+        version: link:../core/types
       fastify:
         specifier: 4.25.2
         version: 4.25.2
@@ -2075,21 +2081,15 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-      node-mocks-http:
-        specifier: 1.14.1
-        version: 1.14.1
-      typedoc-plugin-markdown:
-        specifier: 3.14.0
-        version: 3.14.0(typedoc@0.23.25(typescript@5.3.3))
-      typedoc-plugin-missing-exports:
-        specifier: 1.0.0
-        version: 1.0.0(typedoc@0.23.25(typescript@5.3.3))
-      vite-tsconfig-paths:
-        specifier: 5.1.4
-        version: 5.1.4(typescript@5.3.3)(vite@5.3.1(@types/node@24.0.3)(sass@1.83.4)(terser@5.31.3))
-      yaml:
-        specifier: 2.7.0
-        version: 2.7.0
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
+      supertest:
+        specifier: 7.0.0
+        version: 7.0.0
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/web:
     dependencies:
@@ -9152,9 +9152,6 @@ packages:
   globjoin@0.1.4:
     resolution: {integrity: sha512-xYfnw62CKG8nLkZBfWbhWwDw02CHty86jfPcc2cr3ZfeuK9ysoVPPEUxf21bAD/rWAgk52SuBrLJlefNy8mvFg==}
 
-  globrex@0.1.2:
-    resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
-
   gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
 
@@ -14392,16 +14389,6 @@ packages:
       '@swc/wasm':
         optional: true
 
-  tsconfck@3.1.4:
-    resolution: {integrity: sha512-kdqWFGVJqe+KGYvlSO9NIaWn9jT1Ny4oKVzAJsKii5eoE9snzTJzL4+MMVOMn+fikWGFmKEylcXL710V/kIPJQ==}
-    engines: {node: ^18 || >=20}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
 
@@ -14496,16 +14483,6 @@ packages:
 
   typedarray-to-buffer@3.1.5:
     resolution: {integrity: sha512-zdu8XMNEDepKKR+XYOXAVPtWui0ly0NtohUscw+UmaHiAWT8hrV1rr//H6V+0DvJ3OQ19S979M0laLfX8rm82Q==}
-
-  typedoc-plugin-markdown@3.14.0:
-    resolution: {integrity: sha512-UyQLkLRkfTFhLdhSf3RRpA3nNInGn+k6sll2vRXjflaMNwQAAiB61SYbisNZTg16t4K1dt1bPQMMGLrxS0GZ0Q==}
-    peerDependencies:
-      typedoc: '>=0.23.0'
-
-  typedoc-plugin-missing-exports@1.0.0:
-    resolution: {integrity: sha512-7s6znXnuAj1eD9KYPyzVzR1lBF5nwAY8IKccP5sdoO9crG4lpd16RoFpLsh2PccJM+I2NASpr0+/NMka6ThwVA==}
-    peerDependencies:
-      typedoc: 0.22.x || 0.23.x
 
   typedoc@0.23.25:
     resolution: {integrity: sha512-O1he153qVyoCgJYSvIyY3bPP1wAJTegZfa6tL3APinSZhJOf8CSd8F/21M6ex8pUY/fuY6n0jAsT4fIuMGA6sA==}
@@ -14817,14 +14794,6 @@ packages:
     resolution: {integrity: sha512-eH2tXMZcx3EHb5okd+/0VIyoR8Gp9pGe24UXitOOcGkzObbJ1vl48aGOAbakoT88FBdzC8MXNkMfBIB9VK0Ndg==}
     peerDependencies:
       vite: '>= 2.0.0'
-
-  vite-tsconfig-paths@5.1.4:
-    resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
-    peerDependencies:
-      vite: '*'
-    peerDependenciesMeta:
-      vite:
-        optional: true
 
   vite@5.3.1:
     resolution: {integrity: sha512-XBmSKRLXLxiaPYamLv3/hnP/KXDai1NDexN0FpkTaZXTfycHvkRHoenpgl/fvuK/kPbB6xAgoyiryAhQNxYmAQ==}
@@ -15238,11 +15207,6 @@ packages:
   yaml@1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
-
-  yaml@2.7.0:
-    resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
-    engines: {node: '>= 14'}
-    hasBin: true
 
   yargs-parser@20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
@@ -24565,8 +24529,6 @@ snapshots:
 
   globjoin@0.1.4: {}
 
-  globrex@0.1.2: {}
-
   gopd@1.0.1:
     dependencies:
       get-intrinsic: 1.2.4
@@ -30597,10 +30559,6 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  tsconfck@3.1.4(typescript@5.3.3):
-    optionalDependencies:
-      typescript: 5.3.3
-
   tsconfig-paths@3.15.0:
     dependencies:
       '@types/json5': 0.0.29
@@ -30701,15 +30659,6 @@ snapshots:
   typedarray-to-buffer@3.1.5:
     dependencies:
       is-typedarray: 1.0.0
-
-  typedoc-plugin-markdown@3.14.0(typedoc@0.23.25(typescript@5.3.3)):
-    dependencies:
-      handlebars: 4.7.8
-      typedoc: 0.23.25(typescript@5.3.3)
-
-  typedoc-plugin-missing-exports@1.0.0(typedoc@0.23.25(typescript@5.3.3)):
-    dependencies:
-      typedoc: 0.23.25(typescript@5.3.3)
 
   typedoc@0.23.25(typescript@5.3.3):
     dependencies:
@@ -31072,17 +31021,6 @@ snapshots:
       htmlparser2: 6.1.0
       markdown-it: 12.3.2
       vite: 5.3.1(@types/node@24.0.3)(sass@1.83.4)(terser@5.31.3)
-
-  vite-tsconfig-paths@5.1.4(typescript@5.3.3)(vite@5.3.1(@types/node@24.0.3)(sass@1.83.4)(terser@5.31.3)):
-    dependencies:
-      debug: 4.4.1(supports-color@5.5.0)
-      globrex: 0.1.2
-      tsconfck: 3.1.4(typescript@5.3.3)
-    optionalDependencies:
-      vite: 5.3.1(@types/node@24.0.3)(sass@1.83.4)(terser@5.31.3)
-    transitivePeerDependencies:
-      - supports-color
-      - typescript
 
   vite@5.3.1(@types/node@20.14.12)(sass@1.83.4)(terser@5.31.3):
     dependencies:
@@ -31720,8 +31658,6 @@ snapshots:
   yallist@5.0.0: {}
 
   yaml@1.10.2: {}
-
-  yaml@2.7.0: {}
 
   yargs-parser@20.2.9: {}
 
