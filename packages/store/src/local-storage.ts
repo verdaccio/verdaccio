@@ -1,6 +1,6 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
+import assert from 'node:assert';
 
 import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
