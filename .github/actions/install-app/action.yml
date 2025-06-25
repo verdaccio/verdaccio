@@ -9,7 +9,7 @@ inputs:
   reporter:
     description: 'Reporter for pnpm'
     required: false
-    default: 'silent'
+    default: 'default'
 
 runs:
   using: composite
