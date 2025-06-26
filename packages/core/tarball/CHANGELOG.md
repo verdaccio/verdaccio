@@ -1,5 +1,14 @@
 # Change Log
 
+## 13.0.0-next-8.19
+
+### Patch Changes
+
+- 9350431: chore(deps): clean up core modules
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/url@13.0.0-next-8.19
+
 ## 13.0.0-next-8.18
 
 ### Patch Changes

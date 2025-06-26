@@ -1,5 +1,11 @@
 # @verdaccio/search-indexer
 
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 54b1906: chore(deps): node-api, proxy, search, search-indexer
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes
