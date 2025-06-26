@@ -1058,9 +1058,15 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.6
         version: link:../../core/types
+      nock:
+        specifier: 13.5.6
+        version: 13.5.6
       supertest:
         specifier: 7.0.0
         version: 7.0.0
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/auth-memory:
     dependencies:
@@ -1095,9 +1101,6 @@ importers:
       bcryptjs:
         specifier: 2.4.3
         version: 2.4.3
-      core-js:
-        specifier: 3.40.0
-        version: 3.40.0
       debug:
         specifier: 4.4.1
         version: 4.4.1(supports-color@5.5.0)
@@ -1114,15 +1117,15 @@ importers:
       '@verdaccio/config':
         specifier: workspace:8.0.0-next-8.18
         version: link:../../config
-      '@verdaccio/logger':
-        specifier: workspace:8.0.0-next-8.18
-        version: link:../../logger/logger
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.6
         version: link:../../core/types
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/local-storage:
     dependencies:
@@ -1172,9 +1175,6 @@ importers:
       memfs:
         specifier: 3.5.3
         version: 3.5.3
-      memory-fs:
-        specifier: 0.5.0
-        version: 0.5.0
     devDependencies:
       '@verdaccio/config':
         specifier: workspace:8.0.0-next-8.18
@@ -1185,6 +1185,9 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.6
         version: link:../../core/types
+      vitest:
+        specifier: 3.0.4
+        version: 3.0.4(@types/debug@4.1.12)(@types/node@24.0.3)(jsdom@26.1.0)(msw@2.10.2(@types/node@24.0.3)(typescript@5.3.3))(sass@1.83.4)(terser@5.31.3)
 
   packages/plugins/ui-theme:
     devDependencies:
@@ -8339,10 +8342,6 @@ packages:
   err-code@2.0.3:
     resolution: {integrity: sha512-2bmlRpNKBxT/CRmPOlyISQpNj+qSeYvcym/uT0Jx2bMOlKLtSy1ZmLuVxSEKKyor/N5yhvp/ZiG1oE3DEYMSFA==}
 
-  errno@0.1.8:
-    resolution: {integrity: sha512-dJ6oBr5SQ1VSd9qkk7ByRgb/1SH4JZjCHSW/mr63/QcXO9zLVxvJ6Oy13nio03rxpSnVDDjFor75SjVeZWPW/A==}
-    hasBin: true
-
   error-ex@1.3.2:
     resolution: {integrity: sha512-7dFHNmqeFSEt2ZBsCriorKnn3Z2pj+fd9kmI6QoWw4//DL+icEBfc0U7qJCisqrTsKTjw4fNFy2pW9OqStD84g==}
 
@@ -10731,10 +10730,6 @@ packages:
   memoizerific@1.11.3:
     resolution: {integrity: sha512-/EuHYwAPdLtXwAwSZkh/Gutery6pD2KYd44oQLhAvQp/50mpyduZh8Q7PYHXTCJ+wuXxt7oij2LXyIJOOYFPog==}
 
-  memory-fs@0.5.0:
-    resolution: {integrity: sha512-jA0rdU5KoQMC0e6ppoNRtpp6vjFq6+NY7r8hywnC7V+1Xj/MtHwGIbB1QaK/dunyjWteJzmkpd7ooeWg10T7GA==}
-    engines: {node: '>=4.3.0 <5.0.0 || >=5.10'}
-
   memorystream@0.3.1:
     resolution: {integrity: sha512-S3UwM3yj5mtUSEfP41UZmt/0SCoVYUcU1rkXv+BQ5Ig8ndL4sPoJNBUJERafdPb5jjHJGuMgytgKvKIf58XNBw==}
     engines: {node: '>= 0.10.0'}
@@ -12829,9 +12824,6 @@ packages:
 
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-
-  prr@1.0.1:
-    resolution: {integrity: sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw==}
 
   psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
@@ -23410,10 +23402,6 @@ snapshots:
 
   err-code@2.0.3: {}
 
-  errno@0.1.8:
-    dependencies:
-      prr: 1.0.1
-
   error-ex@1.3.2:
     dependencies:
       is-arrayish: 0.2.1
@@ -26684,11 +26672,6 @@ snapshots:
     dependencies:
       map-or-similar: 1.5.0
 
-  memory-fs@0.5.0:
-    dependencies:
-      errno: 0.1.8
-      readable-stream: 2.3.8
-
   memorystream@0.3.1: {}
 
   meow@10.1.5:
@@ -28677,8 +28660,6 @@ snapshots:
   proxy-from-env@1.0.0: {}
 
   proxy-from-env@1.1.0: {}
-
-  prr@1.0.1: {}
 
   psl@1.9.0: {}
 
