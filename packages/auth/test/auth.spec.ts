@@ -51,7 +51,7 @@ describe('AuthTest', () => {
       expect(auth).toBeDefined();
     });
 
-    test('should load default auth plugin', async () => {
+    test('should load default auth plugin methods', async () => {
       const config: Config = new AppConfig({ ...authProfileConf, auth: undefined });
       config.checkSecretKey('12345');
 
@@ -600,6 +600,7 @@ describe('AuthTest', () => {
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
             await auth.init();
+            // expect failure with "bad authorization header"
             const app = await getServer(auth);
             return supertest(app)
               .get(`/`)
@@ -644,6 +645,7 @@ describe('AuthTest', () => {
             const auth = new Auth(config, logger);
             await auth.init();
             const token = auth.aesEncrypt(payload) as string;
+            // expect failure with "unknown error"
             const app = await getServer(auth);
             return await supertest(app)
               .get(`/`)

@@ -27,7 +27,7 @@ import {
   Auth,
   allow_action,
   getApiToken,
-  getDefaultPlugins,
+  getDefaultPluginMethods,
 } from '../src';
 
 setup({});
@@ -122,14 +122,14 @@ describe('Auth utilities', () => {
 
   describe('getDefaultPlugins', () => {
     test('authentication should fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: vi.fn() });
+      const plugin = getDefaultPluginMethods(logger);
       plugin.authenticate('foo', 'bar', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
 
     test('add user should not fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: vi.fn() });
+      const plugin = getDefaultPluginMethods(logger);
       // @ts-ignore
       plugin.adduser('foo', 'bar', (error: any, access: any) => {
         expect(error).toEqual(null);
@@ -151,7 +151,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should restrict %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -168,7 +168,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -185,7 +185,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous if the logged user has groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -202,7 +202,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous match any other groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -219,7 +219,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should not allow %s anonymous if other groups are defined and does not match',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
