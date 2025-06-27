@@ -198,29 +198,52 @@ describe('AuthTest', () => {
       });
     });
 
-    describe('test multiple authenticate methods', () => {
-      test('should skip falsy values', async () => {
-        const config: Config = new AppConfig({
-          ...getDefaultConfig(),
-          plugins: path.join(__dirname, './partials/plugin'),
-          auth: {
-            success: {},
-            'fail-invalid-method': {},
-          },
-        });
-        config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config, logger);
-        await auth.init();
+    test('should success first plugin, ignore subsequent plugins', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          success: {},
+          'no-access': {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config, logger);
+      await auth.init();
 
-        return new Promise((resolve) => {
-          auth.authenticate('foo', 'bar', (err, value) => {
-            expect(value).toEqual({
-              name: 'foo',
-              groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
-              real_groups: ['test'],
-            });
-            resolve(value);
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
           });
+          resolve(value);
+        });
+      });
+    });
+
+    test('should fail first plugin, success second plugin', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          'no-access': {},
+          success: {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config, logger);
+      await auth.init();
+
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
+          });
+          resolve(value);
         });
       });
     });
