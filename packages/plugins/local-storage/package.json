@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-storage",
-  "version": "13.0.0-next-8.18",
+  "version": "13.0.0-next-8.19",
   "description": "Verdaccio Local Storage Plugin",
   "keywords": [
     "private",
@@ -36,24 +36,19 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.18",
-    "@verdaccio/file-locking": "workspace:13.0.0-next-8.3",
-    "core-js": "3.40.0",
+    "@verdaccio/core": "workspace:8.0.0-next-8.19",
+    "@verdaccio/file-locking": "workspace:13.0.0-next-8.4",
+    "@verdaccio/utils": "workspace:8.1.0-next-8.19",
     "debug": "4.4.1",
     "globby": "11.1.0",
-    "lockfile": "1.0.4",
     "lodash": "4.17.21",
     "lowdb": "1.0.0",
-    "lru-cache": "7.18.3",
     "sanitize-filename": "1.6.3"
   },
   "devDependencies": {
-    "@types/minimatch": "5.1.2",
-    "@verdaccio/config": "workspace:8.0.0-next-8.18",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.18",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.19",
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
-    "minimatch": "9.0.5"
+    "vitest": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",

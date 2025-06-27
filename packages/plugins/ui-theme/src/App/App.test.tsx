@@ -1,9 +1,9 @@
 import React from 'react';
-import { act, renderWithStore, screen } from 'verdaccio-ui/utils/test-react-testing-library';
 import { vi } from 'vitest';
 
 import { store } from '@verdaccio/ui-components';
 
+import { act, renderWithStore, screen } from '../utils/test-react-testing-library';
 import App from './App';
 
 // force the windows to expand to display items

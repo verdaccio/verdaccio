@@ -1,5 +1,14 @@
 # @verdaccio/signature
 
+## 8.0.0-next-8.11
+
+### Patch Changes
+
+- 4e14aff: chore(deps): signature, utils
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+
 ## 8.0.0-next-8.10
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import fs from 'fs';
+import fs from 'node:fs';
 
 import { Callback } from '@verdaccio/types';
 

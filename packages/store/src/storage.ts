@@ -1,10 +1,10 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _, { isEmpty, isNil } from 'lodash';
-import { basename } from 'path';
-import { PassThrough, Readable, Transform } from 'stream';
-import { pipeline } from 'stream/promises';
-import { default as URL } from 'url';
+import assert from 'node:assert';
+import { basename } from 'node:path';
+import { PassThrough, Readable, Transform } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
+import { default as URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
 import {

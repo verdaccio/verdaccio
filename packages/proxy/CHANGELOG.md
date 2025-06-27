@@ -1,5 +1,14 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 54b1906: chore(deps): node-api, proxy, search, search-indexer
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes

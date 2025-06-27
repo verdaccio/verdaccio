@@ -1,9 +1,9 @@
 import { isColorSupported } from 'colorette';
-import { WriteStream } from 'fs';
+import { WriteStream } from 'node:fs';
+import { Transform, pipeline } from 'node:stream';
+import { isMainThread } from 'node:worker_threads';
 import build from 'pino-abstract-transport';
 import SonicBoom, { SonicBoomOpts } from 'sonic-boom';
-import { Transform, pipeline } from 'stream';
-import { isMainThread } from 'worker_threads';
 
 import { fillInMsgTemplate, printMessage } from './formatter';
 import { PrettyOptionsExtended } from './types';

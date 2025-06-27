@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import supertest from 'supertest';
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 

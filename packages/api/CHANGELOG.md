@@ -1,5 +1,20 @@
 # @verdaccio/api
 
+## 8.1.0-next-8.19
+
+### Patch Changes
+
+- a91c5b8: chore(api): remove obsolete tests
+- Updated dependencies [9350431]
+- Updated dependencies [da0692f]
+- Updated dependencies [3f71267]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/middleware@8.0.0-next-8.19
+  - @verdaccio/store@8.0.0-next-8.19
+  - @verdaccio/auth@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
 ## 8.1.0-next-8.18
 
 ### Patch Changes

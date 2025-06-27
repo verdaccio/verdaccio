@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import type { IncomingHttpHeaders } from 'node:http';
-import { URL } from 'url';
+import { URL } from 'node:url';
 import validator from 'validator';
 
 import { HEADERS } from '@verdaccio/core';

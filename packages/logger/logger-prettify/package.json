@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/logger-prettify",
-  "version": "8.0.0-next-8.2",
+  "version": "8.0.0-next-8.3",
   "description": "Verdaccio Logger Prettify",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -43,13 +43,15 @@
   },
   "dependencies": {
     "dayjs": "1.11.13",
+    "on-exit-leak-free": "2.1.2",
     "pino-abstract-transport": "1.2.0",
     "colorette": "2.0.20",
     "lodash": "4.17.21",
     "sonic-boom": "3.8.1"
   },
   "devDependencies": {
-    "pino": "9.7.0"
+    "pino": "9.7.0",
+    "vitest": "3.0.4"
   },
   "funding": {
     "type": "opencollective",

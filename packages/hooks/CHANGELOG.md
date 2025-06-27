@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 95e6c8f: chore(deps): hooks, loaders, logger
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes

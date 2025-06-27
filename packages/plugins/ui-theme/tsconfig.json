@@ -15,7 +15,7 @@
       "verdaccio-ui/utils/*": ["src/utils/*"]
     }
   },
-  "include": ["src", "types/*.d.ts", "src/i18n/**/*.json", "jest/unit/components"],
+  "include": ["src", "types/*.d.ts", "src/i18n/**/*.json"],
   "references": [
     {
       "path": "../../node-api"

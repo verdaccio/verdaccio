@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';

@@ -1,5 +1,18 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [9350431]
+- Updated dependencies [3f71267]
+  - @verdaccio/tarball@13.0.0-next-8.19
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/store@8.0.0-next-8.19
+  - @verdaccio/auth@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes
