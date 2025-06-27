@@ -1,9 +1,9 @@
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 
-export function stringifyPackage(pkg: Package) {
-  return JSON.stringify(pkg, null, '\t');
+export function stringifyPackage(manifest: Manifest): string {
+  return JSON.stringify(manifest, null, '\t');
 }
 
-export function parsePackage(pkg: string) {
-  return JSON.parse(pkg);
+export function parsePackage(json: string): Manifest {
+  return JSON.parse(json);
 }
