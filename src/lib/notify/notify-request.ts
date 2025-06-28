@@ -1,9 +1,11 @@
 import request, { RequiredUriUrl } from '@cypress/request';
 import buildDebug from 'debug';
-import isNil from 'lodash/isNil';
+import _ from 'lodash';
 
 import { HTTP_STATUS } from '../constants';
 import { logger } from '../logger';
+
+const { isNil, assign } = _;
 
 const debug = buildDebug('verdaccio:notify-request');
 export function notifyRequest(options: RequiredUriUrl, content): Promise<any | Error> {

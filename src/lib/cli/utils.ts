@@ -2,9 +2,8 @@ import path from 'path';
 import semver from 'semver';
 
 import { DEFAULT_PORT } from '../constants';
+import { logger } from '../logger';
 import { parseAddress } from '../utils';
-
-const logger = require('../logger');
 
 export const resolveConfigPath = function (storageLocation: string, file: string) {
   return path.resolve(path.dirname(storageLocation), file);
@@ -45,7 +44,7 @@ export function getListListenAddresses(argListen: string | void, configListen: a
       const parsedAddr = parseAddress(addr);
 
       if (!parsedAddr) {
-        logger.logger.warn(
+        logger.warn(
           { addr: addr },
           'invalid address - @{addr}, we expect a port (e.g. "4873"),' +
             ' host:port (e.g. "localhost:4873") or full url' +

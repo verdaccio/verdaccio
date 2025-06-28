@@ -7,7 +7,7 @@ const json = {
   },
   "versions": {
     "1.0.6": {
-      "name": "@scope\/pk1-test",
+      "name": "@scope/pk1-test",
       "version": "1.0.6",
       "description": "",
       "main": "index.js",

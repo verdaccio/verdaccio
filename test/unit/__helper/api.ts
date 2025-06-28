@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import request from 'supertest';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 
-import { Package } from '@verdaccio/types';
+import { Manifest } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '../../../src/lib/constants';
@@ -19,7 +20,7 @@ import { getTaggedVersionFromPackage } from './expects';
 export function putPackage(
   request: any,
   pkgName: string,
-  publishMetadata: Package,
+  publishMetadata: Manifest,
   token?: string
 ): Promise<any[]> {
   return new Promise((resolve) => {

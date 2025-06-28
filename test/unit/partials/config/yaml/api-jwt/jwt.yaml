@@ -1,5 +1,4 @@
 storage: ./storage
-plugins: ./plugins
 
 web:
   title: Verdaccio

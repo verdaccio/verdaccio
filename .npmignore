@@ -48,3 +48,5 @@ CONTRIBUTORS.md
 prettier.config.js
 eslintrc.cjs
 babel.config.js
+debug/*
+tsconfig*

@@ -12,17 +12,16 @@ import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verd
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-
-const logger = require('./logger');
+import { logger } from './logger';
 
 function displayExperimentsInfoBox(experiments) {
   const experimentList = Object.keys(experiments);
   if (experimentList.length >= 1) {
-    logger.logger.warn(
+    logger.warn(
       '⚠️  experiments are enabled, it is recommended do not use experiments in production, comment out the experiments section to disable this warning'
     );
     experimentList.forEach((experiment) => {
-      logger.logger.warn(
+      logger.warn(
         ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
       );
     });
@@ -91,7 +90,7 @@ function unlinkAddressPath(addr) {
 }
 
 function logHTTPSWarning(storageLocation) {
-  logger.logger.fatal(
+  logger.fatal(
     [
       'You have enabled HTTPS and need to specify either ',
       '    "https.key" and "https.cert" or ',
@@ -158,7 +157,7 @@ function handleHTTPS(
     return https.createServer(httpsOptions, app);
   } catch (err) {
     // catch errors related to certificate loading
-    logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+    logger.fatal({ err: err }, 'cannot create server: @{err.message}');
     process.exit(2);
   }
 }
@@ -186,14 +185,14 @@ function listenDefaultCallback(
       }
     })
     .on('error', function (err): void {
-      logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+      logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
 
   function handleShutdownGracefully() {
-    logger.logger.fatal('received shutdown signal - closing server gracefully...');
+    logger.fatal('received shutdown signal - closing server gracefully...');
     server.close(() => {
-      logger.logger.info('server closed.');
+      logger.info('server closed.');
       process.exit(0);
     });
   }
@@ -205,7 +204,7 @@ function listenDefaultCallback(
     process.on('SIGHUP', handleShutdownGracefully);
   }
 
-  logger.logger.warn(
+  logger.warn(
     {
       addr: addr.path
         ? URL.format({

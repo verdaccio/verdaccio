@@ -45,7 +45,7 @@ describe('Notifications:: notifyRequest', () => {
     ];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
-    expect(logger.logger.error).toHaveBeenCalledWith(...args);
+    expect(logger.error).toHaveBeenCalledWith(...args);
   });
 
   test('when notification service throws error with null error value', async () => {
@@ -65,7 +65,7 @@ describe('Notifications:: notifyRequest', () => {
     ];
 
     await expect(notification.notifyRequest(options, content)).rejects.toEqual(API_ERROR.BAD_DATA);
-    expect(logger.logger.error).toHaveBeenCalledWith(...args);
+    expect(logger.error).toHaveBeenCalledWith(...args);
   });
 
   test('when notification is successfully delivered', async () => {
@@ -85,8 +85,8 @@ describe('Notifications:: notifyRequest', () => {
     await expect(notification.notifyRequest(options, content)).resolves.toEqual(
       'Successfully delivered'
     );
-    expect(logger.logger.info).toHaveBeenCalledWith(...infoArgs);
-    expect(logger.logger.debug).toHaveBeenCalledWith(...debugArgs);
+    expect(logger.info).toHaveBeenCalledWith(...infoArgs);
+    expect(logger.debug).toHaveBeenCalledWith(...debugArgs);
   });
 
   test('when notification is successfully delivered but body is undefined/null', async () => {
@@ -102,6 +102,6 @@ describe('Notifications:: notifyRequest', () => {
     const infoArgs = [{ content }, 'A notification has been shipped: @{content}'];
 
     await expect(notification.notifyRequest(options, content)).rejects.toThrow('body is missing');
-    expect(logger.logger.info).toHaveBeenCalledWith(...infoArgs);
+    expect(logger.info).toHaveBeenCalledWith(...infoArgs);
   });
 });

@@ -1,4 +1,5 @@
-// we need this for notifications
+import { describe, vi } from 'vitest';
+
 import { setup } from '../../src/lib/logger';
 import { IServerBridge } from '../types';
 import adduser from './adduser/adduser';
@@ -28,7 +29,7 @@ import uplinkTimeout from './uplinks/timeout';
 setup({});
 
 describe('functional test verdaccio', function () {
-  jest.setTimeout(20000);
+  vi.setTimeout(20000);
   // @ts-ignore
   const server1: IServerBridge = global.__SERVERS__[0];
   // @ts-ignore

@@ -2,6 +2,8 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
@@ -23,7 +25,7 @@ import apiEndpoint from './endpoint';
 import { serveFavicon } from './middleware';
 import webMiddleware from './web';
 
-const { version } = require('../../package.json');
+const version = process.env.PACKAGE_VERSION || 'dev';
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config, logger, { legacyMergeConfigs: true });
