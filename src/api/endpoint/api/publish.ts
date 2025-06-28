@@ -5,13 +5,13 @@ import mime from 'mime';
 import Path from 'path';
 
 import { validationUtils } from '@verdaccio/core';
+import { notify } from '@verdaccio/hooks';
 import { allow, expectJson, media } from '@verdaccio/middleware';
 import { Callback, Config, MergeTags, Package, Version } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, DIST_TAGS, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
-import { notify } from '../../../lib/notify';
 import Storage from '../../../lib/storage';
 import { isPublishablePackage } from '../../../lib/storage-utils';
 import { ErrorCode, hasDiffOneKey, isObject, isRelatedToDeprecation } from '../../../lib/utils';
@@ -291,7 +291,8 @@ export function publishPackage(storage: Storage, config: Config, auth: Auth): an
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
-    } catch (error) {
+    } catch (error: any) {
+      debug('error on publish: %s', error.message);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }

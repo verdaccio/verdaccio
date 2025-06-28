@@ -1,6 +1,4 @@
 uplinks:
-  npmjs:
-    url: http://localhost:4873/
 packages:
   '@*/*':
     access: $all

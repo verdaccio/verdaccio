@@ -1,4 +1,3 @@
-// @flow
 import buildDebug from 'debug';
 import { Response } from 'express';
 import _ from 'lodash';
@@ -31,6 +30,8 @@ export default function (
       if (err) {
         return next(err);
       }
+      logger.debug(`package ${name} starred by user ${req.remote_user?.name}`);
+      // we do not need
       res.status(HTTP_STATUS.OK);
       next({
         success: true,

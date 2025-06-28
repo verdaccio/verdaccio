@@ -1,9 +1,10 @@
 import assert from 'assert';
+import { describe, test } from 'vitest';
 
 import { setup } from '../../../../src/lib/logger';
 import { tagVersion } from '../../../../src/lib/utils';
 
-setup([]);
+setup({});
 
 describe('tagVersion', () => {
   test('add new one', () => {

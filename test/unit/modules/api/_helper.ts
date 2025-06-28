@@ -2,6 +2,7 @@ import { Application } from 'express';
 import _ from 'lodash';
 import path from 'path';
 import supertest from 'supertest';
+import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
 import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';

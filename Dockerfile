@@ -23,6 +23,7 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableScripts false && \
     yarn install --immutable && \
     yarn build
+    
 ## pack the project
 RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \
@@ -57,6 +58,7 @@ USER root
 # install verdaccio as a global package so is fully handled by npm
 # ensure none dependency is being missing and is prod by default
 RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
+    && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
     ## clean up cache
     && npm cache clean --force \
     && rm -Rf .npm/ \
@@ -65,7 +67,7 @@ RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
     # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L99-L100).
     && rm -Rf /opt/yarn-v$YARN_VERSION/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
 
-ADD conf/docker.yaml /verdaccio/conf/config.yaml
+# ADD conf/docker.yaml /verdaccio/conf/config.yaml
 ADD docker-bin $VERDACCIO_APPDIR/docker-bin
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \

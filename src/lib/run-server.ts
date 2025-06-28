@@ -3,42 +3,17 @@ import buildDebug from 'debug';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
-import _, { assign } from 'lodash';
-import path from 'path';
+import { assign } from 'lodash';
 
-import { Config, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { getConfigParsed, getListenAddress } from '@verdaccio/config';
+import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
-import { getListListenAddresses } from './cli/utils';
-import findConfigFile from './config-path';
-import { API_ERROR } from './constants';
-import { parseConfigFile } from './utils';
+import { DEFAULT_PORT } from './constants';
+import { logger } from './logger';
+import { initLogger } from './utils';
 
-const debug = buildDebug('verdaccio');
-
-const logger = require('./logger');
-
-export function displayExperimentsInfoBox(flags) {
-  if (!flags) {
-    return;
-  }
-
-  const experimentList = Object.keys(flags);
-  if (experimentList.length >= 1) {
-    logger.warn(
-      // eslint-disable-next-line max-len
-      `experiments are enabled, it is recommended do not use experiments in production comment out this section to disable it`
-    );
-    experimentList.forEach((experiment) => {
-      // eslint-disable-next-line max-len
-      logger.info(
-        `support for experiment [${experiment}] ${
-          flags[experiment] ? 'is enabled' : ' is disabled'
-        }`
-      );
-    });
-  }
-}
+const debug = buildDebug('verdaccio:run-server');
 
 /**
  * Exposes a server factory to be instantiated programmatically.
@@ -51,32 +26,22 @@ export function displayExperimentsInfoBox(flags) {
     });
  * @param config
  */
-export async function runServer(config?: string): Promise<any> {
-  let configurationParsed: ReturnType<any>;
-  if (config === undefined || typeof config === 'string') {
-    const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation);
-    if (!configurationParsed.self_path) {
-      configurationParsed.self_path = path.resolve(configPathLocation);
-    }
-  } else if (_.isObject(config)) {
-    configurationParsed = config;
-    if (!configurationParsed.self_path) {
-      throw new Error('self_path is required, please provide a valid root path for storage');
-    }
-  } else {
-    throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
-  }
+export async function runServer(
+  config?: string | ConfigYaml,
+  options?: { listenArg?: string }
+): Promise<any> {
+  const configurationParsed = getConfigParsed(config);
 
-  const addresses = getListListenAddresses(undefined, configurationParsed.listen);
-  if (addresses.length > 1) {
-    process.emitWarning(
-      'You have specified multiple listen addresses, using this method only the first will be used'
-    );
-  }
+  initLogger(configurationParsed);
+  const combined: string | undefined | any[] = [
+    options?.listenArg,
+    configurationParsed?.listen,
+    DEFAULT_PORT,
+  ];
+  const address = getListenAddress(combined, logger);
 
   const app = await endPointAPI(configurationParsed);
-  return createServerFactory(configurationParsed, addresses[0], app);
+  return createServerFactory(configurationParsed, address, app);
 }
 
 /**
@@ -85,7 +50,7 @@ export async function runServer(config?: string): Promise<any> {
  * @param addr
  * @param app
  */
-export function createServerFactory(config: Config, addr, app) {
+export function createServerFactory(config: ConfigYaml, addr, app) {
   let serverFactory;
   if (addr.proto === 'https') {
     debug('https enabled');
@@ -123,7 +88,8 @@ export function createServerFactory(config: Config, addr, app) {
       // if (config.server.http2) <-- check if force http2
       serverFactory = https.createServer(httpsOptions, app);
     } catch (err: any) {
-      throw new Error(`cannot create https server: ${err.message}`);
+      logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+      process.exit(2);
     }
   } else {
     // http

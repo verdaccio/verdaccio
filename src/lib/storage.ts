@@ -56,6 +56,7 @@ class Storage {
     this.uplinks = setupUpLinks(config);
     this.logger = logger;
     this.filters = [];
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.localStorage = null;
   }
@@ -136,7 +137,7 @@ class Storage {
    If it isn't, we create package locally
    Used storages: local (write) && uplinks
    */
-  public async addPackage(name: string, metadata: any, callback: Function): Promise<void> {
+  public async addPackage(name: string, metadata: any, callback: any): Promise<void> {
     try {
       await checkPackageLocal(name, this.localStorage);
       await checkPackageRemote(
@@ -216,6 +217,7 @@ class Storage {
     this.localStorage.removePackage(name, callback);
     // update the indexer
     SearchMemoryIndexer.remove(name).catch((reason) => {
+      debug('indexer has failed on remove item %o', reason);
       logger.error('indexer has failed on remove item');
     });
   }

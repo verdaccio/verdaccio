@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import _ from 'lodash';
 
+import { stringUtils } from '@verdaccio/core';
 import { PACKAGE_API_ENDPOINTS, allow } from '@verdaccio/middleware';
 import { convertDistRemoteToLocalTarballUrls } from '@verdaccio/tarball';
-import { Config, Package } from '@verdaccio/types';
+import { Config, Manifest } from '@verdaccio/types';
 
 import Auth from '../../../lib/auth';
 import { API_ERROR, DIST_TAGS, HEADERS } from '../../../lib/constants';
@@ -11,7 +12,6 @@ import { logger } from '../../../lib/logger';
 import Storage from '../../../lib/storage';
 import { ErrorCode, getVersion } from '../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
-import { getByQualityPriorityValue } from '../../../utils/string';
 
 const downloadStream = (
   packageName: string,
@@ -73,8 +73,9 @@ export default function (route: Router, auth: Auth, storage: Storage, config: Co
     can('access'),
     function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer): void {
       const abbreviated =
-        getByQualityPriorityValue(req.get('Accept')) === 'application/vnd.npm.install-v1+json';
-      const getPackageMetaCallback = function (err, metadata: Package): void {
+        stringUtils.getByQualityPriorityValue(req.get('Accept')) ===
+        'application/vnd.npm.install-v1+json';
+      const getPackageMetaCallback = function (err, metadata: Manifest): void {
         if (err) {
           return next(err);
         }

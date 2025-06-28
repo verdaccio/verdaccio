@@ -66,9 +66,7 @@ export default function (router: Router, auth: Auth, config: ConfigYaml) {
 
       if (_.isNil(password) === false) {
         if (validationUtils.validatePassword(password.new) === false) {
-          /* eslint new-cap:off */
           return next(ErrorCode.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.PASSWORD_SHORT));
-          /* eslint new-cap:off */
         }
 
         auth.changePassword(

@@ -13,7 +13,6 @@ on:
       - 'yarn.lock'
       - '.yarn/**'
       - '.yarnrc.yaml'
-      - '.pnp.js'
     branches:
       - '**'
     tags:
