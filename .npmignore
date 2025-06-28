@@ -1,12 +1,10 @@
 
 ## npm
-npm-debug.log
 yarn-error.log
 node_modules
 verdaccio-*.tgz
 docker-compose.yaml
 Dockerfile
-crowdin.yaml
 scripts/
 src/
 /.*
@@ -39,12 +37,12 @@ jest.config.js
 contrib/
 storage_default_storage/
 docker-bin/
-yarn-plugins/
 tsconfig.json
-CHANGELOG.md
-SECURITY.md
-CONTRIBUTING.md
-CONTRIBUTORS.md
+*.md
 prettier.config.js
 eslintrc.cjs
 babel.config.js
+debug/*
+tsconfig*
+vitest.config.mjs
+

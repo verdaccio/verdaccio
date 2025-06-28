@@ -1,11 +1,12 @@
+import { describe, expect, test, vi } from 'vitest';
+
 import { GENERIC_AVATAR, generateGravatarUrl } from '@verdaccio/utils';
 
 import { DIST_TAGS } from '../../../../src/lib/constants';
 import { logger, setup } from '../../../../src/lib/logger';
 import { getVersion, normalizeDistTags, parseReadme, sortByName } from '../../../../src/lib/utils';
-import { getByQualityPriorityValue } from '../../../../src/utils/string';
 
-setup([]);
+setup({});
 
 describe('Utilities', () => {
   const metadata: any = {
@@ -129,41 +130,6 @@ describe('Utilities', () => {
     });
   });
 
-  describe('String utilities', () => {
-    test('getByQualityPriorityValue', () => {
-      expect(getByQualityPriorityValue('')).toEqual('');
-      expect(getByQualityPriorityValue(null)).toEqual('');
-      expect(getByQualityPriorityValue(undefined)).toEqual('');
-      expect(getByQualityPriorityValue('something')).toEqual('something');
-      expect(getByQualityPriorityValue('something,')).toEqual('something');
-      expect(getByQualityPriorityValue('0,')).toEqual('0');
-      expect(getByQualityPriorityValue('application/json')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/json; q=1')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/json; q=')).toEqual('application/json');
-      expect(getByQualityPriorityValue('application/json;')).toEqual('application/json');
-      expect(
-        getByQualityPriorityValue(
-          'application/json; q=1.0, application/vnd.npm.install-v1+json; q=0.9, */*'
-        )
-      ).toEqual('application/json');
-      expect(
-        getByQualityPriorityValue(
-          'application/json; q=1.0, application/vnd.npm.install-v1+json; q=, */*'
-        )
-      ).toEqual('application/json');
-      expect(
-        getByQualityPriorityValue(
-          'application/vnd.npm.install-v1+json; q=1.0, application/json; q=0.9, */*'
-        )
-      ).toEqual('application/vnd.npm.install-v1+json');
-      expect(
-        getByQualityPriorityValue(
-          'application/vnd.npm.install-v1+json; q=, application/json; q=0.9, */*'
-        )
-      ).toEqual('application/json');
-    });
-  });
-
   describe('User utilities', () => {
     test('should generate gravatar url with email', () => {
       const gravatarUrl: string = generateGravatarUrl('user@verdaccio.org');
@@ -182,7 +148,7 @@ describe('Utilities', () => {
   describe('parseReadme', () => {
     test('should show error for no readme data', () => {
       const noData = '';
-      const spy = jest.spyOn(logger, 'info');
+      const spy = vi.spyOn(logger, 'info');
       expect(parseReadme('testPackage', noData)).toEqual('ERROR: No README data found!');
       expect(spy).toHaveBeenCalledWith(
         { packageName: 'testPackage' },

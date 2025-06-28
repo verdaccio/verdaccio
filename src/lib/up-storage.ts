@@ -260,15 +260,15 @@ class ProxyStorage {
         })();
       }
     });
-    req.on('error', function (_err): void {
+    req.on('error', function (err): void {
       // FIXME: _verdaccio_aborted seems not used
-      // @ts-ignore
+      debug('_verdaccio_aborted: %o', err);
       if (!req._verdaccio_aborted && !statusCalled) {
         statusCalled = true;
         self._statusCheck(false);
       }
     });
-    // @ts-ignore
+
     return req;
   }
 
@@ -307,7 +307,7 @@ class ProxyStorage {
       return headers;
     }
 
-    if (_.isObject(auth) === false && _.isObject(auth.token) === false) {
+    if (_.isObject(auth) === false && _.isObject((auth as any).token) === false) {
       this._throwErrorAuth('Auth invalid');
     }
 

@@ -1,5 +1,9 @@
+import getPort from 'get-port';
 import _ from 'lodash';
 import nock from 'nock';
+import { statSync } from 'node:fs';
+import { join } from 'node:path';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test } from 'vitest';
 
 import { Config, UpLinkConf } from '@verdaccio/types';
 
@@ -13,25 +17,26 @@ import {
 } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { mockServer } from '../../__helper/mock';
 import configExample from '../../partials/config';
 
 setup({});
 
 describe('UpStorage', () => {
-  const mockServerPort = 55547;
   let mockRegistry;
-  const uplinkDefault = {
-    url: `http://localhost:${mockServerPort}`,
-  };
-  const generateProxy = (config: UpLinkConf = uplinkDefault) => {
-    const appConfig: Config = new AppConfig(configExample());
-
-    return new ProxyStorage(config, appConfig);
-  };
-
+  let generateProxy;
+  let mockServerPort;
   beforeAll(async () => {
+    mockServerPort = await getPort();
+
+    const uplinkDefault = {
+      url: `http://localhost:${mockServerPort}`,
+    };
+    generateProxy = (config: UpLinkConf = uplinkDefault) => {
+      const appConfig: Config = new AppConfig(configExample());
+
+      return new ProxyStorage(config, appConfig);
+    };
     mockRegistry = await mockServer(mockServerPort).init();
   });
 
@@ -39,9 +44,8 @@ describe('UpStorage', () => {
     nock.cleanAll();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     mockRegistry[0].stop();
-    done();
   });
 
   test('should be defined', () => {
@@ -63,80 +67,94 @@ describe('UpStorage', () => {
       delete process.env.NPM_TOKEN;
     });
 
-    test('should be get remote metadata', (done) => {
+    test('should be get remote metadata', () => {
       const proxy = generateProxy();
 
-      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
-        expect(err).toBeNull();
-        expect(_.isString(etag)).toBeTruthy();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(_.isString(etag)).toBeTruthy();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should handle 404 on be get remote metadata', (done) => {
-      nock('http://localhost:55547').get(`/jquery`).once().reply(404, { name: 'jquery' });
-      const proxy = generateProxy();
+    test('should handle 404 on be get remote metadata', () => {
+      return new Promise((done) => {
+        nock(`http://localhost:${mockServerPort}`)
+          .get(`/jquery`)
+          .once()
+          .reply(404, { name: 'jquery' });
+        const proxy = generateProxy();
 
-      proxy.getRemoteMetadata('jquery', {}, (err) => {
-        expect(err).not.toBeNull();
-        expect(err.message).toMatch(/package does not exist on uplink/);
-        done();
+        proxy.getRemoteMetadata('jquery', {}, (err) => {
+          expect(err).not.toBeNull();
+          expect(err.message).toMatch(/package does not exist on uplink/);
+          done(true);
+        });
       });
     });
 
-    test('should handle 500 on be get remote metadata', (done) => {
-      nock('http://localhost:55547').get(`/jquery`).once().reply(500, { name: 'jquery' });
+    test('should handle 500 on be get remote metadata', () => {
+      nock(`http://localhost:${mockServerPort}`)
+        .get(`/jquery`)
+        .once()
+        .reply(500, { name: 'jquery' });
       const proxy = generateProxy();
-
-      proxy.getRemoteMetadata('jquery', {}, (err) => {
-        expect(err).not.toBeNull();
-        expect(err.message).toMatch(/bad status code: 500/);
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err) => {
+          expect(err).not.toBeNull();
+          expect(err.message).toMatch(/bad status code: 500/);
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with etag', (done) => {
+    test('should be get remote metadata with etag', () => {
       const proxy = generateProxy();
-
-      proxy.getRemoteMetadata('jquery', { etag: '123456' }, (err, data, etag) => {
-        expect(err).toBeNull();
-        expect(_.isString(etag)).toBeTruthy();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', { etag: '123456' }, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(_.isString(etag)).toBeTruthy();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata package does not exist', (done) => {
+    test('should be get remote metadata package does not exist', () => {
       const proxy = generateProxy();
-
-      proxy.getRemoteMetadata('@verdaccio/fake-package', { etag: '123456' }, (err) => {
-        expect(err).not.toBeNull();
-        expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-        expect(err.message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('@verdaccio/fake-package', { etag: '123456' }, (err) => {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          expect(err.message).toMatch(API_ERROR.NOT_PACKAGE_UPLINK);
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with json when uplink is npmmirror', (done) => {
+    test('should be get remote metadata with json when uplink is npmmirror', () => {
       nock('https://registry.npmmirror.com').get(`/jquery`).reply(200, { name: 'jquery' });
       const proxy = generateProxy({ url: 'https://registry.npmmirror.com' });
-
-      proxy.getRemoteMetadata('jquery', { json: true }, (err, data) => {
-        expect(err).toBeNull();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', { json: true }, (err, data) => {
+          expect(err).toBeNull();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with auth header bearer', (done) => {
+    test('should be get remote metadata with auth header bearer', () => {
       nock('https://registry.npmmirror.com', {
         reqheaders: {
           authorization: 'Bearer foo',
         },
       })
         .get(`/jquery`)
-        .reply(200, { name: 'jquery' });
+        .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
         auth: {
@@ -144,23 +162,25 @@ describe('UpStorage', () => {
           token: 'foo',
         },
       });
-
-      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
-        expect(err).toBeNull();
-        // expect(_.isString(etag)).toBeTruthy();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(_.isString(etag)).toBeTruthy();
+          expect(etag).toBe('123456');
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with auth node env TOKEN_TEST_ENV header bearer', (done) => {
+    test('should be get remote metadata with auth node env TOKEN_TEST_ENV header bearer', () => {
       nock('https://registry.npmmirror.com', {
         reqheaders: {
           authorization: 'Bearer foo',
         },
       })
         .get(`/jquery`)
-        .reply(200, { name: 'jquery' });
+        .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
         auth: {
@@ -168,22 +188,24 @@ describe('UpStorage', () => {
           token_env: 'TOKEN_TEST_ENV',
         },
       });
-
-      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
-        expect(err).toBeNull();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(_.isString(etag)).toBeTruthy();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with auth node env NPM_TOKEN header bearer', (done) => {
+    test('should be get remote metadata with auth node env NPM_TOKEN header bearer', () => {
       nock('https://registry.npmmirror.com', {
         reqheaders: {
           authorization: 'Bearer foo',
         },
       })
         .get(`/jquery`)
-        .reply(200, { name: 'jquery' });
+        .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
         auth: {
@@ -192,21 +214,25 @@ describe('UpStorage', () => {
         },
       });
 
-      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
-        expect(err).toBeNull();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(_.isString(etag)).toBeTruthy();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
 
-    test('should be get remote metadata with auth header basic', (done) => {
+    test('should be get remote metadata with auth header basic', () => {
       nock('https://registry.npmmirror.com', {
         reqheaders: {
           authorization: 'Basic foo',
         },
       })
         .get(`/jquery`)
-        .reply(200, { name: 'jquery' });
+
+        .reply(200, { name: 'jquery' }, { etag: '123456' });
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
         auth: {
@@ -215,11 +241,14 @@ describe('UpStorage', () => {
         },
       });
 
-      proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
-        expect(err).toBeNull();
-        // expect(_.isString(etag)).toBeTruthy();
-        expect(data.name).toBe('jquery');
-        done();
+      return new Promise((done) => {
+        proxy.getRemoteMetadata('jquery', {}, (err, data, etag) => {
+          expect(err).toBeNull();
+          expect(etag).toBe('123456');
+          expect(_.isString(etag)).toBeTruthy();
+          expect(data.name).toBe('jquery');
+          done(true);
+        });
       });
     });
   });
@@ -267,11 +296,12 @@ describe('UpStorage', () => {
       }).toThrow(ERROR_CODE.token_required);
     });
 
-    test.skip('should fails if invalid token type', () => {
+    test('should fails if invalid token type', () => {
       const proxy = generateProxy({
         url: 'https://registry.npmmirror.com',
         auth: {
-          token: 'SomethingWrong',
+          // Intentionally wrong typo
+          _token: 'SomethingWrong',
         },
       });
 
@@ -282,71 +312,83 @@ describe('UpStorage', () => {
   });
 
   describe('fetchTarball', () => {
-    test.skip('should fetch a tarball from uplink', (done) => {
+    test('should fetch a tarball from uplink', () => {
+      const tarballPath = join(__dirname, '__fixtures__', 'jquery-1.5.1.tgz');
+      const tarballSize = statSync(tarballPath).size;
+
+      nock(`http://localhost:${mockServerPort}`)
+        .get('/jquery/-/jquery-1.5.1.tgz')
+        .replyWithFile(200, tarballPath, {
+          'Content-Type': 'application/octet-stream',
+          'Content-Length': tarballSize.toString(),
+        })
+        .persist(); // optional: keep the interceptor alive for several calls
       const proxy = generateProxy();
-      const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
+      const tarball = `http://localhost:${mockServerPort}/jquery/-/jquery-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
+      return new Promise((done) => {
+        stream.on('error', function (err) {
+          expect(err).toBeNull();
+          done(false);
+        });
 
-      stream.on('error', function (err) {
-        expect(err).toBeNull();
-        done();
-      });
-
-      stream.on('content-length', function (contentLength) {
-        expect(contentLength).toBeDefined();
-        done();
+        stream.on('content-length', function (contentLength) {
+          expect(contentLength).toBeDefined();
+          done(true);
+        });
       });
     });
 
-    test('should throw a 404 on fetch a tarball from uplink', (done) => {
+    test('should throw a 404 on fetch a tarball from uplink', () => {
       const proxy = generateProxy();
-      const tarball = `http://${DOMAIN_SERVERS}:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
+      const tarball = `http://localhost:${mockServerPort}/jquery/-/no-exist-1.5.1.tgz`;
       const stream = proxy.fetchTarball(tarball);
+      return new Promise((done) => {
+        stream.on('error', function (err: any) {
+          expect(err).not.toBeNull();
+          expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
+          expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
 
-      stream.on('error', function (err: any) {
-        expect(err).not.toBeNull();
-        expect(err.statusCode).toBe(HTTP_STATUS.NOT_FOUND);
-        expect(err.message).toMatch(API_ERROR.NOT_FILE_UPLINK);
+          done(true);
+        });
 
-        done();
-      });
-
-      stream.on('content-length', function (contentLength) {
-        expect(contentLength).toBeDefined();
-        done();
+        stream.on('content-length', function (contentLength) {
+          expect(contentLength).toBeDefined();
+        });
       });
     });
 
-    test('should be offline uplink', (done) => {
+    test('should be offline uplink', () => {
       const proxy = generateProxy();
       const tarball = 'http://404.verdaccioo.com';
       const stream = proxy.fetchTarball(tarball);
       expect(proxy.failed_requests).toBe(0);
-
-      // to test a uplink is offline we have to be try 3 times
-      // the default failed request are set to 2
-      process.nextTick(function () {
-        stream.on('error', function (err) {
-          expect(err).not.toBeNull();
-          // expect(err.statusCode).toBe(404);
-          expect(proxy.failed_requests).toBe(1);
-
-          const streamSecondTry = proxy.fetchTarball(tarball);
-          streamSecondTry.on('error', function (err) {
+      return new Promise((done) => {
+        // to test a uplink is offline we have to be try 3 times
+        // the default failed request are set to 2
+        process.nextTick(function () {
+          stream.on('error', function (err) {
             expect(err).not.toBeNull();
-            /*
+            // expect(err.statusCode).toBe(404);
+            expect(proxy.failed_requests).toBe(1);
+
+            const streamSecondTry = proxy.fetchTarball(tarball);
+            streamSecondTry.on('error', function (err) {
+              expect(err).not.toBeNull();
+              /*
                   code: 'ENOTFOUND',
                   errno: 'ENOTFOUND',
                  */
-            // expect(err.statusCode).toBe(404);
-            expect(proxy.failed_requests).toBe(2);
-            const streamThirdTry = proxy.fetchTarball(tarball);
-            streamThirdTry.on('error', function (err: any) {
-              expect(err).not.toBeNull();
-              expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+              // expect(err.statusCode).toBe(404);
               expect(proxy.failed_requests).toBe(2);
-              expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
-              done();
+              const streamThirdTry = proxy.fetchTarball(tarball);
+              streamThirdTry.on('error', function (err: any) {
+                expect(err).not.toBeNull();
+                expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
+                expect(proxy.failed_requests).toBe(2);
+                expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
+                done(true);
+              });
             });
           });
         });

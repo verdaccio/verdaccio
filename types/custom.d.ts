@@ -10,4 +10,4 @@ declare global {
   }
 }
 
-export interface StoragePluginLegacy<T> extends pluginUtils.Storage<T> {}
+export type StoragePluginLegacy<T> = pluginUtils.Storage<T>;

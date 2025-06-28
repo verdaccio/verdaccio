@@ -12,7 +12,7 @@ import Auth from '../../../lib/auth';
 import { API_ERROR, API_MESSAGE, HEADERS, HTTP_STATUS } from '../../../lib/constants';
 import { logger } from '../../../lib/logger';
 import { ErrorCode } from '../../../lib/utils';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../../../types';
+import { $NextFunctionVer, $RequestExtend } from '../../../types';
 
 export default function (route: Router, auth: Auth, config: Config): void {
   /* eslint new-cap:off */
@@ -64,7 +64,6 @@ export default function (route: Router, auth: Auth, config: Config): void {
         );
       } else {
         if (validationUtils.validatePassword(password) === false) {
-          // eslint-disable-next-line new-cap
           return next(ErrorCode.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 

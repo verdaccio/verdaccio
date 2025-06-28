@@ -1,15 +1,14 @@
-import {
-  DEFAULT_REGISTRY,
-  ERROR_CODE,
-  HEADERS,
-  TOKEN_BASIC,
-  TOKEN_BEARER,
-} from '../../../../src/lib/constants';
+import { describe, expect, test } from 'vitest';
+
+import { DEFAULT_REGISTRY } from '@verdaccio/config';
+import { HEADERS, TOKEN_BASIC, TOKEN_BEARER } from '@verdaccio/core';
+
+import { ERROR_CODE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
 import { buildToken } from '../../../../src/lib/utils';
 
-setup([]);
+setup({});
 
 function createUplink(config) {
   const defaultConfig = {
