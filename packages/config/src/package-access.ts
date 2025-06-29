@@ -1,6 +1,6 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
+import assert from 'node:assert';
 
 import { errorUtils } from '@verdaccio/core';
 import { PackageAccess } from '@verdaccio/types';

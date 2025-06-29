@@ -1,7 +1,7 @@
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
-import fs from 'fs';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import yaml from 'js-yaml';
+import fs from 'node:fs';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import webpack from 'webpack';
 

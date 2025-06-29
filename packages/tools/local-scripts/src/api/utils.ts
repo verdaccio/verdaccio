@@ -1,7 +1,7 @@
 import { Credentials, TranslationStatus } from '@crowdin/crowdin-api-client';
-import fs from 'fs/promises';
 import got from 'got';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
 const debug = require('debug')('verdaccio:local-scripts');
 

@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 export const parseConfigurationFile = (conf: string) => {
   const { name, ext } = path.parse(conf);

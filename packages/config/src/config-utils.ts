@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import fs from 'fs';
+import fs from 'node:fs';
 
 const debug = buildDebug('verdaccio:config:config-utils');
 
