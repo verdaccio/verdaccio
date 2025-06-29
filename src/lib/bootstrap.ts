@@ -7,22 +7,21 @@ import https from 'https';
 import { assign, isFunction, isObject } from 'lodash';
 import URL from 'url';
 
-import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-
-const logger = require('./logger');
+import { logger } from './logger';
 
 function displayExperimentsInfoBox(experiments) {
   const experimentList = Object.keys(experiments);
   if (experimentList.length >= 1) {
-    logger.logger.warn(
+    logger.warn(
       '⚠️  experiments are enabled, it is recommended do not use experiments in production, comment out the experiments section to disable this warning'
     );
     experimentList.forEach((experiment) => {
-      logger.logger.warn(
+      logger.warn(
         ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
       );
     });
@@ -39,7 +38,7 @@ function displayExperimentsInfoBox(experiments) {
  * @deprecated use runServer instead
  */
 function startVerdaccio(
-  config: any,
+  config: ConfigYaml,
   cliListen: string,
   configPath: string,
   pkgVersion: string,
@@ -50,6 +49,8 @@ function startVerdaccio(
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
+  // TODO: suport here FLAGS and EXPERIMENTS
+  // Display warning if experiemnt is used, recommend flags instead
   if ('experiments' in config) {
     displayExperimentsInfoBox(config.experiments);
   }
@@ -69,11 +70,7 @@ function startVerdaccio(
         // http
         webServer = http.createServer(app);
       }
-      if (
-        config.server &&
-        typeof config.server.keepAliveTimeout !== 'undefined' &&
-        config.server.keepAliveTimeout !== 'null'
-      ) {
+      if (webServer && typeof config?.server?.keepAliveTimeout === 'number') {
         // library definition for node is not up to date (doesn't contain recent 8.0 changes)
         webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
@@ -91,7 +88,7 @@ function unlinkAddressPath(addr) {
 }
 
 function logHTTPSWarning(storageLocation) {
-  logger.logger.fatal(
+  logger.fatal(
     [
       'You have enabled HTTPS and need to specify either ',
       '    "https.key" and "https.cert" or ',
@@ -124,7 +121,7 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(
   app: express.Application,
   configPath: string,
-  config: ConfigWithHttps
+  config: ConfigYaml
 ): https.Server {
   try {
     let httpsOptions = {
@@ -158,7 +155,7 @@ function handleHTTPS(
     return https.createServer(httpsOptions, app);
   } catch (err) {
     // catch errors related to certificate loading
-    logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+    logger.fatal({ err: err }, 'cannot create server: @{err.message}');
     process.exit(2);
   }
 }
@@ -186,14 +183,14 @@ function listenDefaultCallback(
       }
     })
     .on('error', function (err): void {
-      logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+      logger.fatal({ err: err }, 'cannot create server: @{err.message}');
       process.exit(2);
     });
 
   function handleShutdownGracefully() {
-    logger.logger.fatal('received shutdown signal - closing server gracefully...');
+    logger.fatal('received shutdown signal - closing server gracefully...');
     server.close(() => {
-      logger.logger.info('server closed.');
+      logger.info('server closed.');
       process.exit(0);
     });
   }
@@ -205,7 +202,7 @@ function listenDefaultCallback(
     process.on('SIGHUP', handleShutdownGracefully);
   }
 
-  logger.logger.warn(
+  logger.warn(
     {
       addr: addr.path
         ? URL.format({

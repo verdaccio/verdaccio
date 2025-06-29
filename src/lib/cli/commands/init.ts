@@ -1,19 +1,18 @@
 import { Command, Option } from 'clipanion';
 import path from 'path';
 
+import { findConfigFile } from '@verdaccio/config';
 import { warningUtils } from '@verdaccio/core';
-import { ConfigYaml } from '@verdaccio/types';
+import { ConfigYaml, LoggerConfItem } from '@verdaccio/types';
 
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
-import findConfigFile from '../../config-path';
+import { logger, setup } from '../../logger';
 import { parseConfigFile } from '../../utils';
 
-require('pkginfo')(module);
-const pkgVersion = module.exports.version;
-const pkgName = module.exports.name;
+const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
+const pkgName = 'verdaccio';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
-const logger = require('../../logger');
 
 export class InitCommand extends Command {
   static paths = [Command.Default];
@@ -57,7 +56,7 @@ export class InitCommand extends Command {
       logConfig.log = logConfig.logs;
       warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
-    logger.setup(logConfig.log);
+    setup(logConfig.log as LoggerConfItem);
   }
 
   async execute() {
@@ -91,10 +90,11 @@ export class InitCommand extends Command {
         pkgName,
         listenDefaultCallback
       );
-      logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
+      logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err: any) {
+      console.error(`cannot open config file ${configPathLocation}: ${err.stack}`);
       if (typeof logger?.logger?.fatal === 'function') {
-        logger.logger.fatal(
+        logger.fatal(
           { file: configPathLocation, err: err },
           'cannot open config file @{file}: @{!err.message}'
         );

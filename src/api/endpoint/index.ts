@@ -1,5 +1,12 @@
 import express from 'express';
 
+import {
+  antiLoop,
+  encodeScopePackage,
+  match,
+  validateName,
+  validatePackage,
+} from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
 
 import Auth from '../../lib/auth';
@@ -15,14 +22,6 @@ import profile from './api/v1/profile';
 import v1Search from './api/v1/search';
 import token from './api/v1/token';
 import whoami from './api/whoami';
-
-const {
-  match,
-  validateName,
-  validatePackage,
-  encodeScopePackage,
-  antiLoop,
-} = require('@verdaccio/middleware');
 
 export default function (config: Config, auth: Auth, storage: Storage) {
   /* eslint new-cap:off */
