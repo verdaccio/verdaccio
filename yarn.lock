@@ -2579,19 +2579,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage-legacy@npm:11.0.2":
-  version: 11.0.2
-  resolution: "@verdaccio/local-storage-legacy@npm:11.0.2"
+"@verdaccio/local-storage-legacy@npm:11.1.0":
+  version: 11.1.0
+  resolution: "@verdaccio/local-storage-legacy@npm:11.1.0"
   dependencies:
-    "@verdaccio/commons-api": "npm:10.2.0"
+    "@verdaccio/core": "npm:8.0.0-next-8.19"
     "@verdaccio/file-locking": "npm:10.3.1"
     "@verdaccio/streams": "npm:10.2.1"
-    async: "npm:3.2.4"
-    debug: "npm:4.3.4"
+    async: "npm:3.2.6"
+    debug: "npm:4.4.1"
     lodash: "npm:4.17.21"
     lowdb: "npm:1.0.0"
     mkdirp: "npm:1.0.4"
-  checksum: 10c0/23163239f79b678fcc8d43512e654502a19cda345978c990257d2b136a6ce2b0d5aeb52115faf33d34e6071b3b36a40b4175de7488cf5ee5e49f8f8b3b38e638
+  checksum: 10c0/ca3a7b2222e6261292a53cb6cccba4dda315bd09661074ccc4c8193fa5024ab3c4ae3c7c0e38ec3767f2ebf9a250d30ebfcf47ba47b18a1b1d0f835ae30c82ea
   languageName: node
   linkType: hard
 
@@ -3085,13 +3085,6 @@ __metadata:
   version: 1.0.0
   resolution: "async-function@npm:1.0.0"
   checksum: 10c0/669a32c2cb7e45091330c680e92eaeb791bc1d4132d827591e499cd1f776ff5a873e77e5f92d0ce795a8d60f10761dec9ddfe7225a5de680f5d357f67b1aac73
-  languageName: node
-  linkType: hard
-
-"async@npm:3.2.4":
-  version: 3.2.4
-  resolution: "async@npm:3.2.4"
-  checksum: 10c0/b5d02fed64717edf49e35b2b156debd9cf524934ea670108fa5528e7615ed66a5e0bf6c65f832c9483b63aa7f0bffe3e588ebe8d58a539b833798d324516e1c9
   languageName: node
   linkType: hard
 
@@ -9464,7 +9457,7 @@ __metadata:
     "@verdaccio/config": "npm:8.0.0-next-8.19"
     "@verdaccio/core": "npm:8.0.0-next-8.19"
     "@verdaccio/loaders": "npm:8.0.0-next-8.9"
-    "@verdaccio/local-storage-legacy": "npm:11.0.2"
+    "@verdaccio/local-storage-legacy": "npm:11.1.0"
     "@verdaccio/logger": "npm:8.0.0-next-8.19"
     "@verdaccio/middleware": "npm:8.0.0-next-8.19"
     "@verdaccio/search-indexer": "npm:8.0.0-next-8.5"

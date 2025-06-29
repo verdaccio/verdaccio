@@ -3,23 +3,22 @@ import path from 'path';
 const config = {
   storage: path.join(__dirname, '../store/access-storage'),
   uplinks: {
-    'npmjs': {
-      'url': 'http://never_use:0000/'
-    }
+    npmjs: {
+      url: 'http://never_use:0000/',
+    },
   },
   packages: {
-    'jquery': {
+    jquery: {
       allow_access: '$all',
-      allow_publish: '$all'
+      allow_publish: '$all',
     },
     '**': {
       allow_access: '$all',
       allow_publish: '$all',
-      proxy: 'npmjs'
-    }
+      proxy: 'npmjs',
+    },
   },
-  log: {type: 'stdout', format: 'pretty', level: 'fatal'}
-  ,
+  log: { type: 'stdout', format: 'pretty', level: 'fatal' },
 };
 
 export default config;

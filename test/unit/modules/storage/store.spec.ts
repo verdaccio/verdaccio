@@ -1,4 +1,5 @@
 import fs from 'fs';
+import getPort from 'get-port';
 import path from 'path';
 import rimraf from 'rimraf';
 import { Writable } from 'stream';
@@ -18,7 +19,7 @@ setup({});
 jest.setTimeout(20000);
 
 const storagePath = path.join(__dirname, '../../partials/store/test-storage-store.spec');
-const mockServerPort = 55548;
+const mockServerPort = await getPort();
 const generateStorage = async function (port = mockServerPort) {
   const storageConfig = configExample(
     {

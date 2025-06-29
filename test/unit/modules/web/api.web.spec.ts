@@ -21,6 +21,7 @@ import configDefault from '../../partials/config';
 import forbiddenPlace from '../../partials/forbidden-place';
 import publishMetadata from '../../partials/publish-api';
 import { getNewToken } from '../api/_helper';
+import getPort from 'get-port';
 
 require('../../../../src/lib/logger').setup([]);
 
@@ -32,7 +33,7 @@ describe('endpoint web unit test', () => {
 
   beforeAll(function (done) {
     const store = path.join(__dirname, '../../partials/store/web-api-storage');
-    const mockServerPort = 55544;
+    const mockServerPort = await getPort();
     rimraf(store, async () => {
       const configForTest = configDefault(
         {

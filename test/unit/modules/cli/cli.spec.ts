@@ -3,26 +3,29 @@ import _ from 'lodash';
 import os from 'os';
 import path from 'path';
 import selfsigned from 'selfsigned';
+import { describe, expect, test } from 'vitest';
 
 import startServer from '../../../../src';
 import { getListListenAddresses } from '../../../../src/lib/cli/utils';
 import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL } from '../../../../src/lib/constants';
-import { logger } from '../../../../src/lib/logger';
+import { logger, setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
 import config from '../../partials/config';
 
-jest.mock('../../../../src/lib/logger', () => ({
-  setup: jest.fn(),
-  logger: {
-    child: jest.fn(),
-    debug: jest.fn(),
-    info: jest.fn(),
-    trace: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    fatal: jest.fn(),
-  },
-}));
+setup({});
+
+// jest.mock('../../../../src/lib/logger', () => ({
+//   setup: jest.fn(),
+//   logger: {
+//     child: jest.fn(),
+//     debug: jest.fn(),
+//     info: jest.fn(),
+//     trace: jest.fn(),
+//     warn: jest.fn(),
+//     error: jest.fn(),
+//     fatal: jest.fn(),
+//   },
+// }));
 
 describe('startServer via API', () => {
   const parseConfigurationFile = (name) => {

@@ -1,3 +1,4 @@
+import getPort from 'get-port';
 import request from 'supertest';
 import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
 
@@ -21,7 +22,7 @@ describe('api with no limited access configuration', () => {
 
   beforeAll(async function () {
     store = await fileUtils.createTempStorageFolder('basic-test');
-    const mockServerPort = 55530;
+    const mockServerPort = await getPort();
 
     const configForTest = configDefault(
       {

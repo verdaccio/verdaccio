@@ -64,7 +64,7 @@ describe('endpoint user auth JWT unit test', () => {
     mockRegistry[0].stop();
   });
 
-  test.only('should test add a new user with JWT enabled', async () => {
+  test('should test add a new user with JWT enabled', async () => {
     const [err, res] = await addUser(request(app), credentials.name, credentials);
     expect(err).toBeNull();
     expect(res.body.ok).toBeDefined();

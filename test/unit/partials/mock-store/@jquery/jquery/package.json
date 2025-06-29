@@ -1,76 +1,76 @@
 {
-	"name": "@jquery/jquery",
-	"versions": {
-		"1.5.1": {
-			"name": "@jquery/jquery",
-			"description": "jQuery: The Write Less, Do More, JavaScript Library",
-			"url": "jquery.com",
-			"keywords": [
-				"util",
-				"dom",
-				"jquery"
-			],
-			"author": {
-				"name": "John Resig",
-				"email": "jeresig@gmail.com"
-			},
-			"contributors": [],
-			"dependencies": {
-				"jsdom": "=0.1.20",
-				"htmlparser": ">= 1.7.3"
-			},
-			"lib": "lib",
-			"main": "./dist/node-jquery.js",
-			"version": "1.5.1",
-			"_id": "@jquery/jquery@1.5.1",
-			"engines": {
-				"node": "*"
-			},
-			"_engineSupported": true,
-			"_npmVersion": "0.3.15",
-			"_nodeVersion": "v0.4.2",
-			"directories": {
-				"lib": "./lib"
-			},
-			"files": [
-				""
-			],
-			"_defaultsLoaded": true,
-			"dist": {
-				"shasum": "2ae2d661e906c1a01e044a71bb5b2743942183e5",
-				"tarball": "https://registry.npmjs.org/@jquery%2jquery/-/jquery-1.5.1.tgz"
-			},
-			"deprecated": "Versions of the jquery npm package older than 1.9.0 are patched versions that don't work in web browsers. Please upgrade to >=1.11.0."
-		}
-	},
-	"time": {
-		"modified": "2018-05-21T21:39:54.702Z",
-		"created": "2011-03-19T07:19:56.392Z",
-		"1.5.1": "2011-03-19T07:19:56.956Z"
-	},
-	"dist-tags": {
-		"beta": "3.0.0",
-		"latest": "3.3.1",
-		"jota": "1.6.3"
-	},
-	"_uplinks": {
-		"npmjs": {
-			"etag": "W/\"252f0a131cedd3ea82dfefd6fa049558\"",
-			"fetched": 1529779934081
-		}
-	},
-	"_distfiles": {
-		"jquery-1.5.1.tgz": {
-			"url": "https://registry.npmjs.org/@jquery%2jquery/-/jquery-1.5.1.tgz",
-			"sha": "2ae2d661e906c1a01e044a71bb5b2743942183e5",
-			"registry": "npmjs"
-		}
-	},
-	"_attachments": {
-		"jquery-1.5.1.tgz": {
-			"shasum": "2ae2d661e906c1a01e044a71bb5b2743942183e5"
-		}
-	},
-	"_rev": "60-fed4915c27b9c1e6",
-	"readme": "# jQuery\n\n> jQuery is a fast, small, and feature-rich JavaScript library.\n\nFor information on how to get started and how to use jQuery, please see [jQuery's documentation](http://api.jquery.com/).\nFor source files and issues, please visit the [jQuery repo](https://github.com/jquery/jquery).\n\nIf upgrading, please see the [blog post for 3.3.1](https://blog.jquery.com/2017/03/20/jquery-3.3.1-now-available/). This includes notable differences from the previous version and a more readable changelog.\n\n## Including jQuery\n\nBelow are some of the most common ways to include jQuery.\n\n### Browser\n\n#### Script tag\n\n```html\n<script src=\"https://code.jquery.com/jquery-3.3.1.min.js\"></script>\n```\n\n#### Babel\n\n[Babel](http://babeljs.io/) is a next generation JavaScript compiler. One of the features is the ability to use ES6/ES2015 modules now, even though browsers do not yet support this feature natively.\n\n```js\nimport $ from \"jquery\";\n```\n\n#### Browserify/Webpack\n\nThere are several ways to use [Browserify](http://browserify.org/) and [Webpack](https://webpack.github.io/). For more information on using these tools, please refer to the corresponding project's documention. In the script, including jQuery will usually look like this...\n\n```js\nvar $ = require(\"jquery\");\n```\n\n#### AMD (Asynchronous Module Definition)\n\nAMD is a module format built for the browser. For more information, we recommend [require.js' documentation](http://requirejs.org/docs/whyamd.html).\n\n```js\ndefine([\"jquery\"], function($) {\n\n});\n```\n\n### Node\n\nTo include jQuery in [Node](nodejs.org), first install with npm.\n\n```sh\nnpm install jquery\n```\n\nFor jQuery to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as [jsdom](https://github.com/tmpvar/jsdom). This can be useful for testing purposes.\n\n```js\nrequire(\"jsdom\").env(\"\", function(err, window) {\n\tif (err) {\n\t\tconsole.error(err);\n\t\treturn;\n\t}\n\n\tvar $ = require(\"jquery\")(window);\n});\n```"
+  "name": "@jquery/jquery",
+  "versions": {
+    "1.5.1": {
+      "name": "@jquery/jquery",
+      "description": "jQuery: The Write Less, Do More, JavaScript Library",
+      "url": "jquery.com",
+      "keywords": [
+        "util",
+        "dom",
+        "jquery"
+      ],
+      "author": {
+        "name": "John Resig",
+        "email": "jeresig@gmail.com"
+      },
+      "contributors": [],
+      "dependencies": {
+        "jsdom": "=0.1.20",
+        "htmlparser": ">= 1.7.3"
+      },
+      "lib": "lib",
+      "main": "./dist/node-jquery.js",
+      "version": "1.5.1",
+      "_id": "@jquery/jquery@1.5.1",
+      "engines": {
+        "node": "*"
+      },
+      "_engineSupported": true,
+      "_npmVersion": "0.3.15",
+      "_nodeVersion": "v0.4.2",
+      "directories": {
+        "lib": "./lib"
+      },
+      "files": [
+        ""
+      ],
+      "_defaultsLoaded": true,
+      "dist": {
+        "shasum": "2ae2d661e906c1a01e044a71bb5b2743942183e5",
+        "tarball": "https://registry.npmjs.org/@jquery%2jquery/-/jquery-1.5.1.tgz"
+      },
+      "deprecated": "Versions of the jquery npm package older than 1.9.0 are patched versions that don't work in web browsers. Please upgrade to >=1.11.0."
+    }
+  },
+  "time": {
+    "modified": "2018-05-21T21:39:54.702Z",
+    "created": "2011-03-19T07:19:56.392Z",
+    "1.5.1": "2011-03-19T07:19:56.956Z"
+  },
+  "dist-tags": {
+    "beta": "3.0.0",
+    "latest": "3.3.1",
+    "jota": "1.6.3"
+  },
+  "_uplinks": {
+    "npmjs": {
+      "etag": "W/\"252f0a131cedd3ea82dfefd6fa049558\"",
+      "fetched": 1529779934081
+    }
+  },
+  "_distfiles": {
+    "jquery-1.5.1.tgz": {
+      "url": "https://registry.npmjs.org/@jquery%2jquery/-/jquery-1.5.1.tgz",
+      "sha": "2ae2d661e906c1a01e044a71bb5b2743942183e5",
+      "registry": "npmjs"
+    }
+  },
+  "_attachments": {
+    "jquery-1.5.1.tgz": {
+      "shasum": "2ae2d661e906c1a01e044a71bb5b2743942183e5"
+    }
+  },
+  "_rev": "60-fed4915c27b9c1e6",
+  "readme": "# jQuery\n\n> jQuery is a fast, small, and feature-rich JavaScript library.\n\nFor information on how to get started and how to use jQuery, please see [jQuery's documentation](http://api.jquery.com/).\nFor source files and issues, please visit the [jQuery repo](https://github.com/jquery/jquery).\n\nIf upgrading, please see the [blog post for 3.3.1](https://blog.jquery.com/2017/03/20/jquery-3.3.1-now-available/). This includes notable differences from the previous version and a more readable changelog.\n\n## Including jQuery\n\nBelow are some of the most common ways to include jQuery.\n\n### Browser\n\n#### Script tag\n\n```html\n<script src=\"https://code.jquery.com/jquery-3.3.1.min.js\"></script>\n```\n\n#### Babel\n\n[Babel](http://babeljs.io/) is a next generation JavaScript compiler. One of the features is the ability to use ES6/ES2015 modules now, even though browsers do not yet support this feature natively.\n\n```js\nimport $ from \"jquery\";\n```\n\n#### Browserify/Webpack\n\nThere are several ways to use [Browserify](http://browserify.org/) and [Webpack](https://webpack.github.io/). For more information on using these tools, please refer to the corresponding project's documention. In the script, including jQuery will usually look like this...\n\n```js\nvar $ = require(\"jquery\");\n```\n\n#### AMD (Asynchronous Module Definition)\n\nAMD is a module format built for the browser. For more information, we recommend [require.js' documentation](http://requirejs.org/docs/whyamd.html).\n\n```js\ndefine([\"jquery\"], function($) {\n\n});\n```\n\n### Node\n\nTo include jQuery in [Node](nodejs.org), first install with npm.\n\n```sh\nnpm install jquery\n```\n\nFor jQuery to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as [jsdom](https://github.com/tmpvar/jsdom). This can be useful for testing purposes.\n\n```js\nrequire(\"jsdom\").env(\"\", function(err, window) {\n\tif (err) {\n\t\tconsole.error(err);\n\t\treturn;\n\t}\n\n\tvar $ = require(\"jquery\")(window);\n});\n```"
 }

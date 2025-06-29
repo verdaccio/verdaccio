@@ -20,7 +20,7 @@ import { IServerBridge } from '../types';
  *
  *  beforeAll(function(done) {
       const store = path.join(__dirname, '../partials/store/test-profile-storage');
-      const mockServerPort = 55544;
+      const mockServerPort = await getPort();
       rimraf(store, async () => {
         const parsedConfig = parseConfigFile(parseConfigurationProfile());
         const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
