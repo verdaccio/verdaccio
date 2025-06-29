@@ -3,7 +3,7 @@ import path from 'path';
 
 import { findConfigFile } from '@verdaccio/config';
 import { warningUtils } from '@verdaccio/core';
-import { ConfigYaml } from '@verdaccio/types';
+import { ConfigYaml, LoggerConfItem } from '@verdaccio/types';
 
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
 import { logger, setup } from '../../logger';
@@ -56,7 +56,7 @@ export class InitCommand extends Command {
       logConfig.log = logConfig.logs;
       warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
-    setup(logConfig.log);
+    setup(logConfig.log as LoggerConfItem);
   }
 
   async execute() {

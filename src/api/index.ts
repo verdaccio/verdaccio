@@ -109,7 +109,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 };
 
 export default (async function (configHash: ConfigYaml): Promise<express.Application> {
-  setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
 
   const storage = new Storage(config);

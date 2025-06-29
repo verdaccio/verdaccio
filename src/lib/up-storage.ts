@@ -307,7 +307,7 @@ class ProxyStorage {
       return headers;
     }
 
-    if (_.isObject(auth) === false && _.isObject(auth.token) === false) {
+    if (_.isObject(auth) === false && _.isObject((auth as any).token) === false) {
       this._throwErrorAuth('Auth invalid');
     }
 
