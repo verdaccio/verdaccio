@@ -3,7 +3,7 @@ import { HEADERS } from '@verdaccio/core';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
 // TODO: remove, was relocated to web package
-// @ts-deprecated
+// @deprecated use @verdaccio/web instead
 export function setSecurityWebHeaders(
   req: $RequestExtend,
   res: $ResponseExtend,
