@@ -8,6 +8,7 @@
 CHANGELOG.md
 README.md
 CONTRIBUTORS.md
+test/unit/partials/config/js/*
 node_modules/
 **/coverage/**
 **/build/*.js
