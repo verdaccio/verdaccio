@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.5](https://github.com/verdaccio/verdaccio/compare/v6.1.4...v6.1.5) (2025-06-29)
+
+
+### Bug Fixes
+
+* allow config changes in docker image ([#5304](https://github.com/verdaccio/verdaccio/issues/5304)) ([1e4af4e](https://github.com/verdaccio/verdaccio/commit/1e4af4e8426c42bef2ad37e2febc8863a4c5536e))
+* **deps:** update core verdaccio dependencies ([#5308](https://github.com/verdaccio/verdaccio/issues/5308)) ([07d0535](https://github.com/verdaccio/verdaccio/commit/07d05354c6cdc71bdfecb5b664624d7497fc73ac))
+
 ### [6.1.4](https://github.com/verdaccio/verdaccio/compare/v6.1.3...v6.1.4) (2025-06-17)
 
 
