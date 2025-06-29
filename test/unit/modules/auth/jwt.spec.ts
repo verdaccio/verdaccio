@@ -71,7 +71,6 @@ describe('endpoint user auth JWT unit test', () => {
     expect(res.body.token).toBeDefined();
 
     const { token } = res.body;
-    console.log('token-->', token);
     expect(typeof token).toBe('string');
     expect(res.body.ok).toMatch(`user '${credentials.name}' created`);
 

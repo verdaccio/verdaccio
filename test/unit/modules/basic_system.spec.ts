@@ -1,6 +1,6 @@
 import request from '@cypress/request';
 import express from 'express';
-import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 

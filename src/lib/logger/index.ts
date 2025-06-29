@@ -6,7 +6,9 @@ let logger;
 
 const debug = createDebug('verdaccio:logger');
 
-export function setup(options) {
+type SetupModuleOptions = Parameters<typeof setupModule>[0];
+
+export function setup(options: SetupModuleOptions): void {
   debug('setup logger with options %o', options);
   if (!logger) {
     debug('logger not initialized, setting up');

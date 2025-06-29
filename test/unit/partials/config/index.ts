@@ -6,12 +6,16 @@ import { getDefaultConfig, parseConfigFile } from '@verdaccio/config';
 
 const debug = createDebug('verdaccio:test:unit:config');
 
-export default (options = {}, url) => {
-  console.log('using config file', url);
+export default (options = {}, url: string | undefined = undefined, mergeWithDefault = false) => {
   let config;
   if (url) {
     const locationFile = path.join(__dirname, `../config/yaml/${url}`);
+    debug('location file', locationFile);
     config = parseConfigFile(locationFile);
+    if (mergeWithDefault) {
+      // merge with default config
+      config = _.merge(getDefaultConfig(), config);
+    }
   } else {
     config = getDefaultConfig();
   }

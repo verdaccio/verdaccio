@@ -7,7 +7,7 @@ import https from 'https';
 import { assign, isFunction, isObject } from 'lodash';
 import URL from 'url';
 
-import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
@@ -38,7 +38,7 @@ function displayExperimentsInfoBox(experiments) {
  * @deprecated use runServer instead
  */
 function startVerdaccio(
-  config: any,
+  config: ConfigYaml,
   cliListen: string,
   configPath: string,
   pkgVersion: string,
@@ -49,6 +49,8 @@ function startVerdaccio(
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
+  // TODO: suport here FLAGS and EXPERIMENTS
+  // Display warning if experiemnt is used, recommend flags instead
   if ('experiments' in config) {
     displayExperimentsInfoBox(config.experiments);
   }
@@ -68,11 +70,7 @@ function startVerdaccio(
         // http
         webServer = http.createServer(app);
       }
-      if (
-        config.server &&
-        typeof config.server.keepAliveTimeout !== 'undefined' &&
-        config.server.keepAliveTimeout !== 'null'
-      ) {
+      if (webServer && typeof config?.server?.keepAliveTimeout === 'number') {
         // library definition for node is not up to date (doesn't contain recent 8.0 changes)
         webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
       }
@@ -123,7 +121,7 @@ function logHTTPSWarning(storageLocation) {
 function handleHTTPS(
   app: express.Application,
   configPath: string,
-  config: ConfigWithHttps
+  config: ConfigYaml
 ): https.Server {
   try {
     let httpsOptions = {

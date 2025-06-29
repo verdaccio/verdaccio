@@ -2,8 +2,6 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { Application } from 'express';
 import _ from 'lodash';
-import fs from 'node:fs';
-import path from 'node:path';
 
 import { Auth } from '@verdaccio/auth';
 import { getUserAgent } from '@verdaccio/config';
@@ -12,7 +10,7 @@ import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
-import { Config as IConfig } from '@verdaccio/types';
+import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
@@ -110,7 +108,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   return app;
 };
 
-export default (async function (configHash: any) {
+export default (async function (configHash: ConfigYaml): Promise<express.Application> {
   setup(configHash.logs);
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
 
