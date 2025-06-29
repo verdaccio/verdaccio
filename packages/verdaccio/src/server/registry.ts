@@ -1,5 +1,5 @@
-import { ChildProcess, fork } from 'child_process';
 import buildDebug from 'debug';
+import { ChildProcess, fork } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 

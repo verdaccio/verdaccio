@@ -1,5 +1,5 @@
 // import nock from 'nock';
-// import path from 'path';
+// import path from 'node:path';
 
 // import { Config, parseConfigFile } from '@verdaccio/config';
 // import { API_ERROR, HEADER_TYPE, HTTP_STATUS, VerdaccioError, errorUtils } from '@verdaccio/core';
