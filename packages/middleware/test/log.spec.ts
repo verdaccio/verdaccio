@@ -8,7 +8,7 @@ import { logger, setup } from '@verdaccio/logger';
 import { log } from '../src';
 import { getApp } from './helper';
 
-setup({
+await setup({
   type: 'file',
   path: path.join(__dirname, './verdaccio.log'),
   level: 'trace',

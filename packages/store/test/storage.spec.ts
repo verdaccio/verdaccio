@@ -46,7 +46,7 @@ function generateRandomStorage() {
   return path.join(tempRoot, tempStorage);
 }
 
-const logger = setup({ type: 'stdout', format: 'pretty', level: 'trace' });
+const logger = await setup({ type: 'stdout', format: 'pretty', level: 'trace' });
 
 const domain = 'https://registry.npmjs.org';
 const fakeHost = 'localhost:4873';

@@ -25,7 +25,7 @@ vi.mock('../src/fs', () => ({
   writeFilePromise: (path: string, data: string) => mockWrite(path, data),
 }));
 
-setup({});
+await setup({});
 
 const optionsPlugin: pluginUtils.PluginOptions = {
   logger,

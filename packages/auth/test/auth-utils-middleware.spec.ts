@@ -16,7 +16,7 @@ import { Config, RemoteUser, Security } from '@verdaccio/types';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
 
-setup({});
+await setup({});
 
 const buildToken = authUtils.buildToken;
 
