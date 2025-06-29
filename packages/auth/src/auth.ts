@@ -81,6 +81,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     if (this.config.auth !== null && (!plugins || plugins.length === 0)) {
       plugins = this.loadDefaultPlugin();
     }
+    this.plugins = plugins;
     this.applyFallbackPluginMethods();
   }
 
