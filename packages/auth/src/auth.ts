@@ -1,5 +1,6 @@
 import buildDebug from 'debug';
 import _, { isFunction } from 'lodash';
+import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
@@ -75,9 +76,37 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
 
     debug('auth plugins found %s', plugins.length);
-    this.plugins = plugins;
-
+    // Missing auth config or no loaded plugins -> load default htpasswd plugin
+    // Empty auth config (null) -> just use fallback methods
+    if (this.config.auth !== null && (!plugins || plugins.length === 0)) {
+      plugins = this.loadDefaultPlugin();
+    }
     this.applyFallbackPluginMethods();
+  }
+
+  private loadDefaultPlugin() {
+    debug('load default auth plugin');
+    const pluginOptions: pluginUtils.PluginOptions = {
+      config: this.config,
+      logger: this.logger,
+    };
+    let authPlugin;
+    try {
+      authPlugin = new HTPasswd(
+        { file: './htpasswd' },
+        pluginOptions as any as pluginUtils.PluginOptions
+      );
+      this.logger.info(
+        { name: 'verdaccio-htpasswd', pluginCategory: PLUGIN_CATEGORY.AUTHENTICATION },
+        'plugin @{name} successfully loaded (@{pluginCategory})'
+      );
+    } catch (error: any) {
+      debug('error on loading auth htpasswd plugin stack: %o', error);
+      this.logger.info({}, 'no auth plugin has been found');
+      return [];
+    }
+
+    return [authPlugin];
   }
 
   private async loadPlugin() {
