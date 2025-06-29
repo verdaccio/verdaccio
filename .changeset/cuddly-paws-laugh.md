@@ -1,4 +1,5 @@
 ---
+'@verdaccio/config': patch
 '@verdaccio/logger-commons': patch
 '@verdaccio/types': patch
 ---
