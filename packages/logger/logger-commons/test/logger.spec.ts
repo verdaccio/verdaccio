@@ -126,4 +126,168 @@ describe('logger test', () => {
       expect(content).toMatch('info --- publishing or updating a new version for test\n');
     });
   });
+
+  describe('redacting sensitive data', () => {
+    test('should redact sensitive data with default censor', async () => {
+      const file = await createLogFile();
+      const logger = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+          redact: {
+            paths: ['password', 'token'],
+          },
+        },
+        pino
+      );
+      logger.info(
+        {
+          user: 'testuser',
+          password: 'secretpassword123',
+          token: 'bearer-token-xyz',
+          publicInfo: 'this should be visible',
+        },
+        'User authentication attempt'
+      );
+
+      const content = await readLogFile(file);
+      const logEntry = JSON.parse(content);
+
+      expect(logEntry.user).toBe('testuser');
+      expect(logEntry.password).toBe('[Redacted]');
+      expect(logEntry.token).toBe('[Redacted]');
+      expect(logEntry.publicInfo).toBe('this should be visible');
+      expect(logEntry.msg).toBe('User authentication attempt');
+    });
+
+    test('should redact sensitive data with custom censor string', async () => {
+      const file = await createLogFile();
+      const logger = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+          redact: {
+            paths: ['apiKey', 'credentials.secret'],
+            censor: '***HIDDEN***',
+          },
+        },
+        pino
+      );
+      logger.info(
+        {
+          apiKey: 'api-key-12345',
+          credentials: {
+            secret: 'very-secret-data',
+            publicKey: 'public-data-ok-to-show',
+          },
+          requestId: 'req-123',
+        },
+        'API request processed'
+      );
+
+      const content = await readLogFile(file);
+      const logEntry = JSON.parse(content);
+
+      expect(logEntry.apiKey).toBe('***HIDDEN***');
+      expect(logEntry.credentials.secret).toBe('***HIDDEN***');
+      expect(logEntry.credentials.publicKey).toBe('public-data-ok-to-show');
+      expect(logEntry.requestId).toBe('req-123');
+    });
+
+    test('should remove sensitive fields when remove option is true', async () => {
+      const file = await createLogFile();
+      const logger = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+          redact: {
+            paths: ['sensitiveData', 'auth.token'],
+            remove: true,
+          },
+        },
+        pino
+      );
+      logger.info(
+        {
+          sensitiveData: 'this should be completely removed',
+          auth: {
+            token: 'auth-token-456',
+            userId: 'user123',
+          },
+          normalData: 'this should remain',
+        },
+        'Processing request with sensitive data'
+      );
+
+      const content = await readLogFile(file);
+      const logEntry = JSON.parse(content);
+
+      expect(logEntry).not.toHaveProperty('sensitiveData');
+      expect(logEntry.auth).not.toHaveProperty('token');
+      expect(logEntry.auth.userId).toBe('user123');
+      expect(logEntry.normalData).toBe('this should remain');
+    });
+
+    test('should redact nested paths correctly', async () => {
+      const file = await createLogFile();
+      const logger = prepareSetup(
+        {
+          ...defaultOptions,
+          format: 'json',
+          type: 'file',
+          path: file,
+          level: 'info',
+          redact: {
+            paths: ['user.password', 'request.headers.authorization', 'data[*].secret'],
+            censor: '<REDACTED>',
+          },
+        },
+        pino
+      );
+      logger.info(
+        {
+          user: {
+            name: 'john',
+            password: 'userpassword',
+            email: 'john@example.com',
+          },
+          request: {
+            method: 'POST',
+            headers: {
+              authorization: 'Bearer token123',
+              'content-type': 'application/json',
+            },
+          },
+          data: [
+            { id: 1, secret: 'secret1', value: 'public1' },
+            { id: 2, secret: 'secret2', value: 'public2' },
+          ],
+        },
+        'Complex nested data processing'
+      );
+
+      const content = await readLogFile(file);
+      const logEntry = JSON.parse(content);
+
+      expect(logEntry.user.name).toBe('john');
+      expect(logEntry.user.password).toBe('<REDACTED>');
+      expect(logEntry.user.email).toBe('john@example.com');
+      expect(logEntry.request.method).toBe('POST');
+      expect(logEntry.request.headers.authorization).toBe('<REDACTED>');
+      expect(logEntry.request.headers['content-type']).toBe('application/json');
+      expect(logEntry.data[0].secret).toBe('<REDACTED>');
+      expect(logEntry.data[0].value).toBe('public1');
+      expect(logEntry.data[1].secret).toBe('<REDACTED>');
+      expect(logEntry.data[1].value).toBe('public2');
+    });
+  });
 });

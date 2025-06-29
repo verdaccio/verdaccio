@@ -20,13 +20,20 @@ export type LoggerType = 'stdout' | 'file';
 export type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'json';
 export type LoggerLevel = 'fatal' | 'error' | 'warn' | 'info' | 'http' | 'debug' | 'trace';
 
+export type LoggerRedact = {
+  paths: string[];
+  censor?: string;
+  remove?: boolean;
+};
+
 export type LoggerConfigItem = {
   type?: LoggerType;
   format?: LoggerFormat;
   path?: string;
   level?: LoggerLevel;
   colors?: boolean;
-  async?: boolean;
+  sync?: boolean;
+  redact?: LoggerRedact;
 };
 
 export interface ConfigWithHttps extends Config {

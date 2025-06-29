@@ -25,10 +25,8 @@ export type LogPlugin = {
   options?: any[];
 };
 
-type LoggerOptions = { level?: string; path?: string; colors?: boolean; sync?: boolean };
-
 export function createLogger(
-  options: LoggerOptions = { level: 'http' },
+  options: LoggerConfigItem = { level: 'http' },
   // eslint-disable-next-line no-undef
   // @ts-ignore
   destination: NodeJS.WritableStream = pino.destination(1),
@@ -46,6 +44,8 @@ export function createLogger(
       req: pino.stdSerializers.req,
       res: pino.stdSerializers.res,
     },
+    sync: options.sync,
+    redact: options.redact,
   };
 
   debug('has prettifier? %o', !isProd());
@@ -124,32 +124,17 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pi
       loggerConfig
     );
   }
-  const pinoConfig = { level: loggerConfig.level };
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
     /* eslint-disable */
     /* istanbul ignore next */
     process.on('SIGUSR2', () => destination.reopen());
-    // @ts-ignore
-    logger = createLogger(
-      { level: loggerConfig.level, path: loggerConfig.path, colors: loggerConfig.colors },
-      // @ts-ignore
-      destination,
-      loggerConfig.format,
-      pino
-    );
+    logger = createLogger(loggerConfig, destination, loggerConfig.format, pino);
     return logger;
   } else {
     debug('logging stdout enabled');
-    // @ts-ignore
-    logger = createLogger(
-      { level: loggerConfig.level, colors: loggerConfig.colors },
-      // @ts-ignore
-      pino.destination(1),
-      loggerConfig.format,
-      pino
-    );
+    logger = createLogger(loggerConfig, pino.destination(1), loggerConfig.format, pino);
     return logger;
   }
 }

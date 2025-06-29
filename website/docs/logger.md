@@ -28,6 +28,28 @@ log: { type: file, path: verdaccio.log, level: info }
 Use `SIGUSR2` to notify the application, the log-file was rotated and it needs to reopen it.
 Note: Rotating log stream is not supported in cluster mode. [See here](https://github.com/trentm/node-bunyan#stream-type-rotating-file)
 
+Sensitive data can be masked or removed using [log redaction](https://getpino.io/#/docs/redaction).
+
+```yaml
+log:
+  type: stdout
+  format: pretty
+  level: http
+  redact:
+    paths:
+      [
+        'req.header.authorization',
+        'req.header.cookie',
+        'req.remoteAddress',
+        'req.remotePort',
+        'ip',
+        'remoteIP',
+        'user',
+        'msg',
+      ]
+    censor: '<redacted>'
+```
+
 ### Configuration {#configuration}
 
 | Property | Type    | Required | Example                                        | Support | Description                                       |
@@ -37,3 +59,5 @@ Note: Rotating log stream is not supported in cluster mode. [See here](https://g
 | format   | string  | No       | [pretty, pretty-timestamped]                   | all     | output format                                     |
 | level    | string  | No       | [fatal, error, warn, info, http, debug, trace] | all     | verbose level                                     |
 | colors   | boolean | No       | false                                          | v5.7.0  | disable or enable colors                          |
+| redact   | object  | No       | see above                                      |         | redact sensitive data                             |
+| sync     | boolean | No       | true                                           |         | turn on synchronous logging                       |
