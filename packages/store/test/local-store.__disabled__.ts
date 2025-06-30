@@ -1,4 +1,4 @@
-// import path from 'path';
+// import path from 'node:path';
 // import rimRaf from 'rimraf';
 
 // import { Config as AppConfig } from '@verdaccio/config';

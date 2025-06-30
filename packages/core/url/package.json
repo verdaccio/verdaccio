@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/url",
-  "version": "13.0.0-next-8.18",
+  "version": "13.0.0-next-8.19",
   "description": "Verdaccio URL Utilities",
   "keywords": [
     "private",
@@ -33,14 +33,15 @@
     "access": "public"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.18",
+    "@verdaccio/core": "workspace:8.0.0-next-8.19",
     "debug": "4.4.1",
     "lodash": "4.17.21",
     "validator": "13.12.0"
   },
   "devDependencies": {
     "@verdaccio/types": "workspace:13.0.0-next-8.6",
-    "node-mocks-http": "1.14.1"
+    "node-mocks-http": "1.14.1",
+    "vitest": "3.0.4"
   },
   "scripts": {
     "clean": "rimraf ./build",

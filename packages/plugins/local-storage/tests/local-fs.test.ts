@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { Readable } from 'stream';
+import fs from 'node:fs';
+import path from 'node:path';
+import { Readable } from 'node:stream';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';

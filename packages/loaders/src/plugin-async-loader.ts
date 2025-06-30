@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
-import fs from 'fs';
 import _ from 'lodash';
-import { dirname, isAbsolute, join, resolve } from 'path';
+import fs from 'node:fs';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 
 import { PLUGIN_PREFIX, pluginUtils } from '@verdaccio/core';
 

@@ -1,5 +1,24 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 3f71267: chore(deps): storage
+- Updated dependencies [75a6b32]
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [54b1906]
+  - @verdaccio/local-storage@13.0.0-next-8.19
+  - @verdaccio/tarball@13.0.0-next-8.19
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/url@13.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/search@8.0.0-next-8.19
+  - @verdaccio/proxy@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes

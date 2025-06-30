@@ -1,5 +1,5 @@
-import { Express, RequestHandler } from 'express';
-import { Readable, Writable } from 'stream';
+import type { Express, RequestHandler } from 'express';
+import { Readable, Writable } from 'node:stream';
 
 import {
   AllowAccess,

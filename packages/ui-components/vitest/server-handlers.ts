@@ -1,6 +1,6 @@
-import fs from 'fs';
 import { HttpResponse, http } from 'msw';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export const handlers = [
   // Home

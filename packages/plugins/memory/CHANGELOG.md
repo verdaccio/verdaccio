@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0-next-8.19
+
+### Patch Changes
+
+- 6e404a0: chore(deps): plugins audit, htpasswd, memory
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+
 ## 13.0.0-next-8.18
 
 ### Patch Changes

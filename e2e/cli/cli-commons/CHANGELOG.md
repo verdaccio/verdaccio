@@ -1,5 +1,11 @@
 # @verdaccio/test-cli-commons
 
+## 2.0.0-next-8.1
+
+### Patch Changes
+
+- 9da5308: chore(deps): e2e-cli
+
 ## 2.0.0-next-8.0
 
 ### Major Changes

@@ -1,5 +1,5 @@
-import assert from 'assert';
 import _ from 'lodash';
+import assert from 'node:assert';
 
 import { authUtils } from '@verdaccio/core';
 import { PackageList, UpLinksConfList } from '@verdaccio/types';

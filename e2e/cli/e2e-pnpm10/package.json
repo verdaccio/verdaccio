@@ -1,11 +1,11 @@
 {
   "private": true,
   "name": "@verdaccio/e2e-cli-pnpm10",
-  "version": "1.0.0",
+  "version": "1.0.1-next-8.0",
   "dependencies": {
-    "@verdaccio/test-cli-commons": "workspace:2.0.0-next-8.0",
+    "@verdaccio/test-cli-commons": "workspace:2.0.0-next-8.1",
     "@verdaccio/e2e-cli-pnpm-common": "workspace:*",
-    "pnpm": "10.0.0-alpha.2"
+    "pnpm": "10.12.1"
   },
   "scripts": {
     "test": "vitest run --testTimeout 50000"

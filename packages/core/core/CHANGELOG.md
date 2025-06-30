@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 9350431: chore(deps): clean up core modules
+
 ## 8.0.0-next-8.18
 
 ## 8.0.0-next-8.17

@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
-import fs from 'fs';
 import _ from 'lodash';
-import os from 'os';
-import path from 'path';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 import { fileExists, folderExists } from './config-utils';
 

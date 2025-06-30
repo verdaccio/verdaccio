@@ -1,5 +1,28 @@
 # @verdaccio/server
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 15bd80b: chore(deps): express
+- Updated dependencies [6e404a0]
+- Updated dependencies [8bc332b]
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [da0692f]
+- Updated dependencies [3f71267]
+- Updated dependencies [a91c5b8]
+  - verdaccio-audit@13.0.0-next-8.19
+  - @verdaccio/web@8.1.0-next-8.19
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/middleware@8.0.0-next-8.19
+  - @verdaccio/store@8.0.0-next-8.19
+  - @verdaccio/api@8.1.0-next-8.19
+  - @verdaccio/auth@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes

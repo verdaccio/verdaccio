@@ -1,7 +1,7 @@
 // @ts-ignore: Module has no default export
-import crypto from 'crypto';
-import { HttpError } from 'http-errors';
+import { type HttpError } from 'http-errors';
 import MockDate from 'mockdate';
+import crypto from 'node:crypto';
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { constants } from '@verdaccio/core';

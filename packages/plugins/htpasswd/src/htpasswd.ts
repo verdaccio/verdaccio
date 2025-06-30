@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
-import { readFile, stat, writeFile } from 'fs';
-import { dirname, resolve } from 'path';
+import { readFile, stat, writeFile } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 
 import { constants, pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';

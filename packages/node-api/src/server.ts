@@ -1,11 +1,11 @@
 /* eslint-disable */
-import constants from 'constants';
 import buildDebug from 'debug';
-import fs from 'fs';
-import http from 'http';
-import https from 'https';
 import _, { assign, isFunction } from 'lodash';
-import url from 'url';
+import constants from 'node:constants';
+import fs from 'node:fs';
+import http from 'node:http';
+import https from 'node:https';
+import url from 'node:url';
 
 import { findConfigFile, parseConfigFile } from '@verdaccio/config';
 import { API_ERROR } from '@verdaccio/core';

@@ -1,7 +1,7 @@
-import fs from 'fs';
 import locker from 'lockfile';
-import path from 'path';
-import { promisify } from 'util';
+import fs from 'node:fs';
+import path from 'node:path';
+import { promisify } from 'node:util';
 
 const fsP = fs.promises ? fs.promises : require('fs/promises');
 

@@ -1,5 +1,15 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- da0692f: chore(deps): middleware
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/url@13.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+
 ## 8.0.0-next-8.18
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import NodeEnvironment from 'jest-environment-node';
 import { blue, green, magenta, yellow } from 'kleur';
-import path from 'path';
+import path from 'node:path';
 
 import { mockServer } from '@verdaccio/mock';
 

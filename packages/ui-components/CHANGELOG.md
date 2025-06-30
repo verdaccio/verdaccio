@@ -1,5 +1,11 @@
 # @verdaccio/ui-components
 
+## 4.0.0-next-8.10
+
+### Patch Changes
+
+- 07a0ecb: chore(ui): update deps and storybook
+
 ## 4.0.0-next-8.9
 
 ### Minor Changes
