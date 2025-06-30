@@ -1,6 +1,6 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
+import assert from 'node:assert';
 
 import { APP_ERROR, authUtils, cryptoUtils, validationUtils, warningUtils } from '@verdaccio/core';
 import { Codes } from '@verdaccio/core/build/warning-utils';

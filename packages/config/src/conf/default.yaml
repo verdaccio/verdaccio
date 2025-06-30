@@ -210,7 +210,16 @@ middlewares:
 
 # Log settings
 # https://verdaccio.org/docs/logger
-log: { type: stdout, format: pretty, level: http }
+# Redaction: https://getpino.io/#/docs/redaction
+# Synchronous logging: https://getpino.io/#/docs/asynchronous
+log:
+  type: stdout
+  format: pretty
+  level: http
+#  redact:
+#    paths: ['req.header.authorization','req.header.cookie','req.remoteAddress','req.remotePort','ip','remoteIP','user','msg']
+#    censor: '<redacted>'
+#  sync: true
 
 # Feature flags (experimental settings that can be changed or removed in the future)
 # https://verdaccio.org/docs/configuration#experiments

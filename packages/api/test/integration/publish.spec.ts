@@ -1,5 +1,5 @@
 import nock from 'nock';
-import { basename } from 'path';
+import { basename } from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
 

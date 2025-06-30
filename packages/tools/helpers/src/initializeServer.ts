@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import express, { Application } from 'express';
-import os from 'os';
-import path from 'path';
+import os from 'node:os';
+import path from 'node:path';
 
 import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';

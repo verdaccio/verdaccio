@@ -1,4 +1,4 @@
-import { randomBytes } from 'crypto';
+import { randomBytes } from 'node:crypto';
 
 export const TOKEN_VALID_LENGTH = 32;
 
