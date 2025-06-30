@@ -1,5 +1,5 @@
-import fs from 'fs';
-import os from 'os';
+import fs from 'node:fs';
+import os from 'node:os';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { findConfigFile } from '../src/config-path';

@@ -1,5 +1,5 @@
 // <reference types="node" />
-import * as http from 'http';
+import * as http from 'node:http';
 
 import { Logger, RemoteUser } from '@verdaccio/types';
 

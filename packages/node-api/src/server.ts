@@ -1,7 +1,7 @@
 /* eslint-disable */
-import constants from 'constants';
 import buildDebug from 'debug';
 import _, { assign, isFunction } from 'lodash';
+import constants from 'node:constants';
 import fs from 'node:fs';
 import http from 'node:http';
 import https from 'node:https';
