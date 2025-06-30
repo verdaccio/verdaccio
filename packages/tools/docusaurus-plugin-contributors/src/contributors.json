@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5444,
+      "contributions": 5452,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 3065
+          "contributions": 3066
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 216
+          "contributions": 223
         },
         {
           "name": "authentication-plugin-sample",
@@ -232,11 +232,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 185,
+      "contributions": 189,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 185
+          "contributions": 189
         }
       ]
     },
@@ -5235,7 +5235,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16969,
+      "stargazers_count": 16984,
       "archived": false
     },
     {
@@ -5360,8 +5360,8 @@
       "login": "verdaccio",
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
-      "description": "🏰 Core dependencies and plugins for verdaccio 5.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 83,
+      "description": "🏰 Core dependencies and plugins for verdaccio 6.x branch ⚠️ DEPRECATED",
+      "stargazers_count": 84,
       "archived": false
     },
     {
