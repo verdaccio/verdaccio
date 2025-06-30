@@ -112,7 +112,7 @@ const DEFAULT_LOGGER_CONF: LoggerConfigItem = {
 
 export type LoggerConfig = LoggerConfigItem;
 
-export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pino) {
+export async function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pino) {
   let logger: Logger;
   let loggerConfig = options;
   if (!loggerConfig?.level) {
@@ -127,6 +127,17 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pi
   if (loggerConfig.type === 'file') {
     debug('logging file enabled');
     const destination = pino.destination(loggerConfig.path);
+
+    await new Promise<void>((resolve, reject) => {
+      destination.once('ready', () => {
+        resolve();
+      });
+
+      destination.once('error', (error) => {
+        reject(error);
+      });
+    });
+
     /* eslint-disable */
     /* istanbul ignore next */
     process.on('SIGUSR2', () => destination.reopen());
@@ -141,11 +152,11 @@ export function prepareSetup(options: LoggerConfigItem = DEFAULT_LOGGER_CONF, pi
 
 export let logger: Logger;
 
-export function setup(options: LoggerConfigItem, pino) {
+export async function setup(options: LoggerConfigItem, pino) {
   if (typeof logger !== 'undefined') {
     return logger;
   }
 
-  logger = prepareSetup(options, pino);
+  logger = await prepareSetup(options, pino);
   return logger;
 }

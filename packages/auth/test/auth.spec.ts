@@ -24,7 +24,7 @@ import {
   authProfileConf,
 } from './helper/plugin';
 
-setup({});
+await setup({});
 
 const buildToken = authUtils.buildToken;
 

@@ -6,7 +6,7 @@ import { logger, setup } from '@verdaccio/logger';
 
 import { Search } from '../src/search';
 
-setup({});
+await setup({});
 
 const domain = 'https://registry.npmjs.org';
 

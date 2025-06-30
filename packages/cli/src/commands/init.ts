@@ -45,19 +45,19 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  private initLogger(logConfig: ConfigYaml) {
+  private async initLogger(logConfig: ConfigYaml) {
     if (logConfig.logs) {
       logConfig.log = logConfig.logs;
       warningUtils.emit(warningUtils.Codes.VERWAR002);
     }
-    setup(logConfig.log as LoggerConfigItem);
+    await setup(logConfig.log as LoggerConfigItem);
   }
 
   public async execute() {
     try {
       const configPathLocation = findConfigFile(this.config as string);
       const configParsed = parseConfigFile(configPathLocation);
-      this.initLogger(configParsed);
+      await this.initLogger(configParsed);
       logger.info({ file: configPathLocation }, 'using config file: @{file}');
       const { web } = configParsed;
 

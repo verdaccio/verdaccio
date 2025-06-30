@@ -17,7 +17,7 @@ export async function initializeServer(
   Storage
 ): Promise<Application> {
   const app = express();
-  const logger = setup(configObject.log ?? {});
+  const logger = await setup(configObject.log ?? {});
   const config = new Config(configObject);
   config.storage = path.join(os.tmpdir(), '/storage', cryptoUtils.generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder

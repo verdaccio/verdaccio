@@ -16,7 +16,7 @@ const singleHeaderNotificationConfig = parseConfigFile(
 );
 const multiNotificationConfig = parseConfigFile(parseConfigurationNotifyFile('multiple.notify'));
 
-setup({});
+await setup({});
 
 const domain = 'http://slack-service';
 

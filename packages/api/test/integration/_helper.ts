@@ -23,7 +23,7 @@ import { Author, GenericBody, PackageUsers } from '@verdaccio/types';
 
 import apiMiddleware from '../../src';
 
-setup({});
+await setup({});
 
 export const buildToken = authUtils.buildToken;
 

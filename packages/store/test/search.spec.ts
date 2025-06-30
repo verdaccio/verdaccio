@@ -9,7 +9,7 @@ import { generatePackageMetadata } from '@verdaccio/test-helper';
 
 import { Storage } from '../src';
 
-const logger = setup({});
+const logger = await setup({});
 
 describe('search', () => {
   describe('search manager utils', () => {

@@ -123,7 +123,7 @@ export async function initServer(
   return new Promise(async (resolve, reject) => {
     // FIXME: get only the first match, the multiple address will be removed
     const [addr] = getListListenAddresses(port, config.listen);
-    const logger = setup(config?.log as any);
+    const logger = await setup(config?.log as any);
     displayExperimentsInfoBox(config.flags);
 
     let app;
@@ -208,7 +208,7 @@ export async function runServer(config?: string | ConfigYaml): Promise<any> {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  setup(configurationParsed.log as any);
+  await setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
   const [addr] = getListListenAddresses(undefined, configurationParsed.listen);

@@ -6,7 +6,7 @@ import { setup } from '@verdaccio/logger';
 
 import { getDisTags, initializeServer, publishVersion } from './_helper';
 
-setup({});
+await setup({});
 
 describe('package', () => {
   let app;

@@ -8,7 +8,7 @@ import { logger, setup } from '@verdaccio/logger';
 import LocalMemory from '../src/index';
 import { ConfigMemory } from '../src/local-memory';
 
-setup({});
+await setup({});
 
 const config = new Config(parseConfigFile(join(__dirname, 'config.yaml')));
 

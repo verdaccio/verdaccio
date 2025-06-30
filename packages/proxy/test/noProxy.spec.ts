@@ -4,7 +4,7 @@ import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
-setup({});
+await setup({});
 
 function getProxyInstance(host, uplinkConf, appConfig) {
   uplinkConf.url = host;

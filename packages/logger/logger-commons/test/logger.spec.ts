@@ -29,7 +29,7 @@ describe('logger test', () => {
   describe('basic', () => {
     test('should include default level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup({ type: 'file', path: file, colors: false }, pino);
+      const logger = await prepareSetup({ type: 'file', path: file, colors: false }, pino);
       logger.info({ packageName: 'test' }, `testing @{packageName}`);
       // Note: this should not be logged
       logger.debug(`this should not be logged`);
@@ -42,7 +42,7 @@ describe('logger test', () => {
 
     test('should include all logging level', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         { type: 'file', level: 'trace', path: file, colors: false },
         pino
       );
@@ -55,12 +55,19 @@ describe('logger test', () => {
         'info --- testing test\ndebug--- this should not be logged\ntrace--- this should not be logged\nerror--- this should logged\n'
       );
     });
+
+    test('should fail if the log file cannot be opened', async () => {
+      const folder = await fileUtils.createTempFolder('logger');
+      await expect(prepareSetup({ type: 'file', path: folder }, pino)).rejects.toThrowError(
+        'EISDIR'
+      );
+    });
   });
 
   describe('json format', () => {
     test('should log into a file with json format', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           ...defaultOptions,
           format: 'json',
@@ -87,7 +94,7 @@ describe('logger test', () => {
   describe('pretty format', () => {
     test('should log into a file with pretty', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           format: 'pretty',
           type: 'file',
@@ -107,7 +114,7 @@ describe('logger test', () => {
 
     test('should log into a file with pretty-timestamped', async () => {
       const file = await createLogFile();
-      const logger = prepareSetup(
+      const logger = await prepareSetup(
         {
           format: 'pretty-timestamped',
           type: 'file',

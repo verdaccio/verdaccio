@@ -24,7 +24,7 @@ const initializeServer = (configName: string, middlewares = {}) => {
   return app;
 };
 
-setup({});
+await setup({});
 
 describe('test web server', () => {
   describe('render', () => {
