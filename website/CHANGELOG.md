@@ -1,5 +1,12 @@
 # @verdaccio/website
 
+## 1.0.1-next-8.6
+
+### Patch Changes
+
+- Updated dependencies [08e1b21]
+  - docusaurus-plugin-contributors@2.0.1-next-8.0
+
 ## 1.0.1-next-8.5
 
 ### Patch Changes
