@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import _ from 'lodash';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import Generator from 'yeoman-generator';
 import yosay from 'yosay';
 

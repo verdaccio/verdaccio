@@ -1,6 +1,6 @@
 import { Application } from 'express';
 import _ from 'lodash';
-import path from 'path';
+import path from 'node:path';
 import supertest from 'supertest';
 import { expect } from 'vitest';
 

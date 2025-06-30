@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
-import fs from 'fs';
 import YAML from 'js-yaml';
 import { isObject } from 'lodash';
+import fs from 'node:fs';
 
 import { APP_ERROR } from '@verdaccio/core';
 import { ConfigYaml } from '@verdaccio/types';
