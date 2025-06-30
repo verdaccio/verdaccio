@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/local-scripts",
-  "version": "1.0.1-next-8.0",
+  "version": "1.0.1-next-8.1",
   "bin": {
     "local-crowdin-api": "./index.js"
   },

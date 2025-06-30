@@ -1,5 +1,18 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- 5fef0b6: chore(auth): multiple plugins test
+- Updated dependencies [08e1b21]
+  - @verdaccio/config@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.20
+  - @verdaccio/loaders@8.0.0-next-8.10
+  - @verdaccio/signature@8.0.0-next-8.12
+  - @verdaccio/core@8.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes
