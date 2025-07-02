@@ -1,5 +1,3 @@
-// @flow
-import { log } from 'console';
 import buildDebug from 'debug';
 import { Response } from 'express';
 import _ from 'lodash';

@@ -12,7 +12,7 @@ import { $RequestExtend, $ResponseExtend } from '../types';
 const debug = buildDebug('verdaccio:middleware:favicon');
 
 export function serveFavicon(config: Config) {
-  return function (req: $RequestExtend, res: $ResponseExtend) {
+  return function (_req: $RequestExtend, res: $ResponseExtend) {
     try {
       const logoConf: string = config?.web?.favicon as string;
       if (logoConf === '') {
@@ -48,8 +48,8 @@ export function serveFavicon(config: Config) {
         fs.createReadStream(path.posix.join(__dirname, './web/html/favicon.ico')).pipe(res);
         debug('rendered ico');
       }
-    } catch (err) {
-      debug('error triggered, favicon not found');
+    } catch (err: any) {
+      debug('error triggered, favicon not found %s', err?.message);
       res.status(HTTP_STATUS.NOT_FOUND).end();
     }
   };

@@ -31,6 +31,7 @@ export default tseslint.config(
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
+      '@typescript-eslint/no-this-alias': 'warn',
       '@typescript-eslint/ban-ts-comment': 'warn',
     },
     languageOptions: {

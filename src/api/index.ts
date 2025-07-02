@@ -64,7 +64,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     hookDebug(app, config.configPath);
   }
 
-  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, '', Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
       config,
