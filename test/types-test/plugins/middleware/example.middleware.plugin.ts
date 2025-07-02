@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-/* eslint-disable no-unused-vars */
+ 
 import { pluginUtils } from '@verdaccio/core';
 import { IReadTarball, IUploadTarball } from '@verdaccio/streams';
 import { Manifest } from '@verdaccio/types';

@@ -104,14 +104,12 @@ function addPackageWebApi(storage: Storage, auth: Auth, config: Config): Router 
           return permissions;
         }
 
-        const { web } = config;
-        // @ts-ignore
-        const order: boolean = config.web ? getOrder(web.sort_packages) : true;
+        const order: boolean = config.web ? getOrder(config.web?.sort_packages) : true;
 
         try {
           next(sortByName(await processPackages(packages), order));
-        } catch (error) {
-          next(ErrorCode.getInternalError());
+        } catch (error: any) {
+          next(ErrorCode.getInternalError(error.message));
         }
       });
     }

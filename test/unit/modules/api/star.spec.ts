@@ -1,6 +1,6 @@
 import nock from 'nock';
 import supertest from 'supertest';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { HEADERS, HEADER_TYPE } from '@verdaccio/core';

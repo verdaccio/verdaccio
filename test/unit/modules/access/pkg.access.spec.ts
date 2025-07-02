@@ -1,6 +1,6 @@
 import getPort from 'get-port';
 import request from 'supertest';
-import { afterAll, afterEach, beforeAll, describe, expect, test, vi } from 'vitest';
+import { afterAll, beforeAll, describe, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
 

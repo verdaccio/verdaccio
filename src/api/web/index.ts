@@ -46,7 +46,7 @@ export async function loadTheme(config: any) {
 }
 
 export function localWebEndpointsApi(auth, storage, config): Router {
-  // eslint-disable-next-line new-cap
+   
   const route = Router();
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble=
@@ -70,7 +70,7 @@ export default async (config, auth, storage, logger) => {
       'plugin @{name} successfully loaded (@{pluginCategory})'
     );
   }
-  // eslint-disable-next-line new-cap
+   
   const router = Router();
   // @ts-ignore
   router.use('/', renderWebMiddleware(config, auth.apiJWTmiddleware(), pluginOptions));

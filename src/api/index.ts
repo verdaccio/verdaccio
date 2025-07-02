@@ -14,7 +14,7 @@ import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
-import { logger, setup } from '../lib/logger';
+import { logger } from '../lib/logger';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';

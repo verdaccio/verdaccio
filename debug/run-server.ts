@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+ 
 const { runServer } = require('../src');
 
 (async () => {

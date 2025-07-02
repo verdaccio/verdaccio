@@ -171,7 +171,7 @@ export default class Server implements IServerBridge {
     data: any,
     headerContentSize: number
   ): Promise<any> {
-    let promise = this.request({
+    const promise = this.request({
       uri: `/${encodeURIComponent(pkgName)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {

@@ -1,7 +1,7 @@
 import createDebug from 'debug';
 import _ from 'lodash';
 import request from 'supertest';
-import { beforeEach, describe, expect, test, vi } from 'vitest';
+import { expect } from 'vitest';
 
 import { Manifest } from '@verdaccio/types';
 import { generateRandomHexString } from '@verdaccio/utils';

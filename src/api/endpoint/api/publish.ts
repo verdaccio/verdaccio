@@ -291,7 +291,8 @@ export function publishPackage(storage: Storage, config: Config, auth: Auth): an
           afterChange(error, API_MESSAGE.PKG_CREATED, metadata);
         });
       }
-    } catch (error) {
+    } catch (error: any) {
+      debug('error on publish: %s', error.message);
       logger.error({ packageName }, 'error on publish, bad package data for @{packageName}');
       return next(ErrorCode.getBadData(API_ERROR.BAD_PACKAGE_DATA));
     }

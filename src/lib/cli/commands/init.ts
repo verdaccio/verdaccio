@@ -21,7 +21,7 @@ export class InitCommand extends Command {
     description: 'host:port number to listen on (default: localhost:4873)',
   });
 
-  // eslint-disable-next-line
+   
   static usage = Command.Usage({
     description: `launch the server`,
     details: `
@@ -99,7 +99,7 @@ export class InitCommand extends Command {
           'cannot open config file @{file}: @{!err.message}'
         );
       } else {
-        // eslint-disable-next-line no-console
+         
         console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
       }
       process.exit(1);

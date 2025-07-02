@@ -17,10 +17,9 @@ const server = require('http').createServer(app);
 describe('basic system test', () => {
   let port;
   vi.setConfig({ testTimeout: 20000 });
-  let storage;
 
   beforeAll(async function () {
-    storage = await fileUtils.createTempStorageFolder('basic-test');
+    await fileUtils.createTempStorageFolder('basic-test');
   });
 
   beforeAll(async function () {
@@ -49,7 +48,7 @@ describe('basic system test', () => {
         },
         function (err, res, body) {
           // TEMP: figure out why is flacky, pls remove when is stable.
-          // eslint-disable-next-line no-console
+
           console.log('server should respond on / error', err);
           expect(err).toBeNull();
           expect(body).toMatch(/Verdaccio/);

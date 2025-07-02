@@ -3,6 +3,14 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  {
+    ignores: [
+      '**/debug/**',
+      '**/build/**',
+      '**/test/types-test/**/*.ts',
+      '**/test/types-test/plugins/**/*.ts',
+    ],
+  },
   eslint.configs.recommended,
   tseslint.configs.recommended,
   // JS files with CommonJS (module.exports, require)
@@ -22,12 +30,16 @@ export default tseslint.config(
   // TS files with ESM-style
   {
     files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@typescript-eslint/ban-ts-comment': 'warn',
+    },
     languageOptions: {
       parserOptions: {
         sourceType: 'module', // Typical for TS with `import/export`
       },
     },
   },
+
   {
     files: [
       '**/*.spec.ts',
@@ -41,6 +53,7 @@ export default tseslint.config(
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
       'prefer-const': 'off',
+      '@typescript-eslint/no-empty-object-types': 'off',
       '@typescript-eslint/no-unused-vars': 'error',
     },
   },

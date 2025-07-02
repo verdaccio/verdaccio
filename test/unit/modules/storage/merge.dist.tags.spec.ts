@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+import { describe, test } from 'vitest';
 
 import { pkgUtils } from '@verdaccio/core';
 

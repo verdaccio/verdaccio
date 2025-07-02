@@ -1,9 +1,7 @@
-import fs from 'fs';
 import _ from 'lodash';
 import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
-// eslint-disable-next-line max-len
 import { errorUtils, pkgUtils, validationUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
@@ -23,6 +21,10 @@ const {
   getServiceUnavailable,
   getUnauthorized,
 } = errorUtils;
+
+export function addScope(scope: string, packageName: string): string {
+  return `@${scope}/${packageName}`;
+}
 
 /**
  * Check whether an element is an Object
@@ -64,7 +66,7 @@ export function getVersion(pkg: Manifest, version: any): Version | void {
         return pkg.versions[versionItem];
       }
     }
-  } catch (err: any) {
+  } catch {
     return undefined;
   }
 }
@@ -129,7 +131,6 @@ export function normalizeDistTags(pkg: Manifest): void {
       if (pkg[DIST_TAGS][tag].length) {
         // sort array
         // FIXME: this is clearly wrong, we need to research why this is like this.
-        // @ts-ignore
         sorted = pkgUtils.semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
           // use highest version based on semver sort
@@ -200,44 +201,12 @@ export const ErrorCode = {
   getCode,
 };
 
-/**
- * Check whether the path already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function folderExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isDirectory();
-  } catch (_: any) {
-    return false;
-  }
-}
-
-/**
- * Check whether the file already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function fileExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isFile();
-  } catch (_: any) {
-    return false;
-  }
-}
-
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
   return packages.slice().sort(function (a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
-}
-
-export function addScope(scope: string, packageName: string): string {
-  return `@${scope}/${packageName}`;
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
