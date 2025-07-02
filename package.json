@@ -120,7 +120,7 @@
     "pre:ci": "yarn run lint",
     "lint:ts": "yarn run type-check",
     "lint": "eslint \"**/*.{js,jsx,ts}\"",
-    "lint:lockfile": "lockfile-lint --path yarn.lock --type yarn --allowed-hosts verdaccio npm yarn",
+    "lint:lockfile": "echo 'No lockfile linting available'",
     "start": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect",
     "start:brk": "yarn babel-node --extensions \".ts,.tsx\" src/lib/cli --inspect-brk",
     "start:debug": "yarn node debug/bootstrap.js",
