@@ -1,7 +1,7 @@
 // ensure that all arguments are validated
 import fs from 'node:fs';
 import path from 'node:path';
-import { beforeEach, describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 /**
  * Validate.

@@ -1,6 +1,5 @@
 import path from 'path';
 
-import { DOMAIN_SERVERS } from '../../functional/config.functional';
 import Server from '../../lib/server';
 import VerdaccioProcess from '../../lib/server_process';
 import { VerdaccioConfig } from '../../lib/verdaccio-server';
@@ -57,7 +56,7 @@ export function mockServer(port: number) {
   const verdaccioConfig = new VerdaccioConfig(
     storePath,
     configPath,
-    `http://${DOMAIN_SERVERS}:${port}/`,
+    `http://localhost:${port}/`,
     port
   );
 

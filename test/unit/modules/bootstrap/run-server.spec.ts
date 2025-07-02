@@ -4,6 +4,9 @@ import { describe, expect, test } from 'vitest';
 import { parseConfigFile } from '@verdaccio/config';
 
 import { runServer } from '../../../../src';
+import { setup } from '../../../../src/lib/logger';
+
+setup({});
 
 describe('bootstrap modern', () => {
   describe('runServer', () => {

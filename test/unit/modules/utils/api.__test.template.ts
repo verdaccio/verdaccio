@@ -14,7 +14,6 @@ import request from 'supertest';
 import endPointAPI from '../../../../src/api/index';
 import { setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { parseConfigurationFile } from '../../__helper';
 import { addUser } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
@@ -47,7 +46,7 @@ describe('endpoint example unit test', () => {
         storage: store,
         uplinks: {
           npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            url: `http://localhost:${mockServerPort}`,
           },
         },
         // 6. The self_path is important be the same as the store

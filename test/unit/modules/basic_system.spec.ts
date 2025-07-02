@@ -9,7 +9,7 @@ import { API_ERROR } from '../../../src/lib/constants';
 import { setup } from '../../../src/lib/logger';
 import config from '../partials/config';
 
-setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
+setup({});
 
 const app = express();
 const server = require('http').createServer(app);
@@ -40,7 +40,7 @@ describe('basic system test', () => {
   });
 
   // TODO: recieve aborted call  [Error: aborted], please review
-  test('server should respond on /', (done) => {
+  test('server should respond on /', () => {
     return new Promise((done) => {
       request(
         {

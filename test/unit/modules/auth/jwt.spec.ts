@@ -16,7 +16,6 @@ import { buildToken } from '@verdaccio/utils';
 
 import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { addUser, getPackage, loginUserToken } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';
@@ -42,7 +41,7 @@ describe('endpoint user auth JWT unit test', () => {
         storage: store,
         uplinks: {
           npmjs: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            url: `http://localhost:${mockServerPort}`,
           },
         },
         self_path: store,

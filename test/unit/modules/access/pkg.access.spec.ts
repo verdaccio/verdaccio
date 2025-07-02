@@ -7,7 +7,6 @@ import { fileUtils } from '@verdaccio/core';
 import endPointAPI from '../../../../src/api';
 import { HEADERS, HTTP_STATUS } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 
@@ -35,7 +34,7 @@ describe('api with no limited access configuration', () => {
         self_path: store,
         uplinks: {
           remote: {
-            url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+            url: `http://localhost:${mockServerPort}`,
           },
         },
         log: { type: 'stdout', format: 'pretty', level: 'warn' },

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import path from 'path';
-import { beforeAll, describe, expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { getDefaultConfig, parseConfigFile } from '@verdaccio/config';
 
@@ -65,11 +65,6 @@ const checkDefaultConfPackages = (config) => {
 };
 
 describe('Config file', () => {
-  let config;
-  beforeAll(function () {
-    config = new Config(getDefaultConfig());
-  });
-
   describe('default configurations', () => {
     test('parse docker.yaml', () => {
       const config = new Config(getDefaultConfig('docker.yaml'));

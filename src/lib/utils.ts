@@ -4,7 +4,7 @@ import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
 // eslint-disable-next-line max-len
-import { errorUtils, validationUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils, validationUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { buildToken as buildTokenUtil } from '@verdaccio/utils';
@@ -111,27 +111,6 @@ export function parseAddress(urlAddress: any): any {
 }
 
 /**
- * Function filters out bad semver versions and sorts the array.
- * @return {Array} sorted Array
- */
-export function semverSort(listVersions: string[]): string[] {
-  return (
-    listVersions
-      .filter(function (x): boolean {
-        if (!semver.parse(x, true)) {
-          logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
-}
-
-/**
  * Flatten arrays of tags.
  * @param {*} data
  */
@@ -139,7 +118,7 @@ export function normalizeDistTags(pkg: Manifest): void {
   let sorted;
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
-    sorted = semverSort(Object.keys(pkg.versions));
+    sorted = pkgUtils.semverSort(Object.keys(pkg.versions));
     if (sorted && sorted.length) {
       pkg[DIST_TAGS].latest = sorted.pop();
     }
@@ -151,7 +130,7 @@ export function normalizeDistTags(pkg: Manifest): void {
         // sort array
         // FIXME: this is clearly wrong, we need to research why this is like this.
         // @ts-ignore
-        sorted = semverSort(pkg[DIST_TAGS][tag]);
+        sorted = pkgUtils.semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
           // use highest version based on semver sort
           pkg[DIST_TAGS][tag] = sorted.pop();

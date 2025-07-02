@@ -5,8 +5,8 @@ import path from 'path';
 import { fileUtils } from '@verdaccio/core';
 
 import { HTTP_STATUS } from '../../src/lib/constants';
-import { CREDENTIALS } from '../functional/config.functional';
 import { IServerBridge, IServerProcess, IVerdaccioConfig } from '../types';
+import { CREDENTIALS } from './credentials';
 
 const log = debug('verdaccio:test:process');
 

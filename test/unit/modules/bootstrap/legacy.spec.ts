@@ -2,7 +2,10 @@ import { join } from 'path';
 import { describe, expect, test } from 'vitest';
 
 import startVerdaccioDeault, { startVerdaccio } from '../../../../src';
+import { setup } from '../../../../src/lib/logger';
 import { parseConfigFile } from '../../../../src/lib/utils';
+
+setup({});
 
 describe('bootstrap legacy', () => {
   describe('startVerdaccio', () => {

@@ -16,7 +16,6 @@ import {
   TOKEN_BEARER,
 } from '../../../../../src/lib/constants';
 import { buildToken, encodeScopedUri } from '../../../../../src/lib/utils';
-import { DOMAIN_SERVERS } from '../../../../functional/config.functional';
 import {
   generateUnPublishURI,
   getNewToken,
@@ -83,7 +82,7 @@ describe('endpoint unit test', () => {
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+              url: `http://localhost:${mockServerPort}`,
             },
             socketTimeout: {
               url: `http://some.registry.timeout.com`,
@@ -1039,7 +1038,7 @@ describe('endpoint unit test', () => {
           self_path: store,
           uplinks: {
             npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
+              url: `http://localhost:${mockServerPort}`,
             },
           },
           log: { type: 'stdout', format: 'pretty', level: 'warn' },

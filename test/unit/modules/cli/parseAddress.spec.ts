@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { DEFAULT_DOMAIN, DEFAULT_PORT } from '../../../../src/lib/constants';
 import { parseAddress as parse } from '../../../../src/lib/utils';
