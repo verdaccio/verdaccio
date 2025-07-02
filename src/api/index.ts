@@ -14,7 +14,7 @@ import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
-import { logger } from '../lib/logger';
+import { logger, setup } from '../lib/logger';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
@@ -109,6 +109,9 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
 };
 
 export default (async function (configHash: ConfigYaml): Promise<express.Application> {
+  if (!logger) {
+    setup(configHash.log ? configHash.log : {});
+  }
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
 
   const storage = new Storage(config);

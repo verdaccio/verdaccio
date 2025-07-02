@@ -8,7 +8,6 @@ import search from './search';
 import user from './user';
 
 export default (auth, storage, config) => {
-   
   const router = Router();
   router.use(
     rateLimit({

@@ -8,7 +8,6 @@ describe('Parse interval', () => {
     test('parse ' + str, () => {
       if (res === null) {
         assert.throws(function () {
-           
           console.log(parseInterval(str));
         });
       } else {

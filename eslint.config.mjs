@@ -62,8 +62,6 @@ export default tseslint.config(
     rules: {
       'no-useless-escape': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      // semi: ['error', 'always'],
-      // quotes: ['error', 'single'],
     },
   }
 );
