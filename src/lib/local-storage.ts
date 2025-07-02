@@ -55,7 +55,7 @@ class LocalStorage {
     this.storagePlugin = localStorage;
   }
 
-  public addPackage(name: string, pkg: Package, callback: Callback): void {
+  public addPackage(name: string, pkg: Manifest, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
@@ -94,7 +94,7 @@ class LocalStorage {
       return callback(ErrorCode.getNotFound());
     }
 
-    storage.readPackage(name, (err, data: Package): void => {
+    storage.readPackage(name, (err, data: Manifest): void => {
       if (_.isNil(err) === false) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
