@@ -1,5 +1,11 @@
 # @verdaccio/logger-prettify
 
+## 8.0.0-next-8.4
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
 ## 8.0.0-next-8.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-next-8.6
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
 ## 4.0.0-next-8.5
 
 ### Patch Changes
