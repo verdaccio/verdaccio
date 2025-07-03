@@ -1,5 +1,11 @@
 # docusaurus-plugin-contributors
 
+## 2.0.1-next-8.0
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
 ## 2.0.0
 
 ### Major Changes

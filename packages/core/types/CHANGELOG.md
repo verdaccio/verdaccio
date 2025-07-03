@@ -1,5 +1,11 @@
 # Change Log
 
+## 13.0.0-next-8.7
+
+### Patch Changes
+
+- a1a73e9: feat(logger): support redacting sensitive data
+
 ## 13.0.0-next-8.6
 
 ### Patch Changes
