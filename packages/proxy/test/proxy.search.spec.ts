@@ -4,29 +4,17 @@
 import getStream from 'get-stream';
 import nock from 'nock';
 import path from 'node:path';
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { streamUtils } from '@verdaccio/core';
-import { Logger } from '@verdaccio/types';
+import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
 const getConf = (name) => path.join(__dirname, '/conf', name);
 
-const mockDebug = vi.fn();
-const mockInfo = vi.fn();
-const mockHttp = vi.fn();
-const mockError = vi.fn();
-const mockWarn = vi.fn();
-
-const logger = {
-  debug: mockDebug,
-  info: mockInfo,
-  http: mockHttp,
-  error: mockError,
-  warn: mockWarn,
-} as unknown as Logger;
+setup({});
 
 const domain = 'https://registry.npmjs.org';
 
