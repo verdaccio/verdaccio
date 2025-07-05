@@ -33,7 +33,7 @@ jobs:
       - name: Bump up package
         run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)          
       - name: publish verdaccio 
-        run:  npm publish --registry http://localhost:4873
+        run:  npm publish --tag next --registry http://localhost:4873
       - name: install verdaccio 
         run:  npm i -g verdaccio --loglevel info --registry http://localhost:4873
       - name: verdaccio version 
