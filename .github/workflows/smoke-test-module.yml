@@ -26,12 +26,14 @@ jobs:
             docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6
       - name: login    
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
-      - name: Build
-        run: yarn && yarn build
+      - name: Install dependencies
+        run: yarn
       - name: Bump up package and save version
         run: |
           npm version prerelease --no-git-tag-version --preid $(date +%s%N)
           echo "VERDACCIO_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: Build
+        run: yarn build
       - name: publish verdaccio 
         run: npm publish --tag next --registry http://localhost:4873
       - name: install verdaccio 
