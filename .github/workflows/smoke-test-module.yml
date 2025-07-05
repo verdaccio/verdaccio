@@ -46,4 +46,4 @@ jobs:
           npm install verdaccio --registry http://localhost:4873
           echo "import { describe, expect, test } from 'vitest'; test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
           cat module.spec.ts
-          yarn vitest run module.spec.js --reporter verbose 
+          yarn vitest run module.spec --reporter verbose 
