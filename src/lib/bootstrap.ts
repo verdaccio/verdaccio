@@ -12,21 +12,8 @@ import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio
 import endPointAPI from '../api/index';
 import { getListListenAddresses, resolveConfigPath } from './cli/utils';
 import { API_ERROR, certPem, csrPem, keyPem } from './constants';
+import { displayExperimentsInfoBox } from './experiments';
 import { logger } from './logger';
-
-function displayExperimentsInfoBox(experiments) {
-  const experimentList = Object.keys(experiments);
-  if (experimentList.length >= 1) {
-    logger.warn(
-      '⚠️  experiments are enabled, it is recommended do not use experiments in production, comment out the experiments section to disable this warning'
-    );
-    experimentList.forEach((experiment) => {
-      logger.warn(
-        ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
-      );
-    });
-  }
-}
 
 /**
  * Trigger the server after configuration has been loaded.
@@ -49,11 +36,11 @@ function startVerdaccio(
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  // TODO: suport here FLAGS and EXPERIMENTS
-  // Display warning if experiemnt is used, recommend flags instead
-  if ('experiments' in config) {
-    displayExperimentsInfoBox(config.experiments);
-  }
+  const flags = {
+    ...(config?.flags || {}),
+    ...(config?.experiments || {}),
+  };
+  displayExperimentsInfoBox(flags);
 
   endPointAPI(config).then((app): void => {
     const addresses = getListListenAddresses(cliListen, config.listen);
