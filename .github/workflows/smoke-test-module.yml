@@ -36,15 +36,12 @@ jobs:
         run: yarn build
       - name: publish verdaccio 
         run: npm publish --tag next --registry http://localhost:4873
-      - name: install verdaccio 
-        run: npm i -g verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873
-      - name: verdaccio version 
-        run:  verdaccio --version
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
           npm install vitest --registry http://localhost:4873
+          npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873
           echo "import { describe, expect, test } from 'vitest';
                 import { runServer, getDefaultConfig } from 'verdaccio';    
 
