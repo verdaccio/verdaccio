@@ -44,7 +44,27 @@ jobs:
           npm init --force
           npm install vitest --registry http://localhost:4873
           npm install verdaccio --registry http://localhost:4873
-          echo "import { describe, expect, test } from 'vitest'; test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
+          echo "import { describe, expect, test } from 'vitest';
+
+          test('runServer should start correctly with default config', async () => {
+            const { runServer, getDefaultConfig } = require('verdaccio');
+            
+            expect(typeof runServer).toBe('function');
+            expect(typeof getDefaultConfig).toBe('function');
+            
+            const defaultConfig = getDefaultConfig();
+            expect(defaultConfig).toBeDefined();
+            expect(typeof defaultConfig).toBe('object');
+            
+            const server = await runServer(defaultConfig);
+            
+            expect(server).toBeDefined();
+            expect(server).toHaveProperty('listen');
+            
+            if (server && typeof server.close === 'function') {
+              await server.close();
+            }
+          });" | tee module.spec.js
           cat module.spec.js
           yarn vitest run module.spec --reporter verbose 
 
