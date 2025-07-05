@@ -6,7 +6,7 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'html'],
       include: ['src'],
-      exclude: ['./build', 'test'],
+      exclude: ['./build', 'test', 'src/api/debug'],
     },
   },
 });

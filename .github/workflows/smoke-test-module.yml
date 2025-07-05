@@ -43,12 +43,13 @@ jobs:
           npm install vitest --registry http://localhost:4873
           npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873
           echo "import { describe, expect, test } from 'vitest';
-                import { runServer, getDefaultConfig } from 'verdaccio';    
+                import { runServer, getDefaultConfig, fileUtils } from 'verdaccio';    
 
           test('runServer should start correctly with default config', async () => {          
+            const storage = await fileUtils.createTempStorageFolder('basic-test');
             expect(typeof runServer).toBe('function');            
             
-            const defaultConfig = getDefaultConfig();
+            const defaultConfig = {...getDefaultConfig(), storage}
             console.log('Default Config:', defaultConfig);
             const server = await runServer(defaultConfig);
             
@@ -60,5 +61,5 @@ jobs:
             }
           });" | tee module.spec.js
           cat module.spec.js
-          yarn vitest run module.spec --reporter verbose 
+          DEBUG=verdaccio* yarn vitest run module.spec --reporter verbose 
 

@@ -38,13 +38,11 @@ contrib/
 storage_default_storage/
 docker-bin/
 tsconfig.json
-CHANGELOG.md
-SECURITY.md
-CONTRIBUTING.md
-CONTRIBUTORS.md
+*.md
 prettier.config.js
 eslintrc.cjs
 babel.config.js
 debug/*
 tsconfig*
 vitest.config.mjs
+
