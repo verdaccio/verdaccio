@@ -1,10 +1,8 @@
-import fs from 'fs';
 import _ from 'lodash';
 import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
-// eslint-disable-next-line max-len
-import { errorUtils, validationUtils } from '@verdaccio/core';
+import { errorUtils, pkgUtils, validationUtils } from '@verdaccio/core';
 import { StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { buildToken as buildTokenUtil } from '@verdaccio/utils';
@@ -23,6 +21,10 @@ const {
   getServiceUnavailable,
   getUnauthorized,
 } = errorUtils;
+
+export function addScope(scope: string, packageName: string): string {
+  return `@${scope}/${packageName}`;
+}
 
 /**
  * Check whether an element is an Object
@@ -64,7 +66,7 @@ export function getVersion(pkg: Manifest, version: any): Version | void {
         return pkg.versions[versionItem];
       }
     }
-  } catch (err: any) {
+  } catch {
     return undefined;
   }
 }
@@ -111,27 +113,6 @@ export function parseAddress(urlAddress: any): any {
 }
 
 /**
- * Function filters out bad semver versions and sorts the array.
- * @return {Array} sorted Array
- */
-export function semverSort(listVersions: string[]): string[] {
-  return (
-    listVersions
-      .filter(function (x): boolean {
-        if (!semver.parse(x, true)) {
-          logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
-}
-
-/**
  * Flatten arrays of tags.
  * @param {*} data
  */
@@ -139,7 +120,7 @@ export function normalizeDistTags(pkg: Manifest): void {
   let sorted;
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
-    sorted = semverSort(Object.keys(pkg.versions));
+    sorted = pkgUtils.semverSort(Object.keys(pkg.versions));
     if (sorted && sorted.length) {
       pkg[DIST_TAGS].latest = sorted.pop();
     }
@@ -150,8 +131,7 @@ export function normalizeDistTags(pkg: Manifest): void {
       if (pkg[DIST_TAGS][tag].length) {
         // sort array
         // FIXME: this is clearly wrong, we need to research why this is like this.
-        // @ts-ignore
-        sorted = semverSort(pkg[DIST_TAGS][tag]);
+        sorted = pkgUtils.semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
           // use highest version based on semver sort
           pkg[DIST_TAGS][tag] = sorted.pop();
@@ -221,44 +201,12 @@ export const ErrorCode = {
   getCode,
 };
 
-/**
- * Check whether the path already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function folderExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isDirectory();
-  } catch (_: any) {
-    return false;
-  }
-}
-
-/**
- * Check whether the file already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function fileExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isFile();
-  } catch (_: any) {
-    return false;
-  }
-}
-
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
   return packages.slice().sort(function (a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
-}
-
-export function addScope(scope: string, packageName: string): string {
-  return `@${scope}/${packageName}`;
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {

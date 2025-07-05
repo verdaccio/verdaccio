@@ -1,6 +1,9 @@
+import { describe, expect, test } from 'vitest';
+
+import { setup } from '../../../../src/lib/logger';
 import ProxyStorage from '../../../../src/lib/up-storage';
 
-require('../../../../src/lib/logger').setup([]);
+setup({});
 
 function setupProxy(host, uplinkConf, appConfig) {
   uplinkConf.url = host;

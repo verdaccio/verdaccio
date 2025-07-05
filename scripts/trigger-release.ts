@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/rest';
 
 const [, , /* node */ /* file */ tag] = process.argv;
-// eslint-disable-next-line no-console
+
 console.log('tag', tag);
 
 const octokit = new Octokit({
@@ -10,7 +10,6 @@ const octokit = new Octokit({
 
 (async () => {
   try {
-    // eslint-disable-next-line no-console
     await octokit.repos.createRelease({
       owner: 'verdaccio',
       repo: 'verdaccio',
@@ -20,7 +19,6 @@ const octokit = new Octokit({
       discussion_category_name: 'Announcements',
     });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error(`release script has failed, details: ${err}`);
     process.exit(1);
   }

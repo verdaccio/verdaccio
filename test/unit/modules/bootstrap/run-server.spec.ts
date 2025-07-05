@@ -1,30 +1,41 @@
 import { join } from 'path';
+import { describe, expect, test } from 'vitest';
+
+import { parseConfigFile } from '@verdaccio/config';
 
 import { runServer } from '../../../../src';
-import { parseConfigFile } from '../../../../src/lib/utils';
+import { setup } from '../../../../src/lib/logger';
+
+setup({});
 
 describe('bootstrap modern', () => {
   describe('runServer', () => {
-    test('run server should be able to listen', (done) => {
+    test('run server should be able to listen', () => {
       const configPath = join(__dirname, './config.yaml');
-      runServer(configPath).then((app) => {
-        app.listen(4000, () => {
-          app.close();
-          done();
+      return new Promise((done) => {
+        runServer(configPath).then((app) => {
+          expect(app).toBeDefined();
+          app.listen(4000, () => {
+            app.close();
+            done(true);
+          });
         });
       });
     });
 
-    test('run server should be able to listen with object', (done) => {
+    test('run server should be able to listen with object', () => {
       const configPath = join(__dirname, './config.yaml');
-      const c = parseConfigFile(configPath);
+      const config = parseConfigFile(configPath);
       // workaround
-      // on v5 the `self_path` still exists and will be removed in v6
-      c.self_path = 'foo';
-      runServer(c).then((app) => {
-        app.listen(4000, () => {
-          app.close();
-          done();
+      // on v5 the `self_path` still exists and will be removed in future versions
+      // @ts-expect-error
+      config.self_path = 'foo';
+      return new Promise((done) => {
+        runServer(config).then((app) => {
+          app.listen(4000, () => {
+            app.close();
+            done(true);
+          });
         });
       });
     });

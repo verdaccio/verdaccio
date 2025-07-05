@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node_version: [18, 20, 21, 22]    
+        node_version: [18, 20, 22, 24]    
     
     runs-on: ubuntu-latest
     steps:
@@ -23,27 +23,43 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Docker test
         run: |
-            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:5
+            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6
       - name: login    
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
+      - name: Install dependencies
+        run: yarn
+      - name: Bump up package and save version
+        run: |
+          npm version prerelease --no-git-tag-version --preid $(date +%s%N)
+          echo "VERDACCIO_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: Build
-        run: yarn && yarn build
-      - name: Types
-        run: yarn code:types           
-      - name: Bump up package
-        run: npm version prerelease --no-git-tag-version --preid $(date +%s%N)          
+        run: yarn build
       - name: publish verdaccio 
-        run:  npm publish --registry http://localhost:4873
-      - name: install verdaccio 
-        run:  npm i -g verdaccio --loglevel info --registry http://localhost:4873
-      - name: verdaccio version 
-        run:  verdaccio --version
+        run: npm publish --tag next --registry http://localhost:4873
       - name: 'Running the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
-          npm install jest@27.5.1 --registry http://localhost:4873
-          npm install verdaccio --registry http://localhost:4873
-          echo "test('require module should works', () => { const {runServer} = require('verdaccio') });" | tee module.spec.js
+          npm install vitest --registry http://localhost:4873
+          npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873
+          echo "import { describe, expect, test } from 'vitest';
+                import { runServer, getDefaultConfig, fileUtils } from 'verdaccio';    
+
+          test('runServer should start correctly with default config', async () => {          
+            const storage = await fileUtils.createTempStorageFolder('basic-test');
+            expect(typeof runServer).toBe('function');            
+            
+            const defaultConfig = {...getDefaultConfig(), storage}
+            console.log('Default Config:', defaultConfig);
+            const server = await runServer(defaultConfig);
+            
+            expect(server).toBeDefined();
+            expect(server).toHaveProperty('listen');
+            
+            if (server && typeof server.close === 'function') {
+              await server.close();
+            }
+          });" | tee module.spec.js
           cat module.spec.js
-          yarn jest    
+          DEBUG=verdaccio* yarn vitest run module.spec --reporter verbose 
+

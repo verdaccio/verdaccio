@@ -22,7 +22,8 @@ RUN yarn config set npmRegistryServer $VERDACCIO_BUILD_REGISTRY && \
     yarn config set enableProgressBars true && \
     yarn config set enableScripts false && \
     yarn install --immutable && \
-    yarn build
+    yarn build && \
+    yarn copy:config
 ## pack the project
 RUN yarn pack --out verdaccio.tgz \
     && mkdir -p /opt/tarball \

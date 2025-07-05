@@ -6,39 +6,15 @@ import https from 'https';
 import _, { assign } from 'lodash';
 import path from 'path';
 
+import { findConfigFile } from '@verdaccio/config';
 import { Config, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { getListListenAddresses } from './cli/utils';
-import findConfigFile from './config-path';
 import { API_ERROR } from './constants';
 import { parseConfigFile } from './utils';
 
-const debug = buildDebug('verdaccio');
-
-const logger = require('./logger');
-
-export function displayExperimentsInfoBox(flags) {
-  if (!flags) {
-    return;
-  }
-
-  const experimentList = Object.keys(flags);
-  if (experimentList.length >= 1) {
-    logger.warn(
-      // eslint-disable-next-line max-len
-      `experiments are enabled, it is recommended do not use experiments in production comment out this section to disable it`
-    );
-    experimentList.forEach((experiment) => {
-      // eslint-disable-next-line max-len
-      logger.info(
-        `support for experiment [${experiment}] ${
-          flags[experiment] ? 'is enabled' : ' is disabled'
-        }`
-      );
-    });
-  }
-}
+const debug = buildDebug('verdaccio:run-server');
 
 /**
  * Exposes a server factory to be instantiated programmatically.
@@ -54,15 +30,19 @@ export function displayExperimentsInfoBox(flags) {
 export async function runServer(config?: string): Promise<any> {
   let configurationParsed: ReturnType<any>;
   if (config === undefined || typeof config === 'string') {
+    debug('using default configuration');
     const configPathLocation = findConfigFile(config);
     configurationParsed = parseConfigFile(configPathLocation);
     if (!configurationParsed.self_path) {
+      debug('self_path not defined, using config path location');
       configurationParsed.self_path = path.resolve(configPathLocation);
     }
   } else if (_.isObject(config)) {
     configurationParsed = config;
+
     if (!configurationParsed.self_path) {
-      throw new Error('self_path is required, please provide a valid root path for storage');
+      debug('self_path not defined, using config path location');
+      configurationParsed.self_path = configurationParsed.configPath;
     }
   } else {
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);

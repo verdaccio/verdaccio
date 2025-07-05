@@ -10,8 +10,8 @@ import {
   Config,
   DistFile,
   Logger,
+  Manifest,
   MergeTags,
-  Package,
   StorageUpdateCallback,
   Token,
   TokenFilter,
@@ -55,7 +55,7 @@ class LocalStorage {
     this.storagePlugin = localStorage;
   }
 
-  public addPackage(name: string, pkg: Package, callback: Callback): void {
+  public addPackage(name: string, pkg: Manifest, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
 
     if (_.isNil(storage)) {
@@ -94,7 +94,7 @@ class LocalStorage {
       return callback(ErrorCode.getNotFound());
     }
 
-    storage.readPackage(name, (err, data: Package): void => {
+    storage.readPackage(name, (err, data: Manifest): void => {
       if (_.isNil(err) === false) {
         if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
           return callback(ErrorCode.getNotFound());
@@ -131,7 +131,7 @@ class LocalStorage {
    * @param {*} packageInfo
    * @param {*} callback
    */
-  public updateVersions(name: string, packageInfo: Package, callback: Callback): void {
+  public updateVersions(name: string, packageInfo: Manifest, callback: Callback): void {
     this._readCreatePackage(name, (err, packageLocalJson): void => {
       if (err) {
         return callback(err);
@@ -353,7 +353,7 @@ class LocalStorage {
    */
   public changePackage(
     name: string,
-    incomingPkg: Package,
+    incomingPkg: Manifest,
     revision: string | void,
     callback: Callback
   ): void {
@@ -364,7 +364,7 @@ class LocalStorage {
     debug('changePackage udapting package for %o', name);
     this._updatePackage(
       name,
-      (localData: Package, cb: Callback): void => {
+      (localData: Manifest, cb: Callback): void => {
         for (const version in localData.versions) {
           const incomingVersion = incomingPkg.versions[version];
           if (_.isNil(incomingVersion)) {
@@ -490,14 +490,12 @@ class LocalStorage {
     const writeStream = storage.writeTarball(filename);
 
     writeStream.on('error', (err) => {
-      // @ts-ignore
       if (err.code === STORAGE.FILE_EXIST_ERROR || err.code === HTTP_STATUS.CONFLICT) {
         uploadStream.emit('error', ErrorCode.getConflict());
         uploadStream.abort();
-        // @ts-ignore
       } else if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         // check if package exists to throw an appropriate message
-        this.getPackageMetadata(name, function (_err: any, _res: Package): void {
+        this.getPackageMetadata(name, function (_err: any): void {
           if (_err) {
             uploadStream.emit('error', _err);
           } else {
@@ -602,7 +600,6 @@ class LocalStorage {
     };
 
     readTarballStream.on('error', function (err) {
-      // @ts-ignore
       if (err.code === STORAGE.NO_SUCH_FILE_ERROR || err.code === HTTP_STATUS.NOT_FOUND) {
         stream.emit('error', e404('no such file available'));
       } else {
@@ -645,13 +642,14 @@ class LocalStorage {
    * @return {Function}
    */
   public search(startKey: string, options: any) {
+    debug('options for search %o', options);
     const stream = new ReadTarball({ objectMode: true });
 
     this._searchEachPackage(
-      (item: Package, cb: Callback): void => {
+      (item: Manifest, cb: Callback): void => {
         // @ts-ignore
         if (item.time > parseInt(startKey, 10)) {
-          this.getPackageMetadata(item.name, (err: any, data: Package): void => {
+          this.getPackageMetadata(item.name, (err: any, data: Manifest): void => {
             if (err) {
               return cb(err);
             }
@@ -799,7 +797,7 @@ class LocalStorage {
    * @param {*} callback
    * @return {Function}
    */
-  private _writePackage(name: string, json: Package, callback: Callback): void {
+  private _writePackage(name: string, json: Manifest, callback: Callback): void {
     const storage: any = this._getLocalStorage(name);
     if (_.isNil(storage)) {
       return callback();
@@ -807,7 +805,7 @@ class LocalStorage {
     storage.savePackage(name, this._setDefaultRevision(json), callback);
   }
 
-  private _setDefaultRevision(json: Package): Package {
+  private _setDefaultRevision(json: Manifest): Manifest {
     // calculate revision from couch db
     if (_.isString(json._rev) === false) {
       json._rev = STORAGE.DEFAULT_REVISION;

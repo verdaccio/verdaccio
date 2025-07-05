@@ -1,6 +1,7 @@
 import nock from 'nock';
 import { basename } from 'path';
 import supertest from 'supertest';
+import { describe, expect, test } from 'vitest';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { API_ERROR, API_MESSAGE, HEADERS, HEADER_TYPE } from '@verdaccio/core';

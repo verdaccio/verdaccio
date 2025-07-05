@@ -5,8 +5,7 @@ import { InitCommand } from './commands/init';
 import { VersionCommand } from './commands/version';
 import { MIN_NODE_VERSION, isVersionValid } from './utils';
 
-require('pkginfo')(module);
-const pkgVersion = module.exports.version;
+const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
 
 if (process.getuid && process.getuid() === 0) {
   process.emitWarning(`Verdaccio doesn't need superuser privileges. don't run it under root`);
