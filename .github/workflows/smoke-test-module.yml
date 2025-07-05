@@ -45,7 +45,6 @@ jobs:
           source scripts/e2e-setup-ci.sh
           npm init --force
           npm install vitest --registry http://localhost:4873
-          npm install verdaccio --registry http://localhost:4873
           echo "import { describe, expect, test } from 'vitest';
                 import { runServer, getDefaultConfig } from 'verdaccio';    
 
