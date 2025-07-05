@@ -47,10 +47,9 @@ jobs:
           npm install vitest --registry http://localhost:4873
           npm install verdaccio --registry http://localhost:4873
           echo "import { describe, expect, test } from 'vitest';
+                import { runServer, getDefaultConfig } from 'verdaccio';    
 
-          test('runServer should start correctly with default config', async () => {
-            const { runServer, getDefaultConfig } = require('verdaccio');
-            
+          test('runServer should start correctly with default config', async () => {          
             expect(typeof runServer).toBe('function');            
             
             const defaultConfig = getDefaultConfig();
