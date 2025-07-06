@@ -1,5 +1,20 @@
 # verdaccio
 
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [08e1b21]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/ui-theme@8.0.0-next-8.20
+  - @verdaccio/node-api@8.0.0-next-8.20
+  - @verdaccio/hooks@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.20
+  - @verdaccio/cli@8.0.0-next-8.20
+  - verdaccio-audit@13.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes

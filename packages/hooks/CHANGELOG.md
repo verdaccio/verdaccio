@@ -1,5 +1,14 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes

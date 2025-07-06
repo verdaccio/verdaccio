@@ -1,5 +1,22 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [73c0194]
+- Updated dependencies [5fef0b6]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/store@8.0.0-next-8.20
+  - @verdaccio/auth@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+  - @verdaccio/tarball@13.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes
