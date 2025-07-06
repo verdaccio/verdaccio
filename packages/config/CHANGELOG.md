@@ -1,5 +1,18 @@
 # @verdaccio/config
 
+## 8.0.0-next-8.20
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- a1a73e9: feat(logger): support redacting sensitive data
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes

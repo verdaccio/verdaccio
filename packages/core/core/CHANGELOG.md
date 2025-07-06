@@ -1,5 +1,11 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.20
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes
