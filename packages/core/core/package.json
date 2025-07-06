@@ -36,7 +36,7 @@
     "ajv": "8.17.1",
     "http-errors": "2.0.0",
     "http-status-codes": "2.3.0",
-    "minimatch": "10.0.1",
+    "minimatch": "7.4.6",
     "process-warning": "1.0.0",
     "semver": "7.7.2"
   },
