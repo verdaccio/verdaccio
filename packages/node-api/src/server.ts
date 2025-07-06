@@ -7,8 +7,8 @@ import http from 'node:http';
 import https from 'node:https';
 import url from 'node:url';
 
-import { findConfigFile, getListenAddress, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR, DEFAULT_PORT } from '@verdaccio/core';
+import { getConfigParsed, getListenAddress } from '@verdaccio/config';
+import { DEFAULT_PORT } from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import expressServer from '@verdaccio/server';
 import fastifyServer from '@verdaccio/server-fastify';
@@ -197,16 +197,7 @@ export async function initServer(
  * @param config
  */
 export async function runServer(config?: string | ConfigYaml): Promise<any> {
-  let configurationParsed: ConfigYaml;
-  if (config === undefined || typeof config === 'string') {
-    const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation);
-  } else if (_.isObject(config)) {
-    configurationParsed = config;
-  } else {
-    throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
-  }
-
+  const configurationParsed = getConfigParsed(config);
   setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
