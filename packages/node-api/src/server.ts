@@ -7,14 +7,13 @@ import http from 'node:http';
 import https from 'node:https';
 import url from 'node:url';
 
-import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { findConfigFile, getListenAddress, parseConfigFile } from '@verdaccio/config';
+import { API_ERROR, DEFAULT_PORT } from '@verdaccio/core';
+import { logger, setup } from '@verdaccio/logger';
 import expressServer from '@verdaccio/server';
 import fastifyServer from '@verdaccio/server-fastify';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
-import { getListListenAddresses } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
 
 const debug = buildDebug('verdaccio:node-api');
@@ -121,9 +120,9 @@ export async function initServer(
   pkgName: string
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    // FIXME: get only the first match, the multiple address will be removed
-    const [addr] = getListListenAddresses(port, config.listen);
     const logger = setup(config?.log as any);
+    const combined: string | undefined | any[] = [port, config?.listen, DEFAULT_PORT];
+    const addr = getListenAddress(combined, logger);
     displayExperimentsInfoBox(config.flags);
 
     let app;
@@ -211,7 +210,8 @@ export async function runServer(config?: string | ConfigYaml): Promise<any> {
   setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
   // FIXME: get only the first match, the multiple address will be removed
-  const [addr] = getListListenAddresses(undefined, configurationParsed.listen);
+  const combined: string | undefined | any[] = [configurationParsed?.listen, DEFAULT_PORT];
+  const addr = getListenAddress(combined, logger);
   const app = await expressServer(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
 }

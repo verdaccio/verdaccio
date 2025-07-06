@@ -10,3 +10,4 @@ export * from './agent';
 export * from './user';
 export { default as ConfigBuilder } from './builder';
 export { getDefaultConfig } from './conf';
+export * from './address';
