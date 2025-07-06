@@ -10,11 +10,11 @@ import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { log } from '@verdaccio/middleware';
 import { SearchMemoryIndexer } from '@verdaccio/search-indexer';
-import { Config as IConfig } from '@verdaccio/types';
+import { ConfigYaml, Config as IConfig } from '@verdaccio/types';
 
 import AppConfig from '../lib/config';
 import { API_ERROR } from '../lib/constants';
-import { logger, setup } from '../lib/logger';
+import { logger } from '../lib/logger';
 import Storage from '../lib/storage';
 import { ErrorCode } from '../lib/utils';
 import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
@@ -23,7 +23,7 @@ import apiEndpoint from './endpoint';
 import { serveFavicon } from './middleware';
 import webMiddleware from './web';
 
-const { version } = require('../../package.json');
+const version = process.env.PACKAGE_VERSION || 'dev';
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<express.Application> {
   const auth = new Auth(config, logger, { legacyMergeConfigs: true });
@@ -64,7 +64,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
     hookDebug(app, config.configPath);
   }
 
-  const plugins: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>[] = await asyncLoadPlugin(
+  const plugins: pluginUtils.ExpressMiddleware<IConfig, '', Auth>[] = await asyncLoadPlugin(
     config.middlewares,
     {
       config,
@@ -108,8 +108,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<ex
   return app;
 };
 
-export default (async function (configHash: any) {
-  setup(configHash.logs);
+export default (async function (configHash: ConfigYaml): Promise<express.Application> {
   const config: IConfig = new AppConfig(_.cloneDeep(configHash));
 
   const storage = new Storage(config);

@@ -1,10 +1,8 @@
-import path from 'path';
-import rimraf from 'rimraf';
+import getPort from 'get-port';
 import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
 
-import { buildUserBuffer } from '@verdaccio/utils';
-
-import endPointAPI from '../../../../src/api';
+import { fileUtils } from '@verdaccio/core';
 import {
   API_ERROR,
   HEADERS,
@@ -12,57 +10,57 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
-} from '../../../../src/lib/constants';
+} from '@verdaccio/core';
+import { buildUserBuffer } from '@verdaccio/utils';
+import { buildToken } from '@verdaccio/utils';
+
+import endPointAPI from '../../../../src/api';
 import { setup } from '../../../../src/lib/logger';
-import { buildToken } from '../../../../src/lib/utils';
-import { DOMAIN_SERVERS } from '../../../functional/config.functional';
 import { addUser, getPackage, loginUserToken } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
 import configDefault from '../../partials/config';
 
-setup([]);
+setup({});
+
 const credentials = { name: 'JotaJWT', password: 'secretPass' };
 
 const FORBIDDEN_VUE = 'authorization required to access package vue';
 
 describe('endpoint user auth JWT unit test', () => {
-  jest.setTimeout(20000);
+  vi.setConfig({ testTimeout: 20000 });
   let app;
   let mockRegistry;
   const FAKE_TOKEN: string = buildToken(TOKEN_BEARER, 'fake');
 
-  beforeAll(function (done) {
-    const store = path.join(__dirname, '../../partials/store/test-jwt-storage');
-    const mockServerPort = 55546;
-    rimraf(store, async () => {
-      const configForTest = configDefault(
-        {
-          storage: store,
-          uplinks: {
-            npmjs: {
-              url: `http://${DOMAIN_SERVERS}:${mockServerPort}`,
-            },
-          },
-          self_path: store,
-          auth: {
-            htpasswd: {
-              file: './test-jwt-storage/.htpasswd_jwt_auth',
-            },
-          },
-          log: { type: 'stdout', format: 'pretty', level: 'warn' },
-        },
-        'api-jwt/jwt.yaml'
-      );
+  beforeAll(async function () {
+    const store = await fileUtils.createTempStorageFolder('test-jwt-storage');
+    const mockServerPort = await getPort();
 
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
-    });
+    const configForTest = configDefault(
+      {
+        storage: store,
+        uplinks: {
+          npmjs: {
+            url: `http://localhost:${mockServerPort}`,
+          },
+        },
+        self_path: store,
+        auth: {
+          htpasswd: {
+            file: './htpasswd_jwt_auth',
+          },
+        },
+        log: { type: 'stdout', format: 'pretty', level: 'debug' },
+      },
+      'api-jwt/jwt.yaml'
+    );
+
+    app = await endPointAPI(configForTest);
+    mockRegistry = await mockServer(mockServerPort).init();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     mockRegistry[0].stop();
-    done();
   });
 
   test('should test add a new user with JWT enabled', async () => {
@@ -88,6 +86,7 @@ describe('endpoint user auth JWT unit test', () => {
       'vue',
       HTTP_STATUS.UNAUTHORIZED
     );
+
     expect(err2).toBeNull();
     expect(resp2.statusCode).toBe(HTTP_STATUS.UNAUTHORIZED);
     expect(resp2.body.error).toMatch(FORBIDDEN_VUE);

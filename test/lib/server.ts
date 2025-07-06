@@ -3,14 +3,32 @@ import _ from 'lodash';
 
 import { API_MESSAGE, HEADERS, HTTP_STATUS, TOKEN_BASIC } from '../../src/lib/constants';
 import { buildToken } from '../../src/lib/utils';
-import { CREDENTIALS } from '../functional/config.functional';
-import getPackage from '../functional/fixtures/package';
 import { IServerBridge } from '../types';
+import { CREDENTIALS } from './credentials';
 import smartRequest from './request';
 
 const buildAuthHeader = (user, pass): string => {
   return buildToken(TOKEN_BASIC, Buffer.from(`${user}:${pass}`).toString('base64'));
 };
+
+function getPackage(
+  name,
+  version = '0.0.0',
+  port = '55551',
+  domain = `http://localhost:${port}`,
+  fileName = 'tarball-blahblah-file.name',
+  readme = 'this is a readme'
+): any {
+  return {
+    name,
+    version,
+    readme,
+    dist: {
+      shasum: 'fake',
+      tarball: `${domain}/${encodeURIComponent(name)}/-/${fileName}`,
+    },
+  };
+}
 
 export default class Server implements IServerBridge {
   public url: string;
@@ -153,7 +171,7 @@ export default class Server implements IServerBridge {
     data: any,
     headerContentSize: number
   ): Promise<any> {
-    let promise = this.request({
+    const promise = this.request({
       uri: `/${encodeURIComponent(pkgName)}/-/${encodeURIComponent(filename)}/whatever`,
       method: 'PUT',
       headers: {

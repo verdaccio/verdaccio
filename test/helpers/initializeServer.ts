@@ -36,7 +36,7 @@ export async function initializeServer(
   app.use(express.json({ strict: false, limit: '100mb' }));
   // @ts-ignore
   app.use(errorReportingMiddleware(logger));
-  for (let route of routesMiddleware) {
+  for (const route of routesMiddleware) {
     if (route.async) {
       const middleware = await route.routes(config, auth, storage);
       app.use(middleware);

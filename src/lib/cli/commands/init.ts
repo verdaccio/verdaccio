@@ -1,19 +1,16 @@
 import { Command, Option } from 'clipanion';
 import path from 'path';
 
-import { warningUtils } from '@verdaccio/core';
-import { ConfigYaml } from '@verdaccio/types';
+import { findConfigFile } from '@verdaccio/config';
 
 import { listenDefaultCallback, startVerdaccio } from '../../bootstrap';
-import findConfigFile from '../../config-path';
+import { logger } from '../../logger';
 import { parseConfigFile } from '../../utils';
 
-require('pkginfo')(module);
-const pkgVersion = module.exports.version;
-const pkgName = module.exports.name;
+const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
+const pkgName = 'verdaccio';
 
 export const DEFAULT_PROCESS_NAME: string = 'verdaccio';
-const logger = require('../../logger');
 
 export class InitCommand extends Command {
   static paths = [Command.Default];
@@ -22,7 +19,6 @@ export class InitCommand extends Command {
     description: 'host:port number to listen on (default: localhost:4873)',
   });
 
-  // eslint-disable-next-line
   static usage = Command.Usage({
     description: `launch the server`,
     details: `
@@ -52,14 +48,6 @@ export class InitCommand extends Command {
     description: 'use this configuration file (default: ./config.yaml)',
   });
 
-  private initLogger(logConfig: ConfigYaml) {
-    if (logConfig.logs) {
-      logConfig.log = logConfig.logs;
-      warningUtils.emit(warningUtils.Codes.VERWAR002);
-    }
-    logger.setup(logConfig.log);
-  }
-
   async execute() {
     let configPathLocation;
     try {
@@ -67,19 +55,12 @@ export class InitCommand extends Command {
       const configParsed: ReturnType<any> = parseConfigFile(configPathLocation);
       if (!configParsed.self_path) {
         configParsed.self_path = path.resolve(configPathLocation);
-        this.initLogger(configParsed);
         // compatibility with 6.x plugins
         configParsed.configPath = configParsed.self_path;
       }
       if (!configParsed.https) {
         configParsed.https = { enable: false };
       }
-
-      configParsed.flags = {
-        ...configParsed.flags,
-        // on this version there is no remote search
-        searchRemote: false,
-      };
 
       process.title = (configParsed.web && configParsed.web.title) || 'verdaccio';
 
@@ -91,15 +72,15 @@ export class InitCommand extends Command {
         pkgName,
         listenDefaultCallback
       );
-      logger.logger.info({ file: configPathLocation }, 'config file  - @{file}');
+      logger.info({ file: configPathLocation }, 'config file  - @{file}');
     } catch (err: any) {
+      console.error(`cannot open config file ${configPathLocation}: ${err.stack}`);
       if (typeof logger?.logger?.fatal === 'function') {
-        logger.logger.fatal(
+        logger.fatal(
           { file: configPathLocation, err: err },
           'cannot open config file @{file}: @{!err.message}'
         );
       } else {
-        // eslint-disable-next-line no-console
         console.error(`cannot open config file ${configPathLocation}: ${!err.message}`);
       }
       process.exit(1);

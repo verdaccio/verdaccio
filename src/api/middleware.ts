@@ -7,14 +7,13 @@ import { Config } from '@verdaccio/types';
 import { isURL } from '@verdaccio/url';
 
 import { HTTP_STATUS } from '../lib/constants';
-import { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import { $RequestExtend, $ResponseExtend } from '../types';
 
 const debug = buildDebug('verdaccio:middleware:favicon');
 
 export function serveFavicon(config: Config) {
-  return function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
+  return function (_req: $RequestExtend, res: $ResponseExtend) {
     try {
-      // @ts-ignore
       const logoConf: string = config?.web?.favicon as string;
       if (logoConf === '') {
         debug('favicon disabled');
@@ -49,8 +48,8 @@ export function serveFavicon(config: Config) {
         fs.createReadStream(path.posix.join(__dirname, './web/html/favicon.ico')).pipe(res);
         debug('rendered ico');
       }
-    } catch (err) {
-      debug('error triggered, favicon not found');
+    } catch (err: any) {
+      debug('error triggered, favicon not found %s', err?.message);
       res.status(HTTP_STATUS.NOT_FOUND).end();
     }
   };
