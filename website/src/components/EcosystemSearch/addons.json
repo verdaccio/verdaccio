@@ -10,7 +10,7 @@
       "bundled": true,
       "description": "Verdaccio Middleware plugin to bypass npmjs audit",
       "latest": "10.2.4",
-      "downloads": 1304556,
+      "downloads": 1367273,
       "registry": "https://registry.npmjs.org/verdaccio-audit"
     },
     {
@@ -21,7 +21,7 @@
       "bundled": true,
       "description": "Local storage implementation",
       "latest": "10.5.0",
-      "downloads": 397157,
+      "downloads": 408826,
       "registry": "https://registry.npmjs.org/@verdaccio/local-storage"
     },
     {
@@ -32,7 +32,7 @@
       "bundled": true,
       "description": "Verdaccio User Interface",
       "latest": "3.4.1",
-      "downloads": 1315153,
+      "downloads": 1379271,
       "registry": "https://registry.npmjs.org/@verdaccio/ui-theme"
     },
     {
@@ -43,7 +43,7 @@
       "bundled": false,
       "description": "Storage implementation in memory",
       "latest": "10.4.1",
-      "downloads": 32266,
+      "downloads": 31358,
       "registry": "https://registry.npmjs.org/verdaccio-memory"
     },
     {
@@ -54,7 +54,7 @@
       "bundled": false,
       "description": "AWS S3 storage implementation for Verdaccio",
       "latest": "10.4.0",
-      "downloads": 2098,
+      "downloads": 2156,
       "registry": "https://registry.npmjs.org/verdaccio-aws-s3-storage"
     },
     {
@@ -65,7 +65,7 @@
       "bundled": false,
       "description": "Google Cloud storage implementation for Verdaccio",
       "latest": "10.2.1",
-      "downloads": 552,
+      "downloads": 500,
       "registry": "https://registry.npmjs.org/verdaccio-google-cloud"
     },
     {
@@ -76,7 +76,7 @@
       "bundled": false,
       "description": "Auth plugin for Verdaccio that keeps users in memory",
       "latest": "10.3.1",
-      "downloads": 110477,
+      "downloads": 118031,
       "registry": "https://registry.npmjs.org/verdaccio-auth-memory"
     },
     {
@@ -87,7 +87,7 @@
       "bundled": true,
       "description": "htpasswd auth plugin for Verdaccio",
       "latest": "10.5.5",
-      "downloads": 1305860,
+      "downloads": 1368479,
       "registry": "https://registry.npmjs.org/verdaccio-htpasswd"
     },
     {
@@ -98,7 +98,7 @@
       "bundled": false,
       "description": "plugin for filtering packages with security purposes",
       "latest": "1.1.0",
-      "downloads": 58,
+      "downloads": 48,
       "registry": "https://registry.npmjs.org/verdaccio-plugin-secfilter"
     },
     {
@@ -120,7 +120,7 @@
       "origin": "community",
       "category": "storage",
       "latest": "1.2.13",
-      "downloads": 13,
+      "downloads": 14,
       "registry": "https://registry.npmjs.org/@playerdata/verdaccio-storage-expiry"
     },
     {
@@ -142,7 +142,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "3.0.1",
-      "downloads": 38,
+      "downloads": 37,
       "registry": "https://registry.npmjs.org/verdaccio-bitbucket"
     },
     {
@@ -175,7 +175,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "0.1.103",
-      "downloads": 102,
+      "downloads": 101,
       "registry": "https://registry.npmjs.org/verdaccio-git"
     },
     {
@@ -186,7 +186,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "6.0.0",
-      "downloads": 301,
+      "downloads": 304,
       "registry": "https://registry.npmjs.org/verdaccio-ldap"
     },
     {
@@ -230,7 +230,7 @@
       "origin": "community",
       "category": "middleware",
       "latest": "2.0.2",
-      "downloads": 16,
+      "downloads": 12,
       "registry": "https://registry.npmjs.org/@xlts.dev/verdaccio-prometheus-middleware"
     },
     {
@@ -241,7 +241,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "1.0.5",
-      "downloads": 42,
+      "downloads": 44,
       "registry": "https://registry.npmjs.org/verdaccio-github-auth"
     },
     {
@@ -252,7 +252,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "3.0.1",
-      "downloads": 89,
+      "downloads": 88,
       "registry": "https://registry.npmjs.org/verdaccio-gitlab"
     },
     {
@@ -263,7 +263,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "1.3.4",
-      "downloads": 54,
+      "downloads": 52,
       "registry": "https://registry.npmjs.org/verdaccio-bitbucket-server"
     },
     {
@@ -274,7 +274,7 @@
       "origin": "community",
       "category": "middleware",
       "latest": "1.0.7",
-      "downloads": 28,
+      "downloads": 24,
       "registry": "https://registry.npmjs.org/verdaccio-package-count"
     },
     {
@@ -285,7 +285,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "1.0.2",
-      "downloads": 31,
+      "downloads": 32,
       "registry": "https://registry.npmjs.org/verdaccio-activedirectory"
     },
     {
@@ -318,7 +318,7 @@
       "origin": "community",
       "category": "storage",
       "latest": "0.2.5",
-      "downloads": 52,
+      "downloads": 54,
       "registry": "https://registry.npmjs.org/verdaccio-minio"
     },
     {
@@ -329,7 +329,7 @@
       "origin": "community",
       "category": "storage",
       "latest": "1.2.4",
-      "downloads": 48,
+      "downloads": 49,
       "registry": "https://registry.npmjs.org/verdaccio-redis-storage"
     },
     {
@@ -340,7 +340,7 @@
       "origin": "community",
       "category": "authentication",
       "latest": "1.2.0",
-      "downloads": 43,
+      "downloads": 45,
       "registry": "https://registry.npmjs.org/verdaccio-mongodb"
     },
     {
@@ -374,7 +374,7 @@
       "url": "https://www.npmjs.org/verdaccio-storage-proxy",
       "registry": "https://registry.npmjs.org/verdaccio-storage-proxy",
       "latest": "0.0.11",
-      "downloads": 41
+      "downloads": 42
     },
     {
       "name": "verdaccio-local-storage-advance",
@@ -429,7 +429,7 @@
       "url": "https://www.npmjs.org/@outcome-co/verdaccio-google-cloud",
       "registry": "https://registry.npmjs.org/@outcome-co/verdaccio-google-cloud",
       "latest": "1.1.8",
-      "downloads": 31
+      "downloads": 29
     },
     {
       "name": "verdaccio-pg-storage",
@@ -462,7 +462,7 @@
       "url": "https://www.npmjs.org/verdaccio-offline-storage",
       "registry": "https://registry.npmjs.org/verdaccio-offline-storage",
       "latest": "2.0.0",
-      "downloads": 42
+      "downloads": 41
     },
     {
       "name": "verdaccio-aliyunoss-storage",
@@ -484,7 +484,7 @@
       "url": "https://www.npmjs.org/verdaccio-openid-connect",
       "registry": "https://registry.npmjs.org/verdaccio-openid-connect",
       "latest": "3.0.0",
-      "downloads": 83
+      "downloads": 87
     },
     {
       "name": "verdaccio-github-oauth-ui",
@@ -516,7 +516,7 @@
       "url": "https://www.npmjs.org/verdaccio-auth-gitlab",
       "registry": "https://registry.npmjs.org/verdaccio-auth-gitlab",
       "latest": "2.0.0-beta.11",
-      "downloads": 41
+      "downloads": 43
     },
     {
       "name": "verdaccio-auth0-ui",
@@ -548,7 +548,7 @@
       "url": "https://www.npmjs.org/verdaccio-gitea-auth",
       "registry": "https://registry.npmjs.org/verdaccio-gitea-auth",
       "latest": "0.1.4",
-      "downloads": 130
+      "downloads": 151
     },
     {
       "name": "verdaccio-platformatic-auth",
@@ -570,7 +570,7 @@
       "url": "https://www.npmjs.org/verdaccio-google-oauth",
       "registry": "https://registry.npmjs.org/verdaccio-google-oauth",
       "latest": "1.0.1",
-      "downloads": 24
+      "downloads": 22
     },
     {
       "name": "verdaccio-passport-google-oauth-ui",
@@ -581,7 +581,7 @@
       "url": "https://www.npmjs.org/verdaccio-passport-google-oauth-ui",
       "registry": "https://registry.npmjs.org/verdaccio-passport-google-oauth-ui",
       "latest": "0.1.7",
-      "downloads": 201
+      "downloads": 81
     },
     {
       "name": "verdaccio-aukilabs-npm-auth",
@@ -658,7 +658,7 @@
       "url": "https://www.npmjs.org/verdaccio-group-htpasswd",
       "registry": "https://registry.npmjs.org/verdaccio-group-htpasswd",
       "latest": "1.0.0",
-      "downloads": 6
+      "downloads": 7
     },
     {
       "name": "verdaccio-groups",
@@ -669,7 +669,7 @@
       "url": "https://www.npmjs.org/verdaccio-groups",
       "registry": "https://registry.npmjs.org/verdaccio-groups",
       "latest": "1.2.0",
-      "downloads": 17
+      "downloads": 24
     },
     {
       "name": "verdaccio-github-token",
@@ -713,7 +713,7 @@
       "url": "https://www.npmjs.org/verdaccio-azure-ad-login",
       "registry": "https://registry.npmjs.org/verdaccio-azure-ad-login",
       "latest": "1.1.1",
-      "downloads": 39
+      "downloads": 40
     },
     {
       "name": "verdaccio-oidc",
@@ -724,7 +724,7 @@
       "url": "https://www.npmjs.org/verdaccio-oidc",
       "registry": "https://registry.npmjs.org/verdaccio-oidc",
       "latest": "0.0.0-namesquat",
-      "downloads": 13
+      "downloads": 12
     },
     {
       "name": "verdaccio-regman",
@@ -746,7 +746,7 @@
       "url": "https://www.npmjs.org/verdaccio-level-auth",
       "registry": "https://registry.npmjs.org/verdaccio-level-auth",
       "latest": "1.0.12",
-      "downloads": 23
+      "downloads": 22
     },
     {
       "name": "verdaccio-activedirectory-extended",
@@ -757,7 +757,7 @@
       "url": "https://www.npmjs.org/verdaccio-activedirectory-extended",
       "registry": "https://registry.npmjs.org/verdaccio-activedirectory-extended",
       "latest": "1.4.3",
-      "downloads": 23
+      "downloads": 24
     },
     {
       "name": "verdaccio-acl-plugin",
@@ -768,7 +768,7 @@
       "url": "https://www.npmjs.org/verdaccio-acl-plugin",
       "registry": "https://registry.npmjs.org/verdaccio-acl-plugin",
       "latest": "1.0.1",
-      "downloads": 10
+      "downloads": 14
     },
     {
       "name": "verdaccio-auth-bearer",
@@ -812,7 +812,7 @@
       "url": "https://www.npmjs.org/verdaccio-simplegroup",
       "registry": "https://registry.npmjs.org/verdaccio-simplegroup",
       "latest": "1.0.2",
-      "downloads": 15
+      "downloads": 17
     },
     {
       "name": "verdaccio-betaversion",
@@ -845,7 +845,7 @@
       "url": "https://www.npmjs.org/verdaccio-apm-login",
       "registry": "https://registry.npmjs.org/verdaccio-apm-login",
       "latest": "1.0.6",
-      "downloads": 39
+      "downloads": 38
     },
     {
       "name": "verdaccio-auth-stack",
@@ -998,7 +998,7 @@
       "url": "https://www.npmjs.org/verdaccio-sentry",
       "registry": "https://registry.npmjs.org/verdaccio-sentry",
       "latest": "0.0.2-beta",
-      "downloads": 10
+      "downloads": 11
     },
     {
       "name": "verdaccio-openmetrics",
@@ -1009,7 +1009,7 @@
       "url": "https://www.npmjs.org/verdaccio-openmetrics",
       "registry": "https://registry.npmjs.org/verdaccio-openmetrics",
       "latest": "1.2.0",
-      "downloads": 120
+      "downloads": 123
     },
     {
       "name": "verdaccio-https",
@@ -1031,7 +1031,7 @@
       "url": "https://www.npmjs.org/verdaccio-badges",
       "registry": "https://registry.npmjs.org/verdaccio-badges",
       "latest": "1.1.2",
-      "downloads": 42
+      "downloads": 43
     },
     {
       "name": "verdaccio-npm-urls",
@@ -1053,7 +1053,7 @@
       "url": "https://www.npmjs.org/verdaccio-static-token",
       "registry": "https://registry.npmjs.org/verdaccio-static-token",
       "latest": "1.0.1",
-      "downloads": 316
+      "downloads": 334
     },
     {
       "name": "verdaccio-apm-server",
@@ -1086,7 +1086,7 @@
       "url": "https://www.npmjs.org/verdaccio-oidc-ui",
       "registry": "https://registry.npmjs.org/verdaccio-oidc-ui",
       "latest": "2.2.7",
-      "downloads": 52
+      "downloads": 49
     },
     {
       "name": "verdaccio-github-oauth-ui-without-groups",
