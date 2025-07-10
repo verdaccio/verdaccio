@@ -1234,8 +1234,8 @@ importers:
         specifier: 2.3.3
         version: 2.3.3
       country-flag-icons:
-        specifier: 1.5.16
-        version: 1.5.16
+        specifier: 1.5.19
+        version: 1.5.19
       css-loader:
         specifier: 6.11.0
         version: 6.11.0(webpack@5.99.9)
@@ -1854,8 +1854,8 @@ importers:
         specifier: workspace:*
         version: link:../core/i18n
       country-flag-icons:
-        specifier: 1.5.16
-        version: 1.5.16
+        specifier: 1.5.19
+        version: 1.5.19
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -7583,8 +7583,8 @@ packages:
       typescript:
         optional: true
 
-  country-flag-icons@1.5.16:
-    resolution: {integrity: sha512-F9lNvhSrJ9D7Y2a6Tvbx2MFglZ9esNK76uTy4NqvdVzvgvy6/cKMGDYcnR1QOCgtmdc+akz2gqibZn3e3b6rQA==}
+  country-flag-icons@1.5.19:
+    resolution: {integrity: sha512-D/ZkRyj+ywJC6b2IrAN3/tpbReMUqmuRLlcKFoY/o0+EPQN9Ev/e8tV+D3+9scvu/tarxwLErNwS73C3yzxs/g==}
 
   create-jest@29.7.0:
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==}
@@ -14069,10 +14069,12 @@ packages:
   superagent@9.0.2:
     resolution: {integrity: sha512-xuW7dzkUpcJq7QnhOsnNUgtYp3xRwpt2F7abdRYIpCsAt0hhUqia0EdxyXZQQpNmGtsCzYHryaKSV3q3GJnq7w==}
     engines: {node: '>=14.18.0'}
+    deprecated: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
 
   supertest@7.0.0:
     resolution: {integrity: sha512-qlsr7fIC0lSddmA3tzojvzubYxvlGtzumcdHgPwbFWMISQwL22MhM2Y3LNt+6w9Yyx7559VW5ab70dgphm8qQA==}
     engines: {node: '>=14.18.0'}
+    deprecated: Please upgrade to supertest v7.1.3+, see release notes at https://github.com/forwardemail/supertest/releases/tag/v7.1.3 - maintenance is supported by Forward Email @ https://forwardemail.net
 
   supports-color@2.0.0:
     resolution: {integrity: sha512-KKNVtd6pCYgPIKU4cp2733HWYCpplQhddZLBUryaAHou723x+FRzQ5Df824Fj+IyyuiQTRoub4SnIFfIcrp70g==}
@@ -22523,7 +22525,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.3.3
 
-  country-flag-icons@1.5.16: {}
+  country-flag-icons@1.5.19: {}
 
   create-jest@29.7.0(@types/node@20.14.12)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.3.3)):
     dependencies:
