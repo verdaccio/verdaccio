@@ -30,7 +30,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --location=global verdaccio
+npm install --global verdaccio
 ```
 
 **Node.js v18 or higher is required for Verdaccio**
