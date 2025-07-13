@@ -1,5 +1,11 @@
 on:
   workflow_call:
+    inputs:
+      verdaccio-version:
+        description: 'Verdaccio version to use'
+        required: false
+        default: 'latest'
+        type: string
 
 jobs:
   testVerdaccio:
@@ -11,3 +17,4 @@ jobs:
       uses: verdaccio/github-actions/publish@master # always latest by design 
       with:
         args: -d
+        verdaccio-version: ${{ inputs.verdaccio-version }}
