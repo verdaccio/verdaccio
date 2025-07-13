@@ -44,7 +44,9 @@ jobs:
           VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
 
       - name: Prepare storage directory
-        run: mkdir -p storage
+        run: |
+          mkdir -p storage          
+          sudo chown -R 10001:root storage
 
       - name: Run Verdaccio with storage volume
         run: |
