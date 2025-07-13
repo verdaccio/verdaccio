@@ -118,8 +118,8 @@ jobs:
       - name: Set permissions for config.yaml
         run: |
           sudo chown 10001:root config.yaml
-          chmod 644 config.yaml          
-   
+          sudo chmod 644 config.yaml
+          
       - name: Run Verdaccio with config volume
         run: |
           docker run -d --name verdaccio-test -p 4873:4873 \
