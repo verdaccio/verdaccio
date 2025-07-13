@@ -2,6 +2,10 @@ name: Test Docker Build
 
 on: [push, pull_request]
 
+concurrency:
+  group: ci-${{ github.ref }}-docker-build-test
+  cancel-in-progress: true    
+
 jobs:
   testDocker:
     name: Test Docker Build
