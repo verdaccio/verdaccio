@@ -30,7 +30,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@google-cloud/datastore": "6.5.0",
+    "@google-cloud/datastore": "7.0.0",
     "@google-cloud/storage": "5.14.0",
     "@verdaccio/core": "workspace:6.0.0-6-next.5"
   },
