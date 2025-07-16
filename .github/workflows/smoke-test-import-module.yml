@@ -36,7 +36,7 @@ jobs:
         run: yarn build
       - name: publish verdaccio 
         run: npm publish --tag next --registry http://localhost:4873
-      - name: 'Running runServer export the integration test'
+      - name: 'Running runServer / export the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
@@ -62,14 +62,14 @@ jobs:
           });" | tee module.spec.js
           cat module.spec.js
           DEBUG=verdaccio* yarn vitest run module.spec --reporter verbose 
-      - name: 'Running the integration test'
+      - name: 'Running startVerdaccio / export integration test'
         run: |
           source scripts/e2e-setup-ci.sh
           echo "import { describe, expect, test } from 'vitest';
-                import { runServer, getDefaultConfig, fileUtils } from 'verdaccio';    
+                import { startVerdaccio, getDefaultConfig, fileUtils } from 'verdaccio';    
           test('run server should be able to listen', () => {
             const storage = await fileUtils.createTempStorageFolder('basic-test');
-            expect(typeof runServer).toBe('function');                        
+            expect(typeof startVerdaccio).toBe('function');                        
             const defaultConfig = {...getDefaultConfig(), storage}
             console.log('Default Config:', defaultConfig);
             return new Promise((done) => {
@@ -82,6 +82,6 @@ jobs:
               });
             });
           });" | tee legacy.module.spec.js
-          cat module.spec.js
+          cat legacy.module.spec.js
           DEBUG=verdaccio* yarn vitest run legacy.module.spec.js --reporter verbose           
 
