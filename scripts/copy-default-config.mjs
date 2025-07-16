@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { copyFile, mkdir, readdir } from 'fs/promises';
 import { join } from 'path';
 
