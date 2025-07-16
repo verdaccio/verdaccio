@@ -1,6 +1,6 @@
-name: Module Smoke Test
+name: Import Module Smoke Test
 
-on: [push, pull_request]  
+on: [pull_request]  
 
 permissions:
   contents: read
@@ -36,7 +36,7 @@ jobs:
         run: yarn build
       - name: publish verdaccio 
         run: npm publish --tag next --registry http://localhost:4873
-      - name: 'Running the integration test'
+      - name: 'Running runServer export the integration test'
         run: |
           source scripts/e2e-setup-ci.sh
           npm init --force
@@ -62,4 +62,26 @@ jobs:
           });" | tee module.spec.js
           cat module.spec.js
           DEBUG=verdaccio* yarn vitest run module.spec --reporter verbose 
+      - name: 'Running the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          echo "import { describe, expect, test } from 'vitest';
+                import { runServer, getDefaultConfig, fileUtils } from 'verdaccio';    
+          test('run server should be able to listen', () => {
+            const storage = await fileUtils.createTempStorageFolder('basic-test');
+            expect(typeof runServer).toBe('function');                        
+            const defaultConfig = {...getDefaultConfig(), storage}
+            console.log('Default Config:', defaultConfig);
+            return new Promise((done) => {
+              startVerdaccio(defaultConfig, '5000', cache, '1.0.0', 'verdaccio', (server, addr) => {
+                expect(server).toBeDefined();
+                expect(addr).toBeDefined();
+                expect(addr.port).toBe('5000');
+                server.close();
+                done(true);
+              });
+            });
+          });" | tee legacy.module.spec.js
+          cat module.spec.js
+          DEBUG=verdaccio* yarn vitest run legacy.module.spec.js --reporter verbose           
 
