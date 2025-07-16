@@ -70,7 +70,7 @@ jobs:
           npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873         
           echo "import { describe, expect, test } from 'vitest';
                 import { startVerdaccio, getDefaultConfig, fileUtils } from 'verdaccio';    
-          test('run server should be able to listen', () => {
+          test('run server should be able to listen', async () => {
             const storage = await fileUtils.createTempStorageFolder('basic-test');
             expect(typeof startVerdaccio).toBe('function');                        
             const defaultConfig = {...getDefaultConfig(), storage}
