@@ -5,7 +5,7 @@ on: [pull_request]
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.ref }}-6x
+  group: smoke-test-import-module-${{ github.ref }}-6x
   cancel-in-progress: true    
 jobs:
   test:    
