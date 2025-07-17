@@ -4415,7 +4415,7 @@
     },
     {
       "id": 25039919,
-      "login": "masterwaffle",
+      "login": "samuelpecher",
       "contributions": 1,
       "repositories": [
         {
@@ -5224,7 +5224,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 17016,
+      "stargazers_count": 17019,
       "archived": false
     },
     {
