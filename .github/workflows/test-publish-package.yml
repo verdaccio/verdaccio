@@ -5,3 +5,5 @@ on: [push, pull_request]
 jobs:
   testVerdaccio:
     uses: verdaccio/verdaccio/.github/workflows/test-publish-package.yml@master    
+    with:
+     verdaccio-version: "6"

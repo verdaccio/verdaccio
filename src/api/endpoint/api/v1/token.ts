@@ -3,15 +3,15 @@ import { Response, Router } from 'express';
 import _ from 'lodash';
 
 import { getApiToken } from '@verdaccio/auth';
+import { cryptoUtils } from '@verdaccio/core';
 import { rateLimit } from '@verdaccio/middleware';
 import { Config, RemoteUser, Token } from '@verdaccio/types';
-import { stringToMD5 } from '@verdaccio/utils';
 
 import Auth from '../../../../lib/auth';
 import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../lib/constants';
 import { logger } from '../../../../lib/logger';
 import Storage from '../../../../lib/storage';
-import { ErrorCode, mask } from '../../../../lib/utils';
+import { ErrorCode } from '../../../../lib/utils';
 import { $NextFunctionVer, $RequestExtend } from '../../../../types';
 
 const debug = buildDebug('verdaccio:token');
@@ -82,9 +82,9 @@ export default function (router: Router, auth: Auth, storage: Storage, config: C
 
         try {
           const token = (await getApiToken(auth, config, user as RemoteUser, password)) as string;
-          const key = stringToMD5(token as string);
+          const key = cryptoUtils.stringToMD5(token as string);
           // TODO: use a utility here
-          const maskedToken = mask(token as string, 5);
+          const maskedToken = cryptoUtils.mask(token as string, 5);
           const created = new Date().getTime();
 
           /**

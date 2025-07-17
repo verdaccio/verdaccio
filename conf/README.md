@@ -1,9 +1,5 @@
-## Looking 👀 for Documentation?
+# Information
 
-This directory host the default configuration file, but you can find more here:
+The files `default.yaml` and `docker.yaml` have been removed from this branch.  
+As an alternative, the script `yarn copy:config`, which runs `./scripts/copy-default-config.mjs`, will retrieve the original files from the `@verdaccio/config` module.
 
-- [https://verdaccio.org/docs/en/installation](https://verdaccio.org/docs/en/installation)
-- [Chat with us](http://chat.verdaccio.org) <- You need a Discord account
-- [Follow us on Twitter](https://twitter.com/verdaccio_npm)
-
-Enjoy Verdaccio !

@@ -19,8 +19,8 @@ export interface IServerProcess {
   stop(): void;
 }
 
-// eslint-disable-next-line no-unused-vars
-declare class PromiseAssert<IRequestPromise> extends Promise<any> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare class PromiseAssert extends Promise<any> {
   public constructor(options: any);
 }
 
@@ -45,7 +45,7 @@ export interface IServerBridge {
     filename: string,
     data: any,
     size: number,
-    cb: Function
+    cb: any
   ): Promise<any>;
   addPackage(name: string): Promise<any>;
   whoami(): Promise<any>;

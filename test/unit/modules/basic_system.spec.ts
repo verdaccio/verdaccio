@@ -1,32 +1,35 @@
 import request from '@cypress/request';
 import express from 'express';
-import rimraf from 'rimraf';
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+
+import { fileUtils } from '@verdaccio/core';
 
 import endPointAPI from '../../../src/api/index';
 import { API_ERROR } from '../../../src/lib/constants';
 import { setup } from '../../../src/lib/logger';
-import config from '../partials/config/index';
+import config from '../partials/config';
 
-setup([{ type: 'stdout', format: 'pretty', level: 'trace' }]);
+setup({});
 
 const app = express();
 const server = require('http').createServer(app);
 
 describe('basic system test', () => {
   let port;
-  jest.setTimeout(20000);
+  vi.setConfig({ testTimeout: 20000 });
 
-  beforeAll(function (done) {
-    rimraf(__dirname + '/store/test-storage', done);
+  beforeAll(async function () {
+    await fileUtils.createTempStorageFolder('basic-test');
   });
 
   beforeAll(async function () {
-    app.use(await endPointAPI(config()));
+    const api = await endPointAPI(config());
+    app.use(api);
 
     await new Promise((resolve) => {
       server.listen(0, function () {
         port = server.address().port;
-        resolve();
+        resolve(true);
       });
     });
   });
@@ -36,33 +39,37 @@ describe('basic system test', () => {
   });
 
   // TODO: recieve aborted call  [Error: aborted], please review
-  test.skip('server should respond on /', (done) => {
-    request(
-      {
-        url: 'http://localhost:' + port + '/',
-        timeout: 6000,
-      },
-      function (err, res, body) {
-        // TEMP: figure out why is flacky, pls remove when is stable.
-        // eslint-disable-next-line no-console
-        console.log('server should respond on / error', err);
-        expect(err).toBeNull();
-        expect(body).toMatch(/Verdaccio/);
-        done();
-      }
-    );
+  test('server should respond on /', () => {
+    return new Promise((done) => {
+      request(
+        {
+          url: 'http://localhost:' + port + '/',
+          timeout: 6000,
+        },
+        function (err, res, body) {
+          // TEMP: figure out why is flacky, pls remove when is stable.
+
+          console.log('server should respond on / error', err);
+          expect(err).toBeNull();
+          expect(body).toMatch(/Verdaccio/);
+          done(true);
+        }
+      );
+    });
   }, 10000);
 
-  test('server should respond on /___not_found_package', (done) => {
-    request(
-      {
-        url: `http://localhost:${port}/___not_found_package`,
-      },
-      function (err, res, body) {
-        expect(err).toBeNull();
-        expect(body).toMatch(API_ERROR.NO_PACKAGE);
-        done();
-      }
-    );
+  test('server should respond on /___not_found_package', () => {
+    return new Promise((done) => {
+      request(
+        {
+          url: `http://localhost:${port}/___not_found_package`,
+        },
+        function (err, res, body) {
+          expect(err).toBeNull();
+          expect(body).toMatch(API_ERROR.NO_PACKAGE);
+          done(true);
+        }
+      );
+    });
   }, 10000);
 });

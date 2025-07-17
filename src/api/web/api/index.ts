@@ -8,7 +8,6 @@ import search from './search';
 import user from './user';
 
 export default (auth, storage, config) => {
-  // eslint-disable-next-line new-cap
   const router = Router();
   router.use(
     rateLimit({

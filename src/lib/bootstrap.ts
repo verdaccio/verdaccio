@@ -1,3 +1,4 @@
+import { debug } from 'console';
 import constants from 'constants';
 import express from 'express';
 import { Application } from 'express';
@@ -7,27 +8,14 @@ import https from 'https';
 import { assign, isFunction, isObject } from 'lodash';
 import URL from 'url';
 
-import { Callback, ConfigWithHttps, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
+import { getListenAddress } from '@verdaccio/config';
+import { Callback, ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
-import { getListListenAddresses, resolveConfigPath } from './cli/utils';
-import { API_ERROR, certPem, csrPem, keyPem } from './constants';
-
-const logger = require('./logger');
-
-function displayExperimentsInfoBox(experiments) {
-  const experimentList = Object.keys(experiments);
-  if (experimentList.length >= 1) {
-    logger.logger.warn(
-      '⚠️  experiments are enabled, it is recommended do not use experiments in production, comment out the experiments section to disable this warning'
-    );
-    experimentList.forEach((experiment) => {
-      logger.logger.warn(
-        ` - support for ${experiment} ${experiments[experiment] ? 'is enabled' : ' is disabled'}`
-      );
-    });
-  }
-}
+import { API_ERROR, DEFAULT_PORT } from './constants';
+import { displayExperimentsInfoBox } from './experiments';
+import { logger } from './logger';
+import { initLogger, logHTTPSWarning } from './utils';
 
 /**
  * Trigger the server after configuration has been loaded.
@@ -39,7 +27,7 @@ function displayExperimentsInfoBox(experiments) {
  * @deprecated use runServer instead
  */
 function startVerdaccio(
-  config: any,
+  config: ConfigYaml,
   cliListen: string,
   configPath: string,
   pkgVersion: string,
@@ -50,37 +38,33 @@ function startVerdaccio(
     throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
   }
 
-  if ('experiments' in config) {
-    displayExperimentsInfoBox(config.experiments);
-  }
+  initLogger(config);
+
+  // merge flags and experiments for backward compatibility
+  const flags = {
+    ...(config?.flags || {}),
+    ...(config?.experiments || {}),
+  };
+  displayExperimentsInfoBox(flags);
+  logger.warn('This is a deprecated method, please use runServer instead');
 
   endPointAPI(config).then((app): void => {
-    const addresses = getListListenAddresses(cliListen, config.listen);
-
-    if (addresses.length > 1) {
-      process.emitWarning('multiple listen addresses are deprecated, please use only one');
+    const combined: string | undefined | any[] = [cliListen, config?.listen, DEFAULT_PORT];
+    const addr = getListenAddress(combined, logger);
+    let webServer;
+    if (addr.proto === 'https') {
+      webServer = handleHTTPS(app, configPath, config);
+    } else {
+      // http
+      webServer = http.createServer(app);
     }
-
-    addresses.forEach(function (addr): void {
-      let webServer;
-      if (addr.proto === 'https') {
-        webServer = handleHTTPS(app, configPath, config);
-      } else {
-        // http
-        webServer = http.createServer(app);
-      }
-      if (
-        config.server &&
-        typeof config.server.keepAliveTimeout !== 'undefined' &&
-        config.server.keepAliveTimeout !== 'null'
-      ) {
-        // library definition for node is not up to date (doesn't contain recent 8.0 changes)
-        webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
-      }
-      unlinkAddressPath(addr);
-
-      callback(webServer, addr, pkgName, pkgVersion);
-    });
+    if (webServer && typeof config?.server?.keepAliveTimeout === 'number') {
+      // library definition for node is not up to date (doesn't contain recent 8.0 changes)
+      webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
+    }
+    unlinkAddressPath(addr);
+    console.log('---> Starting server with address:', addr);
+    callback(webServer, addr, pkgName, pkgVersion);
   });
 }
 
@@ -90,62 +74,39 @@ function unlinkAddressPath(addr) {
   }
 }
 
-function logHTTPSWarning(storageLocation) {
-  logger.logger.fatal(
-    [
-      'You have enabled HTTPS and need to specify either ',
-      '    "https.key" and "https.cert" or ',
-      '    "https.pfx" and optionally "https.passphrase" ',
-      'to run https server',
-      '',
-      // commands are borrowed from node.js docs
-      'To quickly create self-signed certificate, use:',
-      ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
-      ' $ openssl req -new -sha256 -key ' +
-        resolveConfigPath(storageLocation, keyPem) +
-        ' -out ' +
-        resolveConfigPath(storageLocation, csrPem),
-      ' $ openssl x509 -req -in ' +
-        resolveConfigPath(storageLocation, csrPem) +
-        ' -signkey ' +
-        resolveConfigPath(storageLocation, keyPem) +
-        ' -out ' +
-        resolveConfigPath(storageLocation, certPem),
-      '',
-      'And then add to config file (' + storageLocation + '):',
-      '  https:',
-      `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
-      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
-    ].join('\n')
-  );
-  process.exit(2);
-}
-
 function handleHTTPS(
   app: express.Application,
   configPath: string,
-  config: ConfigWithHttps
+  config: ConfigYaml
 ): https.Server {
   try {
     let httpsOptions = {
       secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3, // disable insecure SSLv2 and SSLv3
     };
-
     const keyCertConfig = config.https as HttpsConfKeyCert;
     const pfxConfig = config.https as HttpsConfPfx;
 
-    // https must either have key and cert or a pfx and (optionally) a passphrase
-    if (!((keyCertConfig.key && keyCertConfig.cert) || pfxConfig.pfx)) {
+    const missingKeyCert = !(keyCertConfig.key && keyCertConfig.cert);
+    debug('missingKeyCert', missingKeyCert);
+    const missingPfx = !pfxConfig.pfx;
+    debug('missingPfx', missingPfx);
+
+    if (missingKeyCert && missingPfx) {
+      debug('No HTTPS configuration found');
       logHTTPSWarning(configPath);
+      throw new Error('No HTTPS configuration found');
     }
 
+    debug('HTTPS configuration found');
     if (pfxConfig.pfx) {
+      debug('Using PFX configuration');
       const { pfx, passphrase } = pfxConfig;
       httpsOptions = assign(httpsOptions, {
         pfx: fs.readFileSync(pfx),
         passphrase: passphrase || '',
       });
     } else {
+      debug('Using Key/Cert configuration');
       const { key, cert, ca } = keyCertConfig;
       httpsOptions = assign(httpsOptions, {
         key: fs.readFileSync(key),
@@ -156,9 +117,9 @@ function handleHTTPS(
       });
     }
     return https.createServer(httpsOptions, app);
-  } catch (err) {
+  } catch (err: any) {
     // catch errors related to certificate loading
-    logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+    logger.fatal({ err: err }, 'cannot create https server: @{err.message}');
     process.exit(2);
   }
 }
@@ -186,14 +147,14 @@ function listenDefaultCallback(
       }
     })
     .on('error', function (err): void {
-      logger.logger.fatal({ err: err }, 'cannot create server: @{err.message}');
+      logger.fatal({ err: err }, 'cannot create http server: @{err.message}');
       process.exit(2);
     });
 
   function handleShutdownGracefully() {
-    logger.logger.fatal('received shutdown signal - closing server gracefully...');
+    logger.fatal('received shutdown signal - closing server gracefully...');
     server.close(() => {
-      logger.logger.info('server closed.');
+      logger.info('server closed.');
       process.exit(0);
     });
   }
@@ -205,7 +166,7 @@ function listenDefaultCallback(
     process.on('SIGHUP', handleShutdownGracefully);
   }
 
-  logger.logger.warn(
+  logger.warn(
     {
       addr: addr.path
         ? URL.format({

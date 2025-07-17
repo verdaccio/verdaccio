@@ -1,7 +1,6 @@
 import { Command } from 'clipanion';
 
-require('pkginfo')(module);
-const pkgVersion = module.exports.version;
+const pkgVersion = process.env.PACKAGE_VERSION || 'dev';
 
 export class VersionCommand extends Command {
   static paths = [[`--version`], [`-v`]];

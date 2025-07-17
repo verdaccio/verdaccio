@@ -58,13 +58,13 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* The web framework used
-* Dependency Management
-* Used to generate RSS Feeds
+- The web framework used
+- Dependency Management
+- Used to generate RSS Feeds
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md)  for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
@@ -76,6 +76,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc

@@ -1,4 +1,5 @@
 import supertest from 'supertest';
+import { beforeEach, describe, expect, test } from 'vitest';
 
 import { HEADERS, HEADER_TYPE, HTTP_STATUS } from '@verdaccio/core';
 
