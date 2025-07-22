@@ -3,11 +3,11 @@
     {
       "id": 558752,
       "login": "juanpicado",
-      "contributions": 5452,
+      "contributions": 5473,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 3066
+          "contributions": 3074
         },
         {
           "name": "verdaccio-cookbook",
@@ -59,7 +59,7 @@
         },
         {
           "name": "monorepo",
-          "contributions": 223
+          "contributions": 225
         },
         {
           "name": "authentication-plugin-sample",
@@ -91,7 +91,7 @@
         },
         {
           "name": "github-actions",
-          "contributions": 146
+          "contributions": 157
         },
         {
           "name": "verdaccio-aws-s3-storage",
@@ -232,11 +232,11 @@
     {
       "id": 59966492,
       "login": "mbtools",
-      "contributions": 189,
+      "contributions": 192,
       "repositories": [
         {
           "name": "verdaccio",
-          "contributions": 189
+          "contributions": 192
         }
       ]
     },
@@ -3083,17 +3083,6 @@
       ]
     },
     {
-      "id": 1255222,
-      "login": "crohrer",
-      "contributions": 1,
-      "repositories": [
-        {
-          "name": "verdaccio",
-          "contributions": 1
-        }
-      ]
-    },
-    {
       "id": 39583780,
       "login": "moglerdev",
       "contributions": 1,
@@ -4426,7 +4415,7 @@
     },
     {
       "id": 25039919,
-      "login": "masterwaffle",
+      "login": "samuelpecher",
       "contributions": 1,
       "repositories": [
         {
@@ -5235,7 +5224,7 @@
       "full_name": "verdaccio/verdaccio",
       "html_url": "https://github.com/verdaccio/verdaccio",
       "description": "A lightweight Node.js private proxy registry",
-      "stargazers_count": 16984,
+      "stargazers_count": 17023,
       "archived": false
     },
     {
@@ -5361,7 +5350,7 @@
       "full_name": "verdaccio/monorepo",
       "html_url": "https://github.com/verdaccio/monorepo",
       "description": "🏰 Core dependencies and plugins for verdaccio 6.x branch ⚠️ DEPRECATED",
-      "stargazers_count": 84,
+      "stargazers_count": 85,
       "archived": false
     },
     {
