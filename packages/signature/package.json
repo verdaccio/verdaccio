@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/signature",
-  "version": "8.0.0-next-8.11",
+  "version": "8.0.0-next-8.13",
   "description": "Verdaccio Signature Utilities",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,13 +42,13 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.19",
-    "@verdaccio/core": "workspace:8.0.0-next-8.19",
+    "@verdaccio/config": "workspace:8.0.0-next-8.21",
+    "@verdaccio/core": "workspace:8.0.0-next-8.21",
     "jsonwebtoken": "9.0.2",
     "debug": "4.4.1"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:13.0.0-next-8.6",
+    "@verdaccio/types": "workspace:13.0.0-next-8.7",
     "vitest": "3.0.4"
   },
   "funding": {

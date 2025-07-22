@@ -5,7 +5,7 @@ import { beforeEach, describe, test, vi } from 'vitest';
 import { Config, parseConfigFile } from '@verdaccio/config';
 import { logger, setup } from '@verdaccio/logger';
 
-import { ProxyStorage } from '../src';
+import { IProxy, ProxyStorage } from '../src';
 
 setup({});
 
@@ -46,10 +46,9 @@ describe('tarball proxy', () => {
         nock('https://registry.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
-        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+        const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
-          // @ts-expect-error
           {}
         );
         stream.on('response', () => {
@@ -60,124 +59,27 @@ describe('tarball proxy', () => {
         });
       }));
 
-    test.skip('get file tarball handle retries', () =>
+    test('get file tarball handle retries', () =>
       new Promise((done) => {
         nock('https://registry.verdaccio.org')
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .twice()
-          .reply(500, 'some-text')
+          .reply(500, 'Internal Server Error')
           .get('/jquery/-/jquery-0.0.1.tgz')
-          .once()
+          .reply(500, 'Internal Server Error')
+          .get('/jquery/-/jquery-0.0.1.tgz')
           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'));
-        const prox1 = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
+        const prox1: IProxy = new ProxyStorage('uplink', defaultRequestOptions, conf, logger);
         const stream = prox1.fetchTarball(
           'https://registry.verdaccio.org/jquery/-/jquery-0.0.1.tgz',
           { retry: { limit: 2 } }
         );
-        stream.on('error', () => {
-          // FIXME: stream should have handle 2 retry
-          done();
+        stream.on('response', () => {
+          // Should succeed after 2 retries
+          done(true);
+        });
+        stream.on('error', (err) => {
+          done(new Error(`Should not error with retries: ${err.message}`));
         });
       }));
   });
 });
-//     test('get file tarball correct content-length', (done) => {
-//       nock(domain)
-//         .get('/jquery/-/jquery-0.0.1.tgz')
-//         // types does not match here with documentation
-//         // @ts-expect-error
-//         .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
-//           [HEADER_TYPE.CONTENT_LENGTH]: 277,
-//         });
-//       const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//       const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-//       stream.on(HEADER_TYPE.CONTENT_LENGTH, (data) => {
-//         expect(data).toEqual('277');
-//         done();
-//       });
-//     });
-
-//     describe('error handling', () => {
-//       test('should be offline uplink', (done) => {
-//         const tarball = 'https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz';
-//         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').times(100).replyWithError('some error');
-//         const proxy = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//         const stream = proxy.fetchTarball(tarball);
-//         // to test a uplink is offline we have to be try 3 times
-//         // the default failed request are set to 2
-//         process.nextTick(function () {
-//           stream.on('error', function (err) {
-//             expect(err).not.toBeNull();
-//             // expect(err.statusCode).toBe(404);
-//             expect(proxy.failed_requests).toBe(1);
-
-//             const streamSecondTry = proxy.fetchTarball(tarball);
-//             streamSecondTry.on('error', function (err) {
-//               expect(err).not.toBeNull();
-//               /*
-//               code: 'ENOTFOUND',
-//               errno: 'ENOTFOUND',
-//               */
-//               // expect(err.statusCode).toBe(404);
-//               expect(proxy.failed_requests).toBe(2);
-//               const streamThirdTry = proxy.fetchTarball(tarball);
-//               streamThirdTry.on('error', function (err: VerdaccioError) {
-//                 expect(err).not.toBeNull();
-//                 expect(err.statusCode).toBe(HTTP_STATUS.INTERNAL_ERROR);
-//                 expect(proxy.failed_requests).toBe(2);
-//                 expect(err.message).toMatch(API_ERROR.UPLINK_OFFLINE);
-//                 done();
-//               });
-//             });
-//           });
-//         });
-//       });
-
-//       test('not found tarball', (done) => {
-//         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(404);
-//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-//         stream.on('error', (response) => {
-//           expect(response).toEqual(errorUtils.getNotFound(API_ERROR.NOT_FILE_UPLINK));
-//           done();
-//         });
-//       });
-
-//       test('fail tarball request', (done) => {
-//         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').replyWithError('boom file');
-//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-//         stream.on('error', (response) => {
-//           expect(response).toEqual(Error('boom file'));
-//           done();
-//         });
-//       });
-
-//       test('bad uplink request', (done) => {
-//         nock(domain).get('/jquery/-/jquery-0.0.1.tgz').reply(409);
-//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-//         stream.on('error', (response) => {
-//           expect(response).toEqual(errorUtils.getInternalError(`bad uplink status code: 409`));
-//           done();
-//         });
-//       });
-
-//       test('content length header mismatch', (done) => {
-//         nock(domain)
-//           .get('/jquery/-/jquery-0.0.1.tgz')
-//           // types does not match here with documentation
-//           // @ts-expect-error
-//           .replyWithFile(201, path.join(__dirname, 'partials/jquery-0.0.1.tgz'), {
-//             [HEADER_TYPE.CONTENT_LENGTH]: 0,
-//           });
-//         const prox1 = new ProxyStorage('uplink',defaultRequestOptions, conf);
-//         const stream = prox1.fetchTarball('https://registry.npmjs.org/jquery/-/jquery-0.0.1.tgz');
-//         stream.on('error', (response) => {
-//           expect(response).toEqual(errorUtils.getInternalError(API_ERROR.CONTENT_MISMATCH));
-//           done();
-//         });
-//       });
-//     });
-//   });
-// });

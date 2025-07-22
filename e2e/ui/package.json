@@ -3,10 +3,10 @@
   "name": "@verdaccio/e2e-ui",
   "version": "2.0.0",
   "devDependencies": {
-    "verdaccio": "workspace:8.0.0-next-8.19",
-    "@verdaccio/core": "workspace:8.0.0-next-8.19",
-    "@verdaccio/config": "workspace:8.0.0-next-8.19",
-    "@verdaccio/test-helper": "workspace:4.0.0-next-8.5",
+    "verdaccio": "workspace:8.0.0-next-8.21",
+    "@verdaccio/core": "workspace:8.0.0-next-8.21",
+    "@verdaccio/config": "workspace:8.0.0-next-8.21",
+    "@verdaccio/test-helper": "workspace:4.0.0-next-8.6",
     "debug": "4.4.1",
     "cypress": "^13.6.0",
     "get-port": "5.1.1"

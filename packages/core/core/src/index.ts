@@ -31,6 +31,9 @@ export {
   PLUGIN_PREFIX,
   PLUGIN_UI_PREFIX,
   HtpasswdHashAlgorithm,
+  DEFAULT_DOMAIN,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
 } from './constants';
 export {
   authUtils,

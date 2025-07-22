@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import _, { isFunction } from 'lodash';
+import _ from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
 import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
@@ -73,7 +73,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   public async init() {
-    let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
+    let plugins = await this.loadPlugin();
 
     debug('auth plugins found %s', plugins.length);
     // Missing auth config or no loaded plugins -> load default htpasswd plugin
@@ -87,15 +87,14 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
   private loadDefaultPlugin() {
     debug('load default auth plugin');
-    const pluginOptions: pluginUtils.PluginOptions = {
-      config: this.config,
-      logger: this.logger,
-    };
     let authPlugin;
     try {
       authPlugin = new HTPasswd(
         { file: './htpasswd' },
-        pluginOptions as any as pluginUtils.PluginOptions
+        {
+          config: this.config,
+          logger: this.logger,
+        }
       );
       this.logger.info(
         { name: 'verdaccio-htpasswd', pluginCategory: PLUGIN_CATEGORY.AUTHENTICATION },
@@ -111,7 +110,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   private async loadPlugin() {
-    return asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+    return asyncLoadPlugin<pluginUtils.Auth<Config>>(
       this.config.auth,
       {
         config: this.config,
@@ -184,9 +183,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   ): void {
     const plugins = this.plugins.slice(0);
     (function next(): void {
-      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
+      const plugin = plugins.shift();
 
-      if (isFunction(plugin.authenticate) === false) {
+      if (typeof plugin?.authenticate !== 'function') {
         return next();
       }
 
@@ -233,7 +232,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
     (function next(): void {
       let method = 'adduser';
-      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
+      const plugin = plugins.shift();
       // @ts-expect-error future major (7.x) should remove this section
       if (typeof plugin.adduser === 'undefined' && typeof plugin.add_user === 'function') {
         method = 'add_user';
@@ -283,9 +282,9 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('allow access for %o', packageName);
 
     (function next(): void {
-      const plugin: pluginUtils.Auth<unknown> = plugins.shift() as pluginUtils.Auth<unknown>;
+      const plugin = plugins.shift();
 
-      if (_.isNil(plugin) || isFunction(plugin.allow_access) === false) {
+      if (typeof plugin?.allow_access !== 'function') {
         return next();
       }
 
@@ -321,7 +320,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('allow unpublish for %o plugin does not implement allow_unpublish', packageName);
         continue;
       } else {
-        plugin.allow_unpublish(user, pkg, (err, ok): void => {
+        plugin.allow_unpublish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
           if (err) {
             debug(
               'forbidden publish for %o, it will fallback on unpublish permissions',
