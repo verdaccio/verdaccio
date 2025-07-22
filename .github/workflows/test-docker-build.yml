@@ -7,7 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-    - name: Build
-      run: docker build .
+    - name: Build Docker image
+      run: docker build -t verdaccio-test .
       env:
         VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+    - name: Run Verdaccio in background
+      run: |
+        docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+        sleep 10  # Give Verdaccio some time to start
+
+    - name: Test npm install from local Verdaccio
+      run: |
+        npm set registry http://localhost:4873
+        npm install -g verdaccio 
+
+    - name: Show Verdaccio logs (for debugging)
+      if: always()
+      run: docker logs verdaccio-test
+
+    - name: Stop Verdaccio
+      if: always()
+      run: docker stop verdaccio-test

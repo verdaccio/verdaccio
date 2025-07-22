@@ -1,24 +1,12 @@
-import { describe, expect, test, vi } from 'vitest';
+import { describe, expect, test } from 'vitest';
 
 import { DEFAULT_REGISTRY } from '@verdaccio/config';
 import { HEADERS, TOKEN_BASIC, TOKEN_BEARER, authUtils, constants } from '@verdaccio/core';
-import { Logger } from '@verdaccio/types';
+import { logger, setup } from '@verdaccio/logger';
 
 import { ProxyStorage } from '../src';
 
-const mockDebug = vi.fn();
-const mockInfo = vi.fn();
-const mockHttp = vi.fn();
-const mockError = vi.fn();
-const mockWarn = vi.fn();
-
-const logger = {
-  debug: mockDebug,
-  info: mockInfo,
-  http: mockHttp,
-  error: mockError,
-  warn: mockWarn,
-} as unknown as Logger;
+setup({});
 
 const buildToken = authUtils.buildToken;
 
