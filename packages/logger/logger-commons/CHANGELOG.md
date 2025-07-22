@@ -1,5 +1,22 @@
 # @verdaccio/logger-commons
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- a1a73e9: feat(logger): support redacting sensitive data
+- Updated dependencies [08e1b21]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/logger-prettify@8.0.0-next-8.4
+  - @verdaccio/core@8.0.0-next-8.20
+
 ## 8.0.0-next-8.19
 
 ### Patch Changes
