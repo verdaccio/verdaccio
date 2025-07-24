@@ -346,7 +346,7 @@ module.exports = {
           },
           blogSidebarCount: 'ALL',
           blogSidebarTitle: 'All our posts',
-          authorsMapPath: 'authors.yml',
+          authorsMapPath: 'blog/authors.yml',
           editUrl: ({ locale, blogDirPath, blogPath }) => {
             if (locale !== 'en') {
               return `https://crowdin.com/project/verdaccio/${locale}`;

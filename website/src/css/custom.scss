@@ -1,5 +1,5 @@
-@import '_buttons.scss';
-@import '_headers.scss';
+@use '_buttons.scss';
+@use '_headers.scss';
 
 :root {
   --ifm-color-primary: var(--verdaccio-color);

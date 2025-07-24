@@ -3,6 +3,35 @@ import got from 'got';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
+export interface MonthlyDownloadEntry {
+  downloads: number;
+  start: string;
+  end: string;
+  package: string;
+}
+
+export interface DockerPullEntry {
+  pullCount: number;
+  ipCount: number;
+}
+
+export interface NpmjsDownloadsEntry {
+  [version: string]: number;
+}
+
+export interface YearlyDownloadsEntry {
+  [year: string]: number;
+}
+
+export interface TranslationProgress {
+  translationProgress: number;
+  approvalProgress: number;
+}
+
+export interface ProgressLangEntry {
+  [language: string]: TranslationProgress;
+}
+
 const debug = require('debug')('verdaccio:local-scripts');
 
 const token = process.env.TOKEN || '';
@@ -20,7 +49,7 @@ export const getISODateOnly = () => {
 async function fetchDownloadData(
   year: number,
   month: number
-): Promise<{ downloads: number; start: string; end: string; package: string } | null> {
+): Promise<MonthlyDownloadEntry | null> {
   const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
   const endDate = `${year}-${String(month).padStart(2, '0')}-${new Date(year, month, 0).getDate()}`;
   debug('fetching data for %s to %s', startDate, endDate);
@@ -28,7 +57,7 @@ async function fetchDownloadData(
   debug('fetching data from %s', url);
 
   try {
-    const response = await got.get(url).json();
+    const response = (await got.get(url).json()) as unknown as MonthlyDownloadEntry;
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -39,7 +68,7 @@ async function fetchDownloadData(
 
 export async function fetchMonthlyData() {
   const npmjsFile = path.join(__dirname, '../../src/monthly_downloads.json');
-  const results = [];
+  const results: MonthlyDownloadEntry[] = [];
   for (let year = START_YEAR; year <= END_YEAR; year++) {
     for (let month = 1; month <= 12; month++) {
       if (year === END_YEAR && month > END_MONTH) break;
@@ -54,7 +83,7 @@ export async function fetchMonthlyData() {
 
 export async function fetchYearlyData() {
   const npmjsFile = path.join(__dirname, '../../src/yearly_downloads.json');
-  const results: { [key: string]: number } = {};
+  const results: YearlyDownloadsEntry = {};
   for (let year = START_YEAR; year <= END_YEAR; year++) {
     let yearlyTotal = 0;
     for (let month = 1; month <= 12; month++) {
@@ -73,18 +102,18 @@ export async function fetchNpmjsApiDownloadsWeekly() {
     const npmjsFile = path.join(__dirname, '../../src/npmjs_downloads.json');
     const currentDate = getISODateOnly();
     debug('current date %s', currentDate);
-    const npmjsDownloads = JSON.parse(await fs.readFile(npmjsFile, 'utf8'));
+    const npmjsDownloads: NpmjsDownloadsEntry = JSON.parse(await fs.readFile(npmjsFile, 'utf8'));
     if (npmjsDownloads[currentDate]) {
       // eslint-disable-next-line no-console
       console.info('already fetched for today');
       return;
     }
 
-    const response = await got('https://api.npmjs.org/versions/verdaccio/last-week', {
+    const response = (await got('https://api.npmjs.org/versions/verdaccio/last-week', {
       responseType: 'json',
-    });
+    }).json()) as unknown as { downloads: number };
 
-    npmjsDownloads[currentDate] = response.body.downloads;
+    npmjsDownloads[currentDate] = response.downloads;
 
     await fs.writeFile(npmjsFile, JSON.stringify(npmjsDownloads));
     debug('npmjs downloads written at %s ends', npmjsFile);
@@ -100,15 +129,23 @@ export async function dockerPullWeekly() {
     const npmjsFile = path.join(__dirname, '../../src/docker_pull.json');
     const currentDate = getISODateOnly();
     debug('current date %s', currentDate);
-    const pullCounts = JSON.parse(await fs.readFile(npmjsFile, 'utf8'));
+    const pullCounts: { [date: string]: DockerPullEntry } = JSON.parse(
+      await fs.readFile(npmjsFile, 'utf8')
+    );
 
-    const response = await got(
+    const response = (await got(
       'https://hub.docker.com/api/publisher/proxylytics/v1/repos/pulls?repos=verdaccio/verdaccio',
       {
         responseType: 'json',
       }
-    );
-    const currentPulls = response.body.repos['verdaccio/verdaccio'].pulls;
+    ).json()) as unknown as {
+      repos: {
+        'verdaccio/verdaccio': {
+          pulls: { end: string; pullCount: number; ipCount: number }[];
+        };
+      };
+    };
+    const currentPulls = response.repos['verdaccio/verdaccio'].pulls;
     currentPulls.forEach(({ end, pullCount, ipCount }) => {
       if (pullCounts[end]) {
         // eslint-disable-next-line no-console
@@ -137,9 +174,8 @@ export async function fetchTranslationsAPI() {
     };
     const api: TranslationStatus = new TranslationStatus(credentials);
     const progress = await api.getProjectProgress(295539, { limit: 100 });
-    const final = progress.data.reduce((acc, item) => {
+    const final: ProgressLangEntry = progress.data.reduce((acc: ProgressLangEntry, item) => {
       const { languageId, translationProgress, approvalProgress } = item.data;
-      // @ts-ignore
       acc[languageId] = { translationProgress, approvalProgress };
       return acc;
     }, {});

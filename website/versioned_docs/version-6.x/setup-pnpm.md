@@ -12,4 +12,4 @@ This means that you can follow the same commands described in [npm](setup-npm.md
 
 ## Troubleshooting
 
-The most of problems might be resolved with the [npm troubleshooting list](setup-npm.md##troubleshooting) since are highly compatible in most of the commands.
+The most of problems might be resolved with the [npm troubleshooting list](setup-npm.md#troubleshooting) since are highly compatible in most of the commands.
