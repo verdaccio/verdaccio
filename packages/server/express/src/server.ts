@@ -37,7 +37,7 @@ const debug = buildDebug('verdaccio:server');
 const { version } = require('../package.json');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
-  const auth: Auth = new Auth(config, logger);
+  const auth = new Auth(config, logger);
   await auth.init();
   const app = express();
   // run in production mode by default, just in case
@@ -100,8 +100,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     plugin.register_middlewares(app, auth, storage);
   });
 
-  // For  npm request
-  // @ts-ignore
+  // For package manager requests
   app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API
@@ -123,7 +122,6 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     next(errorUtils.getNotFound('resource not found'));
   });
 
-  // @ts-ignore
   app.use(handleError(logger));
 
   // app.use(function (
@@ -156,12 +154,9 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
 const startServer = async function startServer(configHash: ConfigYaml): Promise<Express> {
   debug('start server');
   const config: IConfig = new AppConfig({ ...configHash } as any);
-  // register middleware plugins
-  debug('loaded filter plugin');
-  // @ts-ignore
-  const storage: Storage = new Storage(config, logger);
+  const storage = new Storage(config, logger);
   try {
-    // waits until init calls have been initialized
+    // waits until init calls have been completed
     debug('storage init start');
     await storage.init(config);
     debug('storage init end');
