@@ -19,7 +19,7 @@
     "url": "https://opencollective.com/verdaccio"
   },
   "dependencies": {
-    "@cypress/request": "3.0.8",
+    "@cypress/request": "3.0.9",
     "@verdaccio/auth": "8.0.0-next-8.19",
     "@verdaccio/config": "8.0.0-next-8.19",
     "@verdaccio/core": "8.0.0-next-8.19",
