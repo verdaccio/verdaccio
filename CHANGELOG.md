@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.6](https://github.com/verdaccio/verdaccio/compare/v6.1.5...v6.1.6) (2025-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @cypress/request to v3.0.9 ([#5336](https://github.com/verdaccio/verdaccio/issues/5336)) ([ae6668c](https://github.com/verdaccio/verdaccio/commit/ae6668c8e4b091e0ea2dc30ccf46e644816fb335))
+* **deps:** update dependency compression to v1.8.1 ([#5337](https://github.com/verdaccio/verdaccio/issues/5337)) ([4421d86](https://github.com/verdaccio/verdaccio/commit/4421d86af83172ae52e89898d6508a5537bfe82c))
+
 ### [6.1.5](https://github.com/verdaccio/verdaccio/compare/v6.1.4...v6.1.5) (2025-06-29)
 
 
