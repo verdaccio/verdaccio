@@ -2068,20 +2068,21 @@ class Storage {
     // Checks to perform if config "publish:check_owners" is true
     debug('check if user %o is an owner and allowed to change package', username);
     // if name of owner is not included in list of maintainers, then throw an error
+    // packages owned by anonymous user are allowed to be changed by any user
     if (
       this.config?.publish?.check_owners === true &&
       manifest.maintainers &&
       manifest.maintainers.length > 0 &&
       !manifest.maintainers.some((maintainer) => {
         if (typeof maintainer === 'string') {
-          return maintainer === username;
+          return maintainer === username || maintainer === DEFAULT_USER;
         } else {
-          return maintainer.name === username;
+          return maintainer.name === username || maintainer.name === DEFAULT_USER;
         }
       })
     ) {
       this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
-      throw Error('only owners are allowed to change package');
+      throw errorUtils.getForbidden('only owners are allowed to change package');
     }
   }
 }
