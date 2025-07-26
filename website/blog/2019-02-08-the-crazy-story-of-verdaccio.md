@@ -1,5 +1,5 @@
 ---
-author: juan_picado
+authors: juan_picado
 title: The crazy story of Verdaccio
 ---
 

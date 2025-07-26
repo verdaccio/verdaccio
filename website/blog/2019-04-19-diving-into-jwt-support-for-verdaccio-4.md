@@ -1,6 +1,5 @@
 ---
-author: juan_picado
-authorFBID: 1122901551
+authors: juan_picado
 title: Diving into JWT support for Verdaccio 4
 ---
 
