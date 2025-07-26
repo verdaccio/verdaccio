@@ -1,9 +1,7 @@
 import locker from 'lockfile';
-import fs from 'node:fs';
+import * as fsP from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
-
-const fsP = fs.promises ? fs.promises : require('fs/promises');
 
 export const readFile = fsP.readFile;
 const statPromise = fsP.stat;

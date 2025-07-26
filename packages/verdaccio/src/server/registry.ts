@@ -1,6 +1,6 @@
 import buildDebug from 'debug';
 import { ChildProcess, fork } from 'node:child_process';
-import fs from 'node:fs';
+import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { fromJStoYAML } from '@verdaccio/config';
@@ -8,8 +8,6 @@ import { HTTP_STATUS, TOKEN_BEARER, authUtils, fileUtils } from '@verdaccio/core
 import { ConfigYaml } from '@verdaccio/types';
 
 import { ServerQuery } from './request';
-
-const { writeFile } = fs.promises ? fs.promises : require('fs/promises');
 
 const debug = buildDebug('verdaccio:registry');
 

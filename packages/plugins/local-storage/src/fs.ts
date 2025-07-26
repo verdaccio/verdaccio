@@ -1,7 +1,5 @@
 import fsCallback from 'node:fs';
-import fs from 'node:fs';
-
-const fsP = fs.promises ? fs.promises : require('fs/promises');
+import * as fsP from 'node:fs/promises';
 
 const readFile = fsP.readFile;
 const mkdirPromise = fsP.mkdir;
