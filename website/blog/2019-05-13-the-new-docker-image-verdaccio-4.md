@@ -1,5 +1,5 @@
 ---
-author: juan_picado
+authors: juan_picado
 title: The new Docker image for Verdaccio 4
 ---
 
