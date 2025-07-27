@@ -2622,20 +2622,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/core@npm:8.0.0-next-8.19":
-  version: 8.0.0-next-8.19
-  resolution: "@verdaccio/core@npm:8.0.0-next-8.19"
-  dependencies:
-    ajv: "npm:8.17.1"
-    http-errors: "npm:2.0.0"
-    http-status-codes: "npm:2.3.0"
-    minimatch: "npm:10.0.1"
-    process-warning: "npm:1.0.0"
-    semver: "npm:7.7.2"
-  checksum: 10c0/af07509194e9b26f8a59b468789fafc1722d8c65cccb1ca96bc8690536e802a7995a6a5da7cd1283144eb822f37089f39e37d25c1cc761803f0f6acfe126e652
-  languageName: node
-  linkType: hard
-
 "@verdaccio/core@npm:8.0.0-next-8.21":
   version: 8.0.0-next-8.21
   resolution: "@verdaccio/core@npm:8.0.0-next-8.21"
@@ -2692,11 +2678,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/local-storage-legacy@npm:11.1.0":
-  version: 11.1.0
-  resolution: "@verdaccio/local-storage-legacy@npm:11.1.0"
+"@verdaccio/local-storage-legacy@npm:11.1.1":
+  version: 11.1.1
+  resolution: "@verdaccio/local-storage-legacy@npm:11.1.1"
   dependencies:
-    "@verdaccio/core": "npm:8.0.0-next-8.19"
+    "@verdaccio/core": "npm:8.0.0-next-8.21"
     "@verdaccio/file-locking": "npm:10.3.1"
     "@verdaccio/streams": "npm:10.2.1"
     async: "npm:3.2.6"
@@ -2704,7 +2690,7 @@ __metadata:
     lodash: "npm:4.17.21"
     lowdb: "npm:1.0.0"
     mkdirp: "npm:1.0.4"
-  checksum: 10c0/ca3a7b2222e6261292a53cb6cccba4dda315bd09661074ccc4c8193fa5024ab3c4ae3c7c0e38ec3767f2ebf9a250d30ebfcf47ba47b18a1b1d0f835ae30c82ea
+  checksum: 10c0/8b0f2e2f7e7a95e411bf8e3b18a5d8abb09aac88450c70e871d546111e41bfc4ffddf3458f446b2bbddf56ed8aeb3d8fef2952b9f1f492bb09ecc748542e89b9
   languageName: node
   linkType: hard
 
@@ -7080,15 +7066,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:10.0.1":
-  version: 10.0.1
-  resolution: "minimatch@npm:10.0.1"
-  dependencies:
-    brace-expansion: "npm:^2.0.1"
-  checksum: 10c0/e6c29a81fe83e1877ad51348306be2e8aeca18c88fdee7a99df44322314279e15799e41d7cb274e4e8bb0b451a3bc622d6182e157dfa1717d6cda75e9cd8cd5d
-  languageName: node
-  linkType: hard
-
 "minimatch@npm:7.4.6":
   version: 7.4.6
   resolution: "minimatch@npm:7.4.6"
@@ -9811,13 +9788,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-auth-memory@npm:10.3.0":
-  version: 10.3.0
-  resolution: "verdaccio-auth-memory@npm:10.3.0"
+"verdaccio-auth-memory@npm:10.3.1":
+  version: 10.3.1
+  resolution: "verdaccio-auth-memory@npm:10.3.1"
   dependencies:
-    "@verdaccio/core": "npm:8.0.0-next-8.19"
+    "@verdaccio/core": "npm:8.0.0-next-8.21"
     debug: "npm:4.3.4"
-  checksum: 10c0/4fd2e4ec6eb50f8e470d7d28bb1fd94220ab81d1ef0a3c060251251e58c38f1f14ef93f25755f2a7bc6f87e92e08367dc3775abcae2a2964ff7a7f4edb41ac2f
+  checksum: 10c0/5a1a1bec3135f33c18722bd97d2f96de3715b11bb389d606cdf2abea20a4ead9ec4ff01aac259b8392bc6bd58efff96c4ed5e4e54bb6e561ede6670e5c2d764d
   languageName: node
   linkType: hard
 
@@ -9836,14 +9813,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio-memory@npm:10.4.0":
-  version: 10.4.0
-  resolution: "verdaccio-memory@npm:10.4.0"
+"verdaccio-memory@npm:10.4.1":
+  version: 10.4.1
+  resolution: "verdaccio-memory@npm:10.4.1"
   dependencies:
-    "@verdaccio/core": "npm:8.0.0-next-8.19"
+    "@verdaccio/core": "npm:8.0.0-next-8.21"
     "@verdaccio/streams": "npm:10.2.1"
     memory-fs: "npm:0.5.0"
-  checksum: 10c0/a2d5e0cc3ae036e56735dd74bc9a435bf94c7d0425a77d99a8d42ab246a345925f1a0eda9c0d6c9940a05d625fefc70ae7496f000bfe1227abf766a0e625ccbf
+  checksum: 10c0/c2a1d0fa27015a3df81aadad65072e103f1fd20023fbd4bca5efb1c6780796bb4a923157d23cd02dd1d4e45f56750f283f1b2d7cde22f20b1b81a43672a836fe
   languageName: node
   linkType: hard
 
@@ -9878,7 +9855,7 @@ __metadata:
     "@verdaccio/core": "npm:8.0.0-next-8.21"
     "@verdaccio/hooks": "npm:8.0.0-next-8.21"
     "@verdaccio/loaders": "npm:8.0.0-next-8.11"
-    "@verdaccio/local-storage-legacy": "npm:11.1.0"
+    "@verdaccio/local-storage-legacy": "npm:11.1.1"
     "@verdaccio/logger": "npm:8.0.0-next-8.21"
     "@verdaccio/middleware": "npm:8.0.0-next-8.21"
     "@verdaccio/search-indexer": "npm:8.0.0-next-8.5"
@@ -9921,9 +9898,9 @@ __metadata:
     typescript: "npm:5.8.3"
     typescript-eslint: "npm:8.35.0"
     verdaccio-audit: "npm:13.0.0-next-8.21"
-    verdaccio-auth-memory: "npm:10.3.0"
+    verdaccio-auth-memory: "npm:10.3.1"
     verdaccio-htpasswd: "npm:13.0.0-next-8.21"
-    verdaccio-memory: "npm:10.4.0"
+    verdaccio-memory: "npm:10.4.1"
     vitest: "npm:3.2.4"
   bin:
     verdaccio: ./bin/verdaccio
