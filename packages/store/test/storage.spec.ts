@@ -9,6 +9,7 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import {
+  ANONYMOUS_USER,
   API_ERROR,
   API_MESSAGE,
   DIST_TAGS,
@@ -797,7 +798,7 @@ describe('storage', () => {
           uplinksLook: true,
           requestOptions: defaultRequestOptions,
         })) as Manifest;
-        expect(manifest?.maintainers).toEqual([{ name: 'Anonymous', email: '' }]);
+        expect(manifest?.maintainers).toEqual([{ name: ANONYMOUS_USER, email: '' }]);
       });
 
       test.each([
