@@ -1,16 +1,14 @@
 import _ from 'lodash';
 import path from 'path';
+import { describe, expect, test } from 'vitest';
+
+import { getDefaultConfig, parseConfigFile } from '@verdaccio/config';
 
 import Config from '../../../../src/lib/config';
 import { DEFAULT_REGISTRY, DEFAULT_UPLINK, ROLES, WEB_TITLE } from '../../../../src/lib/constants';
 import { setup } from '../../../../src/lib/logger';
-import { parseConfigFile } from '../../../../src/lib/utils';
 
-setup([]);
-
-const resolveConf = (conf, location = `../../../../conf/${conf}.yaml`) => {
-  return path.join(__dirname, location);
-};
+setup({});
 
 const checkDefaultUplink = (config) => {
   expect(_.isObject(config.uplinks[DEFAULT_UPLINK])).toBeTruthy();
@@ -67,15 +65,9 @@ const checkDefaultConfPackages = (config) => {
 };
 
 describe('Config file', () => {
-  beforeAll(function () {
-    /* eslint no-invalid-this: 0 */
-    // @ts-ignore
-    this.config = new Config(parseConfigFile(resolveConf('default')));
-  });
-
   describe('default configurations', () => {
     test('parse docker.yaml', () => {
-      const config = new Config(parseConfigFile(resolveConf('docker')));
+      const config = new Config(getDefaultConfig('docker.yaml'));
       checkDefaultUplink(config);
       expect(config.storage).toBe('/verdaccio/storage/data');
       // @ts-ignore
@@ -86,7 +78,7 @@ describe('Config file', () => {
     });
 
     test('parse default.yaml', () => {
-      const config = new Config(parseConfigFile(resolveConf('default')));
+      const config = new Config(getDefaultConfig());
       checkDefaultUplink(config);
       expect(config.storage).toBe('./storage');
       // @ts-ignore
@@ -103,7 +95,7 @@ describe('Config file', () => {
       // @ts-ignore
       process.env.VERDACCIO_STORAGE_PATH = testPath;
       try {
-        const config = new Config(parseConfigFile(resolveConf('default')));
+        const config = new Config(getDefaultConfig());
         expect(config.storage).toBe(testPath);
       } finally {
         // @ts-ignore

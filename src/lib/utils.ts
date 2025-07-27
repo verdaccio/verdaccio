@@ -1,16 +1,18 @@
-import fs from 'fs';
+import createDebug from 'debug';
 import _ from 'lodash';
+import path from 'node:path';
 import semver from 'semver';
 
 import { parseConfigFile } from '@verdaccio/config';
-// eslint-disable-next-line max-len
-import { errorUtils, validationUtils } from '@verdaccio/core';
-import { StringValue } from '@verdaccio/types';
+import { errorUtils, pkgUtils, validationUtils, warningUtils } from '@verdaccio/core';
+import { ConfigYaml, LoggerConfItem, StringValue } from '@verdaccio/types';
 import { Config, Manifest, Version } from '@verdaccio/types';
 import { buildToken as buildTokenUtil } from '@verdaccio/utils';
 
-import { DEFAULT_DOMAIN, DEFAULT_PORT, DEFAULT_PROTOCOL, DIST_TAGS } from './constants';
-import { logger } from './logger';
+import { DIST_TAGS, certPem, csrPem, keyPem } from './constants';
+import { logger, setup } from './logger';
+
+const debug = createDebug('verdaccio:lib:utils');
 
 const {
   getBadData,
@@ -23,6 +25,19 @@ const {
   getServiceUnavailable,
   getUnauthorized,
 } = errorUtils;
+
+export function initLogger(logConfig: ConfigYaml) {
+  if (logConfig.logs) {
+    logConfig.log = logConfig.logs;
+    warningUtils.emit(warningUtils.Codes.VERWAR002);
+  }
+  debug('initializing logger with config: %o', logConfig.log);
+  setup(logConfig.log as LoggerConfItem);
+}
+
+export function addScope(scope: string, packageName: string): string {
+  return `@${scope}/${packageName}`;
+}
 
 /**
  * Check whether an element is an Object
@@ -64,71 +79,9 @@ export function getVersion(pkg: Manifest, version: any): Version | void {
         return pkg.versions[versionItem];
       }
     }
-  } catch (err: any) {
+  } catch {
     return undefined;
   }
-}
-
-/**
- * Parse an internet address
- * Allow:
- - https:localhost:1234        - protocol + host + port
- - localhost:1234              - host + port
- - 1234                        - port
- - http::1234                  - protocol + port
- - https://localhost:443/      - full url + https
- - http://[::1]:443/           - ipv6
- - unix:/tmp/http.sock         - unix sockets
- - https://unix:/tmp/http.sock - unix sockets (https)
- * @param {*} urlAddress the internet address definition
- * @return {Object|Null} literal object that represent the address parsed
- */
-export function parseAddress(urlAddress: any): any {
-  //
-  // TODO: refactor it to something more reasonable?
-  //
-  //        protocol :  //      (  host  )|(    ipv6     ):  port  /
-  let urlPattern = /^((https?):(\/\/)?)?((([^\/:]*)|\[([^\[\]]+)\]):)?(\d+)\/?$/.exec(urlAddress);
-
-  if (urlPattern) {
-    return {
-      proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      host: urlPattern[6] || urlPattern[7] || DEFAULT_DOMAIN,
-      port: urlPattern[8] || DEFAULT_PORT,
-    };
-  }
-
-  urlPattern = /^((https?):(\/\/)?)?unix:(.*)$/.exec(urlAddress);
-
-  if (urlPattern) {
-    return {
-      proto: urlPattern[2] || DEFAULT_PROTOCOL,
-      path: urlPattern[4],
-    };
-  }
-
-  return null;
-}
-
-/**
- * Function filters out bad semver versions and sorts the array.
- * @return {Array} sorted Array
- */
-export function semverSort(listVersions: string[]): string[] {
-  return (
-    listVersions
-      .filter(function (x): boolean {
-        if (!semver.parse(x, true)) {
-          logger.warn({ ver: x }, 'ignoring bad version @{ver}');
-          return false;
-        }
-        return true;
-      })
-      // FIXME: it seems the @types/semver do not handle a legitimate method named 'compareLoose'
-      // @ts-ignore
-      .sort(semver.compareLoose)
-      .map(String)
-  );
 }
 
 /**
@@ -139,7 +92,7 @@ export function normalizeDistTags(pkg: Manifest): void {
   let sorted;
   if (!pkg[DIST_TAGS].latest) {
     // overwrite latest with highest known version based on semver sort
-    sorted = semverSort(Object.keys(pkg.versions));
+    sorted = pkgUtils.semverSort(Object.keys(pkg.versions));
     if (sorted && sorted.length) {
       pkg[DIST_TAGS].latest = sorted.pop();
     }
@@ -150,8 +103,7 @@ export function normalizeDistTags(pkg: Manifest): void {
       if (pkg[DIST_TAGS][tag].length) {
         // sort array
         // FIXME: this is clearly wrong, we need to research why this is like this.
-        // @ts-ignore
-        sorted = semverSort(pkg[DIST_TAGS][tag]);
+        sorted = pkgUtils.semverSort(pkg[DIST_TAGS][tag]);
         if (sorted.length) {
           // use highest version based on semver sort
           pkg[DIST_TAGS][tag] = sorted.pop();
@@ -221,44 +173,12 @@ export const ErrorCode = {
   getCode,
 };
 
-/**
- * Check whether the path already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function folderExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isDirectory();
-  } catch (_: any) {
-    return false;
-  }
-}
-
-/**
- * Check whether the file already exist.
- * @param {String} path
- * @return {Boolean}
- */
-export function fileExists(path: string): boolean {
-  try {
-    const stat = fs.statSync(path);
-    return stat.isFile();
-  } catch (_: any) {
-    return false;
-  }
-}
-
 export function sortByName(packages: any[], orderAscending: boolean | void = true): string[] {
   return packages.slice().sort(function (a, b): number {
     const comparatorNames = a.name.toLowerCase() < b.name.toLowerCase();
 
     return orderAscending ? (comparatorNames ? -1 : 1) : comparatorNames ? 1 : -1;
   });
-}
-
-export function addScope(scope: string, packageName: string): string {
-  return `@${scope}/${packageName}`;
 }
 
 export function deleteProperties(propertiesToDelete: string[], objectItem: any): any {
@@ -286,16 +206,6 @@ export function parseReadme(packageName: string, readme: string): string | void 
   logger.info({ packageName }, '@{packageName}: No readme found');
 
   return 'ERROR: No README data found!';
-}
-
-/**
- * return a masquerade string with its first and last {charNum} and three dots in between.
- * @param {String} str
- * @param {Number} charNum
- * @returns {String}
- */
-export function mask(str: string, charNum = 3): string {
-  return `${str.substr(0, charNum)}...${str.substr(-charNum)}`;
 }
 
 export function encodeScopedUri(packageName): string {
@@ -326,15 +236,42 @@ export function isRelatedToDeprecation(pkgInfo: Manifest): boolean {
   return false;
 }
 
-/**
- *
- * @param config
- * @deprecated use @verdaccio/middleware
- * @returns
- */
+export const resolveConfigPath = function (storageLocation: string, file: string) {
+  return path.resolve(path.dirname(storageLocation), file);
+};
+
+export function logHTTPSWarning(storageLocation) {
+  logger.fatal(
+    [
+      'You have enabled HTTPS and need to specify either ',
+      '    "https.key" and "https.cert" or ',
+      '    "https.pfx" and optionally "https.passphrase" ',
+      'to run https server',
+      '',
+      // commands are borrowed from node.js docs
+      'To quickly create self-signed certificate, use:',
+      ' $ openssl genrsa -out ' + resolveConfigPath(storageLocation, keyPem) + ' 2048',
+      ' $ openssl req -new -sha256 -key ' +
+        resolveConfigPath(storageLocation, keyPem) +
+        ' -out ' +
+        resolveConfigPath(storageLocation, csrPem),
+      ' $ openssl x509 -req -in ' +
+        resolveConfigPath(storageLocation, csrPem) +
+        ' -signkey ' +
+        resolveConfigPath(storageLocation, keyPem) +
+        ' -out ' +
+        resolveConfigPath(storageLocation, certPem),
+      '',
+      'And then add to config file (' + storageLocation + '):',
+      '  https:',
+      `    key: ${resolveConfigPath(storageLocation, keyPem)}`,
+      `    cert: ${resolveConfigPath(storageLocation, certPem)}`,
+    ].join('\n')
+  );
+  process.exit(2);
+}
+
 export function hasLogin(config: Config) {
-  // FIXME: types are not yet on the library verdaccio/monorepo
-  // @ts-ignore
   return _.isNil(config?.web?.login) || config?.web?.login === true;
 }
 

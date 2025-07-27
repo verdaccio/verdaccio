@@ -9,12 +9,12 @@ export {
   TOKEN_BEARER,
   SUPPORT_ERRORS,
   APP_ERROR,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
+  DEFAULT_DOMAIN,
 } from '@verdaccio/core';
 export { ROLES, PACKAGE_ACCESS } from '@verdaccio/utils';
 
-export const DEFAULT_PORT = '4873';
-export const DEFAULT_PROTOCOL = 'http';
-export const DEFAULT_DOMAIN = 'localhost';
 export const TIME_EXPIRATION_24H = '24h';
 export const TIME_EXPIRATION_1H = '1h';
 export const DIST_TAGS = 'dist-tags';

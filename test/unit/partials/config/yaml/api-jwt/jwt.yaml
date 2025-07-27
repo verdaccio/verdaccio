@@ -1,5 +1,4 @@
 storage: ./storage
-plugins: ./plugins
 
 web:
   title: Verdaccio
@@ -32,4 +31,4 @@ packages:
 middlewares:
   audit:
     enabled: true
-log: { type: stdout, format: pretty, level: http }
+log: { type: stdout, format: pretty, level: debug }

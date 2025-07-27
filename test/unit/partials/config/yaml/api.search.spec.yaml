@@ -18,11 +18,11 @@ packages:
     access: $all
     publish: $all
     proxy: npmjs
-  # forbidden for search endpoint test package  
+  # forbidden for search endpoint test package
   'react*':
     access: non_existing_user
     publish: $all
-    proxy: npmjs  
+    proxy: npmjs
   '*':
     access: $all
     publish: $all

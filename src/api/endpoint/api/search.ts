@@ -5,7 +5,7 @@ import { logger } from '../../../lib/logger';
 
 export default function (route, auth, storage): void {
   // searching packages
-  route.get(SEARCH_API_ENDPOINTS.deprecated_search, function (req, res, next) {
+  route.get(SEARCH_API_ENDPOINTS.deprecated_search, function (req, res) {
     let received_end = false;
     let response_finished = false;
     let processing_pkgs = 0;

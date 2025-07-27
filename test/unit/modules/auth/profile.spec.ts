@@ -1,7 +1,9 @@
+import getPort from 'get-port';
 import _ from 'lodash';
-import path from 'path';
-import rimraf from 'rimraf';
 import request from 'supertest';
+import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
+
+import { fileUtils } from '@verdaccio/core';
 
 import endPointAPI from '../../../../src/api';
 import { API_ERROR, HTTP_STATUS, SUPPORT_ERRORS } from '../../../../src/lib/constants';
@@ -11,7 +13,7 @@ import { parseConfigurationFile } from '../../__helper';
 import { getNewToken, getProfile, postProfile } from '../../__helper/api';
 import { mockServer } from '../../__helper/mock';
 
-setup([]);
+setup({});
 
 const parseConfigurationProfile = () => {
   return parseConfigurationFile(`profile/profile`);
@@ -20,31 +22,28 @@ const parseConfigurationProfile = () => {
 describe('endpoint user profile', () => {
   let app;
   let mockRegistry;
-  jest.setTimeout(20000);
+  vi.setConfig({ testTimeout: 20000 });
 
-  beforeAll(function (done) {
-    const store = path.join(__dirname, '../../partials/store/test-profile-storage');
-    const mockServerPort = 55544;
-    rimraf(store, async () => {
-      const parsedConfig = parseConfigFile(parseConfigurationProfile());
-      const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
-        storage: store,
-        auth: {
-          htpasswd: {
-            file: './test-profile-storage/.htpasswd-auth-profile',
-          },
+  beforeAll(async function () {
+    const store = await fileUtils.createTempStorageFolder('test-profile-storage');
+    const mockServerPort = await getPort();
+
+    const parsedConfig = parseConfigFile(parseConfigurationProfile());
+    const configForTest = _.assign({}, _.cloneDeep(parsedConfig), {
+      storage: store,
+      auth: {
+        htpasswd: {
+          file: './htpasswd-auth-profile',
         },
-        self_path: store,
-      });
-      app = await endPointAPI(configForTest);
-      mockRegistry = await mockServer(mockServerPort).init();
-      done();
+      },
+      self_path: store,
     });
+    app = await endPointAPI(configForTest);
+    mockRegistry = await mockServer(mockServerPort).init();
   });
 
-  afterAll(function (done) {
+  afterAll(function () {
     mockRegistry[0].stop();
-    done();
   });
 
   test('should fetch a profile of logged user', async () => {

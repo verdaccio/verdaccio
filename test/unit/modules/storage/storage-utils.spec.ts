@@ -1,10 +1,17 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { describe, expect, test } from 'vitest';
+
 import { Manifest } from '@verdaccio/types';
 
 import { DIST_TAGS, STORAGE } from '../../../../src/lib/constants';
 import { mergeUplinkTimeIntoLocal, normalizePackage } from '../../../../src/lib/storage-utils';
-import { readFile } from '../../../functional/lib/test.utils';
 
-const readMetadata = (fileName = 'metadata') => readFile(`../../unit/partials/${fileName}`);
+function readFile(filePath) {
+  return fs.readFileSync(path.join(__dirname, `/${filePath}`));
+}
+
+const readMetadata = (fileName = 'metadata') => readFile(`../../partials/${fileName}`);
 
 describe('Storage Utils', () => {
   describe('normalizePackage', () => {

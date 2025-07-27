@@ -21,6 +21,7 @@ package-lock.json
 npm_test-fails-add-tarball*
 yarn-error.log
 .yarn/cache
+./conf/*.yaml
 
 # coverage
 reports/

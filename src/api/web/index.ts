@@ -11,6 +11,7 @@ import {
   validateName,
   validatePackage,
 } from '@verdaccio/middleware';
+import defaultTheme from '@verdaccio/ui-theme';
 
 import webEndpointsApi from './api';
 
@@ -46,7 +47,6 @@ export async function loadTheme(config: any) {
 }
 
 export function localWebEndpointsApi(auth, storage, config): Router {
-  // eslint-disable-next-line new-cap
   const route = Router();
   // validate all of these params as a package name
   // this might be too harsh, so ask if it causes trouble=
@@ -64,15 +64,15 @@ export function localWebEndpointsApi(auth, storage, config): Router {
 export default async (config, auth, storage, logger) => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
-    pluginOptions = require(DEFAULT_PLUGIN_UI_THEME)(config.web);
+    debug('no theme plugin found, using default theme');
+    pluginOptions = defaultTheme(config.web);
     logger.info(
       { name: DEFAULT_PLUGIN_UI_THEME, pluginCategory: PLUGIN_CATEGORY.THEME },
       'plugin @{name} successfully loaded (@{pluginCategory})'
     );
   }
-  // eslint-disable-next-line new-cap
+
   const router = Router();
-  // @ts-ignore
   router.use('/', renderWebMiddleware(config, auth.apiJWTmiddleware(), pluginOptions));
   // web endpoints, search, packages, etc
   router.use(localWebEndpointsApi(auth, storage, config));

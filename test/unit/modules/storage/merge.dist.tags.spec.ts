@@ -1,10 +1,12 @@
 import assert from 'assert';
+import { describe, test } from 'vitest';
 
+import { pkgUtils } from '@verdaccio/core';
+
+import { setup } from '../../../../src/lib/logger';
 import { mergeVersions } from '../../../../src/lib/metadata-utils';
 
-let semverSort = require('../../../../src/lib/utils').semverSort;
-
-require('../../../../src/lib/logger').setup([]);
+setup({});
 
 describe('Storage._merge_versions versions', () => {
   test('simple', () => {
@@ -58,7 +60,7 @@ describe('Storage._merge_versions versions', () => {
   });
 
   test('semverSort', () => {
-    assert.deepEqual(semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']), [
+    assert.deepEqual(pkgUtils.semverSort(['1.2.3', '1.2', '1.2.3a', '1.2.3c', '1.2.3-b']), [
       '1.2.3a',
       '1.2.3-b',
       '1.2.3c',

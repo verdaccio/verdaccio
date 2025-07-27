@@ -185,6 +185,7 @@ async function sendResponse(
 export default function (route, auth, storage): void {
   route.get(SEARCH_API_ENDPOINTS.search, async (req, res, next) => {
     // TODO: implement proper result scoring weighted by quality, popularity and maintenance query parameters
+    // eslint-disable-next-line prefer-const
     let [text, size, from /* , quality, popularity, maintenance */] = [
       'text',
       'size',

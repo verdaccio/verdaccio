@@ -1,3 +1,4 @@
+import createDebug from 'debug';
 import _ from 'lodash';
 
 import { pkgUtils } from '@verdaccio/core';
@@ -9,6 +10,8 @@ import { API_ERROR, DIST_TAGS, HTTP_STATUS, STORAGE, USERS } from './constants';
 import LocalStorage from './local-storage';
 import { logger } from './logger';
 import { ErrorCode, isObject, normalizeDistTags } from './utils';
+
+const debug = createDebug('verdaccio:storage-utils');
 
 export function generatePackageTemplate(name: string): Manifest {
   return {
@@ -148,6 +151,7 @@ export function publishPackage(
         return reject(err);
       } else if (!_.isUndefined(latest)) {
         SearchMemoryIndexer.add(latest).catch((reason) => {
+          debug('indexer has failed on add item %o', reason);
           logger.error('indexer has failed on add item');
         });
       }
@@ -159,7 +163,7 @@ export function publishPackage(
 export function checkPackageRemote(
   name: string,
   isAllowPublishOffline: boolean,
-  syncMetadata: Function
+  syncMetadata: any
 ): Promise<void> {
   return new Promise((resolve, reject): void => {
     syncMetadata(name, null, {}, (err, packageJsonLocal, upLinksErrors): void => {

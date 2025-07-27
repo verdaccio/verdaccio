@@ -1,94 +1,80 @@
-import { fork } from 'child_process';
-import _ from 'lodash';
+import { ForkOptions, fork } from 'child_process';
+import debug from 'debug';
 import path from 'path';
-import rimRaf from 'rimraf';
+
+import { fileUtils } from '@verdaccio/core';
 
 import { HTTP_STATUS } from '../../src/lib/constants';
-import { CREDENTIALS } from '../functional/config.functional';
 import { IServerBridge, IServerProcess, IVerdaccioConfig } from '../types';
+import { CREDENTIALS } from './credentials';
+
+const log = debug('verdaccio:test:process');
 
 export default class VerdaccioProcess implements IServerProcess {
   private bridge: IServerBridge;
   private config: IVerdaccioConfig;
-  private childFork: any;
-  private isDebug: boolean;
+  private childFork?: ReturnType<typeof fork>;
   private silence: boolean;
-  private cleanStore: boolean;
 
-  public constructor(
-    config: IVerdaccioConfig,
-    bridge: IServerBridge,
-    silence = true,
-    isDebug = false,
-    cleanStore = true
-  ) {
+  constructor(config: IVerdaccioConfig, bridge: IServerBridge, silence = true) {
     this.config = config;
     this.bridge = bridge;
     this.silence = silence;
-    this.isDebug = isDebug;
-    this.cleanStore = cleanStore;
   }
 
-  public init(verdaccioPath = '../../bin/verdaccio'): Promise<any> {
+  public async init(verdaccioPath = '../../bin/verdaccio'): Promise<[VerdaccioProcess, number]> {
+    log('creating temporary storage path...');
+    const store = await fileUtils.createTempStorageFolder('server-test');
+    this.config.storagePath = store;
+    log(`storage path set to: %s`, store);
+
+    return this._start(verdaccioPath);
+  }
+
+  private _start(verdaccioPath: string): Promise<[VerdaccioProcess, number]> {
     return new Promise((resolve, reject) => {
-      if (this.cleanStore) {
-        rimRaf(this.config.storagePath, (err) => {
-          if (_.isNil(err) === false) {
-            reject(err);
-          }
+      const cliPath = path.resolve(__dirname, verdaccioPath);
+      const { configPath, port } = this.config;
 
-          this._start(verdaccioPath, resolve, reject);
-        });
-      } else {
-        this._start(verdaccioPath, resolve, reject);
-      }
-    });
-  }
+      const options: ForkOptions = {
+        silent: !this.silence,
+        stdio: this.silence ? 'ignore' : 'inherit',
+      };
 
-  private _start(verdaccioPath: string, resolve: Function, reject: Function) {
-    const verdaccioRegisterWrap: string = path.join(__dirname, verdaccioPath);
-    let childOptions = {
-      silent: false,
-    };
+      log('forking Verdaccio CLI from: %s', cliPath);
+      this.childFork = fork(cliPath, ['-c', configPath, '-l', String(port)], options);
 
-    if (this.isDebug) {
-      // @ts-ignore
-      const debugPort = parseInt(this.config.port, 10) + 5;
+      const handleError = (err: unknown) => {
+        log('process error: %O', err);
+        reject([err, this]);
+      };
 
-      childOptions = Object.assign({}, childOptions, {
-        execArgv: [`--inspect=${debugPort}`],
-      });
-    }
-
-    const { configPath, port } = this.config;
-    this.childFork = fork(
-      verdaccioRegisterWrap,
-      ['-c', configPath, '-l', port as string],
-      childOptions
-    );
-
-    this.childFork.on('message', (msg) => {
-      // verdaccio_started is a message that comes from verdaccio in debug mode that notify has been started
-      if ('verdaccio_started' in msg) {
-        this.bridge
-          .debug()
-          .status(HTTP_STATUS.OK)
-          .then((body) => {
-            this.bridge
+      this.childFork.on('message', async (msg: any) => {
+        if ('verdaccio_started' in msg) {
+          log('verdaccio started message received');
+          try {
+            const status = await this.bridge.debug().status(HTTP_STATUS.OK);
+            await this.bridge
               .auth(CREDENTIALS.user, CREDENTIALS.password)
               .status(HTTP_STATUS.CREATED)
-              .body_ok(new RegExp(CREDENTIALS.user))
-              .then(() => resolve([this, body.pid]), reject);
-          }, reject);
-      }
-    });
+              .body_ok(new RegExp(CREDENTIALS.user));
 
-    this.childFork.on('error', (err) => reject([err, this]));
-    this.childFork.on('disconnect', (err) => reject([err, this]));
-    this.childFork.on('exit', (err) => reject([err, this]));
+            log('verdaccio ready, PID: %s', status.pid);
+            resolve([this, status.pid]);
+          } catch (err) {
+            handleError(err);
+          }
+        }
+      });
+
+      this.childFork.on('error', handleError);
+      this.childFork.on('disconnect', handleError);
+      this.childFork.on('exit', handleError);
+    });
   }
 
   public stop(): void {
-    return this.childFork.kill('SIGINT');
+    log('stopping verdaccio process...');
+    this.childFork?.kill('SIGINT');
   }
 }

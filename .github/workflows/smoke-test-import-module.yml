@@ -1,0 +1,90 @@
+name: Import Module Smoke Test
+
+on: [pull_request]  
+
+permissions:
+  contents: read
+concurrency:
+  group: smoke-test-import-module-${{ github.ref }}-6x
+  cancel-in-progress: true    
+jobs:
+  test:    
+    strategy:
+      fail-fast: false
+      matrix:
+        node_version: [18, 20, 22, 24]    
+    
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2    
+      - name: Use Node ${{ matrix.node_version }}
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Docker test
+        run: |
+            docker run -d -it --rm --name verdaccio -p 4873:4873 -e "DEBUG=verdaccio*" verdaccio/verdaccio:6
+      - name: login    
+        run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
+      - name: Install dependencies
+        run: yarn
+      - name: Bump up package and save version
+        run: |
+          npm version prerelease --no-git-tag-version --preid $(date +%s%N)
+          echo "VERDACCIO_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+      - name: Build
+        run: yarn build
+      - name: publish verdaccio 
+        run: npm publish --tag next --registry http://localhost:4873
+      - name: 'Running runServer / export the integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --force
+          npm install vitest --registry http://localhost:4873
+          npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873
+          echo "import { describe, expect, test } from 'vitest';
+                import { runServer, getDefaultConfig, fileUtils } from 'verdaccio';    
+
+          test('runServer should start correctly with default config', async () => {          
+            const storage = await fileUtils.createTempStorageFolder('basic-test');
+            expect(typeof runServer).toBe('function');            
+            
+            const defaultConfig = {...getDefaultConfig(), storage}
+            console.log('Default Config:', defaultConfig);
+            const server = await runServer(defaultConfig);
+            
+            expect(server).toBeDefined();
+            expect(server).toHaveProperty('listen');
+            
+            if (server && typeof server.close === 'function') {
+              await server.close();
+            }
+          });" | tee module.spec.js
+          cat module.spec.js
+          DEBUG=verdaccio* yarn vitest run module.spec --reporter verbose 
+      - name: 'Running startVerdaccio / export integration test'
+        run: |
+          source scripts/e2e-setup-ci.sh
+          npm init --force
+          npm install vitest --registry http://localhost:4873
+          npm install verdaccio@${{ env.VERDACCIO_VERSION }} --loglevel info --registry http://localhost:4873         
+          echo "import { describe, expect, test } from 'vitest';
+                import { startVerdaccio, getDefaultConfig, fileUtils } from 'verdaccio';    
+          test('run server should be able to listen', async () => {
+            const storage = await fileUtils.createTempStorageFolder('basic-test');
+            expect(typeof startVerdaccio).toBe('function');                        
+            const defaultConfig = {...getDefaultConfig(), storage}
+            console.log('Default Config:', defaultConfig);
+            return new Promise((done) => {
+              startVerdaccio(defaultConfig, '5000', storage, '1.0.0', 'verdaccio', (server, addr) => {
+                expect(server).toBeDefined();
+                expect(addr).toBeDefined();
+                expect(addr.port).toBe('5000');
+                server.close();
+                done(true);
+              });
+            });
+          });" | tee legacy.module.spec.js
+          cat legacy.module.spec.js
+          DEBUG=verdaccio* yarn vitest run legacy.module.spec.js --reporter verbose           
+

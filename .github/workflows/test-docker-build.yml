@@ -1,0 +1,148 @@
+name: Test Docker Build
+
+on: [push, pull_request]
+
+concurrency:
+  group: ci-${{ github.ref }}-docker-build-test
+  cancel-in-progress: true    
+
+jobs:
+  testDocker:
+    name: Test Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+
+      - name: Run Verdaccio in background
+        run: |
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 verdaccio-test
+          sleep 10  # Give Verdaccio some time to start
+
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+
+      - name: Show Verdaccio logs (for debugging)
+        if: always()
+        run: docker logs verdaccio-test
+
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
+
+  testStorageVolume:
+    name: Test Storage Volume
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+
+      - name: Prepare storage directory
+        run: |
+          mkdir -p storage          
+          sudo chown -R 10001:root storage
+
+      - name: Run Verdaccio with storage volume
+        run: |
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 \
+            -v $PWD/storage:/verdaccio/storage \
+            verdaccio-test
+          sleep 10
+
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+
+      - name: Show Verdaccio logs (for debugging)
+        if: always()
+        run: docker logs verdaccio-test
+
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
+
+  testConfigVolume:
+    name: Test Config Volume
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t verdaccio-test .
+        env:
+          VERDACCIO_BUILD_REGISTRY: https://registry.npmjs.org
+
+      - name: Create config.yaml without comments
+        run: |
+          cat > config.yaml <<'EOF'
+          storage: /verdaccio/storage/data
+          plugins: /verdaccio/plugins
+          web:
+            title: Verdaccio
+          auth:
+            htpasswd:
+              file: /verdaccio/storage/htpasswd
+          uplinks:
+            npmjs:
+              url: https://registry.npmjs.org/
+            yarn:
+              url: https://registry.yarnpkg.com/              
+          packages:
+            '@*/*':
+              access: $all
+              publish: $authenticated
+              unpublish: $authenticated
+              proxy: npmjs
+            '**':
+              access: $all
+              publish: $authenticated
+              unpublish: $authenticated
+              proxy: yarn
+          server:
+            keepAliveTimeout: 60
+          middlewares:
+            audit:
+              enabled: true
+          log:
+            type: stdout
+            format: pretty
+            level: http
+          i18n:
+            web: en-US
+          EOF
+      - name: Set permissions for config.yaml
+        run: |
+          sudo chown 10001:root config.yaml
+          sudo chmod 644 config.yaml
+          
+      - name: Run Verdaccio with config volume
+        run: |
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 \
+            -v $PWD/config.yaml:/verdaccio/conf/config.yaml \
+            verdaccio-test
+          sleep 10
+
+      - name: Test npm install from local Verdaccio
+        run: |
+          npm set registry http://localhost:4873
+          npm install -g verdaccio
+
+      - name: Show Verdaccio logs (for debugging)
+        if: always()
+        run: docker logs verdaccio-test
+
+      - name: Stop Verdaccio
+        if: always()
+        run: docker stop verdaccio-test
+

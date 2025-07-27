@@ -1,9 +1,6 @@
-## Looking 👀 for Documentation?
+# Information
 
-This directory host the default configuration file, but you can find more here:
+The files `default.yaml` and `docker.yaml` have been removed from this branch.  
 
-- [https://verdaccio.org/docs/en/installation](https://verdaccio.org/docs/en/installation)
-- [Chat with us](http://chat.verdaccio.org) <- You need a Discord account
-- [Follow us on Twitter](https://twitter.com/verdaccio_npm)
+The files used are packaged at `@verdaccio/config`.
 
-Enjoy Verdaccio !
