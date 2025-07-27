@@ -23,7 +23,7 @@ jobs:
           node-version: ${{ matrix.node_version }}
       - name: Docker test
         run: |
-            docker run -d -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio:6
+            docker run -d -it --rm --name verdaccio -p 4873:4873 -e "DEBUG=verdaccio*" verdaccio/verdaccio:6
       - name: login    
         run: npx npm-cli-login -u test -p 1234 -e test@domain.test -r http://localhost:4873                 
       - name: Install dependencies

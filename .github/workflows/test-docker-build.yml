@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Verdaccio in background
         run: |
-          docker run -d --name verdaccio-test -p 4873:4873 verdaccio-test
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 verdaccio-test
           sleep 10  # Give Verdaccio some time to start
 
       - name: Test npm install from local Verdaccio
@@ -54,7 +54,7 @@ jobs:
 
       - name: Run Verdaccio with storage volume
         run: |
-          docker run -d --name verdaccio-test -p 4873:4873 \
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 \
             -v $PWD/storage:/verdaccio/storage \
             verdaccio-test
           sleep 10
@@ -128,7 +128,7 @@ jobs:
           
       - name: Run Verdaccio with config volume
         run: |
-          docker run -d --name verdaccio-test -p 4873:4873 \
+          docker run -d --name verdaccio-test -e "DEBUG=verdaccio*" -p 4873:4873 \
             -v $PWD/config.yaml:/verdaccio/conf/config.yaml \
             verdaccio-test
           sleep 10
