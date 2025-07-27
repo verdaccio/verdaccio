@@ -1,4 +1,5 @@
 ---
+'@verdaccio/core': patch
 '@verdaccio/store': patch
 ---
 

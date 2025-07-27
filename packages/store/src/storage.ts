@@ -8,9 +8,9 @@ import { default as URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
 import {
+  ANONYMOUS_USER,
   API_ERROR,
   API_MESSAGE,
-  DEFAULT_USER,
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
@@ -1531,7 +1531,7 @@ class Storage {
     packageData.maintainers =
       username && username.length > 0
         ? [{ name: username, email: '' }]
-        : [{ name: DEFAULT_USER, email: '' }];
+        : [{ name: ANONYMOUS_USER, email: '' }];
 
     try {
       await storage.createPackage(name, packageData);
@@ -2075,9 +2075,9 @@ class Storage {
       manifest.maintainers.length > 0 &&
       !manifest.maintainers.some((maintainer) => {
         if (typeof maintainer === 'string') {
-          return maintainer === username || maintainer === DEFAULT_USER;
+          return maintainer === username || maintainer === ANONYMOUS_USER;
         } else {
-          return maintainer.name === username || maintainer.name === DEFAULT_USER;
+          return maintainer.name === username || maintainer.name === ANONYMOUS_USER;
         }
       })
     ) {
