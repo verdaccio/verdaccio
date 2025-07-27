@@ -63,7 +63,6 @@ function startVerdaccio(
       webServer.keepAliveTimeout = config.server.keepAliveTimeout * 1000;
     }
     unlinkAddressPath(addr);
-    console.log('---> Starting server with address:', addr);
     callback(webServer, addr, pkgName, pkgVersion);
   });
 }
