@@ -111,7 +111,6 @@
   "scripts": {
     "release": "standard-version -a -s",
     "type-check": "tsc --noEmit",
-    "copy:config": "node ./scripts/copy-default-config.mjs",
     "cache:clean": "yarn cache clean --mirror && yarn cache clean --all",
     "type-check:watch": "yarn run type-check -- --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,yml,yaml,md}\"",
