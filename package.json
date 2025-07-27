@@ -88,7 +88,7 @@
     "prettier": "3.4.2",
     "selfsigned": "2.4.1",
     "standard-version": "9.5.0",
-    "supertest": "7.1.1",
+    "supertest": "7.1.4",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
     "typescript-eslint": "8.35.0",
