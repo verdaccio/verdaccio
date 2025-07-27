@@ -16,7 +16,6 @@ Google Cloud Storage** or create your own plugin.
 [![verdaccio (downloads)](https://img.shields.io/npm/dy/verdaccio.svg)](https://www.npmjs.com/package/verdaccio)
 [![docker pulls](https://img.shields.io/docker/pulls/verdaccio/verdaccio.svg?maxAge=43200)](https://verdaccio.org/docs/en/docker.html)
 [![backers](https://opencollective.com/verdaccio/tiers/backer/badge.svg?label=Backer&color=brightgreen)](https://opencollective.com/verdaccio)
-[![stackshare](https://img.shields.io/badge/Follow%20on-StackShare-blue.svg?logo=stackshare&style=flat)](https://stackshare.io/verdaccio)
 
 [![discord](https://img.shields.io/discord/388674437219745793.svg)](https://discord.gg/7qWJxBf)
 [![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/verdaccio/verdaccio/blob/master/LICENSE)
@@ -30,7 +29,7 @@ Google Cloud Storage** or create your own plugin.
 Install with npm:
 
 ```bash
-npm install --location=global verdaccio
+npm install --global verdaccio
 ```
 
 **Node.js v18 or higher is required for Verdaccio**
@@ -62,7 +61,8 @@ helm install verdaccio/verdaccio
 Verdaccio can be used as a module for launch a server programmatically, [you can find more info at the website](https://verdaccio.org/docs/verdaccio-programmatically#using-the-module-api).
 
 ```
- const {runServer} = require('verdaccio');
+ import {runServer} from 'verdaccio';
+ 
  const app = await runServer(); // default configuration
  const app = await runServer('./config/config.yaml');
  const app = await runServer({ configuration });
@@ -74,11 +74,6 @@ Verdaccio can be used as a module for launch a server programmatically, [you can
 ## Plugins
 
 You can develop your own [plugins](https://verdaccio.org/docs/plugins) with the [verdaccio generator](https://github.com/verdaccio/generator-verdaccio-plugin). Installing [Yeoman](https://yeoman.io/) is required.
-
-```
-npm install --location=global yo
-npm install --location=global generator-verdaccio-plugin
-```
 
 Learn more [here](https://verdaccio.org/docs/dev-plugins) how to develop plugins. Share your plugins with the community.
 
@@ -245,42 +240,6 @@ If you want to report a security vulnerability, please follow the steps which we
 
 [See the full list of contributors is at the website.](https://verdaccio.org/contributors)
 
-## Who is using Verdaccio?
-
-- [create-react-app](https://github.com/facebook/create-react-app/blob/master/CONTRIBUTING.md#customizing-e2e-registry-configuration) _(+96.2k ⭐️)_
-- [Gatsby](https://github.com/gatsbyjs/gatsby) _(+53.5k ⭐️)_
-- [Babel.js](https://github.com/babel/babel) _(+41.3k ⭐️)_
-- [Docusaurus](https://github.com/facebook/docusaurus) _(+37k ⭐️)_
-- [Vue CLI](https://github.com/vuejs/vue-cli) _(+29.4k ⭐️)_
-- [Angular CLI](https://github.com/angular/angular-cli) _(+25.6k ⭐️)_
-- [Uppy](https://github.com/transloadit/uppy) _(+25.8k ⭐️)_
-- [pnpm](https://github.com/pnpm/pnpm) _(+19.2k ⭐️)_
-- [bit](https://github.com/teambit/bit) _(+15k ⭐️)_
-- [NX](https://github.com/nrwl/nx) _(+14.1k ⭐️)_
-- [Aurelia Framework](https://github.com/aurelia/framework) _(+11.6k ⭐️)_
-- [ethereum/web3.js](https://github.com/ethereum/web3.js) _(+9.8k ⭐️)_
-- [webiny-js](https://github.com/webiny/webiny-js) _(+5.9k ⭐️)_
-- [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1k ⭐️)_
-- [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
-- [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
-
-🤓 Don't be shy, add yourself to this readme.
-
-## Open Collective Sponsors
-
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio#sponsor)]
-
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
-
 ## Open Collective Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/verdaccio#backer)]
@@ -311,7 +270,7 @@ This project exists thanks to all the people who contribute. [[Contribute](CONTR
 If you have any issue you can try the following options, do no desist to ask or check our issues database, perhaps someone has asked already what you are looking for.
 
 - [Blog](https://verdaccio.org/blog/)
-- [Donations](https://github.com/sponsors/verdaccio)
+- [Donations](https://opencollective.com/verdaccio)
 - [Reporting an issue](https://github.com/verdaccio/verdaccio/issues/new/choose)
 - [Running discussions](https://github.com/verdaccio/verdaccio/issues?q=is%3Aissue+is%3Aopen+label%3Adiscuss)
 - [Chat](https://discord.gg/7qWJxBf)
