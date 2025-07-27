@@ -58,6 +58,7 @@ USER root
 # install verdaccio as a global package so is fully handled by npm
 # ensure none dependency is being missing and is prod by default
 RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
+    # copy default config file
     && cp /usr/local/lib/node_modules/verdaccio/node_modules/@verdaccio/config/build/conf/docker.yaml /verdaccio/conf/config.yaml \
     ## clean up cache
     && npm cache clean --force \
@@ -67,20 +68,37 @@ RUN npm install -g $VERDACCIO_APPDIR/verdaccio.tgz \
     # Also remove the symlinks added in the [`node:alpine` Docker image](https://github.com/nodejs/docker-node/blob/b3d8cc15338c545a4328286b2df806b511e2b31b/22/alpine3.21/Dockerfile#L99-L100).
     && rm -Rf /opt/yarn-v$YARN_VERSION/ /usr/local/bin/yarn /usr/local/bin/yarnpkg
 
-# ADD conf/docker.yaml /verdaccio/conf/config.yaml
 ADD docker-bin $VERDACCIO_APPDIR/docker-bin
 
+# Create a non-root system user for running Verdaccio securely
+# - Uses custom UID from $VERDACCIO_USER_UID
+# - Sets home directory to $VERDACCIO_APPDIR
+# - Assigns a shell of /sbin/nologin to prevent login access
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
+    # Ensure Verdaccio's CLI entry points and custom docker binaries are executable    
     chmod -R +x /usr/local/lib/node_modules/verdaccio/bin/verdaccio $VERDACCIO_APPDIR/docker-bin && \
+    # Give ownership of critical runtime folders to the Verdaccio user
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
+    # Allow group access to config and storage so other containers (e.g., volumes or init containers) can read/write if needed
     chmod -R g=u /verdaccio/storage /verdaccio/conf /etc/passwd
 
+# Switch to the non-root Verdaccio user by UID for improved security
+# This ensures all following operations (including `CMD`) run as an unprivileged user    
 USER $VERDACCIO_USER_UID
 
+# Expose Verdaccio's listening port (default: 4873) to the host
+# This does not publish the port — that's handled at runtime with `-p` or `--publish`
 EXPOSE $VERDACCIO_PORT
 
+# Declare the storage directory as a Docker volume
+# This allows data (packages, logs, etc.) to persist outside the container lifecycle
 VOLUME /verdaccio/storage
 
+# Set the entrypoint script
+# - Used to adjust UID/GID dynamically in runtime (e.g. OpenShift)
+# - Keeps CMD intact and allows passing custom commands
 ENTRYPOINT ["uid_entrypoint"]
 
+# Default command to start Verdaccio using the custom config
+# - Uses environment variables for protocol and port binding
 CMD verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
