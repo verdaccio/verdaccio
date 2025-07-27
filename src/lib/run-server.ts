@@ -10,6 +10,7 @@ import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
 import endPointAPI from '../api/index';
 import { DEFAULT_PORT } from './constants';
+import { displayExperimentsInfoBox } from './experiments';
 import { logger } from './logger';
 import { initLogger } from './utils';
 
@@ -33,6 +34,13 @@ export async function runServer(
   const configurationParsed = getConfigParsed(config);
 
   initLogger(configurationParsed);
+  // merge flags and experiments for backward compatibility
+  const flags = {
+    ...(configurationParsed?.flags || {}),
+    ...(configurationParsed?.experiments || {}),
+  };
+  displayExperimentsInfoBox(flags);
+
   const combined: string | undefined | any[] = [
     options?.listenArg,
     configurationParsed?.listen,
